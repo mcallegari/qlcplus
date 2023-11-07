@@ -55,6 +55,8 @@ public:
     /** Destructor */
     virtual ~QLCInputProfile();
 
+    QLCInputProfile *createCopy();
+
     /** Assignment operator */
     QLCInputProfile& operator=(const QLCInputProfile& profile);
 
@@ -73,6 +75,7 @@ public:
 
     /** Get the path where the profile is stored in. Don't use
         this as a unique ID since this varies between platforms. */
+    void setPath(QString path);
     QString path() const;
 
     enum Type

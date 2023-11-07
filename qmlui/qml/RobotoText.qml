@@ -23,7 +23,7 @@ import "."
 Rectangle
 {
     id: rtRoot
-    width: wrapText ? 100 : textBox.paintedWidth + rightMargin
+    width: wrapText ? 100 : leftMargin + textBox.paintedWidth + rightMargin
     height: UISettings.iconSizeDefault
 
     color: "transparent"

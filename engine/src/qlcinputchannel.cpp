@@ -133,22 +133,32 @@ QStringList QLCInputChannel::types()
 
 QIcon QLCInputChannel::typeToIcon(Type type)
 {
-    switch (type)
-    {
-        case Button: return QIcon(":/button.png");
-        case Knob: return QIcon(":/knob.png");
-        case Encoder: return QIcon(":/knob.png");
-        case Slider: return QIcon(":/slider.png");
-        case PrevPage: return QIcon(":/forward.png");
-        case NextPage: return QIcon(":/back.png");
-        case PageSet: return QIcon(":/star.png");
-        default: return QIcon();
-    }
+    return QIcon(iconResource(type));
 }
 
 QIcon QLCInputChannel::stringToIcon(const QString& str)
 {
     return typeToIcon(stringToType(str));
+}
+
+QString QLCInputChannel::iconResource(Type type, bool svg)
+{
+    QString prefix = svg ? "qrc" : "";
+    QString ext = svg ? "svg" : "png";
+
+    switch(type)
+    {
+        case Button: return QString("%1:/button.%2").arg(prefix, ext);
+        case Knob: return QString("%1:/knob.%2").arg(prefix, ext);
+        case Encoder: return QString("%1:/knob.%2").arg(prefix, ext);
+        case Slider: return QString("%1:/slider.%2").arg(prefix, ext);
+        case PrevPage: return QString("%1:/forward.%2").arg(prefix, ext);
+        case NextPage: return QString("%1:/back.%2").arg(prefix, ext);
+        case PageSet: return QString("%1:/star.%2").arg(prefix, ext);
+        default: return QString();
+    }
+
+    return QString("%1:/other.%2").arg(prefix, ext);
 }
 
 QIcon QLCInputChannel::icon() const

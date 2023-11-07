@@ -18,6 +18,10 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.1
+import QtQuick.Controls 2.2
+
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -27,6 +31,7 @@ Rectangle
     color: "transparent"
 
     property int universeIndex: 0
+    property bool isEditing: false
 
     onUniverseIndexChanged:
     {
@@ -38,75 +43,235 @@ Rectangle
         profListView.model = ioManager.universeInputProfiles(universeIndex)
     }
 
-    ListView
+    ColumnLayout
     {
-        id: profListView
-        anchors.fill: parent
-        boundsBehavior: Flickable.StopAtBounds
-        delegate:
-            Item
+        implicitWidth: profilesContainer.width
+        height: profilesContainer.height
+        z: 2
+        spacing: 3
+
+        Rectangle
+        {
+            id: topBar
+            implicitWidth: profilesContainer.width
+            implicitHeight: UISettings.iconSizeMedium
+            z: 5
+            gradient: Gradient
             {
-                id: root
-                height: UISettings.listItemHeight * 2
-                width: profilesContainer.width
+                GradientStop { position: 0; color: UISettings.toolbarStartSub }
+                GradientStop { position: 1; color: UISettings.toolbarEnd }
+            }
 
-                MouseArea
+            RowLayout
+            {
+                width: parent.width
+                height: parent.height
+                y: 1
+
+                IconButton
                 {
-                    id: delegateRoot
-                    width: profilesContainer.width
-                    height: parent.height
+                    width: height
+                    height: topBar.height - 2
+                    visible: isEditing
+                    enabled: isEditing && profileEditor.modified
+                    imgSource: "qrc:/filesave.svg"
+                    tooltip: qsTr("Save this profile")
 
-                    drag.target: profileItem
-                    drag.threshold: 30
+                    onClicked: { }
+                }
 
-                    onPressed: profileItem.color = "#444"
-                    onReleased:
+                IconButton
+                {
+                    width: height
+                    height: topBar.height - 2
+                    visible: isEditing
+                    checkable: true
+                    imgSource: "qrc:/wizard.svg"
+                    tooltip: qsTr("Toggle the automatic detection procedure")
+
+                    onToggled:
                     {
-                        profileItem.x = 3
-                        profileItem.y = 0
+                        if (isEditing)
+                            profileEditor.toggleDetection()
+                    }
+                }
 
-                        if (profileItem.Drag.target !== null)
+                IconButton
+                {
+                    width: height
+                    height: topBar.height - 2
+                    imgSource: "qrc:/add.svg"
+                    tooltip: isEditing ? qsTr("Add a new channel") : qsTr("Create a new input profile")
+
+                    onClicked:
+                    {
+                        if (isEditing)
                         {
-                            ioManager.setInputProfile(profileItem.pluginUniverse, profileItem.lineName)
-                            profListView.model = ioManager.universeInputProfiles(universeIndex)
+
                         }
                         else
                         {
-                            // return the dragged item to its original position
-                            parent = root
-                            profileItem.color = "transparent"
+                            ioManager.createInputProfile()
+                            isEditing = true
                         }
                     }
+                }
 
-                    PluginDragItem
+                IconButton
+                {
+                    width: height
+                    height: topBar.height - 2
+                    imgSource: "qrc:/edit.svg"
+                    tooltip: isEditing ? qsTr("Edit the selected channel") : qsTr("Edit the selected input profile")
+                    enabled: profListView.selectedIndex >= 0
+
+                    onClicked:
                     {
-                        id: profileItem
-                        x: 3
-
-                        // this key must match the one in UniverseIOItem, to avoid dragging
-                        // an input profile in the wrong place
-
-                        pluginUniverse: modelData.universe
-                        pluginName: modelData.plugin
-                        lineName: modelData.name
-                        pluginLine: modelData.line
-
-                        Drag.active: delegateRoot.drag.active
-                        Drag.source: delegateRoot
-                        Drag.hotSpot.x: width / 2
-                        Drag.hotSpot.y: height / 2
-                        Drag.keys: [ "profile-" + universeIndex ]
-
-                        // line divider
-                        Rectangle
+                        if (isEditing)
                         {
-                            width: parent.width - 6
-                            height: 1
-                            y: parent.height - 1
-                            color: "#555"
+
                         }
-                    } // PluginDragItem
-                } // MouseArea
-            } // Item
-    } // ListView
+                        else
+                        {
+                            ioManager.editInputProfile(profListView.selectedName)
+                            isEditing = true
+                        }
+                    }
+                }
+
+                IconButton
+                {
+                    width: height
+                    height: topBar.height - 2
+                    imgSource: "qrc:/remove.svg"
+                    tooltip: isEditing ? qsTr("Delete the selected channel") : qsTr("Delete the selected input profile(s)")
+                    enabled: profListView.selectedIndex >= 0
+
+                    onClicked: { }
+                }
+
+                Rectangle { Layout.fillWidth: true }
+
+                GenericButton
+                {
+                    width: height
+                    height: topBar.height - 2
+                    visible: isEditing
+                    border.color: UISettings.bgMedium
+                    useFontawesome: true
+                    label: FontAwesome.fa_times
+                    onClicked:
+                    {
+                        // todo popup for unsaved changes
+                        ioManager.finishInputProfile()
+                        isEditing = false
+                    }
+                }
+            }
+        }
+
+        ListView
+        {
+            id: profListView
+            implicitWidth: profilesContainer.width
+            Layout.fillHeight: true
+            z: 1
+            boundsBehavior: Flickable.StopAtBounds
+            visible: !isEditing
+
+            property int selectedIndex: -1
+            property string selectedName
+
+            delegate:
+                Item
+                {
+                    id: itemRoot
+                    height: UISettings.listItemHeight * 2
+                    width: profilesContainer.width
+
+                    MouseArea
+                    {
+                        id: delegateRoot
+                        width: profilesContainer.width
+                        height: parent.height
+
+                        drag.target: profileItem
+                        drag.threshold: 30
+
+                        onClicked:
+                        {
+                            profListView.selectedIndex = index
+                            profListView.selectedName = profileItem.lineName
+                        }
+
+                        onReleased:
+                        {
+                            profileItem.x = 3
+                            profileItem.y = 0
+
+                            if (profileItem.Drag.target !== null)
+                            {
+                                ioManager.setInputProfile(profileItem.pluginUniverse, profileItem.lineName)
+                                profListView.model = ioManager.universeInputProfiles(universeIndex)
+                            }
+                            else
+                            {
+                                // return the dragged item to its original position
+                                parent = itemRoot
+                            }
+                        }
+
+                        PluginDragItem
+                        {
+                            id: profileItem
+                            x: 3
+                            height: UISettings.listItemHeight * 2
+                            color: delegateRoot.pressed ? UISettings.highlightPressed :
+                                (profListView.selectedIndex === index ? UISettings.highlight : "transparent")
+
+                            pluginUniverse: modelData.universe
+                            pluginName: modelData.plugin
+                            lineName: modelData.name
+                            pluginLine: modelData.line
+
+                            Drag.active: delegateRoot.drag.active
+                            Drag.source: delegateRoot
+                            Drag.hotSpot.x: width / 2
+                            Drag.hotSpot.y: height / 2
+                            // this key must match the one in UniverseIOItem, to avoid dragging
+                            // an input profile in the wrong place
+                            Drag.keys: [ "profile-" + universeIndex ]
+
+                            Text
+                            {
+                                visible: modelData.isUser
+                                anchors.right: parent.right
+                                anchors.rightMargin: 5
+                                anchors.verticalCenter: parent.verticalCenter
+                                color: UISettings.fgMain
+                                font.family: "FontAwesome"
+                                font.pixelSize: parent.height / 2
+                                text: FontAwesome.fa_user
+                            }
+
+                            // line divider
+                            Rectangle
+                            {
+                                width: parent.width - 6
+                                height: 1
+                                y: parent.height - 1
+                                color: UISettings.bgLight
+                            }
+                        } // PluginDragItem
+                    } // MouseArea
+                } // Item
+        } // ListView
+
+        InputProfileEditor
+        {
+            width: profilesContainer.width
+            Layout.fillHeight: true
+            visible: isEditing
+        }
+    } // ColumnLayout
 }
