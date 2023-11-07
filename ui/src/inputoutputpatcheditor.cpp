@@ -33,7 +33,6 @@
 
 #include "qlcinputprofile.h"
 #include "qlcioplugin.h"
-#include "qlcconfig.h"
 #include "qlcfile.h"
 
 #include "inputoutputpatcheditor.h"
@@ -42,7 +41,6 @@
 #include "inputoutputmap.h"
 #include "outputpatch.h"
 #include "inputpatch.h"
-#include "apputil.h"
 #include "doc.h"
 
 /* Plugin column structure */

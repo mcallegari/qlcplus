@@ -222,6 +222,16 @@ QString ContextManager::currentContext() const
     return m_view->rootObject()->property("currentContext").toString();
 }
 
+MainView2D *ContextManager::get2DView()
+{
+    return m_2DView;
+}
+
+MainView3D *ContextManager::get3DView()
+{
+    return m_3DView;
+}
+
 QVector3D ContextManager::environmentSize() const
 {
     return m_monProps->gridSize();
@@ -1252,16 +1262,20 @@ void ContextManager::setFixturesRotation(QVector3D degrees)
 {
     if (m_selectedFixtures.count() == 1)
     {
-        quint32 fxID = FixtureUtils::itemFixtureID(m_selectedFixtures.first());
-        quint16 headIndex = FixtureUtils::itemHeadIndex(m_selectedFixtures.first());
-        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(m_selectedFixtures.first());
+        quint32 itemID = m_selectedFixtures.first();
+        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+        QVector3D rotation = m_monProps->fixtureRotation(fxID, headIndex, linkedIndex);
+
+        Tardis::instance()->enqueueAction(Tardis::FixtureSetRotation, itemID, QVariant(rotation), QVariant(degrees));
 
         // absolute rotation change
         m_monProps->setFixtureRotation(fxID, headIndex, linkedIndex, degrees);
         if (m_2DView->isEnabled())
-            m_2DView->updateFixtureRotation(m_selectedFixtures.first(), degrees);
+            m_2DView->updateFixtureRotation(itemID, degrees);
         if (m_3DView->isEnabled())
-            m_3DView->updateFixtureRotation(m_selectedFixtures.first(), degrees);
+            m_3DView->updateFixtureRotation(itemID, degrees);
     }
     else
     {
@@ -1271,7 +1285,8 @@ void ContextManager::setFixturesRotation(QVector3D degrees)
             quint32 fxID = FixtureUtils::itemFixtureID(itemID);
             quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
             quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
-            QVector3D newRot = m_monProps->fixtureRotation(fxID, headIndex, linkedIndex) + degrees;
+            QVector3D rotation = m_monProps->fixtureRotation(fxID, headIndex, linkedIndex);
+            QVector3D newRot = rotation + degrees;
 
             // normalize back to a 0-359 range
             if (newRot.x() < 0) newRot.setX(newRot.x() + 360);
@@ -1283,6 +1298,8 @@ void ContextManager::setFixturesRotation(QVector3D degrees)
             if (newRot.z() < 0) newRot.setZ(newRot.z() + 360);
             else if (newRot.z() >= 360) newRot.setZ(newRot.z() - 360);
 
+            Tardis::instance()->enqueueAction(Tardis::FixtureSetRotation, itemID, QVariant(rotation), QVariant(newRot));
+
             m_monProps->setFixtureRotation(fxID, headIndex, linkedIndex, newRot);
             if (m_2DView->isEnabled())
                 m_2DView->updateFixtureRotation(itemID, newRot);
@@ -1292,6 +1309,23 @@ void ContextManager::setFixturesRotation(QVector3D degrees)
     }
 
     emit fixturesRotationChanged();
+}
+
+void ContextManager::setFixtureRotation(quint32 itemID, QVector3D degrees)
+{
+    quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+    quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+    quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+    QVector3D rotation = m_monProps->fixtureRotation(fxID, headIndex, linkedIndex);
+
+    Tardis::instance()->enqueueAction(Tardis::FixtureSetRotation, itemID, QVariant(rotation), QVariant(degrees));
+
+    // absolute rotation change
+    m_monProps->setFixtureRotation(fxID, headIndex, linkedIndex, degrees);
+    if (m_2DView->isEnabled())
+        m_2DView->updateFixtureRotation(itemID, degrees);
+    if (m_3DView->isEnabled())
+        m_3DView->updateFixtureRotation(itemID, degrees);
 }
 
 void ContextManager::setFixtureGroupSelection(quint32 id, bool enable, bool isUniverse)

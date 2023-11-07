@@ -17,10 +17,7 @@
   limitations under the License.
 */
 
-#include "videoprovider.h"
-#include "qlcfile.h"
-#include "doc.h"
-
+#include <QVersionNumber>
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
  #include <QMediaMetaData>
 #endif
@@ -28,6 +25,10 @@
 #include <QMediaPlayer>
 #include <QVideoWidget>
 #include <QScreen>
+
+#include "videoprovider.h"
+#include "qlcfile.h"
+#include "doc.h"
 
 VideoProvider::VideoProvider(Doc *doc, QObject *parent)
     : QObject(parent)

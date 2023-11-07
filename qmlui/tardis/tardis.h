@@ -64,8 +64,14 @@ class Tardis : public QThread
 public:
     enum ActionCodes
     {
-        /* Global settings */
+        /* Preview settings */
         EnvironmentSetSize = 0x0000,
+        EnvironmentBackgroundImage,
+        FixtureSetPosition,
+        FixtureSetRotation,
+        GenericItemSetPosition,
+        GenericItemSetRotation,
+        GenericItemSetScale,
 
         IOAddUniverse = 0x0090,
         IORemoveUniverse,
@@ -75,7 +81,6 @@ public:
         FixtureDelete,
         FixtureMove,
         FixtureSetName,
-        FixtureSetPosition,
         FixtureSetDumpValue,
 
         /* Fixture group editing actions */

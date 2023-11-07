@@ -25,8 +25,6 @@
 #include <QFile>
 
 #include "qlcfixturedef.h"
-#include "qlcmacros.h"
-#include "qlcfile.h"
 #include "qlccapability.h"
 
 #include "genericfader.h"

@@ -23,10 +23,7 @@
 #include <QStyle>
 #include <QtGui>
 
-#include "qlcfile.h"
-
 #include "vcclockproperties.h"
-#include "virtualconsole.h"
 #include "vcclock.h"
 #include "doc.h"
 
@@ -84,10 +81,14 @@ void VCClock::slotModeChanged(Doc::Mode mode)
 
     if (mode == Doc::Operate)
     {
+        m_scheduleIndex = -1;
+
         if (m_scheduleList.count() > 0)
         {
             QTime currTime = QDateTime::currentDateTime().time();
-            for(int i = 0; i < m_scheduleList.count(); i++)
+
+            // find the index of the next scheduled event to run
+            for (int i = 0; i < m_scheduleList.count(); i++)
             {
                 VCClockSchedule sch = m_scheduleList.at(i);
                 if (sch.time().time() >= currTime)
@@ -97,6 +98,10 @@ void VCClock::slotModeChanged(Doc::Mode mode)
                     break;
                 }
             }
+            // if no event is found after the current time, it means the next schedule 
+            // will happen the day after so it's the first in the list
+            if (m_scheduleIndex == -1)
+                m_scheduleIndex = 0;
         }
     }
     VCWidget::slotModeChanged(mode);

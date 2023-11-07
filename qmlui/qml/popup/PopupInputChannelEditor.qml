@@ -34,6 +34,7 @@ CustomPopupDialog
     property QLCInputChannel editChannel: null
     property int currentChannelNumber
     property bool isMIDI: false
+    property int midiChannelOffset: 4096
 
     function initialize(chNum, profType)
     {
@@ -56,7 +57,6 @@ CustomPopupDialog
 
     function updateMIDIInfo()
     {
-        var midiChannelOffset = 4096
         var chNum = channelSpin.value - 1
         var midiChannel = chNum / midiChannelOffset + 1
         var midiParam = 0
@@ -104,6 +104,47 @@ CustomPopupDialog
         midiNoteLabel.label = midiNote
     }
 
+    function updateChannel()
+    {
+        var midiChannel = midiChannelSpin.value
+        var midiMessage = midiMessageCombo.currentValue
+        var midiParam = midiParamSpin.value
+        var chNum
+
+        switch (midiMessage)
+        {
+            case InputProfEditor.ControlChange:
+                chNum = (midiChannel - 1) * midiChannelOffset + InputProfEditor.ControlChangeOffset + midiParam
+            break
+            case InputProfEditor.NoteOnOff:
+                chNum = (midiChannel - 1) * midiChannelOffset + InputProfEditor.NoteOffset + midiParam
+            break
+            case InputProfEditor.NoteAfterTouch:
+                chNum = (midiChannel - 1) * midiChannelOffset + InputProfEditor.NoteAfterTouchOffset + midiParam
+            break
+            case InputProfEditor.ProgramChange:
+                chNum = (midiChannel - 1) * midiChannelOffset + InputProfEditor.ProgramChangeOffset + midiParam
+            break
+            case InputProfEditor.ChannelAfterTouch:
+                chNum = (midiChannel - 1) * midiChannelOffset + InputProfEditor.ChannelAfterTouchOffset
+            break
+            case InputProfEditor.PitchWheel:
+                chNum = (midiChannel - 1) * midiChannelOffset + InputProfEditor.PitchWheelOffset
+            break
+            case InputProfEditor.MBCPlayback:
+                chNum = (midiChannel - 1) * midiChannelOffset + InputProfEditor.MBCPlaybackOffset
+            break
+            case InputProfEditor.MBCBeat:
+                chNum = (midiChannel - 1) * midiChannelOffset + InputProfEditor.MBCBeatOffset
+            break
+            case InputProfEditor.MBCStop:
+                chNum = (midiChannel - 1) * midiChannelOffset + InputProfEditor.MBCStopOffset
+            break
+        }
+
+        channelSpin.value = chNum + 1
+    }
+
     contentItem:
         ColumnLayout
         {
@@ -129,7 +170,7 @@ CustomPopupDialog
                         id: channelSpin
                         from: 1
                         to: 65535
-                        onValueChanged:
+                        onValueModified:
                         {
                             currentChannelNumber = value - 1
                             updateMIDIInfo()
@@ -176,6 +217,7 @@ CustomPopupDialog
                         id: midiChannelSpin
                         from: 1
                         to: 16
+                        onValueModified: updateChannel()
                     }
 
                     CustomComboBox
@@ -196,6 +238,7 @@ CustomPopupDialog
 
                         Layout.fillWidth: true
                         model: midiTypeModel
+                        onValueChanged: updateChannel()
                     }
 
                     CustomSpinBox
@@ -203,6 +246,7 @@ CustomPopupDialog
                         id: midiParamSpin
                         from: 0
                         to: 127
+                        onValueModified: updateChannel()
                     }
 
                     RobotoText

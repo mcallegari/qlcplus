@@ -32,7 +32,6 @@
 #include "genericfader.h"
 #include "fadechannel.h"
 #include "mastertimer.h"
-#include "qlcmacros.h"
 #include "universe.h"
 #include "script.h"
 #include "doc.h"

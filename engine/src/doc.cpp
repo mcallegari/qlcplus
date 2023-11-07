@@ -32,7 +32,6 @@
 
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
-#include "qlcfile.h"
 
 #include "monitorproperties.h"
 #include "audioplugincache.h"
@@ -45,9 +44,7 @@
 #include "sequence.h"
 #include "fixture.h"
 #include "chaser.h"
-#include "scene.h"
 #include "show.h"
-#include "efx.h"
 #include "doc.h"
 #include "bus.h"
 

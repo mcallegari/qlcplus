@@ -26,8 +26,6 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 
-#include "qlcfile.h"
-
 #include "mastertimer.h"
 #include "collection.h"
 #include "function.h"

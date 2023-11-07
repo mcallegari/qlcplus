@@ -22,7 +22,6 @@
 #include <QMenu>
 
 #include "sequenceitem.h"
-#include "headeritems.h"
 #include "chaserstep.h"
 #include "trackitem.h"
 

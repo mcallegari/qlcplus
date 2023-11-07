@@ -26,16 +26,9 @@
 
 #include <math.h>
 
-#include "qlcfixturemode.h"
-#include "qlcfixturedef.h"
 #include "genericfader.h"
-#include "qlcchannel.h"
-#include "qlcmacros.h"
-#include "qlcfile.h"
-
 #include "mastertimer.h"
-#include "fixture.h"
-#include "scene.h"
+#include "qlcmacros.h"
 #include "doc.h"
 #include "efx.h"
 #include "bus.h"

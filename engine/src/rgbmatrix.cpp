@@ -26,14 +26,12 @@
 #include <cmath>
 #include <QDir>
 
+#include "rgbscriptscache.h"
 #include "qlcfixturehead.h"
 #include "fixturegroup.h"
 #include "genericfader.h"
 #include "fadechannel.h"
 #include "rgbmatrix.h"
-#include "qlcmacros.h"
-#include "rgbaudio.h"
-#include "rgbscriptscache.h"
 #include "doc.h"
 
 #define KXMLQLCRGBMatrixStartColor      QString("MonoColor")

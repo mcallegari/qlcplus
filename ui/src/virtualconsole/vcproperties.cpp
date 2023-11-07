@@ -23,13 +23,9 @@
 #include <QWidget>
 #include <QDebug>
 
-#include "qlcfile.h"
-
-#include "virtualconsole.h"
 #include "inputoutputmap.h"
 #include "vcproperties.h"
-#include "vcframe.h"
-#include "doc.h"
+#include "qlcchannel.h"
 
 /*****************************************************************************
  * Properties Initialization

@@ -79,6 +79,9 @@ public:
     /** Return the currently active context */
     QString currentContext() const;
 
+    MainView2D *get2DView();
+    MainView3D *get3DView();
+
     /** Get/Set the environment width/height/depth size */
     QVector3D environmentSize() const;
     void setEnvironmentSize(QVector3D environmentSize);
@@ -225,6 +228,7 @@ public:
     /** Set/Get the rotation of the currently selected fixtures */
     QVector3D fixturesRotation() const;
     void setFixturesRotation(QVector3D degrees);
+    void setFixtureRotation(quint32 itemID, QVector3D degrees);
 
     /** Select/Deselect all the fixtures of the Group/Universe with the provided $id */
     Q_INVOKABLE void setFixtureGroupSelection(quint32 id, bool enable, bool isUniverse);

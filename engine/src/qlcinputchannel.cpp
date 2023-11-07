@@ -24,7 +24,6 @@
 #include <QIcon>
 
 #include "qlcinputchannel.h"
-#include "qlcinputprofile.h"
 
 /****************************************************************************
  * Initialization

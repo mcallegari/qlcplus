@@ -30,10 +30,6 @@
 #include <QStyle>
 #include <QSize>
 
-#include "qlcfile.h"
-
-#include "virtualconsole.h"
-#include "mastertimer.h"
 #include "vclabel.h"
 #include "doc.h"
 

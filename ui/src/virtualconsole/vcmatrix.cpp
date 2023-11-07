@@ -38,7 +38,6 @@
 #include "rgbalgorithm.h"
 #include "flowlayout.h"
 #include "rgbmatrix.h"
-#include "rgbscriptscache.h"
 #include "vcmatrix.h"
 #include "function.h"
 #include "rgbtext.h"

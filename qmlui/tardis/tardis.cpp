@@ -28,7 +28,8 @@
 #include "fixturemanager.h"
 #include "functionmanager.h"
 #include "contextmanager.h"
-#include "functioneditor.h"
+#include "mainview2d.h"
+#include "mainview3d.h"
 #include "simpledesk.h"
 #include "collection.h"
 #include "rgbmatrix.h"
@@ -118,7 +119,10 @@ void Tardis::enqueueAction(int code, quint32 objID, QVariant oldVal, QVariant ne
     }
     // inform the thread an action is available
     m_queueSem.release();
-    m_doc->setModified();
+
+    // set modify flag for non-live actions
+    if (action.m_action < VCButtonSetPressed)
+        m_doc->setModified();
 }
 
 QString Tardis::actionToString(int action)
@@ -535,10 +539,42 @@ int Tardis::processAction(TardisAction &action, bool undo)
 
     switch(action.m_action)
     {
-        /* *********************** Global settings actions ************************ */
+        /* *********************** Preview settings actions ************************ */
         case EnvironmentSetSize:
         {
             m_contextManager->setEnvironmentSize(value->value<QVector3D>());
+        }
+        break;
+        case EnvironmentBackgroundImage:
+        {
+            m_contextManager->get2DView()->setBackgroundImage(value->toString());
+        }
+        break;
+        case FixtureSetPosition:
+        {
+            QVector3D pos = value->value<QVector3D>();
+            m_contextManager->setFixturePosition(action.m_objID, pos.x(), pos.y(), pos.z());
+        }
+        break;
+        case FixtureSetRotation:
+        {
+            QVector3D rotation = value->value<QVector3D>();
+            m_contextManager->setFixtureRotation(action.m_objID, rotation);
+        }
+        break;
+        case GenericItemSetPosition:
+        {
+            m_contextManager->get3DView()->updateGenericItemPosition(action.m_objID, value->value<QVector3D>());
+        }
+        break;
+        case GenericItemSetRotation:
+        {
+            m_contextManager->get3DView()->updateGenericItemRotation(action.m_objID, value->value<QVector3D>());
+        }
+        break;
+        case GenericItemSetScale:
+        {
+            m_contextManager->get3DView()->updateGenericItemScale(action.m_objID, value->value<QVector3D>());
         }
         break;
 
@@ -568,12 +604,6 @@ int Tardis::processAction(TardisAction &action, bool undo)
         case FixtureSetName:
         {
             m_fixtureManager->renameFixture(action.m_objID, value->toString());
-        }
-        break;
-        case FixtureSetPosition:
-        {
-            QVector3D pos = value->value<QVector3D>();
-            m_contextManager->setFixturePosition(action.m_objID, pos.x(), pos.y(), pos.z());
         }
         break;
         case FixtureSetDumpValue:

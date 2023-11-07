@@ -25,7 +25,6 @@
 
 #include "audioitem.h"
 #include "trackitem.h"
-#include "headeritems.h"
 #include "audiodecoder.h"
 #include "audioplugincache.h"
 

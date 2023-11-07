@@ -23,7 +23,6 @@
 #include "vcwidgetselection.h"
 #include "virtualconsole.h"
 #include "vcframe.h"
-#include "doc.h"
 
 #define KColumnName         0
 #define KColumnType         1

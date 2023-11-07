@@ -22,7 +22,6 @@
 
 #include "positiontool.h"
 #include "vcxypadarea.h"
-#include "qlcmacros.h"
 
 /*****************************************************************************
  * Initialization
