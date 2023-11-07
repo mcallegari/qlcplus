@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  fullscreen.vert
+  fullscreen_rhi.vert
 
   Copyright (c) Eric Arnebäck
 

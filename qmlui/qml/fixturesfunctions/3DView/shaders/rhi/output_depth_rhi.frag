@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  output_front_depth.frag
+  output_depth_rhi.frag
 
   Copyright (c) Eric Arnebäck
 
@@ -17,10 +17,4 @@
   limitations under the License.
 */
 
-layout(location = 0) in vec3 fsPos;
-layout(location = 0) out vec4 fragColor;
-
-void main()
-{
-    fragColor = vec4(fsPos.xyz, 0.0);
-}
+void main(){}

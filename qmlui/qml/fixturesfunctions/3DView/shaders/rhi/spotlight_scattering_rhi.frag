@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  spotlight_scattering.frag
+  spotlight_scattering_rhi.frag
 
   Copyright (c) Eric Arnebäck
 

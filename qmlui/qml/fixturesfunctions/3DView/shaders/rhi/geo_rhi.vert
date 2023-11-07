@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  grab_bright.frag
+  geo_rhi.vert
 
   Copyright (c) Eric Arnebäck
 
@@ -17,22 +17,15 @@
   limitations under the License.
 */
 
-layout(location = 0) in vec2 fsUv;
-layout(location = 0) out vec4 fragColor;
+layout(location = 0) in vec3 vertexPosition;
+layout(location = 1) in vec3 vertexNormal;
 
-layout(binding = 2) uniform sampler2D albedoTex;
-layout(binding = 3) uniform sampler2D normalTex;
+layout(location = 0) out vec3 fsNormal;
+layout(location = 1) out vec3 fsPos;
 
 void main()
 {
-    vec4 albedo = texture(albedoTex, fsUv).xyzw;
-    float v = texture(normalTex, fsUv).w;
-    if (v > 2.0)
-    {
-        fragColor = vec4(albedo.rgb, 1.0);
-    }
-    else
-    {
-        fragColor = vec4(0.0, 0.0, 0.0, 0.0);
-    }
+    fsNormal =  (modelMatrix * vec4(vertexNormal, 0.0)).xyz;
+    gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(vertexPosition, 1.0);
+    fsPos = (modelMatrix * vec4(vertexPosition, 1.0)).xyz;
 }

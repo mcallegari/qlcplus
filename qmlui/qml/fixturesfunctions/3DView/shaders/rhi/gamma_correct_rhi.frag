@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  gamma_correct.frag
+  gamma_correct_rhi.frag
 
   Copyright (c) Eric Arnebäck
 

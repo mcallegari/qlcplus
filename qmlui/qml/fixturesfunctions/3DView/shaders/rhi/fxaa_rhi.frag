@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  fxaa.frag
+  fxaa_rhi.frag
 
   Copyright (c) Eric Arnebäck
 

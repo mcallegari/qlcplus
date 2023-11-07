@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  spotlight_shading.frag
+  spotlight_shading_rhi.frag
 
   Copyright (c) Eric Arnebäck
 

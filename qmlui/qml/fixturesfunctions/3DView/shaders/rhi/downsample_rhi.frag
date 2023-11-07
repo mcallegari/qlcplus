@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  downsample.frag
+  downsample_rhi.frag
 
   Copyright (c) Eric Arnebäck
 

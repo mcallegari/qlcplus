@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  output_depth.vert
+  output_depth_rhi.vert
 
   Copyright (c) Eric Arnebäck
 

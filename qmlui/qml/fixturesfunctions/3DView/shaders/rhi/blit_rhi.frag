@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  geo.frag
+  blit_rhi.frag
 
   Copyright (c) Eric Arnebäck
 
@@ -17,19 +17,12 @@
   limitations under the License.
 */
 
-layout(location = 0) in vec3 fsNormal;
-layout(location = 1) in vec3 fsPos;
-layout(location = 0) out vec4 [3] gOutput;
-layout(std140, binding = auto) uniform myUniforms {
-    vec4 diffuse;
-    vec4 specular;
-    float shininess;
-    int bloom;
-};
+layout(location = 0) in vec2 fsUv;
+layout(location = 0) out vec4 fragColor;
+layout(binding = auto) uniform sampler2D colorTex;
 
 void main()
 {
-    gOutput[0] = vec4(diffuse.xyzw);
-    gOutput[1] = vec4(fsNormal.xyz,  float(bloom) * 3.0);
-    gOutput[2] = vec4(specular.xyz, shininess);
+    vec3 finalColor = 1.0 * texture(colorTex, fsUv).rgb;
+    fragColor = vec4(finalColor, 1.0);
 }

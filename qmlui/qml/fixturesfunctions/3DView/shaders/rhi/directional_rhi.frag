@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  directional.frag
+  directional_rhi.frag
 
   Copyright (c) Eric Arnebäck
 

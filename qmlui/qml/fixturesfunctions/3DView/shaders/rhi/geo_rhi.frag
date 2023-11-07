@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  spotlight.vert
+  geo_rhi.frag
 
   Copyright (c) Eric Arnebäck
 
@@ -17,22 +17,19 @@
   limitations under the License.
 */
 
-layout(location = 0) in vec3 vertexPosition;
-layout(location = 0) out vec3 fsPos;
-
+layout(location = 0) in vec3 fsNormal;
+layout(location = 1) in vec3 fsPos;
+layout(location = 0) out vec4 [3] gOutput;
 layout(std140, binding = auto) uniform myUniforms {
-    mat4 customModelMatrix;
-    float coneTopRadius;
-    float coneBottomRadius;
+    vec4 diffuse;
+    vec4 specular;
+    float shininess;
+    int bloom;
 };
 
 void main()
 {
-    // the mesh is cylinder. We modulate the bottom and top radiuses in the vertex shader.
-    vec3 p = (vertexPosition.y > 0.0) ? 
-                vertexPosition * vec3(coneTopRadius, 1.0, coneTopRadius): 
-                vertexPosition * vec3(coneBottomRadius, 1.0, coneBottomRadius);
-
-    fsPos = (customModelMatrix * vec4(p, 1.0)).xyz;
-    gl_Position = viewProjectionMatrix * customModelMatrix * vec4(p, 1.0);
+    gOutput[0] = vec4(diffuse.xyzw);
+    gOutput[1] = vec4(fsNormal.xyz,  float(bloom) * 3.0);
+    gOutput[2] = vec4(specular.xyz, shininess);
 }
