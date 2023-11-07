@@ -145,7 +145,7 @@ public:
     /** Gets if flashing overrides newer values */
     bool flashOverrides() const;
     /** Sets if flashing should override values */
-    void setFlashOverride(bool override);
+    void setFlashOverride(bool shouldOverride);
     /** Gets if flash channels should behave like LTP channels */
     bool flashForceLTP() const;
     /** Sets if the flash channels should behave like LTP channels */
@@ -156,7 +156,7 @@ private:
     bool m_flashForceLTP;
 
 signals:
-    void flashOverrideChanged(bool override);
+    void flashOverrideChanged(bool shouldOverride);
     void flashForceLTPChanged(bool forceLTP);
 
     /*********************************************************************

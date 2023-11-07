@@ -245,7 +245,7 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    void flash(MasterTimer *timer, bool override, bool forceLTP);
+    void flash(MasterTimer *timer, bool shouldOverride, bool forceLTP);
 
     /** @reimp */
     void unFlash(MasterTimer *timer);

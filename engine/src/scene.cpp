@@ -632,13 +632,13 @@ void Scene::postLoad()
  * Flashing
  ****************************************************************************/
 
-void Scene::flash(MasterTimer *timer, bool override, bool forceLTP)
+void Scene::flash(MasterTimer *timer, bool shouldOverride, bool forceLTP)
 {
     if (flashing() == true)
         return;
 
     Q_ASSERT(timer != NULL);
-    Function::flash(timer, override, forceLTP);
+    Function::flash(timer, shouldOverride, forceLTP);
     timer->registerDMXSource(this);
 }
 

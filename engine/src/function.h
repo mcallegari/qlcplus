@@ -628,7 +628,7 @@ public:
      *********************************************************************/
 public:
     /** Flash the function */
-    virtual void flash(MasterTimer* timer, bool override, bool forceLTP);
+    virtual void flash(MasterTimer* timer, bool shouldOverride, bool forceLTP);
 
     /** UnFlash the function */
     virtual void unFlash(MasterTimer* timer);

@@ -677,9 +677,9 @@ bool VCButton::flashOverrides()
     return m_flashOverrides;
 }
 
-void VCButton::setFlashOverride(bool override)
+void VCButton::setFlashOverride(bool shouldOverride)
 {
-    m_flashOverrides = override;
+    m_flashOverrides = shouldOverride;
 }
 
 bool VCButton::flashForceLTP()

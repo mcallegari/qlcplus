@@ -318,7 +318,7 @@ public:
     /** Gets if flashing overrides newer values */
     bool flashOverrides();
     /** Sets if flashing should override values */
-    void setFlashOverride(bool override);
+    void setFlashOverride(bool shouldOverride);
     /** Gets if flash channels should behave like LTP channels */
     bool flashForceLTP();
     /** Sets if the flash channels should behave like LTP channels */
