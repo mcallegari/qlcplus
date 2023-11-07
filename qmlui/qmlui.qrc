@@ -185,22 +185,39 @@
     <file alias="StageRock.qml">qml/fixturesfunctions/3DView/StageRock.qml</file>
     <file alias="StageTheatre.qml">qml/fixturesfunctions/3DView/StageTheatre.qml</file>
 
-    <file alias="downsample.frag">qml/fixturesfunctions/3DView/shaders/downsample.frag</file>
-    <file alias="upsample.frag">qml/fixturesfunctions/3DView/shaders/upsample.frag</file>
-    <file alias="grab_bright.frag">qml/fixturesfunctions/3DView/shaders/grab_bright.frag</file>
-    <file alias="directional.frag">qml/fixturesfunctions/3DView/shaders/directional.frag</file>
-    <file alias="gamma_correct.frag">qml/fixturesfunctions/3DView/shaders/gamma_correct.frag</file>
-    <file alias="blit.frag">qml/fixturesfunctions/3DView/shaders/blit.frag</file>
-    <file alias="fxaa.frag">qml/fixturesfunctions/3DView/shaders/fxaa.frag</file>
-    <file alias="fullscreen.vert">qml/fixturesfunctions/3DView/shaders/fullscreen.vert</file>
-    <file alias="spotlight_shading.frag">qml/fixturesfunctions/3DView/shaders/spotlight_shading.frag</file>
-    <file alias="geo.frag">qml/fixturesfunctions/3DView/shaders/geo.frag</file>
-    <file alias="geo.vert">qml/fixturesfunctions/3DView/shaders/geo.vert</file>
-    <file alias="spotlight_scattering.frag">qml/fixturesfunctions/3DView/shaders/spotlight_scattering.frag</file>
-    <file alias="spotlight.vert">qml/fixturesfunctions/3DView/shaders/spotlight.vert</file>
-    <file alias="output_front_depth.frag">qml/fixturesfunctions/3DView/shaders/output_front_depth.frag</file>
-    <file alias="output_depth.frag">qml/fixturesfunctions/3DView/shaders/output_depth.frag</file>
-    <file alias="output_depth.vert">qml/fixturesfunctions/3DView/shaders/output_depth.vert</file>
+    <file alias="downsample.frag">qml/fixturesfunctions/3DView/shaders/gl/downsample.frag</file>
+    <file alias="upsample.frag">qml/fixturesfunctions/3DView/shaders/gl/upsample.frag</file>
+    <file alias="grab_bright.frag">qml/fixturesfunctions/3DView/shaders/gl/grab_bright.frag</file>
+    <file alias="directional.frag">qml/fixturesfunctions/3DView/shaders/gl/directional.frag</file>
+    <file alias="gamma_correct.frag">qml/fixturesfunctions/3DView/shaders/gl/gamma_correct.frag</file>
+    <file alias="blit.frag">qml/fixturesfunctions/3DView/shaders/gl/blit.frag</file>
+    <file alias="fxaa.frag">qml/fixturesfunctions/3DView/shaders/gl/fxaa.frag</file>
+    <file alias="fullscreen.vert">qml/fixturesfunctions/3DView/shaders/gl/fullscreen.vert</file>
+    <file alias="spotlight_shading.frag">qml/fixturesfunctions/3DView/shaders/gl/spotlight_shading.frag</file>
+    <file alias="geo.frag">qml/fixturesfunctions/3DView/shaders/gl/geo.frag</file>
+    <file alias="geo.vert">qml/fixturesfunctions/3DView/shaders/gl/geo.vert</file>
+    <file alias="spotlight_scattering.frag">qml/fixturesfunctions/3DView/shaders/gl/spotlight_scattering.frag</file>
+    <file alias="spotlight.vert">qml/fixturesfunctions/3DView/shaders/gl/spotlight.vert</file>
+    <file alias="output_front_depth.frag">qml/fixturesfunctions/3DView/shaders/gl/output_front_depth.frag</file>
+    <file alias="output_depth.frag">qml/fixturesfunctions/3DView/shaders/gl/output_depth.frag</file>
+    <file alias="output_depth.vert">qml/fixturesfunctions/3DView/shaders/gl/output_depth.vert</file>
+
+    <file alias="downsample_rhi.frag">qml/fixturesfunctions/3DView/shaders/rhi/downsample_rhi.frag</file>
+    <file alias="upsample_rhi.frag">qml/fixturesfunctions/3DView/shaders/rhi/upsample_rhi.frag</file>
+    <file alias="grab_bright_rhi.frag">qml/fixturesfunctions/3DView/shaders/rhi/grab_bright_rhi.frag</file>
+    <file alias="directional_rhi.frag">qml/fixturesfunctions/3DView/shaders/rhi/directional_rhi.frag</file>
+    <file alias="gamma_correct_rhi.frag">qml/fixturesfunctions/3DView/shaders/rhi/gamma_correct_rhi.frag</file>
+    <file alias="blit_rhi.frag">qml/fixturesfunctions/3DView/shaders/rhi/blit_rhi.frag</file>
+    <file alias="fxaa_rhi.frag">qml/fixturesfunctions/3DView/shaders/rhi/fxaa_rhi.frag</file>
+    <file alias="fullscreen_rhi.vert">qml/fixturesfunctions/3DView/shaders/rhi/fullscreen_rhi.vert</file>
+    <file alias="spotlight_shading_rhi.frag">qml/fixturesfunctions/3DView/shaders/rhi/spotlight_shading_rhi.frag</file>
+    <file alias="geo_rhi.frag">qml/fixturesfunctions/3DView/shaders/rhi/geo_rhi.frag</file>
+    <file alias="geo_rhi.vert">qml/fixturesfunctions/3DView/shaders/rhi/geo_rhi.vert</file>
+    <file alias="spotlight_scattering_rhi.frag">qml/fixturesfunctions/3DView/shaders/rhi/spotlight_scattering_rhi.frag</file>
+    <file alias="spotlight_rhi.vert">qml/fixturesfunctions/3DView/shaders/rhi/spotlight_rhi.vert</file>
+    <file alias="output_front_depth_rhi.frag">qml/fixturesfunctions/3DView/shaders/rhi/output_front_depth_rhi.frag</file>
+    <file alias="output_depth_rhi.frag">qml/fixturesfunctions/3DView/shaders/rhi/output_depth_rhi.frag</file>
+    <file alias="output_depth_rhi.vert">qml/fixturesfunctions/3DView/shaders/rhi/output_depth_rhi.vert</file>
 
     <!-- Input Output Manager -->
     <file alias="InputOutputManager.qml">qml/inputoutput/InputOutputManager.qml</file>
