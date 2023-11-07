@@ -24,31 +24,31 @@ Effect
 {
     techniques:
     [
-//        Technique
-//        {
-//            graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
-//            renderPasses:
-//            [
-//                RenderPass
-//                {
-//                    filterKeys: FilterKey { name: "pass"; value: "output_depth" }
-//                    shaderProgram:
-//                        ShaderProgram
-//                        {
-//                            vertexShaderCode: View3D.makeShader(loadSource("qrc:/spotlight.vert"))
-//                            fragmentShaderCode: View3D.makeShader(loadSource("qrc:/output_front_depth.frag"))
-//                        }
-//                }
-//            ]
-//        }
+        Technique
+        {
+            graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
+            renderPasses:
+            [
+                RenderPass
+                {
+                    filterKeys: FilterKey { name: "pass"; value: "output_depth" }
+                    shaderProgram:
+                        ShaderProgram
+                        {
+                            vertexShaderCode: View3D.makeGlShader(loadSource("qrc:/spotlight.vert"))
+                            fragmentShaderCode: View3D.makeGlShader(loadSource("qrc:/output_front_depth.frag"))
+                        }
+                }
+            ]
+        },
         Technique {
             graphicsApiFilter { api: GraphicsApiFilter.RHI; profile: GraphicsApiFilter.NoProfile; majorVersion: 1; minorVersion: 0 }
             renderPasses: [
                 RenderPass {
                     filterKeys: FilterKey { name: "pass"; value: "output_depth" }
                     shaderProgram: ShaderProgram {
-                        vertexShaderCode: View3D.makeShader(loadSource("qrc:/spotlight.vert"))
-                        fragmentShaderCode: View3D.makeShader(loadSource("qrc:/output_front_depth.frag"))
+                        vertexShaderCode: View3D.makeRhiShader(loadSource("qrc:/spotlight_rhi.vert"))
+                        fragmentShaderCode: View3D.makeRhiShader(loadSource("qrc:/output_front_depth_rhi.frag"))
                     }
                 }
             ]

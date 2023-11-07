@@ -22,25 +22,25 @@ import Qt3D.Render 2.0
 
 Effect {
     techniques: [
-//        // OpenGL 3.1
-//        Technique
-//        {
-//            graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
-//            renderPasses:
-//            [
-//                // FXAA pass
-//                RenderPass
-//                {
-//                    filterKeys: FilterKey { name: "pass"; value: "fxaa" }
-//                    shaderProgram:
-//                        ShaderProgram
-//                        {
-//                            vertexShaderCode: loadSource("qrc:/fullscreen.vert")
-//                            fragmentShaderCode: loadSource("qrc:/fxaa.frag")
-//                        }
-//                }
-//            ]
-//        }
+        // OpenGL 3.1
+        Technique
+        {
+            graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
+            renderPasses:
+            [
+                // FXAA pass
+                RenderPass
+                {
+                    filterKeys: FilterKey { name: "pass"; value: "fxaa" }
+                    shaderProgram:
+                        ShaderProgram
+                        {
+                            vertexShaderCode: View3D.makeGlShader(loadSource("qrc:/fullscreen.vert"))
+                            fragmentShaderCode: View3D.makeGlShader(loadSource("qrc:/fxaa.frag"))
+                        }
+                }
+            ]
+        },
         // RHI 1.0
         Technique {
             graphicsApiFilter { api: GraphicsApiFilter.RHI; profile: GraphicsApiFilter.NoProfile; majorVersion: 1; minorVersion: 0 }
@@ -49,8 +49,8 @@ Effect {
                 RenderPass {
                     filterKeys: FilterKey { name: "pass"; value: "fxaa" }
                     shaderProgram: ShaderProgram {
-                        vertexShaderCode: View3D.makeShader(loadSource("qrc:/fullscreen.vert"))
-                        fragmentShaderCode: View3D.makeShader(loadSource("qrc:/fxaa.frag"))
+                        vertexShaderCode: View3D.makeRhiShader(loadSource("qrc:/fullscreen_rhi.vert"))
+                        fragmentShaderCode: View3D.makeRhiShader(loadSource("qrc:/fxaa_rhi.frag"))
                     }
                 }
             ]

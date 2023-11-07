@@ -24,24 +24,24 @@ Effect
 {
     techniques:
     [
-//        Technique
-//        {
-//            graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
-//            renderPasses:
-//            [
-//                // Lights pass
-//                RenderPass
-//                {
-//                    filterKeys: FilterKey { name: "pass"; value: "lights" }
-//                    shaderProgram:
-//                        ShaderProgram
-//                        {
-//                            vertexShaderCode: View3D.makeShader(loadSource("qrc:/fullscreen.vert"))
-//                            fragmentShaderCode: View3D.makeShader(loadSource("qrc:/directional.frag"))
-//                        }
-//                }
-//            ]
-//        }
+        Technique
+        {
+            graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
+            renderPasses:
+            [
+                // Lights pass
+                RenderPass
+                {
+                    filterKeys: FilterKey { name: "pass"; value: "lights" }
+                    shaderProgram:
+                        ShaderProgram
+                        {
+                            vertexShaderCode: View3D.makeGlShader(loadSource("qrc:/fullscreen.vert"))
+                            fragmentShaderCode: View3D.makeGlShader(loadSource("qrc:/directional.frag"))
+                        }
+                }
+            ]
+        },
         Technique {
             graphicsApiFilter { api: GraphicsApiFilter.RHI; profile: GraphicsApiFilter.NoProfile; majorVersion: 1; minorVersion: 0 }
             renderPasses: [
@@ -49,8 +49,8 @@ Effect
                 RenderPass {
                     filterKeys: FilterKey { name: "pass"; value: "lights" }
                     shaderProgram: ShaderProgram {
-                        vertexShaderCode: View3D.makeShader(loadSource("qrc:/fullscreen.vert"))
-                        fragmentShaderCode: View3D.makeShader(loadSource("qrc:/directional.frag"))
+                        vertexShaderCode: View3D.makeRhiShader(loadSource("qrc:/fullscreen_rhi.vert"))
+                        fragmentShaderCode: View3D.makeRhiShader(loadSource("qrc:/directional_rhi.frag"))
                     }
                 }
             ]
