@@ -195,7 +195,9 @@ public:
 
     Q_INVOKABLE void initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoader *loader);
 
-    Q_INVOKABLE QString makeShader(QString str);
+    Q_INVOKABLE QString makeGlShader(const QString &str);
+
+    Q_INVOKABLE QString makeRhiShader(const QString &str);
 
     /** Update the fixture preview items when some channels have changed */
     void updateFixture(Fixture *fixture, QByteArray &previous);
