@@ -676,10 +676,7 @@ void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                 QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
                 if (fader.isNull())
                 {
-                    fader = ua[universe]->requestFader();
-
-                    if (m_flashOverrides)
-                        fader->setPriority(Universe::Flashing);
+                    fader = ua[universe]->requestFader(m_flashOverrides ? Universe::Flashing : Universe::Auto);
 
                     fader->adjustIntensity(getAttributeValue(Intensity));
                     fader->setBlendMode(blendMode());
