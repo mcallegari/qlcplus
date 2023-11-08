@@ -446,8 +446,11 @@ void VCButton_Test::save()
         }
         else if (xmlReader.name().toString() == "Action")
         {
-            action++;
+            QCOMPARE(xmlReader.attributes().value("Override").toString(), QString("1"));
+            QCOMPARE(xmlReader.attributes().value("ForceLTP").toString(), QString("1"));
+            flashProperties++;
             QCOMPARE(xmlReader.readElementText(), QString("Flash"));
+            action++;
         }
         else if (xmlReader.name().toString() == "Key")
         {
@@ -468,13 +471,6 @@ void VCButton_Test::save()
         else if (xmlReader.name().toString() == "Appearance")
         {
             appearance++;
-            xmlReader.skipCurrentElement();
-        }
-        else if (xmlReader.name().toString() == "FlashProperties")
-        {
-            flashProperties++;
-            QCOMPARE(xmlReader.attributes().value("FlashOverrides").toString(), QString("1"));
-            QCOMPARE(xmlReader.attributes().value("FlashForceLTP").toString(), QString("1"));
             xmlReader.skipCurrentElement();
         }
         else

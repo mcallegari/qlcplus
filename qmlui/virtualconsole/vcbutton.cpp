@@ -576,21 +576,13 @@ bool VCButton::loadXML(QXmlStreamReader &root)
             if (attrs.hasAttribute(KXMLQLCVCButtonStopAllFadeTime))
                 setStopAllFadeOutTime(attrs.value(KXMLQLCVCButtonStopAllFadeTime).toInt());
 
-            setActionType(stringToAction(root.readElementText()));
-        }
-        else if (root.name() == KXMLQLCVCButtonFlashProperties)
-        {
-            QString str = root.attributes().value(KXMLQLCVCButtonFlashOverrides).toString();
-            if (str.isEmpty() == false)
-            {
-                setFlashOverride((bool)str.toInt());
-            }
+            if (attrs.hasAttribute(KXMLQLCVCButtonFlashOverride))
+                    setFlashOverride(attrs.value(KXMLQLCVCButtonFlashOverride).toInt());
 
-            str = root.attributes().value(KXMLQLCVCButtonFlashForceLTP).toString();
-            if (str.isEmpty() == false)
-            {
-                setFlashForceLTP((bool)str.toInt());
-            }
+            if (attrs.hasAttribute(KXMLQLCVCButtonFlashForceLTP))
+                    setFlashForceLTP(attrs.value(KXMLQLCVCButtonFlashForceLTP).toInt());
+
+            setActionType(stringToAction(root.readElementText()));
         }
         else if (root.name() == KXMLQLCVCButtonIntensity)
         {
@@ -644,18 +636,17 @@ bool VCButton::saveXML(QXmlStreamWriter *doc)
     doc->writeStartElement(KXMLQLCVCButtonAction);
 
     if (actionType() == StopAll && stopAllFadeOutTime() != 0)
+    {
         doc->writeAttribute(KXMLQLCVCButtonStopAllFadeTime, QString::number(stopAllFadeOutTime()));
+    }
+    else if (actionType() == Flash)
+    {
+        doc->writeAttribute(KXMLQLCVCButtonFlashOverride, QString::number(flashOverrides()));
+        doc->writeAttribute(KXMLQLCVCButtonFlashForceLTP, QString::number(flashForceLTP()));
+    }
 
     doc->writeCharacters(actionToString(actionType()));
     doc->writeEndElement();
-
-    if(actionType() == Flash)
-    {
-        doc->writeStartElement(KXMLQLCVCButtonFlashProperties);
-        doc->writeAttribute(KXMLQLCVCButtonFlashOverrides, QString::number(flashOverrides()));
-        doc->writeAttribute(KXMLQLCVCButtonFlashForceLTP, QString::number(flashForceLTP()));
-        doc->writeEndElement();
-    }
 
     /* External control */
     saveXMLInputControl(doc, INPUT_PRESSURE_ID);

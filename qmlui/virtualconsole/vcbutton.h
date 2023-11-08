@@ -33,9 +33,8 @@
 #define KXMLQLCVCButtonActionBlackout   QString("Blackout")
 #define KXMLQLCVCButtonActionStopAll    QString("StopAll")
 
-#define KXMLQLCVCButtonFlashProperties  QString("FlashProperties")
-#define KXMLQLCVCButtonFlashOverrides   QString("FlashOverrides")
-#define KXMLQLCVCButtonFlashForceLTP    QString("FlashForceLTP")
+#define KXMLQLCVCButtonFlashOverride    QString("Override")
+#define KXMLQLCVCButtonFlashForceLTP    QString("ForceLTP")
 
 #define KXMLQLCVCButtonStopAllFadeTime  QString("FadeOut")
 
