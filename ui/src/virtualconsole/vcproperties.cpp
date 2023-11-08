@@ -33,7 +33,6 @@
 
 VCProperties::VCProperties()
     : m_size(QSize(1920, 1080))
-
     , m_gmChannelMode(GrandMaster::Intensity)
     , m_gmValueMode(GrandMaster::Reduce)
     , m_gmSliderMode(GrandMaster::Normal)
@@ -44,7 +43,6 @@ VCProperties::VCProperties()
 
 VCProperties::VCProperties(const VCProperties& properties)
     : m_size(properties.m_size)
-
     , m_gmChannelMode(properties.m_gmChannelMode)
     , m_gmValueMode(properties.m_gmValueMode)
     , m_gmSliderMode(properties.m_gmSliderMode)

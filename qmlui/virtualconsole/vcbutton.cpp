@@ -30,6 +30,8 @@
 VCButton::VCButton(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
     , m_functionID(Function::invalidId())
+    , m_flashOverrides(false)
+    , m_flashForceLTP(false)
     , m_state(Inactive)
     , m_actionType(Toggle)
     , m_stopAllFadeOutTime(0)
@@ -281,6 +283,36 @@ FunctionParent VCButton::functionParent() const
     return FunctionParent(FunctionParent::ManualVCWidget, id());
 }
 
+/*****************************************************************************
+ * Flash Properties
+ *****************************************************************************/
+
+bool VCButton::flashOverrides() const
+{
+    return m_flashOverrides;
+}
+
+void VCButton::setFlashOverride(bool shouldOverride)
+{
+    if (m_flashOverrides == shouldOverride)
+        return;
+    m_flashOverrides = shouldOverride;
+    emit flashOverrideChanged(shouldOverride);
+}
+
+bool VCButton::flashForceLTP() const
+{
+    return m_flashForceLTP;
+}
+
+void VCButton::setFlashForceLTP(bool forceLTP)
+{
+    if (m_flashForceLTP == forceLTP)
+        return;
+    m_flashForceLTP = forceLTP;
+    emit flashForceLTPChanged(forceLTP);
+}
+
 /*********************************************************************
  * Button state
  *********************************************************************/
@@ -339,7 +371,7 @@ void VCButton::requestStateChange(bool pressed)
             {
                 if (state() == Inactive && pressed == true)
                 {
-                    f->flash(m_doc->masterTimer());
+                    f->flash(m_doc->masterTimer(), flashOverrides(), flashForceLTP());
                     setState(Active);
                 }
                 else if (state() == Active && pressed == false)
@@ -544,6 +576,12 @@ bool VCButton::loadXML(QXmlStreamReader &root)
             if (attrs.hasAttribute(KXMLQLCVCButtonStopAllFadeTime))
                 setStopAllFadeOutTime(attrs.value(KXMLQLCVCButtonStopAllFadeTime).toInt());
 
+            if (attrs.hasAttribute(KXMLQLCVCButtonFlashOverride))
+                    setFlashOverride(attrs.value(KXMLQLCVCButtonFlashOverride).toInt());
+
+            if (attrs.hasAttribute(KXMLQLCVCButtonFlashForceLTP))
+                    setFlashForceLTP(attrs.value(KXMLQLCVCButtonFlashForceLTP).toInt());
+
             setActionType(stringToAction(root.readElementText()));
         }
         else if (root.name() == KXMLQLCVCButtonIntensity)
@@ -598,7 +636,14 @@ bool VCButton::saveXML(QXmlStreamWriter *doc)
     doc->writeStartElement(KXMLQLCVCButtonAction);
 
     if (actionType() == StopAll && stopAllFadeOutTime() != 0)
+    {
         doc->writeAttribute(KXMLQLCVCButtonStopAllFadeTime, QString::number(stopAllFadeOutTime()));
+    }
+    else if (actionType() == Flash)
+    {
+        doc->writeAttribute(KXMLQLCVCButtonFlashOverride, QString::number(flashOverrides()));
+        doc->writeAttribute(KXMLQLCVCButtonFlashForceLTP, QString::number(flashForceLTP()));
+    }
 
     doc->writeCharacters(actionToString(actionType()));
     doc->writeEndElement();

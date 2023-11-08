@@ -958,12 +958,16 @@ QList<quint32> Function::components()
  * Flash
  *****************************************************************************/
 
-void Function::flash(MasterTimer *timer)
+void Function::flash(MasterTimer *timer, bool shouldOverride, bool forceLTP)
 {
     Q_UNUSED(timer);
+    Q_UNUSED(shouldOverride);
+    Q_UNUSED(forceLTP);
 
     if (m_flashing == false)
+    {
         emit flashing(m_id, true);
+    }
 
     m_flashing = true;
 }
