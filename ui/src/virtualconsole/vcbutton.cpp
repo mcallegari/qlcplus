@@ -942,20 +942,12 @@ bool VCButton::loadXML(QXmlStreamReader &root)
             setAction(stringToAction(root.readElementText()));
             if (attrs.hasAttribute(KXMLQLCVCButtonStopAllFadeTime))
                 setStopAllFadeOutTime(attrs.value(KXMLQLCVCButtonStopAllFadeTime).toString().toInt());
-        }
-        else if (root.name() == KXMLQLCVCButtonFlashProperties)
-        {
-            QString str = root.attributes().value(KXMLQLCVCButtonFlashOverrides).toString();
-            if (str.isEmpty() == false)
-            {
-                setFlashOverride((bool)str.toInt());
-            }
 
-            str = root.attributes().value(KXMLQLCVCButtonFlashForceLTP).toString();
-            if (str.isEmpty() == false)
-            {
-                setFlashForceLTP((bool)str.toInt());
-            }
+            if (attrs.hasAttribute(KXMLQLCVCButtonFlashOverride))
+                setFlashOverride(attrs.value(KXMLQLCVCButtonFlashOverride).toInt());
+
+            if (attrs.hasAttribute(KXMLQLCVCButtonFlashForceLTP))
+                setFlashForceLTP(attrs.value(KXMLQLCVCButtonFlashForceLTP).toInt());
         }
         else if (root.name() == KXMLQLCVCButtonKey)
         {
@@ -1014,16 +1006,13 @@ bool VCButton::saveXML(QXmlStreamWriter *doc)
     {
         doc->writeAttribute(KXMLQLCVCButtonStopAllFadeTime, QString::number(stopAllFadeTime()));
     }
+    else if (action() == Flash)
+    {
+        doc->writeAttribute(KXMLQLCVCButtonFlashOverride, QString::number(flashOverrides()));
+        doc->writeAttribute(KXMLQLCVCButtonFlashForceLTP, QString::number(flashForceLTP()));
+    }
     doc->writeCharacters(actionToString(action()));
     doc->writeEndElement();
-
-    if(action() == Flash)
-    {
-        doc->writeStartElement(KXMLQLCVCButtonFlashProperties);
-        doc->writeAttribute(KXMLQLCVCButtonFlashOverrides, QString::number(flashOverrides()));
-        doc->writeAttribute(KXMLQLCVCButtonFlashForceLTP, QString::number(flashForceLTP()));
-        doc->writeEndElement();
-    }
 
     /* Key sequence */
     if (m_keySequence.isEmpty() == false)
