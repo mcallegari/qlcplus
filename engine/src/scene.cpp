@@ -41,6 +41,8 @@
 Scene::Scene(Doc* doc)
     : Function(doc, Function::SceneType)
     , m_legacyFadeBus(Bus::invalid())
+    , m_flashOverrides(false)
+    , m_flashForceLTP(false)
     , m_blendFunctionID(Function::invalidId())
 {
     setName(tr("New Scene"));
@@ -636,6 +638,9 @@ void Scene::flash(MasterTimer *timer, bool shouldOverride, bool forceLTP)
 {
     if (flashing() == true)
         return;
+
+    m_flashOverrides = shouldOverride;
+    m_flashForceLTP = forceLTP;
 
     Q_ASSERT(timer != NULL);
     Function::flash(timer, shouldOverride, forceLTP);

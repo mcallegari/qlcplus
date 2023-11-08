@@ -253,6 +253,10 @@ public:
     /** @reimp from DMXSource */
     void writeDMX(MasterTimer *timer, QList<Universe*> ua);
 
+private:
+    bool m_flashOverrides;
+    bool m_flashForceLTP;
+
     /*********************************************************************
      * Running
      *********************************************************************/

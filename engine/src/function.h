@@ -650,10 +650,6 @@ signals:
 private:
     bool m_flashing;
 
-protected:
-    bool m_flashOverrides;
-    bool m_flashForceLTP;
-
     /*********************************************************************
      * Running
      *********************************************************************/
