@@ -168,6 +168,9 @@ bool VCButton::copyFrom(const VCWidget* widget)
     setAction(button->action());
     m_state = button->m_state;
 
+    m_flashForceLTP = button->flashForceLTP();
+    m_flashOverrides = button->flashOverrides();
+
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
 }
@@ -672,7 +675,7 @@ void VCButton::slotAttributeChanged(int value)
  * Flash Properties
  *****************************************************************************/
 
-bool VCButton::flashOverrides()
+bool VCButton::flashOverrides() const
 {
     return m_flashOverrides;
 }
@@ -682,7 +685,7 @@ void VCButton::setFlashOverride(bool shouldOverride)
     m_flashOverrides = shouldOverride;
 }
 
-bool VCButton::flashForceLTP()
+bool VCButton::flashForceLTP() const
 {
     return m_flashForceLTP;
 }

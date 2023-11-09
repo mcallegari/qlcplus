@@ -315,11 +315,11 @@ protected slots:
     *****************************************************************************/
 public:
     /** Gets if flashing overrides newer values */
-    bool flashOverrides();
+    bool flashOverrides() const;
     /** Sets if flashing should override values */
     void setFlashOverride(bool shouldOverride);
     /** Gets if flash channels should behave like LTP channels */
-    bool flashForceLTP();
+    bool flashForceLTP() const;
     /** Sets if the flash channels should behave like LTP channels */
     void setFlashForceLTP(bool forceLTP);
 
