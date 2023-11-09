@@ -114,6 +114,9 @@ bool VCButton::copyFrom(const VCWidget* widget)
     setActionType(button->actionType());
     setState(button->state());
 
+    m_flashForceLTP = button->flashForceLTP();
+    m_flashOverrides = button->flashOverrides();
+
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
 }
