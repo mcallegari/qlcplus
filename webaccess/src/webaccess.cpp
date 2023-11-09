@@ -1181,13 +1181,15 @@ void WebAccess::soltCueSideFaderValueChanged()
     if (cue == NULL)
         return;
 
-    QString wsMessage = QString("%1|CUE_SIDECHANGE|%2|%3|%4|%5|%6")
+    QString wsMessage = QString("%1|CUE_SIDECHANGE|%2|%3|%4|%5|%6|%7|%8")
                             .arg(cue->id())
                             .arg(cue->topPercentageValue())
                             .arg(cue->bottomPercentageValue())
                             .arg(cue->topStepValue())
                             .arg(cue->bottomStepValue())
-                            .arg(cue->sideFaderValue());
+                            .arg(cue->primaryTop())
+                            .arg(cue->sideFaderValue())
+                            .arg(cue->sideFaderMode() == VCCueList::FaderMode::Steps);
 
     sendWebSocketMessage(wsMessage.toUtf8());
 }
@@ -1201,6 +1203,16 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
             "px; height: " + QString::number(cue->height()) + "px; "
             "background-color: " + cue->backgroundColor().name() + ";\">\n";
 
+    QString topStepBgColor = "inherit";
+    QString bottomStepBgColor = "inherit";
+    if (cue->primaryTop()) {
+        topStepBgColor = cue->topStepValue() != "" ? "#4E8DDE" : "inherit";
+        bottomStepBgColor = cue->sideFaderMode() == VCCueList::FaderMode::Steps && cue->bottomStepValue() != "" ? "#4E8DDE" : cue->bottomStepValue() != "" ? "orange" : "inherit";
+    } else {
+        topStepBgColor = cue->topStepValue() != "" ? "orange" : "inherit";
+        bottomStepBgColor = cue->sideFaderMode() == VCCueList::FaderMode::Steps || cue->bottomStepValue() != "" ? "#4E8DDE" : "inherit";
+    }
+
     // fader mode
     if (cue->sideFaderMode() != VCCueList::FaderMode::None) {
         str += "<div style=\"display: flex; flex-direction: row; align-items: center; justify-content: space-between; \">";
@@ -1210,7 +1222,8 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
             str += "<div style=\"position: relative;\">";
             str += "<div id=\"cueCTP"+QString::number(cue->id())+"\" class=\"vcslLabel\" style=\"top:0px;\">" +
                    cue->topPercentageValue() + "</div>\n";
-            str += "<div id=\"cueCTS"+QString::number(cue->id())+"\" class=\"vcslLabel\" style=\"top:25px; border: solid 1px #aaa; \">" +
+            str += "<div id=\"cueCTS"+QString::number(cue->id())+"\" class=\"vcslLabel\" "
+                   "style=\"top:25px; border: solid 1px #aaa; background-color: "+ topStepBgColor +" \">" +
                    cue->topStepValue() + "</div>\n";
 
             str += "<input type=\"range\" class=\"vVertical\" id=\"cueC"+QString::number(cue->id())+"\" "
@@ -1218,7 +1231,8 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                    "style=\"width: " + QString::number(cue->height() - 100) + "px; margin-top: " + QString::number(cue->height() - 100) + "px; margin-left: 22px;\" ";
             str += "min=\"0\" max=\"100\" step=\"1\" value=\"" + QString::number(cue->sideFaderValue()) + "\">\n";
 
-            str += "<div id=\"cueCBS"+QString::number(cue->id())+"\" class=\"vcslLabel\" style=\"bottom:25px; border: solid 1px #aaa; \">" +
+            str += "<div id=\"cueCBS"+QString::number(cue->id())+"\" class=\"vcslLabel\" "
+                   "style=\"bottom:25px; border: solid 1px #aaa;  background-color: "+ bottomStepBgColor +"\">" +
                    cue->bottomStepValue() + "</div>\n";
             str += "<div id=\"cueCBP"+QString::number(cue->id())+"\" class=\"vcslLabel\" style=\"bottom:0px;\">" +
                    cue->bottomPercentageValue() + "</div>\n";
@@ -1230,8 +1244,8 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                    cue->topPercentageValue() + "</div>\n";
 
             str += "<input type=\"range\" class=\"vVertical\" id=\"cueC"+QString::number(cue->id())+"\" "
-                                                                                                        "oninput=\"cueCVchange("+QString::number(cue->id())+");\" ontouchmove=\"cueCVchange("+QString::number(cue->id())+");\" "
-                                                                                                                   "style=\"width: " + QString::number(cue->height() - 50) + "px; margin-top: " + QString::number(cue->height() - 50) + "px; margin-left: 22px;\" ";
+                   "oninput=\"cueCVchange("+QString::number(cue->id())+");\" ontouchmove=\"cueCVchange("+QString::number(cue->id())+");\" "
+                   "style=\"width: " + QString::number(cue->height() - 50) + "px; margin-top: " + QString::number(cue->height() - 50) + "px; margin-left: 22px;\" ";
             str += "min=\"0\" max=\"255\" step=\"1\" value=\"" + QString::number(cue->sideFaderValue()) + "\">\n";
 
             str += "<div id=\"cueCBS"+QString::number(cue->id())+"\" class=\"vcslLabel\" style=\"bottom:25px; border: solid 1px #aaa; \">" +

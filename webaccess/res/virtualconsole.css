@@ -61,15 +61,15 @@ form {
 .vccuelistProgress {
  margin-top: 2px;
  width: 100%;
- background-color: #CCCCCC;
- border: 1px solid #808080;
+ background-color: #C3C3C3;
+ border: 1px solid grey;
  height: 20px;
 }
 
 .vccuelistProgressBar {
  width: 0%;
  height: 20px;
- background-color: #21A13B;
+ background-color: #0F9BEC;
 }
 
 .vccuelistProgressVal {

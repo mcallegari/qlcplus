@@ -1169,6 +1169,11 @@ int VCCueList::sideFaderValue()
     return m_sideFader->value();
 }
 
+bool VCCueList::primaryTop()
+{
+    return m_primaryTop;
+}
+
 void VCCueList::slotSideFaderButtonChecked(bool enable)
 {
     m_crossfadeButton->setChecked(enable);

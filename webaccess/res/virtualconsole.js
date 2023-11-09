@@ -138,7 +138,7 @@ function wsShowCrossfadePanel(id) {
   websocket.send(id + "|CUE_SHOWPANEL|" + showPanel[id]);
 }
 
-function setCueSideFaderValues(id, topPercent, bottomPercent, topStep, bottomStep, value) {
+function setCueSideFaderValues(id, topPercent, bottomPercent, topStep, bottomStep, primaryTop, value, isSteps) {
   var topPercentObj = document.getElementById("cueCTP" + id);
   var bottomPercentObj = document.getElementById("cueCBP" + id);
   var topStepObj = document.getElementById("cueCTS" + id);
@@ -150,6 +150,14 @@ function setCueSideFaderValues(id, topPercent, bottomPercent, topStep, bottomSte
   if (topStepObj) topStepObj.innerHTML = topStep;
   if (bottomStepObj) bottomStepObj.innerHTML = bottomStep;
   if (crossfadeValObj) crossfadeValObj.value = value;
+
+  if (primaryTop === "1") {
+    if (topStepObj) topStepObj.style.backgroundColor = topStep ? "#4E8DDE" : "inherit";
+    if (bottomStepObj) bottomStepObj.style.backgroundColor = isSteps === "1" && bottomStep ? "#4E8DDE" : bottomStep ? "orange" : 'inherit';
+  } else {
+    if (topStepObj) topStepObj.style.backgroundColor = topStep ? "orange" : "inherit";
+    if (bottomStepObj) bottomStepObj.style.backgroundColor = isSteps === "1" || bottomStep ? "#4E8DDE" : "inherit";
+  }
 }
 
 function cueCVchange(id) {

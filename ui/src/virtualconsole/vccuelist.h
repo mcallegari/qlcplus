@@ -287,6 +287,7 @@ public:
     QString topStepValue();
     QString bottomStepValue();
     int sideFaderValue();
+    bool primaryTop();
 
 signals:
     void sideFaderButtonToggled();
