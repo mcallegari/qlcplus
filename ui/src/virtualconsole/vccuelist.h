@@ -182,7 +182,7 @@ public slots:
 
 signals:
     /** progress percent value and text */
-    void slotCueProgressState();
+    void progressStateChanged();
 
 private slots:
     /** Removes destroyed functions from the list */
@@ -280,7 +280,7 @@ public:
 
     FaderMode stringToFaderMode(QString modeStr);
     QString faderModeToString(FaderMode mode);
-    bool showSideFaderPanel();
+    bool isSideFaderVisible();
     bool sideFaderButtonChecked();
     QString topPercentageValue();
     QString bottomPercentageValue();

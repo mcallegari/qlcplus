@@ -1175,7 +1175,7 @@ void WebAccess::slotCueShowSideFaderPanel()
     sendWebSocketMessage(wsMessage.toUtf8());
 }
 
-void WebAccess::soltCueSideFaderValueChanged()
+void WebAccess::slotCueSideFaderValueChanged()
 {
     VCCueList *cue = qobject_cast<VCCueList *>(sender());
     if (cue == NULL)
@@ -1217,7 +1217,7 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
     if (cue->sideFaderMode() != VCCueList::FaderMode::None) {
         str += "<div style=\"display: flex; flex-direction: row; align-items: center; justify-content: space-between; \">";
         str += "<div id=\"fadePanel"+QString::number(cue->id())+"\" "
-               "style=\"display: " + (cue->showSideFaderPanel() ? "block" : "none") + "; width: 45px; height: " + QString::number(cue->height() - 2) + "px;\">";
+               "style=\"display: " + (cue->isSideFaderVisible() ? "block" : "none") + "; width: 45px; height: " + QString::number(cue->height() - 2) + "px;\">";
         if (cue->sideFaderMode() == VCCueList::FaderMode::Crossfade) {
             str += "<div style=\"position: relative;\">";
             str += "<div id=\"cueCTP"+QString::number(cue->id())+"\" class=\"vcslLabel\" style=\"top:0px;\">" +
@@ -1411,14 +1411,14 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
 
     connect(cue, SIGNAL(stepChanged(int)),
             this, SLOT(slotCueIndexChanged(int)));
-    connect(cue, SIGNAL(slotCueProgressState()),
+    connect(cue, SIGNAL(progressStateChanged()),
             this, SLOT(slotCueProgressStateChanged()));
     connect(cue, SIGNAL(sideFaderButtonChecked()),
             this, SLOT(slotSideFaderButtonChecked(bool)));
     connect(cue, SIGNAL(sideFaderButtonToggled()),
             this, SLOT(slotCueShowSideFaderPanel()));
     connect(cue, SIGNAL(sideFaderValueChanged()),
-            this, SLOT(soltCueSideFaderValueChanged()));
+            this, SLOT(slotCueSideFaderValueChanged()));
 
     return str;
 }

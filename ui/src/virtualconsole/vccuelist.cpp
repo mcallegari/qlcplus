@@ -677,7 +677,7 @@ void VCCueList::slotStop()
             m_progress->setFormat("");
             m_progress->setValue(0);
 
-            emit slotCueProgressState();
+            emit progressStateChanged();
         }
         else if (playbackLayout() == PlayStopPause)
         {
@@ -900,7 +900,7 @@ void VCCueList::slotFunctionStopped(quint32 fid)
     m_progress->setFormat("");
     m_progress->setValue(0);    
 
-    emit slotCueProgressState();
+    emit progressStateChanged();
     emit sideFaderValueChanged();
 
     qDebug() << Q_FUNC_INFO << "Cue stopped";
@@ -941,14 +941,14 @@ void VCCueList::slotProgressTimeout()
                 m_progress->setFormat(QString("-%1").arg(Function::speedToString(step.m_fadeIn - step.m_elapsed)));
                 m_progress->setValue(progress);
 
-                emit slotCueProgressState();
+                emit progressStateChanged();
             }
             else
             {
                 m_progress->setValue(m_progress->maximum());
                 m_progress->setFormat("");
 
-                emit slotCueProgressState();
+                emit progressStateChanged();
             }
             return;
         }
@@ -958,7 +958,7 @@ void VCCueList::slotProgressTimeout()
             m_progress->setFormat(QString("-%1").arg(Function::speedToString(step.m_duration - step.m_elapsed)));
             m_progress->setValue(progress);
 
-            emit slotCueProgressState();
+            emit progressStateChanged();
         }
     }
     else
@@ -1179,7 +1179,7 @@ void VCCueList::slotSideFaderButtonChecked(bool enable)
     m_crossfadeButton->setChecked(enable);
 }
 
-bool VCCueList::showSideFaderPanel()
+bool VCCueList::isSideFaderVisible()
 {
     return m_sideFader->isVisible();
 }
