@@ -1194,6 +1194,48 @@ void WebAccess::slotCueSideFaderValueChanged()
     sendWebSocketMessage(wsMessage.toUtf8());
 }
 
+void WebAccess::slotCueButtonAppearanceChanged()
+{
+    VCCueList *cue = qobject_cast<VCCueList *>(sender());
+    if (cue == NULL)
+        return;
+    Chaser *chaser = cue->chaser();
+    QString playbackButtonImage = "player_play.png";
+    bool playbackButtonPaused = false;
+    QString stopButtonImage = "player_stop.png";
+    bool stopButtonPaused = false;
+
+    if (chaser->isRunning()) {
+        if (cue->playbackLayout() == VCCueList::PlayPauseStop) {
+            if (chaser->isPaused()) {
+                playbackButtonImage = "player_play.png";
+                playbackButtonPaused = true;
+            } else {
+                playbackButtonImage  = "player_pause.png";
+            }
+        } else if (cue->playbackLayout() == VCCueList::PlayStopPause) {
+            playbackButtonImage = "player_stop.png";
+            stopButtonImage = "player_pause.png";
+            if (chaser->isPaused()) {
+                stopButtonPaused = true;
+            }
+        }
+    } else {
+        if (cue->playbackLayout() == VCCueList::PlayStopPause) {
+            stopButtonImage = "player_pause.png";
+        }
+    }
+
+    QString wsMessage = QString("%1|CUE_CHANGE|%2|%3|%4|%5")
+                            .arg(cue->id())
+                            .arg(playbackButtonImage)
+                            .arg(QString::number(playbackButtonPaused))
+                            .arg(stopButtonImage)
+                            .arg(QString::number(stopButtonPaused));
+
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
 QString WebAccess::getCueListHTML(VCCueList *cue)
 {
     QString str = "<div id=\"" + QString::number(cue->id()) + "\" "
@@ -1377,19 +1419,39 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
     }
     str += "<div style=\"width: 100%; display: flex; flex-direction: row; align-items: center; justify-content: space-between; \">";
 
-    str += "<a class=\"vccuelistButton\" id=\"play" + QString::number(cue->id()) + "\" ";
-    str += "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'PLAY');\">\n";
-    str += "<img src=\"player_play.png\" width=\"27\"></a>\n";
+    QString playbackButtonImage = "player_play.png";
+    bool playbackButtonPaused = false;
+    QString stopButtonImage = "player_stop.png";
+    bool stopButtonPaused = false;
 
-    if (cue->playbackLayout() == VCCueList::PlayPauseStop) {
-        str += "<a class=\"vccuelistButton\" id=\"stop" + QString::number(cue->id()) + "\" ";
-        str += "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'STOP');\">\n";
-        str += "<img src=\"player_stop.png\" width=\"27\"></a>\n";
+    if (chaser->isRunning()) {
+        if (cue->playbackLayout() == VCCueList::PlayPauseStop) {
+            if (chaser->isPaused()) {
+                playbackButtonImage = "player_play.png";
+                playbackButtonPaused = true;
+            } else {
+                playbackButtonImage  = "player_pause.png";
+            }
+        } else if (cue->playbackLayout() == VCCueList::PlayStopPause) {
+            playbackButtonImage = "player_stop.png";
+            stopButtonImage = "player_pause.png";
+            if (chaser->isPaused()) {
+                stopButtonPaused = true;
+            }
+        }
     } else {
-        str += "<a class=\"vccuelistButton\" id=\"stop" + QString::number(cue->id()) + "\" ";
-        str += "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'STOP');\">\n";
-        str += "<img src=\"player_pause.png\" width=\"27\"></a>\n";
+        if (cue->playbackLayout() == VCCueList::PlayStopPause) {
+            stopButtonImage = "player_pause.png";
+        }
     }
+
+    str += "<a class=\"vccuelistButton"+QString(playbackButtonPaused ? " vccuelistButtonPaused" : "")+"\" id=\"play" + QString::number(cue->id()) + "\" ";
+    str += "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'PLAY');\">\n";
+    str += "<img src=\""+playbackButtonImage+"\" width=\"27\"></a>\n";
+
+    str += "<a class=\"vccuelistButton"+QString(stopButtonPaused ? " vccuelistButtonPaused" : "")+"\" id=\"stop" + QString::number(cue->id()) + "\" ";
+    str += "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'STOP');\">\n";
+    str += "<img src=\""+stopButtonImage+"\" width=\"27\"></a>\n";
 
     str += "<a class=\"vccuelistButton\" href=\"javascript:sendCueCmd(";
     str += QString::number(cue->id()) + ", 'PREV');\">\n";
@@ -1419,6 +1481,14 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
             this, SLOT(slotCueShowSideFaderPanel()));
     connect(cue, SIGNAL(sideFaderValueChanged()),
             this, SLOT(slotCueSideFaderValueChanged()));
+    connect(cue, SIGNAL(playbackLayoutChanged()),
+            this, SLOT(slotCueButtonAppearanceChanged()));
+    connect(cue, SIGNAL(playbackButtonClicked()),
+            this, SLOT(slotCueButtonAppearanceChanged()));
+    connect(cue, SIGNAL(stopButtonClicked()),
+            this, SLOT(slotCueButtonAppearanceChanged()));
+    connect(cue, SIGNAL(buttonAppearanceChanged()),
+            this, SLOT(slotCueButtonAppearanceChanged()));
 
     return str;
 }

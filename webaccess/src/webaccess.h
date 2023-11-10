@@ -89,6 +89,7 @@ protected slots:
     void slotCueProgressStateChanged();
     void slotCueShowSideFaderPanel();
     void slotCueSideFaderValueChanged();
+    void slotCueButtonAppearanceChanged();
     void slotClockTimeChanged(quint32 time);
     void slotFramePageChanged(int pageNum);
 

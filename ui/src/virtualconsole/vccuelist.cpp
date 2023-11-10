@@ -656,6 +656,8 @@ void VCCueList::slotPlayback()
         else
             startChaser();
     }
+
+    emit playbackButtonClicked();
 }
 
 void VCCueList::slotStop()
@@ -699,6 +701,8 @@ void VCCueList::slotStop()
         m_primaryIndex = 0;
         m_tree->setCurrentItem(m_tree->topLevelItem(getFirstIndex()));
     }
+
+    emit stopButtonClicked();
 }
 
 void VCCueList::slotNextCue()
@@ -877,6 +881,7 @@ void VCCueList::slotFunctionRunning(quint32 fid)
     else if (playbackLayout() == PlayStopPause)
         m_playbackButton->setIcon(QIcon(":/player_stop.png"));
     m_timer->start(PROGRESS_INTERVAL);
+    emit buttonAppearanceChanged();
     updateFeedback();
 }
 
@@ -902,6 +907,7 @@ void VCCueList::slotFunctionStopped(quint32 fid)
 
     emit progressStateChanged();
     emit sideFaderValueChanged();
+    emit buttonAppearanceChanged();
 
     qDebug() << Q_FUNC_INFO << "Cue stopped";
     updateFeedback();
@@ -1056,6 +1062,8 @@ void VCCueList::setPlaybackLayout(VCCueList::PlaybackLayout layout)
     }
 
     m_playbackLayout = layout;
+
+    emit playbackLayoutChanged();
 }
 
 VCCueList::PlaybackLayout VCCueList::playbackLayout() const

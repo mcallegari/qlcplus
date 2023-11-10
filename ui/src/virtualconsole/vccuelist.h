@@ -246,6 +246,11 @@ public:
 
     void setPlaybackLayout(PlaybackLayout layout);
     PlaybackLayout playbackLayout() const;
+signals:
+    void playbackLayoutChanged();
+    void playbackButtonClicked();
+    void stopButtonClicked();
+    void buttonAppearanceChanged();
 
 private:
     /** ID of the Chaser this Cue List will be controlling */
