@@ -421,6 +421,7 @@ void VCSlider::setInvertedAppearance(bool invert)
     {
         m_slider->setInvertedAppearance(invert);
         m_slider->setInvertedControls(invert);
+        emit invertedAppearanceChanged();
     }
 }
 

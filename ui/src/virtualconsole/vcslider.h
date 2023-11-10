@@ -205,6 +205,8 @@ protected:
 public:
     bool invertedAppearance() const;
     void setInvertedAppearance(bool invert);
+signals:
+    void invertedAppearanceChanged();
 
     /*********************************************************************
      * Value catching feature

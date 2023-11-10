@@ -240,6 +240,12 @@ function wsSetSliderValue(id, sliderValue, displayValue) {
  labelObj.innerHTML = displayValue;
 }
 
+function setInvertedAppearance(id, mt, rotate) {
+  var slObj = document.getElementById(id);
+  slObj.style.marginTop = mt + "px";
+  slObj.style.setProperty("--rotate", rotate);
+}
+
 /* VCAudioTriggers */
 function atButtonClick(id) {
  var obj = document.getElementById(id);

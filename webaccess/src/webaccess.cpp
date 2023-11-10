@@ -1044,6 +1044,21 @@ void WebAccess::slotSliderValueChanged(QString val)
     sendWebSocketMessage(wsMessage.toUtf8());
 }
 
+void WebAccess::slotInvertedAppearanceChanged()
+{
+    VCSlider *slider = qobject_cast<VCSlider *>(sender());
+    if (slider == NULL)
+        return;
+
+    int mt = slider->invertedAppearance() ? -slider->height() + 50 : slider->height() - 50;
+    int rotate = slider->invertedAppearance() ? 90 : 270;
+
+    // <ID>|SLIDER_APPEARANCE|<MT>|<ROTATE>
+    QString wsMessage = QString("%1|SLIDER_APPEARANCE|%2|%3").arg(slider->id()).arg(mt).arg(rotate);
+
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
 QString WebAccess::getSliderHTML(VCSlider *slider)
 {
     QString slID = QString::number(slider->id());
@@ -1056,33 +1071,40 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
             "background-color: " + slider->backgroundColor().name() + ";" +
             getWidgetBackgroundImage(slider) + "\">\n";
 
-    str += "<div id=\"slv" + slID + "\" "
-            "class=\"vcslLabel\" style=\"top:0px;\">" +
-            slider->topLabelText() + "</div>\n";
+    str += "<div style=\"height: 100%; display: flex; flex-direction: column; justify-content: space-between; \">";
+
+    str += "<div id=\"slv" + slID + "\" class=\"vcslLabel\">" + slider->topLabelText() + "</div>\n";
+
+    int mt = slider->invertedAppearance() ? -slider->height() + 50 : slider->height() - 50;
+    int rotate = slider->invertedAppearance() ? 90 : 270;
 
     str +=  "<input type=\"range\" class=\"vVertical\" "
             "id=\"" + slID + "\" "
             "oninput=\"slVchange(" + slID + ");\" ontouchmove=\"slVchange(" + slID + ");\" "
             "style=\""
             "width: " + QString::number(slider->height() - 50) + "px; "
-            "margin-top: " + QString::number(slider->height() - 50) + "px; "
-            "margin-left: " + QString::number(slider->width() / 2) + "px;\" ";
+            "margin-top: " + QString::number(mt) + "px; "
+            "margin-left: " + QString::number(slider->width() / 2) + "px; "
+            "--rotate: "+QString::number(rotate)+"\" ";
 
     if (slider->sliderMode() == VCSlider::Level)
         str += "min=\"" + QString::number(slider->levelLowLimit()) + "\" max=\"" +
-                QString::number(slider->levelHighLimit()) + "\" ";
+               QString::number(slider->levelHighLimit()) + "\" ";
     else
         str += "min=\"0\" max=\"255\" ";
 
     str += "step=\"1\" value=\"" + QString::number(slider->sliderValue()) + "\">\n";
 
-    str += "<div id=\"sln" + slID + "\" "
-            "class=\"vcslLabel\" style=\"bottom:0px;\">" +
-            slider->caption() + "</div>\n"
-            "</div>\n";
+    str += "<div id=\"sln" + slID + "\" class=\"vcslLabel\">" +slider->caption() + "</div>";
+
+    str += "</div>\n";
+    str += "</div>\n";
 
     connect(slider, SIGNAL(valueChanged(QString)),
             this, SLOT(slotSliderValueChanged(QString)));
+    connect(slider, SIGNAL(invertedAppearanceChanged()),
+            this, SLOT(slotInvertedAppearanceChanged()));
+
     return str;
 }
 
