@@ -226,7 +226,14 @@ function setFramePage(id, page) {
  updateFrameLabel(id);
 }
 
-/* VCSlider */
+/* VCSlider with Knob */
+var isDragging = new Array();
+var maxVal = new Array();
+var minVal = new Array();
+var initVal = new Array();
+var inverted = new Array();
+var selectedID = 0;
+
 function slVchange(id) {
  var slObj = document.getElementById(id);
  var sldMsg = id + "|" + slObj.value;
@@ -238,13 +245,106 @@ function wsSetSliderValue(id, sliderValue, displayValue) {
  obj.value = sliderValue;
  var labelObj = document.getElementById("slv" + id);
  labelObj.innerHTML = displayValue;
+ // knob
+ getPositionFromValue(sliderValue, id);
 }
 
-function setInvertedAppearance(id, mt, rotate) {
+function setInvertedAppearance(id, mt, rotate, isInverted) {
   var slObj = document.getElementById(id);
   slObj.style.marginTop = mt + "px";
   slObj.style.setProperty("--rotate", rotate);
+  inverted[id] = parseInt(isInverted);
+  getPositionFromValue(slObj.value, id);
 }
+
+function setLevelLimitValues(id, min, max) {
+  minVal[id] = parseInt(min);
+  maxVal[id] = parseInt(max);
+  initVal[id] = parseInt(max) < initVal[id] ? parseInt(max) : parseInt(min) > initVal[id] ? parseInt(min) : initVal[id];
+  var slObj = document.getElementById(id);
+  getPositionFromValue(slObj.value, id);
+}
+
+function getPositionFromValue(val, id) {
+  var knobRect = document.getElementById("knob" + id).getBoundingClientRect();
+  var pie = document.getElementById("pie" + id);
+  var spot = document.getElementById("spot" + id);
+  if (!knobRect || !pie || !spot) return;
+  var knobRadius = knobRect.width / 2;
+  var angle = (340 * (val - minVal[id]) / (maxVal[id] - minVal[id])) % 360;
+  if (inverted[id]) angle = 340 - angle;
+  var posX = Math.cos((angle - 260) * Math.PI / 180) * knobRadius;
+  var posY = Math.sin((angle - 260) * Math.PI / 180) * knobRadius;
+  spot.style.transform = `translate(-50%, -50%) translate(${Math.round(posX)}px, ${Math.round(posY)}px)`;
+  pie.style.setProperty('--degValue', Math.round(angle));
+  if (inverted[id]) {
+    pie.style.setProperty('--color1', '#555');
+    pie.style.setProperty('--color2', 'lime');
+  } else {
+    pie.style.setProperty('--color1', 'lime');
+    pie.style.setProperty('--color2', '#555');
+  }
+}
+
+function onMouseMove(e) {
+  if (isDragging[selectedID]) {
+    pie = document.getElementById("pie" + selectedID);
+    knob = document.getElementById("knob" + selectedID);
+    spot = document.getElementById("spot" + selectedID);
+    knobValue = document.getElementById(selectedID);
+    var knobRect = knob.getBoundingClientRect();
+
+    var knobCenterX = knobRect.left + knobRect.width / 2;
+    var knobCenterY = knobRect.top + knobRect.height / 2;
+    var knobRadius = knobRect.width / 2;
+
+    var deltaX = e.clientX - knobCenterX;
+    var deltaY = e.clientY - knobCenterY;
+    var distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+    var newPosX = deltaX * knobRadius / distance;
+    var newPosY = deltaY * knobRadius / distance;
+    var angle = Math.atan2(deltaY, deltaX);
+
+
+    var angleDegrees = (angle * 180) / Math.PI;
+    var normalizedAngle = (angleDegrees + 260 + 360) % 360; // Adjust for initial rotation and make sure it's positive
+    var newValue = Math.round((normalizedAngle / 360) * ((maxVal[selectedID] - minVal[selectedID]) * 18 / 17)) + minVal[selectedID];
+    if (inverted[selectedID]) {
+      newValue = (maxVal[selectedID] + minVal[selectedID]) - newValue;
+    }
+    if (newValue >= minVal[selectedID] && newValue <= maxVal[selectedID]) {
+      spot.style.transform = `translate(-50%, -50%) translate(${newPosX}px, ${newPosY}px)`;
+      pie.style.setProperty('--degValue', normalizedAngle);
+      knobValue.value = newValue;
+      websocket.send(selectedID + "|" + newValue);
+    }
+  }
+}
+function onMouseUp() {
+  isDragging[selectedID] = false;
+  var knob = document.getElementById("knob" + selectedID);
+  knob.style.transition = "transform 0.2s ease";
+  document.removeEventListener("mousemove", onMouseMove);
+  document.removeEventListener("mouseup", onMouseUp);
+  document.removeEventListener("mousedown", onMouseMove);
+}
+// Initial position
+window.addEventListener("load", (event) => {
+  var pieWrapper = document.querySelectorAll(".pieWrapper");
+  pieWrapper.forEach(function(item) {
+    item.addEventListener("mousedown", (e) => {
+      selectedID = item.getAttribute("data");
+      isDragging[selectedID] = true;
+      var knob = document.getElementById("knob" + selectedID);
+      knob.style.transition = "none";
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("mouseup", onMouseUp);
+      document.addEventListener("mousedown", onMouseMove);
+    });
+    getPositionFromValue(initVal[item.getAttribute("data")], item.getAttribute("data"));
+  });
+});
 
 /* VCAudioTriggers */
 function atButtonClick(id) {

@@ -1044,7 +1044,7 @@ void WebAccess::slotSliderValueChanged(QString val)
     sendWebSocketMessage(wsMessage.toUtf8());
 }
 
-void WebAccess::slotInvertedAppearanceChanged()
+void WebAccess::slotSliderInvertedAppearanceChanged()
 {
     VCSlider *slider = qobject_cast<VCSlider *>(sender());
     if (slider == NULL)
@@ -1053,8 +1053,20 @@ void WebAccess::slotInvertedAppearanceChanged()
     int mt = slider->invertedAppearance() ? -slider->height() + 50 : slider->height() - 50;
     int rotate = slider->invertedAppearance() ? 90 : 270;
 
-    // <ID>|SLIDER_APPEARANCE|<MT>|<ROTATE>
-    QString wsMessage = QString("%1|SLIDER_APPEARANCE|%2|%3").arg(slider->id()).arg(mt).arg(rotate);
+    // <ID>|SLIDER_APPEARANCE|<MT>|<ROTATE>|<INVERTED>
+    QString wsMessage = QString("%1|SLIDER_APPEARANCE|%2|%3|%4").arg(slider->id()).arg(mt).arg(rotate).arg(QString::number(slider->invertedAppearance()));
+
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
+void WebAccess::slotSliderLevelLimitChanged()
+{
+    VCSlider *slider = qobject_cast<VCSlider *>(sender());
+    if (slider == NULL)
+        return;
+
+    // <ID>|SLIDER_LEVELLIMIT|<MT>|<LOW>|<HIGH>
+    QString wsMessage = QString("%1|SLIDER_LEVELLIMIT|%2|%3").arg(slider->id()).arg(QString::number(slider->levelLowLimit())).arg(QString::number(slider->levelHighLimit()));
 
     sendWebSocketMessage(wsMessage.toUtf8());
 }
@@ -1077,23 +1089,47 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
 
     int mt = slider->invertedAppearance() ? -slider->height() + 50 : slider->height() - 50;
     int rotate = slider->invertedAppearance() ? 90 : 270;
+    int min = 0;
+    int max = 255;
+    if (slider->sliderMode() == VCSlider::Level) {
+        min = slider->levelLowLimit();
+        max = slider->levelHighLimit();
+    }
 
     str +=  "<input type=\"range\" class=\"vVertical\" "
             "id=\"" + slID + "\" "
             "oninput=\"slVchange(" + slID + ");\" ontouchmove=\"slVchange(" + slID + ");\" "
-            "style=\""
+            "style=\"display: "+(slider->widgetStyle() == VCSlider::SliderWidgetStyle::WSlider ? "block" : "none") +"; "
             "width: " + QString::number(slider->height() - 50) + "px; "
             "margin-top: " + QString::number(mt) + "px; "
             "margin-left: " + QString::number(slider->width() / 2) + "px; "
-            "--rotate: "+QString::number(rotate)+"\" ";
+            "--rotate: "+QString::number(rotate)+"\" "
+            "min=\""+QString::number(min)+"\" max=\""+QString::number(max)+"\" "
+            "step=\"1\" value=\"" + QString::number(slider->sliderValue()) + "\">\n";
 
-    if (slider->sliderMode() == VCSlider::Level)
-        str += "min=\"" + QString::number(slider->levelLowLimit()) + "\" max=\"" +
-               QString::number(slider->levelHighLimit()) + "\" ";
-    else
-        str += "min=\"0\" max=\"255\" ";
+    if (slider->widgetStyle() == VCSlider::SliderWidgetStyle::WKnob) {
+        int shortSide = slider->width() > slider->height() ? slider->height() : slider->width();
+        shortSide = shortSide - 50;
+        float arcWidth = shortSide / 15;
+        float pieWidth = shortSide - (arcWidth * 2);
+        float knobWrapperWidth = pieWidth - arcWidth;
+        float knobWidth = knobWrapperWidth - (arcWidth * 3);
+        float spotWidth = knobWrapperWidth * 2 / 15;
+        if (spotWidth < 6) spotWidth = 6;
 
-    str += "step=\"1\" value=\"" + QString::number(slider->sliderValue()) + "\">\n";
+        str += "<div class=\"pieWrapper\" data=\"" + slID + "\">";
+        str += "<div class=\"pie\" id=\"pie" + slID + "\" style=\"--degValue:0;--pieWidth: "+QString::number(pieWidth)+"px;\">";
+        str += "<div class=\"knobWrapper\" id=\"knobWrapper" + slID + "\" style=\"--knobWrapperWidth: "+QString::number(knobWrapperWidth)+"px;\">";
+        str += "<div class=\"knob\" id=\"knob" + slID + "\" style=\"--knobWidth: "+QString::number(knobWidth)+"px;\">";
+        str += "<div class=\"spot\" id=\"spot" + slID + "\" style=\"--spotWidth: "+QString::number(spotWidth)+"px;\"></div>";
+        str += "</div>\n</div>\n</div>\n</div>\n";
+
+        m_JScode += "maxVal[" + slID + "] = " + QString::number(max) + "\n";
+        m_JScode += "minVal[" + slID + "] = " + QString::number(min) + "\n";
+        m_JScode += "initVal[" + slID + "] = " + QString::number(slider->sliderValue()) + "\n";
+        m_JScode += "inverted[" + slID + "] = " + QString::number(slider->invertedAppearance()) + "\n";
+        m_JScode += "isDragging[" + slID + "] = false;\n";
+    }
 
     str += "<div id=\"sln" + slID + "\" class=\"vcslLabel\">" +slider->caption() + "</div>";
 
@@ -1103,7 +1139,11 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
     connect(slider, SIGNAL(valueChanged(QString)),
             this, SLOT(slotSliderValueChanged(QString)));
     connect(slider, SIGNAL(invertedAppearanceChanged()),
-            this, SLOT(slotInvertedAppearanceChanged()));
+            this, SLOT(slotSliderInvertedAppearanceChanged()));
+    connect(slider, SIGNAL(levelLimitLowChanged()),
+            this, SLOT(slotSliderLevelLimitChanged()));
+    connect(slider, SIGNAL(levelLimitHighChanged()),
+            this, SLOT(slotSliderLevelLimitChanged()));
 
     return str;
 }

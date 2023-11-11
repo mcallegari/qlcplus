@@ -318,6 +318,10 @@ public:
      */
     bool channelsMonitorEnabled() const;
 
+signals:
+    void levelLimitLowChanged();
+    void levelLimitHighChanged();
+
 protected:
     /**
      * Set the level to all channels that have been assigned to
