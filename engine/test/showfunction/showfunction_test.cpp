@@ -29,12 +29,12 @@ void ShowFunction_Test::defaults()
     ShowFunction sf;
 
     // check defaults
-    QCOMPARE(sf.functionID(), Function::invalidId());
-    QCOMPARE(sf.startTime(), UINT_MAX);
-    QCOMPARE(sf.duration(), quint32(0));
+    QVERIFY(sf.functionID() == Function::invalidId());
+    QVERIFY(sf.startTime() == UINT_MAX);
+    QVERIFY(sf.duration() == 0);
     QCOMPARE(sf.color(), QColor::Invalid);
     QCOMPARE(sf.isLocked(), false);
-    QCOMPARE(sf.intensityOverrideId(), -1);
+    QVERIFY(sf.intensityOverrideId() == -1);
 
     QCOMPARE(sf.defaultColor(Function::SceneType), QColor(100, 100, 100));
     QCOMPARE(sf.defaultColor(Function::ChaserType), QColor(85, 107, 128));
@@ -51,9 +51,9 @@ void ShowFunction_Test::defaults()
     sf.setLocked(true);
     sf.setIntensityOverrideId(468);
 
-    QCOMPARE(sf.functionID(), 123);
-    QCOMPARE(sf.startTime(), 445566);
-    QCOMPARE(sf.duration(), quint32(778899));
+    QVERIFY(sf.functionID() == 123);
+    QVERIFY(sf.startTime() == 445566);
+    QVERIFY(sf.duration() == 778899);
     QCOMPARE(sf.color(), QColor(Qt::red));
     QCOMPARE(sf.isLocked(), true);
     QCOMPARE(sf.intensityOverrideId(), 468);
@@ -84,9 +84,9 @@ void ShowFunction_Test::load()
     ShowFunction sf;
     QVERIFY(sf.loadXML(xmlReader) == true);
 
-    QCOMPARE(sf.functionID(), 321);
-    QCOMPARE(sf.startTime(), 665544);
-    QCOMPARE(sf.duration(), quint32(998877));
+    QVERIFY(sf.functionID() == 321);
+    QVERIFY(sf.startTime() == 665544);
+    QVERIFY(sf.duration() == 998877);
     QCOMPARE(sf.color(), QColor(0xAA, 0xBB, 0xCC));
     QCOMPARE(sf.isLocked(), true);
 }

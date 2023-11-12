@@ -90,8 +90,8 @@ void Show_Test::tracks()
     QVERIFY(s.getTrackFromSceneID(123) == t);
 
     // check sutomatic ID assignment
-    QCOMPARE(t->id(), 0);
-    QCOMPARE(t->showId(), 123);
+    QVERIFY(t->id() == 0);
+    QVERIFY(t->showId() == 123);
 
     // check automatic attribute registration
     QCOMPARE(s.attributes().count(), 1);
@@ -183,11 +183,11 @@ void Show_Test::load()
     t2 = s.track(1);
 
     QCOMPARE(t->name(), "Read track 1");
-    QCOMPARE(t->getSceneID(), 111);
+    QVERIFY(t->getSceneID() == 111);
     QCOMPARE(t->isMute(), false);
 
     QCOMPARE(t2->name(), "Read track 2");
-    QCOMPARE(t2->getSceneID(), 222);
+    QVERIFY(t2->getSceneID() == 222);
     QCOMPARE(t2->isMute(), true);
 }
 

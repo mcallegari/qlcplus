@@ -39,9 +39,9 @@ void Track_Test::defaults()
     Track t;
 
     // check defaults
-    QCOMPARE(t.id(), Track::invalidId());
-    QCOMPARE(t.getSceneID(), Scene::invalidId());
-    QCOMPARE(t.showId(), Function::invalidId());
+    QVERIFY(t.id() == Track::invalidId());
+    QVERIFY(t.getSceneID() == Scene::invalidId());
+    QVERIFY(t.showId() == Function::invalidId());
     QCOMPARE(t.name(), "New Track");
 
     // set & check base params
@@ -50,13 +50,13 @@ void Track_Test::defaults()
     t.setSceneID(890);
     t.setName("Foo Track");
 
-    QCOMPARE(t.id(), 321);
-    QCOMPARE(t.showId(), 567);
-    QCOMPARE(t.getSceneID(), 890);
+    QVERIFY(t.id() == 321);
+    QVERIFY(t.showId() == 567);
+    QVERIFY(t.getSceneID() == 890);
     QCOMPARE(t.name(), "Foo Track");
 
     Track t2(123);
-    QCOMPARE(t2.getSceneID(), 123);
+    QVERIFY(t2.getSceneID() == 123);
 }
 
 void Track_Test::mute()
@@ -116,8 +116,8 @@ void Track_Test::load()
     Track t;
     QVERIFY(t.loadXML(xmlReader) == true);
 
-    QCOMPARE(t.id(), 123);
-    QCOMPARE(t.getSceneID(), 456);
+    QVERIFY(t.id() == 123);
+    QVERIFY(t.getSceneID() == 456);
     QCOMPARE(t.name(), "Sequence Cue");
     QCOMPARE(t.isMute(), true);
 }
