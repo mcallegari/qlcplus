@@ -31,7 +31,7 @@ void ShowFunction_Test::defaults()
     // check defaults
     QCOMPARE(sf.functionID(), Function::invalidId());
     QCOMPARE(sf.startTime(), UINT_MAX);
-    QCOMPARE(sf.duration(), 0);
+    QCOMPARE(sf.duration(), quint32(0));
     QCOMPARE(sf.color(), QColor::Invalid);
     QCOMPARE(sf.isLocked(), false);
     QCOMPARE(sf.intensityOverrideId(), -1);
@@ -53,7 +53,7 @@ void ShowFunction_Test::defaults()
 
     QCOMPARE(sf.functionID(), 123);
     QCOMPARE(sf.startTime(), 445566);
-    QCOMPARE(sf.duration(), 778899);
+    QCOMPARE(sf.duration(), quint32(778899));
     QCOMPARE(sf.color(), QColor(Qt::red));
     QCOMPARE(sf.isLocked(), true);
     QCOMPARE(sf.intensityOverrideId(), 468);
@@ -86,7 +86,7 @@ void ShowFunction_Test::load()
 
     QCOMPARE(sf.functionID(), 321);
     QCOMPARE(sf.startTime(), 665544);
-    QCOMPARE(sf.duration(), 998877);
+    QCOMPARE(sf.duration(), quint32(998877));
     QCOMPARE(sf.color(), QColor(0xAA, 0xBB, 0xCC));
     QCOMPARE(sf.isLocked(), true);
 }
