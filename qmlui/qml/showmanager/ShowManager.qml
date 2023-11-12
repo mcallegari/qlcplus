@@ -88,6 +88,7 @@ Rectangle
                 width: showMgrContainer.width / 5
                 height: parent.height - 10
                 text: showManager.showName
+                enabled: showManager.isEditing
 
                 onTextChanged: showManager.showName = text
             }
@@ -100,6 +101,7 @@ Rectangle
                 height: width
                 imgSource: "qrc:/color.svg"
                 checkable: true
+                enabled: showManager.isEditing
                 tooltip: qsTr("Show items color")
                 onCheckedChanged: colTool.visible = !colTool.visible
                 ColorTool
@@ -227,9 +229,20 @@ Rectangle
                 onClicked: showManager.pasteFromClipboard()
             }
 
+            // filler
+            Rectangle
+            {
+                Layout.fillWidth: true
+            }
+
             RobotoText
             {
                 id: timeBox
+                radius: height / 5
+                border.color: UISettings.fgMedium
+                border.width: 1
+                leftMargin: UISettings.textSizeDefault
+                rightMargin: UISettings.textSizeDefault
                 property int currentTime: showManager.currentTime
 
                 label: "00:00:00.00"
@@ -248,6 +261,7 @@ Rectangle
                 imgSource: "qrc:/play.svg"
                 tooltip: qsTr("Play or resume")
                 checkable: true
+                enabled: showManager.isEditing
                 onToggled:
                 {
                     if (checked)
@@ -264,6 +278,7 @@ Rectangle
                 imgSource: "qrc:/stop.svg"
                 tooltip: qsTr("Stop or rewind")
                 checkable: false
+                enabled: showManager.isEditing
                 onClicked:
                 {
                     playbackBtn.checked = false
@@ -271,9 +286,32 @@ Rectangle
                 }
             }
 
+            // filler
             Rectangle
             {
                 Layout.fillWidth: true
+            }
+
+            RobotoText
+            {
+                label: qsTr("Markers")
+            }
+
+            CustomComboBox
+            {
+                ListModel
+                {
+                    id: divModel
+                    ListElement { mLabel: qsTr("Time"); mValue: Show.Time }
+                    ListElement { mLabel: qsTr("BPM 4/4"); mValue: Show.BPM_4_4 }
+                    ListElement { mLabel: qsTr("BPM 3/4"); mValue: Show.BPM_3_4 }
+                    ListElement { mLabel: qsTr("BPM 2/4"); mValue: Show.BPM_2_4 }
+                }
+
+                model: divModel
+                enabled: showManager.isEditing
+                currValue: showManager.timeDivision
+                onValueChanged: showManager.timeDivision = currentValue
             }
 
             ZoomItem
@@ -630,6 +668,22 @@ Rectangle
             }
         } // Flickable (horizontal)
     } // Flickable (vertical)
+
+    Rectangle
+    {
+        anchors.centerIn: parent
+        width: parent.width / 3
+        height: UISettings.bigItemHeight
+        visible: !showManager.isEditing
+        radius: height / 4
+        color: UISettings.bgLight
+
+        RobotoText
+        {
+            anchors.centerIn: parent
+            label: qsTr("Create or edit a Show function first")
+        }
+    }
 
     CustomScrollBar
     {
