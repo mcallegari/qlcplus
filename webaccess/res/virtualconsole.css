@@ -287,16 +287,19 @@ input[type="range"]::-webkit-slider-thumb {
 @keyframes p {
  from{--degValue: 0}
 }
+
 .pieWrapper {
  display: flex;
  justify-content: center;
  align-items: center;
 }
+
 .pie {
  --degValue:20;
  --pieWidth:150px;
  --color1: lime;
  --color2: #555;
+
  width:var(--pieWidth);
  height: var(--pieWidth);
  aspect-ratio:1;
@@ -305,7 +308,8 @@ input[type="range"]::-webkit-slider-thumb {
  align-items: center;
  justify-content: center;
 }
-.pie:before {
+
+.pie::before {
  content:"";
  position:absolute;
  border-radius:50%;
@@ -313,8 +317,10 @@ input[type="range"]::-webkit-slider-thumb {
  transform: rotate(190deg);
  background: conic-gradient(var(--color1) calc(var(--degValue) * 1deg), var(--color2) calc(var(--degValue) * 1deg) 340deg, #0000 340deg);
 }
+
 .knobWrapper {
  --knobWrapperWidth:145px;
+
  width:var(--knobWrapperWidth);
  height: var(--knobWrapperWidth);
  background-color: #aaa;
@@ -325,8 +331,10 @@ input[type="range"]::-webkit-slider-thumb {
  align-items: center;
  justify-content: center;
 }
+
 .knob {
  --knobWidth:110px;
+
  width:var(--knobWidth);
  height: var(--knobWidth);
  background: #bbb;
@@ -337,6 +345,7 @@ input[type="range"]::-webkit-slider-thumb {
 
 .spot {
  --spotWidth:15px;
+
  width:var(--spotWidth);
  height: var(--spotWidth);
  background-color: #ccc;

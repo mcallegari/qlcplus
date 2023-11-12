@@ -333,7 +333,7 @@ function onMouseUp() {
 window.addEventListener("load", (event) => {
   var pieWrapper = document.querySelectorAll(".pieWrapper");
   pieWrapper.forEach(function(item) {
-    item.addEventListener("mousedown", (e) => {
+    item.addEventListener("mousedown", () => {
       selectedID = item.getAttribute("data");
       isDragging[selectedID] = true;
       var knob = document.getElementById("knob" + selectedID);
