@@ -68,12 +68,12 @@ public:
     /** Get an invalid track id */
     static quint32 invalidId();
 
+    /** Get/Set the Show ID this Track belongs to */
+    quint32 showId();
+    void setShowId(quint32 id);
+
 private:
     quint32 m_id;
-
-public:
-    void setShowId(quint32 id);
-private:
     quint32 m_showId;
 
     /************************************************************************

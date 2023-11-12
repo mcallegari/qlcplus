@@ -67,6 +67,11 @@ quint32 Track::invalidId()
     return UINT_MAX;
 }
 
+quint32 Track::showId()
+{
+    return m_showId;
+}
+
 void Track::setShowId(quint32 id)
 {
     m_showId = id;

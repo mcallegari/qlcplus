@@ -449,12 +449,12 @@ int MultiTrackView::getTrackIndex(Track *trk)
     return 0;
 }
 
-void MultiTrackView::setHeaderType(ShowHeaderItem::TimeDivision type)
+void MultiTrackView::setHeaderType(Show::TimeDivision type)
 {
     m_header->setTimeDivisionType(type);
 }
 
-ShowHeaderItem::TimeDivision MultiTrackView::getHeaderType()
+Show::TimeDivision MultiTrackView::getHeaderType()
 {
     return m_header->getTimeDivisionType();
 }
