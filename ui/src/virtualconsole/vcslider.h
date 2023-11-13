@@ -205,8 +205,6 @@ protected:
 public:
     bool invertedAppearance() const;
     void setInvertedAppearance(bool invert);
-signals:
-    void invertedAppearanceChanged();
 
     /*********************************************************************
      * Value catching feature
@@ -317,10 +315,6 @@ public:
      * Return the current status of the channels monitor
      */
     bool channelsMonitorEnabled() const;
-
-signals:
-    void levelLimitLowChanged();
-    void levelLimitHighChanged();
 
 protected:
     /**

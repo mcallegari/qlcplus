@@ -1044,33 +1044,6 @@ void WebAccess::slotSliderValueChanged(QString val)
     sendWebSocketMessage(wsMessage.toUtf8());
 }
 
-void WebAccess::slotSliderInvertedAppearanceChanged()
-{
-    VCSlider *slider = qobject_cast<VCSlider *>(sender());
-    if (slider == NULL)
-        return;
-
-    int mt = slider->invertedAppearance() ? -slider->height() + 50 : slider->height() - 50;
-    int rotate = slider->invertedAppearance() ? 90 : 270;
-
-    // <ID>|SLIDER_APPEARANCE|<MT>|<ROTATE>|<INVERTED>
-    QString wsMessage = QString("%1|SLIDER_APPEARANCE|%2|%3|%4").arg(slider->id()).arg(mt).arg(rotate).arg(QString::number(slider->invertedAppearance()));
-
-    sendWebSocketMessage(wsMessage.toUtf8());
-}
-
-void WebAccess::slotSliderLevelLimitChanged()
-{
-    VCSlider *slider = qobject_cast<VCSlider *>(sender());
-    if (slider == NULL)
-        return;
-
-    // <ID>|SLIDER_LEVELLIMIT|<MT>|<LOW>|<HIGH>
-    QString wsMessage = QString("%1|SLIDER_LEVELLIMIT|%2|%3").arg(slider->id()).arg(QString::number(slider->levelLowLimit())).arg(QString::number(slider->levelHighLimit()));
-
-    sendWebSocketMessage(wsMessage.toUtf8());
-}
-
 QString WebAccess::getSliderHTML(VCSlider *slider)
 {
     QString slID = QString::number(slider->id());
@@ -1138,12 +1111,6 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
 
     connect(slider, SIGNAL(valueChanged(QString)),
             this, SLOT(slotSliderValueChanged(QString)));
-    connect(slider, SIGNAL(invertedAppearanceChanged()),
-            this, SLOT(slotSliderInvertedAppearanceChanged()));
-    connect(slider, SIGNAL(levelLimitLowChanged()),
-            this, SLOT(slotSliderLevelLimitChanged()));
-    connect(slider, SIGNAL(levelLimitHighChanged()),
-            this, SLOT(slotSliderLevelLimitChanged()));
 
     return str;
 }

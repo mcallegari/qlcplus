@@ -249,22 +249,6 @@ function wsSetSliderValue(id, sliderValue, displayValue) {
  getPositionFromValue(sliderValue, id);
 }
 
-function setInvertedAppearance(id, mt, rotate, isInverted) {
-  var slObj = document.getElementById(id);
-  slObj.style.marginTop = mt + "px";
-  slObj.style.setProperty("--rotate", rotate);
-  inverted[id] = parseInt(isInverted);
-  getPositionFromValue(slObj.value, id);
-}
-
-function setLevelLimitValues(id, min, max) {
-  minVal[id] = parseInt(min);
-  maxVal[id] = parseInt(max);
-  initVal[id] = parseInt(max) < initVal[id] ? parseInt(max) : parseInt(min) > initVal[id] ? parseInt(min) : initVal[id];
-  var slObj = document.getElementById(id);
-  getPositionFromValue(slObj.value, id);
-}
-
 function getPositionFromValue(val, id) {
   var knobRect = document.getElementById("knob" + id).getBoundingClientRect();
   var pie = document.getElementById("pie" + id);

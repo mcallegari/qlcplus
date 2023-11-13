@@ -421,7 +421,6 @@ void VCSlider::setInvertedAppearance(bool invert)
     {
         m_slider->setInvertedAppearance(invert);
         m_slider->setInvertedControls(invert);
-        emit invertedAppearanceChanged();
     }
 }
 
@@ -573,7 +572,6 @@ QList <VCSlider::LevelChannel> VCSlider::levelChannels()
 void VCSlider::setLevelLowLimit(uchar value)
 {
     m_levelLowLimit = value;
-    emit levelLimitLowChanged();
 }
 
 uchar VCSlider::levelLowLimit() const
@@ -584,7 +582,6 @@ uchar VCSlider::levelLowLimit() const
 void VCSlider::setLevelHighLimit(uchar value)
 {
     m_levelHighLimit = value;
-    emit levelLimitHighChanged();
 }
 
 uchar VCSlider::levelHighLimit() const

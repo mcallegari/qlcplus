@@ -51,12 +51,6 @@ function connect() {
     } else if (msgParams[1] === "SLIDER") {
       // Slider message is <ID>|SLIDER|<SLIDER VALUE>|<DISPLAY VALUE>
       wsSetSliderValue(msgParams[0], msgParams[2], msgParams[3]);
-    } else if (msgParams[1] === "SLIDER_APPEARANCE") {
-      // Slider message is <ID>|SLIDER_APPEARANCE|<MT>|<ROTATE>|<INVERTED>
-      setInvertedAppearance(msgParams[0], msgParams[2], msgParams[3], msgParams[4]);
-    } else if (msgParams[1] === "SLIDER_LEVELLIMIT") {
-      // Slider message is <ID>|SLIDER_LEVELLIMIT|<LOW>|<HIGH>
-      setLevelLimitValues(msgParams[0], msgParams[2], msgParams[3]);
     } else if (msgParams[1] === "AUDIOTRIGGERS") {
       wsSetAudioTriggersEnabled(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "CUE") {
