@@ -1481,8 +1481,6 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
             this, SLOT(slotCueShowSideFaderPanel()));
     connect(cue, SIGNAL(sideFaderValueChanged()),
             this, SLOT(slotCueSideFaderValueChanged()));
-    connect(cue, SIGNAL(playbackLayoutChanged()),
-            this, SLOT(slotCueButtonAppearanceChanged()));
     connect(cue, SIGNAL(playbackButtonClicked()),
             this, SLOT(slotCueButtonAppearanceChanged()));
     connect(cue, SIGNAL(stopButtonClicked()),

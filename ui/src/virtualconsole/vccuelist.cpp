@@ -1062,8 +1062,6 @@ void VCCueList::setPlaybackLayout(VCCueList::PlaybackLayout layout)
     }
 
     m_playbackLayout = layout;
-
-    emit playbackLayoutChanged();
 }
 
 VCCueList::PlaybackLayout VCCueList::playbackLayout() const

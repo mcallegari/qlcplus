@@ -247,7 +247,6 @@ public:
     void setPlaybackLayout(PlaybackLayout layout);
     PlaybackLayout playbackLayout() const;
 signals:
-    void playbackLayoutChanged();
     void playbackButtonClicked();
     void stopButtonClicked();
     void buttonAppearanceChanged();
