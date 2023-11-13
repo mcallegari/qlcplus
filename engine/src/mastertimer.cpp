@@ -264,6 +264,8 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
                     removeList << i; // Don't remove the item from the list just yet.
                     functionListHasChanged = true;
                     stoppedAFunction = true;
+
+                    emit functionStopped(function->id());
                 }
             }
         }
