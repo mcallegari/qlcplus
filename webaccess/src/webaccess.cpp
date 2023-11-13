@@ -83,6 +83,10 @@ WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstanc
             this, SLOT(slotHandleWebSocketRequest(QHttpConnection*,QString)));
     connect(m_httpServer, SIGNAL(webSocketConnectionClose(QHttpConnection*)),
             this, SLOT(slotHandleWebSocketClose(QHttpConnection*)));
+    connect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)),
+            this, SLOT(slotFunctionStarted(quint32)));
+    connect(m_doc->masterTimer(), SIGNAL(functionStopped(quint32)),
+            this, SLOT(slotFunctionStopped(quint32)));
 
     m_httpServer->listen(QHostAddress::Any, portNumber ? portNumber : DEFAULT_PORT_NUMBER);
 
@@ -808,6 +812,20 @@ void WebAccess::slotHandleWebSocketClose(QHttpConnection *conn)
     }
 
     m_webSocketsList.removeOne(conn);
+}
+
+void WebAccess::slotFunctionStarted(quint32 fid)
+{
+    QString wsMessage = QString("FUNCTION|%1|Running").arg(fid);
+
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
+void WebAccess::slotFunctionStopped(quint32 fid)
+{
+    QString wsMessage = QString("FUNCTION|%1|Stopped").arg(fid);
+
+    sendWebSocketMessage(wsMessage.toUtf8());
 }
 
 bool WebAccess::sendFile(QHttpResponse *response, QString filename, QString contentType)

@@ -81,6 +81,9 @@ protected slots:
     void slotHandleWebSocketRequest(QHttpConnection *conn, QString data);
     void slotHandleWebSocketClose(QHttpConnection *conn);
 
+    void slotFunctionStarted(quint32 fid);
+    void slotFunctionStopped(quint32 fid);
+
     void slotVCLoaded();
     void slotButtonStateChanged(int state);
     void slotSliderValueChanged(QString val);
