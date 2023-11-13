@@ -50,4 +50,5 @@ coverage/
 .vscode/
 
 # CMake build
+CMakeLists.txt.user
 build*
