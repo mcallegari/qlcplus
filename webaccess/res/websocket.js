@@ -69,6 +69,8 @@ function connect() {
       setCueSideFaderValues(msgParams[0], msgParams[2], msgParams[3], msgParams[4], msgParams[5], msgParams[6], msgParams[7], msgParams[8]);
     } else if (msgParams[1] === "CUE_SHOWPANEL") {
       showSideFaderPanel(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "CUE_CHANGE") {
+      setCueButtonStyle(msgParams[0], msgParams[2], msgParams[3], msgParams[4], msgParams[5]);
     }
   };
   initVirtualConsole();

@@ -76,16 +76,6 @@ function setCueIndex(id, idx) {
 }
 
 function sendCueCmd(id, cmd) {
- if (cmd === "PLAY") {
-   var obj = document.getElementById("play" + id);
-   if (cueListsIndices[id] === "-1") {
-     obj.innerHTML = "<img src=\"player_pause.png\" width=\"27\">";
-     setCueIndex(id, "0");
-   }
-   else {
-     obj.innerHTML = "<img src=\"player_play.png\" width=\"27\">";
-   }
- }
  websocket.send(id + "|" + cmd);
 }
 
@@ -100,21 +90,12 @@ function checkMouseOut(id, idx) {
 }
 
 function enableCue(id, idx) {
- var btnObj = document.getElementById("play" + id);
- btnObj.innerHTML = "<img src=\"player_pause.png\" width=\"27\">";
  setCueIndex(id, idx);
  websocket.send(id + "|STEP|" + idx);
 }
 
 function wsSetCueIndex(id, idx) {
  setCueIndex(id, idx);
- var playObj = document.getElementById("play" + id);
- if (idx === "-1") {
-    playObj.innerHTML = "<img src=\"player_play.png\" width=\"27\">";
- }
- else {
-    playObj.innerHTML = "<img src=\"player_pause.png\" width=\"27\">";
- }
 }
 
 function setCueProgress(id, percent, text) {
@@ -132,6 +113,17 @@ function showSideFaderPanel(id, checked) {
   } else {
     progressBarObj.style.display="none";
   }
+}
+
+function setCueButtonStyle(id, playImage, playPaused, stopImage, stopPaused) {
+  var playObj = document.getElementById("play" + id);
+  var stopObj = document.getElementById("stop" + id);
+  playObj.classList.remove("vccuelistButtonPaused");
+  stopObj.classList.remove("vccuelistButtonPaused");
+  playObj.innerHTML = "<img src=\""+playImage+"\" width=\"27\">";
+  stopObj.innerHTML = "<img src=\""+stopImage+"\" width=\"27\">";
+  if (playPaused === "1") playObj.classList.add("vccuelistButtonPaused");
+  if (stopPaused === "1") stopObj.classList.add("vccuelistButtonPaused");
 }
 
 function wsShowCrossfadePanel(id) {
