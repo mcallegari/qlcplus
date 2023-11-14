@@ -1074,33 +1074,62 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
             "background-color: " + slider->backgroundColor().name() + ";" +
             getWidgetBackgroundImage(slider) + "\">\n";
 
-    str += "<div id=\"slv" + slID + "\" "
-            "class=\"vcslLabel\" style=\"top:0px;\">" +
-            slider->topLabelText() + "</div>\n";
+    str += "<div style=\"height: 100%; display: flex; flex-direction: column; justify-content: space-between; \">";
+
+    str += "<div id=\"slv" + slID + "\" class=\"vcslLabel\">" + slider->topLabelText() + "</div>\n";
+
+    int mt = slider->invertedAppearance() ? -slider->height() + 50 : slider->height() - 50;
+    int rotate = slider->invertedAppearance() ? 90 : 270;
+    int min = 0;
+    int max = 255;
+    if (slider->sliderMode() == VCSlider::Level) {
+        min = slider->levelLowLimit();
+        max = slider->levelHighLimit();
+    }
 
     str +=  "<input type=\"range\" class=\"vVertical\" "
             "id=\"" + slID + "\" "
             "oninput=\"slVchange(" + slID + ");\" ontouchmove=\"slVchange(" + slID + ");\" "
-            "style=\""
+            "style=\"display: "+(slider->widgetStyle() == VCSlider::SliderWidgetStyle::WSlider ? "block" : "none") +"; "
             "width: " + QString::number(slider->height() - 50) + "px; "
-            "margin-top: " + QString::number(slider->height() - 50) + "px; "
-            "margin-left: " + QString::number(slider->width() / 2) + "px;\" ";
+            "margin-top: " + QString::number(mt) + "px; "
+            "margin-left: " + QString::number(slider->width() / 2) + "px; "
+            "--rotate: "+QString::number(rotate)+"\" "
+            "min=\""+QString::number(min)+"\" max=\""+QString::number(max)+"\" "
+            "step=\"1\" value=\"" + QString::number(slider->sliderValue()) + "\">\n";
 
-    if (slider->sliderMode() == VCSlider::Level)
-        str += "min=\"" + QString::number(slider->levelLowLimit()) + "\" max=\"" +
-                QString::number(slider->levelHighLimit()) + "\" ";
-    else
-        str += "min=\"0\" max=\"255\" ";
+    if (slider->widgetStyle() == VCSlider::SliderWidgetStyle::WKnob) {
+        int shortSide = slider->width() > slider->height() ? slider->height() : slider->width();
+        shortSide = shortSide - 50;
+        float arcWidth = shortSide / 15;
+        float pieWidth = shortSide - (arcWidth * 2);
+        float knobWrapperWidth = pieWidth - arcWidth;
+        float knobWidth = knobWrapperWidth - (arcWidth * 3);
+        float spotWidth = knobWrapperWidth * 2 / 15;
+        if (spotWidth < 6) spotWidth = 6;
 
-    str += "step=\"1\" value=\"" + QString::number(slider->sliderValue()) + "\">\n";
+        str += "<div class=\"pieWrapper\" data=\"" + slID + "\">";
+        str += "<div class=\"pie\" id=\"pie" + slID + "\" style=\"--degValue:0;--pieWidth: "+QString::number(pieWidth)+"px;\">";
+        str += "<div class=\"knobWrapper\" id=\"knobWrapper" + slID + "\" style=\"--knobWrapperWidth: "+QString::number(knobWrapperWidth)+"px;\">";
+        str += "<div class=\"knob\" id=\"knob" + slID + "\" style=\"--knobWidth: "+QString::number(knobWidth)+"px;\">";
+        str += "<div class=\"spot\" id=\"spot" + slID + "\" style=\"--spotWidth: "+QString::number(spotWidth)+"px;\"></div>";
+        str += "</div>\n</div>\n</div>\n</div>\n";
 
-    str += "<div id=\"sln" + slID + "\" "
-            "class=\"vcslLabel\" style=\"bottom:0px;\">" +
-            slider->caption() + "</div>\n"
-            "</div>\n";
+        m_JScode += "maxVal[" + slID + "] = " + QString::number(max) + "\n";
+        m_JScode += "minVal[" + slID + "] = " + QString::number(min) + "\n";
+        m_JScode += "initVal[" + slID + "] = " + QString::number(slider->sliderValue()) + "\n";
+        m_JScode += "inverted[" + slID + "] = " + QString::number(slider->invertedAppearance()) + "\n";
+        m_JScode += "isDragging[" + slID + "] = false;\n";
+    }
+
+    str += "<div id=\"sln" + slID + "\" class=\"vcslLabel\">" +slider->caption() + "</div>";
+
+    str += "</div>\n";
+    str += "</div>\n";
 
     connect(slider, SIGNAL(valueChanged(QString)),
             this, SLOT(slotSliderValueChanged(QString)));
+
     return str;
 }
 
