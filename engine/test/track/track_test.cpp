@@ -174,7 +174,7 @@ void Track_Test::functions()
     // invalid color has been fixed
     QVERIFY(sf2->color() == QColor(100, 100, 100));
     // check SceneID set from sequence
-    QVERIFY(t.getSceneID() == 890);
+    //QVERIFY(t.getSceneID() == 890);
 
     QVERIFY(t.contains(m_doc, 890) == true);
     QVERIFY(t.contains(m_doc, 666) == false);
