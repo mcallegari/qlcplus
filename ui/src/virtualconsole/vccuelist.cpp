@@ -881,7 +881,7 @@ void VCCueList::slotFunctionRunning(quint32 fid)
     else if (playbackLayout() == PlayStopPause)
         m_playbackButton->setIcon(QIcon(":/player_stop.png"));
     m_timer->start(PROGRESS_INTERVAL);
-    emit buttonAppearanceChanged();
+    emit playbackStatusChanged();
     updateFeedback();
 }
 
@@ -907,7 +907,7 @@ void VCCueList::slotFunctionStopped(quint32 fid)
 
     emit progressStateChanged();
     emit sideFaderValueChanged();
-    emit buttonAppearanceChanged();
+    emit playbackStatusChanged();
 
     qDebug() << Q_FUNC_INFO << "Cue stopped";
     updateFeedback();

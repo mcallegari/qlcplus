@@ -1194,7 +1194,7 @@ void WebAccess::slotCueSideFaderValueChanged()
     sendWebSocketMessage(wsMessage.toUtf8());
 }
 
-void WebAccess::slotCueButtonAppearanceChanged()
+void WebAccess::slotCuePlaybackStateChanged()
 {
     VCCueList *cue = qobject_cast<VCCueList *>(sender());
     if (cue == NULL)
@@ -1482,11 +1482,11 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
     connect(cue, SIGNAL(sideFaderValueChanged()),
             this, SLOT(slotCueSideFaderValueChanged()));
     connect(cue, SIGNAL(playbackButtonClicked()),
-            this, SLOT(slotCueButtonAppearanceChanged()));
+            this, SLOT(slotCuePlaybackStateChanged()));
     connect(cue, SIGNAL(stopButtonClicked()),
-            this, SLOT(slotCueButtonAppearanceChanged()));
-    connect(cue, SIGNAL(buttonAppearanceChanged()),
-            this, SLOT(slotCueButtonAppearanceChanged()));
+            this, SLOT(slotCuePlaybackStateChanged()));
+    connect(cue, SIGNAL(playbackStatusChanged()),
+            this, SLOT(slotCuePlaybackStateChanged()));
 
     return str;
 }

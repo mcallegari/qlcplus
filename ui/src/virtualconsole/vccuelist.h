@@ -249,7 +249,7 @@ public:
 signals:
     void playbackButtonClicked();
     void stopButtonClicked();
-    void buttonAppearanceChanged();
+    void playbackStatusChanged();
 
 private:
     /** ID of the Chaser this Cue List will be controlling */
