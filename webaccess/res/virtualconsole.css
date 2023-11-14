@@ -214,17 +214,18 @@ table.hovertable td {
 }
 
 input[type="range"].vVertical {
+ --rotate: 270;
  -webkit-appearance: none;
  height: 4px;
  border: 1px solid #8E8A86;
  background-color: #888888;
- -webkit-transform:rotate(270deg);
+ -webkit-transform:rotate(calc(var(--rotate) * 1deg));
  -webkit-transform-origin: 0% 50%;
- -moz-transform:rotate(270deg);
- -o-transform:rotate(270deg);
- -ms-transform:rotate(270deg);
+ -moz-transform:rotate(calc(var(--rotate) * 1deg));
+ -o-transform:rotate(calc(var(--rotate) * 1deg));
+ -ms-transform:rotate(calc(var(--rotate) * 1deg));
  -ms-transform-origin:0% 50%;
- transform:rotate(270deg);
+ transform:rotate(calc(var(--rotate) * 1deg));
  transform-origin:0% 50%;
 }
 
@@ -275,4 +276,84 @@ input[type="range"]::-webkit-slider-thumb {
  border-radius: 3px;
  font-family: arial, verdana, sans-serif;
  font-size: 18px/1.0em;
+}
+
+@property --degValue{
+ syntax: '<number>';
+ inherits: true;
+ initial-value: 0;
+}
+
+@keyframes p {
+ from{--degValue: 0}
+}
+
+.pieWrapper {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.pie {
+ --degValue:20;
+ --pieWidth:150px;
+ --color1: lime;
+ --color2: #555;
+
+ width:var(--pieWidth);
+ height: var(--pieWidth);
+ aspect-ratio:1;
+ position:relative;
+ display:flex;
+ align-items: center;
+ justify-content: center;
+}
+
+.pie::before {
+ content:"";
+ position:absolute;
+ border-radius:50%;
+ inset:0;
+ transform: rotate(190deg);
+ background: conic-gradient(var(--color1) calc(var(--degValue) * 1deg), var(--color2) calc(var(--degValue) * 1deg) 340deg, #0000 340deg);
+}
+
+.knobWrapper {
+ --knobWrapperWidth:145px;
+
+ width:var(--knobWrapperWidth);
+ height: var(--knobWrapperWidth);
+ background-color: #aaa;
+ border-radius: 50%;
+ position: relative;
+ cursor: pointer;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+
+.knob {
+ --knobWidth:110px;
+
+ width:var(--knobWidth);
+ height: var(--knobWidth);
+ background: #bbb;
+ border-radius: 50%;
+ position: relative;
+ cursor: pointer;
+}
+
+.spot {
+ --spotWidth:15px;
+
+ width:var(--spotWidth);
+ height: var(--spotWidth);
+ background-color: #ccc;
+ border-radius: 50%;
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ cursor: pointer;
+ border: solid 1px;
 }
