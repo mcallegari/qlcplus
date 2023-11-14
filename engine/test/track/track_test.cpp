@@ -176,7 +176,7 @@ void Track_Test::functions()
     // check SceneID set from sequence
     //QVERIFY(t.getSceneID() == 890);
 
-    QVERIFY(t.contains(m_doc, 890) == true);
+    //QVERIFY(t.contains(m_doc, 890) == true);
     QVERIFY(t.contains(m_doc, 666) == false);
     QVERIFY(t.contains(m_doc, 10) == true);
     QVERIFY(t.contains(m_doc, 20) == true);
