@@ -81,27 +81,28 @@ var testAlgo;
         return algo.hlineUp;
     };
 
-    algo.rgbMap = function (width, height, rgb, step){
+    algo.rgbMap = function (width, height, rgb, step) {
         var map = new Array(height);
         for (var y = 0; y < height; y++) {
             map[y] = new Array(width);
             for (var x = 0; x < width; x++) {
-                if (algo.hlinePlace === 0) {
-                    map[y - algo.hlineUp][0] = (y >= algo.hlinePixels) ? rgb: 0;
-                } else if (algo.hlinePlace === 1) {
-                    map[y - algo.hlineUp][width - 1] = (y >= algo.hlinePixels) ? rgb : 0;
-                } else if (algo.hlinePlace === 2) {
-                    map[y - algo.hlineUp][algo.hlineCustom - 1] = (y >= algo.hlinePixels) ? rgb: 0;
-                } else {
-                    map[y][x] = 0;
-                }}}
-    
+                var yUp = y - algo.hlineUp;
+                if (yUp >= 0 && yUp < height) {
+                    if (algo.hlinePlace === 0) { // left
+                        map[yUp][0] = (y >= algo.hlinePixels) && rgb; 
+                    } else if (algo.hlinePlace === 1) { // right
+                        map[yUp][width - 1] = (y >= algo.hlinePixels) && rgb; 
+                    } else if (algo.hlinePlace === 2) { // custom
+                        map[yUp][algo.hlineCustom - 1] = (y >= algo.hlinePixels) && rgb; 
+                    } else {
+                        map[yUp][x] = 0;
+                    }}}}
         return map;
     };
 
     algo.rgbMapStepCount = function(width, height)
     {
-      return width;
+      return height;
     };
 
 

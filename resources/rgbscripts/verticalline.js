@@ -88,14 +88,14 @@ var testAlgo;
         {
             map[y] = new Array(width);
             } 
-            for (var x = 0 + algo.vlinePixels; x < width; x++)
+            for (var x = 0 + algo.vlinePixels; x < width; x++){
                 if(algo.vlinePlace === 0){
                     map[0][x - algo.vlineRight] = rgb;
                 }else if (algo.vlinePlace === 1){
                     map[y-1][x - algo.vlineRight] = rgb;
                 }else if(algo.vlinePlace === 2){
                     map[algo.vlineCustom - 1][x - algo.vlineRight] = rgb;
-                 }else{map[y][x]=0}
+                 }else{map[y][x]=0}}
                  
 return map;
     };
