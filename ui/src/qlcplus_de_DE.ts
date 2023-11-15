@@ -1725,76 +1725,76 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="customfeedbackdialog.ui" line="14"/>
         <source>Custom Feedback Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigene Feedback-Konfiguration</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="21"/>
         <source>Value</source>
-        <translation type="unfinished">Wert</translation>
+        <translation>Wert</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="26"/>
         <source>Label</source>
-        <translation type="unfinished">Beschriftung</translation>
+        <translation>Beschriftung</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="31"/>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="45"/>
         <source>Values</source>
-        <translation type="unfinished">Werte</translation>
+        <translation>Werte</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="56"/>
         <source>Lower Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Unterer Wert</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="82"/>
         <source>Monitor Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Monitor Wert</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="94"/>
         <source>Upper Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Oberer Wert</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="114"/>
         <location filename="customfeedbackdialog.ui" line="124"/>
         <location filename="customfeedbackdialog.ui" line="134"/>
         <source>Color Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Farb-Auswahl</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="170"/>
         <source>MIDI Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>MIDI Kanal</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="176"/>
         <source>Upper Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Oberer Kanal</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="189"/>
         <source>Lower Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Unterer Kanal</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="209"/>
         <source>Monitor Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Monitor Kanal</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.cpp" line="90"/>
         <location filename="customfeedbackdialog.cpp" line="91"/>
         <location filename="customfeedbackdialog.cpp" line="92"/>
         <source>From plugin settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Von Plugin-Einstellungen</translation>
     </message>
 </context>
 <context>
@@ -2294,13 +2294,13 @@ Changes will be lost if you don&apos;t save them.</source>
         <location filename="fixturemanager.cpp" line="913"/>
         <source>Move channel group up...</source>
         <oldsource>Move group up...</oldsource>
-        <translation type="unfinished">Gruppe aufwärts verschieben...</translation>
+        <translation>Gruppe aufwärts verschieben...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="919"/>
         <source>Move channel group down...</source>
         <oldsource>Move group down...</oldsource>
-        <translation type="unfinished">Gruppe abwärts verschieben...</translation>
+        <translation>Gruppe abwärts verschieben...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="925"/>
@@ -3588,7 +3588,7 @@ Bitte in der Plugindokumentation nachlesen um den Fehler zu beheben.</translatio
     <message>
         <location filename="inputprofileeditor.ui" line="134"/>
         <source>Input Mapping</source>
-        <translation type="unfinished"></translation>
+        <translation>Eingangs-Mapping</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="140"/>
@@ -3629,52 +3629,52 @@ Bitte in der Plugindokumentation nachlesen um den Fehler zu beheben.</translatio
         <location filename="inputprofileeditor.ui" line="398"/>
         <location filename="inputprofileeditor.cpp" line="692"/>
         <source>MIDI channel</source>
-        <translation type="unfinished"></translation>
+        <translation>MIDI Kanal</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="412"/>
         <source>Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Farben</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="418"/>
         <source>Remove the selected color</source>
-        <translation type="unfinished"></translation>
+        <translation>Markierte Farbe löschen</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="438"/>
         <source>Add a new color</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Farbe hinzufügen</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="472"/>
         <source>Value</source>
-        <translation type="unfinished">Wert</translation>
+        <translation>Wert</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="477"/>
         <source>Label</source>
-        <translation type="unfinished">Beschriftung</translation>
+        <translation>Beschriftung</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="482"/>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="491"/>
         <source>MIDI Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>MIDI Kanäle</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="497"/>
         <source>Add a new MIDI channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuen MIDI Kanal hinzufügen</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="517"/>
         <source>Remove the selected MIDI channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Markierten MIDI Kanal löschen</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="371"/>
@@ -3719,7 +3719,7 @@ Bitte in der Plugindokumentation nachlesen um den Fehler zu beheben.</translatio
     <message>
         <location filename="inputprofileeditor.cpp" line="226"/>
         <source>From plugin settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Von Plugin-Einstellungen</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="338"/>
@@ -3770,28 +3770,28 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <location filename="inputprofileeditor.cpp" line="666"/>
         <location filename="inputprofileeditor.cpp" line="692"/>
         <source>Enter value</source>
-        <translation type="unfinished"></translation>
+        <translation>Wert eingeben</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="666"/>
         <source>Feedback value</source>
-        <translation type="unfinished"></translation>
+        <translation>Rückmeldungs Wert</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="672"/>
         <location filename="inputprofileeditor.cpp" line="696"/>
         <source>Enter label</source>
-        <translation type="unfinished"></translation>
+        <translation>Beschriftung eingeben</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="672"/>
         <source>Color label</source>
-        <translation type="unfinished"></translation>
+        <translation>Farb Beschriftung</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="696"/>
         <source>MIDI channel label</source>
-        <translation type="unfinished"></translation>
+        <translation>MIDI Kanal Beschriftung</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="738"/>
@@ -5846,12 +5846,12 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="83"/>
         <source>Override priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Priorität überschreiben</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="90"/>
         <source>Force LTP</source>
-        <translation type="unfinished"></translation>
+        <translation>LTP erzwingen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="99"/>
@@ -6855,7 +6855,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcslider.cpp" line="1060"/>
         <source>Flash Function</source>
-        <translation type="unfinished"></translation>
+        <translation>Funktion flashen</translation>
     </message>
 </context>
 <context>
@@ -7106,7 +7106,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="527"/>
         <source>Flash Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Flash Knopf</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="550"/>
