@@ -63,9 +63,12 @@ public:
         None                 = 0,
         ShowSlider           = 1 << 0,
         ShowLabel            = 1 << 1,
-        ShowStartColorButton = 1 << 2,
-        ShowEndColorButton   = 1 << 3,
-        ShowPresetCombo      = 1 << 4,
+        ShowPresetCombo      = 1 << 2,
+        ShowColor1Button     = 1 << 3,
+        ShowColor2Button     = 1 << 4,
+        ShowColor3Button     = 1 << 5,
+        ShowColor4Button     = 1 << 6,
+        ShowColor5Button     = 1 << 7
     };
 
 public:
@@ -86,10 +89,16 @@ private:
     ClickAndGoSlider *m_slider;
     bool m_sliderExternalMovement;
     QLabel *m_label;
-    QToolButton *m_startColorButton;
-    ClickAndGoWidget *m_scCnGWidget;
-    QToolButton *m_endColorButton;
-    ClickAndGoWidget *m_ecCnGWidget;
+    QToolButton *m_mtxColorButton1;
+    ClickAndGoWidget *m_mtxCnGWidget1;
+    QToolButton *m_mtxColorButton2;
+    ClickAndGoWidget *m_mtxCnGWidget2;
+    QToolButton *m_mtxColorButton3;
+    ClickAndGoWidget *m_mtxCnGWidget3;
+    QToolButton *m_mtxColorButton4;
+    ClickAndGoWidget *m_mtxCnGWidget4;
+    QToolButton *m_mtxColorButton5;
+    ClickAndGoWidget *m_mtxCnGWidget5;
     QComboBox *m_presetCombo;
     FlowLayout *m_controlsLayout;
 
@@ -114,8 +123,11 @@ public:
 
 private slots:
     void slotSliderMoved(int value);
-    void slotStartColorChanged(QRgb color);
-    void slotEndColorChanged(QRgb color);
+    void slotColorChanged1(QRgb color);
+    void slotColorChanged2(QRgb color);
+    void slotColorChanged3(QRgb color);
+    void slotColorChanged4(QRgb color);
+    void slotColorChanged5(QRgb color);
     void slotAnimationChanged(QString name);
 
     /*********************************************************************

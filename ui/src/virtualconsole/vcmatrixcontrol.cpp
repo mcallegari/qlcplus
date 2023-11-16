@@ -94,15 +94,24 @@ VCMatrixControl::WidgetType VCMatrixControl::widgetType() const
 {
     switch(m_type)
     {
-        case StartColor:
-        case EndColor:
+        case Color1:
+        case Color2:
+        case Color3:
+        case Color4:
+        case Color5:
         case Animation:
         case Image:
         case Text:
-        case ResetEndColor:
+        case ResetColor2:
+        case ResetColor3:
+        case ResetColor4:
+        case ResetColor5:
             return Button;
-        case StartColorKnob:
-        case EndColorKnob:
+        case Color1Knob:
+        case Color2Knob:
+        case Color3Knob:
+        case Color4Knob:
+        case Color5Knob:
             return Knob;
     }
 
@@ -115,30 +124,48 @@ QString VCMatrixControl::typeToString(VCMatrixControl::ControlType type)
 {
     switch(type)
     {
-        case StartColor: return "StartColor"; break;
-        case EndColor: return "EndColor"; break;
-        case ResetEndColor: return "ResetEndColor"; break;
+        case Color1: return "Color1"; break;
+        case Color2: return "Color2"; break;
+        case Color3: return "Color3"; break;
+        case Color4: return "Color4"; break;
+        case Color5: return "Color5"; break;
+        case ResetColor2: return "ResetColor2"; break;
+        case ResetColor3: return "ResetColor3"; break;
+        case ResetColor4: return "ResetColor4"; break;
+        case ResetColor5: return "ResetColor5"; break;
         case Animation: return "Animation"; break;
         case Image: return "Image"; break;
         case Text: return "Text"; break;
-        case StartColorKnob: return "StartColorKnob"; break;
-        case EndColorKnob: return "EndColorKnob"; break;
+        case Color1Knob: return "Color1Knob"; break;
+        case Color2Knob: return "Color2Knob"; break;
+        case Color3Knob: return "Color3Knob"; break;
+        case Color4Knob: return "Color4Knob"; break;
+        case Color5Knob: return "Color5Knob"; break;
     }
     return QString();
 }
 
 VCMatrixControl::ControlType VCMatrixControl::stringToType(QString str)
 {
-    if (str == "StartColor") return StartColor;
-    else if (str == "EndColor") return EndColor;
-    else if (str == "ResetEndColor") return ResetEndColor;
+    if (str == "Color1") return Color1;
+    else if (str == "Color2") return Color2;
+    else if (str == "Color3") return Color3;
+    else if (str == "Color4") return Color4;
+    else if (str == "Color5") return Color5;
+    else if (str == "ResetColor2") return ResetColor2;
+    else if (str == "ResetColor3") return ResetColor3;
+    else if (str == "ResetColor4") return ResetColor4;
+    else if (str == "ResetColor5") return ResetColor5;
     else if (str == "Animation") return Animation;
     else if (str == "Image") return Image;
     else if (str == "Text") return Text;
-    else if (str == "StartColorKnob") return StartColorKnob;
-    else if (str == "EndColorKnob") return EndColorKnob;
+    else if (str == "Color1Knob") return Color1Knob;
+    else if (str == "Color2Knob") return Color2Knob;
+    else if (str == "Color3Knob") return Color3Knob;
+    else if (str == "Color4Knob") return Color4Knob;
+    else if (str == "Color5Knob") return Color5Knob;
     else
-        return StartColor;
+        return Color1;
 }
 
 bool VCMatrixControl::operator<(VCMatrixControl const& right) const
@@ -219,7 +246,16 @@ bool VCMatrixControl::saveXML(QXmlStreamWriter *doc)
 
     doc->writeTextElement(KXMLQLCVCMatrixControlType, typeToString(m_type));
 
-    if (m_type == StartColor || m_type == EndColor || m_type == StartColorKnob || m_type == EndColorKnob)
+    if (m_type == Color1
+    		|| m_type == Color2
+			|| m_type == Color3
+			|| m_type == Color4
+			|| m_type == Color5
+			|| m_type == Color1Knob
+			|| m_type == Color2Knob
+			|| m_type == Color3Knob
+			|| m_type == Color4Knob
+			|| m_type == Color5Knob)
     {
         doc->writeTextElement(KXMLQLCVCMatrixControlColor, m_color.name());
     }

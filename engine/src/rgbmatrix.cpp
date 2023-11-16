@@ -281,10 +281,13 @@ void RGBMatrix::previewMap(int step, RGBMatrixStep *handler)
         m_group = doc()->fixtureGroup(fixtureGroup());
 
     if (m_group != NULL) {
-        Q_ASSERT(2 == RGBAlgorithmRawColorCount);
+        Q_ASSERT(5 == RGBAlgorithmRawColorCount);
         uint rawColors[] = {
-            m_rgbColors[0].rgb(),
-            m_rgbColors[1].isValid() ? m_rgbColors[1].rgb() : 0};
+            m_rgbColors[0].rgb()
+            ,m_rgbColors[1].isValid() ? m_rgbColors[1].rgb() : 0
+            ,m_rgbColors[2].isValid() ? m_rgbColors[2].rgb() : 0
+            ,m_rgbColors[3].isValid() ? m_rgbColors[3].rgb() : 0
+            ,m_rgbColors[4].isValid() ? m_rgbColors[4].rgb() : 0};
         m_algorithm->rgbMap(m_group->size(), handler->stepColor().rgb(), step, handler->m_map, rawColors);
     }
 }
@@ -394,7 +397,7 @@ bool RGBMatrix::loadXML(QXmlStreamReader &root)
         {
             loadXMLRunOrder(root);
         }
-#if (2 != RGBAlgorithmRawColorCount)
+#if (5 != RGBAlgorithmRawColorCount)
 #error "Further colors need to be read."
 #endif
         else if (root.name() == KXMLQLCRGBMatrixStartColor)
@@ -463,7 +466,7 @@ bool RGBMatrix::saveXML(QXmlStreamWriter *doc)
     /* End Color */
     if (getColor(1).isValid())
         doc->writeTextElement(KXMLQLCRGBMatrixEndColor, QString::number(getColor(1).rgb()));
-#if (2 != RGBAlgorithmRawColorCount)
+#if (5 != RGBAlgorithmRawColorCount)
 #error "Further colors need to be written."
 #endif
 
@@ -573,10 +576,13 @@ void RGBMatrix::write(MasterTimer *timer, QList<Universe *> universes)
                 if (tempoType() == Beats)
                     m_stepBeatDuration = beatsToTime(duration(), timer->beatTimeDuration());
 
-                Q_ASSERT(2 == RGBAlgorithmRawColorCount);
+                Q_ASSERT(5 == RGBAlgorithmRawColorCount);
                 uint rawColors[] = {
                     m_rgbColors[0].rgb()
-                    ,m_rgbColors[1].isValid() ? m_rgbColors[1].rgb() : 0};
+                    ,m_rgbColors[1].isValid() ? m_rgbColors[1].rgb() : 0
+                    ,m_rgbColors[2].isValid() ? m_rgbColors[2].rgb() : 0
+                    ,m_rgbColors[3].isValid() ? m_rgbColors[3].rgb() : 0
+                    ,m_rgbColors[4].isValid() ? m_rgbColors[4].rgb() : 0};
                 //qDebug() << "RGBMatrix step" << m_stepHandler->currentStepIndex() << ", color:" << QString::number(m_stepHandler->stepColor().rgb(), 16);
                 m_algorithm->rgbMap(m_group->size(), m_stepHandler->stepColor().rgb(),
                                     m_stepHandler->currentStepIndex(), m_stepHandler->m_map, rawColors);

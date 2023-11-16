@@ -42,7 +42,7 @@
    <property name="spacing">
     <number>5</number>
    </property>
-   <item row="2" column="0" colspan="3">
+   <item row="2" column="0" colspan="4">
     <widget class="QGraphicsView" name="m_preview"/>
    </item>
    <item row="2" column="3" rowspan="3">
@@ -68,10 +68,10 @@
         <property name="verticalSpacing">
          <number>4</number>
         </property>
-        <item row="5" column="0">
-         <widget class="QPushButton" name="m_startColorButton">
+        <item row="5" column="0" colspan="2">
+         <widget class="QPushButton" name="m_mtxColor1Button">
           <property name="toolTip">
-           <string>Matrix start color</string>
+           <string>Matrix color 1</string>
           </property>
           <property name="iconSize">
            <size>
@@ -82,9 +82,9 @@
          </widget>
         </item>
         <item row="5" column="1">
-         <widget class="QPushButton" name="m_endColorButton">
+         <widget class="QPushButton" name="m_mtxColor2Button">
           <property name="toolTip">
-           <string>Matrix end color</string>
+           <string>Matrix color 2</string>
           </property>
           <property name="text">
            <string/>
@@ -97,15 +97,8 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="0" colspan="3">
-         <widget class="QComboBox" name="m_patternCombo">
-          <property name="toolTip">
-           <string>The RGB matrix pattern</string>
-          </property>
-         </widget>
-        </item>
         <item row="5" column="2">
-         <widget class="QToolButton" name="m_resetEndColorButton">
+         <widget class="QToolButton" name="m_resetMtxColor2Button">
           <property name="toolTip">
            <string>Reset the end color</string>
           </property>
@@ -115,7 +108,89 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1" colspan="2">
+        <item row="6" column="0">
+         <widget class="QPushButton" name="m_mtxColor3Button">
+          <property name="toolTip">
+           <string>Matrix color 3</string>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>26</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QToolButton" name="m_resetMtxColor3Button">
+          <property name="toolTip">
+           <string>Reset the end color</string>
+          </property>
+          <property name="icon">
+           <iconset resource="qlcui.qrc">
+            <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="2">
+         <widget class="QPushButton" name="m_mtxColor4Button">
+          <property name="toolTip">
+           <string>Matrix color 4</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>26</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="3">
+         <widget class="QToolButton" name="m_resetMtxColor4Button">
+          <property name="toolTip">
+           <string>Reset the end color</string>
+          </property>
+          <property name="icon">
+           <iconset resource="qlcui.qrc">
+            <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0">
+         <widget class="QPushButton" name="m_mtxColor5Button">
+          <property name="toolTip">
+           <string>Matrix color 5</string>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>26</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="2">
+         <widget class="QToolButton" name="m_resetMtxColor5Button">
+          <property name="toolTip">
+           <string>Reset the end color</string>
+          </property>
+          <property name="icon">
+           <iconset resource="qlcui.qrc">
+            <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="4">
+         <widget class="QComboBox" name="m_patternCombo">
+          <property name="toolTip">
+           <string>The RGB matrix pattern</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1" colspan="3">
          <widget class="QComboBox" name="m_blendModeCombo">
           <item>
            <property name="text">
@@ -153,7 +228,7 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="1" colspan="2">
+        <item row="2" column="1" colspan="3">
          <widget class="QComboBox" name="m_controlModeCombo">
           <item>
            <property name="text">
@@ -311,7 +386,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0" colspan="2">
+        <item row="1" column="0" colspan="3">
          <widget class="QComboBox" name="m_imageAnimationCombo"/>
         </item>
        </layout>
@@ -421,7 +496,7 @@
      </layout>
     </widget>
    </item>
-   <item row="0" column="0" colspan="4">
+   <item row="0" column="0" colspan="5">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QLabel" name="m_nameLabel">
@@ -451,7 +526,7 @@
      </item>
     </layout>
    </item>
-   <item row="1" column="0" colspan="4">
+   <item row="1" column="0" colspan="5">
     <layout class="QHBoxLayout" name="horizontalLayout_4">
      <item>
       <widget class="QToolButton" name="m_speedDialButton">
@@ -561,7 +636,7 @@
      </item>
     </layout>
    </item>
-   <item row="3" column="0" rowspan="2" colspan="3">
+   <item row="3" column="0" rowspan="2" colspan="4">
     <layout class="QGridLayout" name="gridLayout_6">
      <item row="0" column="0">
       <widget class="QGroupBox" name="m_runOrderGroup">

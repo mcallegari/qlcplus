@@ -152,20 +152,41 @@
           </widget>
          </item>
          <item row="6" column="0" colspan="4">
-          <widget class="QCheckBox" name="m_startColorButtonCheck">
+          <widget class="QCheckBox" name="m_mtxColor1ButtonCheck">
            <property name="text">
-            <string>Show Start Color Button</string>
+            <string>Show Color 1 Button</string>
            </property>
           </widget>
          </item>
          <item row="7" column="0" colspan="4">
-          <widget class="QCheckBox" name="m_endColorButtonCheck">
+          <widget class="QCheckBox" name="m_mtxColor2ButtonCheck">
            <property name="text">
-            <string>Show End Color Button</string>
+            <string>Show Color 2 Button</string>
            </property>
           </widget>
          </item>
          <item row="8" column="0" colspan="4">
+          <widget class="QCheckBox" name="m_mtxColor3ButtonCheck">
+           <property name="text">
+            <string>Show Color 3 Button</string>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="0" colspan="4">
+          <widget class="QCheckBox" name="m_mtxColor4ButtonCheck">
+           <property name="text">
+            <string>Show Color 4 Button</string>
+           </property>
+          </widget>
+         </item>
+         <item row="10" column="0" colspan="4">
+          <widget class="QCheckBox" name="m_mtxColor5ButtonCheck">
+           <property name="text">
+            <string>Show Color 5 Button</string>
+           </property>
+          </widget>
+         </item>
+         <item row="11" column="0" colspan="4">
           <widget class="QCheckBox" name="m_presetComboCheck">
            <property name="text">
             <string>Show Preset Combo</string>
@@ -276,9 +297,42 @@
        <item>
         <layout class="QGridLayout" name="gridLayout_5">
          <item row="3" column="2">
-          <widget class="QPushButton" name="m_addEndColorKnobsButton">
+          <widget class="QPushButton" name="m_addMtxColor2KnobsButton">
            <property name="text">
-            <string> Add end color knobs</string>
+            <string> Add color 2 knobs</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../qlcui.qrc">
+             <normaloff>:/knob.png</normaloff>:/knob.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="3">
+          <widget class="QPushButton" name="m_addMtxColor3KnobsButton">
+           <property name="text">
+            <string> Add color 3 knobs</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../qlcui.qrc">
+             <normaloff>:/knob.png</normaloff>:/knob.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="4">
+          <widget class="QPushButton" name="m_addMtxColor4KnobsButton">
+           <property name="text">
+            <string> Add color 4 knobs</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../qlcui.qrc">
+             <normaloff>:/knob.png</normaloff>:/knob.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="5">
+          <widget class="QPushButton" name="m_addMtxColor5KnobsButton">
+           <property name="text">
+            <string> Add color 5 knobs</string>
            </property>
            <property name="icon">
             <iconset resource="../qlcui.qrc">
@@ -332,7 +386,40 @@
           <layout class="QVBoxLayout" name="m_presetInputLayout"/>
          </item>
          <item row="4" column="2">
-          <widget class="QPushButton" name="m_addEndColorResetButton">
+          <widget class="QPushButton" name="m_addMtxColor2ResetButton">
+           <property name="text">
+            <string> Add end color reset</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../qlcui.qrc">
+             <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="2">
+          <widget class="QPushButton" name="m_addMtxColor3ResetButton">
+           <property name="text">
+            <string> Add end color reset</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../qlcui.qrc">
+             <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="2">
+          <widget class="QPushButton" name="m_addMtxColor4ResetButton">
+           <property name="text">
+            <string> Add end color reset</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../qlcui.qrc">
+             <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="2">
+          <widget class="QPushButton" name="m_addMtxColor5ResetButton">
            <property name="text">
             <string> Add end color reset</string>
            </property>
@@ -354,7 +441,7 @@
           </widget>
          </item>
          <item row="0" column="2">
-          <widget class="QPushButton" name="m_addStartColorButton">
+          <widget class="QPushButton" name="m_addMtxColor1Button">
            <property name="text">
             <string> Add start color</string>
            </property>
@@ -365,7 +452,7 @@
           </widget>
          </item>
          <item row="1" column="2">
-          <widget class="QPushButton" name="m_addStartColorKnobsButton">
+          <widget class="QPushButton" name="m_addMtxColor1KnobsButton">
            <property name="text">
             <string> Add start color knobs</string>
            </property>
@@ -376,7 +463,40 @@
           </widget>
          </item>
          <item row="2" column="2">
-          <widget class="QPushButton" name="m_addEndColorButton">
+          <widget class="QPushButton" name="m_addMtxColor2Button">
+           <property name="text">
+            <string> Add end color</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../qlcui.qrc">
+             <normaloff>:/color.png</normaloff>:/color.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="2">
+          <widget class="QPushButton" name="m_addMtxColor3Button">
+           <property name="text">
+            <string> Add end color</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../qlcui.qrc">
+             <normaloff>:/color.png</normaloff>:/color.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="2">
+          <widget class="QPushButton" name="m_addMtxColor4Button">
+           <property name="text">
+            <string> Add end color</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../qlcui.qrc">
+             <normaloff>:/color.png</normaloff>:/color.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="2">
+          <widget class="QPushButton" name="m_addMtxColor5Button">
            <property name="text">
             <string> Add end color</string>
            </property>
