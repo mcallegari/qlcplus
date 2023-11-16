@@ -59,6 +59,8 @@ function connect() {
       wsUpdateClockTime(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "FRAME") {
       setFramePage(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "FRAME_DISABLE") {
+      setFrameDisableState(msgParams[0], msgParams[2]);
     } else if (msgParams[0] === "ALERT") {
       alert(msgParams[1]);
     } else if (msgParams[1] === "CUE_PROGRESS") {

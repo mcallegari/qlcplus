@@ -95,6 +95,7 @@ protected slots:
     void slotCuePlaybackStateChanged();
     void slotClockTimeChanged(quint32 time);
     void slotFramePageChanged(int pageNum);
+    void slotFrameDisableStateChanged(bool disable);
 
 protected:
     QString m_JScode;
