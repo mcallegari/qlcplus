@@ -393,3 +393,138 @@ function wsUpdateClockTime(id, time) {
  var timeString = hmsToString(h, m, s);
  obj.innerHTML = timeString;
 }
+
+/* VCMatrix */
+var matrixID = 0;
+var m_isDragging = new Array();
+var m_initVal = new Array();
+var m_selectedID = 0;
+
+function hexToUint(color) {
+  color = color.replace('#', '');
+  var intValue = parseInt(color, 16);
+  return intValue;
+}
+function matrixSliderValueChange(id) {
+  var slObj = document.getElementById("msl" + id);
+  var sldMsg = id + "|MATRIX_SLIDER_CHANGE|" + slObj.value;
+  websocket.send(sldMsg);
+}
+
+function setMatrixSliderValue(id, sliderValue) {
+  var slObj = document.getElementById("msl" + id);
+  slObj.value = sliderValue;
+}
+
+function matrixComboChanged(id) {
+  var combo = document.querySelector("#mcb" + id);
+  var mcbMsg = id + "|MATRIX_COMBO_CHANGE|" + combo.value;
+  websocket.send(mcbMsg);
+}
+
+function setMatrixComboValue(id, comboValue) {
+  var combo = document.querySelector("#mcb" + id);
+  combo.value = comboValue;
+}
+
+function matrixStartColorChange(id) {
+  var colorObj = document.querySelector("#msc" + id);
+  var colorMsg = id + "|MATRIX_COLOR_CHANGE|START|" + hexToUint(colorObj.value);
+    console.log(colorMsg);
+  websocket.send(colorMsg);
+}
+
+function setMatrixStartColorValue(id, color) {
+  var combo = document.querySelector("#msc" + id);
+  combo.value = color;
+}
+
+function matrixEndColorChange(id) {
+  var colorObj = document.querySelector("#mec" + id);
+  var colorMsg = id + "|MATRIX_COLOR_CHANGE|END|" + hexToUint(colorObj.value);
+  websocket.send(colorMsg);
+}
+
+function setMatrixEndColorValue(id, color) {
+  var combo = document.querySelector("#mec" + id);
+  combo.value = color;
+}
+
+function getPositionFromValueForMatrix(val, id) {
+  var mknobRect = document.getElementById("mknob" + id).getBoundingClientRect();
+  var mpie = document.getElementById("mpie" + id);
+  var mspot = document.getElementById("mspot" + id);
+  if (!mknobRect || !mpie || !mspot) return;
+  var mknobRadius = mknobRect.width / 2;
+  var angle = (340 * val / 255) % 360;
+  var posX = Math.cos((angle - 260) * Math.PI / 180) * mknobRadius;
+  var posY = Math.sin((angle - 260) * Math.PI / 180) * mknobRadius;
+  mspot.style.transform = `translate(-50%, -50%) translate(${Math.round(posX)}px, ${Math.round(posY)}px)`;
+  mpie.style.setProperty('--degValue', Math.round(angle));
+}
+
+function onMouseMoveForMatrix(e) {
+  if (m_isDragging[m_selectedID]) {
+    mpie = document.getElementById("mpie" + m_selectedID);
+    mknob = document.getElementById("mknob" + m_selectedID);
+    mspot = document.getElementById("mspot" + m_selectedID);
+    var mknobRect = mknob.getBoundingClientRect();
+
+    var mknobCenterX = mknobRect.left + mknobRect.width / 2;
+    var mknobCenterY = mknobRect.top + mknobRect.height / 2;
+    var mknobRadius = mknobRect.width / 2;
+
+    var deltaX = e.clientX - mknobCenterX;
+    var deltaY = e.clientY - mknobCenterY;
+    var distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+    var newPosX = deltaX * mknobRadius / distance;
+    var newPosY = deltaY * mknobRadius / distance;
+    var angle = Math.atan2(deltaY, deltaX);
+
+
+    var angleDegrees = (angle * 180) / Math.PI;
+    var normalizedAngle = (angleDegrees + 260 + 360) % 360; // Adjust for initial rotation and make sure it's positive
+    var newValue = Math.round((normalizedAngle / 360) * (255 * 18 / 17)) + 0;
+    if (newValue >= 0 && newValue <= 255) {
+      mspot.style.transform = `translate(-50%, -50%) translate(${newPosX}px, ${newPosY}px)`;
+      mpie.style.setProperty('--degValue', normalizedAngle);
+      websocket.send(matrixID + "|MATRIX_KNOB|" + m_selectedID + "|" + newValue);
+    }
+  }
+}
+
+function onMouseUpForMatrix() {
+  m_isDragging[m_selectedID] = false;
+  var mknob = document.getElementById("mknob" + m_selectedID);
+  mknob.style.transition = "transform 0.2s ease";
+  document.removeEventListener("mousemove", onMouseMoveForMatrix);
+  document.removeEventListener("mouseup", onMouseUpForMatrix);
+  document.removeEventListener("mousedown", onMouseMoveForMatrix);
+}
+
+// Initial position
+window.addEventListener("load", (event) => {
+  var mpieWrapper = document.querySelectorAll(".mpieWrapper");
+  mpieWrapper.forEach(function(item) {
+    item.addEventListener("mousedown", () => {
+      m_selectedID = item.getAttribute("data");
+      m_isDragging[m_selectedID] = true;
+      var mknob = document.getElementById("mknob" + m_selectedID);
+      mknob.style.transition = "none";
+      document.addEventListener("mousemove", onMouseMoveForMatrix);
+      document.addEventListener("mouseup", onMouseUpForMatrix);
+      document.addEventListener("mousedown", onMouseMoveForMatrix);
+    });
+    getPositionFromValueForMatrix(m_initVal[item.getAttribute("data")], item.getAttribute("data"));
+  });
+});
+
+function setMatrixControlKnobValue(controlID, value) {
+  getPositionFromValueForMatrix(parseInt(value), parseInt(controlID));
+}
+
+function wcMatrixPushButtonClicked(controlID) {
+  var matMsg = matrixID + "|MATRIX_PUSHBUTTON|" + controlID;
+  websocket.send(matMsg);
+}
