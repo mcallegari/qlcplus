@@ -22,6 +22,7 @@
 
 #include <QObject>
 
+class Doc;
 class ShowFunction;
 
 class Track_Test : public QObject
@@ -35,9 +36,11 @@ private slots:
     void mute();
     void showFunctions();
     void load();
+    void functions();
     void save();
 
 private:
+    Doc *m_doc;
     ShowFunction *m_showFunc;
 };
 

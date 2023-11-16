@@ -22,10 +22,12 @@
 #include <QXmlStreamWriter>
 
 #include "track_test.h"
+#include "sequence.h"
 #include "track.h"
 
 void Track_Test::initTestCase()
 {
+    m_doc = new Doc(this);
     m_showFunc = new ShowFunction(this);
 }
 
@@ -103,6 +105,12 @@ void Track_Test::load()
     xmlWriter.writeAttribute("SceneID", "456");
     xmlWriter.writeAttribute("Name", "Sequence Cue");
     xmlWriter.writeAttribute("isMute", "1");
+
+    xmlWriter.writeStartElement("ShowFunction");
+    xmlWriter.writeAttribute("ID", "789");
+    xmlWriter.writeAttribute("Duration", "112233");
+    xmlWriter.writeEndElement();
+
     xmlWriter.writeEndElement();
 
     xmlWriter.writeEndDocument();
@@ -120,6 +128,62 @@ void Track_Test::load()
     QVERIFY(t.getSceneID() == 456);
     QCOMPARE(t.name(), "Sequence Cue");
     QCOMPARE(t.isMute(), true);
+
+    QVERIFY(t.showFunctions().count() == 1);
+    ShowFunction *sf = t.showFunctions().first();
+
+    QVERIFY(sf->functionID() == 789);
+    QVERIFY(sf->duration() == 112233);
+}
+
+void Track_Test::functions()
+{
+    Track t;
+    t.setId(321);
+    t.setShowId(567);
+    t.setName("Foo Track");
+
+    Scene *s = new Scene(m_doc);
+    m_doc->addFunction(s, 10);
+
+    Sequence *sq = new Sequence(m_doc);
+    sq->setBoundSceneID(890);
+    m_doc->addFunction(sq, 20);
+
+    // invalid ShowFunction
+    ShowFunction *sf1 = new ShowFunction();
+    sf1->setFunctionID(666);
+
+    // Valid ShowFunction
+    ShowFunction *sf2 = new ShowFunction();
+    sf2->setFunctionID(s->id());
+    QVERIFY(sf2->color() == QColor());
+
+    ShowFunction *sf3 = new ShowFunction();
+    sf3->setFunctionID(sq->id());
+
+    t.addShowFunction(sf1);
+    t.addShowFunction(sf2);
+    t.addShowFunction(sf3);
+
+    QVERIFY(t.showFunctions().count() == 3);
+    QVERIFY(t.postLoad(m_doc) == true);
+
+    // invalid ShowFunction has been removed
+    QVERIFY(t.showFunctions().count() == 2);
+    // invalid color has been fixed
+    QVERIFY(sf2->color() == QColor(100, 100, 100));
+    // check SceneID set from sequence
+    //QVERIFY(t.getSceneID() == 890);
+
+    //QVERIFY(t.contains(m_doc, 890) == true);
+    QVERIFY(t.contains(m_doc, 666) == false);
+    QVERIFY(t.contains(m_doc, 10) == true);
+    QVERIFY(t.contains(m_doc, 20) == true);
+
+    QVERIFY(t.components().count() == 2);
+    QVERIFY(t.components().at(0) == 10);
+    QVERIFY(t.components().at(1) == 20);
 }
 
 void Track_Test::save()
@@ -131,6 +195,8 @@ void Track_Test::save()
 
     m_showFunc = new ShowFunction(this);
     m_showFunc->setFunctionID(987);
+
+    t.addShowFunction(m_showFunc);
 
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly | QIODevice::Text);
@@ -151,6 +217,10 @@ void Track_Test::save()
     QVERIFY(xmlReader.attributes().value("SceneID").toString() == "321");
     QVERIFY(xmlReader.attributes().value("Name").toString() == "Audio Cue");
     QVERIFY(xmlReader.attributes().value("isMute").toString() == "1");
+
+    xmlReader.readNextStartElement();
+    QVERIFY(xmlReader.name().toString() == "ShowFunction");
+    QVERIFY(xmlReader.attributes().value("ID").toString() == "987");
 }
 
 

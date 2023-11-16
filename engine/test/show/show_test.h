@@ -32,8 +32,10 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
     void defaults();
+    void copy();
     void timeDivision();
     void tracks();
+    void duration();
     void load();
     void save();
 

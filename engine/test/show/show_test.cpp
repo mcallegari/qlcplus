@@ -45,6 +45,56 @@ void Show_Test::defaults()
     QCOMPARE(s.attributes().count(), 0);
 }
 
+void Show_Test::copy()
+{
+    Show show(m_doc);
+    show.setID(123);
+    show.setTimeDivision(Show::BPM_3_4, 123);
+
+    Scene *scene = new Scene(m_doc);
+    m_doc->addFunction(scene);
+
+    Track *t = new Track(123);
+    t->setSceneID(456);
+    t->setName("Original track");
+
+    ShowFunction *sf = new ShowFunction();
+    sf->setFunctionID(scene->id());
+    sf->setStartTime(1000);
+    sf->setDuration(2000);
+    sf->setLocked(true);
+
+    t->addShowFunction(sf);
+    show.addTrack(t);
+
+    Show showCopy(m_doc);
+    showCopy.copyFrom(&show);
+
+    QVERIFY(show.getTimeDivisionType() == Show::BPM_3_4);
+    QVERIFY(show.getTimeDivisionBPM() == 123);
+    QVERIFY(show.totalDuration() == 3000);
+
+    QVERIFY(showCopy.getTracksCount() == show.getTracksCount());
+
+    Track *copyTrack = showCopy.tracks().first();
+
+    QVERIFY(copyTrack->getSceneID() == 456);
+    QVERIFY(copyTrack->name() == "Original track");
+    QVERIFY(copyTrack->showFunctions().count() == 1);
+
+    ShowFunction *copySF = copyTrack->showFunctions().first();
+    QVERIFY(copySF->functionID() != scene->id());
+    QVERIFY(copySF->startTime() == 1000);
+    QVERIFY(copySF->duration() == 2000);
+    QVERIFY(copySF->isLocked() == true);
+
+    QVERIFY(show.contains(123) == true);
+    QVERIFY(show.contains(124) == false);
+    QVERIFY(show.contains(0) == true);
+
+    QVERIFY(show.components().count() == 1);
+}
+
 void Show_Test::timeDivision()
 {
     Show s(m_doc);
@@ -127,6 +177,27 @@ void Show_Test::tracks()
     QVERIFY(s.removeTrack(1) == true);
     QCOMPARE(s.tracks().count(), 0);
     QCOMPARE(s.attributes().count(), 0);
+}
+
+void Show_Test::duration()
+{
+    Show show(m_doc);
+    show.setID(123);
+
+    Scene *scene = new Scene(m_doc);
+    m_doc->addFunction(scene);
+
+    Track *t = new Track(123);
+    ShowFunction *sf = new ShowFunction();
+    sf->setFunctionID(scene->id());
+    sf->setStartTime(1000);
+    sf->setDuration(2000);
+
+    t->addShowFunction(sf);
+    show.addTrack(t);
+
+    QVERIFY(show.totalDuration() == 3000);
+
 }
 
 void Show_Test::load()

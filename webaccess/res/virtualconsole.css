@@ -47,6 +47,10 @@ form {
  text-align: center;
 }
 
+.vccuelistButtonPaused {
+ background: #5B81FF!important;
+}
+
 .vccuelistButton:active { background: #868585; }
 
 .vccuelistFadeButton {
