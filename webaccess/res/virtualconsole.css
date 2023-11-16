@@ -128,16 +128,20 @@ table.hovertable td {
  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666666), color-stop(1, #000000));
  background: -webkit-linear-gradient(top, #666666 0%, #000000 100%);
  border-radius: 3px;
- margin: 2px 2px 0 36px;
+ margin: 2px 0px 0px 2px;
  padding: 0 0 0 3px;
  height: 32px;
 }
 
 .vcFrameText {
- display: table-cell;
- height: 32px;
- vertical-align: middle;
- font:normal 18px/1.0em sans-serif;
+ height: 30px;
+ font:normal 14px/1.0em sans-serif;
+ white-space: nowrap;
+ overflow: hidden;
+ text-overflow: clip;
+ display: flex;
+ align-items: center;
+ flex-direction: row;
 }
 
 .vcframeButton {
@@ -146,7 +150,7 @@ table.hovertable td {
  background: #E0DFDF;
  border-radius: 3px;
  border: 1px solid #000;
- margin: 2px 0 0 2px;
+ margin: 2px 0px 0px 2px;
  padding: 1px;
  height: 28px;
  width: 28px;
@@ -158,7 +162,7 @@ table.hovertable td {
  display: inline-block;
  background: #000000;
  border-radius: 3px;
- margin: 2px 0 0 0;
+ margin: 2px 0 0 2px;
  height: 32px;
  width: 100px;
  text-align: center;
@@ -183,7 +187,7 @@ table.hovertable td {
  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #BC0A0A), color-stop(1, #370303));
  background: -webkit-linear-gradient(top, #BC0A0A 0%, #370303 100%);
  border-radius: 3px;
- margin: 2px 2px 0 36px;
+ margin: 2px 2px 0 2px;
  padding: 0 0 0 3px;
  height: 32px;
 }

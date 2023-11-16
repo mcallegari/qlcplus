@@ -97,6 +97,7 @@ protected slots:
     void slotCuePlaybackStateChanged();
     void slotClockTimeChanged(quint32 time);
     void slotFramePageChanged(int pageNum);
+    void slotFrameDisableStateChanged(bool disable);
     void slotMatrixSliderValueChanged(int value);
     void slotMatrixStartColorChanged();
     void slotMatrixEndColorChanged();
