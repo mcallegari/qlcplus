@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  verticalline.js
+  straightline.js
 
   Copyright (c) Aidan Young
   Based on work by Massimo Callegari and Branson Matheson
