@@ -207,6 +207,10 @@ table.hovertable td {
  vertical-align: middle;
 }
 
+.vclabel-disabled {
+ color: #A0A0A0!important;
+}
+
 .vcclock, .vcclockcount {
  font-size: 28px;
  font-weight: bold;
