@@ -1248,7 +1248,7 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
         if (spotWidth < 6) spotWidth = 6;
 
         str += "<div class=\"pieWrapper\" data=\"" + slID + "\">";
-        str += "<div class=\"pie\" id=\"pie" + slID + "\" style=\"--degValue:0;--pieWidth: "+QString::number(pieWidth)+"px;\">";
+        str += "<div class=\"pie\" id=\"pie" + slID + "\" style=\"--degValue:0;--color1:"+QString(slider->isDisabled() ? "#c0c0c0" : "lime")+";--pieWidth: "+QString::number(pieWidth)+"px;\">";
         str += "<div class=\"knobWrapper\" id=\"knobWrapper" + slID + "\" style=\"--knobWrapperWidth: "+QString::number(knobWrapperWidth)+"px;\">";
         str += "<div class=\"knob\" id=\"knob" + slID + "\" style=\"--knobWidth: "+QString::number(knobWidth)+"px;\">";
         str += "<div class=\"spot\" id=\"spot" + slID + "\" style=\"--spotWidth: "+QString::number(spotWidth)+"px;\"></div>";
@@ -1259,6 +1259,7 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
         m_JScode += "initVal[" + slID + "] = " + QString::number(slider->sliderValue()) + "; \n";
         m_JScode += "inverted[" + slID + "] = " + QString::number(slider->invertedAppearance()) + "; \n";
         m_JScode += "isDragging[" + slID + "] = false;\n";
+        m_JScode += "isDisableKnob[" + slID + "] = "+QString::number(slider->isDisabled() ? 1 : 0)+";\n";
     }
 
     str += "<div id=\"sln" + slID + "\" class=\"vcslLabel" + QString(slider->isDisabled() ? " vcslLabel-disabled" : "") + "\">" +slider->caption() + "</div>";

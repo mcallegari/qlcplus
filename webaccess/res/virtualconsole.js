@@ -265,6 +265,7 @@ function frameDisableStateChange(id) {
 
 /* VCSlider with Knob */
 var isDragging = new Array();
+var isDisableKnob = new Array();
 var maxVal = new Array();
 var minVal = new Array();
 var initVal = new Array();
@@ -290,13 +291,33 @@ function setSliderDisableState(id, disable) {
   var sliderObj = document.getElementById(id);
   var slvObj = document.getElementById("slv" + id);
   var slnObj = document.getElementById("sln" + id);
-
+  var pie = document.getElementById("pie" + id);
+  isDisableKnob[id] = parseInt(disable);
+  isDragging[id] = false;
   if (disable === "1") {
+    if (pie) {
+      if (inverted[id]) {
+        pie.style.setProperty('--color1', '#555');
+        pie.style.setProperty('--color2', '#c0c0c0');
+      } else {
+        pie.style.setProperty('--color1', '#c0c0c0');
+        pie.style.setProperty('--color2', '#555');
+      }
+    }
     sliderObj.setAttribute("disabled", "diabled");
     sliderObj.classList.add('vVertical-disabled');
     slvObj.classList.add('vcslLabel-disabled');
     slnObj.classList.add('vcslLabel-disabled');
   } else {
+    if (pie) {
+      if (inverted[id]) {
+        pie.style.setProperty('--color1', '#555');
+        pie.style.setProperty('--color2', 'lime');
+      } else {
+        pie.style.setProperty('--color1', 'lime');
+        pie.style.setProperty('--color2', '#555');
+      }
+    }
     sliderObj.removeAttribute("disabled");
     sliderObj.classList.remove('vVertical-disabled');
     slvObj.classList.remove('vcslLabel-disabled');
@@ -318,14 +339,15 @@ function getPositionFromValue(val, id) {
   pie.style.setProperty('--degValue', Math.round(angle));
   if (inverted[id]) {
     pie.style.setProperty('--color1', '#555');
-    pie.style.setProperty('--color2', 'lime');
+    pie.style.setProperty('--color2', isDisableKnob[id] ? '#c0c0c0' : 'lime');
   } else {
-    pie.style.setProperty('--color1', 'lime');
+    pie.style.setProperty('--color1', isDisableKnob[id] ? '#c0c0c0' : 'lime');
     pie.style.setProperty('--color2', '#555');
   }
 }
 
 function onMouseMove(e) {
+  if (isDisableKnob[selectedID]) return;
   if (isDragging[selectedID]) {
     pie = document.getElementById("pie" + selectedID);
     knob = document.getElementById("knob" + selectedID);
@@ -360,7 +382,8 @@ function onMouseMove(e) {
     }
   }
 }
-function onMouseUp() {
+function onMouseUp() {    
+  if (isDisableKnob[selectedID]) return;
   isDragging[selectedID] = false;
   var knob = document.getElementById("knob" + selectedID);
   knob.style.transition = "transform 0.2s ease";
