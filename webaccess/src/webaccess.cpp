@@ -1689,17 +1689,29 @@ void WebAccess::slotClockTimeChanged(quint32 time)
     sendWebSocketMessage(wsMessage.toUtf8());
 }
 
+void WebAccess::slotClockDisableStateChanged(bool disable)
+{
+    VCClock *clock = qobject_cast<VCClock *>(sender());
+    if (clock == NULL)
+        return;
+
+    QString wsMessage = QString("%1|CLOCK_DISABLE|%2").arg(clock->id()).arg(disable);
+    QByteArray ba = wsMessage.toUtf8();
+
+    sendWebSocketMessage(ba);
+}
+
 QString WebAccess::getClockHTML(VCClock *clock)
 {
     QString str = "<div class=\"vclabel-wrapper\" style=\""
             "left: " + QString::number(clock->x()) + "px; "
             "top: " + QString::number(clock->y()) + "px;\">\n";
-    str +=  "<a id=\"" + QString::number(clock->id()) + "\" class=\"vclabel ";
+    str +=  "<a id=\"" + QString::number(clock->id()) + "\" class=\"vclabel" + QString(clock->isDisabled() ? " vclabel-disabled" : "") + "";
 
     if (clock->clockType() == VCClock::Stopwatch ||
         clock->clockType() == VCClock::Countdown)
     {
-        str += "vcclockcount\" href=\"javascript:controlWatch(";
+        str += " vcclockcount\" href=\"javascript:controlWatch(";
         str += QString::number(clock->id()) + ", 'S')\" ";
         str += "oncontextmenu=\"javascript:controlWatch(";
         str += QString::number(clock->id()) + ", 'R'); return false;\"";
@@ -1708,11 +1720,15 @@ QString WebAccess::getClockHTML(VCClock *clock)
     }
     else
     {
-        str += "vcclock\" href=\"javascript:void(0)\"";
+        str += " vcclock\" href=\"javascript:void(0)\"";
     }
 
-    str +=  "style=\"width: " + QString::number(clock->width()) + "px; "
-            "height: " + QString::number(clock->height()) + "px; "
+    str +=  "style=\"width: " + QString::number(clock->width()) + "px; ";
+
+    if (m_doc->mode() != Doc::Design)
+        str += "border: none!important; ";
+
+    str +=  "height: " + QString::number(clock->height()) + "px; "
             "color: " + clock->foregroundColor().name() + "; "
             "background-color: " + clock->backgroundColor().name() + ";" +
             getWidgetBackgroundImage(clock) + "\">";
@@ -1732,6 +1748,9 @@ QString WebAccess::getClockHTML(VCClock *clock)
 
 
     str += "</a></div>\n";
+
+    connect(clock, SIGNAL(disableStateChanged(bool)),
+            this, SLOT(slotClockDisableStateChanged(bool)));
 
     return str;
 }
@@ -1836,8 +1855,8 @@ QString WebAccess::getVCHTML()
 {
     m_CSScode = "<link href=\"common.css\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\">\n";
     m_CSScode += "<link href=\"virtualconsole.css\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\">\n";
-    m_JScode = "<script type=\"text/javascript\" src=\"websocket.js\"></script>\n"
-               "<script type=\"text/javascript\" src=\"virtualconsole.js\"></script>\n"
+    m_JScode = "<script type=\"text/javascript\" src=\"virtualconsole.js\"></script>\n"
+               "<script type=\"text/javascript\" src=\"websocket.js\"></script>\n"
                "<script type=\"text/javascript\">\n";
 
     VCFrame *mainFrame = m_vc->contents();
@@ -1868,7 +1887,7 @@ QString WebAccess::getVCHTML()
 
     m_JScode += "\n</script>\n";
 
-    QString str = HTML_HEADER + m_CSScode + m_JScode + "</head>\n<body>\n" + widgetsHTML + "</div>\n</body>\n</html>";
+    QString str = HTML_HEADER + m_CSScode + "</head>\n<body>\n" + widgetsHTML + "</div>\n</body>\n" + m_JScode + "</html>";
     return str;
 }
 
