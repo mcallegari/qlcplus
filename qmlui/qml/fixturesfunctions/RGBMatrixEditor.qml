@@ -267,13 +267,13 @@ Rectangle
 
                 Rectangle
                 {
-                    id: startColButton
+                    id: Color1Button
                     width: UISettings.iconSizeDefault * 2
                     height: editorColumn.itemsHeight
                     radius: 5
                     border.color: scMouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: rgbMatrixEditor.startColor
+                    color: rgbMatrixEditor.color1
                     visible: rgbMatrixEditor.algoColors > 0 ? true : false
 
                     MouseArea
@@ -281,36 +281,36 @@ Rectangle
                         id: scMouseArea
                         anchors.fill: parent
                         hoverEnabled: true
-                        onClicked: startColTool.visible = !startColTool.visible
+                        onClicked: color1Tool.visible = !color1Tool.visible
                     }
 
                     ColorTool
                     {
-                        id: startColTool
+                        id: color1Tool
                         parent: rgbmeContainer
                         x: -width - (UISettings.iconSizeDefault * 1.25)
                         y: UISettings.bigItemHeight
                         visible: false
                         closeOnSelect: true
-                        currentRGB: rgbMatrixEditor.startColor
+                        currentRGB: rgbMatrixEditor.color1
 
                         onColorChanged:
                         {
-                            startColButton.color = Qt.rgba(r, g, b, 1.0)
-                            rgbMatrixEditor.startColor = startColButton.color
+                            color1Button.color = Qt.rgba(r, g, b, 1.0)
+                            rgbMatrixEditor.color1 = color1Button.color
                         }
                         onClose: visible = false
                     }
                 }
                 Rectangle
                 {
-                    id: endColButton
+                    id: color2Button
                     width: UISettings.iconSizeDefault * 2
                     height: editorColumn.itemsHeight
                     radius: 5
                     border.color: ecMouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: rgbMatrixEditor.hasEndColor ? rgbMatrixEditor.endColor : "transparent"
+                    color: rgbMatrixEditor.hasColor2 ? rgbMatrixEditor.color2 : "transparent"
                     visible: rgbMatrixEditor.algoColors > 1 ? true : false
 
                     MouseArea
@@ -318,20 +318,20 @@ Rectangle
                         id: ecMouseArea
                         anchors.fill: parent
                         hoverEnabled: true
-                        onClicked: endColTool.visible = !endColTool.visible
+                        onClicked: color2Tool.visible = !color2Tool.visible
                     }
 
                     ColorTool
                     {
-                        id: endColTool
+                        id: color2Tool
                         parent: rgbmeContainer
                         x: -width - (UISettings.iconSizeDefault * 1.25)
                         y: UISettings.bigItemHeight
                         visible: false
                         closeOnSelect: true
-                        currentRGB: rgbMatrixEditor.endColor
+                        currentRGB: rgbMatrixEditor.color2
 
-                        onColorChanged: rgbMatrixEditor.endColor = Qt.rgba(r, g, b, 1.0)
+                        onColorChanged: rgbMatrixEditor.color2 = Qt.rgba(r, g, b, 1.0)
                         onClose: visible = false
                     }
                 }
@@ -341,7 +341,155 @@ Rectangle
                     height: width
                     imgSource: "qrc:/cancel.svg"
                     visible: rgbMatrixEditor.algoColors > 1 ? true : false
-                    onClicked: rgbMatrixEditor.hasEndColor = false
+                    onClicked: rgbMatrixEditor.hasColor2 = false
+                }
+                // filler
+                //Rectangle { Layout.fillWidth: true; height: parent.height; color: "transparent" }
+            }
+
+            // row 7
+            Row
+            {
+                width: editorColumn.colWidth
+                height: editorColumn.itemsHeight
+                spacing: 4
+
+                Rectangle
+                {
+                    id: color3Button
+                    width: UISettings.iconSizeDefault * 2
+                    height: editorColumn.itemsHeight
+                    radius: 5
+                    border.color: ecMouseArea.containsMouse ? "white" : UISettings.bgLight
+                    border.width: 2
+                    color: rgbMatrixEditor.hasColor3 ? rgbMatrixEditor.color3 : "transparent"
+                    visible: rgbMatrixEditor.algoColors > 1 ? true : false
+
+                    MouseArea
+                    {
+                        id: ecMouseArea
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        onClicked: color3Tool.visible = !color3Tool.visible
+                    }
+
+                    ColorTool
+                    {
+                        id: color3Tool
+                        parent: rgbmeContainer
+                        x: -width - (UISettings.iconSizeDefault * 1.25)
+                        y: UISettings.bigItemHeight
+                        visible: false
+                        closeOnSelect: true
+                        currentRGB: rgbMatrixEditor.color3
+
+                        onColorChanged: rgbMatrixEditor.color3 = Qt.rgba(r, g, b, 1.0)
+                        onClose: visible = false
+                    }
+                }
+                IconButton
+                {
+                    width: UISettings.listItemHeight
+                    height: width
+                    imgSource: "qrc:/cancel.svg"
+                    visible: rgbMatrixEditor.algoColors > 1 ? true : false
+                    onClicked: rgbMatrixEditor.hasColor3 = false
+                }
+
+                Rectangle
+                {
+                    id: color4Button
+                    width: UISettings.iconSizeDefault * 2
+                    height: editorColumn.itemsHeight
+                    radius: 5
+                    border.color: ecMouseArea.containsMouse ? "white" : UISettings.bgLight
+                    border.width: 2
+                    color: rgbMatrixEditor.hasColor4 ? rgbMatrixEditor.color4 : "transparent"
+                    visible: rgbMatrixEditor.algoColors > 1 ? true : false
+
+                    MouseArea
+                    {
+                        id: ecMouseArea
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        onClicked: color4Tool.visible = !color4Tool.visible
+                    }
+
+                    ColorTool
+                    {
+                        id: color4Tool
+                        parent: rgbmeContainer
+                        x: -width - (UISettings.iconSizeDefault * 1.25)
+                        y: UISettings.bigItemHeight
+                        visible: false
+                        closeOnSelect: true
+                        currentRGB: rgbMatrixEditor.color4
+
+                        onColorChanged: rgbMatrixEditor.color4 = Qt.rgba(r, g, b, 1.0)
+                        onClose: visible = false
+                    }
+                }
+                IconButton
+                {
+                    width: UISettings.listItemHeight
+                    height: width
+                    imgSource: "qrc:/cancel.svg"
+                    visible: rgbMatrixEditor.algoColors > 1 ? true : false
+                    onClicked: rgbMatrixEditor.hasColor4 = false
+                }
+                // filler
+                //Rectangle { Layout.fillWidth: true; height: parent.height; color: "transparent" }
+                // filler
+                //Rectangle { Layout.fillWidth: true; height: parent.height; color: "transparent" }
+            }
+
+            // row 8
+            Row
+            {
+                width: editorColumn.colWidth
+                height: editorColumn.itemsHeight
+                spacing: 4
+
+                Rectangle
+                {
+                    id: color5Button
+                    width: UISettings.iconSizeDefault * 2
+                    height: editorColumn.itemsHeight
+                    radius: 5
+                    border.color: ecMouseArea.containsMouse ? "white" : UISettings.bgLight
+                    border.width: 2
+                    color: rgbMatrixEditor.hasColor5 ? rgbMatrixEditor.color5 : "transparent"
+                    visible: rgbMatrixEditor.algoColors > 1 ? true : false
+
+                    MouseArea
+                    {
+                        id: ecMouseArea
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        onClicked: color5Tool.visible = !color5Tool.visible
+                    }
+
+                    ColorTool
+                    {
+                        id: color5Tool
+                        parent: rgbmeContainer
+                        x: -width - (UISettings.iconSizeDefault * 1.25)
+                        y: UISettings.bigItemHeight
+                        visible: false
+                        closeOnSelect: true
+                        currentRGB: rgbMatrixEditor.color5
+
+                        onColorChanged: rgbMatrixEditor.color5 = Qt.rgba(r, g, b, 1.0)
+                        onClose: visible = false
+                    }
+                }
+                IconButton
+                {
+                    width: UISettings.listItemHeight
+                    height: width
+                    imgSource: "qrc:/cancel.svg"
+                    visible: rgbMatrixEditor.algoColors > 1 ? true : false
+                    onClicked: rgbMatrixEditor.hasColor5 = false
                 }
                 // filler
                 //Rectangle { Layout.fillWidth: true; height: parent.height; color: "transparent" }

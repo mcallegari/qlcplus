@@ -124,8 +124,11 @@ public:
 
         RGBMatrixSetFixtureGroup,
         RGBMatrixSetAlgorithmIndex,
-        RGBMatrixSetStartColor,
-        RGBMatrixSetEndColor,
+        RGBMatrixSetColor1,
+        RGBMatrixSetColor2,
+		RGBMatrixSetColor3,
+		RGBMatrixSetColor4,
+		RGBMatrixSetColor5,
         RGBMatrixSetScriptIntValue,
         RGBMatrixSetScriptStringValue,
         RGBMatrixSetText,
