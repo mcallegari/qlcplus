@@ -267,18 +267,18 @@ Rectangle
 
                 Rectangle
                 {
-                    id: Color1Button
+                    id: color1Button
                     width: UISettings.iconSizeDefault * 2
                     height: editorColumn.itemsHeight
                     radius: 5
-                    border.color: scMouseArea.containsMouse ? "white" : UISettings.bgLight
+                    border.color: color1MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
                     color: rgbMatrixEditor.color1
                     visible: rgbMatrixEditor.algoColors > 0 ? true : false
 
                     MouseArea
                     {
-                        id: scMouseArea
+                        id: color1MouseArea
                         anchors.fill: parent
                         hoverEnabled: true
                         onClicked: color1Tool.visible = !color1Tool.visible
@@ -308,14 +308,14 @@ Rectangle
                     width: UISettings.iconSizeDefault * 2
                     height: editorColumn.itemsHeight
                     radius: 5
-                    border.color: ecMouseArea.containsMouse ? "white" : UISettings.bgLight
+                    border.color: color2MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
                     color: rgbMatrixEditor.hasColor2 ? rgbMatrixEditor.color2 : "transparent"
                     visible: rgbMatrixEditor.algoColors > 1 ? true : false
 
                     MouseArea
                     {
-                        id: ecMouseArea
+                        id: color2MouseArea
                         anchors.fill: parent
                         hoverEnabled: true
                         onClicked: color2Tool.visible = !color2Tool.visible
@@ -353,6 +353,21 @@ Rectangle
                 width: editorColumn.colWidth
                 height: editorColumn.itemsHeight
                 spacing: 4
+                visible: rgbMatrixEditor.algoColors > 4 ? true : false
+
+                //leftPadding: Qt.binding(function() { return editorColumn.firstColumnWidth })
+                Rectangle
+                {
+                    id: colorRow1
+                    height: editorColumn.itemsHeight
+                    color: "transparent"
+                    visible: rgbMatrixEditor.algoColors > 4 ? true : false
+                    onWidthChanged:
+                    {
+                        editorColumn.checkLabelWidth(width)
+                        width = Qt.binding(function() { return editorColumn.firstColumnWidth })
+                    }
+                }
 
                 Rectangle
                 {
@@ -360,14 +375,14 @@ Rectangle
                     width: UISettings.iconSizeDefault * 2
                     height: editorColumn.itemsHeight
                     radius: 5
-                    border.color: ecMouseArea.containsMouse ? "white" : UISettings.bgLight
+                    border.color: color3MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
                     color: rgbMatrixEditor.hasColor3 ? rgbMatrixEditor.color3 : "transparent"
-                    visible: rgbMatrixEditor.algoColors > 1 ? true : false
+                    visible: rgbMatrixEditor.algoColors > 2 ? true : false
 
                     MouseArea
                     {
-                        id: ecMouseArea
+                        id: color3MouseArea
                         anchors.fill: parent
                         hoverEnabled: true
                         onClicked: color3Tool.visible = !color3Tool.visible
@@ -392,7 +407,7 @@ Rectangle
                     width: UISettings.listItemHeight
                     height: width
                     imgSource: "qrc:/cancel.svg"
-                    visible: rgbMatrixEditor.algoColors > 1 ? true : false
+                    visible: rgbMatrixEditor.algoColors > 2 ? true : false
                     onClicked: rgbMatrixEditor.hasColor3 = false
                 }
 
@@ -402,14 +417,14 @@ Rectangle
                     width: UISettings.iconSizeDefault * 2
                     height: editorColumn.itemsHeight
                     radius: 5
-                    border.color: ecMouseArea.containsMouse ? "white" : UISettings.bgLight
+                    border.color: color4MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
                     color: rgbMatrixEditor.hasColor4 ? rgbMatrixEditor.color4 : "transparent"
-                    visible: rgbMatrixEditor.algoColors > 1 ? true : false
+                    visible: rgbMatrixEditor.algoColors > 3 ? true : false
 
                     MouseArea
                     {
-                        id: ecMouseArea
+                        id: color4MouseArea
                         anchors.fill: parent
                         hoverEnabled: true
                         onClicked: color4Tool.visible = !color4Tool.visible
@@ -434,11 +449,9 @@ Rectangle
                     width: UISettings.listItemHeight
                     height: width
                     imgSource: "qrc:/cancel.svg"
-                    visible: rgbMatrixEditor.algoColors > 1 ? true : false
+                    visible: rgbMatrixEditor.algoColors > 3 ? true : false
                     onClicked: rgbMatrixEditor.hasColor4 = false
                 }
-                // filler
-                //Rectangle { Layout.fillWidth: true; height: parent.height; color: "transparent" }
                 // filler
                 //Rectangle { Layout.fillWidth: true; height: parent.height; color: "transparent" }
             }
@@ -449,6 +462,21 @@ Rectangle
                 width: editorColumn.colWidth
                 height: editorColumn.itemsHeight
                 spacing: 4
+                visible: rgbMatrixEditor.algoColors > 4 ? true : false
+
+                //leftPadding: Qt.binding(function() { return editorColumn.firstColumnWidth })
+                Rectangle
+                {
+                    id: colorRow2
+                    height: editorColumn.itemsHeight
+                    color: "transparent"
+                    visible: rgbMatrixEditor.algoColors > 4 ? true : false
+                    onWidthChanged:
+                    {
+                        editorColumn.checkLabelWidth(width)
+                        width = Qt.binding(function() { return editorColumn.firstColumnWidth })
+                    }
+                }
 
                 Rectangle
                 {
@@ -456,14 +484,14 @@ Rectangle
                     width: UISettings.iconSizeDefault * 2
                     height: editorColumn.itemsHeight
                     radius: 5
-                    border.color: ecMouseArea.containsMouse ? "white" : UISettings.bgLight
+                    border.color: color5MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
                     color: rgbMatrixEditor.hasColor5 ? rgbMatrixEditor.color5 : "transparent"
-                    visible: rgbMatrixEditor.algoColors > 1 ? true : false
+                    visible: rgbMatrixEditor.algoColors > 4 ? true : false
 
                     MouseArea
                     {
-                        id: ecMouseArea
+                        id: color5MouseArea
                         anchors.fill: parent
                         hoverEnabled: true
                         onClicked: color5Tool.visible = !color5Tool.visible
@@ -488,7 +516,7 @@ Rectangle
                     width: UISettings.listItemHeight
                     height: width
                     imgSource: "qrc:/cancel.svg"
-                    visible: rgbMatrixEditor.algoColors > 1 ? true : false
+                    visible: rgbMatrixEditor.algoColors > 4 ? true : false
                     onClicked: rgbMatrixEditor.hasColor5 = false
                 }
                 // filler

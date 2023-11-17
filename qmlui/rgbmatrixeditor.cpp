@@ -208,12 +208,12 @@ QColor RGBMatrixEditor::color3() const
     if (m_matrix == nullptr)
         return QColor();
 
-    return m_matrix->getColor(1);
+    return m_matrix->getColor(2);
 }
 
 void RGBMatrixEditor::setColor3(QColor algoColor)
 {
-    if (m_matrix == nullptr || m_matrix->getColor(1) == algoColor)
+    if (m_matrix == nullptr || m_matrix->getColor(2) == algoColor)
         return;
 
     Tardis::instance()->enqueueAction(Tardis::RGBMatrixSetColor3, m_matrix->id(), m_matrix->getColor(2), algoColor);
@@ -229,12 +229,12 @@ QColor RGBMatrixEditor::color4() const
     if (m_matrix == nullptr)
         return QColor();
 
-    return m_matrix->getColor(1);
+    return m_matrix->getColor(3);
 }
 
 void RGBMatrixEditor::setColor4(QColor algoColor)
 {
-    if (m_matrix == nullptr || m_matrix->getColor(1) == algoColor)
+    if (m_matrix == nullptr || m_matrix->getColor(3) == algoColor)
         return;
 
     Tardis::instance()->enqueueAction(Tardis::RGBMatrixSetColor4, m_matrix->id(), m_matrix->getColor(3), algoColor);
@@ -250,12 +250,12 @@ QColor RGBMatrixEditor::color5() const
     if (m_matrix == nullptr)
         return QColor();
 
-    return m_matrix->getColor(1);
+    return m_matrix->getColor(4);
 }
 
 void RGBMatrixEditor::setColor5(QColor algoColor)
 {
-    if (m_matrix == nullptr || m_matrix->getColor(1) == algoColor)
+    if (m_matrix == nullptr || m_matrix->getColor(4) == algoColor)
         return;
 
     Tardis::instance()->enqueueAction(Tardis::RGBMatrixSetColor5, m_matrix->id(), m_matrix->getColor(4), algoColor);
