@@ -320,7 +320,10 @@ void RGBScript_Test::runScripts()
         QVERIFY(!s.author().isEmpty());
         QVERIFY(!s.name().isEmpty());
         QVERIFY(s.type() == RGBAlgorithm::Script);
-        QVERIFY(s.acceptColors() >= 0 && s.acceptColors() <= 2);
+        if (s.apiVersion() <= 2)
+            QVERIFY(s.acceptColors() >= 0 && s.acceptColors() <= 2);
+        else
+            QVERIFY(s.acceptColors() >= 0 && s.acceptColors() <= 5);
 
         int steps = s.rgbMapStepCount(mapSize);
         //qDebug() << "steps: " << steps;
