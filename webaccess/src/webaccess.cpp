@@ -1186,6 +1186,18 @@ void WebAccess::slotSliderValueChanged(QString val)
     sendWebSocketMessage(wsMessage.toUtf8());
 }
 
+void WebAccess::slotSliderDisableStateChanged(bool disable)
+{
+    VCSlider *slider = qobject_cast<VCSlider *>(sender());
+    if (slider == NULL)
+        return;
+
+    QString wsMessage = QString("%1|SLIDER_DISABLE|%2").arg(slider->id()).arg(disable);
+    QByteArray ba = wsMessage.toUtf8();
+
+    sendWebSocketMessage(ba);
+}
+
 QString WebAccess::getSliderHTML(VCSlider *slider)
 {
     QString slID = QString::number(slider->id());
@@ -1200,7 +1212,7 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
 
     str += "<div style=\"height: 100%; display: flex; flex-direction: column; justify-content: space-between; \">";
 
-    str += "<div id=\"slv" + slID + "\" class=\"vcslLabel\">" + slider->topLabelText() + "</div>\n";
+    str += "<div id=\"slv" + slID + "\" class=\"vcslLabel" + QString(slider->isDisabled() ? " vcslLabel-disabled" : "") + "\">" + slider->topLabelText() + "</div>\n";
 
     int mt = slider->invertedAppearance() ? -slider->height() + 50 : slider->height() - 50;
     int rotate = slider->invertedAppearance() ? 90 : 270;
@@ -1211,7 +1223,7 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
         max = slider->levelHighLimit();
     }
 
-    str +=  "<input type=\"range\" class=\"vVertical\" "
+    str +=  "<input type=\"range\" class=\"vVertical" + QString(slider->isDisabled() ? " vVertical-disabled" : "") + "\" "
             "id=\"" + slID + "\" "
             "oninput=\"slVchange(" + slID + ");\" ontouchmove=\"slVchange(" + slID + ");\" "
             "style=\"display: "+(slider->widgetStyle() == VCSlider::SliderWidgetStyle::WSlider ? "block" : "none") +"; "
@@ -1220,7 +1232,10 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
             "margin-left: " + QString::number(slider->width() / 2) + "px; "
             "--rotate: "+QString::number(rotate)+"\" "
             "min=\""+QString::number(min)+"\" max=\""+QString::number(max)+"\" "
-            "step=\"1\" value=\"" + QString::number(slider->sliderValue()) + "\">\n";
+            "step=\"1\" value=\"" + QString::number(slider->sliderValue()) + "\"";
+    if (slider->isDisabled())
+        str += " disabled ";
+    str += ">\n";
 
     if (slider->widgetStyle() == VCSlider::SliderWidgetStyle::WKnob) {
         int shortSide = slider->width() > slider->height() ? slider->height() : slider->width();
@@ -1246,13 +1261,15 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
         m_JScode += "isDragging[" + slID + "] = false;\n";
     }
 
-    str += "<div id=\"sln" + slID + "\" class=\"vcslLabel\">" +slider->caption() + "</div>";
+    str += "<div id=\"sln" + slID + "\" class=\"vcslLabel" + QString(slider->isDisabled() ? " vcslLabel-disabled" : "") + "\">" +slider->caption() + "</div>";
 
     str += "</div>\n";
     str += "</div>\n";
 
     connect(slider, SIGNAL(valueChanged(QString)),
             this, SLOT(slotSliderValueChanged(QString)));
+    connect(slider, SIGNAL(disableStateChanged(bool)),
+            this, SLOT(slotSliderDisableStateChanged(bool)));
 
     return str;
 }
