@@ -23,6 +23,10 @@ form {
  text-align: center;
 }
 
+.vcbutton-disabled {
+ color: #A0A0A0!important;
+}
+
 .vccuelist {
  position: absolute;
  border: 1px solid #777777;
