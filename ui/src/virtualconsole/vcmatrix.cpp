@@ -83,7 +83,7 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     m_startColorButton->setFixedSize(48, 48);
     m_startColorButton->setIconSize(QSize(42, 42));
 
-    m_startColor = 0xeeeeee;
+    m_startColor = Qt::red;
 
     QWidgetAction* scAction = new QWidgetAction(this);
     m_scCnGWidget = new ClickAndGoWidget();
@@ -101,7 +101,7 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     m_endColorButton->setFixedSize(48, 48);
     m_endColorButton->setIconSize(QSize(42, 42));
 
-    m_endColor = 0xeeeeee;
+    m_endColor = QColor();
 
     QWidgetAction* ecAction = new QWidgetAction(this);
     m_ecCnGWidget = new ClickAndGoWidget();
@@ -285,7 +285,7 @@ int VCMatrix::sliderValue()
     return m_slider->value();
 }
 
-void VCMatrix::slotSetStartColor(QRgb color)
+void VCMatrix::slotSetStartColor(QColor color)
 {
     m_startColor = color;
     emit startColorChanged();
@@ -293,13 +293,13 @@ void VCMatrix::slotSetStartColor(QRgb color)
 
 QColor VCMatrix::startColor()
 {
-    return QColor(m_startColor);
+    return m_startColor;
 }
 
 void VCMatrix::slotStartColorChanged(QRgb color)
 {
-    slotSetStartColor(color);
     QColor col(color);
+    slotSetStartColor(col);
     QPixmap px(42, 42);
     px.fill(col);
     m_startColorButton->setIcon(px);
@@ -313,7 +313,7 @@ void VCMatrix::slotStartColorChanged(QRgb color)
         matrix->updateColorDelta();
 }
 
-void VCMatrix::slotSetEndColor(QRgb color)
+void VCMatrix::slotSetEndColor(QColor color)
 {
     m_endColor = color;
     emit endColorChanged();
@@ -321,13 +321,13 @@ void VCMatrix::slotSetEndColor(QRgb color)
 
 QColor VCMatrix::endColor()
 {
-    return QColor(m_endColor);
+    return m_endColor;
 }
 
 void VCMatrix::slotEndColorChanged(QRgb color)
 {
-    slotSetEndColor(color);
     QColor col(color);
+    slotSetEndColor(col);
     QPixmap px(42, 42);
     px.fill(col);
     m_endColorButton->setIcon(px);
@@ -540,11 +540,14 @@ void VCMatrix::slotUpdate()
     QPixmap px(42, 42);
     px.fill(startColor);
     m_startColorButton->setIcon(px);
+    slotSetStartColor(startColor);
+
     if (endColor == QColor())
         px.fill(Qt::transparent);
     else
         px.fill(endColor);
     m_endColorButton->setIcon(px);
+    slotSetEndColor(endColor);
 
     // Algo combo box
     if (algorithmName != QString())
@@ -565,7 +568,8 @@ void VCMatrix::slotUpdate()
         {
             KnobWidget* knob = reinterpret_cast<KnobWidget*>(widget);
             knob->blockSignals(true);
-            knob->setValue(control->rgbToValue(startColor.rgb()));
+            knob->setValue(control->rgbToValue(startColor.rgb()));            
+            emit matrixControlKnobValueChanged(control->m_id, knob->value());
             knob->blockSignals(false);
         }
         else if (control->m_type == VCMatrixControl::EndColorKnob)
@@ -573,6 +577,7 @@ void VCMatrix::slotUpdate()
             KnobWidget* knob = reinterpret_cast<KnobWidget*>(widget);
             knob->blockSignals(true);
             knob->setValue(control->rgbToValue(endColor.rgb()));
+            emit matrixControlKnobValueChanged(control->m_id, knob->value());
             knob->blockSignals(false);
         }
         else if (control->m_type == VCMatrixControl::StartColor)

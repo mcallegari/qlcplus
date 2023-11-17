@@ -316,6 +316,7 @@ input[type="color"].vMatrix {
  align-items: center;
  text-wrap: nowrap;
  overflow: hidden;
+ font-size: 12px;
 }
 .pushButton:disabled {
  border: 2px solid #BBBBBB;

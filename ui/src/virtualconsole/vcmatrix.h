@@ -92,8 +92,8 @@ private:
     ClickAndGoWidget *m_ecCnGWidget;
     QComboBox *m_presetCombo;
     FlowLayout *m_controlsLayout;
-    QRgb m_startColor;
-    QRgb m_endColor;
+    QColor m_startColor;
+    QColor m_endColor;
 
     /*********************************************************************
      * Clipboard
@@ -130,9 +130,9 @@ signals:
 public slots:
     void slotSetSliderValue(int value);
     void slotSliderMoved(int value);
-    void slotSetStartColor(QRgb color);
+    void slotSetStartColor(QColor color);
     void slotStartColorChanged(QRgb color);
-    void slotSetEndColor(QRgb color);
+    void slotSetEndColor(QColor color);
     void slotEndColorChanged(QRgb color);
     void slotSetAnimationValue(QString name);
     void slotAnimationChanged(QString name);

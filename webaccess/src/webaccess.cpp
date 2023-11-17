@@ -1717,16 +1717,16 @@ QString WebAccess::getMatrixHTML(VCMatrix *matrix)
         for (int i = 0; i < customControls.length(); i++) {
             VCMatrixControl *control = customControls[i];
             if (control->m_type == VCMatrixControl::StartColor) {
-                str += "<div class=\"pushButton\" style=\"width: 36px; height: 36px; "
+                str += "<div class=\"pushButton\" style=\"width: 32px; height: 32px; "
                        "background-color: "+(control->m_color.name())+"; margin-right: 4px; margin-bottom: 4px; \" "
                        "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">S</div>";
             } else if (control->m_type == VCMatrixControl::EndColor) {
-                str += "<div class=\"pushButton\" style=\"width: 36px; height: 36px; "
+                str += "<div class=\"pushButton\" style=\"width: 32px; height: 32px; "
                        "background-color: "+(control->m_color.name())+"; margin-right: 4px; margin-bottom: 4px; \" "
                        "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">E</div>";
             } else if (control->m_type == VCMatrixControl::ResetEndColor) {
                 QString btnLabel = tr("End Color Reset");
-                str += "<div class=\"pushButton\" style=\"width: 80px; justify-content: flex-start!important; height: 36px; "
+                str += "<div class=\"pushButton\" style=\"width: 66px; justify-content: flex-start!important; height: 32px; "
                        "background-color: #BBBBBB; margin-right: 4px; margin-bottom: 4px; \" "
                        "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">"+btnLabel+"</div>";
             } else if (control->m_type == VCMatrixControl::Animation || control->m_type == VCMatrixControl::Text) {
@@ -1744,7 +1744,7 @@ QString WebAccess::getMatrixHTML(VCMatrix *matrix)
                         }
                         btnLabel += ")";
                 }
-                str += "<div class=\"pushButton\" style=\"width: 80px; justify-content: flex-start!important; height: 36px; "
+                str += "<div class=\"pushButton\" style=\"max-width: 66px; justify-content: flex-start!important; height: 32px; "
                        "background-color: #BBBBBB; margin-right: 4px; margin-bottom: 4px; \" "
                        "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">"+btnLabel+"</div>";
             } else if (control->m_type == VCMatrixControl::StartColorKnob || control->m_type == VCMatrixControl::EndColorKnob) {
