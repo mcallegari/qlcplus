@@ -51,6 +51,11 @@ form {
  text-align: center;
 }
 
+.vccuelistButton-disabled {
+ background: #888;
+ opacity: 0.5;
+}
+
 .vccuelistButtonPaused {
  background: #5B81FF!important;
 }
@@ -64,6 +69,11 @@ form {
  padding: 1px;
  height: 27px;
  width: 27px;
+}
+
+.vccuelistFadeButton-disabled {
+ background: #888;
+ opacity: 0.5;
 }
 
 .vccuelistProgress {
@@ -110,11 +120,19 @@ table.hovertable tr {
  background-color:#ffffff;
 }
 
+table.hovertable tr:hover {
+ background-color:#CCD9FF;
+}
+
 table.hovertable td {
  border-width: 1px;
  padding: 3px;
  border-style: solid;
  border-color: #a9c6c9;
+}
+
+table.cell-disabled tr {
+ background-color: #eee;
 }
 
 .vcframe {

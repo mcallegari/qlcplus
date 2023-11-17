@@ -1424,6 +1424,18 @@ void WebAccess::slotCuePlaybackStateChanged()
     sendWebSocketMessage(wsMessage.toUtf8());
 }
 
+void WebAccess::slotCueDisableStateChanged(bool disable)
+{
+    VCCueList *cue = qobject_cast<VCCueList *>(sender());
+    if (cue == NULL)
+        return;
+
+    QString wsMessage = QString("%1|CUE_DISABLE|%2").arg(cue->id()).arg(disable);
+    QByteArray ba = wsMessage.toUtf8();
+
+    sendWebSocketMessage(ba);
+}
+
 QString WebAccess::getCueListHTML(VCCueList *cue)
 {
     QString str = "<div id=\"" + QString::number(cue->id()) + "\" "
@@ -1450,33 +1462,33 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                "style=\"display: " + (cue->isSideFaderVisible() ? "block" : "none") + "; width: 45px; height: " + QString::number(cue->height() - 2) + "px;\">";
         if (cue->sideFaderMode() == VCCueList::FaderMode::Crossfade) {
             str += "<div style=\"position: relative;\">";
-            str += "<div id=\"cueCTP"+QString::number(cue->id())+"\" class=\"vcslLabel\" style=\"top:0px;\">" +
+            str += "<div id=\"cueCTP"+QString::number(cue->id())+"\" class=\"vcslLabel" + QString(cue->isDisabled() ? " vcslLabel-disabled" : "") + "\" style=\"top:0px;\">" +
                    cue->topPercentageValue() + "</div>\n";
             str += "<div id=\"cueCTS"+QString::number(cue->id())+"\" class=\"vcslLabel\" "
                    "style=\"top:25px; border: solid 1px #aaa; background-color: "+ topStepBgColor +" \">" +
                    cue->topStepValue() + "</div>\n";
 
-            str += "<input type=\"range\" class=\"vVertical\" id=\"cueC"+QString::number(cue->id())+"\" "
+            str += "<input type=\"range\" class=\"vVertical" + QString(cue->isDisabled() ? " vVertical-disabled" : "") + "\" id=\"cueC"+QString::number(cue->id())+"\" "
                    "oninput=\"cueCVchange("+QString::number(cue->id())+");\" ontouchmove=\"cueCVchange("+QString::number(cue->id())+");\" "
                    "style=\"width: " + QString::number(cue->height() - 100) + "px; margin-top: " + QString::number(cue->height() - 100) + "px; margin-left: 22px;\" ";
-            str += "min=\"0\" max=\"100\" step=\"1\" value=\"" + QString::number(cue->sideFaderValue()) + "\">\n";
+            str += "min=\"0\" max=\"100\" step=\"1\" value=\"" + QString::number(cue->sideFaderValue()) + "\" " + QString(cue->isDisabled() ? "disabled" : "") + " >\n";
 
             str += "<div id=\"cueCBS"+QString::number(cue->id())+"\" class=\"vcslLabel\" "
                    "style=\"bottom:25px; border: solid 1px #aaa;  background-color: "+ bottomStepBgColor +"\">" +
                    cue->bottomStepValue() + "</div>\n";
-            str += "<div id=\"cueCBP"+QString::number(cue->id())+"\" class=\"vcslLabel\" style=\"bottom:0px;\">" +
+            str += "<div id=\"cueCBP"+QString::number(cue->id())+"\" class=\"vcslLabel" + QString(cue->isDisabled() ? " vcslLabel-disabled" : "") + "\" style=\"bottom:0px;\">" +
                    cue->bottomPercentageValue() + "</div>\n";
             str += "</div>";
         }
         if (cue->sideFaderMode() == VCCueList::FaderMode::Steps) {
             str += "<div style=\"position: relative;\">";
-            str += "<div id=\"cueCTP"+QString::number(cue->id())+"\" class=\"vcslLabel\" style=\"top:0px;\">" +
+            str += "<div id=\"cueCTP"+QString::number(cue->id())+"\" class=\"vcslLabel" + QString(cue->isDisabled() ? " vcslLabel-disabled" : "") + "\" style=\"top:0px;\">" +
                    cue->topPercentageValue() + "</div>\n";
 
-            str += "<input type=\"range\" class=\"vVertical\" id=\"cueC"+QString::number(cue->id())+"\" "
+            str += "<input type=\"range\" class=\"vVertical" + QString(cue->isDisabled() ? " vVertical-disabled" : "") + "\" id=\"cueC"+QString::number(cue->id())+"\" "
                    "oninput=\"cueCVchange("+QString::number(cue->id())+");\" ontouchmove=\"cueCVchange("+QString::number(cue->id())+");\" "
                    "style=\"width: " + QString::number(cue->height() - 50) + "px; margin-top: " + QString::number(cue->height() - 50) + "px; margin-left: 22px;\" ";
-            str += "min=\"0\" max=\"255\" step=\"1\" value=\"" + QString::number(cue->sideFaderValue()) + "\">\n";
+            str += "min=\"0\" max=\"255\" step=\"1\" value=\"" + QString::number(cue->sideFaderValue()) + "\" " + QString(cue->isDisabled() ? "disabled" : "") + " >\n";
 
             str += "<div id=\"cueCBS"+QString::number(cue->id())+"\" class=\"vcslLabel\" style=\"bottom:25px; border: solid 1px #aaa; \">" +
                    cue->bottomStepValue() + "</div>\n";
@@ -1488,7 +1500,7 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
 
     str += "<div style=\"width: 100%;\"><div style=\"width: 100%; height: " + QString::number(cue->height() - 54) + "px; overflow: scroll;\" >\n";
 
-    str += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
+    str += "<table class=\"hovertable"+QString(cue->isDisabled() ? " cell-disabled" : "")+"\" id=\"cueTable"+QString::number(cue->id())+"\" style=\"width: 100%;\">\n";
     str += "<tr><th>#</th><th>" + tr("Name") + "</th>";
     str += "<th>" + tr("Fade In") + "</th>";
     str += "<th>" + tr("Fade Out") + "</th>";
@@ -1502,9 +1514,8 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
         {
             QString stepID = QString::number(cue->id()) + "_" + QString::number(i);
             str += "<tr id=\"" + stepID + "\" "
-                    "onclick=\"enableCue(" + QString::number(cue->id()) + ", " + QString::number(i) + ");\" "
-                    "onmouseover=\"this.style.backgroundColor='#CCD9FF';\" "
-                    "onmouseout=\"checkMouseOut(" + QString::number(cue->id()) + ", " + QString::number(i) + ");\">\n";
+                   "onclick=\"enableCue(" + QString::number(cue->id()) + ", " + QString::number(i) + ");\">\n";
+
             ChaserStep *step = chaser->stepAt(i);
             str += "<td>" + QString::number(i + 1) + "</td>";
             Function* function = doc->function(step->fid);
@@ -1601,7 +1612,7 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
     // play, stop, next, and preview buttons
     if (cue->sideFaderMode() != VCCueList::FaderMode::None) {
         str += "<div style=\"width: 100%; display: flex; flex-direction: row; align-items: center; justify-content: space-between; \">";
-        str += "<a class=\"vccuelistFadeButton\" id=\"fade" + QString::number(cue->id()) + "\" ";
+        str += "<a class=\"vccuelistFadeButton"+QString(cue->isDisabled() ? " vccuelistFadeButton-disabled" : "")+"\" id=\"fade" + QString::number(cue->id()) + "\" ";
         str += "href=\"javascript:wsShowCrossfadePanel(" + QString::number(cue->id()) + ");\">\n";
         str += "<img src=\"slider.png\" width=\"27\"></a>\n";
     }
@@ -1633,19 +1644,19 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
         }
     }
 
-    str += "<a class=\"vccuelistButton"+QString(playbackButtonPaused ? " vccuelistButtonPaused" : "")+"\" id=\"play" + QString::number(cue->id()) + "\" ";
+    str += "<a class=\"vccuelistButton" + QString(cue->isDisabled() ? " vccuelistButton-disabled" : "") + QString(playbackButtonPaused ? " vccuelistButtonPaused" : "")+"\" id=\"play" + QString::number(cue->id()) + "\" ";
     str += "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'PLAY');\">\n";
     str += "<img src=\""+playbackButtonImage+"\" width=\"27\"></a>\n";
 
-    str += "<a class=\"vccuelistButton"+QString(stopButtonPaused ? " vccuelistButtonPaused" : "")+"\" id=\"stop" + QString::number(cue->id()) + "\" ";
+    str += "<a class=\"vccuelistButton" + QString(cue->isDisabled() ? " vccuelistButton-disabled" : "") + QString(stopButtonPaused ? " vccuelistButtonPaused" : "")+"\" id=\"stop" + QString::number(cue->id()) + "\" ";
     str += "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'STOP');\">\n";
     str += "<img src=\""+stopButtonImage+"\" width=\"27\"></a>\n";
 
-    str += "<a class=\"vccuelistButton\" href=\"javascript:sendCueCmd(";
+    str += "<a class=\"vccuelistButton" + QString(cue->isDisabled() ? " vccuelistButton-disabled" : "") + "\" id=\"prev" + QString::number(cue->id()) + "\" href=\"javascript:sendCueCmd(";
     str += QString::number(cue->id()) + ", 'PREV');\">\n";
     str += "<img src=\"back.png\" width=\"27\"></a>\n";
 
-    str += "<a class=\"vccuelistButton\" href=\"javascript:sendCueCmd(";
+    str += "<a class=\"vccuelistButton" + QString(cue->isDisabled() ? " vccuelistButton-disabled" : "") + "\" id=\"next" + QString::number(cue->id()) + "\" href=\"javascript:sendCueCmd(";
     str += QString::number(cue->id()) + ", 'NEXT');\" style=\"margin-right: 0px!important;\">\n";
     str += "<img src=\"forward.png\" width=\"27\"></a>\n";
 
@@ -1658,6 +1669,8 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
     }
 
     str += "</div>\n";
+
+    m_JScode += "isDisableCue[" + QString::number(cue->id()) + "] = " + QString::number(cue->isDisabled()) + ";\n";
 
     connect(cue, SIGNAL(stepChanged(int)),
             this, SLOT(slotCueIndexChanged(int)));
@@ -1675,6 +1688,8 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
             this, SLOT(slotCuePlaybackStateChanged()));
     connect(cue, SIGNAL(playbackStatusChanged()),
             this, SLOT(slotCuePlaybackStateChanged()));
+    connect(cue, SIGNAL(disableStateChanged(bool)),
+            this, SLOT(slotCueDisableStateChanged(bool)));
 
     return str;
 }
