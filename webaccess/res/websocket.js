@@ -50,6 +50,8 @@ function connect() {
       wsSetButtonState(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "BUTTON_DISABLE") {
       setButtonDisableState(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "LABEL_DISABLE") {
+      setLabelDisableState(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "SLIDER") {
       // Slider message is <ID>|SLIDER|<SLIDER VALUE>|<DISPLAY VALUE>
       wsSetSliderValue(msgParams[0], msgParams[2], msgParams[3]);
