@@ -286,6 +286,24 @@ function wsSetSliderValue(id, sliderValue, displayValue) {
  getPositionFromValue(sliderValue, id);
 }
 
+function setSliderDisableState(id, disable) {
+  var sliderObj = document.getElementById(id);
+  var slvObj = document.getElementById("slv" + id);
+  var slnObj = document.getElementById("sln" + id);
+
+  if (disable === "1") {
+    sliderObj.setAttribute("disabled", "diabled");
+    sliderObj.classList.add('vVertical-disabled');
+    slvObj.classList.add('vcslLabel-disabled');
+    slnObj.classList.add('vcslLabel-disabled');
+  } else {
+    sliderObj.removeAttribute("disabled");
+    sliderObj.classList.remove('vVertical-disabled');
+    slvObj.classList.remove('vcslLabel-disabled');
+    slnObj.classList.remove('vcslLabel-disabled');
+  }
+}
+
 function getPositionFromValue(val, id) {
   var knobRect = document.getElementById("knob" + id).getBoundingClientRect();
   var pie = document.getElementById("pie" + id);

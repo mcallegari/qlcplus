@@ -53,6 +53,8 @@ function connect() {
     } else if (msgParams[1] === "SLIDER") {
       // Slider message is <ID>|SLIDER|<SLIDER VALUE>|<DISPLAY VALUE>
       wsSetSliderValue(msgParams[0], msgParams[2], msgParams[3]);
+    } else if (msgParams[1] === "SLIDER_DISABLE") {
+      setSliderDisableState(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "AUDIOTRIGGERS") {
       wsSetAudioTriggersEnabled(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "CUE") {
