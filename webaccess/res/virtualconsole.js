@@ -84,35 +84,28 @@ function setLabelDisableState(id, disable) {
 /* VCCueList */
 var cueListsIndices = new Array();
 var showPanel = new Array();
+var isDisableCue = new Array();
 
 function setCueIndex(id, idx) {
  var oldIdx = cueListsIndices[id];
  if (oldIdx != undefined && oldIdx !== "-1") {
    var oldCueObj = document.getElementById(id + "_" + oldIdx);
-   oldCueObj.style.backgroundColor="#FFFFFF";
+   oldCueObj.style.backgroundColor = "";
  }
  cueListsIndices[id] = idx;
  var currCueObj = document.getElementById(id + "_" + idx);
  if (idx !== "-1") {
-   currCueObj.style.backgroundColor="#5E7FDF";
+   currCueObj.style.setProperty("background-color", "#5E7FDF", "important");
  }
 }
 
 function sendCueCmd(id, cmd) {
+ if (isDisableCue[id]) return;
  websocket.send(id + "|" + cmd);
 }
 
-function checkMouseOut(id, idx) {
- var obj = document.getElementById(id + "_" + idx);
- if(idx == cueListsIndices[id]) {
-   obj.style.backgroundColor="#5E7FDF";
- }
- else {
-   obj.style.backgroundColor="#FFFFFF";
- }
-}
-
 function enableCue(id, idx) {
+ if (isDisableCue[id]) return;
  setCueIndex(id, idx);
  websocket.send(id + "|STEP|" + idx);
 }
@@ -150,6 +143,7 @@ function setCueButtonStyle(id, playImage, playPaused, stopImage, stopPaused) {
 }
 
 function wsShowCrossfadePanel(id) {
+  if (isDisableCue[id]) return;
   websocket.send(id + "|CUE_SHOWPANEL|" + showPanel[id]);
 }
 
@@ -176,9 +170,47 @@ function setCueSideFaderValues(id, topPercent, bottomPercent, topStep, bottomSte
 }
 
 function cueCVchange(id) {
+  if (isDisableCue[id]) return;
   var cueCVObj = document.getElementById("cueC" + id);
   var msg = id + "|CUE_SIDECHANGE|" + cueCVObj.value;
   websocket.send(msg);
+}
+
+function setCueDisableState(id, disable) {
+  isDisableCue[id] = parseInt(disable);
+  var cueTable = document.getElementById("cueTable" + id);
+  var fadeObj = document.getElementById("fade" + id);
+  var playObj = document.getElementById("play" + id);
+  var stopObj = document.getElementById("stop" + id);
+  var nextObj = document.getElementById("next" + id);
+  var prevObj = document.getElementById("prev" + id);
+  var cueCObj = document.getElementById("cueC" + id);
+  var cueCTPObj = document.getElementById("cueCTP" + id);
+  var cueCBPObj = document.getElementById("cueCBP" + id);
+
+  if (disable === "1") {
+    fadeObj.classList.add('vccuelistFadeButton-disabled');
+    cueTable.classList.add('cell-disabled');
+    playObj.classList.add('vccuelistButton-disabled');
+    stopObj.classList.add('vccuelistButton-disabled');
+    nextObj.classList.add('vccuelistButton-disabled');
+    prevObj.classList.add('vccuelistButton-disabled');
+    cueCObj.setAttribute("disabled", "diabled");
+    cueCObj.classList.add('vVertical-disabled');
+    cueCTPObj.classList.add('vcslLabel-disabled');
+    cueCBPObj.classList.add('vcslLabel-disabled');
+  } else {
+    fadeObj.classList.remove('vccuelistFadeButton-disabled');
+    cueTable.classList.remove('cell-disabled');
+    playObj.classList.remove('vccuelistButton-disabled');
+    stopObj.classList.remove('vccuelistButton-disabled');
+    nextObj.classList.remove('vccuelistButton-disabled');
+    prevObj.classList.remove('vccuelistButton-disabled');
+    cueCObj.removeAttribute("disabled");
+    cueCObj.classList.remove('vVertical-disabled');
+    cueCTPObj.classList.remove('vcslLabel-disabled');
+    cueCBPObj.classList.remove('vcslLabel-disabled');
+  }
 }
 
 /* VCFrame */

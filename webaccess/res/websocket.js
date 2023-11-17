@@ -61,6 +61,8 @@ function connect() {
       wsSetAudioTriggersEnabled(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "CUE") {
       wsSetCueIndex(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "CUE_DISABLE") {
+      setCueDisableState(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "CLOCK") {
       wsUpdateClockTime(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "CLOCK_DISABLE") {
