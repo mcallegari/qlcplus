@@ -58,6 +58,19 @@ window.addEventListener("load",() => {
  }
 });
 
+function setButtonDisableState(id, disable) {
+  var btnObj = document.getElementById(id);
+  if (disable === "1") {
+    btnObj.removeAttribute("onmousedown");
+    btnObj.removeAttribute("onmouseup");
+    btnObj.classList.add('vcbutton-disabled');
+  } else {
+    btnObj.setAttribute("onmousedown", "buttonPress("+id+");");
+    btnObj.setAttribute("onmouseup", "buttonRelease("+id+");");
+    btnObj.classList.remove('vcbutton-disabled');
+  }
+}
+
 /* VCCueList */
 var cueListsIndices = new Array();
 var showPanel = new Array();

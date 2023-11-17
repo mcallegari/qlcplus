@@ -1129,6 +1129,18 @@ void WebAccess::slotButtonStateChanged(int state)
     sendWebSocketMessage(wsMessage.toUtf8());
 }
 
+void WebAccess::slotButtonDisableStateChanged(bool disable)
+{
+    VCButton *btn = qobject_cast<VCButton *>(sender());
+    if (btn == NULL)
+        return;
+
+    QString wsMessage = QString("%1|BUTTON_DISABLE|%2").arg(btn->id()).arg(disable);
+    QByteArray ba = wsMessage.toUtf8();
+
+    sendWebSocketMessage(ba);
+}
+
 QString WebAccess::getButtonHTML(VCButton *btn)
 {
     QString onCSS = "";
@@ -1140,11 +1152,13 @@ QString WebAccess::getButtonHTML(VCButton *btn)
     QString str = "<div class=\"vcbutton-wrapper\" style=\""
             "left: " + QString::number(btn->x()) + "px; "
             "top: " + QString::number(btn->y()) + "px;\">\n";
-    str +=  "<a class=\"vcbutton\" id=\"" + QString::number(btn->id()) + "\" "
-            "href=\"javascript:void(0);\" "
-            "onmousedown=\"buttonPress(" + QString::number(btn->id()) + ");\" "
-            "onmouseup=\"buttonRelease(" + QString::number(btn->id()) + ");\" "
-            "style=\""
+    str +=  "<a class=\"vcbutton" + QString(btn->isDisabled() ? " vcbutton-disabled" : "") + "\" "
+            " id=\"" + QString::number(btn->id()) + "\" href=\"javascript:void(0);\" ";
+    if (!btn->isDisabled()) {
+        str += "onmousedown=\"buttonPress(" + QString::number(btn->id()) + ");\" "
+               "onmouseup=\"buttonRelease(" + QString::number(btn->id()) + ");\" ";
+    }
+    str +=  "style=\""
             "width: " + QString::number(btn->width()) + "px; "
             "height: " + QString::number(btn->height()) + "px; "
             "color: " + btn->foregroundColor().name() + "; " +
@@ -1154,6 +1168,8 @@ QString WebAccess::getButtonHTML(VCButton *btn)
 
     connect(btn, SIGNAL(stateChanged(int)),
             this, SLOT(slotButtonStateChanged(int)));
+    connect(btn, SIGNAL(disableStateChanged(bool)),
+            this, SLOT(slotButtonDisableStateChanged(bool)));
 
     return str;
 }
