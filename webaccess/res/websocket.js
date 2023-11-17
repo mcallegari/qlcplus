@@ -63,6 +63,8 @@ function connect() {
       wsSetCueIndex(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "CLOCK") {
       wsUpdateClockTime(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "CLOCK_DISABLE") {
+      setClockDisableState(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "FRAME") {
       setFramePage(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "FRAME_DISABLE") {

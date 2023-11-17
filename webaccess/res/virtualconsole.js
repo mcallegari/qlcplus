@@ -490,6 +490,20 @@ function wsUpdateClockTime(id, time) {
  obj.innerHTML = timeString;
 }
 
+function setClockDisableState(id, disable) {
+  var clockObj = document.getElementById(id);
+
+  if (disable === "1") {
+    clockObj.removeAttribute("href");
+    clockObj.removeAttribute("oncontextmenu");
+    clockObj.classList.add('vclabel-disabled');
+  } else {
+    clockObj.setAttribute("href", "javascript:controlWatch("+id+", 'S');");
+    clockObj.setAttribute("oncontextmenu", "javascript:controlWatch("+id+", 'R'); return false;");
+    clockObj.classList.remove('vclabel-disabled');
+  }
+}
+
 /* VCMatrix */
 var matrixID = 0;
 var m_isDragging = new Array();
