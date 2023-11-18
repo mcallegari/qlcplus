@@ -39,6 +39,7 @@ class VCSlider;
 class VCLabel;
 class VCFrame;
 class VCClock;
+class VCMatrix;
 class Doc;
 
 class QHttpServer;
@@ -70,6 +71,7 @@ private:
     QString getAudioTriggersHTML(VCAudioTriggers *triggers);
     QString getCueListHTML(VCCueList *cue);
     QString getClockHTML(VCClock *clock);
+    QString getMatrixHTML(VCMatrix *matrix);
 
     QString getChildrenHTML(VCWidget *frame, int pagesNum, int currentPageIdx);
     QString getVCHTML();
@@ -95,6 +97,11 @@ protected slots:
     void slotCuePlaybackStateChanged();
     void slotClockTimeChanged(quint32 time);
     void slotFramePageChanged(int pageNum);
+    void slotMatrixSliderValueChanged(int value);
+    void slotMatrixStartColorChanged();
+    void slotMatrixEndColorChanged();
+    void slotMatrixAnimationValueChanged(QString name);
+    void slotMatrixControlKnobValueChanged(int controlID, int value);
 
 protected:
     QString m_JScode;
