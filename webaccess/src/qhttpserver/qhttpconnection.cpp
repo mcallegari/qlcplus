@@ -353,7 +353,7 @@ void QHttpConnection::slotWebSocketPollTimeout()
 
 void QHttpConnection::webSocketWrite(WebSocketOpCode opCode, QByteArray data)
 {
-    qDebug() << "[webSocketWrite] data size:" << data.size();
+    qDebug() << "[webSocketWrite] data size:" << data.size() << "data:" << QString(data);
     if (data.size() < 126)
         data.prepend(quint8(data.size()));
     else

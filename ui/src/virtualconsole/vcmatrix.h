@@ -92,8 +92,6 @@ private:
     ClickAndGoWidget *m_ecCnGWidget;
     QComboBox *m_presetCombo;
     FlowLayout *m_controlsLayout;
-    QColor m_startColor;
-    QColor m_endColor;
 
     /*********************************************************************
      * Clipboard
