@@ -70,8 +70,8 @@ void Show_Test::copy()
     Show showCopy(m_doc);
     showCopy.copyFrom(&show);
 
-    QVERIFY(show.getTimeDivisionType() == Show::BPM_3_4);
-    QVERIFY(show.getTimeDivisionBPM() == 123);
+    QVERIFY(show.timeDivisionType() == Show::BPM_3_4);
+    QVERIFY(show.timeDivisionBPM() == 123);
     QVERIFY(show.totalDuration() == 3000);
 
     QVERIFY(showCopy.getTracksCount() == show.getTracksCount());
@@ -98,12 +98,20 @@ void Show_Test::copy()
 void Show_Test::timeDivision()
 {
     Show s(m_doc);
-    QCOMPARE(s.getTimeDivisionType(), Show::Time);
-    QCOMPARE(s.getTimeDivisionBPM(), 120);
+    QCOMPARE(s.timeDivisionType(), Show::Time);
+    QCOMPARE(s.timeDivisionBPM(), 120);
 
     s.setTimeDivision(Show::BPM_4_4, 111);
-    QCOMPARE(s.getTimeDivisionType(), Show::BPM_4_4);
-    QCOMPARE(s.getTimeDivisionBPM(), 111);
+    QCOMPARE(s.timeDivisionType(), Show::BPM_4_4);
+    QCOMPARE(s.timeDivisionBPM(), 111);
+
+    QCOMPARE(s.beatsDivision(), 4);
+    s.setTimeDivisionType(Show::BPM_2_4);
+    QCOMPARE(s.beatsDivision(), 2);
+    s.setTimeDivisionType(Show::BPM_3_4);
+    QCOMPARE(s.beatsDivision(), 3);
+    s.setTimeDivisionType(Show::Time);
+    QCOMPARE(s.beatsDivision(), 0);
 
     QCOMPARE(s.stringToTempo("Time"), Show::Time);
     QCOMPARE(s.stringToTempo("BPM_4_4"), Show::BPM_4_4);
@@ -241,8 +249,8 @@ void Show_Test::load()
     Show s(m_doc);
     QVERIFY(s.loadXML(xmlReader) == true);
 
-    QCOMPARE(s.getTimeDivisionType(), Show::BPM_2_4);
-    QCOMPARE(s.getTimeDivisionBPM(), 222);
+    QCOMPARE(s.timeDivisionType(), Show::BPM_2_4);
+    QCOMPARE(s.timeDivisionBPM(), 222);
 
     QCOMPARE(s.getTracksCount(), 2);
 

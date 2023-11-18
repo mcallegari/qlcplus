@@ -1630,9 +1630,9 @@ void ShowManager::updateMultiTrackView()
     // prevent m_show time division override
     disconnect(m_bpmField, SIGNAL(valueChanged(int)), this, SLOT(slotBPMValueChanged(int)));
 
-    m_bpmField->setValue(m_show->getTimeDivisionBPM());
-    m_showview->setBPMValue(m_show->getTimeDivisionBPM());
-    int tIdx = m_timeDivisionCombo->findData(QVariant(m_show->getTimeDivisionType()));
+    m_bpmField->setValue(m_show->timeDivisionBPM());
+    m_showview->setBPMValue(m_show->timeDivisionBPM());
+    int tIdx = m_timeDivisionCombo->findData(QVariant(m_show->timeDivisionType()));
     m_timeDivisionCombo->setCurrentIndex(tIdx);
 
     connect(m_bpmField, SIGNAL(valueChanged(int)), this, SLOT(slotBPMValueChanged(int)));
