@@ -572,7 +572,6 @@ function setMatrixComboValue(id, comboValue) {
 function matrixStartColorChange(id) {
   var colorObj = document.querySelector("#msc" + id);
   var colorMsg = id + "|MATRIX_COLOR_CHANGE|START|" + hexToUint(colorObj.value);
-    console.log(colorMsg);
   websocket.send(colorMsg);
 }
 
