@@ -45,12 +45,12 @@ var testAlgo;
 
     algo.properties.push("name:lineOrientation|type:list|display:Orientation|values:Horizontal (H),Vertical (V),Both|write:setOrientation|read:getOrientation");
 
-    algo.properties.push("name:hlinePlace|type:list|display:H Placement|values:Top,Bottom,Custom|write:setHPlace|read:getHPlace");
+    algo.properties.push("name:hlinePlace|type:list|display:H Placement|values:Top,Middle,Bottom,Custom|write:setHPlace|read:getHPlace");
     algo.properties.push("name:hlineCustom|type:range|display:H Custom Value|values:0,10000|write:setHCustom|read:getHCustom");
     algo.properties.push("name:hlinePixels|type:range|display:H Remove Pixels|values:0,10000|write:setHPixels|read:getHPixels");
     algo.properties.push("name:hlineRight|type:range|display:H Move Right|values:0,10000|write:setRight|read:getRight");
     
-    algo.properties.push("name:vlinePlace|type:list|display:V Placement|values:Left,Right,Custom|write:setVPlace|read:getHPlace");
+    algo.properties.push("name:vlinePlace|type:list|display:V Placement|values:Left,Middle,Right,Custom|write:setVPlace|read:getHPlace");
     algo.properties.push("name:vlineCustom|type:range|display:V Custom Value|values:0,10000|write:setVCustom|read:getVCustom");
     algo.properties.push("name:vlinePixels|type:range|display:V Remove Pixels|values:0,10000|write:setVPixels|read:getVPixels");
     algo.properties.push("name:vlineUp|type:range|display:V Move Up|values:0,10000|write:setUp|read:getUp");
@@ -78,21 +78,27 @@ var testAlgo;
         if (_hlinePlace === "Top"){
             algo.hlinePlace = 0;
         }
-        else if (_hlinePlace === "Bottom"){
+        else if (_hlinePlace === "Middle"){
             algo.hlinePlace = 1;
         }
-        else if (_hlinePlace === "Custom"){
+        else if (_hlinePlace === "Bottom"){
             algo.hlinePlace = 2;
+        }
+        else if (_hlinePlace === "Custom"){
+            algo.hlinePlace = 3;
         }
     }
     algo.getHPlace = function (){
         if(algo.hlinePlace === 0){
             return "Top";
         }
-        else if(algo.hlinePlace === 1){
+        else if(algo.hlinePlace === 2){
             return "Bottom";
         }
-        else if (algo.hlinePlace === 2){
+        else if(algo.hlinePlace === 1){
+            return "Middle";
+        }
+        else if (algo.hlinePlace === 3){
             return "Custom";
         }
     }
@@ -101,11 +107,14 @@ var testAlgo;
         if (_vlinePlace === "Left"){
             algo.vlinePlace = 0;
         }
-        else if (_vlinePlace === "Right"){
+        else if (_vlinePlace === "Middle"){
             algo.vlinePlace = 1;
         }
-        else if (_vlinePlace === "Custom"){
+        else if (_vlinePlace === "Right"){
             algo.vlinePlace = 2;
+        }
+        else if (_vlinePlace === "Custom"){
+            algo.vlinePlace = 3;
         }
     }
     algo.getVPlace = function (){
@@ -113,6 +122,9 @@ var testAlgo;
             return "Left";
         }
         else if(algo.vlinePlace === 1){
+            return "Middle";
+        }
+        else if(algo.vlinePlace === 2){
             return "Right";
         }
         else if (algo.vlinePlace === 2){
@@ -165,11 +177,14 @@ var testAlgo;
             map[y] = new Array(width);
             } 
             for (var x = 0 + algo.hlinePixels; x < width; x++){
-                if(algo.hlinePlace === 0){
+                if(algo.hlinePlace === 0){ // top
                     map[0][x - algo.hlineRight] = rgb;
-                }else if (algo.hlinePlace === 1){
+                }else if (algo.hlinePlace === 1){ // middle
+                    var middleY = (height / 2)
+                    map[middleY][x - algo.hlineRight] = rgb;
+                }else if (algo.hlinePlace === 2){ // bottom
                     map[y-1][x - algo.hlineRight] = rgb;
-                }else if(algo.hlinePlace === 2){
+                }else if(algo.hlinePlace === 3){ // custom
                     map[algo.hlineCustom - 1][x - algo.hlineRight] = rgb;
                  }else{map[y][x]=0}}
                 }
@@ -181,9 +196,12 @@ var testAlgo;
                 if (yUp >= 0 && yUp < height) {
                     if (algo.vlinePlace === 0) { // left
                         map[yUp][0] = (y >= algo.vlinePixels) && rgb; 
-                    } else if (algo.vlinePlace === 1) { // Right
+                    } else if (algo.vlinePlace === 1){ //middle
+                        var middleX = (width / 2)
+                        map[yUp][middleX] = rgb;
+                    }else if (algo.vlinePlace === 2) { // Right
                         map[yUp][width - 1] = (y >= algo.vlinePixels) && rgb; 
-                    } else if (algo.vlinePlace === 2) { // custom
+                    } else if (algo.vlinePlace === 3) { // custom
                         map[yUp][algo.vlineCustom - 1] = (y >= algo.vlinePixels) && rgb; 
                     } else {
                         map[yUp][x] = 0;
@@ -192,28 +210,33 @@ var testAlgo;
     else if (algo.lineOrientation === 2) { // both
     for (var y = 0; y < height; y++) {
         map[y] = new Array(width);
-        var vy = y;
 
-        for (var hx = 0 + algo.hlinePixels; hx < width; hx++) { // both horizontal
-            if (algo.hlinePlace === 0) {
-                map[0][hx - algo.hlineRight] = rgb;
-            } else if (algo.hlinePlace === 1) {
-                map[height - 1][hx - algo.hlineRight] = rgb;
-            } else if (algo.hlinePlace === 2) {
-                map[algo.hlineCustom - 1][hx - algo.hlineRight] = rgb;
+        for (var x = 0 + algo.hlinePixels; x < width; x++) { // both horizontal
+            if (algo.hlinePlace === 0) { // top
+                map[0][x - algo.hlineRight] = rgb;
+            }else if (algo.hlinePlace === 1){ // middle
+                var middleY = (height / 2)
+                map[middleY][x - algo.hlineRight] = rgb;
+            } else if (algo.hlinePlace === 2) { // bottom
+                map[height - 1][x - algo.hlineRight] = rgb;
+            } else if (algo.hlinePlace === 3) { // custom
+                map[algo.hlineCustom - 1][x - algo.hlineRight] = rgb;
             } else {
-                map[y][hx] = 0;
+                map[y][x] = 0;
             }
 
             for (var vx = 0; vx < width; vx++) { // both vertical
-            var yUp = vy - algo.vlineUp;
+            var yUp = y - algo.vlineUp;
             if (yUp >= 0 && yUp < height) {
                 if (algo.vlinePlace === 0) { // left
-                    map[yUp][0] = (vy >= algo.vlinePixels) && rgb;
-                } else if (algo.vlinePlace === 1) { // Right
-                    map[yUp][width - 1] = (vy >= algo.vlinePixels) && rgb;
-                } else if (algo.vlinePlace === 2) { // custom
-                    map[yUp][algo.vlineCustom - 1] = (vy >= algo.vlinePixels) && rgb;
+                    map[yUp][0] = (y >= algo.vlinePixels) && rgb;
+                } else if (algo.vlinePlace === 1){ //middle
+                    var middleX = (width / 2)
+                    map[yUp][middleX] = rgb;
+                }else if (algo.vlinePlace === 2) { // Right
+                    map[yUp][width - 1] = (y >= algo.vlinePixels) && rgb;
+                } else if (algo.vlinePlace === 3) { // custom
+                    map[yUp][algo.vlineCustom - 1] = (y >= algo.vlinePixels) && rgb;
                 } else {
                     map[yUp][vx] = 0;
                 }
