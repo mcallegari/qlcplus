@@ -79,8 +79,12 @@ public:
     /** Set the show time division type (Time, BPM) */
     void setTimeDivision(Show::TimeDivision type, int BPM);
 
-    Show::TimeDivision getTimeDivisionType();
-    int getTimeDivisionBPM();
+    Show::TimeDivision timeDivisionType();
+    void setTimeDivisionType(Show::TimeDivision type);
+    int beatsDivision();
+
+    int timeDivisionBPM();
+    void setTimeDivisionBPM(int BPM);
 
     static QString tempoToString(Show::TimeDivision type);
     static Show::TimeDivision stringToTempo(QString tempo);

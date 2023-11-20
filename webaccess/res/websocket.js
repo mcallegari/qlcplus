@@ -71,6 +71,16 @@ function connect() {
       showSideFaderPanel(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "CUE_CHANGE") {
       setCueButtonStyle(msgParams[0], msgParams[2], msgParams[3], msgParams[4], msgParams[5]);
+    } else if (msgParams[1] === "MATRIX_SLIDER") {
+      setMatrixSliderValue(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "MATRIX_START_COLOR") {
+      setMatrixStartColorValue(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "MATRIX_END_COLOR") {
+      setMatrixEndColorValue(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "MATRIX_COMBO") {
+      setMatrixComboValue(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "MATRIX_KNOB") {
+      setMatrixControlKnobValue(msgParams[2], msgParams[3]);
     }
   };
   initVirtualConsole();

@@ -43,6 +43,8 @@
 #include "vclabel.h"
 #include "vcframe.h"
 #include "vcclock.h"
+#include "vcmatrix.h"
+#include "rgbalgorithm.h"
 #include "qlcfile.h"
 #include "chaser.h"
 #include "doc.h"
@@ -796,6 +798,23 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                     clock->resetTimer();
             }
             break;
+            case VCWidget::AnimationWidget:
+            {
+                VCMatrix *matrix = qobject_cast<VCMatrix*>(widget);
+                if (cmdList[1] == "MATRIX_SLIDER_CHANGE")
+                    matrix->slotSetSliderValue(cmdList[2].toInt());
+                if (cmdList[1] == "MATRIX_COMBO_CHANGE")
+                    matrix->slotSetAnimationValue(cmdList[2]);
+                if (cmdList[1] == "MATRIX_COLOR_CHANGE" && cmdList[2] == "START")
+                    matrix->slotStartColorChanged(cmdList[3].toInt());
+                if (cmdList[1] == "MATRIX_COLOR_CHANGE" && cmdList[2] == "END")
+                    matrix->slotEndColorChanged(cmdList[3].toInt());
+                if (cmdList[1] == "MATRIX_KNOB")
+                    matrix->slotMatrixControlKnobValueChanged(cmdList[2].toInt(), cmdList[3].toInt());
+                if (cmdList[1] == "MATRIX_PUSHBUTTON")
+                    matrix->slotMatrixControlPushButtonClicked(cmdList[2].toInt());
+            }
+            break;
             default:
             break;
         }
@@ -1115,10 +1134,10 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
         str += "<div class=\"spot\" id=\"spot" + slID + "\" style=\"--spotWidth: "+QString::number(spotWidth)+"px;\"></div>";
         str += "</div>\n</div>\n</div>\n</div>\n";
 
-        m_JScode += "maxVal[" + slID + "] = " + QString::number(max) + "\n";
-        m_JScode += "minVal[" + slID + "] = " + QString::number(min) + "\n";
-        m_JScode += "initVal[" + slID + "] = " + QString::number(slider->sliderValue()) + "\n";
-        m_JScode += "inverted[" + slID + "] = " + QString::number(slider->invertedAppearance()) + "\n";
+        m_JScode += "maxVal[" + slID + "] = " + QString::number(max) + "; \n";
+        m_JScode += "minVal[" + slID + "] = " + QString::number(min) + "; \n";
+        m_JScode += "initVal[" + slID + "] = " + QString::number(slider->sliderValue()) + "; \n";
+        m_JScode += "inverted[" + slID + "] = " + QString::number(slider->invertedAppearance()) + "; \n";
         m_JScode += "isDragging[" + slID + "] = false;\n";
     }
 
@@ -1595,6 +1614,177 @@ QString WebAccess::getClockHTML(VCClock *clock)
     return str;
 }
 
+void WebAccess::slotMatrixSliderValueChanged(int value)
+{
+    VCMatrix *matrix = qobject_cast<VCMatrix *>(sender());
+    if (matrix == NULL)
+        return;
+
+    QString wsMessage = QString("%1|MATRIX_SLIDER|%2").arg(matrix->id()).arg(value);
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
+void WebAccess::slotMatrixStartColorChanged()
+{
+    VCMatrix *matrix = qobject_cast<VCMatrix *>(sender());
+    if (matrix == NULL)
+        return;
+
+    QString wsMessage = QString("%1|MATRIX_START_COLOR|%2").arg(matrix->id()).arg(matrix->startColor().name());
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
+void WebAccess::slotMatrixEndColorChanged()
+{
+    VCMatrix *matrix = qobject_cast<VCMatrix *>(sender());
+    if (matrix == NULL)
+        return;
+
+    QString wsMessage = QString("%1|MATRIX_END_COLOR|%2").arg(matrix->id()).arg(matrix->endColor().name());
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
+void WebAccess::slotMatrixAnimationValueChanged(QString name)
+{
+    VCMatrix *matrix = qobject_cast<VCMatrix *>(sender());
+    if (matrix == NULL)
+        return;
+
+    QString wsMessage = QString("%1|MATRIX_COMBO|%2").arg(matrix->id()).arg(name);
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
+void WebAccess::slotMatrixControlKnobValueChanged(int controlID, int value)
+{
+    VCMatrix *matrix = qobject_cast<VCMatrix *>(sender());
+    if (matrix == NULL)
+        return;
+
+    QString wsMessage = QString("%1|MATRIX_KNOB|%2|%3").arg(matrix->id()).arg(controlID).arg(value);
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
+QString WebAccess::getMatrixHTML(VCMatrix *matrix)
+{
+    QString str = "<div id=\"" + QString::number(matrix->id()) + "\" "
+                  "class=\"vcmatrix\" style=\"left: " + QString::number(matrix->x()) +
+                  "px; top: " + QString::number(matrix->y()) + "px; width: " +
+                  QString::number(matrix->width()) +
+                  "px; height: " + QString::number(matrix->height()) + "px; "
+                  "background-color: " + matrix->backgroundColor().name() + ";\">\n";
+
+    str += "<div style=\"display: flex; flex-direction: row; align-items: center; width: 100%; height: 100%; \">";
+    if (matrix->visibilityMask() & VCMatrix::Visibility::ShowSlider) {
+        str +=  "<div style=\"height: 100%; width: 50px; \">";
+        str +=  "<input type=\"range\" class=\"vVertical\" "
+                "id=\"msl" + QString::number(matrix->id()) + "\" "
+                "oninput=\"matrixSliderValueChange(" + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixSliderValueChange(" + QString::number(matrix->id()) + ");\" "
+                "style=\"width: " + QString::number(matrix->height() - 20) + "px; "
+                "margin-top: " + QString::number(matrix->height() - 10) + "px; margin-left: 25px; \""
+                "min=\"1\" max=\"255\" step=\"1\" value=\"" + QString::number(matrix->sliderValue()) + "\">\n";
+        str +=  "</div>";
+    }
+    str +=  "<div style=\"display: flex; flex-direction: column; align-items: center; justify-content: space-around; height: 100%; width: 100%; margin: 8px; \">";
+    if (matrix->visibilityMask() & VCMatrix::Visibility::ShowLabel) {
+        str += "<div style=\"text-align: center; width: 100%; margin-top: 4px; margin-bottom: 4px; \">"+matrix->caption()+"</div>";
+    }
+    str += "<div style=\"display: flex; flex-direction: row; align-items: center; justify-content: space-around; width: 100%; margin-top: 4px; margin-bottom: 4px; \">";
+    if (matrix->visibilityMask() & VCMatrix::Visibility::ShowStartColorButton) {
+
+        str += "<input type=\"color\" id=\"msc"+QString::number(matrix->id())+"\" class=\"vMatrix\" value=\""+(matrix->startColor().name())+"\" "
+               "oninput=\"matrixStartColorChange(" + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixStartColorChange(" + QString::number(matrix->id()) + ");\" "
+               " />";
+    }
+    if (matrix->visibilityMask() & VCMatrix::Visibility::ShowEndColorButton) {
+        str += "<input type=\"color\" id=\"mec"+QString::number(matrix->id())+"\" class=\"vMatrix\" value=\""+(matrix->endColor().name())+"\" "
+               "oninput=\"matrixEndColorChange(" + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixEndColorChange(" + QString::number(matrix->id()) + ");\" "
+               " />";
+    }
+    str += "</div>";
+    if (matrix->visibilityMask() & VCMatrix::Visibility::ShowPresetCombo) {
+        QStringList list = RGBAlgorithm::algorithms(m_doc);
+
+        str += "<div style=\"width: 100%; margin-top: 4px; margin-bottom: 4px; \"><select class=\"matrixSelect\" id=\"mcb" + QString::number(matrix->id()) + "\" onchange=\"matrixComboChanged("+QString::number(matrix->id())+");\">";
+        for(int i = 0; i < list.length(); i++) {
+            str += "<option value=\""+list[i]+"\" "+(list[i] == matrix->animationValue() ? "selected" : "" )+" >"+list[i]+"</option>";
+        }
+        str += "</select></div>";
+    }
+    QList<VCMatrixControl *> customControls = matrix->customControls();
+    if (customControls.length() > 0) {
+        m_JScode += "matrixID = "+QString::number(matrix->id())+"; \n";
+        str += "<div style=\"display: flex; flex-direction: row; flex-wrap: wrap; align-content: flex-start; width: 100%; height: 100%; margin-top: 4px; margin-bottom: 4px; \">";
+        for (int i = 0; i < customControls.length(); i++) {
+            VCMatrixControl *control = customControls[i];
+            if (control->m_type == VCMatrixControl::StartColor) {
+                str += "<div class=\"pushButton\" style=\"width: 32px; height: 32px; "
+                       "background-color: "+(control->m_color.name())+"; margin-right: 4px; margin-bottom: 4px; \" "
+                       "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">S</div>";
+            } else if (control->m_type == VCMatrixControl::EndColor) {
+                str += "<div class=\"pushButton\" style=\"width: 32px; height: 32px; "
+                       "background-color: "+(control->m_color.name())+"; margin-right: 4px; margin-bottom: 4px; \" "
+                       "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">E</div>";
+            } else if (control->m_type == VCMatrixControl::ResetEndColor) {
+                QString btnLabel = tr("End Color Reset");
+                str += "<div class=\"pushButton\" style=\"width: 66px; justify-content: flex-start!important; height: 32px; "
+                       "background-color: #BBBBBB; margin-right: 4px; margin-bottom: 4px; \" "
+                       "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">"+btnLabel+"</div>";
+            } else if (control->m_type == VCMatrixControl::Animation || control->m_type == VCMatrixControl::Text) {
+                QString btnLabel = control->m_resource;
+                if (!control->m_properties.isEmpty())
+                {
+                        btnLabel += " (";
+                        QHashIterator<QString, QString> it(control->m_properties);
+                        while(it.hasNext())
+                        {
+                            it.next();
+                            btnLabel += it.value();
+                            if (it.hasNext())
+                                btnLabel += ",";
+                        }
+                        btnLabel += ")";
+                }
+                str += "<div class=\"pushButton\" style=\"max-width: 66px; justify-content: flex-start!important; height: 32px; "
+                       "background-color: #BBBBBB; margin-right: 4px; margin-bottom: 4px; \" "
+                       "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">"+btnLabel+"</div>";
+            } else if (control->m_type == VCMatrixControl::StartColorKnob || control->m_type == VCMatrixControl::EndColorKnob) {
+                KnobWidget *knob = qobject_cast<KnobWidget*>(matrix->getWidget(control));
+                QString slID = QString::number(control->m_id);
+                QColor color = control->m_type == VCMatrixControl::StartColorKnob ? control->m_color : control->m_color.darker(250);
+
+                str += "<div class=\"mpieWrapper\" data=\"" + slID + "\" style=\"margin-right: 4px; margin-bottom: 4px; \">";
+                str += "<div class=\"mpie\" id=\"mpie" + slID + "\" style=\"--degValue:0; \">";
+                str += "<div class=\"mknobWrapper\" id=\"mknobWrapper" + slID + "\">";
+                str += "<div class=\"mknob\" id=\"mknob" + slID + "\" style=\"background-color: "+(color.name())+";\">";
+                str += "<div class=\"mspot\" id=\"mspot" + slID + "\"></div>";
+                str += "</div>\n</div>\n</div>\n</div>\n";
+
+                m_JScode += "m_initVal[" + slID + "] = "+QString::number(knob->value())+"; \n";
+                m_JScode += "m_isDragging[" + slID + "] = false;\n";
+                connect(matrix, SIGNAL(matrixControlKnobValueChanged(int, int)),
+                        this, SLOT(slotMatrixControlKnobValueChanged(int, int)));
+
+            }
+        }
+        str += "</div>";
+    }
+    str += "</div>";
+
+    str += "</div>";
+    str += "</div>\n";
+
+    connect(matrix, SIGNAL(sliderValueChanged(int)),
+            this, SLOT(slotMatrixSliderValueChanged(int)));
+    connect(matrix, SIGNAL(startColorChanged()),
+            this, SLOT(slotMatrixStartColorChanged()));
+    connect(matrix, SIGNAL(endColorChanged()),
+            this, SLOT(slotMatrixEndColorChanged()));
+    connect(matrix, SIGNAL(animationValueChanged(QString)),
+            this, SLOT(slotMatrixAnimationValueChanged(QString)));
+
+    return str;
+}
+
 QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPageIdx)
 {
     if (frame == NULL)
@@ -1662,6 +1852,9 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
             break;
             case VCWidget::ClockWidget:
                 str = getClockHTML(qobject_cast<VCClock *>(widget));
+            break;
+            case VCWidget::AnimationWidget:
+                str = getMatrixHTML(qobject_cast<VCMatrix *>(widget));
             break;
             default:
                 str = getWidgetHTML(widget);

@@ -33,7 +33,6 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_currentShow(nullptr)
     , m_stretchFunctions(false)
     , m_gridEnabled(false)
-    , m_timeDivision(Show::Time)
     , m_timeScale(5.0)
     , m_currentTime(0)
     , m_selectedTrackIndex(-1)
@@ -148,18 +147,30 @@ void ShowManager::setGridEnabled(bool gridEnabled)
 
 Show::TimeDivision ShowManager::timeDivision()
 {
-    return m_timeDivision;
+    if (m_currentShow == nullptr)
+        return Show::Time;
+
+    return m_currentShow->timeDivisionType();
 }
 
 void ShowManager::setTimeDivision(Show::TimeDivision division)
 {
-    if (division == m_timeDivision)
+    if (m_currentShow == nullptr)
         return;
 
-    m_timeDivision = division;
-    emit timeDivisionChanged(division);
+    if (division == m_currentShow->timeDivisionType())
+        return;
 
-    m_currentShow->setTimeDivision(m_timeDivision, 1);
+    m_currentShow->setTimeDivisionType(division);
+    emit timeDivisionChanged(division);
+}
+
+int ShowManager::beatsDivision()
+{
+    if (m_currentShow == nullptr)
+        return 0;
+
+    return m_currentShow->beatsDivision();
 }
 
 float ShowManager::timeScale() const
@@ -285,6 +296,7 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
         connect(m_currentShow,SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
         emit currentShowIDChanged(m_currentShow->id());
         emit showNameChanged(m_currentShow->name());
+        emit isEditingChanged();
     }
 
     Track *selectedTrack = nullptr;
@@ -308,7 +320,7 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
         selectedTrack = m_currentShow->tracks().at(trackIdx);
     }
 
-    for (QVariant vID : idsList) // C++11
+    for (QVariant &vID : idsList) // C++11
     {
         quint32 functionID = vID.toUInt();
         if (functionID == m_currentShow->id())
@@ -324,7 +336,17 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
 
         ShowFunction *showFunc = selectedTrack->createShowFunction(functionID);
         showFunc->setStartTime(startTime);
-        showFunc->setDuration(func->totalDuration() ? func->totalDuration() : 5000);
+
+        if (timeDivision() == Show::Time)
+        {
+            func->setTempoType(Function::Time);
+            showFunc->setDuration(func->totalDuration() ? func->totalDuration() : 5000);
+        }
+        else
+        {
+            func->setTempoType(Function::Beats);
+            showFunc->setDuration(func->totalDuration() ? func->totalDuration() : 4);
+        }
         showFunc->setColor(ShowFunction::defaultColor(func->type()));
 
         QQuickItem *newItem = qobject_cast<QQuickItem*>(siComponent->create());

@@ -590,7 +590,11 @@ Rectangle
                     if (drag.source.hasOwnProperty("fromFunctionManager"))
                     {
                         var trackIdx = (itemsArea.contentY + drag.y) / trackHeight
-                        var fTime = TimeUtils.posToMs(itemsArea.contentX + drag.x, timeScale, tickSize)
+                        var fTime
+                        if (showManager.timeDivision === Show.Time)
+                            fTime = TimeUtils.posToMs(itemsArea.contentX + drag.x, timeScale, tickSize)
+                        else
+                            fTime = (itemsArea.contentX + drag.x) / (tickSize / showManager.beatsDivision())
                         console.log("Drop on time: " + fTime)
                         showManager.addItems(itemsArea.contentItem, trackIdx, fTime, drag.source.itemsList)
                     }
@@ -659,7 +663,13 @@ Rectangle
                         /* Check if the dragging was started from a Function Manager */
                         if (drag.source.hasOwnProperty("fromFunctionManager"))
                         {
-                            var fTime = TimeUtils.posToMs(xViewOffset + drag.x, timeScale, tickSize)
+                            var fTime
+
+                            if (showManager.timeDivision === Show.Time)
+                                fTime = TimeUtils.posToMs(xViewOffset + drag.x, timeScale, tickSize)
+                            else
+                                fTime = (xViewOffset + drag.x) / (tickSize / showManager.beatsDivision())
+
                             console.log("Drop on time: " + fTime)
                             showManager.addItems(itemsArea.contentItem, -1, fTime, drag.source.itemsList)
                         }
@@ -681,7 +691,7 @@ Rectangle
         RobotoText
         {
             anchors.centerIn: parent
-            label: qsTr("Create or edit a Show function first")
+            label: qsTr("Create/Edit a Show function or\ndrag a function on the timeline")
         }
     }
 

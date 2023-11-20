@@ -138,6 +138,7 @@ public:
     /** Get/Set the Show time division */
     Show::TimeDivision timeDivision();
     void setTimeDivision(Show::TimeDivision division);
+    Q_INVOKABLE int beatsDivision();
 
     /** Get/Set the current time scale of the Show Manager timeline */
     float timeScale() const;
@@ -157,9 +158,6 @@ signals:
     void currentTimeChanged(int currentTime);
 
 private:
-    /** The type of time division of the Show Manager timeline */
-    Show::TimeDivision m_timeDivision;
-
     /** The current time scale of the Show Manager timeline */
     float m_timeScale;
 

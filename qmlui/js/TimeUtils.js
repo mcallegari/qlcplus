@@ -48,6 +48,13 @@ function msToString(ms)
     return finalTime;
 }
 
+function beatsToString(beats, division)
+{
+    var bar = Math.floor(beats / division);
+    var beat = Math.floor(beats - (bar * division));
+    return "" + bar + "." + beat;
+}
+
 /**
  * Returns a string from the provided time in milliseconds,
  * considering the requested precision to display miliseconds.

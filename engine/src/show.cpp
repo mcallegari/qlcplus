@@ -152,14 +152,35 @@ void Show::setTimeDivision(Show::TimeDivision type, int BPM)
     m_timeDivisionBPM = BPM;
 }
 
-Show::TimeDivision Show::getTimeDivisionType()
+Show::TimeDivision Show::timeDivisionType()
 {
     return m_timeDivisionType;
 }
 
-int Show::getTimeDivisionBPM()
+int Show::beatsDivision()
+{
+    switch(m_timeDivisionType)
+    {
+        case BPM_2_4: return 2;
+        case BPM_3_4: return 3;
+        case BPM_4_4: return 4;
+        default: return 0;
+    }
+}
+
+void Show::setTimeDivisionType(TimeDivision type)
+{
+    m_timeDivisionType = type;
+}
+
+int Show::timeDivisionBPM()
 {
     return m_timeDivisionBPM;
+}
+
+void Show::setTimeDivisionBPM(int BPM)
+{
+    m_timeDivisionBPM = BPM;
 }
 
 QString Show::tempoToString(Show::TimeDivision type)
