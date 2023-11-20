@@ -31,14 +31,15 @@
 ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "SHOWMGR", parent)
     , m_currentShow(nullptr)
-    , m_timeScale(5.0)
     , m_stretchFunctions(false)
     , m_gridEnabled(false)
+    , m_timeScale(5.0)
     , m_currentTime(0)
     , m_selectedTrackIndex(-1)
     , m_itemsColor(Qt::gray)
 {
     view->rootContext()->setContextProperty("showManager", this);
+    qmlRegisterUncreatableType<Show>("org.qlcplus.classes", 1, 0, "Show", "Can't create a Show");
     qmlRegisterType<Track>("org.qlcplus.classes", 1, 0, "Track");
     qmlRegisterType<ShowFunction>("org.qlcplus.classes", 1, 0, "ShowFunction");
 
@@ -57,7 +58,13 @@ int ShowManager::currentShowID() const
 {
     if (m_currentShow == nullptr)
         return Function::invalidId();
+
     return m_currentShow->id();
+}
+
+bool ShowManager::isEditing()
+{
+    return m_currentShow == nullptr ? false : true;
 }
 
 void ShowManager::setCurrentShowID(int currentShowID)
@@ -71,6 +78,8 @@ void ShowManager::setCurrentShowID(int currentShowID)
 
     m_currentShow = qobject_cast<Show*>(m_doc->function(currentShowID));
     emit currentShowIDChanged(currentShowID);
+    emit isEditingChanged();
+
     if (m_currentShow != nullptr)
     {
         connect(m_currentShow, SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
@@ -103,6 +112,112 @@ void ShowManager::setShowName(QString showName)
     m_currentShow->setName(showName);
     emit showNameChanged(showName);
 }
+
+bool ShowManager::stretchFunctions() const
+{
+    return m_stretchFunctions;
+}
+
+void ShowManager::setStretchFunctions(bool stretchFunctions)
+{
+    if (m_stretchFunctions == stretchFunctions)
+        return;
+
+    m_stretchFunctions = stretchFunctions;
+    emit stretchFunctionsChanged(stretchFunctions);
+}
+
+bool ShowManager::gridEnabled() const
+{
+    return m_gridEnabled;
+}
+
+void ShowManager::setGridEnabled(bool gridEnabled)
+{
+    if (m_gridEnabled == gridEnabled)
+        return;
+
+    m_gridEnabled = gridEnabled;
+    emit gridEnabledChanged(m_gridEnabled);
+}
+
+/*********************************************************************
+ * Time
+ ********************************************************************/
+
+Show::TimeDivision ShowManager::timeDivision()
+{
+    if (m_currentShow == nullptr)
+        return Show::Time;
+
+    return m_currentShow->timeDivisionType();
+}
+
+void ShowManager::setTimeDivision(Show::TimeDivision division)
+{
+    if (m_currentShow == nullptr)
+        return;
+
+    if (division == m_currentShow->timeDivisionType())
+        return;
+
+    m_currentShow->setTimeDivisionType(division);
+    emit timeDivisionChanged(division);
+}
+
+int ShowManager::beatsDivision()
+{
+    if (m_currentShow == nullptr)
+        return 0;
+
+    return m_currentShow->beatsDivision();
+}
+
+float ShowManager::timeScale() const
+{
+    return m_timeScale;
+}
+
+void ShowManager::setTimeScale(float timeScale)
+{
+    if (m_timeScale == timeScale)
+        return;
+
+    m_timeScale = timeScale;
+    float tickScale = 1.0;
+
+    if (timeDivision() != Show::Time)
+        tickScale = timeScale;
+
+    App *app = qobject_cast<App *>(m_view);
+    m_tickSize = app->pixelDensity() * (18 * tickScale);
+    emit tickSizeChanged(m_tickSize);
+
+    emit timeScaleChanged(timeScale);
+}
+
+float ShowManager::tickSize() const
+{
+    return m_tickSize;
+}
+
+int ShowManager::currentTime() const
+{
+    return m_currentTime;
+}
+
+void ShowManager::setCurrentTime(int currentTime)
+{
+    if (m_currentTime == currentTime)
+        return;
+
+    m_currentTime = currentTime;
+    emit currentTimeChanged(currentTime);
+}
+
+/*********************************************************************
+ * Tracks
+ ********************************************************************/
 
 QVariant ShowManager::tracks()
 {
@@ -156,53 +271,6 @@ void ShowManager::moveTrack(int index, int direction)
     emit tracksChanged();
 }
 
-float ShowManager::timeScale() const
-{
-    return m_timeScale;
-}
-
-void ShowManager::setTimeScale(float timeScale)
-{
-    if (m_timeScale == timeScale)
-        return;
-
-    m_timeScale = timeScale;
-    emit timeScaleChanged(timeScale);
-}
-
-float ShowManager::tickSize() const
-{
-    return m_tickSize;
-}
-
-bool ShowManager::stretchFunctions() const
-{
-    return m_stretchFunctions;
-}
-
-void ShowManager::setStretchFunctions(bool stretchFunctions)
-{
-    if (m_stretchFunctions == stretchFunctions)
-        return;
-
-    m_stretchFunctions = stretchFunctions;
-    emit stretchFunctionsChanged(stretchFunctions);
-}
-
-bool ShowManager::gridEnabled() const
-{
-    return m_gridEnabled;
-}
-
-void ShowManager::setGridEnabled(bool gridEnabled)
-{
-    if (m_gridEnabled == gridEnabled)
-        return;
-
-    m_gridEnabled = gridEnabled;
-    emit gridEnabledChanged(m_gridEnabled);
-}
-
 /*********************************************************************
   * Show Items
   ********************************************************************/
@@ -228,6 +296,7 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
         connect(m_currentShow,SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
         emit currentShowIDChanged(m_currentShow->id());
         emit showNameChanged(m_currentShow->name());
+        emit isEditingChanged();
     }
 
     Track *selectedTrack = nullptr;
@@ -251,7 +320,7 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
         selectedTrack = m_currentShow->tracks().at(trackIdx);
     }
 
-    for (QVariant vID : idsList) // C++11
+    for (QVariant &vID : idsList) // C++11
     {
         quint32 functionID = vID.toUInt();
         if (functionID == m_currentShow->id())
@@ -267,7 +336,17 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
 
         ShowFunction *showFunc = selectedTrack->createShowFunction(functionID);
         showFunc->setStartTime(startTime);
-        showFunc->setDuration(func->totalDuration() ? func->totalDuration() : 5000);
+
+        if (timeDivision() == Show::Time)
+        {
+            func->setTempoType(Function::Time);
+            showFunc->setDuration(func->totalDuration() ? func->totalDuration() : 5000);
+        }
+        else
+        {
+            func->setTempoType(Function::Beats);
+            showFunc->setDuration(func->totalDuration() ? func->totalDuration() : 4);
+        }
         showFunc->setColor(ShowFunction::defaultColor(func->type()));
 
         QQuickItem *newItem = qobject_cast<QQuickItem*>(siComponent->create());
@@ -444,20 +523,6 @@ int ShowManager::showDuration() const
         return 0;
 
     return m_currentShow->totalDuration();
-}
-
-int ShowManager::currentTime() const
-{
-    return m_currentTime;
-}
-
-void ShowManager::setCurrentTime(int currentTime)
-{
-    if (m_currentTime == currentTime)
-        return;
-
-    m_currentTime = currentTime;
-    emit currentTimeChanged(currentTime);
 }
 
 void ShowManager::playShow()

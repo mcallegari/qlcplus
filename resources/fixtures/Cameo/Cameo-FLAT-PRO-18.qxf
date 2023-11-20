@@ -7,7 +7,7 @@
   <Author>Janosch Frank</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
- <Model>FLAT PRO 7</Model>
+ <Model>FLAT PRO 18</Model>
  <Type>Color Changer</Type>
  <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Colour Macros">

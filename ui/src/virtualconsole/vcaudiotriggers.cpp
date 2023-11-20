@@ -26,7 +26,6 @@
 #include "vcaudiotriggersproperties.h"
 #include "vcpropertieseditor.h"
 #include "vcaudiotriggers.h"
-#include "virtualconsole.h"
 #include "audiocapture.h"
 #include "genericfader.h"
 #include "fadechannel.h"

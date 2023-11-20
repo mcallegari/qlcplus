@@ -31,7 +31,6 @@ Rectangle
     color: "transparent"
 
     property int universeIndex: 0
-    property bool isEditing: false
 
     onUniverseIndexChanged:
     {
@@ -41,6 +40,20 @@ Rectangle
     function loadSources(input)
     {
         profListView.model = ioManager.universeInputProfiles(universeIndex)
+    }
+
+    CustomPopupDialog
+    {
+        id: deletePopup
+        standardButtons: Dialog.Ok | Dialog.Cancel
+        title: qsTr("!! Warning !!")
+        message: qsTr("Do you wish to permanently delete profile '" + profListView.selectedName + "'?")
+        onAccepted:
+        {
+            ioManager.removeInputProfile(profListView.selectedName)
+            profListView.model = ioManager.universeInputProfiles(universeIndex)
+            profListView.selectedIndex = -1
+        }
     }
 
     ColumnLayout
@@ -72,27 +85,35 @@ Rectangle
                 {
                     width: height
                     height: topBar.height - 2
-                    visible: isEditing
-                    enabled: isEditing && profileEditor.modified
+                    visible: profEditor.isEditing
+                    enabled: profEditor.isEditing && profileEditor.modified
                     imgSource: "qrc:/filesave.svg"
                     tooltip: qsTr("Save this profile")
 
-                    onClicked: { }
+                    onClicked:
+                    {
+                        ioManager.saveInputProfile()
+                        profListView.model = ioManager.universeInputProfiles(universeIndex)
+                    }
                 }
 
                 IconButton
                 {
                     width: height
                     height: topBar.height - 2
-                    visible: isEditing
+                    visible: profEditor.isEditing
                     checkable: true
                     imgSource: "qrc:/wizard.svg"
                     tooltip: qsTr("Toggle the automatic detection procedure")
 
                     onToggled:
                     {
-                        if (isEditing)
+                        if (profEditor.isEditing)
+                        {
+                            if (checked)
+                                profEditor.showWizard()
                             profileEditor.toggleDetection()
+                        }
                     }
                 }
 
@@ -101,18 +122,18 @@ Rectangle
                     width: height
                     height: topBar.height - 2
                     imgSource: "qrc:/add.svg"
-                    tooltip: isEditing ? qsTr("Add a new channel") : qsTr("Create a new input profile")
+                    tooltip: profEditor.isEditing ? qsTr("Add a new channel") : qsTr("Create a new input profile")
 
                     onClicked:
                     {
-                        if (isEditing)
+                        if (profEditor.isEditing)
                         {
-
+                            profEditor.addNewChannel()
                         }
                         else
                         {
                             ioManager.createInputProfile()
-                            isEditing = true
+                            profEditor.isEditing = true
                         }
                     }
                 }
@@ -122,19 +143,21 @@ Rectangle
                     width: height
                     height: topBar.height - 2
                     imgSource: "qrc:/edit.svg"
-                    tooltip: isEditing ? qsTr("Edit the selected channel") : qsTr("Edit the selected input profile")
-                    enabled: profListView.selectedIndex >= 0
+                    tooltip: profEditor.isEditing ? qsTr("Edit the selected channel") : qsTr("Edit the selected input profile")
+                    enabled: profEditor.isEditing ? profEditor.selectedChannel() >= 0 : profListView.selectedIndex >= 0
 
                     onClicked:
                     {
-                        if (isEditing)
+                        if (profEditor.isEditing)
                         {
-
+                            profEditor.editSelectedChannel()
                         }
                         else
                         {
                             ioManager.editInputProfile(profListView.selectedName)
-                            isEditing = true
+                            profEditor.isEditing = true
+                            if (profListView.selectedIsUser == false)
+                                profEditor.showWarning()
                         }
                     }
                 }
@@ -144,10 +167,21 @@ Rectangle
                     width: height
                     height: topBar.height - 2
                     imgSource: "qrc:/remove.svg"
-                    tooltip: isEditing ? qsTr("Delete the selected channel") : qsTr("Delete the selected input profile(s)")
-                    enabled: profListView.selectedIndex >= 0
+                    tooltip: profEditor.isEditing ? qsTr("Delete the selected channel") : qsTr("Delete the selected input profile(s)")
+                    enabled: profEditor.isEditing ? profEditor.selectedChannel() >= 0 : profListView.selectedIndex >= 0 && profListView.selectedIsUser
 
-                    onClicked: { }
+                    onClicked:
+                    {
+                        if (profEditor.isEditing)
+                        {
+                            profEditor.removeSelectedChannel()
+                        }
+                        else
+                        {
+                            if (profListView.selectedIsUser)
+                                deletePopup.open()
+                        }
+                    }
                 }
 
                 Rectangle { Layout.fillWidth: true }
@@ -156,15 +190,21 @@ Rectangle
                 {
                     width: height
                     height: topBar.height - 2
-                    visible: isEditing
+                    visible: profEditor.isEditing
                     border.color: UISettings.bgMedium
                     useFontawesome: true
                     label: FontAwesome.fa_times
                     onClicked:
                     {
-                        // todo popup for unsaved changes
-                        ioManager.finishInputProfile()
-                        isEditing = false
+                        if (profileEditor.modified)
+                        {
+                            profEditor.showSaveFirst()
+                        }
+                        else
+                        {
+                            ioManager.finishInputProfile()
+                            profEditor.isEditing = false
+                        }
                     }
                 }
             }
@@ -177,10 +217,11 @@ Rectangle
             Layout.fillHeight: true
             z: 1
             boundsBehavior: Flickable.StopAtBounds
-            visible: !isEditing
+            visible: !profEditor.isEditing
 
             property int selectedIndex: -1
             property string selectedName
+            property bool selectedIsUser: false
 
             delegate:
                 Item
@@ -202,6 +243,7 @@ Rectangle
                         {
                             profListView.selectedIndex = index
                             profListView.selectedName = profileItem.lineName
+                            profListView.selectedIsUser = modelData.isUser
                         }
 
                         onReleased:
@@ -269,6 +311,7 @@ Rectangle
 
         InputProfileEditor
         {
+            id: profEditor
             width: profilesContainer.width
             Layout.fillHeight: true
             visible: isEditing

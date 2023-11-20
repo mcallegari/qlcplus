@@ -42,7 +42,6 @@
 #include "virtualconsole.h"
 #include "vcsoloframe.h"
 #include "vcspeeddial.h"
-#include "inputpatch.h"
 #include "vccuelist.h"
 #include "vcbutton.h"
 #include "vcslider.h"

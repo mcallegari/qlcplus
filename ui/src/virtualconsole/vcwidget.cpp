@@ -47,7 +47,6 @@
 
 #include "qlcinputchannel.h"
 #include "virtualconsole.h"
-#include "vcproperties.h"
 #include "inputpatch.h"
 #include "vcwidget.h"
 #include "doc.h"

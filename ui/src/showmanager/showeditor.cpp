@@ -26,7 +26,6 @@
 #include "chaserstep.h"
 #include "showeditor.h"
 #include "chaser.h"
-#include "audio.h"
 #include "track.h"
 #include "scene.h"
 #include "show.h"

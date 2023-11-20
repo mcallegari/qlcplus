@@ -28,8 +28,6 @@
 #include "consolechannel.h"
 #include "clickandgoslider.h"
 #include "groupsconsole.h"
-#include "fixture.h"
-#include "apputil.h"
 #include "doc.h"
 
 /*****************************************************************************

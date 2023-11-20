@@ -26,7 +26,6 @@
 #include "functionselection.h"
 #include "virtualconsole.h"
 #include "dmxdumpfactory.h"
-#include "chaserstep.h"
 #include "universe.h"
 #include "function.h"
 #include "vcwidget.h"

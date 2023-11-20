@@ -25,7 +25,6 @@
 #include "sceneeditor.h"
 #include "efxeditor.h"
 #include "rgbmatrix.h"
-#include "sequence.h"
 #include "chaser.h"
 #include "scene.h"
 #include "doc.h"

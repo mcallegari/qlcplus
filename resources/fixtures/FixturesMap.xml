@@ -251,6 +251,7 @@
     <F n="Blizzard-Lighting-HotBox-Infiniwhite" m="HotBox Infiniwhite"/>
     <F n="Blizzard-Lighting-Hotbox-RGBAW" m="Hotbox 5 RGBAW"/>
     <F n="Blizzard-Lighting-Hotbox-RGBW" m="Hotbox RGBW"/>
+    <F n="Blizzard-Lighting-LB-Hex-Unplugged" m="LB Hex Unplugged"/>
     <F n="Blizzard-Lighting-LB-Par-Hex" m="LB-Par Hex"/>
     <F n="Blizzard-Lighting-Lil-G" m="Lil G"/>
     <F n="Blizzard-Lighting-Lo-Pro-CSI" m="Lo-Pro CSI"/>
@@ -322,8 +323,8 @@
     <F n="Cameo-F2-T-PO" m="F2 T PO"/>
     <F n="Cameo-Flash-Bar-150" m="Flash Bar 150"/>
     <F n="Cameo-Flat-PAR-CAN-TRI-3W" m="Flat PAR CAN TRI 3W"/>
-    <F n="Cameo-FLAT-PRO-12" m="FLAT PRO 7"/>
-    <F n="Cameo-FLAT-PRO-18" m="FLAT PRO 7"/>
+    <F n="Cameo-FLAT-PRO-12" m="FLAT PRO 12"/>
+    <F n="Cameo-FLAT-PRO-18" m="FLAT PRO 18"/>
     <F n="Cameo-FLAT-PRO-7" m="FLAT PRO 7"/>
     <F n="Cameo-Gobo-Scanner-60" m="Gobo Scanner 60"/>
     <F n="Cameo-Hydrabeam-1000-RGBW" m="Hydrabeam 1000 RGBW"/>
@@ -765,6 +766,7 @@
     <F n="Eurolite-LED-SLS-7-HCL" m="LED SLS-7 HCL"/>
     <F n="Eurolite-LED-SLS-X-QCL" m="LED SLS-* QCL"/>
     <F n="Eurolite-LED-Strobe-PRO-DMX" m="LED Strobe PRO DMX"/>
+    <F n="Eurolite-LED-Strobe-SMD-PRO-132-DMX-RGB" m="LED Strobe SMD PRO 132 DMX RGB"/>
     <F n="EuroLite-LED-Super-Strobe-ABL" m="LED Super Strobe ABL"/>
     <F n="Eurolite-LED-T-36-RGB-Pinspot" m="LED T-36 RGB Pinspot"/>
     <F n="Eurolite-LED-T-36-RGB-Spot" m="LED T-36 RGB Spot"/>
@@ -1165,6 +1167,7 @@
     <F n="Martin-EFX-600" m="EFX-600"/>
     <F n="Martin-EFX-700" m="EFX-700"/>
     <F n="Martin-EFX-800" m="EFX-800"/>
+    <F n="Martin-Ego-X6" m="Ego X6"/>
     <F n="Martin-ELP-CL-Profile" m="ELP-CL Profile"/>
     <F n="Martin-ERA-300-Profile" m="ERA 300 Profile"/>
     <F n="Martin-ERA-400-Performance" m="ERA 400 Performance"/>
@@ -1439,6 +1442,7 @@
   </M>
   <M n="Shehds">
     <F n="Shehds-230W-LED-Beam-Moving-Head" m="LED 230W Beam Moving Head"/>
+    <F n="Shehds-GalaxyJet-Waterproof-IP65-380W-19R-Beam-Moving-Head" m="GalaxyJet Waterproof IP65 380W 19R Beam Moving Head"/>
     <F n="Shehds-JMS-WEBB-LED-Wash-BigBeeEye-19X40W" m="JMS WEBB LED Wash Big Bee Eye 19X40W"/>
     <F n="Shehds-LED-Flat-Par-18x18W-RGBWA+UV" m="LED Flat Par 18x18W RGBWA+UV"/>
     <F n="Shehds-LED-Flat-Par-7x18W-RGBWA+UV" m="LED Flat Par 7x18W RGBWA+UV"/>

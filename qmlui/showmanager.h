@@ -24,9 +24,9 @@
 #include <QQuickItem>
 
 #include "previewcontext.h"
+#include "show.h"
 
 class Doc;
-class Show;
 class Track;
 class Function;
 class ShowFunction;
@@ -43,15 +43,20 @@ class ShowManager : public PreviewContext
     Q_OBJECT
 
     Q_PROPERTY(int currentShowID READ currentShowID WRITE setCurrentShowID NOTIFY currentShowIDChanged)
+    Q_PROPERTY(bool isEditing READ isEditing NOTIFY isEditingChanged)
     Q_PROPERTY(QString showName READ showName WRITE setShowName NOTIFY showNameChanged)
     Q_PROPERTY(QColor itemsColor READ itemsColor WRITE setItemsColor NOTIFY itemsColorChanged)
-    Q_PROPERTY(float timeScale READ timeScale WRITE setTimeScale NOTIFY timeScaleChanged)
-    Q_PROPERTY(float tickSize READ tickSize CONSTANT)
+
     Q_PROPERTY(bool stretchFunctions READ stretchFunctions WRITE setStretchFunctions NOTIFY stretchFunctionsChanged)
     Q_PROPERTY(bool gridEnabled READ gridEnabled WRITE setGridEnabled NOTIFY gridEnabledChanged)
-    Q_PROPERTY(int currentTime READ currentTime WRITE setCurrentTime NOTIFY currentTimeChanged)
     Q_PROPERTY(bool isPlaying READ isPlaying NOTIFY isPlayingChanged)
     Q_PROPERTY(int showDuration READ showDuration NOTIFY showDurationChanged)
+
+    Q_PROPERTY(Show::TimeDivision timeDivision READ timeDivision WRITE setTimeDivision NOTIFY timeDivisionChanged)
+    Q_PROPERTY(float timeScale READ timeScale WRITE setTimeScale NOTIFY timeScaleChanged)
+    Q_PROPERTY(float tickSize READ tickSize NOTIFY tickSizeChanged)
+    Q_PROPERTY(int currentTime READ currentTime WRITE setCurrentTime NOTIFY currentTimeChanged)
+
     Q_PROPERTY(QVariant tracks READ tracks NOTIFY tracksChanged)
     Q_PROPERTY(int selectedTrackIndex READ selectedTrackIndex WRITE setSelectedTrackIndex NOTIFY selectedTrackIndexChanged)
     Q_PROPERTY(int selectedItemsCount READ selectedItemsCount NOTIFY selectedItemsCountChanged)
@@ -61,6 +66,9 @@ public:
 
     /** Return the ID of the Show Function being edited */
     int currentShowID() const;
+
+    /** Flag to indicate if a Show is currently being edited */
+    bool isEditing();
 
     /** Set the ID of the Show Function to edit */
     void setCurrentShowID(int currentShowID);
@@ -85,13 +93,6 @@ public:
     /** Return the current Show total duration in milliseconds */
     int showDuration() const;
 
-    /** Get/Set the current time scale of the Show Manager timeline */
-    float timeScale() const;
-    void setTimeScale(float timeScale);
-
-    /** Get the size in pixels of the Show header time division */
-    float tickSize() const;
-
     /** Get/Set the Function stretch flag */
     bool stretchFunctions() const;
     void setStretchFunctions(bool stretchFunctions);
@@ -99,10 +100,6 @@ public:
     /** Get/Set the grid snapping functionality */
     bool gridEnabled() const;
     void setGridEnabled(bool gridEnabled);
-
-    /** Get/Set the current time of the Show (aka cursor position) */
-    int currentTime() const;
-    void setCurrentTime(int currentTime);
 
     /** Play or resume the Show playback */
     Q_INVOKABLE void playShow();
@@ -115,23 +112,16 @@ public:
 
 signals:
     void currentShowIDChanged(int currentShowID);
+    void isEditingChanged();
     void showNameChanged(QString showName);
-    void timeScaleChanged(float timeScale);
     void stretchFunctionsChanged(bool stretchFunction);
     void gridEnabledChanged(bool gridEnabled);
-    void currentTimeChanged(int currentTime);
     void isPlayingChanged(bool playing);
     void showDurationChanged(int showDuration);
 
 private:
     /** A reference to the Show Function being edited */
     Show *m_currentShow;
-
-    /** The current time scale of the Show Manager timeline */
-    float m_timeScale;
-
-    /** Size in pixels of the Show Manager time division */
-    float m_tickSize;
 
     /** Flag that indicates if a Function should be stretched
      *  when the corresponding Show Item duration changes */
@@ -140,6 +130,39 @@ private:
     /** Flag that indicates if the Show items should be
      *  snapped to the closest grid divisor */
     bool m_gridEnabled;
+
+    /*********************************************************************
+      * Time
+      ********************************************************************/
+public:
+    /** Get/Set the Show time division */
+    Show::TimeDivision timeDivision();
+    void setTimeDivision(Show::TimeDivision division);
+    Q_INVOKABLE int beatsDivision();
+
+    /** Get/Set the current time scale of the Show Manager timeline */
+    float timeScale() const;
+    void setTimeScale(float timeScale);
+
+    /** Get the size in pixels of the Show header time division */
+    float tickSize() const;
+
+    /** Get/Set the current time of the Show (aka cursor position) */
+    int currentTime() const;
+    void setCurrentTime(int currentTime);
+
+signals:
+    void timeDivisionChanged(Show::TimeDivision division);
+    void timeScaleChanged(float timeScale);
+    void tickSizeChanged(float tickSize);
+    void currentTimeChanged(int currentTime);
+
+private:
+    /** The current time scale of the Show Manager timeline */
+    float m_timeScale;
+
+    /** Size in pixels of the Show Manager time division */
+    float m_tickSize;
 
     /** The current time position of the Show in ms */
     int m_currentTime;

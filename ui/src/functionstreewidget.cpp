@@ -17,14 +17,12 @@
   limitations under the License.
 */
 
+#include <QContextMenuEvent>
 #include <QDebug>
 
 #include "functionstreewidget.h"
 #include "function.h"
-#include "chaser.h"
-#include "scene.h"
 #include "doc.h"
-#include <QContextMenuEvent>
 
 #define COL_NAME 0
 #define COL_PATH 1

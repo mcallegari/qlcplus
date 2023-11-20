@@ -37,7 +37,6 @@
 #include "qlcfixturedef.h"
 
 #include "addresstool.h"
-#include "outputpatch.h"
 #include "addfixture.h"
 #include "apputil.h"
 #include "doc.h"

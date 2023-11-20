@@ -25,8 +25,6 @@
 
 #include "rgbmatrixitem.h"
 #include "trackitem.h"
-#include "headeritems.h"
-#include "audiodecoder.h"
 
 RGBMatrixItem::RGBMatrixItem(RGBMatrix *rgbm, ShowFunction *func)
     : ShowItem(func)

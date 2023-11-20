@@ -94,16 +94,16 @@ bool FTD2XXInterface::readLabel(uchar label, int &intParam, QString &strParam)
     if (FT_Open(id(), &ftdi) != FT_OK)
         return false;
 
-    if(FT_ResetDevice(ftdi) != FT_OK)
+    if (FT_ResetDevice(ftdi) != FT_OK)
         return false;
 
-    if(FT_SetBaudRate(ftdi, 250000) != FT_OK)
+    if (FT_SetBaudRate(ftdi, 250000) != FT_OK)
         return false;
 
-    if(FT_SetDataCharacteristics(ftdi, FT_BITS_8, FT_STOP_BITS_2, FT_PARITY_NONE) != FT_OK)
+    if (FT_SetDataCharacteristics(ftdi, FT_BITS_8, FT_STOP_BITS_2, FT_PARITY_NONE) != FT_OK)
         return false;
 
-    if(FT_SetFlowControl(ftdi, 0, 0, 0) != FT_OK)
+    if (FT_SetFlowControl(ftdi, 0, 0, 0) != FT_OK)
         return false;
 
     QByteArray request;
@@ -115,11 +115,16 @@ bool FTD2XXInterface::readLabel(uchar label, int &intParam, QString &strParam)
 
     DWORD written = 0;
     if (FT_Write(ftdi, (char*) request.data(), request.size(), &written) != FT_OK)
+    {
+        qDebug() << Q_FUNC_INFO << "Cannot write data to device" << id();
+        FT_Close(ftdi);
         return false;
+    }
 
     if (written == 0)
     {
-        qDebug() << Q_FUNC_INFO << "Cannot write data to device";
+        qDebug() << Q_FUNC_INFO << "Cannot write data to device" << id();
+        FT_Close(ftdi);
         return false;
     }
 
@@ -132,22 +137,30 @@ bool FTD2XXInterface::readLabel(uchar label, int &intParam, QString &strParam)
     array = QByteArray::fromRawData((char*) buffer, read);
 
     if (array.size() == 0)
+    {
+        FT_Close(ftdi);
         return false;
+    }
 
     if (array[0] != ENTTEC_PRO_START_OF_MSG)
     {
         qDebug() << Q_FUNC_INFO << "Reply message wrong start code: " << QString::number(array[0], 16);
+        FT_Close(ftdi);
         return false;
     }
 
     // start | label | data length
     if (array.size() < 4)
+    {
+        FT_Close(ftdi);
         return false;
+    }
 
     int dataLen = (array[3] << 8) | array[2];
     if (dataLen == 1)
     {
         intParam = array[4];
+        FT_Close(ftdi);
         return true;
     }
 
@@ -238,7 +251,7 @@ bool FTD2XXInterface::open()
     FT_STATUS status = FT_Open(id(), &m_handle);
     if (status != FT_OK)
     {
-        qWarning() << Q_FUNC_INFO << "Error opening" << name() << status;
+        qWarning() << Q_FUNC_INFO << "Error opening" << name() << "id:" << id() << "status:" << status;
         return false;
     }
 

@@ -17,12 +17,12 @@
   limitations under the License.
 */
 
-#include "addresstool.h"
-#include "ui_addresstool.h"
-
 #include <QPainter>
 #include <QPixmap>
 #include <QMouseEvent>
+
+#include "addresstool.h"
+#include "ui_addresstool.h"
 
 AddressTool::AddressTool(QWidget *parent, int presetValue) :
     QDialog(parent)

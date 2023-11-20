@@ -36,20 +36,19 @@ Item
     property int startTime: sfRef ? sfRef.startTime : -1
     property int duration: sfRef ? sfRef.duration : -1
     property int trackIndex: -1
+    property int timeDivision: showManager.timeDivision
     property real timeScale: showManager.timeScale
     property real tickSize: showManager.tickSize
     property bool isSelected: false
+    property bool isDragging: false
     property color globalColor: showManager.itemsColor
     property string infoText: ""
     property string toolTipText: ""
 
-    onStartTimeChanged: x = TimeUtils.timeToSize(startTime, timeScale, tickSize)
-    onDurationChanged: width = TimeUtils.timeToSize(duration, timeScale, tickSize)
-    onTimeScaleChanged:
-    {
-        x = TimeUtils.timeToSize(startTime, timeScale, tickSize)
-        width = TimeUtils.timeToSize(duration, timeScale, tickSize)
-    }
+    onStartTimeChanged: updateGeometry()
+    onDurationChanged: updateGeometry()
+    onTimeScaleChanged: updateGeometry()
+    onTimeDivisionChanged: updateGeometry()
 
     onGlobalColorChanged:
     {
@@ -61,11 +60,43 @@ Item
     //onXChanged: updateTooltipText()
     //onWidthChanged: updateTooltipText()
 
+    function updateGeometry()
+    {
+        if (isDragging)
+            return
+
+        if (timeDivision === Show.Time)
+        {
+            x = TimeUtils.timeToSize(startTime, timeScale, tickSize)
+            width = TimeUtils.timeToSize(duration, timeScale, tickSize)
+        }
+        else
+        {
+            x = (tickSize / showManager.beatsDivision()) * startTime
+            width = (tickSize / showManager.beatsDivision()) * duration
+        }
+    }
+
     function updateTooltipText()
     {
         var tooltip = funcRef ? funcRef.name + "\n" : ""
-        tooltip += qsTr("Position: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize))
-        tooltip += "\n" + qsTr("Duration: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale, tickSize))
+        var pos = 0
+        var dur = 0
+
+        if (timeDivision === Show.Time)
+        {
+            pos = TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize))
+            dur = TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale, tickSize))
+        }
+        else
+        {
+            var bd = showManager.beatsDivision()
+            pos = TimeUtils.beatsToString((itemRoot.x + showItemBody.x) / (tickSize / bd), bd)
+            dur = TimeUtils.beatsToString(itemRoot.width / (tickSize / bd), bd)
+        }
+
+        tooltip += qsTr("Position: ") + pos
+        tooltip += "\n" + qsTr("Duration: ") + dur
         toolTipText = tooltip
     }
 
@@ -225,12 +256,23 @@ Item
             itemRoot.z++
             infoTextBox.height = itemRoot.height / 4
             infoTextBox.textHAlign = Text.AlignLeft
+            isDragging = true
         }
         onPositionChanged:
         {
             if (drag.target !== null)
             {
-                infoText = qsTr("Position: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize))
+                var txt
+                if (timeDivision === Show.Time)
+                {
+                    txt = TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize))
+                }
+                else
+                {
+                    var bd = showManager.beatsDivision()
+                    txt = TimeUtils.beatsToString((itemRoot.x + showItemBody.x) / (tickSize / bd), bd)
+                }
+                infoText = qsTr("Position: ") + txt
             }
         }
         onReleased:
@@ -244,7 +286,11 @@ Item
                 drag.target = null
                 infoText = ""
 
-                var newTime = TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize)
+                var newTime
+                if (timeDivision === Show.Time)
+                    newTime = TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize)
+                else
+                    newTime = (itemRoot.x + showItemBody.x) / (tickSize / showManager.beatsDivision())
                 var newTrackIdx = Math.round((itemRoot.y + showItemBody.y) / itemRoot.height)
 
                 // dragging to 0 might not be accurate...
@@ -267,6 +313,8 @@ Item
             itemRoot.z--
             showManager.enableFlicking(true)
             updateTooltipText()
+            isDragging = false
+            updateGeometry()
         }
 
         onClicked:
@@ -308,6 +356,8 @@ Item
             drag.axis: Drag.XAxis
             drag.maximumX: horRightHandler.x
 
+            onPressed: isDragging = true
+
             onPositionChanged:
             {
                 if (drag.active == true)
@@ -317,8 +367,7 @@ Item
                     itemRoot.x = hdlPos.x - mouse.x
                     infoTextBox.height = itemRoot.height / 2
                     infoTextBox.textHAlign = Text.AlignLeft
-                    infoText = qsTr("Position: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize))
-                    infoText += "\n" + qsTr("Duration: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale, tickSize))
+                    updateTooltipText()
                     horLeftHandler.x = 0
                 }
             }
@@ -343,8 +392,18 @@ Item
                         itemRoot.width += (currX - itemRoot.x)
                     }
 
-                    sfRef.startTime = TimeUtils.posToMs(itemRoot.x, timeScale, tickSize)
-                    sfRef.duration = TimeUtils.posToMs(itemRoot.width, timeScale, tickSize)
+                    if (timeDivision === Show.Time)
+                    {
+                        sfRef.startTime = TimeUtils.posToMs(itemRoot.x, timeScale, tickSize)
+                        sfRef.duration = TimeUtils.posToMs(itemRoot.width, timeScale, tickSize)
+                    }
+                    else
+                    {
+                        var beatSize = tickSize / showManager.beatsDivision()
+                        sfRef.startTime = Math.round(itemRoot.x / beatSize)
+                        sfRef.duration = Math.round(itemRoot.width / beatSize)
+                    }
+
                     if (funcRef && showManager.stretchFunctions === true)
                         funcRef.totalDuration = sfRef.duration
 
@@ -352,6 +411,8 @@ Item
                 }
                 infoText = ""
                 horLeftHandler.x = 0
+                isDragging = false
+                updateGeometry()
             }
         }
     }
@@ -379,6 +440,8 @@ Item
             drag.axis: Drag.XAxis
             drag.minimumX: horLeftHandler.x + width
 
+            onPressed: isDragging = true
+
             onPositionChanged:
             {
                 //var mp = mapToItem(itemRoot, mouseX, mouseY)
@@ -390,7 +453,7 @@ Item
                     itemRoot.width = obj.x + (horRightHdlMa.width - mouse.x)
                     infoTextBox.height = itemRoot.height / 4
                     infoTextBox.textHAlign = Text.AlignRight
-                    infoText = qsTr("Duration: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale, tickSize))
+                    updateTooltipText()
                 }
             }
             onReleased:
@@ -407,13 +470,19 @@ Item
                         itemRoot.width = snappedEndPos - itemRoot.x
                     }
 
-                    sfRef.duration = TimeUtils.posToMs(itemRoot.width, timeScale, tickSize)
+                    if (timeDivision === Show.Time)
+                        sfRef.duration = TimeUtils.posToMs(itemRoot.width, timeScale, tickSize)
+                    else
+                        sfRef.duration = Math.round(itemRoot.width / (tickSize / showManager.beatsDivision()))
+
                     if (funcRef && showManager.stretchFunctions === true)
                         funcRef.totalDuration = sfRef.duration
 
                     prCanvas.requestPaint()
                 }
                 infoText = ""
+                isDragging = false
+                updateGeometry()
             }
         }
     }

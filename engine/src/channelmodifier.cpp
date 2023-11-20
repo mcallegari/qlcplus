@@ -16,13 +16,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-
-#include "channelmodifier.h"
-#include "qlcfile.h"
-
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QDebug>
+
+#include "channelmodifier.h"
+#include "qlcfile.h"
 
 ChannelModifier::ChannelModifier()
 {

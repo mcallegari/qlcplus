@@ -23,7 +23,6 @@
 
 #include "vcspeeddialfunction.h"
 #include "function.h"
-#include "doc.h"
 
 #define KXMLQLCSequenceSceneValues "Values"
 #define KXMLQLCStepNote "Note"

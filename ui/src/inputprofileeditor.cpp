@@ -100,7 +100,7 @@ InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile
     }
     else
     {
-        m_profile = new QLCInputProfile(*profile);
+        m_profile = profile->createCopy();
         if ((QFile::permissions(m_profile->path()) &
                 QFile::WriteUser) == 0)
         {
@@ -667,7 +667,7 @@ void InputProfileEditor::slotTimerTimeout()
  * Profile
  ****************************************************************************/
 
-const QLCInputProfile* InputProfileEditor::profile() const
+QLCInputProfile* InputProfileEditor::profile()
 {
     return m_profile;
 }

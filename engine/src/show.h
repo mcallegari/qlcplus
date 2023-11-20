@@ -65,15 +65,33 @@ public:
     /*********************************************************************
      * Time division
      *********************************************************************/
-    /** Set the show time division type (Time, BPM) */
-    void setTimeDivision(QString type, int BPM);
+public:
+    enum TimeDivision
+    {
+        Time = 0,
+        BPM_4_4,
+        BPM_3_4,
+        BPM_2_4,
+        Invalid
+    };
+    Q_ENUM(TimeDivision)
 
-    QString getTimeDivisionType();
-    int getTimeDivisionBPM();
+    /** Set the show time division type (Time, BPM) */
+    void setTimeDivision(Show::TimeDivision type, int BPM);
+
+    Show::TimeDivision timeDivisionType();
+    void setTimeDivisionType(Show::TimeDivision type);
+    int beatsDivision();
+
+    int timeDivisionBPM();
+    void setTimeDivisionBPM(int BPM);
+
+    static QString tempoToString(Show::TimeDivision type);
+    static Show::TimeDivision stringToTempo(QString tempo);
 
 private:
-    QString m_timeDivType;
-    int m_timeDivBPM;
+    TimeDivision m_timeDivisionType;
+    int m_timeDivisionBPM;
 
     /*********************************************************************
      * Tracks

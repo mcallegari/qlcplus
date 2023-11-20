@@ -44,7 +44,6 @@
 #include "qlcclipboard.h"
 #include "positiontool.h"
 #include "sceneeditor.h"
-#include "mastertimer.h"
 #include "qlcchannel.h"
 #include "chaserstep.h"
 #include "fixture.h"

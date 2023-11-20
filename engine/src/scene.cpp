@@ -25,8 +25,6 @@
 #include <QFile>
 
 #include "qlcfixturedef.h"
-#include "qlcmacros.h"
-#include "qlcfile.h"
 #include "qlccapability.h"
 
 #include "genericfader.h"
@@ -43,6 +41,8 @@
 Scene::Scene(Doc* doc)
     : Function(doc, Function::SceneType)
     , m_legacyFadeBus(Bus::invalid())
+    , m_flashOverrides(false)
+    , m_flashForceLTP(false)
     , m_blendFunctionID(Function::invalidId())
 {
     setName(tr("New Scene"));
@@ -634,13 +634,16 @@ void Scene::postLoad()
  * Flashing
  ****************************************************************************/
 
-void Scene::flash(MasterTimer *timer)
+void Scene::flash(MasterTimer *timer, bool shouldOverride, bool forceLTP)
 {
     if (flashing() == true)
         return;
 
+    m_flashOverrides = shouldOverride;
+    m_flashForceLTP = forceLTP;
+
     Q_ASSERT(timer != NULL);
-    Function::flash(timer);
+    Function::flash(timer, shouldOverride, forceLTP);
     timer->registerDMXSource(this);
 }
 
@@ -673,7 +676,8 @@ void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                 QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
                 if (fader.isNull())
                 {
-                    fader = ua[universe]->requestFader();
+                    fader = ua[universe]->requestFader(m_flashOverrides ? Universe::Flashing : Universe::Auto);
+
                     fader->adjustIntensity(getAttributeValue(Intensity));
                     fader->setBlendMode(blendMode());
                     fader->setName(name());
@@ -681,6 +685,8 @@ void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                     m_fadersMap[universe] = fader;
                 }
 
+                if (m_flashForceLTP)
+                    fc.addFlag(FadeChannel::ForceLTP);
                 fc.setTarget(sv.value);
                 fc.addFlag(FadeChannel::Flashing);
                 fader->add(fc);
