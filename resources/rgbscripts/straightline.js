@@ -28,50 +28,50 @@ var testAlgo;
     algo.apiVersion = 2;
     algo.name = "Straight Line";
     algo.author = "Aidan Young";
-    algo.acceptColors = 1;
+    algo.acceptColors = 2;
 
     algo.properties = new Array();
     algo.hlinePlace = 0;
     algo.hlineCustom = 0;
     algo.hlinePixels = 0
-    algo.hlineRight = 0;
+    algo.hlineLeft = 0;
+    algo.hlineEffect = 0;
 
     algo.vlineCustom = 0;
     algo.vlinePixels = 0
     algo.vlineUp = 0;
     algo.vlinePlace = 0;
+    algo.vlineEffect = 0;
 
     algo.lineOrientation = 0;
 
-    algo.properties.push("name:lineOrientation|type:list|display:Orientation|values:Horizontal (H),Vertical (V),Both|write:setOrientation|read:getOrientation");
+    algo.properties.push("name:lineOrientation|type:list|display:Orientation|values:Horizontal (H),Vertical (V)|write:setOrientation|read:getOrientation");
 
     algo.properties.push("name:hlinePlace|type:list|display:H Placement|values:Top,Middle,Bottom,Custom|write:setHPlace|read:getHPlace");
     algo.properties.push("name:hlineCustom|type:range|display:H Custom Value|values:0,10000|write:setHCustom|read:getHCustom");
     algo.properties.push("name:hlinePixels|type:range|display:H Remove Pixels|values:0,10000|write:setHPixels|read:getHPixels");
-    algo.properties.push("name:hlineRight|type:range|display:H Move Right|values:0,10000|write:setRight|read:getRight");
+    algo.properties.push("name:hlineLeft|type:range|display:H Move Left|values:0,10000|write:setLeft|read:getLeft");
+    algo.properties.push("name:hlineEffect|type:list|display:H Effect|values:None,Fill|write:setHEffect|read:getHEffect")
     
     algo.properties.push("name:vlinePlace|type:list|display:V Placement|values:Left,Middle,Right,Custom|write:setVPlace|read:getHPlace");
     algo.properties.push("name:vlineCustom|type:range|display:V Custom Value|values:0,10000|write:setVCustom|read:getVCustom");
     algo.properties.push("name:vlinePixels|type:range|display:V Remove Pixels|values:0,10000|write:setVPixels|read:getVPixels");
     algo.properties.push("name:vlineUp|type:range|display:V Move Up|values:0,10000|write:setUp|read:getUp");
+    algo.properties.push("name:vlineEffect|type:list|display:V Effect|values:None,Fill|write:setVEffect|read:getVEffect")
 
     algo.setOrientation = function (_orientation){
         if(_orientation == "Vertical (V)"){
             algo.lineOrientation = 1;
         }else if (_orientation == "Horizontal (H)"){
             algo.lineOrientation = 0;
-        }else if(_orientation == "Both"){
-            algo.lineOrientation = 2;
-        }
     }
     algo.getOrientation = function (){
         if(algo.lineOrientation === 1){
             return "Vertical (V)";
         } if(algo.lineOrientation === 0){
             return "Horizontal (H)";
-        } if(algo.lineOrientation === 2){
-            return "Both";
-        }
+    }
+}
     }
 
     algo.setHPlace = function (_hlinePlace){
@@ -132,6 +132,21 @@ var testAlgo;
         }
     }
 
+    algo.setHEffect = function (_effect){
+        if(_effect === "None"){
+            algo.hlineEffect = 0;
+        } else if(_effect === "Fill"){
+            algo.hlineEffect = 1;
+        }
+    }
+    algo.getHEffect = function (){
+        if(algo.hlineEffect === 0){
+            return "None";
+        }else if(algo.hlineEffect === 1){
+            return "Fill";
+        }
+    }
+
     algo.setHCustom = function(_custom){
         algo.hlineCustom = _custom
     }; algo.getHCustom = function(){
@@ -156,10 +171,10 @@ var testAlgo;
         return algo.vlinePixels
     };
 
-    algo.setRight = function(_right){
-        algo.hlineRight = _right
-    }; algo.getRight = function(){
-        return algo.hlineRight
+    algo.setLeft = function(_Left){
+        algo.hlineLeft = _Left
+    }; algo.getLeft = function(){
+        return algo.hlineLeft
     };
 
     algo.setUp = function(_up){
@@ -175,20 +190,26 @@ var testAlgo;
         for (var y = 0; y < height; y++)
         {
             map[y] = new Array(width);
-            } 
             for (var x = 0 + algo.hlinePixels; x < width; x++){
                 if(algo.hlinePlace === 0){ // top
-                    map[0][x - algo.hlineRight] = rgb;
+                    if(algo.hlineEffect === 1){
+                        map[0][x - algo.hlineLeft] = (x <= step) && rgb;
+                    } else{
+                    map[0][x - algo.hlineLeft] = rgb;}
                 }else if (algo.hlinePlace === 1){ // middle
                     var middleY = (height / 2)
-                    map[middleY][x - algo.hlineRight] = rgb;
+                    map[middleY][x - algo.hlineLeft] = rgb;
                 }else if (algo.hlinePlace === 2){ // bottom
-                    map[y-1][x - algo.hlineRight] = rgb;
+                    map[y-1][x - algo.hlineLeft] = rgb;
                 }else if(algo.hlinePlace === 3){ // custom
-                    map[algo.hlineCustom - 1][x - algo.hlineRight] = rgb;
+                    map[algo.hlineCustom - 1][x - algo.hlineLeft] = rgb;
                  }else{map[y][x]=0}}
+                 
                 }
-    else if(algo.lineOrientation === 1){ //vertical
+            }
+
+                
+    else if(algo.lineOrientation === 1/*  && algo.vlineEffect === 0 */){ //vertical
         for (var y = 0; y < height; y++) {
             map[y] = new Array(width);
             for (var x = 0; x < width; x++) {
@@ -207,49 +228,10 @@ var testAlgo;
                         map[yUp][x] = 0;
                     }}}}
                 }
-    else if (algo.lineOrientation === 2) { // both
-    for (var y = 0; y < height; y++) {
-        map[y] = new Array(width);
 
-        for (var x = 0 + algo.hlinePixels; x < width; x++) { // both horizontal
-            if (algo.hlinePlace === 0) { // top
-                map[0][x - algo.hlineRight] = rgb;
-            }else if (algo.hlinePlace === 1){ // middle
-                var middleY = (height / 2)
-                map[middleY][x - algo.hlineRight] = rgb;
-            } else if (algo.hlinePlace === 2) { // bottom
-                map[height - 1][x - algo.hlineRight] = rgb;
-            } else if (algo.hlinePlace === 3) { // custom
-                map[algo.hlineCustom - 1][x - algo.hlineRight] = rgb;
-            } else {
-                map[y][x] = 0;
-            }
-
-            for (var vx = 0; vx < width; vx++) { // both vertical
-            var yUp = y - algo.vlineUp;
-            if (yUp >= 0 && yUp < height) {
-                if (algo.vlinePlace === 0) { // left
-                    map[yUp][0] = (y >= algo.vlinePixels) && rgb;
-                } else if (algo.vlinePlace === 1){ //middle
-                    var middleX = (width / 2)
-                    map[yUp][middleX] = rgb;
-                }else if (algo.vlinePlace === 2) { // Right
-                    map[yUp][width - 1] = (y >= algo.vlinePixels) && rgb;
-                } else if (algo.vlinePlace === 3) { // custom
-                    map[yUp][algo.vlineCustom - 1] = (y >= algo.vlinePixels) && rgb;
-                } else {
-                    map[yUp][vx] = 0;
-                }
-            }
-        }
-        }
-    }
-}
-
-                 
 return map;
     };
-
+    
     algo.rgbMapStepCount = function(width, height)
     {
       return width;
