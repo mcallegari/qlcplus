@@ -10,9 +10,11 @@ qlcplus (4.12.8) stable; urgency=low
   * Plugins/ArtNet: add default standard transmission mode as per protocol specifications
   * Plugins/ArtNet,E1.31,OSC: add a parameter to wait for interfaces to be ready
   * Plugins/DMX USB: add support for DMXKing MAX products
+  * Plugins/DMX USB: FTDI USB device no longer disappear after closing QLC+ on Linux
   * Fixture Editor: fix aliases not updated when renaming a mode
   * Web Access: add support for Cue List side fader and buttons layout (thanks to Itay Lifshitz)
   * Web Access: add support for Slider knob appearance (thanks to Itay Lifshitz)
+  * Web Access: add VC Animation widget support (thanks to Itay Lifshitz)
   * Web Access: add event to notify Function start/stop
   * Input profiles: added PMJ 9 Faders Controller
   * New fixture: Ibiza Mini Moving Star Wash (thanks to Chris Shucksmith)

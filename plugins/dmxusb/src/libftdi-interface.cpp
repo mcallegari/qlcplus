@@ -37,6 +37,9 @@ LibFTDIInterface::LibFTDIInterface(const QString& serial, const QString& name, c
 {
     bzero(&m_handle, sizeof(struct ftdi_context));
     ftdi_init(&m_handle);
+#ifdef LIBFTDI1_5
+    m_handle.module_detach_mode = AUTO_DETACH_REATACH_SIO_MODULE;
+#endif
 }
 
 LibFTDIInterface::~LibFTDIInterface()
