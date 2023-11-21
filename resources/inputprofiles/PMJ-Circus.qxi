@@ -3,306 +3,311 @@
 <InputProfile xmlns="http://www.qlcplus.org/InputProfile">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.7</Version>
-  <Author>paco</Author>
+  <Version>4.12.8 GIT</Version>
+  <Author>Yestalgia</Author>
  </Creator>
  <Manufacturer>PMJ</Manufacturer>
  <Model>Circus</Model>
  <Type>MIDI</Type>
  <Channel Number="41">
-  <Name>Encoder 42</Name>
+  <Name>Row 1 Encoder 1</Name>
   <Type>Encoder</Type>
   <Movement Sensitivity="1"/>
  </Channel>
  <Channel Number="42">
-  <Name>Encoder 43</Name>
+  <Name>Row 1 Encoder 2</Name>
   <Type>Encoder</Type>
   <Movement Sensitivity="1"/>
  </Channel>
  <Channel Number="43">
-  <Name>Encoder 44</Name>
+  <Name>Row 1 Encoder 3</Name>
   <Type>Encoder</Type>
   <Movement Sensitivity="1"/>
  </Channel>
  <Channel Number="44">
-  <Name>Encoder 45</Name>
+  <Name>Row 1 Encoder 4</Name>
   <Type>Encoder</Type>
   <Movement Sensitivity="1"/>
  </Channel>
  <Channel Number="45">
-  <Name>Encoder 46</Name>
+  <Name>Row 1 Encoder 5</Name>
   <Type>Encoder</Type>
   <Movement Sensitivity="1"/>
  </Channel>
  <Channel Number="46">
-  <Name>Encoder 47</Name>
+  <Name>Row 1 Encoder 6</Name>
   <Type>Encoder</Type>
   <Movement Sensitivity="1"/>
  </Channel>
  <Channel Number="47">
-  <Name>Encoder 48</Name>
+  <Name>Row 1 Encoder 7</Name>
   <Type>Encoder</Type>
   <Movement Sensitivity="1"/>
  </Channel>
  <Channel Number="48">
-  <Name>Encoder 49</Name>
+  <Name>Row 1 Encoder 8</Name>
   <Type>Encoder</Type>
   <Movement Sensitivity="1"/>
  </Channel>
  <Channel Number="49">
-  <Name>Encoder 50</Name>
+  <Name>Row 1 Encoder 9</Name>
   <Type>Encoder</Type>
   <Movement Sensitivity="1"/>
  </Channel>
  <Channel Number="50">
-  <Name>Encoder 51</Name>
+  <Name>Row 1 Encoder 10</Name>
   <Type>Encoder</Type>
   <Movement Sensitivity="1"/>
  </Channel>
  <Channel Number="51">
-  <Name>Encoder 52</Name>
+  <Name>Row 2 Encoder 1</Name>
   <Type>Encoder</Type>
   <Movement Sensitivity="1"/>
  </Channel>
  <Channel Number="52">
-  <Name>Encoder 53</Name>
+  <Name>Row 2 Encoder 2</Name>
   <Type>Encoder</Type>
   <Movement Sensitivity="1"/>
  </Channel>
  <Channel Number="53">
-  <Name>Encoder 54</Name>
+  <Name>Row 2 Encoder 3</Name>
   <Type>Encoder</Type>
   <Movement Sensitivity="1"/>
  </Channel>
  <Channel Number="54">
-  <Name>Encoder 55</Name>
+  <Name>Row 2 Encoder 4</Name>
   <Type>Encoder</Type>
   <Movement Sensitivity="1"/>
  </Channel>
  <Channel Number="55">
-  <Name>Encoder 56</Name>
+  <Name>Row 2 Encoder 5</Name>
   <Type>Encoder</Type>
   <Movement Sensitivity="1"/>
  </Channel>
  <Channel Number="56">
-  <Name>Encoder 57</Name>
+  <Name>Row 2 Encoder 6</Name>
   <Type>Encoder</Type>
   <Movement Sensitivity="1"/>
  </Channel>
  <Channel Number="58">
-  <Name>Encoder 59</Name>
+  <Name>Row 2 Encoder 7</Name>
   <Type>Encoder</Type>
   <Movement Sensitivity="1"/>
  </Channel>
  <Channel Number="59">
-  <Name>Encoder 60</Name>
+  <Name>Row 2 Encoder 8</Name>
   <Type>Encoder</Type>
   <Movement Sensitivity="1"/>
  </Channel>
  <Channel Number="60">
-  <Name>Encoder 61</Name>
+  <Name>Row 2 Encoder 9</Name>
   <Type>Encoder</Type>
   <Movement Sensitivity="1"/>
  </Channel>
  <Channel Number="61">
-  <Name>Slider 62</Name>
-  <Type>Slider</Type>
+  <Name>Row 2 Encoder 10</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
  </Channel>
  <Channel Number="62">
-  <Name>Slider 63</Name>
+  <Name>Slider 1</Name>
   <Type>Slider</Type>
  </Channel>
  <Channel Number="63">
-  <Name>Slider 64</Name>
+  <Name>Slider 2</Name>
   <Type>Slider</Type>
  </Channel>
  <Channel Number="64">
-  <Name>Slider 65</Name>
+  <Name>Slider 3</Name>
   <Type>Slider</Type>
  </Channel>
  <Channel Number="65">
-  <Name>Slider 66</Name>
+  <Name>Slider 4</Name>
   <Type>Slider</Type>
  </Channel>
  <Channel Number="66">
-  <Name>Slider 67</Name>
+  <Name>Slider 5</Name>
   <Type>Slider</Type>
  </Channel>
  <Channel Number="67">
-  <Name>Slider 68</Name>
+  <Name>Slider 6</Name>
   <Type>Slider</Type>
  </Channel>
  <Channel Number="68">
-  <Name>Slider 69</Name>
+  <Name>Slider 7</Name>
   <Type>Slider</Type>
  </Channel>
  <Channel Number="69">
-  <Name>Slider 70</Name>
+  <Name>Slider 8</Name>
   <Type>Slider</Type>
  </Channel>
  <Channel Number="70">
-  <Name>Slider 71</Name>
+  <Name>Slider 9</Name>
   <Type>Slider</Type>
-  <Movement Sensitivity="20">Relative</Movement>
+  <Movement Sensitivity="10">Relative</Movement>
+ </Channel>
+ <Channel Number="71">
+  <Name>Slider 10</Name>
+  <Type>Slider</Type>
  </Channel>
  <Channel Number="129">
-  <Name>Button 130</Name>
+  <Name>Row 1 (top) Button 1</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="130">
-  <Name>Button 131</Name>
+  <Name>Row 1 (top) Button 2</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="131">
-  <Name>Button 132</Name>
+  <Name>Row 1 (top) Button 3</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="132">
-  <Name>Button 133</Name>
+  <Name>Row 1 (top) Button 4</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="133">
-  <Name>Button 134</Name>
+  <Name>Row 1 (top) Button 5</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="134">
-  <Name>Button 135</Name>
+  <Name>Row 1 (top) Button 6</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="135">
-  <Name>Button 136</Name>
+  <Name>Row 1 (top) Button 7</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="136">
-  <Name>Button 137</Name>
+  <Name>Row 1 (top) Button 8</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="137">
-  <Name>Button 138</Name>
+  <Name>Row 1 (top) Button 9</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="138">
-  <Name>Button 139</Name>
+  <Name>Row 1 (top) Button 10</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="139">
-  <Name>Button 140</Name>
+  <Name>Row 2 Button 1</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="140">
-  <Name>Button 141</Name>
+  <Name>Row 2 Button 2</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="141">
-  <Name>Button 142</Name>
+  <Name>Row 2 Button 3</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="142">
-  <Name>Button 143</Name>
+  <Name>Row 2 Button 4</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="143">
-  <Name>Button 144</Name>
+  <Name>Row 2 Button 5</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="144">
-  <Name>Button 145</Name>
+  <Name>Row 2 Button 6</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="145">
-  <Name>Button 146</Name>
+  <Name>Row 2 Button 7</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="146">
-  <Name>Button 147</Name>
+  <Name>Row 2 Button 8</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="147">
-  <Name>Button 148</Name>
+  <Name>Row 2 Button 9</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="148">
-  <Name>Button 149</Name>
+  <Name>Row 2 Button 10</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="149">
-  <Name>Button 150</Name>
+  <Name>Row 3 Button 1</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="150">
-  <Name>Button 151</Name>
+  <Name>Row 2 Button 2</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="151">
-  <Name>Button 152</Name>
+  <Name>Row 3 Button 3</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="152">
-  <Name>Button 153</Name>
+  <Name>Row 3 Button 4</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="153">
-  <Name>Button 154</Name>
+  <Name>Row 3 Button 5</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="154">
-  <Name>Button 155</Name>
+  <Name>Row 3 Button 6</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="155">
-  <Name>Button 156</Name>
+  <Name>Row 3 Button 7</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="156">
-  <Name>Button 157</Name>
+  <Name>Row 3 Button 8</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="157">
-  <Name>Button 158</Name>
+  <Name>Row 3 Button 9</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="158">
-  <Name>Button 159</Name>
+  <Name>Row 3 Button 10</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="159">
-  <Name>Button 160</Name>
+  <Name>Row 4 (bottom) Button 1</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="160">
-  <Name>Button 161</Name>
+  <Name>Row 4 (bottom) Button 2</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="161">
-  <Name>Button 162</Name>
+  <Name>Row 4 (bottom) Button 3</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="162">
-  <Name>Button 163</Name>
+  <Name>Row 4 (bottom) Button 4</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="163">
-  <Name>Button 164</Name>
+  <Name>Row 4 (bottom) Button 5</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="164">
-  <Name>Button 165</Name>
+  <Name>Row 4 (bottom) Button 6</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="165">
-  <Name>Button 166</Name>
+  <Name>Row 4 (bottom) Button 7</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="166">
-  <Name>Button 167</Name>
+  <Name>Row 4 (bottom) Button 8</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="167">
-  <Name>Button 168</Name>
+  <Name>Row 4 (bottom) Button 9</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="168">
-  <Name>Button 169</Name>
+  <Name>Row 4 (bottom) Button 10</Name>
   <Type>Button</Type>
  </Channel>
 </InputProfile>
