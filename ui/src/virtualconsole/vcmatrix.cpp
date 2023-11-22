@@ -941,9 +941,7 @@ void VCMatrix::slotMatrixControlKnobValueChanged(int controlID, int value)
             if (customControls[i]->m_type == VCMatrixControl::StartColorKnob || customControls[i]->m_type == VCMatrixControl::EndColorKnob)
             {
                 KnobWidget *knob = qobject_cast<KnobWidget*>(this->getWidget(customControls[i]));
-                knob->blockSignals(true);
                 knob->setValue(value);
-                knob->blockSignals(false);
                 break;
             }
         }
