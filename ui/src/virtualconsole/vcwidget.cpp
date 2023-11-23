@@ -192,6 +192,8 @@ void VCWidget::setDisableState(bool disable)
         setEnabled(!disable);
         enableWidgetUI(!disable);
     }
+
+    emit disableStateChanged(m_disableState);
 }
 
 void VCWidget::enableWidgetUI(bool enable)
