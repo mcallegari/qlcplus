@@ -91,8 +91,6 @@ file(GLOB_RECURSE FILES_TO_ALIAS
        "${CMAKE_CURRENT_SOURCE_DIR}/qml/fixturesfunctions/3DView/shaders/*.vert"
 )
 
-message(ERROR "${FILES_TO_ALIAS}")
-
 foreach(FILE_TO_ALIAS ${FILES_TO_ALIAS})
     get_filename_component(FILE_NAME ${FILE_TO_ALIAS} NAME)
     set_source_files_properties("${FILE_TO_ALIAS}"
