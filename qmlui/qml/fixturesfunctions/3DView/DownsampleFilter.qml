@@ -30,7 +30,7 @@ TechniqueFilter
 
     parameters: [
         Parameter { name: "tex"; value: inTex },
-        Parameter { name: "pixelSize"; value: pixelSize }        
+        Parameter { name: "pixelSize"; value: pixelSize }
     ]
 
     RenderStateSet
