@@ -56,7 +56,9 @@ Entity
     ObjectPicker
     {
         id: stagePicker
-        onClicked: contextManager.setPositionPickPoint(pick.worldIntersection)
+        onClicked: function (pick) {
+            contextManager.setPositionPickPoint(pick.worldIntersection)
+        }
     }
 
     components: [

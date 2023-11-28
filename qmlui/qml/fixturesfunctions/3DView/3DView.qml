@@ -304,7 +304,7 @@ Rectangle
             {
                 "inTexture": hdr0ColorTexture,
                 "outRenderTarget": hdr1RenderTarget,
-                "screenQuadFXAALayer": screenQuadFXAAEntity.quadLayer       
+                "screenQuadFXAALayer": screenQuadFXAAEntity.quadLayer
             });
 
             component = Qt.createComponent("BlitFilter.qml");

@@ -28,12 +28,12 @@ layout(binding = auto) uniform sampler2D tex;
 
 void main()
 {
-	vec2 halfpixel = 0.5 * vec2(pixelSize.x, pixelSize.y);
-	vec2 oneepixel = 1.0 * vec2(pixelSize.x, pixelSize.y);
+        vec2 halfpixel = 0.5 * vec2(pixelSize.x, pixelSize.y);
+        vec2 oneepixel = 1.0 * vec2(pixelSize.x, pixelSize.y);
 
-	vec2 uv = fsUv;
+        vec2 uv = fsUv;
 
-	vec4 sum = vec4(0.0, 0.0, 0.0, 0.0);
+        vec4 sum = vec4(0.0, 0.0, 0.0, 0.0);
 
         sum += (4.0/32.0) * texture(tex, uv).rgba;
 

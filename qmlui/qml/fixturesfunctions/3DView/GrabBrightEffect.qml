@@ -36,8 +36,8 @@ Effect
                     shaderProgram:
                         ShaderProgram
                         {
-                            vertexShaderCode: View3D.makeGlShader(loadSource("qrc:/fullscreen_rhi.vert"))
-                            fragmentShaderCode: View3D.makeGlShader(loadSource("qrc:/grab_bright_rhi.frag"))
+                            vertexShaderCode: View3D.makeGlShader(loadSource("qrc:/fullscreen.vert"))
+                            fragmentShaderCode: View3D.makeGlShader(loadSource("qrc:/grab_bright.frag"))
                         }
                 }
             ]
