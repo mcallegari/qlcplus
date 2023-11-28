@@ -16,7 +16,7 @@ qlcplus (4.12.8) stable; urgency=low
   * Web Access: add support for Slider knob appearance (thanks to Itay Lifshitz)
   * Web Access: add VC Animation widget support (thanks to Itay Lifshitz)
   * Web Access: add event to notify Function start/stop
-  * Input profiles: added PMJ 9 Faders Controller
+  * Input profiles: added PMJ 9 Faders Controller, Circus and MidiKey
   * New fixture: Ibiza Mini Moving Star Wash (thanks to Chris Shucksmith)
   * New fixtures: FOS Technologies IQ Par, IQ 28x12 Wash, Iridium 75W Spot (thanks to Maurizio Aru)
   * New fixture: Varytec Hero Spot 60 (thanks to Hans-Jürgen Tappe)
