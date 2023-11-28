@@ -195,7 +195,8 @@ Rectangle
                 {
                     var selNames = showManager.selectedItemNames()
                     //console.log(selNames)
-                    deleteItemsPopup.message = qsTr("Are you sure you want to remove the following items?\n(Note that the original functions will not be deleted)") + "\n" + selNames,
+                    deleteItemsPopup.message = qsTr("Are you sure you want to remove the following items?\n" +
+                                                    "(Note that the original functions will not be deleted)") + "\n" + selNames
                     deleteItemsPopup.open()
                 }
 
@@ -449,7 +450,10 @@ Rectangle
 
             onClicked:
             {
-                showManager.currentTime = TimeUtils.posToMs(mouseX, timeScale, tickSize)
+                if (timeDivision === Show.Time)
+                    showManager.currentTime = TimeUtils.posToMs(mouseX, timeScale, tickSize)
+                else
+                    showManager.currentTime = TimeUtils.posToBeatMs(mouseX, tickSize, ioManager.bpmNumber, showManager.beatsDivision)
                 showManager.resetItemsSelection()
             }
         }
@@ -594,8 +598,8 @@ Rectangle
                         if (showManager.timeDivision === Show.Time)
                             fTime = TimeUtils.posToMs(itemsArea.contentX + drag.x, timeScale, tickSize)
                         else
-                            fTime = (itemsArea.contentX + drag.x) / (tickSize / showManager.beatsDivision())
-                        console.log("Drop on time: " + fTime)
+                            fTime = TimeUtils.posToBeat(itemsArea.contentX + drag.x, tickSize, showManager.beatsDivision)
+                        console.log("Drop on time1: " + fTime)
                         showManager.addItems(itemsArea.contentItem, trackIdx, fTime, drag.source.itemsList)
                     }
 /*
@@ -668,9 +672,9 @@ Rectangle
                             if (showManager.timeDivision === Show.Time)
                                 fTime = TimeUtils.posToMs(xViewOffset + drag.x, timeScale, tickSize)
                             else
-                                fTime = (xViewOffset + drag.x) / (tickSize / showManager.beatsDivision())
+                                fTime = TimeUtils.posToBeat(xViewOffset + drag.x, tickSize, showManager.beatsDivision)
 
-                            console.log("Drop on time: " + fTime)
+                            console.log("Drop on time2: " + fTime)
                             showManager.addItems(itemsArea.contentItem, -1, fTime, drag.source.itemsList)
                         }
                     }

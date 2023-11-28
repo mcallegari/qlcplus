@@ -39,6 +39,7 @@ Item
     property int timeDivision: showManager.timeDivision
     property real timeScale: showManager.timeScale
     property real tickSize: showManager.tickSize
+    property int beatsDivision: showManager.beatsDivision
     property bool isSelected: false
     property bool isDragging: false
     property color globalColor: showManager.itemsColor
@@ -56,13 +57,15 @@ Item
             sfRef.color = globalColor
     }
 
-    onFuncRefChanged: updateTooltipText()
-    //onXChanged: updateTooltipText()
-    //onWidthChanged: updateTooltipText()
+    onFuncRefChanged:
+    {
+        updateGeometry()
+        updateTooltipText()
+    }
 
     function updateGeometry()
     {
-        if (isDragging)
+        if (isDragging || funcRef == null)
             return
 
         if (timeDivision === Show.Time)
@@ -72,8 +75,8 @@ Item
         }
         else
         {
-            x = (tickSize / showManager.beatsDivision()) * startTime
-            width = (tickSize / showManager.beatsDivision()) * duration
+            x = TimeUtils.beatsToSize(startTime, tickSize, beatsDivision)
+            width = TimeUtils.beatsToSize(duration, tickSize, beatsDivision)
         }
     }
 
@@ -90,9 +93,8 @@ Item
         }
         else
         {
-            var bd = showManager.beatsDivision()
-            pos = TimeUtils.beatsToString((itemRoot.x + showItemBody.x) / (tickSize / bd), bd)
-            dur = TimeUtils.beatsToString(itemRoot.width / (tickSize / bd), bd)
+            pos = TimeUtils.beatsToString((itemRoot.x + showItemBody.x) / (tickSize / beatsDivision), beatsDivision)
+            dur = TimeUtils.beatsToString(itemRoot.width / (tickSize / beatsDivision), beatsDivision)
         }
 
         tooltip += qsTr("Position: ") + pos
@@ -148,14 +150,17 @@ Item
                 if (i + 1 >= previewData.length)
                     break
 
-                switch(previewData[i])
+                switch (previewData[i])
                 {
                     case ShowManager.RepeatingDuration:
                         var loopCount = funcRef.totalDuration ? Math.floor(sfRef.duration / funcRef.totalDuration) : 0
                         for (var l = 0; l < loopCount; l++)
                         {
                             lastTime += previewData[1]
-                            xPos = TimeUtils.timeToSize(lastTime, timeScale, tickSize)
+                            if (timeDivision === Show.Time)
+                                xPos = TimeUtils.timeToSize(lastTime, timeScale, tickSize)
+                            else
+                                xPos = TimeUtils.beatsToSize(lastTime, tickSize, beatsDivision)
                             context.moveTo(xPos, 0)
                             context.lineTo(xPos, itemRoot.height)
                         }
@@ -164,19 +169,30 @@ Item
                         xPos = 0
                     break
                     case ShowManager.FadeIn:
-                        var fiEnd = TimeUtils.timeToSize(lastTime + previewData[i + 1], timeScale, tickSize)
+                        var fiEnd
+                        if (timeDivision === Show.Time)
+                            fiEnd = TimeUtils.timeToSize(lastTime + previewData[i + 1], timeScale, tickSize)
+                        else
+                            fiEnd = TimeUtils.beatsToSize(lastTime + previewData[i + 1], tickSize, beatsDivision)
                         context.moveTo(xPos, itemRoot.height)
                         context.lineTo(fiEnd, 0)
                     break
                     case ShowManager.StepDivider:
                         lastTime = previewData[i + 1]
-                        xPos = TimeUtils.timeToSize(lastTime, timeScale, tickSize)
+                        if (timeDivision === Show.Time)
+                            xPos = TimeUtils.timeToSize(lastTime, timeScale, tickSize)
+                        else
+                            xPos = TimeUtils.beatsToSize(lastTime, tickSize, beatsDivision)
                         context.moveTo(xPos, 0)
                         context.lineTo(xPos, itemRoot.height)
                         stepsCount++
                     break
                     case ShowManager.FadeOut:
-                        var foEnd = TimeUtils.timeToSize(lastTime + previewData[i + 1], timeScale, tickSize)
+                        var foEnd
+                        if (timeDivision === Show.Time)
+                            foEnd = TimeUtils.timeToSize(lastTime + previewData[i + 1], timeScale, tickSize)
+                        else
+                            foEnd = TimeUtils.beatsToSize(lastTime + previewData[i + 1], tickSize, beatsDivision)
                         context.moveTo(stepsCount ? xPos : itemRoot.width - foEnd, 0)
                         context.lineTo(stepsCount ? foEnd : itemRoot.width, itemRoot.height)
                     break
@@ -264,14 +280,10 @@ Item
             {
                 var txt
                 if (timeDivision === Show.Time)
-                {
                     txt = TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize))
-                }
                 else
-                {
-                    var bd = showManager.beatsDivision()
-                    txt = TimeUtils.beatsToString((itemRoot.x + showItemBody.x) / (tickSize / bd), bd)
-                }
+                    txt = TimeUtils.beatsToString((itemRoot.x + showItemBody.x) / (tickSize / beatsDivision), beatsDivision)
+
                 infoText = qsTr("Position: ") + txt
             }
         }
@@ -290,9 +302,9 @@ Item
                 if (timeDivision === Show.Time)
                     newTime = TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize)
                 else
-                    newTime = (itemRoot.x + showItemBody.x) / (tickSize / showManager.beatsDivision())
-                var newTrackIdx = Math.round((itemRoot.y + showItemBody.y) / itemRoot.height)
+                    newTime = TimeUtils.posToBeat(itemRoot.x + showItemBody.x, tickSize, beatsDivision)
 
+                var newTrackIdx = Math.round((itemRoot.y + showItemBody.y) / itemRoot.height)
                 // dragging to 0 might not be accurate...
                 if (newTime < 0)
                     newTime = 0
@@ -399,9 +411,8 @@ Item
                     }
                     else
                     {
-                        var beatSize = tickSize / showManager.beatsDivision()
-                        sfRef.startTime = Math.round(itemRoot.x / beatSize)
-                        sfRef.duration = Math.round(itemRoot.width / beatSize)
+                        sfRef.startTime = TimeUtils.posToBeat(itemRoot.x, tickSize, beatsDivision)
+                        sfRef.duration = TimeUtils.posToBeat(itemRoot.width, tickSize, beatsDivision)
                     }
 
                     if (funcRef && showManager.stretchFunctions === true)
@@ -473,7 +484,7 @@ Item
                     if (timeDivision === Show.Time)
                         sfRef.duration = TimeUtils.posToMs(itemRoot.width, timeScale, tickSize)
                     else
-                        sfRef.duration = Math.round(itemRoot.width / (tickSize / showManager.beatsDivision()))
+                        sfRef.duration = (Math.round(itemRoot.width / (tickSize / beatsDivision)) * 1000)
 
                     if (funcRef && showManager.stretchFunctions === true)
                         funcRef.totalDuration = sfRef.duration
