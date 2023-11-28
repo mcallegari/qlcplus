@@ -147,6 +147,21 @@ var testAlgo;
         }
     }
 
+    algo.setVEffect = function (_effect){
+        if(_effect === "None"){
+            algo.vlineEffect = 0;
+        } else if(_effect === "Fill"){
+            algo.vlineEffect = 1;
+        }
+    }
+    algo.getVEffect = function (){
+        if(algo.vlineEffect === 0){
+            return "None";
+        }else if(algo.vlineEffect === 1){
+            return "Fill";
+        }
+    }
+
     algo.setHCustom = function(_custom){
         algo.hlineCustom = _custom
     }; algo.getHCustom = function(){
@@ -190,40 +205,54 @@ var testAlgo;
         for (var y = 0; y < height; y++)
         {
             map[y] = new Array(width);
+        }
             for (var x = 0 + algo.hlinePixels; x < width; x++){
+
+        var effect;
+        if(algo.hlineEffect === 1){
+            effect = (x <= step);
+        }
+        else{
+            effect = 1;
+        }
+
                 if(algo.hlinePlace === 0){ // top
-                    if(algo.hlineEffect === 1){
-                        map[0][x - algo.hlineLeft] = (x <= step) && rgb;
-                    } else{
-                    map[0][x - algo.hlineLeft] = rgb;}
+                        map[0][x - algo.hlineLeft] = (effect) && rgb;
                 }else if (algo.hlinePlace === 1){ // middle
                     var middleY = (height / 2)
-                    map[middleY][x - algo.hlineLeft] = rgb;
+                        map[middleY][x - algo.hlineLeft] = (effect) && rgb;
                 }else if (algo.hlinePlace === 2){ // bottom
-                    map[y-1][x - algo.hlineLeft] = rgb;
+                    map[y-1][x - algo.hlineLeft] = (effect) && rgb;
                 }else if(algo.hlinePlace === 3){ // custom
-                    map[algo.hlineCustom - 1][x - algo.hlineLeft] = rgb;
-                 }else{map[y][x]=0}}
-                 
-                }
+                    map[algo.hlineCustom - 1][x - algo.hlineLeft] = (effect) && rgb;
+                 }else{map[y][x]=0}}   
+            }
+
+    else if(algo.lineOrientation === 1){ //vertical
+        for (var y = 0; y < height; y++) {
+            map[y] = new Array(width);
+
+            for (var x = 0; x < width; x++) {
+            var yUp = y - algo.vlineUp;
+            var effect;
+            if(algo.vlineEffect === 1){
+            effect = ((yUp - algo.vlinePixels) <= (step - algo.vlinePixels));
+            }
+            else{
+            effect = y;
             }
 
                 
-    else if(algo.lineOrientation === 1/*  && algo.vlineEffect === 0 */){ //vertical
-        for (var y = 0; y < height; y++) {
-            map[y] = new Array(width);
-            for (var x = 0; x < width; x++) {
-                var yUp = y - algo.vlineUp;
                 if (yUp >= 0 && yUp < height) {
                     if (algo.vlinePlace === 0) { // left
-                        map[yUp][0] = (y >= algo.vlinePixels) && rgb; 
+                        map[yUp][0] = (y >= algo.vlinePixels) && effect && rgb; 
                     } else if (algo.vlinePlace === 1){ //middle
                         var middleX = (width / 2)
-                        map[yUp][middleX] = rgb;
+                        map[yUp][middleX] = (yUp >= algo.vlinePixels) && (effect) && rgb;
                     }else if (algo.vlinePlace === 2) { // Right
-                        map[yUp][width - 1] = (y >= algo.vlinePixels) && rgb; 
+                        map[yUp][width - 1] = (y >= algo.vlinePixels) && (effect) && rgb; 
                     } else if (algo.vlinePlace === 3) { // custom
-                        map[yUp][algo.vlineCustom - 1] = (y >= algo.vlinePixels) && rgb; 
+                        map[yUp][algo.vlineCustom - 1] = (y >= algo.vlinePixels) && (effect) && rgb; 
                     } else {
                         map[yUp][x] = 0;
                     }}}}
@@ -234,7 +263,12 @@ return map;
     
     algo.rgbMapStepCount = function(width, height)
     {
+    if(algo.lineOrientation === 0){
       return width;
+    }
+    else if (algo.lineOrientation === 1){
+        return height;
+    }
     };
 
 
