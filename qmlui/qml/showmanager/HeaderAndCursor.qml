@@ -40,6 +40,8 @@ Rectangle
     property real tickSize: showManager.tickSize
     property int currentTime: showManager.currentTime
     property int timeDivision: showManager.timeDivision
+    property int bpmNumber: ioManager.bpmNumber
+    property int beatsDivision: showManager.beatsDivision
     property bool showTimeMarkers: true
 
     signal clicked(int mouseX, int mouseY)
@@ -77,7 +79,12 @@ Rectangle
     onCurrentTimeChanged:
     {
         if (cursorHeight)
-            cursor.x = TimeUtils.timeToSize(currentTime, timeScale, tickSize)
+        {
+            if (timeDivision === Show.Time)
+                cursor.x = TimeUtils.timeToSize(currentTime, timeScale, tickSize)
+            else
+                cursor.x = TimeUtils.timeToBeatPosition(currentTime, tickSize, bpmNumber, beatsDivision)
+        }
     }
 
     onDurationChanged:
@@ -134,22 +141,9 @@ Rectangle
         onPaint:
         {
             var fontSize = headerHeight * 0.55
-            var subDividers = 1
+            var subDividers = showManager.beatsDivision
             context.globalAlpha = 1.0
             context.lineWidth = 1
-
-            switch (timeDivision)
-            {
-                case Show.BPM_4_4:
-                    subDividers = 4
-                break
-                case Show.BPM_3_4:
-                    subDividers = 3
-                break
-                case Show.BPM_2_4:
-                    subDividers = 2
-                break
-            }
 
             if (showTimeMarkers)
             {

@@ -175,6 +175,7 @@ bool Audio::setSourceFileName(QString filename)
     if (m_decoder == NULL)
         return false;
 
+    setDuration(m_decoder->totalTime());
     setTotalDuration(m_decoder->totalTime());
 
     emit changed(id());
