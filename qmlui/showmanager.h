@@ -53,6 +53,7 @@ class ShowManager : public PreviewContext
     Q_PROPERTY(int showDuration READ showDuration NOTIFY showDurationChanged)
 
     Q_PROPERTY(Show::TimeDivision timeDivision READ timeDivision WRITE setTimeDivision NOTIFY timeDivisionChanged)
+    Q_PROPERTY(int beatsDivision READ beatsDivision NOTIFY beatsDivisionChanged)
     Q_PROPERTY(float timeScale READ timeScale WRITE setTimeScale NOTIFY timeScaleChanged)
     Q_PROPERTY(float tickSize READ tickSize NOTIFY tickSizeChanged)
     Q_PROPERTY(int currentTime READ currentTime WRITE setCurrentTime NOTIFY currentTimeChanged)
@@ -138,7 +139,7 @@ public:
     /** Get/Set the Show time division */
     Show::TimeDivision timeDivision();
     void setTimeDivision(Show::TimeDivision division);
-    Q_INVOKABLE int beatsDivision();
+    int beatsDivision();
 
     /** Get/Set the current time scale of the Show Manager timeline */
     float timeScale() const;
@@ -153,6 +154,7 @@ public:
 
 signals:
     void timeDivisionChanged(Show::TimeDivision division);
+    void beatsDivisionChanged(int beatsDivision);
     void timeScaleChanged(float timeScale);
     void tickSizeChanged(float tickSize);
     void currentTimeChanged(int currentTime);

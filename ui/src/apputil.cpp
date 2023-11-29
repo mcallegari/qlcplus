@@ -25,6 +25,7 @@
 #include <QLocale>
 #include <QWidget>
 #include <QScreen>
+#include <QDebug>
 #include <QStyle>
 #include <QRect>
 #include <QFile>
@@ -116,51 +117,67 @@ QStyle* AppUtil::saneStyle()
 
 #define USER_STYLESHEET_FILE "qlcplusStyle.qss"
 
+bool styleCached = false;
+QMap<QString,QString> styleCache;
+
 QString AppUtil::getStyleSheet(QString component)
 {
-    QString result;
+    QString block;
 
+    if (styleCached == false)
+    {
 #if defined(WIN32) || defined(Q_OS_WIN)
-    /* User's input profile directory on Windows */
-    LPTSTR home = (LPTSTR) malloc(256 * sizeof(TCHAR));
-    GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
-    QString ssDir = QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<char16_t*> (home)))
-                .arg(USERQLCPLUSDIR);
-    free(home);
+        /* User's input profile directory on Windows */
+        LPTSTR home = (LPTSTR) malloc(256 * sizeof(TCHAR));
+        GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
+        QString ssDir = QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<char16_t*> (home)))
+                    .arg(USERQLCPLUSDIR);
+        free(home);
 #else
-    /* User's input profile directory on *NIX systems */
-    QString ssDir = QString("%1/%2").arg(getenv("HOME")).arg(USERQLCPLUSDIR);
+        /* User's input profile directory on *NIX systems */
+        QString ssDir = QString("%1/%2").arg(getenv("HOME")).arg(USERQLCPLUSDIR);
 #endif
 
-    QFile ssFile(ssDir + QDir::separator() + USER_STYLESHEET_FILE);
-    if (ssFile.exists() == false)
-        return result;
+        styleCached = true;
 
-    if (ssFile.open(QIODevice::ReadOnly) == false)
-        return result;
+        QFile ssFile(ssDir + QDir::separator() + USER_STYLESHEET_FILE);
+        if (ssFile.exists() == false)
+            return block;
 
-    bool found = false;
-    QTextStream in(&ssFile);
-    while (!in.atEnd())
-    {
-        QString line = in.readLine();
-        if (line.startsWith("====="))
+        if (ssFile.open(QIODevice::ReadOnly) == false)
+            return block;
+
+        bool found = false;
+        QString compName;
+        QTextStream in(&ssFile);
+
+        while (!in.atEnd())
         {
-            if (found == true)
-                break;
+            QString line = in.readLine();
+            if (line.startsWith("====="))
+            {
+                if (found == true)
+                {
+                    styleCache.insert(compName, block);
+                    block = "";
+                    found = false;
+                }
 
-            QString comp = line.replace("=", "");
-            if (comp.simplified() == component)
+                compName = line.replace("=", "").simplified();
+                qDebug() << "[AppUtil] found user style component:" << compName;
                 found = true;
+            }
+            else if (found == true)
+            {
+                block.append(line);
+            }
         }
-        else if (found == true)
-        {
-            result.append(line);
-        }
+        ssFile.close();
+        if (found == true)
+            styleCache.insert(compName, block);
     }
-    ssFile.close();
 
-    return result;
+    return styleCache.value(component, QString());
 }
 
 /*****************************************************************************

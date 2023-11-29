@@ -465,12 +465,11 @@ void Show::setPause(bool enable)
 void Show::write(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(universes);
-    Q_UNUSED(timer);
 
     if (isPaused())
         return;
 
-    m_runner->write();
+    m_runner->write(timer);
 }
 
 void Show::postRun(MasterTimer* timer, QList<Universe *> universes)

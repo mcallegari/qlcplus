@@ -520,6 +520,7 @@ void Function::setTempoType(const Function::TempoType &type)
     }
 
     emit changed(m_id);
+    emit tempoTypeChanged();
 }
 
 Function::TempoType Function::tempoType() const
