@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import Qt3D.Core
-import Qt3D.Render
-import QtQuick
+import Qt3D.Core 2.15
+import Qt3D.Render 2.15
+import QtQuick 2.15
 
 TechniqueFilter
 {

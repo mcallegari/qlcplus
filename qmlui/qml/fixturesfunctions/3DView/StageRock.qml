@@ -42,8 +42,8 @@ Entity
             effect: stage.effect
 
             parameters: [
-                Parameter { name: "diffuse"; value: Qt.color("lightgray") },
-                Parameter { name: "specular"; value: Qt.color("black") },
+                Parameter { name: "diffuse"; value: Qt.rgba(211, 211, 211, 1) },
+                Parameter { name: "specular"; value: Qt.rgba(0, 0, 0, 1) },
                 Parameter { name: "shininess"; value: 1.0 },
                 Parameter { name: "bloom"; value: 0 }
             ]
@@ -203,7 +203,9 @@ Entity
         ObjectPicker
         {
             id: stagePicker
-            onClicked: contextManager.setPositionPickPoint(pick.worldIntersection)
+            onClicked: function (pick) {
+                contextManager.setPositionPickPoint(pick.worldIntersection)
+            }
         }
 
         components: [
