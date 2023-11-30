@@ -3,7 +3,7 @@
   straightline.js
 
   Copyright (c) Aidan Young
-  Based on work by Massimo Callegari and Branson Matheson
+  Based on work by Massimo Callegari, Branson Matheson, and Jano Svitok
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -240,21 +240,20 @@ var testAlgo;
                     map[y] = new Array(width);
 
                     for (var x = 0; x < width; x++) {
-                        var yUp = y - algo.vlineUp;
                         var effect;
+                        var yUp = y - algo.vlineUp;
                         if (algo.vlineEffect === 1) { //fill
-                            effect = ((yUp <= step - algo.vlinePixels)); //to do --- figure out a way for the effect to conform to how big/small the line is (if possible)
+                            effect = ((yUp - algo.vlinePixels <= step)); //to do --- figure out a way for the effect to conform to how big/small the line is (if possible)
                         } else if (algo.vlineEffect === 2) { //one by one
-                            effect = (yUp <= step);
+                            effect = (y>=yy);
                             }
                         else {
                             effect = 1;
                         }
 
-
                         if (yUp >= 0 && yUp < height) {
                             if (algo.vlinePlace === 0) { // left
-                                map[yUp][0] = (y >= algo.vlinePixels) && effect && rgb;
+                                map[yUp][0] = (yUp >= algo.vlinePixels) && effect && rgb;
                             } else if (algo.vlinePlace === 1) { //middle
                                 var middleX = (width / 2)
                                 map[yUp][middleX] = (y >= algo.vlinePixels) && (effect) && rgb;
@@ -281,7 +280,10 @@ var testAlgo;
                 return height;
             }
             else if (algo.lineOrientation === 1 && algo.vlineEffect === 2){
-                return;
+                return height * width;
+            }
+            else if (algo.lineOrientation === 1 && algo.vlineEffect === 1){
+                return height - algo.vlinePixels;
             }
         };
 
