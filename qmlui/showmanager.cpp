@@ -161,6 +161,16 @@ void ShowManager::setTimeDivision(Show::TimeDivision division)
     if (division == m_currentShow->timeDivisionType())
         return;
 
+    if (division == Show::Time)
+    {
+        setTimeScale(5.0);
+        m_currentShow->setTempoType(Function::Time);
+    }
+    else
+    {
+        setTimeScale(1.0);
+        m_currentShow->setTempoType(Function::Beats);
+    }
     m_currentShow->setTimeDivisionType(division);
     emit timeDivisionChanged(division);
 
