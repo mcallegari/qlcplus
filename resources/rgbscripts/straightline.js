@@ -136,7 +136,7 @@ var testAlgo;
                 algo.hlineEffect = 0;
             } else if (_effect === "Fill") {
                 algo.hlineEffect = 1;
-            } else if (_effect === "One By One"){
+            } else if (_effect === "One By One") {
                 algo.hlineEffect = 2;
             }
         }
@@ -145,7 +145,7 @@ var testAlgo;
                 return "None";
             } else if (algo.hlineEffect === 1) {
                 return "Fill";
-            } else if (algo.hlineEffect === 2){
+            } else if (algo.hlineEffect === 2) {
                 return "One By One";
             }
         }
@@ -155,7 +155,7 @@ var testAlgo;
                 algo.vlineEffect = 0;
             } else if (_effect === "Fill") {
                 algo.vlineEffect = 1;
-            } else if (_effect === "One By One"){
+            } else if (_effect === "One By One") {
                 algo.vlineEffect = 2;
             }
         }
@@ -164,7 +164,7 @@ var testAlgo;
                 return "None";
             } else if (algo.vlineEffect === 1) {
                 return "Fill";
-            } else if (algo.vlineEffect === 2){
+            } else if (algo.vlineEffect === 2) {
                 return "One By One";
             }
         }
@@ -212,25 +212,28 @@ var testAlgo;
                 for (var y = 0; y < height; y++) {
                     map[y] = new Array(width);
                 }
-                for (var x = 0 + algo.hlinePixels; x < width; x++) {
+                for (var x = 0; x < width; x++) {
 
                     var effect;
-                    if (algo.hlineEffect === 1) {
-                        effect = (x <= step);
+                    if (algo.hlineEffect === 1) { // fill
+                        effect = (x - algo.hlinePixels <= step);
+                    } else if (algo.hlineEffect === 2) { //one by one
+                        var xx = step % width;
+                        effect = (x - algo.hlinePixels <= xx) && (x - algo.hlinePixels >= xx);                   
                     }
-                    else {
+                    else { //none
                         effect = 1;
                     }
 
                     if (algo.hlinePlace === 0) { // top
-                        map[0][x - algo.hlineLeft] = (effect) && rgb;
-                    } else if (algo.hlinePlace === 1) { // middle
+                        map[0][x - algo.hlineLeft] = (x >= algo.hlinePixels) && (effect) && rgb;
+                    } else if (algo.hlinePlace === 1) { // middles
                         var middleY = (height / 2)
-                        map[middleY][x - algo.hlineLeft] = (effect) && rgb;
+                        map[middleY][x - algo.hlineLeft] = (x >= algo.hlinePixels) && (effect) && rgb;
                     } else if (algo.hlinePlace === 2) { // bottom
-                        map[y - 1][x - algo.hlineLeft] = (effect) && rgb;
+                        map[y - 1][x - algo.hlineLeft] = (x >= algo.hlinePixels) && (effect) && rgb;
                     } else if (algo.hlinePlace === 3) { // custom
-                        map[algo.hlineCustom - 1][x - algo.hlineLeft] = (effect) && rgb;
+                        map[algo.hlineCustom - 1][x - algo.hlineLeft] = (x >= algo.hlinePixels) && (effect) && rgb;
                     } else { map[y][x] = 0 }
                 }
             }
@@ -243,17 +246,18 @@ var testAlgo;
                         var effect;
                         var yUp = y - algo.vlineUp;
                         if (algo.vlineEffect === 1) { //fill
-                            effect = ((yUp - algo.vlinePixels <= step)); //to do --- figure out a way for the effect to conform to how big/small the line is (if possible)
+                            effect = (y - algo.vlinePixels <= step);
                         } else if (algo.vlineEffect === 2) { //one by one
-                            effect = (y>=yy);
-                            }
+                            var yy = step % height;
+                        effect = (y - algo.vlinePixels <= yy) && (y - algo.vlinePixels >= yy);
+                        }
                         else {
                             effect = 1;
                         }
 
                         if (yUp >= 0 && yUp < height) {
                             if (algo.vlinePlace === 0) { // left
-                                map[yUp][0] = (yUp >= algo.vlinePixels) && effect && rgb;
+                                map[yUp][0] = (y >= algo.vlinePixels) && effect && rgb;
                             } else if (algo.vlinePlace === 1) { //middle
                                 var middleX = (width / 2)
                                 map[yUp][middleX] = (y >= algo.vlinePixels) && (effect) && rgb;
@@ -273,16 +277,17 @@ var testAlgo;
         };
 
         algo.rgbMapStepCount = function (width, height) {
-            if (algo.lineOrientation === 0) {
+            if (algo.lineOrientation === 0 && algo.hlineEffect === 0) { //horizontal
                 return width;
             }
-            else if (algo.lineOrientation === 1  && algo.vlineEffect === 0) {
+            else if (algo.lineOrientation === 0 && algo.hlineEffect === 1 || algo.lineOrientation === 0 && algo.hlineEffect === 2 ) { //fill + one by one
+                return width - algo.hlinePixels;
+            }
+
+            else if (algo.lineOrientation === 1 && algo.vlineEffect === 0) { //vertical
                 return height;
             }
-            else if (algo.lineOrientation === 1 && algo.vlineEffect === 2){
-                return height * width;
-            }
-            else if (algo.lineOrientation === 1 && algo.vlineEffect === 1){
+            else if (algo.lineOrientation === 1 && algo.vlineEffect === 2 || algo.lineOrientation === 1 && algo.vlineEffect === 1 ) { //fill + one by one
                 return height - algo.vlinePixels;
             }
         };
