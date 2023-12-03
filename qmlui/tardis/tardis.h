@@ -149,6 +149,12 @@ public:
         VideoSetRotation,
         VideoSetLayer,
 
+        /* Show Manager actions */
+        ShowManagerAddTrack = 0xB000,
+        ShowManagerDeleteTrack,
+        ShowManagerAddFunction,
+        ShowManagerDeleteFunction,
+
         /* Simple Desk actions */
         SimpleDeskSetChannel = 0xC000,
         SimpleDeskResetChannel,
