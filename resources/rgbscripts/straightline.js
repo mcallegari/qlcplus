@@ -47,13 +47,13 @@ var testAlgo;
         algo.properties.push("name:lineOrientation|type:list|display:Orientation|values:Horizontal (H),Vertical (V)|write:setOrientation|read:getOrientation");
 
         algo.properties.push("name:hlinePlace|type:list|display:H Placement|values:Top,Middle,Bottom,Custom|write:setHPlace|read:getHPlace");
-        algo.properties.push("name:hlineEffect|type:list|display:H Effect|values:None,Fill,One By One|write:setHEffect|read:getHEffect");
+        algo.properties.push("name:hlineEffect|type:list|display:H Effect|values:None,Fill, Fill from Center,One By One,Noise|write:setHEffect|read:getHEffect");
         algo.properties.push("name:hlineCustom|type:range|display:H Custom Value|values:0,10000|write:setHCustom|read:getHCustom");
         algo.properties.push("name:hlinePixels|type:range|display:H Remove Pixels|values:0,10000|write:setHPixels|read:getHPixels");
         algo.properties.push("name:hlineLeft|type:range|display:H Move Left|values:0,10000|write:setLeft|read:getLeft");
 
         algo.properties.push("name:vlinePlace|type:list|display:V Placement|values:Left,Middle,Right,Custom|write:setVPlace|read:getHPlace");
-        algo.properties.push("name:vlineEffect|type:list|display:V Effect|values:None,Fill,One By One|write:setVEffect|read:getVEffect");
+        algo.properties.push("name:vlineEffect|type:list|display:V Effect|values:None,Fill,Fill from Center,One By One,Noise|write:setVEffect|read:getVEffect");
         algo.properties.push("name:vlineCustom|type:range|display:V Custom Value|values:0,10000|write:setVCustom|read:getVCustom");
         algo.properties.push("name:vlinePixels|type:range|display:V Remove Pixels|values:0,10000|write:setVPixels|read:getVPixels");
         algo.properties.push("name:vlineUp|type:range|display:V Move Up|values:0,10000|write:setUp|read:getUp");
@@ -138,6 +138,10 @@ var testAlgo;
                 algo.hlineEffect = 1;
             } else if (_effect === "One By One") {
                 algo.hlineEffect = 2;
+            } else if (_effect === "Fill from Center"){
+                algo.hlineEffect = 3;
+            } else if (_effect === "Noise"){
+                algo.hlineEffect = 4;
             }
         }
         algo.getHEffect = function () {
@@ -147,6 +151,10 @@ var testAlgo;
                 return "Fill";
             } else if (algo.hlineEffect === 2) {
                 return "One By One";
+            } else if (algo.hlineEffect === 3){
+                return "Fill from Center";
+            } else if (algo.hlineEffect === 4){
+                return "Noise";
             }
         }
 
@@ -157,6 +165,10 @@ var testAlgo;
                 algo.vlineEffect = 1;
             } else if (_effect === "One By One") {
                 algo.vlineEffect = 2;
+            } else if (_effect === "Fill from Center"){
+                algo.vlineEffect = 3;
+            } else if (_effect === "Noise"){
+                algo.vlineEffect = 4;
             }
         }
         algo.getVEffect = function () {
@@ -166,6 +178,10 @@ var testAlgo;
                 return "Fill";
             } else if (algo.vlineEffect === 2) {
                 return "One By One";
+            } else if (algo.vlineEffect === 3) {
+                return "Fill from Center";
+            } else if (algo.vlineEffect === 4){
+                return "Noise";
             }
         }
 
@@ -250,6 +266,15 @@ var testAlgo;
                         } else if (algo.vlineEffect === 2) { //one by one
                             var yy = step % height;
                         effect = (y - algo.vlinePixels <= yy) && (y - algo.vlinePixels >= yy);
+                        } else if (algo.vlineEffect === 3) { //fill from center
+                            isEven =  (width % 2 === 0);
+                            var fill = 0;
+                            if (y <= center + step + (isEven ? 1 : 0 ) && y >= center - step) {
+                                fill = 1;
+                            }
+                            if (fill === 1) {
+                                effect = (y - algo.vlinePixels <= step);   
+                            }
                         }
                         else {
                             effect = 1;
@@ -289,6 +314,9 @@ var testAlgo;
             }
             else if (algo.lineOrientation === 1 && algo.vlineEffect === 2 || algo.lineOrientation === 1 && algo.vlineEffect === 1 ) { //fill + one by one
                 return height - algo.vlinePixels;
+            }
+            else if (algo.lineOrientation === 1 && algo.vlineEffect === 3){
+                return Math.floor((parseInt(height) + 1) / 2); 
             }
         };
 
