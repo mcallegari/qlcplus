@@ -68,7 +68,7 @@ void Show_Test::copy()
     show.addTrack(t);
 
     QVERIFY(show.showFunction(666) == NULL);
-    QVERIFY(show.showFunction(1) == sf);
+    QVERIFY(show.showFunction(0) == sf);
 
     Show showCopy(m_doc);
     showCopy.copyFrom(&show);
