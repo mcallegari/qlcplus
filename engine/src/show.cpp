@@ -38,10 +38,11 @@
  *****************************************************************************/
 
 Show::Show(Doc* doc) : Function(doc, Function::ShowType)
-  , m_timeDivisionType(Time)
-  , m_timeDivisionBPM(120)
-  , m_latestTrackId(0)
-  , m_runner(NULL)
+    , m_timeDivisionType(Time)
+    , m_timeDivisionBPM(120)
+    , m_latestTrackId(0)
+    , m_latestShowFunctionID(0)
+    , m_runner(NULL)
 {
     setName(tr("New Show"));
 
@@ -113,7 +114,7 @@ bool Show::copyFrom(const Function* function)
     foreach(Track *track, show->tracks())
     {
         quint32 sceneID = track->getSceneID();
-        Track* newTrack = new Track(sceneID);
+        Track* newTrack = new Track(sceneID, this);
         newTrack->setName(track->name());
         addTrack(newTrack);
 
@@ -264,11 +265,20 @@ Track* Show::track(quint32 id) const
 
 Track* Show::getTrackFromSceneID(quint32 id)
 {
-    foreach(Track *track, m_tracks)
+    foreach (Track *track, m_tracks)
     {
         if (track->getSceneID() == id)
             return track;
     }
+    return NULL;
+}
+
+Track *Show::getTrackFromShowFunctionID(quint32 id)
+{
+    foreach (Track *track, m_tracks)
+        if (track->showFunction(id) != NULL)
+            return track;
+
     return NULL;
 }
 
@@ -327,6 +337,27 @@ quint32 Show::createTrackId()
     return m_latestTrackId;
 }
 
+/*********************************************************************
+ * Show Functions
+ *********************************************************************/
+
+quint32 Show::getLatestShowFunctionId()
+{
+    return m_latestTrackId++;
+}
+
+ShowFunction *Show::showFunction(quint32 id)
+{
+    foreach (Track *track, m_tracks)
+    {
+        ShowFunction *sf = track->showFunction(id);
+        if (sf != NULL)
+            return sf;
+    }
+
+    return NULL;
+}
+
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
@@ -381,7 +412,7 @@ bool Show::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCTrack)
         {
-            Track *trk = new Track();
+            Track *trk = new Track(Function::invalidId(), this);
             if (trk->loadXML(root) == true)
                 addTrack(trk, trk->id());
         }

@@ -54,11 +54,11 @@ void Show_Test::copy()
     Scene *scene = new Scene(m_doc);
     m_doc->addFunction(scene);
 
-    Track *t = new Track(123);
+    Track *t = new Track(123, &show);
     t->setSceneID(456);
     t->setName("Original track");
 
-    ShowFunction *sf = new ShowFunction();
+    ShowFunction *sf = new ShowFunction(show.getLatestShowFunctionId());
     sf->setFunctionID(scene->id());
     sf->setStartTime(1000);
     sf->setDuration(2000);
@@ -66,6 +66,9 @@ void Show_Test::copy()
 
     t->addShowFunction(sf);
     show.addTrack(t);
+
+    QVERIFY(show.showFunction(666) == NULL);
+    QVERIFY(show.showFunction(1) == sf);
 
     Show showCopy(m_doc);
     showCopy.copyFrom(&show);
@@ -131,10 +134,10 @@ void Show_Test::tracks()
 
     QCOMPARE(s.tracks().count(), 0);
 
-    Track *t = new Track(123);
+    Track *t = new Track(123, &s);
     t->setName("First track");
 
-    Track *t2 = new Track(321);
+    Track *t2 = new Track(321, &s);
     t2->setName("Second track");
 
     QVERIFY(s.addTrack(t) == true);
@@ -195,8 +198,8 @@ void Show_Test::duration()
     Scene *scene = new Scene(m_doc);
     m_doc->addFunction(scene);
 
-    Track *t = new Track(123);
-    ShowFunction *sf = new ShowFunction();
+    Track *t = new Track(123, &show);
+    ShowFunction *sf = new ShowFunction(show.getLatestShowFunctionId());
     sf->setFunctionID(scene->id());
     sf->setStartTime(1000);
     sf->setDuration(2000);
@@ -277,10 +280,10 @@ void Show_Test::save()
     s.setName("Test Show");
     s.setTimeDivision(Show::BPM_3_4, 111);
 
-    Track *t = new Track(456);
+    Track *t = new Track(456, &s);
     t->setName("First track");
 
-    Track *t2 = new Track(789);
+    Track *t2 = new Track(789, &s);
     t2->setName("Second track");
     t2->setMute(true);
 
