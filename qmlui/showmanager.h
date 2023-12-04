@@ -228,7 +228,13 @@ public:
      */
     Q_INVOKABLE void addItems(QQuickItem *parent, int trackIdx, int startTime, QVariantList idsList);
 
+    void addShowItem(ShowFunction *sf, quint32 trackId);
+
+    /** Delete the currently selected show items */
     Q_INVOKABLE void deleteShowItems(QVariantList data);
+
+    /** Delete the item referencing the provided ShowFunction from the QML view */
+    void deleteShowItem(ShowFunction *sf);
 
     /** Method invoked when moving an existing Show Item on the timeline.
      *  The new position is checked for overlapping against existing items on the

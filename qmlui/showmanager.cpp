@@ -41,7 +41,7 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     view->rootContext()->setContextProperty("showManager", this);
     qmlRegisterUncreatableType<Show>("org.qlcplus.classes", 1, 0, "Show", "Can't create a Show");
     qmlRegisterType<Track>("org.qlcplus.classes", 1, 0, "Track");
-    qmlRegisterType<ShowFunction>("org.qlcplus.classes", 1, 0, "ShowFunction");
+    qmlRegisterUncreatableType<ShowFunction>("org.qlcplus.classes", 1, 0, "ShowFunction", "Can't create a ShowFunction");
 
     setContextResource("qrc:/ShowManager.qml");
     setContextTitle(tr("Show Manager"));
@@ -303,6 +303,10 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
             m_currentShow = nullptr;
             return;
         }
+
+        Tardis::instance()->enqueueAction(Tardis::FunctionCreate, m_currentShow->id(), QVariant(),
+                                          Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, m_currentShow->id()));
+
         connect(m_currentShow, SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
         emit currentShowIDChanged(m_currentShow->id());
         emit showNameChanged(m_currentShow->name());
@@ -314,9 +318,14 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
     // if no Track index is provided, then add a new one
     if (trackIdx == -1)
     {
-        selectedTrack = new Track();
+        selectedTrack = new Track(Function::invalidId(), m_currentShow);
         selectedTrack->setName(tr("Track %1").arg(m_currentShow->tracks().count() + 1));
         m_currentShow->addTrack(selectedTrack);
+
+        Tardis::instance()->enqueueAction(
+            Tardis::ShowManagerAddTrack, m_currentShow->id(), QVariant(),
+            Tardis::instance()->actionToByteArray(Tardis::ShowManagerAddTrack, m_currentShow->id(), selectedTrack->id()));
+
         trackIdx = m_currentShow->tracks().count() - 1;
         emit tracksChanged();
     }
@@ -361,6 +370,10 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
         showFunc->setStartTime(startTime);
         showFunc->setColor(ShowFunction::defaultColor(func->type()));
 
+        Tardis::instance()->enqueueAction(
+            Tardis::ShowManagerAddFunction, m_currentShow->id(), QVariant(),
+            Tardis::instance()->actionToByteArray(Tardis::ShowManagerAddFunction, m_currentShow->id(), showFunc->id()));
+
         QQuickItem *newItem = qobject_cast<QQuickItem*>(siComponent->create());
 
         newItem->setParentItem(parent);
@@ -368,13 +381,25 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
         newItem->setProperty("sfRef", QVariant::fromValue(showFunc));
         newItem->setProperty("funcRef", QVariant::fromValue(func));
 
-        quint32 itemIndex = m_itemsMap.isEmpty() ? 0 : m_itemsMap.lastKey() + 1;
-        quint32 itemID = trackIdx << 16 | itemIndex;
-        m_itemsMap[itemID] = newItem;
+        m_itemsMap[showFunc->id()] = newItem;
         startTime += showFunc->duration();
     }
 
     emit showDurationChanged(m_currentShow->totalDuration());
+}
+
+void ShowManager::addShowItem(ShowFunction *sf, quint32 trackId)
+{
+    QQuickItem *itemsArea = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("showItemsArea"));
+    QQuickItem *contentItem = qobject_cast<QQuickItem*>(itemsArea->findChild<QObject *>("contentItem"));
+    QQuickItem *newItem = qobject_cast<QQuickItem*>(siComponent->create());
+    Function *func = m_doc->function(sf->functionID());
+
+    newItem->setParentItem(contentItem);
+    newItem->setProperty("trackIndex", trackId);
+    newItem->setProperty("sfRef", QVariant::fromValue(sf));
+    newItem->setProperty("funcRef", QVariant::fromValue(func));
+    m_itemsMap[sf->id()] = newItem;
 }
 
 void ShowManager::deleteShowItems(QVariantList data)
@@ -384,7 +409,7 @@ void ShowManager::deleteShowItems(QVariantList data)
     if (m_currentShow == nullptr)
         return;
 
-    foreach(SelectedShowItem ssi, m_selectedItems)
+    foreach (SelectedShowItem ssi, m_selectedItems)
     {
         quint32 trackIndex = ssi.m_trackIndex;
         qDebug() << "Selected item has track index:" << trackIndex;
@@ -397,18 +422,28 @@ void ShowManager::deleteShowItems(QVariantList data)
         }
 
         Track *track = m_currentShow->tracks().at(trackIndex);
+        quint32 sfId = ssi.m_showFunc->id();
         track->removeShowFunction(ssi.m_showFunc, true);
         if (ssi.m_item != nullptr)
         {
-            quint32 key = m_itemsMap.key(ssi.m_item, UINT_MAX);
-            if (key != UINT_MAX)
-                m_itemsMap.remove(key);
+            m_itemsMap.remove(sfId);
             delete ssi.m_item;
         }
     }
 
     m_selectedItems.clear();
     emit selectedItemsCountChanged(0);
+}
+
+void ShowManager::deleteShowItem(ShowFunction *sf)
+{
+    quint32 sfId = sf->id();
+    QQuickItem *item = m_itemsMap.value(sfId, nullptr);
+    if (item != nullptr)
+    {
+        m_itemsMap.remove(sfId);
+        delete item;
+    }
 }
 
 bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int newTrackIdx, int newStartTime)
@@ -424,7 +459,7 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
     if (newTrackIdx >= m_currentShow->tracks().count())
     {
         // create a new track here
-        dstTrack = new Track();
+        dstTrack = new Track(Function::invalidId(), m_currentShow);
         dstTrack->setName(tr("Track %1").arg(m_currentShow->tracks().count() + 1));
         m_currentShow->addTrack(dstTrack);
         emit tracksChanged();
@@ -497,11 +532,9 @@ void ShowManager::renderView(QQuickItem *parent)
 
     int trkIdx = 0;
 
-    foreach(Track *track, m_currentShow->tracks())
+    foreach (Track *track, m_currentShow->tracks())
     {
-        int itemIndex = 0;
-
-        foreach(ShowFunction *sf, track->showFunctions())
+        foreach (ShowFunction *sf, track->showFunctions())
         {
             Function *func = m_doc->function(sf->functionID());
             if (func == nullptr)
@@ -514,9 +547,7 @@ void ShowManager::renderView(QQuickItem *parent)
             newItem->setProperty("sfRef", QVariant::fromValue(sf));
             newItem->setProperty("funcRef", QVariant::fromValue(func));
 
-            quint32 itemID = trkIdx << 16 | itemIndex;
-            m_itemsMap[itemID] = newItem;
-            itemIndex++;
+            m_itemsMap[sf->id()] = newItem;
         }
 
         trkIdx++;

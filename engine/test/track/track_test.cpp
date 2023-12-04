@@ -28,7 +28,7 @@
 void Track_Test::initTestCase()
 {
     m_doc = new Doc(this);
-    m_showFunc = new ShowFunction(this);
+    m_showFunc = new ShowFunction(123, this);
 }
 
 void Track_Test::cleanupTestCase()
@@ -151,15 +151,15 @@ void Track_Test::functions()
     m_doc->addFunction(sq, 20);
 
     // invalid ShowFunction
-    ShowFunction *sf1 = new ShowFunction();
+    ShowFunction *sf1 = new ShowFunction(123);
     sf1->setFunctionID(666);
 
     // Valid ShowFunction
-    ShowFunction *sf2 = new ShowFunction();
+    ShowFunction *sf2 = new ShowFunction(456);
     sf2->setFunctionID(s->id());
     QVERIFY(sf2->color() == QColor());
 
-    ShowFunction *sf3 = new ShowFunction();
+    ShowFunction *sf3 = new ShowFunction(789);
     sf3->setFunctionID(sq->id());
 
     t.addShowFunction(sf1);
@@ -167,6 +167,10 @@ void Track_Test::functions()
     t.addShowFunction(sf3);
 
     QVERIFY(t.showFunctions().count() == 3);
+    QVERIFY(t.showFunction(111) == NULL);
+    QVERIFY(t.showFunction(123) == sf1);
+    QVERIFY(t.showFunction(456) == sf2);
+    QVERIFY(t.showFunction(789) == sf3);
     QVERIFY(t.postLoad(m_doc) == true);
 
     // invalid ShowFunction has been removed
@@ -193,7 +197,7 @@ void Track_Test::save()
     t.setName("Audio Cue");
     t.setMute(true);
 
-    m_showFunc = new ShowFunction(this);
+    m_showFunc = new ShowFunction(123, this);
     m_showFunc->setFunctionID(987);
 
     t.addShowFunction(m_showFunc);
