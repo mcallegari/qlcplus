@@ -38,7 +38,7 @@ var testAlgo;
         algo.hlineStretch = 0;
 
         algo.vlineCustom = 0;
-        algo.vlinePixels = 0
+        algo.vlinePixels = 0;
         algo.vlineUp = 0;
         algo.vlinePlace = 0;
         algo.vlineEffect = 0;
@@ -245,13 +245,16 @@ var testAlgo;
                     map[y] = new Array(width);
                 }
                 for (var x = 0; x < width; x++) {
-
+                    var center = (Math.floor((parseInt(((width >= algo.vlinePixels) + 1))+ 1) / 2) - 1);
                     var effect;
+                    isEven = (((width >= algo.vlinePixels) + 1) % 2 === 0);
                     if (algo.hlineEffect === 1) { // fill
                         effect = (x - algo.hlinePixels <= step);
                     } else if (algo.hlineEffect === 2) { //one by one
                         var xx = step % width;
                         effect = (x - algo.hlinePixels <= xx) && (x - algo.hlinePixels >= xx);
+                    } else if (algo.hlineEffect === 3){ // fill from center
+                        effect = x <= center + step + (isEven ? 1 : 0 ) && x >= center - step
                     }
                     else { //none
                         effect = 1;
@@ -276,8 +279,8 @@ var testAlgo;
                     for (var x = 0; x < width; x++) {
                         var effect;
                         var yUp = y - algo.vlineUp;
-                        var center = (Math.floor((parseInt(height) + 1) / 2) - 1);
-                        isEven = (height % 2 === 0);
+                        var center = (algo.rgbMapStepCount(width, height - algo.vlinePixels) - 1);
+                        isEven = (((height >= algo.vlinePixels) + 1) % 2 === 0);
                         if (algo.vlineEffect === 1) { //fill
                             effect = (y - algo.vlinePixels <= step);
                         } else if (algo.vlineEffect === 2) { //one by one
@@ -296,8 +299,8 @@ var testAlgo;
                             if (algo.vlinePlace === 0) { // left
                                 map[yUp][0] = (y >= algo.vlinePixels) && effect && rgb;
                             } else if (algo.vlinePlace === 1) { //middle
-                                isEvenW = (width % 2 === 0);
-                                middle = (Math.floor((parseInt(width)+1)/2)-1);
+                                var isEvenW = (width % 2 === 0);
+                                var middle = (Math.floor((parseInt(width)+1)/2)-1);
                                 map[yUp][center] = (y >= algo.vlinePixels) && middle + (isEvenW ? 1 : 0) && (effect) && rgb;
                             } else if (algo.vlinePlace === 2) { // Right
                                 map[yUp][width - 1] = (y >= algo.vlinePixels) && (effect) && rgb;
@@ -320,6 +323,9 @@ var testAlgo;
             }
             else if (algo.lineOrientation === 0 && algo.hlineEffect === 1 || algo.lineOrientation === 0 && algo.hlineEffect === 2) { //fill + one by one
                 return width - algo.hlinePixels;
+            } 
+            else if (algo.lineOrientation === 0 && algo.hlineEffect === 3){
+                return Math.floor((parseInt(width) + 1) / 2) - algo.vlinePixels;
             }
 
             else if (algo.lineOrientation === 1 && algo.vlineEffect === 0) { //vertical
@@ -329,7 +335,7 @@ var testAlgo;
                 return height - algo.vlinePixels;
             }
             else if (algo.lineOrientation === 1 && algo.vlineEffect === 3) { //fill from center
-                return Math.floor((parseInt(height) + 1) / 2) - algo.vlinePixels;
+                return Math.floor((parseInt((height)) + 1) / 2);
             }
         };
 
