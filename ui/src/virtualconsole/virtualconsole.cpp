@@ -56,6 +56,7 @@
 #include "vclabel.h"
 #include "vcxypad.h"
 #include "vcclock.h"
+#include "vcwizard.h"
 #include "doc.h"
 
 #define SETTINGS_VC_SIZE "virtualconsole/size"
@@ -98,6 +99,7 @@ VirtualConsole::VirtualConsole(QWidget* parent, Doc* doc)
     , m_addAnimationAction(NULL)
 
     , m_toolsSettingsAction(NULL)
+    , m_VCWizardAction(NULL)
 
     , m_editCutAction(NULL)
     , m_editCopyAction(NULL)
@@ -365,6 +367,9 @@ void VirtualConsole::initActions()
     // and crashing the app after VC window is closed.
     m_toolsSettingsAction->setMenuRole(QAction::NoRole);
 
+    m_VCWizardAction = new QAction(QIcon(":/wizard.png"), tr("VC Fixture Widget Wizard"), this);
+    connect(m_VCWizardAction, SIGNAL(triggered(bool)), this, SLOT(slotWizard()));
+
     /* Edit menu actions */
     m_editCutAction = new QAction(QIcon(":/editcut.png"), tr("Cut"), this);
     connect(m_editCutAction, SIGNAL(triggered(bool)), this, SLOT(slotEditCut()));
@@ -583,7 +588,9 @@ void VirtualConsole::initMenuBar()
     m_toolbar->addAction(m_fgColorAction);
     m_toolbar->addAction(m_fontAction);
     m_toolbar->addSeparator();
+    m_toolbar->addAction(m_VCWizardAction);
     m_toolbar->addAction(m_toolsSettingsAction);
+
 }
 
 void VirtualConsole::updateCustomMenu()
@@ -1020,6 +1027,15 @@ void VirtualConsole::slotToolsSettings()
         settings.setValue(SETTINGS_RGBMATRIX_SIZE, vcpe.rgbMatrixSize());
 
         m_doc->setModified();
+    }
+}
+
+void VirtualConsole::slotWizard()
+{
+    VCWizard fw(this, m_doc);
+    if (fw.exec() == QDialog::Accepted){
+      //setupWidget(button, parent);
+      m_doc->setModified();
     }
 }
 
@@ -1722,6 +1738,7 @@ void VirtualConsole::disableEdit()
     m_fontActionGroup->setEnabled(false);
     m_frameActionGroup->setEnabled(false);
     m_stackingActionGroup->setEnabled(false);
+    m_VCWizardAction->setEnabled(false);
 
     // Disable action shortcuts in operate mode
     m_addButtonAction->setShortcut(QKeySequence());

@@ -173,6 +173,7 @@ protected:
     QAction* m_addAnimationAction;
 
     QAction* m_toolsSettingsAction;
+    QAction* m_VCWizardAction;    
 
     QAction* m_editCutAction;
     QAction* m_editCopyAction;
@@ -249,6 +250,7 @@ public slots:
      *********************************************************************/
 public slots:
     void slotToolsSettings();
+    void slotWizard();
 
     /*********************************************************************
      * Edit menu callbacks
