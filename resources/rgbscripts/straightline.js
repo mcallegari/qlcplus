@@ -3,7 +3,7 @@
   straightline.js
 
   Copyright (c) Aidan Young
-  Based on work by Massimo Callegari, Branson Matheson, and Jano Svitok
+  Based on work by Massimo Callegari, Branson Matheson, Jano Svitok, Doug Puckett, and Heikki Junnila
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -49,18 +49,16 @@ var testAlgo;
         algo.properties.push("name:lineOrientation|type:list|display:Orientation|values:Horizontal (H),Vertical (V)|write:setOrientation|read:getOrientation");
 
         algo.properties.push("name:hlinePlace|type:list|display:H Placement|values:Top,Middle,Bottom,Custom|write:setHPlace|read:getHPlace");
-        algo.properties.push("name:hlineEffect|type:list|display:H Effect|values:None,Fill,Fill from Center,One By One,Noise|write:setHEffect|read:getHEffect");
+        algo.properties.push("name:hlineEffect|type:list|display:H Effect|values:None,Fill,Fill from Center,One By One,Noise,Even/Odd|write:setHEffect|read:getHEffect");
         algo.properties.push("name:hlineCustom|type:range|display:H Custom Value|values:0,10000|write:setHCustom|read:getHCustom");
         algo.properties.push("name:hlinePixels|type:range|display:H Remove Pixels|values:0,10000|write:setHPixels|read:getHPixels");
         algo.properties.push("name:hlineLeft|type:range|display:H Move Left|values:0,10000|write:setLeft|read:getLeft");
-        algo.properties.push("name:hlineStretch|type:range|display:H Stretch|values 0,10000|write:setHStretch|read:getHStretch")
 
         algo.properties.push("name:vlinePlace|type:list|display:V Placement|values:Left,Middle,Right,Custom|write:setVPlace|read:getHPlace");
-        algo.properties.push("name:vlineEffect|type:list|display:V Effect|values:None,Fill,Fill from Center,One By One,Noise|write:setVEffect|read:getVEffect");
+        algo.properties.push("name:vlineEffect|type:list|display:V Effect|values:None,Fill,Fill from Center,One By One,Noise,Even/Odd|write:setVEffect|read:getVEffect");
         algo.properties.push("name:vlineCustom|type:range|display:V Custom Value|values:0,10000|write:setVCustom|read:getVCustom");
         algo.properties.push("name:vlinePixels|type:range|display:V Remove Pixels|values:0,10000|write:setVPixels|read:getVPixels");
         algo.properties.push("name:vlineUp|type:range|display:V Move Up|values:0,10000|write:setUp|read:getUp");
-        algo.properties.push("name:vlineStretch|type:range|display:V Stretch|values:0,10000|write:setVStretch|read:getVStretch")
 
         algo.setOrientation = function (_orientation) {
             if (_orientation == "Vertical (V)") {
@@ -146,6 +144,8 @@ var testAlgo;
                 algo.hlineEffect = 3;
             } else if (_effect === "Noise") {
                 algo.hlineEffect = 4;
+            } else if (_effect === "Even/Odd"){
+                algo.hlineEffect = 5;
             }
         }
         algo.getHEffect = function () {
@@ -159,6 +159,8 @@ var testAlgo;
                 return "Fill from Center";
             } else if (algo.hlineEffect === 4) {
                 return "Noise";
+            } else if (algo.hlineEffect === 5){
+                return "Even/Odd";
             }
         }
 
@@ -173,6 +175,8 @@ var testAlgo;
                 algo.vlineEffect = 3;
             } else if (_effect === "Noise") {
                 algo.vlineEffect = 4;
+            } else if (_effect === "Even/Odd"){
+                algo.vlineEffect = 5;
             }
         }
         algo.getVEffect = function () {
@@ -186,6 +190,8 @@ var testAlgo;
                 return "Fill from Center";
             } else if (algo.vlineEffect === 4) {
                 return "Noise";
+            } else if (algo.vlineEffect === 5){
+                return "Even/Odd";
             }
         }
 
@@ -224,19 +230,8 @@ var testAlgo;
         }; algo.getUp = function () {
             return algo.vlineUp;
         };
-
-        algo.setHStretch = function (_stretch) {
-            algo.hlineStretch = _stretch;
-        }; algo.getHStretch = function () {
-            return algo.hlineStretch;
-        }
-
-        algo.setVStretch = function (_stretch) {
-            algo.vlineStretch = _stretch;
-        }; algo.getVStretch = function () {
-            return algo.vlineStretch;
-        }
-
+        
+        var dCounter = 0;
         var isEven = 0;
         algo.rgbMap = function (width, height, rgb, step) {
             var map = new Array(height);
@@ -245,7 +240,7 @@ var testAlgo;
                     map[y] = new Array(width);
                 }
                 for (var x = 0; x < width; x++) {
-                    var center = (Math.floor((parseInt(((width >= algo.vlinePixels) + 1))+ 1) / 2) - 1);
+                    var center = (Math.floor((parseInt(((width >= algo.vlinePixels) + 1)) + 1) / 2) - 1);
                     var effect;
                     isEven = (((width >= algo.vlinePixels) + 1) % 2 === 0);
                     if (algo.hlineEffect === 1) { // fill
@@ -253,8 +248,8 @@ var testAlgo;
                     } else if (algo.hlineEffect === 2) { //one by one
                         var xx = step % width;
                         effect = (x - algo.hlinePixels <= xx) && (x - algo.hlinePixels >= xx);
-                    } else if (algo.hlineEffect === 3){ // fill from center
-                        effect = x <= center + step + (isEven ? 1 : 0 ) && x >= center - step
+                    } else if (algo.hlineEffect === 3) { // fill from center
+                        effect = x <= center + step + (isEven ? 1 : 0) && x >= center - step
                     }
                     else { //none
                         effect = 1;
@@ -278,6 +273,10 @@ var testAlgo;
                     map[y] = new Array(width);
                     for (var x = 0; x < width; x++) {
                         var effect;
+                        var color;
+                        if(algo.vlineEffect !== 4){
+                            color = rgb; 
+                        }
                         var yUp = y - algo.vlineUp;
                         var center = (algo.rgbMapStepCount(width, height - algo.vlinePixels) - 1);
                         isEven = (((height >= algo.vlinePixels) + 1) % 2 === 0);
@@ -289,6 +288,36 @@ var testAlgo;
                         } else if (algo.vlineEffect === 3) { //fill from center
                             effect = y <= center + step + (isEven ? 1 : 0) && y >= center - step;
                         } else if (algo.vlineEffect === 4) { //noise
+                            var r = (rgb >> 16) & 0x00FF;  // split color of user selected color
+                            var g = (rgb >> 8) & 0x00FF;
+                            var b = rgb & 0x00FF;
+
+                            // create random color level from 1 to 255
+                            var colorLevel = Math.floor(Math.random() * 255);
+
+                            // Assign random color value to temp variables
+                            var rr = colorLevel;
+                            var gg = colorLevel;
+                            var bb = colorLevel;
+
+                            // Limit each color element to the maximum for chosen color or make 0 if below 0
+                            if (rr > r) { rr = r; }
+                            if (rr < 0) { rr = 0; }
+                            if (gg > g) { gg = g; }
+                            if (gg < 0) { gg = 0; }
+                            if (bb > b) { bb = b; }
+                            if (bb < 0) { bb = 0; }
+
+                            var cColor = (rr << 16) + (gg << 8) + bb;   // put rgb parts back together
+
+                            var vDiv = Math.random() * 5; //medium noise reduction
+
+                            dCounter += 1;              // counter for noise trigger
+                            if (dCounter >= vDiv) {     // compare counter to user noise amount selection value
+                                dCounter = 0;           // clear the counter
+                                color = cColor;
+                            }
+                        } else if (algo.vlineEffect === 5){ // even/odd
 
                         }
                         else {
@@ -297,10 +326,10 @@ var testAlgo;
 
                         if (yUp >= 0 && yUp < height) {
                             if (algo.vlinePlace === 0) { // left
-                                map[yUp][0] = (y >= algo.vlinePixels) && effect && rgb;
+                                map[yUp][0] = (y >= algo.vlinePixels) && effect && color;
                             } else if (algo.vlinePlace === 1) { //middle
                                 var isEvenW = (width % 2 === 0);
-                                var middle = (Math.floor((parseInt(width)+1)/2)-1);
+                                var middle = (Math.floor((parseInt(width) + 1) / 2) - 1);
                                 map[yUp][center] = (y >= algo.vlinePixels) && middle + (isEvenW ? 1 : 0) && (effect) && rgb;
                             } else if (algo.vlinePlace === 2) { // Right
                                 map[yUp][width - 1] = (y >= algo.vlinePixels) && (effect) && rgb;
@@ -318,20 +347,21 @@ var testAlgo;
         };
 
         algo.rgbMapStepCount = function (width, height) {
-            if (algo.lineOrientation === 0 && algo.hlineEffect === 0) { //horizontal
+            if (algo.lineOrientation === 0 && algo.hlineEffect === 0 || algo.lineOrientation === 0 && algo.hlineEffect === 4) { //horizontal + noise
                 return width;
             }
             else if (algo.lineOrientation === 0 && algo.hlineEffect === 1 || algo.lineOrientation === 0 && algo.hlineEffect === 2) { //fill + one by one
                 return width - algo.hlinePixels;
-            } 
-            else if (algo.lineOrientation === 0 && algo.hlineEffect === 3){
+            }
+            else if (algo.lineOrientation === 0 && algo.hlineEffect === 3) {
                 return Math.floor((parseInt(width) + 1) / 2) - algo.vlinePixels;
             }
 
-            else if (algo.lineOrientation === 1 && algo.vlineEffect === 0) { //vertical
+            else if (algo.lineOrientation === 1 && algo.vlineEffect === 0 || algo.lineOrientation === 1 && algo.vlineEffect === 4) { //vertical + noise
                 return height;
             }
-            else if (algo.lineOrientation === 1 && algo.vlineEffect === 2 || algo.lineOrientation === 1 && algo.vlineEffect === 1) { //fill + one by one
+            else if (algo.lineOrientation === 1 && algo.vlineEffect === 2 || algo.lineOrientation === 1 && algo.vlineEffect === 1) { 
+                //fill + one by one
                 return height - algo.vlinePixels;
             }
             else if (algo.lineOrientation === 1 && algo.vlineEffect === 3) { //fill from center
