@@ -250,6 +250,17 @@ var testAlgo;
                         effect = (x - algo.hlinePixels <= xx) && (x - algo.hlinePixels >= xx);
                     } else if (algo.hlineEffect === 3) { // fill from center
                         effect = x <= center + step + (isEven ? 1 : 0) && x >= center - step
+                    } else if (algo.hlineEffect === 4 ){ // noise
+
+                    } else if (algo.hlineEffect === 5){ // even/odd
+                        var i = step;
+                        var xx = i % 2;
+                        if((i % 2) === 0){
+                        effect = (x - algo.hlinePixels <= xx) && (x - algo.hlinePixels >= xx);
+                        } else{
+                        effect = (x - algo.hlinePixels >= xx) && (x - algo.hlinePixels <= xx);
+                        }
+                        i++;
                     }
                     else { //none
                         effect = 1;
@@ -318,7 +329,7 @@ var testAlgo;
                                 color = cColor;
                             }
                         } else if (algo.vlineEffect === 5){ // even/odd
-
+                            
                         }
                         else {
                             effect = 1;
@@ -347,7 +358,7 @@ var testAlgo;
         };
 
         algo.rgbMapStepCount = function (width, height) {
-            if (algo.lineOrientation === 0 && algo.hlineEffect === 0 || algo.lineOrientation === 0 && algo.hlineEffect === 4) { //horizontal + noise
+            if (algo.lineOrientation === 0 && algo.hlineEffect === 0 || algo.lineOrientation === 0 && algo.hlineEffect === 4) { //horizontal + everything else
                 return width;
             }
             else if (algo.lineOrientation === 0 && algo.hlineEffect === 1 || algo.lineOrientation === 0 && algo.hlineEffect === 2) { //fill + one by one
@@ -355,6 +366,9 @@ var testAlgo;
             }
             else if (algo.lineOrientation === 0 && algo.hlineEffect === 3) {
                 return Math.floor((parseInt(width) + 1) / 2) - algo.vlinePixels;
+            }
+            else if (algo.lineOrientation === 0 && algo.hlineEffect === 5){ // even/odd
+                return width;
             }
 
             else if (algo.lineOrientation === 1 && algo.vlineEffect === 0 || algo.lineOrientation === 1 && algo.vlineEffect === 4) { //vertical + noise
