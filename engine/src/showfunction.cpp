@@ -43,7 +43,7 @@ ShowFunction::ShowFunction(quint32 id, QObject *parent)
 {
 }
 
-quint32 ShowFunction::id()
+quint32 ShowFunction::id() const
 {
     return m_id;
 }

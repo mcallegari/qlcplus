@@ -154,6 +154,8 @@ public:
         ShowManagerDeleteTrack,
         ShowManagerAddFunction,
         ShowManagerDeleteFunction,
+        ShowManagerItemSetStartTime,
+        ShowManagerItemSetDuration,
 
         /* Simple Desk actions */
         SimpleDeskSetChannel = 0xC000,

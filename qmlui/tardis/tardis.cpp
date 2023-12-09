@@ -1085,6 +1085,28 @@ int Tardis::processAction(TardisAction &action, bool undo)
             processBufferedAction(undo ? ShowManagerAddFunction : ShowManagerDeleteFunction, action.m_objID, action.m_oldValue);
             return undo ? ShowManagerAddFunction : ShowManagerDeleteFunction;
 
+        case ShowManagerItemSetStartTime:
+        {
+            Show *show = m_showManager->currentShow();
+            if (show != nullptr)
+            {
+                ShowFunction *sf = show->showFunction(action.m_objID);
+                sf->setStartTime(undo ? action.m_oldValue.toUInt() : action.m_newValue.toUInt());
+            }
+        }
+        break;
+
+        case ShowManagerItemSetDuration:
+        {
+            Show *show = m_showManager->currentShow();
+            if (show != nullptr)
+            {
+                ShowFunction *sf = show->showFunction(action.m_objID);
+                sf->setDuration(undo ? action.m_oldValue.toUInt() : action.m_newValue.toUInt());
+            }
+        }
+        break;
+
         /* ************************* Simple Desk actions ************************** */
 
         case SimpleDeskSetChannel:

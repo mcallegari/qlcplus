@@ -62,6 +62,11 @@ int ShowManager::currentShowID() const
     return m_currentShow->id();
 }
 
+Show *ShowManager::currentShow() const
+{
+    return m_currentShow;
+}
+
 bool ShowManager::isEditing()
 {
     return m_currentShow == nullptr ? false : true;
@@ -473,20 +478,22 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
             return false;
     }
 
+    int newTime = newStartTime;
+
     if (m_gridEnabled)
     {
         // calculate the X position from time and time scale
-        float xPos = ((float)newStartTime * m_tickSize) / (m_timeScale * 1000.0); // timescale * 1000 : tickSize = time : x
+        // timescale * 1000 : tickSize = time : x
+        float xPos = ((float)newStartTime * m_tickSize) / (m_timeScale * 1000.0);
         // round to the nearest snap position
         xPos = qRound(xPos / m_tickSize) * m_tickSize;
         // recalculate the time from pixels
-        float time = xPos * (1000 * m_timeScale) / m_tickSize; // xPos : time = tickSize : timescale * 1000
-        sf->setStartTime(time);
+        // xPos : time = tickSize : timescale * 1000
+        newTime = xPos * (1000 * m_timeScale) / m_tickSize;
     }
-    else
-    {
-        sf->setStartTime(newStartTime);
-    }
+
+    Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetStartTime, sf->id(), sf->startTime(), newTime);
+    sf->setStartTime(newTime);
 
     // check if we need to move the ShowFunction to a different Track
     if (newTrackIdx != originalTrackIdx)
@@ -497,6 +504,44 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
     }
 
     m_doc->setModified();
+
+    return true;
+}
+
+bool ShowManager::setShowItemStartTime(ShowFunction *sf, int startTime)
+{
+    if (sf == nullptr)
+        return false;
+
+    Track *track = m_currentShow->getTrackFromShowFunctionID(sf->id());
+    if (track == nullptr)
+        return false;
+
+    bool overlapping = checkOverlapping(track, sf, startTime, sf->duration());
+    if (overlapping)
+        return false;
+
+    Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetStartTime, sf->id(), sf->startTime(), startTime);
+    sf->setStartTime(startTime);
+
+    return true;
+}
+
+bool ShowManager::setShowItemDuration(ShowFunction *sf, int duration)
+{
+    if (sf == nullptr)
+        return false;
+
+    Track *track = m_currentShow->getTrackFromShowFunctionID(sf->id());
+    if (track == nullptr)
+        return false;
+
+    bool overlapping = checkOverlapping(track, sf, sf->startTime(), duration);
+    if (overlapping)
+        return false;
+
+    Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetDuration, sf->id(), sf->duration(), duration);
+    sf->setDuration(duration);
 
     return true;
 }
