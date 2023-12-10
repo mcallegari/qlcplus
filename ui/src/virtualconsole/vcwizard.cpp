@@ -28,15 +28,11 @@
 #include "vcwizard.h"
 #include "virtualconsole.h"
 #include "vcsoloframe.h"
-#include "vccuelist.h"
-#include "rgbmatrix.h"
 #include "vcwidget.h"
 #include "vcbutton.h"
 #include "vcslider.h"
 #include "vcframe.h"
 #include "fixture.h"
-#include "chaser.h"
-#include "scene.h"
 #include "doc.h"
 
 #include "qlcfixturedef.h"
@@ -47,9 +43,6 @@
 #define KFixtureColumnCaps          1
 #define KFixtureColumnManufacturer  2
 #define KFixtureColumnModel         3
-
-#define KFunctionName               0
-#define KFunctionOddEven            1
 
 #define KWidgetName                 0
 
@@ -82,7 +75,7 @@ VCWizard::VCWizard(QWidget* parent, Doc* doc)
 
 VCWizard::~VCWizard()
 {
-    m_paletteList.clear();
+
 }
 
 void VCWizard::slotNextPageClicked()
@@ -103,9 +96,6 @@ void VCWizard::slotTabClicked()
 void VCWizard::accept()
 {
 
-    foreach (PaletteGenerator *palette, m_paletteList)
-        palette->addToDoc();
-
     addWidgetsToVirtualConsole();
 
     m_doc->setModified();
@@ -121,12 +111,11 @@ void VCWizard::checkTabsAndButtons()
         {
             m_nextButton->setEnabled(true);
             m_tabWidget->setTabEnabled(2, false);
-            m_tabWidget->setTabEnabled(3, false);
         }
         break;
         case 1:
         {
-            if (m_allFuncsTree->topLevelItemCount() == 0)
+            if (m_allWidgetsTree->topLevelItemCount() == 0)
             {
                 m_nextButton->setEnabled(false);
                 m_tabWidget->setTabEnabled(2, false);
@@ -140,20 +129,8 @@ void VCWizard::checkTabsAndButtons()
         break;
         case 2:
         {
-            if (m_paletteList.isEmpty() == false)
-            {
-                m_tabWidget->setTabEnabled(3, true);
-                m_nextButton->setEnabled(true);
-            }
-            else
-            {
-                m_tabWidget->setTabEnabled(3, false);
-                m_nextButton->setEnabled(false);
-            }
+          m_nextButton->setEnabled(false);
         }
-        break;
-        case 3:
-            m_nextButton->setEnabled(false);
         break;
     }
 }
@@ -219,7 +196,7 @@ void VCWizard::slotAddClicked()
             addFixture(it.next());
 
         if (m_fixtureTree->topLevelItemCount() > 0)
-            updateAvailableFunctionsTree();
+            updateAvailableWidgetsTree();
     }
     checkTabsAndButtons();
 }
@@ -254,34 +231,27 @@ QList <quint32> VCWizard::fixtureIds() const
 }
 
 /********************************************************************
- * Functions
+ * Widgets
  ********************************************************************/
 
-void VCWizard::addFunctionsGroup(QTreeWidgetItem *fxGrpItem, QTreeWidgetItem *grpItem,
-                                       QString name, PaletteGenerator::PaletteType type)
+void VCWizard::addWidgetItem(QTreeWidgetItem *grpItem,
+                                       QString name, int type)
 {
     if (grpItem == NULL)
         return;
 
     QTreeWidgetItem *item = new QTreeWidgetItem(grpItem);
-    item->setText(KFunctionName, name);
-    item->setCheckState(KFunctionName, Qt::Unchecked);
-    item->setData(KFunctionName, Qt::UserRole, type);
-
-    if (fxGrpItem != NULL && fxGrpItem->childCount() > 1)
-    {
-        item->setCheckState(KFunctionOddEven, Qt::Unchecked);
-    }
+    item->setText(KWidgetName, name);
+    item->setCheckState(KWidgetName, Qt::Unchecked);
+    item->setData(KWidgetName, Qt::UserRole, type);
+    item->setIcon(KWidgetName, VCWidget::typeToIcon(type));
+    
 }
 
-void VCWizard::updateAvailableFunctionsTree()
+void VCWizard::updateAvailableWidgetsTree()
 {
-    disconnect(m_allFuncsTree, SIGNAL(itemChanged(QTreeWidgetItem*, int)),
-            this, SLOT(slotFunctionItemChanged(QTreeWidgetItem*,int)));
-
-    m_allFuncsTree->clear();
-    m_resFuncsTree->clear();
-
+    m_allWidgetsTree->clear();
+    
     for (int i = 0; i < m_fixtureTree->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *fxGrpItem = m_fixtureTree->topLevelItem(i);
@@ -290,10 +260,12 @@ void VCWizard::updateAvailableFunctionsTree()
         if (fxGrpItem->childCount() == 0)
             continue;
 
-        QTreeWidgetItem *grpItem = new QTreeWidgetItem(m_allFuncsTree);
-        grpItem->setText(KFunctionName, fxGrpItem->text(KFixtureColumnName));
-        grpItem->setIcon(KFunctionName, fxGrpItem->icon(KFixtureColumnName));
-        grpItem->setExpanded(true);
+        QTreeWidgetItem *frame = new QTreeWidgetItem(m_allWidgetsTree);
+        frame->setText(KWidgetName, fxGrpItem->text(KFixtureColumnName));
+        frame->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::FrameWidget));
+        frame->setData(KWidgetName, Qt::UserRole, VCWidget::FrameWidget);
+        frame->setCheckState(KWidgetName, Qt::Unchecked);
+        frame->setExpanded(true);
 
         // since groups contain fixture of the same type, get the first
         // child and create categories on its capabilities
@@ -301,239 +273,49 @@ void VCWizard::updateAvailableFunctionsTree()
         quint32 fxID = fxItem->data(KFixtureColumnName, Qt::UserRole).toUInt();
         Fixture* fxi = m_doc->fixture(fxID);
         Q_ASSERT(fxi != NULL);
-
+        
         QStringList caps = PaletteGenerator::getCapabilities(fxi);
 
         foreach(QString cap, caps)
-        {
-            if (cap == KQLCChannelRGB || cap == KQLCChannelCMY)
+        {   
+            cout << "caps:" << cap << Qt::endl;
+
+            if (cap == KXMLQLCChannelDefault)
             {
-                addFunctionsGroup(fxGrpItem, grpItem,
-                                  PaletteGenerator::typetoString(PaletteGenerator::PrimaryColors),
-                                  PaletteGenerator::PrimaryColors);
-                addFunctionsGroup(fxGrpItem, grpItem,
-                                  PaletteGenerator::typetoString(PaletteGenerator::SixteenColors),
-                                  PaletteGenerator::SixteenColors);
-                addFunctionsGroup(fxGrpItem, grpItem,
-                                  PaletteGenerator::typetoString(PaletteGenerator::Animation),
-                                  PaletteGenerator::Animation);
+                addWidgetItem(frame, "Dimmer", VCWidget::SliderWidget); // Dimmer Slider
+            }
+            else if (cap == KQLCChannelMovement)
+            {
+                addWidgetItem(frame, "XY Pad", VCWidget::XYPadWidget); // Movement XY Pad
+            }            
+            else if (cap == KQLCChannelRGB || cap == KQLCChannelCMY)
+            {
+                addWidgetItem(frame, "Click & Go RGB", VCWidget::SliderWidget); // RGB Click & GO
+            }
+            else if (cap == KQLCChannelWhite)
+            {
+                addWidgetItem(frame, "White", VCWidget::SliderWidget);  // White Slider
             }
             else if (cap == QLCChannel::groupToString(QLCChannel::Gobo))
-                addFunctionsGroup(fxGrpItem, grpItem,
-                                  PaletteGenerator::typetoString(PaletteGenerator::Gobos),
-                                  PaletteGenerator::Gobos);
-            else if (cap == QLCChannel::groupToString(QLCChannel::Shutter))
-                addFunctionsGroup(fxGrpItem, grpItem,
-                                  PaletteGenerator::typetoString(PaletteGenerator::Shutter),
-                                  PaletteGenerator::Shutter);
-            else if (cap == QLCChannel::groupToString(QLCChannel::Colour))
-                addFunctionsGroup(fxGrpItem, grpItem,
-                                  PaletteGenerator::typetoString(PaletteGenerator::ColourMacro),
-                                  PaletteGenerator::ColourMacro);
-        }
-    }
-
-    m_allFuncsTree->resizeColumnToContents(KFunctionName);
-
-    connect(m_allFuncsTree, SIGNAL(itemChanged(QTreeWidgetItem*, int)),
-            this, SLOT(slotFunctionItemChanged(QTreeWidgetItem*,int)));
-}
-
-QTreeWidgetItem *VCWizard::getFunctionGroupItem(const Function *func)
-{
-    for (int i = 0; i < m_resFuncsTree->topLevelItemCount(); i++)
-    {
-        QTreeWidgetItem *item = m_resFuncsTree->topLevelItem(i);
-        int grpType = item->data(KFunctionName, Qt::UserRole).toInt();
-        if (grpType == func->type())
-            return item;
-    }
-    // if we're here then the group doesn't exist. Create it
-    QTreeWidgetItem* newGrp = new QTreeWidgetItem(m_resFuncsTree);
-    newGrp->setText(KFixtureColumnName, Function::typeToString(func->type()));
-    newGrp->setIcon(KFixtureColumnName, func->getIcon());
-    newGrp->setData(KFunctionName, Qt::UserRole, func->type());
-    newGrp->setExpanded(true);
-    return newGrp;
-}
-
-void VCWizard::updateResultFunctionsTree()
-{
-    m_resFuncsTree->clear();
-    m_paletteList.clear();
-
-    for (int i = 0; i < m_allFuncsTree->topLevelItemCount(); i++)
-    {
-        QTreeWidgetItem *funcGrpItem = m_allFuncsTree->topLevelItem(i);
-        Q_ASSERT(funcGrpItem != NULL);
-
-        if (funcGrpItem->childCount() == 0)
-            continue;
-
-        // retrieve the list of fixtures involved in this group
-        QList <Fixture *> fxList;
-        QTreeWidgetItem *fxiGrpItem = m_fixtureTree->topLevelItem(i);
-
-        for (int f = 0; f < fxiGrpItem->childCount(); f++)
-        {
-            QTreeWidgetItem *fItem = fxiGrpItem->child(f);
-            quint32 fxID = fItem->data(KFixtureColumnName, Qt::UserRole).toUInt();
-            Fixture *fixture = m_doc->fixture(fxID);
-            if (fixture != NULL)
-                fxList.append(fixture);
-        }
-
-        // iterate through the function group children to see which are checked
-        for (int c = 0; c < funcGrpItem->childCount(); c++)
-        {
-            QTreeWidgetItem *funcItem = funcGrpItem->child(c);
-            if (funcItem->checkState(KFunctionName) == Qt::Checked)
             {
-                int type = funcItem->data(KFunctionName, Qt::UserRole).toInt();
-                int subType = PaletteGenerator::All;
-                if (funcItem->checkState(KFunctionOddEven) == Qt::Checked)
-                    subType = PaletteGenerator::OddEven;
-                PaletteGenerator *palette = new PaletteGenerator(m_doc, fxList,
-                                                                 (PaletteGenerator::PaletteType)type,
-                                                                 (PaletteGenerator::PaletteSubType)subType);
-                m_paletteList.append(palette);
-
-                foreach(Scene *scene, palette->scenes())
-                {
-                    QTreeWidgetItem *item = new QTreeWidgetItem(getFunctionGroupItem(scene));
-                    item->setText(KFunctionName, scene->name());
-                    item->setIcon(KFunctionName, scene->getIcon());
-                }
-                foreach(Chaser *chaser, palette->chasers())
-                {
-                    QTreeWidgetItem *item = new QTreeWidgetItem(getFunctionGroupItem(chaser));
-                    item->setText(KFunctionName, chaser->name());
-                    item->setIcon(KFunctionName, chaser->getIcon());
-                }
-                foreach(RGBMatrix *matrix, palette->matrices())
-                {
-                    QTreeWidgetItem *item = new QTreeWidgetItem(getFunctionGroupItem(matrix));
-                    item->setText(KFunctionName, matrix->name());
-                    item->setIcon(KFunctionName, matrix->getIcon());
-                }
+                addWidgetItem(frame, "Click & Go Gobo", VCWidget::SliderWidget); // Gobo Click & Go
             }
+            else if (cap == QLCChannel::groupToString(QLCChannel::Shutter))
+            {
+                addWidgetItem(frame, "Click & Go Shutter", VCWidget::SliderWidget); // Shutter Click & Go
+            }    
+            else if (cap == QLCChannel::groupToString(QLCChannel::Colour))
+            {
+                addWidgetItem(frame, "Click & Go Color", VCWidget::SliderWidget); // Colour Click & Go
+            }  
         }
     }
+
+    m_allWidgetsTree->resizeColumnToContents(KWidgetName);
+
 }
 
-void VCWizard::slotFunctionItemChanged(QTreeWidgetItem *item, int col)
-{
-    Q_UNUSED(col)
-    Q_UNUSED(item)
-
-    updateResultFunctionsTree();
-
-    if (m_paletteList.isEmpty() == false)
-        updateWidgetsTree();
-
-    checkTabsAndButtons();
-}
-
-/********************************************************************
- * Widgets
- ********************************************************************/
-
-void VCWizard::updateWidgetsTree()
-{
-    m_widgetsTree->clear();
-
-    foreach(PaletteGenerator *palette, m_paletteList)
-    {
-        QTreeWidgetItem *frame = new QTreeWidgetItem(m_widgetsTree);
-        frame->setText(KWidgetName, palette->fullName());
-        if (palette->type() == PaletteGenerator::Animation)
-        {
-            frame->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::SoloFrameWidget));
-            frame->setData(KWidgetName, Qt::UserRole, VCWidget::SoloFrameWidget);
-        }
-        else
-        {
-            frame->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::FrameWidget));
-            frame->setData(KWidgetName, Qt::UserRole, VCWidget::FrameWidget);
-        }
-        frame->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)palette));
-        frame->setFlags(frame->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
-        frame->setCheckState(KWidgetName, Qt::Unchecked);
-
-        QTreeWidgetItem *soloFrameItem = NULL;
-        if (palette->scenes().count() > 0)
-        {
-            soloFrameItem = new QTreeWidgetItem(frame);
-            soloFrameItem->setText(KWidgetName, tr("Presets solo frame"));
-            soloFrameItem->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::SoloFrameWidget));
-            soloFrameItem->setFlags(soloFrameItem->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
-            soloFrameItem->setCheckState(KWidgetName, Qt::Unchecked);
-            soloFrameItem->setData(KWidgetName, Qt::UserRole, VCWidget::SoloFrameWidget);
-        }
-        foreach(Scene *scene, palette->scenes())
-        {
-            QTreeWidgetItem *item = NULL;
-            if (soloFrameItem != NULL)
-                item = new QTreeWidgetItem(soloFrameItem);
-            else
-                item = new QTreeWidgetItem(frame);
-            QString toRemove = " - " + palette->model();
-            item->setText(KWidgetName, scene->name().remove(toRemove));
-            item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::ButtonWidget));
-            item->setCheckState(KWidgetName, Qt::Unchecked);
-            item->setData(KWidgetName, Qt::UserRole, VCWidget::ButtonWidget);
-            item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)scene));
-
-        }
-        foreach(Chaser *chaser, palette->chasers())
-        {
-            QTreeWidgetItem *item = new QTreeWidgetItem(frame);
-            QString toRemove = " - " + palette->model();
-            item->setText(KWidgetName, chaser->name().remove(toRemove));
-            item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::CueListWidget));
-            item->setCheckState(KWidgetName, Qt::Unchecked);
-            item->setData(KWidgetName, Qt::UserRole, VCWidget::CueListWidget);
-            item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)chaser));
-        }
-
-        foreach(RGBMatrix *matrix, palette->matrices())
-        {
-            QTreeWidgetItem *item = NULL;
-            if (soloFrameItem != NULL)
-                item = new QTreeWidgetItem(soloFrameItem);
-            else
-                item = new QTreeWidgetItem(frame);
-            QString toRemove = " - " + palette->model();
-            item->setText(KWidgetName, matrix->name().remove(toRemove));
-            item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::ButtonWidget));
-            item->setCheckState(KWidgetName, Qt::Unchecked);
-            item->setData(KWidgetName, Qt::UserRole, VCWidget::ButtonWidget);
-            item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)matrix));
-        }
-
-        if (palette->scenes().count() > 0)
-        {
-            int pType = palette->type();
-            QTreeWidgetItem *item = new QTreeWidgetItem(frame);
-            if (pType == PaletteGenerator::PrimaryColors ||
-                pType == PaletteGenerator::SixteenColors)
-                    item->setText(KWidgetName, tr("Click & Go RGB"));
-            else if (pType == PaletteGenerator::Gobos ||
-                     pType == PaletteGenerator::Shutter ||
-                     pType == PaletteGenerator::ColourMacro)
-                        item->setText(KWidgetName, tr("Click & Go Macro"));
-
-            item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::SliderWidget));
-            item->setCheckState(KWidgetName, Qt::Unchecked);
-            item->setData(KWidgetName, Qt::UserRole, VCWidget::SliderWidget);
-            Scene *firstScene = palette->scenes().at(0);
-            item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)firstScene));
-        }
-    }
-}
-
-VCWidget *VCWizard::createWidget(int type, VCWidget *parent, int xpos, int ypos,
-                                       Function *func, int pType)
+VCWidget *VCWizard::createWidget(int type, VCWidget *parent, int xpos, int ypos)
 {
     VirtualConsole *vc = VirtualConsole::instance();
     VCWidget *widget = NULL;
@@ -551,95 +333,19 @@ VCWidget *VCWizard::createWidget(int type, VCWidget *parent, int xpos, int ypos,
             widget = frame;
         }
         break;
-        case VCWidget::SoloFrameWidget:
-        {
-            VCSoloFrame* frame = new VCSoloFrame(parent, m_doc, true);
-            vc->setupWidget(frame, parent);
-            frame->move(QPoint(xpos, ypos));
-            widget = frame;
-        }
-        break;
-        case VCWidget::ButtonWidget:
-        {
-            VCButton* button = new VCButton(parent, m_doc);
-            vc->setupWidget(button, parent);
-            button->move(QPoint(xpos, ypos));
-            if (func != NULL)
-                button->setFunction(func->id());
-
-            widget = button;
-        }
-        break;
-        case VCWidget::CueListWidget:
-        {
-            VCCueList* cuelist = new VCCueList(parent, m_doc);
-            vc->setupWidget(cuelist, parent);
-            cuelist->move(QPoint(xpos, ypos));
-            if (func != NULL)
-                cuelist->setChaser(func->id());
-            widget = cuelist;
-        }
-        break;
         case VCWidget::SliderWidget:
         {
             VCSlider* slider = new VCSlider(parent, m_doc);
             vc->setupWidget(slider, parent);
             slider->move(QPoint(xpos, ypos));
-            if (func != NULL)
-            {
-                Scene *scene = qobject_cast<Scene*> (func);
-                foreach (SceneValue scv, scene->values())
-                    slider->addLevelChannel(scv.fxi, scv.channel);
-
-                if (pType == PaletteGenerator::PrimaryColors ||
-                    pType == PaletteGenerator::SixteenColors)
-                        slider->setClickAndGoType(ClickAndGoWidget::RGB);
-                else
-                    slider->setClickAndGoType(ClickAndGoWidget::Preset);
-                slider->setSliderMode(VCSlider::Level);
-            }
+            
+            slider->setSliderMode(VCSlider::Level);
+            
             widget = slider;
         }
         break;
         default:
         break;
-    }
-
-    if (widget != NULL && func != NULL)
-    {
-        if (func->type() == Function::SceneType && type == VCWidget::ButtonWidget)
-        {
-            Scene *scene = qobject_cast<Scene*> (func);
-
-            if (pType == PaletteGenerator::PrimaryColors ||
-                pType == PaletteGenerator::SixteenColors ||
-                pType == PaletteGenerator::ColourMacro)
-            {
-                QColor col = scene->colorValue();
-                if (col.isValid())
-                    widget->setBackgroundColor(col);
-            }
-            else if (pType == PaletteGenerator::Gobos)
-            {
-                foreach(SceneValue scv, scene->values())
-                {
-                    Fixture *fixture = m_doc->fixture(scv.fxi);
-                    if (fixture == NULL)
-                        continue;
-
-                    const QLCChannel* channel(fixture->channel(scv.channel));
-                    if (channel->group() == QLCChannel::Gobo)
-                    {
-                        QLCCapability *cap = channel->searchCapability(scv.value);
-                        if (cap->resource(0).isValid())
-                        {
-                            widget->setBackgroundImage(cap->resource(0).toString());
-                            break;
-                        }
-                    }
-                }
-            }
-        }
     }
 
     return widget;
@@ -658,9 +364,8 @@ QSize VCWizard::recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *parent, i
             childItem->checkState(KWidgetName) == Qt::PartiallyChecked)
         {
             int cType = childItem->data(KWidgetName, Qt::UserRole).toInt();
-            Function *func = (Function *) childItem->data(KWidgetName, Qt::UserRole + 1).value<void *>();
 
-            VCWidget *childWidget = createWidget(cType, parent, subX, subY, func, type);
+            VCWidget *childWidget = createWidget(cType, parent, subX, subY);
             if (childWidget != NULL)
             {
                 childWidget->setCaption(childItem->text(KWidgetName));
@@ -695,8 +400,6 @@ QSize VCWizard::recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *parent, i
     return groupSize;
 }
 
-
-
 void VCWizard::addWidgetsToVirtualConsole()
 {
     int xPos = 10;
@@ -706,9 +409,9 @@ void VCWizard::addWidgetsToVirtualConsole()
     VCFrame *mainFrame = vc->contents();
     Q_ASSERT(mainFrame != NULL);
 
-    for (int i = 0; i < m_widgetsTree->topLevelItemCount(); i++)
+    for (int i = 0; i < m_allWidgetsTree->topLevelItemCount(); i++)
     {
-        QTreeWidgetItem *wItem = m_widgetsTree->topLevelItem(i);
+        QTreeWidgetItem *wItem = m_allWidgetsTree->topLevelItem(i);
 
         if (wItem->checkState(KWidgetName) == Qt::Checked ||
             wItem->checkState(KWidgetName) == Qt::PartiallyChecked)
