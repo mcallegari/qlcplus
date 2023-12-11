@@ -101,9 +101,16 @@ public:
 
         SceneSetChannelValue,
         SceneUnsetChannelValue,
+        SceneAddFixture,
+        SceneRemoveFixture,
+        SceneAddFixtureGroup,
+        SceneRemoveFixtureGroup,
+        SceneAddPalette,
+        SceneRemovePalette,
 
         ChaserAddStep,
         ChaserRemoveStep,
+        ChaserMoveStep,
         ChaserSetStepFadeIn,
         ChaserSetStepHold,
         ChaserSetStepFadeOut,
