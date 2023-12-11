@@ -144,7 +144,7 @@ var testAlgo;
                 algo.hlineEffect = 3;
             } else if (_effect === "Noise") {
                 algo.hlineEffect = 4;
-            } else if (_effect === "Even/Odd"){
+            } else if (_effect === "Even/Odd") {
                 algo.hlineEffect = 5;
             }
         }
@@ -159,7 +159,7 @@ var testAlgo;
                 return "Fill from Center";
             } else if (algo.hlineEffect === 4) {
                 return "Noise";
-            } else if (algo.hlineEffect === 5){
+            } else if (algo.hlineEffect === 5) {
                 return "Even/Odd";
             }
         }
@@ -175,7 +175,7 @@ var testAlgo;
                 algo.vlineEffect = 3;
             } else if (_effect === "Noise") {
                 algo.vlineEffect = 4;
-            } else if (_effect === "Even/Odd"){
+            } else if (_effect === "Even/Odd") {
                 algo.vlineEffect = 5;
             }
         }
@@ -190,7 +190,7 @@ var testAlgo;
                 return "Fill from Center";
             } else if (algo.vlineEffect === 4) {
                 return "Noise";
-            } else if (algo.vlineEffect === 5){
+            } else if (algo.vlineEffect === 5) {
                 return "Even/Odd";
             }
         }
@@ -230,35 +230,66 @@ var testAlgo;
         }; algo.getUp = function () {
             return algo.vlineUp;
         };
-        
+
         var dCounter = 0;
         var isEven = 0;
         algo.rgbMap = function (width, height, rgb, step) {
+            dCounter = 0;
             var map = new Array(height);
             if (algo.lineOrientation === 0) { //horizontal
                 for (var y = 0; y < height; y++) {
                     map[y] = new Array(width);
                 }
                 for (var x = 0; x < width; x++) {
-                    var center = (Math.floor((parseInt(((width >= algo.vlinePixels) + 1)) + 1) / 2) - 1);
+                    var center = (algo.rgbMapStepCount(width - algo.hlinePixels, height) - 1);
                     var effect;
-                    isEven = (((width >= algo.vlinePixels) + 1) % 2 === 0);
+                    var color;
+                    isEven = (((width >= algo.hlinePixels) + 1) % 2 === 0);
                     if (algo.hlineEffect === 1) { // fill
                         effect = (x - algo.hlinePixels <= step);
                     } else if (algo.hlineEffect === 2) { //one by one
                         var xx = step % width;
                         effect = (x - algo.hlinePixels <= xx) && (x - algo.hlinePixels >= xx);
                     } else if (algo.hlineEffect === 3) { // fill from center
-                        effect = x <= center + step + (isEven ? 1 : 0) && x >= center - step
-                    } else if (algo.hlineEffect === 4 ){ // noise
+                        effect = x <= center + step + (isEven ? 1 : 0) && x - algo.hlinePixels >= center - step;
+                    } else if (algo.hlineEffect === 4) { // noise
+                        var r = (rgb >> 16) & 0x00FF;  // split color of user selected color
+                        var g = (rgb >> 8) & 0x00FF;
+                        var b = rgb & 0x00FF;
 
-                    } else if (algo.hlineEffect === 5){ // even/odd
+                        // create random color level from 1 to 255
+                        var colorLevel = Math.floor(Math.random() * 255);
+
+                        // Assign random color value to temp variables
+                        var rr = colorLevel;
+                        var gg = colorLevel;
+                        var bb = colorLevel;
+
+                        // Limit each color element to the maximum for chosen color or make 0 if below 0
+                        if (rr > r) { rr = r; }
+                        if (rr < 0) { rr = 0; }
+                        if (gg > g) { gg = g; }
+                        if (gg < 0) { gg = 0; }
+                        if (bb > b) { bb = b; }
+                        if (bb < 0) { bb = 0; }
+
+                        var cColor = (rr << 16) + (gg << 8) + bb;   // put rgb parts back together
+
+                        var vDiv = Math.random() * 5; //medium noise reduction
+
+                        dCounter += 1;              // counter for noise trigger
+                        if (dCounter >= vDiv) {     // compare counter to user noise amount selection value
+                            dCounter = 0;           // clear the counter
+                            color = cColor;
+                        }
+
+                    } else if (algo.hlineEffect === 5) { // even/odd
                         var i = step;
                         var xx = i % 2;
-                        if((i % 2) === 0){
-                        effect = (x - algo.hlinePixels <= xx) && (x - algo.hlinePixels >= xx);
-                        } else{
-                        effect = (x - algo.hlinePixels >= xx) && (x - algo.hlinePixels <= xx);
+                        if ((i % 2) === 0) {
+                            effect = (x - algo.hlinePixels <= xx) && (x - algo.hlinePixels >= xx);
+                        } else {
+                            effect = (x - algo.hlinePixels >= xx) && (x - algo.hlinePixels <= xx);
                         }
                         i++;
                     }
@@ -266,28 +297,33 @@ var testAlgo;
                         effect = 1;
                     }
 
+                    if (algo.hlineEffect !== 4) {
+                        color = rgb;
+                    }
+
+
                     if (algo.hlinePlace === 0) { // top
-                        map[0][x - algo.hlineLeft] = (x >= algo.hlinePixels) && (effect) && rgb;
+                        map[0][x - algo.hlineLeft] = (x >= algo.hlinePixels) && (effect) && color;
                     } else if (algo.hlinePlace === 1) { // middle
-                        var middleY = (height / 2)
-                        map[middleY][x - algo.hlineLeft] = (x >= algo.hlinePixels) && (effect) && rgb;
+                        var middle = (Math.floor((parseInt(width) + 1) / 2) - 1);
+                        map[middle][x - algo.hlineLeft] = (x >= algo.hlinePixels) && (effect) && color;
+                        if (height % 2 === 0) {
+                            map[middle + 1][x - algo.hlineLeft] = (y >= algo.hlinePixels) && (effect) && color;
+                        }
                     } else if (algo.hlinePlace === 2) { // bottom
-                        map[y - 1][x - algo.hlineLeft] = (x >= algo.hlinePixels) && (effect) && rgb;
+                        map[y - 1][x - algo.hlineLeft] = (x >= algo.hlinePixels) && (effect) && color;
                     } else if (algo.hlinePlace === 3) { // custom
-                        map[algo.hlineCustom - 1][x - algo.hlineLeft] = (x >= algo.hlinePixels) && (effect) && rgb;
+                        map[algo.hlineCustom - 1][x - algo.hlineLeft] = (x >= algo.hlinePixels) && (effect) && color;
                     } else { map[y][x] = 0 }
                 }
             }
 
             else if (algo.lineOrientation === 1) { //vertical
+                dCounter = 0;
                 for (var y = 0; y < height; y++) {
                     map[y] = new Array(width);
                     for (var x = 0; x < width; x++) {
                         var effect;
-                        var color;
-                        if(algo.vlineEffect !== 4){
-                            color = rgb; 
-                        }
                         var yUp = y - algo.vlineUp;
                         var center = (algo.rgbMapStepCount(width, height - algo.vlinePixels) - 1);
                         isEven = (((height >= algo.vlinePixels) + 1) % 2 === 0);
@@ -326,22 +362,27 @@ var testAlgo;
                             dCounter += 1;              // counter for noise trigger
                             if (dCounter >= vDiv) {     // compare counter to user noise amount selection value
                                 dCounter = 0;           // clear the counter
-                                color = cColor;
                             }
-                        } else if (algo.vlineEffect === 5){ // even/odd
-                            
+                        } else if (algo.vlineEffect === 5) { // even/odd
+
                         }
                         else {
                             effect = 1;
                         }
 
-                        if (yUp >= 0 && yUp < height) {
+                        if (algo.vlineEffect !== 4) {
+                            color = rgb;
+                        } else { color = cColor; }
+
+                        /* if (yUp >= 0 && yUp < height) { */
                             if (algo.vlinePlace === 0) { // left
                                 map[yUp][0] = (y >= algo.vlinePixels) && effect && color;
                             } else if (algo.vlinePlace === 1) { //middle
-                                var isEvenW = (width % 2 === 0);
                                 var middle = (Math.floor((parseInt(width) + 1) / 2) - 1);
-                                map[yUp][center] = (y >= algo.vlinePixels) && middle + (isEvenW ? 1 : 0) && (effect) && rgb;
+                                map[yUp][middle] = (y >= algo.vlinePixels) && (effect) && rgb;
+                                if (width % 2 === 0) {
+                                    map[yUp][middle + 1] = (y >= algo.vlinePixels) && (effect) && rgb;
+                                }
                             } else if (algo.vlinePlace === 2) { // Right
                                 map[yUp][width - 1] = (y >= algo.vlinePixels) && (effect) && rgb;
                             } else if (algo.vlinePlace === 3) { // custom
@@ -349,7 +390,7 @@ var testAlgo;
                             } else {
                                 map[yUp][x] = 0;
                             }
-                        }
+                        /* } */
                     }
                 }
             }
@@ -358,23 +399,23 @@ var testAlgo;
         };
 
         algo.rgbMapStepCount = function (width, height) {
-            if (algo.lineOrientation === 0 && algo.hlineEffect === 0 || algo.lineOrientation === 0 && algo.hlineEffect === 4) { //horizontal + everything else
+            if (algo.lineOrientation === 0 && algo.hlineEffect === 0 || algo.lineOrientation === 0 && algo.hlineEffect === 4) { //horizontal + noise
                 return width;
             }
             else if (algo.lineOrientation === 0 && algo.hlineEffect === 1 || algo.lineOrientation === 0 && algo.hlineEffect === 2) { //fill + one by one
                 return width - algo.hlinePixels;
             }
-            else if (algo.lineOrientation === 0 && algo.hlineEffect === 3) {
-                return Math.floor((parseInt(width) + 1) / 2) - algo.vlinePixels;
+            else if (algo.lineOrientation === 0 && algo.hlineEffect === 3) { //fill from center
+                return Math.floor((parseInt(width) + 1) / 2) - algo.hlinePixels;
             }
-            else if (algo.lineOrientation === 0 && algo.hlineEffect === 5){ // even/odd
+            else if (algo.lineOrientation === 0 && algo.hlineEffect === 5) { // even/odd
                 return width;
             }
 
             else if (algo.lineOrientation === 1 && algo.vlineEffect === 0 || algo.lineOrientation === 1 && algo.vlineEffect === 4) { //vertical + noise
                 return height;
             }
-            else if (algo.lineOrientation === 1 && algo.vlineEffect === 2 || algo.lineOrientation === 1 && algo.vlineEffect === 1) { 
+            else if (algo.lineOrientation === 1 && algo.vlineEffect === 2 || algo.lineOrientation === 1 && algo.vlineEffect === 1) {
                 //fill + one by one
                 return height - algo.vlinePixels;
             }
