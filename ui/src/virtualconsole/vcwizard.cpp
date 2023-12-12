@@ -264,6 +264,7 @@ void VCWizard::updateAvailableWidgetsTree()
         frame->setText(KWidgetName, fxGrpItem->text(KFixtureColumnName));
         frame->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::FrameWidget));
         frame->setData(KWidgetName, Qt::UserRole, VCWidget::FrameWidget);
+        frame->setFlags(frame->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
         frame->setCheckState(KWidgetName, Qt::Unchecked);
         frame->setExpanded(true);
 
