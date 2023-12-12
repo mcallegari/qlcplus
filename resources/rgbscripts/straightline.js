@@ -285,12 +285,7 @@ var testAlgo;
 
                     } else if (algo.hlineEffect === 5) { // even/odd
                         var i = step;
-                        var xx = i % 2;
-                        if ((i % 2) === 0) {
-                            effect = (x - algo.hlinePixels <= xx) && (x - algo.hlinePixels >= xx);
-                        } else {
-                            effect = (x - algo.hlinePixels >= xx) && (x - algo.hlinePixels <= xx);
-                        }
+                        effect = (x % 2 === 0 && i % 2 === 0) || (x % 2 !== 0 && i % 2 !== 0);
                         i++;
                     }
                     else { //none
@@ -364,7 +359,9 @@ var testAlgo;
                                 dCounter = 0;           // clear the counter
                             }
                         } else if (algo.vlineEffect === 5) { // even/odd
-
+                            var i = step;
+                            effect = (y % 2 === 0 && i % 2 === 0) || (y % 2 !== 0 && i % 2 !== 0);
+                            i++;
                         }
                         else {
                             effect = 1;
@@ -374,7 +371,7 @@ var testAlgo;
                             color = rgb;
                         } else { color = cColor; }
 
-                        /* if (yUp >= 0 && yUp < height) { */
+                        if (yUp >= 0 && yUp < height) {
                             if (algo.vlinePlace === 0) { // left
                                 map[yUp][0] = (y >= algo.vlinePixels) && effect && color;
                             } else if (algo.vlinePlace === 1) { //middle
@@ -390,7 +387,7 @@ var testAlgo;
                             } else {
                                 map[yUp][x] = 0;
                             }
-                        /* } */
+                        }
                     }
                 }
             }
@@ -408,8 +405,8 @@ var testAlgo;
             else if (algo.lineOrientation === 0 && algo.hlineEffect === 3) { //fill from center
                 return Math.floor((parseInt(width) + 1) / 2) - algo.hlinePixels;
             }
-            else if (algo.lineOrientation === 0 && algo.hlineEffect === 5) { // even/odd
-                return width;
+            else if (algo.lineOrientation === 0 && algo.hlineEffect === 5 || algo.lineOrientation === 1 && algo.vlineEffect === 5) { // even/odd (both vertical and horizontal)
+                return 2;
             }
 
             else if (algo.lineOrientation === 1 && algo.vlineEffect === 0 || algo.lineOrientation === 1 && algo.vlineEffect === 4) { //vertical + noise
