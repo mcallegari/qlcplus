@@ -76,7 +76,10 @@ protected slots:
      ********************************************************************/
 protected:
 
-    void addWidgetItem(QTreeWidgetItem *grpItem, QString name, int type);    
+    void checkPanTilt(QTreeWidgetItem *grpItem, QTreeWidgetItem *fxGrpItem, qint32* channels);
+    void checkRGB(QTreeWidgetItem *grpItem, QTreeWidgetItem *fxGrpItem, qint32* channels);
+    void addWidgetItem(QTreeWidgetItem *grpItem, QString name, int type, 
+                       QTreeWidgetItem *fxGrpItem, quint32* channels);
 
     /** Populate the available widgets tree based on the available fixtures */
     void updateAvailableWidgetsTree();

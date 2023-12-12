@@ -31,6 +31,7 @@
 #include "vcwidget.h"
 #include "vcbutton.h"
 #include "vcslider.h"
+#include "vcxypad.h"
 #include "vcframe.h"
 #include "fixture.h"
 #include "doc.h"
@@ -234,24 +235,72 @@ QList <quint32> VCWizard::fixtureIds() const
  * Widgets
  ********************************************************************/
 
-void VCWizard::addWidgetItem(QTreeWidgetItem *grpItem,
-                                       QString name, int type)
+void VCWizard::addWidgetItem(QTreeWidgetItem *grpItem, QString name, int type,
+                             QTreeWidgetItem *fxGrpItem, quint32 *channels)
 {
     if (grpItem == NULL)
         return;
 
+    QString channelsStr = "(";
+    
+    for (size_t i = 0; i < 4; i++)
+    {
+        channelsStr.append( QString::number((uint)channels[i]+1)+ ", ");
+    }
+    channelsStr.chop(2);
+    channelsStr.append(")");
+
     QTreeWidgetItem *item = new QTreeWidgetItem(grpItem);
-    item->setText(KWidgetName, name);
+    item->setText(KWidgetName, name + " " + channelsStr );
     item->setCheckState(KWidgetName, Qt::Unchecked);
     item->setData(KWidgetName, Qt::UserRole, type);
+    item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void*)fxGrpItem));
+    item->setData(KWidgetName, Qt::UserRole + 2, QVariant::fromValue((void*)channels));
     item->setIcon(KWidgetName, VCWidget::typeToIcon(type));
     
+}
+
+void VCWizard::checkPanTilt(QTreeWidgetItem *grpItem, 
+                            QTreeWidgetItem *fxGrpItem, qint32* channels){
+        
+    //Check if all required Channels are set
+    if(channels[0] < 0) return;
+    if(channels[2] < 0) return;
+    if(channels[1] > 0 && channels[3] < 0) return;
+    
+    quint32 PanTilt[4] = {};
+    for (size_t i = 0; i < 4; i++) PanTilt[i] = channels[i];    
+
+    addWidgetItem(grpItem, "XY PAD", VCWidget::XYPadWidget, fxGrpItem, PanTilt);
+
+    channels[0] = -1;
+    channels[1] = -1;
+    channels[2] = -1;
+    channels[3] = -1;
+
+}
+
+void VCWizard::checkRGB(QTreeWidgetItem *grpItem, 
+                            QTreeWidgetItem *fxGrpItem, qint32* channels){
+    
+    //Check if all required Channels are set
+    for (size_t i = 0; i < 3; i++) if(channels[i] < 0) return;
+
+    quint32 RGB[3] = {};
+    for (size_t i = 0; i < 3; i++) RGB[i] = channels[i];
+
+    addWidgetItem(grpItem, "RGB Click & Go", VCWidget::SliderWidget, fxGrpItem, RGB);
+
+    RGB[0] = -1;
+    RGB[1] = -1;
+    RGB[2] = -1;
+
 }
 
 void VCWizard::updateAvailableWidgetsTree()
 {
     m_allWidgetsTree->clear();
-    
+
     for (int i = 0; i < m_fixtureTree->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *fxGrpItem = m_fixtureTree->topLevelItem(i);
@@ -274,42 +323,69 @@ void VCWizard::updateAvailableWidgetsTree()
         quint32 fxID = fxItem->data(KFixtureColumnName, Qt::UserRole).toUInt();
         Fixture* fxi = m_doc->fixture(fxID);
         Q_ASSERT(fxi != NULL);
+
+        frame->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)fxi));
         
-        QStringList caps = PaletteGenerator::getCapabilities(fxi);
+        qint32 lastPanTilt[] = {-1, -1, -1, -1};
+        qint32 lastRGB[] = {-1, -1, -1};
 
-        foreach(QString cap, caps)
-        {   
-            cout << "caps:" << cap << Qt::endl;
+        for (quint32 ch = 0; ch < fxi->channels(); ch++)
+        {
+            const QLCChannel* channel(fxi->channel(ch));
+            Q_ASSERT(channel != NULL);
+                    
+            switch (channel->group())
+            {
+                case QLCChannel::Pan: {
+                    if(channel->preset()==QLCChannel::PositionPan) lastPanTilt[0] = ch;
+                    if(channel->preset()==QLCChannel::PositionPanFine) lastPanTilt[1] = ch;
 
-            if (cap == KXMLQLCChannelDefault)
-            {
-                addWidgetItem(frame, "Dimmer", VCWidget::SliderWidget); // Dimmer Slider
+                    checkPanTilt(frame, fxGrpItem, lastPanTilt);
+                } 
+                break;
+                case QLCChannel::Tilt: {
+                    if(channel->preset()==QLCChannel::PositionTilt) lastPanTilt[2] = ch;
+                    if(channel->preset()==QLCChannel::PositionTiltFine) lastPanTilt[3] = ch;
+
+                    checkPanTilt(frame, fxGrpItem, lastPanTilt);
+                } 
+                break;
+                
+                case QLCChannel::Gobo: addWidgetItem(frame, "Gobo Click & Go", VCWidget::SliderWidget, fxGrpItem, &ch); break;                
+                case QLCChannel::Shutter: addWidgetItem(frame, "Shutter Click & Go", VCWidget::SliderWidget, fxGrpItem, &ch); break;
+                case QLCChannel::Colour: addWidgetItem(frame, "Colour Click & Go", VCWidget::SliderWidget, fxGrpItem, &ch); break;
+               
+                case QLCChannel::Intensity:
+                { QLCChannel::PrimaryColour col = channel->colour();
+                    switch (col)
+                    {
+                        case QLCChannel::Red: {
+                            lastRGB[0]=ch;
+                            checkRGB(frame, fxGrpItem, lastRGB);
+                        }
+                        break;
+                        case QLCChannel::Green: 
+                        {
+                            lastRGB[1]=ch;
+                            checkRGB(frame, fxGrpItem, lastRGB);
+                        }
+                        break;
+                        case QLCChannel::Blue: {
+                            lastRGB[2]=ch;
+                            checkRGB(frame, fxGrpItem, lastRGB);
+                        }
+                        break;
+                        default:{                            
+                            addWidgetItem(frame, channel->colour() + " Intensity", VCWidget::SliderWidget, fxGrpItem, &ch);
+                        } break;
+                    }
+                }
+                break; 
+                default:
+                break;
+
             }
-            else if (cap == KQLCChannelMovement)
-            {
-                addWidgetItem(frame, "XY Pad", VCWidget::XYPadWidget); // Movement XY Pad
-            }            
-            else if (cap == KQLCChannelRGB || cap == KQLCChannelCMY)
-            {
-                addWidgetItem(frame, "Click & Go RGB", VCWidget::SliderWidget); // RGB Click & GO
-            }
-            else if (cap == KQLCChannelWhite)
-            {
-                addWidgetItem(frame, "White", VCWidget::SliderWidget);  // White Slider
-            }
-            else if (cap == QLCChannel::groupToString(QLCChannel::Gobo))
-            {
-                addWidgetItem(frame, "Click & Go Gobo", VCWidget::SliderWidget); // Gobo Click & Go
-            }
-            else if (cap == QLCChannel::groupToString(QLCChannel::Shutter))
-            {
-                addWidgetItem(frame, "Click & Go Shutter", VCWidget::SliderWidget); // Shutter Click & Go
-            }    
-            else if (cap == QLCChannel::groupToString(QLCChannel::Colour))
-            {
-                addWidgetItem(frame, "Click & Go Color", VCWidget::SliderWidget); // Colour Click & Go
-            }  
-        }
+        }           
     }
 
     m_allWidgetsTree->resizeColumnToContents(KWidgetName);
