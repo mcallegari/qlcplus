@@ -242,9 +242,13 @@ void VCWizard::addWidgetItem(QTreeWidgetItem *grpItem, QString name, int type,
         return;
 
     QString channelsStr = "(";
-    
-    for (size_t i = 0; i < 4; i++)
-    {
+    size_t cnt = 1;
+    if(name.contains("RGB"))cnt = 3;
+    if(name.contains("XY PAD"))cnt = 4;
+
+    for (size_t i = 0; i < cnt; i++)
+    {   
+        if((channels[i]+1)==0) continue;
         channelsStr.append( QString::number((uint)channels[i]+1)+ ", ");
     }
     channelsStr.chop(2);
