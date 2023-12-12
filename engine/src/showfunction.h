@@ -40,6 +40,7 @@ class ShowFunction: public QObject
     Q_OBJECT
     Q_DISABLE_COPY(ShowFunction)
 
+    Q_PROPERTY(int id READ id CONSTANT)
     Q_PROPERTY(int functionID READ functionID WRITE setFunctionID NOTIFY functionIDChanged)
     Q_PROPERTY(int startTime READ startTime WRITE setStartTime NOTIFY startTimeChanged)
     Q_PROPERTY(int duration READ duration WRITE setDuration NOTIFY durationChanged)
@@ -51,7 +52,7 @@ public:
     virtual ~ShowFunction() {}
 
     /** Get the ShowFunction unique identifier in a Show */
-    quint32 id();
+    quint32 id() const;
 
     /** Get/Set the Function ID this class represents */
     void setFunctionID(quint32 id);

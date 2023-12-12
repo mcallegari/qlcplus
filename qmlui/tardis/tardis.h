@@ -101,9 +101,16 @@ public:
 
         SceneSetChannelValue,
         SceneUnsetChannelValue,
+        SceneAddFixture,
+        SceneRemoveFixture,
+        SceneAddFixtureGroup,
+        SceneRemoveFixtureGroup,
+        SceneAddPalette,
+        SceneRemovePalette,
 
         ChaserAddStep,
         ChaserRemoveStep,
+        ChaserMoveStep,
         ChaserSetStepFadeIn,
         ChaserSetStepHold,
         ChaserSetStepFadeOut,
@@ -154,6 +161,8 @@ public:
         ShowManagerDeleteTrack,
         ShowManagerAddFunction,
         ShowManagerDeleteFunction,
+        ShowManagerItemSetStartTime,
+        ShowManagerItemSetDuration,
 
         /* Simple Desk actions */
         SimpleDeskSetChannel = 0xC000,

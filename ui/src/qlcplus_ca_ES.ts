@@ -6514,7 +6514,7 @@ Durada: %3
         <location filename="virtualconsole/vcproperties.ui" line="165"/>
         <source>Speed dial value</source>
         <oldsource>Speed dial value:</oldsource>
-        <translation>Valor del selector ràpid</translation>
+        <translation>Valor del selector de velocitat</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="158"/>
@@ -6538,7 +6538,7 @@ Durada: %3
         <location filename="virtualconsole/vcproperties.ui" line="545"/>
         <source>Speed dial size</source>
         <oldsource>Speed dial size:</oldsource>
-        <translation>Mida del selector ràpid</translation>
+        <translation>Mida del selector de velocitat</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="243"/>
@@ -7073,7 +7073,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="43"/>
         <source>Speed Dial Name</source>
-        <translation>Nom del selector ràpid</translation>
+        <translation>Nom del selector de velocitat</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="50"/>
@@ -7314,7 +7314,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="149"/>
         <source>Speed dial</source>
-        <translation>Selector Ràpid</translation>
+        <translation>Selector de Velocitat</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="150"/>
@@ -7792,7 +7792,7 @@ Si us plau seleccionau un d&apos;aquests canals.</translation>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="316"/>
         <source>New Speed Dial</source>
-        <translation>Nou Selector Ràpid</translation>
+        <translation>Nou Selector Velocitat</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="319"/>

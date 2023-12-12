@@ -760,6 +760,70 @@ int Tardis::processAction(TardisAction &action, bool undo)
         }
         break;
 
+        case SceneAddFixture:
+        {
+            SceneValue scv = value->value<SceneValue>();
+            Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
+
+            if (undo)
+                scene->removeFixture(scv.fxi);
+            else
+                scene->addFixture(scv.fxi);
+        }
+        break;
+
+        case SceneRemoveFixture:
+        {
+            SceneValue scv = value->value<SceneValue>();
+            Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
+
+            if (undo)
+                scene->addFixture(scv.fxi);
+            else
+                scene->removeFixture(scv.fxi);
+        }
+        break;
+
+        case SceneAddFixtureGroup:
+        {
+            Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
+            if (undo)
+                scene->removeFixtureGroup(value->toUInt());
+            else
+                scene->addFixtureGroup(value->toUInt());
+        }
+        break;
+
+        case SceneRemoveFixtureGroup:
+        {
+            Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
+            if (undo)
+                scene->addFixtureGroup(value->toUInt());
+            else
+                scene->removeFixtureGroup(value->toUInt());
+        }
+        break;
+
+        case SceneAddPalette:
+        {
+            Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
+            if (undo)
+                scene->removePalette(value->toUInt());
+            else
+                scene->addPalette(value->toUInt());
+        }
+        break;
+
+        case SceneRemovePalette:
+        {
+            Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
+            if (undo)
+                scene->addPalette(value->toUInt());
+            else
+                scene->removePalette(value->toUInt());
+        }
+        break;
+
         /* *********************** Chaser editing actions *********************** */
 
         case ChaserAddStep:
@@ -769,6 +833,14 @@ int Tardis::processAction(TardisAction &action, bool undo)
         case ChaserRemoveStep:
             processBufferedAction(undo ? ChaserAddStep : ChaserRemoveStep, action.m_objID, action.m_oldValue);
             return undo ? ChaserAddStep : ChaserRemoveStep;
+
+        case ChaserMoveStep:
+        {
+            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
+            chaser->moveStep(undo ? action.m_newValue.toInt() : action.m_oldValue.toInt(),
+                             undo ? action.m_oldValue.toInt() : action.m_newValue.toInt());
+        }
+        break;
 
         case ChaserSetStepFadeIn:
         {
@@ -1084,6 +1156,28 @@ int Tardis::processAction(TardisAction &action, bool undo)
         case ShowManagerDeleteFunction:
             processBufferedAction(undo ? ShowManagerAddFunction : ShowManagerDeleteFunction, action.m_objID, action.m_oldValue);
             return undo ? ShowManagerAddFunction : ShowManagerDeleteFunction;
+
+        case ShowManagerItemSetStartTime:
+        {
+            Show *show = m_showManager->currentShow();
+            if (show != nullptr)
+            {
+                ShowFunction *sf = show->showFunction(action.m_objID);
+                sf->setStartTime(undo ? action.m_oldValue.toUInt() : action.m_newValue.toUInt());
+            }
+        }
+        break;
+
+        case ShowManagerItemSetDuration:
+        {
+            Show *show = m_showManager->currentShow();
+            if (show != nullptr)
+            {
+                ShowFunction *sf = show->showFunction(action.m_objID);
+                sf->setDuration(undo ? action.m_oldValue.toUInt() : action.m_newValue.toUInt());
+            }
+        }
+        break;
 
         /* ************************* Simple Desk actions ************************** */
 
