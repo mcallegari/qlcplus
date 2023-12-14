@@ -361,6 +361,8 @@ bool QLCFixtureDefCache::loadQXF(const QString& path, bool isUser)
     if (error == QFile::NoError)
     {
         fxi->setIsUser(isUser);
+        fxi->setDefinitionSourceFile(path);
+        fxi->setLoaded(true);
 
         /* Delete the def if it's a duplicate. */
         if (addFixtureDef(fxi) == false)
@@ -392,6 +394,8 @@ bool QLCFixtureDefCache::loadD4(const QString& path)
 
     // a D4 personality is always a user-made fixture
     fxi->setIsUser(true);
+    fxi->setDefinitionSourceFile(path);
+    fxi->setLoaded(true);
 
     /* Delete the def if it's a duplicate. */
     if (addFixtureDef(fxi) == false)
