@@ -36,6 +36,7 @@ private slots:
     void fixtureDef();
 	void load();
     void defDirectories();
+    void storeDef();
 
 private:
     QLCFixtureDefCache cache;
