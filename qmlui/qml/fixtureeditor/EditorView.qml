@@ -69,11 +69,6 @@ Rectangle
         onAccepted: close()
     }
 
-    ModelSelector
-    {
-        id: chanSelector
-    }
-
     SplitView
     {
         anchors.fill: parent
@@ -117,6 +112,7 @@ Rectangle
                                 Layout.fillWidth: true
                                 text: editorView ? editorView.manufacturer : ""
                                 onTextChanged: if (editorView) editorView.manufacturer = text
+                                KeyNavigation.tab: modelEdit
                             }
 
                             // row 1
@@ -167,12 +163,14 @@ Rectangle
                                 Layout.fillWidth: true
                                 text: editorView ? editorView.model : ""
                                 onTextChanged: if (editorView) editorView.model = text
+                                KeyNavigation.tab: authorEdit
                             }
 
                             // row 4
                             RobotoText { label: qsTr("Author") }
                             CustomTextEdit
                             {
+                                id: authorEdit
                                 Layout.fillWidth: true
                                 text: editorView ? editorView.author : ""
                                 onTextChanged: if (editorView) editorView.author = text
@@ -243,9 +241,15 @@ Rectangle
                                         enabled: chanSelector.itemsCount
                                         onClicked:
                                         {
-                                            for (var i = 0; i < cDragItem.itemsList.length; i++)
-                                                editorView.deleteChannel(cDragItem.itemsList[i].cRef)
+                                            // retrieve selected indices from model selector and
+                                            // channel references from the ListView items
+                                            var refsArray = []
+                                            var selItems = chanSelector.itemsList()
 
+                                            for (var i = 0; i < selItems.length; i++)
+                                                refsArray.push(channelList.itemAtIndex(selItems[i]).cRef)
+
+                                            editorView.deleteChannels(refsArray)
                                             cDragItem.itemsList = []
                                         }
                                     }
@@ -286,8 +290,12 @@ Rectangle
                                 delegate:
                                     Item
                                     {
+                                        id: itemRoot
                                         width: channelList.width
                                         height: UISettings.listItemHeight
+
+                                        property QLCChannel cRef: model.cRef
+                                        property alias chanDelegate: delegateRoot.channelDelegate
 
                                         MouseArea
                                         {
@@ -296,8 +304,8 @@ Rectangle
                                             height: parent.height
                                             propagateComposedEvents: true
 
-                                            property QLCChannel cRef: model.cRef
                                             property bool dragActive: drag.active
+                                            property Item channelDelegate: cDelegate
 
                                             drag.target: cDragItem
                                             drag.threshold: height / 2
@@ -309,25 +317,17 @@ Rectangle
                                                 cDragItem.x = posnInWindow.x - (cDragItem.width / 4)
                                                 cDragItem.y = posnInWindow.y - (cDragItem.height / 4)
                                                 cDragItem.z = 10
+                                            }
 
-                                                if (model.isSelected)
-                                                    return
-
+                                            onClicked:
+                                            {
                                                 chanSelector.selectItem(index, channelList.model, mouse.modifiers)
-
-                                                if ((mouse.modifiers & Qt.ControlModifier) == 0)
-                                                    cDragItem.itemsList = []
-
-                                                // workaround array length notification
-                                                var arr = cDragItem.itemsList
-                                                arr.push(cDelegate)
-                                                cDragItem.itemsList = arr
                                             }
 
                                             onDoubleClicked:
                                             {
                                                 sideEditor.active = false
-                                                sideEditor.itemName = delegateRoot.cRef.name
+                                                sideEditor.itemName = itemRoot.cRef.name
                                                 sideEditor.source = "qrc:/ChannelEditor.qml"
                                                 sideEditor.active = true
                                             }
@@ -358,7 +358,7 @@ Rectangle
                                                 color: "transparent"
 
                                                 //property int itemType: App.ChannelDragItem
-                                                property QLCChannel cRef: delegateRoot.cRef
+                                                property QLCChannel cRef: itemRoot.cRef
 
                                                 Rectangle
                                                 {
@@ -387,6 +387,22 @@ Rectangle
                                             }
                                         }
                                     }
+
+                                ModelSelector
+                                {
+                                    id: chanSelector
+                                    onItemsCountChanged:
+                                    {
+                                        cDragItem.itemsList = []
+                                        var selItems = itemsList()
+
+                                        for (var i = 0; i < selItems.length; i++)
+                                        {
+                                            var item = channelList.itemAtIndex(selItems[i])
+                                            cDragItem.itemsList.push(item.chanDelegate)
+                                        }
+                                    }
+                                }
 
                                 GenericMultiDragItem
                                 {

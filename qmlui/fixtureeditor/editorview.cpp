@@ -267,9 +267,24 @@ bool EditorView::deleteChannel(QLCChannel *channel)
 {
     // TODO: Tardis
     bool res = m_fixtureDef->removeChannel(channel);
-    updateChannelList();
     setModified(true);
     return res;
+}
+
+bool EditorView::deleteChannels(QVariantList channels)
+{
+    bool res;
+    for (int i = 0; i < channels.count(); i++)
+    {
+        QLCChannel *channel = channels.at(i).value<QLCChannel*>();
+        res = deleteChannel(channel);
+        if (res == false)
+            return false;
+    }
+    if (channels.count())
+        updateChannelList();
+
+    return true;
 }
 
 /************************************************************************
@@ -336,7 +351,7 @@ bool EditorView::save()
     if (m_fileName.isEmpty())
         setFilenameFromModel();
 
-    //m_fixtureDef->setPhysical(m_phyEdit->physical());
+    m_fixtureDef->setPhysical(m_globalPhy->physical());
     QFile::FileError error = m_fixtureDef->saveXML(m_fileName);
     if (error != QFile::NoError)
         return false;
