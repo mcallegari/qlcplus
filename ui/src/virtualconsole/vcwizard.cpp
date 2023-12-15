@@ -259,7 +259,6 @@ void VCWizard::addWidgetItem(QTreeWidgetItem *grpItem, QString name, int type,
     item->setCheckState(KWidgetName, Qt::Unchecked);
     item->setData(KWidgetName, Qt::UserRole, type);
     item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void*)fxGrpItem));
-    item->setData(KWidgetName, Qt::UserRole + 2, QVariant::fromValue((void*)channels));
     item->setIcon(KWidgetName, VCWidget::typeToIcon(type));
     
 }
@@ -380,7 +379,7 @@ void VCWizard::updateAvailableWidgetsTree()
                         }
                         break;
                         default:{                            
-                            addWidgetItem(frame, channel->colour() + " Intensity", VCWidget::SliderWidget, fxGrpItem, &ch);
+                            addWidgetItem(frame, channel->name() + " Intensity", VCWidget::SliderWidget, fxGrpItem, &ch);
                         } break;
                     }
                 }
@@ -396,7 +395,8 @@ void VCWizard::updateAvailableWidgetsTree()
 
 }
 
-VCWidget *VCWizard::createWidget(int type, VCWidget *parent, int xpos, int ypos)
+VCWidget *VCWizard::createWidget(int type, VCWidget *parent, int xpos, int ypos, 
+                                    QTreeWidgetItem *fxGrpItem, QString str)
 {
     VirtualConsole *vc = VirtualConsole::instance();
     VCWidget *widget = NULL;
@@ -420,9 +420,52 @@ VCWidget *VCWizard::createWidget(int type, VCWidget *parent, int xpos, int ypos)
             vc->setupWidget(slider, parent);
             slider->move(QPoint(xpos, ypos));
             
-            slider->setSliderMode(VCSlider::Level);
+            size_t start = str.indexOf('(') + 1;
+            size_t length = str.indexOf(')') - start;
+            QStringList numbers = str.mid(start, length).split(", ");
             
+            slider->setCaption(str.left(str.indexOf(' ')));
+
+            for (int c = 0; c < fxGrpItem->childCount(); c++)
+            {   
+                QTreeWidgetItem *fxItem = fxGrpItem->child(c);
+                int fxi = fxItem->data(KFixtureColumnName, Qt::UserRole).toInt();
+                for(const auto &n : std::as_const(numbers))
+                {
+                    slider->addLevelChannel(fxi, n.toInt() - 1);
+                }
+            }
+            if(str.contains("RGB")){
+                slider->setClickAndGoType(ClickAndGoWidget::RGB);
+            }
+            else if(str.contains("Intensity"))
+            {
+                slider->setClickAndGoType(ClickAndGoWidget::None);
+            }
+            else
+            {
+                slider->setClickAndGoType(ClickAndGoWidget::Preset);
+            }
+            
+            slider->setSliderMode(VCSlider::Level);
+
             widget = slider;
+        }
+        break;
+        case VCWidget::XYPadWidget:
+        {
+            VCXYPad* XYPad = new VCXYPad(parent, m_doc);
+            vc->setupWidget(XYPad, parent);
+            XYPad->move(QPoint(xpos, ypos));
+
+            for (int c = 0; c < fxGrpItem->childCount(); c++)
+            {
+                QTreeWidgetItem *fxItem = fxGrpItem->child(c);
+                int fxi = fxItem->data(KFixtureColumnName, Qt::UserRole).toInt();
+                XYPad->appendFixture(VCXYPadFixture(m_doc),fxi);
+            }
+                      
+            widget = XYPad;
         }
         break;
         default:
@@ -432,7 +475,7 @@ VCWidget *VCWizard::createWidget(int type, VCWidget *parent, int xpos, int ypos)
     return widget;
 }
 
-QSize VCWizard::recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *parent, int type)
+QSize VCWizard::recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *parent)
 {
     QSize groupSize(100, 50);
     int subX = 10, subY = 40;
@@ -445,17 +488,16 @@ QSize VCWizard::recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *parent, i
             childItem->checkState(KWidgetName) == Qt::PartiallyChecked)
         {
             int cType = childItem->data(KWidgetName, Qt::UserRole).toInt();
+            QTreeWidgetItem *fxGrpItem = (QTreeWidgetItem *) childItem->data(KWidgetName, Qt::UserRole + 1).value<void *>();
 
-            VCWidget *childWidget = createWidget(cType, parent, subX, subY);
+            VCWidget *childWidget = createWidget(cType, parent, subX, subY, fxGrpItem, childItem->text(KWidgetName));
             if (childWidget != NULL)
             {
-                childWidget->setCaption(childItem->text(KWidgetName));
-
                 if (childItem->childCount() > 0)
                 {
                     childWidget->resize(QSize(1000, 1000));
 
-                    QSize size = recursiveCreateWidget(childItem, childWidget, type);
+                    QSize size = recursiveCreateWidget(childItem, childWidget);
 
                     childWidget->resize(size);
 
@@ -498,17 +540,14 @@ void VCWizard::addWidgetsToVirtualConsole()
             wItem->checkState(KWidgetName) == Qt::PartiallyChecked)
         {
             int wType = wItem->data(KWidgetName, Qt::UserRole).toInt();
-            VCWidget *widget = createWidget(wType, mainFrame, xPos, yPos);
+            
+            VCWidget *widget = createWidget(wType, mainFrame, xPos, yPos, nullptr, wItem->text(KWidgetName));
             if (widget == NULL)
                 continue;
 
             widget->resize(QSize(1000, 1000));
-            PaletteGenerator *pal = (PaletteGenerator *) wItem->data(KWidgetName, Qt::UserRole + 1).value<void *>();
-            int pType = pal->type();
-
-            widget->setCaption(wItem->text(KWidgetName));
-
-            QSize size = recursiveCreateWidget(wItem, widget, pType);
+            
+            QSize size = recursiveCreateWidget(wItem, widget);
 
             widget->resize(size);
             xPos += widget->width() + 10;

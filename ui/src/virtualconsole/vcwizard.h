@@ -84,9 +84,10 @@ protected:
     /** Populate the available widgets tree based on the available fixtures */
     void updateAvailableWidgetsTree();
 
-    VCWidget *createWidget(int type, VCWidget *parent, int xpos, int ypos);
+    VCWidget *createWidget(int type, VCWidget *parent, int xpos, int ypos,
+                            QTreeWidgetItem *fxGrpItem, QString str);
 
-    QSize recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *parent, int type);
+    QSize recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *parent);
 
     void addWidgetsToVirtualConsole();
 };
