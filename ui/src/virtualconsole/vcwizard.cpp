@@ -461,8 +461,11 @@ VCWidget *VCWizard::createWidget(int type, VCWidget *parent, int xpos, int ypos,
             for (int c = 0; c < fxGrpItem->childCount(); c++)
             {
                 QTreeWidgetItem *fxItem = fxGrpItem->child(c);
-                int fxi = fxItem->data(KFixtureColumnName, Qt::UserRole).toInt();
-                XYPad->appendFixture(VCXYPadFixture(m_doc),fxi);
+                int fxID = fxItem->data(KFixtureColumnName, Qt::UserRole).toInt();
+                QTextStream cout(stdout, QIODevice::WriteOnly);
+                VCXYPadFixture fxi = VCXYPadFixture(m_doc);
+                fxi.setHead(GroupHead(fxID,0));
+                XYPad->appendFixture(fxi);
             }
                       
             widget = XYPad;
