@@ -205,6 +205,9 @@ void RGBMatrix_Test::loadSave()
     RGBMatrix* mtx = new RGBMatrix(m_doc);
     mtx->setColor(0, Qt::magenta);
     mtx->setColor(1, Qt::blue);
+    mtx->setColor(2, Qt::green);
+    mtx->setColor(3, Qt::red);
+    mtx->setColor(4, Qt::yellow);
     mtx->setControlMode(RGBMatrix::ControlModeRgb);
     mtx->setFixtureGroup(42);
     mtx->setAlgorithm(RGBAlgorithm::algorithm(m_doc, "Stripes"));
@@ -237,7 +240,7 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(xmlReader.attributes().value("ID").toString(), QString::number(mtx->id()));
     QCOMPARE(xmlReader.attributes().value("Name").toString(), QString("Xyzzy"));
 
-    int speed = 0, dir = 0, run = 0, algo = 0, monocolor = 0, endcolor = 0, grp = 0, colormode = 0;
+    int speed = 0, dir = 0, run = 0, algo = 0, color1 = 0, color2 = 0, color3 = 0, color4 = 0, color5 = 0, grp = 0, colormode = 0;
 
     while (xmlReader.readNextStartElement())
     {
@@ -265,15 +268,30 @@ void RGBMatrix_Test::loadSave()
             algo++;
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name().toString() == "MonoColor")
+        else if (xmlReader.name().toString() == "Color1")
         {
             QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::magenta).rgb());
-            monocolor++;
+            color1++;
         }
-        else if (xmlReader.name().toString() == "EndColor")
+        else if (xmlReader.name().toString() == "Color2")
         {
             QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::blue).rgb());
-            endcolor++;
+            color2++;
+        }
+        else if (xmlReader.name().toString() == "Color3")
+        {
+            QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::green).rgb());
+            color3++;
+        }
+        else if (xmlReader.name().toString() == "Color4")
+        {
+            QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::red).rgb());
+            color4++;
+        }
+        else if (xmlReader.name().toString() == "Color5")
+        {
+            QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::yellow).rgb());
+            color5++;
         }
         else if (xmlReader.name().toString() == "FixtureGroup")
         {
@@ -295,8 +313,11 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(dir, 1);
     QCOMPARE(run, 1);
     QCOMPARE(algo, 1);
-    QCOMPARE(monocolor, 1);
-    QCOMPARE(endcolor, 1);
+    QCOMPARE(color1, 1);
+    QCOMPARE(color2, 1);
+    QCOMPARE(color3, 1);
+    QCOMPARE(color4, 1);
+    QCOMPARE(color5, 1);
     QCOMPARE(grp, 1);
     QCOMPARE(colormode, 1);
 

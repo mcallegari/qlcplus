@@ -38,6 +38,12 @@
 
 #define KXMLQLCRGBMatrixStartColor      QString("MonoColor")
 #define KXMLQLCRGBMatrixEndColor        QString("EndColor")
+#define KXMLQLCRGBMatrixColor1          QString("Color1")
+#define KXMLQLCRGBMatrixColor2          QString("Color2")
+#define KXMLQLCRGBMatrixColor3          QString("Color3")
+#define KXMLQLCRGBMatrixColor4          QString("Color4")
+#define KXMLQLCRGBMatrixColor5          QString("Color5")
+
 #define KXMLQLCRGBMatrixFixtureGroup    QString("FixtureGroup")
 #define KXMLQLCRGBMatrixDimmerControl   QString("DimmerControl")
 
@@ -400,13 +406,27 @@ bool RGBMatrix::loadXML(QXmlStreamReader &root)
 #if (5 != RGBAlgorithmRawColorCount)
 #error "Further colors need to be read."
 #endif
-        else if (root.name() == KXMLQLCRGBMatrixStartColor)
+        else if (root.name() == KXMLQLCRGBMatrixStartColor
+                || root.name() == KXMLQLCRGBMatrixColor1)
         {
             setColor(0, QColor::fromRgb(QRgb(root.readElementText().toUInt())));
         }
-        else if (root.name() == KXMLQLCRGBMatrixEndColor)
+        else if (root.name() == KXMLQLCRGBMatrixEndColor
+                || root.name() == KXMLQLCRGBMatrixColor2)
         {
             setColor(1, QColor::fromRgb(QRgb(root.readElementText().toUInt())));
+        }
+        else if (root.name() == KXMLQLCRGBMatrixColor3)
+        {
+            setColor(2, QColor::fromRgb(QRgb(root.readElementText().toUInt())));
+        }
+        else if (root.name() == KXMLQLCRGBMatrixColor4)
+        {
+            setColor(3, QColor::fromRgb(QRgb(root.readElementText().toUInt())));
+        }
+        else if (root.name() == KXMLQLCRGBMatrixColor5)
+        {
+            setColor(4, QColor::fromRgb(QRgb(root.readElementText().toUInt())));
         }
         else if (root.name() == KXMLQLCRGBMatrixControlMode)
         {
@@ -460,15 +480,25 @@ bool RGBMatrix::saveXML(QXmlStreamWriter *doc)
     if (dimmerControl())
         doc->writeTextElement(KXMLQLCRGBMatrixDimmerControl, QString::number(dimmerControl()));
 
-    /* Start Color */
-    doc->writeTextElement(KXMLQLCRGBMatrixStartColor, QString::number(getColor(0).rgb()));
+    /* Color 1 */
+    doc->writeTextElement(KXMLQLCRGBMatrixColor1, QString::number(getColor(0).rgb()));
 
-    /* End Color */
+    /* Color 2 */
     if (getColor(1).isValid())
-        doc->writeTextElement(KXMLQLCRGBMatrixEndColor, QString::number(getColor(1).rgb()));
-#if (5 != RGBAlgorithmRawColorCount)
-#error "Further colors need to be written."
-#endif
+        doc->writeTextElement(KXMLQLCRGBMatrixColor2, QString::number(getColor(1).rgb()));
+
+    /* Color 2 */
+    if (getColor(2).isValid())
+        doc->writeTextElement(KXMLQLCRGBMatrixColor3, QString::number(getColor(2).rgb()));
+
+    /* Color 2 */
+    if (getColor(3).isValid())
+        doc->writeTextElement(KXMLQLCRGBMatrixColor4, QString::number(getColor(3).rgb()));
+
+    /* Color 5 */
+    if (getColor(4).isValid())
+        doc->writeTextElement(KXMLQLCRGBMatrixColor5, QString::number(getColor(4).rgb()));
+    Q_ASSERT(5 == RGBAlgorithmRawColorCount);
 
     /* Control Mode */
     doc->writeTextElement(KXMLQLCRGBMatrixControlMode, RGBMatrix::controlModeToString(m_controlMode));

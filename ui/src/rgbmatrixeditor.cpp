@@ -582,7 +582,7 @@ void RGBMatrixEditor::updateColors()
                         pm.fill(Qt::transparent);
                     else
                         pm.fill(m_matrix->getColor(4));
-                    m_mtxColor4Button->setIcon(QIcon(pm));
+                    m_mtxColor5Button->setIcon(QIcon(pm));
                 }
             }
         }
