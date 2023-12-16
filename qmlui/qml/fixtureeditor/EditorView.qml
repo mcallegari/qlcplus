@@ -55,15 +55,24 @@ Rectangle
             return
         }
 
+        var errors = ""
+
         if (path)
-            editorView.saveAs(path)
+            errors = editorView.saveAs(path)
         else
-            editorView.save()
+            errors = editorView.save()
+
+        if (errors != "")
+        {
+            messagePopup.message = qsTr("The following errors have been detected:") + "<br><ul>" + errors + "</ul>"
+            messagePopup.open()
+        }
     }
 
     CustomPopupDialog
     {
         id: messagePopup
+        width: mainView.width / 2
         standardButtons: Dialog.Ok
         title: qsTr("!! Warning !!")
         onAccepted: close()

@@ -21,6 +21,7 @@
 
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
+#include "qlccapability.h"
 
 #include "channeledit.h"
 #include "editorview.h"
@@ -191,6 +192,7 @@ ChannelEdit *EditorView::requestChannelEditor(QString name)
         ch->setName(tr("New channel %1").arg(m_fixtureDef->channels().count() + 1));
         m_fixtureDef->addChannel(ch);
         updateChannelList();
+        setModified(true);
     }
     m_channelEdit = new ChannelEdit(ch);
     connect(m_channelEdit, SIGNAL(channelChanged()), this, SLOT(setModified()));
@@ -351,21 +353,55 @@ void EditorView::modeNameChanged()
  * Load & Save
  *********************************************************************/
 
-bool EditorView::save()
+QString EditorView::checkFixture()
 {
+    QString errors;
+
+    if (m_fixtureDef->channels().count() == 0)
+    {
+        errors.append(tr("<li>No channels provided</li>"));
+    }
+    else
+    {
+        for (QLCChannel *channel : m_fixtureDef->channels())
+        {
+            if (channel->capabilities().isEmpty())
+                errors.append(tr("<li>No capability provided in channel '%1'</li>").arg(channel->name()));
+
+            for (QLCCapability *cap : channel->capabilities())
+            {
+                if (cap->name().isEmpty())
+                    errors.append(tr("<li>Empty capability description provided in channel '%1'</li>").arg(channel->name()));
+            }
+        }
+    }
+
+    if (m_fixtureDef->modes().count() == 0)
+        errors.append(tr("<li>No modes provided. Without modes, this fixture will not appear in the list!</li>"));
+
+    return errors;
+}
+
+QString EditorView::save()
+{
+    QString errors;
+
     if (m_fileName.isEmpty())
         setFilenameFromModel();
 
     m_fixtureDef->setPhysical(m_globalPhy->physical());
+
+    errors.append(checkFixture());
+
     QFile::FileError error = m_fixtureDef->saveXML(m_fileName);
     if (error != QFile::NoError)
-        return false;
+        return tr("Could not save file! (%1)").arg(QLCFile::errorString(error));
 
     setModified(false);
-    return true;
+    return errors;
 }
 
-bool EditorView::saveAs(QString path)
+QString EditorView::saveAs(QString path)
 {
     QString localFilename = path;
     if (localFilename.startsWith("file:"))
@@ -377,8 +413,7 @@ bool EditorView::saveAs(QString path)
 
     m_fileName = localFilename;
 
-    save();
-    return true;
+    return save();
 }
 
 QString EditorView::fileName()
