@@ -71,10 +71,10 @@ VCMatrixProperties::VCMatrixProperties(VCMatrix* matrix, Doc* doc)
     if (visibilityMask & VCMatrix::ShowSlider) m_sliderCheck->setChecked(true);
     if (visibilityMask & VCMatrix::ShowLabel) m_labelCheck->setChecked(true);
     if (visibilityMask & VCMatrix::ShowColor1Button) m_mtxColor1ButtonCheck->setChecked(true);
-    if (visibilityMask & VCMatrix::ShowColor1Button) m_mtxColor2ButtonCheck->setChecked(true);
-    if (visibilityMask & VCMatrix::ShowColor1Button) m_mtxColor3ButtonCheck->setChecked(true);
-    if (visibilityMask & VCMatrix::ShowColor1Button) m_mtxColor4ButtonCheck->setChecked(true);
-    if (visibilityMask & VCMatrix::ShowColor1Button) m_mtxColor5ButtonCheck->setChecked(true);
+    if (visibilityMask & VCMatrix::ShowColor2Button) m_mtxColor2ButtonCheck->setChecked(true);
+    if (visibilityMask & VCMatrix::ShowColor3Button) m_mtxColor3ButtonCheck->setChecked(true);
+    if (visibilityMask & VCMatrix::ShowColor4Button) m_mtxColor4ButtonCheck->setChecked(true);
+    if (visibilityMask & VCMatrix::ShowColor5Button) m_mtxColor5ButtonCheck->setChecked(true);
     if (visibilityMask & VCMatrix::ShowPresetCombo) m_presetComboCheck->setChecked(true);
 
     /* Custom controls */
@@ -93,33 +93,33 @@ VCMatrixProperties::VCMatrixProperties(VCMatrix* matrix, Doc* doc)
             this, SLOT(slotTreeSelectionChanged()));
 
     connect(m_addMtxColor1Button, SIGNAL(clicked()),
-            this, SLOT(slotAddStartColorClicked()));
+            this, SLOT(slotAddMtxColor1Clicked()));
     connect(m_addMtxColor1KnobsButton, SIGNAL(clicked()),
-            this, SLOT(slotAddStartColorKnobsClicked()));
+            this, SLOT(slotAddMtxColor1KnobsClicked()));
     connect(m_addMtxColor2Button, SIGNAL(clicked()),
-            this, SLOT(slotAddEndColorClicked()));
+            this, SLOT(slotAddMtxColor2Clicked()));
     connect(m_addMtxColor2KnobsButton, SIGNAL(clicked()),
-            this, SLOT(slotAddEndColorKnobsClicked()));
+            this, SLOT(slotAddMtxColor2KnobsClicked()));
     connect(m_addMtxColor2ResetButton, SIGNAL(clicked()),
-            this, SLOT(slotAddEndColorResetClicked()));
+            this, SLOT(slotAddMtxColor2ResetClicked()));
     connect(m_addMtxColor3Button, SIGNAL(clicked()),
-            this, SLOT(slotAddEndColorClicked()));
+            this, SLOT(slotAddMtxColor3Clicked()));
     connect(m_addMtxColor3KnobsButton, SIGNAL(clicked()),
-            this, SLOT(slotAddEndColorKnobsClicked()));
+            this, SLOT(slotAddMtxColor3KnobsClicked()));
     connect(m_addMtxColor3ResetButton, SIGNAL(clicked()),
-            this, SLOT(slotAddEndColorResetClicked()));
+            this, SLOT(slotAddMtxColor3ResetClicked()));
     connect(m_addMtxColor4Button, SIGNAL(clicked()),
-            this, SLOT(slotAddEndColorClicked()));
+            this, SLOT(slotAddMtxColor4Clicked()));
     connect(m_addMtxColor4KnobsButton, SIGNAL(clicked()),
-            this, SLOT(slotAddEndColorKnobsClicked()));
+            this, SLOT(slotAddMtxColor4KnobsClicked()));
     connect(m_addMtxColor4ResetButton, SIGNAL(clicked()),
-            this, SLOT(slotAddEndColorResetClicked()));
+            this, SLOT(slotAddMtxColor4ResetClicked()));
     connect(m_addMtxColor5Button, SIGNAL(clicked()),
-            this, SLOT(slotAddEndColorClicked()));
+            this, SLOT(slotAddMtxColor5Clicked()));
     connect(m_addMtxColor5KnobsButton, SIGNAL(clicked()),
-            this, SLOT(slotAddEndColorKnobsClicked()));
+            this, SLOT(slotAddMtxColor5KnobsClicked()));
     connect(m_addMtxColor5ResetButton, SIGNAL(clicked()),
-            this, SLOT(slotAddEndColorResetClicked()));
+            this, SLOT(slotAddMtxColor5ResetClicked()));
     connect(m_addPresetButton, SIGNAL(clicked()),
             this, SLOT(slotAddAnimationClicked()));
     connect(m_addTextButton, SIGNAL(clicked()),
@@ -270,7 +270,7 @@ void VCMatrixProperties::updateTree()
                 item->setText(1, control->m_color.name());
                 item->setBackground(1, QBrush(control->m_color));
             break;
-            case VCMatrixControl::ResetColor2:
+            case VCMatrixControl::Color2Reset:
                 item->setIcon(0, QIcon(":/fileclose.png"));
                 item->setText(0, tr("Color 2 Reset"));
             break;
@@ -286,7 +286,7 @@ void VCMatrixProperties::updateTree()
                 item->setText(1, control->m_color.name());
                 item->setBackground(1, QBrush(control->m_color));
             break;
-            case VCMatrixControl::ResetColor3:
+            case VCMatrixControl::Color3Reset:
                 item->setIcon(0, QIcon(":/fileclose.png"));
                 item->setText(0, tr("Color 3 Reset"));
             break;
@@ -302,7 +302,7 @@ void VCMatrixProperties::updateTree()
                 item->setText(1, control->m_color.name());
                 item->setBackground(1, QBrush(control->m_color));
             break;
-            case VCMatrixControl::ResetColor4:
+            case VCMatrixControl::Color4Reset:
                 item->setIcon(0, QIcon(":/fileclose.png"));
                 item->setText(0, tr("Color 4 Reset"));
             break;
@@ -318,7 +318,7 @@ void VCMatrixProperties::updateTree()
                 item->setText(1, control->m_color.name());
                 item->setBackground(1, QBrush(control->m_color));
             break;
-            case VCMatrixControl::ResetColor5:
+            case VCMatrixControl::Color5Reset:
                 item->setIcon(0, QIcon(":/fileclose.png"));
                 item->setText(0, tr("Color 5 Reset"));
             break;
@@ -455,7 +455,7 @@ void VCMatrixProperties::slotAddMtxColor2KnobsClicked()
 void VCMatrixProperties::slotAddMtxColor2ResetClicked()
 {
     VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
-    newControl->m_type = VCMatrixControl::ResetColor2;
+    newControl->m_type = VCMatrixControl::Color2Reset;
     addControl(newControl);
     updateTree();
 }
@@ -488,7 +488,7 @@ void VCMatrixProperties::slotAddMtxColor3KnobsClicked()
 void VCMatrixProperties::slotAddMtxColor3ResetClicked()
 {
     VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
-    newControl->m_type = VCMatrixControl::ResetColor3;
+    newControl->m_type = VCMatrixControl::Color3Reset;
     addControl(newControl);
     updateTree();
 }
@@ -521,7 +521,7 @@ void VCMatrixProperties::slotAddMtxColor4KnobsClicked()
 void VCMatrixProperties::slotAddMtxColor4ResetClicked()
 {
     VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
-    newControl->m_type = VCMatrixControl::ResetColor4;
+    newControl->m_type = VCMatrixControl::Color4Reset;
     addControl(newControl);
     updateTree();
 }
@@ -554,7 +554,7 @@ void VCMatrixProperties::slotAddMtxColor5KnobsClicked()
 void VCMatrixProperties::slotAddMtxColor5ResetClicked()
 {
     VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
-    newControl->m_type = VCMatrixControl::ResetColor5;
+    newControl->m_type = VCMatrixControl::Color5Reset;
     addControl(newControl);
     updateTree();
 }
@@ -604,10 +604,10 @@ void VCMatrixProperties::slotRemoveClicked()
         if (control != NULL)
         {
             if (control->m_type == VCMatrixControl::Color1Knob
-            		|| control->m_type == VCMatrixControl::Color2Knob
-					|| control->m_type == VCMatrixControl::Color3Knob
-					|| control->m_type == VCMatrixControl::Color4Knob
-            		|| control->m_type == VCMatrixControl::Color5Knob)
+                    || control->m_type == VCMatrixControl::Color2Knob
+                    || control->m_type == VCMatrixControl::Color3Knob
+                    || control->m_type == VCMatrixControl::Color4Knob
+                    || control->m_type == VCMatrixControl::Color5Knob)
             {
                 if (control->m_color == Qt::red)
                 {

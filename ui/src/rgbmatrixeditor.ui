@@ -26,7 +26,7 @@
     <x>0</x>
     <y>0</y>
     <width>575</width>
-    <height>728</height>
+    <height>798</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,426 +44,6 @@
    </property>
    <item row="2" column="0" colspan="4">
     <widget class="QGraphicsView" name="m_preview"/>
-   </item>
-   <item row="2" column="3" rowspan="3">
-    <layout class="QVBoxLayout" name="verticalLayout_5">
-     <item>
-      <widget class="QGroupBox" name="m_patternGroup">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="title">
-        <string>Pattern</string>
-       </property>
-       <layout class="QGridLayout" name="gridLayout_4">
-        <property name="topMargin">
-         <number>4</number>
-        </property>
-        <property name="bottomMargin">
-         <number>4</number>
-        </property>
-        <property name="verticalSpacing">
-         <number>4</number>
-        </property>
-        <item row="5" column="0" colspan="2">
-         <widget class="QPushButton" name="m_mtxColor1Button">
-          <property name="toolTip">
-           <string>Matrix color 1</string>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>50</width>
-            <height>26</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
-         <widget class="QPushButton" name="m_mtxColor2Button">
-          <property name="toolTip">
-           <string>Matrix color 2</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>50</width>
-            <height>26</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="2">
-         <widget class="QToolButton" name="m_resetMtxColor2Button">
-          <property name="toolTip">
-           <string>Reset the end color</string>
-          </property>
-          <property name="icon">
-           <iconset resource="qlcui.qrc">
-            <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="0">
-         <widget class="QPushButton" name="m_mtxColor3Button">
-          <property name="toolTip">
-           <string>Matrix color 3</string>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>50</width>
-            <height>26</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="1">
-         <widget class="QToolButton" name="m_resetMtxColor3Button">
-          <property name="toolTip">
-           <string>Reset the end color</string>
-          </property>
-          <property name="icon">
-           <iconset resource="qlcui.qrc">
-            <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="2">
-         <widget class="QPushButton" name="m_mtxColor4Button">
-          <property name="toolTip">
-           <string>Matrix color 4</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>50</width>
-            <height>26</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="3">
-         <widget class="QToolButton" name="m_resetMtxColor4Button">
-          <property name="toolTip">
-           <string>Reset the end color</string>
-          </property>
-          <property name="icon">
-           <iconset resource="qlcui.qrc">
-            <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="0">
-         <widget class="QPushButton" name="m_mtxColor5Button">
-          <property name="toolTip">
-           <string>Matrix color 5</string>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>50</width>
-            <height>26</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="2">
-         <widget class="QToolButton" name="m_resetMtxColor5Button">
-          <property name="toolTip">
-           <string>Reset the end color</string>
-          </property>
-          <property name="icon">
-           <iconset resource="qlcui.qrc">
-            <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0" colspan="4">
-         <widget class="QComboBox" name="m_patternCombo">
-          <property name="toolTip">
-           <string>The RGB matrix pattern</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1" colspan="3">
-         <widget class="QComboBox" name="m_blendModeCombo">
-          <item>
-           <property name="text">
-            <string>Default (HTP)</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Mask</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Additive</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Subtractive</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="m_blendModeLabel">
-          <property name="text">
-           <string>Blend mode</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="m_colorModeLabel">
-          <property name="text">
-           <string>Control mode</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1" colspan="3">
-         <widget class="QComboBox" name="m_controlModeCombo">
-          <item>
-           <property name="text">
-            <string>Default (RGB)</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>White</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Amber</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>UV</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Dimmer</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Shutter</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QGroupBox" name="m_propertiesGroup">
-       <property name="title">
-        <string>Properties</string>
-       </property>
-       <layout class="QGridLayout" name="gridLayout_5">
-        <property name="topMargin">
-         <number>4</number>
-        </property>
-        <property name="bottomMargin">
-         <number>4</number>
-        </property>
-        <property name="verticalSpacing">
-         <number>4</number>
-        </property>
-        <item row="0" column="0">
-         <layout class="QGridLayout" name="m_propertiesLayout"/>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QGroupBox" name="m_textGroup">
-       <property name="title">
-        <string>Animated Text</string>
-       </property>
-       <layout class="QGridLayout" name="gridLayout_3">
-        <property name="topMargin">
-         <number>4</number>
-        </property>
-        <property name="bottomMargin">
-         <number>4</number>
-        </property>
-        <property name="verticalSpacing">
-         <number>4</number>
-        </property>
-        <item row="0" column="0">
-         <widget class="QLineEdit" name="m_textEdit">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="toolTip">
-           <string>Text to display</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QToolButton" name="m_fontButton">
-          <property name="toolTip">
-           <string>Choose the font</string>
-          </property>
-          <property name="text">
-           <string notr="true"/>
-          </property>
-          <property name="icon">
-           <iconset resource="qlcui.qrc">
-            <normaloff>:/fonts.png</normaloff>:/fonts.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>32</width>
-            <height>32</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QComboBox" name="m_animationCombo">
-          <property name="toolTip">
-           <string>Animation style</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QGroupBox" name="m_imageGroup">
-       <property name="title">
-        <string>Image</string>
-       </property>
-       <layout class="QGridLayout" name="gridLayout_2">
-        <property name="topMargin">
-         <number>4</number>
-        </property>
-        <property name="bottomMargin">
-         <number>4</number>
-        </property>
-        <property name="verticalSpacing">
-         <number>4</number>
-        </property>
-        <item row="0" column="0">
-         <widget class="QLineEdit" name="m_imageEdit">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QToolButton" name="m_imageButton">
-          <property name="text">
-           <string notr="true"/>
-          </property>
-          <property name="icon">
-           <iconset resource="qlcui.qrc">
-            <normaloff>:/image.png</normaloff>:/image.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>32</width>
-            <height>32</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" colspan="3">
-         <widget class="QComboBox" name="m_imageAnimationCombo"/>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QGroupBox" name="m_offsetGroup">
-       <property name="title">
-        <string>Offset</string>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <property name="topMargin">
-         <number>4</number>
-        </property>
-        <property name="bottomMargin">
-         <number>4</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="m_xOffsetLabel">
-          <property name="text">
-           <string>X</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QSpinBox" name="m_xOffsetSpin">
-          <property name="toolTip">
-           <string>Shift the pattern X pixels horizontally</string>
-          </property>
-          <property name="minimum">
-           <number>-255</number>
-          </property>
-          <property name="maximum">
-           <number>255</number>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="m_yOffsetLabel">
-          <property name="text">
-           <string>Y</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QSpinBox" name="m_yOffsetSpin">
-          <property name="toolTip">
-           <string>Shift the pattern Y pixels vertically</string>
-          </property>
-          <property name="minimum">
-           <number>-255</number>
-          </property>
-          <property name="maximum">
-           <number>255</number>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <spacer name="verticalSpacer_4">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Expanding</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
    </item>
    <item row="4" column="3">
     <widget class="QGroupBox" name="m_intensityGroup">
@@ -751,6 +331,426 @@
         </item>
        </layout>
       </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="4">
+    <layout class="QVBoxLayout" name="verticalLayout_5">
+     <item>
+      <widget class="QGroupBox" name="m_patternGroup">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="title">
+        <string>Pattern</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <property name="topMargin">
+         <number>4</number>
+        </property>
+        <property name="bottomMargin">
+         <number>4</number>
+        </property>
+        <property name="verticalSpacing">
+         <number>4</number>
+        </property>
+        <item row="6" column="0" colspan="2">
+         <widget class="QPushButton" name="m_mtxColor3Button">
+          <property name="toolTip">
+           <string>Matrix color 3</string>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>26</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0" colspan="3">
+         <widget class="QPushButton" name="m_mtxColor1Button">
+          <property name="toolTip">
+           <string>Matrix color 1</string>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>26</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2" colspan="4">
+         <widget class="QComboBox" name="m_blendModeCombo">
+          <item>
+           <property name="text">
+            <string>Default (HTP)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Mask</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Additive</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Subtractive</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="2">
+         <widget class="QLabel" name="m_colorModeLabel">
+          <property name="text">
+           <string>Control mode</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0" colspan="2">
+         <widget class="QPushButton" name="m_mtxColor5Button">
+          <property name="toolTip">
+           <string>Matrix color 5</string>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>26</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="5">
+         <widget class="QToolButton" name="m_resetMtxColor2Button">
+          <property name="toolTip">
+           <string>Reset color 2</string>
+          </property>
+          <property name="icon">
+           <iconset resource="qlcui.qrc">
+            <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0" colspan="2">
+         <widget class="QLabel" name="m_blendModeLabel">
+          <property name="text">
+           <string>Blend mode</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="2">
+         <widget class="QToolButton" name="m_resetMtxColor3Button">
+          <property name="toolTip">
+           <string>Reset color 3</string>
+          </property>
+          <property name="icon">
+           <iconset resource="qlcui.qrc">
+            <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2" colspan="4">
+         <widget class="QComboBox" name="m_controlModeCombo">
+          <item>
+           <property name="text">
+            <string>Default (RGB)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>White</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Amber</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>UV</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Dimmer</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Shutter</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="6">
+         <widget class="QComboBox" name="m_patternCombo">
+          <property name="toolTip">
+           <string>The RGB matrix pattern</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="3" colspan="2">
+         <widget class="QPushButton" name="m_mtxColor2Button">
+          <property name="toolTip">
+           <string>Matrix color 2</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>26</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="3" colspan="2">
+         <widget class="QPushButton" name="m_mtxColor4Button">
+          <property name="toolTip">
+           <string>Matrix color 4</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>26</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="5">
+         <widget class="QToolButton" name="m_resetMtxColor4Button">
+          <property name="toolTip">
+           <string>Reset color 4</string>
+          </property>
+          <property name="icon">
+           <iconset resource="qlcui.qrc">
+            <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="2">
+         <widget class="QToolButton" name="m_resetMtxColor5Button">
+          <property name="toolTip">
+           <string>Reset color 5</string>
+          </property>
+          <property name="icon">
+           <iconset resource="qlcui.qrc">
+            <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="m_propertiesGroup">
+       <property name="title">
+        <string>Properties</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <property name="topMargin">
+         <number>4</number>
+        </property>
+        <property name="bottomMargin">
+         <number>4</number>
+        </property>
+        <property name="verticalSpacing">
+         <number>4</number>
+        </property>
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="m_propertiesLayout"/>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="m_textGroup">
+       <property name="title">
+        <string>Animated Text</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <property name="topMargin">
+         <number>4</number>
+        </property>
+        <property name="bottomMargin">
+         <number>4</number>
+        </property>
+        <property name="verticalSpacing">
+         <number>4</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLineEdit" name="m_textEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>Text to display</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QToolButton" name="m_fontButton">
+          <property name="toolTip">
+           <string>Choose the font</string>
+          </property>
+          <property name="text">
+           <string notr="true"/>
+          </property>
+          <property name="icon">
+           <iconset resource="qlcui.qrc">
+            <normaloff>:/fonts.png</normaloff>:/fonts.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QComboBox" name="m_animationCombo">
+          <property name="toolTip">
+           <string>Animation style</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="m_imageGroup">
+       <property name="title">
+        <string>Image</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <property name="topMargin">
+         <number>4</number>
+        </property>
+        <property name="bottomMargin">
+         <number>4</number>
+        </property>
+        <property name="verticalSpacing">
+         <number>4</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLineEdit" name="m_imageEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QToolButton" name="m_imageButton">
+          <property name="text">
+           <string notr="true"/>
+          </property>
+          <property name="icon">
+           <iconset resource="qlcui.qrc">
+            <normaloff>:/image.png</normaloff>:/image.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="3">
+         <widget class="QComboBox" name="m_imageAnimationCombo"/>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="m_offsetGroup">
+       <property name="title">
+        <string>Offset</string>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="topMargin">
+         <number>4</number>
+        </property>
+        <property name="bottomMargin">
+         <number>4</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="m_xOffsetLabel">
+          <property name="text">
+           <string>X</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="m_xOffsetSpin">
+          <property name="toolTip">
+           <string>Shift the pattern X pixels horizontally</string>
+          </property>
+          <property name="minimum">
+           <number>-255</number>
+          </property>
+          <property name="maximum">
+           <number>255</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="m_yOffsetLabel">
+          <property name="text">
+           <string>Y</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="m_yOffsetSpin">
+          <property name="toolTip">
+           <string>Shift the pattern Y pixels vertically</string>
+          </property>
+          <property name="minimum">
+           <number>-255</number>
+          </property>
+          <property name="maximum">
+           <number>255</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer_4">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Expanding</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>

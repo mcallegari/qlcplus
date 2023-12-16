@@ -47,8 +47,11 @@ class RGBMatrix;
 
 #define KXMLQLCVCMatrixInstantApply QString("InstantApply")
 
-#define KXMLQLCVCMatrixStartColor   QString("StartColor")
-#define KXMLQLCVCMatrixEndColor     QString("EndColor")
+#define KXMLQLCVCMatrixColor1       QString("Color 1")
+#define KXMLQLCVCMatrixColor2       QString("Color 2")
+#define KXMLQLCVCMatrixColor3       QString("Color 3")
+#define KXMLQLCVCMatrixColor4       QString("Color 4")
+#define KXMLQLCVCMatrixColor5       QString("Color 5")
 
 #define KXMLQLCVCMatrixVisibilityMask QString("Visibility")
 
@@ -89,16 +92,16 @@ private:
     ClickAndGoSlider *m_slider;
     bool m_sliderExternalMovement;
     QLabel *m_label;
-    QToolButton *m_mtxColorButton1;
-    ClickAndGoWidget *m_mtxCnGWidget1;
-    QToolButton *m_mtxColorButton2;
-    ClickAndGoWidget *m_mtxCnGWidget2;
-    QToolButton *m_mtxColorButton3;
-    ClickAndGoWidget *m_mtxCnGWidget3;
-    QToolButton *m_mtxColorButton4;
-    ClickAndGoWidget *m_mtxCnGWidget4;
-    QToolButton *m_mtxColorButton5;
-    ClickAndGoWidget *m_mtxCnGWidget5;
+    QToolButton *m_mtxColor1Button;
+    ClickAndGoWidget *m_mtxColor1CnGWidget;
+    QToolButton *m_mtxColor2Button;
+    ClickAndGoWidget *m_mtxColor2CnGWidget;
+    QToolButton *m_mtxColor3Button;
+    ClickAndGoWidget *m_mtxColor3CnGWidget;
+    QToolButton *m_mtxColor4Button;
+    ClickAndGoWidget *m_mtxColor4CnGWidget;
+    QToolButton *m_mtxColor5Button;
+    ClickAndGoWidget *m_mtxColor5CnGWidget;
     QComboBox *m_presetCombo;
     FlowLayout *m_controlsLayout;
 
@@ -123,11 +126,11 @@ public:
 
 private slots:
     void slotSliderMoved(int value);
-    void slotColorChanged1(QRgb color);
-    void slotColorChanged2(QRgb color);
-    void slotColorChanged3(QRgb color);
-    void slotColorChanged4(QRgb color);
-    void slotColorChanged5(QRgb color);
+    void slotColor1Changed(QRgb color);
+    void slotColor2Changed(QRgb color);
+    void slotColor3Changed(QRgb color);
+    void slotColor4Changed(QRgb color);
+    void slotColor5Changed(QRgb color);
     void slotAnimationChanged(QString name);
 
     /*********************************************************************

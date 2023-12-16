@@ -104,12 +104,11 @@ public:
      * RGB Colors
      ************************************************************************/
 public:
-    /** Set the start/end color the algorithm can use */
+    /** Set the colors the algorithm can use */
     virtual void setColors(QColor[RGBAlgorithmRawColorCount]);
 
-    QColor startColor() { return m_colors[0]; }
-
-    QColor endColor() { return m_colors[1]; }
+    /** Get the color which is set for the algorithm */
+    virtual QColor getColor(unsigned int i) const;
 
 private:
     QColor m_colors[RGBAlgorithmRawColorCount];

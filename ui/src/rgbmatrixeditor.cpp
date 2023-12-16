@@ -221,23 +221,23 @@ void RGBMatrixEditor::init()
     connect(m_controlModeCombo, SIGNAL(activated(int)),
             this, SLOT(slotControlModeChanged(int)));
     connect(m_mtxColor1Button, SIGNAL(clicked()),
-            this, SLOT(slotMtxColorButton1Clicked()));
+            this, SLOT(slotMtxColor1ButtonClicked()));
     connect(m_mtxColor2Button, SIGNAL(clicked()),
             this, SLOT(slotMtxColor2ButtonClicked()));
     connect(m_resetMtxColor2Button, SIGNAL(clicked()),
             this, SLOT(slotResetMtxColor2ButtonClicked()));
     connect(m_mtxColor3Button, SIGNAL(clicked()),
-            this, SLOT(slotMtxColor2ButtonClicked()));
+            this, SLOT(slotMtxColor3ButtonClicked()));
     connect(m_resetMtxColor3Button, SIGNAL(clicked()),
-            this, SLOT(slotResetMtxColor2ButtonClicked()));
+            this, SLOT(slotResetMtxColor3ButtonClicked()));
     connect(m_mtxColor4Button, SIGNAL(clicked()),
-            this, SLOT(slotMtxColor2ButtonClicked()));
+            this, SLOT(slotMtxColor4ButtonClicked()));
     connect(m_resetMtxColor4Button, SIGNAL(clicked()),
-            this, SLOT(slotResetMtxColor2ButtonClicked()));
+            this, SLOT(slotResetMtxColor4ButtonClicked()));
     connect(m_mtxColor5Button, SIGNAL(clicked()),
-            this, SLOT(slotMtxColor2ButtonClicked()));
+            this, SLOT(slotMtxColor5ButtonClicked()));
     connect(m_resetMtxColor5Button, SIGNAL(clicked()),
-            this, SLOT(slotResetMtxColor2ButtonClicked()));
+            this, SLOT(slotResetMtxColor5ButtonClicked()));
     connect(m_textEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotTextEdited(const QString&)));
     connect(m_fontButton, SIGNAL(clicked()),
@@ -809,9 +809,9 @@ void RGBMatrixEditor::slotPatternActivated(const QString& text)
         QColor colors[RGBAlgorithmRawColorCount] = {
                 m_matrix->getColor(0),
                 m_matrix->getColor(1),
-				m_matrix->getColor(2),
-				m_matrix->getColor(3),
-				m_matrix->getColor(4)
+                m_matrix->getColor(2),
+                m_matrix->getColor(3),
+                m_matrix->getColor(4)
         };
         algo->setColors(colors);
     }
@@ -942,7 +942,6 @@ void RGBMatrixEditor::slotMtxColor5ButtonClicked()
 void RGBMatrixEditor::slotResetMtxColor5ButtonClicked()
 {
     m_matrix->setColor(4, QColor());
-    m_previewHandler->calculateColorDelta(m_matrix->getColor(3), m_matrix->getColor(4));
     updateColors();
     slotRestartTest();
 }

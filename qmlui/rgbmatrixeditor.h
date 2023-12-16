@@ -50,6 +50,7 @@ class RGBMatrixEditor : public FunctionEditor
     Q_PROPERTY(bool hasColor5 READ hasColor5 WRITE setHasColor5 NOTIFY hasColor5Changed)
 
     Q_PROPERTY(int blendMode READ blendMode WRITE setBlendMode NOTIFY blendModeChanged)
+    Q_PROPERTY(int controlMode READ controlMode WRITE setControlMode NOTIFY controlModeChanged)
 
     // Text Algorithm specific properties
     Q_PROPERTY(QString algoText READ algoText WRITE setAlgoText NOTIFY algoTextChanged)

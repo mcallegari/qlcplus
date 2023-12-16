@@ -134,12 +134,13 @@ void RGBMatrixEditor::setAlgorithmIndex(int algoIndex)
         /** if we're setting the same algorithm, then there's nothing to do */
         if (m_matrix->algorithm() != nullptr && m_matrix->algorithm()->name() == algo->name())
             return;
+        Q_ASSERT(5 == RGBAlgorithmRawColorCount);
         QColor colors[RGBAlgorithmRawColorCount] = {
                 m_matrix->getColor(0),
                 m_matrix->getColor(1),
-				m_matrix->getColor(2),
-				m_matrix->getColor(3),
-				m_matrix->getColor(4)
+                m_matrix->getColor(2),
+                m_matrix->getColor(3),
+                m_matrix->getColor(4)
         };
         algo->setColors(colors);
     }

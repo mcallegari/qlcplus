@@ -102,10 +102,10 @@ VCMatrixControl::WidgetType VCMatrixControl::widgetType() const
         case Animation:
         case Image:
         case Text:
-        case ResetColor2:
-        case ResetColor3:
-        case ResetColor4:
-        case ResetColor5:
+        case Color2Reset:
+        case Color3Reset:
+        case Color4Reset:
+        case Color5Reset:
             return Button;
         case Color1Knob:
         case Color2Knob:
@@ -129,10 +129,10 @@ QString VCMatrixControl::typeToString(VCMatrixControl::ControlType type)
         case Color3: return "Color3"; break;
         case Color4: return "Color4"; break;
         case Color5: return "Color5"; break;
-        case ResetColor2: return "ResetColor2"; break;
-        case ResetColor3: return "ResetColor3"; break;
-        case ResetColor4: return "ResetColor4"; break;
-        case ResetColor5: return "ResetColor5"; break;
+        case Color2Reset: return "ResetColor2"; break;
+        case Color3Reset: return "ResetColor3"; break;
+        case Color4Reset: return "ResetColor4"; break;
+        case Color5Reset: return "ResetColor5"; break;
         case Animation: return "Animation"; break;
         case Image: return "Image"; break;
         case Text: return "Text"; break;
@@ -152,10 +152,10 @@ VCMatrixControl::ControlType VCMatrixControl::stringToType(QString str)
     else if (str == "Color3") return Color3;
     else if (str == "Color4") return Color4;
     else if (str == "Color5") return Color5;
-    else if (str == "ResetColor2") return ResetColor2;
-    else if (str == "ResetColor3") return ResetColor3;
-    else if (str == "ResetColor4") return ResetColor4;
-    else if (str == "ResetColor5") return ResetColor5;
+    else if (str == "ResetColor2") return Color2Reset;
+    else if (str == "ResetColor3") return Color3Reset;
+    else if (str == "ResetColor4") return Color4Reset;
+    else if (str == "ResetColor5") return Color5Reset;
     else if (str == "Animation") return Animation;
     else if (str == "Image") return Image;
     else if (str == "Text") return Text;
@@ -247,15 +247,15 @@ bool VCMatrixControl::saveXML(QXmlStreamWriter *doc)
     doc->writeTextElement(KXMLQLCVCMatrixControlType, typeToString(m_type));
 
     if (m_type == Color1
-    		|| m_type == Color2
-			|| m_type == Color3
-			|| m_type == Color4
-			|| m_type == Color5
-			|| m_type == Color1Knob
-			|| m_type == Color2Knob
-			|| m_type == Color3Knob
-			|| m_type == Color4Knob
-			|| m_type == Color5Knob)
+            || m_type == Color2
+            || m_type == Color3
+            || m_type == Color4
+            || m_type == Color5
+            || m_type == Color1Knob
+            || m_type == Color2Knob
+            || m_type == Color3Knob
+            || m_type == Color4Knob
+            || m_type == Color5Knob)
     {
         doc->writeTextElement(KXMLQLCVCMatrixControlColor, m_color.name());
     }

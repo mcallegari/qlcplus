@@ -128,13 +128,25 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
 <form id="pixelColorChooser">
 <h2>Pixel colors</h2>
 <table>
- <tr>
-  <td>Primary color (rrggbb)</td>
-  <td><input type="text" id="primaryColor" value="FF0000" pattern="[0-9A-Fa-f]{6}" size="6" onChange="devtool.onColorChange()" required /></td>
+ <tr id="color1Chooser">
+  <td>Color 1 (rrggbb)</td>
+  <td><input type="text" id="color1" value="FF0000" pattern="[0-9A-Fa-f]{6}" size="6" onChange="devtool.onColorChange()" required /></td>
  </tr>
- <tr id="secondaryColorChooser">
-  <td>Secondary color (rrggbb, leave empty to disable)</td>
-  <td><INPUT TYPE="text" id="secondaryColor" value="" pattern="[0-9A-Fa-f]{6}" size="6" onChange="devtool.onColorChange()"/></td>
+ <tr id="color2Chooser">
+  <td>Color 2 (rrggbb, leave empty to disable)</td>
+  <td><input type="text" id="color2" value="" pattern="[0-9A-Fa-f]{6}" size="6" onChange="devtool.onColorChange()"/></td>
+ </tr>
+ <tr id="color3Chooser">
+  <td>Color 3 (rrggbb, leave empty to disable)</td>
+  <td><input type="text" id="color3" value="" pattern="[0-9A-Fa-f]{6}" size="6" onChange="devtool.onColorChange()"/></td>
+ </tr>
+ <tr id="color4Chooser">
+  <td>Color 4 (rrggbb, leave empty to disable)</td>
+  <td><input type="text" id="color4" value="" pattern="[0-9A-Fa-f]{6}" size="6" onChange="devtool.onColorChange()"/></td>
+ </tr>
+ <tr id="color5Chooser">
+  <td>Color 5 (rrggbb, leave empty to disable)</td>
+  <td><input type="text" id="color5" value="" pattern="[0-9A-Fa-f]{6}" size="6" onChange="devtool.onColorChange()"/></td>
  </tr>
 </table>
 </form>

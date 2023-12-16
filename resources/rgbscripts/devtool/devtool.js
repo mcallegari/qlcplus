@@ -178,11 +178,24 @@ devtool.initProperties = function()
 
 devtool.initPixelColors = function()
 {
+    var acceptColors = parseInt(testAlgo.acceptColors, 10);
+    if (isNaN(acceptColors)) {
+      acceptColors = 0;
+    }
     var pixelColorChooser = document.getElementById("pixelColorChooser");
-    pixelColorChooser.hidden = testAlgo.acceptColors === 0;
+    pixelColorChooser.hidden = (acceptColors === 0);
 
-    var secondaryColorChooser = document.getElementById("secondaryColorChooser");
-    secondaryColorChooser.hidden = testAlgo.acceptColors === 1;
+    var color2Chooser = document.getElementById("color2Chooser");
+    color2Chooser.hidden = (acceptColors <= 2);
+
+    var color3Chooser = document.getElementById("color3Chooser");
+    color3Chooser.hidden = (acceptColors <= 3);
+
+    var color4Chooser = document.getElementById("color4Chooser");
+    color4Chooser.hidden = (acceptColors <= 4);
+
+    var color5Chooser = document.getElementById("color5Chooser");
+    color5Chooser.hidden = (acceptColors <= 5);
 }
 
 devtool.initSpeedValue = function()
@@ -207,16 +220,34 @@ devtool.initAlternateValue = function()
 
 devtool.initColorValues = function()
 {
-    var primary = localStorage.getItem("devtool.primaryColor");
-    if (primary === null || Number.isNaN(parseInt("0x" + primary, 16))) {
-      primary = "ff0000";
+    var color1 = localStorage.getItem("devtool.color1");
+    if (color1 === null || Number.isNaN(parseInt("0x" + color1, 16))) {
+      color1 = "ff0000";
     }
-    document.getElementById("primaryColor").value = primary;
-    var secondary = localStorage.getItem("devtool.secondaryColor");
-    if (secondary === null || secondary === "" || Number.isNaN(parseInt("0x" + secondary, 16))) {
-      document.getElementById("secondaryColor").value = "";
+    document.getElementById("color1").value = color1;
+    var color2 = localStorage.getItem("devtool.color2");
+    if (color2 === null || color2 === "" || Number.isNaN(parseInt("0x" + color2, 16))) {
+      document.getElementById("color2").value = "";
     } else {
-      document.getElementById("secondaryColor").value = secondary;
+      document.getElementById("color2").value = color2;
+    }
+    var color3 = localStorage.getItem("devtool.color3");
+    if (color3 === null || color2 === "" || Number.isNaN(parseInt("0x" + color3, 16))) {
+      document.getElementById("color3").value = "";
+    } else {
+      document.getElementById("color3").value = color3;
+    }
+    var color4 = localStorage.getItem("devtool.color4");
+    if (color4 === null || color4 === "" || Number.isNaN(parseInt("0x" + color4, 16))) {
+      document.getElementById("color4").value = "";
+    } else {
+      document.getElementById("color4").value = color2;
+    }
+    var color5 = localStorage.getItem("devtool.color5");
+    if (color5 === null || color5 === "" || Number.isNaN(parseInt("0x" + color5, 16))) {
+      document.getElementById("color5").value = "";
+    } else {
+      document.getElementById("color5").value = color25;
     }
 }
 
@@ -247,22 +278,40 @@ devtool.getRgbFromColorInt = function(color)
     return [red, green, blue];
 }
 
-devtool.getPrimaryColorInt = function()
+devtool.getColor1Int = function()
 {
-    var primaryColorInput = document.getElementById("primaryColor");
-    return parseInt(primaryColorInput.value, 16);
+    var colorInput = document.getElementById("color1");
+    return parseInt(colorInput.value, 16);
 }
 
-devtool.getSecondaryColorInt = function()
+devtool.getColor2Int = function()
 {
-    var secondaryColorInput = document.getElementById("secondaryColor");
-    return parseInt(secondaryColorInput.value, 16);
+    var colorInput = document.getElementById("color2");
+    return parseInt(colorInput.value, 16);
+}
+
+devtool.getColor3Int = function()
+{
+    var colorInput = document.getElementById("color3");
+    return parseInt(colorInput.value, 16);
+}
+
+devtool.getColor4Int = function()
+{
+    var colorInput = document.getElementById("color4");
+    return parseInt(colorInput.value, 16);
+}
+
+devtool.getColor5Int = function()
+{
+    var colorInput = document.getElementById("color5");
+    return parseInt(colorInput.value, 16);
 }
 
 devtool.getCurrentColorInt = function()
 {
-    var primaryColor = devtool.getPrimaryColorInt();
-    var secondaryColor = devtool.getSecondaryColorInt();
+    var primaryColor = devtool.getcolor1Int();
+    var secondaryColor = devtool.getcolor2Int();
 
     if (testAlgo.acceptColors === 0 || Number.isNaN(primaryColor)) {
         return null;
@@ -294,9 +343,12 @@ devtool.writeCurrentStep = function()
         map.deleteRow(i);
     }
 
-    var primaryColorRgb = devtool.getPrimaryColorInt();
-    var secondaryColorRgb = devtool.getSecondaryColorInt();
-    var rawColors = [primaryColorRgb, secondaryColorRgb];
+    var color1Rgb = devtool.getColor1Int();
+    var color2Rgb = devtool.getColor2Int();
+    var color3Rgb = devtool.getColor3Int();
+    var color4Rgb = devtool.getColor4Int();
+    var color5Rgb = devtool.getColor5Int();
+    var rawColors = [color1Rgb, color2Rgb, color3Rgb, color4Rgb, color5Rgb];
 
     var rgb;
     if (testAlgo.apiVersion > 2) {
@@ -363,13 +415,31 @@ devtool.onGridSizeUpdated = function()
 
 devtool.onColorChange = function()
 {
-    var primary = parseInt("0x" + document.getElementById("primaryColor").value).toString(16);
-    localStorage.setItem("devtool.primaryColor", primary);
-    var secondary = parseInt("0x" + document.getElementById("secondaryColor").value).toString(16);
-    if (secondary === "NaN") { // Evaluation of the string.
-      localStorage.setItem("devtool.secondaryColor", "");
+    var color1 = parseInt("0x" + document.getElementById("color1").value).toString(16);
+    localStorage.setItem("devtool.color1", color1);
+    var color2 = parseInt("0x" + document.getElementById("color2").value).toString(16);
+    if (color2 === "NaN") { // Evaluation of the string.
+      localStorage.setItem("devtool.color2", "");
     } else {
-      localStorage.setItem("devtool.secondaryColor", secondary);
+      localStorage.setItem("devtool.color2", color2);
+    }
+    var color3 = parseInt("0x" + document.getElementById("color3").value).toString(16);
+    if (color3 === "NaN") { // Evaluation of the string.
+      localStorage.setItem("devtool.color3", "");
+    } else {
+      localStorage.setItem("devtool.color3", color3);
+    }
+    var color4 = parseInt("0x" + document.getElementById("color4").value).toString(16);
+    if (color4 === "NaN") { // Evaluation of the string.
+      localStorage.setItem("devtool.color4", "");
+    } else {
+      localStorage.setItem("devtool.color4", color4);
+    }
+    var color5 = parseInt("0x" + document.getElementById("color5").value).toString(16);
+    if (color5 === "NaN") { // Evaluation of the string.
+      localStorage.setItem("devtool.color5", "");
+    } else {
+      localStorage.setItem("devtool.color5", color5);
     }
     devtool.writeCurrentStep();
 }

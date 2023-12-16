@@ -86,19 +86,21 @@ void RGBAudio::calculateColors(int barsHeight)
 {
     if (barsHeight > 0)
     {
+        QColor startColor = getColor(0);
+        QColor endColor = getColor(1);
         m_barColors.clear();
-        if (endColor() == QColor()
+        if (endColor == QColor()
             || barsHeight == 1) // to avoid division by 0 below
         {
             for (int i = 0; i < barsHeight; i++)
-                m_barColors.append(startColor().rgb());
+                m_barColors.append(startColor.rgb());
         }
         else
         {
-            int crDelta = (endColor().red() - startColor().red()) / (barsHeight - 1);
-            int cgDelta = (endColor().green() - startColor().green()) / (barsHeight - 1);
-            int cbDelta = (endColor().blue() - startColor().blue()) / (barsHeight - 1);
-            QColor pixelColor = startColor();
+            int crDelta = (endColor.red() - startColor.red()) / (barsHeight - 1);
+            int cgDelta = (endColor.green() - startColor.green()) / (barsHeight - 1);
+            int cbDelta = (endColor.blue() - startColor.blue()) / (barsHeight - 1);
+            QColor pixelColor = startColor;
 
             for (int i = 0; i < barsHeight; i++)
             {
