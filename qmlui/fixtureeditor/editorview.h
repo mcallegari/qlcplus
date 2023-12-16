@@ -53,7 +53,11 @@ public:
     EditorView(QQuickView *view, int id, QLCFixtureDef *fixtureDef, QObject *parent = nullptr);
     ~EditorView();
 
+    /** Get the unique ID of this editor */
     int id() const;
+
+    /** Get the fixture definition reference being edited */
+    QLCFixtureDef *fixtureDefinition();
 
     /** Get if the definition is user or system */
     bool isUser() const;

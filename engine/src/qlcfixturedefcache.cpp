@@ -149,6 +149,23 @@ bool QLCFixtureDefCache::storeFixtureDef(QString filename, QString data)
     return true;
 }
 
+bool QLCFixtureDefCache::reloadFixtureDef(QLCFixtureDef *fixtureDef)
+{
+    int idx = m_defs.indexOf(fixtureDef);
+    if (idx == -1)
+        return false;
+
+    QLCFixtureDef *def = m_defs.takeAt(idx);
+    QString absPath = def->definitionSourceFile();
+    delete def;
+
+    QLCFixtureDef *origDef = new QLCFixtureDef();
+    origDef->loadXML(absPath);
+    m_defs << origDef;
+
+    return true;
+}
+
 bool QLCFixtureDefCache::load(const QDir& dir)
 {
     qDebug() << Q_FUNC_INFO << dir.path();

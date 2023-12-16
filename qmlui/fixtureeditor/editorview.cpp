@@ -75,6 +75,11 @@ int EditorView::id() const
     return m_id;
 }
 
+QLCFixtureDef *EditorView::fixtureDefinition()
+{
+    return m_fixtureDef;
+}
+
 bool EditorView::isUser() const
 {
     return m_fixtureDef->isUser();

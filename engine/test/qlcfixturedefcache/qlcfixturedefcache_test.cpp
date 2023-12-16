@@ -133,6 +133,19 @@ void QLCFixtureDefCache_Test::add()
     QVERIFY(cache.models("Yoyodyne").contains("MAC250") == true);
 }
 
+void QLCFixtureDefCache_Test::reload()
+{
+    QLCFixtureDef *def = cache.fixtureDef("Botex", "SP-1500");
+    QLCChannel *channel = def->channel("Control");
+
+    QVERIFY(def->channels().count() == 5);
+    def->removeChannel(channel);
+    QVERIFY(def->channels().count() == 4);
+
+    cache.reloadFixtureDef(def);
+    QVERIFY(def->channels().count() == 5);
+}
+
 void QLCFixtureDefCache_Test::fixtureDef()
 {
     // check the content of a cached fixture relative path
