@@ -260,6 +260,7 @@ void VCWizard::addWidgetItem(QTreeWidgetItem *grpItem, QString name, int type,
     item->setData(KWidgetName, Qt::UserRole, type);
     item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void*)fxGrpItem));
     item->setIcon(KWidgetName, VCWidget::typeToIcon(type));
+    if(name.toLower().contains("speed")) item->setIcon(KWidgetName, QIcon(":/knob.png"));
     
 }
 
@@ -450,6 +451,7 @@ VCWidget *VCWizard::createWidget(int type, VCWidget *parent, int xpos, int ypos,
             }
             
             slider->setSliderMode(VCSlider::Level);
+            if(str.toLower().contains("speed")) slider->setWidgetStyle(VCSlider::WKnob);
 
             widget = slider;
         }
