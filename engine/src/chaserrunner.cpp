@@ -114,8 +114,8 @@ void ChaserRunner::slotChaserChanged()
     foreach(ChaserRunnerStep *step, delList)
     {
         step->m_function->stop(functionParent());
-        delete step;
         m_runnerSteps.removeAll(step);
+        delete step;
     }
 }
 
