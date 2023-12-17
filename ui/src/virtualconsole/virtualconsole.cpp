@@ -1034,8 +1034,7 @@ void VirtualConsole::slotWizard()
 {
     VCWizard fw(this, m_doc);
     if (fw.exec() == QDialog::Accepted){
-      //setupWidget(button, parent);
-      m_doc->setModified();
+        m_doc->setModified();
     }
 }
 
@@ -1686,6 +1685,7 @@ void VirtualConsole::enableEdit()
     m_fontActionGroup->setEnabled(true);
     m_frameActionGroup->setEnabled(true);
     m_stackingActionGroup->setEnabled(true);
+    m_VCWizardAction->setEnabled(true);
 
     // Set action shortcuts for design mode
     m_addButtonAction->setShortcut(QKeySequence("CTRL+SHIFT+B"));
