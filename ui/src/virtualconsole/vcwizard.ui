@@ -123,8 +123,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;This is a guided procedure that will allow you to start using QLC+ in a few minutes.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;It basically consists in three simple steps:&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1- add fixtures&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2- select capabilities to create functions&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3- add widgets to the Virtual Console&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2- select widgets to add to the Virtual Console&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To move from a step to another press the &amp;quot;Next&amp;quot; button&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
@@ -157,7 +156,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <item row="2" column="1">
         <widget class="QToolButton" name="m_removeButton">
          <property name="toolTip">
-          <string>Don't include selected fixtures in the created functions</string>
+          <string>Don't include selected fixtures in the created widgets</string>
          </property>
          <property name="text">
           <string>Remove</string>
@@ -190,7 +189,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <item row="1" column="1">
         <widget class="QToolButton" name="m_addButton">
          <property name="toolTip">
-          <string>Select fixtures that will be included in the automatically created functions</string>
+          <string>Select fixtures that will be included in the automatically created widgets</string>
          </property>
          <property name="text">
           <string>Add</string>
@@ -210,7 +209,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <item row="1" column="0" rowspan="3">
         <widget class="QTreeWidget" name="m_fixtureTree">
          <property name="toolTip">
-          <string>Fixtures that will be included in automatic function creation</string>
+          <string>Fixtures that will be included in automatic widget creation</string>
          </property>
          <property name="alternatingRowColors">
           <bool>true</bool>
