@@ -518,14 +518,7 @@ QSize VCWizard::recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *parent)
                 if (subY + childWidget->height() > groupSize.height())
                     groupSize.setHeight(subY + childWidget->height() + 10);
 
-
-                if (c > 0 && (c + 1)%4 == 0)
-                {
-                    subX = 10;
-                    subY += childWidget->height() + 10;
-                }
-                else
-                    subX += childWidget->width() + 10;
+                subX += childWidget->width() + 10;
             }
         }
     }
