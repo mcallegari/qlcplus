@@ -384,7 +384,9 @@ void VCWizard::updateAvailableWidgetsTree()
                     }
                 }
                 break; 
-                default:
+                case QLCChannel::Speed: addWidgetItem(frame, channel->name(), VCWidget::SliderWidget, fxGrpItem, &ch); break;
+                break;
+                default: addWidgetItem(frame, channel->name() + " " + channel->group(), VCWidget::SliderWidget, fxGrpItem, &ch); break;
                 break;
 
             }
@@ -543,7 +545,7 @@ void VCWizard::addWidgetsToVirtualConsole()
             wItem->checkState(KWidgetName) == Qt::PartiallyChecked)
         {
             int wType = wItem->data(KWidgetName, Qt::UserRole).toInt();
-            
+
             VCWidget *widget = createWidget(wType, mainFrame, xPos, yPos, nullptr, wItem->text(KWidgetName));
             if (widget == NULL)
                 continue;
