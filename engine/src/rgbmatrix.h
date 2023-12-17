@@ -59,7 +59,7 @@ public:
     int currentStepIndex() const;
 
     /** Calculate the RGB components delta between $startColor and $endColor */
-    void calculateColorDelta(QColor startColor, QColor endColor);
+    void calculateColorDelta(QColor startColor, QColor endColor, RGBAlgorithm *algorithm);
 
     /** Set/Get the final color of the next step to be reproduced */
     void setStepColor(QColor color);
@@ -71,7 +71,7 @@ public:
 
     /** Initialize the playback direction and set the initial step index and
       * color based on $startColor and $endColor */
-    void initializeDirection(Function::Direction direction, QColor startColor, QColor endColor, int stepsCount);
+    void initializeDirection(Function::Direction direction, QColor startColor, QColor endColor, int stepsCount, RGBAlgorithm *algorithm);
 
     /** Check the steps progression based on $order and the internal m_direction.
      *  This method returns true if the RGBMatrix can continue to run, otherwise

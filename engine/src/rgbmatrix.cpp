@@ -325,7 +325,7 @@ QColor RGBMatrix::getColor(unsigned int i) const
 
 void RGBMatrix::updateColorDelta()
 {
-    m_stepHandler->calculateColorDelta(m_rgbColors[0], m_rgbColors[1]);
+    m_stepHandler->calculateColorDelta(m_rgbColors[0], m_rgbColors[1], m_algorithm);
 }
 
 /************************************************************************
@@ -557,7 +557,7 @@ void RGBMatrix::preRun(MasterTimer *timer)
         if (m_algorithm != NULL)
         {
             // Copy direction from parent class direction
-            m_stepHandler->initializeDirection(direction(), m_rgbColors[0], m_rgbColors[1], m_stepsCount);
+            m_stepHandler->initializeDirection(direction(), m_rgbColors[0], m_rgbColors[1], m_stepsCount, m_algorithm);
 
             if (m_algorithm->type() == RGBAlgorithm::Script)
             {
@@ -1018,13 +1018,13 @@ int RGBMatrixStep::currentStepIndex() const
     return m_currentStepIndex;
 }
 
-void RGBMatrixStep::calculateColorDelta(QColor startColor, QColor endColor)
+void RGBMatrixStep::calculateColorDelta(QColor startColor, QColor endColor, RGBAlgorithm *algorithm)
 {
     m_crDelta = 0;
     m_cgDelta = 0;
     m_cbDelta = 0;
 
-    if (endColor.isValid())
+    if (endColor.isValid() && algorithm != NULL && algorithm->acceptColors() > 1)
     {
         m_crDelta = endColor.red() - startColor.red();
         m_cgDelta = endColor.green() - startColor.green();
@@ -1063,7 +1063,7 @@ void RGBMatrixStep::updateStepColor(int stepIndex, QColor startColor, int stepsC
     //qDebug() << "RGBMatrix step" << stepIndex << ", color:" << QString::number(m_stepColor.rgb(), 16);
 }
 
-void RGBMatrixStep::initializeDirection(Function::Direction direction, QColor startColor, QColor endColor, int stepsCount)
+void RGBMatrixStep::initializeDirection(Function::Direction direction, QColor startColor, QColor endColor, int stepsCount, RGBAlgorithm *algorithm)
 {
     m_direction = direction;
 
@@ -1082,7 +1082,7 @@ void RGBMatrixStep::initializeDirection(Function::Direction direction, QColor st
             setStepColor(startColor);
     }
 
-    calculateColorDelta(startColor, endColor);
+    calculateColorDelta(startColor, endColor, algorithm);
 }
 
 bool RGBMatrixStep::checkNextStep(Function::RunOrder order,

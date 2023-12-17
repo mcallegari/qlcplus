@@ -177,7 +177,7 @@ void RGBMatrixEditor::setColor1(QColor algoColor)
 
     Tardis::instance()->enqueueAction(Tardis::RGBMatrixSetColor1, m_matrix->id(), m_matrix->getColor(0), algoColor);
     m_matrix->setColor(0, algoColor);
-    m_previewStepHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1));
+    m_previewStepHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1), m_matrix->algorithm());
 
     emit color1Changed(algoColor);
 }
@@ -197,7 +197,7 @@ void RGBMatrixEditor::setColor2(QColor algoColor)
 
     Tardis::instance()->enqueueAction(Tardis::RGBMatrixSetColor2, m_matrix->id(), m_matrix->getColor(1), algoColor);
     m_matrix->setColor(1, algoColor);
-    m_previewStepHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1));
+    m_previewStepHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1), m_matrix->algorithm());
 
     emit color2Changed(algoColor);
     if (algoColor.isValid())
@@ -280,7 +280,7 @@ void RGBMatrixEditor::setHasColor2(bool hasColor)
     if (m_matrix && hasColor == false)
     {
         m_matrix->setColor(1, QColor());
-        m_previewStepHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1));
+        m_previewStepHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1), m_matrix->algorithm());
     }
     emit hasColor2Changed(hasColor);
 }
@@ -755,8 +755,8 @@ void RGBMatrixEditor::initPreviewData()
         return;
 
     m_previewStepHandler->initializeDirection(m_matrix->direction(), m_matrix->getColor(0),
-                                              m_matrix->getColor(1), m_matrix->stepsCount());
-    m_previewStepHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1));
+                                              m_matrix->getColor(1), m_matrix->stepsCount(), m_matrix->algorithm());
+    m_previewStepHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1), m_matrix->algorithm());
 
     m_previewTimer->start(MasterTimer::tick());
 }

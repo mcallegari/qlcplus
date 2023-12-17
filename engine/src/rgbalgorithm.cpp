@@ -50,8 +50,13 @@ RGBAlgorithm::RGBAlgorithm(Doc * doc)
 
 void RGBAlgorithm::setColors(QColor colors[RGBAlgorithmRawColorCount])
 {
-    for (unsigned int i = 0; i < RGBAlgorithmRawColorCount; i++)
-        m_colors[i] = colors[i];
+    for (int i = 0; i < RGBAlgorithmRawColorCount; i++)
+    {
+        if (acceptColors() <= i)
+            m_colors[i] = colors[i];
+        else
+            m_colors[i] = QColor();
+    }
 }
 
 QColor RGBAlgorithm::getColor(unsigned int i) const
