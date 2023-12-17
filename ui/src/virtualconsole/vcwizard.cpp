@@ -417,6 +417,7 @@ VCWidget *VCWizard::createWidget(int type, VCWidget *parent, int xpos, int ypos,
             VCFrame* frame = new VCFrame(parent, m_doc, true);
             vc->setupWidget(frame, parent);
             frame->move(QPoint(xpos, ypos));
+            frame->setCaption(str.left(str.indexOf(" group")));
             widget = frame;
         }
         break;
