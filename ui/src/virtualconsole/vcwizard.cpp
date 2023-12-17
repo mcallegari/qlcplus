@@ -293,7 +293,7 @@ void VCWizard::checkRGB(QTreeWidgetItem *grpItem,
     quint32 RGB[3] = {};
     for (size_t i = 0; i < 3; i++) RGB[i] = channels[i];
 
-    addWidgetItem(grpItem, "RGB Click & Go", VCWidget::SliderWidget, fxGrpItem, RGB);
+    addWidgetItem(grpItem, "RGB - Click & Go", VCWidget::SliderWidget, fxGrpItem, RGB);
 
     RGB[0] = -1;
     RGB[1] = -1;
@@ -355,9 +355,12 @@ void VCWizard::updateAvailableWidgetsTree()
                 } 
                 break;
                 
-                case QLCChannel::Gobo: addWidgetItem(frame, "Gobo Click & Go", VCWidget::SliderWidget, fxGrpItem, &ch); break;                
-                case QLCChannel::Shutter: addWidgetItem(frame, "Shutter Click & Go", VCWidget::SliderWidget, fxGrpItem, &ch); break;
-                case QLCChannel::Colour: addWidgetItem(frame, "Colour Click & Go", VCWidget::SliderWidget, fxGrpItem, &ch); break;
+                case QLCChannel::Gobo: addWidgetItem(frame, "Gobo - Click & Go", VCWidget::SliderWidget, fxGrpItem, &ch); break;                
+                case QLCChannel::Shutter: addWidgetItem(frame, "Shutter - Click & Go", VCWidget::SliderWidget, fxGrpItem, &ch); break;
+                case QLCChannel::Prism: addWidgetItem(frame, "Prism - Click & Go", VCWidget::SliderWidget, fxGrpItem, &ch); break;
+                case QLCChannel::Beam: addWidgetItem(frame, "Beam - Click & Go", VCWidget::SliderWidget, fxGrpItem, &ch); break;
+                case QLCChannel::Effect: addWidgetItem(frame, "Effect - Click & Go", VCWidget::SliderWidget, fxGrpItem, &ch); break;
+                case QLCChannel::Colour: addWidgetItem(frame, "Colour - Click & Go", VCWidget::SliderWidget, fxGrpItem, &ch); break;
                
                 case QLCChannel::Intensity:
                 { QLCChannel::PrimaryColour col = channel->colour();
@@ -380,14 +383,14 @@ void VCWizard::updateAvailableWidgetsTree()
                         }
                         break;
                         default:{                            
-                            addWidgetItem(frame, channel->name() + " Intensity", VCWidget::SliderWidget, fxGrpItem, &ch);
+                            addWidgetItem(frame, channel->name() + " - Intensity", VCWidget::SliderWidget, fxGrpItem, &ch);
                         } break;
                     }
                 }
                 break; 
-                case QLCChannel::Speed: addWidgetItem(frame, channel->name(), VCWidget::SliderWidget, fxGrpItem, &ch); break;
+                case QLCChannel::Speed: addWidgetItem(frame, channel->name() + " - " + channel->group(), VCWidget::SliderWidget, fxGrpItem, &ch); break;
                 break;
-                default: addWidgetItem(frame, channel->name() + " " + channel->group(), VCWidget::SliderWidget, fxGrpItem, &ch); break;
+                default: addWidgetItem(frame, channel->name() + " - " + channel->group(), VCWidget::SliderWidget, fxGrpItem, &ch); break;
                 break;
 
             }
@@ -427,7 +430,7 @@ VCWidget *VCWizard::createWidget(int type, VCWidget *parent, int xpos, int ypos,
             size_t length = str.indexOf(')') - start;
             QStringList numbers = str.mid(start, length).split(", ");
             
-            slider->setCaption(str.left(str.indexOf(' ')));
+            slider->setCaption(str.left(str.indexOf(" -")));
 
             for (int c = 0; c < fxGrpItem->childCount(); c++)
             {   
@@ -438,10 +441,10 @@ VCWidget *VCWizard::createWidget(int type, VCWidget *parent, int xpos, int ypos,
                     slider->addLevelChannel(fxi, n.toInt() - 1);
                 }
             }
-            if(str.contains("RGB")){
+            if(str.toUpper().contains("RGB")){
                 slider->setClickAndGoType(ClickAndGoWidget::RGB);
             }
-            else if(str.contains("Intensity"))
+            else if(str.toLower().contains("intensity"))
             {
                 slider->setClickAndGoType(ClickAndGoWidget::None);
             }
