@@ -17,12 +17,12 @@
   limitations under the License.
 */
 
-#include "gradient.h"
-
 #include <QImage>
 #include <QColor>
 #include <QPainter>
 #include <QLinearGradient>
+
+#include "gradient.h"
 
 QImage Gradient::m_rgb = QImage();
 

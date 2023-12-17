@@ -43,11 +43,46 @@ form {
  margin: 2px 2px 0 0;
  padding: 1px;
  height: 27px;
- width: 22%;
+ width: 25%;
  text-align: center;
 }
 
+.vccuelistButtonPaused {
+ background: #5B81FF!important;
+}
+
 .vccuelistButton:active { background: #868585; }
+
+.vccuelistFadeButton {
+ border-radius: 3px;
+ border: 1px solid #808080;
+ margin: 2px 2px 0 0;
+ padding: 1px;
+ height: 27px;
+ width: 27px;
+}
+
+.vccuelistProgress {
+ margin-top: 2px;
+ width: 100%;
+ background-color: #C3C3C3;
+ border: 1px solid grey;
+ height: 20px;
+}
+
+.vccuelistProgressBar {
+ width: 0%;
+ height: 20px;
+ background-color: #0F9BEC;
+}
+
+.vccuelistProgressVal {
+  width: 100%;
+  text-align: center;
+  height: 27px;
+  line-height: 20px;
+  margin-top: -20px;
+}
 
 table.hovertable {
  font-family: verdana,arial,sans-serif;
@@ -183,17 +218,18 @@ table.hovertable td {
 }
 
 input[type="range"].vVertical {
+ --rotate: 270;
  -webkit-appearance: none;
  height: 4px;
  border: 1px solid #8E8A86;
  background-color: #888888;
- -webkit-transform:rotate(270deg);
+ -webkit-transform:rotate(calc(var(--rotate) * 1deg));
  -webkit-transform-origin: 0% 50%;
- -moz-transform:rotate(270deg);
- -o-transform:rotate(270deg);
- -ms-transform:rotate(270deg);
+ -moz-transform:rotate(calc(var(--rotate) * 1deg));
+ -o-transform:rotate(calc(var(--rotate) * 1deg));
+ -ms-transform:rotate(calc(var(--rotate) * 1deg));
  -ms-transform-origin:0% 50%;
- transform:rotate(270deg);
+ transform:rotate(calc(var(--rotate) * 1deg));
  transform-origin:0% 50%;
 }
 
@@ -244,4 +280,184 @@ input[type="range"]::-webkit-slider-thumb {
  border-radius: 3px;
  font-family: arial, verdana, sans-serif;
  font-size: 18px/1.0em;
+}
+
+.vcmatrix {
+ position: absolute;
+ border: 1px solid #777777;
+ font-family: arial, verdana, sans-serif;
+ font-size: 18px/1.0em;
+}
+
+input[type="color"].vMatrix {
+ padding: 0px;
+ width: 48px;
+ height: 48px;
+}
+
+.matrixSelect {
+ padding: 2px;
+ width: 100%;
+ background-color: #eee;
+}
+
+.matrixSelect option {
+ background-color: #fff;
+}
+
+.pushButton {
+ height: 32px;
+ border: 2px solid #6A6A6A;
+ border-radius: 5px;
+ cursor: pointer;
+ display: flex;
+ flex-direction: row;
+ justify-content: center;
+ align-items: center;
+ text-wrap: nowrap;
+ overflow: hidden;
+ font-size: 12px;
+}
+.pushButton:disabled {
+ border: 2px solid #BBBBBB;
+ color: #8f8f8f
+}
+
+.pushButton:active {
+ border: 2px solid #0000FF;
+}
+
+@property --degValue{
+ syntax: '<number>';
+ inherits: true;
+ initial-value: 0;
+}
+
+@keyframes p {
+ from{--degValue: 0}
+}
+
+.pieWrapper, .mpieWrapper {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.pie {
+ --degValue:20;
+ --pieWidth:150px;
+ --color1: lime;
+ --color2: #555;
+
+ width:var(--pieWidth);
+ height: var(--pieWidth);
+ aspect-ratio:1;
+ position:relative;
+ display:flex;
+ align-items: center;
+ justify-content: center;
+}
+
+.pie::before {
+ content:"";
+ position:absolute;
+ border-radius:50%;
+ inset:0;
+ transform: rotate(190deg);
+ background: conic-gradient(var(--color1) calc(var(--degValue) * 1deg), var(--color2) calc(var(--degValue) * 1deg) 340deg, #0000 340deg);
+}
+
+.knobWrapper {
+ --knobWrapperWidth:145px;
+
+ width:var(--knobWrapperWidth);
+ height: var(--knobWrapperWidth);
+ background-color: #aaa;
+ border-radius: 50%;
+ position: relative;
+ cursor: pointer;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+
+.knob {
+ --knobWidth:110px;
+
+ width:var(--knobWidth);
+ height: var(--knobWidth);
+ background: #bbb;
+ border-radius: 50%;
+ position: relative;
+ cursor: pointer;
+}
+
+.spot {
+ --spotWidth:15px;
+
+ width:var(--spotWidth);
+ height: var(--spotWidth);
+ background-color: #ccc;
+ border-radius: 50%;
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ cursor: pointer;
+ border: solid 1px;
+}
+
+.mpie {
+ --degValue:0;
+
+ width: 36px;
+ height: 36px;
+ aspect-ratio:1;
+ position:relative;
+ display:flex;
+ align-items: center;
+ justify-content: center;
+}
+
+.mpie::before {
+ content:"";
+ position:absolute;
+ border-radius:50%;
+ inset:0;
+ transform: rotate(190deg);
+ background: conic-gradient(lime calc(var(--degValue) * 1deg), #555 calc(var(--degValue) * 1deg) 340deg, #0000 340deg);
+}
+
+.mknobWrapper {
+ width: 32px;
+ height: 32px;
+ background-color: #aaa;
+ border-radius: 50%;
+ position: relative;
+ cursor: pointer;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+
+.mknob {
+ width: 28px;
+ height: 28px;
+ background: #bbb;
+ border-radius: 50%;
+ position: relative;
+ cursor: pointer;
+}
+
+.mspot {
+ width: 6px;
+ height: 6px;
+ background-color: #ccc;
+ border-radius: 50%;
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ cursor: pointer;
+ border: solid 1px;
 }

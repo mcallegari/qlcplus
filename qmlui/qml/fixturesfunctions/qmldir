@@ -17,6 +17,7 @@ DMXAddressWidget 0.1 ../DMXAddressWidget.qml
 FixtureConsole 0.1 ../FixtureConsole.qml
 FixtureDelegate 0.1 ../FixtureDelegate.qml
 FunctionDelegate 0.1 ../FunctionDelegate.qml
+GenericButton 0.1 ../GenericButton.qml
 IconButton 0.1 ../IconButton.qml
 IconPopupButton 0.1 ../IconPopupButton.qml
 IconTextEntry 0.1 ../IconTextEntry.qml

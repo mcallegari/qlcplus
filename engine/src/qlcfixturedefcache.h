@@ -97,7 +97,7 @@ public:
      * @param fixtureDef The fixture definition to add
      * @return true, if $fixtureDef was added, otherwise false
      */
-    bool addFixtureDef(QLCFixtureDef* fixtureDef);
+    bool addFixtureDef(QLCFixtureDef *fixtureDef);
 
     /**
      * Store a fixture in the fixtures user data folder
@@ -109,6 +109,14 @@ public:
      * @return
      */
     bool storeFixtureDef(QString filename, QString data);
+
+    /**
+     * Realod from file a definition with the provided reference
+     *
+     * @param fixtureDef The fixture definition to remove
+     * @return true, if $fixtureDef was found and removed, otherwise false
+     */
+    bool reloadFixtureDef(QLCFixtureDef *fixtureDef);
 
     /**
      * Load fixture definitions from the given path. Ignores duplicates.

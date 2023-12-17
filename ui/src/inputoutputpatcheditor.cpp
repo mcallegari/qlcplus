@@ -33,7 +33,6 @@
 
 #include "qlcinputprofile.h"
 #include "qlcioplugin.h"
-#include "qlcconfig.h"
 #include "qlcfile.h"
 
 #include "inputoutputpatcheditor.h"
@@ -42,7 +41,6 @@
 #include "inputoutputmap.h"
 #include "outputpatch.h"
 #include "inputpatch.h"
-#include "apputil.h"
 #include "doc.h"
 
 /* Plugin column structure */
@@ -724,7 +722,7 @@ edit:
 
         /* Create a new non-const copy of the profile and
            reparent it to the input map */
-        QLCInputProfile* profile = new QLCInputProfile(*ite.profile());
+        QLCInputProfile* profile = ite.profile()->createCopy();
 
         /* Save it to a file, go back to edit if save failed */
         if (profile->saveXML(path) == false)

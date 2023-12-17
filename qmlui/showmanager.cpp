@@ -31,16 +31,17 @@
 ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "SHOWMGR", parent)
     , m_currentShow(nullptr)
-    , m_timeScale(5.0)
     , m_stretchFunctions(false)
     , m_gridEnabled(false)
+    , m_timeScale(5.0)
     , m_currentTime(0)
     , m_selectedTrackIndex(-1)
     , m_itemsColor(Qt::gray)
 {
     view->rootContext()->setContextProperty("showManager", this);
+    qmlRegisterUncreatableType<Show>("org.qlcplus.classes", 1, 0, "Show", "Can't create a Show");
     qmlRegisterType<Track>("org.qlcplus.classes", 1, 0, "Track");
-    qmlRegisterType<ShowFunction>("org.qlcplus.classes", 1, 0, "ShowFunction");
+    qmlRegisterUncreatableType<ShowFunction>("org.qlcplus.classes", 1, 0, "ShowFunction", "Can't create a ShowFunction");
 
     setContextResource("qrc:/ShowManager.qml");
     setContextTitle(tr("Show Manager"));
@@ -57,7 +58,18 @@ int ShowManager::currentShowID() const
 {
     if (m_currentShow == nullptr)
         return Function::invalidId();
+
     return m_currentShow->id();
+}
+
+Show *ShowManager::currentShow() const
+{
+    return m_currentShow;
+}
+
+bool ShowManager::isEditing()
+{
+    return m_currentShow == nullptr ? false : true;
 }
 
 void ShowManager::setCurrentShowID(int currentShowID)
@@ -71,6 +83,8 @@ void ShowManager::setCurrentShowID(int currentShowID)
 
     m_currentShow = qobject_cast<Show*>(m_doc->function(currentShowID));
     emit currentShowIDChanged(currentShowID);
+    emit isEditingChanged();
+
     if (m_currentShow != nullptr)
     {
         connect(m_currentShow, SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
@@ -103,6 +117,122 @@ void ShowManager::setShowName(QString showName)
     m_currentShow->setName(showName);
     emit showNameChanged(showName);
 }
+
+bool ShowManager::stretchFunctions() const
+{
+    return m_stretchFunctions;
+}
+
+void ShowManager::setStretchFunctions(bool stretchFunctions)
+{
+    if (m_stretchFunctions == stretchFunctions)
+        return;
+
+    m_stretchFunctions = stretchFunctions;
+    emit stretchFunctionsChanged(stretchFunctions);
+}
+
+bool ShowManager::gridEnabled() const
+{
+    return m_gridEnabled;
+}
+
+void ShowManager::setGridEnabled(bool gridEnabled)
+{
+    if (m_gridEnabled == gridEnabled)
+        return;
+
+    m_gridEnabled = gridEnabled;
+    emit gridEnabledChanged(m_gridEnabled);
+}
+
+/*********************************************************************
+ * Time
+ ********************************************************************/
+
+Show::TimeDivision ShowManager::timeDivision()
+{
+    if (m_currentShow == nullptr)
+        return Show::Time;
+
+    return m_currentShow->timeDivisionType();
+}
+
+void ShowManager::setTimeDivision(Show::TimeDivision division)
+{
+    if (m_currentShow == nullptr)
+        return;
+
+    if (division == m_currentShow->timeDivisionType())
+        return;
+
+    if (division == Show::Time)
+    {
+        setTimeScale(5.0);
+        m_currentShow->setTempoType(Function::Time);
+    }
+    else
+    {
+        setTimeScale(1.0);
+        m_currentShow->setTempoType(Function::Beats);
+    }
+    m_currentShow->setTimeDivisionType(division);
+    emit timeDivisionChanged(division);
+
+    if (division != Show::Time)
+        emit beatsDivisionChanged(m_currentShow->beatsDivision());
+}
+
+int ShowManager::beatsDivision()
+{
+    if (m_currentShow == nullptr)
+        return 0;
+
+    return m_currentShow->beatsDivision();
+}
+
+float ShowManager::timeScale() const
+{
+    return m_timeScale;
+}
+
+void ShowManager::setTimeScale(float timeScale)
+{
+    if (m_timeScale == timeScale)
+        return;
+
+    m_timeScale = timeScale;
+    float tickScale = timeDivision() == Show::Time ? 1.0 : timeScale;
+
+    App *app = qobject_cast<App *>(m_view);
+    m_tickSize = app->pixelDensity() * (18 * tickScale);
+
+    emit tickSizeChanged(m_tickSize);
+    emit timeScaleChanged(timeScale);
+}
+
+float ShowManager::tickSize() const
+{
+    return m_tickSize;
+}
+
+int ShowManager::currentTime() const
+{
+    return m_currentTime;
+}
+
+void ShowManager::setCurrentTime(int currentTime)
+{
+    if (m_currentTime == currentTime)
+        return;
+
+    m_currentTime = currentTime;
+    emit currentTimeChanged(currentTime);
+}
+
+/*********************************************************************
+ * Tracks
+ ********************************************************************/
 
 QVariant ShowManager::tracks()
 {
@@ -156,53 +286,6 @@ void ShowManager::moveTrack(int index, int direction)
     emit tracksChanged();
 }
 
-float ShowManager::timeScale() const
-{
-    return m_timeScale;
-}
-
-void ShowManager::setTimeScale(float timeScale)
-{
-    if (m_timeScale == timeScale)
-        return;
-
-    m_timeScale = timeScale;
-    emit timeScaleChanged(timeScale);
-}
-
-float ShowManager::tickSize() const
-{
-    return m_tickSize;
-}
-
-bool ShowManager::stretchFunctions() const
-{
-    return m_stretchFunctions;
-}
-
-void ShowManager::setStretchFunctions(bool stretchFunctions)
-{
-    if (m_stretchFunctions == stretchFunctions)
-        return;
-
-    m_stretchFunctions = stretchFunctions;
-    emit stretchFunctionsChanged(stretchFunctions);
-}
-
-bool ShowManager::gridEnabled() const
-{
-    return m_gridEnabled;
-}
-
-void ShowManager::setGridEnabled(bool gridEnabled)
-{
-    if (m_gridEnabled == gridEnabled)
-        return;
-
-    m_gridEnabled = gridEnabled;
-    emit gridEnabledChanged(m_gridEnabled);
-}
-
 /*********************************************************************
   * Show Items
   ********************************************************************/
@@ -225,9 +308,14 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
             m_currentShow = nullptr;
             return;
         }
-        connect(m_currentShow,SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
+
+        Tardis::instance()->enqueueAction(Tardis::FunctionCreate, m_currentShow->id(), QVariant(),
+                                          Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, m_currentShow->id()));
+
+        connect(m_currentShow, SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
         emit currentShowIDChanged(m_currentShow->id());
         emit showNameChanged(m_currentShow->name());
+        emit isEditingChanged();
     }
 
     Track *selectedTrack = nullptr;
@@ -235,9 +323,14 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
     // if no Track index is provided, then add a new one
     if (trackIdx == -1)
     {
-        selectedTrack = new Track();
+        selectedTrack = new Track(Function::invalidId(), m_currentShow);
         selectedTrack->setName(tr("Track %1").arg(m_currentShow->tracks().count() + 1));
         m_currentShow->addTrack(selectedTrack);
+
+        Tardis::instance()->enqueueAction(
+            Tardis::ShowManagerAddTrack, m_currentShow->id(), QVariant(),
+            Tardis::instance()->actionToByteArray(Tardis::ShowManagerAddTrack, m_currentShow->id(), selectedTrack->id()));
+
         trackIdx = m_currentShow->tracks().count() - 1;
         emit tracksChanged();
     }
@@ -251,7 +344,7 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
         selectedTrack = m_currentShow->tracks().at(trackIdx);
     }
 
-    for (QVariant vID : idsList) // C++11
+    for (QVariant &vID : idsList) // C++11
     {
         quint32 functionID = vID.toUInt();
         if (functionID == m_currentShow->id())
@@ -266,9 +359,25 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
             continue;
 
         ShowFunction *showFunc = selectedTrack->createShowFunction(functionID);
+
+        if (timeDivision() == Show::Time)
+        {
+            func->setTempoType(Function::Time);
+            showFunc->setDuration(func->totalDuration() ? func->totalDuration() : 5000);
+        }
+        else
+        {
+            func->setTempoType(Function::Beats);
+            if (func->type() == Function::AudioType || func->type() == Function::VideoType)
+                func->setTotalDuration(func->duration());
+            showFunc->setDuration(func->totalDuration() ? func->totalDuration() : 4000);
+        }
         showFunc->setStartTime(startTime);
-        showFunc->setDuration(func->totalDuration() ? func->totalDuration() : 5000);
         showFunc->setColor(ShowFunction::defaultColor(func->type()));
+
+        Tardis::instance()->enqueueAction(
+            Tardis::ShowManagerAddFunction, m_currentShow->id(), QVariant(),
+            Tardis::instance()->actionToByteArray(Tardis::ShowManagerAddFunction, m_currentShow->id(), showFunc->id()));
 
         QQuickItem *newItem = qobject_cast<QQuickItem*>(siComponent->create());
 
@@ -277,23 +386,35 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
         newItem->setProperty("sfRef", QVariant::fromValue(showFunc));
         newItem->setProperty("funcRef", QVariant::fromValue(func));
 
-        quint32 itemIndex = m_itemsMap.isEmpty() ? 0 : m_itemsMap.lastKey() + 1;
-        quint32 itemID = trackIdx << 16 | itemIndex;
-        m_itemsMap[itemID] = newItem;
+        m_itemsMap[showFunc->id()] = newItem;
         startTime += showFunc->duration();
     }
 
     emit showDurationChanged(m_currentShow->totalDuration());
 }
 
+void ShowManager::addShowItem(ShowFunction *sf, quint32 trackId)
+{
+    QQuickItem *itemsArea = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("showItemsArea"));
+    QQuickItem *contentItem = qobject_cast<QQuickItem*>(itemsArea->findChild<QObject *>("contentItem"));
+    QQuickItem *newItem = qobject_cast<QQuickItem*>(siComponent->create());
+    Function *func = m_doc->function(sf->functionID());
+
+    newItem->setParentItem(contentItem);
+    newItem->setProperty("trackIndex", trackId);
+    newItem->setProperty("sfRef", QVariant::fromValue(sf));
+    newItem->setProperty("funcRef", QVariant::fromValue(func));
+    m_itemsMap[sf->id()] = newItem;
+}
+
 void ShowManager::deleteShowItems(QVariantList data)
 {
-    Q_UNUSED(data)
+    Q_UNUSED(data);
 
     if (m_currentShow == nullptr)
         return;
 
-    foreach(SelectedShowItem ssi, m_selectedItems)
+    foreach (SelectedShowItem ssi, m_selectedItems)
     {
         quint32 trackIndex = ssi.m_trackIndex;
         qDebug() << "Selected item has track index:" << trackIndex;
@@ -306,18 +427,28 @@ void ShowManager::deleteShowItems(QVariantList data)
         }
 
         Track *track = m_currentShow->tracks().at(trackIndex);
+        quint32 sfId = ssi.m_showFunc->id();
         track->removeShowFunction(ssi.m_showFunc, true);
         if (ssi.m_item != nullptr)
         {
-            quint32 key = m_itemsMap.key(ssi.m_item, UINT_MAX);
-            if (key != UINT_MAX)
-                m_itemsMap.remove(key);
+            m_itemsMap.remove(sfId);
             delete ssi.m_item;
         }
     }
 
     m_selectedItems.clear();
     emit selectedItemsCountChanged(0);
+}
+
+void ShowManager::deleteShowItem(ShowFunction *sf)
+{
+    quint32 sfId = sf->id();
+    QQuickItem *item = m_itemsMap.value(sfId, nullptr);
+    if (item != nullptr)
+    {
+        m_itemsMap.remove(sfId);
+        delete item;
+    }
 }
 
 bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int newTrackIdx, int newStartTime)
@@ -333,7 +464,7 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
     if (newTrackIdx >= m_currentShow->tracks().count())
     {
         // create a new track here
-        dstTrack = new Track();
+        dstTrack = new Track(Function::invalidId(), m_currentShow);
         dstTrack->setName(tr("Track %1").arg(m_currentShow->tracks().count() + 1));
         m_currentShow->addTrack(dstTrack);
         emit tracksChanged();
@@ -347,20 +478,22 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
             return false;
     }
 
+    int newTime = newStartTime;
+
     if (m_gridEnabled)
     {
         // calculate the X position from time and time scale
-        float xPos = ((float)newStartTime * m_tickSize) / (m_timeScale * 1000.0); // timescale * 1000 : tickSize = time : x
+        // timescale * 1000 : tickSize = time : x
+        float xPos = ((float)newStartTime * m_tickSize) / (m_timeScale * 1000.0);
         // round to the nearest snap position
         xPos = qRound(xPos / m_tickSize) * m_tickSize;
         // recalculate the time from pixels
-        float time = xPos * (1000 * m_timeScale) / m_tickSize; // xPos : time = tickSize : timescale * 1000
-        sf->setStartTime(time);
+        // xPos : time = tickSize : timescale * 1000
+        newTime = xPos * (1000 * m_timeScale) / m_tickSize;
     }
-    else
-    {
-        sf->setStartTime(newStartTime);
-    }
+
+    Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetStartTime, sf->id(), sf->startTime(), newTime);
+    sf->setStartTime(newTime);
 
     // check if we need to move the ShowFunction to a different Track
     if (newTrackIdx != originalTrackIdx)
@@ -371,6 +504,44 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
     }
 
     m_doc->setModified();
+
+    return true;
+}
+
+bool ShowManager::setShowItemStartTime(ShowFunction *sf, int startTime)
+{
+    if (sf == nullptr)
+        return false;
+
+    Track *track = m_currentShow->getTrackFromShowFunctionID(sf->id());
+    if (track == nullptr)
+        return false;
+
+    bool overlapping = checkOverlapping(track, sf, startTime, sf->duration());
+    if (overlapping)
+        return false;
+
+    Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetStartTime, sf->id(), sf->startTime(), startTime);
+    sf->setStartTime(startTime);
+
+    return true;
+}
+
+bool ShowManager::setShowItemDuration(ShowFunction *sf, int duration)
+{
+    if (sf == nullptr)
+        return false;
+
+    Track *track = m_currentShow->getTrackFromShowFunctionID(sf->id());
+    if (track == nullptr)
+        return false;
+
+    bool overlapping = checkOverlapping(track, sf, sf->startTime(), duration);
+    if (overlapping)
+        return false;
+
+    Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetDuration, sf->id(), sf->duration(), duration);
+    sf->setDuration(duration);
 
     return true;
 }
@@ -406,11 +577,9 @@ void ShowManager::renderView(QQuickItem *parent)
 
     int trkIdx = 0;
 
-    foreach(Track *track, m_currentShow->tracks())
+    foreach (Track *track, m_currentShow->tracks())
     {
-        int itemIndex = 0;
-
-        foreach(ShowFunction *sf, track->showFunctions())
+        foreach (ShowFunction *sf, track->showFunctions())
         {
             Function *func = m_doc->function(sf->functionID());
             if (func == nullptr)
@@ -423,9 +592,7 @@ void ShowManager::renderView(QQuickItem *parent)
             newItem->setProperty("sfRef", QVariant::fromValue(sf));
             newItem->setProperty("funcRef", QVariant::fromValue(func));
 
-            quint32 itemID = trkIdx << 16 | itemIndex;
-            m_itemsMap[itemID] = newItem;
-            itemIndex++;
+            m_itemsMap[sf->id()] = newItem;
         }
 
         trkIdx++;
@@ -444,20 +611,6 @@ int ShowManager::showDuration() const
         return 0;
 
     return m_currentShow->totalDuration();
-}
-
-int ShowManager::currentTime() const
-{
-    return m_currentTime;
-}
-
-void ShowManager::setCurrentTime(int currentTime)
-{
-    if (m_currentTime == currentTime)
-        return;
-
-    m_currentTime = currentTime;
-    emit currentTimeChanged(currentTime);
 }
 
 void ShowManager::playShow()

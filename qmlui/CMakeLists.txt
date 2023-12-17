@@ -41,6 +41,7 @@ add_executable(${module_name} WIN32 MACOSX_BUNDLE
     functionmanager.cpp functionmanager.h
     importmanager.cpp importmanager.h
     inputoutputmanager.cpp inputoutputmanager.h
+    inputprofileeditor.cpp inputprofileeditor.h
     listmodel.cpp listmodel.h
     main.cpp
     mainview2d.cpp mainview2d.h
@@ -1010,6 +1011,7 @@ target_include_directories(${module_name} PRIVATE
     ../engine/audio/src
     ../engine/src
     ../plugins/interfaces
+    ../plugins/midi/src/common
     fixtureeditor
     tardis
     virtualconsole

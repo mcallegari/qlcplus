@@ -99,6 +99,7 @@ class Function : public QObject
     Q_PROPERTY(Type type READ type CONSTANT)
     Q_PROPERTY(quint32 totalDuration READ totalDuration WRITE setTotalDuration NOTIFY totalDurationChanged)
     Q_PROPERTY(RunOrder runOrder READ runOrder WRITE setRunOrder NOTIFY runOrderChanged)
+    Q_PROPERTY(TempoType tempoType READ tempoType WRITE setTempoType NOTIFY tempoTypeChanged FINAL)
 
 public:
     /**
@@ -404,8 +405,18 @@ private:
      * Tempo type
      *********************************************************************/
 public:
-    enum TempoType { Original = -1, Time = 0, Beats = 1 };
-    enum FractionsType { NoFractions = 0, ByTwoFractions, AllFractions };
+    enum TempoType
+    {
+        Original = -1,
+        Time = 0,
+        Beats = 1
+    };
+    enum FractionsType
+    {
+        NoFractions = 0,
+        ByTwoFractions,
+        AllFractions
+    };
 #if QT_VERSION >= 0x050500
     Q_ENUM(TempoType)
     Q_ENUM(FractionsType)
@@ -451,6 +462,9 @@ public:
 
     /** Set the override speed type (done by a Chaser) */
     void setOverrideTempoType(TempoType type);
+
+signals:
+    void tempoTypeChanged();
 
 protected slots:
     /**
@@ -628,7 +642,7 @@ public:
      *********************************************************************/
 public:
     /** Flash the function */
-    virtual void flash(MasterTimer* timer);
+    virtual void flash(MasterTimer* timer, bool shouldOverride, bool forceLTP);
 
     /** UnFlash the function */
     virtual void unFlash(MasterTimer* timer);

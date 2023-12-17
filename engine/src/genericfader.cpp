@@ -204,6 +204,11 @@ void GenericFader::write(Universe *universe)
         {
             universe->writeRelative(address, value);
         }
+        else if (flags & FadeChannel::Flashing)
+        {
+            universe->write(address, value, flags & FadeChannel::ForceLTP);
+            continue;
+        }
         else
         {
             universe->writeBlended(address, value, m_blendMode);

@@ -34,7 +34,6 @@
 #include "doc.h"
 #include "fixture.h"
 #include "apputil.h"
-#include "mastertimer.h"
 #include "consolechannel.h"
 
 /*****************************************************************************
@@ -120,30 +119,34 @@ void ConsoleChannel::init()
     connect(m_slider, SIGNAL(controlClicked()),
             this, SLOT(slotControlClicked()));
 
+    QString style = "QSlider::groove:vertical { background: transparent; width: 32px; } "
+
+                    "QSlider::handle:vertical { "
+                    "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #000, stop:0.55 #888, stop:1 #999);"
+                    "border: 1px solid #5c5c5c;"
+                    "border-radius: 4px; margin: 0 -1px; height: 20px; }"
+
+                    "QSlider::handle:vertical:hover {"
+                    "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #eee, stop:0.45 #999, stop:0.50 #ff0000, stop:0.55 #999, stop:1 #ccc);"
+                    "border: 1px solid #000; }"
+
+                    "QSlider::add-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #78d, stop: 1 #97CDEC );"
+                    "border: 1px solid #5288A7; margin: 0 13px; }"
+
+                    "QSlider::sub-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #888, stop: 1 #ddd );"
+                    "border: 1px solid #8E8A86; margin: 0 13px; }"
+
+                    "QSlider::handle:vertical:disabled { background: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #444, stop:0.55 #888, stop:1 #999);"
+                    "border: 1px solid #666; }";
+
+    QString userStyle = AppUtil::getStyleSheet("CONSOLE_CHANNEL_COMMON");
+    if (!userStyle.isEmpty())
+        style = userStyle;
+
     m_slider->setMinimumWidth(25);
     m_slider->setMaximumWidth(40);
     m_slider->setVisible(false);
-    m_slider->setSliderStyleSheet(
-        "QSlider::groove:vertical { background: transparent; width: 32px; } "
-
-        "QSlider::handle:vertical { "
-        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #000, stop:0.55 #888, stop:1 #999);"
-        "border: 1px solid #5c5c5c;"
-        "border-radius: 4px; margin: 0 -1px; height: 20px; }"
-
-        "QSlider::handle:vertical:hover {"
-        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #eee, stop:0.45 #999, stop:0.50 #ff0000, stop:0.55 #999, stop:1 #ccc);"
-        "border: 1px solid #000; }"
-
-        "QSlider::add-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #78d, stop: 1 #97CDEC );"
-        "border: 1px solid #5288A7; margin: 0 13px; }"
-
-        "QSlider::sub-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #888, stop: 1 #ddd );"
-        "border: 1px solid #8E8A86; margin: 0 13px; }"
-
-        "QSlider::handle:vertical:disabled { background: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #444, stop:0.55 #888, stop:1 #999);"
-        "border: 1px solid #666; }"
-        );
+    m_slider->setSliderStyleSheet(style);
     layout()->addWidget(m_slider);
     //layout()->setAlignment(m_slider, Qt::AlignHCenter);
 

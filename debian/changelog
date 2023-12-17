@@ -1,12 +1,22 @@
 qlcplus (4.12.8) stable; urgency=low
 
   * engine: fix Chaser random startup (thanks to Dennis Suermann)
+  * engine: do not fade out looped audio
+  * engine: fix stopping audio with fade in and fade out while fading in
   * Virtual Console/Slider: fix switching from playback to submaster mode
   * Virtual Console/XY Pad: fix Scene preset controlling wrong channels
+  * Virtual Console/Clock: fix running a schedule the day after
+  * Virtual Console/Button: Scene flashing can force LTP and override (thanks to Dennis Suermann)
   * Plugins/ArtNet: add default standard transmission mode as per protocol specifications
   * Plugins/ArtNet,E1.31,OSC: add a parameter to wait for interfaces to be ready
   * Plugins/DMX USB: add support for DMXKing MAX products
+  * Plugins/DMX USB: FTDI USB device no longer disappear after closing QLC+ on Linux
   * Fixture Editor: fix aliases not updated when renaming a mode
+  * Web Access: add support for Cue List side fader and buttons layout (thanks to Itay Lifshitz)
+  * Web Access: add support for Slider knob appearance (thanks to Itay Lifshitz)
+  * Web Access: add VC Animation widget support (thanks to Itay Lifshitz)
+  * Web Access: add event to notify Function start/stop
+  * Input profiles: added PMJ 9 Faders Controller, Circus and MidiKey
   * New fixture: Ibiza Mini Moving Star Wash (thanks to Chris Shucksmith)
   * New fixtures: FOS Technologies IQ Par, IQ 28x12 Wash, Iridium 75W Spot (thanks to Maurizio Aru)
   * New fixture: Varytec Hero Spot 60 (thanks to Hans-Jürgen Tappe)
@@ -29,6 +39,10 @@ qlcplus (4.12.8) stable; urgency=low
   * New fixture: Shehds LED Flat Par 18x18W RGBWA+UV (thanks to Santiago Benejam)
   * New fixture: Eurolite TMH-15 (thanks to Nicolas Rasor)
   * New fixtures: Shehds JMS WEBB LED Wash Big Bee Eye 19X40W, LED 230W Beam Moving Head (thanks to István Király,  Feiyu Shehds)
+  * New fixture: Shehds GalaxyJet Waterproof IP65 380W 19R Beam Moving Head (thanks to István Király,  Feiyu Shehds)
+  * New fixture: Martin Ego X6 (thanks to Michael Tosatto)
+  * New fixture: Blizzard Lighting LB Hex Unplugged (thanks to David Sparks)
+  * New fixture: Eurolite LED Strobe SMD PRO 132 DMX RGB (thanks to Fede79)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 17 Dec 2023 12:13:14 +0200
 

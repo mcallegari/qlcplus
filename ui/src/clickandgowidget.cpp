@@ -18,6 +18,7 @@
 */
 
 #include <QApplication>
+#include <QMouseEvent>
 #include <QPainter>
 #include <QScreen>
 #include <qmath.h>
@@ -27,7 +28,6 @@
 #include "clickandgowidget.h"
 #include "qlccapability.h"
 #include "qlcmacros.h"
-#include "vcslider.h"
 #include "gradient.h"
 
 #define CELL_W  150

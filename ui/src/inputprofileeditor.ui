@@ -307,11 +307,6 @@
            <string>Type</string>
           </property>
          </column>
-         <column>
-          <property name="text">
-           <string>Behaviour</string>
-          </property>
-         </column>
         </widget>
        </item>
        <item row="3" column="1">

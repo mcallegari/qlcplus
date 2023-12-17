@@ -114,6 +114,9 @@ signals:
     /** Emitted when a Function is started */
     void functionStarted(quint32 id);
 
+    /** Emitted when a Function has just been stopped */
+    void functionStopped(quint32 id);
+
 private:
     /** Execute one timer tick for each registered Function */
     void timerTickFunctions(QList<Universe *> universes);

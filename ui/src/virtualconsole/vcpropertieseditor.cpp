@@ -23,17 +23,13 @@
 #include <QSpinBox>
 #include <QAction>
 
-#include "qlcinputprofile.h"
-#include "qlcinputchannel.h"
-#include "qlcioplugin.h"
-#include "qlcfile.h"
-
 #include "vcpropertieseditor.h"
 #include "selectinputchannel.h"
-#include "virtualconsole.h"
+#include "inputoutputmap.h"
+#include "qlcinputsource.h"
 #include "vcproperties.h"
 #include "inputpatch.h"
-#include "vcframe.h"
+#include "function.h"
 
 /*****************************************************************************
  * Initialization
@@ -322,6 +318,8 @@ void VCPropertiesEditor::slotSpeedDialConfirmed()
         m_speedValueEdit->setText(Function::speedToString(m_speedValueEdit->text().toUInt()));
     }
 }
+
+
 
 /*****************************************************************************
  * Grand Master page

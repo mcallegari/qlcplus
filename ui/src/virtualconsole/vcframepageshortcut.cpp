@@ -24,7 +24,6 @@
 
 #include "vcframepageshortcut.h"
 #include "vcwidget.h"
-#include "qlcfile.h"
 
 VCFramePageShortcut::VCFramePageShortcut(int pageIndex, quint8 inputID)
     : m_id(inputID)

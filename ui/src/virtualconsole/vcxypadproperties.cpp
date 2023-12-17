@@ -26,7 +26,6 @@
 #include <QAction>
 
 #include "qlcfixturemode.h"
-#include "qlcinputchannel.h"
 #include "qlcchannel.h"
 #include "qlcmacros.h"
 

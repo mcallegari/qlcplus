@@ -28,7 +28,6 @@
 #include "monitorfixtureitem.h"
 #include "qlcfixturehead.h"
 #include "qlcfixturemode.h"
-#include "qlcfixturedef.h"
 #include "qlccapability.h"
 #include "fixture.h"
 #include "doc.h"

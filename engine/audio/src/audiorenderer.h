@@ -93,8 +93,12 @@ public:
 
     void adjustIntensity(qreal fraction);
 
+    /* Get/Set the looping flag */
+    bool isLooped();
     void setLooped(bool looped);
 
+private:
+    bool m_looped;
 
     /*********************************************************************
      * Fade sequences
@@ -145,7 +149,6 @@ private:
     unsigned char audioData[8 * 1024];
     qint64 audioDataRead;
     qint64 pendingAudioBytes;
-    bool m_looped;
 };
 
 /** @} */

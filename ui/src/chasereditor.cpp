@@ -29,9 +29,6 @@
 #include <QUrl>
 #include <QAction>
 
-#include "qlcfixturedef.h"
-#include "qlcmacros.h"
-
 #include "functionselection.h"
 #include "speeddialwidget.h"
 #include "chasereditor.h"
@@ -39,7 +36,6 @@
 #include "chaserstep.h"
 #include "sequence.h"
 #include "apputil.h"
-#include "fixture.h"
 #include "chaser.h"
 #include "scene.h"
 #include "doc.h"

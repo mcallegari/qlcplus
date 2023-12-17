@@ -51,17 +51,12 @@
 
 #include "vcbuttonproperties.h"
 #include "vcpropertieseditor.h"
-#include "functionselection.h"
-#include "clickandgoslider.h"
-#include "qlcinputchannel.h"
 #include "virtualconsole.h"
 #include "chaseraction.h"
 #include "mastertimer.h"
 #include "vcsoloframe.h"
-#include "inputpatch.h"
 #include "vcbutton.h"
 #include "function.h"
-#include "fixture.h"
 #include "apputil.h"
 #include "chaser.h"
 #include "doc.h"
@@ -77,6 +72,8 @@ VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     , m_blackoutFadeOutTime(0)
     , m_startupIntensityEnabled(false)
     , m_startupIntensity(1.0)
+    , m_flashOverrides(false)
+    , m_flashForceLTP(false)
 {
     /* Set the class name "VCButton" as the object name as well */
     setObjectName(VCButton::staticMetaObject.className());
@@ -170,6 +167,9 @@ bool VCButton::copyFrom(const VCWidget* widget)
     setStopAllFadeOutTime(button->stopAllFadeTime());
     setAction(button->action());
     m_state = button->m_state;
+
+    m_flashForceLTP = button->flashForceLTP();
+    m_flashOverrides = button->flashOverrides();
 
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
@@ -669,6 +669,34 @@ void VCButton::slotAttributeChanged(int value)
 #endif
 }
 
+
+
+/*****************************************************************************
+ * Flash Properties
+ *****************************************************************************/
+
+bool VCButton::flashOverrides() const
+{
+    return m_flashOverrides;
+}
+
+void VCButton::setFlashOverride(bool shouldOverride)
+{
+    m_flashOverrides = shouldOverride;
+}
+
+bool VCButton::flashForceLTP() const
+{
+    return m_flashForceLTP;
+}
+
+void VCButton::setFlashForceLTP(bool forceLTP)
+{
+    m_flashForceLTP = forceLTP;
+}
+
+
+
 /*****************************************************************************
  * Button press / release handlers
  *****************************************************************************/
@@ -725,7 +753,7 @@ void VCButton::pressFunction()
         if (f != NULL)
         {
             adjustFunctionIntensity(f, intensity());
-            f->flash(m_doc->masterTimer());
+            f->flash(m_doc->masterTimer(), flashOverrides(), flashForceLTP());
             setState(Active);
         }
     }
@@ -917,6 +945,12 @@ bool VCButton::loadXML(QXmlStreamReader &root)
             setAction(stringToAction(root.readElementText()));
             if (attrs.hasAttribute(KXMLQLCVCButtonStopAllFadeTime))
                 setStopAllFadeOutTime(attrs.value(KXMLQLCVCButtonStopAllFadeTime).toString().toInt());
+
+            if (attrs.hasAttribute(KXMLQLCVCButtonFlashOverride))
+                setFlashOverride(attrs.value(KXMLQLCVCButtonFlashOverride).toInt());
+
+            if (attrs.hasAttribute(KXMLQLCVCButtonFlashForceLTP))
+                setFlashForceLTP(attrs.value(KXMLQLCVCButtonFlashForceLTP).toInt());
         }
         else if (root.name() == KXMLQLCVCButtonKey)
         {
@@ -974,6 +1008,11 @@ bool VCButton::saveXML(QXmlStreamWriter *doc)
     if (action() == StopAll && stopAllFadeTime() != 0)
     {
         doc->writeAttribute(KXMLQLCVCButtonStopAllFadeTime, QString::number(stopAllFadeTime()));
+    }
+    else if (action() == Flash)
+    {
+        doc->writeAttribute(KXMLQLCVCButtonFlashOverride, QString::number(flashOverrides()));
+        doc->writeAttribute(KXMLQLCVCButtonFlashForceLTP, QString::number(flashForceLTP()));
     }
     doc->writeCharacters(actionToString(action()));
     doc->writeEndElement();

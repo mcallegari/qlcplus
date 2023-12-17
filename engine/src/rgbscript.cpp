@@ -36,8 +36,6 @@
 
 #include "rgbscript.h"
 #include "rgbscriptscache.h"
-#include "qlcconfig.h"
-#include "qlcfile.h"
 
 QScriptEngine* RGBScript::s_engine = NULL;
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)

@@ -43,6 +43,8 @@
 #include "vclabel.h"
 #include "vcframe.h"
 #include "vcclock.h"
+#include "vcmatrix.h"
+#include "rgbalgorithm.h"
 #include "qlcfile.h"
 #include "chaser.h"
 #include "doc.h"
@@ -83,6 +85,10 @@ WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstanc
             this, SLOT(slotHandleWebSocketRequest(QHttpConnection*,QString)));
     connect(m_httpServer, SIGNAL(webSocketConnectionClose(QHttpConnection*)),
             this, SLOT(slotHandleWebSocketClose(QHttpConnection*)));
+    connect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)),
+            this, SLOT(slotFunctionStarted(quint32)));
+    connect(m_doc->masterTimer(), SIGNAL(functionStopped(quint32)),
+            this, SLOT(slotFunctionStopped(quint32)));
 
     m_httpServer->listen(QHostAddress::Any, portNumber ? portNumber : DEFAULT_PORT_NUMBER);
 
@@ -767,6 +773,10 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                     cue->slotNextCue();
                 else if (cmdList[1] == "STEP")
                     cue->playCueAtIndex(cmdList[2].toInt());
+                else if (cmdList[1] == "CUE_SHOWPANEL")
+                    cue->slotSideFaderButtonChecked(cmdList[2] == "1" ? false : true);
+                else if (cmdList[1] == "CUE_SIDECHANGE")
+                    cue->slotSetSideFaderValue((cmdList[2]).toInt());
             }
             break;
             case VCWidget::FrameWidget:
@@ -788,6 +798,23 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                     clock->resetTimer();
             }
             break;
+            case VCWidget::AnimationWidget:
+            {
+                VCMatrix *matrix = qobject_cast<VCMatrix*>(widget);
+                if (cmdList[1] == "MATRIX_SLIDER_CHANGE")
+                    matrix->slotSetSliderValue(cmdList[2].toInt());
+                if (cmdList[1] == "MATRIX_COMBO_CHANGE")
+                    matrix->slotSetAnimationValue(cmdList[2]);
+                if (cmdList[1] == "MATRIX_COLOR_CHANGE" && cmdList[2] == "START")
+                    matrix->slotStartColorChanged(cmdList[3].toInt());
+                if (cmdList[1] == "MATRIX_COLOR_CHANGE" && cmdList[2] == "END")
+                    matrix->slotEndColorChanged(cmdList[3].toInt());
+                if (cmdList[1] == "MATRIX_KNOB")
+                    matrix->slotMatrixControlKnobValueChanged(cmdList[2].toInt(), cmdList[3].toInt());
+                if (cmdList[1] == "MATRIX_PUSHBUTTON")
+                    matrix->slotMatrixControlPushButtonClicked(cmdList[2].toInt());
+            }
+            break;
             default:
             break;
         }
@@ -804,6 +831,20 @@ void WebAccess::slotHandleWebSocketClose(QHttpConnection *conn)
     }
 
     m_webSocketsList.removeOne(conn);
+}
+
+void WebAccess::slotFunctionStarted(quint32 fid)
+{
+    QString wsMessage = QString("FUNCTION|%1|Running").arg(fid);
+
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
+void WebAccess::slotFunctionStopped(quint32 fid)
+{
+    QString wsMessage = QString("FUNCTION|%1|Stopped").arg(fid);
+
+    sendWebSocketMessage(wsMessage.toUtf8());
 }
 
 bool WebAccess::sendFile(QHttpResponse *response, QString filename, QString contentType)
@@ -1052,33 +1093,62 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
             "background-color: " + slider->backgroundColor().name() + ";" +
             getWidgetBackgroundImage(slider) + "\">\n";
 
-    str += "<div id=\"slv" + slID + "\" "
-            "class=\"vcslLabel\" style=\"top:0px;\">" +
-            slider->topLabelText() + "</div>\n";
+    str += "<div style=\"height: 100%; display: flex; flex-direction: column; justify-content: space-between; \">";
+
+    str += "<div id=\"slv" + slID + "\" class=\"vcslLabel\">" + slider->topLabelText() + "</div>\n";
+
+    int mt = slider->invertedAppearance() ? -slider->height() + 50 : slider->height() - 50;
+    int rotate = slider->invertedAppearance() ? 90 : 270;
+    int min = 0;
+    int max = 255;
+    if (slider->sliderMode() == VCSlider::Level) {
+        min = slider->levelLowLimit();
+        max = slider->levelHighLimit();
+    }
 
     str +=  "<input type=\"range\" class=\"vVertical\" "
             "id=\"" + slID + "\" "
             "oninput=\"slVchange(" + slID + ");\" ontouchmove=\"slVchange(" + slID + ");\" "
-            "style=\""
+            "style=\"display: "+(slider->widgetStyle() == VCSlider::SliderWidgetStyle::WSlider ? "block" : "none") +"; "
             "width: " + QString::number(slider->height() - 50) + "px; "
-            "margin-top: " + QString::number(slider->height() - 50) + "px; "
-            "margin-left: " + QString::number(slider->width() / 2) + "px;\" ";
+            "margin-top: " + QString::number(mt) + "px; "
+            "margin-left: " + QString::number(slider->width() / 2) + "px; "
+            "--rotate: "+QString::number(rotate)+"\" "
+            "min=\""+QString::number(min)+"\" max=\""+QString::number(max)+"\" "
+            "step=\"1\" value=\"" + QString::number(slider->sliderValue()) + "\">\n";
 
-    if (slider->sliderMode() == VCSlider::Level)
-        str += "min=\"" + QString::number(slider->levelLowLimit()) + "\" max=\"" +
-                QString::number(slider->levelHighLimit()) + "\" ";
-    else
-        str += "min=\"0\" max=\"255\" ";
+    if (slider->widgetStyle() == VCSlider::SliderWidgetStyle::WKnob) {
+        int shortSide = slider->width() > slider->height() ? slider->height() : slider->width();
+        shortSide = shortSide - 50;
+        float arcWidth = shortSide / 15;
+        float pieWidth = shortSide - (arcWidth * 2);
+        float knobWrapperWidth = pieWidth - arcWidth;
+        float knobWidth = knobWrapperWidth - (arcWidth * 3);
+        float spotWidth = knobWrapperWidth * 2 / 15;
+        if (spotWidth < 6) spotWidth = 6;
 
-    str += "step=\"1\" value=\"" + QString::number(slider->sliderValue()) + "\">\n";
+        str += "<div class=\"pieWrapper\" data=\"" + slID + "\">";
+        str += "<div class=\"pie\" id=\"pie" + slID + "\" style=\"--degValue:0;--pieWidth: "+QString::number(pieWidth)+"px;\">";
+        str += "<div class=\"knobWrapper\" id=\"knobWrapper" + slID + "\" style=\"--knobWrapperWidth: "+QString::number(knobWrapperWidth)+"px;\">";
+        str += "<div class=\"knob\" id=\"knob" + slID + "\" style=\"--knobWidth: "+QString::number(knobWidth)+"px;\">";
+        str += "<div class=\"spot\" id=\"spot" + slID + "\" style=\"--spotWidth: "+QString::number(spotWidth)+"px;\"></div>";
+        str += "</div>\n</div>\n</div>\n</div>\n";
 
-    str += "<div id=\"sln" + slID + "\" "
-            "class=\"vcslLabel\" style=\"bottom:0px;\">" +
-            slider->caption() + "</div>\n"
-            "</div>\n";
+        m_JScode += "maxVal[" + slID + "] = " + QString::number(max) + "; \n";
+        m_JScode += "minVal[" + slID + "] = " + QString::number(min) + "; \n";
+        m_JScode += "initVal[" + slID + "] = " + QString::number(slider->sliderValue()) + "; \n";
+        m_JScode += "inverted[" + slID + "] = " + QString::number(slider->invertedAppearance()) + "; \n";
+        m_JScode += "isDragging[" + slID + "] = false;\n";
+    }
+
+    str += "<div id=\"sln" + slID + "\" class=\"vcslLabel\">" +slider->caption() + "</div>";
+
+    str += "</div>\n";
+    str += "</div>\n";
 
     connect(slider, SIGNAL(valueChanged(QString)),
             this, SLOT(slotSliderValueChanged(QString)));
+
     return str;
 }
 
@@ -1149,6 +1219,89 @@ void WebAccess::slotCueIndexChanged(int idx)
     sendWebSocketMessage(wsMessage.toUtf8());
 }
 
+void WebAccess::slotCueProgressStateChanged()
+{
+    VCCueList *cue = qobject_cast<VCCueList *>(sender());
+    if (cue == NULL)
+        return;
+
+    QString wsMessage = QString("%1|CUE_PROGRESS|%2|%3").arg(cue->id()).arg(cue->progressPercent()).arg(cue->progressText());
+
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
+void WebAccess::slotCueShowSideFaderPanel()
+{
+    VCCueList *cue = qobject_cast<VCCueList *>(sender());
+    if (cue == NULL)
+        return;
+
+    QString wsMessage = QString("%1|CUE_SHOWPANEL|%2").arg(cue->id()).arg(cue->sideFaderButtonChecked());
+
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
+void WebAccess::slotCueSideFaderValueChanged()
+{
+    VCCueList *cue = qobject_cast<VCCueList *>(sender());
+    if (cue == NULL)
+        return;
+
+    QString wsMessage = QString("%1|CUE_SIDECHANGE|%2|%3|%4|%5|%6|%7|%8")
+                            .arg(cue->id())
+                            .arg(cue->topPercentageValue())
+                            .arg(cue->bottomPercentageValue())
+                            .arg(cue->topStepValue())
+                            .arg(cue->bottomStepValue())
+                            .arg(cue->primaryTop())
+                            .arg(cue->sideFaderValue())
+                            .arg(cue->sideFaderMode() == VCCueList::FaderMode::Steps);
+
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
+void WebAccess::slotCuePlaybackStateChanged()
+{
+    VCCueList *cue = qobject_cast<VCCueList *>(sender());
+    if (cue == NULL)
+        return;
+    Chaser *chaser = cue->chaser();
+    QString playbackButtonImage = "player_play.png";
+    bool playbackButtonPaused = false;
+    QString stopButtonImage = "player_stop.png";
+    bool stopButtonPaused = false;
+
+    if (chaser->isRunning()) {
+        if (cue->playbackLayout() == VCCueList::PlayPauseStop) {
+            if (chaser->isPaused()) {
+                playbackButtonImage = "player_play.png";
+                playbackButtonPaused = true;
+            } else {
+                playbackButtonImage  = "player_pause.png";
+            }
+        } else if (cue->playbackLayout() == VCCueList::PlayStopPause) {
+            playbackButtonImage = "player_stop.png";
+            stopButtonImage = "player_pause.png";
+            if (chaser->isPaused()) {
+                stopButtonPaused = true;
+            }
+        }
+    } else {
+        if (cue->playbackLayout() == VCCueList::PlayStopPause) {
+            stopButtonImage = "player_pause.png";
+        }
+    }
+
+    QString wsMessage = QString("%1|CUE_CHANGE|%2|%3|%4|%5")
+                            .arg(cue->id())
+                            .arg(playbackButtonImage)
+                            .arg(QString::number(playbackButtonPaused))
+                            .arg(stopButtonImage)
+                            .arg(QString::number(stopButtonPaused));
+
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
 QString WebAccess::getCueListHTML(VCCueList *cue)
 {
     QString str = "<div id=\"" + QString::number(cue->id()) + "\" "
@@ -1158,15 +1311,85 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
             "px; height: " + QString::number(cue->height()) + "px; "
             "background-color: " + cue->backgroundColor().name() + ";\">\n";
 
-    str += "<div style=\"width: 100%; height: " + QString::number(cue->height() - 34) + "px; overflow: scroll;\" >\n";
+    QString topStepBgColor = "inherit";
+    QString bottomStepBgColor = "inherit";
+    QString playbackButtonImage = "player_play.png";
+    bool playbackButtonPaused = false;
+    QString stopButtonImage = "player_stop.png";
+    bool stopButtonPaused = false;
+
+    Chaser *chaser = cue->chaser();
+    Doc *doc = m_vc->getDoc();
+
+    if (cue->primaryTop())
+    {
+        topStepBgColor = cue->topStepValue() != "" ? "#4E8DDE" : "inherit";
+        bottomStepBgColor = cue->sideFaderMode() == VCCueList::FaderMode::Steps && cue->bottomStepValue() != "" ? "#4E8DDE" : cue->bottomStepValue() != "" ? "orange" : "inherit";
+    }
+    else
+    {
+        topStepBgColor = cue->topStepValue() != "" ? "orange" : "inherit";
+        bottomStepBgColor = cue->sideFaderMode() == VCCueList::FaderMode::Steps || cue->bottomStepValue() != "" ? "#4E8DDE" : "inherit";
+    }
+
+    // fader mode
+    if (cue->sideFaderMode() != VCCueList::FaderMode::None)
+    {
+        str += "<div style=\"display: flex; flex-direction: row; align-items: center; justify-content: space-between; \">";
+        str += "<div id=\"fadePanel"+QString::number(cue->id())+"\" "
+               "style=\"display: " + (cue->isSideFaderVisible() ? "block" : "none") + "; width: 45px; height: " +
+               QString::number(cue->height() - 2) + "px;\">";
+        if (cue->sideFaderMode() == VCCueList::FaderMode::Crossfade)
+        {
+            str += "<div style=\"position: relative;\">";
+            str += "<div id=\"cueCTP"+QString::number(cue->id())+"\" class=\"vcslLabel\" style=\"top:0px;\">" +
+                   cue->topPercentageValue() + "</div>\n";
+            str += "<div id=\"cueCTS"+QString::number(cue->id())+"\" class=\"vcslLabel\" "
+                   "style=\"top:25px; border: solid 1px #aaa; background-color: "+ topStepBgColor +" \">" +
+                   cue->topStepValue() + "</div>\n";
+
+            str += "<input type=\"range\" class=\"vVertical\" id=\"cueC"+QString::number(cue->id())+"\" "
+                   "oninput=\"cueCVchange("+QString::number(cue->id())+");\" ontouchmove=\"cueCVchange("+QString::number(cue->id())+");\" "
+                   "style=\"width: " + QString::number(cue->height() - 100) + "px; margin-top: " +
+                   QString::number(cue->height() - 100) + "px; margin-left: 22px;\" ";
+            str += "min=\"0\" max=\"100\" step=\"1\" value=\"" + QString::number(cue->sideFaderValue()) + "\">\n";
+
+            str += "<div id=\"cueCBS"+QString::number(cue->id())+"\" class=\"vcslLabel\" "
+                   "style=\"bottom:25px; border: solid 1px #aaa;  background-color: "+ bottomStepBgColor +"\">" +
+                   cue->bottomStepValue() + "</div>\n";
+            str += "<div id=\"cueCBP"+QString::number(cue->id())+"\" class=\"vcslLabel\" style=\"bottom:0px;\">" +
+                   cue->bottomPercentageValue() + "</div>\n";
+            str += "</div>";
+        }
+        if (cue->sideFaderMode() == VCCueList::FaderMode::Steps)
+        {
+            str += "<div style=\"position: relative;\">";
+            str += "<div id=\"cueCTP"+QString::number(cue->id())+"\" class=\"vcslLabel\" style=\"top:0px;\">" +
+                   cue->topPercentageValue() + "</div>\n";
+
+            str += "<input type=\"range\" class=\"vVertical\" id=\"cueC"+QString::number(cue->id())+"\" "
+                   "oninput=\"cueCVchange("+QString::number(cue->id())+");\" ontouchmove=\"cueCVchange("+QString::number(cue->id())+");\" "
+                   "style=\"width: " + QString::number(cue->height() - 50) + "px; margin-top: " +
+                   QString::number(cue->height() - 50) + "px; margin-left: 22px;\" ";
+            str += "min=\"0\" max=\"255\" step=\"1\" value=\"" + QString::number(cue->sideFaderValue()) + "\">\n";
+
+            str += "<div id=\"cueCBS"+QString::number(cue->id())+"\" class=\"vcslLabel\" style=\"bottom:25px; border: solid 1px #aaa; \">" +
+                   cue->bottomStepValue() + "</div>\n";
+            str += "</div>";
+        }
+        str += "</div>";
+        m_JScode += "showPanel[" + QString::number(cue->id()) + "] = " + QString::number(cue->sideFaderButtonChecked()) + ";\n";
+    }
+
+    str += "<div style=\"width: 100%;\"><div style=\"width: 100%; height: " + QString::number(cue->height() - 54) + "px; overflow: scroll;\" >\n";
+
     str += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
     str += "<tr><th>#</th><th>" + tr("Name") + "</th>";
     str += "<th>" + tr("Fade In") + "</th>";
     str += "<th>" + tr("Fade Out") + "</th>";
     str += "<th>" + tr("Duration") + "</th>";
     str += "<th>" + tr("Notes") + "</th></tr>\n";
-    Chaser *chaser = cue->chaser();
-    Doc *doc = m_vc->getDoc();
+
     if (chaser != NULL)
     {
         for (int i = 0; i < chaser->stepsCount(); i++)
@@ -1264,26 +1487,94 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
     str += "</table>\n";
     str += "</div>\n";
 
-    str += "<a class=\"vccuelistButton\" id=\"play" + QString::number(cue->id()) + "\" ";
-    str += "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'PLAY');\">\n";
-    str += "<img src=\"player_play.png\" width=\"27\"></a>\n";
+    // progress bar
+    str += "<div class=\"vccuelistProgress\">";
+    str += "<div class=\"vccuelistProgressBar\" id=\"vccuelistPB"+QString::number(cue->id())+"\" style=\"width: " +
+           QString::number(cue->progressPercent())+ "%; \"></div>";
+    str += "<div class=\"vccuelistProgressVal\" id=\"vccuelistPV"+QString::number(cue->id())+"\">" +
+           QString(cue->progressText()) + "</div>";
+    str += "</div>";
 
-    str += "<a class=\"vccuelistButton\" id=\"stop" + QString::number(cue->id()) + "\" ";
+    // play, stop, next, and preview buttons
+    if (cue->sideFaderMode() != VCCueList::FaderMode::None)
+    {
+        str += "<div style=\"width: 100%; display: flex; flex-direction: row; align-items: center; justify-content: space-between; \">";
+        str += "<a class=\"vccuelistFadeButton\" id=\"fade" + QString::number(cue->id()) + "\" ";
+        str += "href=\"javascript:wsShowCrossfadePanel(" + QString::number(cue->id()) + ");\">\n";
+        str += "<img src=\"slider.png\" width=\"27\"></a>\n";
+    }
+    str += "<div style=\"width: 100%; display: flex; flex-direction: row; align-items: center; justify-content: space-between; \">";
+
+    if (chaser != NULL && chaser->isRunning())
+    {
+        if (cue->playbackLayout() == VCCueList::PlayPauseStop)
+        {
+            if (chaser->isPaused())
+            {
+                playbackButtonImage = "player_play.png";
+                playbackButtonPaused = true;
+            }
+            else
+            {
+                playbackButtonImage  = "player_pause.png";
+            }
+        }
+        else if (cue->playbackLayout() == VCCueList::PlayStopPause)
+        {
+            playbackButtonImage = "player_stop.png";
+            stopButtonImage = "player_pause.png";
+            if (chaser->isPaused())
+                stopButtonPaused = true;
+        }
+    }
+    else
+    {
+        if (cue->playbackLayout() == VCCueList::PlayStopPause)
+            stopButtonImage = "player_pause.png";
+    }
+
+    str += "<a class=\"vccuelistButton"+QString(playbackButtonPaused ? " vccuelistButtonPaused" : "")+"\" id=\"play" + QString::number(cue->id()) + "\" ";
+    str += "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'PLAY');\">\n";
+    str += "<img src=\""+playbackButtonImage+"\" width=\"27\"></a>\n";
+
+    str += "<a class=\"vccuelistButton"+QString(stopButtonPaused ? " vccuelistButtonPaused" : "")+"\" id=\"stop" + QString::number(cue->id()) + "\" ";
     str += "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'STOP');\">\n";
-    str += "<img src=\"player_stop.png\" width=\"27\"></a>\n";
+    str += "<img src=\""+stopButtonImage+"\" width=\"27\"></a>\n";
 
     str += "<a class=\"vccuelistButton\" href=\"javascript:sendCueCmd(";
     str += QString::number(cue->id()) + ", 'PREV');\">\n";
     str += "<img src=\"back.png\" width=\"27\"></a>\n";
 
     str += "<a class=\"vccuelistButton\" href=\"javascript:sendCueCmd(";
-    str += QString::number(cue->id()) + ", 'NEXT');\">\n";
+    str += QString::number(cue->id()) + ", 'NEXT');\" style=\"margin-right: 0px!important;\">\n";
     str += "<img src=\"forward.png\" width=\"27\"></a>\n";
+
+    if (cue->sideFaderMode() != VCCueList::FaderMode::None) {
+        str += "</div>\n";
+    }
+    str +="</div></div>";
+    if (cue->sideFaderMode() != VCCueList::FaderMode::None) {
+        str += "</div>\n";
+    }
 
     str += "</div>\n";
 
     connect(cue, SIGNAL(stepChanged(int)),
             this, SLOT(slotCueIndexChanged(int)));
+    connect(cue, SIGNAL(progressStateChanged()),
+            this, SLOT(slotCueProgressStateChanged()));
+    connect(cue, SIGNAL(sideFaderButtonChecked()),
+            this, SLOT(slotSideFaderButtonChecked(bool)));
+    connect(cue, SIGNAL(sideFaderButtonToggled()),
+            this, SLOT(slotCueShowSideFaderPanel()));
+    connect(cue, SIGNAL(sideFaderValueChanged()),
+            this, SLOT(slotCueSideFaderValueChanged()));
+    connect(cue, SIGNAL(playbackButtonClicked()),
+            this, SLOT(slotCuePlaybackStateChanged()));
+    connect(cue, SIGNAL(stopButtonClicked()),
+            this, SLOT(slotCuePlaybackStateChanged()));
+    connect(cue, SIGNAL(playbackStatusChanged()),
+            this, SLOT(slotCuePlaybackStateChanged()));
 
     return str;
 }
@@ -1341,6 +1632,177 @@ QString WebAccess::getClockHTML(VCClock *clock)
 
 
     str += "</a></div>\n";
+
+    return str;
+}
+
+void WebAccess::slotMatrixSliderValueChanged(int value)
+{
+    VCMatrix *matrix = qobject_cast<VCMatrix *>(sender());
+    if (matrix == NULL)
+        return;
+
+    QString wsMessage = QString("%1|MATRIX_SLIDER|%2").arg(matrix->id()).arg(value);
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
+void WebAccess::slotMatrixStartColorChanged()
+{
+    VCMatrix *matrix = qobject_cast<VCMatrix *>(sender());
+    if (matrix == NULL)
+        return;
+
+    QString wsMessage = QString("%1|MATRIX_START_COLOR|%2").arg(matrix->id()).arg(matrix->startColor().name());
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
+void WebAccess::slotMatrixEndColorChanged()
+{
+    VCMatrix *matrix = qobject_cast<VCMatrix *>(sender());
+    if (matrix == NULL)
+        return;
+
+    QString wsMessage = QString("%1|MATRIX_END_COLOR|%2").arg(matrix->id()).arg(matrix->endColor().name());
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
+void WebAccess::slotMatrixAnimationValueChanged(QString name)
+{
+    VCMatrix *matrix = qobject_cast<VCMatrix *>(sender());
+    if (matrix == NULL)
+        return;
+
+    QString wsMessage = QString("%1|MATRIX_COMBO|%2").arg(matrix->id()).arg(name);
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
+void WebAccess::slotMatrixControlKnobValueChanged(int controlID, int value)
+{
+    VCMatrix *matrix = qobject_cast<VCMatrix *>(sender());
+    if (matrix == NULL)
+        return;
+
+    QString wsMessage = QString("%1|MATRIX_KNOB|%2|%3").arg(matrix->id()).arg(controlID).arg(value);
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
+QString WebAccess::getMatrixHTML(VCMatrix *matrix)
+{
+    QString str = "<div id=\"" + QString::number(matrix->id()) + "\" "
+                  "class=\"vcmatrix\" style=\"left: " + QString::number(matrix->x()) +
+                  "px; top: " + QString::number(matrix->y()) + "px; width: " +
+                  QString::number(matrix->width()) +
+                  "px; height: " + QString::number(matrix->height()) + "px; "
+                  "background-color: " + matrix->backgroundColor().name() + ";\">\n";
+
+    str += "<div style=\"display: flex; flex-direction: row; align-items: center; width: 100%; height: 100%; \">";
+    if (matrix->visibilityMask() & VCMatrix::Visibility::ShowSlider) {
+        str +=  "<div style=\"height: 100%; width: 50px; \">";
+        str +=  "<input type=\"range\" class=\"vVertical\" "
+                "id=\"msl" + QString::number(matrix->id()) + "\" "
+                "oninput=\"matrixSliderValueChange(" + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixSliderValueChange(" + QString::number(matrix->id()) + ");\" "
+                "style=\"width: " + QString::number(matrix->height() - 20) + "px; "
+                "margin-top: " + QString::number(matrix->height() - 10) + "px; margin-left: 25px; \""
+                "min=\"1\" max=\"255\" step=\"1\" value=\"" + QString::number(matrix->sliderValue()) + "\">\n";
+        str +=  "</div>";
+    }
+    str +=  "<div style=\"display: flex; flex-direction: column; align-items: center; justify-content: space-around; height: 100%; width: 100%; margin: 8px; \">";
+    if (matrix->visibilityMask() & VCMatrix::Visibility::ShowLabel) {
+        str += "<div style=\"text-align: center; width: 100%; margin-top: 4px; margin-bottom: 4px; \">"+matrix->caption()+"</div>";
+    }
+    str += "<div style=\"display: flex; flex-direction: row; align-items: center; justify-content: space-around; width: 100%; margin-top: 4px; margin-bottom: 4px; \">";
+    if (matrix->visibilityMask() & VCMatrix::Visibility::ShowStartColorButton) {
+
+        str += "<input type=\"color\" id=\"msc"+QString::number(matrix->id())+"\" class=\"vMatrix\" value=\""+(matrix->startColor().name())+"\" "
+               "oninput=\"matrixStartColorChange(" + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixStartColorChange(" + QString::number(matrix->id()) + ");\" "
+               " />";
+    }
+    if (matrix->visibilityMask() & VCMatrix::Visibility::ShowEndColorButton) {
+        str += "<input type=\"color\" id=\"mec"+QString::number(matrix->id())+"\" class=\"vMatrix\" value=\""+(matrix->endColor().name())+"\" "
+               "oninput=\"matrixEndColorChange(" + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixEndColorChange(" + QString::number(matrix->id()) + ");\" "
+               " />";
+    }
+    str += "</div>";
+    if (matrix->visibilityMask() & VCMatrix::Visibility::ShowPresetCombo) {
+        QStringList list = RGBAlgorithm::algorithms(m_doc);
+
+        str += "<div style=\"width: 100%; margin-top: 4px; margin-bottom: 4px; \"><select class=\"matrixSelect\" id=\"mcb" + QString::number(matrix->id()) + "\" onchange=\"matrixComboChanged("+QString::number(matrix->id())+");\">";
+        for(int i = 0; i < list.length(); i++) {
+            str += "<option value=\""+list[i]+"\" "+(list[i] == matrix->animationValue() ? "selected" : "" )+" >"+list[i]+"</option>";
+        }
+        str += "</select></div>";
+    }
+    QList<VCMatrixControl *> customControls = matrix->customControls();
+    if (customControls.length() > 0) {
+        m_JScode += "matrixID = "+QString::number(matrix->id())+"; \n";
+        str += "<div style=\"display: flex; flex-direction: row; flex-wrap: wrap; align-content: flex-start; width: 100%; height: 100%; margin-top: 4px; margin-bottom: 4px; \">";
+        for (int i = 0; i < customControls.length(); i++) {
+            VCMatrixControl *control = customControls[i];
+            if (control->m_type == VCMatrixControl::StartColor) {
+                str += "<div class=\"pushButton\" style=\"width: 32px; height: 32px; "
+                       "background-color: "+(control->m_color.name())+"; margin-right: 4px; margin-bottom: 4px; \" "
+                       "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">S</div>";
+            } else if (control->m_type == VCMatrixControl::EndColor) {
+                str += "<div class=\"pushButton\" style=\"width: 32px; height: 32px; "
+                       "background-color: "+(control->m_color.name())+"; margin-right: 4px; margin-bottom: 4px; \" "
+                       "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">E</div>";
+            } else if (control->m_type == VCMatrixControl::ResetEndColor) {
+                QString btnLabel = tr("End Color Reset");
+                str += "<div class=\"pushButton\" style=\"width: 66px; justify-content: flex-start!important; height: 32px; "
+                       "background-color: #BBBBBB; margin-right: 4px; margin-bottom: 4px; \" "
+                       "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">"+btnLabel+"</div>";
+            } else if (control->m_type == VCMatrixControl::Animation || control->m_type == VCMatrixControl::Text) {
+                QString btnLabel = control->m_resource;
+                if (!control->m_properties.isEmpty())
+                {
+                        btnLabel += " (";
+                        QHashIterator<QString, QString> it(control->m_properties);
+                        while(it.hasNext())
+                        {
+                            it.next();
+                            btnLabel += it.value();
+                            if (it.hasNext())
+                                btnLabel += ",";
+                        }
+                        btnLabel += ")";
+                }
+                str += "<div class=\"pushButton\" style=\"max-width: 66px; justify-content: flex-start!important; height: 32px; "
+                       "background-color: #BBBBBB; margin-right: 4px; margin-bottom: 4px; \" "
+                       "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">"+btnLabel+"</div>";
+            } else if (control->m_type == VCMatrixControl::StartColorKnob || control->m_type == VCMatrixControl::EndColorKnob) {
+                KnobWidget *knob = qobject_cast<KnobWidget*>(matrix->getWidget(control));
+                QString slID = QString::number(control->m_id);
+                QColor color = control->m_type == VCMatrixControl::StartColorKnob ? control->m_color : control->m_color.darker(250);
+
+                str += "<div class=\"mpieWrapper\" data=\"" + slID + "\" style=\"margin-right: 4px; margin-bottom: 4px; \">";
+                str += "<div class=\"mpie\" id=\"mpie" + slID + "\" style=\"--degValue:0; \">";
+                str += "<div class=\"mknobWrapper\" id=\"mknobWrapper" + slID + "\">";
+                str += "<div class=\"mknob\" id=\"mknob" + slID + "\" style=\"background-color: "+(color.name())+";\">";
+                str += "<div class=\"mspot\" id=\"mspot" + slID + "\"></div>";
+                str += "</div>\n</div>\n</div>\n</div>\n";
+
+                m_JScode += "m_initVal[" + slID + "] = "+QString::number(knob->value())+"; \n";
+                m_JScode += "m_isDragging[" + slID + "] = false;\n";
+                connect(matrix, SIGNAL(matrixControlKnobValueChanged(int, int)),
+                        this, SLOT(slotMatrixControlKnobValueChanged(int, int)));
+
+            }
+        }
+        str += "</div>";
+    }
+    str += "</div>";
+
+    str += "</div>";
+    str += "</div>\n";
+
+    connect(matrix, SIGNAL(sliderValueChanged(int)),
+            this, SLOT(slotMatrixSliderValueChanged(int)));
+    connect(matrix, SIGNAL(startColorChanged()),
+            this, SLOT(slotMatrixStartColorChanged()));
+    connect(matrix, SIGNAL(endColorChanged()),
+            this, SLOT(slotMatrixEndColorChanged()));
+    connect(matrix, SIGNAL(animationValueChanged(QString)),
+            this, SLOT(slotMatrixAnimationValueChanged(QString)));
 
     return str;
 }
@@ -1412,6 +1874,9 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
             break;
             case VCWidget::ClockWidget:
                 str = getClockHTML(qobject_cast<VCClock *>(widget));
+            break;
+            case VCWidget::AnimationWidget:
+                str = getMatrixHTML(qobject_cast<VCMatrix *>(widget));
             break;
             default:
                 str = getWidgetHTML(widget);

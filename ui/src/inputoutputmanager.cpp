@@ -40,7 +40,6 @@
 #include "inputoutputmap.h"
 #include "outputpatch.h"
 #include "inputpatch.h"
-#include "apputil.h"
 #include "doc.h"
 
 #define KColumnUniverse     0

@@ -22,8 +22,6 @@
 
 #include "addrgbpanel.h"
 #include "ui_addrgbpanel.h"
-#include "qlcfixturemode.h"
-#include "qlcfixturedef.h"
 #include "doc.h"
 
 AddRGBPanel::AddRGBPanel(QWidget *parent, const Doc *doc)

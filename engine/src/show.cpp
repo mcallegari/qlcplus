@@ -24,12 +24,8 @@
 #include <QFile>
 #include <QList>
 
-#include "qlcfile.h"
-#include "qlcmacros.h"
-
 #include "showrunner.h"
 #include "function.h"
-#include "chaser.h"
 #include "show.h"
 #include "doc.h"
 
@@ -42,10 +38,11 @@
  *****************************************************************************/
 
 Show::Show(Doc* doc) : Function(doc, Function::ShowType)
-  , m_timeDivType(QString("Time"))
-  , m_timeDivBPM(120)
-  , m_latestTrackId(0)
-  , m_runner(NULL)
+    , m_timeDivisionType(Time)
+    , m_timeDivisionBPM(120)
+    , m_latestTrackId(0)
+    , m_latestShowFunctionID(0)
+    , m_runner(NULL)
 {
     setName(tr("New Show"));
 
@@ -109,15 +106,15 @@ bool Show::copyFrom(const Function* function)
     if (show == NULL)
         return false;
 
-    m_timeDivType = show->m_timeDivType;
-    m_timeDivBPM = show->m_timeDivBPM;
+    m_timeDivisionType = show->m_timeDivisionType;
+    m_timeDivisionBPM = show->m_timeDivisionBPM;
     m_latestTrackId = show->m_latestTrackId;
 
     // create a copy of each track
     foreach(Track *track, show->tracks())
     {
         quint32 sceneID = track->getSceneID();
-        Track* newTrack = new Track(sceneID);
+        Track* newTrack = new Track(sceneID, this);
         newTrack->setName(track->name());
         addTrack(newTrack);
 
@@ -149,21 +146,71 @@ bool Show::copyFrom(const Function* function)
  * Time division
  *********************************************************************/
 
-void Show::setTimeDivision(QString type, int BPM)
+void Show::setTimeDivision(Show::TimeDivision type, int BPM)
 {
     qDebug() << "[setTimeDivision] type:" << type << ", BPM:" << BPM;
-    m_timeDivType = type;
-    m_timeDivBPM = BPM;
+    m_timeDivisionType = type;
+    m_timeDivisionBPM = BPM;
 }
 
-QString Show::getTimeDivisionType()
+Show::TimeDivision Show::timeDivisionType()
 {
-    return m_timeDivType;
+    return m_timeDivisionType;
 }
 
-int Show::getTimeDivisionBPM()
+int Show::beatsDivision()
 {
-    return m_timeDivBPM;
+    switch(m_timeDivisionType)
+    {
+        case BPM_2_4: return 2;
+        case BPM_3_4: return 3;
+        case BPM_4_4: return 4;
+        default: return 0;
+    }
+}
+
+void Show::setTimeDivisionType(TimeDivision type)
+{
+    m_timeDivisionType = type;
+}
+
+int Show::timeDivisionBPM()
+{
+    return m_timeDivisionBPM;
+}
+
+void Show::setTimeDivisionBPM(int BPM)
+{
+    m_timeDivisionBPM = BPM;
+}
+
+QString Show::tempoToString(Show::TimeDivision type)
+{
+    switch(type)
+    {
+        case Time: return QString("Time"); break;
+        case BPM_4_4: return QString("BPM_4_4"); break;
+        case BPM_3_4: return QString("BPM_3_4"); break;
+        case BPM_2_4: return QString("BPM_2_4"); break;
+        case Invalid:
+        default:
+            return QString("Invalid"); break;
+    }
+    return QString();
+}
+
+Show::TimeDivision Show::stringToTempo(QString tempo)
+{
+    if (tempo == "Time")
+        return Time;
+    else if (tempo == "BPM_4_4")
+        return BPM_4_4;
+    else if (tempo == "BPM_3_4")
+        return BPM_3_4;
+    else if (tempo == "BPM_2_4")
+        return BPM_2_4;
+    else
+        return Invalid;
 }
 
 /*****************************************************************************
@@ -218,11 +265,20 @@ Track* Show::track(quint32 id) const
 
 Track* Show::getTrackFromSceneID(quint32 id)
 {
-    foreach(Track *track, m_tracks)
+    foreach (Track *track, m_tracks)
     {
         if (track->getSceneID() == id)
             return track;
     }
+    return NULL;
+}
+
+Track *Show::getTrackFromShowFunctionID(quint32 id)
+{
+    foreach (Track *track, m_tracks)
+        if (track->showFunction(id) != NULL)
+            return track;
+
     return NULL;
 }
 
@@ -281,6 +337,27 @@ quint32 Show::createTrackId()
     return m_latestTrackId;
 }
 
+/*********************************************************************
+ * Show Functions
+ *********************************************************************/
+
+quint32 Show::getLatestShowFunctionId()
+{
+    return m_latestTrackId++;
+}
+
+ShowFunction *Show::showFunction(quint32 id)
+{
+    foreach (Track *track, m_tracks)
+    {
+        ShowFunction *sf = track->showFunction(id);
+        if (sf != NULL)
+            return sf;
+    }
+
+    return NULL;
+}
+
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
@@ -296,8 +373,8 @@ bool Show::saveXML(QXmlStreamWriter *doc)
     saveXMLCommon(doc);
 
     doc->writeStartElement(KXMLQLCShowTimeDivision);
-    doc->writeAttribute(KXMLQLCShowTimeType, m_timeDivType);
-    doc->writeAttribute(KXMLQLCShowTimeBPM, QString::number(m_timeDivBPM));
+    doc->writeAttribute(KXMLQLCShowTimeType, tempoToString(m_timeDivisionType));
+    doc->writeAttribute(KXMLQLCShowTimeBPM, QString::number(m_timeDivisionBPM));
     doc->writeEndElement();
 
     foreach(Track *track, m_tracks)
@@ -330,12 +407,12 @@ bool Show::loadXML(QXmlStreamReader &root)
         {
             QString type = root.attributes().value(KXMLQLCShowTimeType).toString();
             int bpm = root.attributes().value(KXMLQLCShowTimeBPM).toString().toInt();
-            setTimeDivision(type, bpm);
+            setTimeDivision(stringToTempo(type), bpm);
             root.skipCurrentElement();
         }
         else if (root.name() == KXMLQLCTrack)
         {
-            Track *trk = new Track();
+            Track *trk = new Track(Function::invalidId(), this);
             if (trk->loadXML(root) == true)
                 addTrack(trk, trk->id());
         }
@@ -419,12 +496,11 @@ void Show::setPause(bool enable)
 void Show::write(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(universes);
-    Q_UNUSED(timer);
 
     if (isPaused())
         return;
 
-    m_runner->write();
+    m_runner->write(timer);
 }
 
 void Show::postRun(MasterTimer* timer, QList<Universe *> universes)

@@ -21,13 +21,8 @@
 #include <QDebug>
 
 #include "showrunner.h"
-#include "chaserstep.h"
 #include "function.h"
-#include "chaser.h"
 #include "track.h"
-#include "scene.h"
-#include "audio.h"
-#include "video.h"
 #include "show.h"
 
 #define TIMER_INTERVAL 50
@@ -42,9 +37,12 @@ static bool compareShowFunctions(const ShowFunction *sf1, const ShowFunction *sf
 ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
     : QObject(NULL)
     , m_doc(doc)
+    , m_currentTimeFunctionIndex(0)
     , m_elapsedTime(startTime)
+    , m_currentBeatFunctionIndex(0)
+    , m_elapsedBeats(0)
+    , beatSynced(false)
     , m_totalRunTime(0)
-    , m_currentFunctionIndex(0)
 {
     Q_ASSERT(m_doc != NULL);
     Q_ASSERT(showID != Show::invalidId());
@@ -73,7 +71,10 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
             if (f == NULL)
                 continue;
 
-            m_functions.append(sfunc);
+            if (f->tempoType() == Function::Time)
+                m_timeFunctions.append(sfunc);
+            else
+                m_beatFunctions.append(sfunc);
 
             if (sfunc->startTime() + sfunc->duration(m_doc) > m_totalRunTime)
                 m_totalRunTime = sfunc->startTime() + sfunc->duration(m_doc);
@@ -83,11 +84,16 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
         m_intensityMap[track->id()] = 1.0;
     }
 
-    std::sort(m_functions.begin(), m_functions.end(), compareShowFunctions);
+    std::sort(m_timeFunctions.begin(), m_timeFunctions.end(), compareShowFunctions);
+    std::sort(m_beatFunctions.begin(), m_beatFunctions.end(), compareShowFunctions);
 
 #if 1
-    qDebug() << "Ordered list of ShowFunctions:";
-    foreach (ShowFunction *sfunc, m_functions)
+    qDebug() << "Ordered list of ShowFunctions (time):";
+    foreach (ShowFunction *sfunc, m_timeFunctions)
+        qDebug() << "ID:" << sfunc->functionID() << "st:" << sfunc->startTime() << "dur:" << sfunc->duration(m_doc);
+
+    qDebug() << "Ordered list of ShowFunctions (beats):";
+    foreach (ShowFunction *sfunc, m_beatFunctions)
         qDebug() << "ID:" << sfunc->functionID() << "st:" << sfunc->startTime() << "dur:" << sfunc->duration(m_doc);
 #endif
     m_runningQueue.clear();
@@ -116,7 +122,10 @@ void ShowRunner::setPause(bool enable)
 void ShowRunner::stop()
 {
     m_elapsedTime = 0;
-    m_currentFunctionIndex = 0;
+    m_elapsedBeats = 0;
+    m_currentTimeFunctionIndex = 0;
+    m_currentBeatFunctionIndex = 0;
+
     for (int i = 0; i < m_runningQueue.count(); i++)
     {
         Function *f = m_runningQueue.at(i).first;
@@ -132,21 +141,42 @@ FunctionParent ShowRunner::functionParent() const
     return FunctionParent(FunctionParent::Function, m_show->id());
 }
 
-void ShowRunner::write()
+void ShowRunner::write(MasterTimer *timer)
 {
     //qDebug() << Q_FUNC_INFO << "elapsed:" << m_elapsedTime << ", total:" << m_totalRunTime;
 
     // Phase 1. Check all the Functions that need to be started
-    // m_functions is ordered by startup time, so when we found an entry
+    // m_timeFunctions is ordered by startup time, so when we found an entry
     // with start time greater than m_elapsed, this phase is over
-    bool startupDone = false;
+    bool startFunctionsDone = false;
 
-    while(startupDone == false)
+    // check synchronization to beats (if show is beat-based)
+    if (m_show->tempoType() == Function::Beats)
     {
-        if (m_currentFunctionIndex == m_functions.count())
+        //qDebug() << Q_FUNC_INFO << "isBeat:" << timer->isBeat() << ", elapsed beats:" << m_elapsedBeats;
+
+        if (timer->isBeat())
+        {
+            if (beatSynced == false)
+            {
+                beatSynced = true;
+                qDebug() << "Beat synced";
+            }
+            else
+                m_elapsedBeats += 1000;
+        }
+
+        if (beatSynced == false)
+            return;
+    }
+
+    // check if there are time-based functions to start
+    while (startFunctionsDone == false)
+    {
+        if (m_currentTimeFunctionIndex == m_timeFunctions.count())
             break;
 
-        ShowFunction *sf = m_functions.at(m_currentFunctionIndex);
+        ShowFunction *sf = m_timeFunctions.at(m_currentTimeFunctionIndex);
         quint32 funcStartTime = sf->startTime();
         quint32 functionTimeOffset = 0;
         Function *f = m_doc->function(sf->functionID());
@@ -172,10 +202,50 @@ void ShowRunner::write()
 
             f->start(m_doc->masterTimer(), functionParent(), functionTimeOffset);
             m_runningQueue.append(QPair<Function *, quint32>(f, sf->startTime() + sf->duration(m_doc)));
-            m_currentFunctionIndex++;
+            m_currentTimeFunctionIndex++;
         }
         else
-            startupDone = true;
+            startFunctionsDone = true;
+    }
+
+    startFunctionsDone = false;
+
+    // check if there are beat-based functions to start
+    while (startFunctionsDone == false)
+    {
+        if (m_currentBeatFunctionIndex == m_beatFunctions.count())
+            break;
+
+        ShowFunction *sf = m_beatFunctions.at(m_currentBeatFunctionIndex);
+        quint32 funcStartTime = sf->startTime();
+        quint32 functionTimeOffset = 0;
+        Function *f = m_doc->function(sf->functionID());
+
+        // this should happen only when a Show is not started from 0
+        if (m_elapsedBeats > funcStartTime)
+        {
+            functionTimeOffset = m_elapsedBeats - funcStartTime;
+            funcStartTime = m_elapsedBeats;
+        }
+        if (m_elapsedBeats >= funcStartTime)
+        {
+            foreach (Track *track, m_show->tracks())
+            {
+                if (track->showFunctions().contains(sf))
+                {
+                    int intOverrideId = f->requestAttributeOverride(Function::Intensity, m_intensityMap[track->id()]);
+                    //f->adjustAttribute(m_intensityMap[track->id()], Function::Intensity);
+                    sf->setIntensityOverrideId(intOverrideId);
+                    break;
+                }
+            }
+
+            f->start(m_doc->masterTimer(), functionParent(), functionTimeOffset);
+            m_runningQueue.append(QPair<Function *, quint32>(f, sf->startTime() + sf->duration(m_doc)));
+            m_currentBeatFunctionIndex++;
+        }
+        else
+            startFunctionsDone = true;
     }
 
     // Phase 2. Check if we need to stop some running Functions
@@ -186,9 +256,10 @@ void ShowRunner::write()
     {
         Function *func = m_runningQueue.at(i).first;
         quint32 stopTime = m_runningQueue.at(i).second;
+        quint32 currTime = func->tempoType() == Function::Time ? m_elapsedTime : m_elapsedBeats;
 
         // if we passed the function stop time
-        if (m_elapsedTime >= stopTime)
+        if (currTime >= stopTime)
         {
             // stop the function
             func->stop(functionParent());

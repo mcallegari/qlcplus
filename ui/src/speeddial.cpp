@@ -30,7 +30,6 @@
 #include <QDial>
 #include <qmath.h>
 
-#include "mastertimer.h"
 #include "speeddial.h"
 #include "qlcmacros.h"
 #include "function.h"

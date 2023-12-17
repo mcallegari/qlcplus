@@ -33,7 +33,7 @@ ShowHeaderItem::ShowHeaderItem(int width)
     , m_timeHit(2)
     , m_timeScale(3)
     , m_BPMValue(120)
-    , m_type(Time)
+    , m_type(Show::Time)
 {
 }
 
@@ -58,7 +58,7 @@ void ShowHeaderItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     painter->setBrush(QBrush(QColor(150, 150, 150, 255)));
     painter->drawRect(0, 0, m_width, 35);
 
-    if (m_type > Time)
+    if (m_type > Show::Time)
         m_timeStep = ((float)(120 * HALF_SECOND_WIDTH) / (float)m_BPMValue) / (float)m_timeScale;
 
     // draw vertical timing lines and time labels
@@ -76,7 +76,7 @@ void ShowHeaderItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
                 painter->drawLine(xpos, HEADER_HEIGHT, xpos, m_height);
             }
             painter->setPen(QPen( Qt::black, 1));
-            if (m_type == Time)
+            if (m_type == Show::Time)
             {
                 tmpSec = (i/2) * m_timeScale;
                 if (tmpSec < 60)
@@ -121,30 +121,30 @@ int ShowHeaderItem::getTimeScale()
     return m_timeScale;
 }
 
-void ShowHeaderItem::setTimeDivisionType(ShowHeaderItem::TimeDivision type)
+void ShowHeaderItem::setTimeDivisionType(Show::TimeDivision type)
 {
-    if (type >= Invalid)
+    if (type >= Show::Invalid)
         return;
 
     m_type = type;
-    if (m_type == Time)
+    if (m_type == Show::Time)
     {
         m_timeStep = HALF_SECOND_WIDTH;
         m_timeHit = 2;
     }
     else
     {
-        if (m_type == BPM_4_4)
+        if (m_type == Show::BPM_4_4)
             m_timeHit = 4;
-        else if (m_type == BPM_3_4)
+        else if (m_type == Show::BPM_3_4)
             m_timeHit = 3;
-        else if (m_type == BPM_2_4)
+        else if (m_type == Show::BPM_2_4)
             m_timeHit = 2;
     }
     update();
 }
 
-ShowHeaderItem::TimeDivision ShowHeaderItem::getTimeDivisionType()
+Show::TimeDivision ShowHeaderItem::getTimeDivisionType()
 {
     return m_type;
 }
@@ -165,7 +165,7 @@ int ShowHeaderItem::getHalfSecondWidth()
 
 float ShowHeaderItem::getTimeDivisionStep()
 {
-    if (m_type > Time && m_timeStep <= 5)
+    if (m_type > Show::Time && m_timeStep <= 5)
         return m_timeStep * m_timeHit;
     return m_timeStep;
 }
@@ -180,35 +180,6 @@ void ShowHeaderItem::setHeight(int h)
 {
     prepareGeometryChange();
     m_height = h;
-}
-
-QString ShowHeaderItem::tempoToString(ShowHeaderItem::TimeDivision type)
-{
-    switch(type)
-    {
-        case Time: return QString("Time"); break;
-        case BPM_4_4: return QString("BPM_4_4"); break;
-        case BPM_3_4: return QString("BPM_3_4"); break;
-        case BPM_2_4: return QString("BPM_2_4"); break;
-        case Invalid:
-        default:
-            return QString("Invalid"); break;
-    }
-    return QString();
-}
-
-ShowHeaderItem::TimeDivision ShowHeaderItem::stringToTempo(QString tempo)
-{
-    if (tempo == "Time")
-        return Time;
-    else if (tempo == "BPM_4_4")
-        return BPM_4_4;
-    else if (tempo == "BPM_3_4")
-        return BPM_3_4;
-    else if (tempo == "BPM_2_4")
-        return BPM_2_4;
-    else
-        return Invalid;
 }
 
 

@@ -194,11 +194,11 @@ bool ChaserEditor::moveSteps(QVariantList indicesList, int insertIndex)
         }
 
         qDebug() << "Moving step from" << index << "to" << insIdx;
+        Tardis::instance()->enqueueAction(Tardis::ChaserMoveStep, m_chaser->id(), index, insIdx);
         m_chaser->moveStep(index, insIdx);
 
         if (index > insIdx)
             insIdx++;
-        // TODO: tardis
     }
 
     updateStepsList(m_doc, m_chaser, m_stepsList);

@@ -25,6 +25,8 @@
 #include <QAction>
 #include <QFont>
 
+#include "show.h"
+
 #define HEADER_HEIGHT       35
 #define HALF_SECOND_WIDTH   25
 
@@ -46,23 +48,14 @@ class ShowHeaderItem :  public QObject, public QGraphicsItem
 public:
     ShowHeaderItem(int width);
 
-    enum TimeDivision
-    {
-        Time = 0,
-        BPM_4_4,
-        BPM_3_4,
-        BPM_2_4,
-        Invalid
-    };
-
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     void setTimeScale(int val);
     int getTimeScale();
 
-    void setTimeDivisionType(TimeDivision type);
-    TimeDivision getTimeDivisionType();
+    void setTimeDivisionType(Show::TimeDivision type);
+    Show::TimeDivision getTimeDivisionType();
     void setBPMValue(int value);
 
     int getHalfSecondWidth();
@@ -70,9 +63,6 @@ public:
 
     void setWidth(int);
     void setHeight(int);
-
-    static QString tempoToString(TimeDivision type);
-    static TimeDivision stringToTempo(QString tempo);
 
 signals:
     void itemClicked(QGraphicsSceneMouseEvent *);
@@ -94,7 +84,7 @@ private:
     /** When BPM mode is active, this holds the number of BPM to display */
     int m_BPMValue;
     /** The type of time division */
-    TimeDivision m_type;
+    Show::TimeDivision m_type;
 };
 
 /**

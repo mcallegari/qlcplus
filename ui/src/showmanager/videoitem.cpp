@@ -24,7 +24,6 @@
 
 #include "videoitem.h"
 #include "trackitem.h"
-#include "headeritems.h"
 
 VideoItem::VideoItem(Video *vid, ShowFunction *func)
     : ShowItem(func)

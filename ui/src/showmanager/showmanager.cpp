@@ -345,10 +345,10 @@ void ShowManager::initToolbar()
 
     m_timeDivisionCombo = new QComboBox();
     m_timeDivisionCombo->setFixedWidth(100);
-    m_timeDivisionCombo->addItem(tr("Time"), ShowHeaderItem::Time);
-    m_timeDivisionCombo->addItem("BPM 4/4", ShowHeaderItem::BPM_4_4);
-    m_timeDivisionCombo->addItem("BPM 3/4", ShowHeaderItem::BPM_3_4);
-    m_timeDivisionCombo->addItem("BPM 2/4", ShowHeaderItem::BPM_2_4);
+    m_timeDivisionCombo->addItem(tr("Time"), Show::Time);
+    m_timeDivisionCombo->addItem("BPM 4/4", Show::BPM_4_4);
+    m_timeDivisionCombo->addItem("BPM 3/4", Show::BPM_3_4);
+    m_timeDivisionCombo->addItem("BPM 2/4", Show::BPM_2_4);
     m_toolbar->addWidget(m_timeDivisionCombo);
     connect(m_timeDivisionCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotTimeDivisionTypeChanged(int)));
@@ -1229,13 +1229,13 @@ void ShowManager::slotTimeDivisionTypeChanged(int idx)
     QVariant var = m_timeDivisionCombo->itemData(idx);
     if (var.isValid())
     {
-        m_showview->setHeaderType((ShowHeaderItem::TimeDivision)var.toInt());
+        m_showview->setHeaderType((Show::TimeDivision)var.toInt());
         if (idx > 0)
             m_bpmField->setEnabled(true);
         else
             m_bpmField->setEnabled(false);
         if (m_show != NULL)
-            m_show->setTimeDivision(ShowHeaderItem::tempoToString((ShowHeaderItem::TimeDivision)var.toInt()), m_bpmField->value());
+            m_show->setTimeDivision((Show::TimeDivision)var.toInt(), m_bpmField->value());
     }
 }
 
@@ -1244,7 +1244,7 @@ void ShowManager::slotBPMValueChanged(int value)
     m_showview->setBPMValue(value);
     QVariant var = m_timeDivisionCombo->itemData(m_timeDivisionCombo->currentIndex());
     if (var.isValid() && m_show != NULL)
-        m_show->setTimeDivision(ShowHeaderItem::tempoToString((ShowHeaderItem::TimeDivision)var.toInt()), m_bpmField->value());
+        m_show->setTimeDivision((Show::TimeDivision)var.toInt(), m_bpmField->value());
 }
 
 void ShowManager::slotViewClicked(QMouseEvent *event)
@@ -1630,9 +1630,9 @@ void ShowManager::updateMultiTrackView()
     // prevent m_show time division override
     disconnect(m_bpmField, SIGNAL(valueChanged(int)), this, SLOT(slotBPMValueChanged(int)));
 
-    m_bpmField->setValue(m_show->getTimeDivisionBPM());
-    m_showview->setBPMValue(m_show->getTimeDivisionBPM());
-    int tIdx = m_timeDivisionCombo->findData(QVariant(ShowHeaderItem::stringToTempo(m_show->getTimeDivisionType())));
+    m_bpmField->setValue(m_show->timeDivisionBPM());
+    m_showview->setBPMValue(m_show->timeDivisionBPM());
+    int tIdx = m_timeDivisionCombo->findData(QVariant(m_show->timeDivisionType()));
     m_timeDivisionCombo->setCurrentIndex(tIdx);
 
     connect(m_bpmField, SIGNAL(valueChanged(int)), this, SLOT(slotBPMValueChanged(int)));

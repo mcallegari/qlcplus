@@ -45,8 +45,8 @@
 #include "cuestackmodel.h"
 #include "groupsconsole.h"
 #include "simpledesk.h"
-#include "qlcmacros.h"
 #include "cuestack.h"
+#include "apputil.h"
 #include "cue.h"
 #include "doc.h"
 
@@ -107,6 +107,22 @@ SimpleDesk::SimpleDesk(QWidget* parent, Doc* doc)
     // default all the universes pages to 1
     for (quint32 i = 0; i < m_doc->inputOutputMap()->universesCount(); i++)
         m_universesPage.append(1);
+
+    QString userStyle = AppUtil::getStyleSheet("SIMPLE_DESK_NONE");
+    if (!userStyle.isEmpty())
+        ssNone = userStyle;
+
+    userStyle = AppUtil::getStyleSheet("SIMPLE_DESK_ODD");
+    if (!userStyle.isEmpty())
+        ssOdd = userStyle;
+
+    userStyle = AppUtil::getStyleSheet("SIMPLE_DESK_EVEN");
+    if (!userStyle.isEmpty())
+        ssEven = userStyle;
+
+    userStyle = AppUtil::getStyleSheet("SIMPLE_DESK_OVERRIDE");
+    if (!userStyle.isEmpty())
+        ssOverride = userStyle;
 
     initEngine();
     initView();

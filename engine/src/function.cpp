@@ -520,6 +520,7 @@ void Function::setTempoType(const Function::TempoType &type)
     }
 
     emit changed(m_id);
+    emit tempoTypeChanged();
 }
 
 Function::TempoType Function::tempoType() const
@@ -958,12 +959,16 @@ QList<quint32> Function::components()
  * Flash
  *****************************************************************************/
 
-void Function::flash(MasterTimer *timer)
+void Function::flash(MasterTimer *timer, bool shouldOverride, bool forceLTP)
 {
     Q_UNUSED(timer);
+    Q_UNUSED(shouldOverride);
+    Q_UNUSED(forceLTP);
 
     if (m_flashing == false)
+    {
         emit flashing(m_id, true);
+    }
 
     m_flashing = true;
 }
@@ -1266,7 +1271,7 @@ int Function::requestAttributeOverride(int attributeIndex, qreal value)
         attributeID = m_lastOverrideAttributeId;
         m_overrideMap[attributeID] = override;
 
-        qDebug() << name() << "Override requested for attribute" << attributeIndex << "value" << value << "new ID" << attributeID;
+        qDebug() << name() << "Override requested for new attribute" << attributeIndex << "value" << value << "new ID" << attributeID;
 
         calculateOverrideValue(attributeIndex);
 
@@ -1274,7 +1279,7 @@ int Function::requestAttributeOverride(int attributeIndex, qreal value)
     }
     else
     {
-        qDebug() << name() << "Override requested for attribute" << attributeIndex << "value" << value << "single ID" << attributeID;
+        qDebug() << name() << "Override requested for existing attribute" << attributeIndex << "value" << value << "single ID" << attributeID;
     }
 
     // actually apply the new override value

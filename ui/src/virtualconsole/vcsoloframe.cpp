@@ -35,8 +35,6 @@
 #include "vcsoloframe.h"
 #include "vcsoloframeproperties.h"
 #include "vcbutton.h"
-#include "function.h"
-#include "qlcfile.h"
 #include "doc.h"
 
 VCSoloFrame::VCSoloFrame(QWidget* parent, Doc* doc, bool canCollapse)

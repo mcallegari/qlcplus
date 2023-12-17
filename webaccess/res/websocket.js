@@ -61,6 +61,26 @@ function connect() {
       setFramePage(msgParams[0], msgParams[2]);
     } else if (msgParams[0] === "ALERT") {
       alert(msgParams[1]);
+    } else if (msgParams[1] === "CUE_PROGRESS") {
+      // CUE message is <ID>|CUE_PERCENT|<PERCENT>|<TEXT>
+      setCueProgress(msgParams[0], msgParams[2], msgParams[3]);
+    } else if (msgParams[1] === "CUE_SIDECHANGE") {
+      // CUE message is <ID>|CUE_SIDECHANGE|<TOP_PERCENT>|<BOTTOMPERCENT>|<TOP_STEP>|<BOTTOM_STEP>|<PRIMARY_TOP>|<STEP_VALUE>|<IS_STEPS_MODE>
+      setCueSideFaderValues(msgParams[0], msgParams[2], msgParams[3], msgParams[4], msgParams[5], msgParams[6], msgParams[7], msgParams[8]);
+    } else if (msgParams[1] === "CUE_SHOWPANEL") {
+      showSideFaderPanel(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "CUE_CHANGE") {
+      setCueButtonStyle(msgParams[0], msgParams[2], msgParams[3], msgParams[4], msgParams[5]);
+    } else if (msgParams[1] === "MATRIX_SLIDER") {
+      setMatrixSliderValue(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "MATRIX_START_COLOR") {
+      setMatrixStartColorValue(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "MATRIX_END_COLOR") {
+      setMatrixEndColorValue(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "MATRIX_COMBO") {
+      setMatrixComboValue(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "MATRIX_KNOB") {
+      setMatrixControlKnobValue(msgParams[2], msgParams[3]);
     }
   };
   initVirtualConsole();

@@ -22,11 +22,10 @@
 #include <QIcon>
 #include <QList>
 
-#include "qlcfile.h"
-
 #include "fixtureconsole.h"
 #include "consolechannel.h"
 #include "fixture.h"
+#include "apputil.h"
 #include "doc.h"
 
 /*****************************************************************************
@@ -46,25 +45,47 @@ FixtureConsole::FixtureConsole(QWidget *parent, Doc *doc, GroupType type, bool s
     layout()->setSpacing(0);
     layout()->setContentsMargins(0, 1, 0, 1);
 
-    int topMargin = m_showCheckBoxes?16:1;
+    int topMargin = m_showCheckBoxes ? 16 : 1;
 
-    QString common = "QGroupBox::title {top:-15px; left: 12px; subcontrol-origin: border; background-color: transparent; } "
-                     "QGroupBox::indicator { width: 18px; height: 18px; } "
-                     "QGroupBox::indicator:checked { image: url(:/checkbox_full.png) } "
-                     "QGroupBox::indicator:unchecked { image: url(:/checkbox_empty.png) }";
+    QString ssFcCommon = "QGroupBox::title {top:-15px; left: 12px; subcontrol-origin: border; background-color: transparent; } "
+                         "QGroupBox::indicator { width: 18px; height: 18px; } "
+                         "QGroupBox::indicator:checked { image: url(:/checkbox_full.png) } "
+                         "QGroupBox::indicator:unchecked { image: url(:/checkbox_empty.png) }";
+
+    QString ssFcEven = "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #C3D1C9, stop: 1 #AFBBB4); "
+                       "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } ";
+
+    QString ssFcOdd = "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D5E0, stop: 1 #A7A6AF); "
+                      "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } ";
+
+    QString ssFcNone = "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D2D0, stop: 1 #AFACAB); "
+                       "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } ";
+
+    QString userStyle = AppUtil::getStyleSheet("FIXTURE_CONSOLE_COMMON");
+    if (!userStyle.isEmpty())
+        ssFcCommon = userStyle;
 
     if (m_groupType == GroupEven)
-        m_styleSheet = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #C3D1C9, stop: 1 #AFBBB4); "
-                             "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
-                             (m_showCheckBoxes?common:"")).arg(topMargin);
+    {
+        userStyle = AppUtil::getStyleSheet("FIXTURE_CONSOLE_EVEN");
+        if (!userStyle.isEmpty())
+            ssFcEven = userStyle;
+        m_styleSheet = QString(ssFcEven + (m_showCheckBoxes ? ssFcCommon : "")).arg(topMargin);
+    }
     else if (m_groupType == GroupOdd)
-        m_styleSheet = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D5E0, stop: 1 #A7A6AF); "
-                             "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
-                             (m_showCheckBoxes?common:"")).arg(topMargin);
+    {
+        userStyle = AppUtil::getStyleSheet("FIXTURE_CONSOLE_ODD");
+        if (!userStyle.isEmpty())
+            ssFcOdd = userStyle;
+        m_styleSheet = QString(ssFcOdd + (m_showCheckBoxes ? ssFcCommon : "")).arg(topMargin);
+    }
     else
-        m_styleSheet = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D2D0, stop: 1 #AFACAB); "
-                             "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
-                             (m_showCheckBoxes?common:"")).arg(topMargin);
+    {
+        userStyle = AppUtil::getStyleSheet("FIXTURE_CONSOLE_NORMAL");
+        if (!userStyle.isEmpty())
+            ssFcNone = userStyle;
+        m_styleSheet = QString(ssFcNone + (m_showCheckBoxes ? ssFcCommon : "")).arg(topMargin);
+    }
 }
 
 FixtureConsole::~FixtureConsole()
