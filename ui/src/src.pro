@@ -225,8 +225,8 @@ FORMS += virtualconsole/addvcbuttonmatrix.ui \
          virtualconsole/vcspeeddialproperties.ui \
          virtualconsole/vcwidgetselection.ui \
          virtualconsole/vcxypadfixtureeditor.ui \
-         virtualconsole/vcxypadproperties.ui
          virtualconsole/vcwizard.ui \
+         virtualconsole/vcxypadproperties.ui
 
 # Sources
 SOURCES += aboutbox.cpp \
