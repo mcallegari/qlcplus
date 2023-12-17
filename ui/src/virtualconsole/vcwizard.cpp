@@ -388,9 +388,9 @@ void VCWizard::updateAvailableWidgetsTree()
                     }
                 }
                 break; 
-                case QLCChannel::Speed: addWidgetItem(frame, channel->name() + " - " + channel->group(), VCWidget::SliderWidget, fxGrpItem, &ch); break;
+                case QLCChannel::Speed: addWidgetItem(frame, channel->name() + " - " + QLCChannel::groupToString(channel->group()), VCWidget::SliderWidget, fxGrpItem, &ch); break;
                 break;
-                default: addWidgetItem(frame, channel->name() + " - " + channel->group(), VCWidget::SliderWidget, fxGrpItem, &ch); break;
+                default: addWidgetItem(frame, channel->name() + " - " + QLCChannel::groupToString(channel->group()), VCWidget::SliderWidget, fxGrpItem, &ch); break;
                 break;
 
             }
