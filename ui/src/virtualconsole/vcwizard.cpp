@@ -436,7 +436,7 @@ VCWidget *VCWizard::createWidget(int type, VCWidget *parent, int xpos, int ypos,
             {   
                 QTreeWidgetItem *fxItem = fxGrpItem->child(c);
                 int fxi = fxItem->data(KFixtureColumnName, Qt::UserRole).toInt();
-                for(const auto &n : std::as_const(numbers))
+                for(const auto &n : numbers)
                 {
                     slider->addLevelChannel(fxi, n.toInt() - 1);
                 }
