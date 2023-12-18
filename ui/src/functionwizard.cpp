@@ -140,22 +140,16 @@ void FunctionWizard::checkTabsAndButtons()
         break;
         case 2:
         {
-            if (m_paletteList.isEmpty() == false)
-            {
-                m_tabWidget->setTabEnabled(3, true);
-                m_nextButton->setEnabled(true);
-            }
-            else
-            {
-                m_tabWidget->setTabEnabled(3, false);
-                m_nextButton->setEnabled(false);
-            }
+            m_nextButton->setEnabled(!m_paletteList.isEmpty());            
         }
         break;
         case 3:
             m_nextButton->setEnabled(false);
         break;
     }
+
+    // enable VC Widget Page if tree not empty
+    m_tabWidget->setTabEnabled(3, m_widgetsTree->topLevelItemCount() > 0);
 }
 
 /****************************************************************************
@@ -219,7 +213,10 @@ void FunctionWizard::slotAddClicked()
             addFixture(it.next());
 
         if (m_fixtureTree->topLevelItemCount() > 0)
+        {
             updateAvailableFunctionsTree();
+            updateWidgetsTree();
+        }
     }
     checkTabsAndButtons();
 }
@@ -229,7 +226,8 @@ void FunctionWizard::slotRemoveClicked()
     QListIterator <QTreeWidgetItem*> it(m_fixtureTree->selectedItems());
     while (it.hasNext() == true)
         delete it.next();
-
+    
+    updateWidgetsTree();
     checkTabsAndButtons();
 }
 
@@ -427,9 +425,7 @@ void FunctionWizard::slotFunctionItemChanged(QTreeWidgetItem *item, int col)
     Q_UNUSED(item)
 
     updateResultFunctionsTree();
-
-    if (m_paletteList.isEmpty() == false)
-        updateWidgetsTree();
+    updateWidgetsTree();
 
     checkTabsAndButtons();
 }
@@ -438,10 +434,77 @@ void FunctionWizard::slotFunctionItemChanged(QTreeWidgetItem *item, int col)
  * Widgets
  ********************************************************************/
 
+void FunctionWizard::addWidgetItem(QTreeWidgetItem *grpItem, QString name, int type,
+                             QTreeWidgetItem *fxGrpItem, quint32 *channels)
+{
+    if (grpItem == NULL)
+        return;
+
+    QString channelsStr = "(";
+    size_t cnt = 1;
+    if(name.contains("RGB"))cnt = 3;
+    if(name.contains("XY PAD"))cnt = 4;
+
+    for (size_t i = 0; i < cnt; i++)
+    {   
+        if((channels[i]+1)==0) continue;
+        channelsStr.append( QString::number((uint)channels[i]+1)+ ", ");
+    }
+    channelsStr.chop(2);
+    channelsStr.append(")");
+
+    QTreeWidgetItem *item = new QTreeWidgetItem(grpItem);
+    item->setText(KWidgetName, name + " " + channelsStr );
+    item->setCheckState(KWidgetName, Qt::Unchecked);
+    item->setData(KWidgetName, Qt::UserRole, type);
+    item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void*)fxGrpItem));
+    item->setIcon(KWidgetName, VCWidget::typeToIcon(type));
+    if(name.toLower().contains("speed")) item->setIcon(KWidgetName, QIcon(":/knob.png"));
+    
+}
+
+void FunctionWizard::checkPanTilt(QTreeWidgetItem *grpItem, 
+                            QTreeWidgetItem *fxGrpItem, qint32* channels){
+        
+    //Check if all required Channels are set
+    if(channels[0] < 0) return;
+    if(channels[2] < 0) return;
+    if(channels[1] > 0 && channels[3] < 0) return;
+    
+    quint32 PanTilt[4] = {};
+    for (size_t i = 0; i < 4; i++) PanTilt[i] = channels[i];    
+
+    addWidgetItem(grpItem, "XY PAD", VCWidget::XYPadWidget, fxGrpItem, PanTilt);
+
+    channels[0] = -1;
+    channels[1] = -1;
+    channels[2] = -1;
+    channels[3] = -1;
+
+}
+
+void FunctionWizard::checkRGB(QTreeWidgetItem *grpItem, 
+                            QTreeWidgetItem *fxGrpItem, qint32* channels){
+    
+    //Check if all required Channels are set
+    for (size_t i = 0; i < 3; i++) if(channels[i] < 0) return;
+
+    quint32 RGB[3] = {};
+    for (size_t i = 0; i < 3; i++) RGB[i] = channels[i];
+
+    addWidgetItem(grpItem, "RGB - Click & Go", VCWidget::SliderWidget, fxGrpItem, RGB);
+
+    RGB[0] = -1;
+    RGB[1] = -1;
+    RGB[2] = -1;
+
+}
+
 void FunctionWizard::updateWidgetsTree()
 {
     m_widgetsTree->clear();
 
+    // Populate palette Widgets
     foreach (PaletteGenerator *palette, m_paletteList)
     {
         QTreeWidgetItem *frame = new QTreeWidgetItem(m_widgetsTree);
@@ -529,6 +592,102 @@ void FunctionWizard::updateWidgetsTree()
             Scene *firstScene = palette->scenes().at(0);
             item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)firstScene));
         }
+    }
+
+    // Populate Fixture channel Widgets
+    for (int i = 0; i < m_fixtureTree->topLevelItemCount(); i++)
+    {
+        QTreeWidgetItem *fxGrpItem = m_fixtureTree->topLevelItem(i);
+        Q_ASSERT(fxGrpItem != NULL);
+
+        if (fxGrpItem->childCount() == 0)
+            continue;
+
+        QTreeWidgetItem *frame = new QTreeWidgetItem(m_widgetsTree);
+        frame->setText(KWidgetName, fxGrpItem->text(KFixtureColumnName));
+        frame->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::FrameWidget));
+        frame->setData(KWidgetName, Qt::UserRole, VCWidget::FrameWidget);
+        frame->setFlags(frame->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
+        frame->setCheckState(KWidgetName, Qt::Unchecked);
+        frame->setExpanded(true);
+
+        // since groups contain fixture of the same type, get the first
+        // child and create categories on its capabilities
+        QTreeWidgetItem *fxItem = fxGrpItem->child(0);
+        quint32 fxID = fxItem->data(KFixtureColumnName, Qt::UserRole).toUInt();
+        Fixture* fxi = m_doc->fixture(fxID);
+        Q_ASSERT(fxi != NULL);
+
+        frame->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)fxi));
+        
+        qint32 lastPanTilt[] = {-1, -1, -1, -1};
+        qint32 lastRGB[] = {-1, -1, -1};
+
+        for (quint32 ch = 0; ch < fxi->channels(); ch++)
+        {
+            const QLCChannel* channel(fxi->channel(ch));
+            Q_ASSERT(channel != NULL);
+                    
+            switch (channel->group())
+            {
+                case QLCChannel::Pan: {
+                    if(channel->preset()==QLCChannel::PositionPan) lastPanTilt[0] = ch;
+                    if(channel->preset()==QLCChannel::PositionPanFine) lastPanTilt[1] = ch;
+
+                    checkPanTilt(frame, fxGrpItem, lastPanTilt);
+                } 
+                break;
+                case QLCChannel::Tilt: {
+                    if(channel->preset()==QLCChannel::PositionTilt) lastPanTilt[2] = ch;
+                    if(channel->preset()==QLCChannel::PositionTiltFine) lastPanTilt[3] = ch;
+
+                    checkPanTilt(frame, fxGrpItem, lastPanTilt);
+                } 
+                break;
+                
+                // Glick & Go's
+                case QLCChannel::Gobo: 
+                case QLCChannel::Shutter:
+                case QLCChannel::Prism:
+                case QLCChannel::Beam:
+                case QLCChannel::Effect:
+                case QLCChannel::Colour:
+                    addWidgetItem(frame, QLCChannel::groupToString(channel->group()) + " - Click & Go", VCWidget::SliderWidget, fxGrpItem, &ch);
+                break;
+               
+                case QLCChannel::Intensity:
+                { QLCChannel::PrimaryColour col = channel->colour();
+                    switch (col)
+                    {
+                        case QLCChannel::Red: {
+                            lastRGB[0]=ch;
+                            checkRGB(frame, fxGrpItem, lastRGB);
+                        }
+                        break;
+                        case QLCChannel::Green: 
+                        {
+                            lastRGB[1]=ch;
+                            checkRGB(frame, fxGrpItem, lastRGB);
+                        }
+                        break;
+                        case QLCChannel::Blue: {
+                            lastRGB[2]=ch;
+                            checkRGB(frame, fxGrpItem, lastRGB);
+                        }
+                        break;
+                        default:{                            
+                            addWidgetItem(frame, channel->name() + " - Intensity", VCWidget::SliderWidget, fxGrpItem, &ch);
+                        } break;
+                    }
+                }
+                break; 
+                case QLCChannel::Speed: addWidgetItem(frame, channel->name() + " - " + QLCChannel::groupToString(channel->group()), VCWidget::SliderWidget, fxGrpItem, &ch); break;
+                break;
+                default: addWidgetItem(frame, channel->name() + " - " + QLCChannel::groupToString(channel->group()), VCWidget::SliderWidget, fxGrpItem, &ch); break;
+                break;
+
+            }
+        }           
     }
 }
 

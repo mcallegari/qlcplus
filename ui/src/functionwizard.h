@@ -104,6 +104,10 @@ protected:
 
     /** Populate the widgets tree based on selected preset functions */
     void updateWidgetsTree();
+    void checkPanTilt(QTreeWidgetItem *grpItem, QTreeWidgetItem *fxGrpItem, qint32* channels);
+    void checkRGB(QTreeWidgetItem *grpItem, QTreeWidgetItem *fxGrpItem, qint32* channels);
+    void addWidgetItem(QTreeWidgetItem *grpItem, QString name, int type, 
+                       QTreeWidgetItem *fxGrpItem, quint32* channels);
 
     VCWidget *createWidget(int type, VCWidget *parent, int xpos, int ypos,
                            Function *func = NULL, int pType = 0);
