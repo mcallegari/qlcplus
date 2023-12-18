@@ -740,6 +740,8 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
             cuelist->move(QPoint(xpos, ypos));
             if (func != NULL)
                 cuelist->setChaser(func->id());
+            cuelist->resize(QSize(300, m_sliderHeightSpin->value()));
+
             widget = cuelist;
         }
         break;
@@ -803,6 +805,8 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
                 slider->setSliderMode(VCSlider::Level); 
             }
 
+            slider->resize(QSize(m_sliderWidthSpin->value(), m_sliderHeightSpin->value()));
+
             widget = slider;
         }
         break;
@@ -820,6 +824,7 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
                 fxi.setHead(GroupHead(fxID,0));
                 XYPad->appendFixture(fxi);
             }
+            XYPad->resize(QSize(m_sliderHeightSpin->value(), m_sliderHeightSpin->value()));
                       
             widget = XYPad;
         }
@@ -903,9 +908,13 @@ QSize FunctionWizard::recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *par
                 else
                     childWidget->setCaption(childItem->text(KWidgetName));
 
+                QTextStream cout(stdout, QIODevice::WriteOnly);
+                cout << childItem->text(KWidgetName) << Qt::endl;
+                //cout << "p:"<<parent->type() << " spin:" << m_lineCntSpin->value() << " per:" <<wPerLine << Qt::endl;
+
                 if (childItem->childCount() > 0)
                 {
-                    childWidget->resize(QSize(1000, 1000));
+                    childWidget->resize(QSize(2000, 1000));
 
                     QSize size = recursiveCreateWidget(childItem, childWidget, type);
 
@@ -918,8 +927,8 @@ QSize FunctionWizard::recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *par
                 if (subY + childWidget->height() > groupSize.height())
                     groupSize.setHeight(subY + childWidget->height() + 10);
 
-
-                if (c > 0 && (c + 1)%4 == 0)
+                int wPerLine = parent->type()==VCWidget::SoloFrameWidget ? 4 : m_lineCntSpin->value();
+                if (c > 0 && (c + 1)%wPerLine == 0)
                 {
                     subX = 10;
                     subY += childWidget->height() + 10;
