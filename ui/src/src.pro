@@ -172,7 +172,6 @@ HEADERS += virtualconsole/addvcbuttonmatrix.h \
            virtualconsole/vcxypadfixtureeditor.h \
            virtualconsole/vcxypadpreset.h \
            virtualconsole/vcxypadproperties.h \
-           virtualconsole/vcwizard.h \
            virtualconsole/virtualconsole.h
 
 # Forms
@@ -225,7 +224,6 @@ FORMS += virtualconsole/addvcbuttonmatrix.ui \
          virtualconsole/vcspeeddialproperties.ui \
          virtualconsole/vcwidgetselection.ui \
          virtualconsole/vcxypadfixtureeditor.ui \
-         virtualconsole/vcwizard.ui \
          virtualconsole/vcxypadproperties.ui
 
 # Sources
@@ -355,7 +353,6 @@ SOURCES += virtualconsole/addvcbuttonmatrix.cpp \
            virtualconsole/vcxypadfixtureeditor.cpp \
            virtualconsole/vcxypadpreset.cpp \
            virtualconsole/vcxypadproperties.cpp \
-           virtualconsole/vcwizard.cpp \
            virtualconsole/virtualconsole.cpp
 
 TRANSLATIONS += qlcplus_fi_FI.ts

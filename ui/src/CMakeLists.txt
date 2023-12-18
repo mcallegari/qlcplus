@@ -158,7 +158,6 @@ add_library(${module_name}
     virtualconsole/vcxypadfixtureeditor.cpp virtualconsole/vcxypadfixtureeditor.h virtualconsole/vcxypadfixtureeditor.ui
     virtualconsole/vcxypadpreset.cpp virtualconsole/vcxypadpreset.h
     virtualconsole/vcxypadproperties.cpp virtualconsole/vcxypadproperties.h virtualconsole/vcxypadproperties.ui
-    virtualconsole/vcwizard.cpp virtualconsole/vcwizard.h virtualconsole/vcwizard.ui
     virtualconsole/virtualconsole.cpp virtualconsole/virtualconsole.h
     ${QM_FILES}
 )
