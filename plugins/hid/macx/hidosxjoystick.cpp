@@ -85,10 +85,10 @@ void HIDOSXJoystick::init()
         return;
 
     // to return all elements for a device
-    CFArrayRef elementsArray = IOHIDDeviceCopyMatchingElements( m_IOKitDevice, NULL, kIOHIDOptionsTypeNone );
+    CFArrayRef elementsArray = IOHIDDeviceCopyMatchingElements(m_IOKitDevice, NULL, kIOHIDOptionsTypeNone);
     if (elementsArray)
     {
-        CFIndex count = CFArrayGetCount( elementsArray );
+        CFIndex count = CFArrayGetCount(elementsArray);
 
         //qDebug() << "Device" << QString::fromWCharArray(m_dev_info->product_string) << "has elements:" << count;
 
@@ -99,7 +99,7 @@ void HIDOSXJoystick::init()
             unsigned int usage = IOHIDElementGetUsage(elem);
             unsigned int usagePage = IOHIDElementGetUsagePage(elem);
 
-            if(elemType == kIOHIDElementTypeInput_Misc ||
+            if (elemType == kIOHIDElementTypeInput_Misc ||
                elemType == kIOHIDElementTypeInput_Button ||
                elemType == kIOHIDElementTypeInput_Axis ||
                elemType == kIOHIDElementTypeInput_ScanCodes)

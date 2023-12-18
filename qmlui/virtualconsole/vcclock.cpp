@@ -238,7 +238,7 @@ void VCClock::slotTimerTimeout()
         return;
     }
 
-    for(VCClockSchedule *sch : m_scheduleList) // C++11
+    for (VCClockSchedule *sch : m_scheduleList) // C++11
     {
         if (sch->m_cachedDuration == -1)
         {
@@ -258,7 +258,7 @@ void VCClock::slotTimerTimeout()
          *  Each case must be checked against days of the week
          */
 
-        if(dayTimeSecs >= sch->startTime())
+        if (dayTimeSecs >= sch->startTime())
         {
             // if there's a stop time and we past it, then skip
             if (sch->stopTime() > 0 && dayTimeSecs > sch->stopTime())
@@ -327,7 +327,7 @@ void VCClock::setEnableSchedule(bool enableSchedule)
     /* When disabling, check for running functions and stop them */
     if (enableSchedule == false)
     {
-        for(VCClockSchedule *sch : m_scheduleList) // C++11
+        for (VCClockSchedule *sch : m_scheduleList) // C++11
         {
             Function *f = m_doc->function(sch->functionID());
             if (f != nullptr && f->isRunning())
@@ -343,7 +343,7 @@ void VCClock::setEnableSchedule(bool enableSchedule)
 QVariantList VCClock::scheduleList()
 {
     QVariantList list;
-    for(VCClockSchedule *sch : m_scheduleList) // C++11
+    for (VCClockSchedule *sch : m_scheduleList) // C++11
         list.append(QVariant::fromValue(sch));
     return list;
 }
@@ -509,7 +509,7 @@ bool VCClock::saveXML(QXmlStreamWriter *doc)
     /* Appearance */
     saveXMLAppearance(doc);
 
-    for(VCClockSchedule *sch : m_scheduleList) // C++11
+    for (VCClockSchedule *sch : m_scheduleList) // C++11
         sch->saveXML(doc);
 
     /* End the <Clock> tag */

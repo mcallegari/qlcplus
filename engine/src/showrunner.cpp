@@ -51,7 +51,7 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
     if (m_show == NULL)
         return;
 
-    foreach(Track *track, m_show->tracks())
+    foreach (Track *track, m_show->tracks())
     {
         // some sanity checks
         if (track == NULL ||
@@ -62,7 +62,7 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
             continue;
 
         // get all the functions of the track and append them to the runner queue
-        foreach(ShowFunction *sfunc, track->showFunctions())
+        foreach (ShowFunction *sfunc, track->showFunctions())
         {
             if (sfunc->startTime() + sfunc->duration(m_doc) <= startTime)
                 continue;
@@ -252,7 +252,7 @@ void ShowRunner::write(MasterTimer *timer)
     // It is done in reverse order for two reasons:
     // 1- m_runningQueue is not ordered by stop time
     // 2- to avoid messing up with indices when an entry is removed
-    for(int i = m_runningQueue.count() - 1; i >= 0; i--)
+    for (int i = m_runningQueue.count() - 1; i >= 0; i--)
     {
         Function *func = m_runningQueue.at(i).first;
         quint32 stopTime = m_runningQueue.at(i).second;

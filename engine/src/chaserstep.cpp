@@ -284,7 +284,7 @@ bool ChaserStep::saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence)
         doc->writeAttribute(KXMLQLCSequenceSceneValues, QString::number(values.count()));
         QString stepValues;
         quint32 fixtureID = Fixture::invalidId();
-        foreach(SceneValue scv, values)
+        foreach (SceneValue scv, values)
         {
             // step values are saved as a string with the following syntax:
             // fixtureID:channel,value,channel,value:fixtureID:channel,value ... etc

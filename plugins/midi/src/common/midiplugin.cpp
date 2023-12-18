@@ -348,7 +348,7 @@ void MidiPlugin::configure()
 
     // walk the universe map to update/add the
     // plugin custom parameters
-    foreach(quint32 universe, m_universesMap.keys())
+    foreach (quint32 universe, m_universesMap.keys())
     {
         m_universesMap[universe].inputParameters.clear();
 

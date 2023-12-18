@@ -112,7 +112,7 @@ void AudioBar::attachDmxChannels(Doc *doc, QList<SceneValue> list)
     m_dmxChannels.clear();
     m_dmxChannels = list;
     m_absDmxChannels.clear();
-    foreach(SceneValue scv, m_dmxChannels)
+    foreach (SceneValue scv, m_dmxChannels)
     {
         Fixture *fx = doc->fixture(scv.fxi);
         if (fx != NULL)

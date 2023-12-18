@@ -1217,7 +1217,7 @@ void VCCueList::slotSideFaderValueChanged(int value)
         if (ch->stepsCount() < 256)
         {
             float stepSize = 255.0 / (float)ch->stepsCount();
-            if(value >= 255.0 - stepSize)
+            if (value >= 255.0 - stepSize)
                 newStep = ch->stepsCount() - 1;
             else
                 newStep = qFloor((float)value / stepSize);

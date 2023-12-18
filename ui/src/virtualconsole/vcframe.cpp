@@ -146,7 +146,7 @@ void VCFrame::setCaption(const QString& text)
 {
     if (m_label != NULL)
     {
-        if(!shortcuts().isEmpty() && m_currentPage < shortcuts().length())
+        if (!shortcuts().isEmpty() && m_currentPage < shortcuts().length())
         {
             // Show caption, if there is no page name
             if (m_pageShortcuts.at(m_currentPage)->name() == "")
@@ -414,7 +414,7 @@ void VCFrame::setMultipageMode(bool enable)
         connect (m_pageCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSetPage(int)));
         connect (m_nextPageBtn, SIGNAL(clicked()), this, SLOT(slotNextPage()));
 
-        if(this->isCollapsed() == false)
+        if (this->isCollapsed() == false)
         {
             m_prevPageBtn->show();
             m_nextPageBtn->show();
@@ -525,7 +525,7 @@ void VCFrame::addShortcut()
 void VCFrame::setShortcuts(QList<VCFramePageShortcut *> shortcuts)
 {
     resetShortcuts();
-    foreach(VCFramePageShortcut const* shortcut, shortcuts)
+    foreach (VCFramePageShortcut const* shortcut, shortcuts)
     {
         m_pageShortcuts.append(new VCFramePageShortcut(*shortcut));
         if (shortcut->m_inputSource != NULL)
@@ -1085,7 +1085,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             if (attrs.hasAttribute(KXMLQLCVCFramePagesNumber))
                 setTotalPagesNumber(attrs.value(KXMLQLCVCFramePagesNumber).toString().toInt());
 
-            if(attrs.hasAttribute(KXMLQLCVCFrameCurrentPage))
+            if (attrs.hasAttribute(KXMLQLCVCFrameCurrentPage))
                 slotSetPage(attrs.value(KXMLQLCVCFrameCurrentPage).toString().toInt());
             root.skipCurrentElement();
         }

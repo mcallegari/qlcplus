@@ -119,7 +119,7 @@ QFile::FileError ChannelModifier::saveXML(const QString &fileName)
     doc.writeTextElement(KXMLQLCChannelModName, m_name);
 
     qDebug() << "Got map with" << m_map.count() << "handlers";
-    for(int i = 0; i < m_map.count(); i++)
+    for (int i = 0; i < m_map.count(); i++)
     {
         QPair<uchar, uchar> mapElement = m_map.at(i);
         doc.writeStartElement(KXMLQLCChannelModHandler);
@@ -176,7 +176,7 @@ QFile::FileError ChannelModifier::loadXML(const QString &fileName, Type type)
                 {
                     setName(doc->readElementText());
                 }
-                else if(doc->name() == KXMLQLCChannelModHandler)
+                else if (doc->name() == KXMLQLCChannelModHandler)
                 {
                     QPair <uchar, uchar> dmxPair(0, 0);
                     QXmlStreamAttributes attrs = doc->attributes();

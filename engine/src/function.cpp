@@ -1386,7 +1386,7 @@ int Function::getAttributeIndex(QString name) const
     for (int i = 0; i < m_attributes.count(); i++)
     {
         Attribute attr = m_attributes.at(i);
-        if(attr.m_name == name)
+        if (attr.m_name == name)
             return i;
     }
     return -1;

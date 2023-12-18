@@ -100,7 +100,7 @@ void ChannelsSelection::updateFixturesTree()
     m_channelsTree->setIconSize(QSize(24, 24));
     m_channelsTree->setAllColumnsShowFocus(true);
 
-    foreach(Fixture *fxi, m_doc->fixtures())
+    foreach (Fixture *fxi, m_doc->fixtures())
     {
         QTreeWidgetItem *topItem = NULL;
         quint32 uni = fxi->universe();
@@ -256,7 +256,7 @@ void ChannelsSelection::slotItemChecked(QTreeWidgetItem *item, int col)
 
     Qt::CheckState enable = item->checkState(KColumnSelection);
 
-    foreach(QTreeWidgetItem *chItem, getSameChannels(item))
+    foreach (QTreeWidgetItem *chItem, getSameChannels(item))
         chItem->setCheckState(KColumnSelection, enable);
 
     m_channelsTree->blockSignals(false);
@@ -279,7 +279,7 @@ void ChannelsSelection::slotComboChanged(int idx)
             QVariant var = combo->property("treeItem");
             QTreeWidgetItem *item = (QTreeWidgetItem *) var.value<void *>();
 
-            foreach(QTreeWidgetItem *chItem, getSameChannels(item))
+            foreach (QTreeWidgetItem *chItem, getSameChannels(item))
             {
                 QComboBox *chCombo = qobject_cast<QComboBox *>(m_channelsTree->itemWidget(chItem, KColumnBehaviour));
                 if (chCombo != NULL)
@@ -315,7 +315,7 @@ void ChannelsSelection::slotModifierButtonClicked()
         QVariant var = button->property("treeItem");
         QTreeWidgetItem *item = (QTreeWidgetItem *) var.value<void *>();
 
-        foreach(QTreeWidgetItem *chItem, getSameChannels(item))
+        foreach (QTreeWidgetItem *chItem, getSameChannels(item))
         {
             QPushButton *chButton = qobject_cast<QPushButton *>(m_channelsTree->itemWidget(chItem, KColumnModifier));
             if (chButton != NULL)

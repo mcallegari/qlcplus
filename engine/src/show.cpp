@@ -65,9 +65,9 @@ quint32 Show::totalDuration()
 {
     quint32 totalDuration = 0;
 
-    foreach(Track *track, tracks())
+    foreach (Track *track, tracks())
     {
-        foreach(ShowFunction *sf, track->showFunctions())
+        foreach (ShowFunction *sf, track->showFunctions())
         {
             if (sf->startTime() + sf->duration(doc()) > totalDuration)
                 totalDuration = sf->startTime() + sf->duration(doc());
@@ -111,7 +111,7 @@ bool Show::copyFrom(const Function* function)
     m_latestTrackId = show->m_latestTrackId;
 
     // create a copy of each track
-    foreach(Track *track, show->tracks())
+    foreach (Track *track, show->tracks())
     {
         quint32 sceneID = track->getSceneID();
         Track* newTrack = new Track(sceneID, this);
@@ -119,7 +119,7 @@ bool Show::copyFrom(const Function* function)
         addTrack(newTrack);
 
         // create a copy of each sequence/audio in a track
-        foreach(ShowFunction *sfunc, track->showFunctions())
+        foreach (ShowFunction *sfunc, track->showFunctions())
         {
             Function* function = doc()->function(sfunc->functionID());
             if (function == NULL)
@@ -300,7 +300,7 @@ void Show::moveTrack(Track *track, int direction)
     qint32 swapID = -1;
     if (direction > 0) swapID = INT_MAX;
 
-    foreach(quint32 id, m_tracks.keys())
+    foreach (quint32 id, m_tracks.keys())
     {
         qint32 signedID = (qint32)id;
         if (signedID > maxID) maxID = signedID;
@@ -377,7 +377,7 @@ bool Show::saveXML(QXmlStreamWriter *doc)
     doc->writeAttribute(KXMLQLCShowTimeBPM, QString::number(m_timeDivisionBPM));
     doc->writeEndElement();
 
-    foreach(Track *track, m_tracks)
+    foreach (Track *track, m_tracks)
         track->saveXML(doc);
 
     /* End the <Function> tag */
@@ -478,7 +478,7 @@ void Show::preRun(MasterTimer* timer)
 
     m_runner = new ShowRunner(doc(), this->id(), elapsed());
     int i = 0;
-    foreach(Track *track, m_tracks.values())
+    foreach (Track *track, m_tracks.values())
         m_runner->adjustIntensity(getAttributeValue(i++), track);
 
     connect(m_runner, SIGNAL(timeChanged(quint32)), this, SIGNAL(timeChanged(quint32)));

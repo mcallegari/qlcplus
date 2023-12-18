@@ -52,7 +52,7 @@ void VideoProvider::slotFunctionAdded(quint32 id)
     if (func == NULL)
         return;
 
-    if(func->type() == Function::VideoType)
+    if (func->type() == Function::VideoType)
     {
         VideoWidget *vWidget = new VideoWidget(qobject_cast<Video *>(func));
         m_videoMap[id] = vWidget;
@@ -217,7 +217,7 @@ void VideoWidget::slotMetaDataChanged()
         return;
 
     QMediaMetaData md = m_videoPlayer->metaData();
-    foreach(QMediaMetaData::Key k, md.keys())
+    foreach (QMediaMetaData::Key k, md.keys())
     {
         qDebug() << "[Metadata]" << md.metaDataKeyToString(k) << ":" << md.stringValue(k);
         switch (k)

@@ -503,7 +503,7 @@ bool VCClock::saveXML(QXmlStreamWriter *doc)
     /* Appearance */
     saveXMLAppearance(doc);
 
-    foreach(VCClockSchedule sch, schedules())
+    foreach (VCClockSchedule sch, schedules())
         sch.saveXML(doc);
 
     if (type != Clock)

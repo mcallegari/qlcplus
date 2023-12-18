@@ -437,7 +437,7 @@ void EFXFixture_Test::startOffset()
     ef.setHead(GroupHead(0,0));
 
     QCOMPARE(0, ef.startOffset());
-    for(int i = 0; i < 360; i += 90)
+    for (int i = 0; i < 360; i += 90)
     {
         ef.setStartOffset(i);
         QCOMPARE(i, ef.startOffset());

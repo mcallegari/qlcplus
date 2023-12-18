@@ -323,7 +323,7 @@ void InputOutputMap::setGrandMasterChannelMode(GrandMaster::ChannelMode mode)
 {
     Q_ASSERT(m_grandMaster != NULL);
 
-    if(m_grandMaster->channelMode() != mode)
+    if (m_grandMaster->channelMode() != mode)
     {
         m_grandMaster->setChannelMode(mode);
         m_universeChanged = true;
@@ -341,7 +341,7 @@ void InputOutputMap::setGrandMasterValueMode(GrandMaster::ValueMode mode)
 {
     Q_ASSERT(m_grandMaster != NULL);
 
-    if(m_grandMaster->valueMode() != mode)
+    if (m_grandMaster->valueMode() != mode)
     {
         m_grandMaster->setValueMode(mode);
         m_universeChanged = true;
@@ -1287,7 +1287,7 @@ bool InputOutputMap::saveXML(QXmlStreamWriter *doc) const
     /* IO Map Instance entry */
     doc->writeStartElement(KXMLIOMap);
 
-    foreach(Universe *uni, m_universeArray)
+    foreach (Universe *uni, m_universeArray)
         uni->saveXML(doc);
 
     doc->writeEndElement();

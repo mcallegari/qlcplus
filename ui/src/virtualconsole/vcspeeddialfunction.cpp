@@ -81,7 +81,7 @@ bool VCSpeedDialFunction::saveXML(QXmlStreamWriter *doc) const
     /* Multipliers */
     doc->writeAttribute(KXMLQLCFunctionSpeedFadeIn, QString::number(fadeInMultiplier));
     doc->writeAttribute(KXMLQLCFunctionSpeedFadeOut, QString::number(fadeOutMultiplier));
-    doc->writeAttribute(KXMLQLCFunctionSpeedDuration,QString::number( durationMultiplier));
+    doc->writeAttribute(KXMLQLCFunctionSpeedDuration, QString::number(durationMultiplier));
 
     /* Function ID */
     doc->writeCharacters(QString::number(functionId));

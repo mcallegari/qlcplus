@@ -484,7 +484,7 @@ void RGBMatrixEditor::displayProperties(RGBScript *script)
     if (properties.count() > 0)
         m_propertiesGroup->show();
 
-    foreach(RGBScriptProperty prop, properties)
+    foreach (RGBScriptProperty prop, properties)
     {
         switch(prop.m_type)
         {
@@ -1226,7 +1226,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
     }
 }
 
-void RGBMatrixEditor::slotShapeToggle(bool )
+void RGBMatrixEditor::slotShapeToggle(bool)
 {
     createPreviewItems();
 }

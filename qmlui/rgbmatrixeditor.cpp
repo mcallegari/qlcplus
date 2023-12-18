@@ -125,7 +125,7 @@ void RGBMatrixEditor::setAlgorithmIndex(int algoIndex)
 {
     qDebug() << "Set algorithm:" << algoIndex;
     QStringList algoList = algorithms();
-    if(algoIndex < 0 || algoIndex >= algorithms().count())
+    if (algoIndex < 0 || algoIndex >= algorithms().count())
         return;
 
     RGBAlgorithm *algo = RGBAlgorithm::algorithm(m_doc, algoList.at(algoIndex));
@@ -408,7 +408,7 @@ void RGBMatrixEditor::createScriptObjects(QQuickItem *parent)
     RGBScript *script = static_cast<RGBScript*> (m_matrix->algorithm());
     QList<RGBScriptProperty> properties = script->properties();
 
-    foreach(RGBScriptProperty prop, properties)
+    foreach (RGBScriptProperty prop, properties)
     {
         // always create a label first
         QMetaObject::invokeMethod(parent, "addLabel",
@@ -423,7 +423,7 @@ void RGBMatrixEditor::createScriptObjects(QQuickItem *parent)
                 int currIdx = 0;
                 QString pValue = m_matrix->property(prop.m_name);
 
-                foreach(QString val, prop.m_listValues)
+                foreach (QString val, prop.m_listValues)
                 {
                     if (val == pValue)
                         currIdx = idx;
@@ -598,7 +598,7 @@ void RGBMatrixEditor::slotPreviewTimeout()
             return;
 
         QMapIterator<QLCPoint, GroupHead> it(m_group->headsMap());
-        while(it.hasNext())
+        while (it.hasNext())
         {
             it.next();
 

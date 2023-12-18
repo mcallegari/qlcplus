@@ -803,7 +803,7 @@ void VCSlider::setControlledFunction(quint32 fid)
         disconnect(current, SIGNAL(attributeChanged(int,qreal)),
                 this, SLOT(slotControlledFunctionAttributeChanged(int,qreal)));
 
-        if(current->isRunning())
+        if (current->isRunning())
         {
             running = true;
             current->stop(functionParent());

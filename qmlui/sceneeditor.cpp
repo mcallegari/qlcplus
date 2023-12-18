@@ -108,7 +108,7 @@ void SceneEditor::setPreviewEnabled(bool enable)
 
     if (enable == true)
     {
-        foreach(SceneValue sv, m_scene->values())
+        foreach (SceneValue sv, m_scene->values())
             m_source->set(sv.fxi, sv.channel, sv.value);
     }
     else

@@ -317,7 +317,7 @@ void VCButton::slotChooseIcon()
                                         iconPath(), tr("Images (%1)").arg(formats));
     if (path.isEmpty() == false)
     {
-        foreach(VCWidget *widget, vc->selectedWidgets())
+        foreach (VCWidget *widget, vc->selectedWidgets())
         {
             VCButton *button = qobject_cast<VCButton*> (widget);
             if (button != NULL)
@@ -1177,7 +1177,7 @@ void VCButton::mousePressEvent(QMouseEvent* e)
             QMenu *menu = new QMenu();
             menu->setStyleSheet(menuStyle);
             int idx = 0;
-            foreach(Attribute attr, func->attributes())
+            foreach (Attribute attr, func->attributes())
             {
                 QString slStyle = "QSlider::groove:horizontal { border: 1px solid #999999; margin: 0; border-radius: 2px;"
                         "height: 15px; background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4); }"

@@ -292,7 +292,7 @@ void ConsoleChannel::slotChecked(bool state)
 
 void ConsoleChannel::setChannelStyleSheet(const QString &styleSheet)
 {
-    if(isVisible())
+    if (isVisible())
         QGroupBox::setStyleSheet(styleSheet);
     else
         m_styleSheet = styleSheet;

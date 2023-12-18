@@ -507,7 +507,7 @@ void SimpleDesk::initSliderView(bool fullMode)
         fixturesLayout->setContentsMargins(2, 2, 2, 2);
 
         int c = 0;
-        foreach(Fixture *fixture, m_doc->fixtures())
+        foreach (Fixture *fixture, m_doc->fixtures())
         {
             if (fixture->universe() != (quint32)m_universesCombo->currentIndex())
                 continue;
@@ -566,7 +566,7 @@ void SimpleDesk::initChannelGroupsView()
     {
         m_chGroupsArea = new QScrollArea();
         QList<quint32> chGrpIDs;
-        foreach(ChannelsGroup *grp, m_doc->channelsGroups())
+        foreach (ChannelsGroup *grp, m_doc->channelsGroups())
             chGrpIDs.append(grp->id());
         GroupsConsole* console = new GroupsConsole(m_chGroupsArea, m_doc, chGrpIDs, QList<uchar>());
         m_chGroupsArea->setWidget(console);
@@ -955,7 +955,7 @@ void SimpleDesk::slotUniverseWritten(quint32 idx, const QByteArray& universeData
     }
     else
     {
-        foreach(FixtureConsole *fc, m_consoleList.values())
+        foreach (FixtureConsole *fc, m_consoleList.values())
         {
             if (fc == NULL)
                 continue;
@@ -1136,7 +1136,7 @@ void SimpleDesk::slotGroupValueChanged(quint32 groupID, uchar value)
             if (m_consoleList.contains(fixture->id()))
             {
                 FixtureConsole *fc = m_consoleList[fixture->id()];
-                if(fc != NULL)
+                if (fc != NULL)
                 {
                     fc->blockSignals(true);
                     if (m_engine->hasChannel(absAddr) == false)

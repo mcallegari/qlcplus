@@ -193,7 +193,7 @@ QString PlaybackWing::name() const
 
 void PlaybackWing::parseData(const QByteArray& data)
 {
-    if (data.size() < WING_PLAYBACK_PACKET_SIZE )
+    if (data.size() < WING_PLAYBACK_PACKET_SIZE)
     {
         qWarning() << Q_FUNC_INFO << "Expected at least" << WING_PLAYBACK_PACKET_SIZE
                    << "bytes for buttons but got only" << data.size();
@@ -254,7 +254,7 @@ void PlaybackWing::parseData(const QByteArray& data)
             //check sync status
             int curdiff = quint8(m_feedbackValues[page()][slider]) - quint8(data[WING_PLAYBACK_BYTE_SLIDER + slider]);
 
-            // send input after crossing widget values ( sign of diff is changing)
+            // send input after crossing widget values (sign of diff is changing)
             if (curdiff == 0 || (curdiff > 0 && diff < 0)  || (curdiff < 0 && diff > 0))
             {
                 setCacheValue(slider, value);
@@ -273,7 +273,7 @@ void PlaybackWing::parseData(const QByteArray& data)
 void PlaybackWing::applyExtraButtons(const QByteArray& data)
 {
     /* Check that there's enough data for flags */
-    if (data.size() < WING_PLAYBACK_PACKET_SIZE )
+    if (data.size() < WING_PLAYBACK_PACKET_SIZE)
         return;
 
     // WING_PLAYBACK_BIT_PAGEUP

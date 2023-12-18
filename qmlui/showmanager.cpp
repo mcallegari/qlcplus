@@ -558,7 +558,7 @@ void ShowManager::resetContents()
 void ShowManager::resetView()
 {
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         delete it.value();
@@ -687,7 +687,7 @@ void ShowManager::setItemSelection(int trackIdx, ShowFunction *sf, QQuickItem *i
 
 void ShowManager::resetItemsSelection()
 {
-    foreach(SelectedShowItem ssi, m_selectedItems)
+    foreach (SelectedShowItem ssi, m_selectedItems)
     {
         if (ssi.m_item != nullptr)
             ssi.m_item->setProperty("isSelected", false);
@@ -751,7 +751,7 @@ bool ShowManager::checkOverlapping(Track *track, ShowFunction *sourceFunc,
     if (track == nullptr)
         return false;
 
-    foreach(ShowFunction *sf, track->showFunctions())
+    foreach (ShowFunction *sf, track->showFunctions())
     {
         if (sf == sourceFunc)
             continue;

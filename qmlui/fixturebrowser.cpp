@@ -154,7 +154,7 @@ QStringList FixtureBrowser::modesList()
     if (definition != nullptr)
     {
         QList<QLCFixtureMode *> fxModesList = definition->modes();
-        foreach(QLCFixtureMode *mode, fxModesList)
+        foreach (QLCFixtureMode *mode, fxModesList)
         {
             modesList.append(mode->name());
             if (m_selectedMode.isEmpty())

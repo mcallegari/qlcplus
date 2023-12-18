@@ -304,7 +304,7 @@ void FunctionWizard::updateAvailableFunctionsTree()
 
         QStringList caps = PaletteGenerator::getCapabilities(fxi);
 
-        foreach(QString cap, caps)
+        foreach (QString cap, caps)
         {
             if (cap == KQLCChannelRGB || cap == KQLCChannelCMY)
             {
@@ -398,19 +398,19 @@ void FunctionWizard::updateResultFunctionsTree()
                                                                  (PaletteGenerator::PaletteSubType)subType);
                 m_paletteList.append(palette);
 
-                foreach(Scene *scene, palette->scenes())
+                foreach (Scene *scene, palette->scenes())
                 {
                     QTreeWidgetItem *item = new QTreeWidgetItem(getFunctionGroupItem(scene));
                     item->setText(KFunctionName, scene->name());
                     item->setIcon(KFunctionName, scene->getIcon());
                 }
-                foreach(Chaser *chaser, palette->chasers())
+                foreach (Chaser *chaser, palette->chasers())
                 {
                     QTreeWidgetItem *item = new QTreeWidgetItem(getFunctionGroupItem(chaser));
                     item->setText(KFunctionName, chaser->name());
                     item->setIcon(KFunctionName, chaser->getIcon());
                 }
-                foreach(RGBMatrix *matrix, palette->matrices())
+                foreach (RGBMatrix *matrix, palette->matrices())
                 {
                     QTreeWidgetItem *item = new QTreeWidgetItem(getFunctionGroupItem(matrix));
                     item->setText(KFunctionName, matrix->name());
@@ -442,7 +442,7 @@ void FunctionWizard::updateWidgetsTree()
 {
     m_widgetsTree->clear();
 
-    foreach(PaletteGenerator *palette, m_paletteList)
+    foreach (PaletteGenerator *palette, m_paletteList)
     {
         QTreeWidgetItem *frame = new QTreeWidgetItem(m_widgetsTree);
         frame->setText(KWidgetName, palette->fullName());
@@ -470,7 +470,7 @@ void FunctionWizard::updateWidgetsTree()
             soloFrameItem->setCheckState(KWidgetName, Qt::Unchecked);
             soloFrameItem->setData(KWidgetName, Qt::UserRole, VCWidget::SoloFrameWidget);
         }
-        foreach(Scene *scene, palette->scenes())
+        foreach (Scene *scene, palette->scenes())
         {
             QTreeWidgetItem *item = NULL;
             if (soloFrameItem != NULL)
@@ -485,7 +485,7 @@ void FunctionWizard::updateWidgetsTree()
             item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)scene));
 
         }
-        foreach(Chaser *chaser, palette->chasers())
+        foreach (Chaser *chaser, palette->chasers())
         {
             QTreeWidgetItem *item = new QTreeWidgetItem(frame);
             QString toRemove = " - " + palette->model();
@@ -496,7 +496,7 @@ void FunctionWizard::updateWidgetsTree()
             item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)chaser));
         }
 
-        foreach(RGBMatrix *matrix, palette->matrices())
+        foreach (RGBMatrix *matrix, palette->matrices())
         {
             QTreeWidgetItem *item = NULL;
             if (soloFrameItem != NULL)
@@ -621,7 +621,7 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
             }
             else if (pType == PaletteGenerator::Gobos)
             {
-                foreach(SceneValue scv, scene->values())
+                foreach (SceneValue scv, scene->values())
                 {
                     Fixture *fixture = m_doc->fixture(scv.fxi);
                     if (fixture == NULL)

@@ -231,7 +231,7 @@ bool VCMatrixControl::saveXML(QXmlStreamWriter *doc)
     if (!m_properties.isEmpty())
     {
         QHashIterator<QString, QString> it(m_properties);
-        while(it.hasNext())
+        while (it.hasNext())
         {
             it.next();
             doc->writeStartElement(KXMLQLCVCMatrixControlProperty);

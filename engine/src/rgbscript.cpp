@@ -61,7 +61,7 @@ RGBScript::RGBScript(const RGBScript& s)
     , m_apiVersion(0)
 {
     evaluate();
-    foreach(RGBScriptProperty cap, s.m_properties)
+    foreach (RGBScriptProperty cap, s.m_properties)
     {
         setProperty(cap.m_name, s.property(cap.m_name));
     }
@@ -79,7 +79,7 @@ RGBScript &RGBScript::operator=(const RGBScript &s)
         m_contents = s.m_contents;
         m_apiVersion = s.m_apiVersion;
         evaluate();
-        foreach(RGBScriptProperty cap, s.m_properties)
+        foreach (RGBScriptProperty cap, s.m_properties)
         {
             setProperty(cap.m_name, s.property(cap.m_name));
         }
@@ -364,7 +364,7 @@ QHash<QString, QString> RGBScript::propertiesAsStrings()
     QMutexLocker engineLocker(s_engineMutex);
 
     QHash<QString, QString> properties;
-    foreach(RGBScriptProperty cap, m_properties)
+    foreach (RGBScriptProperty cap, m_properties)
     {
         QScriptValue readMethod = m_script.property(cap.m_readMethod);
         if (readMethod.isFunction())
@@ -388,7 +388,7 @@ bool RGBScript::setProperty(QString propertyName, QString value)
 {
     QMutexLocker engineLocker(s_engineMutex);
 
-    foreach(RGBScriptProperty cap, m_properties)
+    foreach (RGBScriptProperty cap, m_properties)
     {
         if (cap.m_name == propertyName)
         {
@@ -419,7 +419,7 @@ QString RGBScript::property(QString propertyName) const
 {
     QMutexLocker engineLocker(s_engineMutex);
 
-    foreach(RGBScriptProperty cap, m_properties)
+    foreach (RGBScriptProperty cap, m_properties)
     {
         if (cap.m_name == propertyName)
         {
@@ -474,7 +474,7 @@ bool RGBScript::loadProperties()
         RGBScriptProperty newCap;
 
         QStringList propsList = cap.split("|");
-        foreach(QString prop, propsList)
+        foreach (QString prop, propsList)
         {
             QStringList keyValue = prop.split(":");
             if (keyValue.length() < 2)

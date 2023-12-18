@@ -371,7 +371,7 @@ void InputOutputManager::slotDeleteUniverse()
     if (uniID == m_ioMap->invalidUniverse())
         return;
 
-    foreach(Fixture *fx, m_doc->fixtures())
+    foreach (Fixture *fx, m_doc->fixtures())
     {
         if (fx->universe() == uniID)
         {

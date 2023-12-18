@@ -662,7 +662,7 @@ QSharedPointer<QLCInputSource> VCWidget::inputSource(quint8 id) const
 
 void VCWidget::remapInputSources(int pgNum)
 {
-    foreach(quint8 s, m_inputs.keys())
+    foreach (quint8 s, m_inputs.keys())
     {
         QSharedPointer<QLCInputSource> src(m_inputs.value(s));
         src->setPage(pgNum);
@@ -720,7 +720,7 @@ void VCWidget::slotInputProfileChanged(quint32 universe, const QString &profileN
 
     QLCInputProfile *profile = m_doc->inputOutputMap()->profile(profileName);
 
-    foreach(QSharedPointer<QLCInputSource> const& source, m_inputs.values())
+    foreach (QSharedPointer<QLCInputSource> const& source, m_inputs.values())
     {
         if (!source.isNull() && source->universe() == universe)
         {

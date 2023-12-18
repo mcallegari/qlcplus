@@ -80,7 +80,7 @@ DmxDumpFactory::DmxDumpFactory(Doc *doc, DmxDumpFactoryProperties *props, QWidge
     else
         m_dumpSelectedRadio->setChecked(true);
 
-    if(m_properties->nonZeroValuesMode() == true)
+    if (m_properties->nonZeroValuesMode() == true)
         m_nonZeroCheck->setChecked(true);
 
     connect(m_sceneButton, SIGNAL(clicked(bool)),
@@ -94,7 +94,7 @@ DmxDumpFactory::~DmxDumpFactory()
 void DmxDumpFactory::slotUpdateChasersTree()
 {
     m_addtoTree->clear();
-    foreach(Function *f, m_doc->functionsByType(Function::ChaserType))
+    foreach (Function *f, m_doc->functionsByType(Function::ChaserType))
     {
         Chaser *chaser = qobject_cast<Chaser*>(f);
         QTreeWidgetItem *item = new QTreeWidgetItem(m_addtoTree);
@@ -136,7 +136,7 @@ void DmxDumpFactory::slotSelectSceneButtonClicked()
         QByteArray chMask = m_properties->channelsMask();
         chMask.fill(0);
 
-        foreach(SceneValue scv, scene->values())
+        foreach (SceneValue scv, scene->values())
         {
             Fixture *fxi = m_doc->fixture(scv.fxi);
             if (fxi == NULL)

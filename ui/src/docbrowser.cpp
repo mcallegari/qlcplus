@@ -194,7 +194,7 @@ DocBrowser::~DocBrowser()
 }
 
 void DocBrowser::slotAnchorClicked(QUrl url){
-    if(url.scheme() == QLatin1String("http") || url.scheme() == QLatin1String("https"))
+    if (url.scheme() == QLatin1String("http") || url.scheme() == QLatin1String("https"))
      {
         QDesktopServices::openUrl(url);
      }

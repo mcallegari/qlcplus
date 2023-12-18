@@ -354,7 +354,7 @@ void ContextManager::setPositionPickPoint(QVector3D point)
                 panDeg = 90.0 + (90.0 - panDeg);
             else if (!xLeft && !zBack)
                 panDeg = 180.0 + panDeg;
-            else if(!xLeft && zBack)
+            else if (!xLeft && zBack)
                 panDeg = 270.0 + (90.0 - panDeg);
 
             if (itemFlags & MonitorProperties::InvertedPanFlag)

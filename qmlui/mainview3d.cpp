@@ -160,7 +160,7 @@ void MainView3D::resetItems()
     QMetaObject::invokeMethod(m_scene3D, "updateFrameGraph", Q_ARG(QVariant, false));
 
     QMapIterator<quint32, SceneItem*> it(m_entitiesMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         SceneItem *e = it.value();
@@ -179,7 +179,7 @@ void MainView3D::resetItems()
     m_entitiesMap.clear();
 
     QMapIterator<int, SceneItem*> it2(m_genericMap);
-    while(it2.hasNext())
+    while (it2.hasNext())
     {
         it2.next();
         SceneItem *e = it2.value();
@@ -214,7 +214,7 @@ void MainView3D::setUniverseFilter(quint32 universeFilter)
     PreviewContext::setUniverseFilter(universeFilter);
 
     QMapIterator<quint32, SceneItem*> it(m_entitiesMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         quint32 itemID = it.key();
@@ -1303,7 +1303,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
 void MainView3D::updateFixtureSelection(QList<quint32> fixtures)
 {
     QMapIterator<quint32, SceneItem*> it(m_entitiesMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         quint32 fxID = it.key();

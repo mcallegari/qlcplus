@@ -101,14 +101,14 @@ void MultiTrackView::updateTracksDividers()
     {
         QGraphicsItem *item = m_scene->addRect(0, ypos + (j * TRACK_HEIGHT),
                                                m_scene->width(), 1,
-                                               QPen( QColor(150, 150, 150, 255) ),
-                                               QBrush( QColor(190, 190, 190, 255) ) );
+                                               QPen(QColor(150, 150, 150, 255)),
+                                               QBrush(QColor(190, 190, 190, 255)));
         item->setZValue(-1);
         m_hdividers.append(item);
     }
     m_vdivider = m_scene->addRect(TRACK_WIDTH - 3, 0, 3, m_scene->height(),
-                        QPen( QColor(150, 150, 150, 255) ),
-                        QBrush( QColor(190, 190, 190, 255) ) );
+                        QPen(QColor(150, 150, 150, 255)),
+                        QBrush(QColor(190, 190, 190, 255)));
 }
 
 void MultiTrackView::setViewSize(int width, int height)
@@ -164,7 +164,7 @@ void MultiTrackView::resetView()
 void MultiTrackView::addTrack(Track *track)
 {
     // check if track already exists
-    foreach(TrackItem *item, m_tracks)
+    foreach (TrackItem *item, m_tracks)
     {
         if (item->getTrack()->id() == track->id())
             return;
@@ -330,7 +330,7 @@ quint32 MultiTrackView::deleteSelectedItem()
     }
 
     int trackIndex = 0;
-    foreach(TrackItem *item, m_tracks)
+    foreach (TrackItem *item, m_tracks)
     {
         if (item->isActive() == true)
         {
@@ -340,8 +340,8 @@ quint32 MultiTrackView::deleteSelectedItem()
             QString msg = tr("Do you want to DELETE track:") + QString("\n\n") + track->name();
             if (sfList.count() > 0)
             {
-                msg += QString("\n\n") + tr("This operation will also DELETE:" ) + QString("\n\n");
-                foreach(ShowItem *item, m_items)
+                msg += QString("\n\n") + tr("This operation will also DELETE:") + QString("\n\n");
+                foreach (ShowItem *item, m_items)
                 {
                     if (item->getTrackIndex() == trackIndex)
                         msg += item->functionName() + QString("\n");
@@ -394,7 +394,7 @@ void MultiTrackView::rewindCursor()
 
 void MultiTrackView::activateTrack(Track *track)
 {
-    foreach(TrackItem *item, m_tracks)
+    foreach (TrackItem *item, m_tracks)
     {
         if (item->getTrack()->id() == track->id())
             item->setActive(true);
@@ -405,7 +405,7 @@ void MultiTrackView::activateTrack(Track *track)
 
 ShowItem *MultiTrackView::getSelectedItem()
 {
-    foreach(ShowItem *item, m_items)
+    foreach (ShowItem *item, m_items)
         if (item->isSelected())
             return item;
 
@@ -507,7 +507,7 @@ void MultiTrackView::slotTimeScaleChanged(int val)
     //int oldScale = m_header->getTimeScale();
     m_header->setTimeScale(val);
 
-    foreach(ShowItem *item, m_items)
+    foreach (ShowItem *item, m_items)
     {
         quint32 newXpos = getPositionFromTime(item->getStartTime());
         item->setPos(newXpos + 2, item->y());
@@ -521,7 +521,7 @@ void MultiTrackView::slotTimeScaleChanged(int val)
 
 void MultiTrackView::slotTrackClicked(TrackItem *track)
 {
-    foreach(TrackItem *item, m_tracks)
+    foreach (TrackItem *item, m_tracks)
     {
         if (item == track)
             item->setActive(true);
@@ -538,7 +538,7 @@ void MultiTrackView::slotTrackDoubleClicked(TrackItem *track)
 
 void MultiTrackView::slotTrackSoloFlagChanged(TrackItem* track, bool solo)
 {
-    foreach(TrackItem *item, m_tracks)
+    foreach (TrackItem *item, m_tracks)
     {
         if (item != track)
             item->setFlags(false, solo);
