@@ -33,6 +33,7 @@
 #include "vcwidget.h"
 #include "vcbutton.h"
 #include "vcslider.h"
+#include "vcxypad.h"
 #include "vcframe.h"
 #include "fixture.h"
 #include "chaser.h"
@@ -140,7 +141,7 @@ void FunctionWizard::checkTabsAndButtons()
         break;
         case 2:
         {
-            m_nextButton->setEnabled(!m_paletteList.isEmpty());            
+            m_nextButton->setEnabled(m_widgetsTree->topLevelItemCount() > 0);            
         }
         break;
         case 3:
@@ -458,6 +459,7 @@ void FunctionWizard::addWidgetItem(QTreeWidgetItem *grpItem, QString name, int t
     item->setCheckState(KWidgetName, Qt::Unchecked);
     item->setData(KWidgetName, Qt::UserRole, type);
     item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void*)fxGrpItem));
+    item->setData(KWidgetName, Qt::UserRole + 2, QVariant::fromValue(channels[0]));
     item->setIcon(KWidgetName, VCWidget::typeToIcon(type));
     if(name.toLower().contains("speed")) item->setIcon(KWidgetName, QIcon(":/knob.png"));
     
@@ -604,9 +606,10 @@ void FunctionWizard::updateWidgetsTree()
             continue;
 
         QTreeWidgetItem *frame = new QTreeWidgetItem(m_widgetsTree);
-        frame->setText(KWidgetName, fxGrpItem->text(KFixtureColumnName));
+        frame->setText(KWidgetName, "Channels - " + fxGrpItem->text(KFixtureColumnName));
         frame->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::FrameWidget));
         frame->setData(KWidgetName, Qt::UserRole, VCWidget::FrameWidget);
+        frame->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)NULL));
         frame->setFlags(frame->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
         frame->setCheckState(KWidgetName, Qt::Unchecked);
         frame->setExpanded(true);
@@ -692,7 +695,8 @@ void FunctionWizard::updateWidgetsTree()
 }
 
 VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int ypos,
-                                       Function *func, int pType)
+                                       Function *func, int pType, QTreeWidgetItem *fxGrpItem,
+                                       quint32 chan)
 {
     VirtualConsole *vc = VirtualConsole::instance();
     VCWidget *widget = NULL;
@@ -744,6 +748,7 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
             VCSlider* slider = new VCSlider(parent, m_doc);
             vc->setupWidget(slider, parent);
             slider->move(QPoint(xpos, ypos));
+            // Click & Go Slider in Pallette Frames
             if (func != NULL)
             {
                 Scene *scene = qobject_cast<Scene*> (func);
@@ -757,13 +762,73 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
                     slider->setClickAndGoType(ClickAndGoWidget::Preset);
                 slider->setSliderMode(VCSlider::Level);
             }
+            else
+            {
+                // get channel of first Fixture
+                int fxID = fxGrpItem->child(0)->data(KFixtureColumnName, Qt::UserRole).toInt();
+                Fixture *fixture = m_doc->fixture(fxID);
+                const QLCChannel *channel = fixture->channel(chan);
+
+                bool isRGB = channel->colour()==QLCChannel::Red;
+                
+                for (int c = 0; c < fxGrpItem->childCount(); c++)
+                {   
+                    QTreeWidgetItem *fxItem = fxGrpItem->child(c);
+                    int fxi = fxItem->data(KFixtureColumnName, Qt::UserRole).toInt();
+                    
+                    slider->addLevelChannel(fxi, chan);
+                    if(isRGB)
+                    {
+                        slider->addLevelChannel(fxi, chan + 1);
+                        slider->addLevelChannel(fxi, chan + 2);
+                    }
+                }
+                
+                if(isRGB){
+                    slider->setClickAndGoType(ClickAndGoWidget::RGB);
+                }
+                else if(channel->group() == QLCChannel::Intensity)
+                {
+                    slider->setClickAndGoType(ClickAndGoWidget::None);
+                }
+                else
+                {
+                    slider->setClickAndGoType(ClickAndGoWidget::Preset);
+                }
+                
+                if(channel->group()==QLCChannel::Speed)
+                    slider->setWidgetStyle(VCSlider::WKnob);
+
+               
+                slider->setSliderMode(VCSlider::Level); 
+            }
+
             widget = slider;
+        }
+        break;
+        case VCWidget::XYPadWidget:
+        {
+            VCXYPad* XYPad = new VCXYPad(parent, m_doc);
+            vc->setupWidget(XYPad, parent);
+            XYPad->move(QPoint(xpos, ypos));
+
+            for (int c = 0; c < fxGrpItem->childCount(); c++)
+            {
+                QTreeWidgetItem *fxItem = fxGrpItem->child(c);
+                int fxID = fxItem->data(KFixtureColumnName, Qt::UserRole).toInt();
+                VCXYPadFixture fxi = VCXYPadFixture(m_doc);
+                fxi.setHead(GroupHead(fxID,0));
+                XYPad->appendFixture(fxi);
+            }
+                      
+            widget = XYPad;
         }
         break;
         default:
         break;
     }
 
+    // Set Function
     if (widget != NULL && func != NULL)
     {
         if (func->type() == Function::SceneType && type == VCWidget::ButtonWidget)
@@ -817,12 +882,26 @@ QSize FunctionWizard::recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *par
             childItem->checkState(KWidgetName) == Qt::PartiallyChecked)
         {
             int cType = childItem->data(KWidgetName, Qt::UserRole).toInt();
-            Function *func = (Function *) childItem->data(KWidgetName, Qt::UserRole + 1).value<void *>();
+            Function *func = NULL;
+            QTreeWidgetItem *fxGrpItem  = NULL;
+            quint32 channel = 0;
+            if(type)
+                func = (Function *) childItem->data(KWidgetName, Qt::UserRole + 1).value<void *>();
+            else
+            {
+                fxGrpItem = (QTreeWidgetItem *) childItem->data(KWidgetName, Qt::UserRole + 1).value<void *>();
+                channel = childItem->data(KWidgetName, Qt::UserRole + 2).toUInt();
 
-            VCWidget *childWidget = createWidget(cType, parent, subX, subY, func, type);
+            }   
+                
+
+            VCWidget *childWidget = createWidget(cType, parent, subX, subY, func, type, fxGrpItem, channel);
             if (childWidget != NULL)
             {
-                childWidget->setCaption(childItem->text(KWidgetName));
+                if(childWidget->type()==VCWidget::SliderWidget)
+                    childWidget->setCaption(childItem->text(KWidgetName).split(" - ")[0]);
+                else
+                    childWidget->setCaption(childItem->text(KWidgetName));
 
                 if (childItem->childCount() > 0)
                 {
@@ -877,9 +956,14 @@ void FunctionWizard::addWidgetsToVirtualConsole()
             if (widget == NULL)
                 continue;
 
-            widget->resize(QSize(1000, 1000));
-            PaletteGenerator *pal = (PaletteGenerator *) wItem->data(KWidgetName, Qt::UserRole + 1).value<void *>();
-            int pType = pal->type();
+            widget->resize(QSize(2000, 1000));
+
+            int pType = 0;
+            if(!wItem->text(KWidgetName).contains("Channels"))
+            {
+                PaletteGenerator *pal = (PaletteGenerator *) wItem->data(KWidgetName, Qt::UserRole + 1).value<void *>();
+                pType = pal->type();
+            }
 
             widget->setCaption(wItem->text(KWidgetName));
 

@@ -107,10 +107,11 @@ protected:
     void checkPanTilt(QTreeWidgetItem *grpItem, QTreeWidgetItem *fxGrpItem, qint32* channels);
     void checkRGB(QTreeWidgetItem *grpItem, QTreeWidgetItem *fxGrpItem, qint32* channels);
     void addWidgetItem(QTreeWidgetItem *grpItem, QString name, int type, 
-                       QTreeWidgetItem *fxGrpItem, quint32* channels);
+                       QTreeWidgetItem *fxGrpItem, quint32 *chan/* , QLCChannel* channel */);
 
     VCWidget *createWidget(int type, VCWidget *parent, int xpos, int ypos,
-                           Function *func = NULL, int pType = 0);
+                           Function *func = NULL, int pType = 0, QTreeWidgetItem* fxGrpItem = NULL,
+                           quint32 chan = 0);
 
     QSize recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *parent, int type);
 
