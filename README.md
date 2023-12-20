@@ -3,7 +3,7 @@
 </a>
 
  # Q Light Controller Plus
-![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://www.youtube.com/watch?v=I9bccwcYQpM&list=PLHT-wIriuitDiW4A9oKSDr__Z_jcmMVdi) [![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?style=for-the-badge&logo=Facebook&logoColor=white)](https://www.facebook.com/qlcplus)
+[![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white)](https://www.instagram.com/qlcplus/) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://www.youtube.com/watch?v=I9bccwcYQpM&list=PLHT-wIriuitDiW4A9oKSDr__Z_jcmMVdi) [![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?style=for-the-badge&logo=Facebook&logoColor=white)](https://www.facebook.com/qlcplus)
 
 Copyright (c) Heikki Junnila, Massimo Callegari
 
@@ -13,13 +13,13 @@ QLC+ runs on Linux, Windows (7+), macOS (10.7+) and the Raspberry Pi.
 
 
 
- | Links                                          ||
+ |                                           ||
  |----------------|--------------------------------|
- | Home Page       | [![Static Badge](https://img.shields.io/badge/qlcplus.org-blue?logo=grav)](qlcplus.org)        |
- | Documentation   | [![Static Badge](https://img.shields.io/badge/docs.qlcplus.org-blue?logo=grav)](docs.qlcplus.org) |
- | Official Forum  | [![Static Badge](https://img.shields.io/badge/qlcplus.org/forum-white?logo=php)](qlcplus.org/forum/) |
+ | Home Page       | [![Static Badge](https://img.shields.io/badge/qlcplus.org-blue?logo=grav)](https://qlcplus.org)        |
+ | Documentation   | [![Static Badge](https://img.shields.io/badge/docs.qlcplus.org-blue?logo=grav)](https://docs.qlcplus.org) |
+ | Official Forum  | [![Static Badge](https://img.shields.io/badge/qlcplus.org/forum-white?logo=php)](https://qlcplus.org/forum/) |
  | GitHub Sponsors | ![GitHub Sponsors](https://img.shields.io/github/sponsors/mcallegari) <a href="https://github.com/sponsors/mcallegari"><img src="https://img.shields.io/badge/sponsor-30363D?logo=GitHub-Sponsors&logoColor=#white" /></a> |
- | Official Merch| [![Static Badge](https://img.shields.io/badge/merch.qlcplus.org-Official_Merchandice-green?logo=shopify)](merch.qlcplus.org) |
+ | Official Merch| [![Static Badge](https://img.shields.io/badge/merch.qlcplus.org-Official_Merchandice-green?logo=shopify)](https://merch.qlcplus.org) |
 
 
  ## Getting Started
