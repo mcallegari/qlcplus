@@ -1,7 +1,9 @@
-Q Light Controller Plus 4
-=========================
+<a href="https://www.qlcplus.org/">
+    <img src="resources/icons/png/qlcplus.png" alt="QLC Logo" title="qlcplus.png" align="right" height="60" />
+</a>
 
-![QLC+ LOGO](resources/icons/png/qlcplus.png)
+Q Light Controller Plus
+=========================
 
 Copyright (c) Heikki Junnila, Massimo Callegari
 
