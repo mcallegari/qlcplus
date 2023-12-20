@@ -29,6 +29,8 @@
 class Doc;
 class Universe;
 class InputOutputMap;
+class QLCInputProfile;
+class InputProfileEditor;
 
 class InputOutputManager : public PreviewContext
 {
@@ -51,6 +53,8 @@ class InputOutputManager : public PreviewContext
     Q_PROPERTY(QString beatType READ beatType WRITE setBeatType NOTIFY beatTypeChanged)
     Q_PROPERTY(int bpmNumber READ bpmNumber WRITE setBpmNumber NOTIFY bpmNumberChanged)
 
+    Q_PROPERTY(QString profileUserFolder READ profileUserFolder CONSTANT)
+
 public:
     InputOutputManager(QQuickView *view, Doc *doc, QObject *parent = 0);
 
@@ -58,7 +62,7 @@ protected slots:
     void slotDocLoaded();
 
 private:
-    InputOutputMap* m_ioMap;
+    InputOutputMap *m_ioMap;
 
     /*********************************************************************
      * Universes
@@ -119,7 +123,6 @@ signals:
 public:
     Q_INVOKABLE QVariant universeInputSources(int universe);
     Q_INVOKABLE QVariant universeOutputSources(int universe);
-    Q_INVOKABLE QVariant universeInputProfiles(int universe);
 
     Q_INVOKABLE int outputPatchesCount(int universe) const;
     Q_INVOKABLE void setOutputPatch(int universe, QString plugin, QString line, int index);
@@ -141,6 +144,23 @@ signals:
 private:
     void clearInputList();
     void clearOutputList();
+
+    /*********************************************************************
+     * Input Profiles
+     *********************************************************************/
+public:
+    QString profileUserFolder();
+
+    Q_INVOKABLE void createInputProfile();
+    Q_INVOKABLE bool editInputProfile(QString name);
+    Q_INVOKABLE bool saveInputProfile();
+    Q_INVOKABLE void finishInputProfile();
+    Q_INVOKABLE bool removeInputProfile(QString name);
+    Q_INVOKABLE QVariant universeInputProfiles(int universe);
+
+private:
+    InputProfileEditor *m_profileEditor;
+    QLCInputProfile *m_editProfile;
 
     /*********************************************************************
      * Beats

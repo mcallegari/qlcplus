@@ -120,7 +120,7 @@ QString NanoDMX::getDeviceName()
                             if (ttyDir.exists())
                             {
                                 QStringList ttyList = ttyDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-                                foreach(QString ttyName, ttyList)
+                                foreach (QString ttyName, ttyList)
                                 {
                                     qDebug() << "This NanoDMX adapter will use" << QString("/dev/" + ttyName);
                                     return QString("/dev/" + ttyName);

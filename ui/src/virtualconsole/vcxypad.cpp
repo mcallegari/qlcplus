@@ -39,16 +39,12 @@
 #include <QList>
 
 #include "qlcmacros.h"
-#include "qlcfile.h"
 
 #include "vcpropertieseditor.h"
 #include "vcxypadproperties.h"
-#include "qlcinputchannel.h"
-#include "virtualconsole.h"
 #include "ctkrangeslider.h"
 #include "mastertimer.h"
 #include "vcxypadarea.h"
-#include "inputpatch.h"
 #include "flowlayout.h"
 #include "vcxypad.h"
 #include "fixture.h"
@@ -209,7 +205,7 @@ void VCXYPad::enableWidgetUI(bool enable)
         it.setValue(fxi);
     }
 
-    foreach(QWidget *presetBtn, m_presets.keys())
+    foreach (QWidget *presetBtn, m_presets.keys())
         presetBtn->setEnabled(enable);
 
     /* Reset the changed flag in m_area so that the pad won't immediately set a value
@@ -429,7 +425,7 @@ void VCXYPad::writeScenePositions(MasterTimer *timer, QList<Universe *> universe
     uchar tiltCoarse = uchar(qFloor(pt.y()));
     uchar tiltFine = uchar((pt.y() - qFloor(pt.y())) * 256);
 
-    foreach(SceneChannel sc, m_sceneChannels)
+    foreach (SceneChannel sc, m_sceneChannels)
     {
         if (sc.m_universe >= (quint32)universes.count())
             continue;
@@ -551,7 +547,7 @@ void VCXYPad::slotRangeValueChanged()
     m_area->update();
     if (QObject::sender() == m_hRangeSlider)
         sendFeedback(m_hRangeSlider->maximumValue(), heightInputSourceId);
-    else if(QObject::sender() == m_vRangeSlider)
+    else if (QObject::sender() == m_vRangeSlider)
         sendFeedback(m_vRangeSlider->maximumValue(), widthInputSourceId);
 }
 
@@ -563,7 +559,7 @@ void VCXYPad::slotUniverseWritten(quint32 idx, const QByteArray &universeData)
     {
         QMap <quint32, QPointF> fxMap;
 
-        foreach(SceneChannel sc, m_sceneChannels)
+        foreach (SceneChannel sc, m_sceneChannels)
         {
             if (sc.m_universe != idx)
                 continue;
@@ -588,7 +584,7 @@ void VCXYPad::slotUniverseWritten(quint32 idx, const QByteArray &universeData)
             fxMap[sc.m_fixture] = QPointF(x, y);
         }
 
-        foreach(QPointF pt, fxMap.values())
+        foreach (QPointF pt, fxMap.values())
         {
             if (invertedAppearance())
                 pt.setY(256 - pt.y());
@@ -607,7 +603,7 @@ void VCXYPad::slotUniverseWritten(quint32 idx, const QByteArray &universeData)
 
             qreal x(-1), y(-1);
             fixture.readDMX(universeData, x, y);
-            if( x != -1.0 && y != -1.0)
+            if (x != -1.0 && y != -1.0)
             {
                 if (invertedAppearance())
                     y = qreal(1) - y;
@@ -630,7 +626,7 @@ void VCXYPad::addPreset(const VCXYPadPreset &preset)
 {
     QString label = preset.m_name;
 
-    if(label.isEmpty())
+    if (label.isEmpty())
     {
         qDebug() << "VCXYPad Preset label empty. Not adding it";
         return;
@@ -819,7 +815,7 @@ void VCXYPad::slotPresetClicked(bool checked)
         m_scene = qobject_cast<Scene*>(f);
         m_sceneChannels.clear();
 
-        foreach(SceneValue scv, m_scene->values())
+        foreach (SceneValue scv, m_scene->values())
         {
             Fixture *fixture = m_doc->fixture(scv.fxi);
             if (fixture == NULL)
@@ -833,7 +829,7 @@ void VCXYPad::slotPresetClicked(bool checked)
             SceneChannel sChan;
             sChan.m_universe = fixture->universe();
             sChan.m_fixture = fixture->id();
-            sChan.m_channel = fixture->address() + scv.channel;
+            sChan.m_channel = scv.channel;
             sChan.m_group = ch->group();
             sChan.m_subType = ch->controlByte();
             m_sceneChannels.append(sChan);
@@ -1170,7 +1166,7 @@ bool VCXYPad::loadXML(QXmlStreamReader &root)
             if (fxi.loadXML(root) == true)
                 appendFixture(fxi);
         }
-        else if(root.name() == KXMLQLCVCXYPadPreset)
+        else if (root.name() == KXMLQLCVCXYPadPreset)
         {
             VCXYPadPreset preset(0xff);
             if (preset.loadXML(root))
@@ -1262,7 +1258,7 @@ bool VCXYPad::saveXML(QXmlStreamWriter *doc)
     }
 
     // Presets
-    foreach(VCXYPadPreset *preset, presets())
+    foreach (VCXYPadPreset *preset, presets())
         preset->saveXML(doc);
 
     /* End the >XYPad> tag */

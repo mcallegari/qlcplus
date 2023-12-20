@@ -79,7 +79,7 @@ bool SPIPlugin::openOutput(quint32 output, quint32 universe)
         return true;
 
     m_spifd = open(SPI_DEFAULT_DEVICE, O_RDWR);
-    if(m_spifd < 0)
+    if (m_spifd < 0)
     {
         qWarning() << "Cannot open SPI device!";
         return false;

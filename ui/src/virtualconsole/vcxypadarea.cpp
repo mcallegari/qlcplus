@@ -323,7 +323,7 @@ void VCXYPadArea::paintEvent(QPaintEvent* e)
 
     if (m_previewArea == NULL)
     {
-        foreach(QVariant pos, m_fixturePositions)
+        foreach (QVariant pos, m_fixturePositions)
         {
             QPointF pt = pos.toPointF();
             pt.setX(SCALE(pt.x(), qreal(0), qreal(256), qreal(0), qreal(width())));

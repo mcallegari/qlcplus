@@ -21,7 +21,6 @@
 #include <QBrush>
 #include <QPen>
 
-#include "mastertimer.h"
 #include "qlcmacros.h"
 #include "rgbitem.h"
 

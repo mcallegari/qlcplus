@@ -156,7 +156,7 @@ void Monitor::fillDMXView()
     m_monitorWidget->setFont(m_props->font());
 
     /* Create a bunch of MonitorFixtures for each fixture */
-    foreach(Fixture* fxi, m_doc->fixtures())
+    foreach (Fixture* fxi, m_doc->fixtures())
     {
         Q_ASSERT(fxi != NULL);
         if (m_currentUniverse == Universe::invalid() ||

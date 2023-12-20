@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.8 GIT</Version>
+  <Author>István Király</Author>
+ </Creator>
+ <Manufacturer>Shehds</Manufacturer>
+ <Model>LED 230W Beam Moving Head</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="5" Max="250" Preset="StrobeSlowToFast">Strobe from slow to fast</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Open light</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4">Color macro presets</Capability>
+  <Capability Min="5" Max="13" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="14" Max="22" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White / Red</Capability>
+  <Capability Min="23" Max="31" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="32" Max="40" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">Red / Yellow</Capability>
+  <Capability Min="41" Max="49" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="50" Max="58" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Yellow / Green</Capability>
+  <Capability Min="59" Max="67" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="68" Max="76" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green / Blue</Capability>
+  <Capability Min="77" Max="85" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#fffb70">Blue / Lemon yellow</Capability>
+  <Capability Min="86" Max="94" Preset="ColorMacro" Res1="#fffb70">Lemon yellow</Capability>
+  <Capability Min="95" Max="103" Preset="ColorDoubleMacro" Res1="#fffb70" Res2="#00aaff">Lemon yellow / Sky blue</Capability>
+  <Capability Min="104" Max="112" Preset="ColorMacro" Res1="#87ceeb">Sky blue</Capability>
+  <Capability Min="113" Max="121" Preset="ColorDoubleMacro" Res1="#87ceeb" Res2="#ffc0cb">Sky blue / Pink</Capability>
+  <Capability Min="122" Max="130" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="131" Max="139" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="140" Max="195">Clockwise from slow to fast</Capability>
+  <Capability Min="196" Max="255">Counter-clockwise from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Gobo #1">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Solid</Capability>
+  <Capability Min="8" Max="17" Preset="GoboMacro" Res1="Others/gobo00091.svg">Wave</Capability>
+  <Capability Min="18" Max="27" Preset="GoboMacro" Res1="Others/gobo00096.svg">Woven square</Capability>
+  <Capability Min="28" Max="37" Preset="GoboMacro" Res1="Others/gobo00014.svg">Circle</Capability>
+  <Capability Min="38" Max="47" Preset="GoboMacro" Res1="Others/gobo00025.svg">Darts</Capability>
+  <Capability Min="48" Max="57" Preset="GoboMacro" Res1="Others/gobo00094.svg">Circular</Capability>
+  <Capability Min="58" Max="67" Preset="GoboMacro" Res1="Others/gobo00093.svg">Weaving circle</Capability>
+  <Capability Min="68" Max="77" Preset="GoboMacro" Res1="Others/gobo00092.svg">Snowflake</Capability>
+  <Capability Min="78" Max="87" Preset="GoboShakeMacro" Res1="Others/gobo00091.svg">Wave shaking</Capability>
+  <Capability Min="88" Max="97" Preset="GoboShakeMacro" Res1="Others/gobo00096.svg">Woven square shaking</Capability>
+  <Capability Min="98" Max="107" Preset="GoboShakeMacro" Res1="Others/gobo00014.svg">Circle shaking</Capability>
+  <Capability Min="108" Max="117" Preset="GoboShakeMacro" Res1="Others/gobo00025.svg">Darts shaking</Capability>
+  <Capability Min="118" Max="127" Preset="GoboShakeMacro" Res1="Others/gobo00094.svg">Circular shaking</Capability>
+  <Capability Min="128" Max="137" Preset="GoboShakeMacro" Res1="Others/gobo00093.svg">Weaving circle shaking</Capability>
+  <Capability Min="138" Max="147" Preset="GoboShakeMacro" Res1="Others/gobo00092.svg">Snowflake shaking</Capability>
+  <Capability Min="148" Max="200" Preset="RotationClockwiseFastToSlow">Clockwise from slow to fast</Capability>
+  <Capability Min="201" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter-clockwise from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Gobo #2">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Solid</Capability>
+  <Capability Min="8" Max="17" Preset="GoboMacro" Res1="Others/gobo00088.svg">Knot</Capability>
+  <Capability Min="18" Max="27" Preset="GoboMacro" Res1="Others/gobo00087.svg">Machete</Capability>
+  <Capability Min="28" Max="37" Preset="GoboMacro" Res1="Others/gobo00086.svg">Sunshine</Capability>
+  <Capability Min="38" Max="47" Preset="GoboMacro" Res1="Others/gobo00085.svg">Star</Capability>
+  <Capability Min="48" Max="57" Preset="GoboMacro" Res1="Others/gobo00084.svg">Bar circle</Capability>
+  <Capability Min="58" Max="67" Preset="GoboMacro" Res1="Others/gobo00083.svg">Darts</Capability>
+  <Capability Min="68" Max="77" Preset="GoboMacro" Res1="SGM-Color/gobo00412.png">Lollipop</Capability>
+  <Capability Min="78" Max="87" Preset="GoboShakeMacro" Res1="Others/gobo00088.svg">Knot shaking</Capability>
+  <Capability Min="88" Max="97" Preset="GoboShakeMacro" Res1="Others/gobo00087.svg">Machete shaking</Capability>
+  <Capability Min="98" Max="107" Preset="GoboShakeMacro" Res1="Others/gobo00086.svg">Sunshine shaking</Capability>
+  <Capability Min="108" Max="117" Preset="GoboShakeMacro" Res1="Others/gobo00085.svg">Star shaking</Capability>
+  <Capability Min="118" Max="127" Preset="GoboShakeMacro" Res1="Others/gobo00084.svg">Bar circle shaking</Capability>
+  <Capability Min="128" Max="137" Preset="GoboShakeMacro" Res1="Others/gobo00083.svg">Darts shaking</Capability>
+  <Capability Min="138" Max="147" Preset="GoboShakeMacro" Res1="SGM-Color/gobo00412.png">Lollipop shaking</Capability>
+  <Capability Min="148" Max="199" Preset="RotationClockwiseFastToSlow">Forward rotate</Capability>
+  <Capability Min="200" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse rotate</Capability>
+ </Channel>
+ <Channel Name="Gobo #2 rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="130" Preset="RotationClockwiseSlowToFast">Forward flow</Capability>
+  <Capability Min="131" Max="255" Preset="RotationCounterClockwiseFastToSlow">Reverse flow</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="Prism">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="7">Off</Capability>
+  <Capability Min="8" Max="99">Insert circular prism</Capability>
+  <Capability Min="100" Max="255">Insert bar prism</Capability>
+ </Channel>
+ <Channel Name="Prism rotate">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="129">Slow to fast</Capability>
+  <Capability Min="130" Max="255">Reverse fast to slow</Capability>
+ </Channel>
+ <Channel Name="Macro function">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="255">Macro gobo and color auto run</Capability>
+ </Channel>
+ <Channel Name="Motor auto">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="255">Macro motor ato run</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="249">No function</Capability>
+  <Capability Min="250" Max="255">Reset system</Capability>
+ </Channel>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="18 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Master dimmer</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Color</Channel>
+  <Channel Number="8">Gobo #1</Channel>
+  <Channel Number="9">Gobo #2</Channel>
+  <Channel Number="10" ActsOn="9">Gobo #2 rotation</Channel>
+  <Channel Number="11">Zoom</Channel>
+  <Channel Number="12">Focus</Channel>
+  <Channel Number="13">Prism</Channel>
+  <Channel Number="14" ActsOn="13">Prism rotate</Channel>
+  <Channel Number="15">Macro function</Channel>
+  <Channel Number="16">Motor auto</Channel>
+  <Channel Number="17">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="20000" ColourTemperature="7500"/>
+  <Dimensions Weight="12.5" Width="343" Height="537" Depth="239"/>
+  <Lens Name="Other" DegreesMin="8" DegreesMax="23"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="260" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

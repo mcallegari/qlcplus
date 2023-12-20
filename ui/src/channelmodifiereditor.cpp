@@ -96,7 +96,7 @@ void ChannelModifierEditor::updateModifiersList(QString modifier)
     std::stable_sort(names.begin(), names.end(), alphabeticSort);
 
     m_templatesTree->clear();
-    foreach(QString name, names)
+    foreach (QString name, names)
     {
         QTreeWidgetItem *item = new QTreeWidgetItem(m_templatesTree);
         item->setText(0, name);

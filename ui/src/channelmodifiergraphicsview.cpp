@@ -65,7 +65,7 @@ void ChannelModifierGraphicsView::addNewHandler()
 
     int prevHdlrIdx = 0;
     HandlerItem *nextHandler = NULL;
-    for(prevHdlrIdx = 0; prevHdlrIdx < m_handlers.count(); prevHdlrIdx++)
+    for (prevHdlrIdx = 0; prevHdlrIdx < m_handlers.count(); prevHdlrIdx++)
     {
         HandlerItem *hdlr = m_handlers.at(prevHdlrIdx);
         if (hdlr == prevHandler)
@@ -127,7 +127,7 @@ void ChannelModifierGraphicsView::setModifierMap(QList<QPair<uchar, uchar> > map
                                 QPen(Qt::NoPen), QBrush(QColor(70, 70, 70, 255), Qt::SolidPattern));
     m_bgRect->setZValue(0);
 
-    for(int i = 0; i < map.count(); i++)
+    for (int i = 0; i < map.count(); i++)
     {
         QPair<uchar, uchar> dmxPair = map.at(i);
         HandlerItem *handler = new HandlerItem;
@@ -140,7 +140,7 @@ void ChannelModifierGraphicsView::setModifierMap(QList<QPair<uchar, uchar> > map
             handler->m_line = m_scene->addLine(0,0,1,1,QPen(Qt::yellow));
         m_handlers.append(handler);
     }
-    for(int i = 0; i < map.count(); i++)
+    for (int i = 0; i < map.count(); i++)
         updateHandlerBoundingBox(i);
     updateView();
 }
@@ -148,15 +148,15 @@ void ChannelModifierGraphicsView::setModifierMap(QList<QPair<uchar, uchar> > map
 QList< QPair<uchar, uchar> > ChannelModifierGraphicsView::modifiersMap()
 {
     QList< QPair<uchar, uchar> > modMap;
-    foreach(HandlerItem *item, m_handlers)
+    foreach (HandlerItem *item, m_handlers)
         modMap.append(item->m_dmxMap);
     return modMap;
 }
 
 HandlerItem *ChannelModifierGraphicsView::getSelectedHandler()
 {
-    foreach(HandlerItem *handler, m_handlers)
-        if(handler->m_item->isSelected())
+    foreach (HandlerItem *handler, m_handlers)
+        if (handler->m_item->isSelected())
             return handler;
     return NULL;
 }
@@ -194,7 +194,7 @@ void ChannelModifierGraphicsView::updateHandlerBoundingBox(int itemIndex)
         handler->m_item->setBoundingBox(QRect(m_bgRect->x() - 1, m_bgRect->y(), 1, m_bgRect->rect().height()));
         return;
     }
-    else if(itemIndex == m_handlers.count() - 1)
+    else if (itemIndex == m_handlers.count() - 1)
     {
         handler->m_item->setBoundingBox(QRect(m_bgRect->rect().right(), m_bgRect->y(), 1, m_bgRect->rect().height()));
         return;
@@ -353,7 +353,7 @@ void ChannelModifierGraphicsView::slotItemMoved(HandlerGraphicsItem *item,
  ********************************************************************/
 
 HandlerGraphicsItem::HandlerGraphicsItem(qreal x, qreal y, qreal w, qreal h,
-                                         const QPen & pen, const QBrush & brush )
+                                         const QPen & pen, const QBrush &brush)
     : QGraphicsEllipseItem(x, y, w, h)
 {
     setCursor(Qt::OpenHandCursor);

@@ -488,7 +488,7 @@ void App::slotItemReadyForPrinting()
 {
     QPrinter printer;
     QPrintDialog *dlg = new QPrintDialog(&printer);
-    if(dlg->exec() == QDialog::Accepted)
+    if (dlg->exec() == QDialog::Accepted)
     {
         QRectF pageRect = printer.pageLayout().paintRect();
         QSize imgSize = m_printerImage->image().size();
@@ -511,7 +511,7 @@ void App::slotItemReadyForPrinting()
         }
 
         // handle multi-page printing
-        while(totalHeight > 0)
+        while (totalHeight > 0)
         {
             painter.drawImage(QPoint(0, 0), img, QRectF(0, yOffset, actualWidth, pageRect.height()));
             yOffset += pageRect.height();

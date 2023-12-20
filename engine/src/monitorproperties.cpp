@@ -707,7 +707,7 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
         doc->writeTextElement(KXMLQLCMonitorCommonBackground,
                               mainDocument->normalizeComponentPath(commonBackgroundImage()));
     }
-    else if(customBackgroundList().isEmpty() == false)
+    else if (customBackgroundList().isEmpty() == false)
     {
         QMapIterator <quint32, QString> it(customBackgroundList());
         while (it.hasNext() == true)
@@ -801,7 +801,7 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
     // *             write generic items information             *
     // ***********************************************************
     QMapIterator<quint32, PreviewItem> it(m_genericItems);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         quint32 itemID = it.key();

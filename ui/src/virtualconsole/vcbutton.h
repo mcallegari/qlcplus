@@ -53,6 +53,9 @@ class QEvent;
 #define KXMLQLCVCButtonActionBlackout   QString("Blackout")
 #define KXMLQLCVCButtonActionStopAll    QString("StopAll")
 
+#define KXMLQLCVCButtonFlashOverride    QString("Override")
+#define KXMLQLCVCButtonFlashForceLTP    QString("ForceLTP")
+
 #define KXMLQLCVCButtonStopAllFadeTime  QString("FadeOut")
 
 #define KXMLQLCVCButtonKey QString("Key")
@@ -306,6 +309,24 @@ protected:
 
 protected slots:
     void slotAttributeChanged(int value);
+
+    /*****************************************************************************
+    * Flash Properties
+    *****************************************************************************/
+public:
+    /** Gets if flashing overrides newer values */
+    bool flashOverrides() const;
+    /** Sets if flashing should override values */
+    void setFlashOverride(bool shouldOverride);
+    /** Gets if flash channels should behave like LTP channels */
+    bool flashForceLTP() const;
+    /** Sets if the flash channels should behave like LTP channels */
+    void setFlashForceLTP(bool forceLTP);
+
+private:
+    bool m_flashOverrides;
+    bool m_flashForceLTP;
+
 
     /*********************************************************************
      * Button press / release handlers

@@ -108,7 +108,7 @@ void ConfigureArtNet::fillMappingTree()
     QTreeWidgetItem* outputItem = NULL;
 
     QList<ArtNetIO> IOmap = m_plugin->getIOMapping();
-    foreach(ArtNetIO io, IOmap)
+    foreach (ArtNetIO io, IOmap)
     {
         if (io.controller == NULL)
             continue;
@@ -130,7 +130,7 @@ void ConfigureArtNet::fillMappingTree()
             outputItem->setText(KMapColumnInterface, tr("Outputs"));
             outputItem->setExpanded(true);
         }
-        foreach(quint32 universe, controller->universesList())
+        foreach (quint32 universe, controller->universesList())
         {
             UniverseInfo *info = controller->getUniverseInfo(universe);
 

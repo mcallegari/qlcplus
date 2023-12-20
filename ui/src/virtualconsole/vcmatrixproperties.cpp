@@ -26,7 +26,6 @@
 #include "vcmatrixproperties.h"
 #include "selectinputchannel.h"
 #include "functionselection.h"
-#include "assignhotkey.h"
 #include "inputpatch.h"
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
  #include "rgbscript.h"
@@ -78,7 +77,7 @@ VCMatrixProperties::VCMatrixProperties(VCMatrix* matrix, Doc* doc)
     if (visibilityMask & VCMatrix::ShowPresetCombo) m_presetComboCheck->setChecked(true);
 
     /* Custom controls */
-    foreach(const VCMatrixControl *control, m_matrix->customControls())
+    foreach (const VCMatrixControl *control, m_matrix->customControls())
     {
         m_controls.append(new VCMatrixControl(*control));
         if (control->m_id > m_lastAssignedID)
@@ -239,7 +238,7 @@ void VCMatrixProperties::updateTree()
 {
     m_controlsTree->blockSignals(true);
     m_controlsTree->clear();
-    foreach(VCMatrixControl *control, m_controls)
+    foreach (VCMatrixControl *control, m_controls)
     {
         QTreeWidgetItem *item = new QTreeWidgetItem(m_controlsTree);
         item->setData(0, Qt::UserRole, control->m_id);
@@ -331,7 +330,7 @@ void VCMatrixProperties::updateTree()
                 {
                     presetName += " (";
                     QHashIterator<QString, QString> it(control->m_properties);
-                    while(it.hasNext())
+                    while (it.hasNext())
                     {
                         it.next();
                         presetName += it.value();
@@ -365,7 +364,7 @@ VCMatrixControl *VCMatrixProperties::getSelectedControl()
     if (item != NULL)
     {
         quint8 ctlID = item->data(0, Qt::UserRole).toUInt();
-        foreach(VCMatrixControl *control, m_controls)
+        foreach (VCMatrixControl *control, m_controls)
         {
             if (control->m_id == ctlID)
                 return control;
@@ -392,7 +391,7 @@ void VCMatrixProperties::addControl(VCMatrixControl *control)
 
 void VCMatrixProperties::removeControl(quint8 id)
 {
-    for(int i = 0; i < m_controls.count(); i++)
+    for (int i = 0; i < m_controls.count(); i++)
     {
         if (m_controls.at(i)->m_id == id)
         {

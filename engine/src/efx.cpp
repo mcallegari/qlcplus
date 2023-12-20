@@ -26,16 +26,9 @@
 
 #include <math.h>
 
-#include "qlcfixturemode.h"
-#include "qlcfixturedef.h"
 #include "genericfader.h"
-#include "qlcchannel.h"
-#include "qlcmacros.h"
-#include "qlcfile.h"
-
 #include "mastertimer.h"
-#include "fixture.h"
-#include "scene.h"
+#include "qlcmacros.h"
 #include "doc.h"
 #include "efx.h"
 #include "bus.h"
@@ -142,7 +135,7 @@ void EFX::setDuration(uint ms)
 {
     Function::setDuration(ms);
 
-    for(int i = 0; i < m_fixtures.size(); ++i)
+    for (int i = 0; i < m_fixtures.size(); ++i)
         m_fixtures[i]->durationChanged();
 
     emit durationChanged(ms);
@@ -621,7 +614,7 @@ bool EFX::addFixture(EFXFixture* ef)
      * not prevent multiple entries because a fixture can have multiple efx. */
     //! @todo Prevent multiple entries using head & mode
     int i;
-    for(i = 0; i < m_fixtures.size (); i++)
+    for (i = 0; i < m_fixtures.size (); i++)
     {
         if (m_fixtures[i]->head() == ef->head())
         {
@@ -631,7 +624,7 @@ bool EFX::addFixture(EFXFixture* ef)
     }
 
     /* If not inserted, put the EFXFixture object into our list */
-    if(i >= m_fixtures.size())
+    if (i >= m_fixtures.size())
         m_fixtures.append(ef);
 
     emit changed(this->id());

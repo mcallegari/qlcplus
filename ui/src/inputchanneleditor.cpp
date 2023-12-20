@@ -23,10 +23,10 @@
 #include <QIcon>
 #include <QAction>
 
-#include "qlcchannel.h"
+#include "inputchanneleditor.h"
 #include "qlcinputprofile.h"
 #include "qlcinputchannel.h"
-#include "inputchanneleditor.h"
+#include "qlcchannel.h"
 
 #define KMidiMessageCC                  0
 #define KMidiMessageNoteOnOff           1

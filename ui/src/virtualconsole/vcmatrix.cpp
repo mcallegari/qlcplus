@@ -38,7 +38,6 @@
 #include "rgbalgorithm.h"
 #include "flowlayout.h"
 #include "rgbmatrix.h"
-#include "rgbscriptscache.h"
 #include "vcmatrix.h"
 #include "function.h"
 #include "rgbtext.h"
@@ -215,7 +214,7 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
 
 VCMatrix::~VCMatrix()
 {
-    foreach(VCMatrixControl* control, m_controls)
+    foreach (VCMatrixControl* control, m_controls)
     {
         delete control;
     }
@@ -288,12 +287,18 @@ void VCMatrix::enableWidgetUI(bool enable)
     m_mtxColor5Button->setEnabled(enable);
     m_presetCombo->setEnabled(enable);
 
-    foreach(QWidget *ctlBtn, m_controls.keys())
+    foreach (QWidget *ctlBtn, m_controls.keys())
         ctlBtn->setEnabled(enable);
 
     // Update buttons state
     if (enable)
         slotUpdate();
+}
+
+void VCMatrix::slotSetSliderValue(int value)
+{
+    m_slider->setValue(value);
+    slotSliderMoved(value);
 }
 
 void VCMatrix::slotSliderMoved(int value)
@@ -326,11 +331,41 @@ void VCMatrix::slotSliderMoved(int value)
             function->start(m_doc->masterTimer(), functionParent());
         }
     }
+
+    emit sliderValueChanged(value);
+}
+
+int VCMatrix::sliderValue()
+{
+    return m_slider->value();
+}
+
+void VCMatrix::slotSetStartColor(QColor color)
+{
+    RGBMatrix *matrix = qobject_cast<RGBMatrix*>(m_doc->function(m_matrixID));
+    if (matrix == NULL)
+        return;
+
+    if (matrix->startColor() != color)
+    {
+        matrix->setStartColor(color);
+        emit startColorChanged();
+    }
+}
+
+QColor VCMatrix::startColor()
+{
+    RGBMatrix *matrix = qobject_cast<RGBMatrix*>(m_doc->function(m_matrixID));
+    if (matrix == NULL)
+        return QColor();
+
+    return matrix->startColor();
 }
 
 void VCMatrix::slotColor1Changed(QRgb color)
 {
     QColor col(color);
+    slotSetStartColor(col);
     QPixmap px(42, 42);
     px.fill(col);
     m_mtxColor1Button->setIcon(px);
@@ -347,6 +382,7 @@ void VCMatrix::slotColor1Changed(QRgb color)
 void VCMatrix::slotColor2Changed(QRgb color)
 {
     QColor col(color);
+    slotSetEndColor(col);
     QPixmap px(42, 42);
     px.fill(col);
     m_mtxColor2Button->setIcon(px);
@@ -402,8 +438,15 @@ void VCMatrix::slotColor5Changed(QRgb color)
     matrix->setColor(4, col);
 }
 
+void VCMatrix::slotSetAnimationValue(QString name)
+{
+    m_presetCombo->setCurrentText(name);
+    slotAnimationChanged(name);
+}
+
 void VCMatrix::slotAnimationChanged(QString name)
 {
+    emit animationValueChanged(name);
     RGBMatrix* matrix = qobject_cast<RGBMatrix*>(m_doc->function(m_matrixID));
     if (matrix == NULL || mode() == Doc::Design)
         return;
@@ -412,6 +455,11 @@ void VCMatrix::slotAnimationChanged(QString name)
     matrix->setAlgorithm(algo);
     if (instantChanges() == true)
         matrix->updateColorDelta();
+}
+
+QString VCMatrix::animationValue()
+{
+    return m_presetCombo->currentText();
 }
 
 void VCMatrix::setVisibilityMask(quint32 mask)
@@ -567,7 +615,7 @@ void VCMatrix::slotUpdate()
     if (m_matrixID == Function::invalidId())
         return;
 
-    RGBMatrix* matrix = qobject_cast<RGBMatrix*>(m_doc->function(m_matrixID));
+    RGBMatrix *matrix = qobject_cast<RGBMatrix*>(m_doc->function(m_matrixID));
     if (matrix == NULL)
         return;
 
@@ -579,7 +627,7 @@ void VCMatrix::slotUpdate()
     {
         QMutexLocker(&matrix->algorithmMutex());
 
-        RGBAlgorithm* algo = matrix->algorithm();
+        RGBAlgorithm *algo = matrix->algorithm();
         if (algo != NULL)
         {
             algorithmName = algo->name();
@@ -636,43 +684,68 @@ void VCMatrix::slotUpdate()
     for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();
             it != m_controls.end(); ++it)
     {
-        QWidget* widget = it.key();
-        VCMatrixControl* control = it.value();
+        QWidget *widget = it.key();
+        VCMatrixControl *control = it.value();
 
         if (control->m_type == VCMatrixControl::Color1Knob)
         {
-            KnobWidget* knob = reinterpret_cast<KnobWidget*>(widget);
-            knob->blockSignals(true);
-            knob->setValue(control->rgbToValue(matrix->getColor(0).rgb()));
-            knob->blockSignals(false);
+            KnobWidget *knob = reinterpret_cast<KnobWidget*>(widget);
+            int val = control->rgbToValue(matrix->getColor(0).rgb());
+            if (knob->value() != val)
+            {
+                knob->blockSignals(true);
+                knob->setValue(val);
+                emit matrixControlKnobValueChanged(control->m_id, val);
+                knob->blockSignals(false);
+            }
         }
         else if (control->m_type == VCMatrixControl::Color2Knob)
         {
-            KnobWidget* knob = reinterpret_cast<KnobWidget*>(widget);
-            knob->blockSignals(true);
-            knob->setValue(control->rgbToValue(matrix->getColor(1).rgb()));
-            knob->blockSignals(false);
+            KnobWidget *knob = reinterpret_cast<KnobWidget*>(widget);
+            int val = control->rgbToValue(matrix->getColor(1).rgb());
+            if (knob->value() != val)
+            {
+                knob->blockSignals(true);
+                knob->setValue(val);
+                emit matrixControlKnobValueChanged(control->m_id, val);
+                knob->blockSignals(false);
+            }
         }
         else if (control->m_type == VCMatrixControl::Color3Knob)
         {
-            KnobWidget* knob = reinterpret_cast<KnobWidget*>(widget);
-            knob->blockSignals(true);
-            knob->setValue(control->rgbToValue(matrix->getColor(2).rgb()));
-            knob->blockSignals(false);
+            KnobWidget *knob = reinterpret_cast<KnobWidget*>(widget);
+            int val = control->rgbToValue(matrix->getColor(2).rgb());
+            if (knob->value() != val)
+            {
+                knob->blockSignals(true);
+                knob->setValue(val);
+                emit matrixControlKnobValueChanged(control->m_id, val);
+                knob->blockSignals(false);
+            }
         }
         else if (control->m_type == VCMatrixControl::Color4Knob)
         {
-            KnobWidget* knob = reinterpret_cast<KnobWidget*>(widget);
-            knob->blockSignals(true);
-            knob->setValue(control->rgbToValue(matrix->getColor(3).rgb()));
-            knob->blockSignals(false);
+            KnobWidget *knob = reinterpret_cast<KnobWidget*>(widget);
+            int val = control->rgbToValue(matrix->getColor(3).rgb());
+            if (knob->value() != val)
+            {
+                knob->blockSignals(true);
+                knob->setValue(val);
+                emit matrixControlKnobValueChanged(control->m_id, val);
+                knob->blockSignals(false);
+            }
         }
         else if (control->m_type == VCMatrixControl::Color5Knob)
         {
-            KnobWidget* knob = reinterpret_cast<KnobWidget*>(widget);
-            knob->blockSignals(true);
-            knob->setValue(control->rgbToValue(matrix->getColor(4).rgb()));
-            knob->blockSignals(false);
+            KnobWidget *knob = reinterpret_cast<KnobWidget*>(widget);
+            int val = control->rgbToValue(matrix->getColor(4).rgb());
+            if (knob->value() != val)
+            {
+                knob->blockSignals(true);
+                knob->setValue(val);
+                emit matrixControlKnobValueChanged(control->m_id, val);
+                knob->blockSignals(false);
+            }
         }
         else if (control->m_type == VCMatrixControl::Color1)
         {
@@ -702,33 +775,31 @@ void VCMatrix::slotUpdate()
         else if (control->m_type == VCMatrixControl::Animation)
         {
             bool on = false;
-            if (algorithmType == RGBAlgorithm::Script)
+            if (algorithmType == RGBAlgorithm::Script &&
+                algorithmName == control->m_resource)
             {
-                if (algorithmName == control->m_resource)
+                on = true;
+                for (QHash<QString, QString>::const_iterator it = control->m_properties.begin();
+                        it != control->m_properties.end(); ++it)
                 {
-                    on = true;
-                    for (QHash<QString, QString>::const_iterator it = control->m_properties.begin();
-                            it != control->m_properties.end(); ++it)
-                    {
-                        if (algorithmProperties.value(it.key(), QString()) != it.value())
-                            on = false;
-                    }
+                    if (algorithmProperties.value(it.key(), QString()) != it.value())
+                        on = false;
                 }
             }
-            QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
+
+            QPushButton *button = reinterpret_cast<QPushButton*>(it.key());
             button->setDown(on);
         }
         else if (control->m_type == VCMatrixControl::Text)
         {
             bool on = false;
-            if (algorithmType == RGBAlgorithm::Text)
+            if (algorithmType == RGBAlgorithm::Text &&
+                algorithmText == control->m_resource)
             {
-                if (algorithmText == control->m_resource)
-                {
-                    on = true;
-                }
+                on = true;
             }
-            QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
+
+            QPushButton *button = reinterpret_cast<QPushButton*>(it.key());
             button->setDown(on);
         }
     }
@@ -870,7 +941,7 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
         {
             btnLabel += " (";
             QHashIterator<QString, QString> it(control.m_properties);
-            while(it.hasNext())
+            while (it.hasNext())
             {
                 it.next();
                 btnLabel += it.value();
@@ -980,7 +1051,10 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
     if (mode() == Doc::Design)
         controlWidget->setEnabled(false);
 
-    m_controls[controlWidget] = new VCMatrixControl(control);
+    VCMatrixControl *c_control = new VCMatrixControl(control);
+    m_controls[controlWidget] = c_control;
+    m_widgets[c_control] = controlWidget;
+
     m_controlsLayout->addWidget(controlWidget);
 
     if (m_controls[controlWidget]->m_inputSource != NULL)
@@ -1006,6 +1080,7 @@ void VCMatrix::resetCustomControls()
         delete control;
     }
     m_controls.clear();
+    m_widgets.clear();
 }
 
 QList<VCMatrixControl *> VCMatrix::customControls() const
@@ -1013,6 +1088,11 @@ QList<VCMatrixControl *> VCMatrix::customControls() const
     QList<VCMatrixControl*> controls = m_controls.values();
     std::sort(controls.begin(), controls.end(), VCMatrixControl::compare);
     return controls;
+}
+
+QWidget *VCMatrix::getWidget(VCMatrixControl* control) const
+{
+    return m_widgets[control];
 }
 
 void VCMatrix::slotCustomControlClicked()
@@ -1031,6 +1111,7 @@ void VCMatrix::slotCustomControlClicked()
             if (instantChanges() == true)
                 matrix->updateColorDelta();
             btn->setDown(true);
+            emit startColorChanged();
         }
         else if (control->m_type == VCMatrixControl::Color2)
         {
@@ -1038,6 +1119,7 @@ void VCMatrix::slotCustomControlClicked()
             if (instantChanges() == true)
                 matrix->updateColorDelta();
             btn->setDown(true);
+            emit endColorChanged();
         }
         else if (control->m_type == VCMatrixControl::Color3)
         {
@@ -1059,6 +1141,7 @@ void VCMatrix::slotCustomControlClicked()
             matrix->setColor(1, QColor());
             if (instantChanges() == true)
                 matrix->updateColorDelta();
+            emit endColorChanged();
         }
         else if (control->m_type == VCMatrixControl::Color3Reset)
         {
@@ -1079,7 +1162,7 @@ void VCMatrix::slotCustomControlClicked()
             {
                 RGBScript *script = static_cast<RGBScript*> (algo);
                 QHashIterator<QString, QString> it(control->m_properties);
-                while(it.hasNext())
+                while (it.hasNext())
                 {
                     it.next();
                     script->setProperty(it.key(), it.value());
@@ -1123,6 +1206,7 @@ void VCMatrix::slotCustomControlValueChanged()
             matrix->setColor(0, color);
             if (instantChanges() == true)
                 matrix->updateColorDelta();
+            emit startColorChanged();
         }
         else if (control->m_type == VCMatrixControl::Color2Knob)
         {
@@ -1133,6 +1217,7 @@ void VCMatrix::slotCustomControlValueChanged()
             matrix->setColor(1, color);
             if (instantChanges() == true)
                 matrix->updateColorDelta();
+            emit endColorChanged();
         }
         else if (control->m_type == VCMatrixControl::Color3Knob)
         {
@@ -1162,6 +1247,38 @@ void VCMatrix::slotCustomControlValueChanged()
         {
             // We are not supposed to be here
             Q_ASSERT(false);
+        }
+        emit matrixControlKnobValueChanged(control->m_id, knob->value());
+    }
+}
+
+void VCMatrix::slotMatrixControlKnobValueChanged(int controlID, int value)
+{
+    QList<VCMatrixControl *> customControls = this->customControls();
+    for (int i = 0; i < customControls.length(); i++)
+    {
+        if (customControls[i]->m_id == controlID)
+        {
+            if (customControls[i]->m_type == VCMatrixControl::StartColorKnob || customControls[i]->m_type == VCMatrixControl::EndColorKnob)
+            {
+                KnobWidget *knob = qobject_cast<KnobWidget*>(this->getWidget(customControls[i]));
+                knob->setValue(value);
+                break;
+            }
+        }
+    }
+}
+
+void VCMatrix::slotMatrixControlPushButtonClicked(int controlID)
+{
+    QList<VCMatrixControl *> customControls = this->customControls();
+    for (int i = 0; i < customControls.length(); i++)
+    {
+        if (customControls[i]->m_id == controlID)
+        {
+            QPushButton *btn = qobject_cast<QPushButton*>(this->getWidget(customControls[i]));
+            btn->click();
+            break;
         }
     }
 }
@@ -1304,7 +1421,7 @@ bool VCMatrix::loadXML(QXmlStreamReader &root)
         {
             loadXMLInput(root);
         }
-        else if(root.name() == KXMLQLCVCMatrixControl)
+        else if (root.name() == KXMLQLCVCMatrixControl)
         {
             VCMatrixControl control(0xff);
             if (control.loadXML(root))
@@ -1357,7 +1474,7 @@ bool VCMatrix::saveXML(QXmlStreamWriter *doc)
     /* Slider External input */
     saveXMLInput(doc);
 
-    foreach(VCMatrixControl *control, customControls())
+    foreach (VCMatrixControl *control, customControls())
         control->saveXML(doc);
 
     /* End the <Matrix> tag */

@@ -60,7 +60,7 @@ void EFXPreviewArea::setFixturePolygons(const QVector<QPolygonF> &fixturePoints)
     m_originalFixturePoints.resize(fixturePoints.size());
     m_fixturePoints.resize(fixturePoints.size());
 
-    for(int i = 0; i < m_fixturePoints.size(); ++i)
+    for (int i = 0; i < m_fixturePoints.size(); ++i)
     {
         m_originalFixturePoints[i] = QPolygonF(fixturePoints[i]);
         m_fixturePoints[i] = scale(m_originalFixturePoints[i], size());

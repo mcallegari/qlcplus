@@ -22,6 +22,7 @@
 
 #include <QStringList>
 #include <QVariant>
+#include <QObject>
 #include <QString>
 #include <QHash>
 #include <QMap>
@@ -40,8 +41,10 @@ class QXmlStreamReader;
 #define KXMLQLCInputProfileType             QString("Type")
 #define KXMLQLCInputProfileMidiSendNoteOff  QString("MIDISendNoteOff")
 
-class QLCInputProfile
+class QLCInputProfile : public QObject
 {
+    Q_OBJECT
+
     /********************************************************************
      * Initialization
      ********************************************************************/
@@ -49,11 +52,10 @@ public:
     /** Standard constructor */
     QLCInputProfile();
 
-    /** Copy constructor */
-    QLCInputProfile(const QLCInputProfile& profile);
-
     /** Destructor */
     virtual ~QLCInputProfile();
+
+    QLCInputProfile *createCopy();
 
     /** Assignment operator */
     QLCInputProfile& operator=(const QLCInputProfile& profile);
@@ -73,17 +75,21 @@ public:
 
     /** Get the path where the profile is stored in. Don't use
         this as a unique ID since this varies between platforms. */
+    void setPath(QString path);
     QString path() const;
 
     enum Type
     {
-        MIDI,
+        MIDI = 0,
         OS2L,
         OSC,
         HID,
         DMX,
         Enttec,
     };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(Type)
+#endif
 
     void setType(Type type);
 

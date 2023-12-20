@@ -129,7 +129,7 @@ public:
      * @param extension
      * @return
      */
-    static QDir systemDirectory(QString path, QString extension = QString() );
+    static QDir systemDirectory(QString path, QString extension = QString());
 
     /**
      * @brief systemDirectory returns a system dependant QDir based

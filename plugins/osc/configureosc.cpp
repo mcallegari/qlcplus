@@ -72,7 +72,7 @@ void ConfigureOSC::fillMappingTree()
     QTreeWidgetItem* outputItem = NULL;
 
     QList<OSCIO> IOmap = m_plugin->getIOMapping();
-    foreach(OSCIO io, IOmap)
+    foreach (OSCIO io, IOmap)
     {
         if (io.controller == NULL)
             continue;
@@ -94,7 +94,7 @@ void ConfigureOSC::fillMappingTree()
             outputItem->setText(KMapColumnInterface, tr("Outputs"));
             outputItem->setExpanded(true);
         }
-        foreach(quint32 universe, controller->universesList())
+        foreach (quint32 universe, controller->universesList())
         {
             UniverseInfo *info = controller->getUniverseInfo(universe);
             QString networkIP = controller->getNetworkIP().toString();
@@ -182,10 +182,10 @@ void ConfigureOSC::showIPAlert(QString ip)
 
 void ConfigureOSC::accept()
 {
-    for(int i = 0; i < m_uniMapTree->topLevelItemCount(); i++)
+    for (int i = 0; i < m_uniMapTree->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *topItem = m_uniMapTree->topLevelItem(i);
-        for(int c = 0; c < topItem->childCount(); c++)
+        for (int c = 0; c < topItem->childCount(); c++)
         {
             QTreeWidgetItem *item = topItem->child(c);
             if (item->data(KMapColumnInterface, PROP_UNIVERSE).isValid() == false)

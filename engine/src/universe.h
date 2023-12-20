@@ -332,6 +332,7 @@ public:
     {
         Auto = 0,
         Override,
+        Flashing, /** Priority to override slider values and running chasers by flash scene */
         SimpleDesk
     };
 

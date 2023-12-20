@@ -271,7 +271,7 @@ QPointF FixtureUtils::available2DPosition(Doc *doc, int pointOfView, QRectF fxRe
             qreal itemHeight = fxSize.height();
 
             // store the next Y row in case we need to lower down
-            if (itemYPos + itemHeight > maxYOffset )
+            if (itemYPos + itemHeight > maxYOffset)
                 maxYOffset = itemYPos + itemHeight;
 
             QRectF itemRect(itemXPos, itemYPos, itemWidth, itemHeight);

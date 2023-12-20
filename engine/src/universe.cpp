@@ -337,7 +337,7 @@ void Universe::run()
 
     qDebug() << "Universe thread started" << id();
 
-    while(m_running)
+    while (m_running)
     {
         if (m_semaphore.tryAcquire(1, timeout) == false)
         {
@@ -1258,7 +1258,7 @@ bool Universe::savePluginParametersXML(QXmlStreamWriter *doc,
 
     doc->writeStartElement(KXMLQLCUniversePluginParameters);
     QMapIterator<QString, QVariant> it(parameters);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         QString pName = it.key();

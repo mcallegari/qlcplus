@@ -23,7 +23,6 @@
 
 #include "vcspeeddialpreset.h"
 #include "vcwidget.h"
-#include "qlcfile.h"
 
 VCSpeedDialPreset::VCSpeedDialPreset(quint8 id)
     : m_id(id)

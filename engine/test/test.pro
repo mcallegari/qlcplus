@@ -42,6 +42,9 @@ SUBDIRS += scene
 SUBDIRS += scenevalue
 SUBDIRS += script
 SUBDIRS += sequence
+SUBDIRS += show
+SUBDIRS += showfunction
+SUBDIRS += track
 SUBDIRS += universe
 
 # Stubs

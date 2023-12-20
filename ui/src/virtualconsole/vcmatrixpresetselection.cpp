@@ -77,7 +77,7 @@ void VCMatrixPresetSelection::displayProperties(RGBScript *script)
 
     m_properties.clear();
 
-    foreach(RGBScriptProperty prop, properties)
+    foreach (RGBScriptProperty prop, properties)
     {
         switch(prop.m_type)
         {

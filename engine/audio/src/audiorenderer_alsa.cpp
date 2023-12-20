@@ -220,7 +220,7 @@ QList<AudioDeviceInfo> AudioRendererAlsa::getDevicesInfo()
     QList<AudioDeviceInfo> devList;
     int cardIdx = -1;
 
-    while( snd_card_next( &cardIdx ) == 0 && cardIdx >= 0 )
+    while (snd_card_next(&cardIdx) == 0 && cardIdx >= 0)
     {
         snd_ctl_t *cardHandle;
         snd_ctl_card_info_t *cardInfo;
@@ -249,31 +249,31 @@ QList<AudioDeviceInfo> AudioRendererAlsa::getDevicesInfo()
 
         qDebug() << "[getDevicesInfo] Card" << cardIdx << "=" << snd_ctl_card_info_get_name(cardInfo);
 
-        while( snd_ctl_pcm_next_device( cardHandle, &devIdx ) == 0 && devIdx >= 0 )
+        while (snd_ctl_pcm_next_device(cardHandle, &devIdx) == 0 && devIdx >= 0)
         {
             snd_pcm_info_t *pcmInfo;
             int tmpCaps = 0;
 
-            snd_pcm_info_alloca( &pcmInfo );
+            snd_pcm_info_alloca(&pcmInfo);
 
-            snprintf( str, sizeof (str), "plughw:%d,%d", cardIdx, devIdx );
+            snprintf(str, sizeof (str), "plughw:%d,%d", cardIdx, devIdx);
 
             /* Obtain info about this particular device */
-            snd_pcm_info_set_device( pcmInfo, devIdx );
-            snd_pcm_info_set_subdevice( pcmInfo, 0 );
-            snd_pcm_info_set_stream( pcmInfo, SND_PCM_STREAM_CAPTURE );
-            if( snd_ctl_pcm_info( cardHandle, pcmInfo ) >= 0 )
+            snd_pcm_info_set_device(pcmInfo, devIdx);
+            snd_pcm_info_set_subdevice(pcmInfo, 0);
+            snd_pcm_info_set_stream(pcmInfo, SND_PCM_STREAM_CAPTURE);
+            if (snd_ctl_pcm_info(cardHandle, pcmInfo) >= 0)
                 tmpCaps |= AUDIO_CAP_INPUT;
 
-            snd_pcm_info_set_stream( pcmInfo, SND_PCM_STREAM_PLAYBACK );
-            if( snd_ctl_pcm_info( cardHandle, pcmInfo ) >= 0 )
+            snd_pcm_info_set_stream(pcmInfo, SND_PCM_STREAM_PLAYBACK);
+            if (snd_ctl_pcm_info(cardHandle, pcmInfo) >= 0)
                 tmpCaps |= AUDIO_CAP_OUTPUT;
 
             if (tmpCaps != 0)
             {
                 AudioDeviceInfo info;
                 info.deviceName = QString(snd_ctl_card_info_get_name(cardInfo)) + " - " +
-                                  QString (snd_pcm_info_get_name( pcmInfo ));
+                                  QString(snd_pcm_info_get_name(pcmInfo));
                 info.privateName = QString(str);
                 info.capabilities = tmpCaps;
                 devList.append(info);
@@ -297,7 +297,7 @@ qint64 AudioRendererAlsa::writeAudio(unsigned char *data, qint64 maxSize)
     if (pcm_handle == NULL || m_prebuf == NULL)
         return 0;
 
-    if((maxSize = qMin(maxSize, m_prebuf_size - m_prebuf_fill)) > 0)
+    if ((maxSize = qMin(maxSize, m_prebuf_size - m_prebuf_fill)) > 0)
     {
         memmove(m_prebuf + m_prebuf_fill, data, maxSize);
         m_prebuf_fill += maxSize;
@@ -325,7 +325,7 @@ qint64 AudioRendererAlsa::writeAudio(unsigned char *data, qint64 maxSize)
 long AudioRendererAlsa::alsa_write(unsigned char *data, long size)
 {
     long m = snd_pcm_avail_update(pcm_handle);
-    if(m >= 0 && m < size)
+    if (m >= 0 && m < size)
     {
         snd_pcm_wait(pcm_handle, 500);
         return 0;

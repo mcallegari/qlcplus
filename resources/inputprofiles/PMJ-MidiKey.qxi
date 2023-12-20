@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.8 GIT</Version>
+  <Author>Yestalgia</Author>
+ </Creator>
+ <Manufacturer>PMJ</Manufacturer>
+ <Model>MidiKey</Model>
+ <Type>MIDI</Type>
+ <Channel Number="129">
+  <Name>Row 1 (top) Button 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="130">
+  <Name>Row 1 (top) Button 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="131">
+  <Name>Row 1 (top) Button 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="132">
+  <Name>Row 1 (top) Button 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="133">
+  <Name>Row 1 (top) Button 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="134">
+  <Name>Row 1 (top) Button 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="135">
+  <Name>Row 2 Button 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="136">
+  <Name>Row 2 Button 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="137">
+  <Name>Row 2 Button 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="138">
+  <Name>Row 2 Button 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="139">
+  <Name>Row 2 Button 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="140">
+  <Name>Row 2 Button 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="141">
+  <Name>Row 3 Button 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="142">
+  <Name>Row 3 Button 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="143">
+  <Name>Row 3 Button 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="144">
+  <Name>Row 3 Button 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="145">
+  <Name>Row 3 Button 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="146">
+  <Name>Row 3 Button 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="147">
+  <Name>Row 4 Button 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="148">
+  <Name>Row 4 Button 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="149">
+  <Name>Row 4 Button 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="150">
+  <Name>Row 4 Button 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="151">
+  <Name>Row 4 Button 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="152">
+  <Name>Row 4 Button 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="153">
+  <Name>Row 5 Button 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="154">
+  <Name>Row 5 Button 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="155">
+  <Name>Row 5 Button 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="156">
+  <Name>Row 5 Button 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="157">
+  <Name>Row 5 Button 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="158">
+  <Name>Row 6 Button 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="159">
+  <Name>Row 6 Button 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="160">
+  <Name>Row 6 Button 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="161">
+  <Name>Row 6 Button 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="162">
+  <Name>Row 6 Button 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="163">
+  <Name>Row 7 Button 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="164">
+  <Name>Row 7 Button 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="165">
+  <Name>Row 7 Button 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="166">
+  <Name>Row 7 Button 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="167">
+  <Name>Row 7 Button 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="168">
+  <Name>Row 8 Button 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="169">
+  <Name>Row 8 Button 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="170">
+  <Name>Row 8 Button 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="171">
+  <Name>Row 8 Button 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="172">
+  <Name>Row 8 Button 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="173">
+  <Name>Row 9 (bottom) Button 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="174">
+  <Name>Row 9 (bottom) Button 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="175">
+  <Name>Row 9 (bottom) Button 3 Please/Enter</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="176">
+  <Name>Row 9 (bottom) Button 4</Name>
+  <Type>Button</Type>
+ </Channel>
+</InputProfile>

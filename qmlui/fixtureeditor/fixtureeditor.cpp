@@ -169,6 +169,12 @@ void FixtureEditor::deleteEditor(int id)
     }
 
     EditorView *editor = m_editors.take(id);
+
+    // reload fixture definition from disk
+    QLCFixtureDef *def = editor->fixtureDefinition();
+    if (def != nullptr)
+        m_doc->fixtureDefCache()->reloadFixtureDef(def);
+
     delete editor;
     emit editorsListChanged();
 }

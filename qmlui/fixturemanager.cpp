@@ -1424,7 +1424,7 @@ QVariantList FixtureManager::fixturesMap()
             continue;
 
         quint32 startAddress = fx->address();
-        for(quint32 cn = 0; cn < fx->channels(); cn++)
+        for (quint32 cn = 0; cn < fx->channels(); cn++)
         {
             m_fixturesMap.append(fx->id());
             m_fixturesMap.append(startAddress + cn);
@@ -1583,7 +1583,7 @@ bool FixtureManager::loadColorFilters(const QDir &dir, bool user)
 
 void FixtureManager::resetColorFilters()
 {
-    while(!m_colorFilters.isEmpty())
+    while (!m_colorFilters.isEmpty())
     {
         ColorFilters *cf = m_colorFilters.takeLast();
         delete cf;
@@ -1752,7 +1752,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
     for (quint32 ch : channelIndices)
     {
         const QLCChannel* channel(fixture->channel(ch));
-        if(channel == nullptr)
+        if (channel == nullptr)
             continue;
 
         int chType = channel->group();

@@ -227,7 +227,7 @@ void ShowItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mousePressEvent(event);
     m_pos = this->pos();
-    if(event->button() == Qt::LeftButton)
+    if (event->button() == Qt::LeftButton)
         m_pressed = true;
     this->setSelected(true);
 }

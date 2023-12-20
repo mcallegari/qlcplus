@@ -41,7 +41,6 @@
 #include "qlccapability.h"
 #include "qlcphysical.h"
 #include "qlcchannel.h"
-#include "qlcconfig.h"
 #include "qlcfile.h"
 
 #ifdef Q_WS_X11
@@ -842,6 +841,8 @@ void QLCFixtureEditor::slotEditMode()
     if (mode == NULL)
         return;
 
+    QString origName = mode->name();
+
     EditMode em(this, mode);
     connect(&em, SIGNAL(copyToClipboard(QLCPhysical)),
             this, SLOT(slotCopyPhysicalClipboard(QLCPhysical)));
@@ -851,7 +852,17 @@ void QLCFixtureEditor::slotEditMode()
 
         item = m_modeList->currentItem();
         updateModeItem(mode, item);
+
+        // if mode name has changed, update
+        // all aliases referring to the old name
+        if (mode->name() != origName)
+        {
+            updateAliasModeName(origName, mode->name());
+            refreshAliasTree();
+        }
+
         refreshAliasModes();
+
         setModified();
         m_modeList->header()->resizeSections(QHeaderView::ResizeToContents);
     }
@@ -1065,6 +1076,32 @@ void QLCFixtureEditor::refreshAliasModes()
             m_modesCombo->addItem(mode->name(), QVariant::fromValue((void *)mode));
     }
     refreshAliasModeChannels();
+}
+
+void QLCFixtureEditor::updateAliasModeName(QString oldName, QString newName)
+{
+    QListIterator <QLCChannel*> it(m_fixtureDef->channels());
+    while (it.hasNext() == true)
+    {
+        QLCChannel *channel = it.next();
+        foreach (QLCCapability *cap, channel->capabilities())
+        {
+            if (cap->preset() != QLCCapability::Alias)
+                continue;
+
+            QList<AliasInfo> aliasList = cap->aliasList();
+            for (int i = 0; i < aliasList.count(); i++)
+            {
+                AliasInfo info = aliasList.at(i);
+                if (info.targetMode == oldName)
+                {
+                    info.targetMode = newName;
+                    aliasList.replace(i, info);
+                }
+            }
+            cap->replaceAliases(aliasList);
+        }
+    }
 }
 
 void QLCFixtureEditor::refreshAliasModeChannels()

@@ -69,7 +69,7 @@ ArtNetController::~ArtNetController()
 ArtNetController::Type ArtNetController::type()
 {
     int type = Unknown;
-    foreach(UniverseInfo info, m_universeMap.values())
+    foreach (UniverseInfo info, m_universeMap.values())
     {
         type |= info.type;
     }
@@ -559,7 +559,7 @@ void ArtNetController::slotSendPoll()
     QList<QHostAddress>addressList;
 
     /* first, retrieve a list of unique output addresses */
-    foreach(quint32 universe, universesList())
+    foreach (quint32 universe, universesList())
     {
         UniverseInfo info = m_universeMap[universe];
         if (addressList.contains(info.outputAddress) == false)

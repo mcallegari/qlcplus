@@ -134,7 +134,7 @@ void HIDDMXDevice::feedBack(quint32 channel, uchar value)
 
 void HIDDMXDevice::run()
 {
-    while(m_running == true)
+    while (m_running == true)
     {
         unsigned char buffer[35];
         int size;
@@ -147,9 +147,9 @@ void HIDDMXDevice::run()
         *            from, the nth chunk starts at address n * 32
         * [1]-[32] = channel values, where the nth value is the offset + n
         */
-        while(size > 0)
+        while (size > 0)
         {
-            if(size == 33)
+            if (size == 33)
             {
                 unsigned short startOff = buffer[0] * 32;
                 if (buffer[0] < 16)

@@ -84,7 +84,6 @@ Rectangle
                         {
                             // return the dragged item to its original position
                             parent = root
-                            pluginItem.color = "transparent"
                         }
                         pluginItem.x = 3
                         pluginItem.y = 0
@@ -94,7 +93,7 @@ Rectangle
                     {
                         id: pluginItem
                         x: 3
-                        color: delegateRoot.pressed ? "#444" : "transparent"
+                        color: delegateRoot.pressed ? UISettings.highlightPressed : "transparent"
 
                         // this key must match the one in UniverseIOItem, to avoid dragging
                         // an input plugin on output and vice-versa
@@ -117,7 +116,7 @@ Rectangle
                             width: parent.width - 6
                             height: 1
                             y: parent.height - 1
-                            color: "#555"
+                            color: UISettings.bgLight
                         }
                     } // PluginDragItem
                 } // MouseArea

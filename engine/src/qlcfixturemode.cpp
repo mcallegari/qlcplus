@@ -422,7 +422,7 @@ bool QLCFixtureMode::loadXML(QXmlStreamReader &doc)
 
     foreach (ChannelActsOnData channelSctsOnData, listChannelsWithActsOnIndex)
     {
-        if(m_channels.contains(channelSctsOnData.channel) &&
+        if (m_channels.contains(channelSctsOnData.channel) &&
                 channelSctsOnData.actsOnIndex >= 0 &&
                 m_channels.size() > channelSctsOnData.actsOnIndex)
         {
@@ -462,7 +462,7 @@ bool QLCFixtureMode::saveXML(QXmlStreamWriter *doc)
         if (m_actsOnChannelsList.contains(channel))
         {
             QLCChannel *ChannelActsOn = m_actsOnChannelsList.value(channel);
-            if(ChannelActsOn != NULL){
+            if (ChannelActsOn != NULL){
                 doc->writeAttribute(KXMLQLCFixtureModeChannelActsOn, QString::number(m_channels.indexOf(ChannelActsOn)));
             }
         }

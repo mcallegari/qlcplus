@@ -84,7 +84,7 @@ VideoEditor::VideoEditor(QWidget* parent, Video *video, Doc* doc)
     connect(m_fullCheck, SIGNAL(clicked()),
             this, SLOT(slotFullscreenCheckClicked()));
 
-    if(m_video->runOrder() == Video::Loop)
+    if (m_video->runOrder() == Video::Loop)
         m_loopCheck->setChecked(true);
     else
         m_singleCheck->setChecked(true);
