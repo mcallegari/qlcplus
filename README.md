@@ -2,18 +2,38 @@
     <img src="resources/icons/png/qlcplus.png" alt="QLC Logo" title="qlcplus.png" align="right" height="60" />
 </a>
 
-Q Light Controller Plus
-=========================
-![QLC+ Github Actions CI Build](https://github.com/mcallegari/qlcplus/actions/workflows/build.yml/badge.svg)
+ # Q Light Controller Plus
+![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://www.youtube.com/watch?v=I9bccwcYQpM&list=PLHT-wIriuitDiW4A9oKSDr__Z_jcmMVdi) [![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?style=for-the-badge&logo=Facebook&logoColor=white)](https://www.facebook.com/qlcplus)
 
 Copyright (c) Heikki Junnila, Massimo Callegari
 
-QLC+ homepage: https://www.qlcplus.org/
+ ## Introduction
+QLC+ is a powerful and user-friendly software designed for lighting control. Whether you're an experienced lighting professional or just getting started, QLC+ empowers you to take control of your lighting fixtures with ease. The primary goal of this project is to bring QLC+ to the level of available commercial software. 
+QLC+ runs on Linux, Windows (7+), macOS (10.7+) and the Raspberry Pi.
 
-QLC+ on GitHub: https://github.com/mcallegari/qlcplus
+
+
+ | Links                                          ||
+ |----------------|--------------------------------|
+ | Home Page       | [![Static Badge](https://img.shields.io/badge/qlcplus.org-blue?logo=grav)](qlcplus.org)        |
+ | Documentation   | [![Static Badge](https://img.shields.io/badge/docs.qlcplus.org-blue?logo=grav)](docs.qlcplus.org) |
+ | Official Forum  | [![Static Badge](https://img.shields.io/badge/qlcplus.org/forum-white?logo=php)](qlcplus.org/forum/) |
+ | GitHub Sponsors | ![GitHub Sponsors](https://img.shields.io/github/sponsors/mcallegari) <a href="https://github.com/sponsors/mcallegari"><img src="https://img.shields.io/badge/sponsor-30363D?logo=GitHub-Sponsors&logoColor=#white" /></a> |
+ | Official Merch| [![Static Badge](https://img.shields.io/badge/merch.qlcplus.org-Official_Merchandice-green?logo=shopify)](merch.qlcplus.org) |
+
+
+ ## Getting Started
+1. [Install QLC+](https://docs.qlcplus.org/v4/basics/installation)
+2. [Setup Your Hardware](https://www.youtube.com/watch?v=I9bccwcYQpM&list=PLHT-wIriuitDiW4A9oKSDr__Z_jcmMVdi)
+3. [Add Your Fixtures](https://www.youtube.com/watch?v=gEE5OUpuAq4&list=PLHT-wIriuitDiW4A9oKSDr__Z_jcmMVdi&index=2)
+4. Create your show!
+
+
 
 DEVELOPERS AT WORK
 ------------------
+![GitHub release)](https://img.shields.io/github/v/release/mcallegari/qlcplus)
+![QLC+ Github Actions CI Build](https://github.com/mcallegari/qlcplus/actions/workflows/build.yml/badge.svg)
 
 If you're compiling QLC+ from sources and you regularly do "git pull"
 to get the latest sources, you probably end up seeing some
@@ -30,18 +50,6 @@ of the source directory. In those cases, you might try going to the libs
 directory, compile it with "make" and install with "make install" and then
 attempt to re-compile the whole package with "make".
 
-Apache 2.0 License
-------------------
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
 
 Requirements - Linux
 --------------------
