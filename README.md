@@ -4,6 +4,7 @@
 
 Q Light Controller Plus
 =========================
+![QLC+ Github Actions CI Build](https://github.com/mcallegari/qlcplus/actions/workflows/build.yml/badge.svg)
 
 Copyright (c) Heikki Junnila, Massimo Callegari
 
