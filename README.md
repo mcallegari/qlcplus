@@ -3,45 +3,57 @@
 </a>
 
 # Q Light Controller Plus
-
-[![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white)](https://www.instagram.com/qlcplus/) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://www.youtube.com/watch?v=I9bccwcYQpM&list=PLHT-wIriuitDiW4A9oKSDr__Z_jcmMVdi) [![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?style=for-the-badge&logo=Facebook&logoColor=white)](https://www.facebook.com/qlcplus)
-
-
+![GitHub release)](https://img.shields.io/github/v/release/mcallegari/qlcplus)
+![QLC+ Github Actions CI Build](https://github.com/mcallegari/qlcplus/actions/workflows/build.yml/badge.svg)
 ## Introduction
 QLC+ is a powerful and user-friendly software designed for lighting control. Whether you're an experienced lighting professional or just getting started, QLC+ empowers you to take control of your lighting fixtures with ease. The primary goal of this project is to bring QLC+ to the level of available commercial software. 
 QLC+ runs on Linux, Windows (7+), macOS (10.7+) and the Raspberry Pi.
 
 Copyright (c) Heikki Junnila, Massimo Callegari
 
-### Resources
 
- | Resource           | Link                            |
- |-------------------:|:--------------------------------|
- | Home Page          | [![Static Badge](https://img.shields.io/badge/qlcplus.org-blue?logo=grav)](https://qlcplus.org)        |
- | Documentation      | [![Static Badge](https://img.shields.io/badge/docs.qlcplus.org-blue?logo=grav)](https://docs.qlcplus.org) |
- | Official Forum     | [![Static Badge](https://img.shields.io/badge/qlcplus.org/forum-grey?logo=php)](https://qlcplus.org/forum/) |
- | GitHub Sponsorship | ![GitHub Sponsors](https://img.shields.io/github/sponsors/mcallegari) <a href="https://github.com/sponsors/mcallegari"><img src="https://img.shields.io/badge/sponsor-30363D?logo=GitHub-Sponsors&logoColor=#white" /></a> |
- | Official Merch| [![Static Badge](https://img.shields.io/badge/merch.qlcplus.org-Official_Merchandice-green?logo=shopify)](https://merch.qlcplus.org) |
+### Key Resources:
+<table>
+<thead>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">Home Page</td>
+<td style="text-align:left"><a href="https://qlcplus.org"><img src="https://img.shields.io/badge/qlcplus.org-blue?logo=grav" alt="Static Badge"></a></td>
+</tr>
+<tr>
+<td style="text-align:right">Documentation</td>
+<td style="text-align:left"><a href="https://docs.qlcplus.org"><img src="https://img.shields.io/badge/docs.qlcplus.org-blue?logo=grav" alt="Static Badge"></a></td>
+</tr>
+<tr>
+<td style="text-align:right">Official Forum</td>
+<td style="text-align:left"><a href="https://qlcplus.org/forum/"><img src="https://img.shields.io/badge/qlcplus.org/forum-grey?logo=php" alt="Static Badge"></a></td>
+</tr>
+<tr>
+<td style="text-align:right">GitHub Sponsorship</td>
+<td style="text-align:left"><img src="https://img.shields.io/github/sponsors/mcallegari" alt="GitHub Sponsors"> <a href="https://github.com/sponsors/mcallegari"><img src="https://img.shields.io/badge/sponsor-30363D?logo=GitHub-Sponsors&logoColor=#white" /></a></td>
+</tr>
+<tr>
+<td style="text-align:right">Official Merch</td>
+<td style="text-align:left"><a href="https://merch.qlcplus.org"><img src="https://img.shields.io/badge/merch.qlcplus.org-Official_Merchandice-green?logo=shopify" alt="Static Badge"></a></td>
+</tr>
+</tbody>
+</table>
+
+### QLC+ Social Media:
+
+[![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white)](https://www.instagram.com/qlcplus/) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://www.youtube.com/watch?v=I9bccwcYQpM&list=PLHT-wIriuitDiW4A9oKSDr__Z_jcmMVdi) [![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?style=for-the-badge&logo=Facebook&logoColor=white)](https://www.facebook.com/qlcplus)
 
 
-## Getting Started
-1. [Install QLC+](https://docs.qlcplus.org/v4/basics/installation)
-2. [Setup Your Hardware](https://www.youtube.com/watch?v=I9bccwcYQpM&list=PLHT-wIriuitDiW4A9oKSDr__Z_jcmMVdi)
-3. [Add Your Fixtures](https://www.youtube.com/watch?v=gEE5OUpuAq4&list=PLHT-wIriuitDiW4A9oKSDr__Z_jcmMVdi&index=2)
-4. Create your show!
 
 ## Contributing
 We welcome contributions from the community to help make QLC+ even better. Before diving into coding, we encourage you to start a discussion in our [Software Development](https://www.qlcplus.org/forum/viewforum.php?f=12) forum if you're considering adding a new feature or making significant changes. This provides an opportunity for feedback, collaboration, and ensuring alignment with the project's goals.
 
 Further guidelines are available in the [CONTRIBUTING.md](CONTRIBUTING.md) document.
 
-## Compiling & Installation
 
-Please refer to the online wiki pages: https://github.com/mcallegari/qlcplus/wiki
+### 🚧 DEVELOPERS AT WORK 🚧
 
-## 🚧 Developers at Work! 🚧
-![GitHub release)](https://img.shields.io/github/v/release/mcallegari/qlcplus)
-![QLC+ Github Actions CI Build](https://github.com/mcallegari/qlcplus/actions/workflows/build.yml/badge.svg)
 
 If you're compiling QLC+ from sources and you regularly do "git pull"
 to get the latest sources, you probably end up seeing some
@@ -57,6 +69,9 @@ of the source directory. In those cases, you might try going to the libs
 directory, compile it with "make" and install with "make install" and then
 attempt to re-compile the whole package with "make".
 
+## Compiling And Installation
+
+Please refer to the online wiki pages: https://github.com/mcallegari/qlcplus/wiki
 ## Requirements
 ### Linux
 
@@ -153,3 +168,5 @@ QLC+ owes its success to the dedication and expertise of numerous individuals wh
 * Matthew Jaggard (Velleman plugin)
 * Ptit Vachon (French translation)
 
+----
+![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white) ![Qt](https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white) ![CMake](https://img.shields.io/badge/CMake-%23008FBA.svg?style=for-the-badge&logo=cmake&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
