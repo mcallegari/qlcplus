@@ -9,7 +9,7 @@
 QLC+ is a powerful and user-friendly software designed for lighting control. Whether you're an experienced lighting professional or just getting started, QLC+ empowers you to take control of your lighting fixtures with ease. The primary goal of this project is to bring QLC+ to the level of available commercial software. 
 QLC+ runs on Linux, Windows (7+), macOS (10.7+) and the Raspberry Pi.
 
-Copyright (c) Heikki Junnila, Massimo Callegari
+Copyright © Heikki Junnila, Massimo Callegari
 
 
 ### Key Resources:
