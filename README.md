@@ -3,9 +3,10 @@
 </a>
 
 # Q Light Controller Plus
+Copyright (c) Heikki Junnila, Massimo Callegari
+
 [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white)](https://www.instagram.com/qlcplus/) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://www.youtube.com/watch?v=I9bccwcYQpM&list=PLHT-wIriuitDiW4A9oKSDr__Z_jcmMVdi) [![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?style=for-the-badge&logo=Facebook&logoColor=white)](https://www.facebook.com/qlcplus)
 
-Copyright (c) Heikki Junnila, Massimo Callegari
 
 ## Introduction
 QLC+ is a powerful and user-friendly software designed for lighting control. Whether you're an experienced lighting professional or just getting started, QLC+ empowers you to take control of your lighting fixtures with ease. The primary goal of this project is to bring QLC+ to the level of available commercial software. 
@@ -13,8 +14,10 @@ QLC+ runs on Linux, Windows (7+), macOS (10.7+) and the Raspberry Pi.
 
 
 
- |||
- |----------------|--------------------------------|
+### Resources
+
+ | Resource |Link|
+ |----------------:|:--------------------------------|
  | Home Page       | [![Static Badge](https://img.shields.io/badge/qlcplus.org-blue?logo=grav)](https://qlcplus.org)        |
  | Documentation   | [![Static Badge](https://img.shields.io/badge/docs.qlcplus.org-blue?logo=grav)](https://docs.qlcplus.org) |
  | Official Forum  | [![Static Badge](https://img.shields.io/badge/qlcplus.org/forum-grey?logo=php)](https://qlcplus.org/forum/) |
