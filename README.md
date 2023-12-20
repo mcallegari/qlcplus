@@ -57,7 +57,7 @@ of the source directory. In those cases, you might try going to the libs
 directory, compile it with "make" and install with "make install" and then
 attempt to re-compile the whole package with "make".
 
-## Build Requirements
+## Requirements
 ### Linux
 
 
