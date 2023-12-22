@@ -48,6 +48,10 @@ Entity
             Material
             {
                 effect: GammaCorrectEffect { }
+                parameters: [
+                    Parameter { name: "hdrTex"; value: Texture2D { format: Texture.RGBA32F } },
+                    Parameter { name: "bloomTex"; value: Texture2D { format: Texture.RGBA32F } }
+                ]
             }
         ]
     }

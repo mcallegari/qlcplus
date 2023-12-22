@@ -17,13 +17,15 @@
   limitations under the License.
 */
 
-import QtQuick
+import QtQuick 2.15
 
-import QtQuick.Scene3D
-import Qt3D.Core
-import Qt3D.Render
-import Qt3D.Input
-import Qt3D.Extras
+import QtQuick.Scene3D 2.15
+import Qt3D.Core 2.15
+import Qt3D.Render 2.15
+import Qt3D.Input 2.15
+import Qt3D.Extras 2.15
+
+import "."
 
 Rectangle
 {
@@ -452,7 +454,7 @@ Rectangle
                         if (!mouse.modifiers || (mouse.modifiers & Qt.ShiftModifier && direction == Qt.Horizontal))
                             viewCamera.panAboutViewCenter(-xDelta, Qt.vector3d(0, 1, 0))
                         if (!mouse.modifiers || (mouse.modifiers & Qt.ShiftModifier && direction == Qt.Vertical))
-                            viewCamera.tiltAboutViewCenter(yDelta, Qt.vector3d(1, 0, 0))
+                            viewCamera.tiltAboutViewCenter(yDelta)
 
                         View3D.cameraPosition = viewCamera.position
                         View3D.cameraUpVector = viewCamera.upVector

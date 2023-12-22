@@ -16,8 +16,7 @@
 
 .qmake.stash
 .qtc_clangd
-*.pro.user
-*.pro.user.*
+*.pro.user*
 moc_*.cpp
 qrc_*.cpp
 Makefile
@@ -50,5 +49,5 @@ coverage/
 .vscode/
 
 # CMake build
-CMakeLists.txt.user
+CMakeLists.txt.user*
 build*

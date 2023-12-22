@@ -19,11 +19,9 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
-import QtQuick.Dialogs
+import QtQuick.Dialogs 1.1
 
 import org.qlcplus.classes 1.0
-
-import "."
 
 SidePanel
 {
@@ -103,7 +101,8 @@ SidePanel
         animatePanel(true)
     }
 
-    onContentLoaded: function(item, ID) {
+    onContentLoaded:
+    {
         if (item.hasOwnProperty("functionID"))
             item.functionID = itemID
     }
@@ -112,7 +111,7 @@ SidePanel
     {
         id: openFileDialog
         visible: false
-        fileMode: FileDialog.OpenFiles
+        selectMultiple: true
 
         property int fType
 

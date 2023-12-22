@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import Qt3D.Core
-import Qt3D.Render
-import Qt3D.Extras
+import Qt3D.Core 2.15
+import Qt3D.Render 2.15
+import Qt3D.Extras 2.15
 
 GeometryRenderer
 {

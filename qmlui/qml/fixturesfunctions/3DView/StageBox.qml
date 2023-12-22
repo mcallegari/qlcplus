@@ -76,7 +76,9 @@ Entity
         ObjectPicker
         {
             id: groundPicker
-            onClicked: contextManager.setPositionPickPoint(pick.worldIntersection)
+            onClicked: function(pick) {
+                contextManager.setPositionPickPoint(pick.worldIntersection)
+            }
         }
 
         components: [
@@ -98,7 +100,9 @@ Entity
         ObjectPicker
         {
             id: leftPicker
-            onClicked: contextManager.setPositionPickPoint(pick.worldIntersection)
+            onClicked: function (pick) {
+                contextManager.setPositionPickPoint(pick.worldIntersection)
+            }
         }
 
         components: [
@@ -119,7 +123,9 @@ Entity
         ObjectPicker
         {
             id: rightPicker
-            onClicked: contextManager.setPositionPickPoint(pick.worldIntersection)
+            onClicked: function (pick) {
+                contextManager.setPositionPickPoint(pick.worldIntersection)
+            }
         }
 
         components: [
@@ -140,7 +146,9 @@ Entity
         ObjectPicker
         {
             id: backPicker
-            onClicked: contextManager.setPositionPickPoint(pick.worldIntersection)
+            onClicked: function (pick) {
+                contextManager.setPositionPickPoint(pick.worldIntersection)
+            }
         }
 
         components: [

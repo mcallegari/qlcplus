@@ -18,15 +18,14 @@
   limitations under the License.
 */
 
-import QtQuick
+import QtQuick 2.15
 
-import Qt3D.Core
-import Qt3D.Render
-import Qt3D.Extras
+import Qt3D.Core 2.15
+import Qt3D.Render 2.15
+import Qt3D.Extras 2.15
 
 import org.qlcplus.classes 1.0
 import "Math3DView.js" as Math3D
-import "."
 
 Entity
 {
@@ -340,8 +339,7 @@ Entity
 
         property var lastPos
 
-        onClicked:
-        {
+        onClicked: function (pick) {
             console.log("3D item clicked")
             isSelected = !isSelected
             contextManager.setItemSelection(itemID, isSelected, pick.modifiers)

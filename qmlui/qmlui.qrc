@@ -266,5 +266,10 @@
     <file alias="Math3DView.js">js/Math3DView.js</file>
     <file alias="TimeUtils.js">js/TimeUtils.js</file>
 
+    <!-- Component overrides for Qt5 -->
+    <file alias="+qt5/ActionsMenu.qml">qml/+qt5/ActionsMenu.qml</file>
+    <file alias="+qt5/RightPanel.qml">qml/fixturesfunctions/+qt5/RightPanel.qml</file>
+    <file alias="+qt5/SettingsView3D.qml">qml/fixturesfunctions/3DView/+qt5/SettingsView3D.qml</file>
+
   </qresource>
 </RCC>

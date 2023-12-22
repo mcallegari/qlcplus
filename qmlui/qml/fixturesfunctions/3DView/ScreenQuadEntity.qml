@@ -51,6 +51,12 @@ Entity
             {
                 Component.onCompleted: View3D.quadReady()
                 effect: LightPassEffect { }
+                parameters: [
+                    Parameter { name: "albedoTex"; value: Texture2D { format: Texture.RGBA32F } },
+                    Parameter { name: "depthTex"; value: Texture2D { format: Texture.D32F } },
+                    Parameter { name: "normalTex"; value: Texture2D { format: Texture.RGBA32F } },
+                    Parameter { name: "specularTex"; value: Texture2D { format: Texture.RGBA32F } }
+                ]
             }
         ]
     }

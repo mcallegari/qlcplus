@@ -101,8 +101,7 @@ Entity
         id: headsRepeater
         //model: fixtureEntity.headsNumber
 
-        onObjectAdded:
-        {
+        onObjectAdded: function (index, object) {
             console.log("Head " + index + " added ----------------")
             if (index == fixtureEntity.headsNumber - 1)
                 View3D.initializeFixture(itemID, fixtureEntity, null)
@@ -167,8 +166,7 @@ Entity
 
         property var lastPos
 
-        onClicked:
-        {
+        onClicked: function (pick) {
             console.log("3D item clicked")
             isSelected = !isSelected
             contextManager.setItemSelection(itemID, isSelected, pick.modifiers)
