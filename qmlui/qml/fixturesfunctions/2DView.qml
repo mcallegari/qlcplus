@@ -349,8 +349,7 @@ Rectangle
                     drag.threshold: 10
                     drag.target: parent
 
-                    onReleased:
-                    {
+                    onReleased: function (mouse) {
                         if (drag.active)
                         {
                             var units = View2D.gridUnits === MonitorProperties.Meters ? 1000.0 : 304.8

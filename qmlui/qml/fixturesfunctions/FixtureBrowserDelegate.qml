@@ -111,12 +111,13 @@ Item
         id: fxMouseArea
         anchors.fill: parent
         hoverEnabled: true
-        onClicked: fxDraggableItem.mouseEvent(App.Clicked, 0, 0, fxDraggableItem, mouse.modifiers)
+        onClicked: function (mouse) {
+            fxDraggableItem.mouseEvent(App.Clicked, 0, 0, fxDraggableItem, mouse.modifiers)
+        }
         drag.target: FixtureDragItem { }
         drag.threshold: 30
 
-        onPressed:
-        {
+        onPressed: function (mouse) {
             if (fxDraggableItem.isManufacturer == false)
             {
                 fxDraggableItem.mouseEvent(App.Clicked, 0, 0, fxDraggableItem, mouse.modifiers)
@@ -124,11 +125,13 @@ Item
                 FxDragJS.initProperties()
             }
         }
-        onPositionChanged:
+        onPositionChanged: function (mouse) {
             if (fxDraggableItem.isManufacturer == false && drag.active == true)
                 FxDragJS.handleDrag(mouse)
-        onReleased:
+        }
+        onReleased: function (mouse) {
             if (fxDraggableItem.isManufacturer == false && drag.active == true)
                 FxDragJS.endDrag(mouse)
+        }
     }
 }
