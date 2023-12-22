@@ -48,6 +48,12 @@ Entity
     {
         id: quadMaterial
         effect: quadEffect
+        parameters: [
+            Parameter { name: "tex"; value: Texture2D { format: Texture.RGBA32F } },
+            Parameter { name: "colorTex"; value: Texture2D { format: Texture.RGBA32F } },
+            Parameter { name: "albedoTex"; value: Texture2D { format: Texture.RGBA32F } },
+            Parameter { name: "normalTex"; value: Texture2D { format: Texture.RGBA32F } }
+        ]
     }
 
     components: [

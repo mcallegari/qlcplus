@@ -22,11 +22,6 @@ import Qt3D.Render 2.0
 
 Effect
 {
-    function makeShader(s)
-    {
-        return View3D.makeShader(s)
-    }
-
     techniques: [
         Technique
         {
@@ -38,8 +33,8 @@ Effect
                     shaderProgram:
                         ShaderProgram
                         {
-                            vertexShaderCode:  View3D.makeShader(loadSource("qrc:/geo.vert"))
-                            fragmentShaderCode:  View3D.makeShader(loadSource("qrc:/geo.frag"))
+                            vertexShaderCode: View3D.makeGlShader(loadSource("qrc:/geo.vert"))
+                            fragmentShaderCode: View3D.makeGlShader(loadSource("qrc:/geo.frag"))
                         }
                 }, // render pass
                 RenderPass
@@ -48,8 +43,34 @@ Effect
                     shaderProgram:
                         ShaderProgram
                         {
-                            vertexShaderCode: View3D.makeShader(loadSource("qrc:/output_depth.vert"))
-                            fragmentShaderCode: View3D.makeShader(loadSource("qrc:/output_depth.frag"))
+                            vertexShaderCode: View3D.makeGlShader(loadSource("qrc:/output_depth.vert"))
+                            fragmentShaderCode: View3D.makeGlShader(loadSource("qrc:/output_depth.frag"))
+                        }
+                } // render pass
+            ]
+        },
+        Technique
+        {
+            graphicsApiFilter { api: GraphicsApiFilter.RHI; profile: GraphicsApiFilter.NoProfile; majorVersion: 1; minorVersion: 0 }
+            renderPasses: [
+                RenderPass
+                {
+                    filterKeys: FilterKey { name: "pass"; value: "geometry" }
+                    shaderProgram:
+                        ShaderProgram
+                        {
+                            vertexShaderCode: View3D.makeRhiShader(loadSource("qrc:/geo_rhi.vert"))
+                            fragmentShaderCode: View3D.makeRhiShader(loadSource("qrc:/geo_rhi.frag"))
+                        }
+                }, // render pass
+                RenderPass
+                {
+                    filterKeys: FilterKey { name: "pass"; value: "shadows" }
+                    shaderProgram:
+                        ShaderProgram
+                        {
+                            vertexShaderCode: View3D.makeRhiShader(loadSource("qrc:/output_depth_rhi.vert"))
+                            fragmentShaderCode: View3D.makeRhiShader(loadSource("qrc:/output_depth_rhi.frag"))
                         }
                 } // render pass
             ]

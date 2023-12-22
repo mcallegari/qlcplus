@@ -36,9 +36,22 @@ Effect
                     shaderProgram:
                         ShaderProgram
                         {
-                            vertexShaderCode: View3D.makeShader(loadSource("qrc:/fullscreen.vert"))
-                            fragmentShaderCode: View3D.makeShader(loadSource("qrc:/downsample.frag"))
+                            vertexShaderCode: View3D.makeGlShader(loadSource("qrc:/fullscreen.vert"))
+                            fragmentShaderCode: View3D.makeGlShader(loadSource("qrc:/downsample.frag"))
                         }
+                }
+            ]
+        },
+        Technique {
+            graphicsApiFilter { api: GraphicsApiFilter.RHI; profile: GraphicsApiFilter.NoProfile; majorVersion: 1; minorVersion: 0 }
+            renderPasses: [
+                // Downsample pass
+                RenderPass {
+                    filterKeys: FilterKey { name: "pass"; value: "downsample" }
+                    shaderProgram: ShaderProgram {
+                        vertexShaderCode: View3D.makeRhiShader(loadSource("qrc:/fullscreen_rhi.vert"))
+                        fragmentShaderCode: View3D.makeRhiShader(loadSource("qrc:/downsample_rhi.frag"))
+                    }
                 }
             ]
         }

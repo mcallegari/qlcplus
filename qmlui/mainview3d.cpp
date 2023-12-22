@@ -380,9 +380,9 @@ void MainView3D::initialize3DProperties()
     QMetaObject::invokeMethod(m_scene3D, "updateFrameGraph", Q_ARG(QVariant, true));
 }
 
-QString MainView3D::makeShader(QString str) {
-
-   QString prefix = R"(#version 150
+QString MainView3D::makeGlShader(const QString &str)
+{
+    QString prefix = R"(#version 150
 #define GL3
 
 #ifdef GL3
@@ -410,6 +410,46 @@ QString MainView3D::makeShader(QString str) {
 #define SAMPLE_TEX3D texture3D
 #define SAMPLE_TEX2D texture2D
 #endif
+
+)";
+
+    return prefix + str;
+}
+
+QString MainView3D::makeRhiShader(const QString &str) {
+
+   QString prefix = R"(#version 450 core
+
+layout(std140, binding = 0) uniform qt3d_render_view_uniforms {
+  mat4 viewMatrix;
+  mat4 projectionMatrix;
+  mat4 uncorrectedProjectionMatrix;
+  mat4 clipCorrectionMatrix;
+  mat4 viewProjectionMatrix;
+  mat4 inverseViewMatrix;
+  mat4 inverseProjectionMatrix;
+  mat4 inverseViewProjectionMatrix;
+  mat4 viewportMatrix;
+  mat4 inverseViewportMatrix;
+  vec4 textureTransformMatrix;
+  vec3 eyePosition;
+  float aspectRatio;
+  float gamma;
+  float exposure;
+  float time;
+  float yUpInNDC;
+  float yUpInFBO;
+};
+
+layout(std140, binding = 1) uniform qt3d_command_uniforms {
+  mat4 modelMatrix;
+  mat4 inverseModelMatrix;
+  mat4 modelViewMatrix;
+  mat3 modelNormalMatrix;
+  mat4 inverseModelViewMatrix;
+  mat4 modelViewProjection;
+  mat4 inverseModelViewProjectionMatrix;
+};
 
 )";
 

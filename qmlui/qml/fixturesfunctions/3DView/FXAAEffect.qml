@@ -20,10 +20,8 @@
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0
 
-Effect
-{
-    techniques:
-    [
+Effect {
+    techniques: [
         // OpenGL 3.1
         Technique
         {
@@ -37,9 +35,23 @@ Effect
                     shaderProgram:
                         ShaderProgram
                         {
-                            vertexShaderCode: View3D.makeShader(loadSource("qrc:/fullscreen.vert"))
-                            fragmentShaderCode: View3D.makeShader(loadSource("qrc:/fxaa.frag"))
+                            vertexShaderCode: View3D.makeGlShader(loadSource("qrc:/fullscreen.vert"))
+                            fragmentShaderCode: View3D.makeGlShader(loadSource("qrc:/fxaa.frag"))
                         }
+                }
+            ]
+        },
+        // RHI 1.0
+        Technique {
+            graphicsApiFilter { api: GraphicsApiFilter.RHI; profile: GraphicsApiFilter.NoProfile; majorVersion: 1; minorVersion: 0 }
+            renderPasses: [
+                // FXAA pass
+                RenderPass {
+                    filterKeys: FilterKey { name: "pass"; value: "fxaa" }
+                    shaderProgram: ShaderProgram {
+                        vertexShaderCode: View3D.makeRhiShader(loadSource("qrc:/fullscreen_rhi.vert"))
+                        fragmentShaderCode: View3D.makeRhiShader(loadSource("qrc:/fxaa_rhi.frag"))
+                    }
                 }
             ]
         }

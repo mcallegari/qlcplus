@@ -447,9 +447,7 @@ Rectangle
             headerHeight: showMgrContainer.headerHeight
             cursorHeight: showMgrContainer.height - topBar.height - (bottomPanel.visible ? bottomPanel.height : 0)
             duration: showManager.showDuration
-
-            onClicked:
-            {
+            onClicked: function (mouseX, mouseY) {
                 if (timeDivision === Show.Time)
                     showManager.currentTime = TimeUtils.posToMs(mouseX, timeScale, tickSize)
                 else
@@ -543,8 +541,7 @@ Rectangle
             MouseArea
             {
                 anchors.fill: parent
-                onClicked:
-                {
+                onClicked: function (mouse) {
                     showManager.currentTime = TimeUtils.posToMs(mouse.x, timeScale, tickSize)
                     showManager.resetItemsSelection()
                 }

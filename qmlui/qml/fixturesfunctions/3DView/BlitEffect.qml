@@ -20,10 +20,8 @@
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0
 
-Effect
-{
-    techniques:
-    [
+Effect {
+    techniques: [
         // OpenGL 3.1
         Technique
         {
@@ -37,9 +35,24 @@ Effect
                     shaderProgram:
                         ShaderProgram
                         {
-                            vertexShaderCode: View3D.makeShader(loadSource("qrc:/fullscreen.vert"))
-                            fragmentShaderCode: View3D.makeShader(loadSource("qrc:/blit.frag"))
+                            vertexShaderCode: View3D.makeGlShader(loadSource("qrc:/fullscreen.vert"))
+                            fragmentShaderCode: View3D.makeGlShader(loadSource("qrc:/blit.frag"))
                         }
+                }
+            ]
+        },
+        // RHI 1.00
+        Technique {
+            graphicsApiFilter { api: GraphicsApiFilter.RHI; profile: GraphicsApiFilter.NoProfile; majorVersion: 1; minorVersion: 0 }
+            renderPasses: [
+                // Lights pass
+                RenderPass
+                {
+                    filterKeys: FilterKey { name: "pass"; value: "blit" }
+                    shaderProgram: ShaderProgram {
+                        vertexShaderCode: View3D.makeRhiShader(loadSource("qrc:/fullscreen_rhi.vert"))
+                        fragmentShaderCode: View3D.makeRhiShader(loadSource("qrc:/blit_rhi.frag"))
+                    }
                 }
             ]
         }

@@ -119,7 +119,9 @@ Rectangle
                 id: toolbar
                 visible: !boundToSequence
                 text: sceneEditor ? sceneEditor.functionName : ""
-                onTextChanged: sceneEditor.functionName = text
+                onTextChanged: function(text) {
+                    sceneEditor.functionName = text
+                }
 
                 onBackClicked:
                 {

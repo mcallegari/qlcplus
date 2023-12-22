@@ -301,8 +301,7 @@ Rectangle
         onEntered: fixtureLabel.visible = true
         onExited: showLabel ? fixtureLabel.visible = true : fixtureLabel.visible = false
 
-        onPressed:
-        {
+        onPressed: function (mouse) {
             // do not accept this event to propagate it to the drag rectangle
             mouse.accepted = false
         }
