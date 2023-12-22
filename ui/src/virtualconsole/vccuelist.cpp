@@ -828,15 +828,15 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
 
         int upperBound = 255 - qCeil(slValue);
         int lowerBound = qFloor((float)256.0 - slValue - stepVal);
-        //qDebug() << "Slider value:" << m_sideFader->value() << "->" << 255-slValue << "( disp:" << slValue << ") Step range:" << upperBound << lowerBound;
         // if the Step slider is already in range, then do not set its value
         // this means a user interaction is going on, either with the mouse or external controller
         if (m_sideFader->value() < lowerBound || m_sideFader->value() >= upperBound)
         {
             m_sideFader->blockSignals(true);
             m_sideFader->setValue(upperBound);
-            m_topPercentageLabel->setText(QString("%1").arg(slValue));
+            m_topPercentageLabel->setText(QString("%1").arg(qCeil(slValue)));
             m_sideFader->blockSignals(false);
+            //qDebug() << "Slider value:" << m_sideFader->value() << "->" << 255-qCeil(slValue) << "( disp:" << slValue << ") Step range:" << upperBound << lowerBound;
         }
     }
     else
@@ -1218,13 +1218,13 @@ void VCCueList::slotSideFaderValueChanged(int value)
         if (ch->stepsCount() < 256)
         {
             float stepSize = 256.0 / (float)ch->stepsCount();  //divide up the full 0..255 range
-            stepSize = qFloor((stepSize * 100000) + 0.5) / 100000; //round to 5 decimals to fix corner cases
+            stepSize = (float)qFloor((stepSize * 100000) + 0.5) / 100000; //round to 5 decimals to fix corner cases
             if(value >= 256.0 - stepSize)
                 newStep = ch->stepsCount() - 1;
             else
                 newStep = qFloor((float)value / stepSize);
+            qDebug() << "value:" << value << " new step:" << newStep << " stepSize:" << stepSize;
         }
-        //qDebug() << "value:" << value << " steps:" << ch->stepsCount() << "new step:" << newStep;
 
         if (newStep == ch->currentStepIndex())
             return;
