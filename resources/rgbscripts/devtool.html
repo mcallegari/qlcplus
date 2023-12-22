@@ -130,11 +130,13 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
 <table>
  <tr>
   <td>Primary color (rrggbb)</td>
-  <td><input type="text" id="primaryColor" value="FF0000" pattern="[0-9A-Fa-f]{6}" size="6" onChange="devtool.onColorChange()" required /></td>
+  <td><input type="text" id="primaryColorText" value="FF0000" pattern="[0-9A-Fa-f]{6}" size="6" onInput="devtool.onColorTextChange()" required /></td>
+  <td><input type="color" id="primaryColorPicker" value="#FF0000" onInput="devtool.onPrimaryColorPickerChange()" required /></td>
  </tr>
  <tr id="secondaryColorChooser">
   <td>Secondary color (rrggbb, leave empty to disable)</td>
-  <td><INPUT TYPE="text" id="secondaryColor" value="" pattern="[0-9A-Fa-f]{6}" size="6" onChange="devtool.onColorChange()"/></td>
+  <td><input type="text" id="secondaryColorText" value="" pattern="[0-9A-Fa-f]{6}" size="6" onInput="devtool.onColorTextChange()"/></td>
+  <td><input type="color" id="secondaryColorPicker" value="#000000" onInput="devtool.onSecondaryColorPickerChange()" required /></td>
  </tr>
 </table>
 </form>
