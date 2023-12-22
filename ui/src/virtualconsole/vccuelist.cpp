@@ -818,16 +818,17 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
         float stepVal;
         int stepsCount = m_tree->topLevelItemCount();
         if (stepsCount < 256)
-            stepVal = 255.0 / (float)stepsCount;
+            stepVal = 256.0 / (float)stepsCount; //divide up the full 0..255 range
         else
             stepVal = 1.0;
-        int slValue = (stepVal * (float)stepNumber);
+        // value->step# truncates down in slotSideFaderValueChanged; so use ceiling for step#->value
+        float slValue = stepVal * (float)stepNumber;
         if (slValue > 255)
-            slValue = 255;
+            slValue = 255.0;
 
-        int upperBound = 255 - slValue;
-        int lowerBound = qFloor(upperBound - stepVal);
-        //qDebug() << "Slider value:" << m_slider1->value() << "Step range:" << (255 - slValue) << (255 - slValue - stepVal);
+        int upperBound = 255 - qCeil(slValue);
+        int lowerBound = qFloor((float)256.0 - flValue - stepVal);
+        //qDebug() << "Slider value:" << m_sideFader->value() << "->" << 255-slValue << "( disp:" << slValue << ") Step range:" << upperBound << lowerBound;
         // if the Step slider is already in range, then do not set its value
         // this means a user interaction is going on, either with the mouse or external controller
         if (m_sideFader->value() < lowerBound || m_sideFader->value() >= upperBound)
@@ -1216,13 +1217,14 @@ void VCCueList::slotSideFaderValueChanged(int value)
         int newStep = value; // by default we assume the Chaser has more than 256 steps
         if (ch->stepsCount() < 256)
         {
-            float stepSize = 255.0 / (float)ch->stepsCount();
-            if (value >= 255.0 - stepSize)
+            float stepSize = 256.0 / (float)ch->stepsCount();  //divide up the full 0..255 range
+            stepSize = qFloor((stepSize * 100000) + 0.5) / 100000; //round to 5 decimals to fix corner cases
+            if(value >= 256.0 - stepSize)
                 newStep = ch->stepsCount() - 1;
             else
                 newStep = qFloor((float)value / stepSize);
         }
-        //qDebug() << "value:" << value << "steps:" << ch->stepsCount() << "new step:" << newStep;
+        //qDebug() << "value:" << value << " steps:" << ch->stepsCount() << "new step:" << newStep;
 
         if (newStep == ch->currentStepIndex())
             return;
