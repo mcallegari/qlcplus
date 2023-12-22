@@ -83,24 +83,25 @@ if(WIN32)
     )
 endif()
 
-file(GLOB_RECURSE FILES_TO_ALIAS
-       "${CMAKE_CURRENT_SOURCE_DIR}/js/*.js"
-       "${CMAKE_CURRENT_SOURCE_DIR}/qml/*.qml"
-       "${CMAKE_CURRENT_SOURCE_DIR}/qml/qmldir"
-       "${CMAKE_CURRENT_SOURCE_DIR}/qml/fixturesfunctions/3DView/shaders/*.frag"
-       "${CMAKE_CURRENT_SOURCE_DIR}/qml/fixturesfunctions/3DView/shaders/*.vert"
-)
-
-foreach(FILE_TO_ALIAS ${FILES_TO_ALIAS})
-    get_filename_component(FILE_NAME ${FILE_TO_ALIAS} NAME)
-    set_source_files_properties("${FILE_TO_ALIAS}"
-        PROPERTIES QT_RESOURCE_ALIAS "${FILE_NAME}"
+if(QT_VERSION_MAJOR GREATER 5)
+    file(GLOB_RECURSE FILES_TO_ALIAS
+           "${CMAKE_CURRENT_SOURCE_DIR}/js/*.js"
+           "${CMAKE_CURRENT_SOURCE_DIR}/qml/*.qml"
+           "${CMAKE_CURRENT_SOURCE_DIR}/qml/fixturesfunctions/3DView/shaders/*.frag"
+           "${CMAKE_CURRENT_SOURCE_DIR}/qml/fixturesfunctions/3DView/shaders/*.vert"
     )
-endforeach()
 
-set_source_files_properties("qml/fixturesfunctions/3DView/shaders/rhi/fullscreen_rhi.vert"
-    PROPERTIES QT_RESOURCE_ALIAS "fullscreen_rhi.vert"
-)
+    list(APPEND FILES_TO_ALIAS "${CMAKE_CURRENT_SOURCE_DIR}/qml/qmldir")
+
+    foreach(FILE_TO_ALIAS ${FILES_TO_ALIAS})
+        if(NOT "${FILE_TO_ALIAS}" MATCHES "\\+qt5")
+            get_filename_component(FILE_NAME ${FILE_TO_ALIAS} NAME)
+            set_source_files_properties("${FILE_TO_ALIAS}"
+                PROPERTIES QT_RESOURCE_ALIAS "${FILE_NAME}"
+            )
+        endif()
+    endforeach()
+endif()
 
 target_include_directories(${module_name} PRIVATE
     ../engine/audio/src

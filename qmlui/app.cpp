@@ -33,6 +33,7 @@
 #include <QPrinter>
 #include <QPainter>
 #include <QScreen>
+#include <QQmlFileSelector>
 #include <unistd.h>
 
 #include "app.h"
@@ -123,6 +124,11 @@ void App::startup()
     qmlRegisterUncreatableType<Function>("org.qlcplus.classes", 1, 0, "QLCFunction", "Can't create a Function!");
     qmlRegisterType<ModelSelector>("org.qlcplus.classes", 1, 0, "ModelSelector");
     qmlRegisterType<FolderBrowser>("org.qlcplus.classes", 1, 0, "FolderBrowser");
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    QQmlFileSelector* selector = new QQmlFileSelector(engine());
+    selector->setExtraSelectors({"qt5"});
+#endif
 
     setTitle(APPNAME);
     setIcon(QIcon(":/qlcplus.svg"));
