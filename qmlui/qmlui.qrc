@@ -270,6 +270,7 @@
     <file alias="+qt5/ActionsMenu.qml">qml/+qt5/ActionsMenu.qml</file>
     <file alias="+qt5/RightPanel.qml">qml/fixturesfunctions/+qt5/RightPanel.qml</file>
     <file alias="+qt5/SettingsView3D.qml">qml/fixturesfunctions/3DView/+qt5/SettingsView3D.qml</file>
+    <file alias="+qt5/SettingsView2D.qml">qml/fixturesfunctions/+qt5/SettingsView2D.qml</file>
 
   </qresource>
 </RCC>
