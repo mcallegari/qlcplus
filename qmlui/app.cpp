@@ -260,9 +260,14 @@ bool App::is3DSupported() const
     int glVersion = (openglContext()->format().majorVersion() * 10) + openglContext()->format().minorVersion();
     return glVersion < 33 ? false : true;
 #else
-    // TODO: Qt6
-
-    return true;
+    if (rendererInterface()->isApiRhiBased(graphicsApi())) {
+        return true;
+    }
+    QOpenGLContext * openglContext = static_cast<QOpenGLContext *>(rendererInterface()->getResource(const_cast<App *>(this), QSGRendererInterface::OpenGLContextResource));
+    if (openglContext && openglContext->isValid() && openglContext->format().majorVersion() * 10 + openglContext->format().minorVersion() >= 33) {
+        return true;
+    }
+    return false;
 #endif
 }
 
