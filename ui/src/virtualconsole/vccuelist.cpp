@@ -827,7 +827,7 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
             slValue = 255.0;
 
         int upperBound = 255 - qCeil(slValue);
-        int lowerBound = qFloor((float)256.0 - flValue - stepVal);
+        int lowerBound = qFloor((float)256.0 - slValue - stepVal);
         //qDebug() << "Slider value:" << m_sideFader->value() << "->" << 255-slValue << "( disp:" << slValue << ") Step range:" << upperBound << lowerBound;
         // if the Step slider is already in range, then do not set its value
         // this means a user interaction is going on, either with the mouse or external controller
