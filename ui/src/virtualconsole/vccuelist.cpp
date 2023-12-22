@@ -817,10 +817,12 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
 
         float stepVal;
         int stepsCount = m_tree->topLevelItemCount();
-        if (stepsCount < 256)
+        if (stepsCount < 256) {
             stepVal = 256.0 / (float)stepsCount; //divide up the full 0..255 range
-        else
+            stepVal = (float)qFloor((stepVal * 100000) + 0.5) / 100000; //round to 5 decimals to fix corner cases
+        } else { 
             stepVal = 1.0;
+        }
         // value->step# truncates down in slotSideFaderValueChanged; so use ceiling for step#->value
         float slValue = stepVal * (float)stepNumber;
         if (slValue > 255)
@@ -836,7 +838,11 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
             m_sideFader->setValue(upperBound);
             m_topPercentageLabel->setText(QString("%1").arg(qCeil(slValue)));
             m_sideFader->blockSignals(false);
-            //qDebug() << "Slider value:" << m_sideFader->value() << "->" << 255-qCeil(slValue) << "( disp:" << slValue << ") Step range:" << upperBound << lowerBound;
+
+            //qDebug() << "Slider value:" << m_sideFader->value() << "->" << 255-qCeil(slValue) 
+            //    << "(disp:" << slValue << ")" << "Step range:" << upperBound << lowerBound 
+            //    << "(stepSize:" << stepVal << ")" 
+            //    << "(raw lower:" << ((float)256.0 - slValue - stepVal) << ")";
         }
     }
     else
@@ -1223,7 +1229,7 @@ void VCCueList::slotSideFaderValueChanged(int value)
                 newStep = ch->stepsCount() - 1;
             else
                 newStep = qFloor((float)value / stepSize);
-            qDebug() << "value:" << value << " new step:" << newStep << " stepSize:" << stepSize;
+            //qDebug() << "value:" << value << " new step:" << newStep << " stepSize:" << stepSize;
         }
 
         if (newStep == ch->currentStepIndex())
