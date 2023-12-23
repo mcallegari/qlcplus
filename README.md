@@ -5,6 +5,7 @@
 # Q Light Controller Plus
 ![GitHub release)](https://img.shields.io/github/v/release/mcallegari/qlcplus)
 ![QLC+ Github Actions CI Build](https://github.com/mcallegari/qlcplus/actions/workflows/build.yml/badge.svg)
+![GitHub License](https://img.shields.io/github/license/mcallegari/qlcplus)
 ## Introduction
 QLC+ is a powerful and user-friendly software designed for lighting control. Whether you're an experienced lighting professional or just getting started, QLC+ empowers you to take control of your lighting fixtures with ease. The primary goal of this project is to bring QLC+ to the level of available commercial software. 
 QLC+ runs on Linux, Windows (7+), macOS (10.7+) and the Raspberry Pi.
@@ -167,6 +168,10 @@ QLC+ owes its success to the dedication and expertise of numerous individuals wh
 * Lutz Hillebrand (uDMX plugin)
 * Matthew Jaggard (Velleman plugin)
 * Ptit Vachon (French translation)
+
+## Apache 2.0
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 
 ----
 ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white) ![Qt](https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white) ![CMake](https://img.shields.io/badge/CMake-%23008FBA.svg?style=for-the-badge&logo=cmake&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
