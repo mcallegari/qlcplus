@@ -5,7 +5,7 @@
 # Q Light Controller Plus
 ![GitHub release)](https://img.shields.io/github/v/release/mcallegari/qlcplus)
 ![QLC+ Github Actions CI Build](https://github.com/mcallegari/qlcplus/actions/workflows/build.yml/badge.svg)
-![GitHub License](https://img.shields.io/github/license/mcallegari/qlcplus)
+
 ## Introduction
 QLC+ is a powerful and user-friendly software designed for lighting control. Whether you're an experienced lighting professional or just getting started, QLC+ empowers you to take control of your lighting fixtures with ease. The primary goal of this project is to bring QLC+ to the level of available commercial software. 
 QLC+ runs on Linux, Windows (7+), macOS (10.7+) and the Raspberry Pi.
@@ -170,6 +170,7 @@ QLC+ owes its success to the dedication and expertise of numerous individuals wh
 * Ptit Vachon (French translation)
 
 ## Apache 2.0
+![GitHub License](https://img.shields.io/github/license/mcallegari/qlcplus)
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 
