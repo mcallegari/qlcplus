@@ -64,10 +64,9 @@ class Fixture;
 #define KXMLQLCEFXDiamondAlgorithmName      QString("Diamond")
 #define KXMLQLCEFXSquareAlgorithmName       QString("Square")
 #define KXMLQLCEFXSquareChoppyAlgorithmName QString("SquareChoppy")
-#define KXMLQLCEFXSquareTrueAlgorithmName  QString("SquareTrue")
+#define KXMLQLCEFXSquareTrueAlgorithmName   QString("SquareTrue")
 #define KXMLQLCEFXLeafAlgorithmName         QString("Leaf")
 #define KXMLQLCEFXLissajousAlgorithmName    QString("Lissajous")
-
 
 /**
  * An EFX (effects) function that is used to create

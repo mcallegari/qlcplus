@@ -389,7 +389,7 @@ void EFX::calculatePoint(float iterator, float* x, float* y) const
         break;
 		
 	case SquareTrue:
-         if (iterator < M_PI / 2)
+        if (iterator < M_PI / 2)
         {
             *x = 1;
             *y = 1;
