@@ -243,6 +243,8 @@ public:
     /** Set a zoom channel in degrees */
     Q_INVOKABLE void setBeamDegrees(float degrees, bool isRelative);
 
+    Q_INVOKABLE void highlightFixtureSelection();
+
     void setChannelValues(QList<SceneValue> values);
 
 protected slots:

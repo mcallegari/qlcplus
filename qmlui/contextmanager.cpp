@@ -28,10 +28,12 @@
 #include "functionmanager.h"
 #include "fixturemanager.h"
 #include "qlcfixturemode.h"
+#include "qlccapability.h"
 #include "fixtureutils.h"
 #include "mainviewdmx.h"
 #include "mainview2d.h"
 #include "mainview3d.h"
+#include "qlcchannel.h"
 #include "tardis.h"
 #include "app.h"
 #include "doc.h"
@@ -1516,6 +1518,45 @@ void ContextManager::setBeamDegrees(float degrees, bool isRelative)
                 setDumpValue(zSv.fxi, zSv.channel, zSv.value);
             else
                 m_functionManager->setChannelValue(zSv.fxi, zSv.channel, zSv.value);
+        }
+    }
+}
+
+void ContextManager::highlightFixtureSelection()
+{
+    setChannelValueByType((int)QLCChannel::Red, UCHAR_MAX);
+    setChannelValueByType((int)QLCChannel::Green, UCHAR_MAX);
+    setChannelValueByType((int)QLCChannel::Blue, UCHAR_MAX);
+    setChannelValueByType((int)QLCChannel::White, UCHAR_MAX);
+
+    setChannelValueByType((int)QLCChannel::Pan, 127);
+    setChannelValueByType((int)QLCChannel::Tilt, 127);
+
+    setChannelValueByType((int)QLCChannel::Intensity, UCHAR_MAX);
+
+    // search for shutter open and lamp on
+    for (quint32 &itemID : m_selectedFixtures)
+    {
+        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        Fixture *fixture = m_doc->fixture(fxID);
+        if (fixture == nullptr)
+            continue;
+
+        for (quint32 i = 0; i < fixture->channels(); i++)
+        {
+            const QLCChannel *channel = fixture->channel(i);
+            for (QLCCapability *cap : channel->capabilities())
+            {
+                if (cap->preset() == QLCCapability::ShutterOpen ||
+                    cap->preset() == QLCCapability::LampOn)
+                {
+                    if (m_editingEnabled == false)
+                        setDumpValue(fxID, i, cap->middle());
+                    else
+                        m_functionManager->setChannelValue(fxID, i, cap->middle());
+                    break;
+                }
+            }
         }
     }
 }
