@@ -260,8 +260,8 @@ void VCCueList::setSideFaderLevel(int level)
         if (ch->stepsCount() < 256)
         {
             float stepSize = 256 / float(ch->stepsCount()); //divide up the full 0..255 range
-            stepSize = (float)qFloor((stepSize * 100000) + 0.5) / 100000; //round to 5 decimals to fix corner cases
-            if(level >= 256.0 - stepSize)
+            stepSize = qFloor((stepSize * 100000.0) + 0.5) / 100000.0; //round to 5 decimals to fix corner cases
+            if (level >= 256.0 - stepSize)
                 newStep = ch->stepsCount() - 1;
             else
                 newStep = qFloor(qreal(level) / qreal(stepSize));

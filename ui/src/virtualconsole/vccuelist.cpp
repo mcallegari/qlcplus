@@ -820,8 +820,8 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
         if (stepsCount < 256) 
         {
             stepVal = 256.0 / (float)stepsCount; //divide up the full 0..255 range
-            stepVal = (float)qFloor((stepVal * 100000) + 0.5) / 100000; //round to 5 decimals to fix corner cases
-        } 
+            stepVal = qFloor((stepVal * 100000.0) + 0.5) / 100000.0; //round to 5 decimals to fix corner cases
+        }
         else 
         {
             stepVal = 1.0;
@@ -833,7 +833,7 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
             slValue = 255.0;
 
         int upperBound = 255 - qCeil(slValue);
-        int lowerBound = qFloor((float)256.0 - slValue - stepVal);
+        int lowerBound = qFloor(256.0 - slValue - stepVal);
         // if the Step slider is already in range, then do not set its value
         // this means a user interaction is going on, either with the mouse or external controller
         if (m_sideFader->value() < lowerBound || m_sideFader->value() >= upperBound)
@@ -846,7 +846,7 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
             //qDebug() << "Slider value:" << m_sideFader->value() << "->" << 255-qCeil(slValue) 
             //    << "(disp:" << slValue << ")" << "Step range:" << upperBound << lowerBound 
             //    << "(stepSize:" << stepVal << ")" 
-            //    << "(raw lower:" << ((float)256.0 - slValue - stepVal) << ")";
+            //    << "(raw lower:" << (256.0 - slValue - stepVal) << ")";
         }
     }
     else
@@ -1228,8 +1228,8 @@ void VCCueList::slotSideFaderValueChanged(int value)
         if (ch->stepsCount() < 256)
         {
             float stepSize = 256.0 / (float)ch->stepsCount();  //divide up the full 0..255 range
-            stepSize = (float)qFloor((stepSize * 100000) + 0.5) / 100000; //round to 5 decimals to fix corner cases
-            if(value >= 256.0 - stepSize)
+            stepSize = qFloor((stepSize * 100000.0) + 0.5) / 100000.0; //round to 5 decimals to fix corner cases
+            if (value >= 256.0 - stepSize)
                 newStep = ch->stepsCount() - 1;
             else
                 newStep = qFloor((float)value / stepSize);
