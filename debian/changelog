@@ -3,10 +3,12 @@ qlcplus (4.12.8) stable; urgency=low
   * engine: fix Chaser random startup (thanks to Dennis Suermann)
   * engine: do not fade out looped audio
   * engine: fix stopping audio with fade in and fade out while fading in
+  * engine: new EFX algorithm: SquareTrue (thanks to Justin Hornsby)
   * Virtual Console/Slider: fix switching from playback to submaster mode
   * Virtual Console/XY Pad: fix Scene preset controlling wrong channels
   * Virtual Console/Clock: fix running a schedule the day after
   * Virtual Console/Button: Scene flashing can force LTP and override (thanks to Dennis Suermann)
+  * Virtual Console/Cue List: fix off by one offset error in steps mode (thanks to kpr0th)
   * Plugins/ArtNet: add default standard transmission mode as per protocol specifications
   * Plugins/ArtNet,E1.31,OSC: add a parameter to wait for interfaces to be ready
   * Plugins/DMX USB: add support for DMXKing MAX products
@@ -43,6 +45,7 @@ qlcplus (4.12.8) stable; urgency=low
   * New fixture: Martin Ego X6 (thanks to Michael Tosatto)
   * New fixture: Blizzard Lighting LB Hex Unplugged (thanks to David Sparks)
   * New fixture: Eurolite LED Strobe SMD PRO 132 DMX RGB (thanks to Fede79)
+  * New fixture: Eurolite LED PLL-480 CW/WW (thanks to Benjamin Drung)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 17 Dec 2023 12:13:14 +0200
 
