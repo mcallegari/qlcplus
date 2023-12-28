@@ -714,16 +714,24 @@ void VCButton::pressFunction()
         if (f == NULL)
             return;
 
-        // if the button is in a SoloFrame and the function is running but was
-        // started by a different function (a chaser or collection), turn other
-        // functions off and start this one.
-        if (state() == Active && !(isChildOfSoloFrame() && f->startedAsChild()))
+        if (state() == Active)
         {
+            // this stops "On/Active" buttons (with green border)
             f->stop(functionParent());
             resetIntensityOverrideAttribute();
         }
         else
         {
+            // this starts "Off/Inactive" buttons (with no border),
+            // *and* it starts "Monitoring" buttons (with orange border).
+
+            /** Note: if a button is in a SoloFrame and the function is running,
+             *   but was started by a different function (such as a chaser or collection), 
+             *   we want to turn other functions off and start this one.
+             *  This previously checked isChildOfSoloFrame() and f->startedAsChild() 
+             *   to help in deciding what to do, but with the addition of the tri-state
+             *   ButtonState values, these helpers might no longer be needed. */
+
             adjustFunctionIntensity(f, intensity());
 
             // starting a Chaser is a special case, since it is necessary
