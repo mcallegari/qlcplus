@@ -1494,6 +1494,12 @@ void ContextManager::setPositionValue(int type, int degrees, bool isRelative)
     }
 }
 
+void ContextManager::setPositionCenter()
+{
+    setChannelValueByType((int)QLCChannel::Pan, 127);
+    setChannelValueByType((int)QLCChannel::Tilt, 127);
+}
+
 void ContextManager::setBeamDegrees(float degrees, bool isRelative)
 {
     // list to keep track of the already processed Fixture IDs
@@ -1528,9 +1534,6 @@ void ContextManager::highlightFixtureSelection()
     setChannelValueByType((int)QLCChannel::Green, UCHAR_MAX);
     setChannelValueByType((int)QLCChannel::Blue, UCHAR_MAX);
     setChannelValueByType((int)QLCChannel::White, UCHAR_MAX);
-
-    setChannelValueByType((int)QLCChannel::Pan, 127);
-    setChannelValueByType((int)QLCChannel::Tilt, 127);
 
     setChannelValueByType((int)QLCChannel::Intensity, UCHAR_MAX);
 
