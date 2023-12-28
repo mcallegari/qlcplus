@@ -46,6 +46,9 @@ qlcplus (4.12.8) stable; urgency=low
   * New fixture: Blizzard Lighting LB Hex Unplugged (thanks to David Sparks)
   * New fixture: Eurolite LED Strobe SMD PRO 132 DMX RGB (thanks to Fede79)
   * New fixture: Eurolite LED PLL-480 CW/WW (thanks to Benjamin Drung)
+  * New fixture: Robe Spiider (thanks to Nicolò)
+  * New fixture: Betopper LB230 (thanks to Viktor)
+  * New fixtures: Varytec Typhoon True Kid 720Z RGBW IP65, Showtec Performer 2000 RGBAL (thanks to Clément Delabroye)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 17 Dec 2023 12:13:14 +0200
 
