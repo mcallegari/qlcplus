@@ -545,6 +545,7 @@ void ContextManager::setItemSelection(quint32 itemID, bool enable, int keyModifi
     {
         setFixtureSelection(itemID, -1, enable);
     }
+    m_fixtureManager->setItemRoleData(itemID, enable ? 2 : 0, TreeModel::IsSelectedRole);
 }
 
 void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool enable)
@@ -581,6 +582,8 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
     Fixture *fixture = m_doc->fixture(fixtureID);
     if (fixture == nullptr)
         return;
+
+    m_fixtureManager->setItemRoleData(itemID, enable ? 2 : 0, TreeModel::IsSelectedRole);
 
     if (m_DMXView->isEnabled())
         m_DMXView->updateFixtureSelection(fixtureID, enable);

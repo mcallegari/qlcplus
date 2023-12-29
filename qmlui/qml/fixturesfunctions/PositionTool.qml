@@ -261,8 +261,6 @@ Rectangle
         x: parent.width - width - 2
         y: gCanvas.y + gCanvas.height - width
         z: 2
-        //width: iconSize
-        //height: iconSize
         faSource: FontAwesome.fa_bullseye
         tooltip: qsTr("Center Pan/Tilt halfway")
         onClicked:
