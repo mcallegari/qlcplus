@@ -4,6 +4,7 @@ qlcplus (4.12.8) stable; urgency=low
   * engine: do not fade out looped audio
   * engine: fix stopping audio with fade in and fade out while fading in
   * engine: new EFX algorithm: SquareTrue (thanks to Justin Hornsby)
+  * engine: handle 'string' and 'float' types in RGB Scripts
   * Virtual Console/Slider: fix switching from playback to submaster mode
   * Virtual Console/XY Pad: fix Scene preset controlling wrong channels
   * Virtual Console/Clock: fix running a schedule the day after

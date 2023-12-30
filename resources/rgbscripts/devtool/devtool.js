@@ -119,13 +119,16 @@ devtool.addPropertyTableEntry = function(property)
         input.max = values[1];
         input.setAttribute("onChange", "devtool.writeFunction('" + writeFunction + "', '" + name + "', this.value); devtool.setStep(0); devtool.writeCurrentStep()");
         formCell.appendChild(input);
-    } else if (typeProperty === "integer") {
+    } else if (typeProperty === "float") {
         input = document.createElement("input");
         input.type = "number";
         input.required = "required";
         input.name = name;
         input.setAttribute("value", currentValue);
         input.id = name;
+        input.min = -1000000;
+        input.max = 1000000;
+        input.step = 0.001;
         input.setAttribute("onChange", "devtool.writeFunction('" + writeFunction + "', '" + name + "', this.value); devtool.setStep(0); devtool.writeCurrentStep()");
         formCell.appendChild(input);
     } else { // string

@@ -491,7 +491,7 @@ bool RGBScript::loadProperties()
             else if (key == "type")
             {
                 if (value == "list") newCap.m_type = RGBScriptProperty::List;
-                else if (value == "integer") newCap.m_type = RGBScriptProperty::Integer;
+                else if (value == "float") newCap.m_type = RGBScriptProperty::Float;
                 else if (value == "range") newCap.m_type = RGBScriptProperty::Range;
                 else if (value == "string") newCap.m_type = RGBScriptProperty::String;
             }
