@@ -54,6 +54,9 @@ Q_DECLARE_METATYPE(UIntPair)
 typedef QPair<QString, int> StringIntPair;
 Q_DECLARE_METATYPE(StringIntPair)
 
+typedef QPair<QString, double> StringDoublePair;
+Q_DECLARE_METATYPE(StringDoublePair)
+
 typedef QPair<QString, QString> StringStringPair;
 Q_DECLARE_METATYPE(StringStringPair)
 
@@ -139,6 +142,7 @@ public:
         RGBMatrixSetStartColor,
         RGBMatrixSetEndColor,
         RGBMatrixSetScriptIntValue,
+        RGBMatrixSetScriptDoubleValue,
         RGBMatrixSetScriptStringValue,
         RGBMatrixSetText,
         RGBMatrixSetTextFont,
