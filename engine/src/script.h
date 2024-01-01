@@ -43,6 +43,7 @@ class Script : public Function
      * Script keywords
      ************************************************************************/
 public:
+    static const QString stopOnExitCmd;
     static const QString startFunctionCmd;
     static const QString stopFunctionCmd;
     static const QString blackoutCmd;
@@ -163,6 +164,14 @@ private:
     static quint32 getValueFromString(QString str, bool *ok);
 
     /**
+     * Handle "stoponexit" command.
+     *
+     * @param tokens A list of keyword:value pairs
+     * @return An empty string if successful. Otherwise an error string.
+     */
+    QString handleStopOnExit(const QList<QStringList>& tokens);
+
+    /**
      * Handle "startfunction" command.
      *
      * @param tokens A list of keyword:value pairs
@@ -247,6 +256,7 @@ private:
     static QList <QStringList> tokenizeLine(const QString& line, bool* ok = NULL);
 
 private:
+    bool m_stopOnExit;           //! add (true) or do not add (false) functions to m_startedFunctions
     int m_currentCommand;        //! Current command line being handled
     quint32 m_waitCount;         //! Timer ticks to wait before executing the next line
     QList < QList<QStringList> > m_lines; //! Raw data parsed into lines of tokens

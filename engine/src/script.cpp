@@ -38,6 +38,7 @@
 
 #define KXMLQLCScriptCommand "Command"
 
+const QString Script::stopOnExitCmd = QString("stoponexit");
 const QString Script::startFunctionCmd = QString("startfunction");
 const QString Script::stopFunctionCmd = QString("stopfunction");
 const QString Script::blackoutCmd = QString("blackout");
@@ -328,6 +329,7 @@ void Script::preRun(MasterTimer *timer)
     m_waitCount = 0;
     m_currentCommand = 0;
     m_startedFunctions.clear();
+    m_stopOnExit = true;
 
     Function::preRun(timer);
 }
@@ -431,6 +433,10 @@ bool Script::executeCommand(int index, MasterTimer* timer, QList<Universe *> uni
     {
         error = QString("Syntax error");
     }
+    else if (tokens[0][0] == Script::stopOnExitCmd)
+    {
+        error = handleStopOnExit(tokens);
+    }
     else if (tokens[0][0] == Script::startFunctionCmd)
     {
         error = handleStartFunction(tokens, timer);
@@ -495,6 +501,20 @@ bool Script::executeCommand(int index, MasterTimer* timer, QList<Universe *> uni
     return continueLoop;
 }
 
+QString Script::handleStopOnExit(const QList<QStringList>& tokens)
+{
+    qDebug() << Q_FUNC_INFO;
+
+    if (tokens.size() > 1)
+        return QString("Too many arguments");
+
+    bool flag = QVariant(tokens[0][1]).toBool();
+    
+    m_stopOnExit = flag;
+
+    return QString();
+}
+
 QString Script::handleStartFunction(const QList<QStringList>& tokens, MasterTimer* timer)
 {
     qDebug() << Q_FUNC_INFO;
@@ -515,7 +535,10 @@ QString Script::handleStartFunction(const QList<QStringList>& tokens, MasterTime
     {
         function->start(timer, FunctionParent::master());
 
-        m_startedFunctions << function;
+        if (m_stopOnExit)
+        {
+            m_startedFunctions << function;
+        }
         return QString();
     }
     else
