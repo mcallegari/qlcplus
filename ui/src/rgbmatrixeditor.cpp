@@ -571,6 +571,7 @@ void RGBMatrixEditor::displayProperties(RGBScript *script)
                 QLabel *propLabel = new QLabel(prop.m_displayName);
                 m_propertiesLayout->addWidget(propLabel, gridRowIdx, 0);
                 QLineEdit *propEdit = new QLineEdit(this);
+                propEdit->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
                 propEdit->setProperty("pName", prop.m_name);
                 connect(propEdit, SIGNAL(textEdited(QString)),
                         this, SLOT(slotPropertyEditChanged(QString)));
