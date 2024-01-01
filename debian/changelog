@@ -6,6 +6,7 @@ qlcplus (4.12.8) stable; urgency=low
   * engine: new EFX algorithm: SquareTrue (thanks to Justin Hornsby)
   * engine: handle 'string' and 'float' types in RGB Scripts
   * Virtual Console/Slider: fix switching from playback to submaster mode
+  * Virtual Console/Slider: fix submaster @0 not affecting function intensity
   * Virtual Console/XY Pad: fix Scene preset controlling wrong channels
   * Virtual Console/Clock: fix running a schedule the day after
   * Virtual Console/Button: Scene flashing can force LTP and override (thanks to Dennis Suermann)
