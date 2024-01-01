@@ -34,6 +34,8 @@
 #define KXMLQLCScriptCommand QString("Command")
 #define KXMLQLCScriptVersion QString("Version")
 
+const QString Script::stopOnExitLegacy = QString("stoponexit");
+const QString Script::stopOnExitCmd = QString("Engine.stopOnExit");
 const QString Script::startFunctionLegacy = QString("startfunction");
 const QString Script::startFunctionCmd = QString("Engine.startFunction");
 const QString Script::stopFunctionLegacy = QString("stopfunction");
@@ -551,7 +553,8 @@ QString Script::convertLine(const QString& str, bool *ok)
 
 QString Script::convertLegacyMethod(QString method)
 {
-    if (method == startFunctionLegacy) return startFunctionCmd;
+    if (method == stopOnExitLegacy) return stopOnExitCmd;
+    else if (method == startFunctionLegacy) return startFunctionCmd;
     else if (method == stopFunctionLegacy) return stopFunctionCmd;
     else if (method == blackoutLegacy) return blackoutCmd;
     else if (method == waitLegacy) return waitCmd;

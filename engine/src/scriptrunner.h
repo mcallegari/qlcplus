@@ -89,6 +89,14 @@ public slots:
     bool setFixture(quint32 fxID, quint32 channel, uchar value, uint time = 0);
 
     /**
+     * Handle "stopOnExit" command
+     *
+     * @param value Indicate to add (true) or to not add (false) to the Functions started by this script
+     * @return true if successful. False on error.
+     */
+    bool stopOnExit(bool value);
+
+    /**
      * Handle "startFunction" command
      *
      * @param fID The Function ID to start
@@ -213,6 +221,8 @@ private:
     QQueue<QPair<quint32,bool>> m_functionQueue;
     // Queue holding Fixture values to send to Universes
     QQueue<FixtureValue> m_fixtureValueQueue;
+    // Indicate to add (true) or to not add (false) to the Functions started by this script
+    bool m_stopOnExit;
     // IDs of the Functions started by this script
     QList <quint32> m_startedFunctions;
     // Timer ticks to wait before executing the next line

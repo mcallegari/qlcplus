@@ -39,6 +39,7 @@ ScriptRunner::ScriptRunner(Doc *doc, QString &content, QObject *parent)
     , m_running(false)
     , m_engine(NULL)
     , m_waitCount(0)
+    , m_stopOnExit(false)
 {
 }
 
@@ -188,7 +189,10 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
             if (start)
             {
                 function->start(timer, FunctionParent::master());
-                m_startedFunctions << fID;
+                if (m_stopOnExit)
+                {
+                    m_startedFunctions << fID;
+                }
             }
             else
             {
@@ -297,6 +301,13 @@ bool ScriptRunner::setFixture(quint32 fxID, quint32 channel, uchar value, uint t
     val.m_value = value;
     val.m_fadeTime = time;
     m_fixtureValueQueue.enqueue(val);
+
+    return true;
+}
+
+bool ScriptRunner::stopOnExit(bool value)
+{
+    m_stopOnExit = value;
 
     return true;
 }
