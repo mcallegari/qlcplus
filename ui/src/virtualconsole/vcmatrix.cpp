@@ -1017,11 +1017,11 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
         controlKnob->setFixedHeight(36);
         QString knobLabel;
         if (control.m_color == Qt::red)
-            knobLabel = tr("Start color Red component");
+            knobLabel = tr("Color 1 Red component");
         else if (control.m_color == Qt::green)
-            knobLabel = tr("Start color Green component");
+            knobLabel = tr("Color 1 Green component");
         else if (control.m_color == Qt::blue)
-            knobLabel = tr("Start color Blue component");
+            knobLabel = tr("Color 1 Blue component");
         controlKnob->setToolTip(knobLabel);
     }
     else if (control.m_type == VCMatrixControl::Color2Knob)
@@ -1033,11 +1033,11 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
         controlKnob->setFixedHeight(36);
         QString knobLabel;
         if (control.m_color == Qt::red)
-            knobLabel = tr("End color Red component");
+            knobLabel = tr("Color 2 Red component");
         else if (control.m_color == Qt::green)
-            knobLabel = tr("End color Green component");
+            knobLabel = tr("Color 2 Green component");
         else if (control.m_color == Qt::blue)
-            knobLabel = tr("End color Blue component");
+            knobLabel = tr("Color 2 Blue component");
         controlKnob->setToolTip(knobLabel);
     }
     else if (control.m_type == VCMatrixControl::Color3Knob)
@@ -1049,11 +1049,11 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
         controlKnob->setFixedHeight(36);
         QString knobLabel;
         if (control.m_color == Qt::red)
-            knobLabel = tr("End color Red component");
+            knobLabel = tr("Color 3 Red component");
         else if (control.m_color == Qt::green)
-            knobLabel = tr("End color Green component");
+            knobLabel = tr("Color 3 Green component");
         else if (control.m_color == Qt::blue)
-            knobLabel = tr("End color Blue component");
+            knobLabel = tr("Color 3 Blue component");
         controlKnob->setToolTip(knobLabel);
     }
     else if (control.m_type == VCMatrixControl::Color4Knob)
@@ -1065,11 +1065,11 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
         controlKnob->setFixedHeight(36);
         QString knobLabel;
         if (control.m_color == Qt::red)
-            knobLabel = tr("End color Red component");
+            knobLabel = tr("Color 4 Red component");
         else if (control.m_color == Qt::green)
-            knobLabel = tr("End color Green component");
+            knobLabel = tr("Color 4 Green component");
         else if (control.m_color == Qt::blue)
-            knobLabel = tr("End color Blue component");
+            knobLabel = tr("Color 4 Blue component");
         controlKnob->setToolTip(knobLabel);
     }
     else if (control.m_type == VCMatrixControl::Color5Knob)
@@ -1081,11 +1081,11 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
         controlKnob->setFixedHeight(36);
         QString knobLabel;
         if (control.m_color == Qt::red)
-            knobLabel = tr("End color Red component");
+            knobLabel = tr("Color 5 Red component");
         else if (control.m_color == Qt::green)
-            knobLabel = tr("End color Green component");
+            knobLabel = tr("Color 5 Green component");
         else if (control.m_color == Qt::blue)
-            knobLabel = tr("End color Blue component");
+            knobLabel = tr("Color 5 Blue component");
         controlKnob->setToolTip(knobLabel);
     }
 
