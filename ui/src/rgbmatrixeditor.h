@@ -123,6 +123,8 @@ private slots:
 
     void slotPropertyComboChanged(QString value);
     void slotPropertySpinChanged(int value);
+    void slotPropertyDoubleSpinChanged(double value);
+    void slotPropertyEditChanged(QString text);
 
 private:
     FunctionParent functionParent() const;

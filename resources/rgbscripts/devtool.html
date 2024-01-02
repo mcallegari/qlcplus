@@ -130,23 +130,28 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
 <table>
  <tr id="color1Chooser">
   <td>Color 1 (rrggbb)</td>
-  <td><input type="text" id="color1" value="FF0000" pattern="[0-9A-Fa-f]{6}" size="6" onChange="devtool.onColorChange()" required /></td>
+  <td><input type="text" id="color1Text" value="FF0000" pattern="[0-9A-Fa-f]{6}" size="6" onInput="devtool.onColorTextChange()" required /></td>
+  <td><input type="color" id="color1Picker" value="#FF0000" onInput="devtool.onColorPickerChange(1)" required /></td>
  </tr>
  <tr id="color2Chooser">
   <td>Color 2 (rrggbb, leave empty to disable)</td>
-  <td><input type="text" id="color2" value="" pattern="[0-9A-Fa-f]{6}" size="6" onChange="devtool.onColorChange()"/></td>
+  <td><input type="text" id="color2Text" value="" pattern="[0-9A-Fa-f]{6}" size="6" onInput="devtool.onColorTextChange()"/></td>
+  <td><input type="color" id="color2Picker" value="#000000" onInput="devtool.onColorPickerChange(2)" required /></td>
  </tr>
  <tr id="color3Chooser">
   <td>Color 3 (rrggbb, leave empty to disable)</td>
-  <td><input type="text" id="color3" value="" pattern="[0-9A-Fa-f]{6}" size="6" onChange="devtool.onColorChange()"/></td>
+  <td><input type="text" id="color3Text" value="" pattern="[0-9A-Fa-f]{6}" size="6" onInput="devtool.onColorTextChange()"/></td>
+  <td><input type="color" id="color3Picker" value="#000000" onInput="devtool.onColorPickerChange(3)" required /></td>
  </tr>
  <tr id="color4Chooser">
   <td>Color 4 (rrggbb, leave empty to disable)</td>
-  <td><input type="text" id="color4" value="" pattern="[0-9A-Fa-f]{6}" size="6" onChange="devtool.onColorChange()"/></td>
+  <td><input type="text" id="color4Text" value="" pattern="[0-9A-Fa-f]{6}" size="6" onInput="devtool.onColorTextChange()"/></td>
+  <td><input type="color" id="color4Picker" value="#000000" onInput="devtool.onColorPickerChange(4)" required /></td>
  </tr>
  <tr id="color5Chooser">
   <td>Color 5 (rrggbb, leave empty to disable)</td>
-  <td><input type="text" id="color5" value="" pattern="[0-9A-Fa-f]{6}" size="6" onChange="devtool.onColorChange()"/></td>
+  <td><input type="text" id="color5Text" value="" pattern="[0-9A-Fa-f]{6}" size="6" onInput="devtool.onColorTextChange()"/></td>
+  <td><input type="color" id="color5Picker" value="#000000" onInput="devtool.onColorPickerChange(5)" required /></td>
  </tr>
 </table>
 </form>

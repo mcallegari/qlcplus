@@ -119,13 +119,16 @@ devtool.addPropertyTableEntry = function(property)
         input.max = values[1];
         input.setAttribute("onChange", "devtool.writeFunction('" + writeFunction + "', '" + name + "', this.value); devtool.setStep(0); devtool.writeCurrentStep()");
         formCell.appendChild(input);
-    } else if (typeProperty === "integer") {
+    } else if (typeProperty === "float") {
         input = document.createElement("input");
         input.type = "number";
         input.required = "required";
         input.name = name;
         input.setAttribute("value", currentValue);
         input.id = name;
+        input.min = -1000000;
+        input.max = 1000000;
+        input.step = 0.001;
         input.setAttribute("onChange", "devtool.writeFunction('" + writeFunction + "', '" + name + "', this.value); devtool.setStep(0); devtool.writeCurrentStep()");
         formCell.appendChild(input);
     } else { // string
@@ -186,16 +189,16 @@ devtool.initPixelColors = function()
     pixelColorChooser.hidden = (acceptColors === 0);
 
     var color2Chooser = document.getElementById("color2Chooser");
-    color2Chooser.hidden = (acceptColors <= 2);
+    color2Chooser.hidden = (acceptColors < 2);
 
     var color3Chooser = document.getElementById("color3Chooser");
-    color3Chooser.hidden = (acceptColors <= 3);
+    color3Chooser.hidden = (acceptColors < 3);
 
     var color4Chooser = document.getElementById("color4Chooser");
-    color4Chooser.hidden = (acceptColors <= 4);
+    color4Chooser.hidden = (acceptColors < 4);
 
     var color5Chooser = document.getElementById("color5Chooser");
-    color5Chooser.hidden = (acceptColors <= 5);
+    color5Chooser.hidden = (acceptColors < 5);
 }
 
 devtool.initSpeedValue = function()
@@ -224,30 +227,44 @@ devtool.initColorValues = function()
     if (color1 === null || Number.isNaN(parseInt("0x" + color1, 16))) {
       color1 = "ff0000";
     }
-    document.getElementById("color1").value = color1;
+    color1 = color1.padStart(6,"0");
+    document.getElementById("color1Text").value = color1;
+    document.getElementById("color1Picker").value = "#" + color1;
     var color2 = localStorage.getItem("devtool.color2");
     if (color2 === null || color2 === "" || Number.isNaN(parseInt("0x" + color2, 16))) {
-      document.getElementById("color2").value = "";
+      document.getElementById("color2Text").value = "";
+      document.getElementById("color2Picker").value = "#000000";
     } else {
-      document.getElementById("color2").value = color2;
+      color2 = color2.padStart(6,"0");
+      document.getElementById("color2Text").value = color2;
+      document.getElementById("color2Picker").value = "#" + color2;
     }
     var color3 = localStorage.getItem("devtool.color3");
     if (color3 === null || color2 === "" || Number.isNaN(parseInt("0x" + color3, 16))) {
-      document.getElementById("color3").value = "";
+      document.getElementById("color3Text").value = "";
+      document.getElementById("color3Picker").value = "#000000";
     } else {
-      document.getElementById("color3").value = color3;
+      color3 = color3.padStart(6,"0");
+      document.getElementById("color3Text").value = color3;
+      document.getElementById("color3Picker").value = "#" + color3;
     }
     var color4 = localStorage.getItem("devtool.color4");
     if (color4 === null || color4 === "" || Number.isNaN(parseInt("0x" + color4, 16))) {
-      document.getElementById("color4").value = "";
+      document.getElementById("color4Text").value = "";
+      document.getElementById("color4Picker").value = "#000000";
     } else {
-      document.getElementById("color4").value = color2;
+      color4 = color4.padStart(6,"0");
+      document.getElementById("color4Text").value = color4;
+      document.getElementById("color4Picker").value = "#" + color4;
     }
     var color5 = localStorage.getItem("devtool.color5");
     if (color5 === null || color5 === "" || Number.isNaN(parseInt("0x" + color5, 16))) {
-      document.getElementById("color5").value = "";
+      document.getElementById("color5Text").value = "";
+      document.getElementById("color5Picker").value = "#000000";
     } else {
-      document.getElementById("color5").value = color25;
+      color5 = color5.padStart(6,"0");
+      document.getElementById("color5Text").value = color5;
+      document.getElementById("color5Picker").value = "#" + color5;
     }
 }
 
@@ -280,38 +297,38 @@ devtool.getRgbFromColorInt = function(color)
 
 devtool.getColor1Int = function()
 {
-    var colorInput = document.getElementById("color1");
+    var colorInput = document.getElementById("color1Text");
     return parseInt(colorInput.value, 16);
 }
 
 devtool.getColor2Int = function()
 {
-    var colorInput = document.getElementById("color2");
+    var colorInput = document.getElementById("color2Text");
     return parseInt(colorInput.value, 16);
 }
 
 devtool.getColor3Int = function()
 {
-    var colorInput = document.getElementById("color3");
+    var colorInput = document.getElementById("color3Text");
     return parseInt(colorInput.value, 16);
 }
 
 devtool.getColor4Int = function()
 {
-    var colorInput = document.getElementById("color4");
+    var colorInput = document.getElementById("color4Text");
     return parseInt(colorInput.value, 16);
 }
 
 devtool.getColor5Int = function()
 {
-    var colorInput = document.getElementById("color5");
+    var colorInput = document.getElementById("color5Text");
     return parseInt(colorInput.value, 16);
 }
 
 devtool.getCurrentColorInt = function()
 {
-    var primaryColor = devtool.getcolor1Int();
-    var secondaryColor = devtool.getcolor2Int();
+    var primaryColor = devtool.getColor1Int();
+    var secondaryColor = devtool.getColor2Int();
 
     if (testAlgo.acceptColors === 0 || Number.isNaN(primaryColor)) {
         return null;
@@ -343,18 +360,18 @@ devtool.writeCurrentStep = function()
         map.deleteRow(i);
     }
 
-    var color1Rgb = devtool.getColor1Int();
-    var color2Rgb = devtool.getColor2Int();
-    var color3Rgb = devtool.getColor3Int();
-    var color4Rgb = devtool.getColor4Int();
-    var color5Rgb = devtool.getColor5Int();
-    var rawColors = [color1Rgb, color2Rgb, color3Rgb, color4Rgb, color5Rgb];
-
     var rgb;
-    if (testAlgo.apiVersion > 2) {
-      rgb = testAlgo.rgbMap(devtool.gridwidth, devtool.gridheight, devtool.getCurrentColorInt(), devtool.currentStep, rawColors);
-    } else {
+    if (testAlgo.apiVersion <= 2) {
       rgb = testAlgo.rgbMap(devtool.gridwidth, devtool.gridheight, devtool.getCurrentColorInt(), devtool.currentStep);
+    } else {
+      var color1Rgb = devtool.getColor1Int();
+      var color2Rgb = devtool.getColor2Int();
+      var color3Rgb = devtool.getColor3Int();
+      var color4Rgb = devtool.getColor4Int();
+      var color5Rgb = devtool.getColor5Int();
+      var rawColors = [color1Rgb, color2Rgb, color3Rgb, color4Rgb, color5Rgb];
+
+      rgb = testAlgo.rgbMap(devtool.gridwidth, devtool.gridheight, devtool.getCurrentColorInt(), devtool.currentStep, rawColors);
     }
 
     for (var y = 0; y < devtool.gridheight; y++)
@@ -413,35 +430,65 @@ devtool.onGridSizeUpdated = function()
     devtool.writeCurrentStep();
 }
 
-devtool.onColorChange = function()
+devtool.onColorTextChange = function()
 {
-    var color1 = parseInt("0x" + document.getElementById("color1").value).toString(16);
-    localStorage.setItem("devtool.color1", color1);
-    var color2 = parseInt("0x" + document.getElementById("color2").value).toString(16);
-    if (color2 === "NaN") { // Evaluation of the string.
+    var color = parseInt("0x" + document.getElementById("color1Text").value).toString(16);
+    if (color === "NaN"){
+      document.getElementById("color1Picker").value = "#000000";
+    } else {
+      document.getElementById("color1Picker").value = "#" + color.padStart(6,"0");;
+    }
+    localStorage.setItem("devtool.color1", color);
+
+    color = parseInt("0x" + document.getElementById("color2Text").value).toString(16);
+    if (color === "NaN") { // Evaluation of the string.
+      document.getElementById("color2Picker").value = "#000000";
       localStorage.setItem("devtool.color2", "");
     } else {
-      localStorage.setItem("devtool.color2", color2);
+      document.getElementById("color2Picker").value = "#" + color.padStart(6,"0");;
+      localStorage.setItem("devtool.color2", color);
     }
-    var color3 = parseInt("0x" + document.getElementById("color3").value).toString(16);
-    if (color3 === "NaN") { // Evaluation of the string.
+
+    color = parseInt("0x" + document.getElementById("color3Text").value).toString(16);
+    if (color === "NaN") { // Evaluation of the string.
+      document.getElementById("color3Picker").value = "#000000";
       localStorage.setItem("devtool.color3", "");
     } else {
-      localStorage.setItem("devtool.color3", color3);
+      document.getElementById("color3Picker").value = "#" + color.padStart(6,"0");;
+      localStorage.setItem("devtool.color3", color);
     }
-    var color4 = parseInt("0x" + document.getElementById("color4").value).toString(16);
-    if (color4 === "NaN") { // Evaluation of the string.
+
+    color = parseInt("0x" + document.getElementById("color4Text").value).toString(16);
+    if (color === "NaN") { // Evaluation of the string.
+      document.getElementById("color4Picker").value = "#000000";
       localStorage.setItem("devtool.color4", "");
     } else {
-      localStorage.setItem("devtool.color4", color4);
+      document.getElementById("color4Picker").value = "#" + color.padStart(6,"0");;
+      localStorage.setItem("devtool.color4", color);
     }
-    var color5 = parseInt("0x" + document.getElementById("color5").value).toString(16);
-    if (color5 === "NaN") { // Evaluation of the string.
+
+    color = parseInt("0x" + document.getElementById("color5Text").value).toString(16);
+    if (color === "NaN") { // Evaluation of the string.
+      document.getElementById("color5Picker").value = "#000000";
       localStorage.setItem("devtool.color5", "");
     } else {
-      localStorage.setItem("devtool.color5", color5);
+      document.getElementById("color5Picker").value = "#" + color.padStart(6,"0");;
+      localStorage.setItem("devtool.color5", color);
     }
+    
     devtool.writeCurrentStep();
+}
+
+devtool.onColorPickerChange = function(i)
+{
+    textId = "color" + i + "Text";
+    pickerId = "color" + i + "Picker";
+    oldTextValue = document.getElementById(textId).value;
+    newTextValue = document.getElementById(pickerId).value.substring(1);
+    if (oldTextValue != newTextValue) {
+      document.getElementById(textId).value = newTextValue;
+      devtool.onColorTextChange();
+    }
 }
 
 devtool.startTest = function(inc)

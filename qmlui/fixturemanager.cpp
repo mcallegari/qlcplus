@@ -542,6 +542,26 @@ void FixtureManager::setItemRoleData(int itemID, int index, QString role, QVaria
     m_fixtureTree->setItemRoleData(path, value, roleIndex);
 }
 
+void FixtureManager::setItemRoleData(int itemID, QVariant value, int role)
+{
+    if (m_fixtureTree == nullptr)
+        return;
+
+    quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+
+    Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == nullptr)
+        return;
+
+    QString fxName = fixture->name();
+    QStringList uniNames = m_doc->inputOutputMap()->universeNames();
+
+    QString path = QString("%1%2%3").arg(uniNames.at(fixture->universe()))
+               .arg(TreeModel::separator()).arg(fxName);
+
+    m_fixtureTree->setItemRoleData(path, value, role);
+}
+
 bool FixtureManager::compareFixtures(Fixture *left, Fixture *right)
 {
     return *left < *right;
