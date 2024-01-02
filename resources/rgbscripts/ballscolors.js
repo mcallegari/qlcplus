@@ -31,7 +31,7 @@ var testAlgo;
     algo.presetSize = 1;
     algo.properties.push("name:presetSize|type:range|display:Size|values:1,20|write:setSize|read:getSize");
     algo.presetNumber = 5;
-    algo.properties.push("name:presetNumber|type:range|display:Number|values:1,5|write:setNumber|read:getNumber");
+    algo.properties.push("name:presetNumber|type:range|display:Number|values:1,15|write:setNumber|read:getNumber");
     algo.presetCollision = 0;
     algo.properties.push("name:presetCollision|type:list|display:Self Collision|values:No,Yes|write:setCollision|read:getCollision");
     algo.presetSize = 5;
@@ -88,10 +88,6 @@ var testAlgo;
         var xDirection = (Math.random() * 2) - 1;
         algo.direction[i] = [yDirection, xDirection];
       }
-      // Get the colors from the external preset.
-      for (var i = algo.acceptColors; i < algo.presetNumber; i++) {
-        algo.colour[i] = colorPalette.collection[algo.colorIndex[i - algo.acceptColors]][1];
-      }
       algo.initialized = true;
       return;
     };
@@ -100,8 +96,8 @@ var testAlgo;
       if (algo.initialized === false) {
         util.initialize(width, height);
       }
-      for (var i = 0; i < algo.acceptColors; i++) {
-        algo.colour[i] = algo.getRawColor(rawColors, i);
+      for (var i = 0; i < algo.presetNumber; i++) {
+        algo.colour[i] = algo.getRawColor(rawColors, i % algo.acceptColors);
       }
 
       var map = new Array(height); // Clear map data
