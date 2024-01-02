@@ -127,13 +127,15 @@ public:
     /** @reimp */
     int sliderValue();
     QString animationValue();
-    QColor startColor();
-    QColor endColor();
+    QColor mtxColor(int id);
 
 signals:
     void sliderValueChanged(int value);
-    void startColorChanged();
-    void endColorChanged();
+    void mtxColor1Changed();
+    void mtxColor2Changed();
+    void mtxColor3Changed();
+    void mtxColor4Changed();
+    void mtxColor5Changed();
     void animationValueChanged(QString name);
     void matrixControlKnobValueChanged(int controlID, int value);
 

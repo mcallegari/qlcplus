@@ -191,9 +191,6 @@ public:
     void setColor(unsigned int i, QColor c);
     QColor getColor(unsigned int i) const;
 
-    void setRgbColor(const unsigned int i, const QColor& c);
-    QColor rgbColor(const unsigned int i) const;
-
     void updateColorDelta();
 
 private:

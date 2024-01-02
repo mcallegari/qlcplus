@@ -98,8 +98,11 @@ protected slots:
     void slotClockTimeChanged(quint32 time);
     void slotFramePageChanged(int pageNum);
     void slotMatrixSliderValueChanged(int value);
-    void slotMatrixStartColorChanged();
-    void slotMatrixEndColorChanged();
+    void slotMatrixColor1Changed();
+    void slotMatrixColor2Changed();
+    void slotMatrixColor3Changed();
+    void slotMatrixColor4Changed();
+    void slotMatrixColor5Changed();
     void slotMatrixAnimationValueChanged(QString name);
     void slotMatrixControlKnobValueChanged(int controlID, int value);
 

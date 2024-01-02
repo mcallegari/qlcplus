@@ -71,8 +71,11 @@ RGBMatrix::RGBMatrix(Doc* doc)
     , m_algorithmMutex(QMutex::Recursive)
 #endif
     , m_rgbColors{
-        Qt::red, // was m_startColor
-        QColor() // was m_endColor
+        Qt::red,
+        QColor(),
+        QColor(),
+        QColor(),
+        QColor()
     }
     , m_stepHandler(new RGBMatrixStep())
     , m_roundTime(new QElapsedTimer())
@@ -291,7 +294,8 @@ void RGBMatrix::previewMap(int step, RGBMatrixStep *handler)
             ,m_rgbColors[1].isValid() ? m_rgbColors[1].rgb() : 0
             ,m_rgbColors[2].isValid() ? m_rgbColors[2].rgb() : 0
             ,m_rgbColors[3].isValid() ? m_rgbColors[3].rgb() : 0
-            ,m_rgbColors[4].isValid() ? m_rgbColors[4].rgb() : 0};
+            ,m_rgbColors[4].isValid() ? m_rgbColors[4].rgb() : 0
+        };
         m_algorithm->rgbMap(m_group->size(), handler->stepColor().rgb(), step, handler->m_map, rawColors);
     }
 }
@@ -610,7 +614,8 @@ void RGBMatrix::write(MasterTimer *timer, QList<Universe *> universes)
                     ,m_rgbColors[1].isValid() ? m_rgbColors[1].rgb() : 0
                     ,m_rgbColors[2].isValid() ? m_rgbColors[2].rgb() : 0
                     ,m_rgbColors[3].isValid() ? m_rgbColors[3].rgb() : 0
-                    ,m_rgbColors[4].isValid() ? m_rgbColors[4].rgb() : 0};
+                    ,m_rgbColors[4].isValid() ? m_rgbColors[4].rgb() : 0
+                };
                 //qDebug() << "RGBMatrix step" << m_stepHandler->currentStepIndex() << ", color:" << QString::number(m_stepHandler->stepColor().rgb(), 16);
                 m_algorithm->rgbMap(m_group->size(), m_stepHandler->stepColor().rgb(),
                                     m_stepHandler->currentStepIndex(), m_stepHandler->m_map, rawColors);

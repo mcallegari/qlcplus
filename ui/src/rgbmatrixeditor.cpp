@@ -499,7 +499,6 @@ void RGBMatrixEditor::updateColors()
                 m_previewHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1),
                         m_matrix->algorithm());
 
-                // Set all colors to white as being part of the mask
                 QPixmap pm(50, 26);
                 pm.fill(Qt::white);
                 m_mtxColor1Button->setIcon(QIcon(pm));
