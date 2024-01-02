@@ -353,7 +353,8 @@ devtool.getCurrentColorInt = function()
 
 devtool.writeCurrentStep = function()
 {
-    devtool.currentStep = parseInt(document.getElementById("currentStep").value); // currentStep may have been changed manually
+    // currentStep may have been changed manually
+    devtool.currentStep = parseInt(document.getElementById("currentStep").value, 10);
 
     var map = document.getElementById("map");
     for (var i = map.rows.length - 1; i >= 0; i--) {
@@ -416,13 +417,13 @@ devtool.updateStepCount = function()
 
 devtool.onGridSizeUpdated = function()
 {
-    devtool.gridwidth = parseInt(document.getElementById("gridwidth").value);
+    devtool.gridwidth = parseInt(document.getElementById("gridwidth").value, 10);
     localStorage.setItem("devtool.gridwidth", devtool.gridwidth);
 
-    devtool.gridheight = parseInt(document.getElementById("gridheight").value);
+    devtool.gridheight = parseInt(document.getElementById("gridheight").value, 10);
     localStorage.setItem("devtool.gridheight", devtool.gridheight);
 
-    devtool.gridsize = parseInt(document.getElementById("gridsize").value);
+    devtool.gridsize = parseInt(document.getElementById("gridsize").value, 10);
     localStorage.setItem("devtool.gridsize", devtool.gridsize);
 
     devtool.updateStepCount();
@@ -432,7 +433,7 @@ devtool.onGridSizeUpdated = function()
 
 devtool.onColorTextChange = function()
 {
-    var color = parseInt("0x" + document.getElementById("color1Text").value).toString(16);
+    var color = parseInt("0x" + document.getElementById("color1Text").value, 16).toString(16);
     if (color === "NaN"){
       document.getElementById("color1Picker").value = "#000000";
     } else {
@@ -440,7 +441,7 @@ devtool.onColorTextChange = function()
     }
     localStorage.setItem("devtool.color1", color);
 
-    color = parseInt("0x" + document.getElementById("color2Text").value).toString(16);
+    color = parseInt("0x" + document.getElementById("color2Text").value, 16).toString(16);
     if (color === "NaN") { // Evaluation of the string.
       document.getElementById("color2Picker").value = "#000000";
       localStorage.setItem("devtool.color2", "");
@@ -449,7 +450,7 @@ devtool.onColorTextChange = function()
       localStorage.setItem("devtool.color2", color);
     }
 
-    color = parseInt("0x" + document.getElementById("color3Text").value).toString(16);
+    color = parseInt("0x" + document.getElementById("color3Text").value, 16).toString(16);
     if (color === "NaN") { // Evaluation of the string.
       document.getElementById("color3Picker").value = "#000000";
       localStorage.setItem("devtool.color3", "");
@@ -458,7 +459,7 @@ devtool.onColorTextChange = function()
       localStorage.setItem("devtool.color3", color);
     }
 
-    color = parseInt("0x" + document.getElementById("color4Text").value).toString(16);
+    color = parseInt("0x" + document.getElementById("color4Text").value, 16).toString(16);
     if (color === "NaN") { // Evaluation of the string.
       document.getElementById("color4Picker").value = "#000000";
       localStorage.setItem("devtool.color4", "");
@@ -467,7 +468,7 @@ devtool.onColorTextChange = function()
       localStorage.setItem("devtool.color4", color);
     }
 
-    color = parseInt("0x" + document.getElementById("color5Text").value).toString(16);
+    color = parseInt("0x" + document.getElementById("color5Text").value, 16).toString(16);
     if (color === "NaN") { // Evaluation of the string.
       document.getElementById("color5Picker").value = "#000000";
       localStorage.setItem("devtool.color5", "");
@@ -481,10 +482,10 @@ devtool.onColorTextChange = function()
 
 devtool.onColorPickerChange = function(i)
 {
-    textId = "color" + i + "Text";
-    pickerId = "color" + i + "Picker";
-    oldTextValue = document.getElementById(textId).value;
-    newTextValue = document.getElementById(pickerId).value.substring(1);
+    var textId = "color" + i + "Text";
+    var pickerId = "color" + i + "Picker";
+    var oldTextValue = document.getElementById(textId).value;
+    var newTextValue = document.getElementById(pickerId).value.substring(1);
     if (oldTextValue != newTextValue) {
       document.getElementById(textId).value = newTextValue;
       devtool.onColorTextChange();
@@ -512,8 +513,8 @@ devtool.stopTest = function()
 devtool.initTestStatus = function()
 {
     let timerStatus = localStorage.getItem("devtool.timerRunning");
-    if (timerStatus === null || parseInt(timerStatus) !== 0) {
-        devtool.startTest(parseInt(timerStatus));
+    if (timerStatus === null || parseInt(timerStatus, 10) !== 0) {
+        devtool.startTest(parseInt(timerStatus, 10));
     }
 }
 
