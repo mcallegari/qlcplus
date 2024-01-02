@@ -466,7 +466,7 @@ function matrixColor4Change(id) {
   websocket.send(colorMsg);
 }
 
-function setMatrixColor2Value(id, color) {
+function setMatrixColor4Value(id, color) {
   var combo = document.querySelector("#mc4i" + id);
   combo.value = color;
 }
