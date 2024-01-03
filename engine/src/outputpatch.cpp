@@ -97,7 +97,7 @@ bool OutputPatch::reconnect()
         bool ret = m_plugin->openOutput(m_pluginLine, m_universe);
         if (ret == true)
         {
-            foreach(QString par, m_parametersCache.keys())
+            foreach (QString par, m_parametersCache.keys())
                 m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Output, par, m_parametersCache[par]);
         }
         return ret;

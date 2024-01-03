@@ -56,13 +56,16 @@ GridLayout
                 model: ["LED", "CDM 70W", "CDM 150W", "CP29 5000W", "CP41 2000W", "CP60 1000W",
                         "CP61 1000W", "CP62 1000W", "CP86 500W", "CP87 500W", "CP88 500W",
                         "EFP 100W", "EFP 150W", "EFR 100W", "EFR 150W", "ELC 250W",
-                         "HMI 150W", "HMI 250W", "HMI 400W", "HMI 575W", "HMI 700W",
+                        "HMI 150W", "HMI 250W", "HMI 400W", "HMI 575W", "HMI 700W",
                         "HMI 1200W", "HMI 4000W", "HSD 150W", "HSD 200W", "HSD 250W",
                         "HSD 575W", "HTI 150W", "HTI 250W", "HTI 300W", "HTI 400W",
                         "HTI 575W", "HTI 700W", "HTI 1200W", "HTI 2500W", "MSD 200W",
                         "MSD 250W", "MSD 275W", "MSD Platinum 15 R 300W", "MSD 575W",
                         "MSR 575W", "MSR 700W", "MSR 1200W"]
                 editable: true
+
+                editText: phy ? phy.bulbType : ""
+                onEditTextChanged: if (phy) phy.bulbType = editText
 
                 Rectangle
                 {
@@ -121,6 +124,10 @@ GridLayout
                 palette.highlightedText: UISettings.bgMedium
                 model: ["Other", "PC", "Fresnel"]
                 editable: true
+
+                editText: phy ? phy.lensType : ""
+                onEditTextChanged: if (phy) phy.lensType = editText
+
                 Rectangle
                 {
                     anchors.fill: parent
@@ -180,6 +187,10 @@ GridLayout
                 palette.highlightedText: UISettings.bgMedium
                 model: ["Fixed", "Head", "Mirror", "Barrel"]
                 editable: true
+
+                editText: phy ? phy.focusType : ""
+                onEditTextChanged: if (phy) phy.focusType = editText
+
                 Rectangle
                 {
                     anchors.fill: parent
@@ -259,16 +270,16 @@ GridLayout
             columns: 2
 
             RobotoText { label: qsTr("Weight") }
-            CustomSpinBox
+            CustomDoubleSpinBox
             {
                 Layout.fillWidth: true
                 enabled: controlRoot.enabled
-                from: 0
-                to: 999999
+                realFrom: 0
+                realTo: 999999
                 stepSize: 1
                 suffix: "kg"
-                value: phy ? phy.weight : 0
-                onValueModified: if (phy) phy.weight = value
+                realValue: phy ? phy.weight : 0
+                onRealValueChanged: if (phy) phy.weight = realValue
             }
             RobotoText { label: qsTr("Width") }
             CustomSpinBox
@@ -346,7 +357,10 @@ GridLayout
                 palette.highlightedText: UISettings.bgMedium
                 model: ["3-pin", "5-pin", "3-pin and 5-pin", "3.5 mm stereo jack", "Other"]
                 editable: true
-                //currentText: phy ? phy.dmxConnector : ""
+
+                editText: phy ? phy.dmxConnector : ""
+                onEditTextChanged: if (phy) phy.dmxConnector = editText
+
                 Rectangle
                 {
                     anchors.fill: parent

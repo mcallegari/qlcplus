@@ -104,7 +104,7 @@ void VCFrame::render(QQuickView *view, QQuickItem *parent)
         QString chName = QString("frameDropArea%1").arg(id());
         QQuickItem *childrenArea = qobject_cast<QQuickItem*>(m_item->findChild<QObject *>(chName));
 
-        foreach(VCWidget *child, m_pagesMap.keys())
+        foreach (VCWidget *child, m_pagesMap.keys())
             child->render(view, childrenArea);
     }
 }
@@ -194,7 +194,7 @@ QList<VCWidget *> VCFrame::children(bool recursive)
         return m_pagesMap.keys();
     else
     {
-        foreach(VCWidget *widget, m_pagesMap.keys())
+        foreach (VCWidget *widget, m_pagesMap.keys())
         {
             widgetsList.append(widget);
             if (widget->type() == FrameWidget || widget->type() == SoloFrameWidget)
@@ -508,7 +508,7 @@ void VCFrame::deleteChildren()
     {
         it.next();
         VCWidget *widget = it.key();
-        if(widget->type() == FrameWidget || widget->type() == SoloFrameWidget)
+        if (widget->type() == FrameWidget || widget->type() == SoloFrameWidget)
         {
             VCFrame *frame = qobject_cast<VCFrame*>(widget);
             frame->deleteChildren();
@@ -1137,7 +1137,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             if (attrs.hasAttribute(KXMLQLCVCFrameCurrentPage))
                 currentPage = attrs.value(KXMLQLCVCFrameCurrentPage).toInt();
 
-            if(attrs.hasAttribute(KXMLQLCVCFramePagesLoop))
+            if (attrs.hasAttribute(KXMLQLCVCFramePagesLoop))
                 setPagesLoop(true);
 
             root.skipCurrentElement();
@@ -1285,7 +1285,7 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
     }
 
     /* Save children */
-    foreach(VCWidget *child, children(false))
+    foreach (VCWidget *child, children(false))
         child->saveXML(doc);
 
     /* End the <Frame> tag */

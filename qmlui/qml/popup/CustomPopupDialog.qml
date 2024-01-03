@@ -83,6 +83,7 @@ Dialog
             font.family: UISettings.robotoFontName
             font.pixelSize: UISettings.textSizeDefault
             color: UISettings.fgMain
+            wrapMode: Text.Wrap
             text: message
         }
 

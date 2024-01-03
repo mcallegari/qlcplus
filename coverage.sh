@@ -56,6 +56,7 @@ tlen=${#test[@]}
 # arg1:srcdir arg2:testname
 function prepare {
     lcov -d ${1} -z || exit $?
+    rm -f ${1}/moc_*.gcno ${1}/moc_*.gcda
     lcov -d ${1} -c -i -o coverage/${2}-base.info
 }
 

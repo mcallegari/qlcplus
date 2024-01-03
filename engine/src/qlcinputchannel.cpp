@@ -24,7 +24,6 @@
 #include <QIcon>
 
 #include "qlcinputchannel.h"
-#include "qlcinputprofile.h"
 
 /****************************************************************************
  * Initialization
@@ -63,11 +62,16 @@ QLCInputChannel::~QLCInputChannel()
 
 void QLCInputChannel::setType(Type type)
 {
+    if (type == m_type)
+        return;
+
     m_type = type;
     if (type == Encoder)
         m_movementSensitivity = 1;
     else
         m_movementSensitivity = 20;
+
+    emit typeChanged();
 }
 
 QLCInputChannel::Type QLCInputChannel::type() const
@@ -95,7 +99,12 @@ QString QLCInputChannel::typeToString(Type type)
             return KXMLQLCInputChannelPageSet;
         default:
             return KXMLQLCInputChannelNone;
-    }
+        }
+}
+
+QString QLCInputChannel::typeString()
+{
+    return typeToString(type());
 }
 
 QLCInputChannel::Type QLCInputChannel::stringToType(const QString& type)
@@ -172,7 +181,12 @@ QIcon QLCInputChannel::icon() const
 
 void QLCInputChannel::setName(const QString& name)
 {
+    if (name == m_name)
+        return;
+
     m_name = name;
+
+    emit nameChanged();
 }
 
 QString QLCInputChannel::name() const
@@ -210,7 +224,11 @@ void QLCInputChannel::setMovementSensitivity(int value)
 
 void QLCInputChannel::setSendExtraPress(bool enable)
 {
+    if (enable == m_sendExtraPress)
+        return;
+
     m_sendExtraPress = enable;
+    emit sendExtraPressChanged();
 }
 
 bool QLCInputChannel::sendExtraPress() const
@@ -220,8 +238,8 @@ bool QLCInputChannel::sendExtraPress() const
 
 void QLCInputChannel::setRange(uchar lower, uchar upper)
 {
-    m_lower = lower;
-    m_upper = upper;
+    setLowerValue(lower);
+    setUpperValue(upper);
 }
 
 uchar QLCInputChannel::lowerValue() const
@@ -229,9 +247,27 @@ uchar QLCInputChannel::lowerValue() const
     return m_lower;
 }
 
+void QLCInputChannel::setLowerValue(const uchar value)
+{
+    if (value == m_lower)
+        return;
+
+    m_lower = value;
+    emit lowerValueChanged();
+}
+
 uchar QLCInputChannel::upperValue() const
 {
     return m_upper;
+}
+
+void QLCInputChannel::setUpperValue(const uchar value)
+{
+    if (value == m_upper)
+        return;
+
+    m_upper = value;
+    emit upperValueChanged();
 }
 
 /****************************************************************************

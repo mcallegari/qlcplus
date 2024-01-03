@@ -120,7 +120,7 @@ bool OSCController::setInputPort(quint32 universe, quint16 port)
 
 QSharedPointer<QUdpSocket> OSCController::getInputSocket(quint16 port)
 {
-    foreach(UniverseInfo const& info, m_universeMap)
+    foreach (UniverseInfo const& info, m_universeMap)
     {
         if (info.inputSocket && info.inputPort == port)
             return info.inputSocket;
@@ -199,7 +199,7 @@ UniverseInfo* OSCController::getUniverseInfo(quint32 universe)
 OSCController::Type OSCController::type() const
 {
     int type = Unknown;
-    foreach(UniverseInfo info, m_universeMap.values())
+    foreach (UniverseInfo info, m_universeMap.values())
     {
         type |= info.type;
     }
@@ -371,7 +371,7 @@ void OSCController::handlePacket(QUdpSocket* socket, QByteArray const& datagram,
                 if (values.length() > 1)
                 {
                     info.multipartCache[path] = values;
-                    for(int i = 0; i < values.length(); i++)
+                    for (int i = 0; i < values.length(); i++)
                     {
                         QString modPath = QString("%1_%2").arg(path).arg(i);
                         emit valueChanged(universe, m_line, getHash(modPath), (uchar)values.at(i), modPath);

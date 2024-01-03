@@ -68,7 +68,7 @@ void MainView2D::setUniverseFilter(quint32 universeFilter)
 {
     PreviewContext::setUniverseFilter(universeFilter);
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         quint32 itemID = it.key();
@@ -89,7 +89,7 @@ void MainView2D::setUniverseFilter(quint32 universeFilter)
 void MainView2D::resetItems()
 {
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         delete it.value();
@@ -570,13 +570,13 @@ void MainView2D::selectFixture(QQuickItem *fxItem, bool enable)
 void MainView2D::updateFixtureSelection(QList<quint32> fixtures)
 {
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         quint32 fxID = it.key();
         bool enable = false;
 
-        if(fixtures.contains(fxID))
+        if (fixtures.contains(fxID))
             enable = true;
 
         selectFixture(it.value(), enable);
@@ -758,6 +758,24 @@ void MainView2D::setPointOfView(int pointOfView)
 
     setGridSize(m_monProps->gridSize());
     slotRefreshView();
+}
+
+QString MainView2D::backgroundImage()
+{
+    return m_monProps->commonBackgroundImage();
+}
+
+void MainView2D::setBackgroundImage(QString image)
+{
+    QString strippedPath = image.replace("file://", "");
+    QString currentImage = m_monProps->commonBackgroundImage();
+
+    if (strippedPath == currentImage)
+        return;
+
+    Tardis::instance()->enqueueAction(Tardis::EnvironmentBackgroundImage, 0, QVariant(currentImage), QVariant(strippedPath));
+    m_monProps->setCommonBackgroundImage(strippedPath);
+    emit backgroundImageChanged();
 }
 
 

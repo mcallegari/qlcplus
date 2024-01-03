@@ -47,6 +47,7 @@ public:
         SceneValueType,
         UIntPairType,
         StringIntPairType,
+        StringDoublePairType,
         StringStringPairType
     };
 

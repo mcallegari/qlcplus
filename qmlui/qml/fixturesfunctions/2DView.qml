@@ -80,6 +80,7 @@ Rectangle
       * The stacking order of this view is very important and delicate
       * From bottom to top:
       * Flickable (z = 1): main scrollable area
+      *   Image (z = 0): Main background image
       *   Canvas (z = 0): The actual grid graphics view
       *     DropArea (z = 0): allow to drop items from fixture browser
       *     Rectangle (z = 1): multiple drag layer as big as the Canvas layer
@@ -142,6 +143,17 @@ Rectangle
                 twoDContents.requestPaint()
         }
 
+        Image
+        {
+            x: twoDContents.xOffset
+            y: twoDContents.yOffset
+            width: twoDView.contentWidth - (x * 2)
+            height: twoDView.contentHeight - (y * 2)
+            source: View2D.backgroundImage ? "file://" + View2D.backgroundImage : ""
+            sourceSize: Qt.size(width, height)
+            fillMode: Image.PreserveAspectFit
+        }
+
         Canvas
         {
             id: twoDContents
@@ -175,7 +187,7 @@ Rectangle
                 var context = getContext("2d")
                 context.globalAlpha = 1.0
                 context.strokeStyle = "#5F5F5F"
-                context.fillStyle = "black"
+                context.fillStyle = "transparent"
                 context.lineWidth = 1
 
                 context.beginPath()
@@ -183,6 +195,7 @@ Rectangle
                 context.fillRect(0, 0, width, height)
                 context.rect(xOffset, yOffset, width - (xOffset * 2), height - (yOffset * 2))
 
+                // draw the view grid
                 for (var vl = 1; vl < twoDView.gridSize.width; vl++)
                 {
                     var xPos = (cellSize * vl) + xOffset

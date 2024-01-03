@@ -41,7 +41,6 @@
 #include "qlccapability.h"
 #include "qlcphysical.h"
 #include "qlcchannel.h"
-#include "qlcconfig.h"
 #include "qlcfile.h"
 
 #ifdef Q_WS_X11

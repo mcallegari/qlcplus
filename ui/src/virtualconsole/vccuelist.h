@@ -123,6 +123,9 @@ public:
 public:
     /** Get the currently selected item index, otherwise 0 */
     int getCurrentIndex();
+    /** Get the progress text of the selected item */
+    QString progressText();
+    double progressPercent();
 
 private:
     /** Get the index of the next item, based on the chaser direction */
@@ -176,6 +179,10 @@ public slots:
 
     /** Skip to the previous cue */
     void slotPreviousCue();
+
+signals:
+    /** progress percent value and text */
+    void progressStateChanged();
 
 private slots:
     /** Removes destroyed functions from the list */
@@ -239,6 +246,10 @@ public:
 
     void setPlaybackLayout(PlaybackLayout layout);
     PlaybackLayout playbackLayout() const;
+signals:
+    void playbackButtonClicked();
+    void stopButtonClicked();
+    void playbackStatusChanged();
 
 private:
     /** ID of the Chaser this Cue List will be controlling */
@@ -273,6 +284,22 @@ public:
 
     FaderMode stringToFaderMode(QString modeStr);
     QString faderModeToString(FaderMode mode);
+    bool isSideFaderVisible();
+    bool sideFaderButtonChecked();
+    QString topPercentageValue();
+    QString bottomPercentageValue();
+    QString topStepValue();
+    QString bottomStepValue();
+    int sideFaderValue();
+    bool primaryTop();
+
+signals:
+    void sideFaderButtonToggled();
+    void sideFaderValueChanged();
+
+public slots:
+    void slotSideFaderButtonChecked(bool enable);
+    void slotSetSideFaderValue(int value);
 
 protected:
     void setFaderInfo(int index);

@@ -170,7 +170,7 @@ void Win32MidiOutputDevice::sendData(BYTE command, BYTE channel, BYTE value)
 
 void Win32MidiOutputDevice::writeSysEx(QByteArray message)
 {
-    if(message.isEmpty())
+    if (message.isEmpty())
         return;
 
     if (isOpen() == false)

@@ -125,6 +125,7 @@ public:
 
     Q_INVOKABLE void setScriptStringProperty(QString paramName, QString value);
     Q_INVOKABLE void setScriptIntProperty(QString paramName, int value);
+    Q_INVOKABLE void setScriptFloatProperty(QString paramName, double value);
 
 signals:
     void algorithmIndexChanged();

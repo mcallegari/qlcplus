@@ -29,17 +29,11 @@
 #include <QAction>
 #include <qmath.h>
 
-#include "qlcinputchannel.h"
-#include "qlcinputprofile.h"
-#include "qlcfixturedef.h"
-
 #include "inputselectionwidget.h"
 #include "vcbuttonproperties.h"
 #include "functionselection.h"
 #include "speeddialwidget.h"
-#include "virtualconsole.h"
 #include "function.h"
-#include "fixture.h"
 #include "doc.h"
 
 VCButtonProperties::VCButtonProperties(VCButton* button, Doc* doc)
@@ -82,6 +76,9 @@ VCButtonProperties::VCButtonProperties(VCButton* button, Doc* doc)
     m_fadeOutTime = m_button->stopAllFadeTime();
     m_fadeOutEdit->setText(Function::speedToString(m_fadeOutTime));
     slotActionToggled();
+
+    m_forceLTP->setChecked(m_button->flashForceLTP());
+    m_overridePriority->setChecked(m_button->flashOverrides());
 
     /* Intensity adjustment */
     m_intensityEdit->setValidator(new QIntValidator(0, 100, this));
@@ -156,6 +153,9 @@ void VCButtonProperties::slotActionToggled()
     m_fadeOutEdit->setEnabled(m_stopAll->isChecked());
     m_safFadeLabel->setEnabled(m_stopAll->isChecked());
     m_speedDialButton->setEnabled(m_stopAll->isChecked());
+
+    m_forceLTP->setEnabled(m_flash->isChecked());
+    m_overridePriority->setEnabled(m_flash->isChecked());
 }
 
 void VCButtonProperties::slotSpeedDialToggle(bool state)
@@ -229,7 +229,12 @@ void VCButtonProperties::accept()
         m_button->setStopAllFadeOutTime(m_fadeOutTime);
     }
     else
+    {
         m_button->setAction(VCButton::Flash);
+        m_button->setFlashOverride(m_overridePriority->isChecked());
+        m_button->setFlashForceLTP(m_forceLTP->isChecked());
+    }
+
 
     m_button->updateState();
 

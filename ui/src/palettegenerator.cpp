@@ -235,7 +235,7 @@ void PaletteGenerator::createColorScene(QList<SceneValue> chMap, QString name, P
         oddScene = new Scene(m_doc);
     }
 
-    foreach(SceneValue scv, chMap)
+    foreach (SceneValue scv, chMap)
     {
 
         scene->setValue(scv.fxi, scv.channel, 255);
@@ -305,7 +305,7 @@ void PaletteGenerator::createRGBCMYScene(QList<SceneValue> rcMap,
             oddScene = new Scene(m_doc);
         }
 
-        foreach(SceneValue scv, rcMap)
+        foreach (SceneValue scv, rcMap)
         {
             Fixture *fxi = m_doc->fixture(scv.fxi);
             int gmCh = -1, byCh = -1;

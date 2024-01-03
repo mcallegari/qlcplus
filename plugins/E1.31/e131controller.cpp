@@ -129,7 +129,7 @@ void E131Controller::setInputMulticast(quint32 universe, bool multicast)
 
 QSharedPointer<QUdpSocket> E131Controller::getInputSocket(bool multicast, QHostAddress const& address, quint16 port)
 {
-    foreach(UniverseInfo const& info, m_universeMap)
+    foreach (UniverseInfo const& info, m_universeMap)
     {
         if (info.inputSocket && info.inputMulticast == multicast)
         {
@@ -315,7 +315,7 @@ UniverseInfo *E131Controller::getUniverseInfo(quint32 universe)
 E131Controller::Type E131Controller::type()
 {
     int type = Unknown;
-    foreach(UniverseInfo info, m_universeMap.values())
+    foreach (UniverseInfo info, m_universeMap.values())
     {
         type |= info.type;
     }

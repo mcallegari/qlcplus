@@ -149,6 +149,23 @@ bool QLCFixtureDefCache::storeFixtureDef(QString filename, QString data)
     return true;
 }
 
+bool QLCFixtureDefCache::reloadFixtureDef(QLCFixtureDef *fixtureDef)
+{
+    int idx = m_defs.indexOf(fixtureDef);
+    if (idx == -1)
+        return false;
+
+    QLCFixtureDef *def = m_defs.takeAt(idx);
+    QString absPath = def->definitionSourceFile();
+    delete def;
+
+    QLCFixtureDef *origDef = new QLCFixtureDef();
+    origDef->loadXML(absPath);
+    m_defs << origDef;
+
+    return true;
+}
+
 bool QLCFixtureDefCache::load(const QDir& dir)
 {
     qDebug() << Q_FUNC_INFO << dir.path();
@@ -361,6 +378,8 @@ bool QLCFixtureDefCache::loadQXF(const QString& path, bool isUser)
     if (error == QFile::NoError)
     {
         fxi->setIsUser(isUser);
+        fxi->setDefinitionSourceFile(path);
+        fxi->setLoaded(true);
 
         /* Delete the def if it's a duplicate. */
         if (addFixtureDef(fxi) == false)
@@ -392,6 +411,8 @@ bool QLCFixtureDefCache::loadD4(const QString& path)
 
     // a D4 personality is always a user-made fixture
     fxi->setIsUser(true);
+    fxi->setDefinitionSourceFile(path);
+    fxi->setLoaded(true);
 
     /* Delete the def if it's a duplicate. */
     if (addFixtureDef(fxi) == false)

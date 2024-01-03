@@ -100,7 +100,7 @@ InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile
     }
     else
     {
-        m_profile = new QLCInputProfile(*profile);
+        m_profile = profile->createCopy();
         if ((QFile::permissions(m_profile->path()) &
                 QFile::WriteUser) == 0)
         {
@@ -518,7 +518,7 @@ void InputProfileEditor::slotMovementComboChanged(int index)
     else
         m_sensitivitySpin->setEnabled(false);
 
-    foreach(QLCInputChannel *channel, selectedChannels())
+    foreach (QLCInputChannel *channel, selectedChannels())
     {
         if (channel->type() == QLCInputChannel::Slider ||
             channel->type() == QLCInputChannel::Knob)
@@ -533,7 +533,7 @@ void InputProfileEditor::slotMovementComboChanged(int index)
 
 void InputProfileEditor::slotSensitivitySpinChanged(int value)
 {
-    foreach(QLCInputChannel *channel, selectedChannels())
+    foreach (QLCInputChannel *channel, selectedChannels())
     {
         if ((channel->type() == QLCInputChannel::Slider ||
              channel->type() == QLCInputChannel::Knob) &&
@@ -546,16 +546,16 @@ void InputProfileEditor::slotSensitivitySpinChanged(int value)
 
 void InputProfileEditor::slotExtraPressChecked(bool checked)
 {
-    foreach(QLCInputChannel *channel, selectedChannels())
+    foreach (QLCInputChannel *channel, selectedChannels())
     {
-        if(channel->type() == QLCInputChannel::Button)
+        if (channel->type() == QLCInputChannel::Button)
             channel->setSendExtraPress(checked);
     }
 }
 
 void InputProfileEditor::slotLowerValueSpinChanged(int value)
 {
-    foreach(QLCInputChannel *channel, selectedChannels())
+    foreach (QLCInputChannel *channel, selectedChannels())
     {
         if (channel->type() == QLCInputChannel::Button)
             channel->setRange(uchar(value), uchar(m_upperSpin->value()));
@@ -564,7 +564,7 @@ void InputProfileEditor::slotLowerValueSpinChanged(int value)
 
 void InputProfileEditor::slotUpperValueSpinChanged(int value)
 {
-    foreach(QLCInputChannel *channel, selectedChannels())
+    foreach (QLCInputChannel *channel, selectedChannels())
     {
         if (channel->type() == QLCInputChannel::Button)
             channel->setRange(uchar(m_lowerSpin->value()), uchar(value));
@@ -596,7 +596,7 @@ void InputProfileEditor::slotInputValueChanged(quint32 universe,
         /* No channel items found. Create a new channel to the
            profile and display it also in the tree widget */
         QLCInputChannel* ch = new QLCInputChannel();
-        if(key.isEmpty())
+        if (key.isEmpty())
             ch->setName(tr("Button %1").arg(channel + 1));
         else
             ch->setName(key);
@@ -636,7 +636,7 @@ void InputProfileEditor::slotInputValueChanged(quint32 universe,
             if (ch->type() == QLCInputChannel::Button)
             {
                 ch->setType(QLCInputChannel::Slider);
-                if(key.isEmpty())
+                if (key.isEmpty())
                     ch->setName(tr("Slider %1").arg(channel + 1));
                 else
                     ch->setName(key);
@@ -667,7 +667,7 @@ void InputProfileEditor::slotTimerTimeout()
  * Profile
  ****************************************************************************/
 
-const QLCInputProfile* InputProfileEditor::profile() const
+QLCInputProfile* InputProfileEditor::profile()
 {
     return m_profile;
 }

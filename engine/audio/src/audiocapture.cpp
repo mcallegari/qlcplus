@@ -235,7 +235,7 @@ void AudioCapture::processData()
 #endif
 
     // 5 ********* Calculate the average signal power
-    foreach(int barsNumber, m_fftMagnitudeMap.keys())
+    foreach (int barsNumber, m_fftMagnitudeMap.keys())
     {
         maxMagnitude = fillBandsData(barsNumber);
         pwrSum = 0.;

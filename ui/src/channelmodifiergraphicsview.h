@@ -31,7 +31,7 @@ class HandlerGraphicsItem : public QObject, public QGraphicsEllipseItem
 
 public:
     HandlerGraphicsItem(qreal x, qreal y, qreal w, qreal h, const QPen & pen = QPen(),
-                        const QBrush & brush = QBrush() );
+                        const QBrush & brush = QBrush());
 
     void setBoundingBox(QRectF rect);
     QRectF boundingBox();
@@ -106,7 +106,7 @@ protected:
     void updateView();
 
     /** Event caught when the GraphicsView is resized */
-    void resizeEvent( QResizeEvent *event );
+    void resizeEvent(QResizeEvent *event);
 
     void mouseReleaseEvent(QMouseEvent *e);
 

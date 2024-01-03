@@ -249,7 +249,7 @@ bool AudioDecoderMAD::findHeader()
 
         if (mad_header_decode(&header, &m_stream) < 0)
         {
-            if(m_stream.error == MAD_ERROR_LOSTSYNC)
+            if (m_stream.error == MAD_ERROR_LOSTSYNC)
             {
                 uint tagSize = findID3v2((uchar *)m_stream.this_frame,
                                          (ulong) (m_stream.bufend - m_stream.this_frame));
@@ -360,11 +360,11 @@ qint64 AudioDecoderMAD::read(char *data, qint64 size)
 {
     forever
     {
-        if(((m_stream.error == MAD_ERROR_BUFLEN) || !m_stream.buffer) && !m_eof)
+        if (((m_stream.error == MAD_ERROR_BUFLEN) || !m_stream.buffer) && !m_eof)
         {
             m_eof = !fillBuffer();
         }
-        if(mad_frame_decode(&m_frame, &m_stream) < 0)
+        if (mad_frame_decode(&m_frame, &m_stream) < 0)
         {
             switch((int) m_stream.error)
             {
@@ -381,7 +381,7 @@ qint64 AudioDecoderMAD::read(char *data, qint64 size)
                 continue;
             }
             case MAD_ERROR_BUFLEN:
-                if(m_eof)
+                if (m_eof)
                     return 0;
                 continue;
             default:
@@ -391,7 +391,7 @@ qint64 AudioDecoderMAD::read(char *data, qint64 size)
                     continue;
             }
         }
-        if(m_skip_frames)
+        if (m_skip_frames)
         {
             m_skip_frames--;
             continue;
@@ -402,7 +402,7 @@ qint64 AudioDecoderMAD::read(char *data, qint64 size)
 }
 void AudioDecoderMAD::seek(qint64 pos)
 {
-    if(m_totalTime > 0)
+    if (m_totalTime > 0)
     {
         qint64 seek_pos = qint64(pos * m_input.size() / m_totalTime);
         m_input.seek(seek_pos);
@@ -437,7 +437,7 @@ bool AudioDecoderMAD::fillBuffer()
         qDebug("DecoderMAD: end of file");
         return false;
     }
-    else if(len < 0)
+    else if (len < 0)
     {
         qWarning("DecoderMAD: error");
         return false;
@@ -546,7 +546,7 @@ qint64 AudioDecoderMAD::madOutput(char *data, qint64 size)
     m_output_at = 0;
     m_output_bytes = 0;
 
-    if(samples * channels * 2 > size)
+    if (samples * channels * 2 > size)
     {
         qWarning() << "DecoderMad: input buffer is too small. Required: " << (samples * channels * 2) << ", available: " << size;
         samples = size / channels / 2;

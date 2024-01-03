@@ -41,7 +41,7 @@ void OSCPlugin::init()
     else
         m_ifaceWaitTime = 0;
 
-    foreach(QNetworkInterface iface, QNetworkInterface::allInterfaces())
+    foreach (QNetworkInterface iface, QNetworkInterface::allInterfaces())
     {
         foreach (QNetworkAddressEntry entry, iface.addressEntries())
         {
@@ -53,7 +53,7 @@ void OSCPlugin::init()
                 tmpIO.controller = NULL;
 
                 bool alreadyInList = false;
-                for(int j = 0; j < m_IOmapping.count(); j++)
+                for (int j = 0; j < m_IOmapping.count(); j++)
                 {
                     if (m_IOmapping.at(j).IPAddress == tmpIO.IPAddress)
                     {

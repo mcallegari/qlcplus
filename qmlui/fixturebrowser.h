@@ -118,6 +118,7 @@ signals:
 
 private:
     void updateSearchTree();
+    QLCFixtureDef *fixtureDefinition();
 
 private:
     Doc *m_doc;
@@ -138,8 +139,6 @@ private:
     /** The currently selected mode channels number.
      *  If no mode is available this can be defined by the user */
     int m_modeChannelsCount;
-    /** Reference of the currently selected fixture definition */
-    QLCFixtureDef *m_definition;
     /** Reference of the currently selected fixture mode */
     QLCFixtureMode *m_mode;
     /** Reference to the tree model used for searches */

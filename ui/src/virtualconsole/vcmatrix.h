@@ -112,11 +112,30 @@ public:
     /** @reimp */
     void enableWidgetUI(bool enable);
 
-private slots:
+    /** @reimp */
+    int sliderValue();
+    QString animationValue();
+    QColor startColor();
+    QColor endColor();
+
+signals:
+    void sliderValueChanged(int value);
+    void startColorChanged();
+    void endColorChanged();
+    void animationValueChanged(QString name);
+    void matrixControlKnobValueChanged(int controlID, int value);
+
+public slots:
+    void slotSetSliderValue(int value);
     void slotSliderMoved(int value);
+    void slotSetStartColor(QColor color);
     void slotStartColorChanged(QRgb color);
+    void slotSetEndColor(QColor color);
     void slotEndColorChanged(QRgb color);
+    void slotSetAnimationValue(QString name);
     void slotAnimationChanged(QString name);
+    void slotMatrixControlKnobValueChanged(int controlID, int value);
+    void slotMatrixControlPushButtonClicked(int controlID);
 
     /*********************************************************************
      * Properties
@@ -210,6 +229,7 @@ public:
     void addCustomControl(VCMatrixControl const& control);
     void resetCustomControls();
     QList<VCMatrixControl *> customControls() const;
+    QWidget *getWidget(VCMatrixControl* control) const;
 
 protected slots:
     void slotCustomControlClicked();
@@ -217,6 +237,7 @@ protected slots:
 
 protected:
     QHash<QWidget *, VCMatrixControl *> m_controls;
+    QHash<VCMatrixControl *, QWidget *> m_widgets;
 
     /*********************************************************************
      * QLC+ Mode

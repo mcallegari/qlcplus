@@ -30,7 +30,6 @@
 
 #include "playbackslider.h"
 #include "clickandgoslider.h"
-#include "apputil.h"
 
 PlaybackSlider::PlaybackSlider(QWidget* parent)
     : QWidget(parent)

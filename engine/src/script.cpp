@@ -32,7 +32,6 @@
 #include "genericfader.h"
 #include "fadechannel.h"
 #include "mastertimer.h"
-#include "qlcmacros.h"
 #include "universe.h"
 #include "script.h"
 #include "doc.h"
@@ -308,7 +307,7 @@ bool Script::saveXML(QXmlStreamWriter *doc)
     saveXMLRunOrder(doc);
 
     /* Contents */
-    foreach(QString cmd, dataLines())
+    foreach (QString cmd, dataLines())
     {
         doc->writeTextElement(KXMLQLCScriptCommand, QUrl::toPercentEncoding(cmd));
     }

@@ -17,12 +17,12 @@
   limitations under the License.
 */
 
-#include "addresstool.h"
-#include "ui_addresstool.h"
-
 #include <QPainter>
 #include <QPixmap>
 #include <QMouseEvent>
+
+#include "addresstool.h"
+#include "ui_addresstool.h"
 
 AddressTool::AddressTool(QWidget *parent, int presetValue) :
     QDialog(parent)
@@ -166,7 +166,7 @@ void DIPSwitchWidget::mousePressEvent(QMouseEvent *e)
             quint32 newvalue = m_value ^ (1<<it.key());
 
 			if (newvalue == 0 && m_value != 512) newvalue = m_value;
-			if (newvalue == 0 ) newvalue = 1;
+            if (newvalue == 0) newvalue = 1;
             if (newvalue > 512) newvalue = 512;
 
             m_value = newvalue;

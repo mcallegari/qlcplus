@@ -65,15 +65,33 @@ public:
     /*********************************************************************
      * Time division
      *********************************************************************/
-    /** Set the show time division type (Time, BPM) */
-    void setTimeDivision(QString type, int BPM);
+public:
+    enum TimeDivision
+    {
+        Time = 0,
+        BPM_4_4,
+        BPM_3_4,
+        BPM_2_4,
+        Invalid
+    };
+    Q_ENUM(TimeDivision)
 
-    QString getTimeDivisionType();
-    int getTimeDivisionBPM();
+    /** Set the show time division type (Time, BPM) */
+    void setTimeDivision(Show::TimeDivision type, int BPM);
+
+    Show::TimeDivision timeDivisionType();
+    void setTimeDivisionType(Show::TimeDivision type);
+    int beatsDivision();
+
+    int timeDivisionBPM();
+    void setTimeDivisionBPM(int BPM);
+
+    static QString tempoToString(Show::TimeDivision type);
+    static Show::TimeDivision stringToTempo(QString tempo);
 
 private:
-    QString m_timeDivType;
-    int m_timeDivBPM;
+    TimeDivision m_timeDivisionType;
+    int m_timeDivisionBPM;
 
     /*********************************************************************
      * Tracks
@@ -98,10 +116,13 @@ public:
     bool removeTrack(quint32 id);
 
     /** Get a track by id */
-    Track* track(quint32 id) const;
+    Track *track(quint32 id) const;
 
-    /** Get pointer to a Track from a Scene ID */
-    Track* getTrackFromSceneID(quint32 id);
+    /** Get a reference to a Track from the provided Scene ID */
+    Track *getTrackFromSceneID(quint32 id);
+
+    /** Get a reference to a Track from the provided ShowFunction ID */
+    Track *getTrackFromShowFunctionID(quint32 id);
 
     /** Get the number of tracks in the Show */
     int getTracksCount();
@@ -122,6 +143,20 @@ protected:
 
     /** Latest assigned track ID */
     quint32 m_latestTrackId;
+
+    /*********************************************************************
+     * Show Functions
+     *********************************************************************/
+public:
+    /** Get a unique ID for the creation of a new ShowFunction */
+    quint32 getLatestShowFunctionId();
+
+    /** Get a reference to a ShowFunction from the provided uinique ID */
+    ShowFunction *showFunction(quint32 id);
+
+protected:
+    /** Latest assigned unique ShowFunction ID */
+    quint32 m_latestShowFunctionID;
 
     /*********************************************************************
      * Save & Load

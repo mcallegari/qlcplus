@@ -20,7 +20,6 @@
 #include <QDebug>
 
 #include "inputprofileeditor.h"
-#include "qlcinputprofile.h"
 #include "qlcinputchannel.h"
 #include "inputoutputmap.h"
 #include "doc.h"
@@ -32,12 +31,12 @@ InputProfileEditor::InputProfileEditor(QLCInputProfile *profile, Doc *doc,
     , m_profile(profile)
     , m_modified(false)
     , m_detection(false)
+    , m_editChannel(nullptr)
 {
 }
 
 InputProfileEditor::~InputProfileEditor()
 {
-
 }
 
 bool InputProfileEditor::modified() const
@@ -60,7 +59,7 @@ QString InputProfileEditor::manufacturer() const
 
 void InputProfileEditor::setManufacturer(const QString &newManufacturer)
 {
-    if (m_profile == nullptr)
+    if (m_profile == nullptr || m_profile->manufacturer() == newManufacturer)
         return;
 
     m_profile->setManufacturer(newManufacturer);
@@ -75,7 +74,7 @@ QString InputProfileEditor::model() const
 
 void InputProfileEditor::setModel(const QString &newModel)
 {
-    if (m_profile == nullptr)
+    if (m_profile == nullptr || m_profile->model() == newModel)
         return;
 
     m_profile->setModel(newModel);
@@ -83,19 +82,34 @@ void InputProfileEditor::setModel(const QString &newModel)
     emit modelChanged();
 }
 
-int InputProfileEditor::type()
+QLCInputProfile::Type InputProfileEditor::type()
 {
-    return m_profile == nullptr ? 0 : m_profile->type();
+    return m_profile == nullptr ? QLCInputProfile::MIDI : m_profile->type();
 }
 
-void InputProfileEditor::setType(const int &newType)
+void InputProfileEditor::setType(const QLCInputProfile::Type &newType)
 {
-    if (m_profile == nullptr)
+    if (m_profile == nullptr || m_profile->type() == newType)
         return;
 
     m_profile->setType(QLCInputProfile::Type(newType));
     setModified();
     emit typeChanged();
+}
+
+bool InputProfileEditor::midiNoteOff()
+{
+    return m_profile == nullptr ? 0 : m_profile->midiSendNoteOff();
+}
+
+void InputProfileEditor::setMidiNoteOff(const bool &newNoteOff)
+{
+    if (m_profile == nullptr || m_profile->midiSendNoteOff() == newNoteOff)
+        return;
+
+    m_profile->setMidiSendNoteOff(newNoteOff);
+    setModified();
+    emit midiNoteOffChanged();
 }
 
 void InputProfileEditor::toggleDetection()
@@ -128,14 +142,81 @@ QVariant InputProfileEditor::channels()
         it.next();
         QVariantMap chMap;
         QLCInputChannel *ich = it.value();
-        chMap.insert("chNumber", it.key());
-        chMap.insert("chName", ich->name());
-        chMap.insert("chType", ich->typeToString(ich->type()));
-        chMap.insert("chIconPath", ich->iconResource(ich->type(), true));
+        chMap.insert("chNumber", it.key() + 1);
+        chMap.insert("cRef", QVariant::fromValue(ich));
         chList.append(chMap);
     }
 
     return QVariant::fromValue(chList);
+}
+
+QVariantList InputProfileEditor::channelTypeModel()
+{
+    QVariantList types;
+
+    for (QString &type : QLCInputChannel::types())
+    {
+        QVariantMap typeMap;
+        QLCInputChannel::Type typeEnum = QLCInputChannel::stringToType(type);
+        typeMap.insert("mLabel", type);
+        typeMap.insert("mValue", typeEnum);
+        typeMap.insert("mIcon", QLCInputChannel::iconResource(typeEnum, true));
+        types.append(typeMap);
+    }
+
+    return types;
+}
+
+QLCInputChannel *InputProfileEditor::getEditChannel(int channelNumber)
+{
+    if (m_profile == nullptr)
+        return nullptr;
+
+    QLCInputChannel *ich = m_profile->channel(channelNumber);
+    if (ich == nullptr)
+        m_editChannel = new QLCInputChannel();
+    else
+        m_editChannel = ich->createCopy();
+
+    return m_editChannel;
+}
+
+int InputProfileEditor::saveChannel(int originalChannelNumber, int channelNumber)
+{
+    if (m_profile == nullptr)
+        return -3;
+
+    if (originalChannelNumber >= 0 && originalChannelNumber != channelNumber)
+    {
+        QLCInputChannel *ich = m_profile->channel(originalChannelNumber);
+        if (ich != nullptr)
+            return -1;
+    }
+
+    if (m_editChannel->name().isEmpty())
+        return -2;
+
+    m_profile->removeChannel(originalChannelNumber);
+    m_profile->insertChannel(channelNumber, m_editChannel);
+    setModified();
+
+    emit channelsChanged();
+
+    return 0;
+}
+
+bool InputProfileEditor::removeChannel(int channelNumber)
+{
+    if (m_profile == nullptr)
+        return false;
+
+    if (m_profile->removeChannel(channelNumber))
+    {
+        emit channelsChanged();
+        return true;
+    }
+
+    return false;
 }
 
 void InputProfileEditor::slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString &key)

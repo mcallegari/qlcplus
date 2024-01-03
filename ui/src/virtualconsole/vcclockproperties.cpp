@@ -81,7 +81,7 @@ VCClockProperties::VCClockProperties(VCClock *clock, Doc *doc)
         break;
     }
 
-    foreach(VCClockSchedule sch, m_clock->schedules())
+    foreach (VCClockSchedule sch, m_clock->schedules())
         addScheduleItem(sch);
 
     connect(m_clockRadio, SIGNAL(clicked()),

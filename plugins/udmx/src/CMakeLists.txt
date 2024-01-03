@@ -1,3 +1,5 @@
+find_package(PkgConfig REQUIRED)
+
 set(module_name "udmx")
 
 set(TS_FILES
@@ -19,10 +21,7 @@ else()
     qt5_add_translation(QM_FILES ${TS_FILES})
 endif()
 
-add_library(${module_name}
-    SHARED
-    ${QM_FILES}
-)
+add_library(${module_name} SHARED ${QM_FILES})
 
 target_sources(${module_name} PRIVATE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
@@ -38,25 +37,16 @@ target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::Widgets
 )
 
-if(WIN32)
-    target_sources(${module_name} PRIVATE
-        libusb_dyn.c libusb_dyn.h
-    )
-else()
-    target_sources(${module_name} PRIVATE
-        ${module_name}.cpp ${module_name}.h
-        udmxdevice.cpp udmxdevice.h
-    )
-endif()
+target_sources(${module_name} PRIVATE
+	${module_name}.cpp ${module_name}.h
+	udmxdevice.cpp udmxdevice.h
+)
 
-if(${LIBUSB_1_FOUND})
-    target_include_directories(${module_name} PRIVATE
-        ${LIBUSB_1_INCLUDE_DIRS}
-    )
+pkg_check_modules(LIBUSB1 IMPORTED_TARGET libusb-1.0)
 
-    target_link_libraries(${module_name} PRIVATE
-        ${LIBUSB_1_LINK_LIBRARIES}
-    )
+if(${LIBUSB1_FOUND})
+    target_include_directories(${module_name} PRIVATE ${LIBUSB_1_INCLUDE_DIRS})
+    target_link_libraries(${module_name} PRIVATE ${LIBUSB_1_LINK_LIBRARIES})
 endif()
 
 install(TARGETS ${module_name}
