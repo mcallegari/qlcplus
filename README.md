@@ -3,8 +3,8 @@
 </a>
 
 # Q Light Controller Plus
-![GitHub release)](https://img.shields.io/github/v/release/mcallegari/qlcplus)
-![QLC+ Github Actions CI Build](https://github.com/mcallegari/qlcplus/actions/workflows/build.yml/badge.svg)
+[![GitHub release](https://img.shields.io/github/v/release/mcallegari/qlcplus)
+![GitHub Release Date - Published_At](https://img.shields.io/github/release-date/mcallegari/qlcplus)](https://github.com/mcallegari/qlcplus/releases/latest)
 
 ## Introduction
 QLC+ is a powerful and user-friendly software designed for lighting control. Whether you're an experienced lighting professional or just getting started, QLC+ empowers you to take control of your lighting fixtures with ease. The primary goal of this project is to bring QLC+ to the level of available commercial software. 
