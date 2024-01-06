@@ -6,12 +6,20 @@
 [![GitHub release](https://img.shields.io/github/v/release/mcallegari/qlcplus)
 ![GitHub Release Date - Published_At](https://img.shields.io/github/release-date/mcallegari/qlcplus)](https://github.com/mcallegari/qlcplus/releases/latest)
 
+https://www.qlcplus.org/download
+
 ## Introduction
-QLC+ is a powerful and user-friendly software designed for lighting control. Whether you're an experienced lighting professional or just getting started, QLC+ empowers you to take control of your lighting fixtures with ease. The primary goal of this project is to bring QLC+ to the level of available commercial software. 
+QLC+ is powerful and user-friendly software designed to control lighting. Whether you're an experienced lighting professional or just getting started, QLC+ empowers you to take control of your lighting fixtures with ease. The primary goal of this project is to bring QLC+ to the level of available commercial software. 
 QLC+ runs on Linux, Windows (7+), macOS (10.7+) and the Raspberry Pi.
 
 Copyright © Heikki Junnila, Massimo Callegari
-
+### Supported Protocols
+![MIDI](https://img.shields.io/badge/MIDI-%23323330.svg?style=for-the-badge&logo=midi&logoColor=%23F7DF1E)
+![OSC](https://img.shields.io/badge/OSC-%23323330.svg?style=for-the-badge&logo=aiohttp&logoColor=%23F7DF1E)
+![HID](https://img.shields.io/badge/HID-%23323330.svg?style=for-the-badge&logo=applearcade&logoColor=%23F7DF1E)
+![DMX](https://img.shields.io/badge/DMX-%23323330.svg?style=for-the-badge&logo=amazonec2&logoColor=%23F7DF1E)
+![ArtNet](https://img.shields.io/badge/ArtNet-%23323330.svg?style=for-the-badge&logo=aiohttp&logoColor=%23F7DF1E)
+![E1.31](https://img.shields.io/badge/E1.31-%23323330.svg?style=for-the-badge&logo=aiohttp&logoColor=%23F7DF1E)
 
 ### Key Resources:
 <table>
@@ -52,25 +60,20 @@ We welcome contributions from the community to help make QLC+ even better. Befor
 
 Further guidelines are available in the [CONTRIBUTING.md](CONTRIBUTING.md) document.
 
+### Help wanted!
+Click the badge below to see the currently confirmed issues with QLC+. Perhaps you can find a solution?
 
-### 🚧 DEVELOPERS AT WORK 🚧
+![GitHub issues by-label](https://img.shields.io/github/issues/mcallegari/qlcplus/issue%20confirmed?logo=github&color=red)
+
+### 🚧 Developers at work 🚧
+
+If you're regularly updating QLC+ sources with git pull, you may encounter compiler warnings, errors, or unresolved symbols. This is because the source package is still in development. We strive to keep the GIT master branch free of critical errors; However, dependencies between objects can sometimes cause issues, requiring a full package recompilation rather than just updating recent changes.
+
+[![QLC+ Github Actions CI Build](https://github.com/mcallegari/qlcplus/actions/workflows/build.yml/badge.svg)](https://github.com/mcallegari/qlcplus/actions) [![Coverage Status](https://coveralls.io/repos/github/mcallegari/qlcplus/badge.svg?branch=master)](https://coveralls.io/github/mcallegari/qlcplus?branch=master)
+[![GitHub commits since latest release (by SemVer including pre-releases)](https://img.shields.io/github/commits-since/mcallegari/qlcplus/latest/master)](https://github.com/mcallegari/qlcplus/commits/master/) ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/mcallegari/qlcplus) 
 
 
-If you're compiling QLC+ from sources and you regularly do "git pull"
-to get the latest sources, you probably end up seeing some
-compiler warnings and errors from time to time. Since the whole source package
-is under development, you might even encounter unresolved symbols etc. If such a thing occurs, you should do a "make
-distclean" on qlcplus (top-most source directory) and then "qmake" and "make"
-again. We attempt to keep the GIT master free of fatal errors and it should
-compile all the time. However, some inter-object dependencies do get mixed up
-sometimes and you need to compile the whole package instead of just the latest
-changes. Sometimes even that doesn't work, because QLC+ installs its common
-libraries to system directories, where (at least unixes) fetch them instead
-of the source directory. In those cases, you might try going to the libs
-directory, compile it with "make" and install with "make install" and then
-attempt to re-compile the whole package with "make".
-
-## Compiling And Installation
+## Compiling and installation
 
 Please refer to the online wiki pages: https://github.com/mcallegari/qlcplus/wiki
 ## Requirements
@@ -116,8 +119,10 @@ For developers wiki and code patches, go to:
 https://github.com/mcallegari/qlcplus
 
 ## Contributors
+
 QLC+ owes its success to the dedication and expertise of numerous individuals who have generously contributed their time and skills. The following list recognizes those whose remarkable contributions have played a pivotal role in shaping QLC+ into what it is today.
 
+![GitHub contributors](https://img.shields.io/github/contributors/mcallegari/qlcplus)
 ### QLC+ 5:
 
 * Eric Arnebäck (3D preview features)
@@ -169,6 +174,10 @@ QLC+ owes its success to the dedication and expertise of numerous individuals wh
 * Matthew Jaggard (Velleman plugin)
 * Ptit Vachon (French translation)
 
+<a href="https://github.com/mcallegari/qlcplus/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=mcallegari/qlcplus" />
+</a>
+
 ## Apache 2.0
 ![GitHub License](https://img.shields.io/github/license/mcallegari/qlcplus)
 
@@ -177,3 +186,4 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 ----
 ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white) ![Qt](https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white) ![CMake](https://img.shields.io/badge/CMake-%23008FBA.svg?style=for-the-badge&logo=cmake&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+
