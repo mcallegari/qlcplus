@@ -29,6 +29,7 @@ VCWidgetItem
 
     property int btnState: buttonObj ? buttonObj.state : VCButton.Inactive
     property int btnAction: buttonObj ? buttonObj.actionType : VCButton.Toggle
+    property string activeColor: buttonObj.flashOverrides || buttonObj.flashForceLTP ? "#FF0000" : "#00FF00"
 
     radius: 4
 
@@ -76,7 +77,7 @@ VCWidgetItem
         height: parent.height - 2
         color: "transparent"
         border.width: (buttonRoot.width > 80) ? 3 : 2
-        border.color: btnState === VCButton.Active ? "#00FF00" : btnState === VCButton.Monitoring ? "orange" : "#A0A0A0"
+        border.color: btnState === VCButton.Active ? activeColor : btnState === VCButton.Monitoring ? "orange" : "#A0A0A0"
         radius: 3
 
         Rectangle
