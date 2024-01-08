@@ -161,7 +161,7 @@ void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
                         m_fadersMap[universe]->add(fc);
                 }
             }
-         }
+        }
     }
 
     emit changed(this->id());
@@ -723,9 +723,9 @@ void Scene::processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, S
         fader->setBlendMode(blendMode());
         fader->setName(name());
         fader->setParentFunctionID(id());
-        m_fadersMap[universe] = fader;
-
         fader->setParentIntensity(getAttributeValue(ParentIntensity));
+        fader->setHandleSecondary(true);
+        m_fadersMap[universe] = fader;
     }
 
     FadeChannel *fc = fader->getChannelFader(doc(), ua[universe], scv.fxi, scv.channel);

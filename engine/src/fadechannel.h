@@ -81,32 +81,23 @@ public:
     void addFlag(int flag);
     void removeFlag(int flag);
 
-protected:
-    void autoDetect(const Doc *doc);
-
-private:
-    /** Bitmask including the channel type
-     *  and, if needed, more flags */
-    int m_flags;
-
-    /************************************************************************
-     * Values
-     ************************************************************************/
-public:
-    /** Set the Fixture that is being controlled. */
-    void setFixture(const Doc *doc, quint32 id);
-
     /** Get the Fixture that is being controlled. */
     quint32 fixture() const;
 
     /** Get the universe of the Fixture that is being controlled. */
     quint32 universe() const;
 
-    /** Set channel within the Fixture. */
-    void setChannel(const Doc* doc, quint32 num);
+    /** Add another channel to be handled by this fader */
+    void addChannel(quint32 num);
 
-    /** Get channel within the Fixture. */
+    /** Get the number of channels handled by this fader */
+    int channelCount();
+
+    /** Get the first (or master) channel handled by this fader */
     quint32 channel() const;
+
+    /** Get (if present) the index of the primary channel this fader relate to */
+    quint32 primaryChannel() const;
 
     /** Get the absolute address for this channel. */
     quint32 address() const;
@@ -114,26 +105,48 @@ public:
     /** Get the absolute address in its universe for this channel. */
     quint32 addressInUniverse() const;
 
+protected:
+    void autoDetect(const Doc *doc);
+
+private:
+    /** Bitmask representing all the channel specificities
+      * such as fading, overriding, flashing, etc. */
+    int m_flags;
+
+    quint32 m_fixture;
+    quint32 m_universe;
+    quint32 m_primaryChannel;
+    QVector<quint32> m_channels;
+    quint32 m_address;
+
+    /** Cache channel reference for faster lookup */
+    const QLCChannel *m_channelRef;
+
+    /************************************************************************
+     * Values
+     ************************************************************************/
+public:
+
     /** Set starting value. */
-    void setStart(uchar value);
+    void setStart(uchar value, int index = 0);
 
     /** Get starting value. */
-    uchar start() const;
+    uchar start(int index = 0) const;
 
     /** Set target value. */
-    void setTarget(uchar value);
+    void setTarget(uchar value, int index = 0);
 
     /** Get target value. */
-    uchar target() const;
+    uchar target(int index = 0) const;
 
     /** Set the current value. */
-    void setCurrent(uchar value);
+    void setCurrent(uchar value, int index = 0);
 
     /** Get the current value. */
-    uchar current() const;
+    uchar current(int index = 0) const;
 
     /** Get the current value, modified by $intensity. */
-    uchar current(qreal intensity) const;
+    uchar current(qreal intensity, int index = 0) const;
 
     /** Mark this channel as ready (useful for writing LTP values only once). */
     void setReady(bool rdy);
@@ -177,14 +190,9 @@ public:
     uchar calculateCurrent(uint fadeTime, uint elapsedTime);
 
 private:
-    quint32 m_fixture;
-    quint32 m_universe;
-    quint32 m_channel;
-    quint32 m_address;
-
-    int m_start;
-    int m_target;
-    int m_current;
+    quint32 m_start;
+    quint32 m_target;
+    quint32 m_current;
     bool m_ready;
 
     uint m_fadeTime;

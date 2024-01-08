@@ -252,6 +252,11 @@ quint32 QLCFixtureMode::masterIntensityChannel() const
     return m_masterIntensityChannel;
 }
 
+quint32 QLCFixtureMode::primaryChannel(quint32 chIndex)
+{
+    return m_secondaryMap.value(chIndex, QLCChannel::invalid());
+}
+
 quint32 QLCFixtureMode::channelActsOn(quint32 chIndex)
 {
     return m_actsOnMap.value(chIndex, QLCChannel::invalid());
@@ -308,22 +313,39 @@ int QLCFixtureMode::headForChannel(quint32 chnum) const
 
 void QLCFixtureMode::cacheHeads()
 {
+    QLCChannel *lastChannel = NULL;
+
     for (int i = 0; i < m_heads.size(); i++)
     {
         QLCFixtureHead& head(m_heads[i]);
         head.cacheChannels(this);
     }
 
-    for (int i = 0; i < m_channels.size(); i++)
+    for (quint32 i = 0; i < quint32(m_channels.size()); i++)
     {
-        if (m_channels.at(i)->group() == QLCChannel::Intensity &&
-            m_channels.at(i)->controlByte() == QLCChannel::MSB &&
-            m_channels.at(i)->colour() == QLCChannel::NoColour &&
+        QLCChannel *channel = m_channels.at(i);
+
+        /** Auto-detect master intensity channel */
+        if (m_masterIntensityChannel == QLCChannel::invalid() &&
+            channel->group() == QLCChannel::Intensity &&
+            channel->controlByte() == QLCChannel::MSB &&
+            channel->colour() == QLCChannel::NoColour &&
             headForChannel(i) == -1)
         {
             m_masterIntensityChannel = i;
-            break;
         }
+
+        /** Map secondary channels */
+        if (lastChannel != NULL &&
+            channel->group() == lastChannel->group() &&
+            lastChannel->controlByte() == QLCChannel::MSB &&
+            channel->controlByte() == QLCChannel::LSB)
+        {
+            //qDebug() << "Channel" << lastChannel->name() << "is primary and" << channel->name() << "is secondary";
+            m_secondaryMap[i] = i - 1;
+        }
+
+        lastChannel = channel;
     }
 }
 
