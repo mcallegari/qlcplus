@@ -331,24 +331,27 @@ void GenericFader::setFadeOut(bool enable, uint fadeTime)
 {
     m_fadeOut = enable;
 
-    if (fadeTime)
+    if (fadeTime == 0)
+        return;
+
+    QMutableHashIterator <quint32,FadeChannel> it(m_channels);
+    while (it.hasNext() == true)
     {
-        QMutableHashIterator <quint32,FadeChannel> it(m_channels);
-        while (it.hasNext() == true)
+        FadeChannel& fc(it.next().value());
+
+        // non-intensity channels (eg LTP) should fade
+        // to the current universe value
+        if ((fc.flags() & FadeChannel::Intensity) == 0)
+            fc.addFlag(FadeChannel::SetTarget);
+
+        for (int i = 0; i < fc.channelCount(); i++)
         {
-            FadeChannel& fc(it.next().value());
-
-            // non-intensity channels (eg LTP) should fade
-            // to the current universe value
-            if ((fc.flags() & FadeChannel::Intensity) == 0)
-                fc.addFlag(FadeChannel::SetTarget);
-
-            fc.setStart(fc.current());
-            fc.setTarget(0);
-            fc.setElapsed(0);
-            fc.setReady(false);
-            fc.setFadeTime(fc.canFade() ? fadeTime : 0);
+            fc.setStart(fc.current(), i);
+            fc.setTarget(0, i);
         }
+        fc.setElapsed(0);
+        fc.setReady(false);
+        fc.setFadeTime(fc.canFade() ? fadeTime : 0);
     }
 }
 
