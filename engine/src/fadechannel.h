@@ -96,6 +96,11 @@ public:
     /** Get the first (or master) channel handled by this fader */
     quint32 channel() const;
 
+    /** Get the index of the provided $channel. This is useful only
+     *  when multiple channels are handled and caller doesn't know
+     *  if it is targeting primary or secondary */
+    int channelIndex(quint32 channel);
+
     /** Get (if present) the index of the primary channel this fader relate to */
     quint32 primaryChannel() const;
 

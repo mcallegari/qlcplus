@@ -738,8 +738,9 @@ void Scene::processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, S
         Scene *blendScene = qobject_cast<Scene *>(doc()->function(blendFunctionID()));
         if (blendScene != NULL && blendScene->checkValue(scv))
         {
+            int chIndex = fc->channelIndex(scv.channel);
             fc->addFlag(FadeChannel::CrossFade);
-            fc->setCurrent(blendScene->value(scv.fxi, scv.channel));
+            fc->setCurrent(blendScene->value(scv.fxi, scv.channel), chIndex);
             qDebug() << "----- BLEND from Scene" << blendScene->name()
                      << ", fixture:" << scv.fxi << ", channel:" << scv.channel << ", value:" << fc->current();
         }
