@@ -91,7 +91,7 @@ public:
     void addChannel(quint32 num);
 
     /** Get the number of channels handled by this fader */
-    int channelCount();
+    int channelCount() const;
 
     /** Get the first (or master) channel handled by this fader */
     quint32 channel() const;

@@ -218,8 +218,11 @@ void FadeChannel::addChannel(quint32 num)
     }
 }
 
-int FadeChannel::channelCount()
+int FadeChannel::channelCount() const
 {
+    if (m_channels.isEmpty())
+        return 1;
+
     return m_channels.count();
 }
 
@@ -262,50 +265,32 @@ quint32 FadeChannel::addressInUniverse() const
 
 void FadeChannel::setStart(uchar value, int index)
 {
-    if (m_channels.count() == 1)
-        m_start = value;
-    else
-        ((uchar *)&m_start)[index] = value;
+    ((uchar *)&m_start)[channelCount() - 1 - index] = value;
 }
 
 uchar FadeChannel::start(int index) const
 {
-    if (index >= m_channels.count())
-        return uchar(m_start);
-
-    return uchar(m_start >> (8 * (m_channels.count() - 1 - index)));
+    return ((uchar *)&m_start)[channelCount() - 1 - index];
 }
 
 void FadeChannel::setTarget(uchar value, int index)
 {
-    if (m_channels.count() == 1)
-        m_target = value;
-    else
-        ((uchar *)&m_target)[index] = value;
+    ((uchar *)&m_target)[channelCount() - 1 - index] = value;
 }
 
 uchar FadeChannel::target(int index) const
 {
-    if (index >= m_channels.count())
-        return uchar(m_target);
-
-    return uchar(m_target >> (8 * (m_channels.count() - 1 - index)));
+    return ((uchar *)&m_target)[channelCount() - 1 - index];
 }
 
 void FadeChannel::setCurrent(uchar value, int index)
 {
-    if (m_channels.count() == 1)
-        m_current = value;
-    else
-        ((uchar *)&m_current)[index] = value;
+    ((uchar *)&m_current)[channelCount() - 1 - index] = value;
 }
 
 uchar FadeChannel::current(int index) const
 {
-    if (index >= m_channels.count())
-        return uchar(m_current);
-
-    return uchar(m_current >> (8 * (m_channels.count() - 1 - index)));
+    return ((uchar *)&m_current)[channelCount() - 1 - index];
 }
 
 uchar FadeChannel::current(qreal intensity, int index) const

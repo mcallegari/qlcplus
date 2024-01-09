@@ -729,6 +729,7 @@ void Scene::processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, S
     }
 
     FadeChannel *fc = fader->getChannelFader(doc(), ua[universe], scv.fxi, scv.channel);
+    int chIndex = fc->channelIndex(scv.channel);
 
     /** If a blend Function has been set, check if this channel needs to
      *  be blended from a previous value. If so, mark it for crossfade
@@ -738,7 +739,6 @@ void Scene::processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, S
         Scene *blendScene = qobject_cast<Scene *>(doc()->function(blendFunctionID()));
         if (blendScene != NULL && blendScene->checkValue(scv))
         {
-            int chIndex = fc->channelIndex(scv.channel);
             fc->addFlag(FadeChannel::CrossFade);
             fc->setCurrent(blendScene->value(scv.fxi, scv.channel), chIndex);
             qDebug() << "----- BLEND from Scene" << blendScene->name()
@@ -747,11 +747,11 @@ void Scene::processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, S
     }
     else
     {
-        qDebug() << "Scene" << name() << "add channel" << scv.channel << "from" << fc->current() << "to" << scv.value;
+        qDebug() << "Scene" << name() << "add channel" << scv.channel << "from" << fc->current(chIndex) << "to" << scv.value;
     }
 
-    fc->setStart(fc->current());
-    fc->setTarget(scv.value);
+    fc->setStart(fc->current(chIndex), chIndex);
+    fc->setTarget(scv.value, chIndex);
 
     if (fc->canFade() == false)
     {
