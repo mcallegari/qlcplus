@@ -161,14 +161,17 @@ FadeChannel *GenericFader::getChannelFader(const Doc *doc, Universe *universe, q
         {
             qDebug() << "Adding channel to primary" << channel;
             fcFound->addChannel(channel);
+            if (universe)
+                fcFound->setCurrent(universe->preGMValue(fcFound->address() + 1), 1);
         }
         return fcFound;
     }
 
-    // new channel. Add to GenericFader
+    // set current universe value
     if (universe)
         fc.setCurrent(universe->preGMValue(fc.address()));
 
+    // new channel. Add to GenericFader
     m_channels[hash] = fc;
     //qDebug() << "Added new fader with hash" << hash;
 
