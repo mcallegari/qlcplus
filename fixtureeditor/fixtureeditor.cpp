@@ -516,12 +516,10 @@ void QLCFixtureEditor::slotRemoveChannel()
         for (int i = 0; i < m_modeList->topLevelItemCount(); ++i)
         {
             QTreeWidgetItem *item = m_modeList->topLevelItem(i);
-
             QLCFixtureMode *mode = (QLCFixtureMode*)item->data(MODE_COL_NAME, PROP_PTR).toULongLong();
-            mode->actsOnChannelsList().remove(channel);
-
-            QLCChannel *mainChannel = mode->actsOnChannelsList().value(channel);
-            mode->actsOnChannelsList()[mainChannel] = NULL;
+            quint32 chIndex = mode->channelNumber(channel);
+            if (chIndex != QLCChannel::invalid())
+                mode->setChannelActsOn(chIndex, QLCChannel::invalid());
         }
 
         refreshModeList();
