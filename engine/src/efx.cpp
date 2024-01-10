@@ -272,7 +272,7 @@ void EFX::preview(QPolygonF &polygon, Function::Direction direction, int startOf
     }
 }
 
-void EFX::calculatePoint(Function::Direction direction, int startOffset, float iterator, float* x, float* y) const
+void EFX::calculatePoint(Function::Direction direction, int startOffset, float iterator, float *x, float *y) const
 {
     iterator = calculateDirection(direction, iterator);
     iterator += convertOffset(startOffset + getAttributeValue(StartOffset));
@@ -283,7 +283,7 @@ void EFX::calculatePoint(Function::Direction direction, int startOffset, float i
     calculatePoint(iterator, x, y);
 }
 
-void EFX::rotateAndScale(float* x, float* y) const
+void EFX::rotateAndScale(float *x, float *y) const
 {
     float xx = *x;
     float yy = *y;
@@ -330,7 +330,7 @@ float EFX::calculateDirection(Function::Direction direction, float iterator) con
 }
 
 // this function should map from 0..M_PI * 2 -> -1..1
-void EFX::calculatePoint(float iterator, float* x, float* y) const
+void EFX::calculatePoint(float iterator, float *x, float *y) const
 {
     switch (algorithm())
     {

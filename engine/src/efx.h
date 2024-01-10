@@ -183,7 +183,7 @@ public:
      * @param x Used to store the calculated X coordinate (output)
      * @param y Used to store the calculated Y coordinate (output)
      */
-    void calculatePoint(Function::Direction direction, int startOffset, float iterator, float* x, float* y) const;
+    void calculatePoint(Function::Direction direction, int startOffset, float iterator, float *x, float *y) const;
 
 private:
 
