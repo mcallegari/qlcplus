@@ -32,9 +32,15 @@ Rectangle
 
     property bool showDMXcontrol: true
     property bool showTapButton: false
-    property double tapTimeValue: 0
+    
     property alias commandString: commandBox.text
     property real itemHeight: Math.max(UISettings.iconSizeDefault, keyPadRoot.height / keyPadGrid.rows) - 3
+
+    //needed for bpm tapping
+    property double tapTimeValue: 0
+    property int tapCount: 0
+    property double lastTap: 0
+    property var tapHistory: []
 
     onVisibleChanged: if (visible) commandBox.selectAndFocus()
 
@@ -95,18 +101,60 @@ Rectangle
                 {
                     tapTimer.stop()
                     tapButton.border.color = UISettings.bgMedium
-                    tapTimeValue = 0
+                    lastTap = 0
+                    tapHistory = []
                 }
                 else
                 {
                     var currTime = new Date().getTime()
-                    if (tapTimeValue != 0)
+                    
+                    if (lastTap != 0 && currTime - lastTap < 1500)
                     {
-                        keyPadRoot.tapTimeChanged(currTime - tapTimeValue)
-                        tapTimer.interval = currTime - tapTimeValue
+                        var newTime = currTime - lastTap
+                        
+                        tapHistory.push(newTime)
+                        var tapHistorySorted = []
+
+                        //reduce size to only 16 taps
+                        while (tapHistory.length > 16) tapHistory.splice(0,1)
+
+                        //copy tap history to sort it
+                        for(var i = 0; i < tapHistory.length; i++)
+                        {
+                            tapHistorySorted[i] = tapHistory[i]
+                        }
+                        tapHistorySorted.sort()
+
+                        // Find the median time between taps, assume that the tempo is +-40% of this
+                        var tapHistoryMedian = tapHistorySorted[Math.floor(tapHistorySorted.length/2)]
+                        
+                        //init needed variables
+                        var n = 1, tapx = 0, tapy = 0, sum_x = 0, sum_y = 0, sum_xx = 0, sum_xy = 0
+                        
+                        for(var i = 0; i < tapHistory.length; i++)
+                        {
+                            var intervalMs = tapHistory[i]
+                            n++
+                            // Divide by tapHistoryMedian to determine if a tap was skipped during input
+                            tapx += Math.floor((tapHistoryMedian/2 + intervalMs) / tapHistoryMedian)
+                            tapy += intervalMs
+                            sum_x += tapx
+                            sum_y += tapy
+                            sum_xx += tapx * tapx
+                            sum_xy += tapx * tapy                 
+                        }
+
+                        tapTimeValue = (n * sum_xy - sum_x * sum_y) / (n * sum_xx - sum_x * sum_x)
+                        keyPadRoot.tapTimeChanged(tapTimeValue)
+                        tapTimer.interval = tapTimeValue
                         tapTimer.restart()
                     }
-                    tapTimeValue = currTime
+                    else
+                    {
+                        lastTap = 0
+                        tapHistory = []
+                    }
+                    lastTap = currTime
                 }
             }
         }
