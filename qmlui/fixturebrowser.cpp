@@ -370,6 +370,7 @@ void FixtureBrowser::updateSearchTree()
 
     QStringList mfList = m_doc->fixtureDefCache()->manufacturers();
     mfList.sort();
+    QString searchFilter = m_searchFilter.toLower();
 
     for (QString &manufacturer : mfList) // C++11
     {
@@ -378,8 +379,8 @@ void FixtureBrowser::updateSearchTree()
 
         for (QString &model : modelsList)
         {
-            if (manufacturer.toLower().contains(m_searchFilter) ||
-                model.toLower().contains(m_searchFilter))
+            if (manufacturer.toLower().contains(searchFilter) ||
+                model.toLower().contains(searchFilter))
             {
                 QVariantList params;
                 TreeModelItem *item = m_searchTree->addItem(model, params, manufacturer);
