@@ -172,7 +172,7 @@ table.hovertable td {
  background: #E0DFDF;
  border-radius: 3px;
  border: 1px solid #000;
- margin: 2px 0px 0px 2px;
+ margin: 2px 0 0 2px;
  padding: 1px;
  height: 28px;
  width: 28px;
@@ -291,12 +291,12 @@ input[type="range"]:disabled::-webkit-slider-thumb {
 
 /* Firefox */
 input[type=range]::-moz-range-thumb {
- background-color: #cccccc;
+ background-color: #ccc;
 }
 
 input[type="range"]:disabled::-webkit-slider-thumb {
  -webkit-appearance: none;
- background-color: #cccccc;
+ background-color: #ccc;
 }
 
 .vcaudiotriggers {
