@@ -123,7 +123,7 @@ function setCueProgress(id, percent, text) {
 
 function showSideFaderPanel(id, checked) {
   var progressBarObj = document.getElementById("fadePanel" + id);
-  showPanel[id] = parseInt(checked);
+  showPanel[id] = parseInt(checked, 10);
   if (checked === "1") {
     progressBarObj.style.display="block";
   } else {
@@ -177,7 +177,7 @@ function cueCVchange(id) {
 }
 
 function setCueDisableState(id, disable) {
-  isDisableCue[id] = parseInt(disable);
+  isDisableCue[id] = parseInt(disable, 10);
   var cueTable = document.getElementById("cueTable" + id);
   var fadeObj = document.getElementById("fade" + id);
   var playObj = document.getElementById("play" + id);
@@ -280,7 +280,7 @@ function framePreviousPage(id) {
 }
 
 function setFramePage(id, page) {
- var iPage = parseInt(page);
+ var iPage = parseInt(page, 10);
  if (framesCurrentPage[id] === iPage || iPage >= framesTotalPages[id]) { return; }
  var framePageObj = document.getElementById("fp" + id + "_" + framesCurrentPage[id]);
  framePageObj.style.visibility = "hidden";
@@ -334,7 +334,7 @@ function setSliderDisableState(id, disable) {
   var slvObj = document.getElementById("slv" + id);
   var slnObj = document.getElementById("sln" + id);
   var pie = document.getElementById("pie" + id);
-  isDisableKnob[id] = parseInt(disable);
+  isDisableKnob[id] = parseInt(disable, 10);
   isDragging[id] = false;
   if (disable === "1") {
     if (pie) {
@@ -513,9 +513,9 @@ function wsUpdateClockTime(id, time) {
  var obj = document.getElementById(id);
  var s = time;
  var h, m;
- h = parseInt(s / 3600);
+ h = parseInt(s / 3600, 10);
  s -= (h * 3600);
- m = parseInt(s / 60);
+ m = parseInt(s / 60, 10);
  s -= (m * 60);
 
  var timeString = hmsToString(h, m, s);
@@ -662,7 +662,7 @@ window.addEventListener("load", (event) => {
 });
 
 function setMatrixControlKnobValue(controlID, value) {
-  getPositionFromValueForMatrix(parseInt(value), parseInt(controlID));
+  getPositionFromValueForMatrix(parseInt(value, 10), parseInt(controlID, 10));
 }
 
 function wcMatrixPushButtonClicked(controlID) {
