@@ -125,7 +125,7 @@ https://github.com/mcallegari/qlcplus
 QLC+ owes its success to the dedication and expertise of numerous individuals who have generously contributed their time and skills. The following list recognizes those whose remarkable contributions have played a pivotal role in shaping QLC+ into what it is today.
 
 ![GitHub contributors](https://img.shields.io/github/contributors/mcallegari/qlcplus)
-### QLC+ 5:
+### QLC+ 5
 
 *   Eric Arnebäck (3D preview features)
 *   Santiago Benejam Torres (Catalan translation)
@@ -139,7 +139,7 @@ QLC+ owes its success to the dedication and expertise of numerous individuals wh
 *   Vadim Syniuhin (Ukrainian translation)
 *   Mateusz Kędzierski (Polish translation)
 
-### QLC+ 4:
+### QLC+ 4
 
 *   Jano Svitok (bugfix, new features and improvements)
 *   David Garyga (bugfix, new features and improvements)
@@ -166,7 +166,7 @@ QLC+ owes its success to the dedication and expertise of numerous individuals wh
 *   Santiago Benejam Torres (Catalan translation)
 *   Koichiro Saito, Dai Suetake (Japanese translation)
 
-### QLC:
+### Q Light Controller
 
 *   Stefan Krumm (Bugfixes, new features)
 *   Christian Suehs (Bugfixes, new features)
