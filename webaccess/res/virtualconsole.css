@@ -255,7 +255,7 @@ input[type=range]{
  -webkit-appearance: none;
 }
 
-/*Chrome, Firefox*/
+/* Chrome, Firefox */
 input[type="range"].vVertical {
  --rotate: 270;
  height: 4px;
@@ -289,7 +289,7 @@ input[type="range"]:disabled::-webkit-slider-thumb {
  background-color: #cccccc;
 }
 
-/*Firefox*/
+/* Firefox */
 input[type=range]::-moz-range-thumb {
  background-color: #cccccc;
 }
