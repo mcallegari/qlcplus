@@ -82,34 +82,34 @@ Please refer to the online wiki pages: https://github.com/mcallegari/qlcplus/wik
 ### Linux
 
 
-* Qt >= 5.0 development libraries & tools
-* libudev-dev, libmad0-dev, libsndfile1-dev, libfftw3-dev
-* DMX USB plugin: libftdi-dev, pkg-config
-* MIDI plugin: libasound, libasound-dev, pkg-config
-* OLA plugin: libola, ola-dev, pkg-config (see libs/olaout/README)
-* uDMX plugin: libusb, libusb-dev, pkg-config
-* Peperoni plugin: libusb, libusb-dev, pkg-config
-* Velleman plugin: **Not available**
+*   Qt >= 5.0 development libraries & tools
+*   libudev-dev, libmad0-dev, libsndfile1-dev, libfftw3-dev
+*   DMX USB plugin: libftdi-dev, pkg-config
+*   MIDI plugin: libasound, libasound-dev, pkg-config
+*   OLA plugin: libola, ola-dev, pkg-config (see libs/olaout/README)
+*   uDMX plugin: libusb, libusb-dev, pkg-config
+*   Peperoni plugin: libusb, libusb-dev, pkg-config
+*   Velleman plugin: **Not available**
 
 ### Windows
 
-* MSYS2 environment (https://msys2.github.io/)
-* DMX USB plugin: D2XX driver & development package (http://www.ftdichip.com/Drivers/D2XX.htm)
-* ENTTEC Wing plugin: D2XX driver & development package (http://www.ftdichip.com/Drivers/D2XX.htm)
-* OLA plugin: **Not available**
-* Velleman plugin: K8062 SDK from www.velleman.eu
+*   MSYS2 environment (https://msys2.github.io/)
+*   DMX USB plugin: D2XX driver & development package (http://www.ftdichip.com/Drivers/D2XX.htm)
+*   ENTTEC Wing plugin: D2XX driver & development package (http://www.ftdichip.com/Drivers/D2XX.htm)
+*   OLA plugin: **Not available**
+*   Velleman plugin: K8062 SDK from www.velleman.eu
 
 
 ### Mac OS X
 
-* XCode (http://developer.apple.com/technologies/tools/xcode.html)
-* Qt >= 5.0.x (http://download.qt.io/official_releases/qt/)
-* macports (https://www.macports.org/)
-* DMX USB plugin: macports, libftdi-dev, pkg-config
-* OLA plugin: libola, ola-dev, pkg-config (see libs/olaout/README)
-* uDMX plugin: macports, libusb-compat, pkg-config
-* Peperoni plugin: macports, libusb-compat, pkg-config
-* Velleman plugin: **Not available**
+*   XCode (http://developer.apple.com/technologies/tools/xcode.html)
+*   Qt >= 5.0.x (http://download.qt.io/official_releases/qt/)
+*   macports (https://www.macports.org/)
+*   DMX USB plugin: macports, libftdi-dev, pkg-config
+*   OLA plugin: libola, ola-dev, pkg-config (see libs/olaout/README)
+*   uDMX plugin: macports, libusb-compat, pkg-config
+*   Peperoni plugin: macports, libusb-compat, pkg-config
+*   Velleman plugin: **Not available**
 
 
 ## Support & Bug Reports
@@ -127,54 +127,54 @@ QLC+ owes its success to the dedication and expertise of numerous individuals wh
 ![GitHub contributors](https://img.shields.io/github/contributors/mcallegari/qlcplus)
 ### QLC+ 5:
 
-* Eric Arnebäck (3D preview features)
-* Santiago Benejam Torres (Catalan translation)
-* Luis García Tornel (Spanish translation)
-* Nils Van Zuijlen, Jérôme Lebleu (French translation)
-* Felix Edelmann, Florian Edelmann (fixture definitions, German translation)
-* Jannis Achstetter (German translation)
-* Dai Suetake (Japanese translation)
-* Hannes Bossuyt (Dutch translation)
-* Aleksandr Gusarov (Russian translation)
-* Vadim Syniuhin (Ukrainian translation)
-* Mateusz Kędzierski (Polish translation)
+*   Eric Arnebäck (3D preview features)
+*   Santiago Benejam Torres (Catalan translation)
+*   Luis García Tornel (Spanish translation)
+*   Nils Van Zuijlen, Jérôme Lebleu (French translation)
+*   Felix Edelmann, Florian Edelmann (fixture definitions, German translation)
+*   Jannis Achstetter (German translation)
+*   Dai Suetake (Japanese translation)
+*   Hannes Bossuyt (Dutch translation)
+*   Aleksandr Gusarov (Russian translation)
+*   Vadim Syniuhin (Ukrainian translation)
+*   Mateusz Kędzierski (Polish translation)
 
 ### QLC+ 4:
 
-* Jano Svitok (bugfix, new features and improvements)
-* David Garyga (bugfix, new features and improvements)
-* Lukas Jähn (bugfix, new features)
-* Robert Box (fixtures review)
-* Thomas Achtner (ENTTEC wing improvements)
-* Joep Admiraal (MIDI SysEx init messages, Dutch translation)
-* Florian Euchner (FX5 USB DMX support)
-* Stefan Riemens (new features)
-* Bartosz Grabias (new features)
-* Simon Newton, Peter Newman (OLA plugin)
-* Janosch Frank (webaccess improvements)
-* Karri Kaksonen (DMX USB Eurolite USB DMX512 Pro support)
-* Stefan Krupop (HID DMXControl Projects e.V. Nodle U1 support)
-* Nathan Durnan (RGB scripts, new features)
-* Giorgio Rebecchi (new features)
-* Florian Edelmann (code cleanup, German translation)
-* Heiko Fanieng, Jannis Achstetter (German translation)
-* NiKoyes, Jérôme Lebleu, Olivier Humbert, Nils Van Zuijlen (French translation)
-* Raymond Van Laake (Dutch translation)
-* Luis García Tornel (Spanish translation)
-* Jan Lachman (Czech translation)
-* Nuno Almeida, Carlos Eduardo Porto de Oliveira (Portuguese translation)
-* Santiago Benejam Torres (Catalan translation)
-* Koichiro Saito, Dai Suetake (Japanese translation)
+*   Jano Svitok (bugfix, new features and improvements)
+*   David Garyga (bugfix, new features and improvements)
+*   Lukas Jähn (bugfix, new features)
+*   Robert Box (fixtures review)
+*   Thomas Achtner (ENTTEC wing improvements)
+*   Joep Admiraal (MIDI SysEx init messages, Dutch translation)
+*   Florian Euchner (FX5 USB DMX support)
+*   Stefan Riemens (new features)
+*   Bartosz Grabias (new features)
+*   Simon Newton, Peter Newman (OLA plugin)
+*   Janosch Frank (webaccess improvements)
+*   Karri Kaksonen (DMX USB Eurolite USB DMX512 Pro support)
+*   Stefan Krupop (HID DMXControl Projects e.V. Nodle U1 support)
+*   Nathan Durnan (RGB scripts, new features)
+*   Giorgio Rebecchi (new features)
+*   Florian Edelmann (code cleanup, German translation)
+*   Heiko Fanieng, Jannis Achstetter (German translation)
+*   NiKoyes, Jérôme Lebleu, Olivier Humbert, Nils Van Zuijlen (French translation)
+*   Raymond Van Laake (Dutch translation)
+*   Luis García Tornel (Spanish translation)
+*   Jan Lachman (Czech translation)
+*   Nuno Almeida, Carlos Eduardo Porto de Oliveira (Portuguese translation)
+*   Santiago Benejam Torres (Catalan translation)
+*   Koichiro Saito, Dai Suetake (Japanese translation)
 
 ### QLC:
 
-* Stefan Krumm (Bugfixes, new features)
-* Christian Suehs (Bugfixes, new features)
-* Christopher Staite (Bugfixes)
-* Klaus Weidenbach (Bugfixes, German translation)
-* Lutz Hillebrand (uDMX plugin)
-* Matthew Jaggard (Velleman plugin)
-* Ptit Vachon (French translation)
+*   Stefan Krumm (Bugfixes, new features)
+*   Christian Suehs (Bugfixes, new features)
+*   Christopher Staite (Bugfixes)
+*   Klaus Weidenbach (Bugfixes, German translation)
+*   Lutz Hillebrand (uDMX plugin)
+*   Matthew Jaggard (Velleman plugin)
+*   Ptit Vachon (French translation)
 
 <a href="https://github.com/mcallegari/qlcplus/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=mcallegari/qlcplus" />
