@@ -120,6 +120,10 @@ table.hovertable tr {
  background-color:#ffffff;
 }
 
+table.cell-disabled tr {
+  background-color: #eee;
+ }
+
 table.hovertable tr:hover {
  background-color:#CCD9FF;
 }
@@ -129,10 +133,6 @@ table.hovertable td {
  padding: 3px;
  border-style: solid;
  border-color: #a9c6c9;
-}
-
-table.cell-disabled tr {
- background-color: #eee;
 }
 
 .vcframe {
