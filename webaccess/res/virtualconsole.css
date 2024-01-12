@@ -272,7 +272,7 @@ input[type="range"].vVertical {
 }
 
 input[type="range"].vVertical-disabled {
- background-color: #cccccc!important;
+ background-color: #ccc!important;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -286,7 +286,7 @@ input[type="range"]::-webkit-slider-thumb {
 
 input[type="range"]:disabled::-webkit-slider-thumb {
  -webkit-appearance: none;
- background-color: #cccccc;
+ background-color: #ccc;
 }
 
 /* Firefox */
