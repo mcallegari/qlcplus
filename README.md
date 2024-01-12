@@ -22,8 +22,7 @@ Copyright © Heikki Junnila, Massimo Callegari
 [![E1.31/S.ACN](https://img.shields.io/badge/E1.31%20S.ACN-%23323330.svg?style=for-the-badge&logo=aiohttp&logoColor=%23F7DF1E)](https://docs.qlcplus.org/v4/plugins/e1-31-sacn)
 [![OS2L](https://img.shields.io/badge/OS2L-%23323330.svg?style=for-the-badge&logo=aiohttp&logoColor=%23F7DF1E)](https://docs.qlcplus.org/v4/plugins/os2l)
 
-
-### Key Resources:
+### Key Resources
 <table>
 <thead>
 </thead>
@@ -51,11 +50,9 @@ Copyright © Heikki Junnila, Massimo Callegari
 </tbody>
 </table>
 
-### QLC+ Social Media:
+### QLC+ Social Media
 
 [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white)](https://www.instagram.com/qlcplus/) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://www.youtube.com/watch?v=I9bccwcYQpM&list=PLHT-wIriuitDiW4A9oKSDr__Z_jcmMVdi) [![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?style=for-the-badge&logo=Facebook&logoColor=white)](https://www.facebook.com/qlcplus)
-
-
 
 ## Contributing
 We welcome contributions from the community to help make QLC+ even better. Before diving into coding, we encourage you to start a discussion in our [Software Development](https://www.qlcplus.org/forum/viewforum.php?f=12) forum if you're considering adding a new feature or making significant changes. This provides an opportunity for feedback, collaboration, and ensuring alignment with the project's goals.
@@ -97,7 +94,6 @@ Please refer to the online wiki pages: https://github.com/mcallegari/qlcplus/wik
 *   OLA plugin: **Not available**
 *   Velleman plugin: K8062 SDK from www.velleman.eu
 
-
 ### Mac OS X
 
 *   XCode (http://developer.apple.com/technologies/tools/xcode.html)
@@ -108,7 +104,6 @@ Please refer to the online wiki pages: https://github.com/mcallegari/qlcplus/wik
 *   uDMX plugin: macports, libusb-compat, pkg-config
 *   Peperoni plugin: macports, libusb-compat, pkg-config
 *   Velleman plugin: **Not available**
-
 
 ## Support & Bug Reports
 
@@ -186,4 +181,3 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 ----
 ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white) ![Qt](https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white) ![CMake](https://img.shields.io/badge/CMake-%23008FBA.svg?style=for-the-badge&logo=cmake&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-
