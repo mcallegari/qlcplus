@@ -28,10 +28,12 @@
 #include "functionmanager.h"
 #include "fixturemanager.h"
 #include "qlcfixturemode.h"
+#include "qlccapability.h"
 #include "fixtureutils.h"
 #include "mainviewdmx.h"
 #include "mainview2d.h"
 #include "mainview3d.h"
+#include "qlcchannel.h"
 #include "tardis.h"
 #include "app.h"
 #include "doc.h"
@@ -354,7 +356,7 @@ void ContextManager::setPositionPickPoint(QVector3D point)
                 panDeg = 90.0 + (90.0 - panDeg);
             else if (!xLeft && !zBack)
                 panDeg = 180.0 + panDeg;
-            else if(!xLeft && zBack)
+            else if (!xLeft && zBack)
                 panDeg = 270.0 + (90.0 - panDeg);
 
             if (itemFlags & MonitorProperties::InvertedPanFlag)
@@ -543,6 +545,7 @@ void ContextManager::setItemSelection(quint32 itemID, bool enable, int keyModifi
     {
         setFixtureSelection(itemID, -1, enable);
     }
+    m_fixtureManager->setItemRoleData(itemID, enable ? 2 : 0, TreeModel::IsSelectedRole);
 }
 
 void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool enable)
@@ -579,6 +582,8 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
     Fixture *fixture = m_doc->fixture(fixtureID);
     if (fixture == nullptr)
         return;
+
+    m_fixtureManager->setItemRoleData(itemID, enable ? 2 : 0, TreeModel::IsSelectedRole);
 
     if (m_DMXView->isEnabled())
         m_DMXView->updateFixtureSelection(fixtureID, enable);
@@ -1492,6 +1497,12 @@ void ContextManager::setPositionValue(int type, int degrees, bool isRelative)
     }
 }
 
+void ContextManager::setPositionCenter()
+{
+    setChannelValueByType((int)QLCChannel::Pan, 127);
+    setChannelValueByType((int)QLCChannel::Tilt, 127);
+}
+
 void ContextManager::setBeamDegrees(float degrees, bool isRelative)
 {
     // list to keep track of the already processed Fixture IDs
@@ -1516,6 +1527,42 @@ void ContextManager::setBeamDegrees(float degrees, bool isRelative)
                 setDumpValue(zSv.fxi, zSv.channel, zSv.value);
             else
                 m_functionManager->setChannelValue(zSv.fxi, zSv.channel, zSv.value);
+        }
+    }
+}
+
+void ContextManager::highlightFixtureSelection()
+{
+    setChannelValueByType((int)QLCChannel::Red, UCHAR_MAX);
+    setChannelValueByType((int)QLCChannel::Green, UCHAR_MAX);
+    setChannelValueByType((int)QLCChannel::Blue, UCHAR_MAX);
+    setChannelValueByType((int)QLCChannel::White, UCHAR_MAX);
+
+    setChannelValueByType((int)QLCChannel::Intensity, UCHAR_MAX);
+
+    // search for shutter open and lamp on
+    for (quint32 &itemID : m_selectedFixtures)
+    {
+        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        Fixture *fixture = m_doc->fixture(fxID);
+        if (fixture == nullptr)
+            continue;
+
+        for (quint32 i = 0; i < fixture->channels(); i++)
+        {
+            const QLCChannel *channel = fixture->channel(i);
+            for (QLCCapability *cap : channel->capabilities())
+            {
+                if (cap->preset() == QLCCapability::ShutterOpen ||
+                    cap->preset() == QLCCapability::LampOn)
+                {
+                    if (m_editingEnabled == false)
+                        setDumpValue(fxID, i, cap->middle());
+                    else
+                        m_functionManager->setChannelValue(fxID, i, cap->middle());
+                    break;
+                }
+            }
         }
     }
 }

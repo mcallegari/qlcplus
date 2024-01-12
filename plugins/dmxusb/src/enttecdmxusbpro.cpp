@@ -69,7 +69,7 @@ DMXUSBWidget::Type EnttecDMXUSBPro::type() const
 {
     if (name().toUpper().contains("PRO MK2") == true)
         return ProMk2;
-    else if(m_dmxKingMode)
+    else if (m_dmxKingMode)
         return UltraPro;
     else
         return ProRXTX;
@@ -422,7 +422,7 @@ void EnttecDMXUSBPro::slotDataReceived(QByteArray data, bool isMidi)
             //qDebug() << "MIDI byte:" << byte;
             if (midiCounter == 0)
             {
-                if(MIDI_IS_CMD(byte))
+                if (MIDI_IS_CMD(byte))
                 {
                     midiCmd = byte;
                     midiCounter++;

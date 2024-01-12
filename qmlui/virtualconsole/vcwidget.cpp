@@ -125,7 +125,7 @@ bool VCWidget::copyFrom(const VCWidget* widget)
     }
 
     QMapIterator<QKeySequence, quint32> it(m_keySequenceMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
 
@@ -620,7 +620,7 @@ QVariant VCWidget::externalControlsList() const
     QVariantList controlsList;
 
     QMapIterator<quint8, ExternalControlInfo> it(m_externalControlList);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         ExternalControlInfo info = it.value();
@@ -802,7 +802,7 @@ QVariantList VCWidget::inputSourcesList()
     }
 
     QMapIterator<QKeySequence, quint32> it(m_keySequenceMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
 

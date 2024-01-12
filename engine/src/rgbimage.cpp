@@ -45,7 +45,7 @@ RGBImage::RGBImage(Doc * doc)
 }
 
 RGBImage::RGBImage(const RGBImage& i)
-    : RGBAlgorithm( i.doc())
+    : RGBAlgorithm(i.doc())
     , m_filename(i.filename())
     , m_animatedSource(i.animatedSource())
     , m_animationStyle(i.animationStyle())

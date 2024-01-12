@@ -98,7 +98,7 @@ void AddChannelsDialog::slotAddChannel()
     if (selection.count() == 0)
         return;
 
-    foreach(QTreeWidgetItem *item, selection)
+    foreach (QTreeWidgetItem *item, selection)
     {
         QTreeWidgetItem *newItem = item->clone();
         m_modeTree->addTopLevelItem(newItem);
@@ -112,7 +112,7 @@ void AddChannelsDialog::slotRemoveChannel()
     if (selection.count() == 0)
         return;
 
-    foreach(QTreeWidgetItem *item, selection)
+    foreach (QTreeWidgetItem *item, selection)
     {
         QTreeWidgetItem *newItem = item->clone();
         m_allTree->addTopLevelItem(newItem);

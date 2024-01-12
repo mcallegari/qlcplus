@@ -535,7 +535,7 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
     m_latestFixtureId = 0;
     m_addresses.clear();
 
-    foreach(Fixture *fixture, newFixturesList)
+    foreach (Fixture *fixture, newFixturesList)
     {
         quint32 id = fixture->id();
         // create a copy of the original cause remapping will
@@ -1046,7 +1046,7 @@ QList <Function*> Doc::functions() const
 QList<Function *> Doc::functionsByType(Function::Type type) const
 {
     QList <Function*> list;
-    foreach(Function *f, m_functions)
+    foreach (Function *f, m_functions)
     {
         if (f != NULL && f->type() == type)
             list.append(f);
@@ -1056,7 +1056,7 @@ QList<Function *> Doc::functionsByType(Function::Type type) const
 
 Function *Doc::functionByName(QString name)
 {
-    foreach(Function *f, m_functions)
+    foreach (Function *f, m_functions)
     {
         if (f != NULL && f->name() == name)
             return f;
@@ -1187,7 +1187,7 @@ QList<quint32> Doc::getUsage(quint32 fid)
                 Show *s = qobject_cast<Show *>(f);
                 foreach (Track *t, s->tracks())
                 {
-                    foreach(ShowFunction *sf, t->showFunctions())
+                    foreach (ShowFunction *sf, t->showFunctions())
                     {
                         if (sf->functionID() == fid)
                         {

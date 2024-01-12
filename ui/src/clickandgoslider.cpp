@@ -29,7 +29,7 @@ ClickAndGoSlider::ClickAndGoSlider(QWidget *parent) : QSlider(parent)
 
 void ClickAndGoSlider::setSliderStyleSheet(const QString &styleSheet)
 {
-    if(isVisible())
+    if (isVisible())
         QSlider::setStyleSheet(styleSheet);
     else
         m_styleSheet = styleSheet;

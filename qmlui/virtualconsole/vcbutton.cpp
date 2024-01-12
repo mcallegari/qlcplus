@@ -168,7 +168,7 @@ void VCButton::setFunctionID(quint32 fid)
         if ((isEditing() && caption().isEmpty()) || caption() == defaultCaption())
             setCaption(function->name());
 
-        if(running)
+        if (running)
         {
             function->start(m_doc->masterTimer(), functionParent());
             setState(Active);

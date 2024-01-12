@@ -116,10 +116,13 @@ public:
     bool removeTrack(quint32 id);
 
     /** Get a track by id */
-    Track* track(quint32 id) const;
+    Track *track(quint32 id) const;
 
-    /** Get pointer to a Track from a Scene ID */
-    Track* getTrackFromSceneID(quint32 id);
+    /** Get a reference to a Track from the provided Scene ID */
+    Track *getTrackFromSceneID(quint32 id);
+
+    /** Get a reference to a Track from the provided ShowFunction ID */
+    Track *getTrackFromShowFunctionID(quint32 id);
 
     /** Get the number of tracks in the Show */
     int getTracksCount();
@@ -140,6 +143,20 @@ protected:
 
     /** Latest assigned track ID */
     quint32 m_latestTrackId;
+
+    /*********************************************************************
+     * Show Functions
+     *********************************************************************/
+public:
+    /** Get a unique ID for the creation of a new ShowFunction */
+    quint32 getLatestShowFunctionId();
+
+    /** Get a reference to a ShowFunction from the provided uinique ID */
+    ShowFunction *showFunction(quint32 id);
+
+protected:
+    /** Latest assigned unique ShowFunction ID */
+    quint32 m_latestShowFunctionID;
 
     /*********************************************************************
      * Save & Load

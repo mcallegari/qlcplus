@@ -140,7 +140,7 @@ bool InputPatch::reconnect()
         bool ret = m_plugin->openInput(m_pluginLine, m_universe);
         if (ret == true)
         {
-            foreach(QString par, m_parametersCache.keys())
+            foreach (QString par, m_parametersCache.keys())
             {
                 qDebug() << "[InputPatch] restoring parameter:" << par << m_parametersCache[par];
                 m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Input, par, m_parametersCache[par]);

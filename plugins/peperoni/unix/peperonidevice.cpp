@@ -364,7 +364,7 @@ void PeperoniDevice::run()
 
     qDebug() << "[Peperoni] input thread started correctly";
 
-    while(m_running == true)
+    while (m_running == true)
     {
         QByteArray tmpBuffer(512, 0);
 

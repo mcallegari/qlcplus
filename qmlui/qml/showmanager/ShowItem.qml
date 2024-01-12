@@ -404,16 +404,23 @@ Item
                         itemRoot.width += (currX - itemRoot.x)
                     }
 
+                    var newDuration, newStartTime
+
                     if (timeDivision === Show.Time)
                     {
-                        sfRef.startTime = TimeUtils.posToMs(itemRoot.x, timeScale, tickSize)
-                        sfRef.duration = TimeUtils.posToMs(itemRoot.width, timeScale, tickSize)
+                        newStartTime = TimeUtils.posToMs(itemRoot.x, timeScale, tickSize)
+                        newDuration = TimeUtils.posToMs(itemRoot.width, timeScale, tickSize)
                     }
                     else
                     {
-                        sfRef.startTime = TimeUtils.posToBeat(itemRoot.x, tickSize, beatsDivision)
-                        sfRef.duration = TimeUtils.posToBeat(itemRoot.width, tickSize, beatsDivision)
+                        newStartTime = TimeUtils.posToBeat(itemRoot.x, tickSize, beatsDivision)
+                        newDuration = TimeUtils.posToBeat(itemRoot.width, tickSize, beatsDivision)
                     }
+
+                    if (showManager.setShowItemStartTime(sfRef, newStartTime) === true)
+                        showManager.setShowItemDuration(sfRef, newDuration)
+                    else
+                        updateGeometry()
 
                     if (funcRef && showManager.stretchFunctions === true)
                         funcRef.totalDuration = sfRef.duration
@@ -481,10 +488,15 @@ Item
                         itemRoot.width = snappedEndPos - itemRoot.x
                     }
 
+                    var newDuration
+
                     if (timeDivision === Show.Time)
-                        sfRef.duration = TimeUtils.posToMs(itemRoot.width, timeScale, tickSize)
+                        newDuration = TimeUtils.posToMs(itemRoot.width, timeScale, tickSize)
                     else
-                        sfRef.duration = (Math.round(itemRoot.width / (tickSize / beatsDivision)) * 1000)
+                        newDuration = (Math.round(itemRoot.width / (tickSize / beatsDivision)) * 1000)
+
+                    if (showManager.setShowItemDuration(sfRef, newDuration) === false)
+                        updateGeometry()
 
                     if (funcRef && showManager.stretchFunctions === true)
                         funcRef.totalDuration = sfRef.duration

@@ -97,7 +97,7 @@ VCFrameProperties::VCFrameProperties(QWidget* parent, VCFrame* frame, Doc *doc)
     /************************************************************************
      * Page shortcuts
      ************************************************************************/
-    foreach(VCFramePageShortcut const* shortcut, m_frame->shortcuts())
+    foreach (VCFramePageShortcut const* shortcut, m_frame->shortcuts())
     {
         m_shortcuts.append(new VCFramePageShortcut(*shortcut));
         m_pageCombo->addItem(shortcut->name());

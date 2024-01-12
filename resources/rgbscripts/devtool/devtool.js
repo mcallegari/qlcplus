@@ -119,13 +119,16 @@ devtool.addPropertyTableEntry = function(property)
         input.max = values[1];
         input.setAttribute("onChange", "devtool.writeFunction('" + writeFunction + "', '" + name + "', this.value); devtool.setStep(0); devtool.writeCurrentStep()");
         formCell.appendChild(input);
-    } else if (typeProperty === "integer") {
+    } else if (typeProperty === "float") {
         input = document.createElement("input");
         input.type = "number";
         input.required = "required";
         input.name = name;
         input.setAttribute("value", currentValue);
         input.id = name;
+        input.min = -1000000;
+        input.max = 1000000;
+        input.step = 0.001;
         input.setAttribute("onChange", "devtool.writeFunction('" + writeFunction + "', '" + name + "', this.value); devtool.setStep(0); devtool.writeCurrentStep()");
         formCell.appendChild(input);
     } else { // string
@@ -211,12 +214,17 @@ devtool.initColorValues = function()
     if (primary === null || Number.isNaN(parseInt("0x" + primary, 16))) {
       primary = "ff0000";
     }
-    document.getElementById("primaryColor").value = primary;
+    primary = primary.padStart(6,"0");
+    document.getElementById("primaryColorText").value = primary;
+    document.getElementById("primaryColorPicker").value = "#" + primary;
     var secondary = localStorage.getItem("devtool.secondaryColor");
     if (secondary === null || secondary === "" || Number.isNaN(parseInt("0x" + secondary, 16))) {
-      document.getElementById("secondaryColor").value = "";
+      document.getElementById("secondaryColorText").value = "";
+      document.getElementById("secondaryColorPicker").value = "#000000";
     } else {
-      document.getElementById("secondaryColor").value = secondary;
+      secondary = secondary.padStart(6,"0");
+      document.getElementById("secondaryColorText").value = secondary;
+      document.getElementById("secondaryColorPicker").value =  "#" + secondary;
     }
 }
 
@@ -249,9 +257,9 @@ devtool.getRgbFromColorInt = function(color)
 
 devtool.getCurrentColorInt = function()
 {
-    var primaryColorInput = document.getElementById("primaryColor");
+    var primaryColorInput = document.getElementById("primaryColorText");
     var primaryColor = parseInt(primaryColorInput.value, 16);
-    var secondaryColorInput = document.getElementById("secondaryColor");
+    var secondaryColorInput = document.getElementById("secondaryColorText");
     var secondaryColor = parseInt(secondaryColorInput.value, 16);
 
     if (testAlgo.acceptColors === 0 || Number.isNaN(primaryColor)) {
@@ -341,17 +349,37 @@ devtool.onGridSizeUpdated = function()
     devtool.writeCurrentStep();
 }
 
-devtool.onColorChange = function()
+devtool.onColorTextChange = function()
 {
-    var primary = parseInt("0x" + document.getElementById("primaryColor").value).toString(16);
+    var primary = parseInt("0x" + document.getElementById("primaryColorText").value).toString(16);
     localStorage.setItem("devtool.primaryColor", primary);
-    var secondary = parseInt("0x" + document.getElementById("secondaryColor").value).toString(16);
+    var secondary = parseInt("0x" + document.getElementById("secondaryColorText").value).toString(16);
+    if(primary === "NaN"){
+      document.getElementById("primaryColorPicker").value = "#000000";
+    } else {
+      document.getElementById("primaryColorPicker").value = "#" + primary.padStart(6,"0");;
+    }
     if (secondary === "NaN") { // Evaluation of the string.
+      document.getElementById("secondaryColorPicker").value = "#000000";
       localStorage.setItem("devtool.secondaryColor", "");
     } else {
+      document.getElementById("secondaryColorPicker").value = "#" + secondary.padStart(6,"0");;
       localStorage.setItem("devtool.secondaryColor", secondary);
     }
+    
     devtool.writeCurrentStep();
+}
+
+devtool.onPrimaryColorPickerChange = function()
+{
+    document.getElementById("primaryColorText").value = document.getElementById("primaryColorPicker").value.substring(1);
+    devtool.onColorTextChange();
+}
+
+devtool.onSecondaryColorPickerChange = function()
+{
+    document.getElementById("secondaryColorText").value = document.getElementById("secondaryColorPicker").value.substring(1);
+    devtool.onColorTextChange();
 }
 
 devtool.startTest = function(inc)

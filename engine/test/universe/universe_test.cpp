@@ -61,7 +61,7 @@ void Universe_Test::initial()
     QVERIFY(postGM != NULL);
     QCOMPARE(postGM->length(), 512);
 
-    for(ushort i = 0; i < 512; ++i)
+    for (ushort i = 0; i < 512; ++i)
     {
         QVERIFY(m_uni->channelCapabilities(i) == Universe::Undefined);
         QCOMPARE(int(preGM.at(i)), 0);

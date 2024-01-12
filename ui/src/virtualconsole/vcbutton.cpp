@@ -317,7 +317,7 @@ void VCButton::slotChooseIcon()
                                         iconPath(), tr("Images (%1)").arg(formats));
     if (path.isEmpty() == false)
     {
-        foreach(VCWidget *widget, vc->selectedWidgets())
+        foreach (VCWidget *widget, vc->selectedWidgets())
         {
             VCButton *button = qobject_cast<VCButton*> (widget);
             if (button != NULL)
@@ -1114,7 +1114,12 @@ void VCButton::paintEvent(QPaintEvent* e)
         painter.setPen(QPen(QColor(160, 160, 160, 255), 2));
 
         if (state() == Active)
-            painter.setBrush(QBrush(QColor(0, 230, 0, 255)));
+        {
+            if(m_flashForceLTP || m_flashOverrides)
+                painter.setBrush(QBrush(QColor(230, 0, 0, 255)));
+            else
+                painter.setBrush(QBrush(QColor(0, 230, 0, 255)));
+        }
         else if (state() == Monitoring)
             painter.setBrush(QBrush(QColor(255, 170, 0, 255)));
         else
@@ -1141,7 +1146,12 @@ void VCButton::paintEvent(QPaintEvent* e)
             if (state() == Monitoring)
                 painter.setPen(QPen(QColor(255, 170, 0, 255), borderWidth));
             else
-                painter.setPen(QPen(QColor(0, 230, 0, 255), borderWidth));
+            {
+                if(m_flashForceLTP || m_flashOverrides)
+                    painter.setPen(QPen(QColor(230, 0, 0, 255), borderWidth));
+                else
+                    painter.setPen(QPen(QColor(0, 230, 0, 255), borderWidth));
+            }
             painter.drawRoundedRect(borderWidth, borderWidth,
                                     rect().width() - borderWidth * 2, rect().height() - (borderWidth * 2),
                                     borderWidth, borderWidth);
@@ -1177,7 +1187,7 @@ void VCButton::mousePressEvent(QMouseEvent* e)
             QMenu *menu = new QMenu();
             menu->setStyleSheet(menuStyle);
             int idx = 0;
-            foreach(Attribute attr, func->attributes())
+            foreach (Attribute attr, func->attributes())
             {
                 QString slStyle = "QSlider::groove:horizontal { border: 1px solid #999999; margin: 0; border-radius: 2px;"
                         "height: 15px; background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4); }"

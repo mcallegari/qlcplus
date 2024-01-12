@@ -58,7 +58,7 @@ void RGBScript_Test::directories()
     QDir dir = RGBScriptsCache::systemScriptsDirectory();
     QCOMPARE(dir.filter(), QDir::Files);
     QCOMPARE(dir.nameFilters(), QStringList() << QString("*.js"));
-#if defined( __APPLE__) || defined(Q_OS_MAC)
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     QString path("%1/../%2");
     QCOMPARE(dir.path(), path.arg(QCoreApplication::applicationDirPath())
                              .arg("Resources/RGBScripts"));
@@ -71,7 +71,7 @@ void RGBScript_Test::directories()
     dir = RGBScriptsCache::userScriptsDirectory();
     QCOMPARE(dir.filter(), QDir::Files);
     QCOMPARE(dir.nameFilters(), QStringList() << QString("*.js"));
-#if defined( __APPLE__) || defined(Q_OS_MAC)
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     QVERIFY(dir.path().endsWith("Library/Application Support/QLC+/RGBScripts"));
 #elif defined(WIN32) || defined(Q_OS_WIN)
     QVERIFY(dir.path().endsWith("RGBScripts"));
@@ -242,7 +242,7 @@ void RGBScript_Test::runScripts()
 
     // Iterate the list of scripts
     QStringList names = m_doc->rgbScriptsCache()->names();
-    foreach(QString name, names)
+    foreach (QString name, names)
     {
         qDebug() << "Evaluating script" << name;
         RGBScript s = m_doc->rgbScriptsCache()->script(name);
@@ -365,7 +365,7 @@ void RGBScript_Test::runScripts()
                 // Unknown, new and RGBScriptProperty::None are not valid
                 QVERIFY(property.m_type == RGBScriptProperty::List ||
                         property.m_type == RGBScriptProperty::Range ||
-                        property.m_type == RGBScriptProperty::Integer ||
+                        property.m_type == RGBScriptProperty::Float ||
                         property.m_type == RGBScriptProperty::String);
                 // Check property specificities
                 switch (property.m_type)
@@ -445,7 +445,7 @@ void RGBScript_Test::runScripts()
                         }
                     }
                     break;
-                case RGBScriptProperty::Integer:
+                case RGBScriptProperty::Float:
                     // Test with an integer value
                     s.setProperty(property.m_name, QString::number(-1024));
                     qDebug() << "  Readback: " << s.property(property.m_name);

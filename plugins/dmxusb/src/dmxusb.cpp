@@ -35,7 +35,7 @@
 
 DMXUSB::~DMXUSB()
 {
-    while(m_widgets.isEmpty() == false)
+    while (m_widgets.isEmpty() == false)
         delete m_widgets.takeFirst();
 }
 
@@ -61,7 +61,7 @@ bool DMXUSB::rescanWidgets()
     m_inputs.clear();
     m_outputs.clear();
 
-    while(m_widgets.isEmpty() == false)
+    while (m_widgets.isEmpty() == false)
         delete m_widgets.takeFirst();
 
     m_widgets = DMXUSBWidget::widgets();
@@ -130,7 +130,7 @@ QStringList DMXUSB::outputs()
     for (int w = 0; w < m_outputs.count();)
     {
         DMXUSBWidget* widget = m_outputs.at(w);
-        foreach(QString name, widget->outputNames())
+        foreach (QString name, widget->outputNames())
             list << name;
         w += widget->outputsNumber();
     }
@@ -248,7 +248,7 @@ QStringList DMXUSB::inputs()
     for (int w = 0; w < m_inputs.count();)
     {
         DMXUSBWidget* widget = m_inputs.at(w);
-        foreach(QString name, widget->inputNames())
+        foreach (QString name, widget->inputNames())
             list << name;
         w += widget->inputsNumber();
     }

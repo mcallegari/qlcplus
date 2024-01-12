@@ -456,7 +456,7 @@ void SceneEditor::slotEnableCurrent()
     }
     else
     {
-        foreach(FixtureConsole *fc, m_consoleList.values())
+        foreach (FixtureConsole *fc, m_consoleList.values())
         {
             if (fc == NULL)
                 continue;
@@ -476,7 +476,7 @@ void SceneEditor::slotDisableCurrent()
     }
     else
     {
-        foreach(FixtureConsole *fc, m_consoleList.values())
+        foreach (FixtureConsole *fc, m_consoleList.values())
         {
             if (fc == NULL)
                 continue;
@@ -508,7 +508,7 @@ void SceneEditor::slotCopy()
     {
         bool oneHasSelection = false;
         QList <SceneValue> selectedOnlyList;
-        foreach(FixtureConsole *fc, m_consoleList.values())
+        foreach (FixtureConsole *fc, m_consoleList.values())
         {
             if (fc == NULL)
                 continue;
@@ -544,13 +544,13 @@ void SceneEditor::slotPaste()
     }
     else
     {
-        foreach(FixtureConsole *fc, m_consoleList.values())
+        foreach (FixtureConsole *fc, m_consoleList.values())
         {
             if (fc == NULL)
                 continue;
             quint32 fxi = fc->fixture();
             QList<SceneValue>thisFixtureVals;
-            foreach(SceneValue val, clipboard->getSceneValues())
+            foreach (SceneValue val, clipboard->getSceneValues())
             {
                 if (val.fxi == fxi)
                     thisFixtureVals.append(val);
@@ -610,7 +610,7 @@ void SceneEditor::slotPositionTool()
 
         Q_ASSERT(fxi != NULL);
 
-        for (int i = 0; i < fxi->heads(); ++i )
+        for (int i = 0; i < fxi->heads(); ++i)
         {
              if (!range.isValid())
                  range = fxi->degreesRange(i);
@@ -622,7 +622,7 @@ void SceneEditor::slotPositionTool()
 
              if (panMsbChannel != QLCChannel::invalid())
              {
-                 if (!panFound )
+                 if (!panFound)
                  {
                      qDebug() << "panFound" << i;
                      panFound = true;
@@ -638,7 +638,7 @@ void SceneEditor::slotPositionTool()
 
              if (tiltMsbChannel != QLCChannel::invalid())
              {
-                 if (!tiltFound )
+                 if (!tiltFound)
                  {
                      tiltFound = true;
                      qDebug() << "tiltFound" << i;
@@ -745,7 +745,7 @@ QColor SceneEditor::slotColorSelectorChanged(const QColor& color)
     GroupsConsole* gc = groupConsoleTab(m_currentTab);
     if (gc != NULL)
     {
-        foreach(ConsoleChannel *cc, gc->groups())
+        foreach (ConsoleChannel *cc, gc->groups())
         {
             Fixture* fxi = m_doc->fixture(cc->fixture());
             Q_ASSERT(fxi != NULL);
@@ -788,7 +788,7 @@ void SceneEditor::slotPositionSelectorChanged(const QPointF& position)
         Fixture* fxi = m_doc->fixture(fc->fixture());
         Q_ASSERT(fxi != NULL);
 
-        for (int i = 0; i < fxi->heads(); ++i )
+        for (int i = 0; i < fxi->heads(); ++i)
         {
              quint32 panMsbChannel = fxi->channelNumber(QLCChannel::Pan, QLCChannel::MSB, i);
              quint32 panLsbChannel = fxi->channelNumber(QLCChannel::Pan, QLCChannel::LSB, i);
@@ -825,7 +825,7 @@ void SceneEditor::slotPositionSelectorChanged(const QPointF& position)
     GroupsConsole* gc = groupConsoleTab(m_currentTab);
     if (gc != NULL)
     {
-        foreach(ConsoleChannel *cc, gc->groups())
+        foreach (ConsoleChannel *cc, gc->groups())
         {
             Fixture* fxi = m_doc->fixture(cc->fixture());
             Q_ASSERT(fxi != NULL);
@@ -837,7 +837,7 @@ void SceneEditor::slotPositionSelectorChanged(const QPointF& position)
                 else
                     cc->setValue(panLsbNew);
             }
-            else if(ch->group() == QLCChannel::Tilt)
+            else if (ch->group() == QLCChannel::Tilt)
             {
                 if (ch->controlByte() == QLCChannel::MSB)
                     cc->setValue(tiltMsbNew);
@@ -874,7 +874,7 @@ void SceneEditor::slotBlindToggled(bool state)
         if (m_scene != NULL && !m_scene->isRunning())
         {
             m_source = new GenericDMXSource(m_doc);
-            foreach(SceneValue scv, m_scene->values())
+            foreach (SceneValue scv, m_scene->values())
                 m_source->set(scv.fxi, scv.channel, scv.value);
         }
     }
@@ -1064,7 +1064,7 @@ bool SceneEditor::isColorToolAvailable()
     if (gc != NULL)
     {
         cyan = magenta = yellow = red = green = blue = QLCChannel::invalid();
-        foreach(ConsoleChannel *cc, gc->groups())
+        foreach (ConsoleChannel *cc, gc->groups())
         {
             fxi = m_doc->fixture(cc->fixture());
             Q_ASSERT(fxi != NULL);
@@ -1126,7 +1126,7 @@ bool SceneEditor::isPositionToolAvailable()
     GroupsConsole* gc = groupConsoleTab(m_currentTab);
     if (gc != NULL)
     {
-        foreach(ConsoleChannel *cc, gc->groups())
+        foreach (ConsoleChannel *cc, gc->groups())
         {
             fxi = m_doc->fixture(cc->fixture());
             Q_ASSERT(fxi != NULL);

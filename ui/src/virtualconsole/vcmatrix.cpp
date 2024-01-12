@@ -158,7 +158,7 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
 
 VCMatrix::~VCMatrix()
 {
-    foreach(VCMatrixControl* control, m_controls)
+    foreach (VCMatrixControl* control, m_controls)
     {
         delete control;
     }
@@ -228,7 +228,7 @@ void VCMatrix::enableWidgetUI(bool enable)
     m_endColorButton->setEnabled(enable);
     m_presetCombo->setEnabled(enable);
 
-    foreach(QWidget *ctlBtn, m_controls.keys())
+    foreach (QWidget *ctlBtn, m_controls.keys())
         ctlBtn->setEnabled(enable);
 
     // Update buttons state
@@ -719,7 +719,7 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
         {
             btnLabel += " (";
             QHashIterator<QString, QString> it(control.m_properties);
-            while(it.hasNext())
+            while (it.hasNext())
             {
                 it.next();
                 btnLabel += it.value();
@@ -865,7 +865,7 @@ void VCMatrix::slotCustomControlClicked()
             {
                 RGBScript *script = static_cast<RGBScript*> (algo);
                 QHashIterator<QString, QString> it(control->m_properties);
-                while(it.hasNext())
+                while (it.hasNext())
                 {
                     it.next();
                     script->setProperty(it.key(), it.value());
@@ -1100,7 +1100,7 @@ bool VCMatrix::loadXML(QXmlStreamReader &root)
         {
             loadXMLInput(root);
         }
-        else if(root.name() == KXMLQLCVCMatrixControl)
+        else if (root.name() == KXMLQLCVCMatrixControl)
         {
             VCMatrixControl control(0xff);
             if (control.loadXML(root))
@@ -1153,7 +1153,7 @@ bool VCMatrix::saveXML(QXmlStreamWriter *doc)
     /* Slider External input */
     saveXMLInput(doc);
 
-    foreach(VCMatrixControl *control, customControls())
+    foreach (VCMatrixControl *control, customControls())
         control->saveXML(doc);
 
     /* End the <Matrix> tag */

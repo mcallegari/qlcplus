@@ -149,7 +149,7 @@ QString WebAccessNetwork::getNetworkHTML()
 
     // 1- gather the active network interface names with Qt
     QStringList systemDevs;
-    foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
+    foreach (QNetworkInterface interface, QNetworkInterface::allInterfaces())
     {
         qDebug() << "Qt detected interface:" << interface.name();
         if (interface.name() != "lo")
@@ -454,7 +454,7 @@ bool WebAccessNetwork::writeNetworkFile()
         {
             if (dhcpcdCacheWritten == false && m_dhcpcdConfCache.isEmpty() == false)
             {
-                foreach(QString line, m_dhcpcdConfCache)
+                foreach (QString line, m_dhcpcdConfCache)
                 {
                     dhcpcdFile.write(line.toLatin1());
                     dhcpcdFile.write("\n");

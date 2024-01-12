@@ -166,7 +166,7 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
 
 VCSpeedDial::~VCSpeedDial()
 {
-    foreach(VCSpeedDialPreset* preset, m_presets)
+    foreach (VCSpeedDialPreset* preset, m_presets)
     {
         delete preset;
     }
@@ -917,7 +917,7 @@ bool VCSpeedDial::loadXML(QXmlStreamReader &root)
 
             infinitePreset->m_keySequence = stripKeySequence(QKeySequence(root.readElementText()));
         }
-        else if(root.name() == KXMLQLCVCSpeedDialPreset)
+        else if (root.name() == KXMLQLCVCSpeedDialPreset)
         {
             VCSpeedDialPreset preset(0xff);
             if (preset.loadXML(root))
@@ -1090,7 +1090,7 @@ bool VCSpeedDial::saveXML(QXmlStreamWriter *doc)
         speeddialfunction.saveXML(doc);
 
     // Presets
-    foreach(VCSpeedDialPreset *preset, presets())
+    foreach (VCSpeedDialPreset *preset, presets())
         preset->saveXML(doc);
 
     /* End the <SpeedDial> tag */

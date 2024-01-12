@@ -206,7 +206,7 @@ QList<quint32> Scene::components()
 {
     QList<quint32> ids;
 
-    foreach(SceneValue scv, m_values.keys())
+    foreach (SceneValue scv, m_values.keys())
     {
         if (ids.contains(scv.fxi) == false)
             ids.append(scv.fxi);
@@ -222,7 +222,7 @@ QColor Scene::colorValue(quint32 fxi)
     bool found = false;
     QColor CMYcol;
 
-    foreach(SceneValue scv, m_values.keys())
+    foreach (SceneValue scv, m_values.keys())
     {
         if (fxi != Fixture::invalidId() && fxi != scv.fxi)
             continue;
@@ -540,7 +540,7 @@ bool Scene::loadXML(QXmlStreamReader &root)
             if (chGrpIDs.isEmpty() == false)
             {
                 QStringList grpArray = chGrpIDs.split(",");
-                foreach(QString grp, grpArray)
+                foreach (QString grp, grpArray)
                 {
                     m_channelGroups.append(grp.toUInt());
                     m_channelGroupsLevels.append(0);

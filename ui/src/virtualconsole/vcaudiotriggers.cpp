@@ -302,7 +302,7 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
             fc->setElapsed(0);
         }
     }
-    foreach(AudioBar *sb, m_spectrumBars)
+    foreach (AudioBar *sb, m_spectrumBars)
     {
         if (sb->m_type == AudioBar::DMXBar)
         {
@@ -445,7 +445,7 @@ void VCAudioTriggers::slotModeChanged(Doc::Mode mode)
     {
         enableWidgetUI(true);
 
-        foreach(AudioBar *bar, getAudioBars())
+        foreach (AudioBar *bar, getAudioBars())
         {
             if (bar->m_type == AudioBar::DMXBar)
             {
@@ -535,7 +535,7 @@ void VCAudioTriggers::editProperties()
     // make a backup copy of the current bars
     AudioBar *tmpVolume = m_volumeBar->createCopy();
     QList <AudioBar *> tmpSpectrumBars;
-    foreach(AudioBar *bar, m_spectrumBars)
+    foreach (AudioBar *bar, m_spectrumBars)
         tmpSpectrumBars.append(bar->createCopy());
     int barsNumber = m_spectrumBars.count();
 
@@ -548,7 +548,7 @@ void VCAudioTriggers::editProperties()
         delete m_volumeBar;
         m_volumeBar = tmpVolume;
         m_spectrumBars.clear();
-        foreach(AudioBar *bar, tmpSpectrumBars)
+        foreach (AudioBar *bar, tmpSpectrumBars)
             m_spectrumBars.append(bar);
     }
     m_spectrum->setBarsNumber(m_spectrumBars.count());
@@ -674,7 +674,7 @@ bool VCAudioTriggers::saveXML(QXmlStreamWriter *doc)
         hasAssignment = true;
     else
     {
-        foreach(AudioBar *bar, m_spectrumBars)
+        foreach (AudioBar *bar, m_spectrumBars)
         {
             if (bar->m_type != AudioBar::None)
             {

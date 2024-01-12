@@ -414,7 +414,7 @@ struct hid_device_info  HID_API_EXPORT *hid_enumerate(unsigned short vendor_id, 
 	devices = udev_enumerate_get_list_entry(enumerate);
 	/* For each item, see if it matches the vid/pid, and if so
 	   create a udev_device record for it */
-	udev_list_entry_foreach(dev_list_entry, devices) {
+	udev_list_entry_foreach (dev_list_entry, devices) {
 		const char *sysfs_path;
 		const char *dev_path;
 		const char *str;
@@ -802,7 +802,7 @@ int HID_API_EXPORT_CALL hid_get_serial_number_string(hid_device *dev, wchar_t *s
 	return get_device_string(dev, DEVICE_STRING_SERIAL, string, maxlen);
 }
 
-int HID_API_EXPORT_CALL hid_get_indexed_string(hid_device *, int , wchar_t *, size_t )
+int HID_API_EXPORT_CALL hid_get_indexed_string(hid_device *, int , wchar_t *, size_t)
 {
 	return -1;
 }

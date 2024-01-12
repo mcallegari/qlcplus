@@ -166,7 +166,7 @@ bool NetworkManager::sendTCPPacket(QTcpSocket *socket, QByteArray &packet, bool 
     if (encrypt)
     {
         QByteArray encPacket = m_packetizer->encryptPacket(packet, m_crypt);
-        while(totalBytesSent < (quint64)encPacket.length())
+        while (totalBytesSent < (quint64)encPacket.length())
         {
             sent = socket->write(encPacket.data() + totalBytesSent, encPacket.length() - totalBytesSent);
             totalBytesSent += sent;
@@ -176,7 +176,7 @@ bool NetworkManager::sendTCPPacket(QTcpSocket *socket, QByteArray &packet, bool 
     }
     else
     {
-        while(totalBytesSent < (quint64)packet.length())
+        while (totalBytesSent < (quint64)packet.length())
         {
             sent = socket->write(packet.data() + totalBytesSent, packet.length() - totalBytesSent);
             totalBytesSent += sent;
@@ -329,7 +329,7 @@ bool NetworkManager::sendWorkspaceToClient(QString hostName, QString filename)
             m_packetizer->addSection(packet, QVariant((int)workspace.size()));
 
         }
-        else if(data.length() < WORKSPACE_CHUNK_SIZE)
+        else if (data.length() < WORKSPACE_CHUNK_SIZE)
         {
             m_packetizer->addSection(packet, QVariant(2));
         }
@@ -410,7 +410,7 @@ bool NetworkManager::initializeClient()
     m_packetizer->addSection(packet, QVariant(m_hostName));
 
     /* now send the packet on every network interface */
-    foreach(QNetworkInterface iface, QNetworkInterface::allInterfaces())
+    foreach (QNetworkInterface iface, QNetworkInterface::allInterfaces())
     {
         foreach (QNetworkAddressEntry entry, iface.addressEntries())
         {

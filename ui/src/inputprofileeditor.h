@@ -42,16 +42,16 @@ class InputProfileEditor : public QDialog, public Ui_InputProfileEditor
      * Initialization
      ************************************************************************/
 public:
-    InputProfileEditor(QWidget* parent, QLCInputProfile* profile, InputOutputMap* ioMap);
+    InputProfileEditor(QWidget *parent, QLCInputProfile *profile, InputOutputMap *ioMap);
     virtual ~InputProfileEditor();
 
 protected:
     void fillTree();
-    void updateChannelItem(QTreeWidgetItem* item, QLCInputChannel* ch);
+    void updateChannelItem(QTreeWidgetItem *item, QLCInputChannel *ch);
     void setOptionsVisibility(QLCInputChannel::Type type);
 
 protected slots:
-    void slotTypeComboChanged(int );
+    void slotTypeComboChanged(int);
 
 private:
     InputOutputMap* m_ioMap;

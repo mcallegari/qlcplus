@@ -26,9 +26,10 @@
 
 void ShowFunction_Test::defaults()
 {
-    ShowFunction sf;
+    ShowFunction sf(123);
 
     // check defaults
+    QVERIFY(sf.id() == 123);
     QVERIFY(sf.functionID() == Function::invalidId());
     QVERIFY(sf.startTime() == UINT_MAX);
     QVERIFY(sf.duration() == 0);
@@ -81,7 +82,7 @@ void ShowFunction_Test::load()
     QXmlStreamReader xmlReader(&buffer);
     xmlReader.readNextStartElement();
 
-    ShowFunction sf;
+    ShowFunction sf(456);
     QVERIFY(sf.loadXML(xmlReader) == true);
 
     QVERIFY(sf.functionID() == 321);
@@ -93,7 +94,7 @@ void ShowFunction_Test::load()
 
 void ShowFunction_Test::save()
 {
-    ShowFunction sf;
+    ShowFunction sf(789);
     sf.setFunctionID(123);
     sf.setStartTime(445566);
     sf.setDuration(778899);

@@ -59,7 +59,7 @@ void Gradient::fillWithGradient(int r, int g, int b, QPainter *painter, int x)
 
 void Gradient::initialize()
 {
-    if( m_rgb.isNull() == false )
+    if (m_rgb.isNull() == false)
         return;
 
     m_rgb = QImage(256, 256, QImage::Format_RGB32);

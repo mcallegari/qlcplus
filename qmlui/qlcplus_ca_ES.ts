@@ -5436,7 +5436,7 @@ No hi ha prou espai o l&apos;univers objectiu en un valor no vàlid</translation
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="188"/>
         <source>Speed Dial</source>
-        <translation>Speed Dial</translation>
+        <translation>Selector de velocitat</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="189"/>
@@ -5835,7 +5835,7 @@ No hi ha prou espai o l&apos;univers objectiu en un valor no vàlid</translation
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="42"/>
         <source>Speed Dial</source>
-        <translation>Speed Dial</translation>
+        <translation>Selector de velocitat</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="43"/>

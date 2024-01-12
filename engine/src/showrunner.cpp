@@ -51,7 +51,7 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
     if (m_show == NULL)
         return;
 
-    foreach(Track *track, m_show->tracks())
+    foreach (Track *track, m_show->tracks())
     {
         // some sanity checks
         if (track == NULL ||
@@ -62,7 +62,7 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
             continue;
 
         // get all the functions of the track and append them to the runner queue
-        foreach(ShowFunction *sfunc, track->showFunctions())
+        foreach (ShowFunction *sfunc, track->showFunctions())
         {
             if (sfunc->startTime() + sfunc->duration(m_doc) <= startTime)
                 continue;
@@ -153,8 +153,18 @@ void ShowRunner::write(MasterTimer *timer)
     // check synchronization to beats (if show is beat-based)
     if (m_show->tempoType() == Function::Beats)
     {
-        if (timer->isBeat() && beatSynced == false)
-            beatSynced = true;
+        //qDebug() << Q_FUNC_INFO << "isBeat:" << timer->isBeat() << ", elapsed beats:" << m_elapsedBeats;
+
+        if (timer->isBeat())
+        {
+            if (beatSynced == false)
+            {
+                beatSynced = true;
+                qDebug() << "Beat synced";
+            }
+            else
+                m_elapsedBeats += 1000;
+        }
 
         if (beatSynced == false)
             return;
@@ -212,12 +222,12 @@ void ShowRunner::write(MasterTimer *timer)
         Function *f = m_doc->function(sf->functionID());
 
         // this should happen only when a Show is not started from 0
-        if (m_elapsedTime > funcStartTime)
+        if (m_elapsedBeats > funcStartTime)
         {
-            functionTimeOffset = m_elapsedTime - funcStartTime;
-            funcStartTime = m_elapsedTime;
+            functionTimeOffset = m_elapsedBeats - funcStartTime;
+            funcStartTime = m_elapsedBeats;
         }
-        if (m_elapsedTime >= funcStartTime)
+        if (m_elapsedBeats >= funcStartTime)
         {
             foreach (Track *track, m_show->tracks())
             {
@@ -242,13 +252,14 @@ void ShowRunner::write(MasterTimer *timer)
     // It is done in reverse order for two reasons:
     // 1- m_runningQueue is not ordered by stop time
     // 2- to avoid messing up with indices when an entry is removed
-    for(int i = m_runningQueue.count() - 1; i >= 0; i--)
+    for (int i = m_runningQueue.count() - 1; i >= 0; i--)
     {
         Function *func = m_runningQueue.at(i).first;
         quint32 stopTime = m_runningQueue.at(i).second;
+        quint32 currTime = func->tempoType() == Function::Time ? m_elapsedTime : m_elapsedBeats;
 
         // if we passed the function stop time
-        if (m_elapsedTime >= stopTime)
+        if (currTime >= stopTime)
         {
             // stop the function
             func->stop(functionParent());

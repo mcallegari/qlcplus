@@ -47,7 +47,7 @@ VCSoloFrame::VCSoloFrame(QWidget* parent, Doc* doc, bool canCollapse)
 
     m_frameStyle = KVCFrameStyleSunken;
 
-    if(canCollapse == true)
+    if (canCollapse == true)
     {
         QString txtColor = "white";
         if (m_hasCustomForegroundColor)

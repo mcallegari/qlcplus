@@ -65,6 +65,7 @@ appimage: {
                     $$QT_LIBS_PATH/libQt5OpenGL.so.5 \
                     $$QT_LIBS_PATH/libQt5Multimedia.so.5 \
                     $$QT_LIBS_PATH/libQt5MultimediaWidgets.so.5 \
+                    $$QT_LIBS_PATH/libQt5SerialPort.so.5 \
                     $$QT_LIBS_PATH/libQt5XcbQpa.so.5 \
                     $$QT_LIBS_PATH/libQt5DBus.so.5
 qmlui: {
