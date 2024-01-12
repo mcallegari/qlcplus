@@ -150,7 +150,7 @@ table.hovertable td {
  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666666), color-stop(1, #000000));
  background: -webkit-linear-gradient(top, #666666 0%, #000000 100%);
  border-radius: 3px;
- margin: 2px 0px 0px 2px;
+ margin: 2px 0 0 2px;
  padding: 0 0 0 3px;
  height: 32px;
 }
