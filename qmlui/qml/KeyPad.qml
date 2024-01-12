@@ -119,10 +119,7 @@ Rectangle
                         while (tapHistory.length > 16) tapHistory.splice(0,1)
 
                         //copy tap history to sort it
-                        for(var i = 0; i < tapHistory.length; i++)
-                        {
-                            tapHistorySorted[i] = tapHistory[i]
-                        }
+                        tapHistorySorted = tapHistory.slice()
                         tapHistorySorted.sort()
 
                         // Find the median time between taps, assume that the tempo is +-40% of this
@@ -131,7 +128,7 @@ Rectangle
                         //init needed variables
                         var n = 1, tapx = 0, tapy = 0, sum_x = 0, sum_y = 0, sum_xx = 0, sum_xy = 0
                         
-                        for(var i = 0; i < tapHistory.length; i++)
+                        for (var i = 0; i < tapHistory.length; i++)
                         {
                             var intervalMs = tapHistory[i]
                             n++
