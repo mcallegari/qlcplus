@@ -1114,7 +1114,12 @@ void VCButton::paintEvent(QPaintEvent* e)
         painter.setPen(QPen(QColor(160, 160, 160, 255), 2));
 
         if (state() == Active)
-            painter.setBrush(QBrush(QColor(0, 230, 0, 255)));
+        {
+            if(m_flashForceLTP || m_flashOverrides)
+                painter.setBrush(QBrush(QColor(230, 0, 0, 255)));
+            else
+                painter.setBrush(QBrush(QColor(0, 230, 0, 255)));
+        }
         else if (state() == Monitoring)
             painter.setBrush(QBrush(QColor(255, 170, 0, 255)));
         else
@@ -1141,7 +1146,12 @@ void VCButton::paintEvent(QPaintEvent* e)
             if (state() == Monitoring)
                 painter.setPen(QPen(QColor(255, 170, 0, 255), borderWidth));
             else
-                painter.setPen(QPen(QColor(0, 230, 0, 255), borderWidth));
+            {
+                if(m_flashForceLTP || m_flashOverrides)
+                    painter.setPen(QPen(QColor(230, 0, 0, 255), borderWidth));
+                else
+                    painter.setPen(QPen(QColor(0, 230, 0, 255), borderWidth));
+            }
             painter.drawRoundedRect(borderWidth, borderWidth,
                                     rect().width() - borderWidth * 2, rect().height() - (borderWidth * 2),
                                     borderWidth, borderWidth);
