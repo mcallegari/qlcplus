@@ -48,7 +48,7 @@ GPIOConfiguration::~GPIOConfiguration()
 
 void GPIOConfiguration::fillTree()
 {
-    foreach(GPIOPinInfo* gpio, m_plugin->gpioList())
+    foreach (GPIOPinInfo* gpio, m_plugin->gpioList())
     {
         QTreeWidgetItem* item = new QTreeWidgetItem(m_treeWidget);
         item->setText(KColumnGPIONumber, QString::number(gpio->m_number));
@@ -73,7 +73,7 @@ void GPIOConfiguration::accept()
 {
     QList<GPIOPinInfo *> gpioList = m_plugin->gpioList();
 
-    for(int i = 0; i < m_treeWidget->topLevelItemCount(); i++)
+    for (int i = 0; i < m_treeWidget->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = m_treeWidget->topLevelItem(i);
 

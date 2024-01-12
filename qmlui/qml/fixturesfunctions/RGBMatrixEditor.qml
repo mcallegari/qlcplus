@@ -888,6 +888,22 @@ Rectangle
                     console.log("Spin component is not ready !!")
             }
 
+            function addDoubleSpinBox(propName, currentValue)
+            {
+                doubleSpinComponent.createObject(scriptAlgoGrid,
+                              {"propName": propName, "realValue": currentValue });
+                if (spinComponent.status !== Component.Ready)
+                    console.log("Double spin component is not ready !!")
+            }
+
+            function addTextEdit(propName, currentText)
+            {
+                textEditComponent.createObject(scriptAlgoGrid,
+                               {"propName": propName, "text": currentText });
+                if (comboComponent.status !== Component.Ready)
+                    console.log("TextEdit component is not ready !!")
+            }
+
             Component.onCompleted:
             {
                 rgbMatrixEditor.createScriptObjects(scriptAlgoGrid)
@@ -938,4 +954,33 @@ Rectangle
         }
     }
 
+    // Script algorithm float box property
+    Component
+    {
+        id: doubleSpinComponent
+
+        CustomDoubleSpinBox
+        {
+            Layout.fillWidth: true
+            property string propName
+
+            decimals: 3
+            suffix: ""
+            onRealValueChanged: rgbMatrixEditor.setScriptFloatProperty(propName, realValue)
+        }
+    }
+
+    // Script algorithm combo box property
+    Component
+    {
+        id: textEditComponent
+
+        CustomTextEdit
+        {
+            Layout.fillWidth: true
+            property string propName
+
+            onTextChanged: rgbMatrixEditor.setScriptStringProperty(propName, text)
+        }
+    }
 }

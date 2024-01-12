@@ -323,6 +323,16 @@ SidePanel
 
             IconButton
             {
+                width: iconSize
+                height: iconSize
+                faSource: FontAwesome.fa_bolt
+                tooltip: qsTr("Highlight")
+                counter: contextManager.selectedFixturesCount
+                onClicked: contextManager.highlightFixtureSelection()
+            }
+
+            IconButton
+            {
                 property bool pickingActive: contextManager ? contextManager.positionPicking : false
 
                 onPickingActiveChanged: checked = pickingActive

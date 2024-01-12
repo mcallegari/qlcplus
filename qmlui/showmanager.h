@@ -68,6 +68,9 @@ public:
     /** Return the ID of the Show Function being edited */
     int currentShowID() const;
 
+    /** Return a reference of the Show currently being edited */
+    Show *currentShow() const;
+
     /** Flag to indicate if a Show is currently being edited */
     bool isEditing();
 
@@ -224,11 +227,18 @@ public:
     /** Add a new Item to the timeline.
      *  This happens when dragging an existing Function from the Function Manager.
      *  If the current Show is NULL, a new Show is created.
-     *  If the provided $trackIdx is no valid, a new Track is created
+     *  If the provided $trackIdx is not valid, a new Track is created
      */
     Q_INVOKABLE void addItems(QQuickItem *parent, int trackIdx, int startTime, QVariantList idsList);
 
+    /** Add a Show item from an existing ShowFunction reference and Track Id */
+    void addShowItem(ShowFunction *sf, quint32 trackId);
+
+    /** Delete the currently selected show items */
     Q_INVOKABLE void deleteShowItems(QVariantList data);
+
+    /** Delete the item referencing the provided ShowFunction from the QML view */
+    void deleteShowItem(ShowFunction *sf);
 
     /** Method invoked when moving an existing Show Item on the timeline.
      *  The new position is checked for overlapping against existing items on the
@@ -239,6 +249,12 @@ public:
      */
     Q_INVOKABLE bool checkAndMoveItem(ShowFunction *sf,  int originalTrackIdx,
                                       int newTrackIdx, int newStartTime);
+
+    /** Set the start time of a ShowFunction item (if not overlapping) */
+    Q_INVOKABLE bool setShowItemStartTime(ShowFunction *sf, int startTime);
+
+    /** Set the duration of a ShowFunction item (if not overlapping) */
+    Q_INVOKABLE bool setShowItemDuration(ShowFunction *sf, int duration);
 
     /** Returns the number of the currently selected Show items */
     int selectedItemsCount() const;

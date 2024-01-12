@@ -109,8 +109,8 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     m_showview->setAcceptDrops(true);
     m_showview->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     m_showview->setBackgroundBrush(QBrush(QColor(88, 88, 88, 255), Qt::SolidPattern));
-    connect(m_showview, SIGNAL(viewClicked ( QMouseEvent * )),
-            this, SLOT(slotViewClicked( QMouseEvent * )));
+    connect(m_showview, SIGNAL(viewClicked(QMouseEvent *)),
+            this, SLOT(slotViewClicked(QMouseEvent *)));
 
     connect(m_showview, SIGNAL(showItemMoved(ShowItem*,quint32,bool)),
             this, SLOT(slotShowItemMoved(ShowItem*,quint32,bool)));
@@ -1063,9 +1063,9 @@ void ShowManager::slotPaste()
             else
             {
                 // Verify the Chaser copy steps against the current Scene
-                foreach(ChaserStep cs, sequence->steps())
+                foreach (ChaserStep cs, sequence->steps())
                 {
-                    foreach(SceneValue scv, cs.values)
+                    foreach (SceneValue scv, cs.values)
                     {
                         if (m_currentScene->checkValue(scv) == false)
                         {
@@ -1587,7 +1587,7 @@ void ShowManager::slotFunctionRemoved(quint32 id)
     foreach (Function *function, m_doc->functionsByType(Function::ShowType))
     {
         Show *show = qobject_cast<Show*>(function);
-        foreach(Track *track, show->tracks())
+        foreach (Track *track, show->tracks())
         {
             foreach (ShowFunction *sf, track->showFunctions())
             {
@@ -1642,7 +1642,7 @@ void ShowManager::updateMultiTrackView()
 
     Track *firstTrack = NULL;
 
-    foreach(Track *track, m_show->tracks())
+    foreach (Track *track, m_show->tracks())
     {
         if (firstTrack == NULL)
             firstTrack = track;
@@ -1657,7 +1657,7 @@ void ShowManager::updateMultiTrackView()
 
         m_showview->addTrack(track);
 
-        foreach(ShowFunction *sf, track->showFunctions())
+        foreach (ShowFunction *sf, track->showFunctions())
         {
             Function *fn = m_doc->function(sf->functionID());
             if (fn != NULL)
@@ -1725,7 +1725,7 @@ bool ShowManager::checkOverlapping(quint32 startTime, quint32 duration)
     if (m_currentTrack == NULL)
         return false;
 
-    foreach(ShowFunction *sf, m_currentTrack->showFunctions())
+    foreach (ShowFunction *sf, m_currentTrack->showFunctions())
     {
         Function *func = m_doc->function(sf->functionID());
         if (func != NULL)

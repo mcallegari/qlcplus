@@ -191,7 +191,7 @@ void VideoItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
         }
     }
     menu.addAction(m_fullscreenAction);
-    foreach(QAction *action, getDefaultActions())
+    foreach (QAction *action, getDefaultActions())
         menu.addAction(action);
 
     menu.exec(QCursor::pos());

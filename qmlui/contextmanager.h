@@ -240,8 +240,13 @@ public:
     /** Set a Pan/Tilt position in degrees */
     Q_INVOKABLE void setPositionValue(int type, int degrees, bool isRelative);
 
+    /** Set Pan/Tilt values at half position */
+    Q_INVOKABLE void setPositionCenter();
+
     /** Set a zoom channel in degrees */
     Q_INVOKABLE void setBeamDegrees(float degrees, bool isRelative);
+
+    Q_INVOKABLE void highlightFixtureSelection();
 
     void setChannelValues(QList<SceneValue> values);
 

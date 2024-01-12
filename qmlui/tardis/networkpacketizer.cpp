@@ -180,6 +180,18 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
                 packet.append((char)(pairVal.second >> 8));     // MSB1
                 packet.append((char)(pairVal.second & 0x00FF)); // LSB
             }
+            else if (value.canConvert<StringDoublePair>())
+            {
+                StringDoublePair pairVal = value.value<StringDoublePair>();
+                packet.append(StringDoublePairType);
+                QByteArray strVal = pairVal.first.toUtf8();
+                packet.append((char)(strVal.length() >> 8));     // string length MSB
+                packet.append((char)(strVal.length() & 0x00FF)); // string length LSB
+                packet.append(strVal);
+                char *byteArray = (char*)&pairVal.second;
+                for (int ds = 0; ds < int(sizeof(double)); ds++)
+                    packet.append(byteArray[ds]);
+            }
             else if (value.canConvert<StringStringPair>())
             {
                 StringStringPair pairVal = value.value<StringStringPair>();
@@ -398,6 +410,27 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
                 pairVal.second = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16) +
                                  ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
                 bytes_read += 4;
+
+                QVariant var;
+                var.setValue(pairVal);
+                sections.append(var);
+            }
+            break;
+            case StringDoublePairType:
+            {
+                StringDoublePair pairVal;
+                QString strVal;
+                quint16 sLength = ((quint16)ba.at(bytes_read) << 8) + (quint16)ba.at(bytes_read + 1);
+                bytes_read += 2;
+
+                strVal.append(ba.mid(bytes_read, sLength));
+                pairVal.first = strVal;
+                bytes_read += sLength;
+
+                QByteArray dba = ba.mid(bytes_read, sizeof(double));
+
+                pairVal.second = *((double*)dba.data());
+                bytes_read += dba.length();
 
                 QVariant var;
                 var.setValue(pairVal);

@@ -277,7 +277,7 @@ QTreeWidgetItem *FunctionsTreeWidget::folderItem(QString name)
     int type = Function::Undefined;
     QString fullPath;
     QStringList levelsList = name.split("/");
-    foreach(QString level, levelsList)
+    foreach (QString level, levelsList)
     {
         // the first round is a category node. Just retrieve the item pointer
         // and the type, then skip it.

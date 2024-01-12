@@ -99,7 +99,7 @@ void ReadThread::run()
 
         QMutexLocker locker(&m_mutex);
 
-        foreach(GPIOPinInfo *gpio, m_readList)
+        foreach (GPIOPinInfo *gpio, m_readList)
         {
             if (gpio->m_file == NULL || gpio->m_file->isOpen() == false)
                 continue;

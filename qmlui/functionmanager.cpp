@@ -1033,7 +1033,7 @@ void FunctionManager::createFolder()
         if (m_emptyFolderList.contains(fName) == false)
             break;
         index++;
-    } while(1);
+    } while (1);
 
     // check if there is some selected folder
     if (m_selectedFolderList.count())

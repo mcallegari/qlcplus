@@ -542,6 +542,26 @@ void FixtureManager::setItemRoleData(int itemID, int index, QString role, QVaria
     m_fixtureTree->setItemRoleData(path, value, roleIndex);
 }
 
+void FixtureManager::setItemRoleData(int itemID, QVariant value, int role)
+{
+    if (m_fixtureTree == nullptr)
+        return;
+
+    quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+
+    Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == nullptr)
+        return;
+
+    QString fxName = fixture->name();
+    QStringList uniNames = m_doc->inputOutputMap()->universeNames();
+
+    QString path = QString("%1%2%3").arg(uniNames.at(fixture->universe()))
+               .arg(TreeModel::separator()).arg(fxName);
+
+    m_fixtureTree->setItemRoleData(path, value, role);
+}
+
 bool FixtureManager::compareFixtures(Fixture *left, Fixture *right)
 {
     return *left < *right;
@@ -1424,7 +1444,7 @@ QVariantList FixtureManager::fixturesMap()
             continue;
 
         quint32 startAddress = fx->address();
-        for(quint32 cn = 0; cn < fx->channels(); cn++)
+        for (quint32 cn = 0; cn < fx->channels(); cn++)
         {
             m_fixturesMap.append(fx->id());
             m_fixturesMap.append(startAddress + cn);
@@ -1583,7 +1603,7 @@ bool FixtureManager::loadColorFilters(const QDir &dir, bool user)
 
 void FixtureManager::resetColorFilters()
 {
-    while(!m_colorFilters.isEmpty())
+    while (!m_colorFilters.isEmpty())
     {
         ColorFilters *cf = m_colorFilters.takeLast();
         delete cf;
@@ -1752,7 +1772,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
     for (quint32 ch : channelIndices)
     {
         const QLCChannel* channel(fixture->channel(ch));
-        if(channel == nullptr)
+        if (channel == nullptr)
             continue;
 
         int chType = channel->group();

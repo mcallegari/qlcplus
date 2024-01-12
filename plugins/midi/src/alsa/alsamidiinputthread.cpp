@@ -273,11 +273,11 @@ void AlsaMidiInputThread::readEvent()
                 continue;
             if (ev->type == SND_SEQ_EVENT_START)
                 cmd = MIDI_BEAT_START;
-            else if(ev->type == SND_SEQ_EVENT_STOP)
+            else if (ev->type == SND_SEQ_EVENT_STOP)
                 cmd = MIDI_BEAT_STOP;
-            else if(ev->type == SND_SEQ_EVENT_CONTINUE)
+            else if (ev->type == SND_SEQ_EVENT_CONTINUE)
                 cmd = MIDI_BEAT_CONTINUE;
-            else if(ev->type == SND_SEQ_EVENT_CLOCK)
+            else if (ev->type == SND_SEQ_EVENT_CLOCK)
                 cmd = MIDI_BEAT_CLOCK;
 
             qDebug()  << "MIDI clock: " << cmd;

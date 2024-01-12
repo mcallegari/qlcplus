@@ -56,7 +56,7 @@ EFXFixture::EFXFixture(const EFX* parent)
 {
     Q_ASSERT(parent != NULL);
 
-    if(m_rgbGradient.isNull ())
+    if (m_rgbGradient.isNull ())
         m_rgbGradient = Gradient::getRGBGradient (256, 256);
 }
 
@@ -205,15 +205,15 @@ QStringList EFXFixture::modeList()
 
     QStringList modes;
 
-    if(fxi->channelNumber(QLCChannel::Pan, QLCChannel::MSB, head().head) != QLCChannel::invalid() ||
+    if (fxi->channelNumber(QLCChannel::Pan, QLCChannel::MSB, head().head) != QLCChannel::invalid() ||
        fxi->channelNumber(QLCChannel::Tilt, QLCChannel::MSB, head().head) != QLCChannel::invalid())
         modes << KXMLQLCEFXFixtureModePanTilt;
 
-    if(fxi->masterIntensityChannel() != QLCChannel::invalid() ||
+    if (fxi->masterIntensityChannel() != QLCChannel::invalid() ||
        fxi->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, head().head) != QLCChannel::invalid())
         modes << KXMLQLCEFXFixtureModeDimmer;
 
-    if(fxi->rgbChannels(head().head).size() >= 3)
+    if (fxi->rgbChannels(head().head).size() >= 3)
         modes << KXMLQLCEFXFixtureModeRGB;
 
     return modes;

@@ -208,29 +208,18 @@ public:
 
     quint32 masterIntensityChannel() const;
 
-    /*!
-     * \brief The ChannelActsOnData struct
-     *
-     * Contains channel pointer and acts on channel index.
-     *
-     */
-
-    struct ChannelActsOnData
-    {
-        QLCChannel *channel;
-        int actsOnIndex;
-
-        ChannelActsOnData(QLCChannel *newChannel, int newAcsOnIndex);
-    };
-
-    void updateActsOnChannel(QLCChannel *mainChannel, QLCChannel *actsOnChannel);
+    /** Return the channel index on which the given $chIndex acts on.
+     *  Return invalid if not present */
+    quint32 channelActsOn(quint32 chIndex);
+    void setChannelActsOn(quint32 chIndex, quint32 actsOnIndex);
 
 protected:
     /** List of channels (pointers are not owned) */
     QVector<QLCChannel*> m_channels;
 
-    /** List of acts on channels */
-    QHash<QLCChannel *, QLCChannel *> m_actsOnChannelsList;
+    /** Map of channel indices that act on other channels.
+      * These are stored as: < index, acts on index> */
+    QMap<quint32, quint32> m_actsOnMap;
 
     quint32 m_masterIntensityChannel;
 

@@ -28,6 +28,7 @@
 #include "fixturemanager.h"
 #include "functionmanager.h"
 #include "contextmanager.h"
+#include "showmanager.h"
 #include "mainview2d.h"
 #include "mainview3d.h"
 #include "simpledesk.h"
@@ -45,6 +46,7 @@
 #include "scene.h"
 #include "audio.h"
 #include "video.h"
+#include "show.h"
 #include "efx.h"
 #include "doc.h"
 
@@ -374,6 +376,23 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
             fixture->saveXML(&xmlWriter);
         }
         break;
+        case ShowManagerAddTrack:
+        case ShowManagerDeleteTrack:
+        {
+            Show *show = qobject_cast<Show *>(m_doc->function(objID));
+            Track *track = show->track(data.toInt());
+            track->saveXML(&xmlWriter);
+        }
+        break;
+        case ShowManagerAddFunction:
+        case ShowManagerDeleteFunction:
+        {
+            Show *show = qobject_cast<Show *>(m_doc->function(objID));
+            ShowFunction *sf = show->showFunction(data.toUInt());
+            Track *track = show->getTrackFromShowFunctionID(sf->id());
+            sf->saveXML(&xmlWriter, track->id());
+        }
+        break;
         case VCWidgetCreate:
         case VCWidgetDelete:
         {
@@ -470,7 +489,9 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
         case ChaserRemoveStep:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(objID));
-            chaser->removeStep(value.toInt());
+            QXmlStreamAttributes attrs = xmlReader.attributes();
+            if (attrs.hasAttribute(KXMLQLCFunctionNumber))
+                chaser->removeStep(attrs.value(KXMLQLCFunctionNumber).toUInt());
         }
         break;
         case EFXAddFixture:
@@ -490,6 +511,51 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
             ef->loadXML(xmlReader);
             efx->removeFixture(ef->head().fxi, ef->head().head);
             delete ef;
+        }
+        break;
+        case ShowManagerAddTrack:
+        {
+            Show *show = qobject_cast<Show *>(m_doc->function(objID));
+            Track *track = new Track();
+            track->loadXML(xmlReader);
+            show->addTrack(track, track->id());
+        }
+        break;
+        case ShowManagerDeleteTrack:
+        {
+            QXmlStreamAttributes attrs = xmlReader.attributes();
+            Show *show = qobject_cast<Show *>(m_doc->function(objID));
+            if (attrs.hasAttribute(KXMLQLCTrackID))
+                show->removeTrack(attrs.value(KXMLQLCTrackID).toUInt());
+        }
+        break;
+        case ShowManagerAddFunction:
+        {
+            QXmlStreamAttributes attrs = xmlReader.attributes();
+            Show *show = qobject_cast<Show *>(m_doc->function(objID));
+            ShowFunction *sf = new ShowFunction(show->getLatestShowFunctionId());
+            sf->loadXML(xmlReader);
+            quint32 trackId = attrs.value(KXMLShowFunctionTrackId).toUInt();
+            Track *track = show->track(trackId);
+            track->addShowFunction(sf);
+            m_showManager->addShowItem(sf, trackId);
+        }
+        break;
+        case ShowManagerDeleteFunction:
+        {
+            QXmlStreamAttributes attrs = xmlReader.attributes();
+            Show *show = qobject_cast<Show *>(m_doc->function(objID));
+            if (attrs.hasAttribute(KXMLShowFunctionUid))
+            {
+                quint32 sfUID = attrs.value(KXMLShowFunctionUid).toUInt();
+                Track *track = show->getTrackFromShowFunctionID(sfUID);
+                if (track != nullptr)
+                {
+                    ShowFunction *sf = track->showFunction(sfUID);
+                    m_showManager->deleteShowItem(sf);
+                    track->removeShowFunction(sf);
+                }
+            }
         }
         break;
         case VCWidgetCreate:
@@ -694,6 +760,70 @@ int Tardis::processAction(TardisAction &action, bool undo)
         }
         break;
 
+        case SceneAddFixture:
+        {
+            SceneValue scv = value->value<SceneValue>();
+            Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
+
+            if (undo)
+                scene->removeFixture(scv.fxi);
+            else
+                scene->addFixture(scv.fxi);
+        }
+        break;
+
+        case SceneRemoveFixture:
+        {
+            SceneValue scv = value->value<SceneValue>();
+            Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
+
+            if (undo)
+                scene->addFixture(scv.fxi);
+            else
+                scene->removeFixture(scv.fxi);
+        }
+        break;
+
+        case SceneAddFixtureGroup:
+        {
+            Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
+            if (undo)
+                scene->removeFixtureGroup(value->toUInt());
+            else
+                scene->addFixtureGroup(value->toUInt());
+        }
+        break;
+
+        case SceneRemoveFixtureGroup:
+        {
+            Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
+            if (undo)
+                scene->addFixtureGroup(value->toUInt());
+            else
+                scene->removeFixtureGroup(value->toUInt());
+        }
+        break;
+
+        case SceneAddPalette:
+        {
+            Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
+            if (undo)
+                scene->removePalette(value->toUInt());
+            else
+                scene->addPalette(value->toUInt());
+        }
+        break;
+
+        case SceneRemovePalette:
+        {
+            Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
+            if (undo)
+                scene->addPalette(value->toUInt());
+            else
+                scene->removePalette(value->toUInt());
+        }
+        break;
+
         /* *********************** Chaser editing actions *********************** */
 
         case ChaserAddStep:
@@ -703,6 +833,14 @@ int Tardis::processAction(TardisAction &action, bool undo)
         case ChaserRemoveStep:
             processBufferedAction(undo ? ChaserAddStep : ChaserRemoveStep, action.m_objID, action.m_oldValue);
             return undo ? ChaserAddStep : ChaserRemoveStep;
+
+        case ChaserMoveStep:
+        {
+            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
+            chaser->moveStep(undo ? action.m_newValue.toInt() : action.m_oldValue.toInt(),
+                             undo ? action.m_oldValue.toInt() : action.m_newValue.toInt());
+        }
+        break;
 
         case ChaserSetStepFadeIn:
         {
@@ -882,6 +1020,13 @@ int Tardis::processAction(TardisAction &action, bool undo)
             matrix->setProperty(pairValue.first, QString::number(pairValue.second));
         }
         break;
+        case RGBMatrixSetScriptDoubleValue:
+        {
+            RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
+            StringDoublePair pairValue = value->value<StringIntPair>(); // param name on first, value on second
+            matrix->setProperty(pairValue.first, QString::number(pairValue.second));
+        }
+        break;
         case RGBMatrixSetScriptStringValue:
         {
             RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
@@ -998,6 +1143,46 @@ int Tardis::processAction(TardisAction &action, bool undo)
         {
             auto member = std::mem_fn(&Video::setZIndex);
             member(qobject_cast<Video *>(m_doc->function(action.m_objID)), value->toInt());
+        }
+        break;
+
+        /* ************************ Show Manager actions ************************** */
+
+        case ShowManagerAddTrack:
+            processBufferedAction(undo ? ShowManagerDeleteTrack : ShowManagerAddTrack, action.m_objID, action.m_newValue);
+            return undo ? ShowManagerDeleteTrack : ShowManagerAddTrack;
+
+        case ShowManagerDeleteTrack:
+            processBufferedAction(undo ? ShowManagerAddTrack : ShowManagerDeleteTrack, action.m_objID, action.m_oldValue);
+            return undo ? ShowManagerAddTrack : ShowManagerDeleteTrack;
+
+        case ShowManagerAddFunction:
+            processBufferedAction(undo ? ShowManagerDeleteFunction : ShowManagerAddFunction, action.m_objID, action.m_newValue);
+            return undo ? ShowManagerDeleteFunction : ShowManagerAddFunction;
+
+        case ShowManagerDeleteFunction:
+            processBufferedAction(undo ? ShowManagerAddFunction : ShowManagerDeleteFunction, action.m_objID, action.m_oldValue);
+            return undo ? ShowManagerAddFunction : ShowManagerDeleteFunction;
+
+        case ShowManagerItemSetStartTime:
+        {
+            Show *show = m_showManager->currentShow();
+            if (show != nullptr)
+            {
+                ShowFunction *sf = show->showFunction(action.m_objID);
+                sf->setStartTime(undo ? action.m_oldValue.toUInt() : action.m_newValue.toUInt());
+            }
+        }
+        break;
+
+        case ShowManagerItemSetDuration:
+        {
+            Show *show = m_showManager->currentShow();
+            if (show != nullptr)
+            {
+                ShowFunction *sf = show->showFunction(action.m_objID);
+                sf->setDuration(undo ? action.m_oldValue.toUInt() : action.m_newValue.toUInt());
+            }
         }
         break;
 

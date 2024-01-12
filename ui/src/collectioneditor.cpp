@@ -195,7 +195,7 @@ void CollectionEditor::updateFunctionList()
 {
     m_tree->clear();
 
-    foreach(QVariant fid, m_collection->functions())
+    foreach (QVariant fid, m_collection->functions())
     {
         Function* function = m_doc->function(fid.toUInt());
         Q_ASSERT(function != NULL);

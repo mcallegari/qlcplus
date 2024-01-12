@@ -147,7 +147,7 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     if (dialMask & VCSpeedDial::Apply) m_applyCheck->setChecked(true);
 
     /* Presets */
-    foreach(VCSpeedDialPreset const* preset, m_dial->presets())
+    foreach (VCSpeedDialPreset const* preset, m_dial->presets())
     {
         m_presets.append(new VCSpeedDialPreset(*preset));
         if (preset->m_id > m_lastAssignedID)
@@ -394,7 +394,7 @@ void VCSpeedDialProperties::updateTree()
 {
     m_presetsTree->blockSignals(true);
     m_presetsTree->clear();
-    foreach(VCSpeedDialPreset* preset, m_presets)
+    foreach (VCSpeedDialPreset* preset, m_presets)
     {
         QTreeWidgetItem *item = new QTreeWidgetItem(m_presetsTree);
         item->setData(0, Qt::UserRole, preset->m_id);
@@ -432,7 +432,7 @@ VCSpeedDialPreset* VCSpeedDialProperties::getSelectedPreset()
     if (item != NULL)
     {
         quint8 presetID = item->data(0, Qt::UserRole).toUInt();
-        foreach(VCSpeedDialPreset* preset, m_presets)
+        foreach (VCSpeedDialPreset* preset, m_presets)
         {
             if (preset->m_id == presetID)
                 return preset;
@@ -450,7 +450,7 @@ void VCSpeedDialProperties::addPreset(VCSpeedDialPreset *preset)
 
 void VCSpeedDialProperties::removePreset(quint8 id)
 {
-    for(int i = 0; i < m_presets.count(); i++)
+    for (int i = 0; i < m_presets.count(); i++)
     {
         if (m_presets.at(i)->m_id == id)
         {

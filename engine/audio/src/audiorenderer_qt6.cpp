@@ -121,7 +121,7 @@ QList<AudioDeviceInfo> AudioRendererQt6::getDevicesInfo()
     }
 
     // add the devices left in the input list. These don't have output capabilities
-    foreach(QString dev, inDevs)
+    foreach (QString dev, inDevs)
     {
         AudioDeviceInfo info;
         info.deviceName = dev;

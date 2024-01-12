@@ -43,7 +43,11 @@ function msToString(ms)
     finalTime += ((m < 10) ? "0" + m : m) + ":";
     finalTime += ((s < 10) ? "0" + s : s);
     if (ms) {
-        finalTime += "." + ((ms < 10) ? "0" + parseInt(ms) : parseInt(ms));
+        finalTime += ".";
+        if (ms < 10) finalTime += "00";
+        else if (ms < 100) finalTime += "0";
+
+        finalTime += parseInt(ms);
     }
     return finalTime;
 }

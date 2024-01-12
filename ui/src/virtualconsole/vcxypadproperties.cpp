@@ -178,7 +178,7 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
     connect(m_xyArea, SIGNAL(positionChanged(QPointF)),
             this, SLOT(slotXYPadPositionChanged(QPointF)));
 
-    foreach(const VCXYPadPreset *preset, m_xypad->presets())
+    foreach (const VCXYPadPreset *preset, m_xypad->presets())
     {
         m_presetList.append(new VCXYPadPreset(*preset));
         if (preset->m_id > m_lastAssignedID)
@@ -228,7 +228,7 @@ void VCXYPadProperties::fillFixturesTree()
 
 void VCXYPadProperties::updateFixturesTree(VCXYPadFixture::DisplayMode mode)
 {
-    for(int i = 0; i < m_tree->topLevelItemCount(); i++)
+    for (int i = 0; i < m_tree->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = m_tree->topLevelItem(i);
         QVariant var(item->data(KColumnFixture, Qt::UserRole));
@@ -573,7 +573,7 @@ VCXYPadPreset *VCXYPadProperties::getSelectedPreset()
     if (item != NULL)
     {
         quint8 presetID = item->data(0, Qt::UserRole).toUInt();
-        foreach(VCXYPadPreset* preset, m_presetList)
+        foreach (VCXYPadPreset* preset, m_presetList)
         {
             if (preset->m_id == presetID)
                 return preset;
@@ -586,7 +586,7 @@ VCXYPadPreset *VCXYPadProperties::getSelectedPreset()
 
 void VCXYPadProperties::removePreset(quint8 id)
 {
-    for(int i = 0; i < m_presetList.count(); i++)
+    for (int i = 0; i < m_presetList.count(); i++)
     {
         if (m_presetList.at(i)->m_id == id)
         {
@@ -598,11 +598,11 @@ void VCXYPadProperties::removePreset(quint8 id)
 
 quint8 VCXYPadProperties::moveUpPreset(quint8 id)
 {
-    for(int i = 0; i < m_presetList.count(); i++)
+    for (int i = 0; i < m_presetList.count(); i++)
     {
         if (m_presetList.at(i)->m_id == id)
         {
-            if(i > 0)
+            if (i > 0)
             {
                 //change order on hash preset structure.
                 //presets are saved in hash and sort on id is used to create the preset list.
@@ -628,11 +628,11 @@ quint8 VCXYPadProperties::moveUpPreset(quint8 id)
 
 quint8 VCXYPadProperties::moveDownPreset(quint8 id)
 {
-    for(int i = 0; i < m_presetList.count(); i++)
+    for (int i = 0; i < m_presetList.count(); i++)
     {
         if (m_presetList.at(i)->m_id == id)
         {
-            if(i < m_presetList.count() - 1)
+            if (i < m_presetList.count() - 1)
             {
                 //change order on hash preset structure.
                 //presets are saved in hash and sort on id is used to create the preset list.
@@ -714,7 +714,7 @@ void VCXYPadProperties::slotAddSceneClicked()
             return;
         Scene *scene = qobject_cast<Scene*>(f);
         bool panTiltFound = false;
-        foreach(SceneValue scv, scene->values())
+        foreach (SceneValue scv, scene->values())
         {
             Fixture *fixture = m_doc->fixture(scv.fxi);
             if (fixture == NULL)
@@ -760,7 +760,7 @@ void VCXYPadProperties::slotAddFixtureGroupClicked()
         ++it;
     }
 
-    foreach(Fixture *fx, m_doc->fixtures())
+    foreach (Fixture *fx, m_doc->fixtures())
     {
         for (int i = 0; i < fx->heads(); i++)
         {

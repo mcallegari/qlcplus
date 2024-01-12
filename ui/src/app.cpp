@@ -349,7 +349,7 @@ void App::closeEvent(QCloseEvent* e)
 
     if (m_doc->isKiosk() == false)
     {
-        if( saveModifiedDoc(tr("Close"), tr("Do you wish to save the current workspace " \
+        if (saveModifiedDoc(tr("Close"), tr("Do you wish to save the current workspace " \
                                             "before closing the application?")) == true)
         {
             e->accept();
@@ -502,7 +502,7 @@ void App::slotDocModified(bool state)
 
 void App::slotUniverseWritten(quint32 idx, const QByteArray &ua)
 {
-    foreach(Fixture *fixture, m_doc->fixtures())
+    foreach (Fixture *fixture, m_doc->fixtures())
     {
         if (fixture->universe() != idx)
             continue;

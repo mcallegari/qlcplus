@@ -79,7 +79,7 @@ void ConfigureE131::fillMappingTree()
     QTreeWidgetItem* outputItem = NULL;
 
     QList<E131IO> IOmap = m_plugin->getIOMapping();
-    foreach(E131IO io, IOmap)
+    foreach (E131IO io, IOmap)
     {
         E131Controller *controller = io.controller;
         if (controller == NULL)
@@ -98,7 +98,7 @@ void ConfigureE131::fillMappingTree()
             outputItem->setText(KMapColumnInterface, tr("Outputs"));
             outputItem->setExpanded(true);
         }
-        foreach(quint32 universe, controller->universesList())
+        foreach (quint32 universe, controller->universesList())
         {
             UniverseInfo *info = controller->getUniverseInfo(universe);
             qDebug() << Q_FUNC_INFO << "uni" << universe << "type" << info->type;
@@ -402,7 +402,7 @@ void ConfigureE131::accept()
                         E131_UNIVERSE, universeSpin->value());
 
                 QComboBox* transCombo = qobject_cast<QComboBox*>(m_uniMapTree->itemWidget(item, KMapColumnTransmitMode));
-                if(transCombo->currentIndex() == 1)
+                if (transCombo->currentIndex() == 1)
                     m_plugin->setParameter(universe, line, QLCIOPlugin::Output,
                             E131_TRANSMITMODE, E131Controller::transmissionModeToString(E131Controller::Partial));
                 else

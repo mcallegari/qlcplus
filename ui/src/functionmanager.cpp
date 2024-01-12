@@ -595,7 +595,7 @@ void FunctionManager::slotDelete()
         if (item->childCount() > 0)
         {
             msg.append("\n" + tr("(This will also DELETE: "));
-            for(int i = 0; i < item->childCount(); i++)
+            for (int i = 0; i < item->childCount(); i++)
             {
                 QTreeWidgetItem *child = item->child(i);
                 if (i > 0) msg.append(", ");

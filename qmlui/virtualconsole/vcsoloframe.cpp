@@ -58,7 +58,7 @@ void VCSoloFrame::render(QQuickView *view, QQuickItem *parent)
         QString chName = QString("frameDropArea%1").arg(id());
         QQuickItem *childrenArea = qobject_cast<QQuickItem*>(item->findChild<QObject *>(chName));
 
-        foreach(VCWidget *child, m_pagesMap.keys())
+        foreach (VCWidget *child, m_pagesMap.keys())
             child->render(view, childrenArea);
     }
 }
@@ -95,7 +95,7 @@ bool VCSoloFrame::copyFrom(const VCWidget *widget)
 void VCSoloFrame::slotFunctionStarting(VCWidget *widget, quint32 fid, qreal intensity)
 {
     qDebug() << "[VCSoloFrame] requested to start a Function with ID:" << fid << intensity << widget->caption();
-    foreach(VCWidget *child, children(true))
+    foreach (VCWidget *child, children(true))
     {
         if (child != widget)
             child->notifyFunctionStarting(widget, fid, intensity);

@@ -240,7 +240,7 @@ void EditChannel::slotPresetActivated(int index)
         }
     }
 
-    foreach(QLCCapability *cap, m_channel->capabilities())
+    foreach (QLCCapability *cap, m_channel->capabilities())
         m_channel->removeCapability(cap);
 
     m_channel->addPresetCapability();

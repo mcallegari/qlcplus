@@ -185,6 +185,8 @@ public:
 
     Q_INVOKABLE void setItemRoleData(int itemID, int index, QString role, QVariant value);
 
+    void setItemRoleData(int itemID, QVariant value, int role);
+
     static void addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fixture, QString basePath, quint32 nodeSubID,
                                int &matchMask, QString searchFilter = QString(), int showFlags = ShowGroups | ShowLinked | ShowHeads,
                                QList<SceneValue> checkedChannels = QList<SceneValue>());

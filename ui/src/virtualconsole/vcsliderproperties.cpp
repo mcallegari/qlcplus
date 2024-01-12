@@ -333,7 +333,7 @@ void VCSliderProperties::setSubmasterPageVisibility(bool visible)
 
 void VCSliderProperties::levelUpdateFixtures()
 {
-    foreach(Fixture* fixture, m_doc->fixtures())
+    foreach (Fixture* fixture, m_doc->fixtures())
     {
         Q_ASSERT(fixture != NULL);
         levelUpdateFixtureNode(fixture->id());
@@ -615,11 +615,11 @@ void VCSliderProperties::slotLevelByGroupClicked()
     QString group;
     QStringList groups;
 
-    foreach(Fixture* fixture, m_doc->fixtures())
+    foreach (Fixture* fixture, m_doc->fixtures())
     {
         Q_ASSERT(fixture != NULL);
 
-        for(quint32 i = 0; i < fixture->channels(); i++)
+        for (quint32 i = 0; i < fixture->channels(); i++)
         {
             const QLCChannel *channel = fixture->channel(i);
 

@@ -49,36 +49,41 @@ Rectangle
 
     signal close()
 
+    function updatePanTiltDegrees()
+    {
+        previousPanDegrees = 0
+        previousTiltDegrees = 0
+
+        var pan = contextManager.getCurrentValue(QLCChannel.Pan, true)
+        if (pan === -1)
+        {
+            relativePanValue = true
+            panDegrees = 0
+        }
+        else
+        {
+            relativePanValue = false
+            panDegrees = Math.round(pan)
+        }
+
+        var tilt = contextManager.getCurrentValue(QLCChannel.Tilt, true)
+        if (tilt === -1)
+        {
+            relativeTiltValue = true
+            tiltDegrees = 0
+        }
+        else
+        {
+            relativeTiltValue = false
+            tiltDegrees = Math.round(tilt)
+        }
+    }
+
     onVisibleChanged:
     {
         if (visible)
         {
-            previousPanDegrees = 0
-            previousTiltDegrees = 0
-
-            var pan = contextManager.getCurrentValue(QLCChannel.Pan, true)
-            if (pan === -1)
-            {
-                relativePanValue = true
-                panDegrees = 0
-            }
-            else
-            {
-                relativePanValue = false
-                panDegrees = Math.round(pan)
-            }
-
-            var tilt = contextManager.getCurrentValue(QLCChannel.Tilt, true)
-            if (tilt === -1)
-            {
-                relativeTiltValue = true
-                tiltDegrees = 0
-            }
-            else
-            {
-                relativeTiltValue = false
-                tiltDegrees = Math.round(tilt)
-            }
+            updatePanTiltDegrees()
         }
         else
         {
@@ -229,17 +234,39 @@ Rectangle
 
     IconButton
     {
-        id: rotateButton
         x: parent.width - width - 2
         y: posToolBar.height
         z: 2
         imgSource: "qrc:/rotate-right.svg"
-        tooltip: qsTr("Rotate 90° clockwise")
+        tooltip: qsTr("Rotate preview 90° clockwise")
         onClicked:
         {
             gCanvas.rotation += 90
             if (gCanvas.rotation == 360)
                 gCanvas.rotation = 0
+        }
+    }
+
+    Timer
+    {
+        id: updTimer
+        running: false
+        interval: 100
+        repeat: false
+        onTriggered: updatePanTiltDegrees()
+    }
+
+    IconButton
+    {
+        x: parent.width - width - 2
+        y: gCanvas.y + gCanvas.height - width
+        z: 2
+        faSource: FontAwesome.fa_bullseye
+        tooltip: qsTr("Center Pan/Tilt halfway")
+        onClicked:
+        {
+            contextManager.setPositionCenter()
+            updTimer.restart()
         }
     }
 

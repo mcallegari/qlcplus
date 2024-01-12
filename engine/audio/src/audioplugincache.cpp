@@ -28,7 +28,7 @@
 #include "qlcfile.h"
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
- #if defined( __APPLE__) || defined(Q_OS_MAC)
+ #if defined(__APPLE__) || defined(Q_OS_MAC)
   #include "audiorenderer_portaudio.h"
  #elif defined(WIN32) || defined(Q_OS_WIN)
   #include "audiorenderer_waveout.h"
@@ -55,7 +55,7 @@ void AudioPluginCache::load(const QDir &dir)
     qDebug() << Q_FUNC_INFO << dir.path();
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-#if defined( __APPLE__) || defined(Q_OS_MAC)
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     m_audioDevicesList = AudioRendererPortAudio::getDevicesInfo();
 #elif defined(WIN32) || defined(Q_OS_WIN)
     m_audioDevicesList = AudioRendererWaveOut::getDevicesInfo();
@@ -103,7 +103,7 @@ void AudioPluginCache::load(const QDir &dir)
 QStringList AudioPluginCache::getSupportedFormats()
 {
     QStringList caps;
-    foreach(QString path, m_pluginsMap.values())
+    foreach (QString path, m_pluginsMap.values())
     {
         QPluginLoader loader(path, this);
         AudioDecoder* ptr = qobject_cast<AudioDecoder*> (loader.instance());
@@ -124,7 +124,7 @@ AudioDecoder *AudioPluginCache::getDecoderForFile(const QString &filename)
     if (fn.exists() == false)
         return NULL;
 
-    foreach(QString path, m_pluginsMap.values())
+    foreach (QString path, m_pluginsMap.values())
     {
         QPluginLoader loader(path, this);
         AudioDecoder* ptr = qobject_cast<AudioDecoder*> (loader.instance());
