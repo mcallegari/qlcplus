@@ -62,7 +62,7 @@ We welcome contributions from the community to help make QLC+ even better. Befor
 
 Further guidelines are available in the [CONTRIBUTING.md](CONTRIBUTING.md) document.
 
-### Help wanted!
+### Help wanted
 Click the badge below to see the currently confirmed issues with QLC+. Perhaps you can find a solution?
 
 ![GitHub issues by-label](https://img.shields.io/github/issues/mcallegari/qlcplus/issue%20confirmed?logo=github&color=red)
@@ -74,13 +74,11 @@ If you're regularly updating QLC+ sources with git pull, you may encounter compi
 [![QLC+ Github Actions CI Build](https://github.com/mcallegari/qlcplus/actions/workflows/build.yml/badge.svg)](https://github.com/mcallegari/qlcplus/actions) [![Coverage Status](https://coveralls.io/repos/github/mcallegari/qlcplus/badge.svg?branch=master)](https://coveralls.io/github/mcallegari/qlcplus?branch=master)
 [![GitHub commits since latest release (by SemVer including pre-releases)](https://img.shields.io/github/commits-since/mcallegari/qlcplus/latest/master)](https://github.com/mcallegari/qlcplus/commits/master/) ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/mcallegari/qlcplus) 
 
-
 ## Compiling and installation
 
 Please refer to the online wiki pages: https://github.com/mcallegari/qlcplus/wiki
 ## Requirements
 ### Linux
-
 
 *   Qt >= 5.0 development libraries & tools
 *   libudev-dev, libmad0-dev, libsndfile1-dev, libfftw3-dev
