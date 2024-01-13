@@ -21,6 +21,7 @@
 #include <QPushButton>
 #include <QComboBox>
 #include <QDebug>
+#include <QSettings>
 
 #include "channelmodifiereditor.h"
 #include "channelsselection.h"
@@ -36,6 +37,8 @@
 #define KColumnModifier     4
 #define KColumnChIdx        5
 #define KColumnID           6
+
+#define SETTINGS_GEOMETRY "channelsselection/geometry"
 
 ChannelsSelection::ChannelsSelection(Doc *doc, QWidget *parent, ChannelSelectionType mode)
     : QDialog(parent)
@@ -64,6 +67,11 @@ ChannelsSelection::ChannelsSelection(Doc *doc, QWidget *parent, ChannelSelection
 
     updateFixturesTree();
 
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
+
     connect(m_channelsTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
             this, SLOT(slotItemChecked(QTreeWidgetItem*, int)));
     connect(m_channelsTree, SIGNAL(expanded(QModelIndex)),
@@ -78,6 +86,8 @@ ChannelsSelection::ChannelsSelection(Doc *doc, QWidget *parent, ChannelSelection
 
 ChannelsSelection::~ChannelsSelection()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 void ChannelsSelection::setChannelsList(QList<SceneValue> list)

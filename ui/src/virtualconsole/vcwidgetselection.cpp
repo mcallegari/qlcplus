@@ -19,6 +19,7 @@
 
 #include <QPushButton>
 #include <QDebug>
+#include <QSettings>
 
 #include "vcwidgetselection.h"
 #include "virtualconsole.h"
@@ -26,6 +27,8 @@
 
 #define KColumnName         0
 #define KColumnType         1
+
+#define SETTINGS_GEOMETRY "vcwidgetselection/geometry"
 
 VCWidgetSelection::VCWidgetSelection(QList<int> filters, QWidget *parent)
     : QDialog(parent)
@@ -36,6 +39,11 @@ VCWidgetSelection::VCWidgetSelection(QList<int> filters, QWidget *parent)
     m_tree->setRootIsDecorated(false);
     m_tree->setSelectionMode(QAbstractItemView::SingleSelection);
     m_tree->setAllColumnsShowFocus(true);
+
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 
     connect(m_tree, SIGNAL(itemSelectionChanged()),
             this, SLOT(slotItemSelectionChanged()));
@@ -49,7 +57,8 @@ VCWidgetSelection::VCWidgetSelection(QList<int> filters, QWidget *parent)
 
 VCWidgetSelection::~VCWidgetSelection()
 {
-
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 VCWidget *VCWidgetSelection::getSelectedWidget()

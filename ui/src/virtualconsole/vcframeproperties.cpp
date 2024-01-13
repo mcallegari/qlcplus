@@ -21,6 +21,7 @@
 #include <QComboBox>
 #include <QDebug>
 #include <algorithm>
+#include <QSettings>
 
 #include "inputselectionwidget.h"
 #include "vcframepageshortcut.h"
@@ -28,6 +29,7 @@
 #include "vcframe.h"
 #include "doc.h"
 
+#define SETTINGS_GEOMETRY "vcframeproperties/geometry"
 
 VCFrameProperties::VCFrameProperties(QWidget* parent, VCFrame* frame, Doc *doc)
     : QDialog(parent)
@@ -51,6 +53,11 @@ VCFrameProperties::VCFrameProperties(QWidget* parent, VCFrame* frame, Doc *doc)
     m_totalPagesSpin->setValue(frame->totalPagesNumber());
     if (frame->totalPagesNumber() != 1)
         m_cloneFirstPageCheck->setEnabled(false);
+
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 
     connect(m_enablePaging, SIGNAL(toggled(bool)),
             this, SLOT(slotMultipageChecked(bool)));
@@ -130,6 +137,9 @@ VCFrameProperties::VCFrameProperties(QWidget* parent, VCFrame* frame, Doc *doc)
 
 VCFrameProperties::~VCFrameProperties()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
+
     foreach (VCFramePageShortcut* shortcut, m_shortcuts)
     {
         delete shortcut;

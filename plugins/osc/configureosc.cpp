@@ -24,6 +24,7 @@
 #include <QSpinBox>
 #include <QLabel>
 #include <QDebug>
+#include <QSettings>
 
 #include "configureosc.h"
 #include "oscplugin.h"
@@ -37,6 +38,8 @@
 #define PROP_UNIVERSE (Qt::UserRole + 0)
 #define PROP_LINE (Qt::UserRole + 1)
 #define PROP_TYPE (Qt::UserRole + 2)
+
+#define SETTINGS_GEOMETRY "configureosc/geometry"
 
 /*****************************************************************************
  * Initialization
@@ -60,10 +63,15 @@ ConfigureOSC::ConfigureOSC(OSCPlugin* plugin, QWidget* parent)
     QVariant value = settings.value(SETTINGS_IFACE_WAIT_TIME);
     if (value.isValid() == true)
         m_waitReadySpin->setValue(value.toInt());
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 }
 
 ConfigureOSC::~ConfigureOSC()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 void ConfigureOSC::fillMappingTree()
