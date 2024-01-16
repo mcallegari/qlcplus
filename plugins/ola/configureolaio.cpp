@@ -24,12 +24,15 @@
 #include <QDialog>
 #include <QString>
 #include <QTimer>
+#include <QSettings>
 
 #include "configureolaio.h"
 #include "olaio.h"
 
 #define COL_NAME 0
 #define COL_LINE 1
+
+#define SETTINGS_GEOMETRY "configureolaio/geometry"
 
 /*****************************************************************************
  * Initialization
@@ -45,11 +48,19 @@ ConfigureOlaIO::ConfigureOlaIO(OlaIO* plugin, QWidget* parent)
     populateOutputList();
 
     m_standaloneCheck->setChecked(m_plugin->isServerEmbedded());
+
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 }
 
 ConfigureOlaIO::~ConfigureOlaIO()
 {
     m_plugin->setServerEmbedded(m_standaloneCheck->isChecked());
+
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 void ConfigureOlaIO::populateOutputList()
