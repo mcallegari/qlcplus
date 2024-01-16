@@ -337,7 +337,18 @@ jobs:
             mingw-w64-i686-fftw
             mingw-w64-i686-libusb
             mingw-w64-i686-python-lxml
-            mingw-w64-i686-qt5
+            mingw-w64-i686-qt5-base
+            mingw-w64-i686-qt5-multimedia
+            mingw-w64-i686-qt5-serialport
+            mingw-w64-i686-qt5-script
+            mingw-w64-i686-qt5-tools
+            mingw-w64-i686-qt5-imageformats
+            mingw-w64-i686-qt5-svg
+            mingw-w64-i686-qt5-declarative
+            mingw-w64-i686-qt5-quickcontrols
+            mingw-w64-i686-qt5-quickcontrols2
+            mingw-w64-i686-qt5-3d
+            mingw-w64-i686-qt5-quick3d
             mingw-w64-i686-nsis
 
       - name: D2XX SDK
