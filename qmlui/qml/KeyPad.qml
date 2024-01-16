@@ -20,6 +20,8 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
+import "TimeUtils.js" as TimeUtils
+
 import "."
 
 Rectangle
@@ -32,9 +34,15 @@ Rectangle
 
     property bool showDMXcontrol: true
     property bool showTapButton: false
-    property double tapTimeValue: 0
+    
     property alias commandString: commandBox.text
     property real itemHeight: Math.max(UISettings.iconSizeDefault, keyPadRoot.height / keyPadGrid.rows) - 3
+
+    //needed for bpm tapping
+    property double tapTimeValue: 0
+    property int tapCount: 0
+    property double lastTap: 0
+    property var tapHistory: []
 
     onVisibleChanged: if (visible) commandBox.selectAndFocus()
 
@@ -95,18 +103,31 @@ Rectangle
                 {
                     tapTimer.stop()
                     tapButton.border.color = UISettings.bgMedium
-                    tapTimeValue = 0
+                    lastTap = 0
+                    tapHistory = []
                 }
                 else
                 {
                     var currTime = new Date().getTime()
-                    if (tapTimeValue != 0)
+                    
+                    if (lastTap != 0 && currTime - lastTap < 1500)
                     {
-                        keyPadRoot.tapTimeChanged(currTime - tapTimeValue)
-                        tapTimer.interval = currTime - tapTimeValue
+                        var newTime = currTime - lastTap
+                        
+                        tapHistory.push(newTime)
+
+                        tapTimeValue = TimeUtils.calculateBPMByTapIntervals(tapHistory)
+                        
+                        keyPadRoot.tapTimeChanged(tapTimeValue)
+                        tapTimer.interval = tapTimeValue
                         tapTimer.restart()
                     }
-                    tapTimeValue = currTime
+                    else
+                    {
+                        lastTap = 0
+                        tapHistory = []
+                    }
+                    lastTap = currTime
                 }
             }
         }

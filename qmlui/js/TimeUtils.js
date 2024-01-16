@@ -320,3 +320,42 @@ function timeToBeatSize(time, bpmNumber, beatsDivision, tickSize)
     // tickSize : barDuration = x : time
     return (tickSize * time) / barDuration;
 }
+
+
+/**
+ * Return the average time between two taps given by a list of tap times.
+ * It caculates the linear regression of the recorded tap times. The slope of the resulting 
+ * linear function represents the average time between two taps.
+ */
+function calculateBPMByTapIntervals(tapHistory)
+{
+    var tapHistorySorted = []
+
+    //reduce size to only 16 taps
+    while (tapHistory.length > 16) tapHistory.splice(0,1)
+
+    //copy tap history to sort it
+    tapHistorySorted = tapHistory.slice()
+    tapHistorySorted.sort()
+
+    // Find the median time between taps, assume that the tempo is +-40% of this
+    var tapHistoryMedian = tapHistorySorted[Math.floor(tapHistorySorted.length/2)]
+    
+    //init needed variables
+    var n = 1, tapx = 0, tapy = 0, sum_x = 0, sum_y = 0, sum_xx = 0, sum_xy = 0
+    
+    for (var i = 0; i < tapHistory.length; i++)
+    {
+        var intervalMs = tapHistory[i]
+        n++
+        // Divide by tapHistoryMedian to determine if a tap was skipped during input
+        tapx += Math.floor((tapHistoryMedian/2 + intervalMs) / tapHistoryMedian)
+        tapy += intervalMs
+        sum_x += tapx
+        sum_y += tapy
+        sum_xx += tapx * tapx
+        sum_xy += tapx * tapy                 
+    }
+
+    return (n * sum_xy - sum_x * sum_y) / (n * sum_xx - sum_x * sum_x)
+}
