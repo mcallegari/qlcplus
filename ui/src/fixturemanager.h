@@ -89,9 +89,9 @@ public slots:
 
 private:
     Doc* m_doc;
-    bool m_fixtureTestEnabled;
+    bool m_testFixturesEnabled;
     QSet<quint32> m_lastSelectedFixtureIds;
-    QHash<quint32, GenericDMXSource*> m_selectedFixtureHash;
+    QHash<quint32, GenericDMXSource*> m_fixtureToSourceMap;
 
     /********************************************************************
      * Data view
@@ -122,14 +122,14 @@ private:
     /** Construct the list view and data view */
     void initDataView();
 
-    /** TO-DO: DESCRIPTION */
-    void updateTestFixtures();
+    /** Checks if any fixtures have to be turned on/off if Test Fixtures is enabled */
+    void runTestFixtures();
 
-    /** TO-DO: Test fixture when Fixture Tester is enabled */
-    void testFixture(quint32 id);
+    /** Creates a GenericDmxSource and turns the fixture on */
+    void turnFixtureOn(quint32 id);
 
-    /** TO-DO: Test fixture when Fixture Tester is enabled */
-    void untestFixture(quint32 id);
+    /** Turns the fixture off and removes the related GenericDmxSource */
+    void turnFixtureOff(quint32 id);
 
     /** Handle single fixture selection */
     void fixtureSelected(quint32 id);
