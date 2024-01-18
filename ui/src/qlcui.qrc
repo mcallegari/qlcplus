@@ -57,6 +57,7 @@
         <file alias="filesave.png">../../resources/icons/png/filesave.png</file>
         <file alias="filesaveas.png">../../resources/icons/png/filesaveas.png</file>
         <file alias="fixture.png">../../resources/icons/png/fixture.png</file>
+        <file alias="fixture_off.png">../../resources/icons/png/fixture_off.png</file>
         <file alias="folder.png">../../resources/icons/png/folder.png</file>
         <file alias="qlcplus-fixtureeditor.png">../../resources/icons/png/qlcplus-fixtureeditor.png</file>
         <file alias="flash.png">../../resources/icons/png/flash.png</file>

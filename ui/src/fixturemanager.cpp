@@ -77,7 +77,7 @@ FixtureManager* FixtureManager::s_instance = NULL;
 FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
     : QWidget(parent)
     , m_doc(doc)
-    , m_testFixturesEnabled(true)
+    , m_testFixturesEnabled(false)
     , m_splitter(NULL)
     , m_fixtures_tree(NULL)
     , m_channel_groups_tree(NULL)
@@ -220,7 +220,6 @@ void FixtureManager::slotChannelsGroupRemoved(quint32 id)
 
 void FixtureManager::slotModeChanged(Doc::Mode mode)
 {
-    // TO-DO: hier moeje die check shit toevoegen ojo!
     if (mode == Doc::Design)
     {
         int selected = m_fixtures_tree->selectedItems().size();
@@ -524,18 +523,21 @@ void FixtureManager::runTestFixtures()
     {
         // Turn on all selected fixtures
         QSet<quint32>::const_iterator it;
-        for (it = newlySelectedFixtureIds.constBegin(); it != newlySelectedFixtureIds.constEnd(); ++it) {
+        for (it = newlySelectedFixtureIds.constBegin(); it != newlySelectedFixtureIds.constEnd(); ++it)
+        {
             turnFixtureOn(*it);
         }
 
         // Turn all deselected fixtures off
-        for (it = deselectedFixtureIds.constBegin(); it != deselectedFixtureIds.constEnd(); ++it) {
+        for (it = deselectedFixtureIds.constBegin(); it != deselectedFixtureIds.constEnd(); ++it)
+        {
             turnFixtureOff(*it);
         }
     } else {
         // Turn all fixtures off
         QHash<quint32, GenericDMXSource*>::iterator it;
-        foreach(const quint32 &fixtureId, m_fixtureToSourceMap.keys()) {
+        foreach(const quint32 &fixtureId, m_fixtureToSourceMap.keys())
+        {
             turnFixtureOff(fixtureId);
         }
     }
@@ -552,15 +554,29 @@ void FixtureManager::turnFixtureOn(quint32 id)
     GenericDMXSource* source = new GenericDMXSource(m_doc);
     m_fixtureToSourceMap.insert(id, source);
 
-    // TO-DO: make fixture white!
     // TO-DO: check if this works for complex lights (Mac Quantum for instance)
 
-    // Set the Intensity for every Head to 255
+    // Set the color of every Fixture to white and intensity to 255
     for (int i = 0; i < fxi->heads(); i++)
     {
-        QLCFixtureHead head= fxi->head(i);
-        quint32 jo = head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
-        source->set(fxi->id(), jo, 255);
+        QLCFixtureHead head = fxi->head(i);
+
+        quint32 whiteChannel = head.channelNumber(QLCChannel::White, QLCChannel::MSB);
+        quint32 redChannel = head.channelNumber(QLCChannel::Red, QLCChannel::MSB);
+        quint32 greenChannel = head.channelNumber(QLCChannel::Green, QLCChannel::MSB);
+        quint32 blueChannel = head.channelNumber(QLCChannel::Blue, QLCChannel::MSB);
+
+        if(whiteChannel != QLCChannel::invalid())
+        {
+            source->set(fxi->id(), whiteChannel, 255);
+        } else if(redChannel != QLCChannel::invalid() && greenChannel != QLCChannel::invalid() && blueChannel != QLCChannel::invalid()) {
+            source->set(fxi->id(), redChannel, 255);
+            source->set(fxi->id(), greenChannel, 255);
+            source->set(fxi->id(), blueChannel, 255);
+        }
+
+        quint32 intensityChannel = head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
+        source->set(fxi->id(), intensityChannel, 255);
     }
 
     source->setOutputEnabled(true);
@@ -577,8 +593,6 @@ void FixtureManager::turnFixtureOff(quint32 id)
 
     delete m_fixtureToSourceMap.value(id);
     m_fixtureToSourceMap.remove(id);
-
-    qDebug() << "Untest fixture" << id;
 }
 
 void FixtureManager::fixtureSelected(quint32 id)
@@ -1610,10 +1624,14 @@ void FixtureManager::slotTestFixtures()
     // Update the icon
     if(m_testFixturesEnabled)
     {
-        m_testFixturesAction->setIcon(QIcon(":/fixture_off.png"));
+        m_testFixturesAction->setIcon(QIcon(":/fixture.png"));
+        m_testFixturesAction->setIconText(tr("Enable fixture tester"));
+        m_testFixturesAction->setToolTip(tr("Enable fixture tester"));
     } else
     {
-        m_testFixturesAction->setIcon(QIcon(":/fixture.png"));
+        m_testFixturesAction->setIcon(QIcon(":/fixture_off.png"));
+        m_testFixturesAction->setIconText(tr("Disable fixture tester"));
+        m_testFixturesAction->setToolTip(tr("Disable fixture tester"));
     }
 
     m_testFixturesEnabled = !m_testFixturesEnabled;
