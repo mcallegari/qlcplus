@@ -520,6 +520,7 @@ set(qlcui_resource_files
     "../ui/src/../../resources/icons/png/filesave.png"
     "../ui/src/../../resources/icons/png/filesaveas.png"
     "../ui/src/../../resources/icons/png/fixture.png"
+    "../ui/src/../../resources/icons/png/fixture_off.png"
     "../ui/src/../../resources/icons/png/flash.png"
     "../ui/src/../../resources/icons/png/flower.png"
     "../ui/src/../../resources/icons/png/folder.png"

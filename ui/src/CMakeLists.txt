@@ -353,6 +353,9 @@ set_source_files_properties("../../resources/icons/png/filesaveas.png"
 set_source_files_properties("../../resources/icons/png/fixture.png"
     PROPERTIES QT_RESOURCE_ALIAS "fixture.png"
 )
+set_source_files_properties("../../resources/icons/png/fixture_off.png"
+    PROPERTIES QT_RESOURCE_ALIAS "fixture_off.png"
+)
 set_source_files_properties("../../resources/icons/png/flash.png"
     PROPERTIES QT_RESOURCE_ALIAS "flash.png"
 )
