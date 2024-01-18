@@ -533,7 +533,9 @@ void FixtureManager::runTestFixtures()
         {
             turnFixtureOff(*it);
         }
-    } else {
+    }
+    else
+    {
         // Turn all fixtures off
         QHash<quint32, GenericDMXSource*>::iterator it;
         foreach(const quint32 &fixtureId, m_fixtureToSourceMap.keys())
@@ -569,7 +571,9 @@ void FixtureManager::turnFixtureOn(quint32 id)
         if(whiteChannel != QLCChannel::invalid())
         {
             source->set(fxi->id(), whiteChannel, 255);
-        } else if(redChannel != QLCChannel::invalid() && greenChannel != QLCChannel::invalid() && blueChannel != QLCChannel::invalid()) {
+        }
+        else if(redChannel != QLCChannel::invalid() && greenChannel != QLCChannel::invalid() && blueChannel != QLCChannel::invalid())
+        {
             source->set(fxi->id(), redChannel, 255);
             source->set(fxi->id(), greenChannel, 255);
             source->set(fxi->id(), blueChannel, 255);
@@ -1621,7 +1625,6 @@ void FixtureManager::slotRemap()
 
 void FixtureManager::slotTestFixtures()
 {
-    // Update the icon
     if(m_testFixturesEnabled)
     {
         m_testFixturesAction->setIcon(QIcon(":/fixture.png"));
