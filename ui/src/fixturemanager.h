@@ -25,6 +25,7 @@
 #include "function.h"
 #include "fixture.h"
 #include "doc.h"
+#include "genericdmxsource.h"
 
 class QLCFixtureDefCache;
 class FixtureGroupEditor;
@@ -88,6 +89,9 @@ public slots:
 
 private:
     Doc* m_doc;
+    bool m_fixtureTestEnabled;
+    QSet<quint32> m_lastSelectedFixtureIds;
+    QHash<quint32, GenericDMXSource*> m_selectedFixtureHash;
 
     /********************************************************************
      * Data view
@@ -117,6 +121,15 @@ private:
 
     /** Construct the list view and data view */
     void initDataView();
+
+    /** TO-DO: DESCRIPTION */
+    void updateTestFixtures();
+
+    /** TO-DO: Test fixture when Fixture Tester is enabled */
+    void testFixture(quint32 id);
+
+    /** TO-DO: Test fixture when Fixture Tester is enabled */
+    void untestFixture(quint32 id);
 
     /** Handle single fixture selection */
     void fixtureSelected(quint32 id);
@@ -199,6 +212,7 @@ private slots:
     void slotProperties();
     void slotFadeConfig();
     void slotRemap();
+    void slotTestFixtures();
     void slotUnGroup();
     void slotGroupSelected(QAction* action);
     void slotMoveGroupUp();
@@ -216,6 +230,7 @@ private:
     QAction* m_propertiesAction;
     QAction* m_fadeConfigAction;
     QAction* m_remapAction;
+    QAction* m_testFixturesAction;
     QAction* m_groupAction;
     QAction* m_unGroupAction;
     QAction* m_newGroupAction;

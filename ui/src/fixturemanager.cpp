@@ -36,6 +36,7 @@
 #include <QIcon>
 #include <QMenu>
 #include <QtGui>
+#include <QList>
 
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
@@ -45,6 +46,7 @@
 #include "createfixturegroup.h"
 #include "fixturegroupeditor.h"
 #include "fixturetreewidget.h"
+#include "genericdmxsource.h"
 #include "channelsselection.h"
 #include "addchannelsgroup.h"
 #include "fixturemanager.h"
@@ -75,6 +77,7 @@ FixtureManager* FixtureManager::s_instance = NULL;
 FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
     : QWidget(parent)
     , m_doc(doc)
+    , m_fixtureTestEnabled(true)
     , m_splitter(NULL)
     , m_fixtures_tree(NULL)
     , m_channel_groups_tree(NULL)
@@ -151,6 +154,11 @@ FixtureManager::~FixtureManager()
     settings.setValue(SETTINGS_SPLITTER, m_splitter->saveState());
     FixtureManager::s_instance = NULL;
 
+    QHash<quint32, GenericDMXSource*>::iterator it;
+    for (it = m_selectedFixtureHash.begin(); it != m_selectedFixtureHash.end(); ++it) {
+        delete it.value();
+    }
+
     s_instance = NULL;
 }
 
@@ -212,6 +220,7 @@ void FixtureManager::slotChannelsGroupRemoved(quint32 id)
 
 void FixtureManager::slotModeChanged(Doc::Mode mode)
 {
+    // TO-DO: hier moeje die check shit toevoegen ojo!
     if (mode == Doc::Design)
     {
         int selected = m_fixtures_tree->selectedItems().size();
@@ -269,6 +278,8 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
             m_fadeConfigAction->setEnabled(true);
         else
             m_fadeConfigAction->setEnabled(false);
+
+        m_testFixturesAction->setEnabled(true);
     }
     else
     {
@@ -279,7 +290,10 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
         m_fadeConfigAction->setEnabled(false);
         m_groupAction->setEnabled(false);
         m_unGroupAction->setEnabled(false);
+        m_testFixturesAction->setEnabled(false);
     }
+
+    updateTestFixtures();
 }
 
 void FixtureManager::slotFixtureGroupRemoved(quint32 id)
@@ -494,6 +508,84 @@ void FixtureManager::updateRDMView()
     m_remapAction->setEnabled(false);
 }
 
+void FixtureManager::updateTestFixtures()
+{
+
+    qDebug() << "Run updateTestFixtures()";
+
+    QList<QTreeWidgetItem*> m_selectedFixtures = m_fixtures_tree->selectedItems();
+    QSet<quint32> selectedFixtureIds;
+    foreach (QTreeWidgetItem* item , m_selectedFixtures)
+    {
+        selectedFixtureIds.insert(item->data(KColumnName, PROP_ID).toUInt());
+    }
+
+    QSet<quint32> newlySelectedFixtureIds = selectedFixtureIds.subtract(m_lastSelectedFixtureIds);
+    QSet<quint32> deselectedFixtureIds = m_lastSelectedFixtureIds.subtract(selectedFixtureIds);
+
+    // TO-DO: check that no other conditions have to be set!
+    if(m_doc->mode() == Doc::Design && m_fixtureTestEnabled)
+    {
+        // Turn on all selected fixtures
+        QSet<quint32>::const_iterator it;
+        for (it = newlySelectedFixtureIds.constBegin(); it != newlySelectedFixtureIds.constEnd(); ++it) {
+            testFixture(*it);
+        }
+
+        // Turn all deselected fixtures off
+        for (it = deselectedFixtureIds.constBegin(); it != deselectedFixtureIds.constEnd(); ++it) {
+            untestFixture(*it);
+        }
+    } else {
+        // Turn all fixtures off
+        QHash<quint32, GenericDMXSource*>::iterator it;
+        foreach(const quint32 &fixtureId, m_selectedFixtureHash.keys()) {
+            untestFixture(fixtureId);
+        }
+    }
+
+    // TO-DO: terugkeren uit een selectie tijdens de niet edit fase werkt nog nie!
+    m_lastSelectedFixtureIds = selectedFixtureIds;
+
+}
+
+void FixtureManager::testFixture(quint32 id)
+{
+    Fixture* fxi = m_doc->fixture(id);
+    if (fxi == NULL)
+        return;
+
+    GenericDMXSource* source = new GenericDMXSource(m_doc);
+    m_selectedFixtureHash.insert(id, source);
+
+    // TO-DO: make fixture white!
+
+    // Set the Intensity for every Head to 255
+    for (int i = 0; i < fxi->heads(); i++)
+    {
+        QLCFixtureHead head= fxi->head(i);
+        quint32 jo = head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
+        source->set(fxi->id(), jo, 255);
+    }
+
+    source->setOutputEnabled(true);
+}
+
+void FixtureManager::untestFixture(quint32 id)
+{
+    Fixture* fxi = m_doc->fixture(id);
+    if (fxi == NULL)
+        return;
+
+    if(!m_selectedFixtureHash.contains(id))
+        return;
+
+    delete m_selectedFixtureHash.value(id);
+    m_selectedFixtureHash.remove(id);
+
+    qDebug() << "Untest fixture" << id;
+}
+
 void FixtureManager::fixtureSelected(quint32 id)
 {
     Fixture* fxi = m_doc->fixture(id);
@@ -504,11 +596,8 @@ void FixtureManager::fixtureSelected(quint32 id)
         createInfo();
 
     m_info->setText(QString("%1<BODY>%2</BODY></HTML>")
-                    .arg(fixtureInfoStyleSheetHeader())
-                    .arg(fxi->status()));
-
-    // Enable/disable actions
-    slotModeChanged(m_doc->mode());
+                        .arg(fixtureInfoStyleSheetHeader())
+                        .arg(fxi->status()));
 }
 
 void FixtureManager::fixtureGroupSelected(FixtureGroup* grp)
@@ -936,6 +1025,11 @@ void FixtureManager::initActions()
                                tr("Remap fixtures..."), this);
     connect(m_remapAction, SIGNAL(triggered(bool)),
             this, SLOT(slotRemap()));
+
+    m_testFixturesAction = new QAction(QIcon(":/fixture.png"),
+                                tr("Enable fixture tester..."), this);
+    connect(m_testFixturesAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotTestFixtures()));
 }
 
 void FixtureManager::updateGroupMenu()
@@ -985,6 +1079,7 @@ void FixtureManager::initToolBar()
     toolbar->addAction(m_importAction);
     toolbar->addAction(m_exportAction);
     toolbar->addAction(m_remapAction);
+    toolbar->addAction(m_testFixturesAction);
 
     QToolButton* btn = qobject_cast<QToolButton*> (toolbar->widgetForAction(m_groupAction));
     Q_ASSERT(btn != NULL);
@@ -1513,6 +1608,21 @@ void FixtureManager::slotRemap()
         return; // User pressed cancel
 
     updateView();
+}
+
+void FixtureManager::slotTestFixtures()
+{
+    // Update the icon
+    if(m_fixtureTestEnabled)
+    {
+        m_testFixturesAction->setIcon(QIcon(":/remap.png"));
+    } else
+    {
+        m_testFixturesAction->setIcon(QIcon(":/fixture.png"));
+    }
+
+    m_fixtureTestEnabled = !m_fixtureTestEnabled;
+    slotModeChanged(m_doc->mode());
 }
 
 void FixtureManager::slotUnGroup()
