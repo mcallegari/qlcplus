@@ -78,7 +78,7 @@ FixtureManager::FixtureManager(QTabWidget* parent, Doc* doc)
     : QWidget(parent)
     , m_parent(parent)
     , m_doc(doc)
-    , m_testFixturesEnabled(false)
+    , m_highlightFixturesEnabled(false)
     , m_splitter(NULL)
     , m_fixtures_tree(NULL)
     , m_channel_groups_tree(NULL)
@@ -177,7 +177,7 @@ FixtureManager* FixtureManager::instance()
 
 void FixtureManager::slotParentTabChanged()
 {
-    runTestFixtures();
+    runHighlightFixtures();
 }
 
 void FixtureManager::slotFixtureRemoved(quint32 id)
@@ -287,7 +287,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
         else
             m_fadeConfigAction->setEnabled(false);
 
-        m_testFixturesAction->setEnabled(true);
+        m_highlightFixturesAction->setEnabled(true);
     }
     else
     {
@@ -298,10 +298,10 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
         m_fadeConfigAction->setEnabled(false);
         m_groupAction->setEnabled(false);
         m_unGroupAction->setEnabled(false);
-        m_testFixturesAction->setEnabled(false);
+        m_highlightFixturesAction->setEnabled(false);
     }
 
-    runTestFixtures();
+    runHighlightFixtures();
 }
 
 void FixtureManager::slotFixtureGroupRemoved(quint32 id)
@@ -516,7 +516,7 @@ void FixtureManager::updateRDMView()
     m_remapAction->setEnabled(false);
 }
 
-void FixtureManager::runTestFixtures()
+void FixtureManager::runHighlightFixtures()
 {
     QList<QTreeWidgetItem*> selectedFixtures = m_fixtures_tree->selectedItems();
     QSet<quint32> selectedFixtureIds;
@@ -528,7 +528,7 @@ void FixtureManager::runTestFixtures()
     QSet<quint32> newlySelectedFixtureIds = selectedFixtureIds.subtract(m_lastSelectedFixtureIds);
     QSet<quint32> deselectedFixtureIds = m_lastSelectedFixtureIds.subtract(selectedFixtureIds);
 
-    if(m_doc->mode() == Doc::Design && m_testFixturesEnabled && m_parent->currentIndex() == 0)
+    if(m_doc->mode() == Doc::Design && m_highlightFixturesEnabled && m_parent->currentIndex() == 0)
     {
         // Turn on all selected fixtures
         QSet<quint32>::const_iterator it;
@@ -1048,10 +1048,10 @@ void FixtureManager::initActions()
     connect(m_remapAction, SIGNAL(triggered(bool)),
             this, SLOT(slotRemap()));
 
-    m_testFixturesAction = new QAction(QIcon(":/fixture.png"),
-                                tr("Enable fixture tester..."), this);
-    connect(m_testFixturesAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotTestFixtures()));
+    m_highlightFixturesAction = new QAction(QIcon(":/fixture.png"),
+                                tr("Enable highlight fixtures..."), this);
+    connect(m_highlightFixturesAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotHighlightFixtures()));
 }
 
 void FixtureManager::updateGroupMenu()
@@ -1101,7 +1101,7 @@ void FixtureManager::initToolBar()
     toolbar->addAction(m_importAction);
     toolbar->addAction(m_exportAction);
     toolbar->addAction(m_remapAction);
-    toolbar->addAction(m_testFixturesAction);
+    toolbar->addAction(m_highlightFixturesAction);
 
     QToolButton* btn = qobject_cast<QToolButton*> (toolbar->widgetForAction(m_groupAction));
     Q_ASSERT(btn != NULL);
@@ -1632,21 +1632,21 @@ void FixtureManager::slotRemap()
     updateView();
 }
 
-void FixtureManager::slotTestFixtures()
+void FixtureManager::slotHighlightFixtures()
 {
-    if(m_testFixturesEnabled)
+    if(m_highlightFixturesEnabled)
     {
-        m_testFixturesAction->setIcon(QIcon(":/fixture.png"));
-        m_testFixturesAction->setIconText(tr("Enable fixture tester"));
-        m_testFixturesAction->setToolTip(tr("Enable fixture tester"));
+        m_highlightFixturesAction->setIcon(QIcon(":/fixture.png"));
+        m_highlightFixturesAction->setIconText(tr("Enable highlight fixtures"));
+        m_highlightFixturesAction->setToolTip(tr("Enable highlight fixtures"));
     } else
     {
-        m_testFixturesAction->setIcon(QIcon(":/fixture_off.png"));
-        m_testFixturesAction->setIconText(tr("Disable fixture tester"));
-        m_testFixturesAction->setToolTip(tr("Disable fixture tester"));
+        m_highlightFixturesAction->setIcon(QIcon(":/fixture_off.png"));
+        m_highlightFixturesAction->setIconText(tr("Disable highlight fixtures"));
+        m_highlightFixturesAction->setToolTip(tr("Disable highlight fixtures"));
     }
 
-    m_testFixturesEnabled = !m_testFixturesEnabled;
+    m_highlightFixturesEnabled = !m_highlightFixturesEnabled;
     slotModeChanged(m_doc->mode());
 }
 
