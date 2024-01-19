@@ -294,10 +294,15 @@ Rectangle
                                                 iSrc: mcDelegate.cRef ? mcDelegate.cRef.getIconNameFromGroup(mcDelegate.cRef.group, true) : ""
                                             }
                                             Rectangle { width: 1; height: UISettings.listItemHeight }
+
                                             CustomComboBox
                                             {
                                                 implicitWidth: UISettings.bigItemHeight * 2
                                                 height: UISettings.listItemHeight
+                                                model: mode ? mode.actsOnChannels : null
+                                                textRole: ""
+                                                currentIndex: mode ? mode.actsOnChannel(index) : -1
+                                                onCurrentIndexChanged: if (mode) mode.setActsOnChannel(index, currentIndex)
                                             }
                                         }
 
