@@ -93,7 +93,7 @@ public slots:
 private:
     QTabWidget* m_parent;
     Doc* m_doc;
-    bool m_testFixturesEnabled;
+    bool m_highlightFixturesEnabled;
     QSet<quint32> m_lastSelectedFixtureIds;
     QHash<quint32, GenericDMXSource*> m_fixtureToSourceMap;
 
@@ -127,7 +127,7 @@ private:
     void initDataView();
 
     /** Checks if any fixtures have to be turned on/off if Test Fixtures is enabled */
-    void runTestFixtures();
+    void runHighlightFixtures();
 
     /** Creates a GenericDmxSource and turns the fixture on */
     void turnFixtureOn(quint32 id);
@@ -216,7 +216,7 @@ private slots:
     void slotProperties();
     void slotFadeConfig();
     void slotRemap();
-    void slotTestFixtures();
+    void slotHighlightFixtures();
     void slotUnGroup();
     void slotGroupSelected(QAction* action);
     void slotMoveGroupUp();
@@ -234,7 +234,7 @@ private:
     QAction* m_propertiesAction;
     QAction* m_fadeConfigAction;
     QAction* m_remapAction;
-    QAction* m_testFixturesAction;
+    QAction* m_highlightFixturesAction;
     QAction* m_groupAction;
     QAction* m_unGroupAction;
     QAction* m_newGroupAction;
