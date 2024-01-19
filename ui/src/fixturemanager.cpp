@@ -74,8 +74,9 @@ FixtureManager* FixtureManager::s_instance = NULL;
  * Initialization
  *****************************************************************************/
 
-FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
+FixtureManager::FixtureManager(QTabWidget* parent, Doc* doc)
     : QWidget(parent)
+    , m_parent(parent)
     , m_doc(doc)
     , m_testFixturesEnabled(false)
     , m_splitter(NULL)
@@ -118,6 +119,9 @@ FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
     QTreeWidgetItem* grpItem = m_fixtures_tree->topLevelItem(0);
     if (grpItem != NULL)
         grpItem->setExpanded(true);
+
+    connect(m_parent, SIGNAL(currentChanged(int)),
+            this, SLOT(slotParentTabChanged()));
 
     /* Connect fixture list change signals from the new document object */
     connect(m_doc, SIGNAL(fixtureRemoved(quint32)),
@@ -168,8 +172,13 @@ FixtureManager* FixtureManager::instance()
 }
 
 /*****************************************************************************
- * Doc signal handlers
+ * Signal handlers
  *****************************************************************************/
+
+void FixtureManager::slotParentTabChanged()
+{
+    runTestFixtures();
+}
 
 void FixtureManager::slotFixtureRemoved(quint32 id)
 {
@@ -519,7 +528,7 @@ void FixtureManager::runTestFixtures()
     QSet<quint32> newlySelectedFixtureIds = selectedFixtureIds.subtract(m_lastSelectedFixtureIds);
     QSet<quint32> deselectedFixtureIds = m_lastSelectedFixtureIds.subtract(selectedFixtureIds);
 
-    if(m_doc->mode() == Doc::Design && m_testFixturesEnabled)
+    if(m_doc->mode() == Doc::Design && m_testFixturesEnabled && m_parent->currentIndex() == 0)
     {
         // Turn on all selected fixtures
         QSet<quint32>::const_iterator it;
