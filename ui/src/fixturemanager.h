@@ -55,7 +55,7 @@ class FixtureManager : public QWidget
      * Initialization
      ********************************************************************/
 public:
-    FixtureManager(QWidget* parent, Doc* doc);
+    FixtureManager(QTabWidget* parent, Doc* doc);
     ~FixtureManager();
 
     /** Get the singleton instance */
@@ -66,9 +66,12 @@ private:
     static FixtureManager* s_instance;
 
     /********************************************************************
-     * Doc signal handlers
+     * Signal handlers
      ********************************************************************/
 public slots:
+    /** Callback for QTabWidget::currentChanged() signals */
+    void slotParentTabChanged();
+
     /** Callback for Doc::fixtureRemoved() signals */
     void slotFixtureRemoved(quint32 id);
 
@@ -88,6 +91,7 @@ public slots:
     void slotDocLoaded();
 
 private:
+    QTabWidget* m_parent;
     Doc* m_doc;
     bool m_testFixturesEnabled;
     QSet<quint32> m_lastSelectedFixtureIds;
