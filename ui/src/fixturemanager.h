@@ -130,10 +130,10 @@ private:
     void runHighlightFixtures();
 
     /** Creates a GenericDmxSource and turns the fixture on */
-    void turnFixtureOn(quint32 id);
+    void highlightFixture(quint32 id);
 
     /** Turns the fixture off and removes the related GenericDmxSource */
-    void turnFixtureOff(quint32 id);
+    void unHighlightFixture(quint32 id);
 
     /** Handle single fixture selection */
     void fixtureSelected(quint32 id);
