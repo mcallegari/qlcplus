@@ -19,8 +19,6 @@
 
 import QtQuick 2.2
 
-import "."
-
 Rectangle
 {
     id: baseMenuEntry

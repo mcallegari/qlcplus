@@ -25,7 +25,6 @@ import QtQuick.Controls 2.1
 import org.qlcplus.classes 1.0
 
 import "TimeUtils.js" as TimeUtils
-import "."
 
 Rectangle
 {

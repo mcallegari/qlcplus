@@ -19,7 +19,6 @@
 
 import QtQuick 2.1
 
-import "."
 
 /** This is a wrapper item to achieve 3 things:
   * 1) load a detached context on a surface with the application background

@@ -22,8 +22,6 @@ import QtQuick.Controls 2.1
 import QtQuick.Dialogs
 import QtQuick.Layouts 1.0
 
-import "."
-
 Popup
 {
     id: menuRoot

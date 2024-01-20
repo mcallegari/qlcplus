@@ -23,7 +23,6 @@ import QtQuick.Layouts 1.0
 import org.qlcplus.classes 1.0
 import "TimeUtils.js" as TimeUtils
 
-import "."
 
 GridLayout
 {

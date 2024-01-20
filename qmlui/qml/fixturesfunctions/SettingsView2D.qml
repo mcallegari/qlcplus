@@ -22,7 +22,6 @@ import QtQuick.Layouts 1.1
 import QtQuick.Dialogs
 
 import org.qlcplus.classes 1.0
-import "."
 
 Rectangle
 {

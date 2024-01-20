@@ -22,7 +22,6 @@ import QtQuick.Layouts 1.14
 import QtQuick.Controls 2.14
 
 import org.qlcplus.classes 1.0
-import "."
 
 Rectangle
 {

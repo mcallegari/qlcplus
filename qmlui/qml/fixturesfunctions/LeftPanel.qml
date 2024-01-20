@@ -22,7 +22,6 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.2
 
 import org.qlcplus.classes 1.0
-import "."
 
 SidePanel
 {

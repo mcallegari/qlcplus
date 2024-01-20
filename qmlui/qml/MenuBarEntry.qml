@@ -20,7 +20,6 @@
 import QtQuick 2.2
 import QtQuick.Controls 2.1
 
-import "."
 
 Button
 {

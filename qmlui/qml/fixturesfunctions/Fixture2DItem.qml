@@ -21,7 +21,6 @@ import QtQuick 2.10
 
 import org.qlcplus.classes 1.0
 import "CanvasDrawFunctions.js" as DrawFuncs
-import "."
 
 Rectangle
 {

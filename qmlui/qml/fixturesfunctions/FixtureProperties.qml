@@ -21,7 +21,6 @@ import QtQuick 2.3
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.1
 
-import "."
 
 Rectangle
 {

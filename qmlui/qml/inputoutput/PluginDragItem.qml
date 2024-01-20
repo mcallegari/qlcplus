@@ -20,7 +20,6 @@
 import QtQuick 2.0
 
 import "GenericHelpers.js" as Helpers
-import "."
 
 Rectangle
 {

@@ -23,7 +23,6 @@ import QtQuick.Dialogs
 import QtQuick.Controls 2.13
 
 import org.qlcplus.classes 1.0
-import "."
 
 Rectangle
 {

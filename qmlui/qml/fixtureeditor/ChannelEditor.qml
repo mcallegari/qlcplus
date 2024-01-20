@@ -23,7 +23,6 @@ import QtQuick.Controls 2.14
 import QtQuick.Dialogs
 
 import org.qlcplus.classes 1.0
-import "."
 
 GridLayout
 {
