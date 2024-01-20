@@ -534,13 +534,13 @@ void FixtureManager::runHighlightFixtures()
         QSet<quint32>::const_iterator it;
         for (it = newlySelectedFixtureIds.constBegin(); it != newlySelectedFixtureIds.constEnd(); ++it)
         {
-            turnFixtureOn(*it);
+            highlightFixture(*it);
         }
 
         // Turn all deselected fixtures off
         for (it = deselectedFixtureIds.constBegin(); it != deselectedFixtureIds.constEnd(); ++it)
         {
-            turnFixtureOff(*it);
+            unHighlightFixture(*it);
         }
     }
     else
@@ -549,14 +549,14 @@ void FixtureManager::runHighlightFixtures()
         QHash<quint32, GenericDMXSource*>::iterator it;
         foreach(const quint32 &fixtureId, m_fixtureToSourceMap.keys())
         {
-            turnFixtureOff(fixtureId);
+            unHighlightFixture(fixtureId);
         }
     }
 
     m_lastSelectedFixtureIds = selectedFixtureIds;
 }
 
-void FixtureManager::turnFixtureOn(quint32 id)
+void FixtureManager::highlightFixture(quint32 id)
 {
     Fixture* fxi = m_doc->fixture(id);
     if (fxi == NULL)
@@ -588,6 +588,18 @@ void FixtureManager::turnFixtureOn(quint32 id)
             source->set(fxi->id(), blueChannel, 255);
         }
 
+        quint32 panChannel = head.channelNumber(QLCChannel::Pan, QLCChannel::MSB);
+        if(panChannel != QLCChannel::invalid())
+        {
+            source->set(fxi->id(), panChannel, 127);
+        }
+
+        quint32 tiltChannel = head.channelNumber(QLCChannel::Tilt, QLCChannel::MSB);
+        if(tiltChannel != QLCChannel::invalid())
+        {
+            source->set(fxi->id(), tiltChannel, 127);
+        }
+
         quint32 intensityChannel = head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
         source->set(fxi->id(), intensityChannel, 255);
     }
@@ -595,7 +607,7 @@ void FixtureManager::turnFixtureOn(quint32 id)
     source->setOutputEnabled(true);
 }
 
-void FixtureManager::turnFixtureOff(quint32 id)
+void FixtureManager::unHighlightFixture(quint32 id)
 {
     Fixture* fxi = m_doc->fixture(id);
     if (fxi == NULL)
