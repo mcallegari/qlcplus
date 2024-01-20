@@ -41,6 +41,7 @@
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
 #include "qlcchannel.h"
+#include "qlccapability.h"
 #include "qlcfile.h"
 
 #include "createfixturegroup.h"
@@ -528,7 +529,7 @@ void FixtureManager::runHighlightFixtures()
     QSet<quint32> newlySelectedFixtureIds = selectedFixtureIds.subtract(m_lastSelectedFixtureIds);
     QSet<quint32> deselectedFixtureIds = m_lastSelectedFixtureIds.subtract(selectedFixtureIds);
 
-    if(m_doc->mode() == Doc::Design && m_highlightFixturesEnabled && m_parent->currentIndex() == 0)
+    if (m_doc->mode() == Doc::Design && m_highlightFixturesEnabled && m_parent->currentIndex() == 0)
     {
         // Turn on all selected fixtures
         QSet<quint32>::const_iterator it;
@@ -565,9 +566,24 @@ void FixtureManager::highlightFixture(quint32 id)
     GenericDMXSource* source = new GenericDMXSource(m_doc);
     m_fixtureToSourceMap.insert(id, source);
 
-    // TO-DO: check if this works for complex lights (Mac Quantum for instance)
+    for (quint32 i = 0; i < fxi->channels(); i++)
+    {
+        const QLCChannel *channel = fxi->channel(i);
+        for (QLCCapability *cap : channel->capabilities())
+        {
+            if (cap->preset() == QLCCapability::ShutterOpen ||
+                cap->preset() == QLCCapability::LampOn)
+            {
+                // TO-DO: I'm not sure if this is correct if a fixture has multiple heads, will this open the shutter for all heads?
+                source->set(fxi->id(), i, cap->middle());
 
-    // Set the color of every Fixture to white and intensity to 255
+                break;
+            }
+
+        }
+    }
+
+    // Set the color of every Fixture to white, pan en tilt to 127, shutter to open and intensity to 255
     for (int i = 0; i < fxi->heads(); i++)
     {
         QLCFixtureHead head = fxi->head(i);
@@ -577,11 +593,11 @@ void FixtureManager::highlightFixture(quint32 id)
         quint32 greenChannel = head.channelNumber(QLCChannel::Green, QLCChannel::MSB);
         quint32 blueChannel = head.channelNumber(QLCChannel::Blue, QLCChannel::MSB);
 
-        if(whiteChannel != QLCChannel::invalid())
+        if (whiteChannel != QLCChannel::invalid())
         {
             source->set(fxi->id(), whiteChannel, 255);
         }
-        else if(redChannel != QLCChannel::invalid() && greenChannel != QLCChannel::invalid() && blueChannel != QLCChannel::invalid())
+        else if (redChannel != QLCChannel::invalid() && greenChannel != QLCChannel::invalid() && blueChannel != QLCChannel::invalid())
         {
             source->set(fxi->id(), redChannel, 255);
             source->set(fxi->id(), greenChannel, 255);
@@ -589,13 +605,13 @@ void FixtureManager::highlightFixture(quint32 id)
         }
 
         quint32 panChannel = head.channelNumber(QLCChannel::Pan, QLCChannel::MSB);
-        if(panChannel != QLCChannel::invalid())
+        if (panChannel != QLCChannel::invalid())
         {
             source->set(fxi->id(), panChannel, 127);
         }
 
         quint32 tiltChannel = head.channelNumber(QLCChannel::Tilt, QLCChannel::MSB);
-        if(tiltChannel != QLCChannel::invalid())
+        if (tiltChannel != QLCChannel::invalid())
         {
             source->set(fxi->id(), tiltChannel, 127);
         }
@@ -613,7 +629,7 @@ void FixtureManager::unHighlightFixture(quint32 id)
     if (fxi == NULL)
         return;
 
-    if(!m_fixtureToSourceMap.contains(id))
+    if  (!m_fixtureToSourceMap.contains(id))
         return;
 
     delete m_fixtureToSourceMap.value(id);
@@ -1646,12 +1662,13 @@ void FixtureManager::slotRemap()
 
 void FixtureManager::slotHighlightFixtures()
 {
-    if(m_highlightFixturesEnabled)
+    if (m_highlightFixturesEnabled)
     {
         m_highlightFixturesAction->setIcon(QIcon(":/fixture.png"));
         m_highlightFixturesAction->setIconText(tr("Enable highlight fixtures"));
         m_highlightFixturesAction->setToolTip(tr("Enable highlight fixtures"));
-    } else
+    }
+    else
     {
         m_highlightFixturesAction->setIcon(QIcon(":/fixture_off.png"));
         m_highlightFixturesAction->setIconText(tr("Disable highlight fixtures"));
