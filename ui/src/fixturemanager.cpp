@@ -566,23 +566,6 @@ void FixtureManager::highlightFixture(quint32 id)
     GenericDMXSource* source = new GenericDMXSource(m_doc);
     m_fixtureToSourceMap.insert(id, source);
 
-    for (quint32 i = 0; i < fxi->channels(); i++)
-    {
-        const QLCChannel *channel = fxi->channel(i);
-        for (QLCCapability *cap : channel->capabilities())
-        {
-            if (cap->preset() == QLCCapability::ShutterOpen ||
-                cap->preset() == QLCCapability::LampOn)
-            {
-                // TO-DO: I'm not sure if this is correct if a fixture has multiple heads, will this open the shutter for all heads?
-                source->set(fxi->id(), i, cap->middle());
-
-                break;
-            }
-
-        }
-    }
-
     // Set the color of every Fixture to white, pan en tilt to 127, shutter to open and intensity to 255
     for (int i = 0; i < fxi->heads(); i++)
     {
@@ -616,6 +599,26 @@ void FixtureManager::highlightFixture(quint32 id)
             source->set(fxi->id(), tiltChannel, 127);
         }
 
+        QLCFixtureMode* mode = fxi->fixtureMode();
+        foreach (quint32 shutter, head.shutterChannels())
+        {
+            QLCChannel *ch = mode->channel(shutter);
+            if (ch == NULL)
+                continue;
+
+            foreach (QLCCapability *cap, ch->capabilities())
+            {
+                if (cap->preset() == QLCCapability::ShutterOpen ||
+                    cap->preset() == QLCCapability::LampOn)
+                {
+                    source->set(fxi->id(), i, cap->middle());
+                    goto setIntensity;
+                }
+
+            }
+        }
+
+    setIntensity:
         quint32 intensityChannel = head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
         source->set(fxi->id(), intensityChannel, 255);
     }
