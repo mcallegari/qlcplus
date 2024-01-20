@@ -93,6 +93,20 @@ QStringList InputOutputManager::universeNames() const
     return m_ioMap->universeNames();
 }
 
+QString InputOutputManager::universeName(quint32 universeId)
+{
+    if (universeId == Universe::invalid())
+        return tr("All universes");
+    else
+    {
+        Universe *uni = m_ioMap->universe(universeId);
+        if (uni != nullptr)
+            return uni->name();
+    }
+
+    return QString();
+}
+
 QVariant InputOutputManager::universesListModel() const
 {
     QVariantList universesList;

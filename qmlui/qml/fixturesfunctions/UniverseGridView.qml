@@ -30,8 +30,9 @@ Flickable
     boundsBehavior: Flickable.StopAtBounds
     contentHeight: uniGrid.height + topbar.height + UISettings.bigItemHeight
 
+    property alias contextItem: uniGrid
     property string contextName: "UNIGRID"
-    property int uniStartAddr: viewUniverseCombo.currentIndex * 512
+    property int uniStartAddr: contextManager.universeFilter * 512
     property var fixtureClipboard: null
 
     function hasSettings()
@@ -44,7 +45,7 @@ Flickable
         id: errorPopup
         standardButtons: Dialog.Ok
         title: qsTr("Error")
-        message: qsTr("Unable to perform the operation.\nThere is either not enough space or the target universe in invalid")
+        message: qsTr("Unable to perform the operation.\nThere is either not enough space or the target universe is invalid")
         onAccepted: close()
     }
 
@@ -60,7 +61,7 @@ Flickable
             id: uniText
             height: UISettings.textSizeDefault * 2
             labelColor: UISettings.fgLight
-            label: viewUniverseCombo.currentText
+            label: ioManager.universeName(contextManager.universeFilter)
             fontSize: UISettings.textSizeDefault * 1.5
             fontBold: true
         }
@@ -101,7 +102,7 @@ Flickable
         x: UISettings.iconSizeMedium
         anchors.top: topbar.bottom
         width: parent.width - (UISettings.iconSizeMedium * 3)
-        height: cellSize * gridSize.height
+        height: 32 * gridSize.height
 
         showIndices: 512
         gridSize: Qt.size(24, 22)
