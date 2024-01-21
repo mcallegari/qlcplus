@@ -16,8 +16,8 @@
  <Channel Name="Strobe with dead zone">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="5">No Function</Capability>
-  <Capability Min="6" Max="10">Full on</Capability>
-  <Capability Min="11" Max="255">Strobe (Slow to fast)</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterOpen">Full on</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe (Slow to fast)</Capability>
  </Channel>
  <Channel Name="Built-in programs / Sound-controlled">
   <Group Byte="0">Effect</Group>
