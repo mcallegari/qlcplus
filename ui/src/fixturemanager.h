@@ -126,7 +126,7 @@ private:
     /** Construct the list view and data view */
     void initDataView();
 
-    /** Checks if any fixtures have to be turned on/off if Test Fixtures is enabled */
+    /** Checks if any fixtures have to be highlighted */
     void runHighlightFixtures();
 
     /** Creates a GenericDmxSource and turns the fixture on */
