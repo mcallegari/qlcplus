@@ -1079,7 +1079,7 @@ void FixtureManager::initActions()
     connect(m_remapAction, SIGNAL(triggered(bool)),
             this, SLOT(slotRemap()));
 
-    m_highlightFixturesAction = new QAction(QIcon(":/fixture.png"),
+    m_highlightFixturesAction = new QAction(QIcon(":/lightning.png"),
                                 tr("Enable highlight fixtures..."), this);
     connect(m_highlightFixturesAction, SIGNAL(triggered(bool)),
             this, SLOT(slotHighlightFixtures()));
@@ -1667,13 +1667,13 @@ void FixtureManager::slotHighlightFixtures()
 {
     if (m_highlightFixturesEnabled)
     {
-        m_highlightFixturesAction->setIcon(QIcon(":/fixture.png"));
+        m_highlightFixturesAction->setIcon(QIcon(":/lightning.png"));
         m_highlightFixturesAction->setIconText(tr("Enable highlight fixtures"));
         m_highlightFixturesAction->setToolTip(tr("Enable highlight fixtures"));
     }
     else
     {
-        m_highlightFixturesAction->setIcon(QIcon(":/fixture_off.png"));
+        m_highlightFixturesAction->setIcon(QIcon(":/lightning_off.png"));
         m_highlightFixturesAction->setIconText(tr("Disable highlight fixtures"));
         m_highlightFixturesAction->setToolTip(tr("Disable highlight fixtures"));
     }
