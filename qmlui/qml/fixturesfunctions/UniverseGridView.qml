@@ -109,6 +109,9 @@ Flickable
         gridLabels: fixtureManager.fixtureNamesMap
         gridData: fixtureManager.fixturesMap
 
+        Component.onCompleted: contextManager.enableContext("UNIGRID", true, uniGrid)
+        Component.onDestruction: if (contextManager) contextManager.enableContext("UNIGRID", false, uniGrid)
+
         property int prevFixtureID: -1
 
         function getItemIcon(itemID, chNumber)
@@ -136,6 +139,7 @@ Flickable
             if (multiSelection === 0)
                 contextManager.resetFixtureSelection()
 
+            console.log("prevFixtureID: " + prevFixtureID + "currentItemID: " + currentItemID)
             if (prevFixtureID != currentItemID && multiSelection === 0)
                 contextManager.setFixtureIDSelection(prevFixtureID, false)
 

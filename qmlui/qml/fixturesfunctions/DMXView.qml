@@ -83,7 +83,7 @@ Rectangle
             }
 
             Component.onCompleted: contextManager.enableContext("DMX", true, flowLayout)
-            Component.onDestruction: if(contextManager) contextManager.enableContext("DMX", false, flowLayout)
+            Component.onDestruction: if (contextManager) contextManager.enableContext("DMX", false, flowLayout)
         }
 
         ScrollBar.vertical: CustomScrollBar { }
