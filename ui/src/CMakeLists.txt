@@ -353,9 +353,6 @@ set_source_files_properties("../../resources/icons/png/filesaveas.png"
 set_source_files_properties("../../resources/icons/png/fixture.png"
     PROPERTIES QT_RESOURCE_ALIAS "fixture.png"
 )
-set_source_files_properties("../../resources/icons/png/fixture_off.png"
-    PROPERTIES QT_RESOURCE_ALIAS "fixture_off.png"
-)
 set_source_files_properties("../../resources/icons/png/flash.png"
     PROPERTIES QT_RESOURCE_ALIAS "flash.png"
 )
@@ -436,6 +433,12 @@ set_source_files_properties("../../resources/icons/png/ledbar_beams.png"
 )
 set_source_files_properties("../../resources/icons/png/ledbar_pixels.png"
     PROPERTIES QT_RESOURCE_ALIAS "ledbar_pixels.png"
+)
+set_source_files_properties("../../resources/icons/png/lightning.png"
+    PROPERTIES QT_RESOURCE_ALIAS "lightning.png"
+)
+set_source_files_properties("../../resources/icons/png/lightning_off.png"
+    PROPERTIES QT_RESOURCE_ALIAS "lightning_off.png"
 )
 set_source_files_properties("../../resources/icons/png/liveedit.png"
     PROPERTIES QT_RESOURCE_ALIAS "liveedit.png"
@@ -681,6 +684,8 @@ set(qlcui_resource_files
     "../../resources/icons/png/laser.png"
     "../../resources/icons/png/ledbar_beams.png"
     "../../resources/icons/png/ledbar_pixels.png"
+    "../../resources/icons/png/lightning.png"
+    "../../resources/icons/png/lightning_off.png"
     "../../resources/icons/png/liveedit.png"
     "../../resources/icons/png/liveedit_vc.png"
     "../../resources/icons/png/lock.png"
