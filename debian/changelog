@@ -12,6 +12,7 @@ qlcplus (4.12.8) stable; urgency=low
   * Virtual Console/Clock: fix running a schedule the day after
   * Virtual Console/Button: Scene flashing can force LTP and override (thanks to Dennis Suermann)
   * Virtual Console/Cue List: fix off by one offset error in steps mode (thanks to kpr0th)
+  * Virtual Console/Audio Triggers: fix attached VC Slider not updating values
   * Plugins/ArtNet: add default standard transmission mode as per protocol specifications
   * Plugins/ArtNet,E1.31,OSC: add a parameter to wait for interfaces to be ready
   * Plugins/DMX USB: add support for DMXKing MAX products
@@ -52,9 +53,9 @@ qlcplus (4.12.8) stable; urgency=low
   * New fixture: Robe Spiider (thanks to Nicolò)
   * New fixture: Betopper LB230 (thanks to Viktor)
   * New fixtures: Varytec Typhoon True Kid 720Z RGBW IP65, Showtec Performer 2000 RGBAL (thanks to Clément Delabroye)
-  * New fixture: Showtec LED Par 64 Short V2 (thanks to Øystein Steimler)
+  * New fixtures: Showtec LED Par 64 Short V2, Bright XBAR (thanks to Øystein Steimler)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 17 Dec 2023 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 18 Feb 2024 12:13:14 +0200
 
 qlcplus (4.12.7) stable; urgency=low
 

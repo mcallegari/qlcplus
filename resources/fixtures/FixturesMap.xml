@@ -280,6 +280,9 @@
     <F n="Botex-DSP-405" m="DSP-405"/>
     <F n="Botex-SP-1500" m="SP-1500"/>
   </M>
+  <M n="Bright">
+    <F n="Bright-XBAR" m="XBAR"/>
+  </M>
   <M n="Briteq">
     <F n="Briteq-BT-575S" m="BT 575S"/>
     <F n="Briteq-BT-575W" m="BT-575W"/>
