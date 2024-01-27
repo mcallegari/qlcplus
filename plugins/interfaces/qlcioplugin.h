@@ -129,7 +129,8 @@ public:
         Input       = 1 << 1,
         Feedback    = 1 << 2,
         Infinite    = 1 << 3,
-        RDM         = 1 << 4
+        RDM         = 1 << 4,
+        Beats       = 1 << 5
     };
 
     /**

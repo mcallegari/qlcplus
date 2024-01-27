@@ -803,8 +803,8 @@ void InputOutputManager::setBeatType(QString beatType)
 
     if (m_beatType == "INTERNAL")
         m_ioMap->setBeatGeneratorType(InputOutputMap::Internal);
-    else if (m_beatType == "MIDI")
-        m_ioMap->setBeatGeneratorType(InputOutputMap::MIDI);
+    else if (m_beatType == "PLUGIN")
+        m_ioMap->setBeatGeneratorType(InputOutputMap::Plugin);
     else if (m_beatType == "AUDIO")
         m_ioMap->setBeatGeneratorType(InputOutputMap::Audio);
     else
@@ -820,7 +820,7 @@ void InputOutputManager::slotBeatTypeChanged()
     switch(m_ioMap->beatGeneratorType())
     {
         case InputOutputMap::Internal: m_beatType = "INTERNAL"; break;
-        case InputOutputMap::MIDI: m_beatType = "MIDI"; break;
+        case InputOutputMap::Plugin: m_beatType = "PLUGIN"; break;
         case InputOutputMap::Audio: m_beatType = "AUDIO"; break;
         case InputOutputMap::Disabled:
         default:

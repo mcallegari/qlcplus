@@ -580,7 +580,7 @@ public:
     {
         Disabled,   //! No one is generating beats
         Internal,   //! MasterTimer is the beat generator
-        MIDI,       //! A MIDI plugin is the beat generator
+        Plugin,     //! A plugin is the beat generator
         Audio       //! An audio input device is the beat generator
     };
 
@@ -592,7 +592,7 @@ public:
 
 protected slots:
     void slotMasterTimerBeat();
-    void slotMIDIBeat(quint32 universe, quint32 channel, uchar value);
+    void slotPluginBeat(quint32 universe, quint32 channel, uchar value, const QString &key);
     void slotAudioSpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power);
 
 signals:
