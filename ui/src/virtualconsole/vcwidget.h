@@ -167,6 +167,9 @@ public:
 
     bool isDisabled();
 
+signals:
+    void disableStateChanged(bool disable);
+
 protected:
     bool m_disableState;
 
