@@ -1,0 +1,5 @@
+project(generic_meshes)
+
+file(GLOB GENERIC_MESH_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.obj")
+
+install(FILES ${GENERIC_MESH_FILES} DESTINATION ${INSTALLROOT}/${MESHESDIR}/generic)

@@ -40,20 +40,13 @@
 
 #include "vcsliderproperties.h"
 #include "vcpropertieseditor.h"
-#include "qlcinputchannel.h"
-#include "virtualconsole.h"
-#include "qlcinputsource.h"
+#include "genericfader.h"
+#include "fadechannel.h"
 #include "mastertimer.h"
-#include "collection.h"
-#include "inputpatch.h"
 #include "qlcmacros.h"
 #include "universe.h"
 #include "vcslider.h"
-#include "qlcfile.h"
 #include "apputil.h"
-#include "chaser.h"
-#include "scene.h"
-#include "efx.h"
 #include "doc.h"
 
 /** Number of DMXSource cycles to wait to consider a
@@ -531,6 +524,7 @@ void VCSlider::setSliderMode(SliderMode mode)
     else if (mode == Submaster)
     {
         m_monitorEnabled = false;
+        setPlaybackFunction(Function::invalidId());
 
         if (m_slider)
         {

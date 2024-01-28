@@ -57,6 +57,7 @@
 
 #define DMXKING_USB_DEVICE_MANUFACTURER 0x4D
 #define DMXKING_USB_DEVICE_NAME         0x4E
+#define DMXKING_DMX_PORT_COUNT          0x62
 #define DMXKING_SEND_DMX_PORT1          char(0x64)
 #define DMXKING_SEND_DMX_PORT2          char(0x65)
 
@@ -69,7 +70,7 @@ class EnttecDMXUSBProInput : public QThread
     Q_OBJECT
 
 public:
-    EnttecDMXUSBProInput(DMXInterface *interface);
+    EnttecDMXUSBProInput(DMXInterface *iface);
     ~EnttecDMXUSBProInput();
 
 private:
@@ -98,7 +99,7 @@ class EnttecDMXUSBPro : public QThread, public DMXUSBWidget
      * Initialization
      ************************************************************************/
 public:
-    EnttecDMXUSBPro(DMXInterface *interface,
+    EnttecDMXUSBPro(DMXInterface *iface,
                     quint32 outputLine, quint32 inputLine = 0);
 
     virtual ~EnttecDMXUSBPro();
@@ -163,7 +164,7 @@ private:
      ************************************************************************/
 public:
     /** @reimp */
-    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
 
 private:
     /** Stop output thread */

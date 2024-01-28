@@ -17,14 +17,11 @@
   limitations under the License.
 */
 
-#include "e131plugin.h"
-#include "configuree131.h"
-
 #include <QSettings>
 #include <QDebug>
 
-#define MAX_INIT_RETRY  10
-
+#include "e131plugin.h"
+#include "configuree131.h"
 
 bool addressCompare(const E131IO &v1, const E131IO &v2)
 {
@@ -37,7 +34,14 @@ E131Plugin::~E131Plugin()
 
 void E131Plugin::init()
 {
-    foreach(QNetworkInterface iface, QNetworkInterface::allInterfaces())
+    QSettings settings;
+    QVariant value = settings.value(SETTINGS_IFACE_WAIT_TIME);
+    if (value.isValid() == true)
+        m_ifaceWaitTime = value.toInt();
+    else
+        m_ifaceWaitTime = 0;
+
+    foreach (QNetworkInterface iface, QNetworkInterface::allInterfaces())
     {
         foreach (QNetworkAddressEntry entry, iface.addressEntries())
         {
@@ -50,7 +54,7 @@ void E131Plugin::init()
                 tmpIO.controller = NULL;
 
                 bool alreadyInList = false;
-                for(int j = 0; j < m_IOmapping.count(); j++)
+                for (int j = 0; j < m_IOmapping.count(); j++)
                 {
                     if (m_IOmapping.at(j).address == tmpIO.address)
                     {
@@ -96,16 +100,19 @@ QString E131Plugin::pluginInfo()
     return str;
 }
 
-bool E131Plugin::requestLine(quint32 line, int retries)
+bool E131Plugin::requestLine(quint32 line)
 {
     int retryCount = 0;
 
     while (line >= (quint32)m_IOmapping.length())
     {
         qDebug() << "[E1.31] cannot open line" << line << "(available:" << m_IOmapping.length() << ")";
-        Sleep(1000);
-        init();
-        if (retryCount++ == retries)
+        if (m_ifaceWaitTime)
+        {
+            Sleep(1000);
+            init();
+        }
+        if (retryCount++ >= m_ifaceWaitTime)
             return false;
     }
 
@@ -118,15 +125,12 @@ bool E131Plugin::requestLine(quint32 line, int retries)
 QStringList E131Plugin::outputs()
 {
     QStringList list;
-    int j = 0;
 
     init();
 
     foreach (E131IO line, m_IOmapping)
-    {
         list << line.address.ip().toString();
-        j++;
-    }
+
     return list;
 }
 
@@ -158,7 +162,7 @@ QString E131Plugin::outputInfo(quint32 output)
 
 bool E131Plugin::openOutput(quint32 output, quint32 universe)
 {
-    if (requestLine(output, MAX_INIT_RETRY) == false)
+    if (requestLine(output) == false)
         return false;
 
     qDebug() << "[E1.31] Open output with address :" << m_IOmapping.at(output).address.ip().toString();
@@ -198,8 +202,10 @@ void E131Plugin::closeOutput(quint32 output, quint32 universe)
     }
 }
 
-void E131Plugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void E131Plugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
+    Q_UNUSED(dataChanged)
+
     if (output >= (quint32)m_IOmapping.count())
         return;
 
@@ -214,21 +220,18 @@ void E131Plugin::writeUniverse(quint32 universe, quint32 output, const QByteArra
 QStringList E131Plugin::inputs()
 {
     QStringList list;
-    int j = 0;
 
     init();
 
     foreach (E131IO line, m_IOmapping)
-    {
         list << line.address.ip().toString();
-        j++;
-    }
+
     return list;
 }
 
 bool E131Plugin::openInput(quint32 input, quint32 universe)
 {
-    if (requestLine(input, MAX_INIT_RETRY) == false)
+    if (requestLine(input) == false)
         return false;
 
     qDebug() << "[E1.31] Open input with address :" << m_IOmapping.at(input).address.ip().toString();

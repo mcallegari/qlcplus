@@ -46,7 +46,7 @@ Rectangle
     onIsSelectedChanged:
     {
         if (isSelected == false)
-            uniNameEdit.enableEditing(false)
+            uniNameEdit.setEditingStatus(false)
     }
 
     // area containing the input patches
@@ -250,7 +250,7 @@ Rectangle
             height: UISettings.iconSizeMedium * 0.8
             faSource: FontAwesome.fa_long_arrow_right
             checkable: true
-            tooltip: qsTr("Passthrough")
+            tooltip: qsTr("Enable/Disable passthrough")
             checked: universe ? universe.passthrough : false
             onToggled: if (universe) universe.passthrough = checked
         }

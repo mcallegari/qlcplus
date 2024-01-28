@@ -166,7 +166,7 @@ QString WebAccessConfiguration::getAudioConfigHTML(Doc *doc)
     if (var.isValid() == true)
         outputName = var.toString();
 
-    foreach( AudioDeviceInfo info, devList)
+    foreach (AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_INPUT)
             audioInSelect += "<option value=\"" + info.privateName + "\" " +

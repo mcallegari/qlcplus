@@ -52,7 +52,8 @@ public:
         Override    = (1 << 7),     /** Override the current universe value */
         SetTarget   = (1 << 8),     /** Set target to current universe value */
         AutoRemove  = (1 << 9),     /** Automatically remove the channel once target is reached */
-        CrossFade   = (1 << 10)     /** Channel subject to crossfade */
+        CrossFade   = (1 << 10),    /** Channel subject to crossfade */
+        ForceLTP    = (1 << 11)     /** Force LTP for flashing scenes */
     };
 
     /** Create a new FadeChannel with empty/invalid values */

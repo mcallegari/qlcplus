@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.8 GIT</Version>
+  <Author>Hans-Jürgen Tappe</Author>
+ </Creator>
+ <Manufacturer>Varytec</Manufacturer>
+ <Model>Hero Spot 60</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="10" Max="250" Preset="StrobeSlowToFast">Strobe (slow to fast)</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Automatic Shows">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="20">Preprogrammed automatic show 1</Capability>
+  <Capability Min="21" Max="30">Preprogrammed automatic show 2</Capability>
+  <Capability Min="31" Max="40">Preprogrammed automatic show 3</Capability>
+  <Capability Min="41" Max="50">Preprogrammed automatic show 4</Capability>
+  <Capability Min="51" Max="60">Preprogrammed automatic show 5</Capability>
+  <Capability Min="61" Max="70">Preprogrammed automatic show 6</Capability>
+  <Capability Min="71" Max="80">Preprogrammed automatic show 7</Capability>
+  <Capability Min="81" Max="90">Preprogrammed automatic show 8</Capability>
+  <Capability Min="91" Max="230">Music Control (off to high sensitivity)</Capability>
+  <Capability Min="231" Max="240" Preset="ResetAll">Reset (when held for 3 seconds)</Capability>
+  <Capability Min="241" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Moving Programs (Open Shutter)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="20">White, Open</Capability>
+  <Capability Min="21" Max="30">Blue, Gobo 1</Capability>
+  <Capability Min="31" Max="40">Violett, Gobo 2</Capability>
+  <Capability Min="41" Max="50">Orange, Gobo 3</Capability>
+  <Capability Min="51" Max="60">White, Gobo 4</Capability>
+  <Capability Min="61" Max="70">White, Gobo 5</Capability>
+  <Capability Min="71" Max="80">White, Open, Prism</Capability>
+  <Capability Min="81" Max="90">Blue, Gobo 1, medium speed, Prism</Capability>
+  <Capability Min="91" Max="100">Violett, Gobo 2, medium speed, Prism</Capability>
+  <Capability Min="101" Max="110">Orange, Gobo 3, medium speed, Prism</Capability>
+  <Capability Min="111" Max="120">White, Gobo 4, medium speed, Prism</Capability>
+  <Capability Min="121" Max="130">White, Gobo 5, medium speed, Prism</Capability>
+  <Capability Min="131" Max="140">Automatic color, Prism, Gobo 1</Capability>
+  <Capability Min="141" Max="150">Automatic color, Prism, Gobo 2</Capability>
+  <Capability Min="151" Max="160">Automatic color, Prism, Gobo 3</Capability>
+  <Capability Min="161" Max="170">Automatic color, Prism, Gobo 4</Capability>
+  <Capability Min="171" Max="180">Automatic color, Prism, Gobo 5</Capability>
+  <Capability Min="181" Max="255">Automatic color, Gobo, music controlled Prism</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="24" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="25" Max="50" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="51" Max="75" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="76" Max="100" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
+  <Capability Min="101" Max="125" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="126" Max="150" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="151" Max="175" Preset="ColorMacro" Res1="#ee82ee">Violet</Capability>
+  <Capability Min="176" Max="200" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="201" Max="255" Preset="RotationClockwiseSlowToFast">Rainbow Counterclockwise</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="10" Max="26" Preset="GoboMacro" Res1="SGM/gobo00123.svg">Gobo 1</Capability>
+  <Capability Min="27" Max="43" Preset="GoboMacro" Res1="Robe/gobo00045.svg">Gobo 2</Capability>
+  <Capability Min="44" Max="60" Preset="GoboMacro" Res1="GLP/gobo00014.svg">Gobo 3</Capability>
+  <Capability Min="61" Max="77" Preset="GoboMacro" Res1="Others/gobo00027.svg">Gobo 4</Capability>
+  <Capability Min="78" Max="94" Preset="GoboMacro" Res1="SGM/gobo00362.svg">Gobo 5</Capability>
+  <Capability Min="95" Max="114" Preset="GoboShakeMacro" Res1="SGM/gobo00123.svg">Gobo 1 Shake, slow to fast</Capability>
+  <Capability Min="115" Max="134" Preset="GoboShakeMacro" Res1="Robe/gobo00045.svg">Gobo 2 shake, slow to fast</Capability>
+  <Capability Min="135" Max="154" Preset="GoboShakeMacro" Res1="GLP/gobo00014.svg">Gobo 3 shake, slow to fast</Capability>
+  <Capability Min="155" Max="174" Preset="GoboShakeMacro" Res1="Others/gobo00027.svg">Gobo 4 shake, slow to fast</Capability>
+  <Capability Min="175" Max="194" Preset="GoboShakeMacro" Res1="SGM/gobo00362.svg">Gobo 5 shake, slow to fast</Capability>
+  <Capability Min="195" Max="224" Preset="RotationClockwiseFastToSlow">Rainbow Clockwise</Capability>
+  <Capability Min="225" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rainbow Counterclockwise</Capability>
+ </Channel>
+ <Channel Name="Gobo Rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9" Preset="RotationStop">Stop</Capability>
+  <Capability Min="10" Max="129" Preset="RotationClockwiseFastToSlow">Clockwise</Capability>
+  <Capability Min="130" Max="134" Preset="RotationStop">Stop</Capability>
+  <Capability Min="135" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise</Capability>
+ </Channel>
+ <Channel Name="Prism">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="128" Preset="PrismEffectOff">Open</Capability>
+  <Capability Min="129" Max="255" Preset="PrismEffectOn" Res1="3">Prism</Capability>
+ </Channel>
+ <Channel Name="Moving Speed" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Moving Speed</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Shutter</Channel>
+  <Channel Number="5">Focus</Channel>
+  <Channel Number="6">Automatic Shows</Channel>
+  <Channel Number="7">Moving Programs (Open Shutter)</Channel>
+ </Mode>
+ <Mode Name="14 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Moving Speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Shutter</Channel>
+  <Channel Number="7">Color</Channel>
+  <Channel Number="8">Gobo</Channel>
+  <Channel Number="9">Gobo Rotation</Channel>
+  <Channel Number="10">Focus</Channel>
+  <Channel Number="11">Prism</Channel>
+  <Channel Number="12">Moving Programs (Open Shutter)</Channel>
+  <Channel Number="13">Automatic Shows</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="44600" ColourTemperature="8000"/>
+  <Dimensions Weight="4.6" Width="214" Height="355" Depth="144"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+  <Focus Type="Head" PanMax="540" TiltMax="190"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

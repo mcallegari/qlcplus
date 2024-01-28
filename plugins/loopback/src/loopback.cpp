@@ -130,7 +130,7 @@ QString Loopback::pluginInfo()
 
     str += QString("<P>");
     str += QString("<H3>%1</H3>").arg(name());
-    str += tr("This plugin provides DMX loopback. Data written to each output is forwarded to the respective input." );
+    str += tr("This plugin provides DMX loopback. Data written to each output is forwarded to the respective input.");
     str += QString("</P>");
 
     return str;
@@ -180,9 +180,10 @@ QString Loopback::inputInfo(quint32 input)
     return str;
 }
 
-void Loopback::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void Loopback::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
-    Q_UNUSED(universe);
+    Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (!m_outputMap.contains(output))
         return;

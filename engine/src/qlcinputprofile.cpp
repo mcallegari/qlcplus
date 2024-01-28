@@ -49,14 +49,29 @@ QLCInputProfile::QLCInputProfile()
 {
 }
 
-QLCInputProfile::QLCInputProfile(const QLCInputProfile& profile)
-{
-    *this = profile;
-}
-
 QLCInputProfile::~QLCInputProfile()
 {
     destroyChannels();
+}
+
+QLCInputProfile *QLCInputProfile::createCopy()
+{
+    QLCInputProfile *copy = new QLCInputProfile();
+    copy->setManufacturer(this->manufacturer());
+    copy->setModel(this->model());
+    copy->setType(this->type());
+    copy->setPath(this->path());
+    copy->setMidiSendNoteOff(this->midiSendNoteOff());
+
+    /* Copy the other profile's channels */
+    QMapIterator <quint32,QLCInputChannel*> it(this->channels());
+    while (it.hasNext() == true)
+    {
+        it.next();
+        copy->insertChannel(it.key(), it.value()->createCopy());
+    }
+
+    return copy;
 }
 
 QLCInputProfile& QLCInputProfile::operator=(const QLCInputProfile& profile)
@@ -113,6 +128,11 @@ QString QLCInputProfile::model() const
 QString QLCInputProfile::name() const
 {
     return QString("%1 %2").arg(m_manufacturer).arg(m_model);
+}
+
+void QLCInputProfile::setPath(QString path)
+{
+    m_path = path;
 }
 
 QString QLCInputProfile::path() const

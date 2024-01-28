@@ -21,12 +21,8 @@
 #include <QString>
 #include <QDebug>
 
-#include "qlcfile.h"
-
 #include "grandmasterslider.h"
 #include "inputoutputmap.h"
-#include "virtualconsole.h"
-#include "vcproperties.h"
 #include "vcdockarea.h"
 
 VCDockArea::VCDockArea(QWidget* parent, InputOutputMap *ioMap)

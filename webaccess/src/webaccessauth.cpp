@@ -145,7 +145,7 @@ WebAccessUser WebAccessAuth::authenticateRequest(const QHttpRequest* req, QHttpR
     QString password = authentication.mid(colonIndex + 1);
 
     QMap<QString, WebAccessUser>::const_iterator userIterator = m_passwords.find(username);
-    if(userIterator == m_passwords.end() || ! this->verifyPassword(password, *userIterator))
+    if (userIterator == m_passwords.end() || ! this->verifyPassword(password, *userIterator))
         return WebAccessUser();
 
     return *userIterator;
@@ -213,7 +213,7 @@ QString WebAccessAuth::generateSalt() const
 {
     QString salt;
 
-    for(int i = 0; i < SALT_LENGTH; i++)
+    for (int i = 0; i < SALT_LENGTH; i++)
     {
 #if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
         int halfByte = qrand() % 16;
@@ -231,7 +231,7 @@ QString WebAccessAuth::hashPassword(const QString& hashType, const QString& pass
     QString passwordWithSalt = password + passwordSalt;
     QCryptographicHash::Algorithm algorithm = QCryptographicHash::Sha1;
 
-    if(hashType == "sha1")
+    if (hashType == "sha1")
     {
         algorithm = QCryptographicHash::Sha1;
     }
@@ -240,7 +240,7 @@ QString WebAccessAuth::hashPassword(const QString& hashType, const QString& pass
     {
         algorithm = QCryptographicHash::Md5;
     }
-    else if(hashType == "sha256")
+    else if (hashType == "sha256")
     {
         algorithm = QCryptographicHash::Sha256;
     }
@@ -263,7 +263,7 @@ bool WebAccessAuth::hasAtLeastOneAdmin() const
 {
     foreach (WebAccessUser user, m_passwords.values())
     {
-        if(user.level >= SUPER_ADMIN_LEVEL)
+        if (user.level >= SUPER_ADMIN_LEVEL)
             return true;
     }
 

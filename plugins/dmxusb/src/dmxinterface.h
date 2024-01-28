@@ -48,7 +48,7 @@ public:
     /** Destructor */
     virtual ~DMXInterface();
 
-    virtual QString readLabel(uchar label, int *ESTA_code) = 0;
+    virtual bool readLabel(uchar label, int &ESTA_code, QString &strParam) = 0;
 
     /** Get the widget's USB serial number */
     QString serial() const;
@@ -85,15 +85,17 @@ private:
      * Widget enumeration
      ************************************************************************/
 public:
-    static const int FTDIVID = 0x0403;      //! FTDI Vendor ID
-    static const int ATMELVID = 0x03EB;     //! Atmel Vendor ID
-    static const int MICROCHIPVID = 0x04D8; //! Microchip Vendor ID
-    static const int FTDIPID = 0x6001;      //! FTDI Product ID
-    static const int FTDI2PID = 0x6010;     //! FTDI COM485-PLUS2 Product ID
-    static const int DMX4ALLPID = 0xC850;   //! DMX4ALL FTDI Product ID
-    static const int NANODMXPID = 0x2018;   //! DMX4ALL Nano DMX Product ID
-    static const int EUROLITEPID = 0xFA63;  //! Eurolite USB DMX Product ID
-    static const int ELECTROTASPID = 0x0000;//! ElectroTAS USB DMX Product ID
+    static const int FTDIVID = 0x0403;       //! FTDI Vendor ID
+    static const int ATMELVID = 0x03EB;      //! Atmel Vendor ID
+    static const int MICROCHIPVID = 0x04D8;  //! Microchip Vendor ID
+    static const int NXPVID = 0x1FC9;        //! NXP Vendor ID
+    static const int FTDIPID = 0x6001;       //! FTDI Product ID
+    static const int FTDI2PID = 0x6010;      //! FTDI COM485-PLUS2 Product ID
+    static const int DMX4ALLPID = 0xC850;    //! DMX4ALL FTDI Product ID
+    static const int NANODMXPID = 0x2018;    //! DMX4ALL Nano DMX Product ID
+    static const int EUROLITEPID = 0xFA63;   //! Eurolite USB DMX Product ID
+    static const int ELECTROTASPID = 0x0000; //! ElectroTAS USB DMX Product ID
+    static const int DMXKINGMAXPID = 0x0094; //! DMXKing ultraDMX MAX Product ID
 
     /** Driver types */
     enum Type

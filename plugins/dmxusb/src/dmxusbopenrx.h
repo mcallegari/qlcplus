@@ -39,7 +39,7 @@ public:
      * @param outputline line number
      * @param parent The owner of this object
      */
-    DMXUSBOpenRx(DMXInterface *interface,
+    DMXUSBOpenRx(DMXInterface *iface,
                      quint32 inputLine, QObject* parent = 0);
 
     /** Destructor */
@@ -70,7 +70,7 @@ public:
      ************************************************************************/
 public:
     /** @reimp */
-    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
 
 protected:
     enum TimerGranularity { Unknown, Good, Bad };

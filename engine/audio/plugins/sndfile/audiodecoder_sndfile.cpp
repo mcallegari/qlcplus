@@ -78,7 +78,7 @@ bool AudioDecoderSndFile::initialize(const QString &path)
     m_totalTime = snd_info.frames * 1000 / m_freq;
     m_bitrate =  QFileInfo(m_path).size () * 8.0 / m_totalTime + 0.5;
 
-    if((snd_info.format & SF_FORMAT_SUBMASK) == SF_FORMAT_FLOAT)
+    if ((snd_info.format & SF_FORMAT_SUBMASK) == SF_FORMAT_FLOAT)
     {
         qDebug() << "DecoderSndFile: Float audio format";
         sf_command (m_sndfile, SFC_SET_SCALE_FLOAT_INT_READ, NULL, SF_TRUE);

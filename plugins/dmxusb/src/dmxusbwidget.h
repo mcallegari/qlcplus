@@ -33,6 +33,7 @@
   #include "qtserial-interface.h"
 #endif
 
+#define DMX_CHANNELS                512
 #define DEFAULT_OUTPUT_FREQUENCY    44  // 44 Hertz, according to the DMX specs
 
 typedef struct
@@ -59,7 +60,7 @@ public:
      * @param interface The widget's DMXInterface instance
      * @param outputLine the specific output line this widget is going to control
      */
-    DMXUSBWidget(DMXInterface *interface, quint32 outputLine, int frequency);
+    DMXUSBWidget(DMXInterface *iface, quint32 outputLine, int frequency);
 
     virtual ~DMXUSBWidget();
 
@@ -87,10 +88,14 @@ public:
     virtual Type type() const = 0;
 
     /** Get the DMXInterface instance */
-    DMXInterface *interface() const;
+    DMXInterface *iface() const;
 
     /** Get the DMXInterface driver in use as a string */
     QString interfaceTypeString() const;
+
+    static bool detectDMXKingDevice(DMXInterface *iface,
+                                    QString &manufName, QString &deviceName,
+                                    int &ESTA_ID, int &DEV_ID);
 
     static QList<DMXUSBWidget *> widgets();
 
@@ -251,7 +256,7 @@ public:
      * @param universe The DMX universe to send
      * @return true if the values were sent successfully, otherwise false
      */
-    virtual bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    virtual bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
 };
 
 #endif

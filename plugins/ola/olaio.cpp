@@ -183,9 +183,10 @@ QString OlaIO::outputInfo(quint32 output)
     return str;
 }
 
-void OlaIO::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void OlaIO::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (output > UNIVERSE_COUNT || !m_thread)
         return;

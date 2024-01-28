@@ -37,10 +37,10 @@
  * Initialization
  ****************************************************************************/
 
-DMXUSBOpenRx::DMXUSBOpenRx(DMXInterface *interface,
+DMXUSBOpenRx::DMXUSBOpenRx(DMXInterface *iface,
                                    quint32 inputLine, QObject* parent)
     : QThread(parent)
-    , DMXUSBWidget(interface, 0, DEFAULT_OPEN_DMX_FREQUENCY)
+    , DMXUSBWidget(iface, 0, DEFAULT_OPEN_DMX_FREQUENCY)
     , m_running(false)
     , m_granularity(Unknown)
     , m_reader_state(Calibrating)
@@ -57,7 +57,7 @@ DMXUSBOpenRx::DMXUSBOpenRx(DMXInterface *interface,
 // on macOS, QtSerialPort cannot handle an OpenDMX device
 // so, unfortunately, we need to switch back to libftdi
 #if defined(Q_OS_OSX) && defined(QTSERIAL) && (defined(LIBFTDI1) || defined(LIBFTDI))
-    if (interface->type() == DMXInterface::QtSerial)
+    if (iface->type() == DMXInterface::QtSerial)
         forceInterfaceDriver(DMXInterface::libFTDI);
 #endif
     qDebug() << "Open RX constructor end";
@@ -89,12 +89,12 @@ bool DMXUSBOpenRx::open(quint32 line, bool input)
 
     qDebug() << "DMX USB Open RX, opening line" << line;
 
-    if (interface()->type() != DMXInterface::QtSerial)
+    if (iface()->type() != DMXInterface::QtSerial)
     {
         if (DMXUSBWidget::open(line, input) == false)
             return close(line);
 
-        if (interface()->clearRts() == false)
+        if (iface()->clearRts() == false)
             return close(line);
     }
     qDebug() << "Starting Open RX";
@@ -167,11 +167,12 @@ QString DMXUSBOpenRx::additionalInfo() const
  * Thread
  ****************************************************************************/
 
-bool DMXUSBOpenRx::writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
+bool DMXUSBOpenRx::writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged)
 {
     Q_UNUSED(universe)
     Q_UNUSED(output)
     Q_UNUSED(data)
+    Q_UNUSED(dataChanged)
     // not used at runtime but needed for compilation
     return true;
 }
@@ -234,7 +235,7 @@ void DMXUSBOpenRx::run()
     else
         m_granularity = Good;
 
-    if (interface()->type() == DMXInterface::QtSerial)
+    if (iface()->type() == DMXInterface::QtSerial)
     {
         if (DMXUSBWidget::open(0) == false)
         {
@@ -242,7 +243,7 @@ void DMXUSBOpenRx::run()
             return;
         }
 
-        if (interface()->clearRts() == false)
+        if (iface()->clearRts() == false)
         {
             close(0);
             return;
@@ -263,7 +264,7 @@ void DMXUSBOpenRx::run()
 
     while (m_running == true)
     {
-        payload = interface()->read(RX_BUFFER_SIZE);
+        payload = iface()->read(RX_BUFFER_SIZE);
 
         if (payload.length() == 0)
         {
@@ -285,12 +286,12 @@ void DMXUSBOpenRx::run()
                 // we are not reading only a single frame but several of them in one chunk.
                 erroneous_reads += 1;
                 current_payload.clear();
-                qDebug() << interface()->serial() << "Erroneous read" << payload.length() << "bytes";
+                qDebug() << iface()->serial() << "Erroneous read" << payload.length() << "bytes";
 
                 if (erroneous_reads > MAX_READ_ATTEMPTS)
                 {
                     // set low latency in order to try to fetch frames one by one.
-                    interface()->setLowLatency(true);
+                    iface()->setLowLatency(true);
                     erroneous_reads = 0;
                 }
                 continue;
@@ -298,7 +299,7 @@ void DMXUSBOpenRx::run()
 
             if (current_payload.length() != last_payload.length() && erroneous_frames < 5)
             {
-                qDebug() << interface()->serial() << "Bogus frame" << current_payload.length() << "bytes instead of" << last_payload.length();
+                qDebug() << iface()->serial() << "Bogus frame" << current_payload.length() << "bytes instead of" << last_payload.length();
                 current_payload.clear();
                 erroneous_frames += 1;
                 continue;
@@ -306,7 +307,7 @@ void DMXUSBOpenRx::run()
 
             // a frame has been received
             if (missed_frames > RECEIVE_START_THRESHOLD) // only to emit the debug message once, not at each frame
-                qDebug() << interface()->serial() << "Receiving";
+                qDebug() << iface()->serial() << "Receiving";
 
             m_reader_state = Receiving;
             missed_frames = 0;
@@ -326,14 +327,14 @@ void DMXUSBOpenRx::run()
         if (missed_frames == RECEIVE_START_THRESHOLD)
         {
             m_reader_state = Idling;
-            qDebug() << interface()->serial() << "Idling";
+            qDebug() << iface()->serial() << "Idling";
         } 
         else if (missed_frames == UINT_MAX)
         {
             missed_frames = RECEIVE_START_THRESHOLD;
         }
     }
-    qDebug() << interface()->serial() << "Requested to stop";
-    interface()->setLowLatency(false);
+    qDebug() << iface()->serial() << "Requested to stop";
+    iface()->setLowLatency(false);
     m_reader_state = Calibrating;
 }

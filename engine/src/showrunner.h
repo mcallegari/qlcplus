@@ -41,7 +41,7 @@ class ShowRunner : public QObject
     Q_OBJECT
 
 public:
-    ShowRunner(const Doc* doc, quint32 showID, quint32 startTime = 0);
+    ShowRunner(const Doc *doc, quint32 showID, quint32 startTime = 0);
     ~ShowRunner();
 
     /** Start the runner */
@@ -53,28 +53,40 @@ public:
     /** Stop the runner */
     void stop();
 
-    void write();
+    void write(MasterTimer *timer);
 
 private:
-    const Doc* m_doc;
+    const Doc *m_doc;
 
     /** The reference of the show to play */
     Show* m_show;
 
-    /** The list of Functions of the show to play */
-    QList <ShowFunction *> m_functions;
+    /** The list of time-based Functions the Show needs to play */
+    QList <ShowFunction *> m_timeFunctions;
 
-    /** Elapsed time since runner start. Used also to move the cursor in MultiTrackView */
+    /** Index of the item in m_timeFunctions to be considered for playback */
+    int m_currentTimeFunctionIndex;
+
+    /** Elapsed time since runner start. Used also to move the cursor in the track view */
     quint32 m_elapsedTime;
+
+    /** The list of beat-based Functions the Show needs to play */
+    QList <ShowFunction *> m_beatFunctions;
+
+    /** Index of the item in m_beatFunctions to be considered for playback */
+    int m_currentBeatFunctionIndex;
+
+    /** Elapsed beats since runner start */
+    quint32 m_elapsedBeats;
+
+    /** Flag used to sinchronize playback to beats */
+    bool beatSynced;
 
     /** Total time the runner has to run */
     quint32 m_totalRunTime;
 
     /** List of the currently running Functions and their stop time */
     QList < QPair<Function *, quint32> > m_runningQueue;
-
-    /** Index of the item in m_functions to be considered for playback */
-    int m_currentFunctionIndex;
 
 private:
     FunctionParent functionParent() const;

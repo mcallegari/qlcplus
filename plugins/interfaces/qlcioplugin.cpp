@@ -49,11 +49,12 @@ QString QLCIOPlugin::outputInfo(quint32 output)
     return QString();
 }
 
-void QLCIOPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void QLCIOPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
     Q_UNUSED(output)
     Q_UNUSED(data)
+    Q_UNUSED(dataChanged)
 }
 
 /*************************************************************************
@@ -171,7 +172,7 @@ void QLCIOPlugin::addToMap(quint32 universe, quint32 line,
     {
         desc.inputLine = line;
     }
-    else if(type == Output)
+    else if (type == Output)
     {
         desc.outputLine = line;
     }
@@ -190,7 +191,7 @@ void QLCIOPlugin::removeFromMap(quint32 universe, quint32 line, QLCIOPlugin::Cap
         m_universesMap[universe].inputParameters.clear();
         return;
     }
-    else if(type == Output && m_universesMap[universe].outputLine == line)
+    else if (type == Output && m_universesMap[universe].outputLine == line)
     {
         m_universesMap[universe].outputLine = UINT_MAX;
         m_universesMap[universe].outputParameters.clear();

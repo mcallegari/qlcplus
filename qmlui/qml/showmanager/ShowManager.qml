@@ -88,6 +88,7 @@ Rectangle
                 width: showMgrContainer.width / 5
                 height: parent.height - 10
                 text: showManager.showName
+                enabled: showManager.isEditing
 
                 onTextChanged: showManager.showName = text
             }
@@ -100,6 +101,7 @@ Rectangle
                 height: width
                 imgSource: "qrc:/color.svg"
                 checkable: true
+                enabled: showManager.isEditing
                 tooltip: qsTr("Show items color")
                 onCheckedChanged: colTool.visible = !colTool.visible
                 ColorTool
@@ -193,7 +195,8 @@ Rectangle
                 {
                     var selNames = showManager.selectedItemNames()
                     //console.log(selNames)
-                    deleteItemsPopup.message = qsTr("Are you sure you want to remove the following items?\n(Note that the original functions will not be deleted)") + "\n" + selNames,
+                    deleteItemsPopup.message = qsTr("Are you sure you want to remove the following items?\n" +
+                                                    "(Note that the original functions will not be deleted)") + "\n" + selNames
                     deleteItemsPopup.open()
                 }
 
@@ -227,9 +230,20 @@ Rectangle
                 onClicked: showManager.pasteFromClipboard()
             }
 
+            // filler
+            Rectangle
+            {
+                Layout.fillWidth: true
+            }
+
             RobotoText
             {
                 id: timeBox
+                radius: height / 5
+                border.color: UISettings.fgMedium
+                border.width: 1
+                leftMargin: UISettings.textSizeDefault
+                rightMargin: UISettings.textSizeDefault
                 property int currentTime: showManager.currentTime
 
                 label: "00:00:00.00"
@@ -248,6 +262,7 @@ Rectangle
                 imgSource: "qrc:/play.svg"
                 tooltip: qsTr("Play or resume")
                 checkable: true
+                enabled: showManager.isEditing
                 onToggled:
                 {
                     if (checked)
@@ -264,6 +279,7 @@ Rectangle
                 imgSource: "qrc:/stop.svg"
                 tooltip: qsTr("Stop or rewind")
                 checkable: false
+                enabled: showManager.isEditing
                 onClicked:
                 {
                     playbackBtn.checked = false
@@ -271,9 +287,32 @@ Rectangle
                 }
             }
 
+            // filler
             Rectangle
             {
                 Layout.fillWidth: true
+            }
+
+            RobotoText
+            {
+                label: qsTr("Markers")
+            }
+
+            CustomComboBox
+            {
+                ListModel
+                {
+                    id: divModel
+                    ListElement { mLabel: qsTr("Time"); mValue: Show.Time }
+                    ListElement { mLabel: qsTr("BPM 4/4"); mValue: Show.BPM_4_4 }
+                    ListElement { mLabel: qsTr("BPM 3/4"); mValue: Show.BPM_3_4 }
+                    ListElement { mLabel: qsTr("BPM 2/4"); mValue: Show.BPM_2_4 }
+                }
+
+                model: divModel
+                enabled: showManager.isEditing
+                currValue: showManager.timeDivision
+                onValueChanged: showManager.timeDivision = currentValue
             }
 
             ZoomItem
@@ -411,7 +450,10 @@ Rectangle
 
             onClicked:
             {
-                showManager.currentTime = TimeUtils.posToMs(mouseX, timeScale, tickSize)
+                if (timeDivision === Show.Time)
+                    showManager.currentTime = TimeUtils.posToMs(mouseX, timeScale, tickSize)
+                else
+                    showManager.currentTime = TimeUtils.posToBeatMs(mouseX, tickSize, ioManager.bpmNumber, showManager.beatsDivision)
                 showManager.resetItemsSelection()
             }
         }
@@ -552,8 +594,12 @@ Rectangle
                     if (drag.source.hasOwnProperty("fromFunctionManager"))
                     {
                         var trackIdx = (itemsArea.contentY + drag.y) / trackHeight
-                        var fTime = TimeUtils.posToMs(itemsArea.contentX + drag.x, timeScale, tickSize)
-                        console.log("Drop on time: " + fTime)
+                        var fTime
+                        if (showManager.timeDivision === Show.Time)
+                            fTime = TimeUtils.posToMs(itemsArea.contentX + drag.x, timeScale, tickSize)
+                        else
+                            fTime = TimeUtils.posToBeat(itemsArea.contentX + drag.x, tickSize, showManager.beatsDivision)
+                        console.log("Drop on time1: " + fTime)
                         showManager.addItems(itemsArea.contentItem, trackIdx, fTime, drag.source.itemsList)
                     }
 /*
@@ -621,8 +667,14 @@ Rectangle
                         /* Check if the dragging was started from a Function Manager */
                         if (drag.source.hasOwnProperty("fromFunctionManager"))
                         {
-                            var fTime = TimeUtils.posToMs(xViewOffset + drag.x, timeScale, tickSize)
-                            console.log("Drop on time: " + fTime)
+                            var fTime
+
+                            if (showManager.timeDivision === Show.Time)
+                                fTime = TimeUtils.posToMs(xViewOffset + drag.x, timeScale, tickSize)
+                            else
+                                fTime = TimeUtils.posToBeat(xViewOffset + drag.x, tickSize, showManager.beatsDivision)
+
+                            console.log("Drop on time2: " + fTime)
                             showManager.addItems(itemsArea.contentItem, -1, fTime, drag.source.itemsList)
                         }
                     }
@@ -630,6 +682,22 @@ Rectangle
             }
         } // Flickable (horizontal)
     } // Flickable (vertical)
+
+    Rectangle
+    {
+        anchors.centerIn: parent
+        width: parent.width / 3
+        height: UISettings.bigItemHeight
+        visible: !showManager.isEditing
+        radius: height / 4
+        color: UISettings.bgLight
+
+        RobotoText
+        {
+            anchors.centerIn: parent
+            label: qsTr("Create/Edit a Show function or\ndrag a function on the timeline")
+        }
+    }
 
     CustomScrollBar
     {

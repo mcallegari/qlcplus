@@ -18,6 +18,7 @@
 */
 
 #include <QApplication>
+#include <QMouseEvent>
 #include <QPainter>
 #include <QScreen>
 #include <qmath.h>
@@ -27,7 +28,6 @@
 #include "clickandgowidget.h"
 #include "qlccapability.h"
 #include "qlcmacros.h"
-#include "vcslider.h"
 #include "gradient.h"
 
 #define CELL_W  150
@@ -210,7 +210,7 @@ QImage ClickAndGoWidget::getImageFromValue(uchar value)
      *  the pre-loaded resource */
     if (m_type == Preset)
     {
-        foreach(PresetResource res, m_resources)
+        foreach (PresetResource res, m_resources)
         {
             if (value >= res.m_min && value <= res.m_max)
                 return res.m_thumbnail;
@@ -242,7 +242,7 @@ void ClickAndGoWidget::createPresetList(const QLCChannel *chan)
 
     //qDebug() << Q_FUNC_INFO << "cap #" << chan->capabilities().size();
 
-    foreach(QLCCapability* cap, chan->capabilities())
+    foreach (QLCCapability* cap, chan->capabilities())
     {
         if (cap->presetType() == QLCCapability::Picture)
         {

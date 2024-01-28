@@ -22,19 +22,14 @@
 #include <QDebug>
 
 #include "inputoutputmanager.h"
+#include "inputprofileeditor.h"
 #include "monitorproperties.h"
 #include "audioplugincache.h"
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
- #include "audiorenderer_qt5.h"
- #include "audiocapture_qt5.h"
-#else
-#include "audiorenderer_qt6.h"
-#include "audiocapture_qt6.h"
-#endif
 #include "qlcioplugin.h"
 #include "outputpatch.h"
 #include "inputpatch.h"
 #include "universe.h"
+#include "qlcfile.h"
 #include "tardis.h"
 #include "doc.h"
 
@@ -42,6 +37,8 @@ InputOutputManager::InputOutputManager(QQuickView *view, Doc *doc, QObject *pare
     : PreviewContext(view, doc, "IOMGR", parent)
     , m_selectedUniverseIndex(-1)
     , m_blackout(false)
+    , m_profileEditor(nullptr)
+    , m_editProfile(nullptr)
     , m_beatType("INTERNAL")
 {
     Q_ASSERT(m_doc != nullptr);
@@ -55,6 +52,8 @@ InputOutputManager::InputOutputManager(QQuickView *view, Doc *doc, QObject *pare
     qmlRegisterType<Universe>("org.qlcplus.classes", 1, 0, "Universe");
     qmlRegisterType<InputPatch>("org.qlcplus.classes", 1, 0, "InputPatch");
     qmlRegisterType<OutputPatch>("org.qlcplus.classes", 1, 0, "OutputPatch");
+    qmlRegisterUncreatableType<QLCInputProfile>("org.qlcplus.classes", 1, 0, "QLCInputProfile", "Can't create a QLCInputProfile!");
+    qmlRegisterUncreatableType<InputProfileEditor>("org.qlcplus.classes", 1, 0, "InputProfEditor", "Can't create a InputProfileEditor!");
 
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
     connect(m_ioMap, SIGNAL(universeAdded(quint32)), this, SIGNAL(universesListModelChanged()));
@@ -92,6 +91,20 @@ QVariant InputOutputManager::universes()
 QStringList InputOutputManager::universeNames() const
 {
     return m_ioMap->universeNames();
+}
+
+QString InputOutputManager::universeName(quint32 universeId)
+{
+    if (universeId == Universe::invalid())
+        return tr("All universes");
+    else
+    {
+        Universe *uni = m_ioMap->universe(universeId);
+        if (uni != nullptr)
+            return uni->name();
+    }
+
+    return QString();
 }
 
 QVariant InputOutputManager::universesListModel() const
@@ -237,7 +250,7 @@ QVariant InputOutputManager::audioInputDevice()
     }
 
     QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
-    foreach(AudioDeviceInfo info, devList)
+    foreach (AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_INPUT &&
             info.deviceName == devName)
@@ -269,7 +282,7 @@ QVariant InputOutputManager::audioOutputDevice()
     }
 
     QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
-    foreach(AudioDeviceInfo info, devList)
+    foreach (AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_OUTPUT &&
             info.deviceName == devName)
@@ -298,7 +311,7 @@ QVariant InputOutputManager::audioInputSources() const
     inputSources.append(defAudioMap);
 
     int i = 0;
-    for (AudioDeviceInfo info : devList)
+    for (AudioDeviceInfo &info : devList)
     {
         if (info.capabilities & AUDIO_CAP_INPUT)
         {
@@ -331,7 +344,7 @@ QVariant InputOutputManager::audioOutputSources() const
     outputSources.append(defAudioMap);
 
     int i = 0;
-    for (AudioDeviceInfo info : devList)
+    for (AudioDeviceInfo &info : devList)
     {
         if (info.capabilities & AUDIO_CAP_OUTPUT)
         {
@@ -389,11 +402,11 @@ QVariant InputOutputManager::universeInputSources(int universe)
         currLine = ip->input();
     }
 
-    foreach(QString pluginName,  m_ioMap->inputPluginNames())
+    foreach (QString pluginName,  m_ioMap->inputPluginNames())
     {
         QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
         int i = 0;
-        foreach(QString pLine, m_ioMap->pluginInputs(pluginName))
+        foreach (QString pLine, m_ioMap->pluginInputs(pluginName))
         {
             if (pluginName == currPlugin && i == currLine)
             {
@@ -430,11 +443,11 @@ QVariant InputOutputManager::universeOutputSources(int universe)
         currLine = op->output();
     }
 
-    foreach(QString pluginName,  m_ioMap->outputPluginNames())
+    foreach (QString pluginName,  m_ioMap->outputPluginNames())
     {
         QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
         int i = 0;
-        foreach(QString pLine, m_ioMap->pluginOutputs(pluginName))
+        foreach (QString pLine, m_ioMap->pluginOutputs(pluginName))
         {
             if (pluginName == currPlugin && i == currLine)
             {
@@ -457,37 +470,6 @@ QVariant InputOutputManager::universeOutputSources(int universe)
     }
 
     return QVariant::fromValue(outputSources);
-}
-
-QVariant InputOutputManager::universeInputProfiles(int universe)
-{
-    QVariantList profilesList;
-    QString currentProfile = KInputNone;
-    QStringList profileNames = m_ioMap->profileNames();
-    profileNames.sort();
-
-    if (m_ioMap->inputPatch(universe) != nullptr)
-        currentProfile = m_ioMap->inputPatch(universe)->profileName();
-
-    foreach(QString name, profileNames)
-    {
-        QLCInputProfile *ip = m_ioMap->profile(name);
-        if (ip != nullptr)
-        {
-            QString type = ip->typeToString(ip->type());
-            if (name != currentProfile)
-            {
-                QVariantMap profileMap;
-                profileMap.insert("universe", universe);
-                profileMap.insert("name", name);
-                profileMap.insert("line", name);
-                profileMap.insert("plugin", type);
-                profilesList.append(profileMap);
-            }
-        }
-    }
-
-    return QVariant::fromValue(profilesList);
 }
 
 void InputOutputManager::setOutputPatch(int universe, QString plugin, QString line, int index)
@@ -592,6 +574,139 @@ int InputOutputManager::outputPatchesCount(int universe) const
 }
 
 /*********************************************************************
+ * Input Profiles
+ *********************************************************************/
+
+QString InputOutputManager::profileUserFolder()
+{
+    return m_ioMap->userProfileDirectory().absolutePath();
+}
+
+void InputOutputManager::createInputProfile()
+{
+    if (m_editProfile != nullptr)
+        delete m_editProfile;
+
+    m_editProfile = new QLCInputProfile();
+
+    if (m_profileEditor == nullptr)
+    {
+        m_profileEditor = new InputProfileEditor(m_editProfile, m_doc);
+        view()->rootContext()->setContextProperty("profileEditor", m_profileEditor);
+    }
+}
+
+bool InputOutputManager::editInputProfile(QString name)
+{
+    QLCInputProfile *ip = m_ioMap->profile(name);
+    if (ip == nullptr)
+        return false;
+
+    // create a copy first
+    if (m_editProfile != nullptr)
+        delete m_editProfile;
+
+    m_editProfile = ip->createCopy();
+
+    qDebug() << "Profile TYPE:" << m_editProfile->type();
+
+    if (m_profileEditor == nullptr)
+    {
+        m_profileEditor = new InputProfileEditor(m_editProfile, m_doc);
+        view()->rootContext()->setContextProperty("profileEditor", m_profileEditor);
+    }
+
+    qDebug() << "Edit profile" << ip->path();
+
+    return true;
+}
+
+bool InputOutputManager::saveInputProfile()
+{
+    if (m_editProfile == nullptr)
+        return false;
+
+    QDir dir(InputOutputMap::userProfileDirectory());
+    QString absPath = QString("%1/%2-%3%4").arg(dir.absolutePath())
+                       .arg(m_editProfile->manufacturer())
+                       .arg(m_editProfile->model())
+                       .arg(KExtInputProfile);
+
+    bool profileExists = QFileInfo::exists(absPath);
+
+    m_editProfile->saveXML(absPath);
+    m_profileEditor->setModified(false);
+
+    if (profileExists == false)
+        m_doc->inputOutputMap()->addProfile(m_editProfile);
+
+    return true;
+}
+
+void InputOutputManager::finishInputProfile()
+{
+    if (m_editProfile != nullptr)
+    {
+        delete m_editProfile;
+        m_editProfile = nullptr;
+    }
+
+    if (m_profileEditor != nullptr)
+    {
+        view()->rootContext()->setContextProperty("profileEditor", nullptr);
+        delete m_profileEditor;
+        m_profileEditor = nullptr;
+    }
+}
+
+bool InputOutputManager::removeInputProfile(QString name)
+{
+    QLCInputProfile *profile = m_ioMap->profile(name);
+    if (profile == nullptr)
+        return false;
+
+    QFile file(profile->path());
+    if (file.remove() == true)
+    {
+        m_ioMap->removeProfile(name);
+        return true;
+    }
+
+    qDebug() << "Failed to remove input profile" << profile->path();
+
+    return false;
+}
+
+QVariant InputOutputManager::universeInputProfiles(int universe)
+{
+    QVariantList profilesList;
+    QStringList profileNames = m_ioMap->profileNames();
+    profileNames.sort(Qt::CaseInsensitive);
+    QDir pSysPath = m_ioMap->systemProfileDirectory();
+
+    foreach (QString name, profileNames)
+    {
+        QLCInputProfile *ip = m_ioMap->profile(name);
+        if (ip != nullptr)
+        {
+            QString type = ip->typeToString(ip->type());
+            QVariantMap profileMap;
+            profileMap.insert("universe", universe);
+            profileMap.insert("name", name);
+            profileMap.insert("line", name);
+            profileMap.insert("plugin", type);
+            if (ip->path().startsWith(pSysPath.absolutePath()))
+                profileMap.insert("isUser", false);
+            else
+                profileMap.insert("isUser", true);
+            profilesList.append(profileMap);
+        }
+    }
+
+    return QVariant::fromValue(profilesList);
+}
+
+/*********************************************************************
  * Beats
  *********************************************************************/
 
@@ -618,7 +733,7 @@ QVariant InputOutputManager::beatGeneratorsList()
     genList.append(internalMap);
 
     // add the currently open MIDI input devices
-    foreach(Universe *uni, m_ioMap->universes())
+    foreach (Universe *uni, m_ioMap->universes())
     {
         InputPatch *ip = uni->inputPatch();
         if (ip == nullptr || ip->pluginName() != "MIDI")
@@ -653,7 +768,7 @@ QVariant InputOutputManager::beatGeneratorsList()
     else
     {
         QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
-        foreach(AudioDeviceInfo info, devList)
+        foreach (AudioDeviceInfo info, devList)
         {
             if (info.capabilities & AUDIO_CAP_INPUT &&
                 info.deviceName == devName)

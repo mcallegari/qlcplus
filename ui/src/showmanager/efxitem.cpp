@@ -26,8 +26,6 @@
 
 #include "efxitem.h"
 #include "trackitem.h"
-#include "headeritems.h"
-#include "audiodecoder.h"
 
 EFXItem::EFXItem(EFX *efx, ShowFunction *func)
     : ShowItem(func)
@@ -134,7 +132,7 @@ void EFXItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
-    foreach(QAction *action, getDefaultActions())
+    foreach (QAction *action, getDefaultActions())
         menu.addAction(action);
 
     menu.exec(QCursor::pos());

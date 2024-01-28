@@ -469,7 +469,7 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
     /* ************************* LEGACY ATTRIBUTES ************************* */
 
     /* Get (optional) resource name for gobo/effect/... */
-    if(attrs.hasAttribute(KXMLQLCCapabilityResource))
+    if (attrs.hasAttribute(KXMLQLCCapabilityResource))
     {
         QString path = attrs.value(KXMLQLCCapabilityResource).toString();
         if (QFileInfo(path).isRelative())

@@ -12,6 +12,7 @@ BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(Qt5Multimedia)
 BuildRequires:  pkgconfig(Qt5Script)
 BuildRequires:  pkgconfig(Qt5Widgets)
+BuildRequires:  pkgconfig(Qt5SerialPort)
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(fftw3)
 BuildRequires:  pkgconfig(libftdi1)

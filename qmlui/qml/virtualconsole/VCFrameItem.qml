@@ -136,11 +136,7 @@ VCWidgetItem
                     tooltip: qsTr("Previous page")
                     imgSource: "qrc:/back.svg"
                     imgMargins: 1
-                    onClicked:
-                    {
-                        frameObj.gotoPreviousPage()
-                        pageSelector.currentIndex = frameObj.currentPage
-                    }
+                    onClicked: frameObj.gotoPreviousPage()
                 }
                 CustomComboBox
                 {
@@ -150,7 +146,13 @@ VCWidgetItem
                     textRole: ""
                     model: frameObj ? frameObj.pageLabels : null
                     currentIndex: frameObj ? frameObj.currentPage : 0
-                    onActivated: if (frameObj) frameObj.currentPage = index
+                    onCurrentIndexChanged:
+                    {
+                        if (frameObj)
+                            frameObj.currentPage = currentIndex
+                        // binding got  broken, so restore it
+                        currentIndex = Qt.binding(function() { return frameObj.currentPage })
+                    }
                 }
                 IconButton
                 {
@@ -162,11 +164,7 @@ VCWidgetItem
                     tooltip: qsTr("Next page")
                     imgSource: "qrc:/forward.svg"
                     imgMargins: 1
-                    onClicked:
-                    {
-                        frameObj.gotoNextPage()
-                        pageSelector.currentIndex = frameObj.currentPage
-                    }
+                    onClicked: frameObj.gotoNextPage()
                 }
             }
         }

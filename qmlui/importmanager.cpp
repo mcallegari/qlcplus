@@ -753,7 +753,7 @@ void ImportManager::updateFunctionsTree()
 {
     m_functionTree->clear();
 
-    for(Function *func : m_importDoc->functions()) // C++11
+    for (Function *func : m_importDoc->functions()) // C++11
     {
         if (func == nullptr || func->isVisible() == false)
             return;

@@ -106,7 +106,7 @@ qint64 AudioRendererCoreAudio::latency()
 
 qint64 AudioRendererCoreAudio::writeAudio(unsigned char *data, qint64 maxSize)
 {
-    if(m_buffersFilled == AUDIO_BUFFERS_NUM)
+    if (m_buffersFilled == AUDIO_BUFFERS_NUM)
         return 0;
 
     qint64 size = maxSize;

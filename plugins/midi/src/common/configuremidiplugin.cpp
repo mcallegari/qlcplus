@@ -22,6 +22,7 @@
 #include <QComboBox>
 #include <QSpinBox>
 #include <QDebug>
+#include <QSettings>
 
 #include "configuremidiplugin.h"
 #include "midioutputdevice.h"
@@ -37,6 +38,8 @@
 #define COL_MODE        2
 #define COL_INITMESSAGE 3
 
+#define SETTINGS_GEOMETRY "configuremidiplugin/geometry"
+
 ConfigureMidiPlugin::ConfigureMidiPlugin(MidiPlugin* plugin, QWidget* parent)
     : QDialog(parent)
     , m_plugin(plugin)
@@ -44,12 +47,19 @@ ConfigureMidiPlugin::ConfigureMidiPlugin(MidiPlugin* plugin, QWidget* parent)
     Q_ASSERT(plugin != NULL);
     setupUi(this);
 
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
+
     connect(plugin, SIGNAL(configurationChanged()), this, SLOT(slotUpdateTree()));
     slotUpdateTree();
 }
 
 ConfigureMidiPlugin::~ConfigureMidiPlugin()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 void ConfigureMidiPlugin::slotRefresh()

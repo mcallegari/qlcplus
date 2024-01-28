@@ -23,15 +23,11 @@
 #include <QLineEdit>
 #include <QLabel>
 
-#include "qlcfixturedef.h"
-
 #include "functionselection.h"
 #include "collectioneditor.h"
 #include "mastertimer.h"
 #include "collection.h"
 #include "function.h"
-#include "fixture.h"
-#include "apputil.h"
 #include "doc.h"
 
 #define PROP_ID Qt::UserRole
@@ -199,7 +195,7 @@ void CollectionEditor::updateFunctionList()
 {
     m_tree->clear();
 
-    foreach(QVariant fid, m_collection->functions())
+    foreach (QVariant fid, m_collection->functions())
     {
         Function* function = m_doc->function(fid.toUInt());
         Q_ASSERT(function != NULL);

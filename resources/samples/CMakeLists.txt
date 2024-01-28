@@ -1,0 +1,5 @@
+project(samples)
+
+file(GLOB SAMPLE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.qxw")
+
+install(FILES ${SAMPLE_FILES} DESTINATION ${SAMPLESDIR})

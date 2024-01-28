@@ -57,7 +57,15 @@ class QLCInputChannel : public QObject
     Q_OBJECT
     Q_DISABLE_COPY(QLCInputChannel)
 
-    Q_PROPERTY(Type type READ type CONSTANT)
+    Q_PROPERTY(Type type READ type WRITE setType NOTIFY typeChanged FINAL)
+    Q_PROPERTY(QString typeString READ typeString CONSTANT)
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged FINAL)
+
+    Q_PROPERTY(bool sendExtraPress READ sendExtraPress WRITE setSendExtraPress NOTIFY sendExtraPressChanged FINAL)
+    Q_PROPERTY(MovementType movementType READ movementType WRITE setMovementType NOTIFY movementTypeChanged FINAL)
+    Q_PROPERTY(int movementSensitivity READ movementSensitivity WRITE setMovementSensitivity NOTIFY movementSensitivityChanged FINAL)
+    Q_PROPERTY(uchar lowerValue READ lowerValue WRITE setLowerValue NOTIFY lowerValueChanged FINAL)
+    Q_PROPERTY(uchar upperValue READ upperValue WRITE setUpperValue NOTIFY upperValueChanged FINAL)
 
     /********************************************************************
      * Initialization
@@ -100,6 +108,7 @@ public:
 
     /** Convert the given QLCInputChannel::Type to a QString */
     static QString typeToString(Type type);
+    QString typeString();
 
     /** Convert the given QString to a QLCInputChannel::Type */
     static Type stringToType(const QString& type);
@@ -113,7 +122,12 @@ public:
     /** Get icon for a type */
     static QIcon stringToIcon(const QString& str);
 
+    Q_INVOKABLE static QString iconResource(QLCInputChannel::Type type, bool svg = false);
+
     QIcon icon() const;
+
+signals:
+    void typeChanged();
 
 protected:
     Type m_type;
@@ -128,6 +142,9 @@ public:
     /** Get the name of this channel */
     QString name() const;
 
+signals:
+    void nameChanged();
+
 protected:
     QString m_name;
 
@@ -136,16 +153,24 @@ protected:
      *********************************************************************/
 public:
     /** Movement behaviour */
-    enum MovementType {
+    enum MovementType
+    {
         Absolute = 0,
         Relative = 1
     };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(MovementType)
+#endif
 
     MovementType movementType() const;
     void setMovementType(MovementType type);
 
     int movementSensitivity() const;
     void setMovementSensitivity(int value);
+
+signals:
+    void movementTypeChanged();
+    void movementSensitivityChanged();
 
 protected:
     MovementType m_movementType;
@@ -157,9 +182,18 @@ protected:
 public:
     void setSendExtraPress(bool enable);
     bool sendExtraPress() const;
+
     void setRange(uchar lower, uchar upper);
     uchar lowerValue() const;
+    void setLowerValue(const uchar value);
+
     uchar upperValue() const;
+    void setUpperValue(const uchar value);
+
+signals:
+    void sendExtraPressChanged();
+    void lowerValueChanged();
+    void upperValueChanged();
 
 protected:
     bool m_sendExtraPress;

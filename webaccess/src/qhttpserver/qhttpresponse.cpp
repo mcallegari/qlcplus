@@ -77,7 +77,7 @@ void QHttpResponse::writeHeaders()
     if (m_finished)
         return;
 
-    foreach(const QString & name, m_headers.keys()) {
+    foreach (const QString & name, m_headers.keys()) {
         QString value = m_headers[name];
         if (name.compare("connection", Qt::CaseInsensitive) == 0) {
             m_sentConnectionHeader = true;

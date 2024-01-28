@@ -245,13 +245,17 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    void flash(MasterTimer *timer);
+    void flash(MasterTimer *timer, bool shouldOverride, bool forceLTP);
 
     /** @reimp */
     void unFlash(MasterTimer *timer);
 
     /** @reimp from DMXSource */
     void writeDMX(MasterTimer *timer, QList<Universe*> ua);
+
+private:
+    bool m_flashOverrides;
+    bool m_flashForceLTP;
 
     /*********************************************************************
      * Running

@@ -125,7 +125,7 @@ void RGBMatrixEditor::setAlgorithmIndex(int algoIndex)
 {
     qDebug() << "Set algorithm:" << algoIndex;
     QStringList algoList = algorithms();
-    if(algoIndex < 0 || algoIndex >= algorithms().count())
+    if (algoIndex < 0 || algoIndex >= algorithms().count())
         return;
 
     RGBAlgorithm *algo = RGBAlgorithm::algorithm(m_doc, algoList.at(algoIndex));
@@ -408,11 +408,12 @@ void RGBMatrixEditor::createScriptObjects(QQuickItem *parent)
     RGBScript *script = static_cast<RGBScript*> (m_matrix->algorithm());
     QList<RGBScriptProperty> properties = script->properties();
 
-    foreach(RGBScriptProperty prop, properties)
+    foreach (RGBScriptProperty prop, properties)
     {
         // always create a label first
         QMetaObject::invokeMethod(parent, "addLabel",
                 Q_ARG(QVariant, prop.m_displayName));
+        QString pValue = m_matrix->property(prop.m_name);
 
         switch(prop.m_type)
         {
@@ -421,9 +422,8 @@ void RGBMatrixEditor::createScriptObjects(QQuickItem *parent)
                 QVariantList valList;
                 int idx = 0;
                 int currIdx = 0;
-                QString pValue = m_matrix->property(prop.m_name);
 
-                foreach(QString val, prop.m_listValues)
+                foreach (QString val, prop.m_listValues)
                 {
                     if (val == pValue)
                         currIdx = idx;
@@ -443,13 +443,25 @@ void RGBMatrixEditor::createScriptObjects(QQuickItem *parent)
             break;
             case RGBScriptProperty::Range:
             {
-                QString pValue = m_matrix->property(prop.m_name);
-
                 QMetaObject::invokeMethod(parent, "addSpinBox",
                         Q_ARG(QVariant, prop.m_name),
                         Q_ARG(QVariant, prop.m_rangeMinValue),
                         Q_ARG(QVariant, prop.m_rangeMaxValue),
                         Q_ARG(QVariant, pValue.toInt()));
+            }
+            break;
+            case RGBScriptProperty::Float:
+            {
+                QMetaObject::invokeMethod(parent, "addDoubleSpinBox",
+                                          Q_ARG(QVariant, prop.m_name),
+                                          Q_ARG(QVariant, pValue.toDouble()));
+            }
+            break;
+            case RGBScriptProperty::String:
+            {
+                QMetaObject::invokeMethod(parent, "addTextEdit",
+                                          Q_ARG(QVariant, prop.m_name),
+                                          Q_ARG(QVariant, pValue));
             }
             break;
             default:
@@ -484,6 +496,20 @@ void RGBMatrixEditor::setScriptIntProperty(QString paramName, int value)
     StringIntPair oldValue(paramName, m_matrix->property(paramName).toInt());
     Tardis::instance()->enqueueAction(Tardis::RGBMatrixSetScriptIntValue, m_matrix->id(), QVariant::fromValue(oldValue),
                                       QVariant::fromValue(StringIntPair(paramName, value)));
+    m_matrix->setProperty(paramName, QString::number(value));
+}
+
+void RGBMatrixEditor::setScriptFloatProperty(QString paramName, double value)
+{
+    if (m_matrix == nullptr || m_matrix->algorithm() == nullptr ||
+        m_matrix->algorithm()->type() != RGBAlgorithm::Script)
+        return;
+
+    qDebug() << "[setScriptIntProperty] param:" << paramName << ", value:" << value;
+
+    StringDoublePair oldValue(paramName, m_matrix->property(paramName).toDouble());
+    Tardis::instance()->enqueueAction(Tardis::RGBMatrixSetScriptDoubleValue, m_matrix->id(), QVariant::fromValue(oldValue),
+                                      QVariant::fromValue(StringDoublePair(paramName, value)));
     m_matrix->setProperty(paramName, QString::number(value));
 }
 
@@ -598,7 +624,7 @@ void RGBMatrixEditor::slotPreviewTimeout()
             return;
 
         QMapIterator<QLCPoint, GroupHead> it(m_group->headsMap());
-        while(it.hasNext())
+        while (it.hasNext())
         {
             it.next();
 

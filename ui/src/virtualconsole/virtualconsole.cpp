@@ -1215,7 +1215,7 @@ void VirtualConsole::slotEditRename()
     if (ok == true)
     {
         VCWidget* widget;
-        foreach(widget, m_selectedWidgets)
+        foreach (widget, m_selectedWidgets)
             widget->setCaption(text);
     }
 }
@@ -1245,7 +1245,7 @@ void VirtualConsole::slotBackgroundColor()
         else
         {
             VCWidget* widget;
-            foreach(widget, m_selectedWidgets)
+            foreach (widget, m_selectedWidgets)
                 widget->setBackgroundColor(color);
         }
     }
@@ -1275,7 +1275,7 @@ void VirtualConsole::slotBackgroundImage()
         else
         {
             VCWidget* widget;
-            foreach(widget, m_selectedWidgets)
+            foreach (widget, m_selectedWidgets)
                 widget->setBackgroundImage(path);
         }
     }
@@ -1292,7 +1292,7 @@ void VirtualConsole::slotBackgroundNone()
     else
     {
         VCWidget* widget;
-        foreach(widget, m_selectedWidgets)
+        foreach (widget, m_selectedWidgets)
             widget->resetBackgroundColor();
     }
 }
@@ -1313,7 +1313,7 @@ void VirtualConsole::slotForegroundColor()
     if (color.isValid() == true)
     {
         VCWidget* widget;
-        foreach(widget, m_selectedWidgets)
+        foreach (widget, m_selectedWidgets)
             widget->setForegroundColor(color);
     }
 }
@@ -1326,7 +1326,7 @@ void VirtualConsole::slotForegroundNone()
         return;
 
     VCWidget* widget;
-    foreach(widget, m_selectedWidgets)
+    foreach (widget, m_selectedWidgets)
         widget->resetForegroundColor();
 }
 
@@ -1357,7 +1357,7 @@ void VirtualConsole::slotFont()
         else
         {
             VCWidget* widget;
-            foreach(widget, m_selectedWidgets)
+            foreach (widget, m_selectedWidgets)
                 widget->setFont(font);
         }
     }
@@ -1374,7 +1374,7 @@ void VirtualConsole::slotResetFont()
     else
     {
         VCWidget* widget;
-        foreach(widget, m_selectedWidgets)
+        foreach (widget, m_selectedWidgets)
             widget->resetFont();
     }
 }
@@ -1391,7 +1391,7 @@ void VirtualConsole::slotStackingRaise()
         return;
 
     VCWidget* widget;
-    foreach(widget, m_selectedWidgets)
+    foreach (widget, m_selectedWidgets)
         widget->raise();
 
     m_doc->setModified();
@@ -1405,7 +1405,7 @@ void VirtualConsole::slotStackingLower()
         return;
 
     VCWidget* widget;
-    foreach(widget, m_selectedWidgets)
+    foreach (widget, m_selectedWidgets)
         widget->lower();
 
     m_doc->setModified();
@@ -1423,7 +1423,7 @@ void VirtualConsole::slotFrameSunken()
         return;
 
     VCWidget* widget;
-    foreach(widget, m_selectedWidgets)
+    foreach (widget, m_selectedWidgets)
         widget->setFrameStyle(KVCFrameStyleSunken);
 }
 
@@ -1435,7 +1435,7 @@ void VirtualConsole::slotFrameRaised()
         return;
 
     VCWidget* widget;
-    foreach(widget, m_selectedWidgets)
+    foreach (widget, m_selectedWidgets)
         widget->setFrameStyle(KVCFrameStyleRaised);
 }
 
@@ -1447,7 +1447,7 @@ void VirtualConsole::slotFrameNone()
         return;
 
     VCWidget* widget;
-    foreach(widget, m_selectedWidgets)
+    foreach (widget, m_selectedWidgets)
         widget->setFrameStyle(KVCFrameStyleNone);
 }
 

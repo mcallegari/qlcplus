@@ -20,14 +20,24 @@
 #include <QComboBox>
 #include <QStyleFactory>
 #include <QApplication>
+#include <QTextStream>
 #include <QSettings>
 #include <QLocale>
 #include <QWidget>
 #include <QScreen>
+#include <QDebug>
 #include <QStyle>
 #include <QRect>
+#include <QFile>
+#include <QDir>
+
+#if defined(WIN32) || defined(Q_OS_WIN)
+#include <windows.h>
+#include <lmcons.h>
+#endif
 
 #include "apputil.h"
+#include "qlcconfig.h"
 
 /****************************************************************************
  * Widget visibility helper
@@ -99,6 +109,75 @@ QStyle* AppUtil::saneStyle()
     }
 
     return s_saneStyle;
+}
+
+/*********************************************************************
+ * Stylesheets
+ *********************************************************************/
+
+#define USER_STYLESHEET_FILE "qlcplusStyle.qss"
+
+bool styleCached = false;
+QMap<QString,QString> styleCache;
+
+QString AppUtil::getStyleSheet(QString component)
+{
+    QString block;
+
+    if (styleCached == false)
+    {
+#if defined(WIN32) || defined(Q_OS_WIN)
+        /* User's input profile directory on Windows */
+        LPTSTR home = (LPTSTR) malloc(256 * sizeof(TCHAR));
+        GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
+        QString ssDir = QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<char16_t*> (home)))
+                    .arg(USERQLCPLUSDIR);
+        free(home);
+#else
+        /* User's input profile directory on *NIX systems */
+        QString ssDir = QString("%1/%2").arg(getenv("HOME")).arg(USERQLCPLUSDIR);
+#endif
+
+        styleCached = true;
+
+        QFile ssFile(ssDir + QDir::separator() + USER_STYLESHEET_FILE);
+        if (ssFile.exists() == false)
+            return block;
+
+        if (ssFile.open(QIODevice::ReadOnly) == false)
+            return block;
+
+        bool found = false;
+        QString compName;
+        QTextStream in(&ssFile);
+
+        while (!in.atEnd())
+        {
+            QString line = in.readLine();
+            if (line.startsWith("====="))
+            {
+                if (found == true)
+                {
+                    styleCache.insert(compName, block);
+                    block = "";
+                    found = false;
+                }
+
+                compName = line.replace("=", "").simplified();
+                qDebug() << "[AppUtil] found user style component:" << compName;
+                found = true;
+            }
+            else if (found == true)
+            {
+                block.append(line);
+            }
+        }
+        ssFile.close();
+        if (found == true)
+            styleCache.insert(compName, block);
+    }
+
+    return styleCache.value(component, QString());
 }
 
 /*****************************************************************************

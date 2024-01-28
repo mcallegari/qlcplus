@@ -22,15 +22,11 @@ unix: {
     CONFIG += libftdi
 }
 
-macx: {
-    CONFIG += qtserial
-}
-
-CONFIG(qtserial) {
-    message(Building with QtSerialport support.)
-    DEFINES += QTSERIAL
-    QT += serialport
-}
+# always include QtSerial for DMXKing MAX devices
+CONFIG += qtserial
+message(Building with QtSerialport support.)
+DEFINES += QTSERIAL
+QT += serialport
 
 CONFIG(ftd2xx) {
     # FTD2XX is a proprietary interface by FTDI Ltd. and would therefore taint the

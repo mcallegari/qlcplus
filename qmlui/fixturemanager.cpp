@@ -542,6 +542,26 @@ void FixtureManager::setItemRoleData(int itemID, int index, QString role, QVaria
     m_fixtureTree->setItemRoleData(path, value, roleIndex);
 }
 
+void FixtureManager::setItemRoleData(int itemID, QVariant value, int role)
+{
+    if (m_fixtureTree == nullptr)
+        return;
+
+    quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+
+    Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == nullptr)
+        return;
+
+    QString fxName = fixture->name();
+    QStringList uniNames = m_doc->inputOutputMap()->universeNames();
+
+    QString path = QString("%1%2%3").arg(uniNames.at(fixture->universe()))
+               .arg(TreeModel::separator()).arg(fxName);
+
+    m_fixtureTree->setItemRoleData(path, value, role);
+}
+
 bool FixtureManager::compareFixtures(Fixture *left, Fixture *right)
 {
     return *left < *right;
@@ -1424,7 +1444,7 @@ QVariantList FixtureManager::fixturesMap()
             continue;
 
         quint32 startAddress = fx->address();
-        for(quint32 cn = 0; cn < fx->channels(); cn++)
+        for (quint32 cn = 0; cn < fx->channels(); cn++)
         {
             m_fixturesMap.append(fx->id());
             m_fixturesMap.append(startAddress + cn);
@@ -1583,7 +1603,7 @@ bool FixtureManager::loadColorFilters(const QDir &dir, bool user)
 
 void FixtureManager::resetColorFilters()
 {
-    while(!m_colorFilters.isEmpty())
+    while (!m_colorFilters.isEmpty())
     {
         ColorFilters *cf = m_colorFilters.takeLast();
         delete cf;
@@ -1666,17 +1686,6 @@ ColorFilters *FixtureManager::selectedFilters()
 void FixtureManager::setChannelValue(quint32 fixtureID, quint32 channelIndex, quint8 value)
 {
     emit channelValueChanged(fixtureID, channelIndex, value);
-}
-
-void FixtureManager::setIntensityValue(quint8 value)
-{
-    emit channelTypeValueChanged(QLCChannel::Intensity, value);
-}
-
-void FixtureManager::setColorValue(quint8 red, quint8 green, quint8 blue,
-                                   quint8 white, quint8 amber, quint8 uv)
-{
-    emit colorChanged(QColor(red, green, blue), QColor(white, amber, uv));
 }
 
 void FixtureManager::setPresetValue(quint32 fixtureID, int chIndex, quint8 value)
@@ -1763,7 +1772,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
     for (quint32 ch : channelIndices)
     {
         const QLCChannel* channel(fixture->channel(ch));
-        if(channel == nullptr)
+        if (channel == nullptr)
             continue;
 
         int chType = channel->group();
@@ -1803,7 +1812,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
             case QLCChannel::Tilt:
             {
                 hasPosition = true;
-                if(fixture->fixtureMode() != nullptr)
+                if (fixture->fixtureMode() != nullptr)
                 {
                     int panDeg = phy.focusPanMax();
                     int tiltDeg = phy.focusTiltMax();
@@ -1881,7 +1890,8 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
             case QLCChannel::Beam:
             {
                 if (channel->preset() != QLCChannel::BeamZoomBigSmall &&
-                    channel->preset() != QLCChannel::BeamZoomSmallBig)
+                    channel->preset() != QLCChannel::BeamZoomSmallBig &&
+                    channel->preset() != QLCChannel::BeamZoomFine)
                     break;
 
                 hasBeam = true;
@@ -1947,7 +1957,7 @@ QList<SceneValue> FixtureManager::getFixtureZoom(quint32 fxID, float degrees)
     if (fixture == nullptr || fixture->fixtureMode() == nullptr)
         return QList<SceneValue>();
 
-    return fixture->zoomToValues(degrees);
+    return fixture->zoomToValues(degrees, false);
 }
 
 QVariantList FixtureManager::presetsChannels(QLCChannel::Group group)

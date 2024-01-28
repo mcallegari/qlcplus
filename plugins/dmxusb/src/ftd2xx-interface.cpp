@@ -87,24 +87,24 @@ FTD2XXInterface::~FTD2XXInterface()
         close();
 }
 
-QString FTD2XXInterface::readLabel(uchar label, int *ESTA_code)
+bool FTD2XXInterface::readLabel(uchar label, int &intParam, QString &strParam)
 {
     FT_HANDLE ftdi = NULL;
 
     if (FT_Open(id(), &ftdi) != FT_OK)
-        return QString();
+        return false;
 
-    if(FT_ResetDevice(ftdi) != FT_OK)
-        return QString();
+    if (FT_ResetDevice(ftdi) != FT_OK)
+        return false;
 
-    if(FT_SetBaudRate(ftdi, 250000) != FT_OK)
-        return QString();
+    if (FT_SetBaudRate(ftdi, 250000) != FT_OK)
+        return false;
 
-    if(FT_SetDataCharacteristics(ftdi, FT_BITS_8, FT_STOP_BITS_2, FT_PARITY_NONE) != FT_OK)
-        return QString();
+    if (FT_SetDataCharacteristics(ftdi, FT_BITS_8, FT_STOP_BITS_2, FT_PARITY_NONE) != FT_OK)
+        return false;
 
-    if(FT_SetFlowControl(ftdi, 0, 0, 0) != FT_OK)
-        return QString();
+    if (FT_SetFlowControl(ftdi, 0, 0, 0) != FT_OK)
+        return false;
 
     QByteArray request;
     request.append(ENTTEC_PRO_START_OF_MSG);
@@ -115,33 +115,62 @@ QString FTD2XXInterface::readLabel(uchar label, int *ESTA_code)
 
     DWORD written = 0;
     if (FT_Write(ftdi, (char*) request.data(), request.size(), &written) != FT_OK)
-        return QString();
+    {
+        qDebug() << Q_FUNC_INFO << "Cannot write data to device" << id();
+        FT_Close(ftdi);
+        return false;
+    }
 
     if (written == 0)
     {
-        qDebug() << Q_FUNC_INFO << "Cannot write data to device";
-        return QString();
+        qDebug() << Q_FUNC_INFO << "Cannot write data to device" << id();
+        FT_Close(ftdi);
+        return false;
     }
 
-    uchar* buffer = (uchar*) malloc(sizeof(uchar) * 40);
-    Q_ASSERT(buffer != NULL);
-
+    uchar buffer[40];
     int read = 0;
     QByteArray array;
+
     FT_SetTimeouts(ftdi, 500,0);
     FT_Read(ftdi, buffer, 40, (LPDWORD) &read);
-    qDebug() << Q_FUNC_INFO << "----- Read: " << read << " ------";
-    for (int i = 0; i < read; i++)
-        array.append((char) buffer[i]);
+    array = QByteArray::fromRawData((char*) buffer, read);
+
+    if (array.size() == 0)
+    {
+        FT_Close(ftdi);
+        return false;
+    }
 
     if (array[0] != ENTTEC_PRO_START_OF_MSG)
+    {
         qDebug() << Q_FUNC_INFO << "Reply message wrong start code: " << QString::number(array[0], 16);
-    *ESTA_code = (array[5] << 8) | array[4];
+        FT_Close(ftdi);
+        return false;
+    }
+
+    // start | label | data length
+    if (array.size() < 4)
+    {
+        FT_Close(ftdi);
+        return false;
+    }
+
+    int dataLen = (array[3] << 8) | array[2];
+    if (dataLen == 1)
+    {
+        intParam = array[4];
+        FT_Close(ftdi);
+        return true;
+    }
+
+    intParam = (array[5] << 8) | array[4];
     array.remove(0, 6); // 4 bytes of Enttec protocol + 2 of ESTA ID
     array.replace(ENTTEC_PRO_END_OF_MSG, '\0'); // replace Enttec termination with string termination
+    strParam = QString(array);
 
     FT_Close(ftdi);
-    return QString(array);
+    return true;
 }
 
 DMXInterface::Type FTD2XXInterface::type()
@@ -222,7 +251,7 @@ bool FTD2XXInterface::open()
     FT_STATUS status = FT_Open(id(), &m_handle);
     if (status != FT_OK)
     {
-        qWarning() << Q_FUNC_INFO << "Error opening" << name() << status;
+        qWarning() << Q_FUNC_INFO << "Error opening" << name() << "id:" << id() << "status:" << status;
         return false;
     }
 

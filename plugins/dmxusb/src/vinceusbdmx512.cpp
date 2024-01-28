@@ -67,11 +67,11 @@ bool VinceUSBDMX512::open(quint32 line, bool input)
     if (DMXUSBWidget::open() == false)
         return false;
 
-    if (interface()->clearRts() == false)
+    if (iface()->clearRts() == false)
         return false;
 
     // Write two null bytes
-    if (interface()->write(QByteArray(2, 0x00)) == false)
+    if (iface()->write(QByteArray(2, 0x00)) == false)
         return false;
 
     // Request start DMX command
@@ -112,7 +112,7 @@ bool VinceUSBDMX512::writeData(Command command, const QByteArray &data)
     }
     message.append(VINCE_END_OF_MSG);                   // Stop condition
 
-    return interface()->write(message);
+    return iface()->write(message);
 }
 
 QByteArray VinceUSBDMX512::readData(bool* ok)
@@ -126,7 +126,7 @@ QByteArray VinceUSBDMX512::readData(bool* ok)
     {
         *ok = false;
         // Attempt to read byte
-        byte = interface()->readByte(ok);
+        byte = iface()->readByte(ok);
         if (*ok == false)
             return data;
 
@@ -151,7 +151,7 @@ QByteArray VinceUSBDMX512::readData(bool* ok)
         ushort i;
         for (i = 0; i < dataLength; i++)
         {
-            byte = interface()->readByte(ok);
+            byte = iface()->readByte(ok);
             if (*ok == false)
             {
                 qWarning() << Q_FUNC_INFO << "No available byte to read (" << (dataLength - i) << "missing bytes)";
@@ -162,7 +162,7 @@ QByteArray VinceUSBDMX512::readData(bool* ok)
     }
 
     // Read end of message
-    byte = interface()->readByte();
+    byte = iface()->readByte();
     if (byte != VINCE_END_OF_MSG)
     {
         qWarning() << Q_FUNC_INFO << "Incorrect end of message received:" << byte;
@@ -172,7 +172,7 @@ QByteArray VinceUSBDMX512::readData(bool* ok)
     return data;
 }
 
-bool VinceUSBDMX512::writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
+bool VinceUSBDMX512::writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged)
 {
     Q_UNUSED(universe)
     Q_UNUSED(output)
@@ -181,7 +181,7 @@ bool VinceUSBDMX512::writeUniverse(quint32 universe, quint32 output, const QByte
         return false;
 
     // Write only if universe has changed
-    if (data == m_universe)
+    if (!dataChanged)
         return true;
 
     if (writeData(VinceUSBDMX512::UpdateDMX, data) == false)

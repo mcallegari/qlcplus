@@ -346,13 +346,17 @@ bool RDMProtocol::parsePacket(const QByteArray &buffer, QVariantMap &values)
         case PID_SUPPORTED_PARAMETERS:
         {
             QVector<quint16> pidList;
+#ifdef DEBUG_RDM
             QDebug out = qDebug();
             out.nospace().noquote() << "Supported PIDs list: ";
+#endif
             for (int n = 0; n < PDL; n += 2)
             {
                 quint16 pid = byteArrayToShort(buffer, i + n);
                 pidList.append(pid);
+#ifdef DEBUG_RDM
                 out << "0x" << QString::number(pid, 16) << ", ";
+#endif
             }
             values.insert("PID_LIST", QVariant::fromValue(pidList));
         }

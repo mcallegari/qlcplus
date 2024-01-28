@@ -178,12 +178,12 @@ QString MidiPlugin::outputInfo(quint32 output)
     return str;
 }
 
-void MidiPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void MidiPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
 
     MidiOutputDevice* dev = outputDevice(output);
-    if (dev != NULL)
+    if (dev != NULL && dataChanged)
         dev->writeUniverse(data);
 }
 
@@ -348,7 +348,7 @@ void MidiPlugin::configure()
 
     // walk the universe map to update/add the
     // plugin custom parameters
-    foreach(quint32 universe, m_universesMap.keys())
+    foreach (quint32 universe, m_universesMap.keys())
     {
         m_universesMap[universe].inputParameters.clear();
 

@@ -244,7 +244,7 @@ void AlsaMidiOutputDevice::writeFeedback(uchar cmd, uchar data1, uchar data2)
 
 void AlsaMidiOutputDevice::writeSysEx(QByteArray message)
 {
-    if(message.isEmpty())
+    if (message.isEmpty())
         return;
 
     if (isOpen() == false)

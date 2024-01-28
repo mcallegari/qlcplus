@@ -154,7 +154,7 @@ bool AudioCaptureWaveIn::readAudio(int maxSize)
         return false;
     }
 
-    while ( (waveHeaders[m_currentBufferIndex].dwFlags & WHDR_DONE) == 0)
+    while ((waveHeaders[m_currentBufferIndex].dwFlags & WHDR_DONE) == 0)
         usleep(100);
 
     memcpy(m_audioBuffer, m_internalBuffers[m_currentBufferIndex], maxSize * 2);

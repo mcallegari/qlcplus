@@ -52,7 +52,7 @@ QVariant FixtureGroupEditor::groupsListModel()
 {
     QVariantList groupsList;
 
-    foreach(FixtureGroup *grp, m_doc->fixtureGroups())
+    foreach (FixtureGroup *grp, m_doc->fixtureGroups())
     {
         QVariantMap grpMap;
         grpMap.insert("mIcon", "qrc:/group.svg");

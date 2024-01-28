@@ -587,7 +587,7 @@ void FixtureManager::slotSelectionChanged()
             if (uniID.isValid() == true)
                 uniName = m_doc->inputOutputMap()->getUniverseNameByID(uniID.toUInt());
 
-            foreach(Fixture *fixture, m_doc->fixtures())
+            foreach (Fixture *fixture, m_doc->fixtures())
             {
                 if (fixture == NULL || fixture->universe() != uniID.toUInt() || fixture->fixtureMode() == NULL)
                     continue;
@@ -629,7 +629,7 @@ void FixtureManager::slotSelectionChanged()
                           "<P>Click <IMG SRC=\"" ":/edit_remove.png\">" \
                           " to remove the selected fixtures.</P>");
 
-                foreach(QTreeWidgetItem *item, m_fixtures_tree->selectedItems())
+                foreach (QTreeWidgetItem *item, m_fixtures_tree->selectedItems())
                 {
                     QVariant fxID = item->data(KColumnName, PROP_ID);
                     if (fxID.isValid() == false)
