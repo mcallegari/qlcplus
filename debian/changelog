@@ -20,6 +20,7 @@ qlcplus (4.12.8) stable; urgency=low
   * Fixture Editor: fix aliases not updated when renaming a mode
   * Web Access: add support for Cue List side fader and buttons layout (thanks to Itay Lifshitz)
   * Web Access: add support for Slider knob appearance (thanks to Itay Lifshitz)
+  * Web Access: add support for VC Frame disable button (thanks to Itay Lifshitz)
   * Web Access: add VC Animation widget support (thanks to Itay Lifshitz)
   * Web Access: add event to notify Function start/stop
   * Input profiles: added PMJ 9 Faders Controller, Circus and MidiKey
@@ -52,8 +53,11 @@ qlcplus (4.12.8) stable; urgency=low
   * New fixture: Eurolite LED PLL-480 CW/WW (thanks to Benjamin Drung)
   * New fixture: Robe Spiider (thanks to Nicolò)
   * New fixture: Betopper LB230 (thanks to Viktor)
+  * New fixtures: EK R3 Wash, Chauvet Intimidator Spot 475ZX (thanks to Harrison Bostock)
   * New fixtures: Varytec Typhoon True Kid 720Z RGBW IP65, Showtec Performer 2000 RGBAL (thanks to Clément Delabroye)
   * New fixtures: Showtec LED Par 64 Short V2, Bright XBAR (thanks to Øystein Steimler)
+  * New fixtures: AFX CLUB-MIX3 19x10W RGBW, Eurolite LED Theatre COB 200 RGB+WW (thanks to Florian Faber)
+  * New fixture: Chauvet COLORado Batten 72x (thanks to Greg Perrone)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 18 Feb 2024 12:13:14 +0200
 
