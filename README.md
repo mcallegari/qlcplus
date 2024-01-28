@@ -62,7 +62,7 @@ Further guidelines are available in the [CONTRIBUTING.md](CONTRIBUTING.md) docum
 ### Help wanted
 Click the badge below to see the currently confirmed issues with QLC+. Perhaps you can find a solution?
 
-![GitHub issues by-label](https://img.shields.io/github/issues/mcallegari/qlcplus/issue%20confirmed?logo=github&color=red)
+[![GitHub issues by-label](https://img.shields.io/github/issues/mcallegari/qlcplus/issue%20confirmed?logo=github&color=red)](https://github.com/mcallegari/qlcplus/issues?q=is%3Aopen+is%3Aissue+label%3A%22issue+confirmed%22)
 
 ### 🚧 Developers at work 🚧
 
