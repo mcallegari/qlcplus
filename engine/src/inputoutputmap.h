@@ -42,7 +42,10 @@ class Doc;
  * @{
  */
 
-#define KXMLIOMap QString("InputOutputMap")
+#define KXMLIOMap               QString("InputOutputMap")
+#define KXMLIOBeatGenerator     QString("BeatGenerator")
+#define KXMLIOBeatType          QString("BeatType")
+#define KXMLIOBeatsPerMinute    QString("BPM")
 
 class InputOutputMap : public QObject
 {
@@ -586,6 +589,9 @@ public:
 
     void setBeatGeneratorType(BeatGeneratorType type);
     BeatGeneratorType beatGeneratorType() const;
+
+    QString beatTypeToString(BeatGeneratorType type) const;
+    BeatGeneratorType stringToBeatType(QString str);
 
     void setBpmNumber(int bpm);
     int bpmNumber() const;

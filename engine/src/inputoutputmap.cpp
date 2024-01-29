@@ -1024,6 +1024,29 @@ InputOutputMap::BeatGeneratorType InputOutputMap::beatGeneratorType() const
     return m_beatGeneratorType;
 }
 
+QString InputOutputMap::beatTypeToString(BeatGeneratorType type) const
+{
+    switch (type)
+    {
+        case Internal:  return "Internal";
+        case Plugin:    return "Plugin";
+        case Audio:     return "Audio";
+        default:        return "Disabled";
+    }
+}
+
+InputOutputMap::BeatGeneratorType InputOutputMap::stringToBeatType(QString str)
+{
+    if (str == "Internal")
+        return Internal;
+    else if (str == "Plugin")
+        return Plugin;
+    else if (str == "Audio")
+        return Audio;
+
+    return Disabled;
+}
+
 void InputOutputMap::setBpmNumber(int bpm)
 {
     if (m_beatGeneratorType == Disabled || bpm == m_currentBPM)
@@ -1267,6 +1290,18 @@ bool InputOutputMap::loadXML(QXmlStreamReader &root)
                 uni->loadXML(root, m_universeArray.count() - 1, this);
             }
         }
+        else if (root.name() == KXMLIOBeatGenerator)
+        {
+            QXmlStreamAttributes attrs = root.attributes();
+
+            if (attrs.hasAttribute(KXMLIOBeatType))
+                setBeatGeneratorType(stringToBeatType(attrs.value(KXMLIOBeatType).toString()));
+
+            if (attrs.hasAttribute(KXMLIOBeatsPerMinute))
+                setBpmNumber(attrs.value(KXMLIOBeatsPerMinute).toInt());
+
+            root.skipCurrentElement();
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown IO Map tag:" << root.name();
@@ -1283,6 +1318,11 @@ bool InputOutputMap::saveXML(QXmlStreamWriter *doc) const
 
     /* IO Map Instance entry */
     doc->writeStartElement(KXMLIOMap);
+
+    doc->writeStartElement(KXMLIOBeatGenerator);
+    doc->writeAttribute(KXMLIOBeatType, beatTypeToString(m_beatGeneratorType));
+    doc->writeAttribute(KXMLIOBeatsPerMinute, QString::number(m_currentBPM));
+    doc->writeEndElement();
 
     foreach (Universe *uni, m_universeArray)
         uni->saveXML(doc);
