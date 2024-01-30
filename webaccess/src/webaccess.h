@@ -88,15 +88,21 @@ protected slots:
 
     void slotVCLoaded();
     void slotButtonStateChanged(int state);
+    void slotButtonDisableStateChanged(bool disable);
+    void slotLabelDisableStateChanged(bool disable);
     void slotSliderValueChanged(QString val);
+    void slotSliderDisableStateChanged(bool disable);
     void slotAudioTriggersToggled(bool toggle);
     void slotCueIndexChanged(int idx);
     void slotCueProgressStateChanged();
     void slotCueShowSideFaderPanel();
     void slotCueSideFaderValueChanged();
     void slotCuePlaybackStateChanged();
+    void slotCueDisableStateChanged(bool disable);
     void slotClockTimeChanged(quint32 time);
+    void slotClockDisableStateChanged(bool disable);
     void slotFramePageChanged(int pageNum);
+    void slotFrameDisableStateChanged(bool disable);
     void slotMatrixSliderValueChanged(int value);
     void slotMatrixStartColorChanged();
     void slotMatrixEndColorChanged();

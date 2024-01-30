@@ -22,6 +22,7 @@
 #include <QSpinBox>
 #include <QIcon>
 #include <QAction>
+#include <QSettings>
 
 #include "inputchanneleditor.h"
 #include "qlcinputprofile.h"
@@ -42,6 +43,8 @@
 
 #include "../../plugins/midi/src/common/midiprotocol.h"
 
+#define SETTINGS_GEOMETRY "inputchanneleditor/geometry"
+
 /****************************************************************************
  * Initialization
  ****************************************************************************/
@@ -61,6 +64,11 @@ InputChannelEditor::InputChannelEditor(QWidget* parent,
     action->setShortcut(QKeySequence(QKeySequence::Close));
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
+
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 
     /* Connect to these already now so that the handlers get called
        during initialization. */
@@ -128,6 +136,8 @@ InputChannelEditor::InputChannelEditor(QWidget* parent,
 
 InputChannelEditor::~InputChannelEditor()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 /****************************************************************************

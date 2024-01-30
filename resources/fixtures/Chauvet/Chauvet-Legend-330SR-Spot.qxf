@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -54,7 +54,7 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="8" Max="14" Preset="GoboMacro" Res1="Chauvet/gobo00069.svg">Gobo 1</Capability>
-  <Capability Min="15" Max="21" Preset="GoboMacro" Res1="Chauvet/gobo00060.png">Gobo 2</Capability>
+  <Capability Min="15" Max="21" Preset="GoboMacro" Res1="Chauvet/gobo00060.svg">Gobo 2</Capability>
   <Capability Min="22" Max="28" Preset="GoboMacro" Res1="Chauvet/gobo00070.svg">Gobo 3</Capability>
   <Capability Min="29" Max="35" Preset="GoboMacro" Res1="ClayPaky/gobo00012.svg">Gobo 4</Capability>
   <Capability Min="36" Max="42" Preset="GoboMacro" Res1="Chauvet/gobo00071.png">Gobo 5</Capability>

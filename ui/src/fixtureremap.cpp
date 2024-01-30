@@ -24,6 +24,7 @@
 #include <QScrollBar>
 #include <QDebug>
 #include <QDir>
+#include <QSettings>
 
 #include "monitorproperties.h"
 #include "vcaudiotriggers.h"
@@ -56,6 +57,8 @@
 #define KColumnID           3
 #define KColumnChIdx        4
 
+#define SETTINGS_GEOMETRY "fixturemap/geometry"
+
 FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
     : QDialog(parent)
     , m_doc(doc)
@@ -64,6 +67,10 @@ FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
 
     setupUi(this);
 
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 
     connect(m_importButton, SIGNAL(clicked()),
             this, SLOT(slotImportFixtures()));
@@ -143,6 +150,9 @@ FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
 
 FixtureRemap::~FixtureRemap()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
+
     delete m_targetDoc;
 }
 

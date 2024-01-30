@@ -22,6 +22,7 @@
 #include <QSpinBox>
 #include <QLabel>
 #include <QDebug>
+#include <QSettings>
 
 #include "vcmatrixpresetselection.h"
 #include "ui_vcmatrixpresetselection.h"
@@ -33,6 +34,8 @@
 #endif
 #include "doc.h"
 
+#define SETTINGS_GEOMETRY "vcmatrixpresetselection/geometry"
+
 VCMatrixPresetSelection::VCMatrixPresetSelection(Doc *doc, QWidget *parent)
     : QDialog(parent)
     , m_doc(doc)
@@ -40,6 +43,12 @@ VCMatrixPresetSelection::VCMatrixPresetSelection(Doc *doc, QWidget *parent)
     Q_ASSERT(doc != NULL);
 
     setupUi(this);
+
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
+
     m_presetCombo->addItems(RGBAlgorithm::algorithms(m_doc));
     slotUpdatePresetProperties();
     connect(m_presetCombo, SIGNAL(currentIndexChanged(int)),
@@ -48,6 +57,8 @@ VCMatrixPresetSelection::VCMatrixPresetSelection(Doc *doc, QWidget *parent)
 
 VCMatrixPresetSelection::~VCMatrixPresetSelection()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 /**

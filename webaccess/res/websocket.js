@@ -48,17 +48,29 @@ function connect() {
     var msgParams = ev.data.split("|");
     if (msgParams[1] === "BUTTON") {
       wsSetButtonState(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "BUTTON_DISABLE") {
+      setButtonDisableState(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "LABEL_DISABLE") {
+      setLabelDisableState(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "SLIDER") {
       // Slider message is <ID>|SLIDER|<SLIDER VALUE>|<DISPLAY VALUE>
       wsSetSliderValue(msgParams[0], msgParams[2], msgParams[3]);
+    } else if (msgParams[1] === "SLIDER_DISABLE") {
+      setSliderDisableState(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "AUDIOTRIGGERS") {
       wsSetAudioTriggersEnabled(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "CUE") {
       wsSetCueIndex(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "CUE_DISABLE") {
+      setCueDisableState(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "CLOCK") {
       wsUpdateClockTime(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "CLOCK_DISABLE") {
+      setClockDisableState(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "FRAME") {
       setFramePage(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "FRAME_DISABLE") {
+      setFrameDisableState(msgParams[0], msgParams[2]);
     } else if (msgParams[0] === "ALERT") {
       alert(msgParams[1]);
     } else if (msgParams[1] === "CUE_PROGRESS") {

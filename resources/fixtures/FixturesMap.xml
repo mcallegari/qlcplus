@@ -11,6 +11,7 @@
   </M>
   <M n="AFX">
     <F n="AFX-BARLED200-FX" m="BARLED200-FX"/>
+    <F n="AFX-CLUB-MIX3-19x10W-RGBW" m="CLUB-MIX3 19x10W RGBW"/>
     <F n="AFX-Spot-180-LED" m="Spot 180 LED"/>
     <F n="AFX-Spot-60-LED" m="Spot 60 LED"/>
   </M>
@@ -280,6 +281,9 @@
     <F n="Botex-DSP-405" m="DSP-405"/>
     <F n="Botex-SP-1500" m="SP-1500"/>
   </M>
+  <M n="Bright">
+    <F n="Bright-XBAR" m="XBAR"/>
+  </M>
   <M n="Briteq">
     <F n="Briteq-BT-575S" m="BT 575S"/>
     <F n="Briteq-BT-575W" m="BT-575W"/>
@@ -388,6 +392,7 @@
     <F n="Chauvet-COLORado-2-Quad-Zoom" m="COLORado 2 Quad Zoom"/>
     <F n="Chauvet-COLORado-3P" m="COLORado 3P"/>
     <F n="Chauvet-COLORado-Batten-72-Tour" m="COLORado Batten 72 Tour"/>
+    <F n="Chauvet-COLORado-Batten-72x" m="COLORado Batten 72x"/>
     <F n="Chauvet-ColorBand-Pix-IP" m="ColorBand Pix IP"/>
     <F n="Chauvet-ColorBand-Pix-M-USB" m="ColorBand Pix-M USB"/>
     <F n="Chauvet-ColorBand-Pix-M" m="ColorBand Pix-M"/>
@@ -452,6 +457,7 @@
     <F n="Chauvet-Intimidator-Spot-355Z-IRC" m="Intimidator Spot 355Z IRC"/>
     <F n="Chauvet-Intimidator-Spot-375Z-IRC" m="Intimidator Spot 375Z IRC"/>
     <F n="Chauvet-Intimidator-Spot-400-IRC" m="Intimidator Spot 400 IRC"/>
+    <F n="Chauvet-Intimidator-Spot-475ZX" m="Intimidator Spot 475ZX"/>
     <F n="Chauvet-Intimidator-Spot-Duo" m="Intimidator Spot Duo"/>
     <F n="Chauvet-Intimidator-Spot-LED-150" m="Intimidator Spot LED 150"/>
     <F n="Chauvet-Intimidator-Spot-LED-250" m="Intimidator Spot LED 250"/>
@@ -641,6 +647,7 @@
   </M>
   <M n="EK">
     <F n="EK-E3-LED-Spot" m="E3 LED Spot"/>
+    <F n="EK-R3-Wash" m="R3 Wash"/>
   </M>
   <M n="Elation">
     <F n="Elation-Color-Spot-150" m="Color Spot 150"/>
@@ -774,6 +781,7 @@
     <F n="Eurolite-LED-T-36-RGB-Spot" m="LED T-36 RGB Spot"/>
     <F n="Eurolite-LED-THA-250F" m="LED THA-250F"/>
     <F n="Eurolite-Led-Theatre-36x3W-CW-WW" m="LED Theatre 36x3W CW/WW"/>
+    <F n="Eurolite-LED-Theatre-COB-200-RGB+WW" m="LED Theatre COB 200 RGB+WW"/>
     <F n="Eurolite-LED-TMH-17" m="LED TMH-17"/>
     <F n="Eurolite-LED-TMH-46" m="LED TMH-46"/>
     <F n="Eurolite-LED-TMH-51" m="LED TMH-51"/>
@@ -1488,6 +1496,7 @@
     <F n="Showtec-LED-Light-Bar-8" m="LED Light Bar 8"/>
     <F n="Showtec-LED-Light-Bar-RGB-V3" m="LED Light Bar RGB V3"/>
     <F n="Showtec-LED-Par-56" m="LED Par 56"/>
+    <F n="Showtec-LED-Par-64-Short-V2" m="LED Par 64 Short V2"/>
     <F n="Showtec-LED-Pixel-Track-Pro" m="LED Pixel Track Pro"/>
     <F n="Showtec-LED-Powerline-16-Bar" m="LED Powerline 16 Bar"/>
     <F n="Showtec-Lightbrick" m="Lightbrick"/>

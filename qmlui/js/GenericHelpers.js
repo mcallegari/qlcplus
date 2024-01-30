@@ -19,7 +19,7 @@
 
 function pluginIconFromName(name)
 {
-    switch(name)
+    switch (name)
     {
         case "ArtNet": return "qrc:/artnetplugin.svg";
         case "DMX USB": return "qrc:/dmxusbplugin.svg";

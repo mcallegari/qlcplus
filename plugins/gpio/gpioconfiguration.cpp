@@ -18,12 +18,15 @@
 */
 
 #include <QComboBox>
+#include <QSettings>
 
 #include "gpioconfiguration.h"
 #include "gpioplugin.h"
 
 #define KColumnGPIONumber       0
 #define KColumnGPIOUsage        1
+
+#define SETTINGS_GEOMETRY "gpioconfiguration/geometry"
 
 /*****************************************************************************
  * Initialization
@@ -38,12 +41,18 @@ GPIOConfiguration::GPIOConfiguration(GPIOPlugin* plugin, QWidget* parent)
     /* Setup UI controls */
     setupUi(this);
 
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
+
     fillTree();
 }
 
 GPIOConfiguration::~GPIOConfiguration()
 {
-    /** Cleanup the allocated resources, if any */
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 void GPIOConfiguration::fillTree()
