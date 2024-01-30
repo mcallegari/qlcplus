@@ -1,13 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 27.9.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="svg6361" xmlns:svg="http://www.w3.org/2000/svg"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 256 256"
-	 style="enable-background:new 0 0 256 256;" xml:space="preserve">
-<style type="text/css">
-	.st0{opacity:0.56;fill:#FFFFFF;}
-</style>
-<path class="st0" d="M128,234.7c58.9,0,106.7-47.8,106.7-106.7S186.9,21.3,128,21.3S21.3,69.1,21.3,128S69.1,234.7,128,234.7z
-	 M111.3,161.3h10v-26.7h-10c-5.5,0-10-4.5-10-10s4.5-10,10-10h20c5.5,0,10,4.5,10,10v36.7h3.3c5.5,0,10,4.5,10,10s-4.5,10-10,10
-	h-33.3c-5.5,0-10-4.5-10-10S105.8,161.3,111.3,161.3z M128,74.7c7.4,0,13.3,6,13.3,13.3s-6,13.3-13.3,13.3c-7.4,0-13.3-6-13.3-13.3
-	S120.6,74.7,128,74.7z"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg6361" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:svg="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        isolation: isolate;
+        opacity: .6;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M128,234.7c58.9,0,106.7-47.8,106.7-106.7S186.9,21.3,128,21.3,21.3,69.1,21.3,128s47.8,106.7,106.7,106.7ZM111.3,161.3h10v-26.7h-10c-5.5,0-10-4.5-10-10s4.5-10,10-10h20c5.5,0,10,4.5,10,10v36.7h3.3c5.5,0,10,4.5,10,10s-4.5,10-10,10h-33.3c-5.5,0-10-4.5-10-10s4.5-10,10-10ZM128,74.7c7.4,0,13.3,6,13.3,13.3s-6,13.3-13.3,13.3-13.3-6-13.3-13.3,5.9-13.3,13.3-13.3Z"/>
 </svg>

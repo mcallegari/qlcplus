@@ -1,20 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 27.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1"
-	 id="svg2" xmlns:svg="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 256 256"
-	 style="enable-background:new 0 0 256 256;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#D6D6D6;}
-</style>
-<sodipodi:namedview  bordercolor="#666666" borderopacity="1.0" id="base" inkscape:current-layer="layer1" inkscape:cx="1.9926786" inkscape:cy="23.803468" inkscape:document-units="px" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:window-height="698" inkscape:window-maximized="1" inkscape:window-width="1366" inkscape:window-x="-4" inkscape:window-y="-4" inkscape:zoom="7.9195959" pagecolor="#ffffff" showgrid="false" units="px">
-	</sodipodi:namedview>
-<g>
-	<path class="st0" d="M220.9,114.7h-14.4c-5.5-33.3-31.9-59.6-65.2-65.2V35.1c0-7.4-6-13.3-13.3-13.3s-13.3,6-13.3,13.3v14.4
-		C81.4,55,55.1,81.4,49.5,114.7H35.1c-7.4,0-13.3,6-13.3,13.3c0,7.4,6,13.3,13.3,13.3h14.4c5.5,33.3,31.9,59.6,65.2,65.2v14.4
-		c0,7.4,6,13.3,13.3,13.3c7.4,0,13.3-6,13.3-13.3v-14.4c33.3-5.5,59.6-31.9,65.2-65.2h14.4c7.4,0,13.3-6,13.3-13.3
-		C234.2,120.6,228.2,114.7,220.9,114.7z M128,181.1c-29.3,0-53.1-23.8-53.1-53.1S98.7,74.9,128,74.9s53.1,23.8,53.1,53.1
-		S157.3,181.1,128,181.1z"/>
-	<circle class="st0" cx="128" cy="128" r="33.2"/>
-</g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg2" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        isolation: isolate;
+        opacity: .6;
+      }
+    </style>
+  </defs>
+  <sodipodi:namedview id="base" bordercolor="#666666" borderopacity="1.0" inkscape:current-layer="layer1" inkscape:cx="1.9926786" inkscape:cy="23.803468" inkscape:document-units="px" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:window-height="698" inkscape:window-maximized="1" inkscape:window-width="1366" inkscape:window-x="-4" inkscape:window-y="-4" inkscape:zoom="7.9195959" pagecolor="#ffffff" showgrid="false" units="px"/>
+  <g class="cls-2">
+    <path class="cls-1" d="M220.9,114.7h-14.4c-5.5-33.3-31.9-59.6-65.2-65.2v-14.4c0-7.4-6-13.3-13.3-13.3s-13.3,6-13.3,13.3v14.4c-33.3,5.5-59.6,31.9-65.2,65.2h-14.4c-7.4,0-13.3,6-13.3,13.3s6,13.3,13.3,13.3h14.4c5.5,33.3,31.9,59.6,65.2,65.2v14.4c0,7.4,6,13.3,13.3,13.3s13.3-6,13.3-13.3v-14.4c33.3-5.5,59.6-31.9,65.2-65.2h14.4c7.4,0,13.3-6,13.3-13.3s-6-13.3-13.3-13.3ZM128,181.1c-29.3,0-53.1-23.8-53.1-53.1s23.8-53.1,53.1-53.1,53.1,23.8,53.1,53.1-23.8,53.1-53.1,53.1Z"/>
+    <circle class="cls-1" cx="128" cy="128" r="33.2"/>
+  </g>
 </svg>

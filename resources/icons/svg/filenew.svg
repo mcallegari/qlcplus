@@ -1,16 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 27.9.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="svg4486" xmlns:svg="http://www.w3.org/2000/svg"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 256 256"
-	 style="enable-background:new 0 0 256 256;" xml:space="preserve">
-<style type="text/css">
-	.st0{opacity:0.56;fill:#FFFFFF;}
-	.st1{fill:#8AC926;}
-</style>
-<path class="st0" d="M32,64c0-11.8,9.6-21.3,21.3-21.3h53.3v42.7c0,5.9,4.8,10.7,10.7,10.7H160V109c-24.6,7-42.7,29.6-42.7,56.5
-	c0,19.7,9.7,37.1,24.6,47.8c-1.1,0.2-2.1,0.2-3.2,0.2H53.3c-11.8,0-21.3-9.6-21.3-21.3V64z"/>
-<polygon class="st0" points="160,85.3 117.3,85.3 117.3,42.7 "/>
-<path class="st1" d="M176,117.3c-26.5,0-48,21.5-48,48s21.5,48,48,48s48-21.5,48-48S202.5,117.3,176,117.3z M197.3,170.6h-16v16
-	c0,2.9-2.4,5.3-5.3,5.3s-5.3-2.4-5.3-5.3v-16h-16c-2.9,0-5.3-2.4-5.3-5.3s2.4-5.3,5.3-5.3h16v-16c0-2.9,2.4-5.3,5.3-5.3
-	s5.3,2.4,5.3,5.3v16h16c2.9,0,5.3,2.4,5.3,5.3C202.6,168.2,200.2,170.6,197.3,170.6z"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg4486" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:svg="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #8ac926;
+      }
+
+      .cls-1, .cls-2 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        isolation: isolate;
+        opacity: .6;
+      }
+    </style>
+  </defs>
+  <path class="cls-2" d="M32,64c0-11.8,9.6-21.3,21.3-21.3h53.3v42.7c0,5.9,4.8,10.7,10.7,10.7h42.7v12.9c-24.6,7-42.7,29.6-42.7,56.5s9.7,37.1,24.6,47.8c-1.1.2-2.1.2-3.2.2H53.3c-11.8,0-21.3-9.6-21.3-21.3V64Z"/>
+  <polygon class="cls-2" points="160 85.3 117.3 85.3 117.3 42.7 160 85.3"/>
+  <path class="cls-1" d="M176,117.3c-26.5,0-48,21.5-48,48s21.5,48,48,48,48-21.5,48-48-21.5-48-48-48ZM197.3,170.6h-16v16c0,2.9-2.4,5.3-5.3,5.3s-5.3-2.4-5.3-5.3v-16h-16c-2.9,0-5.3-2.4-5.3-5.3s2.4-5.3,5.3-5.3h16v-16c0-2.9,2.4-5.3,5.3-5.3s5.3,2.4,5.3,5.3v16h16c2.9,0,5.3,2.4,5.3,5.3s-2.4,5.3-5.3,5.3Z"/>
 </svg>
