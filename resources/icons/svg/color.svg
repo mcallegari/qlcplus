@@ -1,20 +1,37 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 27.9.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="svg2" xmlns:svg="http://www.w3.org/2000/svg"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 256 256"
-	 style="enable-background:new 0 0 256 256;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#3465A4;enable-background:new    ;}
-	.st1{fill:#FF595E;}
-	.st2{fill:#8AC926;}
-	.st3{fill:#43BCCD;}
-	.st4{fill:#FFD42A;}
-</style>
-<path class="st0" d="M234.7,128c0,0.4,0,0.8,0,1.1c-0.2,15.2-14,25.5-29.2,25.5h-40.8c-11,0-20,9-20,20c0,1.4,0.2,2.8,0.4,4.1
-	c0.9,4.3,2.7,8.3,4.5,12.5c2.5,5.8,5,11.5,5,17.5c0,13.3-9,25.3-22.3,25.8c-1.5,0-2.9,0.1-4.4,0.1c-58.9,0-106.7-47.8-106.7-106.7
-	S69.1,21.3,128,21.3S234.7,69.1,234.7,128z"/>
-<circle class="st1" cx="61.3" cy="141.3" r="13.3"/>
-<circle class="st2" cx="74.7" cy="88" r="13.3"/>
-<circle class="st3" cx="128" cy="61.3" r="13.3"/>
-<circle class="st4" cx="181.4" cy="88" r="13.3"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg2" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:svg="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #43bccd;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #ffd42a;
+      }
+
+      .cls-3 {
+        fill: #ff595e;
+      }
+
+      .cls-4 {
+        fill: #8ac926;
+      }
+
+      .cls-5 {
+        fill: #fff;
+        isolation: isolate;
+        opacity: .6;
+      }
+    </style>
+  </defs>
+  <path class="cls-5" d="M234.7,128v1.1c-.2,15.2-14,25.5-29.2,25.5h-40.8c-11,0-20,9-20,20s.2,2.8.4,4.1c.9,4.3,2.7,8.3,4.5,12.5,2.5,5.8,5,11.5,5,17.5,0,13.3-9,25.3-22.3,25.8-1.5,0-2.9.1-4.4.1-58.9,0-106.7-47.8-106.7-106.7S69.1,21.3,128,21.3s106.7,47.8,106.7,106.7Z"/>
+  <circle class="cls-3" cx="61.3" cy="141.3" r="13.3"/>
+  <circle class="cls-4" cx="74.7" cy="88" r="13.3"/>
+  <circle class="cls-1" cx="128" cy="61.3" r="13.3"/>
+  <circle class="cls-2" cx="181.4" cy="88" r="13.3"/>
 </svg>
