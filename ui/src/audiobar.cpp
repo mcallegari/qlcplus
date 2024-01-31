@@ -270,7 +270,16 @@ bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
             break;
             case AudioBar::DMXBar:
             {
-                root.readNextStartElement();
+                QXmlStreamReader::TokenType tType = root.readNext();
+
+                if (tType == QXmlStreamReader::EndElement)
+                {
+                    root.readNext();
+                    return true;
+                }
+
+                if (tType == QXmlStreamReader::Characters)
+                    root.readNext();
 
                 if (root.name() == KXMLQLCAudioBarDMXChannels)
                 {

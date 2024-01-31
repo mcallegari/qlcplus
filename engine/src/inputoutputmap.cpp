@@ -47,6 +47,7 @@ InputOutputMap::InputOutputMap(Doc *doc, quint32 universes)
   : QObject(doc)
   , m_blackout(false)
   , m_universeChanged(false)
+  , m_currentBPM(0)
   , m_beatTime(new QElapsedTimer())
 {
     m_grandMaster = new GrandMaster(this);

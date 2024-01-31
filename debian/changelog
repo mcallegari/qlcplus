@@ -13,6 +13,7 @@ qlcplus (4.12.8) stable; urgency=low
   * Virtual Console/Button: Scene flashing can force LTP and override (thanks to Dennis Suermann)
   * Virtual Console/Cue List: fix off by one offset error in steps mode (thanks to kpr0th)
   * Virtual Console/Audio Triggers: fix attached VC Slider not updating values
+  * Virtual Console/Audio Triggers: fix loading a project with DMX bars with no channels set
   * Plugins/ArtNet: add default standard transmission mode as per protocol specifications
   * Plugins/ArtNet,E1.31,OSC: add a parameter to wait for interfaces to be ready
   * Plugins/DMX USB: add support for DMXKing MAX products
