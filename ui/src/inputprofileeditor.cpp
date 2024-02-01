@@ -85,10 +85,10 @@ InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile
             this, SLOT(slotSensitivitySpinChanged(int)));
     connect(m_extraPressCheck, SIGNAL(toggled(bool)),
             this, SLOT(slotExtraPressChecked(bool)));
-    connect(m_lowerSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotLowerValueSpinChanged(int)));
-    connect(m_upperSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotUpperValueSpinChanged(int)));
+    connect(m_lowerVelocitySpin, SIGNAL(valueChanged(int)),
+            this, SLOT(slotLowerVelocityValueSpinChanged(int)));
+    connect(m_upperVelocitySpin, SIGNAL(valueChanged(int)),
+            this, SLOT(slotUpperVelocityValueSpinChanged(int)));
 
     /* Listen to input data */
     connect(m_ioMap, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)),
@@ -499,12 +499,12 @@ void InputProfileEditor::slotItemClicked(QTreeWidgetItem *item, int col)
         else if (ich->type() == QLCInputChannel::Button)
         {
             m_extraPressCheck->setChecked(ich->sendExtraPress());
-            m_lowerSpin->blockSignals(true);
-            m_upperSpin->blockSignals(true);
-            m_lowerSpin->setValue(ich->lowerValue());
-            m_upperSpin->setValue(ich->upperValue());
-            m_lowerSpin->blockSignals(false);
-            m_upperSpin->blockSignals(false);
+            m_lowerVelocitySpin->blockSignals(true);
+            m_upperVelocitySpin->blockSignals(true);
+            m_lowerVelocitySpin->setValue(ich->lowerValue());
+            m_upperVelocitySpin->setValue(ich->upperValue());
+            m_lowerVelocitySpin->blockSignals(false);
+            m_upperVelocitySpin->blockSignals(false);
         }
     }
     else
@@ -558,7 +558,7 @@ void InputProfileEditor::slotLowerValueSpinChanged(int value)
     foreach (QLCInputChannel *channel, selectedChannels())
     {
         if (channel->type() == QLCInputChannel::Button)
-            channel->setRange(uchar(value), uchar(m_upperSpin->value()));
+            channel->setRange(uchar(value), uchar(m_upperVelocitySpin->value()));
     }
 }
 
@@ -567,7 +567,7 @@ void InputProfileEditor::slotUpperValueSpinChanged(int value)
     foreach (QLCInputChannel *channel, selectedChannels())
     {
         if (channel->type() == QLCInputChannel::Button)
-            channel->setRange(uchar(m_lowerSpin->value()), uchar(value));
+            channel->setRange(uchar(m_lowerVelocitySpin->value()), uchar(value));
     }
 }
 

@@ -28,6 +28,7 @@
 #include <QSpinBox>
 #include <QAction>
 #include <qmath.h>
+#include <QDebug>
 
 #include "inputselectionwidget.h"
 #include "vcbuttonproperties.h"
@@ -212,6 +213,7 @@ void VCButtonProperties::slotFadeOutTextEdited()
 
 void VCButtonProperties::accept()
 {
+    qDebug()<<"VCBUTTONPROP_ACCEPT";
     m_button->setCaption(m_nameEdit->text());
     m_button->setFunction(m_function);
     m_button->setKeySequence(m_inputSelWidget->keySequence());

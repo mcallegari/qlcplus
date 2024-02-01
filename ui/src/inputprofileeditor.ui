@@ -356,7 +356,7 @@
            </widget>
           </item>
           <item row="0" column="3">
-           <widget class="QSpinBox" name="m_upperSpin">
+           <widget class="QSpinBox" name="m_upperVelocitySpin">
             <property name="minimum">
              <number>0</number>
             </property>
@@ -376,7 +376,7 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QSpinBox" name="m_lowerSpin">
+           <widget class="QSpinBox" name="m_lowerVelocitySpin">
             <property name="maximum">
              <number>255</number>
             </property>

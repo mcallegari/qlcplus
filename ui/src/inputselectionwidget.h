@@ -61,6 +61,9 @@ protected slots:
     void slotCustomFeedbackToggled(bool checked);
     void slotLowerSpinValueChanged(int value);
     void slotUpperSpinValueChanged(int value);
+    void slotLowerChannelSpinChanged(int value);
+    void slotUpperChannelSpinChanged(int value);
+    void st(int a);
 
 signals:
     void autoDetectToggled(bool checked);

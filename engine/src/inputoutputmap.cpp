@@ -767,6 +767,23 @@ bool InputOutputMap::sendFeedBack(quint32 universe, quint32 channel, uchar value
     }
 }
 
+bool InputOutputMap::isMidiFeedback(quint32 universe)
+{
+    if (universe >= universesCount())
+        return false;
+
+    OutputPatch* patch = m_universeArray.at(universe)->feedbackPatch();
+
+    if (patch != NULL && patch->isPatched())
+    {
+        return patch->plugin()->name()==QString("MIDI");
+    }
+    else
+    {
+        return false;
+    }
+}
+
 void InputOutputMap::slotPluginConfigurationChanged(QLCIOPlugin* plugin)
 {
     QMutexLocker locker(&m_universeMutex);

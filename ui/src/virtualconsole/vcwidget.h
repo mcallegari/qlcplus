@@ -59,12 +59,14 @@ class QFile;
 #define KVCFrameStyleRaised (QFrame::Panel | QFrame::Raised)
 #define KVCFrameStyleNone   (QFrame::NoFrame)
 
-#define KXMLQLCVCWidgetKey              QString("Key")
-#define KXMLQLCVCWidgetInput            QString("Input")
-#define KXMLQLCVCWidgetInputUniverse    QString("Universe")
-#define KXMLQLCVCWidgetInputChannel     QString("Channel")
-#define KXMLQLCVCWidgetInputLowerValue  QString("LowerValue")
-#define KXMLQLCVCWidgetInputUpperValue  QString("UpperValue")
+#define KXMLQLCVCWidgetKey                      QString("Key")
+#define KXMLQLCVCWidgetInput                    QString("Input")
+#define KXMLQLCVCWidgetInputUniverse            QString("Universe")
+#define KXMLQLCVCWidgetInputChannel             QString("Channel")
+#define KXMLQLCVCWidgetInputLowerValue          QString("LowerValue")
+#define KXMLQLCVCWidgetInputUpperValue          QString("UpperValue")
+#define KXMLQLCVCWidgetInputChannelLowerValue   QString("LowerChannelValue")
+#define KXMLQLCVCWidgetInputChannelUpperValue   QString("UpperChannelValue")
 
 #define KXMLQLCWindowState          QString("WindowState")
 #define KXMLQLCWindowStateVisible   QString("Visible")
@@ -437,16 +439,18 @@ public:
      *
      * @param value value from 0 to 255 to be sent
      * @param id ID of the input source where to send feedback
+     * @param midi_channel value from 0 to 16 of midi channel
      */
-    void sendFeedback(int value, quint8 id = 0);
+    void sendFeedback(int value, quint8 id = 0, quint8 midi_channel = 0);
 
     /**
      * Send feedback to an external controller.
      *
      * @param value value from 0 to 255 to be sent
      * @param src the QLCInputSource reference to send the feedback to
+     * @param midi_channel value from 0 to 16 of midi channel
      */
-    void sendFeedback(int value, QSharedPointer<QLCInputSource> src);
+    void sendFeedback(int value, QSharedPointer<QLCInputSource> src, quint8 midi_channel = 0);
 
     /**
      * Send the feedback data again, e.g. after page flip

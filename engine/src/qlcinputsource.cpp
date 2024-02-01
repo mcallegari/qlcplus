@@ -126,14 +126,31 @@ void QLCInputSource::setRange(uchar lower, uchar upper)
     m_upper = upper;
 }
 
-uchar QLCInputSource::lowerValue() const
+void QLCInputSource::setChannelRange(uchar lower, uchar upper)
+{
+    m_lower_channel = lower;
+    m_upper_channel = upper;
+}
+
+
+uchar QLCInputSource::lowerVelocityValue() const
 {
     return m_lower;
 }
 
-uchar QLCInputSource::upperValue() const
+uchar QLCInputSource::upperVelocityValue() const
 {
     return m_upper;
+}
+
+uchar QLCInputSource::lowerChannelValue() const
+{
+    return m_lower_channel;
+}
+
+uchar QLCInputSource::upperChannelValue() const
+{
+    return m_upper_channel;
 }
 
 /*********************************************************************

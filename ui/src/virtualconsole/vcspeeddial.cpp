@@ -571,8 +571,8 @@ void VCSpeedDial::updateFeedback()
             QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
             if (preset->m_inputSource.isNull() == false)
                 sendFeedback(button->isDown() ?
-                             preset->m_inputSource->upperValue() :
-                             preset->m_inputSource->lowerValue(),
+                             preset->m_inputSource->upperVelocityValue() :
+                             preset->m_inputSource->lowerVelocityValue(),
                              preset->m_inputSource);
         }
     }

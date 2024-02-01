@@ -179,14 +179,48 @@
           <number>3</number>
          </property>
          <item row="0" column="0">
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>Lower Channel</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QSpinBox" name="m_upperChannelSpin">
+           <property name="minimum">
+            <number>0</number>
+           </property>
+           <property name="maximum">
+            <number>16</number>
+           </property>
+           <property name="value">
+            <number>0</number>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QSpinBox" name="m_lowerChannelSpin">
+           <property name="maximum">
+            <number>16</number>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>Upper channel</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
           <widget class="QLabel" name="label">
            <property name="text">
             <string>Lower value</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="3">
-          <widget class="QSpinBox" name="m_upperSpin">
+         <item row="1" column="3">
+          <widget class="QSpinBox" name="m_upperVelocitySpin">
            <property name="minimum">
             <number>0</number>
            </property>
@@ -198,14 +232,14 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
-          <widget class="QSpinBox" name="m_lowerSpin">
+         <item row="1" column="1">
+          <widget class="QSpinBox" name="m_lowerVelocitySpin">
            <property name="maximum">
             <number>255</number>
            </property>
           </widget>
          </item>
-         <item row="0" column="2">
+         <item row="1" column="2">
           <widget class="QLabel" name="label_2">
            <property name="text">
             <string>Upper value</string>

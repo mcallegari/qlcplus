@@ -40,8 +40,10 @@ InputSelectionWidget::InputSelectionWidget(Doc *doc, QWidget *parent)
 
     m_customFbButton->setVisible(false);
     m_feedbackGroup->setVisible(false);
-    m_lowerSpin->setEnabled(false);
-    m_upperSpin->setEnabled(false);
+    m_lowerVelocitySpin->setEnabled(false);
+    m_upperVelocitySpin->setEnabled(false);
+    m_lowerChannelSpin->setEnabled(false);
+    m_upperChannelSpin->setEnabled(false);
 
     connect(m_attachKey, SIGNAL(clicked()), this, SLOT(slotAttachKey()));
     connect(m_detachKey, SIGNAL(clicked()), this, SLOT(slotDetachKey()));
@@ -53,10 +55,14 @@ InputSelectionWidget::InputSelectionWidget(Doc *doc, QWidget *parent)
 
     connect(m_customFbButton, SIGNAL(toggled(bool)),
             this, SLOT(slotCustomFeedbackToggled(bool)));
-    connect(m_lowerSpin, SIGNAL(valueChanged(int)),
+    connect(m_lowerVelocitySpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotLowerSpinValueChanged(int)));
-    connect(m_upperSpin, SIGNAL(valueChanged(int)),
+    connect(m_upperVelocitySpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotUpperSpinValueChanged(int)));
+    connect(m_lowerChannelSpin, SIGNAL(valueChanged(int)),
+            this, SLOT(slotLowerChannelSpinChanged(int)));
+    connect(m_upperChannelSpin, SIGNAL(valueChanged(int)),
+             this, SLOT(slotUpperChannelSpinChanged(int)));
 }
 
 InputSelectionWidget::~InputSelectionWidget()
@@ -156,6 +162,7 @@ void InputSelectionWidget::slotAutoDetectInputToggled(bool checked)
 
 void InputSelectionWidget::slotInputValueChanged(quint32 universe, quint32 channel)
 {
+    qDebug()<<"SOMETHING DETECTED"<<universe<<channel;
     if (m_emitOdd == true && m_signalsReceived % 2)
     {
         emit inputValueChanged(universe, (m_widgetPage << 16) | channel);
@@ -189,12 +196,22 @@ void InputSelectionWidget::slotCustomFeedbackToggled(bool checked)
 
 void InputSelectionWidget::slotLowerSpinValueChanged(int value)
 {
-    m_inputSource->setRange(uchar(value), uchar(m_upperSpin->value()));
+    m_inputSource->setRange(uchar(value), uchar(m_upperVelocitySpin->value()));
 }
 
 void InputSelectionWidget::slotUpperSpinValueChanged(int value)
 {
-    m_inputSource->setRange(uchar(m_lowerSpin->value()), uchar(value));
+    m_inputSource->setRange(uchar(m_lowerVelocitySpin->value()), uchar(value));
+}
+
+void InputSelectionWidget::slotLowerChannelSpinChanged(int value)
+{
+    m_inputSource->setChannelRange(uchar(value), uchar(m_upperChannelSpin->value()));
+}
+
+void InputSelectionWidget::slotUpperChannelSpinChanged(int value)
+{
+    m_inputSource->setChannelRange(uchar(m_lowerChannelSpin->value()), uchar(value));
 }
 
 void InputSelectionWidget::updateInputSource()
@@ -206,15 +223,19 @@ void InputSelectionWidget::updateInputSource()
     {
         uniName = KInputNone;
         chName = KInputNone;
-        m_lowerSpin->setEnabled(false);
-        m_upperSpin->setEnabled(false);
+        m_lowerVelocitySpin->setEnabled(false);
+        m_upperVelocitySpin->setEnabled(false);
+        m_lowerChannelSpin->setEnabled(false);
+        m_upperChannelSpin->setEnabled(false);
         m_customFbButton->setChecked(false);
         m_feedbackGroup->setVisible(false);
     }
     else
     {
-        m_lowerSpin->blockSignals(true);
-        m_upperSpin->blockSignals(true);
+        m_lowerVelocitySpin->blockSignals(true);
+        m_upperVelocitySpin->blockSignals(true);
+        m_lowerChannelSpin->blockSignals(true);
+        m_upperChannelSpin->blockSignals(true);
 
         uchar min = 0, max = UCHAR_MAX;
 
@@ -228,9 +249,11 @@ void InputSelectionWidget::updateInputSource()
                 max = ich->upperValue();
             }
         }
-        m_lowerSpin->setValue((m_inputSource->lowerValue() != 0) ? m_inputSource->lowerValue() : min);
-        m_upperSpin->setValue((m_inputSource->upperValue() != UCHAR_MAX) ? m_inputSource->upperValue() : max);
-        if (m_lowerSpin->value() != 0 || m_upperSpin->value() != UCHAR_MAX)
+        m_lowerVelocitySpin->setValue((m_inputSource->lowerVelocityValue() != 0) ? m_inputSource->lowerVelocityValue() : min);
+        m_upperVelocitySpin->setValue((m_inputSource->upperVelocityValue() != UCHAR_MAX) ? m_inputSource->upperVelocityValue() : max);
+        m_lowerChannelSpin->setValue((m_inputSource->lowerChannelValue() != 0) ? m_inputSource->lowerChannelValue() : 0);
+        m_upperChannelSpin->setValue((m_inputSource->upperChannelValue() != 0) ? m_inputSource->upperChannelValue() : 0);
+        if (m_lowerVelocitySpin->value() != 0 || m_upperVelocitySpin->value() != UCHAR_MAX || m_lowerChannelSpin->value() != 0 || m_upperChannelSpin->value() != 0)
         {
             m_customFbButton->setChecked(true);
         }
@@ -239,10 +262,14 @@ void InputSelectionWidget::updateInputSource()
             m_customFbButton->setChecked(false);
             m_feedbackGroup->setVisible(false);
         }
-        m_lowerSpin->blockSignals(false);
-        m_upperSpin->blockSignals(false);
-        m_lowerSpin->setEnabled(true);
-        m_upperSpin->setEnabled(true);
+        m_lowerVelocitySpin->blockSignals(false);
+        m_upperVelocitySpin->blockSignals(false);
+        m_lowerChannelSpin->blockSignals(false);
+        m_upperChannelSpin->blockSignals(false);
+        m_lowerVelocitySpin->setEnabled(true);
+        m_upperVelocitySpin->setEnabled(true);
+        m_lowerChannelSpin->setEnabled(true);
+        m_upperChannelSpin->setEnabled(true);
     }
 
     m_inputUniverseEdit->setText(uniName);

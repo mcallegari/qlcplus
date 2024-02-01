@@ -285,7 +285,7 @@ QString MidiPlugin::inputInfo(quint32 input)
     return str;
 }
 
-void MidiPlugin::sendFeedBack(quint32 universe, quint32 output, quint32 channel, uchar value, const QString &)
+void MidiPlugin::sendFeedBack(quint32 universe, quint32 output, quint32 channel, uchar value, const QString &m_channel)
 {
     Q_UNUSED(universe)
 
@@ -294,10 +294,11 @@ void MidiPlugin::sendFeedBack(quint32 universe, quint32 output, quint32 channel,
     MidiOutputDevice* dev = outputDevice(output);
     if (dev != NULL)
     {
+        int midi_channel = m_channel.toInt();
         qDebug() << "[sendFeedBack] Dev:" << dev->name() << ", channel:" << channel << ", value:" << value << dev->sendNoteOff();
         uchar cmd = 0;
         uchar data1 = 0, data2 = 0;
-        if (QLCMIDIProtocol::feedbackToMidi(channel, value, dev->midiChannel(), dev->sendNoteOff(),
+        if (QLCMIDIProtocol::feedbackToMidi(channel, value, midi_channel, dev->sendNoteOff(),
                                         &cmd, &data1, &data2) == true)
         {
             qDebug() << "[sendFeedBack] cmd:" << cmd << "data1:" << data1 << "data2:" << data2;

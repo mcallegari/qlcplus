@@ -257,7 +257,8 @@ bool VCWidget::copyFrom(const VCWidget* widget)
         it.next();
         quint8 id = it.key();
         QSharedPointer<QLCInputSource> src(new QLCInputSource(it.value()->universe(), it.value()->channel()));
-        src->setRange(it.value()->lowerValue(), it.value()->upperValue());
+        src->setRange(it.value()->lowerVelocityValue(), it.value()->upperVelocityValue());
+        src->setChannelRange(it.value()->lowerChannelValue(), it.value()->upperChannelValue());
         setInputSource(src, id);
     }
 
@@ -639,8 +640,9 @@ void VCWidget::setInputSource(QSharedPointer<QLCInputSource> const& source, quin
                         }
 
                         // user custom feedbacks have precedence over input profile custom feedbacks
-                        source->setRange((source->lowerValue() != 0) ? source->lowerValue() : ich->lowerValue(),
-                                         (source->upperValue() != UCHAR_MAX) ? source->upperValue() : ich->upperValue());
+                        source->setRange((source->lowerVelocityValue() != 0) ? source->lowerVelocityValue() : ich->lowerValue(),
+                                         (source->upperVelocityValue() != UCHAR_MAX) ? source->upperVelocityValue() : ich->upperValue());
+
                     }
                 }
             }
@@ -672,15 +674,17 @@ void VCWidget::remapInputSources(int pgNum)
     }
 }
 
-void VCWidget::sendFeedback(int value, quint8 id)
+void VCWidget::sendFeedback(int value, quint8 id, quint8 midi_channel)
 {
     /* Send input feedback */
     QSharedPointer<QLCInputSource> src = inputSource(id);
-    sendFeedback(value, src);
+    sendFeedback(value, src, midi_channel);
 }
 
-void VCWidget::sendFeedback(int value, QSharedPointer<QLCInputSource> src)
+void VCWidget::sendFeedback(int value, QSharedPointer<QLCInputSource> src, quint8 midi_channel)
 {
+    Q_UNUSED(midi_channel);
+
     if (src.isNull() || src->isValid() == false)
         return;
 
@@ -702,10 +706,14 @@ void VCWidget::sendFeedback(int value, QSharedPointer<QLCInputSource> src)
         if (profile != NULL)
         {
             QLCInputChannel* ich = profile->channel(src->channel());
+
             if (ich != NULL)
                 chName = ich->name();
         }
     }
+    if (m_doc->inputOutputMap()->isMidiFeedback(src->universe()))
+        chName=QString::number(midi_channel);
+
     m_doc->inputOutputMap()->sendFeedBack(src->universe(), src->channel(), value, chName);
 }
 
@@ -893,7 +901,14 @@ QSharedPointer<QLCInputSource> VCWidget::getXMLInput(QXmlStreamReader &root)
     if (attrs.hasAttribute(KXMLQLCVCWidgetInputUpperValue))
         max = uchar(attrs.value(KXMLQLCVCWidgetInputUpperValue).toString().toUInt());
 
+    uchar lower_channel = 0, upper_channel = 0;
+    if (attrs.hasAttribute(KXMLQLCVCWidgetInputChannelLowerValue))
+        lower_channel = uchar(attrs.value(KXMLQLCVCWidgetInputChannelLowerValue).toString().toUInt());
+    if (attrs.hasAttribute(KXMLQLCVCWidgetInputChannelUpperValue))
+        upper_channel = uchar(attrs.value(KXMLQLCVCWidgetInputChannelUpperValue).toString().toUInt());
+
     newSrc->setRange(min, max);
+    newSrc->setChannelRange(lower_channel, upper_channel);
 
     return newSrc;
 }
@@ -1037,10 +1052,14 @@ bool VCWidget::saveXMLInput(QXmlStreamWriter *doc,
         doc->writeStartElement(KXMLQLCVCWidgetInput);
         doc->writeAttribute(KXMLQLCVCWidgetInputUniverse, QString("%1").arg(src->universe()));
         doc->writeAttribute(KXMLQLCVCWidgetInputChannel, QString("%1").arg(src->channel()));
-        if (src->lowerValue() != 0)
-            doc->writeAttribute(KXMLQLCVCWidgetInputLowerValue, QString::number(src->lowerValue()));
-        if (src->upperValue() != UCHAR_MAX)
-            doc->writeAttribute(KXMLQLCVCWidgetInputUpperValue, QString::number(src->upperValue()));
+        if (src->lowerVelocityValue() != 0)
+            doc->writeAttribute(KXMLQLCVCWidgetInputLowerValue, QString::number(src->lowerVelocityValue()));
+        if (src->upperVelocityValue() != UCHAR_MAX)
+            doc->writeAttribute(KXMLQLCVCWidgetInputUpperValue, QString::number(src->upperVelocityValue()));
+        if (src->lowerChannelValue() != 0) //If not default, save it!
+            doc->writeAttribute(KXMLQLCVCWidgetInputChannelLowerValue, QString::number(src->lowerChannelValue()));
+        if (src->upperChannelValue() != 0) //If not default, save it!
+            doc->writeAttribute(KXMLQLCVCWidgetInputChannelUpperValue, QString::number(src->upperChannelValue()));
         doc->writeEndElement();
     }
 

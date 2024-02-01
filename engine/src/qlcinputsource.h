@@ -77,11 +77,15 @@ private:
      *********************************************************************/
 public:
     void setRange(uchar lower, uchar upper);
-    uchar lowerValue() const;
-    uchar upperValue() const;
+    void setChannelRange(uchar lower, uchar upper);
+    uchar lowerVelocityValue() const;
+    uchar upperVelocityValue() const;
+    uchar lowerChannelValue() const;
+    uchar upperChannelValue() const;
 
 protected:
     uchar m_lower, m_upper;
+    uchar m_lower_channel, m_upper_channel;
 
     /*********************************************************************
      * Working mode

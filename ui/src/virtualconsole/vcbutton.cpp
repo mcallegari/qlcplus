@@ -523,9 +523,9 @@ void VCButton::updateFeedback()
     if (!src.isNull() && src->isValid() == true)
     {
         if (m_state == Inactive)
-            sendFeedback(src->lowerValue());
+            sendFeedback(src->lowerVelocityValue(), 0U, src->lowerChannelValue());
         else
-            sendFeedback(src->upperValue());
+            sendFeedback(src->upperVelocityValue(), 0U, src->upperChannelValue());
     }
 }
 
