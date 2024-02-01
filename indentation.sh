@@ -13,7 +13,7 @@ MODE="default"
 cd "$THISDIR"
 
 usage() {
-  echo >&2 "$THISCMD [-t target] [-m mode] [indentPathOrFile]"
+  echo >&2 "$THISCMD [options] [indentPathOrFile ...]"
   echo >&2 "-c|--check            Script mode: check (default)"
   echo >&2 "-h|--help             Print this help message"
   echo >&2 "-i|--indent           Script mode: indent"
