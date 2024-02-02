@@ -91,7 +91,7 @@ namespace QLCMIDIProtocol
 #define MIDI2DMX(x) uchar((x == 127U) ? 255U : x << 1)
 
 /** Convert DMX value to MIDI value */
-#define DMX2MIDI(x) (uchar(x) & 0x7F)
+#define DMX2MIDI(x) (uchar(x >> 1) & 0x7F)
 
 /****************************************************************************
  * MIDI channels
