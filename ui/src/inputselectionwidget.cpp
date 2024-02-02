@@ -251,8 +251,8 @@ void InputSelectionWidget::updateInputSource()
         }
         m_lowerVelocitySpin->setValue((m_inputSource->lowerVelocityValue() != 0) ? m_inputSource->lowerVelocityValue() : min);
         m_upperVelocitySpin->setValue((m_inputSource->upperVelocityValue() != UCHAR_MAX) ? m_inputSource->upperVelocityValue() : max);
-        m_lowerChannelSpin->setValue((m_inputSource->lowerChannelValue() != 0) ? m_inputSource->lowerChannelValue() : 0);
-        m_upperChannelSpin->setValue((m_inputSource->upperChannelValue() != 0) ? m_inputSource->upperChannelValue() : 0);
+        m_lowerChannelSpin->setValue(m_inputSource->lowerChannelValue());
+        m_upperChannelSpin->setValue(m_inputSource->upperChannelValue());
         if (m_lowerVelocitySpin->value() != 0 || m_upperVelocitySpin->value() != UCHAR_MAX || m_lowerChannelSpin->value() != 0 || m_upperChannelSpin->value() != 0)
         {
             m_customFbButton->setChecked(true);
