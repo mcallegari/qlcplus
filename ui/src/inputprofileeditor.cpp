@@ -89,6 +89,10 @@ InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile
             this, SLOT(slotLowerVelocityValueSpinChanged(int)));
     connect(m_upperVelocitySpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotUpperVelocityValueSpinChanged(int)));
+    connect(m_lowerChannelSpin, SIGNAL(valueChanged(int)),
+            this, SLOT(slotLowerChannelValueSpinChanged(int)));
+    connect(m_upperChannelSpin, SIGNAL(valueChanged(int)),
+            this, SLOT(slotUpperChannelValueSpinChanged(int)));
 
     /* Listen to input data */
     connect(m_ioMap, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)),
@@ -501,10 +505,23 @@ void InputProfileEditor::slotItemClicked(QTreeWidgetItem *item, int col)
             m_extraPressCheck->setChecked(ich->sendExtraPress());
             m_lowerVelocitySpin->blockSignals(true);
             m_upperVelocitySpin->blockSignals(true);
+
             m_lowerVelocitySpin->setValue(ich->lowerValue());
             m_upperVelocitySpin->setValue(ich->upperValue());
             m_lowerVelocitySpin->blockSignals(false);
             m_upperVelocitySpin->blockSignals(false);
+            if (m_profile->type() == QLCInputProfile::Type::MIDI)
+            {
+                m_lowerChannelSpin->blockSignals(true);
+                m_upperChannelSpin->blockSignals(true);
+                m_lowerChannelSpin->setValue(ich->lowerChannelValue());
+                m_upperChannelSpin->setValue(ich->upperChannelValue());
+                m_lowerChannelSpin->blockSignals(false);
+                m_upperChannelSpin->blockSignals(false);
+            }
+            else {
+                m_ChannelfeedbackGroup->setVisible(false);
+            }
         }
     }
     else
@@ -568,6 +585,24 @@ void InputProfileEditor::slotUpperValueSpinChanged(int value)
     {
         if (channel->type() == QLCInputChannel::Button)
             channel->setRange(uchar(m_lowerVelocitySpin->value()), uchar(value));
+    }
+}
+
+void InputProfileEditor::slotLowerChannelValueSpinChanged(int value)
+{
+    foreach (QLCInputChannel *channel, selectedChannels())
+    {
+        if (channel->type() == QLCInputChannel::Button)
+            channel->setChannelRange(uchar(value), uchar(m_upperChannelSpin->value()));
+    }
+}
+
+void InputProfileEditor::slotUpperChannelValueSpinChanged(int value)
+{
+    foreach (QLCInputChannel *channel, selectedChannels())
+    {
+        if (channel->type() == QLCInputChannel::Button)
+            channel->setChannelRange(uchar(m_lowerChannelSpin->value()), uchar(value));
     }
 }
 

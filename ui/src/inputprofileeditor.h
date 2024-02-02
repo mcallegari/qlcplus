@@ -80,6 +80,8 @@ protected slots:
     void slotExtraPressChecked(bool checked);
     void slotLowerValueSpinChanged(int value);
     void slotUpperValueSpinChanged(int value);
+    void slotLowerChannelValueSpinChanged(int value);
+    void slotUpperChannelValueSpinChanged(int value);
 
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
     void slotTimerTimeout();

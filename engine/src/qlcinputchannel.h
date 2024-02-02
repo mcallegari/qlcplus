@@ -51,6 +51,8 @@ class QString;
 #define KXMLQLCInputChannelFeedbacks QString("Feedbacks")
 #define KXMLQLCInputChannelLowerValue QString("LowerValue")
 #define KXMLQLCInputChannelUpperValue QString("UpperValue")
+#define KXMLQLCInputChannelLowerChannel QString("LowerChannelValue")
+#define KXMLQLCInputChannelUpperChannel QString("UpperChannelValue")
 
 class QLCInputChannel : public QObject
 {
@@ -66,6 +68,8 @@ class QLCInputChannel : public QObject
     Q_PROPERTY(int movementSensitivity READ movementSensitivity WRITE setMovementSensitivity NOTIFY movementSensitivityChanged FINAL)
     Q_PROPERTY(uchar lowerValue READ lowerValue WRITE setLowerValue NOTIFY lowerValueChanged FINAL)
     Q_PROPERTY(uchar upperValue READ upperValue WRITE setUpperValue NOTIFY upperValueChanged FINAL)
+    Q_PROPERTY(uchar lowerChannelValue READ lowerChannelValue WRITE setLowerChannelValue NOTIFY lowerValueChannelChanged FINAL)
+    Q_PROPERTY(uchar upperChannelValue READ upperChannelValue WRITE setUpperChannelValue NOTIFY upperValueChannelChanged FINAL)
 
     /********************************************************************
      * Initialization
@@ -190,14 +194,24 @@ public:
     uchar upperValue() const;
     void setUpperValue(const uchar value);
 
+    void setChannelRange(uchar lower, uchar upper);
+    uchar lowerChannelValue() const;
+    void setLowerChannelValue(const uchar value);
+
+    uchar upperChannelValue() const;
+    void setUpperChannelValue(const uchar value);
+
 signals:
     void sendExtraPressChanged();
     void lowerValueChanged();
     void upperValueChanged();
+    void lowerValueChannelChanged();
+    void upperValueChannelChanged();
 
 protected:
     bool m_sendExtraPress;
     uchar m_lower, m_upper;
+    uchar m_channel_lower, m_channel_upper;
 
     /********************************************************************
      * Load & Save

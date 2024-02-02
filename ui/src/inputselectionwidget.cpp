@@ -162,7 +162,6 @@ void InputSelectionWidget::slotAutoDetectInputToggled(bool checked)
 
 void InputSelectionWidget::slotInputValueChanged(quint32 universe, quint32 channel)
 {
-    qDebug()<<"SOMETHING DETECTED"<<universe<<channel;
     if (m_emitOdd == true && m_signalsReceived % 2)
     {
         emit inputValueChanged(universe, (m_widgetPage << 16) | channel);
