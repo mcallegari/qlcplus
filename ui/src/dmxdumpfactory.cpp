@@ -20,6 +20,7 @@
 #include <QTreeWidgetItem>
 #include <QTreeWidget>
 #include <QDebug>
+#include <QSettings>
 
 #include "dmxdumpfactoryproperties.h"
 #include "fixturetreewidget.h"
@@ -41,6 +42,8 @@
 
 #define KColumnTargetName 0
 #define KColumnTargetID   1
+
+#define SETTINGS_GEOMETRY "dmxdumpfactory/geometry"
 
 DmxDumpFactory::DmxDumpFactory(Doc *doc, DmxDumpFactoryProperties *props, QWidget *parent)
     : QDialog(parent)
@@ -83,12 +86,19 @@ DmxDumpFactory::DmxDumpFactory(Doc *doc, DmxDumpFactoryProperties *props, QWidge
     if (m_properties->nonZeroValuesMode() == true)
         m_nonZeroCheck->setChecked(true);
 
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
+
     connect(m_sceneButton, SIGNAL(clicked(bool)),
             this, SLOT(slotSelectSceneButtonClicked()));
 }
 
 DmxDumpFactory::~DmxDumpFactory()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 void DmxDumpFactory::slotUpdateChasersTree()

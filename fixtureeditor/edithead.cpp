@@ -21,11 +21,14 @@
 #include <QTreeWidget>
 #include <QDebug>
 #include <QAction>
+#include <QSettings>
 
 #include "qlcfixturehead.h"
 #include "qlcfixturemode.h"
 #include "qlcchannel.h"
 #include "edithead.h"
+
+#define SETTINGS_GEOMETRY "edithead/geometry"
 
 EditHead::EditHead(QWidget* parent, const QLCFixtureHead& head, const QLCFixtureMode* mode)
     : QDialog(parent)
@@ -40,12 +43,19 @@ EditHead::EditHead(QWidget* parent, const QLCFixtureHead& head, const QLCFixture
 
     fillChannelTree(mode);
 
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
+
     connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
             this, SLOT(slotItemChanged(QTreeWidgetItem*,int)));
 }
 
 EditHead::~EditHead()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 QLCFixtureHead EditHead::head() const

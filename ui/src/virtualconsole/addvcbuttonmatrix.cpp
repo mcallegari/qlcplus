@@ -34,6 +34,7 @@
 #define VERTICAL_COUNT "addvcbuttonmatrix/verticalcount"
 #define BUTTON_SIZE "addvcbuttonmatrix/buttonsize"
 #define FRAME_STYLE "addvcbuttonmatrix/framestyle"
+#define SETTINGS_GEOMETRY "addvcbuttonmatrix/geometry"
 
 AddVCButtonMatrix::AddVCButtonMatrix(QWidget* parent, Doc* doc)
     : QDialog(parent)
@@ -78,6 +79,10 @@ AddVCButtonMatrix::AddVCButtonMatrix(QWidget* parent, Doc* doc)
     else
         setFrameStyle(AddVCButtonMatrix::NormalFrame);
 
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
+
     setAllocationText();
 }
 
@@ -87,6 +92,7 @@ AddVCButtonMatrix::~AddVCButtonMatrix()
     settings.setValue(HORIZONTAL_COUNT, horizontalCount());
     settings.setValue(VERTICAL_COUNT, verticalCount());
     settings.setValue(BUTTON_SIZE, buttonSize());
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 QList <quint32> AddVCButtonMatrix::functions() const

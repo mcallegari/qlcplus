@@ -39,8 +39,9 @@ function connect() {
     }, 1000);
    };
 
-   websocket.onerror = function() {
+   websocket.onerror = function(ev) {
     console.error("QLC+ connection encountered error. Closing socket");
+    console.error("Error: " + ev.data)
     ws.close();
    };
 

@@ -66,7 +66,7 @@ QString MidiPlugin::name()
 
 int MidiPlugin::capabilities() const
 {
-    return QLCIOPlugin::Output | QLCIOPlugin::Input | QLCIOPlugin::Feedback;
+    return QLCIOPlugin::Output | QLCIOPlugin::Input | QLCIOPlugin::Feedback | QLCIOPlugin::Beats;
 }
 
 /*****************************************************************************
@@ -330,7 +330,8 @@ void MidiPlugin::slotValueChanged(const QVariant& uid, ushort channel, uchar val
         MidiInputDevice* dev = m_enumerator->inputDevices().at(i);
         if (dev->uid() == uid)
         {
-            emit valueChanged(UINT_MAX, i, channel, value);
+            emit valueChanged(UINT_MAX, i, channel, value,
+                              channel == CHANNEL_OFFSET_MBC_BEAT ? "beat" : "");
             break;
         }
     }

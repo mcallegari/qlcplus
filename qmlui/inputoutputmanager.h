@@ -70,6 +70,7 @@ private:
 public:
     QVariant universes();
     QStringList universeNames() const;
+    Q_INVOKABLE QString universeName(quint32 universeId);
     QVariant universesListModel() const;
 
     /** Get/Set the currently selected universe index */

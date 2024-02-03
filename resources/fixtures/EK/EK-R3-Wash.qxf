@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.8 GIT</Version>
+  <Author>Harrison Bostock</Author>
+ </Creator>
+ <Manufacturer>EK</Manufacturer>
+ <Model>R3 Wash</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="White fine" Preset="IntensityWhiteFine"/>
+ <Channel Name="CTO">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">OFF</Capability>
+  <Capability Min="10" Max="53">8000K~7000K</Capability>
+  <Capability Min="54" Max="98">7000K~6000K</Capability>
+  <Capability Min="99" Max="116">6000K~5600K</Capability>
+  <Capability Min="117" Max="187">5000K~4000K</Capability>
+  <Capability Min="188" Max="223">4000K~3200K</Capability>
+  <Capability Min="224" Max="254">3200K~2500K</Capability>
+  <Capability Min="255" Max="255">2500K</Capability>
+ </Channel>
+ <Channel Name="Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">OFF</Capability>
+  <Capability Min="10" Max="10">Red</Capability>
+  <Capability Min="11" Max="11">Green</Capability>
+  <Capability Min="12" Max="12">Blue</Capability>
+  <Capability Min="13" Max="13">Cyan</Capability>
+  <Capability Min="14" Max="14">Yellow</Capability>
+  <Capability Min="15" Max="15">Magenta</Capability>
+  <Capability Min="16" Max="16">White 7000K</Capability>
+  <Capability Min="17" Max="17">White 3700K</Capability>
+  <Capability Min="18" Max="18">White 5000K</Capability>
+  <Capability Min="19" Max="19">black</Capability>
+  <Capability Min="20" Max="22">Medium Yellow</Capability>
+  <Capability Min="23" Max="26">Straw Ting</Capability>
+  <Capability Min="27" Max="28">Surprise Peach</Capability>
+  <Capability Min="29" Max="29">Fire</Capability>
+  <Capability Min="30" Max="30">Medium Amber</Capability>
+  <Capability Min="31" Max="31">Gold Amber</Capability>
+  <Capability Min="32" Max="34">Dark Amber</Capability>
+  <Capability Min="35" Max="44">Sunrise red</Capability>
+  <Capability Min="45" Max="45">Light Pink</Capability>
+  <Capability Min="46" Max="48">Medium Ping</Capability>
+  <Capability Min="49" Max="61">Pink Carnation</Capability>
+  <Capability Min="62" Max="67">Light Lavender</Capability>
+  <Capability Min="68" Max="77">Lavender</Capability>
+  <Capability Min="78" Max="88">Sky Blue</Capability>
+  <Capability Min="89" Max="99">Just Blue</Capability>
+  <Capability Min="100" Max="109">Dark Yellow Green</Capability>
+  <Capability Min="110" Max="111">Sping Yellow</Capability>
+  <Capability Min="112" Max="112">Light Amber</Capability>
+  <Capability Min="113" Max="113">Stra</Capability>
+  <Capability Min="114" Max="114">Deep Amber</Capability>
+  <Capability Min="115" Max="116">Orange</Capability>
+  <Capability Min="117" Max="117">Light Rose</Capability>
+  <Capability Min="118" Max="118">English rose</Capability>
+  <Capability Min="119" Max="119">Light Salmon</Capability>
+  <Capability Min="120" Max="120">Middle Rose</Capability>
+  <Capability Min="121" Max="122">Dark Pink</Capability>
+  <Capability Min="123" Max="124">Magenta</Capability>
+  <Capability Min="125" Max="125">Peacock Blue</Capability>
+  <Capability Min="126" Max="126">Med Blu Green</Capability>
+  <Capability Min="127" Max="127">Steel Blue</Capability>
+  <Capability Min="128" Max="128">Light Blue</Capability>
+  <Capability Min="129" Max="130">Dark Blue</Capability>
+  <Capability Min="131" Max="133">Leaf Green</Capability>
+  <Capability Min="134" Max="135">Dark Green</Capability>
+  <Capability Min="136" Max="137">Mauve</Capability>
+  <Capability Min="138" Max="141">Bright Pink</Capability>
+  <Capability Min="142" Max="144">Medium Blue</Capability>
+  <Capability Min="145" Max="145">Deep golden Amber</Capability>
+  <Capability Min="146" Max="146">Pale Lavender</Capability>
+  <Capability Min="147" Max="148">Sepecial Lavender</Capability>
+  <Capability Min="149" Max="150">Primary Green</Capability>
+  <Capability Min="151" Max="156">Bright Blue</Capability>
+  <Capability Min="157" Max="161">Apricot</Capability>
+  <Capability Min="162" Max="167">Pale Gold</Capability>
+  <Capability Min="168" Max="171">Deep orange</Capability>
+  <Capability Min="172" Max="173">Bastard Amber</Capability>
+  <Capability Min="174" Max="174">Flame Red</Capability>
+  <Capability Min="175" Max="178">Daylight Blue</Capability>
+  <Capability Min="179" Max="179">Lilac Tint</Capability>
+  <Capability Min="180" Max="183">Deep Lavender</Capability>
+  <Capability Min="184" Max="190">Dark Steel Blue</Capability>
+  <Capability Min="191" Max="206">Congo Blue</Capability>
+  <Capability Min="207" Max="207">Alice Blue</Capability>
+  <Capability Min="208" Max="208">Dirty White</Capability>
+  <Capability Min="209" Max="255">White</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterClose">closed</Capability>
+  <Capability Min="4" Max="103" Preset="StrobeFreqRange" Res1="1" Res2="25">slow to fast Strobe 1-25hz</Capability>
+  <Capability Min="104" Max="107" Preset="ShutterOpen">open</Capability>
+  <Capability Min="108" Max="207" Preset="PulseSlowToFast">Slow to fast Pulse</Capability>
+  <Capability Min="208" Max="212" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="213" Max="225" Preset="StrobeRandom">Random Slow Strobe</Capability>
+  <Capability Min="226" Max="238" Preset="StrobeRandom">Randum Medium Strobe</Capability>
+  <Capability Min="239" Max="251" Preset="StrobeRandom">Random Fast Strobe</Capability>
+  <Capability Min="252" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Function">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="11">none</Capability>
+  <Capability Min="12" Max="24">Fast P&amp;T speed</Capability>
+  <Capability Min="25" Max="37">Normal P&amp;T speed</Capability>
+  <Capability Min="38" Max="42">Dimmer Curve 1 (D)</Capability>
+  <Capability Min="43" Max="47">Dimmer Curve 2</Capability>
+  <Capability Min="48" Max="52">Dimmer Curve 3</Capability>
+  <Capability Min="53" Max="57">Dimmer Curve 4</Capability>
+  <Capability Min="58" Max="62">Raw color Channels Gamma 1</Capability>
+  <Capability Min="63" Max="67">Raw color Channels Gamma 1.5</Capability>
+  <Capability Min="68" Max="72">Raw color Channels Gamma 2.2 (D)</Capability>
+  <Capability Min="73" Max="77">Color Calibration OFF (D)</Capability>
+  <Capability Min="78" Max="82">Color Calibration Adjust</Capability>
+  <Capability Min="83" Max="87">Color Calibration Calibration (Only Base mode0</Capability>
+  <Capability Min="88" Max="167">FREE</Capability>
+  <Capability Min="168" Max="188">PWM frequency=600Hz</Capability>
+  <Capability Min="189" Max="199">PWM frequency=1200Hz (Default)</Capability>
+  <Capability Min="200" Max="210">PWM frequency=2000Hz</Capability>
+  <Capability Min="211" Max="221">PWM frequency=4000Hz</Capability>
+  <Capability Min="222" Max="232">PWM frequency=6000Hz</Capability>
+  <Capability Min="233" Max="243">PWM frequency=25000Hz</Capability>
+  <Capability Min="244" Max="255">Default function recall</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="25">none</Capability>
+  <Capability Min="26" Max="76" Preset="ResetZoom">Zoom Reset HOLD 5s</Capability>
+  <Capability Min="77" Max="127" Preset="ResetPanTilt">Pan/Tilt Reset HOLD 5s</Capability>
+  <Capability Min="128" Max="255" Preset="ResetAll">Complete Reset HOLD 5s</Capability>
+ </Channel>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">CTO</Channel>
+  <Channel Number="5">Macro</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Master dimmer</Channel>
+  <Channel Number="8">Master dimmer fine</Channel>
+  <Channel Number="9">Pan</Channel>
+  <Channel Number="10">Pan fine</Channel>
+  <Channel Number="11">Tilt</Channel>
+  <Channel Number="12">Tilt fine</Channel>
+  <Channel Number="13">Zoom</Channel>
+  <Channel Number="14">Function</Channel>
+  <Channel Number="15">Reset</Channel>
+ </Mode>
+ <Mode Name="20 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Red fine</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Green fine</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Blue fine</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">White fine</Channel>
+  <Channel Number="8">CTO</Channel>
+  <Channel Number="9">Macro</Channel>
+  <Channel Number="10">Strobe</Channel>
+  <Channel Number="11">Master dimmer</Channel>
+  <Channel Number="12">Master dimmer fine</Channel>
+  <Channel Number="13">Pan</Channel>
+  <Channel Number="14">Pan fine</Channel>
+  <Channel Number="15">Tilt</Channel>
+  <Channel Number="16">Tilt fine</Channel>
+  <Channel Number="17">Zoom</Channel>
+  <Channel Number="18">Function</Channel>
+  <Channel Number="19">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6.6" Width="249" Height="183" Depth="345"/>
+  <Lens Name="Other" DegreesMin="4" DegreesMax="57"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="310" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

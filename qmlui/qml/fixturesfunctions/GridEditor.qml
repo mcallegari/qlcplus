@@ -222,17 +222,31 @@ Rectangle
         onTriggered: calculateCellSize()
     }
 
+    Text
+    {
+        id: ttText
+
+        property string tooltipText: ""
+        visible: false
+        x: gridMouseArea.mouseX
+        y: gridMouseArea.mouseY
+        ToolTip.visible: ttText.visible
+        ToolTip.timeout: 3000
+        ToolTip.text: tooltipText
+    }
+
     Timer
     {
         id: ttTimer
+        repeat: false
         interval: 1000
-        running: gridMouseArea.containsMouse
+        running: false
         onTriggered:
         {
             var xPos = parseInt(gridMouseArea.mouseX / cellSize)
             var yPos = parseInt(gridMouseArea.mouseY / cellSize)
-            var tooltip = getTooltip(xPos, yPos)
-            Tooltip.showText(gridMouseArea, Qt.point(gridMouseArea.mouseX, gridMouseArea.mouseY), tooltip)
+            ttText.tooltipText = getTooltip(xPos, yPos)
+            ttText.visible = true
         }
     }
 
@@ -343,6 +357,7 @@ Rectangle
 
         onPositionChanged:
         {
+            ttText.visible = false
             ttTimer.restart()
 
             if (movingSelection == false)
@@ -368,8 +383,7 @@ Rectangle
             updateViewSelection(selectionOffset)
         }
 
-        onExited: Tooltip.hideText()
-        onCanceled: Tooltip.hideText()
+        onExited: ttTimer.stop()
     }
 
     DropArea

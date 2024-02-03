@@ -123,6 +123,8 @@ void VCFrame::setDisableState(bool disable)
     }
 
     m_disableState = disable;
+
+    emit disableStateChanged(disable);
     updateFeedback();
 }
 

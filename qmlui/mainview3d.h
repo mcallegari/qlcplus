@@ -94,6 +94,10 @@ class MainView3D : public PreviewContext
 {
     Q_OBJECT
 
+    Q_PROPERTY(QVector3D cameraPosition READ cameraPosition WRITE setCameraPosition NOTIFY cameraPositionChanged FINAL)
+    Q_PROPERTY(QVector3D cameraUpVector READ cameraUpVector WRITE setCameraUpVector NOTIFY cameraUpVectorChanged FINAL)
+    Q_PROPERTY(QVector3D cameraViewCenter READ cameraViewCenter WRITE setCameraViewCenter NOTIFY cameraViewCenterChanged FINAL)
+
     Q_PROPERTY(RenderQuality renderQuality READ renderQuality WRITE setRenderQuality NOTIFY renderQualityChanged)
     Q_PROPERTY(QString meshDirectory READ meshDirectory CONSTANT)
     Q_PROPERTY(QStringList stagesList READ stagesList CONSTANT)
@@ -123,7 +127,23 @@ public:
     /** @reimp */
     void setUniverseFilter(quint32 universeFilter);
 
+    /** Cleanup all the items in the scene */
     void resetItems();
+
+    /** Reset the camera position to initial values */
+    void resetCameraPosition();
+
+    /** Get set the scene camera position */
+    QVector3D cameraPosition() const;
+    void setCameraPosition(const QVector3D &newCameraPosition);
+
+    /** Get set the scene camera position */
+    QVector3D cameraUpVector() const;
+    void setCameraUpVector(const QVector3D &newCameraUpVector);
+
+    /** Get set the scene camera position */
+    QVector3D cameraViewCenter() const;
+    void setCameraViewCenter(const QVector3D &newCameraViewCenter);
 
 protected:
     /** Returns a string with the mesh location, suitable to be used by QML */
@@ -134,6 +154,11 @@ protected:
 public slots:
     /** @reimp */
     void slotRefreshView();
+
+signals:
+    void cameraPositionChanged();
+    void cameraUpVectorChanged();
+    void cameraViewCenterChanged();
 
 private:
     /** Reference to the Doc Monitor properties */
@@ -146,6 +171,10 @@ private:
     QQmlComponent *m_spotlightConeComponent;
     QQmlComponent *m_fillGBufferLayer;
     int m_createItemCount;
+
+    QVector3D m_cameraPosition;
+    QVector3D m_cameraUpVector;
+    QVector3D m_cameraViewCenter;
 
     /*********************************************************************
      * Frame counter

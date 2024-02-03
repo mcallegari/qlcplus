@@ -48,7 +48,7 @@ QString OS2LPlugin::name()
 
 int OS2LPlugin::capabilities() const
 {
-    return QLCIOPlugin::Input | QLCIOPlugin::Feedback;
+    return QLCIOPlugin::Input | QLCIOPlugin::Feedback | QLCIOPlugin::Beats;
 }
 
 QString OS2LPlugin::pluginInfo()
