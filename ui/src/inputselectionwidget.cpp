@@ -20,6 +20,7 @@
 #include <QDebug>
 
 #include "inputselectionwidget.h"
+#include "inputchanneleditor.h"
 #include "selectinputchannel.h"
 #include "qlcinputchannel.h"
 #include "assignhotkey.h"
@@ -168,7 +169,6 @@ void InputSelectionWidget::slotInputValueChanged(quint32 universe, quint32 chann
         m_signalsReceived++;
         return;
     }
-
     m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, (m_widgetPage << 16) | channel));
     updateInputSource();
     m_signalsReceived++;
@@ -237,6 +237,7 @@ void InputSelectionWidget::updateInputSource()
         m_upperChannelSpin->blockSignals(true);
 
         uchar min = 0, max = UCHAR_MAX;
+        uchar lowerProfileChannel = 0, upperProfileChannel = 0;
 
         InputPatch *ip = m_doc->inputOutputMap()->inputPatch(m_inputSource->universe());
         if (ip != NULL && ip->profile() != NULL)
@@ -244,15 +245,27 @@ void InputSelectionWidget::updateInputSource()
             QLCInputChannel *ich = ip->profile()->channel(m_inputSource->channel());
             if (ich != NULL && ich->type() == QLCInputChannel::Button)
             {
+                // Load from profile
                 min = ich->lowerValue();
                 max = ich->upperValue();
+                lowerProfileChannel = ich->lowerChannelValue();
+                upperProfileChannel = ich->upperChannelValue();
+            }
+            if(ip->profile()->type()==QLCInputProfile::MIDI){
+                int midiChannel = 0, midiMessage = 0, midiParam = 0;
+                InputChannelEditor::numberToMidi(m_inputSource->channel(), midiChannel, midiMessage, midiParam);
+                // If profile has different value than default, use them; otherwise the input channel
+                const int lowerMidiChannel = lowerProfileChannel != 0 ? lowerProfileChannel : midiChannel;
+                const int upperMidiChannel = upperProfileChannel != 0 ? upperProfileChannel : midiChannel;
+
+                m_inputSource->setChannelRange(lowerMidiChannel, upperMidiChannel);
+                m_lowerChannelSpin->setValue(m_inputSource->lowerChannelValue());
+                m_upperChannelSpin->setValue(m_inputSource->upperChannelValue());
             }
         }
         m_lowerVelocitySpin->setValue((m_inputSource->lowerVelocityValue() != 0) ? m_inputSource->lowerVelocityValue() : min);
         m_upperVelocitySpin->setValue((m_inputSource->upperVelocityValue() != UCHAR_MAX) ? m_inputSource->upperVelocityValue() : max);
-        m_lowerChannelSpin->setValue(m_inputSource->lowerChannelValue());
-        m_upperChannelSpin->setValue(m_inputSource->upperChannelValue());
-        if (m_lowerVelocitySpin->value() != 0 || m_upperVelocitySpin->value() != UCHAR_MAX || m_lowerChannelSpin->value() != 0 || m_upperChannelSpin->value() != 0)
+        if (m_lowerVelocitySpin->value() != 0 || m_upperVelocitySpin->value() != UCHAR_MAX)// || m_lowerChannelSpin->value() != 0 || m_upperChannelSpin->value() != 0)
         {
             m_customFbButton->setChecked(true);
         }

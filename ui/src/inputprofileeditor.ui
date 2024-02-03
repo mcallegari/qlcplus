@@ -383,7 +383,7 @@
            </widget>
           </item>
           <item row="1" column="0" colspan="4">
-          <widget class="QFrame" name="m_ChannelfeedbackGroup">
+          <widget class="QFrame" name="m_ChannelFeedbackGroup">
             <layout class="QGridLayout" name="m_channelGridLayout"> 
               <property name="leftMargin">
                 <number>0</number>

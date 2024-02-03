@@ -71,8 +71,9 @@ protected:
 protected slots:
     void slotMidiChanged();
 
-private:
+public:
     static void numberToMidi(int number, int & channel, int & message, int & param);
+private: 
     static int midiToNumber(int channel, int message, int param);
 
     void enableMidiParam(int midiMessage, int midiParam);

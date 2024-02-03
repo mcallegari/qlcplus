@@ -211,7 +211,7 @@ signals:
 protected:
     bool m_sendExtraPress;
     uchar m_lower, m_upper;
-    uchar m_channel_lower, m_channel_upper;
+    uchar m_channel_lower=0, m_channel_upper=0;
 
     /********************************************************************
      * Load & Save

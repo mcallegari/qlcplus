@@ -132,7 +132,7 @@ InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile
             }
             else
             {
-                m_ChannelfeedbackGroup->setVisible(false);
+                m_ChannelFeedbackGroup->setVisible(false);
             }
         }
     }
@@ -524,7 +524,7 @@ void InputProfileEditor::slotItemClicked(QTreeWidgetItem *item, int col)
                 m_upperChannelSpin->blockSignals(false);
             }
             else {
-                m_ChannelfeedbackGroup->setVisible(false);
+                m_ChannelFeedbackGroup->setVisible(false);
             }
         }
     }
@@ -621,7 +621,7 @@ void InputProfileEditor::slotInputValueChanged(quint32 universe,
 
     /* Get a list of items that represent the given channel. Basically
        the list should always contain just one item. */
-    QList <QTreeWidgetItem*> list;
+        QList <QTreeWidgetItem*> list;
     if (channel == UINT_MAX && key.isEmpty() == false)
         list = m_tree->findItems(key, Qt::MatchExactly, KColumnName);
     else
@@ -641,6 +641,10 @@ void InputProfileEditor::slotInputValueChanged(quint32 universe,
             ch->setName(key);
         ch->setType(QLCInputChannel::Button);
         m_profile->insertChannel(channel, ch);
+        
+        int midiChannel = 0, midiMessage = 0, midiParam = 0;
+        InputChannelEditor::numberToMidi(channel, midiChannel, midiMessage, midiParam);
+        ch->setChannelRange(midiChannel, midiChannel);
 
         latestItem = new QTreeWidgetItem(m_tree);
         updateChannelItem(latestItem, ch);
