@@ -254,9 +254,23 @@ void InputSelectionWidget::updateInputSource()
             if(ip->profile()->type()==QLCInputProfile::MIDI){
                 int midiChannel = 0, midiMessage = 0, midiParam = 0;
                 InputChannelEditor::numberToMidi(m_inputSource->channel(), midiChannel, midiMessage, midiParam);
-                // If profile has different value than default, use them; otherwise the input channel
-                const int lowerMidiChannel = lowerProfileChannel != 0 ? lowerProfileChannel : midiChannel;
-                const int upperMidiChannel = upperProfileChannel != 0 ? upperProfileChannel : midiChannel;
+
+                // Lower channel priority is: widgetProprieties, inputProfile, midi input channel
+                int lowerMidiChannel;
+                if (m_inputSource->lowerChannelValue() != 0)
+                    lowerMidiChannel = m_inputSource->lowerChannelValue();
+                else if (lowerProfileChannel!=0) // 
+                    lowerMidiChannel = lowerProfileChannel;
+                else
+                    lowerMidiChannel = midiChannel; 
+
+                int upperMidiChannel;
+                if (m_inputSource->upperChannelValue() != 0)
+                    upperMidiChannel = m_inputSource->upperChannelValue();
+                else if (lowerProfileChannel!=0)
+                    upperMidiChannel = upperProfileChannel;
+                else
+                    upperMidiChannel = midiChannel; 
 
                 m_inputSource->setChannelRange(lowerMidiChannel, upperMidiChannel);
                 m_lowerChannelSpin->setValue(m_inputSource->lowerChannelValue());

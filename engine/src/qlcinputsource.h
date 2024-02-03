@@ -85,7 +85,7 @@ public:
 
 protected:
     uchar m_lower, m_upper;
-    uchar m_lower_channel, m_upper_channel;
+    uchar m_lower_channel=0, m_upper_channel=0;
 
     /*********************************************************************
      * Working mode
