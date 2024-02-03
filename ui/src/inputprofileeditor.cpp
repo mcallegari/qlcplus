@@ -86,9 +86,9 @@ InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile
     connect(m_extraPressCheck, SIGNAL(toggled(bool)),
             this, SLOT(slotExtraPressChecked(bool)));
     connect(m_lowerVelocitySpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotLowerVelocityValueSpinChanged(int)));
+            this, SLOT(slotLowerValueSpinChanged(int)));
     connect(m_upperVelocitySpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotUpperVelocityValueSpinChanged(int)));
+            this, SLOT(slotUpperValueSpinChanged(int)));
     connect(m_lowerChannelSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotLowerChannelValueSpinChanged(int)));
     connect(m_upperChannelSpin, SIGNAL(valueChanged(int)),
@@ -129,6 +129,10 @@ InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile
             {
                 m_midiGroupSettings->setVisible(true);
                 m_noteOffCheck->setChecked(m_profile->midiSendNoteOff());
+            }
+            else
+            {
+                m_ChannelfeedbackGroup->setVisible(false);
             }
         }
     }
