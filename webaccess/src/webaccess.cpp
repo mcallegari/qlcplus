@@ -466,7 +466,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 
         if (cmdList.at(1) == "NETWORK")
         {
-            if (m_netConfig->updateNetworkFile(cmdList) == true)
+            if (m_netConfig->updateNetworkSettings(cmdList) == true)
             {
                 QString wsMessage = QString("ALERT|" + tr("Network configuration changed. Reboot to apply the changes."));
                 conn->webSocketWrite(QHttpConnection::TextFrame, wsMessage.toUtf8());
