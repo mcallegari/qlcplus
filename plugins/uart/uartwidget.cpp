@@ -18,7 +18,7 @@
 */
 
 #include <QDebug>
-#include <QTime>
+#include <QElapsedTimer>
 #include <math.h>
 
 #include <sys/ioctl.h>
@@ -141,7 +141,7 @@ void UARTWidget::run()
     int frameTime = (int) floor(((double)1000 / 30) + (double)0.5);
     m_granularity = Bad;
 
-    QTime time;
+    QElapsedTimer time;
     time.start();
     usleep(1000);
     if (time.elapsed() <= 3)

@@ -130,6 +130,7 @@ QString UARTPlugin::outputInfo(quint32 output)
 void UARTPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (output < quint32(m_widgets.count()))
         m_widgets.at(output)->writeUniverse(data);
