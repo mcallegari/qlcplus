@@ -89,7 +89,7 @@ if (WIN32)
 elseif (APPLE)
     set(LIBSDIR "Frameworks")
 elseif (UNIX)
-    set(LIBSDIR "lib/x86_64-linux-gnu")
+    set(LIBSDIR "lib/${CMAKE_C_LIBRARY_ARCHITECTURE}")
 endif ()
 
 if (ANDROID)
