@@ -880,6 +880,18 @@ void VCCueList::slotItemChanged(QTreeWidgetItem *item, int column)
 
     step.note = itemText;
     ch->replaceStep(step, idx);
+
+    emit stepNoteChanged(idx, itemText);
+}
+
+void VCCueList::slotStepNoteChanged(int idx, QString note)
+{
+    Chaser *ch = chaser();
+    if (ch == NULL)
+        return;
+    ChaserStep step = ch->steps().at(idx);
+    step.note = note;
+    ch->replaceStep(step, idx);
 }
 
 void VCCueList::slotFunctionRunning(quint32 fid)

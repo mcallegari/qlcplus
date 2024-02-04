@@ -94,6 +94,7 @@ protected slots:
     void slotSliderDisableStateChanged(bool disable);
     void slotAudioTriggersToggled(bool toggle);
     void slotCueIndexChanged(int idx);
+    void slotCueStepNoteChanged(int idx, QString note);
     void slotCueProgressStateChanged();
     void slotCueShowSideFaderPanel();
     void slotCueSideFaderValueChanged();

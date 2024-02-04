@@ -773,6 +773,8 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                     cue->slotNextCue();
                 else if (cmdList[1] == "STEP")
                     cue->playCueAtIndex(cmdList[2].toInt());
+                else if (cmdList[1] == "CUE_STEP_NOTE")
+                    cue->slotStepNoteChanged(cmdList[2].toInt(), cmdList[3]);
                 else if (cmdList[1] == "CUE_SHOWPANEL")
                     cue->slotSideFaderButtonChecked(cmdList[2] == "1" ? false : true);
                 else if (cmdList[1] == "CUE_SIDECHANGE")
@@ -1360,6 +1362,17 @@ void WebAccess::slotCueIndexChanged(int idx)
     sendWebSocketMessage(wsMessage.toUtf8());
 }
 
+void WebAccess::slotCueStepNoteChanged(int idx, QString note)
+{
+    VCCueList *cue = qobject_cast<VCCueList *>(sender());
+    if (cue == NULL)
+        return;
+
+    QString wsMessage = QString("%1|CUE_STEP_NOTE|%2|%3").arg(cue->id()).arg(idx).arg(note);
+
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
 void WebAccess::slotCueProgressStateChanged()
 {
     VCCueList *cue = qobject_cast<VCCueList *>(sender());
@@ -1549,7 +1562,7 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
         {
             QString stepID = QString::number(cue->id()) + "_" + QString::number(i);
             str += "<tr id=\"" + stepID + "\" "
-                   "onclick=\"enableCue(" + QString::number(cue->id()) + ", " + QString::number(i) + ");\">\n";
+                   "onclick=\"setCueIndex(" + QString::number(cue->id()) + ", " + QString::number(i) + ");\">\n";
 
             ChaserStep *step = chaser->stepAt(i);
             str += "<td>" + QString::number(i + 1) + "</td>";
@@ -1631,7 +1644,11 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                         str += "<td></td>";
                 }
 
-                str += "<td>" + step->note + "</td>\n";
+                str += "<td ondblclick=\"changeCueNoteToEditMode(" + QString::number(cue->id()) + ", " + QString::number(i) + ");\">" +
+                         "<span id=\"cueNoteSpan" + stepID + "\" style=\"display: block;\">" + step->note + "</span>" +
+                         "<input type=\"text\" id=\"cueNoteInput" + stepID + "\" value=\"" + step->note + "\" style=\"display: none; width: 60px;\" " +
+                         "onfocusout=\"changeCueNoteToTextMode(" + QString::number(cue->id()) + ", " + QString::number(i) + ");\" />"
+                       "</td>\n";
             }
             str += "</td>\n";
         }
@@ -1715,6 +1732,8 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
 
     connect(cue, SIGNAL(stepChanged(int)),
             this, SLOT(slotCueIndexChanged(int)));
+    connect(cue, SIGNAL(stepNoteChanged(int, QString)),
+            this, SLOT(slotCueStepNoteChanged(int, QString)));
     connect(cue, SIGNAL(progressStateChanged()),
             this, SLOT(slotCueProgressStateChanged()));
     connect(cue, SIGNAL(sideFaderButtonChecked()),

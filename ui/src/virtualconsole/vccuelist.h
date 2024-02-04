@@ -180,6 +180,9 @@ public slots:
     /** Skip to the previous cue */
     void slotPreviousCue();
 
+    /** Update cue step note */
+    void slotStepNoteChanged(int idx, QString note);
+
 signals:
     /** progress percent value and text */
     void progressStateChanged();
@@ -404,6 +407,8 @@ public:
 signals:
     /** Signal to webaccess */
     void stepChanged(int idx);
+
+    void stepNoteChanged(int idx, QString note);
 
 private:
     FunctionParent functionParent() const;
