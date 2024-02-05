@@ -885,15 +885,18 @@ QSharedPointer<QLCInputSource> VCWidget::getXMLInput(QXmlStreamReader &root)
 
     quint32 uni = attrs.value(KXMLQLCVCWidgetInputUniverse).toString().toUInt();
     quint32 ch = attrs.value(KXMLQLCVCWidgetInputChannel).toString().toUInt();
-    uchar min = 0, max = UCHAR_MAX;
+    uchar min = 0, max = UCHAR_MAX, mon = UCHAR_MAX;
 
     QSharedPointer<QLCInputSource>newSrc = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
     if (attrs.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
         min = uchar(attrs.value(KXMLQLCVCWidgetInputLowerValue).toString().toUInt());
     if (attrs.hasAttribute(KXMLQLCVCWidgetInputUpperValue))
         max = uchar(attrs.value(KXMLQLCVCWidgetInputUpperValue).toString().toUInt());
+    if (attrs.hasAttribute(KXMLQLCVCWidgetInputMonitorValue))
+        mon = uchar(attrs.value(KXMLQLCVCWidgetInputMonitorValue).toString().toUInt());
 
     newSrc->setRange(min, max);
+    newSrc->setMonitor(mon);
 
     return newSrc;
 }
@@ -1041,6 +1044,9 @@ bool VCWidget::saveXMLInput(QXmlStreamWriter *doc,
             doc->writeAttribute(KXMLQLCVCWidgetInputLowerValue, QString::number(src->lowerValue()));
         if (src->upperValue() != UCHAR_MAX)
             doc->writeAttribute(KXMLQLCVCWidgetInputUpperValue, QString::number(src->upperValue()));
+        if (src->monitorValue() != UCHAR_MAX)
+            doc->writeAttribute(KXMLQLCVCWidgetInputMonitorValue, QString::number(src->monitorValue()));
+
         doc->writeEndElement();
     }
 

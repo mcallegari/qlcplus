@@ -516,16 +516,19 @@ void VCButton::slotKeyReleased(const QKeySequence& keySequence)
 
 void VCButton::updateFeedback()
 {
-    if (m_state == Monitoring)
-        return;
+    //if (m_state == Monitoring)
+    //    return;
 
     QSharedPointer<QLCInputSource> src = inputSource();
     if (!src.isNull() && src->isValid() == true)
     {
-        if (m_state == Inactive)
+        if (m_state == Inactive) {
             sendFeedback(src->lowerValue());
-        else
+        } else if (m_state == Monitoring) {
+            sendFeedback(src->monitorValue());
+        } else {
             sendFeedback(src->upperValue());
+        }
     }
 }
 

@@ -171,21 +171,39 @@
         <property name="title">
          <string>Custom feedback</string>
         </property>
-        <layout class="QGridLayout" name="gridLayout_3">
-         <property name="topMargin">
-          <number>3</number>
-         </property>
-         <property name="bottomMargin">
-          <number>3</number>
-         </property>
-         <item row="0" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
           <widget class="QLabel" name="label">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
            <property name="text">
-            <string>Lower value</string>
+            <string>Lower</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="3">
+         <item>
+          <widget class="QSpinBox" name="m_lowerSpin">
+           <property name="maximum">
+            <number>255</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Upper</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QSpinBox" name="m_upperSpin">
            <property name="minimum">
             <number>0</number>
@@ -198,21 +216,33 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
-          <widget class="QSpinBox" name="m_lowerSpin">
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Monitor</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="m_monitorSpin">
            <property name="maximum">
             <number>255</number>
            </property>
           </widget>
          </item>
-         <item row="0" column="2">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Upper value</string>
-           </property>
-          </widget>
-         </item>
         </layout>
+        <zorder>m_upperSpin</zorder>
+        <zorder>m_lowerSpin</zorder>
+        <zorder>label_2</zorder>
+        <zorder>label</zorder>
+        <zorder>m_monitorSpin</zorder>
+        <zorder>label_3</zorder>
+        <zorder>m_keyInputGroup</zorder>
        </widget>
       </item>
       <item row="1" column="1" colspan="4">
