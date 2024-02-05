@@ -7,14 +7,14 @@
 
   Copyright (c) 2015 Massimo Callegari
 
-  Licensed under the Apache License, Version 2.0 (the "License");
+  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
 
       http://www.apache.org/licenses/LICENSE-2.0.txt
 
   Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
@@ -26,7 +26,7 @@
     <x>0</x>
     <y>0</y>
     <width>504</width>
-    <height>185</height>
+    <height>231</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -171,8 +171,8 @@
         <property name="title">
          <string>Custom feedback</string>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
+        <layout class="QGridLayout" name="gridLayout_3">
+         <item row="0" column="0">
           <widget class="QLabel" name="label">
            <property name="font">
             <font>
@@ -180,30 +180,18 @@
             </font>
            </property>
            <property name="text">
-            <string>Lower</string>
+            <string>Lower Value</string>
            </property>
           </widget>
          </item>
-         <item>
+         <item row="0" column="1">
           <widget class="QSpinBox" name="m_lowerSpin">
            <property name="maximum">
             <number>255</number>
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QLabel" name="label_2">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Upper</string>
-           </property>
-          </widget>
-         </item>
-         <item>
+         <item row="0" column="3">
           <widget class="QSpinBox" name="m_upperSpin">
            <property name="minimum">
             <number>0</number>
@@ -216,19 +204,31 @@
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QLabel" name="label_3">
+         <item row="0" column="2">
+          <widget class="QLabel" name="label_2">
            <property name="font">
             <font>
              <pointsize>10</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>Monitor</string>
+            <string>Upper Value</string>
            </property>
           </widget>
          </item>
-         <item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="m_monitorLabel">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Monitor Value</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
           <widget class="QSpinBox" name="m_monitorSpin">
            <property name="maximum">
             <number>255</number>
@@ -240,9 +240,8 @@
         <zorder>m_lowerSpin</zorder>
         <zorder>label_2</zorder>
         <zorder>label</zorder>
+        <zorder>m_monitorLabel</zorder>
         <zorder>m_monitorSpin</zorder>
-        <zorder>label_3</zorder>
-        <zorder>m_keyInputGroup</zorder>
        </widget>
       </item>
       <item row="1" column="1" colspan="4">

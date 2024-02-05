@@ -896,7 +896,7 @@ QSharedPointer<QLCInputSource> VCWidget::getXMLInput(QXmlStreamReader &root)
         mon = uchar(attrs.value(KXMLQLCVCWidgetInputMonitorValue).toString().toUInt());
 
     newSrc->setRange(min, max);
-    newSrc->setMonitor(mon);
+    newSrc->setMonitorValue(mon);
 
     return newSrc;
 }

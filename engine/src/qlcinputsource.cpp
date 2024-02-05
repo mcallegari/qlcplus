@@ -126,7 +126,7 @@ void QLCInputSource::setRange(uchar lower, uchar upper)
     m_upper = upper;
 }
 
-void QLCInputSource::setMonitor(uchar monitor)
+void QLCInputSource::setMonitorValue(uchar monitor)
 {
     m_monitor = monitor;
 }

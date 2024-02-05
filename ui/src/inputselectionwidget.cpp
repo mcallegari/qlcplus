@@ -40,6 +40,8 @@ InputSelectionWidget::InputSelectionWidget(Doc *doc, QWidget *parent)
 
     m_customFbButton->setVisible(false);
     m_feedbackGroup->setVisible(false);
+    m_monitorLabel->setVisible(false);
+    m_monitorSpin->setVisible(false);
     m_lowerSpin->setEnabled(false);
     m_upperSpin->setEnabled(false);
     m_monitorSpin->setEnabled(false);
@@ -74,6 +76,12 @@ void InputSelectionWidget::setKeyInputVisibility(bool visible)
 void InputSelectionWidget::setCustomFeedbackVisibility(bool visible)
 {
     m_customFbButton->setVisible(visible);
+}
+
+void InputSelectionWidget::setMonitoringVisibility(bool visible)
+{
+    m_monitorLabel->setVisible(visible);
+    m_monitorSpin->setVisible(visible);
 }
 
 void InputSelectionWidget::setTitle(QString title)
@@ -202,7 +210,7 @@ void InputSelectionWidget::slotUpperSpinValueChanged(int value)
 
 void InputSelectionWidget::slotMonitorSpinValueChanged(int value)
 {
-    m_inputSource->setMonitor(uchar(value));
+    m_inputSource->setMonitorValue(uchar(value));
 }
 
 void InputSelectionWidget::updateInputSource()

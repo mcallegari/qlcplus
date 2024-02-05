@@ -79,7 +79,7 @@ public:
     void setRange(uchar lower, uchar upper);
     uchar lowerValue() const;
     uchar upperValue() const;
-    void setMonitor(uchar monitor);
+    void setMonitorValue(uchar monitor);
     uchar monitorValue() const;
 
 protected:
