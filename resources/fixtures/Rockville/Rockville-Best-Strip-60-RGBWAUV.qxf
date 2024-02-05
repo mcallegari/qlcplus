@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>DJ Nikko</Author>
+ </Creator>
+ <Manufacturer>Rockville</Manufacturer>
+ <Model>Best Strip 60</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Strobe Mode (Slow to Fast)" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Color Effect" Preset="ColorMacro"/>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Effect speed</Capability>
+ </Channel>
+ <Channel Name="Color Select/Fade - Sound Active Strobe/Color">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="50">COLOR SELECT (CH10 Selects Color)</Capability>
+  <Capability Min="51" Max="100">COLOR Scroll</Capability>
+  <Capability Min="101" Max="150">COLOR Snap FADE OUT</Capability>
+  <Capability Min="151" Max="200">COLOR Fade</Capability>
+  <Capability Min="201" Max="220">SOUND Active (Single Color)</Capability>
+  <Capability Min="221" Max="240">SOUND Active Strobe</Capability>
+  <Capability Min="241" Max="255">SOUND Active/ Snap FADE OUT</Capability>
+ </Channel>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+ </Mode>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">UV</Channel>
+  <Channel Number="7">Strobe Mode (Slow to Fast)</Channel>
+  <Channel Number="8">Color Select/Fade - Sound Active Strobe/Color</Channel>
+  <Channel Number="9">Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="1" ColourTemperature="6500"/>
+  <Dimensions Weight="4.25" Width="2273" Height="304" Depth="574"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="1" Height="6"/>
+  <Technical PowerConsumption="45" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

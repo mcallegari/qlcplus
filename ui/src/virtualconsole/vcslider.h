@@ -42,34 +42,34 @@ class VCSliderProperties;
  * @{
  */
 
-#define KXMLQLCVCSlider "Slider"
-#define KXMLQLCVCSliderMode "SliderMode"
-#define KXMLQLCVCSliderWidgetStyle "WidgetStyle"
+#define KXMLQLCVCSlider             QString("Slider")
+#define KXMLQLCVCSliderMode         QString("SliderMode")
+#define KXMLQLCVCSliderWidgetStyle  QString("WidgetStyle")
 
-#define KXMLQLCVCSliderValueDisplayStyle "ValueDisplayStyle"
-#define KXMLQLCVCSliderValueDisplayStyleExact "Exact"
-#define KXMLQLCVCSliderValueDisplayStylePercentage "Percentage"
-#define KXMLQLCVCSliderCatchValues "CatchValues"
+#define KXMLQLCVCSliderValueDisplayStyle            QString("ValueDisplayStyle")
+#define KXMLQLCVCSliderValueDisplayStyleExact       QString("Exact")
+#define KXMLQLCVCSliderValueDisplayStylePercentage  QString("Percentage")
+#define KXMLQLCVCSliderCatchValues                  QString("CatchValues")
 
-#define KXMLQLCVCSliderClickAndGoType "ClickAndGoType"
+#define KXMLQLCVCSliderClickAndGoType QString("ClickAndGoType")
 
-#define KXMLQLCVCSliderInvertedAppearance "InvertedAppearance"
+#define KXMLQLCVCSliderInvertedAppearance QString("InvertedAppearance")
 
-#define KXMLQLCVCSliderBusLowLimit "LowLimit"
-#define KXMLQLCVCSliderBusHighLimit "HighLimit"
+#define KXMLQLCVCSliderBusLowLimit  QString("LowLimit")
+#define KXMLQLCVCSliderBusHighLimit QString("HighLimit")
 
-#define KXMLQLCVCSliderLevel "Level"
-#define KXMLQLCVCSliderLevelLowLimit "LowLimit"
-#define KXMLQLCVCSliderLevelHighLimit "HighLimit"
-#define KXMLQLCVCSliderLevelValue "Value"
-#define KXMLQLCVCSliderLevelMonitor "Monitor"
-#define KXMLQLCVCSliderOverrideReset "Reset"
+#define KXMLQLCVCSliderLevel            QString("Level")
+#define KXMLQLCVCSliderLevelLowLimit    QString("LowLimit")
+#define KXMLQLCVCSliderLevelHighLimit   QString("HighLimit")
+#define KXMLQLCVCSliderLevelValue       QString("Value")
+#define KXMLQLCVCSliderLevelMonitor     QString("Monitor")
+#define KXMLQLCVCSliderOverrideReset    QString("Reset")
 
-#define KXMLQLCVCSliderChannel "Channel"
-#define KXMLQLCVCSliderChannelFixture "Fixture"
+#define KXMLQLCVCSliderChannel          QString("Channel")
+#define KXMLQLCVCSliderChannelFixture   QString("Fixture")
 
-#define KXMLQLCVCSliderPlayback "Playback"
-#define KXMLQLCVCSliderPlaybackFunction "Function"
+#define KXMLQLCVCSliderPlayback         QString("Playback")
+#define KXMLQLCVCSliderPlaybackFunction QString("Function")
 
 class VCSlider : public VCWidget, public DMXSource
 {
@@ -89,7 +89,7 @@ public:
      *********************************************************************/
 public:
     /** Normal constructor */
-    VCSlider(QWidget* parent, Doc* doc);
+    VCSlider(QWidget *parent, Doc *doc);
 
     /** Destructor */
     ~VCSlider();
@@ -106,11 +106,11 @@ public:
      *********************************************************************/
 public:
     /** Create a copy of this widget into the given parent */
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget *createCopy(VCWidget *parent);
 
 protected:
     /** Copy the contents for this widget from another widget */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget *widget);
 
     /*********************************************************************
      * GUI
@@ -123,7 +123,7 @@ public:
 
 protected:
     /** @reimp */
-    void hideEvent(QHideEvent* ev);
+    void hideEvent(QHideEvent *ev);
 
     /*********************************************************************
      * Properties
@@ -231,6 +231,8 @@ public:
         LevelChannel(quint32 fid, quint32 ch);
         /** Copy constructor */
         LevelChannel(const LevelChannel& lc);
+        /** Copy operator */
+        LevelChannel& operator=(const LevelChannel& lc);
         /** Comparison operator */
         bool operator==(const LevelChannel& lc) const;
         /** Sorting operator */
@@ -321,7 +323,7 @@ protected:
      *
      * @param value DMX value
      */
-    void setLevelValue(uchar value);
+    void setLevelValue(uchar value, bool external = false);
 
     /**
      * Get the current "level" mode value
@@ -338,6 +340,8 @@ protected slots:
     /** Slot called when the DMX levels of the controlled channels
      *  has changed */
     void slotMonitorDMXValueChanged(int value);
+
+    void slotUniverseWritten(quint32 idx, const QByteArray& universeData);
 
 protected:
     QList <VCSlider::LevelChannel> m_levelChannels;
@@ -420,14 +424,18 @@ signals:
      *********************************************************************/
 public:
     /** @reimpl */
-    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMX(MasterTimer *timer, QList<Universe*> universes);
 
 protected:
     /** writeDMX for Level mode */
-    void writeDMXLevel(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMXLevel(MasterTimer *timer, QList<Universe*> universes);
 
     /** writeDMX for Playback mode */
-    void writeDMXPlayback(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMXPlayback(MasterTimer *timer, QList<Universe*> universes);
+
+private:
+    /** Map used to lookup a GenericFader instance for a Universe ID */
+    QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
 
     /*********************************************************************
      * Top label
@@ -444,7 +452,7 @@ public:
     QString topLabelText();
 
 protected:
-    QLabel* m_topLabel;
+    QLabel *m_topLabel;
 
     /*********************************************************************
      * Slider / Knob
@@ -457,7 +465,7 @@ public:
     };
 
 public:
-    void setSliderValue(uchar value, bool scale = true);
+    void setSliderValue(uchar value, bool scale = true, bool external = false);
 
     void setSliderShadowValue(int value);
 
@@ -481,8 +489,8 @@ private slots:
     void slotSliderMoved(int value);
 
 protected:
-    QHBoxLayout* m_hbox;
-    QAbstractSlider* m_slider; //!< either ClickAndGoSlider or KnobWidget
+    QHBoxLayout *m_hbox;
+    QAbstractSlider *m_slider; //!< either ClickAndGoSlider or KnobWidget
     bool m_externalMovement;
     SliderWidgetStyle m_widgetMode;
 
@@ -501,7 +509,7 @@ public:
     QString bottomLabelText();
 
 protected:
-    QLabel* m_bottomLabel;
+    QLabel *m_bottomLabel;
 
     /*********************************************************************
      * Click & Go Button

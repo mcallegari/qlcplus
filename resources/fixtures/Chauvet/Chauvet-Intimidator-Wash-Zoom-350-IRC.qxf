@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.1</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Robert Box</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -100,28 +100,28 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="19">Closed</Capability>
-  <Capability Min="20" Max="24">Open</Capability>
-  <Capability Min="25" Max="64">Strobe effect (decreasing speed)</Capability>
-  <Capability Min="65" Max="69">Open</Capability>
-  <Capability Min="70" Max="84">Fast on, slow off (decreasing speed)</Capability>
-  <Capability Min="85" Max="89">Open</Capability>
-  <Capability Min="90" Max="104">Slow on, fast off (decreasing speed)</Capability>
-  <Capability Min="105" Max="109">Open</Capability>
-  <Capability Min="110" Max="124">Random shutter (decreasing speed)</Capability>
-  <Capability Min="125" Max="129">Open</Capability>
-  <Capability Min="130" Max="144">Random fast on, slow off (decreasing speed)</Capability>
-  <Capability Min="145" Max="149">Open</Capability>
-  <Capability Min="150" Max="164">Random slow on, fast off (decreasing speed)</Capability>
-  <Capability Min="165" Max="169">Open</Capability>
-  <Capability Min="170" Max="184">Pulse effect 1 (decreasing speed)</Capability>
-  <Capability Min="185" Max="189">Open</Capability>
-  <Capability Min="190" Max="204">Pulse effect 2 (decreasing speed)</Capability>
-  <Capability Min="205" Max="209">Open</Capability>
-  <Capability Min="210" Max="224">Gradually on and off (decreasing speed)</Capability>
-  <Capability Min="225" Max="229">Open</Capability>
-  <Capability Min="230" Max="244">Pulse effect 3 (decreasing speed)</Capability>
-  <Capability Min="245" Max="255">Open</Capability>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="20" Max="24" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="25" Max="64" Preset="StrobeFastToSlow">Strobe effect (decreasing speed)</Capability>
+  <Capability Min="65" Max="69" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="70" Max="84" Preset="StrobeFastToSlow">Fast on, slow off (decreasing speed)</Capability>
+  <Capability Min="85" Max="89" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="90" Max="104" Preset="StrobeSlowToFast">Slow on, fast off (decreasing speed)</Capability>
+  <Capability Min="105" Max="109" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="110" Max="124" Preset="StrobeRandomFastToSlow">Random shutter (decreasing speed)</Capability>
+  <Capability Min="125" Max="129" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="130" Max="144" Preset="StrobeRandomFastToSlow">Random fast on, slow off (decreasing speed)</Capability>
+  <Capability Min="145" Max="149" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="150" Max="164" Preset="StrobeRandomSlowToFast">Random slow on, fast off (decreasing speed)</Capability>
+  <Capability Min="165" Max="169" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="170" Max="184" Preset="PulseFastToSlow">Pulse effect 1 (decreasing speed)</Capability>
+  <Capability Min="185" Max="189" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="190" Max="204" Preset="PulseFastToSlow">Pulse effect 2 (decreasing speed)</Capability>
+  <Capability Min="205" Max="209" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="210" Max="224" Preset="StrobeRandom">Gradually on and off (decreasing speed)</Capability>
+  <Capability Min="225" Max="229" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="230" Max="244" Preset="PulseFastToSlow">Pulse effect 3 (decreasing speed)</Capability>
+  <Capability Min="245" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
  <Channel Name="Control functions">
@@ -129,11 +129,11 @@
   <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="14">Blackout while panning/tilting</Capability>
   <Capability Min="15" Max="49">No function</Capability>
-  <Capability Min="50" Max="54">Reset pan</Capability>
-  <Capability Min="55" Max="59">Reset tilt</Capability>
-  <Capability Min="60" Max="64">Reset zoom</Capability>
+  <Capability Min="50" Max="54" Preset="ResetPan">Reset pan</Capability>
+  <Capability Min="55" Max="59" Preset="ResetTilt">Reset tilt</Capability>
+  <Capability Min="60" Max="64" Preset="ResetZoom">Reset zoom</Capability>
   <Capability Min="65" Max="69">No function</Capability>
-  <Capability Min="70" Max="74">Reset all</Capability>
+  <Capability Min="70" Max="74" Preset="ResetAll">Reset all</Capability>
   <Capability Min="75" Max="79">No function</Capability>
   <Capability Min="80" Max="84">Reverse pan/tilt</Capability>
   <Capability Min="85" Max="89">Reverse pan</Capability>
@@ -244,11 +244,12 @@
   <Channel Number="12">Control functions</Channel>
   <Channel Number="13">Movement macros</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Width="194" Depth="270" Height="363" Weight="7.3"/>
-   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
-   <Focus PanMax="540" TiltMax="270" Type="Fixed"/>
-   <Technical PowerConsumption="240" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.3" Width="194" Height="363" Depth="270"/>
+  <Lens Name="Other" DegreesMin="14" DegreesMax="58"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+  <Layout Width="2" Height="2"/>
+  <Technical PowerConsumption="240" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

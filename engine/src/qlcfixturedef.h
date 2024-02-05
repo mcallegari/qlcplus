@@ -32,19 +32,19 @@
  */
 
 // Fixture document type
-#define KXMLQLCFixtureDefDocument "FixtureDefinition"
+#define KXMLQLCFixtureDefDocument QString("FixtureDefinition")
 
 // Fixture definition XML tags
-#define KXMLQLCFixtureDef "FixtureDefinition"
-#define KXMLQLCFixtureDefManufacturer "Manufacturer"
-#define KXMLQLCFixtureDefModel "Model"
-#define KXMLQLCFixtureDefType "Type"
+#define KXMLQLCFixtureDef               QString("FixtureDefinition")
+#define KXMLQLCFixtureDefManufacturer   QString("Manufacturer")
+#define KXMLQLCFixtureDefModel          QString("Model")
+#define KXMLQLCFixtureDefType           QString("Type")
 
 // Fixture instance XML tags
-#define KXMLQLCFixtureName "Name"
-#define KXMLQLCFixtureID "ID"
-#define KXMLQLCFixtureUniverse "Universe"
-#define KXMLQLCFixtureAddress "Address"
+#define KXMLQLCFixtureName      QString("Name")
+#define KXMLQLCFixtureID        QString("ID")
+#define KXMLQLCFixtureUniverse  QString("Universe")
+#define KXMLQLCFixtureAddress   QString("Address")
 
 class QXmlStreamReader;
 class QLCFixtureMode;
@@ -89,21 +89,23 @@ public:
      * Fixture information
      *********************************************************************/
 public:
+    /** Keep this ordered alphabetically */
     enum FixtureType
     {
-        ColorChanger,
+        ColorChanger = 0,
         Dimmer,
         Effect,
         Fan,
         Flower,
         Hazer,
         Laser,
+        LEDBarBeams,
+        LEDBarPixels,
         MovingHead,
+        Other,
         Scanner,
         Smoke,
-        Strobe,
-        LEDBar,
-        Other
+        Strobe
     };
 
     /** Get the temporary definition file absolute path */
@@ -147,10 +149,16 @@ public:
 
     /** Check if the full definition has been loaded */
     void checkLoaded(QString mapPath);
+    void setLoaded(bool loaded);
+
+    /** Get/Set if the definition is user-made */
+    bool isUser() const;
+    void setIsUser(bool flag);
 
 protected:
     bool m_isLoaded;
-    QString m_relativePath;
+    bool m_isUser;
+    QString m_fileAbsolutePath;
     QString m_manufacturer;
     QString m_model;
     FixtureType m_type;

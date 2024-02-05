@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Robert Box</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -83,16 +83,16 @@
  <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="Shutter/Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7">Closed</Capability>
-  <Capability Min="8" Max="15">Open</Capability>
-  <Capability Min="16" Max="131">Strobing slow - fast</Capability>
-  <Capability Min="132" Max="139">Open</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobing slow - fast</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">Open</Capability>
   <Capability Min="140" Max="181">Fast close - slow open</Capability>
-  <Capability Min="182" Max="189">Open</Capability>
+  <Capability Min="182" Max="189" Preset="ShutterOpen">Open</Capability>
   <Capability Min="190" Max="231">Slow close - fast open</Capability>
-  <Capability Min="232" Max="239">Open</Capability>
-  <Capability Min="240" Max="247">Random strobing</Capability>
-  <Capability Min="248" Max="255">Open</Capability>
+  <Capability Min="232" Max="239" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandom">Random strobing</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Pan/Tilt Movement Speed" Preset="SpeedPanTiltFastSlow"/>
@@ -102,7 +102,7 @@
   <Capability Min="70" Max="79">Blackout with pan/tilt movement</Capability>
   <Capability Min="80" Max="89">Disable blackout with pan/tilt movement</Capability>
   <Capability Min="90" Max="199">No function</Capability>
-  <Capability Min="200" Max="209">Reset all</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Reset all</Capability>
   <Capability Min="210" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Dimmer Curves">
@@ -213,11 +213,11 @@
    <Channel>9</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="107" ColourTemperature="0"/>
-   <Dimensions Weight="3.2" Width="174" Height="247" Depth="141"/>
-   <Lens Name="" DegreesMin="10" DegreesMax="60"/>
-   <Focus Type="Head" PanMax="540" TiltMax="180"/>
-   <Technical PowerConsumption="67" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="107" ColourTemperature="0"/>
+  <Dimensions Weight="3.2" Width="174" Height="247" Depth="141"/>
+  <Lens Name="" DegreesMin="10" DegreesMax="60"/>
+  <Focus Type="Head" PanMax="540" TiltMax="180"/>
+  <Technical PowerConsumption="67" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

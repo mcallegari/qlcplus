@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>boxr</Author>
  </Creator>
  <Manufacturer>BoomToneDJ</Manufacturer>
@@ -93,6 +93,7 @@
   <Dimensions Weight="9" Width="544" Height="175" Depth="496"/>
   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
   <Focus Type="Mirror" PanMax="170" TiltMax="170"/>
+  <Layout Width="4" Height="1"/>
   <Technical PowerConsumption="90" DmxConnector="5-pin"/>
  </Physical>
 </FixtureDefinition>

@@ -333,7 +333,7 @@ void VCSliderProperties::setSubmasterPageVisibility(bool visible)
 
 void VCSliderProperties::levelUpdateFixtures()
 {
-    foreach(Fixture* fixture, m_doc->fixtures())
+    foreach (Fixture* fixture, m_doc->fixtures())
     {
         Q_ASSERT(fixture != NULL);
         levelUpdateFixtureNode(fixture->id());
@@ -355,8 +355,7 @@ void VCSliderProperties::levelUpdateFixtureNode(quint32 id)
     {
         item = new QTreeWidgetItem(m_levelList);
         item->setText(KColumnID, str.setNum(id));
-        item->setFlags(item->flags() | Qt::ItemIsUserCheckable
-                       | Qt::ItemIsTristate);
+        item->setFlags(item->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
     }
 
     item->setText(KColumnName, fxi->name());
@@ -464,8 +463,8 @@ void VCSliderProperties::levelUpdateCapabilityNode(QTreeWidgetItem* parent,
 
     item = new QTreeWidgetItem(parent);
     item->setText(KColumnName, cap->name());
-    item->setText(KColumnRange, str.sprintf("%.3d - %.3d",
-                                            cap->min(), cap->max()));
+    item->setText(KColumnRange, str.asprintf("%.3d - %.3d",
+                                             cap->min(), cap->max()));
     item->setFlags(item->flags() & (~Qt::ItemIsUserCheckable));
 }
 
@@ -616,11 +615,11 @@ void VCSliderProperties::slotLevelByGroupClicked()
     QString group;
     QStringList groups;
 
-    foreach(Fixture* fixture, m_doc->fixtures())
+    foreach (Fixture* fixture, m_doc->fixtures())
     {
         Q_ASSERT(fixture != NULL);
 
-        for(quint32 i = 0; i < fixture->channels(); i++)
+        for (quint32 i = 0; i < fixture->channels(); i++)
         {
             const QLCChannel *channel = fixture->channel(i);
 
@@ -668,12 +667,9 @@ void VCSliderProperties::slotAttachPlaybackFunctionClicked()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::SceneType | Function::ChaserType | Function::SequenceType | Function::EFXType |
-                 Function::AudioType | Function::RGBMatrixType | Function::CollectionType
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-                 | Function::VideoType
-#endif
-                 , false);
+    fs.setFilter(Function::SceneType | Function::ChaserType | Function::SequenceType |
+                 Function::EFXType | Function::AudioType | Function::RGBMatrixType |
+                 Function::CollectionType | Function::VideoType, false);
     fs.disableFilters(Function::ScriptType | Function::ShowType);
 
     if (fs.exec() != QDialog::Accepted)

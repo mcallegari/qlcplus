@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>Sebastian Moeckel</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED TMH-51</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="LED Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="8" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="9" Max="255" Preset="StrobeSlowToFast">LED Strobe with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Red LED" Preset="IntensityRed"/>
+ <Channel Name="Green LED" Preset="IntensityGreen"/>
+ <Channel Name="Blue LED" Preset="IntensityBlue"/>
+ <Channel Name="White LED" Preset="IntensityWhite"/>
+ <Channel Name="SMD Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="SMD Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="8" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="9" Max="255" Preset="StrobeSlowToFast">SMD Strobe with increasing speed</Capability>
+ </Channel>
+ <Channel Name="SMD Red" Preset="IntensityRed"/>
+ <Channel Name="SMD Green" Preset="IntensityGreen"/>
+ <Channel Name="SMD Blue" Preset="IntensityBlue"/>
+ <Channel Name="SMD Section 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="44" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="45" Max="79" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="80" Max="114" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="115" Max="149" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red and Green</Capability>
+  <Capability Min="150" Max="184" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red and Blue</Capability>
+  <Capability Min="185" Max="219" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green and Blue</Capability>
+  <Capability Min="220" Max="255">RGB</Capability>
+ </Channel>
+ <Channel Name="SMD Section 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="44" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="45" Max="79" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="80" Max="114" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="115" Max="149" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red and Green</Capability>
+  <Capability Min="150" Max="184" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red and Blue</Capability>
+  <Capability Min="185" Max="219" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green and Blue</Capability>
+  <Capability Min="220" Max="255">RGB</Capability>
+ </Channel>
+ <Channel Name="SMD Section 3">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="44" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="45" Max="79" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="80" Max="114" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="115" Max="149" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red and Green</Capability>
+  <Capability Min="150" Max="184" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red and Blue</Capability>
+  <Capability Min="185" Max="219" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green and Blue</Capability>
+  <Capability Min="220" Max="255">RGB</Capability>
+ </Channel>
+ <Channel Name="SMD Section 4">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="44" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="45" Max="79" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="80" Max="114" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="115" Max="149" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red and Green</Capability>
+  <Capability Min="150" Max="184" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red and Blue</Capability>
+  <Capability Min="185" Max="219" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green and Blue</Capability>
+  <Capability Min="220" Max="255">RGB</Capability>
+ </Channel>
+ <Channel Name="Functions">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="199">No function</Capability>
+  <Capability Min="200" Max="209">Reset</Capability>
+  <Capability Min="210" Max="239">No function</Capability>
+  <Capability Min="240" Max="255">Sound Active</Capability>
+ </Channel>
+ <Channel Name="SMD section 1 Red" Preset="IntensityRed"/>
+ <Channel Name="SMD section 1 Green" Preset="IntensityGreen"/>
+ <Channel Name="SMD section 1 Blue" Preset="IntensityBlue"/>
+ <Channel Name="SMD section 2 Red" Preset="IntensityRed"/>
+ <Channel Name="SMD section 2 Green" Preset="IntensityGreen"/>
+ <Channel Name="SMD section 2 Blue" Preset="IntensityBlue"/>
+ <Channel Name="SMD section 3 Red" Preset="IntensityRed"/>
+ <Channel Name="SMD section 3 Green" Preset="IntensityGreen"/>
+ <Channel Name="SMD section 3 Blue" Preset="IntensityBlue"/>
+ <Channel Name="SMD section 4 Red" Preset="IntensityRed"/>
+ <Channel Name="SMD section 4 Green" Preset="IntensityGreen"/>
+ <Channel Name="SMD section 4 Blue" Preset="IntensityBlue"/>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt speed</Channel>
+  <Channel Number="3">Master dimmer</Channel>
+  <Channel Number="4">LED Strobe</Channel>
+  <Channel Number="5">Red LED</Channel>
+  <Channel Number="6">Green LED</Channel>
+  <Channel Number="7">Blue LED</Channel>
+  <Channel Number="8">White LED</Channel>
+  <Channel Number="9">SMD Dimmer</Channel>
+  <Channel Number="10">SMD Strobe</Channel>
+  <Channel Number="11">SMD Section 1</Channel>
+  <Channel Number="12">SMD Section 2</Channel>
+  <Channel Number="13">SMD Section 3</Channel>
+  <Channel Number="14">SMD Section 4</Channel>
+  <Channel Number="15">Functions</Channel>
+ </Mode>
+ <Mode Name="21 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Master dimmer</Channel>
+  <Channel Number="6">LED Strobe</Channel>
+  <Channel Number="7">Red LED</Channel>
+  <Channel Number="8">Green LED</Channel>
+  <Channel Number="9">Blue LED</Channel>
+  <Channel Number="10">White LED</Channel>
+  <Channel Number="11">SMD Dimmer</Channel>
+  <Channel Number="12">SMD Strobe</Channel>
+  <Channel Number="13">SMD Red</Channel>
+  <Channel Number="14">SMD Green</Channel>
+  <Channel Number="15">SMD Blue</Channel>
+  <Channel Number="16">SMD Section 1</Channel>
+  <Channel Number="17">SMD Section 2</Channel>
+  <Channel Number="18">SMD Section 3</Channel>
+  <Channel Number="19">SMD Section 4</Channel>
+  <Channel Number="20">Functions</Channel>
+ </Mode>
+ <Mode Name="23 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Master dimmer</Channel>
+  <Channel Number="6">LED Strobe</Channel>
+  <Channel Number="7">Red LED</Channel>
+  <Channel Number="8">Green LED</Channel>
+  <Channel Number="9">Blue LED</Channel>
+  <Channel Number="10">White LED</Channel>
+  <Channel Number="11">SMD section 1 Red</Channel>
+  <Channel Number="12">SMD section 1 Green</Channel>
+  <Channel Number="13">SMD section 1 Blue</Channel>
+  <Channel Number="14">SMD section 2 Red</Channel>
+  <Channel Number="15">SMD section 2 Green</Channel>
+  <Channel Number="16">SMD section 2 Blue</Channel>
+  <Channel Number="17">SMD section 3 Red</Channel>
+  <Channel Number="18">SMD section 3 Green</Channel>
+  <Channel Number="19">SMD section 3 Blue</Channel>
+  <Channel Number="20">SMD section 4 Red</Channel>
+  <Channel Number="21">SMD section 4 Green</Channel>
+  <Channel Number="22">SMD section 4 Blue</Channel>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.92" Width="170" Height="250" Depth="160"/>
+  <Lens Name="Other" DegreesMin="8" DegreesMax="8"/>
+  <Focus Type="Head" PanMax="540" TiltMax="210"/>
+  <Technical PowerConsumption="70" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

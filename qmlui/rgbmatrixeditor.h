@@ -20,7 +20,7 @@
 #ifndef RGBMATRIXEDITOR_H
 #define RGBMATRIXEDITOR_H
 
-#include "functioneditor.h" 
+#include "functioneditor.h"
 
 class Doc;
 class RGBMatrix;
@@ -43,6 +43,9 @@ class RGBMatrixEditor : public FunctionEditor
     Q_PROPERTY(QColor endColor READ endColor WRITE setEndColor NOTIFY endColorChanged)
     Q_PROPERTY(bool hasEndColor READ hasEndColor WRITE setHasEndColor NOTIFY hasEndColorChanged)
 
+    Q_PROPERTY(int blendMode READ blendMode WRITE setBlendMode NOTIFY blendModeChanged)
+    Q_PROPERTY(int controlMode READ controlMode WRITE setControlMode NOTIFY controlModeChanged)
+
     // Text Algorithm specific properties
     Q_PROPERTY(QString algoText READ algoText WRITE setAlgoText NOTIFY algoTextChanged)
     Q_PROPERTY(QFont algoTextFont READ algoTextFont WRITE setAlgoTextFont NOTIFY algoTextFontChanged)
@@ -51,7 +54,7 @@ class RGBMatrixEditor : public FunctionEditor
 
     Q_PROPERTY(int animationStyle READ animationStyle WRITE setAnimationStyle NOTIFY animationStyleChanged)
     Q_PROPERTY(QSize algoOffset READ algoOffset WRITE setAlgoOffset NOTIFY algoOffsetChanged)
-    
+
 public:
     RGBMatrixEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
     ~RGBMatrixEditor();
@@ -63,7 +66,7 @@ public:
     void setFixtureGroup(int fixtureGroup);
 
 signals:
-    void fixtureGroupChanged(int fixtureGroup);  
+    void fixtureGroupChanged(int fixtureGroup);
 
 private:
     /** Reference of the RGBMatrix currently being edited */
@@ -122,6 +125,7 @@ public:
 
     Q_INVOKABLE void setScriptStringProperty(QString paramName, QString value);
     Q_INVOKABLE void setScriptIntProperty(QString paramName, int value);
+    Q_INVOKABLE void setScriptFloatProperty(QString paramName, double value);
 
 signals:
     void algorithmIndexChanged();
@@ -137,6 +141,26 @@ signals:
 
     void algoOffsetChanged(QSize algoOffset);
     void animationStyleChanged(int style);
+
+    /************************************************************************
+     * Blend mode
+     ************************************************************************/
+public:
+    int blendMode() const;
+    void setBlendMode(int mode);
+
+signals:
+    void blendModeChanged();
+
+    /************************************************************************
+     * Control mode
+     ************************************************************************/
+public:
+    int controlMode() const;
+    void setControlMode(int mode);
+
+signals:
+    void controlModeChanged();
 
     /************************************************************************
      * Preview

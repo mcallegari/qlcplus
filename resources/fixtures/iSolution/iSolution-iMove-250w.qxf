@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.1</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>iSolution</Manufacturer>
@@ -17,24 +17,24 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7">Blackout</Capability>
-  <Capability Min="8" Max="15">Open</Capability>
-  <Capability Min="16" Max="131">Shutter slow to fast</Capability>
-  <Capability Min="132" Max="239">Open</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Shutter slow to fast</Capability>
+  <Capability Min="132" Max="239" Preset="ShutterOpen">Open</Capability>
   <Capability Min="240" Max="247">Audio</Capability>
-  <Capability Min="248" Max="255">Open</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#ffffff" Min="0" Max="18">White</Capability>
-  <Capability Color="#ff0000" Min="19" Max="36">Red</Capability>
-  <Capability Color="#ffff00" Min="37" Max="54">Yellow</Capability>
-  <Capability Color="#ff8000" Min="55" Max="72">Orange</Capability>
-  <Capability Color="#00ff00" Min="73" Max="90">Green</Capability>
-  <Capability Color="#00ffff" Min="91" Max="108">Light Blue</Capability>
-  <Capability Color="#800080" Min="109" Max="127">Purple</Capability>
-  <Capability Res="Others/rainbow.png" Min="128" Max="187">Slow to fast anticlockwise rotation</Capability>
-  <Capability Res="Others/rainbow.png" Min="188" Max="247">Fast to slow rotation clockwise</Capability>
+  <Capability Min="0" Max="18" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="19" Max="36" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="37" Max="54" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="55" Max="72" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
+  <Capability Min="73" Max="90" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="91" Max="108" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
+  <Capability Min="109" Max="127" Preset="ColorMacro" Res1="#800080">Purple</Capability>
+  <Capability Min="128" Max="187" Preset="GoboMacro" Res1="Others/rainbow.png">Slow to fast anticlockwise rotation</Capability>
+  <Capability Min="188" Max="247" Preset="GoboMacro" Res1="Others/rainbow.png">Fast to slow rotation clockwise</Capability>
   <Capability Min="248" Max="255">Audio</Capability>
  </Channel>
  <Channel Name="Cyan" Preset="IntensityCyan"/>
@@ -42,7 +42,7 @@
  <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="CYM Color Mix">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#ffffff" Min="0" Max="38">White</Capability>
+  <Capability Min="0" Max="38" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="39" Max="45">Color1</Capability>
   <Capability Min="46" Max="52">Color2</Capability>
   <Capability Min="53" Max="58">Color3</Capability>
@@ -87,10 +87,10 @@
   <Capability Min="33" Max="239">Beam shape rotation</Capability>
   <Capability Min="240" Max="255">Frost</Capability>
  </Channel>
- <Channel Name="No Function" Preset="NoFunction"/>
+ <Channel Name="No function" Preset="NoFunction"/>
  <Channel Name="Lamp On/Off/Reset">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="255">Normal to reset</Capability>
+  <Capability Min="0" Max="255" Preset="ResetAll">Normal to reset</Capability>
  </Channel>
  <Mode Name="16 channels">
   <Channel Number="0">Pan</Channel>
@@ -105,7 +105,7 @@
   <Channel Number="9">CYM Color Mix</Channel>
   <Channel Number="10">CMY Speed</Channel>
   <Channel Number="11">Effect Wheel</Channel>
-  <Channel Number="12">No Function</Channel>
+  <Channel Number="12">No function</Channel>
   <Channel Number="13">Pan 16 bit</Channel>
   <Channel Number="14">Tilt 16 bit</Channel>
   <Channel Number="15">Lamp On/Off/Reset</Channel>
@@ -121,10 +121,10 @@
   <Channel Number="7">CMY Speed</Channel>
  </Mode>
  <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="MSD 250W"/>
-   <Dimensions Depth="369" Width="428" Height="481" Weight="24.2"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="26"/>
-   <Focus TiltMax="270" PanMax="540" Type="Head"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="390"/>
+  <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="24.2" Width="428" Height="481" Depth="369"/>
+  <Lens Name="Other" DegreesMin="16" DegreesMax="26"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="390" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

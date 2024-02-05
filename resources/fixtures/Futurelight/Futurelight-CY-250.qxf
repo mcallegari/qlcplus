@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Futurelight</Manufacturer>
@@ -13,16 +13,16 @@
  <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="18" Color="#ffffff">White</Capability>
-  <Capability Min="19" Max="35" Color="#00007f">Dark Blue</Capability>
-  <Capability Min="36" Max="53" Color="#ffaaff">Pink</Capability>
-  <Capability Min="54" Max="71" Color="#aaff7f">Light Green</Capability>
-  <Capability Min="72" Max="89" Color="#ffaa00">Orange</Capability>
-  <Capability Min="90" Max="107" Color="#aaaaff">Light Blue</Capability>
-  <Capability Min="108" Max="126" Color="#ffff00">Yellow</Capability>
-  <Capability Min="127" Max="127" Color="#aa0000">Cherry Red</Capability>
-  <Capability Min="128" Max="191" Res="Others/rainbow.png">Forward Rainbow Speed</Capability>
-  <Capability Min="192" Max="255" Res="Others/rainbow.png">Backward Rainbow Speed</Capability>
+  <Capability Min="0" Max="18" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="19" Max="35" Preset="ColorMacro" Res1="#00007f">Dark Blue</Capability>
+  <Capability Min="36" Max="53" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="54" Max="71" Preset="ColorMacro" Res1="#aaff7f">Light Green</Capability>
+  <Capability Min="72" Max="89" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="90" Max="107" Preset="ColorMacro" Res1="#aaaaff">Light Blue</Capability>
+  <Capability Min="108" Max="126" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="127" Max="127" Preset="ColorMacro" Res1="#aa0000">Cherry Red</Capability>
+  <Capability Min="128" Max="191" Preset="GoboMacro" Res1="Others/rainbow.png">Forward Rainbow Speed</Capability>
+  <Capability Min="192" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Backward Rainbow Speed</Capability>
  </Channel>
  <Channel Name="Gobo Selection">
   <Group Byte="0">Gobo</Group>
@@ -45,13 +45,13 @@
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="5">Shutter Closed</Capability>
+  <Capability Min="0" Max="5" Preset="ShutterClose">Shutter Closed</Capability>
   <Capability Min="6" Max="128">Dimmer Control</Capability>
-  <Capability Min="129" Max="131">Reset after 3-5 seconds</Capability>
-  <Capability Min="132" Max="139">Shutter Open</Capability>
-  <Capability Min="140" Max="199">Strobe Effect Speed</Capability>
-  <Capability Min="200" Max="249">Random Strobe Speed</Capability>
-  <Capability Min="250" Max="255">Shutter Open</Capability>
+  <Capability Min="129" Max="131" Preset="ResetAll">Reset after 3-5 seconds</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">Shutter Open</Capability>
+  <Capability Min="140" Max="199" Preset="StrobeSlowToFast">Strobe Effect Speed</Capability>
+  <Capability Min="200" Max="249" Preset="StrobeRandomSlowToFast">Random Strobe Speed</Capability>
+  <Capability Min="250" Max="255" Preset="ShutterOpen">Shutter Open</Capability>
  </Channel>
  <Mode Name="Mode 1">
   <Channel Number="0">Pan</Channel>
@@ -61,11 +61,11 @@
   <Channel Number="4">Gobo Rotation</Channel>
   <Channel Number="5">Shutter</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="8500"/>
-   <Dimensions Weight="14" Width="300" Height="525" Depth="150"/>
-   <Lens Name="Other" DegreesMin="17" DegreesMax="17"/>
-   <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
-   <Technical PowerConsumption="500" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="8500"/>
+  <Dimensions Weight="14" Width="300" Height="525" Depth="150"/>
+  <Lens Name="Other" DegreesMin="17" DegreesMax="17"/>
+  <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
+  <Technical PowerConsumption="500" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

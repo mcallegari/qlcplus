@@ -45,6 +45,8 @@ EditPhysical::EditPhysical(QLCPhysical physical, QWidget *parent)
     m_focusTypeCombo->setEditText(m_physical.focusType());
     m_panMaxSpin->setValue(m_physical.focusPanMax());
     m_tiltMaxSpin->setValue(m_physical.focusTiltMax());
+    m_layoutColsSpin->setValue(m_physical.layoutSize().width());
+    m_layoutRowsSpin->setValue(m_physical.layoutSize().height());
 
     m_powerConsumptionSpin->setValue(m_physical.powerConsumption());
     m_dmxConnectorCombo->setEditText(m_physical.dmxConnector());
@@ -75,6 +77,7 @@ QLCPhysical EditPhysical::physical()
     m_physical.setFocusType(m_focusTypeCombo->currentText());
     m_physical.setFocusPanMax(m_panMaxSpin->value());
     m_physical.setFocusTiltMax(m_tiltMaxSpin->value());
+    m_physical.setLayoutSize(QSize(m_layoutColsSpin->value(), m_layoutRowsSpin->value()));
     m_physical.setPowerConsumption(m_powerConsumptionSpin->value());
     m_physical.setDmxConnector(m_dmxConnectorCombo->currentText());
 
@@ -94,19 +97,20 @@ void EditPhysical::slotPasteFromClipboard()
 void EditPhysical::pasteFromClipboard(QLCPhysical clipboard)
 {
     m_bulbLumensSpin->setValue(clipboard.bulbLumens());
+    m_bulbTypeCombo->setEditText(clipboard.bulbType());
+    m_bulbTempCombo->setEditText(QString::number(clipboard.bulbColourTemperature()));
     m_weightSpin->setValue(clipboard.weight());
     m_widthSpin->setValue(clipboard.width());
     m_heightSpin->setValue(clipboard.height());
     m_depthSpin->setValue(clipboard.depth());
+    m_lensNameCombo->setEditText(clipboard.lensName());
     m_lensDegreesMinSpin->setValue(clipboard.lensDegreesMin());
     m_lensDegreesMaxSpin->setValue(clipboard.lensDegreesMax());
+    m_focusTypeCombo->setEditText(clipboard.focusType());
     m_panMaxSpin->setValue(clipboard.focusPanMax());
     m_tiltMaxSpin->setValue(clipboard.focusTiltMax());
+    m_layoutColsSpin->setValue(clipboard.layoutSize().width());
+    m_layoutRowsSpin->setValue(clipboard.layoutSize().height());
     m_powerConsumptionSpin->setValue(clipboard.powerConsumption());
-
-    m_bulbTypeCombo->setEditText(clipboard.bulbType());
-    m_bulbTempCombo->setEditText(QString::number(clipboard.bulbColourTemperature()));
-    m_lensNameCombo->setEditText(clipboard.lensName());
-    m_focusTypeCombo->setEditText(clipboard.focusType());
     m_dmxConnectorCombo->setEditText(clipboard.dmxConnector());
 }

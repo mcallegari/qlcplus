@@ -46,12 +46,12 @@ class VCXYPadProperties : public QDialog, public Ui_VCXYPadProperties, public DM
      * Initialization
      ********************************************************************/
 public:
-    VCXYPadProperties(VCXYPad* xypad, Doc* doc);
+    VCXYPadProperties(VCXYPad *xypad, Doc *doc);
     ~VCXYPadProperties();
 
 private:
-    VCXYPad* m_xypad;
-    Doc* m_doc;
+    VCXYPad *m_xypad;
+    Doc *m_doc;
     InputSelectionWidget *m_panInputWidget;
     InputSelectionWidget *m_tiltInputWidget;
     InputSelectionWidget *m_widthInputWidget;
@@ -93,7 +93,7 @@ private slots:
      ********************************************************************/
 public:
     /** @reimp */
-    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMX(MasterTimer *timer, QList<Universe*> universes);
 
 private:
     void updatePresetsTree();
@@ -123,11 +123,14 @@ protected slots:
     void slotKeySequenceChanged(QKeySequence key);
 
 private:
-    VCXYPadArea* m_xyArea;
+    VCXYPadArea *m_xyArea;
     InputSelectionWidget *m_presetInputWidget;
 
     quint8 m_lastAssignedID;
     QList<VCXYPadPreset*> m_presetList;
+
+    /** Map used to lookup a GenericFader instance for a Universe ID */
+    QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
 
     /********************************************************************
      * OK/Cancel

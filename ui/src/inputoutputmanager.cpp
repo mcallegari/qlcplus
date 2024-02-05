@@ -40,7 +40,6 @@
 #include "inputoutputmap.h"
 #include "outputpatch.h"
 #include "inputpatch.h"
-#include "apputil.h"
 #include "doc.h"
 
 #define KColumnUniverse     0
@@ -70,7 +69,7 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
     s_instance = this;
 
     Q_ASSERT(doc != NULL);
-    
+
     m_ioMap = doc->inputOutputMap();
 
     /* Create a new layout for this widget */
@@ -344,6 +343,7 @@ void InputOutputManager::slotAudioInputChanged()
 void InputOutputManager::slotAddUniverse()
 {
     m_ioMap->addUniverse();
+    m_ioMap->startUniverses();
     m_doc->setModified();
 }
 
@@ -359,7 +359,7 @@ void InputOutputManager::slotDeleteUniverse()
         // Ask for user's confirmation
         if (QMessageBox::question(
                     this, tr("Delete Universe"),
-                    tr("The universe you are trying to delete is patched. Are you sure you want to delete it ?"),
+                    tr("The universe you are trying to delete is patched. Are you sure you want to delete it?"),
                     QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
         {
             return;
@@ -371,14 +371,14 @@ void InputOutputManager::slotDeleteUniverse()
     if (uniID == m_ioMap->invalidUniverse())
         return;
 
-    foreach(Fixture *fx, m_doc->fixtures())
+    foreach (Fixture *fx, m_doc->fixtures())
     {
         if (fx->universe() == uniID)
         {
             // Ask for user's confirmation
             if (QMessageBox::question(
                         this, tr("Delete Universe"),
-                        tr("There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it ?"),
+                        tr("There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it?"),
                         QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
             {
                 return;

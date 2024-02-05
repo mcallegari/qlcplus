@@ -44,6 +44,7 @@ private slots:
     void focusType();
     void focusPanMax();
     void focusTiltMax();
+    void layoutSize();
 
     void powerConsumption();
     void dmxConnector();

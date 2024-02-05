@@ -23,9 +23,11 @@
 
 #include <QObject>
 #include <QQuickView>
+#include <QElapsedTimer>
 
 #include <Qt3DCore/QEntity>
 #include <Qt3DCore/QTransform>
+#include <Qt3DLogic/QFrameAction>
 #include <Qt3DRender/QLayer>
 #include <Qt3DRender/QEffect>
 #include <Qt3DRender/QMaterial>
@@ -38,23 +40,28 @@
 
 class Doc;
 class Fixture;
+class ListModel;
+class QSvgRenderer;
 class MonitorProperties;
 
 using namespace Qt3DCore;
 using namespace Qt3DRender;
+using namespace Qt3DLogic;
 
 class GoboTextureImage : public Qt3DRender::QPaintedTextureImage
 {
 public:
     GoboTextureImage(int w, int h, QString filename);
 
+    /** Get/set the gobo source to use as texture */
     QString source() const;
-
     void setSource(QString filename);
 
 protected:
     void paint(QPainter *painter);
 
+private:
+    QSvgRenderer *m_renderer;
     QString m_source;
 };
 
@@ -74,23 +81,22 @@ typedef struct
     QEntity *m_armItem;
     /** Reference to the head entity used by moving heads */
     QEntity *m_headItem;
-    /** The attached light index */
-    unsigned int m_lightIndex;
     /** The bounding volume information */
     BoundingVolume m_volume;
     /** The selection box entity */
     QEntity *m_selectionBox;
-    /** Reference to the layers used for scattering */
-    QLayer *m_spotlightShadingLayer;
-    QLayer *m_spotlightScatteringLayer;
-    QLayer *m_outputDepthLayer;
-
+    /** Reference to the texture used to render the
+     *  currently selected gobo picture */
     GoboTextureImage *m_goboTexture;
 } SceneItem;
 
 class MainView3D : public PreviewContext
 {
     Q_OBJECT
+
+    Q_PROPERTY(QVector3D cameraPosition READ cameraPosition WRITE setCameraPosition NOTIFY cameraPositionChanged FINAL)
+    Q_PROPERTY(QVector3D cameraUpVector READ cameraUpVector WRITE setCameraUpVector NOTIFY cameraUpVectorChanged FINAL)
+    Q_PROPERTY(QVector3D cameraViewCenter READ cameraViewCenter WRITE setCameraViewCenter NOTIFY cameraViewCenterChanged FINAL)
 
     Q_PROPERTY(RenderQuality renderQuality READ renderQuality WRITE setRenderQuality NOTIFY renderQualityChanged)
     Q_PROPERTY(QString meshDirectory READ meshDirectory CONSTANT)
@@ -99,6 +105,13 @@ class MainView3D : public PreviewContext
     Q_PROPERTY(float ambientIntensity READ ambientIntensity WRITE setAmbientIntensity NOTIFY ambientIntensityChanged)
     Q_PROPERTY(float smokeAmount READ smokeAmount WRITE setSmokeAmount NOTIFY smokeAmountChanged)
 
+    Q_PROPERTY(bool frameCountEnabled READ frameCountEnabled WRITE setFrameCountEnabled NOTIFY frameCountEnabledChanged)
+    Q_PROPERTY(int FPS READ FPS NOTIFY FPSChanged)
+    Q_PROPERTY(int minFPS READ minFPS NOTIFY minFPSChanged)
+    Q_PROPERTY(int maxFPS READ maxFPS NOTIFY maxFPSChanged)
+    Q_PROPERTY(float avgFPS READ avgFPS NOTIFY avgFPSChanged)
+
+    Q_PROPERTY(QVariant genericItemsList READ genericItemsList NOTIFY genericItemsListChanged)
     Q_PROPERTY(int genericSelectedCount READ genericSelectedCount NOTIFY genericSelectedCountChanged)
     Q_PROPERTY(QVector3D genericItemsPosition READ genericItemsPosition WRITE setGenericItemsPosition NOTIFY genericItemsPositionChanged)
     Q_PROPERTY(QVector3D genericItemsRotation READ genericItemsRotation WRITE setGenericItemsRotation NOTIFY genericItemsRotationChanged)
@@ -114,7 +127,23 @@ public:
     /** @reimp */
     void setUniverseFilter(quint32 universeFilter);
 
+    /** Cleanup all the items in the scene */
     void resetItems();
+
+    /** Reset the camera position to initial values */
+    void resetCameraPosition();
+
+    /** Get set the scene camera position */
+    QVector3D cameraPosition() const;
+    void setCameraPosition(const QVector3D &newCameraPosition);
+
+    /** Get set the scene camera position */
+    QVector3D cameraUpVector() const;
+    void setCameraUpVector(const QVector3D &newCameraUpVector);
+
+    /** Get set the scene camera position */
+    QVector3D cameraViewCenter() const;
+    void setCameraViewCenter(const QVector3D &newCameraViewCenter);
 
 protected:
     /** Returns a string with the mesh location, suitable to be used by QML */
@@ -126,6 +155,11 @@ public slots:
     /** @reimp */
     void slotRefreshView();
 
+signals:
+    void cameraPositionChanged();
+    void cameraUpVectorChanged();
+    void cameraViewCenterChanged();
+
 private:
     /** Reference to the Doc Monitor properties */
     MonitorProperties *m_monProps;
@@ -136,6 +170,42 @@ private:
     QQmlComponent *m_selectionComponent;
     QQmlComponent *m_spotlightConeComponent;
     QQmlComponent *m_fillGBufferLayer;
+    int m_createItemCount;
+
+    QVector3D m_cameraPosition;
+    QVector3D m_cameraUpVector;
+    QVector3D m_cameraViewCenter;
+
+    /*********************************************************************
+     * Frame counter
+     *********************************************************************/
+public:
+    /** Enable/Disable a frame count signal */
+    bool frameCountEnabled() const;
+    void setFrameCountEnabled(bool enable);
+
+    int FPS() const { return m_frameCount; }
+    int minFPS() const { return m_minFrameCount; }
+    int maxFPS() const { return m_maxFrameCount; }
+    float avgFPS() const { return m_avgFrameCount; }
+
+protected slots:
+    void slotFrameProcessed();
+
+signals:
+    void frameCountEnabledChanged();
+    void FPSChanged(int fps);
+    void minFPSChanged(int fps);
+    void maxFPSChanged(int fps);
+    void avgFPSChanged(float fps);
+
+private:
+    QElapsedTimer m_fpsElapsed;
+    QFrameAction *m_frameAction;
+    int m_frameCount;
+    int m_minFrameCount;
+    int m_maxFrameCount;
+    int m_avgFrameCount;
 
     /*********************************************************************
      * Fixtures
@@ -183,6 +253,9 @@ public:
     /** Get the Fixture light 3D position for the provided $itemID */
     QVector3D lightPosition(quint32 itemID);
 
+    /** Get the Fixture light matrix for the provided $itemID */
+    QMatrix4x4 lightMatrix(quint32 itemID);
+
 protected:
     /** First time 3D view variables initializations */
     void initialize3DProperties();
@@ -196,15 +269,19 @@ protected:
                            QLayer *layer, QEffect *effect,
                            bool calculateVolume, QVector3D translation);
 
+    void walkNode(QNode *e, int depth);
+
 private:
     Qt3DCore::QTransform *getTransform(QEntity *entity);
     QMaterial *getMaterial(QEntity *entity);
-    unsigned int getNewLightIndex();
     void updateLightMatrix(SceneItem *mesh);
 
 private:
     /** Reference to the Scene3D component */
     QQuickItem *m_scene3D;
+
+    /** Reference to the entity containing everything */
+    QEntity *m_scene3DEntity;
 
     /** Reference to the scene root entity for items creation */
     QEntity *m_sceneRootEntity;
@@ -214,9 +291,8 @@ private:
 
     /** Reference to the render targets used for scattering */
     QRenderTarget *m_gBuffer;
-    QRenderTarget *m_frontDepthTarget;
 
-    /** Map of QLC+ fixture IDs and QML Entity items */
+    /** Map of QLC+ item IDs and SceneItem references */
     QMap<quint32, SceneItem*> m_entitiesMap;
 
     /** Cache of the loaded models against bounding volumes */
@@ -232,9 +308,20 @@ public:
 
     Q_INVOKABLE void setItemSelection(int itemID, bool enable, int keyModifiers);
 
+    /** Get the number of generic items currently selected */
     int genericSelectedCount() const;
 
+    /** Remove the currently selected generic items
+     *  from the 3D scene */
     Q_INVOKABLE void removeSelectedGenericItems();
+
+    /** Some generic items can be huge.
+     *  Normalize them to be 2 meters big maximum */
+    Q_INVOKABLE void normalizeSelectedGenericItems();
+
+    /** Get a list of generic items currently in the 3D scene,
+     *  to be displayed in QML */
+    QVariant genericItemsList() const;
 
     void updateGenericItemPosition(quint32 itemID, QVector3D pos);
     QVector3D genericItemsPosition();
@@ -248,7 +335,11 @@ public:
     QVector3D genericItemsScale();
     void setGenericItemsScale(QVector3D scale);
 
+protected:
+    void updateGenericItemsList();
+
 signals:
+    void genericItemsListChanged();
     void genericSelectedCountChanged();
     void genericItemsPositionChanged();
     void genericItemsRotationChanged();
@@ -257,6 +348,9 @@ signals:
 private:
     /** Counter used to give unique IDs to generic items */
     int m_latestGenericID;
+
+    /** QML model for generic items */
+    ListModel *m_genericItemsList;
 
     QList<int> m_genericSelectedItems;
 
@@ -278,8 +372,11 @@ public:
 
     enum FixtureMeshType
     {
-        ParMeshType = 0,
+        NoMeshType = 0,
+        ParMeshType,
         MovingHeadMeshType,
+        ScannerMeshType,
+        LEDBarMeshType,
         DefaultMeshType
     };
     Q_ENUM(FixtureMeshType)
@@ -300,6 +397,7 @@ public:
     float ambientIntensity() const;
     void setAmbientIntensity(float ambientIntensity);
 
+    /** Get/Set the amount of smoke in the environment */
     float smokeAmount() const;
     void setSmokeAmount(float smokeAmount);
 

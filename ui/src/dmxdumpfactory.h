@@ -37,7 +37,7 @@ class DmxDumpFactory : public QDialog, public Ui_DmxDumpFactory
 {
     Q_OBJECT
     Q_DISABLE_COPY(DmxDumpFactory)
-    
+
 public:
     DmxDumpFactory(Doc* doc, DmxDumpFactoryProperties* props, QWidget *parent = 0);
     ~DmxDumpFactory();

@@ -1,10 +1,10 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.0.0</Version>
-  <Author/>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>claud</Author>
  </Creator>
  <Manufacturer>Futurelight</Manufacturer>
  <Model>DJ-LEDScan100</Model>
@@ -45,9 +45,9 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7">Closed</Capability>
-  <Capability Min="8" Max="247">Strobe Slow to Fast</Capability>
-  <Capability Min="248" Max="255">Open</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="8" Max="247" Preset="StrobeSlowToFast">Strobe Slow to Fast</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Mode Name="Mode 1">
   <Channel Number="0">Pan</Channel>
@@ -56,11 +56,11 @@
   <Channel Number="3">Gobo rotation</Channel>
   <Channel Number="4">Strobe</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="190" Height="255" Weight="4" Depth="380"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="160" Type="Mirror" TiltMax="80"/>
-   <Technical PowerConsumption="23" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4" Width="190" Height="255" Depth="380"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Mirror" PanMax="160" TiltMax="80"/>
+  <Technical PowerConsumption="23" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

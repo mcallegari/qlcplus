@@ -22,19 +22,24 @@
 #define UNIVERSE_H
 
 #include <QScopedPointer>
+#include <QSemaphore>
 #include <QByteArray>
+#include <QThread>
 #include <QSet>
 
+#include "inputpatch.h"
 #include "qlcchannel.h"
 
 class QXmlStreamReader;
 class QLCInputProfile;
 class ChannelModifier;
 class InputOutputMap;
+class GenericFader;
 class QLCIOPlugin;
 class GrandMaster;
 class OutputPatch;
 class InputPatch;
+class Doc;
 
 /** @addtogroup engine Engine
  * @{
@@ -42,23 +47,24 @@ class InputPatch;
 
 #define UNIVERSE_SIZE 512
 
-#define KXMLQLCUniverse "Universe"
-#define KXMLQLCUniverseName "Name"
-#define KXMLQLCUniverseID "ID"
-#define KXMLQLCUniversePassthrough "Passthrough"
+#define KXMLQLCUniverse             QString("Universe")
+#define KXMLQLCUniverseName         QString("Name")
+#define KXMLQLCUniverseID           QString("ID")
+#define KXMLQLCUniversePassthrough  QString("Passthrough")
 
-#define KXMLQLCUniverseInputPatch "Input"
-#define KXMLQLCUniverseOutputPatch "Output"
-#define KXMLQLCUniverseFeedbackPatch "Feedback"
+#define KXMLQLCUniverseInputPatch    QString("Input")
+#define KXMLQLCUniverseOutputPatch   QString("Output")
+#define KXMLQLCUniverseFeedbackPatch QString("Feedback")
 
-#define KXMLQLCUniversePlugin "Plugin"
-#define KXMLQLCUniverseLine "Line"
-#define KXMLQLCUniverseProfileName "Profile"
-#define KXMLQLCUniversePluginParameters "PluginParameters"
+#define KXMLQLCUniversePlugin           QString("Plugin")
+#define KXMLQLCUniverseLine             QString("Line")
+#define KXMLQLCUniverseLineUID          QString("UID")
+#define KXMLQLCUniverseProfileName      QString("Profile")
+#define KXMLQLCUniversePluginParameters QString("PluginParameters")
 
 /** Universe class contains input/output data for one DMX universe
  */
-class Universe: public QObject
+class Universe: public QThread
 {
     Q_OBJECT
     Q_DISABLE_COPY(Universe)
@@ -216,7 +222,7 @@ public:
      * Get the reference to the output plugin associated to this universe.
      * If not present NULL is returned.
      */
-    Q_INVOKABLE OutputPatch *outputPatch(int index = 0) const;
+    Q_INVOKABLE OutputPatch *outputPatch(int index) const;
 
     /** Return the number of output patches associated to this Universe */
     int outputPatchesCount() const;
@@ -229,19 +235,9 @@ public:
 
     /**
      * This is the actual function that writes data to an output patch
+     * A flag indicates if data has changed since previous iteration
      */
-    void dumpOutput(const QByteArray& data);
-
-    /**
-     * @brief dumpBlackout
-     */
-    void dumpBlackout();
-
-    /**
-     * @brief blackoutData
-     * @return
-     */
-    const QByteArray& blackoutData();
+    void dumpOutput(const QByteArray& data, bool dataChanged);
 
     void flushInput();
 
@@ -327,6 +323,60 @@ protected:
     /** Modified channels with the non-modified value at 0.
      *  This is used for ranged initialization operations. */
     QScopedPointer<QByteArray> m_modifiedZeroValues;
+
+    /************************************************************************
+     * Faders
+     ************************************************************************/
+public:
+    enum FaderPriority
+    {
+        Auto = 0,
+        Override,
+        Flashing, /** Priority to override slider values and running chasers by flash scene */
+        SimpleDesk
+    };
+
+    /** Request a new GenericFader used to compose the final values of
+     *  this Universe. The caller is in charge of adding/removing
+     *  FadeChannels and eventually dismiss a fader when no longer needed.
+     *  If a fade out transition is needed, this Universe
+     *  is in charge of completing it and dismissing the fader. */
+    QSharedPointer<GenericFader> requestFader(FaderPriority priority = Auto);
+
+    /** Dismiss a fader requested with requestFader, which is no longer needed */
+    void dismissFader(QSharedPointer<GenericFader> fader);
+
+    /** Request a new priority for a fader with the provided intance */
+    void requestFaderPriority(QSharedPointer<GenericFader> fader, FaderPriority priority);
+
+    /** Retrieve a modifiable list of the currently active faders */
+    QList<QSharedPointer<GenericFader> > faders();
+
+    /** Set every running fader with $functionID as parent,
+     *  to the requested pause state */
+    void setFaderPause(quint32 functionID, bool enable);
+
+public slots:
+    void tick();
+
+protected:
+    void processFaders();
+
+    /** DMX writer thread worker method */
+    void run();
+
+signals:
+    void universeWritten(quint32 universeID, const QByteArray& universeData);
+
+protected:
+    QSemaphore m_semaphore;
+
+    /** Indicated if the DMX writer worker thread is running */
+    bool m_running;
+
+    /** IMPORTANT: this is the list of faders that will compose
+     *  the Universe values. The order is very important ! */
+    QList<QSharedPointer<GenericFader> > m_faders;
 
     /************************************************************************
      * Values
@@ -432,6 +482,8 @@ protected:
     QScopedPointer<QByteArray> m_postGMValues;
     /** Array of the last preGM values written before the zeroIntensityChannels call  */
     QScopedPointer<QByteArray> m_lastPostGMValues;
+    /** Array of non-intensity only values */
+    QScopedPointer<QByteArray> m_blackoutValues;
 
     /** Array of values from input line, when passtrhough is enabled */
     QScopedPointer<QByteArray> m_passthroughValues;
@@ -508,6 +560,8 @@ public:
      * Load a universe contents from the given XML node.
      *
      * @param root An XML subtree containing the universe contents
+     * @param index The QLC+ Universe index
+     * @param ioMap Reference to the QLC+ Input/Output map class
      * @return true if the Universe was loaded successfully, otherwise false
      */
     bool loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap);
@@ -515,10 +569,11 @@ public:
     /**
      * Load an optional tag defining the plugin specific parameters
      * @param root An XML subtree containing the plugin parameters contents
-     * @param currentTag the type of Patch where the parameters should be set
+     * @param currentTag The type of Patch where the parameters should be set
+     * @param patchIndex Index of the patch to configure (ATM used only for output)
      * @return true if the parameters were loaded successfully, otherwise false
      */
-    bool loadXMLPluginParameters(QXmlStreamReader &root, PatchTagType currentTag);
+    bool loadXMLPluginParameters(QXmlStreamReader &root, PatchTagType currentTag, int patchIndex);
 
     /**
      * Save the universe instance into an XML document, under the given
@@ -541,7 +596,7 @@ public:
      */
     void savePatchXML(QXmlStreamWriter *doc,
         QString const & tag,
-        QString const & pluginName,
+        QString const & pluginName, const QString &lineName,
         quint32 line,
         QString profileName,
         QMap<QString, QVariant>parameters) const;

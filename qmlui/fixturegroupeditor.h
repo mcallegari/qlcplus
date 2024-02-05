@@ -23,9 +23,12 @@
 #include <QQuickView>
 #include <QObject>
 
+#include <qlcpoint.h>
+
 class Doc;
 class Fixture;
 class FixtureGroup;
+class FixtureManager;
 
 class FixtureGroupEditor : public QObject
 {
@@ -40,7 +43,7 @@ class FixtureGroupEditor : public QObject
     Q_PROPERTY(QVariantList selectionData READ selectionData NOTIFY selectionDataChanged)
 
 public:
-    FixtureGroupEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
+    FixtureGroupEditor(QQuickView *view, Doc *doc, FixtureManager *fxMgr, QObject *parent = 0);
     ~FixtureGroupEditor();
 
     /** Returns the data model to display a list of FixtureGroups with icons */
@@ -62,6 +65,8 @@ private:
     QQuickView *m_view;
     /** Reference to the project workspace */
     Doc *m_doc;
+    /** Reference to the Fixture Manager */
+    FixtureManager *m_fixtureManager;
     /** Reference to the Fixture Group currently being edited */
     FixtureGroup *m_editGroup;
 
@@ -126,11 +131,18 @@ public:
     /** Move the current selection by $offset cells */
     Q_INVOKABLE void moveSelection(int x, int y, int offset);
 
+    /** Delete the currently selected items */
+    Q_INVOKABLE void deleteSelection();
+
     /** Rotate the current selection by $degrees */
     Q_INVOKABLE void transformSelection(int transformation);
 
+    /** Get a string to be displayed as tooltip for a head at position x,y */
+    Q_INVOKABLE QString getTooltip(int x, int y);
+
 private:
     void updateGroupMap();
+    QLCPoint pointFromAbsolute(int absoluteIndex);
 
 signals:
     void groupSizeChanged();

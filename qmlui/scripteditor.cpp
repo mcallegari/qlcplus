@@ -23,7 +23,7 @@
 
 ScriptEditor::ScriptEditor(QQuickView *view, Doc *doc, QObject *parent)
     : FunctionEditor(view, doc, parent)
-    , m_script(NULL)
+    , m_script(nullptr)
 {
     m_view->rootContext()->setContextProperty("scriptEditor", this);
 }
@@ -36,12 +36,12 @@ void ScriptEditor::setFunctionID(quint32 ID)
 
 QString ScriptEditor::scriptContent() const
 {
-    return m_script != NULL ? m_script->data() : QString();
+    return m_script != nullptr ? m_script->data() : QString();
 }
 
 void ScriptEditor::setScriptContent(QString scriptContent)
 {
-    if (m_script == NULL)
+    if (m_script == nullptr)
         return;
 
     m_script->setData(scriptContent);
@@ -50,7 +50,7 @@ void ScriptEditor::setScriptContent(QString scriptContent)
 
 QString ScriptEditor::syntaxErrors()
 {
-    if (m_script == NULL)
+    if (m_script == nullptr)
         return QString();
 
     QStringList errList = m_script->syntaxErrorsLines();

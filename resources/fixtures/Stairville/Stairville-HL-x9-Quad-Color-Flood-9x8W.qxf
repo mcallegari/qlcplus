@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Janosch Frank</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
@@ -34,8 +34,8 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="15">No strobe</Capability>
-  <Capability Min="16" Max="255">Strobe (slow to fast), Channel 5 has to be 0-15</Capability>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeSlowToFast">Strobe (slow to fast), Channel 5 has to be 0-15</Capability>
  </Channel>
  <Channel Name="Extended Mode">
   <Group Byte="0">Effect</Group>
@@ -73,11 +73,11 @@
   <Channel Number="6">Extended Mode</Channel>
   <Channel Number="7">Dimmer</Channel>
  </Mode>
-<Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Width="300" Weight="4" Depth="125" Height="165"/>
-   <Lens Name="Other" DegreesMin="35" DegreesMax="35"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="76" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4" Width="300" Height="165" Depth="125"/>
+  <Lens Name="Other" DegreesMin="35" DegreesMax="35"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="76" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

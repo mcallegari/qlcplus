@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.5 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Chris Moses</Author>
  </Creator>
  <Manufacturer>Equinox</Manufacturer>
@@ -13,17 +13,17 @@
  <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="13" Color="#ffffff">White</Capability>
-  <Capability Min="14" Max="27" Color="#ffff00">Yellow</Capability>
-  <Capability Min="28" Max="42" Color="#ffaaff">Pink</Capability>
-  <Capability Min="43" Max="55" Color="#00ff00">Green</Capability>
-  <Capability Min="56" Max="69" Color="#aa55ff">Purple</Capability>
-  <Capability Min="70" Max="83" Color="#0000ff">Blue</Capability>
-  <Capability Min="84" Max="97" Color="#aaff00">Lime</Capability>
-  <Capability Min="98" Max="111" Color="#ffaa00">Orange</Capability>
-  <Capability Min="112" Max="127" Color="#ff0000">Red</Capability>
-  <Capability Min="128" Max="192" Res="Others/rainbow.png">Colour Cycle CW (Fast to Slow)</Capability>
-  <Capability Min="193" Max="255" Res="Others/rainbow.png">Colour Cycle CCW (Slow to Fast)</Capability>
+  <Capability Min="0" Max="13" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="14" Max="27" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="28" Max="42" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="43" Max="55" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="56" Max="69" Preset="ColorMacro" Res1="#aa55ff">Purple</Capability>
+  <Capability Min="70" Max="83" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="84" Max="97" Preset="ColorMacro" Res1="#aaff00">Lime</Capability>
+  <Capability Min="98" Max="111" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="128" Max="192" Preset="GoboMacro" Res1="Others/rainbow.png">Colour Cycle CW (Fast to Slow)</Capability>
+  <Capability Min="193" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Colour Cycle CCW (Slow to Fast)</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
@@ -54,19 +54,19 @@
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">Blackout</Capability>
-  <Capability Min="10" Max="19">Full On</Capability>
-  <Capability Min="20" Max="127">Strobe (Slow to Fast)</Capability>
-  <Capability Min="128" Max="137">Full On</Capability>
-  <Capability Min="138" Max="201">Strobe Random (Slow to Fast)</Capability>
-  <Capability Min="202" Max="255">Full On</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="10" Max="19" Preset="ShutterOpen">Full On</Capability>
+  <Capability Min="20" Max="127" Preset="StrobeSlowToFast">Strobe (Slow to Fast)</Capability>
+  <Capability Min="128" Max="137" Preset="ShutterOpen">Full On</Capability>
+  <Capability Min="138" Max="201" Preset="StrobeRandomSlowToFast">Strobe Random (Slow to Fast)</Capability>
+  <Capability Min="202" Max="255" Preset="ShutterOpen">Full On</Capability>
  </Channel>
  <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Macros">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="59">No function</Capability>
   <Capability Min="60" Max="79">Colour Wheel Rotation</Capability>
-  <Capability Min="80" Max="99">Motor Reset</Capability>
+  <Capability Min="80" Max="99" Preset="ResetMotors">Motor Reset</Capability>
   <Capability Min="100" Max="119">Built-in Program 1</Capability>
   <Capability Min="120" Max="139">Built-in Program 2</Capability>
   <Capability Min="140" Max="159">Built-in Program 3</Capability>
@@ -90,11 +90,11 @@
   <Channel Number="6">Macros</Channel>
   <Channel Number="7">Macro Speed</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.3" Width="204" Height="465" Depth="150"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="11"/>
-   <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.3" Width="204" Height="465" Depth="150"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="11"/>
+  <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

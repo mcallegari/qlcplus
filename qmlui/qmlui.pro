@@ -17,8 +17,10 @@ QML_IMPORT_PATH =
 # Engine
 INCLUDEPATH     += ../engine/src ../engine/audio/src
 INCLUDEPATH     += virtualconsole
+INCLUDEPATH     += fixtureeditor
 INCLUDEPATH     += tardis
 INCLUDEPATH     += ../plugins/interfaces
+INCLUDEPATH     += ../plugins/midi/src/common
 DEPENDPATH      += ../engine/src
 QMAKE_LIBDIR    += ../engine/src
 LIBS            += -lqlcplusengine
@@ -41,18 +43,22 @@ HEADERS += \
     functionmanager.h \
     importmanager.h \
     inputoutputmanager.h \
+    inputprofileeditor.h \
     listmodel.h \
     mainview2d.h \
     mainview3d.h \
     mainviewdmx.h \
     modelselector.h \
+    palettemanager.h \
     previewcontext.h \
     rgbmatrixeditor.h \
     sceneeditor.h \
     scripteditor.h \
     showmanager.h \
+    simpledesk.h \
     treemodel.h \
     treemodelitem.h \
+    uimanager.h \
     videoeditor.h \
     videoprovider.h
 
@@ -72,18 +78,22 @@ SOURCES += main.cpp \
     functionmanager.cpp \
     importmanager.cpp \
     inputoutputmanager.cpp \
+    inputprofileeditor.cpp \
     listmodel.cpp \
     mainview2d.cpp \
     mainview3d.cpp \
     mainviewdmx.cpp \
     modelselector.cpp \
+    palettemanager.cpp \
     previewcontext.cpp \
     rgbmatrixeditor.cpp \
     sceneeditor.cpp \
     scripteditor.cpp \
     showmanager.cpp \
+    simpledesk.cpp \
     treemodel.cpp \
     treemodelitem.cpp \
+    uimanager.cpp \
     videoeditor.cpp \
     videoprovider.cpp
 
@@ -131,6 +141,24 @@ SOURCES += \
     virtualconsole/vcclock.cpp \
     virtualconsole/vccuelist.cpp
 
+#############################################
+#  Fixture Definition Editor
+#############################################
+
+HEADERS += \
+    fixtureeditor/fixtureeditor.h \
+    fixtureeditor/editorview.h \
+    fixtureeditor/channeledit.h \
+    fixtureeditor/modeedit.h \
+    fixtureeditor/physicaledit.h
+
+SOURCES += \
+    fixtureeditor/fixtureeditor.cpp \
+    fixtureeditor/editorview.cpp \
+    fixtureeditor/channeledit.cpp \
+    fixtureeditor/modeedit.cpp \
+    fixtureeditor/physicaledit.cpp
+
 RESOURCES += qmlui.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc
 
 lupdate_only {
@@ -145,9 +173,15 @@ lupdate_only {
 
 TRANSLATIONS += \
     qlcplus_ca_ES.ts \
+    qlcplus_de_DE.ts \
     qlcplus_es_ES.ts \
     qlcplus_fr_FR.ts \
-    qlcplus_it_IT.ts
+    qlcplus_it_IT.ts \
+    qlcplus_ja_JP.ts \
+    qlcplus_nl_NL.ts \
+    qlcplus_pl_PL.ts \
+    qlcplus_ru_RU.ts \
+    qlcplus_uk_UA.ts
 
 macx {
     # This must be after "TARGET = " and before target installation so that

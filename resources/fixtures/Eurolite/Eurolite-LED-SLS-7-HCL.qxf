@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>René Schulze</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED SLS-7 HCL</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Color Presets">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffbf00">Amber</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#7f1ae5">UV</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="80" Max="89" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#ff8c00">Dark Orange</Capability>
+  <Capability Min="110" Max="119" Preset="ColorMacro" Res1="#adff2f">Green Yellow</Capability>
+  <Capability Min="120" Max="129" Preset="ColorMacro" Res1="#fa8072">Salmon</Capability>
+  <Capability Min="130" Max="139" Preset="ColorMacro" Res1="#d7fffe">Ice Blue</Capability>
+  <Capability Min="140" Max="149" Preset="ColorMacro" Res1="#90ee90">Light Green</Capability>
+  <Capability Min="150" Max="159" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="160" Max="169" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="170" Max="179" Preset="ColorMacro" Res1="#4682b4">Steel Blue</Capability>
+  <Capability Min="180" Max="189" Preset="ColorMacro" Res1="#00008b">Dark Blue</Capability>
+  <Capability Min="190" Max="255" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Internal Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="69" Preset="SlowToFast">Color fade with increasing speed</Capability>
+  <Capability Min="70" Max="129" Preset="SlowToFast">Color change with increasing speed</Capability>
+  <Capability Min="130" Max="189" Preset="SlowToFast">Sound mode color fade with increasing speed</Capability>
+  <Capability Min="190" Max="255" Preset="SlowToFast">Sound mode color change with increasing speed</Capability>
+ </Channel>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Mode Name="2-channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Color Presets</Channel>
+ </Mode>
+ <Mode Name="3-channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4-Cannnel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Color Presets</Channel>
+  <Channel Number="3">Internal Programs</Channel>
+ </Mode>
+ <Mode Name="6-Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+ </Mode>
+ <Mode Name="10-Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">Amber</Channel>
+  <Channel Number="7">UV</Channel>
+  <Channel Number="8">Color Presets</Channel>
+  <Channel Number="9">Internal Programs</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.38" Width="220" Height="210" Depth="110"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="20" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

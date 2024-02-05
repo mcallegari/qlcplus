@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.1 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Lane Parsons</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
  <Model>COLORrail IRC</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Pixels)</Type>
  <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Red (section 1)" Preset="IntensityRed"/>
  <Channel Name="Green (section 1)" Preset="IntensityGreen"/>
@@ -36,19 +36,19 @@
  <Channel Name="Blue (section 8)" Preset="IntensityBlue"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="0">No Function</Capability>
+  <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="255">1~100%</Capability>
  </Channel>
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
-  <Capability Min="8" Max="15" Color="#ff0000">Red</Capability>
-  <Capability Min="16" Max="23" Color="#ffff00">Yellow</Capability>
-  <Capability Min="24" Max="31" Color="#00ff00">Green</Capability>
-  <Capability Min="32" Max="39" Color="#00ffff">Cyan</Capability>
-  <Capability Min="40" Max="47" Color="#0000ff">Blue</Capability>
-  <Capability Min="48" Max="55" Color="#7f00ff">Purple</Capability>
-  <Capability Min="56" Max="63" Color="#ffffff">White</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#7f00ff">Purple</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="64" Max="71">Auto Program 1</Capability>
   <Capability Min="72" Max="79">Auto Program 2</Capability>
   <Capability Min="80" Max="87">Auto Program 3</Capability>
@@ -211,11 +211,12 @@
   <Channel Number="0">Color Macro</Channel>
   <Channel Number="1">Auto Program Speed (When CH.1 is between 64~231)</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="1043" ColourTemperature="0"/>
-   <Dimensions Weight="2.8" Width="88" Height="90" Depth="1062"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="52" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="1043" ColourTemperature="0"/>
+  <Dimensions Weight="2.8" Width="1062" Height="90" Depth="88"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="8" Height="1"/>
+  <Technical PowerConsumption="52" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

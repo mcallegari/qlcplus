@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.5 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Oscar Cervesato</Author>
  </Creator>
  <Manufacturer>Elation</Manufacturer>
@@ -18,38 +18,38 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="31">LED OFF (NO STROE)</Capability>
-  <Capability Min="32" Max="95">Strobe Effect SLOW to FAST</Capability>
-  <Capability Min="96" Max="127">LED ON (NO STROBE)</Capability>
-  <Capability Min="128" Max="159">Strobe Pulse Effect In Sequences SLOW to FAST</Capability>
-  <Capability Min="160" Max="191">LED ON (NO STROBE)</Capability>
-  <Capability Min="192" Max="223">Random Strobe Effect SLOW to FAST</Capability>
-  <Capability Min="224" Max="255">LED ON (NO STROBE)</Capability>
+  <Capability Min="0" Max="31" Preset="ShutterClose">LED OFF (NO STROE)</Capability>
+  <Capability Min="32" Max="95" Preset="StrobeSlowToFast">Strobe Effect SLOW to FAST</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">LED ON (NO STROBE)</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Strobe Pulse Effect In Sequences SLOW to FAST</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">LED ON (NO STROBE)</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random Strobe Effect SLOW to FAST</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">LED ON (NO STROBE)</Capability>
  </Channel>
  <Channel Name="Color Macros">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="3">OFF</Capability>
-  <Capability Min="4" Max="7" Color="#ff0000">RED</Capability>
-  <Capability Min="8" Max="11" Color="#00ff00">GREEN</Capability>
-  <Capability Min="12" Max="15" Color="#0000ff">BLUE</Capability>
-  <Capability Min="16" Max="19" Color="#ffffff">WHITE</Capability>
-  <Capability Min="20" Max="23" Color="#ce8900">AMBER</Capability>
-  <Capability Min="24" Max="27" Color="#7100aa">U.V.</Capability>
-  <Capability Min="28" Max="31" Color="#ff0000" Color2="#00ff00">RED+GREEN</Capability>
-  <Capability Min="32" Max="35" Color="#ff0000" Color2="#0000ff">RED+BLUE</Capability>
-  <Capability Min="36" Max="39" Color="#ff0000" Color2="#ffffff">RED+WHITE</Capability>
-  <Capability Min="40" Max="43" Color="#ff0000" Color2="#ce8900">RED+AMBER</Capability>
-  <Capability Min="44" Max="47" Color="#ff0000" Color2="#7100aa">RED+U.V.</Capability>
-  <Capability Min="48" Max="51" Color="#00ff00" Color2="#0000ff">GREEN+BLUE</Capability>
-  <Capability Min="52" Max="55" Color="#00ff00" Color2="#ffffff">GREEN+WHITE</Capability>
-  <Capability Min="56" Max="59" Color="#00ff00" Color2="#ce8900">GREEN+AMBER</Capability>
-  <Capability Min="60" Max="63" Color="#00ff00" Color2="#7100aa">GREEN+U.V.</Capability>
-  <Capability Min="64" Max="67" Color="#0000ff" Color2="#ffffff">BLUE+WHITE</Capability>
-  <Capability Min="68" Max="71" Color="#0000ff" Color2="#ce8900">BLUE+AMBER</Capability>
-  <Capability Min="72" Max="75" Color="#0000ff" Color2="#7100aa">BLUE+U.V.</Capability>
-  <Capability Min="76" Max="79" Color="#ffffff" Color2="#ce8900">WHITE+AMBER</Capability>
-  <Capability Min="80" Max="83" Color="#ffffff" Color2="#7100aa">WHITE+U.V.</Capability>
-  <Capability Min="84" Max="87" Color="#ce8900" Color2="#7100aa">AMBER+U.V.</Capability>
+  <Capability Min="4" Max="7" Preset="ColorMacro" Res1="#ff0000">RED</Capability>
+  <Capability Min="8" Max="11" Preset="ColorMacro" Res1="#00ff00">GREEN</Capability>
+  <Capability Min="12" Max="15" Preset="ColorMacro" Res1="#0000ff">BLUE</Capability>
+  <Capability Min="16" Max="19" Preset="ColorMacro" Res1="#ffffff">WHITE</Capability>
+  <Capability Min="20" Max="23" Preset="ColorMacro" Res1="#ce8900">AMBER</Capability>
+  <Capability Min="24" Max="27" Preset="ColorMacro" Res1="#7100aa">U.V.</Capability>
+  <Capability Min="28" Max="31" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">RED+GREEN</Capability>
+  <Capability Min="32" Max="35" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">RED+BLUE</Capability>
+  <Capability Min="36" Max="39" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">RED+WHITE</Capability>
+  <Capability Min="40" Max="43" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ce8900">RED+AMBER</Capability>
+  <Capability Min="44" Max="47" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#7100aa">RED+U.V.</Capability>
+  <Capability Min="48" Max="51" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">GREEN+BLUE</Capability>
+  <Capability Min="52" Max="55" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">GREEN+WHITE</Capability>
+  <Capability Min="56" Max="59" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ce8900">GREEN+AMBER</Capability>
+  <Capability Min="60" Max="63" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#7100aa">GREEN+U.V.</Capability>
+  <Capability Min="64" Max="67" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">BLUE+WHITE</Capability>
+  <Capability Min="68" Max="71" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ce8900">BLUE+AMBER</Capability>
+  <Capability Min="72" Max="75" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#7100aa">BLUE+U.V.</Capability>
+  <Capability Min="76" Max="79" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ce8900">WHITE+AMBER</Capability>
+  <Capability Min="80" Max="83" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#7100aa">WHITE+U.V.</Capability>
+  <Capability Min="84" Max="87" Preset="ColorDoubleMacro" Res1="#ce8900" Res2="#7100aa">AMBER+U.V.</Capability>
   <Capability Min="88" Max="91">RED+GREEN+BLUE</Capability>
   <Capability Min="92" Max="95">RED+GREEN+WHITE</Capability>
   <Capability Min="96" Max="99">RED+GREEN+AMBER</Capability>
@@ -155,11 +155,11 @@
   <Channel Number="4">Amber</Channel>
   <Channel Number="5">U.V.</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="2100" ColourTemperature="0"/>
-   <Dimensions Weight="5.7" Width="157" Height="300" Depth="313"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="150" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="2100" ColourTemperature="0"/>
+  <Dimensions Weight="5.7" Width="157" Height="300" Depth="313"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="150" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

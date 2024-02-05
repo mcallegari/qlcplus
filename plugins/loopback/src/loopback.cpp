@@ -88,7 +88,7 @@ QStringList Loopback::outputs()
 {
     QStringList list;
     for (int i = 0; i < LOOPBACK_LINES; i++)
-        list << QString("%1: %2 %1").arg(i + 1).arg(tr("Loopback"));
+        list << QString("Loopback %1").arg(i + 1);
     return list;
 }
 
@@ -114,7 +114,7 @@ QStringList Loopback::inputs()
 {
     QStringList list;
     for (int i = 0; i < LOOPBACK_LINES; i++)
-        list << QString("%1: %2 %1").arg(i + 1).arg(tr("Loopback"));
+        list << QString("Loopback %1").arg(i + 1);
     return list;
 }
 
@@ -130,7 +130,7 @@ QString Loopback::pluginInfo()
 
     str += QString("<P>");
     str += QString("<H3>%1</H3>").arg(name());
-    str += tr("This plugin provides DMX loopback. Data written to each output is forwarded to the respective input." );
+    str += tr("This plugin provides DMX loopback. Data written to each output is forwarded to the respective input.");
     str += QString("</P>");
 
     return str;
@@ -180,9 +180,10 @@ QString Loopback::inputInfo(quint32 input)
     return str;
 }
 
-void Loopback::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void Loopback::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
-    Q_UNUSED(universe);
+    Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (!m_outputMap.contains(output))
         return;
@@ -212,10 +213,3 @@ void Loopback::sendFeedBack(quint32 universe, quint32 input, quint32 channel, uc
 
     emit valueChanged(universe, input, channel, value);
 }
-
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(loopback, Loopback)
-#endif

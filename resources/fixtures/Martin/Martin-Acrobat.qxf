@@ -42,7 +42,7 @@
   <Capability Res="Others/gobo00009.svg" Min="132" Max="143">Atomic</Capability>
   <Capability Res="ClayPaky/gobo00059.svg" Min="144" Max="155">Dot Circle</Capability>
   <Capability Res="Chauvet/gobo00008.svg" Min="156" Max="167">Nordic</Capability>
-  <Capability Res="Chauvet/gobo00048.png" Min="168" Max="179">Aim</Capability>
+  <Capability Res="Chauvet/gobo00048.svg" Min="168" Max="179">Aim</Capability>
   <Capability Res="Chauvet/gobo00026.svg" Min="180" Max="191">Pie</Capability>
   <Capability Res="ClayPaky/gobo00091.svg" Min="192" Max="203">Tie</Capability>
   <Capability Res="ClayPaky/gobo00066.svg" Min="204" Max="215">Nova</Capability>

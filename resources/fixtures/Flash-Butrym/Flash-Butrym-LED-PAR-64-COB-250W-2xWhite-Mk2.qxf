@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.0 GIT</Version>
+  <Author>Edgar Aichinger</Author>
+ </Creator>
+ <Manufacturer>Flash-Butrym</Manufacturer>
+ <Model>LED PAR 64 COB 250W 2xWhite Mk2</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="CTC" Preset="ColorCTCMixer"/>
+ <Channel Name="Dimmer 16bit" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe</Capability>
+ </Channel>
+ <Channel Name="Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">Open</Capability>
+  <Capability Min="6" Max="10">Calibrated white 2200K</Capability>
+  <Capability Min="11" Max="15">Calibrated white 2300K</Capability>
+  <Capability Min="16" Max="20">Calibrated white 2400K</Capability>
+  <Capability Min="21" Max="25">Calibrated white 2500K</Capability>
+  <Capability Min="26" Max="30">Calibrated white 2600K</Capability>
+  <Capability Min="31" Max="35">Calibrated white 2700K</Capability>
+  <Capability Min="36" Max="40">Calibrated white 2800K</Capability>
+  <Capability Min="41" Max="45">Calibrated white 2900K</Capability>
+  <Capability Min="46" Max="50">Calibrated white 3000K</Capability>
+  <Capability Min="51" Max="55">Calibrated white 3100K</Capability>
+  <Capability Min="56" Max="60">Calibrated white 3200K</Capability>
+  <Capability Min="61" Max="65">Calibrated white 3400K</Capability>
+  <Capability Min="66" Max="70">Calibrated white 3600K</Capability>
+  <Capability Min="71" Max="75">Calibrated white 3800K</Capability>
+  <Capability Min="76" Max="80">Calibrated white 4000K</Capability>
+  <Capability Min="81" Max="85">Calibrated white 4200K</Capability>
+  <Capability Min="86" Max="90">Calibrated white 4400K</Capability>
+  <Capability Min="91" Max="95">Calibrated white 4600K</Capability>
+  <Capability Min="96" Max="100">Calibrated white 4800K</Capability>
+  <Capability Min="101" Max="105">Calibrated white 5000K</Capability>
+  <Capability Min="106" Max="110">Calibrated white 5200K</Capability>
+  <Capability Min="111" Max="115">Macro 1 - change</Capability>
+  <Capability Min="116" Max="120">Macro 2 - ramp</Capability>
+  <Capability Min="121" Max="125">Macro 3 - fade</Capability>
+  <Capability Min="126" Max="130">Macro 4 - redshift</Capability>
+  <Capability Min="131" Max="135">Macro 5 - pulse</Capability>
+  <Capability Min="136" Max="140">Macro 6 - CTO</Capability>
+  <Capability Min="141" Max="145">Macro 7 - Flash</Capability>
+  <Capability Min="146" Max="150">Macro 8 - Random</Capability>
+  <Capability Min="151" Max="255">Blackout</Capability>
+ </Channel>
+ <Channel Name="2200K">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">2200K</Capability>
+ </Channel>
+ <Channel Name="5200K">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">5200K</Capability>
+ </Channel>
+ <Channel Name="2200K 16bit">
+  <Group Byte="1">Intensity</Group>
+  <Capability Min="0" Max="255">2200K 16bit</Capability>
+ </Channel>
+ <Channel Name="5200K 16bit">
+  <Group Byte="1">Intensity</Group>
+  <Capability Min="0" Max="255">5200K 16bit</Capability>
+ </Channel>
+ <Mode Name="01">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">CTC</Channel>
+ </Mode>
+ <Mode Name="02">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer 16bit</Channel>
+  <Channel Number="2">CTC</Channel>
+ </Mode>
+ <Mode Name="03">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">CTC</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Macro</Channel>
+ </Mode>
+ <Mode Name="04">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer 16bit</Channel>
+  <Channel Number="2">CTC</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Macro</Channel>
+ </Mode>
+ <Mode Name="05">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer 16bit</Channel>
+  <Channel Number="2">CTC</Channel>
+  <Channel Number="3">2200K</Channel>
+  <Channel Number="4">5200K</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Macro</Channel>
+ </Mode>
+ <Mode Name="06">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">2200K</Channel>
+  <Channel Number="2">5200K</Channel>
+ </Mode>
+ <Mode Name="07">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer 16bit</Channel>
+  <Channel Number="2">2200K</Channel>
+  <Channel Number="3">5200K</Channel>
+ </Mode>
+ <Mode Name="08">
+  <Channel Number="0">2200K</Channel>
+  <Channel Number="1">5200K</Channel>
+ </Mode>
+ <Mode Name="09">
+  <Channel Number="0">2200K</Channel>
+  <Channel Number="1">2200K 16bit</Channel>
+  <Channel Number="2">5200K</Channel>
+  <Channel Number="3">5200K 16bit</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="30000" ColourTemperature="3200"/>
+  <Dimensions Weight="3.6" Width="270" Height="300" Depth="130"/>
+  <Lens Name="PC" DegreesMin="37" DegreesMax="37"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.5 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Mihai Andrei</Author>
  </Creator>
  <Manufacturer>SGM</Manufacturer>
@@ -13,89 +13,86 @@
  <Channel Name="Pan fine" Preset="PositionPanFine"/>
  <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
- <Channel Name="Iris" Preset="BeamIris"/>
+ <Channel Name="Iris" Preset="ShutterIrisMaxToMin"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="27" Color="#ffffff">White</Capability>
-  <Capability Min="28" Max="55" Color="#ff0000">Red</Capability>
-  <Capability Min="56" Max="83" Color="#ffff00">Yellow</Capability>
-  <Capability Min="84" Max="111" Color="#00ff00">Green</Capability>
-  <Capability Min="112" Max="139" Color="#00ffff">Cyan</Capability>
-  <Capability Min="140" Max="167" Color="#0000ff">Blue</Capability>
-  <Capability Min="168" Max="195" Color="#ff00ff">Magenta</Capability>
-  <Capability Min="196" Max="223" Color="#2ecbfa">Azure</Capability>
-  <Capability Min="224" Max="255" Color="#ff8000">Orange</Capability>
+  <Capability Min="0" Max="27" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="28" Max="55" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="56" Max="83" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="84" Max="111" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="112" Max="139" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="140" Max="167" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="168" Max="195" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="196" Max="223" Preset="ColorMacro" Res1="#2ecbfa">Azure</Capability>
+  <Capability Min="224" Max="255" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
  </Channel>
  <Channel Name="Gobo 1">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="20" Res="Others/open.svg">Open</Capability>
-  <Capability Min="21" Max="41" Res="SGM/gobo00003.svg">Gobo1 1</Capability>
-  <Capability Min="42" Max="62" Res="SGM/gobo00030.svg">Gobo1 2</Capability>
-  <Capability Min="63" Max="83" Res="SGM/gobo00045.svg">Gobo1 3</Capability>
-  <Capability Min="84" Max="104" Res="SGM/gobo00009.svg">Gobo1 4</Capability>
-  <Capability Min="105" Max="125" Res="SGM-Color/gobo00375.svg">Gobo1 5</Capability>
-  <Capability Min="126" Max="146" Res="SGM-Color/gobo00386.png">Gobo1 6</Capability>
-  <Capability Min="147" Max="167" Res="SGM-Color/gobo00390.png">Gobo1 7</Capability>
-  <Capability Min="168" Max="189" Res="SGM/gobo00347.png">Gobo1 8</Capability>
-  <Capability Min="190" Max="196" Res="SGM/gobo00003.svg">Scrolling Speed 1</Capability>
-  <Capability Min="197" Max="203" Res="SGM/gobo00030.svg">Scrolling Speed 2</Capability>
-  <Capability Min="204" Max="210" Res="SGM/gobo00045.svg">Scrolling Speed 3</Capability>
-  <Capability Min="211" Max="217" Res="SGM/gobo00009.svg">Scrolling Speed 4</Capability>
-  <Capability Min="218" Max="224" Res="SGM-Color/gobo00375.svg">Scrolling Speed 5</Capability>
-  <Capability Min="225" Max="231" Res="SGM-Color/gobo00386.png">Scrolling Speed 6</Capability>
-  <Capability Min="232" Max="238" Res="SGM-Color/gobo00390.png">Scrolling Speed 7</Capability>
-  <Capability Min="239" Max="245" Res="SGM/gobo00347.png">Scrolling Speed 8</Capability>
+  <Capability Min="0" Max="20" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="21" Max="41" Preset="GoboMacro" Res1="SGM/gobo00003.svg">Gobo1 1</Capability>
+  <Capability Min="42" Max="62" Preset="GoboMacro" Res1="SGM/gobo00030.svg">Gobo1 2</Capability>
+  <Capability Min="63" Max="83" Preset="GoboMacro" Res1="SGM/gobo00045.svg">Gobo1 3</Capability>
+  <Capability Min="84" Max="104" Preset="GoboMacro" Res1="SGM/gobo00009.svg">Gobo1 4</Capability>
+  <Capability Min="105" Max="125" Preset="GoboMacro" Res1="SGM-Color/gobo00375.svg">Gobo1 5</Capability>
+  <Capability Min="126" Max="146" Preset="GoboMacro" Res1="SGM-Color/gobo00386.png">Gobo1 6</Capability>
+  <Capability Min="147" Max="167" Preset="GoboMacro" Res1="SGM-Color/gobo00390.png">Gobo1 7</Capability>
+  <Capability Min="168" Max="189" Preset="GoboMacro" Res1="SGM/gobo00347.png">Gobo1 8</Capability>
+  <Capability Min="190" Max="196" Preset="GoboMacro" Res1="SGM/gobo00003.svg">Scrolling Speed 1</Capability>
+  <Capability Min="197" Max="203" Preset="GoboMacro" Res1="SGM/gobo00030.svg">Scrolling Speed 2</Capability>
+  <Capability Min="204" Max="210" Preset="GoboMacro" Res1="SGM/gobo00045.svg">Scrolling Speed 3</Capability>
+  <Capability Min="211" Max="217" Preset="GoboMacro" Res1="SGM/gobo00009.svg">Scrolling Speed 4</Capability>
+  <Capability Min="218" Max="224" Preset="GoboMacro" Res1="SGM-Color/gobo00375.svg">Scrolling Speed 5</Capability>
+  <Capability Min="225" Max="231" Preset="GoboMacro" Res1="SGM-Color/gobo00386.png">Scrolling Speed 6</Capability>
+  <Capability Min="232" Max="238" Preset="GoboMacro" Res1="SGM-Color/gobo00390.png">Scrolling Speed 7</Capability>
+  <Capability Min="239" Max="245" Preset="GoboMacro" Res1="SGM/gobo00347.png">Scrolling Speed 8</Capability>
   <Capability Min="246" Max="255">Music change</Capability>
  </Channel>
  <Channel Name="Shutter/Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7">Closed</Capability>
-  <Capability Min="8" Max="15">Strobe 1.00 Hz</Capability>
-  <Capability Min="16" Max="23">Strobe 1.38 Hz</Capability>
-  <Capability Min="24" Max="31">Strobe 1.60 Hz</Capability>
-  <Capability Min="32" Max="39">Strobe 1.90 Hz</Capability>
-  <Capability Min="40" Max="47">Strobe 2.30 Hz</Capability>
-  <Capability Min="48" Max="55">Strobe 2.70 Hz</Capability>
-  <Capability Min="56" Max="63">Strobe 3.40 Hz</Capability>
-  <Capability Min="64" Max="71">Strobe 4.00 Hz</Capability>
-  <Capability Min="72" Max="79">Strobe 5.00 Hz</Capability>
-  <Capability Min="80" Max="87">Strobe 6.00 Hz</Capability>
-  <Capability Min="88" Max="95">Strobe 7.00 Hz</Capability>
-  <Capability Min="96" Max="103">Strobe 8.00 Hz</Capability>
-  <Capability Min="104" Max="111">Strobe 9.00 Hz</Capability>
-  <Capability Min="112" Max="119">Strobe 10.0 Hz</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="8" Max="15" Preset="StrobeFrequency" Res1="1">Strobe 1.00 Hz</Capability>
+  <Capability Min="16" Max="23" Preset="StrobeFrequency" Res1="1.38">Strobe 1.38 Hz</Capability>
+  <Capability Min="24" Max="31" Preset="StrobeFrequency" Res1="1.6">Strobe 1.60 Hz</Capability>
+  <Capability Min="32" Max="39" Preset="StrobeFrequency" Res1="1.9">Strobe 1.90 Hz</Capability>
+  <Capability Min="40" Max="47" Preset="StrobeFrequency" Res1="2.3">Strobe 2.30 Hz</Capability>
+  <Capability Min="48" Max="55" Preset="StrobeFrequency" Res1="2.7">Strobe 2.70 Hz</Capability>
+  <Capability Min="56" Max="63" Preset="StrobeFrequency" Res1="3.4">Strobe 3.40 Hz</Capability>
+  <Capability Min="64" Max="71" Preset="StrobeFrequency" Res1="4">Strobe 4.00 Hz</Capability>
+  <Capability Min="72" Max="79" Preset="StrobeFrequency" Res1="5">Strobe 5.00 Hz</Capability>
+  <Capability Min="80" Max="87" Preset="StrobeFrequency" Res1="6">Strobe 6.00 Hz</Capability>
+  <Capability Min="88" Max="95" Preset="StrobeFrequency" Res1="7">Strobe 7.00 Hz</Capability>
+  <Capability Min="96" Max="103" Preset="StrobeFrequency" Res1="8">Strobe 8.00 Hz</Capability>
+  <Capability Min="104" Max="111" Preset="StrobeFrequency" Res1="9">Strobe 9.00 Hz</Capability>
+  <Capability Min="112" Max="119" Preset="StrobeFrequency" Res1="10">Strobe 10.0 Hz</Capability>
   <Capability Min="120" Max="136">Low strobe, max freq in sync with bass</Capability>
   <Capability Min="137" Max="153">Music flash low</Capability>
   <Capability Min="154" Max="170">Autoshade open on gobos</Capability>
   <Capability Min="171" Max="187">Autoshade open on colours</Capability>
   <Capability Min="188" Max="204">Autoshade open on gobos and colours</Capability>
   <Capability Min="205" Max="221">Open with slow gobo change</Capability>
-  <Capability Min="222" Max="255">Open</Capability>
+  <Capability Min="222" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Gobo 1 rotation or MSB position">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="111">Rotate CW</Capability>
-  <Capability Min="112" Max="144">No rotation</Capability>
-  <Capability Min="145" Max="255">Rotate CCW</Capability>
+  <Capability Min="0" Max="111" Preset="RotationClockwiseSlowToFast">Rotate CW</Capability>
+  <Capability Min="112" Max="144" Preset="RotationStop">No rotation</Capability>
+  <Capability Min="145" Max="255" Preset="RotationCounterClockwiseFastToSlow">Rotate CCW</Capability>
  </Channel>
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="84">No prism</Capability>
+  <Capability Min="0" Max="84" Preset="PrismEffectOff">No prism</Capability>
   <Capability Min="85" Max="170">Comet</Capability>
-  <Capability Min="171" Max="255">4-Facet Prism (14° Beam)</Capability>
+  <Capability Min="171" Max="255" Preset="PrismEffectOn" Res1="4">4-Facet Prism (14° Beam)</Capability>
  </Channel>
  <Channel Name="Prism rotation">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="111">Rotate CW</Capability>
-  <Capability Min="112" Max="143">No rotation</Capability>
-  <Capability Min="144" Max="255">Rotate CCW</Capability>
+  <Capability Min="0" Max="111" Preset="RotationClockwiseSlowToFast">Rotate CW</Capability>
+  <Capability Min="112" Max="143" Preset="RotationStop">No rotation</Capability>
+  <Capability Min="144" Max="255" Preset="RotationCounterClockwiseFastToSlow">Rotate CCW</Capability>
  </Channel>
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Zoom linear variation (9° to 24°)</Capability>
- </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="Frost">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="0">Frost disabled</Capability>
@@ -113,7 +110,7 @@
   <Capability Min="61" Max="129">Hysteresis</Capability>
   <Capability Min="130" Max="179">On</Capability>
   <Capability Min="180" Max="239">Hysteresis</Capability>
-  <Capability Min="240" Max="255">Reset</Capability>
+  <Capability Min="240" Max="255" Preset="ResetAll">Reset</Capability>
  </Channel>
  <Channel Name="Gobo 1 shake">
   <Group Byte="0">Gobo</Group>
@@ -145,8 +142,9 @@
  </Channel>
  <Channel Name="Gobo 1 rotation mode">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="127">Indexing mode</Capability>
-  <Capability Min="128" Max="255">Rotation mode CW and CCW</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Indexing mode</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Rotation mode CW</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseFastToSlow">Rotation mode CCW</Capability>
  </Channel>
  <Channel Name="Macro">
   <Group Byte="0">Effect</Group>
@@ -171,9 +169,9 @@
  </Channel>
  <Channel Name="Effect">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="27" Res="Others/open.svg">White</Capability>
-  <Capability Min="28" Max="55" Res="SGM/gobo00042.svg">Tunnel</Capability>
-  <Capability Min="56" Max="83" Res="SGM/gobo00171.svg">Stripped Texture</Capability>
+  <Capability Min="0" Max="27" Preset="GoboMacro" Res1="Others/open.svg">White</Capability>
+  <Capability Min="28" Max="55" Preset="GoboMacro" Res1="SGM/gobo00042.svg">Tunnel</Capability>
+  <Capability Min="56" Max="83" Preset="GoboMacro" Res1="SGM/gobo00171.svg">Stripped Texture</Capability>
   <Capability Min="84" Max="111">Honeycomb Texture</Capability>
   <Capability Min="112" Max="139">Spider</Capability>
   <Capability Min="140" Max="167">Wood</Capability>
@@ -204,36 +202,12 @@
   <Channel Number="19">Colour mode</Channel>
   <Channel Number="20">Gobo 1 rotation mode</Channel>
   <Channel Number="21">Macro</Channel>
-  <Head>
-   <Channel>11</Channel>
-   <Channel>10</Channel>
-   <Channel>5</Channel>
-   <Channel>4</Channel>
-   <Channel>7</Channel>
-   <Channel>6</Channel>
-   <Channel>1</Channel>
-   <Channel>0</Channel>
-   <Channel>3</Channel>
-   <Channel>2</Channel>
-   <Channel>21</Channel>
-   <Channel>20</Channel>
-   <Channel>17</Channel>
-   <Channel>16</Channel>
-   <Channel>19</Channel>
-   <Channel>18</Channel>
-   <Channel>13</Channel>
-   <Channel>12</Channel>
-   <Channel>15</Channel>
-   <Channel>14</Channel>
-   <Channel>9</Channel>
-   <Channel>8</Channel>
-  </Head>
  </Mode>
-<Physical>
-   <Bulb Type="MSR 400W" Lumens="32000" ColourTemperature="6000"/>
-   <Dimensions Weight="33" Width="360" Height="743" Depth="412"/>
-   <Lens Name="Other" DegreesMin="9" DegreesMax="22"/>
-   <Focus Type="Head" PanMax="540" TiltMax="240"/>
-   <Technical PowerConsumption="570" DmxConnector="5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="MSR 400W" Lumens="32000" ColourTemperature="6000"/>
+  <Dimensions Weight="33" Width="360" Height="743" Depth="412"/>
+  <Lens Name="Other" DegreesMin="9" DegreesMax="24"/>
+  <Focus Type="Head" PanMax="540" TiltMax="240"/>
+  <Technical PowerConsumption="570" DmxConnector="5-pin"/>
+ </Physical>
 </FixtureDefinition>

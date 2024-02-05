@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.5 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Jonathan Wilson</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -27,8 +27,8 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">No function</Capability>
-  <Capability Min="10" Max="255">Slow -&gt; fast</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Slow -&gt; fast</Capability>
  </Channel>
  <Channel Name="Speed">
   <Group Byte="0">Beam</Group>
@@ -38,24 +38,24 @@
  <Channel Name="Pod 1 Static Color">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="20">No function</Capability>
-  <Capability Min="21" Max="40" Color="#ff0009">Red</Capability>
-  <Capability Min="41" Max="60" Color="#0aff00">Green</Capability>
-  <Capability Min="61" Max="80" Color="#0011ff">Blue</Capability>
-  <Capability Min="81" Max="100" Color="#ff0007" Color2="#0fff00">Red/green</Capability>
-  <Capability Min="101" Max="120" Color="#ff000e" Color2="#0100ff">Red/blue</Capability>
-  <Capability Min="121" Max="140" Color="#11ff00" Color2="#000cff">Green/blue</Capability>
-  <Capability Min="141" Max="255" Color="#ffffff">Red/green/blue</Capability>
+  <Capability Min="21" Max="40" Preset="ColorMacro" Res1="#ff0009">Red</Capability>
+  <Capability Min="41" Max="60" Preset="ColorMacro" Res1="#0aff00">Green</Capability>
+  <Capability Min="61" Max="80" Preset="ColorMacro" Res1="#0011ff">Blue</Capability>
+  <Capability Min="81" Max="100" Preset="ColorDoubleMacro" Res1="#ff0007" Res2="#0fff00">Red/green</Capability>
+  <Capability Min="101" Max="120" Preset="ColorDoubleMacro" Res1="#ff000e" Res2="#0100ff">Red/blue</Capability>
+  <Capability Min="121" Max="140" Preset="ColorDoubleMacro" Res1="#11ff00" Res2="#000cff">Green/blue</Capability>
+  <Capability Min="141" Max="255" Preset="ColorMacro" Res1="#ffffff">Red/green/blue</Capability>
  </Channel>
  <Channel Name="Pod 2 Static Color">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="20">No function</Capability>
-  <Capability Min="21" Max="40" Color="#ff0009">Red</Capability>
-  <Capability Min="41" Max="60" Color="#0fff00">Green</Capability>
-  <Capability Min="61" Max="80" Color="#0005ff">Blue</Capability>
-  <Capability Min="81" Max="100" Color="#ff0009" Color2="#01ff00">Red/green</Capability>
-  <Capability Min="101" Max="120" Color="#ff000e" Color2="#0700ff">Red/blue</Capability>
-  <Capability Min="121" Max="140" Color="#00ff00" Color2="#000bff">Green/blue</Capability>
-  <Capability Min="141" Max="255" Color="#ffffff">Red/green/blue</Capability>
+  <Capability Min="21" Max="40" Preset="ColorMacro" Res1="#ff0009">Red</Capability>
+  <Capability Min="41" Max="60" Preset="ColorMacro" Res1="#0fff00">Green</Capability>
+  <Capability Min="61" Max="80" Preset="ColorMacro" Res1="#0005ff">Blue</Capability>
+  <Capability Min="81" Max="100" Preset="ColorDoubleMacro" Res1="#ff0009" Res2="#01ff00">Red/green</Capability>
+  <Capability Min="101" Max="120" Preset="ColorDoubleMacro" Res1="#ff000e" Res2="#0700ff">Red/blue</Capability>
+  <Capability Min="121" Max="140" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#000bff">Green/blue</Capability>
+  <Capability Min="141" Max="255" Preset="ColorMacro" Res1="#ffffff">Red/green/blue</Capability>
  </Channel>
  <Channel Name="Pod 1 Rotation">
   <Group Byte="0">Pan</Group>
@@ -106,11 +106,11 @@
    <Channel>4</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="2.7" Width="439" Height="203" Depth="208"/>
-   <Lens Name="Other" DegreesMin="79" DegreesMax="79"/>
-   <Focus Type="Fixed" PanMax="79" TiltMax="0"/>
-   <Technical PowerConsumption="31" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.7" Width="439" Height="203" Depth="208"/>
+  <Lens Name="Other" DegreesMin="79" DegreesMax="79"/>
+  <Focus Type="Fixed" PanMax="79" TiltMax="0"/>
+  <Technical PowerConsumption="31" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Peter Goderie</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>NH-30 MK2</Model>
+ <Type>Hazer</Type>
+ <Channel Name="Fog Output">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="5">No fog output</Capability>
+  <Capability Min="6" Max="255">Fog output volume (0 - 100%)</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Fog Output</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.8" Width="200" Height="230" Depth="370"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="720" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

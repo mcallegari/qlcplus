@@ -32,10 +32,8 @@
 
 #include "inputoutputmap.h"
 #include "genericfader.h"
-#include "fadechannel.h"
 #include "mastertimer.h"
 #include "dmxsource.h"
-#include "qlcmacros.h"
 #include "function.h"
 #include "universe.h"
 #include "doc.h"
@@ -61,8 +59,9 @@ MasterTimer::MasterTimer(Doc* doc)
     : QObject(doc)
     , d_ptr(new MasterTimerPrivate(this))
     , m_stopAllFunctions(false)
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     , m_dmxSourceListMutex(QMutex::Recursive)
-    , m_fader(new GenericFader(doc))
+#endif
     , m_beatSourceType(None)
     , m_currentBPM(120)
     , m_beatTimeDuration(500)
@@ -107,7 +106,7 @@ void MasterTimer::stop()
 
 void MasterTimer::timerTick()
 {
-    Doc* doc = qobject_cast<Doc*> (parent());
+    Doc *doc = qobject_cast<Doc*> (parent());
     Q_ASSERT(doc != NULL);
 
 #ifdef DEBUG_MASTERTIMER
@@ -146,21 +145,16 @@ void MasterTimer::timerTick()
     }
 
     QList<Universe *> universes = doc->inputOutputMap()->claimUniverses();
-    for (int i = 0 ; i < universes.count(); i++)
-    {
-        universes[i]->flushInput();
-        universes[i]->zeroIntensityChannels();
-        universes[i]->zeroRelativeValues();
-    }
 
     timerTickFunctions(universes);
     timerTickDMXSources(universes);
-    timerTickFader(universes);
 
     doc->inputOutputMap()->releaseUniverses();
-    doc->inputOutputMap()->dumpUniverses();
 
     m_beatRequested = false;
+
+    //qDebug() << ">>>>>>>> MASTERTIMER TICK";
+    emit tickReady();
 }
 
 uint MasterTimer::frequency()
@@ -201,60 +195,30 @@ void MasterTimer::stopAllFunctions()
 #endif
     }
 
-    // WARNING: the following brackets are fundamental for
-    // the scope of this piece of code !!
-    {
-        /* Remove all generic fader's channels */
-        QMutexLocker faderLocker(&m_faderMutex);
-        fader()->removeAll();
-    }
-
     m_stopAllFunctions = false;
 }
 
 void MasterTimer::fadeAndStopAll(int timeout)
 {
-    if (timeout == 0)
-        return;
-
-    Doc* doc = qobject_cast<Doc*> (parent());
-    Q_ASSERT(doc != NULL);
-
-    QList<FadeChannel> fcList;
-
-    QList<Universe *> universes = doc->inputOutputMap()->claimUniverses();
-    for (int i = 0; i < universes.count(); i++)
+    if (timeout)
     {
-        QHashIterator <int,uchar> it(universes[i]->intensityChannels());
-        while (it.hasNext() == true)
-        {
-            it.next();
+        Doc *doc = qobject_cast<Doc*> (parent());
+        Q_ASSERT(doc != NULL);
 
-            Fixture* fxi = doc->fixture(doc->fixtureForAddress(it.key()));
-            if (fxi != NULL)
+        QList<Universe *> universes = doc->inputOutputMap()->claimUniverses();
+        foreach (Universe *universe, universes)
+        {
+            foreach (QSharedPointer<GenericFader> fader, universe->faders())
             {
-                uint ch = it.key() - fxi->universeAddress();
-                if (fxi->channelCanFade(ch))
-                {
-                    FadeChannel fc(doc, fxi->id(), ch);
-                    fc.setStart(it.value());
-                    fc.setTarget(0);
-                    fc.setFadeTime(timeout);
-                    fcList.append(fc);
-                }
+                if (!fader.isNull() && fader->parentFunctionID() != Function::invalidId())
+                    fader->setFadeOut(true, uint(timeout));
             }
         }
+        doc->inputOutputMap()->releaseUniverses();
     }
-    doc->inputOutputMap()->releaseUniverses();
 
-    // Stop all functions first
+    // At last, stop all functions
     stopAllFunctions();
-
-    // Instruct mastertimer to do a fade out of all
-    // the intensity channels that can fade
-    QMutexLocker faderLocker(&m_faderMutex);
-    foreach(FadeChannel fade, fcList)
-        fader()->add(fade);
 }
 
 int MasterTimer::runningFunctions() const
@@ -300,6 +264,8 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
                     removeList << i; // Don't remove the item from the list just yet.
                     functionListHasChanged = true;
                     stoppedAFunction = true;
+
+                    emit functionStopped(function->id());
                 }
             }
         }
@@ -355,31 +321,16 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
  * DMX Sources
  ****************************************************************************/
 
-void MasterTimer::registerDMXSource(DMXSource* source)
+void MasterTimer::registerDMXSource(DMXSource *source)
 {
     Q_ASSERT(source != NULL);
 
     QMutexLocker lock(&m_dmxSourceListMutex);
     if (m_dmxSourceList.contains(source) == false)
-    {
-        int insertPos = 0;
-
-        for (int i = m_dmxSourceList.count() - 1; i >= 0; i--)
-        {
-            DMXSource *src = m_dmxSourceList.at(i);
-            if (src->priority() <= source->priority())
-            {
-                insertPos = i + 1;
-                break;
-            }
-        }
-
-        m_dmxSourceList.insert(insertPos, source);
-        qDebug() << "DMX source with priority" <<  source->priority() << "registered at pos" << insertPos;
-    }
+        m_dmxSourceList.append(source);
 }
 
-void MasterTimer::unregisterDMXSource(DMXSource* source)
+void MasterTimer::unregisterDMXSource(DMXSource *source)
 {
     Q_ASSERT(source != NULL);
 
@@ -387,37 +338,12 @@ void MasterTimer::unregisterDMXSource(DMXSource* source)
     m_dmxSourceList.removeAll(source);
 }
 
-void MasterTimer::requestNewPriority(DMXSource *source)
-{
-    Q_ASSERT(source != NULL);
-    QMutexLocker lock(&m_dmxSourceListMutex);
-    if (m_dmxSourceList.contains(source) == true)
-    {
-       int pos = m_dmxSourceList.indexOf(source);
-       int newPos = 0;
-
-       for (int i = m_dmxSourceList.count() - 1; i >= 0; i--)
-       {
-           DMXSource *src = m_dmxSourceList.at(i);
-           if (src->priority() <= source->priority())
-           {
-               newPos = i;
-               break;
-           }
-       }
-
-       m_dmxSourceList.move(pos, newPos);
-       qDebug() << "DMX source moved from" << pos << "to" << m_dmxSourceList.indexOf(source) << ". Count:" << m_dmxSourceList.count();
-    }
-
-}
-
 void MasterTimer::timerTickDMXSources(QList<Universe *> universes)
 {
     /* Lock before accessing the DMX sources list. */
     QMutexLocker lock(&m_dmxSourceListMutex);
 
-    foreach (DMXSource* source, m_dmxSourceList)
+    foreach (DMXSource *source, m_dmxSourceList)
     {
         Q_ASSERT(source != NULL);
 
@@ -428,57 +354,6 @@ void MasterTimer::timerTickDMXSources(QList<Universe *> universes)
         /* Get DMX data from the source */
         source->writeDMX(this, universes);
     }
-}
-
-/****************************************************************************
- * Generic Fader
- ****************************************************************************/
-
-GenericFader* MasterTimer::fader() const
-{
-    return m_fader;
-}
-
-void MasterTimer::faderAdd(const FadeChannel& ch)
-{
-    QMutexLocker faderLocker(&m_faderMutex);
-
-    fader()->add(ch);
-}
-
-void MasterTimer::faderForceAdd(const FadeChannel& ch)
-{
-    QMutexLocker faderLocker(&m_faderMutex);
-
-    fader()->forceAdd(ch);
-}
-
-QHash<FadeChannel,FadeChannel> MasterTimer::faderChannels() const
-{
-    QMutexLocker faderLocker(const_cast<QMutex*>(&m_faderMutex));
-
-    return fader()->channels();
-}
-
-QHash<FadeChannel,FadeChannel> const& MasterTimer::faderChannelsRef() const
-{
-    return fader()->channels();
-}
-
-QMutex* MasterTimer::faderMutex() const
-{
-    return const_cast<QMutex*>(&m_faderMutex);
-}
-
-void MasterTimer::timerTickFader(QList<Universe *> universes)
-{
-    QMutexLocker faderLocker(&m_faderMutex);
-
-#ifdef DEBUG_MASTERTIMER
-        qDebug() << "[MasterTimer] ticking fader (channels:" << fader()->channels().count() << ")";
-#endif
-
-        fader()->write(universes);
 }
 
 /*************************************************************************

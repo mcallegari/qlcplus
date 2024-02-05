@@ -1,14 +1,24 @@
 #
-# QLC+ documentation PDF creation through wkhtmltopdf utility downloaded from:
-#
-# http://download.gna.org/wkhtmltopdf/0.12/0.12.3/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz
-#
-# and copied in /usr/bin
+# QLC+ documentation PDF creation through wkhtmltopdf utility downloaded from
+# https://wkhtmltopdf.org/downloads.html
 #
 
-cd $1
+set -e
 
-wkhtmltopdf --footer-center "Page [page]" --image-quality 100 \
+WKHTMLTOPDF=$(which wkhtmltopdf)
+
+test -d "$1"
+cd "$1"
+test -f "index_pdf.html"
+
+$WKHTMLTOPDF \
+  --footer-center "Page [page]" \
+  --image-quality 100 \
+  --enable-external-links \
+  --enable-javascript \
+  --javascript-delay 1000 \
+  --enable-local-file-access \
+  --allow . \
   pdf_cover.html \
   index_pdf.html \
   concept.html \
@@ -67,18 +77,14 @@ wkhtmltopdf --footer-center "Page [page]" --image-quality 100 \
   hidplugin.html \
   midiplugin.html \
   olaplugin.html \
+  os2lplugin.html \
   oscplugin.html \
   peperonioutput.html \
   udmxoutput.html \
   vellemanoutput.html \
   loopbackplugin.html \
   fixturedefinitioneditor.html \
-  capabilityeditor.html \
-  capabilitywizard.html \
-  channeleditor.html \
-  fixtureeditor.html \
   modeeditor.html \
-  headeditor.html \
   tutorial.html \
   tutorial-multipage.html \
   tutorial-soundcontrol.html \

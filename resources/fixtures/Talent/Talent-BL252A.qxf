@@ -1,17 +1,17 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.6 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Massimiliano Palmieri</Author>
  </Creator>
  <Manufacturer>Talent</Manufacturer>
  <Model>BL252A</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Pixels)</Type>
  <Channel Name="Modes 2 Channel">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="0" Max="127">No function</Capability>
   <Capability Min="128" Max="131">Effect chase #1</Capability>
   <Capability Min="132" Max="135">Effect chase #2</Capability>
   <Capability Min="136" Max="139">Effect chase #3</Capability>
@@ -34,18 +34,21 @@
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="42">7-Channel mode</Capability>
+  <Capability Min="43" Max="191">No function</Capability>
   <Capability Min="192" Max="255">Sound active mode</Capability>
  </Channel>
- <Channel Name="Modes 10 Chanel">
+ <Channel Name="Modes 10 Channel">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="0" Max="84">No function</Capability>
   <Capability Min="85" Max="127">10-Channel mode</Capability>
+  <Capability Min="128" Max="191">No function</Capability>
   <Capability Min="192" Max="255">Sound active mode</Capability>
  </Channel>
  <Channel Name="Modes 31 Channel">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="0" Max="42">No function</Capability>
   <Capability Min="43" Max="84">31-Channel mode</Capability>
+  <Capability Min="85" Max="191">No function</Capability>
   <Capability Min="192" Max="255">Sound active mode</Capability>
  </Channel>
  <Channel Name="Speed">
@@ -55,8 +58,8 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="0">No function</Capability>
-  <Capability Min="1" Max="255">Strobo (slow to fast)</Capability>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="1" Max="255" Preset="StrobeSlowToFast">Strobo (slow to fast)</Capability>
  </Channel>
  <Channel Name="Global Red Intensity" Preset="IntensityRedFine"/>
  <Channel Name="Global Green Intensity" Preset="IntensityGreen"/>
@@ -111,7 +114,7 @@
   <Channel Number="6">Global White Intensity</Channel>
  </Mode>
  <Mode Name="10-Channel">
-  <Channel Number="0">Modes 10 Chanel</Channel>
+  <Channel Number="0">Modes 10 Channel</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Strobe</Channel>
   <Channel Number="3">Pixel 1 Global Intensity</Channel>
@@ -197,11 +200,12 @@
    <Channel>30</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.9" Width="1090" Height="67" Depth="67"/>
-   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="23" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.9" Width="1090" Height="67" Depth="67"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="7" Height="1"/>
+  <Technical PowerConsumption="23" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

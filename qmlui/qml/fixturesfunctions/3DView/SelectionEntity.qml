@@ -46,7 +46,13 @@ Entity
     {
         id: selectionMaterial
         effect: geometryPassEffect
-        parameters: Parameter { name: "meshColor"; value: color }
+
+        parameters: [
+            Parameter { name: "diffuse"; value: color },
+            Parameter { name: "specular"; value: "black" },
+            Parameter { name: "shininess"; value: 1.0 },
+            Parameter { name: "bloom"; value: 0 }
+        ]
     }
 
     Transform

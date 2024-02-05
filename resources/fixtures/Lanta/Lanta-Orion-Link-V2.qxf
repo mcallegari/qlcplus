@@ -1,24 +1,24 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.6.0</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Tim</Author>
  </Creator>
  <Manufacturer>Lanta</Manufacturer>
  <Model>Orion Link V2</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Pixels)</Type>
  <Channel Name="Program Selection">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7" Color="#000000">off</Capability>
-  <Capability Min="8" Max="15" Color="#ff0000">Red</Capability>
-  <Capability Min="16" Max="23" Color="#ffff00">Yellow</Capability>
-  <Capability Min="24" Max="31" Color="#00ff00">Green</Capability>
-  <Capability Min="32" Max="39" Color="#00ffff">Cyan</Capability>
-  <Capability Min="40" Max="47" Color="#0000ff">Blue</Capability>
-  <Capability Min="48" Max="55" Color="#ff00ff">Purple</Capability>
-  <Capability Min="56" Max="63" Color="#ffffff">White</Capability>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#000000">off</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="64" Max="71">Program 1</Capability>
   <Capability Min="72" Max="79">Program 2</Capability>
   <Capability Min="80" Max="87">Program 3</Capability>
@@ -224,11 +224,12 @@
    <Channel>23</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="85" Weight="2.6" Depth="65"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="36" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.6" Width="1070" Height="85" Depth="65"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="8" Height="1"/>
+  <Technical PowerConsumption="36" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

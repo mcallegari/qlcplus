@@ -19,7 +19,6 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.2
 
 import org.qlcplus.classes 1.0
 import "."
@@ -41,7 +40,7 @@ RowLayout
         rotation: 180
         bgColor: UISettings.bgMedium
         imgSource: "qrc:/arrow-right.svg"
-        tooltip: qsTr("Go back to the Function Manager")
+        tooltip: qsTr("Go back to the previous view")
         onClicked: backClicked()
     }
 

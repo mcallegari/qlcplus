@@ -6,8 +6,6 @@
         <string>qlcplus.icns</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<key>CFBundleGetInfoString</key>
-        <string>Q Light Controller Plus</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleExecutable</key>

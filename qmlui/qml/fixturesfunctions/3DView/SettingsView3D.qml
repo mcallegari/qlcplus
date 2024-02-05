@@ -19,7 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.2
+import QtQuick.Dialogs 1.3
 import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
@@ -90,6 +90,19 @@ Rectangle
 
     onCurrentScaleChanged: console.log("Current scale " + currentScale)
 
+    function refreshPositionValues(generic)
+    {
+        isUpdating = true
+        currentPosition = generic ? View3D.genericItemsPosition : contextManager.fixturesPosition
+        isUpdating = false
+    }
+
+    ModelSelector
+    {
+        id: giSelector
+        onItemsCountChanged: { }
+    }
+
     Flickable
     {
         x: 5
@@ -114,22 +127,23 @@ Rectangle
                         width: parent.width
                         columns: 2
                         columnSpacing: 5
-                        rowSpacing: 0
+                        rowSpacing: 2
 
                         // row 1
-                        RobotoText { label: qsTr("Type") }
+                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Type") }
                         CustomComboBox
                         {
                             Layout.fillWidth: true
                             height: UISettings.listItemHeight
 
+                            textRole: ""
                             model: View3D.stagesList
                             currentIndex: View3D.stageIndex
                             onCurrentIndexChanged: View3D.stageIndex = currentIndex
                         }
 
                         // row 2
-                        RobotoText { label: qsTr("Width") }
+                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Width") }
                         CustomSpinBox
                         {
                             height: UISettings.listItemHeight
@@ -138,7 +152,7 @@ Rectangle
                             to: 50
                             suffix: "m"
                             value: envSize.x
-                            onValueChanged:
+                            onValueModified:
                             {
                                 if (settingsRoot.visible && contextManager)
                                     contextManager.environmentSize = Qt.vector3d(value, envSize.y, envSize.z)
@@ -146,7 +160,7 @@ Rectangle
                         }
 
                         // row 3
-                        RobotoText { label: qsTr("Height") }
+                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Height") }
                         CustomSpinBox
                         {
                             height: UISettings.listItemHeight
@@ -155,7 +169,7 @@ Rectangle
                             to: 50
                             suffix: "m"
                             value: envSize.y
-                            onValueChanged:
+                            onValueModified:
                             {
                                 if (settingsRoot.visible && contextManager)
                                     contextManager.environmentSize = Qt.vector3d(envSize.x, value, envSize.z)
@@ -163,7 +177,7 @@ Rectangle
                         }
 
                         // row 4
-                        RobotoText { label: qsTr("Depth") }
+                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Depth") }
                         CustomSpinBox
                         {
                             height: UISettings.listItemHeight
@@ -172,7 +186,7 @@ Rectangle
                             to: 100
                             suffix: "m"
                             value: envSize.z
-                            onValueChanged:
+                            onValueModified:
                             {
                                 if (settingsRoot.visible && contextManager)
                                     contextManager.environmentSize = Qt.vector3d(envSize.x, envSize.y, value)
@@ -192,7 +206,7 @@ Rectangle
                         width: parent.width
                         columns: 2
                         columnSpacing: 5
-                        rowSpacing: 0
+                        rowSpacing: 2
 
                         Component.onCompleted:
                         {
@@ -201,7 +215,7 @@ Rectangle
                         }
 
                         // row 1
-                        RobotoText { label: qsTr("Quality") }
+                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Quality") }
                         CustomComboBox
                         {
                             Layout.fillWidth: true
@@ -222,7 +236,7 @@ Rectangle
                         }
 
                         // row 2
-                        RobotoText { label: qsTr("Ambient light") }
+                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Ambient light") }
                         CustomSpinBox
                         {
                             id: ambIntSpin
@@ -231,11 +245,11 @@ Rectangle
                             from: 0
                             to: 100
                             suffix: "%"
-                            onValueChanged: View3D.ambientIntensity = value / 100
+                            onValueModified: View3D.ambientIntensity = value / 100
                         }
 
                         // row 3
-                        RobotoText { label: qsTr("Smoke amount") }
+                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Smoke amount") }
                         CustomSpinBox
                         {
                             id: smokeSpin
@@ -244,8 +258,18 @@ Rectangle
                             from: 0
                             to: 100
                             suffix: "%"
-                            onValueChanged: View3D.smokeAmount = value / 100
+                            onValueModified: View3D.smokeAmount = value / 100
                         }
+
+                        // row 4
+                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Show FPS") }
+                        CustomCheckBox
+                        {
+                            implicitHeight: UISettings.listItemHeight
+                            implicitWidth: implicitHeight
+                            onToggled: View3D.frameCountEnabled = checked
+                        }
+
                     } // GridLayout
             } // SectionBox - Rendering
 
@@ -260,7 +284,7 @@ Rectangle
                         width: parent.width
                         columns: 2
                         columnSpacing: 5
-                        rowSpacing: 0
+                        rowSpacing: 2
 
                         function updatePosition(x, y, z)
                         {
@@ -285,7 +309,13 @@ Rectangle
                         }
 
                         // row 1
-                        RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "X" }
+                        RobotoText
+                        {
+                            height: UISettings.listItemHeight
+                            width: UISettings.bigItemHeight
+                            textHAlign: Qt.AlignRight
+                            label: "X"
+                        }
                         CustomSpinBox
                         {
                             id: xPosSpin
@@ -296,11 +326,17 @@ Rectangle
                             stepSize: 10
                             suffix: "mm"
                             value: currentPosition.x
-                            onValueChanged: updatePosition(value, yPosSpin.value, zPosSpin.value)
+                            onValueModified: updatePosition(value, yPosSpin.value, zPosSpin.value)
                         }
 
                         // row 2
-                        RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "Y" }
+                        RobotoText
+                        {
+                            height: UISettings.listItemHeight
+                            width: UISettings.bigItemHeight
+                            textHAlign: Qt.AlignRight
+                            label: "Y"
+                        }
                         CustomSpinBox
                         {
                             id: yPosSpin
@@ -311,11 +347,17 @@ Rectangle
                             stepSize: 10
                             suffix: "mm"
                             value: currentPosition.y
-                            onValueChanged: updatePosition(xPosSpin.value, value, zPosSpin.value)
+                            onValueModified: updatePosition(xPosSpin.value, value, zPosSpin.value)
                         }
 
                         // row 3
-                        RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "Z" }
+                        RobotoText
+                        {
+                            height: UISettings.listItemHeight
+                            width: UISettings.bigItemHeight
+                            textHAlign: Qt.AlignRight
+                            label: "Z"
+                        }
                         CustomSpinBox
                         {
                             id: zPosSpin
@@ -326,7 +368,7 @@ Rectangle
                             stepSize: 10
                             suffix: "mm"
                             value: currentPosition.z
-                            onValueChanged: updatePosition(xPosSpin.value, yPosSpin.value, value)
+                            onValueModified: updatePosition(xPosSpin.value, yPosSpin.value, value)
                         }
                     } // GridLayout
             } // SectionBox - Position
@@ -343,7 +385,7 @@ Rectangle
                         width: parent.width
                         columns: 2
                         columnSpacing: 5
-                        rowSpacing: 0
+                        rowSpacing: 2
 
                         function updateRotation(x, y, z)
                         {
@@ -368,7 +410,13 @@ Rectangle
                         }
 
                         // row 1
-                        RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "X" }
+                        RobotoText
+                        {
+                            height: UISettings.listItemHeight
+                            width: UISettings.bigItemHeight
+                            textHAlign: Qt.AlignRight
+                            label: "X"
+                        }
                         CustomSpinBox
                         {
                             id: xRotSpin
@@ -378,11 +426,17 @@ Rectangle
                             to: 359
                             suffix: "°"
                             value: currentRotation.x
-                            onValueChanged: updateRotation(value, yRotSpin.value, zRotSpin.value)
+                            onValueModified: updateRotation(value, yRotSpin.value, zRotSpin.value)
                         }
 
                         // row 2
-                        RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "Y" }
+                        RobotoText
+                        {
+                            height: UISettings.listItemHeight
+                            width: UISettings.bigItemHeight
+                            textHAlign: Qt.AlignRight
+                            label: "Y"
+                        }
                         CustomSpinBox
                         {
                             id: yRotSpin
@@ -392,11 +446,17 @@ Rectangle
                             to: 359
                             suffix: "°"
                             value: currentRotation.y
-                            onValueChanged: updateRotation(xRotSpin.value, value, zRotSpin.value)
+                            onValueModified: updateRotation(xRotSpin.value, value, zRotSpin.value)
                         }
 
                         // row 3
-                        RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "Z" }
+                        RobotoText
+                        {
+                            height: UISettings.listItemHeight
+                            width: UISettings.bigItemHeight
+                            textHAlign: Qt.AlignRight
+                            label: "Z"
+                        }
                         CustomSpinBox
                         {
                             id: zRotSpin
@@ -406,7 +466,7 @@ Rectangle
                             to: 359
                             suffix: "°"
                             value: currentRotation.z
-                            onValueChanged: updateRotation(xRotSpin.value, yRotSpin.value, value)
+                            onValueModified: updateRotation(xRotSpin.value, yRotSpin.value, value)
                         }
                     } // GridLayout
             } // SectionBox - Rotation
@@ -423,7 +483,7 @@ Rectangle
                         width: parent.width
                         columns: 3
                         columnSpacing: 5
-                        rowSpacing: 0
+                        rowSpacing: 2
 
                         function updateScale(x, y, z)
                         {
@@ -445,7 +505,13 @@ Rectangle
                         }
 
                         // row 1
-                        RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "X" }
+                        RobotoText
+                        {
+                            height: UISettings.listItemHeight
+                            width: UISettings.bigItemHeight
+                            textHAlign: Qt.AlignRight
+                            label: "X"
+                        }
                         CustomSpinBox
                         {
                             id: xScaleSpin
@@ -455,7 +521,7 @@ Rectangle
                             to: 1000
                             suffix: "%"
                             value: currentScale.x
-                            onValueChanged:
+                            onValueModified:
                             {
                                 if (scaleLocked.checked)
                                     updateScale(value, value, value)
@@ -496,7 +562,13 @@ Rectangle
                         }
 
                         // row 2
-                        RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "Y" }
+                        RobotoText
+                        {
+                            height: UISettings.listItemHeight
+                            width: UISettings.bigItemHeight
+                            textHAlign: Qt.AlignRight
+                            label: "Y"
+                        }
                         CustomSpinBox
                         {
                             id: yScaleSpin
@@ -506,7 +578,7 @@ Rectangle
                             to: 1000
                             suffix: "%"
                             value: currentScale.y
-                            onValueChanged:
+                            onValueModified:
                             {
                                 if (scaleLocked.checked)
                                     updateScale(value, value, value)
@@ -516,7 +588,13 @@ Rectangle
                         }
 
                         // row 3
-                        RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "Z" }
+                        RobotoText
+                        {
+                            height: UISettings.listItemHeight
+                            width: UISettings.bigItemHeight
+                            textHAlign: Qt.AlignRight
+                            label: "Z"
+                        }
                         CustomSpinBox
                         {
                             id: zScaleSpin
@@ -526,7 +604,7 @@ Rectangle
                             to: 1000
                             suffix: "%"
                             value: currentScale.z
-                            onValueChanged:
+                            onValueModified:
                             {
                                 if (scaleLocked.checked)
                                     updateScale(value, value, value)
@@ -555,28 +633,97 @@ Rectangle
                 }
 
                 sectionContents:
-                    RowLayout
+                    ColumnLayout
                     {
                         width: parent.width
-                        spacing: 5
 
-                        RobotoText { label: qsTr("Actions") }
-                        IconButton
+                        Rectangle
                         {
+                            width: parent.width
                             height: UISettings.iconSizeMedium
-                            width: height
-                            imgSource: "qrc:/add.svg"
-                            tooltip: qsTr("Add a new item to the scene")
-                            onClicked: meshDialog.open()
+
+                            gradient: Gradient
+                            {
+                                GradientStop { position: 0; color: UISettings.toolbarStartSub }
+                                GradientStop { position: 1; color: UISettings.toolbarEnd }
+                            }
+
+                            RowLayout
+                            {
+                                width: parent.width
+                                height: UISettings.iconSizeMedium
+
+                                IconButton
+                                {
+                                    height: UISettings.iconSizeMedium
+                                    width: height
+                                    imgSource: "qrc:/add.svg"
+                                    tooltip: qsTr("Add a new item to the scene")
+                                    onClicked: meshDialog.open()
+                                }
+                                IconButton
+                                {
+                                    enabled: selGenericCount
+                                    height: UISettings.iconSizeMedium
+                                    width: height
+                                    imgSource: "qrc:/remove.svg"
+                                    tooltip: qsTr("Remove the selected items")
+                                    onClicked: View3D.removeSelectedGenericItems()
+                                }
+                                IconButton
+                                {
+                                    enabled: selGenericCount
+                                    height: UISettings.iconSizeMedium
+                                    width: height
+                                    faSource: FontAwesome.fa_compress
+                                    faColor: UISettings.fgMain
+                                    tooltip: qsTr("Normalize the selected items")
+                                    onClicked: View3D.normalizeSelectedGenericItems()
+                                }
+                                Rectangle
+                                {
+                                    Layout.fillWidth: true
+                                    height: UISettings.iconSizeMedium
+                                    color: "transparent"
+                                }
+                            }
                         }
-                        IconButton
+
+                        ListView
                         {
-                            visible: selGenericCount
-                            height: UISettings.iconSizeMedium
-                            width: height
-                            imgSource: "qrc:/remove.svg"
-                            tooltip: qsTr("Remove the selected items")
-                            onClicked: View3D.removeSelectedGenericItems()
+                            id: itemsList
+                            width: parent.width
+                            height: UISettings.bigItemHeight * 4
+                            boundsBehavior: Flickable.StopAtBounds
+                            model: View3D.genericItemsList
+
+                            delegate:
+                                Rectangle
+                                {
+                                    width: itemsList.width
+                                    height: UISettings.listItemHeight
+                                    color: isSelected ? UISettings.highlight : "transparent"
+
+                                    IconTextEntry
+                                    {
+                                        width: parent.width
+                                        height: UISettings.listItemHeight
+
+                                        tLabel: name
+                                        faSource: FontAwesome.fa_cube
+                                        faColor: UISettings.fgMain
+
+                                        MouseArea
+                                        {
+                                            anchors.fill: parent
+                                            onClicked:
+                                            {
+                                                giSelector.selectItem(index, itemsList.model, mouse.modifiers)
+                                                View3D.setItemSelection(itemID, isSelected, mouse.modifiers)
+                                            }
+                                        }
+                                    }
+                                }
                         }
                     }
             }

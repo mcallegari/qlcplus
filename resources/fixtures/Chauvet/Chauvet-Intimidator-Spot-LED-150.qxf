@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>Tavon Markov</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -36,14 +36,14 @@
   <Capability Min="106" Max="111" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#55ff7f">Blue + Light Green</Capability>
   <Capability Min="112" Max="117" Preset="ColorDoubleMacro" Res1="#55ff7f" Res2="#ffaa00">Light Green + Amber</Capability>
   <Capability Min="118" Max="127" Preset="ColorDoubleMacro" Res1="#ffaa00" Res2="#ffffff">Amber + White</Capability>
-  <Capability Min="128" Max="191" Preset="GoboMacro" Res1="Others/rainbow.png">Color Cycle (Slow -&gt; Fast)</Capability>
-  <Capability Min="192" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Reverse Color Cycle (Slow -&gt; Fast)</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Color Cycle (Slow -&gt; Fast)</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse Color Cycle (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="3" Preset="ShutterClose">Blackout</Capability>
   <Capability Min="4" Max="7" Preset="ShutterOpen">Open</Capability>
-  <Capability Min="8" Max="215" Preset="StrobeFreqRange" Res1="1" Res2="20">Stobe (0-20Hz)</Capability>
+  <Capability Min="8" Max="215" Preset="StrobeFreqRange" Res1="0" Res2="20">Stobe (0-20Hz)</Capability>
   <Capability Min="216" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
@@ -53,28 +53,28 @@
   <Capability Min="6" Max="11" Preset="GoboMacro" Res1="Chauvet/gobo00045.svg">Gobo 1</Capability>
   <Capability Min="12" Max="17" Preset="GoboMacro" Res1="Chauvet/gobo00046.png">Gobo 2</Capability>
   <Capability Min="18" Max="23" Preset="GoboMacro" Res1="Chauvet/gobo00047.svg">Gobo 3</Capability>
-  <Capability Min="24" Max="29" Preset="GoboMacro" Res1="Chauvet/gobo00048.png">Gobo 4</Capability>
-  <Capability Min="30" Max="35" Preset="GoboMacro" Res1="Chauvet/gobo00049.png">Gobo 5</Capability>
+  <Capability Min="24" Max="29" Preset="GoboMacro" Res1="Chauvet/gobo00048.svg">Gobo 4</Capability>
+  <Capability Min="30" Max="35" Preset="GoboMacro" Res1="Chauvet/gobo00049.svg">Gobo 5</Capability>
   <Capability Min="36" Max="41" Preset="GoboMacro" Res1="Chauvet/gobo00050.png">Gobo 6</Capability>
   <Capability Min="42" Max="47" Preset="GoboMacro" Res1="Chauvet/gobo00042.svg">Gobo 7</Capability>
-  <Capability Min="48" Max="53" Preset="GoboMacro" Res1="Chauvet/gobo00052.png">Gobo 8</Capability>
-  <Capability Min="54" Max="63" Preset="GoboMacro" Res1="Chauvet/gobo00053.png">Gobo 9</Capability>
-  <Capability Min="64" Max="71" Preset="GoboMacro" Res1="Chauvet/gobo00053.png">Gobo 9 Shake (Slow -&gt; Fast)</Capability>
-  <Capability Min="72" Max="79" Preset="GoboMacro" Res1="Chauvet/gobo00052.png">Gobo 8 Shake (Slow -&gt; Fast)</Capability>
-  <Capability Min="80" Max="85" Preset="GoboMacro" Res1="Chauvet/gobo00042.svg">Gobo 7 Shake (Slow -&gt; Fast)</Capability>
-  <Capability Min="86" Max="91" Preset="GoboMacro" Res1="Chauvet/gobo00050.png">Gobo 6 Shake (Slow -&gt; Fast)</Capability>
-  <Capability Min="92" Max="97" Preset="GoboMacro" Res1="Chauvet/gobo00049.png">Gobo 5 Shake (Slow -&gt; Fast)</Capability>
-  <Capability Min="98" Max="103" Preset="GoboMacro" Res1="Chauvet/gobo00048.png">Gobo 4 Shake (Slow -&gt; Fast)</Capability>
-  <Capability Min="104" Max="109" Preset="GoboMacro" Res1="Chauvet/gobo00047.svg">Gobo 3 Shake (Slow -&gt; Fast)</Capability>
-  <Capability Min="110" Max="115" Preset="GoboMacro" Res1="Chauvet/gobo00046.png">Gobo 2 Shake (Slow -&gt; Fast)</Capability>
-  <Capability Min="116" Max="121" Preset="GoboMacro" Res1="Chauvet/gobo00045.svg">Gobo 1 Shake (Slow -&gt; Fast)</Capability>
+  <Capability Min="48" Max="53" Preset="GoboMacro" Res1="Chauvet/gobo00052.svg">Gobo 8</Capability>
+  <Capability Min="54" Max="63" Preset="GoboMacro" Res1="Chauvet/gobo00053.svg">Gobo 9</Capability>
+  <Capability Min="64" Max="71" Preset="GoboShakeMacro" Res1="Chauvet/gobo00053.svg">Gobo 9 Shake (Slow -&gt; Fast)</Capability>
+  <Capability Min="72" Max="79" Preset="GoboShakeMacro" Res1="Chauvet/gobo00052.svg">Gobo 8 Shake (Slow -&gt; Fast)</Capability>
+  <Capability Min="80" Max="85" Preset="GoboShakeMacro" Res1="Chauvet/gobo00042.svg">Gobo 7 Shake (Slow -&gt; Fast)</Capability>
+  <Capability Min="86" Max="91" Preset="GoboShakeMacro" Res1="Chauvet/gobo00050.png">Gobo 6 Shake (Slow -&gt; Fast)</Capability>
+  <Capability Min="92" Max="97" Preset="GoboShakeMacro" Res1="Chauvet/gobo00049.svg">Gobo 5 Shake (Slow -&gt; Fast)</Capability>
+  <Capability Min="98" Max="103" Preset="GoboShakeMacro" Res1="Chauvet/gobo00048.svg">Gobo 4 Shake (Slow -&gt; Fast)</Capability>
+  <Capability Min="104" Max="109" Preset="GoboShakeMacro" Res1="Chauvet/gobo00047.svg">Gobo 3 Shake (Slow -&gt; Fast)</Capability>
+  <Capability Min="110" Max="115" Preset="GoboShakeMacro" Res1="Chauvet/gobo00046.png">Gobo 2 Shake (Slow -&gt; Fast)</Capability>
+  <Capability Min="116" Max="121" Preset="GoboShakeMacro" Res1="Chauvet/gobo00045.svg">Gobo 1 Shake (Slow -&gt; Fast)</Capability>
   <Capability Min="122" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="128" Max="191">Gobo Cycle (Slow -&gt; Fast)</Capability>
-  <Capability Min="192" Max="255">Reverse Gobo Cycle (Slow -&gt; Fast)</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Gobo Cycle (Slow -&gt; Fast)</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse Gobo Cycle (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Control Functions">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="27">Blackout while moving Pan/Tilt</Capability>
   <Capability Min="28" Max="47">Blackout while moving Gobo Gheel</Capability>
   <Capability Min="48" Max="67">Disable blackout while Pan/Tilt / moving Gobo Wheel</Capability>
@@ -82,16 +82,16 @@
   <Capability Min="88" Max="107">Disable blackout while Pan/Tilt / moving Color Wheel</Capability>
   <Capability Min="108" Max="127">Disable blackout while moving Gobo/Color Wheel</Capability>
   <Capability Min="128" Max="147">Diable blackout while moving all options</Capability>
-  <Capability Min="148" Max="167">Reset Pan</Capability>
-  <Capability Min="168" Max="187">Reset Tilt</Capability>
-  <Capability Min="188" Max="207">Reset Color Wheel</Capability>
-  <Capability Min="208" Max="227">Reset Gobo Wheel</Capability>
-  <Capability Min="228" Max="247">Reset All Channels</Capability>
-  <Capability Min="248" Max="255">No Function</Capability>
+  <Capability Min="148" Max="167" Preset="ResetPan">Reset Pan</Capability>
+  <Capability Min="168" Max="187" Preset="ResetTilt">Reset Tilt</Capability>
+  <Capability Min="188" Max="207" Preset="ResetColor">Reset Color Wheel</Capability>
+  <Capability Min="208" Max="227" Preset="ResetGobo">Reset Gobo Wheel</Capability>
+  <Capability Min="228" Max="247" Preset="ResetAll">Reset All Channels</Capability>
+  <Capability Min="248" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Movement Macros">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="23">Auto Movement 1</Capability>
   <Capability Min="24" Max="39">Auto Movement 2</Capability>
   <Capability Min="40" Max="55">Auto Movement 3</Capability>

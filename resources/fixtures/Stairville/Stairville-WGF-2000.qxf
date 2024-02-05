@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.0 GIT</Version>
+  <Author>CoS2000</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>WGF 2000</Model>
+ <Type>Smoke</Type>
+ <Channel Name="Smoke">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Smoke Intensity (0%-100%)</Capability>
+ </Channel>
+ <Channel Name="Fan">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Van Intensity (0%-100%)</Capability>
+ </Channel>
+ <Channel Name="Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127" Preset="ColorMacro" Res1="#860000">Heavy Mode (Fluid and Water)</Capability>
+  <Capability Min="128" Max="255" Preset="ColorMacro" Res1="#427eff">Light Mode (Water only)</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Channel Number="0">Smoke</Channel>
+  <Channel Number="1">Fan</Channel>
+  <Channel Number="2">Program</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.2" Width="345" Height="360" Depth="785"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="2000" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

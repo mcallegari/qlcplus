@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 2</Version>
+  <Author>Thomas Dral</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Lightbrick</Model>
+ <Type>Dimmer</Type>
+ <Channel Name="Light 1" Preset="IntensityDimmer"/>
+ <Channel Name="Light 2" Preset="IntensityDimmer"/>
+ <Channel Name="Light 3" Preset="IntensityDimmer"/>
+ <Channel Name="Light 4" Preset="IntensityDimmer"/>
+ <Mode Name="4 channel">
+  <Channel Number="0">Light 1</Channel>
+  <Channel Number="1">Light 2</Channel>
+  <Channel Number="2">Light 3</Channel>
+  <Channel Number="3">Light 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="325" Height="150" Depth="105"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="3680" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

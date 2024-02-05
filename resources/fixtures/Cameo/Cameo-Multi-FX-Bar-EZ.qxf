@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 1</Version>
+  <Author>Jan Peter Dohle</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>Multi FX Bar EZ</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="PAR 1 - Red" Preset="IntensityRed"/>
+ <Channel Name="PAR 1 - Green" Preset="IntensityGreen"/>
+ <Channel Name="PAR 1 - Blue" Preset="IntensityBlue"/>
+ <Channel Name="PAR 1 - White" Preset="IntensityWhite"/>
+ <Channel Name="PAR 1 - Amber" Preset="IntensityAmber"/>
+ <Channel Name="PAR 1 - UV" Preset="IntensityUV"/>
+ <Channel Name="PAR 2 - Red" Preset="IntensityRed"/>
+ <Channel Name="PAR 2 - Green" Preset="IntensityGreen"/>
+ <Channel Name="PAR 2 - Blue" Preset="IntensityBlue"/>
+ <Channel Name="PAR 2 - White" Preset="IntensityWhite"/>
+ <Channel Name="PAR 2 - Amber" Preset="IntensityAmber"/>
+ <Channel Name="PAR 2 - UV" Preset="IntensityUV"/>
+ <Channel Name="PAR 3 - Red" Preset="IntensityRed"/>
+ <Channel Name="PAR 3 - Green" Preset="IntensityGreen"/>
+ <Channel Name="PAR 3 - Blue" Preset="IntensityBlue"/>
+ <Channel Name="PAR 3 - White" Preset="IntensityWhite"/>
+ <Channel Name="PAR 3 - Amber" Preset="IntensityAmber"/>
+ <Channel Name="PAR 3 - UV" Preset="IntensityUV"/>
+ <Channel Name="PAR 4 - Red" Preset="IntensityRed"/>
+ <Channel Name="PAR 4 - Green" Preset="IntensityGreen"/>
+ <Channel Name="PAR 4 - Blue" Preset="IntensityBlue"/>
+ <Channel Name="PAR 4 - White" Preset="IntensityWhite"/>
+ <Channel Name="PAR 4 - Amber" Preset="IntensityAmber"/>
+ <Channel Name="PAR 4 - UV" Preset="IntensityUV"/>
+ <Channel Name="Derby 1 - Red" Preset="IntensityRed"/>
+ <Channel Name="Derby 1 - Green" Preset="IntensityGreen"/>
+ <Channel Name="Derby 1 - Blue" Preset="IntensityBlue"/>
+ <Channel Name="Derby 1 - Rotate">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="5">no function</Capability>
+  <Capability Min="6" Max="126" Preset="RotationClockwiseSlowToFast">clockwise rotation (slow to fast)</Capability>
+  <Capability Min="127" Max="128" Preset="RotationStop">no movement</Capability>
+  <Capability Min="129" Max="255" Preset="RotationCounterClockwiseFastToSlow">counter clockwise rotation (fast to slow)</Capability>
+ </Channel>
+ <Channel Name="Derby 2 - Red" Preset="IntensityRed"/>
+ <Channel Name="Derby 2 - Green" Preset="IntensityGreen"/>
+ <Channel Name="Derby 2 - Blue" Preset="IntensityBlue"/>
+ <Channel Name="Derby 2 - Rotate">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="5">no function</Capability>
+  <Capability Min="6" Max="126" Preset="RotationClockwiseSlowToFast">clockwise rotation (slow to fast)</Capability>
+  <Capability Min="127" Max="128" Preset="RotationStop">no movement</Capability>
+  <Capability Min="129" Max="255" Preset="RotationCounterClockwiseFastToSlow">counter clockwise rotation (fast to slow)</Capability>
+ </Channel>
+ <Channel Name="Flash 1">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeFreqRange" Res1="1" Res2="20">Strobe speed slow-&gt; fast &lt;1Hz-20Hz</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Strobe open</Capability>
+ </Channel>
+ <Channel Name="Flash 2">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeFreqRange" Res1="1" Res2="20">Strobe speed slow-&gt; fast &lt;1Hz-20Hz</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Strobe open</Capability>
+ </Channel>
+ <Channel Name="Flash 3">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeFreqRange" Res1="1" Res2="20">Strobe speed slow-&gt; fast &lt;1Hz-20Hz</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Strobe open</Capability>
+ </Channel>
+ <Channel Name="Flash 4">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeFreqRange" Res1="1" Res2="20">Strobe speed slow-&gt; fast &lt;1Hz-20Hz</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Strobe open</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Auto Program LED PAR">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Blackout</Capability>
+  <Capability Min="6" Max="30">Auto PAR 1</Capability>
+  <Capability Min="31" Max="55">Auto PAR 2</Capability>
+  <Capability Min="56" Max="80">Auto PAR 3</Capability>
+  <Capability Min="81" Max="105">Auto PAR 4</Capability>
+  <Capability Min="106" Max="130">Auto PAR 5</Capability>
+  <Capability Min="131" Max="155">Auto PAR 6</Capability>
+  <Capability Min="156" Max="180">Auto PAR 7</Capability>
+  <Capability Min="181" Max="205">Auto PAR 8</Capability>
+  <Capability Min="206" Max="230">Auto PAR 9</Capability>
+  <Capability Min="231" Max="255">Auto PAR 10</Capability>
+ </Channel>
+ <Channel Name="Auto Program Derby">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Blackout</Capability>
+  <Capability Min="6" Max="30">Auto Derby 1</Capability>
+  <Capability Min="31" Max="55">Auto Derby 2</Capability>
+  <Capability Min="56" Max="80">Auto Derby 3</Capability>
+  <Capability Min="81" Max="105">Auto Derby 4</Capability>
+  <Capability Min="106" Max="130">Auto Derby 5</Capability>
+  <Capability Min="131" Max="155">Auto Derby 6</Capability>
+  <Capability Min="156" Max="180">Auto Derby 7</Capability>
+  <Capability Min="181" Max="205">Auto Derby 8</Capability>
+  <Capability Min="206" Max="230">Auto Derby 9</Capability>
+  <Capability Min="231" Max="255">Auto Derby 10</Capability>
+ </Channel>
+ <Channel Name="Auto Program Flash Lights">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Blackout</Capability>
+  <Capability Min="6" Max="30">Auto Flash Lights 1</Capability>
+  <Capability Min="31" Max="55">Auto Flash Lights 2</Capability>
+  <Capability Min="56" Max="80">Auto Flash Lights 3</Capability>
+  <Capability Min="81" Max="105">Auto Flash Lights 4</Capability>
+  <Capability Min="106" Max="130">Auto Flash Lights 5</Capability>
+  <Capability Min="131" Max="155">Auto Flash Lights 6</Capability>
+  <Capability Min="156" Max="180">Auto Flash Lights 7</Capability>
+  <Capability Min="181" Max="205">Auto Flash Lights 8</Capability>
+  <Capability Min="206" Max="230">Auto Flash Lights 9</Capability>
+  <Capability Min="231" Max="255">Auto Flash Lights 10</Capability>
+ </Channel>
+ <Channel Name="Program Speed/Sound">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="127" Preset="SlowToFast">Program Speed slow -&gt; fast</Capability>
+  <Capability Min="128" Max="255">Sound Control</Capability>
+ </Channel>
+ <Channel Name="PAR Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="PAR Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="20">Strobe slow -&gt; fast &lt;1Hz - 20Hz</Capability>
+ </Channel>
+ <Channel Name="PAR 1+4 Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5" Preset="ColorMacro" Res1="#000000">Colour off</Capability>
+  <Capability Min="6" Max="13" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="14" Max="21" Preset="ColorMacro" Res1="#ffbf00">Amber</Capability>
+  <Capability Min="22" Max="29" Preset="ColorMacro" Res1="#fcf281">Yellow warm</Capability>
+  <Capability Min="30" Max="37" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="38" Max="45" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="46" Max="53" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="54" Max="61" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="62" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="78" Max="85" Preset="ColorMacro" Res1="#e0b0ff">Mauve</Capability>
+  <Capability Min="86" Max="93" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="94" Max="101" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#efebd8">Warm White</Capability>
+  <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#f9faff">Cold White</Capability>
+  <Capability Min="126" Max="127">Colour Jumping Stop</Capability>
+  <Capability Min="128" Max="191">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="192" Max="255">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+ </Channel>
+ <Channel Name="PAR 2+3 Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5" Preset="ColorMacro" Res1="#000000">Colour off</Capability>
+  <Capability Min="6" Max="13" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="14" Max="21" Preset="ColorMacro" Res1="#ffbf00">Amber</Capability>
+  <Capability Min="22" Max="29" Preset="ColorMacro" Res1="#fcf281">Yellow warm</Capability>
+  <Capability Min="30" Max="37" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="38" Max="45" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="46" Max="53" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="54" Max="61" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="62" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="78" Max="85" Preset="ColorMacro" Res1="#e0b0ff">Mauve</Capability>
+  <Capability Min="86" Max="93" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="94" Max="101" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#efebd8">Warm White</Capability>
+  <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#f9faff">Cold White</Capability>
+  <Capability Min="126" Max="127">Colour Jumping Stop</Capability>
+  <Capability Min="128" Max="191">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="192" Max="255">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+ </Channel>
+ <Channel Name="Flash 1-4">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeFreqRange" Res1="1" Res2="20">Strobe speed slow-&gt; fast &lt;1Hz-20Hz</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Strobe open</Capability>
+ </Channel>
+ <Channel Name="PAR+Derby Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Chase">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="13">Off (Colour 1= PAR; Colour2 = Derby)</Capability>
+  <Capability Min="14" Max="35">PAR only 1</Capability>
+  <Capability Min="36" Max="57">PAR only 2</Capability>
+  <Capability Min="58" Max="79">PAR only 3</Capability>
+  <Capability Min="80" Max="101">PAR only 4</Capability>
+  <Capability Min="102" Max="123">Derby only 1</Capability>
+  <Capability Min="124" Max="145">Derby only 2</Capability>
+  <Capability Min="146" Max="167">PAR + Derby 1</Capability>
+  <Capability Min="168" Max="189">PAR + Derby 2</Capability>
+  <Capability Min="190" Max="211">PAR + Derby 3</Capability>
+  <Capability Min="212" Max="233">PAR + Derby 4</Capability>
+  <Capability Min="234" Max="255">PAR + Derby 5</Capability>
+ </Channel>
+ <Channel Name="Chase Speed/Sound">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="127" Preset="SlowToFast">Chase Speed slow -&gt; fast</Capability>
+  <Capability Min="128" Max="255">Sound Control</Capability>
+ </Channel>
+ <Channel Name="Colour 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5" Preset="ColorMacro" Res1="#000000">Colour off</Capability>
+  <Capability Min="6" Max="13" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="14" Max="21" Preset="ColorMacro" Res1="#ffbf00">Amber</Capability>
+  <Capability Min="22" Max="29" Preset="ColorMacro" Res1="#fcf281">Yellow warm</Capability>
+  <Capability Min="30" Max="37" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="38" Max="45" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="46" Max="53" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="54" Max="61" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="62" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="78" Max="85" Preset="ColorMacro" Res1="#e0b0ff">Mauve</Capability>
+  <Capability Min="86" Max="93" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="94" Max="101" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#efebd8">Warm White</Capability>
+  <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#f9faff">Cold White</Capability>
+  <Capability Min="126" Max="127">Colour Jumping Stop</Capability>
+  <Capability Min="128" Max="191">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="192" Max="255">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+ </Channel>
+ <Channel Name="Colour 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5" Preset="ColorMacro" Res1="#000000">Colour off</Capability>
+  <Capability Min="6" Max="13" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="14" Max="21" Preset="ColorMacro" Res1="#ffbf00">Amber</Capability>
+  <Capability Min="22" Max="29" Preset="ColorMacro" Res1="#fcf281">Yellow warm</Capability>
+  <Capability Min="30" Max="37" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="38" Max="45" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="46" Max="53" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="54" Max="61" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="62" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="78" Max="85" Preset="ColorMacro" Res1="#e0b0ff">Mauve</Capability>
+  <Capability Min="86" Max="93" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="94" Max="101" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#efebd8">Warm White</Capability>
+  <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#f9faff">Cold White</Capability>
+  <Capability Min="126" Max="127">Colour Jumping Stop</Capability>
+  <Capability Min="128" Max="191">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="192" Max="255">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+ </Channel>
+ <Channel Name="Derby 1-2">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="5">no function</Capability>
+  <Capability Min="6" Max="126" Preset="RotationClockwiseSlowToFast">clockwise rotation (slow to fast)</Capability>
+  <Capability Min="127" Max="128" Preset="RotationStop">no movement</Capability>
+  <Capability Min="129" Max="255" Preset="RotationCounterClockwiseFastToSlow">counter clockwise rotation (fast to slow)</Capability>
+ </Channel>
+ <Channel Name="PAR+Derby Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeSlowToFast">Strobe slow -&gt; fast &lt;1Hz - 20Hz</Capability>
+ </Channel>
+ <Channel Name="PAR 1-4 Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5" Preset="ColorMacro" Res1="#000000">Colour off</Capability>
+  <Capability Min="6" Max="13" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="14" Max="21" Preset="ColorMacro" Res1="#ffbf00">Amber</Capability>
+  <Capability Min="22" Max="29" Preset="ColorMacro" Res1="#fcf281">Yellow warm</Capability>
+  <Capability Min="30" Max="37" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="38" Max="45" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="46" Max="53" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="54" Max="61" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="62" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="78" Max="85" Preset="ColorMacro" Res1="#e0b0ff">Mauve</Capability>
+  <Capability Min="86" Max="93" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="94" Max="101" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#efebd8">Warm White</Capability>
+  <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#f9faff">Cold White</Capability>
+  <Capability Min="126" Max="127">Colour Jumping Stop</Capability>
+  <Capability Min="128" Max="191">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="192" Max="255">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+ </Channel>
+ <Channel Name="Derby 1-2 Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5" Preset="ColorMacro" Res1="#000000">Colour off</Capability>
+  <Capability Min="6" Max="13" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="14" Max="21" Preset="ColorMacro" Res1="#ffbf00">Amber</Capability>
+  <Capability Min="22" Max="29" Preset="ColorMacro" Res1="#fcf281">Yellow warm</Capability>
+  <Capability Min="30" Max="37" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="38" Max="45" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="46" Max="53" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="54" Max="61" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="62" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="78" Max="85" Preset="ColorMacro" Res1="#e0b0ff">Mauve</Capability>
+  <Capability Min="86" Max="93" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="94" Max="101" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#efebd8">Warm White</Capability>
+  <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#f9faff">Cold White</Capability>
+  <Capability Min="126" Max="127">Colour Jumping Stop</Capability>
+  <Capability Min="128" Max="191">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="192" Max="255">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+ </Channel>
+ <Channel Name="PAR 1+4 - Red" Preset="IntensityRed"/>
+ <Channel Name="PAR 1+4 - Green" Preset="IntensityGreen"/>
+ <Channel Name="PAR 1+4 - Blue" Preset="IntensityBlue"/>
+ <Channel Name="PAR 1+4 - White" Preset="IntensityWhite"/>
+ <Channel Name="PAR 1+4 - Amber" Preset="IntensityAmber"/>
+ <Channel Name="PAR 1+4 - UV" Preset="IntensityUV"/>
+ <Channel Name="PAR 1+4 Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeSlowToFast">Strobe slow -&gt; fast &lt;1Hz - 20Hz</Capability>
+ </Channel>
+ <Channel Name="PAR 2+3 - Red" Preset="IntensityRed"/>
+ <Channel Name="PAR 2+3 - Green" Preset="IntensityGreen"/>
+ <Channel Name="PAR 2+3 - Blue" Preset="IntensityBlue"/>
+ <Channel Name="PAR 2+3 - White" Preset="IntensityWhite"/>
+ <Channel Name="PAR 2+3 - Amber" Preset="IntensityAmber"/>
+ <Channel Name="PAR 2+3 - UV" Preset="IntensityUV"/>
+ <Channel Name="PAR 2+3 Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeSlowToFast">Strobe slow -&gt; fast &lt;1Hz - 20Hz</Capability>
+ </Channel>
+ <Channel Name="Derby 1-2 - Red" Preset="IntensityRed"/>
+ <Channel Name="Derby 1-2 - Green" Preset="IntensityGreen"/>
+ <Channel Name="Derby 1-2 - Blue" Preset="IntensityBlue"/>
+ <Channel Name="Derby 1-2 Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="20">Strobe slow -&gt; fast &lt;1Hz - 20Hz</Capability>
+ </Channel>
+ <Mode Name="5 Channel 1">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Auto Program LED PAR</Channel>
+  <Channel Number="2">Auto Program Derby</Channel>
+  <Channel Number="3">Auto Program Flash Lights</Channel>
+  <Channel Number="4">Program Speed/Sound</Channel>
+ </Mode>
+ <Mode Name="5 Channel 2">
+  <Channel Number="0">PAR Dimmer</Channel>
+  <Channel Number="1">PAR Strobe</Channel>
+  <Channel Number="2">PAR 1+4 Colour</Channel>
+  <Channel Number="3">PAR 2+3 Colour</Channel>
+  <Channel Number="4">Flash 1-4</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">PAR+Derby Dimmer</Channel>
+  <Channel Number="1">Chase</Channel>
+  <Channel Number="2">Chase Speed/Sound</Channel>
+  <Channel Number="3">Colour 1</Channel>
+  <Channel Number="4">Colour 2</Channel>
+  <Channel Number="5">Derby 1-2</Channel>
+  <Channel Number="6">Flash 1-4</Channel>
+ </Mode>
+ <Mode Name="10 Channel">
+  <Channel Number="0">PAR+Derby Dimmer</Channel>
+  <Channel Number="1">PAR+Derby Strobe</Channel>
+  <Channel Number="2">PAR 1-4 Colour</Channel>
+  <Channel Number="3">Derby 1-2 Colour</Channel>
+  <Channel Number="4">Derby 1-2</Channel>
+  <Channel Number="5">Flash 1-4</Channel>
+  <Channel Number="6">Auto Program LED PAR</Channel>
+  <Channel Number="7">Auto Program Derby</Channel>
+  <Channel Number="8">Auto Program Flash Lights</Channel>
+  <Channel Number="9">Program Speed/Sound</Channel>
+ </Mode>
+ <Mode Name="25 Channel">
+  <Channel Number="0">PAR+Derby Dimmer</Channel>
+  <Channel Number="1">PAR 1+4 - Red</Channel>
+  <Channel Number="2">PAR 1+4 - Green</Channel>
+  <Channel Number="3">PAR 1+4 - Blue</Channel>
+  <Channel Number="4">PAR 1+4 - White</Channel>
+  <Channel Number="5">PAR 1+4 - Amber</Channel>
+  <Channel Number="6">PAR 1+4 - UV</Channel>
+  <Channel Number="7">PAR 1+4 Strobe</Channel>
+  <Channel Number="8">PAR 2+3 - Red</Channel>
+  <Channel Number="9">PAR 2+3 - Green</Channel>
+  <Channel Number="10">PAR 2+3 - Blue</Channel>
+  <Channel Number="11">PAR 2+3 - White</Channel>
+  <Channel Number="12">PAR 2+3 - Amber</Channel>
+  <Channel Number="13">PAR 2+3 - UV</Channel>
+  <Channel Number="14">PAR 2+3 Strobe</Channel>
+  <Channel Number="15">Derby 1-2 - Red</Channel>
+  <Channel Number="16">Derby 1-2 - Green</Channel>
+  <Channel Number="17">Derby 1-2 - Blue</Channel>
+  <Channel Number="18">Derby 1-2 Strobe</Channel>
+  <Channel Number="19">Derby 1-2</Channel>
+  <Channel Number="20">Flash 1-4</Channel>
+  <Channel Number="21">Auto Program LED PAR</Channel>
+  <Channel Number="22">Auto Program Derby</Channel>
+  <Channel Number="23">Auto Program Flash Lights</Channel>
+  <Channel Number="24">Program Speed/Sound</Channel>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="28 Channel">
+  <Channel Number="0">PAR 1 - Red</Channel>
+  <Channel Number="1">PAR 1 - Green</Channel>
+  <Channel Number="2">PAR 1 - Blue</Channel>
+  <Channel Number="3">PAR 1 - White</Channel>
+  <Channel Number="4">PAR 1 - Amber</Channel>
+  <Channel Number="5">PAR 1 - UV</Channel>
+  <Channel Number="6">PAR 2 - Red</Channel>
+  <Channel Number="7">PAR 2 - Green</Channel>
+  <Channel Number="8">PAR 2 - Blue</Channel>
+  <Channel Number="9">PAR 2 - White</Channel>
+  <Channel Number="10">PAR 2 - Amber</Channel>
+  <Channel Number="11">PAR 2 - UV</Channel>
+  <Channel Number="12">PAR 3 - Red</Channel>
+  <Channel Number="13">PAR 3 - Green</Channel>
+  <Channel Number="14">PAR 3 - Blue</Channel>
+  <Channel Number="15">PAR 3 - White</Channel>
+  <Channel Number="16">PAR 3 - Amber</Channel>
+  <Channel Number="17">PAR 3 - UV</Channel>
+  <Channel Number="18">PAR 4 - Red</Channel>
+  <Channel Number="19">PAR 4 - Green</Channel>
+  <Channel Number="20">PAR 4 - Blue</Channel>
+  <Channel Number="21">PAR 4 - White</Channel>
+  <Channel Number="22">PAR 4 - Amber</Channel>
+  <Channel Number="23">PAR 4 - UV</Channel>
+  <Channel Number="24">Flash 1</Channel>
+  <Channel Number="25">Flash 2</Channel>
+  <Channel Number="26">Flash 3</Channel>
+  <Channel Number="27">Flash 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="36 Channel">
+  <Channel Number="0">PAR 1 - Red</Channel>
+  <Channel Number="1">PAR 1 - Green</Channel>
+  <Channel Number="2">PAR 1 - Blue</Channel>
+  <Channel Number="3">PAR 1 - White</Channel>
+  <Channel Number="4">PAR 1 - Amber</Channel>
+  <Channel Number="5">PAR 1 - UV</Channel>
+  <Channel Number="6">PAR 2 - Red</Channel>
+  <Channel Number="7">PAR 2 - Green</Channel>
+  <Channel Number="8">PAR 2 - Blue</Channel>
+  <Channel Number="9">PAR 2 - White</Channel>
+  <Channel Number="10">PAR 2 - Amber</Channel>
+  <Channel Number="11">PAR 2 - UV</Channel>
+  <Channel Number="12">PAR 3 - Red</Channel>
+  <Channel Number="13">PAR 3 - Green</Channel>
+  <Channel Number="14">PAR 3 - Blue</Channel>
+  <Channel Number="15">PAR 3 - White</Channel>
+  <Channel Number="16">PAR 3 - Amber</Channel>
+  <Channel Number="17">PAR 3 - UV</Channel>
+  <Channel Number="18">PAR 4 - Red</Channel>
+  <Channel Number="19">PAR 4 - Green</Channel>
+  <Channel Number="20">PAR 4 - Blue</Channel>
+  <Channel Number="21">PAR 4 - White</Channel>
+  <Channel Number="22">PAR 4 - Amber</Channel>
+  <Channel Number="23">PAR 4 - UV</Channel>
+  <Channel Number="24">Derby 1 - Red</Channel>
+  <Channel Number="25">Derby 1 - Green</Channel>
+  <Channel Number="26">Derby 1 - Blue</Channel>
+  <Channel Number="27">Derby 1 - Rotate</Channel>
+  <Channel Number="28">Derby 2 - Red</Channel>
+  <Channel Number="29">Derby 2 - Green</Channel>
+  <Channel Number="30">Derby 2 - Blue</Channel>
+  <Channel Number="31">Derby 2 - Rotate</Channel>
+  <Channel Number="32">Flash 1</Channel>
+  <Channel Number="33">Flash 2</Channel>
+  <Channel Number="34">Flash 3</Channel>
+  <Channel Number="35">Flash 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+  </Head>
+  <Head>
+   <Channel>33</Channel>
+  </Head>
+  <Head>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.1" Width="1149" Height="414" Depth="80"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="2"/>
+  <Technical PowerConsumption="110" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

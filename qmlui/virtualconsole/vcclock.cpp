@@ -26,21 +26,21 @@
 #include "vcclock.h"
 #include "doc.h"
 
-#define KXMLQLCVCClockEnabled "Enable"
-#define KXMLQLCVCClockType "Type"
-#define KXMLQLCVCClockTime "Time"
+#define KXMLQLCVCClockEnabled   QString("Enable")
+#define KXMLQLCVCClockType      QString("Type")
+#define KXMLQLCVCClockTime      QString("Time")
 
-#define KXMLQLCVCClockHours "Hours"        // LEGACY
-#define KXMLQLCVCClockMinutes "Minutes"    // LEGACY
-#define KXMLQLCVCClockSeconds "Seconds"    // LEGACY
+#define KXMLQLCVCClockHours     QString("Hours")     // LEGACY
+#define KXMLQLCVCClockMinutes   QString("Minutes")   // LEGACY
+#define KXMLQLCVCClockSeconds   QString("Seconds")   // LEGACY
 
-#define KXMLQLCVCClockSchedule "Schedule"
-#define KXMLQLCVCClockScheduleFunc "Function"
-#define KXMLQLCVCClockScheduleStartTime "StartTime"
-#define KXMLQLCVCClockScheduleStopTime "StopTime"
-#define KXMLQLCVCClockScheduleWeekFlags "WeekFlags"
+#define KXMLQLCVCClockSchedule          QString("Schedule")
+#define KXMLQLCVCClockScheduleFunc      QString("Function")
+#define KXMLQLCVCClockScheduleStartTime QString("StartTime")
+#define KXMLQLCVCClockScheduleStopTime  QString("StopTime")
+#define KXMLQLCVCClockScheduleWeekFlags QString("WeekFlags")
 
-#define KXMLQLCVCClockScheduleTime "Time"  // LEGACY
+#define KXMLQLCVCClockScheduleTime QString("Time")  // LEGACY
 
 VCClock::VCClock(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
@@ -86,7 +86,7 @@ void VCClock::setupLookAndFeel(qreal pixelDensity, int page)
 
 void VCClock::render(QQuickView *view, QQuickItem *parent)
 {
-    if (view == NULL || parent == NULL)
+    if (view == nullptr || parent == nullptr)
         return;
 
     QQmlComponent *component = new QQmlComponent(view->engine(), QUrl("qrc:/VCClockItem.qml"));
@@ -110,13 +110,13 @@ QString VCClock::propertiesResource() const
 
 VCWidget *VCClock::createCopy(VCWidget *parent)
 {
-    Q_ASSERT(parent != NULL);
+    Q_ASSERT(parent != nullptr);
 
     VCClock *clock = new VCClock(m_doc, parent);
     if (clock->copyFrom(this) == false)
     {
         delete clock;
-        clock = NULL;
+        clock = nullptr;
     }
 
     return clock;
@@ -125,7 +125,7 @@ VCWidget *VCClock::createCopy(VCWidget *parent)
 bool VCClock::copyFrom(const VCWidget *widget)
 {
     const VCClock *clock = qobject_cast<const VCClock*> (widget);
-    if (clock == NULL)
+    if (clock == nullptr)
         return false;
 
     /* Clock type */
@@ -238,12 +238,12 @@ void VCClock::slotTimerTimeout()
         return;
     }
 
-    for(VCClockSchedule *sch : m_scheduleList) // C++11
+    for (VCClockSchedule *sch : m_scheduleList) // C++11
     {
         if (sch->m_cachedDuration == -1)
         {
             Function *f = m_doc->function(sch->functionID());
-            if (f != NULL)
+            if (f != nullptr)
                 sch->m_cachedDuration = f->totalDuration() / 1000;
         }
 
@@ -258,7 +258,7 @@ void VCClock::slotTimerTimeout()
          *  Each case must be checked against days of the week
          */
 
-        if(dayTimeSecs >= sch->startTime())
+        if (dayTimeSecs >= sch->startTime())
         {
             // if there's a stop time and we past it, then skip
             if (sch->stopTime() > 0 && dayTimeSecs > sch->stopTime())
@@ -266,7 +266,7 @@ void VCClock::slotTimerTimeout()
 
             // check for existing Function
             Function *f = m_doc->function(sch->functionID());
-            if (f == NULL)
+            if (f == nullptr)
                 continue;
 
             // case #3 and #4
@@ -327,10 +327,10 @@ void VCClock::setEnableSchedule(bool enableSchedule)
     /* When disabling, check for running functions and stop them */
     if (enableSchedule == false)
     {
-        for(VCClockSchedule *sch : m_scheduleList) // C++11
+        for (VCClockSchedule *sch : m_scheduleList) // C++11
         {
             Function *f = m_doc->function(sch->functionID());
-            if (f != NULL && f->isRunning())
+            if (f != nullptr && f->isRunning())
                 f->stop(functionParent());
             sch->m_canPlay = true;
         }
@@ -343,7 +343,7 @@ void VCClock::setEnableSchedule(bool enableSchedule)
 QVariantList VCClock::scheduleList()
 {
     QVariantList list;
-    for(VCClockSchedule *sch : m_scheduleList) // C++11
+    for (VCClockSchedule *sch : m_scheduleList) // C++11
         list.append(QVariant::fromValue(sch));
     return list;
 }
@@ -357,7 +357,7 @@ void VCClock::addSchedule(VCClockSchedule *schedule)
 {
     if (schedule->functionID() != Function::invalidId())
         m_scheduleList.append(schedule);
-    qSort(m_scheduleList);
+    std::sort(m_scheduleList.begin(), m_scheduleList.end());
     QQmlEngine::setObjectOwnership(schedule, QQmlEngine::CppOwnership);
     emit scheduleListChanged();
 }
@@ -367,7 +367,7 @@ void VCClock::addSchedules(QVariantList idsList)
     for (QVariant vID : idsList) // C++11
     {
         quint32 funcID = vID.toUInt();
-        if (m_doc->function(funcID) == NULL)
+        if (m_doc->function(funcID) == nullptr)
             continue;
 
         VCClockSchedule *sch = new VCClockSchedule();
@@ -376,7 +376,7 @@ void VCClock::addSchedules(QVariantList idsList)
         m_scheduleList.append(sch);
     }
 
-    qSort(m_scheduleList);
+    std::sort(m_scheduleList.begin(), m_scheduleList.end());
     emit scheduleListChanged();
 }
 
@@ -387,7 +387,7 @@ void VCClock::removeSchedule(int index)
 
     VCClockSchedule *sch = m_scheduleList.takeAt(index);
     Function *f = m_doc->function(sch->functionID());
-    if (f != NULL && f->isRunning())
+    if (f != nullptr && f->isRunning())
         f->stop(functionParent());
     delete sch;
     emit scheduleListChanged();
@@ -478,7 +478,7 @@ bool VCClock::loadXML(QXmlStreamReader &root)
 
 bool VCClock::saveXML(QXmlStreamWriter *doc)
 {
-    Q_ASSERT(doc != NULL);
+    Q_ASSERT(doc != nullptr);
 
     /* VC Clock entry */
     doc->writeStartElement(KXMLQLCVCClock);
@@ -509,7 +509,7 @@ bool VCClock::saveXML(QXmlStreamWriter *doc)
     /* Appearance */
     saveXMLAppearance(doc);
 
-    for(VCClockSchedule *sch : m_scheduleList) // C++11
+    for (VCClockSchedule *sch : m_scheduleList) // C++11
         sch->saveXML(doc);
 
     /* End the <Clock> tag */

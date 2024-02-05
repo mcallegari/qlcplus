@@ -27,9 +27,7 @@
 #include "fixturegroupeditor.h"
 #include "fixtureselection.h"
 #include "fixturegroup.h"
-#include "qlcmacros.h"
 #include "fixture.h"
-#include "apputil.h"
 #include "doc.h"
 
 #define SETTINGS_GEOMETRY "fixturegroupeditor/geometry"
@@ -65,14 +63,8 @@ FixtureGroupEditor::FixtureGroupEditor(FixtureGroup* grp, Doc* doc, QWidget* par
     connect(m_removeButton, SIGNAL(clicked()),
             this, SLOT(slotRemoveFixtureClicked()));
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-    m_table->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-    m_table->verticalHeader()->setResizeMode(QHeaderView::Stretch);
-#else
     m_table->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     m_table->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-#endif
-
     m_table->setIconSize(QSize(20, 20));
     updateTable();
 }
@@ -240,8 +232,11 @@ void FixtureGroupEditor::slotResized()
             if (item != NULL)
             {
                 QFont scaledFont = font;
+#if (QT_VERSION < QT_VERSION_CHECK(5, 11, 0))
                 float baseWidth  = (float)fm.width(item->text());
-
+#else
+                float baseWidth  = (float)fm.horizontalAdvance(item->text());
+#endif
                 float factor = cellWidth / baseWidth;
                 if (factor != 1)
                     scaledFont.setPointSizeF((pSizeF * factor) + 2);

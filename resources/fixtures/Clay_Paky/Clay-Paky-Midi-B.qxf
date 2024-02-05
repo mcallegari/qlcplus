@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 1</Version>
+  <Author>Massimo Callegari</Author>
+ </Creator>
+ <Manufacturer>Clay Paky</Manufacturer>
+ <Model>Midi-B</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Red ring 1" Preset="IntensityRed"/>
+ <Channel Name="Red fine ring 1" Preset="IntensityRedFine"/>
+ <Channel Name="Red ring 2" Preset="IntensityRed"/>
+ <Channel Name="Red fine ring 2" Preset="IntensityRedFine"/>
+ <Channel Name="Red central" Preset="IntensityRed"/>
+ <Channel Name="Red fine central" Preset="IntensityRedFine"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Green ring 1" Preset="IntensityGreen"/>
+ <Channel Name="Green fine ring 1" Preset="IntensityGreenFine"/>
+ <Channel Name="Green ring 2" Preset="IntensityGreen"/>
+ <Channel Name="Green fine ring 2" Preset="IntensityGreenFine"/>
+ <Channel Name="Green central" Preset="IntensityGreen"/>
+ <Channel Name="Green fine central" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="Blue ring 1" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine ring 1" Preset="IntensityBlueFine"/>
+ <Channel Name="Blue ring 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine ring 2" Preset="IntensityBlueFine"/>
+ <Channel Name="Blue central" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine central" Preset="IntensityBlueFine"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="White fine" Preset="IntensityWhiteFine"/>
+ <Channel Name="White ring 1" Preset="IntensityWhite"/>
+ <Channel Name="White fine ring 1" Preset="IntensityWhiteFine"/>
+ <Channel Name="White ring 2" Preset="IntensityWhite"/>
+ <Channel Name="White fine ring 2" Preset="IntensityWhiteFine"/>
+ <Channel Name="White central" Preset="IntensityWhite"/>
+ <Channel Name="White fine central" Preset="IntensityWhiteFine"/>
+ <Channel Name="CTO">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Unused range</Capability>
+  <Capability Min="10" Max="10">8000K</Capability>
+  <Capability Min="11" Max="54">7000K</Capability>
+  <Capability Min="55" Max="99">6000K</Capability>
+  <Capability Min="100" Max="117">5600K</Capability>
+  <Capability Min="118" Max="144">5000K</Capability>
+  <Capability Min="145" Max="188">4000K</Capability>
+  <Capability Min="189" Max="224">3200K</Capability>
+  <Capability Min="225" Max="255">2700K</Capability>
+ </Channel>
+ <Channel Name="Color macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Macro Color OFF</Capability>
+  <Capability Min="10" Max="10" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="11" Max="11" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="12" Max="12" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="13" Max="13" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="14" Max="14" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="15" Max="15" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="16" Max="16" Preset="ColorDoubleMacro" Res1="#e1ede9" Res2="#ffffff">White 7000 K</Capability>
+  <Capability Min="17" Max="17" Preset="ColorDoubleMacro" Res1="#fff5e9" Res2="#ffffff">White 3700 K</Capability>
+  <Capability Min="18" Max="18" Preset="ColorDoubleMacro" Res1="#fdfff8" Res2="#ffffff">White 5000 K</Capability>
+  <Capability Min="19" Max="19" Preset="ColorMacro" Res1="#000000">Black</Capability>
+  <Capability Min="20" Max="22" Preset="ColorMacro" Res1="#9c7e00">Medium Yellow</Capability>
+  <Capability Min="23" Max="26" Preset="ColorMacro" Res1="#987309">Straw Tint</Capability>
+  <Capability Min="27" Max="28" Preset="ColorMacro" Res1="#c67209">Surprise Peach</Capability>
+  <Capability Min="29" Max="29" Preset="ColorMacro" Res1="#ff3800">Fire</Capability>
+  <Capability Min="30" Max="30" Preset="ColorMacro" Res1="#ff8700">Medium Amber</Capability>
+  <Capability Min="31" Max="31" Preset="ColorMacro" Res1="#ff6400">Gold Amber</Capability>
+  <Capability Min="32" Max="34" Preset="ColorMacro" Res1="#ff4100">Dark Amber</Capability>
+  <Capability Min="35" Max="44" Preset="ColorMacro" Res1="#ff5302">Sunrise Red</Capability>
+  <Capability Min="45" Max="45" Preset="ColorMacro" Res1="#ffb6c1">Light Pink</Capability>
+  <Capability Min="46" Max="48" Preset="ColorMacro" Res1="#ffa0b9">Medium Pink</Capability>
+  <Capability Min="49" Max="61" Preset="ColorMacro" Res1="#ffbde1">Pink Carnation</Capability>
+  <Capability Min="62" Max="67" Preset="ColorMacro" Res1="#f6fafd">Light Lavender</Capability>
+  <Capability Min="68" Max="77" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="78" Max="88" Preset="ColorMacro" Res1="#87ceeb">Sky Blue</Capability>
+  <Capability Min="89" Max="99" Preset="ColorMacro" Res1="#00c282">Just Blue</Capability>
+  <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#29db00">Dark Yellow Green</Capability>
+  <Capability Min="110" Max="111" Preset="ColorMacro" Res1="#f5ca00">Spring Yellow</Capability>
+  <Capability Min="112" Max="112" Preset="ColorMacro" Res1="#eda300">Light Amber</Capability>
+  <Capability Min="113" Max="113" Preset="ColorMacro" Res1="#fceacc">Straw</Capability>
+  <Capability Min="114" Max="114" Preset="ColorMacro" Res1="#ffa600">Deep Amber</Capability>
+  <Capability Min="115" Max="116" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="117" Max="117" Preset="ColorMacro" Res1="#ffa5af">Light Rose</Capability>
+  <Capability Min="118" Max="118" Preset="ColorMacro" Res1="#fcbea9">English Rose</Capability>
+  <Capability Min="119" Max="119" Preset="ColorMacro" Res1="#ffa07a">Light Salmon</Capability>
+  <Capability Min="120" Max="120" Preset="ColorMacro" Res1="#ffb4c8">Middle Rose</Capability>
+  <Capability Min="121" Max="122" Preset="ColorMacro" Res1="#ff8cbe">Dark Pink</Capability>
+  <Capability Min="123" Max="124" Preset="ColorMacro" Res1="#ff0064">Magenta2</Capability>
+  <Capability Min="125" Max="125" Preset="ColorMacro" Res1="#00ebc8">Peacock Blue</Capability>
+  <Capability Min="126" Max="126" Preset="ColorMacro" Res1="#00c8b9">Med Blue Green</Capability>
+  <Capability Min="127" Max="127" Preset="ColorMacro" Res1="#4682b4">Steel Blue</Capability>
+  <Capability Min="128" Max="128" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
+  <Capability Min="129" Max="130" Preset="ColorMacro" Res1="#00008b">Dark Blue</Capability>
+  <Capability Min="131" Max="133" Preset="ColorMacro" Res1="#b4ff64">Leaf Green</Capability>
+  <Capability Min="134" Max="135" Preset="ColorMacro" Res1="#006400">Dark Green</Capability>
+  <Capability Min="136" Max="137" Preset="ColorMacro" Res1="#be009b">Mauve</Capability>
+  <Capability Min="138" Max="141" Preset="ColorMacro" Res1="#ff50b4">Bright Pink</Capability>
+  <Capability Min="142" Max="144" Preset="ColorMacro" Res1="#0000cd">Medium Blue</Capability>
+  <Capability Min="145" Max="145" Preset="ColorMacro" Res1="#ff5f00">Deep Golden Amber</Capability>
+  <Capability Min="146" Max="146" Preset="ColorMacro" Res1="#f0bee6">Pale Lavender</Capability>
+  <Capability Min="147" Max="148" Preset="ColorMacro" Res1="#c8b4e6">Special Lavender</Capability>
+  <Capability Min="149" Max="150" Preset="ColorMacro" Res1="#4bc300">Primary Green</Capability>
+  <Capability Min="151" Max="156" Preset="ColorMacro" Res1="#00d2e6">Bright Blue</Capability>
+  <Capability Min="157" Max="161" Preset="ColorMacro" Res1="#fcb98c">Apricot</Capability>
+  <Capability Min="162" Max="167" Preset="ColorMacro" Res1="#ffd2c1">Pale Gold</Capability>
+  <Capability Min="168" Max="171" Preset="ColorMacro" Res1="#ff8700">Deep Orange</Capability>
+  <Capability Min="172" Max="173" Preset="ColorMacro" Res1="#fcded8">Bastard Amber</Capability>
+  <Capability Min="174" Max="174" Preset="ColorMacro" Res1="#ff3200">Flame Red</Capability>
+  <Capability Min="175" Max="178" Preset="ColorMacro" Res1="#5ac8eb">Daylight Blue</Capability>
+  <Capability Min="179" Max="179" Preset="ColorMacro" Res1="#fadcf0">Lilac Tint</Capability>
+  <Capability Min="180" Max="183" Preset="ColorMacro" Res1="#e6aadc">Deep Lavender</Capability>
+  <Capability Min="184" Max="190" Preset="ColorMacro" Res1="#afe1fa">Dark Steel Blue</Capability>
+  <Capability Min="191" Max="206" Preset="ColorMacro" Res1="#5000aa">Congo Blue</Capability>
+  <Capability Min="207" Max="207" Preset="ColorMacro" Res1="#f0f8ff">Alice Blue</Capability>
+  <Capability Min="208" Max="208" Preset="ColorMacro" Res1="#ebd1d3">Dirty White</Capability>
+  <Capability Min="209" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+ </Channel>
+ <Channel Name="Strobe effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterClose">Light Off</Capability>
+  <Capability Min="4" Max="103" Preset="StrobeFreqRange" Res1="1" Res2="25">Strobe effect linearly variable frequency from low (1Hz) to fast (25Hz)</Capability>
+  <Capability Min="104" Max="107" Preset="ShutterOpen">Light On</Capability>
+  <Capability Min="108" Max="207" Preset="PulseFreqRange" Res1="1" Res2="25">Pulsation at linearly variable speed from slow (0.5Hz) to fast (25Hz)</Capability>
+  <Capability Min="208" Max="212" Preset="ShutterOpen">Light On</Capability>
+  <Capability Min="213" Max="225" Preset="StrobeRandom">Random slow strobe effect</Capability>
+  <Capability Min="226" Max="238" Preset="StrobeRandom">Random medium strobe effect</Capability>
+  <Capability Min="239" Max="251" Preset="StrobeRandom">Random fast strobe effect</Capability>
+  <Capability Min="252" Max="255" Preset="ShutterOpen">Light On</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Color crossfade" Preset="ColorWheel"/>
+ <Channel Name="Function">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="11">Unused range</Capability>
+  <Capability Min="12" Max="24">Fast pan-tilt speed (default)</Capability>
+  <Capability Min="25" Max="37">Standard pan-tilt speed</Capability>
+  <Capability Min="38" Max="42">Dimmer curve 1 (default)</Capability>
+  <Capability Min="43" Max="47">Dimmer curve 2</Capability>
+  <Capability Min="48" Max="52">Dimmer curve 3</Capability>
+  <Capability Min="53" Max="57">Dimmer curve 4</Capability>
+  <Capability Min="58" Max="62">Raw color channels gamma 1</Capability>
+  <Capability Min="63" Max="67">Raw color channels gamma 1.5</Capability>
+  <Capability Min="68" Max="72">Raw color channels gamma 2.2 (default)</Capability>
+  <Capability Min="73" Max="77">Color calibration Off (default)</Capability>
+  <Capability Min="78" Max="82">Color calibration adjustment</Capability>
+  <Capability Min="83" Max="167">Not used</Capability>
+  <Capability Min="168" Max="188">Pwm frequency=600Hz</Capability>
+  <Capability Min="189" Max="199">PWM frequency=1200Hz</Capability>
+  <Capability Min="200" Max="210">PWM frequency=2000Hz</Capability>
+  <Capability Min="211" Max="221">PWM frequency=4000Hz</Capability>
+  <Capability Min="222" Max="232">Not used</Capability>
+  <Capability Min="233" Max="243">PWM frequency=25000Hz</Capability>
+  <Capability Min="244" Max="248">Display Off (default)</Capability>
+  <Capability Min="249" Max="253">Display On</Capability>
+  <Capability Min="254" Max="255">Default function recall</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="25">Unused range</Capability>
+  <Capability Min="26" Max="76" Preset="ResetZoom">Zoom reset</Capability>
+  <Capability Min="77" Max="127" Preset="ResetPanTilt">Pan/Tilt reset</Capability>
+  <Capability Min="128" Max="255" Preset="ResetAll">Complete reset</Capability>
+ </Channel>
+ <Mode Name="Extended RGBW">
+  <Channel Number="0">Red ring 1</Channel>
+  <Channel Number="1">Green ring 1</Channel>
+  <Channel Number="2">Blue ring 1</Channel>
+  <Channel Number="3">White ring 1</Channel>
+  <Channel Number="4">Red ring 2</Channel>
+  <Channel Number="5">Green ring 2</Channel>
+  <Channel Number="6">Blue ring 2</Channel>
+  <Channel Number="7">White ring 2</Channel>
+  <Channel Number="8">Red central</Channel>
+  <Channel Number="9">Green central</Channel>
+  <Channel Number="10">Blue central</Channel>
+  <Channel Number="11">White central</Channel>
+  <Channel Number="12">CTO</Channel>
+  <Channel Number="13">Color macro</Channel>
+  <Channel Number="14">Strobe effect</Channel>
+  <Channel Number="15">Dimmer</Channel>
+  <Channel Number="16">Dimmer fine</Channel>
+  <Channel Number="17">Pan</Channel>
+  <Channel Number="18">Pan fine</Channel>
+  <Channel Number="19">Tilt</Channel>
+  <Channel Number="20">Tilt fine</Channel>
+  <Channel Number="21">Zoom</Channel>
+  <Channel Number="22">Color crossfade</Channel>
+  <Channel Number="23">Function</Channel>
+  <Channel Number="24">Reset</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Basic RGBW">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">CTO</Channel>
+  <Channel Number="5">Color macro</Channel>
+  <Channel Number="6">Strobe effect</Channel>
+  <Channel Number="7">Dimmer</Channel>
+  <Channel Number="8">Dimmer fine</Channel>
+  <Channel Number="9">Pan</Channel>
+  <Channel Number="10">Pan fine</Channel>
+  <Channel Number="11">Tilt</Channel>
+  <Channel Number="12">Tilt fine</Channel>
+  <Channel Number="13">Zoom</Channel>
+  <Channel Number="14">Color crossfade</Channel>
+  <Channel Number="15">Function</Channel>
+  <Channel Number="16">Reset</Channel>
+ </Mode>
+ <Mode Name="Basic RGBW 16bit">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Red fine</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Green fine</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Blue fine</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">White fine</Channel>
+  <Channel Number="8">CTO</Channel>
+  <Channel Number="9">Color macro</Channel>
+  <Channel Number="10">Strobe effect</Channel>
+  <Channel Number="11">Dimmer</Channel>
+  <Channel Number="12">Dimmer fine</Channel>
+  <Channel Number="13">Pan</Channel>
+  <Channel Number="14">Pan fine</Channel>
+  <Channel Number="15">Tilt</Channel>
+  <Channel Number="16">Tilt fine</Channel>
+  <Channel Number="17">Zoom</Channel>
+  <Channel Number="18">Color crossfade</Channel>
+  <Channel Number="19">Function</Channel>
+  <Channel Number="20">Reset</Channel>
+ </Mode>
+ <Mode Name="Extended RGBW 16bit">
+  <Channel Number="0">Red ring 1</Channel>
+  <Channel Number="1">Red fine ring 1</Channel>
+  <Channel Number="2">Green ring 1</Channel>
+  <Channel Number="3">Green fine ring 1</Channel>
+  <Channel Number="4">Blue ring 1</Channel>
+  <Channel Number="5">Blue fine ring 1</Channel>
+  <Channel Number="6">White ring 1</Channel>
+  <Channel Number="7">White fine ring 1</Channel>
+  <Channel Number="8">Red ring 2</Channel>
+  <Channel Number="9">Red fine ring 2</Channel>
+  <Channel Number="10">Green ring 2</Channel>
+  <Channel Number="11">Green fine ring 2</Channel>
+  <Channel Number="12">Blue ring 2</Channel>
+  <Channel Number="13">Blue fine ring 2</Channel>
+  <Channel Number="14">White ring 2</Channel>
+  <Channel Number="15">White fine ring 2</Channel>
+  <Channel Number="16">Red central</Channel>
+  <Channel Number="17">Red fine central</Channel>
+  <Channel Number="18">Green central</Channel>
+  <Channel Number="19">Green fine central</Channel>
+  <Channel Number="20">Blue central</Channel>
+  <Channel Number="21">Blue fine central</Channel>
+  <Channel Number="22">White central</Channel>
+  <Channel Number="23">White fine central</Channel>
+  <Channel Number="24">CTO</Channel>
+  <Channel Number="25">Color macro</Channel>
+  <Channel Number="26">Strobe effect</Channel>
+  <Channel Number="27">Dimmer</Channel>
+  <Channel Number="28">Dimmer fine</Channel>
+  <Channel Number="29">Pan</Channel>
+  <Channel Number="30">Pan fine</Channel>
+  <Channel Number="31">Tilt</Channel>
+  <Channel Number="32">Tilt fine</Channel>
+  <Channel Number="33">Zoom</Channel>
+  <Channel Number="34">Color crossfade</Channel>
+  <Channel Number="35">Function</Channel>
+  <Channel Number="36">Reset</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>14</Channel>
+   <Channel>13</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="1900" ColourTemperature="0"/>
+  <Dimensions Weight="17" Width="390" Height="400" Depth="252"/>
+  <Lens Name="Other" DegreesMin="4" DegreesMax="50"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="700" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -31,9 +31,9 @@ Rectangle
     width: 800
     height: 600
     anchors.fill: parent
-    color: UISettings.bgMain
+    color: UISettings.bgMedium
 
-    property string currentContext: "FIXANDFUNC"
+    property string currentContext: ""
 
     Component.onCompleted: UISettings.sidePanelWidth = Math.min(width / 3, UISettings.bigItemHeight * 5)
     onWidthChanged: UISettings.sidePanelWidth = Math.min(width / 3, UISettings.bigItemHeight * 5)
@@ -43,7 +43,7 @@ Rectangle
         var item = null
 
         if (ctx === "FIXANDFUNC")
-            item = edEntry
+            item = fnfEntry
         else if (ctx === "VC")
             item = vcEntry
         else if (ctx === "SDESK")
@@ -58,7 +58,9 @@ Rectangle
             item.visible = true
             if (setChecked)
                 item.checked = true
+            return true
         }
+        return false
     }
 
     function switchToContext(ctx, qmlRes)
@@ -66,8 +68,17 @@ Rectangle
         if (currentContext === ctx)
             return
 
-        enableContext(ctx, true)
-        currentContext = ctx
+        if (enableContext(ctx, true) === true)
+        {
+            currentContext = ctx
+            mainToolbar.visible = true
+        }
+        else
+        {
+            mainToolbar.visible = false
+            currentContext = ""
+        }
+
         if (qmlRes)
             mainViewLoader.source = qmlRes
     }
@@ -83,10 +94,20 @@ Rectangle
         clientAccessPopup.open()
     }
 
+    function saveProject()
+    {
+        actionsMenu.handleSaveAction()
+    }
+
     function saveBeforeExit()
     {
         //actionsMenu.open()
         actionsMenu.saveBeforeExit()
+    }
+
+    function loadResource(qmlRes)
+    {
+        mainViewLoader.source = qmlRes
     }
 
     FontLoader
@@ -142,20 +163,26 @@ Rectangle
             }
             MenuBarEntry
             {
-                id: edEntry
+                id: fnfEntry
+                property string ctxName: "FIXANDFUNC"
+                property string ctxRes: "qrc:/FixturesAndFunctions.qml"
+
                 imgSource: "qrc:/editor.svg"
                 entryText: qsTr("Fixtures & Functions")
-                checked: true
+                checked: false
                 ButtonGroup.group: menuBarGroup
                 onCheckedChanged:
                 {
                     if (checked == true)
-                        switchToContext("FIXANDFUNC", "qrc:/FixturesAndFunctions.qml")
+                        switchToContext(fnfEntry.ctxName, fnfEntry.ctxRes)
                 }
             }
             MenuBarEntry
             {
                 id: vcEntry
+                property string ctxName: "VC"
+                property string ctxRes: "qrc:/VirtualConsole.qml"
+
                 visible: qlcplus.accessMask & App.AC_VCControl
                 imgSource: "qrc:/virtualconsole.svg"
                 entryText: qsTr("Virtual Console")
@@ -163,7 +190,7 @@ Rectangle
                 onCheckedChanged:
                 {
                     if (checked == true)
-                        switchToContext("VC", "qrc:/VirtualConsole.qml")
+                        switchToContext(vcEntry.ctxName, vcEntry.ctxRes)
                 }
                 onRightClicked:
                 {
@@ -174,6 +201,9 @@ Rectangle
             MenuBarEntry
             {
                 id: sdEntry
+                property string ctxName: "SDESK"
+                property string ctxRes: "qrc:/SimpleDesk.qml"
+
                 visible: qlcplus.accessMask & App.AC_SimpleDesk
                 imgSource: "qrc:/simpledesk.svg"
                 entryText: qsTr("Simple Desk")
@@ -181,7 +211,7 @@ Rectangle
                 onCheckedChanged:
                 {
                     if (checked == true)
-                        switchToContext("SDESK", "qrc:/SimpleDesk.qml")
+                        switchToContext(sdEntry.ctxName, sdEntry.ctxRes)
                 }
                 onRightClicked:
                 {
@@ -192,6 +222,9 @@ Rectangle
             MenuBarEntry
             {
                 id: smEntry
+                property string ctxName: "SHOWMGR"
+                property string ctxRes: "qrc:/ShowManager.qml"
+
                 visible: qlcplus.accessMask & App.AC_ShowManager
                 imgSource: "qrc:/showmanager.svg"
                 entryText: qsTr("Show Manager")
@@ -199,7 +232,7 @@ Rectangle
                 onCheckedChanged:
                 {
                     if (checked == true)
-                        switchToContext("SHOWMGR", "qrc:/ShowManager.qml")
+                        switchToContext(smEntry.ctxName, smEntry.ctxRes)
                 }
                 onRightClicked:
                 {
@@ -210,6 +243,9 @@ Rectangle
             MenuBarEntry
             {
                 id: ioEntry
+                property string ctxName: "IOMGR"
+                property string ctxRes: "qrc:/InputOutputManager.qml"
+
                 visible: qlcplus.accessMask & App.AC_InputOutput
                 imgSource: "qrc:/inputoutput.svg"
                 entryText: qsTr("Input/Output")
@@ -217,7 +253,7 @@ Rectangle
                 onCheckedChanged:
                 {
                     if (checked == true)
-                        switchToContext("IOMGR", "qrc:/InputOutputManager.qml")
+                        switchToContext(ioEntry.ctxName, ioEntry.ctxRes)
                 }
                 onRightClicked:
                 {
@@ -263,13 +299,13 @@ Rectangle
                 radius: height / 2
                 border.width: 2
                 border.color: "#333"
-                color: "#666"
+                color: UISettings.fgMedium
 
                 ColorAnimation on color
                 {
                     id: cAnim
                     from: "#00FF00"
-                    to: "#666"
+                    to: UISettings.fgMedium
                     // half the duration of the current BPM
                     duration: ioManager.bpmNumber ? 30000 / ioManager.bpmNumber : 200
                     running: false
@@ -279,7 +315,47 @@ Rectangle
                 {
                     id: beatSignal
                     target: ioManager
-                    onBeat: cAnim.restart()
+                    function onBeat()
+                    {
+                        cAnim.restart()
+                    }
+                }
+            }
+            IconButton
+            {
+                id: stopAllButton
+                width: UISettings.iconSizeDefault
+                height: UISettings.iconSizeDefault
+                enabled: runningCount ? true : false
+                bgColor: "transparent"
+                imgSource: "qrc:/stop.svg"
+                tooltip: qsTr("Stop all the running functions")
+                onClicked: qlcplus.stopAllFunctions()
+
+                property int runningCount: qlcplus.runningFunctionsCount
+
+                onRunningCountChanged: console.log("Functions running: " + runningCount)
+
+                Rectangle
+                {
+                    x: parent.width / 2
+                    y: parent.height / 2
+                    width: parent.width * 0.4
+                    height: width
+                    color: UISettings.highlight
+                    border.width: 1
+                    border.color: UISettings.fgMain
+                    radius: 3
+                    clip: true
+                    visible: stopAllButton.runningCount
+
+                    RobotoText
+                    {
+                        anchors.centerIn: parent
+                        height: parent.height * 0.7
+                        label: stopAllButton.runningCount
+                        fontSize: height
+                    }
                 }
             }
 
@@ -292,7 +368,15 @@ Rectangle
         width: parent.width
         height: parent.height - (mainToolbar.visible ? mainToolbar.height : 0)
         y: mainToolbar.visible ? mainToolbar.height : 0
-        source: "qrc:/FixturesAndFunctions.qml"
+
+        Component.onCompleted:
+        {
+            var ctx = "FIXANDFUNC"
+            // handle Kiosk mode on startup
+            if (qlcplus.accessMask === App.AC_VCControl)
+                ctx = "VC"
+            enableContext(ctx, true)
+        }
     }
 
     PopupNetworkConnect { id: clientAccessPopup }
@@ -318,8 +402,5 @@ Rectangle
         color: Qt.rgba(0, 0, 0, 0.5)
     }
 
-    PopupDisclaimer
-    {
-        visible: true
-    }
+    PopupDisclaimer { }
 }

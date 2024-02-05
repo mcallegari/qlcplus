@@ -40,22 +40,42 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="80"/>
+        <location filename="configureosc.ui" line="90"/>
+        <source>Seconds to wait for an interface to be ready</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureosc.ui" line="122"/>
+        <source>Channel number calculator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureosc.ui" line="130"/>
+        <source>OSC path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureosc.ui" line="140"/>
+        <source>Channel number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureosc.cpp" line="88"/>
         <source>Inputs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="86"/>
+        <location filename="configureosc.cpp" line="94"/>
         <source>Outputs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="168"/>
+        <location filename="configureosc.cpp" line="176"/>
         <source>Invalid IP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="168"/>
+        <location filename="configureosc.cpp" line="176"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
         <translation type="unfinished"></translation>
@@ -64,39 +84,39 @@ Please fix it before confirming.</source>
 <context>
     <name>OSCPlugin</name>
     <message>
-        <location filename="oscplugin.cpp" line="85"/>
+        <location filename="oscplugin.cpp" line="96"/>
         <source>This plugin provides input for devices supporting the OSC transmission protocol.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="136"/>
-        <location filename="oscplugin.cpp" line="270"/>
+        <location filename="oscplugin.cpp" line="147"/>
+        <location filename="oscplugin.cpp" line="280"/>
         <source>Status: Not open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="139"/>
-        <location filename="oscplugin.cpp" line="273"/>
+        <location filename="oscplugin.cpp" line="150"/>
+        <location filename="oscplugin.cpp" line="283"/>
         <source>Status: Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="141"/>
+        <location filename="oscplugin.cpp" line="152"/>
         <source>Packets sent: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="275"/>
+        <location filename="oscplugin.cpp" line="285"/>
         <source>Packets received: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="132"/>
+        <location filename="oscplugin.cpp" line="143"/>
         <source>Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="266"/>
+        <location filename="oscplugin.cpp" line="276"/>
         <source>Input</source>
         <translation type="unfinished"></translation>
     </message>

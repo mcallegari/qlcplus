@@ -22,6 +22,7 @@
 #define QLCFIXTUREHEAD_H
 
 #include <QList>
+#include <QMap>
 
 class QLCFixtureMode;
 class QXmlStreamReader;
@@ -31,8 +32,8 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCFixtureHead          "Head"
-#define KXMLQLCFixtureHeadChannel   "Channel"
+#define KXMLQLCFixtureHead          QString("Head")
+#define KXMLQLCFixtureHeadChannel   QString("Channel")
 
 class QLCFixtureHead
 {
@@ -40,6 +41,8 @@ public:
     QLCFixtureHead();
     QLCFixtureHead(const QLCFixtureHead& head);
     virtual ~QLCFixtureHead();
+
+    QLCFixtureHead& operator=(const QLCFixtureHead& head);
 
     /************************************************************************
      * Channels
@@ -85,6 +88,11 @@ public:
     QVector <quint32> rgbChannels() const;
 
     /**
+     * Return a copy of the cached channel map
+     */
+    QMap<int, quint32> channelsMap() const;
+
+    /**
      * Get a list of CMY channels. If the fixture doesn't support CMY mixing,
      * the list is empty. The first item is always cyan, then magenta, then yellow.
      * @return A list of three channels or an empty list
@@ -96,7 +104,7 @@ public:
      * @return A list of zero or more channels
      */
     QVector <quint32> colorWheels() const;
-    
+
     /**
      * Get a list of shutter channels. Channels are ordered by their number
      * @return A list of zero or more channels

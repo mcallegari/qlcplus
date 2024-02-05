@@ -186,7 +186,7 @@ QString VCXYPadArea::angleString() const
             .arg(pos.x() * 100 / MAX_DMX_VALUE, 7, 'f', 3, '0')
             .arg(pos.y() * 100 / MAX_DMX_VALUE, 7, 'f', 3, '0');
     }
-    
+
 }
 
 /*************************************************************************
@@ -240,7 +240,7 @@ void VCXYPadArea::enableEFXPreview(bool enable)
         {
             m_previewArea = new EFXPreviewArea(this);
             m_previewArea->setBackgroundAlpha(0);
-            layout()->setMargin(0);
+            layout()->setContentsMargins(0, 0, 0, 0);
             layout()->addWidget(m_previewArea);
         }
     }
@@ -320,10 +320,10 @@ void VCXYPadArea::paintEvent(QPaintEvent* e)
     }
 
     updateWindowPos();
-    
+
     if (m_previewArea == NULL)
     {
-        foreach(QVariant pos, m_fixturePositions)
+        foreach (QVariant pos, m_fixturePositions)
         {
             QPointF pt = pos.toPointF();
             pt.setX(SCALE(pt.x(), qreal(0), qreal(256), qreal(0), qreal(width())));
@@ -351,7 +351,7 @@ void VCXYPadArea::mousePressEvent(QMouseEvent* e)
 {
     if (m_mode == Doc::Operate)
     {
-        QPointF pt(CLAMP(e->x(), 0, width()), CLAMP(e->y(), 0, height()));
+        QPointF pt(CLAMP(e->pos().x(), 0, width()), CLAMP(e->pos().y(), 0, height()));
         pt.setX(SCALE(pt.x(), qreal(0), qreal(width()), qreal(0), qreal(256)));
         pt.setY(SCALE(pt.y(), qreal(0), qreal(height()), qreal(0), qreal(256)));
 
@@ -368,7 +368,7 @@ void VCXYPadArea::mouseReleaseEvent(QMouseEvent* e)
 {
     if (m_mode == Doc::Operate)
     {
-        QPointF pt(CLAMP(e->x(), 0, width()), CLAMP(e->y(), 0, height()));
+        QPointF pt(CLAMP(e->pos().x(), 0, width()), CLAMP(e->pos().y(), 0, height()));
         pt.setX(SCALE(pt.x(), qreal(0), qreal(width()), qreal(0), qreal(256)));
         pt.setY(SCALE(pt.y(), qreal(0), qreal(height()), qreal(0), qreal(256)));
 
@@ -384,7 +384,7 @@ void VCXYPadArea::mouseMoveEvent(QMouseEvent* e)
 {
     if (m_mode == Doc::Operate)
     {
-        QPointF pt(CLAMP(e->x(), 0, width()), CLAMP(e->y(), 0, height()));
+        QPointF pt(CLAMP(e->pos().x(), 0, width()), CLAMP(e->pos().y(), 0, height()));
         pt.setX(SCALE(pt.x(), qreal(0), qreal(width()), qreal(0), qreal(256)));
         pt.setY(SCALE(pt.y(), qreal(0), qreal(height()), qreal(0), qreal(256)));
 
@@ -404,7 +404,7 @@ void VCXYPadArea::keyPressEvent(QKeyEvent *e)
             step *= 10;
         if (e->modifiers().testFlag(Qt::ShiftModifier))
             step /= 256;
-        
+
         if (e->key() == Qt::Key_Left)
         {
             nudgePosition(-step , 0);

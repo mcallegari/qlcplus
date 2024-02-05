@@ -19,7 +19,6 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.2
 
 import org.qlcplus.classes 1.0
 import "."
@@ -164,7 +163,7 @@ Rectangle
             {
                 id: deletePagePopup
                 title: qsTr("Delete page")
-                message: qsTr("Are you sure you want to delete the selected page ?")
+                message: qsTr("Are you sure you want to delete the selected page?")
                 onAccepted: virtualConsole.deletePage(virtualConsole.selectedPage)
             }
         }

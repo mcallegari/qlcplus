@@ -50,6 +50,22 @@ ChaserStep::ChaserStep(const ChaserStep& cs)
 {
 }
 
+ChaserStep &ChaserStep::operator=(const ChaserStep &step)
+{
+    if (this != &step)
+    {
+        fid = step.fid;
+        fadeIn = step.fadeIn;
+        hold = step.hold;
+        fadeOut = step.fadeOut;
+        duration = step.duration;
+        values = step.values;
+        note = step.note;
+    }
+
+    return *this;
+}
+
 bool ChaserStep::operator==(const ChaserStep& cs) const
 {
     return (fid == cs.fid) ? true : false;
@@ -71,7 +87,7 @@ int ChaserStep::setValue(SceneValue value, int index, bool *created)
         if (index == -1)
         {
             values.append(value);
-            qSort(values.begin(), values.end());
+            std::sort(values.begin(), values.end());
             if (created != NULL)
                 *created = true;
             return values.indexOf(value);
@@ -113,17 +129,12 @@ int ChaserStep::setValue(SceneValue value, int index, bool *created)
 int ChaserStep::unSetValue(SceneValue value, int index)
 {
     if (index == -1)
-    {
         index = values.indexOf(value);
-        if (index == -1)
-            return -1;
-    }
 
     if (index < 0 || index >= values.count())
         return -1;
 
     values.removeAt(index);
-
 
     return index;
 }
@@ -273,7 +284,7 @@ bool ChaserStep::saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence)
         doc->writeAttribute(KXMLQLCSequenceSceneValues, QString::number(values.count()));
         QString stepValues;
         quint32 fixtureID = Fixture::invalidId();
-        foreach(SceneValue scv, values)
+        foreach (SceneValue scv, values)
         {
             // step values are saved as a string with the following syntax:
             // fixtureID:channel,value,channel,value:fixtureID:channel,value ... etc

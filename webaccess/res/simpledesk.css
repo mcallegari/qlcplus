@@ -35,7 +35,7 @@ body {
 }
 
 .sdButton:active { background: #868585; }
-	    
+
 .sdSlider {
  position: relative;
  display: inline-block;

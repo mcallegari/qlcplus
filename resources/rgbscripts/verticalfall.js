@@ -28,24 +28,26 @@ var testAlgo;
         algo.name = "Vertical fall";
         algo.author = "Massimo Callegari";
         algo.acceptColors = 1;
-        
+
         var util = new Object;
         util.initialized = false;
+        util.width = 0;
+        util.height = 0;
         util.color = 0xFF0000;
         util.fallObject = new Array();
         util.objYPos = new Array();
         util.objmap = new Array();
-        
+
         util.initialize = function(rgb, width, height)
         {
             var r = (rgb >> 16) & 0x00FF;
             var g = (rgb >> 8) & 0x00FF;
             var b = rgb & 0x00FF;
-            
+
             var rStep = (r / height);
             var gStep = (g / height);
             var bStep = (b / height);
-            
+
             objYPos = new Array(width);
             for (var i = 0; i < width; i++) {
                 objYPos[i] = -1;
@@ -61,7 +63,7 @@ var testAlgo;
                 stepRGB += (bStep * (height - f - 1));
                 fallObject[f] = stepRGB;
             }
-            
+
             objmap = new Array(height);
             for (var y = 0; y < height; y++)
             {
@@ -72,6 +74,8 @@ var testAlgo;
             }
 
             util.color = rgb;
+            util.width = width;
+            util.height = height;
             util.initialized = true;
         };
 
@@ -83,18 +87,18 @@ var testAlgo;
                 {
                     // this decides the amount of falling objects
                     var seed = Math.floor(Math.random()*100);
-                    if (seed > 80) 
-                    { 
+                    if (seed > 80)
+                    {
                         objYPos[x] = 0;
                     }
                 }
-                
+
                 if (objYPos[x] >= 0)
                 {
                     var yPos = objYPos[x];
                     for (var i = 0; i < height; i++)
                     {
-                        if (yPos < height) 
+                        if (yPos < height)
                         {
                             objmap[yPos][x] = fallObject[i];
                         }
@@ -103,7 +107,7 @@ var testAlgo;
                     }
                     objYPos[x]++;
                 }
-                if (objYPos[x] === height * 2) 
+                if (objYPos[x] === height * 2)
                 {
                     objYPos[x] = -1;
                 }
@@ -113,7 +117,8 @@ var testAlgo;
 
         algo.rgbMap = function(width, height, rgb, step)
         {
-            if (util.initialized === false || util.color !== rgb) {
+            if (util.initialized === false || util.color !== rgb ||
+                    util.width != width || util.height != height) {
                 util.initialize(rgb, width, height);
             }
 

@@ -176,13 +176,13 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem* item, Fixture* fixtur
     item->setData(KColumnName, PROP_ID, QString::number(fixture->id()));
     if (m_channelSelection)
     {
-        item->setFlags(item->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsTristate);
+        item->setFlags(item->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
         item->setCheckState(KColumnName, Qt::Unchecked);
     }
     if (m_disabledFixtures.contains(fixture->id()) == true)
     {
         // Disable selection
-        item->setFlags(0);
+        item->setFlags(Qt::NoItemFlags);
     }
 
     if (m_uniColumn > 0)
@@ -196,13 +196,13 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem* item, Fixture* fixtur
         QString s;
         if (fixture->channels() > 1)
         {
-            s.sprintf("%.3d - %.3d", fixture->address() + 1, fixture->address() + fixture->channels());
+            item->setText(m_addressColumn, s.asprintf("%.3d - %.3d", fixture->address() + 1,
+                                                      fixture->address() + fixture->channels()));
         }
         else
         {
-            s.sprintf("%.3d", fixture->address() + 1);
+            item->setText(m_addressColumn, s.asprintf("%.3d", fixture->address() + 1));
         }
-        item->setText(m_addressColumn, s);
     }
 
     if (m_headsColumn > 0)
@@ -235,14 +235,14 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem* item, Fixture* fixtur
             headItem->setData(KColumnName, PROP_HEAD, i);
             if (m_disabledHeads.contains(GroupHead(fixture->id(), i)) == true)
             {
-                headItem->setFlags(0); // Disable selection
+                headItem->setFlags(Qt::NoItemFlags); // Disable selection
                 disabled++;
             }
         }
 
         // Disable the whole fixture if all heads are disabled
         if (disabled == fixture->heads())
-            item->setFlags(0);
+            item->setFlags(Qt::NoItemFlags);
     }
 
     if (m_channelSelection == true)
@@ -465,7 +465,7 @@ void FixtureTreeWidget::updateTree()
             topItem->setExpanded(true);
             if (m_channelSelection)
             {
-                topItem->setFlags(topItem->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsTristate);
+                topItem->setFlags(topItem->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
                 topItem->setCheckState(KColumnName, Qt::Unchecked);
             }
             m_universesCount++;

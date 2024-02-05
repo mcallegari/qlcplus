@@ -23,6 +23,7 @@
 #include <QThread>
 #include <QQueue>
 #include <QPair>
+#include <QMap>
 
 class GenericFader;
 class MasterTimer;
@@ -30,6 +31,15 @@ class QJSEngine;
 class QJSValue;
 class Universe;
 class Doc;
+
+typedef struct
+{
+    quint32 m_universe;
+    quint32 m_fixtureID;
+    quint32 m_channel;
+    uchar m_value;
+    uint m_fadeTime;
+} FixtureValue;
 
 class ScriptRunner : public QThread
 {
@@ -50,9 +60,6 @@ public:
     QStringList collectScriptData();
 
     int currentWaitTime();
-
-    /** Get the script's GenericFader (and create it if necessary) */
-    GenericFader *fader();
 
     bool write(MasterTimer *timer, QList<Universe*> universes);
 
@@ -167,6 +174,14 @@ public slots:
     bool setBlackout(bool enable);
 
     /**
+     * Set the BPM (beat per minute) number of the internal beat generator
+     *
+     * @param bpm the number of beats per minute requested
+     * @return true if successful. False on error.
+     */
+    bool setBPM(int bpm);
+
+    /**
      * Handle "random" command (string version)
      *
      * @param minTime Minimum time, expressed as QLC+ styled string
@@ -196,11 +211,14 @@ private:
     QJSEngine *m_engine;
     // Queue holding the Function IDs to start/stop
     QQueue<QPair<quint32,bool>> m_functionQueue;
+    // Queue holding Fixture values to send to Universes
+    QQueue<FixtureValue> m_fixtureValueQueue;
     // IDs of the Functions started by this script
     QList <quint32> m_startedFunctions;
     // Timer ticks to wait before executing the next line
     quint32 m_waitCount;
-    GenericFader *m_fader;
+    // Map used to lookup a GenericFader instance for a Universe ID
+    QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
 };
 
 #endif

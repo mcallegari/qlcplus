@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Futurelight</Manufacturer>
@@ -12,7 +12,7 @@
  <Channel Name="Pan" Preset="PositionPan"/>
  <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Pan fine" Preset="PositionPanFine"/>
- <Channel Name="Tilt file" Preset="PositionTiltFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Pan/tilt speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="0">Tracking mode</Capability>
@@ -22,23 +22,25 @@
  </Channel>
  <Channel Name="Lamp switch, reset, fan speed">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="127">Lamp on, fan speed max to min</Capability>
-  <Capability Min="128" Max="139">Lamp on, reset</Capability>
-  <Capability Min="230" Max="239">Lamp off after 3 seconds</Capability>
+  <Capability Min="0" Max="127" Preset="LampOn">Lamp on, fan speed max to min</Capability>
+  <Capability Min="128" Max="139" Preset="ResetAll">Lamp on, reset</Capability>
+  <Capability Min="140" Max="229" Preset="ResetAll">No function</Capability>
+  <Capability Min="230" Max="239" Preset="LampOff">Lamp off after 3 seconds</Capability>
+  <Capability Min="240" Max="255" Preset="ResetAll">No function</Capability>
  </Channel>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="15" Color="#ffffff">White</Capability>
-  <Capability Min="16" Max="31" Color="#aa0000">Deep red</Capability>
-  <Capability Min="32" Max="47" Color="#5500ff">Blue</Capability>
-  <Capability Min="48" Max="63" Color="#00ff00">Green</Capability>
-  <Capability Min="64" Max="79" Color="#ffaa00">Orange</Capability>
+  <Capability Min="0" Max="15" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="16" Max="31" Preset="ColorMacro" Res1="#aa0000">Deep red</Capability>
+  <Capability Min="32" Max="47" Preset="ColorMacro" Res1="#5500ff">Blue</Capability>
+  <Capability Min="48" Max="63" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="64" Max="79" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
   <Capability Min="80" Max="95">3200K correction filter</Capability>
   <Capability Min="96" Max="111">6000K correction filter</Capability>
-  <Capability Min="112" Max="117" Color="#aa00ff">UV filter</Capability>
-  <Capability Min="128" Max="190" Res="Others/rainbow.png">Rainbow forward fast to slow</Capability>
-  <Capability Min="191" Max="192">No rotation</Capability>
-  <Capability Min="193" Max="255" Res="Others/rainbow.png">Rainbow backward slow to fast</Capability>
+  <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#aa00ff">UV filter</Capability>
+  <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Rainbow forward fast to slow</Capability>
+  <Capability Min="191" Max="192" Preset="RotationStop">No rotation</Capability>
+  <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rainbow backward slow to fast</Capability>
  </Channel>
  <Channel Name="Cyan" Preset="IntensityCyan"/>
  <Channel Name="Magenta" Preset="IntensityMagenta"/>
@@ -56,7 +58,7 @@
   <Capability Min="32" Max="39">Macro 4</Capability>
   <Capability Min="40" Max="47">Macro 5</Capability>
   <Capability Min="48" Max="55">Macro 6</Capability>
-  <Capability Min="58" Max="63">Macro 7</Capability>
+  <Capability Min="56" Max="63">Macro 7</Capability>
   <Capability Min="64" Max="71">Macro 8</Capability>
   <Capability Min="72" Max="79">Macro 9</Capability>
   <Capability Min="80" Max="87">Macro 10</Capability>
@@ -66,7 +68,7 @@
   <Capability Min="112" Max="119">Macro 14</Capability>
   <Capability Min="120" Max="127">Macro 15</Capability>
   <Capability Min="128" Max="135">Macro 16</Capability>
-  <Capability Min="138" Max="143">Macro 17</Capability>
+  <Capability Min="136" Max="143">Macro 17</Capability>
   <Capability Min="144" Max="151">Macro 18</Capability>
   <Capability Min="152" Max="159">Macro 19</Capability>
   <Capability Min="160" Max="167">Macro 20</Capability>
@@ -88,27 +90,24 @@
   <Capability Min="71" Max="230">Beam shaper</Capability>
   <Capability Min="231" Max="255">Frost filter</Capability>
  </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Zoom 7 - 28 degrees</Capability>
- </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
  <Channel Name="Shutter, strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="31">Shutter closed</Capability>
-  <Capability Min="32" Max="63">Shutter open</Capability>
-  <Capability Min="64" Max="95">Strobe speed</Capability>
-  <Capability Min="96" Max="127">Shutter open</Capability>
-  <Capability Min="128" Max="159">Pulse sequence</Capability>
-  <Capability Min="160" Max="191">Shutter open</Capability>
-  <Capability Min="192" Max="223">Random strobe speed</Capability>
-  <Capability Min="224" Max="255">Shutter open</Capability>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe speed</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Pulse sequence</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe speed</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Shutter open</Capability>
  </Channel>
  <Channel Name="Dimmer intensity" Preset="IntensityDimmer"/>
  <Mode Name="Mode 1">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan fine</Channel>
-  <Channel Number="3">Tilt file</Channel>
+  <Channel Number="3">Tilt fine</Channel>
   <Channel Number="4">Pan/tilt speed</Channel>
   <Channel Number="5">Lamp switch, reset, fan speed</Channel>
   <Channel Number="6">Colour</Channel>
@@ -122,11 +121,11 @@
   <Channel Number="14">Shutter, strobe</Channel>
   <Channel Number="15">Dimmer intensity</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="MSR 575W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="33" Width="450" Height="580" Depth="470"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="530" TiltMax="280"/>
-   <Technical PowerConsumption="800" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="MSR 575W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="33" Width="450" Height="580" Depth="470"/>
+  <Lens Name="Other" DegreesMin="7" DegreesMax="28"/>
+  <Focus Type="Head" PanMax="530" TiltMax="280"/>
+  <Technical PowerConsumption="800" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

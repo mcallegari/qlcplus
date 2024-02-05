@@ -1,24 +1,24 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.0 GIT</Version>
   <Author>David Morgenschweis</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
  <Model>Tribar 200 IR</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Beams)</Type>
  <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Colour Macro">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="36" Color="#ff0000">Red</Capability>
-  <Capability Min="37" Max="73" Color="#00ff00">Green</Capability>
-  <Capability Min="74" Max="110" Color="#0000ff">Blue</Capability>
-  <Capability Min="111" Max="147" Color="#ffff00">Yellow</Capability>
-  <Capability Min="148" Max="184" Color="#ff00ff">Magenta</Capability>
-  <Capability Min="185" Max="221" Color="#00ffff">Cyan</Capability>
-  <Capability Min="222" Max="255" Color="#ffffff">White</Capability>
+  <Capability Min="0" Max="36" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="37" Max="73" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="74" Max="110" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="111" Max="147" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="148" Max="184" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="185" Max="221" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="222" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
  </Channel>
  <Channel Name="Red 1" Preset="IntensityRed"/>
  <Channel Name="Red 2" Preset="IntensityRed"/>
@@ -67,11 +67,11 @@
   <Channel Number="1">Blue</Channel>
   <Channel Number="2">Green</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="2340" ColourTemperature="0"/>
-   <Dimensions Weight="2.8" Width="1022" Height="66" Depth="65"/>
-   <Lens Name="PC" DegreesMin="20" DegreesMax="20"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
-  </FixtureDefinition>
+ <Physical>
+  <Bulb Type="LED" Lumens="2340" ColourTemperature="0"/>
+  <Dimensions Weight="2.8" Width="1022" Height="66" Depth="65"/>
+  <Lens Name="PC" DegreesMin="20" DegreesMax="20"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

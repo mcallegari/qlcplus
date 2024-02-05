@@ -17,12 +17,16 @@
   limitations under the License.
 */
 
+#include <QSettings>
+#include <QDebug>
+
 #include "artnetplugin.h"
 #include "configureartnet.h"
 
-#include <QDebug>
-
-#define MAX_INIT_RETRY  10
+bool addressCompare(const ArtNetIO &v1, const ArtNetIO &v2)
+{
+    return v1.address.ip().toString() < v2.address.ip().toString();
+}
 
 ArtNetPlugin::~ArtNetPlugin()
 {
@@ -30,20 +34,27 @@ ArtNetPlugin::~ArtNetPlugin()
 
 void ArtNetPlugin::init()
 {
-    foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
+    QSettings settings;
+    QVariant value = settings.value(SETTINGS_IFACE_WAIT_TIME);
+    if (value.isValid() == true)
+        m_ifaceWaitTime = value.toInt();
+    else
+        m_ifaceWaitTime = 0;
+
+    foreach (QNetworkInterface iface, QNetworkInterface::allInterfaces())
     {
-        foreach (QNetworkAddressEntry entry, interface.addressEntries())
+        foreach (QNetworkAddressEntry entry, iface.addressEntries())
         {
             QHostAddress addr = entry.ip();
             if (addr.protocol() != QAbstractSocket::IPv6Protocol)
             {
                 ArtNetIO tmpIO;
-                tmpIO.interface = interface;
+                tmpIO.iface = iface;
                 tmpIO.address = entry;
                 tmpIO.controller = NULL;
 
                 bool alreadyInList = false;
-                for(int j = 0; j < m_IOmapping.count(); j++)
+                for (int j = 0; j < m_IOmapping.count(); j++)
                 {
                     if (m_IOmapping.at(j).address == tmpIO.address)
                     {
@@ -58,6 +69,7 @@ void ArtNetPlugin::init()
             }
         }
     }
+    std::sort(m_IOmapping.begin(), m_IOmapping.end(), addressCompare);
 }
 
 QString ArtNetPlugin::name()
@@ -67,7 +79,7 @@ QString ArtNetPlugin::name()
 
 int ArtNetPlugin::capabilities() const
 {
-    return QLCIOPlugin::Output | QLCIOPlugin::Input | QLCIOPlugin::Infinite;
+    return QLCIOPlugin::Output | QLCIOPlugin::Input | QLCIOPlugin::Infinite | QLCIOPlugin::RDM;
 }
 
 QString ArtNetPlugin::pluginInfo()
@@ -88,16 +100,19 @@ QString ArtNetPlugin::pluginInfo()
     return str;
 }
 
-bool ArtNetPlugin::requestLine(quint32 line, int retries)
+bool ArtNetPlugin::requestLine(quint32 line)
 {
     int retryCount = 0;
 
     while (line >= (quint32)m_IOmapping.length())
     {
         qDebug() << "[ArtNet] cannot open line" << line << "(available:" << m_IOmapping.length() << ")";
-        Sleep(1000);
-        init();
-        if (retryCount++ == retries)
+        if (m_ifaceWaitTime)
+        {
+            Sleep(1000);
+            init();
+        }
+        if (retryCount++ >= m_ifaceWaitTime)
             return false;
     }
 
@@ -110,15 +125,12 @@ bool ArtNetPlugin::requestLine(quint32 line, int retries)
 QStringList ArtNetPlugin::outputs()
 {
     QStringList list;
-    int j = 0;
 
     init();
 
     foreach (ArtNetIO line, m_IOmapping)
-    {
-        list << QString("%1: %2").arg(j + 1).arg(line.address.ip().toString());
-        j++;
-    }
+        list << line.address.ip().toString();
+
     return list;
 }
 
@@ -162,7 +174,7 @@ QString ArtNetPlugin::outputInfo(quint32 output)
 
 bool ArtNetPlugin::openOutput(quint32 output, quint32 universe)
 {
-    if (requestLine(output, MAX_INIT_RETRY) == false)
+    if (requestLine(output) == false)
         return false;
 
     qDebug() << "[ArtNet] Open output on address :" << m_IOmapping.at(output).address.ip().toString();
@@ -170,12 +182,14 @@ bool ArtNetPlugin::openOutput(quint32 output, quint32 universe)
     // if the controller doesn't exist, create it
     if (m_IOmapping[output].controller == NULL)
     {
-        ArtNetController *controller = new ArtNetController(m_IOmapping.at(output).interface,
+        ArtNetController *controller = new ArtNetController(m_IOmapping.at(output).iface,
                                                             m_IOmapping.at(output).address,
                                                             getUdpSocket(),
                                                             output, this);
         connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
                 this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
+        connect(controller, SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)),
+                this , SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)));
         m_IOmapping[output].controller = controller;
     }
 
@@ -203,44 +217,41 @@ void ArtNetPlugin::closeOutput(quint32 output, quint32 universe)
     }
 }
 
-void ArtNetPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void ArtNetPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     if (output >= (quint32)m_IOmapping.count())
         return;
 
     ArtNetController *controller = m_IOmapping.at(output).controller;
     if (controller != NULL)
-        controller->sendDmx(universe, data);
+        controller->sendDmx(universe, data, dataChanged);
 }
 
 /*************************************************************************
   * Inputs
-  *************************************************************************/  
+  *************************************************************************/
 QStringList ArtNetPlugin::inputs()
 {
     QStringList list;
-    int j = 0;
 
     init();
 
     foreach (ArtNetIO line, m_IOmapping)
-    {
-        list << QString("%1: %2").arg(j + 1).arg(line.address.ip().toString());
-        j++;
-    }
+        list << line.address.ip().toString();
+
     return list;
 }
 
 bool ArtNetPlugin::openInput(quint32 input, quint32 universe)
 {
-    if (requestLine(input, MAX_INIT_RETRY) == false)
+    if (requestLine(input) == false)
         return false;
 
     // if the controller doesn't exist, create it.
     // We need to have only one input controller.
     if (m_IOmapping[input].controller == NULL)
     {
-        ArtNetController *controller = new ArtNetController(m_IOmapping.at(input).interface,
+        ArtNetController *controller = new ArtNetController(m_IOmapping.at(input).iface,
                                                             m_IOmapping.at(input).address,
                                                             getUdpSocket(),
                                                             input, this);
@@ -369,6 +380,23 @@ QList<ArtNetIO> ArtNetPlugin::getIOMapping()
     return m_IOmapping;
 }
 
+/********************************************************************
+ * RDM
+ ********************************************************************/
+
+bool ArtNetPlugin::sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params)
+{
+    qDebug() << "Sending RDM command on universe" << universe << "and line" << line;
+    if (line >= (quint32)m_IOmapping.count())
+        return false;
+
+    ArtNetController *controller = m_IOmapping.at(line).controller;
+    if (controller != NULL)
+        return controller->sendRDMCommand(universe, command, params);
+
+    return false;
+}
+
 /*********************************************************************
  * ArtNet socket
  *********************************************************************/
@@ -415,7 +443,7 @@ void ArtNetPlugin::handlePacket(QByteArray const& datagram, QHostAddress const& 
 {
     // A firts filter: look for a controller on the same subnet as the sender.
     // This allows having the same ArtNet Universe on 2 different network interfaces.
-    foreach(ArtNetIO io, m_IOmapping)
+    foreach (ArtNetIO io, m_IOmapping)
     {
         if (senderAddress.isInSubnet(io.address.ip(), io.address.prefixLength()))
         {
@@ -426,7 +454,7 @@ void ArtNetPlugin::handlePacket(QByteArray const& datagram, QHostAddress const& 
     }
     // Packet comming from another subnet. This is an unusual case.
     // We stop at the first controller that handles this packet.
-    foreach(ArtNetIO io, m_IOmapping)
+    foreach (ArtNetIO io, m_IOmapping)
     {
         if (io.controller != NULL)
         {
@@ -435,10 +463,3 @@ void ArtNetPlugin::handlePacket(QByteArray const& datagram, QHostAddress const& 
         }
     }
 }
-
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(artnetplugin, ArtNetPlugin)
-#endif

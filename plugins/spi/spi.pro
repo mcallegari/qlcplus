@@ -4,7 +4,7 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = spi
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += widgets
 
 INCLUDEPATH += ../interfaces
 INCLUDEPATH += $SYSROOT/usr/include
@@ -15,8 +15,8 @@ udev.path  = $$UDEVRULESDIR
 udev.files = z65-spi.rules
 INSTALLS  += udev
 
-metainfo.path   = $$INSTALLROOT/share/appdata/
-metainfo.files += qlcplus-spi.metainfo.xml
+metainfo.path   = $$METAINFODIR
+metainfo.files += org.qlcplus.QLCPlus.spi.metainfo.xml
 INSTALLS       += metainfo
 
 target.path = $$INSTALLROOT/$$PLUGINDIR

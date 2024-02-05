@@ -18,7 +18,6 @@
   limitations under the License.
 */
 
-#include <QStyleOptionFrameV2>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QMapIterator>
@@ -43,7 +42,6 @@
 #include "virtualconsole.h"
 #include "vcsoloframe.h"
 #include "vcspeeddial.h"
-#include "inputpatch.h"
 #include "vccuelist.h"
 #include "vcbutton.h"
 #include "vcslider.h"
@@ -118,9 +116,15 @@ void VCFrame::setDisableState(bool disable)
     }
 
     foreach (VCWidget* widget, this->findChildren<VCWidget*>())
+    {
         widget->setDisableState(disable);
+        if (!disable)
+            widget->adjustIntensity(intensity());
+    }
 
     m_disableState = disable;
+
+    emit disableStateChanged(disable);
     updateFeedback();
 }
 
@@ -144,7 +148,7 @@ void VCFrame::setCaption(const QString& text)
 {
     if (m_label != NULL)
     {
-        if(!shortcuts().isEmpty() && m_currentPage < shortcuts().length())
+        if (!shortcuts().isEmpty() && m_currentPage < shortcuts().length())
         {
             // Show caption, if there is no page name
             if (m_pageShortcuts.at(m_currentPage)->name() == "")
@@ -412,7 +416,7 @@ void VCFrame::setMultipageMode(bool enable)
         connect (m_pageCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSetPage(int)));
         connect (m_nextPageBtn, SIGNAL(clicked()), this, SLOT(slotNextPage()));
 
-        if(this->isCollapsed() == false)
+        if (this->isCollapsed() == false)
         {
             m_prevPageBtn->show();
             m_nextPageBtn->show();
@@ -523,7 +527,7 @@ void VCFrame::addShortcut()
 void VCFrame::setShortcuts(QList<VCFramePageShortcut *> shortcuts)
 {
     resetShortcuts();
-    foreach(VCFramePageShortcut const* shortcut, shortcuts)
+    foreach (VCFramePageShortcut const* shortcut, shortcuts)
     {
         m_pageShortcuts.append(new VCFramePageShortcut(*shortcut));
         if (shortcut->m_inputSource != NULL)
@@ -647,7 +651,7 @@ void VCFrame::slotSubmasterValueChanged(qreal value)
     QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
-        VCWidget* child = it.next();
+        VCWidget *child = it.next();
         if (child->parent() == this && child != submaster)
             child->adjustIntensity(value);
     }
@@ -670,14 +674,18 @@ void VCFrame::updateSubmasterValue()
 
 void VCFrame::adjustIntensity(qreal val)
 {
+    VCWidget::adjustIntensity(val);
+
+    if (isDisabled())
+        return;
+
     QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
-        VCWidget* child = it.next();
+        VCWidget *child = it.next();
         if (child->parent() == this)
             child->adjustIntensity(val);
     }
-    VCWidget::adjustIntensity(val);
 }
 
 /*****************************************************************************
@@ -837,7 +845,7 @@ bool VCFrame::copyFrom(const VCWidget* widget)
     setTotalPagesNumber(frame->m_totalPagesNumber);
 
     setPagesLoop(frame->m_pagesLoop);
-  
+
     setEnableKeySequence(frame->m_enableKeySequence);
     setNextPageKeySequence(frame->m_nextPageKeySequence);
     setPreviousPageKeySequence(frame->m_previousPageKeySequence);
@@ -868,7 +876,7 @@ bool VCFrame::copyFrom(const VCWidget* widget)
 
             if (childCopy->type() == VCWidget::SliderWidget)
             {
-                VCSlider *slider = (VCSlider*)childCopy;
+                VCSlider *slider = qobject_cast<VCSlider*>(childCopy);
                 // always connect a slider as it it was a submaster
                 // cause this signal is emitted only when a slider is
                 // a submaster
@@ -1079,7 +1087,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             if (attrs.hasAttribute(KXMLQLCVCFramePagesNumber))
                 setTotalPagesNumber(attrs.value(KXMLQLCVCFramePagesNumber).toString().toInt());
 
-            if(attrs.hasAttribute(KXMLQLCVCFrameCurrentPage))
+            if (attrs.hasAttribute(KXMLQLCVCFrameCurrentPage))
                 slotSetPage(attrs.value(KXMLQLCVCFrameCurrentPage).toString().toInt());
             root.skipCurrentElement();
         }
@@ -1170,7 +1178,9 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             /* Create a new slider into its parent */
             VCSlider* slider = new VCSlider(this, m_doc);
             if (slider->loadXML(root) == false)
+            {
                 delete slider;
+            }
             else
             {
                 addWidgetToPageMap(slider);
@@ -1479,6 +1489,9 @@ void VCFrame::mouseMoveEvent(QMouseEvent* e)
     else
         QWidget::mouseMoveEvent(e);
 
-    m_width = this->width();
-    m_height = this->height();
+    if (isCollapsed() == false)
+    {
+        m_width = this->width();
+        m_height = this->height();
+    }
 }

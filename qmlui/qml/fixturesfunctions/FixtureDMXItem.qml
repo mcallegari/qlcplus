@@ -28,6 +28,8 @@ Rectangle
     property variant values
     property bool isSelected: false
 
+    //signal requestTool(var item, var fixtureID, var chIndex, var value)
+
     onValuesChanged:
     {
         for (var i = 0; i < values.length; i++)
@@ -54,6 +56,11 @@ Rectangle
     color: UISettings.bgLighter
     border.width: 1
     border.color: "#222"
+
+    onWidthChanged:
+    {
+        dmxItemRoot.parent.itemWidthChanged(width)
+    }
 
     Column
     {
@@ -188,8 +195,11 @@ Rectangle
         Connections
         {
              target: consoleLoader.item
-             onClicked: clickTimer.start()
-             onDoubleClicked:
+             function onClicked()
+             {
+                clickTimer.start()
+             }
+             function onDoubleClicked()
              {
                  clickTimer.stop()
                  consoleLoader.source = ""
@@ -197,19 +207,25 @@ Rectangle
                  dmxItemRoot.height = fxColumn.height
                  fxColumn.visible = true
              }
-             onSizeChanged:
+             function onSizeChanged(w, h)
              {
-                 if (w != 0 && h != 0)
+                 if (w !== 0 && h !== 0)
                  {
                      dmxItemRoot.width = w
                      dmxItemRoot.height = h
                      //console.log("2- Item width: " + w + ", height: " + h)
                  }
              }
-             onValueChanged:
+             function onValueChanged(fixtureID, chIndex, value)
              {
                  //console.log("Channel " + chIndex + " value changed " + value)
                  channelsRpt.itemAt(chIndex).dmxValue = value
+             }
+
+             function onRequestTool(item, fixtureID, chIndex, value)
+             {
+                 //dmxItemRoot.requestTool(item, fixtureID, chIndex, value)
+                 dmxItemRoot.parent.loadTool(item, fixtureID, chIndex, value)
              }
         }
     }

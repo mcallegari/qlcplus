@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Kevin Zepp</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -18,12 +18,12 @@
  <Channel Name="Ultraviolet" Preset="IntensityUV"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10">No function</Capability>
-  <Capability Min="11" Max="255">Slow to Fast</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Slow to Fast</Capability>
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="0" Max="15">No function</Capability>
   <Capability Min="16" Max="255">Color Macros</Capability>
  </Channel>
  <Channel Name="Auto Programs">
@@ -80,11 +80,11 @@
   <Channel Number="10">Speed</Channel>
   <Channel Number="11">Dim Mode</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.7" Width="187" Height="108" Depth="210"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="44" DmxConnector="5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.7" Width="187" Height="108" Depth="210"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="44" DmxConnector="5-pin"/>
+ </Physical>
 </FixtureDefinition>

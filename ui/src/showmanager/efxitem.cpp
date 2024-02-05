@@ -26,8 +26,6 @@
 
 #include "efxitem.h"
 #include "trackitem.h"
-#include "headeritems.h"
-#include "audiodecoder.h"
 
 EFXItem::EFXItem(EFX *efx, ShowFunction *func)
     : ShowItem(func)
@@ -47,10 +45,10 @@ EFXItem::EFXItem(EFX *efx, ShowFunction *func)
 void EFXItem::calculateWidth()
 {
     int newWidth = 0;
-    qint64 efx_duration = m_function->duration();
+    qint64 efxDuration = getDuration();
 
-    if (efx_duration != 0)
-        newWidth = ((50/(float)getTimeScale()) * (float)efx_duration) / 1000;
+    if (efxDuration != 0)
+        newWidth = ((50.0 / float(getTimeScale())) * float(efxDuration)) / 1000.0;
     else
         newWidth = 100;
 
@@ -65,18 +63,17 @@ void EFXItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     Q_UNUSED(widget);
 
     float xpos = 0;
-    float timeScale = 50/(float)m_timeScale;
-    quint32 efxDuration = m_efx->totalDuration();
+    float timeScale = 50 / float(m_timeScale);
 
     ShowItem::paint(painter, option, widget);
 
-    int loopCount = (efxDuration == 0) ? 0 : qFloor(m_function->duration() / efxDuration);
+    int loopCount = m_function->duration() ? qFloor(m_function->duration() / m_efx->duration()) : 0;
     for (int i = 0; i < loopCount; i++)
     {
-        xpos += ((timeScale * (float)efxDuration) / 1000);
+        xpos += ((timeScale * float(m_efx->duration())) / 1000);
         // draw loop vertical delimiter
         painter->setPen(QPen(Qt::white, 1));
-        painter->drawLine(xpos, 1, xpos, TRACK_HEIGHT - 5);
+        painter->drawLine(int(xpos), 1, int(xpos), TRACK_HEIGHT - 5);
     }
 
     ShowItem::postPaint(painter);
@@ -91,7 +88,9 @@ void EFXItem::setTimeScale(int val)
 void EFXItem::setDuration(quint32 msec, bool stretch)
 {
     if (stretch == true)
+    {
         m_efx->setDuration(msec);
+    }
     else
     {
         if (m_function)
@@ -100,6 +99,11 @@ void EFXItem::setDuration(quint32 msec, bool stretch)
         calculateWidth();
         updateTooltip();
     }
+}
+
+quint32 EFXItem::getDuration()
+{
+    return m_function->duration() ? m_function->duration() : m_efx->duration();
 }
 
 QString EFXItem::functionName()
@@ -117,8 +121,6 @@ EFX *EFXItem::getEFX()
 void EFXItem::slotEFXChanged(quint32)
 {
     prepareGeometryChange();
-    if (m_function)
-        m_function->setDuration(m_efx->totalDuration());
     calculateWidth();
     updateTooltip();
 }
@@ -130,7 +132,7 @@ void EFXItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
-    foreach(QAction *action, getDefaultActions())
+    foreach (QAction *action, getDefaultActions())
         menu.addAction(action);
 
     menu.exec(QCursor::pos());

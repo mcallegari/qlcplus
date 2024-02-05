@@ -34,12 +34,13 @@ class ContextManager;
 class VirtualConsole;
 class NetworkManager;
 class ShowManager;
+class SimpleDesk;
 class Doc;
 
 typedef struct
 {
     int m_action;
-    qint64 m_timestamp;
+    quint64 m_timestamp;
     quint32  m_objID;
     QVariant m_oldValue;
     QVariant m_newValue;
@@ -53,6 +54,9 @@ Q_DECLARE_METATYPE(UIntPair)
 typedef QPair<QString, int> StringIntPair;
 Q_DECLARE_METATYPE(StringIntPair)
 
+typedef QPair<QString, double> StringDoublePair;
+Q_DECLARE_METATYPE(StringDoublePair)
+
 typedef QPair<QString, QString> StringStringPair;
 Q_DECLARE_METATYPE(StringStringPair)
 
@@ -63,8 +67,14 @@ class Tardis : public QThread
 public:
     enum ActionCodes
     {
-        /* Global settings */
+        /* Preview settings */
         EnvironmentSetSize = 0x0000,
+        EnvironmentBackgroundImage,
+        FixtureSetPosition,
+        FixtureSetRotation,
+        GenericItemSetPosition,
+        GenericItemSetRotation,
+        GenericItemSetScale,
 
         IOAddUniverse = 0x0090,
         IORemoveUniverse,
@@ -73,7 +83,7 @@ public:
         FixtureCreate = 0x0100,
         FixtureDelete,
         FixtureMove,
-        FixtureSetPosition,
+        FixtureSetName,
         FixtureSetDumpValue,
 
         /* Fixture group editing actions */
@@ -94,9 +104,16 @@ public:
 
         SceneSetChannelValue,
         SceneUnsetChannelValue,
+        SceneAddFixture,
+        SceneRemoveFixture,
+        SceneAddFixtureGroup,
+        SceneRemoveFixtureGroup,
+        SceneAddPalette,
+        SceneRemovePalette,
 
         ChaserAddStep,
         ChaserRemoveStep,
+        ChaserMoveStep,
         ChaserSetStepFadeIn,
         ChaserSetStepHold,
         ChaserSetStepFadeOut,
@@ -125,6 +142,7 @@ public:
         RGBMatrixSetStartColor,
         RGBMatrixSetEndColor,
         RGBMatrixSetScriptIntValue,
+        RGBMatrixSetScriptDoubleValue,
         RGBMatrixSetScriptStringValue,
         RGBMatrixSetText,
         RGBMatrixSetTextFont,
@@ -133,12 +151,26 @@ public:
         RGBMatrixSetAnimationStyle,
 
         AudioSetSource,
+        AudioSetVolume,
 
         VideoSetSource,
         VideoSetScreenIndex,
         VideoSetFullscreen,
         VideoSetGeometry,
         VideoSetRotation,
+        VideoSetLayer,
+
+        /* Show Manager actions */
+        ShowManagerAddTrack = 0xB000,
+        ShowManagerDeleteTrack,
+        ShowManagerAddFunction,
+        ShowManagerDeleteFunction,
+        ShowManagerItemSetStartTime,
+        ShowManagerItemSetDuration,
+
+        /* Simple Desk actions */
+        SimpleDeskSetChannel = 0xC000,
+        SimpleDeskResetChannel,
 
         /* Virtual console editing actions */
         VCWidgetCreate = 0xE000,
@@ -187,7 +219,8 @@ public:
 
     explicit Tardis(QQuickView *view, Doc *doc, NetworkManager *netMgr,
                     FixtureManager *fxMgr, FunctionManager *funcMgr,
-                    ContextManager *ctxMgr, ShowManager *showMgr, VirtualConsole *vc,
+                    ContextManager *ctxMgr, SimpleDesk *sDesk,
+                    ShowManager *showMgr, VirtualConsole *vc,
                     QObject *parent = 0);
 
     ~Tardis();
@@ -244,6 +277,8 @@ private:
     FunctionManager *m_functionManager;
     /** Reference to the Context Manager */
     ContextManager *m_contextManager;
+    /** Reference to the Simple Desk */
+    SimpleDesk *m_simpleDesk;
     /** Reference to the Show Manager */
     ShowManager *m_showManager;
     /** Reference to the Virtual Console */

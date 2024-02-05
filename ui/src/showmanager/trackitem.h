@@ -15,7 +15,7 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
-*/ 
+*/
 
 #ifndef TRACKITEM_H
 #define TRACKITEM_H
@@ -36,7 +36,7 @@
 
 /**
  *
- * Track class. Clickable item which reprensents a Show Manager track 
+ * Track class. Clickable item which reprensents a Show Manager track
  * and informs the view the track properties change
  *
  */

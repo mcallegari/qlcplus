@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 2</Version>
+  <Author>Nestor Laborier</Author>
+ </Creator>
+ <Manufacturer>Starway</Manufacturer>
+ <Model>ParKolor 120HD</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">Shutter OFF or ON depending on the firmware (see manual)</Capability>
+  <Capability Min="11" Max="90" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
+  <Capability Min="91" Max="170" Preset="StrobeRandomSlowToFast">Random strobe slow to fast</Capability>
+  <Capability Min="171" Max="255" Preset="StrobeRandomSlowToFast">Random strobe slow to fast (synchronised with other pars)</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
+ <Channel Name="Color macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">White cold to warm</Capability>
+  <Capability Min="11" Max="251">Red yellow green blue purple red</Capability>
+  <Capability Min="252" Max="253">Color wheel rotation</Capability>
+  <Capability Min="254" Max="255">Color wheel counter-rotation</Capability>
+ </Channel>
+ <Channel Name="Color time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Fade time or color wheel rotation speed</Capability>
+ </Channel>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="10">Idle</Capability>
+  <Capability Min="11" Max="20" Preset="ResetZoom">Zoom reset</Capability>
+  <Capability Min="21" Max="255">Idle</Capability>
+ </Channel>
+ <Channel Name="Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="White fine" Preset="IntensityWhiteFine"/>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">Zoom</Channel>
+ </Mode>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Zoom</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">Color macro</Channel>
+  <Channel Number="8" ActsOn="7">Color time</Channel>
+  <Channel Number="9">Control</Channel>
+ </Mode>
+ <Mode Name="15 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Zoom</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Red fine</Channel>
+  <Channel Number="6">Green</Channel>
+  <Channel Number="7">Green fine</Channel>
+  <Channel Number="8">Blue</Channel>
+  <Channel Number="9">Blue fine</Channel>
+  <Channel Number="10">White</Channel>
+  <Channel Number="11">White fine</Channel>
+  <Channel Number="12">Color macro</Channel>
+  <Channel Number="13" ActsOn="12">Color time</Channel>
+  <Channel Number="14">Control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.2" Width="350" Height="240" Depth="400"/>
+  <Lens Name="PC" DegreesMin="7" DegreesMax="39"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="145" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

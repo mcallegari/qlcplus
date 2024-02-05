@@ -54,13 +54,13 @@ SidePanel
             anchors.horizontalCenter: parent.horizontalCenter
             height: parent.height
             width: iconSize
+            z: 2
             spacing: 3
 
             IconButton
             {
                 id: fxEditor
                 visible: qlcplus.accessMask & App.AC_FixtureEditing
-                z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/fixture.svg"
@@ -74,12 +74,21 @@ SidePanel
                         loaderSource = "qrc:/FixtureBrowser.qml"
                     animatePanel(checked)
                 }
+
+                Image
+                {
+                    x: parent.width - width - 3
+                    y: 3
+                    width: parent.height / 3
+                    height: width
+                    source: "qrc:/add.svg"
+                    sourceSize: Qt.size(width, height)
+                }
             }
 
             IconButton
             {
                 id: grpEditor
-                z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/group.svg"
@@ -97,8 +106,26 @@ SidePanel
 
             IconButton
             {
+                id: paletteEditor
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/palette.svg"
+                checkable: true
+                tooltip: qsTr("Palettes")
+                ButtonGroup.group: fxManagerGroup
+                autoExclusive: false
+                onToggled:
+                {
+                    if (checked == true)
+                        loaderSource = "qrc:/PaletteManager.qml"
+                    animatePanel(checked)
+                }
+            }
+
+            IconButton
+            {
+                id: intToolButton
                 objectName: "capIntensity"
-                z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/intensity.svg"
@@ -116,13 +143,15 @@ SidePanel
                     x: leftSidePanel.width
                     y: UISettings.bigItemHeight
                     visible: false
+
+                    onValueChanged: contextManager.setChannelValueByType(QLCChannel.Intensity, value, relativeValue)
+                    onClose: intToolButton.toggle()
                 }
             }
 
             IconButton
             {
                 objectName: "capShutter"
-                z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/shutter.svg"
@@ -150,7 +179,6 @@ SidePanel
             {
                 id: posToolButton
                 objectName: "capPosition"
-                z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/position.svg"
@@ -161,8 +189,8 @@ SidePanel
                 onCheckedChanged: posTool.visible = !posTool.visible
                 onCounterChanged: if (counter == 0) posTool.visible = false
 
-                property int panDegrees: 360
-                property int tiltDegrees: 270
+                property alias panDegrees: posTool.panMaxDegrees
+                property alias tiltDegrees: posTool.tiltMaxDegrees
 
                 PositionTool
                 {
@@ -171,15 +199,14 @@ SidePanel
                     x: leftSidePanel.width
                     y: UISettings.bigItemHeight
                     visible: false
-                    panMaxDegrees: posToolButton.panDegrees
-                    tiltMaxDegrees: posToolButton.tiltDegrees
+                    onClose: posToolButton.toggle()
                 }
             }
 
             IconButton
             {
+                id: colorToolButton
                 objectName: "capColor"
-                z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/color.svg"
@@ -199,14 +226,14 @@ SidePanel
                     visible: false
                     colorsMask: fixtureManager.colorsMask
 
-                    onColorChanged: fixtureManager.setColorValue(r * 255, g * 255, b * 255, w * 255, a * 255, uv * 255)
+                    onColorChanged: contextManager.setColorValue(Qt.rgba(r, g, b, 1.0), Qt.rgba(w, a, uv, 1.0))
+                    onClose: colorToolButton.toggle()
                 }
             }
 
             IconButton
             {
                 objectName: "capColorWheel"
-                z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/colorwheel.svg"
@@ -233,7 +260,6 @@ SidePanel
             IconButton
             {
                 objectName: "capGobos"
-                z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/gobo.svg"
@@ -261,7 +287,6 @@ SidePanel
             {
                 id: beamToolButton
                 objectName: "capBeam"
-                z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/beam.svg"
@@ -272,8 +297,10 @@ SidePanel
                 onCheckedChanged: beamTool.visible = !beamTool.visible
                 onCounterChanged: if (counter == 0) beamTool.visible = false
 
-                property real minBeamDegrees: 15.0
-                property real maxBeamDegrees: 30.0
+                function setZoomRange(min, max, inverted)
+                {
+                    beamTool.setZoomRange(min, max, inverted)
+                }
 
                 BeamTool
                 {
@@ -282,8 +309,7 @@ SidePanel
                     x: leftSidePanel.width
                     y: UISettings.bigItemHeight
                     visible: false
-                    minDegrees: beamToolButton.minBeamDegrees
-                    maxDegrees: beamToolButton.maxBeamDegrees
+                    onClose: beamToolButton.toggle()
                 }
             }
 
@@ -297,12 +323,21 @@ SidePanel
 
             IconButton
             {
+                width: iconSize
+                height: iconSize
+                faSource: FontAwesome.fa_bolt
+                tooltip: qsTr("Highlight")
+                counter: contextManager.selectedFixturesCount
+                onClicked: contextManager.highlightFixtureSelection()
+            }
+
+            IconButton
+            {
                 property bool pickingActive: contextManager ? contextManager.positionPicking : false
 
                 onPickingActiveChanged: checked = pickingActive
 
                 visible: fixtureAndFunctions.currentView === "3D"
-                z: 2
                 width: iconSize
                 height: iconSize
                 checkable: true
@@ -314,7 +349,6 @@ SidePanel
 
             IconButton
             {
-                z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/multiple.svg"
@@ -326,13 +360,12 @@ SidePanel
 
             IconButton
             {
-                z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/selectall.svg"
                 tooltip: qsTr("Select/Deselect all fixtures") + " (CTRL+A)"
                 onClicked: contextManager.toggleFixturesSelection()
             }
-        }
-    }
+        } // ColumnLayout
+    } // Rectangle
 }

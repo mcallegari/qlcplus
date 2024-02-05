@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>Nathan Durnan</Author>
+ </Creator>
+ <Manufacturer>UKing</Manufacturer>
+ <Model>B55 Par Can 12 LED RGBW 12W</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Macro function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="50">macro A1</Capability>
+  <Capability Min="51" Max="100">macro A2</Capability>
+  <Capability Min="101" Max="150">macro A3</Capability>
+  <Capability Min="151" Max="200">macro A4</Capability>
+  <Capability Min="201" Max="255">macro A5</Capability>
+ </Channel>
+ <Channel Name="Color macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="39">All color</Capability>
+  <Capability Min="40" Max="49">Red</Capability>
+  <Capability Min="50" Max="59">Green</Capability>
+  <Capability Min="60" Max="69">Blue</Capability>
+  <Capability Min="70" Max="79">Yello</Capability>
+  <Capability Min="80" Max="89">Cyan</Capability>
+  <Capability Min="90" Max="99">Purple</Capability>
+  <Capability Min="100" Max="109">White</Capability>
+  <Capability Min="110" Max="119">Red + Green</Capability>
+  <Capability Min="120" Max="129">Red + Blue</Capability>
+  <Capability Min="130" Max="139">Red + White</Capability>
+  <Capability Min="140" Max="149">Green + Blue</Capability>
+  <Capability Min="150" Max="159">Green + White</Capability>
+  <Capability Min="160" Max="169">Blue + White</Capability>
+  <Capability Min="170" Max="179">Red + Green + White</Capability>
+  <Capability Min="180" Max="189">Red + Blue + White</Capability>
+  <Capability Min="190" Max="199">Green + Blue + White</Capability>
+  <Capability Min="200" Max="209">Red + Green + Blue</Capability>
+  <Capability Min="210" Max="255">Red + Green + Blue + White</Capability>
+ </Channel>
+ <Channel Name="Speed Adjustable" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Master dimming" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="Green dimming" Preset="IntensityGreen"/>
+ <Channel Name="Blue dimming" Preset="IntensityBlue"/>
+ <Channel Name="White dimming" Preset="IntensityWhite"/>
+ <Mode Name="8-Channel">
+  <Channel Number="0">Macro function</Channel>
+  <Channel Number="1">Color macro</Channel>
+  <Channel Number="2">Speed Adjustable</Channel>
+  <Channel Number="3">Master dimming</Channel>
+  <Channel Number="4">Red Dimming</Channel>
+  <Channel Number="5">Green dimming</Channel>
+  <Channel Number="6">Blue dimming</Channel>
+  <Channel Number="7">White dimming</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="0.45" Width="115" Height="115" Depth="90"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="15" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

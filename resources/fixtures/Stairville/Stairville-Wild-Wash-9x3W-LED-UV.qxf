@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Johannes Felber</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>Wild Wash 9x3W LED UV</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No strobe effect</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe effect, increasing frequency</Capability>
+ </Channel>
+ <Channel Name="Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">All LEDs off</Capability>
+  <Capability Min="10" Max="255">Auto show selection</Capability>
+ </Channel>
+ <Channel Name="Show speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="249">Auto show speed, slow to fast</Capability>
+  <Capability Min="250" Max="255">Sound-controlled auto show</Capability>
+ </Channel>
+ <Channel Name="Brightness LED 1" Preset="IntensityUV"/>
+ <Channel Name="Brightness LED 2" Preset="IntensityUV"/>
+ <Channel Name="Brightness LED 3" Preset="IntensityUV"/>
+ <Channel Name="Brightness LED 4" Preset="IntensityUV"/>
+ <Channel Name="Brightness LED 5" Preset="IntensityUV"/>
+ <Channel Name="Brightness LED 6" Preset="IntensityUV"/>
+ <Channel Name="Brightness LED 7" Preset="IntensityUV"/>
+ <Channel Name="Brightness LED 8" Preset="IntensityUV"/>
+ <Channel Name="Brightness LED 9" Preset="IntensityUV"/>
+ <Mode Name="2 Channel 1">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Shutter</Channel>
+ </Mode>
+ <Mode Name="2 Channel 2">
+  <Channel Number="0">Function</Channel>
+  <Channel Number="1">Show speed</Channel>
+ </Mode>
+ <Mode Name="11 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Shutter</Channel>
+  <Channel Number="2">Brightness LED 1</Channel>
+  <Channel Number="3">Brightness LED 2</Channel>
+  <Channel Number="4">Brightness LED 3</Channel>
+  <Channel Number="5">Brightness LED 4</Channel>
+  <Channel Number="6">Brightness LED 5</Channel>
+  <Channel Number="7">Brightness LED 6</Channel>
+  <Channel Number="8">Brightness LED 7</Channel>
+  <Channel Number="9">Brightness LED 8</Channel>
+  <Channel Number="10">Brightness LED 9</Channel>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.3" Width="350" Height="125" Depth="75"/>
+  <Lens Name="Other" DegreesMin="110" DegreesMax="110"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="9" Height="1"/>
+  <Technical PowerConsumption="34" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

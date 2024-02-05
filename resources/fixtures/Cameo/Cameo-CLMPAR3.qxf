@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Eric Lachery</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>CLMPAR3</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Color Macro (Mode 9)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Color Mixing channel 4-7</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="48" Max="55" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red Green</Capability>
+  <Capability Min="56" Max="63" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green Blue</Capability>
+  <Capability Min="64" Max="71" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue White</Capability>
+  <Capability Min="72" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red White</Capability>
+  <Capability Min="80" Max="87" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green White</Capability>
+  <Capability Min="88" Max="95" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red Blue</Capability>
+  <Capability Min="96" Max="103">Red green Blue</Capability>
+  <Capability Min="104" Max="111">Green Blue whie</Capability>
+  <Capability Min="112" Max="119">Red Green White</Capability>
+  <Capability Min="120" Max="127">Red Blue white</Capability>
+  <Capability Min="128" Max="135">Red Green Blue White</Capability>
+  <Capability Min="136" Max="143">Dream Effect</Capability>
+  <Capability Min="144" Max="151">Meteor Effect</Capability>
+  <Capability Min="152" Max="159">Color Fade Effect</Capability>
+  <Capability Min="160" Max="167">Color Change Effect</Capability>
+  <Capability Min="168" Max="175">Flow1 Effect</Capability>
+  <Capability Min="176" Max="183">Flow2 Effect</Capability>
+  <Capability Min="184" Max="191">Flow3 Effect</Capability>
+  <Capability Min="192" Max="199">Flow4 Effect</Capability>
+  <Capability Min="200" Max="207">Flow5 Effect</Capability>
+  <Capability Min="208" Max="215">Flow6 Effect</Capability>
+  <Capability Min="216" Max="223">Flow7 Effect</Capability>
+  <Capability Min="224" Max="231">Flow8 Effect</Capability>
+  <Capability Min="232" Max="239">Flow9 Effect</Capability>
+  <Capability Min="240" Max="255">Music control</Capability>
+ </Channel>
+ <Channel Name="Dimmer Light1 external">
+  <Group Byte="1">Intensity</Group>
+  <Capability Min="0" Max="127">Light1 Off</Capability>
+  <Capability Min="128" Max="255">Light1 On</Capability>
+ </Channel>
+ <Channel Name="Dimmer Light2 external">
+  <Group Byte="1">Intensity</Group>
+  <Capability Min="0" Max="127">Light2 Off</Capability>
+  <Capability Min="128" Max="255">Light2 On</Capability>
+ </Channel>
+ <Channel Name="Color Macro (Mode 21)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Color Mixing channel 4-19</Capability>
+  <Capability Min="16" Max="23">Red</Capability>
+  <Capability Min="24" Max="31">Green</Capability>
+  <Capability Min="32" Max="39">Blue</Capability>
+  <Capability Min="40" Max="47">White</Capability>
+  <Capability Min="48" Max="55">Red Green</Capability>
+  <Capability Min="56" Max="63">Green Blue</Capability>
+  <Capability Min="64" Max="71">Blue White</Capability>
+  <Capability Min="72" Max="79">Red White</Capability>
+  <Capability Min="80" Max="87">Green White</Capability>
+  <Capability Min="88" Max="95">Red Blue</Capability>
+  <Capability Min="96" Max="103">Red green Blue</Capability>
+  <Capability Min="104" Max="111">Green Blue whie</Capability>
+  <Capability Min="112" Max="119">Red Green White</Capability>
+  <Capability Min="120" Max="127">Red Blue white</Capability>
+  <Capability Min="128" Max="135">Red Green Blue White</Capability>
+  <Capability Min="136" Max="143">Dream Effect</Capability>
+  <Capability Min="144" Max="151">Meteor Effect</Capability>
+  <Capability Min="152" Max="159">Color Fade Effect</Capability>
+  <Capability Min="160" Max="167">Color Change Effect</Capability>
+  <Capability Min="168" Max="175">Flow1 Effect</Capability>
+  <Capability Min="176" Max="183">Flow2 Effect</Capability>
+  <Capability Min="184" Max="191">Flow3 Effect</Capability>
+  <Capability Min="192" Max="199">Flow4 Effect</Capability>
+  <Capability Min="200" Max="207">Flow5 Effect</Capability>
+  <Capability Min="208" Max="215">Flow6 Effect</Capability>
+  <Capability Min="216" Max="223">Flow7 Effect</Capability>
+  <Capability Min="224" Max="231">Flow8 Effect</Capability>
+  <Capability Min="232" Max="239">Flow9 Effect</Capability>
+  <Capability Min="240" Max="255">Music control</Capability>
+ </Channel>
+ <Channel Name="Function channel 6 mode 6">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="0">Pres-set colour In channel 1-4</Capability>
+  <Capability Min="1" Max="128">Music control (microphone sensivity 0-100%)</Capability>
+  <Capability Min="129" Max="255">Strob</Capability>
+ </Channel>
+ <Channel Name="Red Light 1+2" Preset="IntensityRed"/>
+ <Channel Name="Red Light 3+4" Preset="IntensityRed"/>
+ <Channel Name="Green Light 1+2" Preset="IntensityGreen"/>
+ <Channel Name="Green Light 3+4" Preset="IntensityGreen"/>
+ <Channel Name="Blue Light 1+2" Preset="IntensityBlue"/>
+ <Channel Name="Blue Light 3+4" Preset="IntensityBlue"/>
+ <Channel Name="White Light 1+2" Preset="IntensityWhite"/>
+ <Channel Name="White Light 3+4" Preset="IntensityWhite"/>
+ <Channel Name="Master dimmer Mode 9" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master dimmer Mode 21" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red Light 1" Preset="IntensityRed"/>
+ <Channel Name="Red Light 2" Preset="IntensityRed"/>
+ <Channel Name="Red Light 3" Preset="IntensityRed"/>
+ <Channel Name="Red Light 4" Preset="IntensityRed"/>
+ <Channel Name="Green Light 1" Preset="IntensityGreen"/>
+ <Channel Name="Green Light 2" Preset="IntensityGreen"/>
+ <Channel Name="Green Light 3" Preset="IntensityGreen"/>
+ <Channel Name="Green Light 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue Light 1" Preset="IntensityBlue"/>
+ <Channel Name="Blue Light 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue Light 3" Preset="IntensityBlue"/>
+ <Channel Name="Blue Light 4" Preset="IntensityBlue"/>
+ <Channel Name="White Light 1" Preset="IntensityWhite"/>
+ <Channel Name="White Light 2" Preset="IntensityWhite"/>
+ <Channel Name="White Light 3" Preset="IntensityWhite"/>
+ <Channel Name="White Light 4" Preset="IntensityWhite"/>
+ <Channel Name="Color Macro 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="17" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="18" Max="33" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="34" Max="50" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="51" Max="67" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#00ffff">Cyan bright</Capability>
+  <Capability Min="119" Max="135" Preset="ColorMacro" Res1="#aa55ff">Violet bright</Capability>
+  <Capability Min="136" Max="152" Preset="ColorMacro" Res1="#ffaaff">Pink bright</Capability>
+  <Capability Min="153" Max="169" Preset="ColorMacro" Res1="#aaff7f">Bright green</Capability>
+  <Capability Min="170" Max="186" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="187" Max="203" Preset="ColorMacro" Res1="#fffdeb">Warm white</Capability>
+  <Capability Min="204" Max="220" Preset="ColorMacro" Res1="#e9fffe">Cold white</Capability>
+  <Capability Min="221" Max="237" Preset="ColorMacro" Res1="#ffff7f">Yellow bright</Capability>
+  <Capability Min="238" Max="254" Preset="ColorMacro" Res1="#ff55ff">Magenta bright</Capability>
+  <Capability Min="255" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+ </Channel>
+ <Channel Name="Color Macro 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="17" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="18" Max="33" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="34" Max="50" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="51" Max="67" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#00ffff">Cyan bright</Capability>
+  <Capability Min="119" Max="135" Preset="ColorMacro" Res1="#aa55ff">Violet bright</Capability>
+  <Capability Min="136" Max="152" Preset="ColorMacro" Res1="#ffaaff">Pink bright</Capability>
+  <Capability Min="153" Max="169" Preset="ColorMacro" Res1="#aaff7f">Bright green</Capability>
+  <Capability Min="170" Max="186" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="187" Max="203" Preset="ColorMacro" Res1="#fffdeb">Warm white</Capability>
+  <Capability Min="204" Max="220" Preset="ColorMacro" Res1="#e9fffe">Cold white</Capability>
+  <Capability Min="221" Max="237" Preset="ColorMacro" Res1="#ffff7f">Yellow bright</Capability>
+  <Capability Min="238" Max="254" Preset="ColorMacro" Res1="#ff55ff">Magenta bright</Capability>
+  <Capability Min="255" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+ </Channel>
+ <Channel Name="Color Macro 3">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="17" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="18" Max="33" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="34" Max="50" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="51" Max="67" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#00ffff">Cyan bright</Capability>
+  <Capability Min="119" Max="135" Preset="ColorMacro" Res1="#aa55ff">Violet bright</Capability>
+  <Capability Min="136" Max="152" Preset="ColorMacro" Res1="#ffaaff">Pink bright</Capability>
+  <Capability Min="153" Max="169" Preset="ColorMacro" Res1="#aaff7f">Bright green</Capability>
+  <Capability Min="170" Max="186" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="187" Max="203" Preset="ColorMacro" Res1="#fffdeb">Warm white</Capability>
+  <Capability Min="204" Max="220" Preset="ColorMacro" Res1="#e9fffe">Cold white</Capability>
+  <Capability Min="221" Max="237" Preset="ColorMacro" Res1="#ffff7f">Yellow bright</Capability>
+  <Capability Min="238" Max="254" Preset="ColorMacro" Res1="#ff55ff">Magenta bright</Capability>
+  <Capability Min="255" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+ </Channel>
+ <Channel Name="Color Macro 4">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="17" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="18" Max="33" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="34" Max="50" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="51" Max="67" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#00ffff">Cyan bright</Capability>
+  <Capability Min="119" Max="135" Preset="ColorMacro" Res1="#aa55ff">Violet bright</Capability>
+  <Capability Min="136" Max="152" Preset="ColorMacro" Res1="#ffaaff">Pink bright</Capability>
+  <Capability Min="153" Max="169" Preset="ColorMacro" Res1="#aaff7f">Bright green</Capability>
+  <Capability Min="170" Max="186" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="187" Max="203" Preset="ColorMacro" Res1="#fffdeb">Warm white</Capability>
+  <Capability Min="204" Max="220" Preset="ColorMacro" Res1="#e9fffe">Cold white</Capability>
+  <Capability Min="221" Max="237" Preset="ColorMacro" Res1="#ffff7f">Yellow bright</Capability>
+  <Capability Min="238" Max="254" Preset="ColorMacro" Res1="#ff55ff">Magenta bright</Capability>
+  <Capability Min="255" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+ </Channel>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Master dimmer</Channel>
+  <Channel Number="5">Function channel 6 mode 6</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Red Light 1+2</Channel>
+  <Channel Number="1">Green Light 1+2</Channel>
+  <Channel Number="2">Blue Light 1+2</Channel>
+  <Channel Number="3">White Light 1+2</Channel>
+  <Channel Number="4">Red Light 3+4</Channel>
+  <Channel Number="5">Green Light 3+4</Channel>
+  <Channel Number="6">Blue Light 3+4</Channel>
+  <Channel Number="7">White Light 3+4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Color Macro (Mode 9)</Channel>
+  <Channel Number="1">Master dimmer Mode 9</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">Dimmer Light1 external</Channel>
+  <Channel Number="8">Dimmer Light2 external</Channel>
+ </Mode>
+ <Mode Name="21 Channel">
+  <Channel Number="0">Color Macro (Mode 21)</Channel>
+  <Channel Number="1">Master dimmer Mode 21</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Red Light 1</Channel>
+  <Channel Number="4">Green Light 1</Channel>
+  <Channel Number="5">Blue Light 1</Channel>
+  <Channel Number="6">White Light 1</Channel>
+  <Channel Number="7">Red Light 2</Channel>
+  <Channel Number="8">Green Light 2</Channel>
+  <Channel Number="9">Blue Light 2</Channel>
+  <Channel Number="10">White Light 2</Channel>
+  <Channel Number="11">Red Light 3</Channel>
+  <Channel Number="12">Green Light 3</Channel>
+  <Channel Number="13">Blue Light 3</Channel>
+  <Channel Number="14">White Light 3</Channel>
+  <Channel Number="15">Red Light 4</Channel>
+  <Channel Number="16">Green Light 4</Channel>
+  <Channel Number="17">Blue Light 4</Channel>
+  <Channel Number="18">White Light 4</Channel>
+  <Channel Number="19">Dimmer Light1 external</Channel>
+  <Channel Number="20">Dimmer Light2 external</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Red Light 1</Channel>
+  <Channel Number="1">Green Light 1</Channel>
+  <Channel Number="2">Blue Light 1</Channel>
+  <Channel Number="3">White Light 1</Channel>
+  <Channel Number="4">Red Light 2</Channel>
+  <Channel Number="5">Green Light 2</Channel>
+  <Channel Number="6">Blue Light 2</Channel>
+  <Channel Number="7">White Light 2</Channel>
+  <Channel Number="8">Red Light 3</Channel>
+  <Channel Number="9">Green Light 3</Channel>
+  <Channel Number="10">Blue Light 3</Channel>
+  <Channel Number="11">White Light 3</Channel>
+  <Channel Number="12">Red Light 4</Channel>
+  <Channel Number="13">Green Light 4</Channel>
+  <Channel Number="14">Blue Light 4</Channel>
+  <Channel Number="15">White Light 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="4 Channel 2">
+  <Channel Number="0">Color Macro 1</Channel>
+  <Channel Number="1">Color Macro 2</Channel>
+  <Channel Number="2">Color Macro 3</Channel>
+  <Channel Number="3">Color Macro 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="97" Width="1030" Height="100" Depth="290"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="210" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -22,6 +22,7 @@
 #define QLCPHYSICAL_H
 
 #include <QString>
+#include <QSize>
 
 class QXmlStreamReader;
 class QXmlStreamWriter;
@@ -30,32 +31,34 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCPhysical "Physical"
+#define KXMLQLCPhysical QString("Physical")
 
-#define KXMLQLCPhysicalBulb "Bulb"
-#define KXMLQLCPhysicalBulbType "Type"
-#define KXMLQLCPhysicalBulbLumens "Lumens"
-#define KXMLQLCPhysicalBulbColourTemperature "ColourTemperature"
+#define KXMLQLCPhysicalBulb         QString("Bulb")
+#define KXMLQLCPhysicalBulbType     QString("Type")
+#define KXMLQLCPhysicalBulbLumens   QString("Lumens")
+#define KXMLQLCPhysicalBulbColourTemperature QString("ColourTemperature")
 
-#define KXMLQLCPhysicalDimensions "Dimensions"
-#define KXMLQLCPhysicalDimensionsWeight "Weight"
-#define KXMLQLCPhysicalDimensionsWidth "Width"
-#define KXMLQLCPhysicalDimensionsHeight "Height"
-#define KXMLQLCPhysicalDimensionsDepth "Depth"
+#define KXMLQLCPhysicalLens             QString("Lens")
+#define KXMLQLCPhysicalLensName         QString("Name")
+#define KXMLQLCPhysicalLensDegreesMin   QString("DegreesMin")
+#define KXMLQLCPhysicalLensDegreesMax   QString("DegreesMax")
 
-#define KXMLQLCPhysicalLens "Lens"
-#define KXMLQLCPhysicalLensName "Name"
-#define KXMLQLCPhysicalLensDegreesMin "DegreesMin"
-#define KXMLQLCPhysicalLensDegreesMax "DegreesMax"
+#define KXMLQLCPhysicalDimensions       QString("Dimensions")
+#define KXMLQLCPhysicalDimensionsWeight QString("Weight")
+#define KXMLQLCPhysicalDimensionsWidth  QString("Width")
+#define KXMLQLCPhysicalDimensionsHeight QString("Height")
+#define KXMLQLCPhysicalDimensionsDepth  QString("Depth")
 
-#define KXMLQLCPhysicalFocus "Focus"
-#define KXMLQLCPhysicalFocusType "Type"
-#define KXMLQLCPhysicalFocusPanMax "PanMax"
-#define KXMLQLCPhysicalFocusTiltMax "TiltMax"
+#define KXMLQLCPhysicalLayout QString("Layout")
 
-#define KXMLQLCPhysicalTechnical "Technical"
-#define KXMLQLCPhysicalTechnicalPowerConsumption "PowerConsumption"
-#define KXMLQLCPhysicalTechnicalDmxConnector "DmxConnector"
+#define KXMLQLCPhysicalFocus        QString("Focus")
+#define KXMLQLCPhysicalFocusType    QString("Type")
+#define KXMLQLCPhysicalFocusPanMax  QString("PanMax")
+#define KXMLQLCPhysicalFocusTiltMax QString("TiltMax")
+
+#define KXMLQLCPhysicalTechnical                    QString("Technical")
+#define KXMLQLCPhysicalTechnicalPowerConsumption    QString("PowerConsumption")
+#define KXMLQLCPhysicalTechnicalDmxConnector        QString("DmxConnector")
 
 
 /**
@@ -70,9 +73,13 @@ class QLCPhysical
      ************************************************************************/
 public:
     QLCPhysical();
+    QLCPhysical(const QLCPhysical &other);
+
     virtual ~QLCPhysical();
 
     QLCPhysical& operator=(const QLCPhysical& physical);
+
+    bool isEmpty() const;
 
     /************************************************************************
      * Properties
@@ -117,6 +124,9 @@ public:
     void setFocusTiltMax(int tilt);
     int focusTiltMax() const;
 
+    void setLayoutSize(QSize size);
+    QSize layoutSize() const;
+
     void setPowerConsumption(int watt);
     int powerConsumption() const;
 
@@ -140,6 +150,7 @@ protected:
     QString m_focusType;
     int m_focusPanMax;
     int m_focusTiltMax;
+    QSize m_layout;
 
     int m_powerConsumption;
     QString m_dmxConnector;

@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.3.0-r2797</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>i-Pix</Manufacturer>
  <Model>BB4</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Beams)</Type>
  <Channel Name="Red all cells" Preset="IntensityRed"/>
  <Channel Name="Green all cells" Preset="IntensityGreen"/>
  <Channel Name="Blue all cells" Preset="IntensityBlue"/>
@@ -21,19 +21,19 @@
  <Channel Name="Master intensity all cells" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe all cells">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="20">No strobe</Capability>
-  <Capability Min="21" Max="50">Strobe 2.7Hz</Capability>
-  <Capability Min="51" Max="60">Strobe 4.8Hz</Capability>
-  <Capability Min="61" Max="80">Strobe 6.4Hz</Capability>
-  <Capability Min="81" Max="100">Strobe 7Hz</Capability>
-  <Capability Min="101" Max="120">Strobe 7.7Hz</Capability>
-  <Capability Min="121" Max="140">Strobe 9.6Hz</Capability>
-  <Capability Min="141" Max="160">Strobe 10.6Hz</Capability>
-  <Capability Min="161" Max="180">Strobe 14.7Hz</Capability>
-  <Capability Min="181" Max="200">Strobe 20.8Hz</Capability>
-  <Capability Min="201" Max="220">Strobe 23.8Hz</Capability>
-  <Capability Min="221" Max="240">Strobe 26.3Hz</Capability>
-  <Capability Min="241" Max="255">Strobe 33Hz</Capability>
+  <Capability Min="0" Max="20" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="21" Max="50" Preset="StrobeFrequency" Res1="2.7">Strobe 2.7Hz</Capability>
+  <Capability Min="51" Max="60" Preset="StrobeFrequency" Res1="4.8">Strobe 4.8Hz</Capability>
+  <Capability Min="61" Max="80" Preset="StrobeFrequency" Res1="6.4">Strobe 6.4Hz</Capability>
+  <Capability Min="81" Max="100" Preset="StrobeFrequency" Res1="7">Strobe 7Hz</Capability>
+  <Capability Min="101" Max="120" Preset="StrobeFrequency" Res1="7.7">Strobe 7.7Hz</Capability>
+  <Capability Min="121" Max="140" Preset="StrobeFrequency" Res1="9.6">Strobe 9.6Hz</Capability>
+  <Capability Min="141" Max="160" Preset="StrobeFrequency" Res1="10.6">Strobe 10.6Hz</Capability>
+  <Capability Min="161" Max="180" Preset="StrobeFrequency" Res1="14.7">Strobe 14.7Hz</Capability>
+  <Capability Min="181" Max="200" Preset="StrobeFrequency" Res1="20.8">Strobe 20.8Hz</Capability>
+  <Capability Min="201" Max="220" Preset="StrobeFrequency" Res1="23.8">Strobe 23.8Hz</Capability>
+  <Capability Min="221" Max="240" Preset="StrobeFrequency" Res1="26.3">Strobe 26.3Hz</Capability>
+  <Capability Min="241" Max="255" Preset="StrobeFrequency" Res1="33">Strobe 33Hz</Capability>
  </Channel>
  <Channel Name="Master intensity high byte all cells" Preset="IntensityMasterDimmer"/>
  <Channel Name="Master intensity low byte all cells" Preset="IntensityMasterDimmerFine"/>
@@ -79,67 +79,67 @@
  <Channel Name="Master intensity cell 4" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe cell 1">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="20">No strobe</Capability>
-  <Capability Min="21" Max="50">Strobe 2.7Hz</Capability>
-  <Capability Min="51" Max="60">Strobe 4.8Hz</Capability>
-  <Capability Min="61" Max="80">Strobe 6.4Hz</Capability>
-  <Capability Min="81" Max="100">Strobe 7Hz</Capability>
-  <Capability Min="101" Max="120">Strobe 7.7Hz</Capability>
-  <Capability Min="121" Max="140">Strobe 9.6Hz</Capability>
-  <Capability Min="141" Max="160">Strobe 10.6Hz</Capability>
-  <Capability Min="161" Max="180">Strobe 14.7Hz</Capability>
-  <Capability Min="181" Max="200">Strobe 20.8Hz</Capability>
-  <Capability Min="201" Max="220">Strobe 23.8Hz</Capability>
-  <Capability Min="221" Max="240">Strobe 26.3Hz</Capability>
-  <Capability Min="241" Max="255">Strobe 33Hz</Capability>
+  <Capability Min="0" Max="20" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="21" Max="50" Preset="StrobeFrequency" Res1="2.7">Strobe 2.7Hz</Capability>
+  <Capability Min="51" Max="60" Preset="StrobeFrequency" Res1="4.8">Strobe 4.8Hz</Capability>
+  <Capability Min="61" Max="80" Preset="StrobeFrequency" Res1="6.4">Strobe 6.4Hz</Capability>
+  <Capability Min="81" Max="100" Preset="StrobeFrequency" Res1="7">Strobe 7Hz</Capability>
+  <Capability Min="101" Max="120" Preset="StrobeFrequency" Res1="7.7">Strobe 7.7Hz</Capability>
+  <Capability Min="121" Max="140" Preset="StrobeFrequency" Res1="9.6">Strobe 9.6Hz</Capability>
+  <Capability Min="141" Max="160" Preset="StrobeFrequency" Res1="10.6">Strobe 10.6Hz</Capability>
+  <Capability Min="161" Max="180" Preset="StrobeFrequency" Res1="14.7">Strobe 14.7Hz</Capability>
+  <Capability Min="181" Max="200" Preset="StrobeFrequency" Res1="20.8">Strobe 20.8Hz</Capability>
+  <Capability Min="201" Max="220" Preset="StrobeFrequency" Res1="23.8">Strobe 23.8Hz</Capability>
+  <Capability Min="221" Max="240" Preset="StrobeFrequency" Res1="26.3">Strobe 26.3Hz</Capability>
+  <Capability Min="241" Max="255" Preset="StrobeFrequency" Res1="33">Strobe 33Hz</Capability>
  </Channel>
  <Channel Name="Strobe cell 2">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="20">No strobe</Capability>
-  <Capability Min="21" Max="50">Strobe 2.7Hz</Capability>
-  <Capability Min="51" Max="60">Strobe 4.8Hz</Capability>
-  <Capability Min="61" Max="80">Strobe 6.4Hz</Capability>
-  <Capability Min="81" Max="100">Strobe 7Hz</Capability>
-  <Capability Min="101" Max="120">Strobe 7.7Hz</Capability>
-  <Capability Min="121" Max="140">Strobe 9.6Hz</Capability>
-  <Capability Min="141" Max="160">Strobe 10.6Hz</Capability>
-  <Capability Min="161" Max="180">Strobe 14.7Hz</Capability>
-  <Capability Min="181" Max="200">Strobe 20.8Hz</Capability>
-  <Capability Min="201" Max="220">Strobe 23.8Hz</Capability>
-  <Capability Min="221" Max="240">Strobe 26.3Hz</Capability>
-  <Capability Min="241" Max="255">Strobe 33Hz</Capability>
+  <Capability Min="0" Max="20" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="21" Max="50" Preset="StrobeFrequency" Res1="2.7">Strobe 2.7Hz</Capability>
+  <Capability Min="51" Max="60" Preset="StrobeFrequency" Res1="4.8">Strobe 4.8Hz</Capability>
+  <Capability Min="61" Max="80" Preset="StrobeFrequency" Res1="6.4">Strobe 6.4Hz</Capability>
+  <Capability Min="81" Max="100" Preset="StrobeFrequency" Res1="7">Strobe 7Hz</Capability>
+  <Capability Min="101" Max="120" Preset="StrobeFrequency" Res1="7.7">Strobe 7.7Hz</Capability>
+  <Capability Min="121" Max="140" Preset="StrobeFrequency" Res1="9.6">Strobe 9.6Hz</Capability>
+  <Capability Min="141" Max="160" Preset="StrobeFrequency" Res1="10.6">Strobe 10.6Hz</Capability>
+  <Capability Min="161" Max="180" Preset="StrobeFrequency" Res1="14.7">Strobe 14.7Hz</Capability>
+  <Capability Min="181" Max="200" Preset="StrobeFrequency" Res1="20.8">Strobe 20.8Hz</Capability>
+  <Capability Min="201" Max="220" Preset="StrobeFrequency" Res1="23.8">Strobe 23.8Hz</Capability>
+  <Capability Min="221" Max="240" Preset="StrobeFrequency" Res1="26.3">Strobe 26.3Hz</Capability>
+  <Capability Min="241" Max="255" Preset="PulseFrequency" Res1="33">Strobe 33Hz</Capability>
  </Channel>
  <Channel Name="Strobe cell 3">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="20">No strobe</Capability>
-  <Capability Min="21" Max="50">Strobe 2.7Hz</Capability>
-  <Capability Min="51" Max="60">Strobe 4.8Hz</Capability>
-  <Capability Min="61" Max="80">Strobe 6.4Hz</Capability>
-  <Capability Min="81" Max="100">Strobe 7Hz</Capability>
-  <Capability Min="101" Max="120">Strobe 7.7Hz</Capability>
-  <Capability Min="121" Max="140">Strobe 9.6Hz</Capability>
-  <Capability Min="141" Max="160">Strobe 10.6Hz</Capability>
-  <Capability Min="161" Max="180">Strobe 14.7Hz</Capability>
-  <Capability Min="181" Max="200">Strobe 20.8Hz</Capability>
-  <Capability Min="201" Max="220">Strobe 23.8Hz</Capability>
-  <Capability Min="221" Max="240">Strobe 26.3Hz</Capability>
-  <Capability Min="241" Max="255">Strobe 33Hz</Capability>
+  <Capability Min="0" Max="20" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="21" Max="50" Preset="StrobeFrequency" Res1="2.7">Strobe 2.7Hz</Capability>
+  <Capability Min="51" Max="60" Preset="StrobeFrequency" Res1="4.8">Strobe 4.8Hz</Capability>
+  <Capability Min="61" Max="80" Preset="StrobeFrequency" Res1="6.4">Strobe 6.4Hz</Capability>
+  <Capability Min="81" Max="100" Preset="StrobeFrequency" Res1="7">Strobe 7Hz</Capability>
+  <Capability Min="101" Max="120" Preset="StrobeFrequency" Res1="7.7">Strobe 7.7Hz</Capability>
+  <Capability Min="121" Max="140" Preset="StrobeFrequency" Res1="9.6">Strobe 9.6Hz</Capability>
+  <Capability Min="141" Max="160" Preset="StrobeFrequency" Res1="10.6">Strobe 10.6Hz</Capability>
+  <Capability Min="161" Max="180" Preset="StrobeFrequency" Res1="14.7">Strobe 14.7Hz</Capability>
+  <Capability Min="181" Max="200" Preset="StrobeFrequency" Res1="20.8">Strobe 20.8Hz</Capability>
+  <Capability Min="201" Max="220" Preset="StrobeFrequency" Res1="23.8">Strobe 23.8Hz</Capability>
+  <Capability Min="221" Max="240" Preset="StrobeFrequency" Res1="26.3">Strobe 26.3Hz</Capability>
+  <Capability Min="241" Max="255" Preset="StrobeFrequency" Res1="33">Strobe 33Hz</Capability>
  </Channel>
  <Channel Name="Strobe cell 4">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="20">No strobe</Capability>
-  <Capability Min="21" Max="50">Strobe 2.7Hz</Capability>
-  <Capability Min="51" Max="60">Strobe 4.8Hz</Capability>
-  <Capability Min="61" Max="80">Strobe 6.4Hz</Capability>
-  <Capability Min="81" Max="100">Strobe 7Hz</Capability>
-  <Capability Min="101" Max="120">Strobe 7.7Hz</Capability>
-  <Capability Min="121" Max="140">Strobe 9.6Hz</Capability>
-  <Capability Min="141" Max="160">Strobe 10.6Hz</Capability>
-  <Capability Min="161" Max="180">Strobe 14.7Hz</Capability>
-  <Capability Min="181" Max="200">Strobe 20.8Hz</Capability>
-  <Capability Min="201" Max="220">Strobe 23.8Hz</Capability>
-  <Capability Min="221" Max="240">Strobe 26.3Hz</Capability>
-  <Capability Min="241" Max="255">Strobe 33Hz</Capability>
+  <Capability Min="0" Max="20" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="21" Max="50" Preset="StrobeFrequency" Res1="2.7">Strobe 2.7Hz</Capability>
+  <Capability Min="51" Max="60" Preset="StrobeFrequency" Res1="4.8">Strobe 4.8Hz</Capability>
+  <Capability Min="61" Max="80" Preset="StrobeFrequency" Res1="6.4">Strobe 6.4Hz</Capability>
+  <Capability Min="81" Max="100" Preset="StrobeFrequency" Res1="7">Strobe 7Hz</Capability>
+  <Capability Min="101" Max="120" Preset="StrobeFrequency" Res1="7.7">Strobe 7.7Hz</Capability>
+  <Capability Min="121" Max="140" Preset="StrobeFrequency" Res1="9.6">Strobe 9.6Hz</Capability>
+  <Capability Min="141" Max="160" Preset="StrobeFrequency" Res1="10.6">Strobe 10.6Hz</Capability>
+  <Capability Min="161" Max="180" Preset="StrobeFrequency" Res1="14.7">Strobe 14.7Hz</Capability>
+  <Capability Min="181" Max="200" Preset="StrobeFrequency" Res1="20.8">Strobe 20.8Hz</Capability>
+  <Capability Min="201" Max="220" Preset="StrobeFrequency" Res1="23.8">Strobe 23.8Hz</Capability>
+  <Capability Min="221" Max="240" Preset="StrobeFrequency" Res1="26.3">Strobe 26.3Hz</Capability>
+  <Capability Min="241" Max="255" Preset="StrobeFrequency" Res1="33">Strobe 33Hz</Capability>
  </Channel>
  <Channel Name="Master intensity high byte cell 1" Preset="IntensityMasterDimmer"/>
  <Channel Name="Master intensity low byte cell 1" Preset="IntensityMasterDimmerFine"/>
@@ -501,11 +501,12 @@
    <Channel>33</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Lumens="1000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="600" Height="147" Weight="14" Depth="301"/>
-   <Lens DegreesMax="20" Name="Fresnel" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="120" DmxConnector="5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="1000" ColourTemperature="0"/>
+  <Dimensions Weight="14" Width="600" Height="147" Depth="301"/>
+  <Lens Name="Fresnel" DegreesMin="20" DegreesMax="20"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="120" DmxConnector="5-pin"/>
+ </Physical>
 </FixtureDefinition>

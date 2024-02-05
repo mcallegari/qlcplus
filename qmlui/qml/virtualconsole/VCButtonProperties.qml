@@ -22,6 +22,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
+import "TimeUtils.js" as TimeUtils
 import "."
 
 Rectangle
@@ -37,6 +38,22 @@ Rectangle
     //onWidgetRefChanged: func = functionManager.getFunction(widgetRef.functionID)
 
     onFuncIDChanged: func = functionManager.getFunction(funcID)
+
+    TimeEditTool
+    {
+        id: timeEditTool
+
+        parent: mainView
+        z: 99
+        x: rightSidePanel.x - width
+        visible: false
+
+        onValueChanged:
+        {
+            if (speedType == QLCFunction.FadeOut)
+                widgetRef.stopAllFadeOutTime = val
+        }
+    }
 
     Column
     {
@@ -73,7 +90,8 @@ Rectangle
                     {
                         anchors.top: parent.top
                         anchors.right: parent.right
-                        imgSource: "qrc:/reset.svg"
+                        faSource: FontAwesome.fa_remove
+                        faColor: UISettings.bgControl
                         tooltip: qsTr("Detach the current function")
                         onClicked: widgetRef.functionID = -1
                     }
@@ -171,13 +189,14 @@ Rectangle
         SectionBox
         {
             id: startupIntensityProps
+            visible: widgetRef ? (widgetRef.actionType === VCButton.Toggle || widgetRef.actionType === VCButton.Flash) : false
             sectionLabel: qsTr("Adjust Function intensity")
 
             sectionContents:
               RowLayout
               {
                   width: parent.width
-                  spacing: 5
+                  spacing: 10
 
                   CustomCheckBox
                   {
@@ -209,6 +228,98 @@ Rectangle
                       onValueChanged: if (widgetRef) widgetRef.startupIntensity = value / 100
                   }
               }
+        }
+
+        SectionBox
+        {
+            id: stopAllProps
+            visible: widgetRef ? widgetRef.actionType === VCButton.StopAll : false
+            sectionLabel: qsTr("Stop all Functions")
+
+            sectionContents:
+              RowLayout
+              {
+                  width: parent.width
+                  spacing: 10
+
+                  RobotoText
+                  {
+                      id: foLabel
+                      height: UISettings.listItemHeight
+                      label: qsTr("Fade out")
+                  }
+
+                  Rectangle
+                  {
+                      Layout.fillWidth: true
+                      height: UISettings.listItemHeight
+                      color: UISettings.bgMedium
+
+                      RobotoText
+                      {
+                          anchors.fill: parent
+                          label: widgetRef ? TimeUtils.timeToQlcString(widgetRef.stopAllFadeOutTime, QLCFunction.Time) : ""
+
+                          MouseArea
+                          {
+                              anchors.fill: parent
+                              onDoubleClicked:
+                              {
+                                  timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                                    foLabel.label, parent.label, QLCFunction.FadeOut)
+                              }
+                          }
+                      }
+                  }
+              }
+
+        }
+
+        SectionBox
+        {
+            id: flashProperties
+            visible: widgetRef ? widgetRef.actionType === VCButton.Flash : false
+            sectionLabel: qsTr("Flash properties")
+
+            sectionContents:
+              RowLayout
+              {
+                  width: parent.width
+                  spacing: 10
+
+                  RobotoText
+                  {
+                      id: flashOverrideLabel
+                      height: UISettings.listItemHeight
+                      label: qsTr("Override priority")
+                  }
+
+                  CustomCheckBox
+                  {
+                      id: flashOverrideCheckBox
+                      implicitWidth: UISettings.iconSizeMedium
+                      implicitHeight: implicitWidth
+                      checked: widgetRef.flashOverrides
+                      onClicked: widgetRef.flashOverrides = checked
+                  }
+
+                  RobotoText
+                  {
+                      id: flashForceLTPLabel
+                      height: UISettings.listItemHeight
+                      label: qsTr("Force LTP")
+                  }
+
+                  CustomCheckBox
+                  {
+                      id: flashForceLTPCheckBox
+                      implicitWidth: UISettings.iconSizeMedium
+                      implicitHeight: implicitWidth
+                      checked: widgetRef.flashForceLTP
+                      onClicked: widgetRef.flashForceLTP = checked
+                  }
+              }
+
         }
     } // Column
 }

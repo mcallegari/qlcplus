@@ -35,6 +35,8 @@
 #define HID_DMX_INTERFACE_PRODUCT_ID_2 0x088B  // FX5
 #define HID_DMX_INTERFACE_VENDOR_ID_3  0x16D0  // MCS
 #define HID_DMX_INTERFACE_PRODUCT_ID_3 0x0830  // DMXControl Projects e.V. Nodle U1
+#define HID_DMX_INTERFACE_VENDOR_ID_4  0x16D0  // MCS
+#define HID_DMX_INTERFACE_PRODUCT_ID_4 0x0833  // DMXControl Projects e.V. Nodle R4S
 
 #define HID_DMX_READ_TIMEOUT 100
 
@@ -71,15 +73,12 @@ public:
 
     /** @reimp */
     void closeInput();
-    
+
     /** @reimp */
     bool openOutput();
 
     /** @reimp */
     void closeOutput();
-
-    /** @reimp */
-    QString path() const;
 
     /** @reimp */
     bool readEvent();
@@ -108,7 +107,7 @@ private:
 public:
     /** @reimp */
     void outputDMX(const QByteArray &data, bool forceWrite = false);
-    
+
      /*********************************************************************
      * FX5 - specific functions and device handle
      *********************************************************************/

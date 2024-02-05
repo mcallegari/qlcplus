@@ -20,6 +20,8 @@
 #ifndef VCWIDGETPROPERTIES_H
 #define VCWIDGETPROPERTIES_H
 
+#include <Qt>
+
 class QXmlStreamReader;
 class QXmlStreamWriter;
 
@@ -29,13 +31,13 @@ class QWidget;
  * @{
  */
 
-#define KXMLQLCWidgetProperties "WidgetProperties"
-#define KXMLQLCWidgetX "X"
-#define KXMLQLCWidgetY "Y"
-#define KXMLQLCWidgetWidth "Width"
-#define KXMLQLCWidgetHeight "Height"
-#define KXMLQLCWidgetState "State"
-#define KXMLQLCWidgetVisible "Visible"
+#define KXMLQLCWidgetProperties QString("WidgetProperties")
+#define KXMLQLCWidgetX          QString("X")
+#define KXMLQLCWidgetY          QString("Y")
+#define KXMLQLCWidgetWidth      QString("Width")
+#define KXMLQLCWidgetHeight     QString("Height")
+#define KXMLQLCWidgetState      QString("State")
+#define KXMLQLCWidgetVisible    QString("Visible")
 
 /** Simple class to store a widget's visibility, state and dimensions */
 class VCWidgetProperties

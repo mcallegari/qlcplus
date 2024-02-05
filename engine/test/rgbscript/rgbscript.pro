@@ -5,7 +5,7 @@ LANGUAGE = C++
 TARGET   = rgbscript_test
 
 QT      += testlib
-qmlui {
+qmlui|greaterThan(QT_MAJOR_VERSION, 5) {
   QT += qml
 } else {
   QT += script

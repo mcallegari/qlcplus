@@ -5,11 +5,13 @@
 # export DH_VERBOSE=1
 
 %:
-	dh  $@
+	dh  $@ --parallel
 
 override_dh_auto_configure:
 	./translate.sh
 	dh_auto_configure --
+	# Use this to build QLC+ v5 with the QML UI:
+	#dh_auto_configure -- CONFIG+=qmlui
 
 override_dh_shlibdeps:
 	dh_shlibdeps -Xlibmadplugin.so -Xlibsndfileplugin.so -Xlibolaio.so

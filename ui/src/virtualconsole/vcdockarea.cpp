@@ -21,12 +21,8 @@
 #include <QString>
 #include <QDebug>
 
-#include "qlcfile.h"
-
 #include "grandmasterslider.h"
 #include "inputoutputmap.h"
-#include "virtualconsole.h"
-#include "vcproperties.h"
 #include "vcdockarea.h"
 
 VCDockArea::VCDockArea(QWidget* parent, InputOutputMap *ioMap)
@@ -35,7 +31,7 @@ VCDockArea::VCDockArea(QWidget* parent, InputOutputMap *ioMap)
     Q_ASSERT(ioMap != NULL);
 
     new QHBoxLayout(this);
-    layout()->setMargin(0);
+    layout()->setContentsMargins(0, 0, 0, 0);
     layout()->setSpacing(1);
 
     m_gm = new GrandMasterSlider(this, ioMap);

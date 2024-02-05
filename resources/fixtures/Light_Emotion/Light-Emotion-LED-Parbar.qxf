@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.7.4</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Administrator</Author>
  </Creator>
  <Manufacturer>Light Emotion</Manufacturer>
@@ -33,8 +33,8 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">Off</Capability>
-  <Capability Min="10" Max="255">Flash, with increasing speed</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Off</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Flash, with increasing speed</Capability>
  </Channel>
  <Channel Name="Spot 1: red" Preset="IntensityRed"/>
  <Channel Name="Spot 1: green" Preset="IntensityGreen"/>
@@ -122,17 +122,13 @@
   <Channel Number="3">red</Channel>
   <Channel Number="4">green</Channel>
   <Channel Number="5">blue</Channel>
-  <Head>
-   <Channel>3</Channel>
-   <Channel>4</Channel>
-   <Channel>5</Channel>
-  </Head>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1110" Height="295" Weight="8" Depth="55"/>
-   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="70" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="8" Width="1110" Height="295" Depth="55"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="70" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

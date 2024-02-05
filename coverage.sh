@@ -5,24 +5,45 @@
 # 1. qmake
 # 2. make distclean
 # 3. qmake CONFIG+=coverage
-# 4. ./coverage.sh
+# 4. make -j8
+# 5. ./coverage.sh ui|qmlui # OR
+# 5. make lcov
 #
 # Human-readable HTML results are written under coverage/html.
 #
 
+set -e
 ARCH=$(uname)
+THISCMD=`basename "$0"`
+
+TARGET=${1:-}
+
+if [ "$TARGET" != "ui" ] && [ "$TARGET" != "qmlui" ]; then
+  echo >&2 "Usage: $THISCMD ui|qmlui"
+  exit 1
+fi
+
 
 #############################################################################
 # Test directories to find coverage measurements from
 #############################################################################
 
-test[0]="engine/src"
-test[1]="ui/src"
-test[2]="plugins/artnet/test"
-test[3]="plugins/enttecwing/src"
-#test[3]="plugins/midiinput/common/src"
+COUNT=0
+test[$COUNT]="engine/src"
+COUNT=$((COUNT+1))
+if [ "$TARGET" == "ui" ]; then
+    test[$COUNT]="ui/src"
+COUNT=$((COUNT+1))
+fi
+test[$COUNT]="plugins/artnet/test"
+COUNT=$((COUNT+1))
+test[$COUNT]="plugins/enttecwing/src"
+COUNT=$((COUNT+1))
+#test[$COUNT]="plugins/midiinput/common/src"
+#COUNT=$((COUNT+1))
 if [ ${ARCH} != "Darwin" ]; then
-    test[4]="plugins/velleman/src"
+    test[$COUNT]="plugins/velleman/src"
+    COUNT=$((COUNT+1))
 fi
 
 # Number of tests
@@ -34,7 +55,8 @@ tlen=${#test[@]}
 
 # arg1:srcdir arg2:testname
 function prepare {
-    lcov -d ${1} -z
+    lcov -d ${1} -z || exit $?
+    rm -f ${1}/moc_*.gcno ${1}/moc_*.gcda
     lcov -d ${1} -c -i -o coverage/${2}-base.info
 }
 
@@ -50,7 +72,7 @@ function gather_data {
 #############################################################################
 
 # Check if lcov is installed
-if [ -z $(which lcov) ]; then
+if [ -z "$(which lcov)" ]; then
     echo "Unable to produce coverage results; can't find lcov."
 fi
 
@@ -68,14 +90,14 @@ mkdir -p coverage/html
 
 for ((i = 0; i < tlen; i++))
 do
-    prepare ${test[i]} $i
+    prepare ${test[i]} $i || exit $?
 done
 
 #############################################################################
 # Run unit tests
 #############################################################################
 
-./unittest.sh
+./unittest.sh $TARGET
 FAILED=$?
 if [ ${FAILED} != 0 ]; then
     echo "Will not measure coverage because ${FAILED} unit tests failed."

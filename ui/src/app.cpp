@@ -21,11 +21,7 @@
 
 #include <QToolButton>
 #include <QtCore>
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-#include <QtGui>
-#else
 #include <QtWidgets>
-#endif
 
 #if defined(WIN32) || defined(Q_OS_WIN)
   #include <windows.h>
@@ -53,13 +49,11 @@
 #include "qlcfixturedefcache.h"
 #include "audioplugincache.h"
 #include "rgbscriptscache.h"
-#include "qlcfixturedef.h"
+#include "videoprovider.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
+#include "apputil.h"
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
- #include "videoprovider.h"
-#endif
 #if defined(WIN32) || defined(Q_OS_WIN)
 #   include "hotplugmonitor.h"
 #endif
@@ -122,9 +116,7 @@ App::App()
     , m_toolbar(NULL)
 
     , m_dumpProperties(NULL)
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     , m_videoProvider(NULL)
-#endif
 {
     QCoreApplication::setOrganizationName("qlcplus");
     QCoreApplication::setOrganizationDomain("sf.net");
@@ -165,10 +157,8 @@ App::~App()
     if (m_dumpProperties != NULL)
         delete m_dumpProperties;
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     if (m_videoProvider != NULL)
         delete m_videoProvider;
-#endif
 
     if (m_doc != NULL)
         delete m_doc;
@@ -215,6 +205,7 @@ void App::init()
     setCentralWidget(m_tab);
 
 #if defined(__APPLE__) || defined(Q_OS_MAC)
+    m_tab->setElideMode(Qt::TextElideMode::ElideNone);
     qt_set_sequence_auto_mnemonic(true);
 #endif
 
@@ -228,12 +219,15 @@ void App::init()
         /* Application geometry and window state */
         QSize size = settings.value("/workspace/size").toSize();
         if (size.isValid() == true)
+        {
             resize(size);
+        }
         else
         {
             if (QLCFile::hasWindowManager() == false)
             {
-                QRect geometry = qApp->desktop()->availableGeometry();
+                QScreen *screen = QGuiApplication::screens().first();
+                QRect geometry = screen->geometry();
                 if (m_noGui == true)
                 {
                     setGeometry(geometry.width(), geometry.height(), 1, 1);
@@ -248,8 +242,7 @@ void App::init()
                         w = (float)geometry.width() * 0.95;
                         h = (float)geometry.height() * 0.95;
                     }
-                    setGeometry((geometry.width() - w) / 2, (geometry.height() - h) / 2,
-                                w, h);
+                    setGeometry((geometry.width() - w) / 2, (geometry.height() - h) / 2, w, h);
                 }
             }
             else
@@ -298,8 +291,8 @@ void App::init()
     connect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)), this, SLOT(slotBlackoutChanged(bool)));
 
     // Listen to DMX value changes and update each Fixture values array
-    connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
-            this, SLOT(slotUniversesWritten(int, const QByteArray&)));
+    connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32, const QByteArray&)),
+            this, SLOT(slotUniverseWritten(quint32, const QByteArray&)));
 
     // Enable/Disable panic button
     connect(m_doc->masterTimer(), SIGNAL(functionListChanged()), this, SLOT(slotRunningFunctionsChanged()));
@@ -308,32 +301,13 @@ void App::init()
     // Start up in non-modified state
     m_doc->resetModified();
 
-    QString ssDir;
-
 #if defined(WIN32) || defined(Q_OS_WIN)
-    /* User's input profile directory on Windows */
-    LPTSTR home = (LPTSTR) malloc(256 * sizeof(TCHAR));
-    GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
-    ssDir = QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<ushort*> (home)))
-                            .arg(USERQLCPLUSDIR);
-    free(home);
     HotPlugMonitor::setWinId(winId());
-#else
-    /* User's input profile directory on *NIX systems */
-    ssDir = QString("%1/%2").arg(getenv("HOME")).arg(USERQLCPLUSDIR);
 #endif
 
-    QFile ssFile(ssDir + QDir::separator() + "qlcplusStyle.qss");
-    if (ssFile.exists() == true)
-    {
-        ssFile.open(QFile::ReadOnly);
-        QString styleSheet = QLatin1String(ssFile.readAll());
-        this->setStyleSheet(styleSheet);
-    }
+    this->setStyleSheet(AppUtil::getStyleSheet("MAIN"));
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     m_videoProvider = new VideoProvider(m_doc, this);
-#endif
 }
 
 void App::setActiveWindow(const QString& name)
@@ -375,7 +349,7 @@ void App::closeEvent(QCloseEvent* e)
 
     if (m_doc->isKiosk() == false)
     {
-        if( saveModifiedDoc(tr("Close"), tr("Do you wish to save the current workspace " \
+        if (saveModifiedDoc(tr("Close"), tr("Do you wish to save the current workspace " \
                                             "before closing the application?")) == true)
         {
             e->accept();
@@ -445,14 +419,15 @@ void App::clearDocument()
 {
     m_doc->masterTimer()->stop();
     VirtualConsole::instance()->resetContents();
+    ShowManager::instance()->clearContents();
     m_doc->clearContents();
     if (Monitor::instance() != NULL)
         Monitor::instance()->updateView();
     SimpleDesk::instance()->clearContents();
-    ShowManager::instance()->clearContents();
     m_doc->inputOutputMap()->resetUniverses();
     setFileName(QString());
     m_doc->resetModified();
+    m_doc->inputOutputMap()->startUniverses();
     m_doc->masterTimer()->start();
 }
 
@@ -506,6 +481,7 @@ void App::initDoc()
     qDebug() << "[App] Doc initialization took" << speedTime.elapsed() << "ms";
 #endif
 
+    m_doc->inputOutputMap()->startUniverses();
     m_doc->masterTimer()->start();
 }
 
@@ -524,11 +500,11 @@ void App::slotDocModified(bool state)
         setWindowTitle(caption);
 }
 
-void App::slotUniversesWritten(int idx, const QByteArray &ua)
+void App::slotUniverseWritten(quint32 idx, const QByteArray &ua)
 {
-    foreach(Fixture *fixture, m_doc->fixtures())
+    foreach (Fixture *fixture, m_doc->fixtures())
     {
-        if (fixture->universe() != (quint32)idx)
+        if (fixture->universe() != idx)
             continue;
 
         fixture->setChannelValues(ua);
@@ -553,10 +529,7 @@ void App::enableKioskMode()
     m_tab->removeTab(m_tab->indexOf(InputOutputManager::instance()));
 
     // Hide the tab bar to save some pixels
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    // tabBar() in QT4 is protected.
     m_tab->tabBar()->hide();
-#endif
 
     // No need for the toolbar
     delete m_toolbar;
@@ -794,33 +767,33 @@ bool App::handleFileError(QFile::FileError error)
 
     switch (error)
     {
-    case QFile::NoError:
-        return true;
+        case QFile::NoError:
+            return true;
         break;
-    case QFile::ReadError:
-        msg = tr("Unable to read from file");
+        case QFile::ReadError:
+            msg = tr("Unable to read from file");
         break;
-    case QFile::WriteError:
-        msg = tr("Unable to write to file");
+        case QFile::WriteError:
+            msg = tr("Unable to write to file");
         break;
-    case QFile::FatalError:
-        msg = tr("A fatal error occurred");
+        case QFile::FatalError:
+            msg = tr("A fatal error occurred");
         break;
-    case QFile::ResourceError:
-        msg = tr("Unable to access resource");
+        case QFile::ResourceError:
+            msg = tr("Unable to access resource");
         break;
-    case QFile::OpenError:
-        msg = tr("Unable to open file for reading or writing");
+        case QFile::OpenError:
+            msg = tr("Unable to open file for reading or writing");
         break;
-    case QFile::AbortError:
-        msg = tr("Operation was aborted");
+        case QFile::AbortError:
+            msg = tr("Operation was aborted");
         break;
-    case QFile::TimeOutError:
-        msg = tr("Operation timed out");
+        case QFile::TimeOutError:
+            msg = tr("Operation timed out");
         break;
-    default:
-    case QFile::UnspecifiedError:
-        msg = tr("An unspecified error has occurred. Nice.");
+        default:
+        case QFile::UnspecifiedError:
+            msg = tr("An unspecified error has occurred. Nice.");
         break;
     }
 
@@ -837,16 +810,16 @@ bool App::saveModifiedDoc(const QString & title, const QString & message)
 
     int result = QMessageBox::warning(this, title,
                                           message,
-                                          QMessageBox::Yes,
-                                          QMessageBox::No,
+                                          QMessageBox::Yes |
+                                          QMessageBox::No |
                                           QMessageBox::Cancel);
     if (result == QMessageBox::Yes)
     {
         slotFileSave();
-        // we check whether m_doc is not modified anymore, rather than 
+        // we check whether m_doc is not modified anymore, rather than
         // result of slotFileSave() since the latter returns NoError
         // in cases like when the user pressed cancel in the save dialog
-        if (m_doc->isModified() == false) 
+        if (m_doc->isModified() == false)
         {
             return true;
         }
@@ -1158,7 +1131,7 @@ void App::slotDetachContext(int index)
 
     qDebug() << "Detaching context" << context;
 
-    DetachedContext *detachedWindow = new DetachedContext();
+    DetachedContext *detachedWindow = new DetachedContext(this);
     detachedWindow->setCentralWidget(context);
     detachedWindow->resize(800, 600);
     detachedWindow->show();
@@ -1210,8 +1183,8 @@ void App::slotControlFullScreen(bool usingGeometry)
 {
     if (usingGeometry == true)
     {
-        QDesktopWidget dw;
-        setGeometry(dw.availableGeometry());
+        QScreen *screen = QGuiApplication::screens().first();
+        setGeometry(screen->geometry());
     }
     else
     {
@@ -1244,7 +1217,7 @@ void App::slotRecentFileClicked(QAction *recent)
     if (testFile.exists() == false)
     {
         QMessageBox::critical(this, tr("Error"),
-                              tr("File not found !\nThe selected file has been moved or deleted."),
+                              tr("File not found!\nThe selected file has been moved or deleted."),
                               QMessageBox::Close);
         return;
     }
@@ -1430,6 +1403,8 @@ bool App::loadXML(QXmlStreamReader& doc, bool goToConsole, bool fromMemory)
         msg.exec();
     }
 
+    m_doc->inputOutputMap()->startUniverses();
+
     return true;
 }
 
@@ -1444,7 +1419,9 @@ QFile::FileError App::saveXML(const QString& fileName)
     QXmlStreamWriter doc(&file);
     doc.setAutoFormatting(true);
     doc.setAutoFormattingIndent(1);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     doc.setCodec("UTF-8");
+#endif
 
     doc.writeStartDocument();
     doc.writeDTD(QString("<!DOCTYPE %1>").arg(KXMLQLCWorkspace));

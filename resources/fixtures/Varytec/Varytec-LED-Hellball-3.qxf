@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>daniel</Author>
  </Creator>
  <Manufacturer>Varytec</Manufacturer>
@@ -11,8 +11,8 @@
  <Type>Flower</Type>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="5">Strobe Off</Capability>
-  <Capability Min="6" Max="255">Strobe (fast to slow)</Capability>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe Off</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeFastToSlow">Strobe (fast to slow)</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
@@ -36,11 +36,11 @@
   <Channel Number="4">Motor Speed</Channel>
   <Channel Number="5">Mode</Channel>
  </Mode>
-<Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Depth="195" Weight="1.2" Height="190" Width="195"/>
-   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical PowerConsumption="15" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.2" Width="195" Height="190" Depth="195"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="15" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Futurelight</Manufacturer>
@@ -11,19 +11,19 @@
  <Type>Flower</Type>
  <Channel Name="Colour 1">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10" Color="#ffffff">White</Capability>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="11" Max="21">Color 1</Capability>
   <Capability Min="22" Max="32">Color 2</Capability>
-  <Capability Min="33" Max="43" Color="#0000ff">Blue</Capability>
-  <Capability Min="44" Max="54" Color="#c8ff11">Yellow green</Capability>
-  <Capability Min="55" Max="65" Color="#ffff7f">Light yellow</Capability>
-  <Capability Min="66" Max="76" Color="#ff00ff">Magenta</Capability>
-  <Capability Min="77" Max="87" Color="#ffaa00">Orange</Capability>
-  <Capability Min="88" Max="98" Color="#ff007f">Purple</Capability>
+  <Capability Min="33" Max="43" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="44" Max="54" Preset="ColorMacro" Res1="#c8ff11">Yellow green</Capability>
+  <Capability Min="55" Max="65" Preset="ColorMacro" Res1="#ffff7f">Light yellow</Capability>
+  <Capability Min="66" Max="76" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="77" Max="87" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="88" Max="98" Preset="ColorMacro" Res1="#ff007f">Purple</Capability>
   <Capability Min="99" Max="127">Colour shake</Capability>
-  <Capability Min="128" Max="187" Res="Others/rainbow.png">Forwards rainbow speed</Capability>
+  <Capability Min="128" Max="187" Preset="GoboMacro" Res1="Others/rainbow.png">Forwards rainbow speed</Capability>
   <Capability Min="188" Max="193">No rotation</Capability>
-  <Capability Min="194" Max="255" Res="Others/rainbow.png">Backwards rainbow speed</Capability>
+  <Capability Min="194" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Backwards rainbow speed</Capability>
  </Channel>
  <Channel Name="Static gobo">
   <Group Byte="0">Gobo</Group>
@@ -107,11 +107,11 @@
  <Channel Name="Lamp switch, reset, programs">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="15">Normal color change</Capability>
-  <Capability Min="16" Max="31">Normal colour change, search clockwise</Capability>
+  <Capability Min="16" Max="31" Preset="RotationClockwise">Normal colour change, search clockwise</Capability>
   <Capability Min="32" Max="47">Colour change at every position, shortest distance</Capability>
   <Capability Min="48" Max="63">Colour change at every position, search clockwise</Capability>
-  <Capability Min="64" Max="79">Lamp on</Capability>
-  <Capability Min="80" Max="95">Reset</Capability>
+  <Capability Min="64" Max="79" Preset="LampOn">Lamp on</Capability>
+  <Capability Min="80" Max="95" Preset="ResetAll">Reset</Capability>
   <Capability Min="96" Max="111">Internal program 1</Capability>
   <Capability Min="112" Max="127">Internal program 2</Capability>
   <Capability Min="128" Max="143">Internal program 3</Capability>
@@ -120,7 +120,8 @@
   <Capability Min="176" Max="191">Internal program 6</Capability>
   <Capability Min="192" Max="207">Internal program 7</Capability>
   <Capability Min="208" Max="223">Internal program 8</Capability>
-  <Capability Min="224" Max="239">Lamp off</Capability>
+  <Capability Min="224" Max="239" Preset="LampOff">Lamp off</Capability>
+  <Capability Min="240" Max="255">No function</Capability>
  </Channel>
  <Mode Name="Mode 1">
   <Channel Number="0">Colour 1</Channel>
@@ -133,11 +134,11 @@
   <Channel Number="7">Dimmer intensity</Channel>
   <Channel Number="8">Lamp switch, reset, programs</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="HMI 1200W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="37" Width="410" Height="240" Depth="690"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="1725" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="HMI 1200W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="37" Width="410" Height="240" Depth="690"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="1725" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

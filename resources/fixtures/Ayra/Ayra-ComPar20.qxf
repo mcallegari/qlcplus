@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Rob Nieuwenhuizen</Author>
  </Creator>
  <Manufacturer>Ayra</Manufacturer>
@@ -12,29 +12,29 @@
  <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Color Marco">
   <Group Byte="0">Colour</Group>
-  <Capability Max="36" Min="0" Color="#ff0000">Red</Capability>
-  <Capability Max="73" Min="37" Color="#00ff00">Green</Capability>
-  <Capability Max="110" Min="74" Color="#0000ff">Blue</Capability>
-  <Capability Max="147" Min="111" Color="#ffff00">Yellow</Capability>
-  <Capability Max="184" Min="148" Color="#ff00ff">Magenta</Capability>
-  <Capability Max="221" Min="185" Color="#00ffff">Cyan</Capability>
-  <Capability Max="255" Min="222" Color="#ffffff">White</Capability>
+  <Capability Min="0" Max="36" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="37" Max="73" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="74" Max="110" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="111" Max="147" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="148" Max="184" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="185" Max="221" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="222" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Max="7" Min="0">No function</Capability>
-  <Capability Max="255" Min="8">Strobe slow to fast</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="8" Max="255" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
  </Channel>
  <Channel Name="Effect">
   <Group Byte="0">Effect</Group>
-  <Capability Max="4" Min="0">Blackout</Capability>
-  <Capability Max="80" Min="5">Color Marco (Color 1 - Color 15)</Capability>
-  <Capability Max="150" Min="81">Color Jumping (slow to fast)</Capability>
-  <Capability Max="220" Min="151">Color Fading (slow to fast)</Capability>
-  <Capability Max="255" Min="221">Sound control (mic sens)</Capability>
+  <Capability Min="0" Max="4">Blackout</Capability>
+  <Capability Min="5" Max="80">Color Marco (Color 1 - Color 15)</Capability>
+  <Capability Min="81" Max="150">Color Jumping (slow to fast)</Capability>
+  <Capability Min="151" Max="220">Color Fading (slow to fast)</Capability>
+  <Capability Min="221" Max="255">Sound control (mic sens)</Capability>
  </Channel>
  <Mode Name="2CH mode">
   <Channel Number="0">Dimmer</Channel>
@@ -58,11 +58,11 @@
   <Channel Number="4">Blue</Channel>
   <Channel Number="5">Effect</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Height="180" Width="175" Weight="1.5" Depth="110"/>
-   <Lens Name="Other" DegreesMax="0" DegreesMin="0"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="25"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.5" Width="175" Height="180" Depth="110"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

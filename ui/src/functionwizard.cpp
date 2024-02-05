@@ -22,6 +22,7 @@
 #include <QDebug>
 #include <QHash>
 #include <QAction>
+#include <QSettings>
 
 #include "palettegenerator.h"
 #include "fixtureselection.h"
@@ -53,6 +54,8 @@
 
 #define KWidgetName                 0
 
+#define SETTINGS_GEOMETRY "functionwizard/geometry"
+
 FunctionWizard::FunctionWizard(QWidget* parent, Doc* doc)
     : QDialog(parent)
     , m_doc(doc)
@@ -71,6 +74,11 @@ FunctionWizard::FunctionWizard(QWidget* parent, Doc* doc)
 
     m_fixtureTree->sortItems(KFixtureColumnName, Qt::AscendingOrder);
 
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
+
     connect(m_nextButton, SIGNAL(clicked()),
             this, SLOT(slotNextPageClicked()));
 
@@ -82,6 +90,9 @@ FunctionWizard::FunctionWizard(QWidget* parent, Doc* doc)
 
 FunctionWizard::~FunctionWizard()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
+
     m_paletteList.clear();
 }
 
@@ -304,7 +315,7 @@ void FunctionWizard::updateAvailableFunctionsTree()
 
         QStringList caps = PaletteGenerator::getCapabilities(fxi);
 
-        foreach(QString cap, caps)
+        foreach (QString cap, caps)
         {
             if (cap == KQLCChannelRGB || cap == KQLCChannelCMY)
             {
@@ -398,19 +409,19 @@ void FunctionWizard::updateResultFunctionsTree()
                                                                  (PaletteGenerator::PaletteSubType)subType);
                 m_paletteList.append(palette);
 
-                foreach(Scene *scene, palette->scenes())
+                foreach (Scene *scene, palette->scenes())
                 {
                     QTreeWidgetItem *item = new QTreeWidgetItem(getFunctionGroupItem(scene));
                     item->setText(KFunctionName, scene->name());
                     item->setIcon(KFunctionName, scene->getIcon());
                 }
-                foreach(Chaser *chaser, palette->chasers())
+                foreach (Chaser *chaser, palette->chasers())
                 {
                     QTreeWidgetItem *item = new QTreeWidgetItem(getFunctionGroupItem(chaser));
                     item->setText(KFunctionName, chaser->name());
                     item->setIcon(KFunctionName, chaser->getIcon());
                 }
-                foreach(RGBMatrix *matrix, palette->matrices())
+                foreach (RGBMatrix *matrix, palette->matrices())
                 {
                     QTreeWidgetItem *item = new QTreeWidgetItem(getFunctionGroupItem(matrix));
                     item->setText(KFunctionName, matrix->name());
@@ -442,7 +453,7 @@ void FunctionWizard::updateWidgetsTree()
 {
     m_widgetsTree->clear();
 
-    foreach(PaletteGenerator *palette, m_paletteList)
+    foreach (PaletteGenerator *palette, m_paletteList)
     {
         QTreeWidgetItem *frame = new QTreeWidgetItem(m_widgetsTree);
         frame->setText(KWidgetName, palette->fullName());
@@ -456,8 +467,8 @@ void FunctionWizard::updateWidgetsTree()
             frame->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::FrameWidget));
             frame->setData(KWidgetName, Qt::UserRole, VCWidget::FrameWidget);
         }
-        frame->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)palette));
-        frame->setFlags(frame->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsTristate);
+        frame->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)palette));
+        frame->setFlags(frame->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
         frame->setCheckState(KWidgetName, Qt::Unchecked);
 
         QTreeWidgetItem *soloFrameItem = NULL;
@@ -466,11 +477,11 @@ void FunctionWizard::updateWidgetsTree()
             soloFrameItem = new QTreeWidgetItem(frame);
             soloFrameItem->setText(KWidgetName, tr("Presets solo frame"));
             soloFrameItem->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::SoloFrameWidget));
-            soloFrameItem->setFlags(soloFrameItem->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsTristate);
+            soloFrameItem->setFlags(soloFrameItem->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
             soloFrameItem->setCheckState(KWidgetName, Qt::Unchecked);
             soloFrameItem->setData(KWidgetName, Qt::UserRole, VCWidget::SoloFrameWidget);
         }
-        foreach(Scene *scene, palette->scenes())
+        foreach (Scene *scene, palette->scenes())
         {
             QTreeWidgetItem *item = NULL;
             if (soloFrameItem != NULL)
@@ -482,10 +493,10 @@ void FunctionWizard::updateWidgetsTree()
             item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::ButtonWidget));
             item->setCheckState(KWidgetName, Qt::Unchecked);
             item->setData(KWidgetName, Qt::UserRole, VCWidget::ButtonWidget);
-            item->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)scene));
+            item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)scene));
 
         }
-        foreach(Chaser *chaser, palette->chasers())
+        foreach (Chaser *chaser, palette->chasers())
         {
             QTreeWidgetItem *item = new QTreeWidgetItem(frame);
             QString toRemove = " - " + palette->model();
@@ -493,10 +504,10 @@ void FunctionWizard::updateWidgetsTree()
             item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::CueListWidget));
             item->setCheckState(KWidgetName, Qt::Unchecked);
             item->setData(KWidgetName, Qt::UserRole, VCWidget::CueListWidget);
-            item->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)chaser));
+            item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)chaser));
         }
 
-        foreach(RGBMatrix *matrix, palette->matrices())
+        foreach (RGBMatrix *matrix, palette->matrices())
         {
             QTreeWidgetItem *item = NULL;
             if (soloFrameItem != NULL)
@@ -508,7 +519,7 @@ void FunctionWizard::updateWidgetsTree()
             item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::ButtonWidget));
             item->setCheckState(KWidgetName, Qt::Unchecked);
             item->setData(KWidgetName, Qt::UserRole, VCWidget::ButtonWidget);
-            item->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)matrix));
+            item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)matrix));
         }
 
         if (palette->scenes().count() > 0)
@@ -527,7 +538,7 @@ void FunctionWizard::updateWidgetsTree()
             item->setCheckState(KWidgetName, Qt::Unchecked);
             item->setData(KWidgetName, Qt::UserRole, VCWidget::SliderWidget);
             Scene *firstScene = palette->scenes().at(0);
-            item->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)firstScene));
+            item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)firstScene));
         }
     }
 }
@@ -621,7 +632,7 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
             }
             else if (pType == PaletteGenerator::Gobos)
             {
-                foreach(SceneValue scv, scene->values())
+                foreach (SceneValue scv, scene->values())
                 {
                     Fixture *fixture = m_doc->fixture(scv.fxi);
                     if (fixture == NULL)

@@ -28,6 +28,14 @@ var testAlgo;
       algo.author = "Rob Nieuwenhuizen";
       algo.properties = [];
       algo.acceptColors = 1;
+      algo.properties.push("name:frequency|type:range|display:Frequency|values:2,10|write:setFreq|read:getFreq");
+      algo.frequency = 2;
+      algo.setFreq = function(_freq){
+        algo.frequency = parseInt(_freq);
+      };
+      algo.getFreq = function(){
+        return algo.frequency;
+      };
 
       /**
         * The actual "algorithm" for this RGB script. Produces a map of
@@ -37,23 +45,17 @@ var testAlgo;
         * @param rgb Tells the color requested by user in the UI.
         * @return A two-dimensional array[height][width].
         */
-      algo.rgbMap = function (width, height, rgb, step) 
+      algo.rgbMap = function (width, height, rgb, step)
       {
-        var map = new Array(height);
-        for (var y = 0; y < height; y++) 
+        var map = new Array();
+        for (var y = 0; y < height; y++)
         {
-          map[y] = [];
-          for (var x = 0; x < width; x++) 
+          var _map = new Array();
+          for (var x = 0; x < width; x++)
           {
-            if ((step % 2) === 0) 
-            {
-              map[y][x] = rgb;
-            } 
-            else 
-            {
-              map[y][x] = 0;
-            }
+            _map.push((step % algo.frequency) !== 0 ? 0 : rgb);
           }
+          map.push(_map);
         }
         return map;
       };
@@ -65,9 +67,9 @@ var testAlgo;
       * @param height The height of the map
       * @return Number of steps required for a map of size($width, $height)
       */
-      algo.rgbMapStepCount = function (width, height) 
+      algo.rgbMapStepCount = function (width, height)
       {
-        return 2;
+        return algo.frequency;
       };
 
       // Development tool access

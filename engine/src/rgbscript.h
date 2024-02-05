@@ -21,13 +21,13 @@
 #define RGBSCRIPT_H
 
 #include <QScriptValue>
+#include <QMutex>
 #include "rgbalgorithm.h"
 #include "rgbscriptproperty.h"
 
 class QScriptEngine;
 class QSize;
 class QDir;
-class QMutex;
 
 /** @addtogroup engine_functions Functions
  * @{
@@ -41,9 +41,11 @@ class RGBScript : public RGBAlgorithm
      * Initialization
      ************************************************************************/
 public:
-    RGBScript(Doc * doc);
+    RGBScript(Doc *doc);
     RGBScript(const RGBScript& s);
     ~RGBScript();
+
+    RGBScript& operator=(const RGBScript& s);
 
     /** Comparison operator. Uses simply fileName() == s.fileName(). */
     bool operator==(const RGBScript& s) const;
@@ -65,14 +67,21 @@ public:
     bool evaluate();
 
 private:
-    static QScriptEngine* s_engine; //! The engine that runs all scripts
+    static QScriptEngine *s_engine; //! The engine that runs all scripts
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     static QMutex* s_engineMutex;   //! Protection
+#else
+    static QRecursiveMutex* s_engineMutex;
+#endif
     QString m_fileName;             //! The file name that contains this script
     QString m_contents;             //! The file's contents
 
 private:
     /** Init engine, engine mutex, and scripts map */
     static void initEngine();
+
+    /** Handle an error after evaluate() or call() of a script */
+    static void displayError(QScriptValue e, const QString& fileName);
 
     /************************************************************************
      * RGBAlgorithm API
@@ -82,7 +91,7 @@ public:
     int rgbMapStepCount(const QSize& size);
 
     /** @reimp */
-    RGBMap rgbMap(const QSize& size, uint rgb, int step);
+    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);
 
     /** @reimp */
     QString name() const;
@@ -125,7 +134,7 @@ public:
     bool setProperty(QString propertyName, QString value);
 
     /** Read the value of the property with the given name */
-    QString property(QString propertyName);
+    QString property(QString propertyName) const;
 
 private:
     /** Load the script properties if any is available */

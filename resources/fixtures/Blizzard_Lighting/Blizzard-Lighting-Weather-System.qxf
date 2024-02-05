@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>James Elliott</Author>
  </Creator>
  <Manufacturer>Blizzard Lighting</Manufacturer>
@@ -36,8 +36,8 @@
  <Channel Name="Blue 8" Preset="IntensityBlue"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">No function</Capability>
-  <Capability Min="10" Max="255">Strobe slow-&gt;fast</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe slow-&gt;fast</Capability>
  </Channel>
  <Channel Name="Red All" Preset="IntensityRed"/>
  <Channel Name="Green All" Preset="IntensityGreen"/>
@@ -45,13 +45,13 @@
  <Channel Name="Mode">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">RGB</Capability>
-  <Capability Min="8" Max="15" Color="#ff0000">Red</Capability>
-  <Capability Min="16" Max="23" Color="#ffff00">Yellow</Capability>
-  <Capability Min="24" Max="31" Color="#00ff00">Green</Capability>
-  <Capability Min="32" Max="39" Color="#00ffff">Cyan</Capability>
-  <Capability Min="40" Max="47" Color="#0000ff">Blue</Capability>
-  <Capability Min="48" Max="55" Color="#800080">Purple</Capability>
-  <Capability Min="56" Max="63" Color="#ffffff">White</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#800080">Purple</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="64" Max="71">Program 1</Capability>
   <Capability Min="72" Max="79">Program 2</Capability>
   <Capability Min="80" Max="87">Program 3</Capability>
@@ -156,17 +156,13 @@
   <Channel Number="4">Mode</Channel>
   <Channel Number="5">Speed or Mic</Channel>
   <Channel Number="6">Strobe</Channel>
-  <Head>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-  </Head>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="900" Weight="5.25" Depth="60" Height="113"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="87" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.25" Width="900" Height="113" Depth="60"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="8" Height="1"/>
+  <Technical PowerConsumption="87" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

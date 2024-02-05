@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Ray Console - cd</Author>
+ </Creator>
+ <Manufacturer>RVE</Manufacturer>
+ <Model>Twinled EVO2</Model>
+ <Type>Dimmer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer Fine" Preset="IntensityDimmerFine"/>
+ <Mode Name="8 Bit">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Mode Name="16 Bit">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer Fine</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="5600"/>
+  <Dimensions Weight="4.5" Width="140" Height="197" Depth="339"/>
+  <Lens Name="Other" DegreesMin="82" DegreesMax="82"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="100" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

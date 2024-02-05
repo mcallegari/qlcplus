@@ -9,13 +9,13 @@
 
 <H1>OSC input/output plugin</H1>
 
-<H1>Introduction</H1>
+<H2>Introduction</H2>
 <P>
-QLC+ supports the <a href="http://en.wikipedia.org/wiki/Open_Sound_Control">OSC protocol</a> through an input/output plugin 
+QLC+ supports the <a href="https://en.wikipedia.org/wiki/Open_Sound_Control">OSC protocol</a> through an input/output plugin
 that receives and transmits packets on the network.<br>
 No extra requirements are needed, since QLC+ has a native implementation of the OSC protocol
 that works on Linux, Windows and OSX systems.<br>
-The OSC plugin can send and receive packets from multiple network cards, virtual addresses, 
+The OSC plugin can send and receive packets from multiple network cards, virtual addresses,
 the loopback device (127.0.0.1) and multiple universes per network interface.<br>
 By default the OSC plugin will listen on ports starting from 7700, plus the QLC+ universe minus one.<br>
 The output, instead, will use ports starting from 9000, plus the QLC+ universe minus one.<br>
@@ -28,22 +28,22 @@ QLC+ Universe 8 --> OSC input port 7707, output port 9007<br>
 <br>
 </P>
 
-<H1>Configuration</H1>
+<H2>Configuration</H2>
 
 <P>
 When clicking on the <IMG SRC="qrc:/configure.png" width=32> configuration button,
 a small dialog will be displayed, showing the Universes Configuration panel.<br>
 <br>
-<u>After</u> a QLC+ universe is patched with an OSC input or output, an entry will be displayed in this list, 
+<u>After</u> a QLC+ universe is patched with an OSC input or output, an entry will be displayed in this list,
 allowing to manually configure the desired parameters to be used by the OSC plugin.<br>
 <br>
 For each OSC input or output the following parameters can be set:
 <ul>
- <li> 
-  <b>Input Port:</b> If the patched line is opened for input, this parameters defines the port QLC+ will listen 
+ <li>
+  <b>Input Port:</b> If the patched line is opened for input, this parameters defines the port QLC+ will listen
      to in order to receive OSC data from your external controller.
  </li>
- <li> 
+ <li>
   <b>Output address:</b> If the patched line is opened for input, this is the destination IP address used to send feedbacks
      to your external controller.<br>
      If the patched line is opened for output, this is the destination IP address used to send OSC data on the network.<br>
@@ -61,12 +61,12 @@ For each OSC input or output the following parameters can be set:
 section. Just leave the 'Outputs' section as default.
 </P>
 
-<H1>Controllers</H1>
+<H2>Controllers</H2>
 
 <P>
 QLC+ has been tested with the following OSC controllers:
 <ul>
- <li><a href="http://hexler.net/software/touchosc">TouchOSC</a>. A pre-defined input profile is ready to use for the Mix16 layout.</li>
+ <li><a href="https://hexler.net/software/touchosc">TouchOSC</a>. A pre-defined input profile is ready to use for the Mix16 layout.</li>
 </ul>
 </P>
 

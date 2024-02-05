@@ -80,6 +80,7 @@ Rectangle
       * The stacking order of this view is very important and delicate
       * From bottom to top:
       * Flickable (z = 1): main scrollable area
+      *   Image (z = 0): Main background image
       *   Canvas (z = 0): The actual grid graphics view
       *     DropArea (z = 0): allow to drop items from fixture browser
       *     Rectangle (z = 1): multiple drag layer as big as the Canvas layer
@@ -129,19 +130,28 @@ Rectangle
             var gridWidth = View2D.cellPixels * gridSize.width
             var gridHeight = View2D.cellPixels * gridSize.height
 
-            if (gridWidth < w)
-                twoDContents.xOffset = (w - gridWidth) / 2
-            if (gridHeight < height)
-                twoDContents.yOffset = (height - gridHeight) / 2
+            twoDContents.xOffset = (gridWidth < w) ? (w - gridWidth) / 2 : 0
+            twoDContents.yOffset = (gridHeight < height) ? (height - gridHeight) / 2 : 0
 
             View2D.gridPosition = Qt.point(twoDContents.xOffset, twoDContents.yOffset)
 
             contentWidth = gridWidth + (twoDContents.xOffset * 2)
             contentHeight = gridHeight + (twoDContents.yOffset * 2)
 
-            console.log("Grid offset x: " + twoDContents.xOffset + ", y: " + twoDContents.yOffset)
+            //console.log("Grid offset x: " + twoDContents.xOffset + ", y: " + twoDContents.yOffset)
             if (View2D.cellPixels > 0)
                 twoDContents.requestPaint()
+        }
+
+        Image
+        {
+            x: twoDContents.xOffset
+            y: twoDContents.yOffset
+            width: twoDView.contentWidth - (x * 2)
+            height: twoDView.contentHeight - (y * 2)
+            source: View2D.backgroundImage ? "file://" + View2D.backgroundImage : ""
+            sourceSize: Qt.size(width, height)
+            fillMode: Image.PreserveAspectFit
         }
 
         Canvas
@@ -177,7 +187,7 @@ Rectangle
                 var context = getContext("2d")
                 context.globalAlpha = 1.0
                 context.strokeStyle = "#5F5F5F"
-                context.fillStyle = "black"
+                context.fillStyle = "transparent"
                 context.lineWidth = 1
 
                 context.beginPath()
@@ -185,6 +195,7 @@ Rectangle
                 context.fillRect(0, 0, width, height)
                 context.rect(xOffset, yOffset, width - (xOffset * 2), height - (yOffset * 2))
 
+                // draw the view grid
                 for (var vl = 1; vl < twoDView.gridSize.width; vl++)
                 {
                     var xPos = (cellSize * vl) + xOffset
@@ -204,8 +215,8 @@ Rectangle
 
             MouseArea
             {
-                width: twoDSettings.visible ? twoDView.width - twoDSettings.width : twoDView.width
-                height: twoDView.height
+                width: twoDView.contentWidth
+                height: twoDView.contentHeight
                 z: 2
 
                 property int initialXPos
@@ -219,7 +230,7 @@ Rectangle
                     // pressing on nothing starts to draw the selection rectangle
                     if (itemID === -1)
                     {
-                        //console.log("Starting selection rectangle !")
+                        //console.log("Starting selection rectangle!")
                         // initialize local variables to determine the selection orientation
                         initialXPos = mouse.x
                         initialYPos = mouse.y
@@ -293,10 +304,10 @@ Rectangle
                         var rh = selectionRect.height
                         switch (selectionRect.rotation)
                         {
-                            case 0: contextManager.setRectangleSelection(rx, ry, rw, rh); break;
-                            case -180: contextManager.setRectangleSelection(rx - rw, ry - rh, rw, rh); break;
-                            case 90: contextManager.setRectangleSelection(rx - rh, ry, rh, rw); break;
-                            case -90: contextManager.setRectangleSelection(rx, ry - rw, rh, rw); break;
+                            case 0: contextManager.setRectangleSelection(rx, ry, rw, rh, mouse.modifiers); break;
+                            case -180: contextManager.setRectangleSelection(rx - rw, ry - rh, rw, rh, mouse.modifiers); break;
+                            case 90: contextManager.setRectangleSelection(rx - rh, ry, rh, rw, mouse.modifiers); break;
+                            case -90: contextManager.setRectangleSelection(rx, ry - rw, rh, rw, mouse.modifiers); break;
                         }
                         selectionRect.visible = false
                     }
@@ -323,8 +334,8 @@ Rectangle
             {
                 id: contentsDragArea
                 objectName: "contentsDragArea"
-                width: twoDSettings.visible ? twoDView.width - twoDSettings.width : twoDView.width
-                height: twoDView.height
+                width: twoDView.contentWidth
+                height: twoDView.contentHeight
                 color: "transparent"
                 /*
                 // enable for debug

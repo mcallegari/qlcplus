@@ -57,7 +57,7 @@ class FunctionsTreeWidget : public QTreeWidget
 
 public:
     FunctionsTreeWidget(Doc* doc, QWidget *parent = 0);
-    
+
     /** Update all functions to function tree */
     void updateTree();
 

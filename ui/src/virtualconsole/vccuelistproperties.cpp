@@ -109,30 +109,18 @@ VCCueListProperties::VCCueListProperties(VCCueList* cueList, Doc* doc)
      * Crossfade Cue List page
      ************************************************************************/
 
-    if (cueList->slidersMode() == VCCueList::Steps)
+    if (cueList->sideFaderMode() == VCCueList::Steps)
         m_stepsRadio->setChecked(true);
-    else
+    else if (cueList->sideFaderMode() == VCCueList::Crossfade)
         m_crossFadeRadio->setChecked(true);
 
-    m_crossfade1InputWidget = new InputSelectionWidget(m_doc, this);
-    m_crossfade1InputWidget->setTitle(tr("Left Fader"));
-    m_crossfade1InputWidget->setKeyInputVisibility(false);
-    m_crossfade1InputWidget->setInputSource(m_cueList->inputSource(VCCueList::cf1InputSourceId));
-    m_crossfade1InputWidget->setWidgetPage(m_cueList->page());
-    m_crossfade1InputWidget->show();
-    m_crossFadeLayout->addWidget(m_crossfade1InputWidget);
-    connect(m_crossfade1InputWidget, SIGNAL(autoDetectToggled(bool)),
-            this, SLOT(slotCF1AutoDetectionToggled(bool)));
-
-    m_crossfade2InputWidget = new InputSelectionWidget(m_doc, this);
-    m_crossfade2InputWidget->setTitle(tr("Right Fader"));
-    m_crossfade2InputWidget->setKeyInputVisibility(false);
-    m_crossfade2InputWidget->setInputSource(m_cueList->inputSource(VCCueList::cf2InputSourceId));
-    m_crossfade2InputWidget->setWidgetPage(m_cueList->page());
-    m_crossfade2InputWidget->show();
-    m_crossFadeLayout->addWidget(m_crossfade2InputWidget);
-    connect(m_crossfade2InputWidget, SIGNAL(autoDetectToggled(bool)),
-            this, SLOT(slotCF2AutoDetectionToggled(bool)));
+    m_crossfadeInputWidget = new InputSelectionWidget(m_doc, this);
+    m_crossfadeInputWidget->setTitle(tr("External Input"));
+    m_crossfadeInputWidget->setKeyInputVisibility(false);
+    m_crossfadeInputWidget->setInputSource(m_cueList->inputSource(VCCueList::sideFaderInputSourceId));
+    m_crossfadeInputWidget->setWidgetPage(m_cueList->page());
+    m_crossfadeInputWidget->show();
+    m_crossFadeLayout->addWidget(m_crossfadeInputWidget);
 
     /* Playback layout */
     connect(m_play_stop_pause, SIGNAL(clicked(bool)), this, SLOT(slotPlaybackLayoutChanged()));
@@ -176,13 +164,14 @@ void VCCueListProperties::accept()
     m_cueList->setInputSource(m_prevInputWidget->inputSource(), VCCueList::previousInputSourceId);
     m_cueList->setInputSource(m_playInputWidget->inputSource(), VCCueList::playbackInputSourceId);
     m_cueList->setInputSource(m_stopInputWidget->inputSource(), VCCueList::stopInputSourceId);
-    m_cueList->setInputSource(m_crossfade1InputWidget->inputSource(), VCCueList::cf1InputSourceId);
-    m_cueList->setInputSource(m_crossfade2InputWidget->inputSource(), VCCueList::cf2InputSourceId);
+    m_cueList->setInputSource(m_crossfadeInputWidget->inputSource(), VCCueList::sideFaderInputSourceId);
 
-    if (m_stepsRadio->isChecked())
-        m_cueList->setSlidersMode(VCCueList::Steps);
+    if (m_noneRadio->isChecked())
+        m_cueList->setSideFaderMode(VCCueList::None);
+    else if (m_stepsRadio->isChecked())
+        m_cueList->setSideFaderMode(VCCueList::Steps);
     else
-        m_cueList->setSlidersMode(VCCueList::Crossfade);
+        m_cueList->setSideFaderMode(VCCueList::Crossfade);
 
     QDialog::accept();
 }
@@ -194,20 +183,7 @@ void VCCueListProperties::slotTabChanged()
     m_nextInputWidget->stopAutoDetection();
     m_prevInputWidget->stopAutoDetection();
 
-    m_crossfade1InputWidget->stopAutoDetection();
-    m_crossfade2InputWidget->stopAutoDetection();
-}
-
-void VCCueListProperties::slotCF1AutoDetectionToggled(bool checked)
-{
-    if (checked == true && m_crossfade2InputWidget->isAutoDetecting())
-        m_crossfade2InputWidget->stopAutoDetection();
-}
-
-void VCCueListProperties::slotCF2AutoDetectionToggled(bool checked)
-{
-    if (checked == true && m_crossfade1InputWidget->isAutoDetecting())
-        m_crossfade1InputWidget->stopAutoDetection();
+    m_crossfadeInputWidget->stopAutoDetection();
 }
 
 /****************************************************************************

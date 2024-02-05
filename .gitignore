@@ -15,6 +15,7 @@
 # Qt-es
 
 .qmake.stash
+.qtc_clangd
 *.pro.user
 *.pro.user.*
 moc_*.cpp
@@ -45,7 +46,9 @@ coverage/
 *.gcda
 *.gcno
 
-
-
 # Development IDEs
 .vscode/
+
+# CMake build
+CMakeLists.txt.user
+build*

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.0 GIT</Version>
+  <Author>Edgar Aichinger</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>WiFly PAR QA5</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobing">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">Off</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeSlowToFast">Strobing slow – fast</Capability>
+ </Channel>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">Off</Capability>
+  <Capability Min="16" Max="31" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="32" Max="47" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="48" Max="63" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="64" Max="79" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="80" Max="95" Preset="ColorMacro" Res1="#ffff00">Red + Green</Capability>
+  <Capability Min="96" Max="111" Preset="ColorMacro" Res1="#ff00ff">Red + Blue</Capability>
+  <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#ff5500">Red + Amber</Capability>
+  <Capability Min="128" Max="143" Preset="ColorMacro" Res1="#00ffff">Green + Blue</Capability>
+  <Capability Min="144" Max="159" Preset="ColorMacro" Res1="#88ff00">Green + Amber</Capability>
+  <Capability Min="160" Max="175" Preset="ColorMacro" Res1="#8800ff">Blue + Amber</Capability>
+  <Capability Min="176" Max="191" Preset="ColorMacro" Res1="#ffffff">Red + Green + Blue</Capability>
+  <Capability Min="192" Max="207" Preset="ColorMacro" Res1="#ffcc00">Red + Green + Amber</Capability>
+  <Capability Min="208" Max="223" Preset="ColorMacro" Res1="#ff007b">Red + Blue + Amber</Capability>
+  <Capability Min="224" Max="239">Green + Blue + Amber</Capability>
+  <Capability Min="240" Max="255" Preset="ColorMacro" Res1="#ffffff">Red + Green + Blue + Amber</Capability>
+ </Channel>
+ <Channel Name="Program selection mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="51" Preset="Alias">Dimming mode</Capability>
+  <Capability Min="52" Max="102" Preset="Alias">Color macro mode</Capability>
+  <Capability Min="103" Max="153" Preset="Alias">Color change mode
+   <Alias Mode="8 ch" Channel="Strobing" With="Speed Control"/>
+   <Alias Mode="8 ch" Channel="Color Macros" With="Color Change"/>
+  </Capability>
+  <Capability Min="154" Max="204" Preset="Alias">Color fade mode
+   <Alias Mode="8 ch" Channel="Strobing" With="Speed Control"/>
+   <Alias Mode="8 ch" Channel="Color Macros" With="Color Fade"/>
+  </Capability>
+  <Capability Min="205" Max="255" Preset="Alias">Auto run mode
+   <Alias Mode="8 ch" Channel="Strobing" With="Sound Sensivity"/>
+   <Alias Mode="8 ch" Channel="Color Macros" With="Sound Active"/>
+  </Capability>
+ </Channel>
+ <Channel Name="Color Change">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Color Change 1</Capability>
+  <Capability Min="16" Max="31">Color Change 2</Capability>
+  <Capability Min="32" Max="47">Color Change 3</Capability>
+  <Capability Min="48" Max="63">Color Change 4</Capability>
+  <Capability Min="64" Max="79">Color Change 5</Capability>
+  <Capability Min="80" Max="95">Color Change 6</Capability>
+  <Capability Min="96" Max="111">Color Change 7</Capability>
+  <Capability Min="112" Max="127">Color Change 8</Capability>
+  <Capability Min="128" Max="143">Color Change 9</Capability>
+  <Capability Min="144" Max="159">Color Change 10</Capability>
+  <Capability Min="160" Max="175">Color Change 11</Capability>
+  <Capability Min="176" Max="191">Color Change 12</Capability>
+  <Capability Min="192" Max="207">Color Change 13</Capability>
+  <Capability Min="208" Max="223">Color Change 14</Capability>
+  <Capability Min="224" Max="239">Color Change 15</Capability>
+  <Capability Min="240" Max="255">Color Change 16</Capability>
+ </Channel>
+ <Channel Name="Color Fade">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Color Fade 1</Capability>
+  <Capability Min="16" Max="31">Color Fade 2</Capability>
+  <Capability Min="32" Max="47">Color Fade 3</Capability>
+  <Capability Min="48" Max="63">Color Fade 4</Capability>
+  <Capability Min="64" Max="79">Color Fade 5</Capability>
+  <Capability Min="80" Max="95">Color Fade 6</Capability>
+  <Capability Min="96" Max="111">Color Fade 7</Capability>
+  <Capability Min="112" Max="127">Color Fade 8</Capability>
+  <Capability Min="128" Max="143">Color Fade 9</Capability>
+  <Capability Min="144" Max="159">Color Fade 10</Capability>
+  <Capability Min="160" Max="175">Color Fade 11</Capability>
+  <Capability Min="176" Max="191">Color Fade 12</Capability>
+  <Capability Min="192" Max="207">Color Fade 13</Capability>
+  <Capability Min="208" Max="223">Color Fade 14</Capability>
+  <Capability Min="224" Max="239">Color Fade 15</Capability>
+  <Capability Min="240" Max="255">Color Fade 16</Capability>
+ </Channel>
+ <Channel Name="Sound Active">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Sound Active 1</Capability>
+  <Capability Min="16" Max="31">Sound Active 2</Capability>
+  <Capability Min="32" Max="47">Sound Active 3</Capability>
+  <Capability Min="48" Max="63">Sound Active 4</Capability>
+  <Capability Min="64" Max="79">Sound Active 5</Capability>
+  <Capability Min="80" Max="95">Sound Active 6</Capability>
+  <Capability Min="96" Max="111">Sound Active 7</Capability>
+  <Capability Min="112" Max="127">Sound Active 8</Capability>
+  <Capability Min="128" Max="143">Sound Active 9</Capability>
+  <Capability Min="144" Max="159">Sound Active 10</Capability>
+  <Capability Min="160" Max="175">Sound Active 11</Capability>
+  <Capability Min="176" Max="191">Sound Active 12</Capability>
+  <Capability Min="192" Max="207">Sound Active 13</Capability>
+  <Capability Min="208" Max="223">Sound Active 14</Capability>
+  <Capability Min="224" Max="239">Sound Active 15</Capability>
+  <Capability Min="240" Max="255">Sound Active 16</Capability>
+ </Channel>
+ <Channel Name="Speed Control">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed slow - fast</Capability>
+ </Channel>
+ <Channel Name="Sound Sensivity">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="31">no function</Capability>
+  <Capability Min="32" Max="255">Sound Sensivity low - high</Capability>
+ </Channel>
+ <Mode Name="1 channel">
+  <Channel Number="0">Color Macros</Channel>
+ </Mode>
+ <Mode Name="2 channel">
+  <Channel Number="0">Color Macros</Channel>
+  <Channel Number="1">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="3 channel">
+  <Channel Number="0">Color Macros</Channel>
+  <Channel Number="1">Master dimmer</Channel>
+  <Channel Number="2">Strobing</Channel>
+ </Mode>
+ <Mode Name="4 channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+ </Mode>
+ <Mode Name="5 channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+  <Channel Number="4">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="6 channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+  <Channel Number="4">Master dimmer</Channel>
+  <Channel Number="5">Color Macros</Channel>
+ </Mode>
+ <Mode Name="7 channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+  <Channel Number="4">Master dimmer</Channel>
+  <Channel Number="5">Strobing</Channel>
+  <Channel Number="6">Color Macros</Channel>
+ </Mode>
+ <Mode Name="8 channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+  <Channel Number="4">Master dimmer</Channel>
+  <Channel Number="5">Strobing</Channel>
+  <Channel Number="6">Program selection mode</Channel>
+  <Channel Number="7">Color Macros</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.2" Width="240" Height="164" Depth="265"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="58" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

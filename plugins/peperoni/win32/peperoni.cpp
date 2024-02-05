@@ -18,11 +18,7 @@
 */
 
 #include <QtCore>
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
- #include <QMessageBox>
-#else
- #include <QtWidgets/QMessageBox>
-#endif
+#include <QtWidgets/QMessageBox>
 #include <QStringList>
 #include <windows.h>
 #include <QDebug>
@@ -105,11 +101,10 @@ void Peperoni::closeOutput(quint32 output, quint32 universe)
 QStringList Peperoni::outputs()
 {
     QStringList list;
-    int i = 1;
 
     QListIterator <PeperoniDevice*> it(m_devices);
     while (it.hasNext() == true)
-        list << QString("%1: %2").arg(i++).arg(it.next()->name());
+        list << it.next()->name();
 
     return list;
 }
@@ -154,9 +149,10 @@ QString Peperoni::outputInfo(quint32 output)
     return str;
 }
 
-void Peperoni::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void Peperoni::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (output < quint32(m_devices.size()))
         m_devices.at(output)->outputDMX(data);
@@ -232,10 +228,3 @@ bool Peperoni::canConfigure()
 {
     return true;
 }
-
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(peperoni, Peperoni)
-#endif

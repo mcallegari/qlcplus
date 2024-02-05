@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Andres Robles</Author>
  </Creator>
  <Manufacturer>JB Systems</Manufacturer>
@@ -11,44 +11,44 @@
  <Type>Scanner</Type>
  <Channel Name="Shutter/Shaking">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7">blackout</Capability>
-  <Capability Min="8" Max="15">open</Capability>
-  <Capability Min="16" Max="131">slow to fast shutter</Capability>
-  <Capability Min="132" Max="247">slow to fast shaking</Capability>
-  <Capability Min="248" Max="255">open</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterClose">blackout</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">slow to fast shutter</Capability>
+  <Capability Min="132" Max="247" Preset="StrobeRandomSlowToFast">slow to fast shaking</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">open</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="15" Res="Others/open.svg">Open</Capability>
-  <Capability Min="16" Max="31" Res="Robe/gobo00035.svg">Gobo 1</Capability>
-  <Capability Min="32" Max="47" Res="SGM-Color/gobo00409.png">Gobo 2</Capability>
-  <Capability Min="48" Max="63" Res="SGM-Color/gobo00562.png">Frost</Capability>
-  <Capability Min="64" Max="79" Res="Others/gobo00037.png">Gobo 4</Capability>
-  <Capability Min="80" Max="95" Res="Others/gobo00058.png">Gobo 5</Capability>
+  <Capability Min="0" Max="15" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="16" Max="31" Preset="GoboMacro" Res1="Robe/gobo00035.svg">Gobo 1</Capability>
+  <Capability Min="32" Max="47" Preset="GoboMacro" Res1="SGM-Color/gobo00409.png">Gobo 2</Capability>
+  <Capability Min="48" Max="63" Preset="GoboMacro" Res1="SGM-Color/gobo00562.png">Frost</Capability>
+  <Capability Min="64" Max="79" Preset="GoboMacro" Res1="Others/gobo00037.svg">Gobo 4</Capability>
+  <Capability Min="80" Max="95" Preset="GoboMacro" Res1="Others/gobo00058.png">Gobo 5</Capability>
   <Capability Min="96" Max="111">3200k</Capability>
   <Capability Min="112" Max="127">5600k</Capability>
   <Capability Min="128" Max="255">fastest speed gobo change</Capability>
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="7" Color="#ffffff">White</Capability>
-  <Capability Min="8" Max="15" Color="#005500">Dark green</Capability>
-  <Capability Min="16" Max="22" Color="#005500" Color2="#ff00ff">Dark green/Magenta</Capability>
-  <Capability Min="23" Max="30" Color="#55007f">Dark magenta</Capability>
-  <Capability Min="31" Max="37" Color="#55007f" Color2="#0000ff">Dark magenta/Blue</Capability>
-  <Capability Min="38" Max="45" Color="#00aaff">Light blue</Capability>
-  <Capability Min="46" Max="52" Color="#00aaff" Color2="#ffff00">Light blue/yellow</Capability>
-  <Capability Min="53" Max="60" Color="#ffff00">Yellow</Capability>
-  <Capability Min="61" Max="67" Color="#ffaa00" Color2="#ffff00">Orange/Yellow</Capability>
-  <Capability Min="68" Max="75" Color="#ffaa00">Orange</Capability>
-  <Capability Min="76" Max="82" Color="#00007f" Color2="#ffaa00">Dark blue/Orange</Capability>
-  <Capability Min="83" Max="90" Color="#00007f">Dark blue</Capability>
-  <Capability Min="91" Max="97" Color="#00007f" Color2="#aa55ff">Dark blue/Purple</Capability>
-  <Capability Min="98" Max="105" Color="#aa55ff">Purple</Capability>
-  <Capability Min="106" Max="112" Color="#aaff7f" Color2="#aa55ff">Light green/Purple</Capability>
-  <Capability Min="113" Max="120" Color="#aaff7f">Light green</Capability>
-  <Capability Min="121" Max="127" Color="#ffaaff">Light magenta</Capability>
-  <Capability Min="128" Max="255" Res="Others/rainbow.png">Slowest speed rainbow effect</Capability>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#005500">Dark green</Capability>
+  <Capability Min="16" Max="22" Preset="ColorDoubleMacro" Res1="#005500" Res2="#ff00ff">Dark green/Magenta</Capability>
+  <Capability Min="23" Max="30" Preset="ColorMacro" Res1="#55007f">Dark magenta</Capability>
+  <Capability Min="31" Max="37" Preset="ColorDoubleMacro" Res1="#55007f" Res2="#0000ff">Dark magenta/Blue</Capability>
+  <Capability Min="38" Max="45" Preset="ColorMacro" Res1="#00aaff">Light blue</Capability>
+  <Capability Min="46" Max="52" Preset="ColorDoubleMacro" Res1="#00aaff" Res2="#ffff00">Light blue/yellow</Capability>
+  <Capability Min="53" Max="60" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="61" Max="67" Preset="ColorDoubleMacro" Res1="#ffaa00" Res2="#ffff00">Orange/Yellow</Capability>
+  <Capability Min="68" Max="75" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="76" Max="82" Preset="ColorDoubleMacro" Res1="#00007f" Res2="#ffaa00">Dark blue/Orange</Capability>
+  <Capability Min="83" Max="90" Preset="ColorMacro" Res1="#00007f">Dark blue</Capability>
+  <Capability Min="91" Max="97" Preset="ColorDoubleMacro" Res1="#00007f" Res2="#aa55ff">Dark blue/Purple</Capability>
+  <Capability Min="98" Max="105" Preset="ColorMacro" Res1="#aa55ff">Purple</Capability>
+  <Capability Min="106" Max="112" Preset="ColorDoubleMacro" Res1="#aaff7f" Res2="#aa55ff">Light green/Purple</Capability>
+  <Capability Min="113" Max="120" Preset="ColorMacro" Res1="#aaff7f">Light green</Capability>
+  <Capability Min="121" Max="127" Preset="ColorMacro" Res1="#ffaaff">Light magenta</Capability>
+  <Capability Min="128" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Slowest speed rainbow effect</Capability>
  </Channel>
  <Channel Name="Rotating gobo">
   <Group Byte="0">Gobo</Group>
@@ -70,10 +70,10 @@
   <Channel Number="4">Dimmer</Channel>
  </Mode>
  <Physical>
-   <Bulb Type="HSD 250W" Lumens="8600" ColourTemperature="7200"/>
-   <Dimensions Weight="9.2" Width="340" Height="360" Depth="250"/>
-   <Lens Name="PC" DegreesMin="17" DegreesMax="17"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="300" DmxConnector="5-pin"/>
+  <Bulb Type="HSD 250W" Lumens="8600" ColourTemperature="7200"/>
+  <Dimensions Weight="9.2" Width="340" Height="360" Depth="250"/>
+  <Lens Name="PC" DegreesMin="17" DegreesMax="17"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="300" DmxConnector="5-pin"/>
  </Physical>
 </FixtureDefinition>

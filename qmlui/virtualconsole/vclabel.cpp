@@ -47,7 +47,7 @@ void VCLabel::setupLookAndFeel(qreal pixelDensity, int page)
 
 void VCLabel::render(QQuickView *view, QQuickItem *parent)
 {
-    if (view == NULL || parent == NULL)
+    if (view == nullptr || parent == nullptr)
         return;
 
     QQmlComponent *component = new QQmlComponent(view->engine(), QUrl("qrc:/VCLabelItem.qml"));
@@ -66,13 +66,13 @@ void VCLabel::render(QQuickView *view, QQuickItem *parent)
 
 VCWidget *VCLabel::createCopy(VCWidget *parent)
 {
-    Q_ASSERT(parent != NULL);
+    Q_ASSERT(parent != nullptr);
 
     VCLabel *label = new VCLabel(m_doc, parent);
     if (label->copyFrom(this) == false)
     {
         delete label;
-        label = NULL;
+        label = nullptr;
     }
 
     return label;
@@ -118,7 +118,7 @@ bool VCLabel::loadXML(QXmlStreamReader &root)
 
 bool VCLabel::saveXML(QXmlStreamWriter *doc)
 {
-    Q_ASSERT(doc != NULL);
+    Q_ASSERT(doc != nullptr);
 
     /* VC label entry */
     doc->writeStartElement(KXMLQLCVCLabel);

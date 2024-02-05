@@ -18,6 +18,7 @@
 */
 
 #include <QXmlStreamWriter>
+#include <QNetworkInterface>
 #include <QtCore/qbuffer.h>
 #include <QFile>
 
@@ -38,10 +39,10 @@ NetworkManager::NetworkManager(QObject *parent, Doc *doc)
     : QObject(parent)
     , m_doc(doc)
     , m_encryptPackets(true)
-    , m_udpSocket(NULL)
-    , m_tcpServer(NULL)
+    , m_udpSocket(nullptr)
+    , m_tcpServer(nullptr)
     , m_serverStarted(false)
-    , m_tcpSocket(NULL)
+    , m_tcpSocket(nullptr)
     , m_clientStatus(Disconnected)
 {
     m_hostType = UnknownHostType;
@@ -54,13 +55,13 @@ NetworkManager::~NetworkManager()
 {
     stopServer();
 
-    if (m_udpSocket != NULL)
+    if (m_udpSocket != nullptr)
     {
         m_udpSocket->close();
         delete m_udpSocket;
     }
 
-    if (m_tcpServer != NULL)
+    if (m_tcpServer != nullptr)
     {
         m_tcpServer->close();
         delete m_tcpServer;
@@ -140,9 +141,9 @@ void NetworkManager::sendAction(int code, TardisAction action)
 
 QString NetworkManager::defaultName()
 {
-    for (QNetworkInterface interface : QNetworkInterface::allInterfaces())
+    for (QNetworkInterface iface : QNetworkInterface::allInterfaces())
     {
-        for (QNetworkAddressEntry entry : interface.addressEntries())
+        for (QNetworkAddressEntry entry : iface.addressEntries())
         {
             QHostAddress addr = entry.ip();
             if (addr.protocol() != QAbstractSocket::IPv6Protocol && addr != QHostAddress::LocalHost)
@@ -156,7 +157,7 @@ QString NetworkManager::defaultName()
 
 bool NetworkManager::sendTCPPacket(QTcpSocket *socket, QByteArray &packet, bool encrypt)
 {
-    if (socket == NULL)
+    if (socket == nullptr)
         return false;
 
     qint64 sent = 0;
@@ -165,7 +166,7 @@ bool NetworkManager::sendTCPPacket(QTcpSocket *socket, QByteArray &packet, bool 
     if (encrypt)
     {
         QByteArray encPacket = m_packetizer->encryptPacket(packet, m_crypt);
-        while(totalBytesSent < (quint64)encPacket.length())
+        while (totalBytesSent < (quint64)encPacket.length())
         {
             sent = socket->write(encPacket.data() + totalBytesSent, encPacket.length() - totalBytesSent);
             totalBytesSent += sent;
@@ -175,7 +176,7 @@ bool NetworkManager::sendTCPPacket(QTcpSocket *socket, QByteArray &packet, bool 
     }
     else
     {
-        while(totalBytesSent < (quint64)packet.length())
+        while (totalBytesSent < (quint64)packet.length())
         {
             sent = socket->write(packet.data() + totalBytesSent, packet.length() - totalBytesSent);
             totalBytesSent += sent;
@@ -197,7 +198,7 @@ bool NetworkManager::sendTCPPacket(QTcpSocket *socket, QByteArray &packet, bool 
             qDebug() << "Host disconnected";
             socket->close();
             delete socket;
-            socket = NULL;
+            socket = nullptr;
             return false;
         }
     }
@@ -257,8 +258,8 @@ bool NetworkManager::stopServer()
     delete m_udpSocket;
     delete m_tcpServer;
 
-    m_udpSocket = NULL;
-    m_tcpServer = NULL;
+    m_udpSocket = nullptr;
+    m_tcpServer = nullptr;
 
     return true;
 }
@@ -266,9 +267,9 @@ bool NetworkManager::stopServer()
 bool NetworkManager::setClientAccess(QString hostName, bool allow, int accessMask)
 {
     QHostAddress clientAddress = getHostFromName(hostName);
-    NetworkHost *host = m_hostsMap.value(clientAddress, NULL);
+    NetworkHost *host = m_hostsMap.value(clientAddress, nullptr);
 
-    if (host == NULL || clientAddress.isNull())
+    if (host == nullptr || clientAddress.isNull())
         return false;
 
     if (!allow)
@@ -298,9 +299,9 @@ bool NetworkManager::sendWorkspaceToClient(QString hostName, QString filename)
     int pktCounter = 0;
     QFile workspace(filename);
     QHostAddress clientAddress = getHostFromName(hostName);
-    NetworkHost *host = m_hostsMap.value(clientAddress, NULL);
+    NetworkHost *host = m_hostsMap.value(clientAddress, nullptr);
 
-    if (host == NULL || clientAddress.isNull())
+    if (host == nullptr || clientAddress.isNull())
         return false;
 
     if (workspace.exists() == false)
@@ -328,7 +329,7 @@ bool NetworkManager::sendWorkspaceToClient(QString hostName, QString filename)
             m_packetizer->addSection(packet, QVariant((int)workspace.size()));
 
         }
-        else if(data.count() < WORKSPACE_CHUNK_SIZE)
+        else if (data.length() < WORKSPACE_CHUNK_SIZE)
         {
             m_packetizer->addSection(packet, QVariant(2));
         }
@@ -384,7 +385,7 @@ bool NetworkManager::initializeClient()
 {
     QByteArray packet;
 
-    if (m_udpSocket != NULL)
+    if (m_udpSocket != nullptr)
     {
         m_udpSocket->close();
         delete m_udpSocket;
@@ -409,13 +410,13 @@ bool NetworkManager::initializeClient()
     m_packetizer->addSection(packet, QVariant(m_hostName));
 
     /* now send the packet on every network interface */
-    foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
+    foreach (QNetworkInterface iface, QNetworkInterface::allInterfaces())
     {
-        foreach (QNetworkAddressEntry entry, interface.addressEntries())
+        foreach (QNetworkAddressEntry entry, iface.addressEntries())
         {
             if (entry.ip().protocol() != QAbstractSocket::IPv6Protocol && entry.ip() != QHostAddress::LocalHost)
             {
-                qDebug() << "Sending announcement on" << interface.name();
+                qDebug() << "Sending announcement on" << iface.name();
                 m_udpSocket->writeDatagram(packet, entry.broadcast(), DEFAULT_UDP_PORT);
             }
         }
@@ -430,7 +431,7 @@ bool NetworkManager::connectClient(QString ipAddress)
 {
     QHostAddress serverAddr(ipAddress);
 
-    if (m_tcpSocket != NULL)
+    if (m_tcpSocket != nullptr)
     {
         m_tcpSocket->close();
         delete m_tcpSocket;
@@ -443,7 +444,7 @@ bool NetworkManager::connectClient(QString ipAddress)
     {
         qDebug() << "Error in connecting to TCP host:" << ipAddress;
         delete m_tcpSocket;
-        m_tcpSocket = NULL;
+        m_tcpSocket = nullptr;
         return false;
     }
     connect(m_tcpSocket, &QTcpSocket::readyRead, this, &NetworkManager::slotProcessTCPPackets);
@@ -461,7 +462,7 @@ bool NetworkManager::connectClient(QString ipAddress)
 
 bool NetworkManager::disconnectClient()
 {
-    if (m_udpSocket != NULL)
+    if (m_udpSocket != nullptr)
     {
         m_udpSocket->close();
         delete m_udpSocket;
@@ -517,7 +518,7 @@ void NetworkManager::slotProcessUDPPackets()
 
         int opCode = 0;
         QVariantList paramsList;
-        int read = m_packetizer->decodePacket(datagram, opCode, paramsList, NULL);
+        int read = m_packetizer->decodePacket(datagram, opCode, paramsList, nullptr);
 
         qDebug() << "Bytes processed" << read << QString::number(opCode, 16) << paramsList;
 
@@ -556,7 +557,7 @@ void NetworkManager::slotProcessUDPPackets()
 void NetworkManager::slotProcessTCPPackets()
 {
     QTcpSocket *socket = (QTcpSocket *)sender();
-    if (socket == NULL)
+    if (socket == nullptr)
         return;
 
     QHostAddress senderAddress = socket->peerAddress();
@@ -603,7 +604,7 @@ void NetworkManager::slotProcessTCPPackets()
                     QByteArray decrPayload = paramsList.at(0).toByteArray();
                     if (QString::fromUtf8(decrPayload) == QString::number(defaultKey, 16))
                     {
-                        qDebug() << "Key matches !";
+                        qDebug() << "Key matches!";
                         success = true;
                     }
                 }
@@ -695,7 +696,7 @@ void NetworkManager::slotProcessNewTCPConnection()
 {
     qDebug() << Q_FUNC_INFO;
     QTcpSocket *clientConnection = m_tcpServer->nextPendingConnection();
-    if (clientConnection == NULL)
+    if (clientConnection == nullptr)
         return;
 
     QHostAddress senderAddress = clientConnection->peerAddress();
@@ -722,7 +723,7 @@ void NetworkManager::slotHostDisconnected()
 {
     QTcpSocket *socket = (QTcpSocket *)sender();
     QHostAddress senderAddress = socket->peerAddress();
-    qDebug() << "Host with address" << senderAddress.toString() << "disconnected !";
+    qDebug() << "Host with address" << senderAddress.toString() << "disconnected!";
 
     if (m_hostsMap.contains(senderAddress) == true)
     {

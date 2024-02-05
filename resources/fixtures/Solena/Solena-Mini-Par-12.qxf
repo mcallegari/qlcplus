@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Nathan Durnan</Author>
  </Creator>
  <Manufacturer>Solena</Manufacturer>
@@ -15,8 +15,8 @@
  <Channel Name="White Brightness" Preset="IntensityWhite"/>
  <Channel Name="Strobe/Flashing">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="63">No strobe</Capability>
-  <Capability Min="64" Max="223">AUTO strobe, speed from slow to fast</Capability>
+  <Capability Min="0" Max="63" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="64" Max="223" Preset="StrobeSlowToFast">AUTO strobe, speed from slow to fast</Capability>
   <Capability Min="224" Max="255">Sound strobe</Capability>
  </Channel>
  <Channel Name="All LEDs Brightness" Preset="IntensityDimmer"/>
@@ -50,11 +50,11 @@
   <Channel Number="6">Static Color Selection and Speed Control</Channel>
   <Channel Number="7">Strobe/Flashing</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="0.3" Width="153" Height="137" Depth="115"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="12" DmxConnector="3-pin"/>
-  </Physical>
-  </FixtureDefinition>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="0.3" Width="153" Height="137" Depth="115"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="12" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

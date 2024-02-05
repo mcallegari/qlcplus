@@ -28,11 +28,11 @@
 #include "qlcmacros.h"
 #include "doc.h"
 
-#define KXMLQLCRGBImageFilename      "Filename"
-#define KXMLQLCRGBImageAnimationStyle "Animation"
-#define KXMLQLCRGBImageOffset         "Offset"
-#define KXMLQLCRGBImageOffsetX        "X"
-#define KXMLQLCRGBImageOffsetY        "Y"
+#define KXMLQLCRGBImageFilename       QString("Filename")
+#define KXMLQLCRGBImageAnimationStyle QString("Animation")
+#define KXMLQLCRGBImageOffset         QString("Offset")
+#define KXMLQLCRGBImageOffsetX        QString("X")
+#define KXMLQLCRGBImageOffsetY        QString("Y")
 
 RGBImage::RGBImage(Doc * doc)
     : RGBAlgorithm(doc)
@@ -45,7 +45,7 @@ RGBImage::RGBImage(Doc * doc)
 }
 
 RGBImage::RGBImage(const RGBImage& i)
-    : RGBAlgorithm( i.doc())
+    : RGBAlgorithm(i.doc())
     , m_filename(i.filename())
     , m_animatedSource(i.animatedSource())
     , m_animationStyle(i.animationStyle())
@@ -235,19 +235,19 @@ int RGBImage::rgbMapStepCount(const QSize& size)
     }
 }
 
-RGBMap RGBImage::rgbMap(const QSize& size, uint rgb, int step)
+void RGBImage::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 {
     Q_UNUSED(rgb);
 
     QMutexLocker locker(&m_mutex);
 
     if (m_animatedSource == false && (m_image.width() == 0 || m_image.height() == 0))
-        return RGBMap();
+        return;
 
     int xOffs = xOffset();
     int yOffs = yOffset();
 
-    switch(animationStyle()) 
+    switch(animationStyle())
     {
         default:
         case Static:
@@ -269,7 +269,7 @@ RGBMap RGBImage::rgbMap(const QSize& size, uint rgb, int step)
         m_image = m_animatedPlayer.currentImage().scaled(size);
     }
 
-    RGBMap map(size.height());
+    map.resize(size.height());
     for (int y = 0; y < size.height(); y++)
     {
         map[y].resize(size.width());
@@ -283,8 +283,6 @@ RGBMap RGBImage::rgbMap(const QSize& size, uint rgb, int step)
                 map[y][x] = 0;
         }
     }
-
-    return map;
 }
 
 QString RGBImage::name() const

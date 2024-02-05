@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Freasy</Author>
  </Creator>
  <Manufacturer>High End Systems</Manufacturer>
@@ -16,31 +16,31 @@
  <Channel Name="Dim" Preset="IntensityDimmer"/>
  <Channel Name="Shutter (Normal/Lamp Assisted)">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="23">Closed/Closed</Capability>
-  <Capability Min="24" Max="49">Periodic strobe/Periodic lamp strobe</Capability>
-  <Capability Min="50" Max="75">Random strobe/Random lamp strobes</Capability>
-  <Capability Min="76" Max="101">Synchronous random strobe/Synchronous random lamp pulses</Capability>
-  <Capability Min="102" Max="105">Ramp open, snap shut/Boost lamp 1.0 second, black</Capability>
-  <Capability Min="106" Max="109">Ramp open, snap shut/Boost lamp .75 second, black</Capability>
-  <Capability Min="110" Max="113">Ramp open, snap shut/Boost lamp .66 second, black</Capability>
-  <Capability Min="114" Max="117">Ramp open, snap shut/Boost lamp .5 second, black</Capability>
-  <Capability Min="118" Max="121">Ramp open, snap shut/Boost lamp .33 second, black</Capability>
-  <Capability Min="122" Max="127">Ramp open, snap shut/Boost lamp .25 second, black</Capability>
-  <Capability Min="128" Max="131">Snap open, ramp shut/Boost lamp 1.0 second, white</Capability>
-  <Capability Min="132" Max="135">Snap open, ramp shut/Boost lamp .75 second, white</Capability>
-  <Capability Min="136" Max="139">Snap open, ramp shut/Boost lamp .66 second, white</Capability>
-  <Capability Min="140" Max="143">Snap open, ramp shut/Boost lamp .5 second, white</Capability>
-  <Capability Min="144" Max="147">Snap open, ramp shut/Boost lamp .33 second, white</Capability>
-  <Capability Min="148" Max="153">Snap open, ramp shut/Boost lamp .25 second, white</Capability>
-  <Capability Min="154" Max="157">Ramp open, ramp shut/Lightning strike 1</Capability>
-  <Capability Min="158" Max="161">Ramp open, ramp shut/Lightning strike 2</Capability>
-  <Capability Min="162" Max="165">Ramp open, ramp shut/Lightning strike 3</Capability>
-  <Capability Min="166" Max="169">Ramp open, ramp shut/Lightning strike 4</Capability>
-  <Capability Min="170" Max="173">Ramp open, ramp shut/Lightning strike 5</Capability>
-  <Capability Min="174" Max="179">Ramp open, ramp shut/Lightning strike 6</Capability>
-  <Capability Min="180" Max="205">Random ramp open, snap shut/To be determined</Capability>
-  <Capability Min="206" Max="231">Random snap open, ramp shut/To be determined</Capability>
-  <Capability Min="232" Max="255">Open/Open</Capability>
+  <Capability Min="0" Max="23" Preset="ShutterClose">Closed/Closed</Capability>
+  <Capability Min="24" Max="49" Preset="StrobeRandom">Periodic strobe/Periodic lamp strobe</Capability>
+  <Capability Min="50" Max="75" Preset="StrobeRandom">Random strobe/Random lamp strobes</Capability>
+  <Capability Min="76" Max="101" Preset="StrobeRandom">Synchronous random strobe/Synchronous random lamp pulses</Capability>
+  <Capability Min="102" Max="105" Preset="RampUpSlowToFast">Ramp open, snap shut/Boost lamp 1.0 second, black</Capability>
+  <Capability Min="106" Max="109" Preset="RampUpSlowToFast">Ramp open, snap shut/Boost lamp .75 second, black</Capability>
+  <Capability Min="110" Max="113" Preset="RampUpSlowToFast">Ramp open, snap shut/Boost lamp .66 second, black</Capability>
+  <Capability Min="114" Max="117" Preset="RampUpSlowToFast">Ramp open, snap shut/Boost lamp .5 second, black</Capability>
+  <Capability Min="118" Max="121" Preset="RampUpSlowToFast">Ramp open, snap shut/Boost lamp .33 second, black</Capability>
+  <Capability Min="122" Max="127" Preset="RampUpSlowToFast">Ramp open, snap shut/Boost lamp .25 second, black</Capability>
+  <Capability Min="128" Max="131" Preset="RampUpSlowToFast">Snap open, ramp shut/Boost lamp 1.0 second, white</Capability>
+  <Capability Min="132" Max="135" Preset="RampUpSlowToFast">Snap open, ramp shut/Boost lamp .75 second, white</Capability>
+  <Capability Min="136" Max="139" Preset="RampUpSlowToFast">Snap open, ramp shut/Boost lamp .66 second, white</Capability>
+  <Capability Min="140" Max="143" Preset="RampUpSlowToFast">Snap open, ramp shut/Boost lamp .5 second, white</Capability>
+  <Capability Min="144" Max="147" Preset="RampUpSlowToFast">Snap open, ramp shut/Boost lamp .33 second, white</Capability>
+  <Capability Min="148" Max="153" Preset="RampUpSlowToFast">Snap open, ramp shut/Boost lamp .25 second, white</Capability>
+  <Capability Min="154" Max="157" Preset="RampUpSlowToFast">Ramp open, ramp shut/Lightning strike 1</Capability>
+  <Capability Min="158" Max="161" Preset="RampUpSlowToFast">Ramp open, ramp shut/Lightning strike 2</Capability>
+  <Capability Min="162" Max="165" Preset="RampUpSlowToFast">Ramp open, ramp shut/Lightning strike 3</Capability>
+  <Capability Min="166" Max="169" Preset="RampUpSlowToFast">Ramp open, ramp shut/Lightning strike 4</Capability>
+  <Capability Min="170" Max="173" Preset="RampUpSlowToFast">Ramp open, ramp shut/Lightning strike 5</Capability>
+  <Capability Min="174" Max="179" Preset="RampUpSlowToFast">Ramp open, ramp shut/Lightning strike 6</Capability>
+  <Capability Min="180" Max="205" Preset="RampUpSlowToFast">Random ramp open, snap shut/To be determined</Capability>
+  <Capability Min="206" Max="231" Preset="RampUpSlowToFast">Random snap open, ramp shut/To be determined</Capability>
+  <Capability Min="232" Max="255" Preset="ShutterOpen">Open/Open</Capability>
  </Channel>
  <Channel Name="Cyan">
   <Group Byte="0">Intensity</Group>
@@ -130,14 +130,17 @@
   <Capability Min="20" Max="28">Display off</Capability>
   <Capability Min="29" Max="29">No function</Capability>
   <Capability Min="30" Max="38">Display dim</Capability>
+  <Capability Min="39" Max="39">No function</Capability>
   <Capability Min="40" Max="48">Display bright</Capability>
   <Capability Min="49" Max="59">No function</Capability>
   <Capability Min="60" Max="68">Home</Capability>
   <Capability Min="69" Max="79">No function</Capability>
-  <Capability Min="80" Max="88">Lamp on</Capability>
-  <Capability Min="90" Max="98">Lamp off</Capability>
+  <Capability Min="80" Max="88" Preset="PrismEffectOff">Lamp on</Capability>
+  <Capability Min="89" Max="89">No function</Capability>
+  <Capability Min="90" Max="98" Preset="LampOff">Lamp off</Capability>
   <Capability Min="99" Max="109">No function</Capability>
   <Capability Min="110" Max="118">Lock</Capability>
+  <Capability Min="119" Max="119">No function</Capability>
   <Capability Min="120" Max="130">Fixture shutdown</Capability>
   <Capability Min="131" Max="255">No function</Capability>
  </Channel>
@@ -195,15 +198,19 @@
   <Capability Min="0" Max="9">Safe (disables all control settings)</Capability>
   <Capability Min="10" Max="19">Pan &amp; Tilt MSpeed off</Capability>
   <Capability Min="20" Max="28">Display off</Capability>
+  <Capability Min="29" Max="29">No function</Capability>
   <Capability Min="30" Max="38">Display dim</Capability>
+  <Capability Min="39" Max="39">No function</Capability>
   <Capability Min="40" Max="48">Display bright</Capability>
   <Capability Min="49" Max="59">No function</Capability>
   <Capability Min="60" Max="68">Home</Capability>
   <Capability Min="69" Max="79">No function</Capability>
-  <Capability Min="80" Max="88">Lamp on</Capability>
-  <Capability Min="90" Max="98">Lamp off</Capability>
+  <Capability Min="80" Max="88" Preset="LampOn">Lamp on</Capability>
+  <Capability Min="89" Max="89">No function</Capability>
+  <Capability Min="90" Max="98" Preset="LampOff">Lamp off</Capability>
   <Capability Min="99" Max="109">No function</Capability>
   <Capability Min="110" Max="118">Lock (send for 5 seconds)</Capability>
+  <Capability Min="119" Max="119">No function</Capability>
   <Capability Min="120" Max="130">Shutdown (send for 5 seconds)</Capability>
   <Capability Min="131" Max="133">No function</Capability>
   <Capability Min="134" Max="137">Lamp assisted strobes (periodic and random strobe functions are lamp assisted, ramp functions are not lamp assisted)</Capability>
@@ -229,17 +236,17 @@
  </Channel>
  <Channel Name="Shutter Flat">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="0">Open</Capability>
-  <Capability Min="1" Max="26">Periodic</Capability>
-  <Capability Min="27" Max="52">Random/Random</Capability>
-  <Capability Min="53" Max="78">Random/Synchronous</Capability>
-  <Capability Min="79" Max="104">Ramp open, ramp shut</Capability>
-  <Capability Min="105" Max="120">Snap open, ramp shut</Capability>
-  <Capability Min="121" Max="146">Ramp open, ramp shut</Capability>
-  <Capability Min="147" Max="172">Random ramp open, snap shut</Capability>
-  <Capability Min="173" Max="198">Random snap open, ramp shut</Capability>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="1" Max="26" Preset="StrobeRandom">Periodic</Capability>
+  <Capability Min="27" Max="52" Preset="StrobeRandom">Random/Random</Capability>
+  <Capability Min="53" Max="78" Preset="StrobeRandom">Random/Synchronous</Capability>
+  <Capability Min="79" Max="104" Preset="RampUpSlowToFast">Ramp open, ramp shut</Capability>
+  <Capability Min="105" Max="120" Preset="RampDownSlowToFast">Snap open, ramp shut</Capability>
+  <Capability Min="121" Max="146" Preset="RampUpSlowToFast">Ramp open, ramp shut</Capability>
+  <Capability Min="147" Max="172" Preset="RampUpSlowToFast">Random ramp open, snap shut</Capability>
+  <Capability Min="173" Max="198" Preset="RampUpSlowToFast">Random snap open, ramp shut</Capability>
   <Capability Min="199" Max="250">To be determined, defaults open</Capability>
-  <Capability Min="251" Max="255">Closed</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterClose">Closed</Capability>
  </Channel>
  <Channel Name="Lamp Control Flat">
   <Group Byte="0">Effect</Group>
@@ -326,11 +333,11 @@
   <Channel Number="14">Macro</Channel>
   <Channel Number="15">Control Standard</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="MSR 700W" Lumens="18000" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="485" Height="600" Depth="295"/>
-   <Lens Name="PC" DegreesMin="15" DegreesMax="26"/>
-   <Focus Type="Aspheric" PanMax="540" TiltMax="256"/>
-   <Technical PowerConsumption="1000" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="MSR 700W" Lumens="18000" ColourTemperature="0"/>
+  <Dimensions Weight="21" Width="485" Height="600" Depth="295"/>
+  <Lens Name="PC" DegreesMin="15" DegreesMax="26"/>
+  <Focus Type="Aspheric" PanMax="540" TiltMax="256"/>
+  <Technical PowerConsumption="1000" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
 </FixtureDefinition>

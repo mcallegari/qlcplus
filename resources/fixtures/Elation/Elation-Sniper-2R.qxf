@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.6 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Rodolfo Thierry</Author>
  </Creator>
  <Manufacturer>Elation</Manufacturer>
@@ -15,36 +15,36 @@
  <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Colors">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#ffffff" Min="0" Max="2">White</Capability>
-  <Capability Color="#ffffff" Color2="#d72a2e" Min="3" Max="4">Spilt White / Light Red</Capability>
-  <Capability Color="#d72a2e" Min="5" Max="6">Light Red</Capability>
-  <Capability Color="#d72a2e" Color2="#137dc2" Min="7" Max="8">Split Light Red / Blue</Capability>
-  <Capability Color="#137dc2" Min="9" Max="11">Blue</Capability>
-  <Capability Color="#137dc2" Color2="#149246" Min="12" Max="13">Split Blue / Green</Capability>
-  <Capability Color="#149246" Min="14" Max="15">Green</Capability>
-  <Capability Color="#149246" Color2="#f6ed34" Min="16" Max="17">Split Green / Yellow</Capability>
-  <Capability Color="#f6ed34" Min="18" Max="20">Yellow</Capability>
-  <Capability Color="#f6ed34" Color2="#e97a24" Min="21" Max="22">Split Yellow / Orange</Capability>
-  <Capability Color="#e97a24" Min="23" Max="24">Orange</Capability>
-  <Capability Color="#e97a24" Color2="#de137a" Min="25" Max="26">Split Orange / Magenta</Capability>
-  <Capability Color="#de137a" Min="27" Max="29">Magenta</Capability>
-  <Capability Color="#de137a" Color2="#8e85b8" Min="30" Max="31">Split Magenta / Lavendar</Capability>
-  <Capability Color="#8e85b8" Min="32" Max="33">Lavendar</Capability>
-  <Capability Color="#8e85b8" Color2="#ee9ca1" Min="34" Max="35">Split Lavendar / Light Pink</Capability>
-  <Capability Color="#ee9ca1" Min="36" Max="38">Light Pink</Capability>
-  <Capability Color="#ee9ca1" Color2="#bad97d" Min="39" Max="40">Split Light Pink / Yellow Green</Capability>
-  <Capability Color="#bad97d" Min="41" Max="42">Yellow Green</Capability>
-  <Capability Color="#bad97d" Color2="#2abdb7" Min="43" Max="44">Split Yellow Green / Peacock Blue</Capability>
-  <Capability Color="#2abdb7" Min="45" Max="47">Peacock Blue</Capability>
-  <Capability Color="#2abdb7" Color2="#f16c9c" Min="48" Max="49">Split Peacock Blue / Medium Pink</Capability>
-  <Capability Color="#f16c9c" Min="50" Max="51">Medium Pink</Capability>
-  <Capability Color="#f16c9c" Color2="#9d4c9d" Min="52" Max="53">Split Medium Pink / Medium Purple</Capability>
-  <Capability Color="#9d4c9d" Min="54" Max="56">Medium Purple</Capability>
-  <Capability Color="#9d4c9d" Color2="#f7f17b" Min="57" Max="58">Split Medium Purple / Pineapple Yellow</Capability>
-  <Capability Color="#f7f17b" Min="59" Max="60">Pineapple Yellow</Capability>
-  <Capability Color="#f7f17b" Color2="#2f2974" Min="61" Max="62">Split Pineapple Yellow / Congo Blue</Capability>
-  <Capability Color="#2f2974" Min="63" Max="65">Congo Blue</Capability>
-  <Capability Color="#ffffff" Min="66" Max="67">White</Capability>
+  <Capability Min="0" Max="2" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="3" Max="4" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#d72a2e">Spilt White / Light Red</Capability>
+  <Capability Min="5" Max="6" Preset="ColorMacro" Res1="#d72a2e">Light Red</Capability>
+  <Capability Min="7" Max="8" Preset="ColorDoubleMacro" Res1="#d72a2e" Res2="#137dc2">Split Light Red / Blue</Capability>
+  <Capability Min="9" Max="11" Preset="ColorMacro" Res1="#137dc2">Blue</Capability>
+  <Capability Min="12" Max="13" Preset="ColorDoubleMacro" Res1="#137dc2" Res2="#149246">Split Blue / Green</Capability>
+  <Capability Min="14" Max="15" Preset="ColorMacro" Res1="#149246">Green</Capability>
+  <Capability Min="16" Max="17" Preset="ColorDoubleMacro" Res1="#149246" Res2="#f6ed34">Split Green / Yellow</Capability>
+  <Capability Min="18" Max="20" Preset="ColorMacro" Res1="#f6ed34">Yellow</Capability>
+  <Capability Min="21" Max="22" Preset="ColorDoubleMacro" Res1="#f6ed34" Res2="#e97a24">Split Yellow / Orange</Capability>
+  <Capability Min="23" Max="24" Preset="ColorMacro" Res1="#e97a24">Orange</Capability>
+  <Capability Min="25" Max="26" Preset="ColorDoubleMacro" Res1="#e97a24" Res2="#de137a">Split Orange / Magenta</Capability>
+  <Capability Min="27" Max="29" Preset="ColorMacro" Res1="#de137a">Magenta</Capability>
+  <Capability Min="30" Max="31" Preset="ColorDoubleMacro" Res1="#de137a" Res2="#8e85b8">Split Magenta / Lavendar</Capability>
+  <Capability Min="32" Max="33" Preset="ColorMacro" Res1="#8e85b8">Lavendar</Capability>
+  <Capability Min="34" Max="35" Preset="ColorDoubleMacro" Res1="#8e85b8" Res2="#ee9ca1">Split Lavendar / Light Pink</Capability>
+  <Capability Min="36" Max="38" Preset="ColorMacro" Res1="#ee9ca1">Light Pink</Capability>
+  <Capability Min="39" Max="40" Preset="ColorDoubleMacro" Res1="#ee9ca1" Res2="#bad97d">Split Light Pink / Yellow Green</Capability>
+  <Capability Min="41" Max="42" Preset="ColorMacro" Res1="#bad97d">Yellow Green</Capability>
+  <Capability Min="43" Max="44" Preset="ColorDoubleMacro" Res1="#bad97d" Res2="#2abdb7">Split Yellow Green / Peacock Blue</Capability>
+  <Capability Min="45" Max="47" Preset="ColorMacro" Res1="#2abdb7">Peacock Blue</Capability>
+  <Capability Min="48" Max="49" Preset="ColorDoubleMacro" Res1="#2abdb7" Res2="#f16c9c">Split Peacock Blue / Medium Pink</Capability>
+  <Capability Min="50" Max="51" Preset="ColorMacro" Res1="#f16c9c">Medium Pink</Capability>
+  <Capability Min="52" Max="53" Preset="ColorDoubleMacro" Res1="#f16c9c" Res2="#9d4c9d">Split Medium Pink / Medium Purple</Capability>
+  <Capability Min="54" Max="56" Preset="ColorMacro" Res1="#9d4c9d">Medium Purple</Capability>
+  <Capability Min="57" Max="58" Preset="ColorDoubleMacro" Res1="#9d4c9d" Res2="#f7f17b">Split Medium Purple / Pineapple Yellow</Capability>
+  <Capability Min="59" Max="60" Preset="ColorMacro" Res1="#f7f17b">Pineapple Yellow</Capability>
+  <Capability Min="61" Max="62" Preset="ColorDoubleMacro" Res1="#f7f17b" Res2="#2f2974">Split Pineapple Yellow / Congo Blue</Capability>
+  <Capability Min="63" Max="65" Preset="ColorMacro" Res1="#2f2974">Congo Blue</Capability>
+  <Capability Min="66" Max="67" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="68" Max="128">Color Wheel Index - White to Congo Blue</Capability>
   <Capability Min="129" Max="190">Clockwise Color Rotation from FAST to SLOW</Capability>
   <Capability Min="191" Max="193">Stop</Capability>
@@ -53,23 +53,23 @@
  <Channel Name="Gobos">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7">Open</Capability>
-  <Capability Res="ClayPaky/gobo00010.svg" Min="8" Max="14">Gobo 1</Capability>
-  <Capability Res="ClayPaky/gobo00007.svg" Min="15" Max="22">Gobo 2</Capability>
-  <Capability Res="ClayPaky/gobo00016.svg" Min="23" Max="29">Gobo 3</Capability>
-  <Capability Res="Chauvet/gobo00010.svg" Min="30" Max="37">Gobo 4</Capability>
-  <Capability Res="Others/gobo00032.svg" Min="38" Max="44">Gobo 5</Capability>
-  <Capability Res="Others/gobo00013.svg" Min="45" Max="52">Gobo 6</Capability>
-  <Capability Res="ClayPaky/gobo00088.svg" Min="53" Max="59">Gobo 7</Capability>
-  <Capability Res="ClayPaky/gobo00012.svg" Min="60" Max="67">Gobo 8</Capability>
-  <Capability Res="Chauvet/gobo00010.svg" Min="68" Max="74">Gobo 9</Capability>
-  <Capability Res="Others/gobo00023.svg" Min="75" Max="82">Gobo 10</Capability>
-  <Capability Res="Chauvet/gobo00009.svg" Min="83" Max="89">Gobo 11</Capability>
-  <Capability Res="SGM/gobo00021.png" Min="90" Max="97">Gobo 12</Capability>
-  <Capability Res="Chauvet/gobo00001.svg" Min="98" Max="104">Gobo 13</Capability>
-  <Capability Res="Chauvet/gobo00041.svg" Min="105" Max="112">Gobo 14</Capability>
-  <Capability Res="Others/gobo00024.svg" Min="113" Max="119">Gobo 15</Capability>
-  <Capability Res="GLP/gobo00010.png" Min="120" Max="126">Gobo 16</Capability>
-  <Capability Res="Chauvet/gobo00008.svg" Min="127" Max="133">Gobo 17</Capability>
+  <Capability Min="8" Max="14" Preset="GoboMacro" Res1="ClayPaky/gobo00010.svg">Gobo 1</Capability>
+  <Capability Min="15" Max="22" Preset="GoboMacro" Res1="ClayPaky/gobo00007.svg">Gobo 2</Capability>
+  <Capability Min="23" Max="29" Preset="GoboMacro" Res1="ClayPaky/gobo00016.svg">Gobo 3</Capability>
+  <Capability Min="30" Max="37" Preset="GoboMacro" Res1="Chauvet/gobo00010.svg">Gobo 4</Capability>
+  <Capability Min="38" Max="44" Preset="GoboMacro" Res1="Others/gobo00032.svg">Gobo 5</Capability>
+  <Capability Min="45" Max="52" Preset="GoboMacro" Res1="Others/gobo00013.svg">Gobo 6</Capability>
+  <Capability Min="53" Max="59" Preset="GoboMacro" Res1="ClayPaky/gobo00088.svg">Gobo 7</Capability>
+  <Capability Min="60" Max="67" Preset="GoboMacro" Res1="ClayPaky/gobo00012.svg">Gobo 8</Capability>
+  <Capability Min="68" Max="74" Preset="GoboMacro" Res1="Chauvet/gobo00010.svg">Gobo 9</Capability>
+  <Capability Min="75" Max="82" Preset="GoboMacro" Res1="Others/gobo00023.svg">Gobo 10</Capability>
+  <Capability Min="83" Max="89" Preset="GoboMacro" Res1="Chauvet/gobo00009.svg">Gobo 11</Capability>
+  <Capability Min="90" Max="97" Preset="GoboMacro" Res1="SGM/gobo00021.png">Gobo 12</Capability>
+  <Capability Min="98" Max="104" Preset="GoboMacro" Res1="Chauvet/gobo00001.svg">Gobo 13</Capability>
+  <Capability Min="105" Max="112" Preset="GoboMacro" Res1="Chauvet/gobo00041.svg">Gobo 14</Capability>
+  <Capability Min="113" Max="119" Preset="GoboMacro" Res1="Others/gobo00024.svg">Gobo 15</Capability>
+  <Capability Min="120" Max="126" Preset="GoboMacro" Res1="GLP/gobo00010.svg">Gobo 16</Capability>
+  <Capability Min="127" Max="133" Preset="GoboMacro" Res1="Chauvet/gobo00008.svg">Gobo 17</Capability>
   <Capability Min="134" Max="194">Clockwise Gobo Wheel Rotation From FAST to SLOW</Capability>
   <Capability Min="195" Max="255">Counterclockwise Gobo Wheel Rotation From SLOW to FAST</Capability>
  </Channel>
@@ -110,6 +110,7 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="9">Stop</Capability>
   <Capability Min="10" Max="120">Clockwise Pattern Rotation from FAST to SLOW</Capability>
+  <Capability Min="121" Max="125">No function</Capability>
   <Capability Min="126" Max="141">Stop</Capability>
   <Capability Min="142" Max="245">Counterclockwise Pattern Rotation from SLOW to FAST</Capability>
   <Capability Min="246" Max="255">Stop</Capability>
@@ -150,19 +151,19 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Functions">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="39">No Function</Capability>
-  <Capability Min="40" Max="59">Lamp On</Capability>
-  <Capability Min="60" Max="79">Lamp Off</Capability>
-  <Capability Min="80" Max="84">All Motors Reset</Capability>
-  <Capability Min="85" Max="87">Pan / Tilt Motors Reset</Capability>
-  <Capability Min="88" Max="90">Color Motor Reset</Capability>
-  <Capability Min="91" Max="93">Gobo Motor Reset</Capability>
-  <Capability Min="94" Max="96">Shutter &amp; Dimmer Motors Reset</Capability>
-  <Capability Min="97" Max="99">Other Motors Reset</Capability>
+  <Capability Min="0" Max="39">No function</Capability>
+  <Capability Min="40" Max="59" Preset="LampOn">Lamp On</Capability>
+  <Capability Min="60" Max="79" Preset="LampOff">Lamp Off</Capability>
+  <Capability Min="80" Max="84" Preset="ResetAll">All Motors Reset</Capability>
+  <Capability Min="85" Max="87" Preset="ResetPanTilt">Pan / Tilt Motors Reset</Capability>
+  <Capability Min="88" Max="90" Preset="ResetColor">Color Motor Reset</Capability>
+  <Capability Min="91" Max="93" Preset="ResetGobo">Gobo Motor Reset</Capability>
+  <Capability Min="94" Max="96" Preset="ResetMotors">Shutter &amp; Dimmer Motors Reset</Capability>
+  <Capability Min="97" Max="99" Preset="ResetMotors">Other Motors Reset</Capability>
   <Capability Min="100" Max="109">Enable blackout while Pan / Tilt movement</Capability>
   <Capability Min="110" Max="119">Enable blackout while color change</Capability>
   <Capability Min="120" Max="129">Enable blackout while gobo change</Capability>
-  <Capability Min="130" Max="255">No Function</Capability>
+  <Capability Min="130" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Pan Shaking Movement Range">
   <Group Byte="0">Beam</Group>
@@ -192,16 +193,16 @@
  </Channel>
  <Channel Name="Shutter - Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7">Blackout</Capability>
-  <Capability Min="8" Max="15">Open</Capability>
-  <Capability Min="16" Max="131">Strobe slow to fast</Capability>
-  <Capability Min="132" Max="139">Open</Capability>
-  <Capability Min="140" Max="181">Fast Open to Slow Close</Capability>
-  <Capability Min="182" Max="189">Open</Capability>
-  <Capability Min="190" Max="231">Fast Close to Slow Open</Capability>
-  <Capability Min="232" Max="239">Open</Capability>
-  <Capability Min="240" Max="247">Randum Strobe</Capability>
-  <Capability Min="248" Max="255">Open</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="140" Max="181" Preset="StrobeFastToSlow">Fast Open to Slow Close</Capability>
+  <Capability Min="182" Max="189" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="190" Max="231" Preset="StrobeFastToSlow">Fast Close to Slow Open</Capability>
+  <Capability Min="232" Max="239" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandom">Randum Strobe</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Mode Name="Mode 14 chanels">
   <Channel Number="0">Pan 1</Channel>
@@ -279,11 +280,11 @@
   <Channel Number="18">Pan Shaking Movement Range</Channel>
   <Channel Number="19">Tilt Shaking Movement Range</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="132W Platinum 2R" Lumens="45000" ColourTemperature="0"/>
-   <Dimensions Height="295" Width="305" Depth="361" Weight="9.5"/>
-   <Lens DegreesMin="0" DegreesMax="3" Name="Other"/>
-   <Focus TiltMax="180" PanMax="180" Type="Mirror"/>
-   <Technical PowerConsumption="220" DmxConnector="5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="132W Platinum 2R" Lumens="45000" ColourTemperature="0"/>
+  <Dimensions Weight="9.5" Width="305" Height="295" Depth="361"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="3"/>
+  <Focus Type="Mirror" PanMax="180" TiltMax="180"/>
+  <Technical PowerConsumption="220" DmxConnector="5-pin"/>
+ </Physical>
 </FixtureDefinition>

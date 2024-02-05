@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Massimo Callegari</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -16,20 +16,20 @@
  <Channel Name="Amber" Preset="IntensityAmber"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10">No function</Capability>
-  <Capability Min="11" Max="255">Strobing (Slow to fast)</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobing (Slow to fast)</Capability>
  </Channel>
  <Channel Name="Color macro + White balance">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">No function</Capability>
-  <Capability Min="11" Color2="#ffff00" Color="#ff0000" Max="30">R: 100% G: 0–100% B: 0</Capability>
-  <Capability Min="31" Color2="#00ff00" Color="#ffff00" Max="50">R: 100%–0 G: 100% B: 0</Capability>
-  <Capability Min="51" Color2="#00ffff" Color="#00ff00" Max="70">R: 0 G: 100% B: 0–100%</Capability>
-  <Capability Min="71" Color2="#0000ff" Color="#00ffff" Max="90">R: 0 G: 100%–0 B: 100%</Capability>
-  <Capability Min="91" Color2="#ff00ff" Color="#0000ff" Max="110">R: 0–100% G: 0 B: 100%</Capability>
-  <Capability Min="111" Color2="#ff0000" Color="#ff00ff" Max="130">R: 100% G: 0 B: 100%–0</Capability>
-  <Capability Min="131" Color2="#ffffff" Color="#ff0000" Max="150">R: 100% G: 0–100% B: 0–100%</Capability>
-  <Capability Min="151" Color2="#0000ff" Color="#ffffff" Max="170">R: 100%–0 G: 100%–0 B: 100%</Capability>
+  <Capability Min="11" Max="30" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">R: 100% G: 0–100% B: 0</Capability>
+  <Capability Min="31" Max="50" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">R: 100%–0 G: 100% B: 0</Capability>
+  <Capability Min="51" Max="70" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#00ffff">R: 0 G: 100% B: 0–100%</Capability>
+  <Capability Min="71" Max="90" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#0000ff">R: 0 G: 100%–0 B: 100%</Capability>
+  <Capability Min="91" Max="110" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff00ff">R: 0–100% G: 0 B: 100%</Capability>
+  <Capability Min="111" Max="130" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ff0000">R: 100% G: 0 B: 100%–0</Capability>
+  <Capability Min="131" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">R: 100% G: 0–100% B: 0–100%</Capability>
+  <Capability Min="151" Max="170" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#0000ff">R: 100%–0 G: 100%–0 B: 100%</Capability>
   <Capability Min="171" Max="200">R: 100% G: 100% B: 100% A: 100%</Capability>
   <Capability Min="201" Max="205">White 1</Capability>
   <Capability Min="206" Max="210">White 2</Capability>
@@ -90,11 +90,11 @@
   <Channel Number="8">Auto speed</Channel>
   <Channel Number="9">Dimmer speed</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Depth="252" Width="228" Height="100" Weight="2.5"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="73"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.5" Width="228" Height="100" Depth="252"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="73" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

@@ -22,54 +22,53 @@ import Qt3D.Render 2.0
 
 RenderTarget
 {
-    property alias color: colorAttachment
-    property alias depth: depthAttachment
+    property Texture2D color:
+        Texture2D
+        {
+            id: colorAttachment
+            width: 1024
+            height: 1024
+            format: Texture.RGBA32F
+            generateMipMaps: false
+            magnificationFilter: Texture.Linear
+            minificationFilter: Texture.Linear
+            wrapMode
+            {
+                x: WrapMode.ClampToEdge
+                y: WrapMode.ClampToEdge
+            }
+        }
 
-//    objectName: "gBuffer"
+    property Texture2D depth:
+        Texture2D
+        {
+            id: depthAttachment
+            width: 1024
+            height: 1024
+            format: Texture.D32F
+            generateMipMaps: false
+            magnificationFilter: Texture.Linear
+            minificationFilter: Texture.Linear
+            wrapMode
+            {
+                x: WrapMode.ClampToEdge
+                y: WrapMode.ClampToEdge
+            }
+        }
 
     attachments: [
         RenderTargetOutput
         {
             objectName: "color"
             attachmentPoint: RenderTargetOutput.Color0
-            texture:
-                Texture2D
-                {
-                    id: colorAttachment
-                    width: 1024
-                    height: 1024
-                    format: Texture.RGBA32F
-                    generateMipMaps: false
-                    magnificationFilter: Texture.Linear
-                    minificationFilter: Texture.Linear
-                    wrapMode
-                    {
-                        x: WrapMode.ClampToEdge
-                        y: WrapMode.ClampToEdge
-                    }
-                }
+            texture: colorAttachment
         },
 
         RenderTargetOutput
         {
             objectName: "depth"
             attachmentPoint: RenderTargetOutput.Depth
-            texture:
-                Texture2D
-                {
-                    id: depthAttachment
-                    width: 1024
-                    height: 1024
-                    format: Texture.D32F
-                    generateMipMaps: false
-                    magnificationFilter: Texture.Linear
-                    minificationFilter: Texture.Linear
-                    wrapMode
-                    {
-                        x: WrapMode.ClampToEdge
-                        y: WrapMode.ClampToEdge
-                    }
-                }
+            texture: depthAttachment
         }
     ] // outputs
 }

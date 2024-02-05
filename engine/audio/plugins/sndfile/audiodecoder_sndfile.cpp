@@ -78,7 +78,7 @@ bool AudioDecoderSndFile::initialize(const QString &path)
     m_totalTime = snd_info.frames * 1000 / m_freq;
     m_bitrate =  QFileInfo(m_path).size () * 8.0 / m_totalTime + 0.5;
 
-    if((snd_info.format & SF_FORMAT_SUBMASK) == SF_FORMAT_FLOAT)
+    if ((snd_info.format & SF_FORMAT_SUBMASK) == SF_FORMAT_FLOAT)
     {
         qDebug() << "DecoderSndFile: Float audio format";
         sf_command (m_sndfile, SFC_SET_SCALE_FLOAT_INT_READ, NULL, SF_TRUE);
@@ -141,7 +141,7 @@ QStringList AudioDecoderSndFile::supportedFormats()
             caps << "*.aifc";
         else if (ext == "flac" && !caps.contains("*.flac"))
             caps << "*.flac";
-        else if (ext == "oga" && !caps.contains("*.oga"))
+        else if ((ext == "ogg" || ext == "oga") && !caps.contains("*.ogg"))
             caps << "*.oga" << "*.ogg";
         else if (ext == "wav" && !caps.contains("*.wav"))
             caps << "*.wav";
@@ -149,10 +149,3 @@ QStringList AudioDecoderSndFile::supportedFormats()
 
     return caps;
 }
-
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(audiodecodersndfile, AudioDecoderSndFile)
-#endif

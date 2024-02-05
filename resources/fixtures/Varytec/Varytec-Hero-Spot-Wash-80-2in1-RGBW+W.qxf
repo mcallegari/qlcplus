@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2</Version>
+  <Author>Hans-Jürgen Tappe</Author>
+ </Creator>
+ <Manufacturer>Varytec</Manufacturer>
+ <Model>Hero Spot Wash 80 2in1 RGBW+W</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Wash Strobe/Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="10" Max="250" Preset="StrobeSlowToFast">Strobe</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Wash Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="20" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="21" Max="30" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="31" Max="40" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="41" Max="50" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="51" Max="60" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red + White</Capability>
+  <Capability Min="61" Max="70" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green + White</Capability>
+  <Capability Min="71" Max="80" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue + White</Capability>
+  <Capability Min="81" Max="90" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + Green</Capability>
+  <Capability Min="91" Max="100" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green + Blue</Capability>
+  <Capability Min="101" Max="110" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red + Blue</Capability>
+  <Capability Min="111" Max="120" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00aa00">Red + Green + White</Capability>
+  <Capability Min="121" Max="130" Preset="ColorDoubleMacro" Res1="#00aa00" Res2="#0000ff">Green + Blue + White</Capability>
+  <Capability Min="131" Max="140" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red + Blue + White</Capability>
+  <Capability Min="141" Max="150" Preset="ColorMacro" Res1="#ffffff">Red + Green + Blue + White</Capability>
+  <Capability Min="151" Max="200" Preset="SlowToFast">Switch, Slow to Fast</Capability>
+  <Capability Min="201" Max="255" Preset="SlowToFast">Flow, Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Wash Red" Preset="IntensityRed"/>
+ <Channel Name="Wash Green" Preset="IntensityGreen"/>
+ <Channel Name="Wash Blue" Preset="IntensityBlue"/>
+ <Channel Name="Wash White" Preset="IntensityWhite"/>
+ <Channel Name="Spot Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Spot Strobe/Shutter 1">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="10" Max="250" Preset="StrobeSlowToFast">Strobe</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Color Sequence and Gobos">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="24">No function</Capability>
+  <Capability Min="25" Max="50">Auto Color, Gobo 1</Capability>
+  <Capability Min="51" Max="75">Auto Color, Gobo 2</Capability>
+  <Capability Min="76" Max="100">Auto Color, Gobo 3</Capability>
+  <Capability Min="101" Max="125">Auto Color, Gobo 4</Capability>
+  <Capability Min="126" Max="150">Auto Color, Gobo 5</Capability>
+  <Capability Min="151" Max="175">Auto Color, Gobo 6</Capability>
+  <Capability Min="176" Max="200">Auto Color, Gobo 7</Capability>
+  <Capability Min="201" Max="255">Auto Color, Gobo - Music Control</Capability>
+ </Channel>
+ <Channel Name="Auto Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="20">Auto Show 1</Capability>
+  <Capability Min="21" Max="30">Auto Show 2</Capability>
+  <Capability Min="31" Max="40">Auto Show 3</Capability>
+  <Capability Min="41" Max="50">Auto Show 4</Capability>
+  <Capability Min="51" Max="60">Auto Show 5</Capability>
+  <Capability Min="61" Max="70">Auto Show 6</Capability>
+  <Capability Min="71" Max="80">Auto Show 7</Capability>
+  <Capability Min="81" Max="90">Auto Show 8</Capability>
+  <Capability Min="91" Max="230">Sound Control</Capability>
+  <Capability Min="231" Max="240">Reset</Capability>
+  <Capability Min="241" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Spot Color Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="24" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="25" Max="50" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="51" Max="75" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="76" Max="100" Preset="ColorMacro" Res1="#aaffff">Light Blue</Capability>
+  <Capability Min="101" Max="125" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="126" Max="150" Preset="ColorMacro" Res1="#ffff7f">Amber</Capability>
+  <Capability Min="151" Max="175" Preset="ColorMacro" Res1="#ee82ee">Violet</Capability>
+  <Capability Min="176" Max="200" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="201" Max="255" Preset="SlowToFast">Rotating</Capability>
+ </Channel>
+  <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="10" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="11" Max="20" Preset="GoboMacro" Res1="Robe/gobo00025.svg">Gobo 1</Capability>
+  <Capability Min="21" Max="30" Preset="GoboMacro" Res1="SGM/gobo00008.svg">Gobo 2</Capability>
+  <Capability Min="31" Max="40" Preset="GoboMacro" Res1="Others/gobo00108.svg">Gobo 3</Capability>
+  <Capability Min="41" Max="50" Preset="GoboMacro" Res1="Others/gobo00112.svg">Gobo 4</Capability>
+  <Capability Min="51" Max="60" Preset="GoboMacro" Res1="Chauvet/gobo00034.svg">Gobo 5</Capability>
+  <Capability Min="61" Max="70" Preset="GoboMacro" Res1="Others/gobo00125.svg">Gobo 6</Capability>
+  <Capability Min="71" Max="80" Preset="GoboMacro" Res1="Others/gobo00126.svg">Gobo 7</Capability>
+  <Capability Min="81" Max="90" Preset="GoboShakeMacro" Res1="Robe/gobo00025.svg">Gobo 1 Shake</Capability>
+  <Capability Min="91" Max="100" Preset="GoboShakeMacro" Res1="SGM/gobo00008.svg">Gobo 2 Shake</Capability>
+  <Capability Min="101" Max="110" Preset="GoboShakeMacro" Res1="Others/gobo00108.svg">Gobo 3 Shake</Capability>
+  <Capability Min="111" Max="120" Preset="GoboShakeMacro" Res1="Others/gobo00112.svg">Gobo 4 Shake</Capability>
+  <Capability Min="121" Max="130" Preset="GoboShakeMacro" Res1="Chauvet/gobo00034.svg">Gobo 5 Shake</Capability>
+  <Capability Min="131" Max="140" Preset="GoboShakeMacro" Res1="Others/gobo00125.svg">Gobo 6 Shake</Capability>
+  <Capability Min="141" Max="150" Preset="GoboShakeMacro" Res1="Others/gobo00126.svg">Gobo 7 Shake</Capability>
+  <Capability Min="151" Max="255" Preset="RotationClockwiseFastToSlow">Gobo Rotation</Capability>
+ </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="Color Temperature">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Gradual increase in color temperature (0% to 100%)</Capability>
+ </Channel>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Wash Intensity</Channel>
+  <Channel Number="3">Wash Strobe/Shutter</Channel>
+  <Channel Number="4">Spot Intensity</Channel>
+  <Channel Number="5">Spot Strobe/Shutter 1</Channel>
+  <Channel Number="6">Color Sequence and Gobos</Channel>
+  <Channel Number="7">Auto Programs</Channel>
+ </Mode>
+ <Mode Name="15 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Wash Intensity</Channel>
+  <Channel Number="3">Wash Strobe/Shutter</Channel>
+  <Channel Number="4">Wash Red</Channel>
+  <Channel Number="5">Wash Green</Channel>
+  <Channel Number="6">Wash Blue</Channel>
+  <Channel Number="7">Wash White</Channel>
+  <Channel Number="8">Color Macros</Channel>
+  <Channel Number="9">Spot Intensity</Channel>
+  <Channel Number="10">Spot Strobe/Shutter 1</Channel>
+  <Channel Number="11">Spot Color Wheel</Channel>
+  <Channel Number="12">Gobo</Channel>
+  <Channel Number="13">Focus</Channel>
+  <Channel Number="14">Auto Programs</Channel>
+ </Mode>
+ <Mode Name="20 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Wash Intensity</Channel>
+  <Channel Number="6">Wash Strobe/Shutter</Channel>
+  <Channel Number="7">Wash Red</Channel>
+  <Channel Number="8">Wash Green</Channel>
+  <Channel Number="9">Wash Blue</Channel>
+  <Channel Number="10">Wash White</Channel>
+  <Channel Number="11">Color Temperature</Channel>
+  <Channel Number="12">Color Macros</Channel>
+  <Channel Number="13">Spot Intensity</Channel>
+  <Channel Number="14">Spot Strobe/Shutter 1</Channel>
+  <Channel Number="15">Spot Color Wheel</Channel>
+  <Channel Number="16">Gobo</Channel>
+  <Channel Number="17">Focus</Channel>
+  <Channel Number="18">Color Sequence and Gobos</Channel>
+  <Channel Number="19">Auto Programs</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.5" Width="144" Height="310" Depth="214"/>
+  <Lens Name="Other" DegreesMin="13" DegreesMax="25"/>
+  <Focus Type="Head" PanMax="540" TiltMax="190"/>
+  <Technical PowerConsumption="110" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

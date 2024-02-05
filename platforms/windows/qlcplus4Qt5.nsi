@@ -15,12 +15,12 @@
 ;--------------------------------
 ;General
 Name "Q Light Controller Plus"
-OutFile "QLC+_4.11.3.exe"
+OutFile "QLC+_4.12.8.exe"
 InstallDir C:\QLC+
 InstallDirRegKey HKCU "Software\qlcplus" "Install_Dir"
 RequestExecutionLevel user
 
-!define MUI_LICENSEPAGE_TEXT_TOP "Do you accept the following statement of the Apache 2.0 license ?"
+!define MUI_LICENSEPAGE_TEXT_TOP "Do you accept the following statement of the Apache 2.0 license?"
 
 !insertmacro MUI_PAGE_LICENSE "${QLCPLUS_HOME}\platforms\windows\apache_2.0.txt"
 
@@ -88,6 +88,7 @@ Section
 	File /r imageformats
 	File /r mediaservice
 	File /r audio
+	File /r styles
 	File Sample.qxw
 	File *.qm
 	File /r Documents
@@ -106,9 +107,9 @@ Section
 	WriteRegStr HKCR "QLightControllerPlus.Document\shell\open\command" "" '"$INSTDIR\qlcplus.exe" --open "%1"'
 
 	WriteRegStr HKCR ".qxf" "" "QLightControllerPlusFixture.Document"
-	WriteRegStr HKCR "QLightControllerFixturePlus.Document" "" "Q Light Controller Plus Fixture"
-	WriteRegStr HKCR "QLightControllerFixturePlus.Document\DefaultIcon" "" "$INSTDIR\qlcplus-fixtureeditor.exe,0"
-	WriteRegStr HKCR "QLightControllerFixturePlus.Document\shell\open\command" "" '"$INSTDIR\qlcplus-fixtureeditor.exe" --open "%1"'
+	WriteRegStr HKCR "QLightControllerPlusFixture.Document" "" "Q Light Controller Plus Fixture"
+	WriteRegStr HKCR "QLightControllerPlusFixture.Document\DefaultIcon" "" "$INSTDIR\qlcplus-fixtureeditor.exe,0"
+	WriteRegStr HKCR "QLightControllerPlusFixture.Document\shell\open\command" "" '"$INSTDIR\qlcplus-fixtureeditor.exe" --open "%1"'
 
 	WriteRegStr HKCU "SOFTWARE\qlcplus" "Install_Dir" "$INSTDIR"
 
@@ -129,6 +130,7 @@ Section "Uninstall"
         RMDir /r $INSTDIR\imageformats
 	RMDir /r $INSTDIR\mediaservice
 	RMDir /r $INSTDIR\audio
+	RMDir /r $INSTDIR\styles
 	Delete $INSTDIR\Sample.qxw
 	Delete $INSTDIR\*.qm
 	RMDir /r $INSTDIR\Documents

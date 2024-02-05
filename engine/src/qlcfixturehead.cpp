@@ -43,6 +43,20 @@ QLCFixtureHead::~QLCFixtureHead()
 {
 }
 
+QLCFixtureHead &QLCFixtureHead::operator=(const QLCFixtureHead &head)
+{
+    if (this != &head)
+    {
+        m_channels = head.channels();
+        m_channelsMap = head.channelsMap();
+        m_colorWheels = head.colorWheels();
+        m_shutterChannels = head.shutterChannels();
+        m_channelsCached = true;
+    }
+
+    return *this;
+}
+
 /****************************************************************************
  * Channels
  ****************************************************************************/
@@ -96,6 +110,11 @@ QVector <quint32> QLCFixtureHead::rgbChannels() const
         vector << r << g << b;
 
     return vector;
+}
+
+QMap<int, quint32> QLCFixtureHead::channelsMap() const
+{
+    return m_channelsMap;
 }
 
 QVector <quint32> QLCFixtureHead::cmyChannels() const
@@ -155,7 +174,7 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
     m_shutterChannels.clear();
     m_channelsMap.clear();
 
-    foreach(quint32 i, m_channels)
+    foreach (quint32 i, m_channels)
     {
         if ((int)i >= mode->channels().size())
         {
@@ -206,8 +225,8 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
     if (channelNumber(QLCChannel::Tilt, QLCChannel::LSB) == QLCChannel::invalid())
         setMapIndex(QLCChannel::Tilt, QLCChannel::LSB, mode->channelNumber(QLCChannel::Tilt, QLCChannel::LSB));
 
-    qSort(m_colorWheels);
-    qSort(m_shutterChannels);
+    std::sort(m_colorWheels.begin(), m_colorWheels.end());
+    std::sort(m_shutterChannels.begin(), m_shutterChannels.end());
 
     // Allow only one caching round per head
     m_channelsCached = true;
@@ -245,7 +264,7 @@ bool QLCFixtureHead::saveXML(QXmlStreamWriter *doc) const
 
     doc->writeStartElement(KXMLQLCFixtureHead);
 
-    foreach(quint32 index, m_channels)
+    foreach (quint32 index, m_channels)
         doc->writeTextElement(KXMLQLCFixtureHeadChannel, QString::number(index));
 
     doc->writeEndElement();

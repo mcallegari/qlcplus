@@ -19,7 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.2
+import QtQuick.Controls 2.13
 
 import org.qlcplus.classes 1.0
 import "."
@@ -37,7 +37,7 @@ Rectangle
     ModelSelector
     {
         id: ceSelector
-        //onItemsCountChanged: console.log("Collection Editor selected items changed !")
+        //onItemsCountChanged: console.log("Collection Editor selected items changed!")
     }
 
     SplitView
@@ -46,8 +46,9 @@ Rectangle
         Loader
         {
             id: funcMgrLoader
-            visible: width
-            width: 0
+            width: UISettings.sidePanelWidth
+            SplitView.preferredWidth: UISettings.sidePanelWidth
+            visible: false
             height: ceContainer.height
             source: ""
 
@@ -68,20 +69,20 @@ Rectangle
 
         Column
         {
-            Layout.fillWidth: true
+            SplitView.fillWidth: true
 
             EditorTopBar
             {
-                text: collectionEditor.functionName
+                text: collectionEditor ? collectionEditor.functionName : ""
                 onTextChanged: collectionEditor.functionName = text
 
                 onBackClicked:
                 {
-                    if (funcMgrLoader.width)
+                    if (funcMgrLoader.visible)
                     {
                         funcMgrLoader.source = ""
-                        funcMgrLoader.width = 0
-                        rightSidePanel.width = rightSidePanel.width / 2
+                        funcMgrLoader.visible = false
+                        rightSidePanel.width -= funcMgrLoader.width
                     }
 
                     var prevID = collectionEditor.previousID
@@ -101,15 +102,16 @@ Rectangle
                     {
                         if (checked)
                         {
-                            rightSidePanel.width += UISettings.sidePanelWidth
-                            funcMgrLoader.width = UISettings.sidePanelWidth
+                            if (!funcMgrLoader.visible)
+                                rightSidePanel.width += UISettings.sidePanelWidth
+                            funcMgrLoader.visible = true
                             funcMgrLoader.source = "qrc:/FunctionManager.qml"
                         }
                         else
                         {
-                            rightSidePanel.width = rightSidePanel.width - funcMgrLoader.width
+                            rightSidePanel.width -= funcMgrLoader.width
                             funcMgrLoader.source = ""
-                            funcMgrLoader.width = 0
+                            funcMgrLoader.visible = false
                         }
                     }
                 }
@@ -127,7 +129,7 @@ Rectangle
                     {
                         id: deleteItemsPopup
                         title: qsTr("Delete functions")
-                        message: qsTr("Are you sure you want to remove the selected functions ?")
+                        message: qsTr("Are you sure you want to remove the selected functions?")
                         onAccepted: functionManager.deleteEditorItems(ceSelector.itemsList())
                     }
                 }
@@ -143,7 +145,7 @@ Rectangle
 
                 property int dragInsertIndex: -1
 
-                model: collectionEditor.functionsList
+                model: collectionEditor ? collectionEditor.functionsList : null
                 delegate:
                     Item
                     {
@@ -159,7 +161,7 @@ Rectangle
                             drag.target: cfDelegate
                             drag.threshold: height / 2
 
-                            onClicked: ceSelector.selectItem(index, cFunctionList.model, mouse.modifiers & Qt.ControlModifier)
+                            onPressed: ceSelector.selectItem(index, cFunctionList.model, mouse.modifiers)
                             onDoubleClicked:
                             {
                                 functionManager.setEditorFunction(model.funcID, false, false)
@@ -213,7 +215,7 @@ Rectangle
                         {
                             var insertIndex = cFunctionList.dragInsertIndex
                             if (insertIndex == -1)
-                                insertIndex = 0
+                                insertIndex = cFunctionList.count
 
                             for (var i = 0; i < drag.source.itemsList.length; i++)
                             {

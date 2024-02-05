@@ -79,15 +79,15 @@ bool SPIPlugin::openOutput(quint32 output, quint32 universe)
         return true;
 
     m_spifd = open(SPI_DEFAULT_DEVICE, O_RDWR);
-    if(m_spifd < 0)
+    if (m_spifd < 0)
     {
-        qWarning() << "Cannot open SPI device !";
+        qWarning() << "Cannot open SPI device!";
         return false;
     }
 
     QSettings settings;
     int speed = 1000000;
-    QVariant value = settings.value("SPIPlugin/frequency");
+    QVariant value = settings.value(SETTINGS_OUTPUT_FREQUENCY);
     if (value.isValid() == true)
         speed = value.toUInt();
 
@@ -119,7 +119,7 @@ QStringList SPIPlugin::outputs()
     QStringList list;
     QFile file(QString(SPI_DEFAULT_DEVICE));
     if (file.exists() == true)
-        list << QString("1: SPI0 CS0");
+        list << QString("SPI0 CS0");
     return list;
 }
 
@@ -181,8 +181,10 @@ QString SPIPlugin::outputInfo(quint32 output)
     return str;
 }
 
-void SPIPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void SPIPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
+    Q_UNUSED(dataChanged)
+
     if (output != 0 || m_spifd == -1)
         return;
 
@@ -223,7 +225,7 @@ void SPIPlugin::configure()
     if (conf.exec() == QDialog::Accepted)
     {
         QSettings settings;
-        settings.setValue("SPIPlugin/frequency", QVariant(conf.frequency()));
+        settings.setValue(SETTINGS_OUTPUT_FREQUENCY, QVariant(conf.frequency()));
         if (m_outThread != NULL)
             m_outThread->setSpeed(conf.frequency());
     }
@@ -253,10 +255,3 @@ void SPIPlugin::setParameter(quint32 universe, quint32 line, Capability type,
         m_uniChannelsMap[universe] = uniStruct;
     }
 }
-
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(spiplugin, SPIPlugin)
-#endif

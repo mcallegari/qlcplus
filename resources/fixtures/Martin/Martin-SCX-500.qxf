@@ -1,18 +1,18 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.0.0</Version>
-  <Author/>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Büro</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
  <Model>SCX-500</Model>
  <Type>Scanner</Type>
  <Channel Name="Strobe, macros">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="4">No function</Capability>
-  <Capability Min="5" Max="68">Strobe fast to slow</Capability>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="5" Max="68" Preset="StrobeSlowToFast">Strobe fast to slow</Capability>
   <Capability Min="69" Max="100">Remote stand-alone, auto trigger</Capability>
   <Capability Min="101" Max="112">Macro 1</Capability>
   <Capability Min="113" Max="124">Macro 2</Capability>
@@ -26,7 +26,7 @@
   <Capability Min="209" Max="220">Macro 10</Capability>
   <Capability Min="221" Max="232">Macro 11</Capability>
   <Capability Min="233" Max="249">Macro 12</Capability>
-  <Capability Min="250" Max="255">RESET (5sec)</Capability>
+  <Capability Min="250" Max="255" Preset="ResetAll">RESET (5sec)</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Colour">
@@ -119,11 +119,11 @@
   <Channel Number="6">Movement speed</Channel>
   <Channel Number="7">Color &amp; gobo speed</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="EFR 150W" ColourTemperature="3100"/>
-   <Dimensions Width="204" Height="445" Weight="7" Depth="178"/>
-   <Lens DegreesMax="15" Name="Other" DegreesMin="15"/>
-   <Focus PanMax="180" Type="Mirror" TiltMax="72"/>
-   <Technical PowerConsumption="173" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="EFR 150W" Lumens="0" ColourTemperature="3100"/>
+  <Dimensions Weight="7" Width="204" Height="445" Depth="178"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+  <Focus Type="Mirror" PanMax="180" TiltMax="72"/>
+  <Technical PowerConsumption="173" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

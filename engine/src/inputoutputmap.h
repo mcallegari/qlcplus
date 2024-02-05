@@ -42,7 +42,10 @@ class Doc;
  * @{
  */
 
-#define KXMLIOMap "InputOutputMap"
+#define KXMLIOMap               QString("InputOutputMap")
+#define KXMLIOBeatGenerator     QString("BeatGenerator")
+#define KXMLIOBeatType          QString("BeatType")
+#define KXMLIOBeatsPerMinute    QString("BPM")
 
 class InputOutputMap : public QObject
 {
@@ -68,13 +71,6 @@ public:
      * Destroy a InputOutputMap object
      */
     ~InputOutputMap();
-
-    /**
-     * Load all output plugins from the given directory, using QDir filters.
-     *
-     * @param dir The directory to load plugins from
-     */
-    void loadPlugins(const QDir& dir);
 
 private:
     /** Get the doc object */
@@ -124,7 +120,6 @@ public:
      */
     bool blackout() const;
 
-
 signals:
     /**
      * Signal that is sent when blackout state is changed.
@@ -136,9 +131,6 @@ signals:
 private:
     /** Current blackout state */
     bool m_blackout;
-
-    /** Blackout request applied when possible */
-    bool m_blackoutRequest;
 
     /*********************************************************************
      * Universes
@@ -165,6 +157,11 @@ public:
      * Remove all the universes in the current universes list
      */
     bool removeAllUniverses();
+
+    /**
+     * Start all the Universe threads
+     */
+    void startUniverses();
 
     /**
      * Get the unique ID of the universe at the given index
@@ -241,6 +238,12 @@ public:
     QList<Universe*> universes() const;
 
     /**
+     * Get a reference to a Universe from the given Universe ID
+     * Return NULL if no Universe is found
+     */
+    Universe *universe(quint32 id);
+
+    /**
      * Claim access to a universe. This is declared virtual to make
      * unit testing a bit easier.
      */
@@ -255,12 +258,6 @@ public:
     virtual void releaseUniverses(bool changed = true);
 
     /**
-     * Write current universe array data to plugins, each universe within
-     * the array to its assigned plugin.
-     */
-    void dumpUniverses();
-
-    /**
      * Reset all universes (useful when starting from scratch)
      */
     void resetUniverses();
@@ -268,7 +265,7 @@ public:
 signals:
     void universeAdded(quint32 id);
     void universeRemoved(quint32 id);
-    void universesWritten(int index, const QByteArray& universesCount);
+    void universeWritten(quint32 index, const QByteArray& universesData);
 
 private:
     /** The values of all universes */
@@ -334,12 +331,14 @@ public:
      *
      * @param universe The input universe to patch
      * @param pluginName The name of the plugin to patch to the universe
+     * @param inputUID Unique plugin input line identifier as string
      * @param input An input universe provided by the plugin to patch to
      * @param profileName The name of an input profile
      * @return true if successful, otherwise false
      */
     bool setInputPatch(quint32 universe, const QString& pluginName,
-                       quint32 input, const QString& profileName = QString());
+                       const QString& inputUID, quint32 input,
+                       const QString& profileName = QString());
 
     /**
      * Set an input profile to the given universe. If the universe doesn't
@@ -356,14 +355,16 @@ public:
      *
      * @param universe The universe to patch
      * @param pluginName The name of the plugin to patch to the universe
+     * @param inputUID Unique plugin output line identifier as string
      * @param output A universe provided by the plugin to patch to
      * @param isFeedback Determine if this line is a feedback output
-     * @param index the output patch index
+     * @param index The output patch index
      *
      * @return true if successful, otherwise false
      */
     bool setOutputPatch(quint32 universe, const QString& pluginName,
-                        quint32 output = 0, bool isFeedback = false, int index = 0);
+                        const QString& outputUID, quint32 output = 0,
+                        bool isFeedback = false, int index = 0);
 
     int outputPatchesCount(quint32 universe) const;
 
@@ -444,16 +445,16 @@ public:
      * Get the names of all input lines provided by the given plugin.
      *
      * @param pluginName Name of the plugin, whose input count to get
-     * @return A QStringList containing the names of each input line
+     * @return A list containing the name of each input line
      *
      */
     QStringList pluginInputs(const QString& pluginName);
 
     /**
-     * Get the number of universes provided by the given plugin.
+     * Get the names of all output lines provided by the given plugin.
      *
      * @param pluginName Name of the plugin, whose output count to get
-     * @return A list of output names provided by the plugin.
+     * @return A list containing the name of each output line
      */
     QStringList pluginOutputs(const QString& pluginName);
 
@@ -502,6 +503,10 @@ public:
      * sliders & knobs, set indicator leds etc.
      */
     bool sendFeedBack(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
+
+private:
+    /** In case of duplicate strings, append a number to make them unique */
+    void removeDuplicates(QStringList &list);
 
 private slots:
    /** Slot that catches plugin configuration change notifications from UIPluginCache */
@@ -578,19 +583,22 @@ public:
     {
         Disabled,   //! No one is generating beats
         Internal,   //! MasterTimer is the beat generator
-        MIDI,       //! A MIDI plugin is the beat generator
+        Plugin,     //! A plugin is the beat generator
         Audio       //! An audio input device is the beat generator
     };
 
     void setBeatGeneratorType(BeatGeneratorType type);
     BeatGeneratorType beatGeneratorType() const;
 
+    QString beatTypeToString(BeatGeneratorType type) const;
+    BeatGeneratorType stringToBeatType(QString str);
+
     void setBpmNumber(int bpm);
     int bpmNumber() const;
 
 protected slots:
     void slotMasterTimerBeat();
-    void slotMIDIBeat(quint32 universe, quint32 channel, uchar value);
+    void slotPluginBeat(quint32 universe, quint32 channel, uchar value, const QString &key);
     void slotAudioSpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power);
 
 signals:

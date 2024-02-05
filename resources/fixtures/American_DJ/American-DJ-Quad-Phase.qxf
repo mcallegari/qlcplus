@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.3.1</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>David Kuder</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -43,8 +43,8 @@
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="15">Closed</Capability>
-  <Capability Min="16" Max="255">Open</Capability>
+  <Capability Min="0" Max="15" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="16" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Mode Name="4-CH Mode">
   <Channel Number="0">Color</Channel>
@@ -52,11 +52,11 @@
   <Channel Number="2">Strobing</Channel>
   <Channel Number="3">Shutter</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="306" Height="334" Weight="3.8" Depth="184"/>
-   <Lens DegreesMax="65" Name="Other" DegreesMin="65"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="27" DmxConnector="5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.8" Width="306" Height="334" Depth="184"/>
+  <Lens Name="Other" DegreesMin="65" DegreesMax="65"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="27" DmxConnector="5-pin"/>
+ </Physical>
 </FixtureDefinition>

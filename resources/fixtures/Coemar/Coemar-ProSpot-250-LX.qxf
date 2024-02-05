@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Flo Edelmann</Author>
  </Creator>
  <Manufacturer>Coemar</Manufacturer>
@@ -28,20 +28,20 @@
  </Channel>
  <Channel Name="Shutter / Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">Closed</Capability>
-  <Capability Min="10" Max="66">Synchro strobe 0 - 10Hz</Capability>
-  <Capability Min="67" Max="68">Open</Capability>
-  <Capability Min="69" Max="125">Pulse sequences (close slow, open fast) slow - fast</Capability>
-  <Capability Min="126" Max="127">Open</Capability>
-  <Capability Min="128" Max="184">Pulse sequences (close fast, open slow) slow - fast</Capability>
-  <Capability Min="185" Max="187">Open</Capability>
-  <Capability Min="188" Max="244">Random strobe (slow to fast)</Capability>
-  <Capability Min="245" Max="255">Open</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="10" Max="66" Preset="StrobeFreqRange" Res1="0" Res2="10">Synchro strobe 0 - 10Hz</Capability>
+  <Capability Min="67" Max="68" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="69" Max="125" Preset="PulseSlowToFast">Pulse sequences (close slow, open fast) slow - fast</Capability>
+  <Capability Min="126" Max="127" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="128" Max="184" Preset="PulseSlowToFast">Pulse sequences (close fast, open slow) slow - fast</Capability>
+  <Capability Min="185" Max="187" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="188" Max="244" Preset="StrobeRandomSlowToFast">Random strobe (slow to fast)</Capability>
+  <Capability Min="245" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Gobo selection">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="10" Res="Others/open.svg">Open</Capability>
+  <Capability Min="0" Max="10" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="11" Max="30">Rotating gobo 1</Capability>
   <Capability Min="31" Max="50">Rotating gobo 2</Capability>
   <Capability Min="51" Max="70">Rotating gobo 3</Capability>
@@ -112,12 +112,12 @@
  </Channel>
  <Channel Name="Lamp on / Motor reset (hold 6s)">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="19">Lamp off</Capability>
+  <Capability Min="0" Max="19" Preset="LampOff">Lamp off</Capability>
   <Capability Min="20" Max="100">No effects (idle)</Capability>
-  <Capability Min="101" Max="170">Effects reset (once), no Pan / Tilt movement</Capability>
-  <Capability Min="171" Max="200">All motor reset (once)</Capability>
+  <Capability Min="101" Max="170" Preset="ResetEffects">Effects reset (once), no Pan / Tilt movement</Capability>
+  <Capability Min="171" Max="200" Preset="ResetMotors">All motor reset (once)</Capability>
   <Capability Min="201" Max="240">Silent fans (if external temperature allows it)</Capability>
-  <Capability Min="241" Max="255">Lamp on</Capability>
+  <Capability Min="241" Max="255" Preset="LampOn">Lamp on</Capability>
  </Channel>
  <Channel Name="Pan / Tilt Speed 2">
   <Group Byte="0">Speed</Group>
@@ -128,7 +128,7 @@
  <Channel Name="Lamp on / Fan speed">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="127">Fan speed fast - slow</Capability>
-  <Capability Min="128" Max="139">Lamp on, reset</Capability>
+  <Capability Min="128" Max="139" Preset="LampOn">Lamp on, reset</Capability>
   <Capability Min="140" Max="229">No function</Capability>
   <Capability Min="230" Max="239">Lamp off after 3s</Capability>
   <Capability Min="240" Max="255">No function</Capability>
@@ -177,18 +177,18 @@
  </Channel>
  <Channel Name="Shutter / Strobe 2">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="31">closed</Capability>
-  <Capability Min="32" Max="63">open</Capability>
-  <Capability Min="64" Max="95">Strobe 0 - 10Hz</Capability>
-  <Capability Min="96" Max="127">open</Capability>
-  <Capability Min="128" Max="159">Pulse sequences slow - fast</Capability>
-  <Capability Min="160" Max="191">open</Capability>
-  <Capability Min="192" Max="223">Random strobe slow - fast</Capability>
-  <Capability Min="224" Max="255">open</Capability>
+  <Capability Min="0" Max="31" Preset="ShutterClose">closed</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">open</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeFreqRange" Res1="0" Res2="10">Strobe 0 - 10Hz</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">open</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Pulse sequences slow - fast</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">open</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe slow - fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">open</Capability>
  </Channel>
  <Channel Name="Dimmer 2" Preset="IntensityDimmer"/>
- <Channel Name="No Function" Preset="NoFunction"/>
- <Channel Name="No Function 2" Preset="NoFunction"/>
+ <Channel Name="No function" Preset="NoFunction"/>
+ <Channel Name="No function 2" Preset="NoFunction"/>
  <Mode Name="Standard">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
@@ -215,21 +215,21 @@
   <Channel Number="4">Pan / Tilt Speed 2</Channel>
   <Channel Number="5">Lamp on / Fan speed</Channel>
   <Channel Number="6">Colors</Channel>
-  <Channel Number="7">No Function</Channel>
+  <Channel Number="7">No function</Channel>
   <Channel Number="8">Effect wheel</Channel>
   <Channel Number="9">3 facet prism rotation</Channel>
   <Channel Number="10">Gobo selection 2</Channel>
   <Channel Number="11">Gobo rotation / positioning</Channel>
-  <Channel Number="12">No Function 2</Channel>
+  <Channel Number="12">No function 2</Channel>
   <Channel Number="13">Focus</Channel>
   <Channel Number="14">Shutter / Strobe 2</Channel>
   <Channel Number="15">Dimmer 2</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="Philips MSD 250W/2" Lumens="18000" ColourTemperature="8500"/>
-   <Dimensions Weight="23.5" Width="350" Height="510" Depth="377"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
-   <Focus Type="Head" PanMax="530" TiltMax="284"/>
-   <Technical PowerConsumption="460" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="Philips MSD 250W/2" Lumens="18000" ColourTemperature="8500"/>
+  <Dimensions Weight="23.5" Width="350" Height="510" Depth="377"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+  <Focus Type="Head" PanMax="530" TiltMax="284"/>
+  <Technical PowerConsumption="460" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

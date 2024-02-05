@@ -47,7 +47,6 @@
 
 #include "qlcinputchannel.h"
 #include "virtualconsole.h"
-#include "vcproperties.h"
 #include "inputpatch.h"
 #include "vcwidget.h"
 #include "doc.h"
@@ -193,6 +192,8 @@ void VCWidget::setDisableState(bool disable)
         setEnabled(!disable);
         enableWidgetUI(!disable);
     }
+
+    emit disableStateChanged(m_disableState);
 }
 
 void VCWidget::enableWidgetUI(bool enable)
@@ -228,7 +229,7 @@ bool VCWidget::copyFrom(const VCWidget* widget)
     if (widget == NULL)
         return false;
 
-    m_backgroundImage = widget->m_backgroundImage;
+    setBackgroundImage(widget->m_backgroundImage);
 
     m_hasCustomBackgroundColor = widget->m_hasCustomBackgroundColor;
     if (m_hasCustomBackgroundColor == true)
@@ -276,7 +277,6 @@ void VCWidget::setBackgroundImage(const QString& path)
     m_hasCustomBackgroundColor = false;
     m_backgroundImage = path;
 
-    /* setAutoFillBackground(true); */
     pal.setBrush(QPalette::Window, QBrush(QPixmap(path)));
     setPalette(pal);
 
@@ -540,10 +540,14 @@ void VCWidget::adjustIntensity(qreal val)
     m_intensity = val;
 }
 
-qreal VCWidget::intensity()
+qreal VCWidget::intensity() const
 {
     return m_intensity;
 }
+
+/*****************************************************************************
+ * External input
+ *****************************************************************************/
 
 bool VCWidget::acceptsInput()
 {
@@ -552,10 +556,6 @@ bool VCWidget::acceptsInput()
 
     return true;
 }
-
-/*****************************************************************************
- * External input
- *****************************************************************************/
 
 bool VCWidget::checkInputSource(quint32 universe, quint32 channel,
                                 uchar value, QObject *sender, quint32 id)
@@ -664,7 +664,7 @@ QSharedPointer<QLCInputSource> VCWidget::inputSource(quint8 id) const
 
 void VCWidget::remapInputSources(int pgNum)
 {
-    foreach(quint8 s, m_inputs.keys())
+    foreach (quint8 s, m_inputs.keys())
     {
         QSharedPointer<QLCInputSource> src(m_inputs.value(s));
         src->setPage(pgNum);
@@ -722,7 +722,7 @@ void VCWidget::slotInputProfileChanged(quint32 universe, const QString &profileN
 
     QLCInputProfile *profile = m_doc->inputOutputMap()->profile(profileName);
 
-    foreach(QSharedPointer<QLCInputSource> const& source, m_inputs.values())
+    foreach (QSharedPointer<QLCInputSource> const& source, m_inputs.values())
     {
         if (!source.isNull() && source->universe() == universe)
         {
@@ -758,6 +758,7 @@ QKeySequence VCWidget::stripKeySequence(const QKeySequence& seq)
 {
     /* In QLC 3.2.x it is possible to set shortcuts like CTRL+X, but since
        CTRL is now the tap modifier, it must be stripped away. */
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     int keys[4] = { 0, 0, 0, 0 };
     for (int i = 0; i < (int)seq.count() && i < 4; i++)
     {
@@ -766,7 +767,16 @@ QKeySequence VCWidget::stripKeySequence(const QKeySequence& seq)
         else
             keys[i] = seq[i];
     }
-
+#else
+    QKeyCombination keys[4] = { Qt::Key_unknown, Qt::Key_unknown, Qt::Key_unknown, Qt::Key_unknown};
+    for (int i = 0; i < (int)seq.count() && i < 4; i++)
+    {
+        if ((seq[i].toCombined() & Qt::ControlModifier) != 0)
+            keys[i].fromCombined(seq[i].toCombined() & (~Qt::ControlModifier));
+        else
+            keys[i] = seq[i];
+    }
+#endif
     return QKeySequence(keys[0], keys[1], keys[2], keys[3]);
 }
 
@@ -1298,10 +1308,10 @@ void VCWidget::mousePressEvent(QMouseEvent* e)
     }
 
     /* Move, resize or context menu invocation */
-    if (e->button() & Qt::LeftButton || e->button() & Qt::MidButton)
+    if (e->button() & Qt::LeftButton || e->button() & Qt::MiddleButton)
     {
         /* Start moving or resizing based on where the click landed */
-        if (e->x() > rect().width() - 10 && e->y() > rect().height() - 10 && allowResize())
+        if (e->pos().x() > rect().width() - 10 && e->pos().y() > rect().height() - 10 && allowResize())
         {
             m_resizeMode = true;
             setMouseTracking(true);
@@ -1309,14 +1319,14 @@ void VCWidget::mousePressEvent(QMouseEvent* e)
         }
         else
         {
-            m_mousePressPoint = QPoint(e->x(), e->y());
+            m_mousePressPoint = QPoint(e->pos().x(), e->pos().y());
             setCursor(QCursor(Qt::SizeAllCursor));
         }
     }
     else if (e->button() & Qt::RightButton)
     {
         /* Menu invocation */
-        m_mousePressPoint = QPoint(e->x(), e->y());
+        m_mousePressPoint = QPoint(e->pos().x(), e->pos().y());
         invokeMenu(mapToGlobal(e->pos()));
     }
 }
@@ -1390,7 +1400,7 @@ void VCWidget::mouseMoveEvent(QMouseEvent* e)
             resize(QSize(p.x() - x(), p.y() - y()));
             m_doc->setModified();
         }
-        else if (e->buttons() & Qt::LeftButton || e->buttons() & Qt::MidButton)
+        else if (e->buttons() & Qt::LeftButton || e->buttons() & Qt::MiddleButton)
         {
             QPoint p = mapToParent(e->pos());
             p.setX(p.x() - m_mousePressPoint.x());
@@ -1405,4 +1415,3 @@ void VCWidget::mouseMoveEvent(QMouseEvent* e)
         QWidget::mouseMoveEvent(e);
     }
 }
-

@@ -93,6 +93,10 @@ defineReplace(qt5LibTargetID) {
 include(libusb-nametool.pri)
 include(libsndfile-nametool.pri)
 
+LIBFTDI1_FILE = libftdi1.2.dylib
+LIBFFTW_FILE = libfftw3.3.dylib
+LIBMAD_FILE = libmad.0.dylib
+
 !qmlui: {
  INSTALLS += $$libraryTargetID(LIBQLCUI, libqlcplusui.1.dylib)
  INSTALLS += $$libraryTargetID(LIBQLCWEBACCESS, libqlcpluswebaccess.1.dylib)
@@ -100,38 +104,36 @@ include(libsndfile-nametool.pri)
 
 INSTALLS += $$libraryTargetID(LIBQLCENGINE, libqlcplusengine.1.dylib)
 INSTALLS += LIBUSB LIBUSB_ID
-INSTALLS += $$systemLibTarget(LIBFTDI, libftdi.1.dylib, libftdi) $$libraryTargetID(LIBFTDI, libftdi.1.dylib)
-INSTALLS += $$systemLibTarget(LIBMAD, libmad.0.dylib, mad) $$libraryTargetID(LIBMAD, libmad.0.dylib)
+INSTALLS += $$systemLibTarget(LIBFTDI, $$LIBFTDI1_FILE, libftdi1) $$libraryTargetID(LIBFTDI, $$LIBFTDI1_FILE)
+INSTALLS += $$systemLibTarget(LIBMAD, $$LIBMAD_FILE, mad) $$libraryTargetID(LIBMAD, $$LIBMAD_FILE)
 INSTALLS += LIBSNDFILE LIBSNDFILE_ID
-INSTALLS += $$systemLibTarget(LIBFFTW, libfftw3.3.dylib, fftw3) $$libraryTargetID(LIBFFTW, libfftw3.3.dylib)
+INSTALLS += $$systemLibTarget(LIBFFTW, $$LIBFFTW_FILE, fftw3) $$libraryTargetID(LIBFFTW, $$LIBFFTW_FILE)
 
 INSTALLS += $$qt5LibTarget(LIBQTCORE, QtCore) $$qt5LibTargetID(LIBQTCORE, QtCore)
-INSTALLS += $$qt5LibTarget(LIBQTGUI, QtGui) 
+INSTALLS += $$qt5LibTarget(LIBQTGUI, QtGui)
 QTMENU.files += $$(QTDIR)/lib/$$LIBQTGUI_DIR/Resources/*
 QTMENU.path = $$INSTALLROOT/$$DATADIR
 INSTALLS += QTMENU
 INSTALLS += $$qt5LibTargetID(LIBQTGUI, QtGui)
 INSTALLS += $$qt5LibTarget(LIBQTNETWORK, QtNetwork) $$qt5LibTargetID(LIBQTNETWORK, QtNetwork)
-INSTALLS += $$qt5LibTarget(LIBQTSCRIPT, QtScript) $$qt5LibTargetID(LIBQTSCRIPT, QtScript)
+!qmlui: INSTALLS += $$qt5LibTarget(LIBQTSCRIPT, QtScript) $$qt5LibTargetID(LIBQTSCRIPT, QtScript)
 
-greaterThan(QT_MAJOR_VERSION, 4) {
-  INSTALLS += $$qt5LibTarget(LIBQTWIDGETS, QtWidgets) $$qt5LibTargetID(LIBQTWIDGETS, QtWidgets)
-  INSTALLS += $$qt5LibTarget(LIBQTOPENGL, QtOpenGL) $$qt5LibTargetID(LIBQTOPENGL, QtOpenGL)
-  INSTALLS += $$qt5LibTarget(LIBQTMULTIMEDIA, QtMultimedia) $$qt5LibTargetID(LIBQTMULTIMEDIA, QtMultimedia)
-  INSTALLS += $$qt5LibTarget(LIBQTMULTIMEDIAWIDGETS, QtMultimediaWidgets) $$qt5LibTargetID(LIBQTMULTIMEDIAWIDGETS, QtMultimediaWidgets)
-  INSTALLS += $$qt5LibTarget(LIBQTPRINTSUPPORT, QtPrintSupport) $$qt5LibTargetID(LIBQTPRINTSUPPORT, QtPrintSupport)
-  INSTALLS += $$qt5LibTarget(LIBQTSERIALPORT, QtSerialPort) $$qt5LibTargetID(LIBQTSERIALPORT, QtSerialPort)
-  greaterThan(QT_MINOR_VERSION, 4) {
-    INSTALLS += $$qt5LibTarget(LIBQTDBUS, QtDBus) $$qt5LibTargetID(LIBQTDBUS, QtDBus)
-  }
-}
+INSTALLS += $$qt5LibTarget(LIBQTWIDGETS, QtWidgets) $$qt5LibTargetID(LIBQTWIDGETS, QtWidgets)
+INSTALLS += $$qt5LibTarget(LIBQTSVG, QtSvg) $$qt5LibTargetID(LIBQTSVG, QtSvg)
+INSTALLS += $$qt5LibTarget(LIBQTOPENGL, QtOpenGL) $$qt5LibTargetID(LIBQTOPENGL, QtOpenGL)
+INSTALLS += $$qt5LibTarget(LIBQTMULTIMEDIA, QtMultimedia) $$qt5LibTargetID(LIBQTMULTIMEDIA, QtMultimedia)
+INSTALLS += $$qt5LibTarget(LIBQTMULTIMEDIAWIDGETS, QtMultimediaWidgets) $$qt5LibTargetID(LIBQTMULTIMEDIAWIDGETS, QtMultimediaWidgets)
+INSTALLS += $$qt5LibTarget(LIBQTPRINTSUPPORT, QtPrintSupport) $$qt5LibTargetID(LIBQTPRINTSUPPORT, QtPrintSupport)
+INSTALLS += $$qt5LibTarget(LIBQTSERIALPORT, QtSerialPort) $$qt5LibTargetID(LIBQTSERIALPORT, QtSerialPort)
+INSTALLS += $$qt5LibTarget(LIBQTDBUS, QtDBus) $$qt5LibTargetID(LIBQTDBUS, QtDBus)
 
 qmlui: {
   INSTALLS += $$qt5LibTarget(LIBQTQML, QtQml) $$qt5LibTargetID(LIBQTQML, QtQml)
+  INSTALLS += $$qt5LibTarget(LIBQTQMLMODELS, QtQmlModels) $$qt5LibTargetID(LIBQTQMLMODELS, QtQmlModels)
+  INSTALLS += $$qt5LibTarget(LIBQTQMLWORKERSCRIPTS, QtQmlWorkerScript) $$qt5LibTargetID(LIBQTQMLWORKERSCRIPTS, QtQmlWorkerScript)
   INSTALLS += $$qt5LibTarget(LIBQTQUICK, QtQuick) $$qt5LibTargetID(LIBQTQUICK, QtQuick)
   INSTALLS += $$qt5LibTarget(LIBQTQUICKCONTROLS2, QtQuickControls2) $$qt5LibTargetID(LIBQTQUICKCONTROLS2, QtQuickControls2)
   INSTALLS += $$qt5LibTarget(LIBQTQUICKTEMPLATES2, QtQuickTemplates2) $$qt5LibTargetID(LIBQTQUICKTEMPLATES2, QtQuickTemplates2)
-  INSTALLS += $$qt5LibTarget(LIBQTSVG, QtSvg) $$qt5LibTargetID(LIBQTSVG, QtSvg)
   INSTALLS += $$qt5LibTarget(LIBQTCONCURRENT, QtConcurrent) $$qt5LibTargetID(LIBQTCONCURRENT, QtConcurrent)
   INSTALLS += $$qt5LibTarget(LIBQTGAMEPAD, QtGamepad) $$qt5LibTargetID(LIBQTGAMEPAD, QtGamepad)
   INSTALLS += $$qt5LibTarget(LIBQT3DCORE, Qt3DCore) $$qt5LibTargetID(LIBQT3DCORE, Qt3DCore)
@@ -159,18 +161,14 @@ qtnametool.commands = $$LIBQTCORE_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQTGUI_DIR/$$LIBQTGUI_FILE
 qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQTNETWORK_DIR/$$LIBQTNETWORK_FILE
-qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
-    $$INSTALLROOT/$$LIBSDIR/$$LIBQTSCRIPT_DIR/$$LIBQTSCRIPT_FILE
+!qmlui: {
+  qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
+      $$INSTALLROOT/$$LIBSDIR/$$LIBQTSCRIPT_DIR/$$LIBQTSCRIPT_FILE
+}
 
-# Libftdi depends on libusb0.1 & 1.0
-qtnametool.commands += && $$LIBUSB0_INSTALL_NAME_TOOL \
-    $$INSTALLROOT/$$LIBSDIR/$$LIBFTDI_FILE
+# Libftdi1 depends on libusb1.0
 qtnametool.commands += && $$LIBUSB1_INSTALL_NAME_TOOL \
-    $$INSTALLROOT/$$LIBSDIR/$$LIBFTDI_FILE
-
-# Libusb0.1 depends on libusb1.0
-qtnametool.commands += && $$LIBUSB1_INSTALL_NAME_TOOL \
-    $$INSTALLROOT/$$LIBSDIR/$$LIBUSB0_FILE
+    $$INSTALLROOT/$$LIBSDIR/$$LIBFTDI1_FILE
 
 # libqlcplusengine depends on libmad, libsndfile, libportaudio and libfftw3
 qtnametool.commands += && $$LIBMAD_INSTALL_NAME_TOOL \
@@ -191,18 +189,18 @@ lessThan(QT_MAJOR_VERSION, 5) {
 } else {
     qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
-!qmlui: {
-    qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQLCUI_FILE
-    qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQLCWEBACCESS_FILE
-}
+    !qmlui: {
+        qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
+            $$INSTALLROOT/$$LIBSDIR/$$LIBQLCUI_FILE
+        qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
+            $$INSTALLROOT/$$LIBSDIR/$$LIBQLCWEBACCESS_FILE
+    }
 }
 
 qtnametool.commands += && $$LIBFFTW_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
 
-# libsndfile depends on flac, libvorbis, libvorbisenc and libogg
+# libsndfile depends on flac, libvorbis, libvorbisenc, libopus and libogg
 qtnametool.commands += && $$LIBOGG_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBSNDFILE_FILE
 qtnametool.commands += && $$LIBFLAC_INSTALL_NAME_TOOL \
@@ -210,6 +208,8 @@ qtnametool.commands += && $$LIBFLAC_INSTALL_NAME_TOOL \
 qtnametool.commands += && $$LIBVORBIS_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBSNDFILE_FILE
 qtnametool.commands += && $$LIBVORBISENC_INSTALL_NAME_TOOL \
+    $$INSTALLROOT/$$LIBSDIR/$$LIBSNDFILE_FILE
+qtnametool.commands += && $$LIBOPUS_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBSNDFILE_FILE
 
 # libFLAC depends on libogg
@@ -226,29 +226,34 @@ qtnametool.commands += && $$LIBVORBIS_INSTALL_NAME_TOOL \
 qtnametool.commands += && $$LIBOGG_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBVORBISENC_FILE
 
-# These never had any difference anyway...
-# include(imageformats-nametool.pri)
-# INSTALLS += imageformats
+include(platformplugins-nametool.pri)
+include(imageformats-nametool.pri)
+include(audioplugins-nametool.pri)
+include(mediaservice-nametool.pri)
+include(styles-nametool.pri)
 
-greaterThan(QT_MAJOR_VERSION, 4) {
-    include(platformplugins-nametool.pri)
-    include(audioplugins-nametool.pri)
-    include(mediaservice-nametool.pri)
-
-    INSTALLS += platformplugins
-    INSTALLS += audioplugins
-    INSTALLS += mediaservice
+INSTALLS += platformplugins
+INSTALLS += imageformats
+INSTALLS += audioplugins
+INSTALLS += mediaservice
+INSTALLS += styles
 
 qmlui: {
-    include(imageformats-nametool.pri)
     include(printsupport-nametool.pri)
     include(geometryloaders-nametool.pri)
-    include(sceneparsers-nametool.pri)
-    
-    INSTALLS += imageformats
+    include(renderers-nametool.pri)
+
     INSTALLS += printsupport
     INSTALLS += geometryloaders
+    INSTALLS += renderers
+
+    include(sceneparsers-nametool.pri)
     INSTALLS += sceneparsers
+
+    greaterThan(QT_MINOR_VERSION, 14) {
+        include(assetimporters-nametool.pri)
+        INSTALLS += assetimporters
+    }
 
 # QML components
     qmlqtdeps.path   = $$INSTALLROOT/qml/Qt/labs
@@ -278,20 +283,19 @@ qmlui: {
     INSTALLS  += qmlpostinstall
 }
 
-    qtconf.path   = $$INSTALLROOT/Resources
-    qtconf.files += qt.conf
-    INSTALLS      += qtconf
-}
+qtconf.path   = $$INSTALLROOT/Resources
+qtconf.files += qt.conf
+INSTALLS      += qtconf
 
 icons.path   = $$INSTALLROOT/$$DATADIR
 icons.files += ../../resources/icons/qlcplus.icns
 
 qmlui: {
     plist.path   = $$INSTALLROOT
-    plist.commands = cp Info.plist.qmlui $$INSTALLROOT/Info.plist
+    plist.commands = sed \'s/__QLC_VERSION__/$$APPVERSION/g\' Info.plist.qmlui > $$INSTALLROOT/Info.plist
 } else {
     plist.path   = $$INSTALLROOT
-    plist.files += Info.plist
+    plist.commands = sed \'s/__QLC_VERSION__/$$APPVERSION/g\' Info.plist > $$INSTALLROOT/Info.plist
 }
 INSTALLS    += icons plist
 

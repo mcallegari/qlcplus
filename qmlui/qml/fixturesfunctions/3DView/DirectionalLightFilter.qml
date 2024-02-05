@@ -20,21 +20,22 @@
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0
 
-import QtQuick 2.0    
+import QtQuick 2.0
 
 TechniqueFilter
 {
     property GBuffer gBuffer
     property Layer screenQuadLayer
     property real ambientIntensity: View3D.ambientIntensity
-
     property FrameTarget frameTarget
 
     parameters: [
         Parameter { name: "albedoTex"; value: gBuffer.color },
         Parameter { name: "normalTex"; value: gBuffer.normal },
+        Parameter { name: "specularTex"; value: gBuffer.specular },
+        Parameter { name: "depthTex"; value: gBuffer.depth },
         Parameter { name: "ambient"; value: ambientIntensity }
-    ]     
+    ]
 
     RenderStateSet
     {
@@ -49,11 +50,8 @@ TechniqueFilter
         ]
         LayerFilter
         {
+            layers: screenQuadLayer
 
-
-            //id: screenQuadLayerFilter
-            layers: screenQuadLayer   
-            
             RenderTargetSelector {
                 target: frameTarget
                 ClearBuffers
@@ -65,6 +63,6 @@ TechniqueFilter
                     }
                 }
             }
-        }     
+        }
     }
 } // TechniqueFilter

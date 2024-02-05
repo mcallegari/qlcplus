@@ -27,16 +27,25 @@ unix:!macx:QMAKE_DISTCLEAN += $$DEBIAN_CLEAN
 # Unit testing thru "make check"
 unittests.target = check
 QMAKE_EXTRA_TARGETS += unittests
-unix:unittests.commands += ./unittest.sh
-win32:unittests.commands += unittest.bat
+qmlui: {
+  unix:unittests.commands += ./unittest.sh "qmlui"
+  win32:unittests.commands += unittest.bat "qmlui"
+} else {
+  unix:unittests.commands += ./unittest.sh "ui"
+  win32:unittests.commands += unittest.bat "ui"
+}
 
 # Unit test coverage measurement
 coverage.target = lcov
 QMAKE_EXTRA_TARGETS += coverage
-unix:coverage.commands += ./coverage.sh
+qmlui: {
+unix:coverage.commands += ./coverage.sh "qmlui"
+} else {
+unix:coverage.commands += ./coverage.sh "ui"
+}
 win32:coverage.commands = @echo Get a better OS.
 
-# Translations (update these also in translate.sh)
+# Translations
 translations.target = translate
 QMAKE_EXTRA_TARGETS += translations
 qmlui: {
@@ -44,15 +53,36 @@ qmlui: {
 } else {
   translations.commands += ./translate.sh "ui"
 }
-translations.files = ./qlcplus_de_DE.qm ./qlcplus_es_ES.qm ./qlcplus_fr_FR.qm
-translations.files += ./qlcplus_it_IT.qm ./qlcplus_nl_NL.qm ./qlcplus_cz_CZ.qm
-translations.files += ./qlcplus_pt_BR.qm ./qlcplus_ca_ES.qm ./qlcplus_ja_JP.qm
+translations.files = *.qm
 appimage: {
   translations.path   = $$TARGET_DIR/$$INSTALLROOT/$$TRANSLATIONDIR
 } else {
   translations.path   = $$INSTALLROOT/$$TRANSLATIONDIR
 }
 INSTALLS           += translations
+QMAKE_DISTCLEAN += $$translations.files
+
+# run
+run.target = run
+QMAKE_EXTRA_TARGETS += run
+qmlui: {
+unix:run.commands += LD_LIBRARY_PATH=engine/src:\$\$LD_LIBRARY_PATH qmlui/qlcplus-qml
+} else {
+unix:run.commands += LD_LIBRARY_PATH=engine/src:ui/src:webaccess/src:\$\$LD_LIBRARY_PATH main/qlcplus
+}
+
+# run-fxe
+run-fxe.target = run-fxe
+QMAKE_EXTRA_TARGETS += run-fxe
+qmlui: {
+} else {
+unix:run-fxe.commands += LD_LIBRARY_PATH=engine/src:ui/src:webaccess/src:\$\$LD_LIBRARY_PATH ./fixtureeditor/qlcplus-fixtureeditor
+}
+
+# doxygen
+doxygen.target = doxygen
+QMAKE_EXTRA_TARGETS += doxygen
+unix:doxygen.commands += cd resources/doxygen && rm -rf html/ && doxygen qlcplus.dox
 
 # Leave this on the last row of this file
 SUBDIRS += platforms

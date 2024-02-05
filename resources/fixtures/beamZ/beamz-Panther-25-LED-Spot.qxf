@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2 GIT</Version>
+  <Author>David Ellis</Author>
+ </Creator>
+ <Manufacturer>beamZ</Manufacturer>
+ <Model>Panther 25 LED Spot</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">White</Capability>
+  <Capability Min="11" Max="21">Red</Capability>
+  <Capability Min="22" Max="32">Orange</Capability>
+  <Capability Min="33" Max="43">Yellow</Capability>
+  <Capability Min="44" Max="54">Green</Capability>
+  <Capability Min="55" Max="65">Blue</Capability>
+  <Capability Min="66" Max="76">Cyan</Capability>
+  <Capability Min="77" Max="87">Purple</Capability>
+  <Capability Min="88" Max="175">Colour selection 6+</Capability>
+  <Capability Min="176" Max="255">Colour wheel rotation</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="124">Gobo selection</Capability>
+  <Capability Min="125" Max="249">Gobo shaking</Capability>
+  <Capability Min="250" Max="255">Gobo wheel rotation</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
+ </Channel>
+ <Channel Name="Scene and Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="49">No function</Capability>
+  <Capability Min="50" Max="59">White</Capability>
+  <Capability Min="60" Max="69">Scene 2 (empty)</Capability>
+  <Capability Min="70" Max="79">Scene 3 (empty)</Capability>
+  <Capability Min="80" Max="89">Scene 4 (empty)</Capability>
+  <Capability Min="90" Max="99">Scene 5 (empty)</Capability>
+  <Capability Min="100" Max="109">Scene 6 (empty)</Capability>
+  <Capability Min="110" Max="119">Scene 7 (empty)</Capability>
+  <Capability Min="120" Max="129">Scene 8 (empty)</Capability>
+  <Capability Min="130" Max="139">Scene 9 (empty)</Capability>
+  <Capability Min="140" Max="149">Program 1</Capability>
+  <Capability Min="150" Max="159">Program 2</Capability>
+  <Capability Min="160" Max="169">Program 3</Capability>
+  <Capability Min="170" Max="179">Program 4</Capability>
+  <Capability Min="180" Max="189">Program 5</Capability>
+  <Capability Min="190" Max="199">Program 6</Capability>
+  <Capability Min="200" Max="209">Program 7</Capability>
+  <Capability Min="210" Max="219">Program 8 (empty)</Capability>
+  <Capability Min="220" Max="229">Program 9 (empty)</Capability>
+  <Capability Min="230" Max="239">(Empty)</Capability>
+  <Capability Min="240" Max="249">(Empty)</Capability>
+  <Capability Min="250" Max="255">Sound mode</Capability>
+ </Channel>
+ <Channel Name="Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed slow to fast</Capability>
+ </Channel>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Speed</Channel>
+  <Channel Number="3">Colour</Channel>
+  <Channel Number="4">Dimmer</Channel>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan fine</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Speed</Channel>
+  <Channel Number="5">Colour</Channel>
+  <Channel Number="6">Gobo</Channel>
+  <Channel Number="7">Dimmer</Channel>
+  <Channel Number="8">Strobe</Channel>
+ </Mode>
+ <Mode Name="11 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan fine</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Speed</Channel>
+  <Channel Number="5">Colour</Channel>
+  <Channel Number="6">Gobo</Channel>
+  <Channel Number="7">Dimmer</Channel>
+  <Channel Number="8">Strobe</Channel>
+  <Channel Number="9">Scene and Programs</Channel>
+  <Channel Number="10">Program Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.8" Width="160" Height="240" Depth="148"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="230"/>
+  <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

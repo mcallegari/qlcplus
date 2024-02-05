@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Flo Edelmann</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
@@ -16,41 +16,41 @@
  <Channel Name="Pan / Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="15" Color="#ffffff">White</Capability>
-  <Capability Min="16" Max="31" Color="#bd1007">Red</Capability>
-  <Capability Min="32" Max="47" Color="#00ff01">Green</Capability>
-  <Capability Min="48" Max="63" Color="#0d3fd6">Blue</Capability>
-  <Capability Min="64" Max="79" Color="#fefe01">Yellow</Capability>
-  <Capability Min="80" Max="95" Color="#dd127b">Magenta</Capability>
-  <Capability Min="96" Max="111" Color="#0099ff">Cyan</Capability>
-  <Capability Min="112" Max="127" Color="#ff6600">Orange</Capability>
-  <Capability Min="128" Max="255" Res="Others/rainbow.png">Color rotation slow - fast</Capability>
+  <Capability Min="0" Max="15" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="16" Max="31" Preset="ColorMacro" Res1="#bd1007">Red</Capability>
+  <Capability Min="32" Max="47" Preset="ColorMacro" Res1="#00ff01">Green</Capability>
+  <Capability Min="48" Max="63" Preset="ColorMacro" Res1="#0d3fd6">Blue</Capability>
+  <Capability Min="64" Max="79" Preset="ColorMacro" Res1="#fefe01">Yellow</Capability>
+  <Capability Min="80" Max="95" Preset="ColorMacro" Res1="#dd127b">Magenta</Capability>
+  <Capability Min="96" Max="111" Preset="ColorMacro" Res1="#0099ff">Cyan</Capability>
+  <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#ff6600">Orange</Capability>
+  <Capability Min="128" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Color rotation slow - fast</Capability>
  </Channel>
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="7" Res="Others/open.svg">Off</Capability>
-  <Capability Min="8" Max="15" Res="Robe/gobo00011.svg">Gobo 1</Capability>
-  <Capability Min="16" Max="23" Res="SGM/gobo00028.png">Gobo 2</Capability>
-  <Capability Min="24" Max="31" Res="GLP/gobo00009.png">Gobo 3</Capability>
-  <Capability Min="32" Max="39" Res="Robe/gobo00013.svg">Gobo 4</Capability>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Off</Capability>
+  <Capability Min="8" Max="15" Preset="GoboMacro" Res1="Robe/gobo00011.svg">Gobo 1</Capability>
+  <Capability Min="16" Max="23" Preset="GoboMacro" Res1="SGM/gobo00028.png">Gobo 2</Capability>
+  <Capability Min="24" Max="31" Preset="GoboMacro" Res1="GLP/gobo00009.png">Gobo 3</Capability>
+  <Capability Min="32" Max="39" Preset="GoboMacro" Res1="Robe/gobo00013.svg">Gobo 4</Capability>
   <Capability Min="40" Max="47">Gobo 5</Capability>
-  <Capability Min="48" Max="55" Res="SGM/gobo00008.svg">Gobo 6</Capability>
-  <Capability Min="56" Max="63" Res="GLP/gobo00002.png">Gobo 7</Capability>
+  <Capability Min="48" Max="55" Preset="GoboMacro" Res1="SGM/gobo00008.svg">Gobo 6</Capability>
+  <Capability Min="56" Max="63" Preset="GoboMacro" Res1="GLP/gobo00002.svg">Gobo 7</Capability>
   <Capability Min="64" Max="127">Gobo rotation slow - fast</Capability>
   <Capability Min="128" Max="143">No function</Capability>
-  <Capability Min="144" Max="159" Res="Robe/gobo00011.svg">Gobo 1 shake slow - fast</Capability>
-  <Capability Min="160" Max="175" Res="SGM/gobo00028.png">Gobo 2 shake slow - fast</Capability>
-  <Capability Min="176" Max="191" Res="GLP/gobo00009.png">Gobo 3 shake slow - fast</Capability>
-  <Capability Min="192" Max="207" Res="Robe/gobo00013.svg">Gobo 4 shake slow - fast</Capability>
+  <Capability Min="144" Max="159" Preset="GoboShakeMacro" Res1="Robe/gobo00011.svg">Gobo 1 shake slow - fast</Capability>
+  <Capability Min="160" Max="175" Preset="GoboShakeMacro" Res1="SGM/gobo00028.png">Gobo 2 shake slow - fast</Capability>
+  <Capability Min="176" Max="191" Preset="GoboShakeMacro" Res1="GLP/gobo00009.png">Gobo 3 shake slow - fast</Capability>
+  <Capability Min="192" Max="207" Preset="GoboShakeMacro" Res1="Robe/gobo00013.svg">Gobo 4 shake slow - fast</Capability>
   <Capability Min="208" Max="223">Gobo 5 shake slow - fast</Capability>
-  <Capability Min="224" Max="239" Res="SGM/gobo00008.svg">Gobo 6 shake slow - fast</Capability>
-  <Capability Min="240" Max="255" Res="GLP/gobo00002.png">Gobo 7 shake slow - fast</Capability>
+  <Capability Min="224" Max="239" Preset="GoboShakeMacro" Res1="SGM/gobo00008.svg">Gobo 6 shake slow - fast</Capability>
+  <Capability Min="240" Max="255" Preset="GoboShakeMacro" Res1="GLP/gobo00002.svg">Gobo 7 shake slow - fast</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe / Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7">Off</Capability>
-  <Capability Min="8" Max="127">Strobe 0 - 20Hz</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Off</Capability>
+  <Capability Min="8" Max="127" Preset="StrobeFreqRange" Res1="0" Res2="20">Strobe 0 - 20Hz</Capability>
   <Capability Min="128" Max="255">Random strobe 0 - 20Hz</Capability>
  </Channel>
  <Channel Name="Functions">
@@ -82,11 +82,11 @@
   <Channel Number="8">Strobe / Shutter</Channel>
   <Channel Number="9">Functions</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="60W White LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="2.9" Width="167" Height="270" Depth="145"/>
-   <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
-   <Focus Type="Head" PanMax="540" TiltMax="230"/>
-   <Technical PowerConsumption="85" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="60W White LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.9" Width="167" Height="270" Depth="145"/>
+  <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
+  <Focus Type="Head" PanMax="540" TiltMax="230"/>
+  <Technical PowerConsumption="85" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

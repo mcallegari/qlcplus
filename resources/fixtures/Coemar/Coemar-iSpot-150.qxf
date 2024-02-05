@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4 GIT</Version>
+  <Author>Ray Console - cd</Author>
+ </Creator>
+ <Manufacturer>Coemar</Manufacturer>
+ <Model>iSpot 150</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Base (pan) coarse" Preset="PositionPan"/>
+ <Channel Name="Base (pan) fine" Preset="PositionPanFine"/>
+ <Channel Name="Yoke (tilt) coarse" Preset="PositionTilt"/>
+ <Channel Name="Yoke (tilt) fine" Preset="PositionTiltFine"/>
+ <Channel Name="Movement Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">Standard (fast)</Capability>
+  <Capability Min="11" Max="25">Ultra fast movement (best programming position)</Capability>
+  <Capability Min="26" Max="127">Vector mode from fast to slow</Capability>
+  <Capability Min="128" Max="247">Tracking mode (fast to slow)</Capability>
+  <Capability Min="248" Max="255">Tracking mode (slow)</Capability>
+ </Channel>
+ <Channel Name="Shutter, Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="10" Max="127" Preset="StrobeSlowToFast">Synchro strobe-effect from slow to fast</Capability>
+  <Capability Min="128" Max="130" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="131" Max="248" Preset="StrobeRandomSlowToFast">Random strobe-effect from slow to fast</Capability>
+  <Capability Min="249" Max="255" Preset="ShutterOpen">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="Rotating gobos, selection">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="10" Preset="GoboMacro" Res1="">Open</Capability>
+  <Capability Min="11" Max="30" Preset="GoboMacro" Res1="">Rot. gobo 1</Capability>
+  <Capability Min="31" Max="50" Preset="GoboMacro" Res1="">Rot. gobo 2</Capability>
+  <Capability Min="51" Max="70" Preset="GoboMacro" Res1="">Rot. gobo 3</Capability>
+  <Capability Min="71" Max="90" Preset="GoboMacro" Res1="">Rot. gobo 4</Capability>
+  <Capability Min="91" Max="110" Preset="GoboMacro" Res1="">Rot. gobo 5</Capability>
+  <Capability Min="111" Max="127" Preset="GoboMacro" Res1="">Rot. gobo 6</Capability>
+  <Capability Min="128" Max="192" Preset="RotationIndexed">From no gobo to gobo 6, 360° gobo positioning</Capability>
+  <Capability Min="193" Max="255" Preset="RotationClockwiseSlowToFast">Gobo wheel rotation from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Gobo 360° positiong">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="10" Preset="RotationStop">no effect</Capability>
+  <Capability Min="11" Max="255" Preset="RotationIndexed">proportional indexable gobo positioning 360°</Capability>
+ </Channel>
+ <Channel Name="Gobo rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="10">No effect</Capability>
+  <Capability Min="11" Max="131" Preset="RotationClockwiseSlowToFast">continuous gobo rotation clockwise with proportional speed from fast to slow</Capability>
+  <Capability Min="132" Max="134" Preset="RotationStop">Gobo stop</Capability>
+  <Capability Min="135" Max="255" Preset="RotationCounterClockwiseSlowToFast">continuous gobo rotation counter-clockwise with proportional speed from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Colours">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5" Preset="ColorMacro" Res1="#ffffff">Open/white</Capability>
+  <Capability Min="6" Max="13">Colour 1</Capability>
+  <Capability Min="14" Max="20">Colour 2</Capability>
+  <Capability Min="21" Max="27">Colour 3</Capability>
+  <Capability Min="28" Max="34">Colour 4</Capability>
+  <Capability Min="35" Max="41">Colour 5</Capability>
+  <Capability Min="42" Max="48">Colour 6</Capability>
+  <Capability Min="49" Max="59">Colour 7</Capability>
+  <Capability Min="60" Max="127" Preset="RotationIndexed">From white to colour 7, 360° color positioning</Capability>
+  <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Forwards rainbow effect from fast to slow</Capability>
+  <Capability Min="191" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backwards rainbow effect from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Gobo shake and black-out effect">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9">No effect</Capability>
+  <Capability Min="10" Max="249" Preset="SlowToFast">Gobo shake slow to fast 3 different amplitudes</Capability>
+  <Capability Min="250" Max="255">Black-out while PAN, TILT moving, color or gobo changing</Capability>
+ </Channel>
+ <Channel Name="Lamp ON, motor reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="19" Preset="LampOff">Lamp off</Capability>
+  <Capability Min="20" Max="100">No effects (idle)</Capability>
+  <Capability Min="101" Max="170" Preset="ResetEffects">Effects reset (once only), pan/tilt does not move</Capability>
+  <Capability Min="171" Max="200" Preset="ResetMotors">All motors reset (once only)</Capability>
+  <Capability Min="201" Max="240" Preset="SilentModeOn">silent fans (if external temperature allows)</Capability>
+  <Capability Min="241" Max="255" Preset="LampOn">Lamp ON</Capability>
+ </Channel>
+ <Mode Name="13 Channel">
+  <Channel Number="0">Base (pan) coarse</Channel>
+  <Channel Number="1">Base (pan) fine</Channel>
+  <Channel Number="2">Yoke (tilt) coarse</Channel>
+  <Channel Number="3">Yoke (tilt) fine</Channel>
+  <Channel Number="4">Movement Speed</Channel>
+  <Channel Number="5">Shutter, Strobe</Channel>
+  <Channel Number="6">Focus</Channel>
+  <Channel Number="7">Rotating gobos, selection</Channel>
+  <Channel Number="8" ActsOn="7">Gobo 360° positiong</Channel>
+  <Channel Number="9" ActsOn="7">Gobo rotation</Channel>
+  <Channel Number="10">Colours</Channel>
+  <Channel Number="11" ActsOn="7">Gobo shake and black-out effect</Channel>
+  <Channel Number="12">Lamp ON, motor reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="12900" ColourTemperature="4200"/>
+  <Dimensions Weight="17.5" Width="350" Height="470" Depth="335"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="538" TiltMax="252"/>
+  <Technical PowerConsumption="150" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

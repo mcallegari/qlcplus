@@ -1,23 +1,20 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.6.0</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Clem</Author>
  </Creator>
  <Manufacturer>Ledj</Manufacturer>
  <Model>Colour Storm Quad</Model>
- <Type>Other</Type>
+ <Type>LED Bar (Beams)</Type>
  <Channel Name="16 red" Preset="IntensityRed"/>
  <Channel Name="16 green" Preset="IntensityGreen"/>
  <Channel Name="16 blue" Preset="IntensityBlue"/>
  <Channel Name="16 white" Preset="IntensityWhite"/>
  <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
- <Channel Name="Strobe">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Strobe speed</Capability>
- </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Program select">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="15">No program</Capability>
@@ -751,11 +748,12 @@
    <Channel>66</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1066" Height="89" Weight="7.3" Depth="165"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="196" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.3" Width="1066" Height="89" Depth="165"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="16" Height="1"/>
+  <Technical PowerConsumption="196" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
 </FixtureDefinition>

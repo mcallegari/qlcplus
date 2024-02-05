@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>George Qualley IV</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -51,8 +51,8 @@
  <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobing/Program Speed">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="15">Off</Capability>
-  <Capability Min="16" Max="255">Slow -&gt; Fast</Capability>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">Off</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeSlowToFast">Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Programs">
   <Group Byte="0">Colour</Group>
@@ -104,11 +104,11 @@
   <Channel Number="5">Programs</Channel>
   <Channel Number="6">Master Dimmer</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.53" Width="560" Height="102" Depth="63"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="18" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.53" Width="560" Height="102" Depth="63"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="18" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

@@ -22,6 +22,11 @@
 
 #include <QByteArray>
 #include <QThread>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+    #include <QRecursiveMutex>
+#else
+    #include <QMutex>
+#endif
 
 #include "dmxusbwidget.h"
 
@@ -37,6 +42,14 @@
 #define ENTTEC_PRO_MIDI_OUT_MSG  char(0xBE)
 #define ENTTEC_PRO_MIDI_IN_MSG   0xE8
 
+// RDM defines
+#define ENTTEC_PRO_RDM_SEND             char(0x07)
+#define ENTTEC_PRO_RDM_DISCOVERY_REQ    char(0x0B)
+#define ENTTEC_PRO_RDM_RECV_TIMEOUT     char(0x0C)
+#define ENTTEC_PRO_RDM_RECV_TIMEOUT2    char(0x8E)
+#define ENTTEC_PRO_RDM_SEND2            char(0x9D)
+#define ENTTEC_PRO_RDM_DISCOVERY_REQ2   char(0xB6)
+
 #define DMXKING_ESTA_ID          0x6A6B
 #define ULTRADMX_DMX512A_DEV_ID  0x00
 #define ULTRADMX_PRO_DEV_ID      0x02
@@ -44,8 +57,36 @@
 
 #define DMXKING_USB_DEVICE_MANUFACTURER 0x4D
 #define DMXKING_USB_DEVICE_NAME         0x4E
+#define DMXKING_DMX_PORT_COUNT          0x62
 #define DMXKING_SEND_DMX_PORT1          char(0x64)
 #define DMXKING_SEND_DMX_PORT2          char(0x65)
+
+#define MAX_READ_RETRY_NUM       5
+
+class RDMProtocol;
+
+class EnttecDMXUSBProInput : public QThread
+{
+    Q_OBJECT
+
+public:
+    EnttecDMXUSBProInput(DMXInterface *iface);
+    ~EnttecDMXUSBProInput();
+
+private:
+    void run();
+
+    /** Stop this thread */
+    void stopInputThread();
+
+signals:
+    /** Inform the listeners that some data is ready */
+    void dataReady(QByteArray data, bool isMidi);
+
+private:
+    DMXInterface *m_interface;
+    bool m_running;
+};
 
 /**
  * This is the base interface class for ENTTEC USB DMX Pro widgets.
@@ -58,7 +99,7 @@ class EnttecDMXUSBPro : public QThread, public DMXUSBWidget
      * Initialization
      ************************************************************************/
 public:
-    EnttecDMXUSBPro(DMXInterface *interface,
+    EnttecDMXUSBPro(DMXInterface *iface,
                     quint32 outputLine, quint32 inputLine = 0);
 
     virtual ~EnttecDMXUSBPro();
@@ -66,30 +107,30 @@ public:
     /** @reimp */
     Type type() const;
 
+    /** Set the number of MIDI I/O lines supported by this widget */
     void setMidiPortsNumber(int inputs, int outputs);
 
+    /** Set a special flag to use DMXKing specific commands */
     void setDMXKingMode();
 
     /** @reimp */
     QString additionalInfo() const;
 
 private:
-    QHash<quint32, ushort> m_midiInputsMap;
-    QHash<quint32, ushort> m_mididOutputsMap;
     bool m_dmxKingMode;
 
     /****************************************************************************
      * Open & Close
      ****************************************************************************/
 private:
-     bool configureLine(ushort dmxLine, ushort midiLine);
+     bool configureLine(ushort dmxLine, bool isMidi);
 
 public:
     /** @reimp */
     virtual bool open(quint32 line, bool input = false);
 
-     /** @reimp */
-     virtual bool close(quint32 line = 0, bool input = false);
+    /** @reimp */
+    virtual bool close(quint32 line = 0, bool input = false);
 
     /************************************************************************
      * Name & Serial
@@ -106,33 +147,56 @@ private:
     QString m_proSerial;
 
     /************************************************************************
-     * DMX reception
+     * Input
      ************************************************************************/
 signals:
     /** Tells that the value of a received DMX channel has changed */
     void valueChanged(quint32 universe, quint32 input, quint32 channel, uchar value);
 
-private:
-    /** Stop DMX receiver thread */
-    void stopThread();
-
-    /** DMX receiver thread worker method */
-    void run();
+protected slots:
+    void slotDataReceived(QByteArray data, bool isMidi);
 
 private:
-    bool m_running;
-    QMutex m_mutex;
-    QByteArray m_universe;
+    EnttecDMXUSBProInput *m_inputThread;
 
     /************************************************************************
-     * Write universe
+     * Output
      ************************************************************************/
 public:
     /** @reimp */
-    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
 
 private:
-    QByteArray m_outUniverse;
+    /** Stop output thread */
+    void stopOutputThread();
+
+    /** Output thread worker method */
+    void run();
+
+private:
+    bool m_outputRunning;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+    QRecursiveMutex m_outputMutex;
+#else
+    QMutex m_outputMutex;
+#endif
+
+    /********************************************************************
+     * RDM
+     ********************************************************************/
+public:
+    /** @reimp */
+    bool supportRDM();
+
+    /** @reimp */
+    bool sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params);
+
+signals:
+    void rdmValueChanged(quint32 universe, quint32 line, QVariantMap data);
+
+private:
+    RDMProtocol *m_rdm;
+    quint32 m_universe;
 };
 
 #endif

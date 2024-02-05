@@ -247,7 +247,7 @@ class FixtureDef
       @name = node.attributes['Name']
       @physical = Physical.new(node.find_first('xmlns:Physical', NS))
       n = node.find('xmlns:Channel', NS)
-      @channels = n.map { |c| ChannelRef.new(c) } unless n.empty? 
+      @channels = n.map { |c| ChannelRef.new(c) } unless n.empty?
       n = node.find('xmlns:Head', NS)
       @heads = n.map { |h| Head.new(h) } unless n.empty?
       @heads.each_with_index { |h, i| h.index = i + 1 }

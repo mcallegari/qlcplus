@@ -27,16 +27,14 @@ Effect
         return View3D.makeShader(s)
     }
 
-    id: geometryPassEffect
     techniques: [
-        // OpenGL 3.1
         Technique
         {
             graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
             renderPasses: [
                 RenderPass
                 {
-                    filterKeys: FilterKey { name : "pass"; value : "geometry" }
+                    filterKeys: FilterKey { name: "pass"; value: "geometry" }
                     shaderProgram:
                         ShaderProgram
                         {
@@ -46,7 +44,7 @@ Effect
                 }, // render pass
                 RenderPass
                 {
-                    filterKeys: FilterKey { name : "pass"; value : "shadows" }
+                    filterKeys: FilterKey { name: "pass"; value: "shadows" }
                     shaderProgram:
                         ShaderProgram
                         {

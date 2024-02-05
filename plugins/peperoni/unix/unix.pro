@@ -4,14 +4,12 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = peperoni
 
-QT          += core gui
-greaterThan(QT_MAJOR_VERSION, 4) {
-  QT += widgets
-  macx:QT_CONFIG -= no-pkg-config
-}
+QT          += core gui widgets
+macx:QT_CONFIG -= no-pkg-config
+
 CONFIG      += plugin
 CONFIG      += link_pkgconfig
-PKGCONFIG   += libusb
+PKGCONFIG   += libusb-1.0
 INCLUDEPATH += ../../interfaces
 INCLUDEPATH += ../common
 
@@ -25,7 +23,10 @@ SOURCES += peperonidevice.cpp \
 
 # This must be after "TARGET = " and before target installation so that
 # install_name_tool can be run before target installation
-macx:include(../../../platforms/macos/nametool.pri)
+macx {
+    include(../../../platforms/macos/nametool.pri)
+    nametool.commands += $$pkgConfigNametool(libusb-1.0, libusb-1.0.0.dylib)
+}
 
 # Installation
 target.path = $$INSTALLROOT/$$PLUGINDIR
@@ -37,8 +38,8 @@ udev.files = z65-peperoni.rules
 !macx:INSTALLS  += udev
 
 unix:!macx {
-   metainfo.path   = $$INSTALLROOT/share/appdata/
-   metainfo.files += qlcplus-peperoni.metainfo.xml
-   INSTALLS       += metainfo 
+   metainfo.path   = $$METAINFODIR
+   metainfo.files += org.qlcplus.QLCPlus.peperoni.metainfo.xml
+   INSTALLS       += metainfo
 }
 

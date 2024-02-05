@@ -30,17 +30,21 @@ var testAlgo;
 
     algo.orientation = 0;
     algo.properties = new Array();
-    algo.properties.push("name:orientation|type:list|display:Orientation|values:Horizontal,Vertical|write:setOrientation|read:getOrientation");
+    algo.properties.push("name:orientation|type:list|display:Orientation|values:Horizontal,Vertical,Horizontal Reversed,Vertical Reversed|write:setOrientation|read:getOrientation");
 
     algo.setOrientation = function(_orientation)
     {
-      if (_orientation === "Vertical") { algo.orientation = 1; }
+      if (_orientation === "Vertical Reversed") { algo.orientation = 3; }
+      else if (_orientation === "Horizontal Reversed") { algo.orientation = 2; }
+      else if (_orientation === "Vertical") { algo.orientation = 1; }
       else { algo.orientation = 0; }
     };
 
     algo.getOrientation = function()
     {
-        if (algo.orientation === 1) { return "Vertical"; }
+        if (algo.orientation === 3) { return "Vertical Reversed"; }
+        else if (algo.orientation === 2) { return "Horizontal Reversed"; }
+        else if (algo.orientation === 1) { return "Vertical"; }
         else { return "Horizontal"; }
     };
 
@@ -53,7 +57,9 @@ var testAlgo;
           for (var x = 0; x < width; x++)
           {
               if ((algo.orientation === 0 && x <= step) ||
-                  (algo.orientation === 1 && y <= step)) {
+                  (algo.orientation === 1 && y <= step) ||
+                  (algo.orientation === 2 && x >= width - step - 1) ||
+                  (algo.orientation === 3 && y >= height - step - 1)) {
                 map[y][x] = rgb;
               } else {
                 map[y][x] = 0;
@@ -66,7 +72,7 @@ var testAlgo;
 
     algo.rgbMapStepCount = function(width, height)
     {
-      if (algo.orientation === 0) {
+      if (algo.orientation === 0 || algo.orientation === 2) {
         return width;
       } else {
         return height;

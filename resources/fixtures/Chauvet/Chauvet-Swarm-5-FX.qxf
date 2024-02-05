@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Jack Logue</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -30,22 +30,22 @@
  </Channel>
  <Channel Name="LED Operation">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="9" Color="#000000">Blackout</Capability>
-  <Capability Min="10" Max="14" Color="#ff0000">Red</Capability>
-  <Capability Min="15" Max="19" Color="#55aa00">Green</Capability>
-  <Capability Min="20" Max="24" Color="#0000ff">Blue</Capability>
-  <Capability Min="25" Max="29" Color="#ffff00">Amber</Capability>
-  <Capability Min="30" Max="34" Color="#ffffff">White</Capability>
-  <Capability Color2="#ff0000" Min="35" Max="39" Color="#ffffff">White + Red</Capability>
-  <Capability Color2="#55aa00" Min="40" Max="44" Color="#ff0000">Red + Green</Capability>
-  <Capability Color2="#0000ff" Min="45" Max="49" Color="#55aa00">Green + Blue</Capability>
-  <Capability Color2="#ffff00" Min="50" Max="54" Color="#0000ff">Blue + Amber</Capability>
-  <Capability Color2="#ffffff" Min="55" Max="59" Color="#ffff00">Amber + White</Capability>
-  <Capability Color2="#55aa00" Min="60" Max="64" Color="#ffffff">White + Green</Capability>
-  <Capability Color2="#ffff00" Min="65" Max="69" Color="#55aa00">Green + Amber</Capability>
-  <Capability Color2="#ff0000" Min="70" Max="74" Color="#ffff00">Amber + Red</Capability>
-  <Capability Color2="#0000ff" Min="75" Max="79" Color="#ff0000">Red + Blue</Capability>
-  <Capability Color2="#ffffff" Min="80" Max="84" Color="#0000ff">Blue + White</Capability>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="10" Max="14" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="15" Max="19" Preset="ColorMacro" Res1="#55aa00">Green</Capability>
+  <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="25" Max="29" Preset="ColorMacro" Res1="#ffff00">Amber</Capability>
+  <Capability Min="30" Max="34" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="35" Max="39" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White + Red</Capability>
+  <Capability Min="40" Max="44" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#55aa00">Red + Green</Capability>
+  <Capability Min="45" Max="49" Preset="ColorDoubleMacro" Res1="#55aa00" Res2="#0000ff">Green + Blue</Capability>
+  <Capability Min="50" Max="54" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Blue + Amber</Capability>
+  <Capability Min="55" Max="59" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffffff">Amber + White</Capability>
+  <Capability Min="60" Max="64" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#55aa00">White + Green</Capability>
+  <Capability Min="65" Max="69" Preset="ColorDoubleMacro" Res1="#55aa00" Res2="#ffff00">Green + Amber</Capability>
+  <Capability Min="70" Max="74" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff0000">Amber + Red</Capability>
+  <Capability Min="75" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red + Blue</Capability>
+  <Capability Min="80" Max="84" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue + White</Capability>
   <Capability Min="85" Max="89">Red + Green + Blue</Capability>
   <Capability Min="90" Max="94">Red + Green + Amber</Capability>
   <Capability Min="95" Max="99">Red + Green + White</Capability>
@@ -71,8 +71,8 @@
  </Channel>
  <Channel Name="LED Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="4">No Function</Capability>
-  <Capability Min="5" Max="254">Strobe (fast to slow)</Capability>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="5" Max="254" Preset="StrobeFastToSlow">Strobe (fast to slow)</Capability>
   <Capability Min="255" Max="255">Sound-Active strobe</Capability>
  </Channel>
  <Channel Name="White LED">
@@ -102,8 +102,8 @@
  </Channel>
  <Channel Name="Laser Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="4">No function</Capability>
-  <Capability Min="5" Max="254">Strobe (slow to fast)</Capability>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="5" Max="254" Preset="StrobeSlowToFast">Strobe (slow to fast)</Capability>
   <Capability Min="255" Max="255">Sound-Active strobe</Capability>
  </Channel>
  <Channel Name="Motor LED">
@@ -131,11 +131,11 @@
   <Channel Number="7">Motor LED</Channel>
   <Channel Number="8">Motor Laser</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="1" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="248" Height="298" Weight="4.5" Depth="310"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="62" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="1" ColourTemperature="0"/>
+  <Dimensions Weight="4.5" Width="248" Height="298" Depth="310"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="62" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

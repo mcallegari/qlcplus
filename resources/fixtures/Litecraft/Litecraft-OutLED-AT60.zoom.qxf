@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.0 GIT</Version>
+  <Author>Axel Metzke</Author>
+ </Creator>
+ <Manufacturer>Litecraft</Manufacturer>
+ <Model>OutLED AT60.zoom</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Flash rate">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="30" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="31" Max="100" Preset="StrobeSlowToFast">Flash rate from slow to fast</Capability>
+  <Capability Min="101" Max="130" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="131" Max="200" Preset="StrobeRandomSlowToFast">Random strobe from slow to fast</Capability>
+  <Capability Min="201" Max="255" Preset="ShutterOpen">No function</Capability>
+ </Channel>
+ <Channel Name="Red 16-bit" Preset="IntensityRedFine"/>
+ <Channel Name="Green 16-bit" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue 16-bit" Preset="IntensityBlueFine"/>
+ <Channel Name="White 16-bit" Preset="IntensityWhiteFine"/>
+ <Channel Name="Zoom 16-bit" Preset="BeamZoomFine"/>
+ <Channel Name="Color Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No color function</Capability>
+  <Capability Min="11" Max="85" Preset="Alias">Color macro
+   <Alias Mode="11 Channel" Channel="No function" With="Color Macro"/>
+   <Alias Mode="17 Channel" Channel="No function" With="Color Macro"/>
+  </Capability>
+  <Capability Min="86" Max="170" Preset="Alias">White macro
+   <Alias Mode="11 Channel" Channel="No function" With="White Macro"/>
+   <Alias Mode="17 Channel" Channel="No function" With="White Macro"/>
+  </Capability>
+  <Capability Min="171" Max="255" Preset="Alias">Programs auto
+   <Alias Mode="11 Channel" Channel="No function" With="Programs Auto"/>
+   <Alias Mode="17 Channel" Channel="No function" With="Programs Auto"/>
+  </Capability>
+ </Channel>
+ <Channel Name="Color Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="28">r = 100%, g = 0 - 100%, b=0%</Capability>
+  <Capability Min="29" Max="56">r = 100 - 0%, g= 100%, b = 0%</Capability>
+  <Capability Min="57" Max="84">r = 0%, g = 100%, b = 0 - 100%</Capability>
+  <Capability Min="85" Max="112">r = 0%, g = 100 - 0%, b = 100%</Capability>
+  <Capability Min="113" Max="140">r = 0 - 100 %, g = 0%, b = 100%</Capability>
+  <Capability Min="141" Max="168">r = 100%, g = 0%, b = 100 - 0%</Capability>
+  <Capability Min="169" Max="196">r = 100%, g = 0 - 100%, b = 0 - 100%</Capability>
+  <Capability Min="197" Max="224">r = 100 - 0%, g = 100 - 0%, b = 100%</Capability>
+  <Capability Min="225" Max="255">r = 100%, g = 100%, b = 100%, w = 100%</Capability>
+ </Channel>
+ <Channel Name="White Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="195">white ~ 2.000K - 3.000K</Capability>
+  <Capability Min="196" Max="210">white ~ 3.000K - 4.000K</Capability>
+  <Capability Min="211" Max="225">white ~ 4.000K - 6.000K</Capability>
+  <Capability Min="226" Max="240">white ~ 6.000K - 8.000K</Capability>
+  <Capability Min="241" Max="255">white ~ 8.000K</Capability>
+ </Channel>
+ <Channel Name="Programs Auto">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="60">programm auto 1</Capability>
+  <Capability Min="61" Max="110">programm auto 2</Capability>
+  <Capability Min="111" Max="160">programm auto 3</Capability>
+  <Capability Min="161" Max="210">programm auto 4</Capability>
+  <Capability Min="211" Max="255">programm auto 5 (1-4)</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">stepless speed</Capability>
+ </Channel>
+ <Channel Name="Dimmer Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="0">mode set on display</Capability>
+  <Capability Min="1" Max="255">dimmer s-curve from s -&gt; f</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer 16-bit" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="No function" Preset="NoFunction"/>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Zoom</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Flash rate</Channel>
+  <Channel Number="6">Zoom</Channel>
+ </Mode>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Red 16-bit</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Green 16-bit</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Blue 16-bit</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">White 16-bit</Channel>
+  <Channel Number="8">Zoom</Channel>
+  <Channel Number="9">Zoom 16-bit</Channel>
+ </Mode>
+ <Mode Name="11 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Flash rate</Channel>
+  <Channel Number="6">Zoom</Channel>
+  <Channel Number="7">Color Function</Channel>
+  <Channel Number="8">No function</Channel>
+  <Channel Number="9">Speed</Channel>
+  <Channel Number="10">Dimmer Mode</Channel>
+ </Mode>
+ <Mode Name="13 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Master Dimmer 16-bit</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Red 16-bit</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Green 16-bit</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">Blue 16-bit</Channel>
+  <Channel Number="8">White</Channel>
+  <Channel Number="9">White 16-bit</Channel>
+  <Channel Number="10">Flash rate</Channel>
+  <Channel Number="11">Zoom</Channel>
+  <Channel Number="12">Zoom 16-bit</Channel>
+ </Mode>
+ <Mode Name="17 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Master Dimmer 16-bit</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Red 16-bit</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Green 16-bit</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">Blue 16-bit</Channel>
+  <Channel Number="8">White</Channel>
+  <Channel Number="9">White 16-bit</Channel>
+  <Channel Number="10">Flash rate</Channel>
+  <Channel Number="11">Zoom</Channel>
+  <Channel Number="12">Zoom 16-bit</Channel>
+  <Channel Number="13">Color Function</Channel>
+  <Channel Number="14">No function</Channel>
+  <Channel Number="15">Speed</Channel>
+  <Channel Number="16">Dimmer Mode</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="Osram Ostar 60 W RGBW LED" Lumens="548" ColourTemperature="8000"/>
+  <Dimensions Weight="5.5" Width="260" Height="186" Depth="370"/>
+  <Lens Name="Other" DegreesMin="5.5" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="92" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

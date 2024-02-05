@@ -27,6 +27,8 @@ CustomPopupDialog
 {
     id: popupRoot
 
+    visible: true
+    width: mainView.width / 2
     title: qsTr("Disclaimer")
     standardButtons: Dialog.Ok
 

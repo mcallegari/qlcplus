@@ -37,35 +37,36 @@ class Fixture;
  * @{
  */
 
-#define KXMLQLCEFXPropagationMode "PropagationMode"
-#define KXMLQLCEFXPropagationModeParallel "Parallel"
-#define KXMLQLCEFXPropagationModeSerial "Serial"
-#define KXMLQLCEFXPropagationModeAsymmetric "Asymmetric"
-#define KXMLQLCEFXAlgorithm "Algorithm"
-#define KXMLQLCEFXWidth "Width"
-#define KXMLQLCEFXHeight "Height"
-#define KXMLQLCEFXRotation "Rotation"
-#define KXMLQLCEFXStartOffset "StartOffset"
-#define KXMLQLCEFXIsRelative "IsRelative"
-#define KXMLQLCEFXAxis "Axis"
-#define KXMLQLCEFXOffset "Offset"
-#define KXMLQLCEFXFrequency "Frequency"
-#define KXMLQLCEFXPhase "Phase"
-#define KXMLQLCEFXChannel "Channel"
-#define KXMLQLCEFXX "X"
-#define KXMLQLCEFXY "Y"
-#define KXMLQLCEFXStartScene "StartScene"
-#define KXMLQLCEFXStopScene "StopScene"
+#define KXMLQLCEFXPropagationMode           QString("PropagationMode")
+#define KXMLQLCEFXPropagationModeParallel   QString("Parallel")
+#define KXMLQLCEFXPropagationModeSerial     QString("Serial")
+#define KXMLQLCEFXPropagationModeAsymmetric QString("Asymmetric")
+#define KXMLQLCEFXAlgorithm                 QString("Algorithm")
+#define KXMLQLCEFXWidth                     QString("Width")
+#define KXMLQLCEFXHeight                    QString("Height")
+#define KXMLQLCEFXRotation                  QString("Rotation")
+#define KXMLQLCEFXStartOffset               QString("StartOffset")
+#define KXMLQLCEFXIsRelative                QString("IsRelative")
+#define KXMLQLCEFXAxis                      QString("Axis")
+#define KXMLQLCEFXOffset                    QString("Offset")
+#define KXMLQLCEFXFrequency                 QString("Frequency")
+#define KXMLQLCEFXPhase                     QString("Phase")
+#define KXMLQLCEFXChannel                   QString("Channel")
+#define KXMLQLCEFXX                         QString("X")
+#define KXMLQLCEFXY                         QString("Y")
+#define KXMLQLCEFXStartScene                QString("StartScene")
+#define KXMLQLCEFXStopScene                 QString("StopScene")
 
-#define KXMLQLCEFXCircleAlgorithmName "Circle"
-#define KXMLQLCEFXEightAlgorithmName "Eight"
-#define KXMLQLCEFXLineAlgorithmName "Line"
-#define KXMLQLCEFXLine2AlgorithmName "Line2"
-#define KXMLQLCEFXDiamondAlgorithmName "Diamond"
-#define KXMLQLCEFXSquareAlgorithmName "Square"
-#define KXMLQLCEFXSquareChoppyAlgorithmName "SquareChoppy"
-#define KXMLQLCEFXLeafAlgorithmName "Leaf"
-#define KXMLQLCEFXLissajousAlgorithmName "Lissajous"
+#define KXMLQLCEFXCircleAlgorithmName       QString("Circle")
+#define KXMLQLCEFXEightAlgorithmName        QString("Eight")
+#define KXMLQLCEFXLineAlgorithmName         QString("Line")
+#define KXMLQLCEFXLine2AlgorithmName        QString("Line2")
+#define KXMLQLCEFXDiamondAlgorithmName      QString("Diamond")
+#define KXMLQLCEFXSquareAlgorithmName       QString("Square")
+#define KXMLQLCEFXSquareChoppyAlgorithmName QString("SquareChoppy")
+#define KXMLQLCEFXSquareTrueAlgorithmName   QString("SquareTrue")
+#define KXMLQLCEFXLeafAlgorithmName         QString("Leaf")
+#define KXMLQLCEFXLissajousAlgorithmName    QString("Lissajous")
 
 /**
  * An EFX (effects) function that is used to create
@@ -116,6 +117,8 @@ public:
     /** Set the duration in milliseconds */
     virtual void setDuration(uint ms);
 
+    uint loopDuration() const;
+
 signals:
     void durationChanged(uint ms);
 
@@ -132,6 +135,7 @@ public:
         Diamond,
         Square,
         SquareChoppy,
+		SquareTrue,
         Leaf,
         Lissajous
     };
@@ -184,7 +188,7 @@ public:
 private:
 
     void preview(QPolygonF &polygon, Function::Direction direction, int startOffset) const;
- 
+
     /**
      * Rotate a point of the pattern by rot degrees and scale the point
      * within w/h and xOff/yOff.
@@ -477,6 +481,9 @@ public:
     /** Add a new fixture to this EFX */
     bool addFixture(EFXFixture *ef);
 
+    /** Add the provided fixture id and head to this EFX */
+    bool addFixture(quint32 fxi, int head = 0);
+
     /** Remove the designated fixture from this EFX but don't delete it */
     bool removeFixture(EFXFixture *ef);
 
@@ -507,7 +514,6 @@ public slots:
 
 private:
     QList <EFXFixture *> m_fixtures;
-    GenericFader *m_fader;
 
     /*********************************************************************
      * Fixture propagation mode
@@ -515,9 +521,9 @@ private:
 public:
     enum PropagationMode
     {
-        Parallel, /**< All fixtures move in unison (el-cheapo) */
-        Serial, /**< Pattern propagates to the next fixture after a delay */
-        Asymmetric /**< All fixtures move with an offset */
+        Parallel,   /**< All fixtures move in unison (el-cheapo) */
+        Serial,     /**< Pattern propagates to the next fixture after a delay */
+        Asymmetric  /**< All fixtures move with an offset */
     };
 
     /** Set the EFX's fixture propagation mode (see the enum above) */
@@ -566,6 +572,9 @@ public:
 
     /** @reimp */
     void postRun(MasterTimer* timer, QList<Universe*> universes);
+
+private:
+    QSharedPointer<GenericFader> getFader(QList<Universe *> universes, quint32 universeID);
 
     /*********************************************************************
      * Intensity

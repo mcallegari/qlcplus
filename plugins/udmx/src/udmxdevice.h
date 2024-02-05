@@ -23,8 +23,9 @@
 
 #include <QThread>
 
-struct usb_dev_handle;
-struct usb_device;
+struct libusb_device;
+struct libusb_device_handle;
+struct libusb_device_descriptor;
 
 class UDMXDevice : public QThread
 {
@@ -34,11 +35,11 @@ class UDMXDevice : public QThread
      * Initialization
      ********************************************************************/
 public:
-    UDMXDevice(struct usb_device* device, QObject* parent = 0);
+    UDMXDevice(libusb_device *device, libusb_device_descriptor *desc, QObject* parent = 0);
     virtual ~UDMXDevice();
 
     /** Find out, whether the given USB device is a uDMX device */
-    static bool isUDMXDevice(const struct usb_device* device);
+    static bool isUDMXDevice(const libusb_device_descriptor *desc);
 
     /********************************************************************
      * Device information
@@ -60,12 +61,12 @@ public:
     bool open();
     void close();
 
-    const struct usb_device* device() const;
-    const usb_dev_handle* handle() const;
+    const libusb_device *device() const;
 
 private:
-    struct usb_device* m_device;
-    usb_dev_handle* m_handle;
+    struct libusb_device* m_device;
+    struct libusb_device_descriptor *m_descriptor;
+    struct libusb_device_handle* m_handle;
 
     /********************************************************************
      * Thread

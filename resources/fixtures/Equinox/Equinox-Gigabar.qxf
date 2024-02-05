@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Juski</Author>
  </Creator>
  <Manufacturer>Equinox</Manufacturer>
@@ -39,7 +39,9 @@
  </Channel>
  <Channel Name="Sound sensitivity / Flash">
   <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="5">Sound sensitivity - 1 (lowest) to 5 (highest)</Capability>
+  <Capability Min="6" Max="10">No function</Capability>
   <Capability Min="11" Max="255">Flash Speed (11 slowest 255 highest)</Capability>
  </Channel>
  <Channel Name="R1 R2" Preset="IntensityRed"/>
@@ -207,10 +209,11 @@
   <Channel Number="3">CH4</Channel>
  </Mode>
  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.6" Width="1000" Depth="82" Height="320"/>
-   <Lens Name="Fresnel" DegreesMin="25" DegreesMax="90"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="135"/>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.6" Width="1000" Height="320" Depth="82"/>
+  <Lens Name="Fresnel" DegreesMin="25" DegreesMax="90"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="135" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

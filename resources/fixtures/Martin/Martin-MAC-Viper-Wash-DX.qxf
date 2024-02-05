@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
@@ -11,11 +11,11 @@
  <Type>Moving Head</Type>
  <Channel Name="Strobe/shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="19">Closed </Capability>
-  <Capability Min="20" Max="49">Open</Capability>
-  <Capability Min="50" Max="200">Strobe, slow → fast</Capability>
-  <Capability Min="201" Max="210">Open</Capability>
-  <Capability Min="211" Max="255">Random strobe, slow → fast</Capability>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="20" Max="49" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="50" Max="200" Preset="StrobeSlowToFast">Strobe, slow → fast</Capability>
+  <Capability Min="201" Max="210" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="211" Max="255" Preset="StrobeRandomSlowToFast">Random strobe, slow → fast</Capability>
  </Channel>
  <Channel Name="Dimmer fade" Preset="IntensityDimmer"/>
  <Channel Name="Dimmer fade, fine" Preset="IntensityDimmerFine"/>
@@ -74,11 +74,11 @@
   <Capability Min="45" Max="49" Preset="GoboMacro" Res1="Others/gobo00058.png">Continuous Gobo 3</Capability>
   <Capability Min="50" Max="54" Preset="GoboMacro" Res1="Robe/gobo00016.svg">Continuous Gobo 4</Capability>
   <Capability Min="55" Max="59" Preset="GoboMacro" Res1="Robe/gobo00020.svg">Continuous Gobo 5</Capability>
-  <Capability Min="60" Max="89" Preset="GoboMacro" Res1="Robe/gobo00022.svg">Shake Gobo 1</Capability>
-  <Capability Min="90" Max="119" Preset="GoboMacro" Res1="SGM/gobo00084.svg">Shake Gobo 2</Capability>
-  <Capability Min="120" Max="149" Preset="GoboMacro" Res1="Others/gobo00058.png">Shake Gobo 3</Capability>
-  <Capability Min="150" Max="179" Preset="GoboMacro" Res1="Robe/gobo00016.svg">Shake Gobo 4</Capability>
-  <Capability Min="180" Max="209" Preset="GoboMacro" Res1="Robe/gobo00020.svg">Shake Gobo 5</Capability>
+  <Capability Min="60" Max="89" Preset="GoboShakeMacro" Res1="Robe/gobo00022.svg">Shake Gobo 1</Capability>
+  <Capability Min="90" Max="119" Preset="GoboShakeMacro" Res1="SGM/gobo00084.svg">Shake Gobo 2</Capability>
+  <Capability Min="120" Max="149" Preset="GoboShakeMacro" Res1="Others/gobo00058.png">Shake Gobo 3</Capability>
+  <Capability Min="150" Max="179" Preset="GoboShakeMacro" Res1="Robe/gobo00016.svg">Shake Gobo 4</Capability>
+  <Capability Min="180" Max="209" Preset="GoboShakeMacro" Res1="Robe/gobo00020.svg">Shake Gobo 5</Capability>
   <Capability Min="210" Max="232">CW gobo wheel scroll, fast → slow</Capability>
   <Capability Min="233" Max="255">CCW gobo wheel scroll, slow* → fast</Capability>
  </Channel>
@@ -195,7 +195,7 @@
  <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
  <Channel Name="Zoom Fine">
   <Group Byte="1">Beam</Group>
-  <Capability Min="0" Max="255">Flood → spot </Capability>
+  <Capability Min="0" Max="255">Flood → spot</Capability>
  </Channel>
  <Channel Name="Focus" Preset="BeamFocusFarNear"/>
  <Channel Name="Focus Fine">
@@ -208,15 +208,15 @@
  <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Control/Settings">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="9">No function</Capability>
-  <Capability Min="10" Max="14">Reset entire fixture – 5 sec</Capability>
-  <Capability Min="15" Max="19">Reset dimmer and shutter only – 5 sec</Capability>
-  <Capability Min="20" Max="24">Reset CMY, CTO and color wheel only – 5 sec</Capability>
-  <Capability Min="25" Max="29">Reset effects (gobo and animation wheels, iris, prism, frost, zoom, focus) only – 5 sec.</Capability>
-  <Capability Min="30" Max="34">Reset pan and tilt only – 5 sec.</Capability>
-  <Capability Min="35" Max="39">Reset framing – 5 sec</Capability>
-  <Capability Min="40" Max="44">Lamp on</Capability>
-  <Capability Min="45" Max="49">Lamp off – 5 sec.</Capability>
+  <Capability Min="0" Max="9" Preset="GenericPicture">No function</Capability>
+  <Capability Min="10" Max="14" Preset="ResetAll">Reset entire fixture – 5 sec</Capability>
+  <Capability Min="15" Max="19" Preset="ResetMotors">Reset dimmer and shutter only – 5 sec</Capability>
+  <Capability Min="20" Max="24" Preset="ResetCMY">Reset CMY, CTO and color wheel only – 5 sec</Capability>
+  <Capability Min="25" Max="29" Preset="ResetEffects">Reset effects (gobo and animation wheels, iris, prism, frost, zoom, focus) only – 5 sec.</Capability>
+  <Capability Min="30" Max="34" Preset="ResetPanTilt">Reset pan and tilt only – 5 sec.</Capability>
+  <Capability Min="35" Max="39" Preset="ResetAll">Reset framing – 5 sec</Capability>
+  <Capability Min="40" Max="44" Preset="LampOn">Lamp on</Capability>
+  <Capability Min="45" Max="49" Preset="LampOff">Lamp off – 5 sec.</Capability>
   <Capability Min="50" Max="54">No function</Capability>
   <Capability Min="55" Max="59">Enable calibration – 5 sec.</Capability>
   <Capability Min="60" Max="64">Linear dimming curve – 1 sec. (menu override, setting unaffected by power off/on)</Capability>
@@ -258,7 +258,7 @@
   <Capability Min="235" Max="239">Store pan calibration – 5 sec.</Capability>
   <Capability Min="240" Max="244">Store tilt calibration – 5 sec.</Capability>
   <Capability Min="245" Max="249">Reset all calibration values to factory defaults – 5 sec.</Capability>
-  <Capability Min="250" Max="254">No function</Capability>
+  <Capability Min="250" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Reserved for future use" Preset="NoFunction"/>
  <Channel Name="Reserved for future use 1" Preset="NoFunction"/>

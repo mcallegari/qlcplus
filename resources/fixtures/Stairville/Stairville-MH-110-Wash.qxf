@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.6 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
@@ -40,15 +40,15 @@
  </Channel>
  <Channel Name="Strobe effect">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
-  <Capability Min="10" Max="140">Strobe, Increasing speed&#13;</Capability>
-  <Capability Min="141" Max="255">Strobe, Random speed</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="140" Preset="StrobeSlowToFast">Strobe, Increasing speed</Capability>
+  <Capability Min="141" Max="255" Preset="StrobeRandom">Strobe, Random speed</Capability>
  </Channel>
  <Channel Name="Special functions">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="99">Without function&#13;</Capability>
+  <Capability Min="0" Max="99">Without function</Capability>
   <Capability Min="100" Max="199">Automatic sound</Capability>
-  <Capability Min="200" Max="255">Reset</Capability>
+  <Capability Min="200" Max="255" Preset="ResetAll">Reset</Capability>
  </Channel>
  <Mode Name="Standard">
   <Channel Number="0">Pan</Channel>
@@ -77,11 +77,11 @@
   <Channel Number="7">White</Channel>
   <Channel Number="8">Strobe effect</Channel>
  </Mode>
-<Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Width="260" Depth="148" Height="310" Weight="4.5"/>
-   <Lens DegreesMin="15" DegreesMax="15" Name="Other"/>
-   <Focus TiltMax="220" Type="Head" PanMax="630"/>
-   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.5" Width="260" Height="310" Depth="148"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+  <Focus Type="Head" PanMax="630" TiltMax="220"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

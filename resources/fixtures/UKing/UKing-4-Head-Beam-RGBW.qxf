@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Donny Lockart</Author>
+ </Creator>
+ <Manufacturer>UKing</Manufacturer>
+ <Model>4 Head Beam RGBW</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="X-axis">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127" Preset="RotationStop">No Rotation</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwise">X-axis CW Rotation</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwise">X-Axis CCW Rotation</Capability>
+ </Channel>
+ <Channel Name="X-axis Speed" Preset="SpeedPanFastSlow"/>
+ <Channel Name="Tilt Head 1" Preset="PositionTilt"/>
+ <Channel Name="Tilt Head 2" Preset="PositionTilt"/>
+ <Channel Name="Tilt Head 3" Preset="PositionTilt"/>
+ <Channel Name="Tilt Head 4" Preset="PositionTilt"/>
+ <Channel Name="Y-axis speed" Preset="SpeedTiltFastSlow"/>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red H1" Preset="IntensityRed"/>
+ <Channel Name="Green H1" Preset="IntensityGreen"/>
+ <Channel Name="Blue H1" Preset="IntensityBlue"/>
+ <Channel Name="White H1" Preset="IntensityWhite"/>
+ <Channel Name="Red H2" Preset="IntensityRed"/>
+ <Channel Name="Green H2" Preset="IntensityGreen"/>
+ <Channel Name="Blue H2" Preset="IntensityBlue"/>
+ <Channel Name="White H2" Preset="IntensityWhite"/>
+ <Channel Name="Red H3" Preset="IntensityRed"/>
+ <Channel Name="Green H3" Preset="IntensityGreen"/>
+ <Channel Name="Blue H3" Preset="IntensityBlue"/>
+ <Channel Name="White H3" Preset="IntensityWhite"/>
+ <Channel Name="Red H4" Preset="IntensityRed"/>
+ <Channel Name="Green H4" Preset="IntensityGreen"/>
+ <Channel Name="Blue H4" Preset="IntensityBlue"/>
+ <Channel Name="White H4" Preset="IntensityWhite"/>
+ <Channel Name="Auto Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="50">No Program</Capability>
+  <Capability Min="51" Max="100">Auto Prog 1</Capability>
+  <Capability Min="101" Max="200">Auto Prog 2</Capability>
+  <Capability Min="201" Max="255">Sound Active</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="240">No function</Capability>
+  <Capability Min="241" Max="255">Reset (Hold 5 sec)</Capability>
+ </Channel>
+ <Mode Name="28 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">X-axis</Channel>
+  <Channel Number="2">X-axis Speed</Channel>
+  <Channel Number="3">Tilt Head 1</Channel>
+  <Channel Number="4">Tilt Head 2</Channel>
+  <Channel Number="5">Tilt Head 3</Channel>
+  <Channel Number="6">Tilt Head 4</Channel>
+  <Channel Number="7">Y-axis speed</Channel>
+  <Channel Number="8">Master dimmer</Channel>
+  <Channel Number="9">Strobe</Channel>
+  <Channel Number="10">Red H1</Channel>
+  <Channel Number="11">Green H1</Channel>
+  <Channel Number="12">Blue H1</Channel>
+  <Channel Number="13">White H1</Channel>
+  <Channel Number="14">Red H2</Channel>
+  <Channel Number="15">Green H2</Channel>
+  <Channel Number="16">Blue H2</Channel>
+  <Channel Number="17">White H2</Channel>
+  <Channel Number="18">Red H3</Channel>
+  <Channel Number="19">Green H3</Channel>
+  <Channel Number="20">Blue H3</Channel>
+  <Channel Number="21">White H3</Channel>
+  <Channel Number="22">Red H4</Channel>
+  <Channel Number="23">Green H4</Channel>
+  <Channel Number="24">Blue H4</Channel>
+  <Channel Number="25">White H4</Channel>
+  <Channel Number="26">Auto Program</Channel>
+  <Channel Number="27">Reset</Channel>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+  </Head>
+  <Head>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">X-axis</Channel>
+  <Channel Number="2">X-axis Speed</Channel>
+  <Channel Number="3">Tilt Head 1</Channel>
+  <Channel Number="4">Tilt Head 2</Channel>
+  <Channel Number="5">Tilt Head 3</Channel>
+  <Channel Number="6">Tilt Head 4</Channel>
+  <Channel Number="7">Y-axis speed</Channel>
+  <Channel Number="8">Master dimmer</Channel>
+  <Channel Number="9">Strobe</Channel>
+  <Channel Number="10">Red H1</Channel>
+  <Channel Number="11">Green H1</Channel>
+  <Channel Number="12">Blue H1</Channel>
+  <Channel Number="13">White H1</Channel>
+  <Channel Number="14">Auto Program</Channel>
+  <Channel Number="15">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="800" ColourTemperature="4800"/>
+  <Dimensions Weight="6.1" Width="510" Height="275" Depth="170"/>
+  <Lens Name="Other" DegreesMin="5" DegreesMax="5"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="80" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

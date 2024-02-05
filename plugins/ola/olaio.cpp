@@ -144,7 +144,7 @@ QStringList OlaIO::outputs()
 {
     QStringList list;
     for (int i = 0; i < m_outputs.size(); ++i)
-        list << QString("%1: OLA Universe %2").arg(i + 1).arg(m_outputs[i]);
+        list << QString("OLA Universe %1").arg(m_outputs[i]);
     return list;
 }
 
@@ -183,9 +183,10 @@ QString OlaIO::outputInfo(quint32 output)
     return str;
 }
 
-void OlaIO::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void OlaIO::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (output > UNIVERSE_COUNT || !m_thread)
         return;
@@ -226,10 +227,3 @@ void OlaIO::setParameter(quint32 universe, quint32 line, Capability type,
 {
     QLCIOPlugin::setParameter(universe, line, type, name, value);
 }
-
-/****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(olaio, OlaIO)
-#endif

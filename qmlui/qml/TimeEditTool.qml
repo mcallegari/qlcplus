@@ -42,6 +42,10 @@ GridLayout
 
     /* The TAP time counter */
     property double tapTimeValue: 0
+    //needed for bpm tapping
+    property int tapCount: 0
+    property double lastTap: 0
+    property var tapHistory: []
 
     /* If needed, this property can be used to recognize which type
        of speed value is being edited */
@@ -73,7 +77,11 @@ GridLayout
         if (tX >= 0)
             x = tX
         if (tY >= 0)
+        {
             y = tY
+            if (y + height > mainView.height)
+                y = mainView.height - height - UISettings.listItemHeight
+        }
 
         visible = true
         timeBox.selectAndFocus()
@@ -173,23 +181,36 @@ GridLayout
         onClicked:
         {
             /* right click resets the current TAP time */
-            if (mouseButton === Qt.RightButton)
-            {
-                tapTimer.stop()
-                tapButton.border.color = UISettings.bgMedium
-                tapTimeValue = 0
-            }
-            else
-            {
-                var currTime = new Date().getTime()
-                if (tapTimeValue != 0)
+                if (mouseButton === Qt.RightButton)
                 {
-                    updateTime(currTime - tapTimeValue, "")
-                    tapTimer.interval = timeValue
-                    tapTimer.restart()
+                    tapTimer.stop()
+                    tapButton.border.color = UISettings.bgMedium
+                    lastTap = 0
+                    tapHistory = []
                 }
-                tapTimeValue = currTime
-            }
+                else
+                {
+                    var currTime = new Date().getTime()
+                    
+                    if (lastTap != 0 && currTime - lastTap < 1500)
+                    {
+                        var newTime = currTime - lastTap
+                        
+                        tapHistory.push(newTime)
+
+                        tapTimeValue = TimeUtils.calculateBPMByTapIntervals(tapHistory)
+                        
+                        updateTime(tapTimeValue, "")
+                        tapTimer.interval = timeValue
+                        tapTimer.restart()
+                    }
+                    else
+                    {
+                        lastTap = 0
+                        tapHistory = []
+                    }
+                    lastTap = currTime
+                }
         }
     }
 
@@ -293,15 +314,24 @@ GridLayout
             id: timeBox
             anchors.fill: parent
             //anchors.fill: parent
-            textAlignment: TextInput.AlignHCenter
+            horizontalAlignment: TextInput.AlignHCenter
             radius: 0
-            inputText: timeValueString
-            fontSize: btnFontSize
+            text: timeValueString
+            font.pixelSize: btnFontSize
 
-            onEnterPressed: updateTime(-1, inputText)
-            Keys.onTabPressed: toolRoot.tabPressed(true)
-            Keys.onBacktabPressed: toolRoot.tabPressed(false)
-            onEscapePressed:
+            onAccepted: updateTime(-1, text)
+
+            Keys.onTabPressed:
+            {
+                updateTime(-1, text)
+                toolRoot.tabPressed(true)
+            }
+            Keys.onBacktabPressed:
+            {
+                updateTime(-1, text)
+                toolRoot.tabPressed(false)
+            }
+            Keys.onEscapePressed:
             {
                 tapTimer.stop()
                 toolRoot.visible = false

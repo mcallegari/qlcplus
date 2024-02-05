@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.1</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Robert Box</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -11,1571 +11,1571 @@
  <Type>Flower</Type>
  <Channel Name="Function">
   <Group Byte="0">Effect</Group>
-  <Capability Max="9" Min="0">Off</Capability>
-  <Capability Max="85" Min="10">Sync. show</Capability>
-  <Capability Max="160" Min="86">2-light show</Capability>
-  <Capability Max="239" Min="161">4-light show</Capability>
-  <Capability Max="255" Min="240">Sound atcive</Capability>
+  <Capability Min="0" Max="9">Off</Capability>
+  <Capability Min="10" Max="85">Sync. show</Capability>
+  <Capability Min="86" Max="160">2-light show</Capability>
+  <Capability Min="161" Max="239">4-light show</Capability>
+  <Capability Min="240" Max="255">Sound atcive</Capability>
  </Channel>
  <Channel Name="Chase">
   <Group Byte="0">Effect</Group>
-  <Capability Max="20" Min="0">1</Capability>
-  <Capability Max="43" Min="21">2</Capability>
-  <Capability Max="65" Min="44">3</Capability>
-  <Capability Max="87" Min="66">4</Capability>
-  <Capability Max="108" Min="88">5</Capability>
-  <Capability Max="129" Min="109">6</Capability>
-  <Capability Max="151" Min="130">7</Capability>
-  <Capability Max="172" Min="152">8</Capability>
-  <Capability Max="193" Min="173">9</Capability>
-  <Capability Max="214" Min="194">10</Capability>
-  <Capability Max="235" Min="215">11</Capability>
-  <Capability Max="255" Min="236">12</Capability>
+  <Capability Min="0" Max="20">1</Capability>
+  <Capability Min="21" Max="43">2</Capability>
+  <Capability Min="44" Max="65">3</Capability>
+  <Capability Min="66" Max="87">4</Capability>
+  <Capability Min="88" Max="108">5</Capability>
+  <Capability Min="109" Max="129">6</Capability>
+  <Capability Min="130" Max="151">7</Capability>
+  <Capability Min="152" Max="172">8</Capability>
+  <Capability Min="173" Max="193">9</Capability>
+  <Capability Min="194" Max="214">10</Capability>
+  <Capability Min="215" Max="235">11</Capability>
+  <Capability Min="236" Max="255">12</Capability>
  </Channel>
  <Channel Name="Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Max="255" Min="0">Slow - fast</Capability>
+  <Capability Min="0" Max="255">Slow - fast</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Max="9" Min="0">On</Capability>
-  <Capability Max="255" Min="10">Slow - fast</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">On</Capability>
+  <Capability Min="10" Max="255" Preset="SlowToFast">Slow - fast</Capability>
  </Channel>
  <Channel Name="Red 1">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 2">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 3">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 4">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 5">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 6">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 7">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 8">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 9">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 10">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 11">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 12">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 13">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 14">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 15">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 16">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 17">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 18">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 19">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 20">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 21">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 22">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 23">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 24">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 25">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 26">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 27">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 28">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 29">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 30">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 31">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 32">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 33">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 34">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 35">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 36">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 37">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 38">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 39">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 40">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 41">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 42">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 43">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 44">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 45">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 46">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 47">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 48">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 49">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 50">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 51">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 52">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 53">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 54">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 55">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 56">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 57">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 58">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 59">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 60">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 61">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 62">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 63">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Red 64">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 1">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 2">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 3">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 4">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 5">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 6">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 7">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 8">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 9">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 10">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 11">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 12">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 13">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 14">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 15">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 16">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 17">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 18">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 19">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 20">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 21">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 22">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 23">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 24">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 25">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 26">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 27">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 28">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 29">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 30">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 31">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 32">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 33">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 34">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 35">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 36">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 37">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 38">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 39">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 40">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 41">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 42">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 43">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 44">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 45">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 46">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 47">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 48">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 49">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 50">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 51">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 52">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 53">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 54">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 55">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 56">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 57">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 58">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 59">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 60">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 61">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 62">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 63">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Green 64">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 1">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 2">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 3">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 4">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 5">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 6">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 7">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 8">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 9">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 10">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 11">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 12">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 13">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 14">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 15">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 16">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 17">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 18">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 19">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 20">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 21">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 22">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 23">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 24">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 25">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 26">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 27">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 28">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 29">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 30">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 31">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 32">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 33">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 34">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 35">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 36">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 37">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 38">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 39">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 40">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 41">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 42">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 43">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 44">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 45">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 46">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 47">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 48">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 49">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 50">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 51">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 52">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 53">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 54">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 55">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 56">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 57">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 58">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 59">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 60">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 61">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 62">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 63">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="Blue 64">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 1">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 2">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 3">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 4">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 5">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 6">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 7">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 8">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 9">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 10">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 11">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 12">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 13">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 14">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 15">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 16">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 17">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 18">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 19">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 20">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 21">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 22">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 23">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 24">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 25">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 26">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 27">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 28">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 29">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 30">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 31">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 32">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 33">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 34">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 35">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 36">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 37">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 38">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 39">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 40">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 41">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 42">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 43">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 44">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 45">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 46">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 47">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 48">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 49">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 50">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 51">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 52">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 53">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 54">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 55">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 56">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 57">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 58">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 59">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 60">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 61">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 62">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 63">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Channel Name="White 64">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Max="127" Min="0">Off</Capability>
-  <Capability Max="255" Min="128">On</Capability>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
  </Channel>
  <Mode Name="4 Channel">
   <Channel Number="0">Function</Channel>
@@ -2225,11 +2225,12 @@
    <Channel>255</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Width="526" Weight="5" Height="243" Depth="319"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="32"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5" Width="526" Height="243" Depth="319"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="16" Height="4"/>
+  <Technical PowerConsumption="32" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

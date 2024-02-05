@@ -58,13 +58,13 @@ void MainViewDMX::setUniverseFilter(quint32 universeFilter)
 {
     PreviewContext::setUniverseFilter(universeFilter);
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         quint32 fxID = it.key();
         QQuickItem *fxItem = it.value();
         Fixture *fixture = m_doc->fixture(fxID);
-        if (fixture == NULL)
+        if (fixture == nullptr)
             continue;
 
         if (universeFilter == Universe::invalid() || fixture->universe() == universeFilter)
@@ -77,7 +77,7 @@ void MainViewDMX::setUniverseFilter(quint32 universeFilter)
 void MainViewDMX::reset()
 {
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         Fixture *fixture = m_doc->fixture(it.key());
@@ -96,12 +96,15 @@ void MainViewDMX::createFixtureItem(quint32 fxID)
     qDebug() << "[MainViewDMX] Creating fixture with ID" << fxID;
 
     Fixture *fixture = m_doc->fixture(fxID);
-    if (fixture == NULL)
+    if (fixture == nullptr)
         return;
 
     QQuickItem *newFixtureItem = qobject_cast<QQuickItem*>(fixtureComponent->create());
     MonitorProperties *monProps = m_doc->monitorProperties();
     quint32 itemFlags = monProps->fixtureFlags(fxID, 0, 0);
+
+    if (monProps->containsFixture(fxID) == false)
+        monProps->setFixturePosition(fxID, 0, 0, QVector3D(0, 0, 0));
 
     newFixtureItem->setParentItem(contextItem());
     newFixtureItem->setProperty("fixtureObj", QVariant::fromValue(fixture));
@@ -125,13 +128,13 @@ void MainViewDMX::setFixtureFlags(quint32 itemID, quint32 flags)
     if (headIndex || linkedIndex)
         return;
 
-    QQuickItem *fxItem = m_itemsMap.value(fixtureID, NULL);
+    QQuickItem *fxItem = m_itemsMap.value(fixtureID, nullptr);
     fxItem->setProperty("visible", (flags & MonitorProperties::HiddenFlag) ? false : true);
 }
 
 void MainViewDMX::updateFixture(Fixture *fixture)
 {
-    if (isEnabled() == false || fixture == NULL)
+    if (isEnabled() == false || fixture == nullptr)
         return;
 
     if (m_itemsMap.contains(fixture->id()) == false)
@@ -150,10 +153,10 @@ void MainViewDMX::updateFixture(Fixture *fixture)
 void MainViewDMX::updateFixtureSelection(QList<quint32>fixtures)
 {
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
-        quint32 itemID = it.key();
+        quint32 itemID = FixtureUtils::fixtureItemID(it.key(), 0, 0);
         QQuickItem *fxItem = it.value();
         if (fixtures.contains(itemID))
             fxItem->setProperty("isSelected", true);

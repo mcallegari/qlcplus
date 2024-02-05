@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Ben C</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -18,14 +18,14 @@
  <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobing">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="31">LED off</Capability>
-  <Capability Min="32" Max="63">LED on</Capability>
-  <Capability Min="64" Max="95">Strobing slow - fast</Capability>
-  <Capability Min="96" Max="127">LED on</Capability>
-  <Capability Min="128" Max="159">Strobe pulse slow - fast</Capability>
-  <Capability Min="160" Max="191">LED on</Capability>
-  <Capability Min="192" Max="223">Random strobe slow - fast</Capability>
-  <Capability Min="224" Max="255">LED on</Capability>
+  <Capability Min="0" Max="31" Preset="ShutterClose">LED Off</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobing slow - fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Strobe pulse slow - fast</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe slow - fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">LED on</Capability>
  </Channel>
  <Channel Name="Program selection mode">
   <Group Byte="0">Effect</Group>
@@ -132,11 +132,11 @@
   <Channel Number="10">Program speed/sound sensitive</Channel>
   <Channel Number="11">Dimmer curves</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.23" Width="220" Height="225" Depth="85"/>
-   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="21" DmxConnector="3-pin"/>
-  </Physical>
-  </FixtureDefinition>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.23" Width="220" Height="225" Depth="85"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="21" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

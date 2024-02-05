@@ -26,7 +26,6 @@
 #include "chaserstep.h"
 #include "showeditor.h"
 #include "chaser.h"
-#include "audio.h"
 #include "track.h"
 #include "scene.h"
 #include "show.h"
@@ -51,11 +50,7 @@ ShowEditor::ShowEditor(QWidget* parent, Show* show, Doc* doc)
     m_tree->setRootIsDecorated(true);
     m_tree->setSortingEnabled(false);
     m_tree->setSelectionMode(QAbstractItemView::SingleSelection);
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-    m_tree->header()->setResizeMode(QHeaderView::Interactive);
-#else
     m_tree->header()->setSectionResizeMode(QHeaderView::Interactive);
-#endif
 
     connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotNameEdited(const QString&)));
@@ -103,7 +98,7 @@ void ShowEditor::updateFunctionList()
 
     if (m_show == NULL)
     {
-        qDebug() << Q_FUNC_INFO << "Invalid show !";
+        qDebug() << Q_FUNC_INFO << "Invalid show!";
         return;
     }
 
@@ -112,7 +107,7 @@ void ShowEditor::updateFunctionList()
     masterItem->setData(NAME_COL, PROP_ID, m_show->id());
     masterItem->setIcon(NAME_COL, QIcon(":/show.png"));
 
-    foreach(Track *track, m_show->tracks())
+    foreach (Track *track, m_show->tracks())
     {
         QTreeWidgetItem* sceneItem = NULL;
         Scene *scene = qobject_cast<Scene*>(m_doc->function(track->getSceneID()));
@@ -128,7 +123,7 @@ void ShowEditor::updateFunctionList()
             }
         }
 
-        foreach(ShowFunction *sf, track->showFunctions())
+        foreach (ShowFunction *sf, track->showFunctions())
         {
             Function *func = m_doc->function(sf->functionID());
             if (func == NULL)
@@ -146,9 +141,9 @@ void ShowEditor::updateFunctionList()
             fItem->setText(NAME_COL, func->name());
             fItem->setData(NAME_COL, PROP_ID, func->id());
             fItem->setText(TIME_COL, Function::speedToString(sf->startTime()));
-            fItem->setText(DUR_COL, Function::speedToString(sf->duration()));
-            if (sf->startTime() + sf->duration() > totalDuration)
-                totalDuration = sf->startTime() + sf->duration();
+            fItem->setText(DUR_COL, Function::speedToString(sf->duration(m_doc)));
+            if (sf->startTime() + sf->duration(m_doc) > totalDuration)
+                totalDuration = sf->startTime() + sf->duration(m_doc);
 
             if (func->type() == Function::ChaserType)
             {

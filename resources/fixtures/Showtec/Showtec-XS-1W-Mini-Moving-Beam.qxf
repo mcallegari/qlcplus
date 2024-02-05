@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.5 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>AxelOtl</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
@@ -14,25 +14,25 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter/Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7">Shutter closed</Capability>
-  <Capability Min="8" Max="15">Shutter open</Capability>
-  <Capability Min="16" Max="131">Strobe effect, from slow to fast</Capability>
-  <Capability Min="132" Max="139">Shutter open</Capability>
-  <Capability Min="140" Max="181">Fast Close to slow Open, from slow to fast</Capability>
-  <Capability Min="182" Max="189">Shutter open</Capability>
-  <Capability Min="190" Max="231">Slow Close to Fast Open, slow Open, from slow to fast</Capability>
-  <Capability Min="232" Max="239">Shutter open</Capability>
-  <Capability Min="240" Max="247">Random shutters are on or off, from long to short intervals</Capability>
-  <Capability Min="248" Max="255">Shutter open</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobe effect, from slow to fast</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="140" Max="181" Preset="RampUpSlowToFast">Fast Close to slow Open, from slow to fast</Capability>
+  <Capability Min="182" Max="189" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="190" Max="231" Preset="RampDownSlowToFast">Slow Close to Fast Open, slow Open, from slow to fast</Capability>
+  <Capability Min="232" Max="239" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandomFastToSlow">Random shutters are on or off, from long to short intervals</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Shutter open</Capability>
  </Channel>
  <Channel Name="Channel Functions">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="69">Not used</Capability>
   <Capability Min="70" Max="79">Enable Pan/tilt blackout (after 5 seconds)</Capability>
   <Capability Min="80" Max="89">Disable Pan/tilt blackout (after 5 seconds)</Capability>
-  <Capability Min="90" Max="199">No Function</Capability>
+  <Capability Min="90" Max="199">No function</Capability>
   <Capability Min="200" Max="209">Reset All (after 5 seconds)</Capability>
-  <Capability Min="210" Max="249">No Function</Capability>
+  <Capability Min="210" Max="249">No function</Capability>
   <Capability Min="250" Max="255">Sound-controlled</Capability>
  </Channel>
  <Channel Name="Pan fine 16 bit" Preset="PositionPanFine"/>
@@ -74,11 +74,11 @@
   <Channel Number="8">Dimmer</Channel>
   <Channel Number="9">Shutter/Strobe</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="7000"/>
-   <Dimensions Weight="2" Width="125" Height="236" Depth="125"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="3"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="25" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="7000"/>
+  <Dimensions Weight="2" Width="125" Height="236" Depth="125"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="3"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

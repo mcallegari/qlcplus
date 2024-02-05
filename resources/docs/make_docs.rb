@@ -19,7 +19,7 @@ OptionParser.new do |opts|
 end.parse!
 
 VERSION = (File.read('../../variables.pri') =~ /APPVERSION = (.*?)$/) ? $1 : "Unknown"
-GIT_COMMIT = `git describe`.strip
+GIT_COMMIT = `git rev-parse --short HEAD`.strip
 
 if !options[:destination].empty?
   FileUtils.mkdir_p options[:destination]
@@ -34,9 +34,6 @@ if !options[:destination].empty?
     Dir.glob([lang, "*.html"].join('/')) do |filename|
         text = File.read(filename)
 
-        # remove file: protocol so that HTML files work over http as well
-        text.gsub!(%r{file:}, "")
-
         # replace QT resouce path with web ones
         text.gsub!(%r{qrc:/}, "../icons/")
 
@@ -47,7 +44,7 @@ if !options[:destination].empty?
         text.gsub!(%r{ onLoad="replaceqrc\(\)"}, "")
         text.gsub!(%r{<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>\r?\n}i, "")
 
-        # add nice header    
+        # add nice header
         if !filename.include? "index.html"
         text.gsub!(%r{<BODY>}i, "<BODY>\n<H1 style=\"background-color: lightgreen;padding:3pt\"><img src=\"../icons/qlcplus.png\" width=32 align=\"absmiddle\" /> Q Light Controller Plus - User Documentation</H1>\n<a href=\"index.html\">Index page</a>")
         else

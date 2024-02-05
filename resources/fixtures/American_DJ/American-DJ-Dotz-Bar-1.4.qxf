@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.2 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Massimo Callegari</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
  <Model>Dotz Bar 1.4</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Beams)</Type>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
@@ -26,12 +26,12 @@
  <Channel Name="Color Macros and Programs">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="15">No function</Capability>
-  <Capability Min="16" Max="23" Color="#ff0000">Red</Capability>
-  <Capability Min="24" Max="31" Color="#00ff00">Green</Capability>
-  <Capability Min="32" Max="39" Color="#0000ff">Blue</Capability>
-  <Capability Color2="#00ff00" Min="40" Max="47" Color="#ff0000">Red &amp; Green</Capability>
-  <Capability Color2="#0000ff" Min="48" Max="55" Color="#00ff00">Green &amp; Blue</Capability>
-  <Capability Color2="#0000ff" Min="56" Max="63" Color="#ff0000">Red &amp; Blue</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="47" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red &amp; Green</Capability>
+  <Capability Min="48" Max="55" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green &amp; Blue</Capability>
+  <Capability Min="56" Max="63" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red &amp; Blue</Capability>
   <Capability Min="64" Max="71">Red, Green &amp; Blue</Capability>
   <Capability Min="72" Max="79">Color 1</Capability>
   <Capability Min="80" Max="87">Color 2</Capability>
@@ -167,11 +167,12 @@
    <Channel>9</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Height="140" Width="340" Depth="140" Weight="2.8"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical PowerConsumption="48" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.8" Width="340" Height="140" Depth="140"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="48" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

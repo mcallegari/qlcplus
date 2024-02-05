@@ -26,11 +26,12 @@
 #include "video.h"
 #include "doc.h"
 
-#define KXMLQLCVideoSource "Source"
-#define KXMLQLCVideoScreen "Screen"
-#define KXMLQLCVideoFullscreen "Fullscreen"
-#define KXMLQLCVideoGeometry "Geometry"
-#define KXMLQLCVideoRotation "Rotation"
+#define KXMLQLCVideoSource      QString("Source")
+#define KXMLQLCVideoScreen      QString("Screen")
+#define KXMLQLCVideoFullscreen  QString("Fullscreen")
+#define KXMLQLCVideoGeometry    QString("Geometry")
+#define KXMLQLCVideoRotation    QString("Rotation")
+#define KXMLQLCVideoZIndex      QString("ZIndex")
 
 const QStringList Video::m_defaultVideoCaps =
         QStringList() << "*.avi" << "*.wmv" << "*.mkv" << "*.mp4" << "*.mov" << "*.mpg" << "*.mpeg" << "*.flv" << "*.webm";
@@ -50,16 +51,21 @@ Video::Video(Doc* doc)
   , m_resolution(QSize(0,0))
   , m_customGeometry(QRect())
   , m_rotation(QVector3D(0, 0, 0))
+  , m_zIndex(1)
   , m_screen(0)
   , m_fullscreen(false)
 {
     setName(tr("New Video"));
     setRunOrder(Video::SingleShot);
 
+    registerAttribute(tr("Volume"), Function::LastWins, 0, 100, 100);
     registerAttribute(tr("X Rotation"), Function::LastWins, -360.0, 360.0, 0.0);
     registerAttribute(tr("Y Rotation"), Function::LastWins, -360.0, 360.0, 0.0);
     registerAttribute(tr("Z Rotation"), Function::LastWins, -360.0, 360.0, 0.0);
-
+    registerAttribute(tr("X Position"), Function::LastWins, -100.0, 100.0, 0.0);
+    registerAttribute(tr("Y Position"), Function::LastWins, -100.0, 100.0, 0.0);
+    registerAttribute(tr("Width scale"), Function::LastWins, 0, 1000.0, 100.0);
+    registerAttribute(tr("Height scale"), Function::LastWins, 0, 1000.0, 100.0);
 
     // Listen to member Function removals
     connect(doc, SIGNAL(functionRemoved(quint32)),
@@ -113,7 +119,10 @@ bool Video::copyFrom(const Function* function)
 QStringList Video::getVideoCapabilities()
 {
     QStringList caps;
-    QStringList mimeTypes = QMediaPlayer::supportedMimeTypes();
+    QStringList mimeTypes;
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    mimeTypes = QMediaPlayer::supportedMimeTypes();
+#endif
 
     if (mimeTypes.isEmpty())
     {
@@ -123,7 +132,7 @@ QStringList Video::getVideoCapabilities()
     {
         qDebug() << "Supported video types:" << mimeTypes;
 
-        foreach(QString mime, mimeTypes)
+        foreach (QString mime, mimeTypes)
         {
             if (mime.startsWith("video/"))
             {
@@ -204,6 +213,20 @@ void Video::setRotation(QVector3D rotation)
     emit rotationChanged(m_rotation);
 }
 
+int Video::zIndex() const
+{
+    return m_zIndex;
+}
+
+void Video::setZIndex(int idx)
+{
+    if (m_zIndex == idx)
+        return;
+
+    m_zIndex = idx;
+    emit zIndexChanged(m_zIndex);
+}
+
 void Video::setAudioCodec(QString codec)
 {
     m_audioCodec = codec;
@@ -234,7 +257,10 @@ bool Video::setSourceUrl(QString filename)
     QString fileExt = "*" + filename.mid(filename.lastIndexOf('.'));
 
     if (m_defaultPictureCaps.contains(fileExt))
+    {
         m_isPicture = true;
+        setZIndex(2);
+    }
 
     if (m_sourceUrl.contains("://"))
     {
@@ -244,9 +270,14 @@ bool Video::setSourceUrl(QString filename)
     else
     {
         if (QFile(m_sourceUrl).exists())
+        {
             setName(QFileInfo(m_sourceUrl).fileName());
+        }
         else
+        {
+            doc()->appendToErrorLog(tr("Video file <b>%1</b> not found").arg(m_sourceUrl));
             setName(tr("File not found"));
+        }
     }
 
     emit sourceChanged(m_sourceUrl);
@@ -307,26 +338,7 @@ int Video::adjustAttribute(qreal fraction, int attributeId)
             emit intensityChanged();
         }
         break;
-        case XRotation:
-        {
-            QVector3D rot = rotation();
-            rot.setX(getAttributeValue(XRotation));
-            setRotation(rot);
-        }
-        break;
-        case YRotation:
-        {
-            QVector3D rot = rotation();
-            rot.setY(getAttributeValue(YRotation));
-            setRotation(rot);
-        }
-        break;
-        case ZRotation:
-        {
-            QVector3D rot = rotation();
-            rot.setZ(getAttributeValue(ZRotation));
-            setRotation(rot);
-        }
+        default:
         break;
     }
 
@@ -376,6 +388,7 @@ bool Video::saveXML(QXmlStreamWriter *doc)
         QString rot = QString("%1,%2,%3").arg(m_rotation.x()).arg(m_rotation.y()).arg(m_rotation.z());
         doc->writeAttribute(KXMLQLCVideoRotation, rot);
     }
+    doc->writeAttribute(KXMLQLCVideoZIndex, QString::number(m_zIndex));
 #endif
     if (m_sourceUrl.contains("://"))
         doc->writeCharacters(m_sourceUrl);
@@ -448,6 +461,10 @@ bool Video::loadXML(QXmlStreamReader &root)
                     v.setZ(slist.at(2).toInt());
                     setRotation(v);
                 }
+            }
+            if (attrs.hasAttribute(KXMLQLCVideoZIndex))
+            {
+                setZIndex(attrs.value(KXMLQLCVideoZIndex).toInt());
             }
 #endif
 

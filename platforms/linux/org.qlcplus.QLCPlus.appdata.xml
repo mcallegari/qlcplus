@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2015 Dave Olsthoorn <dave.olsthoorn@gmail.com> -->
+<component type="desktop">
+ <id>org.qlcplus.QLCPlus</id>
+ <metadata_license>CC-BY-SA-3.0</metadata_license>
+ <project_license>Apache-2.0</project_license>
+ <name>Q Light Controller Plus</name>
+ <summary>This is a software to control DMX or analog lighting systems</summary>
+ <summary xml:lang="fr">Ce logiciel permet de contrôler des luminaires DMX ou analogiques</summary>
+ <summary xml:lang="nl">Bestuur verlichting met DMX of analoge systemen</summary>
+ <summary xml:lang="it">Questo è un software per controllare sistemi di illuminazione DMX o analogici</summary>
+ <summary xml:lang="es">Éste es un software para controlar sistemas de iluminación DMX o analógicos</summary>
+ <summary xml:lang="ca">Aquest es un programari per controlar sistemes d'il·luminació DMX o analògics</summary>
+ <summary xml:lang="de">Software zum Steuern von DMX-basierten oder analogen Beleuchtungssystemen</summary>
+ <description>
+  <p>
+   QLC+ is free and cross-platform software to control DMX or analog lighting
+   systems like moving heads, dimmers, scanners etc. This project is a fork of
+   the great QLC project written by Heikki Junnila that aims to continue the
+   development of QLC and to introduce new features. The primary goal is to
+   bring QLC+ at the level of other commercial lighting control software.
+  </p>
+  <p xml:lang="fr">
+   QLC+ est un logiciel libre et multiplateformes, qui contrôle des luminaires
+   DMX ou analogiques, comme des lyres, des dimmers, des scans, etc. Ce projet
+   est un fork du superbe projet QLC écrit par Heikki Junnila, son but est de
+   poursuivre le développement de QLC et d'y ajouter de nouvelles fonctionnalités.
+   L'objectif premier est d'amener QLC+ au même niveau que les autres logiciels
+   de contrôle de luminaires.
+  </p>
+  <p xml:lang="nl">
+   QLC+ is gratis en cross-platform software voor het besturen van DMX of analoge
+   verlichting systemen zoals moving heads, dimmers, scanners etc. Dit project is
+   een verbetering van het grote QLC project geschreven door Heikki Junnila dat zich
+   richt op de verder ontwikkeling van QLC en om nieuwe functies te introduceren. Het primaire
+   doel is om QLC+ op het niveau van andere commerciële lichtregeling software te brengen.
+  </p>
+  <p xml:lang="it">
+   QLC+ è un software gratuito e multi piattaforma per controllare sistemi di illuminazione
+   DMX o analogici come teste mobili, dimmer, scanner, ecc. Questo progetto è un fork
+   del magnifico progetto QLC scritto da Heikki Junnila, che mira a continuare lo sviluppo di
+   QLC e a introdurre nuove funzionalità. L'obiettivo primario è di portare QLC+
+   al livello di altri software commerciali per il controllo di illuminazione.
+  </p>
+  <p xml:lang="es">
+   QLC+ es un software gratuito y multi plataforma para controlar sistemas de iluminación
+   DMX o analógicos como cabezas móviles, dimmers, scanners, etc. Este proyecto es un fork
+   del magnífico proyecto QLC escrito por Heikki Junnila, que intenta continuar el desarrollo de
+   QLC e introducir nuevas funcionalidades. El objetivo primario es de elevar QLC+
+   al nivel de otros softwares comerciales de control de iluminación.
+  </p>
+  <p xml:lang="ca">
+   QLC és un programari lliure i multiplataforma per controlar sistemes d'il·luminació DMX
+   o analògics com a caps mòbils, dimmers, scanners, etc. Aquest projecte és un fork del magnífic
+   projecte QLC escrit per Heikki Junnila, que intenta continuar el desenvolupament de QLC
+   i introduir noves funcionalitats. L'objectiu primari és d'elevar QLC+ al nivell
+   d'altres programaris comercials de control d'il·luminació.
+  </p>
+  <p xml:lang="de">
+   QLC+ ist eine konstenlose und cross-platform Software um DMX-basierte oder analoge
+   Beleuchtungssysteme wie Moving-Heads, Dimmer, Scanner, usw. zu steuern.
+   Das Projekt ist ein Fork des großartigen QLC-Projekts von Heikki Junnila mit dem
+   Ziel, die Entwicklung von QLC fortzuführen und neue Funktionen hinzuzufügen.
+   Das primäre Ziel ist es, QLC+ auf die gleiche Stufe wie kommerzielle
+   Lichtsteuersoftware zu bringen.
+  </p>
+ </description>
+ <screenshots>
+  <screenshot type="default">
+   <image>http://www.qlcplus.org/shots/qlcplus_fixtures.png</image>
+   <caption>Fixtures panel</caption>
+  </screenshot>
+  <screenshot>
+   <image>http://www.qlcplus.org/shots/qlcplus_virtualconsole2.png</image>
+   <caption>Virtual Console</caption>
+  </screenshot>
+  <screenshot>
+   <image>http://www.qlcplus.org/shots/qlcplus_multitrack2.png</image>
+   <caption>Show Manager</caption>
+  </screenshot>
+ </screenshots>
+ <url type="homepage">https://www.qlcplus.org/</url>
+ <url type="bugtracker">https://github.com/mcallegari/qlcplus/issues</url>
+ <launchable type="desktop-id">qlcplus.desktop</launchable>
+ <provides>
+  <binary>qlcplus</binary>
+ </provides>
+</component>

@@ -873,19 +873,19 @@ void FixtureGroup_Test::save()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Size")
+        if (xmlReader.name().toString() == "Size")
         {
             QCOMPARE(xmlReader.attributes().value("X").toString().toInt(), 4);
             QCOMPARE(xmlReader.attributes().value("Y").toString().toInt(), 5);
             size++;
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "Name")
+        else if (xmlReader.name().toString() == "Name")
         {
             QCOMPARE(xmlReader.readElementText(), QString("Pertti Pasanen"));
             name++;
         }
-        else if (xmlReader.name() == "Head")
+        else if (xmlReader.name().toString() == "Head")
         {
             quint32 id = xmlReader.attributes().value("Fixture").toString().toUInt();
             QLCPoint pt(xmlReader.attributes().value("X").toString().toInt(),

@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Futurelight</Manufacturer>
@@ -15,7 +15,7 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="225">Vector mode speed</Capability>
   <Capability Min="226" Max="235">BO with pan/tilt</Capability>
-  <Capability Min="236" Max="245">No function</Capability>
+  <Capability Min="236" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Rainbow">
   <Group Byte="0">Speed</Group>
@@ -28,18 +28,18 @@
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="63">Shutter open</Capability>
-  <Capability Min="64" Max="95">Strobe speed</Capability>
-  <Capability Min="96" Max="127">Shutter open</Capability>
-  <Capability Min="128" Max="159">Pulse sequence</Capability>
-  <Capability Min="160" Max="191">Shutter open</Capability>
-  <Capability Min="192" Max="223">Random strobe speed</Capability>
-  <Capability Min="224" Max="255">Shutter open</Capability>
+  <Capability Min="0" Max="63" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe speed</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="128" Max="159" Preset="PulseFastToSlow">Pulse sequence</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe speed</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Shutter open</Capability>
  </Channel>
  <Channel Name="Lamp switch, reset, programs">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="79">No function</Capability>
-  <Capability Min="80" Max="95">Reset</Capability>
+  <Capability Min="80" Max="95" Preset="ResetAll">Reset</Capability>
   <Capability Min="96" Max="111">Internal program 1</Capability>
   <Capability Min="112" Max="127">Internal program 2</Capability>
   <Capability Min="128" Max="143">Internal program 3</Capability>
@@ -65,11 +65,11 @@
   <Channel Number="9">Pan fine</Channel>
   <Channel Number="10">Tilt fine</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="9" Width="290" Height="360" Depth="290"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="160" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="9" Width="290" Height="360" Depth="290"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="160" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

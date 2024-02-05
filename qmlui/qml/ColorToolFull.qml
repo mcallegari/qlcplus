@@ -30,7 +30,7 @@ Rectangle
     id: rootBox
     width: 330
     height: 370
-    color: "#444"
+    color: UISettings.bgMedium
     border.color: "#222"
     border.width: 2
 
@@ -45,26 +45,7 @@ Rectangle
 
     onCurrentRGBChanged:
     {
-        rSpin.value = currentRGB.r * 255
-        gSpin.value = currentRGB.g * 255
-        bSpin.value = currentRGB.b * 255
-        htmlText.inputText = Helpers.getHTMLColor(currentRGB.r * 255, currentRGB.g * 255, currentRGB.b * 255)
-        emitCurrentColor()
-    }
-    onCurrentWAUVChanged:
-    {
-        wSpin.value = currentWAUV.r * 255
-        aSpin.value = currentWAUV.g * 255
-        uvSpin.value = currentWAUV.b * 255
-        wSlider.value = currentWAUV.r * 255
-        aSlider.value = currentWAUV.g * 255
-        uvSlider.value = currentWAUV.b * 255
-        emitCurrentColor()
-    }
-
-    function emitCurrentColor()
-    {
-        colorChanged(currentRGB.r, currentRGB.g, currentRGB.b, currentWAUV.r, currentWAUV.g, currentWAUV.b)
+        htmlText.text = Helpers.getHTMLColor(currentRGB.r * 255, currentRGB.g * 255, currentRGB.b * 255)
     }
 
     Canvas
@@ -82,50 +63,50 @@ Rectangle
 
         function fillWithGradient(r, g, b, xPos)
         {
-            context.beginPath();
-            var grad = context.createLinearGradient(xPos, 0, xPos, 255);
-            grad.addColorStop(0, 'black');
-            grad.addColorStop(0.5, Helpers.getHTMLColor(r,g,b));
-            grad.addColorStop(1, 'white');
-            context.strokeStyle = grad;
-            context.moveTo(xPos, 0);
-            context.lineTo(xPos, 255);
-            context.closePath();
-            context.stroke();
+            context.beginPath()
+            var grad = context.createLinearGradient(xPos, 0, xPos, 255)
+            grad.addColorStop(0, 'black')
+            grad.addColorStop(0.5, Helpers.getHTMLColor(r,g,b))
+            grad.addColorStop(1, 'white')
+            context.strokeStyle = grad
+            context.moveTo(xPos, 0)
+            context.lineTo(xPos, 255)
+            context.closePath()
+            context.stroke()
         }
 
         onPaint:
         {
-            context.globalAlpha = 1.0;
-            var i = 0;
-            var x = 0;
-            var r = 0xFF;
-            var g = 0;
-            var b = 0;
-            context.lineWidth = 1;
+            context.globalAlpha = 1.0
+            var i = 0
+            var x = 0
+            var r = 0xFF
+            var g = 0
+            var b = 0
+            context.lineWidth = 1
 
-            var baseColors = [ 0xFF0000, 0xFFFF00, 0x00FF00, 0x00FFFF, 0x0000FF, 0xFF00FF, 0xFF0000 ];
+            var baseColors = [ 0xFF0000, 0xFFFF00, 0x00FF00, 0x00FFFF, 0x0000FF, 0xFF00FF, 0xFF0000 ]
 
             for (var c = 0; c < 6; c++)
             {
-                r = (baseColors[c] >> 16) & 0x00FF;
-                g = (baseColors[c] >> 8) & 0x00FF;
-                b = baseColors[c] & 0x00FF;
-                var nr = (baseColors[c + 1] >> 16) & 0x00FF;
-                var ng = (baseColors[c + 1] >> 8) & 0x00FF;
-                var nb = baseColors[c + 1] & 0x00FF;
-                var rD = (nr - r) / 42;
-                var gD = (ng - g) / 42;
-                var bD = (nb - b) / 42;
+                r = (baseColors[c] >> 16) & 0x00FF
+                g = (baseColors[c] >> 8) & 0x00FF
+                b = baseColors[c] & 0x00FF
+                var nr = (baseColors[c + 1] >> 16) & 0x00FF
+                var ng = (baseColors[c + 1] >> 8) & 0x00FF
+                var nb = baseColors[c + 1] & 0x00FF
+                var rD = (nr - r) / 42
+                var gD = (ng - g) / 42
+                var bD = (nb - b) / 42
 
                 for (i = x; i < x + 42; i++)
                 {
-                    fillWithGradient(r, g, b, i);
-                    r+=rD;
-                    g+=gD;
-                    b+=bD;
+                    fillWithGradient(r, g, b, i)
+                    r += rD
+                    g += gD
+                    b += bD
                 }
-                x+=42;
+                x += 42
             }
         }
 
@@ -173,7 +154,9 @@ Rectangle
             height: UISettings.listItemHeight
             from: 0
             to: 255
-            onValueChanged: currentRGB = Qt.rgba(value / 255, currentRGB.g, currentRGB.b, 1.0)
+            value: currentRGB.r * 255
+            onValueModified: colorChanged(value / 255, currentRGB.g, currentRGB.b,
+                                          currentWAUV.r, currentWAUV.g, currentWAUV.b)
         }
 
         RobotoText
@@ -189,7 +172,9 @@ Rectangle
             height: UISettings.listItemHeight
             from: 0
             to: 255
-            onValueChanged: currentRGB = Qt.rgba(currentRGB.r, value / 255, currentRGB.b, 1.0)
+            value: currentRGB.g * 255
+            onValueModified: colorChanged(currentRGB.r, value / 255, currentRGB.b,
+                                          currentWAUV.r, currentWAUV.g, currentWAUV.b)
         }
 
         RobotoText
@@ -205,7 +190,9 @@ Rectangle
             height: UISettings.listItemHeight
             from: 0
             to: 255
-            onValueChanged: currentRGB = Qt.rgba(currentRGB.r, currentRGB.g, value / 255, 1.0)
+            value: currentRGB.b * 255
+            onValueModified: colorChanged(currentRGB.r, currentRGB.g, value / 255,
+                                          currentWAUV.r, currentWAUV.g, currentWAUV.b)
         }
 
         RobotoText
@@ -234,7 +221,7 @@ Rectangle
         {
             visible: colorsMask & App.White
             height: UISettings.listItemHeight
-            label: qsTr("White");
+            label: qsTr("White")
         }
 
         CustomSlider
@@ -244,7 +231,9 @@ Rectangle
             Layout.fillWidth: true
             from: 0
             to: 255
-            onPositionChanged: currentWAUV = Qt.rgba(valueAt(position) / 255, currentWAUV.g, currentWAUV.b, 1.0)
+            value: currentWAUV.r * 255
+            onMoved: colorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                                  valueAt(position) / 255, currentWAUV.g, currentWAUV.b)
         }
 
         CustomSpinBox
@@ -255,14 +244,16 @@ Rectangle
             height: UISettings.listItemHeight
             from: 0
             to: 255
-            onValueChanged: currentWAUV = Qt.rgba(value / 255, currentWAUV.g, currentWAUV.b, 1.0)
+            value: currentWAUV.r * 255
+            onValueModified: colorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                                          value / 255, currentWAUV.g, currentWAUV.b)
         }
 
         RobotoText
         {
             visible: colorsMask & App.Amber
             height: UISettings.listItemHeight
-            label: qsTr("Amber");
+            label: qsTr("Amber")
         }
 
         CustomSlider
@@ -272,7 +263,9 @@ Rectangle
             Layout.fillWidth: true
             from: 0
             to: 255
-            onPositionChanged: currentWAUV = Qt.rgba(currentWAUV.r, valueAt(position) / 255, currentWAUV.b, 1.0)
+            value: currentWAUV.g * 255
+            onMoved: colorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                                  currentWAUV.r, valueAt(position) / 255, currentWAUV.b)
         }
 
         CustomSpinBox
@@ -283,14 +276,16 @@ Rectangle
             height: UISettings.listItemHeight
             from: 0
             to: 255
-            onValueChanged: currentWAUV = Qt.rgba(currentWAUV.r, value / 255, currentWAUV.b, 1.0)
+            value: currentWAUV.g * 255
+            onValueModified: colorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                                          currentWAUV.r, value / 255, currentWAUV.b)
         }
 
         RobotoText
         {
             visible: colorsMask & App.UV
             height: UISettings.listItemHeight
-            label: qsTr("UV");
+            label: qsTr("UV")
         }
 
         CustomSlider
@@ -300,7 +295,9 @@ Rectangle
             Layout.fillWidth: true
             from: 0
             to: 255
-            onPositionChanged: currentWAUV = Qt.rgba(currentWAUV.r, currentWAUV.g, valueAt(position) / 255, 1.0)
+            value: currentWAUV.b * 255
+            onMoved: colorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                                  currentWAUV.r, currentWAUV.g, valueAt(position) / 255)
         }
 
         CustomSpinBox
@@ -312,7 +309,8 @@ Rectangle
             from: 0
             to: 255
             value: currentWAUV.b * 255
-            onValueChanged: currentWAUV = Qt.rgba(currentWAUV.r, currentWAUV.g, value / 255, 1.0)
+            onValueModified: colorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                                          currentWAUV.r, currentWAUV.g, value / 255)
         }
     }
 
@@ -324,7 +322,7 @@ Rectangle
         RobotoText
         {
             height: UISettings.listItemHeight
-            label: qsTr("Selected color");
+            label: qsTr("Selected color")
         }
 
         MultiColorBox

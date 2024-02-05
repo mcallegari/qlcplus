@@ -38,7 +38,7 @@ public:
     /**
      * Return a list of strings containing the cached scripts names.
      */
-    QList<QString> names() const;
+    QStringList names() const;
 
     /**
      * Get a script instance by name

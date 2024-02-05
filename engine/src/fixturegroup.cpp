@@ -27,10 +27,9 @@
 #include "fixture.h"
 #include "doc.h"
 
-#define KXMLQLCFixtureGroupID "ID"
-#define KXMLQLCFixtureGroupHead "Head"
-#define KXMLQLCFixtureGroupSize "Size"
-#define KXMLQLCFixtureGroupName "Name"
+#define KXMLQLCFixtureGroupHead QString("Head")
+#define KXMLQLCFixtureGroupSize QString("Size")
+#define KXMLQLCFixtureGroupName QString("Name")
 
 /****************************************************************************
  * Initialization
@@ -380,7 +379,7 @@ bool FixtureGroup::saveXML(QXmlStreamWriter *doc)
     /* Fixture heads */
     QList<QLCPoint> pointsList = m_heads.keys();
 
-    foreach(QLCPoint pt, pointsList)
+    foreach (QLCPoint pt, pointsList)
     {
         GroupHead head = m_heads[pt];
         doc->writeStartElement(KXMLQLCFixtureGroupHead);

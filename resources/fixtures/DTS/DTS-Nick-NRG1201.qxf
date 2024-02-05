@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Vassily Leushin</Author>
  </Creator>
  <Manufacturer>DTS</Manufacturer>
@@ -42,15 +42,15 @@
  <Channel Name="No function" Preset="NoFunction"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">Blackout</Capability>
-  <Capability Min="10" Max="19">Open</Capability>
-  <Capability Min="20" Max="29">Blackout</Capability>
-  <Capability Min="30" Max="119">Strobe</Capability>
-  <Capability Min="120" Max="149">Pulse up</Capability>
-  <Capability Min="150" Max="179">Pulse down</Capability>
-  <Capability Min="180" Max="204">Random Strobe</Capability>
-  <Capability Min="205" Max="229">Full Random Strobe</Capability>
-  <Capability Min="230" Max="255">Open</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="10" Max="19" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="20" Max="29" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="30" Max="119" Preset="StrobeSlowToFast">Strobe</Capability>
+  <Capability Min="120" Max="149" Preset="RampUpSlowToFast">Pulse up</Capability>
+  <Capability Min="150" Max="179" Preset="RampDownFastToSlow">Pulse down</Capability>
+  <Capability Min="180" Max="204" Preset="StrobeRandomSlowToFast">Random Strobe</Capability>
+  <Capability Min="205" Max="229" Preset="StrobeRandom">Full Random Strobe</Capability>
+  <Capability Min="230" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Red" Preset="IntensityRed"/>
@@ -66,10 +66,7 @@
   <Capability Min="156" Max="205">Custom White Create</Capability>
   <Capability Min="206" Max="255">White CTC</Capability>
  </Channel>
- <Channel Name="CTC">
-  <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255">CTC</Capability>
- </Channel>
+ <Channel Name="CTC" Preset="ColorCTCMixer"/>
  <Channel Name="Macros">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="14">No function</Capability>
@@ -96,12 +93,12 @@
   <Capability Min="80" Max="160">CW Create</Capability>
   <Capability Min="161" Max="255">CW Store</Capability>
  </Channel>
- <Channel Name="Zoom" Preset="BeamFocusNearFar"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="No function2" Preset="NoFunction"/>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="15">No function</Capability>
-  <Capability Min="16" Max="255">Total Reset</Capability>
+  <Capability Min="16" Max="255" Preset="ResetAll">Total Reset</Capability>
  </Channel>
  <Mode Name="20ch">
   <Channel Number="0">Pan Coarse</Channel>
@@ -124,26 +121,6 @@
   <Channel Number="17">Zoom</Channel>
   <Channel Number="18">No function2</Channel>
   <Channel Number="19">Reset</Channel>
-  <Head>
-   <Channel>7</Channel>
-   <Channel>4</Channel>
-   <Channel>5</Channel>
-   <Channel>19</Channel>
-   <Channel>16</Channel>
-   <Channel>17</Channel>
-   <Channel>10</Channel>
-   <Channel>11</Channel>
-   <Channel>8</Channel>
-   <Channel>9</Channel>
-   <Channel>14</Channel>
-   <Channel>15</Channel>
-   <Channel>12</Channel>
-   <Channel>13</Channel>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-  </Head>
  </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>

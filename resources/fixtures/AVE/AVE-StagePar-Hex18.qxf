@@ -18,12 +18,12 @@
  <Channel Name="Dimming" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe from slow to fast</Capability>
  </Channel>
  <Channel Name="Functions">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="199">Auto</Capability>
   <Capability Min="200" Max="255">Sound</Capability>
  </Channel>

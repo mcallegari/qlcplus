@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>Klaus Muth</Author>
+ </Creator>
+ <Manufacturer>QTX</Manufacturer>
+ <Model>Flare-1000</Model>
+ <Type>Smoke</Type>
+ <Channel Name="Fog Volume">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Fog Volume Setting (1%-100%)</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="30">LED auto program off</Capability>
+  <Capability Min="31" Max="104">LED light auto colour scroll</Capability>
+  <Capability Min="105" Max="179">LED light auto colour switch</Capability>
+  <Capability Min="180" Max="255">LED light auto colour pulse</Capability>
+ </Channel>
+ <Channel Name="Program speed adjustment">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">LED light auto program speed adjustment</Capability>
+ </Channel>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Fog Volume</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Program</Channel>
+  <Channel Number="6">Program speed adjustment</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.69" Width="315" Height="170" Depth="315"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="1000" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

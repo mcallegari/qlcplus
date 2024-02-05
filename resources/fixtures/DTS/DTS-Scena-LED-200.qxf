@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>Freddy Hoogstoel</Author>
+ </Creator>
+ <Manufacturer>DTS</Manufacturer>
+ <Model>Scena LED 200</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Black-out</Capability>
+  <Capability Min="10" Max="19" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="20" Max="29" Preset="ShutterClose">Black-out</Capability>
+  <Capability Min="30" Max="119" Preset="StrobeFreqRange" Res1="0.3" Res2="30">Strobe (from 3,27 s to 30 ms)</Capability>
+  <Capability Min="120" Max="149" Preset="RampUpFreqRange" Res1="0.5" Res2="10">Pulse up (from 42,6 to 120 ms)</Capability>
+  <Capability Min="150" Max="179" Preset="RampDownFreqRange" Res1="0.5" Res2="10">Pulse down (from 42,6 to 120 ms)</Capability>
+  <Capability Min="180" Max="229" Preset="StrobeRandom">Random strobe</Capability>
+  <Capability Min="230" Max="235">Single flash 30 ms</Capability>
+  <Capability Min="236" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer Fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Functions">
+  <Group Byte="1">Maintenance</Group>
+  <Capability Min="0" Max="14">No function</Capability>
+  <Capability Min="15" Max="24">SMOOTH OFF</Capability>
+  <Capability Min="25" Max="26">SMOOTH 1 (25 ms)</Capability>
+  <Capability Min="27" Max="28">SMOOTH 2 (50 ms)</Capability>
+  <Capability Min="29" Max="30">SMOOTH 3 (75 ms)</Capability>
+  <Capability Min="31" Max="32">SMOOTH 4 (100 ms) - DEFAULT</Capability>
+  <Capability Min="33" Max="34">SMOOTH 5 (125 ms)</Capability>
+  <Capability Min="35" Max="36">SMOOTH 6 (150 ms)</Capability>
+  <Capability Min="37" Max="38">SMOOTH 7 (175 ms)</Capability>
+  <Capability Min="39" Max="40">SMOOTH 8 (200 ms)</Capability>
+  <Capability Min="41" Max="42">SMOOTH 9 (225 ms)</Capability>
+  <Capability Min="43" Max="44">SMOOTH 10 (250 ms)</Capability>
+  <Capability Min="45" Max="46">SMOOTH 11 (275 ms)</Capability>
+  <Capability Min="47" Max="48">SMOOTH 12 (300 ms)</Capability>
+  <Capability Min="49" Max="50">SMOOTH 13 (325 ms)</Capability>
+  <Capability Min="51" Max="52">SMOOTH 14 (350 ms)</Capability>
+  <Capability Min="53" Max="54">SMOOTH 15 (375 ms)</Capability>
+  <Capability Min="55" Max="56">SMOOTH 16 (400 ms)</Capability>
+  <Capability Min="57" Max="58">SMOOTH 17 (425 ms)</Capability>
+  <Capability Min="59" Max="60">SMOOTH 18 (450 ms)</Capability>
+  <Capability Min="61" Max="62">SMOOTH 19 (475 ms)</Capability>
+  <Capability Min="63" Max="64">SMOOTH 20 (500 ms)</Capability>
+  <Capability Min="65" Max="74">GAMMA CORRECTION QUADRATIC - DEFAULT</Capability>
+  <Capability Min="75" Max="84">GAMMA CORRECTION LINEAR</Capability>
+  <Capability Min="85" Max="104">OUTPUT FREQUENCY 610 Hz - DEFAULT</Capability>
+  <Capability Min="105" Max="105">OUTPUT FREQUENCY 800 Hz</Capability>
+  <Capability Min="106" Max="106">OUTPUT FREQUENCY 1000 Hz</Capability>
+  <Capability Min="107" Max="107">OUTPUT FREQUENCY 1500 Hz</Capability>
+  <Capability Min="108" Max="108">OUTPUT FREQUENCY 2000 Hz</Capability>
+  <Capability Min="109" Max="109">OUTPUT FREQUENCY 2500 Hz</Capability>
+  <Capability Min="110" Max="110">OUTPUT FREQUENCY 3000 Hz</Capability>
+  <Capability Min="111" Max="111">OUTPUT FREQUENCY 3500 Hz</Capability>
+  <Capability Min="112" Max="112">OUTPUT FREQUENCY 4000 Hz</Capability>
+  <Capability Min="113" Max="113">OUTPUT FREQUENCY 4500 Hz</Capability>
+  <Capability Min="114" Max="114">OUTPUT FREQUENCY 5000 Hz</Capability>
+  <Capability Min="115" Max="134">RESERVED</Capability>
+  <Capability Min="135" Max="144">BOOST ON - DEFAULT</Capability>
+  <Capability Min="145" Max="154">BOOST OFF</Capability>
+  <Capability Min="155" Max="164">DISPLAY STAND-BY OFF - DEFAULT</Capability>
+  <Capability Min="165" Max="174">DISPLAY STAND-BY ON</Capability>
+  <Capability Min="175" Max="176">NO DMX ACTION - KEEP LAST DEMX - DEFAULT</Capability>
+  <Capability Min="177" Max="178">NO DMX ACTION - Black-out</Capability>
+  <Capability Min="179" Max="180">NO DMX ACTION - LED ON @ 100%</Capability>
+  <Capability Min="181" Max="182">NO DMX ACTION - LED ON @ 60%</Capability>
+  <Capability Min="183" Max="184">NO DMX ACTION - CUSTOM</Capability>
+  <Capability Min="185" Max="194">RESERVED</Capability>
+  <Capability Min="195" Max="204">RESERVED</Capability>
+  <Capability Min="205" Max="214">RESERVED</Capability>
+  <Capability Min="215" Max="224">RESERVED</Capability>
+  <Capability Min="225" Max="234">RESERVED</Capability>
+  <Capability Min="235" Max="244">FAN STANDARD MODE</Capability>
+  <Capability Min="245" Max="255">FAN SILENT MODE - DEFAULT</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer Fine</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Shutter</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Dimmer Fine</Channel>
+  <Channel Number="3">Functions</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="3200"/>
+  <Dimensions Weight="8.5" Width="237" Height="221" Depth="397"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="200" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -166,7 +166,7 @@ QString WebAccessConfiguration::getAudioConfigHTML(Doc *doc)
     if (var.isValid() == true)
         outputName = var.toString();
 
-    foreach( AudioDeviceInfo info, devList)
+    foreach (AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_INPUT)
             audioInSelect += "<option value=\"" + info.privateName + "\" " +
@@ -216,7 +216,7 @@ QString WebAccessConfiguration::getPasswordsConfigHTML(WebAccessAuth *auth)
 {
     QString html = "";
     html += "<table class=\"hovertable\" id=\"auth-passwords-table\" style=\"width: 100%;\">";
-    html += 
+    html +=
         "<tr>"
             "<th>" + tr("Username") + "</th>"
             "<th>" + tr("Password") + "</th>"
@@ -279,7 +279,7 @@ QString WebAccessConfiguration::getPasswordsConfigHTML(WebAccessAuth *auth)
     html += "</td>";
     html += "<td>";
         // Script will dynamically add rows with users so it needs to know translations
-        html += "<button role=\"button\" onclick=\"authAddUser(" 
+        html += "<button role=\"button\" onclick=\"authAddUser("
                 "'" + tr("Change") + "','" + tr("Delete user") + "'"
                 ",'" + tr("Username and password are required fields.") + "'"
                 ",'" + tr("New password...") + "'"

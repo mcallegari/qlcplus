@@ -1,7 +1,7 @@
 /*
   Q Light Controller Plus
   randomcolumn.js
-  
+
   Copyright (c) David Garyga
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -101,7 +101,7 @@ var testAlgo;
 
         algo.rgbMapStepCount = function(width, height)
         {
-            return width;
+            return 2;
         };
 
         // Development tool access

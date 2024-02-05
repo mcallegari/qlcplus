@@ -5,12 +5,10 @@ LANGUAGE = C++
 TARGET   = qlcplusaudio
 CONFIG  += staticlib
 
-QT      += core
-greaterThan(QT_MAJOR_VERSION, 4) {
-  QT += multimedia
-  macx:QT_CONFIG -= no-pkg-config
-  win32:QT += widgets
-}
+QT += core
+QT += multimedia
+macx:QT_CONFIG -= no-pkg-config
+win32:QT += widgets
 
 CONFIG += link_pkgconfig
 
@@ -27,8 +25,10 @@ lessThan(QT_MAJOR_VERSION, 5) {
   unix:!macx:HEADERS += audiorenderer_alsa.h audiocapture_alsa.h
   win32:HEADERS += audiorenderer_waveout.h audiocapture_wavein.h
 }
-else {
-  HEADERS += audiorenderer_qt.h audiocapture_qt.h
+lessThan(QT_MAJOR_VERSION, 6) {
+  HEADERS += audiorenderer_qt5.h audiocapture_qt5.h
+} else {
+  HEADERS += audiorenderer_qt6.h audiocapture_qt6.h
 }
 
 SOURCES += audio.cpp \
@@ -37,7 +37,7 @@ SOURCES += audio.cpp \
            audioparameters.cpp \
            audiocapture.cpp \
            audioplugincache.cpp
-           
+
 lessThan(QT_MAJOR_VERSION, 5) {
   unix:!macx:SOURCES += audiorenderer_alsa.cpp audiocapture_alsa.cpp
   win32:SOURCES += audiorenderer_waveout.cpp audiocapture_wavein.cpp
@@ -51,8 +51,10 @@ lessThan(QT_MAJOR_VERSION, 5) {
     }
   }
 }
-else {
-  SOURCES += audiorenderer_qt.cpp audiocapture_qt.cpp
+lessThan(QT_MAJOR_VERSION, 6) {
+  SOURCES += audiorenderer_qt5.cpp audiocapture_qt5.cpp
+} else {
+  SOURCES += audiorenderer_qt6.cpp audiocapture_qt6.cpp
 }
 
 !android:!ios {

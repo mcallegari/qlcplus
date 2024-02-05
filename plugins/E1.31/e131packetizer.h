@@ -33,7 +33,7 @@ class E131Packetizer
      * Initialization
      *********************************************************************/
 public:
-    E131Packetizer();
+    E131Packetizer(QString MACaddr);
     ~E131Packetizer();
 
 public:

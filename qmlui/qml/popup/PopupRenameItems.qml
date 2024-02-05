@@ -25,7 +25,9 @@ import "."
 
 CustomPopupDialog
 {
-    property alias editText: newNameEdit.inputText
+    width: mainView.width / 3
+
+    property alias editText: newNameEdit.text
     property bool showNumbering: false
     property alias numberingEnabled: numCheckBox.checked
     property alias startNumber: startNumSpin.value
@@ -55,6 +57,7 @@ CustomPopupDialog
                 id: newNameEdit
                 Layout.fillWidth: true
                 Layout.columnSpan: 3
+                onAccepted: accept()
             }
 
             // Row 2

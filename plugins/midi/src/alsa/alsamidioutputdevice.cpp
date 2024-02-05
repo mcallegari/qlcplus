@@ -104,7 +104,7 @@ void AlsaMidiOutputDevice::writeChannel(ushort channel, uchar value)
     if (channel < ushort(m_universe.size()) && m_universe[channel] != scaled)
     {
         QByteArray tmp(m_universe);
-        
+
         for (uchar ch = 0; ch < MAX_MIDI_DMX_CHANNELS && ch < tmp.size(); ++ch)
         {
            char midi = tmp[ch];
@@ -153,7 +153,6 @@ void AlsaMidiOutputDevice::writeUniverse(const QByteArray& universe)
                 snd_seq_ev_set_noteoff(&ev, midiChannel(), channel, scaled);
             else
                 snd_seq_ev_set_noteon(&ev, midiChannel(), channel, scaled);
-            snd_seq_event_output(m_alsa, &ev);
         }
         else if (mode() == ProgramChange)
         {
@@ -245,7 +244,7 @@ void AlsaMidiOutputDevice::writeFeedback(uchar cmd, uchar data1, uchar data2)
 
 void AlsaMidiOutputDevice::writeSysEx(QByteArray message)
 {
-    if(message.isEmpty())
+    if (message.isEmpty())
         return;
 
     if (isOpen() == false)
@@ -257,7 +256,7 @@ void AlsaMidiOutputDevice::writeSysEx(QByteArray message)
     //snd_seq_ev_set_subs(&ev);
     snd_seq_ev_set_direct(&ev);
 
-    snd_seq_ev_set_sysex (&ev, message.count(), message.data());
+    snd_seq_ev_set_sysex (&ev, message.length(), message.data());
 
     if (snd_seq_event_output(m_alsa, &ev) < 0)
         qDebug() << "snd_seq_event_output ERROR";

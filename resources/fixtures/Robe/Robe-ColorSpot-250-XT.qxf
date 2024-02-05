@@ -25,7 +25,7 @@
   <Capability Min="128" Max="139">Lamp On/Reset</Capability>
   <Capability Min="140" Max="229">No Funtction</Capability>
   <Capability Min="230" Max="239">Lamp Off (3 sec)</Capability>
-  <Capability Min="240" Max="255">No Function</Capability>
+  <Capability Min="240" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Colours">
   <Group Byte="0">Colour</Group>
@@ -42,10 +42,10 @@
   <Capability Min="106" Max="116" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="117" Max="127" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
   <Capability Min="128" Max="189" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow Fast to Slow CW</Capability>
-  <Capability Min="190" Max="193">No Function</Capability>
+  <Capability Min="190" Max="193">No function</Capability>
   <Capability Min="194" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow Fast to Slow CCW</Capability>
  </Channel>
- <Channel Name="No Function" Preset="NoFunction"/>
+ <Channel Name="No function" Preset="NoFunction"/>
  <Channel Name="Effect Wheel">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="95">Open</Capability>
@@ -110,7 +110,7 @@
   <Channel Number="4">Speed Movement</Channel>
   <Channel Number="5">Control</Channel>
   <Channel Number="6">Colours</Channel>
-  <Channel Number="7">No Function</Channel>
+  <Channel Number="7">No function</Channel>
   <Channel Number="8">Effect Wheel</Channel>
   <Channel Number="9">Prism Rotation</Channel>
   <Channel Number="10">Gobos</Channel>
@@ -128,7 +128,7 @@
   <Channel Number="4">Speed Movement</Channel>
   <Channel Number="5">Control</Channel>
   <Channel Number="6">Colours</Channel>
-  <Channel Number="7">No Function</Channel>
+  <Channel Number="7">No function</Channel>
   <Channel Number="8">Effect Wheel</Channel>
   <Channel Number="9">Prism Rotation</Channel>
   <Channel Number="10">Gobos</Channel>
@@ -144,7 +144,7 @@
   <Channel Number="2">Speed Movement</Channel>
   <Channel Number="3">Control</Channel>
   <Channel Number="4">Colours</Channel>
-  <Channel Number="5">No Function</Channel>
+  <Channel Number="5">No function</Channel>
   <Channel Number="6">Effect Wheel</Channel>
   <Channel Number="7">Prism Rotation</Channel>
   <Channel Number="8">Gobos</Channel>

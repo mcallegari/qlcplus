@@ -4,7 +4,7 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = dummy
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += widgets
 
 INCLUDEPATH += ../interfaces
 CONFIG      += plugin

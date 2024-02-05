@@ -53,7 +53,7 @@ public:
      * Close the HID device's input
      */
     virtual void closeInput();
-    
+
      /**
      * Open HID device as output
      *
@@ -81,6 +81,7 @@ public:
     virtual bool readEvent() = 0;
 
 protected:
+    QString m_filename;
     QFile m_file;
 
     /*************************************************************************

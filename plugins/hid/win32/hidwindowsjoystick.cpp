@@ -34,12 +34,12 @@ bool HIDWindowsJoystick::isJoystick(unsigned short vid, unsigned short pid)
 
     for (UINT i = 0; i < joyGetNumDevs(); i++)
     {
-        memset( &caps, 0, sizeof( JOYCAPS ) );
+        memset(&caps, 0, sizeof(JOYCAPS));
 
-        MMRESULT error = joyGetDevCapsW( i, &caps, sizeof(JOYCAPS));
+        MMRESULT error = joyGetDevCapsW(i, &caps, sizeof(JOYCAPS));
         if (error == JOYERR_NOERROR && vid == caps.wMid && pid == caps.wPid)
         {
-            if( joyGetPos(i, & joyInfo) == JOYERR_NOERROR )
+            if (joyGetPos(i, & joyInfo) == JOYERR_NOERROR)
                 return true;
         }
     }
@@ -49,7 +49,7 @@ bool HIDWindowsJoystick::isJoystick(unsigned short vid, unsigned short pid)
 void HIDWindowsJoystick::init()
 {
     m_info.dwFlags = JOY_RETURNALL;
-    m_info.dwSize  = sizeof( m_info );
+    m_info.dwSize  = sizeof(m_info);
 
     QString devPath = path();
     bool ok;
@@ -58,16 +58,16 @@ void HIDWindowsJoystick::init()
 
     for (UINT i = 0; i < joyGetNumDevs(); i++)
     {
-        memset( &m_caps, 0, sizeof( m_caps ) );
+        memset(&m_caps, 0, sizeof(m_caps));
 
-        MMRESULT error = joyGetDevCapsW( i, &m_caps, sizeof(JOYCAPS));
+        MMRESULT error = joyGetDevCapsW(i, &m_caps, sizeof(JOYCAPS));
 
         if (error == JOYERR_NOERROR && VID == m_caps.wMid && PID == m_caps.wPid)
         {
             /* Windows joystick drivers may provide any combination of
              * X,Y,Z,R,U,V,POV - not necessarily the first n of these.
              */
-            if( m_caps.wCaps & JOYCAPS_HASV )
+            if (m_caps.wCaps & JOYCAPS_HASV)
             {
                 m_axesNumber = 6;
                 //joy->min[ 7 ] = -1.0; joy->max[ 7 ] = 1.0;  /* POV Y */
@@ -92,12 +92,12 @@ void HIDWindowsJoystick::init()
 
 bool HIDWindowsJoystick::readEvent()
 {
-    MMRESULT status = joyGetPosEx( m_windId, &m_info );
+    MMRESULT status = joyGetPosEx(m_windId, &m_info);
 
-    if ( status != JOYERR_NOERROR )
+    if (status != JOYERR_NOERROR)
         return false;
 
-    if ( m_buttonsNumber )
+    if (m_buttonsNumber)
     {
         for (int i = 0; i < m_buttonsNumber; ++i)
         {
@@ -113,7 +113,7 @@ bool HIDWindowsJoystick::readEvent()
         m_buttonsMask = m_info.dwButtons;
     }
 
-    if ( m_axesNumber )
+    if (m_axesNumber)
     {
         QList<DWORD> cmpVals;
         cmpVals.append(m_info.dwXpos);
@@ -134,4 +134,3 @@ bool HIDWindowsJoystick::readEvent()
     }
     return true;
 }
-

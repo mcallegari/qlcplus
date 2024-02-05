@@ -76,6 +76,14 @@ QVariant ListModel::data(const QModelIndex &index, QString role) const
     return dataMap[role];
 }
 
+QVariant ListModel::itemAt(int index) const
+{
+    if (index < 0 || index >= m_data.count())
+        return QVariant();
+
+    return m_data.at(index);
+}
+
 bool ListModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     int itemRow = index.row();
@@ -116,6 +124,17 @@ void ListModel::addDataMap(QVariantMap data)
     beginInsertRows(QModelIndex(), addIndex, addIndex);
     m_data.append(data);
     endInsertRows();
+}
+
+void ListModel::setDataMap(const QModelIndex &index, QVariantMap data)
+{
+    int itemRow = index.row();
+    if (itemRow >= m_data.count())
+        return;
+
+    m_data[itemRow] = data;
+
+    emit dataChanged(index, index);
 }
 
 QHash<int, QByteArray> ListModel::roleNames() const

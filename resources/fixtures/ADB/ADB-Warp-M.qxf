@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.0 GIT</Version>
   <Author>Thorben</Author>
  </Creator>
  <Manufacturer>ADB</Manufacturer>
@@ -202,8 +202,8 @@
  <Physical>
   <Bulb Type="MSR 1200W" Lumens="0" ColourTemperature="3200"/>
   <Dimensions Weight="11.5" Width="379" Height="495" Depth="748"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Lens Name="Other" DegreesMin="12" DegreesMax="30"/>
+  <Focus Type="Head" PanMax="400" TiltMax="275"/>
   <Technical PowerConsumption="1200" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.4.1</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>jacques</Author>
  </Creator>
  <Manufacturer>Dune Lighting</Manufacturer>
@@ -11,22 +11,22 @@
  <Type>Moving Head</Type>
  <Channel Name="Obturator">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10">Closed obturator</Capability>
-  <Capability Min="11" Max="39">Opened obturator</Capability>
-  <Capability Min="40" Max="240">Strobe (Slow to Fast)</Capability>
-  <Capability Min="241" Max="250">Reset (after ~ 10 sec)</Capability>
-  <Capability Min="251" Max="255">Opened obturator</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">Closed obturator</Capability>
+  <Capability Min="11" Max="39" Preset="ShutterOpen">Opened obturator</Capability>
+  <Capability Min="40" Max="240" Preset="StrobeSlowToFast">Strobe (Slow to Fast)</Capability>
+  <Capability Min="241" Max="250" Preset="ResetAll">Reset (after ~ 10 sec)</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Opened obturator</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="18" Color="#ffffff">White</Capability>
-  <Capability Min="19" Max="37" Color="#ff0000">Red</Capability>
-  <Capability Min="38" Max="56" Color="#0000ff">Blue</Capability>
-  <Capability Min="57" Max="75" Color="#ffff00">Yellow</Capability>
-  <Capability Min="76" Max="94" Color="#00ff00">Green</Capability>
-  <Capability Min="95" Max="113" Color="#ffa500">Orange</Capability>
-  <Capability Min="114" Max="127" Color="#ee82ee">Violet</Capability>
+  <Capability Min="0" Max="18" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="19" Max="37" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="38" Max="56" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="57" Max="75" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="76" Max="94" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="95" Max="113" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="114" Max="127" Preset="ColorMacro" Res1="#ee82ee">Violet</Capability>
   <Capability Min="128" Max="191">Colour change (Fast to Slow speed)</Capability>
   <Capability Min="192" Max="255">Reverse colour change (Slow to Fast speed)</Capability>
  </Channel>
@@ -84,11 +84,11 @@
   <Channel Number="10">Tilt fine</Channel>
   <Channel Number="11">Pan &amp; Tilt speed</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="18000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="325" Height="401" Weight="8.5" Depth="250"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="150" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="18000" ColourTemperature="0"/>
+  <Dimensions Weight="8.5" Width="325" Height="401" Depth="250"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="150" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

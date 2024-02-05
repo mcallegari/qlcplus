@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.0 GIT</Version>
+  <Author>Jászberényi Szabolcs</Author>
+ </Creator>
+ <Manufacturer>Involight</Manufacturer>
+ <Model>FM1200UP</Model>
+ <Type>Smoke</Type>
+ <Channel Name="Smoke">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Smoke</Capability>
+ </Channel>
+ <Mode Name="Normal">
+  <Channel Number="0">Smoke</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7" Width="400" Height="295" Depth="165"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="1200" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

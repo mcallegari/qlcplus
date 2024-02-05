@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
@@ -25,72 +26,88 @@ import "."
 
 Rectangle
 {
-    id: fxBrowserBox
     anchors.fill: parent
     color: "transparent"
 
     property int manufacturerIndex: fixtureBrowser.manufacturerIndex
     property string selectedModel
 
-    Rectangle
+    RowLayout
     {
-        id: searchBox
+        id: toolBar
         z: 1
+        width: parent.width
         height: UISettings.iconSizeMedium
-        anchors.right: parent.right
-        anchors.rightMargin: 8
-        anchors.left: parent.left
-        anchors.leftMargin: 8
-        color: UISettings.bgMain
-        radius: 5
-        border.width: 2
-        border.color: "#111"
 
-        Text
+        Rectangle
         {
-            id: searchIcon
-            x: 3
-            y: 3
-            width: height
-            height: parent.height - 6
-            color: "gray"
-            font.family: "FontAwesome"
-            font.pixelSize: height
-            text: FontAwesome.fa_search
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            color: UISettings.bgMedium
+            radius: 5
+            border.width: 2
+            border.color: UISettings.borderColorDark
+
+            Text
+            {
+                id: searchIcon
+                x: 6
+                width: height
+                height: parent.height - 6
+                anchors.verticalCenter: parent.verticalCenter
+                color: "gray"
+                font.family: "FontAwesome"
+                font.pixelSize: height - 6
+                text: FontAwesome.fa_search
+            }
+
+            TextInput
+            {
+                x: searchIcon.width + 14
+                y: 3
+                height: parent.height - 6
+                width: parent.width - x
+                color: UISettings.fgMain
+                text: fixtureBrowser.searchFilter
+                font.family: "Roboto Condensed"
+                font.pixelSize: height - 6
+                selectionColor: UISettings.highlightPressed
+                selectByMouse: true
+
+                onTextChanged: fixtureBrowser.searchFilter = text
+            }
         }
 
-        TextInput
+        IconButton
         {
-            id: textEdit1
-            x: searchIcon.width + 10
-            y: 3
-            height: parent.height - 6
-            width: searchBox.width - searchIcon.width - 10
-            color: UISettings.fgMain
-            text: fixtureBrowser.searchFilter
-            font.family: "Roboto Condensed"
-            font.pixelSize: height
-            selectionColor: UISettings.highlightPressed
-            selectByMouse: true
+            width: height
+            height: toolBar.height - 2
+            imgSource: "qrc:/add.svg"
+            tooltip: qsTr("Create a new fixture definition")
+            onClicked: qlcplus.createFixture()
+        }
 
-            onTextChanged: fixtureBrowser.searchFilter = text
+        IconButton
+        {
+            id: editButton
+            enabled: fixtureBrowser.selectedModel.length ? true : false
+            width: height
+            height: toolBar.height - 2
+            imgSource: "qrc:/edit.svg"
+            tooltip: qsTr("Edit the selected fixture definition")
+            onClicked: qlcplus.editFixture(fixtureBrowser.selectedManufacturer, fixtureBrowser.selectedModel)
         }
     }
 
     ListView
     {
         id: manufacturerList
-        x: 8
+        visible: fixtureBrowser.selectedManufacturer.length === 0 && fixtureBrowser.searchFilter.length < 3
         z: 0
-        visible: fixtureBrowser.selectedManufacturer.length == 0 && fixtureBrowser.searchFilter.length < 3
-        anchors.top: searchBox.bottom
-        anchors.topMargin: 6
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 6
-        anchors.right: parent.right
-        anchors.rightMargin: 8
-        anchors.left: parent.left
-        anchors.leftMargin: 8
+        width: parent.width - 12
+        height: parent.height - toolBar.height - 12
+        anchors.top: toolBar.bottom
+        anchors.margins: 6
         focus: true
 
         boundsBehavior: Flickable.StopAtBounds
@@ -101,34 +118,35 @@ Rectangle
             Rectangle
             {
                 y: manufacturerList.currentItem.y
-                width: parent.width - 30
+                width: parent.width
                 height: UISettings.listItemHeight
-                color: "#0978FF"
-                radius: 5
+                color: UISettings.highlight
             }
         }
         highlightFollowsCurrentItem: false
 
         model: fixtureBrowser.manufacturers
-        delegate: FixtureBrowserDelegate
-        {
-            isManufacturer: true
-            textLabel: modelData
-            onMouseEvent:
+        delegate:
+            FixtureBrowserDelegate
             {
-                if (type == App.Clicked)
+                width: modelsList.width - (manufScroll.visible ? manufScroll.width : 0)
+                isManufacturer: true
+                textLabel: modelData
+                onMouseEvent:
                 {
-                    mfText.label = modelData
-                    fixtureBrowser.manufacturerIndex = index
-                    fixtureBrowser.selectedManufacturer = modelData
-                    modelsList.currentIndex = -1
+                    if (type == App.Clicked)
+                    {
+                        mfText.label = modelData
+                        fixtureBrowser.manufacturerIndex = index
+                        fixtureBrowser.selectedManufacturer = modelData
+                        modelsList.currentIndex = -1
+                    }
                 }
             }
-        }
 
         Component.onCompleted: manufacturerList.positionViewAtIndex(manufacturerIndex, ListView.Center)
 
-        ScrollBar.vertical: CustomScrollBar { }
+        ScrollBar.vertical: CustomScrollBar { id: manufScroll }
     }
 
     Rectangle
@@ -138,8 +156,8 @@ Rectangle
         color: "transparent"
 
         width: parent.width
-        height: parent.height - searchBox.height - (fxPropsRect.visible ? fxPropsRect.height : 0)
-        anchors.top: searchBox.bottom
+        height: parent.height - toolBar.height - (fxPropsRect.visible ? fxPropsRect.height : 0)
+        anchors.top: toolBar.bottom
         anchors.margins: 6
 
         Rectangle
@@ -185,6 +203,7 @@ Rectangle
                     fxPropsRect.visible = false
                     panelPropsRect.visible = false
                     fixtureBrowser.selectedManufacturer = ""
+                    editButton.enabled = false
                 }
             }
         }
@@ -194,7 +213,7 @@ Rectangle
             id: modelsList
             z: 0
 
-            width: parent.width
+            width: parent.width - 12
             height: parent.height - manufBackLink.height - 12
             anchors.top: manufBackLink.bottom
             anchors.margins: 6
@@ -204,41 +223,43 @@ Rectangle
             highlight:
                 Rectangle
                 {
-                    width: modelsList.width - 30
+                    width: modelsList.width
                     height: UISettings.listItemHeight - 2
                     color: UISettings.highlight
-                    radius: 5
                     y: modelsList.currentItem ? modelsList.currentItem.y + 1 : 0
                 }
             highlightFollowsCurrentItem: false
 
             model: fixtureBrowser.modelsList
-            delegate: FixtureBrowserDelegate
-            {
-                id: dlg
-                manufacturer: fixtureBrowser.selectedManufacturer
-                textLabel: modelData
-
-                onMouseEvent:
+            delegate:
+                FixtureBrowserDelegate
                 {
-                    if (type == App.Clicked)
+                    id: dlg
+                    width: modelsList.width - (modelsScroll.visible ? modelsScroll.width : 0)
+                    manufacturer: fixtureBrowser.selectedManufacturer
+                    textLabel: modelData
+
+                    onMouseEvent:
                     {
-                        modelsList.currentIndex = index
-                        fixtureBrowser.selectedModel = modelData
-                        if (modelData == "Generic RGB Panel")
+                        if (type == App.Clicked)
                         {
-                            fxPropsRect.visible = false
-                            panelPropsRect.visible = true
-                        }
-                        else
-                        {
-                            panelPropsRect.visible = false
-                            fxPropsRect.visible = true
+                            modelsList.currentIndex = index
+                            fixtureBrowser.selectedModel = modelData
+                            if (modelData == "Generic RGB Panel")
+                            {
+                                fxPropsRect.visible = false
+                                panelPropsRect.visible = true
+                            }
+                            else
+                            {
+                                panelPropsRect.visible = false
+                                fxPropsRect.visible = true
+                            }
+                            editButton.enabled = true
                         }
                     }
                 }
-            }
-            ScrollBar.vertical: CustomScrollBar { }
+            ScrollBar.vertical: CustomScrollBar { id: modelsScroll }
         }
     }
 
@@ -247,12 +268,13 @@ Rectangle
         id: searchRect
         clip: true
         visible: fixtureBrowser.searchFilter.length >= 3 ? true : false
+        boundsBehavior: Flickable.StopAtBounds
 
         contentHeight: searchColumn.height
 
         width: parent.width
-        height: parent.height - searchBox.height - (fxPropsRect.visible ? fxPropsRect.height : 0) - 12
-        anchors.top: searchBox.bottom
+        height: parent.height - toolBar.height - (fxPropsRect.visible ? fxPropsRect.height : 0) - 12
+        anchors.top: toolBar.bottom
         anchors.margins: 6
 
         Column
@@ -288,7 +310,7 @@ Rectangle
                             Connections
                             {
                                 target: item
-                                onMouseEvent:
+                                function onMouseEvent(type, iID, iType, qItem, mouseMods)
                                 {
                                     if (type === App.Clicked)
                                     {

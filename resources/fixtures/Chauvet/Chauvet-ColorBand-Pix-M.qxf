@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Louis Gutenschwager</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
  <Model>ColorBand Pix-M</Model>
- <Type>Moving Head</Type>
+ <Type>LED Bar (Beams)</Type>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
@@ -48,7 +48,7 @@
  <Channel Name="Blue 12" Preset="IntensityBlue"/>
  <Channel Name="Auto Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="31">No Function</Capability>
+  <Capability Min="0" Max="31">No function</Capability>
   <Capability Min="32" Max="45">Chase 1</Capability>
   <Capability Min="46" Max="59">Chase 2</Capability>
   <Capability Min="60" Max="72">Chase 3</Capability>
@@ -93,7 +93,7 @@
  </Channel>
  <Channel Name="Color Macros">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="0" Max="15">No function</Capability>
   <Capability Min="16" Max="255">Color Macros</Capability>
  </Channel>
  <Mode Name="5 Channel">
@@ -102,11 +102,6 @@
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">Tilt</Channel>
   <Channel Number="4">Tilt Speed</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-  </Head>
  </Mode>
  <Mode Name="6 Channel">
   <Channel Number="0">Red</Channel>
@@ -115,12 +110,6 @@
   <Channel Number="3">Dimmer</Channel>
   <Channel Number="4">Tilt</Channel>
   <Channel Number="5">Tilt Speed</Channel>
-  <Head>
-   <Channel>3</Channel>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-  </Head>
  </Mode>
  <Mode Name="8 Channel">
   <Channel Number="0">Red</Channel>
@@ -153,12 +142,6 @@
   <Channel Number="7">Tilt</Channel>
   <Channel Number="8">Tilt Speed</Channel>
   <Channel Number="9">Dimmer Mode</Channel>
-  <Head>
-   <Channel>6</Channel>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-  </Head>
  </Mode>
  <Mode Name="11 Channel">
   <Channel Number="0">Red</Channel>
@@ -480,11 +463,12 @@
    <Channel>35</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="2321"/>
-   <Dimensions Depth="1040" Height="188" Weight="4.7" Width="67"/>
-   <Lens Name="Other" DegreesMin="20" DegreesMax="34"/>
-   <Focus Type="Head" PanMax="0" TiltMax="270"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="113"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="2321" ColourTemperature="0"/>
+  <Dimensions Weight="4.7" Width="1040" Height="188" Depth="67"/>
+  <Lens Name="Other" DegreesMin="20" DegreesMax="34"/>
+  <Focus Type="Head" PanMax="0" TiltMax="270"/>
+  <Layout Width="12" Height="1"/>
+  <Technical PowerConsumption="113" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
 </FixtureDefinition>

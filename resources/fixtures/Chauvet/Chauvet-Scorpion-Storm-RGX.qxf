@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Francois Blanchette</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -38,8 +38,8 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="4">No function</Capability>
-  <Capability Min="5" Max="254">Strobe (slow &lt;=&gt; fast)</Capability>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="5" Max="254" Preset="StrobeSlowToFast">Strobe (slow &lt;=&gt; fast)</Capability>
   <Capability Min="255" Max="255">Strobe to sound</Capability>
  </Channel>
  <Channel Name="Rotation">
@@ -55,11 +55,11 @@
   <Channel Number="2">Strobe</Channel>
   <Channel Number="3">Rotation</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="Laser" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="2.1" Width="235" Height="216" Depth="276"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="11" DmxConnector="3-pin"/>
-  </Physical>
-  </FixtureDefinition>
+ <Physical>
+  <Bulb Type="Laser" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.1" Width="235" Height="216" Depth="276"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="11" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

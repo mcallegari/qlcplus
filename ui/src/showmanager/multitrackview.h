@@ -45,10 +45,10 @@
 class MultiTrackView : public QGraphicsView
 {
     Q_OBJECT
-    
+
 public:
     MultiTrackView(QWidget *parent = 0);
-    
+
     /** Update tracks horizontal dividers when the view changes */
     void updateTracksDividers();
 
@@ -80,10 +80,8 @@ public:
     /** Add a new EFX item to the given track */
     void addEFX(EFX *efx, Track *track = NULL, ShowFunction *sf = NULL);
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     /** Add a new video item to the given track */
     void addVideo(Video *video, Track *track = NULL, ShowFunction *sf = NULL);
-#endif
 
     /** Delete the currently selected item */
     quint32 deleteSelectedItem();
@@ -113,9 +111,9 @@ private:
 public:
     /** Set the type of header. Can be Time (seconds) or BPM,
      *  in various forms (4/4, 3/4) */
-    void setHeaderType(ShowHeaderItem::TimeDivision type);
+    void setHeaderType(Show::TimeDivision type);
 
-    ShowHeaderItem::TimeDivision getHeaderType();
+    Show::TimeDivision getHeaderType();
 
     /** When BPM is selected, this function can set a precise
      *  value of time division */

@@ -43,11 +43,11 @@ private:
 
 protected:
     QScrollArea* m_scrollArea;
-    
+
 signals:
-    
+
 public slots:
-    
+
 };
 
 /** @} */

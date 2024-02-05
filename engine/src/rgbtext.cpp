@@ -26,12 +26,12 @@
 
 #include "rgbtext.h"
 
-#define KXMLQLCRGBTextContent        "Content"
-#define KXMLQLCRGBTextFont           "Font"
-#define KXMLQLCRGBTextAnimationStyle "Animation"
-#define KXMLQLCRGBTextOffset         "Offset"
-#define KXMLQLCRGBTextOffsetX        "X"
-#define KXMLQLCRGBTextOffsetY        "Y"
+#define KXMLQLCRGBTextContent        QString("Content")
+#define KXMLQLCRGBTextFont           QString("Font")
+#define KXMLQLCRGBTextAnimationStyle QString("Animation")
+#define KXMLQLCRGBTextOffset         QString("Offset")
+#define KXMLQLCRGBTextOffsetX        QString("X")
+#define KXMLQLCRGBTextOffsetY        QString("Y")
 
 RGBText::RGBText(Doc * doc)
     : RGBAlgorithm(doc)
@@ -161,11 +161,16 @@ int RGBText::scrollingTextStepCount() const
     QFontMetrics fm(m_font);
     if (animationStyle() == Vertical)
         return m_text.length() * fm.ascent();
-    else
+    else{
+#if (QT_VERSION < QT_VERSION_CHECK(5, 11, 0))
         return fm.width(m_text);
+#else
+        return fm.horizontalAdvance(m_text);
+#endif
+    }
 }
 
-RGBMap RGBText::renderScrollingText(const QSize& size, uint rgb, int step) const
+void RGBText::renderScrollingText(const QSize& size, uint rgb, int step, RGBMap &map) const
 {
     QImage image;
     if (animationStyle() == Horizontal)
@@ -203,7 +208,7 @@ RGBMap RGBText::renderScrollingText(const QSize& size, uint rgb, int step) const
 
     // Treat the RGBMap as a "window" on top of the fully-drawn text and pick the
     // correct pixels according to $step.
-    RGBMap map(size.height());
+    map.resize(size.height());
     for (int y = 0; y < size.height(); y++)
     {
         map[y].resize(size.width());
@@ -221,11 +226,9 @@ RGBMap RGBText::renderScrollingText(const QSize& size, uint rgb, int step) const
             }
         }
     }
-
-    return map;
 }
 
-RGBMap RGBText::renderStaticLetters(const QSize& size, uint rgb, int step) const
+void RGBText::renderStaticLetters(const QSize& size, uint rgb, int step, RGBMap &map) const
 {
     QImage image(size, QImage::Format_RGB32);
     image.fill(QRgb(0));
@@ -234,22 +237,20 @@ RGBMap RGBText::renderStaticLetters(const QSize& size, uint rgb, int step) const
     p.setRenderHint(QPainter::TextAntialiasing, false);
     p.setRenderHint(QPainter::Antialiasing, false);
     p.setFont(m_font);
-
     p.setPen(QColor(rgb));
+
     // Draw one letter at a time
     QRect rect(xOffset(), yOffset(), size.width(), size.height());
     p.drawText(rect, Qt::AlignCenter, m_text.mid(step, 1));
     p.end();
 
-    RGBMap map(size.height());
+    map.resize(size.height());
     for (int y = 0; y < size.height(); y++)
     {
         map[y].resize(size.width());
         for (int x = 0; x < size.width(); x++)
             map[y][x] = image.pixel(x, y);
     }
-
-    return map;
 }
 
 /****************************************************************************
@@ -265,12 +266,12 @@ int RGBText::rgbMapStepCount(const QSize& size)
         return scrollingTextStepCount();
 }
 
-RGBMap RGBText::rgbMap(const QSize& size, uint rgb, int step)
+void RGBText::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 {
     if (animationStyle() == StaticLetters)
-        return renderStaticLetters(size, rgb, step);
+        renderStaticLetters(size, rgb, step, map);
     else
-        return renderScrollingText(size, rgb, step);
+        renderScrollingText(size, rgb, step, map);
 }
 
 QString RGBText::name() const

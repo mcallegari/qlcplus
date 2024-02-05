@@ -119,7 +119,7 @@ void GPIOPlugin::closeOutput(quint32 output, quint32 universe)
 QStringList GPIOPlugin::outputs()
 {
     QStringList list;
-    list << QString("1: GPIO lines");
+    list << QString("GPIO lines");
     return list;
 }
 
@@ -136,9 +136,10 @@ QString GPIOPlugin::outputInfo(quint32 output)
     return str;
 }
 
-void GPIOPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void GPIOPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (output != 0)
         return;
@@ -346,7 +347,7 @@ void GPIOPlugin::closeInput(quint32 input, quint32 universe)
 QStringList GPIOPlugin::inputs()
 {
     QStringList list;
-    list << QString("1: GPIO lines");
+    list << QString("GPIO lines");
     return list;
 }
 
@@ -396,13 +397,13 @@ void GPIOPlugin::setParameter(quint32 universe, quint32 line, Capability type,
     QStringList param = name.split("-");
     if (param.count() < 2)
     {
-        qDebug() << "[GPIO] invalid parameter name !" << name;
+        qDebug() << "[GPIO] invalid parameter name!" << name;
         return;
     }
     int gpioNumber = param.at(1).toInt();
     if (gpioNumber < 0 || gpioNumber >= m_gpioList.count())
     {
-        qDebug() << "[GPIO] invalid PIN number !" << gpioNumber;
+        qDebug() << "[GPIO] invalid PIN number!" << gpioNumber;
         return;
     }
 
@@ -425,10 +426,3 @@ void GPIOPlugin::setParameter(quint32 universe, quint32 line, Capability type,
 
     QLCIOPlugin::setParameter(universe, line, type, name, value);
 }
-
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(gpioplugin, GPIOPlugin)
-#endif

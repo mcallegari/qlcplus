@@ -24,6 +24,8 @@
 #include <QFontDatabase>
 #include <QOpenGLContext>
 #include <QPrintDialog>
+#include <QApplication>
+#include <QTranslator>
 #include <QQmlContext>
 #include <QQuickItem>
 #include <QSettings>
@@ -31,10 +33,13 @@
 #include <QPrinter>
 #include <QPainter>
 #include <QScreen>
+#include <unistd.h>
 
 #include "app.h"
-#include "mainview2d.h"
+#include "uimanager.h"
+#include "simpledesk.h"
 #include "showmanager.h"
+#include "fixtureeditor.h"
 #include "modelselector.h"
 #include "videoprovider.h"
 #include "importmanager.h"
@@ -42,6 +47,7 @@
 #include "virtualconsole.h"
 #include "fixturebrowser.h"
 #include "fixturemanager.h"
+#include "palettemanager.h"
 #include "functionmanager.h"
 #include "fixturegroupeditor.h"
 #include "inputoutputmanager.h"
@@ -52,7 +58,6 @@
 #include "qlcfixturedefcache.h"
 #include "audioplugincache.h"
 #include "rgbscriptscache.h"
-#include "qlcfixturedef.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
@@ -64,16 +69,22 @@
 
 App::App()
     : QQuickView()
-    , m_translator(NULL)
-    , m_fixtureBrowser(NULL)
-    , m_fixtureManager(NULL)
-    , m_contextManager(NULL)
-    , m_ioManager(NULL)
-    , m_videoProvider(NULL)
-    , m_doc(NULL)
+    , m_translator(nullptr)
+    , m_fixtureBrowser(nullptr)
+    , m_fixtureManager(nullptr)
+    , m_contextManager(nullptr)
+    , m_ioManager(nullptr)
+    , m_showManager(nullptr)
+    , m_simpleDesk(nullptr)
+    , m_videoProvider(nullptr)
+    , m_networkManager(nullptr)
+    , m_uiManager(nullptr)
+    , m_doc(nullptr)
     , m_docLoaded(false)
+    , m_printItem(nullptr)
     , m_fileName(QString())
-    , m_importManager(NULL)
+    , m_importManager(nullptr)
+    , m_fixtureEditor(nullptr)
 {
     QSettings settings;
 
@@ -92,7 +103,6 @@ App::App()
 
 App::~App()
 {
-
 }
 
 QString App::appName() const
@@ -107,44 +117,39 @@ QString App::appVersion() const
 
 void App::startup()
 {
-    qmlRegisterUncreatableType<Fixture>("org.qlcplus.classes", 1, 0, "Fixture", "Can't create a Fixture !");
-    qmlRegisterUncreatableType<Function>("org.qlcplus.classes", 1, 0, "QLCFunction", "Can't create a Function !");
+    qmlRegisterUncreatableType<App>("org.qlcplus.classes", 1, 0, "App", "Can't create an App!");
+    qmlRegisterUncreatableType<Fixture>("org.qlcplus.classes", 1, 0, "Fixture", "Can't create a Fixture!");
+    qmlRegisterUncreatableType<Function>("org.qlcplus.classes", 1, 0, "QLCFunction", "Can't create a Function!");
     qmlRegisterType<ModelSelector>("org.qlcplus.classes", 1, 0, "ModelSelector");
-    qmlRegisterUncreatableType<App>("org.qlcplus.classes", 1, 0, "App", "Can't create an App !");
 
     setTitle(APPNAME);
     setIcon(QIcon(":/qlcplus.svg"));
 
     if (QFontDatabase::addApplicationFont(":/RobotoCondensed-Regular.ttf") < 0)
-        qWarning() << "Roboto condensed cannot be loaded !";
+        qWarning() << "Roboto condensed cannot be loaded!";
 
     if (QFontDatabase::addApplicationFont(":/RobotoMono-Regular.ttf") < 0)
-        qWarning() << "Roboto mono cannot be loaded !";
+        qWarning() << "Roboto mono cannot be loaded!";
 
     rootContext()->setContextProperty("qlcplus", this);
 
-    m_pixelDensity = qMax(screen()->physicalDotsPerInch() *  0.039370, (qreal)screen()->size().height() / 220.0);
-    qDebug() << "Pixel density:" << m_pixelDensity << "size:" << screen()->physicalSize();
-
-    rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);
+    slotScreenChanged(screen());
 
     initDoc();
 
+    m_uiManager = new UiManager(this, m_doc);
+    rootContext()->setContextProperty("uiManager", m_uiManager);
     m_ioManager = new InputOutputManager(this, m_doc);
-    rootContext()->setContextProperty("ioManager", m_ioManager);
-
     m_fixtureBrowser = new FixtureBrowser(this, m_doc);
     m_fixtureManager = new FixtureManager(this, m_doc);
-    m_fixtureGroupEditor = new FixtureGroupEditor(this, m_doc);
+    m_fixtureGroupEditor = new FixtureGroupEditor(this, m_doc, m_fixtureManager);
     m_functionManager = new FunctionManager(this, m_doc);
+    m_simpleDesk = new SimpleDesk(this, m_doc, m_functionManager);
     m_contextManager = new ContextManager(this, m_doc, m_fixtureManager, m_functionManager);
+    m_paletteManager = new PaletteManager(this, m_doc, m_contextManager);
 
     m_virtualConsole = new VirtualConsole(this, m_doc, m_contextManager);
-    rootContext()->setContextProperty("virtualConsole", m_virtualConsole);
-
     m_showManager = new ShowManager(this, m_doc);
-    rootContext()->setContextProperty("showManager", m_showManager);
-
     m_networkManager = new NetworkManager(this, m_doc);
     rootContext()->setContextProperty("networkManager", m_networkManager);
 
@@ -153,20 +158,24 @@ void App::startup()
     connect(m_networkManager, &NetworkManager::requestProjectLoad, this, &App::slotLoadDocFromMemory);
 
     m_tardis = new Tardis(this, m_doc, m_networkManager, m_fixtureManager, m_functionManager,
-                          m_contextManager, m_showManager, m_virtualConsole);
+                          m_contextManager, m_simpleDesk, m_showManager, m_virtualConsole);
     rootContext()->setContextProperty("tardis", m_tardis);
 
     m_contextManager->registerContext(m_virtualConsole);
+    m_contextManager->registerContext(m_simpleDesk);
     m_contextManager->registerContext(m_showManager);
     m_contextManager->registerContext(m_ioManager);
 
     // register an uncreatable type just to use the enums in QML
-    qmlRegisterUncreatableType<ContextManager>("org.qlcplus.classes", 1, 0, "ContextManager", "Can't create a ContextManager !");
-    qmlRegisterUncreatableType<ShowManager>("org.qlcplus.classes", 1, 0, "ShowManager", "Can't create a ShowManager !");
-    qmlRegisterUncreatableType<NetworkManager>("org.qlcplus.classes", 1, 0, "NetworkManager", "Can't create a NetworkManager !");
+    qmlRegisterUncreatableType<ContextManager>("org.qlcplus.classes", 1, 0, "ContextManager", "Can't create a ContextManager!");
+    qmlRegisterUncreatableType<ShowManager>("org.qlcplus.classes", 1, 0, "ShowManager", "Can't create a ShowManager!");
+    qmlRegisterUncreatableType<NetworkManager>("org.qlcplus.classes", 1, 0, "NetworkManager", "Can't create a NetworkManager!");
+    qmlRegisterUncreatableType<SimpleDesk>("org.qlcplus.classes", 1, 0, "SimpleDesk", "Can't create a SimpleDesk!");
 
     // Start up in non-modified state
     m_doc->resetModified();
+
+    m_uiManager->initialize();
 
     // and here we go !
     setSource(QUrl("qrc:/MainView.qml"));
@@ -193,7 +202,7 @@ void App::toggleFullscreen()
 
 void App::setLanguage(QString locale)
 {
-    if (m_translator != NULL)
+    if (m_translator != nullptr)
     {
         QCoreApplication::removeTranslator(m_translator);
         delete m_translator;
@@ -210,6 +219,11 @@ void App::setLanguage(QString locale)
         QCoreApplication::installTranslator(m_translator);
 
     engine()->retranslate();
+}
+
+QString App::goboSystemPath() const
+{
+    return QLCFile::systemDirectory(GOBODIR).absolutePath();
 }
 
 void App::show()
@@ -233,16 +247,23 @@ int App::accessMask() const
 
 bool App::is3DSupported() const
 {
-    if (openglContext() == NULL)
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    if (openglContext() == nullptr)
         return false;
 
     int glVersion = (openglContext()->format().majorVersion() * 10) + openglContext()->format().minorVersion();
     return glVersion < 33 ? false : true;
+#else
+    // TODO: Qt6
+
+    return true;
+#endif
 }
 
 void App::exit()
 {
-    destroy();
+    //destroy();
+    QApplication::quit();
 }
 
 void App::setAccessMask(int mask)
@@ -283,6 +304,7 @@ bool App::event(QEvent *event)
         if (m_doc->isModified())
         {
             QMetaObject::invokeMethod(rootObject(), "saveBeforeExit");
+            event->ignore();
             return false;
         }
     }
@@ -291,16 +313,24 @@ bool App::event(QEvent *event)
 
 void App::slotSceneGraphInitialized()
 {
-    if (openglContext() == NULL)
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    if (openglContext() == nullptr)
         return;
 
     qDebug() << "OpenGL version: " << openglContext()->format().majorVersion() << openglContext()->format().minorVersion();
+#else
+    // TODO: Qt6
+#endif
 }
 
 void App::slotScreenChanged(QScreen *screen)
 {
-    m_pixelDensity = qMax(screen->physicalDotsPerInch() *  0.039370, (qreal)screen->size().height() / 220.0);
-    qDebug() << "Screen changed to" << screen->name() << ". New pixel density:" << m_pixelDensity;
+    bool isLandscape = (screen->orientation() == Qt::LandscapeOrientation ||
+                     screen->orientation() == Qt::InvertedLandscapeOrientation) ? true : false;
+    qreal sSize = isLandscape ? screen->size().height() : screen->size().width();
+    m_pixelDensity = qMax(screen->physicalDotsPerInch() *  0.039370, sSize / 220.0);
+    qDebug() << "Screen changed to" << screen->name() << ", pixel density:" << m_pixelDensity
+             << ", physical size:" << screen->physicalSize();
     rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);
 }
 
@@ -309,7 +339,7 @@ void App::slotClosing()
     if (m_contextManager)
     {
         delete m_contextManager;
-        m_contextManager = NULL;
+        m_contextManager = nullptr;
     }
 }
 
@@ -324,29 +354,17 @@ void App::slotAccessMaskChanged(int mask)
     setAccessMask(mask);
 }
 
-void App::clearDocument()
-{
-    if (m_videoProvider)
-    {
-        delete m_videoProvider;
-        m_videoProvider = NULL;
-    }
-
-    m_doc->masterTimer()->stop();
-    m_doc->clearContents();
-    m_virtualConsole->resetContents();
-    //SimpleDesk::instance()->clearContents();
-    m_showManager->resetContents();
-    m_tardis->resetHistory();
-    m_doc->inputOutputMap()->resetUniverses();
-    setFileName(QString());
-    m_doc->resetModified();
-    m_doc->masterTimer()->start();
-}
-
+/*********************************************************************
+ * Doc
+ *********************************************************************/
 Doc *App::doc()
 {
     return m_doc;
+}
+
+bool App::docLoaded()
+{
+    return m_docLoaded;
 }
 
 bool App::docModified() const
@@ -356,10 +374,12 @@ bool App::docModified() const
 
 void App::initDoc()
 {
-    Q_ASSERT(m_doc == NULL);
+    Q_ASSERT(m_doc == nullptr);
     m_doc = new Doc(this);
 
     connect(m_doc, SIGNAL(modified(bool)), this, SIGNAL(docModifiedChanged()));
+    connect(m_doc->masterTimer(), SIGNAL(functionListChanged()),
+            this, SIGNAL(runningFunctionsCountChanged()));
 
     /* Load user fixtures first so that they override system fixtures */
     m_doc->fixtureDefCache()->load(QLCFixtureDefCache::userDefinitionDirectory());
@@ -374,12 +394,6 @@ void App::initDoc()
     m_doc->rgbScriptsCache()->load(RGBScriptsCache::userScriptsDirectory());
 
     /* Load plugins */
-/*
-#if defined(__APPLE__) || defined(Q_OS_MAC)
-    connect(m_doc->ioPluginCache(), SIGNAL(pluginLoaded(const QString&)),
-            this, SLOT(slotSetProgressText(const QString&)));
-#endif
-*/
 #if defined Q_OS_ANDROID
     QString pluginsPath = QString("%1/../lib").arg(QDir::currentPath());
     m_doc->ioPluginCache()->load(QDir(pluginsPath));
@@ -394,7 +408,7 @@ void App::initDoc()
     m_doc->audioPluginCache()->load(QLCFile::systemDirectory(AUDIOPLUGINDIR, KExtPlugin));
     m_videoProvider = new VideoProvider(this, m_doc);
 
-    Q_ASSERT(m_doc->inputOutputMap() != NULL);
+    Q_ASSERT(m_doc->inputOutputMap() != nullptr);
 
     /* Load input plugins & profiles */
     m_doc->inputOutputMap()->loadProfiles(InputOutputMap::userProfileDirectory());
@@ -402,7 +416,46 @@ void App::initDoc()
     m_doc->inputOutputMap()->loadDefaults();
 
     m_doc->inputOutputMap()->setBeatGeneratorType(InputOutputMap::Internal);
+    m_doc->inputOutputMap()->startUniverses();
     m_doc->masterTimer()->start();
+}
+
+void App::clearDocument()
+{
+    if (m_videoProvider)
+    {
+        delete m_videoProvider;
+        m_videoProvider = nullptr;
+    }
+
+    m_contextManager->resetFixtureSelection();
+    //m_simpleDesk->resetContents(); // TODO
+    m_showManager->resetContents();
+    m_virtualConsole->resetContents();
+
+    m_doc->masterTimer()->stop();
+    m_doc->clearContents();
+
+    m_tardis->resetHistory();
+    m_doc->inputOutputMap()->resetUniverses();
+    setFileName(QString());
+    m_doc->resetModified();
+    m_doc->inputOutputMap()->startUniverses();
+    m_doc->masterTimer()->start();
+}
+
+int App::runningFunctionsCount() const
+{
+    return m_doc->masterTimer()->runningFunctions();
+}
+
+void App::stopAllFunctions()
+{
+    // first, gracefully stop via Function Manager (if that's the case)
+    m_functionManager->setPreviewEnabled(false);
+
+    // then, brutally kill the rest (could be started from VC, etc)
+    m_doc->masterTimer()->stopAllFunctions();
 }
 
 void App::enableKioskMode()
@@ -414,6 +467,7 @@ void App::enableKioskMode()
 void App::createKioskCloseButton(const QRect &rect)
 {
     Q_UNUSED(rect)
+    // TODO
 }
 
 /*********************************************************************
@@ -422,9 +476,10 @@ void App::createKioskCloseButton(const QRect &rect)
 
 void App::printItem(QQuickItem *item)
 {
-    if (item == NULL)
+    if (item == nullptr)
         return;
 
+    m_printItem = item;
     m_printerImage = item->grabToImage();
     connect(m_printerImage.data(), &QQuickItemGrabResult::ready, this, &App::slotItemReadyForPrinting);
 }
@@ -432,10 +487,10 @@ void App::printItem(QQuickItem *item)
 void App::slotItemReadyForPrinting()
 {
     QPrinter printer;
-    QPrintDialog *dlg = new QPrintDialog(&printer, 0);
-    if(dlg->exec() == QDialog::Accepted)
+    QPrintDialog *dlg = new QPrintDialog(&printer);
+    if (dlg->exec() == QDialog::Accepted)
     {
-        QRectF pageRect = printer.pageRect();
+        QRectF pageRect = printer.pageLayout().paintRect();
         QSize imgSize = m_printerImage->image().size();
         int totalHeight = imgSize.height();
         int yOffset = 0;
@@ -456,7 +511,7 @@ void App::slotItemReadyForPrinting()
         }
 
         // handle multi-page printing
-        while(totalHeight > 0)
+        while (totalHeight > 0)
         {
             painter.drawImage(QPoint(0, 0), img, QRectF(0, yOffset, actualWidth, pageRect.height()));
             yOffset += pageRect.height();
@@ -469,6 +524,8 @@ void App::slotItemReadyForPrinting()
     }
 
     m_printerImage.clear();
+    m_printItem->setProperty("isPrinting", false);
+    m_printItem = nullptr;
 }
 
 /*********************************************************************
@@ -569,7 +626,7 @@ bool App::loadWorkspace(const QString &fileName)
         if (m_doc->startupFunction() != Function::invalidId())
         {
             Function *func = m_doc->function(m_doc->startupFunction());
-            if (func != NULL)
+            if (func != nullptr)
             {
                 qDebug() << Q_FUNC_INFO << "Starting startup function. (" << m_doc->startupFunction() << ")";
                 func->start(m_doc->masterTimer(), FunctionParent::master());
@@ -580,6 +637,8 @@ bool App::loadWorkspace(const QString &fileName)
                 m_doc->setStartupFunction(Function::invalidId());
             }
         }
+
+        m_doc->inputOutputMap()->startUniverses();
 
         return true;
     }
@@ -648,34 +707,6 @@ bool App::saveWorkspace(const QString &fileName)
     return false;
 }
 
-bool App::loadImportWorkspace(const QString &fileName)
-{
-    if (m_importManager != NULL)
-        delete m_importManager;
-
-    m_importManager = new ImportManager(this, m_doc);
-    return m_importManager->loadWorkspace(fileName);
-}
-
-void App::cancelImport()
-{
-    if (m_importManager != NULL)
-        delete m_importManager;
-
-    m_importManager = NULL;
-}
-
-void App::importFromWorkspace()
-{
-    if (m_importManager == NULL)
-        return;
-
-    m_importManager->apply();
-
-    delete m_importManager;
-    m_importManager = NULL;
-}
-
 QFileDevice::FileError App::loadXML(const QString &fileName)
 {
     QFile::FileError retval = QFile::NoError;
@@ -684,7 +715,7 @@ QFileDevice::FileError App::loadXML(const QString &fileName)
         return QFile::OpenError;
 
     QXmlStreamReader *doc = QLCFile::getXMLReader(fileName);
-    if (doc == NULL || doc->device() == NULL || doc->hasError())
+    if (doc == nullptr || doc->device() == nullptr || doc->hasError())
     {
         qWarning() << Q_FUNC_INFO << "Unable to read from" << fileName;
         return QFile::ReadError;
@@ -806,8 +837,9 @@ QFile::FileError App::saveXML(const QString& fileName)
     QXmlStreamWriter doc(&file);
     doc.setAutoFormatting(true);
     doc.setAutoFormattingIndent(1);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     doc.setCodec("UTF-8");
-
+#endif
     doc.writeStartDocument();
     doc.writeDTD(QString("<!DOCTYPE %1>").arg(KXMLQLCWorkspace));
 
@@ -860,5 +892,105 @@ QFile::FileError App::saveXML(const QString& fileName)
     return QFile::NoError;
 }
 
+/*********************************************************************
+ * Import project
+ *********************************************************************/
 
+bool App::loadImportWorkspace(const QString &fileName)
+{
+    if (m_importManager != nullptr)
+        delete m_importManager;
+
+    m_importManager = new ImportManager(this, m_doc);
+    return m_importManager->loadWorkspace(fileName);
+}
+
+void App::cancelImport()
+{
+    if (m_importManager != nullptr)
+        delete m_importManager;
+
+    m_importManager = nullptr;
+}
+
+void App::importFromWorkspace()
+{
+    if (m_importManager == nullptr)
+        return;
+
+    m_importManager->apply();
+    m_paletteManager->updatePaletteList();
+
+    delete m_importManager;
+    m_importManager = nullptr;
+}
+
+/*********************************************************************
+ * Fixture editor
+ *********************************************************************/
+
+void App::createFixture()
+{
+    if (m_fixtureEditor == nullptr)
+    {
+        m_fixtureEditor = new FixtureEditor(this, m_doc);
+        QMetaObject::invokeMethod(rootObject(), "switchToContext",
+                                  Q_ARG(QVariant, "FXEDITOR"),
+                                  Q_ARG(QVariant, "qrc:/FixtureEditor.qml"));
+    }
+
+    m_fixtureEditor->createDefinition();
+}
+
+void App::loadFixture(QString fileName)
+{
+    if (m_fixtureEditor == nullptr)
+    {
+        m_fixtureEditor = new FixtureEditor(this, m_doc);
+        QMetaObject::invokeMethod(rootObject(), "switchToContext",
+                                  Q_ARG(QVariant, "FXEDITOR"),
+                                  Q_ARG(QVariant, "qrc:/FixtureEditor.qml"));
+    }
+    m_fixtureEditor->loadDefinition(fileName);
+}
+
+void App::editFixture(QString manufacturer, QString model)
+{
+    bool switchToEditor = false;
+
+    if (m_fixtureEditor == nullptr)
+    {
+        m_fixtureEditor = new FixtureEditor(this, m_doc);
+        switchToEditor = true;
+    }
+
+    if (m_fixtureEditor->editDefinition(manufacturer, model) == false)
+    {
+        delete m_fixtureEditor;
+        m_fixtureEditor = nullptr;
+        return;
+    }
+
+    if (switchToEditor)
+    {
+        QMetaObject::invokeMethod(rootObject(), "switchToContext",
+                                  Q_ARG(QVariant, "FXEDITOR"),
+                                  Q_ARG(QVariant, "qrc:/FixtureEditor.qml"));
+    }
+}
+
+void App::closeFixtureEditor()
+{
+    if (m_fixtureEditor)
+    {
+        delete m_fixtureEditor;
+        m_fixtureEditor = nullptr;
+    }
+
+    // reload the QLC+ main view
+    //setSource(QUrl("qrc:/MainView.qml"));
+    QMetaObject::invokeMethod(rootObject(), "switchToContext",
+                              Q_ARG(QVariant, "FIXANDFUNC"),
+                              Q_ARG(QVariant, "qrc:/FixturesAndFunctions.qml"));
+}
 

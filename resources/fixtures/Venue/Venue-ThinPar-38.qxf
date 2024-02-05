@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Venue</Manufacturer>
@@ -14,13 +14,13 @@
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Colour Macro (override CH 1-3)">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="0" Max="15">No function</Capability>
   <Capability Min="16" Max="255">Color Macros</Capability>
  </Channel>
  <Channel Name="Strobe (0 - 255, Slow - Fast, CH 6 @ values 32 - 223)">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="15">No Function</Capability>
-  <Capability Min="16" Max="255">Strobe Slow - Fast</Capability>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeSlowToFast">Strobe Slow - Fast</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Mode">
@@ -48,11 +48,11 @@
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="185" Height="63" Weight="0.8" Depth="206"/>
-   <Lens DegreesMax="23" Name="" DegreesMin="14"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="9" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="0.8" Width="185" Height="63" Depth="206"/>
+  <Lens Name="" DegreesMin="14" DegreesMax="23"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="9" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

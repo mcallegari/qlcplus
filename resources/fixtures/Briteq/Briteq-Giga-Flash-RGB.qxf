@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Fredje</Author>
  </Creator>
  <Manufacturer>Briteq</Manufacturer>
@@ -11,9 +11,9 @@
  <Type>Strobe</Type>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="5">Blackout</Capability>
-  <Capability Min="6" Max="247">Strobe Rate 0-30Hz</Capability>
-  <Capability Min="248" Max="255">Blinder Effect</Capability>
+  <Capability Min="0" Max="5" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="6" Max="247" Preset="StrobeRandom">Strobe Rate 0-30Hz</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Blinder Effect</Capability>
  </Channel>
  <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>
@@ -26,16 +26,16 @@
  </Channel>
  <Channel Name="Strobe rate">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="5">No Flash</Capability>
-  <Capability Min="6" Max="255">Strobe Rate 0-30Hz</Capability>
+  <Capability Min="0" Max="5" Preset="ShutterClose">No Flash</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeRandom">Strobe Rate 0-30Hz</Capability>
  </Channel>
  <Channel Name="Strobe Effect">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="5">Normal Flashes</Capability>
-  <Capability Min="6" Max="42">Ramp up S&gt;F</Capability>
-  <Capability Min="43" Max="85">Ramp Down S&gt;F</Capability>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Normal Flashes</Capability>
+  <Capability Min="6" Max="42" Preset="RampUpSlowToFast">Ramp up S&gt;F</Capability>
+  <Capability Min="43" Max="85" Preset="RampDownSlowToFast">Ramp Down S&gt;F</Capability>
   <Capability Min="86" Max="128">Ramp Up-Down S&gt;F</Capability>
-  <Capability Min="129" Max="171">Random Effect S&gt;F</Capability>
+  <Capability Min="129" Max="171" Preset="StrobeRandomSlowToFast">Random Effect S&gt;F</Capability>
   <Capability Min="172" Max="214">Lightning effect S&gt;F</Capability>
   <Capability Min="215" Max="255">Spike Effect</Capability>
  </Channel>
@@ -162,11 +162,11 @@
    <Channel>8</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="100000" ColourTemperature="4500"/>
-   <Dimensions Weight="8.54" Width="471" Height="195" Depth="274"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="140"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="800" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="100000" ColourTemperature="4500"/>
+  <Dimensions Weight="8.54" Width="471" Height="195" Depth="274"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="140"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="800" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
 </FixtureDefinition>

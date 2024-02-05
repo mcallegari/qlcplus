@@ -28,7 +28,10 @@
 #include "fixturemanager.h"
 #include "functionmanager.h"
 #include "contextmanager.h"
-#include "functioneditor.h"
+#include "showmanager.h"
+#include "mainview2d.h"
+#include "mainview3d.h"
+#include "simpledesk.h"
 #include "collection.h"
 #include "rgbmatrix.h"
 #include "vccuelist.h"
@@ -43,6 +46,7 @@
 #include "scene.h"
 #include "audio.h"
 #include "video.h"
+#include "show.h"
 #include "efx.h"
 #include "doc.h"
 
@@ -52,10 +56,10 @@
 /* The maximum number of action a Tardis can hold */
 #define TARDIS_MAX_ACTIONS_NUMBER   100
 
-Tardis* Tardis::s_instance = NULL;
+Tardis* Tardis::s_instance = nullptr;
 
 Tardis::Tardis(QQuickView *view, Doc *doc, NetworkManager *netMgr,
-               FixtureManager *fxMgr, FunctionManager *funcMgr, ContextManager *ctxMgr,
+               FixtureManager *fxMgr, FunctionManager *funcMgr, ContextManager *ctxMgr, SimpleDesk *sDesk,
                ShowManager *showMgr, VirtualConsole *vc, QObject *parent)
     : QThread(parent)
     , m_running(false)
@@ -65,13 +69,14 @@ Tardis::Tardis(QQuickView *view, Doc *doc, NetworkManager *netMgr,
     , m_fixtureManager(fxMgr)
     , m_functionManager(funcMgr)
     , m_contextManager(ctxMgr)
+    , m_simpleDesk(sDesk)
     , m_showManager(showMgr)
     , m_virtualConsole(vc)
     , m_historyIndex(-1)
     , m_historyCount(0)
     , m_busy(false)
 {
-    Q_ASSERT(s_instance == NULL);
+    Q_ASSERT(s_instance == nullptr);
     s_instance = this;
 
     qRegisterMetaType<TardisAction>();
@@ -116,7 +121,10 @@ void Tardis::enqueueAction(int code, quint32 objID, QVariant oldVal, QVariant ne
     }
     // inform the thread an action is available
     m_queueSem.release();
-    m_doc->setModified();
+
+    // set modify flag for non-live actions
+    if (action.m_action < VCButtonSetPressed)
+        m_doc->setModified();
 }
 
 QString Tardis::actionToString(int action)
@@ -198,6 +206,9 @@ void Tardis::redoAction()
 void Tardis::resetHistory()
 {
     m_history.clear();
+    m_historyIndex = -1;
+    m_historyCount = 0;
+    m_busy = false;
 }
 
 void Tardis::forwardActionToNetwork(int code, TardisAction &action)
@@ -299,7 +310,7 @@ void Tardis::run()
 
         m_historyIndex = m_history.count() - 1;
 
-        qDebug("Got action: 0x%02X, history length: %d (%d)", action.m_action, m_historyCount, m_history.count());
+        qDebug("Got action: 0x%02X, history length: %d (%d)", action.m_action, m_historyCount, int(m_history.count()));
 
         /* If there are active network connections, send the action there too */
         forwardActionToNetwork(action.m_action, action);
@@ -317,10 +328,10 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
         case IOAddUniverse:
         case IORemoveUniverse:
         {
-            if (objID >= (quint32)m_doc->inputOutputMap()->universes().count())
+            if (objID >= quint32(m_doc->inputOutputMap()->universes().count()))
                 break;
 
-            Universe *universe = m_doc->inputOutputMap()->universes().at(objID);
+            Universe *universe = m_doc->inputOutputMap()->universes().at(int(objID));
             universe->saveXML(&xmlWriter);
         }
         break;
@@ -365,6 +376,23 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
             fixture->saveXML(&xmlWriter);
         }
         break;
+        case ShowManagerAddTrack:
+        case ShowManagerDeleteTrack:
+        {
+            Show *show = qobject_cast<Show *>(m_doc->function(objID));
+            Track *track = show->track(data.toInt());
+            track->saveXML(&xmlWriter);
+        }
+        break;
+        case ShowManagerAddFunction:
+        case ShowManagerDeleteFunction:
+        {
+            Show *show = qobject_cast<Show *>(m_doc->function(objID));
+            ShowFunction *sf = show->showFunction(data.toUInt());
+            Track *track = show->getTrackFromShowFunctionID(sf->id());
+            sf->saveXML(&xmlWriter, track->id());
+        }
+        break;
         case VCWidgetCreate:
         case VCWidgetDelete:
         {
@@ -374,7 +402,7 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
         }
         break;
         default:
-            qWarning() << "Buffered action" << code << "not implemented !";
+            qWarning() << "Buffered action" << code << "not implemented!";
         break;
     }
 
@@ -383,9 +411,13 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
 
 bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     if (value.type() != QVariant::ByteArray)
+#else
+    if (value.metaType().id() != QMetaType::QByteArray)
+#endif
     {
-        qWarning("Action 0x%02X is not buffered !", action);
+        qWarning("Action 0x%02X is not buffered!", action);
         return false;
     }
 
@@ -402,17 +434,20 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
         case IOAddUniverse:
         {
             if (objID >= m_doc->inputOutputMap()->universesCount())
+            {
                 m_doc->inputOutputMap()->addUniverse(objID);
+                m_doc->inputOutputMap()->startUniverses();
+            }
 
             QList<Universe *> uniList = m_doc->inputOutputMap()->universes();
-            Universe *universe = qobject_cast<Universe *>(uniList.at(objID));
-            universe->loadXML(xmlReader, objID, m_doc->inputOutputMap());
+            Universe *universe = qobject_cast<Universe *>(uniList.at(int(objID)));
+            universe->loadXML(xmlReader, int(objID), m_doc->inputOutputMap());
         }
         break;
 
         case IORemoveUniverse:
         {
-            m_doc->inputOutputMap()->removeUniverse(objID);
+            m_doc->inputOutputMap()->removeUniverse(int(objID));
         }
         break;
 
@@ -423,7 +458,7 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
         break;
         case FixtureDelete:
         {
-            m_fixtureManager->deleteFixtures(QVariantList( { objID } ));
+            m_fixtureManager->deleteFixtures(QVariantList() << objID);
         }
         break;
         case FixtureGroupCreate:
@@ -454,7 +489,9 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
         case ChaserRemoveStep:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(objID));
-            chaser->removeStep(value.toUInt());
+            QXmlStreamAttributes attrs = xmlReader.attributes();
+            if (attrs.hasAttribute(KXMLQLCFunctionNumber))
+                chaser->removeStep(attrs.value(KXMLQLCFunctionNumber).toUInt());
         }
         break;
         case EFXAddFixture:
@@ -476,6 +513,51 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
             delete ef;
         }
         break;
+        case ShowManagerAddTrack:
+        {
+            Show *show = qobject_cast<Show *>(m_doc->function(objID));
+            Track *track = new Track();
+            track->loadXML(xmlReader);
+            show->addTrack(track, track->id());
+        }
+        break;
+        case ShowManagerDeleteTrack:
+        {
+            QXmlStreamAttributes attrs = xmlReader.attributes();
+            Show *show = qobject_cast<Show *>(m_doc->function(objID));
+            if (attrs.hasAttribute(KXMLQLCTrackID))
+                show->removeTrack(attrs.value(KXMLQLCTrackID).toUInt());
+        }
+        break;
+        case ShowManagerAddFunction:
+        {
+            QXmlStreamAttributes attrs = xmlReader.attributes();
+            Show *show = qobject_cast<Show *>(m_doc->function(objID));
+            ShowFunction *sf = new ShowFunction(show->getLatestShowFunctionId());
+            sf->loadXML(xmlReader);
+            quint32 trackId = attrs.value(KXMLShowFunctionTrackId).toUInt();
+            Track *track = show->track(trackId);
+            track->addShowFunction(sf);
+            m_showManager->addShowItem(sf, trackId);
+        }
+        break;
+        case ShowManagerDeleteFunction:
+        {
+            QXmlStreamAttributes attrs = xmlReader.attributes();
+            Show *show = qobject_cast<Show *>(m_doc->function(objID));
+            if (attrs.hasAttribute(KXMLShowFunctionUid))
+            {
+                quint32 sfUID = attrs.value(KXMLShowFunctionUid).toUInt();
+                Track *track = show->getTrackFromShowFunctionID(sfUID);
+                if (track != nullptr)
+                {
+                    ShowFunction *sf = track->showFunction(sfUID);
+                    m_showManager->deleteShowItem(sf);
+                    track->removeShowFunction(sf);
+                }
+            }
+        }
+        break;
         case VCWidgetCreate:
         {
             VCFrame *frame = qobject_cast<VCFrame *>(m_virtualConsole->widget(objID));
@@ -488,14 +570,13 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
             QXmlStreamAttributes attrs = xmlReader.attributes();
 
             if (attrs.hasAttribute(KXMLQLCVCWidgetID))
-                m_virtualConsole->deleteVCWidgets(QVariantList( { attrs.value(KXMLQLCVCWidgetID).toUInt() } ));
+                m_virtualConsole->deleteVCWidgets(QVariantList() << attrs.value(KXMLQLCVCWidgetID).toUInt());
         }
         break;
 
         default:
             // This action was either not buffered or not implemented
             return false;
-        break;
     }
 
     return true;
@@ -524,49 +605,71 @@ int Tardis::processAction(TardisAction &action, bool undo)
 
     switch(action.m_action)
     {
-        /* *********************** Global settings actions ************************ */
+        /* *********************** Preview settings actions ************************ */
         case EnvironmentSetSize:
         {
             m_contextManager->setEnvironmentSize(value->value<QVector3D>());
         }
         break;
-
-        /* *********************** Input/Output manager actions ************************ */
-        case IOAddUniverse:
+        case EnvironmentBackgroundImage:
         {
-            processBufferedAction(undo ? IORemoveUniverse : IOAddUniverse, action.m_objID, action.m_newValue);
-            return undo ? IORemoveUniverse : IOAddUniverse;
-        }
-        break;
-        case IORemoveUniverse:
-        {
-            processBufferedAction(undo ? IOAddUniverse : IORemoveUniverse, action.m_objID, action.m_oldValue);
-            return undo ? IOAddUniverse : IORemoveUniverse;
-        }
-        break;
-
-        /* *********************** Fixture editing actions ************************ */
-        case FixtureCreate:
-        {
-            processBufferedAction(undo ? FixtureDelete : FixtureCreate, action.m_objID, action.m_newValue);
-            return undo ? FixtureDelete : FixtureCreate;
-        }
-        break;
-        case FixtureDelete:
-        {
-            processBufferedAction(undo ? FixtureCreate : FixtureDelete, action.m_objID, action.m_oldValue);
-            return undo ? FixtureCreate : FixtureDelete;
-        }
-        break;
-        case FixtureMove:
-        {
-            m_fixtureManager->moveFixture(action.m_objID, value->toUInt());
+            m_contextManager->get2DView()->setBackgroundImage(value->toString());
         }
         break;
         case FixtureSetPosition:
         {
             QVector3D pos = value->value<QVector3D>();
             m_contextManager->setFixturePosition(action.m_objID, pos.x(), pos.y(), pos.z());
+        }
+        break;
+        case FixtureSetRotation:
+        {
+            QVector3D rotation = value->value<QVector3D>();
+            m_contextManager->setFixtureRotation(action.m_objID, rotation);
+        }
+        break;
+        case GenericItemSetPosition:
+        {
+            m_contextManager->get3DView()->updateGenericItemPosition(action.m_objID, value->value<QVector3D>());
+        }
+        break;
+        case GenericItemSetRotation:
+        {
+            m_contextManager->get3DView()->updateGenericItemRotation(action.m_objID, value->value<QVector3D>());
+        }
+        break;
+        case GenericItemSetScale:
+        {
+            m_contextManager->get3DView()->updateGenericItemScale(action.m_objID, value->value<QVector3D>());
+        }
+        break;
+
+        /* *********************** Input/Output manager actions ************************ */
+        case IOAddUniverse:
+            processBufferedAction(undo ? IORemoveUniverse : IOAddUniverse, action.m_objID, action.m_newValue);
+            return undo ? IORemoveUniverse : IOAddUniverse;
+
+        case IORemoveUniverse:
+            processBufferedAction(undo ? IOAddUniverse : IORemoveUniverse, action.m_objID, action.m_oldValue);
+            return undo ? IOAddUniverse : IORemoveUniverse;
+
+        /* *********************** Fixture editing actions ************************ */
+        case FixtureCreate:
+            processBufferedAction(undo ? FixtureDelete : FixtureCreate, action.m_objID, action.m_newValue);
+            return undo ? FixtureDelete : FixtureCreate;
+
+        case FixtureDelete:
+            processBufferedAction(undo ? FixtureCreate : FixtureDelete, action.m_objID, action.m_oldValue);
+            return undo ? FixtureCreate : FixtureDelete;
+
+        case FixtureMove:
+        {
+            m_fixtureManager->moveFixture(action.m_objID, value->toUInt());
+        }
+        break;
+        case FixtureSetName:
+        {
+            m_fixtureManager->renameFixture(action.m_objID, value->toString());
         }
         break;
         case FixtureSetDumpValue:
@@ -578,17 +681,13 @@ int Tardis::processAction(TardisAction &action, bool undo)
 
         /* *********************** Function editing actions *********************** */
         case FunctionCreate:
-        {
             processBufferedAction(undo ? FunctionDelete : FunctionCreate, action.m_objID, action.m_newValue);
             return undo ? FunctionDelete : FunctionCreate;
-        }
-        break;
+
         case FunctionDelete:
-        {
             processBufferedAction(undo ? FunctionCreate : FunctionDelete, action.m_objID, action.m_oldValue);
             return undo ? FunctionCreate : FunctionDelete;
-        }
-        break;
+
         case FunctionSetName:
         {
             auto member = std::mem_fn(&Function::setName);
@@ -645,76 +744,151 @@ int Tardis::processAction(TardisAction &action, bool undo)
         {
             SceneValue scv = value->value<SceneValue>();
             Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
+
             if (scene)
-                scene->setValue(scv.fxi, scv.channel, scv.value);
+            {
+                if (value->isNull())
+                {
+                    SceneValue otherValue = undo ? action.m_newValue.value<SceneValue>() : action.m_oldValue.value<SceneValue>();
+                    scene->unsetValue(otherValue.fxi, otherValue.channel);
+                }
+                else
+                {
+                    scene->setValue(scv.fxi, scv.channel, scv.value);
+                }
+            }
+        }
+        break;
+
+        case SceneAddFixture:
+        {
+            SceneValue scv = value->value<SceneValue>();
+            Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
+
+            if (undo)
+                scene->removeFixture(scv.fxi);
+            else
+                scene->addFixture(scv.fxi);
+        }
+        break;
+
+        case SceneRemoveFixture:
+        {
+            SceneValue scv = value->value<SceneValue>();
+            Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
+
+            if (undo)
+                scene->addFixture(scv.fxi);
+            else
+                scene->removeFixture(scv.fxi);
+        }
+        break;
+
+        case SceneAddFixtureGroup:
+        {
+            Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
+            if (undo)
+                scene->removeFixtureGroup(value->toUInt());
+            else
+                scene->addFixtureGroup(value->toUInt());
+        }
+        break;
+
+        case SceneRemoveFixtureGroup:
+        {
+            Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
+            if (undo)
+                scene->addFixtureGroup(value->toUInt());
+            else
+                scene->removeFixtureGroup(value->toUInt());
+        }
+        break;
+
+        case SceneAddPalette:
+        {
+            Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
+            if (undo)
+                scene->removePalette(value->toUInt());
+            else
+                scene->addPalette(value->toUInt());
+        }
+        break;
+
+        case SceneRemovePalette:
+        {
+            Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
+            if (undo)
+                scene->addPalette(value->toUInt());
+            else
+                scene->removePalette(value->toUInt());
         }
         break;
 
         /* *********************** Chaser editing actions *********************** */
 
         case ChaserAddStep:
-        {
             processBufferedAction(undo ? ChaserRemoveStep : ChaserAddStep, action.m_objID, action.m_newValue);
             return undo ? ChaserRemoveStep : ChaserAddStep;
-        }
-        break;
+
         case ChaserRemoveStep:
-        {
             processBufferedAction(undo ? ChaserAddStep : ChaserRemoveStep, action.m_objID, action.m_oldValue);
             return undo ? ChaserAddStep : ChaserRemoveStep;
+
+        case ChaserMoveStep:
+        {
+            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
+            chaser->moveStep(undo ? action.m_newValue.toInt() : action.m_oldValue.toInt(),
+                             undo ? action.m_oldValue.toInt() : action.m_newValue.toInt());
         }
         break;
+
         case ChaserSetStepFadeIn:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
-            ChaserStep step = chaser->steps().at(pairValue.first);
+            ChaserStep step = chaser->steps().at(int(pairValue.first));
             step.fadeIn = pairValue.second;
-            chaser->replaceStep(step, pairValue.first);
+            chaser->replaceStep(step, int(pairValue.first));
         }
         break;
         case ChaserSetStepHold:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
-            ChaserStep step = chaser->steps().at(pairValue.first);
+            ChaserStep step = chaser->steps().at(int(pairValue.first));
             step.hold = pairValue.second;
-            chaser->replaceStep(step, pairValue.first);
+            chaser->replaceStep(step, int(pairValue.first));
         }
         break;
         case ChaserSetStepFadeOut:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
-            ChaserStep step = chaser->steps().at(pairValue.first);
+            ChaserStep step = chaser->steps().at(int(pairValue.first));
             step.fadeOut = pairValue.second;
-            chaser->replaceStep(step, pairValue.first);
+            chaser->replaceStep(step, int(pairValue.first));
         }
         break;
         case ChaserSetStepDuration:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
-            ChaserStep step = chaser->steps().at(pairValue.first);
+            ChaserStep step = chaser->steps().at(int(pairValue.first));
             step.duration = pairValue.second;
-            chaser->replaceStep(step, pairValue.first);
+            chaser->replaceStep(step, int(pairValue.first));
         }
         break;
 
         /* *********************** EFX editing actions *********************** */
 
         case EFXAddFixture:
-        {
             processBufferedAction(undo ? EFXRemoveFixture : EFXAddFixture, action.m_objID, action.m_newValue);
             return undo ? EFXRemoveFixture : EFXAddFixture;
-        }
-        break;
+
         case EFXRemoveFixture:
-        {
             processBufferedAction(undo ? EFXAddFixture : EFXRemoveFixture, action.m_objID, action.m_oldValue);
             return undo ? EFXAddFixture : EFXRemoveFixture;
-        }
-        break;
+
         case EFXSetAlgorithmIndex:
         {
             auto member = std::mem_fn(&EFX::setAlgorithm);
@@ -792,22 +966,22 @@ int Tardis::processAction(TardisAction &action, bool undo)
 
         case CollectionAddFunction:
         {
-            Collection *collecion = qobject_cast<Collection *>(m_doc->function(action.m_objID));
+            Collection *collection = qobject_cast<Collection *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // Function ID on first, insert index on second
             if (undo)
-                collecion->removeFunction(pairValue.first);
+                collection->removeFunction(pairValue.first);
             else
-                collecion->addFunction(pairValue.first, pairValue.second);
+                collection->addFunction(pairValue.first, int(pairValue.second));
         }
         break;
         case CollectionRemoveFunction:
         {
-            Collection *collecion = qobject_cast<Collection *>(m_doc->function(action.m_objID));
+            Collection *collection = qobject_cast<Collection *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // Function ID on first, insert index on second
             if (undo)
-                collecion->addFunction(pairValue.first, pairValue.second);
+                collection->addFunction(pairValue.first, int(pairValue.second));
             else
-                collecion->removeFunction(pairValue.first);
+                collection->removeFunction(pairValue.first);
         }
         break;
 
@@ -843,6 +1017,13 @@ int Tardis::processAction(TardisAction &action, bool undo)
         {
             RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
             StringIntPair pairValue = value->value<StringIntPair>(); // param name on first, value on second
+            matrix->setProperty(pairValue.first, QString::number(pairValue.second));
+        }
+        break;
+        case RGBMatrixSetScriptDoubleValue:
+        {
+            RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
+            StringDoublePair pairValue = value->value<StringIntPair>(); // param name on first, value on second
             matrix->setProperty(pairValue.first, QString::number(pairValue.second));
         }
         break;
@@ -918,6 +1099,13 @@ int Tardis::processAction(TardisAction &action, bool undo)
         }
         break;
 
+        case AudioSetVolume:
+        {
+            auto member = std::mem_fn(&Audio::setVolume);
+            member(qobject_cast<Audio *>(m_doc->function(action.m_objID)), value->toDouble());
+        }
+        break;
+
         /* *********************** Video editing actions *********************** */
 
         case VideoSetSource:
@@ -951,21 +1139,87 @@ int Tardis::processAction(TardisAction &action, bool undo)
             member(qobject_cast<Video *>(m_doc->function(action.m_objID)), rotation);
         }
         break;
+        case VideoSetLayer:
+        {
+            auto member = std::mem_fn(&Video::setZIndex);
+            member(qobject_cast<Video *>(m_doc->function(action.m_objID)), value->toInt());
+        }
+        break;
+
+        /* ************************ Show Manager actions ************************** */
+
+        case ShowManagerAddTrack:
+            processBufferedAction(undo ? ShowManagerDeleteTrack : ShowManagerAddTrack, action.m_objID, action.m_newValue);
+            return undo ? ShowManagerDeleteTrack : ShowManagerAddTrack;
+
+        case ShowManagerDeleteTrack:
+            processBufferedAction(undo ? ShowManagerAddTrack : ShowManagerDeleteTrack, action.m_objID, action.m_oldValue);
+            return undo ? ShowManagerAddTrack : ShowManagerDeleteTrack;
+
+        case ShowManagerAddFunction:
+            processBufferedAction(undo ? ShowManagerDeleteFunction : ShowManagerAddFunction, action.m_objID, action.m_newValue);
+            return undo ? ShowManagerDeleteFunction : ShowManagerAddFunction;
+
+        case ShowManagerDeleteFunction:
+            processBufferedAction(undo ? ShowManagerAddFunction : ShowManagerDeleteFunction, action.m_objID, action.m_oldValue);
+            return undo ? ShowManagerAddFunction : ShowManagerDeleteFunction;
+
+        case ShowManagerItemSetStartTime:
+        {
+            Show *show = m_showManager->currentShow();
+            if (show != nullptr)
+            {
+                ShowFunction *sf = show->showFunction(action.m_objID);
+                sf->setStartTime(undo ? action.m_oldValue.toUInt() : action.m_newValue.toUInt());
+            }
+        }
+        break;
+
+        case ShowManagerItemSetDuration:
+        {
+            Show *show = m_showManager->currentShow();
+            if (show != nullptr)
+            {
+                ShowFunction *sf = show->showFunction(action.m_objID);
+                sf->setDuration(undo ? action.m_oldValue.toUInt() : action.m_newValue.toUInt());
+            }
+        }
+        break;
+
+        /* ************************* Simple Desk actions ************************** */
+
+        case SimpleDeskSetChannel:
+        {
+            SceneValue scv = value->value<SceneValue>();
+            if (scv.channel == QLCChannel::invalid())
+            {
+                SceneValue newVal = action.m_newValue.value<SceneValue>();
+                m_simpleDesk->resetChannel(newVal.channel);
+            }
+            else
+                m_simpleDesk->setValue(scv.fxi, scv.channel, scv.value);
+        }
+        break;
+        case SimpleDeskResetChannel:
+        {
+            SceneValue scv = value->value<SceneValue>();
+            if (undo)
+                m_simpleDesk->setValue(scv.fxi, scv.channel, scv.value);
+            else
+                m_simpleDesk->resetChannel(scv.channel);
+        }
+        break;
 
         /* ******************* Virtual console editing actions ******************** */
 
         case VCWidgetCreate:
-        {
             processBufferedAction(undo ? VCWidgetDelete : VCWidgetCreate, action.m_objID, action.m_newValue);
             return undo ? VCWidgetDelete : VCWidgetCreate;
-        }
-        break;
+
         case VCWidgetDelete:
-        {
             processBufferedAction(undo ? VCWidgetCreate : VCWidgetDelete, action.m_objID, action.m_oldValue);
             return undo ? VCWidgetCreate : VCWidgetDelete;
-        }
-        break;
+
         case VCWidgetGeometry:
         {
             auto member = std::mem_fn(&VCWidget::setGeometry);
@@ -1094,7 +1348,7 @@ int Tardis::processAction(TardisAction &action, bool undo)
         break;
 
         default:
-            qWarning() << "Action" << action.m_action << "not implemented !";
+            qWarning() << "Action" << action.m_action << "not implemented!";
         break;
     }
 

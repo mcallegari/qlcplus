@@ -37,10 +37,10 @@ Configuration files are located in your user $HOME directory, in the Library/Pre
 which is by default hidden by OSX.<br>
 Here's the quick command to access it from a terminal:<br>
 <code>cd $HOME/Library/Preferences</code><br>
-The QLC+ configuration file is called <code>net.sf.Q Light Controller Plus.plist</code> while the Fixture editor 
+The QLC+ configuration file is called <code>net.sf.Q Light Controller Plus.plist</code> while the Fixture editor
 configuration file is called <code>net.sf.Fixture Definition Editor.plist</code>.<br><br>
-<B>Please note that preferences are cached !</B> Basically OSX loads all the plist files in memory at boot, 
-and if you change them manually it will ignore the changes. Even worse, periodically it refreshes the files, 
+<B>Please note that preferences are cached!</B> Basically OSX loads all the plist files in memory at boot,
+and if you change them manually it will ignore the changes. Even worse, periodically it refreshes the files,
 so it overwrites your changes.<br>
 The solution is, after changing a .plist file, open a terminal and type this:<br>
 <code>killall -u yourusername cfprefsd</code><br>
@@ -64,7 +64,7 @@ Due to Qt differences on different platforms, parameters are stored in different
 your Operating System.
 
 <H2>Linux</H2>
-Parameters are stored in a plain text file that you can modify with a plain text 
+Parameters are stored in a plain text file that you can modify with a plain text
 editor like gedit, kwrite, kate, nano, vim or similar. They are presented as follows:
 <PRE>
     [category]
@@ -81,12 +81,12 @@ included in every Windows version. They are presented as follows:
 </PRE>
 
 <H2>Mac OSX</H2>
-Parameters are stored in a plain text file that you can modify with a plain text 
-editor like <a href="http://www.barebones.com/products/textwrangler/">TextWrangler</a> or similar. They are presented as follows:
+Parameters are stored in a plain text file that you can modify with a plain text
+editor like <a href="https://www.barebones.com/products/textwrangler/">TextWrangler</a> or similar. They are presented as follows:
 <PRE>
     &lt;key&gt;category.name&lt;/key&gt;
-    &lt;string&gt;value&lt;/string&gt; 
-    or 
+    &lt;string&gt;value&lt;/string&gt;
+    or
     &lt;integer&gt;42&lt;/integer&gt;
 </PRE>
 </P>
@@ -113,16 +113,7 @@ of your configuration file.
 <B>Default:</B> 15
 </PRE>
 
-<H3 id="EnttecOpen">4.2 DMX USB Enttec Open frequency</H3>
-<PRE>
-<B>Category:</B> enttecdmxusbopen
-<B>Name:</B> frequency
-<B>Type:</B> integer
-<B>Description:</B> Set the DMX frame frequency in Hertz for Enttec Open (and similar) devices
-<B>Default:</B> 30
-</PRE>
-
-<H3 id="EnttecOpenChannels">4.3 DMX USB Enttec Open channels number</H3>
+<H3 id="EnttecOpenChannels">4.2 DMX USB Enttec Open channels number</H3>
 <PRE>
 <B>Category:</B> enttecdmxusbopen
 <B>Name:</B> channels
@@ -132,7 +123,7 @@ In some cases this could solve flickering issues. For example you might try with
 <B>Default:</B> 512
 </PRE>
 
-<H3 id="uDMX">4.4 uDMX frequency</H3>
+<H3 id="uDMX">4.3 uDMX frequency</H3>
 <PRE>
 <B>Category:</B> udmx
 <B>Name:</B> frequency
@@ -141,7 +132,7 @@ In some cases this could solve flickering issues. For example you might try with
 <B>Default:</B> 30
 </PRE>
 
-<H3 id="uDMXChannels">4.5 uDMX channels number</H3>
+<H3 id="uDMXChannels">4.4 uDMX channels number</H3>
 <PRE>
 <B>Category:</B> udmx
 <B>Name:</B> channels
@@ -151,7 +142,7 @@ In some cases this could solve flickering issues. For example you might try with
 <B>Default:</B> 512
 </PRE>
 
-<H3 id="MasterTimer">4.6 Master Timer frequency</H3>
+<H3 id="MasterTimer">4.5 Master Timer frequency</H3>
 <PRE>
 <B>Category:</B> mastertimer
 <B>Name:</B> frequency

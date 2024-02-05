@@ -1,0 +1,5 @@
+project(stage_meshes)
+
+file(GLOB STAGE_MESH_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.obj")
+
+install(FILES ${STAGE_MESH_FILES} DESTINATION ${INSTALLROOT}/${MESHESDIR}/stage)

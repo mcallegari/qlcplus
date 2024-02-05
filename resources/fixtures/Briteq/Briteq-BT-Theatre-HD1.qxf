@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4</Version>
+  <Author>Ray Console - cd</Author>
+ </Creator>
+ <Manufacturer>Briteq</Manufacturer>
+ <Model>BT Theatre HD1</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Hue" Preset="IntensityHue"/>
+ <Channel Name="Hue Fine" Preset="IntensityHueFine"/>
+ <Channel Name="Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="CCT">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="28">1800K</Capability>
+  <Capability Min="29" Max="46">2200K</Capability>
+  <Capability Min="47" Max="64">2700K</Capability>
+  <Capability Min="65" Max="82">3000K</Capability>
+  <Capability Min="83" Max="100">3200K</Capability>
+  <Capability Min="101" Max="118">3500K</Capability>
+  <Capability Min="119" Max="136">4000K</Capability>
+  <Capability Min="137" Max="154">4200K</Capability>
+  <Capability Min="155" Max="172">4500K</Capability>
+  <Capability Min="173" Max="190">5600K</Capability>
+  <Capability Min="191" Max="208">6000K</Capability>
+  <Capability Min="209" Max="226">6500K</Capability>
+  <Capability Min="227" Max="244">7200K</Capability>
+  <Capability Min="245" Max="255">8000K</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="99" Preset="StrobeFreqRange" Res1="0" Res2="25">Strobe from slow to fast 0-25Hz</Capability>
+  <Capability Min="100" Max="109" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="110" Max="179" Preset="StrobeSlowToFast">Lighting Strobe</Capability>
+  <Capability Min="180" Max="189" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="190" Max="255" Preset="StrobeRandom">Random Strobe</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Dimmer Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="9">Preset Dimmer Speed from Display Menu</Capability>
+  <Capability Min="10" Max="29">Off</Capability>
+  <Capability Min="30" Max="69">Dim1</Capability>
+  <Capability Min="70" Max="129">Dim2</Capability>
+  <Capability Min="130" Max="189">Dim3</Capability>
+  <Capability Min="190" Max="255">Dim4</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Lime" Preset="IntensityLime"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Preset Color">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="20">L106</Capability>
+  <Capability Min="21" Max="30">R05</Capability>
+  <Capability Min="31" Max="40">L194</Capability>
+  <Capability Min="41" Max="50">R54</Capability>
+  <Capability Min="51" Max="60">L019</Capability>
+  <Capability Min="61" Max="70">R08</Capability>
+  <Capability Min="71" Max="80">R89</Capability>
+  <Capability Min="81" Max="90">R86</Capability>
+  <Capability Min="91" Max="100">L213</Capability>
+  <Capability Min="101" Max="110">R377</Capability>
+  <Capability Min="111" Max="120">R80</Capability>
+  <Capability Min="121" Max="130">L202</Capability>
+  <Capability Min="131" Max="140">L328</Capability>
+  <Capability Min="141" Max="150">R3314</Capability>
+  <Capability Min="151" Max="160">L101</Capability>
+  <Capability Min="161" Max="170">L768</Capability>
+  <Capability Min="171" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Color Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="30" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">Red 100% / Green Up / Blue 0%</Capability>
+  <Capability Min="31" Max="50" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Red Down / Green 100% / Blue 0%</Capability>
+  <Capability Min="51" Max="70" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Red 0% / Green 100% / Blue 100%</Capability>
+  <Capability Min="71" Max="90" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#0000ff">Red 0% / Green Down / Blue 100%</Capability>
+  <Capability Min="91" Max="110" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff00ff">Red Up / Green 0% / Blue 100%</Capability>
+  <Capability Min="111" Max="130" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ff0000">Red 100% / Green 0% / Blue Down</Capability>
+  <Capability Min="131" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red 100% / Green Up / Blue Up</Capability>
+  <Capability Min="151" Max="170" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#0000ff">Red Down / Green Down / Blue 100%</Capability>
+  <Capability Min="171" Max="195" Preset="ColorDoubleMacro" Res1="#000000" Res2="#ffffff">All Led At Full Output</Capability>
+  <Capability Min="196" Max="199">1800K</Capability>
+  <Capability Min="200" Max="203">2200K</Capability>
+  <Capability Min="204" Max="207">2700K</Capability>
+  <Capability Min="208" Max="211">3000K</Capability>
+  <Capability Min="212" Max="215">3200K</Capability>
+  <Capability Min="216" Max="219">3500K</Capability>
+  <Capability Min="220" Max="223">4000K</Capability>
+  <Capability Min="224" Max="227">4200K</Capability>
+  <Capability Min="228" Max="231">4500K</Capability>
+  <Capability Min="232" Max="235">5600K</Capability>
+  <Capability Min="236" Max="239">6000K</Capability>
+  <Capability Min="240" Max="243">6500K</Capability>
+  <Capability Min="244" Max="247">7200K</Capability>
+  <Capability Min="248" Max="255">8000K</Capability>
+ </Channel>
+ <Channel Name="Auto">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="40">No function</Capability>
+  <Capability Min="41" Max="60">Auto 1</Capability>
+  <Capability Min="61" Max="80">Auto 2</Capability>
+  <Capability Min="81" Max="100">Auto3</Capability>
+  <Capability Min="101" Max="120">Auto4</Capability>
+  <Capability Min="121" Max="140">Auto5</Capability>
+  <Capability Min="141" Max="160">Auto6</Capability>
+  <Capability Min="161" Max="180">Auto7</Capability>
+  <Capability Min="181" Max="200">Auto8</Capability>
+  <Capability Min="201" Max="220">Auto9</Capability>
+  <Capability Min="221" Max="255">Auto10</Capability>
+ </Channel>
+ <Channel Name="Auto Speed Adjustment">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="220">No function</Capability>
+  <Capability Min="221" Max="255">Auto Speed Adjustement</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer Fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Red Fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green Fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue Fine" Preset="IntensityBlueFine"/>
+ <Channel Name="Lime Fine" Preset="IntensityLimeFine"/>
+ <Channel Name="Amber Fine" Preset="IntensityAmberFine"/>
+ <Mode Name="HSIC">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Hue</Channel>
+  <Channel Number="2">Hue Fine</Channel>
+  <Channel Number="3">Saturation</Channel>
+  <Channel Number="4">CCT</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Zoom</Channel>
+  <Channel Number="7">Dimmer Speed</Channel>
+ </Mode>
+ <Mode Name="SSP">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Lime</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">Preset Color</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Zoom</Channel>
+  <Channel Number="9">Dimmer Speed</Channel>
+ </Mode>
+ <Mode Name="TOUR">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Lime</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">Preset Color</Channel>
+  <Channel Number="7">Color Macro</Channel>
+  <Channel Number="8">Strobe</Channel>
+  <Channel Number="9">Zoom</Channel>
+  <Channel Number="10">Auto</Channel>
+  <Channel Number="11" ActsOn="11">Auto Speed Adjustment</Channel>
+  <Channel Number="12">Dimmer Speed</Channel>
+ </Mode>
+ <Mode Name="TR16">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Master Dimmer Fine</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Red Fine</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Green Fine</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">Blue Fine</Channel>
+  <Channel Number="8">Lime</Channel>
+  <Channel Number="9">Lime Fine</Channel>
+  <Channel Number="10">Amber</Channel>
+  <Channel Number="11">Amber Fine</Channel>
+  <Channel Number="12">Preset Color</Channel>
+  <Channel Number="13">Color Macro</Channel>
+  <Channel Number="14">Strobe</Channel>
+  <Channel Number="15">Zoom</Channel>
+  <Channel Number="16">Auto</Channel>
+  <Channel Number="17" ActsOn="16">Auto Speed Adjustment</Channel>
+  <Channel Number="18">Dimmer Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="8000"/>
+  <Dimensions Weight="7.6" Width="442" Height="260" Depth="285"/>
+  <Lens Name="Other" DegreesMin="14" DegreesMax="55"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="240" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

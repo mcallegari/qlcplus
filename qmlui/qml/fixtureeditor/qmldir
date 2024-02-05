@@ -1,0 +1,27 @@
+singleton UISettings 1.0 ../UISettings.qml
+singleton FontAwesome 1.0 ../FontAwesomeVariables.qml
+
+ColorTool 0.1 ../ColorTool.qml
+ColorToolBasic 0.1 ../ColorToolBasic.qml
+ColorToolFull 0.1 ../ColorToolFull.qml
+ContextMenuEntry 0.1 ../ContextMenuEntry.qml
+CustomCheckBox 0.1 ../CustomCheckBox.qml
+CustomComboBox 0.1 ../CustomComboBox.qml
+CustomPopupDialog 0.1 ../popup/CustomPopupDialog.qml
+CustomScrollBar 0.1 ../CustomScrollBar.qml
+CustomDoubleSpinBox 0.1 ../CustomDoubleSpinBox.qml
+CustomSpinBox 0.1 ../CustomSpinBox.qml
+CustomTextEdit 0.1 ../CustomTextEdit.qml
+GenericButton 0.1 ../GenericButton.qml
+GenericMultiDragItem 0.1 ../GenericMultiDragItem.qml
+IconButton 0.1 ../IconButton.qml
+IconPopupButton 0.1 ../IconPopupButton.qml
+IconTextEntry 0.1 ../IconTextEntry.qml
+MenuBarEntry 0.1 ../MenuBarEntry.qml
+PopupChannelWizard 0.1 ../popup/PopupChannelWizard.qml
+QLCPlusFader 0.1 ../QLCPlusFader.qml
+RobotoText 0.1 ../RobotoText.qml
+SectionBox 0.1 ../SectionBox.qml
+SidePanel 0.1 ../SidePanel.qml
+TreeNodeDelegate 0.1 ../TreeNodeDelegate.qml
+

@@ -21,6 +21,8 @@
 #ifndef DMXUSBWIDGET_H
 #define DMXUSBWIDGET_H
 
+#include <QElapsedTimer>
+
 #if defined(FTD2XX)
   #include "ftd2xx-interface.h"
 #endif
@@ -30,6 +32,21 @@
 #if defined(QTSERIAL)
   #include "qtserial-interface.h"
 #endif
+
+#define DMX_CHANNELS                512
+#define DEFAULT_OUTPUT_FREQUENCY    44  // 44 Hertz, according to the DMX specs
+
+typedef struct
+{
+    /** The device line type (DMX, MIDI, etc) */
+    int m_lineType;
+    /** Line open true/false flag */
+    bool m_isOpen;
+    /** Data for input/output */
+    QByteArray m_universeData;
+    /** Data for comparison with m_universeData */
+    QByteArray m_compareData;
+} DMXUSBLineInfo;
 
 /**
  * This is the base interface class for all the USB DMX widgets.
@@ -43,7 +60,7 @@ public:
      * @param interface The widget's DMXInterface instance
      * @param outputLine the specific output line this widget is going to control
      */
-    DMXUSBWidget(DMXInterface *interface, quint32 outputLine);
+    DMXUSBWidget(DMXInterface *iface, quint32 outputLine, int frequency);
 
     virtual ~DMXUSBWidget();
 
@@ -52,6 +69,7 @@ public:
     {
         ProRXTX,    //! Enttec Pro widget using the TX/RX features of the dongle
         OpenTX,     //! Enttec Open widget (only TX)
+        OpenRX,     //! FTDI DMX widget with RX capabilities (only RX, use OpenTX for TX)
         ProMk2,     //! Enttec Pro Mk2 widget using 2 TX, 1 RX, 1 MIDI TX and 1 MIDI RX ports
         UltraPro,   //! DMXKing Ultra Pro widget using 2 TX and 1RX ports
         DMX4ALL,    //! DMX4ALL widget (only TX)
@@ -59,21 +77,32 @@ public:
         Eurolite    //! Eurolite USB DMX512 Pro widget
     };
 
+    enum LineType
+    {
+        Unknown,
+        DMX,
+        MIDI
+    };
+
     /** Get the type of the widget */
     virtual Type type() const = 0;
 
     /** Get the DMXInterface instance */
-    DMXInterface* interface() const;
+    DMXInterface *iface() const;
 
     /** Get the DMXInterface driver in use as a string */
     QString interfaceTypeString() const;
+
+    static bool detectDMXKingDevice(DMXInterface *iface,
+                                    QString &manufName, QString &deviceName,
+                                    int &ESTA_ID, int &DEV_ID);
 
     static QList<DMXUSBWidget *> widgets();
 
     bool forceInterfaceDriver(DMXInterface::Type type);
 
 private:
-    DMXInterface* m_interface;
+    DMXInterface *m_interface;
 
     /********************************************************************
      * Open & close
@@ -100,13 +129,6 @@ public:
      */
     virtual bool isOpen();
 
-private:
-    /** Bitmask storing whenever an input line is open (1) or not (0) */
-    quint32 m_inputOpenMask;
-
-    /** Bitmask storing whenever an output line is open (1) or not (0) */
-    quint32 m_outputOpenMask;
-
     /********************************************************************
      * Outputs
      ********************************************************************/
@@ -117,28 +139,31 @@ public:
      */
     virtual void setOutputsNumber(int num);
 
-    /**
-     * Return the number of output lines supported by this widget
-     */
+    /** Return the number of output lines supported by this widget */
     virtual int outputsNumber();
 
-    /**
-     * Return a list of the output line names
-     */
+    /** Return the number of open output lines */
+    virtual int openOutputLines();
+
+    /** Return a list of the output line names */
     virtual QStringList outputNames();
 
-protected:
-    /** The number of output lines supported by this widget */
-    int m_outputsNumber;
+    /** Get/Set the output frequency rate to be used by this widget */
+    virtual int outputFrequency();
+    virtual void setOutputFrequency(int frequency);
 
+protected:
     /** The QLC+ output line number where this widget outputs start */
     quint32 m_outputBaseLine;
 
-    /**
-     * Map storing the association between the DMXUSB plugin lines and
-     * the actual device output lines
-     */
-    QHash<quint32, ushort> m_outputsMap;
+    /** The output frequency in Hertz */
+    int m_frequency;
+
+    /** The DMX frame time duration in microseconds */
+    int m_frameTimeUs;
+
+    /** Array of output lines supported by the device. This is resized on setOutputsNumber */
+    QVector<DMXUSBLineInfo> m_outputLines;
 
     /********************************************************************
      * Inputs
@@ -150,28 +175,21 @@ public:
      */
     virtual void setInputsNumber(int num);
 
-    /**
-     * Return the number of input lines supported by this widget
-     */
+    /** Return the number of input lines supported by this widget */
     virtual int inputsNumber();
 
-    /**
-     * Return a list of the input line names
-     */
+    /** Return a list of the input line names */
     virtual QStringList inputNames();
 
-protected:
-    /** The number of output lines supported by this widget */
-    int m_inputsNumber;
+    /** Return the number of open intput lines */
+    virtual int openInputLines();
 
+protected:
     /** The QLC+ input line number where this widget inputs start */
     quint32 m_inputBaseLine;
 
-    /**
-     * Map storing the association between the DMXUSB plugin lines and
-     * the actual device input lines
-     */
-    QHash<quint32, ushort> m_inputsMap;
+    /** Array of input lines supported by the device. This is resized on setInputsNumber */
+    QVector<DMXUSBLineInfo> m_inputLines;
 
     /********************************************************************
      * Serial & name
@@ -201,7 +219,7 @@ public:
     /** Set the real device name extracted from serial using label 78 */
     void setRealName(QString devName);
 
-    /** retrieve the real device name read from label 78 */
+    /** Retrieve the real device name read from label 78 */
     virtual QString realName() const;
 
     /**
@@ -211,13 +229,19 @@ public:
      */
     virtual QString vendor() const;
 
-    /**
-     * Get any additional information pertaining to the device (can be empty)
-     */
+    /** Get any additional information pertaining to the device (can be empty) */
     virtual QString additionalInfo() const { return QString(); }
 
 private:
     QString m_realName;
+
+    /********************************************************************
+     * RDM
+     ********************************************************************/
+public:
+    virtual bool supportRDM();
+
+    virtual bool sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params);
 
     /********************************************************************
      * Write universe
@@ -232,7 +256,7 @@ public:
      * @param universe The DMX universe to send
      * @return true if the values were sent successfully, otherwise false
      */
-    virtual bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    virtual bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
 };
 
 #endif

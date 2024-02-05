@@ -112,9 +112,18 @@ void Doc_Test::defaults()
     QVERIFY(m_doc->m_audioPluginCache != NULL);
     QVERIFY(m_doc->m_ioMap != NULL);
     QVERIFY(m_doc->m_masterTimer != NULL);
+    QVERIFY(m_doc->m_clipboard != NULL);
+
+    QVERIFY(m_doc->fixtureDefCache() != NULL);
+    QVERIFY(m_doc->modifiersCache() != NULL);
+    QVERIFY(m_doc->audioPluginCache() != NULL);
+    QVERIFY(m_doc->ioPluginCache() != NULL);
+    QVERIFY(m_doc->masterTimer() != NULL);
+    QVERIFY(m_doc->clipboard() != NULL);
 
     QVERIFY(m_doc->m_loadStatus == Doc::Cleared);
     QVERIFY(m_doc->loadStatus() == Doc::Cleared);
+    QVERIFY(m_doc->errorLog() == QString());
     QVERIFY(m_doc->m_modified == false);
     QVERIFY(m_doc->m_latestFixtureId == 0);
     QVERIFY(m_doc->m_fixtures.size() == 0);
@@ -405,6 +414,37 @@ void Doc_Test::fixture()
     QVERIFY(m_doc->fixture(f3->id() + 1) == NULL);
     QVERIFY(m_doc->fixture(42) == NULL);
     QVERIFY(m_doc->fixture(Fixture::invalidId()) == NULL);
+
+    QLCFixtureDef *fixtureDef;
+    fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Showtec", "MiniMax 250");
+    Q_ASSERT(fixtureDef != NULL);
+    QLCFixtureMode *fixtureMode;
+    fixtureMode = fixtureDef->modes().at(0);
+    Q_ASSERT(fixtureMode != NULL);
+
+    /* test forced HTP/LTP channels */
+    Fixture *f4 = new Fixture(m_doc);
+    f4->setName("Four");
+    f4->setAddress(m_currentAddr);
+    f4->setUniverse(0);
+    f4->setFixtureDefinition(fixtureDef, fixtureMode);
+    m_doc->addFixture(f4);
+    m_currentAddr += f4->channels();
+
+    QVERIFY(m_doc->fixtures().count() == 4);
+    QList<int>forcedHTP;
+    QList<int>forcedLTP;
+
+    // force color and gobo channel to HTP
+    forcedHTP << 3 << 4;
+    // force strobe/dimmer to LTP
+    forcedLTP << 5;
+
+    QVERIFY(m_doc->updateFixtureChannelCapabilities(42, forcedHTP, forcedLTP) == false);
+    QVERIFY(m_doc->updateFixtureChannelCapabilities(f4->id(), forcedHTP, forcedLTP) == true);
+
+    QVERIFY(f4->forcedHTPChannels().count() == 2);
+    QVERIFY(f4->forcedLTPChannels().count() == 1);
 }
 
 void Doc_Test::totalPowerConsumption()
@@ -614,10 +654,58 @@ void Doc_Test::channelGroups()
     QVERIFY(m_doc->channelsGroups().at(1)->id() == 1);
 }
 
+void Doc_Test::palettes()
+{
+    QSignalSpy spy(m_doc, SIGNAL(paletteAdded(quint32)));
+    QSignalSpy spy2(m_doc, SIGNAL(paletteRemoved(quint32)));
+
+    QVERIFY(m_doc->palettes().count() == 0);
+
+    QLCPalette *p1 = new QLCPalette(QLCPalette::Color);
+    QLCPalette *p2 = new QLCPalette(QLCPalette::PanTilt);
+
+    QVERIFY(m_doc->addPalette(p1) == true);
+    QVERIFY(m_doc->palettes().count() == 1);
+
+    QCOMPARE(spy.size(), 1);
+    QCOMPARE(spy[0].size(), 1);
+    QCOMPARE(spy[0][0].toUInt(), quint32(0));
+
+    QVERIFY(m_doc->addPalette(p2) == true);
+    QVERIFY(m_doc->palettes().count() == 2);
+
+    QCOMPARE(spy.size(), 2);
+    QCOMPARE(spy[1].size(), 1);
+    QCOMPARE(spy[1][0].toUInt(), quint32(1));
+
+    /* get an invalid palette */
+    QVERIFY(m_doc->palette(42) == NULL);
+
+    /* get a valid palette */
+    QVERIFY(m_doc->palette(1) == p2);
+
+    /* delete an invalid palette */
+    QVERIFY(m_doc->deletePalette(42) == false);
+    QVERIFY(m_doc->palettes().count() == 2);
+
+    /* delete a valid palette */
+    QVERIFY(m_doc->deletePalette(0) == true);
+    QVERIFY(m_doc->palettes().count() == 1);
+    QVERIFY(m_doc->palettes().at(0)->id() == 1);
+    QCOMPARE(spy2.size(), 1);
+    QCOMPARE(spy2[0].size(), 1);
+    QCOMPARE(spy2[0][0].toUInt(), quint32(0));
+
+    QVERIFY(m_doc->deletePalette(1) == true);
+    QVERIFY(m_doc->palettes().count() == 0);
+
+    QCOMPARE(spy2.size(), 2);
+    QCOMPARE(spy2[1].size(), 1);
+    QCOMPARE(spy2[1][0].toUInt(), quint32(1));
+}
+
 void Doc_Test::monitorProperties()
 {
-    QRectF fxRect(100, 100, 300, 300);
-
     Fixture *f1 = new Fixture(m_doc);
     f1->setName("One");
     f1->setChannels(2);
@@ -778,64 +866,77 @@ void Doc_Test::usage()
 
     Scene *s5 = new Scene(m_doc);
     m_doc->addFunction(s5);
+    QVERIFY(m_doc->functions().count() == 5);
 
     Chaser *c1 = new Chaser(m_doc);
     ChaserStep cs1(s1->id());
     ChaserStep cs2(s5->id());
     c1->addStep(cs1);
     c1->addStep(cs2);
+    QVERIFY(c1->stepsCount() == 2);
     m_doc->addFunction(c1);
+    QVERIFY(m_doc->functions().count() == 6);
+
 
     Collection *col1 = new Collection(m_doc);
     col1->addFunction(s2->id());
     col1->addFunction(s5->id());
+    QVERIFY(col1->functions().count() == 2);
     m_doc->addFunction(col1);
+    QVERIFY(m_doc->functions().count() == 7);
 
     Sequence *seq1 = new Sequence(m_doc);
     seq1->setBoundSceneID(s4->id());
     m_doc->addFunction(seq1);
+    QVERIFY(m_doc->functions().count() == 8);
 
     Script *sc1 = new Script(m_doc);
     sc1->appendData(QString("startfunction:%1").arg(c1->id()));
     m_doc->addFunction(sc1);
-
     QVERIFY(m_doc->functions().count() == 9);
 
     QList<quint32> usage;
 
     /* check the usage of an invalid ID */
+    qDebug() << "Check the usage of an invalid ID";
     usage = m_doc->getUsage(100);
     QVERIFY(usage.count() == 0);
 
     /* check the usage of an unused function */
+    qDebug() << "Check the usage of an unused function";
     usage = m_doc->getUsage(s3->id());
     QVERIFY(usage.count() == 0);
 
     /* check usage of a Scene used by a Chaser */
+    qDebug() << "Check usage of a Scene used by a Chaser";
     usage = m_doc->getUsage(s1->id());
     QVERIFY(usage.count() == 2);
     QVERIFY(usage.at(0) == c1->id());
     QVERIFY(usage.at(1) == 0); // step 0
 
     /* check usage of a Scene used by a Sequence */
+    qDebug() << "Check usage of a Scene used by a Sequence";
     usage = m_doc->getUsage(s4->id());
     QVERIFY(usage.count() == 2);
     QVERIFY(usage.at(0) == seq1->id());
     QVERIFY(usage.at(1) == 0); // no info
 
     /* check usage of a Scene used by a Collection */
+    qDebug() << "Check usage of a Scene used by a Collection";
     usage = m_doc->getUsage(s2->id());
     QVERIFY(usage.count() == 2);
     QVERIFY(usage.at(0) == col1->id());
     QVERIFY(usage.at(1) == 0); // index 0
 
     /* check usage of a Chaser used by a Script */
+    qDebug() << "Check usage of a Chaser used by a Script";
     usage = m_doc->getUsage(c1->id());
     QVERIFY(usage.count() == 2);
     QVERIFY(usage.at(0) == sc1->id());
     QVERIFY(usage.at(1) == 0); // line 1
 
     /* check usage of shared function */
+    qDebug() << "Check usage of shared function";
     usage = m_doc->getUsage(s5->id());
     QVERIFY(usage.count() == 4);
     QVERIFY(usage.at(0) == c1->id());
@@ -844,6 +945,7 @@ void Doc_Test::usage()
     QVERIFY(usage.at(3) == 1); // index 1
 
     /* test also the function by type method */
+    qDebug() << "Test also the function by type method";
     QList<Function *> byType = m_doc->functionsByType(Function::SceneType);
     QVERIFY(byType.count() == 5);
     QVERIFY(byType.at(0) == s1);
@@ -1021,17 +1123,17 @@ void Doc_Test::save()
     // Their contents are tested individually in their own separate tests.
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Fixture")
+        if (xmlReader.name().toString() == "Fixture")
             fixtures++;
-        else if (xmlReader.name() == "Function")
+        else if (xmlReader.name().toString() == "Function")
             functions++;
-        else if (xmlReader.name() == "FixtureGroup")
+        else if (xmlReader.name().toString() == "FixtureGroup")
             groups++;
-        else if (xmlReader.name() == "InputOutputMap")
+        else if (xmlReader.name().toString() == "InputOutputMap")
             ioMap++;
-        else if (xmlReader.name() == "Monitor")
+        else if (xmlReader.name().toString() == "Monitor")
             monitor++;
-        else if (xmlReader.name() == "Bus")
+        else if (xmlReader.name().toString() == "Bus")
             QFAIL("Bus tags should not be saved anymore!");
         else
             QFAIL(QString("Unexpected tag: %1")

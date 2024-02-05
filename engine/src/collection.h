@@ -109,7 +109,11 @@ protected:
      *  started and cleaned when it's stopped */
     QList <int> m_intensityOverrideIds;
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     mutable QMutex m_functionListMutex;
+#else
+    mutable QRecursiveMutex m_functionListMutex;
+#endif
 
     /*********************************************************************
      * Save & Load

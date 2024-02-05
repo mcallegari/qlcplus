@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>David Thomas</Author>
+ </Creator>
+ <Manufacturer>Briteq</Manufacturer>
+ <Model>BT-Vintage</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Halogen Lamp Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="LED Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="LED Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterOpen">No strobe (open)</Capability>
+  <Capability Min="8" Max="67" Preset="StrobeRandomSlowToFast">Random strobe (slow &gt; fast)</Capability>
+  <Capability Min="68" Max="255" Preset="StrobeSlowToFast">Strobe (slow &gt; fast)</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue fine" Preset="IntensityBlue"/>
+ <Channel Name="Color effects">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="27" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="28" Max="47" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="48" Max="67" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="68" Max="87" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="88" Max="97" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="98" Max="107" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="108" Max="117" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="118" Max="255">Fade colour change (very slow &gt; fast)</Capability>
+ </Channel>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Halogen Lamp Dimmer</Channel>
+  <Channel Number="1">LED Dimmer</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue fine</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Halogen Lamp Dimmer</Channel>
+  <Channel Number="1">LED Dimmer</Channel>
+  <Channel Number="2">LED Strobe</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue fine</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Halogen Lamp Dimmer</Channel>
+  <Channel Number="1">LED Dimmer</Channel>
+  <Channel Number="2">LED Strobe</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue fine</Channel>
+  <Channel Number="6">Color effects</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="HTI 575W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="16" Width="696" Height="650" Depth="370"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="980" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

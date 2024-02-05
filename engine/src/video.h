@@ -42,6 +42,7 @@ class Video : public Function
     Q_PROPERTY(qreal intensity READ intensity NOTIFY intensityChanged)
     Q_PROPERTY(QRect customGeometry READ customGeometry WRITE setCustomGeometry NOTIFY customGeometryChanged)
     Q_PROPERTY(QVector3D rotation READ rotation WRITE setRotation NOTIFY rotationChanged)
+    Q_PROPERTY(int zIndex READ zIndex WRITE setZIndex NOTIFY zIndexChanged)
     Q_PROPERTY(bool fullscreen READ fullscreen WRITE setFullscreen)
 
     /*********************************************************************
@@ -51,9 +52,14 @@ public:
     enum VideoAttr
     {
         Intensity = Function::Intensity,
+        Volume,
         XRotation,
         YRotation,
         ZRotation,
+        XPosition,
+        YPosition,
+        WidthScale,
+        HeightScale
     };
 
     Video(Doc* doc);
@@ -114,6 +120,10 @@ public:
     QVector3D rotation() const;
     void setRotation(QVector3D rotation);
 
+    /** Get/Set the video Z-Index used for layering */
+    int zIndex() const;
+    void setZIndex(int idx);
+
     /** Get/Set the audio codec for this Video Function */
     QString audioCodec();
     void setAudioCodec(QString codec);
@@ -148,6 +158,7 @@ signals:
     void intensityChanged();
     void customGeometryChanged(QRect rect);
     void rotationChanged(QVector3D rotation);
+    void zIndexChanged(int index);
     void totalTimeChanged(qint64);
     void metaDataChanged(QString key, QVariant data);
     void requestPlayback();
@@ -171,6 +182,8 @@ private:
     QRect m_customGeometry;
     /** The video XYZ rotation as a 3D vector */
     QVector3D m_rotation;
+    /** The video Z-Index */
+    int m_zIndex;
     /** Index of the screen where to render the video */
     int m_screen;
     /** Flag that indicates if the video has to go fullscreen */

@@ -19,14 +19,16 @@
 
 #include <QPushButton>
 #include <QDebug>
+#include <QSettings>
 
 #include "vcwidgetselection.h"
 #include "virtualconsole.h"
 #include "vcframe.h"
-#include "doc.h"
 
 #define KColumnName         0
 #define KColumnType         1
+
+#define SETTINGS_GEOMETRY "vcwidgetselection/geometry"
 
 VCWidgetSelection::VCWidgetSelection(QList<int> filters, QWidget *parent)
     : QDialog(parent)
@@ -37,6 +39,11 @@ VCWidgetSelection::VCWidgetSelection(QList<int> filters, QWidget *parent)
     m_tree->setRootIsDecorated(false);
     m_tree->setSelectionMode(QAbstractItemView::SingleSelection);
     m_tree->setAllColumnsShowFocus(true);
+
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 
     connect(m_tree, SIGNAL(itemSelectionChanged()),
             this, SLOT(slotItemSelectionChanged()));
@@ -50,7 +57,8 @@ VCWidgetSelection::VCWidgetSelection(QList<int> filters, QWidget *parent)
 
 VCWidgetSelection::~VCWidgetSelection()
 {
-
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 VCWidget *VCWidgetSelection::getSelectedWidget()
@@ -79,12 +87,12 @@ QList<VCWidget *> VCWidgetSelection::getChildren(VCWidget *obj)
 
 void VCWidgetSelection::updateWidgetsTree()
 {
-    VCFrame* contents = VirtualConsole::instance()->contents();
-    m_widgetsList = getChildren((VCWidget *)contents);
+    VCFrame *contents = VirtualConsole::instance()->contents();
+    m_widgetsList = getChildren(contents);
 
     foreach (QObject *object, m_widgetsList)
     {
-        VCWidget *widget = (VCWidget *)object;
+        VCWidget *widget = qobject_cast<VCWidget *>(object);
 
         QTreeWidgetItem *item = new QTreeWidgetItem(m_tree);
         item->setText(KColumnName, widget->caption());

@@ -572,17 +572,17 @@ void Sequence_Test::save()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Direction")
+        if (xmlReader.name().toString() == "Direction")
         {
             QVERIFY(xmlReader.readElementText() == "Backward");
             dir++;
         }
-        else if (xmlReader.name() == "RunOrder")
+        else if (xmlReader.name().toString() == "RunOrder")
         {
             QVERIFY(xmlReader.readElementText() == "SingleShot");
             run++;
         }
-        else if (xmlReader.name() == "Step")
+        else if (xmlReader.name().toString() == "Step")
         {
             QString text = xmlReader.readElementText();
             if (fstep == 0)
@@ -593,12 +593,12 @@ void Sequence_Test::save()
                 QCOMPARE(text, QString("0:0,100,1,180"));
             fstep++;
         }
-        else if (xmlReader.name() == "Speed")
+        else if (xmlReader.name().toString() == "Speed")
         {
             speed++;
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "SpeedModes")
+        else if (xmlReader.name().toString() == "SpeedModes")
         {
             QCOMPARE(xmlReader.attributes().value("FadeIn").toString(), QString("Default"));
             QCOMPARE(xmlReader.attributes().value("FadeOut").toString(), QString("Default"));

@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QElapsedTimer>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QFocusEvent>
@@ -27,10 +28,8 @@
 #include <QTimer>
 #include <QDebug>
 #include <QDial>
-#include <QTime>
 #include <qmath.h>
 
-#include "mastertimer.h"
 #include "speeddial.h"
 #include "qlcmacros.h"
 #include "function.h"
@@ -96,7 +95,7 @@ SpeedDial::SpeedDial(QWidget* parent)
 {
     new QVBoxLayout(this);
     layout()->setSpacing(0);
-    layout()->setMargin(2);
+    layout()->setContentsMargins(2, 2, 2, 2);
 
     QHBoxLayout* topHBox = new QHBoxLayout();
     QVBoxLayout* pmVBox1 = new QVBoxLayout();
@@ -186,13 +185,11 @@ SpeedDial::SpeedDial(QWidget* parent)
     connect(m_timer, SIGNAL(timeout()), this, SLOT(slotPlusMinusTimeout()));
 
     m_tapTickElapseTimer = new QTimer();
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     m_tapTickElapseTimer->setTimerType(Qt::PreciseTimer);
-#endif
     m_tapTickElapseTimer->setSingleShot(true);
     connect(m_tapTickElapseTimer, SIGNAL(timeout()),
                 this, SLOT(slotTapTimeout()));
-    
+
     //Hide elements according to current visibility mask
     setVisibilityMask(m_visibilityMask);
 }
@@ -277,11 +274,9 @@ void SpeedDial::updateTapTimer()
        && m_tapTickTimer == NULL)
     {
         m_tapTickTimer = new QTimer();
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
         m_tapTickTimer->setTimerType(Qt::PreciseTimer);
-#endif
-        connect(m_tapTickTimer, SIGNAL(timeout()),
-                this, SLOT(slotTapTimeout()));
+
+        connect(m_tapTickTimer, SIGNAL(timeout()), this, SLOT(slotTapTimeout()));
     }
 
     if (m_tapTickTimer)
@@ -526,7 +521,7 @@ void SpeedDial::slotInfiniteChecked(bool state)
         m_value = spinValues();
         if (m_preventSignals == false)
             emit valueChanged(m_value);
-        
+
 
         // update tap button blinking
         updateTapTimer();
@@ -545,15 +540,59 @@ void SpeedDial::slotTapClicked()
 {
     if (m_tapTime == NULL)
     {
-        m_tapTime = new QTime(QTime::currentTime());
+        m_tapTime = new QElapsedTimer();
         m_tapTime->start();
         return;
     }
     // Round the elapsed time to the nearest full 10th ms.
     m_value = m_tapTime->elapsed();
-    setSpinValues(m_value);
-
     m_tapTime->restart();
+
+    // If it's been a while since the last tap, reset the history and just use the time since the last tap
+    if (m_value > 1500)
+    {
+        // TODO: shift the tempo slightly upward or downward and re-phase the tempo
+        m_tapHistory.clear();
+        // TODO: If m_value is above the widget's maximum, then ignore this tap altogether
+        setSpinValues(m_value);
+        updateTapTimer();
+        emit tapped();
+        return;
+    }
+
+    // If multiple taps have been input recently,
+    // find the tempo that best passes through all of them.
+    m_tapHistory.append(m_value);
+    // This algorithm stabilizes around a tempo very quickly,
+    // so keeping more than a few taps in the history merely complicates tempo changes.
+    while (m_tapHistory.count() > 16)
+        m_tapHistory.removeFirst();
+
+    // Find the median time between taps, assume that the tempo is +-40% of this
+    QList<int> tapHistorySorted(m_tapHistory);
+    std::sort(tapHistorySorted.begin(), tapHistorySorted.end());
+    int tapHistoryMedian = tapHistorySorted[tapHistorySorted.length()/2];
+
+    // Tempo detection is not as easy as averaging together the durations,
+    // which causes all but the first and last taps to cancel each other out.
+    // Instead, plot each tap as time since first tap over the beat number,
+    // and the tempo will be the slope of a linear regression through the points.
+    // Initialize the data with the first tap at (0, 0).
+    // Use a float, otherwise (n * sum_xy) will overflow very quickly.
+    float n = 1, x = 0, y = 0, sum_x = 0, sum_y = 0, sum_xx = 0, sum_xy = 0;
+    foreach (int interval_ms, m_tapHistory)
+    {
+        n += 1;
+        // Divide by tapHistoryMedian to determine if a tap was skipped during input
+        x += (tapHistoryMedian/2 + interval_ms) / tapHistoryMedian;
+        y += interval_ms;
+        sum_x += x;
+        sum_y += y;
+        sum_xx += x * x;
+        sum_xy += x * y;
+    }
+    int slope = (n * sum_xy - sum_x * sum_y) / (n * sum_xx - sum_x * sum_x);
+    setSpinValues(slope);
 
     // time has changed - update tap button blinking
     updateTapTimer();
@@ -566,7 +605,7 @@ void SpeedDial::slotTapTimeout()
     if (m_value <= MIN_FLASH_TIME)
         return;
 
-    if (m_tapTick == false) 
+    if (m_tapTick == false)
     {
         m_tapTickElapseTimer->start(); // turn off tap light after some time
         m_tap->setStyleSheet(tapTickSS);

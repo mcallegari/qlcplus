@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Daniel Fairhead</Author>
+ </Creator>
+ <Manufacturer>Varytec</Manufacturer>
+ <Model>Street Bar</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimming" Preset="IntensityMasterDimmer"/>
+ <Channel Name="LED Main">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Dimmer</Capability>
+  <Capability Min="10" Max="19">Strobe</Capability>
+  <Capability Min="20" Max="29">Slow full bar fade</Capability>
+  <Capability Min="30" Max="39">Mode2</Capability>
+  <Capability Min="40" Max="49">Mode3</Capability>
+  <Capability Min="50" Max="59">Colors Slow Scroll RL</Capability>
+  <Capability Min="60" Max="69">Christmas Disco</Capability>
+  <Capability Min="70" Max="79">Colors wipe to center</Capability>
+  <Capability Min="80" Max="89">Single Color LED Chase RL</Capability>
+  <Capability Min="90" Max="99">Color Trailing LED Chase RL</Capability>
+  <Capability Min="100" Max="109">Bouncing Color Swap</Capability>
+  <Capability Min="110" Max="119">Racing Color Blocks RL</Capability>
+  <Capability Min="120" Max="129">Racing Color Blocks LR</Capability>
+  <Capability Min="130" Max="139">Colors Fill and Empty RL</Capability>
+  <Capability Min="140" Max="149">RGB Alternating Blocks RL</Capability>
+  <Capability Min="150" Max="159">Colors wipe to Center (2)</Capability>
+  <Capability Min="160" Max="169">Colors wipe from Center outwards</Capability>
+  <Capability Min="170" Max="179">Single Color blocks flicker-scroll LR</Capability>
+  <Capability Min="180" Max="189">Single Color blocks flicker-scroll RL</Capability>
+  <Capability Min="190" Max="199">Bouncing Halves</Capability>
+  <Capability Min="200" Max="209">Drop in Fill up and Drop out</Capability>
+  <Capability Min="210" Max="219">Stretch up and down</Capability>
+  <Capability Min="220" Max="229">Auto 1</Capability>
+  <Capability Min="230" Max="239">Auto 2</Capability>
+  <Capability Min="240" Max="255">Auto 3</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow - Fast</Capability>
+ </Channel>
+ <Channel Name="Strobo">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">No Strobing</Capability>
+  <Capability Min="1" Max="255" Preset="StrobeSlowToFast">Slow - Fast</Capability>
+ </Channel>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="Red 5" Preset="IntensityRed"/>
+ <Channel Name="Green 5" Preset="IntensityGreen"/>
+ <Channel Name="Blue 5" Preset="IntensityBlue"/>
+ <Channel Name="Red 6" Preset="IntensityRed"/>
+ <Channel Name="Green 6" Preset="IntensityGreen"/>
+ <Channel Name="Blue 6" Preset="IntensityBlue"/>
+ <Channel Name="Red 7" Preset="IntensityRed"/>
+ <Channel Name="Green 7" Preset="IntensityGreen"/>
+ <Channel Name="Blue 7" Preset="IntensityBlue"/>
+ <Channel Name="Red 8" Preset="IntensityRed"/>
+ <Channel Name="Green 8" Preset="IntensityGreen"/>
+ <Channel Name="Blue 8" Preset="IntensityBlue"/>
+ <Channel Name="Red 9" Preset="IntensityRed"/>
+ <Channel Name="Green 9" Preset="IntensityGreen"/>
+ <Channel Name="Blue 9" Preset="IntensityBlue"/>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Dimming</Channel>
+  <Channel Number="1">LED Main</Channel>
+  <Channel Number="2">Speed</Channel>
+  <Channel Number="3">Strobo</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+ </Mode>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Dimming</Channel>
+  <Channel Number="4">LED Main</Channel>
+  <Channel Number="5">Speed</Channel>
+  <Channel Number="6">Strobo</Channel>
+  <Channel Number="7">Red 2</Channel>
+  <Channel Number="8">Green 2</Channel>
+  <Channel Number="9">Blue 2</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Dimming</Channel>
+  <Channel Number="1">LED Main</Channel>
+  <Channel Number="2">Speed</Channel>
+  <Channel Number="3">Strobo</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">Red 2</Channel>
+  <Channel Number="8">Green 2</Channel>
+  <Channel Number="9">Blue 2</Channel>
+  <Channel Number="10">Red 3</Channel>
+  <Channel Number="11">Green 3</Channel>
+  <Channel Number="12">Blue 3</Channel>
+  <Channel Number="13">Red 4</Channel>
+  <Channel Number="14">Green 4</Channel>
+  <Channel Number="15">Blue 4</Channel>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="24 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Red 2</Channel>
+  <Channel Number="4">Green 2</Channel>
+  <Channel Number="5">Blue 2</Channel>
+  <Channel Number="6">Red 3</Channel>
+  <Channel Number="7">Green 3</Channel>
+  <Channel Number="8">Blue 3</Channel>
+  <Channel Number="9">Red 4</Channel>
+  <Channel Number="10">Green 4</Channel>
+  <Channel Number="11">Blue 4</Channel>
+  <Channel Number="12">Red 5</Channel>
+  <Channel Number="13">Green 5</Channel>
+  <Channel Number="14">Blue 5</Channel>
+  <Channel Number="15">Red 6</Channel>
+  <Channel Number="16">Green 6</Channel>
+  <Channel Number="17">Blue 6</Channel>
+  <Channel Number="18">Red 7</Channel>
+  <Channel Number="19">Green 7</Channel>
+  <Channel Number="20">Blue 7</Channel>
+  <Channel Number="21">Red 8</Channel>
+  <Channel Number="22">Green 8</Channel>
+  <Channel Number="23">Blue 8</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="28 Channel">
+  <Channel Number="0">Dimming</Channel>
+  <Channel Number="1">LED Main</Channel>
+  <Channel Number="2">Speed</Channel>
+  <Channel Number="3">Strobo</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">Red 2</Channel>
+  <Channel Number="8">Green 2</Channel>
+  <Channel Number="9">Blue 2</Channel>
+  <Channel Number="10">Red 3</Channel>
+  <Channel Number="11">Green 3</Channel>
+  <Channel Number="12">Blue 3</Channel>
+  <Channel Number="13">Red 4</Channel>
+  <Channel Number="14">Green 4</Channel>
+  <Channel Number="15">Blue 4</Channel>
+  <Channel Number="16">Red 5</Channel>
+  <Channel Number="17">Green 5</Channel>
+  <Channel Number="18">Blue 5</Channel>
+  <Channel Number="19">Red 6</Channel>
+  <Channel Number="20">Green 6</Channel>
+  <Channel Number="21">Blue 6</Channel>
+  <Channel Number="22">Red 7</Channel>
+  <Channel Number="23">Green 7</Channel>
+  <Channel Number="24">Blue 7</Channel>
+  <Channel Number="25">Red 8</Channel>
+  <Channel Number="26">Green 8</Channel>
+  <Channel Number="27">Blue 8</Channel>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+  </Head>
+  <Head>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.5" Width="1005" Height="160" Depth="130"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="16" Height="1"/>
+  <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

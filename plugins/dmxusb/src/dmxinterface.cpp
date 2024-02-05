@@ -74,14 +74,17 @@ bool DMXInterface::validInterface(quint16 vendor, quint16 product)
 {
     if (vendor != DMXInterface::FTDIVID &&
         vendor != DMXInterface::ATMELVID &&
-        vendor != DMXInterface::MICROCHIPVID)
+        vendor != DMXInterface::MICROCHIPVID &&
+        vendor != DMXInterface::NXPVID)
             return false;
 
     if (product != DMXInterface::FTDIPID &&
+        product != DMXInterface::FTDI2PID &&
         product != DMXInterface::DMX4ALLPID &&
         product != DMXInterface::NANODMXPID &&
         product != DMXInterface::EUROLITEPID &&
-        product != DMXInterface::ELECTROTASPID)
+        product != DMXInterface::ELECTROTASPID &&
+        product != DMXInterface::DMXKINGMAXPID)
             return false;
 
     return true;
@@ -110,4 +113,18 @@ void DMXInterface::storeTypeMap(const QMap <QString,QVariant> map)
     settings.setValue(SETTINGS_TYPE_MAP, map);
 }
 
+QMap<QString, QVariant> DMXInterface::frequencyMap()
+{
+    QMap <QString,QVariant> typeMap;
+    QSettings settings;
+    QVariant var(settings.value(SETTINGS_FREQ_MAP));
+    if (var.isValid() == true)
+        typeMap = var.toMap();
+    return typeMap;
+}
 
+void DMXInterface::storeFrequencyMap(const QMap<QString, QVariant> map)
+{
+    QSettings settings;
+    settings.setValue(SETTINGS_FREQ_MAP, map);
+}

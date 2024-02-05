@@ -4,8 +4,7 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = osc
 
-QT      += network
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT      += network widgets
 
 CONFIG      += plugin
 INCLUDEPATH += ../interfaces
@@ -46,7 +45,7 @@ SOURCES += oscpacketizer.cpp \
            configureosc.cpp
 
 unix:!macx {
-   metainfo.path   = $$INSTALLROOT/share/appdata/
-   metainfo.files += qlcplus-osc.metainfo.xml
-   INSTALLS       += metainfo 
+   metainfo.path   = $$METAINFODIR
+   metainfo.files += org.qlcplus.QLCPlus.osc.metainfo.xml
+   INSTALLS       += metainfo
 }

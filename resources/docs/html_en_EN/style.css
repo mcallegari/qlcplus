@@ -5,14 +5,12 @@ pre
   font-family: Courier;
 }
 
-.qlcTable 
+.qlcTable
 {
   margin: 0px;
   padding: 0px;
-  border: 1px solid #000000;
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  border-radius: 8px;
+  border: 0px solid #000000;
+  border-spacing: 0px;
 }
 
 .qlcTable table
@@ -21,41 +19,20 @@ pre
   height: 100%;
 }
 
+.qlcTable tr
+{
+    margin: 0px;
+    padding: 0px;
+}
+
 .qlcTable td
 {
   vertical-align: middle;
-  background-color: #dddddd;
-  border: 1px solid #000000;
-  border-width: 0px 1px 1px 0px;
+  background-color: #eee;
+  border: 1px solid #ccc;
   text-align: left;
   padding: 5px;
-  font-family: Arial;
+  margin: 0px;
   color: #000000;
 }
 
-.qlcTable tr:first-child td:first-child
-{
-  border-radius: 7px 0 0 0;
-}
-.qlcTable tr:first-child td:last-child
-{
-  border-radius: 0 7px 0 0;
-}
-.qlcTable tr:last-child td
-{
-  border-width: 0 1px 0 0;
-}
-.qlcTable tr:last-child td:first-child
-{
-  border-width: 0 1px 0 0;
-  border-radius: 0 0 0 7px;
-}
-.qlcTable tr td:last-child
-{
-  border-width: 0 0 1px 0;
-}
-.qlcTable tr:last-child td:last-child
-{
-  border-width: 0 0 0 0;
-  border-radius: 0 0 7px 0;
-}

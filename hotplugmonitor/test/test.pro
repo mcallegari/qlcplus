@@ -4,7 +4,7 @@ TEMPLATE = app
 LANGUAGE = C++
 TARGET   = test
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += widgets
 
 DEPENDPATH  += ../src
 INCLUDEPATH += ../src

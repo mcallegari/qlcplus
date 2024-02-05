@@ -49,8 +49,6 @@ public:
 public slots:
     void accept();
     void slotTabChanged();
-    void slotCF1AutoDetectionToggled(bool checked);
-    void slotCF2AutoDetectionToggled(bool checked);
 
 protected:
     VCCueList* m_cueList;
@@ -60,8 +58,7 @@ protected:
     InputSelectionWidget *m_nextInputWidget;
     InputSelectionWidget *m_prevInputWidget;
 
-    InputSelectionWidget *m_crossfade1InputWidget;
-    InputSelectionWidget *m_crossfade2InputWidget;
+    InputSelectionWidget *m_crossfadeInputWidget;
 
     /************************************************************************
      * Cues

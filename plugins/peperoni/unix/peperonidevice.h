@@ -25,8 +25,10 @@
 #include <QMutex>
 #include <QHash>
 
-struct usb_dev_handle;
-struct usb_device;
+struct libusb_device;
+struct libusb_device_handle;
+struct libusb_device_descriptor;
+
 class QString;
 class QByteArray;
 class Peperoni;
@@ -39,17 +41,18 @@ class PeperoniDevice : public QThread
      * Initialization
      ********************************************************************/
 public:
-    PeperoniDevice(Peperoni *parent, struct usb_device* device, quint32 line);
+    PeperoniDevice(Peperoni *parent, libusb_device *device,
+                   libusb_device_descriptor *desc, quint32 line);
     virtual ~PeperoniDevice();
 
     /** Find out, whether the given USB device is a Peperoni device */
-    static bool isPeperoniDevice(const struct usb_device* device);
+    static bool isPeperoniDevice(const libusb_device_descriptor *desc);
 
     /** Find out, whether the given USB VID/PID pair corresponds to a Peperoni device */
     static bool isPeperoniDevice(int vid, int pid);
 
     /** Returns the number of output universes this device supports */
-    static int outputsNumber(const struct usb_device* device);
+    static int outputsNumber(libusb_device_descriptor *desc);
 
     /********************************************************************
      * Device information
@@ -66,6 +69,9 @@ protected:
 protected:
     /** The interface name */
     QString m_name;
+
+    /** The interface name */
+    QString m_serial;
 
     /** Base line of this interface */
     quint32 m_baseLine;
@@ -89,15 +95,15 @@ public:
     void close(quint32 line, OperatingMode mode);
     void closeAll();
 
-    const struct usb_device* device() const;
-    const usb_dev_handle* handle() const;
+    const libusb_device *device() const;
 
     /** The device operating mode for each line */
     QHash<quint32, int> m_operatingModes;
 
 protected:
-    struct usb_device* m_device;
-    usb_dev_handle* m_handle;
+    struct libusb_device* m_device;
+    struct libusb_device_handle* m_handle;
+    struct libusb_device_descriptor* m_descriptor;
     int m_firmwareVersion;
     int m_blockingControlWrite;
     QByteArray m_bulkBuffer;

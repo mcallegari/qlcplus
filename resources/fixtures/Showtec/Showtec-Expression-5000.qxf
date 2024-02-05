@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Joep Admiraal</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
@@ -44,12 +44,12 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter / strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">Open</Capability>
-  <Capability Min="10" Max="255">Strobe effect, from slot to fast (0-10 fashes/sec)</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="10">Strobe effect, from slot to fast (0-10 fashes/sec)</Capability>
  </Channel>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="19">No Function</Capability>
+  <Capability Min="0" Max="19">No function</Capability>
   <Capability Min="20" Max="39">Blackout during Pan/Tilt movement</Capability>
   <Capability Min="40" Max="59">Disabled blackout during Pan/Tilt movement</Capability>
   <Capability Min="60" Max="79">Fan Auto</Capability>
@@ -63,7 +63,7 @@
   <Capability Min="180" Max="189">Sound 1</Capability>
   <Capability Min="190" Max="199">Sound 2</Capability>
   <Capability Min="200" Max="219">Reset activated after 5 seconds</Capability>
-  <Capability Min="220" Max="235">No Function</Capability>
+  <Capability Min="220" Max="235">No function</Capability>
   <Capability Min="236" Max="239">DIM 0 activated after 5 seconds</Capability>
   <Capability Min="240" Max="243">DIM 1 activated after 5 seconds</Capability>
   <Capability Min="244" Max="247">DIM 2 activated after 5 seconds</Capability>
@@ -95,11 +95,11 @@
   <Channel Number="7">Shutter / strobe</Channel>
   <Channel Number="8">Control</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="2800" ColourTemperature="0"/>
-   <Dimensions Weight="6.5" Width="190" Height="344" Depth="296"/>
-   <Lens DegreesMin="6" DegreesMax="6" Name="Other"/>
-   <Focus PanMax="540" TiltMax="270" Type="Fixed"/>
-   <Technical PowerConsumption="140" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="2800" ColourTemperature="0"/>
+  <Dimensions Weight="6.5" Width="190" Height="344" Depth="296"/>
+  <Lens Name="Other" DegreesMin="6" DegreesMax="6"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="140" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Fredje</Author>
  </Creator>
  <Manufacturer>Nicols</Manufacturer>
@@ -13,15 +13,15 @@
  <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="15">Open</Capability>
-  <Capability Min="16" Max="131">Strobe S&gt;F</Capability>
-  <Capability Min="132" Max="139">Open</Capability>
-  <Capability Min="140" Max="181">Fast Close Slow Open</Capability>
-  <Capability Min="182" Max="189">Open</Capability>
-  <Capability Min="190" Max="231">Slow Close Fast Open</Capability>
-  <Capability Min="232" Max="239">Open</Capability>
-  <Capability Min="240" Max="247">Random Strobe</Capability>
-  <Capability Min="248" Max="255">Open</Capability>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobe S&gt;F</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="140" Max="181" Preset="ShutterClose">Fast Close Slow Open</Capability>
+  <Capability Min="182" Max="189" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="190" Max="231" Preset="StrobeSlowToFast">Slow Close Fast Open</Capability>
+  <Capability Min="232" Max="239" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandom">Random Strobe</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
@@ -34,7 +34,7 @@
   <Capability Min="70" Max="79">Enable blackout on move</Capability>
   <Capability Min="80" Max="89">Disable blackout on move</Capability>
   <Capability Min="90" Max="199">Noop</Capability>
-  <Capability Min="200" Max="209">Reset All</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Reset All</Capability>
   <Capability Min="210" Max="249">Noop</Capability>
   <Capability Min="250" Max="255">Stand alone</Capability>
  </Channel>
@@ -175,11 +175,12 @@
    <Channel>25</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5.2" Width="258" Height="304" Depth="168"/>
-   <Lens Name="Other" DegreesMin="35" DegreesMax="35"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="200"/>
-   <Technical PowerConsumption="150" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.2" Width="258" Height="304" Depth="168"/>
+  <Lens Name="Other" DegreesMin="35" DegreesMax="35"/>
+  <Focus Type="Fixed" PanMax="630" TiltMax="200"/>
+  <Layout Width="2" Height="2"/>
+  <Technical PowerConsumption="150" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

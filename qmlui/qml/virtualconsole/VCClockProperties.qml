@@ -148,15 +148,16 @@ Rectangle
                             {
                                 if (checked)
                                 {
-                                    vcRightPanel.width += mainView.width / 3
-                                    sideLoader.width = mainView.width / 3
+                                    if (!sideLoader.visible)
+                                        rightSidePanel.width += UISettings.sidePanelWidth
+                                    sideLoader.visible = true
                                     sideLoader.source = "qrc:/FunctionManager.qml"
                                 }
                                 else
                                 {
-                                    vcRightPanel.width = vcRightPanel.width - sideLoader.width
+                                    rightSidePanel.width -= sideLoader.width
                                     sideLoader.source = ""
-                                    sideLoader.width = 0
+                                    sideLoader.visible = false
                                 }
                             }
                         }

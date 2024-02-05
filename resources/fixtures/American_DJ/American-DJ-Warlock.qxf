@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4 GIT</Version>
+  <Author>Justin Hornsby</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Warlock</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="9" Preset="RotationStop">Stop</Capability>
+  <Capability Min="10" Max="120" Preset="RotationClockwiseFastToSlow">Clockwise Fast - Slow</Capability>
+  <Capability Min="121" Max="134" Preset="RotationStop">Stop</Capability>
+  <Capability Min="135" Max="245" Preset="RotationCounterClockwiseFastToSlow">Counter Clockwise Fast-Slow</Capability>
+  <Capability Min="246" Max="255" Preset="RotationStop">Stop</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="8">White</Capability>
+  <Capability Min="9" Max="17">Colour 1</Capability>
+  <Capability Min="18" Max="26">Colour 2</Capability>
+  <Capability Min="27" Max="35">Colour 3</Capability>
+  <Capability Min="36" Max="44">Colour 4</Capability>
+  <Capability Min="45" Max="53">Colour 5</Capability>
+  <Capability Min="54" Max="62">Colour 6</Capability>
+  <Capability Min="63" Max="71">Colour 7</Capability>
+  <Capability Min="72" Max="80">Colour 8</Capability>
+  <Capability Min="81" Max="89">Colour 9</Capability>
+  <Capability Min="90" Max="98">Colour 10</Capability>
+  <Capability Min="99" Max="107">Colour 11</Capability>
+  <Capability Min="108" Max="127">Colour 12</Capability>
+  <Capability Min="128" Max="255">Rainbow Effect Slow-Fast</Capability>
+ </Channel>
+ <Channel Name="Gobos">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="4" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="5" Max="9" Preset="GoboMacro" Res1="">Gobo 1</Capability>
+  <Capability Min="10" Max="14" Preset="GoboMacro" Res1="">Gobo 2</Capability>
+  <Capability Min="15" Max="19" Preset="GoboMacro" Res1="">Gobo 3</Capability>
+  <Capability Min="20" Max="24" Preset="GoboMacro" Res1="">Gobo 4</Capability>
+  <Capability Min="25" Max="29" Preset="GoboMacro" Res1="">Gobo 5</Capability>
+  <Capability Min="30" Max="34" Preset="GoboMacro" Res1="">Gobo 6</Capability>
+  <Capability Min="35" Max="39" Preset="GoboMacro" Res1="">Gobo 7</Capability>
+  <Capability Min="40" Max="44" Preset="GoboMacro" Res1="">Gobo 8</Capability>
+  <Capability Min="45" Max="49" Preset="GoboMacro" Res1="">Gobo 9</Capability>
+  <Capability Min="50" Max="54" Preset="GoboMacro" Res1="">Gobo 10</Capability>
+  <Capability Min="55" Max="59" Preset="GoboMacro" Res1="">Gobo 11</Capability>
+  <Capability Min="60" Max="64" Preset="GoboMacro" Res1="">Gobo 12</Capability>
+  <Capability Min="65" Max="127">Gobo Animation</Capability>
+  <Capability Min="128" Max="255" Preset="RotationClockwiseSlowToFast">Gobo Wheel Rotation Slow-Fast</Capability>
+ </Channel>
+ <Channel Name="Reflector Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9" Preset="RotationStop">Stop</Capability>
+  <Capability Min="10" Max="120" Preset="RotationClockwiseFastToSlow">Clockwise Rotation Fast-Slow</Capability>
+  <Capability Min="121" Max="134" Preset="RotationStop">Stop</Capability>
+  <Capability Min="135" Max="245" Preset="RotationCounterClockwiseFastToSlow">Counterclockwise Rotation Fast-Slow</Capability>
+  <Capability Min="246" Max="255" Preset="RotationStop">Stop</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobing Slow-Fast</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="140" Max="181" Preset="RampDownSlowToFast">Fast open - slow close</Capability>
+  <Capability Min="182" Max="189" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="190" Max="231" Preset="RampUpSlowToFast">Fast close - slow open</Capability>
+  <Capability Min="232" Max="239" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandom">Random Strobe</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Special Functions">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="29">No function</Capability>
+  <Capability Min="30" Max="39">Enable Colour Wheel To Any Position</Capability>
+  <Capability Min="40" Max="59" Preset="LampOn">Lamp On</Capability>
+  <Capability Min="60" Max="79" Preset="LampOff">Lamp Off</Capability>
+  <Capability Min="80" Max="84" Preset="ResetAll">All Motors Reset</Capability>
+  <Capability Min="85" Max="87" Preset="ResetPanTilt">Pan/Tilt Motors Reset</Capability>
+  <Capability Min="88" Max="90" Preset="ResetColor">Colour Wheel Motor Reset</Capability>
+  <Capability Min="91" Max="93" Preset="ResetGobo">Gobo Wheel Motor Reset</Capability>
+  <Capability Min="94" Max="96">Shutter/ Dimmer Motor Reset</Capability>
+  <Capability Min="97" Max="99" Preset="ResetAll">Other Motors Reset</Capability>
+  <Capability Min="100" Max="109">Enable Blackout With Pan/Tilt Movement</Capability>
+  <Capability Min="110" Max="119">Enable Blackout With Colour Change</Capability>
+  <Capability Min="120" Max="129">Enable Blackout With Gobo Change</Capability>
+  <Capability Min="130" Max="139">Enable Blackout With Any Change</Capability>
+  <Capability Min="140" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Colour</Channel>
+  <Channel Number="3">Gobos</Channel>
+  <Channel Number="4">Reflector Rotation</Channel>
+  <Channel Number="5">Shutter</Channel>
+  <Channel Number="6">Special Functions</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSD 2R 132W" Lumens="18650" ColourTemperature="8000"/>
+  <Dimensions Weight="10" Width="512" Height="354" Depth="516"/>
+  <Lens Name="Other" DegreesMin="28" DegreesMax="28"/>
+  <Focus Type="Fixed" PanMax="180" TiltMax="360"/>
+  <Technical PowerConsumption="202" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

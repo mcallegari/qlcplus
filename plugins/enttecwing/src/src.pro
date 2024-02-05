@@ -7,8 +7,7 @@ TARGET   = enttecwing
 
 INCLUDEPATH   += ../../interfaces
 CONFIG        += plugin
-QT            += network
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT            += network widgets
 win32:DEFINES += QLC_EXPORT
 QTPLUGIN       =
 
@@ -58,8 +57,7 @@ target.path = $$INSTALLROOT/$$PLUGINDIR
 INSTALLS   += target
 
 unix:!macx {
-   metainfo.path   = $$INSTALLROOT/share/appdata/
-   metainfo.files += qlcplus-enttecwing.metainfo.xml
-   INSTALLS       += metainfo 
+   metainfo.path   = $$METAINFODIR
+   metainfo.files += org.qlcplus.QLCPlus.enttecwing.metainfo.xml
+   INSTALLS       += metainfo
 }
-

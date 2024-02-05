@@ -40,12 +40,14 @@ QLCCapability::QLCCapability(uchar min, uchar max, const QString& name, QObject 
     , m_min(min)
     , m_max(max)
     , m_name(name)
+    , m_warning(NoWarning)
 {
 }
 
 QLCCapability *QLCCapability::createCopy()
 {
     QLCCapability *copy = new QLCCapability(m_min, m_max, m_name);
+    copy->setWarning(m_warning);
     copy->setPreset(preset());
     for (int i = 0; i < m_resources.count(); i++)
         copy->setResource(i, m_resources.at(i));
@@ -92,6 +94,9 @@ void QLCCapability::setPreset(QLCCapability::Preset preset)
     m_preset = preset;
 }
 
+/* please see
+https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets
+when changing this function */
 QLCCapability::PresetType QLCCapability::presetType() const
 {
     switch (m_preset)
@@ -100,6 +105,7 @@ QLCCapability::PresetType QLCCapability::presetType() const
         case PulseFrequency:
         case RampUpFrequency:
         case RampDownFrequency:
+        case PrismEffectOn:
             return SingleValue;
         case StrobeFreqRange:
         case PulseFreqRange:
@@ -118,6 +124,32 @@ QLCCapability::PresetType QLCCapability::presetType() const
     }
 }
 
+/* please see
+https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets
+when changing this function */
+QString QLCCapability::presetUnits() const
+{
+    switch (m_preset)
+    {
+        case StrobeFrequency:
+        case PulseFrequency:
+        case RampUpFrequency:
+        case RampDownFrequency:
+        case StrobeFreqRange:
+        case PulseFreqRange:
+        case RampUpFreqRange:
+        case RampDownFreqRange:
+            return "Hz";
+        break;
+        case PrismEffectOn:
+            return "Faces";
+        break;
+        default:
+        break;
+    }
+    return QString();
+}
+
 /************************************************************************
  * Properties
  ************************************************************************/
@@ -129,7 +161,11 @@ uchar QLCCapability::min() const
 
 void QLCCapability::setMin(uchar value)
 {
+    if (m_min == value)
+        return;
+
     m_min = value;
+    emit minChanged();
 }
 
 uchar QLCCapability::max() const
@@ -139,7 +175,11 @@ uchar QLCCapability::max() const
 
 void QLCCapability::setMax(uchar value)
 {
+    if (m_max == value)
+        return;
+
     m_max = value;
+    emit maxChanged();
 }
 
 uchar QLCCapability::middle() const
@@ -154,7 +194,25 @@ QString QLCCapability::name() const
 
 void QLCCapability::setName(const QString& name)
 {
+    if (m_name == name)
+        return;
+
     m_name = name;
+    emit nameChanged();
+}
+
+QLCCapability::WarningType QLCCapability::warning() const
+{
+    return m_warning;
+}
+
+void QLCCapability::setWarning(QLCCapability::WarningType type)
+{
+    if (m_warning == type)
+        return;
+
+    m_warning = type;
+    emit warningChanged();
 }
 
 QVariant QLCCapability::resource(int index)
@@ -331,7 +389,7 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         return false;
     }
 
-    /* Get low limit attribute (critical) */
+    /* Get low limit attribute (mandatory) */
     QXmlStreamAttributes attrs = doc.attributes();
     str = attrs.value(KXMLQLCCapabilityMin).toString();
     if (str.isEmpty() == true)
@@ -344,7 +402,7 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         min = CLAMP(str.toInt(), 0, (int)UCHAR_MAX);
     }
 
-    /* Get high limit attribute (critical) */
+    /* Get high limit attribute (mandatory) */
     str = attrs.value(KXMLQLCCapabilityMax).toString();
     if (str.isEmpty() == true)
     {
@@ -394,13 +452,13 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         case SingleValue:
         case DoubleValue:
         {
-            float val1 = attrs.value(KXMLQLCCapabilityRes1).toString().toFloat();
-            setResource(0, val1);
+            float value = attrs.value(KXMLQLCCapabilityRes1).toString().toFloat();
+            setResource(0, value);
 
             if (attrs.hasAttribute(KXMLQLCCapabilityRes2))
             {
-                float val2 = attrs.value(KXMLQLCCapabilityRes2).toString().toFloat();
-                setResource(1, val2);
+                value = attrs.value(KXMLQLCCapabilityRes2).toString().toFloat();
+                setResource(1, value);
             }
         }
         break;
@@ -411,7 +469,7 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
     /* ************************* LEGACY ATTRIBUTES ************************* */
 
     /* Get (optional) resource name for gobo/effect/... */
-    if(attrs.hasAttribute(KXMLQLCCapabilityResource))
+    if (attrs.hasAttribute(KXMLQLCCapabilityResource))
     {
         QString path = attrs.value(KXMLQLCCapabilityResource).toString();
         if (QFileInfo(path).isRelative())
@@ -455,6 +513,11 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         setName(doc.text().toString().simplified());
         setMin(min);
         setMax(max);
+        if (name().isEmpty())
+        {
+            qWarning() << "Empty description provided. This should be fixed in the definition!";
+            return true;
+        }
     }
     else
     {

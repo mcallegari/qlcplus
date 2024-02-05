@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Michael Tughan</Author>
  </Creator>
  <Manufacturer>Microh</Manufacturer>
  <Model>LED Tri Bar</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Beams)</Type>
  <Channel Name="Red 1" Preset="IntensityRed"/>
  <Channel Name="Green 1" Preset="IntensityGreen"/>
  <Channel Name="Blue 1" Preset="IntensityBlue"/>
@@ -65,14 +65,14 @@
  <Channel Name="Blue 18" Preset="IntensityBlue"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">No function</Capability>
-  <Capability Min="10" Max="57">Slow to fast</Capability>
-  <Capability Min="58" Max="59">No function</Capability>
-  <Capability Min="60" Max="108">Pulse on to off / slow to fast</Capability>
-  <Capability Min="109" Max="110">No function</Capability>
-  <Capability Min="111" Max="159">Pulse off to on / slow to fast</Capability>
-  <Capability Min="160" Max="161">No function</Capability>
-  <Capability Min="162" Max="255">Random</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="57" Preset="StrobeSlowToFast">Slow to fast</Capability>
+  <Capability Min="58" Max="59" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="60" Max="108" Preset="PulseSlowToFast">Pulse on to off / slow to fast</Capability>
+  <Capability Min="109" Max="110" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="111" Max="159" Preset="PulseSlowToFast">Pulse off to on / slow to fast</Capability>
+  <Capability Min="160" Max="161" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="162" Max="255" Preset="StrobeRandom">Random</Capability>
  </Channel>
  <Channel Name="Macros">
   <Group Byte="0">Effect</Group>
@@ -247,11 +247,12 @@
    <Channel>51</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3.81" Width="1015" Height="78" Depth="76"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="128" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.81" Width="1015" Height="78" Depth="76"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="18" Height="1"/>
+  <Technical PowerConsumption="128" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
 </FixtureDefinition>

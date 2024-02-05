@@ -32,6 +32,7 @@ Column
     property string textLabel
     property string itemIcon: "qrc:/folder.svg"
     property int itemType: App.GenericDragItem
+    property int itemID: cRef ? cRef.id : -1
 
     property bool isExpanded: false
     property bool isSelected: false
@@ -97,63 +98,13 @@ Column
                 sourceSize: Qt.size(width, height)
             }
 
-            TextInput
+            CustomTextInput
             {
-                property string originalText
-
                 id: nodeLabel
-                z: 0
                 width: nodeBgRect.width - x - 1
-                height: UISettings.listItemHeight
-                readOnly: true
                 text: cRef ? cRef.name : textLabel
-                verticalAlignment: TextInput.AlignVCenter
-                color: UISettings.fgMain
-                font.family: UISettings.robotoFontName
-                font.pixelSize: UISettings.textSizeDefault
-                echoMode: TextInput.Normal
-                selectByMouse: true
-                selectionColor: "#4DB8FF"
-                selectedTextColor: "#111"
 
-                function disableEditing()
-                {
-                    z = 0
-                    select(0, 0)
-                    readOnly = true
-                    cursorVisible = false
-                }
-
-                Keys.onPressed:
-                {
-                    switch(event.key)
-                    {
-                        case Qt.Key_F2:
-                            originalText = textLabel
-                            z = 5
-                            readOnly = false
-                            cursorPosition = text.length
-                            cursorVisible = true
-                        break;
-                        case Qt.Key_Escape:
-                            disableEditing()
-                            nodeLabel.text = originalText
-                        break;
-                        default:
-                            event.accepted = false
-                            return
-                    }
-
-                    event.accepted = true
-                }
-
-                onEditingFinished:
-                {
-                    if (readOnly)
-                        return
-                    disableEditing()
-                    nodeContainer.pathChanged(nodePath, text)
-                }
+                onTextConfirmed: nodeContainer.pathChanged(nodePath, text)
             }
         } // Row
 
@@ -221,17 +172,23 @@ Column
                         item.isCheckable = model.isCheckable
                         item.isChecked = Qt.binding(function() { return model.isChecked })
                         item.dragItem = dragItem
-                        if (hasOwnProperty("type") && item.hasOwnProperty("itemType"))
+                        if (model.hasOwnProperty("type") && item.hasOwnProperty("itemType"))
                             item.itemType = type
 
                         if (item.hasOwnProperty('itemIcon'))
                             item.itemIcon = nodeContainer.itemIcon
 
-                        if (classRef && item.hasOwnProperty('cRef'))
+                        if (model.classRef !== undefined && item.hasOwnProperty('cRef'))
                             item.cRef = classRef
 
-                        if (item.hasOwnProperty('itemID'))
+                        if (item.hasOwnProperty('itemID') && model.classRef !== undefined)
                             item.itemID = id
+
+                        if (item.hasOwnProperty('inGroup'))
+                            item.inGroup = inGroup
+
+                        if (item.hasOwnProperty('subID'))
+                            item.subID = subid
 
                         //console.log("Item flags: " + model.flags);
                         if (model.flags !== undefined && item.hasOwnProperty("itemFlags"))
@@ -256,13 +213,13 @@ Column
                     Connections
                     {
                         target: item
-                        onMouseEvent:
+                        function onMouseEvent(type, iID, iType, qItem, mouseMods)
                         {
                             console.log("Got generic tree node mouse event")
                             switch (type)
                             {
                                 case App.Clicked:
-                                    if (qItem == item)
+                                    if (qItem === item)
                                     {
                                         model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
                                         if (model.hasChildren)
@@ -270,11 +227,11 @@ Column
                                     }
                                 break;
                                 case App.Checked:
-                                    if (qItem == item)
+                                    if (qItem === item)
                                         model.isChecked = iType
                                 break;
                                 case App.DragStarted:
-                                    if (qItem == item && !model.isSelected)
+                                    if (qItem === item && !model.isSelected)
                                     {
                                         model.isSelected = 1
                                         // invalidate the modifiers to force a single selection
@@ -291,13 +248,19 @@ Column
                     {
                         ignoreUnknownSignals: true
                         target: item
-                        onPathChanged: nodeContainer.pathChanged(oldPath, newPath)
+                        function onPathChanged(oldPath, newPath)
+                        {
+                            nodeContainer.pathChanged(oldPath, newPath)
+                        }
                     }
                     Connections
                     {
                         ignoreUnknownSignals: true
                         target: item
-                        onItemsDropped: nodeContainer.itemsDropped(path)
+                        function onItemsDropped(path)
+                        {
+                            nodeContainer.itemsDropped(path)
+                        }
                     }
                 }
         }

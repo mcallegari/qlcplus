@@ -96,10 +96,11 @@ bool UnixIOEnumerator::isPeperoniDevice(const struct libusb_device_descriptor* d
     if (descriptor->idVendor != PEPERONI_VID)
         return false;
 
-    if (descriptor->idProduct == PEPERONI_PID_RODIN1  ||
-        descriptor->idProduct == PEPERONI_PID_RODIN2  ||
-        descriptor->idProduct == PEPERONI_PID_RODINT  ||
-        descriptor->idProduct == PEPERONI_PID_XSWITCH ||
+    if (descriptor->idProduct == PEPERONI_PID_RODIN1     ||
+        descriptor->idProduct == PEPERONI_PID_RODIN1_MK3 ||
+        descriptor->idProduct == PEPERONI_PID_RODIN2     ||
+        descriptor->idProduct == PEPERONI_PID_RODINT     ||
+        descriptor->idProduct == PEPERONI_PID_XSWITCH    ||
         descriptor->idProduct == PEPERONI_PID_USBDMX21)
     {
         return true;

@@ -10,7 +10,7 @@
 <H1>RGB Script Fundamentals</H1>
 <P>
 Users can write their own RGB scripts to produce custom graphics projection with the
-<A HREF="file:concept.html#RGBMatrix">RGB Matrix</A> function. The scripts' operation principle
+<A HREF="concept.html#RGBMatrix">RGB Matrix</A> function. The scripts' operation principle
 is to produce a number of RGB maps that each represent one step in the graphics animation.
 The principle is basically the same as in movies: the audience observes a moving picture,
 which in reality is only a sequentially-played stream of static images that produce
@@ -18,10 +18,10 @@ an illusion of movement.
 </P>
 
 <P>
-The scripts themselves are written in <A HREF="http://www.ecmascript.org">ECMAScript</A>,
-which is also known as <A HREF="http://en.wikipedia.org/wiki/JavaScript">JavaScript</A>. Note
-that the language is <A HREF="http://en.wikipedia.org/wiki/Case_sensitivity">case-sensitive</A>
-and as a de-facto standard follows <A HREF="http://en.wikipedia.org/wiki/Naming_convention_%28programming%29#JavaScript">camel case rules</A>,
+The scripts themselves are written in <A HREF="https://en.wikipedia.org/wiki/ECMAScript">ECMAScript</A>,
+which is also known as <A HREF="https://en.wikipedia.org/wiki/JavaScript">JavaScript</A>. Note
+that the language is <A HREF="https://en.wikipedia.org/wiki/Case_sensitivity">case-sensitive</A>
+and as a de-facto standard follows <A HREF="https://en.wikipedia.org/wiki/Naming_convention_%28programming%29#JavaScript">camel case rules</A>,
 so make sure you write everything correctly and pay special attention to the required API
 features.
 </P>
@@ -77,15 +77,15 @@ to declare the following properties for the returned script object:
 </P>
 <UL>
  <LI><B>apiVersion:</B> The API version that the script follows. Currently, the accepted values are '1' or '2'.<br>
- apiVersion 1 allows simple scripting and easier coding, while apiVersion 2 offers advanced features <a href="#apiv2">described below</a>.<br> 
+ apiVersion 1 allows simple scripting and easier coding, while apiVersion 2 offers advanced features <a href="#apiv2">described below</a>.<br>
  Any other value will cause the script to be treated as invalid.</LI>
- <LI><B>name:</B> The name of your script. This name appears in the pattern selection box in the <A HREF="file:rgbmatrixeditor.html">RGB Matrix Editor</A></LI>
+ <LI><B>name:</B> The name of your script. This name appears in the pattern selection box in the <A HREF="rgbmatrixeditor.html">RGB Matrix Editor</A></LI>
  <LI><B>author:</B> The name of the person who has written the script. <B>You.</B></LI>
  <LI><B>acceptColors (optional):</B> Informs QLC+ if the script can accept a start color, an end color or none.<br>
  'acceptColors = 0' means no colors are accepted/needed. It means that the script will autonomously generate the colors
  information for the matrix pixels.<br>
  'acceptColors = 1' means only the start color is needed by the script.<br>
- 'acceptColors = 2' means both start and end colors will be accepted by the script.<br> 
+ 'acceptColors = 2' means both start and end colors will be accepted by the script.<br>
  If 'acceptColors' is not provided, QLC+ will default to value '2'.
  </LI>
 </UL>
@@ -113,7 +113,7 @@ With this in mind we add declarations for these three properties to the script:
 
 <H2>Functions</H2>
 <P>
-Now we are getting to the actual business of producing data for the <A HREF="file:concept.html#RGBMatrix">RGB Matrix</A>.
+Now we are getting to the actual business of producing data for the <A HREF="concept.html#RGBMatrix">RGB Matrix</A>.
 The current API version uses two functions to achieve this:
 <UL>
  <LI>rgbMapStepCount(width, height)</LI>
@@ -175,9 +175,9 @@ This function is the actual brains of the script. It produces two-dimensional ar
 size MUST be <B>height</B> times <B>width</B>. I.e. the array returned from this function
 must contain <B>height</B> items and each of these items must be an array that contains
 <B>width</B> items that must be 32bit integers, representing an RGB color as understood by
-<A HREF="http://doc.trolltech.com/4.7/qcolor.html#QRgb-typedef">QRgb</A> without alpha
+<A HREF="https://doc.qt.io/qt-5/qcolor.html#QRgb-typedef">QRgb</A> without alpha
 channel (0x00RRGGBB). The <B>rgb</B> parameter is an integer-representation of the color
-selected by user in the <A HREF="file:rgbmatrixeditor.html">RGB Matrix Editor</A>. The <B>step</B>
+selected by user in the <A HREF="rgbmatrixeditor.html">RGB Matrix Editor</A>. The <B>step</B>
 parameter tells the step number requested by the RGB Matrix function and is guaranteed
 to be within (0, rgbMapStepCount(w, h) - 1).
 </P>
@@ -273,7 +273,7 @@ Following a table of the accepted attributes and the meaning of their values.<br
   <LI><b>string</b>: a string that QLC+ can exchange with the script</LI>
  </UL>
  The type attribute implicitely defines also how the QLC+ RGB Matrix editor will display the property.
- For example a 'list' is displayed like a drop down box, a 'range' and an 'integer' are displayed as a spin box, 
+ For example a 'list' is displayed like a drop down box, a 'range' and an 'integer' are displayed as a spin box,
  a 'string' is displayed as an editable text box.
  </TD>
 </TR>
@@ -285,7 +285,7 @@ Following a table of the accepted attributes and the meaning of their values.<br
 </TR>
 <TR>
  <TD><b>values</b></TD>
- <TD>This attribute can be applied only when type is 'list' or 'range'. It defines the possible values that the 
+ <TD>This attribute can be applied only when type is 'list' or 'range'. It defines the possible values that the
  property can assume. A 'list' type will look like 'one,two,three' while a 'range' type will look like '2,10'.<br>
  Values must be separated by a comma ',' character. A 'range' type cannot have more than two values.
 </TR>
@@ -331,7 +331,7 @@ the following two files to a directory on your hard disk, open the <B>devtool.ht
 file with your browser and follow its instructions:
 <UL>
  <LI><A HREF="https://raw.githubusercontent.com/mcallegari/qlcplus/master/resources/rgbscripts/devtool.html">devtool.html</A></LI>
- <LI><A HREF="https://raw.githubusercontent.com/mcallegari/qlcplus/master/resources/rgbscripts/devtool.js">devtool.js</A></LI>
+ <LI><A HREF="https://raw.githubusercontent.com/mcallegari/qlcplus/master/resources/rgbscripts/devtool/devtool.js">devtool.js</A></LI>
 </UL>
 (Right-click and "Copy Link Location" works probably best)
 </P>
@@ -352,7 +352,7 @@ file with your browser and follow its instructions:
       you may not use this file except in compliance with the License.
       You may obtain a copy of the License at
 
-          http://www.apache.org/licenses/LICENSE-2.0.txt
+          https://www.apache.org/licenses/LICENSE-2.0.txt
 
       Unless required by applicable law or agreed to in writing, software
       distributed under the License is distributed on an "AS IS" BASIS,

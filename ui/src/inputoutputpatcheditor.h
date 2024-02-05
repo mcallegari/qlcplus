@@ -26,7 +26,6 @@
 
 class InputOutputMap;
 class AudioCapture;
-class QStringList;
 class OutputPatch;
 class InputPatch;
 class Doc;

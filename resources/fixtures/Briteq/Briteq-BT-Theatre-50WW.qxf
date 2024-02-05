@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>Fredje Gallon</Author>
+ </Creator>
+ <Manufacturer>Briteq</Manufacturer>
+ <Model>BT-Theatre 50WW</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeSlowToFast">Strobe Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Mode Name="1CH 8b">
+  <Channel Number="0">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="2CH 8b">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+ </Mode>
+ <Mode Name="2CH 16b">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Master dimmer fine</Channel>
+ </Mode>
+ <Mode Name="3CH 16b">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Master dimmer fine</Channel>
+  <Channel Number="2">Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="3200"/>
+  <Dimensions Weight="36" Width="195" Height="173" Depth="241"/>
+  <Lens Name="Other" DegreesMin="10" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

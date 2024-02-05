@@ -19,7 +19,8 @@
 */
 
 #include <QXmlStreamReader>
-#include <QRegExp>
+#include <QRegularExpression>
+#include <QLocale>
 #include <QString>
 #include <QDebug>
 
@@ -30,30 +31,32 @@
  ****************************************************************************/
 
 QLCPhysical::QLCPhysical()
+    : m_bulbLumens(0)
+    , m_bulbColourTemperature(0)
+    , m_weight(0)
+    , m_width(0)
+    , m_height(0)
+    , m_depth(0)
+    , m_lensDegreesMin(0)
+    , m_lensDegreesMax(0)
+    , m_focusPanMax(0)
+    , m_focusTiltMax(0)
+    , m_layout(QSize(1, 1))
+    , m_powerConsumption(0)
+
 {
-    /* Initialize only integer values since QStrings are null by default */
-    m_bulbLumens = 0;
-    m_bulbColourTemperature = 0;
-
-    m_weight = 0;
-    m_width = 0;
-    m_height = 0;
-    m_depth = 0;
-
     m_lensName = "Other";
-    m_lensDegreesMin = 0;
-    m_lensDegreesMax = 0;
-
     m_focusType = "Fixed";
-    m_focusPanMax = 0;
-    m_focusTiltMax = 0;
-
-    m_powerConsumption = 0;
     m_dmxConnector = "5-pin";
 }
 
 QLCPhysical::~QLCPhysical()
 {
+}
+
+QLCPhysical::QLCPhysical(const QLCPhysical &other)
+{
+    *this = other;
 }
 
 QLCPhysical& QLCPhysical::operator=(const QLCPhysical& physical)
@@ -76,12 +79,31 @@ QLCPhysical& QLCPhysical::operator=(const QLCPhysical& physical)
         m_focusType = physical.focusType();
         m_focusPanMax = physical.focusPanMax();
         m_focusTiltMax = physical.focusTiltMax();
+        m_layout = physical.layoutSize();
 
         m_powerConsumption = physical.powerConsumption();
         m_dmxConnector = physical.dmxConnector();
     }
 
     return *this;
+}
+
+bool QLCPhysical::isEmpty() const
+{
+    if (m_bulbLumens == 0 &&
+        m_bulbColourTemperature == 0 &&
+        m_weight == 0 &&
+        m_width == 0 &&
+        m_height == 0 &&
+        m_depth == 0 &&
+        m_lensDegreesMin == 0 &&
+        m_lensDegreesMax == 0 &&
+        m_focusPanMax == 0 &&
+        m_focusTiltMax == 0 &&
+        m_powerConsumption == 0)
+        return true;
+
+    return false;
 }
 
 /****************************************************************************
@@ -218,6 +240,16 @@ int QLCPhysical::focusTiltMax() const
     return m_focusTiltMax;
 }
 
+void QLCPhysical::setLayoutSize(QSize size)
+{
+    m_layout = size;
+}
+
+QSize QLCPhysical::layoutSize() const
+{
+    return m_layout;
+}
+
 void QLCPhysical::setPowerConsumption(int watt)
 {
     m_powerConsumption = watt;
@@ -234,7 +266,7 @@ int QLCPhysical::powerConsumption() const
         /* If power consumption value is missing, return bulb watts
          * plus a guesstimate 100W, since there's usually other
           * electronics consuming power as well. */
-        int bulbWatts = bulbType().remove(QRegExp("[A-Z]")).toInt();
+        int bulbWatts = bulbType().remove(QRegularExpression("[A-Z]*")).toInt();
         if (bulbWatts > 0)
             return bulbWatts + 100;
         else
@@ -293,6 +325,15 @@ bool QLCPhysical::loadXML(QXmlStreamReader &doc)
             m_focusPanMax = attrs.value(KXMLQLCPhysicalFocusPanMax).toString().toInt();
             m_focusTiltMax = attrs.value(KXMLQLCPhysicalFocusTiltMax).toString().toInt();
         }
+        else if (doc.name() == KXMLQLCPhysicalLayout)
+        {
+            int columns = 1, rows = 1;
+            if (attrs.hasAttribute(KXMLQLCPhysicalDimensionsWidth))
+                columns = attrs.value(KXMLQLCPhysicalDimensionsWidth).toString().toInt();
+            if (attrs.hasAttribute(KXMLQLCPhysicalDimensionsHeight))
+                rows = attrs.value(KXMLQLCPhysicalDimensionsHeight).toString().toInt();
+            setLayoutSize(QSize(columns, rows));
+        }
         else if (doc.name() == KXMLQLCPhysicalTechnical)
         {
             m_powerConsumption = attrs.value(KXMLQLCPhysicalTechnicalPowerConsumption).toString().toInt();
@@ -343,6 +384,15 @@ bool QLCPhysical::saveXML(QXmlStreamWriter *doc)
     doc->writeAttribute(KXMLQLCPhysicalFocusPanMax, QString::number(m_focusPanMax));
     doc->writeAttribute(KXMLQLCPhysicalFocusTiltMax, QString::number(m_focusTiltMax));
     doc->writeEndElement();
+
+    /* Layout */
+    if (layoutSize() != QSize(1, 1))
+    {
+        doc->writeStartElement(KXMLQLCPhysicalLayout);
+        doc->writeAttribute(KXMLQLCPhysicalDimensionsWidth, QString::number(m_layout.width()));
+        doc->writeAttribute(KXMLQLCPhysicalDimensionsHeight, QString::number(m_layout.height()));
+        doc->writeEndElement();
+    }
 
     /* Technical */
     doc->writeStartElement(KXMLQLCPhysicalTechnical);

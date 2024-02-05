@@ -146,10 +146,10 @@ void Function_Test::flashUnflash()
     QSignalSpy spy(stub, SIGNAL(flashing(quint32,bool)));
 
     QVERIFY(stub->flashing() == false);
-    stub->flash(NULL);
+    stub->flash(NULL, false, false);
     QCOMPARE(spy.size(), 1);
     QVERIFY(stub->flashing() == true);
-    stub->flash(NULL);
+    stub->flash(NULL, false, false);
     QCOMPARE(spy.size(), 1);
     QVERIFY(stub->flashing() == true);
     stub->unFlash(NULL);
@@ -291,9 +291,7 @@ void Function_Test::typeToString()
     QVERIFY(Function::typeToString(Function::SequenceType) == "Sequence");
     QVERIFY(Function::typeToString(Function::ShowType) == "Show");
     QVERIFY(Function::typeToString(Function::AudioType) == "Audio");
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     QVERIFY(Function::typeToString(Function::VideoType) == "Video");
-#endif
 
     QVERIFY(Function::typeToString(Function::Type(42)) == "Undefined");
     QVERIFY(Function::typeToString(Function::Type(31337)) == "Undefined");
@@ -311,9 +309,7 @@ void Function_Test::stringToType()
     QVERIFY(Function::stringToType("Sequence") == Function::SequenceType);
     QVERIFY(Function::stringToType("Show") == Function::ShowType);
     QVERIFY(Function::stringToType("Audio") == Function::AudioType);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     QVERIFY(Function::stringToType("Video") == Function::VideoType);
-#endif
 
     QVERIFY(Function::stringToType("Foobar") == Function::Undefined);
     QVERIFY(Function::stringToType("Xyzzy") == Function::Undefined);

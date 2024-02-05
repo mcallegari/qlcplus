@@ -28,10 +28,11 @@ Dialog
     id: control
     x: (mainView.width - width) / 2
     y: (mainView.height - height) / 2
-    //width: mainView.width / 2
+    width: mainView.width / 3
     parent: mainView
 
     modal: true
+    closePolicy: Popup.CloseOnEscape
     title: ""
     standardButtons: Dialog.Ok | Dialog.Cancel
     onVisibleChanged: mainView.setDimScreen(visible)
@@ -81,7 +82,8 @@ Dialog
             visible: message
             font.family: UISettings.robotoFontName
             font.pixelSize: UISettings.textSizeDefault
-            color:  UISettings.fgMain
+            color: UISettings.fgMain
+            wrapMode: Text.Wrap
             text: message
         }
 
@@ -122,6 +124,7 @@ Dialog
                 {
                     id: buttonControl
                     width: buttonBoxControl.count === 1 ? UISettings.bigItemHeight * 2 : undefined
+                    //implicitWidth: width
 
                     hoverEnabled: true
 

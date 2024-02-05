@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Nicolò Zanon</Author>
  </Creator>
  <Manufacturer>DTS</Manufacturer>
@@ -52,10 +52,10 @@
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">Colour1</Capability>
   <Capability Min="11" Max="21">Bicolour 1/2</Capability>
-  <Capability Min="22" Max="32">Colour2 </Capability>
+  <Capability Min="22" Max="32">Colour2</Capability>
   <Capability Min="33" Max="43">Bicolour 2/3</Capability>
   <Capability Min="44" Max="54">Colour3</Capability>
-  <Capability Min="55" Max="65">Bicolour 3/4 </Capability>
+  <Capability Min="55" Max="65">Bicolour 3/4</Capability>
   <Capability Min="66" Max="76">Colour4</Capability>
   <Capability Min="77" Max="87">Bicolour 4/5</Capability>
   <Capability Min="88" Max="98">Colour5</Capability>
@@ -66,11 +66,11 @@
   <Capability Min="143" Max="153">Bicolour 7/8</Capability>
   <Capability Min="154" Max="164">Colour8</Capability>
   <Capability Min="165" Max="175">Bicolour 8/9</Capability>
-  <Capability Min="176" Max="186">Colour9 </Capability>
+  <Capability Min="176" Max="186">Colour9</Capability>
   <Capability Min="187" Max="197">Bicolour 9/1</Capability>
   <Capability Min="198" Max="200">Right rotation speed 1 min</Capability>
-  <Capability Min="201" Max="203">Right rotation speed 2 </Capability>
-  <Capability Min="204" Max="206">Right rotation speed 3 </Capability>
+  <Capability Min="201" Max="203">Right rotation speed 2</Capability>
+  <Capability Min="204" Max="206">Right rotation speed 3</Capability>
   <Capability Min="207" Max="209">Right rotation speed 4</Capability>
   <Capability Min="210" Max="212">Right rotation speed 5</Capability>
   <Capability Min="213" Max="215">Right rotation speed 6</Capability>
@@ -91,7 +91,7 @@
  <Channel Name="Proportional colour (priority)">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="10">No effect</Capability>
-  <Capability Min="11" Max="255">Proportional colour   </Capability>
+  <Capability Min="11" Max="255">Proportional colour</Capability>
  </Channel>
  <Channel Name="Gobo wheel">
   <Group Byte="0">Gobo</Group>
@@ -141,10 +141,10 @@
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="29">No effect</Capability>
-  <Capability Min="30" Max="85">Lamp OFF (active after 3 seconds)</Capability>
-  <Capability Min="86" Max="170">Internal motor reset</Capability>
-  <Capability Min="171" Max="235">Total reset</Capability>
-  <Capability Min="236" Max="255">Lamp ON (active after 3 seconds)</Capability>
+  <Capability Min="30" Max="85" Preset="LampOff">Lamp OFF (active after 3 seconds)</Capability>
+  <Capability Min="86" Max="170" Preset="ResetMotors">Internal motor reset</Capability>
+  <Capability Min="171" Max="235" Preset="ResetAll">Total reset</Capability>
+  <Capability Min="236" Max="255" Preset="LampOn">Lamp ON (active after 3 seconds)</Capability>
  </Channel>
  <Channel Name="Shutter (8/10ch)">
   <Group Byte="0">Shutter</Group>
@@ -215,11 +215,11 @@
   <Channel Number="14">Frost (priority)</Channel>
   <Channel Number="15">Reset</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="MSR 575/2 W" Lumens="49000" ColourTemperature="7200"/>
-   <Dimensions Weight="26" Width="450" Height="660" Depth="360"/>
-   <Lens Name="Other" DegreesMin="13" DegreesMax="21"/>
-   <Focus Type="Head" PanMax="540" TiltMax="319"/>
-   <Technical PowerConsumption="800" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="MSR 575/2 W" Lumens="49000" ColourTemperature="7200"/>
+  <Dimensions Weight="26" Width="450" Height="660" Depth="360"/>
+  <Lens Name="Other" DegreesMin="13" DegreesMax="21"/>
+  <Focus Type="Head" PanMax="540" TiltMax="319"/>
+  <Technical PowerConsumption="800" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

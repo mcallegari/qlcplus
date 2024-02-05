@@ -26,8 +26,6 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 
-#include "qlcfile.h"
-
 #include "mastertimer.h"
 #include "collection.h"
 #include "function.h"
@@ -39,7 +37,9 @@
 
 Collection::Collection(Doc* doc)
     : Function(doc, Function::CollectionType)
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     , m_functionListMutex(QMutex::Recursive)
+#endif
 {
     setName(tr("New Collection"));
 
@@ -61,7 +61,7 @@ quint32 Collection::totalDuration()
 {
     quint32 totalDuration = 0;
 
-    foreach(QVariant fid, functions())
+    foreach (QVariant fid, functions())
     {
         Function* function = doc()->function(fid.toUInt());
         totalDuration += function->totalDuration();

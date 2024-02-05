@@ -17,8 +17,10 @@
   limitations under the License.
 */
 
+#include <QQmlEngine>
 #include <QJSEngine>
 #include <QJSValue>
+#include <QRandomGenerator>
 #if !defined(Q_OS_IOS)
 #include <QProcess>
 #endif
@@ -37,18 +39,12 @@ ScriptRunner::ScriptRunner(Doc *doc, QString &content, QObject *parent)
     , m_running(false)
     , m_engine(NULL)
     , m_waitCount(0)
-    , m_fader(NULL)
 {
 }
 
 ScriptRunner::~ScriptRunner()
 {
     stop();
-
-    // Stops keeping HTP channels up
-    if (m_fader != NULL)
-        delete m_fader;
-    m_fader = NULL;
 }
 
 void ScriptRunner::execute()
@@ -66,14 +62,13 @@ void ScriptRunner::stop()
     if (m_running == false)
         return;
 
-    m_running = false;
-/*
     if (m_engine)
     {
-        delete m_engine;
+        m_engine->setInterrupted(true);
+        m_engine->deleteLater();
         m_engine = NULL;
     }
-*/
+
     // Stop all functions started by this script
     foreach (quint32 fID, m_startedFunctions)
     {
@@ -84,6 +79,16 @@ void ScriptRunner::stop()
         function->stop(FunctionParent::master());
     }
     m_startedFunctions.clear();
+
+    // request to delete all the active faders
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    {
+        if (!fader.isNull())
+            fader->requestDelete();
+    }
+    m_fadersMap.clear();
+
+    m_running = false;
 }
 
 QStringList ScriptRunner::collectScriptData()
@@ -92,6 +97,7 @@ QStringList ScriptRunner::collectScriptData()
     QJSEngine *engine = new QJSEngine();
     QJSValue objectValue = engine->newQObject(this);
     engine->globalObject().setProperty("Engine", objectValue);
+    QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
 
     QJSValue script = engine->evaluate("(function run() { " + m_content + " })");
     if (script.isError())
@@ -135,20 +141,35 @@ int ScriptRunner::currentWaitTime()
     return m_waitCount * MasterTimer::tick();
 }
 
-GenericFader *ScriptRunner::fader()
-{
-    // Create a fader if it doesn't exist yet
-    if (m_fader == NULL)
-        m_fader = new GenericFader(m_doc);
-
-    return m_fader;
-}
-
 bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
 {
     if (m_waitCount > 0)
         m_waitCount--;
 
+    if (m_fixtureValueQueue.count())
+    {
+        while (!m_fixtureValueQueue.isEmpty())
+        {
+            FixtureValue val = m_fixtureValueQueue.dequeue();
+
+            QSharedPointer<GenericFader> fader = m_fadersMap.value(val.m_universe, QSharedPointer<GenericFader>());
+            if (fader.isNull())
+            {
+                fader = universes[val.m_universe]->requestFader();
+                //fader->adjustIntensity(getAttributeValue(Intensity));
+                //fader->setBlendMode(blendMode());
+                m_fadersMap[val.m_universe] = fader;
+            }
+
+            FadeChannel *fc = fader->getChannelFader(m_doc, universes[val.m_universe], val.m_fixtureID, val.m_channel);
+
+            fc->setStart(fc->current());
+            fc->setTarget(val.m_value);
+            fc->setFadeTime(val.m_fadeTime);
+            fc->setElapsed(0);
+            fc->setReady(false);
+        }
+    }
     if (m_functionQueue.count())
     {
         while (!m_functionQueue.isEmpty())
@@ -177,10 +198,6 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
         }
     }
 
-    // Handle GenericFader tasks (setFixture)
-    if (m_fader)
-        m_fader->write(universes);
-
     // If the JS call method has ended on its own, the thread
     // has finished, therefore there's nothing else to run here
     if (m_running == false)
@@ -196,6 +213,7 @@ void ScriptRunner::run()
     m_engine = new QJSEngine();
     QJSValue objectValue = m_engine->newQObject(this);
     m_engine->globalObject().setProperty("Engine", objectValue);
+    QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
 
     QJSValue script = m_engine->evaluate("(function run() { " + m_content + " })");
 
@@ -214,16 +232,12 @@ void ScriptRunner::run()
                              .arg(ret.toString());
         }
     }
-/*
-    if (m_engine)
-    {
-        delete m_engine;
-        m_engine = NULL;
-    }
-*/
-    qDebug() << "ScriptRunner thread over.";
-    // this thread is done. The calling Script can stop
-    m_running = false;
+
+    qDebug() << "[ScriptRunner] Code executed";
+
+    // this thread is done. Wait for the calling Script to stop
+    while (m_running)
+        msleep(50);
 }
 
 /************************************************************************
@@ -275,24 +289,14 @@ bool ScriptRunner::setFixture(quint32 fxID, quint32 channel, uchar value, uint t
         return false;
     }
 
-    GenericFader *gf = fader();
-    Q_ASSERT(gf != NULL);
-
-    FadeChannel fc(m_doc, fxi->id(), channel);
-    fc.setTarget(value);
-    fc.setFadeTime(time);
-
-    // If the script has used the channel previously, it might still be in
-    // the bowels of GenericFader so get the starting value from there.
-    // Otherwise get it from universes (HTP channels are always 0 then).
-    //quint32 uni = fc.universe();
-    if (gf->channels().contains(fc) == true)
-        fc.setStart(gf->channels()[fc].current());
-    //else
-    //    fc.setStart(universes[uni]->preGMValue(address)); // TODO ?
-    fc.setCurrent(fc.start());
-
-    gf->add(fc);
+    // enqueue this fixture value to be processed at the next write call
+    FixtureValue val;
+    val.m_universe = fxi->universe();
+    val.m_fixtureID = fxID;
+    val.m_channel = channel;
+    val.m_value = value;
+    val.m_fadeTime = time;
+    m_fixtureValueQueue.enqueue(val);
 
     return true;
 }
@@ -450,8 +454,11 @@ bool ScriptRunner::systemCommand(QString command)
     }
 
 #if !defined(Q_OS_IOS)
+    qint64 pid;
     QProcess *newProcess = new QProcess();
-    newProcess->start(programName, programArgs);
+    newProcess->setProgram(programName);
+    newProcess->setArguments(programArgs);
+    newProcess->startDetached(&pid);
 #endif
 
     return true;
@@ -510,6 +517,18 @@ bool ScriptRunner::setBlackout(bool enable)
     return true;
 }
 
+bool ScriptRunner::setBPM(int bpm)
+{
+    if (m_running == false)
+        return false;
+
+    qDebug() << Q_FUNC_INFO;
+
+    m_doc->inputOutputMap()->setBpmNumber(bpm);
+
+    return true;
+}
+
 int ScriptRunner::random(QString minTime, QString maxTime)
 {
     if (m_running == false)
@@ -518,7 +537,7 @@ int ScriptRunner::random(QString minTime, QString maxTime)
     int min = Function::stringToSpeed(minTime);
     int max = Function::stringToSpeed(maxTime);
 
-    return qrand() % ((max + 1) - min) + min;
+    return QRandomGenerator::global()->generate() % ((max + 1) - min) + min;
 }
 
 int ScriptRunner::random(int minTime, int maxTime)
@@ -526,6 +545,6 @@ int ScriptRunner::random(int minTime, int maxTime)
     if (m_running == false)
         return 0;
 
-    return qrand() % ((maxTime + 1) - minTime) + minTime;
+    return QRandomGenerator::global()->generate() % ((maxTime + 1) - minTime) + minTime;
 }
 

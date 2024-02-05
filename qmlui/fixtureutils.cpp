@@ -42,8 +42,8 @@
 #define MIN_POSITION_SPEED  4000 // ms
 #define MAX_POSITION_SPEED  20000 // ms
 
-#define MIN_GOBO_SPEED      3000 // ms
-#define MAX_GOBO_SPEED      10000 // ms
+#define MIN_GOBO_SPEED      500 // ms
+#define MAX_GOBO_SPEED      5000 // ms
 
 FixtureUtils::FixtureUtils()
 {
@@ -130,7 +130,7 @@ QSizeF FixtureUtils::item2DDimension(QLCFixtureMode *fxMode, int pointOfView)
 {
     QSizeF size(300, 300);
 
-    if (fxMode == NULL)
+    if (fxMode == nullptr)
         return size;
 
     QLCPhysical phy = fxMode->physical();
@@ -150,7 +150,7 @@ QSizeF FixtureUtils::item2DDimension(QLCFixtureMode *fxMode, int pointOfView)
         case MonitorProperties::Undefined:
         case MonitorProperties::FrontView:
             size.setWidth(phy.width());
-            size.setHeight(phy.depth());
+            size.setHeight(phy.height());
         break;
         case MonitorProperties::RightSideView:
         case MonitorProperties::LeftSideView:
@@ -223,7 +223,7 @@ QVector3D FixtureUtils::item3DPosition(MonitorProperties *monProps, QPointF poin
 QPointF FixtureUtils::available2DPosition(Doc *doc, int pointOfView, QRectF fxRect)
 {
     MonitorProperties *monProps = doc->monitorProperties();
-    if (monProps == NULL)
+    if (monProps == nullptr)
         return QPointF(0, 0);
 
     qreal xPos = fxRect.x(), yPos = fxRect.y();
@@ -264,14 +264,14 @@ QPointF FixtureUtils::available2DPosition(Doc *doc, int pointOfView, QRectF fxRe
             quint16 linkedIndex = monProps->fixtureLinkedIndex(subID);
             QPointF fxPoint = item2DPosition(monProps, pointOfView,
                                              monProps->fixturePosition(fixture->id(), headIndex, linkedIndex));
-            QSizeF fxSize = item2DDimension(fixture->type() == QLCFixtureDef::Dimmer ? NULL : fxMode, pointOfView);
+            QSizeF fxSize = item2DDimension(fixture->type() == QLCFixtureDef::Dimmer ? nullptr : fxMode, pointOfView);
             qreal itemXPos = fxPoint.x();
             qreal itemYPos = fxPoint.y();
             qreal itemWidth = fxSize.width();
             qreal itemHeight = fxSize.height();
 
             // store the next Y row in case we need to lower down
-            if (itemYPos + itemHeight > maxYOffset )
+            if (itemYPos + itemHeight > maxYOffset)
                 maxYOffset = itemYPos + itemHeight;
 
             QRectF itemRect(itemXPos, itemYPos, itemWidth, itemHeight);
@@ -317,7 +317,7 @@ QColor FixtureUtils::blendColors(QColor a, QColor b, float mix)
 
 QColor FixtureUtils::headColor(Fixture *fixture, int headIndex)
 {
-    QColor finalColor;
+    QColor finalColor = Qt::white;
 
     QVector <quint32> rgbCh = fixture->rgbChannels(headIndex);
     if (rgbCh.size() == 3)
@@ -359,6 +359,14 @@ QColor FixtureUtils::headColor(Fixture *fixture, int headIndex)
     return finalColor;
 }
 
+QColor FixtureUtils::applyColorFilter(QColor source, QColor filter)
+{
+    //qDebug() << "SOURCE" << source << "FILTER" << filter;
+    return QColor(source.redF() * filter.redF() * 255.0,
+                  source.greenF() * filter.greenF() * 255.0,
+                  source.blueF() * filter.blueF() * 255.0);
+}
+
 void FixtureUtils::positionTimings(const QLCChannel *ch, uchar value, int &panDuration, int &tiltDuration)
 {
     panDuration = -1;
@@ -393,6 +401,12 @@ bool FixtureUtils::goboTiming(const QLCCapability *cap, uchar value, int &speed)
 {
     speed = MIN_GOBO_SPEED;
     bool clockwise = true;
+
+    if (cap->preset() == QLCCapability::Custom)
+    {
+        speed = -1;
+        return true;
+    }
 
     value = SCALE(value, cap->min(), cap->max(), 1, 255);
 
@@ -452,7 +466,7 @@ int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTim
         default:
         {
             QLCCapability *cap = ch->searchCapability(value);
-            if (cap == NULL)
+            if (cap == nullptr)
                 break;
 
             capPreset = cap->preset();

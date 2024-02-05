@@ -33,7 +33,7 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCLabel "Label"
+#define KXMLQLCVCLabel QString("Label")
 
 class VCLabel : public VCWidget
 {

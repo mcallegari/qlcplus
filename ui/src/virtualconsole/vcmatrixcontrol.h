@@ -34,23 +34,25 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCVCMatrixControl         "Control"
-#define KXMLQLCVCMatrixControlID       "ID"
-#define KXMLQLCVCMatrixControlType     "Type"
-#define KXMLQLCVCMatrixControlColor    "Color"
-#define KXMLQLCVCMatrixControlResource "Resource"
-#define KXMLQLCVCMatrixControlProperty "Property"
-#define KXMLQLCVCMatrixControlPropertyName "Name"
+#define KXMLQLCVCMatrixControl              QString("Control")
+#define KXMLQLCVCMatrixControlID            QString("ID")
+#define KXMLQLCVCMatrixControlType          QString("Type")
+#define KXMLQLCVCMatrixControlColor         QString("Color")
+#define KXMLQLCVCMatrixControlResource      QString("Resource")
+#define KXMLQLCVCMatrixControlProperty      QString("Property")
+#define KXMLQLCVCMatrixControlPropertyName  QString("Name")
 
 class VCMatrixControl
 {
 
 public:
     explicit VCMatrixControl(quint8 id);
-    explicit VCMatrixControl(VCMatrixControl const& vcmc);
+    VCMatrixControl(const VCMatrixControl &other);
 
     /** Destructor */
     ~VCMatrixControl();
+
+    VCMatrixControl& operator=(const VCMatrixControl& vcmc);
 
     enum ControlType
     {

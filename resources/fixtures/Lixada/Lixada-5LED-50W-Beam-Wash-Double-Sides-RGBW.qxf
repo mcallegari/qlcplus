@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>John Yiannikakis</Author>
+ </Creator>
+ <Manufacturer>Lixada</Manufacturer>
+ <Model>5LED 50W Beam Wash Double Sides RGBW</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Dimmer total" Preset="IntensityMasterDimmer"/>
+ <Channel Name="X Motor" Preset="PositionPan"/>
+ <Channel Name="Y Motor" Preset="PositionTilt"/>
+ <Channel Name="Y axis infinite rotation">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Y infinite</Capability>
+ </Channel>
+ <Channel Name="XY Motor speed" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Motor/Sound mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="128" Preset="SlowToFast">Motor auto run</Capability>
+  <Capability Min="129" Max="255">Sound activation mode</Capability>
+ </Channel>
+ <Channel Name="Music Sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Sound Sensitivity (less -&gt; more)</Capability>
+ </Channel>
+ <Channel Name="Light bulb auto run" Preset="ColorMacro"/>
+ <Channel Name="Light bulb auto run speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Light bulb auto run speed</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="249">No function</Capability>
+  <Capability Min="250" Max="255" Preset="ResetAll">reset 5 seconds</Capability>
+ </Channel>
+ <Channel Name="X Motor fine" Preset="PositionPanFine"/>
+ <Channel Name="Y Motor fine" Preset="PositionTiltFine"/>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="White 1" Preset="IntensityWhite"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="White 2" Preset="IntensityWhite"/>
+ <Mode Name="15 Channel">
+  <Channel Number="0">X Motor</Channel>
+  <Channel Number="1">Y Motor</Channel>
+  <Channel Number="2">Y axis infinite rotation</Channel>
+  <Channel Number="3">XY Motor speed</Channel>
+  <Channel Number="4">Dimmer total</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Red</Channel>
+  <Channel Number="7">Green</Channel>
+  <Channel Number="8">Blue</Channel>
+  <Channel Number="9">White</Channel>
+  <Channel Number="10">Motor/Sound mode</Channel>
+  <Channel Number="11">Music Sensitivity</Channel>
+  <Channel Number="12">Light bulb auto run</Channel>
+  <Channel Number="13">Light bulb auto run speed</Channel>
+  <Channel Number="14">Reset</Channel>
+ </Mode>
+ <Mode Name="21 Channel">
+  <Channel Number="0">X Motor</Channel>
+  <Channel Number="1">X Motor fine</Channel>
+  <Channel Number="2">Y Motor</Channel>
+  <Channel Number="3">Y Motor fine</Channel>
+  <Channel Number="4">Y axis infinite rotation</Channel>
+  <Channel Number="5">XY Motor speed</Channel>
+  <Channel Number="6">Dimmer total</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Red 1</Channel>
+  <Channel Number="9">Green 1</Channel>
+  <Channel Number="10">Blue 1</Channel>
+  <Channel Number="11">White 1</Channel>
+  <Channel Number="12">Red 2</Channel>
+  <Channel Number="13">Green 2</Channel>
+  <Channel Number="14">Blue 2</Channel>
+  <Channel Number="15">White 2</Channel>
+  <Channel Number="16">Motor/Sound mode</Channel>
+  <Channel Number="17">Music Sensitivity</Channel>
+  <Channel Number="18">Light bulb auto run</Channel>
+  <Channel Number="19">Light bulb auto run speed</Channel>
+  <Channel Number="20">Reset</Channel>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="2500" ColourTemperature="6500"/>
+  <Dimensions Weight="2.37" Width="235" Height="145" Depth="155"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Barrel" PanMax="540" TiltMax="740"/>
+  <Layout Width="1" Height="2"/>
+  <Technical PowerConsumption="35" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

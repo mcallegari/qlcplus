@@ -18,7 +18,6 @@
 */
 
 import QtQuick 2.2
-import QtQuick.Controls 1.2
 
 import "."
 
@@ -26,6 +25,7 @@ Rectangle
 {
     id: baseMenuEntry
     width: parent ? (parent.width > itemWidth) ? parent.width : itemWidth : 400
+    implicitWidth: itemWidth
     height: iconHeight + 4
 
     property int iconHeight: UISettings.iconSizeDefault

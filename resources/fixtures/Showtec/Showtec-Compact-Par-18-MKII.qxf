@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.6 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Nicolò Zanon</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
@@ -15,8 +15,8 @@
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Strobe Effect">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">No effect</Capability>
-  <Capability Min="10" Max="255">Strobo effect </Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No effect</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobo effect</Capability>
  </Channel>
  <Channel Name="Color program">
   <Group Byte="0">Effect</Group>
@@ -34,19 +34,19 @@
  </Channel>
  <Channel Name="Color Macros">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0">No Function</Capability>
-  <Capability Min="1" Max="22" Color="#ff0000">Red</Capability>
-  <Capability Min="23" Max="45" Color="#00ff00">Green</Capability>
-  <Capability Min="46" Max="68" Color="#0000ff">Blue</Capability>
-  <Capability Min="69" Max="91" Color="#00ff00">Green</Capability>
-  <Capability Min="92" Max="114" Color="#ffff00">Yellow</Capability>
-  <Capability Min="115" Max="137" Color="#ffaa00">Orange</Capability>
-  <Capability Min="138" Max="160" Color="#ffaaff">Pink</Capability>
-  <Capability Min="161" Max="183" Color="#ff00ff">Purple</Capability>
-  <Capability Min="184" Max="206" Color="#00007f">Dark Blue</Capability>
-  <Capability Min="207" Max="229" Color="#aaff7f">Light Green</Capability>
-  <Capability Min="230" Max="252" Color="#ffffff">White</Capability>
-  <Capability Min="253" Max="255" Color="#fff9e0">Warm White</Capability>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="22" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="23" Max="45" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="46" Max="68" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="69" Max="91" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="92" Max="114" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="115" Max="137" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="138" Max="160" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="161" Max="183" Preset="ColorMacro" Res1="#a020f0">Purple</Capability>
+  <Capability Min="184" Max="206" Preset="ColorMacro" Res1="#00007f">Dark Blue</Capability>
+  <Capability Min="207" Max="229" Preset="ColorMacro" Res1="#aaff7f">Light Green</Capability>
+  <Capability Min="230" Max="252" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="253" Max="255" Preset="ColorMacro" Res1="#fff9e0">Warm White</Capability>
  </Channel>
  <Mode Name="6 Channel">
   <Channel Number="0">Master Dimmer</Channel>
@@ -70,11 +70,11 @@
  <Mode Name="1 Channel">
   <Channel Number="0">Color Macros</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="9600" ColourTemperature="0"/>
-   <Dimensions Weight="2.84" Width="250" Height="290" Depth="96"/>
-   <Lens Name="Other" DegreesMin="28" DegreesMax="28"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="9600" ColourTemperature="0"/>
+  <Dimensions Weight="2.84" Width="250" Height="290" Depth="96"/>
+  <Lens Name="Other" DegreesMin="28" DegreesMax="28"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

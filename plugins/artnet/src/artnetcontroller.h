@@ -21,14 +21,13 @@
 #define ARTNETCONTROLLER_H
 
 #if defined(ANDROID)
+#include <QScopedPointer>
+#include <QSharedPointer>
+#endif
 #include <QNetworkInterface>
 #include <QHostAddress>
 #include <QUdpSocket>
-#include <QScopedPointer>
-#include <QSharedPointer>
-#else
-#include <QtNetwork>
-#endif
+#include <QVariant>
 #include <QMutex>
 #include <QTimer>
 
@@ -36,15 +35,35 @@
 
 #define ARTNET_PORT      6454
 
-typedef struct
+typedef struct _uinfo
 {
+    /** This is a bitmask to determine the capability
+     *  of a Controller. Can be Input, Output or both */
+    int type;
+
+    /** When receiving input data, this is the universe
+     *  the controller will process */
     ushort inputUniverse;
 
+    /** Keeps the current dmx values to send only the ones that changed */
+    /** It holds values for all the handled universes */
+    QByteArray inputData;
+
+    /** This is the destination IP address used when
+     *  transmitting output data. Can be broadcast or unicast,
+     *  including localhost. */
     QHostAddress outputAddress;
+
+    /** When transmitting output data, this is the universe
+     *  written on outgoing packets */
     ushort outputUniverse;
+
+    /** This is the mode used to transmit output data.
+     *  Enumerated in ArtNetController::TransmissionMode */
     int outputTransmissionMode;
 
-    int type;
+    /** Universe data to be sent depending on the transmission mode */
+    QByteArray outputData;
 } UniverseInfo;
 
 class ArtNetController : public QObject
@@ -57,9 +76,9 @@ class ArtNetController : public QObject
 public:
     enum Type { Unknown = 0x0, Input = 0x01, Output = 0x02 };
 
-    enum TransmissionMode { Full, Partial };
+    enum TransmissionMode { Standard, Full, Partial };
 
-    ArtNetController(QNetworkInterface const& interface,
+    ArtNetController(QNetworkInterface const& iface,
                      QNetworkAddressEntry const& address,
                      QSharedPointer<QUdpSocket> const& udpSocket,
                      quint32 line, QObject *parent = 0);
@@ -67,7 +86,7 @@ public:
     ~ArtNetController();
 
     /** Send DMX data to a specific port/universe */
-    void sendDmx(const quint32 universe, const QByteArray& data);
+    void sendDmx(const quint32 universe, const QByteArray& data, bool dataChanged);
 
     /** Return the controller IP address */
     QString getNetworkIP();
@@ -128,6 +147,9 @@ public:
     /** Is the UDP socket capable of receiving packets ? */
     bool socketBound() const;
 
+    /** Send a RDM command */
+    bool sendRDMCommand(const quint32 universe, uchar command, QVariantList params);
+
 private:
     /** The network interface associated to this controller */
     QNetworkInterface m_interface;
@@ -159,10 +181,6 @@ private:
     /** Map of the ArtNet nodes discovered with ArtPoll */
     QHash<QHostAddress, ArtNetNodeInfo> m_nodesList;
 
-    /** Keeps the current dmx values to send only the ones that changed */
-    /** It holds values for all the handled universes */
-    QMap<int, QByteArray *> m_dmxValuesMap;
-
     /** Map of the QLC+ universes transmitted/received by this
      *  controller, with the related, specific parameters */
     QMap<quint32, UniverseInfo> m_universeMap;
@@ -171,12 +189,20 @@ private:
      *  variables that could be used to transmit/receive data */
     QMutex m_dataMutex;
 
-    QTimer* m_pollTimer;
+    /** Timer used to send out an ArtPoll packet to
+     *  discover available nodes on the network */
+    QTimer m_pollTimer;
+
+    /** Timer used to send output data every N seconds
+     *  when data is not changing */
+    QTimer m_sendTimer;
 
 private:
     bool handleArtNetPollReply(QByteArray const& datagram, QHostAddress const& senderAddress);
     bool handleArtNetPoll(QByteArray const& datagram, QHostAddress const& senderAddress);
     bool handleArtNetDmx(QByteArray const& datagram, QHostAddress const& senderAddress);
+    bool handleArtNetTodData(QByteArray const& datagram, QHostAddress const& senderAddress);
+    bool handleArtNetRDM(QByteArray const& datagram, QHostAddress const& senderAddress);
 
 public:
     // Handle a packet received to the ArtNet port.
@@ -186,9 +212,12 @@ public:
 
 protected slots:
     void slotSendPoll();
+    void slotSendAllUniverses();
 
 signals:
     void valueChanged(quint32 universe, quint32 input, quint32 channel, uchar value);
+
+    void rdmValueChanged(quint32 universe, quint32 line, QVariantMap data);
 };
 
 #endif

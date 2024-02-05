@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.4.1</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Veljko Stankov</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
@@ -11,7 +11,7 @@
  <Type>Smoke</Type>
  <Channel Name="On-Off">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="13">Off</Capability>
+  <Capability Min="0" Max="13" Preset="ShutterClose">Off</Capability>
   <Capability Min="14" Max="127">Continuos CH2</Capability>
   <Capability Min="128" Max="231">Timer-Controlled CH2,3,4</Capability>
   <Capability Min="232" Max="255">Continuos to MAX</Capability>
@@ -53,11 +53,11 @@
   <Channel Number="2">Fog Duration</Channel>
   <Channel Number="3">Time interval</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="None" ColourTemperature="0"/>
-   <Dimensions Width="300" Height="210" Weight="15" Depth="620"/>
-   <Lens DegreesMax="0" Name="None" DegreesMin="0"/>
-   <Focus PanMax="0" Type="None" TiltMax="0"/>
-   <Technical PowerConsumption="1500" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="None" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="15" Width="300" Height="210" Depth="620"/>
+  <Lens Name="None" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="None" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="1500" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

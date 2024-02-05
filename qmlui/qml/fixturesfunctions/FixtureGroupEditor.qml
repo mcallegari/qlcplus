@@ -77,7 +77,7 @@ Rectangle
                 from: 1
                 to: 999
                 value: fixtureGroupEditor.groupSize.width
-                onValueChanged: fixtureGroupEditor.groupSize = Qt.size(value, gridHeightSpin.value)
+                onValueModified: fixtureGroupEditor.groupSize = Qt.size(value, gridHeightSpin.value)
             }
 
             RobotoText
@@ -91,7 +91,7 @@ Rectangle
                 from: 1
                 to: 999
                 value: fixtureGroupEditor.groupSize.height
-                onValueChanged: fixtureGroupEditor.groupSize = Qt.size(gridWidthSpin.value, value)
+                onValueModified: fixtureGroupEditor.groupSize = Qt.size(gridWidthSpin.value, value)
             }
 
             IconButton
@@ -104,7 +104,22 @@ Rectangle
 
             IconButton
             {
-                imgSource: "qrc:/reset.svg"
+                imgSource: "qrc:/remove.svg"
+                tooltip: qsTr("Remove the selected items")
+                onClicked:
+                {
+                    fixtureGroupEditor.deleteSelection()
+                    // TODO: update groups tree
+                    //fixtureManager.updateFixtureGroup(fixtureGroupEditor.groupID, itemID, -1)
+                    var empty = []
+                    groupGrid.setSelectionData(empty)
+                }
+            }
+
+            IconButton
+            {
+                faSource: FontAwesome.fa_remove
+                faColor: UISettings.bgControl
                 tooltip: qsTr("Reset the entire group")
                 onClicked: fixtureGroupEditor.resetGroup()
             }
@@ -200,25 +215,53 @@ Rectangle
                 return fixtureManager.fixtureIcon(fixtureID)
             }
 
+            function getTooltip(xPos, yPos)
+            {
+                return fixtureGroupEditor.getTooltip(xPos, yPos)
+            }
+
             gridSize: fixtureGroupEditor.groupSize
             fillDirection: Qt.Horizontal | Qt.Vertical
-            mininumCellSize: UISettings.iconSizeDefault * 1.5
-            labelsFontSize: cellSize / 5
+            minimumCellSize: UISettings.iconSizeDefault * 1.5
+            labelsFontSize: cellSize / 6
             gridData: fixtureGroupEditor.groupMap
             gridLabels: fixtureGroupEditor.groupLabels
             evenColor: UISettings.fgLight
 
+            Component.onCompleted: forceActiveFocus()
+
+            Keys.onPressed:
+            {
+                if (event.key === Qt.Key_Delete)
+                {
+                    fixtureGroupEditor.deleteSelection()
+                    var empty = []
+                    setSelectionData(empty)
+                    event.accepted = true
+                }
+            }
+
             onPressed:
             {
+                var empty = []
+                focus = true
+
                 if (xPos < 0 && yPos < 0)
                 {
-                    var empty = []
                     setSelectionData(empty)
                     fixtureGroupEditor.resetSelection()
                 }
                 else
                 {
                     gridFlickable.interactive = false
+                    var absIdx = (yPos * gridSize.width) + xPos
+                    if (selectionData && selectionData.indexOf(absIdx) >= 0)
+                        return
+                    if (contextManager.multipleSelection === false && mods == 0)
+                    {
+                        setSelectionData(empty)
+                        fixtureGroupEditor.resetSelection()
+                    }
                     setSelectionData(fixtureGroupEditor.groupSelection(xPos, yPos, mods))
                 }
             }
@@ -227,7 +270,7 @@ Rectangle
             {
                 gridFlickable.interactive = true
 
-                if (currentItemID === -1)
+                if (currentItemID === -1 || offset === 0)
                     return
 
                 if (externalDrag == false)

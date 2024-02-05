@@ -26,18 +26,19 @@
 #include "vcaudiotriggersproperties.h"
 #include "vcpropertieseditor.h"
 #include "vcaudiotriggers.h"
-#include "virtualconsole.h"
 #include "audiocapture.h"
+#include "genericfader.h"
+#include "fadechannel.h"
 #include "universe.h"
 #include "audiobar.h"
 #include "apputil.h"
 #include "doc.h"
 
-#define KXMLQLCVCATKey "Key"
-#define KXMLQLCVCATBarsNumber "BarsNumber"
+#define KXMLQLCVCATKey          QString("Key")
+#define KXMLQLCVCATBarsNumber   QString("BarsNumber")
 
-#define KXMLQLCVolumeBar    "VolumeBar"
-#define KXMLQLCSpectrumBar  "SpectrumBar"
+#define KXMLQLCVolumeBar    QString("VolumeBar")
+#define KXMLQLCSpectrumBar  QString("SpectrumBar")
 
 const QSize VCAudioTriggers::defaultSize(QSize(300, 200));
 
@@ -47,9 +48,7 @@ VCAudioTriggers::VCAudioTriggers(QWidget* parent, Doc* doc)
     , m_button(NULL)
     , m_label(NULL)
     , m_spectrum(NULL)
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     , m_volumeSlider(NULL)
-#endif
     , m_inputCapture(NULL)
 {
     /* Set the class name "VCAudioTriggers" as the object name as well */
@@ -114,7 +113,6 @@ VCAudioTriggers::VCAudioTriggers(QWidget* parent, Doc* doc)
         m_spectrumBars.append(asb);
     }
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     QHBoxLayout *hbox2 = new QHBoxLayout();
     m_volumeSlider = new ClickAndGoSlider(this);
     m_volumeSlider->setOrientation(Qt::Vertical);
@@ -126,19 +124,16 @@ VCAudioTriggers::VCAudioTriggers(QWidget* parent, Doc* doc)
 
     connect(m_volumeSlider, SIGNAL(valueChanged(int)),
             this, SLOT(slotVolumeChanged(int)));
-#endif
+
     m_spectrum = new AudioTriggerWidget(this);
     m_spectrum->setBarsNumber(m_inputCapture->defaultBarsNumber());
     m_spectrum->setMaxFrequency(AudioCapture::maxFrequency());
     m_spectrum->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-    layout()->addWidget(m_spectrum);
-#else
     layout()->addItem(hbox2);
     hbox2->addWidget(m_spectrum);
     hbox2->addWidget(m_volumeSlider);
-#endif
+
     /* Initial size */
     QSettings settings;
     QVariant var = settings.value(SETTINGS_AUDIOTRIGGERS_SIZE);
@@ -155,18 +150,15 @@ VCAudioTriggers::~VCAudioTriggers()
     QSharedPointer<AudioCapture> capture(m_doc->audioInputCapture());
 
     if (m_inputCapture == capture.data())
-    {
         m_inputCapture->unregisterBandsNumber(m_spectrum->barsNumber());
-    }
 }
 
 void VCAudioTriggers::enableWidgetUI(bool enable)
 {
     if (m_button)
         m_button->setEnabled(enable);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+
     m_volumeSlider->setEnabled(enable);
-#endif
 }
 
 void VCAudioTriggers::notifyFunctionStarting(quint32 fid, qreal intensity)
@@ -265,7 +257,7 @@ void VCAudioTriggers::slotDisplaySpectrum(double *spectrumBands, int size,
 #if QT_VERSION >= 0x050000
 void VCAudioTriggers::slotVolumeChanged(int volume)
 {
-    m_doc->audioInputCapture()->setVolume((qreal)volume / 100);
+    m_doc->audioInputCapture()->setVolume(intensity() * (qreal)volume / 100);
 }
 #endif
 
@@ -280,26 +272,63 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
     if (mode() == Doc::Design)
         return;
 
+    quint32 lastUniverse = Universe::invalid();
+    QSharedPointer<GenericFader> fader;
+
     if (m_volumeBar->m_type == AudioBar::DMXBar)
     {
-        for(int i = 0; i < m_volumeBar->m_absDmxChannels.count(); i++)
+        for (int i = 0; i < m_volumeBar->m_absDmxChannels.count(); i++)
         {
-            quint32 address = m_volumeBar->m_absDmxChannels.at(i) & 0x01FF;
-            int uni = m_volumeBar->m_absDmxChannels.at(i) >> 9;
-            if (uni < universes.count())
-                universes[uni]->write(address, m_volumeBar->m_value);
+            int absAddress = m_volumeBar->m_absDmxChannels.at(i);
+            //quint32 address = absAddress & 0x01FF;
+            quint32 universe = absAddress >> 9;
+            if (universe != lastUniverse)
+            {
+                fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+                if (fader.isNull())
+                {
+                    fader = universes[universe]->requestFader();
+                    fader->adjustIntensity(intensity());
+                    m_fadersMap[universe] = fader;
+                }
+                lastUniverse = universe;
+                fader->setEnabled(m_button->isChecked() ? true : false);
+            }
+
+            FadeChannel *fc = fader->getChannelFader(m_doc, universes[universe], Fixture::invalidId(), absAddress);           
+            fc->setStart(fc->current());
+            fc->setTarget(m_volumeBar->m_value);
+            fc->setReady(false);
+            fc->setElapsed(0);
         }
     }
-    foreach(AudioBar *sb, m_spectrumBars)
+    foreach (AudioBar *sb, m_spectrumBars)
     {
         if (sb->m_type == AudioBar::DMXBar)
         {
-            for(int i = 0; i < sb->m_absDmxChannels.count(); i++)
+            for (int i = 0; i < sb->m_absDmxChannels.count(); i++)
             {
-                quint32 address = sb->m_absDmxChannels.at(i) & 0x01FF;
-                int uni = sb->m_absDmxChannels.at(i) >> 9;
-                if (uni < universes.count())
-                    universes[uni]->write(address, sb->m_value);
+                int absAddress = sb->m_absDmxChannels.at(i);
+                //quint32 address = absAddress & 0x01FF;
+                quint32 universe = absAddress >> 9;
+                if (universe != lastUniverse)
+                {
+                    fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+                    if (fader == NULL)
+                    {
+                        fader = universes[universe]->requestFader();
+                        fader->adjustIntensity(intensity());
+                        m_fadersMap[universe] = fader;
+                    }
+                    fader->setEnabled(m_button->isChecked() ? true : false);
+                    lastUniverse = universe;
+                }
+
+                FadeChannel *fc = fader->getChannelFader(m_doc, universes[universe], Fixture::invalidId(), absAddress);
+                fc->setStart(fc->current());
+                fc->setTarget(sb->m_value);
+                fc->setReady(false);
+                fc->setElapsed(0);
             }
         }
     }
@@ -416,7 +445,7 @@ void VCAudioTriggers::slotModeChanged(Doc::Mode mode)
     {
         enableWidgetUI(true);
 
-        foreach(AudioBar *bar, getAudioBars())
+        foreach (AudioBar *bar, getAudioBars())
         {
             if (bar->m_type == AudioBar::DMXBar)
             {
@@ -430,6 +459,14 @@ void VCAudioTriggers::slotModeChanged(Doc::Mode mode)
         enableWidgetUI(false);
         enableCapture(false);
         m_doc->masterTimer()->unregisterDMXSource(this);
+
+        // request to delete all the active faders
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        {
+            if (!fader.isNull())
+                fader->requestDelete();
+        }
+        m_fadersMap.clear();
     }
     VCWidget::slotModeChanged(mode);
 }
@@ -498,7 +535,7 @@ void VCAudioTriggers::editProperties()
     // make a backup copy of the current bars
     AudioBar *tmpVolume = m_volumeBar->createCopy();
     QList <AudioBar *> tmpSpectrumBars;
-    foreach(AudioBar *bar, m_spectrumBars)
+    foreach (AudioBar *bar, m_spectrumBars)
         tmpSpectrumBars.append(bar->createCopy());
     int barsNumber = m_spectrumBars.count();
 
@@ -511,7 +548,7 @@ void VCAudioTriggers::editProperties()
         delete m_volumeBar;
         m_volumeBar = tmpVolume;
         m_spectrumBars.clear();
-        foreach(AudioBar *bar, tmpSpectrumBars)
+        foreach (AudioBar *bar, tmpSpectrumBars)
             m_spectrumBars.append(bar);
     }
     m_spectrum->setBarsNumber(m_spectrumBars.count());
@@ -531,6 +568,13 @@ void VCAudioTriggers::editProperties()
                         this, SLOT(slotDisplaySpectrum(double*,int,double,quint32)));
         }
     }
+}
+
+
+void VCAudioTriggers::adjustIntensity(qreal val)
+{
+    VCWidget::adjustIntensity(val);
+    slotVolumeChanged(m_volumeSlider->value());
 }
 
 /*********************************************************************
@@ -630,7 +674,7 @@ bool VCAudioTriggers::saveXML(QXmlStreamWriter *doc)
         hasAssignment = true;
     else
     {
-        foreach(AudioBar *bar, m_spectrumBars)
+        foreach (AudioBar *bar, m_spectrumBars)
         {
             if (bar->m_type != AudioBar::None)
             {

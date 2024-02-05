@@ -89,7 +89,7 @@ QStringList UARTPlugin::outputs()
     for (int i = 0; i < m_widgets.count(); i++)
     {
         UARTWidget *widget = m_widgets.at(i);
-        list << QString("%1: %2").arg(i + 1).arg(widget->name());
+        list << widget->name();
     }
     return list;
 }
@@ -127,9 +127,10 @@ QString UARTPlugin::outputInfo(quint32 output)
     return str;
 }
 
-void UARTPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void UARTPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (output < quint32(m_widgets.count()))
         m_widgets.at(output)->writeUniverse(data);
@@ -167,7 +168,7 @@ QStringList UARTPlugin::inputs()
     for (int i = 0; i < m_widgets.count(); i++)
     {
         UARTWidget *widget = m_widgets.at(i);
-        list << QString("%1: %2").arg(i + 1).arg(widget->name());
+        list << widget->name();
     }
     return list;
 }
@@ -201,10 +202,3 @@ void UARTPlugin::sendFeedBack(quint32 universe, quint32 output, quint32 channel,
      * Basically feedback data must return to the same line where it came from
      */
 }
-
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(uartplugin, UARTPlugin)
-#endif

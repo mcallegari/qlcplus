@@ -51,7 +51,7 @@ class Cue;
  * @{
  */
 
-#define KXMLQLCSimpleDesk "SimpleDesk"
+#define KXMLQLCSimpleDesk QString("SimpleDesk")
 
 class SimpleDesk : public QWidget
 {
@@ -132,7 +132,7 @@ private slots:
     void slotAliasChanged();
     void slotUniverseSliderValueChanged(quint32, quint32, uchar value);
     void slotUpdateUniverseSliders();
-    void slotUniversesWritten(int idx, const QByteArray& ua);
+    void slotUniverseWritten(quint32 idx, const QByteArray& universeData);
 
 private:
     QFrame *m_universeGroup;

@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Robert Box</Author>
  </Creator>
  <Manufacturer>Coemar</Manufacturer>
@@ -22,16 +22,16 @@
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Strobe Effect">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">No effect</Capability>
-  <Capability Min="10" Max="57">Variable speed, from slow to fast</Capability>
-  <Capability Min="58" Max="59">Stop</Capability>
-  <Capability Min="60" Max="108">Sequenced pulse effect, slow closing, fast opening</Capability>
-  <Capability Min="109" Max="110">Stop</Capability>
-  <Capability Min="111" Max="159">Sequenced pulse effect, fast closing, slow opening</Capability>
-  <Capability Min="160" Max="161">Stop</Capability>
-  <Capability Min="162" Max="207">Random effect from slow to fast with synchronised colours</Capability>
-  <Capability Min="208" Max="209">Stop</Capability>
-  <Capability Min="210" Max="255">Random effect from slow to fast with non-synchronised colours</Capability>
+  <Capability Min="0" Max="9" Preset="LampOff">No effect</Capability>
+  <Capability Min="10" Max="57" Preset="StrobeSlowToFast">Variable speed, from slow to fast</Capability>
+  <Capability Min="58" Max="59" Preset="LampOff">Stop</Capability>
+  <Capability Min="60" Max="108" Preset="PulseSlowToFast">Sequenced pulse effect, slow closing, fast opening</Capability>
+  <Capability Min="109" Max="110" Preset="LampOff">Stop</Capability>
+  <Capability Min="111" Max="159" Preset="PulseFastToSlow">Sequenced pulse effect, fast closing, slow opening</Capability>
+  <Capability Min="160" Max="161" Preset="LampOff">Stop</Capability>
+  <Capability Min="162" Max="207" Preset="StrobeRandomSlowToFast">Random effect from slow to fast with synchronised colours</Capability>
+  <Capability Min="208" Max="209" Preset="LampOff">Stop</Capability>
+  <Capability Min="210" Max="255" Preset="StrobeRandomSlowToFast">Random effect from slow to fast with non-synchronised colours</Capability>
  </Channel>
  <Channel Name="Automated Functions">
   <Group Byte="0">Effect</Group>
@@ -51,11 +51,11 @@
   <Channel Number="4">Strobe Effect</Channel>
   <Channel Number="5">Automated Functions</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3.6" Width="212" Height="268" Depth="184"/>
-   <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="46" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.6" Width="212" Height="268" Depth="184"/>
+  <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="46" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

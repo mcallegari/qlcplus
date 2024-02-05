@@ -82,7 +82,8 @@ quint16 QHttpRequest::remotePort() const
 
 void QHttpRequest::storeBody()
 {
-    connect(this, SIGNAL(data(const QByteArray &)), this, SLOT(appendBody(const QByteArray &)),
+    connect(this, SIGNAL(data(const QByteArray &)),
+            this, SLOT(appendBody(const QByteArray &)),
             Qt::UniqueConnection);
 }
 

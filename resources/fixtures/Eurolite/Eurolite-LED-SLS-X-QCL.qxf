@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.5 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Michael Krebs / Jannis Achstetter</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
@@ -16,9 +16,9 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Function / Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="0">Default</Capability>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">Default</Capability>
   <Capability Min="1" Max="10">Sound controlled</Capability>
-  <Capability Min="11" Max="255">Strobe (Slow -&gt; Fast)</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Mode select">
   <Group Byte="0">Effect</Group>
@@ -74,7 +74,7 @@
  </Channel>
  <Channel Name="Shutter / Speed / Sensitivity">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Shutter / Speed / Sensitivity (increasing)</Capability>
+  <Capability Min="0" Max="255" Preset="StrobeSlowToFast">Shutter / Speed / Sensitivity (increasing)</Capability>
  </Channel>
  <Mode Name="4-channel mode">
   <Channel Number="0">Red</Channel>
@@ -99,11 +99,11 @@
   <Channel Number="5">Shutter / Speed / Sensitivity</Channel>
   <Channel Number="6">Mode select</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="270" Height="310" Weight="3.5" Depth="110"/>
-   <Lens DegreesMax="20" Name="Other" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.5" Width="270" Height="310" Depth="110"/>
+  <Lens Name="Other" DegreesMin="20" DegreesMax="20"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="75" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

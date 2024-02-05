@@ -66,7 +66,7 @@ class VideoContent: public QObject
     Q_PROPERTY(quint32 id READ id CONSTANT)
 
 public:
-    VideoContent(Video *video, VideoProvider *parent = NULL);
+    VideoContent(Video *video, VideoProvider *parent = nullptr);
 
     quint32 id() const;
     Q_INVOKABLE void destroyContext();
@@ -74,8 +74,13 @@ public:
     void playContent();
     void stopContent();
 
+protected:
+    QVariant getAttribute(quint32 id, const char *propName);
+    void updateAttribute(quint32 id, const char *propName, QVariant value);
+
 public slots:
     void slotDetectResolution();
+    void slotAttributeChanged(int attrIndex, qreal value);
 
 protected slots:
     void slotMetaDataChanged(const QString &key, const QVariant &value);

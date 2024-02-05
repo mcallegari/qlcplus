@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.4</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Starway</Manufacturer>
@@ -36,8 +36,8 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10">No function</Capability>
-  <Capability Min="11" Max="255">Strobe Min &lt; Max</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe Min &lt; Max</Capability>
  </Channel>
  <Channel Name="Auto">
   <Group Byte="0">Effect</Group>
@@ -62,7 +62,7 @@
   <Capability Min="191" Max="200">Custom 8</Capability>
   <Capability Min="201" Max="210">Custom 9</Capability>
   <Capability Min="211" Max="220">Custom 10</Capability>
-  <Capability Min="221" Max="255">No Function</Capability>
+  <Capability Min="221" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Auto Speed">
   <Group Byte="0">Speed</Group>
@@ -115,11 +115,11 @@
   <Channel Number="2">Green</Channel>
   <Channel Number="3">Blue</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Width="240" Height="210" Depth="160" Weight="2.5"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="35"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.5" Width="240" Height="210" Depth="160"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="35" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

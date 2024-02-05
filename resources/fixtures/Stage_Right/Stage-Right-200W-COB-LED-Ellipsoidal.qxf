@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.7 GIT</Version>
+  <Author>Dave Vecchio</Author>
+ </Creator>
+ <Manufacturer>Stage Right</Manufacturer>
+ <Model>200W COB LED Ellipsoidal</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">no function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeFreqRange" Res1="5" Res2="20">Strobe Speed 5-20HZ</Capability>
+ </Channel>
+ <Channel Name="Dimmer Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="64">Real Time</Capability>
+  <Capability Min="65" Max="128">Fast Controlled Response</Capability>
+  <Capability Min="129" Max="192">Medium Controlled Responnse</Capability>
+  <Capability Min="193" Max="255">Slow Controlled Response</Capability>
+ </Channel>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Dimmer Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="5274" ColourTemperature="3200"/>
+  <Dimensions Weight="8" Width="210" Height="280" Depth="580"/>
+  <Lens Name="PC" DegreesMin="26" DegreesMax="26"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="200" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -29,7 +29,7 @@ Entity
 
     Entity
     {
-        components : [
+        components: [
             Layer { id: screenQuadLayer },
 
             PlaneMesh
@@ -49,7 +49,6 @@ Entity
             {
                 effect: GammaCorrectEffect { }
             }
-            
         ]
     }
 }

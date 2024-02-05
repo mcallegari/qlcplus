@@ -36,14 +36,17 @@ Entity
     property int itemID: fixtureManager.invalidFixture()
     property alias itemSource: eSceneLoader.source
     property bool isSelected: false
+    property int headsNumber: 1
 
     onItemIDChanged: isSelected = contextManager.isFixtureSelected(itemID)
 
-    property int meshType: MainView3D.DefaultMeshType
+    property int meshType: MainView3D.NoMeshType
 
     /* **************** Pan/Tilt properties **************** */
     property real panMaxDegrees: 360
     property real tiltMaxDegrees: 270
+    property bool invertedPan: false
+    property bool invertedTilt: false
     property real panSpeed: 4000 // in milliseconds
     property real tiltSpeed: 4000 // in milliseconds
 
@@ -57,12 +60,12 @@ Entity
     property real focusMinDegrees: 15
     property real focusMaxDegrees: 30
     property real distCutoff: 40.0
-    property real cutoffAngle: (focusMinDegrees / 2) * (Math.PI / 180)
+    property real cutoffAngle: (focusMinDegrees / 2.0) * (Math.PI / 180.0)
 
     /* **************** Rendering quality properties **************** */
     property bool useScattering: View3D.renderQuality === MainView3D.LowQuality ? false : true
     property bool useShadows: View3D.renderQuality === MainView3D.LowQuality ? false : true
-    property int raymarchSteps: 
+    property int raymarchSteps:
     {
         switch(View3D.renderQuality)
         {
@@ -74,17 +77,18 @@ Entity
     }
 
     /* **************** Spotlight cone properties **************** */
-    readonly property Layer spotlightShadingLayer: Layer { objectName: "spotlightShadingLayer" }
-    readonly property Layer outputDepthLayer: Layer { objectName: "outputDepthLayer" }
-    readonly property Layer spotlightScatteringLayer: Layer { objectName: "spotlightScatteringLayer" }
+    readonly property Layer spotlightShadingLayer: Layer { }
+    readonly property Layer outputDepthLayer: Layer { }
+    readonly property Layer spotlightScatteringLayer: Layer { }
 
     property real coneBottomRadius: distCutoff * Math.tan(cutoffAngle) + coneTopRadius
     property real coneTopRadius: (0.24023 / 2) * transform.scale3D.x * 0.7 // (diameter / 2) * scale * magic number
 
-    property real headLength: 
+    property real headLength:
     {
         switch(meshType)
         {
+            case MainView3D.NoMeshType: return 0;
             case MainView3D.ParMeshType: return 0.389005 * transform.scale3D.x
             case MainView3D.MovingHeadMeshType: return 0.63663 * transform.scale3D.x
         }
@@ -95,18 +99,20 @@ Entity
     /* ********************* Light properties ********************* */
     /* ****** These are bound to uniforms in ScreenQuadEntity ***** */
 
-    property int lightIndex
     property real lightIntensity: dimmerValue * shutterValue
     property real dimmerValue: 0
-    property real shutterValue: 1.0
+    property real shutterValue: sAnimator.shutterValue
     property color lightColor: Qt.rgba(0, 0, 0, 1)
     property vector3d lightPos: Qt.vector3d(0, 0, 0)
     property vector3d lightDir: Math3D.getLightDirection(transform, panTransform, tiltTransform)
 
     /* ********************** Light matrices ********************** */
     property matrix4x4 lightMatrix
-    property matrix4x4 lightViewMatrix: 
-        Math3D.getLightViewMatrix(lightMatrix, panRotation, tiltRotation, lightPos)
+    property matrix4x4 lightViewMatrix:
+        Math3D.getLightViewMatrix(lightMatrix,
+                                  invertedPan ? panMaxDegrees - panRotation : panRotation,
+                                  invertedTilt ? tiltMaxDegrees - tiltRotation : tiltRotation,
+                                  lightPos)
     property matrix4x4 lightProjectionMatrix:
         Math3D.getLightProjectionMatrix(distCutoff, coneBottomRadius, coneTopRadius, headLength, cutoffAngle)
     property matrix4x4 lightViewProjectionMatrix: lightProjectionMatrix.times(lightViewMatrix)
@@ -124,7 +130,9 @@ Entity
         console.log("Binding pan ----")
         fixtureEntity.panTransform = t
         fixtureEntity.panMaxDegrees = maxDegrees
-        t.rotationY = Qt.binding(function() { return panRotation })
+        t.rotationY = Qt.binding(function() {
+            return invertedPan ? panMaxDegrees - panRotation : panRotation
+        })
     }
 
     function bindTiltTransform(t, maxDegrees)
@@ -133,7 +141,30 @@ Entity
         fixtureEntity.tiltTransform = t
         fixtureEntity.tiltMaxDegrees = maxDegrees
         tiltRotation = maxDegrees / 2
-        t.rotationX = Qt.binding(function() { return tiltRotation })
+        t.rotationX = Qt.binding(function() {
+            return invertedTilt ? tiltMaxDegrees - tiltRotation : tiltRotation
+        })
+    }
+
+    function getHead(headIndex)
+    {
+        return fixtureEntity
+    }
+
+    function setHeadLightProps(headIndex, pos, matrix)
+    {
+        lightPos = pos
+        lightMatrix = matrix
+    }
+
+    function setHeadIntensity(headIndex, intensity)
+    {
+        dimmerValue = intensity
+    }
+
+    function setHeadRGBColor(headIndex, color)
+    {
+        lightColor = color
     }
 
     function setPosition(pan, tilt)
@@ -167,94 +198,35 @@ Entity
             tiltSpeed = tiltDuration
     }
 
-    function setFocus(value)
-    {
-        cutoffAngle = (((((focusMaxDegrees - focusMinDegrees) / 255) * value) + focusMinDegrees) / 2) * (Math.PI / 180)
-    }
-
     function setShutter(type, low, high)
     {
-        //console.log("Shutter " + low + ", " + high)
-        shutterAnim.stop()
-        inPhase.duration = 0
-        inPhase.easing.type = Easing.Linear
-        highPhase.duration = 0
-        outPhase.duration = 0
-        outPhase.easing.type = Easing.Linear
-        lowPhase.duration = low
-
-        switch(type)
-        {
-            case QLCCapability.ShutterOpen:
-                shutterValue = 1.0
-            break;
-
-            case QLCCapability.ShutterClose:
-                shutterValue = 0
-            break;
-
-            case QLCCapability.StrobeFastToSlow:
-            case QLCCapability.StrobeSlowToFast:
-            case QLCCapability.StrobeFrequency:
-            case QLCCapability.StrobeFreqRange:
-                highPhase.duration = high
-                shutterAnim.start()
-            break;
-
-            case QLCCapability.PulseFastToSlow:
-            case QLCCapability.PulseSlowToFast:
-            case QLCCapability.PulseFrequency:
-            case QLCCapability.PulseFreqRange:
-                inPhase.duration = high / 2
-                outPhase.duration = high / 2
-                inPhase.easing.type = Easing.InOutCubic
-                outPhase.easing.type = Easing.InOutCubic
-                shutterAnim.start()
-            break;
-
-            case QLCCapability.RampUpFastToSlow:
-            case QLCCapability.RampUpSlowToFast:
-            case QLCCapability.RampUpFrequency:
-            case QLCCapability.RampUpFreqRange:
-                inPhase.duration = high
-                shutterAnim.start()
-            break;
-
-            case QLCCapability.RampDownSlowToFast:
-            case QLCCapability.RampDownFastToSlow:
-            case QLCCapability.RampDownFrequency:
-            case QLCCapability.RampDownFreqRange:
-                outPhase.duration = high
-                shutterAnim.start()
-            break;
-        }
+        sAnimator.setShutter(type, low, high)
     }
 
-    function setupScattering(shadingLayer, scatteringLayer, depthLayer,
-                             shadingEffect, scatteringEffect, depthEffect,
-                             headEntity, sceneEntity)
+    function setZoom(value)
+    {
+        cutoffAngle = (((((focusMaxDegrees - focusMinDegrees) / 255.0) * value) + focusMinDegrees) / 2.0) * (Math.PI / 180.0)
+    }
+
+    function setupScattering(sceneEntity)
     {
         if (sceneEntity.coneMesh.length !== distCutoff)
             sceneEntity.coneMesh.length = distCutoff
 
-        shadingCone.coneLayer = shadingLayer
-        shadingCone.coneEffect = shadingEffect
-        shadingCone.coneMaterial.bindFixture(fixtureEntity)
+        shadingCone.coneEffect = sceneEntity.spotlightShadingEffect
         shadingCone.parent = sceneEntity
         shadingCone.spotlightConeMesh = sceneEntity.coneMesh
 
-        scatteringCone.coneLayer = scatteringLayer
-        scatteringCone.coneEffect = scatteringEffect
-        scatteringCone.coneMaterial.bindFixture(fixtureEntity)
+        scatteringCone.coneEffect = sceneEntity.spotlightScatteringEffect
         scatteringCone.parent = sceneEntity
         scatteringCone.spotlightConeMesh = sceneEntity.coneMesh
 
-        outDepthCone.coneLayer = depthLayer
-        outDepthCone.coneEffect = depthEffect
-        outDepthCone.coneMaterial.bindFixture(fixtureEntity)
+        outDepthCone.coneEffect = sceneEntity.outputFrontDepthEffect
         outDepthCone.parent = sceneEntity
         outDepthCone.spotlightConeMesh = sceneEntity.coneMesh
     }
+
+    ShutterAnimator { id: sAnimator }
 
     QQ2.NumberAnimation on panRotation
     {
@@ -270,45 +242,32 @@ Entity
         easing.type: Easing.Linear
     }
 
-    // strobe/pulse effect
-    QQ2.SequentialAnimation on shutterValue
-    {   
-        id: shutterAnim
-        running: false
-        loops: QQ2.Animation.Infinite
-        QQ2.NumberAnimation { id: inPhase; from: 0; to: 1.0; duration: 0; easing.type: Easing.Linear }
-        QQ2.NumberAnimation { id: highPhase; from: 1.0; to: 1.0; duration: 200; easing.type: Easing.Linear }
-        QQ2.NumberAnimation { id: outPhase; from: 1.0; to: 0; duration: 0; easing.type: Easing.Linear }
-        QQ2.NumberAnimation { id: lowPhase; from: 0; to: 0; duration: 800; easing.type: Easing.Linear }
-    }
+    property Texture2D depthTex:
+        Texture2D
+        {
+            width: 1024
+            height: 1024
+            format: Texture.D32F
+            generateMipMaps: false
+            magnificationFilter: Texture.Linear
+            minificationFilter: Texture.Linear
+            wrapMode
+            {
+                x: WrapMode.ClampToEdge
+                y: WrapMode.ClampToEdge
+            }
+        }
 
     property RenderTarget shadowMap:
         RenderTarget
         {
-            property alias depth: depthAttachment
-
             attachments: [
                 RenderTargetOutput
                 {
                     attachmentPoint: RenderTargetOutput.Depth
-                    texture:
-                        Texture2D
-                        {
-                            id: depthAttachment
-                            width: 1024
-                            height: 1024
-                            format: Texture.D32F
-                            generateMipMaps: false
-                            magnificationFilter: Texture.Linear
-                            minificationFilter: Texture.Linear
-                            wrapMode
-                            {
-                                x: WrapMode.ClampToEdge
-                                y: WrapMode.ClampToEdge
-                            }
-                        }
+                    texture: depthTex
                 }
-            ] // outputs
+            ] // attachments
         }
 
     /* **************** Gobo properties **************** */
@@ -319,8 +278,8 @@ Entity
     {
         //console.log("Gobo clockwise: " + (cw ? "yes" : "no") + " speed: " + speed)
         goboAnim.stop()
-        goboAnim.from = cw ? 0 : 359
-        goboAnim.to = cw ? 359 : 0
+        goboAnim.from = cw ? 0 : Math.PI * 2
+        goboAnim.to = cw ? Math.PI * 2 : 0
         if (speed !== 0)
         {
             goboAnim.duration = speed
@@ -339,10 +298,26 @@ Entity
         loops: QQ2.Animation.Infinite
     }
 
-    /* Cone meshes used for scattering. These get re-parented to a head mesh via setupScattering */
-    SpotlightConeEntity { id: shadingCone }
-    SpotlightConeEntity { id: scatteringCone }
-    SpotlightConeEntity { id: outDepthCone }
+    /* Cone meshes used for scattering. These get re-parented to
+       the main Scene entity via setupScattering */
+    SpotlightConeEntity
+    {
+        id: shadingCone
+        coneLayer: spotlightShadingLayer
+        fxEntity: fixtureEntity
+    }
+    SpotlightConeEntity
+    {
+        id: scatteringCone
+        coneLayer: spotlightScatteringLayer
+        fxEntity: fixtureEntity
+    }
+    SpotlightConeEntity
+    {
+        id: outDepthCone
+        coneLayer: outputDepthLayer
+        fxEntity: fixtureEntity
+    }
 
     SceneLoader
     {

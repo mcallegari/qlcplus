@@ -22,11 +22,12 @@
 #include <QSpinBox>
 #include <QIcon>
 #include <QAction>
+#include <QSettings>
 
-#include "qlcchannel.h"
+#include "inputchanneleditor.h"
 #include "qlcinputprofile.h"
 #include "qlcinputchannel.h"
-#include "inputchanneleditor.h"
+#include "qlcchannel.h"
 
 #define KMidiMessageCC                  0
 #define KMidiMessageNoteOnOff           1
@@ -41,6 +42,8 @@
 #define KMidiChannelOffset 4096
 
 #include "../../plugins/midi/src/common/midiprotocol.h"
+
+#define SETTINGS_GEOMETRY "inputchanneleditor/geometry"
 
 /****************************************************************************
  * Initialization
@@ -61,6 +64,11 @@ InputChannelEditor::InputChannelEditor(QWidget* parent,
     action->setShortcut(QKeySequence(QKeySequence::Close));
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
+
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 
     /* Connect to these already now so that the handlers get called
        during initialization. */
@@ -99,7 +107,7 @@ InputChannelEditor::InputChannelEditor(QWidget* parent,
         type = QLCInputChannel::typeToString(channel->type());
         m_typeCombo->setCurrentIndex(m_typeCombo->findText(type));
 
-        if (profileType == QLCInputProfile::Midi)
+        if (profileType == QLCInputProfile::MIDI)
         {
             slotNumberChanged(m_numberSpin->value());
 
@@ -128,6 +136,8 @@ InputChannelEditor::InputChannelEditor(QWidget* parent,
 
 InputChannelEditor::~InputChannelEditor()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 /****************************************************************************
@@ -190,30 +200,30 @@ void InputChannelEditor::numberToMidi(int number, int & channel, int & message, 
     {
         message = KMidiMessageCC;
         param = number - CHANNEL_OFFSET_CONTROL_CHANGE;
-    } 
+    }
     else if (number <= CHANNEL_OFFSET_NOTE_MAX)
     {
         message = KMidiMessageNoteOnOff;
         param = number - CHANNEL_OFFSET_NOTE;
-    } 
+    }
     else if (number <= CHANNEL_OFFSET_NOTE_AFTERTOUCH_MAX)
     {
         message = KMidiMessageNoteAftertouch;
         param = number - CHANNEL_OFFSET_NOTE_AFTERTOUCH;
-    } 
+    }
     else if (number <= CHANNEL_OFFSET_PROGRAM_CHANGE_MAX)
     {
         message = KMidiMessagePC;
         param = number - CHANNEL_OFFSET_PROGRAM_CHANGE;
-    } 
+    }
     else if (number == CHANNEL_OFFSET_CHANNEL_AFTERTOUCH)
     {
         message = KMidiMessageChannelAftertouch;
-    } 
+    }
     else if (number == CHANNEL_OFFSET_PITCH_WHEEL)
     {
         message = KMidiMessagePitchWheel;
-    } 
+    }
     else if (number == CHANNEL_OFFSET_MBC_PLAYBACK)
     {
         message = KMidiMessageMBCPlayback;
@@ -225,7 +235,7 @@ void InputChannelEditor::numberToMidi(int number, int & channel, int & message, 
     else // if (number == CHANNEL_OFFSET_MBC_BEAT)
     {
         message = KMidiMessageMBCBeat;
-    } 
+    }
 }
 
 int InputChannelEditor::midiToNumber(int channel, int message, int param)

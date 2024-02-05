@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.4.1</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Joep Admiraal</Author>
  </Creator>
  <Manufacturer>Briteq</Manufacturer>
@@ -13,33 +13,33 @@
  <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="19">Shutter closed</Capability>
-  <Capability Min="20" Max="49">Shutter open</Capability>
-  <Capability Min="50" Max="64">Strobe 1 (fast -&gt; slow)</Capability>
-  <Capability Min="65" Max="69">Shutter open</Capability>
-  <Capability Min="70" Max="84">Strobe 2: opening pulse (fast -&gt; slow)</Capability>
-  <Capability Min="85" Max="89">Shutter open</Capability>
-  <Capability Min="90" Max="104">Strobe 3: closing pulse (fast -&gt; slow)</Capability>
-  <Capability Min="105" Max="109">Shutter open</Capability>
-  <Capability Min="110" Max="124">Strobe 4: random strobe (fast -&gt; slow)</Capability>
-  <Capability Min="125" Max="129">Shutter open</Capability>
-  <Capability Min="130" Max="144">Strobe 5: random opening pulse (fast -&gt; slow)</Capability>
-  <Capability Min="145" Max="149">Shutter open</Capability>
-  <Capability Min="150" Max="164">Strobe 6: random closing pulse (fast -&gt; slow)</Capability>
-  <Capability Min="165" Max="169">Shutter open</Capability>
-  <Capability Min="170" Max="184">Strobe 7: burst pulse (fast -&gt; slow)</Capability>
-  <Capability Min="185" Max="189">Shutter open</Capability>
-  <Capability Min="190" Max="204">Strobe 8: random burst pulse (fast -&gt; slow)</Capability>
-  <Capability Min="205" Max="209">Shutter open</Capability>
-  <Capability Min="210" Max="224">Strobe 9: sine wave (fast -&gt; slow)</Capability>
-  <Capability Min="225" Max="229">Shutter open</Capability>
-  <Capability Min="230" Max="244">Strobe 10: burst (fast -&gt; slow)</Capability>
-  <Capability Min="245" Max="255">Shutter open</Capability>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="20" Max="49" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="50" Max="64" Preset="StrobeFastToSlow">Strobe 1 (fast -&gt; slow)</Capability>
+  <Capability Min="65" Max="69" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="70" Max="84" Preset="PulseFastToSlow">Strobe 2: opening pulse (fast -&gt; slow)</Capability>
+  <Capability Min="85" Max="89" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="90" Max="104" Preset="PulseFastToSlow">Strobe 3: closing pulse (fast -&gt; slow)</Capability>
+  <Capability Min="105" Max="109" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="110" Max="124" Preset="StrobeRandom">Strobe 4: random strobe (fast -&gt; slow)</Capability>
+  <Capability Min="125" Max="129" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="130" Max="144" Preset="StrobeRandomFastToSlow">Strobe 5: random opening pulse (fast -&gt; slow)</Capability>
+  <Capability Min="145" Max="149" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="150" Max="164" Preset="StrobeRandomFastToSlow">Strobe 6: random closing pulse (fast -&gt; slow)</Capability>
+  <Capability Min="165" Max="169" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="170" Max="184" Preset="PulseFastToSlow">Strobe 7: burst pulse (fast -&gt; slow)</Capability>
+  <Capability Min="185" Max="189" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="190" Max="204" Preset="PulseFrequency">Strobe 8: random burst pulse (fast -&gt; slow)</Capability>
+  <Capability Min="205" Max="209" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="210" Max="224" Preset="StrobeFastToSlow">Strobe 9: sine wave (fast -&gt; slow)</Capability>
+  <Capability Min="225" Max="229" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="230" Max="244" Preset="StrobeFastToSlow">Strobe 10: burst (fast -&gt; slow)</Capability>
+  <Capability Min="245" Max="255" Preset="ShutterOpen">Shutter open</Capability>
  </Channel>
  <Channel Name="Fixture Control">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
-  <Capability Min="10" Max="14">Reset entire fixture</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="14" Preset="ResetAll">Reset entire fixture</Capability>
   <Capability Min="15" Max="39">No function</Capability>
   <Capability Min="40" Max="44">PTSP = NORM</Capability>
   <Capability Min="45" Max="49">PTSP = FAST</Capability>
@@ -57,48 +57,48 @@
   <Capability Min="115" Max="119">No function</Capability>
   <Capability Min="120" Max="124">Smooth dimming, speed of changes restricted slightly</Capability>
   <Capability Min="125" Max="129">No function</Capability>
-  <Capability Min="130" Max="134">Enable Blackout while Pan tilt</Capability>
+  <Capability Min="130" Max="134" Preset="ResetPanTilt">Enable Blackout while Pan tilt</Capability>
   <Capability Min="135" Max="139">No function</Capability>
-  <Capability Min="140" Max="144">Disable Blackout while Pan tilt</Capability>
+  <Capability Min="140" Max="144" Preset="ResetPanTilt">Disable Blackout while Pan tilt</Capability>
   <Capability Min="145" Max="249">No function</Capability>
   <Capability Min="250" Max="255">Illuminate display</Capability>
  </Channel>
  <Channel Name="Color Wheel Effect">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="9">Open, RGB Colour Mixing Enabled if the fixture is set to RAW or RGB modes</Capability>
-  <Capability Min="10" Max="14" Color="#ffb4a5">Moroccan pink</Capability>
-  <Capability Min="15" Max="19" Color="#ff92a3">Pink</Capability>
-  <Capability Min="20" Max="24" Color="#ff3787">Special rose pink</Capability>
-  <Capability Min="25" Max="29" Color="#ff64c8">Follies pink</Capability>
-  <Capability Min="30" Max="34" Color="#cd6ed7">Fuchsia pink</Capability>
-  <Capability Min="35" Max="39" Color="#be8cf0">Surprise pink</Capability>
-  <Capability Min="40" Max="44" Color="#5000aa">Congo blue</Capability>
-  <Capability Min="45" Max="49" Color="#0202b4">Tokyo blue</Capability>
-  <Capability Min="50" Max="54" Color="#005fbe">Deep blue</Capability>
-  <Capability Min="55" Max="59" Color="#3c8cd2">Just blue</Capability>
-  <Capability Min="60" Max="64" Color="#00a0dc">Medium blue</Capability>
-  <Capability Min="65" Max="69" Color="#91bef5">Double CT blue</Capability>
-  <Capability Min="70" Max="74" Color="#7dd2f5">Slate blue</Capability>
-  <Capability Min="75" Max="79" Color="#c3e1fa">Full CT blue</Capability>
-  <Capability Min="80" Max="84" Color="#d7f0ff">Half CT blue</Capability>
-  <Capability Min="85" Max="89" Color="#b4faf5">Steel blue</Capability>
-  <Capability Min="90" Max="94" Color="#61e8e3">Lighter blue</Capability>
-  <Capability Min="95" Max="99" Color="#00e1eb">Light blue</Capability>
-  <Capability Min="100" Max="104" Color="#00c8b9">Medium blue green</Capability>
-  <Capability Min="105" Max="109" Color="#00dc78">Dark green</Capability>
-  <Capability Min="110" Max="114" Color="#4bc300">Primary green</Capability>
-  <Capability Min="115" Max="119" Color="#5adc5a">Moss green</Capability>
-  <Capability Min="120" Max="124" Color="#78fa6e">Fern green</Capability>
-  <Capability Min="125" Max="129" Color="#aaff00">JAS green</Capability>
-  <Capability Min="130" Max="134" Color="#dcff64">Lime green</Capability>
-  <Capability Min="135" Max="139" Color="#f5ff00">Spring yellow</Capability>
-  <Capability Min="140" Max="144" Color="#ffdc00">Deep amber</Capability>
-  <Capability Min="145" Max="149" Color="#ffbe00">Chrome orange</Capability>
-  <Capability Min="150" Max="154" Color="#ffa000">Orange</Capability>
-  <Capability Min="155" Max="159" Color="#ff8c32">Gold amber</Capability>
-  <Capability Min="160" Max="164" Color="#ff7600">Millennium gold</Capability>
-  <Capability Min="165" Max="169" Color="#ff5f00">Deep golden amber</Capability>
-  <Capability Min="170" Max="174" Color="#ff3200">Flame red</Capability>
+  <Capability Min="10" Max="14" Preset="ColorMacro" Res1="#ffb4a5">Moroccan pink</Capability>
+  <Capability Min="15" Max="19" Preset="ColorMacro" Res1="#ff92a3">Pink</Capability>
+  <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#ff3787">Special rose pink</Capability>
+  <Capability Min="25" Max="29" Preset="ColorMacro" Res1="#ff64c8">Follies pink</Capability>
+  <Capability Min="30" Max="34" Preset="ColorMacro" Res1="#cd6ed7">Fuchsia pink</Capability>
+  <Capability Min="35" Max="39" Preset="ColorMacro" Res1="#be8cf0">Surprise pink</Capability>
+  <Capability Min="40" Max="44" Preset="ColorMacro" Res1="#5000aa">Congo blue</Capability>
+  <Capability Min="45" Max="49" Preset="ColorMacro" Res1="#0202b4">Tokyo blue</Capability>
+  <Capability Min="50" Max="54" Preset="ColorMacro" Res1="#005fbe">Deep blue</Capability>
+  <Capability Min="55" Max="59" Preset="ColorMacro" Res1="#3c8cd2">Just blue</Capability>
+  <Capability Min="60" Max="64" Preset="ColorMacro" Res1="#00a0dc">Medium blue</Capability>
+  <Capability Min="65" Max="69" Preset="ColorMacro" Res1="#91bef5">Double CT blue</Capability>
+  <Capability Min="70" Max="74" Preset="ColorMacro" Res1="#7dd2f5">Slate blue</Capability>
+  <Capability Min="75" Max="79" Preset="ColorMacro" Res1="#c3e1fa">Full CT blue</Capability>
+  <Capability Min="80" Max="84" Preset="ColorMacro" Res1="#d7f0ff">Half CT blue</Capability>
+  <Capability Min="85" Max="89" Preset="ColorMacro" Res1="#b4faf5">Steel blue</Capability>
+  <Capability Min="90" Max="94" Preset="ColorMacro" Res1="#61e8e3">Lighter blue</Capability>
+  <Capability Min="95" Max="99" Preset="ColorMacro" Res1="#00e1eb">Light blue</Capability>
+  <Capability Min="100" Max="104" Preset="ColorMacro" Res1="#00c8b9">Medium blue green</Capability>
+  <Capability Min="105" Max="109" Preset="ColorMacro" Res1="#00dc78">Dark green</Capability>
+  <Capability Min="110" Max="114" Preset="ColorMacro" Res1="#4bc300">Primary green</Capability>
+  <Capability Min="115" Max="119" Preset="ColorMacro" Res1="#5adc5a">Moss green</Capability>
+  <Capability Min="120" Max="124" Preset="ColorMacro" Res1="#78fa6e">Fern green</Capability>
+  <Capability Min="125" Max="129" Preset="ColorMacro" Res1="#aaff00">JAS green</Capability>
+  <Capability Min="130" Max="134" Preset="ColorMacro" Res1="#dcff64">Lime green</Capability>
+  <Capability Min="135" Max="139" Preset="ColorMacro" Res1="#f5ff00">Spring yellow</Capability>
+  <Capability Min="140" Max="144" Preset="ColorMacro" Res1="#ffdc00">Deep amber</Capability>
+  <Capability Min="145" Max="149" Preset="ColorMacro" Res1="#ffbe00">Chrome orange</Capability>
+  <Capability Min="150" Max="154" Preset="ColorMacro" Res1="#ffa000">Orange</Capability>
+  <Capability Min="155" Max="159" Preset="ColorMacro" Res1="#ff8c32">Gold amber</Capability>
+  <Capability Min="160" Max="164" Preset="ColorMacro" Res1="#ff7600">Millennium gold</Capability>
+  <Capability Min="165" Max="169" Preset="ColorMacro" Res1="#ff5f00">Deep golden amber</Capability>
+  <Capability Min="170" Max="174" Preset="ColorMacro" Res1="#ff3200">Flame red</Capability>
   <Capability Min="175" Max="179">Open</Capability>
   <Capability Min="180" Max="201">Rotation clockwise (Fast -&gt; Slow)</Capability>
   <Capability Min="202" Max="207">Rotation stop</Capability>
@@ -149,23 +149,23 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="15">Shutter open</Capability>
-  <Capability Min="16" Max="131">Strobe (fast -&gt; slow)</Capability>
-  <Capability Min="132" Max="139">Shutter open</Capability>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeFastToSlow">Strobe (fast -&gt; slow)</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="140" Max="181">Shutter fast close slow open</Capability>
-  <Capability Min="182" Max="189">Shutter open</Capability>
+  <Capability Min="182" Max="189" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="190" Max="231">Shutter slow close fast open</Capability>
-  <Capability Min="232" Max="239">Shutter open</Capability>
-  <Capability Min="240" Max="247">Random strobe</Capability>
-  <Capability Min="248" Max="255">Shutter open</Capability>
+  <Capability Min="232" Max="239" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandom">Random strobe</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Shutter open</Capability>
  </Channel>
  <Channel Name="Function">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="69">No function</Capability>
-  <Capability Min="70" Max="79">Enable blackout while pan/tilt move</Capability>
-  <Capability Min="80" Max="89">Disable blackout while pan/tilt move</Capability>
+  <Capability Min="70" Max="79" Preset="ResetAll">Enable blackout while pan/tilt move</Capability>
+  <Capability Min="80" Max="89" Preset="ResetAll">Disable blackout while pan/tilt move</Capability>
   <Capability Min="90" Max="199">No function</Capability>
-  <Capability Min="200" Max="209">Reset all</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Reset all</Capability>
   <Capability Min="210" Max="239">No function</Capability>
   <Capability Min="240" Max="255">Stand alone</Capability>
  </Channel>
@@ -259,11 +259,11 @@
   <Channel Number="26">Color Macro</Channel>
   <Channel Number="27">Color Macro Speed</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="4200" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="267" Height="322" Weight="6.5" Depth="167"/>
-   <Lens DegreesMax="20" Name="Other" DegreesMin="20"/>
-   <Focus PanMax="630" Type="Fixed" TiltMax="200"/>
-   <Technical PowerConsumption="150" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="4200" ColourTemperature="0"/>
+  <Dimensions Weight="6.5" Width="267" Height="322" Depth="167"/>
+  <Lens Name="Other" DegreesMin="20" DegreesMax="20"/>
+  <Focus Type="Fixed" PanMax="630" TiltMax="200"/>
+  <Technical PowerConsumption="150" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

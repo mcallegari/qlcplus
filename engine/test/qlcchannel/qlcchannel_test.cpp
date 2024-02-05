@@ -133,7 +133,7 @@ void QLCChannel_Test::colour()
 
     channel->setColour(QLCChannel::Red);
     QCOMPARE(channel->colour(), QLCChannel::Red);
-    
+
     channel->setColour(QLCChannel::Green);
     QCOMPARE(channel->colour(), QLCChannel::Green);
 
@@ -617,13 +617,13 @@ void QLCChannel_Test::save()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Group")
+        if (xmlReader.name().toString() == "Group")
         {
             group = true;
             QVERIFY(xmlReader.attributes().value("Byte").toString() == "1");
             QVERIFY(xmlReader.readElementText() == "Shutter");
         }
-        else if (xmlReader.name() == "Capability")
+        else if (xmlReader.name().toString() == "Capability")
         {
             QString capName = xmlReader.readElementText();
             if (capName == "One" && capOne == false)

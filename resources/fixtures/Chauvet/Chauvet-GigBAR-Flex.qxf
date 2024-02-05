@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 1</Version>
+  <Author>bigredthelogger</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>GigBAR Flex</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Right Par: Red" Default="1" Preset="IntensityRed"/>
+ <Channel Name="Right Par: Green" Default="2" Preset="IntensityGreen"/>
+ <Channel Name="Right Par: Blue" Default="3" Preset="IntensityBlue"/>
+ <Channel Name="Right Par: UV" Default="4" Preset="IntensityUV"/>
+ <Channel Name="Right Par: Control" Default="5">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Dimmer</Capability>
+  <Capability Min="128" Max="239" Preset="StrobeSlowToFast">Strobe speed, slow to fast</Capability>
+  <Capability Min="240" Max="249">Strobe to sound</Capability>
+  <Capability Min="250" Max="255">RGB 100%</Capability>
+ </Channel>
+ <Channel Name="Left Par: Red" Default="1" Preset="IntensityRed"/>
+ <Channel Name="Left Par: Green" Default="2" Preset="IntensityGreen"/>
+ <Channel Name="Left Par: Blue" Default="3" Preset="IntensityBlue"/>
+ <Channel Name="Left Par: UV" Default="4" Preset="IntensityUV"/>
+ <Channel Name="Left Par: Control" Default="5">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Dimmer</Capability>
+  <Capability Min="128" Max="239">Strobe speed, slow to fast</Capability>
+  <Capability Min="240" Max="249">Strobe to sound</Capability>
+  <Capability Min="250" Max="255">RGB 100%</Capability>
+ </Channel>
+ <Channel Name="Right Derby Control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="24">Blackout</Capability>
+  <Capability Min="25" Max="49">Red</Capability>
+  <Capability Min="50" Max="74">Green</Capability>
+  <Capability Min="75" Max="99">Blue</Capability>
+  <Capability Min="100" Max="124">Red + Green</Capability>
+  <Capability Min="125" Max="149">Red + Blue</Capability>
+  <Capability Min="150" Max="174">Green + Blue</Capability>
+  <Capability Min="175" Max="199">Red + Green + Blue</Capability>
+  <Capability Min="200" Max="224">Automatic (single colors only)</Capability>
+  <Capability Min="225" Max="255">Automatic (two colors at a time)</Capability>
+ </Channel>
+ <Channel Name="Right Derby Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="239" Preset="StrobeFreqRange" Res1="0" Res2="30">Strobe, 0-30 Hz</Capability>
+  <Capability Min="240" Max="255">Strobe to sound</Capability>
+ </Channel>
+ <Channel Name="Right Derby Rotation">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="4" Preset="RotationStop">Stop</Capability>
+  <Capability Min="5" Max="127" Preset="RotationClockwiseSlowToFast">Rotate clockwise, slow to fast</Capability>
+  <Capability Min="128" Max="133" Preset="RotationStop">Stop</Capability>
+  <Capability Min="134" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotate counter-clockwise, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Left Derby Control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="24">Blackout</Capability>
+  <Capability Min="25" Max="49">Red</Capability>
+  <Capability Min="50" Max="74">Green</Capability>
+  <Capability Min="75" Max="99">Blue</Capability>
+  <Capability Min="100" Max="124">Red + Green</Capability>
+  <Capability Min="125" Max="149">Red + Blue</Capability>
+  <Capability Min="150" Max="174">Green + Blue</Capability>
+  <Capability Min="175" Max="199">Red + Green + Blue</Capability>
+  <Capability Min="200" Max="224">Automatic (single colors only)</Capability>
+  <Capability Min="225" Max="255">Automatic (two colors at a time)</Capability>
+ </Channel>
+ <Channel Name="Left Derby Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="239" Preset="StrobeFreqRange" Res1="0" Res2="30">Strobe, 0-30 Hz</Capability>
+  <Capability Min="240" Max="255">Strobe to sound</Capability>
+ </Channel>
+ <Channel Name="Left Derby Rotation">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="4" Preset="RotationStop">Stop</Capability>
+  <Capability Min="5" Max="127" Preset="RotationClockwiseSlowToFast">Rotate clockwise, slow to fast</Capability>
+  <Capability Min="128" Max="133" Preset="RotationStop">Stop</Capability>
+  <Capability Min="134" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotate counter-clockwise, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Strobe Patterns">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Blackoout</Capability>
+  <Capability Min="10" Max="29">Auto 1</Capability>
+  <Capability Min="30" Max="50">Auto 2</Capability>
+  <Capability Min="51" Max="69">Auto 3</Capability>
+  <Capability Min="70" Max="89">Auto 4</Capability>
+  <Capability Min="90" Max="109">Auto 5</Capability>
+  <Capability Min="110" Max="129">Auto 6</Capability>
+  <Capability Min="130" Max="149">Auto 7</Capability>
+  <Capability Min="150" Max="169">Auto 8</Capability>
+  <Capability Min="170" Max="189">Auto 9</Capability>
+  <Capability Min="190" Max="209">All Strobing</Capability>
+  <Capability Min="210" Max="255">Strobe to sound mode</Capability>
+ </Channel>
+ <Channel Name="White Strobe Dimmer" Preset="IntensityWhite"/>
+ <Channel Name="UV Strobe Dimmer" Preset="IntensityUV"/>
+ <Channel Name="Strobe Speed" Preset="ShutterStrobeSlowFast"/>
+ <Mode Name="20 Channel">
+  <Channel Number="0">Right Par: Red</Channel>
+  <Channel Number="1">Right Par: Green</Channel>
+  <Channel Number="2">Right Par: Blue</Channel>
+  <Channel Number="3">Right Par: UV</Channel>
+  <Channel Number="4">Right Par: Control</Channel>
+  <Channel Number="5">Left Par: Red</Channel>
+  <Channel Number="6">Left Par: Green</Channel>
+  <Channel Number="7">Left Par: Blue</Channel>
+  <Channel Number="8">Left Par: UV</Channel>
+  <Channel Number="9">Left Par: Control</Channel>
+  <Channel Number="10">Right Derby Control</Channel>
+  <Channel Number="11">Right Derby Strobe</Channel>
+  <Channel Number="12">Right Derby Rotation</Channel>
+  <Channel Number="13">Left Derby Control</Channel>
+  <Channel Number="14">Left Derby Strobe</Channel>
+  <Channel Number="15">Left Derby Rotation</Channel>
+  <Channel Number="16">Strobe Patterns</Channel>
+  <Channel Number="17">White Strobe Dimmer</Channel>
+  <Channel Number="18">UV Strobe Dimmer</Channel>
+  <Channel Number="19">Strobe Speed</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>8</Channel>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>14</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6.6" Width="1185" Height="387" Depth="110"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="6" Height="1"/>
+  <Technical PowerConsumption="44" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

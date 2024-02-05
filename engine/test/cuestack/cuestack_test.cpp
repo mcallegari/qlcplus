@@ -74,7 +74,7 @@ void CueStack_Test::initial()
     QCOMPARE(cs.isRunning(), false);
     QCOMPARE(cs.isStarted(), false);
     QCOMPARE(cs.isFlashing(), false);
-    QCOMPARE(cs.m_fader, (GenericFader*) NULL);
+    QCOMPARE(cs.m_fadersMap.count(), 0);
     QCOMPARE(cs.m_elapsed, uint(0));
     QCOMPARE(cs.m_previous, false);
     QCOMPARE(cs.m_next, false);
@@ -537,7 +537,7 @@ void CueStack_Test::save()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Speed")
+        if (xmlReader.name().toString() == "Speed")
         {
             speed++;
             QCOMPARE(xmlReader.attributes().value("FadeIn").toString(), QString("200"));
@@ -545,7 +545,7 @@ void CueStack_Test::save()
             QCOMPARE(xmlReader.attributes().value("Duration").toString(), QString("400"));
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "Cue")
+        else if (xmlReader.name().toString() == "Cue")
         {
             // The contents of a Cue tag are tested in Cue tests
             cue++;
@@ -565,20 +565,16 @@ void CueStack_Test::save()
 void CueStack_Test::preRun()
 {
     CueStack cs(m_doc);
-    QVERIFY(cs.m_fader == NULL);
+    QVERIFY(cs.m_fadersMap.isEmpty());
     QCOMPARE(cs.isStarted(), false);
 
     cs.m_elapsed = 500;
     QSignalSpy spy(&cs, SIGNAL(started()));
     cs.preRun();
-    QVERIFY(cs.m_fader != NULL);
     QCOMPARE(spy.size(), 1);
     QCOMPARE(cs.m_elapsed, uint(0));
-    QCOMPARE(cs.m_fader->intensity(), qreal(1.0));
-    QCOMPARE(cs.isStarted(), true);
 
-    MasterTimer mt(m_doc);
-    cs.postRun(&mt);
+    cs.postRun(m_doc->masterTimer(), m_doc->inputOutputMap()->universes());
 }
 
 void CueStack_Test::flash()
@@ -605,32 +601,30 @@ void CueStack_Test::flash()
     cue.setValue(128, 42);
     cs.appendCue(cue);
 
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
-    ua.at(0)->setChannelCapability(0, QLCChannel::Intensity);
-    ua.at(0)->setChannelCapability(128, QLCChannel::Intensity);
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    Universe *universe = ua.at(0);
+    universe->setChannelCapability(0, QLCChannel::Intensity);
+    universe->setChannelCapability(128, QLCChannel::Intensity);
     cs.setFlashing(true);
+
     QCOMPARE(m_doc->masterTimer()->m_dmxSourceList.size(), 1);
     QCOMPARE(cs.isFlashing(), true);
     cs.writeDMX(m_doc->masterTimer(), ua);
-    QCOMPARE(ua[0]->preGMValues()[0], (char) 255);
-    QCOMPARE(ua[0]->preGMValues()[128], (char) 42);
-    ua[0]->zeroIntensityChannels();
-
-    cs.setFlashing(true);
-    QCOMPARE(m_doc->masterTimer()->m_dmxSourceList.size(), 1);
-    cs.writeDMX(m_doc->masterTimer(), ua);
-    QCOMPARE(ua[0]->preGMValues()[0], (char) 255);
-    QCOMPARE(ua[0]->preGMValues()[128], (char) 42);
-    ua[0]->zeroIntensityChannels();
+    QVERIFY(cs.m_fadersMap.count() == 1);
+    universe->processFaders();
+    QCOMPARE(universe->preGMValues()[0], (char) 255);
+    QCOMPARE(universe->preGMValues()[128], (char) 42);
 
     cs.setFlashing(false);
     QCOMPARE(cs.isFlashing(), false);
-    QCOMPARE(m_doc->masterTimer()->m_dmxSourceList.size(), 0);
+    QVERIFY(cs.m_fadersMap.count() == 1);
+
     cs.writeDMX(m_doc->masterTimer(), ua);
-    QCOMPARE(ua[0]->preGMValues()[0], (char) 0);
-    QCOMPARE(ua[0]->preGMValues()[128], (char) 0);
-    ua[0]->zeroIntensityChannels();
+    QCOMPARE(m_doc->masterTimer()->m_dmxSourceList.size(), 0);
+    universe->processFaders();
+    QCOMPARE(universe->preGMValues()[0], (char) 0);
+    QCOMPARE(universe->preGMValues()[128], (char) 0);
+    QVERIFY(cs.m_fadersMap.count() == 0);
 }
 
 void CueStack_Test::startStop()
@@ -654,9 +648,8 @@ void CueStack_Test::intensity()
 
     cs.preRun();
     QCOMPARE(cs.intensity(), qreal(0.5));
-    QCOMPARE(cs.m_fader->intensity(), qreal(0.5));
-    MasterTimer mt(m_doc);
-    cs.postRun(&mt);
+    //QCOMPARE(cs.m_fader->intensity(), qreal(0.5));
+    cs.postRun(m_doc->masterTimer(), m_doc->inputOutputMap()->universes());
 }
 
 void CueStack_Test::nextPrevious()
@@ -686,59 +679,6 @@ void CueStack_Test::nextPrevious()
     QCOMPARE(cs.previous(), 0);
 }
 
-void CueStack_Test::insertStartValue()
-{
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
-    ua.at(0)->setChannelCapability(0, QLCChannel::Pan);
-    CueStack cs(m_doc);
-    cs.preRun();
-
-    FadeChannel fc;
-    fc.setChannel(m_doc, 0);
-    fc.setStart(0);
-    fc.setTarget(255);
-    fc.setCurrent(127);
-
-    cs.m_fader->add(fc);
-
-    fc.setTarget(64);
-    cs.insertStartValue(fc, ua);
-    QCOMPARE(fc.start(), uchar(127));
-    QCOMPARE(fc.current(), uchar(127));
-
-    cs.m_fader->remove(fc);
-
-    // HTP channel in universes
-    ua[0]->write(0, 192);
-    cs.insertStartValue(fc, ua);
-    QCOMPARE(fc.start(), uchar(0));
-    QCOMPARE(fc.current(), uchar(0));
-
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
-    QVERIFY(def != NULL);
-
-    QLCFixtureMode* mode = def->modes().first();
-    QVERIFY(mode != NULL);
-
-    Fixture* fxi = new Fixture(m_doc);
-    fxi->setFixtureDefinition(def, mode);
-    fxi->setName("Test Scanner");
-    fxi->setAddress(0);
-    fxi->setUniverse(0);
-    m_doc->addFixture(fxi);
-
-    // LTP channel (Pan) in universes
-    fc.setChannel(m_doc, 0);
-    ua[0]->write(0, 192);
-    cs.insertStartValue(fc, ua);
-    QCOMPARE(fc.start(), uchar(192));
-    QCOMPARE(fc.current(), uchar(192));
-
-    MasterTimer mt(m_doc);
-    cs.postRun(&mt);
-}
-
 void CueStack_Test::switchCue()
 {
     QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
@@ -754,8 +694,8 @@ void CueStack_Test::switchCue()
     fxi->setUniverse(0);
     m_doc->addFixture(fxi);
 
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+
     CueStack cs(m_doc);
     cs.setFadeInSpeed(100);
     cs.setFadeOutSpeed(200);
@@ -787,118 +727,121 @@ void CueStack_Test::switchCue()
 
     // Do nothing with invalid cue indices
     cs.switchCue(-1, -1, ua);
-    QCOMPARE(cs.m_fader->channels().size(), 0);
+    QCOMPARE(cs.m_fadersMap.count(), 0);
     cs.switchCue(-1, 3, ua);
-    QCOMPARE(cs.m_fader->channels().size(), 0);
+    QCOMPARE(cs.m_fadersMap.count(), 0);
 
     // Switch to cue one
     cs.switchCue(3, 0, ua);
-    QCOMPARE(cs.m_fader->channels().size(), 5);
+    QCOMPARE(cs.m_fadersMap.count(), 1);
 
-    FadeChannel fc;
-    fc.setChannel(m_doc, 0);
-    QCOMPARE(cs.m_fader->channels()[fc].start(), uchar(0));
-    QCOMPARE(cs.m_fader->channels()[fc].current(), uchar(0));
-    QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(255));
-    QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(0));
-    QCOMPARE(cs.m_fader->channels()[fc].fadeTime(), uint(20));
+    QSharedPointer<GenericFader> fader = cs.m_fadersMap[0];
 
-    fc.setChannel(m_doc, 1);
-    QCOMPARE(cs.m_fader->channels()[fc].start(), uchar(0));
-    QCOMPARE(cs.m_fader->channels()[fc].current(), uchar(0));
-    QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(255));
-    QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(1));
-    QCOMPARE(cs.m_fader->channels()[fc].fadeTime(), uint(20));
+    quint32 chHash = GenericFader::channelHash(Fixture::invalidId(), 0);
+    QCOMPARE(fader->channels()[chHash].start(), uchar(0));
+    QCOMPARE(fader->channels()[chHash].current(), uchar(0));
+    QCOMPARE(fader->channels()[chHash].target(), uchar(255));
+    QCOMPARE(fader->channels()[chHash].channel(), uint(0));
+    QCOMPARE(fader->channels()[chHash].fadeTime(), uint(20));
 
-    fc.setChannel(m_doc, 10);
-    QCOMPARE(cs.m_fader->channels()[fc].start(), uchar(0));
-    QCOMPARE(cs.m_fader->channels()[fc].current(), uchar(0));
-    QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(255));
-    QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(10));
-    QCOMPARE(cs.m_fader->channels()[fc].fadeTime(), uint(20));
+    chHash = GenericFader::channelHash(Fixture::invalidId(), 1);
+    QCOMPARE(fader->channels()[chHash].start(), uchar(0));
+    QCOMPARE(fader->channels()[chHash].current(), uchar(0));
+    QCOMPARE(fader->channels()[chHash].target(), uchar(255));
+    QCOMPARE(fader->channels()[chHash].channel(), uint(1));
+    QCOMPARE(fader->channels()[chHash].fadeTime(), uint(20));
 
-    fc.setChannel(m_doc, 11);
-    QCOMPARE(cs.m_fader->channels()[fc].start(), uchar(0));
-    QCOMPARE(cs.m_fader->channels()[fc].current(), uchar(0));
-    QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(255));
-    QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(11));
-    QCOMPARE(cs.m_fader->channels()[fc].fadeTime(), uint(20));
+    chHash = GenericFader::channelHash(fxi->id(), 0);
+    QCOMPARE(fader->channels()[chHash].start(), uchar(0));
+    QCOMPARE(fader->channels()[chHash].current(), uchar(0));
+    QCOMPARE(fader->channels()[chHash].target(), uchar(255));
+    QCOMPARE(fader->channels()[chHash].channel(), uint(0));
+    QCOMPARE(fader->channels()[chHash].fadeTime(), uint(20));
 
-    fc.setChannel(m_doc, 500);
-    QCOMPARE(cs.m_fader->channels()[fc].start(), uchar(0));
-    QCOMPARE(cs.m_fader->channels()[fc].current(), uchar(0));
-    QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(255));
-    QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(500));
-    QCOMPARE(cs.m_fader->channels()[fc].fadeTime(), uint(20));
+    chHash = GenericFader::channelHash(fxi->id(), 1);
+    QCOMPARE(fader->channels()[chHash].start(), uchar(0));
+    QCOMPARE(fader->channels()[chHash].current(), uchar(0));
+    QCOMPARE(fader->channels()[chHash].target(), uchar(255));
+    QCOMPARE(fader->channels()[chHash].channel(), uint(1));
+    QCOMPARE(fader->channels()[chHash].fadeTime(), uint(20));
 
-    fc.setChannel(m_doc, 3);
-    QCOMPARE(cs.m_fader->channels()[fc].channel(), QLCChannel::invalid());
-    fc.setChannel(m_doc, 4);
-    QCOMPARE(cs.m_fader->channels()[fc].channel(), QLCChannel::invalid());
+    chHash = GenericFader::channelHash(Fixture::invalidId(), 500);
+    QCOMPARE(fader->channels()[chHash].start(), uchar(0));
+    QCOMPARE(fader->channels()[chHash].current(), uchar(0));
+    QCOMPARE(fader->channels()[chHash].target(), uchar(255));
+    QCOMPARE(fader->channels()[chHash].channel(), uint(500));
+    QCOMPARE(fader->channels()[chHash].fadeTime(), uint(20));
 
-    fc.setChannel(m_doc, 0);
-    cs.m_fader->m_channels[fc].setCurrent(127);
-    fc.setChannel(m_doc, 1);
-    cs.m_fader->m_channels[fc].setCurrent(127);
-    fc.setChannel(m_doc, 10);
-    cs.m_fader->m_channels[fc].setCurrent(127);
-    fc.setChannel(m_doc, 11);
-    cs.m_fader->m_channels[fc].setCurrent(127);
-    fc.setChannel(m_doc, 500);
-    cs.m_fader->m_channels[fc].setCurrent(127);
+    chHash = GenericFader::channelHash(Fixture::invalidId(), 3);
+    QCOMPARE(fader->channels().contains(chHash), false);
+    chHash = GenericFader::channelHash(Fixture::invalidId(), 4);
+    QCOMPARE(fader->channels().contains(chHash), false);
+
+    chHash = GenericFader::channelHash(Fixture::invalidId(), 0);
+    fader->m_channels[chHash].setCurrent(127);
+    chHash = GenericFader::channelHash(Fixture::invalidId(), 1);
+    fader->m_channels[chHash].setCurrent(127);
+    chHash = GenericFader::channelHash(fxi->id(), 0);
+    fader->m_channels[chHash].setCurrent(127);
+    chHash = GenericFader::channelHash(fxi->id(), 1);
+    fader->m_channels[chHash].setCurrent(127);
+    chHash = GenericFader::channelHash(Fixture::invalidId(), 500);
+    fader->m_channels[chHash].setCurrent(127);
 
     // Switch to cue two
     cs.switchCue(0, 1, ua);
-    QCOMPARE(cs.m_fader->channels().size(), 7);
+    QCOMPARE(fader->channels().size(), 7);
 
-    fc.setChannel(m_doc, 0);
-    QCOMPARE(cs.m_fader->channels()[fc].start(), uchar(127));
-    QCOMPARE(cs.m_fader->channels()[fc].current(), uchar(127));
-    QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(0));
-    QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(0));
-    QCOMPARE(cs.m_fader->channels()[fc].fadeTime(), uint(40));
+    //Universe *universe = ua[0];
+    //universe->processFaders();
 
-    fc.setChannel(m_doc, 1);
-    QCOMPARE(cs.m_fader->channels()[fc].start(), uchar(127));
-    QCOMPARE(cs.m_fader->channels()[fc].current(), uchar(127));
-    QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(0));
-    QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(1));
-    QCOMPARE(cs.m_fader->channels()[fc].fadeTime(), uint(40));
+    chHash = GenericFader::channelHash(Fixture::invalidId(), 0);
+    QCOMPARE(fader->channels()[chHash].start(), uchar(127));
+    QCOMPARE(fader->channels()[chHash].current(), uchar(127));
+    QCOMPARE(fader->channels()[chHash].target(), uchar(0));
+    QCOMPARE(fader->channels()[chHash].channel(), uint(0));
+    QCOMPARE(fader->channels()[chHash].fadeTime(), uint(40));
 
-    fc.setChannel(m_doc, 11); // LTP channel also in the next cue
-    QCOMPARE(cs.m_fader->channels()[fc].start(), uchar(127));
-    QCOMPARE(cs.m_fader->channels()[fc].current(), uchar(127));
-    QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(255));
-    QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(11));
-    QCOMPARE(cs.m_fader->channels()[fc].fadeTime(), uint(60));
+    chHash = GenericFader::channelHash(Fixture::invalidId(), 1);
+    QCOMPARE(fader->channels()[chHash].start(), uchar(127));
+    QCOMPARE(fader->channels()[chHash].current(), uchar(127));
+    QCOMPARE(fader->channels()[chHash].target(), uchar(0));
+    QCOMPARE(fader->channels()[chHash].channel(), uint(1));
+    QCOMPARE(fader->channels()[chHash].fadeTime(), uint(40));
 
-    fc.setChannel(m_doc, 500);
-    QCOMPARE(cs.m_fader->channels()[fc].start(), uchar(127));
-    QCOMPARE(cs.m_fader->channels()[fc].current(), uchar(127));
-    QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(255));
-    QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(500));
-    QCOMPARE(cs.m_fader->channels()[fc].fadeTime(), uint(60));
+    chHash = GenericFader::channelHash(fxi->id(), 1); // LTP channel also in the next cue
+    QCOMPARE(fader->channels()[chHash].start(), uchar(127));
+    QCOMPARE(fader->channels()[chHash].current(), uchar(127));
+    QCOMPARE(fader->channels()[chHash].target(), uchar(255));
+    QCOMPARE(fader->channels()[chHash].channel(), uint(1));
+    QCOMPARE(fader->channels()[chHash].fadeTime(), uint(60));
 
-    fc.setChannel(m_doc, 3);
-    QCOMPARE(cs.m_fader->channels()[fc].start(), uchar(0));
-    QCOMPARE(cs.m_fader->channels()[fc].current(), uchar(0));
-    QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(255));
-    QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(3));
-    QCOMPARE(cs.m_fader->channels()[fc].fadeTime(), uint(60));
+    chHash = GenericFader::channelHash(Fixture::invalidId(), 500);
+    QCOMPARE(fader->channels()[chHash].start(), uchar(127));
+    QCOMPARE(fader->channels()[chHash].current(), uchar(127));
+    QCOMPARE(fader->channels()[chHash].target(), uchar(255));
+    QCOMPARE(fader->channels()[chHash].channel(), uint(500));
+    QCOMPARE(fader->channels()[chHash].fadeTime(), uint(60));
 
-    fc.setChannel(m_doc, 4);
-    QCOMPARE(cs.m_fader->channels()[fc].start(), uchar(0));
-    QCOMPARE(cs.m_fader->channels()[fc].current(), uchar(0));
-    QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(255));
-    QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(4));
-    QCOMPARE(cs.m_fader->channels()[fc].fadeTime(), uint(60));
+    chHash = GenericFader::channelHash(Fixture::invalidId(), 3);
+    QCOMPARE(fader->channels()[chHash].start(), uchar(0));
+    QCOMPARE(fader->channels()[chHash].current(), uchar(0));
+    QCOMPARE(fader->channels()[chHash].target(), uchar(255));
+    QCOMPARE(fader->channels()[chHash].channel(), uint(3));
+    QCOMPARE(fader->channels()[chHash].fadeTime(), uint(60));
+
+    chHash = GenericFader::channelHash(Fixture::invalidId(), 4);
+    QCOMPARE(fader->channels()[chHash].start(), uchar(0));
+    QCOMPARE(fader->channels()[chHash].current(), uchar(0));
+    QCOMPARE(fader->channels()[chHash].target(), uchar(255));
+    QCOMPARE(fader->channels()[chHash].channel(), uint(4));
+    QCOMPARE(fader->channels()[chHash].fadeTime(), uint(60));
 
     // Stop
     cs.switchCue(1, -1, ua);
-    QCOMPARE(cs.m_fader->channels().size(), 7);
+    QCOMPARE(fader->channels().size(), 7);
 
-    MasterTimer mt(m_doc);
-    cs.postRun(&mt);
+    cs.postRun(m_doc->masterTimer(), m_doc->inputOutputMap()->universes());
 }
 
 void CueStack_Test::postRun()
@@ -916,9 +859,8 @@ void CueStack_Test::postRun()
     fxi->setUniverse(0);
     m_doc->addFixture(fxi);
 
-    MasterTimer mt(m_doc);
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+
     CueStack cs(m_doc);
     cs.setFadeInSpeed(100);
     cs.setFadeOutSpeed(200);
@@ -946,13 +888,17 @@ void CueStack_Test::postRun()
 
     // Switch to cue one
     cs.switchCue(-1, 0, ua);
-    QCOMPARE(cs.m_fader->channels().size(), 5);
+    QCOMPARE(cs.m_fadersMap.count(), 1);
+
+    QSharedPointer<GenericFader> fader = cs.m_fadersMap[0];
+    QCOMPARE(fader->channels().size(), 5);
 
     QSignalSpy cueSpy(&cs, SIGNAL(currentCueChanged(int)));
     QSignalSpy stopSpy(&cs, SIGNAL(stopped()));
 
-    cs.postRun(&mt);
-    QCOMPARE(cs.m_fader, (GenericFader*) NULL);
+    cs.postRun(m_doc->masterTimer(), m_doc->inputOutputMap()->universes());
+
+    QCOMPARE(cs.m_fadersMap.count(), 0);
     QCOMPARE(cs.m_currentIndex, -1);
     QCOMPARE(cueSpy.size(), 1);
     QCOMPARE(cueSpy.at(0).size(), 1);
@@ -960,21 +906,18 @@ void CueStack_Test::postRun()
     QCOMPARE(stopSpy.size(), 1);
 
     // Only HTP channels go to MasterTimer's GenericFader
-    QCOMPARE(mt.m_fader->channels().size(), 3);
-    FadeChannel fc;
-    fc.setChannel(m_doc, 0);
-    QCOMPARE(mt.m_fader->channels().contains(fc), true);
-    fc.setChannel(m_doc, 1);
-    QCOMPARE(mt.m_fader->channels().contains(fc), true);
-    fc.setChannel(m_doc, 500);
-    QCOMPARE(mt.m_fader->channels().contains(fc), true);
+    QCOMPARE(fader->channels().size(), 5);
+    quint32 chHash = GenericFader::channelHash(Fixture::invalidId(), 0);
+    QCOMPARE(fader->channels().contains(chHash), true);
+    chHash = GenericFader::channelHash(Fixture::invalidId(), 1);
+    QCOMPARE(fader->channels().contains(chHash), true);
+    chHash = GenericFader::channelHash(Fixture::invalidId(), 500);
+    QCOMPARE(fader->channels().contains(chHash), true);
 }
 
 void CueStack_Test::write()
 {
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
-
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
     CueStack cs(m_doc);
 
     Cue cue("One");
@@ -992,7 +935,7 @@ void CueStack_Test::write()
     cs.appendCue(cue);
 
     cs.preRun();
-    QVERIFY(cs.m_fader != NULL);
+    QVERIFY(cs.m_fadersMap.count() == 0);
 
     cs.write(ua);
     QCOMPARE(cs.currentIndex(), -1);
@@ -1005,26 +948,27 @@ void CueStack_Test::write()
     QCOMPARE(cs.currentIndex(), -1);
     cs.write(ua);
     QCOMPARE(cs.currentIndex(), 0);
-    QCOMPARE(cs.m_fader->channels().size(), 1);
-    FadeChannel fc;
-    fc.setChannel(m_doc, 0);
-    QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(0));
-    QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(255));
+    QCOMPARE(cs.m_fadersMap.count(), 1);
+
+    QSharedPointer<GenericFader> fader = cs.m_fadersMap[0];
+    quint32 chHash = (Fixture::invalidId() << 16) | 0;
+
+    QCOMPARE(fader->channels()[chHash].channel(), uint(0));
+    QCOMPARE(fader->channels()[chHash].target(), uchar(255));
 
     cs.previousCue();
     QCOMPARE(cs.currentIndex(), 0);
     cs.write(ua);
     QCOMPARE(cs.currentIndex(), 1);
 
-    fc.setChannel(m_doc, 0);
-    QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(0));
-    QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(0));
-    fc.setChannel(m_doc, 1);
-    QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(1));
-    QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(255));
+    QCOMPARE(fader->channels()[chHash].channel(), uint(0));
+    QCOMPARE(fader->channels()[chHash].target(), uchar(0));
 
-    MasterTimer mt(m_doc);
-    cs.postRun(&mt);
+    chHash = (Fixture::invalidId() << 16) | 1;
+    QCOMPARE(fader->channels()[chHash].channel(), uint(1));
+    QCOMPARE(fader->channels()[chHash].target(), uchar(255));
+
+    cs.postRun(m_doc->masterTimer(), m_doc->inputOutputMap()->universes());
 }
 
 QTEST_APPLESS_MAIN(CueStack_Test)

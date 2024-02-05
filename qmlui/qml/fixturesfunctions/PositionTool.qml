@@ -18,10 +18,9 @@
 */
 
 import QtQuick 2.0
-import QtQuick.Layouts 1.0
-import QtQuick.Controls 1.2
-import QtQuick.Controls.Styles 1.2
+import QtQuick.Layouts 1.1
 
+import org.qlcplus.classes 1.0
 import "CanvasDrawFunctions.js" as DrawFuncs
 import "."
 
@@ -29,19 +28,110 @@ Rectangle
 {
     id: posToolRoot
     width: UISettings.bigItemHeight * 2.2
-    height: UISettings.bigItemHeight * 3.3
+    height: (UISettings.bigItemHeight * 3.2) + paletteBox.height
     color: UISettings.bgMedium
-    border.color: "#666"
-    border.width: 2
+    //border.color: UISettings.bgLight
+    //border.width: 2
 
     property int panMaxDegrees: 360
     property int tiltMaxDegrees: 270
 
-    property int panDegrees: 0
-    property int tiltDegrees: 0
+    property alias panDegrees: panSpinBox.value
+    property int previousPanDegrees: 0
+    property bool relativePanValue: false
 
-    onPanDegreesChanged: fixtureManager.setPanValue(panDegrees)
-    onTiltDegreesChanged: fixtureManager.setTiltValue(tiltDegrees)
+    property alias tiltDegrees: tiltSpinBox.value
+    property int previousTiltDegrees: 0
+    property bool relativeTiltValue: false
+
+    property alias showPalette: paletteBox.visible
+    property bool isLoading: false
+
+    signal close()
+
+    function updatePanTiltDegrees()
+    {
+        previousPanDegrees = 0
+        previousTiltDegrees = 0
+
+        var pan = contextManager.getCurrentValue(QLCChannel.Pan, true)
+        if (pan === -1)
+        {
+            relativePanValue = true
+            panDegrees = 0
+        }
+        else
+        {
+            relativePanValue = false
+            panDegrees = Math.round(pan)
+        }
+
+        var tilt = contextManager.getCurrentValue(QLCChannel.Tilt, true)
+        if (tilt === -1)
+        {
+            relativeTiltValue = true
+            tiltDegrees = 0
+        }
+        else
+        {
+            relativeTiltValue = false
+            tiltDegrees = Math.round(tilt)
+        }
+    }
+
+    onVisibleChanged:
+    {
+        if (visible)
+        {
+            updatePanTiltDegrees()
+        }
+        else
+        {
+            paletteBox.checked = false
+        }
+    }
+
+    onPanDegreesChanged:
+    {
+        if (isLoading)
+            return
+
+        if (relativePanValue)
+        {
+            contextManager.setPositionValue(QLCChannel.Pan, panDegrees - previousPanDegrees, true)
+            previousPanDegrees = panDegrees
+        }
+        else
+        {
+            paletteBox.updateValues(panDegrees, tiltDegrees)
+
+            if (paletteBox.isEditing || paletteBox.checked)
+                paletteBox.updatePreview()
+            else
+                contextManager.setPositionValue(QLCChannel.Pan, panDegrees, false)
+        }
+    }
+
+    onTiltDegreesChanged:
+    {
+        if (isLoading)
+            return
+
+        if (relativeTiltValue)
+        {
+            contextManager.setPositionValue(QLCChannel.Tilt, tiltDegrees - previousTiltDegrees, true)
+            previousTiltDegrees = tiltDegrees
+        }
+        else
+        {
+            paletteBox.updateValues(panDegrees, tiltDegrees)
+
+            if (paletteBox.isEditing || paletteBox.checked)
+                paletteBox.updatePreview()
+            else
+                contextManager.setPositionValue(QLCChannel.Tilt, tiltDegrees, false)
+        }
+    }
 
     onPanMaxDegreesChanged: gCanvas.requestPaint()
     onTiltMaxDegreesChanged: gCanvas.requestPaint()
@@ -57,6 +147,41 @@ Rectangle
                       halfTilt + 90,
                       tiltMaxDegrees ]
         return array
+    }
+
+    function loadPalette(id)
+    {
+        isLoading = true
+
+        var palette = paletteManager.getPalette(id)
+        if (palette)
+        {
+            posToolBar.visible = false
+            paletteToolbar.visible = true
+            paletteToolbar.text = palette.name
+            paletteBox.editPalette(palette)
+
+            if (palette.type === QLCPalette.Pan)
+            {
+                panDegrees = palette.intValue1
+            }
+            else if (palette.type === QLCPalette.Tilt)
+            {
+                tiltDegrees = palette.intValue1
+            }
+            else if (palette.type === QLCPalette.PanTilt)
+            {
+                panDegrees = palette.intValue1
+                tiltDegrees = palette.intValue2
+            }
+        }
+        isLoading = false
+    }
+
+    MouseArea
+    {
+        anchors.fill: parent
+        onWheel: { return false }
     }
 
     Rectangle
@@ -87,21 +212,61 @@ Rectangle
             anchors.fill: parent
             drag.target: posToolRoot
         }
+        GenericButton
+        {
+            width: height
+            height: parent.height
+            anchors.right: parent.right
+            border.color: UISettings.bgMedium
+            useFontawesome: true
+            label: FontAwesome.fa_times
+            onClicked: posToolRoot.close()
+        }
+    }
+
+    EditorTopBar
+    {
+        id: paletteToolbar
+        visible: false
+        onBackClicked: posToolRoot.parent.dismiss()
+        onTextChanged: paletteBox.setName(text)
     }
 
     IconButton
     {
-        id: rotateButton
         x: parent.width - width - 2
         y: posToolBar.height
         z: 2
         imgSource: "qrc:/rotate-right.svg"
-        tooltip: qsTr("Rotate 90° clockwise")
+        tooltip: qsTr("Rotate preview 90° clockwise")
         onClicked:
         {
             gCanvas.rotation += 90
             if (gCanvas.rotation == 360)
                 gCanvas.rotation = 0
+        }
+    }
+
+    Timer
+    {
+        id: updTimer
+        running: false
+        interval: 100
+        repeat: false
+        onTriggered: updatePanTiltDegrees()
+    }
+
+    IconButton
+    {
+        x: parent.width - width - 2
+        y: gCanvas.y + gCanvas.height - width
+        z: 2
+        faSource: FontAwesome.fa_bullseye
+        tooltip: qsTr("Center Pan/Tilt halfway")
+        onClicked:
+        {
+            contextManager.setPositionCenter()
+            updTimer.restart()
         }
     }
 
@@ -166,16 +331,16 @@ Rectangle
                 if (Math.abs(mouse.x - initialXPos) > Math.abs(mouse.y - initialYPos))
                 {
                     if (mouse.x < initialXPos)
-                        panSpinBox.value++
+                        panDegrees++
                     else
-                        panSpinBox.value--
+                        panDegrees--
                 }
                 else
                 {
                     if (mouse.y < initialYPos)
-                        tiltSpinBox.value++
+                        tiltDegrees++
                     else
-                        tiltSpinBox.value--
+                        tiltDegrees--
                 }
             }
         }
@@ -192,6 +357,7 @@ Rectangle
         // row 1
         RobotoText
         {
+            height: UISettings.listItemHeight
             label: "Pan"
         }
 
@@ -199,16 +365,12 @@ Rectangle
         {
             id: panSpinBox
             Layout.fillWidth: true
-            from: 0
+            from: relativePanValue ? -panMaxDegrees : 0
             to: panMaxDegrees
             value: 0
             suffix: "°"
 
-            onValueChanged:
-            {
-                panDegrees = value
-                gCanvas.requestPaint()
-            }
+            onValueChanged: gCanvas.requestPaint()
         }
 
         IconButton
@@ -241,6 +403,7 @@ Rectangle
         // row 2
         RobotoText
         {
+            height: UISettings.listItemHeight
             label: "Tilt"
         }
 
@@ -248,16 +411,12 @@ Rectangle
         {
             id: tiltSpinBox
             Layout.fillWidth: true
-            from: 0
+            from: relativeTiltValue ? -tiltMaxDegrees : 0
             to: tiltMaxDegrees
             value: 0
             suffix: "°"
 
-            onValueChanged:
-            {
-                tiltDegrees = value
-                gCanvas.requestPaint()
-            }
+            onValueChanged: gCanvas.requestPaint()
         }
 
         IconButton
@@ -298,5 +457,14 @@ Rectangle
                 }
             }
         }
-    }
+
+        // row 3
+        PaletteFanningBox
+        {
+            id: paletteBox
+            Layout.columnSpan: 4
+            Layout.fillWidth: true
+            paletteType: QLCPalette.PanTilt
+        }
+    } // GridLayout
 }

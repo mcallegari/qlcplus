@@ -24,6 +24,7 @@
 #include <QtCore>
 
 #define SETTINGS_TYPE_MAP "qlcftdi/typemap"
+#define SETTINGS_FREQ_MAP "qlcftdi/freqmap"
 
 class DMXInterface
 {
@@ -47,7 +48,7 @@ public:
     /** Destructor */
     virtual ~DMXInterface();
 
-    virtual QString readLabel(uchar label, int *ESTA_code) = 0;
+    virtual bool readLabel(uchar label, int &ESTA_code, QString &strParam) = 0;
 
     /** Get the widget's USB serial number */
     QString serial() const;
@@ -84,14 +85,17 @@ private:
      * Widget enumeration
      ************************************************************************/
 public:
-    static const int FTDIVID = 0x0403;      //! FTDI Vendor ID
-    static const int ATMELVID = 0x03EB;     //! Atmel Vendor ID
-    static const int MICROCHIPVID = 0x04D8; //! Microchip Vendor ID
-    static const int FTDIPID = 0x6001;      //! FTDI Product ID
-    static const int DMX4ALLPID = 0xC850;   //! DMX4ALL FTDI Product ID
-    static const int NANODMXPID = 0x2018;   //! DMX4ALL Nano DMX Product ID
-    static const int EUROLITEPID = 0xFA63;  //! Eurolite USB DMX Product ID
-    static const int ELECTROTASPID = 0x0000;//! ElectroTAS USB DMX Product ID
+    static const int FTDIVID = 0x0403;       //! FTDI Vendor ID
+    static const int ATMELVID = 0x03EB;      //! Atmel Vendor ID
+    static const int MICROCHIPVID = 0x04D8;  //! Microchip Vendor ID
+    static const int NXPVID = 0x1FC9;        //! NXP Vendor ID
+    static const int FTDIPID = 0x6001;       //! FTDI Product ID
+    static const int FTDI2PID = 0x6010;      //! FTDI COM485-PLUS2 Product ID
+    static const int DMX4ALLPID = 0xC850;    //! DMX4ALL FTDI Product ID
+    static const int NANODMXPID = 0x2018;    //! DMX4ALL Nano DMX Product ID
+    static const int EUROLITEPID = 0xFA63;   //! Eurolite USB DMX Product ID
+    static const int ELECTROTASPID = 0x0000; //! ElectroTAS USB DMX Product ID
+    static const int DMXKINGMAXPID = 0x0094; //! DMXKing ultraDMX MAX Product ID
 
     /** Driver types */
     enum Type
@@ -112,11 +116,19 @@ public:
 
     /**
      * Get a map of [serial = type] bindings that tells which serials should
-     * be used to force the plugin to use pro/open method on which widget.
+     * be used to force the plugin to use pro/open method on which widget
      */
     static QMap <QString,QVariant> typeMap();
 
     static void storeTypeMap(const QMap <QString,QVariant> map);
+
+    /**
+     * Get a map of [serial = frequency] bindings that tells which
+     * output frequency should be used on a specifi serail number
+     */
+    static QMap <QString,QVariant> frequencyMap();
+
+    static void storeFrequencyMap(const QMap <QString,QVariant> map);
 
     /************************************************************************
      * DMX/Serial Interface Methods
@@ -150,6 +162,17 @@ public:
     /** Disable flow control */
     virtual bool setFlowControl() = 0;
 
+    /**
+     * Set the widget in "low latency mode". Some DMX controllers send DMX
+     * frames at a much higher rate than the specified value. USB widget may
+     * have difficulties to read independant frames in this case and need
+     * some configuration.
+     *
+     * @param lowLatency true for low latency, false otherwise
+     * @return true if the interface was set in low latency state
+     */
+    virtual bool setLowLatency(bool lowLatency) = 0;
+
     /** Clear the RTS bit */
     virtual bool clearRts() = 0;
 
@@ -167,6 +190,10 @@ public:
 
     /** Read exactly one byte. $ok tells if a byte was read or not. */
     virtual uchar readByte(bool* ok = NULL) = 0;
+
+protected:
+    /** Latency amount in ms for FTDI devices */
+    unsigned char m_defaultLatency;
 };
 
 #endif

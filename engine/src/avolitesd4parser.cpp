@@ -41,69 +41,69 @@
 #define KD4GroupEffect    "E"
 
 // Channels
-#define KD4TagFixture   "Fixture"
-#define KD4TagName      "Name"
-#define KD4TagShortName "ShortName"
-#define KD4TagCompany   "Company"
-#define KD4TagControl   "Control"
-#define KD4TagID        "ID"
-#define KD4TagGroup     "Group"
-#define KD4TagSpeed     "Speed"
-#define KD4TagMacro     "Macro"
-#define KD4TagReserved  "Reserved"
-#define KD4TagShutter   "Shutter"
-#define KD4TagPan       "Pan"
-#define KD4TagTilt      "Tilt"
-#define KD4TagCyan      "Cyan"
-#define KD4TagMagenta   "Magenta"
-#define KD4TagYellow    "Yellow"
-#define KD4TagRed       "Red"
-#define KD4TagBlue      "Blue"
-#define KD4TagGreen     "Green"
-#define KD4TagPrism     "Prism"
-#define KD4TagEffect    "Effect"
-#define KD4TagAttribute "Attribute"
-#define KD4TagUpdate    "Update"
+#define KD4TagFixture   QString("Fixture")
+#define KD4TagName      QString("Name")
+#define KD4TagShortName QString("ShortName")
+#define KD4TagCompany   QString("Company")
+#define KD4TagControl   QString("Control")
+#define KD4TagID        QString("ID")
+#define KD4TagGroup     QString("Group")
+#define KD4TagSpeed     QString("Speed")
+#define KD4TagMacro     QString("Macro")
+#define KD4TagReserved  QString("Reserved")
+#define KD4TagShutter   QString("Shutter")
+#define KD4TagPan       QString("Pan")
+#define KD4TagTilt      QString("Tilt")
+#define KD4TagCyan      QString("Cyan")
+#define KD4TagMagenta   QString("Magenta")
+#define KD4TagYellow    QString("Yellow")
+#define KD4TagRed       QString("Red")
+#define KD4TagBlue      QString("Blue")
+#define KD4TagGreen     QString("Green")
+#define KD4TagPrism     QString("Prism")
+#define KD4TagEffect    QString("Effect")
+#define KD4TagAttribute QString("Attribute")
+#define KD4TagUpdate    QString("Update")
 
 // Capabilities
-#define KD4TagFunction                  "Function"
-#define KD4TagFunctionName              "Name"
-#define KD4TagFunctionDmx               "Dmx"
+#define KD4TagFunction                  QString("Function")
+#define KD4TagFunctionName              QString("Name")
+#define KD4TagFunctionDmx               QString("Dmx")
 #define KD4TagFunctionDmxValueSeparator '~'
 
 // Mode section
-#define KD4TagMode                 "Mode"
-#define KD4TagModeName             "Name"
-#define KD4TagModeInclude          "Include"
-#define KD4TagModeAttribute        "Attribute"
-#define KD4TagModeChannelOffset    "ChannelOffset"
-#define KD4TagModeID               "ID"
+#define KD4TagMode                 QString("Mode")
+#define KD4TagModeName             QString("Name")
+#define KD4TagModeInclude          QString("Include")
+#define KD4TagModeAttribute        QString("Attribute")
+#define KD4TagModeChannelOffset    QString("ChannelOffset")
+#define KD4TagModeID               QString("ID")
 #define KD4TagModeChannelSeparator ','
 
 // Palettes section
-#define KD4TagPalettes          "Palettes"
-#define KD4TagPalette           "Palette"
+#define KD4TagPalettes          QString("Palettes")
+#define KD4TagPalette           QString("Palette")
 
 // Physical section
-#define KD4TagPhysical                     "Physical"
-#define KD4TagPhysicalBulb                 "Bulb"
-#define KD4TagPhysicalBulbType             "Type"
-#define KD4TagPhysicalBulbLumens           "Lumens"
-#define KD4TagPhysicalBulbColourTemp       "ColourTemp"
-#define KD4TagPhysicalLens                 "Lens"
-#define KD4TagPhysicalLensName             "Name"
-#define KD4TagPhysicalLensDegrees          "Degrees"
-#define KD4TagPhysicalLensDegreesSeparator '~'
-#define KD4TagPhysicalWeight               "Weight"
-#define KD4TagPhysicalWeightKg             "Kg"
-#define KD4TagPhysicalSize                 "Size"
-#define KD4TagPhysicalSizeHeight           "Height"
-#define KD4TagPhysicalSizeWidth            "Width"
-#define KD4TagPhysicalSizeDepth            "Depth"
-#define KD4TagPhysicalFocus                "Focus"
-#define KD4TagPhysicalFocusType            "Type"
-#define KD4TagPhysicalFocusPanMax          "PanMax"
-#define KD4TagPhysicalFocusTiltMax         "TiltMax"
+#define KD4TagPhysical                     QString("Physical")
+#define KD4TagPhysicalBulb                 QString("Bulb")
+#define KD4TagPhysicalBulbType             QString("Type")
+#define KD4TagPhysicalBulbLumens           QString("Lumens")
+#define KD4TagPhysicalBulbColourTemp       QString("ColourTemp")
+#define KD4TagPhysicalLens                 QString("Lens")
+#define KD4TagPhysicalLensName             QString("Name")
+#define KD4TagPhysicalLensDegrees          QString("Degrees")
+#define KD4TagPhysicalLensDegreesSeparator QString('~')
+#define KD4TagPhysicalWeight               QString("Weight")
+#define KD4TagPhysicalWeightKg             QString("Kg")
+#define KD4TagPhysicalSize                 QString("Size")
+#define KD4TagPhysicalSizeHeight           QString("Height")
+#define KD4TagPhysicalSizeWidth            QString("Width")
+#define KD4TagPhysicalSizeDepth            QString("Depth")
+#define KD4TagPhysicalFocus                QString("Focus")
+#define KD4TagPhysicalFocusType            QString("Type")
+#define KD4TagPhysicalFocusPanMax          QString("PanMax")
+#define KD4TagPhysicalFocusTiltMax         QString("TiltMax")
 
 // Static attibute map shared between instances of the parser, initialized only
 // once per application.
@@ -128,7 +128,7 @@ AvolitesD4Parser::~AvolitesD4Parser()
 {
 }
 
-bool AvolitesD4Parser::loadXML(const QString& path, QLCFixtureDef* fixtureDef)
+bool AvolitesD4Parser::loadXML(const QString& path, QLCFixtureDef *fixtureDef)
 {
     m_lastError = QString();
     m_channels.clear();
@@ -284,6 +284,9 @@ QLCChannel::Group AvolitesD4Parser::getGroup(QString ID, QString name, QString g
             else if (ID.contains(KD4TagEffect, Qt::CaseInsensitive) ||
                      name.contains(KD4TagEffect, Qt::CaseInsensitive))
                         return QLCChannel::Effect;
+            else if (ID.contains(KD4TagMacro, Qt::CaseInsensitive) ||
+                     name.contains(KD4TagMacro, Qt::CaseInsensitive))
+                        return QLCChannel::Effect;
             else
                 return QLCChannel::NoGroup;
         break;
@@ -344,8 +347,8 @@ bool AvolitesD4Parser::is16Bit(QString dmx) const
     if (dmxValues.value(0).toInt() > 256)
         return true;
 
-    // Is there aright side ? (there should always be something in the right side of the ~,
-    // or avolites desks won't parse the file, anyway, there should be a check, ir some smart
+    // Is there a right side ? (there should always be something in the right side of the ~,
+    // or avolites desks won't parse the file, anyway, there should be a check, if some smart
     // dude will complain this crashes with his D4 file)
 
     if (dmxValues.size() > 1)
@@ -396,12 +399,12 @@ QLCCapability *AvolitesD4Parser::getCapability(QString dmx, QString name, bool i
     if (isFine)
         name += " Fine";
 
-    QLCCapability* cap = new QLCCapability(minValue, maxValue, name);
+    QLCCapability *cap = new QLCCapability(minValue, maxValue, name);
 
     return cap;
 }
 
-bool AvolitesD4Parser::parseChannel(QXmlStreamReader *doc, QLCFixtureDef* fixtureDef)
+bool AvolitesD4Parser::parseChannel(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef)
 {
     if (doc->name() != KD4TagControl)
         return false;
@@ -418,8 +421,6 @@ bool AvolitesD4Parser::parseChannel(QXmlStreamReader *doc, QLCFixtureDef* fixtur
             }
 
             parseAttribute(doc, fixtureDef);
-            // skip this tag anyway cause it only contains attributes
-            doc->skipCurrentElement();
         }
         else
         {
@@ -431,7 +432,48 @@ bool AvolitesD4Parser::parseChannel(QXmlStreamReader *doc, QLCFixtureDef* fixtur
     return true;
 }
 
-bool AvolitesD4Parser::parseAttribute(QXmlStreamReader *doc, QLCFixtureDef* fixtureDef)
+bool AvolitesD4Parser::parseFunction(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef,
+                                     QLCChannel *channel, QString ID, QString group)
+{
+    QXmlStreamAttributes attrs = doc->attributes();
+    QString name = attrs.value(KD4TagFunctionName).toString();
+    if (name.isEmpty())
+    {
+        doc->skipCurrentElement();
+        return true;
+    }
+
+    QString dmx = attrs.value(KD4TagFunctionDmx).toString();
+    QLCCapability *cap = getCapability(dmx, name);
+
+    if (cap != NULL)
+    {
+        // We just ignore capability adding errors, because avolites often repeats attributes due to conditionals
+        // so we just add the first one we get, the repeating ones are ignored naturally and
+        // obviously further human verification is needed on the fixture definition to fix this issues
+        channel->addCapability(cap);
+    }
+
+    if (is16Bit(dmx))
+    {
+        QLCChannel *fineChan = new QLCChannel();
+        fineChan->setName(name + " Fine");
+        fineChan->setGroup(getGroup(ID, name, group));
+        fineChan->setColour(getColour(ID, name, group));
+        fineChan->setControlByte(QLCChannel::LSB);
+        QLCCapability *fineCap = getCapability(dmx, name, true);
+        if (fineCap != NULL)
+            fineChan->addCapability(fineCap);
+        fixtureDef->addChannel(fineChan);
+        m_channels.insert(ID + " Fine", fineChan);
+    }
+    //qDebug() << "Capability found" << cap->name() << cap->min() << cap->max();
+    doc->skipCurrentElement();
+
+    return true;
+}
+
+bool AvolitesD4Parser::parseAttribute(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef)
 {
     if (doc->name() != KD4TagAttribute)
         return false;
@@ -441,7 +483,7 @@ bool AvolitesD4Parser::parseAttribute(QXmlStreamReader *doc, QLCFixtureDef* fixt
     QString name = attrs.value(KD4TagName).toString();
     QString group = attrs.value(KD4TagGroup).toString();
 
-    QLCChannel* chan = new QLCChannel();
+    QLCChannel *chan = new QLCChannel();
     chan->setName(name);
     chan->setGroup(getGroup(ID, name, group));
     chan->setColour(getColour(ID, name, group));
@@ -455,6 +497,7 @@ bool AvolitesD4Parser::parseAttribute(QXmlStreamReader *doc, QLCFixtureDef* fixt
     // no capabilities nor 16 bit channel
     if (chan->group() == QLCChannel::NoGroup)
     {
+        doc->skipCurrentElement();
         return true;
     }
 
@@ -462,37 +505,7 @@ bool AvolitesD4Parser::parseAttribute(QXmlStreamReader *doc, QLCFixtureDef* fixt
     {
         if (doc->name() == KD4TagFunction)
         {
-            QXmlStreamAttributes attrs = doc->attributes();
-            QString name = attrs.value(KD4TagFunctionName).toString();
-            if (name.isEmpty())
-            {
-                doc->skipCurrentElement();
-                continue;
-            }
-            QString dmx = attrs.value(KD4TagFunctionDmx).toString();
-            QLCCapability* cap = getCapability(dmx, name);
-
-            if (cap != NULL)
-            {
-                // We just ignore capability adding errors, because avolites often repeats attributes due to conditionals
-                // so we just add the first one we get, the repeating ones are ignored naturally and
-                // obviously further human verification is needed on the fixture definition to fix this issues
-                chan->addCapability(cap);
-            }
-
-            if (is16Bit(dmx))
-            {
-                QLCChannel* fineChan = new QLCChannel();
-                fineChan->setName(name + " Fine");
-                fineChan->setGroup(getGroup(ID, name, group));
-                fineChan->setColour(getColour(ID, name, group));
-                fineChan->setControlByte(QLCChannel::LSB);
-                QLCCapability* fineCap = getCapability(dmx, name, true);
-                if (fineCap != NULL)
-                    fineChan->addCapability(fineCap);
-                fixtureDef->addChannel(fineChan);
-                m_channels.insert(ID + " Fine", fineChan);
-            }
+            parseFunction(doc, fixtureDef, chan, ID, group);
         }
         else
         {
@@ -500,11 +513,12 @@ bool AvolitesD4Parser::parseAttribute(QXmlStreamReader *doc, QLCFixtureDef* fixt
             doc->skipCurrentElement();
         }
     }
+    chan->sortCapabilities();
 
     return true;
 }
 
-bool AvolitesD4Parser::parseMode(QXmlStreamReader *doc, QLCFixtureDef* fixtureDef)
+bool AvolitesD4Parser::parseMode(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef)
 {
     if (doc->name() != KD4TagMode)
         return false;
@@ -514,7 +528,7 @@ bool AvolitesD4Parser::parseMode(QXmlStreamReader *doc, QLCFixtureDef* fixtureDe
     if (name.isEmpty())
         return false;
 
-    QLCFixtureMode* mode = new QLCFixtureMode(fixtureDef);
+    QLCFixtureMode *mode = new QLCFixtureMode(fixtureDef);
     mode->setName(name);
 
     while (doc->readNextStartElement())
@@ -526,7 +540,7 @@ bool AvolitesD4Parser::parseMode(QXmlStreamReader *doc, QLCFixtureDef* fixtureDe
         else if (doc->name() == KD4TagPhysical)
         {
             // Parse physical
-            parsePhysical(doc, mode);
+            parsePhysical(doc, fixtureDef, mode);
         }
         else
         {
@@ -541,7 +555,28 @@ bool AvolitesD4Parser::parseMode(QXmlStreamReader *doc, QLCFixtureDef* fixtureDe
     return true;
 }
 
-void AvolitesD4Parser::parsePhysical(QXmlStreamReader *doc, QLCFixtureMode* mode)
+bool AvolitesD4Parser::comparePhysical(const QLCPhysical &globalPhy, const QLCPhysical &modePhy) const
+{
+    if (globalPhy.isEmpty())
+        return true;
+
+    if (globalPhy.bulbLumens() != modePhy.bulbLumens() ||
+        globalPhy.bulbColourTemperature() != modePhy.bulbColourTemperature() ||
+        globalPhy.weight() != modePhy.weight() ||
+        globalPhy.width() != modePhy.width() ||
+        globalPhy.height() != modePhy.height() ||
+        globalPhy.depth() != modePhy.depth() ||
+        globalPhy.lensDegreesMin() != modePhy.lensDegreesMin() ||
+        globalPhy.lensDegreesMax() != modePhy.lensDegreesMax() ||
+        globalPhy.focusPanMax() != modePhy.focusPanMax() ||
+        globalPhy.focusTiltMax() != modePhy.focusTiltMax() ||
+        globalPhy.powerConsumption() != modePhy.powerConsumption())
+            return false;
+
+    return true;
+}
+
+void AvolitesD4Parser::parsePhysical(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef, QLCFixtureMode *mode)
 {
     if (doc->name() != KD4TagPhysical)
         return;
@@ -614,7 +649,10 @@ void AvolitesD4Parser::parsePhysical(QXmlStreamReader *doc, QLCFixtureMode* mode
         doc->skipCurrentElement();
     }
 
-    mode->setPhysical(phys);
+    if (comparePhysical(fixtureDef->physical(), phys) == true)
+        fixtureDef->setPhysical(phys);
+    else
+        mode->setPhysical(phys);
 }
 
 void AvolitesD4Parser::parseInclude(QXmlStreamReader *doc, QLCFixtureMode *mode)
@@ -659,7 +697,7 @@ void AvolitesD4Parser::parseInclude(QXmlStreamReader *doc, QLCFixtureMode *mode)
                     while (it.hasNext() == true)
                     {
                         it.next();
-                        QLCChannel* ch(it.value());
+                        QLCChannel *ch(it.value());
                         Q_ASSERT(ch != NULL);
 
                         if (ch->name() == QString(name + " Fine"))
@@ -700,7 +738,7 @@ AvolitesD4Parser::Attributes AvolitesD4Parser::stringToAttributeEnum(const QStri
         return AvolitesD4Parser::SPECIAL;
 }
 
-QLCFixtureDef::FixtureType AvolitesD4Parser::guessType(QLCFixtureDef* def) const
+QLCFixtureDef::FixtureType AvolitesD4Parser::guessType(QLCFixtureDef *def) const
 {
     Q_ASSERT(def != NULL);
 
@@ -713,7 +751,7 @@ QLCFixtureDef::FixtureType AvolitesD4Parser::guessType(QLCFixtureDef* def) const
     QListIterator <QLCChannel*> it(def->channels());
     while (it.hasNext() == true)
     {
-        const QLCChannel* ch(it.next());
+        const QLCChannel *ch(it.next());
         if (ch->group() == QLCChannel::Pan)
         {
             pan++;
@@ -778,6 +816,8 @@ QLCFixtureDef::FixtureType AvolitesD4Parser::guessType(QLCFixtureDef* def) const
         return QLCFixtureDef::Strobe; // Duh.
     else if (smoke > 0)
         return QLCFixtureDef::Smoke; // Duh.
+    else if (haze > 0)
+        return QLCFixtureDef::Hazer; // Duh.
     else if (nocol > 0)
         return QLCFixtureDef::Dimmer; // Kinda..mmmmh..
     else

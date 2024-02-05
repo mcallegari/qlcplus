@@ -30,9 +30,11 @@
 #include "qlcioplugin.h"
 #include "artnetcontroller.h"
 
-typedef struct
+#define SETTINGS_IFACE_WAIT_TIME "ArtNetPlugin/ifacewait"
+
+typedef struct _aio
 {
-    QNetworkInterface interface;
+    QNetworkInterface iface;
     QNetworkAddressEntry address;
     ArtNetController* controller;
 } ArtNetIO;
@@ -46,9 +48,7 @@ class ArtNetPlugin : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)
-#if QT_VERSION > QT_VERSION_CHECK(5, 0, 0)
     Q_PLUGIN_METADATA(IID QLCIOPlugin_iid)
-#endif
 
     /*********************************************************************
      * Initialization
@@ -70,7 +70,7 @@ public:
     QString pluginInfo();
 
 private:
-    bool requestLine(quint32 line, int retries);
+    bool requestLine(quint32 line);
 
     /*********************************************************************
      * Outputs
@@ -89,7 +89,7 @@ public:
     QString outputInfo(quint32 output);
 
     /** @reimp */
-    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
 
     /*************************************************************************
      * Inputs
@@ -127,15 +127,29 @@ private:
     /** Map of the ArtNet plugin Input/Output lines */
     QList<ArtNetIO> m_IOmapping;
 
+    /** Time to wait (in seconds) for interfaces to be ready */
+    int m_ifaceWaitTime;
+
+    /********************************************************************
+     * RDM
+     ********************************************************************/
+public:
+    /** @reimp */
+    bool sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params);
+
+signals:
+    void rdmValueChanged(quint32 universe, quint32 line, QVariantMap data);
+
     /*********************************************************************
      * ArtNet socket
      *********************************************************************/
 private:
     QSharedPointer<QUdpSocket> getUdpSocket();
+    void handlePacket(QByteArray const& datagram, QHostAddress const& senderAddress);
+
 private slots:
     void slotReadyRead();
-private:
-    void handlePacket(QByteArray const& datagram, QHostAddress const& senderAddress);
+
 private:
     QWeakPointer<QUdpSocket> m_udpSocket;
 };

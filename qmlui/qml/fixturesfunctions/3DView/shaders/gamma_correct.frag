@@ -22,8 +22,13 @@ FS_IN_ATTRIB vec2 fsUv;
 DECLARE_FRAG_COLOR
 
 uniform sampler2D hdrTex;
+uniform sampler2D bloomTex;
 
-void main() {
-	vec3 finalColor = SAMPLE_TEX2D(hdrTex, fsUv).rgb;
+void main()
+{
+    vec3 hdrColor = SAMPLE_TEX2D(hdrTex, fsUv).rgb;
+    hdrColor += 0.5 * SAMPLE_TEX2D(bloomTex, fsUv).rgb;
+    vec3 finalColor = vec3(1.0) - exp(-hdrColor * 1.0);
+
     MGL_FRAG_COLOR = vec4(pow(finalColor, vec3(1.0 / 2.2)), 1.0);
 }

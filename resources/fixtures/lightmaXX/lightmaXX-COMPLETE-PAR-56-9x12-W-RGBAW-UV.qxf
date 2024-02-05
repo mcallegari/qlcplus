@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.4 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Marco Palmisano</Author>
  </Creator>
  <Manufacturer>lightmaXX</Manufacturer>
@@ -16,10 +16,10 @@
  <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Strobe - Sound">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="0">ON</Capability>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">ON</Capability>
   <Capability Min="1" Max="5">Sound control</Capability>
-  <Capability Min="6" Max="10">ON</Capability>
-  <Capability Min="11" Max="255">Strobe (increasing)</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterOpen">ON</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe (increasing)</Capability>
  </Channel>
  <Channel Name="Amber" Preset="IntensityAmber"/>
  <Channel Name="Color Macro">
@@ -85,10 +85,10 @@
   <Channel Number="2">Blue</Channel>
  </Mode>
  <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Width="280" Depth="350" Weight="2.5" Height="250"/>
-   <Lens DegreesMin="25" DegreesMax="25" Name="Other"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="100"/>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.5" Width="280" Height="250" Depth="350"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

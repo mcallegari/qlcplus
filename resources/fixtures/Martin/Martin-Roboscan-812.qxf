@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
@@ -11,13 +11,13 @@
  <Type>Scanner</Type>
  <Channel Name="Strobe, SA, Reset, Lamp ON">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10">No strobe</Capability>
-  <Capability Min="11" Max="74">Gobo strobe (fast-&gt;slow)</Capability>
-  <Capability Min="75" Max="138">Color strobe (fast-&gt;slow)</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="11" Max="74" Preset="StrobeFastToSlow">Gobo strobe (fast-&gt;slow)</Capability>
+  <Capability Min="75" Max="138" Preset="StrobeSlowToFast">Color strobe (fast-&gt;slow)</Capability>
   <Capability Min="139" Max="170">Remote Auto trig</Capability>
   <Capability Min="171" Max="202">Remote Music trig</Capability>
-  <Capability Min="203" Max="235">Reset fixture</Capability>
-  <Capability Min="236" Max="255">Lamp power ON</Capability>
+  <Capability Min="203" Max="235" Preset="ResetAll">Reset fixture</Capability>
+  <Capability Min="236" Max="255" Preset="LampOn">Lamp power ON</Capability>
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
@@ -96,11 +96,11 @@
   <Channel Number="5">Movement Speed</Channel>
   <Channel Number="6">Color / Gobo speed</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="HSD 150W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="10.5" Width="190" Height="165" Depth="436"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Mirror" PanMax="175" TiltMax="83"/>
-   <Technical PowerConsumption="170" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="HSD 150W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="10.5" Width="190" Height="165" Depth="436"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Mirror" PanMax="175" TiltMax="83"/>
+  <Technical PowerConsumption="170" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

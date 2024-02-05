@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4</Version>
+  <Author>Peter Crowther</Author>
+ </Creator>
+ <Manufacturer>Equinox</Manufacturer>
+ <Model>Microbar Quad System</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Par 1 &amp; 2 Red" Preset="IntensityRed"/>
+ <Channel Name="Par 1 &amp; 2 Green" Preset="IntensityGreen"/>
+ <Channel Name="Par 1 &amp; 2 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Par 1 &amp; 2 White" Preset="IntensityWhite"/>
+ <Channel Name="Par 3 &amp; 4 Red" Preset="IntensityRed"/>
+ <Channel Name="Par 3 &amp; 4 Green" Preset="IntensityGreen"/>
+ <Channel Name="Par 3 &amp; 4 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Par 3 &amp; 4 White" Preset="IntensityWhite"/>
+ <Channel Name="Auto &amp; Sound modes">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="239">Auto modes</Capability>
+  <Capability Min="240" Max="255">Sound modes</Capability>
+ </Channel>
+ <Channel Name="Auto/sound mode speed (when using CH1) Strobe (slow-fast) (when using CH3-CH6)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Auto/sound mode speed (when using CH1) Strobe (slow-fast) (when using CH3-CH6)</Capability>
+ </Channel>
+ <Channel Name="Par 1 Red" Preset="IntensityRed"/>
+ <Channel Name="Par 1 Green" Preset="IntensityGreen"/>
+ <Channel Name="Par 1 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Par 1 White" Preset="IntensityWhite"/>
+ <Channel Name="Par 2 Red" Preset="IntensityRed"/>
+ <Channel Name="Par 2 Green" Preset="IntensityGreen"/>
+ <Channel Name="Par 2 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Par 2 White" Preset="IntensityWhite"/>
+ <Channel Name="Par 3 Red" Preset="IntensityRed"/>
+ <Channel Name="Par 3 Green" Preset="IntensityGreen"/>
+ <Channel Name="Par 3 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Par 3 White" Preset="IntensityWhite"/>
+ <Channel Name="Par 4 Red" Preset="IntensityRed"/>
+ <Channel Name="Par 4 Green" Preset="IntensityGreen"/>
+ <Channel Name="Par 4 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Par 4 White" Preset="IntensityWhite"/>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Mode Name="4 channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Mode Name="6 channel">
+  <Channel Number="0">Auto &amp; Sound modes</Channel>
+  <Channel Number="1">Auto/sound mode speed (when using CH1) Strobe (slow-fast) (when using CH3-CH6)</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">White</Channel>
+ </Mode>
+ <Mode Name="10 channel">
+  <Channel Number="0">Auto &amp; Sound modes</Channel>
+  <Channel Number="1">Auto/sound mode speed (when using CH1) Strobe (slow-fast) (when using CH3-CH6)</Channel>
+  <Channel Number="2">Par 1 &amp; 2 Red</Channel>
+  <Channel Number="3">Par 1 &amp; 2 Green</Channel>
+  <Channel Number="4">Par 1 &amp; 2 Blue</Channel>
+  <Channel Number="5">Par 1 &amp; 2 White</Channel>
+  <Channel Number="6">Par 3 &amp; 4 Red</Channel>
+  <Channel Number="7">Par 3 &amp; 4 Green</Channel>
+  <Channel Number="8">Par 3 &amp; 4 Blue</Channel>
+  <Channel Number="9">Par 3 &amp; 4 White</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="16 channel">
+  <Channel Number="0">Par 1 Red</Channel>
+  <Channel Number="1">Par 1 Green</Channel>
+  <Channel Number="2">Par 1 Blue</Channel>
+  <Channel Number="3">Par 1 White</Channel>
+  <Channel Number="4">Par 2 Red</Channel>
+  <Channel Number="5">Par 2 Green</Channel>
+  <Channel Number="6">Par 2 Blue</Channel>
+  <Channel Number="7">Par 2 White</Channel>
+  <Channel Number="8">Par 3 Red</Channel>
+  <Channel Number="9">Par 3 Green</Channel>
+  <Channel Number="10">Par 3 Blue</Channel>
+  <Channel Number="11">Par 3 White</Channel>
+  <Channel Number="12">Par 4 Red</Channel>
+  <Channel Number="13">Par 4 Green</Channel>
+  <Channel Number="14">Par 4 Blue</Channel>
+  <Channel Number="15">Par 4 White</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>3</Channel>
+   <Channel>2</Channel>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="18 channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Par 1 Red</Channel>
+  <Channel Number="3">Par 1 Green</Channel>
+  <Channel Number="4">Par 1 Blue</Channel>
+  <Channel Number="5">Par 1 White</Channel>
+  <Channel Number="6">Par 2 Red</Channel>
+  <Channel Number="7">Par 2 Green</Channel>
+  <Channel Number="8">Par 2 Blue</Channel>
+  <Channel Number="9">Par 2 White</Channel>
+  <Channel Number="10">Par 3 Red</Channel>
+  <Channel Number="11">Par 3 Green</Channel>
+  <Channel Number="12">Par 3 Blue</Channel>
+  <Channel Number="13">Par 3 White</Channel>
+  <Channel Number="14">Par 4 Red</Channel>
+  <Channel Number="15">Par 4 Green</Channel>
+  <Channel Number="16">Par 4 Blue</Channel>
+  <Channel Number="17">Par 4 White</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="10.2" Width="975" Height="230" Depth="80"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Head" PanMax="360" TiltMax="90"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="108" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

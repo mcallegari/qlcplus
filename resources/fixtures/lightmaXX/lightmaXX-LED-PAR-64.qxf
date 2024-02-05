@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Johannes Felber</Author>
  </Creator>
  <Manufacturer>lightmaXX</Manufacturer>
@@ -15,8 +15,8 @@
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="189">Dimmer</Capability>
-  <Capability Min="190" Max="250">Strobe</Capability>
-  <Capability Min="251" Max="255">No Function</Capability>
+  <Capability Min="190" Max="250" Preset="StrobeSlowToFast">Strobe</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">No function</Capability>
  </Channel>
  <Mode Name="Default">
   <Channel Number="0">Red</Channel>
@@ -24,11 +24,11 @@
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">Shutter</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="2" Width="230" Height="230" Depth="290"/>
-   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="28" DmxConnector="3-pin"/>
-  </Physical>
-  </FixtureDefinition>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2" Width="230" Height="230" Depth="290"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="28" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

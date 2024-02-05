@@ -29,7 +29,10 @@
 #include "vcxypadfixture_test.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
+#define protected public
+#include "genericfader.h"
 #include "universe.h"
+#undef protected
 #include "qlcfile.h"
 #include "doc.h"
 
@@ -115,10 +118,10 @@ void VCXYPadFixture_Test::params()
 
 void VCXYPadFixture_Test::paramsDegrees()
 {
-    Fixture* fxi = new Fixture(m_doc);
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    Fixture *fxi = new Fixture(m_doc);
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
-    QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode *mode = def->modes().first();
     QVERIFY(mode != NULL);
     fxi->setFixtureDefinition(def, mode);
     m_doc->addFixture(fxi);
@@ -342,7 +345,7 @@ void VCXYPadFixture_Test::compare()
 
 void VCXYPadFixture_Test::name()
 {
-    Fixture* fxi = new Fixture(m_doc);
+    Fixture *fxi = new Fixture(m_doc);
     fxi->setName("Test fixture");
     fxi->setChannels(1);
     m_doc->addFixture(fxi);
@@ -525,7 +528,7 @@ void VCXYPadFixture_Test::saveXMLHappy()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Axis")
+        if (xmlReader.name().toString() == "Axis")
         {
             QXmlStreamAttributes attrs = xmlReader.attributes();
             QString id = attrs.value("ID").toString();
@@ -590,7 +593,7 @@ void VCXYPadFixture_Test::saveXMLSad()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Axis")
+        if (xmlReader.name().toString() == "Axis")
         {
             QXmlStreamAttributes attrs = xmlReader.attributes();
             QString id = attrs.value("ID").toString();
@@ -640,7 +643,7 @@ void VCXYPadFixture_Test::armNoFixture()
 
 void VCXYPadFixture_Test::armDimmer()
 {
-    Fixture* fxi = new Fixture(m_doc);
+    Fixture *fxi = new Fixture(m_doc);
     fxi->setChannels(6);
     m_doc->addFixture(fxi);
 
@@ -657,10 +660,10 @@ void VCXYPadFixture_Test::armDimmer()
 
 void VCXYPadFixture_Test::arm8bit()
 {
-    Fixture* fxi = new Fixture(m_doc);
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    Fixture *fxi = new Fixture(m_doc);
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
-    QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode *mode = def->modes().first();
     QVERIFY(mode != NULL);
     fxi->setFixtureDefinition(def, mode);
     fxi->setAddress(50);
@@ -669,9 +672,10 @@ void VCXYPadFixture_Test::arm8bit()
     VCXYPadFixture xy(m_doc);
     xy.setHead(GroupHead(fxi->id(), 0));
     xy.arm();
-    QCOMPARE(xy.m_xMSB, quint32(50));
+    QCOMPARE(xy.m_fixtureAddress, quint32(50));
+    QCOMPARE(xy.m_xMSB, quint32(0));
     QCOMPARE(xy.m_xLSB, QLCChannel::invalid());
-    QCOMPARE(xy.m_yMSB, quint32(51));
+    QCOMPARE(xy.m_yMSB, quint32(1));
     QCOMPARE(xy.m_yLSB, QLCChannel::invalid());
 
     m_doc->deleteFixture(fxi->id());
@@ -679,10 +683,10 @@ void VCXYPadFixture_Test::arm8bit()
 
 void VCXYPadFixture_Test::arm16bit()
 {
-    Fixture* fxi = new Fixture(m_doc);
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Varytec", "Easy Move LED XS Spot");
+    Fixture *fxi = new Fixture(m_doc);
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Varytec", "Easy Move LED XS Spot");
     QVERIFY(def != NULL);
-    QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode *mode = def->modes().first();
     QVERIFY(mode != NULL);
     fxi->setFixtureDefinition(def, mode);
     m_doc->addFixture(fxi);
@@ -715,29 +719,32 @@ void VCXYPadFixture_Test::disarm()
 void VCXYPadFixture_Test::writeDimmer()
 {
     VCXYPadFixture xy(m_doc);
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
-    xy.writeDMX(1, 1, ua);
+    xy.writeDMX(1, 1, fader, ua[0]);
+    ua[0]->processFaders();
     QCOMPARE(ua[0]->preGMValues()[0], char(0));
 
     xy.m_xMSB = 0;
     xy.m_yMSB = QLCChannel::invalid();
-    xy.writeDMX(1, 1, ua);
+    xy.writeDMX(1, 1, fader, ua[0]);
+    ua[0]->processFaders();
     QCOMPARE(ua[0]->preGMValues()[0], char(0));
 
     xy.m_xMSB = QLCChannel::invalid();
     xy.m_yMSB = 0;
-    xy.writeDMX(1, 1, ua);
+    xy.writeDMX(1, 1, fader, ua[0]);
+    ua[0]->processFaders();
     QCOMPARE(ua[0]->preGMValues()[0], char(0));
 }
 
 void VCXYPadFixture_Test::write8bitNoReverse()
 {
-    Fixture* fxi = new Fixture(m_doc);
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    Fixture *fxi = new Fixture(m_doc);
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
-    QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode *mode = def->modes().first();
     QVERIFY(mode != NULL);
     fxi->setFixtureDefinition(def, mode);
     m_doc->addFixture(fxi);
@@ -748,16 +755,17 @@ void VCXYPadFixture_Test::write8bitNoReverse()
     xy.setY(0, 1, false);
     xy.arm();
 
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     for (qreal i = 0; i <= 1.01; i += (qreal(1) / qreal(USHRT_MAX)))
     {
-        xy.writeDMX(i, 1.0 - i, ua);
+        xy.writeDMX(i, 1.0 - i, fader, ua[0]);
 
         ushort x = floor((qreal(USHRT_MAX) * i) + 0.5);
         ushort y = floor((qreal(USHRT_MAX) * (1.0 - i)) + 0.5);
 
+        ua[0]->processFaders();
         QCOMPARE(ua[0]->preGMValues()[0], char(x >> 8));
         QCOMPARE(ua[0]->preGMValues()[1], char(y >> 8));
         QCOMPARE(ua[0]->preGMValues()[2], char(0));
@@ -769,10 +777,10 @@ void VCXYPadFixture_Test::write8bitNoReverse()
 
 void VCXYPadFixture_Test::write8bitReverse()
 {
-    Fixture* fxi = new Fixture(m_doc);
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    Fixture *fxi = new Fixture(m_doc);
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
-    QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode *mode = def->modes().first();
     QVERIFY(mode != NULL);
     fxi->setFixtureDefinition(def, mode);
     m_doc->addFixture(fxi);
@@ -783,16 +791,17 @@ void VCXYPadFixture_Test::write8bitReverse()
     xy.setY(0, 1, true);
     xy.arm();
 
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     for (qreal i = 0; i <= 1.01; i += (qreal(1) / qreal(USHRT_MAX)))
     {
-        xy.writeDMX(i, 1.0 - i, ua);
+        xy.writeDMX(i, 1.0 - i, fader, ua[0]);
 
         ushort x = floor((qreal(USHRT_MAX) * (1.0 - i)) + 0.5);
         ushort y = floor((qreal(USHRT_MAX) * i) + 0.5);
 
+        ua[0]->processFaders();
         QCOMPARE(ua[0]->preGMValues()[0], char(x >> 8));
         QCOMPARE(ua[0]->preGMValues()[1], char(y >> 8));
         QCOMPARE(ua[0]->preGMValues()[2], char(0));
@@ -804,10 +813,10 @@ void VCXYPadFixture_Test::write8bitReverse()
 
 void VCXYPadFixture_Test::write16bitNoReverse()
 {
-    Fixture* fxi = new Fixture(m_doc);
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Varytec", "Easy Move LED XS Spot");
+    Fixture *fxi = new Fixture(m_doc);
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Varytec", "Easy Move LED XS Spot");
     QVERIFY(def != NULL);
-    QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode *mode = def->modes().first();
     QVERIFY(mode != NULL);
     fxi->setFixtureDefinition(def, mode);
     m_doc->addFixture(fxi);
@@ -818,16 +827,17 @@ void VCXYPadFixture_Test::write16bitNoReverse()
     xy.setY(0, 1, false);
     xy.arm();
 
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     for (qreal i = 0; i <= 1.01; i += (qreal(1) / qreal(USHRT_MAX)))
     {
-        xy.writeDMX(i, 1.0 - i, ua);
+        xy.writeDMX(i, 1.0 - i, fader, ua[0]);
 
         ushort x = floor((qreal(USHRT_MAX) * i) + 0.5);
         ushort y = floor((qreal(USHRT_MAX) * (1.0 - i)) + 0.5);
 
+        ua[0]->processFaders();
         QCOMPARE(ua[0]->preGMValues()[0], char(x >> 8));
         QCOMPARE(ua[0]->preGMValues()[1], char(x & 0xFF));
         QCOMPARE(ua[0]->preGMValues()[2], char(y >> 8));
@@ -837,10 +847,10 @@ void VCXYPadFixture_Test::write16bitNoReverse()
 
 void VCXYPadFixture_Test::write16bitReverse()
 {
-    Fixture* fxi = new Fixture(m_doc);
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Varytec", "Easy Move LED XS Spot");
+    Fixture *fxi = new Fixture(m_doc);
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Varytec", "Easy Move LED XS Spot");
     QVERIFY(def != NULL);
-    QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode *mode = def->modes().first();
     QVERIFY(mode != NULL);
     fxi->setFixtureDefinition(def, mode);
     m_doc->addFixture(fxi);
@@ -851,13 +861,13 @@ void VCXYPadFixture_Test::write16bitReverse()
     xy.setY(0.2, 0.8, true);
     xy.arm();
 
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
-
 #ifdef Q_PROCESSOR_X86_64
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    QSharedPointer<GenericFader> fader = ua[0]->requestFader();
+
     for (qreal i = 0; i <= 1.01; i += (qreal(1) / qreal(USHRT_MAX)))
     {
-        xy.writeDMX(i, 1.0 - i, ua);
+        xy.writeDMX(i, 1.0 - i, fader, ua[0]);
 
         qreal xmul = i;
         qreal ymul = 1.0 - i;
@@ -871,6 +881,7 @@ void VCXYPadFixture_Test::write16bitReverse()
         ushort x = floor((qreal(USHRT_MAX) * xmul) + 0.5);
         ushort y = floor((qreal(USHRT_MAX) * ymul) + 0.5);
 
+        ua[0]->processFaders();
         QCOMPARE(ua[0]->preGMValues()[0], char(x >> 8));
         QCOMPARE(ua[0]->preGMValues()[1], char(x & 0xFF));
         QCOMPARE(ua[0]->preGMValues()[2], char(y >> 8));
@@ -889,18 +900,18 @@ void VCXYPadFixture_Test::writeRange()
 
     // For testing pourpose we will test only on the X axis
     // keeping the Y axis at its full range
-    Fixture* fxi = new Fixture(m_doc);
+    Fixture *fxi = new Fixture(m_doc);
 
     // Select fixture
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("American DJ", "Inno Pocket Spot");
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("American DJ", "Inno Pocket Spot");
     QVERIFY(def != NULL);
-    QLCFixtureMode* mode = def->modes().at(1);
+    QLCFixtureMode *mode = def->modes().at(1);
     QVERIFY(mode != NULL);
 
     fxi->setFixtureDefinition(def, mode);
 
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     m_doc->addFixture(fxi);
     VCXYPadFixture xy(m_doc);
@@ -913,12 +924,14 @@ void VCXYPadFixture_Test::writeRange()
     qreal xmul = 0.0;
     qreal ymul = 0.0;
 
-    xy.writeDMX(xmul, ymul, ua);
+    xy.writeDMX(xmul, ymul, fader, ua[0]);
+    ua[0]->processFaders();
     QCOMPARE((int)ua[0]->preGMValue(0), valueAt0);
 
     // handle on the right
     xmul = 1;
-    xy.writeDMX(xmul, ymul, ua);
+    xy.writeDMX(xmul, ymul, fader, ua[0]);
+    ua[0]->processFaders();
     QCOMPARE((int)ua[0]->preGMValue(0), valueAt1);
 }
 
@@ -953,18 +966,17 @@ void VCXYPadFixture_Test::readRange()
 
     // For testing pourpose we will test only on the X axis
     // keeping the Y axis at its full range
-    Fixture* fxi = new Fixture(m_doc);
+    Fixture *fxi = new Fixture(m_doc);
 
     // Select fixture
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("American DJ", "Inno Pocket Spot");
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("American DJ", "Inno Pocket Spot");
     QVERIFY(def != NULL);
-    QLCFixtureMode* mode = def->modes().at(1);
+    QLCFixtureMode *mode = def->modes().at(1);
     QVERIFY(mode != NULL);
 
     fxi->setFixtureDefinition(def, mode);
 
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
 
     m_doc->addFixture(fxi);
     VCXYPadFixture xy(m_doc);
@@ -981,7 +993,9 @@ void VCXYPadFixture_Test::readRange()
     qreal ymul = 0.0;
 
     ua[0]->write(0, valueAt0);
-    xy.readDMX(ua, xmul, ymul);
+    ua[0]->processFaders();
+    QByteArray uniData = QByteArray(ua[0]->postGMValues()->data(), ua[0]->usedChannels());
+    xy.readDMX(uniData, xmul, ymul);
     // the value was scaled to interval rangeMax-rangeMin,
     // so the resolution is less than 1/that range
     // here the value should be near zero
@@ -989,7 +1003,9 @@ void VCXYPadFixture_Test::readRange()
 
     // handle on the right
     ua[0]->write(0, valueAt1);
-    xy.readDMX(ua, xmul, ymul);
+    ua[0]->processFaders();
+    uniData = QByteArray(ua[0]->postGMValues()->data(), ua[0]->usedChannels());
+    xy.readDMX(uniData, xmul, ymul);
     // again, the resolution depends on the range.
     // here the value should be near one
     QVERIFY(xmul > (rangeWidth - rangeStep));

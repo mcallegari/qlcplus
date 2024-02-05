@@ -8,14 +8,12 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = qlcplusengine
 
-QT      += core gui
-greaterThan(QT_MAJOR_VERSION, 4) {
-  QT += multimedia
-  macx:QT_CONFIG -= no-pkg-config
-  win32:QT += widgets
-}
+QT += core gui
+QT += multimedia
+macx:QT_CONFIG -= no-pkg-config
+win32:QT += widgets
 
-qmlui {
+qmlui|greaterThan(QT_MAJOR_VERSION, 5) {
   QT += qml
 } else {
   QT += script
@@ -56,18 +54,16 @@ HEADERS += avolitesd4parser.h \
            qlcinputprofile.h \
            qlcinputsource.h \
            qlcmodifierscache.h \
+           qlcpalette.h \
            qlcphysical.h \
            utils.h
-
-greaterThan(QT_MAJOR_VERSION, 4) {
-  HEADERS += video.h
-}
 
 # Engine
 HEADERS += bus.h \
            channelsgroup.h \
            channelmodifier.h \
            chaser.h \
+           chaseraction.h \
            chaserrunner.h \
            chaserstep.h \
            collection.h \
@@ -90,6 +86,7 @@ HEADERS += bus.h \
            inputoutputmap.h \
            inputpatch.h \
            ioplugincache.h \
+           keypadparser.h \
            mastertimer.h \
            monitorproperties.h \
            outputpatch.h \
@@ -111,9 +108,10 @@ HEADERS += bus.h \
            showfunction.h \
            showrunner.h \
            track.h \
-           universe.h
+           universe.h \
+           video.h
 
-qmlui {
+qmlui|greaterThan(QT_MAJOR_VERSION, 5) {
   HEADERS += rgbscriptv4.h scriptrunner.h scriptv4.h
 } else {
   HEADERS += rgbscript.h script.h
@@ -136,11 +134,8 @@ SOURCES += avolitesd4parser.cpp \
            qlcinputprofile.cpp \
            qlcinputsource.cpp \
            qlcmodifierscache.cpp \
+           qlcpalette.cpp \
            qlcphysical.cpp
-
-greaterThan(QT_MAJOR_VERSION, 4) {
-  SOURCES += video.cpp
-}
 
 # Engine
 SOURCES += bus.cpp \
@@ -168,6 +163,7 @@ SOURCES += bus.cpp \
            inputoutputmap.cpp \
            inputpatch.cpp \
            ioplugincache.cpp \
+           keypadparser.cpp \
            mastertimer.cpp \
            monitorproperties.cpp \
            outputpatch.cpp \
@@ -187,9 +183,10 @@ SOURCES += bus.cpp \
            showfunction.cpp \
            showrunner.cpp \
            track.cpp \
-           universe.cpp
+           universe.cpp \
+           video.cpp
 
-qmlui {
+qmlui|greaterThan(QT_MAJOR_VERSION, 5) {
   SOURCES += rgbscriptv4.cpp scriptrunner.cpp scriptv4.cpp
 } else {
   SOURCES += rgbscript.cpp script.cpp

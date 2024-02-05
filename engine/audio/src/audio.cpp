@@ -28,7 +28,6 @@
 #include "audioplugincache.h"
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-
  #if defined(__APPLE__) || defined(Q_OS_MAC)
    #include "audiorenderer_portaudio.h"
  #elif defined(WIN32) || defined(Q_OS_WIN)
@@ -36,15 +35,18 @@
  #else
    #include "audiorenderer_alsa.h"
  #endif
+#elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+ #include "audiorenderer_qt5.h"
 #else
- #include "audiorenderer_qt.h"
+ #include "audiorenderer_qt6.h"
 #endif
 
 #include "audio.h"
 #include "doc.h"
 
-#define KXMLQLCAudioSource "Source"
-#define KXMLQLCAudioDevice "Device"
+#define KXMLQLCAudioSource QString("Source")
+#define KXMLQLCAudioDevice QString("Device")
+#define KXMLQLCAudioVolume QString("Volume")
 
 /*****************************************************************************
  * Initialization
@@ -58,6 +60,7 @@ Audio::Audio(Doc* doc)
   , m_audioDevice(QString())
   , m_sourceFileName("")
   , m_audioDuration(0)
+  , m_volume(1.0)
 {
     setName(tr("New Audio"));
     setRunOrder(Audio::SingleShot);
@@ -153,12 +156,13 @@ bool Audio::setSourceFileName(QString filename)
 
     m_sourceFileName = filename;
 
-    //QMessageBox::warning(0,"Warning", QString("File complete path: %1").arg(m_sourceFileName));
-
     if (QFile(m_sourceFileName).exists())
+    {
         setName(QFileInfo(m_sourceFileName).fileName());
+    }
     else
     {
+        doc()->appendToErrorLog(tr("Audio file <b>%1</b> not found").arg(m_sourceFileName));
         setName(tr("File not found"));
         //m_audioDuration = 0;
         emit changed(id());
@@ -167,9 +171,11 @@ bool Audio::setSourceFileName(QString filename)
     emit sourceFilenameChanged();
 
     m_decoder = m_doc->audioPluginCache()->getDecoderForFile(m_sourceFileName);
+
     if (m_decoder == NULL)
         return false;
 
+    setDuration(m_decoder->totalTime());
     setTotalDuration(m_decoder->totalTime());
 
     emit changed(id());
@@ -192,6 +198,16 @@ void Audio::setAudioDevice(QString dev)
     m_audioDevice = dev;
 }
 
+qreal Audio::volume() const
+{
+    return m_volume;
+}
+
+void Audio::setVolume(qreal volume)
+{
+    m_volume = volume;
+}
+
 QString Audio::audioDevice()
 {
     return m_audioDevice;
@@ -202,7 +218,7 @@ int Audio::adjustAttribute(qreal fraction, int attributeId)
     int attrIndex = Function::adjustAttribute(fraction, attributeId);
 
     if (m_audio_out != NULL && attrIndex == Intensity)
-        m_audio_out->adjustIntensity(getAttributeValue(Function::Intensity));
+        m_audio_out->adjustIntensity(m_volume * getAttributeValue(Function::Intensity));
 
     return attrIndex;
 }
@@ -250,6 +266,9 @@ bool Audio::saveXML(QXmlStreamWriter *doc)
     if (m_audioDevice.isEmpty() == false)
         doc->writeAttribute(KXMLQLCAudioDevice, m_audioDevice);
 
+    if (m_volume != 1.0)
+        doc->writeAttribute(KXMLQLCAudioVolume, QString::number(m_volume));
+
     doc->writeCharacters(m_doc->normalizeComponentPath(m_sourceFileName));
 
     doc->writeEndElement();
@@ -282,8 +301,12 @@ bool Audio::loadXML(QXmlStreamReader &root)
         if (root.name() == KXMLQLCAudioSource)
         {
             QXmlStreamAttributes attrs = root.attributes();
+
             if (attrs.hasAttribute(KXMLQLCAudioDevice))
                 setAudioDevice(attrs.value(KXMLQLCAudioDevice).toString());
+            if (attrs.hasAttribute(KXMLQLCAudioVolume))
+                setVolume(attrs.value(KXMLQLCAudioVolume).toString().toDouble());
+
             setSourceFileName(m_doc->denormalizeComponentPath(root.readElementText()));
         }
         else if (root.name() == KXMLQLCFunctionSpeed)
@@ -317,6 +340,15 @@ void Audio::preRun(MasterTimer* timer)
 {
     if (m_decoder != NULL)
     {
+        uint fadeIn = overrideFadeInSpeed() == defaultSpeed() ? fadeInSpeed() : overrideFadeInSpeed();
+
+        if (m_audio_out != NULL && m_audio_out->isRunning())
+        {
+            m_audio_out->stop();
+            m_audio_out->deleteLater();
+            m_audio_out = NULL;
+        }
+
         m_decoder->seek(elapsed());
         AudioParameters ap = m_decoder->audioParameters();
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
@@ -329,13 +361,15 @@ void Audio::preRun(MasterTimer* timer)
         m_audio_out = new AudioRendererAlsa(m_audioDevice);
  #endif
         m_audio_out->moveToThread(QCoreApplication::instance()->thread());
+#elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+        m_audio_out = new AudioRendererQt5(m_audioDevice, doc());
 #else
-        m_audio_out = new AudioRendererQt(m_audioDevice);
+        m_audio_out = new AudioRendererQt6(m_audioDevice, doc());
 #endif
         m_audio_out->setDecoder(m_decoder);
         m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
-        m_audio_out->adjustIntensity(getAttributeValue(Intensity));
-        m_audio_out->setFadeIn(fadeInSpeed());
+        m_audio_out->adjustIntensity(m_volume * getAttributeValue(Intensity));
+        m_audio_out->setFadeIn(elapsed() ? 0 : fadeIn);
         m_audio_out->setLooped(runOrder() == Audio::Loop);
         m_audio_out->start();
         connect(m_audio_out, SIGNAL(endOfStreamReached()),
@@ -371,16 +405,33 @@ void Audio::write(MasterTimer* timer, QList<Universe *> universes)
 
     incrementElapsed();
 
-    if (fadeOutSpeed() != 0)
+    if (m_audio_out && !m_audio_out->isLooped())
     {
-        if (m_audio_out != NULL && totalDuration() - elapsed() <= fadeOutSpeed())
-            m_audio_out->setFadeOut(fadeOutSpeed());
+        uint fadeout = overrideFadeOutSpeed() == defaultSpeed() ? fadeOutSpeed() : overrideFadeOutSpeed();
+
+        if (fadeout)
+        {
+            if (m_audio_out != NULL && totalDuration() - elapsed() <= fadeOutSpeed())
+                m_audio_out->setFadeOut(fadeOutSpeed());
+        }
     }
 }
 
 void Audio::postRun(MasterTimer* timer, QList<Universe*> universes)
 {
-    slotEndOfStream();
+    // Check whether a fade out is needed "outside" of the natural playback
+    // This is the case of a Chaser step
+    uint fadeout = overrideFadeOutSpeed() == defaultSpeed() ? fadeOutSpeed() : overrideFadeOutSpeed();
+
+    if (fadeout == 0)
+    {
+        slotEndOfStream();
+    }
+    else
+    {
+        if (m_audio_out != NULL)
+            m_audio_out->setFadeOut(fadeout);
+    }
 
     Function::postRun(timer, universes);
 }

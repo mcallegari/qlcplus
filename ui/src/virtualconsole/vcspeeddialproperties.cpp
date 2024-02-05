@@ -22,13 +22,10 @@
 #include "vcspeeddialproperties.h"
 #include "inputselectionwidget.h"
 #include "vcspeeddialfunction.h"
-#include "speeddialwidget.h"
 #include "selectinputchannel.h"
 #include "functionselection.h"
-#include "assignhotkey.h"
 #include "vcspeeddial.h"
 #include "vcspeeddialpreset.h"
-#include "inputpatch.h"
 #include "speeddial.h"
 #include "apputil.h"
 #include "doc.h"
@@ -150,7 +147,7 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     if (dialMask & VCSpeedDial::Apply) m_applyCheck->setChecked(true);
 
     /* Presets */
-    foreach(VCSpeedDialPreset const* preset, m_dial->presets())
+    foreach (VCSpeedDialPreset const* preset, m_dial->presets())
     {
         m_presets.append(new VCSpeedDialPreset(*preset));
         if (preset->m_id > m_lastAssignedID)
@@ -182,6 +179,16 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
 
     connect(m_speedDialWidget, SIGNAL(valueChanged(int)),
             this, SLOT(slotSpeedDialWidgetValueChanged(int)));
+
+    connect(m_addButton, SIGNAL(clicked()),
+            this, SLOT(slotAddClicked()));
+    connect(m_removeButton, SIGNAL(clicked()),
+            this, SLOT(slotRemoveClicked()));
+
+    connect(m_copyFactorsButton, SIGNAL(clicked()),
+            this, SLOT(slotCopyFactorsClicked()));
+    connect(m_pasteFactorsButton, SIGNAL(clicked()),
+            this, SLOT(slotPasteFactorsClicked()));
 }
 
 VCSpeedDialProperties::~VCSpeedDialProperties()
@@ -387,7 +394,7 @@ void VCSpeedDialProperties::updateTree()
 {
     m_presetsTree->blockSignals(true);
     m_presetsTree->clear();
-    foreach(VCSpeedDialPreset* preset, m_presets)
+    foreach (VCSpeedDialPreset* preset, m_presets)
     {
         QTreeWidgetItem *item = new QTreeWidgetItem(m_presetsTree);
         item->setData(0, Qt::UserRole, preset->m_id);
@@ -425,7 +432,7 @@ VCSpeedDialPreset* VCSpeedDialProperties::getSelectedPreset()
     if (item != NULL)
     {
         quint8 presetID = item->data(0, Qt::UserRole).toUInt();
-        foreach(VCSpeedDialPreset* preset, m_presets)
+        foreach (VCSpeedDialPreset* preset, m_presets)
         {
             if (preset->m_id == presetID)
                 return preset;
@@ -443,7 +450,7 @@ void VCSpeedDialProperties::addPreset(VCSpeedDialPreset *preset)
 
 void VCSpeedDialProperties::removePreset(quint8 id)
 {
-    for(int i = 0; i < m_presets.count(); i++)
+    for (int i = 0; i < m_presets.count(); i++)
     {
         if (m_presets.at(i)->m_id == id)
         {

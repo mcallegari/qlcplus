@@ -49,7 +49,7 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Speed (Ch 6 [032-223]/Strobe">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="0" Max="15">No function</Capability>
   <Capability Min="16" Max="255">Speed - Slow -&gt; Fast</Capability>
  </Channel>
  <Mode Name="7 Channel">

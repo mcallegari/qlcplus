@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.6 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Nerijus Mongirdas</Author>
  </Creator>
  <Manufacturer>QTX</Manufacturer>
@@ -11,20 +11,20 @@
  <Type>Moving Head</Type>
  <Channel Name="Colour Wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="16" Res="Others/open.svg">Open</Capability>
-  <Capability Min="17" Max="33" Color="#ff0000">Fire red</Capability>
-  <Capability Min="34" Max="49" Color="#ffff00">Yellow</Capability>
-  <Capability Min="50" Max="66" Color="#00ffff">Light blue</Capability>
-  <Capability Min="67" Max="83" Color="#00aa00">Green</Capability>
-  <Capability Min="84" Max="100" Color="#ffaa00">Orange</Capability>
-  <Capability Min="101" Max="106" Color="#ff007f">Purple</Capability>
-  <Capability Min="107" Max="126" Color="#00007f">Dark blue</Capability>
-  <Capability Min="127" Max="192" Res="Others/rainbow.png">Scrolling colour wheel,  fast to slow</Capability>
-  <Capability Min="193" Max="255" Res="Others/rainbow.png">Reverse scrolling colour wheel, slow to fast</Capability>
+  <Capability Min="0" Max="16" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="17" Max="33" Preset="ColorMacro" Res1="#ff0000">Fire red</Capability>
+  <Capability Min="34" Max="49" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="50" Max="66" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
+  <Capability Min="67" Max="83" Preset="ColorMacro" Res1="#00aa00">Green</Capability>
+  <Capability Min="84" Max="100" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="101" Max="106" Preset="ColorMacro" Res1="#ff007f">Purple</Capability>
+  <Capability Min="107" Max="126" Preset="ColorMacro" Res1="#00007f">Dark blue</Capability>
+  <Capability Min="127" Max="192" Preset="GoboMacro" Res1="Others/rainbow.png">Scrolling colour wheel, fast to slow</Capability>
+  <Capability Min="193" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Reverse scrolling colour wheel, slow to fast</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="19" Res="Others/open.svg">Open</Capability>
+  <Capability Min="0" Max="19" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="20" Max="41">Gobo 1</Capability>
   <Capability Min="42" Max="61">Gobo 2</Capability>
   <Capability Min="62" Max="82">Gobo 3</Capability>
@@ -42,9 +42,9 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="28">Open</Capability>
-  <Capability Min="29" Max="249">Strobe from slow to fast</Capability>
-  <Capability Min="250" Max="255">Open</Capability>
+  <Capability Min="0" Max="28" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="29" Max="249" Preset="StrobeSlowToFast">Strobe from slow to fast</Capability>
+  <Capability Min="250" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Prism">
@@ -77,11 +77,11 @@
   <Channel Number="10">Prism</Channel>
   <Channel Number="11">Reset</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="8000"/>
-   <Dimensions Weight="8" Width="260" Height="260" Depth="300"/>
-   <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
-   <Focus Type="Head" PanMax="540" TiltMax="230"/>
-   <Technical PowerConsumption="110" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="8000"/>
+  <Dimensions Weight="8" Width="260" Height="260" Depth="300"/>
+  <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
+  <Focus Type="Head" PanMax="540" TiltMax="230"/>
+  <Technical PowerConsumption="110" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

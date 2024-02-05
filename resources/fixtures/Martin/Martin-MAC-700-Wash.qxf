@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Thorben</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
@@ -11,28 +11,28 @@
  <Type>Moving Head</Type>
  <Channel Name="Shutter, Strobe, Functions">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="19">Shutter closed (lamp switches to 400 W mode after 10 seconds while shutter is closed)</Capability>
-  <Capability Min="20" Max="49">Shutter open</Capability>
-  <Capability Min="50" Max="72">Strobe, fast -&gt; slow</Capability>
-  <Capability Min="73" Max="79">Shutter open</Capability>
-  <Capability Min="80" Max="99">Opening pulse, fast -&gt; slow</Capability>
-  <Capability Min="100" Max="119">Closing pulse, fast -&gt; slow</Capability>
-  <Capability Min="120" Max="127">Shutter open</Capability>
-  <Capability Min="128" Max="147">Random strobe, fast</Capability>
-  <Capability Min="148" Max="167">Random strobe, medium</Capability>
-  <Capability Min="168" Max="187">Random strobe, slow</Capability>
-  <Capability Min="188" Max="190">Shutter open</Capability>
-  <Capability Min="191" Max="193">Random opening pulse, fast</Capability>
-  <Capability Min="194" Max="196">Random open pulse, slow</Capability>
-  <Capability Min="197" Max="199">Random closing pulse, fast</Capability>
-  <Capability Min="200" Max="202">Random closing pulse, slow</Capability>
-  <Capability Min="203" Max="207">Shutter open</Capability>
-  <Capability Min="208" Max="217">Reset fixture</Capability>
-  <Capability Min="218" Max="227">Shutter open</Capability>
-  <Capability Min="228" Max="237">Lamp on</Capability>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Shutter closed (lamp switches to 400 W mode after 10 seconds while shutter is closed)</Capability>
+  <Capability Min="20" Max="49" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="50" Max="72" Preset="StrobeFastToSlow">Strobe, fast -&gt; slow</Capability>
+  <Capability Min="73" Max="79" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="80" Max="99" Preset="PulseFastToSlow">Opening pulse, fast -&gt; slow</Capability>
+  <Capability Min="100" Max="119" Preset="PulseFastToSlow">Closing pulse, fast -&gt; slow</Capability>
+  <Capability Min="120" Max="127" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="128" Max="147" Preset="StrobeRandomSlowToFast">Random strobe, fast</Capability>
+  <Capability Min="148" Max="167" Preset="StrobeRandom">Random strobe, medium</Capability>
+  <Capability Min="168" Max="187" Preset="StrobeRandomSlowToFast">Random strobe, slow</Capability>
+  <Capability Min="188" Max="190" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="191" Max="193" Preset="StrobeRandom">Random opening pulse, fast</Capability>
+  <Capability Min="194" Max="196" Preset="StrobeRandom">Random open pulse, slow</Capability>
+  <Capability Min="197" Max="199" Preset="StrobeRandom">Random closing pulse, fast</Capability>
+  <Capability Min="200" Max="202" Preset="StrobeRandom">Random closing pulse, slow</Capability>
+  <Capability Min="203" Max="207" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="208" Max="217" Preset="ResetAll">Reset fixture</Capability>
+  <Capability Min="218" Max="227" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="228" Max="237" Preset="LampOn">Lamp on</Capability>
   <Capability Min="238" Max="242">400 W mode (active until 700 W value is selected)</Capability>
   <Capability Min="243" Max="247">700 W mode</Capability>
-  <Capability Min="248" Max="255">Lamp off</Capability>
+  <Capability Min="248" Max="255" Preset="LampOff">Lamp off</Capability>
  </Channel>
  <Channel Name="Dimmer (MSB)" Preset="IntensityDimmer"/>
  <Channel Name="Dimmer, fine (LSB)" Preset="IntensityDimmerFine"/>
@@ -44,30 +44,30 @@
  <Channel Name="Yellow, fine (LSB)" Preset="IntensityYellowFine"/>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0" Color="#ffffff">Open</Capability>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
   <Capability Min="1" Max="16">Open -&gt; slot 1</Capability>
-  <Capability Min="17" Max="17" Color="#0000ff">Slot 1 (Blue 110)</Capability>
+  <Capability Min="17" Max="17" Preset="ColorMacro" Res1="#0000ff">Slot 1 (Blue 110)</Capability>
   <Capability Min="18" Max="33">Slot 1 -&gt; Slot 2</Capability>
-  <Capability Min="34" Max="34" Color="#00bd52">Slot 2 (Green 206 IAD)</Capability>
+  <Capability Min="34" Max="34" Preset="ColorMacro" Res1="#00bd52">Slot 2 (Green 206 IAD)</Capability>
   <Capability Min="35" Max="50">Slot 2 -&gt; Slot 3</Capability>
-  <Capability Min="51" Max="51" Color="#ee63e6">Slot 3 (Pink 312)</Capability>
+  <Capability Min="51" Max="51" Preset="ColorMacro" Res1="#ee63e6">Slot 3 (Pink 312)</Capability>
   <Capability Min="52" Max="67">Slot 3 -&gt; Slot 4</Capability>
-  <Capability Min="68" Max="68" Color="#ff964a">Slot 4 (Orange 306M)</Capability>
+  <Capability Min="68" Max="68" Preset="ColorMacro" Res1="#ff964a">Slot 4 (Orange 306M)</Capability>
   <Capability Min="69" Max="84">Slot 4 -&gt; Slot 5</Capability>
-  <Capability Min="85" Max="85" Color="#eedefe">Slot 5 (Half minus green)</Capability>
+  <Capability Min="85" Max="85" Preset="ColorMacro" Res1="#eedefe">Slot 5 (Half minus green)</Capability>
   <Capability Min="86" Max="101">Slot 5 -&gt; Slot 6</Capability>
-  <Capability Min="102" Max="102" Color="#cedefe">Slot 6 (CTC 3200 - 4100K)</Capability>
+  <Capability Min="102" Max="102" Preset="ColorMacro" Res1="#cedefe">Slot 6 (CTC 3200 - 4100K)</Capability>
   <Capability Min="103" Max="118">Slot 6 -&gt; slot 7</Capability>
-  <Capability Min="119" Max="119" Color="#5555ff">Slot 7 (UV-Transmitter)</Capability>
+  <Capability Min="119" Max="119" Preset="ColorMacro" Res1="#5555ff">Slot 7 (UV-Transmitter)</Capability>
   <Capability Min="120" Max="135">Slot 7 -&gt; Slot 8</Capability>
-  <Capability Min="136" Max="136" Color="#a50039">Slot 8 (Red 308)</Capability>
+  <Capability Min="136" Max="136" Preset="ColorMacro" Res1="#a50039">Slot 8 (Red 308)</Capability>
   <Capability Min="137" Max="152">Slot 8 -&gt; Open</Capability>
   <Capability Min="153" Max="153">Open</Capability>
   <Capability Min="154" Max="158">Slot 8 (Red 308) - Stepped Scroll</Capability>
   <Capability Min="159" Max="163">Slot 7 (UV-Transmitter)</Capability>
   <Capability Min="164" Max="168">Slot 6 (CTC 3200-4100K)</Capability>
   <Capability Min="169" Max="173">Slot 5 (Half minus green)</Capability>
-  <Capability Min="174" Max="178" Color="#fe9900">Slot 4 (Orange 306M)</Capability>
+  <Capability Min="174" Max="178" Preset="ColorMacro" Res1="#fe9900">Slot 4 (Orange 306M)</Capability>
   <Capability Min="179" Max="183">Slot 3 (Pink 312)</Capability>
   <Capability Min="184" Max="188">Slot 2 (Green 206 IAD)</Capability>
   <Capability Min="189" Max="193">Slot 1 (Blue 110)</Capability>
@@ -169,11 +169,11 @@
   <Channel Number="21">Pan/tilt speed</Channel>
   <Channel Number="22">Effects Speed</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="HTI 700W" Lumens="16700" ColourTemperature="7500"/>
-   <Dimensions Weight="34.5" Width="365" Height="636" Depth="450"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="540" TiltMax="246"/>
-   <Technical PowerConsumption="1019" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="HTI 700W" Lumens="16700" ColourTemperature="7500"/>
+  <Dimensions Weight="34.5" Width="365" Height="636" Depth="450"/>
+  <Lens Name="Other" DegreesMin="12.5" DegreesMax="66"/>
+  <Focus Type="Head" PanMax="540" TiltMax="246"/>
+  <Technical PowerConsumption="1019" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
 </FixtureDefinition>

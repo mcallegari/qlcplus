@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4</Version>
+  <Author>Hans-Juergen Tappe</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED SLS-18x3W TCL</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Intensity" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Shutter" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Colors">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="31" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="32" Max="47" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="48" Max="63" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="64" Max="79">Cyan</Capability>
+  <Capability Min="80" Max="95">Yellow</Capability>
+  <Capability Min="96" Max="111">Violet</Capability>
+  <Capability Min="112" Max="127">White</Capability>
+  <Capability Min="128" Max="135">Color Fading 1</Capability>
+  <Capability Min="136" Max="143">Color Fading 2</Capability>
+  <Capability Min="144" Max="151">Color Fading 3</Capability>
+  <Capability Min="152" Max="159">Color Fading 4</Capability>
+  <Capability Min="160" Max="167">Color Fading 5</Capability>
+  <Capability Min="168" Max="175">Color Fading 6</Capability>
+  <Capability Min="176" Max="183">Color Fading 7</Capability>
+  <Capability Min="184" Max="191">Color Fading 8</Capability>
+  <Capability Min="192" Max="199">Color Switching 1</Capability>
+  <Capability Min="200" Max="207">Color Switching 2</Capability>
+  <Capability Min="208" Max="215">Color Switching 3</Capability>
+  <Capability Min="216" Max="223">Color Switching 4</Capability>
+  <Capability Min="224" Max="231">Color Switching 5</Capability>
+  <Capability Min="232" Max="239">Color Switching 6</Capability>
+  <Capability Min="240" Max="247">Music Controlled 1</Capability>
+  <Capability Min="248" Max="255">Music Controlled 2</Capability>
+ </Channel>
+ <Channel Name="ColorControl">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="5">Music Control (7 Colors)</Capability>
+  <Capability Min="6" Max="10">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeFrequency">Strobe (Increasing)</Capability>
+ </Channel>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Intensity</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Intensity</Channel>
+  <Channel Number="4">ColorControl</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Intensity</Channel>
+  <Channel Number="4">Shutter</Channel>
+  <Channel Number="5">Colors</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.5" Width="280" Height="310" Depth="110"/>
+  <Lens Name="Other" DegreesMin="26" DegreesMax="26"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="110" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

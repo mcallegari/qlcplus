@@ -37,21 +37,21 @@
  * @{
  */
 
-#define KXMLQLCVCFrame "Frame"
-#define KXMLQLCVCFrameAllowChildren "AllowChildren"
-#define KXMLQLCVCFrameAllowResize   "AllowResize"
-#define KXMLQLCVCFrameShowHeader    "ShowHeader"
-#define KXMLQLCVCFrameIsCollapsed   "Collapsed"
-#define KXMLQLCVCFrameIsDisabled    "Disabled"
-#define KXMLQLCVCFrameEnableSource  "Enable"
-#define KXMLQLCVCFrameShowEnableButton "ShowEnableButton"
+#define KXMLQLCVCFrame                  QString("Frame")
+#define KXMLQLCVCFrameAllowChildren     QString("AllowChildren")
+#define KXMLQLCVCFrameAllowResize       QString("AllowResize")
+#define KXMLQLCVCFrameShowHeader        QString("ShowHeader")
+#define KXMLQLCVCFrameIsCollapsed       QString("Collapsed")
+#define KXMLQLCVCFrameIsDisabled        QString("Disabled")
+#define KXMLQLCVCFrameEnableSource      QString("Enable")
+#define KXMLQLCVCFrameShowEnableButton  QString("ShowEnableButton")
 
-#define KXMLQLCVCFrameMultipage   "Multipage"
-#define KXMLQLCVCFramePagesNumber "PagesNum"
-#define KXMLQLCVCFrameCurrentPage "CurrentPage"
-#define KXMLQLCVCFrameNext        "Next"
-#define KXMLQLCVCFramePrevious    "Previous"
-#define KXMLQLCVCFramePagesLoop   "PagesLoop"
+#define KXMLQLCVCFrameMultipage   QString("Multipage")
+#define KXMLQLCVCFramePagesNumber QString("PagesNum")
+#define KXMLQLCVCFrameCurrentPage QString("CurrentPage")
+#define KXMLQLCVCFrameNext        QString("Next")
+#define KXMLQLCVCFramePrevious    QString("Previous")
+#define KXMLQLCVCFramePagesLoop   QString("PagesLoop")
 
 class VCFrameProperties;
 class VCFramePageShortcut;
@@ -119,6 +119,9 @@ public:
     bool isCollapsed() const;
 
     QSize originalSize() const;
+
+signals:
+    void disableStateChanged(bool disable);
 
 protected slots:
     void slotCollapseButtonToggled(bool toggle);

@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Thorben / Fredje</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
@@ -173,28 +173,28 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="19">Closed</Capability>
-  <Capability Min="20" Max="24">Open</Capability>
-  <Capability Min="25" Max="64">Strobe Effect 1, fast to slow</Capability>
-  <Capability Min="65" Max="69">Open</Capability>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="20" Max="24" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="25" Max="64" Preset="StrobeFastToSlow">Strobe Effect 1, fast to slow</Capability>
+  <Capability Min="65" Max="69" Preset="ShutterOpen">Open</Capability>
   <Capability Min="70" Max="84">Strobe Effect 2, fast on, slow off, from fast to slow follow-ups</Capability>
-  <Capability Min="85" Max="89">Open</Capability>
+  <Capability Min="85" Max="89" Preset="ShutterOpen">Open</Capability>
   <Capability Min="90" Max="104">Strobe Effect 3, slow on, fast off, from fast to slow follow-ups</Capability>
-  <Capability Min="105" Max="109">Open</Capability>
-  <Capability Min="110" Max="124">Strobe Effect 4, random, from fast to slow follow-ups</Capability>
-  <Capability Min="125" Max="129">Open</Capability>
+  <Capability Min="105" Max="109" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="110" Max="124" Preset="StrobeRandomFastToSlow">Strobe Effect 4, random, from fast to slow follow-ups</Capability>
+  <Capability Min="125" Max="129" Preset="ShutterOpen">Open</Capability>
   <Capability Min="130" Max="144">Strobe Effect 5, random, fast on, slow off, from fast to slow follow-ups</Capability>
-  <Capability Min="145" Max="149">Open</Capability>
+  <Capability Min="145" Max="149" Preset="ShutterOpen">Open</Capability>
   <Capability Min="150" Max="164">Strobe Effect 6, random, slow on, fast off, from fast to slow follow-ups</Capability>
-  <Capability Min="165" Max="169">Open</Capability>
-  <Capability Min="170" Max="184">Strobe Effect 7, pulse series, increasing time between pulses</Capability>
-  <Capability Min="185" Max="189">Open</Capability>
-  <Capability Min="190" Max="204">Strobe Effect 8, pulse series with random frequency, from fast to slow follow-ups</Capability>
-  <Capability Min="205" Max="209">Open</Capability>
-  <Capability Min="210" Max="224">Strobe Effect 9, single pulses, from fast to slow follow-ups</Capability>
-  <Capability Min="225" Max="229">Open</Capability>
+  <Capability Min="165" Max="169" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="170" Max="184" Preset="StrobeSlowToFast">Strobe Effect 7, pulse series, increasing time between pulses</Capability>
+  <Capability Min="185" Max="189" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="190" Max="204" Preset="PulseFastToSlow">Strobe Effect 8, pulse series with random frequency, from fast to slow follow-ups</Capability>
+  <Capability Min="205" Max="209" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="210" Max="224" Preset="StrobeFastToSlow">Strobe Effect 9, single pulses, from fast to slow follow-ups</Capability>
+  <Capability Min="225" Max="229" Preset="ShutterOpen">Open</Capability>
   <Capability Min="230" Max="244">Strobe Effect 10, inverted pulse series, increasing time between pulses</Capability>
-  <Capability Min="245" Max="255">Open</Capability>
+  <Capability Min="245" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Optical Zoom" Preset="BeamZoomBigSmall"/>
  <Channel Name="Special Functions">
@@ -202,11 +202,11 @@
   <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="14">Stop of current movement</Capability>
   <Capability Min="15" Max="49">No function</Capability>
-  <Capability Min="50" Max="54">Pan reset</Capability>
-  <Capability Min="55" Max="59">Tilt reset</Capability>
-  <Capability Min="60" Max="64">Zoom reset</Capability>
+  <Capability Min="50" Max="54" Preset="ResetPan">Pan reset</Capability>
+  <Capability Min="55" Max="59" Preset="ResetTilt">Tilt reset</Capability>
+  <Capability Min="60" Max="64" Preset="ResetZoom">Zoom reset</Capability>
   <Capability Min="65" Max="69">No function</Capability>
-  <Capability Min="70" Max="74">Reset of all functions</Capability>
+  <Capability Min="70" Max="74" Preset="ResetAll">Reset of all functions</Capability>
   <Capability Min="75" Max="79">No function</Capability>
   <Capability Min="80" Max="84">Inversion of Pan and tilt</Capability>
   <Capability Min="85" Max="89">Inversion of Pan</Capability>
@@ -329,11 +329,12 @@
   <Channel Number="12">Special Functions</Channel>
   <Channel Number="13">Preprogrammed movement patterns</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="10.6" Width="340" Height="420" Depth="250"/>
-   <Lens Name="Other" DegreesMin="10" DegreesMax="50"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="320" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="10.6" Width="340" Height="420" Depth="250"/>
+  <Lens Name="Other" DegreesMin="10" DegreesMax="50"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Layout Width="5" Height="1"/>
+  <Technical PowerConsumption="320" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Felix Pickenäcker</Author>
  </Creator>
  <Manufacturer>IMG Stageline</Manufacturer>
@@ -21,8 +21,8 @@
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="8">Off</Capability>
-  <Capability Min="9" Max="255">On</Capability>
+  <Capability Min="0" Max="8" Preset="ShutterClose">Off</Capability>
+  <Capability Min="9" Max="255" Preset="ShutterOpen">On</Capability>
  </Channel>
  <Mode Name="5 Channel">
   <Channel Number="0">Red</Channel>
@@ -44,10 +44,10 @@
   <Channel Number="5">Intensity</Channel>
  </Mode>
  <Physical>
-   <Bulb Type="LED" Lumens="1000" ColourTemperature="0"/>
-   <Dimensions Weight="2" Width="145" Height="145" Depth="190"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="15"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="56" DmxConnector="3-pin"/>
+  <Bulb Type="LED" Lumens="1000" ColourTemperature="0"/>
+  <Dimensions Weight="2" Width="145" Height="145" Depth="190"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="15"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="56" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

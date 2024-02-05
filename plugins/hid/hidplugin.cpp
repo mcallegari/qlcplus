@@ -209,13 +209,14 @@ QString HIDPlugin::outputInfo(quint32 output)
     return str;
 }
 
-void HIDPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void HIDPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
-    Q_UNUSED(universe);
+    Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (output != QLCIOPlugin::invalidLine())
     {
-        HIDDevice* dev = deviceOutput(output);
+        HIDDevice *dev = deviceOutput(output);
         if (dev != NULL)
             dev->outputDMX(data);
     }
@@ -264,12 +265,14 @@ void HIDPlugin::rescanDevices()
             /** Device already exists, delete from remove list */
             destroyList.removeAll(dev);
         }
-        else if((cur_dev->vendor_id == HID_DMX_INTERFACE_VENDOR_ID
+        else if ((cur_dev->vendor_id == HID_DMX_INTERFACE_VENDOR_ID
                 && cur_dev->product_id == HID_DMX_INTERFACE_PRODUCT_ID) ||
                 (cur_dev->vendor_id == HID_DMX_INTERFACE_VENDOR_ID_2
                 && cur_dev->product_id == HID_DMX_INTERFACE_PRODUCT_ID_2) ||
                 (cur_dev->vendor_id == HID_DMX_INTERFACE_VENDOR_ID_3
-                && cur_dev->product_id == HID_DMX_INTERFACE_PRODUCT_ID_3))
+                && cur_dev->product_id == HID_DMX_INTERFACE_PRODUCT_ID_3) ||
+                (cur_dev->vendor_id == HID_DMX_INTERFACE_VENDOR_ID_4
+                && cur_dev->product_id == HID_DMX_INTERFACE_PRODUCT_ID_4))
         {
             /* Device is a USB DMX Interface, add it */
             dev = new HIDDMXDevice(this, line++,
@@ -283,11 +286,11 @@ void HIDPlugin::rescanDevices()
         {
             dev = new HIDLinuxJoystick(this, line++, cur_dev);
 #elif defined(WIN32) || defined (Q_OS_WIN)
-        else if(HIDWindowsJoystick::isJoystick(cur_dev->vendor_id, cur_dev->product_id) == true)
+        else if (HIDWindowsJoystick::isJoystick(cur_dev->vendor_id, cur_dev->product_id) == true)
         {
             dev = new HIDWindowsJoystick(this, line++, cur_dev);
 #elif defined (__APPLE__) || defined(Q_OS_MACX)
-        else if(HIDOSXJoystick::isJoystick(cur_dev->usage) == true)
+        else if (HIDOSXJoystick::isJoystick(cur_dev->usage) == true)
         {
             dev = new HIDOSXJoystick(this, line++, cur_dev);
 #endif
@@ -298,7 +301,7 @@ void HIDPlugin::rescanDevices()
     }
 
     hid_free_enumeration(devs);
-    
+
     /* Destroy those devices that were no longer found. */
     while (destroyList.isEmpty() == false)
     {
@@ -306,7 +309,7 @@ void HIDPlugin::rescanDevices()
         m_devices.removeAll(dev);
         delete dev;
     }
-    
+
     if (m_devices.count() != devCount)
         emit configurationChanged();
 }
@@ -390,10 +393,3 @@ void HIDPlugin::slotDeviceRemoved(uint vid, uint pid)
 
     rescanDevices();
 }
-
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(hidplugin, HIDPlugin)
-#endif

@@ -52,17 +52,17 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCXYPad "XYPad"
-#define KXMLQLCVCXYPadPan "Pan"
-#define KXMLQLCVCXYPadTilt "Tilt"
-#define KXMLQLCVCXYPadWidth "Width"
-#define KXMLQLCVCXYPadHeight "Height"
-#define KXMLQLCVCXYPadPosition "Position"
-#define KXMLQLCVCXYPadRangeWindow "Window"
-#define KXMLQLCVCXYPadRangeHorizMin "hMin"
-#define KXMLQLCVCXYPadRangeHorizMax "hMax"
-#define KXMLQLCVCXYPadRangeVertMin "vMin"
-#define KXMLQLCVCXYPadRangeVertMax "vMax"
+#define KXMLQLCVCXYPad              QString("XYPad")
+#define KXMLQLCVCXYPadPan           QString("Pan")
+#define KXMLQLCVCXYPadTilt          QString("Tilt")
+#define KXMLQLCVCXYPadWidth         QString("Width")
+#define KXMLQLCVCXYPadHeight        QString("Height")
+#define KXMLQLCVCXYPadPosition      QString("Position")
+#define KXMLQLCVCXYPadRangeWindow   QString("Window")
+#define KXMLQLCVCXYPadRangeHorizMin QString("hMin")
+#define KXMLQLCVCXYPadRangeHorizMax QString("hMax")
+#define KXMLQLCVCXYPadRangeVertMin  QString("vMin")
+#define KXMLQLCVCXYPadRangeVertMax  QString("vMax")
 
 #define KXMLQLCVCXYPadPositionX "X" // Legacy
 #define KXMLQLCVCXYPadPositionY "Y" // Legacy
@@ -190,6 +190,7 @@ public slots:
     void slotPositionChanged(const QPointF& pt);
     void slotSliderValueChanged();
     void slotRangeValueChanged();
+    void slotUniverseWritten(quint32 idx, const QByteArray& universeData);
 
 signals:
     void fixturePositions(const QVariantList positions);
@@ -198,6 +199,9 @@ private:
     bool m_padInteraction;
     bool m_sliderInteraction;
     bool m_inputValueChanged;
+
+    /** Map used to lookup a GenericFader instance for a Universe ID */
+    QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
 
     /*********************************************************************
      * Presets
@@ -208,6 +212,7 @@ public:
     QList<VCXYPadPreset *> presets() const;
 
 protected:
+    void updateSceneChannel(FadeChannel *fc, uchar value);
     void writeScenePositions(MasterTimer* timer, QList<Universe*> universes);
 
 protected slots:

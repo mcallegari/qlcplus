@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2 GIT</Version>
+  <Author>Mark Baar</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED D-1000</Model>
+ <Type>Flower</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Indigo" Preset="IntensityIndigo"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
+ </Channel>
+ <Channel Name="Step Motor Rotation">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="180">Manual Motor Positioning</Capability>
+  <Capability Min="181" Max="255" Preset="RotationClockwiseSlowToFast">Set Rotation Speed S&gt;F</Capability>
+ </Channel>
+ <Channel Name="Mode Auto / Sound">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="200">Auto DMX</Capability>
+  <Capability Min="201" Max="255">Sound DMX</Capability>
+ </Channel>
+ <Channel Name="Speed Auto / Sound">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Speed Auto / Sound</Capability>
+ </Channel>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Indigo</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Step Motor Rotation</Channel>
+  <Channel Number="8">Mode Auto / Sound</Channel>
+  <Channel Number="9">Speed Auto / Sound</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="305" Height="290" Depth="265"/>
+  <Lens Name="Other" DegreesMin="115" DegreesMax="115"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="23" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

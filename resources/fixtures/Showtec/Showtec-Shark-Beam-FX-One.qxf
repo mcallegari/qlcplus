@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Mats Lourenco</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
@@ -13,28 +13,28 @@
  <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Strobe/Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">Open</Capability>
-  <Capability Min="10" Max="250">Strobe</Capability>
-  <Capability Min="251" Max="255">Open</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="10" Max="250" Preset="StrobeSlowToFast">Strobe</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Color Macros">
   <Group Byte="0">Colour</Group>
-  <Capability Min="1" Max="10">Not functional</Capability>
-  <Capability Min="11" Max="20" Color="#ff0000">Red</Capability>
-  <Capability Min="21" Max="30" Color="#00ff00">Green</Capability>
-  <Capability Min="31" Max="40" Color="#0000ff">Blue</Capability>
-  <Capability Min="41" Max="50" Color="#ffffff">White</Capability>
-  <Capability Min="51" Max="60" Color="#ff0000" Color2="#ffffff">Red + White</Capability>
-  <Capability Min="61" Max="70" Color="#00ff00" Color2="#ffffff">Green + White</Capability>
-  <Capability Min="71" Max="80" Color="#0000ff" Color2="#ffffff">Blue + White</Capability>
-  <Capability Min="81" Max="90" Color="#ff0000" Color2="#00ff00">Red + Green</Capability>
-  <Capability Min="91" Max="100" Color="#00ff00" Color2="#0000ff">Green + Blue</Capability>
-  <Capability Min="101" Max="110" Color="#ff0000" Color2="#0000ff">Red + Blue</Capability>
-  <Capability Min="111" Max="120" Color="#ffffff">Red + Green + Blue</Capability>
-  <Capability Min="121" Max="130" Color="#00ffff">Green + Blue + White</Capability>
-  <Capability Min="131" Max="140" Color="#ff00ff">Red + Blue + White</Capability>
-  <Capability Min="141" Max="150" Color="#ffffff">Red + Green + Blue + White</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="20" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="21" Max="30" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="31" Max="40" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="41" Max="50" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="51" Max="60" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red + White</Capability>
+  <Capability Min="61" Max="70" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green + White</Capability>
+  <Capability Min="71" Max="80" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue + White</Capability>
+  <Capability Min="81" Max="90" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + Green</Capability>
+  <Capability Min="91" Max="100" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green + Blue</Capability>
+  <Capability Min="101" Max="110" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red + Blue</Capability>
+  <Capability Min="111" Max="120" Preset="ColorMacro" Res1="#ffffff">Red + Green + Blue</Capability>
+  <Capability Min="121" Max="130" Preset="ColorMacro" Res1="#00ffff">Green + Blue + White</Capability>
+  <Capability Min="131" Max="140" Preset="ColorMacro" Res1="#ff00ff">Red + Blue + White</Capability>
+  <Capability Min="141" Max="150" Preset="ColorMacro" Res1="#ffffff">Red + Green + Blue + White</Capability>
   <Capability Min="151" Max="200">Switch, Slow to Fast</Capability>
   <Capability Min="201" Max="255">Flow, Slow to Fast</Capability>
  </Channel>
@@ -71,7 +71,7 @@
  <Channel Name="Color Temperature">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Min="0" Max="255" Color="#fffb80">Color temperature</Capability>
+  <Capability Min="0" Max="255" Preset="ColorMacro" Res1="#fffb80">Color temperature</Capability>
  </Channel>
  <Mode Name="8 Channel">
   <Channel Number="0">Pan</Channel>
@@ -101,11 +101,11 @@
   <Channel Number="14">Beam</Channel>
   <Channel Number="15">Functions</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5.8" Width="175" Height="355" Depth="255"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="135" DmxConnector="3-pin"/>
-  </Physical>
-  </FixtureDefinition>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.8" Width="175" Height="355" Depth="255"/>
+  <Lens Name="Other" DegreesMin="4" DegreesMax="60"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="135" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

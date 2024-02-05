@@ -18,10 +18,11 @@
 */
 
 #include <QTreeWidgetItem>
+#include <QMessageBox>
+#include <QSettings>
 #include <QCheckBox>
 #include <QComboBox>
 #include <QLineEdit>
-#include <QMessageBox>
 #include <QSpinBox>
 #include <QLabel>
 #include <QString>
@@ -47,6 +48,8 @@
 #define E131_PRIORITY_MIN 0
 #define E131_PRIORITY_MAX 200
 
+#define SETTINGS_GEOMETRY "conifguree131/geometry"
+
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
@@ -61,10 +64,20 @@ ConfigureE131::ConfigureE131(E131Plugin* plugin, QWidget* parent)
     setupUi(this);
 
     fillMappingTree();
+
+    QSettings settings;
+    QVariant value = settings.value(SETTINGS_IFACE_WAIT_TIME);
+    if (value.isValid() == true)
+        m_waitReadySpin->setValue(value.toInt());
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 }
 
 ConfigureE131::~ConfigureE131()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 void ConfigureE131::fillMappingTree()
@@ -73,7 +86,7 @@ void ConfigureE131::fillMappingTree()
     QTreeWidgetItem* outputItem = NULL;
 
     QList<E131IO> IOmap = m_plugin->getIOMapping();
-    foreach(E131IO io, IOmap)
+    foreach (E131IO io, IOmap)
     {
         E131Controller *controller = io.controller;
         if (controller == NULL)
@@ -92,7 +105,7 @@ void ConfigureE131::fillMappingTree()
             outputItem->setText(KMapColumnInterface, tr("Outputs"));
             outputItem->setExpanded(true);
         }
-        foreach(quint32 universe, controller->universesList())
+        foreach (quint32 universe, controller->universesList())
         {
             UniverseInfo *info = controller->getUniverseInfo(universe);
             qDebug() << Q_FUNC_INFO << "uni" << universe << "type" << info->type;
@@ -129,7 +142,7 @@ void ConfigureE131::fillMappingTree()
                 m_uniMapTree->setItemWidget(item, KMapColumnMulticast, multicastCb);
 
                 QSpinBox *universeSpin = new QSpinBox(this);
-                universeSpin->setRange(1, 0xffff);
+                universeSpin->setRange(1, 63999);
                 universeSpin->setValue(info->inputUniverse);
                 m_uniMapTree->setItemWidget(item, KMapColumnE131Uni, universeSpin);
             }
@@ -168,7 +181,7 @@ void ConfigureE131::fillMappingTree()
                 m_uniMapTree->setItemWidget(item, KMapColumnMulticast, multicastCb);
 
                 QSpinBox *universeSpin = new QSpinBox(this);
-                universeSpin->setRange(1, 0xffff);
+                universeSpin->setRange(1, 63999);
                 universeSpin->setValue(info->outputUniverse);
                 m_uniMapTree->setItemWidget(item, KMapColumnE131Uni, universeSpin);
 
@@ -197,18 +210,34 @@ QWidget *ConfigureE131::createMcastIPWidget(QString ip)
     widget->setLayout(new QHBoxLayout);
     widget->layout()->setContentsMargins(0, 0, 0, 0);
 
-    QString baseIP = ip.mid(0, ip.lastIndexOf(".") + 1);
-    QString finalIP = ip.mid(ip.lastIndexOf(".") + 1);
+    QStringList ipNibbles = ip.split(".");
 
-    QLabel *label = new QLabel(baseIP, this);
-    QSpinBox *spin = new QSpinBox(this);
-    spin->setRange(1, 255);
-    spin->setValue(finalIP.toInt());
+    QLabel *label1 = new QLabel(QString("%1.%2.").arg(ipNibbles.at(0)).arg(ipNibbles.at(1)), this);
 
-    widget->layout()->addWidget(label);
-    widget->layout()->addWidget(spin);
+    QSpinBox *spin1 = new QSpinBox(this);
+    spin1->setRange(0, 255);
+    spin1->setValue(ipNibbles.at(2).toInt());
+
+    QLabel *label2 = new QLabel(".");
+
+    QSpinBox *spin2 = new QSpinBox(this);
+    spin2->setRange(1, 255);
+    spin2->setValue(ipNibbles.at(3).toInt());
+
+    widget->layout()->addWidget(label1);
+    widget->layout()->addWidget(spin1);
+    widget->layout()->addWidget(label2);
+    widget->layout()->addWidget(spin2);
 
     return widget;
+}
+
+QString ConfigureE131::getIPAddress(QWidget *ipw)
+{
+    QSpinBox *ip1Spin = qobject_cast<QSpinBox*>(ipw->layout()->itemAt(1)->widget());
+    QSpinBox *ip2Spin = qobject_cast<QSpinBox*>(ipw->layout()->itemAt(3)->widget());
+
+    return QString("239.255.%1.%2").arg(ip1Spin->value()).arg(ip2Spin->value());
 }
 
 void ConfigureE131::showIPAlert(QString ip)
@@ -327,9 +356,10 @@ void ConfigureE131::accept()
                     m_plugin->setParameter(universe, line, QLCIOPlugin::Input,
                             E131_MULTICAST, 1);
                     QWidget *ipWidget = m_uniMapTree->itemWidget(item, KMapColumnIPAddress);
-                    QSpinBox *ipSpin = qobject_cast<QSpinBox*>(ipWidget->layout()->itemAt(1)->widget());
-                    m_plugin->setParameter(universe, line, QLCIOPlugin::Input,
-                            E131_MCASTIP, ipSpin->value());
+                    // if present, remove any legacy parameter
+                    m_plugin->unSetParameter(universe, line, QLCIOPlugin::Input, E131_MCASTIP);
+                    // set the new full IP address
+                    m_plugin->setParameter(universe, line, QLCIOPlugin::Input, E131_MCASTFULLIP, getIPAddress(ipWidget));
                 }
                 else
                 {
@@ -352,9 +382,10 @@ void ConfigureE131::accept()
                     m_plugin->setParameter(universe, line, QLCIOPlugin::Output,
                             E131_MULTICAST, 1);
                     QWidget *ipWidget = m_uniMapTree->itemWidget(item, KMapColumnIPAddress);
-                    QSpinBox *ipSpin = qobject_cast<QSpinBox*>(ipWidget->layout()->itemAt(1)->widget());
-                    m_plugin->setParameter(universe, line, QLCIOPlugin::Output,
-                            E131_MCASTIP, ipSpin->value());
+                    // if present, remove any legacy parameter
+                    m_plugin->unSetParameter(universe, line, QLCIOPlugin::Output, E131_MCASTIP);
+                    // set the new full IP address
+                    m_plugin->setParameter(universe, line, QLCIOPlugin::Output, E131_MCASTFULLIP, getIPAddress(ipWidget));
                 }
                 else
                 {
@@ -378,7 +409,7 @@ void ConfigureE131::accept()
                         E131_UNIVERSE, universeSpin->value());
 
                 QComboBox* transCombo = qobject_cast<QComboBox*>(m_uniMapTree->itemWidget(item, KMapColumnTransmitMode));
-                if(transCombo->currentIndex() == 1)
+                if (transCombo->currentIndex() == 1)
                     m_plugin->setParameter(universe, line, QLCIOPlugin::Output,
                             E131_TRANSMITMODE, E131Controller::transmissionModeToString(E131Controller::Partial));
                 else
@@ -391,6 +422,13 @@ void ConfigureE131::accept()
             }
         }
     }
+
+    QSettings settings;
+    int waitTime = m_waitReadySpin->value();
+    if (waitTime == 0)
+        settings.remove(SETTINGS_IFACE_WAIT_TIME);
+    else
+        settings.setValue(SETTINGS_IFACE_WAIT_TIME, waitTime);
 
     QDialog::accept();
 }

@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.1 GIT</Version>
+  <Version>4.12.0 GIT</Version>
   <Author>charles.oldham</Author>
  </Creator>
  <Manufacturer>NJD</Manufacturer>
@@ -12,47 +12,44 @@
  <Channel Name="Brightness" Preset="IntensityDimmer"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#ff0000" Min="0" Max="42">Red</Capability>
-  <Capability Color="#ffff00" Min="43" Max="85">Yellow</Capability>
-  <Capability Color="#00ff00" Min="86" Max="127">Green</Capability>
-  <Capability Color="#00ffff" Min="128" Max="170">Cyan</Capability>
-  <Capability Color="#0000ff" Min="171" Max="213">Blue</Capability>
-  <Capability Color="#aa007f" Min="214" Max="254">Magenta</Capability>
-  <Capability Color="#ff0000" Min="255" Max="255">Red</Capability>
+  <Capability Min="0" Max="42" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="43" Max="85" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="86" Max="127" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="128" Max="170" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="171" Max="213" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="214" Max="254" Preset="ColorMacro" Res1="#aa007f">Magenta</Capability>
+  <Capability Min="255" Max="255" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
  </Channel>
  <Channel Name="Saturation">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">Full Colour [0] -&gt; White [255]</Capability>
  </Channel>
  <Channel Name="X-position (pan) or dish rotation">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="255">x-position (pan) or dish rotation</Capability>
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">X-position (pan) or dish rotation</Capability>
  </Channel>
  <Channel Name="Y-position (tilt)">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">y-position (tilt)</Capability>
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Y-position (tilt)</Capability>
  </Channel>
- <Channel Name="Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Speed (0 to 100%)</Capability>
- </Channel>
+ <Channel Name="Speed" Preset="SpeedPanTiltSlowFast"/>
  <Channel Name="Gobo or Colour Saturation">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="255">Gobo or Colour Saturation</Capability>
  </Channel>
  <Channel Name="Strobe/Blackout">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Off [0] -&gt; 10Hz [255]</Capability>
+  <Capability Min="0" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="10">Off [0] -&gt; 10Hz [255]</Capability>
  </Channel>
  <Channel Name="Colour + Colour Scrolling">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#ff0000" Min="0" Max="42">Red</Capability>
-  <Capability Color="#ffff00" Min="43" Max="85">Yellow</Capability>
-  <Capability Color="#00ff00" Min="86" Max="127">Green</Capability>
-  <Capability Color="#00ffff" Min="128" Max="170">Cyan</Capability>
-  <Capability Color="#0000ff" Min="171" Max="213">Blue</Capability>
-  <Capability Color="#aa007f" Min="214" Max="254">Magenta</Capability>
-  <Capability Color="#ff0000" Min="255" Max="255">Red</Capability>
+  <Capability Min="0" Max="42" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="43" Max="85" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="86" Max="127" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="128" Max="170" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="171" Max="213" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="214" Max="254" Preset="ColorMacro" Res1="#aa007f">Magenta</Capability>
+  <Capability Min="255" Max="255" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
  </Channel>
  <Mode Name="DMX 3-channel">
   <Channel Number="0">Brightness</Channel>
@@ -68,11 +65,11 @@
   <Channel Number="5">Strobe/Blackout</Channel>
   <Channel Number="6">Brightness</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="A1/244" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="250" Width="250" Depth="245" Weight="5.2"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="1500"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="A1/244" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.2" Width="250" Height="250" Depth="245"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="1500" DmxConnector="5-pin"/>
+ </Physical>
 </FixtureDefinition>

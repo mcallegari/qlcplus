@@ -24,6 +24,7 @@
 #include <QVector>
 #include <QString>
 #include <QList>
+#include <QHash>
 
 #include "qlcfixturehead.h"
 #include "qlcfixturedef.h"
@@ -41,10 +42,11 @@ class QLCChannel;
  * @{
  */
 
-#define KXMLQLCFixtureMode              "Mode"
-#define KXMLQLCFixtureModeName          "Name"
-#define KXMLQLCFixtureModeChannel       "Channel"
-#define KXMLQLCFixtureModeChannelNumber "Number"
+#define KXMLQLCFixtureMode              QString("Mode")
+#define KXMLQLCFixtureModeName          QString("Name")
+#define KXMLQLCFixtureModeChannel       QString("Channel")
+#define KXMLQLCFixtureModeChannelNumber QString("Number")
+#define KXMLQLCFixtureModeChannelActsOn QString("ActsOn")
 
 /**
  * QLCFixtureMode is essentially a collection of QLCChannels, arranged in such
@@ -206,9 +208,18 @@ public:
 
     quint32 masterIntensityChannel() const;
 
+    /** Return the channel index on which the given $chIndex acts on.
+     *  Return invalid if not present */
+    quint32 channelActsOn(quint32 chIndex);
+    void setChannelActsOn(quint32 chIndex, quint32 actsOnIndex);
+
 protected:
     /** List of channels (pointers are not owned) */
-    QVector <QLCChannel*> m_channels;
+    QVector<QLCChannel*> m_channels;
+
+    /** Map of channel indices that act on other channels.
+      * These are stored as: < index, acts on index> */
+    QMap<quint32, quint32> m_actsOnMap;
 
     quint32 m_masterIntensityChannel;
 
@@ -299,6 +310,7 @@ public:
 
     /** Save a mode to an XML document */
     bool saveXML(QXmlStreamWriter *doc);
+    QHash<QLCChannel *, QLCChannel *> actsOnChannelsList() const;
 };
 
 /** @} */

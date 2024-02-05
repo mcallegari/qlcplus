@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.0 GIT</Version>
+  <Author>Ralf Herold</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>LED BAR 252 RGB (no. 234564)</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="Mode 1">
+  <Group Byte="0">Effect</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="40" Preset="ColorMacro" Res1="#000000">Black out</Capability>
+  <Capability Min="41" Max="80" Preset="GoboMacro" Res1="Others/rainbow.png">3-Segment Dimmer</Capability>
+  <Capability Min="81" Max="120" Preset="GoboMacro" Res1="Others/rainbow.png">1-Segment Dimmer</Capability>
+  <Capability Min="121" Max="160" Preset="GoboMacro" Res1="SGM-Color/gobo00488.png">Color Shutter</Capability>
+  <Capability Min="161" Max="200" Preset="GoboMacro" Res1="SGM-Color/gobo00529.png">Color Change</Capability>
+  <Capability Min="201" Max="240" Preset="GoboMacro" Res1="SGM-Color/gobo00542.png">Color Flow</Capability>
+  <Capability Min="241" Max="255" Preset="GoboMacro" Res1="SGM-Color/gobo00484.png">Dream Flow</Capability>
+ </Channel>
+ <Channel Name="Shutter / Speed">
+  <Group Byte="0">Speed</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="40">No Function</Capability>
+  <Capability Min="41" Max="160">Shutter</Capability>
+  <Capability Min="161" Max="255">Speed</Capability>
+ </Channel>
+ <Channel Name="Red1 / All Red" Preset="IntensityRed"/>
+ <Channel Name="Green1 / All Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1 / All Blue" Preset="IntensityBlue"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Mode 2">
+  <Group Byte="0">Effect</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="40" Preset="ColorMacro" Res1="#000000">Black out</Capability>
+  <Capability Min="41" Max="80">&lt;11-Channel&gt;</Capability>
+  <Capability Min="81" Max="120" Preset="GoboMacro" Res1="Others/rainbow.png">1-Segment Dimmer</Capability>
+  <Capability Min="121" Max="160" Preset="GoboMacro" Res1="SGM-Color/gobo00488.png">Color Shutter</Capability>
+  <Capability Min="161" Max="200" Preset="GoboMacro" Res1="SGM-Color/gobo00529.png">Color Change</Capability>
+  <Capability Min="201" Max="240" Preset="GoboMacro" Res1="SGM-Color/gobo00542.png">Color Flow</Capability>
+  <Capability Min="241" Max="255" Preset="GoboMacro" Res1="SGM-Color/gobo00484.png">Dream Flow</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Mode 1</Channel>
+  <Channel Number="1">Shutter / Speed</Channel>
+  <Channel Number="2">Red1 / All Red</Channel>
+  <Channel Number="3">Green1 / All Green</Channel>
+  <Channel Number="4">Blue 1 / All Blue</Channel>
+  <Channel Number="5">Red 2</Channel>
+  <Channel Number="6">Green 2</Channel>
+  <Channel Number="7">Blue 2</Channel>
+  <Channel Number="8">Red 3</Channel>
+  <Channel Number="9">Green 3</Channel>
+  <Channel Number="10">Blue 3</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Mode 2">
+  <Channel Number="0">Mode 2</Channel>
+  <Channel Number="1">Shutter / Speed</Channel>
+  <Channel Number="2">Red1 / All Red</Channel>
+  <Channel Number="3">Green1 / All Green</Channel>
+  <Channel Number="4">Blue 1 / All Blue</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="4500"/>
+  <Dimensions Weight="4.5" Width="1100" Height="161" Depth="114"/>
+  <Lens Name="Other" DegreesMin="20" DegreesMax="20"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

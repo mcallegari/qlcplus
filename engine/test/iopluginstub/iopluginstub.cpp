@@ -86,9 +86,10 @@ QString IOPluginStub::outputInfo(quint32 output)
     return QString("This is a plugin stub for testing.");
 }
 
-void IOPluginStub::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void IOPluginStub::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     m_universe = m_universe.replace(output * 512, data.size(), data);
 }
@@ -143,10 +144,3 @@ bool IOPluginStub::canConfigure()
 {
     return m_canConfigure;
 }
-
-/*****************************************************************************
- * Plugin export
- *****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(iopluginstub, IOPluginStub)
-#endif

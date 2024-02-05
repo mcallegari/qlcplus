@@ -26,15 +26,15 @@
 #include <QDebug>
 
 #include "vcspeeddialproperties.h"
-#include "vcpropertieseditor.h"
-#include "vcspeeddial.h"
 #include "vcspeeddialfunction.h"
+#include "vcpropertieseditor.h"
 #include "vcspeeddialpreset.h"
+#include "vcspeeddial.h"
+#include "flowlayout.h"
 #include "speeddial.h"
 #include "qlcmacros.h"
-#include "qlcfile.h"
 #include "function.h"
-#include "flowlayout.h"
+#include "qlcfile.h"
 
 #define UPDATE_TIMEOUT 50
 
@@ -64,7 +64,7 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
     setFrameStyle(KVCFrameStyleSunken);
 
     QVBoxLayout* vBox = new QVBoxLayout(this);
-    vBox->setMargin(0);
+    vBox->setContentsMargins(0, 0, 0, 0);
 
     QHBoxLayout* speedDialHBox = new QHBoxLayout();
     vBox->addLayout(speedDialHBox);
@@ -166,7 +166,7 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
 
 VCSpeedDial::~VCSpeedDial()
 {
-    foreach(VCSpeedDialPreset* preset, m_presets)
+    foreach (VCSpeedDialPreset* preset, m_presets)
     {
         delete preset;
     }
@@ -404,7 +404,7 @@ void VCSpeedDial::resetPresets()
 QList<VCSpeedDialPreset*> VCSpeedDial::presets() const
 {
     QList<VCSpeedDialPreset*> presetsList = m_presets.values();
-    qSort(presetsList.begin(), presetsList.end(), VCSpeedDialPreset::compare);
+    std::sort(presetsList.begin(), presetsList.end(), VCSpeedDialPreset::compare);
     return presetsList;
 }
 
@@ -513,21 +513,21 @@ void VCSpeedDial::slotFactoredValueChanged()
             if (speeddialfunction.fadeInMultiplier != VCSpeedDialFunction::None)
             {
                 if ((uint)ms != Function::infiniteSpeed())
-                    function->setFadeInSpeed(ms * multipliers[speeddialfunction.fadeInMultiplier] / 1000);
+                    function->setFadeInSpeed(ms * ((float)multipliers[speeddialfunction.fadeInMultiplier] / 1000.0));
                 else
                     function->setFadeInSpeed(ms);
             }
             if (speeddialfunction.fadeOutMultiplier != VCSpeedDialFunction::None)
             {
                 if ((uint)ms != Function::infiniteSpeed())
-                    function->setFadeOutSpeed(ms * multipliers[speeddialfunction.fadeOutMultiplier] / 1000);
+                    function->setFadeOutSpeed(ms * ((float)multipliers[speeddialfunction.fadeOutMultiplier] / 1000.0));
                 else
                     function->setFadeOutSpeed(ms);
             }
             if (speeddialfunction.durationMultiplier != VCSpeedDialFunction::None)
             {
                 if ((uint)ms != Function::infiniteSpeed())
-                    function->setDuration(ms * multipliers[speeddialfunction.durationMultiplier] / 1000);
+                    function->setDuration(ms * ((float)multipliers[speeddialfunction.durationMultiplier] / 1000.0));
                 else
                     function->setDuration(ms);
             }
@@ -917,11 +917,11 @@ bool VCSpeedDial::loadXML(QXmlStreamReader &root)
 
             infinitePreset->m_keySequence = stripKeySequence(QKeySequence(root.readElementText()));
         }
-        else if(root.name() == KXMLQLCVCSpeedDialPreset)
+        else if (root.name() == KXMLQLCVCSpeedDialPreset)
         {
             VCSpeedDialPreset preset(0xff);
             if (preset.loadXML(root))
-                newPresets.insert(qLowerBound(newPresets.begin(), newPresets.end(), preset), preset);
+                newPresets.insert(std::lower_bound(newPresets.begin(), newPresets.end(), preset), preset);
         }
         else if (root.name() == KXMLQLCVCSpeedDialVisibilityMask)
         {
@@ -1090,7 +1090,7 @@ bool VCSpeedDial::saveXML(QXmlStreamWriter *doc)
         speeddialfunction.saveXML(doc);
 
     // Presets
-    foreach(VCSpeedDialPreset *preset, presets())
+    foreach (VCSpeedDialPreset *preset, presets())
         preset->saveXML(doc);
 
     /* End the <SpeedDial> tag */

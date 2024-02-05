@@ -10,18 +10,18 @@
 <H1>EFX Editor</H1>
 <P>
 The EFX editor, as its name suggests, is used to edit
-<IMG SRC="qrc:/efx.png" align="absmiddle"> <A HREF="file:concept.html#EFX">EFX</A> functions. 
+<IMG SRC="qrc:/efx.png" align="absmiddle"> <A HREF="concept.html#EFX">EFX</A> functions.
 The view is split into two tabs:
 </P>
 <UL>
- <LI><B>General</B> tab is for selecting <A HREF="file:concept.html#Fixtures">Fixtures</A>, speed and fixture order.</LI>
+ <LI><B>General</B> tab is for selecting <A HREF="concept.html#Fixtures">Fixtures</A>, speed and fixture order.</LI>
  <LI><B>Movement</B> tab is for selecting details on how the fixtures should move their beams.</LI>
 </UL>
 
 <H3 id="general-tab">General Tab Controls</H3>
 
 <P>
-<IMG SRC="file:../images/efx-general.png" />
+<IMG SRC="../images/efx-general.png" />
 </P>
 
 <TABLE BORDER=1 class="qlcTable">
@@ -65,7 +65,7 @@ The view is split into two tabs:
     <LI>Mode: The channels the EFX should control. They can be <b>Position</b>, <B>Dimmer</B> or <B>RGB</B><BR>
         Note: when selecting RGB, you might want to enable the "Color Background" described below.
     </LI>
-    <LI>Reverse: When checked, the fixture reverses its movement as opposed to non-reversed fixtures. The "normal" direction 
+    <LI>Reverse: When checked, the fixture reverses its movement as opposed to non-reversed fixtures. The "normal" direction
         is set by direction in the "Movement" page.</LI>
     <LI>Start Offset: Value in degrees, where on the movement path this fixture should start</LI>
    </UL>
@@ -76,7 +76,7 @@ The view is split into two tabs:
    <IMG SRC="qrc:/edit_add.png">
   </TD>
   <TD>
-   Add a <A HREF="file:concept.html#Fixtures">Fixture</A> to the EFX, after the
+   Add a <A HREF="concept.html#Fixtures">Fixture</A> to the EFX, after the
    currently selected position. Since EFX is used for moving the head or mirror
    of an intelligent fixture, only fixtures with <B>pan and tilt</B> capability
    (8bit or 16bit) can be added to an EFX.
@@ -119,7 +119,7 @@ The view is split into two tabs:
 <H3 id="movement-tab">Movement Tab Controls</H3>
 
 <P>
-<IMG SRC="file:../images/efx-movement.png" />
+<IMG SRC="../images/efx-movement.png" />
 </P>
 
 <TABLE BORDER=1 class="qlcTable">
@@ -129,7 +129,7 @@ The view is split into two tabs:
   </TD>
   <TD>
    <P>Shows a 2D-projection of the fixtures' head/mirror movement. Every time you
-   change a parameter, one small dot for each fixture travels the complete path in its selected direction 
+   change a parameter, one small dot for each fixture travels the complete path in its selected direction
    from its start offset.</P>
    <P>The speed of the movement reflects selected speed settings.</P>
   </TD>
@@ -238,10 +238,10 @@ If the function is set to do an infinite loop, it must be stopped manually.
 
 <H3 id="relative-mode">Relative Mode</H3>
 
-<P>EFX position is absolute by default-in other words, the selected EFX will exclusively control the X/Y position 
-of the specified heads. When the Relative Mode checkbox is enabled, the EFX position acts as a layer on top of any 
-position that has already been set (e.g. by a scene or even another EFX). In other words, the EFX is relative to 
-current fixture position. 
+<P>EFX position is absolute by default-in other words, the selected EFX will exclusively control the X/Y position
+of the specified heads. When the Relative Mode checkbox is enabled, the EFX position acts as a layer on top of any
+position that has already been set (e.g. by a scene or even another EFX). In other words, the EFX is relative to
+current fixture position.
 </P>
 
 <P>In absolute mode. the EFX can be set to run at specific head position (e. g. do circle downstage center, stage left, etc.)

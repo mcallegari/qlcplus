@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>DJ MoreBass (DK)</Author>
  </Creator>
  <Manufacturer>beamZ</Manufacturer>
@@ -37,10 +37,10 @@
  <Channel Name="Static LED Color Select" Preset="ColorMacro"/>
  <Channel Name="Movement functions">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="69">No Function</Capability>
+  <Capability Min="0" Max="69">No function</Capability>
   <Capability Min="70" Max="79">X/Y Move, LED Turn Off</Capability>
   <Capability Min="80" Max="89">Stop X/Y Move, LED Turn Off</Capability>
-  <Capability Min="90" Max="239">No Function</Capability>
+  <Capability Min="90" Max="239">No function</Capability>
   <Capability Min="240" Max="255">Independent Operation</Capability>
  </Channel>
  <Mode Name="Mode 1">
@@ -73,11 +73,11 @@
   <Channel Number="9">Dimming</Channel>
   <Channel Number="10">Movement functions</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="5 x HEX LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3.3" Width="175" Height="245" Depth="178"/>
-   <Lens Name="Other" DegreesMin="22" DegreesMax="42"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="180"/>
-   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="5 x HEX LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.3" Width="175" Height="245" Depth="178"/>
+  <Lens Name="Other" DegreesMin="22" DegreesMax="42"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="180"/>
+  <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Richard</Author>
  </Creator>
  <Manufacturer>ETC</Manufacturer>
@@ -23,9 +23,9 @@
  <Channel Name="Intensity" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="0">Full on</Capability>
-  <Capability Min="1" Max="254">Variable rate from slow to fast</Capability>
-  <Capability Min="255" Max="255">Full on</Capability>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">Full on</Capability>
+  <Capability Min="1" Max="254" Preset="StrobeSlowToFast">Variable rate from slow to fast</Capability>
+  <Capability Min="255" Max="255" Preset="ShutterOpen">Full on</Capability>
  </Channel>
  <Channel Name="Hue (coarse)" Preset="IntensityHue"/>
  <Channel Name="Hue (fine)" Preset="IntensityHueFine"/>
@@ -36,7 +36,8 @@
  </Channel>
  <Channel Name="Plus 7 Control on/off">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="51" Max="255">Plus 7 Control on/off</Capability>
+  <Capability Min="0" Max="130">Plus 7 off</Capability>
+  <Capability Min="131" Max="255">Plus 7 on</Capability>
  </Channel>
  <Channel Name="Tint">
   <Group Byte="0">Intensity</Group>

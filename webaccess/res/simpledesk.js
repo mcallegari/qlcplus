@@ -1,7 +1,7 @@
 /*
   Q Light Controller Plus
   simpledesk.js
-  
+
   Copyright (c) Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,18 +25,26 @@ function getPage(uni, page) {
  websocket.send(wsMsg);
 }
 
-window.onload = function() {
+function connect() {
    var url = "ws://" + window.location.host + "/qlcplusWS";
    websocket = new WebSocket(url);
-   websocket.onopen = function(ev) {
+   websocket.onopen = function() {
     getPage(1, 1);
    };
-   websocket.onclose = function(ev) {
-    alert("QLC+ connection lost !");
+
+   websocket.onclose = function() {
+    console.log("QLC+ connection is closed. Reconnect will be attempted in 1 second.");
+    setTimeout(function () {
+      connect();
+    }, 1000);
    };
+
    websocket.onerror = function(ev) {
-    alert("QLC+ connection error!");
+    console.error("QLC+ connection encountered error. Closing socket");
+    console.error("Error: " + ev.data)
+    ws.close();
    };
+
    websocket.onmessage = function(ev) {
     //alert(ev.data);
     var msgParams = ev.data.split("|");
@@ -47,6 +55,8 @@ window.onload = function() {
     }
    };
 };
+
+window.onload = connect();
 
 function getGroupIconName(grp) {
    if (grp === 0) { return "intensity.png"; }
@@ -139,8 +149,11 @@ function resetChannel(pageCh) {
 
 function resetUniverse() {
  currentPage = 1;
+ var pgObj = document.getElementById("pageDiv");
+ pgObj.innerHTML = currentPage;
  var wsMsg = "QLC+API|sdResetUniverse";
  websocket.send(wsMsg);
+ getPage(currentUniverse, currentPage);
 }
 
 function sdSlVchange(id) {

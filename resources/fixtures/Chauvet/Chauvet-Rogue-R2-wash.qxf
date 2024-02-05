@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>Bobby</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Rogue R2 Wash</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="20" Max="24" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="25" Max="64" Preset="StrobeFastToSlow">Fast to slow</Capability>
+  <Capability Min="65" Max="69" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="70" Max="84" Preset="RampDownSlowToFast">Fast on/ramp off</Capability>
+  <Capability Min="85" Max="89" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="90" Max="104" Preset="RampUpSlowToFast">Ramp off/fast on</Capability>
+  <Capability Min="105" Max="109" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="110" Max="124" Preset="StrobeRandom">Random</Capability>
+  <Capability Min="125" Max="129" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="130" Max="144" Preset="StrobeRandomSlowToFast">Random slow on/fast off</Capability>
+  <Capability Min="145" Max="149" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="150" Max="164" Preset="StrobeRandomFastToSlow">Random slow on/fast off</Capability>
+  <Capability Min="165" Max="169" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="170" Max="184" Preset="PulseSlowToFast">Pulse</Capability>
+  <Capability Min="185" Max="189" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="190" Max="204" Preset="StrobeRandom">Random pulse</Capability>
+  <Capability Min="205" Max="209" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="210" Max="224" Preset="PulseSlowToFast">Fade on/off</Capability>
+  <Capability Min="225" Max="229" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="230" Max="244" Preset="PulseSlowToFast">Pulse</Capability>
+  <Capability Min="245" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="White fine" Preset="IntensityWhiteFine"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Red fine 2" Preset="IntensityRedFine"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Green fine 2" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine 2" Preset="IntensityBlueFine"/>
+ <Channel Name="White 2" Preset="IntensityWhite"/>
+ <Channel Name="White fine 2" Preset="IntensityWhiteFine"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Red fine 3" Preset="IntensityRedFine"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Green fine 3" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine 3" Preset="IntensityBlueFine"/>
+ <Channel Name="White 3" Preset="IntensityWhite"/>
+ <Channel Name="White fine 3" Preset="IntensityWhiteFine"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Red fine 4" Preset="IntensityRedFine"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Green fine 4" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine 4" Preset="IntensityBlueFine"/>
+ <Channel Name="White 4" Preset="IntensityWhite"/>
+ <Channel Name="White fine 4" Preset="IntensityWhiteFine"/>
+ <Channel Name="Red 5" Preset="IntensityRed"/>
+ <Channel Name="Red fine 5" Preset="IntensityRedFine"/>
+ <Channel Name="Green 5" Preset="IntensityGreen"/>
+ <Channel Name="Green fine 5" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue 5" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine 5" Preset="IntensityBlueFine"/>
+ <Channel Name="White 5" Preset="IntensityWhite"/>
+ <Channel Name="White fine 5" Preset="IntensityWhiteFine"/>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4">Open</Capability>
+  <Capability Min="5" Max="9">Color 1</Capability>
+  <Capability Min="10" Max="14">Color 2</Capability>
+  <Capability Min="15" Max="19">Color 3</Capability>
+  <Capability Min="20" Max="24">Color 4</Capability>
+  <Capability Min="25" Max="29">Color 5</Capability>
+  <Capability Min="30" Max="34">Color 6</Capability>
+  <Capability Min="35" Max="39">Color 7</Capability>
+  <Capability Min="40" Max="44">Color 8</Capability>
+  <Capability Min="45" Max="49">Color 9</Capability>
+  <Capability Min="50" Max="54">Color 10</Capability>
+  <Capability Min="55" Max="59">Color 11</Capability>
+  <Capability Min="60" Max="64">Color 12</Capability>
+  <Capability Min="65" Max="69">Color 13</Capability>
+  <Capability Min="70" Max="74">Color 14</Capability>
+  <Capability Min="75" Max="79">Color 15</Capability>
+  <Capability Min="80" Max="84">Color 16</Capability>
+  <Capability Min="85" Max="89">Color 17</Capability>
+  <Capability Min="90" Max="94">Color 18</Capability>
+  <Capability Min="95" Max="99">Color 19</Capability>
+  <Capability Min="100" Max="104">Color 20</Capability>
+  <Capability Min="105" Max="109">Color 21</Capability>
+  <Capability Min="110" Max="114">Color 22</Capability>
+  <Capability Min="115" Max="119">Color 23</Capability>
+  <Capability Min="120" Max="124">Color 24</Capability>
+  <Capability Min="125" Max="129">Color 25</Capability>
+  <Capability Min="130" Max="134">Color 26</Capability>
+  <Capability Min="135" Max="139">Color 27</Capability>
+  <Capability Min="140" Max="144">Color 28</Capability>
+  <Capability Min="145" Max="149">Color 29</Capability>
+  <Capability Min="150" Max="154">Color 30</Capability>
+  <Capability Min="155" Max="159">Color 31</Capability>
+  <Capability Min="160" Max="164">Color 32</Capability>
+  <Capability Min="165" Max="169">Color 33</Capability>
+  <Capability Min="170" Max="174">Color 34</Capability>
+  <Capability Min="175" Max="179">Closed</Capability>
+  <Capability Min="180" Max="201" Preset="RotationClockwiseFastToSlow">Clockwise color scroll, fast to slow</Capability>
+  <Capability Min="202" Max="207" Preset="RotationStop">Stop on current color</Capability>
+  <Capability Min="208" Max="229" Preset="RotationCounterClockwiseSlowToFast">Counter-clockwise color scroll,fast to slow</Capability>
+  <Capability Min="230" Max="234">Closed</Capability>
+  <Capability Min="235" Max="249">Color scroll</Capability>
+  <Capability Min="250" Max="255">Closed</Capability>
+ </Channel>
+ <Channel Name="Zone selection">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="7">Zone 1, 2, 3, 4, 5</Capability>
+  <Capability Min="8" Max="15">Zone 2, 3, 4, 5</Capability>
+  <Capability Min="16" Max="23">Zone 3, 4, 5</Capability>
+  <Capability Min="24" Max="31">Zone 4, 5</Capability>
+  <Capability Min="32" Max="39">Zone 5</Capability>
+  <Capability Min="40" Max="47">No function</Capability>
+  <Capability Min="48" Max="55">Zone 1</Capability>
+  <Capability Min="56" Max="63">Zone 1, 2</Capability>
+  <Capability Min="64" Max="71">Zone 1, 2, 3</Capability>
+  <Capability Min="72" Max="79">Zone 1, 2, 3, 4</Capability>
+  <Capability Min="80" Max="87">Zone 1, 2, 3, 4, 5</Capability>
+  <Capability Min="88" Max="95">Zone 1</Capability>
+  <Capability Min="96" Max="103">Zone 2</Capability>
+  <Capability Min="104" Max="111">Zone 3</Capability>
+  <Capability Min="112" Max="119">Zone 4</Capability>
+  <Capability Min="120" Max="127">Zone 5</Capability>
+  <Capability Min="128" Max="135">Zone 1, 2</Capability>
+  <Capability Min="136" Max="143">Zone 2, 3</Capability>
+  <Capability Min="144" Max="151">Zone 3, 4</Capability>
+  <Capability Min="152" Max="159">Zone 4, 5</Capability>
+  <Capability Min="160" Max="167">Zone 1, 5</Capability>
+  <Capability Min="168" Max="175">Zone 1, 2, 3</Capability>
+  <Capability Min="176" Max="183">Zone 2, 3, 4</Capability>
+  <Capability Min="184" Max="191">Zone 3, 4, 5</Capability>
+  <Capability Min="192" Max="199">Zone 1, 4, 5</Capability>
+  <Capability Min="200" Max="207">Zone 1, 2, 5</Capability>
+  <Capability Min="208" Max="215">Zone 1, 2, 3, 4</Capability>
+  <Capability Min="216" Max="223">Zone 2, 3, 4, 5</Capability>
+  <Capability Min="224" Max="231">Zone 1, 3, 4, 5</Capability>
+  <Capability Min="232" Max="239">Zone 1, 2, 4, 5</Capability>
+  <Capability Min="240" Max="249">Zone 1, 2, 3, 5</Capability>
+  <Capability Min="250" Max="255">Zone 1, 2, 3, 4, 5</Capability>
+ </Channel>
+ <Channel Name="Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="20">Ring macro 1</Capability>
+  <Capability Min="21" Max="25">Ring macro 2</Capability>
+  <Capability Min="26" Max="30">Ring macro 3</Capability>
+  <Capability Min="31" Max="35">Ring macro 4</Capability>
+  <Capability Min="36" Max="40">Ring macro 5</Capability>
+  <Capability Min="41" Max="45">Ring macro 6</Capability>
+  <Capability Min="46" Max="50">Ring macro 7</Capability>
+  <Capability Min="51" Max="55">Ring macro 8</Capability>
+  <Capability Min="56" Max="60">Ring macro 9</Capability>
+  <Capability Min="61" Max="65">Ring macro 10</Capability>
+  <Capability Min="66" Max="70">Ring macro 11</Capability>
+  <Capability Min="71" Max="75">Ring macro 12</Capability>
+  <Capability Min="76" Max="80">Ring macro 13</Capability>
+  <Capability Min="81" Max="85">Ring macro 14</Capability>
+  <Capability Min="86" Max="90">Ring macro 15</Capability>
+  <Capability Min="91" Max="95">Ring macro 16</Capability>
+  <Capability Min="96" Max="100">Ring macro 17</Capability>
+  <Capability Min="101" Max="105">Ring macro 18</Capability>
+  <Capability Min="106" Max="110">Ring macro 19</Capability>
+  <Capability Min="111" Max="115">Ring macro 20</Capability>
+  <Capability Min="116" Max="120">Ring macro 21</Capability>
+  <Capability Min="121" Max="125">Ring macro 22</Capability>
+  <Capability Min="126" Max="130">Ring macro 23</Capability>
+  <Capability Min="131" Max="135">Ring macro 24</Capability>
+  <Capability Min="136" Max="140">Color Ring macro 1</Capability>
+  <Capability Min="141" Max="145">Color Ring macro 2</Capability>
+  <Capability Min="146" Max="150">Color Ring macro 3</Capability>
+  <Capability Min="151" Max="155">Color Ring macro 4</Capability>
+  <Capability Min="156" Max="160">Color Ring macro 5</Capability>
+  <Capability Min="161" Max="165">Color Ring macro 6</Capability>
+  <Capability Min="166" Max="170">Color Ring macro 7</Capability>
+  <Capability Min="171" Max="175">Color Ring macro 8</Capability>
+  <Capability Min="176" Max="180">Color Ring macro 9</Capability>
+  <Capability Min="181" Max="185">Color Ring macro 10</Capability>
+  <Capability Min="186" Max="190">Color Ring macro 11</Capability>
+  <Capability Min="191" Max="195">Color Ring macro 12</Capability>
+  <Capability Min="196" Max="200">Color Ring macro 13</Capability>
+  <Capability Min="201" Max="205">Color Ring macro 14</Capability>
+  <Capability Min="206" Max="210">Color Ring macro 15</Capability>
+  <Capability Min="211" Max="215">Color Ring macro 16</Capability>
+  <Capability Min="216" Max="220">Color Ring macro 17</Capability>
+  <Capability Min="221" Max="225">Color Ring macro 18</Capability>
+  <Capability Min="226" Max="230">Color Ring macro 19</Capability>
+  <Capability Min="231" Max="235">Color Ring macro 20</Capability>
+  <Capability Min="236" Max="240">Color Ring macro 21</Capability>
+  <Capability Min="241" Max="245">Color Ring macro 22</Capability>
+  <Capability Min="246" Max="250">Color Ring macro 23</Capability>
+  <Capability Min="251" Max="255">Color Ring macro 24</Capability>
+ </Channel>
+ <Channel Name="Auto speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">0-100% (only when unsing Ch.51)</Capability>
+ </Channel>
+ <Channel Name="Movements macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="23">Effect 1</Capability>
+  <Capability Min="24" Max="39">Effect 2</Capability>
+  <Capability Min="40" Max="55">Effect 3</Capability>
+  <Capability Min="56" Max="71">Effect 4</Capability>
+  <Capability Min="72" Max="87">Effect 5</Capability>
+  <Capability Min="88" Max="103">Effect 6</Capability>
+  <Capability Min="104" Max="119">Effect 7</Capability>
+  <Capability Min="120" Max="135">Effect 8</Capability>
+  <Capability Min="136" Max="151">Effect 9</Capability>
+  <Capability Min="152" Max="167">Effect 10</Capability>
+  <Capability Min="168" Max="183">Effect 11</Capability>
+  <Capability Min="184" Max="199">Effect 12</Capability>
+  <Capability Min="200" Max="215">Effect 13</Capability>
+  <Capability Min="216" Max="231">Effect 14</Capability>
+  <Capability Min="232" Max="247">Effect 15</Capability>
+  <Capability Min="248" Max="255">Effect 16</Capability>
+ </Channel>
+ <Channel Name="Movements Macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">0-100%</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="14">Blackout during pan/tilt</Capability>
+  <Capability Min="15" Max="19">No function</Capability>
+  <Capability Min="20" Max="24">No function</Capability>
+  <Capability Min="25" Max="29">No function</Capability>
+  <Capability Min="30" Max="34">No function</Capability>
+  <Capability Min="35" Max="39">No function</Capability>
+  <Capability Min="40" Max="44">No function</Capability>
+  <Capability Min="45" Max="49">No function</Capability>
+  <Capability Min="50" Max="54">Pan reset (5s activation delay)</Capability>
+  <Capability Min="55" Max="59">Tilt reset (5s activation delay )</Capability>
+  <Capability Min="60" Max="64">Zoom reset ( 5s activation delay )</Capability>
+  <Capability Min="65" Max="69">No function</Capability>
+  <Capability Min="70" Max="74">All reset (5s activation delay )</Capability>
+  <Capability Min="75" Max="79">No function</Capability>
+  <Capability Min="80" Max="84">Pan/tilt movement reverse (5 s activation delay)</Capability>
+  <Capability Min="85" Max="89">Pan movement reverse (5 s activation delay)</Capability>
+  <Capability Min="90" Max="94">Tilt movement reverse (5s activation delay)</Capability>
+  <Capability Min="95" Max="99">Disable pan movement reverse (5s activation delay)</Capability>
+  <Capability Min="100" Max="104">Disable Tilt movement reverse (5s activation delay)</Capability>
+  <Capability Min="105" Max="109">Disable Pan/Tilt movement reverse (5s activation delay)</Capability>
+  <Capability Min="110" Max="114">No function</Capability>
+  <Capability Min="115" Max="119">No function</Capability>
+  <Capability Min="120" Max="124">Economy fan (5s activation delay)</Capability>
+  <Capability Min="125" Max="129">Full fan (5s activation delay)</Capability>
+  <Capability Min="130" Max="134">Auto fan (5 s activation delay)</Capability>
+  <Capability Min="135" Max="139">Fast dimmer curve (5s acitvation delay)</Capability>
+  <Capability Min="140" Max="144">Smooth dimmer curve (5s activation delay)</Capability>
+  <Capability Min="145" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="56 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Dimmer fine</Channel>
+  <Channel Number="7">Shutter</Channel>
+  <Channel Number="8">Red</Channel>
+  <Channel Number="9">Red fine</Channel>
+  <Channel Number="10">Green</Channel>
+  <Channel Number="11">Green fine</Channel>
+  <Channel Number="12">Blue</Channel>
+  <Channel Number="13">Blue fine</Channel>
+  <Channel Number="14">White</Channel>
+  <Channel Number="15">White fine</Channel>
+  <Channel Number="16">Red 2</Channel>
+  <Channel Number="17">Red fine 2</Channel>
+  <Channel Number="18">Green 2</Channel>
+  <Channel Number="19">Green fine 2</Channel>
+  <Channel Number="20">Blue 2</Channel>
+  <Channel Number="21">Blue fine 2</Channel>
+  <Channel Number="22">White 2</Channel>
+  <Channel Number="23">White fine 2</Channel>
+  <Channel Number="24">Red 3</Channel>
+  <Channel Number="25">Red fine 3</Channel>
+  <Channel Number="26">Green 3</Channel>
+  <Channel Number="27">Green fine 3</Channel>
+  <Channel Number="28">Blue 3</Channel>
+  <Channel Number="29">Blue fine 3</Channel>
+  <Channel Number="30">White 3</Channel>
+  <Channel Number="31">White fine 3</Channel>
+  <Channel Number="32">Red 4</Channel>
+  <Channel Number="33">Red fine 4</Channel>
+  <Channel Number="34">Green 4</Channel>
+  <Channel Number="35">Green fine 4</Channel>
+  <Channel Number="36">Blue 4</Channel>
+  <Channel Number="37">Blue fine 4</Channel>
+  <Channel Number="38">White 4</Channel>
+  <Channel Number="39">White fine 4</Channel>
+  <Channel Number="40">Red 5</Channel>
+  <Channel Number="41">Red fine 5</Channel>
+  <Channel Number="42">Green 5</Channel>
+  <Channel Number="43">Green fine 5</Channel>
+  <Channel Number="44">Blue 5</Channel>
+  <Channel Number="45">Blue fine 5</Channel>
+  <Channel Number="46">White 5</Channel>
+  <Channel Number="47">White fine 5</Channel>
+  <Channel Number="48">Color</Channel>
+  <Channel Number="49">Zone selection</Channel>
+  <Channel Number="50">Programs</Channel>
+  <Channel Number="51">Auto speed</Channel>
+  <Channel Number="52">Movements macros</Channel>
+  <Channel Number="53">Movements Macro Speed</Channel>
+  <Channel Number="54">Zoom</Channel>
+  <Channel Number="55">Control</Channel>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+  </Head>
+  <Head>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="54 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Dimmer fine</Channel>
+  <Channel Number="7">Shutter</Channel>
+  <Channel Number="8">Red</Channel>
+  <Channel Number="9">Red fine</Channel>
+  <Channel Number="10">Green</Channel>
+  <Channel Number="11">Green fine</Channel>
+  <Channel Number="12">Blue</Channel>
+  <Channel Number="13">Blue fine</Channel>
+  <Channel Number="14">White</Channel>
+  <Channel Number="15">White fine</Channel>
+  <Channel Number="16">Red 2</Channel>
+  <Channel Number="17">Red fine 2</Channel>
+  <Channel Number="18">Green 2</Channel>
+  <Channel Number="19">Green fine 2</Channel>
+  <Channel Number="20">Blue 2</Channel>
+  <Channel Number="21">Blue fine 2</Channel>
+  <Channel Number="22">White 2</Channel>
+  <Channel Number="23">White fine 2</Channel>
+  <Channel Number="24">Red 3</Channel>
+  <Channel Number="25">Red fine 3</Channel>
+  <Channel Number="26">Green 3</Channel>
+  <Channel Number="27">Green fine 3</Channel>
+  <Channel Number="28">Blue 3</Channel>
+  <Channel Number="29">Blue fine 3</Channel>
+  <Channel Number="30">White 3</Channel>
+  <Channel Number="31">White fine 3</Channel>
+  <Channel Number="32">Red 4</Channel>
+  <Channel Number="33">Red fine 4</Channel>
+  <Channel Number="34">Green 4</Channel>
+  <Channel Number="35">Green fine 4</Channel>
+  <Channel Number="36">Blue 4</Channel>
+  <Channel Number="37">Blue fine 4</Channel>
+  <Channel Number="38">White 4</Channel>
+  <Channel Number="39">White fine 4</Channel>
+  <Channel Number="40">Red 5</Channel>
+  <Channel Number="41">Red fine 5</Channel>
+  <Channel Number="42">Green 5</Channel>
+  <Channel Number="43">Green fine 5</Channel>
+  <Channel Number="44">Blue 5</Channel>
+  <Channel Number="45">Blue fine 5</Channel>
+  <Channel Number="46">White 5</Channel>
+  <Channel Number="47">White fine 5</Channel>
+  <Channel Number="48">Color</Channel>
+  <Channel Number="49">Zone selection</Channel>
+  <Channel Number="50">Programs</Channel>
+  <Channel Number="51">Auto speed</Channel>
+  <Channel Number="52">Zoom</Channel>
+  <Channel Number="53">Control</Channel>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+  </Head>
+  <Head>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="33 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Shutter</Channel>
+  <Channel Number="7">Red</Channel>
+  <Channel Number="8">Green</Channel>
+  <Channel Number="9">Blue</Channel>
+  <Channel Number="10">White</Channel>
+  <Channel Number="11">Red 2</Channel>
+  <Channel Number="12">Green 2</Channel>
+  <Channel Number="13">Blue 2</Channel>
+  <Channel Number="14">White 2</Channel>
+  <Channel Number="15">Red 3</Channel>
+  <Channel Number="16">Green 3</Channel>
+  <Channel Number="17">Blue 3</Channel>
+  <Channel Number="18">White 3</Channel>
+  <Channel Number="19">Red 4</Channel>
+  <Channel Number="20">Green 4</Channel>
+  <Channel Number="21">Blue 4</Channel>
+  <Channel Number="22">White 4</Channel>
+  <Channel Number="23">Red 5</Channel>
+  <Channel Number="24">Green 5</Channel>
+  <Channel Number="25">Blue 5</Channel>
+  <Channel Number="26">White 5</Channel>
+  <Channel Number="27">Color</Channel>
+  <Channel Number="28">Zone selection</Channel>
+  <Channel Number="29">Programs</Channel>
+  <Channel Number="30">Auto speed</Channel>
+  <Channel Number="31">Zoom</Channel>
+  <Channel Number="32">Control</Channel>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="22 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Dimmer fine</Channel>
+  <Channel Number="7">Shutter</Channel>
+  <Channel Number="8">Red</Channel>
+  <Channel Number="9">Red fine</Channel>
+  <Channel Number="10">Green</Channel>
+  <Channel Number="11">Green fine</Channel>
+  <Channel Number="12">Blue</Channel>
+  <Channel Number="13">Blue fine</Channel>
+  <Channel Number="14">White</Channel>
+  <Channel Number="15">White fine</Channel>
+  <Channel Number="16">Color</Channel>
+  <Channel Number="17">Zone selection</Channel>
+  <Channel Number="18">Programs</Channel>
+  <Channel Number="19">Auto speed</Channel>
+  <Channel Number="20">Zoom</Channel>
+  <Channel Number="21">Control</Channel>
+ </Mode>
+ <Mode Name="17 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Shutter</Channel>
+  <Channel Number="7">Red</Channel>
+  <Channel Number="8">Green</Channel>
+  <Channel Number="9">Blue</Channel>
+  <Channel Number="10">White</Channel>
+  <Channel Number="11">Color</Channel>
+  <Channel Number="12">Zone selection</Channel>
+  <Channel Number="13">Programs</Channel>
+  <Channel Number="14">Auto speed</Channel>
+  <Channel Number="15">Zoom</Channel>
+  <Channel Number="16">Control</Channel>
+ </Mode>
+ <Mode Name="15 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Dimmer fine</Channel>
+  <Channel Number="7">Shutter</Channel>
+  <Channel Number="8">Red</Channel>
+  <Channel Number="9">Green</Channel>
+  <Channel Number="10">Blue</Channel>
+  <Channel Number="11">White</Channel>
+  <Channel Number="12">Color</Channel>
+  <Channel Number="13">Zoom</Channel>
+  <Channel Number="14">Control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="5800" ColourTemperature="0"/>
+  <Dimensions Weight="9.25" Width="306" Height="398" Depth="218"/>
+  <Lens Name="Other" DegreesMin="12" DegreesMax="49"/>
+  <Focus Type="Head" PanMax="540" TiltMax="230"/>
+  <Technical PowerConsumption="324" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

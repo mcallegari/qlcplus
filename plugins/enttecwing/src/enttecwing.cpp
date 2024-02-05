@@ -265,7 +265,7 @@ void EnttecWing::addDevice(Wing* device)
        between sessions they need to be sorted according to some
        (semi-)permanent criteria. Their addresses shouldn't change too
        often, so let's use that. */
-    qSort(m_devices.begin(), m_devices.end(), wing_device_sort);
+    std::sort(m_devices.begin(), m_devices.end(), wing_device_sort);
 
     emit configurationChanged();
 }
@@ -313,10 +313,3 @@ void EnttecWing::slotValueChanged(quint32 channel, uchar value)
     Wing* wing = qobject_cast<Wing*> (QObject::sender());
     emit valueChanged(UINT_MAX, m_devices.indexOf(wing), channel, value);
 }
-
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(enttecwing, EnttecWing)
-#endif

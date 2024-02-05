@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>Sebastian Moeckel</Author>
+ </Creator>
+ <Manufacturer>Fun-Generation</Manufacturer>
+ <Model>PicoBeam 60</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">no function (open)</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="25">Strobe effect (1Hz ... 25Hz)</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="49">No function</Capability>
+  <Capability Min="50" Max="59">Red</Capability>
+  <Capability Min="60" Max="69">Green</Capability>
+  <Capability Min="70" Max="79">Blue</Capability>
+  <Capability Min="80" Max="89">White</Capability>
+  <Capability Min="90" Max="99">Yellow</Capability>
+  <Capability Min="100" Max="109">Cyan</Capability>
+  <Capability Min="110" Max="119">Purple</Capability>
+  <Capability Min="120" Max="129">All white</Capability>
+  <Capability Min="130" Max="139">No function</Capability>
+  <Capability Min="140" Max="149">Programme 1</Capability>
+  <Capability Min="150" Max="159">Programme 2</Capability>
+  <Capability Min="160" Max="169">Programme 3</Capability>
+  <Capability Min="170" Max="179">Programme 4</Capability>
+  <Capability Min="180" Max="189">Programme 5</Capability>
+  <Capability Min="190" Max="233">No function</Capability>
+  <Capability Min="234" Max="236">Reset</Capability>
+  <Capability Min="237" Max="249">No function</Capability>
+  <Capability Min="250" Max="255">Sound control</Capability>
+ </Channel>
+ <Channel Name="Speed / Sensitivity">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed / Sensitivity</Capability>
+ </Channel>
+ <Mode Name="13 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Master dimmer</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Red</Channel>
+  <Channel Number="8">Green</Channel>
+  <Channel Number="9">Blue</Channel>
+  <Channel Number="10">White</Channel>
+  <Channel Number="11">Programs</Channel>
+  <Channel Number="12">Speed / Sensitivity</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Master dimmer</Channel>
+  <Channel Number="6">Programs</Channel>
+  <Channel Number="7">Speed / Sensitivity</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Master dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="234" Height="175" Depth="147"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="180"/>
+  <Technical PowerConsumption="65" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

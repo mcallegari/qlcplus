@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>RDMManager</class>
+ <widget class="QWidget" name="RDMManager">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>396</width>
+    <height>617</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QToolButton" name="m_refreshButton">
+       <property name="toolTip">
+        <string>Scan for RDM devices...</string>
+       </property>
+       <property name="text">
+        <string notr="true"/>
+       </property>
+       <property name="icon">
+        <iconset resource="qlcui.qrc">
+         <normaloff>:/refresh.png</normaloff>:/refresh.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="m_devFoundLabel">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QToolButton" name="m_getInfoButton">
+       <property name="toolTip">
+        <string>Retrieve the selected fixture information</string>
+       </property>
+       <property name="icon">
+        <iconset resource="qlcui.qrc">
+         <normaloff>:/help.png</normaloff>:/help.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QTreeWidget" name="m_rdmTree">
+     <property name="rootIsDecorated">
+      <bool>false</bool>
+     </property>
+     <property name="allColumnsShowFocus">
+      <bool>true</bool>
+     </property>
+     <column>
+      <property name="text">
+       <string>Model</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Universe</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Address</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Channel</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>UID</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Manual controls</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>Arguments</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2" rowspan="2">
+         <widget class="Line" name="line">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="m_pidArgsEdit">
+          <property name="toolTip">
+           <string extracomment="Enter the (optional) arguments to read the PID, separated by commas">A list of comma separated arguments</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string notr="true">PID</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QPushButton" name="m_writeButton">
+          <property name="text">
+           <string>Write</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="m_pidEdit">
+          <property name="toolTip">
+           <string extracomment="Enter a PID eiter in hex or decimal format"/>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <widget class="QComboBox" name="m_dataTypeCombo">
+          <item>
+           <property name="text">
+            <string>Byte</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Short</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Long</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Array (Hex)</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="0" column="3" colspan="2">
+         <widget class="QPushButton" name="m_readButton">
+          <property name="text">
+           <string>Read</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Response</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTextEdit" name="m_pidResult">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>m_rdmTree</tabstop>
+  <tabstop>m_getInfoButton</tabstop>
+  <tabstop>m_pidEdit</tabstop>
+  <tabstop>m_pidArgsEdit</tabstop>
+  <tabstop>m_readButton</tabstop>
+  <tabstop>m_writeButton</tabstop>
+  <tabstop>m_dataTypeCombo</tabstop>
+  <tabstop>m_pidResult</tabstop>
+  <tabstop>m_refreshButton</tabstop>
+ </tabstops>
+ <resources>
+  <include location="qlcui.qrc"/>
+ </resources>
+ <connections/>
+</ui>

@@ -1,0 +1,868 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>Jean-Daniel Garcia / Barbara Brugger</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Rogue R1 FX-B</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Fine Pan" Preset="PositionPanFine"/>
+ <Channel Name="Continuous Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="127" Preset="RotationCounterClockwiseSlowToFast">Conterclockwise rotation, slow to fast</Capability>
+  <Capability Min="128" Max="128" Preset="RotationStop">Stop</Capability>
+  <Capability Min="129" Max="255" Preset="RotationClockwiseSlowToFast">Clockwise rotation, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Tilt Macro">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="47">No function</Capability>
+  <Capability Min="48" Max="55">Tilt Macro 1</Capability>
+  <Capability Min="56" Max="63">Tilt Macro 2</Capability>
+  <Capability Min="64" Max="71">Tilt Macro 3</Capability>
+  <Capability Min="72" Max="79">Tilt Macro 4</Capability>
+  <Capability Min="80" Max="87">Tilt Macro 5</Capability>
+  <Capability Min="88" Max="95">Tilt Macro 6</Capability>
+  <Capability Min="96" Max="103">Tilt Macro 7</Capability>
+  <Capability Min="104" Max="111">Tilt Macro 8</Capability>
+  <Capability Min="112" Max="119">Tilt Macro 9</Capability>
+  <Capability Min="120" Max="127">Tilt Macro 10</Capability>
+  <Capability Min="128" Max="135">Tilt Macro 11</Capability>
+  <Capability Min="136" Max="143">Tilt Macro 12</Capability>
+  <Capability Min="144" Max="151">Tilt Macro 13</Capability>
+  <Capability Min="152" Max="159">Tilt Macro 14</Capability>
+  <Capability Min="160" Max="167">Tilt Macro 15</Capability>
+  <Capability Min="168" Max="175">Tilt Macro 16</Capability>
+  <Capability Min="176" Max="183">Tilt Macro 17</Capability>
+  <Capability Min="184" Max="191">Tilt Macro 18</Capability>
+  <Capability Min="192" Max="199">Tilt Macro 19</Capability>
+  <Capability Min="200" Max="207">Tilt Macro 20</Capability>
+  <Capability Min="208" Max="215">Tilt Macro 21</Capability>
+  <Capability Min="216" Max="223">Tilt Macro 22</Capability>
+  <Capability Min="224" Max="231">Tilt Macro 23</Capability>
+  <Capability Min="232" Max="239">Tilt Macro 24</Capability>
+  <Capability Min="240" Max="247">Tilt Macro 25</Capability>
+  <Capability Min="248" Max="255">Tilt Macro 26</Capability>
+ </Channel>
+ <Channel Name="Tilt Macro Speed" Preset="SpeedTiltFastSlow"/>
+ <Channel Name="Control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="14">Manual tilt blackout</Capability>
+  <Capability Min="15" Max="19">Cancel manual tilt blackout</Capability>
+  <Capability Min="20" Max="24">1 fixture macro</Capability>
+  <Capability Min="25" Max="29">2 fixture macro 1</Capability>
+  <Capability Min="30" Max="34">2 fixture macro 2</Capability>
+  <Capability Min="35" Max="39">4 fixture macro 1</Capability>
+  <Capability Min="40" Max="44">4 fixture macro 2</Capability>
+  <Capability Min="45" Max="49">4 fixture macro 3</Capability>
+  <Capability Min="50" Max="54">4 fixture macro 4</Capability>
+  <Capability Min="55" Max="59">Pan reset</Capability>
+  <Capability Min="60" Max="64">Tilt reset</Capability>
+  <Capability Min="65" Max="69">No function (reserved for future use)</Capability>
+  <Capability Min="70" Max="74">Reset all</Capability>
+  <Capability Min="75" Max="79">No function (reserved for future use)</Capability>
+  <Capability Min="80" Max="84">Pan/Tilt reverse</Capability>
+  <Capability Min="85" Max="89">Pan reverse</Capability>
+  <Capability Min="90" Max="94">Tilt reverse</Capability>
+  <Capability Min="95" Max="99">Cancel pan reverse</Capability>
+  <Capability Min="100" Max="104">Cancel tilt reverse</Capability>
+  <Capability Min="105" Max="109">Cancel pan/tilt reverse</Capability>
+  <Capability Min="110" Max="114">No function (reserved for future use)</Capability>
+  <Capability Min="115" Max="119">Link all heads to head 1</Capability>
+  <Capability Min="120" Max="124">Unlink all heads from head 1</Capability>
+  <Capability Min="125" Max="134">No function (reserved for future use)</Capability>
+  <Capability Min="135" Max="139">Dimmer speed mode fast</Capability>
+  <Capability Min="140" Max="144">Dimmer speed mode smooth</Capability>
+  <Capability Min="145" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Off</Capability>
+  <Capability Min="20" Max="24" Preset="ShutterOpen">On</Capability>
+  <Capability Min="25" Max="64" Preset="StrobeFastToSlow">Strobe 1, fast to slow</Capability>
+  <Capability Min="65" Max="69" Preset="ShutterOpen">On</Capability>
+  <Capability Min="70" Max="84">Strobe 2 (Fast on, slow off), fast to slow</Capability>
+  <Capability Min="85" Max="89" Preset="ShutterOpen">On</Capability>
+  <Capability Min="90" Max="104">Strobe 3 (Slow on, fast off), fast to slow</Capability>
+  <Capability Min="105" Max="109" Preset="ShutterOpen">On</Capability>
+  <Capability Min="110" Max="124">Strobe 4 (Random), fast to slow</Capability>
+  <Capability Min="125" Max="129" Preset="ShutterOpen">On</Capability>
+  <Capability Min="130" Max="144">Strobe 5 (Random fast on, slow off), fast to slow</Capability>
+  <Capability Min="145" Max="149" Preset="ShutterOpen">On</Capability>
+  <Capability Min="150" Max="164">Strobe 6 (Random slow on, fast off), fast to slow</Capability>
+  <Capability Min="165" Max="169" Preset="ShutterOpen">On</Capability>
+  <Capability Min="170" Max="184" Preset="PulseFastToSlow">Strobe 7 (Pulse), fast to slow</Capability>
+  <Capability Min="185" Max="189" Preset="ShutterOpen">On</Capability>
+  <Capability Min="190" Max="204" Preset="StrobeRandomFastToSlow">Strobe 8 (Random pulse), fast to slow</Capability>
+  <Capability Min="205" Max="209" Preset="ShutterOpen">On</Capability>
+  <Capability Min="210" Max="224">Strobe 9 (Fade in, fade out), fast to slow</Capability>
+  <Capability Min="225" Max="229" Preset="ShutterOpen">On</Capability>
+  <Capability Min="230" Max="244" Preset="StrobeRandomFastToSlow">Strobe 10 (Random pulse), fast to slow</Capability>
+  <Capability Min="245" Max="255" Preset="ShutterOpen">On</Capability>
+ </Channel>
+ <Channel Name="Color Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="13">No function</Capability>
+  <Capability Min="14" Max="20">Color 1</Capability>
+  <Capability Min="21" Max="28">Color 2</Capability>
+  <Capability Min="29" Max="36">Color 3</Capability>
+  <Capability Min="37" Max="44">Color 4</Capability>
+  <Capability Min="45" Max="52">Color 5</Capability>
+  <Capability Min="53" Max="60">Color 6</Capability>
+  <Capability Min="61" Max="68">Color 7</Capability>
+  <Capability Min="69" Max="76">Color 8</Capability>
+  <Capability Min="77" Max="84">Color 9</Capability>
+  <Capability Min="85" Max="92">Color 10</Capability>
+  <Capability Min="93" Max="100">Color 11</Capability>
+  <Capability Min="101" Max="108">Color 12</Capability>
+  <Capability Min="109" Max="116">Color 13</Capability>
+  <Capability Min="117" Max="124">Color 14</Capability>
+  <Capability Min="125" Max="133">Color 15</Capability>
+  <Capability Min="134" Max="185">No function</Capability>
+  <Capability Min="186" Max="207">Rainbow effect, fast to slow</Capability>
+  <Capability Min="208" Max="213">Stop</Capability>
+  <Capability Min="214" Max="235">Reverse Rainbow effect, fast to slow</Capability>
+  <Capability Min="236" Max="240">No function</Capability>
+  <Capability Min="241" Max="255">Color jump, fast to slow</Capability>
+ </Channel>
+ <Channel Name="On/Off Preset (● = on; ○ = off)">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="5">Head 1 ● Head 2 ● Head 3 ● Head 4 ● Head 5 ●</Capability>
+  <Capability Min="6" Max="11">Head 1 ○ Head 2 ● Head 3 ● Head 4 ● Head 5 ●</Capability>
+  <Capability Min="12" Max="17">Head 1 ○ Head 2 ○ Head 3 ● Head 4 ● Head 5 ●</Capability>
+  <Capability Min="18" Max="23">Head 1 ○ Head 2 ○ Head 3 ○ Head 4 ● Head 5 ●</Capability>
+  <Capability Min="24" Max="29">Head 1 ○ Head 2 ○ Head 3 ○ Head 4 ○ Head 5 ●</Capability>
+  <Capability Min="30" Max="35">Head 1 ○ Head 2 ○ Head 3 ○ Head 4 ○ Head 5 ○</Capability>
+  <Capability Min="36" Max="41">Head 1 ● Head 2 ○ Head 3 ○ Head 4 ○ Head 5 ○</Capability>
+  <Capability Min="42" Max="47">Head 1 ● Head 2 ● Head 3 ○ Head 4 ○ Head 5 ○</Capability>
+  <Capability Min="48" Max="53">Head 1 ● Head 2 ● Head 3 ● Head 4 ○ Head 5 ○</Capability>
+  <Capability Min="54" Max="59">Head 1 ● Head 2 ● Head 3 ● Head 4 ● Head 5 ○</Capability>
+  <Capability Min="60" Max="65">Head 1 ● Head 2 ● Head 3 ● Head 4 ● Head 5 ●</Capability>
+  <Capability Min="66" Max="71">Head 1 ○ Head 2 ○ Head 3 ○ Head 4 ○ Head 5 ○</Capability>
+  <Capability Min="72" Max="77">Head 1 ● Head 2 ○ Head 3 ○ Head 4 ○ Head 5 ○</Capability>
+  <Capability Min="78" Max="83">Head 1 ○ Head 2 ● Head 3 ○ Head 4 ○ Head 5 ○</Capability>
+  <Capability Min="84" Max="89">Head 1 ○ Head 2 ○ Head 3 ● Head 4 ○ Head 5 ○</Capability>
+  <Capability Min="90" Max="95">Head 1 ○ Head 2 ○ Head 3 ○ Head 4 ● Head 5 ○</Capability>
+  <Capability Min="96" Max="101">Head 1 ○ Head 2 ○ Head 3 ○ Head 4 ○ Head 5 ●</Capability>
+  <Capability Min="102" Max="107">Head 1 ○ Head 2 ○ Head 3 ○ Head 4 ○ Head 5 ○</Capability>
+  <Capability Min="108" Max="113">Head 1 ● Head 2 ● Head 3 ○ Head 4 ○ Head 5 ○</Capability>
+  <Capability Min="114" Max="119">Head 1 ○ Head 2 ● Head 3 ● Head 4 ○ Head 5 ○</Capability>
+  <Capability Min="120" Max="125">Head 1 ○ Head 2 ○ Head 3 ● Head 4 ● Head 5 ○</Capability>
+  <Capability Min="126" Max="131">Head 1 ○ Head 2 ○ Head 3 ○ Head 4 ● Head 5 ●</Capability>
+  <Capability Min="132" Max="137">Head 1 ● Head 2 ○ Head 3 ○ Head 4 ○ Head 5 ●</Capability>
+  <Capability Min="138" Max="143">Head 1 ○ Head 2 ○ Head 3 ○ Head 4 ○ Head 5 ○</Capability>
+  <Capability Min="144" Max="149">Head 1 ○ Head 2 ● Head 3 ● Head 4 ● Head 5 ●</Capability>
+  <Capability Min="150" Max="155">Head 1 ● Head 2 ○ Head 3 ● Head 4 ● Head 5 ●</Capability>
+  <Capability Min="156" Max="161">Head 1 ● Head 2 ● Head 3 ○ Head 4 ● Head 5 ●</Capability>
+  <Capability Min="162" Max="167">Head 1 ● Head 2 ● Head 3 ● Head 4 ○ Head 5 ●</Capability>
+  <Capability Min="168" Max="173">Head 1 ● Head 2 ● Head 3 ● Head 4 ● Head 5 ○</Capability>
+  <Capability Min="174" Max="179">Head 1 ○ Head 2 ○ Head 3 ○ Head 4 ○ Head 5 ○</Capability>
+  <Capability Min="180" Max="185">Head 1 ○ Head 2 ○ Head 3 ○ Head 4 ○ Head 5 ●</Capability>
+  <Capability Min="186" Max="191">Head 1 ○ Head 2 ○ Head 3 ○ Head 4 ● Head 5 ●</Capability>
+  <Capability Min="192" Max="197">Head 1 ○ Head 2 ○ Head 3 ● Head 4 ● Head 5 ●</Capability>
+  <Capability Min="198" Max="203">Head 1 ○ Head 2 ● Head 3 ● Head 4 ● Head 5 ●</Capability>
+  <Capability Min="204" Max="209">Head 1 ● Head 2 ● Head 3 ● Head 4 ● Head 5 ●</Capability>
+  <Capability Min="210" Max="215">Head 1 ○ Head 2 ○ Head 3 ○ Head 4 ○ Head 5 ○</Capability>
+  <Capability Min="216" Max="221">Head 1 ● Head 2 ● Head 3 ● Head 4 ○ Head 5 ○</Capability>
+  <Capability Min="222" Max="227">Head 1 ○ Head 2 ● Head 3 ● Head 4 ● Head 5 ○</Capability>
+  <Capability Min="228" Max="233">Head 1 ○ Head 2 ○ Head 3 ● Head 4 ● Head 5 ●</Capability>
+  <Capability Min="234" Max="239">Head 1 ● Head 2 ○ Head 3 ○ Head 4 ● Head 5 ●</Capability>
+  <Capability Min="240" Max="245">Head 1 ● Head 2 ● Head 3 ○ Head 4 ○ Head 5 ●</Capability>
+  <Capability Min="246" Max="255">Head 1 ● Head 2 ● Head 3 ● Head 4 ● Head 5 ●</Capability>
+ </Channel>
+ <Channel Name="LED Macro/Auto Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="20">LED Macro 1</Capability>
+  <Capability Min="21" Max="25">LED Macro 2</Capability>
+  <Capability Min="26" Max="30">LED Macro 3</Capability>
+  <Capability Min="31" Max="35">LED Macro 4</Capability>
+  <Capability Min="36" Max="40">LED Macro 5</Capability>
+  <Capability Min="41" Max="45">LED Macro 6</Capability>
+  <Capability Min="46" Max="50">LED Macro 7</Capability>
+  <Capability Min="51" Max="55">LED Macro 8</Capability>
+  <Capability Min="56" Max="60">LED Macro 9</Capability>
+  <Capability Min="61" Max="65">LED Macro 10</Capability>
+  <Capability Min="66" Max="70">LED Macro 11</Capability>
+  <Capability Min="71" Max="75">LED Macro 12</Capability>
+  <Capability Min="76" Max="80">LED Macro 13</Capability>
+  <Capability Min="81" Max="85">LED Macro 14</Capability>
+  <Capability Min="86" Max="90">LED Macro 15</Capability>
+  <Capability Min="91" Max="95">LED Macro 16</Capability>
+  <Capability Min="96" Max="100">LED Macro 17</Capability>
+  <Capability Min="101" Max="105">LED Macro 18</Capability>
+  <Capability Min="106" Max="110">LED Macro 19</Capability>
+  <Capability Min="111" Max="115">LED Macro 20</Capability>
+  <Capability Min="116" Max="120">LED Macro 21</Capability>
+  <Capability Min="121" Max="125">LED Macro 22</Capability>
+  <Capability Min="126" Max="130">LED Macro 23</Capability>
+  <Capability Min="131" Max="135">LED Macro 24</Capability>
+  <Capability Min="136" Max="140">Auto program 1</Capability>
+  <Capability Min="141" Max="145">Auto program 2</Capability>
+  <Capability Min="146" Max="150">Auto program 3</Capability>
+  <Capability Min="151" Max="155">Auto program 4</Capability>
+  <Capability Min="156" Max="160">Auto program 5</Capability>
+  <Capability Min="161" Max="165">Auto program 6</Capability>
+  <Capability Min="166" Max="170">Auto program 7</Capability>
+  <Capability Min="171" Max="175">Auto program 8</Capability>
+  <Capability Min="176" Max="180">Auto program 9</Capability>
+  <Capability Min="181" Max="185">Auto program 10</Capability>
+  <Capability Min="186" Max="190">Auto program 11</Capability>
+  <Capability Min="191" Max="195">Auto program 12</Capability>
+  <Capability Min="196" Max="200">Auto program 13</Capability>
+  <Capability Min="201" Max="205">Auto program 14</Capability>
+  <Capability Min="206" Max="210">Auto program 15</Capability>
+  <Capability Min="211" Max="215">Auto program 16</Capability>
+  <Capability Min="216" Max="220">Auto program 17</Capability>
+  <Capability Min="221" Max="225">Auto program 18</Capability>
+  <Capability Min="226" Max="230">Auto program 19</Capability>
+  <Capability Min="231" Max="235">Auto program 20</Capability>
+  <Capability Min="236" Max="240">Auto program 21</Capability>
+  <Capability Min="241" Max="245">Auto program 22</Capability>
+  <Capability Min="246" Max="250">Auto program 23</Capability>
+  <Capability Min="251" Max="255">Auto program 24</Capability>
+ </Channel>
+ <Channel Name="LED Macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Tilt 1" Preset="PositionTilt"/>
+ <Channel Name="Fine Tilt 1" Preset="PositionTiltFine"/>
+ <Channel Name="Continuous Tilt 1">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="127" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise rotation, slow to fast</Capability>
+  <Capability Min="128" Max="128" Preset="RotationStop">Stop</Capability>
+  <Capability Min="129" Max="255" Preset="RotationClockwiseSlowToFast">Clockwise rotation, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Head 1 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Head 1 Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Head 1 Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Head 1 Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Head 1 White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Tilt 2" Preset="PositionTilt"/>
+ <Channel Name="Fine Tilt 2" Preset="PositionTiltFine"/>
+ <Channel Name="Continuous Tilt 2">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="127" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise rotation, slow to fast</Capability>
+  <Capability Min="128" Max="128" Preset="RotationStop">Stop</Capability>
+  <Capability Min="129" Max="255" Preset="RotationClockwiseFastToSlow">Clockwise rotation, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Head 2 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Head 2 Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Head 2 Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Head 2 Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Head 2 White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Tilt 3" Preset="PositionTilt"/>
+ <Channel Name="Fine Tilt 3" Preset="PositionTiltFine"/>
+ <Channel Name="Continuous Tilt 3">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="127" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise rotation, slow to fast</Capability>
+  <Capability Min="128" Max="128" Preset="RotationStop">Stop</Capability>
+  <Capability Min="129" Max="255" Preset="RotationClockwiseSlowToFast">Clockwise rotation, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Head 3 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Head 3 Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Head 3 Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Head 3 Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Head 3 White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Tilt 4" Preset="PositionTilt"/>
+ <Channel Name="Fine Tilt 4" Preset="PositionTiltFine"/>
+ <Channel Name="Continuous Tilt 4">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="127" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise rotation, slow to fast</Capability>
+  <Capability Min="128" Max="128" Preset="RotationStop">Stop</Capability>
+  <Capability Min="129" Max="255" Preset="RotationClockwiseSlowToFast">Clockwise rotation, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Head 4 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Head 4 Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Head 4 Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Head 4 Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Head 4 White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Tilt 5" Preset="PositionTilt"/>
+ <Channel Name="Fine Tilt 5" Preset="PositionTiltFine"/>
+ <Channel Name="Continuous Tilt 5">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="127" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise rotation, slow to fast</Capability>
+  <Capability Min="128" Max="128" Preset="RotationStop">Stop</Capability>
+  <Capability Min="129" Max="255" Preset="RotationClockwiseSlowToFast">Clockwise rotation, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Head 5 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Head 5 Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Head 5 Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Head 5 Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Head 5 White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">RGBW mode: 0 -100% / CMY mode: 100% - 0</Capability>
+ </Channel>
+ <Channel Name="Tilt All" Preset="PositionTilt"/>
+ <Channel Name="Continuous Tilt All">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="127" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise rotation, slow to fast</Capability>
+  <Capability Min="128" Max="128" Preset="RotationStop">Stop</Capability>
+  <Capability Min="129" Max="255" Preset="RotationClockwiseSlowToFast">Clockwise rotation, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Tilt Offset">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Offset heads from each other, 0 - 360°</Capability>
+ </Channel>
+ <Mode Name="Tour 2">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Fine Pan</Channel>
+  <Channel Number="2" ActsOn="0">Continuous Pan</Channel>
+  <Channel Number="3">Tilt Macro</Channel>
+  <Channel Number="4">Tilt Macro Speed</Channel>
+  <Channel Number="5">Control</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Shutter</Channel>
+  <Channel Number="8">Color Macro</Channel>
+  <Channel Number="9">On/Off Preset (● = on; ○ = off)</Channel>
+  <Channel Number="10">LED Macro/Auto Program</Channel>
+  <Channel Number="11">LED Macro Speed</Channel>
+  <Channel Number="12">Tilt 1</Channel>
+  <Channel Number="13">Fine Tilt 1</Channel>
+  <Channel Number="14" ActsOn="12">Continuous Tilt 1</Channel>
+  <Channel Number="15">Head 1 Dimmer</Channel>
+  <Channel Number="16">Head 1 Red</Channel>
+  <Channel Number="17">Head 1 Green</Channel>
+  <Channel Number="18">Head 1 Blue</Channel>
+  <Channel Number="19">Head 1 White</Channel>
+  <Channel Number="20">Tilt 2</Channel>
+  <Channel Number="21">Fine Tilt 2</Channel>
+  <Channel Number="22" ActsOn="20">Continuous Tilt 2</Channel>
+  <Channel Number="23">Head 2 Dimmer</Channel>
+  <Channel Number="24">Head 2 Red</Channel>
+  <Channel Number="25">Head 2 Green</Channel>
+  <Channel Number="26">Head 2 Blue</Channel>
+  <Channel Number="27">Head 2 White</Channel>
+  <Channel Number="28">Tilt 3</Channel>
+  <Channel Number="29">Fine Tilt 3</Channel>
+  <Channel Number="30" ActsOn="28">Continuous Tilt 3</Channel>
+  <Channel Number="31">Head 3 Dimmer</Channel>
+  <Channel Number="32">Head 3 Red</Channel>
+  <Channel Number="33">Head 3 Green</Channel>
+  <Channel Number="34">Head 3 Blue</Channel>
+  <Channel Number="35">Head 3 White</Channel>
+  <Channel Number="36">Tilt 4</Channel>
+  <Channel Number="37">Fine Tilt 4</Channel>
+  <Channel Number="38" ActsOn="36">Continuous Tilt 4</Channel>
+  <Channel Number="39">Head 4 Dimmer</Channel>
+  <Channel Number="40">Head 4 Red</Channel>
+  <Channel Number="41">Head 4 Green</Channel>
+  <Channel Number="42">Head 4 Blue</Channel>
+  <Channel Number="43">Head 4 White</Channel>
+  <Channel Number="44">Tilt 5</Channel>
+  <Channel Number="45">Fine Tilt 5</Channel>
+  <Channel Number="46" ActsOn="44">Continuous Tilt 5</Channel>
+  <Channel Number="47">Head 5 Dimmer</Channel>
+  <Channel Number="48">Head 5 Red</Channel>
+  <Channel Number="49">Head 5 Green</Channel>
+  <Channel Number="50">Head 5 Blue</Channel>
+  <Channel Number="51">Head 5 White</Channel>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Tour">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Fine Pan</Channel>
+  <Channel Number="2" ActsOn="0">Continuous Pan</Channel>
+  <Channel Number="3">Tilt Macro</Channel>
+  <Channel Number="4">Tilt Macro Speed</Channel>
+  <Channel Number="5">Control</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Shutter</Channel>
+  <Channel Number="8">Color Macro</Channel>
+  <Channel Number="9">On/Off Preset (● = on; ○ = off)</Channel>
+  <Channel Number="10">LED Macro/Auto Program</Channel>
+  <Channel Number="11">LED Macro Speed</Channel>
+  <Channel Number="12">Tilt 1</Channel>
+  <Channel Number="13">Fine Tilt 1</Channel>
+  <Channel Number="14" ActsOn="12">Continuous Tilt 1</Channel>
+  <Channel Number="15">Head 1 Red</Channel>
+  <Channel Number="16">Head 1 Green</Channel>
+  <Channel Number="17">Head 1 Blue</Channel>
+  <Channel Number="18">Head 1 White</Channel>
+  <Channel Number="19">Tilt 2</Channel>
+  <Channel Number="20">Fine Tilt 2</Channel>
+  <Channel Number="21" ActsOn="19">Continuous Tilt 2</Channel>
+  <Channel Number="22">Head 2 Red</Channel>
+  <Channel Number="23">Head 2 Green</Channel>
+  <Channel Number="24">Head 2 Blue</Channel>
+  <Channel Number="25">Head 2 White</Channel>
+  <Channel Number="26">Tilt 3</Channel>
+  <Channel Number="27">Fine Tilt 3</Channel>
+  <Channel Number="28" ActsOn="26">Continuous Tilt 3</Channel>
+  <Channel Number="29">Head 3 Red</Channel>
+  <Channel Number="30">Head 3 Green</Channel>
+  <Channel Number="31">Head 3 Blue</Channel>
+  <Channel Number="32">Head 3 White</Channel>
+  <Channel Number="33">Tilt 4</Channel>
+  <Channel Number="34">Fine Tilt 4</Channel>
+  <Channel Number="35" ActsOn="33">Continuous Tilt 4</Channel>
+  <Channel Number="36">Head 4 Red</Channel>
+  <Channel Number="37">Head 4 Green</Channel>
+  <Channel Number="38">Head 4 Blue</Channel>
+  <Channel Number="39">Head 4 White</Channel>
+  <Channel Number="40">Tilt 5</Channel>
+  <Channel Number="41">Fine Tilt 5</Channel>
+  <Channel Number="42" ActsOn="40">Continuous Tilt 5</Channel>
+  <Channel Number="43">Head 5 Red</Channel>
+  <Channel Number="44">Head 5 Green</Channel>
+  <Channel Number="45">Head 5 Blue</Channel>
+  <Channel Number="46">Head 5 White</Channel>
+ </Mode>
+ <Mode Name="Advance">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Fine Pan</Channel>
+  <Channel Number="2" ActsOn="0">Continuous Pan</Channel>
+  <Channel Number="3">Tilt 1</Channel>
+  <Channel Number="4">Fine Tilt 1</Channel>
+  <Channel Number="5">Tilt 2</Channel>
+  <Channel Number="6">Fine Tilt 2</Channel>
+  <Channel Number="7">Tilt 3</Channel>
+  <Channel Number="8">Fine Tilt 3</Channel>
+  <Channel Number="9">Tilt 4</Channel>
+  <Channel Number="10">Fine Tilt 4</Channel>
+  <Channel Number="11">Tilt 5</Channel>
+  <Channel Number="12">Fine Tilt 5</Channel>
+  <Channel Number="13" ActsOn="3">Continuous Tilt 1</Channel>
+  <Channel Number="14" ActsOn="5">Continuous Tilt 2</Channel>
+  <Channel Number="15" ActsOn="7">Continuous Tilt 3</Channel>
+  <Channel Number="16" ActsOn="9">Continuous Tilt 4</Channel>
+  <Channel Number="17" ActsOn="11">Continuous Tilt 5</Channel>
+  <Channel Number="18">Tilt Macro</Channel>
+  <Channel Number="19">Tilt Macro Speed</Channel>
+  <Channel Number="20">Control</Channel>
+  <Channel Number="21">Dimmer</Channel>
+  <Channel Number="22">Shutter</Channel>
+  <Channel Number="23">Color Macro</Channel>
+  <Channel Number="24">On/Off Preset (● = on; ○ = off)</Channel>
+  <Channel Number="25">LED Macro/Auto Program</Channel>
+  <Channel Number="26">LED Macro Speed</Channel>
+  <Channel Number="27">Head 1 Red</Channel>
+  <Channel Number="28">Head 1 Green</Channel>
+  <Channel Number="29">Head 1 Blue</Channel>
+  <Channel Number="30">Head 1 White</Channel>
+  <Channel Number="31">Head 2 Red</Channel>
+  <Channel Number="32">Head 2 Green</Channel>
+  <Channel Number="33">Head 2 Blue</Channel>
+  <Channel Number="34">Head 2 White</Channel>
+  <Channel Number="35">Head 3 Red</Channel>
+  <Channel Number="36">Head 3 Green</Channel>
+  <Channel Number="37">Head 3 Blue</Channel>
+  <Channel Number="38">Head 3 White</Channel>
+  <Channel Number="39">Head 4 Red</Channel>
+  <Channel Number="40">Head 4 Green</Channel>
+  <Channel Number="41">Head 4 Blue</Channel>
+  <Channel Number="42">Head 4 White</Channel>
+  <Channel Number="43">Head 5 Red</Channel>
+  <Channel Number="44">Head 5 Green</Channel>
+  <Channel Number="45">Head 5 Blue</Channel>
+  <Channel Number="46">Head 5 White</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>13</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>14</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>16</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>17</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Standard">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1" ActsOn="0">Continuous Pan</Channel>
+  <Channel Number="2">Tilt 1</Channel>
+  <Channel Number="3">Tilt 2</Channel>
+  <Channel Number="4">Tilt 3</Channel>
+  <Channel Number="5">Tilt 4</Channel>
+  <Channel Number="6">Tilt 5</Channel>
+  <Channel Number="7" ActsOn="2">Continuous Tilt 1</Channel>
+  <Channel Number="8" ActsOn="3">Continuous Tilt 2</Channel>
+  <Channel Number="9" ActsOn="4">Continuous Tilt 3</Channel>
+  <Channel Number="10" ActsOn="5">Continuous Tilt 4</Channel>
+  <Channel Number="11" ActsOn="6">Continuous Tilt 5</Channel>
+  <Channel Number="12">Tilt Macro</Channel>
+  <Channel Number="13">Tilt Macro Speed</Channel>
+  <Channel Number="14">Control</Channel>
+  <Channel Number="15">Dimmer</Channel>
+  <Channel Number="16">Shutter</Channel>
+  <Channel Number="17">Color Macro</Channel>
+  <Channel Number="18">On/Off Preset (● = on; ○ = off)</Channel>
+  <Channel Number="19">LED Macro/Auto Program</Channel>
+  <Channel Number="20">LED Macro Speed</Channel>
+  <Channel Number="21">Red</Channel>
+  <Channel Number="22">Green</Channel>
+  <Channel Number="23">Blue</Channel>
+  <Channel Number="24">White</Channel>
+ </Mode>
+ <Mode Name="Basic">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1" ActsOn="0">Continuous Pan</Channel>
+  <Channel Number="2">Tilt All</Channel>
+  <Channel Number="3" ActsOn="2">Continuous Tilt All</Channel>
+  <Channel Number="4">Tilt Offset</Channel>
+  <Channel Number="5">Tilt Macro</Channel>
+  <Channel Number="6">Tilt Macro Speed</Channel>
+  <Channel Number="7">Control</Channel>
+  <Channel Number="8">Dimmer</Channel>
+  <Channel Number="9">Shutter</Channel>
+  <Channel Number="10">Color Macro</Channel>
+  <Channel Number="11">On/Off Preset (● = on; ○ = off)</Channel>
+  <Channel Number="12">LED Macro/Auto Program</Channel>
+  <Channel Number="13">LED Macro Speed</Channel>
+  <Channel Number="14">Red</Channel>
+  <Channel Number="15">Green</Channel>
+  <Channel Number="16">Blue</Channel>
+  <Channel Number="17">White</Channel>
+ </Mode>
+ <Mode Name="Advance Movement">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Fine Pan</Channel>
+  <Channel Number="2" ActsOn="0">Continuous Pan</Channel>
+  <Channel Number="3">Tilt 1</Channel>
+  <Channel Number="4">Fine Tilt 1</Channel>
+  <Channel Number="5">Tilt 2</Channel>
+  <Channel Number="6">Fine Tilt 2</Channel>
+  <Channel Number="7">Tilt 3</Channel>
+  <Channel Number="8">Fine Tilt 3</Channel>
+  <Channel Number="9">Tilt 4</Channel>
+  <Channel Number="10">Fine Tilt 4</Channel>
+  <Channel Number="11">Tilt 5</Channel>
+  <Channel Number="12">Fine Tilt 5</Channel>
+  <Channel Number="13" ActsOn="3">Continuous Tilt 1</Channel>
+  <Channel Number="14" ActsOn="5">Continuous Tilt 2</Channel>
+  <Channel Number="15" ActsOn="7">Continuous Tilt 3</Channel>
+  <Channel Number="16" ActsOn="9">Continuous Tilt 4</Channel>
+  <Channel Number="17" ActsOn="11">Continuous Tilt 5</Channel>
+  <Channel Number="18">Tilt Macro</Channel>
+  <Channel Number="19">Tilt Macro Speed</Channel>
+  <Channel Number="20">Dimmer</Channel>
+  <Channel Number="21">Shutter</Channel>
+  <Channel Number="22">Control</Channel>
+ </Mode>
+ <Mode Name="Standard Movement">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1" ActsOn="0">Continuous Pan</Channel>
+  <Channel Number="2">Tilt 1</Channel>
+  <Channel Number="3">Tilt 2</Channel>
+  <Channel Number="4">Tilt 3</Channel>
+  <Channel Number="5">Tilt 4</Channel>
+  <Channel Number="6">Tilt 5</Channel>
+  <Channel Number="7" ActsOn="2">Continuous Tilt 1</Channel>
+  <Channel Number="8" ActsOn="3">Continuous Tilt 2</Channel>
+  <Channel Number="9" ActsOn="4">Continuous Tilt 3</Channel>
+  <Channel Number="10" ActsOn="5">Continuous Tilt 4</Channel>
+  <Channel Number="11" ActsOn="6">Continuous Tilt 5</Channel>
+  <Channel Number="12">Tilt Macro</Channel>
+  <Channel Number="13">Tilt Macro Speed</Channel>
+  <Channel Number="14">Dimmer</Channel>
+  <Channel Number="15">Shutter</Channel>
+  <Channel Number="16">Control</Channel>
+ </Mode>
+ <Mode Name="Basic Movement">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1" ActsOn="0">Continuous Pan</Channel>
+  <Channel Number="2">Tilt All</Channel>
+  <Channel Number="3" ActsOn="2">Continuous Tilt All</Channel>
+  <Channel Number="4">Tilt Offset</Channel>
+  <Channel Number="5">Tilt Macro</Channel>
+  <Channel Number="6">Tilt Macro Speed</Channel>
+  <Channel Number="7">Dimmer</Channel>
+  <Channel Number="8">Shutter</Channel>
+  <Channel Number="9">Control</Channel>
+ </Mode>
+ <Mode Name="RGBW">
+  <Channel Number="0">Head 1 Red</Channel>
+  <Channel Number="1">Head 1 Green</Channel>
+  <Channel Number="2">Head 1 Blue</Channel>
+  <Channel Number="3">Head 1 White</Channel>
+  <Channel Number="4">Head 2 Red</Channel>
+  <Channel Number="5">Head 2 Green</Channel>
+  <Channel Number="6">Head 2 Blue</Channel>
+  <Channel Number="7">Head 2 White</Channel>
+  <Channel Number="8">Head 3 Red</Channel>
+  <Channel Number="9">Head 3 Green</Channel>
+  <Channel Number="10">Head 3 Blue</Channel>
+  <Channel Number="11">Head 3 White</Channel>
+  <Channel Number="12">Head 4 Red</Channel>
+  <Channel Number="13">Head 4 Green</Channel>
+  <Channel Number="14">Head 4 Blue</Channel>
+  <Channel Number="15">Head 4 White</Channel>
+  <Channel Number="16">Head 5 Red</Channel>
+  <Channel Number="17">Head 5 Green</Channel>
+  <Channel Number="18">Head 5 Blue</Channel>
+  <Channel Number="19">Head 5 White</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="RGB">
+  <Channel Number="0">Head 1 Red</Channel>
+  <Channel Number="1">Head 1 Green</Channel>
+  <Channel Number="2">Head 1 Blue</Channel>
+  <Channel Number="3">Head 2 Red</Channel>
+  <Channel Number="4">Head 2 Green</Channel>
+  <Channel Number="5">Head 2 Blue</Channel>
+  <Channel Number="6">Head 3 Red</Channel>
+  <Channel Number="7">Head 3 Green</Channel>
+  <Channel Number="8">Head 3 Blue</Channel>
+  <Channel Number="9">Head 4 Red</Channel>
+  <Channel Number="10">Head 4 Green</Channel>
+  <Channel Number="11">Head 4 Blue</Channel>
+  <Channel Number="12">Head 5 Red</Channel>
+  <Channel Number="13">Head 5 Green</Channel>
+  <Channel Number="14">Head 5 Blue</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="5361" ColourTemperature="0"/>
+  <Dimensions Weight="11" Width="179" Height="247" Depth="640"/>
+  <Lens Name="Other" DegreesMin="7" DegreesMax="7"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="197" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

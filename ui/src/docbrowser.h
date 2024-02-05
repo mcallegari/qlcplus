@@ -23,7 +23,8 @@
 #include <QTextBrowser>
 #include <QPushButton>
 #include <QMainWindow>
-#include <QTime>
+#include <QElapsedTimer>
+#include <QUrl>
 
 class QToolBar;
 class QAction;
@@ -47,7 +48,7 @@ protected:
     bool event(QEvent* ev);
 
 private:
-    QTime m_hysteresis;
+    QElapsedTimer m_hysteresis;
 };
 
 /****************************************************************************
@@ -71,6 +72,7 @@ private slots:
     void slotForwardAvailable(bool);
     void slotAboutQt();
     void slotCloseWindow();
+    void slotAnchorClicked(QUrl);
 
 private:
     static DocBrowser* s_instance;

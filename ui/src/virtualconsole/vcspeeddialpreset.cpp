@@ -23,7 +23,6 @@
 
 #include "vcspeeddialpreset.h"
 #include "vcwidget.h"
-#include "qlcfile.h"
 
 VCSpeedDialPreset::VCSpeedDialPreset(quint8 id)
     : m_id(id)
@@ -31,22 +30,32 @@ VCSpeedDialPreset::VCSpeedDialPreset(quint8 id)
 {
 }
 
-VCSpeedDialPreset::VCSpeedDialPreset(VCSpeedDialPreset const& preset)
-    : m_id(preset.m_id)
-    , m_name(preset.m_name)
-    , m_value(preset.m_value)
-    , m_keySequence(preset.m_keySequence)
+VCSpeedDialPreset::VCSpeedDialPreset(VCSpeedDialPreset const& other)
 {
-    if (preset.m_inputSource != NULL)
-    {
-        m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(preset.m_inputSource->universe(),
-                                                       preset.m_inputSource->channel()));
-        m_inputSource->setRange(preset.m_inputSource->lowerValue(), preset.m_inputSource->upperValue());
-    }
+    *this = other;
 }
 
 VCSpeedDialPreset::~VCSpeedDialPreset()
 {
+}
+
+VCSpeedDialPreset &VCSpeedDialPreset::operator=(const VCSpeedDialPreset &preset)
+{
+    if (this != &preset)
+    {
+        m_id = preset.m_id;
+        m_name = preset.m_name;
+        m_value = preset.m_value;
+        m_keySequence = preset.m_keySequence;
+
+        if (preset.m_inputSource != NULL)
+        {
+            m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(preset.m_inputSource->universe(),
+                                                           preset.m_inputSource->channel()));
+            m_inputSource->setRange(preset.m_inputSource->lowerValue(), preset.m_inputSource->upperValue());
+        }
+    }
+    return *this;
 }
 
 bool VCSpeedDialPreset::operator<(VCSpeedDialPreset const& right) const

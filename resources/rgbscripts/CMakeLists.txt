@@ -1,0 +1,45 @@
+project(scripts)
+
+set(SCRIPT_FILES
+    alternate.js
+    balls.js
+    ballscolors.js
+    blinder.js
+    circles.js
+    circular.js
+    evenodd.js
+    fill.js
+    fillfromcenter.js
+    fillunfill.js
+    fillunfillfromcenter.js
+    fillunfillsquaresfromcenter.js
+    fireworks.js
+    flyingobjects.js
+    gradient.js
+    lines.js
+    marquee.js
+    noise.js
+    onebyone.js
+    opposite.js
+    plasma.js
+    plasmacolors.js
+    randomcolumn.js
+    randomfillcolumn.js
+    randomfillrow.js
+    randomfillsingle.js
+    randompixelperrow.js
+    randompixelperrowmulticolor.js
+    randomrow.js
+    randomsingle.js
+    snowbubbles.js
+    squares.js
+    squaresfromcenter.js
+    starfield.js
+    stripes.js
+    stripesfromcenter.js
+    strobe.js
+    verticalfall.js
+    waves.js
+)
+
+install(FILES ${SCRIPT_FILES} DESTINATION ${INSTALLROOT}/${RGBSCRIPTDIR})

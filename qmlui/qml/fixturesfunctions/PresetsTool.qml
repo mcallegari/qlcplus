@@ -28,7 +28,7 @@ Rectangle
     width: UISettings.bigItemHeight * 3
     height: UISettings.bigItemHeight * 3
     color: UISettings.bgMedium
-    border.color: "#666"
+    border.color: UISettings.bgLight
     border.width: 2
     clip: true
 
@@ -36,8 +36,11 @@ Rectangle
     property alias presetModel: prList.model
     property int selectedFixture: -1
     property int selectedChannel: -1
+    property bool showPalette: false
+    property int currentValue: 0 // as DMX value
 
     signal presetSelected(QLCCapability cap, int fxID, int chIdx, int value)
+    signal valueChanged(int value)
 
     function updatePresets(presetModel)
     {
@@ -47,6 +50,12 @@ Rectangle
             prList.model = null // force reload
             prList.model = presetModel
         }
+    }
+
+    MouseArea
+    {
+        anchors.fill: parent
+        onWheel: { return false }
     }
 
     // toolbar area containing the available preset channels
@@ -74,11 +83,11 @@ Rectangle
                 Rectangle
                 {
                     id: delegateRoot
-                    width: UISettings.bigItemHeight
+                    width: UISettings.bigItemHeight * 1.3
                     height: presetToolBar.height
                     color: prMouseArea.pressed ? UISettings.bgLight : UISettings.bgMedium
                     border.width: 1
-                    border.color: "#666"
+                    border.color: UISettings.bgLight
 
                     property int fxID: modelData.fixtureID
                     property int chIdx: modelData.channelIdx
@@ -90,16 +99,17 @@ Rectangle
                             selectedFixture = fxID
                             selectedChannel = chIdx
                             capRepeater.model = fixtureManager.presetCapabilities(selectedFixture, selectedChannel)
+                            prFlickable.contentY = 0
                         }
                     }
 
                     RobotoText
                     {
-                        x: 1
-                        width: parent.width - 2
+                        x: 2
+                        width: parent.width - 4
                         height: parent.height
                         label: modelData.name
-                        fontSize: UISettings.textSizeDefault * 0.75
+                        fontSize: UISettings.textSizeDefault * 0.70
                         wrapText: true
                     }
                     MouseArea
@@ -113,6 +123,7 @@ Rectangle
                             selectedFixture = delegateRoot.fxID
                             selectedChannel = delegateRoot.chIdx
                             capRepeater.model = fixtureManager.presetCapabilities(selectedFixture, selectedChannel)
+                            prFlickable.contentY = 0
                         }
                     }
             }
@@ -122,6 +133,7 @@ Rectangle
     // flickable layout containing the actual preset capabilities
     Flickable
     {
+        id: prFlickable
         width: parent.width
         height: parent.height - presetToolBar.height
         y: presetToolBar.height
@@ -142,7 +154,9 @@ Rectangle
                     capIndex: index + 1
                     onValueChanged:
                     {
+                        toolRoot.currentValue = value
                         toolRoot.presetSelected(capability, selectedFixture, selectedChannel, value)
+                        toolRoot.valueChanged(value)
                         if (closeOnSelect)
                             toolRoot.visible = false
                     }

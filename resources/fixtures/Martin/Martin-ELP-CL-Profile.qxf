@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>John Yiannikakis</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>ELP-CL Profile</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="10" Max="19" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="20" Max="89" Preset="StrobeSlowToFast">Strobe (Slow-Fast)</Capability>
+  <Capability Min="90" Max="99" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="100" Max="169" Preset="PulseSlowToFast">Pulse effect in sequences</Capability>
+  <Capability Min="170" Max="179" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="180" Max="249" Preset="StrobeRandomSlowToFast">Random strobe effect (Slow-Fast)</Capability>
+  <Capability Min="250" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer 0-100%" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Dimmer fade time">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255" Preset="FastToSlow">Dimmer fade time time</Capability>
+ </Channel>
+ <Channel Name="CTC 2000K – 10000K" Preset="ColorCTCMixer"/>
+ <Channel Name="CTC fine" Preset="ColorWheelFine"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="Lime" Preset="IntensityLime"/>
+ <Channel Name="Lime fine" Preset="IntensityLimeFine"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Amber fine" Preset="IntensityAmberFine"/>
+ <Channel Name="Color Scene">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="19">2000K-2700K</Capability>
+  <Capability Min="20" Max="28">2700K-3200K</Capability>
+  <Capability Min="29" Max="37">3200K-4200K</Capability>
+  <Capability Min="38" Max="46">4200K-5600K</Capability>
+  <Capability Min="47" Max="55">5600K-8000K</Capability>
+  <Capability Min="56" Max="65">8000K-10,000K</Capability>
+  <Capability Min="66" Max="74" Preset="ColorMacro" Res1="#f7d5db">Light Pink</Capability>
+  <Capability Min="75" Max="84" Preset="ColorMacro" Res1="#f7ba86">Pale Amber Gold</Capability>
+  <Capability Min="85" Max="93" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="94" Max="103" Preset="ColorMacro" Res1="#f7b801">Deep straw</Capability>
+  <Capability Min="104" Max="112" Preset="ColorMacro" Res1="#f85901">Deep Amber</Capability>
+  <Capability Min="113" Max="122" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="123" Max="131" Preset="ColorMacro" Res1="#d90000">Primary Red</Capability>
+  <Capability Min="132" Max="141" Preset="ColorMacro" Res1="#ffaaff">Medium Pink</Capability>
+  <Capability Min="142" Max="150" Preset="ColorMacro" Res1="#c281c2">Dark Pink</Capability>
+  <Capability Min="151" Max="160" Preset="ColorMacro" Res1="#ff55ff">Magenta</Capability>
+  <Capability Min="161" Max="169" Preset="ColorMacro" Res1="#906dd6">Medium Purple</Capability>
+  <Capability Min="170" Max="179" Preset="ColorMacro" Res1="#704d92">Dark Lavender</Capability>
+  <Capability Min="180" Max="188" Preset="ColorMacro" Res1="#8f4196">Deep Purple</Capability>
+  <Capability Min="189" Max="198" Preset="ColorMacro" Res1="#597bf7">Sky Blue</Capability>
+  <Capability Min="199" Max="207" Preset="ColorMacro" Res1="#0090ce">Light Blue</Capability>
+  <Capability Min="208" Max="217" Preset="ColorMacro" Res1="#008ed2">Medium Blue</Capability>
+  <Capability Min="218" Max="226" Preset="ColorMacro" Res1="#013f6e">Deep Blue</Capability>
+  <Capability Min="227" Max="236" Preset="ColorMacro" Res1="#00869b">Blue Green</Capability>
+  <Capability Min="237" Max="246" Preset="ColorMacro" Res1="#5adc5a">Moss Green</Capability>
+  <Capability Min="247" Max="255" Preset="ColorMacro" Res1="#4bc300">Primary Green</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Dimmer 0-100%</Channel>
+ </Mode>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Shutter</Channel>
+  <Channel Number="1">Dimmer 0-100%</Channel>
+  <Channel Number="2">Dimmer fade time</Channel>
+  <Channel Number="3">CTC 2000K – 10000K</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">Lime</Channel>
+  <Channel Number="8">Amber</Channel>
+  <Channel Number="9">Color Scene</Channel>
+ </Mode>
+ <Mode Name="17 Channel">
+  <Channel Number="0">Shutter</Channel>
+  <Channel Number="1">Dimmer 0-100%</Channel>
+  <Channel Number="2">Dimmer fine</Channel>
+  <Channel Number="3">Dimmer fade time</Channel>
+  <Channel Number="4">CTC 2000K – 10000K</Channel>
+  <Channel Number="5">CTC fine</Channel>
+  <Channel Number="6">Red</Channel>
+  <Channel Number="7">Red fine</Channel>
+  <Channel Number="8">Green</Channel>
+  <Channel Number="9">Green fine</Channel>
+  <Channel Number="10">Blue</Channel>
+  <Channel Number="11">Blue fine</Channel>
+  <Channel Number="12">Lime</Channel>
+  <Channel Number="13">Lime fine</Channel>
+  <Channel Number="14">Amber</Channel>
+  <Channel Number="15">Amber fine</Channel>
+  <Channel Number="16">Color Scene</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type=" 91 RGBAL Luxeon Rebel LEDs" Lumens="5900" ColourTemperature="6000"/>
+  <Dimensions Weight="7.7" Width="259" Height="254" Depth="648"/>
+  <Lens Name="Other" DegreesMin="19" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="249" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

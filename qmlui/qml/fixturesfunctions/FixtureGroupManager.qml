@@ -27,6 +27,7 @@ import "."
 Rectangle
 {
     id: fgmContainer
+    objectName: "fixtureGroupManager"
     anchors.fill: parent
     color: "transparent"
 
@@ -43,6 +44,9 @@ Rectangle
         // update info button
         infoButton.enabled = itemType !== App.HeadDragItem ? true : false
         updateInfoView()
+
+        // update rename button
+        renameButton.enabled = true
 
         // update linked button
         if (fixtureManager.propertyEditEnabled === false)
@@ -76,6 +80,31 @@ Rectangle
                 fixtureAndFunctions.currentViewQML = "qrc:/FixtureSummary.qml"
             break;
         }
+    }
+
+    function showChannelModifierEditor(itemID, channelIndex, modifierName)
+    {
+        chModifierEditor.itemID = itemID
+        chModifierEditor.chIndex = channelIndex
+        chModifierEditor.modName = modifierName
+        chModifierEditor.open()
+    }
+
+    CustomPopupDialog
+    {
+        id: fmGenericPopup
+        visible: false
+        title: qsTr("Error")
+        message: ""
+        onAccepted: {}
+    }
+
+    PopupChannelModifiers
+    {
+        id: chModifierEditor
+        visible: false
+
+        onAccepted: fixtureManager.setChannelModifier(itemID, chIndex)
     }
 
     ColumnLayout
@@ -135,7 +164,7 @@ Rectangle
                         {
                             var item = gfhcDragItem.itemsList[i]
 
-                            switch(item.itemType)
+                            switch (item.itemType)
                             {
                                 case App.UniverseDragItem:
                                 break;
@@ -143,13 +172,19 @@ Rectangle
                                     fxGroupDeleteList.push(item.cRef.id)
                                 break;
                                 case App.FixtureDragItem:
-                                    fxDeleteList.push(item.itemID)
+                                    if (item.inGroup)
+                                        fixtureManager.deleteFixtureInGroup(item.subID, item.itemID, item.nodePath)
+                                    else
+                                        fxDeleteList.push(item.itemID)
                                 break;
                             }
                         }
 
                         if (fxDeleteList.length)
+                        {
+                            contextManager.resetFixtureSelection()
                             fixtureManager.deleteFixtures(fxDeleteList)
+                        }
 
                         if (fxGroupDeleteList.length)
                             fixtureManager.deleteFixtureGroups(fxGroupDeleteList)
@@ -162,7 +197,7 @@ Rectangle
                     z: 2
                     width: height
                     height: topBar.height - 2
-                    bgColor: UISettings.bgMain
+                    bgColor: UISettings.bgMedium
                     faColor: checked ? "white" : "gray"
                     faSource: FontAwesome.fa_search
                     checkable: true
@@ -172,6 +207,66 @@ Rectangle
                         fixtureManager.searchFilter = ""
                         if (checked)
                             sTextInput.forceActiveFocus()
+                    }
+                }
+
+                IconButton
+                {
+                    id: renameButton
+                    visible: allowEditing
+                    z: 2
+                    width: height
+                    height: topBar.height - 2
+                    imgSource: "qrc:/rename.svg"
+                    tooltip: qsTr("Rename the selected items")
+                    enabled: false
+
+                    onClicked:
+                    {
+                        renamePopup.showNumbering = gfhcDragItem.itemsList.length > 1 ? true : false
+                        renamePopup.editText = gfhcDragItem.itemsList[0].textLabel
+                        renamePopup.open()
+                    }
+
+                    PopupRenameItems
+                    {
+                        id: renamePopup
+                        title: qsTr("Rename items")
+                        onAccepted:
+                        {
+                            var item;
+                            if (numberingEnabled)
+                            {
+                                var currNum = startNumber
+                                var i, zeroes = ""
+
+                                for (i = 0; i < digits; i++)
+                                    zeroes += '0'
+
+                                for (i = 0; i < gfhcDragItem.itemsList.length; i++)
+                                {
+                                    item = gfhcDragItem.itemsList[i]
+                                    var zerofilled = (zeroes + currNum).slice(-digits);
+                                    var finalName = editText + " " + zerofilled
+                                    currNum++
+
+                                    if (item.itemType === App.FixtureDragItem)
+                                        fixtureManager.renameFixture(item.itemID, finalName)
+                                    else if (item.itemType === App.FixtureGroupDragItem)
+                                        fixtureManager.renameFixtureGroup(item.itemID, finalName)
+
+                                }
+                            }
+                            else
+                            {
+                                item = gfhcDragItem.itemsList[0];
+
+                                if (item.itemType === App.FixtureDragItem)
+                                    fixtureManager.renameFixture(item.itemID, editText)
+                                else if (item.itemType === App.FixtureGroupDragItem)
+                                    fixtureManager.renameFixtureGroup(item.itemID, editText)
+                            }
+                        }
                     }
                 }
 
@@ -247,13 +342,15 @@ Rectangle
             implicitHeight: UISettings.iconSizeMedium
             implicitWidth: fgmContainer.width - (gEditScrollBar.visible ? gEditScrollBar.width : 0)
             z: 5
-            color: UISettings.bgMain
+            color: UISettings.bgMedium
 
             RowLayout
             {
                 anchors.fill: parent
 
                 RobotoText { label: qsTr("Name"); Layout.fillWidth: true; height: parent.height }
+                Rectangle { width: 1; height: parent.height }
+                RobotoText { label: qsTr("Mode"); width: UISettings.chPropsModesWidth; height: parent.height }
                 Rectangle { width: 1; height: parent.height }
                 RobotoText { label: qsTr("Flags"); width: UISettings.chPropsFlagsWidth; height: parent.height }
                 Rectangle { width: 1; height: parent.height }
@@ -272,10 +369,10 @@ Rectangle
             width: fgmContainer.width
             implicitHeight: UISettings.iconSizeMedium
             z: 5
-            color: UISettings.bgMain
+            color: UISettings.bgMedium
             radius: 5
             border.width: 2
-            border.color: "#111"
+            border.color: UISettings.borderColorDark
 
             TextInput
             {
@@ -331,7 +428,7 @@ Rectangle
                             if (type)
                             {
                                 item.itemType = type
-                                if (type == App.UniverseDragItem)
+                                if (type === App.UniverseDragItem)
                                     isExpanded = true
                             }
                             item.isExpanded = isExpanded
@@ -345,7 +442,7 @@ Rectangle
                     {
                         target: item
 
-                        onMouseEvent:
+                        function onMouseEvent(type, iID, iType, qItem, mouseMods)
                         {
                             switch (type)
                             {
@@ -370,11 +467,10 @@ Rectangle
                                             else
                                                 gfhcDragItem.itemIcon = ""
                                         }
-                                        gfhcDragItem.multipleItems = gfhcDragItem.itemsList.length > 1 ? true : false
                                     }
                                 break;
                                 case App.Clicked:
-                                    if (qItem == item)
+                                    if (qItem === item)
                                     {
                                         model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
                                         if (model.hasChildren)
@@ -404,7 +500,7 @@ Rectangle
                                         case App.FixtureGroupDragItem:
                                             contextManager.setFixtureGroupSelection(iID, true, false)
                                         break;
-                                    }                                        
+                                    }
 
                                     updateButtons(qItem.itemType, itemID)
                                 break;
@@ -413,7 +509,7 @@ Rectangle
                                         fgmContainer.doubleClicked(iID, qItem.itemType)
                                 break;
                                 case App.DragStarted:
-                                    if (qItem == item && !model.isSelected)
+                                    if (qItem === item && !model.isSelected)
                                     {
                                         model.isSelected = 1
                                         // invalidate the modifiers to force a single selection

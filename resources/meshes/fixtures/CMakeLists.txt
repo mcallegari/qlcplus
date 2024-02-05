@@ -1,0 +1,5 @@
+project(fixture_meshes)
+
+file(GLOB FIXTURE_MESH_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.dae")
+
+install(FILES ${FIXTURE_MESH_FILES} DESTINATION ${INSTALLROOT}/${MESHESDIR}/fixtures)

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Mike Morris</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Fusion FX Bar 2</Model>
+ <Type>Effect</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Moon Flower 1 Dimmer/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="190">Master Dimmer 0 &gt; 100% (Off - On)</Capability>
+  <Capability Min="191" Max="200">Sound Active</Capability>
+  <Capability Min="201" Max="247" Preset="StrobeSlowToFast">Strobing (Slow - Fast)</Capability>
+  <Capability Min="248" Max="255">Full On</Capability>
+ </Channel>
+ <Channel Name="Moon Flower 1 Rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9" Preset="RotationStop">No Rotation</Capability>
+  <Capability Min="10" Max="120" Preset="RotationClockwiseSlowToFast">Clockwise Rotation (Fast - Slow)</Capability>
+  <Capability Min="121" Max="134" Preset="RotationStop">No Rotation</Capability>
+  <Capability Min="135" Max="245" Preset="RotationCounterClockwiseSlowToFast">Counter-Clockwise Rotation (Slow - Fast)</Capability>
+  <Capability Min="246" Max="255" Preset="RotationStop">No Rotation</Capability>
+ </Channel>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="Moon Flower 2 Dimmer/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="190">Master Dimmer 0 &gt; 100% (Off - On)</Capability>
+  <Capability Min="191" Max="200">Sound Active</Capability>
+  <Capability Min="201" Max="247">Strobing (Slow - Fast)</Capability>
+  <Capability Min="248" Max="255">Full On</Capability>
+ </Channel>
+ <Channel Name="Moon Flower 2 Rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9" Preset="RotationStop">No Rotation</Capability>
+  <Capability Min="10" Max="120" Preset="RotationClockwiseSlowToFast">Clockwise Rotation (Fast - Slow)</Capability>
+  <Capability Min="121" Max="134" Preset="RotationStop">No Rotation</Capability>
+  <Capability Min="135" Max="245" Preset="RotationCounterClockwiseSlowToFast">Counter-Clockwise Rotation (Slow - Fast)</Capability>
+  <Capability Min="246" Max="255" Preset="RotationStop">No Rotation</Capability>
+ </Channel>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Red 2</Channel>
+  <Channel Number="4">Green 2</Channel>
+  <Channel Number="5">Blue 2</Channel>
+  <Channel Number="6">Red 3</Channel>
+  <Channel Number="7">Green 3</Channel>
+  <Channel Number="8">Blue 3</Channel>
+  <Channel Number="9">Red 4</Channel>
+  <Channel Number="10">Green 4</Channel>
+  <Channel Number="11">Blue 4</Channel>
+  <Channel Number="12">Moon Flower 1 Dimmer/Strobe</Channel>
+  <Channel Number="13">Moon Flower 1 Rotation</Channel>
+  <Channel Number="14">Moon Flower 2 Dimmer/Strobe</Channel>
+  <Channel Number="15">Moon Flower 2 Rotation</Channel>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.7" Width="542" Height="194" Depth="143"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="6" Height="1"/>
+  <Technical PowerConsumption="33" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

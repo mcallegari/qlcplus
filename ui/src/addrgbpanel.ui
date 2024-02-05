@@ -95,7 +95,7 @@
         <item row="3" column="1">
          <widget class="QLabel" name="m_addrErrorLabel">
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -364,7 +364,6 @@
   </layout>
  </widget>
  <resources>
-  <include location="qlcui.qrc"/>
   <include location="qlcui.qrc"/>
  </resources>
  <connections>

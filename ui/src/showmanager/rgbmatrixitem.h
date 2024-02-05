@@ -55,6 +55,9 @@ public:
     void setDuration(quint32 msec, bool stretch);
 
     /** @reimp */
+    quint32 getDuration();
+
+    /** @reimp */
     QString functionName();
 
     /** Return a pointer to a RGBMatrix Function associated to this item */

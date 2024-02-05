@@ -109,11 +109,13 @@ Rectangle
         GridLayout
         {
             id: gridBox
-            columns: 4 + (manufCheck.checked ? 1 : 0) + (modelCheck.checked ? 1 : 0) +
+            columns: 5 + (manufCheck.checked ? 1 : 0) + (modelCheck.checked ? 1 : 0) +
                          (weightCheck.checked ? 1 : 0) + (powerCheck.checked ? 1 : 0) + (dipCheck.checked ? 1 : 0)
             columnSpacing: 5
             rowSpacing: 0
 
+
+            RobotoText { label: "ID"; labelColor: flickView.textColor }
             Rectangle  { width: UISettings.iconSizeDefault }
             RobotoText { label: qsTr("Name"); labelColor: flickView.textColor }
             RobotoText { visible: manufCheck.checked; label: qsTr("Manufacturer"); labelColor: flickView.textColor }
@@ -163,6 +165,7 @@ Rectangle
                             visible: powerCheck.checked
                             label: modelData.power + "W"
                             labelColor: flickView.textColor
+                            rightMargin: 5
                             Layout.fillWidth: true
 
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
@@ -176,6 +179,7 @@ Rectangle
                             visible: weightCheck.checked
                             label: modelData.weight + "Kg"
                             labelColor: flickView.textColor
+                            rightMargin: 5
                             Layout.fillWidth: true
 
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
@@ -188,6 +192,7 @@ Rectangle
                             parent: gridBox
                             label: cRef ? cRef.channels : 0
                             labelColor: flickView.textColor
+                            rightMargin: 5
                             Layout.fillWidth: true
 
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
@@ -195,13 +200,13 @@ Rectangle
                             Component.onCompleted: flickView.totalChannels += cRef.channels
                         }
 
-
                         // address range
                         RobotoText
                         {
                             parent: gridBox
                             label: cRef ? "" + (cRef.address + 1) + "-" + (cRef.address + cRef.channels + 1) : ""
                             labelColor: flickView.textColor
+                            rightMargin: 5
                             Layout.fillWidth: true
 
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
@@ -214,6 +219,7 @@ Rectangle
                             visible: modelCheck.checked
                             label: modelData.fmodel
                             labelColor: flickView.textColor
+                            rightMargin: 5
                             Layout.fillWidth: true
 
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
@@ -226,6 +232,7 @@ Rectangle
                             visible: manufCheck.checked
                             label: modelData.manuf
                             labelColor: flickView.textColor
+                            rightMargin: 5
                             Layout.fillWidth: true
 
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
@@ -237,6 +244,7 @@ Rectangle
                             parent: gridBox
                             label: cRef ? cRef.name : ""
                             labelColor: flickView.textColor
+                            rightMargin: 5
                             Layout.fillWidth: true
 
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
@@ -250,6 +258,17 @@ Rectangle
                             width: UISettings.iconSizeDefault
                             height: width
                             sourceSize: Qt.size(width, height)
+                        }
+
+                        // ID
+                        RobotoText
+                        {
+                            parent: gridBox
+                            label: cRef ? cRef.id : ""
+                            labelColor: flickView.textColor
+                            Layout.fillWidth: true
+
+                            Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
                         }
                     } // delegate
             } // Repeater

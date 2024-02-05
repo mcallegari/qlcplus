@@ -46,7 +46,7 @@ Rectangle
     onIsSelectedChanged:
     {
         if (isSelected == false)
-            uniNameEdit.enableEditing(false)
+            uniNameEdit.setEditingStatus(false)
     }
 
     // area containing the input patches
@@ -193,27 +193,25 @@ Rectangle
                 GradientStop { position: 1 ; color: UISettings.highlight }
             }
         border.width: 2
-        border.color: "#111"
+        border.color: UISettings.borderColorDark
 
-        EditableTextBox
+        CustomTextInput
         {
             id: uniNameEdit
             anchors.centerIn: parent
             width: parent.width
-            maximumHeight: parent.height
-            color: "transparent"
-            inputText: universe ? universe.name : ""
-            textAlignment: Text.AlignHCenter
+            height: parent.height
+            text: universe ? universe.name : ""
+            horizontalAlignment: Text.AlignHCenter
+            wrapMode: TextInput.Wrap
+            allowDoubleClick: true
 
+            onTextConfirmed: if(universe) universe.name = text
             onClicked:
             {
-                enableEditing(false)
-
                 ioManager.selectedIndex = universe.id
-                uniItem.selected(universe.id);
+                uniItem.selected(universe.id)
             }
-
-            onTextChanged: if (universe) universe.name = text
         }
 
         Canvas
@@ -252,7 +250,7 @@ Rectangle
             height: UISettings.iconSizeMedium * 0.8
             faSource: FontAwesome.fa_long_arrow_right
             checkable: true
-            tooltip: qsTr("Passthrough")
+            tooltip: qsTr("Enable/Disable passthrough")
             checked: universe ? universe.passthrough : false
             onToggled: if (universe) universe.passthrough = checked
         }
@@ -423,7 +421,7 @@ Rectangle
         width: parent.width
         height: 2
         y: parent.height - 2
-        color: isSelected ? UISettings.selection : "#666"
+        color: isSelected ? UISettings.selection : UISettings.bgLight
     }
 }
 

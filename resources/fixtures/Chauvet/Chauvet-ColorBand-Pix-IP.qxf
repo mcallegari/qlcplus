@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>George Qualley IV</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
  <Model>ColorBand Pix IP</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Beams)</Type>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
@@ -48,7 +48,7 @@
  <Channel Name="Blue 12" Preset="IntensityBlue"/>
  <Channel Name="Color Macros">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="0" Max="15">No function</Capability>
   <Capability Min="16" Max="255">Color Macros</Capability>
  </Channel>
  <Channel Name="Speed / Strobe">
@@ -313,11 +313,12 @@
   <Channel Number="5">RGB Mode</Channel>
   <Channel Number="6">Dimmer</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="6.1" Width="993" Height="173" Depth="100"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6.1" Width="993" Height="173" Depth="100"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="12" Height="1"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

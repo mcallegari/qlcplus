@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.5 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Jan F</Author>
  </Creator>
  <Manufacturer>lightmaXX</Manufacturer>
@@ -42,8 +42,8 @@
  </Channel>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="254">Closed</Capability>
-  <Capability Min="255" Max="255">Reset</Capability>
+  <Capability Min="0" Max="254" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="255" Max="255" Preset="ResetAll">Reset</Capability>
  </Channel>
  <Mode Name="9 channel">
   <Channel Number="0">Pan</Channel>
@@ -72,11 +72,11 @@
   <Channel Number="12">Movement (Auto and Sound Effect)</Channel>
   <Channel Number="13">Reset</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.2" Width="225" Height="270" Depth="225"/>
-   <Lens Name="Other" DegreesMin="20" DegreesMax="20"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="180"/>
-   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.2" Width="225" Height="270" Depth="225"/>
+  <Lens Name="Other" DegreesMin="20" DegreesMax="20"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="180"/>
+  <Technical PowerConsumption="75" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

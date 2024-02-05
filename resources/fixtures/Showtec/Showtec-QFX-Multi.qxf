@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Avolites / Sinedied</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
@@ -52,7 +52,7 @@
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="191">Brightness of all lights</Capability>
   <Capability Min="192" Max="200">Sound strobe</Capability>
-  <Capability Min="201" Max="249" Preset="StrobeFreqRange" Res1="1" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+  <Capability Min="201" Max="249" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
   <Capability Min="250" Max="255">Full on</Capability>
  </Channel>
  <Channel Name="Derby LED Motor rotating speed">
@@ -62,33 +62,30 @@
   <Capability Min="128" Max="133">Stop</Capability>
   <Capability Min="134" Max="255">Rotate counterclockwise (slow to fast)</Capability>
  </Channel>
- <Channel Name="Reserved">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="0">Nothing</Capability>
- </Channel>
+ <Channel Name="Reserved" Preset="NoFunction"/>
  <Channel Name="LED Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="4">Closed</Capability>
-  <Capability Min="5" Max="9">Open</Capability>
-  <Capability Min="10" Max="255">Strobe %</Capability>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="5" Max="9" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe %</Capability>
  </Channel>
  <Channel Name="Red Laser Dimmer/Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="4">Blackout</Capability>
-  <Capability Min="5" Max="9">Full on</Capability>
-  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="9" Preset="ShutterOpen">Full on</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
  </Channel>
  <Channel Name="Green Laser Dimmer/Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="4">Blackout</Capability>
-  <Capability Min="5" Max="9">Full on</Capability>
-  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="9" Preset="ShutterOpen">Full on</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
  </Channel>
  <Channel Name="4pcs Strobe LED">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="4">Blackout</Capability>
-  <Capability Min="5" Max="9">Full on</Capability>
-  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="9" Preset="ShutterOpen">Full on</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
  </Channel>
  <Channel Name="Laser Motor rotating speed">
   <Group Byte="0">Beam</Group>
@@ -159,73 +156,63 @@
  </Channel>
  <Channel Name="Derby 1 Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">Blackout</Capability>
-  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
  </Channel>
  <Channel Name="Derby 2 Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">Blackout</Capability>
-  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
  </Channel>
  <Channel Name="PAR 1 Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">Blackout</Capability>
-  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
  </Channel>
  <Channel Name="PAR 2 Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">Blackout</Capability>
-  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
  </Channel>
- <Channel Name="PAR 1 Reserved">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="0">Nothing</Capability>
- </Channel>
- <Channel Name="PAR 2 Reserved">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="0">Nothing</Capability>
- </Channel>
+ <Channel Name="PAR 1 Reserved" Preset="NoFunction"/>
+ <Channel Name="PAR 2 Reserved" Preset="NoFunction"/>
  <Channel Name="Derby 1 Motor rotating speed">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="4">Stop</Capability>
-  <Capability Min="5" Max="127">Rotate clockwise, from slow to fast
-</Capability>
+  <Capability Min="5" Max="127">Rotate clockwise, from slow to fast</Capability>
   <Capability Min="128" Max="133">Stop</Capability>
-  <Capability Min="134" Max="255">Rotate counterclockwise, from slow to fast
-</Capability>
+  <Capability Min="134" Max="255">Rotate counterclockwise, from slow to fast</Capability>
  </Channel>
  <Channel Name="Derby 2 Motor rotating speed">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="4">Stop</Capability>
-  <Capability Min="5" Max="127">Rotate clockwise, from slow to fast
-</Capability>
+  <Capability Min="5" Max="127">Rotate clockwise, from slow to fast</Capability>
   <Capability Min="128" Max="133">Stop</Capability>
-  <Capability Min="134" Max="255">Rotate counterclockwise, from slow to fast
-</Capability>
+  <Capability Min="134" Max="255">Rotate counterclockwise, from slow to fast</Capability>
  </Channel>
  <Channel Name="LED Strobe 1">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="4">Blackout</Capability>
-  <Capability Min="5" Max="9">Full on</Capability>
-  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="9" Preset="ShutterOpen">Full on</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
  </Channel>
  <Channel Name="LED Strobe 2">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="4">Blackout</Capability>
-  <Capability Min="5" Max="9">Full on</Capability>
-  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="9" Preset="ShutterOpen">Full on</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
  </Channel>
  <Channel Name="LED Strobe 3">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="4">Blackout</Capability>
-  <Capability Min="5" Max="9">Full on</Capability>
-  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="9" Preset="ShutterOpen">Full on</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
  </Channel>
  <Channel Name="LED Strobe 4">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="4">Blackout</Capability>
-  <Capability Min="5" Max="9">Full on</Capability>
-  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="9" Preset="ShutterOpen">Full on</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
  </Channel>
  <Channel Name="Auto PAR">
   <Group Byte="0">Effect</Group>
@@ -420,6 +407,7 @@
   <Dimensions Weight="6.6" Width="1185" Height="110" Depth="387"/>
   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="5" Height="1"/>
   <Technical PowerConsumption="45" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

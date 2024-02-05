@@ -1,43 +1,43 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.5 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Andrew Hallmark</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
  <Model>Pixbar 600 PRO</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Beams)</Type>
  <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Colour Macro">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="5" Color="#000000">Colour off</Capability>
-  <Capability Min="6" Max="13" Color="#ff0000">Red</Capability>
-  <Capability Min="14" Max="21" Color="#ffc329">Amber</Capability>
-  <Capability Min="22" Max="29" Color="#fdf1a9">Yellow warm</Capability>
-  <Capability Min="30" Max="37" Color="#ffff01">Yellow</Capability>
-  <Capability Min="38" Max="45" Color="#00ff00">Green</Capability>
-  <Capability Min="46" Max="53" Color="#00e5ee">Turquoise</Capability>
-  <Capability Min="54" Max="61" Color="#00ffff">Cyan</Capability>
-  <Capability Min="62" Max="69" Color="#0000ff">Blue</Capability>
-  <Capability Min="70" Max="77" Color="#e6e6fa">Lavender</Capability>
-  <Capability Min="78" Max="85" Color="#cc99ff">Mauve</Capability>
-  <Capability Min="86" Max="93" Color="#ff00ff">Magenta</Capability>
-  <Capability Min="94" Max="101" Color="#ffcaea">Pink</Capability>
-  <Capability Min="102" Max="109" Color="#fdffef">Warm White</Capability>
-  <Capability Min="110" Max="117" Color="#ffffff">White</Capability>
-  <Capability Min="118" Max="125" Color="#f5f4ff">Cold White</Capability>
+  <Capability Min="0" Max="5" Preset="ColorMacro" Res1="#000000">Colour off</Capability>
+  <Capability Min="6" Max="13" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="14" Max="21" Preset="ColorMacro" Res1="#ffc329">Amber</Capability>
+  <Capability Min="22" Max="29" Preset="ColorMacro" Res1="#fdf1a9">Yellow warm</Capability>
+  <Capability Min="30" Max="37" Preset="ColorMacro" Res1="#ffff01">Yellow</Capability>
+  <Capability Min="38" Max="45" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="46" Max="53" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="54" Max="61" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="62" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="78" Max="85" Preset="ColorMacro" Res1="#cc99ff">Mauve</Capability>
+  <Capability Min="86" Max="93" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="94" Max="101" Preset="ColorMacro" Res1="#ffcaea">Pink</Capability>
+  <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#fdffef">Warm White</Capability>
+  <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#f5f4ff">Cold White</Capability>
   <Capability Min="126" Max="128">Colour Jumping Stop</Capability>
-  <Capability Min="129" Max="192" Res="Others/rainbow.png">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
-  <Capability Min="193" Max="255" Res="Others/rainbow.png">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="129" Max="192" Preset="GoboMacro" Res1="Others/rainbow.png">Colour Jumping Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
+  <Capability Min="193" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Colour Fading Speed slow -&gt; fast / Colour 1 -&gt; 12</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="5">Strobe open</Capability>
-  <Capability Min="6" Max="10">Strobe closed</Capability>
-  <Capability Min="11" Max="250">Strobe slow -&gt; fast 0Hz-20Hz</Capability>
-  <Capability Min="251" Max="255">Strobe open</Capability>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterClose">Strobe closed</Capability>
+  <Capability Min="11" Max="250" Preset="StrobeFreqRange" Res1="0" Res2="20">Strobe slow -&gt; fast 0Hz-20Hz</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Strobe open</Capability>
  </Channel>
  <Channel Name="White (add to Colour Macro)" Preset="IntensityWhite"/>
  <Channel Name="Amber (add to Colour Macro)" Preset="IntensityAmber"/>
@@ -732,11 +732,12 @@
    <Channel>70</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="6.8" Width="900" Height="120" Depth="75"/>
-   <Lens Name="Other" DegreesMin="23" DegreesMax="23"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="160" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6.8" Width="900" Height="120" Depth="75"/>
+  <Lens Name="Other" DegreesMin="23" DegreesMax="23"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="12" Height="1"/>
+  <Technical PowerConsumption="160" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
 </FixtureDefinition>

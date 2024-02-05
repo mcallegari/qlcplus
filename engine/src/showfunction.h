@@ -25,18 +25,22 @@
 #include "function.h"
 
 class QXmlStreamReader;
+class Doc;
 
 /** @addtogroup engine_functions Functions
  * @{
  */
 
-#define KXMLShowFunction "ShowFunction"
+#define KXMLShowFunction QString("ShowFunction")
+#define KXMLShowFunctionUid QString("UID")
+#define KXMLShowFunctionTrackId QString("TrackID")
 
 class ShowFunction: public QObject
 {
     Q_OBJECT
     Q_DISABLE_COPY(ShowFunction)
 
+    Q_PROPERTY(int id READ id CONSTANT)
     Q_PROPERTY(int functionID READ functionID WRITE setFunctionID NOTIFY functionIDChanged)
     Q_PROPERTY(int startTime READ startTime WRITE setStartTime NOTIFY startTimeChanged)
     Q_PROPERTY(int duration READ duration WRITE setDuration NOTIFY durationChanged)
@@ -44,8 +48,11 @@ class ShowFunction: public QObject
     Q_PROPERTY(bool locked READ isLocked WRITE setLocked NOTIFY lockedChanged)
 
 public:
-    ShowFunction(QObject *parent = 0);
+    ShowFunction(quint32 id, QObject *parent = 0);
     virtual ~ShowFunction() {}
+
+    /** Get the ShowFunction unique identifier in a Show */
+    quint32 id() const;
 
     /** Get/Set the Function ID this class represents */
     void setFunctionID(quint32 id);
@@ -59,6 +66,7 @@ public:
      *  to the original Function duration */
     void setDuration(quint32 duration);
     quint32 duration() const;
+    quint32 duration(const Doc *doc) const;
 
     /** Get/Set the color of the item when rendered in the Show Manager */
     void setColor(QColor color);
@@ -83,8 +91,11 @@ signals:
     void lockedChanged();
 
 private:
-    /** ID of the QLC+ Function this class represents */
+    /** ID of this class to uniquely identify it within a Show */
     quint32 m_id;
+
+    /** ID of the QLC+ Function this class represents */
+    quint32 m_functionId;
 
     /** Start time of the Function in milliseconds */
     quint32 m_startTime;
@@ -110,7 +121,7 @@ public:
     bool loadXML(QXmlStreamReader &root);
 
     /** Save ShowFunction contents to $doc */
-    bool saveXML(QXmlStreamWriter *doc) const;
+    bool saveXML(QXmlStreamWriter *doc, quint32 trackId = UINT_MAX) const;
 };
 
 /** @} */

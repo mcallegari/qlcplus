@@ -46,7 +46,7 @@
  <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Auto + Custom">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="40">No Function</Capability>
+  <Capability Min="0" Max="40">No function</Capability>
   <Capability Min="41" Max="50">Auto 1</Capability>
   <Capability Min="51" Max="60">Auto 2</Capability>
   <Capability Min="61" Max="70">Auto 3</Capability>

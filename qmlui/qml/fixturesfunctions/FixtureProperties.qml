@@ -41,6 +41,7 @@ Rectangle
 
     onFxModeChanged: updateAvailableAddress()
     onFxCountChanged: updateAvailableAddress()
+    onFxQuantityChanged: updateAvailableAddress()
 
     function updateAvailableAddress()
     {
@@ -95,10 +96,10 @@ Rectangle
             CustomTextEdit
             {
                 id: fxNameTextEdit
-                inputText: fxName
+                text: fxName
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
-                onInputTextChanged: fixtureBrowser.fixtureName = inputText
+                onTextChanged: fixtureBrowser.fixtureName = text
             }
 
             // row 2
@@ -114,6 +115,7 @@ Rectangle
                 height: propsGrid.itemsHeight
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
+                textRole: ""
                 model: ioManager.universeNames
             }
 
@@ -202,6 +204,7 @@ Rectangle
                         id: fxModesCombo
                         height: propsGrid.itemsHeight
                         Layout.fillWidth: true
+                        textRole: ""
                         model: fixtureBrowser.modesList
                         onModelChanged: currentIndex = 0
                         onDisplayTextChanged: fixtureBrowser.selectedMode = displayText

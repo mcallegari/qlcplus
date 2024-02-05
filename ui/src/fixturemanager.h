@@ -99,6 +99,9 @@ public:
     /** Update the list of channels group */
     void updateChannelsGroupView();
 
+    /** Update icons on RDM view activation */
+    void updateRDMView();
+
 private:
     /** Open a fixture selector to add new fixtures */
     void addFixture();
@@ -143,6 +146,8 @@ private slots:
     /** Callback for fixture tree item expand/collapse */
     void slotFixtureItemExpanded();
 
+    void slotDisplayFixtureInfo(QString &info);
+
 private:
     /** Select a fixture group */
     void selectGroup(quint32 id);
@@ -157,6 +162,7 @@ private:
     QSplitter* m_splitter;
     FixtureTreeWidget* m_fixtures_tree;
     QTreeWidget* m_channel_groups_tree;
+    QWidget* m_rdmManager;
 
     QTextBrowser* m_info;
     FixtureGroupEditor* m_groupEditor;

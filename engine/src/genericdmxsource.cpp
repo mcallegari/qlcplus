@@ -18,9 +18,9 @@
 */
 
 #include "genericdmxsource.h"
+#include "genericfader.h"
 #include "mastertimer.h"
 #include "fadechannel.h"
-#include "qlcchannel.h"
 #include "universe.h"
 #include "doc.h"
 
@@ -28,6 +28,7 @@ GenericDMXSource::GenericDMXSource(Doc* doc)
     : m_doc(doc)
     , m_outputEnabled(false)
     , m_clearRequest(false)
+    , m_changed(false)
 {
     Q_ASSERT(m_doc != NULL);
     m_doc->masterTimer()->registerDMXSource(this);
@@ -35,6 +36,13 @@ GenericDMXSource::GenericDMXSource(Doc* doc)
 
 GenericDMXSource::~GenericDMXSource()
 {
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    {
+        if (!fader.isNull())
+            fader->requestDelete();
+    }
+    m_fadersMap.clear();
+
     m_doc->masterTimer()->unregisterDMXSource(this);
 }
 
@@ -42,12 +50,14 @@ void GenericDMXSource::set(quint32 fxi, quint32 ch, uchar value)
 {
     QMutexLocker locker(&m_mutex);
     m_values[QPair<quint32,quint32>(fxi, ch)] = value;
+    m_changed = true;
 }
 
 void GenericDMXSource::unset(quint32 fxi, quint32 ch)
 {
     QMutexLocker locker(&m_mutex);
     m_values.remove(QPair<quint32,quint32>(fxi, ch));
+    m_changed = true;
 }
 
 void GenericDMXSource::unsetAll()
@@ -55,6 +65,7 @@ void GenericDMXSource::unsetAll()
     QMutexLocker locker(&m_mutex);
     // will be processed at the next writeDMX
     m_clearRequest = true;
+    m_changed = true;
 }
 
 void GenericDMXSource::setOutputEnabled(bool enable)
@@ -93,25 +104,44 @@ void GenericDMXSource::writeDMX(MasterTimer* timer, QList<Universe *> ua)
     Q_UNUSED(timer);
 
     QMutexLocker locker(&m_mutex);
-    QMutableMapIterator <QPair<quint32,quint32>,uchar> it(m_values);
-    while (it.hasNext() == true && m_outputEnabled == true)
+
+    if (m_outputEnabled && m_changed)
     {
-        it.next();
 
-        FadeChannel fc(m_doc, it.key().first, it.key().second);
+        QMutableMapIterator <QPair<quint32,quint32>,uchar> it(m_values);
+        while (it.hasNext())
+        {
+            it.next();
+            Fixture *fixture = m_doc->fixture(it.key().first);
+            if (fixture == NULL)
+                continue;
 
-        QLCChannel::Group grp = fc.group(m_doc);
-        quint32 address = fc.address();
-        quint32 universe = fc.universe();
+            quint32 universe = fixture->universe();
+            QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+            if (fader.isNull())
+            {
+                fader = ua[universe]->requestFader();
+                m_fadersMap[universe] = fader;
+            }
 
-        if (address != QLCChannel::invalid())
-            ua[universe]->write(address, it.value());
-        if (grp != QLCChannel::Intensity)
-            it.remove();
+            FadeChannel *fc = fader->getChannelFader(m_doc, ua[universe], fixture->id(), it.key().second);
+            fc->setCurrent(it.value());
+            fc->setTarget(it.value());
+        }
     }
     if (m_clearRequest)
     {
         m_clearRequest = false;
         m_values.clear();
+
+        QMapIterator <quint32, QSharedPointer<GenericFader> > it(m_fadersMap);
+        while (it.hasNext() == true)
+        {
+            it.next();
+            quint32 universe = it.key();
+            QSharedPointer<GenericFader> fader = it.value();
+            ua[universe]->dismissFader(fader);
+        }
+        m_fadersMap.clear();
     }
 }

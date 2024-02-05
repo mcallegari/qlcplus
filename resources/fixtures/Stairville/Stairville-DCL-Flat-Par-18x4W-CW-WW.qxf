@@ -25,9 +25,9 @@
  <Channel Name="Colour Setting / Process Speed / Sound-Control Sensitivity">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="63">No function, if channel 4 = 0/Speed, if channel 4 = 43..214/Sensitivity, if channel 4 = 215..255</Capability>
-  <Capability Min="64" Max="127">Warm white, if channel 4 = 1...42 (programme 01)/Speed, if channel 4 = 43..214/Sensitivity, if channel 4 = 215..255</Capability>
-  <Capability Min="128" Max="191">Cold white, if channel 4 = 1..42 (programme 01)/Speed, if channel 4 = 43..214/Sensitivity, if channel 4 = 215..255</Capability>
-  <Capability Min="192" Max="255">All, if channel 4 = 1..42 (programme 01)/Speed, if channel 4 = 43..214/Sensitivity, if channel 4 = 215..255</Capability>
+  <Capability Min="64" Max="127">Warm white, if channel 4 = 1...42 (program 01)/Speed, if channel 4 = 43..214/Sensitivity, if channel 4 = 215..255</Capability>
+  <Capability Min="128" Max="191">Cold white, if channel 4 = 1..42 (program 01)/Speed, if channel 4 = 43..214/Sensitivity, if channel 4 = 215..255</Capability>
+  <Capability Min="192" Max="255">All, if channel 4 = 1..42 (program 01)/Speed, if channel 4 = 43..214/Sensitivity, if channel 4 = 215..255</Capability>
  </Channel>
  <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Warm White, if Channel 4 = 0">

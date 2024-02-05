@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.7.0 RC1</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Lorenzo Andreani</Author>
  </Creator>
  <Manufacturer>BoomToneDJ</Manufacturer>
@@ -15,37 +15,37 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="6">Dimmer Mode</Capability>
-  <Capability Min="7" Max="65">Strobe (Slow &gt; Fast)</Capability>
-  <Capability Min="66" Max="69">None</Capability>
-  <Capability Min="70" Max="128">Pulse Strobe (Slow &gt; Fast)</Capability>
-  <Capability Min="129" Max="132">None</Capability>
-  <Capability Min="133" Max="191">Strobe Fadding In (Slow &gt; Fast)</Capability>
-  <Capability Min="192" Max="195">None</Capability>
-  <Capability Min="196" Max="255">Strobe Fadding Out (Slow &gt; Fast)</Capability>
+  <Capability Min="0" Max="6" Preset="ShutterOpen">Dimmer Mode</Capability>
+  <Capability Min="7" Max="65" Preset="StrobeSlowToFast">Strobe (Slow &gt; Fast)</Capability>
+  <Capability Min="66" Max="69" Preset="ShutterOpen">None</Capability>
+  <Capability Min="70" Max="128" Preset="PulseSlowToFast">Pulse Strobe (Slow &gt; Fast)</Capability>
+  <Capability Min="129" Max="132" Preset="ShutterOpen">None</Capability>
+  <Capability Min="133" Max="191" Preset="StrobeSlowToFast">Strobe Fadding In (Slow &gt; Fast)</Capability>
+  <Capability Min="192" Max="195" Preset="ShutterOpen">None</Capability>
+  <Capability Min="196" Max="255" Preset="StrobeSlowToFast">Strobe Fadding Out (Slow &gt; Fast)</Capability>
  </Channel>
  <Channel Name="Strobe (7 Ch Mode)">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="6">Dimmer Mode (If Ch7&gt;=60 Program Running Speed from Slow to Fast)</Capability>
-  <Capability Min="7" Max="65">Strobe (Slow &gt; Fast)</Capability>
-  <Capability Min="66" Max="69">None</Capability>
-  <Capability Min="70" Max="128">Pulse Strobe (Slow &gt; Fast)</Capability>
-  <Capability Min="129" Max="132">None</Capability>
-  <Capability Min="133" Max="191">Strobe Fadding In (Slow &gt; Fast)</Capability>
-  <Capability Min="192" Max="195">None</Capability>
-  <Capability Min="196" Max="255">Strobe Fadding Out (Slow &gt; Fast)</Capability>
+  <Capability Min="0" Max="6" Preset="ShutterOpen">Dimmer Mode (If Ch7&gt;=60 Program Running Speed from Slow to Fast)</Capability>
+  <Capability Min="7" Max="65" Preset="StrobeSlowToFast">Strobe (Slow &gt; Fast)</Capability>
+  <Capability Min="66" Max="69" Preset="ShutterOpen">None</Capability>
+  <Capability Min="70" Max="128" Preset="PulseSlowToFast">Pulse Strobe (Slow &gt; Fast)</Capability>
+  <Capability Min="129" Max="132" Preset="ShutterOpen">None</Capability>
+  <Capability Min="133" Max="191" Preset="StrobeSlowToFast">Strobe Fadding In (Slow &gt; Fast)</Capability>
+  <Capability Min="192" Max="195" Preset="ShutterOpen">None</Capability>
+  <Capability Min="196" Max="255" Preset="StrobeSlowToFast">Strobe Fadding Out (Slow &gt; Fast)</Capability>
  </Channel>
  <Channel Name="Static Color Select (if Ch7 60-119) or Strobe Slow to Fast (if Ch7 120-179)">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="255">Static Color Select (if Ch7 60-119) or Strobe Slow to Fast (if Ch7 120-179)</Capability>
+  <Capability Min="0" Max="255" Preset="StrobeSlowToFast">Static Color Select (if Ch7 60-119) or Strobe Slow to Fast (if Ch7 120-179)</Capability>
  </Channel>
  <Channel Name="Function Mode">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="59">Dimmer Mode</Capability>
+  <Capability Min="0" Max="59" Preset="ShutterOpen">Dimmer Mode</Capability>
   <Capability Min="60" Max="119">Static Color Mode</Capability>
   <Capability Min="120" Max="179">Hop Change Mode</Capability>
   <Capability Min="180" Max="239">Gradual Change Mode</Capability>
-  <Capability Min="240" Max="255">Sound Active Mode</Capability>
+  <Capability Min="240" Max="255" Preset="SilentModeOff">Sound Active Mode</Capability>
  </Channel>
  <Mode Name="3 Ch Mode">
   <Channel Number="0">Red</Channel>
@@ -68,11 +68,11 @@
   <Channel Number="5">Static Color Select (if Ch7 60-119) or Strobe Slow to Fast (if Ch7 120-179)</Channel>
   <Channel Number="6">Function Mode</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="241" Height="247" Weight="2.2" Depth="92"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.2" Width="241" Height="247" Depth="92"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

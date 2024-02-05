@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.1 GIT</Version>
+  <Version>4.11.3 GIT</Version>
   <Author>Florian Gerstenlauer</Author>
  </Creator>
  <Manufacturer>lightmaXX</Manufacturer>
@@ -17,9 +17,9 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">Shutter closed</Capability>
-  <Capability Min="10" Max="245">Strobe effect slow to fast</Capability>
-  <Capability Min="246" Max="255">Shutter open</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="10" Max="245" Preset="StrobeSlowToFast">Strobe effect slow to fast</Capability>
+  <Capability Min="246" Max="255" Preset="ShutterOpen">Shutter open</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
@@ -32,20 +32,20 @@
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">closed</Capability>
-  <Capability Min="11" Max="20" Color="#ff0000">R</Capability>
-  <Capability Min="21" Max="30" Color="#00ff00">G</Capability>
-  <Capability Min="31" Max="40" Color="#0000ff">B</Capability>
-  <Capability Min="41" Max="50" Color="#ffffff">W</Capability>
-  <Capability Min="51" Max="60" Color="#ffff00">R+G</Capability>
-  <Capability Min="61" Max="70" Color="#00ffff">G+B</Capability>
-  <Capability Min="71" Max="80" Color="#7f7fff">B+W</Capability>
-  <Capability Min="81" Max="90" Color="#ff00ff">R+B</Capability>
-  <Capability Min="91" Max="100" Color="#7fff7f">G+W</Capability>
-  <Capability Min="101" Max="110" Color="#ff7f7f">R+W</Capability>
-  <Capability Min="111" Max="120" Color="#ffff7f">R+G+B</Capability>
+  <Capability Min="11" Max="20" Preset="ColorMacro" Res1="#ff0000">R</Capability>
+  <Capability Min="21" Max="30" Preset="ColorMacro" Res1="#00ff00">G</Capability>
+  <Capability Min="31" Max="40" Preset="ColorMacro" Res1="#0000ff">B</Capability>
+  <Capability Min="41" Max="50" Preset="ColorMacro" Res1="#ffffff">W</Capability>
+  <Capability Min="51" Max="60" Preset="ColorMacro" Res1="#ffff00">R+G</Capability>
+  <Capability Min="61" Max="70" Preset="ColorMacro" Res1="#00ffff">G+B</Capability>
+  <Capability Min="71" Max="80" Preset="ColorMacro" Res1="#7f7fff">B+W</Capability>
+  <Capability Min="81" Max="90" Preset="ColorMacro" Res1="#ff00ff">R+B</Capability>
+  <Capability Min="91" Max="100" Preset="ColorMacro" Res1="#7fff7f">G+W</Capability>
+  <Capability Min="101" Max="110" Preset="ColorMacro" Res1="#ff7f7f">R+W</Capability>
+  <Capability Min="111" Max="120" Preset="ColorMacro" Res1="#ffff7f">R+G+B</Capability>
   <Capability Min="121" Max="130">R+G+W</Capability>
-  <Capability Min="131" Max="140" Color="#ff7fff">R+B+W</Capability>
-  <Capability Min="141" Max="150" Color="#ffffff">RGBW</Capability>
+  <Capability Min="131" Max="140" Preset="ColorMacro" Res1="#ff7fff">R+B+W</Capability>
+  <Capability Min="141" Max="150" Preset="ColorMacro" Res1="#ffffff">RGBW</Capability>
   <Capability Min="151" Max="255">Jump from slow to fast</Capability>
  </Channel>
  <Channel Name="Macro Color Line">
@@ -68,10 +68,7 @@
   <Capability Min="201" Max="225">Motor Reset</Capability>
   <Capability Min="226" Max="255">Empty</Capability>
  </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">6° - 45°</Capability>
- </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Mode Name="16 Channel">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
@@ -90,11 +87,11 @@
   <Channel Number="14">Programs</Channel>
   <Channel Number="15">Zoom</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.5" Width="260" Height="340" Depth="280"/>
-   <Lens Name="Other" DegreesMin="6" DegreesMax="45"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="190"/>
-   <Technical PowerConsumption="95" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.5" Width="260" Height="340" Depth="280"/>
+  <Lens Name="Other" DegreesMin="6" DegreesMax="45"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="190"/>
+  <Technical PowerConsumption="95" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

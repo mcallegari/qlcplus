@@ -27,7 +27,7 @@ FunctionEditor::FunctionEditor(QQuickView *view, Doc *doc, QObject *parent)
     , m_doc(doc)
     , m_functionID(Function::invalidId())
     , m_previousID(-1)
-    , m_function(NULL)
+    , m_function(nullptr)
     , m_functionType(Function::Undefined)
     , m_previewEnabled(false)
 {
@@ -42,7 +42,7 @@ void FunctionEditor::setFunctionID(quint32 ID)
 {
     bool wasRunning = false;
 
-    if (m_function != NULL && m_function->isRunning())
+    if (m_function != nullptr && m_function->isRunning())
     {
         wasRunning = true;
         m_function->stop(FunctionParent::master());
@@ -50,7 +50,7 @@ void FunctionEditor::setFunctionID(quint32 ID)
 
     m_functionID = ID;
     m_function = m_doc->function(ID);
-    if (m_function != NULL)
+    if (m_function != nullptr)
         m_functionType = m_function->type();
 
     if (wasRunning)
@@ -79,7 +79,7 @@ void FunctionEditor::setPreviewEnabled(bool enable)
 
     m_previewEnabled = enable;
 
-    if (m_function == NULL)
+    if (m_function == nullptr)
         return;
 
     if (m_previewEnabled)
@@ -97,7 +97,7 @@ void FunctionEditor::setPreviewEnabled(bool enable)
 
 QString FunctionEditor::functionName() const
 {
-    if (m_function == NULL)
+    if (m_function == nullptr)
         return "";
 
     return m_function->name();
@@ -105,7 +105,7 @@ QString FunctionEditor::functionName() const
 
 void FunctionEditor::setFunctionName(QString functionName)
 {
-    if (m_function == NULL || m_function->name() == functionName)
+    if (m_function == nullptr || m_function->name() == functionName)
         return;
 
     Tardis::instance()->enqueueAction(Tardis::FunctionSetName, m_function->id(), m_function->name(), functionName);
@@ -135,7 +135,7 @@ void FunctionEditor::setPreviousID(int previousID)
 
 int FunctionEditor::tempoType() const
 {
-    if (m_function == NULL)
+    if (m_function == nullptr)
         return Function::Time;
 
     return m_function->tempoType();
@@ -143,7 +143,7 @@ int FunctionEditor::tempoType() const
 
 void FunctionEditor::setTempoType(int tempoType)
 {
-    if (m_function == NULL || m_function->tempoType() == Function::TempoType(tempoType))
+    if (m_function == nullptr || m_function->tempoType() == Function::TempoType(tempoType))
         return;
 
     Tardis::instance()->enqueueAction(Tardis::FunctionSetTempoType, m_function->id(), m_function->tempoType(), tempoType);
@@ -188,7 +188,7 @@ void FunctionEditor::setTempoType(int tempoType)
 
 int FunctionEditor::fadeInSpeed() const
 {
-    if (m_function == NULL)
+    if (m_function == nullptr)
         return Function::defaultSpeed();
 
     return m_function->fadeInSpeed();
@@ -196,7 +196,7 @@ int FunctionEditor::fadeInSpeed() const
 
 void FunctionEditor::setFadeInSpeed(int fadeInSpeed)
 {
-    if (m_function == NULL)
+    if (m_function == nullptr)
         return;
 
     if (m_function->fadeInSpeed() == (uint)fadeInSpeed)
@@ -209,15 +209,15 @@ void FunctionEditor::setFadeInSpeed(int fadeInSpeed)
 
 int FunctionEditor::holdSpeed() const
 {
-    if (m_function == NULL)
+    if (m_function == nullptr)
         return Function::defaultSpeed();
 
-    return m_function->duration();
+    return m_function->duration() - m_function->fadeInSpeed();
 }
 
 void FunctionEditor::setHoldSpeed(int holdSpeed)
 {
-    if (m_function == NULL)
+    if (m_function == nullptr)
         return;
 
     if (m_function->duration() - m_function->fadeInSpeed() == (uint)holdSpeed)
@@ -233,7 +233,7 @@ void FunctionEditor::setHoldSpeed(int holdSpeed)
 
 int FunctionEditor::fadeOutSpeed() const
 {
-    if (m_function == NULL)
+    if (m_function == nullptr)
         return Function::defaultSpeed();
 
     return m_function->fadeOutSpeed();
@@ -241,7 +241,7 @@ int FunctionEditor::fadeOutSpeed() const
 
 void FunctionEditor::setFadeOutSpeed(int fadeOutSpeed)
 {
-    if (m_function == NULL)
+    if (m_function == nullptr)
         return;
 
     if (m_function->fadeOutSpeed() == (uint)fadeOutSpeed)
@@ -254,7 +254,7 @@ void FunctionEditor::setFadeOutSpeed(int fadeOutSpeed)
 
 int FunctionEditor::duration() const
 {
-    if (m_function == NULL)
+    if (m_function == nullptr)
         return Function::defaultSpeed();
 
     return m_function->duration();
@@ -266,7 +266,7 @@ int FunctionEditor::duration() const
 
 int FunctionEditor::runOrder() const
 {
-    if (m_function == NULL)
+    if (m_function == nullptr)
         return Function::Loop;
 
     return m_function->runOrder();
@@ -274,7 +274,7 @@ int FunctionEditor::runOrder() const
 
 void FunctionEditor::setRunOrder(int runOrder)
 {
-    if (m_function == NULL || m_function->runOrder() == Function::RunOrder(runOrder))
+    if (m_function == nullptr || m_function->runOrder() == Function::RunOrder(runOrder))
         return;
 
     Tardis::instance()->enqueueAction(Tardis::FunctionSetRunOrder, m_function->id(), m_function->runOrder(), runOrder);
@@ -285,7 +285,7 @@ void FunctionEditor::setRunOrder(int runOrder)
 
 int FunctionEditor::direction() const
 {
-    if (m_function == NULL)
+    if (m_function == nullptr)
         return Function::Forward;
 
     return m_function->direction();
@@ -293,7 +293,7 @@ int FunctionEditor::direction() const
 
 void FunctionEditor::setDirection(int direction)
 {
-    if (m_function == NULL || m_function->direction() == Function::Direction(direction))
+    if (m_function == nullptr || m_function->direction() == Function::Direction(direction))
         return;
 
     Tardis::instance()->enqueueAction(Tardis::FunctionSetDirection, m_function->id(), m_function->direction(), direction);

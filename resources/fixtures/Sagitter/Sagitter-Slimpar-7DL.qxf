@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Damiano Mologni</Author>
  </Creator>
  <Manufacturer>Sagitter</Manufacturer>
@@ -18,6 +18,7 @@
  <Channel Name="UV" Preset="IntensityUV"/>
  <Channel Name="Function">
   <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="49">No function</Capability>
   <Capability Min="50" Max="101">Color Macro 1 (Fade)</Capability>
   <Capability Min="102" Max="152">Color Macro 2 (Color Change)</Capability>
   <Capability Min="153" Max="203">Sound Mode 1 (Strobe)</Capability>
@@ -29,8 +30,8 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">No Strobe</Capability>
-  <Capability Min="10" Max="255">Strobe from min to max</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No Strobe</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe from min to max</Capability>
  </Channel>
  <Channel Name="Color Macro" Preset="ColorMacro"/>
  <Mode Name="1 Channel">
@@ -65,11 +66,11 @@
   <Channel Number="8">Color Macro Speed - Microphone Sensitivity</Channel>
   <Channel Number="9">Strobe</Channel>
  </Mode>
-<Physical>
-   <Bulb ColourTemperature="0" Lumens="3070" Type="LED"/>
-   <Dimensions Depth="130" Weight="2.1" Width="257" Height="250"/>
-   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="100"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="3070" ColourTemperature="0"/>
+  <Dimensions Weight="2.1" Width="257" Height="250" Depth="130"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

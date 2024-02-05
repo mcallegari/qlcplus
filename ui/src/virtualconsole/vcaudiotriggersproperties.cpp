@@ -30,7 +30,6 @@
 #include "vcaudiotriggers.h"
 #include "qlcmacros.h"
 #include "audiobar.h"
-#include "chaser.h"
 
 #define KColumnName             0
 #define KColumnType             1
@@ -172,7 +171,7 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
         item->setIcon(KColumnInfo, QIcon());
     }
 
-    if (bar->m_type == AudioBar::FunctionBar 
+    if (bar->m_type == AudioBar::FunctionBar
         || (bar->m_type == AudioBar::VCWidgetBar && ((bar->widget() == NULL) || bar->widget()->type() != VCWidget::SliderWidget)))
     {
         QSpinBox *minspin = new QSpinBox();
@@ -197,7 +196,7 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
     }
 
     if (bar->m_type == AudioBar::VCWidgetBar
-        && bar->widget() != NULL 
+        && bar->widget() != NULL
         && (bar->widget()->type() == VCWidget::SpeedDialWidget || bar->widget()->type() == VCWidget::CueListWidget))
     {
         QSpinBox *divisor = new QSpinBox();

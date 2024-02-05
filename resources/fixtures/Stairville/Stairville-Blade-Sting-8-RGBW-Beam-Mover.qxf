@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>franky</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
@@ -21,7 +21,7 @@
  </Channel>
  <Channel Name="Pan/Tilt Rotation">
   <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="129" Color="#ff0000">No Function</Capability>
+  <Capability Min="0" Max="129" Preset="ColorMacro" Res1="#ff0000">No function</Capability>
   <Capability Min="130" Max="192" Preset="RotationClockwiseSlowToFast">Clockwise rotation movement, speed increasing</Capability>
   <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter-clockwise rotation movement, speed increasing</Capability>
  </Channel>
@@ -300,11 +300,12 @@
   <Channel Number="10">Intensity blue LED</Channel>
   <Channel Number="11">Intensity white LED</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="6.8" Width="405" Height="378" Depth="150"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="540" TiltMax="180"/>
-   <Technical PowerConsumption="104" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6.8" Width="405" Height="378" Depth="150"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="180"/>
+  <Layout Width="4" Height="2"/>
+  <Technical PowerConsumption="104" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Noel Utter</Author>
  </Creator>
  <Manufacturer>Contest</Manufacturer>
@@ -11,34 +11,34 @@
  <Type>Scanner</Type>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#ffffff" Min="0" Max="13">White</Capability>
-  <Capability Color="#ff0000" Min="14" Max="27">Red</Capability>
-  <Capability Color="#0000ff" Min="28" Max="41">Blue</Capability>
-  <Capability Color="#00ff00" Min="42" Max="55">Green</Capability>
-  <Capability Color="#ffff00" Min="56" Max="69">Yellow</Capability>
-  <Capability Color="#ff00ff" Min="70" Max="83">Magenta</Capability>
-  <Capability Color="#ff5500" Min="84" Max="97">Orange</Capability>
-  <Capability Color="#aa00ff" Min="98" Max="111">Purple</Capability>
-  <Capability Color="#ff557f" Min="112" Max="127">Pink</Capability>
-  <Capability Res="Others/rainbow.png" Min="128" Max="187">Rainbow CW</Capability>
+  <Capability Min="0" Max="13" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="14" Max="27" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="28" Max="41" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="42" Max="55" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="56" Max="69" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="70" Max="83" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="84" Max="97" Preset="ColorMacro" Res1="#ff5500">Orange</Capability>
+  <Capability Min="98" Max="111" Preset="ColorMacro" Res1="#aa00ff">Purple</Capability>
+  <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#ff557f">Pink</Capability>
+  <Capability Min="128" Max="187" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow CW</Capability>
   <Capability Min="188" Max="193">Stop</Capability>
-  <Capability Res="Others/rainbow.png" Min="194" Max="255">Rainbow CCW</Capability>
+  <Capability Min="194" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow CCW</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.svg" Min="0" Max="9">Open</Capability>
-  <Capability Res="ClayPaky/gobo00010.svg" Min="10" Max="19">Dot</Capability>
-  <Capability Res="SGM/gobo00007.png" Min="20" Max="29">Dots</Capability>
-  <Capability Res="SGM-Color/gobo00389.png" Min="30" Max="39">Turbine</Capability>
-  <Capability Res="Robe/gobo00031.svg" Min="40" Max="49">Lines</Capability>
-  <Capability Res="Robe/gobo00037.svg" Min="50" Max="59">Triangle</Capability>
-  <Capability Res="Robe/gobo00028.svg" Min="60" Max="69">Cross</Capability>
-  <Capability Res="ClayPaky/gobo00010.svg" Min="70" Max="89">Dot Shake</Capability>
-  <Capability Res="SGM/gobo00007.png" Min="90" Max="109">Dots Shake</Capability>
-  <Capability Res="SGM-Color/gobo00389.png" Min="110" Max="129">Turbine Shake</Capability>
-  <Capability Res="Robe/gobo00031.svg" Min="130" Max="149">Lines Shake</Capability>
-  <Capability Res="Robe/gobo00037.svg" Min="150" Max="169">Triangle Shake</Capability>
-  <Capability Res="Robe/gobo00028.svg" Min="170" Max="189">Cross Shake</Capability>
+  <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="10" Max="19" Preset="GoboMacro" Res1="ClayPaky/gobo00010.svg">Dot</Capability>
+  <Capability Min="20" Max="29" Preset="GoboMacro" Res1="SGM/gobo00007.png">Dots</Capability>
+  <Capability Min="30" Max="39" Preset="GoboMacro" Res1="SGM-Color/gobo00389.png">Turbine</Capability>
+  <Capability Min="40" Max="49" Preset="GoboMacro" Res1="Robe/gobo00031.svg">Lines</Capability>
+  <Capability Min="50" Max="59" Preset="GoboMacro" Res1="Robe/gobo00037.svg">Triangle</Capability>
+  <Capability Min="60" Max="69" Preset="GoboMacro" Res1="Robe/gobo00028.svg">Cross</Capability>
+  <Capability Min="70" Max="89" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00010.svg">Dot Shake</Capability>
+  <Capability Min="90" Max="109" Preset="GoboShakeMacro" Res1="SGM/gobo00007.png">Dots Shake</Capability>
+  <Capability Min="110" Max="129" Preset="GoboShakeMacro" Res1="SGM-Color/gobo00389.png">Turbine Shake</Capability>
+  <Capability Min="130" Max="149" Preset="GoboShakeMacro" Res1="Robe/gobo00031.svg">Lines Shake</Capability>
+  <Capability Min="150" Max="169" Preset="GoboShakeMacro" Res1="Robe/gobo00037.svg">Triangle Shake</Capability>
+  <Capability Min="170" Max="189" Preset="GoboShakeMacro" Res1="Robe/gobo00028.svg">Cross Shake</Capability>
   <Capability Min="190" Max="255">Gobo rainbow</Capability>
  </Channel>
  <Channel Name="Gobo rotation">
@@ -50,14 +50,14 @@
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="31">Closed</Capability>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Closed</Capability>
   <Capability Min="32" Max="63">Dimmer</Capability>
-  <Capability Min="64" Max="95">Strobe</Capability>
-  <Capability Min="96" Max="127">Open</Capability>
-  <Capability Min="128" Max="159">Pulse</Capability>
-  <Capability Min="160" Max="191">Open</Capability>
-  <Capability Min="192" Max="223">Random Strobe</Capability>
-  <Capability Min="224" Max="255">Open</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Pulse</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandom">Random Strobe</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Pan" Preset="PositionPan"/>
  <Channel Name="Tilt" Preset="PositionTilt"/>
@@ -105,9 +105,9 @@
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="19">Std Color</Capability>
   <Capability Min="20" Max="39">Near Color</Capability>
-  <Capability Min="40" Max="59">Lamp Power ON</Capability>
-  <Capability Min="60" Max="79">Lamp Power OFF</Capability>
-  <Capability Min="80" Max="99">Reset</Capability>
+  <Capability Min="40" Max="59" Preset="LampOn">Lamp Power ON</Capability>
+  <Capability Min="60" Max="79" Preset="LampOff">Lamp Power OFF</Capability>
+  <Capability Min="80" Max="99" Preset="ResetAll">Reset</Capability>
   <Capability Min="100" Max="119">Prog 1</Capability>
   <Capability Min="120" Max="139">Prog 2</Capability>
   <Capability Min="140" Max="159">Prog 3</Capability>
@@ -133,11 +133,11 @@
  </Mode>
  <Mode Name="Movement 16 bits">
   <Physical>
-   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
-   <Dimensions Depth="212" Weight="23" Height="242" Width="677"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus Type="Mirror" TiltMax="45" PanMax="156"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="400"/>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="23" Width="677" Height="242" Depth="212"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="156" TiltMax="45"/>
+   <Technical PowerConsumption="400" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Color</Channel>
   <Channel Number="1">Gobo</Channel>
@@ -152,11 +152,11 @@
   <Channel Number="10">Pan Fine</Channel>
   <Channel Number="11">Tilt Fine</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
-   <Dimensions Depth="212" Weight="23" Height="677" Width="242"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus Type="Mirror" TiltMax="45" PanMax="156"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="400"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="23" Width="242" Height="677" Depth="212"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Mirror" PanMax="156" TiltMax="45"/>
+  <Technical PowerConsumption="400" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

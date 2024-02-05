@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.3 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
@@ -11,31 +11,31 @@
  <Type>Moving Head</Type>
  <Channel Name="Beam electronic shutter effect">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="19">Shutter closed</Capability>
-  <Capability Min="20" Max="24">Shutter open</Capability>
-  <Capability Min="25" Max="64">Strobe 1 (fast → slow)</Capability>
-  <Capability Min="65" Max="69">Shutter open</Capability>
-  <Capability Min="70" Max="84">Strobe 2: opening pulse (fast → slow)</Capability>
-  <Capability Min="85" Max="89">Shutter open</Capability>
-  <Capability Min="90" Max="104">Strobe 3: closing pulse (fast → slow)</Capability>
-  <Capability Min="105" Max="109">Shutter open</Capability>
-  <Capability Min="110" Max="124">Strobe 4: random strobe (fast → slow)</Capability>
-  <Capability Min="125" Max="129">Shutter open</Capability>
-  <Capability Min="130" Max="144">Strobe 5: random opening pulse (fast → slow)</Capability>
-  <Capability Min="145" Max="149">Shutter open</Capability>
-  <Capability Min="150" Max="164">Strobe 6: random closing pulse (fast → slow)</Capability>
-  <Capability Min="165" Max="169">Shutter open</Capability>
-  <Capability Min="170" Max="184">Strobe 7: burst pulse (fast → slow)</Capability>
-  <Capability Min="185" Max="189">Shutter open</Capability>
-  <Capability Min="190" Max="204">Strobe 8: random burst pulse (fast → slow)</Capability>
-  <Capability Min="205" Max="209">Shutter open</Capability>
-  <Capability Min="210" Max="224">Strobe 9: sine wave (fast → slow)</Capability>
-  <Capability Min="225" Max="229">Shutter open</Capability>
-  <Capability Min="230" Max="244">Strobe 10: burst (fast → slow)</Capability>
-  <Capability Min="245" Max="255">Shutter open</Capability>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="20" Max="24" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="25" Max="64" Preset="StrobeFastToSlow">Strobe 1 (fast → slow)</Capability>
+  <Capability Min="65" Max="69" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="70" Max="84" Preset="PulseFastToSlow">Strobe 2: opening pulse (fast → slow)</Capability>
+  <Capability Min="85" Max="89" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="90" Max="104" Preset="PulseFastToSlow">Strobe 3: closing pulse (fast → slow)</Capability>
+  <Capability Min="105" Max="109" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="110" Max="124" Preset="StrobeRandomFastToSlow">Strobe 4: random strobe (fast → slow)</Capability>
+  <Capability Min="125" Max="129" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="130" Max="144" Preset="StrobeRandomFastToSlow">Strobe 5: random opening pulse (fast → slow)</Capability>
+  <Capability Min="145" Max="149" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="150" Max="164" Preset="StrobeRandomFastToSlow">Strobe 6: random closing pulse (fast → slow)</Capability>
+  <Capability Min="165" Max="169" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="170" Max="184" Preset="SlowToFast">Strobe 7: burst pulse (fast → slow)</Capability>
+  <Capability Min="185" Max="189" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="190" Max="204" Preset="FastToSlow">Strobe 8: random burst pulse (fast → slow)</Capability>
+  <Capability Min="205" Max="209" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="210" Max="224" Preset="FastToSlow">Strobe 9: sine wave (fast → slow)</Capability>
+  <Capability Min="225" Max="229" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="230" Max="244" Preset="FastToSlow">Strobe 10: burst (fast → slow)</Capability>
+  <Capability Min="245" Max="255" Preset="ShutterOpen">Shutter open</Capability>
  </Channel>
  <Channel Name="Beam dimmer" Preset="IntensityDimmer"/>
- <Channel Name="Zoom" Preset="BeamFocusFarNear"/>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
  <Channel Name="Pan" Preset="PositionPan"/>
  <Channel Name="Pan Fine" Preset="PositionPanFine"/>
  <Channel Name="Tilt" Preset="PositionTilt"/>
@@ -43,7 +43,7 @@
  <Channel Name="Fixture control settings">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="9">No function</Capability>
-  <Capability Min="10" Max="14">Reset entire fixture</Capability>
+  <Capability Min="10" Max="14" Preset="ResetAll">Reset entire fixture</Capability>
   <Capability Min="15" Max="39">No function</Capability>
   <Capability Min="40" Max="44">PTSP = NORM</Capability>
   <Capability Min="45" Max="49">PTSP = FAST</Capability>
@@ -65,49 +65,49 @@
  </Channel>
  <Channel Name="Beam color wheel effect">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="9">Open. RGBW color mixing enabled</Capability>
-  <Capability Color="#ffa490" Min="10" Max="14">LEE 790 - Moroccan pink</Capability>
-  <Capability Color="#ff6d84" Min="15" Max="19">LEE 157 - Pink</Capability>
-  <Capability Color="#ff3366" Min="20" Max="24">LEE 332 - Special rose pink</Capability>
-  <Capability Color="#ff45b3" Min="25" Max="29">LEE 328 - Follies pink</Capability>
-  <Capability Color="#d843ff" Min="30" Max="34">LEE 345 - Fuchsia pink</Capability>
-  <Capability Color="#c170ff" Min="35" Max="39">LEE 194 - Surprise pink</Capability>
-  <Capability Color="#4900bf" Min="40" Max="44">LEE 181 - Congo Blue</Capability>
-  <Capability Color="#0300e4" Min="45" Max="49">LEE 071 - Tokyo Blue</Capability>
-  <Capability Color="#2f5be7" Min="50" Max="54">LEE 120 - Deep Blue</Capability>
-  <Capability Color="#568dff" Min="55" Max="59">LEE 079 - Just Blue</Capability>
-  <Capability Color="#1999ff" Min="60" Max="64">LEE 132 - Medium Blue</Capability>
-  <Capability Color="#89ceff" Min="65" Max="69">LEE 200 - Double CT Blue</Capability>
-  <Capability Color="#a3efff" Min="70" Max="74">LEE 161 - Slate Blue</Capability>
-  <Capability Color="#b7deee" Min="75" Max="79">LEE 201 - Full CT Blue</Capability>
-  <Capability Color="#e5f4ff" Min="80" Max="84">LEE 202 - Half CT Blue</Capability>
-  <Capability Color="#91fff4" Min="85" Max="89">LEE 117 - Steel Blue</Capability>
-  <Capability Color="#1ad8cc" Min="90" Max="94">LEE 353 - Lighter Blue</Capability>
-  <Capability Color="#27f0ff" Min="95" Max="99">LEE 118 - Light Blue</Capability>
-  <Capability Color="#51c9b2" Min="100" Max="104">LEE 116 - Medium Blue Green</Capability>
-  <Capability Color="#22d555" Min="105" Max="109">LEE 124 - Dark Green</Capability>
-  <Capability Color="#15c100" Min="110" Max="114">LEE 139 - Primary Green</Capability>
-  <Capability Color="#34e854" Min="115" Max="119">LEE 089 - Moss Green</Capability>
-  <Capability Color="#47ff65" Min="120" Max="124">LEE 122 - Fern Green</Capability>
-  <Capability Color="#abff62" Min="125" Max="129">LEE 738 - JAS Green</Capability>
-  <Capability Color="#d7ff6b" Min="130" Max="134">LEE 088 - Lime Green</Capability>
-  <Capability Color="#f2ff00" Min="135" Max="139">LEE 100 - Spring Yellow</Capability>
-  <Capability Color="#efc450" Min="140" Max="144">LEE 104 - Deep Amber</Capability>
-  <Capability Color="#ffac1d" Min="145" Max="149">LEE 179 - Chrome Orange</Capability>
-  <Capability Color="#ff6f07" Min="150" Max="154">LEE 105 - Orange</Capability>
-  <Capability Color="#ff9600" Min="155" Max="159">LEE 021 - Gold Amber</Capability>
-  <Capability Color="#ff7c00" Min="160" Max="164">LEE 778 - Millennium Gold</Capability>
-  <Capability Color="#ff5400" Min="165" Max="169">LEE 135 - Deep Golden Amber</Capability>
-  <Capability Color="#ff0800" Min="170" Max="174">LEE 164 - Flame Red</Capability>
-  <Capability Min="175" Max="179">Open</Capability>
-  <Capability Res="Others/rainbow.png" Min="180" Max="201">Color rotation fast → slow</Capability>
-  <Capability Min="202" Max="207">Stop Rot</Capability>
-  <Capability Res="Others/rainbow.png" Min="208" Max="229">Color rotation slow → fast</Capability>
-  <Capability Min="230" Max="234">Open</Capability>
-  <Capability Res="Others/rainbow.png" Min="235" Max="239">Random color Fast</Capability>
-  <Capability Res="Others/rainbow.png" Min="240" Max="244">Random color Medium</Capability>
-  <Capability Res="Others/rainbow.png" Min="245" Max="249">Random color Slow</Capability>
-  <Capability Min="250" Max="255">Open</Capability>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#ffffff">Open. RGBW color mixing enabled</Capability>
+  <Capability Min="10" Max="14" Preset="ColorMacro" Res1="#ffa490">LEE 790 - Moroccan pink</Capability>
+  <Capability Min="15" Max="19" Preset="ColorMacro" Res1="#ff6d84">LEE 157 - Pink</Capability>
+  <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#ff3366">LEE 332 - Special rose pink</Capability>
+  <Capability Min="25" Max="29" Preset="ColorMacro" Res1="#ff45b3">LEE 328 - Follies pink</Capability>
+  <Capability Min="30" Max="34" Preset="ColorMacro" Res1="#d843ff">LEE 345 - Fuchsia pink</Capability>
+  <Capability Min="35" Max="39" Preset="ColorMacro" Res1="#c170ff">LEE 194 - Surprise pink</Capability>
+  <Capability Min="40" Max="44" Preset="ColorMacro" Res1="#4900bf">LEE 181 - Congo Blue</Capability>
+  <Capability Min="45" Max="49" Preset="ColorMacro" Res1="#0300e4">LEE 071 - Tokyo Blue</Capability>
+  <Capability Min="50" Max="54" Preset="ColorMacro" Res1="#2f5be7">LEE 120 - Deep Blue</Capability>
+  <Capability Min="55" Max="59" Preset="ColorMacro" Res1="#568dff">LEE 079 - Just Blue</Capability>
+  <Capability Min="60" Max="64" Preset="ColorMacro" Res1="#1999ff">LEE 132 - Medium Blue</Capability>
+  <Capability Min="65" Max="69" Preset="ColorMacro" Res1="#89ceff">LEE 200 - Double CT Blue</Capability>
+  <Capability Min="70" Max="74" Preset="ColorMacro" Res1="#a3efff">LEE 161 - Slate Blue</Capability>
+  <Capability Min="75" Max="79" Preset="ColorMacro" Res1="#b7deee">LEE 201 - Full CT Blue</Capability>
+  <Capability Min="80" Max="84" Preset="ColorMacro" Res1="#e5f4ff">LEE 202 - Half CT Blue</Capability>
+  <Capability Min="85" Max="89" Preset="ColorMacro" Res1="#91fff4">LEE 117 - Steel Blue</Capability>
+  <Capability Min="90" Max="94" Preset="ColorMacro" Res1="#1ad8cc">LEE 353 - Lighter Blue</Capability>
+  <Capability Min="95" Max="99" Preset="ColorMacro" Res1="#27f0ff">LEE 118 - Light Blue</Capability>
+  <Capability Min="100" Max="104" Preset="ColorMacro" Res1="#51c9b2">LEE 116 - Medium Blue Green</Capability>
+  <Capability Min="105" Max="109" Preset="ColorMacro" Res1="#22d555">LEE 124 - Dark Green</Capability>
+  <Capability Min="110" Max="114" Preset="ColorMacro" Res1="#15c100">LEE 139 - Primary Green</Capability>
+  <Capability Min="115" Max="119" Preset="ColorMacro" Res1="#34e854">LEE 089 - Moss Green</Capability>
+  <Capability Min="120" Max="124" Preset="ColorMacro" Res1="#47ff65">LEE 122 - Fern Green</Capability>
+  <Capability Min="125" Max="129" Preset="ColorMacro" Res1="#abff62">LEE 738 - JAS Green</Capability>
+  <Capability Min="130" Max="134" Preset="ColorMacro" Res1="#d7ff6b">LEE 088 - Lime Green</Capability>
+  <Capability Min="135" Max="139" Preset="ColorMacro" Res1="#f2ff00">LEE 100 - Spring Yellow</Capability>
+  <Capability Min="140" Max="144" Preset="ColorMacro" Res1="#efc450">LEE 104 - Deep Amber</Capability>
+  <Capability Min="145" Max="149" Preset="ColorMacro" Res1="#ffac1d">LEE 179 - Chrome Orange</Capability>
+  <Capability Min="150" Max="154" Preset="ColorMacro" Res1="#ff6f07">LEE 105 - Orange</Capability>
+  <Capability Min="155" Max="159" Preset="ColorMacro" Res1="#ff9600">LEE 021 - Gold Amber</Capability>
+  <Capability Min="160" Max="164" Preset="ColorMacro" Res1="#ff7c00">LEE 778 - Millennium Gold</Capability>
+  <Capability Min="165" Max="169" Preset="ColorMacro" Res1="#ff5400">LEE 135 - Deep Golden Amber</Capability>
+  <Capability Min="170" Max="174" Preset="ColorMacro" Res1="#ff0800">LEE 164 - Flame Red</Capability>
+  <Capability Min="175" Max="179" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
+  <Capability Min="180" Max="201" Preset="RotationClockwiseFastToSlow">Color rotation fast → slow</Capability>
+  <Capability Min="202" Max="207" Preset="RotationStop">Stop Rot</Capability>
+  <Capability Min="208" Max="229" Preset="RotationClockwiseSlowToFast">Color rotation slow → fast</Capability>
+  <Capability Min="230" Max="234" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
+  <Capability Min="235" Max="239">Random color Fast</Capability>
+  <Capability Min="240" Max="244">Random color Medium</Capability>
+  <Capability Min="245" Max="249">Random color Slow</Capability>
+  <Capability Min="250" Max="255" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
  </Channel>
  <Channel Name="Beam Red" Preset="IntensityRed"/>
  <Channel Name="Beam Green" Preset="IntensityGreen"/>
@@ -220,75 +220,75 @@
  </Channel>
  <Channel Name="Aura shutter and strobe effect">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="19">closed</Capability>
-  <Capability Min="20" Max="24">open</Capability>
-  <Capability Min="25" Max="64">Strobe 1  (fast → slow)</Capability>
-  <Capability Min="65" Max="69">open</Capability>
-  <Capability Min="70" Max="84">Strobe 2: opening pulse (fast → slow)</Capability>
-  <Capability Min="85" Max="89">open</Capability>
-  <Capability Min="90" Max="104">Strobe 3: closing pulse (fast → slow)</Capability>
-  <Capability Min="105" Max="109">open</Capability>
-  <Capability Min="110" Max="124">Strobe 4: random strobe (fast → slow)</Capability>
-  <Capability Min="125" Max="129">open</Capability>
-  <Capability Min="130" Max="144">Strobe 5: random opening pulse (fast → slow)</Capability>
-  <Capability Min="145" Max="149">open</Capability>
-  <Capability Min="150" Max="164">Strobe 6: random closing pulse (fast → slow)</Capability>
-  <Capability Min="165" Max="169">open</Capability>
-  <Capability Min="170" Max="184">Strobe 7: burst pulse (fast → slow)</Capability>
-  <Capability Min="185" Max="189">open</Capability>
-  <Capability Min="190" Max="204">Strobe 8: random burst pulse (fast → slow)</Capability>
-  <Capability Min="205" Max="209">open</Capability>
-  <Capability Min="210" Max="224">Strobe 9: sine wave (fast → slow)</Capability>
-  <Capability Min="225" Max="229">open</Capability>
-  <Capability Min="230" Max="244">Strobe 10: burst (fast → slow)</Capability>
-  <Capability Min="245" Max="255">open</Capability>
+  <Capability Min="0" Max="19" Preset="ShutterClose">closed</Capability>
+  <Capability Min="20" Max="24" Preset="ShutterOpen">open</Capability>
+  <Capability Min="25" Max="64" Preset="StrobeFastToSlow">Strobe 1 (fast → slow)</Capability>
+  <Capability Min="65" Max="69" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="70" Max="84" Preset="PulseFastToSlow">Strobe 2: opening pulse (fast → slow)</Capability>
+  <Capability Min="85" Max="89" Preset="ShutterOpen">open</Capability>
+  <Capability Min="90" Max="104" Preset="PulseFastToSlow">Strobe 3: closing pulse (fast → slow)</Capability>
+  <Capability Min="105" Max="109" Preset="ShutterOpen">open</Capability>
+  <Capability Min="110" Max="124" Preset="StrobeRandomFastToSlow">Strobe 4: random strobe (fast → slow)</Capability>
+  <Capability Min="125" Max="129" Preset="ShutterOpen">open</Capability>
+  <Capability Min="130" Max="144" Preset="StrobeRandomFastToSlow">Strobe 5: random opening pulse (fast → slow)</Capability>
+  <Capability Min="145" Max="149" Preset="ShutterOpen">open</Capability>
+  <Capability Min="150" Max="164" Preset="StrobeRandomFastToSlow">Strobe 6: random closing pulse (fast → slow)</Capability>
+  <Capability Min="165" Max="169" Preset="ShutterOpen">open</Capability>
+  <Capability Min="170" Max="184" Preset="SlowToFast">Strobe 7: burst pulse (fast → slow)</Capability>
+  <Capability Min="185" Max="189" Preset="ShutterOpen">open</Capability>
+  <Capability Min="190" Max="204" Preset="FastToSlow">Strobe 8: random burst pulse (fast → slow)</Capability>
+  <Capability Min="205" Max="209" Preset="ShutterOpen">open</Capability>
+  <Capability Min="210" Max="224" Preset="SlowToFast">Strobe 9: sine wave (fast → slow)</Capability>
+  <Capability Min="225" Max="229" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="230" Max="244" Preset="FastToSlow">Strobe 10: burst (fast → slow)</Capability>
+  <Capability Min="245" Max="255" Preset="ShutterOpen">open</Capability>
  </Channel>
  <Channel Name="Aura dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Aura color wheel effect">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="9">Open. RGBW color mixing enabled</Capability>
-  <Capability Color="#ffa490" Min="10" Max="14">LEE 790 - Moroccan pink</Capability>
-  <Capability Color="#ff6d84" Min="15" Max="19">LEE 157 - Pink</Capability>
-  <Capability Color="#ff3366" Min="20" Max="24">LEE 332 - Special rose pink</Capability>
-  <Capability Color="#ff45b3" Min="25" Max="29">LEE 328 - Follies pink</Capability>
-  <Capability Color="#d843ff" Min="30" Max="34">LEE 345 - Fuchsia pink</Capability>
-  <Capability Color="#c170ff" Min="35" Max="39">LEE 194 - Surprise pink</Capability>
-  <Capability Color="#4900bf" Min="40" Max="44">LEE 181 - Congo Blue</Capability>
-  <Capability Color="#0300e4" Min="45" Max="49">LEE 071 - Tokyo Blue</Capability>
-  <Capability Color="#2f5be7" Min="50" Max="54">LEE 120 - Deep Blue</Capability>
-  <Capability Color="#568dff" Min="55" Max="59">LEE 079 - Just Blue</Capability>
-  <Capability Color="#1999ff" Min="60" Max="64">LEE 132 - Medium Blue</Capability>
-  <Capability Color="#89ceff" Min="65" Max="69">LEE 200 - Double CT Blue</Capability>
-  <Capability Color="#a3efff" Min="70" Max="74">LEE 161 - Slate Blue</Capability>
-  <Capability Color="#b7deee" Min="75" Max="79">LEE 201 - Full CT Blue</Capability>
-  <Capability Color="#e5f4ff" Min="80" Max="84">LEE 202 - Half CT Blue</Capability>
-  <Capability Color="#91fff4" Min="85" Max="89">LEE 117 - Steel Blue</Capability>
-  <Capability Color="#1ad8cc" Min="90" Max="94">LEE 353 - Lighter Blue</Capability>
-  <Capability Color="#27f0ff" Min="95" Max="99">LEE 118 - Light Blue</Capability>
-  <Capability Color="#51c9b2" Min="100" Max="104">LEE 116 - Medium Blue Green</Capability>
-  <Capability Color="#22d555" Min="105" Max="109">LEE 124 - Dark Green</Capability>
-  <Capability Color="#15c100" Min="110" Max="114">LEE 139 - Primary Green</Capability>
-  <Capability Color="#34e854" Min="115" Max="119">LEE 089 - Moss Green</Capability>
-  <Capability Color="#47ff65" Min="120" Max="124">LEE 122 - Fern Green</Capability>
-  <Capability Color="#abff62" Min="125" Max="129">LEE 738 - JAS Green</Capability>
-  <Capability Color="#d7ff6b" Min="130" Max="134">LEE 088 - Lime Green</Capability>
-  <Capability Color="#f2ff00" Min="135" Max="139">LEE 100 - Spring Yellow</Capability>
-  <Capability Color="#efc450" Min="140" Max="144">LEE 104 - Deep Amber</Capability>
-  <Capability Color="#ffac1d" Min="145" Max="149">LEE 179 - Chrome Orange</Capability>
-  <Capability Color="#ff6f07" Min="150" Max="154">LEE 105 - Orange</Capability>
-  <Capability Color="#ff9600" Min="155" Max="159">LEE 021 - Gold Amber</Capability>
-  <Capability Color="#ff7c00" Min="160" Max="164">LEE 778 - Millennium Gold</Capability>
-  <Capability Color="#ff5400" Min="165" Max="169">LEE 135 - Deep Golden Amber</Capability>
-  <Capability Color="#ff0800" Min="170" Max="174">LEE 164 - Flame Red</Capability>
-  <Capability Min="175" Max="179">Open</Capability>
-  <Capability Res="Others/rainbow.png" Min="180" Max="201">Color rotation fast → slow</Capability>
-  <Capability Min="202" Max="207">Stop Rot</Capability>
-  <Capability Res="Others/rainbow.png" Min="208" Max="229">Color rotation slow → fast</Capability>
-  <Capability Min="230" Max="234">Open</Capability>
-  <Capability Res="Others/rainbow.png" Min="235" Max="239">Random color Fast</Capability>
-  <Capability Res="Others/rainbow.png" Min="240" Max="244">Random color Medium</Capability>
-  <Capability Res="Others/rainbow.png" Min="245" Max="249">Random color Slow</Capability>
-  <Capability Min="250" Max="255">Open</Capability>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#ffffff">Open. RGBW color mixing enabled</Capability>
+  <Capability Min="10" Max="14" Preset="ColorMacro" Res1="#ffa490">LEE 790 - Moroccan pink</Capability>
+  <Capability Min="15" Max="19" Preset="ColorMacro" Res1="#ff6d84">LEE 157 - Pink</Capability>
+  <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#ff3366">LEE 332 - Special rose pink</Capability>
+  <Capability Min="25" Max="29" Preset="ColorMacro" Res1="#ff45b3">LEE 328 - Follies pink</Capability>
+  <Capability Min="30" Max="34" Preset="ColorMacro" Res1="#d843ff">LEE 345 - Fuchsia pink</Capability>
+  <Capability Min="35" Max="39" Preset="ColorMacro" Res1="#c170ff">LEE 194 - Surprise pink</Capability>
+  <Capability Min="40" Max="44" Preset="ColorMacro" Res1="#4900bf">LEE 181 - Congo Blue</Capability>
+  <Capability Min="45" Max="49" Preset="ColorMacro" Res1="#0300e4">LEE 071 - Tokyo Blue</Capability>
+  <Capability Min="50" Max="54" Preset="ColorMacro" Res1="#2f5be7">LEE 120 - Deep Blue</Capability>
+  <Capability Min="55" Max="59" Preset="ColorMacro" Res1="#568dff">LEE 079 - Just Blue</Capability>
+  <Capability Min="60" Max="64" Preset="ColorMacro" Res1="#1999ff">LEE 132 - Medium Blue</Capability>
+  <Capability Min="65" Max="69" Preset="ColorMacro" Res1="#89ceff">LEE 200 - Double CT Blue</Capability>
+  <Capability Min="70" Max="74" Preset="ColorMacro" Res1="#a3efff">LEE 161 - Slate Blue</Capability>
+  <Capability Min="75" Max="79" Preset="ColorMacro" Res1="#b7deee">LEE 201 - Full CT Blue</Capability>
+  <Capability Min="80" Max="84" Preset="ColorMacro" Res1="#e5f4ff">LEE 202 - Half CT Blue</Capability>
+  <Capability Min="85" Max="89" Preset="ColorMacro" Res1="#91fff4">LEE 117 - Steel Blue</Capability>
+  <Capability Min="90" Max="94" Preset="ColorMacro" Res1="#1ad8cc">LEE 353 - Lighter Blue</Capability>
+  <Capability Min="95" Max="99" Preset="ColorMacro" Res1="#27f0ff">LEE 118 - Light Blue</Capability>
+  <Capability Min="100" Max="104" Preset="ColorMacro" Res1="#51c9b2">LEE 116 - Medium Blue Green</Capability>
+  <Capability Min="105" Max="109" Preset="ColorMacro" Res1="#22d555">LEE 124 - Dark Green</Capability>
+  <Capability Min="110" Max="114" Preset="ColorMacro" Res1="#15c100">LEE 139 - Primary Green</Capability>
+  <Capability Min="115" Max="119" Preset="ColorMacro" Res1="#34e854">LEE 089 - Moss Green</Capability>
+  <Capability Min="120" Max="124" Preset="ColorMacro" Res1="#47ff65">LEE 122 - Fern Green</Capability>
+  <Capability Min="125" Max="129" Preset="ColorMacro" Res1="#abff62">LEE 738 - JAS Green</Capability>
+  <Capability Min="130" Max="134" Preset="ColorMacro" Res1="#d7ff6b">LEE 088 - Lime Green</Capability>
+  <Capability Min="135" Max="139" Preset="ColorMacro" Res1="#f2ff00">LEE 100 - Spring Yellow</Capability>
+  <Capability Min="140" Max="144" Preset="ColorMacro" Res1="#efc450">LEE 104 - Deep Amber</Capability>
+  <Capability Min="145" Max="149" Preset="ColorMacro" Res1="#ffac1d">LEE 179 - Chrome Orange</Capability>
+  <Capability Min="150" Max="154" Preset="ColorMacro" Res1="#ff6f07">LEE 105 - Orange</Capability>
+  <Capability Min="155" Max="159" Preset="ColorMacro" Res1="#ff9600">LEE 021 - Gold Amber</Capability>
+  <Capability Min="160" Max="164" Preset="ColorMacro" Res1="#ff7c00">LEE 778 - Millennium Gold</Capability>
+  <Capability Min="165" Max="169" Preset="ColorMacro" Res1="#ff5400">LEE 135 - Deep Golden Amber</Capability>
+  <Capability Min="170" Max="174" Preset="ColorMacro" Res1="#ff0800">LEE 164 - Flame Red</Capability>
+  <Capability Min="175" Max="179" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
+  <Capability Min="180" Max="201" Preset="RotationClockwiseFastToSlow">Color rotation fast → slow</Capability>
+  <Capability Min="202" Max="207" Preset="RotationStop">Stop Rot</Capability>
+  <Capability Min="208" Max="229" Preset="RotationClockwiseSlowToFast">Color rotation slow → fast</Capability>
+  <Capability Min="230" Max="234" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
+  <Capability Min="235" Max="239">Random color Fast</Capability>
+  <Capability Min="240" Max="244">Random color Medium</Capability>
+  <Capability Min="245" Max="249">Random color Slow</Capability>
+  <Capability Min="250" Max="255" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
  </Channel>
  <Channel Name="Aura Red" Preset="IntensityRed"/>
  <Channel Name="Aura Green" Preset="IntensityGreen"/>
@@ -309,9 +309,9 @@
   <Channel Number="12">Beam White</Channel>
   <Channel Number="13">Beam CTC</Channel>
   <Channel Number="14">FX1 select</Channel>
-  <Channel Number="15">FX1 adjust, sync speed adjust</Channel>
+  <Channel Number="15" ActsOn="14">FX1 adjust, sync speed adjust</Channel>
   <Channel Number="16">FX2 select</Channel>
-  <Channel Number="17">FX2 adjust, sync speed adjust</Channel>
+  <Channel Number="17" ActsOn="16">FX2 adjust, sync speed adjust</Channel>
   <Channel Number="18">Sync (FX synchronization)</Channel>
   <Channel Number="19">Aura shutter and strobe effect</Channel>
   <Channel Number="20">Aura dimmer</Channel>
@@ -319,6 +319,23 @@
   <Channel Number="22">Aura Red</Channel>
   <Channel Number="23">Aura Green</Channel>
   <Channel Number="24">Aura Blue</Channel>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>12</Channel>
+   <Channel>11</Channel>
+   <Channel>13</Channel>
+   <Channel>1</Channel>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
  </Mode>
  <Mode Name="Standard Mode">
   <Channel Number="0">Beam electronic shutter effect</Channel>
@@ -336,11 +353,11 @@
   <Channel Number="12">Beam White</Channel>
   <Channel Number="13">Beam CTC</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="3850" ColourTemperature="0"/>
-   <Dimensions Weight="5.6" Width="302" Depth="360" Height="302"/>
-   <Lens Name="Other" DegreesMin="11" DegreesMax="58"/>
-   <Focus Type="Head" PanMax="540" TiltMax="232"/>
-   <Technical PowerConsumption="230" DmxConnector="5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="3850" ColourTemperature="0"/>
+  <Dimensions Weight="5.6" Width="302" Height="302" Depth="360"/>
+  <Lens Name="Other" DegreesMin="11" DegreesMax="58"/>
+  <Focus Type="Head" PanMax="540" TiltMax="232"/>
+  <Technical PowerConsumption="230" DmxConnector="5-pin"/>
+ </Physical>
 </FixtureDefinition>

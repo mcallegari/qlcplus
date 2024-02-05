@@ -28,7 +28,7 @@ TreeModelItem::TreeModelItem(QString label, QObject *parent)
     , m_label(label)
     , m_path(QString())
     , m_flags(0)
-    , m_children(NULL)
+    , m_children(nullptr)
 {
 }
 
@@ -39,7 +39,7 @@ TreeModelItem::~TreeModelItem()
     {
         m_children->clear();
         delete m_children;
-        m_children = NULL;
+        m_children = nullptr;
     }
 }
 
@@ -111,7 +111,7 @@ void TreeModelItem::setRoleData(int index, QVariant value)
 bool TreeModelItem::setChildrenColumns(QStringList columns)
 {
     bool childrenTreeCreated = false;
-    if (m_children == NULL)
+    if (m_children == nullptr)
     {
         m_children = new TreeModel();
         QQmlEngine::setObjectOwnership(m_children, QQmlEngine::CppOwnership);
@@ -125,7 +125,7 @@ bool TreeModelItem::setChildrenColumns(QStringList columns)
 bool TreeModelItem::addChild(QString label, QVariantList data, bool sorting, QString path, int flags)
 {
     bool childrenTreeCreated = false;
-    if (m_children == NULL)
+    if (m_children == nullptr)
     {
         m_children = new TreeModel();
         QQmlEngine::setObjectOwnership(m_children, QQmlEngine::CppOwnership);
@@ -139,7 +139,7 @@ bool TreeModelItem::addChild(QString label, QVariantList data, bool sorting, QSt
 
 bool TreeModelItem::hasChildren()
 {
-    if (m_children != NULL)
+    if (m_children != nullptr)
         return true;
 
     return false;

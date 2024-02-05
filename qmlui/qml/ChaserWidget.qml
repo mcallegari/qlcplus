@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick 2.12
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.1
 
@@ -30,22 +30,30 @@ Column
     id: widgetRoot
     property bool isSequence: false
     property alias model: cStepsList.model
-    property alias playbackIndex: cStepsList.currentIndex
+    property int playbackIndex: -1
+    property int nextIndex: -1
+    property alias speedType: timeEditTool.speedType
     property int tempoType: QLCFunction.Time
     property bool isRunning: false
     property alias containsDrag: cwDropArea.containsDrag
     property alias selector: ceSelector
+    property bool isPrinting: false
 
     property int editStepIndex: -1
     property int editStepType
+    property int selectionRequestIndex: -1
 
     signal indexChanged(int index)
     signal stepValueChanged(int index, int value, int type)
     signal noteTextChanged(int index, string text)
     signal addFunctions(var list, int index)
+    signal moveSteps(var list, int index)
     signal requestEditor(int funcID)
     signal dragEntered(var item)
     signal dragExited(var item)
+    signal enterPressed(int index)
+
+    onPlaybackIndexChanged: ceSelector.selectItem(playbackIndex, cStepsList.model, false)
 
     function editStepTime(stepIndex, stepItem, type)
     {
@@ -90,17 +98,22 @@ Column
         timeEditTool.show(-1, stepItem.mapToItem(mainView, 0, 0).y, title, timeValueString, type)
     }
 
+    function selectStep(stepIndex, multiSelect)
+    {
+        ceSelector.selectItem(stepIndex, cStepsList.model, multiSelect)
+    }
+
     ModelSelector
     {
         id: ceSelector
-        onItemsCountChanged: console.log("Chaser Editor selected items changed !")
+        onItemsCountChanged: console.log("Chaser Editor selected items: " + itemsCount)
     }
 
     TimeEditTool
     {
         id: timeEditTool
-        parent: mainView
-        x: rightSidePanel.x - width
+        parent: mainView ? mainView : widgetRoot
+        x: rightSidePanel ? rightSidePanel.x - width : -width
         z: 99
         visible: false
 
@@ -109,7 +122,7 @@ Column
         onTabPressed:
         {
             var typeArray = [ QLCFunction.FadeIn, QLCFunction.Hold, QLCFunction.FadeOut, QLCFunction.Duration ]
-            var currType = editStepType + (forward ? 1 : -1)
+            var currType = typeArray.indexOf(editStepType) + (forward ? 1 : -1)
 
             if (currType < 0)
             {
@@ -129,7 +142,7 @@ Column
             else
             {
                 // same step, other field
-                editStepTime(editStepIndex, cStepsList.currentItem, currType)
+                editStepTime(editStepIndex, cStepsList.currentItem, typeArray[currType])
             }
         }
     }
@@ -192,8 +205,8 @@ Column
                     }
                     onPositionChanged:
                     {
-                        if (drag.target === null)
-                            return;
+                        if (drag.target == null)
+                            return
                         nameCol.width = nameColDrag.x - nameCol.x - 1
                     }
                     onReleased: drag.target = null
@@ -230,8 +243,8 @@ Column
                     }
                     onPositionChanged:
                     {
-                        if (drag.target === null)
-                            return;
+                        if (drag.target == null)
+                            return
                         fInCol.width = fInColDrag.x - fInCol.x - 1
                     }
                     onReleased: drag.target = null
@@ -268,8 +281,8 @@ Column
                     }
                     onPositionChanged:
                     {
-                        if (drag.target === null)
-                            return;
+                        if (drag.target == null)
+                            return
                         holdCol.width = holdColDrag.x - holdCol.x - 1
                     }
                     onReleased: drag.target = null
@@ -306,8 +319,8 @@ Column
                     }
                     onPositionChanged:
                     {
-                        if (drag.target === null)
-                            return;
+                        if (drag.target == null)
+                            return
                         fOutCol.width = fOutColDrag.x - fOutCol.x - 1
                     }
                     onReleased: drag.target = null
@@ -344,8 +357,8 @@ Column
                     }
                     onPositionChanged:
                     {
-                        if (drag.target === null)
-                            return;
+                        if (drag.target == null)
+                            return
                         durCol.width = durColDrag.x - durCol.x - 1
                     }
                     onReleased: drag.target = null
@@ -373,9 +386,10 @@ Column
         boundsBehavior: Flickable.StopAtBounds
         clip: true
 
+        property bool dragActive: false
         property int dragInsertIndex: -1
 
-        onCurrentIndexChanged: ceSelector.selectItem(currentIndex, model, 0)
+        //onCurrentIndexChanged: ceSelector.selectItem(currentIndex, model, false)
 
         CustomTextEdit
         {
@@ -390,62 +404,146 @@ Column
                 width = item.width
                 height = item.height
 
-                inputText = item.label
+                text = item.label
                 visible = true
                 selectAndFocus()
             }
 
-            onEnterPressed:
+            onAccepted:
             {
-                widgetRoot.noteTextChanged(editStepIndex, inputText)
+                widgetRoot.noteTextChanged(editStepIndex, text)
                 editStepIndex = -1
                 visible = false
+            }
+
+            Keys.onPressed:
+            {
+                if (event.key === Qt.Key_Escape)
+                {
+                    editStepIndex = -1
+                    visible = false
+                }
             }
         }
 
         delegate:
-            ChaserStepDelegate
+            Item
             {
-                width: widgetRoot.width
-                showFunctionName: !isSequence
-                functionID: model.funcID
-                isSelected: model.isSelected
-                stepFadeIn: TimeUtils.timeToQlcString(model.fadeIn, widgetRoot.tempoType)
-                stepHold: TimeUtils.timeToQlcString(model.hold, widgetRoot.tempoType)
-                stepFadeOut: TimeUtils.timeToQlcString(model.fadeOut, widgetRoot.tempoType)
-                stepDuration: TimeUtils.timeToQlcString(model.duration, widgetRoot.tempoType)
-                stepNote: model.note
+                id: itemRoot
+                width: cStepsList.width
+                height: UISettings.listItemHeight
 
-                col1Width: numCol.width
-                col2Width: nameCol.width
-                col3Width: fInCol.width
-                col4Width: holdCol.width
-                col5Width: fOutCol.width
-                col6Width: durCol.width
-
-                indexInList: index
-                highlightIndex: cStepsList.dragInsertIndex
-                highlightEditTime: editStepIndex === index ? editStepType : -1
-
-                onClicked:
+                Keys.onPressed:
                 {
-                    ceSelector.selectItem(indexInList, cStepsList.model, mouseMods & Qt.ControlModifier)
-                    console.log("mouse mods: " + mouseMods)
-                    if ((mouseMods & Qt.ControlModifier) == 0)
-                        widgetRoot.indexChanged(index)
+                    if (event.key === Qt.Key_Return ||
+                        event.key === Qt.Key_Enter)
+                    {
+                        widgetRoot.enterPressed(index)
+                        event.accepted = true
+                    }
                 }
 
-                onDoubleClicked:
+                MouseArea
                 {
-                    console.log("Double clicked: " + indexInList + ", " + type)
-                    if (type === QLCFunction.Name)
-                        widgetRoot.requestEditor(ID)
-                    else if (type === QLCFunction.Notes)
-                        noteTextEdit.show(indexInList, qItem)
-                    else
-                        widgetRoot.editStepTime(indexInList, this, type)
-                }
-            }
+                    id: delegateRoot
+                    width: cStepsList.width
+                    height: parent.height
+
+                    drag.target: csDragItem
+                    drag.threshold: height / 4
+
+                    property bool dragActive: drag.active
+
+                    onPressed:
+                    {
+                        var posInList = delegateRoot.mapToItem(widgetRoot, mouse.x, mouse.y)
+                        csDragItem.parent = widgetRoot
+                        csDragItem.x = posInList.x
+                        csDragItem.y = posInList.y
+                        csDragItem.z = 10
+
+                        if (model.isSelected)
+                            return
+
+                        ceSelector.selectItem(index, cStepsList.model, mouse.modifiers & Qt.ControlModifier)
+                        if (mouse.modifiers == 0)
+                        {
+                            widgetRoot.indexChanged(index)
+                            csDragItem.itemsList = []
+                        }
+
+                        csDragItem.itemsList = ceSelector.itemsList()
+                        itemRoot.forceActiveFocus()
+                    }
+
+                    onDoubleClicked: csDelegate.handleDoubleClick(mouse.x, mouse.y)
+
+                    onDragActiveChanged:
+                    {
+                        if (dragActive)
+                        {
+                            csDragItem.itemLabel = csDelegate.func.name
+                            csDragItem.itemIcon = functionManager.functionIcon(csDelegate.func.type)
+                            cStepsList.dragActive = true
+                        }
+                        else
+                        {
+                            csDragItem.Drag.drop()
+                        }
+                    }
+
+                    ChaserStepDelegate
+                    {
+                        id: csDelegate
+                        width: widgetRoot.width
+                        showFunctionName: !isSequence
+                        functionID: model.funcID
+                        isSelected: model.isSelected
+                        stepFadeIn: TimeUtils.timeToQlcString(model.fadeIn, widgetRoot.tempoType)
+                        stepHold: TimeUtils.timeToQlcString(model.hold, widgetRoot.tempoType)
+                        stepFadeOut: TimeUtils.timeToQlcString(model.fadeOut, widgetRoot.tempoType)
+                        stepDuration: TimeUtils.timeToQlcString(model.duration, widgetRoot.tempoType)
+                        stepNote: model.note
+
+                        col1Width: numCol.width
+                        col2Width: nameCol.width
+                        col3Width: fInCol.width
+                        col4Width: holdCol.width
+                        col5Width: fOutCol.width
+                        col6Width: durCol.width
+
+                        isPrinting: widgetRoot.isPrinting
+                        indexInList: index
+                        highlightIndex: cStepsList.dragInsertIndex
+                        highlightEditTime: editStepIndex === index ? editStepType : -1
+                        nextIndex: widgetRoot.nextIndex
+
+                        onDoubleClicked:
+                        {
+                            console.log("Double clicked: " + indexInList + ", " + type)
+                            if (type === QLCFunction.Name)
+                                widgetRoot.requestEditor(ID)
+                            else if (type === QLCFunction.Notes)
+                                noteTextEdit.show(indexInList, qItem)
+                            else
+                                widgetRoot.editStepTime(indexInList, this, type)
+                        }
+                    } // ChaserStepDelegate
+                } // MouseArea
+            } // Item
+
+        GenericMultiDragItem
+        {
+            id: csDragItem
+
+            property bool fromFunctionManager: false
+
+            visible: cStepsList.dragActive
+
+            Drag.active: cStepsList.dragActive
+            Drag.source: csDragItem
+            Drag.keys: [ "function" ]
+        }
 
         DropArea
         {
@@ -466,17 +564,30 @@ Column
                 console.log("Item dropped here. x: " + drag.x + " y: " + drag.y)
 
                 /* Check if the dragging was started from a Function Manager */
-                if (drag.source.hasOwnProperty("fromFunctionManager"))
+                if (drag.source.fromFunctionManager === true)
                 {
                     widgetRoot.addFunctions(drag.source.itemsList, cStepsList.dragInsertIndex)
-                    cStepsList.dragInsertIndex = -1
                 }
+                else
+                {
+                    widgetRoot.moveSteps(ceSelector.itemsList(), cStepsList.dragInsertIndex)
+                    cStepsList.currentIndex = -1
+                }
+
+                cStepsList.dragInsertIndex = -1
+                cStepsList.dragActive = false
             }
             onPositionChanged:
             {
                 var idx = cStepsList.indexAt(drag.x, drag.y)
+                var item = cStepsList.itemAt(drag.x, drag.y)
+                var itemY = item.mapToItem(cStepsList, 0, 0).y
                 //console.log("Item index:" + idx)
-                cStepsList.dragInsertIndex = idx
+
+                if (drag.y < (itemY + item.height) / 2)
+                    cStepsList.dragInsertIndex = idx
+                else
+                    cStepsList.dragInsertIndex = idx + 1
             }
         }
         ScrollBar.vertical: CustomScrollBar { }

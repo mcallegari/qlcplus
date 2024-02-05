@@ -25,8 +25,6 @@ import "."
 
 SidePanel
 {
-    id: vcRightPanel
-
     onContentLoaded:
     {
         if (item.functionID)
@@ -126,16 +124,15 @@ SidePanel
                 counter: virtualConsole.selectedWidgetsCount
                 onClicked:
                 {
-                    var selNames = virtualConsole.selectedWidgetNames()
-                    //console.log(selNames)
-                    deleteWidgetsPopup.message = qsTr("Are you sure you want to remove the following widgets ?") + "\n" + selNames
+                    var selNames = virtualConsole.selectedWidgetNames().join(", ")
+                    deleteWidgetsPopup.message = qsTr("Are you sure you want to remove the following widgets?") + "\n" + selNames
                     deleteWidgetsPopup.open()
                 }
 
                 CustomPopupDialog
                 {
                     id: deleteWidgetsPopup
-                    title: qsTr("Delete functions")
+                    title: qsTr("Delete selected widgets")
                     onAccepted: virtualConsole.deleteVCWidgets(virtualConsole.selectedWidgetIDs())
                 }
             }
@@ -161,7 +158,6 @@ SidePanel
                 imgSource: "qrc:/edit-paste.svg"
                 tooltip: qsTr("Paste widgets from clipboard")
                 counter: virtualConsole.clipboardItemsCount
-
                 onClicked: virtualConsole.pasteFromClipboard()
 
                 Rectangle

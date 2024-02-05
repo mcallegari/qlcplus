@@ -16,13 +16,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-
-#include "channelmodifier.h"
-#include "qlcfile.h"
-
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QDebug>
+
+#include "channelmodifier.h"
+#include "qlcfile.h"
 
 ChannelModifier::ChannelModifier()
 {
@@ -112,13 +111,15 @@ QFile::FileError ChannelModifier::saveXML(const QString &fileName)
     QXmlStreamWriter doc(&file);
     doc.setAutoFormatting(true);
     doc.setAutoFormattingIndent(1);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     doc.setCodec("UTF-8");
+#endif
     QLCFile::writeXMLHeader(&doc, KXMLQLCChannelModifierDocument);
 
     doc.writeTextElement(KXMLQLCChannelModName, m_name);
 
     qDebug() << "Got map with" << m_map.count() << "handlers";
-    for(int i = 0; i < m_map.count(); i++)
+    for (int i = 0; i < m_map.count(); i++)
     {
         QPair<uchar, uchar> mapElement = m_map.at(i);
         doc.writeStartElement(KXMLQLCChannelModHandler);
@@ -175,7 +176,7 @@ QFile::FileError ChannelModifier::loadXML(const QString &fileName, Type type)
                 {
                     setName(doc->readElementText());
                 }
-                else if(doc->name() == KXMLQLCChannelModHandler)
+                else if (doc->name() == KXMLQLCChannelModHandler)
                 {
                     QPair <uchar, uchar> dmxPair(0, 0);
                     QXmlStreamAttributes attrs = doc->attributes();

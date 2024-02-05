@@ -58,7 +58,7 @@ uniform sampler2D frontDepthTex;
 
 float hash(float n)
 {
-    return fract(sin(n)*43758.5453123);
+    return fract(sin(n) * 43758.5453123);
 }
 
 void main()
@@ -103,9 +103,9 @@ void main()
 
     vec3 p = begP;
 
-    // add initial noise add beginning of ray. nosie is removed by anti-aliasing later.
+    // add initial noise add beginning of ray. noise is removed by anti-aliasing later
     vec2 j = gl_FragCoord.xy * 10.2;
-    p += rd * stepLength * hash(j.x+j.y * 47.0) * 0.3;
+    p += rd * stepLength * hash(j.x + j.y * 47.0) * 0.3;
 
     float accum = 0.0;
     int i;
@@ -118,7 +118,8 @@ void main()
     for (i = 0; i < raymarchSteps; ++i)
     {
         float shadowMask = 1.0f;
-        if(useShadows == 1) {
+        if(useShadows == 1)
+        {
             vec4 q = (lightViewProjectionScaleAndOffsetMatrix * vec4(p, 1.0));
             float curZ = q.z / q.w;
             float refZ = SAMPLE_TEX2D(shadowTex, (q.xy / q.w)).r;
@@ -131,8 +132,8 @@ void main()
         vec3 pf = p * 0.5;
 
         vec4 myq = lightViewMatrix * vec4(p.xyz, 1.0);
-        float r = coneTopRadius + (coneBottomRadius - coneTopRadius) * ((abs(myq.z)-0.5*headLength) / coneDistCutoff);
-        vec2 tc = mat2x2(goboRotation.x, goboRotation.y, goboRotation.z, goboRotation.w)*(((-myq.xy) * (1.0 / r))) * 0.5 + 0.5;
+        float r = coneTopRadius + (coneBottomRadius - coneTopRadius) * ((abs(myq.z) - 0.5 * headLength) / coneDistCutoff);
+        vec2 tc = mat2x2(goboRotation.x, goboRotation.y, goboRotation.z, goboRotation.w) * (((-myq.xy) * (1.0 / r))) * 0.5 + 0.5;
 
         vec4 gSample = SAMPLE_TEX2D(goboTex, tc.xy);
         

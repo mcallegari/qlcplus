@@ -22,7 +22,7 @@
 
 #include "dmxusbwidget.h"
 
-class Stageprofi : public DMXUSBWidget
+class Stageprofi : public QThread, public DMXUSBWidget
 {
     /************************************************************************
      * Initialization
@@ -42,21 +42,30 @@ public:
     bool open(quint32 line = 0, bool input = false);
 
     /** @reimp */
+    bool close(quint32 line = 0, bool input = false);
+
+    /** @reimp */
     QString uniqueName(ushort line = 0, bool input = false) const;
 
     /** @reimp */
     QString additionalInfo() const;
 
     /** @reimp */
-    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
+
+protected:
+    /** Stop the writer thread */
+    void stop();
+
+    /** DMX writer thread worker method */
+    void run();
 
 private:
     bool checkReply();
     bool sendChannelValue(int channel, uchar value);
 
 private:
-    /** local copy of the universe last data sent */
-    QByteArray m_universe;
+    bool m_running;
 };
 
 #endif

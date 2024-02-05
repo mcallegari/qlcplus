@@ -44,9 +44,7 @@ class MidiPlugin : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)
-#if QT_VERSION > QT_VERSION_CHECK(5, 0, 0)
     Q_PLUGIN_METADATA(IID QLCIOPlugin_iid)
-#endif
 
     friend class ConfigureMidiPlugin;
 
@@ -89,7 +87,7 @@ public:
     QString outputInfo(quint32 output);
 
     /** @reimp */
-    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
 
 private:
     /** Get an output device by its output index */

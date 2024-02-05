@@ -3,12 +3,12 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Mr. DMX</Author>
  </Creator>
  <Manufacturer>beamZ</Manufacturer>
  <Model>LCB-252</Model>
- <Type>Effect</Type>
+ <Type>LED Bar (Pixels)</Type>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
@@ -103,11 +103,6 @@
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-  </Head>
  </Mode>
  <Mode Name="6 Ch.">
   <Channel Number="0">Master</Channel>
@@ -324,6 +319,7 @@
   <Dimensions Weight="1.7" Width="1025" Height="65" Depth="85"/>
   <Lens Name="PC" DegreesMin="0" DegreesMax="0"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="8" Height="1"/>
   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

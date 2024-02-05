@@ -24,6 +24,7 @@
 #include <QObject>
 #include <QMutex>
 #include <QList>
+#include <QMap>
 
 #include "dmxsource.h"
 #include "cue.h"
@@ -40,12 +41,12 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCCueStack "CueStack"
-#define KXMLQLCCueStackID "ID"
-#define KXMLQLCCueStackSpeed "Speed"
-#define KXMLQLCCueStackSpeedFadeIn "FadeIn"
-#define KXMLQLCCueStackSpeedFadeOut "FadeOut"
-#define KXMLQLCCueStackSpeedDuration "Duration"
+#define KXMLQLCCueStack              QString("CueStack")
+#define KXMLQLCCueStackID            QString("ID")
+#define KXMLQLCCueStackSpeed         QString("Speed")
+#define KXMLQLCCueStackSpeedFadeIn   QString("FadeIn")
+#define KXMLQLCCueStackSpeedFadeOut  QString("FadeOut")
+#define KXMLQLCCueStackSpeedDuration QString("Duration")
 
 class CueStack : public QObject, public DMXSource
 {
@@ -244,16 +245,18 @@ public:
 
     void preRun();
     void write(QList<Universe *> ua);
-    void postRun(MasterTimer* timer);
+    void postRun(MasterTimer *timer, QList<Universe *> ua);
 
 private:
     int next();
     int previous();
+    FadeChannel *getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel);
+    void updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime);
     void switchCue(int from, int to, const QList<Universe *> ua);
-    void insertStartValue(FadeChannel& fc, const QList<Universe*> ua);
 
 private:
-    GenericFader* m_fader;
+    /** Map used to lookup a GenericFader instance for a Universe ID */
+    QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
     uint m_elapsed;
     bool m_previous;
     bool m_next;

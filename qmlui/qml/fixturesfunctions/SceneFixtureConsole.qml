@@ -19,6 +19,8 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
+
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -35,6 +37,15 @@ Rectangle
     {
         console.log("[scrollToItem] fxIdx: " + fxIdx)
         fixtureList.positionViewAtIndex(fxIdx, ListView.Beginning)
+        fixtureList.currentIndex = fxIdx
+    }
+
+    ChannelToolLoader
+    {
+        id: channelToolLoader
+        z: 2
+
+        onValueChanged: functionManager.setChannelValue(fixtureID, channelIndex, value)
     }
 
     ListView
@@ -45,13 +56,15 @@ Rectangle
         model: sceneEditor.fixtureList
         boundsBehavior: Flickable.StopAtBounds
         highlightFollowsCurrentItem: false
+        currentIndex: -1
+        z: 1
 
         delegate:
             Rectangle
             {
                 height: parent.height
                 width: fxConsole.width + 4
-                color: "black"
+                color: UISettings.bgMedium
 
                 Component.onCompleted: sceneEditor.registerFixtureConsole(index, fxConsole)
                 Component.onDestruction: sceneEditor.unRegisterFixtureConsole(index)
@@ -60,12 +73,14 @@ Rectangle
                 {
                     id: fxConsole
                     x: 2
-                    fixtureObj: model.fxRef
+                    fixtureObj: model.cRef
                     isSelected: model.isSelected
                     height: parent.height
                     color: index % 2 ? "#202020" : "#404040"
                     showEnablers: true
                     sceneConsole: true
+
+                    onRequestTool: channelToolLoader.loadChannelTool(item, fixtureID, chIndex, value)
                 }
                 // Fixture divider
                 Rectangle
@@ -75,7 +90,7 @@ Rectangle
                     color: "transparent"
                     radius: 3
                     border.width: 2
-                    border.color: model.isSelected ? UISettings.highlight : "transparent"
+                    border.color: fixtureList.currentIndex == index ? UISettings.selection : "transparent"
                 }
             }
     }

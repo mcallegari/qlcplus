@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.4 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>David Read</Author>
  </Creator>
  <Manufacturer>PR Lighting</Manufacturer>
@@ -32,24 +32,24 @@
  </Channel>
  <Channel Name="Colour Wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="27" Color="#ffffff">Open (White)</Capability>
-  <Capability Min="28" Max="55" Color="#ff0000">Red</Capability>
-  <Capability Min="56" Max="83" Color="#ffff7f">Yellow</Capability>
-  <Capability Min="84" Max="111" Color="#aaff7f">Light green (Lime)</Capability>
-  <Capability Min="112" Max="139" Color="#ffaaff">Pink</Capability>
-  <Capability Min="140" Max="167" Color="#5555ff">Ultraviolet colour</Capability>
-  <Capability Min="168" Max="195" Color="#55ffff">Cyan (Aqua)</Capability>
-  <Capability Min="196" Max="223" Color="#00ff00">Green</Capability>
-  <Capability Min="224" Max="251" Color="#0000ff">Blue</Capability>
-  <Capability Min="252" Max="255" Color="#ffaa00">Orange</Capability>
+  <Capability Min="0" Max="27" Preset="ColorMacro" Res1="#ffffff">Open (White)</Capability>
+  <Capability Min="28" Max="55" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="56" Max="83" Preset="ColorMacro" Res1="#ffff7f">Yellow</Capability>
+  <Capability Min="84" Max="111" Preset="ColorMacro" Res1="#aaff7f">Light green (Lime)</Capability>
+  <Capability Min="112" Max="139" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="140" Max="167" Preset="ColorMacro" Res1="#5555ff">Ultraviolet colour</Capability>
+  <Capability Min="168" Max="195" Preset="ColorMacro" Res1="#55ffff">Cyan (Aqua)</Capability>
+  <Capability Min="196" Max="223" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="224" Max="251" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="252" Max="255" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="21">Black-out</Capability>
+  <Capability Min="0" Max="21" Preset="ShutterClose">Black-out</Capability>
   <Capability Min="22" Max="110">Open gradually from black to full open (dimming)</Capability>
-  <Capability Min="111" Max="135">Open</Capability>
-  <Capability Min="136" Max="247">Strobe adjust from slow to fast (1-7 flashes/sec)</Capability>
-  <Capability Min="248" Max="255">Open</Capability>
+  <Capability Min="111" Max="135" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="136" Max="247" Preset="StrobeSlowToFast">Strobe adjust from slow to fast (1-7 flashes/sec)</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Pan" Preset="PositionPan"/>
  <Channel Name="Tilt" Preset="PositionTilt"/>
@@ -65,11 +65,11 @@
   <Channel Number="6">Pan Fine</Channel>
   <Channel Number="7">Tilt Fine</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="HTI 150W" Lumens="10000" ColourTemperature="6500"/>
-   <Dimensions Weight="12" Width="340" Height="470" Depth="380"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="370" TiltMax="265"/>
-   <Technical PowerConsumption="280" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="HTI 150W" Lumens="10000" ColourTemperature="6500"/>
+  <Dimensions Weight="12" Width="340" Height="470" Depth="380"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="370" TiltMax="265"/>
+  <Technical PowerConsumption="280" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

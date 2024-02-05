@@ -9,38 +9,38 @@
 
 <H1>uDMX output plugin</H1>
 
-<H1>1 Introduction</H1>
+<H2>Introduction</H2>
 <P>
-The uDMX Output plugin supports the <A HREF="http://www.anyma.ch/research/udmx/">Anyma uDMX</A> USB-DMX interface
-on Linux and Mac OS X.
+The uDMX Output plugin supports the <A HREF="https://www.anyma.ch/research/udmx/">Anyma uDMX</A> USB-DMX interface
+on Linux and macOS.
 </P>
 
-<H1>2 Requirements</H1>
+<H2>Requirements</H2>
 
-<H2>2.1 Linux</H2>
+<H3>Linux</H3>
 <P>
 On all Linux distributions, you need to install libusb. If you install QLC+ with the Ubuntu
 Software Center or some other automatic installer tool, this library will be installed
 automatically for you.
 </P>
 
-<H2>2.2 Mac OS X</H2>
+<H3>macOS</H3>
 <P>
-On the Apple Mac OS X, you don't need any drivers at all since QLC+ uses the OS X native USB
+On Apple macOS, you don't need any drivers at all since QLC+ uses the macOS native USB
 interface.
 </P>
 
-<H2>2.3 Windows</H2>
+<H3>Windows</H3>
 <P>
 This device is not yet supported on Windows.
 </P>
 
-<H1>3 Tuning</H1>
+<H2>Tuning</H2>
 <P>
 It is possible to change the DMX frame frequency for all uDMX devices with a
 hidden settings key on each platform. The key tells QLC+ how many times each DMX frame (512 channels)
 should be sent to the universe per second. A value of "30" means 30 times per second (30Hz).
-Please refer to the <A HREF="file:parameterstuning.html#uDMX">Manual parameters tuning</A> uDMX section
+Please refer to the <A HREF="parameterstuning.html#uDMX">Manual parameters tuning</A> uDMX section
 </P>
 
 </BODY>

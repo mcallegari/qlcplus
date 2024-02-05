@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Nathan Durnan</Author>
  </Creator>
  <Manufacturer>Solena</Manufacturer>
  <Model>Max Bar 28 RGB</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Pixels)</Type>
  <Channel Name="Red Brightness" Preset="IntensityRed"/>
  <Channel Name="Green Brightness" Preset="IntensityGreen"/>
  <Channel Name="Blue Brightness" Preset="IntensityBlue"/>
@@ -153,11 +153,12 @@
    <Channel>23</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="2.5" Width="1095" Height="115" Depth="120"/>
-   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="28" DmxConnector="3-pin"/>
-  </Physical>
-  </FixtureDefinition>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.5" Width="1095" Height="115" Depth="120"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="8" Height="1"/>
+  <Technical PowerConsumption="28" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

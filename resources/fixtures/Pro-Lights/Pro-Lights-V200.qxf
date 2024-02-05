@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.3.2</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
@@ -13,13 +13,13 @@
  <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7">Blackout</Capability>
-  <Capability Min="8" Max="15">Open</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
   <Capability Min="16" Max="131">Strobe speed</Capability>
-  <Capability Min="132" Max="139">Open</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">Open</Capability>
   <Capability Min="140" Max="239">Gobo shake</Capability>
-  <Capability Min="240" Max="247">Random strobe</Capability>
-  <Capability Min="248" Max="255">Shutter open</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandom">Random strobe</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Shutter open</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
@@ -32,30 +32,30 @@
   <Capability Min="85" Max="98">Gobo 6</Capability>
   <Capability Min="99" Max="112">Gobo 7</Capability>
   <Capability Min="113" Max="127">Gobo 8</Capability>
-  <Capability Min="129" Max="191">Rainbow CW speed</Capability>
-  <Capability Min="192" Max="255">Rainbow CCW speed</Capability>
+  <Capability Min="128" Max="191">Gobo Change, fast to slow</Capability>
+  <Capability Min="192" Max="255">Gobo Change, slow to fast</Capability>
  </Channel>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="7" Color="#ffffff">White</Capability>
-  <Capability Min="8" Max="14" Color="#00ff00">Green</Capability>
-  <Capability Color2="#ff00ff" Min="15" Max="22" Color="#00ff00">Green + magenta</Capability>
-  <Capability Min="23" Max="29" Color="#ff00ff">Magenta</Capability>
-  <Capability Min="30" Max="37" Color="#c0c0ff">Light blue</Capability>
-  <Capability Min="38" Max="44" Color="#ffff00">Yellow</Capability>
-  <Capability Min="45" Max="52" Color="#ff0000">Red</Capability>
-  <Capability Color2="#ff0000" Min="53" Max="59" Color="#0000ff">Blue + red</Capability>
-  <Capability Min="60" Max="67" Color="#0000ff">Blue</Capability>
-  <Capability Min="68" Max="74" Color="#c000c0">UV purple</Capability>
-  <Capability Min="75" Max="82" Color="#008000">Deep green</Capability>
-  <Capability Color2="#ff8000" Min="83" Max="89" Color="#00ff00">Green + orange</Capability>
-  <Capability Min="90" Max="97" Color="#ff8000">Orange</Capability>
-  <Capability Color2="#ff8000" Min="98" Max="104" Color="#ffff00">Yellow + orange</Capability>
-  <Capability Min="105" Max="112" Color="#ffff00">Yellow 2</Capability>
-  <Capability Color2="#ffc0c0" Min="113" Max="119" Color="#ffff00">Yellow + pink</Capability>
-  <Capability Min="120" Max="127" Color="#ffc0c0">Pink</Capability>
-  <Capability Res="Others/rainbow.png" Min="128" Max="191">Rainbow CW speed</Capability>
-  <Capability Res="Others/rainbow.png" Min="192" Max="255">Rainbow CCW speed</Capability>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="8" Max="14" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="15" Max="22" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff00ff">Green + magenta</Capability>
+  <Capability Min="23" Max="29" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="30" Max="37" Preset="ColorMacro" Res1="#c0c0ff">Light blue</Capability>
+  <Capability Min="38" Max="44" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="45" Max="52" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="53" Max="59" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff0000">Blue + red</Capability>
+  <Capability Min="60" Max="67" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="68" Max="74" Preset="ColorMacro" Res1="#c000c0">UV purple</Capability>
+  <Capability Min="75" Max="82" Preset="ColorMacro" Res1="#008000">Deep green</Capability>
+  <Capability Min="83" Max="89" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff8000">Green + orange</Capability>
+  <Capability Min="90" Max="97" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
+  <Capability Min="98" Max="104" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#eeee00">Yellow + orange</Capability>
+  <Capability Min="105" Max="112" Preset="ColorMacro" Res1="#eeee00">Yellow 2</Capability>
+  <Capability Min="113" Max="119" Preset="ColorDoubleMacro" Res1="#eeee00" Res2="#ffc0c0">Yellow + pink</Capability>
+  <Capability Min="120" Max="127" Preset="ColorMacro" Res1="#ffc0c0">Pink</Capability>
+  <Capability Min="128" Max="191" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow CW speed</Capability>
+  <Capability Min="192" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow CCW speed</Capability>
  </Channel>
  <Channel Name="Gobo rotation">
   <Group Byte="0">Speed</Group>
@@ -128,11 +128,11 @@
   <Channel Number="11">Gobo rotation</Channel>
   <Channel Number="12">Colour</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="HTI 150W" ColourTemperature="5500"/>
-   <Dimensions Width="276" Height="369" Weight="11.5" Depth="266"/>
-   <Lens DegreesMax="14" Name="Other" DegreesMin="14"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="HTI 150W" Lumens="0" ColourTemperature="5500"/>
+  <Dimensions Weight="11.5" Width="276" Height="369" Depth="266"/>
+  <Lens Name="Other" DegreesMin="14" DegreesMax="14"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="200" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

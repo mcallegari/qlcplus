@@ -4,8 +4,7 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = e131
 
-QT      += network
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT      += network widgets
 
 CONFIG      += plugin
 INCLUDEPATH += ../interfaces
@@ -46,7 +45,7 @@ SOURCES += e131packetizer.cpp \
            configuree131.cpp
 
 unix:!macx {
-   metainfo.path   = $$INSTALLROOT/share/appdata/
-   metainfo.files += qlcplus-e131.metainfo.xml
-   INSTALLS       += metainfo 
+   metainfo.path   = $$METAINFODIR
+   metainfo.files += org.qlcplus.QLCPlus.e131.metainfo.xml
+   INSTALLS       += metainfo
 }

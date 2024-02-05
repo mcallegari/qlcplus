@@ -27,6 +27,8 @@ import "."
 CustomPopupDialog
 {
     id: popupRoot
+    width: mainView.width / 3
+    title: qsTr("QLC+ client setup")
 
     property string serverAddress: "192.168.0.1"
     property int clientStatus: networkManager.clientStatus
@@ -70,8 +72,6 @@ CustomPopupDialog
         }
     }
 
-    title: qsTr("QLC+ client setup")
-
     contentItem:
         GridLayout
         {
@@ -93,7 +93,7 @@ CustomPopupDialog
                 property string hostname: networkManager.hostName
 
                 Layout.fillWidth: true
-                inputText: hostname
+                text: hostname
                 onTextChanged: networkManager.hostName = text
             }
 
@@ -196,7 +196,7 @@ CustomPopupDialog
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
                 enabled: manualServerCheck.checked
-                inputText: popupRoot.serverAddress
+                text: popupRoot.serverAddress
                 onTextChanged: popupRoot.serverAddress = text
             }
 

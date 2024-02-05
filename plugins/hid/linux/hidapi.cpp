@@ -1,16 +1,25 @@
-/*
-  HIDAPI - Multi-Platform library for
-  communication with HID devices.
+/*******************************************************
+ HIDAPI - Multi-Platform library for
+ communication with HID devices.
 
-  Copyright (c) 2009 Alan Ott - Signal 11 Software
+ Alan Ott
+ Signal 11 Software
 
-  8/22/2009
-  Linux Version - 6/2/2009
+ 8/22/2009
+ Linux Version - 6/2/2009
 
-  This software may be used by anyone for any reason so
-  long as the copyright notice in the source files
-  remains intact.
-*/
+ Copyright 2009, All Rights Reserved.
+
+ At the discretion of the user of this library,
+ this software may be licensed under the terms of the
+ GNU General Public License v3, a BSD-Style license, or the
+ original HIDAPI license as outlined in the LICENSE.txt,
+ LICENSE-gpl3.txt, LICENSE-bsd.txt, and LICENSE-orig.txt
+ files located at the root of the source distribution.
+ These files may also be found in the public source
+ code repository located at:
+        http://github.com/signal11/hidapi .
+********************************************************/
 
 /* C */
 #include <stdio.h>
@@ -405,7 +414,7 @@ struct hid_device_info  HID_API_EXPORT *hid_enumerate(unsigned short vendor_id, 
 	devices = udev_enumerate_get_list_entry(enumerate);
 	/* For each item, see if it matches the vid/pid, and if so
 	   create a udev_device record for it */
-	udev_list_entry_foreach(dev_list_entry, devices) {
+	udev_list_entry_foreach (dev_list_entry, devices) {
 		const char *sysfs_path;
 		const char *dev_path;
 		const char *str;
@@ -793,7 +802,7 @@ int HID_API_EXPORT_CALL hid_get_serial_number_string(hid_device *dev, wchar_t *s
 	return get_device_string(dev, DEVICE_STRING_SERIAL, string, maxlen);
 }
 
-int HID_API_EXPORT_CALL hid_get_indexed_string(hid_device *, int , wchar_t *, size_t )
+int HID_API_EXPORT_CALL hid_get_indexed_string(hid_device *, int , wchar_t *, size_t)
 {
 	return -1;
 }

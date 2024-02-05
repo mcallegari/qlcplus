@@ -26,18 +26,18 @@
 #include <QHash>
 
 #include "previewcontext.h"
+#include "vcwidget.h"
 
 class QXmlStreamReader;
 class QXmlStreamWriter;
 class QLCInputSource;
 class ContextManager;
 class TreeModel;
-class VCWidget;
 class VCFrame;
 class VCPage;
 class Doc;
 
-#define KXMLQLCVirtualConsole "VirtualConsole"
+#define KXMLQLCVirtualConsole QString("VirtualConsole")
 
 class VirtualConsole : public PreviewContext
 {
@@ -112,7 +112,7 @@ public:
 
     /** Get the Virtual Console's frame representing the given $page,
      *  where all the widgets are placed */
-    Q_INVOKABLE VCPage* page(int page) const;
+    Q_INVOKABLE VCPage *page(int page) const;
 
     /** Return the reference of the currently selected VC page */
     Q_INVOKABLE QQuickItem *currentPageItem() const;
@@ -241,26 +241,6 @@ signals:
 
 protected:
     QVariantList m_clipboardIDList;
-
-    /*********************************************************************
-     * Drag & Drop
-     *********************************************************************/
-public:
-    /** Add or remove a target to the dropTargets list.
-     *  This is used to handle the stacking order of highlight areas
-     *  of frames when dragging/dropping a new widget on the VC */
-    Q_INVOKABLE void setDropTarget(QQuickItem *target, bool enable);
-
-    /** Reset the drop targets list.
-     *  deleteTargets is true when a new widget is dropped, so
-     *  drop areas highlight is no more needed */
-    void resetDropTargets(bool deleteTargets);
-
-protected:
-    /** A list of the QML targets used for drag & drop of new widgets.
-     *  Items are stacked in a precise order to handle the enter/exit events
-     *  of a drag item and highlight only the last item entered */
-    QList<QQuickItem *>m_dropTargets;
 
     /*********************************************************************
      * External input

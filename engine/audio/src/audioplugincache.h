@@ -20,6 +20,12 @@
 #ifndef AUDIOPLUGINCACHE_H
 #define AUDIOPLUGINCACHE_H
 
+#include <QtGlobal>
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+ #include <QAudioDeviceInfo>
+#else
+ #include <QAudioDevice>
+#endif
 #include <QObject>
 #include <QDir>
 
@@ -39,7 +45,7 @@ class AudioPluginCache : public QObject
 public:
     AudioPluginCache(QObject* parent);
     ~AudioPluginCache();
-    
+
     /** Load plugins from the given directory. */
     void load(const QDir& dir);
 
@@ -54,10 +60,27 @@ public:
     /** Get the list of cached audio devices detected on creation */
     QList<AudioDeviceInfo> audioDevicesList() const;
 
+    /** Return a Qt output device info match based on $devName */
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    QAudioDeviceInfo getOutputDeviceInfo(QString devName) const;
+#else
+    QAudioDevice getOutputDeviceInfo(QString devName) const;
+#endif
+
 private:
     /** a map of the vailable plugins ordered by priority */
     QMap<int, QString> m_pluginsMap;
+
+    /** a list of all input/output audio devices arranged in
+     *  AudioDeviceInfo structure */
     QList<AudioDeviceInfo> m_audioDevicesList;
+
+    /** a list of output audio device for faster lookup */
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    QList<QAudioDeviceInfo> m_outputDevicesList;
+#else
+    QList<QAudioDevice> m_outputDevicesList;
+#endif
 };
 
 /** @} */

@@ -217,42 +217,42 @@ void AlsaMidiInputThread::readEvent()
         uchar data1 = 0;
         uchar data2 = 0;
 
-        //qDebug() << "ALSA MIDI event received !" << ev->type;
+        //qDebug() << "ALSA MIDI event received!" << ev->type;
 
         if (snd_seq_ev_is_control_type(ev))
         {
             switch (ev->type)
             {
-            case SND_SEQ_EVENT_PGMCHANGE:
-                cmd = MIDI_PROGRAM_CHANGE;
-                data1 = ev->data.control.value;
-                data2 = 127;
+                case SND_SEQ_EVENT_PGMCHANGE:
+                    cmd = MIDI_PROGRAM_CHANGE | ev->data.control.channel;
+                    data1 = ev->data.control.value;
+                    data2 = 127;
                 break;
 
-            case SND_SEQ_EVENT_CONTROLLER:
-                cmd = MIDI_CONTROL_CHANGE | ev->data.control.channel;
-                data1 = ev->data.control.param;
-                data2 = ev->data.control.value;
+                case SND_SEQ_EVENT_CONTROLLER:
+                    cmd = MIDI_CONTROL_CHANGE | ev->data.control.channel;
+                    data1 = ev->data.control.param;
+                    data2 = ev->data.control.value;
                 break;
 
-            case SND_SEQ_EVENT_PITCHBEND:
-                cmd = MIDI_PITCH_WHEEL | ev->data.control.channel;
-                data1 = (ev->data.control.value + 8192) & 0x7f;
-                data2 = (ev->data.control.value + 8192) >> 7;
+                case SND_SEQ_EVENT_PITCHBEND:
+                    cmd = MIDI_PITCH_WHEEL | ev->data.control.channel;
+                    data1 = (ev->data.control.value + 8192) & 0x7f;
+                    data2 = (ev->data.control.value + 8192) >> 7;
                 break;
 
-            case SND_SEQ_EVENT_KEYPRESS:
-                cmd = MIDI_NOTE_AFTERTOUCH | ev->data.note.channel;
-                data1 = ev->data.note.note;
-                data2 = ev->data.note.velocity;
+                case SND_SEQ_EVENT_KEYPRESS:
+                    cmd = MIDI_NOTE_AFTERTOUCH | ev->data.note.channel;
+                    data1 = ev->data.note.note;
+                    data2 = ev->data.note.velocity;
                 break;
 
-            case SND_SEQ_EVENT_CHANPRESS:
-                cmd = MIDI_CHANNEL_AFTERTOUCH | ev->data.control.channel;
-                data1 = ev->data.control.value;
+                case SND_SEQ_EVENT_CHANPRESS:
+                    cmd = MIDI_CHANNEL_AFTERTOUCH | ev->data.control.channel;
+                    data1 = ev->data.control.value;
                 break;
- 
-            default:
+
+                default:
                 break;
             }
         }
@@ -273,11 +273,11 @@ void AlsaMidiInputThread::readEvent()
                 continue;
             if (ev->type == SND_SEQ_EVENT_START)
                 cmd = MIDI_BEAT_START;
-            else if(ev->type == SND_SEQ_EVENT_STOP)
+            else if (ev->type == SND_SEQ_EVENT_STOP)
                 cmd = MIDI_BEAT_STOP;
-            else if(ev->type == SND_SEQ_EVENT_CONTINUE)
+            else if (ev->type == SND_SEQ_EVENT_CONTINUE)
                 cmd = MIDI_BEAT_CONTINUE;
-            else if(ev->type == SND_SEQ_EVENT_CLOCK)
+            else if (ev->type == SND_SEQ_EVENT_CLOCK)
                 cmd = MIDI_BEAT_CLOCK;
 
             qDebug()  << "MIDI clock: " << cmd;
@@ -291,7 +291,10 @@ void AlsaMidiInputThread::readEvent()
 
         uint channel = 0;
         uchar value = 0;
-        if (QLCMIDIProtocol::midiToInput(cmd, data1, data2, device->midiChannel(),
+        //qDebug() << "MIDI cmd" << cmd << "data1" << data1 << "data2" << data2
+        //         << "channel" << MIDI_CH(cmd) << "devch" << device->midiChannel();
+
+        if (QLCMIDIProtocol::midiToInput(cmd, data1, data2, uchar(device->midiChannel()),
                                          &channel, &value) == true)
         {
             device->emitValueChanged(channel, value);

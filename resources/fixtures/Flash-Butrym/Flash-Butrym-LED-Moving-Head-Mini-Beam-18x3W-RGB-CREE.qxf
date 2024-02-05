@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.7.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>laserandi</Author>
  </Creator>
  <Manufacturer>Flash-Butrym</Manufacturer>
@@ -24,19 +24,19 @@
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">Off</Capability>
-  <Capability Min="11" Max="18" Color="#ff0000">Red</Capability>
-  <Capability Color2="#00ff00" Min="19" Max="86" Color="#ff0000">Red - Green</Capability>
-  <Capability Min="87" Max="94" Color="#00ff00">Green</Capability>
-  <Capability Color2="#0000ff" Min="95" Max="163" Color="#00ff00">Green - Blue</Capability>
-  <Capability Min="164" Max="171" Color="#0000ff">Blue</Capability>
-  <Capability Color2="#ff0000" Min="172" Max="240" Color="#0000ff">Blue - Red</Capability>
-  <Capability Min="241" Max="248" Color="#ff0000">Red</Capability>
-  <Capability Min="249" Max="255" Color="#ffffff">White</Capability>
+  <Capability Min="11" Max="18" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="19" Max="86" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red - Green</Capability>
+  <Capability Min="87" Max="94" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="95" Max="163" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green - Blue</Capability>
+  <Capability Min="164" Max="171" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="172" Max="240" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff0000">Blue - Red</Capability>
+  <Capability Min="241" Max="248" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="249" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10">shutter off</Capability>
-  <Capability Min="11" Max="255">shutter slow to fast</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">shutter off</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">shutter slow to fast</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="Full, 11 channel">
@@ -52,11 +52,11 @@
   <Channel Number="9">Shutter</Channel>
   <Channel Number="10">auto movement/color</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="190" Height="270" Weight="2.75" Depth="190"/>
-   <Lens DegreesMax="35" Name="PC" DegreesMin="14"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
-   <Technical PowerConsumption="90" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.75" Width="190" Height="270" Depth="190"/>
+  <Lens Name="PC" DegreesMin="14" DegreesMax="35"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="90" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

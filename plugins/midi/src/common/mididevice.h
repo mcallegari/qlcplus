@@ -36,7 +36,7 @@ public:
     enum DeviceType { Input, Output };
 
     DeviceType deviceType() const;
-   
+
     static QString deviceTypeToString(DeviceType deviceType);
 
 private:

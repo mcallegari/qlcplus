@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Saul Vielmetti</Author>
  </Creator>
  <Manufacturer>Elation</Manufacturer>
  <Model>Cuepix Batten</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Beams)</Type>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Red fine" Preset="IntensityRedFine"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
@@ -18,13 +18,13 @@
  <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Flash/Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="31">No Function</Capability>
-  <Capability Min="32" Max="95">Strobe slow to fast</Capability>
-  <Capability Min="96" Max="127">LEDs ON</Capability>
-  <Capability Min="128" Max="159">Pulse slow to fast</Capability>
-  <Capability Min="160" Max="191">LEDs ON</Capability>
-  <Capability Min="192" Max="223">Random strobe effect slow to fast</Capability>
-  <Capability Min="224" Max="255">LEDs ON</Capability>
+  <Capability Min="0" Max="31" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="32" Max="95" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">LEDs ON</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Pulse slow to fast</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">LEDs ON</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe effect slow to fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">LEDs ON</Capability>
  </Channel>
  <Channel Name="Color Macros">
   <Group Byte="0">Colour</Group>
@@ -73,7 +73,7 @@
  </Channel>
  <Channel Name="Chase Macros">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="0">No Function</Capability>
+  <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="20">Dream Macro</Capability>
   <Capability Min="21" Max="40">Meteor Macro</Capability>
   <Capability Min="41" Max="60">Fade Macro</Capability>
@@ -587,11 +587,12 @@
    <Channel>59</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="4500" ColourTemperature="6000"/>
-   <Dimensions Weight="9.5" Width="121" Height="172" Depth="1100"/>
-   <Lens Name="Other" DegreesMin="82" DegreesMax="82"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="312" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="4500" ColourTemperature="6000"/>
+  <Dimensions Weight="9.5" Width="1100" Height="172" Depth="121"/>
+  <Lens Name="Other" DegreesMin="82" DegreesMax="82"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="10" Height="1"/>
+  <Technical PowerConsumption="312" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
 </FixtureDefinition>

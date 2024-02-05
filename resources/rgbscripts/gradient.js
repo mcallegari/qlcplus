@@ -1,7 +1,7 @@
 /*
   Q Light Controller Plus
   gradient.js
-  
+
   Copyright (c) Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,7 +35,7 @@ var testAlgo;
     algo.properties.push("name:presetSize|type:range|display:Size|values:1,40|write:setSize|read:getSize");
     algo.orientation = 0;
     algo.properties.push("name:orientation|type:list|display:Orientation|values:Horizontal,Vertical,Radial|write:setOrientation|read:getOrientation");
-    
+
     var util = new Object;
     util.initialized = false;
     util.gradientData = new Array();
@@ -44,7 +44,7 @@ var testAlgo;
     util.presets.push(new Array(0xFFFF00, 0xFF0000));
     util.presets.push(new Array(0x5571FF, 0x00FFFF, 0xFF00FF, 0xFFFF00));
     util.presets.push(new Array(0x003AB9, 0x02EAFF));
-    
+
     algo.setPreset = function(_preset)
     {
       if (_preset === "Rainbow") { algo.presetIndex = 0; }
@@ -54,7 +54,7 @@ var testAlgo;
       else { algo.presetIndex = 0; }
       util.initialize();
     };
-    
+
     algo.getPreset = function()
     {
       if (algo.presetIndex === 0) { return "Rainbow"; }
@@ -63,18 +63,18 @@ var testAlgo;
       else if (algo.presetIndex === 3) { return "Ocean"; }
       else { return "Rainbow"; }
     };
-    
+
     algo.setSize = function(_size)
     {
       algo.presetSize = _size;
       util.initialize();
     };
-    
+
     algo.getSize = function()
     {
       return algo.presetSize;
     };
-    
+
     algo.setOrientation = function(_orientation)
     {
       if (_orientation === "Vertical") { algo.orientation = 1; }
@@ -145,10 +145,10 @@ var testAlgo;
           }
           for (var x = 0; x < width; x++)
           {
-            if (algo.orientation === 0) 
+            if (algo.orientation === 0)
             {
               gradStep = step + x;
-            } 
+            }
             else if (algo.orientation === 2)
             {
               var xdis = x - ((width-1)/2);

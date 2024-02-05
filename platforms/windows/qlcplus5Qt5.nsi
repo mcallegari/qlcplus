@@ -15,12 +15,12 @@
 ;--------------------------------
 ;General
 Name "Q Light Controller Plus"
-OutFile "QLC+_5.0.0_alpha2.exe"
+OutFile "QLC+_5.0.0_beta3.exe"
 InstallDir C:\QLC+5
 InstallDirRegKey HKCU "Software\qlcplus" "Install_Dir"
 RequestExecutionLevel user
 
-!define MUI_LICENSEPAGE_TEXT_TOP "Do you accept the following statement of the Apache 2.0 license ?"
+!define MUI_LICENSEPAGE_TEXT_TOP "Do you accept the following statement of the Apache 2.0 license?"
 
 !insertmacro MUI_PAGE_LICENSE "${QLCPLUS_HOME}\platforms\windows\apache_2.0.txt"
 
@@ -80,6 +80,7 @@ SectionEnd
 Section
 	File qlcplus-qml.exe
 	File *.dll
+	File *.qm
 	File Sample.qxw
 	File /r audio
 	File /r geometryloaders
@@ -87,6 +88,7 @@ Section
 	File /r mediaservice
 	File /r platforms
 	File /r printsupport
+	File /r renderers
 	File /r sceneparsers
 	File /r Qt
 	File /r Qt3D
@@ -108,6 +110,11 @@ Section
 ;	WriteRegStr HKCR "QLightControllerPlus.Document" "" "Q Light Controller Plus Workspace"
 ;	WriteRegStr HKCR "QLightControllerPlus.Document\DefaultIcon" "" "$INSTDIR\qlcplus-qml.exe,0"
 ;	WriteRegStr HKCR "QLightControllerPlus.Document\shell\open\command" "" '"$INSTDIR\qlcplus-qml.exe" --open "%1"'
+
+;	WriteRegStr HKCR ".qxf" "" "QLightControllerPlusFixture.Document"
+;	WriteRegStr HKCR "QLightControllerPlusFixture.Document" "" "Q Light Controller Plus Fixture"
+;	WriteRegStr HKCR "QLightControllerPlusFixture.Document\DefaultIcon" "" "$INSTDIR\qlcplus-qml.exe,0"
+;	WriteRegStr HKCR "QLightControllerPlusFixture.Document\shell\open\command" "" '"$INSTDIR\qlcplus-qml.exe" --open "%1"'
 
 	WriteRegStr HKCU "SOFTWARE\qlcplus" "Install_Dir" "$INSTDIR"
 

@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.4 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Marc Geonet</Author>
  </Creator>
  <Manufacturer>lightmaXX</Manufacturer>
@@ -12,14 +12,14 @@
  <Channel Name="Macro">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="10">Blackout</Capability>
-  <Capability Min="11" Max="21">ch 2 Master Dimmer  (0-255)</Capability>
-  <Capability Min="22" Max="32" Color="#ff0000">Red</Capability>
-  <Capability Min="33" Max="43" Color="#ffff00">Yellow</Capability>
-  <Capability Min="44" Max="54" Color="#00ff00">Green</Capability>
-  <Capability Min="55" Max="65" Color="#00ffff">Cyan</Capability>
-  <Capability Min="66" Max="76" Color="#0000ff">Blue</Capability>
-  <Capability Min="77" Max="87" Color="#ff00ff">Purple</Capability>
-  <Capability Min="88" Max="98" Color="#ffffff">White</Capability>
+  <Capability Min="11" Max="21">ch 2 Master Dimmer (0-255)</Capability>
+  <Capability Min="22" Max="32" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="33" Max="43" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="44" Max="54" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="55" Max="65" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="66" Max="76" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="77" Max="87" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="88" Max="98" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="99" Max="109">Dream</Capability>
   <Capability Min="110" Max="120">Meteor</Capability>
   <Capability Min="121" Max="131">Fade</Capability>
@@ -38,10 +38,10 @@
  <Channel Name="Red">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="219">No Function</Capability>
+  <Capability Min="0" Max="219">No function</Capability>
   <Capability Min="220" Max="230">Color select</Capability>
   <Capability Min="231" Max="241">Color select</Capability>
-  <Capability Min="242" Max="255">No Function</Capability>
+  <Capability Min="242" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
@@ -125,11 +125,12 @@
    <Channel>14</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5" Width="1030" Height="100" Depth="290"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5" Width="1030" Height="100" Depth="290"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

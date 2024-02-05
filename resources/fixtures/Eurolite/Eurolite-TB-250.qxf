@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Ovidijus Cepukas</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
@@ -33,7 +33,7 @@
   <Capability Min="144" Max="161" Preset="ColorMacro" Res1="#2aff2e">Light green</Capability>
   <Capability Min="162" Max="179" Preset="ColorMacro" Res1="#46aeff">Light blue</Capability>
   <Capability Min="180" Max="197" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
-  <Capability Min="198" Max="215" Preset="ColorMacro" Res1="#ffff00">Light yellow</Capability>
+  <Capability Min="198" Max="215" Preset="ColorMacro" Res1="#ffffe0">Light yellow</Capability>
   <Capability Min="216" Max="233" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="234" Max="251" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red/blue</Capability>
   <Capability Min="252" Max="255" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Yellow/green</Capability>
@@ -58,10 +58,10 @@
  </Channel>
  <Channel Name="Shutter, strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="14">Shutter closed</Capability>
-  <Capability Min="15" Max="29">No function (shutter open)</Capability>
-  <Capability Min="30" Max="250">Strobe-effect with increasing speed (max. 7 flashes/sec.)</Capability>
-  <Capability Min="251" Max="255">No function (shutter open)</Capability>
+  <Capability Min="0" Max="14" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="15" Max="29" Preset="ShutterOpen">No function (shutter open)</Capability>
+  <Capability Min="30" Max="250" Preset="StrobeSlowToFast">Strobe-effect with increasing speed (max. 7 flashes/sec.)</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">No function (shutter open)</Capability>
  </Channel>
  <Mode Name="Protocol">
   <Channel Number="0">Mirrored cylinder movement</Channel>

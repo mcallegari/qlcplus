@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 1</Version>
+  <Author>Santiago Benejam Torres</Author>
+ </Creator>
+ <Manufacturer>Elation</Manufacturer>
+ <Model>TVL CYC RGBW</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="White fine" Preset="IntensityWhiteFine"/>
+ <Channel Name="Color macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4">Preset Color 01</Capability>
+  <Capability Min="5" Max="8">Preset Color 02</Capability>
+  <Capability Min="9" Max="12">Preset Color 03</Capability>
+  <Capability Min="13" Max="16">Preset Color 04</Capability>
+  <Capability Min="17" Max="20">Preset Color 05</Capability>
+  <Capability Min="21" Max="24">Preset Color 06</Capability>
+  <Capability Min="25" Max="28">Preset Color 07</Capability>
+  <Capability Min="29" Max="32">Preset Color 08</Capability>
+  <Capability Min="33" Max="36">Preset Color 09</Capability>
+  <Capability Min="37" Max="40">Preset Color 10</Capability>
+  <Capability Min="41" Max="44">Preset Color 11</Capability>
+  <Capability Min="45" Max="48">Preset Color 12</Capability>
+  <Capability Min="49" Max="52">Preset Color 13</Capability>
+  <Capability Min="53" Max="56">Preset Color 14</Capability>
+  <Capability Min="57" Max="60">Preset Color 15</Capability>
+  <Capability Min="61" Max="64">Preset Color 16</Capability>
+  <Capability Min="65" Max="68">Preset Color 17</Capability>
+  <Capability Min="69" Max="72">Preset Color 18</Capability>
+  <Capability Min="73" Max="76">Preset Color 19</Capability>
+  <Capability Min="77" Max="80">Preset Color 20</Capability>
+  <Capability Min="81" Max="84">Preset Color 21</Capability>
+  <Capability Min="85" Max="88">Preset Color 22</Capability>
+  <Capability Min="89" Max="92">Preset Color 23</Capability>
+  <Capability Min="93" Max="96">Preset Color 24</Capability>
+  <Capability Min="97" Max="100">Preset Color 25</Capability>
+  <Capability Min="101" Max="104">Preset Color 26</Capability>
+  <Capability Min="105" Max="108">Preset Color 27</Capability>
+  <Capability Min="109" Max="112">Preset Color 28</Capability>
+  <Capability Min="113" Max="116">Preset Color 29</Capability>
+  <Capability Min="117" Max="120">Preset Color 30</Capability>
+  <Capability Min="121" Max="124">Preset Color 31</Capability>
+  <Capability Min="125" Max="128">Preset Color 32</Capability>
+  <Capability Min="129" Max="132">Preset Color 33</Capability>
+  <Capability Min="133" Max="136">Preset Color 34</Capability>
+  <Capability Min="137" Max="140">Preset Color 35</Capability>
+  <Capability Min="141" Max="144">Preset Color 36</Capability>
+  <Capability Min="145" Max="148">Preset Color 37</Capability>
+  <Capability Min="149" Max="152">Preset Color 38</Capability>
+  <Capability Min="153" Max="156">Preset Color 39</Capability>
+  <Capability Min="157" Max="160">Preset Color 40</Capability>
+  <Capability Min="161" Max="164">Preset Color 41</Capability>
+  <Capability Min="165" Max="168">Preset Color 42</Capability>
+  <Capability Min="169" Max="172">Preset Color 43</Capability>
+  <Capability Min="173" Max="176">Preset Color 44</Capability>
+  <Capability Min="177" Max="180">Preset Color 45</Capability>
+  <Capability Min="181" Max="184">Preset Color 46</Capability>
+  <Capability Min="185" Max="188">Preset Color 47</Capability>
+  <Capability Min="189" Max="192">Preset Color 48</Capability>
+  <Capability Min="193" Max="196">Preset Color 49</Capability>
+  <Capability Min="197" Max="200">Preset Color 50</Capability>
+  <Capability Min="201" Max="204">Preset Color 51</Capability>
+  <Capability Min="205" Max="208">Preset Color 52</Capability>
+  <Capability Min="209" Max="212">Preset Color 53</Capability>
+  <Capability Min="213" Max="216">Preset Color 54</Capability>
+  <Capability Min="217" Max="220">Preset Color 55</Capability>
+  <Capability Min="221" Max="224">Preset Color 56</Capability>
+  <Capability Min="225" Max="228">Preset Color 57</Capability>
+  <Capability Min="229" Max="232">Preset Color 58</Capability>
+  <Capability Min="233" Max="236">Preset Color 59</Capability>
+  <Capability Min="237" Max="240">Preset Color 60</Capability>
+  <Capability Min="241" Max="244">Preset Color 61</Capability>
+  <Capability Min="245" Max="248">Preset Color 62</Capability>
+  <Capability Min="249" Max="252">Preset Color 63</Capability>
+  <Capability Min="253" Max="255">Preset Color 64</Capability>
+ </Channel>
+ <Channel Name="Shutter/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">LEDs Off</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">LEDs On</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe Effect Slow to Fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">LEDs On</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Pulse Effect Slow to Fast</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">LEDs On</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random Strobe Slow to Fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">LED On</Capability>
+ </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Color Temperature">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="0">Off</Capability>
+  <Capability Min="1" Max="255">0% = 7200K - 100% = 3200K</Capability>
+ </Channel>
+ <Channel Name="Dimmer Curves">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="20">Standard</Capability>
+  <Capability Min="21" Max="40">Stage</Capability>
+  <Capability Min="41" Max="60">TV</Capability>
+  <Capability Min="61" Max="80">Architectural</Capability>
+  <Capability Min="81" Max="100">Theatre</Capability>
+  <Capability Min="101" Max="255">Default to Unit Curve Setting</Capability>
+ </Channel>
+ <Mode Name="14 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Red fine</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Green fine</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Blue fine</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">White fine</Channel>
+  <Channel Number="8">Color macros</Channel>
+  <Channel Number="9">Shutter/Strobe</Channel>
+  <Channel Number="10">Master dimmer</Channel>
+  <Channel Number="11">Master dimmer fine</Channel>
+  <Channel Number="12">Color Temperature</Channel>
+  <Channel Number="13">Dimmer Curves</Channel>
+ </Mode>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Color macros</Channel>
+  <Channel Number="5">Shutter/Strobe</Channel>
+  <Channel Number="6">Master dimmer</Channel>
+  <Channel Number="7">Master dimmer fine</Channel>
+  <Channel Number="8">Color Temperature</Channel>
+  <Channel Number="9">Dimmer Curves</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Shutter/Strobe</Channel>
+  <Channel Number="5">Master dimmer</Channel>
+  <Channel Number="6">Master dimmer fine</Channel>
+  <Channel Number="7">Color Temperature</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Shutter/Strobe</Channel>
+  <Channel Number="5">Master dimmer</Channel>
+  <Channel Number="6">Master dimmer fine</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Master dimmer</Channel>
+  <Channel Number="5">Master dimmer fine</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="3536" ColourTemperature="7200"/>
+  <Dimensions Weight="5.9" Width="374" Height="419" Depth="425"/>
+  <Lens Name="Fresnel" DegreesMin="90" DegreesMax="113"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="170" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

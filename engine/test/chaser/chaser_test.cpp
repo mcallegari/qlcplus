@@ -781,32 +781,32 @@ void Chaser_Test::save()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Bus")
+        if (xmlReader.name() == QString("Bus"))
         {
             QFAIL("Chaser must not write a Bus tag anymore!");
         }
-        else if (xmlReader.name() == "Direction")
+        else if (xmlReader.name() == QString("Direction"))
         {
             QVERIFY(xmlReader.readElementText() == "Backward");
             dir++;
         }
-        else if (xmlReader.name() == "RunOrder")
+        else if (xmlReader.name() == QString("RunOrder"))
         {
             QVERIFY(xmlReader.readElementText() == "SingleShot");
             run++;
         }
-        else if (xmlReader.name() == "Step")
+        else if (xmlReader.name() == QString("Step"))
         {
             quint32 fid = xmlReader.readElementText().toUInt();
             QVERIFY(fid == 0 || fid == 1 || fid == 2 || fid == 3);
             fids++;
         }
-        else if (xmlReader.name() == "Speed")
+        else if (xmlReader.name() == QString("Speed"))
         {
             speed++;
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "SpeedModes")
+        else if (xmlReader.name() == QString("SpeedModes"))
         {
             QCOMPARE(xmlReader.attributes().value("FadeIn").toString(), QString("Default"));
             QCOMPARE(xmlReader.attributes().value("FadeOut").toString(), QString("PerStep"));
@@ -853,11 +853,11 @@ void Chaser_Test::tap()
     QVERIFY(c->m_runner != NULL);
     QCOMPARE(c->duration(), uint(0));
     c->write(m_doc->masterTimer(), QList<Universe*>());
-    QCOMPARE(c->m_runner->m_next, false);
+    QCOMPARE(c->m_runner->m_pendingAction.m_action, ChaserNoAction);
     c->tap();
     QTest::qWait(MasterTimer::tick());
     c->tap();
-    QCOMPARE(c->m_runner->m_next, true);
+    QCOMPARE(c->m_runner->m_pendingAction.m_action, ChaserNextStep);
 }
 
 void Chaser_Test::preRun()
@@ -954,13 +954,13 @@ void Chaser_Test::adjustIntensity()
 
     c->preRun(&timer);
     c->adjustAttribute(0.5, Function::Intensity);
-    QCOMPARE(c->m_runner->m_intensity, qreal(0.5));
+    QCOMPARE(c->m_runner->m_pendingAction.m_masterIntensity, qreal(0.5));
     c->adjustAttribute(0.8, Function::Intensity);
-    QCOMPARE(c->m_runner->m_intensity, qreal(0.8));
+    QCOMPARE(c->m_runner->m_pendingAction.m_masterIntensity, qreal(0.8));
     c->adjustAttribute(1.5, Function::Intensity);
-    QCOMPARE(c->m_runner->m_intensity, qreal(1.0));
+    QCOMPARE(c->m_runner->m_pendingAction.m_masterIntensity, qreal(1.0));
     c->adjustAttribute(-0.1, Function::Intensity);
-    QCOMPARE(c->m_runner->m_intensity, qreal(0.0));
+    QCOMPARE(c->m_runner->m_pendingAction.m_masterIntensity, qreal(0.0));
     c->postRun(&timer, ua);
 
     // Mustn't crash after postRun

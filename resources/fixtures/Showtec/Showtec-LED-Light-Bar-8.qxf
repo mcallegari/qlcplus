@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.4 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Adrian</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
  <Model>LED Light Bar 8</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Pixels)</Type>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
@@ -44,14 +44,14 @@
  <Channel Name="Blue S8" Preset="IntensityBlue"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
-  <Capability Min="8" Max="15" Color="#ff0000">Red</Capability>
-  <Capability Min="16" Max="23" Color="#ffff00">Yellow</Capability>
-  <Capability Min="24" Max="31" Color="#55ff00">Green</Capability>
-  <Capability Min="32" Max="39" Color="#0055ff">Cyan</Capability>
-  <Capability Min="40" Max="47" Color="#0000ff">Blue</Capability>
-  <Capability Min="48" Max="55" Color="#ff007f">Purple</Capability>
-  <Capability Min="56" Max="63" Color="#ffffff">White</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#55ff00">Green</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#0055ff">Cyan</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#ff007f">Purple</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="64" Max="71">Program1</Capability>
   <Capability Min="72" Max="79">Program2</Capability>
   <Capability Min="80" Max="87">Program3</Capability>
@@ -207,11 +207,12 @@
   <Channel Number="5">Strobe</Channel>
   <Channel Number="6">Master Dimmer</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="88" Weight="1.74" Depth="65"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="800" ColourTemperature="0"/>
+  <Dimensions Weight="1.74" Width="1070" Height="88" Depth="65"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="8" Height="1"/>
+  <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

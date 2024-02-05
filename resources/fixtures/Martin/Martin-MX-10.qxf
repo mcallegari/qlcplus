@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>2.6.1</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
@@ -11,23 +11,23 @@
  <Type>Scanner</Type>
  <Channel Name="Shutter, Strobe, Reset, Lamp">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="19">Shutter closed</Capability>
-  <Capability Min="20" Max="49">Shutter open</Capability>
-  <Capability Min="50" Max="72">Strobe fast -&gt; slow</Capability>
-  <Capability Min="73" Max="79">Shutter open</Capability>
-  <Capability Min="80" Max="99">Opening pulse, fast -&gt; slow</Capability>
-  <Capability Min="100" Max="119">Closing pulse, slow -&gt; fast</Capability>
-  <Capability Min="120" Max="127">Shutter open</Capability>
-  <Capability Min="128" Max="187">Random strobe, fast -&gt; slow</Capability>
-  <Capability Min="188" Max="190">Shutter open</Capability>
-  <Capability Min="191" Max="196">Random opening pulse, fast -&gt; slow</Capability>
-  <Capability Min="197" Max="202">Random closing pulse, fast -&gt; slow</Capability>
-  <Capability Min="203" Max="207">Shutter open</Capability>
-  <Capability Min="208" Max="217">Reset</Capability>
-  <Capability Min="218" Max="227">Shutter open</Capability>
-  <Capability Min="228" Max="237">Lamp on</Capability>
-  <Capability Min="238" Max="247">Shutter open</Capability>
-  <Capability Min="248" Max="255">Lamp off</Capability>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="20" Max="49" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="50" Max="72" Preset="StrobeFastToSlow">Strobe fast -&gt; slow</Capability>
+  <Capability Min="73" Max="79" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="80" Max="99" Preset="PulseFastToSlow">Opening pulse, fast -&gt; slow</Capability>
+  <Capability Min="100" Max="119" Preset="PulseSlowToFast">Closing pulse, slow -&gt; fast</Capability>
+  <Capability Min="120" Max="127" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="128" Max="187" Preset="StrobeRandomFastToSlow">Random strobe, fast -&gt; slow</Capability>
+  <Capability Min="188" Max="190" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="191" Max="196" Preset="StrobeRandomFastToSlow">Random opening pulse, fast -&gt; slow</Capability>
+  <Capability Min="197" Max="202" Preset="StrobeRandomFastToSlow">Random closing pulse, fast -&gt; slow</Capability>
+  <Capability Min="203" Max="207" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="208" Max="217" Preset="ResetAll">Reset</Capability>
+  <Capability Min="218" Max="227" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="228" Max="237" Preset="LampOn">Lamp on</Capability>
+  <Capability Min="238" Max="247" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="248" Max="255" Preset="LampOff">Lamp off</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Color">
@@ -152,10 +152,11 @@
   <Channel Number="11">Pan/tilt speed</Channel>
   <Channel Number="12">Effects speed</Channel>
  </Mode>
-<Physical>
-   <Bulb ColourTemperature="8500" Lumens="0" Type="MSD 250W"/>
-   <Dimensions Width="340" Height="735" Weight="22" Depth="315"/>
-   <Lens DegreesMax="18" Name="Other" DegreesMin="18"/>
-   <Focus TiltMax="75" PanMax="230" Type="Mirror"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="8500"/>
+  <Dimensions Weight="22" Width="340" Height="735" Depth="315"/>
+  <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
+  <Focus Type="Mirror" PanMax="230" TiltMax="75"/>
+  <Technical PowerConsumption="350" DmxConnector="5-pin"/>
+ </Physical>
 </FixtureDefinition>

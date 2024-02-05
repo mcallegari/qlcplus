@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.2
+import QtQuick 2.10
 
 import org.qlcplus.classes 1.0
 import "CanvasDrawFunctions.js" as DrawFuncs
@@ -52,8 +52,7 @@ Rectangle
 
     property int headsNumber: 1
     property real headSide: 10
-    property int headColumns: 1
-    property int headRows: 1
+    property size headsLayout: Qt.size(1, 1)
 
     property int panMaxDegrees: 0
     property int tiltMaxDegrees: 0
@@ -63,29 +62,47 @@ Rectangle
 
     onWidthChanged: calculateHeadSize();
     onHeightChanged: calculateHeadSize();
-    onHeadsNumberChanged: calculateHeadSize();
+    //onHeadsNumberChanged: calculateHeadSize();
 
     function calculateHeadSize()
     {
-        var areaSqrt = Math.sqrt((width * height) / headsNumber)
-        var columns = parseInt((width / areaSqrt) + 0.5)
-        var rows = parseInt((height / areaSqrt) + 0.5)
+        var columns, rows
+        if (headsLayout !== Qt.size(1, 1))
+        {
+            columns = headsLayout.width
+            rows = headsLayout.height
+            //console.log("" + fixtureName + ": layout provided - " + columns + "x" + rows)
+        }
+        else
+        {
+            // fallback to guessing based on heads number
+            //console.log("Guessing heads layout...")
+            var areaSqrt = Math.sqrt((width * height) / headsNumber)
+            columns = parseInt((width / areaSqrt) + 0.5)
+            rows = parseInt((height / areaSqrt) + 0.5)
 
-        // dirty workaround to correctly display right columns on one row
-        if (rows === 1) columns = headsNumber
-        if (columns === 1) rows = headsNumber
+            // dirty workaround to correctly display right columns on one row
+            if (rows === 1) columns = headsNumber
+            if (columns === 1) rows = headsNumber
 
-        if (columns > headsNumber)
-            columns = headsNumber
+            if (columns > headsNumber)
+                columns = headsNumber
 
-        if (rows < 1) rows = 1
-        if (columns < 1) columns = 1
-
+            if (rows < 1) rows = 1
+            if (columns < 1) columns = 1
+        }
         var cellWidth = width / columns
         var cellHeight = height / rows
-        headSide = parseInt(Math.min(cellWidth, cellHeight))
-        headColumns = columns
-        headRows = rows
+        headSide = Math.min(cellWidth, cellHeight) - 1
+
+        var hHeadsWidth = headSide * columns
+        var hSpacing = (width - hHeadsWidth) / (columns - 1)
+        headsBox.columnSpacing = parseInt(hSpacing)
+        headsBox.columns = columns
+        headsBox.rows = rows
+        headsBox.width = hHeadsWidth + (hSpacing * (columns - 1))
+        headsBox.height = (headSide + 2) * rows
+        //console.log("size: " + width + " x " + height + ", head size: " + headSide + ", spacing: " + hSpacing)
     }
 
     function setHeadIntensity(headIndex, intensity)
@@ -106,7 +123,6 @@ Rectangle
         for (var i = 0; i < headsRepeater.count; i++)
             headsRepeater.itemAt(i).setShutter(type, low, high);
     }
-
 
     function setPosition(pan, tilt)
     {
@@ -138,24 +154,24 @@ Rectangle
             headsRepeater.itemAt(headIndex).goboSource = "file:/" + resource
     }
 
-    Flow
+    Grid
     {
         id: headsBox
-        width: headSide * headColumns
-        height: headSide * headRows
+        //width: headSide * headsLayout.width
+        //height: headSide * headsLayout.height
         anchors.centerIn: parent
 
         Repeater
         {
             id: headsRepeater
-            model: fixtureItem.headsNumber
+            model: headsBox.columns * headsBox.rows // fixtureItem.headsNumber
             delegate:
                 Rectangle
                 {
                     id: headDelegate
                     property real intensity: dimmerValue * shutterValue
                     property real dimmerValue: 0
-                    property real shutterValue: 1.0
+                    property real shutterValue: sAnimator.shutterValue
                     property bool isWheelColor: false
                     property color headColor1: "black"
                     property color headColor2: "black"
@@ -170,61 +186,10 @@ Rectangle
 
                     function setShutter(type, low, high)
                     {
-                        //console.log("Shutter " + low + ", " + high)
-                        shutterAnim.stop()
-                        inPhase.duration = 0
-                        inPhase.easing.type = Easing.Linear
-                        highPhase.duration = 0
-                        outPhase.duration = 0
-                        outPhase.easing.type = Easing.Linear
-                        lowPhase.duration = low
-
-                        switch(type)
-                        {
-                            case QLCCapability.ShutterOpen:
-                                shutterValue = 1.0
-                            break;
-
-                            case QLCCapability.ShutterClose:
-                                shutterValue = 0
-                            break;
-
-                            case QLCCapability.StrobeFastToSlow:
-                            case QLCCapability.StrobeSlowToFast:
-                            case QLCCapability.StrobeFrequency:
-                            case QLCCapability.StrobeFreqRange:
-                                highPhase.duration = high
-                                shutterAnim.start()
-                            break;
-
-                            case QLCCapability.PulseFastToSlow:
-                            case QLCCapability.PulseSlowToFast:
-                            case QLCCapability.PulseFrequency:
-                            case QLCCapability.PulseFreqRange:
-                                inPhase.duration = high / 2
-                                outPhase.duration = high / 2
-                                inPhase.easing.type = Easing.InOutCubic
-                                outPhase.easing.type = Easing.InOutCubic
-                                shutterAnim.start()
-                            break;
-
-                            case QLCCapability.RampUpFastToSlow:
-                            case QLCCapability.RampUpSlowToFast:
-                            case QLCCapability.RampUpFrequency:
-                            case QLCCapability.RampUpFreqRange:
-                                inPhase.duration = high
-                                shutterAnim.start()
-                            break;
-
-                            case QLCCapability.RampDownSlowToFast:
-                            case QLCCapability.RampDownFastToSlow:
-                            case QLCCapability.RampDownFrequency:
-                            case QLCCapability.RampDownFreqRange:
-                                outPhase.duration = high
-                                shutterAnim.start()
-                            break;
-                        }
+                        sAnimator.setShutter(type, low, high)
                     }
+
+                    ShutterAnimator { id: sAnimator }
 
                     MultiColorBox
                     {
@@ -244,18 +209,6 @@ Rectangle
                         anchors.fill: parent
                         sourceSize: Qt.size(parent.width, parent.height)
                         source: headDelegate.goboSource
-                    }
-
-                    // strobe/pulse effect
-                    SequentialAnimation on shutterValue
-                    {
-                        id: shutterAnim
-                        running: false
-                        loops: Animation.Infinite
-                        NumberAnimation { id: inPhase; from: 0; to: 1.0; duration: 0; easing.type: Easing.Linear }
-                        NumberAnimation { id: highPhase; from: 1.0; to: 1.0; duration: 200; easing.type: Easing.Linear }
-                        NumberAnimation { id: outPhase; from: 1.0; to: 0; duration: 0; easing.type: Easing.Linear }
-                        NumberAnimation { id: lowPhase; from: 0; to: 0; duration: 800; easing.type: Easing.Linear }
                     }
                 }
         }

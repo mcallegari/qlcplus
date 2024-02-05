@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Mihai</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
@@ -42,28 +42,28 @@
  <Channel Name="Fourth Head - Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Light Control - Automatic Colour Change/Colour Macro">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="30" Res="Others/rainbow.png">Automatic colour change</Capability>
-  <Capability Min="31" Max="45" Color="#ff0000">Red</Capability>
-  <Capability Min="46" Max="60" Color="#00ff00">Green</Capability>
-  <Capability Min="61" Max="75" Color="#0000ff">Blue</Capability>
-  <Capability Min="76" Max="90" Color="#ffffff">White</Capability>
-  <Capability Min="91" Max="105" Color="#ffff00">Red green</Capability>
-  <Capability Min="106" Max="120" Color="#ff00ff">Red blue</Capability>
-  <Capability Min="121" Max="135" Color="#ff7f7f">Red white</Capability>
-  <Capability Min="136" Max="150" Color="#00ffff">Green blue</Capability>
-  <Capability Min="151" Max="165" Color="#7fff7f">Green white</Capability>
-  <Capability Min="166" Max="180" Color="#7f7fff">Blue white</Capability>
-  <Capability Min="181" Max="195" Color="#ffffff">Red green blue</Capability>
-  <Capability Min="196" Max="210" Color="#ffff80">Red green white</Capability>
-  <Capability Min="211" Max="225" Color="#ff80ff">Red blue white</Capability>
-  <Capability Min="226" Max="240" Color="#80ffff">Green blue white</Capability>
-  <Capability Min="241" Max="255" Color="#ffffff">Red green blue white</Capability>
+  <Capability Min="0" Max="30" Preset="GoboMacro" Res1="Others/rainbow.png">Automatic colour change</Capability>
+  <Capability Min="31" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="60" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="61" Max="75" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="76" Max="90" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="91" Max="105" Preset="ColorMacro" Res1="#ffff00">Red green</Capability>
+  <Capability Min="106" Max="120" Preset="ColorMacro" Res1="#ff00ff">Red blue</Capability>
+  <Capability Min="121" Max="135" Preset="ColorMacro" Res1="#ff7f7f">Red white</Capability>
+  <Capability Min="136" Max="150" Preset="ColorMacro" Res1="#00ffff">Green blue</Capability>
+  <Capability Min="151" Max="165" Preset="ColorMacro" Res1="#7fff7f">Green white</Capability>
+  <Capability Min="166" Max="180" Preset="ColorMacro" Res1="#7f7fff">Blue white</Capability>
+  <Capability Min="181" Max="195" Preset="ColorMacro" Res1="#ffffff">Red green blue</Capability>
+  <Capability Min="196" Max="210" Preset="ColorMacro" Res1="#ffff80">Red green white</Capability>
+  <Capability Min="211" Max="225" Preset="ColorMacro" Res1="#ff80ff">Red blue white</Capability>
+  <Capability Min="226" Max="240" Preset="ColorMacro" Res1="#80ffff">Green blue white</Capability>
+  <Capability Min="241" Max="255" Preset="ColorMacro" Res1="#ffffff">Red green blue white</Capability>
  </Channel>
  <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10">No strobe</Capability>
-  <Capability Min="11" Max="255">Slow to fast</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Slow to fast</Capability>
  </Channel>
  <Channel Name="Show Mode">
   <Group Byte="0">Effect</Group>
@@ -122,78 +122,78 @@
  <Channel Name="First Head - Light Control">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="30">Use channels 29-32 to control colour</Capability>
-  <Capability Min="31" Max="45" Color="#ff0000">Red</Capability>
-  <Capability Min="46" Max="60" Color="#00ff00">Green</Capability>
-  <Capability Min="61" Max="75" Color="#0000ff">Blue</Capability>
-  <Capability Min="76" Max="90" Color="#ffffff">White</Capability>
-  <Capability Min="91" Max="105" Color="#ffff00">Red green</Capability>
-  <Capability Min="106" Max="120" Color="#ff00ff">Red blue</Capability>
-  <Capability Min="121" Max="135" Color="#ff7f7f">Red white</Capability>
-  <Capability Min="136" Max="150" Color="#00ffff">Green blue</Capability>
-  <Capability Min="151" Max="165" Color="#7fff7f">Green white</Capability>
-  <Capability Min="166" Max="180" Color="#7f7fff">Blue white</Capability>
-  <Capability Min="181" Max="195" Color="#ffffff">Red green blue</Capability>
-  <Capability Min="196" Max="210" Color="#ffff80">Red green white</Capability>
-  <Capability Min="211" Max="225" Color="#ff80ff">Red blue white</Capability>
-  <Capability Min="226" Max="240" Color="#80ffff">Green blue white</Capability>
-  <Capability Min="241" Max="255" Color="#ffffff">Red green blue white</Capability>
+  <Capability Min="31" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="60" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="61" Max="75" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="76" Max="90" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="91" Max="105" Preset="ColorMacro" Res1="#ffff00">Red green</Capability>
+  <Capability Min="106" Max="120" Preset="ColorMacro" Res1="#ff00ff">Red blue</Capability>
+  <Capability Min="121" Max="135" Preset="ColorMacro" Res1="#ff7f7f">Red white</Capability>
+  <Capability Min="136" Max="150" Preset="ColorMacro" Res1="#00ffff">Green blue</Capability>
+  <Capability Min="151" Max="165" Preset="ColorMacro" Res1="#7fff7f">Green white</Capability>
+  <Capability Min="166" Max="180" Preset="ColorMacro" Res1="#7f7fff">Blue white</Capability>
+  <Capability Min="181" Max="195" Preset="ColorMacro" Res1="#ffffff">Red green blue</Capability>
+  <Capability Min="196" Max="210" Preset="ColorMacro" Res1="#ffff80">Red green white</Capability>
+  <Capability Min="211" Max="225" Preset="ColorMacro" Res1="#ff80ff">Red blue white</Capability>
+  <Capability Min="226" Max="240" Preset="ColorMacro" Res1="#80ffff">Green blue white</Capability>
+  <Capability Min="241" Max="255" Preset="ColorMacro" Res1="#ffffff">Red green blue white</Capability>
  </Channel>
  <Channel Name="Second Head - Light Control">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="30">Use channels 29-32 to control colour</Capability>
-  <Capability Min="31" Max="45" Color="#ff0000">Red</Capability>
-  <Capability Min="46" Max="60" Color="#00ff00">Green</Capability>
-  <Capability Min="61" Max="75" Color="#0000ff">Blue</Capability>
-  <Capability Min="76" Max="90" Color="#ffffff">White</Capability>
-  <Capability Min="91" Max="105" Color="#ffff00">Red green</Capability>
-  <Capability Min="106" Max="120" Color="#ff00ff">Red blue</Capability>
-  <Capability Min="121" Max="135" Color="#ff7f7f">Red white</Capability>
-  <Capability Min="136" Max="150" Color="#00ffff">Green blue</Capability>
-  <Capability Min="151" Max="165" Color="#7fff7f">Green white</Capability>
-  <Capability Min="166" Max="180" Color="#7f7fff">Blue white</Capability>
-  <Capability Min="181" Max="195" Color="#ffffff">Red green blue</Capability>
-  <Capability Min="196" Max="210" Color="#ffff80">Red green white</Capability>
-  <Capability Min="211" Max="225" Color="#ff80ff">Red blue white</Capability>
-  <Capability Min="226" Max="240" Color="#80ffff">Green blue white</Capability>
-  <Capability Min="241" Max="255" Color="#ffffff">Red green blue white</Capability>
+  <Capability Min="31" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="60" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="61" Max="75" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="76" Max="90" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="91" Max="105" Preset="ColorMacro" Res1="#ffff00">Red green</Capability>
+  <Capability Min="106" Max="120" Preset="ColorMacro" Res1="#ff00ff">Red blue</Capability>
+  <Capability Min="121" Max="135" Preset="ColorMacro" Res1="#ff7f7f">Red white</Capability>
+  <Capability Min="136" Max="150" Preset="ColorMacro" Res1="#00ffff">Green blue</Capability>
+  <Capability Min="151" Max="165" Preset="ColorMacro" Res1="#7fff7f">Green white</Capability>
+  <Capability Min="166" Max="180" Preset="ColorMacro" Res1="#7f7fff">Blue white</Capability>
+  <Capability Min="181" Max="195" Preset="ColorMacro" Res1="#ffffff">Red green blue</Capability>
+  <Capability Min="196" Max="210" Preset="ColorMacro" Res1="#ffff80">Red green white</Capability>
+  <Capability Min="211" Max="225" Preset="ColorMacro" Res1="#ff80ff">Red blue white</Capability>
+  <Capability Min="226" Max="240" Preset="ColorMacro" Res1="#80ffff">Green blue white</Capability>
+  <Capability Min="241" Max="255" Preset="ColorMacro" Res1="#ffffff">Red green blue white</Capability>
  </Channel>
  <Channel Name="Third Head - Light Control">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="30">Use channels 29-32 to control colour</Capability>
-  <Capability Min="31" Max="45" Color="#ff0000">Red</Capability>
-  <Capability Min="46" Max="60" Color="#00ff00">Green</Capability>
-  <Capability Min="61" Max="75" Color="#0000ff">Blue</Capability>
-  <Capability Min="76" Max="90" Color="#ffffff">White</Capability>
-  <Capability Min="91" Max="105" Color="#ffff00">Red green</Capability>
-  <Capability Min="106" Max="120" Color="#ff00ff">Red blue</Capability>
-  <Capability Min="121" Max="135" Color="#ff7f7f">Red white</Capability>
-  <Capability Min="136" Max="150" Color="#00ffff">Green blue</Capability>
-  <Capability Min="151" Max="165" Color="#7fff7f">Green white</Capability>
-  <Capability Min="166" Max="180" Color="#7f7fff">Blue white</Capability>
-  <Capability Min="181" Max="195" Color="#ffffff">Red green blue</Capability>
-  <Capability Min="196" Max="210" Color="#ffff80">Red green white</Capability>
-  <Capability Min="211" Max="225" Color="#ff80ff">Red blue white</Capability>
-  <Capability Min="226" Max="240" Color="#80ffff">Green blue white</Capability>
-  <Capability Min="241" Max="255" Color="#ffffff">Red green blue white</Capability>
+  <Capability Min="31" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="60" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="61" Max="75" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="76" Max="90" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="91" Max="105" Preset="ColorMacro" Res1="#ffff00">Red green</Capability>
+  <Capability Min="106" Max="120" Preset="ColorMacro" Res1="#ff00ff">Red blue</Capability>
+  <Capability Min="121" Max="135" Preset="ColorMacro" Res1="#ff7f7f">Red white</Capability>
+  <Capability Min="136" Max="150" Preset="ColorMacro" Res1="#00ffff">Green blue</Capability>
+  <Capability Min="151" Max="165" Preset="ColorMacro" Res1="#7fff7f">Green white</Capability>
+  <Capability Min="166" Max="180" Preset="ColorMacro" Res1="#7f7fff">Blue white</Capability>
+  <Capability Min="181" Max="195" Preset="ColorMacro" Res1="#ffffff">Red green blue</Capability>
+  <Capability Min="196" Max="210" Preset="ColorMacro" Res1="#ffff80">Red green white</Capability>
+  <Capability Min="211" Max="225" Preset="ColorMacro" Res1="#ff80ff">Red blue white</Capability>
+  <Capability Min="226" Max="240" Preset="ColorMacro" Res1="#80ffff">Green blue white</Capability>
+  <Capability Min="241" Max="255" Preset="ColorMacro" Res1="#ffffff">Red green blue white</Capability>
  </Channel>
  <Channel Name="Fourth Head - Light Control">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="30">Use channels 29-32 to control colour</Capability>
-  <Capability Min="31" Max="45" Color="#ff0000">Red</Capability>
-  <Capability Min="46" Max="60" Color="#00ff00">Green</Capability>
-  <Capability Min="61" Max="75" Color="#0000ff">Blue</Capability>
-  <Capability Min="76" Max="90" Color="#ffffff">White</Capability>
-  <Capability Min="91" Max="105" Color="#ffff00">Red green</Capability>
-  <Capability Min="106" Max="120" Color="#ff00ff">Red blue</Capability>
-  <Capability Min="121" Max="135" Color="#ff7f7f">Red white</Capability>
-  <Capability Min="136" Max="150" Color="#00ffff">Green blue</Capability>
-  <Capability Min="151" Max="165" Color="#7fff7f">Green white</Capability>
-  <Capability Min="166" Max="180" Color="#7f7fff">Blue white</Capability>
-  <Capability Min="181" Max="195" Color="#ffffff">Red green blue</Capability>
-  <Capability Min="196" Max="210" Color="#ffff80">Red green white</Capability>
-  <Capability Min="211" Max="225" Color="#ff80ff">Red blue white</Capability>
-  <Capability Min="226" Max="240" Color="#80ffff">Green blue white</Capability>
-  <Capability Min="241" Max="255" Color="#ffffff">Red green blue white</Capability>
+  <Capability Min="31" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="60" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="61" Max="75" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="76" Max="90" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="91" Max="105" Preset="ColorMacro" Res1="#ffff00">Red green</Capability>
+  <Capability Min="106" Max="120" Preset="ColorMacro" Res1="#ff00ff">Red blue</Capability>
+  <Capability Min="121" Max="135" Preset="ColorMacro" Res1="#ff7f7f">Red white</Capability>
+  <Capability Min="136" Max="150" Preset="ColorMacro" Res1="#00ffff">Green blue</Capability>
+  <Capability Min="151" Max="165" Preset="ColorMacro" Res1="#7fff7f">Green white</Capability>
+  <Capability Min="166" Max="180" Preset="ColorMacro" Res1="#7f7fff">Blue white</Capability>
+  <Capability Min="181" Max="195" Preset="ColorMacro" Res1="#ffffff">Red green blue</Capability>
+  <Capability Min="196" Max="210" Preset="ColorMacro" Res1="#ffff80">Red green white</Capability>
+  <Capability Min="211" Max="225" Preset="ColorMacro" Res1="#ff80ff">Red blue white</Capability>
+  <Capability Min="226" Max="240" Preset="ColorMacro" Res1="#80ffff">Green blue white</Capability>
+  <Capability Min="241" Max="255" Preset="ColorMacro" Res1="#ffffff">Red green blue white</Capability>
  </Channel>
  <Channel Name="Second Head - Pan Fine" Preset="PositionPanFine"/>
  <Channel Name="Master Colour Selection - Red" Preset="IntensityRed"/>
@@ -331,11 +331,12 @@
    <Channel>25</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="1182" ColourTemperature="0"/>
-   <Dimensions Weight="7.6" Width="810" Height="250" Depth="130"/>
-   <Lens Name="Other" DegreesMin="4.5" DegreesMax="4.5"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="1182" ColourTemperature="0"/>
+  <Dimensions Weight="7.6" Width="810" Height="250" Depth="130"/>
+  <Lens Name="Other" DegreesMin="4.5" DegreesMax="4.5"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

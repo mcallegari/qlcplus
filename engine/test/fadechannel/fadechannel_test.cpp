@@ -36,7 +36,7 @@
 void FadeChannel_Test::address()
 {
     Doc doc(this);
-    Fixture* fxi = new Fixture(&doc);
+    Fixture *fxi = new Fixture(&doc);
     fxi->setAddress(400);
     fxi->setChannels(5);
     doc.addFixture(fxi);
@@ -55,7 +55,7 @@ void FadeChannel_Test::address()
 void FadeChannel_Test::addressInUniverse()
 {
     Doc doc(this);
-    Fixture* fxi = new Fixture(&doc);
+    Fixture *fxi = new Fixture(&doc);
     fxi->setAddress(UNIVERSE_SIZE);
     fxi->setChannels(5);
     doc.addFixture(fxi);
@@ -91,7 +91,7 @@ void FadeChannel_Test::comparison()
     QVERIFY((ch1 == ch2) == false);
 }
 
-void FadeChannel_Test::group()
+void FadeChannel_Test::type()
 {
     Doc doc(this);
 
@@ -99,26 +99,30 @@ void FadeChannel_Test::group()
 
     // Only a channel given, no fixture at the address -> intensity
     fc.setChannel(&doc, 2);
-    QCOMPARE(fc.group(&doc), QLCChannel::Intensity);
+    QCOMPARE(fc.flags() & FadeChannel::HTP, (int)FadeChannel::HTP);
+    QCOMPARE(fc.flags() & FadeChannel::Intensity, (int)FadeChannel::Intensity);
+    QCOMPARE(fc.flags() & FadeChannel::CanFade, (int)FadeChannel::CanFade);
 
-    Fixture* fxi = new Fixture(&doc);
+    Fixture *fxi = new Fixture(&doc);
     fxi->setAddress(10);
     fxi->setChannels(5);
     doc.addFixture(fxi);
 
     // Fixture and channel given, fixture is a dimmer -> intensity
     fc.setFixture(&doc, fxi->id());
-    QCOMPARE(fc.group(&doc), QLCChannel::Intensity);
+    QCOMPARE(fc.flags() & FadeChannel::HTP, (int)FadeChannel::HTP);
+    QCOMPARE(fc.flags() & FadeChannel::Intensity, (int)FadeChannel::Intensity);
+    QCOMPARE(fc.flags() & FadeChannel::CanFade, (int)FadeChannel::CanFade);
 
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
     QVERIFY(doc.fixtureDefCache()->loadMap(dir) == true);
 
-    QLCFixtureDef* def = doc.fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef *def = doc.fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
 
-    QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode *mode = def->modes().first();
     QVERIFY(mode != NULL);
 
     fxi = new Fixture(&doc);
@@ -129,18 +133,67 @@ void FadeChannel_Test::group()
     // Fixture and channel given, but channel is beyond fixture's channels -> intensity
     fc.setFixture(&doc, fxi->id());
     fc.setChannel(&doc, 50);
-    QCOMPARE(fc.group(&doc), QLCChannel::Intensity);
+    QCOMPARE(fc.flags() & FadeChannel::HTP, (int)FadeChannel::HTP);
+    QCOMPARE(fc.flags() & FadeChannel::Intensity, (int)FadeChannel::Intensity);
+    QCOMPARE(fc.flags() & FadeChannel::CanFade, (int)FadeChannel::CanFade);
 
     // Only a channel given, no fixture given but a fixture occupies the address.
     // Check that reverse address -> fixture lookup works.
     fc.setFixture(&doc, Fixture::invalidId());
     fc.setChannel(&doc, 2);
-    QCOMPARE(fc.group(&doc), QLCChannel::Colour);
+    QCOMPARE(fc.flags() & FadeChannel::LTP, (int)FadeChannel::LTP);
+    QCOMPARE(fc.flags() & FadeChannel::CanFade, (int)FadeChannel::CanFade);
 
     // Fixture and channel given, but fixture doesn't exist -> intensity
     fc.setFixture(&doc, 12345);
     fc.setChannel(&doc, 2);
-    QCOMPARE(fc.group(&doc), QLCChannel::Intensity);
+    QCOMPARE(fc.flags() & FadeChannel::HTP, (int)FadeChannel::HTP);
+    QCOMPARE(fc.flags() & FadeChannel::Intensity, (int)FadeChannel::Intensity);
+    QCOMPARE(fc.flags() & FadeChannel::CanFade, (int)FadeChannel::CanFade);
+
+    // channel 3 cannot fade
+    fxi->setChannelCanFade(3, false);
+
+    fc.setFixture(&doc, fxi->id());
+    fc.setChannel(&doc, 3);
+    QCOMPARE(fc.flags() & FadeChannel::LTP, (int)FadeChannel::LTP);
+    QCOMPARE(fc.flags() & FadeChannel::CanFade, 0);
+
+    // force channel 0 (Pan) to be HTP
+    QList<int> forced;
+    forced << 0;
+    fxi->setForcedHTPChannels(forced);
+
+    fc.setFixture(&doc, fxi->id());
+    fc.setChannel(&doc, 0);
+    QCOMPARE(fc.flags() & FadeChannel::HTP, (int)FadeChannel::HTP);
+    QCOMPARE(fc.flags() & FadeChannel::LTP, 0);
+    QCOMPARE(fc.flags() & FadeChannel::CanFade, (int)FadeChannel::CanFade);
+
+    // add another generic dimmer
+    fxi = new Fixture(&doc);
+    fxi->setAddress(100);
+    fxi->setChannels(5);
+    forced.clear();
+    forced << 2;
+    // force channel 2 to be LTP
+    fxi->setForcedLTPChannels(forced);
+    doc.addFixture(fxi);
+
+    fc.setFixture(&doc, fxi->id());
+    fc.setChannel(&doc, 2);
+    QCOMPARE(fc.flags() & FadeChannel::LTP, (int)FadeChannel::LTP);
+    QCOMPARE(fc.flags() & FadeChannel::HTP, 0);
+    QCOMPARE(fc.flags() & FadeChannel::CanFade, (int)FadeChannel::CanFade);
+
+    // unset a flag
+    fc.removeFlag(FadeChannel::CanFade);
+    QCOMPARE(fc.flags() & FadeChannel::CanFade, 0);
+
+    // set a flag
+    QCOMPARE(fc.flags() & FadeChannel::Flashing, 0);
+    fc.addFlag(FadeChannel::Flashing);
+    QCOMPARE(fc.flags() & FadeChannel::Flashing, (int)FadeChannel::Flashing);
 }
 
 void FadeChannel_Test::start()
@@ -290,12 +343,14 @@ void FadeChannel_Test::calculateCurrent()
     // Simple reverse: 255 ticks to fade from 255 to 0
     fch.setStart(255);
     fch.setTarget(0);
+    fch.setReady(false);
     for (uint time = 0; time <= 255; time++)
         QCOMPARE(fch.calculateCurrent(255, time), uchar(255 - time));
 
     // A bit more complex involving decimals that don't produce round integers
     fch.setStart(13);
     fch.setTarget(147);
+    fch.setReady(false);
     QCOMPARE(fch.calculateCurrent(13, 0), uchar(13));
     QCOMPARE(fch.calculateCurrent(13, 1), uchar(23));
     QCOMPARE(fch.calculateCurrent(13, 2), uchar(33));
@@ -314,25 +369,26 @@ void FadeChannel_Test::calculateCurrent()
     // One more to check slower operation (200 ticks for 144 steps)
     fch.setStart(245);
     fch.setTarget(101);
+    fch.setReady(false);
     QCOMPARE(fch.calculateCurrent(200, 0), uchar(245));
-    QCOMPARE(fch.calculateCurrent(200, 1), uchar(245));
-    QCOMPARE(fch.calculateCurrent(200, 2), uchar(244));
-    QCOMPARE(fch.calculateCurrent(200, 3), uchar(243));
-    QCOMPARE(fch.calculateCurrent(200, 4), uchar(243));
-    QCOMPARE(fch.calculateCurrent(200, 5), uchar(242));
-    QCOMPARE(fch.calculateCurrent(200, 6), uchar(241));
-    QCOMPARE(fch.calculateCurrent(200, 7), uchar(240));
-    QCOMPARE(fch.calculateCurrent(200, 8), uchar(240));
-    QCOMPARE(fch.calculateCurrent(200, 9), uchar(239));
-    QCOMPARE(fch.calculateCurrent(200, 10), uchar(238));
-    QCOMPARE(fch.calculateCurrent(200, 11), uchar(238));
+    QCOMPARE(fch.calculateCurrent(200, 1), uchar(244));
+    QCOMPARE(fch.calculateCurrent(200, 2), uchar(243));
+    QCOMPARE(fch.calculateCurrent(200, 3), uchar(242));
+    QCOMPARE(fch.calculateCurrent(200, 4), uchar(242));
+    QCOMPARE(fch.calculateCurrent(200, 5), uchar(241));
+    QCOMPARE(fch.calculateCurrent(200, 6), uchar(240));
+    QCOMPARE(fch.calculateCurrent(200, 7), uchar(239));
+    QCOMPARE(fch.calculateCurrent(200, 8), uchar(239));
+    QCOMPARE(fch.calculateCurrent(200, 9), uchar(238));
+    QCOMPARE(fch.calculateCurrent(200, 10), uchar(237));
+    QCOMPARE(fch.calculateCurrent(200, 11), uchar(237));
     // Skip...
     QCOMPARE(fch.calculateCurrent(200, 100), uchar(173));
-    QCOMPARE(fch.calculateCurrent(200, 101), uchar(173));
-    QCOMPARE(fch.calculateCurrent(200, 102), uchar(172));
+    QCOMPARE(fch.calculateCurrent(200, 101), uchar(172));
+    QCOMPARE(fch.calculateCurrent(200, 102), uchar(171));
     // Skip...
-    QCOMPARE(fch.calculateCurrent(200, 198), uchar(103));
-    QCOMPARE(fch.calculateCurrent(200, 199), uchar(102));
+    QCOMPARE(fch.calculateCurrent(200, 198), uchar(102));
+    QCOMPARE(fch.calculateCurrent(200, 199), uchar(101));
     QCOMPARE(fch.calculateCurrent(200, 200), uchar(101));
 }
 

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1</Version>
+  <Author>Henrik Bauer, Jannis Achstetter</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Vizi Wash LED 108</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">LED OFF</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">LED ON</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Stobing Slow-Fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">LED ON</Capability>
+  <Capability Min="128" Max="159">Pulse Effect in Sequence</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">LED ON</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">RandomeStrobe Slow-Fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">LED ON</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Rainbow effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="231">Rainbow colors</Capability>
+  <Capability Min="232" Max="255">Crossfade colors slow - fast</Capability>
+ </Channel>
+ <Channel Name="Pan Tilt Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="225" Preset="FastToSlow">Speed Max to Min</Capability>
+  <Capability Min="226" Max="235">Blackout while moving</Capability>
+  <Capability Min="236" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Resets &amp; Internal programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="79">Color change normal</Capability>
+  <Capability Min="80" Max="84">Reset all motors</Capability>
+  <Capability Min="85" Max="87">Reset scan motor</Capability>
+  <Capability Min="88" Max="99">No function</Capability>
+  <Capability Min="100" Max="119">Internal program 1</Capability>
+  <Capability Min="120" Max="139">Internal program 2</Capability>
+  <Capability Min="140" Max="159">Internal program 3</Capability>
+  <Capability Min="160" Max="179">Internal program 4</Capability>
+  <Capability Min="180" Max="199">Internal program 5</Capability>
+  <Capability Min="200" Max="219">Internal program 6</Capability>
+  <Capability Min="220" Max="239">Internal program 7</Capability>
+  <Capability Min="240" Max="255">Music controlled program</Capability>
+ </Channel>
+ <Mode Name="MODE1">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">Shutter</Channel>
+  <Channel Number="8">Dimmer</Channel>
+  <Channel Number="9">Rainbow effect</Channel>
+  <Channel Number="10">Pan Tilt Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="9" Width="228" Height="369" Depth="310"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Head" PanMax="540" TiltMax="265"/>
+  <Technical PowerConsumption="120" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

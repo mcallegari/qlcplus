@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Iro Suraci</Author>
+ </Creator>
+ <Manufacturer>Robe</Manufacturer>
+ <Model>Robin ParFect 150</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Power/Special functions">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="19">reserved</Capability>
+  <Capability Min="20" Max="24">display ON</Capability>
+  <Capability Min="25" Max="29">display OFF</Capability>
+  <Capability Min="30" Max="34">RGBW color mixing mode</Capability>
+  <Capability Min="35" Max="39">CMY color mixing mode</Capability>
+  <Capability Min="40" Max="59">reserved</Capability>
+  <Capability Min="60" Max="64">Dimmer SQUARE LAW</Capability>
+  <Capability Min="65" Max="69">Dimmer LINEAR</Capability>
+  <Capability Min="70" Max="74">FAN MODE AUTO</Capability>
+  <Capability Min="75" Max="79">FAN MODE HIGH</Capability>
+  <Capability Min="80" Max="84">White 8000K ON</Capability>
+  <Capability Min="85" Max="89">White 8000K OFF</Capability>
+  <Capability Min="90" Max="94">FAN MODE QUIET</Capability>
+  <Capability Min="95" Max="129">reserved</Capability>
+  <Capability Min="130" Max="149">reserved</Capability>
+  <Capability Min="150" Max="159" Preset="ResetZoom">Zoom reset</Capability>
+  <Capability Min="160" Max="169">reserved</Capability>
+  <Capability Min="170" Max="171">750W simulation</Capability>
+  <Capability Min="172" Max="173">1000W simulation</Capability>
+  <Capability Min="174" Max="175">1200W simulation</Capability>
+  <Capability Min="176" Max="177">2000W simulation</Capability>
+  <Capability Min="178" Max="179">2500W simulation</Capability>
+  <Capability Min="180" Max="181">simulation OFF</Capability>
+  <Capability Min="182" Max="255">reserved</Capability>
+ </Channel>
+ <Channel Name="Virtual Color Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="2" Preset="ColorMacro" Res1="#eba188">Filter 4 (Medium Bastard Amber)</Capability>
+  <Capability Min="3" Max="4" Preset="ColorMacro" Res1="#f46a16">Filter 25 (Sunset Red)</Capability>
+  <Capability Min="5" Max="6" Preset="ColorMacro" Res1="#ea4c01">Filter 19 (Fire)</Capability>
+  <Capability Min="7" Max="8" Preset="ColorMacro" Res1="#b01a01">Filter 26 (Bright Red)</Capability>
+  <Capability Min="9" Max="10" Preset="ColorMacro" Res1="#953ffe">Filter 58 (Lavender)</Capability>
+  <Capability Min="11" Max="12" Preset="ColorMacro" Res1="#15a8ff">Filter 68 (Sky Blue)</Capability>
+  <Capability Min="13" Max="14" Preset="ColorMacro" Res1="#ff6c97">Filter 36 (Medium Pink)</Capability>
+  <Capability Min="15" Max="16" Preset="ColorMacro" Res1="#51f655">Filter 89 (Moss Green)</Capability>
+  <Capability Min="17" Max="18" Preset="ColorMacro" Res1="#deff94">Filter 88 (Lime Green)</Capability>
+  <Capability Min="19" Max="20" Preset="ColorMacro" Res1="#017f07">Filter 90 (Dark Yellow Green)</Capability>
+  <Capability Min="21" Max="22" Preset="ColorMacro" Res1="#ca02d0">Filter 49 (Medium Purple)</Capability>
+  <Capability Min="23" Max="24" Preset="ColorMacro" Res1="#dfc0ff">Filter 52 (Light Lavender)</Capability>
+  <Capability Min="25" Max="26" Preset="ColorMacro" Res1="#ffcd51">Filter 102 (Light Amber)</Capability>
+  <Capability Min="27" Max="28" Preset="ColorMacro" Res1="#ffe3bf">Filter 103 (Straw)</Capability>
+  <Capability Min="29" Max="30" Preset="ColorMacro" Res1="#01bbe9">Filter 140 (Summer Blue)</Capability>
+  <Capability Min="31" Max="32" Preset="ColorMacro" Res1="#018d6a">Filter 124 (Dark Green)</Capability>
+  <Capability Min="33" Max="34" Preset="ColorMacro" Res1="#cf2901">Filter 106 (Primary Red)</Capability>
+  <Capability Min="35" Max="36" Preset="ColorMacro" Res1="#f585ad">Filter 111 (Dark Pink)</Capability>
+  <Capability Min="37" Max="38" Preset="ColorMacro" Res1="#01b7cc">Filter 115 (Peacock Blue)</Capability>
+  <Capability Min="39" Max="40" Preset="ColorMacro" Res1="#711387">Filter 126 (Mauve)</Capability>
+  <Capability Min="41" Max="42" Preset="ColorMacro" Res1="#44caea">Filter 117 (Steel Blue)</Capability>
+  <Capability Min="43" Max="44" Preset="ColorMacro" Res1="#00afdf">Filter 118 (Light Blue)</Capability>
+  <Capability Min="45" Max="46" Preset="ColorMacro" Res1="#08cc21">Filter 122 (Fern Green)</Capability>
+  <Capability Min="47" Max="48" Preset="ColorMacro" Res1="#c32d02">Filter 182 (Light Red)</Capability>
+  <Capability Min="49" Max="50" Preset="ColorMacro" Res1="#89d14e">Filter 121 (Filter Green)</Capability>
+  <Capability Min="51" Max="52" Preset="ColorMacro" Res1="#d73e94">Filter 128 (Bright Pink)</Capability>
+  <Capability Min="53" Max="54" Preset="ColorMacro" Res1="#01bcc8">Filter 131 (Marine Blue)</Capability>
+  <Capability Min="55" Max="56" Preset="ColorMacro" Res1="#008ed9">Filter 132 (Medium Blue)</Capability>
+  <Capability Min="57" Max="58" Preset="ColorMacro" Res1="#ff9647">Filter 134 (Golden Amber)</Capability>
+  <Capability Min="59" Max="60" Preset="ColorMacro" Res1="#ff6600">Filter 135 (Deep Golden Amber)</Capability>
+  <Capability Min="61" Max="62" Preset="ColorMacro" Res1="#aeaadb">Filter 136 (Pale Lavender)</Capability>
+  <Capability Min="63" Max="64" Preset="ColorMacro" Res1="#6596e3">Filter 137 (Special Lavender)</Capability>
+  <Capability Min="65" Max="66" Preset="ColorMacro" Res1="#c7e59f">Filter 138 (Pale Green)</Capability>
+  <Capability Min="67" Max="68" Preset="ColorMacro" Res1="#a100bf">Filter 798 (Chrysalis Pink)</Capability>
+  <Capability Min="69" Max="70" Preset="ColorMacro" Res1="#01a7de">Filter 141 (Bright Blue)</Capability>
+  <Capability Min="71" Max="72" Preset="ColorMacro" Res1="#ffaa6c">Filter 147 (Apricot)</Capability>
+  <Capability Min="73" Max="74" Preset="ColorMacro" Res1="#e5496b">Filter 148 (Bright Rose)</Capability>
+  <Capability Min="75" Max="76" Preset="ColorMacro" Res1="#ffcfb9">Filter 152 (Pale Gold)</Capability>
+  <Capability Min="77" Max="78" Preset="ColorMacro" Res1="#ffd1ca">Filter 154 (Pale Rose)</Capability>
+  <Capability Min="79" Max="80" Preset="ColorMacro" Res1="#ff7c84">Filter 157 (Pink)</Capability>
+  <Capability Min="81" Max="82" Preset="ColorMacro" Res1="#017ea8">Filter 143 (Pale Navy Blue)</Capability>
+  <Capability Min="83" Max="84" Preset="ColorMacro" Res1="#ffd6bd">Filter 162 (Bastard Amber)</Capability>
+  <Capability Min="85" Max="86" Preset="ColorMacro" Res1="#f84c02">Filter 164 (Flame Red)</Capability>
+  <Capability Min="87" Max="88" Preset="ColorMacro" Res1="#00a1e8">Filter 165 (Daylight Blue)</Capability>
+  <Capability Min="89" Max="90" Preset="ColorMacro" Res1="#c3c6e2">Filter 169 (Lilac Tint)</Capability>
+  <Capability Min="91" Max="92" Preset="ColorMacro" Res1="#827ec2">Filter 170 (Deep Lavender)</Capability>
+  <Capability Min="93" Max="94" Preset="ColorMacro" Res1="#01b5de">Filter 172 (Lagoon Blue)</Capability>
+  <Capability Min="95" Max="96" Preset="ColorMacro" Res1="#5584d4">Filter 194 (Surprise Pink)</Capability>
+  <Capability Min="97" Max="98" Preset="ColorMacro" Res1="#7d43c6">Filter 180 (Dark Lavender)</Capability>
+  <Capability Min="99" Max="100" Preset="ColorMacro" Res1="#4c4b8d">Filter 181 (Congo Blue)</Capability>
+  <Capability Min="101" Max="102" Preset="ColorMacro" Res1="#017cc4">Filter 197 (Alice Blue)</Capability>
+  <Capability Min="103" Max="104" Preset="ColorMacro" Res1="#359fdb">Filter 201 (Full C.T. Blue)</Capability>
+  <Capability Min="105" Max="106" Preset="ColorMacro" Res1="#86bbe4">Filter 202 (Half C.T. Blue)</Capability>
+  <Capability Min="107" Max="108" Preset="ColorMacro" Res1="#bdd2e6">Filter 203 (Quarter C.T. Blue)</Capability>
+  <Capability Min="109" Max="110" Preset="ColorMacro" Res1="#fdb872">Filter 204 (Full C.T. Orange)</Capability>
+  <Capability Min="111" Max="112" Preset="ColorMacro" Res1="#78c8b9">Filter 219 (Fluorescent Green)</Capability>
+  <Capability Min="113" Max="114" Preset="ColorMacro" Res1="#f9e1c9">Filter 206 (Quarter C.T. Orange)</Capability>
+  <Capability Min="115" Max="116" Preset="ColorMacro" Res1="#fb81d1">Filter 247 (Filter Minus Green)</Capability>
+  <Capability Min="117" Max="118" Preset="ColorMacro" Res1="#f1d1e0">Filter 248 (Half Minus Green)</Capability>
+  <Capability Min="119" Max="120" Preset="ColorMacro" Res1="#5caadf">Filter 281 (Three Quarter C.T. Blue)</Capability>
+  <Capability Min="121" Max="122" Preset="ColorMacro" Res1="#fabf88">Filter 285 (Three Quarter C.T. Orange)</Capability>
+  <Capability Min="123" Max="124" Preset="ColorMacro" Res1="#01a3da">Filter 352 (Glacier Blue)</Capability>
+  <Capability Min="125" Max="126" Preset="ColorMacro" Res1="#01bee7">Filter 353 (Lighter Blue)</Capability>
+  <Capability Min="127" Max="128" Preset="ColorMacro" Res1="#fa5101">Filter 507 (Madge)</Capability>
+  <Capability Min="129" Max="130" Preset="ColorMacro" Res1="#f87e26">Filter 778 (Millennium Gold)</Capability>
+  <Capability Min="131" Max="132" Preset="ColorMacro" Res1="#ff3ca1">Filter 793 (Vanity Fair)</Capability>
+  <Capability Min="133" Max="235">Raw DMX</Capability>
+  <Capability Min="236" Max="245">Rainbow effect (with fade time) from slow-&gt; fast</Capability>
+  <Capability Min="246" Max="255">Rainbow effect (without fade time) from slow-&gt; fast</Capability>
+ </Channel>
+ <Channel Name="red/cyan" Preset="IntensityRed"/>
+ <Channel Name="red/cyan fine" Default="255" Preset="IntensityRedFine"/>
+ <Channel Name="green/magenta" Preset="IntensityGreen"/>
+ <Channel Name="green/magenta fine" Default="255" Preset="IntensityGreenFine"/>
+ <Channel Name="blue/yellow" Preset="IntensityBlue"/>
+ <Channel Name="blue/yellow fine" Default="255" Preset="IntensityBlueFine"/>
+ <Channel Name="white" Preset="IntensityWhite"/>
+ <Channel Name="white fine" Default="255" Preset="IntensityWhiteFine"/>
+ <Channel Name="CTC">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">Color temperature correction</Capability>
+ </Channel>
+ <Channel Name="Color mix control" Default="255">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">virtual color weel has priority</Capability>
+  <Capability Min="10" Max="19">MAX mode higest value has priority</Capability>
+  <Capability Min="20" Max="29">LOW mode lowest value has priority</Capability>
+  <Capability Min="30" Max="39">multiply mode</Capability>
+  <Capability Min="40" Max="49">addition mode</Capability>
+  <Capability Min="50" Max="59">subtraction mode</Capability>
+  <Capability Min="60" Max="69">inverted subtraction</Capability>
+  <Capability Min="70" Max="128">reserved</Capability>
+  <Capability Min="129" Max="129">virtual has priority</Capability>
+  <Capability Min="130" Max="254">crossfade mode</Capability>
+  <Capability Min="255" Max="255">color has priority</Capability>
+ </Channel>
+ <Channel Name="ZOOM" Default="128">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255" Preset="SmallToBig">128 defaut</Capability>
+ </Channel>
+ <Channel Name="ZOOM FINE" Preset="BeamZoomFine"/>
+ <Channel Name="shutter / strobe" Default="255">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">closed</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">open</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">strobe slow to fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">open</Capability>
+  <Capability Min="128" Max="143" Preset="PulseSlowToFast">pulse slow to fast</Capability>
+  <Capability Min="144" Max="159" Preset="PulseFastToSlow">pulse fast to slow</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">open</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">random strobe slow to fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">open</Capability>
+ </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Mode Name="17 Channel">
+  <Channel Number="0">Power/Special functions</Channel>
+  <Channel Number="1">Virtual Color Wheel</Channel>
+  <Channel Number="2">red/cyan</Channel>
+  <Channel Number="3">red/cyan fine</Channel>
+  <Channel Number="4">green/magenta</Channel>
+  <Channel Number="5">green/magenta fine</Channel>
+  <Channel Number="6">blue/yellow</Channel>
+  <Channel Number="7">blue/yellow fine</Channel>
+  <Channel Number="8">white</Channel>
+  <Channel Number="9">white fine</Channel>
+  <Channel Number="10">CTC</Channel>
+  <Channel Number="11">Color mix control</Channel>
+  <Channel Number="12">ZOOM</Channel>
+  <Channel Number="13">ZOOM FINE</Channel>
+  <Channel Number="14">shutter / strobe</Channel>
+  <Channel Number="15">Master dimmer</Channel>
+  <Channel Number="16">Master dimmer fine</Channel>
+ </Mode>
+ <Mode Name="11 Channel">
+  <Channel Number="0">Power/Special functions</Channel>
+  <Channel Number="1">Virtual Color Wheel</Channel>
+  <Channel Number="2">red/cyan</Channel>
+  <Channel Number="3">green/magenta</Channel>
+  <Channel Number="4">blue/yellow</Channel>
+  <Channel Number="5">white</Channel>
+  <Channel Number="6">CTC</Channel>
+  <Channel Number="7">Color mix control</Channel>
+  <Channel Number="8">ZOOM</Channel>
+  <Channel Number="9">shutter / strobe</Channel>
+  <Channel Number="10">Master dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="2842" ColourTemperature="0"/>
+  <Dimensions Weight="5" Width="240" Height="4980" Depth="193"/>
+  <Lens Name="Other" DegreesMin="3.8" DegreesMax="60"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="220" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

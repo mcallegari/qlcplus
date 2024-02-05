@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Edgar Aichinger</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
@@ -11,21 +11,21 @@
  <Type>Moving Head</Type>
  <Channel Name="Shutter, strobe, reset, lamp">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="19">Shutter closed</Capability>
-  <Capability Min="20" Max="49">Shutter open</Capability>
-  <Capability Min="50" Max="112">Strobe on (fast-&gt;slow)</Capability>
-  <Capability Min="113" Max="115">Shutter closed</Capability>
-  <Capability Min="116" Max="122">Shutter open (Reduced lamp power w/electronic ballast)</Capability>
-  <Capability Min="123" Max="127">Shutter closed</Capability>
-  <Capability Min="128" Max="147">Random strobe, fast</Capability>
-  <Capability Min="148" Max="167">Random strobe, medium</Capability>
-  <Capability Min="168" Max="187">Random strobe, slow</Capability>
-  <Capability Min="188" Max="207">Shutter closed</Capability>
-  <Capability Min="208" Max="217">Reset fixture</Capability>
-  <Capability Min="218" Max="227">Shutter closed</Capability>
-  <Capability Min="228" Max="237">Lamp power on</Capability>
-  <Capability Min="238" Max="247">Shutter closed</Capability>
-  <Capability Min="248" Max="255">Lamp power off Note: T ≥ 5 seconds</Capability>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="20" Max="49" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="50" Max="112" Preset="StrobeFastToSlow">Strobe on (fast-&gt;slow)</Capability>
+  <Capability Min="113" Max="115" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="116" Max="122" Preset="ShutterOpen">Shutter open (Reduced lamp power w/electronic ballast)</Capability>
+  <Capability Min="123" Max="127" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="128" Max="147" Preset="StrobeRandomFastToSlow">Random strobe, fast</Capability>
+  <Capability Min="148" Max="167" Preset="StrobeRandom">Random strobe, medium</Capability>
+  <Capability Min="168" Max="187" Preset="StrobeRandomSlowToFast">Random strobe, slow</Capability>
+  <Capability Min="188" Max="207" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="208" Max="217" Preset="ResetAll">Reset fixture</Capability>
+  <Capability Min="218" Max="227" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="228" Max="237" Preset="LampOn">Lamp power on</Capability>
+  <Capability Min="238" Max="247" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="248" Max="255" Preset="LampOff">Lamp power off Note: T ≥ 5 seconds</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Cyan" Preset="IntensityCyan"/>
@@ -41,9 +41,9 @@
   <Capability Min="166" Max="170">Color 3 (Stepped scroll)</Capability>
   <Capability Min="171" Max="175">Color 2 (Stepped scroll)</Capability>
   <Capability Min="176" Max="180">Color 1 (Stepped scroll)</Capability>
-  <Capability Min="181" Max="185" Color="#ffffff">White (Stepped scroll)</Capability>
+  <Capability Min="181" Max="185" Preset="ColorMacro" Res1="#ffffff">White (Stepped scroll)</Capability>
   <Capability Min="186" Max="214">CW, fast &gt; slow (Continuous rotation)</Capability>
-  <Capability Min="215" Max="243">CCW, slow &lt; fast  (Continuous rotation)</Capability>
+  <Capability Min="215" Max="243">CCW, slow &lt; fast (Continuous rotation)</Capability>
   <Capability Min="244" Max="247">Random color, fast (Random CMY color)</Capability>
   <Capability Min="248" Max="251">Random color, medium (Random CMY color)</Capability>
   <Capability Min="252" Max="255">Random color, slow (Random CMY color)</Capability>
@@ -135,11 +135,11 @@
   <Channel Number="12">Pan/tilt speed</Channel>
   <Channel Number="13">Effect speed</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="MSR 575W" ColourTemperature="7200" Lumens="8500"/>
-   <Dimensions Depth="652" Height="356" Width="481" Weight="31"/>
-   <Lens Name="Other" DegreesMin="18" DegreesMax="35"/>
-   <Focus Type="Head" TiltMax="265" PanMax="270"/>
-   <Technical PowerConsumption="700" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="MSR 575W" Lumens="8500" ColourTemperature="7200"/>
+  <Dimensions Weight="31" Width="481" Height="356" Depth="652"/>
+  <Lens Name="Other" DegreesMin="18" DegreesMax="35"/>
+  <Focus Type="Head" PanMax="270" TiltMax="265"/>
+  <Technical PowerConsumption="700" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

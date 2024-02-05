@@ -41,6 +41,11 @@ CustomComboBox
             }
      */
 
+    delegateHeight: UISettings.iconSizeDefault
+
+    onDisplayTextChanged: buttonBox.tooltip = displayText
+    Component.onCompleted: updateFromValue()
+
     indicator: null
 
     contentItem:
@@ -52,10 +57,9 @@ CustomComboBox
 
             RobotoText
             {
-                id: textIcon
                 height: parent.height * 0.75
                 anchors.centerIn: parent
-                label: ""
+                label: currentTextIcon
                 fontSize: parent.height * 0.75
                 fontBold: true
             }
@@ -65,110 +69,6 @@ CustomComboBox
                 control.popup.width = UISettings.bigItemHeight * 2
                 control.popup.visible ? control.popup.close() : control.popup.open()
             }
-        }
-
-    delegate:
-        ItemDelegate
-        {
-            width: UISettings.bigItemHeight * 2
-            implicitHeight: UISettings.iconSizeDefault
-            highlighted: control.highlightedIndex === index
-            hoverEnabled: control.hoverEnabled
-            padding: 0
-            leftPadding: 3
-
-            Component.onCompleted:
-            {
-                // check for corresponding index
-                if (index === control.currentIndex)
-                {
-                    if (model.mIcon)
-                        control.currentIcon = mIcon
-
-                    if (model.mTextIcon)
-                        textIcon.label = mTextIcon
-
-                    buttonBox.tooltip = mLabel
-                }
-                // check for corresponding value
-                if (currentValue && mValue === currentValue)
-                {
-                    if (model.mIcon)
-                        control.currentIcon = mIcon
-
-                    if (model.mTextIcon)
-                        textIcon.label = mTextIcon
-
-                    control.currentIndex = index
-                    buttonBox.tooltip = mLabel
-                }
-            }
-
-            contentItem:
-                Row
-                {
-                    spacing: 2
-
-                    Image
-                    {
-                        visible: model.mIcon ? true : false
-                        height: control.height - 4
-                        width: height
-                        x: 3
-                        y: 2
-                        source: model.mIcon ? mIcon : ""
-                        sourceSize: Qt.size(width, height)
-                    }
-
-                    Rectangle
-                    {
-                        visible: model.mTextIcon ? true : false
-                        y: 2
-                        height: control.height - 4
-                        width: height
-                        color: UISettings.bgLight
-                        radius: 3
-                        border.width: 1
-                        border.color: UISettings.bgStrong
-
-                        RobotoText
-                        {
-                            id: txtIcon
-                            height: parent.height
-                            anchors.centerIn: parent
-                            label: model.mTextIcon ? mTextIcon : ""
-                            fontSize: parent.height * 0.9
-                        }
-                    }
-
-                    RobotoText
-                    {
-                        x: 3
-                        label: mLabel
-                        height: parent.height
-                    }
-                }
-
-            background:
-                Rectangle
-                {
-                    visible: control.down || control.highlighted || control.visualFocus
-                    color: highlighted ? UISettings.highlight : hovered ? UISettings.bgMedium : "transparent"
-                }
-
-            onClicked:
-            {
-                displayText = mLabel
-                if (model.mIcon)
-                    control.currentIcon = mIcon
-                if (model.mTextIcon)
-                    textIcon.label = mTextIcon
-                currentIndex = index
-                buttonBox.tooltip = mLabel
-                control.valueChanged(mValue)
-            }
-
-            Rectangle { height: 1; width: parent.width; y: parent.height - 1 }
         }
 
     background:

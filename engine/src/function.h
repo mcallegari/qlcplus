@@ -45,32 +45,32 @@ class FunctionUiState;
  * @{
  */
 
-#define KXMLQLCFunction "Function"
-#define KXMLQLCFunctionName "Name"
-#define KXMLQLCFunctionID "ID"
-#define KXMLQLCFunctionType "Type"
-#define KXMLQLCFunctionData "Data"
-#define KXMLQLCFunctionPath "Path"
-#define KXMLQLCFunctionHidden "Hidden"
-#define KXMLQLCFunctionBlendMode "BlendMode"
+#define KXMLQLCFunction QString("Function")
+#define KXMLQLCFunctionName QString("Name")
+#define KXMLQLCFunctionID QString("ID")
+#define KXMLQLCFunctionType QString("Type")
+#define KXMLQLCFunctionData QString("Data")
+#define KXMLQLCFunctionPath QString("Path")
+#define KXMLQLCFunctionHidden QString("Hidden")
+#define KXMLQLCFunctionBlendMode QString("BlendMode")
 
-#define KXMLQLCFunctionValue "Value"
-#define KXMLQLCFunctionValueType "Type"
-#define KXMLQLCFunctionChannel "Channel"
+#define KXMLQLCFunctionValue QString("Value")
+#define KXMLQLCFunctionValueType QString("Type")
+#define KXMLQLCFunctionChannel QString("Channel")
 
-#define KXMLQLCFunctionStep "Step"
-#define KXMLQLCFunctionNumber "Number"
+#define KXMLQLCFunctionStep QString("Step")
+#define KXMLQLCFunctionNumber QString("Number")
 
-#define KXMLQLCFunctionDirection "Direction"
-#define KXMLQLCFunctionRunOrder "RunOrder"
+#define KXMLQLCFunctionDirection QString("Direction")
+#define KXMLQLCFunctionRunOrder QString("RunOrder")
 
-#define KXMLQLCFunctionEnabled "Enabled"
+#define KXMLQLCFunctionEnabled QString("Enabled")
 
-#define KXMLQLCFunctionSpeed         "Speed"
-#define KXMLQLCFunctionSpeedFadeIn   "FadeIn"
-#define KXMLQLCFunctionSpeedHold     "Hold"
-#define KXMLQLCFunctionSpeedFadeOut  "FadeOut"
-#define KXMLQLCFunctionSpeedDuration "Duration"
+#define KXMLQLCFunctionSpeed         QString("Speed")
+#define KXMLQLCFunctionSpeedFadeIn   QString("FadeIn")
+#define KXMLQLCFunctionSpeedHold     QString("Hold")
+#define KXMLQLCFunctionSpeedFadeOut  QString("FadeOut")
+#define KXMLQLCFunctionSpeedDuration QString("Duration")
 
 typedef struct
 {
@@ -98,6 +98,8 @@ class Function : public QObject
     Q_PROPERTY(quint32 id READ id CONSTANT)
     Q_PROPERTY(Type type READ type CONSTANT)
     Q_PROPERTY(quint32 totalDuration READ totalDuration WRITE setTotalDuration NOTIFY totalDurationChanged)
+    Q_PROPERTY(RunOrder runOrder READ runOrder WRITE setRunOrder NOTIFY runOrderChanged)
+    Q_PROPERTY(TempoType tempoType READ tempoType WRITE setTempoType NOTIFY tempoTypeChanged FINAL)
 
 public:
     /**
@@ -347,6 +349,9 @@ protected:
     /** Load function's direction from $root */
     bool loadXMLRunOrder(QXmlStreamReader &root);
 
+signals:
+    void runOrderChanged();
+
 private:
     RunOrder m_runOrder;
 
@@ -400,8 +405,18 @@ private:
      * Tempo type
      *********************************************************************/
 public:
-    enum TempoType { Original = -1, Time = 0, Beats = 1 };
-    enum FractionsType { NoFractions = 0, ByTwoFractions, AllFractions };
+    enum TempoType
+    {
+        Original = -1,
+        Time = 0,
+        Beats = 1
+    };
+    enum FractionsType
+    {
+        NoFractions = 0,
+        ByTwoFractions,
+        AllFractions
+    };
 #if QT_VERSION >= 0x050500
     Q_ENUM(TempoType)
     Q_ENUM(FractionsType)
@@ -447,6 +462,9 @@ public:
 
     /** Set the override speed type (done by a Chaser) */
     void setOverrideTempoType(TempoType type);
+
+signals:
+    void tempoTypeChanged();
 
 protected slots:
     /**
@@ -624,7 +642,7 @@ public:
      *********************************************************************/
 public:
     /** Flash the function */
-    virtual void flash(MasterTimer* timer);
+    virtual void flash(MasterTimer* timer, bool shouldOverride, bool forceLTP);
 
     /** UnFlash the function */
     virtual void unFlash(MasterTimer* timer);
@@ -693,6 +711,12 @@ public:
      */
     virtual void postRun(MasterTimer* timer, QList<Universe*> universes);
 
+protected:
+    /** Helper method to dismiss all the faders previously added to
+     *  m_fadersMap. This is usually called on Function postRun when
+     *  no fade out is requested */
+    virtual void dismissAllFaders();
+
 signals:
     /**
      * Emitted when a function is started (i.e. added to MasterTimer's
@@ -709,6 +733,10 @@ signals:
      * @param id The ID of the stopped function
      */
     void stopped(quint32 id);
+
+protected:
+    /** Map used to lookup a GenericFader instance for a Universe ID */
+    QMap<quint32, QSharedPointer <GenericFader> > m_fadersMap;
 
     /*********************************************************************
      * Elapsed
@@ -778,7 +806,7 @@ public:
      * There is no way to cancel it, but the function can be started again
      * normally.
      */
-    void stop(FunctionParent parent);
+    void stop(FunctionParent parent, bool preserveAttributes = false);
 
     /**
      * Check, whether the function should be stopped ASAP. Functions can use this
@@ -956,7 +984,11 @@ private:
     /** A map of the overridden attributes */
     QMap <int, AttributeOverride> m_overrideMap;
 
+    /** Last assigned override ID */
     int m_lastOverrideAttributeId;
+
+    /** Flag to preserve or discard attributes on stop calls */
+    bool m_preserveAttributes;
 
     /*************************************************************************
      * Blend mode

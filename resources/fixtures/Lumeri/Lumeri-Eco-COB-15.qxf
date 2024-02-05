@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.7 GIT</Version>
+  <Author>Robert Rieks</Author>
+ </Creator>
+ <Manufacturer>Lumeri</Manufacturer>
+ <Model>Eco COB 15</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Color Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="50">No Function</Capability>
+  <Capability Min="51" Max="57" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="58" Max="64" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="65" Max="71" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="72" Max="78" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="79" Max="85" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="86" Max="92" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="93" Max="100" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="101" Max="200">Color Fade</Capability>
+  <Capability Min="201" Max="250">Color Jump</Capability>
+  <Capability Min="251" Max="255">Sound Control</Capability>
+ </Channel>
+ <Channel Name="Macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Macro speed (slow to fast)</Capability>
+ </Channel>
+ <Mode Name="7 Channel (A)">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Color Macro</Channel>
+  <Channel Number="6">Macro Speed</Channel>
+ </Mode>
+ <Mode Name="3 Channel (d)">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="0.47" Width="100" Height="100" Depth="95"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="15" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -157,6 +157,10 @@ public:
 
     Q_INVOKABLE void addHead(int fixtureID, int headIndex);
 
+    Q_INVOKABLE void removeHeads(QVariantList heads);
+
+    Q_INVOKABLE void setFixtureMode(quint32 fixtureID, int headIndex, int modeIndex);
+
     Q_INVOKABLE void setFixtureReversed(quint32 fixtureID, int headIndex, bool reversed);
 
     Q_INVOKABLE void setFixtureOffset(quint32 fixtureID, int headIndex, int offset);

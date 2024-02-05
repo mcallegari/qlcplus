@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.0 GIT</Version>
+  <Author>Massimo Callegari</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Entour Venue</Model>
+ <Type>Smoke</Type>
+ <Channel Name="Output volume">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="4">0% Output Volume, 5% Fan speed</Capability>
+  <Capability Min="5" Max="255">5% - 100% Output volume, 100% Fan speed</Capability>
+ </Channel>
+ <Channel Name="Fan speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="15">5% Fan speed</Capability>
+  <Capability Min="16" Max="255">6% - 100% Fan speed</Capability>
+ </Channel>
+ <Channel Name="Duration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="7">3 Seconds</Capability>
+  <Capability Min="8" Max="255">3 - 250 Seconds</Capability>
+ </Channel>
+ <Channel Name="Interval">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="9">0 Seconds</Capability>
+  <Capability Min="10" Max="255">5 - 250 Seconds</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Output volume</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Output volume</Channel>
+  <Channel Number="1">Fan speed</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Output volume</Channel>
+  <Channel Number="1">Fan speed</Channel>
+  <Channel Number="2">Duration</Channel>
+  <Channel Number="3">Interval</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="10.6" Width="394" Height="434" Depth="253"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="1500" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

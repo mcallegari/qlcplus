@@ -22,13 +22,16 @@
 #include <QDebug>
 #include <QDir>
 
-EuroliteUSBDMXPro::EuroliteUSBDMXPro(DMXInterface *interface, quint32 outputLine)
-    : DMXUSBWidget(interface, outputLine)
+EuroliteUSBDMXPro::EuroliteUSBDMXPro(DMXInterface *iface, quint32 outputLine)
+    : DMXUSBWidget(iface, outputLine, DEFAULT_OUTPUT_FREQUENCY)
+    , m_running(false)
 {
 }
 
 EuroliteUSBDMXPro::~EuroliteUSBDMXPro()
 {
+    stop();
+
 #ifdef QTSERIAL
     if (isOpen())
         DMXUSBWidget::close();
@@ -53,7 +56,7 @@ QString EuroliteUSBDMXPro::getDeviceName()
     foreach (QString dir, devDirs)
     {
 
-        if (dir.startsWith(QString::number(interface()->busLocation())) &&
+        if (dir.startsWith(QString::number(iface()->busLocation())) &&
             dir.contains(":") == false)
         {
             // 2- Match the product name
@@ -81,7 +84,7 @@ QString EuroliteUSBDMXPro::getDeviceName()
                             if (ttyDir.exists())
                             {
                                 QStringList ttyList = ttyDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-                                foreach(QString ttyName, ttyList)
+                                foreach (QString ttyName, ttyList)
                                 {
                                     qDebug() << "This EuroliteUSBDMXPro adapter will use" << QString("/dev/" + ttyName);
                                     return QString("/dev/" + ttyName);
@@ -124,6 +127,10 @@ bool EuroliteUSBDMXPro::open(quint32 line, bool input)
         return false;
     }
 #endif
+
+    // start the output thread
+    start();
+
     return true;
 }
 
@@ -131,6 +138,8 @@ bool EuroliteUSBDMXPro::close(quint32 line, bool input)
 {
     Q_UNUSED(line)
     Q_UNUSED(input)
+
+    stop();
 
 #ifdef QTSERIAL
     if (isOpen())
@@ -177,7 +186,7 @@ QString EuroliteUSBDMXPro::additionalInfo() const
  * Write universe data
  ****************************************************************************/
 
-bool EuroliteUSBDMXPro::writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
+bool EuroliteUSBDMXPro::writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged)
 {
     Q_UNUSED(universe)
     Q_UNUSED(output)
@@ -190,30 +199,71 @@ bool EuroliteUSBDMXPro::writeUniverse(quint32 universe, quint32 output, const QB
         return false;
 #endif
 
-    QByteArray request(data);
-    request.prepend(char(EUROLITE_USB_DMX_PRO_DMX_ZERO)); // DMX start code (Which constitutes the + 1 below)
-    request.prepend(((data.size() + 1) >> 8) & 0xff); // Data length MSB
-    request.prepend((data.size() + 1) & 0xff); // Data length LSB
-    request.prepend(EUROLITE_USB_DMX_PRO_SEND_DMX_RQ); // Send request
-    request.prepend(EUROLITE_USB_DMX_PRO_START_OF_MSG); // Start byte
-    request.append(EUROLITE_USB_DMX_PRO_END_OF_MSG); // Stop byte
+    if (m_outputLines[0].m_universeData.size() == 0)
+    {
+        m_outputLines[0].m_universeData.append(data);
+        m_outputLines[0].m_universeData.append(DMX_CHANNELS - data.size(), 0);
+    }
+
+    if (dataChanged)
+        m_outputLines[0].m_universeData.replace(0, data.size(), data);
+
+    return true;
+}
+
+void EuroliteUSBDMXPro::stop()
+{
+    if (isRunning() == true)
+    {
+        m_running = false;
+        wait();
+    }
+}
+
+void EuroliteUSBDMXPro::run()
+{
+    qDebug() << "OUTPUT thread started";
+    QElapsedTimer timer;
+    QByteArray request;
+
+    m_running = true;
+    while (m_running == true)
+    {
+        timer.restart();
+
+        int dataLen = m_outputLines[0].m_universeData.length();
+        if (dataLen == 0)
+            goto framesleep;
+
+        request.clear();
+        request.append(EUROLITE_USB_DMX_PRO_START_OF_MSG); // Start byte
+        request.append(EUROLITE_USB_DMX_PRO_SEND_DMX_RQ); // Send request
+        request.append((dataLen + 1) & 0xff); // Data length LSB
+        request.append(((dataLen + 1) >> 8) & 0xff); // Data length MSB
+        request.append(char(EUROLITE_USB_DMX_PRO_DMX_ZERO)); // DMX start code (Which constitutes the + 1 below)
+        request.append(m_outputLines[0].m_universeData);
+        request.append(EUROLITE_USB_DMX_PRO_END_OF_MSG); // Stop byte
 
 #ifdef QTSERIAL
-    if (interface()->write(request) == false)
+        if (iface()->write(request) == false)
 #else
-    if (m_file.write(request) == false)
+        if (m_file.write(request) == false)
 #endif
-    {
-        qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
+        {
+            qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
 #ifdef QTSERIAL
-        interface()->purgeBuffers();
+            iface()->purgeBuffers();
 #endif
-        return false;
+        }
+framesleep:
+        int timetoSleep = m_frameTimeUs - (timer.nsecsElapsed() / 1000);
+        if (timetoSleep < 0)
+            qWarning() << "DMX output is running late !";
+        else
+            usleep(timetoSleep);
     }
-    else
-    {
-        return true;
-    }
+
+    qDebug() << "OUTPUT thread terminated";
 }
 
 

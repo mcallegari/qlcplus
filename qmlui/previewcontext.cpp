@@ -28,14 +28,14 @@ PreviewContext::PreviewContext(QQuickView *view, Doc *doc, QString name, QObject
     , m_view(view)
     , m_mainView(view)
     , m_doc(doc)
-    , m_contextItem(NULL)
+    , m_contextItem(nullptr)
     , m_name(name)
     , m_title(name)
     , m_page(0)
     , m_enabled(false)
     , m_detached(false)
+    , m_universeFilter(0)
 {
-    //connect(m_doc, &Doc::loaded, this, &PreviewContext::slotRefreshView);
 }
 
 PreviewContext::~PreviewContext()
@@ -69,9 +69,19 @@ bool PreviewContext::isEnabled()
     return m_enabled;
 }
 
+quint32 PreviewContext::universeFilter() const
+{
+    return m_universeFilter;
+}
+
 void PreviewContext::setUniverseFilter(quint32 universeFilter)
 {
+    if (m_universeFilter == universeFilter)
+        return;
+
     m_universeFilter = universeFilter;
+
+    emit universeFilterChanged(universeFilter);
 }
 
 QQuickView *PreviewContext::view()
@@ -145,6 +155,7 @@ void PreviewContext::setDetached(bool detached)
         m_view->rootContext()->setContextProperty("contextManager", m_mainView->rootContext()->contextProperty("contextManager"));
         m_view->rootContext()->setContextProperty("virtualConsole", m_mainView->rootContext()->contextProperty("virtualConsole"));
         m_view->rootContext()->setContextProperty("showManager", m_mainView->rootContext()->contextProperty("showManager"));
+        m_view->rootContext()->setContextProperty("simpleDesk", m_mainView->rootContext()->contextProperty("simpleDesk"));
         m_view->rootContext()->setContextProperty("actionManager", m_mainView->rootContext()->contextProperty("actionManager"));
         m_view->rootContext()->setContextProperty("View2D", m_mainView->rootContext()->contextProperty("View2D"));
         m_view->rootContext()->setContextProperty("View3D", m_mainView->rootContext()->contextProperty("View3D"));

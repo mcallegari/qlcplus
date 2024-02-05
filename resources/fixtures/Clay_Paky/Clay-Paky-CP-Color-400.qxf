@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.4</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Clay Paky</Manufacturer>
@@ -19,7 +19,7 @@
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="127">Safe</Capability>
-  <Capability Min="128" Max="255">Reset</Capability>
+  <Capability Min="128" Max="255" Preset="ResetAll">Reset</Capability>
  </Channel>
  <Mode Name="4 DMX, CMY">
   <Channel Number="0">Cyan</Channel>
@@ -47,11 +47,11 @@
   <Channel Number="3">Dimmer</Channel>
   <Channel Number="4">Control</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="MSR 400W" ColourTemperature="5600" Lumens="32000"/>
-   <Dimensions Width="237" Height="314" Depth="424" Weight="43.9"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="700"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="MSR 400W" Lumens="32000" ColourTemperature="5600"/>
+  <Dimensions Weight="43.9" Width="237" Height="314" Depth="424"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="700" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

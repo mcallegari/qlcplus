@@ -39,7 +39,7 @@ public:
     void setInfo(QSerialPortInfo info);
 
     /** @reimpl */
-    QString readLabel(uchar label, int *ESTA_code);
+    bool readLabel(uchar label, int &intParam, QString &strParam);
 
     /************************************************************************
      * DMX/Serial Interface Methods
@@ -74,6 +74,9 @@ public:
 
     /** @reimpl */
     bool setFlowControl();
+
+    /** @reimpl */
+    bool setLowLatency(bool lowLatency);
 
     /** @reimpl */
     bool clearRts();

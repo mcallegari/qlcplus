@@ -30,7 +30,8 @@
   <Capability Min="112" Max="119" Color="#ffff00" Color2="#00ff00">Yellow/Green</Capability>
   <Capability Min="120" Max="127" Color="#00aaff" Color2="#a122d4">Blue/Purple</Capability>
   <Capability Min="128" Max="190" Res="Others/rainbow.png">Forwards rainbow effect from fast to slow</Capability>
-  <Capability Min="191" Max="192" Res="Others/rainbow.png">Backwards rainbow effect from slow to fast</Capability>
+  <Capability Min="191" Max="192">No rotation</Capability>
+  <Capability Min="193" Max="255" Res="Others/rainbow.png">Backwards rainbow effect from slow to fast</Capability>
  </Channel>
  <Channel Name="Shutter, Strobe, Gobos">
   <Group Byte="0">Gobo</Group>

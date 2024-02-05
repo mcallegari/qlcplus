@@ -6,11 +6,16 @@ LANGUAGE = C++
 TARGET   = qlcpluswebaccess
 
 CONFIG += qt
-QT     += core gui script network
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
+QT     += core gui network
+QT     += widgets multimedia
+qmlui|greaterThan(QT_MAJOR_VERSION, 5) {
+  QT += qml
+} else {
+  QT += script
+}
 
 INCLUDEPATH     += qhttpserver
-INCLUDEPATH     += ../../engine/src ../../engine/audio/src 
+INCLUDEPATH     += ../../engine/src ../../engine/audio/src
 INCLUDEPATH     += ../../ui/src ../../ui/src/virtualconsole
 DEPENDPATH      += ../../engine/src ../../ui/src
 QMAKE_LIBDIR    += ../../engine/src ../../ui/src
@@ -60,7 +65,7 @@ SOURCES += webaccess.cpp \
            webaccessauth.cpp
 
 unix:!macx: SOURCES += webaccessnetwork.cpp
-           
+
 TRANSLATIONS += webaccess_fi_FI.ts
 TRANSLATIONS += webaccess_de_DE.ts
 TRANSLATIONS += webaccess_fr_FR.ts
@@ -71,7 +76,7 @@ TRANSLATIONS += webaccess_cz_CZ.ts
 TRANSLATIONS += webaccess_pt_BR.ts
 TRANSLATIONS += webaccess_ca_ES.ts
 TRANSLATIONS += webaccess_ja_JP.ts
-    
+
 macx {
     # This must be after "TARGET = " and before target installation so that
     # install_name_tool can be run before target installation

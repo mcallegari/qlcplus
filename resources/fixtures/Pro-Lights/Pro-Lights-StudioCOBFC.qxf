@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Andrea Ugolini</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
@@ -15,17 +15,17 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10">No function</Capability>
-  <Capability Min="11" Max="255">Slow to Fast</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Slow to Fast</Capability>
  </Channel>
  <Channel Name="Strobe/Speed">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10">Strobe: No function / Speed: Slow to Fast </Capability>
-  <Capability Min="11" Max="255">Strobe: Slow to Fast / Speed: Slow to Fast </Capability>
+  <Capability Min="0" Max="10">Strobe: No function / Speed: Slow to Fast</Capability>
+  <Capability Min="11" Max="255">Strobe: Slow to Fast / Speed: Slow to Fast</Capability>
  </Channel>
  <Channel Name="Color Macros">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="0" Max="15">No function</Capability>
   <Capability Min="16" Max="255">Color Macros (overrides CH 1-3)</Capability>
  </Channel>
  <Channel Name="Mode">
@@ -68,11 +68,11 @@
   <Channel Number="6">Mode</Channel>
   <Channel Number="7">Dimmer Speed</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="COB CREE LED" Lumens="5000" ColourTemperature="0"/>
-   <Dimensions Weight="4.5" Width="262" Height="190" Depth="371"/>
-   <Lens Name="Dichroic Parabolic" DegreesMin="15" DegreesMax="60"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="140" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="COB CREE LED" Lumens="5000" ColourTemperature="0"/>
+  <Dimensions Weight="4.5" Width="262" Height="190" Depth="371"/>
+  <Lens Name="Dichroic Parabolic" DegreesMin="15" DegreesMax="60"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="140" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
 </FixtureDefinition>

@@ -35,7 +35,7 @@ RGBScriptsCache::RGBScriptsCache(Doc* doc)
     m_dummyScript = new RGBScript(doc);
 }
 
-QList<QString> RGBScriptsCache::names() const
+QStringList RGBScriptsCache::names() const
 {
     QStringList names;
 
@@ -69,6 +69,11 @@ bool RGBScriptsCache::load(const QDir& dir)
 
     foreach (QString file, dir.entryList())
     {
+        if (!file.toLower().endsWith(".js"))
+        {
+            qDebug() << "    " << file << " skipped (special file or does not end on *.js)";
+            continue;
+        }
         if (!m_scriptsMap.contains(file))
         {
             RGBScript* script = new RGBScript(m_doc);

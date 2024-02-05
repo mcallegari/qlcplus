@@ -21,7 +21,7 @@ be set to modify the behaviour of each single channel.<br>
   <TD>Determine if a channel is included or excluded in the QLC+ fade transitions.<br>
       By default all the channels are affected by the Fade In and Fade Out timings
       of the QLC+ functions.<br>
-      When this property is unchecked, a channel will not fade, meaning that 
+      When this property is unchecked, a channel will not fade, meaning that
       a fade transition from 20 to 200, will set the channel immediately to 200.<br>
       This is useful for example for Pan/Tilt channels of moving heads, where you want
       the motors to avoid fading but immediately go to the final value.
@@ -29,8 +29,8 @@ be set to modify the behaviour of each single channel.<br>
  </TR>
  <TR>
   <TD><B>Behaviour</B></TD>
-  <TD>Force the channel behaviour according to the <A HREF="file:concept.html#HTP">HTP</A> and
-      <A HREF="file:concept.html#LTP">LTP</A> rules. When changing the behaviour of a channel,
+  <TD>Force the channel behaviour according to the <A HREF="concept.html#HTP">HTP</A> and
+      <A HREF="concept.html#LTP">LTP</A> rules. When changing the behaviour of a channel,
       the dropdown list will highlight in red, showing evidence that the channels has been modified.<br>
       <b>Note: Use this functionality only if you know what you're doing and fully understand
       how HTP and LTP work</b>
@@ -39,8 +39,8 @@ be set to modify the behaviour of each single channel.<br>
  <TR>
   <TD><B>Modifier</B></TD>
   <TD>Channels modifiers are a powerful tool to modify the behaviour of a channel
-      by acting at the end of the DMX value calculation, right before the 
-      <A HREF="file:concept.html#GrandMaster">Grand Master</A> modification.<br>
+      by acting at the end of the DMX value calculation, right before the
+      <A HREF="concept.html#GrandMaster">Grand Master</A> modification.<br>
       By default all the channels will follow a linear rule, meaning that the original
       DMX value will be equal to the output DMX value. (0-0, 1-1, ... , 255-255)<br>
       When clicking on this button, the Channel Modifier Editor panel (described below) will be displayed.
@@ -48,7 +48,7 @@ be set to modify the behaviour of each single channel.<br>
 </TABLE>
 
 <br>
-When dealing with a lot of fixtures of the same type, you might want to check 
+When dealing with a lot of fixtures of the same type, you might want to check
 the "Apply changes to fixtures of the same type" check box.<br>
 This means that changing a channel property will affect all the channels of the same type and
 fixture in the list.<br>
@@ -59,10 +59,10 @@ This can save you quite a lot of time when setting up your projects for the firs
 
 <P>
 The channel modifier editor is presented like this:<br>
-<img src="file:../images/channelmodifier.png"></img>
+<img src="../images/channelmodifier.png"></img>
 <br><br>
 On the right side of the window, a list of available modifier templates is displayed.<br>
-Clicking on a template in the list, will show the curve preview on the left side of 
+Clicking on a template in the list, will show the curve preview on the left side of
 the window.<br>
 A modifier curve is composed by a number of lines representing how a DMX channel
 should be modified when its value changes.<br>
@@ -79,8 +79,8 @@ changing the values of the original or modified DMX values.<br>
 To create a new template just select an existing template, give it a new name and add/remove handlers
 as needed with the <IMG SRC="qrc:/edit_add.png"> and <IMG SRC="qrc:/edit_remove.png"> buttons.<br>
 When done, just click the <IMG SRC="qrc:/filesave.png"> button and your template will be saved
-in your user templates folder. Please refer to the 
-<A HREF="file:questionsandanswers.html">Questions and Answers</A> page to locate this folder.
+in your user templates folder. Please refer to the
+<A HREF="questionsandanswers.html">Questions and Answers</A> page to locate this folder.
 </P>
 
 <H2>Channel Modifier Templates</H2>

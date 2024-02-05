@@ -42,6 +42,7 @@ private slots:
     void color();
     void copy();
     void previewMaps();
+    void property();
     void loadSave();
 
 private:

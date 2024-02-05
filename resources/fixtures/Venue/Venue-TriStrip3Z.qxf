@@ -3,17 +3,17 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.0 GIT</Version>
   <Author>Flo Edelmann</Author>
  </Creator>
  <Manufacturer>Venue</Manufacturer>
  <Model>TriStrip3Z</Model>
- <Type>Effect</Type>
+ <Type>LED Bar (Beams)</Type>
  <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="15" Preset="ShutterOpen">No strobe</Capability>
-  <Capability Min="16" Max="255" Preset="StrobeFreqRange" Res1="2" Res2="20">Strobe 0-20Hz</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="20">Strobe 0-20Hz</Capability>
  </Channel>
  <Channel Name="Dimmer Speed">
   <Group Byte="0">Speed</Group>
@@ -61,8 +61,8 @@
  </Channel>
  <Channel Name="Strobe / Speed / Sound Sensitivity">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="15">No strobe</Capability>
-  <Capability Min="16" Max="255">Strobe 0-20Hz</Capability>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="20">Strobe 0-20Hz</Capability>
  </Channel>
  <Channel Name="Red All Zones" Preset="IntensityRed"/>
  <Channel Name="Green All Zones" Preset="IntensityGreen"/>

@@ -26,7 +26,7 @@ import "."
 CustomPopupDialog
 {
     id: popupRoot
-
+    width: mainView.width / 3
     title: qsTr("QLC+ server setup")
 
     contentItem:
@@ -50,9 +50,9 @@ CustomPopupDialog
                 id: nameEdit
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
-                nextTabItem: keyEdit
-                previousTabItem: keyEdit
-                inputText: hostname
+                KeyNavigation.tab: keyEdit
+                KeyNavigation.backtab: startCheckBox
+                text: hostname
                 onTextChanged: networkManager.hostName = text
             }
 
@@ -69,8 +69,8 @@ CustomPopupDialog
                 Layout.fillWidth: true
                 echoMode: TextInput.Password
                 maximumLength: 8
-                nextTabItem: nameEdit
-                previousTabItem: nameEdit
+                KeyNavigation.tab: startCheckBox
+                KeyNavigation.backtab: nameEdit
 
                 onTextChanged:
                 {
@@ -93,9 +93,12 @@ CustomPopupDialog
             }
             CustomCheckBox
             {
+                id: startCheckBox
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: height
                 Layout.columnSpan: 2
+                KeyNavigation.tab: nameEdit
+                KeyNavigation.backtab: keyEdit
             }
 
             // Row 4

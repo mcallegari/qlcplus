@@ -43,17 +43,6 @@ Rectangle
         funcEntry.functionType = func.type
     }
 
-    onHighlightIndexChanged:
-    {
-        if (Drag.active == true)
-            return
-
-        if (indexInList >= 0 && highlightIndex == indexInList)
-            topDragLine.visible = true
-        else
-            topDragLine.visible = false
-    }
-
     Rectangle
     {
         anchors.fill: parent
@@ -76,14 +65,13 @@ Rectangle
         width: parent.width
         height: 1
         y: parent.height - 1
-        color: "#666"
+        color: UISettings.bgLight
     }
 
     // top line drag highlight
     Rectangle
     {
-        id: topDragLine
-        visible: false
+        visible: highlightIndex == indexInList
         width: parent.width
         height: 2
         z: 1

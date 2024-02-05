@@ -19,12 +19,12 @@
         <translation>This application is licensed under the terms of the Apache 2.0 license.</translation>
     </message>
     <message>
-        <location filename="../ui/src/aboutbox.cpp" line="41"/>
+        <location filename="../ui/src/aboutbox.cpp" line="42"/>
         <source>and contributors:</source>
         <translation>and contributors:</translation>
     </message>
     <message>
-        <location filename="../ui/src/aboutbox.cpp" line="42"/>
+        <location filename="../ui/src/aboutbox.cpp" line="43"/>
         <source>Website: %1</source>
         <translation>ウェブサイト: %1</translation>
     </message>
@@ -37,13 +37,13 @@
         <translation>モード別チャンネル編集</translation>
     </message>
     <message>
-        <location filename="addchannelsdialog.ui" line="49"/>
+        <location filename="addchannelsdialog.ui" line="114"/>
         <source>Available channels</source>
         <oldsource>All channels</oldsource>
         <translation>機器の全チャンネル</translation>
     </message>
     <message>
-        <location filename="addchannelsdialog.ui" line="113"/>
+        <location filename="addchannelsdialog.ui" line="106"/>
         <location filename="addchannelsdialog.ui" line="135"/>
         <source>Name</source>
         <translation>チャンネル名</translation>
@@ -57,108 +57,108 @@
 <context>
     <name>App</name>
     <message>
-        <location filename="app.cpp" line="123"/>
+        <location filename="app.cpp" line="122"/>
         <source>Unrecognized file extension: %1</source>
         <translation>Unrecognized file extension: %1</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="147"/>
+        <location filename="app.cpp" line="146"/>
         <source>Fixture loading failed</source>
         <translation>機器データの読み込みに失敗</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="148"/>
+        <location filename="app.cpp" line="147"/>
         <source>Unable to load fixture definition: </source>
         <translation>以下の機器データを読み込めませんでした:</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="242"/>
+        <location filename="app.cpp" line="241"/>
         <source>&amp;New</source>
         <translation>新規</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="243"/>
+        <location filename="app.cpp" line="242"/>
         <source>CTRL+N</source>
         <comment>File|New</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="248"/>
+        <location filename="app.cpp" line="247"/>
         <source>&amp;Open</source>
         <translation>開く</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="249"/>
+        <location filename="app.cpp" line="248"/>
         <source>CTRL+O</source>
         <comment>File|Open</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="254"/>
+        <location filename="app.cpp" line="253"/>
         <source>&amp;Save</source>
         <translation>上書き保存</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="255"/>
+        <location filename="app.cpp" line="254"/>
         <source>CTRL+S</source>
         <comment>File|Save</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="260"/>
+        <location filename="app.cpp" line="259"/>
         <source>Save &amp;As...</source>
         <translation>名前を付けて保存</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="261"/>
+        <location filename="app.cpp" line="260"/>
         <source>CTRL+SHIFT+S</source>
         <comment>File|Save As...</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="266"/>
+        <location filename="app.cpp" line="265"/>
         <source>&amp;Quit</source>
         <translation>終了</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="267"/>
+        <location filename="app.cpp" line="266"/>
         <source>CTRL+Q</source>
         <comment>File|Quit</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="273"/>
+        <location filename="app.cpp" line="272"/>
         <source>Index</source>
         <translation>ヘルプ</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="274"/>
+        <location filename="app.cpp" line="273"/>
         <source>SHIFT+F1</source>
         <comment>Help|Index</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="279"/>
+        <location filename="app.cpp" line="278"/>
         <source>About Fixture Definition Editor...</source>
         <translation>Fixture Definition Editor について...</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="284"/>
+        <location filename="app.cpp" line="283"/>
         <source>About Qt...</source>
         <translation>Qt について</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="311"/>
+        <location filename="app.cpp" line="310"/>
         <source>&amp;File</source>
         <translation>ファイル</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="321"/>
+        <location filename="app.cpp" line="320"/>
         <source>&amp;Help</source>
         <translation>ヘルプ</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="359"/>
+        <location filename="app.cpp" line="358"/>
         <source>Open a fixture definition</source>
         <translation>機器データの読み込み</translation>
     </message>
@@ -234,32 +234,32 @@
 <context>
     <name>DocBrowser</name>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="105"/>
+        <location filename="../ui/src/docbrowser.cpp" line="106"/>
         <source>%1 - Document Browser</source>
         <translation>%1 - ヘルプ</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="124"/>
+        <location filename="../ui/src/docbrowser.cpp" line="128"/>
         <source>Backward</source>
         <translation>前へ</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="125"/>
+        <location filename="../ui/src/docbrowser.cpp" line="129"/>
         <source>Forward</source>
         <translation>次へ</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="126"/>
+        <location filename="../ui/src/docbrowser.cpp" line="130"/>
         <source>Index</source>
         <translation>Index</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="127"/>
+        <location filename="../ui/src/docbrowser.cpp" line="131"/>
         <source>About Qt</source>
         <translation>Qt について</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="128"/>
+        <location filename="../ui/src/docbrowser.cpp" line="132"/>
         <source>Close this window</source>
         <translation type="unfinished"></translation>
     </message>
@@ -272,163 +272,153 @@
         <translation>チャンネルの編集</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="45"/>
+        <location filename="editchannel.ui" line="114"/>
+        <source>&lt;font color=&quot;red&quot;&gt;&lt;b&gt;Capability overlapping detected. Please fix.&lt;/b&gt;&lt;/font&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editchannel.ui" line="198"/>
         <source>Name</source>
         <translation>名前</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="91"/>
+        <location filename="editchannel.ui" line="240"/>
+        <source>Default value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editchannel.ui" line="253"/>
+        <source>Type</source>
+        <translation type="unfinished">タイプ</translation>
+    </message>
+    <message>
+        <location filename="editchannel.ui" line="260"/>
+        <location filename="editchannel.ui" line="303"/>
+        <source>Preset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editchannel.ui" line="267"/>
         <source>The name of this channel</source>
         <translation>このチャンネルの名前</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="84"/>
-        <source>Group</source>
-        <translation>グループ</translation>
+        <location filename="editchannel.ui" line="274"/>
+        <source>Role</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="104"/>
+        <location filename="editchannel.ui" line="336"/>
+        <source>Color 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editchannel.ui" line="360"/>
+        <source>Color 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editchannel.ui" line="387"/>
+        <source>Value 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editchannel.ui" line="401"/>
+        <source>Value 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editchannel.ui" line="430"/>
+        <source>Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editchannel.ui" line="227"/>
         <source>The group this channel belongs to</source>
         <translation>このチャンネルが所属するチャンネルグループ</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="58"/>
-        <location filename="editchannel.ui" line="276"/>
-        <location filename="editchannel.cpp" line="187"/>
-        <source>Colour</source>
-        <translation>色</translation>
-    </message>
-    <message>
-        <location filename="editchannel.ui" line="71"/>
-        <source>Primary colour level controlled by this channel</source>
-        <translation>このチャンネル固有の色がある場合(LED灯体など)に選択</translation>
-    </message>
-    <message>
-        <location filename="editchannel.ui" line="119"/>
-        <source>Capability Values</source>
-        <translation type="unfinished">DMX値に応じた機能</translation>
-    </message>
-    <message>
-        <location filename="editchannel.ui" line="167"/>
-        <source>Min</source>
-        <translation type="unfinished">Min</translation>
-    </message>
-    <message>
-        <location filename="editchannel.ui" line="180"/>
-        <source>Max</source>
-        <translation type="unfinished">Max</translation>
-    </message>
-    <message>
-        <location filename="editchannel.ui" line="187"/>
-        <source>Invalid Range: overlapping with another capability.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="editchannel.ui" line="210"/>
-        <location filename="editchannel.cpp" line="185"/>
-        <source>Gobo</source>
-        <translation type="unfinished">ゴボ</translation>
-    </message>
-    <message>
-        <location filename="editchannel.ui" line="269"/>
+        <location filename="editchannel.ui" line="322"/>
         <source>Picture</source>
         <translation type="unfinished">アイコン画像</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="290"/>
-        <source>Second Colour</source>
-        <translation type="unfinished">色2</translation>
-    </message>
-    <message>
-        <location filename="editchannel.ui" line="302"/>
-        <source>Control Byte</source>
-        <translation>Control Byte (16bit操作の場合)</translation>
-    </message>
-    <message>
-        <location filename="editchannel.ui" line="308"/>
+        <location filename="editchannel.ui" line="283"/>
         <source>Coarse (MSB)</source>
         <translation>標準 (MSB, 上位バイト)</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="315"/>
+        <location filename="editchannel.ui" line="290"/>
         <source>Fine (LSB)</source>
         <translation>ファイン (LSB, 下位バイト)</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="341"/>
+        <location filename="editchannel.ui" line="55"/>
         <source>Capabilities</source>
         <translation>DMX値に応じた機能</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="433"/>
+        <location filename="editchannel.ui" line="90"/>
+        <location filename="editchannel.cpp" line="572"/>
         <source>Minimum value</source>
         <translation>Min</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="438"/>
+        <location filename="editchannel.ui" line="95"/>
+        <location filename="editchannel.cpp" line="572"/>
         <source>Maximum value</source>
         <translation>Max</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="131"/>
-        <location filename="editchannel.ui" line="443"/>
+        <location filename="editchannel.ui" line="100"/>
+        <location filename="editchannel.cpp" line="572"/>
         <source>Description</source>
         <translation>機能名・説明</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="347"/>
-        <source>Add a new capability</source>
-        <translation>機能を追加</translation>
-    </message>
-    <message>
-        <location filename="editchannel.ui" line="400"/>
+        <location filename="editchannel.ui" line="154"/>
         <source>Remove the selected capability</source>
         <translation>選択した機能を削除</translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="380"/>
+        <location filename="editchannel.ui" line="121"/>
         <source>Capability wizard</source>
         <translation>機能をまとめて追加</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="86"/>
+        <location filename="editchannel.cpp" line="93"/>
         <source>Edit Channel: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="189"/>
-        <source>Effect</source>
-        <translation type="unfinished">エフェクト</translation>
-    </message>
-    <message>
-        <location filename="editchannel.cpp" line="396"/>
+        <location filename="editchannel.cpp" line="481"/>
         <source>Overlapping values</source>
         <translation>DMX値の重複</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="456"/>
+        <location filename="editchannel.cpp" line="498"/>
         <source>Open Gobo File</source>
         <translation type="unfinished">ゴボファイルを開く</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="459"/>
+        <location filename="editchannel.cpp" line="501"/>
         <source>Gobo pictures</source>
         <translation type="unfinished">ゴボ画像</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="558"/>
+        <location filename="editchannel.cpp" line="615"/>
         <source>Missing resources</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="559"/>
+        <location filename="editchannel.cpp" line="616"/>
         <source>Some gobos are missing:
 
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="397"/>
+        <location filename="editchannel.cpp" line="482"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
         <translation>DMX値の重複により、作成できなかった機能があります。</translation>
     </message>
@@ -469,196 +459,219 @@
         <translation>チャンネル</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="78"/>
+        <location filename="editmode.ui" line="161"/>
         <source>Number</source>
         <translation>番号</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="83"/>
-        <location filename="editmode.ui" line="771"/>
+        <location filename="editmode.ui" line="166"/>
         <source>Name</source>
         <translation>名前</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="91"/>
+        <location filename="editmode.ui" line="79"/>
         <source>Add channel(s) to this mode</source>
         <translation>このモードで使うチャンネルを追加</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="111"/>
+        <location filename="editmode.ui" line="59"/>
         <source>Remove the selected channel</source>
         <translation>選択したチャンネルの削除</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="131"/>
+        <location filename="editmode.ui" line="99"/>
         <source>Raise the selected channel</source>
         <translation>選択したチャンネルを上へ</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="151"/>
+        <location filename="editmode.ui" line="119"/>
         <source>Lower the selected channel</source>
         <translation>選択したチャンネルを下へ</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="185"/>
+        <location filename="editmode.ui" line="171"/>
+        <source>Acts On</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editmode.ui" line="193"/>
         <source>Heads</source>
         <translation>Heads</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="198"/>
+        <location filename="editmode.ui" line="206"/>
         <source>Head</source>
         <translation>Head</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="206"/>
+        <location filename="editmode.ui" line="214"/>
         <source>Compose a new head</source>
         <translation>Compose a new head</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="226"/>
+        <location filename="editmode.ui" line="234"/>
         <source>Remove the selected head</source>
         <translation>Remove the selected head</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="246"/>
+        <location filename="editmode.ui" line="254"/>
         <source>Edit the channels that belong to the selected head</source>
         <translation>Edit the channels that belong to the selected head</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="249"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="editmode.ui" line="266"/>
+        <location filename="editmode.ui" line="274"/>
         <source>Raise the selected head</source>
         <translation>Raise the selected head</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="286"/>
+        <location filename="editmode.ui" line="294"/>
         <source>Lower the selected head</source>
         <translation>Lower the selected head</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="320"/>
+        <location filename="editmode.ui" line="328"/>
         <source>Physical</source>
         <translation>機種情報</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="326"/>
+        <location filename="editmode.ui" line="338"/>
+        <source>Use global settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editmode.ui" line="348"/>
+        <source>Override global settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>EditPhysical</name>
+    <message>
+        <location filename="editphysical.ui" line="277"/>
         <source>Bulb</source>
         <translation>電球</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="332"/>
-        <location filename="editmode.ui" line="849"/>
+        <location filename="editphysical.ui" line="45"/>
+        <location filename="editphysical.ui" line="283"/>
         <source>Type</source>
         <translation>タイプ</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="564"/>
+        <location filename="editphysical.ui" line="515"/>
         <source>Lumens</source>
         <translation>ルーメン</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="584"/>
+        <location filename="editphysical.ui" line="535"/>
         <source>Colour Temp (K)</source>
         <translation>色温度 (K)</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="679"/>
+        <location filename="editphysical.ui" line="708"/>
         <source>Dimensions</source>
         <translation>形状</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="685"/>
+        <location filename="editphysical.ui" line="784"/>
         <source>Weight</source>
         <translation>重さ</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="692"/>
+        <location filename="editphysical.ui" line="714"/>
         <source>kg</source>
         <translation>Kg</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="702"/>
+        <location filename="editphysical.ui" line="724"/>
         <source>Width</source>
         <translation>幅</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="712"/>
-        <location filename="editmode.ui" line="732"/>
-        <location filename="editmode.ui" line="752"/>
+        <location filename="editphysical.ui" line="734"/>
+        <location filename="editphysical.ui" line="754"/>
+        <location filename="editphysical.ui" line="774"/>
         <source>mm</source>
         <translation>mm</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="722"/>
+        <location filename="editphysical.ui" line="744"/>
         <source>Height</source>
         <translation>高さ</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="742"/>
+        <location filename="editphysical.ui" line="764"/>
         <source>Depth</source>
         <translation>奥行き</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="765"/>
+        <location filename="editphysical.ui" line="39"/>
+        <source>Head(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editphysical.ui" line="630"/>
         <source>Lens</source>
         <translation>レンズ</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="800"/>
+        <location filename="editphysical.ui" line="636"/>
+        <source>Name</source>
+        <translation>名前</translation>
+    </message>
+    <message>
+        <location filename="editphysical.ui" line="665"/>
         <source>Min Degrees</source>
         <translation>最小照射角度</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="807"/>
+        <location filename="editphysical.ui" line="672"/>
         <source>Max Degrees</source>
         <translation>最大照射角度</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="843"/>
-        <source>Focus</source>
-        <translation>フォーカス</translation>
-    </message>
-    <message>
-        <location filename="editmode.ui" line="883"/>
+        <location filename="editphysical.ui" line="79"/>
         <source>Pan Max Degrees</source>
         <translation>最大パン角度</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="900"/>
+        <location filename="editphysical.ui" line="96"/>
         <source>Tilt Max Degrees</source>
         <translation>最大チルト角度</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="920"/>
+        <location filename="editphysical.ui" line="113"/>
+        <source>Layout
+(Columns x Rows)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editphysical.ui" line="158"/>
         <source>Electrical</source>
         <translation>電気関係</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="926"/>
+        <location filename="editphysical.ui" line="164"/>
         <source>Power Consumption</source>
         <translation>消費電力</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="936"/>
+        <location filename="editphysical.ui" line="174"/>
         <source>W</source>
         <translation>W</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="946"/>
+        <location filename="editphysical.ui" line="184"/>
         <source>DMX Connector</source>
         <translation>DMXコネクタ</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="993"/>
+        <location filename="editphysical.ui" line="241"/>
         <source>Copy physical information to clipboard</source>
         <translation>機種情報をコピー</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="1010"/>
+        <location filename="editphysical.ui" line="258"/>
         <source>Paste physical information from clipboard</source>
         <translation>機種情報を貼り付け</translation>
     </message>
@@ -706,108 +719,164 @@
         <translation>この機器の種別</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.ui" line="229"/>
+        <location filename="fixtureeditor.ui" line="247"/>
         <source>Author</source>
         <translation>データ作成者</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.ui" line="236"/>
+        <location filename="fixtureeditor.ui" line="254"/>
         <source>The name of the author of this fixture definition</source>
         <oldsource>The author name of this fixture definition</oldsource>
         <translation>この機器データの作成者</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.ui" line="257"/>
-        <location filename="fixtureeditor.ui" line="457"/>
+        <location filename="fixtureeditor.ui" line="298"/>
+        <location filename="fixtureeditor.ui" line="498"/>
         <source>Channels</source>
         <translation>チャンネル一覧</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.ui" line="279"/>
-        <location filename="fixtureeditor.ui" line="452"/>
+        <location filename="fixtureeditor.ui" line="320"/>
+        <location filename="fixtureeditor.ui" line="493"/>
         <source>Name</source>
         <translation>名前</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.ui" line="284"/>
+        <location filename="fixtureeditor.ui" line="325"/>
         <source>Group</source>
         <translation>グループ</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.ui" line="292"/>
+        <location filename="fixtureeditor.ui" line="333"/>
         <source>Add a channel</source>
         <translation>チャンネル追加</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.ui" line="312"/>
+        <location filename="fixtureeditor.ui" line="353"/>
         <source>Remove the selected channel</source>
         <translation>選択したチャンネルの削除</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.ui" line="332"/>
+        <location filename="fixtureeditor.ui" line="373"/>
         <source>Edit the selected channel</source>
         <translation>選択したチャンネルの編集</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.ui" line="359"/>
+        <location filename="fixtureeditor.ui" line="400"/>
         <source>Copy the selected channel to the clipboard</source>
         <translation>選択したチャンネルをコピー</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.ui" line="379"/>
+        <location filename="fixtureeditor.ui" line="420"/>
         <source>Paste the channel in clipboard to this fixture</source>
         <translation>コピーしたチャンネルの貼り付け</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.ui" line="412"/>
+        <location filename="fixtureeditor.ui" line="453"/>
         <source>Open/close all channel items</source>
         <translation>Open/close all channel items</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.ui" line="433"/>
+        <location filename="fixtureeditor.ui" line="474"/>
         <source>Modes</source>
         <translation>モード</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.ui" line="462"/>
+        <location filename="fixtureeditor.ui" line="503"/>
         <source>Heads</source>
         <translation>Heads</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.ui" line="470"/>
+        <location filename="fixtureeditor.ui" line="511"/>
         <source>Add a mode</source>
         <translation>モードを追加</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.ui" line="490"/>
+        <location filename="fixtureeditor.ui" line="531"/>
         <source>Remove the selected mode</source>
         <translation>選択したモードの削除</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.ui" line="510"/>
+        <location filename="fixtureeditor.ui" line="551"/>
         <source>Edit the selected mode</source>
         <translation>選択したモードの編集</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.ui" line="537"/>
+        <location filename="fixtureeditor.ui" line="578"/>
         <source>Create a copy of the selected mode</source>
         <translation>選択したモードをコピー</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.ui" line="570"/>
+        <location filename="fixtureeditor.ui" line="611"/>
         <source>Open/close all mode items</source>
         <translation>Open/close all mode items</translation>
+    </message>
+    <message>
+        <location filename="fixtureeditor.ui" line="632"/>
+        <source>Aliases</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixtureeditor.ui" line="650"/>
+        <source>In mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixtureeditor.ui" line="667"/>
+        <source>Add a new alias</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixtureeditor.ui" line="687"/>
+        <source>with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixtureeditor.ui" line="694"/>
+        <source>replace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixtureeditor.ui" line="711"/>
+        <location filename="fixtureeditor.ui" line="764"/>
+        <source>Alias</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixtureeditor.ui" line="716"/>
+        <source>Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixtureeditor.ui" line="721"/>
+        <source>Base channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixtureeditor.ui" line="726"/>
+        <source>Override channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixtureeditor.ui" line="744"/>
+        <source>Remove the currently selected alias</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixtureeditor.ui" line="275"/>
+        <source>Physical</source>
+        <translation type="unfinished">機種情報</translation>
     </message>
 </context>
 <context>
     <name>QLCFixtureEditor</name>
     <message>
-        <location filename="fixtureeditor.cpp" line="199"/>
+        <location filename="fixtureeditor.cpp" line="207"/>
         <source>Close</source>
         <translation>閉じる</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="200"/>
+        <location filename="fixtureeditor.cpp" line="208"/>
         <source>Do you want to save changes to fixture
 &quot;%1&quot;
 before closing?</source>
@@ -816,34 +885,34 @@ before closing?</source>
 への変更を保存しますか？</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="229"/>
-        <location filename="fixtureeditor.cpp" line="239"/>
+        <location filename="fixtureeditor.cpp" line="237"/>
+        <location filename="fixtureeditor.cpp" line="247"/>
         <source>Missing important information</source>
         <translation>必須項目が未入力です</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="230"/>
+        <location filename="fixtureeditor.cpp" line="238"/>
         <source>Missing manufacturer name.
 Unable to save fixture.</source>
         <translation>メーカー名が未入力です。
 保存できません。</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="240"/>
+        <location filename="fixtureeditor.cpp" line="248"/>
         <source>Missing fixture model name.
 Unable to save fixture.</source>
         <translation>機種名が未入力です。
 保存できません。</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="269"/>
-        <location filename="fixtureeditor.cpp" line="327"/>
+        <location filename="fixtureeditor.cpp" line="278"/>
+        <location filename="fixtureeditor.cpp" line="337"/>
         <source>Fixture saving failed</source>
         <translation>保存できません</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="270"/>
-        <location filename="fixtureeditor.cpp" line="328"/>
+        <location filename="fixtureeditor.cpp" line="279"/>
+        <location filename="fixtureeditor.cpp" line="338"/>
         <source>Unable to save fixture definition:
 %1</source>
         <oldsource>Unable to save fixture definition: </oldsource>
@@ -851,133 +920,133 @@ Unable to save fixture.</source>
 %1</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="285"/>
+        <location filename="fixtureeditor.cpp" line="294"/>
         <source>Save fixture definition</source>
         <translation>機器データの保存</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="346"/>
+        <location filename="fixtureeditor.cpp" line="371"/>
         <source>New Fixture</source>
         <translation>新規機器</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="423"/>
-        <location filename="fixtureeditor.cpp" line="508"/>
+        <location filename="fixtureeditor.cpp" line="448"/>
+        <location filename="fixtureeditor.cpp" line="548"/>
         <source>Channel already exists</source>
         <translation>そのチャンネルは既に存在しています</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="424"/>
-        <location filename="fixtureeditor.cpp" line="509"/>
+        <location filename="fixtureeditor.cpp" line="449"/>
+        <location filename="fixtureeditor.cpp" line="549"/>
         <source>A channel by the name &quot;%1&quot; already exists!</source>
         <translation>&quot;%1&quot; という名前のチャンネルはすでに存在しています。</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="431"/>
-        <location filename="fixtureeditor.cpp" line="515"/>
+        <location filename="fixtureeditor.cpp" line="456"/>
+        <location filename="fixtureeditor.cpp" line="555"/>
         <source>Channel has no name</source>
         <translation>チャンネル名未入力</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="432"/>
-        <location filename="fixtureeditor.cpp" line="516"/>
+        <location filename="fixtureeditor.cpp" line="457"/>
+        <location filename="fixtureeditor.cpp" line="556"/>
         <source>You must give the channel a descriptive name!</source>
         <translation>チャンネルの名前を決めてください。</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="467"/>
-        <source>Are you sure you wish to remove channel: %1 ?</source>
+        <location filename="fixtureeditor.cpp" line="494"/>
+        <source>Are you sure you wish to remove channel: %1?</source>
         <translation>チャンネル %1 を削除しますか？</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="783"/>
-        <source>Are you sure you wish to remove mode: %1 ?</source>
+        <location filename="fixtureeditor.cpp" line="827"/>
+        <source>Are you sure you wish to remove mode: %1?</source>
         <translation>以下のモードを削除しますか: %1 ？</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="628"/>
-        <location filename="fixtureeditor.cpp" line="663"/>
-        <location filename="fixtureeditor.cpp" line="879"/>
+        <location filename="fixtureeditor.cpp" line="668"/>
+        <location filename="fixtureeditor.cpp" line="703"/>
+        <location filename="fixtureeditor.cpp" line="928"/>
         <source>Edit</source>
         <translation>編集</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="629"/>
-        <location filename="fixtureeditor.cpp" line="665"/>
+        <location filename="fixtureeditor.cpp" line="669"/>
+        <location filename="fixtureeditor.cpp" line="705"/>
         <source>Copy</source>
         <translation>コピー</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="630"/>
-        <location filename="fixtureeditor.cpp" line="667"/>
+        <location filename="fixtureeditor.cpp" line="670"/>
+        <location filename="fixtureeditor.cpp" line="707"/>
         <source>Paste</source>
         <translation>ペースト</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="631"/>
-        <location filename="fixtureeditor.cpp" line="669"/>
-        <location filename="fixtureeditor.cpp" line="885"/>
+        <location filename="fixtureeditor.cpp" line="671"/>
+        <location filename="fixtureeditor.cpp" line="709"/>
+        <location filename="fixtureeditor.cpp" line="934"/>
         <source>Remove</source>
         <translation>削除</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="642"/>
+        <location filename="fixtureeditor.cpp" line="682"/>
         <source>Channels</source>
         <translation>チャンネル</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="738"/>
-        <location filename="fixtureeditor.cpp" line="747"/>
+        <location filename="fixtureeditor.cpp" line="780"/>
+        <location filename="fixtureeditor.cpp" line="789"/>
         <source>Unable to add mode</source>
         <translation>モードを追加できません</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="739"/>
+        <location filename="fixtureeditor.cpp" line="781"/>
         <source>Another mode by that name already exists</source>
         <translation>その名前のモードは既に存在しています</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="748"/>
+        <location filename="fixtureeditor.cpp" line="790"/>
         <source>You must give a name to the mode</source>
         <translation>モード名を決めてください</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="782"/>
+        <location filename="fixtureeditor.cpp" line="826"/>
         <source>Remove Mode</source>
         <translation>モードの削除</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="825"/>
+        <location filename="fixtureeditor.cpp" line="874"/>
         <source>Rename new mode</source>
         <translation>モード名の変更</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="826"/>
+        <location filename="fixtureeditor.cpp" line="875"/>
         <source>Give a unique name for the mode</source>
         <translation>モードには固有の名前を付けてください</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="828"/>
+        <location filename="fixtureeditor.cpp" line="877"/>
         <source>Copy of %1</source>
         <translation>Copy of %1</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="838"/>
+        <location filename="fixtureeditor.cpp" line="887"/>
         <source>Invalid name</source>
         <translation>無効な名前</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="839"/>
+        <location filename="fixtureeditor.cpp" line="888"/>
         <source>Another mode by that name already exists.</source>
         <translation>その名前のモードは既に存在しています。</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="882"/>
+        <location filename="fixtureeditor.cpp" line="931"/>
         <source>Clone</source>
         <translation>複製</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="890"/>
+        <location filename="fixtureeditor.cpp" line="939"/>
         <source>Modes</source>
         <translation>モード</translation>
     </message>

@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Erik</Author>
  </Creator>
  <Manufacturer>Varytec</Manufacturer>
@@ -30,8 +30,8 @@
  <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="16">No function</Capability>
-  <Capability Min="17" Max="255">Strobe</Capability>
+  <Capability Min="0" Max="16" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="17" Max="255" Preset="StrobeSlowToFast">Strobe</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Colour Macros">
@@ -121,11 +121,11 @@
    <Channel>10</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.37" Width="236" Height="301" Depth="134"/>
-   <Lens Name="zoom" DegreesMin="5" DegreesMax="35"/>
-   <Focus Type="Head" PanMax="630" TiltMax="235"/>
-   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.37" Width="236" Height="301" Depth="134"/>
+  <Lens Name="zoom" DegreesMin="5" DegreesMax="35"/>
+  <Focus Type="Head" PanMax="630" TiltMax="235"/>
+  <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

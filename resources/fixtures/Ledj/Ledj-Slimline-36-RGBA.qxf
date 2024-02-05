@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2 GIT</Version>
+  <Author>Andrew</Author>
+ </Creator>
+ <Manufacturer>Ledj</Manufacturer>
+ <Model>Slimline 36 RGBA</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Colour Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="4" Preset="Alias">Blackout
+   <Alias Mode="7 Channel" Channel="Red" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Blue" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Amber" With="No function"/>
+  </Capability>
+  <Capability Min="5" Max="10" Preset="Alias">Colour macro - Red
+   <Alias Mode="7 Channel" Channel="Red" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Blue" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Amber" With="No function"/>
+  </Capability>
+  <Capability Min="11" Max="15" Preset="Alias">Colour macro - Green
+   <Alias Mode="7 Channel" Channel="Red" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Blue" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Amber" With="No function"/>
+  </Capability>
+  <Capability Min="16" Max="20" Preset="Alias">Colour macro - Blue
+   <Alias Mode="7 Channel" Channel="Red" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Blue" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Amber" With="No function"/>
+  </Capability>
+  <Capability Min="21" Max="25" Preset="Alias">Colour macro - Amber
+   <Alias Mode="7 Channel" Channel="Red" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Blue" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Amber" With="No function"/>
+  </Capability>
+  <Capability Min="26" Max="30" Preset="Alias">Colour macro - RG
+   <Alias Mode="7 Channel" Channel="Red" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Blue" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Amber" With="No function"/>
+  </Capability>
+  <Capability Min="31" Max="35" Preset="Alias">Colour macro - GB
+   <Alias Mode="7 Channel" Channel="Red" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Blue" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Amber" With="No function"/>
+  </Capability>
+  <Capability Min="36" Max="40" Preset="Alias">Colour macro - RB
+   <Alias Mode="7 Channel" Channel="Red" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Blue" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Amber" With="No function"/>
+  </Capability>
+  <Capability Min="41" Max="45" Preset="Alias">Colour macro - RA
+   <Alias Mode="7 Channel" Channel="Red" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Blue" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Amber" With="No function"/>
+  </Capability>
+  <Capability Min="46" Max="50" Preset="Alias">Colour macro - GA
+   <Alias Mode="7 Channel" Channel="Red" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Blue" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Amber" With="No function"/>
+  </Capability>
+  <Capability Min="51" Max="55" Preset="Alias">Colour macro - BA
+   <Alias Mode="7 Channel" Channel="Red" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Blue" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Amber" With="No function"/>
+  </Capability>
+  <Capability Min="56" Max="60" Preset="Alias">Colour macro - RGB
+   <Alias Mode="7 Channel" Channel="Red" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Blue" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Amber" With="No function"/>
+  </Capability>
+  <Capability Min="61" Max="65" Preset="Alias">Colour macro - RGA
+   <Alias Mode="7 Channel" Channel="Red" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Blue" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Amber" With="No function"/>
+  </Capability>
+  <Capability Min="66" Max="70" Preset="Alias">Colour macro - RBA
+   <Alias Mode="7 Channel" Channel="Red" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Blue" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Amber" With="No function"/>
+  </Capability>
+  <Capability Min="71" Max="75" Preset="Alias">Colour macro - GBA
+   <Alias Mode="7 Channel" Channel="Red" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Blue" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Amber" With="No function"/>
+  </Capability>
+  <Capability Min="76" Max="80" Preset="Alias">Colour macro - RGBA
+   <Alias Mode="7 Channel" Channel="Red" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Blue" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Amber" With="No function"/>
+  </Capability>
+  <Capability Min="81" Max="150" Preset="Alias">Colour change (Slow to fast)
+   <Alias Mode="7 Channel" Channel="Red" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Blue" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Amber" With="No function"/>
+  </Capability>
+  <Capability Min="151" Max="255" Preset="Alias">Colour fade (Slow to fast)
+   <Alias Mode="7 Channel" Channel="Red" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Blue" With="No function"/>
+   <Alias Mode="7 Channel" Channel="Amber" With="No function"/>
+  </Capability>
+ </Channel>
+ <Channel Name="Master dimmer 2">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="240">Master dimmer (0-100%)</Capability>
+  <Capability Min="241" Max="255">Strobe (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="No function" Preset="NoFunction"/>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Master dimmer 2</Channel>
+  <Channel Number="1">Colour Macro</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">Colour Macro</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.3" Width="289" Height="336" Depth="79"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="41" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

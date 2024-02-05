@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Vari-Lite</Manufacturer>
@@ -46,14 +46,14 @@
  </Channel>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="1">No Function</Capability>
+  <Capability Min="0" Max="1">No function</Capability>
   <Capability Min="2" Max="4">Display On</Capability>
-  <Capability Min="5" Max="80">No Function</Capability>
+  <Capability Min="5" Max="80">No function</Capability>
   <Capability Min="81" Max="87">Luminaire Reset</Capability>
-  <Capability Min="88" Max="164">No Function</Capability>
-  <Capability Min="165" Max="171">Lamp Off</Capability>
-  <Capability Min="172" Max="248">No Function</Capability>
-  <Capability Min="249" Max="255">Lamp On</Capability>
+  <Capability Min="88" Max="164">No function</Capability>
+  <Capability Min="165" Max="171" Preset="LampOff">Lamp Off</Capability>
+  <Capability Min="172" Max="248">No function</Capability>
+  <Capability Min="249" Max="255" Preset="LampOn">Lamp On</Capability>
  </Channel>
  <Mode Name="Normal Mode">
   <Channel Number="0">Dimmer</Channel>
@@ -72,11 +72,11 @@
   <Channel Number="13">B Time</Channel>
   <Channel Number="14">Control</Channel>
  </Mode>
-<Physical>
-   <Bulb ColourTemperature="5600" Type="HMI 700W" Lumens="0"/>
-   <Dimensions Depth="650" Height="480" Width="478" Weight="26.1"/>
-   <Lens Name="Other" DegreesMin="14" DegreesMax="55.5"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="900" DmxConnector="5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="HMI 700W" Lumens="0" ColourTemperature="5600"/>
+  <Dimensions Weight="26.1" Width="478" Height="480" Depth="650"/>
+  <Lens Name="Other" DegreesMin="14" DegreesMax="55.5"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="900" DmxConnector="5-pin"/>
+ </Physical>
 </FixtureDefinition>

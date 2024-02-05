@@ -78,6 +78,10 @@ public:
      *  false is returned and the caller should stop the RGBMatrix */
     bool checkNextStep(Function::RunOrder order, QColor startColor, QColor endColor, int stepsNumber);
 
+public:
+    /** Matrix RGB data of the current step */
+    RGBMap m_map;
+
 private:
     /** The current direction of the steps playback */
     Function::Direction m_direction;
@@ -121,6 +125,7 @@ public:
     bool dimmerControl() const;
 
 private:
+    // LEGACY: replaced by ControlModeDimmer
     bool m_dimmerControl;
 
     /*********************************************************************
@@ -159,17 +164,25 @@ public:
     RGBAlgorithm* algorithm() const;
 
     /** Get the algorithm protection mutex */
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     QMutex& algorithmMutex();
+#else
+    QRecursiveMutex& algorithmMutex();
+#endif
 
     /** Get the number of steps of the current algorithm */
     int stepsCount();
 
     /** Get the preview of the current algorithm at the given step */
-    RGBMap previewMap(int step, RGBMatrixStep *handler);
+    void previewMap(int step, RGBMatrixStep *handler);
 
 private:
-    RGBAlgorithm* m_algorithm;
+    RGBAlgorithm *m_algorithm;
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     QMutex m_algorithmMutex;
+#else
+    QRecursiveMutex m_algorithmMutex;
+#endif
 
     /************************************************************************
      * Color
@@ -220,31 +233,31 @@ public:
     void tap();
 
     /** @reimp */
-    void preRun(MasterTimer* timer);
+    void preRun(MasterTimer *timer);
 
     /** @reimp */
-    void write(MasterTimer* timer, QList<Universe*> universes);
+    void write(MasterTimer *timer, QList<Universe*> universes);
 
     /** @reimp */
-    void postRun(MasterTimer* timer, QList<Universe*> universes);
+    void postRun(MasterTimer *timer, QList<Universe*> universes);
 
 private:
     /** Check what should be done when elapsed() >= duration() */
     void roundCheck();
 
-    /** Update new FadeChannels to m_fader when $map has changed since last time */
-    void updateMapChannels(const RGBMap& map, const FixtureGroup* grp);
+    FadeChannel *getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel);
+    void updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime);
 
-    /** Grab starting values for a fade channel from $fader if available */
-    void insertStartValues(FadeChannel& fc, uint fadeTime) const;
+    /** Update FadeChannels when $map has changed since last time */
+    void updateMapChannels(const RGBMap& map, const FixtureGroup* grp, QList<Universe *> universes);
+
+public:
+    /** Convert color values to fader value */
+    static uchar rgbToGrey(uint col);
 
 private:
-    /** Reference of a GenericFader in charge of actually sending DMX data
-     *  of the current RGB Matrix step, including fade transitions */
-    GenericFader* m_fader;
-
     /** Reference to a timer counting the time in ms between steps */
-    QElapsedTimer* m_roundTime;
+    QElapsedTimer *m_roundTime;
 
     /** The number of steps returned by the currently loaded algorithm */
     int m_stepsCount;
@@ -265,6 +278,34 @@ public:
 public:
     /** @reimp */
     void setBlendMode(Universe::BlendMode mode);
+
+    /*************************************************************************
+     * Control Mode
+     *************************************************************************/
+public:
+    /** Control modes for the RGB Matrix */
+    enum ControlMode
+    {
+        ControlModeRgb = 0,
+        ControlModeWhite,
+        ControlModeAmber,
+        ControlModeUV,
+        ControlModeDimmer,
+        ControlModeShutter
+    };
+
+    /** Get/Set the control mode associated to this RGBMatrix */
+    ControlMode controlMode() const;
+    void setControlMode(ControlMode mode);
+
+    /** Return a control mode from a string */
+    static ControlMode stringToControlMode(QString mode);
+
+    /** Return a string from a control mode, to be saved into a XML */
+    static QString controlModeToString(ControlMode mode);
+
+private:
+    ControlMode m_controlMode;
 };
 
 /** @} */

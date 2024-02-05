@@ -25,14 +25,16 @@
 #include <QMutex>
 #include <QHash>
 #include <QList>
+#include <QMap>
 
 #include "dmxsource.h"
 #include "cue.h"
 
 class QXmlStreamReader;
 class QXmlStreamWriter;
-class UniverseArray;
+class GenericFader;
 class MasterTimer;
+class FadeChannel;
 class CueStack;
 class Doc;
 
@@ -40,7 +42,7 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCSimpleDeskEngine "Engine"
+#define KXMLQLCSimpleDeskEngine QString("Engine")
 
 class SimpleDeskEngine : public QObject, public DMXSource
 {
@@ -57,13 +59,18 @@ public:
     void clearContents();
 
 private:
-    /** Get the parent Doc object */
-    Doc* doc() const;
+    Doc *m_doc;
 
     /************************************************************************
      * Universe Values
      ************************************************************************/
 public:
+    enum SimpleDeskCommand
+    {
+        ResetChannel,
+        ResetUniverse
+    };
+
     /** Set the value of a single channel */
     void setValue(uint channel, uchar value);
 
@@ -88,6 +95,10 @@ private:
     /** A map of channel absolute addresses and their values.
       * Note that only channels overridden by Simple Desk are here */
     QHash <uint,uchar> m_values;
+
+    /** A list of commands to be executed on writeDMX.
+     *  This is used to sync reset requests with mastertimer ticks */
+    QList< QPair<int,quint32> > m_commandQueue;
 
     /************************************************************************
      * Cue Stacks
@@ -135,6 +146,13 @@ public:
     /** @reimpl */
     void writeDMX(MasterTimer* timer, QList<Universe*> ua);
 
+private:
+    FadeChannel *getFader(QList<Universe *> universes, quint32 universeID,
+                          quint32 fixtureID, quint32 channel);
+
+private:
+    /** Map used to lookup a GenericFader instance for a Universe ID */
+    QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
 };
 
 /** @} */

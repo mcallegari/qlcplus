@@ -30,7 +30,6 @@
 
 #define USE_HANNING
 #define CLEAR_FFT_NOISE
-
 #define M_2PI       6.28318530718           /* 2*pi */
 
 AudioCapture::AudioCapture (QObject* parent)
@@ -41,10 +40,11 @@ AudioCapture::AudioCapture (QObject* parent)
     , m_sampleRate(0)
     , m_channels(0)
     , m_audioBuffer(NULL)
+    , m_audioMixdown(NULL)
     , m_fftInputBuffer(NULL)
     , m_fftOutputBuffer(NULL)
 {
-    int bufferSize = AUDIO_DEFAULT_BUFFER_SIZE;
+    bufferSize = AUDIO_DEFAULT_BUFFER_SIZE;
     m_sampleRate = AUDIO_DEFAULT_SAMPLE_RATE;
     m_channels = AUDIO_DEFAULT_CHANNELS;
 
@@ -64,9 +64,10 @@ AudioCapture::AudioCapture (QObject* parent)
     m_captureSize = bufferSize * m_channels;
 
     m_audioBuffer = new int16_t[m_captureSize];
-    m_fftInputBuffer = new double[m_captureSize];
+    m_audioMixdown = new int16_t[bufferSize];
+    m_fftInputBuffer = new double[bufferSize];
 #ifdef HAS_FFTW3
-    m_fftOutputBuffer = fftw_malloc(sizeof(fftw_complex) * m_captureSize);
+    m_fftOutputBuffer = fftw_malloc(sizeof(fftw_complex) * bufferSize);
 #endif
 }
 
@@ -76,6 +77,7 @@ AudioCapture::~AudioCapture()
     Q_ASSERT(!this->isRunning());
 
     delete[] m_audioBuffer;
+    delete[] m_audioMixdown;
     delete[] m_fftInputBuffer;
 #ifdef HAS_FFTW3
     if (m_fftOutputBuffer)
@@ -151,22 +153,22 @@ double AudioCapture::fillBandsData(int number)
     // representing all the frequencies from 0 to m_sampleRate Hz.
     // I will just consider 0 to 5000Hz and will calculate average magnitude
     // for the number of desired bands.
-    double maxMagnitude = 0;
+    double maxMagnitude = 0.;
 #ifdef HAS_FFTW3
-    unsigned int i = 0;
-    int subBandWidth = ((m_captureSize * SPECTRUM_MAX_FREQUENCY) / m_sampleRate) / number;
+    unsigned int i = 1; // skip DC bin
+    int subBandWidth = ((bufferSize * SPECTRUM_MAX_FREQUENCY) / m_sampleRate) / number;
 
     for (int b = 0; b < number; b++)
     {
-        quint64 magnitudeSum = 0;
+        double magnitudeSum = 0.;
         for (int s = 0; s < subBandWidth; s++, i++)
         {
-            if (i == m_captureSize)
+            if (i == bufferSize)
                 break;
             magnitudeSum += qSqrt((((fftw_complex*)m_fftOutputBuffer)[i][0] * ((fftw_complex*)m_fftOutputBuffer)[i][0]) +
                                   (((fftw_complex*)m_fftOutputBuffer)[i][1] * ((fftw_complex*)m_fftOutputBuffer)[i][1]));
         }
-        double bandMagnitude = (magnitudeSum / subBandWidth);
+        double bandMagnitude = (magnitudeSum / (subBandWidth * M_2PI));
         m_fftMagnitudeMap[number].m_fftMagnitudeBuffer[b] = bandMagnitude;
         if (maxMagnitude < bandMagnitude)
             maxMagnitude = bandMagnitude;
@@ -180,35 +182,41 @@ double AudioCapture::fillBandsData(int number)
 void AudioCapture::processData()
 {
 #ifdef HAS_FFTW3
-    unsigned int i;
-    quint64 pwrSum = 0;
+    unsigned int i, j;
+    double pwrSum = 0.;
+    double maxMagnitude = 0.;
 
     // 1 ********* Initialize FFTW
     fftw_plan plan_forward;
-    plan_forward = fftw_plan_dft_r2c_1d(m_captureSize, m_fftInputBuffer, (fftw_complex*)m_fftOutputBuffer , 0);
+    plan_forward = fftw_plan_dft_r2c_1d(bufferSize, m_fftInputBuffer, (fftw_complex*)m_fftOutputBuffer , 0);
 
     // 2 ********* Apply a window to audio data
     // *********** and convert it to doubles
 
-    for (i = 0; i < m_captureSize; i++)
+    // Mix down the channels to mono
+    for (i = 0; i < bufferSize; i++)
     {
-        if(m_audioBuffer[i] < 0)
-            pwrSum += -1 * m_audioBuffer[i];
-        else
-            pwrSum += m_audioBuffer[i];
+        m_audioMixdown[i] = 0;
+        for (j = 0; j < m_channels; j++)
+        {
+            m_audioMixdown[i] += m_audioBuffer[i*m_channels + j] / m_channels;
+        }
+    }
 
+    for (i = 0; i < bufferSize; i++)
+    {
 #ifdef USE_BLACKMAN
         double a0 = (1-0.16)/2;
         double a1 = 0.5;
         double a2 = 0.16/2;
-        m_fftInputBuffer[i] = m_audioBuffer[i]  * (a0 - a1 * qCos((M_2PI * i) / (m_captureSize - 1)) +
-                              a2 * qCos((2 * M_2PI * i) / (m_captureSize - 1)));
+        m_fftInputBuffer[i] = m_audioMixdown[i] * (a0 - a1 * qCos((M_2PI * i) / (bufferSize - 1)) +
+                              a2 * qCos((2 * M_2PI * i) / (bufferSize - 1))) / 32768.;
 #endif
 #ifdef USE_HANNING
-        m_fftInputBuffer[i] = m_audioBuffer[i] * (0.5 * (1.00 - qCos((M_2PI * i) / (m_captureSize - 1))));
+        m_fftInputBuffer[i] = m_audioMixdown[i] * (0.5 * (1.00 - qCos((M_2PI * i) / (bufferSize - 1)))) / 32768.;
 #endif
 #ifdef USE_NO_WINDOW
-        m_fftInputBuffer[i] = (double)m_audioBuffer[i];
+        m_fftInputBuffer[i] = (double)m_audioMixdown[i] / 32768.;
 #endif
     }
 
@@ -227,12 +235,15 @@ void AudioCapture::processData()
 #endif
 
     // 5 ********* Calculate the average signal power
-    m_signalPower = pwrSum / m_captureSize;
-
-    // 6 ********* Calculate vector magnitude
-    foreach(int barsNumber, m_fftMagnitudeMap.keys())
+    foreach (int barsNumber, m_fftMagnitudeMap.keys())
     {
-        double maxMagnitude = fillBandsData(barsNumber);
+        maxMagnitude = fillBandsData(barsNumber);
+        pwrSum = 0.;
+        for (int n = 0; n < barsNumber; n++)
+        {
+            pwrSum += m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer[n];
+        }
+        m_signalPower = 32768 * pwrSum * qSqrt(M_2PI) / (double)barsNumber;
         emit dataProcessed(m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer.data(),
                            m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer.size(),
                            maxMagnitude, m_signalPower);

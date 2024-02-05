@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Robert Box</Author>
  </Creator>
  <Manufacturer>JB Systems</Manufacturer>
@@ -26,16 +26,16 @@
  </Channel>
  <Channel Name="Red Laser Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="4">Blackout</Capability>
-  <Capability Min="5" Max="127">Laser on</Capability>
-  <Capability Min="128" Max="254">Frequency from fast to slow</Capability>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="127" Preset="ShutterOpen">Laser on</Capability>
+  <Capability Min="128" Max="254" Preset="StrobeSlowToFast">Frequency from fast to slow</Capability>
   <Capability Min="255" Max="255">Sound controlled</Capability>
  </Channel>
  <Channel Name="Green Laser Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="4">Blackout</Capability>
-  <Capability Min="5" Max="127">Laser on</Capability>
-  <Capability Min="128" Max="254">Frequency from fast to slow</Capability>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="127" Preset="ShutterOpen">Laser on</Capability>
+  <Capability Min="128" Max="254" Preset="StrobeSlowToFast">Frequency from fast to slow</Capability>
   <Capability Min="255" Max="255">Sound controlled</Capability>
  </Channel>
  <Channel Name="Rotation Laser Dots">
@@ -59,9 +59,9 @@
  </Channel>
  <Channel Name="LED Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="4">Blackout</Capability>
-  <Capability Min="5" Max="127">LED on</Capability>
-  <Capability Min="128" Max="254">Frequency from fast to slow</Capability>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="127" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="128" Max="254" Preset="StrobeSlowToFast">Frequency from fast to slow</Capability>
   <Capability Min="255" Max="255">Sound controlled</Capability>
  </Channel>
  <Mode Name="1-Channel">

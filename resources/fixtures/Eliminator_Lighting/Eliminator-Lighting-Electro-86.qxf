@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>chivey</Author>
+ </Creator>
+ <Manufacturer>Eliminator Lighting</Manufacturer>
+ <Model>Electro 86</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Intensity and Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="189">Intensity</Capability>
+  <Capability Min="190" Max="250" Preset="StrobeSlowToFast">Strobe (Slow-&gt;Fast)</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">No function</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Intensity and Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.26" Width="217" Height="168" Depth="182"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="10" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

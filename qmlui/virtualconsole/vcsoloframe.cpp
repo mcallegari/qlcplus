@@ -36,7 +36,7 @@ QString VCSoloFrame::defaultCaption()
 
 void VCSoloFrame::render(QQuickView *view, QQuickItem *parent)
 {
-    if (view == NULL || parent == NULL)
+    if (view == nullptr || parent == nullptr)
         return;
 
     QQmlComponent *component = new QQmlComponent(view->engine(), QUrl("qrc:/VCFrameItem.qml"));
@@ -58,20 +58,20 @@ void VCSoloFrame::render(QQuickView *view, QQuickItem *parent)
         QString chName = QString("frameDropArea%1").arg(id());
         QQuickItem *childrenArea = qobject_cast<QQuickItem*>(item->findChild<QObject *>(chName));
 
-        foreach(VCWidget *child, m_pagesMap.keys())
+        foreach (VCWidget *child, m_pagesMap.keys())
             child->render(view, childrenArea);
     }
 }
 
 VCWidget *VCSoloFrame::createCopy(VCWidget *parent)
 {
-    Q_ASSERT(parent != NULL);
+    Q_ASSERT(parent != nullptr);
 
     VCSoloFrame *frame = new VCSoloFrame(m_doc, m_vc, parent);
     if (frame->copyFrom(this) == false)
     {
         delete frame;
-        frame = NULL;
+        frame = nullptr;
     }
 
     return frame;
@@ -80,7 +80,7 @@ VCWidget *VCSoloFrame::createCopy(VCWidget *parent)
 bool VCSoloFrame::copyFrom(const VCWidget *widget)
 {
     const VCSoloFrame *frame = qobject_cast<const VCSoloFrame*> (widget);
-    if (frame == NULL)
+    if (frame == nullptr)
         return false;
 
     // setSoloframeMixing(frame->soloframeMixing()); // TODO
@@ -95,7 +95,7 @@ bool VCSoloFrame::copyFrom(const VCWidget *widget)
 void VCSoloFrame::slotFunctionStarting(VCWidget *widget, quint32 fid, qreal intensity)
 {
     qDebug() << "[VCSoloFrame] requested to start a Function with ID:" << fid << intensity << widget->caption();
-    foreach(VCWidget *child, children(true))
+    foreach (VCWidget *child, children(true))
     {
         if (child != widget)
             child->notifyFunctionStarting(widget, fid, intensity);

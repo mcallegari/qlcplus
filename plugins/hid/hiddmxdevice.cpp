@@ -56,12 +56,13 @@ void HIDDMXDevice::init()
 {
     /* Device name */
     m_handle = hid_open_path(path().toUtf8().constData());
-    
+
     if (!m_handle)
     {
         QMessageBox::warning(NULL, (tr("HID DMX Interface Error")),
             (tr("Unable to open %1. Make sure the udev rule is installed.").arg(name())),
-             QMessageBox::AcceptRole, QMessageBox::AcceptRole);
+             QMessageBox::Ok, QMessageBox::Ok);
+        return;
     }
 
     /** Reset channels when opening the interface: */
@@ -78,7 +79,7 @@ bool HIDDMXDevice::openInput()
 {
     m_mode |= DMX_MODE_INPUT;
     updateMode();
-    
+
     return true;
 }
 
@@ -102,11 +103,6 @@ void HIDDMXDevice::closeOutput()
     updateMode();
 }
 
-QString HIDDMXDevice::path() const
-{
-    return m_file.fileName();
-}
-
 bool HIDDMXDevice::readEvent()
 {
     return true;
@@ -120,7 +116,7 @@ QString HIDDMXDevice::infoText()
 {
     QString info;
 
-    info += QString("<B>%1</B><P>").arg(m_name);
+    info += QString("<H3>%1</H3><P>").arg(m_name);
 
     return info;
 }
@@ -138,7 +134,7 @@ void HIDDMXDevice::feedBack(quint32 channel, uchar value)
 
 void HIDDMXDevice::run()
 {
-    while(m_running == true)
+    while (m_running == true)
     {
         unsigned char buffer[35];
         int size;
@@ -151,9 +147,9 @@ void HIDDMXDevice::run()
         *            from, the nth chunk starts at address n * 32
         * [1]-[32] = channel values, where the nth value is the offset + n
         */
-        while(size > 0)
+        while (size > 0)
         {
-            if(size == 33)
+            if (size == 33)
             {
                 unsigned short startOff = buffer[0] * 32;
                 if (buffer[0] < 16)
@@ -187,10 +183,12 @@ void HIDDMXDevice::outputDMX(const QByteArray &universe, bool forceWrite)
         int startOff = i * 32;
         if (startOff >= universe.size())
             return;
+
         QByteArray chunk = universe.mid(startOff, 32);
         if (chunk.size() < 32)
             chunk.append(QByteArray(32 - chunk.size(), (char)0x0));
-        if(forceWrite == true || chunk != m_dmx_cmp.mid(startOff, 32))
+
+        if (forceWrite == true || chunk != m_dmx_cmp.mid(startOff, 32))
         {
             /** Save different data to m_dmx_cmp */
             m_dmx_cmp.replace(startOff, 32, chunk);

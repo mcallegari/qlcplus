@@ -122,7 +122,7 @@ Rectangle
                     Layout.fillWidth: true
                     height: editorColumn.itemsHeight
                     model: fixtureGroupEditor.groupsListModel
-                    currentValue: rgbMatrixEditor.fixtureGroup
+                    currValue: rgbMatrixEditor.fixtureGroup
                     onValueChanged: rgbMatrixEditor.fixtureGroup = value
                 }
             }
@@ -157,6 +157,7 @@ Rectangle
                     id: algoCombo
                     Layout.fillWidth: true
                     height: editorColumn.itemsHeight
+                    textRole: ""
                     model: rgbMatrixEditor.algorithms
                     currentIndex: rgbMatrixEditor.algorithmIndex
                     onDisplayTextChanged:
@@ -202,12 +203,50 @@ Rectangle
                         ListElement { mLabel: qsTr("Subtractive"); }
                     }
                     model: blendModel
-                    //currentIndex: rgbMatrixEditor.currentAlgo
-                    //onCurrentIndexChanged: rgbMatrixEditor.currentAlgo = currentIndex
+
+                    currentIndex: rgbMatrixEditor.blendMode
+                    onCurrentIndexChanged: rgbMatrixEditor.blendMode = currentIndex
                 }
             }
 
             // row 5
+            RowLayout
+            {
+                width: editorColumn.colWidth
+
+                RobotoText
+                {
+                    label: qsTr("Color mode")
+                    height: editorColumn.itemsHeight
+                    onWidthChanged:
+                    {
+                        editorColumn.checkLabelWidth(width)
+                        width = Qt.binding(function() { return editorColumn.firstColumnWidth })
+                    }
+                }
+                CustomComboBox
+                {
+                    Layout.fillWidth: true
+                    height: editorColumn.itemsHeight
+
+                    ListModel
+                    {
+                        id: controlModel
+                        ListElement { mLabel: qsTr("Default (RGB)"); }
+                        ListElement { mLabel: qsTr("White"); }
+                        ListElement { mLabel: qsTr("Amber"); }
+                        ListElement { mLabel: qsTr("UV"); }
+                        ListElement { mLabel: qsTr("Dimmer"); }
+                        ListElement { mLabel: qsTr("Shutter"); }
+                    }
+                    model: controlModel
+
+                    currentIndex: rgbMatrixEditor.controlMode
+                    onCurrentIndexChanged: rgbMatrixEditor.controlMode = currentIndex
+                }
+            }
+
+            // row 6
             Row
             {
                 width: editorColumn.colWidth
@@ -234,7 +273,7 @@ Rectangle
                     radius: 5
                     border.color: scMouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: startColTool.selectedColor
+                    color: rgbMatrixEditor.startColor
                     visible: rgbMatrixEditor.algoColors > 0 ? true : false
 
                     MouseArea
@@ -248,9 +287,9 @@ Rectangle
                     ColorTool
                     {
                         id: startColTool
-                        parent: mainView
-                        x: rightSidePanel.x - width
-                        y: rightSidePanel.y
+                        parent: rgbmeContainer
+                        x: -width - (UISettings.iconSizeDefault * 1.25)
+                        y: UISettings.bigItemHeight
                         visible: false
                         closeOnSelect: true
                         currentRGB: rgbMatrixEditor.startColor
@@ -260,6 +299,7 @@ Rectangle
                             startColButton.color = Qt.rgba(r, g, b, 1.0)
                             rgbMatrixEditor.startColor = startColButton.color
                         }
+                        onClose: visible = false
                     }
                 }
                 Rectangle
@@ -278,20 +318,21 @@ Rectangle
                         id: ecMouseArea
                         anchors.fill: parent
                         hoverEnabled: true
-                        onClicked: endColTool.visible = !startColTool.visible
+                        onClicked: endColTool.visible = !endColTool.visible
                     }
 
                     ColorTool
                     {
                         id: endColTool
-                        parent: mainView
-                        x: rightSidePanel.x - width
-                        y: rightSidePanel.y
+                        parent: rgbmeContainer
+                        x: -width - (UISettings.iconSizeDefault * 1.25)
+                        y: UISettings.bigItemHeight
                         visible: false
                         closeOnSelect: true
                         currentRGB: rgbMatrixEditor.endColor
 
                         onColorChanged: rgbMatrixEditor.endColor = Qt.rgba(r, g, b, 1.0)
+                        onClose: visible = false
                     }
                 }
                 IconButton
@@ -445,7 +486,7 @@ Rectangle
                             height: UISettings.listItemHeight
                             model: tempoModel
 
-                            currentValue: rgbMatrixEditor.tempoType
+                            currValue: rgbMatrixEditor.tempoType
                             onValueChanged: rgbMatrixEditor.tempoType = value
                         }
                     }
@@ -476,7 +517,7 @@ Rectangle
                             }
                             model: runOrderModel
 
-                            currentValue: rgbMatrixEditor.runOrder
+                            currValue: rgbMatrixEditor.runOrder
                             onValueChanged: rgbMatrixEditor.runOrder = value
                         }
                         RobotoText
@@ -495,7 +536,7 @@ Rectangle
                             }
                             model: directionModel
 
-                            currentValue: rgbMatrixEditor.direction
+                            currValue: rgbMatrixEditor.direction
                             onValueChanged: rgbMatrixEditor.direction = value
                         }
                         RobotoText
@@ -638,7 +679,7 @@ Rectangle
                         from: -255
                         to: 255
                         value: toffRow.algoOffset.width
-                        onValueChanged:
+                        onValueModified:
                         {
                             var newOffset = toffRow.algoOffset
                             newOffset.width = value
@@ -653,7 +694,7 @@ Rectangle
                         from: -255
                         to: 255
                         value: toffRow.algoOffset.height
-                        onValueChanged:
+                        onValueModified:
                         {
                             var newOffset = toffRow.algoOffset
                             newOffset.height = value
@@ -784,7 +825,7 @@ Rectangle
                         from: -255
                         to: 255
                         value: ioffRow.algoOffset.width
-                        onValueChanged:
+                        onValueModified:
                         {
                             var newOffset = ioffRow.algoOffset
                             newOffset.width = value
@@ -799,7 +840,7 @@ Rectangle
                         from: -255
                         to: 255
                         value: ioffRow.algoOffset.height
-                        onValueChanged:
+                        onValueModified:
                         {
                             var newOffset = ioffRow.algoOffset
                             newOffset.height = value
@@ -847,6 +888,22 @@ Rectangle
                     console.log("Spin component is not ready !!")
             }
 
+            function addDoubleSpinBox(propName, currentValue)
+            {
+                doubleSpinComponent.createObject(scriptAlgoGrid,
+                              {"propName": propName, "realValue": currentValue });
+                if (spinComponent.status !== Component.Ready)
+                    console.log("Double spin component is not ready !!")
+            }
+
+            function addTextEdit(propName, currentText)
+            {
+                textEditComponent.createObject(scriptAlgoGrid,
+                               {"propName": propName, "text": currentText });
+                if (comboComponent.status !== Component.Ready)
+                    console.log("TextEdit component is not ready !!")
+            }
+
             Component.onCompleted:
             {
                 rgbMatrixEditor.createScriptObjects(scriptAlgoGrid)
@@ -861,7 +918,8 @@ Rectangle
 
         RobotoText
         {
-            height: UISettings.listItemHeight
+            implicitHeight: UISettings.listItemHeight
+            implicitWidth: width
             property string propName
 
             label: propName
@@ -892,8 +950,37 @@ Rectangle
             Layout.fillWidth: true
             property string propName
 
-            onValueChanged: rgbMatrixEditor.setScriptIntProperty(propName, value)
+            onValueModified: rgbMatrixEditor.setScriptIntProperty(propName, value)
         }
     }
 
+    // Script algorithm float box property
+    Component
+    {
+        id: doubleSpinComponent
+
+        CustomDoubleSpinBox
+        {
+            Layout.fillWidth: true
+            property string propName
+
+            decimals: 3
+            suffix: ""
+            onRealValueChanged: rgbMatrixEditor.setScriptFloatProperty(propName, realValue)
+        }
+    }
+
+    // Script algorithm combo box property
+    Component
+    {
+        id: textEditComponent
+
+        CustomTextEdit
+        {
+            Layout.fillWidth: true
+            property string propName
+
+            onTextChanged: rgbMatrixEditor.setScriptStringProperty(propName, text)
+        }
+    }
 }

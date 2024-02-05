@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Jochem de Kruijf</Author>
+ </Creator>
+ <Manufacturer>Ibiza</Manufacturer>
+ <Model>400 RGB</Model>
+ <Type>Laser</Type>
+ <Channel Name="Control Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="69">Shut off</Capability>
+  <Capability Min="70" Max="139">Sound control</Capability>
+  <Capability Min="140" Max="209">Auto play</Capability>
+  <Capability Min="210" Max="255">DMX control</Capability>
+ </Channel>
+ <Channel Name="Pattern Selection">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="34">Static pattern for manual control</Capability>
+  <Capability Min="35" Max="255">Dynamic Geometric pattern</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="30">No Strobe</Capability>
+  <Capability Min="31" Max="255">8 grade speed (0-255) / 30 = 0 - 8 do</Capability>
+ </Channel>
+ <Channel Name="Pattern display">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="69">Smooth</Capability>
+  <Capability Min="70" Max="139">Spot and Line</Capability>
+  <Capability Min="140" Max="209">Line</Capability>
+  <Capability Min="210" Max="255">Spot</Capability>
+ </Channel>
+ <Channel Name="Horizontal Move">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="160">Manual</Capability>
+  <Capability Min="161" Max="190">From left to right move</Capability>
+  <Capability Min="191" Max="220">From right to left move</Capability>
+  <Capability Min="221" Max="255">Right and left in-phase move</Capability>
+ </Channel>
+ <Channel Name="Vertical Move">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="160">Manual</Capability>
+  <Capability Min="161" Max="190">From down to up</Capability>
+  <Capability Min="191" Max="220">From up to down</Capability>
+  <Capability Min="221" Max="255">Up and down in-phase move</Capability>
+ </Channel>
+ <Channel Name="Zoom(+/-) pattern size">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Pattern size change / zoom in or out</Capability>
+ </Channel>
+ <Channel Name="Color macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="17">RGB</Capability>
+  <Capability Min="18" Max="35">Red</Capability>
+  <Capability Min="36" Max="53">Red + Green (Yellow)</Capability>
+  <Capability Min="54" Max="71">Green</Capability>
+  <Capability Min="72" Max="89">Green + Blue (cyan)</Capability>
+  <Capability Min="90" Max="107">Blue</Capability>
+  <Capability Min="108" Max="120">Blue + Red (pink)</Capability>
+  <Capability Min="121" Max="137">7 colors in section</Capability>
+  <Capability Min="138" Max="199">7 colors in section + flowing</Capability>
+  <Capability Min="200" Max="255">Color changing by sound</Capability>
+ </Channel>
+ <Channel Name="Colors Moving">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">From slow to fast</Capability>
+ </Channel>
+ <Channel Name="Axis Y rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Axis Y rotation</Capability>
+ </Channel>
+ <Channel Name="Axis X Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Axis X rotation</Capability>
+ </Channel>
+ <Channel Name="Axis Z rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Axis Z rotation</Capability>
+ </Channel>
+ <Channel Name="Motor Resetting">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="199">No resetting</Capability>
+  <Capability Min="200" Max="255">XY motor resetting</Capability>
+ </Channel>
+ <Mode Name="13 Channel">
+  <Channel Number="0">Control Mode</Channel>
+  <Channel Number="1">Pattern Selection</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Pattern display</Channel>
+  <Channel Number="4">Horizontal Move</Channel>
+  <Channel Number="5">Vertical Move</Channel>
+  <Channel Number="6">Zoom(+/-) pattern size</Channel>
+  <Channel Number="7">Color macro</Channel>
+  <Channel Number="8">Colors Moving</Channel>
+  <Channel Number="9">Axis Y rotation</Channel>
+  <Channel Number="10">Axis X Rotation</Channel>
+  <Channel Number="11">Axis Z rotation</Channel>
+  <Channel Number="12">Motor Resetting</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.2" Width="210" Height="135" Depth="80"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="25" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

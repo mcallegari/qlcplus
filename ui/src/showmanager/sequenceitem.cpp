@@ -22,7 +22,6 @@
 #include <QMenu>
 
 #include "sequenceitem.h"
-#include "headeritems.h"
 #include "chaserstep.h"
 #include "trackitem.h"
 
@@ -171,7 +170,7 @@ void SequenceItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
-    foreach(QAction *action, getDefaultActions())
+    foreach (QAction *action, getDefaultActions())
         menu.addAction(action);
 
     menu.exec(QCursor::pos());

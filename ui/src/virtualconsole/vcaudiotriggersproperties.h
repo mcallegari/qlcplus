@@ -35,7 +35,7 @@ class VCAudioTriggers;
 class AudioTriggersConfiguration : public QDialog, public Ui_AudioTriggersConfiguration
 {
     Q_OBJECT
-    
+
 public:
     explicit AudioTriggersConfiguration(VCAudioTriggers *triggers, Doc *doc,
                                         int bandsNumber, int maxFrequency);
@@ -43,7 +43,7 @@ public:
 
     /** @reimp */
     void accept();
-    
+
 private slots:
     void updateTreeItem(QTreeWidgetItem *item, int idx);
     void updateTree();

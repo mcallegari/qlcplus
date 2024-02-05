@@ -1,7 +1,7 @@
 /*
   Q Light Controller Plus
   randomrow.js
-  
+
   Copyright (c) David Garyga
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -82,7 +82,7 @@ var testAlgo;
                 var stepList = util.createStepList(height);
 
                 algo.steps = new Array(height);
-                for (var i = 0; i < width; i++)
+                for (var i = 0; i < height; i++)
                 {
                     var index = Math.floor(Math.random() * (stepList.length));
                     var yx = stepList[index];
@@ -101,7 +101,7 @@ var testAlgo;
 
         algo.rgbMapStepCount = function(width, height)
         {
-            return height;
+            return 2;
         };
 
         // Development tool access

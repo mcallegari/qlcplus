@@ -120,7 +120,7 @@ public:
 
     /** Disable (==prevent selection of) a list of heads */
     void setDisabledHeads(const QList <GroupHead>& disabled);
-    
+
 private:
     QList <quint32> m_disabledFixtures;
     QList <GroupHead> m_disabledHeads;

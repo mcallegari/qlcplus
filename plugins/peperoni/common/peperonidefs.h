@@ -29,6 +29,7 @@
 #define PEPERONI_PID_RODIN2     0x0003
 #define PEPERONI_PID_RODINT     0x0008
 #define PEPERONI_PID_USBDMX21   0x0004
+#define PEPERONI_PID_RODIN1_MK3 0x0013
 
 /** Common interface */
 #define PEPERONI_IFACE_EP0      0x00
@@ -97,7 +98,7 @@
 /** BULK PIPE: "New" protocol commands */
 #define PEPERONI_NEW_BULK_HEADER_REQUEST_SET (0x00)	/** send data to interface */
 #define PEPERONI_NEW_BULK_HEADER_REQUEST_GET (0x10)	/** read data from interface */
-        
+
 /** BULK PIPE: "New" protocol configuration values */
 #define PEPERONI_NEW_BULK_CONFIG_DELAY		(0x01)  /** delay frame by time */
 #define PEPERONI_NEW_BULK_CONFIG_BLOCK		(0x02)  /** block while frame is not transmitting (timeout given by time) */

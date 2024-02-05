@@ -40,17 +40,17 @@ class RGBMatrix;
  * @{
  */
 
-#define KXMLQLCVCMatrix "Matrix"
+#define KXMLQLCVCMatrix             QString("Matrix")
 
-#define KXMLQLCVCMatrixFunction "Function"
-#define KXMLQLCVCMatrixFunctionID "ID"
+#define KXMLQLCVCMatrixFunction     QString("Function")
+#define KXMLQLCVCMatrixFunctionID   QString("ID")
 
-#define KXMLQLCVCMatrixInstantApply "InstantApply"
+#define KXMLQLCVCMatrixInstantApply QString("InstantApply")
 
-#define KXMLQLCVCMatrixStartColor "StartColor"
-#define KXMLQLCVCMatrixEndColor "EndColor"
+#define KXMLQLCVCMatrixStartColor   QString("StartColor")
+#define KXMLQLCVCMatrixEndColor     QString("EndColor")
 
-#define KXMLQLCVCMatrixVisibilityMask "Visibility"
+#define KXMLQLCVCMatrixVisibilityMask QString("Visibility")
 
 class VCMatrix : public VCWidget
 {
@@ -112,11 +112,30 @@ public:
     /** @reimp */
     void enableWidgetUI(bool enable);
 
-private slots:
+    /** @reimp */
+    int sliderValue();
+    QString animationValue();
+    QColor startColor();
+    QColor endColor();
+
+signals:
+    void sliderValueChanged(int value);
+    void startColorChanged();
+    void endColorChanged();
+    void animationValueChanged(QString name);
+    void matrixControlKnobValueChanged(int controlID, int value);
+
+public slots:
+    void slotSetSliderValue(int value);
     void slotSliderMoved(int value);
+    void slotSetStartColor(QColor color);
     void slotStartColorChanged(QRgb color);
+    void slotSetEndColor(QColor color);
     void slotEndColorChanged(QRgb color);
+    void slotSetAnimationValue(QString name);
     void slotAnimationChanged(QString name);
+    void slotMatrixControlKnobValueChanged(int controlID, int value);
+    void slotMatrixControlPushButtonClicked(int controlID);
 
     /*********************************************************************
      * Properties
@@ -124,6 +143,13 @@ private slots:
 public:
     /** Edit this widget's properties */
     void editProperties();
+
+    /*************************************************************************
+     * VCWidget-inherited
+     *************************************************************************/
+public:
+    /** @reimp */
+    void adjustIntensity(qreal val);
 
     /*********************************************************************
      * Function attachment
@@ -151,8 +177,6 @@ public:
 private slots:
     /** Update slider when function stops. */
     void slotFunctionStopped();
-    /** Update slider when function starts. */
-    void slotFunctionAttributeChanged(int attrIndex, qreal fraction);
     /** Update widget when function changes. */
     void slotFunctionChanged();
     void slotUpdate();
@@ -205,6 +229,7 @@ public:
     void addCustomControl(VCMatrixControl const& control);
     void resetCustomControls();
     QList<VCMatrixControl *> customControls() const;
+    QWidget *getWidget(VCMatrixControl* control) const;
 
 protected slots:
     void slotCustomControlClicked();
@@ -212,6 +237,7 @@ protected slots:
 
 protected:
     QHash<QWidget *, VCMatrixControl *> m_controls;
+    QHash<VCMatrixControl *, QWidget *> m_widgets;
 
     /*********************************************************************
      * QLC+ Mode

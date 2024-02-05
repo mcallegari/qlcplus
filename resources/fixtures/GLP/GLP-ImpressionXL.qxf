@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>GLP</Manufacturer>
@@ -42,16 +42,16 @@
  <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="15">Closed</Capability>
-  <Capability Min="16" Max="47">Random pulse speed</Capability>
-  <Capability Min="48" Max="79">Up-dimming then shutter closing (random)</Capability>
-  <Capability Min="80" Max="111">Shutter open then down-dimming (random)</Capability>
-  <Capability Min="112" Max="143">Up-dimming then down-dimming (random)</Capability>
+  <Capability Min="0" Max="15" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="16" Max="47" Preset="PulseSlowToFast">Random pulse speed</Capability>
+  <Capability Min="48" Max="79" Preset="StrobeRandom">Up-dimming then shutter closing (random)</Capability>
+  <Capability Min="80" Max="111" Preset="StrobeRandom">Shutter open then down-dimming (random)</Capability>
+  <Capability Min="112" Max="143" Preset="StrobeRandom">Up-dimming then down-dimming (random)</Capability>
   <Capability Min="144" Max="199">Strobe pause 5s - 1s</Capability>
-  <Capability Min="200" Max="239">Strobe speed 1Hz to 10Hz</Capability>
-  <Capability Min="240" Max="249">Open</Capability>
-  <Capability Min="250" Max="250">RESET (3sec)</Capability>
-  <Capability Min="251" Max="255">Open</Capability>
+  <Capability Min="200" Max="239" Preset="StrobeFreqRange" Res1="1" Res2="10">Strobe speed 1Hz to 10Hz</Capability>
+  <Capability Min="240" Max="249" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="250" Max="250" Preset="ResetAll">RESET (3sec)</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Dimmer coarse" Preset="IntensityDimmer"/>
  <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
@@ -70,7 +70,7 @@
   <Capability Min="144" Max="223">No function</Capability>
   <Capability Min="224" Max="229">Fan silent</Capability>
   <Capability Min="230" Max="249">No function</Capability>
-  <Capability Min="250" Max="255">RESET</Capability>
+  <Capability Min="250" Max="255" Preset="ResetAll">RESET</Capability>
  </Channel>
  <Channel Name="Movement">
   <Group Byte="0">Effect</Group>

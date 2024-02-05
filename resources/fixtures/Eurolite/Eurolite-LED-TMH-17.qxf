@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>René Schulze</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED TMH-17</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Color-Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#ffffff">Open/White</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ffa500">Magenta/Orange</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#add8e6">Orange/Light Blue</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#add8e6" Res2="#ffff00">Light Blue/ Yellow</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#0000ff">Yellow/Blue</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ff00">Blue/Green</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff0000">Green/Red</Capability>
+  <Capability Min="140" Max="255" Preset="SlowToFast">Rainbow effect with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Static gobo-wheel, gobo shake">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="8" Max="15" Preset="GoboMacro" Res1="GLP/gobo00002.svg">Gobo 1</Capability>
+  <Capability Min="16" Max="23" Preset="GoboMacro" Res1="SGM/gobo00008.svg">Gobo 2</Capability>
+  <Capability Min="24" Max="31" Preset="GoboMacro" Res1="Others/gobo00108.svg">Gobo 3</Capability>
+  <Capability Min="32" Max="39" Preset="GoboMacro" Res1="Others/gobo00112.svg">Gobo 4</Capability>
+  <Capability Min="40" Max="47" Preset="GoboMacro" Res1="Others/gobo00008.svg">Gobo 5</Capability>
+  <Capability Min="48" Max="55" Preset="GoboMacro" Res1="Others/gobo00125.svg">Gobo 6</Capability>
+  <Capability Min="56" Max="63" Preset="GoboMacro" Res1="Others/gobo00126.svg">Gobo 7</Capability>
+  <Capability Min="64" Max="71" Preset="GoboShakeMacro" Res1="Others/gobo00126.svg">Gobo 7 Shake with increasing speed</Capability>
+  <Capability Min="72" Max="79" Preset="GoboShakeMacro" Res1="Others/gobo00125.svg">Gobo 6 Shake with increasing speed</Capability>
+  <Capability Min="80" Max="87" Preset="GoboShakeMacro" Res1="Others/gobo00008.svg">Gobo 5 Shake with increasing speed</Capability>
+  <Capability Min="88" Max="95" Preset="GoboShakeMacro" Res1="Others/gobo00112.svg">Gobo 4 Shake with increasing speed</Capability>
+  <Capability Min="96" Max="103" Preset="GoboShakeMacro" Res1="Others/gobo00108.svg">Gobo 3 Shake with increasing speed</Capability>
+  <Capability Min="104" Max="111" Preset="GoboShakeMacro" Res1="SGM/gobo00008.svg">Gobo 2 Shake with increasing speed</Capability>
+  <Capability Min="112" Max="119" Preset="GoboShakeMacro" Res1="GLP/gobo00002.svg">Gobo 1 Shake with increasing speed</Capability>
+  <Capability Min="120" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="128" Max="255" Preset="RotationClockwiseSlowToFast">Gobo-wheel rotation with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="249" Preset="StrobeSlowToFast">Strobe-effect with increasing speed</Capability>
+  <Capability Min="250" Max="255" Preset="ShutterOpen">No function</Capability>
+ </Channel>
+ <Channel Name="Dimmer intensity" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Internal program, sound control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="59">No function</Capability>
+  <Capability Min="60" Max="159">Internal Program</Capability>
+  <Capability Min="160" Max="255">Sound Control</Capability>
+ </Channel>
+ <Channel Name="Special functions, reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="20">No function</Capability>
+  <Capability Min="21" Max="100" Preset="ResetPan">PAN movement</Capability>
+  <Capability Min="101" Max="200" Preset="ResetTilt">TILT movement</Capability>
+  <Capability Min="201" Max="249" Preset="ResetPanTilt">PAN/TILT movement</Capability>
+  <Capability Min="250" Max="255" Preset="ResetAll">Reset</Capability>
+ </Channel>
+ <Mode Name="9-Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Color-Wheel</Channel>
+  <Channel Number="3">Static gobo-wheel, gobo shake</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Dimmer intensity</Channel>
+  <Channel Number="6">Pan/Tilt speed</Channel>
+  <Channel Number="7">Internal program, sound control</Channel>
+  <Channel Number="8">Special functions, reset</Channel>
+ </Mode>
+ <Mode Name="11-Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Color-Wheel</Channel>
+  <Channel Number="5">Static gobo-wheel, gobo shake</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Dimmer intensity</Channel>
+  <Channel Number="8">Pan/Tilt speed</Channel>
+  <Channel Number="9">Internal program, sound control</Channel>
+  <Channel Number="10">Special functions, reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="520" ColourTemperature="8600"/>
+  <Dimensions Weight="2.5" Width="170" Height="240" Depth="145"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="200"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

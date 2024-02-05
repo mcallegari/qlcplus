@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>Kevin Zepp</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -18,14 +18,14 @@
  <Channel Name="Fine Dimmer" Preset="IntensityDimmerFine"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
-  <Capability Min="8" Max="15">Open</Capability>
-  <Capability Min="16" Max="131">Slow to fast (strobe)</Capability>
-  <Capability Min="132" Max="167">Fast close/slow open</Capability>
-  <Capability Min="168" Max="203">Slow close/fast open</Capability>
-  <Capability Min="204" Max="239">Slow to fast (pulse effect)</Capability>
-  <Capability Min="240" Max="247">Random strobe</Capability>
-  <Capability Min="248" Max="255">Open</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterClose">No function</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Slow to fast (strobe)</Capability>
+  <Capability Min="132" Max="167" Preset="RampUpSlowToFast">Fast close/slow open</Capability>
+  <Capability Min="168" Max="203" Preset="RampDownSlowToFast">Slow close/fast open</Capability>
+  <Capability Min="204" Max="239" Preset="PulseSlowToFast">Slow to fast (pulse effect)</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandom">Random strobe</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
@@ -37,10 +37,10 @@
   <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#ffaa00">Color 5</Capability>
   <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#46415b">Color 6</Capability>
   <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ffffd9">Color 7</Capability>
-  <Capability Min="64" Max="127">Index/split color</Capability>
-  <Capability Min="128" Max="189" Preset="GoboMacro" Res1="Others/rainbow.png">Clockwise rotation, fast to slow</Capability>
-  <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Counter-clockwise rotation, slow to fast</Capability>
+  <Capability Min="64" Max="127" Preset="RotationIndexed">Index/split color</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Clockwise rotation, fast to slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter-clockwise rotation, slow to fast</Capability>
  </Channel>
  <Channel Name="Cyan" Preset="IntensityCyan"/>
  <Channel Name="Magenta" Preset="IntensityMagenta"/>
@@ -53,8 +53,8 @@
  <Channel Name="Gobo Wheel 1">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="8" Max="14" Preset="GoboMacro" Res1="Chauvet/gobo00069.png">Gobo 1</Capability>
-  <Capability Min="15" Max="21" Preset="GoboMacro" Res1="Chauvet/gobo00060.png">Gobo 2</Capability>
+  <Capability Min="8" Max="14" Preset="GoboMacro" Res1="Chauvet/gobo00069.svg">Gobo 1</Capability>
+  <Capability Min="15" Max="21" Preset="GoboMacro" Res1="Chauvet/gobo00060.svg">Gobo 2</Capability>
   <Capability Min="22" Max="28" Preset="GoboMacro" Res1="Chauvet/gobo00070.svg">Gobo 3</Capability>
   <Capability Min="29" Max="35" Preset="GoboMacro" Res1="ClayPaky/gobo00012.svg">Gobo 4</Capability>
   <Capability Min="36" Max="42" Preset="GoboMacro" Res1="Chauvet/gobo00071.png">Gobo 5</Capability>
@@ -62,23 +62,23 @@
   <Capability Min="50" Max="56" Preset="GoboMacro" Res1="SGM-Color/gobo00380.png">Gobo 7</Capability>
   <Capability Min="57" Max="63" Preset="GoboMacro" Res1="Chauvet/gobo00073.png">Gobo 8</Capability>
   <Capability Min="64" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Gobo 1-8 bounce</Capability>
-  <Capability Min="128" Max="189">Clockwise rotation, fast to slow</Capability>
-  <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Counter-lockwise rotation, slow to fast</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Clockwise rotation, fast to slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter-clockwise rotation, slow to fast</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 1 Rotate">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="127">Index/split gobo</Capability>
-  <Capability Min="128" Max="189">Clockwise rotation, fast to slow</Capability>
-  <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Counter-clockwise rotation, slow to fast</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Index/split gobo</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Clockwise rotation, fast to slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter-clockwise rotation, slow to fast</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 2">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="4" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="5" Max="9" Preset="GoboMacro" Res1="Chauvet/gobo00074.png">Gobo 1</Capability>
   <Capability Min="10" Max="14" Preset="GoboMacro" Res1="Chauvet/gobo00075.svg">Gobo 2</Capability>
-  <Capability Min="15" Max="18" Preset="GoboMacro" Res1="Chauvet/gobo00067.png">Gobo 3</Capability>
+  <Capability Min="15" Max="18" Preset="GoboMacro" Res1="Chauvet/gobo00067.svg">Gobo 3</Capability>
   <Capability Min="19" Max="23" Preset="GoboMacro" Res1="Chauvet/gobo00076.svg">Gobo 4</Capability>
   <Capability Min="24" Max="28" Preset="GoboMacro" Res1="Chauvet/gobo00040.svg">Gobo 5</Capability>
   <Capability Min="29" Max="33" Preset="GoboMacro" Res1="ClayPaky/gobo00080.png">Gobo 6</Capability>
@@ -91,9 +91,9 @@
   <Capability Min="62" Max="66" Preset="GoboMacro" Res1="Chauvet/gobo00081.png">Gobo 13</Capability>
   <Capability Min="67" Max="71" Preset="GoboMacro" Res1="Chauvet/gobo00080.png">Gobo 14</Capability>
   <Capability Min="72" Max="127">Gobo 1-14 bounce</Capability>
-  <Capability Min="128" Max="189">Clockwise rotation, fast to slow</Capability>
-  <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Counter-clockwise rotation, slow to fast</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Clockwise rotation, fast to slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter-clockwise rotation, slow to fast</Capability>
  </Channel>
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
@@ -101,38 +101,38 @@
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="127">Prism insert</Capability>
-  <Capability Min="128" Max="131"> Effect 1-gobo 1-clockwise prism spin </Capability>
-  <Capability Min="132" Max="135"> Effect 1-gobo 2-clockwise prism spin </Capability>
-  <Capability Min="136" Max="139"> Effect 1-gobo 3-clockwise prism spin </Capability>
-  <Capability Min="140" Max="143"> Effect 1-gobo 4-clockwise prism spin </Capability>
-  <Capability Min="144" Max="147"> Effect 1-gobo 5-clockwise prism spin </Capability>
-  <Capability Min="148" Max="151"> Effect 1-gobo 6-clockwise prism spin </Capability>
-  <Capability Min="152" Max="155"> Effect 1-gobo 7-clockwise prism spin </Capability>
-  <Capability Min="156" Max="159"> Effect 1-gobo 8-clockwise prism spin </Capability>
-  <Capability Min="160" Max="163"> Effect 1-gobo 1 rotate/clockwise prism spin </Capability>
-  <Capability Min="164" Max="167"> Effect 1-gobo 2 rotate/clockwise prism spin </Capability>
-  <Capability Min="168" Max="171"> Effect 1-gobo 3 rotate/clockwise prism spin </Capability>
-  <Capability Min="172" Max="175"> Effect 1-gobo 4 rotate/clockwise prism spin </Capability>
-  <Capability Min="176" Max="179"> Effect 1-gobo 5 rotate/clockwise prism spin </Capability>
-  <Capability Min="180" Max="183"> Effect 1-gobo 6 rotate/clockwise prism spin </Capability>
-  <Capability Min="184" Max="187"> Effect 1-gobo 7 rotate/clockwise prism spin </Capability>
-  <Capability Min="188" Max="191"> Effect 1-gobo 8 rotate/clockwise prism spin </Capability>
-  <Capability Min="192" Max="195"> Effect 2-gobo 1/counter-clockwise prism spin </Capability>
-  <Capability Min="196" Max="199"> Effect 2-gobo 2/counter-clockwise prism spin </Capability>
-  <Capability Min="200" Max="203"> Effect 2-gobo 3/counter-clockwise prism spin </Capability>
-  <Capability Min="204" Max="207"> Effect 2-gobo 4/counter-clockwise prism spin </Capability>
-  <Capability Min="208" Max="211"> Effect 2-gobo 5/counter-clockwise prism spin </Capability>
-  <Capability Min="212" Max="215"> Effect 2-gobo 6/counter-clockwise prism spin </Capability>
-  <Capability Min="216" Max="219"> Effect 2-gobo 7/counter-clockwise prism spin </Capability>
-  <Capability Min="220" Max="223"> Effect 2-gobo 8/counter-clockwise prism spin </Capability>
-  <Capability Min="224" Max="227"> Effect 2-gobo 1 rotate/counter-clockwise prism spin </Capability>
-  <Capability Min="228" Max="231"> Effect 2-gobo 2 rotate/counter-clockwise prism spin </Capability>
-  <Capability Min="232" Max="235"> Effect 2-gobo 3 rotate/counter-clockwise prism spin </Capability>
-  <Capability Min="236" Max="239"> Effect 2-gobo 4 rotate/counter-clockwise prism spin </Capability>
-  <Capability Min="240" Max="243"> Effect 2-gobo 5 rotate/counter-clockwise prism spin </Capability>
-  <Capability Min="244" Max="247"> Effect 2-gobo 6 rotate/counter-clockwise prism spin </Capability>
-  <Capability Min="248" Max="251"> Effect 2-gobo 7 rotate/counter-clockwise prism spin </Capability>
-  <Capability Min="252" Max="255"> Effect 2-gobo 8 rotate/counter-clockwise prism spin </Capability>
+  <Capability Min="128" Max="131">Effect 1-gobo 1-clockwise prism spin</Capability>
+  <Capability Min="132" Max="135">Effect 1-gobo 2-clockwise prism spin</Capability>
+  <Capability Min="136" Max="139">Effect 1-gobo 3-clockwise prism spin</Capability>
+  <Capability Min="140" Max="143">Effect 1-gobo 4-clockwise prism spin</Capability>
+  <Capability Min="144" Max="147">Effect 1-gobo 5-clockwise prism spin</Capability>
+  <Capability Min="148" Max="151">Effect 1-gobo 6-clockwise prism spin</Capability>
+  <Capability Min="152" Max="155">Effect 1-gobo 7-clockwise prism spin</Capability>
+  <Capability Min="156" Max="159">Effect 1-gobo 8-clockwise prism spin</Capability>
+  <Capability Min="160" Max="163">Effect 1-gobo 1 rotate/clockwise prism spin</Capability>
+  <Capability Min="164" Max="167">Effect 1-gobo 2 rotate/clockwise prism spin</Capability>
+  <Capability Min="168" Max="171">Effect 1-gobo 3 rotate/clockwise prism spin</Capability>
+  <Capability Min="172" Max="175">Effect 1-gobo 4 rotate/clockwise prism spin</Capability>
+  <Capability Min="176" Max="179">Effect 1-gobo 5 rotate/clockwise prism spin</Capability>
+  <Capability Min="180" Max="183">Effect 1-gobo 6 rotate/clockwise prism spin</Capability>
+  <Capability Min="184" Max="187">Effect 1-gobo 7 rotate/clockwise prism spin</Capability>
+  <Capability Min="188" Max="191">Effect 1-gobo 8 rotate/clockwise prism spin</Capability>
+  <Capability Min="192" Max="195">Effect 2-gobo 1/counter-clockwise prism spin</Capability>
+  <Capability Min="196" Max="199">Effect 2-gobo 2/counter-clockwise prism spin</Capability>
+  <Capability Min="200" Max="203">Effect 2-gobo 3/counter-clockwise prism spin</Capability>
+  <Capability Min="204" Max="207">Effect 2-gobo 4/counter-clockwise prism spin</Capability>
+  <Capability Min="208" Max="211">Effect 2-gobo 5/counter-clockwise prism spin</Capability>
+  <Capability Min="212" Max="215">Effect 2-gobo 6/counter-clockwise prism spin</Capability>
+  <Capability Min="216" Max="219">Effect 2-gobo 7/counter-clockwise prism spin</Capability>
+  <Capability Min="220" Max="223">Effect 2-gobo 8/counter-clockwise prism spin</Capability>
+  <Capability Min="224" Max="227">Effect 2-gobo 1 rotate/counter-clockwise prism spin</Capability>
+  <Capability Min="228" Max="231">Effect 2-gobo 2 rotate/counter-clockwise prism spin</Capability>
+  <Capability Min="232" Max="235">Effect 2-gobo 3 rotate/counter-clockwise prism spin</Capability>
+  <Capability Min="236" Max="239">Effect 2-gobo 4 rotate/counter-clockwise prism spin</Capability>
+  <Capability Min="240" Max="243">Effect 2-gobo 5 rotate/counter-clockwise prism spin</Capability>
+  <Capability Min="244" Max="247">Effect 2-gobo 6 rotate/counter-clockwise prism spin</Capability>
+  <Capability Min="248" Max="251">Effect 2-gobo 7 rotate/counter-clockwise prism spin</Capability>
+  <Capability Min="252" Max="255">Effect 2-gobo 8 rotate/counter-clockwise prism spin</Capability>
  </Channel>
  <Channel Name="Prism Rotation">
   <Group Byte="0">Prism</Group>
@@ -224,24 +224,24 @@
  </Channel>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="69">No Function</Capability>
+  <Capability Min="0" Max="69">No function</Capability>
   <Capability Min="70" Max="79">Pan/tilt blackout mode enabled</Capability>
   <Capability Min="80" Max="89">Pan/tilt blackout mode disabled</Capability>
   <Capability Min="90" Max="99">Color wheel change blackout mode enabled</Capability>
   <Capability Min="100" Max="109">Color wheel change blackout mode disabled</Capability>
   <Capability Min="110" Max="119">Gobo change blackout mode enabled</Capability>
   <Capability Min="120" Max="129">Gobo change blackout mode disabled</Capability>
-  <Capability Min="130" Max="139">Lamp On</Capability>
-  <Capability Min="140" Max="149">Pan/tilt reset</Capability>
-  <Capability Min="150" Max="159">Color/CMY reset</Capability>
-  <Capability Min="160" Max="169">Gobo/iris reset</Capability>
-  <Capability Min="170" Max="179">Shutter/dimmer reset</Capability>
-  <Capability Min="180" Max="189">No Function</Capability>
-  <Capability Min="190" Max="199">Frost/focus reset</Capability>
-  <Capability Min="200" Max="209">Reset all</Capability>
+  <Capability Min="130" Max="139" Preset="LampOn">Lamp On</Capability>
+  <Capability Min="140" Max="149" Preset="ResetPanTilt">Pan/tilt reset</Capability>
+  <Capability Min="150" Max="159" Preset="ResetColor">Color/CMY reset</Capability>
+  <Capability Min="160" Max="169" Preset="ResetGobo">Gobo/iris reset</Capability>
+  <Capability Min="170" Max="179" Preset="ResetAll">Shutter/dimmer reset</Capability>
+  <Capability Min="180" Max="189">No function</Capability>
+  <Capability Min="190" Max="199" Preset="ResetFrost">Frost/focus reset</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Reset all</Capability>
   <Capability Min="210" Max="219">Enable all movement blackout modes</Capability>
   <Capability Min="220" Max="229">Disable all movement blackout modes</Capability>
-  <Capability Min="230" Max="239">Lamp off</Capability>
+  <Capability Min="230" Max="239" Preset="LampOff">Lamp off</Capability>
   <Capability Min="240" Max="255">No function</Capability>
  </Channel>
  <Mode Name="21 channel">
@@ -257,12 +257,12 @@
   <Channel Number="9">Magenta</Channel>
   <Channel Number="10">Yellow</Channel>
   <Channel Number="11">Gobo Wheel 1</Channel>
-  <Channel Number="12">Gobo Wheel 1 Rotate</Channel>
+  <Channel Number="12" ActsOn="11">Gobo Wheel 1 Rotate</Channel>
   <Channel Number="13">Gobo Wheel 2</Channel>
   <Channel Number="14">Focus</Channel>
   <Channel Number="15">Zoom</Channel>
   <Channel Number="16">Prism Wheel</Channel>
-  <Channel Number="17">Prism Rotation</Channel>
+  <Channel Number="17" ActsOn="16">Prism Rotation</Channel>
   <Channel Number="18">Iris</Channel>
   <Channel Number="19">Frost</Channel>
   <Channel Number="20">Control</Channel>
@@ -282,16 +282,16 @@
   <Channel Number="11">Yellow</Channel>
   <Channel Number="12">CMY Speed</Channel>
   <Channel Number="13">Gobo Wheel 1</Channel>
-  <Channel Number="14">Gobo Wheel 1 Rotate</Channel>
+  <Channel Number="14" ActsOn="13">Gobo Wheel 1 Rotate</Channel>
   <Channel Number="15">Gobo Wheel 2</Channel>
   <Channel Number="16">Focus</Channel>
   <Channel Number="17">Zoom</Channel>
   <Channel Number="18">Prism Wheel</Channel>
-  <Channel Number="19">Prism Rotation</Channel>
+  <Channel Number="19" ActsOn="18">Prism Rotation</Channel>
   <Channel Number="20">Iris</Channel>
   <Channel Number="21">Frost</Channel>
   <Channel Number="22">Pan/Tilt Macro</Channel>
-  <Channel Number="23">Pan/Tilt Macro Speed</Channel>
+  <Channel Number="23" ActsOn="22">Pan/Tilt Macro Speed</Channel>
   <Channel Number="24">Preset Color</Channel>
   <Channel Number="25">Color Macro</Channel>
   <Channel Number="26">Control</Channel>

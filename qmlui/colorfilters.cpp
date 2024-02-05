@@ -24,10 +24,10 @@
 #include "colorfilters.h"
 #include "qlcfile.h"
 
-#define KXMLColorFiltersName  "Name"
-#define KXMLColorFiltersColor "Color"
-#define KXMLColorFiltersRGB   "RGB"
-#define KXMLColorFiltersWAUV  "WAUV"
+#define KXMLColorFiltersName  QString("Name")
+#define KXMLColorFiltersColor QString("Color")
+#define KXMLColorFiltersRGB   QString("RGB")
+#define KXMLColorFiltersWAUV  QString("WAUV")
 
 ColorFilters::ColorFilters(QObject *parent)
     : QObject(parent)
@@ -150,7 +150,9 @@ QFileDevice::FileError ColorFilters::saveXML(const QString &fileName)
     QXmlStreamWriter doc(&file);
     doc.setAutoFormatting(true);
     doc.setAutoFormattingIndent(1);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     doc.setCodec("UTF-8");
+#endif
     QLCFile::writeXMLHeader(&doc, KXMLColorFilters);
 
     doc.writeTextElement(KXMLColorFiltersName, m_name);
@@ -185,7 +187,7 @@ QFileDevice::FileError ColorFilters::loadXML(const QString &fileName)
         return QFile::OpenError;
 
     QXmlStreamReader *doc = QLCFile::getXMLReader(fileName);
-    if (doc == NULL || doc->device() == NULL || doc->hasError())
+    if (doc == nullptr || doc->device() == nullptr || doc->hasError())
     {
         qWarning() << Q_FUNC_INFO << "Unable to read from" << fileName;
         return QFile::ReadError;

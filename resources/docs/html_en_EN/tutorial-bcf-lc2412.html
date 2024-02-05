@@ -10,9 +10,9 @@
 <h1>External control with BCF2000 and LC2412</h1>
 
 <p>This is small howto to setup external control with Behringer
-<a href="http://www.musictri.be/Categories/Behringer/Lighting-Systems/DMX-Controllers/LC2412/p/P0058">LC2412</a> connected through
-<a href="http://www.musictri.be/Categories/Behringer/Computer-Audio/Desktop-Controllers/BCF2000-WH/p/P0817">BCF2000</a>. Everything said
-here is also valid for <a href="http://www.musictri.be/Categories/Behringer/Computer-Audio/Desktop-Controllers/BCR2000/p/P0245">BCR2000</a>.
+<a href="https://www.musictribe.com/Categories/Behringer/Lighting-Systems/DMX-Controllers/LC2412/p/P0058">LC2412</a> connected through
+<a href="https://www.musictribe.com/Categories/Behringer/Computer-Audio/Desktop-Controllers/BCF2000-WH/p/P0817">BCF2000</a>. Everything said
+here is also valid for <a href="https://www.musictribe.com/Categories/Behringer/Computer-Audio/Desktop-Controllers/BCR2000/p/P0245">BCR2000</a>.
 </p>
 
 <p>With this setup (BCF2000 + LC2412) we get:</p>
@@ -31,10 +31,10 @@ here is also valid for <a href="http://www.musictri.be/Categories/Behringer/Comp
 <h2>Connect cables</h2>
 
 <p>Connect MIDI cable from LC2412 MIDI OUT to MIDI IN on BCF2000.
-Connect USB cable from BCF2000 to the computer. MIDI OUT and MIDI 
+Connect USB cable from BCF2000 to the computer. MIDI OUT and MIDI
 THRU on the BCF2000 stay unused.</p>
 
-<img src="file:../images/bcf2000-lc2412.png" />
+<img src="../images/bcf2000-lc2412.png" />
 
 <h2>Set BCF2000 to U-2 mode</h2>
 
@@ -49,7 +49,7 @@ THRU on the BCF2000 stay unused.</p>
 and one MIDI OUT. The first MIDI IN is input from BCF, the second
 one is input from LC2412. MIDI OUT is sent to BCF to provide
 feedback (motors and LEDs).</p>
-    
+
 <p><b>Windows:</b> If only one MIDI IN port is present in the computer,
 most probably you need to download and install USB MIDI driver for BCF
 from Behringer website.</p>
@@ -61,7 +61,7 @@ from Behringer website.</p>
 <ul>
     <li>Go to the INPUT/OUTPUTs tab</li>
     <li>Add two new universes (you may also use any two unused ones)</li>
-    <li>Give them sensible names (like "BCF2000" and "LC2412").</li> 
+    <li>Give them sensible names (like "BCF2000" and "LC2412").</li>
     <li>BCF2000 universe:
         <ul>
             <li>Select both "Input" and "Feedback" in the row with BCF2000 MIDI 1 port

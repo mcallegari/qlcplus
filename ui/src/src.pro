@@ -6,8 +6,13 @@ LANGUAGE = C++
 TARGET   = qlcplusui
 
 CONFIG += qt
-QT     += core gui script
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia multimediawidgets
+QT     += core gui widgets
+QT     += multimedia multimediawidgets
+greaterThan(QT_MAJOR_VERSION, 5) {
+  QT += qml
+} else {
+  QT += script
+}
 
 INCLUDEPATH     += monitor showmanager virtualconsole
 
@@ -36,6 +41,9 @@ lessThan(QT_MAJOR_VERSION, 5) {
     }
   }
 }
+
+HEADERS += ../../plugins/interfaces/rdmprotocol.h
+SOURCES += ../../plugins/interfaces/rdmprotocol.cpp
 
 # Headers
 HEADERS += aboutbox.h \
@@ -87,6 +95,7 @@ HEADERS += aboutbox.h \
            palettegenerator.h \
            playbackslider.h \
            positiontool.h \
+           rdmmanager.h \
            remapwidget.h \
            rgbmatrixeditor.h \
            rgbitem.h \
@@ -97,7 +106,9 @@ HEADERS += aboutbox.h \
            simpledeskengine.h \
            speeddial.h \
            speeddialwidget.h \
-           universeitemwidget.h
+           universeitemwidget.h \
+           videoeditor.h \
+           videoprovider.h
 
 # Monitor headers
 HEADERS += monitor/monitor.h \
@@ -116,6 +127,7 @@ HEADERS += showmanager/multitrackview.h \
            showmanager/showitem.h \
            showmanager/sequenceitem.h \
            showmanager/audioitem.h \
+           showmanager/videoitem.h \
            showmanager/rgbmatrixitem.h \
            showmanager/efxitem.h \
            showmanager/timingstool.h \
@@ -189,9 +201,11 @@ FORMS += aboutbox.ui \
          monitor/monitorbackgroundselection.ui \
          monitor/monitorfixturepropertieseditor.ui \
          positiontool.ui \
+         rdmmanager.ui \
          rgbmatrixeditor.ui \
          sceneeditor.ui \
          scripteditor.ui \
+         videoeditor.ui \
          selectinputchannel.ui \
          showmanager/showeditor.ui
 
@@ -262,6 +276,7 @@ SOURCES += aboutbox.cpp \
            palettegenerator.cpp \
            playbackslider.cpp \
            positiontool.cpp \
+           rdmmanager.cpp \
            remapwidget.cpp \
            rgbmatrixeditor.cpp \
            rgbitem.cpp \
@@ -272,7 +287,9 @@ SOURCES += aboutbox.cpp \
            simpledeskengine.cpp \
            speeddial.cpp \
            speeddialwidget.cpp \
-           universeitemwidget.cpp
+           universeitemwidget.cpp \
+           videoeditor.cpp \
+           videoprovider.cpp
 
 # Monitor sources
 SOURCES += monitor/monitor.cpp \
@@ -291,6 +308,7 @@ SOURCES += showmanager/multitrackview.cpp \
            showmanager/showitem.cpp \
            showmanager/sequenceitem.cpp \
            showmanager/audioitem.cpp \
+           showmanager/videoitem.cpp \
            showmanager/rgbmatrixitem.cpp \
            showmanager/efxitem.cpp \
            showmanager/timingstool.cpp \
@@ -336,12 +354,6 @@ SOURCES += virtualconsole/addvcbuttonmatrix.cpp \
            virtualconsole/vcxypadpreset.cpp \
            virtualconsole/vcxypadproperties.cpp \
            virtualconsole/virtualconsole.cpp
-
-greaterThan(QT_MAJOR_VERSION, 4) {
-HEADERS += videoeditor.h showmanager/videoitem.h videoprovider.h
-FORMS += videoeditor.ui
-SOURCES += videoeditor.cpp showmanager/videoitem.cpp videoprovider.cpp
-}
 
 TRANSLATIONS += qlcplus_fi_FI.ts
 TRANSLATIONS += qlcplus_fr_FR.ts

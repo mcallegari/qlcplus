@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>bwerst</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
@@ -11,28 +11,28 @@
  <Type>Moving Head</Type>
  <Channel Name="Shutter, Strobe, Functions">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="19">Shutter closed (lamp switches to 400 W mode after 10 seconds while shutter is closed)</Capability>
-  <Capability Min="20" Max="49">Shutter open</Capability>
-  <Capability Min="50" Max="72">Strobe, fast -&gt; slow</Capability>
-  <Capability Min="73" Max="79">Shutter open</Capability>
-  <Capability Min="80" Max="99">Opening pulse, fast -&gt; slow</Capability>
-  <Capability Min="100" Max="119">Closing pulse, fast -&gt; slow</Capability>
-  <Capability Min="120" Max="127">Shutter open</Capability>
-  <Capability Min="128" Max="147">Random strobe, fast</Capability>
-  <Capability Min="148" Max="167">Random strobe, medium</Capability>
-  <Capability Min="168" Max="187">Random strobe, slow</Capability>
-  <Capability Min="188" Max="190">Shutter open</Capability>
-  <Capability Min="191" Max="193">Random opening pulse, fast</Capability>
-  <Capability Min="194" Max="196">Random open pulse, slow</Capability>
-  <Capability Min="197" Max="199">Random closing pulse, fast</Capability>
-  <Capability Min="200" Max="202">Random closing pulse, slow</Capability>
-  <Capability Min="203" Max="207">Shutter open</Capability>
-  <Capability Min="208" Max="217">Reset fixture</Capability>
-  <Capability Min="218" Max="227">Shutter open</Capability>
-  <Capability Min="228" Max="237">Lamp on</Capability>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Shutter closed (lamp switches to 400 W mode after 10 seconds while shutter is closed)</Capability>
+  <Capability Min="20" Max="49" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="50" Max="72" Preset="StrobeFastToSlow">Strobe, fast -&gt; slow</Capability>
+  <Capability Min="73" Max="79" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="80" Max="99" Preset="PulseFastToSlow">Opening pulse, fast -&gt; slow</Capability>
+  <Capability Min="100" Max="119" Preset="PulseFastToSlow">Closing pulse, fast -&gt; slow</Capability>
+  <Capability Min="120" Max="127" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="128" Max="147" Preset="StrobeRandomFastToSlow">Random strobe, fast</Capability>
+  <Capability Min="148" Max="167" Preset="StrobeRandom">Random strobe, medium</Capability>
+  <Capability Min="168" Max="187" Preset="StrobeRandomSlowToFast">Random strobe, slow</Capability>
+  <Capability Min="188" Max="190" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="191" Max="193" Preset="StrobeRandom">Random opening pulse, fast</Capability>
+  <Capability Min="194" Max="196" Preset="StrobeRandom">Random open pulse, slow</Capability>
+  <Capability Min="197" Max="199" Preset="StrobeRandom">Random closing pulse, fast</Capability>
+  <Capability Min="200" Max="202" Preset="StrobeRandom">Random closing pulse, slow</Capability>
+  <Capability Min="203" Max="207" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="208" Max="217" Preset="ResetAll">Reset fixture</Capability>
+  <Capability Min="218" Max="227" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="228" Max="237" Preset="LampOn">Lamp on</Capability>
   <Capability Min="238" Max="242">400 W mode (active until 700 W value is selected)</Capability>
   <Capability Min="243" Max="247">700 W mode</Capability>
-  <Capability Min="248" Max="255">Lamp off</Capability>
+  <Capability Min="248" Max="255" Preset="LampOff">Lamp off</Capability>
  </Channel>
  <Channel Name="Dimmer (MSB)" Preset="IntensityDimmer"/>
  <Channel Name="Dimmer, fine (LSB)" Preset="IntensityDimmerFine"/>
@@ -94,18 +94,18 @@
   <Capability Min="48" Max="51" Preset="GoboMacro" Res1="Others/gobo00041.svg">Gobo 4 (Milky Way) - Continuous Rotation</Capability>
   <Capability Min="52" Max="55" Preset="GoboMacro" Res1="SGM/gobo00106.svg">Gobo 5 (Water) - Continuous Rotation</Capability>
   <Capability Min="56" Max="59" Preset="GoboMacro" Res1="SGM/gobo00085.svg">Gobo 6 (Flames) - Continuous Rotation</Capability>
-  <Capability Min="60" Max="71" Preset="GoboMacro" Res1="Others/gobo00046.svg">Gobo 1, slow -&gt; fast - Indexed Shake</Capability>
-  <Capability Min="72" Max="83" Preset="GoboMacro" Res1="Others/gobo00060.svg">Gobo 2, slow -&gt; fast - Indexed Shake</Capability>
-  <Capability Min="84" Max="95" Preset="GoboMacro" Res1="SGM-Color/gobo00502.png">Gobo 3, slow -&gt; fast - Indexed Shake</Capability>
-  <Capability Min="96" Max="107" Preset="GoboMacro" Res1="Others/gobo00041.svg">Gobo 4, slow -&gt; fast - Indexed Shake</Capability>
-  <Capability Min="108" Max="119" Preset="GoboMacro" Res1="SGM/gobo00106.svg">Gobo 5, slow -&gt; fast - Indexed Shake</Capability>
-  <Capability Min="120" Max="131" Preset="GoboMacro" Res1="SGM/gobo00085.svg">Gobo 6, slow -&gt; fast - Indexed Shake</Capability>
-  <Capability Min="132" Max="143" Preset="GoboMacro" Res1="SGM/gobo00085.svg">Gobo 6, slow -&gt; fast - Cont. Rotate and Shake</Capability>
-  <Capability Min="144" Max="155" Preset="GoboMacro" Res1="SGM/gobo00106.svg">Gobo 5, slow -&gt; fast - Cont. Rotate and Shake</Capability>
-  <Capability Min="156" Max="167" Preset="GoboMacro" Res1="Others/gobo00041.svg">Gobo 4, slow -&gt; fast - Cont. Rotate and Shake</Capability>
-  <Capability Min="168" Max="179" Preset="GoboMacro" Res1="SGM-Color/gobo00502.png">Gobo 3, slow -&gt;fast - Cont. Rotate and Shake</Capability>
-  <Capability Min="180" Max="191" Preset="GoboMacro" Res1="Others/gobo00060.svg">Gobo 2, slow -&gt; fast - Cont. Rotate and Shake</Capability>
-  <Capability Min="192" Max="203" Preset="GoboMacro" Res1="Others/gobo00046.svg">Gobo 1, slow -&gt; fast - Cont. Rotate and Shake</Capability>
+  <Capability Min="60" Max="71" Preset="GoboShakeMacro" Res1="Others/gobo00046.svg">Gobo 1, slow -&gt; fast - Indexed Shake</Capability>
+  <Capability Min="72" Max="83" Preset="GoboShakeMacro" Res1="Others/gobo00060.svg">Gobo 2, slow -&gt; fast - Indexed Shake</Capability>
+  <Capability Min="84" Max="95" Preset="GoboShakeMacro" Res1="SGM-Color/gobo00502.png">Gobo 3, slow -&gt; fast - Indexed Shake</Capability>
+  <Capability Min="96" Max="107" Preset="GoboShakeMacro" Res1="Others/gobo00041.svg">Gobo 4, slow -&gt; fast - Indexed Shake</Capability>
+  <Capability Min="108" Max="119" Preset="GoboShakeMacro" Res1="SGM/gobo00106.svg">Gobo 5, slow -&gt; fast - Indexed Shake</Capability>
+  <Capability Min="120" Max="131" Preset="GoboShakeMacro" Res1="SGM/gobo00085.svg">Gobo 6, slow -&gt; fast - Indexed Shake</Capability>
+  <Capability Min="132" Max="143" Preset="GoboShakeMacro" Res1="SGM/gobo00085.svg">Gobo 6, slow -&gt; fast - Cont. Rotate and Shake</Capability>
+  <Capability Min="144" Max="155" Preset="GoboShakeMacro" Res1="SGM/gobo00106.svg">Gobo 5, slow -&gt; fast - Cont. Rotate and Shake</Capability>
+  <Capability Min="156" Max="167" Preset="GoboShakeMacro" Res1="Others/gobo00041.svg">Gobo 4, slow -&gt; fast - Cont. Rotate and Shake</Capability>
+  <Capability Min="168" Max="179" Preset="GoboShakeMacro" Res1="SGM-Color/gobo00502.png">Gobo 3, slow -&gt;fast - Cont. Rotate and Shake</Capability>
+  <Capability Min="180" Max="191" Preset="GoboShakeMacro" Res1="Others/gobo00060.svg">Gobo 2, slow -&gt; fast - Cont. Rotate and Shake</Capability>
+  <Capability Min="192" Max="203" Preset="GoboShakeMacro" Res1="Others/gobo00046.svg">Gobo 1, slow -&gt; fast - Cont. Rotate and Shake</Capability>
   <Capability Min="204" Max="229">CW scroll, slow -&gt; fast</Capability>
   <Capability Min="230" Max="255">CCW scroll, fast-&gt; slow</Capability>
  </Channel>
@@ -135,13 +135,13 @@
   <Capability Min="67" Max="76">Slot 6 -&gt; Slot 7</Capability>
   <Capability Min="77" Max="77">Slot 7 (Leaf Breakup)</Capability>
   <Capability Min="78" Max="87">Slot 7 -&gt; Slot 8</Capability>
-  <Capability Min="88" Max="88" Preset="GoboMacro" Res1="GLP/gobo00006.png">Slot 8 ("Les Mis" Whirl Pool)</Capability>
+  <Capability Min="88" Max="88" Preset="GoboMacro" Res1="GLP/gobo00006.svg">Slot 8 (&quot;Les Mis&quot; Whirl Pool)</Capability>
   <Capability Min="89" Max="98">Slot 8 -&gt; Slot 9</Capability>
   <Capability Min="99" Max="99">Slot 9 (Two Tone)</Capability>
   <Capability Min="100" Max="109">Slot 9 -&gt; Open</Capability>
   <Capability Min="110" Max="112" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="113" Max="121">Slot 9 (Tow Tone)</Capability>
-  <Capability Min="122" Max="130" Preset="GoboMacro" Res1="GLP/gobo00006.png">Slot 8 ("Les Mis" Whirl Pool)</Capability>
+  <Capability Min="122" Max="130" Preset="GoboMacro" Res1="GLP/gobo00006.svg">Slot 8 (&quot;Les Mis&quot; Whirl Pool)</Capability>
   <Capability Min="131" Max="139">Slot 7 (Leaf Breakup)</Capability>
   <Capability Min="140" Max="148" Preset="GoboMacro" Res1="Others/gobo00039.svg">Slot 6 (Bio)</Capability>
   <Capability Min="149" Max="157" Preset="GoboMacro" Res1="ClayPaky/gobo00035.png">Slot 5 (Worms)</Capability>
@@ -193,7 +193,7 @@
   <Capability Min="250" Max="252">Random closing pulse, fast</Capability>
   <Capability Min="253" Max="255">Random closing pulse, slow</Capability>
  </Channel>
- <Channel Name="Iris, fine (LSB)" Preset="BeamIrisFine"/>
+ <Channel Name="Iris, fine (LSB)" Preset="ShutterIrisFine"/>
  <Channel Name="Focus (MSB)" Preset="BeamFocusFarNear"/>
  <Channel Name="Focus, fine (LSB)">
   <Group Byte="1">Beam</Group>
@@ -282,7 +282,7 @@
  <Physical>
   <Bulb Type="HTI 700W" Lumens="16700" ColourTemperature="7500"/>
   <Dimensions Weight="34.5" Width="365" Height="636" Depth="450"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Lens Name="Other" DegreesMin="16" DegreesMax="30"/>
   <Focus Type="Head" PanMax="540" TiltMax="246"/>
   <Technical PowerConsumption="1019" DmxConnector="3-pin and 5-pin"/>
  </Physical>

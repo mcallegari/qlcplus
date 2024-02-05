@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.6.0</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Massimo Callegari</Author>
  </Creator>
  <Manufacturer>Clay Paky</Manufacturer>
@@ -80,81 +80,81 @@
  <Channel Name="Macro colour">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="9">Macro colour OFF</Capability>
-  <Capability Min="10" Max="10" Color="#ff0000">Red</Capability>
-  <Capability Min="11" Max="11" Color="#00ff00">Green</Capability>
-  <Capability Min="12" Max="12" Color="#0000ff">Blue</Capability>
-  <Capability Min="13" Max="13" Color="#00ffff">Cyan</Capability>
-  <Capability Min="14" Max="14" Color="#ffff00">Yellow</Capability>
-  <Capability Min="15" Max="15" Color="#ff00ff">Magenta</Capability>
-  <Capability Min="16" Max="16" Color="#ffffff">White 7000°K</Capability>
-  <Capability Min="17" Max="17" Color="#ffffff">White 3700°K</Capability>
-  <Capability Min="18" Max="18" Color="#ffffff">White 5000°K</Capability>
-  <Capability Min="19" Max="19" Color="#000000">Black</Capability>
-  <Capability Min="20" Max="22" Color="#9c7d00">Medium yellow</Capability>
-  <Capability Min="23" Max="26" Color="#987309">Straw tint</Capability>
-  <Capability Min="27" Max="28" Color="#c67109">Surprise peach</Capability>
-  <Capability Min="29" Max="29" Color="#ff3700">Fire</Capability>
-  <Capability Min="30" Max="30" Color="#ff8800">Medium amber</Capability>
-  <Capability Min="31" Max="31" Color="#ff6600">Gold amber</Capability>
-  <Capability Min="32" Max="34" Color="#ff4000">Dark amber</Capability>
-  <Capability Min="35" Max="44" Color="#ff5202">Sunrise red</Capability>
-  <Capability Min="45" Max="45" Color="#ff70ff">Light pink</Capability>
-  <Capability Min="46" Max="48" Color="#ff576b">Medium pink</Capability>
-  <Capability Min="49" Max="61" Color="#ff6b81">Pink carnation</Capability>
-  <Capability Min="62" Max="67" Color="#d265aa">Light lavender</Capability>
-  <Capability Min="68" Max="77" Color="#a8518a">Lavender</Capability>
-  <Capability Min="78" Max="88" Color="#00ff87">Sky blue</Capability>
-  <Capability Min="89" Max="99" Color="#00c281">Just blue</Capability>
-  <Capability Min="100" Max="109" Color="#28db00">Dark yellow green</Capability>
-  <Capability Min="110" Max="111" Color="#f5c800">Spring yellow</Capability>
-  <Capability Min="112" Max="112" Color="#eda200">Light amber</Capability>
-  <Capability Min="113" Max="113" Color="#e6ba51">Straw</Capability>
-  <Capability Min="114" Max="114" Color="#ffa600">Deep amber</Capability>
-  <Capability Min="115" Max="116" Color="#ff7b00">Orange</Capability>
-  <Capability Min="117" Max="117" Color="#ff8b1f">Light rose</Capability>
-  <Capability Min="118" Max="118" Color="#ff9317">English rose</Capability>
-  <Capability Min="119" Max="119" Color="#ff8b1f">Light salmon</Capability>
-  <Capability Min="120" Max="120" Color="#d9811c">Middle rose</Capability>
-  <Capability Min="121" Max="122" Color="#ff6f21">Dark pink</Capability>
-  <Capability Min="123" Max="124" Color="#ff130f">Magenta</Capability>
-  <Capability Min="125" Max="125" Color="#33ff33">Peacock blue</Capability>
-  <Capability Min="126" Max="126" Color="#ceff38">Med blue green</Capability>
-  <Capability Min="127" Max="127" Color="#ceff38">Steel blue</Capability>
-  <Capability Min="128" Max="128" Color="#4aff53">Light blue</Capability>
-  <Capability Min="129" Max="130" Color="#00bbff">Dark blue</Capability>
-  <Capability Min="131" Max="133" Color="#ccff00">Leaf green</Capability>
-  <Capability Min="134" Max="135" Color="#55ff0d">Dark green</Capability>
-  <Capability Min="136" Max="137" Color="#e32938">Mauve</Capability>
-  <Capability Min="138" Max="141" Color="#ff3624">Bright pink</Capability>
-  <Capability Min="142" Max="144" Color="#00ff91">Medium blue</Capability>
-  <Capability Min="145" Max="145" Color="#ff3b00">Deep golden amber</Capability>
-  <Capability Min="146" Max="146" Color="#ffc53d">Pale lavender</Capability>
-  <Capability Min="147" Max="148" Color="#dbc64f">Special lavender</Capability>
-  <Capability Min="149" Max="150" Color="#4cff00">Primary green</Capability>
-  <Capability Min="151" Max="156" Color="#00ff55">Bright blue</Capability>
-  <Capability Min="157" Max="161" Color="#ff8e0d">Apricot</Capability>
-  <Capability Min="162" Max="167" Color="#fdaa1a">Pale gold</Capability>
-  <Capability Min="168" Max="171" Color="#de5500">Deep orange</Capability>
-  <Capability Min="172" Max="173" Color="#ffb41c">Bastard amber</Capability>
-  <Capability Min="174" Max="174" Color="#ff2c02">Flame red</Capability>
-  <Capability Min="175" Max="178" Color="#52d65b">Daylight blue</Capability>
-  <Capability Min="179" Max="179" Color="#ffc831">Lilac tint</Capability>
-  <Capability Min="180" Max="183" Color="#ffa940">Deep lavender</Capability>
-  <Capability Min="184" Max="190" Color="#b5ff5f">Dark steel blue</Capability>
-  <Capability Min="191" Max="206" Color="#4c00ff">Congo blue</Capability>
-  <Capability Min="207" Max="255" Color="#80ff8f">Alice blue</Capability>
+  <Capability Min="10" Max="10" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="11" Max="11" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="12" Max="12" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="13" Max="13" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="14" Max="14" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="15" Max="15" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="16" Max="16" Preset="ColorMacro" Res1="#ffffff">White 7000°K</Capability>
+  <Capability Min="17" Max="17" Preset="ColorMacro" Res1="#ffffff">White 3700°K</Capability>
+  <Capability Min="18" Max="18" Preset="ColorMacro" Res1="#ffffff">White 5000°K</Capability>
+  <Capability Min="19" Max="19" Preset="ColorMacro" Res1="#000000">Black</Capability>
+  <Capability Min="20" Max="22" Preset="ColorMacro" Res1="#9c7d00">Medium yellow</Capability>
+  <Capability Min="23" Max="26" Preset="ColorMacro" Res1="#987309">Straw tint</Capability>
+  <Capability Min="27" Max="28" Preset="ColorMacro" Res1="#c67109">Surprise peach</Capability>
+  <Capability Min="29" Max="29" Preset="ColorMacro" Res1="#ff3700">Fire</Capability>
+  <Capability Min="30" Max="30" Preset="ColorMacro" Res1="#ff8800">Medium amber</Capability>
+  <Capability Min="31" Max="31" Preset="ColorMacro" Res1="#ff6600">Gold amber</Capability>
+  <Capability Min="32" Max="34" Preset="ColorMacro" Res1="#ff4000">Dark amber</Capability>
+  <Capability Min="35" Max="44" Preset="ColorMacro" Res1="#ff5202">Sunrise red</Capability>
+  <Capability Min="45" Max="45" Preset="ColorMacro" Res1="#ff70ff">Light pink</Capability>
+  <Capability Min="46" Max="48" Preset="ColorMacro" Res1="#ff576b">Medium pink</Capability>
+  <Capability Min="49" Max="61" Preset="ColorMacro" Res1="#ff6b81">Pink carnation</Capability>
+  <Capability Min="62" Max="67" Preset="ColorMacro" Res1="#d265aa">Light lavender</Capability>
+  <Capability Min="68" Max="77" Preset="ColorMacro" Res1="#a8518a">Lavender</Capability>
+  <Capability Min="78" Max="88" Preset="ColorMacro" Res1="#00ff87">Sky blue</Capability>
+  <Capability Min="89" Max="99" Preset="ColorMacro" Res1="#00c281">Just blue</Capability>
+  <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#28db00">Dark yellow green</Capability>
+  <Capability Min="110" Max="111" Preset="ColorMacro" Res1="#f5c800">Spring yellow</Capability>
+  <Capability Min="112" Max="112" Preset="ColorMacro" Res1="#eda200">Light amber</Capability>
+  <Capability Min="113" Max="113" Preset="ColorMacro" Res1="#e6ba51">Straw</Capability>
+  <Capability Min="114" Max="114" Preset="ColorMacro" Res1="#ffa600">Deep amber</Capability>
+  <Capability Min="115" Max="116" Preset="ColorMacro" Res1="#ff7b00">Orange</Capability>
+  <Capability Min="117" Max="117" Preset="ColorMacro" Res1="#ff8b1f">Light rose</Capability>
+  <Capability Min="118" Max="118" Preset="ColorMacro" Res1="#ff9317">English rose</Capability>
+  <Capability Min="119" Max="119" Preset="ColorMacro" Res1="#ff8b1f">Light salmon</Capability>
+  <Capability Min="120" Max="120" Preset="ColorMacro" Res1="#d9811c">Middle rose</Capability>
+  <Capability Min="121" Max="122" Preset="ColorMacro" Res1="#ff6f21">Dark pink</Capability>
+  <Capability Min="123" Max="124" Preset="ColorMacro" Res1="#ff130f">Magenta</Capability>
+  <Capability Min="125" Max="125" Preset="ColorMacro" Res1="#33ff33">Peacock blue</Capability>
+  <Capability Min="126" Max="126" Preset="ColorMacro" Res1="#ceff38">Med blue green</Capability>
+  <Capability Min="127" Max="127" Preset="ColorMacro" Res1="#ceff38">Steel blue</Capability>
+  <Capability Min="128" Max="128" Preset="ColorMacro" Res1="#4aff53">Light blue</Capability>
+  <Capability Min="129" Max="130" Preset="ColorMacro" Res1="#00bbff">Dark blue</Capability>
+  <Capability Min="131" Max="133" Preset="ColorMacro" Res1="#ccff00">Leaf green</Capability>
+  <Capability Min="134" Max="135" Preset="ColorMacro" Res1="#55ff0d">Dark green</Capability>
+  <Capability Min="136" Max="137" Preset="ColorMacro" Res1="#e32938">Mauve</Capability>
+  <Capability Min="138" Max="141" Preset="ColorMacro" Res1="#ff3624">Bright pink</Capability>
+  <Capability Min="142" Max="144" Preset="ColorMacro" Res1="#00ff91">Medium blue</Capability>
+  <Capability Min="145" Max="145" Preset="ColorMacro" Res1="#ff3b00">Deep golden amber</Capability>
+  <Capability Min="146" Max="146" Preset="ColorMacro" Res1="#ffc53d">Pale lavender</Capability>
+  <Capability Min="147" Max="148" Preset="ColorMacro" Res1="#dbc64f">Special lavender</Capability>
+  <Capability Min="149" Max="150" Preset="ColorMacro" Res1="#4cff00">Primary green</Capability>
+  <Capability Min="151" Max="156" Preset="ColorMacro" Res1="#00ff55">Bright blue</Capability>
+  <Capability Min="157" Max="161" Preset="ColorMacro" Res1="#ff8e0d">Apricot</Capability>
+  <Capability Min="162" Max="167" Preset="ColorMacro" Res1="#fdaa1a">Pale gold</Capability>
+  <Capability Min="168" Max="171" Preset="ColorMacro" Res1="#de5500">Deep orange</Capability>
+  <Capability Min="172" Max="173" Preset="ColorMacro" Res1="#ffb41c">Bastard amber</Capability>
+  <Capability Min="174" Max="174" Preset="ColorMacro" Res1="#ff2c02">Flame red</Capability>
+  <Capability Min="175" Max="178" Preset="ColorMacro" Res1="#52d65b">Daylight blue</Capability>
+  <Capability Min="179" Max="179" Preset="ColorMacro" Res1="#ffc831">Lilac tint</Capability>
+  <Capability Min="180" Max="183" Preset="ColorMacro" Res1="#ffa940">Deep lavender</Capability>
+  <Capability Min="184" Max="190" Preset="ColorMacro" Res1="#b5ff5f">Dark steel blue</Capability>
+  <Capability Min="191" Max="206" Preset="ColorMacro" Res1="#4c00ff">Congo blue</Capability>
+  <Capability Min="207" Max="255" Preset="ColorMacro" Res1="#80ff8f">Alice blue</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="3">Closed</Capability>
-  <Capability Min="4" Max="103">Slow to fast strobe (1 to 25 flash/sec)</Capability>
-  <Capability Min="104" Max="107">Open</Capability>
-  <Capability Min="108" Max="207">Slow to fast pulsation (1 to 25 flash/sec)</Capability>
-  <Capability Min="208" Max="212">Open</Capability>
-  <Capability Min="213" Max="225">Random slow strobe</Capability>
-  <Capability Min="226" Max="238">Random medium strobe</Capability>
-  <Capability Min="239" Max="251">Random fast strobe</Capability>
-  <Capability Min="252" Max="255">Open</Capability>
+  <Capability Min="0" Max="3" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="4" Max="103" Preset="StrobeSlowToFast">Slow to fast strobe (1 to 25 flash/sec)</Capability>
+  <Capability Min="104" Max="107" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="108" Max="207" Preset="PulseSlowToFast">Slow to fast pulsation (1 to 25 flash/sec)</Capability>
+  <Capability Min="208" Max="212" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="213" Max="225" Preset="StrobeRandom">Random slow strobe</Capability>
+  <Capability Min="226" Max="238" Preset="StrobeRandom">Random medium strobe</Capability>
+  <Capability Min="239" Max="251" Preset="StrobeRandom">Random fast strobe</Capability>
+  <Capability Min="252" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
@@ -186,9 +186,9 @@
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="25">Unused range</Capability>
-  <Capability Min="26" Max="76">Zoom reset</Capability>
-  <Capability Min="77" Max="127">Pan/Tilt reset</Capability>
-  <Capability Min="128" Max="255">Complete reset</Capability>
+  <Capability Min="26" Max="76" Preset="ResetZoom">Zoom reset</Capability>
+  <Capability Min="77" Max="127" Preset="ResetPanTilt">Pan/Tilt reset</Capability>
+  <Capability Min="128" Max="255" Preset="ResetAll">Complete reset</Capability>
  </Channel>
  <Channel Name="Shape selection">
   <Group Byte="0">Effect</Group>
@@ -494,11 +494,12 @@
    <Channel>46</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Lumens="2100" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="320" Height="381" Weight="7.55" Depth="253"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
-   <Technical PowerConsumption="135" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="2100" ColourTemperature="0"/>
+  <Dimensions Weight="7.55" Width="320" Height="381" Depth="253"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+  <Layout Width="3" Height="2"/>
+  <Technical PowerConsumption="135" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

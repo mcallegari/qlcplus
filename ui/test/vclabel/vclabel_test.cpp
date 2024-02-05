@@ -124,7 +124,7 @@ void VCLabel_Test::loadXML()
     QCOMPARE(label.geometry().height(), 69);
     QCOMPARE(label.geometry().x(), 3);
     QCOMPARE(label.geometry().y(), 4);
-    QCOMPARE(label.font(), f);
+    QCOMPARE(label.font().toString(), f.toString());
 
     buffer.close();
     QByteArray bData = buffer.data();

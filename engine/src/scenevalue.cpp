@@ -50,6 +50,18 @@ bool SceneValue::isValid() const
         return true;
 }
 
+SceneValue &SceneValue::operator=(const SceneValue &scv)
+{
+    if (this != &scv)
+    {
+        fxi = scv.fxi;
+        channel = scv.channel;
+        value = scv.value;
+    }
+
+    return *this;
+}
+
 bool SceneValue::operator<(const SceneValue& scv) const
 {
     if (fxi < scv.fxi)

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Andres Robles</Author>
  </Creator>
  <Manufacturer>JB Systems</Manufacturer>
@@ -27,11 +27,11 @@
  <Channel Name="Dimmer 4" Preset="IntensityDimmer"/>
  <Channel Name="Dimmer Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="1">OFF</Capability>
+  <Capability Min="0" Max="1" Preset="ShutterClose">OFF</Capability>
   <Capability Min="2" Max="190">Dark to light</Capability>
   <Capability Min="191" Max="200">Sound mode</Capability>
-  <Capability Min="201" Max="247">Strobe Slow to fast</Capability>
-  <Capability Min="248" Max="255">ON</Capability>
+  <Capability Min="201" Max="247" Preset="StrobeSlowToFast">Strobe Slow to fast</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">ON</Capability>
  </Channel>
  <Mode Name="16 Channel">
   <Channel Number="0">Red 1</Channel>
@@ -121,6 +121,7 @@
   <Dimensions Weight="8" Width="1060" Height="321" Depth="89"/>
   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
   <Focus Type="Barrel" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
   <Technical PowerConsumption="67" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.6 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Freasy</Author>
  </Creator>
  <Manufacturer>ETEC</Manufacturer>
@@ -17,41 +17,41 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="4">Strobe closed</Capability>
-  <Capability Min="5" Max="250">Strobe from slow to fast</Capability>
-  <Capability Min="251" Max="255">Strobe open</Capability>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Strobe closed</Capability>
+  <Capability Min="5" Max="250" Preset="StrobeSlowToFast">Strobe from slow to fast</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Strobe open</Capability>
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="4" Color="#ffffff">White (Open)</Capability>
-  <Capability Min="5" Max="13" Color="#ffffff" Color2="#ff0000">White/Red</Capability>
-  <Capability Min="14" Max="22" Color="#ff0000">Red</Capability>
-  <Capability Min="23" Max="31" Color="#ff0000" Color2="#ff5500">Red/Orange</Capability>
-  <Capability Min="32" Max="40" Color="#ff5500">Orange</Capability>
-  <Capability Min="41" Max="49" Color="#ff5500" Color2="#00ff00">Orange/Green</Capability>
-  <Capability Min="50" Max="58" Color="#00ff00">Green</Capability>
-  <Capability Min="59" Max="67" Color="#00ff00" Color2="#0000ff">Green/Blue</Capability>
-  <Capability Min="68" Max="76" Color="#0000ff">Blue</Capability>
-  <Capability Min="77" Max="85" Color="#0000ff" Color2="#ffff00">Blue/Yellow</Capability>
-  <Capability Min="86" Max="94" Color="#ffff00">Yellow</Capability>
-  <Capability Min="95" Max="103" Color="#ffff00" Color2="#00ffff">Yellow/Cyan</Capability>
-  <Capability Min="104" Max="112" Color="#00ffff">Cyan</Capability>
-  <Capability Min="113" Max="121" Color="#00ffff" Color2="#ff00ff">Cyan/Magenta</Capability>
-  <Capability Min="122" Max="130" Color="#ff00ff">Magenta</Capability>
-  <Capability Min="131" Max="139" Color="#ffffff">White (Open)</Capability>
-  <Capability Min="140" Max="195" Res="Others/rainbow.png">Clockwise color scroll</Capability>
+  <Capability Min="0" Max="4" Preset="ColorMacro" Res1="#ffffff">White (Open)</Capability>
+  <Capability Min="5" Max="13" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White/Red</Capability>
+  <Capability Min="14" Max="22" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="23" Max="31" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ff5500">Red/Orange</Capability>
+  <Capability Min="32" Max="40" Preset="ColorMacro" Res1="#ff5500">Orange</Capability>
+  <Capability Min="41" Max="49" Preset="ColorDoubleMacro" Res1="#ff5500" Res2="#00ff00">Orange/Green</Capability>
+  <Capability Min="50" Max="58" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="59" Max="67" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green/Blue</Capability>
+  <Capability Min="68" Max="76" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="77" Max="85" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Blue/Yellow</Capability>
+  <Capability Min="86" Max="94" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="95" Max="103" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ffff">Yellow/Cyan</Capability>
+  <Capability Min="104" Max="112" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="113" Max="121" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ff00ff">Cyan/Magenta</Capability>
+  <Capability Min="122" Max="130" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="131" Max="139" Preset="ColorMacro" Res1="#ffffff">White (Open)</Capability>
+  <Capability Min="140" Max="195" Preset="GoboMacro" Res1="Others/rainbow.png">Clockwise color scroll</Capability>
   <Capability Min="196" Max="199">Scroll stop</Capability>
-  <Capability Min="200" Max="255" Res="Others/rainbow.png">Counter-clockwise color scroll</Capability>
+  <Capability Min="200" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Counter-clockwise color scroll</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="7" Res="Others/open.svg">Open(White)</Capability>
-  <Capability Min="8" Max="28" Res="GLP/gobo00014.svg">Gobo1</Capability>
-  <Capability Min="29" Max="49" Res="SGM/gobo00362.png">Gobo2</Capability>
-  <Capability Min="50" Max="70" Res="SGM/gobo00019.png">Gobo3</Capability>
-  <Capability Min="71" Max="91" Res="SGM/gobo00123.svg">Gobo4</Capability>
-  <Capability Min="92" Max="112" Res="SGM/gobo00054.png">Gobo5</Capability>
-  <Capability Min="113" Max="133" Res="Others/gobo00027.svg">Gobo6</Capability>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open(White)</Capability>
+  <Capability Min="8" Max="28" Preset="GoboMacro" Res1="GLP/gobo00014.svg">Gobo1</Capability>
+  <Capability Min="29" Max="49" Preset="GoboMacro" Res1="SGM/gobo00362.svg">Gobo2</Capability>
+  <Capability Min="50" Max="70" Preset="GoboMacro" Res1="SGM/gobo00019.png">Gobo3</Capability>
+  <Capability Min="71" Max="91" Preset="GoboMacro" Res1="SGM/gobo00123.svg">Gobo4</Capability>
+  <Capability Min="92" Max="112" Preset="GoboMacro" Res1="SGM/gobo00054.png">Gobo5</Capability>
+  <Capability Min="113" Max="133" Preset="GoboMacro" Res1="Others/gobo00027.svg">Gobo6</Capability>
   <Capability Min="134" Max="194">Clockwise Gobo scroll</Capability>
   <Capability Min="195" Max="255">Counter-clockwise Gobo scroll</Capability>
  </Channel>
@@ -101,7 +101,7 @@
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="249">No function</Capability>
-  <Capability Min="250" Max="255">6 seconds to reset</Capability>
+  <Capability Min="250" Max="255" Preset="ResetAll">6 seconds to reset</Capability>
  </Channel>
  <Mode Name="8 Channel">
   <Channel Number="0">Pan</Channel>
@@ -131,11 +131,11 @@
   <Channel Number="14">Movement Macros</Channel>
   <Channel Number="15">Reset</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="60W LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.8" Width="270" Height="140" Depth="380"/>
-   <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="120" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="60W LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.8" Width="270" Height="140" Depth="380"/>
+  <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="120" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

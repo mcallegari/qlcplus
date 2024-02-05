@@ -20,20 +20,20 @@
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0
 
-import QtQuick 2.0    
+import QtQuick 2.0
 
 TechniqueFilter
 {
- //   property GBuffer gBuffer
-    property Layer screenQuadGammaCorrectLayer 
-
-    property Texture2D hdrTexture
+    property Layer screenQuadGammaCorrectLayer
     property RenderTarget outRenderTarget
+    property Texture2D hdrTexture: null
+    property Texture2D bloomTexture: null
 
     parameters: [
-        Parameter { name: "hdrTex"; value: hdrTexture }
-    ]       
-    
+        Parameter { name: "hdrTex"; value: hdrTexture },
+        Parameter { name: "bloomTex"; value: bloomTexture }
+    ]
+
     RenderStateSet
     {
         // Render FullScreen Quad
@@ -47,10 +47,11 @@ TechniqueFilter
         ]
         LayerFilter
         {
-            layers: screenQuadGammaCorrectLayer   
-                
-            RenderTargetSelector {
-                target:  outRenderTarget
+            layers: screenQuadGammaCorrectLayer
+
+            RenderTargetSelector
+            {
+                target: outRenderTarget
 
                 ClearBuffers
                 {
@@ -60,9 +61,7 @@ TechniqueFilter
                         matchAny: FilterKey { name: "pass"; value: "gamma_correct" }
                     }
                 }
-
             }
-
-        }     
+        }
     }
 } // TechniqueFilter

@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.3.0</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Massimo Callegari</Author>
  </Creator>
  <Manufacturer>Proel</Manufacturer>
@@ -16,9 +16,9 @@
  <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="2">No function</Capability>
-  <Capability Min="3" Max="125">Random strobe</Capability>
-  <Capability Min="126" Max="255">Pulsing strobe</Capability>
+  <Capability Min="0" Max="2" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="3" Max="125" Preset="StrobeRandom">Random strobe</Capability>
+  <Capability Min="126" Max="255" Preset="PulseSlowToFast">Pulsing strobe</Capability>
  </Channel>
  <Channel Name="Colour change">
   <Group Byte="0">Colour</Group>
@@ -28,13 +28,13 @@
  <Channel Name="Colours Macro">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="2">No function</Capability>
-  <Capability Color2="#ffff00" Min="3" Max="41" Color="#ff0000">Red to Yellow</Capability>
-  <Capability Color2="#00ff00" Min="42" Max="83" Color="#ffff00">Yellow to Green</Capability>
-  <Capability Color2="#00ffff" Min="84" Max="125" Color="#00ff00">Green to Cyan</Capability>
-  <Capability Color2="#0000ff" Min="126" Max="167" Color="#00ffff">Cyan to Blue</Capability>
-  <Capability Color2="#ff00ff" Min="168" Max="209" Color="#0000ff">Blue to Magenta</Capability>
-  <Capability Color2="#ffffff" Min="210" Max="251" Color="#ff00ff">Magenta to White</Capability>
-  <Capability Min="252" Max="255" Color="#ffffff">White</Capability>
+  <Capability Min="3" Max="41" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">Red to Yellow</Capability>
+  <Capability Min="42" Max="83" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Yellow to Green</Capability>
+  <Capability Min="84" Max="125" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#00ffff">Green to Cyan</Capability>
+  <Capability Min="126" Max="167" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#0000ff">Cyan to Blue</Capability>
+  <Capability Min="168" Max="209" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff00ff">Blue to Magenta</Capability>
+  <Capability Min="210" Max="251" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ffffff">Magenta to White</Capability>
+  <Capability Min="252" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
  </Channel>
  <Channel Name="Automatic Colours Macro">
   <Group Byte="0">Colour</Group>
@@ -49,7 +49,7 @@
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="127">No function</Capability>
-  <Capability Min="128" Max="255">Reset after 3 seconds</Capability>
+  <Capability Min="128" Max="255" Preset="ResetAll">Reset after 3 seconds</Capability>
  </Channel>
  <Mode Name="Default">
   <Channel Number="0">Dimmer</Channel>
@@ -68,11 +68,11 @@
   <Channel Number="13">Pan Tilt Speed</Channel>
   <Channel Number="14">Reset</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="300" Height="430" Weight="7.8" Depth="210"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
-   <Technical PowerConsumption="330" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.8" Width="300" Height="430" Depth="210"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="330" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
 </FixtureDefinition>

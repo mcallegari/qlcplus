@@ -88,26 +88,34 @@ var channels, c, v, first, last, step, range;
 var reqchan;
 var addval;
 var values=[];
-window.onload = function() 
+function connect()
 {
   var url = 'ws://' + window.location.host + '/qlcplusWS';
   websocket = new WebSocket(url);
-  websocket.onopen = function(ev) {
+  websocket.onopen = function() {
     isConnected = true;
   };
-  websocket.onclose = function(ev) {
-    alert("QLC+ connection lost !");
+
+  websocket.onclose = function () {
+    isConnected = false;
+    console.log("QLC+ connection is closed. Reconnect will be attempted in 1 second.");
+    setTimeout(function () {
+      connect();
+    }, 1000);
   };
-  websocket.onerror = function(ev) {
-    alert("QLC+ connection error!");
+
+  websocket.onerror = function () {
+    console.error("QLC+ connection encountered error. Closing socket");
+    ws.close();
   };
+
   websocket.onmessage = function(ev) {
     //alert(ev.data);
     var msg=ev.data;
     var msgParams = ev.data.split('|');
-    if (msgParams[0] === "QLC+API") 
+    if (msgParams[0] === "QLC+API")
     {
-      if (msgParams[1] === "getChannelsValues") 
+      if (msgParams[1] === "getChannelsValues")
       {
         values=[];
         for (i = 2; i < msgParams.length; i+=3)
@@ -121,7 +129,9 @@ window.onload = function()
   };
 };
 
-function composeCommand(cmd) 
+window.onload = connect();
+
+function composeCommand(cmd)
 {
   if (isConnected === true)
   {
@@ -129,7 +139,7 @@ function composeCommand(cmd)
   }
   else
   {
-    alert("You must connect to QLC+ WebSocket first !");
+    alert("You must connect to QLC+ WebSocket first!");
   }
 }
 
@@ -142,7 +152,7 @@ function reqChannelsRange(univ, chan, range)
   }
   else
   {
-    alert("You must connect to QLC+ WebSocket first !");
+    alert("You must connect to QLC+ WebSocket first!");
   }
 }
 
@@ -155,12 +165,12 @@ function resetUniverse()
   }
   else
   {
-    alert("You must connect to QLC+ WebSocket first !");
+    alert("You must connect to QLC+ WebSocket first!");
   }
 }
 
 function resetCh(chNum)
-{   
+{
   document.getElementById('commInput').value = '';
   if (isConnected === true)
   {
@@ -168,12 +178,12 @@ function resetCh(chNum)
   }
   else
   {
-    alert("You must connect to QLC+ WebSocket first !");
+    alert("You must connect to QLC+ WebSocket first!");
   }
 }
 // Modified set Channel Function
 function setChannel(c, v)
-{ 
+{
   // This function set a channel passed with param c at value passed with param v
   if (isConnected === true)
   {
@@ -181,11 +191,11 @@ function setChannel(c, v)
   }
   else
   {
-    alert("You must connect to QLC+ WebSocket first !");
+    alert("You must connect to QLC+ WebSocket first!");
   }
 }
 
-function zip() 
+function zip()
 {
   var args = [].slice.call(arguments);
   var longest = args.reduce(function(a,b)
@@ -203,7 +213,7 @@ function chval(c)
   // This function evaluates string that could contain
   //  'T' = THRU, 'B' = BY
   // Returns three values first, last and step values
-  // first, last and step should be channels number or values. 
+  // first, last and step should be channels number or values.
   //addval=0;
   if (c.split(pl).length>1)
   {
@@ -221,7 +231,7 @@ function chval(c)
     first=range.split(th)[0];
     last=range.split(th)[1];
   }
-  else 
+  else
   {
     if (c.split(th).length>1)
     {
@@ -230,7 +240,7 @@ function chval(c)
       first=range.split(th)[0];
       last=range.split(th)[1];
     }
-    else 
+    else
     {
       step=1;
       range=c.split(th);
@@ -245,7 +255,7 @@ function chval(c)
 function chans_vals(c)
 {
   // Main function. Split command at "AT" string.
-  // Left part are single channel number, a range of channels and optionally a step value. 
+  // Left part are single channel number, a range of channels and optionally a step value.
   // Right part are a single value, a range of values and optionally a step value.
   // Calls to chval fucntion to evaluate channels numbers and values.
   // Arrange it on an array used later to assign channels values
@@ -273,7 +283,7 @@ function chans_vals(c)
         vall.push(vals[0]);
       }
     }
-    else 
+    else
     {
       llarg = chanl.length - 1;
       for (var i = vals[0]; i <= vals[1]; i += Math.round(vals[1] / llarg))
@@ -301,7 +311,7 @@ function chans_vals(c)
           {
             v=255
           }
-          else 
+          else
           {
             v = parseInt(values[c-1]) + parseInt(v * 2.55);
           }
@@ -312,7 +322,7 @@ function chans_vals(c)
           {
             v=0
           }
-          else 
+          else
           {
             v = parseInt(values[c-1]) + parseInt(v * 2.55);
           }

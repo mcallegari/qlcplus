@@ -46,7 +46,6 @@ CueStack::CueStack(Doc* doc)
     , m_intensity(1.0)
     , m_currentIndex(-1)
     , m_flashing(false)
-    , m_fader(NULL)
     , m_elapsed(0)
     , m_previous(false)
     , m_next(false)
@@ -185,7 +184,7 @@ void CueStack::insertCue(int index, const Cue& cue)
         }
     }
 
-    if (!cueAdded)    
+    if (!cueAdded)
         appendCue(cue);
 }
 
@@ -239,7 +238,7 @@ void CueStack::removeCues(const QList <int>& indexes)
     // Sort the list so that the items can be removed in reverse order.
     // This way, the indices are always correct.
     QList <int> indexList = indexes;
-    qSort(indexList.begin(), indexList.end());
+    std::sort(indexList.begin(), indexList.end());
 
     QListIterator <int> it(indexList);
     it.toBack();
@@ -403,8 +402,12 @@ bool CueStack::isRunning() const
 void CueStack::adjustIntensity(qreal fraction)
 {
     m_intensity = fraction;
-    if (m_fader != NULL)
-        m_fader->adjustIntensity(fraction);
+
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    {
+        if (!fader.isNull())
+            fader->adjustIntensity(fraction);
+    }
 }
 
 qreal CueStack::intensity() const
@@ -419,14 +422,12 @@ qreal CueStack::intensity() const
 void CueStack::setFlashing(bool enable)
 {
     qDebug() << Q_FUNC_INFO;
-    if (m_flashing != enable && m_cues.size() > 0)
-    {
-        m_flashing = enable;
-        if (m_flashing == true)
-            doc()->masterTimer()->registerDMXSource(this);
-        else
-            doc()->masterTimer()->unregisterDMXSource(this);
-    }
+    if (m_flashing == enable || m_cues.isEmpty())
+        return;
+
+    m_flashing = enable;
+    if (m_flashing == true)
+        doc()->masterTimer()->registerDMXSource(this);
 }
 
 bool CueStack::isFlashing() const
@@ -434,22 +435,52 @@ bool CueStack::isFlashing() const
     return m_flashing;
 }
 
-void CueStack::writeDMX(MasterTimer* timer, QList<Universe*> ua)
+void CueStack::writeDMX(MasterTimer *timer, QList<Universe*> ua)
 {
     Q_UNUSED(timer);
-    if (isFlashing() == true && m_cues.size() > 0)
+    if (m_cues.isEmpty())
+        return;
+
+    if (isFlashing())
     {
-        QHashIterator <uint,uchar> it(m_cues.first().values());
+        if (m_fadersMap.isEmpty())
+        {
+            QHashIterator <uint,uchar> it(m_cues.first().values());
+            while (it.hasNext() == true)
+            {
+                it.next();
+                FadeChannel fc(doc(), Fixture::invalidId(), it.key());
+                quint32 universe = fc.universe();
+                if (universe == Universe::invalid())
+                    continue;
+
+                QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+                if (fader.isNull())
+                {
+                    fader = ua[universe]->requestFader();
+                    m_fadersMap[universe] = fader;
+                }
+
+                fc.setTarget(it.value());
+                fc.addFlag(FadeChannel::Flashing);
+                fader->add(fc);
+            }
+        }
+    }
+    else
+    {
+        QMapIterator <quint32, QSharedPointer<GenericFader> > it(m_fadersMap);
         while (it.hasNext() == true)
         {
             it.next();
-            FadeChannel fc;
-            fc.setChannel(doc(), it.key());
-            fc.setTarget(it.value());
-            int uni = qFloor(fc.channel() / 512);
-            if (uni < ua.size())
-                ua[uni]->write(fc.channel() - (uni * 512), fc.target());
+            quint32 universe = it.key();
+            QSharedPointer<GenericFader> fader = it.value();
+            if (!fader.isNull())
+                ua[universe]->dismissFader(fader);
         }
+
+        m_fadersMap.clear();
+        doc()->masterTimer()->unregisterDMXSource(this);
     }
 }
 
@@ -459,27 +490,19 @@ void CueStack::writeDMX(MasterTimer* timer, QList<Universe*> ua)
 
 bool CueStack::isStarted() const
 {
-    if (m_fader != NULL)
-        return true;
-    else
-        return false;
+    return m_fadersMap.isEmpty() ? false : true;
 }
 
 void CueStack::preRun()
 {
     qDebug() << Q_FUNC_INFO;
 
-    Q_ASSERT(m_fader == NULL);
-    m_fader = new GenericFader(doc());
-    m_fader->adjustIntensity(intensity());
     m_elapsed = 0;
     emit started();
 }
 
 void CueStack::write(QList<Universe*> ua)
 {
-    Q_ASSERT(m_fader != NULL);
-
     if (m_cues.size() == 0 || isRunning() == false)
         return;
 
@@ -512,40 +535,44 @@ void CueStack::write(QList<Universe*> ua)
         emit currentCueChanged(m_currentIndex);
     }
 */
-    m_fader->write(ua);
+    //m_fader->write(ua);
 
     m_elapsed += MasterTimer::tick();
 }
 
-void CueStack::postRun(MasterTimer* timer)
+void CueStack::postRun(MasterTimer* timer, QList<Universe *> ua)
 {
     qDebug() << Q_FUNC_INFO;
 
-    Q_ASSERT(timer != NULL);
-    Q_ASSERT(m_fader != NULL);
+    Q_UNUSED(timer);
 
-    // Bounce all intensity channels to MasterTimer's fader for zeroing
-    QHashIterator <FadeChannel,FadeChannel> it(m_fader->channels());
-    while (it.hasNext() == true)
+    /* If no fade out is needed, dismiss all the requested faders.
+     * Otherwise, set all the faders to fade out and let Universe dismiss them
+     * when done */
+    if (fadeOutSpeed() == 0)
     {
-        it.next();
-        FadeChannel fc = it.value();
-
-        if (fc.group(doc()) == QLCChannel::Intensity)
+        QMapIterator <quint32, QSharedPointer<GenericFader> > it(m_fadersMap);
+        while (it.hasNext() == true)
         {
-            fc.setStart(fc.current(intensity()));
-            fc.setCurrent(fc.current(intensity()));
-            fc.setTarget(0);
-            fc.setElapsed(0);
-            fc.setReady(false);
-            fc.setFadeTime(fadeOutSpeed());
-            timer->faderAdd(fc);
+            it.next();
+            quint32 universe = it.key();
+            QSharedPointer<GenericFader> fader = it.value();
+            if (!fader.isNull())
+                ua[universe]->dismissFader(fader);
+        }
+    }
+    else
+    {
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        {
+            if (!fader.isNull())
+                fader->setFadeOut(true, fadeOutSpeed());
         }
     }
 
+    m_fadersMap.clear();
+
     m_currentIndex = -1;
-    delete m_fader;
-    m_fader = NULL;
 
     emit currentCueChanged(m_currentIndex);
     emit stopped();
@@ -565,6 +592,29 @@ int CueStack::previous()
         m_currentIndex = m_cues.size() - 1;
 
     return m_currentIndex;
+}
+
+FadeChannel *CueStack::getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel)
+{
+    // get the universe Fader first. If doesn't exist, create it
+    QSharedPointer<GenericFader> fader = m_fadersMap.value(universeID, QSharedPointer<GenericFader>());
+    if (fader.isNull())
+    {
+        fader = universes[universeID]->requestFader();
+        fader->adjustIntensity(intensity());
+        m_fadersMap[universeID] = fader;
+    }
+
+    return fader->getChannelFader(doc(), universes[universeID], fixtureID, channel);
+}
+
+void CueStack::updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime)
+{
+    fc->setStart(fc->current());
+    fc->setTarget(value);
+    fc->setElapsed(0);
+    fc->setReady(false);
+    fc->setFadeTime(fadeTime);
 }
 
 int CueStack::next()
@@ -603,18 +653,12 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
     while (oldit.hasNext() == true)
     {
         oldit.next();
+        uint absChannel = oldit.key();
+        quint32 universe = (absChannel >> 9);
+        FadeChannel *fc = getFader(ua, universe, Fixture::invalidId(), absChannel);
 
-        FadeChannel fc(doc(), Fixture::invalidId(), oldit.key());
-
-        if (fc.group(doc()) == QLCChannel::Intensity)
-        {
-            fc.setElapsed(0);
-            fc.setReady(false);
-            fc.setTarget(0);
-            fc.setFadeTime(oldCue.fadeOutSpeed());
-            insertStartValue(fc, ua);
-            m_fader->add(fc);
-        }
+        if (fc->flags() & FadeChannel::Intensity)
+            updateFaderValues(fc, 0, oldCue.fadeOutSpeed());
     }
 
     // Fade in all channels of the new cue
@@ -622,39 +666,10 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
     while (newit.hasNext() == true)
     {
         newit.next();
-        FadeChannel fc(doc(), Fixture::invalidId(), newit.key());
-        fc.setTarget(newit.value());
-        fc.setElapsed(0);
-        fc.setReady(false);
-        fc.setFadeTime(newCue.fadeInSpeed());
-        insertStartValue(fc, ua);
-        m_fader->add(fc);
+        uint absChannel = newit.key();
+        quint32 universe = (absChannel >> 9);
+        FadeChannel *fc = getFader(ua, universe, Fixture::invalidId(), absChannel);
+        updateFaderValues(fc, newit.value(), newCue.fadeInSpeed());
     }
 }
 
-void CueStack::insertStartValue(FadeChannel& fc, const QList<Universe *> ua)
-{
-    qDebug() << Q_FUNC_INFO;
-    const QHash <FadeChannel,FadeChannel>& channels(m_fader->channels());
-    if (channels.contains(fc) == true)
-    {
-        // GenericFader contains the channel so grab its current
-        // value as the new starting value to get a smoother fade
-        FadeChannel existing = channels[fc];
-        fc.setStart(existing.current());
-        fc.setCurrent(fc.start());
-    }
-    else
-    {
-        // GenericFader didn't have the channel. Grab the starting value from UniverseArray.
-        quint32 uni = fc.universe();
-        if (uni != Universe::invalid() && uni < (quint32)ua.count())
-        {
-            if (fc.group(doc()) != QLCChannel::Intensity)
-                fc.setStart(ua[uni]->preGMValue(fc.address()));
-            else
-                fc.setStart(0); // HTP channels must start at zero
-        }
-        fc.setCurrent(fc.start());
-    }
-}

@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.5.1</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Scott</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -16,8 +16,8 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="190">Master Dimmer 0 &gt; 100% (Off - On)</Capability>
   <Capability Min="191" Max="200">Sound Active</Capability>
-  <Capability Min="201" Max="247">Strobing (Slow - Fast)</Capability>
-  <Capability Min="248" Max="255">Full On</Capability>
+  <Capability Min="201" Max="247" Preset="StrobeSlowToFast">Strobing (Slow - Fast)</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Full On</Capability>
  </Channel>
  <Channel Name="Moon Flower Rotation">
   <Group Byte="0">Gobo</Group>
@@ -34,11 +34,11 @@
   <Channel Number="3">Dimmer/Strobe</Channel>
   <Channel Number="4">Moon Flower Rotation</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="538" Height="263" Weight="3.7" Depth="143"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="25" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.7" Width="538" Height="263" Depth="143"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

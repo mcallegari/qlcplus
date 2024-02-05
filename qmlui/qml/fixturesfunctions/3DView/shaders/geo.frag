@@ -21,12 +21,16 @@
 FS_IN_ATTRIB vec3 fsNormal;
 FS_IN_ATTRIB vec3 fsPos;
 
-uniform vec4 meshColor;
+uniform vec4 diffuse;
+uniform vec4 specular;
+uniform float shininess;
+uniform int bloom;
 
 DECLARE_GBUFFER_OUTPUT
 
 void main()
 {
-    MGL_FRAG_DATA0 = vec4(meshColor.xyzw);
-    MGL_FRAG_DATA1 = vec4(fsNormal.xyz, 1.0);
+    MGL_FRAG_DATA0 = vec4(diffuse.xyzw);
+    MGL_FRAG_DATA1 = vec4(fsNormal.xyz,  float(bloom) * 3.0);
+    MGL_FRAG_DATA2 = vec4(specular.xyz, shininess);  
 }

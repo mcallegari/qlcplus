@@ -19,6 +19,7 @@
 
 #include <QMessageBox>
 #include <QUrl>
+#include <QSettings>
 
 #include "channelmodifiergraphicsview.h"
 #include "channelmodifiereditor.h"
@@ -26,6 +27,8 @@
 #include "channelmodifier.h"
 #include "qlcfile.h"
 #include "doc.h"
+
+#define SETTINGS_GEOMETRY "channelmodifiereditor/geometry"
 
 ChannelModifierEditor::ChannelModifierEditor(Doc *doc, QString modifier, QWidget *parent)
     : QDialog(parent)
@@ -46,6 +49,11 @@ ChannelModifierEditor::ChannelModifierEditor(Doc *doc, QString modifier, QWidget
     m_origDMXSpin->setEnabled(false);
     m_modifiedDMXSpin->setEnabled(false);
     m_deleteHandlerButton->setEnabled(false);
+
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 
     connect(m_view, SIGNAL(itemClicked(uchar,uchar)),
             this, SLOT(slotHandlerClicked(uchar,uchar)));
@@ -77,7 +85,8 @@ ChannelModifierEditor::ChannelModifierEditor(Doc *doc, QString modifier, QWidget
 
 ChannelModifierEditor::~ChannelModifierEditor()
 {
-
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 ChannelModifier *ChannelModifierEditor::selectedModifier()
@@ -93,10 +102,10 @@ static bool alphabeticSort(QString const & left, QString const & right)
 void ChannelModifierEditor::updateModifiersList(QString modifier)
 {
     QList<QString> names = m_doc->modifiersCache()->templateNames();
-    qStableSort(names.begin(), names.end(), alphabeticSort);
+    std::stable_sort(names.begin(), names.end(), alphabeticSort);
 
     m_templatesTree->clear();
-    foreach(QString name, names)
+    foreach (QString name, names)
     {
         QTreeWidgetItem *item = new QTreeWidgetItem(m_templatesTree);
         item->setText(0, name);
@@ -181,7 +190,7 @@ void ChannelModifierEditor::slotSaveClicked()
     {
         // cannot overwrite a system template !
         QMessageBox::critical(this, tr("Error"),
-                              tr("You are trying to overwrite a system template ! Please choose another name "
+                              tr("You are trying to overwrite a system template! Please choose another name "
                                  "and the template will be saved in your channel modifier's user folder."),
                               QMessageBox::Close);
         return;

@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.8 GIT</Version>
+  <Author>Jochen Becker</Author>
+ </Creator>
+ <Manufacturer>Varytec</Manufacturer>
+ <Model>LED Typhoon PAR Outdoor (12x10)</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Color Hue" Preset="IntensityHue"/>
+ <Channel Name="Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="Brightness" Preset="IntensityLightness"/>
+ <Channel Name="Intensity red " Preset="IntensityRed"/>
+ <Channel Name="Intensity green" Preset="IntensityGreen"/>
+ <Channel Name="Intensity blue" Preset="IntensityBlue"/>
+ <Channel Name="Intensity white" Preset="IntensityWhite"/>
+ <Channel Name="Intensity amber" Preset="IntensityAmber"/>
+ <Channel Name="Intensity UV" Preset="IntensityUV"/>
+ <Channel Name="Dimmer curves with afterglow effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="49">Standard</Capability>
+  <Capability Min="50" Max="99">Dimmer mode 1 (slight afterglow)</Capability>
+  <Capability Min="100" Max="149">Dimmer mode 2</Capability>
+  <Capability Min="150" Max="199">Dimmer mode 3</Capability>
+  <Capability Min="200" Max="255">Dimmer mode 4 (strong afterglow)</Capability>
+ </Channel>
+ <Channel Name="Color selection">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="19">No</Capability>
+  <Capability Min="20" Max="23" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="24" Max="27" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="28" Max="31" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="32" Max="35" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="36" Max="39" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="40" Max="43" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="44" Max="47" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="48" Max="51" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="52" Max="55" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="56" Max="59" Preset="ColorMacro" Res1="#ee82ee">Violet</Capability>
+  <Capability Min="60" Max="63" Preset="ColorMacro" Res1="#7fffd4">Aquamarine</Capability>
+  <Capability Min="64" Max="67" Preset="ColorMacro" Res1="#00aaff">Sky-blue</Capability>
+  <Capability Min="68" Max="71" Preset="ColorMacro" Res1="#ddffec">Mint-white 1</Capability>
+  <Capability Min="72" Max="75" Preset="ColorMacro" Res1="#ffe7fd">Soft pink</Capability>
+  <Capability Min="76" Max="79" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
+  <Capability Min="80" Max="83" Preset="ColorMacro" Res1="#e6fff9">Mint-white 2</Capability>
+  <Capability Min="84" Max="87" Preset="ColorMacro" Res1="#ffded3">Bright pink</Capability>
+  <Capability Min="88" Max="91" Preset="ColorMacro" Res1="#eeee00">Yellow 2</Capability>
+  <Capability Min="92" Max="95" Preset="ColorMacro" Res1="#fff9a5">Straw</Capability>
+  <Capability Min="96" Max="99" Preset="ColorMacro" Res1="#ffffff">RGB white</Capability>
+  <Capability Min="100" Max="103" Preset="ColorMacro" Res1="#ffb6c1">Light pink</Capability>
+  <Capability Min="104" Max="107" Preset="ColorMacro" Res1="#c79889">Dark pink</Capability>
+  <Capability Min="108" Max="111" Preset="ColorMacro" Res1="#ee00ee">Magenta 2</Capability>
+  <Capability Min="112" Max="115" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="116" Max="119" Preset="ColorMacro" Res1="#ffffff">Medium teal</Capability>
+  <Capability Min="120" Max="123" Preset="ColorMacro" Res1="#13ff9d">Blue green</Capability>
+  <Capability Min="124" Max="127" Preset="ColorMacro" Res1="#ffc09b">Bright pink</Capability>
+  <Capability Min="128" Max="131" Preset="ColorMacro" Res1="#0000cd">Medium blue</Capability>
+  <Capability Min="132" Max="135" Preset="ColorMacro" Res1="#fff235">Golden amber</Capability>
+  <Capability Min="136" Max="139" Preset="ColorMacro" Res1="#ffd631">Deep golden amber</Capability>
+  <Capability Min="140" Max="143" Preset="ColorMacro" Res1="#cfd2ff">Bright lavender</Capability>
+  <Capability Min="144" Max="147" Preset="ColorMacro" Res1="#ffcc65">Apricot</Capability>
+  <Capability Min="148" Max="151" Preset="ColorMacro" Res1="#7575b0">Dark lavender</Capability>
+  <Capability Min="152" Max="155" Preset="ColorMacro" Res1="#d2691e">Chocolate</Capability>
+  <Capability Min="156" Max="159" Preset="ColorMacro" Res1="#0055ff">Simple blue</Capability>
+  <Capability Min="160" Max="163" Preset="ColorMacro" Res1="#ff55ff">Surprising pink</Capability>
+  <Capability Min="164" Max="167" Preset="ColorMacro" Res1="#ff5353">Scarlet</Capability>
+  <Capability Min="168" Max="171" Preset="ColorMacro" Res1="#ffaf94">Surprising peach</Capability>
+  <Capability Min="172" Max="175" Preset="ColorMacro" Res1="#fffcf9">Dirty white 1</Capability>
+  <Capability Min="176" Max="179" Preset="ColorMacro" Res1="#ffaaff">English pink</Capability>
+  <Capability Min="180" Max="183" Preset="ColorMacro" Res1="#aa0000">Mauve</Capability>
+  <Capability Min="184" Max="187" Preset="ColorMacro" Res1="#5500ff">Beaming blue</Capability>
+  <Capability Min="188" Max="191" Preset="ColorMacro" Res1="#f0f8ff">Alice blue</Capability>
+  <Capability Min="192" Max="195" Preset="ColorMacro" Res1="#e4dbff">Indigo rosé</Capability>
+  <Capability Min="196" Max="199" Preset="ColorMacro" Res1="#0055ff">Urban blue</Capability>
+  <Capability Min="200" Max="203" Preset="ColorMacro" Res1="#c5f0ff">Cold blue</Capability>
+  <Capability Min="204" Max="207" Preset="ColorMacro" Res1="#ffc9aa">Light salmon-coloured</Capability>
+  <Capability Min="208" Max="211" Preset="ColorMacro" Res1="#ffffff">Dirty white 2</Capability>
+  <Capability Min="212" Max="215" Preset="ColorMacro" Res1="#ffe2de">Cherry rosé</Capability>
+  <Capability Min="216" Max="219" Preset="ColorMacro" Res1="#ffe4d3">Flesh-coloured</Capability>
+  <Capability Min="220" Max="223" Preset="ColorMacro" Res1="#ff4343">Skelton Exotic Sangria</Capability>
+  <Capability Min="224" Max="255" Preset="ColorMacro" Res1="#ffb2f5">Beaming rosé</Capability>
+ </Channel>
+ <Channel Name="Color macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="6">No function</Capability>
+  <Capability Min="7" Max="255">Virtual colour wheel with 36 colour macros</Capability>
+ </Channel>
+ <Channel Name="Strobe effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="8" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="9" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="20">Stroboscope effect, increasing speed (0 Hz…20 Hz)</Capability>
+ </Channel>
+ <Channel Name="Automatic colour transition">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="90">Colour macro 1…8</Capability>
+  <Capability Min="91" Max="100">Pulse effect green / red</Capability>
+  <Capability Min="101" Max="110">Pulse effect blue / red</Capability>
+  <Capability Min="111" Max="120">Pulse effect blue / green</Capability>
+  <Capability Min="121" Max="130">Pulse effect yellow / blue</Capability>
+  <Capability Min="131" Max="140">Pulse effect light blue / red</Capability>
+  <Capability Min="141" Max="150">Pulse effect green / pink</Capability>
+  <Capability Min="151" Max="160">Colour change mint / yellow / magenta</Capability>
+  <Capability Min="161" Max="170">Colour change blue / red / magenta</Capability>
+  <Capability Min="171" Max="180">Colour change shades of blue</Capability>
+  <Capability Min="181" Max="190">Pulse effect UV</Capability>
+  <Capability Min="191" Max="200">RGBW 100 %</Capability>
+  <Capability Min="201" Max="205">White 1</Capability>
+  <Capability Min="206" Max="210">White 2</Capability>
+  <Capability Min="211" Max="215">White 3</Capability>
+  <Capability Min="216" Max="220">White 4</Capability>
+  <Capability Min="221" Max="225">White 5</Capability>
+  <Capability Min="226" Max="230">White 6</Capability>
+  <Capability Min="231" Max="235">White 7</Capability>
+  <Capability Min="236" Max="240">White 8</Capability>
+  <Capability Min="241" Max="245">White 9</Capability>
+  <Capability Min="246" Max="250">White 10</Capability>
+  <Capability Min="251" Max="255">White 11</Capability>
+ </Channel>
+ <Channel Name="Process Speed or Strobe Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="8">Process speed, if channel 10 = 9…255 or nothing</Capability>
+  <Capability Min="9" Max="255">Process speed, if channel 10 = 9…255 or Strobe effect with increasing Speed</Capability>
+ </Channel>
+ <Channel Name="Auto Show">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="8">Standard</Capability>
+  <Capability Min="9" Max="10">Colour change RGBWA/UV</Capability>
+  <Capability Min="11" Max="20">Colour change with 22 colours</Capability>
+  <Capability Min="21" Max="30">Ramp effect up / down</Capability>
+  <Capability Min="31" Max="40">Fade programme with 22 colours</Capability>
+  <Capability Min="41" Max="50">Multi-colour strobe effect with six colours</Capability>
+  <Capability Min="51" Max="60">Colour change with 24 colours</Capability>
+  <Capability Min="61" Max="70">Colour change with 27 colours</Capability>
+  <Capability Min="71" Max="80">Colour fade programme with pastel colours</Capability>
+  <Capability Min="81" Max="90">Multi-colour strobe effect with 24 colours</Capability>
+  <Capability Min="91" Max="100">Self-created automatic show 1</Capability>
+  <Capability Min="101" Max="110">Customized automatic show 2</Capability>
+  <Capability Min="111" Max="120">Customized automatic show 3</Capability>
+  <Capability Min="121" Max="130">Self-created automatic show 4</Capability>
+  <Capability Min="131" Max="140">Self-created automatic show 5</Capability>
+  <Capability Min="141" Max="150">Self-created automatic show 6</Capability>
+  <Capability Min="151" Max="160">Self-created automatic show 7</Capability>
+  <Capability Min="161" Max="170">Self-created automatic show 8</Capability>
+  <Capability Min="171" Max="180">Self-created automatic show 9</Capability>
+  <Capability Min="181" Max="190">Self-created automatic show 10</Capability>
+  <Capability Min="191" Max="199">???</Capability>
+  <Capability Min="200" Max="255">Self-created automatic show 11</Capability>
+ </Channel>
+ <Channel Name="Process speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Process speed, if channel 10 = 9…255</Capability>
+ </Channel>
+ <Channel Name="ID Assignment">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">All IDs</Capability>
+  <Capability Min="10" Max="19">ID 1</Capability>
+  <Capability Min="20" Max="29">ID 2</Capability>
+  <Capability Min="30" Max="39">ID 3</Capability>
+  <Capability Min="40" Max="49">ID 4</Capability>
+  <Capability Min="50" Max="59">ID 5</Capability>
+  <Capability Min="60" Max="69">ID 6</Capability>
+  <Capability Min="70" Max="79">ID 7</Capability>
+  <Capability Min="80" Max="89">ID 8</Capability>
+  <Capability Min="90" Max="99">ID 9</Capability>
+  <Capability Min="100" Max="109">ID 10</Capability>
+  <Capability Min="110" Max="119">ID 11</Capability>
+  <Capability Min="120" Max="129">ID 12</Capability>
+  <Capability Min="130" Max="139">ID 13</Capability>
+  <Capability Min="140" Max="149">ID 14</Capability>
+  <Capability Min="150" Max="159">ID 15</Capability>
+  <Capability Min="160" Max="169">ID 16</Capability>
+  <Capability Min="170" Max="179">ID 17</Capability>
+  <Capability Min="180" Max="189">ID 18</Capability>
+  <Capability Min="190" Max="199">ID 19</Capability>
+  <Capability Min="200" Max="209">ID 20</Capability>
+  <Capability Min="210" Max="210">ID 21</Capability>
+  <Capability Min="211" Max="211">ID 22</Capability>
+  <Capability Min="212" Max="212">ID 23</Capability>
+  <Capability Min="213" Max="213">ID 24</Capability>
+  <Capability Min="214" Max="214">ID 25</Capability>
+  <Capability Min="215" Max="215">ID 26</Capability>
+  <Capability Min="216" Max="216">ID 27</Capability>
+  <Capability Min="217" Max="217">ID 28</Capability>
+  <Capability Min="218" Max="218">ID 29</Capability>
+  <Capability Min="219" Max="219">ID 30</Capability>
+  <Capability Min="220" Max="220">ID 31</Capability>
+  <Capability Min="221" Max="221">ID 32</Capability>
+  <Capability Min="222" Max="222">ID 33</Capability>
+  <Capability Min="223" Max="223">ID 34</Capability>
+  <Capability Min="224" Max="224">ID 35</Capability>
+  <Capability Min="225" Max="225">ID 36</Capability>
+  <Capability Min="226" Max="226">ID 37</Capability>
+  <Capability Min="227" Max="227">ID 38</Capability>
+  <Capability Min="228" Max="228">ID 39</Capability>
+  <Capability Min="229" Max="229">ID 40</Capability>
+  <Capability Min="230" Max="230">ID 41</Capability>
+  <Capability Min="231" Max="231">ID 42</Capability>
+  <Capability Min="232" Max="232">ID 43</Capability>
+  <Capability Min="233" Max="233">ID 44</Capability>
+  <Capability Min="234" Max="234">ID 45</Capability>
+  <Capability Min="235" Max="235">ID 46</Capability>
+  <Capability Min="236" Max="236">ID 47</Capability>
+  <Capability Min="237" Max="237">ID 48</Capability>
+  <Capability Min="238" Max="238">ID 49</Capability>
+  <Capability Min="239" Max="239">ID 50</Capability>
+  <Capability Min="240" Max="240">ID 51</Capability>
+  <Capability Min="241" Max="241">ID 52</Capability>
+  <Capability Min="242" Max="242">ID 53</Capability>
+  <Capability Min="243" Max="243">ID 54</Capability>
+  <Capability Min="244" Max="244">ID 55</Capability>
+  <Capability Min="245" Max="245">ID 56</Capability>
+  <Capability Min="246" Max="246">ID 57</Capability>
+  <Capability Min="247" Max="247">ID 58</Capability>
+  <Capability Min="248" Max="248">ID 59</Capability>
+  <Capability Min="249" Max="249">ID 60</Capability>
+  <Capability Min="250" Max="250">ID 61</Capability>
+  <Capability Min="251" Max="251">ID 62</Capability>
+  <Capability Min="252" Max="252">ID 63</Capability>
+  <Capability Min="253" Max="253">ID 64</Capability>
+  <Capability Min="254" Max="254">ID 65</Capability>
+  <Capability Min="255" Max="255">ID 66</Capability>
+ </Channel>
+ <Mode Name="3 channel">
+  <Channel Number="0">Color Hue</Channel>
+  <Channel Number="1">Saturation</Channel>
+  <Channel Number="2">Brightness</Channel>
+ </Mode>
+ <Mode Name="6 channel">
+  <Channel Number="0">Intensity red </Channel>
+  <Channel Number="1">Intensity green</Channel>
+  <Channel Number="2">Intensity blue</Channel>
+  <Channel Number="3">Intensity white</Channel>
+  <Channel Number="4">Intensity amber</Channel>
+  <Channel Number="5">Intensity UV</Channel>
+ </Mode>
+ <Mode Name="8 channel">
+  <Channel Number="0">Brightness</Channel>
+  <Channel Number="1">Intensity red </Channel>
+  <Channel Number="2">Intensity green</Channel>
+  <Channel Number="3">Intensity blue</Channel>
+  <Channel Number="4">Intensity white</Channel>
+  <Channel Number="5">Intensity amber</Channel>
+  <Channel Number="6">Intensity UV</Channel>
+  <Channel Number="7">Dimmer curves with afterglow effect</Channel>
+ </Mode>
+ <Mode Name="10 channel">
+  <Channel Number="0">Brightness</Channel>
+  <Channel Number="1">Intensity red </Channel>
+  <Channel Number="2">Intensity green</Channel>
+  <Channel Number="3">Intensity blue</Channel>
+  <Channel Number="4">Intensity white</Channel>
+  <Channel Number="5">Intensity amber</Channel>
+  <Channel Number="6">Intensity UV</Channel>
+  <Channel Number="7">Color selection</Channel>
+  <Channel Number="8">Color macros</Channel>
+  <Channel Number="9">Strobe effect</Channel>
+ </Mode>
+ <Mode Name="13 channel">
+  <Channel Number="0">Brightness</Channel>
+  <Channel Number="1">Intensity red </Channel>
+  <Channel Number="2">Intensity green</Channel>
+  <Channel Number="3">Intensity blue</Channel>
+  <Channel Number="4">Intensity white</Channel>
+  <Channel Number="5">Intensity amber</Channel>
+  <Channel Number="6">Intensity UV</Channel>
+  <Channel Number="7">Automatic colour transition</Channel>
+  <Channel Number="8">Process Speed or Strobe Speed</Channel>
+  <Channel Number="9">Auto Show</Channel>
+  <Channel Number="10">Process speed</Channel>
+  <Channel Number="11">Dimmer curves with afterglow effect</Channel>
+  <Channel Number="12">ID Assignment</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.54" Width="305" Height="143" Depth="288"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="120" DmxConnector="3-pin IP65"/>
+ </Physical>
+</FixtureDefinition>

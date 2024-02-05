@@ -35,7 +35,7 @@ class ChaserStep;
 class MasterTimer;
 class QXmlStreamReader;
 
-#define KXMLQLCChaserSpeedModes "SpeedModes"
+#define KXMLQLCChaserSpeedModes QString("SpeedModes")
 
 /** @addtogroup engine_functions Functions
  * @{
@@ -122,7 +122,7 @@ public:
     bool moveStep(int sourceIdx, int destIdx);
 
     /** Get the Chaser steps number */
-    int stepsCount();
+    int stepsCount() const;
 
     /**
      * Get a chaser step from a given index
@@ -154,6 +154,9 @@ public slots:
      * @param fid The ID of the function that was removed
      */
     void slotFunctionRemoved(quint32 fid);
+
+signals:
+    void stepChanged(int index);
 
 protected:
     QList <ChaserStep> m_steps;
@@ -210,23 +213,21 @@ public:
      * ChaserRunner wrappers
      *********************************************************************/
 public:
+    enum FadeControlMode
+    {
+        FromFunction = 0,
+        Blended,
+        Crossfade,
+        BlendedCrossfade
+    };
+
     /** @reimpl */
     void tap();
 
-    /** Set the current step index, or the startup step index if not started */
-    void setStepIndex(int idx);
-
-    /** Skip to the previous step */
-    void previous();
-
-    /** Skip to the next step */
-    void next();
-
-    /** Stop a specific running step */
-    void stopStep(int stepIndex);
-
-    /** Set the NEW current step number */
-    void setCurrentStep(int step, qreal intensity = 1.0);
+    /** Set an action to be performed on steps.
+     *  Depending on the action type, it might be applied immediately
+     *  or deferred to the next write() call */
+    void setAction(ChaserAction &action);
 
     /** Get the current step number */
     int currentStepIndex() const;
@@ -240,26 +241,8 @@ public:
     /** Get the first step of the running list. If none is running this returns NULL */
     ChaserRunnerStep currentRunningStep() const;
 
-    enum FadeControlMode
-    {
-        FromFunction = 0,
-        Crossfade,
-        BlendedCrossfade
-    };
-
-    /** Set the intensity at start */
-    void setStartIntensity(qreal startIntensity);
-
-    /** Adjust the intensities of chaser steps. */
-    void adjustIntensity(qreal fraction, int stepIndex = -1, FadeControlMode fadeControl = FromFunction);
-
 private:
-    /** Step index at chaser start */
-    int m_startStepIndex;
-
-    /** Intensity at start */
-    qreal m_startIntensity;
-    bool m_hasStartIntensity;
+    ChaserAction m_startupAction;
 
 public:
     /** @reimp */
@@ -280,7 +263,8 @@ private:
      * @param doc The engine object
      * @return NULL if unsuccessful, otherwise a new ChaserRunner*
      */
-    void createRunner(quint32 startTime = 0, int startStepIdx = 0);
+    void createRunner(quint32 startTime = 0);
+
 public:
     /** @reimp */
     void preRun(MasterTimer* timer);
@@ -299,7 +283,11 @@ signals:
     void currentStepChanged(int stepNumber);
 
 private:
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     QMutex m_runnerMutex;
+#else
+    QRecursiveMutex m_runnerMutex;
+#endif
     ChaserRunner* m_runner;
 
     /*************************************************************************
@@ -308,6 +296,10 @@ private:
 public:
     /** @reimp */
     int adjustAttribute(qreal fraction, int attributeId);
+
+    /** Adjust the intensities of chaser steps. */
+    void adjustStepIntensity(qreal fraction, int stepIndex = -1,
+                             FadeControlMode fadeControl = FromFunction);
 };
 
 /** @} */

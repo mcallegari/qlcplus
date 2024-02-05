@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Jan Lachman</Author>
  </Creator>
  <Manufacturer>Contest</Manufacturer>
@@ -19,14 +19,14 @@
  </Channel>
  <Channel Name="Shutter &amp; Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="31">LEDs off</Capability>
-  <Capability Min="32" Max="63">No function, LEDs on</Capability>
-  <Capability Min="64" Max="95">Slow to fast strobe</Capability>
-  <Capability Min="96" Max="127">No function, LEDs on</Capability>
-  <Capability Min="128" Max="159">Slow to fast pulse effect</Capability>
-  <Capability Min="160" Max="191">No function, LEDs on</Capability>
-  <Capability Min="192" Max="223">Slow to fast random strobe</Capability>
-  <Capability Min="224" Max="255">No function, LEDs off</Capability>
+  <Capability Min="0" Max="31" Preset="ShutterClose">LEDs off</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">No function, LEDs on</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Slow to fast strobe</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">No function, LEDs on</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Slow to fast pulse effect</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">No function, LEDs on</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Slow to fast random strobe</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterClose">No function, LEDs off</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="All LEDs Red" Preset="IntensityRed"/>
@@ -69,6 +69,8 @@
   <Capability Min="125" Max="129" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff0000">Blue/Red</Capability>
   <Capability Min="130" Max="134" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White/Red</Capability>
   <Capability Min="135" Max="139" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffaaff">White/Pink</Capability>
+  <Capability Min="140" Max="144" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#00ffff">White/Turquoise</Capability>
+  <Capability Min="145" Max="149" Preset="ColorDoubleMacro" Res1="#ff5163" Res2="#ffffff">Light red/White</Capability>
   <Capability Min="150" Max="255">Slow to fast rainbow effect</Capability>
  </Channel>
  <Channel Name="Preset colour dimmer">
@@ -99,7 +101,7 @@
  <Channel Name="Internal programs and options">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="79">No function</Capability>
-  <Capability Min="80" Max="99">Resets</Capability>
+  <Capability Min="80" Max="99" Preset="ResetAll">Resets</Capability>
   <Capability Min="100" Max="230">Internal program 1-7</Capability>
   <Capability Min="231" Max="255">Music sensitive program</Capability>
  </Channel>
@@ -126,7 +128,7 @@
  <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
   <Dimensions Weight="22.5" Width="498" Height="594" Depth="330"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Lens Name="Other" DegreesMin="16" DegreesMax="56"/>
   <Focus Type="Head" PanMax="540" TiltMax="265"/>
   <Technical PowerConsumption="650" DmxConnector="3-pin"/>
  </Physical>

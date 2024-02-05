@@ -34,6 +34,7 @@
 #include "fixturegroup.h"
 #include "qlcclipboard.h"
 #include "mastertimer.h"
+#include "qlcpalette.h"
 #include "function.h"
 #include "fixture.h"
 
@@ -46,8 +47,8 @@ class MonitorProperties;
  * @{
  */
 
-#define KXMLQLCEngine "Engine"
-#define KXMLQLCStartupFunction "Autostart"
+#define KXMLQLCEngine QString("Engine")
+#define KXMLQLCStartupFunction QString("Autostart")
 
 class Doc : public QObject
 {
@@ -90,7 +91,7 @@ public:
      */
     QString normalizeComponentPath(const QString& filePath) const;
 
-    /** If filePath is relative path, it is resolved relative to the workspace 
+    /** If filePath is relative path, it is resolved relative to the workspace
      *  directory (absolute path is returned).
      *  If filePath is absolute, it is returned unchanged (symlinks and .. are resolved).
      *
@@ -391,7 +392,7 @@ private:
      *********************************************************************/
 public:
     /** Add a new channels group. Doc takes ownership of the group. */
-    bool addChannelsGroup(ChannelsGroup *grp, quint32 id = FixtureGroup::invalidId());
+    bool addChannelsGroup(ChannelsGroup *grp, quint32 id = ChannelsGroup::invalidId());
 
     /**
      * Remove and delete a channels group.
@@ -427,8 +428,45 @@ private:
      *  in the Fixture Manager panel */
     QList <quint32> m_orderedGroups;
 
-    /** Latest assigned fixture group ID */
+    /** Latest assigned channel group ID */
     quint32 m_latestChannelsGroupId;
+
+    /*********************************************************************
+     * Palettes
+     *********************************************************************/
+public:
+    /** Add a new palette. Doc takes ownership of it */
+    bool addPalette(QLCPalette *palette, quint32 id = QLCPalette::invalidId());
+
+    /**
+     * Remove and delete a palette.
+     * The Palette pointer is invalid after this call.
+     */
+    bool deletePalette(quint32 id);
+
+    /** Get a palette by id */
+    QLCPalette *palette(quint32 id) const;
+
+    /** Get a list of Doc's palettes */
+    QList <QLCPalette*> palettes() const;
+
+private:
+    /** Create a new palette ID */
+    quint32 createPaletteId();
+
+signals:
+    /** Inform the listeners that a new palette has been added */
+    void paletteAdded(quint32 id);
+
+    /** Inform the listeners that a new palette has been removed */
+    void paletteRemoved(quint32 id);
+
+private:
+    /** Palettes */
+    QMap <quint32,QLCPalette*> m_palettes;
+
+    /** Latest assigned palette ID */
+    quint32 m_latestPaletteId;
 
     /*********************************************************************
      * Functions
@@ -461,6 +499,13 @@ public:
      * @return List of functions by type
      */
     QList <Function*> functionsByType(Function::Type type) const;
+
+    /**
+     * Get a pointer to a Function with the given name
+     * @param name lookup Function name
+     * @return pointer to Function or null if not found
+     */
+    Function *functionByName(QString name);
 
     /**
      * Delete the given function
@@ -567,9 +612,10 @@ public:
      * Load contents from the given XML document
      *
      * @param root The Engine XML root node to load from
+     * @param loadIO Parse the InputOutputMap tag too
      * @return true if successful, otherwise false
      */
-    bool loadXML(QXmlStreamReader &doc);
+    bool loadXML(QXmlStreamReader &doc, bool loadIO = true);
 
     /**
      * Save contents to the given XML file.

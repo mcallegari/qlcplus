@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>2.6.1</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
@@ -11,14 +11,14 @@
  <Type>Scanner</Type>
  <Channel Name="Strobe, Stand-alone, Reset, Lamp">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="5">Default</Capability>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Default</Capability>
   <Capability Min="6" Max="10">Fan low</Capability>
-  <Capability Min="11" Max="138">Strobe speed</Capability>
+  <Capability Min="11" Max="138" Preset="StrobeFastToSlow">Strobe speed</Capability>
   <Capability Min="139" Max="170">Remote, stand-alone, auto trigger</Capability>
   <Capability Min="171" Max="202">Remote, stand-alone, music trigger</Capability>
-  <Capability Min="203" Max="235">Reset</Capability>
-  <Capability Min="236" Max="252">Lamp on</Capability>
-  <Capability Min="253" Max="255">Lamp off</Capability>
+  <Capability Min="203" Max="235" Preset="ResetAll">Reset</Capability>
+  <Capability Min="236" Max="252" Preset="LampOn">Lamp on</Capability>
+  <Capability Min="253" Max="255" Preset="LampOff">Lamp off</Capability>
  </Channel>
  <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>
@@ -141,11 +141,11 @@
   <Channel Number="9">Pan/tilt speed</Channel>
   <Channel Number="10">Color/dimmer speed</Channel>
  </Mode>
-<Physical>
-   <Bulb ColourTemperature="8500" Lumens="2000" Type="MSD 250W"/>
-   <Dimensions Width="280" Height="533" Weight="14" Depth="325"/>
-   <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
-   <Focus TiltMax="85" PanMax="176" Type="Mirror"/>
-   <Technical PowerConsumption="335" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="MSD 250W" Lumens="2000" ColourTemperature="8500"/>
+  <Dimensions Weight="14" Width="280" Height="533" Depth="325"/>
+  <Lens Name="Other" DegreesMin="16" DegreesMax="16"/>
+  <Focus Type="Mirror" PanMax="176" TiltMax="85"/>
+  <Technical PowerConsumption="335" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

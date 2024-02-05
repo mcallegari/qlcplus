@@ -19,6 +19,8 @@
 
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <QRandomGenerator>
+#include <QRegularExpression>
 #include <QDebug>
 #include <QUrl>
 
@@ -29,17 +31,26 @@
 #include "scriptv4.h"
 #include "doc.h"
 
-#define KXMLQLCScriptCommand "Command"
-#define KXMLQLCScriptVersion "Version"
+#define KXMLQLCScriptCommand QString("Command")
+#define KXMLQLCScriptVersion QString("Version")
 
-const QString Script::startFunctionCmd = QString("startfunction");
-const QString Script::stopFunctionCmd = QString("stopfunction");
-const QString Script::blackoutCmd = QString("blackout");
-const QString Script::waitCmd = QString("wait");
-const QString Script::setFixtureCmd = QString("setfixture");
-const QString Script::systemCmd = QString("systemcommand");
-
+const QString Script::startFunctionLegacy = QString("startfunction");
+const QString Script::startFunctionCmd = QString("Engine.startFunction");
+const QString Script::stopFunctionLegacy = QString("stopfunction");
+const QString Script::stopFunctionCmd = QString("Engine.stopFunction");
+const QString Script::blackoutLegacy = QString("blackout");
+const QString Script::blackoutCmd = QString("Engine.setBlackout");
+const QString Script::waitLegacy = QString("wait");
+const QString Script::waitCmd = QString("Engine.waitTime");
+const QString Script::setFixtureLegacy = QString("setfixture");
+const QString Script::setFixtureCmd = QString("Engine.setFixture");
+const QString Script::systemLegacy = QString("systemcommand");
+const QString Script::systemCmd = QString("Engine.systemCommand");
 const QStringList knownKeywords(QStringList() << "ch" << "val" << "arg");
+
+const QString Script::blackoutOn = QString("on"); // LEGACY - NOT USED
+const QString Script::blackoutOff = QString("off"); // LEGACY - NOT USED
+const QString Script::waitKeyCmd = QString("waitkey"); // LEGACY - NOT USED
 
 /****************************************************************************
  * Initialization
@@ -137,7 +148,7 @@ QString Script::data() const
 
 QStringList Script::dataLines() const
 {
-    QStringList result = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
+    QStringList result = m_data.split(QRegularExpression("(\\r\\n|\\n\\r|\\r|\\n)"));
 
     while (result.count() && result.last().isEmpty())
         result.takeLast();
@@ -148,22 +159,32 @@ QStringList Script::dataLines() const
 QList<quint32> Script::functionList() const
 {
     QList<quint32> list;
+    int count = 0;
 
     foreach (QString line, dataLines())
     {
-        if (line.contains("startFunction") || line.contains("stopFunction"))
+        count ++;
+        if (line.startsWith(startFunctionCmd + "(") ||
+                line.startsWith(stopFunctionCmd + "("))
         {
             QStringList tokens = line.split("(");
             if (tokens.isEmpty() || tokens.count() < 2)
                 continue;
 
-            QStringList params = tokens[1].split(",");
+            tokens = tokens[1].split(")");
+            if (tokens.isEmpty() || tokens.count() < 2)
+                continue;
+
+            QStringList params = tokens[0].split(",");
             if (tokens.isEmpty())
                 continue;
 
             quint32 funcID = params[0].toUInt();
             if (list.contains(funcID) == false)
+            {
                 list.append(funcID);
+                list.append(count - 1);
+            }
         }
     }
 
@@ -285,7 +306,7 @@ bool Script::saveXML(QXmlStreamWriter *doc)
     saveXMLRunOrder(doc);
 
     /* Contents */
-    foreach(QString cmd, dataLines())
+    foreach (QString cmd, dataLines())
     {
         doc->writeTextElement(KXMLQLCScriptCommand, QUrl::toPercentEncoding(cmd));
     }
@@ -329,6 +350,7 @@ void Script::postRun(MasterTimer* timer, QList<Universe *> universes)
     {
         m_runner->stop();
         m_runner->exit();
+        m_runner->wait();
     }
 
     Function::postRun(timer, universes);
@@ -358,7 +380,7 @@ quint32 Script::getValueFromString(QString str, bool *ok)
     int max = Function::stringToSpeed(valList.at(1));
 
     *ok = true;
-    return qrand() % ((max + 1) - min) + min;
+    return QRandomGenerator::global()->generate() % ((max + 1) - min) + min;
 }
 
 QString Script::convertLine(const QString& str, bool *ok)
@@ -404,7 +426,7 @@ QString Script::convertLine(const QString& str, bool *ok)
         int right = line.indexOf(":", left);
         if (right == -1)
         {
-            qDebug() << "Syntax error:" << line.mid(left);
+            qDebug() << "Syntax error (colon missing after keyword):" << line.mid(left);
             if (ok != NULL)
                 *ok = false;
             break;
@@ -434,7 +456,7 @@ QString Script::convertLine(const QString& str, bool *ok)
             }
             else
             {
-                qDebug() << "Syntax error:" << line.mid(quoteleft);
+                qDebug() << "Syntax error (unbalanced quotes):" << line.mid(quoteleft);
                 if (ok != NULL)
                     *ok = false;
                 break;
@@ -443,10 +465,10 @@ QString Script::convertLine(const QString& str, bool *ok)
         else
         {
             // No quotes. Find the next whitespace.
-            right = line.indexOf(QRegExp("\\s"), left);
+            right = line.indexOf(QRegularExpression("\\s"), left);
             if (right == -1)
             {
-                qDebug() << "Syntax error:" << line.mid(left);
+                qDebug() << "Syntax error (whitespace before value missing):" << line.mid(left);
                 if (ok != NULL)
                     *ok = false;
                 break;
@@ -486,7 +508,7 @@ QString Script::convertLine(const QString& str, bool *ok)
 
                 value = QString("Engine.random(%1,%2)").arg(min).arg(max);
             }
-            else if (command == waitCmd)
+            else if (command == waitLegacy)
             {
                 if (value.contains("s") || value.contains("m") || value.contains("h"))
                 {
@@ -499,7 +521,7 @@ QString Script::convertLine(const QString& str, bool *ok)
         }
     }
 
-    if (command == systemCmd)
+    if (command == systemLegacy)
     {
         QString cmd = values.join(" ");
         cmd.prepend("\"");
@@ -529,12 +551,12 @@ QString Script::convertLine(const QString& str, bool *ok)
 
 QString Script::convertLegacyMethod(QString method)
 {
-    if (method == startFunctionCmd) return "Engine.startFunction";
-    else if (method == stopFunctionCmd) return "Engine.stopFunction";
-    else if (method == blackoutCmd) return "Engine.setBlackout";
-    else if (method == waitCmd) return "Engine.waitTime";
-    else if (method == setFixtureCmd) return "Engine.setFixture";
-    else if (method == systemCmd) return "Engine.systemCommand";
+    if (method == startFunctionLegacy) return startFunctionCmd;
+    else if (method == stopFunctionLegacy) return stopFunctionCmd;
+    else if (method == blackoutLegacy) return blackoutCmd;
+    else if (method == waitLegacy) return waitCmd;
+    else if (method == setFixtureLegacy) return setFixtureCmd;
+    else if (method == systemLegacy) return systemCmd;
     else return "";
 }
 

@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.4 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Dag Stenstad</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
@@ -12,8 +12,8 @@
  <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10">No function</Capability>
-  <Capability Min="11" Max="255">Strobe (Slow to Fast)</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe (Slow to Fast)</Capability>
  </Channel>
  <Channel Name="Gobo Rotating">
   <Group Byte="0">Effect</Group>
@@ -27,11 +27,11 @@
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Gobo Rotating</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="1200" Type="LED" ColourTemperature="0"/>
-   <Dimensions Height="108" Weight="2.5" Width="236" Depth="205"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="30"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="1200" ColourTemperature="0"/>
+  <Dimensions Weight="2.5" Width="236" Height="108" Depth="205"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

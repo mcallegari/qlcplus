@@ -1,0 +1,3596 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2</Version>
+  <Author>pille</Author>
+ </Creator>
+ <Manufacturer>Novation</Manufacturer>
+ <Model>Launch Control XL</Model>
+ <Type>MIDI</Type>
+ <Channel Number="13">
+  <Name>User 1: Column 1: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="14">
+  <Name>User 1: Column 2: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="15">
+  <Name>User 1: Column 3: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16">
+  <Name>User 1: Column 4: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="17">
+  <Name>User 1: Column 5: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="18">
+  <Name>User 1: Column 6: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="19">
+  <Name>User 1: Column 7: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20">
+  <Name>User 1: Column 8: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="29">
+  <Name>User 1: Column 1: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="30">
+  <Name>User 1: Column 2: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="31">
+  <Name>User 1: Column 3: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32">
+  <Name>User 1: Column 4: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="33">
+  <Name>User 1: Column 5: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="34">
+  <Name>User 1: Column 6: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="35">
+  <Name>User 1: Column 7: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36">
+  <Name>User 1: Column 8: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49">
+  <Name>User 1: Column 1: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="50">
+  <Name>User 1: Column 2: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="51">
+  <Name>User 1: Column 3: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="52">
+  <Name>User 1: Column 4: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53">
+  <Name>User 1: Column 5: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="54">
+  <Name>User 1: Column 6: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="55">
+  <Name>User 1: Column 7: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="56">
+  <Name>User 1: Column 8: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="77">
+  <Name>User 1: Column 1: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="78">
+  <Name>User 1: Column 2: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="79">
+  <Name>User 1: Column 3: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="80">
+  <Name>User 1: Column 4: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="81">
+  <Name>User 1: Column 5: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="82">
+  <Name>User 1: Column 6: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="83">
+  <Name>User 1: Column 7: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="84">
+  <Name>User 1: Column 8: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="104">
+  <Name>User 1: Button Send Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="105">
+  <Name>User 1: Button Send Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="106">
+  <Name>User 1: Button Track Left</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="107">
+  <Name>User 1: Button Track Right</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="169">
+  <Name>User 1: Column 1: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="170">
+  <Name>User 1: Column 2: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="171">
+  <Name>User 1: Column 3: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="172">
+  <Name>User 1: Column 4: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="185">
+  <Name>User 1: Column 5: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="186">
+  <Name>User 1: Column 6: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="187">
+  <Name>User 1: Column 7: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="188">
+  <Name>User 1: Column 8: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="201">
+  <Name>User 1: Column 1: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="202">
+  <Name>User 1: Column 2: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="203">
+  <Name>User 1: Column 3: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="204">
+  <Name>User 1: Column 4: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="217">
+  <Name>User 1: Column 5: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="218">
+  <Name>User 1: Column 6: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="219">
+  <Name>User 1: Column 7: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="220">
+  <Name>User 1: Column 8: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="233">
+  <Name>User 1: Button Device</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="234">
+  <Name>User 1: Button Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="235">
+  <Name>User 1: Button Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="236">
+  <Name>User 1: Button Record Arm</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4109">
+  <Name>User 2: Column 1: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4110">
+  <Name>User 2: Column 2: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4111">
+  <Name>User 2: Column 3: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4112">
+  <Name>User 2: Column 4: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4113">
+  <Name>User 2: Column 5: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4114">
+  <Name>User 2: Column 6: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4115">
+  <Name>User 2: Column 7: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4116">
+  <Name>User 2: Column 8: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4125">
+  <Name>User 2: Column 1: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4126">
+  <Name>User 2: Column 2: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4127">
+  <Name>User 2: Column 3: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4128">
+  <Name>User 2: Column 4: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4129">
+  <Name>User 2: Column 5: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4130">
+  <Name>User 2: Column 6: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4131">
+  <Name>User 2: Column 7: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4132">
+  <Name>User 2: Column 8: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4145">
+  <Name>User 2: Column 1: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4146">
+  <Name>User 2: Column 2: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4147">
+  <Name>User 2: Column 3: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4148">
+  <Name>User 2: Column 4: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4149">
+  <Name>User 2: Column 5: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4150">
+  <Name>User 2: Column 6: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4151">
+  <Name>User 2: Column 7: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4152">
+  <Name>User 2: Column 8: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4173">
+  <Name>User 2: Column 1: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4174">
+  <Name>User 2: Column 2: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4175">
+  <Name>User 2: Column 3: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4176">
+  <Name>User 2: Column 4: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4177">
+  <Name>User 2: Column 5: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4178">
+  <Name>User 2: Column 6: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4179">
+  <Name>User 2: Column 7: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4180">
+  <Name>User 2: Column 8: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4200">
+  <Name>User 2: Button Send Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4201">
+  <Name>User 2: Button Send Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4202">
+  <Name>User 2: Button Track Left</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4203">
+  <Name>User 2: Button Track Right</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4265">
+  <Name>User 2: Column 1: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4266">
+  <Name>User 2: Column 2: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4267">
+  <Name>User 2: Column 3: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4268">
+  <Name>User 2: Column 4: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4281">
+  <Name>User 2: Column 5: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4282">
+  <Name>User 2: Column 6: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4283">
+  <Name>User 2: Column 7: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4284">
+  <Name>User 2: Column 8: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4297">
+  <Name>User 2: Column 1: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4298">
+  <Name>User 2: Column 2: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4299">
+  <Name>User 2: Column 3: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4300">
+  <Name>User 2: Column 4: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4313">
+  <Name>User 2: Column 5: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4314">
+  <Name>User 2: Column 6: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4315">
+  <Name>User 2: Column 7: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4316">
+  <Name>User 2: Column 8: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4329">
+  <Name>User 2: Button Device</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4330">
+  <Name>User 2: Button Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4331">
+  <Name>User 2: Button Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4332">
+  <Name>User 2: Button Record Arm</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8205">
+  <Name>User 3: Column 1: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8206">
+  <Name>User 3: Column 2: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8207">
+  <Name>User 3: Column 3: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8208">
+  <Name>User 3: Column 4: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8209">
+  <Name>User 3: Column 5: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8210">
+  <Name>User 3: Column 6: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8211">
+  <Name>User 3: Column 7: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8212">
+  <Name>User 3: Column 8: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8221">
+  <Name>User 3: Column 1: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8222">
+  <Name>User 3: Column 2: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8223">
+  <Name>User 3: Column 3: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8224">
+  <Name>User 3: Column 4: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8225">
+  <Name>User 3: Column 5: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8226">
+  <Name>User 3: Column 6: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8227">
+  <Name>User 3: Column 7: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8228">
+  <Name>User 3: Column 8: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8241">
+  <Name>User 3: Column 1: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8242">
+  <Name>User 3: Column 2: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8243">
+  <Name>User 3: Column 3: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8244">
+  <Name>User 3: Column 4: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8245">
+  <Name>User 3: Column 5: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8246">
+  <Name>User 3: Column 6: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8247">
+  <Name>User 3: Column 7: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8248">
+  <Name>User 3: Column 8: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8269">
+  <Name>User 3: Column 1: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8270">
+  <Name>User 3: Column 2: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8271">
+  <Name>User 3: Column 3: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8272">
+  <Name>User 3: Column 4: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8273">
+  <Name>User 3: Column 5: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8274">
+  <Name>User 3: Column 6: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8275">
+  <Name>User 3: Column 7: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8276">
+  <Name>User 3: Column 8: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8296">
+  <Name>User 3: Button Send Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8297">
+  <Name>User 3: Button Send Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8298">
+  <Name>User 3: Button Track Left</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8299">
+  <Name>User 3: Button Track Right</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8361">
+  <Name>User 3: Column 1: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8362">
+  <Name>User 3: Column 2: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8363">
+  <Name>User 3: Column 3: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8364">
+  <Name>User 3: Column 4: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8377">
+  <Name>User 3: Column 5: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8378">
+  <Name>User 3: Column 6: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8379">
+  <Name>User 3: Column 7: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8380">
+  <Name>User 3: Column 8: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8393">
+  <Name>User 3: Column 1: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8394">
+  <Name>User 3: Column 2: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8395">
+  <Name>User 3: Column 3: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8396">
+  <Name>User 3: Column 4: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8409">
+  <Name>User 3: Column 5: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8410">
+  <Name>User 3: Column 6: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8411">
+  <Name>User 3: Column 7: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8412">
+  <Name>User 3: Column 8: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8425">
+  <Name>User 3: Button Device</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8426">
+  <Name>User 3: Button Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8427">
+  <Name>User 3: Button Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8428">
+  <Name>User 3: Button Record Arm</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12301">
+  <Name>User 4: Column 1: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12302">
+  <Name>User 4: Column 2: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12303">
+  <Name>User 4: Column 3: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12304">
+  <Name>User 4: Column 4: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12305">
+  <Name>User 4: Column 5: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12306">
+  <Name>User 4: Column 6: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12307">
+  <Name>User 4: Column 7: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12308">
+  <Name>User 4: Column 8: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12317">
+  <Name>User 4: Column 1: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12318">
+  <Name>User 4: Column 2: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12319">
+  <Name>User 4: Column 3: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12320">
+  <Name>User 4: Column 4: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12321">
+  <Name>User 4: Column 5: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12322">
+  <Name>User 4: Column 6: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12323">
+  <Name>User 4: Column 7: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12324">
+  <Name>User 4: Column 8: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12337">
+  <Name>User 4: Column 1: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12338">
+  <Name>User 4: Column 2: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12339">
+  <Name>User 4: Column 3: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12340">
+  <Name>User 4: Column 4: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12341">
+  <Name>User 4: Column 5: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12342">
+  <Name>User 4: Column 6: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12343">
+  <Name>User 4: Column 7: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12344">
+  <Name>User 4: Column 8: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12365">
+  <Name>User 4: Column 1: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12366">
+  <Name>User 4: Column 2: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12367">
+  <Name>User 4: Column 3: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12368">
+  <Name>User 4: Column 4: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12369">
+  <Name>User 4: Column 5: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12370">
+  <Name>User 4: Column 6: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12371">
+  <Name>User 4: Column 7: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12372">
+  <Name>User 4: Column 8: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12392">
+  <Name>User 4: Button Send Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12393">
+  <Name>User 4: Button Send Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12394">
+  <Name>User 4: Button Track Left</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12395">
+  <Name>User 4: Button Track Right</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12457">
+  <Name>User 4: Column 1: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12458">
+  <Name>User 4: Column 2: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12459">
+  <Name>User 4: Column 3: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12460">
+  <Name>User 4: Column 4: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12473">
+  <Name>User 4: Column 5: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12474">
+  <Name>User 4: Column 6: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12475">
+  <Name>User 4: Column 7: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12476">
+  <Name>User 4: Column 8: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12489">
+  <Name>User 4: Column 1: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12490">
+  <Name>User 4: Column 2: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12491">
+  <Name>User 4: Column 3: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12492">
+  <Name>User 4: Column 4: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12505">
+  <Name>User 4: Column 5: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12506">
+  <Name>User 4: Column 6: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12507">
+  <Name>User 4: Column 7: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12508">
+  <Name>User 4: Column 8: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12521">
+  <Name>User 4: Button Device</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12522">
+  <Name>User 4: Button Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12523">
+  <Name>User 4: Button Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12524">
+  <Name>User 4: Button Record Arm</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16397">
+  <Name>User 5: Column 1: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16398">
+  <Name>User 5: Column 2: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16399">
+  <Name>User 5: Column 3: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16400">
+  <Name>User 5: Column 4: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16401">
+  <Name>User 5: Column 5: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16402">
+  <Name>User 5: Column 6: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16403">
+  <Name>User 5: Column 7: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16404">
+  <Name>User 5: Column 8: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16413">
+  <Name>User 5: Column 1: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16414">
+  <Name>User 5: Column 2: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16415">
+  <Name>User 5: Column 3: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16416">
+  <Name>User 5: Column 4: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16417">
+  <Name>User 5: Column 5: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16418">
+  <Name>User 5: Column 6: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16419">
+  <Name>User 5: Column 7: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16420">
+  <Name>User 5: Column 8: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16433">
+  <Name>User 5: Column 1: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16434">
+  <Name>User 5: Column 2: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16435">
+  <Name>User 5: Column 3: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16436">
+  <Name>User 5: Column 4: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16437">
+  <Name>User 5: Column 5: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16438">
+  <Name>User 5: Column 6: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16439">
+  <Name>User 5: Column 7: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16440">
+  <Name>User 5: Column 8: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16461">
+  <Name>User 5: Column 1: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16462">
+  <Name>User 5: Column 2: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16463">
+  <Name>User 5: Column 3: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16464">
+  <Name>User 5: Column 4: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16465">
+  <Name>User 5: Column 5: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16466">
+  <Name>User 5: Column 6: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16467">
+  <Name>User 5: Column 7: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16468">
+  <Name>User 5: Column 8: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16488">
+  <Name>User 5: Button Send Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16489">
+  <Name>User 5: Button Send Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16490">
+  <Name>User 5: Button Track Left</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16491">
+  <Name>User 5: Button Track Right</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16553">
+  <Name>User 5: Column 1: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16554">
+  <Name>User 5: Column 2: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16555">
+  <Name>User 5: Column 3: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16556">
+  <Name>User 5: Column 4: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16569">
+  <Name>User 5: Column 5: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16570">
+  <Name>User 5: Column 6: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16571">
+  <Name>User 5: Column 7: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16572">
+  <Name>User 5: Column 8: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16585">
+  <Name>User 5: Column 1: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16586">
+  <Name>User 5: Column 2: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16587">
+  <Name>User 5: Column 3: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16588">
+  <Name>User 5: Column 4: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16601">
+  <Name>User 5: Column 5: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16602">
+  <Name>User 5: Column 6: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16603">
+  <Name>User 5: Column 7: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16604">
+  <Name>User 5: Column 8: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16617">
+  <Name>User 5: Button Device</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16618">
+  <Name>User 5: Button Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16619">
+  <Name>User 5: Button Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16620">
+  <Name>User 5: Button Record Arm</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20493">
+  <Name>User 6: Column 1: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20494">
+  <Name>User 6: Column 2: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20495">
+  <Name>User 6: Column 3: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20496">
+  <Name>User 6: Column 4: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20497">
+  <Name>User 6: Column 5: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20498">
+  <Name>User 6: Column 6: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20499">
+  <Name>User 6: Column 7: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20500">
+  <Name>User 6: Column 8: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20509">
+  <Name>User 6: Column 1: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20510">
+  <Name>User 6: Column 2: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20511">
+  <Name>User 6: Column 3: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20512">
+  <Name>User 6: Column 4: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20513">
+  <Name>User 6: Column 5: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20514">
+  <Name>User 6: Column 6: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20515">
+  <Name>User 6: Column 7: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20516">
+  <Name>User 6: Column 8: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20529">
+  <Name>User 6: Column 1: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20530">
+  <Name>User 6: Column 2: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20531">
+  <Name>User 6: Column 3: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20532">
+  <Name>User 6: Column 4: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20533">
+  <Name>User 6: Column 5: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20534">
+  <Name>User 6: Column 6: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20535">
+  <Name>User 6: Column 7: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20536">
+  <Name>User 6: Column 8: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20557">
+  <Name>User 6: Column 1: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="20558">
+  <Name>User 6: Column 2: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="20559">
+  <Name>User 6: Column 3: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="20560">
+  <Name>User 6: Column 4: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="20561">
+  <Name>User 6: Column 5: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="20562">
+  <Name>User 6: Column 6: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="20563">
+  <Name>User 6: Column 7: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="20564">
+  <Name>User 6: Column 8: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="20584">
+  <Name>User 6: Button Send Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20585">
+  <Name>User 6: Button Send Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20586">
+  <Name>User 6: Button Track Left</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20587">
+  <Name>User 6: Button Track Right</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20649">
+  <Name>User 6: Column 1: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20650">
+  <Name>User 6: Column 2: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20651">
+  <Name>User 6: Column 3: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20652">
+  <Name>User 6: Column 4: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20665">
+  <Name>User 6: Column 5: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20666">
+  <Name>User 6: Column 6: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20667">
+  <Name>User 6: Column 7: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20668">
+  <Name>User 6: Column 8: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20681">
+  <Name>User 6: Column 1: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20682">
+  <Name>User 6: Column 2: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20683">
+  <Name>User 6: Column 3: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20684">
+  <Name>User 6: Column 4: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20697">
+  <Name>User 6: Column 5: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20698">
+  <Name>User 6: Column 6: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20699">
+  <Name>User 6: Column 7: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20700">
+  <Name>User 6: Column 8: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20713">
+  <Name>User 6: Button Device</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20714">
+  <Name>User 6: Button Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20715">
+  <Name>User 6: Button Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20716">
+  <Name>User 6: Button Record Arm</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24589">
+  <Name>User 7: Column 1: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24590">
+  <Name>User 7: Column 2: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24591">
+  <Name>User 7: Column 3: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24592">
+  <Name>User 7: Column 4: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24593">
+  <Name>User 7: Column 5: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24594">
+  <Name>User 7: Column 6: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24595">
+  <Name>User 7: Column 7: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24596">
+  <Name>User 7: Column 8: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24605">
+  <Name>User 7: Column 1: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24606">
+  <Name>User 7: Column 2: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24607">
+  <Name>User 7: Column 3: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24608">
+  <Name>User 7: Column 4: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24609">
+  <Name>User 7: Column 5: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24610">
+  <Name>User 7: Column 6: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24611">
+  <Name>User 7: Column 7: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24612">
+  <Name>User 7: Column 8: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24625">
+  <Name>User 7: Column 1: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24626">
+  <Name>User 7: Column 2: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24627">
+  <Name>User 7: Column 3: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24628">
+  <Name>User 7: Column 4: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24629">
+  <Name>User 7: Column 5: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24630">
+  <Name>User 7: Column 6: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24631">
+  <Name>User 7: Column 7: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24632">
+  <Name>User 7: Column 8: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24653">
+  <Name>User 7: Column 1: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="24654">
+  <Name>User 7: Column 2: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="24655">
+  <Name>User 7: Column 3: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="24656">
+  <Name>User 7: Column 4: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="24657">
+  <Name>User 7: Column 5: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="24658">
+  <Name>User 7: Column 6: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="24659">
+  <Name>User 7: Column 7: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="24660">
+  <Name>User 7: Column 8: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="24680">
+  <Name>User 7: Button Send Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24681">
+  <Name>User 7: Button Send Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24682">
+  <Name>User 7: Button Track Left</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24683">
+  <Name>User 7: Button Track Right</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24745">
+  <Name>User 7: Column 1: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24746">
+  <Name>User 7: Column 2: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24747">
+  <Name>User 7: Column 3: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24748">
+  <Name>User 7: Column 4: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24761">
+  <Name>User 7: Column 5: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24762">
+  <Name>User 7: Column 6: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24763">
+  <Name>User 7: Column 7: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24764">
+  <Name>User 7: Column 8: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24777">
+  <Name>User 7: Column 1: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24778">
+  <Name>User 7: Column 2: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24779">
+  <Name>User 7: Column 3: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24780">
+  <Name>User 7: Column 4: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24793">
+  <Name>User 7: Column 5: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24794">
+  <Name>User 7: Column 6: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24795">
+  <Name>User 7: Column 7: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24796">
+  <Name>User 7: Column 8: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24809">
+  <Name>User 7: Button Device</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24810">
+  <Name>User 7: Button Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24811">
+  <Name>User 7: Button Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24812">
+  <Name>User 7: Button Record Arm</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28685">
+  <Name>User 8: Column 1: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28686">
+  <Name>User 8: Column 2: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28687">
+  <Name>User 8: Column 3: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28688">
+  <Name>User 8: Column 4: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28689">
+  <Name>User 8: Column 5: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28690">
+  <Name>User 8: Column 6: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28691">
+  <Name>User 8: Column 7: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28692">
+  <Name>User 8: Column 8: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28701">
+  <Name>User 8: Column 1: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28702">
+  <Name>User 8: Column 2: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28703">
+  <Name>User 8: Column 3: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28704">
+  <Name>User 8: Column 4: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28705">
+  <Name>User 8: Column 5: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28706">
+  <Name>User 8: Column 6: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28707">
+  <Name>User 8: Column 7: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28708">
+  <Name>User 8: Column 8: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28721">
+  <Name>User 8: Column 1: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28722">
+  <Name>User 8: Column 2: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28723">
+  <Name>User 8: Column 3: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28724">
+  <Name>User 8: Column 4: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28725">
+  <Name>User 8: Column 5: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28726">
+  <Name>User 8: Column 6: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28727">
+  <Name>User 8: Column 7: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28728">
+  <Name>User 8: Column 8: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28749">
+  <Name>User 8: Column 1: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="28750">
+  <Name>User 8: Column 2: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="28751">
+  <Name>User 8: Column 3: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="28752">
+  <Name>User 8: Column 4: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="28753">
+  <Name>User 8: Column 5: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="28754">
+  <Name>User 8: Column 6: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="28755">
+  <Name>User 8: Column 7: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="28756">
+  <Name>User 8: Column 8: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="28776">
+  <Name>User 8: Button Send Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28777">
+  <Name>User 8: Button Send Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28778">
+  <Name>User 8: Button Track Left</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28779">
+  <Name>User 8: Button Track Right</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28841">
+  <Name>User 8: Column 1: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28842">
+  <Name>User 8: Column 2: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28843">
+  <Name>User 8: Column 3: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28844">
+  <Name>User 8: Column 4: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28857">
+  <Name>User 8: Column 5: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28858">
+  <Name>User 8: Column 6: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28859">
+  <Name>User 8: Column 7: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28860">
+  <Name>User 8: Column 8: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28873">
+  <Name>User 8: Column 1: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28874">
+  <Name>User 8: Column 2: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28875">
+  <Name>User 8: Column 3: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28876">
+  <Name>User 8: Column 4: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28889">
+  <Name>User 8: Column 5: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28890">
+  <Name>User 8: Column 6: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28891">
+  <Name>User 8: Column 7: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28892">
+  <Name>User 8: Column 8: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28905">
+  <Name>User 8: Button Device</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28906">
+  <Name>User 8: Button Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28907">
+  <Name>User 8: Button Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28908">
+  <Name>User 8: Button Record Arm</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32781">
+  <Name>Factory 1: Column 1: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32782">
+  <Name>Factory 1: Column 2: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32783">
+  <Name>Factory 1: Column 3: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32784">
+  <Name>Factory 1: Column 4: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32785">
+  <Name>Factory 1: Column 5: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32786">
+  <Name>Factory 1: Column 6: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32787">
+  <Name>Factory 1: Column 7: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32788">
+  <Name>Factory 1: Column 8: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32797">
+  <Name>Factory 1: Column 1: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32798">
+  <Name>Factory 1: Column 2: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32799">
+  <Name>Factory 1: Column 3: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32800">
+  <Name>Factory 1: Column 4: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32801">
+  <Name>Factory 1: Column 5: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32802">
+  <Name>Factory 1: Column 6: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32803">
+  <Name>Factory 1: Column 7: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32804">
+  <Name>Factory 1: Column 8: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32817">
+  <Name>Factory 1: Column 1: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32818">
+  <Name>Factory 1: Column 2: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32819">
+  <Name>Factory 1: Column 3: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32820">
+  <Name>Factory 1: Column 4: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32821">
+  <Name>Factory 1: Column 5: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32822">
+  <Name>Factory 1: Column 6: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32823">
+  <Name>Factory 1: Column 7: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32824">
+  <Name>Factory 1: Column 8: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32845">
+  <Name>Factory 1: Column 1: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="32846">
+  <Name>Factory 1: Column 2: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="32847">
+  <Name>Factory 1: Column 3: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="32848">
+  <Name>Factory 1: Column 4: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="32849">
+  <Name>Factory 1: Column 5: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="32850">
+  <Name>Factory 1: Column 6: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="32851">
+  <Name>Factory 1: Column 7: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="32852">
+  <Name>Factory 1: Column 8: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="32872">
+  <Name>Factory 1: Button Send Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32873">
+  <Name>Factory 1: Button Send Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32874">
+  <Name>Factory 1: Button Track Left</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32875">
+  <Name>Factory 1: Button Track Right</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32937">
+  <Name>Factory 1: Column 1: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32938">
+  <Name>Factory 1: Column 2: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32939">
+  <Name>Factory 1: Column 3: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32940">
+  <Name>Factory 1: Column 4: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32953">
+  <Name>Factory 1: Column 5: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32954">
+  <Name>Factory 1: Column 6: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32955">
+  <Name>Factory 1: Column 7: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32956">
+  <Name>Factory 1: Column 8: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32969">
+  <Name>Factory 1: Column 1: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32970">
+  <Name>Factory 1: Column 2: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32971">
+  <Name>Factory 1: Column 3: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32972">
+  <Name>Factory 1: Column 4: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32985">
+  <Name>Factory 1: Column 5: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32986">
+  <Name>Factory 1: Column 6: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32987">
+  <Name>Factory 1: Column 7: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32988">
+  <Name>Factory 1: Column 8: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="33001">
+  <Name>Factory 1: Button Device</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="33002">
+  <Name>Factory 1: Button Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="33003">
+  <Name>Factory 1: Button Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="33004">
+  <Name>Factory 1: Button Record Arm</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="36877">
+  <Name>Factory 2: Column 1: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36878">
+  <Name>Factory 2: Column 2: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36879">
+  <Name>Factory 2: Column 3: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36880">
+  <Name>Factory 2: Column 4: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36881">
+  <Name>Factory 2: Column 5: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36882">
+  <Name>Factory 2: Column 6: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36883">
+  <Name>Factory 2: Column 7: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36884">
+  <Name>Factory 2: Column 8: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36893">
+  <Name>Factory 2: Column 1: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36894">
+  <Name>Factory 2: Column 2: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36895">
+  <Name>Factory 2: Column 3: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36896">
+  <Name>Factory 2: Column 4: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36897">
+  <Name>Factory 2: Column 5: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36898">
+  <Name>Factory 2: Column 6: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36899">
+  <Name>Factory 2: Column 7: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36900">
+  <Name>Factory 2: Column 8: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36913">
+  <Name>Factory 2: Column 1: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36914">
+  <Name>Factory 2: Column 2: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36915">
+  <Name>Factory 2: Column 3: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36916">
+  <Name>Factory 2: Column 4: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36917">
+  <Name>Factory 2: Column 5: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36918">
+  <Name>Factory 2: Column 6: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36919">
+  <Name>Factory 2: Column 7: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36920">
+  <Name>Factory 2: Column 8: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36941">
+  <Name>Factory 2: Column 1: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="36942">
+  <Name>Factory 2: Column 2: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="36943">
+  <Name>Factory 2: Column 3: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="36944">
+  <Name>Factory 2: Column 4: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="36945">
+  <Name>Factory 2: Column 5: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="36946">
+  <Name>Factory 2: Column 6: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="36947">
+  <Name>Factory 2: Column 7: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="36948">
+  <Name>Factory 2: Column 8: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="36968">
+  <Name>Factory 2: Button Send Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="36969">
+  <Name>Factory 2: Button Send Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="36970">
+  <Name>Factory 2: Button Track Left</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="36971">
+  <Name>Factory 2: Button Track Right</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37033">
+  <Name>Factory 2: Column 1: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37034">
+  <Name>Factory 2: Column 2: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37035">
+  <Name>Factory 2: Column 3: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37036">
+  <Name>Factory 2: Column 4: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37049">
+  <Name>Factory 2: Column 5: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37050">
+  <Name>Factory 2: Column 6: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37051">
+  <Name>Factory 2: Column 7: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37052">
+  <Name>Factory 2: Column 8: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37065">
+  <Name>Factory 2: Column 1: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37066">
+  <Name>Factory 2: Column 2: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37067">
+  <Name>Factory 2: Column 3: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37068">
+  <Name>Factory 2: Column 4: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37081">
+  <Name>Factory 2: Column 5: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37082">
+  <Name>Factory 2: Column 6: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37083">
+  <Name>Factory 2: Column 7: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37084">
+  <Name>Factory 2: Column 8: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37097">
+  <Name>Factory 2: Button Device</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37098">
+  <Name>Factory 2: Button Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37099">
+  <Name>Factory 2: Button Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37100">
+  <Name>Factory 2: Button Record Arm</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="40973">
+  <Name>Factory 3: Column 1: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="40974">
+  <Name>Factory 3: Column 2: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="40975">
+  <Name>Factory 3: Column 3: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="40976">
+  <Name>Factory 3: Column 4: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="40977">
+  <Name>Factory 3: Column 5: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="40978">
+  <Name>Factory 3: Column 6: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="40979">
+  <Name>Factory 3: Column 7: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="40980">
+  <Name>Factory 3: Column 8: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="40989">
+  <Name>Factory 3: Column 1: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="40990">
+  <Name>Factory 3: Column 2: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="40991">
+  <Name>Factory 3: Column 3: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="40992">
+  <Name>Factory 3: Column 4: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="40993">
+  <Name>Factory 3: Column 5: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="40994">
+  <Name>Factory 3: Column 6: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="40995">
+  <Name>Factory 3: Column 7: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="40996">
+  <Name>Factory 3: Column 8: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="41009">
+  <Name>Factory 3: Column 1: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="41010">
+  <Name>Factory 3: Column 2: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="41011">
+  <Name>Factory 3: Column 3: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="41012">
+  <Name>Factory 3: Column 4: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="41013">
+  <Name>Factory 3: Column 5: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="41014">
+  <Name>Factory 3: Column 6: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="41015">
+  <Name>Factory 3: Column 7: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="41016">
+  <Name>Factory 3: Column 8: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="41037">
+  <Name>Factory 3: Column 1: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="41038">
+  <Name>Factory 3: Column 2: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="41039">
+  <Name>Factory 3: Column 3: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="41040">
+  <Name>Factory 3: Column 4: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="41041">
+  <Name>Factory 3: Column 5: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="41042">
+  <Name>Factory 3: Column 6: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="41043">
+  <Name>Factory 3: Column 7: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="41044">
+  <Name>Factory 3: Column 8: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="41064">
+  <Name>Factory 3: Button Send Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41065">
+  <Name>Factory 3: Button Send Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41066">
+  <Name>Factory 3: Button Track Left</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41067">
+  <Name>Factory 3: Button Track Right</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41129">
+  <Name>Factory 3: Column 1: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41130">
+  <Name>Factory 3: Column 2: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41131">
+  <Name>Factory 3: Column 3: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41132">
+  <Name>Factory 3: Column 4: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41145">
+  <Name>Factory 3: Column 5: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41146">
+  <Name>Factory 3: Column 6: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41147">
+  <Name>Factory 3: Column 7: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41148">
+  <Name>Factory 3: Column 8: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41161">
+  <Name>Factory 3: Column 1: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41162">
+  <Name>Factory 3: Column 2: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41163">
+  <Name>Factory 3: Column 3: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41164">
+  <Name>Factory 3: Column 4: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41177">
+  <Name>Factory 3: Column 5: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41178">
+  <Name>Factory 3: Column 6: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41179">
+  <Name>Factory 3: Column 7: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41180">
+  <Name>Factory 3: Column 8: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41193">
+  <Name>Factory 3: Button Device</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41194">
+  <Name>Factory 3: Button Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41195">
+  <Name>Factory 3: Button Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41196">
+  <Name>Factory 3: Button Record Arm</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45069">
+  <Name>Factory 4: Column 1: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45070">
+  <Name>Factory 4: Column 2: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45071">
+  <Name>Factory 4: Column 3: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45072">
+  <Name>Factory 4: Column 4: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45073">
+  <Name>Factory 4: Column 5: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45074">
+  <Name>Factory 4: Column 6: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45075">
+  <Name>Factory 4: Column 7: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45076">
+  <Name>Factory 4: Column 8: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45085">
+  <Name>Factory 4: Column 1: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45086">
+  <Name>Factory 4: Column 2: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45087">
+  <Name>Factory 4: Column 3: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45088">
+  <Name>Factory 4: Column 4: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45089">
+  <Name>Factory 4: Column 5: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45090">
+  <Name>Factory 4: Column 6: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45091">
+  <Name>Factory 4: Column 7: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45092">
+  <Name>Factory 4: Column 8: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45105">
+  <Name>Factory 4: Column 1: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45106">
+  <Name>Factory 4: Column 2: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45107">
+  <Name>Factory 4: Column 3: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45108">
+  <Name>Factory 4: Column 4: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45109">
+  <Name>Factory 4: Column 5: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45110">
+  <Name>Factory 4: Column 6: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45111">
+  <Name>Factory 4: Column 7: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45112">
+  <Name>Factory 4: Column 8: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45133">
+  <Name>Factory 4: Column 1: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="45134">
+  <Name>Factory 4: Column 2: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="45135">
+  <Name>Factory 4: Column 3: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="45136">
+  <Name>Factory 4: Column 4: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="45137">
+  <Name>Factory 4: Column 5: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="45138">
+  <Name>Factory 4: Column 6: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="45139">
+  <Name>Factory 4: Column 7: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="45140">
+  <Name>Factory 4: Column 8: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="45160">
+  <Name>Factory 4: Button Send Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45161">
+  <Name>Factory 4: Button Send Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45162">
+  <Name>Factory 4: Button Track Left</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45163">
+  <Name>Factory 4: Button Track Right</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45225">
+  <Name>Factory 4: Column 1: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45226">
+  <Name>Factory 4: Column 2: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45227">
+  <Name>Factory 4: Column 3: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45228">
+  <Name>Factory 4: Column 4: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45241">
+  <Name>Factory 4: Column 5: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45242">
+  <Name>Factory 4: Column 6: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45243">
+  <Name>Factory 4: Column 7: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45244">
+  <Name>Factory 4: Column 8: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45257">
+  <Name>Factory 4: Column 1: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45258">
+  <Name>Factory 4: Column 2: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45259">
+  <Name>Factory 4: Column 3: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45260">
+  <Name>Factory 4: Column 4: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45273">
+  <Name>Factory 4: Column 5: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45274">
+  <Name>Factory 4: Column 6: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45275">
+  <Name>Factory 4: Column 7: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45276">
+  <Name>Factory 4: Column 8: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45289">
+  <Name>Factory 4: Button Device</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45290">
+  <Name>Factory 4: Button Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45291">
+  <Name>Factory 4: Button Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45292">
+  <Name>Factory 4: Button Record Arm</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49165">
+  <Name>Factory 5: Column 1: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49166">
+  <Name>Factory 5: Column 2: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49167">
+  <Name>Factory 5: Column 3: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49168">
+  <Name>Factory 5: Column 4: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49169">
+  <Name>Factory 5: Column 5: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49170">
+  <Name>Factory 5: Column 6: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49171">
+  <Name>Factory 5: Column 7: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49172">
+  <Name>Factory 5: Column 8: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49181">
+  <Name>Factory 5: Column 1: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49182">
+  <Name>Factory 5: Column 2: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49183">
+  <Name>Factory 5: Column 3: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49184">
+  <Name>Factory 5: Column 4: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49185">
+  <Name>Factory 5: Column 5: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49186">
+  <Name>Factory 5: Column 6: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49187">
+  <Name>Factory 5: Column 7: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49188">
+  <Name>Factory 5: Column 8: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49201">
+  <Name>Factory 5: Column 1: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49202">
+  <Name>Factory 5: Column 2: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49203">
+  <Name>Factory 5: Column 3: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49204">
+  <Name>Factory 5: Column 4: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49205">
+  <Name>Factory 5: Column 5: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49206">
+  <Name>Factory 5: Column 6: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49207">
+  <Name>Factory 5: Column 7: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49208">
+  <Name>Factory 5: Column 8: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="49229">
+  <Name>Factory 5: Column 1: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="49230">
+  <Name>Factory 5: Column 2: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="49231">
+  <Name>Factory 5: Column 3: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="49232">
+  <Name>Factory 5: Column 4: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="49233">
+  <Name>Factory 5: Column 5: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="49234">
+  <Name>Factory 5: Column 6: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="49235">
+  <Name>Factory 5: Column 7: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="49236">
+  <Name>Factory 5: Column 8: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="49256">
+  <Name>Factory 5: Button Send Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49257">
+  <Name>Factory 5: Button Send Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49258">
+  <Name>Factory 5: Button Track Left</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49259">
+  <Name>Factory 5: Button Track Right</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49321">
+  <Name>Factory 5: Column 1: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49322">
+  <Name>Factory 5: Column 2: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49323">
+  <Name>Factory 5: Column 3: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49324">
+  <Name>Factory 5: Column 4: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49337">
+  <Name>Factory 5: Column 5: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49338">
+  <Name>Factory 5: Column 6: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49339">
+  <Name>Factory 5: Column 7: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49340">
+  <Name>Factory 5: Column 8: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49353">
+  <Name>Factory 5: Column 1: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49354">
+  <Name>Factory 5: Column 2: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49355">
+  <Name>Factory 5: Column 3: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49356">
+  <Name>Factory 5: Column 4: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49369">
+  <Name>Factory 5: Column 5: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49370">
+  <Name>Factory 5: Column 6: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49371">
+  <Name>Factory 5: Column 7: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49372">
+  <Name>Factory 5: Column 8: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49385">
+  <Name>Factory 5: Button Device</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49386">
+  <Name>Factory 5: Button Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49387">
+  <Name>Factory 5: Button Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49388">
+  <Name>Factory 5: Button Record Arm</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53261">
+  <Name>Factory 6: Column 1: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53262">
+  <Name>Factory 6: Column 2: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53263">
+  <Name>Factory 6: Column 3: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53264">
+  <Name>Factory 6: Column 4: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53265">
+  <Name>Factory 6: Column 5: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53266">
+  <Name>Factory 6: Column 6: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53267">
+  <Name>Factory 6: Column 7: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53268">
+  <Name>Factory 6: Column 8: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53277">
+  <Name>Factory 6: Column 1: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53278">
+  <Name>Factory 6: Column 2: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53279">
+  <Name>Factory 6: Column 3: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53280">
+  <Name>Factory 6: Column 4: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53281">
+  <Name>Factory 6: Column 5: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53282">
+  <Name>Factory 6: Column 6: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53283">
+  <Name>Factory 6: Column 7: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53284">
+  <Name>Factory 6: Column 8: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53297">
+  <Name>Factory 6: Column 1: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53298">
+  <Name>Factory 6: Column 2: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53299">
+  <Name>Factory 6: Column 3: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53300">
+  <Name>Factory 6: Column 4: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53301">
+  <Name>Factory 6: Column 5: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53302">
+  <Name>Factory 6: Column 6: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53303">
+  <Name>Factory 6: Column 7: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53304">
+  <Name>Factory 6: Column 8: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="53325">
+  <Name>Factory 6: Column 1: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="53326">
+  <Name>Factory 6: Column 2: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="53327">
+  <Name>Factory 6: Column 3: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="53328">
+  <Name>Factory 6: Column 4: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="53329">
+  <Name>Factory 6: Column 5: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="53330">
+  <Name>Factory 6: Column 6: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="53331">
+  <Name>Factory 6: Column 7: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="53332">
+  <Name>Factory 6: Column 8: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="53352">
+  <Name>Factory 6: Button Send Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53353">
+  <Name>Factory 6: Button Send Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53354">
+  <Name>Factory 6: Button Track Left</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53355">
+  <Name>Factory 6: Button Track Right</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53417">
+  <Name>Factory 6: Column 1: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53418">
+  <Name>Factory 6: Column 2: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53419">
+  <Name>Factory 6: Column 3: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53420">
+  <Name>Factory 6: Column 4: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53433">
+  <Name>Factory 6: Column 5: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53434">
+  <Name>Factory 6: Column 6: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53435">
+  <Name>Factory 6: Column 7: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53436">
+  <Name>Factory 6: Column 8: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53449">
+  <Name>Factory 6: Column 1: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53450">
+  <Name>Factory 6: Column 2: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53451">
+  <Name>Factory 6: Column 3: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53452">
+  <Name>Factory 6: Column 4: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53465">
+  <Name>Factory 6: Column 5: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53466">
+  <Name>Factory 6: Column 6: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53467">
+  <Name>Factory 6: Column 7: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53468">
+  <Name>Factory 6: Column 8: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53481">
+  <Name>Factory 6: Button Device</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53482">
+  <Name>Factory 6: Button Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53483">
+  <Name>Factory 6: Button Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53484">
+  <Name>Factory 6: Button Record Arm</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57357">
+  <Name>Factory 7: Column 1: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57358">
+  <Name>Factory 7: Column 2: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57359">
+  <Name>Factory 7: Column 3: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57360">
+  <Name>Factory 7: Column 4: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57361">
+  <Name>Factory 7: Column 5: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57362">
+  <Name>Factory 7: Column 6: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57363">
+  <Name>Factory 7: Column 7: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57364">
+  <Name>Factory 7: Column 8: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57373">
+  <Name>Factory 7: Column 1: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57374">
+  <Name>Factory 7: Column 2: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57375">
+  <Name>Factory 7: Column 3: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57376">
+  <Name>Factory 7: Column 4: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57377">
+  <Name>Factory 7: Column 5: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57378">
+  <Name>Factory 7: Column 6: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57379">
+  <Name>Factory 7: Column 7: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57380">
+  <Name>Factory 7: Column 8: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57393">
+  <Name>Factory 7: Column 1: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57394">
+  <Name>Factory 7: Column 2: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57395">
+  <Name>Factory 7: Column 3: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57396">
+  <Name>Factory 7: Column 4: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57397">
+  <Name>Factory 7: Column 5: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57398">
+  <Name>Factory 7: Column 6: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57399">
+  <Name>Factory 7: Column 7: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57400">
+  <Name>Factory 7: Column 8: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="57421">
+  <Name>Factory 7: Column 1: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="57422">
+  <Name>Factory 7: Column 2: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="57423">
+  <Name>Factory 7: Column 3: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="57424">
+  <Name>Factory 7: Column 4: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="57425">
+  <Name>Factory 7: Column 5: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="57426">
+  <Name>Factory 7: Column 6: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="57427">
+  <Name>Factory 7: Column 7: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="57428">
+  <Name>Factory 7: Column 8: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="57448">
+  <Name>Factory 7: Button Send Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57449">
+  <Name>Factory 7: Button Send Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57450">
+  <Name>Factory 7: Button Track Left</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57451">
+  <Name>Factory 7: Button Track Right</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57513">
+  <Name>Factory 7: Column 1: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57514">
+  <Name>Factory 7: Column 2: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57515">
+  <Name>Factory 7: Column 3: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57516">
+  <Name>Factory 7: Column 4: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57529">
+  <Name>Factory 7: Column 5: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57530">
+  <Name>Factory 7: Column 6: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57531">
+  <Name>Factory 7: Column 7: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57532">
+  <Name>Factory 7: Column 8: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57545">
+  <Name>Factory 7: Column 1: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57546">
+  <Name>Factory 7: Column 2: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57547">
+  <Name>Factory 7: Column 3: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57548">
+  <Name>Factory 7: Column 4: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57561">
+  <Name>Factory 7: Column 5: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57562">
+  <Name>Factory 7: Column 6: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57563">
+  <Name>Factory 7: Column 7: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57564">
+  <Name>Factory 7: Column 8: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57577">
+  <Name>Factory 7: Button Device</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57578">
+  <Name>Factory 7: Button Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57579">
+  <Name>Factory 7: Button Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57580">
+  <Name>Factory 7: Button Record Arm</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61453">
+  <Name>Factory 8: Column 1: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61454">
+  <Name>Factory 8: Column 2: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61455">
+  <Name>Factory 8: Column 3: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61456">
+  <Name>Factory 8: Column 4: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61457">
+  <Name>Factory 8: Column 5: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61458">
+  <Name>Factory 8: Column 6: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61459">
+  <Name>Factory 8: Column 7: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61460">
+  <Name>Factory 8: Column 8: Knob A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61469">
+  <Name>Factory 8: Column 1: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61470">
+  <Name>Factory 8: Column 2: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61471">
+  <Name>Factory 8: Column 3: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61472">
+  <Name>Factory 8: Column 4: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61473">
+  <Name>Factory 8: Column 5: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61474">
+  <Name>Factory 8: Column 6: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61475">
+  <Name>Factory 8: Column 7: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61476">
+  <Name>Factory 8: Column 8: Knob B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61489">
+  <Name>Factory 8: Column 1: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61490">
+  <Name>Factory 8: Column 2: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61491">
+  <Name>Factory 8: Column 3: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61492">
+  <Name>Factory 8: Column 4: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61493">
+  <Name>Factory 8: Column 5: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61494">
+  <Name>Factory 8: Column 6: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61495">
+  <Name>Factory 8: Column 7: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61496">
+  <Name>Factory 8: Column 8: Knob C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="61517">
+  <Name>Factory 8: Column 1: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="61518">
+  <Name>Factory 8: Column 2: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="61519">
+  <Name>Factory 8: Column 3: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="61520">
+  <Name>Factory 8: Column 4: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="61521">
+  <Name>Factory 8: Column 5: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="61522">
+  <Name>Factory 8: Column 6: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="61523">
+  <Name>Factory 8: Column 7: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="61524">
+  <Name>Factory 8: Column 8: Slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="61544">
+  <Name>Factory 8: Button Send Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61545">
+  <Name>Factory 8: Button Send Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61546">
+  <Name>Factory 8: Button Track Left</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61547">
+  <Name>Factory 8: Button Track Right</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61609">
+  <Name>Factory 8: Column 1: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61610">
+  <Name>Factory 8: Column 2: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61611">
+  <Name>Factory 8: Column 3: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61612">
+  <Name>Factory 8: Column 4: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61625">
+  <Name>Factory 8: Column 5: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61626">
+  <Name>Factory 8: Column 6: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61627">
+  <Name>Factory 8: Column 7: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61628">
+  <Name>Factory 8: Column 8: Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61641">
+  <Name>Factory 8: Column 1: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61642">
+  <Name>Factory 8: Column 2: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61643">
+  <Name>Factory 8: Column 3: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61644">
+  <Name>Factory 8: Column 4: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61657">
+  <Name>Factory 8: Column 5: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61658">
+  <Name>Factory 8: Column 6: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61659">
+  <Name>Factory 8: Column 7: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61660">
+  <Name>Factory 8: Column 8: Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61673">
+  <Name>Factory 8: Button Device</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61674">
+  <Name>Factory 8: Button Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61675">
+  <Name>Factory 8: Button Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61676">
+  <Name>Factory 8: Button Record Arm</Name>
+  <Type>Button</Type>
+ </Channel>
+</InputProfile>

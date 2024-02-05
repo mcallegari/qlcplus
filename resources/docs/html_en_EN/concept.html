@@ -27,8 +27,8 @@ An audio <A HREF="#Functions">function</A> is an object representing an audio
 file stored in a disk.<br>
 QLC+ supports the most common audio formats like Wave, MP3, M4A, Ogg and Flac. It supports
 mono or stereo channels and several sample rates like 44.1KHz, 48KHz, etc...<br>
-Audio functions can be placed in <A HREF="#Chaser">Chaser</A> or in a <A HREF="#Show">Show</A> at the desired time, 
-using the <A HREF="file:showmanager.html">Show Manager</A> panel.<br>
+Audio functions can be placed in <A HREF="#Chaser">Chaser</A> or in a <A HREF="#Show">Show</A> at the desired time,
+using the <A HREF="showmanager.html">Show Manager</A> panel.<br>
 Like most of the QLC+ functions, Audio supports fade in and fade out times.<br>
 </P>
 
@@ -60,8 +60,8 @@ three properties:
 
 <H3 id="Channelgroups">Channel Groups</H3>
 <P>
-Channel groups can be added and defined in the <A HREF="file:fixturemanager.html">Fixture Manager</A>
-panel by using the <A HREF="file:channelsgroupeditor.html">Channel groups editor</A>.<br>
+Channel groups can be added and defined in the <A HREF="fixturemanager.html">Fixture Manager</A>
+panel by using the <A HREF="channelsgroupeditor.html">Channel groups editor</A>.<br>
 Channel groups can have a user defined name and can group together any user defined channels
 selected from an existing Fixtures list.
 </P>
@@ -92,15 +92,15 @@ As of version 3.3.0, each chaser has its own speed settings:
 </P>
 
 <P>
-Copies of chaser functions can be created with the <A HREF="file:functionmanager.html">
+Copies of chaser functions can be created with the <A HREF="functionmanager.html">
 Function Manager</A>. The scenes inside a chaser are not duplicated when a chaser
 is copied. Only the order and direction are copied to the new one.
 </P>
 
 <H3 id="ClickAndGo">Click And Go</H3>
 <P>
-Click And Go is a technology that allows the user to quickly access macros and colors 
-in a completely visual way and with just a couple of clicks. This can lead to 
+Click And Go is a technology that allows the user to quickly access macros and colors
+in a completely visual way and with just a couple of clicks. This can lead to
 more efficient live shows and more freedom to choose the desired result very easily.<br>
 So far, three types of widgets are available:
 <UL>
@@ -108,7 +108,7 @@ So far, three types of widgets are available:
  <LI>RGB Color Picker. Controls values for selected RGB channels with a single click</LI>
  <LI>Gobo/Macro Picker. Access and display a Gobo/Macro defined in the Fixture definition</LI>
 </UL>
-An overview with screenshots is available <A href="http://qlcplus.org/clickandgo.html">here</A>
+An overview with screenshots is available <A href="https://qlcplus.org/clickandgo.html">here</A>
 </P>
 
 <H3 id="Collection"><IMG SRC="qrc:/collection.png"> Collection</H3>
@@ -126,7 +126,7 @@ using their own editors.
 </P>
 
 <P>
-Copies of collection functions can be created with the <A HREF="file:functionmanager.html">
+Copies of collection functions can be created with the <A HREF="functionmanager.html">
 Function Manager</A>. The functions contained in a collection are not duplicated; only the
 list of functions is copied.
 </P>
@@ -134,7 +134,7 @@ list of functions is copied.
 <H3 id="DMX">DMX</H3>
 
 <P>
-<a href="http://en.wikipedia.org/wiki/DMX512">DMX</a> is short for 
+<a href="https://en.wikipedia.org/wiki/DMX512">DMX</a> is short for
 <B>D</B>igital <B>M</B>ultiple<B>X</B>. It basically defines
 a whole bunch of properties, protocol, wiring etc. In the case of lighting
 software, it defines the maximum number of channels (512) per universe and the
@@ -317,7 +317,7 @@ heads simultaneously.
 <H3 id="HTP">HTP (Highest Takes Precedence)</H3>
 
 <P>
-HTP is a rule that decides what level is sent to out to a DMX universe by a channel when the channel is being controlled by more than 
+HTP is a rule that decides what level is sent to out to a DMX universe by a channel when the channel is being controlled by more than
 one <A HREF="#Functions">function</A> or Virtual Console widget. Generally, intensity channels obey the HTP rule. This includes generic intensity channels used to control <I>light intensity</I> with dimmers and also channels controlling the intensity of a color, typically in an LED fixture.
 </P>
 <P>
@@ -331,7 +331,7 @@ the same intensity channel. First, you set slider 1 to 50% and then move slider 
 as slider 2 is below 50% nothing happens, but after crossing the 50% level set by slider 1,
 the light intensity increases up to 75%. If you drag slider 2 again towards 0%, the light
 intensity decreases until it reaches the 50% set by slider 1 and stays at 50% until slider 1
-is dragged down. 
+is dragged down.
 </P>
 <P>
 A crossfade between 2 <A HREF="#Scene">Scenes</A>  will replace the HTP levels in the first scene with the HTP levels of the second.
@@ -344,8 +344,8 @@ See also <A HREF="#LTP">LTP</A>.
 <P>
 QLC+ supports a variety of plugins to send and receive data from/to the external world.<br>
 A plugin can be an interface to physical devices (such as DMX adapters or MIDI controllers) or
-to a network protocol (such as <A HREF="file:artnetplugin.html">ArtNet</A>, 
-<A HREF="file:oscplugin.html">OSC</A> or <A HREF="file:e131plugin.html">E1.31</A>).<br>
+to a network protocol (such as <A HREF="artnetplugin.html">ArtNet</A>,
+<A HREF="oscplugin.html">OSC</A> or <A HREF="e131plugin.html">E1.31</A>).<br>
 Plugins support input, output or feedback capabilities depending on the device or the protocol they're
 controlling.<BR>
 </P>
@@ -392,14 +392,14 @@ to groups other than the <B>Intensity</B> group, such as pan, tilt, gobo, strobe
 and other <I>intelligent fixture parameters</I>
 </P>
 <P>
-The LTP rule is simple: the latest level that has been set by a function or a Virtual Console 
-widget gets sent out to the DMX universe. 
+The LTP rule is simple: the latest level that has been set by a function or a Virtual Console
+widget gets sent out to the DMX universe.
 </P>
 <P>
-During a crossfade between <A HREF="#Scene">Scenes</A>, LTP levels will often be changed. 
-This has to be handled with some care as some LTP levels need to jump immediately to a new level, 
-for example, changing from one gobo to another. LTP groups such as pan and tilt, however, might 
-need to change gradually from one level to another during a crossfade. Different timings can be 
+During a crossfade between <A HREF="#Scene">Scenes</A>, LTP levels will often be changed.
+This has to be handled with some care as some LTP levels need to jump immediately to a new level,
+for example, changing from one gobo to another. LTP groups such as pan and tilt, however, might
+need to change gradually from one level to another during a crossfade. Different timings can be
 achieved by combining scenes in a <A HREF="#Collection">Collection</A>. See also <A HREF="#HTP">HTP</A>.
 </P>
 
@@ -437,9 +437,9 @@ Each RGB matrix has its own speed settings:
 <H3 id="RGBScript"><IMG SRC="qrc:/rgbmatrix.png"> RGB Script</H3>
 
 <P>
-An RGB script (not to be confused with the ) is a program written in <A HREF="http://www.ecmascript.org/">ECMAScript</A>
+A RGB script is a program written in <A HREF="https://en.wikipedia.org/wiki/ECMAScript">ECMAScript</A>
 (also known as JavaScript) that produces the necessary image data for <A HREF="#RGBMatrix">RGB Matrix</A>
-functions. Learn more from the <A HREF="file:rgbscriptapi.html">RGB Script API</A> page.
+functions. Learn more from the <A HREF="rgbscriptapi.html">RGB Script API</A> page.
 </P>
 
 <H3 id="Scene"><IMG SRC="qrc:/scene.png"> Scene</H3>
@@ -457,7 +457,7 @@ Each function has its own speed settings:
 </P>
 
 <P>
-Copies of scene functions can be created with the <A HREF="file:functionmanager.html">
+Copies of scene functions can be created with the <A HREF="functionmanager.html">
 Function Manager</A>. All of the scene's contents are copied to the duplicate.
 </P>
 
@@ -469,23 +469,23 @@ same set of channels. A Sequence is bound to one specific Scene, which means tha
 Sequence can only control the enabled channels of that Scene.<br>
 When creating new steps in a Sequence, no Function selection pop-up will appear, since a Sequence
 step cannot include other Functions, unlike a Chaser step.<br>
-When a Sequence is created, a special sequence icon will appear in the <A HREF="file:functionmanager.html">Function Manager</A>
+When a Sequence is created, a special sequence icon will appear in the <A HREF="functionmanager.html">Function Manager</A>
 as a child of the Scene to which it is bound.<br>
 To understand the difference between a Sequence and a Chaser, you are invited to read the second paragraph
-of the <A HREF="file:showmanager.html">Show Manager</A> documentation.
+of the <A HREF="showmanager.html">Show Manager</A> documentation.
 </P>
 
 <H3 id="Script"><IMG SRC="qrc:/script.png"> Script</H3>
 <P>
 The Script <A HREF="#Functions">function</A> works on a simple yet powerful scripting language to automate
-QLC+ functionalities in a sequential order. A Script can be modified with the  <A HREF="file:scripteditor.html">Script Editor</A>.
+QLC+ functionalities in a sequential order. A Script can be modified with the  <A HREF="scripteditor.html">Script Editor</A>.
 </P>
 
 <H3 id="Show"><IMG SRC="qrc:/show.png"> Show</H3>
 <P>
 A Show is an advanced <A HREF="#Functions">function</A> which encapsulates most of the QLC+ Functions to create
-a time driven light show. A Show can be created only with the <A HREF="file:showmanager.html">Show Manager</A> and can be inspected and renamed with the
-<A HREF="file:showeditor.html">Show Editor</A>.
+a time driven light show. A Show can be created only with the <A HREF="showmanager.html">Show Manager</A> and can be inspected and renamed with the
+<A HREF="showeditor.html">Show Editor</A>.
 </P>
 
 <H3 id="Video"><IMG SRC="qrc:/video.png"> Video</H3>
@@ -494,8 +494,8 @@ A video <A HREF="#Functions">function</A> is an object representing a video file
 stored in a disk or a network URL.<br>
 The supported video formats depends on your Operating System. For example Mac OSX is limited to MOV/MP4 files and
 not much more.<br>
-Video functions can be placed in <A HREF="#Chaser">Chaser</A> or in a <A HREF="#Show">Show</A> at the desired time, 
-using the <A HREF="file:showmanager.html">Show Manager</A> panel.<br>
+Video functions can be placed in <A HREF="#Chaser">Chaser</A> or in a <A HREF="#Show">Show</A> at the desired time,
+using the <A HREF="showmanager.html">Show Manager</A> panel.<br>
 </P>
 
 </BODY>

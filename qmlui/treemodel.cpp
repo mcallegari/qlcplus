@@ -105,11 +105,11 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
 {
     //qDebug() << "Adding item" << label << path;
 
-    TreeModelItem *item = NULL;
+    TreeModelItem *item = nullptr;
 
     // fewer roles are allowed, while exceeding are probably a mistake
     if (data.count() > m_roles.count())
-        qDebug() << "Item roles exceeds tree roles !" << data.count() << m_roles.count();
+        qDebug() << "Item roles exceeds tree roles!" << data.count() << m_roles.count();
 
     if (m_checkable)
         flags |= Checkable;
@@ -185,7 +185,7 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
 TreeModelItem *TreeModel::itemAtPath(QString path)
 {
     if (path.isEmpty())
-        return NULL;
+        return nullptr;
 
     QStringList pathList = path.split(TreeModel::separator());
 
@@ -199,7 +199,7 @@ TreeModelItem *TreeModel::itemAtPath(QString path)
         }
 
         if (index == m_items.count())
-            return NULL;
+            return nullptr;
     }
 
     TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
@@ -278,7 +278,7 @@ void TreeModel::setItemRoleData(QString path, const QVariant &value, int role)
 
 void TreeModel::setItemRoleData(TreeModelItem *item, const QVariant &value, int role)
 {
-    if (item == NULL)
+    if (item == nullptr)
         return;
 
     int index = m_items.indexOf(item);
@@ -419,7 +419,7 @@ bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int rol
 
 void TreeModel::slotRoleChanged(TreeModelItem *item, int role, const QVariant &value)
 {
-    if (item == NULL)
+    if (item == nullptr)
         return;
 
     switch(role)

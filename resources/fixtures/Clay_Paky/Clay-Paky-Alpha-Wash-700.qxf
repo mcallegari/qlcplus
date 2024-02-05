@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>boxr</Author>
  </Creator>
  <Manufacturer>Clay Paky</Manufacturer>
@@ -15,36 +15,37 @@
  <Channel Name="CTO" Preset="ColorCTOMixer"/>
  <Channel Name="Colour wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="7" Color="#ffffff">White</Capability>
-  <Capability Color2="#ff0000" Min="8" Max="14" Color="#ffffff">White + red</Capability>
-  <Capability Min="15" Max="21" Color="#f62a2d">Red</Capability>
-  <Capability Min="22" Max="29" Color="#f62a2d">Red + CTB</Capability>
-  <Capability Min="30" Max="36" Color="#9acdbe">CTB</Capability>
-  <Capability Color2="#03853f" Min="37" Max="44" Color="#9acdbe">CTB + green</Capability>
-  <Capability Min="45" Max="51" Color="#01883c">Green</Capability>
-  <Capability Color2="#a0c635" Min="52" Max="59" Color="#00873b">Green + light green</Capability>
-  <Capability Min="60" Max="66" Color="#a0c635">Light green</Capability>
-  <Capability Color2="#8873b4" Min="67" Max="74" Color="#a0c635">Light green + lavender</Capability>
-  <Capability Min="75" Max="81" Color="#8873b4">Lavender</Capability>
-  <Capability Color2="#7cbf89" Min="82" Max="89" Color="#e6e6fa">Lavender + aquamarine</Capability>
-  <Capability Min="90" Max="96" Color="#7cbf89">Aquamarine</Capability>
-  <Capability Color2="#ff7f00" Min="97" Max="104" Color="#00ffbf">Aquamarine + orange</Capability>
-  <Capability Min="105" Max="111" Color="#e3651b">Orange</Capability>
-  <Capability Color2="#22378a" Min="112" Max="119" Color="#e3651b">Orange + blue</Capability>
-  <Capability Min="120" Max="126" Color="#22378a">Blue</Capability>
-  <Capability Min="127" Max="127" Color="#22378a">Blue + white</Capability>
-  <Capability Min="128" Max="255" Color="#ffffff">Slow rotation (0.2 rpm) - Fast rotation (160 rpm)</Capability>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="8" Max="14" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White + red</Capability>
+  <Capability Min="15" Max="21" Preset="ColorMacro" Res1="#f62a2d">Red</Capability>
+  <Capability Min="22" Max="29" Preset="ColorMacro" Res1="#f62a2d">Red + CTB</Capability>
+  <Capability Min="30" Max="36" Preset="ColorMacro" Res1="#9acdbe">CTB</Capability>
+  <Capability Min="37" Max="44" Preset="ColorDoubleMacro" Res1="#9acdbe" Res2="#03853f">CTB + green</Capability>
+  <Capability Min="45" Max="51" Preset="ColorMacro" Res1="#01883c">Green</Capability>
+  <Capability Min="52" Max="59" Preset="ColorDoubleMacro" Res1="#00873b" Res2="#a0c635">Green + light green</Capability>
+  <Capability Min="60" Max="66" Preset="ColorMacro" Res1="#a0c635">Light green</Capability>
+  <Capability Min="67" Max="74" Preset="ColorDoubleMacro" Res1="#a0c635" Res2="#8873b4">Light green + lavender</Capability>
+  <Capability Min="75" Max="81" Preset="ColorMacro" Res1="#8873b4">Lavender</Capability>
+  <Capability Min="82" Max="89" Preset="ColorDoubleMacro" Res1="#e6e6fa" Res2="#7cbf89">Lavender + aquamarine</Capability>
+  <Capability Min="90" Max="96" Preset="ColorMacro" Res1="#7cbf89">Aquamarine</Capability>
+  <Capability Min="97" Max="104" Preset="ColorDoubleMacro" Res1="#00ffbf" Res2="#ff7f00">Aquamarine + orange</Capability>
+  <Capability Min="105" Max="111" Preset="ColorMacro" Res1="#e3651b">Orange</Capability>
+  <Capability Min="112" Max="119" Preset="ColorDoubleMacro" Res1="#e3651b" Res2="#22378a">Orange + blue</Capability>
+  <Capability Min="120" Max="126" Preset="ColorMacro" Res1="#22378a">Blue</Capability>
+  <Capability Min="127" Max="127" Preset="ColorMacro" Res1="#22378a">Blue + white</Capability>
+  <Capability Min="128" Max="255" Preset="ColorMacro" Res1="#ffffff">Slow rotation (0.2 rpm) - Fast rotation (160 rpm)</Capability>
  </Channel>
  <Channel Name="Stop/strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="4" Max="103">Slow strobe (1 flash/s) - fast strobe (12 flash/s)</Capability>
-  <Capability Min="104" Max="107">Open</Capability>
-  <Capability Min="108" Max="207">Slow pulsation - fast pulsation</Capability>
-  <Capability Min="208" Max="212">Open</Capability>
-  <Capability Min="213" Max="225">Random slow strobe</Capability>
-  <Capability Min="226" Max="238">Random medium strobe</Capability>
-  <Capability Min="239" Max="251">Random fast strobe</Capability>
-  <Capability Min="252" Max="255">Open</Capability>
+  <Capability Min="0" Max="3" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="4" Max="103" Preset="StrobeSlowToFast">Slow strobe (1 flash/s) - fast strobe (12 flash/s)</Capability>
+  <Capability Min="104" Max="107" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="108" Max="207" Preset="PulseSlowToFast">Slow pulsation - fast pulsation</Capability>
+  <Capability Min="208" Max="212" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="213" Max="225" Preset="StrobeRandom">Random slow strobe</Capability>
+  <Capability Min="226" Max="238" Preset="StrobeRandom">Random medium strobe</Capability>
+  <Capability Min="239" Max="251" Preset="StrobeRandom">Random fast strobe</Capability>
+  <Capability Min="252" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
@@ -78,16 +79,16 @@
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="25">Unused range</Capability>
-  <Capability Min="26" Max="76">Effects reset</Capability>
-  <Capability Min="77" Max="127">Pan/tilt reset</Capability>
-  <Capability Min="128" Max="255">Complete reset</Capability>
+  <Capability Min="26" Max="76" Preset="ResetEffects">Effects reset</Capability>
+  <Capability Min="77" Max="127" Preset="ResetPanTilt">Pan/tilt reset</Capability>
+  <Capability Min="128" Max="255" Preset="ResetAll">Complete reset</Capability>
  </Channel>
  <Channel Name="Lamp control">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="25">Unused range</Capability>
-  <Capability Min="26" Max="100">Lamp off</Capability>
-  <Capability Min="101" Max="179">Lamp on (half power)</Capability>
-  <Capability Min="180" Max="255">Lamp on (full power)</Capability>
+  <Capability Min="26" Max="100" Preset="LampOff">Lamp off</Capability>
+  <Capability Min="101" Max="179" Preset="LampOn">Lamp on (half power)</Capability>
+  <Capability Min="180" Max="255" Preset="LampOn">Lamp on (full power)</Capability>
  </Channel>
  <Channel Name="Pan - tilt time">
   <Group Byte="0">Maintenance</Group>
@@ -132,10 +133,10 @@
  </Mode>
  <Mode Name="Vector - CMY">
   <Physical>
-   <Bulb Lumens="50000" Type="MSR 700W" ColourTemperature="7200"/>
-   <Dimensions Width="385" Height="575" Weight="20.6" Depth="405"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="250"/>
+   <Bulb Type="MSR 700W" Lumens="50000" ColourTemperature="7200"/>
+   <Dimensions Weight="20.6" Width="385" Height="575" Depth="405"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="250"/>
    <Technical PowerConsumption="800" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Cyan</Channel>
@@ -182,10 +183,10 @@
  </Mode>
  <Mode Name="Vector - RGB">
   <Physical>
-   <Bulb Lumens="50000" Type="MSR 700W" ColourTemperature="7200"/>
-   <Dimensions Width="385" Height="575" Weight="20.6" Depth="405"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="250"/>
+   <Bulb Type="MSR 700W" Lumens="50000" ColourTemperature="7200"/>
+   <Dimensions Weight="20.6" Width="385" Height="575" Depth="405"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="250"/>
    <Technical PowerConsumption="800" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -210,11 +211,11 @@
   <Channel Number="19">Colour time</Channel>
   <Channel Number="20">Beam time</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="50000" Type="MSR 700W" ColourTemperature="7200"/>
-   <Dimensions Width="385" Height="575" Weight="20.6" Depth="405"/>
-   <Lens DegreesMax="0" Name="Fresnel" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="250"/>
-   <Technical PowerConsumption="1050" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="MSR 700W" Lumens="50000" ColourTemperature="7200"/>
+  <Dimensions Weight="20.6" Width="385" Height="575" Depth="405"/>
+  <Lens Name="Fresnel" DegreesMin="9" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="250"/>
+  <Technical PowerConsumption="1050" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
 </FixtureDefinition>

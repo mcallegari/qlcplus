@@ -34,15 +34,23 @@ Entity
         Material
         {
             effect: stage.effect
-            parameters: Parameter { name: "meshColor"; value: "lightgray" }
+            parameters: [
+                Parameter { name: "diffuse"; value: "lightgray" },
+                Parameter { name: "specular"; value: "black" },
+                Parameter { name: "shininess"; value: 1.0 },
+                Parameter { name: "bloom"; value: 0 }
+            ]
         }
 
     CuboidMesh
     {
         id: stageMesh
+        
         xExtent: size.x
         zExtent: size.z
         yExtent: 0.2
+        
+       // radius: 0.2
     }
 
     ObjectPicker

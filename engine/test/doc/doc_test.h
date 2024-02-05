@@ -52,6 +52,7 @@ private slots:
     void removeFixtureGroup();
 
     void channelGroups();
+    void palettes();
 
     void monitorProperties();
 

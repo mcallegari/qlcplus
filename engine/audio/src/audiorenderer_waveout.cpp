@@ -23,7 +23,7 @@
  *   Copyright (C) 2007-2009 by Ilya Kotov            *
  *   forkotov02@hotmail.ru                            *
  ******************************************************/
- 
+
 #include <QtGlobal>
 #include <QSettings>
 
@@ -132,10 +132,10 @@ bool AudioRendererWaveOut::initialize(quint32 freq, int chan, AudioFormat format
         return false;
     case WAVERR_BADFORMAT:
         qWarning("AudioRendererWaveOut: This audio format is not supported.");
-        return false; 
+        return false;
     case WAVERR_SYNC:
         qWarning("AudioRendererWaveOut: The device is synchronous.");
-        return false; 
+        return false;
     default:
         qWarning("AudioRendererWaveOut: Unknown media error.");
         return false;
@@ -212,7 +212,7 @@ qint64 AudioRendererWaveOut::writeAudio(unsigned char *data, qint64 len)
     void*      allocptr;
     len = qMin(len, (qint64)1024);
 
-   
+
     while (PlayedWaveHeadersCount > 0) // free used blocks ...
         free_memory ();
 
@@ -221,7 +221,7 @@ qint64 AudioRendererWaveOut::writeAudio(unsigned char *data, qint64 len)
         usleep(500);
         return 0;
     }
-       
+
     if ((hg2 = GlobalAlloc (GMEM_MOVEABLE, len)) == NULL)   // allocate some memory for a copy of the buffer
     {
         qWarning("AudioRendererWaveOut: GlobalAlloc failed");

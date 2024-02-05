@@ -169,11 +169,12 @@ private:
         means the tab has not been created */
     int m_channelGroupsTab;
 
-private slots:
+public slots:
     void slotEnableAllChannelGroups();
 
     void slotDisableAllChannelGroups();
 
+private slots:
     /** called when the user check/uncheck a group of m_channelGroupsTree */
     void slotChannelGroupsChanged(QTreeWidgetItem*item, int column);
 

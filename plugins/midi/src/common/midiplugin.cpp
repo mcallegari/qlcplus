@@ -66,7 +66,7 @@ QString MidiPlugin::name()
 
 int MidiPlugin::capabilities() const
 {
-    return QLCIOPlugin::Output | QLCIOPlugin::Input | QLCIOPlugin::Feedback;
+    return QLCIOPlugin::Output | QLCIOPlugin::Input | QLCIOPlugin::Feedback | QLCIOPlugin::Beats;
 }
 
 /*****************************************************************************
@@ -115,11 +115,10 @@ QStringList MidiPlugin::outputs()
     //qDebug() << Q_FUNC_INFO;
 
     QStringList list;
-    int i = 1;
 
     QListIterator <MidiOutputDevice*> it(m_enumerator->outputDevices());
     while (it.hasNext() == true)
-        list << QString("%1: %2").arg(i++).arg(it.next()->name());
+        list << it.next()->name();
 
     return list;
 }
@@ -179,12 +178,12 @@ QString MidiPlugin::outputInfo(quint32 output)
     return str;
 }
 
-void MidiPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void MidiPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
 
     MidiOutputDevice* dev = outputDevice(output);
-    if (dev != NULL)
+    if (dev != NULL && dataChanged)
         dev->writeUniverse(data);
 }
 
@@ -235,11 +234,10 @@ QStringList MidiPlugin::inputs()
     //qDebug() << Q_FUNC_INFO;
 
     QStringList list;
-    int i = 1;
 
     QListIterator <MidiInputDevice*> it(m_enumerator->inputDevices());
     while (it.hasNext() == true)
-        list << QString("%1: %2").arg(i++).arg(it.next()->name());
+        list << it.next()->name();
 
     return list;
 }
@@ -332,7 +330,8 @@ void MidiPlugin::slotValueChanged(const QVariant& uid, ushort channel, uchar val
         MidiInputDevice* dev = m_enumerator->inputDevices().at(i);
         if (dev->uid() == uid)
         {
-            emit valueChanged(UINT_MAX, i, channel, value);
+            emit valueChanged(UINT_MAX, i, channel, value,
+                              channel == CHANNEL_OFFSET_MBC_BEAT ? "beat" : "");
             break;
         }
     }
@@ -350,7 +349,7 @@ void MidiPlugin::configure()
 
     // walk the universe map to update/add the
     // plugin custom parameters
-    foreach(quint32 universe, m_universesMap.keys())
+    foreach (quint32 universe, m_universesMap.keys())
     {
         m_universesMap[universe].inputParameters.clear();
 
@@ -447,13 +446,13 @@ void MidiPlugin::setParameter(quint32 universe, quint32 line, Capability type,
  *****************************************************************************/
 
 QDir MidiPlugin::userMidiTemplateDirectory()
-{   
+{
     return QLCFile::userDirectory(QString(USERMIDITEMPLATEDIR), QString(MIDITEMPLATEDIR),
                                   QStringList() << QString("*%1").arg(KExtMidiTemplate));
 }
 
 QDir MidiPlugin::systemMidiTemplateDirectory()
-{  
+{
     return QLCFile::systemDirectory(QString(MIDITEMPLATEDIR), QString(KExtMidiTemplate));
 }
 
@@ -541,10 +540,3 @@ void MidiPlugin::slotDeviceRemoved(uint vid, uint pid)
     m_enumerator->rescan();
 #endif
 }
-
-/*****************************************************************************
- * Plugin export
- *****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(midiplugin, MidiPlugin)
-#endif

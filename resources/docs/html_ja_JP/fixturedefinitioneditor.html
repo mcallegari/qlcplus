@@ -1,62 +1,454 @@
-<html dir="ltr">
-<head>
-<title>Q Light Controller Plus - フィクスチャーエディター</title>
-<script src="utility.js" type="text/javascript"></script>
-<link href="style.css" rel="stylesheet" type="text/css"></link>
-  <meta charset="utf-8">
-</head>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - フィクスチャー定義エディタ</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
 <BODY onLoad="replaceqrc()">
 
+<H1><img src="qrc:/qlcplus-fixtureeditor.png" width=32 align="absmiddle">フィクスチャー定義エディタ</H1>
+<P>
+  フィクスチャーエディタでは、<A HREF="concept.html#Fixtures">フィクスチャーの定義</A>をすることができ、
+  ここで作成した定義はQLC+上で利用できます。フィクスチャーのチャンネルの役割(Pan/Tilt)や色など細かな
+  情報を定義しておくことで、QLC+でのコントロールが楽に、効果的になります。
+</P>
 
-<h1><img src="qrc:/qlcplus-fixtureeditor.png" width=32 align="absmiddle">フィクスチャーエディタ</h1>
-<p>
-フィクスチャーエディタでは、<a href="./concept.html#Fixtures">フィクスチャーの定義</a>をすることができ、ここで作成した定義はQLC+上で利用できます。フィクスチャーのチャンネルの役割(Pan/Tilt)や色など細かな情報を定義しておくことで、QLC+でのコントロールが楽に、効果的になります。
-</p>
-
-<p>
+<P>
 フィクスチャーエディタを起動すると、新規フィクスチャー作成画面になります。
-</p>
+</P>
 
-<p>
-<b>※様々な理由からここで作成した定義データをシステムデフォルトのフォルダーに保存するべきではありません。理由のひとつには、QLC+をアンインストールした際に作成した定義データも一緒に削除されてしまいます。<br>したがって、定義データはドキュメントフォルダなどに保存することをオススメします詳しいことは<a href="./questionsandanswers.html">よくある質問</a>を参照してください。
-</b></p>
+<P>
+<B>
+  ※様々な理由からここで作成した定義データをシステムデフォルトのフォルダーに保存するべきではありません。
+  理由のひとつには、QLC+をアンインストールした際に作成した定義データも一緒に削除されてしまいます。<br>
+  したがって、定義データはドキュメントフォルダなどに保存することをオススメします。
+  詳しいことは<A HREF="questionsandanswers.html"よくある質問</A>を参照してください。
+</B>
+</P>
 
-<h3>設定項目</h3>
+<H2>設定項目</H2>
 
-<table border="1" class="qlcTable">
- <tr>
-  <td>
-    <IMG SRC="qrc:/filenew.png"/>
-  </td>
-  <td>
-　新規フィクスチャーの定義を作成します。<a href="./fixtureeditor.html">フィクスチャーエディター</a>で新しい定義を作成できるようになります。
-  </td>
- </tr>
- <tr>
-  <td>
-    <IMG SRC="qrc:/fileopen.png"/>
-  </td>
-  <td>
-　作成済みの定義データを開きます。開くと、データの内容が<a href="./fixtureeditor.html">フィクスチャーエディター</a>に表示されます。
-  </td>
- </tr>
- <tr>
-  <td>
-    <IMG SRC="qrc:/filesave.png"/>
-  </td>
-  <td>
-　<a href="./fixtureeditor.html">フィクスチャーエディター</a>で現在編集している定義データを上書き保存します。
-  </td>
- </tr>
- <tr>
-  <td>
-    <IMG SRC="qrc:/filesaveas.png"/>
-  </td>
-  <td>
-　<a href="./fixtureeditor.html">フィクスチャーエディター</a>で現在編集している定義データを別名保存します。
-  </td>
- </tr>
-</table>
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD><IMG SRC="qrc:/filenew.png"/></TD>
+  <TD>新規フィクスチャーの定義を作成します。フィクスチャーエディターで新しい定義を作成できるようになります。</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/fileopen.png"/></TD>
+  <TD>作成済みの定義データを開きます。開くと、データの内容がフィクスチャーエディターに表示されます。</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/filesave.png"/></TD>
+  <TD>現在編集している定義データを上書き保存します。</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/filesaveas.png"/></TD>
+  <TD>現在編集している定義データを別名保存します。</TD>
+ </TR>
+</TABLE>
+
+<H1>フィクスチャーエディタ</H1>
+<P>
+  フィクスチャーエディターは<A href="#general"><B>全般</B></A>,
+  <A href="#physical"><B>機種情報</B></A>, <A href="#channels"><B>チャンネル</B></A>,
+  <A href="#modes"><B>モード</B></A>,<A href="#aliases"><B>エイリアス</B></A>の５つのタブで構成されています。
+</P>
+
+<H2 id="general">全般タブ</H2>
+
+<P>
+このタブではフィクスチャーの基本的な情報を設定します
+</P>
+
+<TABLE>
+ <TR>
+  <TD><IMG SRC="../images/fixtureeditor_general.png" WIDTH="700"/>
+  <TD>
+   <TABLE BORDER=1 class="qlcTable">
+    <TR>
+     <TD><B>メーカ名</B></TD>
+     <TD>
+       フィクスチャーのメーカ名を指定できます。QLC+では既存のフィクスチャー定義のメーカをこの文字列で判断しています。
+       他のユーザーが作成し、QLC+にデフォルトで入っている定義データと同じメーカの表記をしなければ別メーカーとして判断されてしまいます。<br>
+       (例)例えば、"IMG Stageline"は"img stageline"や"IMG-Stageline"では別メーカーとして判断されてしまいます。
+     </TD>
+    </TR>
+    <TR>
+     <TD><B>機種名</B></TD>
+     <TD>フィクスチャーの型番を指定できます
+     </TD>
+    </TR>
+    <TR>
+     <TD><B>タイプ</B></TD>
+     <TD>フィクスチャーにあったタイプを選択てください、これによりQLC+上でファンクションを作るときなどに便利になります
+     </TD>
+    </TR>
+    <TR>
+     <TD><B>作者</B></TD>
+     <TD>この定義データの作成者を記入することができます
+     </TD>
+    </TR>
+   </TABLE>
+  </TD>
+ </TR>
+</TABLE>
+
+<H2 id="physical">機種情報タブ</H2>
+
+<P>
+  このタブでは機種情報の<I>グローバル設定</I>ができます。<br>
+  グローバル設定とは、フィクスチャーのモードに関わらず変化しない設定項目のことです、例えばフィクスチャーによってはモード
+  で動作角が変化するかもしれませんがフィクスチャーの重さや大きさが変化することはありません。このように不変な項目を
+  定義するものです。<BR>
+  モード毎の個別設定はモードエディタから行ってください。
+</P>
+
+<TABLE>
+ <TR>
+  <TD><IMG SRC="../images/fixtureeditor_physical.png" WIDTH="700" />
+  <TD>
+   <TABLE BORDER=1 class="qlcTable">
+    <TR>
+     <TD><B>光源</B></TD>
+     <TD>
+      <UL>
+       <LI>タイプ: 光源の種類を設定できます(LED, ハロゲン等)</LI>
+       <LI>ルーメン: 光源の光量をルーメンで設定できます</LI>
+       <LI>色温度 (K): 光源の色温度を指定できます詳しくは<A HREF="https://ja.wikipedia.org/wiki/%E8%89%B2%E6%B8%A9%E5%BA%A6">Wikipedia</A>を参照してください。</LI>
+      </UL>
+     </TD>
+    </TR>
+    <TR>
+     <TD><B>レンズ</B></TD>
+     <TD>
+      <UL>
+       <LI>名前: レンズの種類を設定できます</LI>
+       <LI>最小照射角度: 照射角の下限を設定できます</LI>
+       <LI>最大照射角度: 照射角の上限を設定できます</LI>
+      </UL>
+     </TR>
+    </TR>
+    <TR>
+     <TD><B>電気関係</B></TD>
+     <TD>
+      <UL>
+       <LI>消費電力: 最大消費電力を設定できます</LI>
+       <LI>DMXコネクタ: コネクタ形状を設定できます</LI>
+      </UL>
+     </TD>
+    </TR>
+    <TR>
+     <TD><B>形状</B></TD>
+     <TD>
+      <UL>
+       <LI>重さ: 重さを設定できます</LI>
+       <LI>幅: 幅を設定できます</LI>
+       <LI>高さ: 高さを設定できます</LI>
+       <LI>奥行き: 奥行きを設定できます</LI>
+      </UL>
+     </TD>
+    </TR>
+    <TR>
+     <TD><B>ヘッド</B></TD>
+     <TD>
+      <UL>
+       <LI>タイプ: ヘッドの種類を設定できます</LI>
+       <LI>動作角(Pan): Panの動作角を設定できます</LI>
+       <LI>動作角(Tilt): Tiltの動作角を設定できます</LI>
+      </UL>
+     </TD>
+    </TR>
+   </TABLE>
+  </TD>
+ </TR>
+</TABLE>
+
+<H2 id="channels">チャンネルタブ</H2>
+
+<P>
+チャンネルエディタでは、DMX機器の機能(色、ゴボ、プリズムなど)と範囲を設定することができます。フィクスチャーのDMXチャンネルは、各フィクスチャーのマニュアルを参照してください。
+</P>
+
+<TABLE>
+ <TR>
+  <TD><IMG SRC="../images/fixtureeditor_channels.png" WIDTH="700"/>
+  <TD valign="top">
+   <TABLE BORDER=1 class="qlcTable">
+    <TR>
+     <TD><IMG SRC="qrc:/edit_add.png"/></TD>
+     <TD><A HREF="#channel_editor">チャンネルエディタ</A>でチャンネルを追加します</TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/edit_remove.png"/></TD>
+     <TD>選択したチャネルを削除します。<B>割り当てているモードからも削除されます</B></TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/edit.png"/></TD>
+     <TD>選択したチャンネルを<A HREF="#channel_editor">チャンネルエディタで編集します</A></TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/editcopy.png"/></TD>
+     <TD>選択したチャンネルをクリップボードにコピーします
+     </TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/editpaste.png"/></TD>
+     <TD>クリップボードからペーストします。同時に２つ以上のフィクスチャー定義ファイルを開いていれば
+       ウィンドウ間でコピー・ペーストのやりとりができます。
+     </TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/check.png"/></TD>
+     <TD>チャンネルリストを全て展開・閉じる</TD>
+    </TR>
+   </TABLE>
+  </TD>
+ </TR>
+</TABLE>
+
+<H3 id="channel_editor">チャネルエディタ</H3>
+<P>
+チャンネルエディタでは、DMX機器の機能(色、ゴボ、プリズムなど)と範囲を設定することができます。
+フィクスチャーのDMXチャンネルは、各フィクスチャーのマニュアルを参照してください。
+</P>
+
+<TABLE>
+ <TR>
+  <TD><IMG SRC="../images/fixtureeditor_channel_preset.png" width="600"/></TD>
+  <TD><IMG SRC="../images/fixtureeditor_channel_shutter.png" width="600"/></TD>
+ </TR>
+ <TR>
+  <TD>Fig. 1</TD>
+  <TD>Fig. 2</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="../images/fixtureeditor_channel_color.png" width="600"/></TD>
+  <TD><IMG SRC="../images/fixtureeditor_channel_gobo.png" width="600"/></TD>
+ </TR>
+ <TR>
+  <TD>Fig. 3</TD>
+  <TD>Fig. 4</TD>
+ </TR>
+</TABLE>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD><B>名前</B></TD>
+  <TD>チャンネル名を設定できます、これらにはチャンネルの機能を示す名前をつけていきましょう。</TD>
+ </TR>
+ <TR>
+  <TD><B>プリセット</B></TD>
+  <TD>
+    プリセットは、チャンネルがどのような機能を持っているのかをQLC+に示すための設定です。<br>
+    ここでプリセットを正しく設定しておくとQLC+で実際にフィクスチャーを操作する際にLEDパーの色をカラーパレットで変更できるようになったり
+    、ムービングのスピードをファンクションなどで変化させることもできうようになります。<BR>
+    プリセットは1chに１つの機能のみが関係している時のみに使用してください。１チャンネルを段階的に区切って操作するような場合は
+    "Costom"に設定しておいてください。
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>タイプ</B></TD>
+  <TD>
+   <P>
+    チャンネルのタイプを選択できます、選択したタイプによりQLC+上での動作が決まり、さらにタイプによってチャンネルのマージモードが自動的に<a href="concept.html#LTP">LTP</a>か、<a href="concept.html#HTP">HTP</a>に設定されます。<br>
+    光量・カラーチャンネルには<b>HTP</b>が設定され、
+
+   <LI><B>Intensity</B> 【HTP】フィクスチャーの光や数量的に変化するチャンネルに設定してください<br></LI>
+   <LI><B>Primary colors</B> 【LTP】RGBなど、１つのチャンネルに１色が割り当てられている場合はこのタイプを設定してください。このタイプを設定しておくことでQLC+上でファンクションを作成するときにカラーパレットを使用できるようになるなどの効果があります。※光量(Dimmer)はcolorではなく、Intensityを設定するようにしてください。カラーチャンネルには<a href="concept.html#GrandMaster">グランドマスターが聞かないようになっています</A>これによりきちんと光量のみグランドマスターが影響するようになります。
+   <LI><B>Color</B> 【LTP】カラーホイールやカラーマクロなど、1chを段階的に区切り、フィクスチャーにセットされた色を出すチャンネルに設定してください。※RGBなどのチャンネルには設定しないでください、その場合はprimary colorを設定してください。</LI>
+   <LI><B>Gobo</B>ゴボホイールを操作するチャンネルの場合に設定してください。 </LI>
+   <LI><B>Speed</B>ゴボ回転・レインボーエフェクト・動作スピード等、何か動作スピードを操作するチャンネルに設定してください。</LI>
+   <LI><B>Prism</B>プリズムを操作するチャンネルに設定してください。</LI>
+   <LI><B>Shutter</B>シャッターを操作するチャンネルに設定してください。</LI>
+   <LI><B>Beam</B>ビームを操作するチャンネルに設定してください。</LI>
+   <LI><B>Effect</B>上記のいずれにも当てはまらない場合はEffectを設定しておいてください。
+   </LI>
+   <LI><B>Maintenance</B>再起動や、ファンの制御等フィクスチャーのメンテナンスに関するチャンネルに設定してください。</LI>
+   <LI><B>Nothing</B>モードによっては何も機能を持たないチャンネルができることがあるかもしれません、そのような場合は何も機能を持たないことを表すようにNothingを設定してください。また、そのような場合は<a href="#aliases">エイリアス</a>が参考になるかもしれません。</LI>
+   <LI><B>Pan</B>・<B>Tilt</B>ムービングなどのパン・チルトチャンネルにはこちらを設定してください。</LI>
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Default value</B></TD>
+  <TD>ムービングなど、何もしないときにdmx値が0ではなく任意の値を取らせたい場合にはこの設定から指定できます。多くのムービングではパン・チルト共にdmx値の中央の127を設定するとヘッドが直上を向くようになります。
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Role/Control Byte(16bit操作の場合)</B></TD>
+  <TD>
+    フィクスチャーによっては、DMXを2ch用いて16bitにし、細かな操作が可能な16bit操作ができる場合があります。一般に<b>Pan</b>・<b>Tilt</b>・<b>RGB</b>・<b>ゴボ</b>・
+    <b>フォーカス</b>などが対応している場合があります。詳しくはフィクスチャーの取扱説明書を参照してください。
+    もし、フィクスチャーがDMX1chに１つづつの機能しか割り当てられていない8bit操作の場合は標準 (MSB,上位バイト)を選択してください。フィクスチャーがDMX2chを使い操作する16bit操作に対応している場合には、まず大まかに操作をする上位8bitのDMXチャンネルに標準 (MSB, 上位バイト)を設定し、次に細かい操作をする下位8bitのDMXチャンネルにファイン (LSB,下位バイト)を設定します。よくわからない場合には標準 (MSB,上位バイト)に設定しておけば操作は可能です。
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>DMX値に応じた機能</B>
+  </TD>
+  <TD>
+    カラーホイールや、ゴボなど、チャンネル内を段階的に区切り機能を割り当てるような場合は、この設定をしてください。例えば0-15を白・16-32を青...など。<br>
+    詳しくはフィクスチャーのマニュアルを確認してください。<br>
+    ウィドウにはスプレッドシートのような構成になっています。Tabキーなどを用いて編集することができます。
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>プリセット</B>
+  </TD>
+  <TD>
+    QLC+にはプリセットエンジンが搭載されています。これを用いてチャンネルを簡単に使用できるようになります。<br>
+    例えば、"Shutter Open"という機能が存在する場合は、プリセットから"ShutterOpen"を設定しておくことでQLC+上でファンクションを自動生成することができます。<br>
+    プリセットには以下のものがあります。<br>
+   <UL>
+    <LI>ColorMacro: カラーホイールを持っているファンクションに設定してください。</LI>
+    <LI>ColorDoubleMacro: カラーホイールを２色の中間で止め、左右で異なる色を出せるファンクションに設定してください。</LI>
+    <LI>GoboMacro: ゴボをアイコンをつけて設定できます(Fig. 4)</LI>
+    <LI>StrobeFrequency: ストロボのスピードを設定できます。</LI>
+    <LI>StrobeFreqRange: ストロボの最大周波数と最小周波数を設定できます。</LI>
+    <LI>Alias: 他のチャンネルの条項によって役割が変化する場合は<a href="#aliases">エイリアス</a>を用いて設定してください。</LI>
+   </UL>
+  </TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/edit_remove.png"/></TD>
+  <TD>選択した項目を削除します</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/wizard.png"/></TD>
+  <TD>
+   クイック作成ウィザードを表示します
+  </TD>
+ </TR>
+</TABLE>
+
+<H3 id="cap_wizard">DMX値に応じた機能をまとめて追加</H3>
+<P>
+  このウィザードでは、簡単にチャンネル内の複数の機能を簡単にまとめて追加できます。
+  この機能を用いてだいたいの設定を済まし、適宜修正するのが良いでしょう。
+</P>
+
+<TABLE>
+ <TR>
+  <TD><IMG SRC="../images/fixtureeditor_channel_wizard.png"/>
+  <TD>
+   <TABLE BORDER=1 class="qlcTable">
+    <TR>
+     <TD><B>開始値</B></TD>
+     <TD>機能を割り当てるdmx値の下限を設定してください
+     </TD>
+    </TR>
+    <TR>
+     <TD><B>幅</B></TD>
+     <TD>１機能に割り当てられているdmx値の幅を設定してください。この数値ごとに機能を分けていきます。</TD>
+    </TR>
+    <TR>
+     <TD><B>数</B></TD>
+     <TD>作成する機能数を設定してください。</TD>
+    </TR>
+    <TR>
+     <TD><B>名前</B></TD>
+     <TD>各機能に自動的につける名前を設定してください。※名前に # を入力しておくとその部分は自動的に連番の数字に置換して設定されます。
+     </TD>
+    </TR>
+    <TR>
+     <TD><B>プレビュー</B></TD>
+     <TD>OKを押すとこれらの機能が作成されます。
+     </TD>
+    </TR>
+   </TABLE>
+  </TD>
+ </TR>
+</TABLE>
+
+<H2 id="modes">モードタブ</H2>
+<P>
+  モードタブでは、フィクスチャーに搭載されている<a href="concept.HTML#FixtureMode">モード</a>切替機能に応じてQLC+のフィクスチャーを調整する機能です。
+</P>
+
+<TABLE>
+ <TR>
+  <TD><IMG SRC="../images/fixtureeditor_modes.png" WIDTH="700"/>
+  <TD>
+   <TABLE BORDER=1 class="qlcTable">
+    <TR>
+     <TD><B>モードリスト</B></TD>
+     <TD>
+       編集中のフィクスチャーのモードが一覧で表示されています、新規作成の場合は何も表示されません。
+       <LI>名前: モード名が表示されます</LI>
+       <LI>チャンネル: モード内に設定されているチャンネル数が表示されます</LI>
+       <LI>ヘッド: モード内に存在するヘッドの数が表示されています</LI>
+     </TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/edit_add.png"/></TD>
+     <TD>新しいモードを<A HREF="modeeditor.html">モードエディタ</A>で作成します</TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/edit_remove.png"/></TD>
+     <TD>選択したモードを削除します
+     </TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/edit.png"/></TD>
+     <TD>選択したモードを<A HREF="modeeditor.html">モードエディタ</a>で編集します</TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/editcopy.png"/></TD>
+     <TD>
+       選択したモードをコピーします
+     </TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/check.png"/></TD>
+     <TD>全ての項目を展開・閉じます</TD>
+    </TR>
+   </TABLE>
+  </TD>
+ </TR>
+</TABLE>
+
+<H2 id="aliases">エイリアスタブ</H2>
+
+<P>
+チャンネルによっては、他のチャンネルに状態によってチャンネルの役割が変化する機能を有したファンクションが存在します。それらの機能をQLC+で扱えるようにするのがエイリアス機能です。<br>
+例えば、5chにエフェクトが、6chにはそのコントロールが割り当てられたフィクスチャーの時に、5chでサウンドアクティブ機能を呼び出した時に6chは反応感度を調整するチャンネルになります。また、５chでカラーマクロを呼び出した時には6chがエフェクトスピードを調整するためのチャンネルになりますこの世な流動的な機能を持つチャンネルを設定する際にこのプリセット機能が活躍します。
+</P>
+
+<TABLE>
+ <TR>
+  <TD><IMG SRC="../images/fixtureeditor_aliases.png" WIDTH="700"/>
+  <TD>
+   <TABLE BORDER=1 class="qlcTable">
+    <TR>
+     <TD><B>Alias</B></TD>
+     <TD>
+       エイリアスのラベルが表示されます、ラベルの構成は[チャンネル名] - [機能名] - [DMX値の範囲] で表示されます。</TD>
+    </TR>
+    <TR>
+     <TD><B>In mode</B></TD>
+     <TD>フィクスチャーに複数のモードが存在する場合はこちらから設定できます</TD>
+    </TR>
+    <TR>
+     <TD><B>replace</B></TD>
+     <TD>選択したチャンネルに置換されます</TD>
+    </TR>
+    <TR>
+     <TD><B>with</B></TD>
+     <TD>エイリアス動作時、選択したチャンネルと置換されます</TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/edit_add.png"/></TD>
+     <TD>エイリアスを追加します。</TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/edit_remove.png"/></TD>
+     <TD>選択したエイリアスを削除します</TD>
+    </TR>
+   </TABLE>
+  </TD>
+ </TR>
+</TABLE>
 
 </BODY>
-</html>
+</HTML>

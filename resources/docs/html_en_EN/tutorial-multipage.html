@@ -15,8 +15,8 @@ The main advatages of multipage frames are better usage of screen estate, and mo
 can be controlled by limited number of available real faders.
 </P>
 
-<P>I will use Behringer BCF2000 as a MIDI controller in this tutorial, because 
-that's what I own, but you can use any suitable controller. Besides that BCF2000 has 
+<P>I will use Behringer BCF2000 as a MIDI controller in this tutorial, because
+that's what I own, but you can use any suitable controller. Besides that BCF2000 has
 flying (motorized) faders that are very handy when switching pages.
 </P>
 
@@ -25,7 +25,7 @@ This is no longer needed.</P>
 
 <H2>Executive summary</H2>
 
-<P>If you don't want to read the whole text, here are the bare bones of it: 
+<P>If you don't want to read the whole text, here are the bare bones of it:
 <UL>
 <LI>Create frame/soloframe, enable pages in its properties, enter number of pages,
 and set the buttons from previous step as external input. Now page switching should work.</LI>
@@ -56,7 +56,7 @@ DMX monitor window.</P>
 <P>First, go to Fixture Manager <IMG SRC="qrc:/fixture.png" align="absmiddle" /> and add 32 generic
 dimmer channels.</P>
 
-<img src="file:../images/multipage1.png" />
+<img src="../images/multipage1.png" />
 
 <P>Next things will happen in Virtual console <img src="qrc:/virtualconsole.png" align="absmiddle" />.
 
@@ -64,17 +64,17 @@ dimmer channels.</P>
 
 <P>The most basic way how to create multipage frame is to create simple frame <img src="qrc:/frame.png"
 align="absmiddle" />. Now right-click on the frame to open context menu, and select "Widget properties"
-(or press CTRL-E). Go to <a href="file:vcframe.html#pages">"Pages"</a> tab. Select "Enable", to enable
+(or press CTRL-E). Go to <a href="vcframe.html#pages">"Pages"</a> tab. Select "Enable", to enable
 the multipage functionality. Enter "4" in the "Number of pages" edit box. Press "OK".</P>
 
-<img src="file:../images/multipage2.png" />
+<img src="../images/multipage2.png" />
 
 <P>Now we'll add the faders for the first page. Add 8 faders one by one. Then click on the
 <img src="qrc:/forward.png" align="absmiddle"> button and do the same for page 2, and again for pages
 3 and 4. For each button, open its Widget properties, select level mode, and select respective dimmer
 channel.</P>
 
-<img src="file:../images/multipage3.png" />
+<img src="../images/multipage3.png" />
 
 <P>Now change to operate mode, and check if the sliders work.</P>
 
@@ -95,7 +95,7 @@ choose BCF2000 MIDI 1 port; check both "input" and "feedback", and select BCF200
 <P>Now go to the virtual console, right click the multipage frame, and select "Widget Properties". Select some
 buttons as external controls for Previous and Next page, either by autodetection, or choose
 from the list (Don't forget to disable autodetect for Previous Page when you are setting Next Page, otherwise
-you will change both!). I use "Button 9 Top" for previous page, and "Button 10 TOP" for next page, but you 
+you will change both!). I use "Button 9 Top" for previous page, and "Button 10 TOP" for next page, but you
 can choose any buttons. Push OK to close the dialog. Now the two buttons should work. Try them now to switch
 the pages.</P>
 

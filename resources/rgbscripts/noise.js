@@ -21,7 +21,7 @@
 var testAlgo;
 
 (
-    function() 
+    function()
     {
         var algo = new Object;
         algo.apiVersion = 2;
@@ -43,22 +43,22 @@ var testAlgo;
         };
 
         // QLC+ rgbMap function where the work is done
-        algo.rgbMap = function (width, height, rgb, step) 
+        algo.rgbMap = function (width, height, rgb, step)
         {
             var map = new Array(height);
-            
-            for (var y = 0; y < height; y++) 
+
+            for (var y = 0; y < height; y++)
             {
                 map[y] = [];
-                
-                for (var x = 0; x < width; x++) 
+
+                for (var x = 0; x < width; x++)
                 {
                     var r = (rgb >> 16) & 0x00FF;  // split color of user selected color
-                    var g = (rgb >> 8) & 0x00FF;   
+                    var g = (rgb >> 8) & 0x00FF;
                     var b = rgb & 0x00FF;
 
                     // create random color level from 1 to 255
-                    var colorLevel = Math.floor(Math.random() * 255); 
+                    var colorLevel = Math.floor(Math.random() * 255);
 
                     // Assign random color value to temp variables
                     var rr = colorLevel;
@@ -66,24 +66,24 @@ var testAlgo;
                     var bb = colorLevel;
 
                     // Limit each color element to the maximum for chosen color or make 0 if below 0
-                    if (rr > r) rr = r;
-                    if (rr < 0) rr = 0;
-                    if (gg > g) gg = g;
-                    if (gg < 0) gg = 0;
-                    if (bb > b) bb = b;
-                    if (bb < 0) bb = 0;  
+                    if (rr > r) { rr = r; }
+                    if (rr < 0) { rr = 0; }
+                    if (gg > g) { gg = g; }
+                    if (gg < 0) { gg = 0; }
+                    if (bb > b) { bb = b; }
+                    if (bb < 0) { bb = 0; }
 
                     var cColor = (rr << 16) + (gg << 8) + bb;   // put rgb parts back together
                     var vDiv = 0;                               // for noise amount use
 
                     // setup for noise reduction :)
-                    switch (algo.noisePercentage)               
+                    switch (algo.noisePercentage)
                     {
                         case "Low":
                             vDiv = Math.random() * 4 + 7;
                         break;
                         case "Medium":
-                            vDiv = Math.random() * 5;  
+                            vDiv = Math.random() * 5;
                         break;
                         case "High":
                             vDiv = 0;

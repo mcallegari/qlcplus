@@ -121,12 +121,11 @@ VCWidgetItem
             }
 
             // multi page controls
-            Rectangle
+            RowLayout
             {
                 visible: frameObj ? frameObj.multiPageMode : false
-                width: 168
                 height: parent.height
-                color: "transparent"
+                spacing: 2
 
                 IconButton
                 {
@@ -139,22 +138,20 @@ VCWidgetItem
                     imgMargins: 1
                     onClicked: frameObj.gotoPreviousPage()
                 }
-                Rectangle
+                CustomComboBox
                 {
-                    x: parent.height + 2
-                    width: 100
+                    id: pageSelector
+                    width: UISettings.bigItemHeight
                     height: parent.height
-                    radius: 3
-                    color: "black"
-
-                    Text
+                    textRole: ""
+                    model: frameObj ? frameObj.pageLabels : null
+                    currentIndex: frameObj ? frameObj.currentPage : 0
+                    onCurrentIndexChanged:
                     {
-                        anchors.centerIn: parent
-                        font.family: UISettings.robotoFontName
-                        font.pixelSize: UISettings.textSizeDefault
-                        font.bold: true
-                        text: qsTr("Page") + " " + (frameObj ? frameObj.currentPage + 1 : "1")
-                        color: "red"
+                        if (frameObj)
+                            frameObj.currentPage = currentIndex
+                        // binding got  broken, so restore it
+                        currentIndex = Qt.binding(function() { return frameObj.currentPage })
                     }
                 }
                 IconButton
@@ -184,14 +181,20 @@ VCWidgetItem
         objectName: frameObj ? "frameDropArea" + frameObj.id : ""
         z: 5 // children must be above the VCWidget resizeLayer
 
-        onEntered: virtualConsole.setDropTarget(frameRoot, true)
-        onExited: virtualConsole.setDropTarget(frameRoot, false)
+        onEntered: frameRoot.dropActive = true
+        onExited: frameRoot.dropActive = false
         onDropped:
         {
-            if (frameObj === null || dropActive === false)
+            if (frameObj == null || frameRoot.dropActive === false)
                 return
 
-            virtualConsole.setDropTarget(frameRoot, false)
+            frameRoot.dropActive = false
+
+            if (drag.source.wObj === frameObj)
+            {
+                console.log("ERROR: Source and target are the same!!!")
+                return
+            }
 
             var pos = drag.source.mapToItem(frameRoot, 0, 0)
             console.log("Item dropped in frame " + frameObj.id + " at pos " + pos)

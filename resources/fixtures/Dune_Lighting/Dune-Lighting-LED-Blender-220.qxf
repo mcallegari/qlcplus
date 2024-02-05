@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4 GIT</Version>
+  <Author>David Grc</Author>
+ </Creator>
+ <Manufacturer>Dune Lighting</Manufacturer>
+ <Model>LED Blender 220 (DUN-70653)</Model>
+ <Type>Other</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Red 1</Channel>
+  <Channel Number="3">Green 1</Channel>
+  <Channel Number="4">Blue 1</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Red 1</Channel>
+  <Channel Number="3">Green 1</Channel>
+  <Channel Number="4">Blue 1</Channel>
+  <Channel Number="5">Red 2</Channel>
+  <Channel Number="6">Green 2</Channel>
+  <Channel Number="7">Blue 2</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="14 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Red 1</Channel>
+  <Channel Number="3">Green 1</Channel>
+  <Channel Number="4">Blue 1</Channel>
+  <Channel Number="5">Red 2</Channel>
+  <Channel Number="6">Green 2</Channel>
+  <Channel Number="7">Blue 2</Channel>
+  <Channel Number="8">Red 3</Channel>
+  <Channel Number="9">Green 3</Channel>
+  <Channel Number="10">Blue 3</Channel>
+  <Channel Number="11">Red 4</Channel>
+  <Channel Number="12">Green 4</Channel>
+  <Channel Number="13">Blue 4</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6.8" Width="550" Height="440" Depth="150"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="20"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="2" Height="2"/>
+  <Technical PowerConsumption="53" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

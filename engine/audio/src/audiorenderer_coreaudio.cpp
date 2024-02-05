@@ -92,7 +92,7 @@ bool AudioRendererCoreAudio::initialize(quint32 freq, int chan, AudioFormat form
     status = AudioQueueStart(m_queue, NULL);
     if (status)
     {
-        qDebug() << Q_FUNC_INFO << "Cannot start Audio Queue !";
+        qDebug() << Q_FUNC_INFO << "Cannot start Audio Queue!";
         return false;
     }
 
@@ -106,7 +106,7 @@ qint64 AudioRendererCoreAudio::latency()
 
 qint64 AudioRendererCoreAudio::writeAudio(unsigned char *data, qint64 maxSize)
 {
-    if(m_buffersFilled == AUDIO_BUFFERS_NUM)
+    if (m_buffersFilled == AUDIO_BUFFERS_NUM)
         return 0;
 
     qint64 size = maxSize;

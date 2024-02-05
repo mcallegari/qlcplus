@@ -415,12 +415,14 @@ void VCButton_Test::save()
     btn.setKeySequence(QKeySequence(keySequenceB));
     btn.enableStartupIntensity(true);
     btn.setStartupIntensity(qreal(0.2));
+    btn.setFlashForceLTP(true);
+    btn.setFlashOverride(true);
 
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly | QIODevice::Text);
     QXmlStreamWriter xmlWriter(&buffer);
 
-    int function = 0, action = 0, key = 0, intensity = 0, wstate = 0, appearance = 0;
+    int function = 0, action = 0, key = 0, intensity = 0, wstate = 0, appearance = 0, flashProperties = 0;
     QCOMPARE(btn.saveXML(&xmlWriter), true);
 
     xmlWriter.setDevice(NULL);
@@ -436,34 +438,37 @@ void VCButton_Test::save()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Function")
+        if (xmlReader.name().toString() == "Function")
         {
             function++;
             QCOMPARE(xmlReader.attributes().value("ID").toString(), QString::number(sc->id()));
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "Action")
+        else if (xmlReader.name().toString() == "Action")
         {
-            action++;
+            QCOMPARE(xmlReader.attributes().value("Override").toString(), QString("1"));
+            QCOMPARE(xmlReader.attributes().value("ForceLTP").toString(), QString("1"));
+            flashProperties++;
             QCOMPARE(xmlReader.readElementText(), QString("Flash"));
+            action++;
         }
-        else if (xmlReader.name() == "Key")
+        else if (xmlReader.name().toString() == "Key")
         {
             key++;
             QCOMPARE(xmlReader.readElementText(), QKeySequence(keySequenceB).toString());
         }
-        else if (xmlReader.name() == "Intensity")
+        else if (xmlReader.name().toString() == "Intensity")
         {
             intensity++;
             QCOMPARE(xmlReader.attributes().value("Adjust").toString(), QString("True"));
             QCOMPARE(xmlReader.readElementText(), QString("20"));
         }
-        else if (xmlReader.name() == "WindowState")
+        else if (xmlReader.name().toString() == "WindowState")
         {
             wstate++;
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "Appearance")
+        else if (xmlReader.name().toString() == "Appearance")
         {
             appearance++;
             xmlReader.skipCurrentElement();
@@ -481,6 +486,7 @@ void VCButton_Test::save()
     QCOMPARE(intensity, 1);
     QCOMPARE(wstate, 1);
     QCOMPARE(appearance, 1);
+    QCOMPARE(flashProperties, 1);
 }
 
 void VCButton_Test::customMenu()
@@ -517,11 +523,13 @@ void VCButton_Test::toggle()
 
     // Mouse button press in design mode doesn't toggle the function
     QCOMPARE(m_doc->mode(), Doc::Design);
-    QMouseEvent ev(QEvent::MouseButtonPress, QPoint(0, 0), Qt::LeftButton, 0, 0);
+    QMouseEvent ev(QEvent::MouseButtonPress, QPoint(0, 0), QPoint(0, 0), QPoint(0, 0),
+                   Qt::LeftButton, Qt::NoButton, Qt::NoModifier);
     btn.mousePressEvent(&ev);
     QCOMPARE(m_doc->masterTimer()->m_functionList.size(), 0);
-    ev = QMouseEvent(QEvent::MouseButtonRelease, QPoint(0, 0), Qt::LeftButton, 0, 0);
-    btn.mouseReleaseEvent(&ev);
+    QMouseEvent ev2(QEvent::MouseButtonRelease, QPoint(0, 0), QPoint(0, 0), QPoint(0, 0),
+                    Qt::LeftButton, Qt::NoButton, Qt::NoModifier);
+    btn.mouseReleaseEvent(&ev2);
     QCOMPARE(m_doc->masterTimer()->m_functionList.size(), 0);
 
     // Mouse button press in operate mode should toggle the function
@@ -537,8 +545,9 @@ void VCButton_Test::toggle()
     QCOMPARE(sc->stopped(), false);
     QCOMPARE(btn.state(), VCButton::Active);
 
-    ev = QMouseEvent(QEvent::MouseButtonPress, QPoint(0, 0), Qt::LeftButton, 0, 0);
-    btn.mousePressEvent(&ev);
+    QMouseEvent ev3(QEvent::MouseButtonPress, QPoint(0, 0), QPoint(0, 0), QPoint(0, 0),
+                    Qt::LeftButton, Qt::NoButton, Qt::NoModifier);
+    btn.mousePressEvent(&ev3);
     QCOMPARE(sc->m_stop, true);
     QCOMPARE(btn.state(), VCButton::Active);
 
@@ -549,8 +558,9 @@ void VCButton_Test::toggle()
     QTest::qWait(500);
     QVERIFY(btn.palette().color(QPalette::Button) == another.palette().color(QPalette::Button));
 
-    ev = QMouseEvent(QEvent::MouseButtonRelease, QPoint(0, 0), Qt::LeftButton, 0, 0);
-    btn.mouseReleaseEvent(&ev);
+    QMouseEvent ev4(QEvent::MouseButtonRelease, QPoint(0, 0), QPoint(0, 0), QPoint(0, 0),
+                    Qt::LeftButton, Qt::NoButton, Qt::NoModifier);
+    btn.mouseReleaseEvent(&ev4);
 }
 
 void VCButton_Test::flash()

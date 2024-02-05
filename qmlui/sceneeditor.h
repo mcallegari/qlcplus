@@ -33,9 +33,10 @@ class SceneEditor : public FunctionEditor
     Q_OBJECT
 
     Q_PROPERTY(QVariant fixtureList READ fixtureList NOTIFY fixtureListChanged)
+    Q_PROPERTY(QVariant componentList READ componentList NOTIFY componentListChanged)
 
 public:
-    SceneEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
+    SceneEditor(QQuickView *view, Doc *doc, QObject *parent = nullptr);
     ~SceneEditor();
 
     /** Set the ID of the Scene to edit */
@@ -44,6 +45,10 @@ public:
     /** Return a QVariant list of references to the Fixtures
      *  involved in the Scene editing */
     QVariant fixtureList() const;
+
+    /** Return a QVariant list of all the references to components
+     *  involved in the Scene editing */
+    QVariant componentList() const;
 
     /** Enable/disable the preview of the current Scene.
      *  In this editor, the preview is done with a GenericDMXSource */
@@ -68,15 +73,26 @@ public:
 
     Q_INVOKABLE void setFixtureSelection(quint32 fxID);
 
+    /** Add a component with of given type
+     *  e.g. FixtureGroup, Fixture, Palette */
+    Q_INVOKABLE void addComponent(int type, quint32 id);
+
+    /** @reimp */
+    void deleteItems(QVariantList list);
+
 protected slots:
     void slotSceneValueChanged(SceneValue scv);
     void slotAliasChanged();
 
 private:
-    void updateFixtureList();
+    void addFixtureToList(quint32 fid);
+    void updateLists();
+    void setCacheChannelValue(SceneValue scv);
+    void cacheChannelValues();
 
 signals:
     void fixtureListChanged();
+    void componentListChanged();
 
 private:
     /** Reference of the Scene currently being edited */
@@ -85,13 +101,19 @@ private:
     QList<quint32> m_fixtureIDs;
     /** A QML-readable list of references to Fixtures used in $m_scene */
     ListModel *m_fixtureList;
+    /** A QML-readable list of all the components used by the Scene
+     *  (Fixture groups, Fixtures, Palettes) */
+    ListModel *m_componentList;
     /** A reference to the SceneFixtureConsole when loaded */
     QQuickItem *m_sceneConsole;
     /** Keep a track of the registered Fixture consoles in a Scene Console,
      *  to rapidly set a channel value */
     QMap<int, QQuickItem *> m_fxConsoleMap;
+    /** Pre-cache initial channel values including palettes.
+     *  arranged as <fixture ID, channel values array> */
+    QMap<quint32, QByteArray> m_channelsCache;
     /** Reference to a DMX source used to edit a Scene */
-    GenericDMXSource* m_source;
+    GenericDMXSource *m_source;
 };
 
 #endif // SCENEEDITOR_H

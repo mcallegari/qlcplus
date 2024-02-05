@@ -11,7 +11,7 @@
 <h1>MIDI input/output plugin</h1>
 
 <h1 id="introduction">導入</h1>
-<p> QLC+は <a href="http://en.wikipedia.org/wiki/MIDI">MIDI protocol</a>をサポートしています、しかし実際に使うためにはいくつかの設定をする必要があります。<br>
+<p> QLC+は <a href="https://en.wikipedia.org/wiki/MIDI">MIDI protocol</a>をサポートしています、しかし実際に使うためにはいくつかの設定をする必要があります。<br>
 　QLC+ではMIDIコントローラのほか、シーケンサーなどのほぼ全てのMIDIデバイスに対応しています。<br>
 　コントローラーであればボタンやフェダーを外部入力として使えます。</p>
 
@@ -53,7 +53,7 @@ Behringer BCF2000 などのモーターフェーダーがわかりやすい例�
 <h1 id="korg-nanopad">KORG nanoPAD のX座標の設定</h1>
 <p>
 　このデバイスは工場出荷時の設定ではQLC+上にX座標のコントロールができません、KORGのホームページからユーティリティーツールをダウンロードし、設定を変更していきましょう。X座標にCC2(Control Change #2)を設定してください。
-<a href="http://www.korg.com/SupportPage.aspx?productid=415">詳しくはこちら</a>
+<a href="http://i.korg.com/SupportPage.aspx?productid=415">詳しくはこちら</a>
 </p>
 
 <h1 id="akai-feedbacks">AKAI APC LED Feedbacks</h1>
@@ -80,8 +80,8 @@ Function Off -&gt; red LED, Function On -&gt; green LED.
 
 <h1 id="midi-beat-clock">MIDI beat clock</h1>
 <p>
-QLC+4.5.0から実装された機能です。<a href="http://en.wikipedia.org/wiki/MIDI_beat_clock">MIDI beat clock</a><br>
-<a href="http://en.wikipedia.org/wiki/MIDI_timecode">MIDIタイムコード</a>ではないことに注意してください。<br>2つの特別なMIDIチャンネルがQLC +にマッピングされており、 <a href="virtualconsole.html">仮想コンソール</a>ウィジェットをビートクロックで制御します。<br>特別なチャンネルについて簡単に説明します：<ul>
+QLC+4.5.0から実装された機能です。<a href="https://en.wikipedia.org/wiki/MIDI_beat_clock">MIDI beat clock</a><br>
+<a href="https://en.wikipedia.org/wiki/MIDI_timecode">MIDIタイムコード</a>ではないことに注意してください。<br>2つの特別なMIDIチャンネルがQLC +にマッピングされており、 <a href="virtualconsole.html">仮想コンソール</a>ウィジェットをビートクロックで制御します。<br>特別なチャンネルについて簡単に説明します：<ul>
  <li><b>チャンネル530</b> ：ビートクロックが開始または停止すると、このチャンネルに信号が送信されます。</li>
  <li><b>チャンネル531</b> ：この信号はBPMごとに送信されます。 QLC +は測定値の通知（例えば3/4、4/4、7/8）をとらないので、MIDIクロックを設定するときにQLC +がどのようにそれを処理するかを考慮する必要があります。</li>
 </ul>
@@ -116,7 +116,7 @@ QLC+4.5.0から実装された機能です。<a href="http://en.wikipedia.org/wi
 
 <h1 id="channelsmap">QLC+ Channels map</h1>
 
-<p>さまざまなMIDIメッセージ（Notes、PC、CCなど）を処理するために、QLC +はそれらを順番に再マッピングします。<br><a href="javascript:void(0);">入力プロファイルエディタで</a>使用するチャンネル番号：</p>
+<p>さまざまなMIDIメッセージ（Notes、PC、CCなど）を処理するために、QLC +はそれらを順番に再マッピングします。<br><a href="howto-input-profiles.html">入力プロファイルエディタで</a>使用するチャンネル番号：</p>
 
 <table>
 <tr>

@@ -25,19 +25,18 @@ import QtQuick 2.0
 // Lights pass technique
 TechniqueFilter
 {
-    property Layer spotlightScatteringLayer
+    property alias spotlightScatteringLayer: slLayerFilter.layers
+    property alias frameTarget: slRenderTarget.target
     property DepthTarget frontDepth
     property GBuffer gBuffer
-    property real lightIntensity
-    property Texture2D shadowTex
-    property FrameTarget frameTarget
-    property bool useShadows
+    property Texture2D shadowTex: null
+    property bool useShadows: true
 
-    property Fixture3DItem fixtureItem
+    property Entity fixtureItem
 
     parameters: [
-        Parameter { name: "frontDepthTex"; value: frontDepth.position },
-        Parameter { name: "depthTex"; value: gBuffer.depth },
+        Parameter { name: "frontDepthTex"; value: frontDepth ? frontDepth.positionTex : null },
+        Parameter { name: "depthTex"; value: gBuffer ? gBuffer.depth : null },
         Parameter { name: "lightColor"; value:  fixtureItem ? fixtureItem.lightColor : Qt.rgba(0, 0, 0, 1) },
         Parameter { name: "lightIntensity"; value: fixtureItem ? fixtureItem.lightIntensity : 0.0 },
         Parameter { name: "shadowTex"; value: shadowTex },
@@ -62,10 +61,12 @@ TechniqueFilter
         ]
         LayerFilter
         {
-            layers: spotlightScatteringLayer
+            id: slLayerFilter
 
-            RenderTargetSelector {
-                target: frameTarget
+            RenderTargetSelector
+            {
+                id: slRenderTarget
+
                 RenderPassFilter
                 {
                     matchAny: FilterKey { name: "pass"; value: "spotlight_scattering" }

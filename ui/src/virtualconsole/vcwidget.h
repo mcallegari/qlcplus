@@ -38,41 +38,41 @@ class QFile;
  * @{
  */
 
-#define KXMLQLCVCCaption "Caption"
-#define KXMLQLCVCFrameStyle "FrameStyle"
+#define KXMLQLCVCCaption    QString("Caption")
+#define KXMLQLCVCFrameStyle QString("FrameStyle")
 
-#define KXMLQLCVCWidgetID "ID"
-#define KXMLQLCVCWidgetPage "Page"
-#define KXMLQLCVCWidgetAppearance "Appearance"
+#define KXMLQLCVCWidgetID           QString("ID")
+#define KXMLQLCVCWidgetPage         QString("Page")
+#define KXMLQLCVCWidgetAppearance   QString("Appearance")
 
-#define KXMLQLCVCWidgetForegroundColor "ForegroundColor"
-#define KXMLQLCVCWidgetBackgroundColor "BackgroundColor"
-#define KXMLQLCVCWidgetColorDefault "Default"
+#define KXMLQLCVCWidgetForegroundColor  QString("ForegroundColor")
+#define KXMLQLCVCWidgetBackgroundColor  QString("BackgroundColor")
+#define KXMLQLCVCWidgetColorDefault     QString("Default")
 
-#define KXMLQLCVCWidgetFont "Font"
-#define KXMLQLCVCWidgetFontDefault "Default"
+#define KXMLQLCVCWidgetFont         QString("Font")
+#define KXMLQLCVCWidgetFontDefault  QString("Default")
 
-#define KXMLQLCVCWidgetBackgroundImage "BackgroundImage"
-#define KXMLQLCVCWidgetBackgroundImageNone "None"
+#define KXMLQLCVCWidgetBackgroundImage      QString("BackgroundImage")
+#define KXMLQLCVCWidgetBackgroundImageNone  QString("None")
 
 #define KVCFrameStyleSunken (QFrame::Panel | QFrame::Sunken)
 #define KVCFrameStyleRaised (QFrame::Panel | QFrame::Raised)
 #define KVCFrameStyleNone   (QFrame::NoFrame)
 
-#define KXMLQLCVCWidgetKey "Key"
-#define KXMLQLCVCWidgetInput "Input"
-#define KXMLQLCVCWidgetInputUniverse "Universe"
-#define KXMLQLCVCWidgetInputChannel "Channel"
-#define KXMLQLCVCWidgetInputLowerValue "LowerValue"
-#define KXMLQLCVCWidgetInputUpperValue "UpperValue"
-#define KXMLQLCVCWidgetInputMonitorValue "MonitorValue"
+#define KXMLQLCVCWidgetKey                QString("Key")
+#define KXMLQLCVCWidgetInput              QString("Input")
+#define KXMLQLCVCWidgetInputUniverse      QString("Universe")
+#define KXMLQLCVCWidgetInputChannel       QString("Channel")
+#define KXMLQLCVCWidgetInputLowerValue    QString("LowerValue")
+#define KXMLQLCVCWidgetInputUpperValue    QString("UpperValue")
+#define KXMLQLCVCWidgetInputMonitorValue  QString("MonitorValue")
 
-#define KXMLQLCWindowState "WindowState"
-#define KXMLQLCWindowStateVisible "Visible"
-#define KXMLQLCWindowStateX "X"
-#define KXMLQLCWindowStateY "Y"
-#define KXMLQLCWindowStateWidth "Width"
-#define KXMLQLCWindowStateHeight "Height"
+#define KXMLQLCWindowState          QString("WindowState")
+#define KXMLQLCWindowStateVisible   QString("Visible")
+#define KXMLQLCWindowStateX         QString("X")
+#define KXMLQLCWindowStateY         QString("Y")
+#define KXMLQLCWindowStateWidth     QString("Width")
+#define KXMLQLCWindowStateHeight    QString("Height")
 
 class VCWidget : public QWidget
 {
@@ -167,6 +167,9 @@ public:
     virtual void enableWidgetUI(bool enable);
 
     bool isDisabled();
+
+signals:
+    void disableStateChanged(bool disable);
 
 protected:
     bool m_disableState;
@@ -374,7 +377,7 @@ public:
     /** Set the widget intensity value. This is mostly used by submasters */
     virtual void adjustIntensity(qreal val);
 
-    virtual qreal intensity();
+    virtual qreal intensity() const;
 
 private:
     qreal m_intensity;

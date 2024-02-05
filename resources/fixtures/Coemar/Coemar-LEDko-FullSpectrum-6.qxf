@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 1</Version>
+  <Author>Michał Kluska</Author>
+ </Creator>
+ <Manufacturer>Coemar</Manufacturer>
+ <Model>LEDko FullSpectrum 6</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Lime" Preset="IntensityLime"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Strobe effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterClose">No effect</Capability>
+  <Capability Min="10" Max="57" Preset="StrobeSlowToFast">Variable speed strobing effect, from slow to fast</Capability>
+  <Capability Min="58" Max="59" Preset="ShutterOpen">Stop strobe</Capability>
+  <Capability Min="60" Max="108" Preset="PulseSlowToFast">Sequenced pulsed strobe, slow closing, fast operating (variable speed pulsing, from slow to fast)</Capability>
+  <Capability Min="109" Max="110" Preset="ShutterOpen">Stop strobe</Capability>
+  <Capability Min="111" Max="159" Preset="PulseSlowToFast">sequenced pulsed strobe, fast closing, slow operating (variable speed pulsing, from slow to fast)</Capability>
+  <Capability Min="160" Max="161" Preset="ShutterOpen">Stop strobe</Capability>
+  <Capability Min="162" Max="207" Preset="StrobeRandomSlowToFast">Random strobe effect with variable speed from slow to fast and synchronized colors</Capability>
+  <Capability Min="208" Max="209" Preset="ShutterOpen">Stop strobe</Capability>
+  <Capability Min="210" Max="255" Preset="StrobeRandomSlowToFast">Random strobe effect with variable speed from slow to fast and non-synchronized colors</Capability>
+ </Channel>
+ <Channel Name="Dimmer Fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Special functions">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="84">No effect</Capability>
+  <Capability Min="85" Max="96">Fan at low-noise speed</Capability>
+  <Capability Min="97" Max="108">fan at auto-speed</Capability>
+  <Capability Min="109" Max="121">fan at auto-speed</Capability>
+  <Capability Min="122" Max="134">fan speed control from minimum to maximum</Capability>
+  <Capability Min="135" Max="185">enables the automatic display blackout</Capability>
+  <Capability Min="186" Max="199">disables the automatic display blackout</Capability>
+  <Capability Min="200" Max="255">No effect</Capability>
+ </Channel>
+ <Channel Name="Red Tone">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="9">No effect</Capability>
+  <Capability Min="10" Max="34">R24 - scarlet red</Capability>
+  <Capability Min="35" Max="59">R02 - bastard amber</Capability>
+  <Capability Min="60" Max="84">R313 - Light relief yellow</Capability>
+  <Capability Min="85" Max="109">R18 - Flame</Capability>
+  <Capability Min="110" Max="134">R331 - Shell pink</Capability>
+  <Capability Min="135" Max="159">R25 - Orange Red</Capability>
+  <Capability Min="160" Max="184">R46 - Magenta</Capability>
+  <Capability Min="185" Max="209">R08 - Pale gold</Capability>
+  <Capability Min="210" Max="234">R27 - Medium red</Capability>
+  <Capability Min="235" Max="255">R318 - Mayan sun</Capability>
+ </Channel>
+ <Channel Name="Green tone">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="9">no effect</Capability>
+  <Capability Min="10" Max="34">R4460 - calcolor 60 green</Capability>
+  <Capability Min="35" Max="59">R2004 - storaro green</Capability>
+  <Capability Min="60" Max="84">E730 - liberty green</Capability>
+  <Capability Min="85" Max="109">E088 - lime green</Capability>
+  <Capability Min="110" Max="134">R90 - kelly green</Capability>
+  <Capability Min="135" Max="159">R395 - teal green</Capability>
+  <Capability Min="160" Max="184">R91 - primary green</Capability>
+  <Capability Min="185" Max="209">R393 - emerald green</Capability>
+  <Capability Min="210" Max="234">R393 - leaf green</Capability>
+  <Capability Min="235" Max="255">R86 - pea green</Capability>
+ </Channel>
+ <Channel Name="Blue Tone">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="9">no effect</Capability>
+  <Capability Min="10" Max="34">R2008 - storaro indigo</Capability>
+  <Capability Min="35" Max="59">E5058 - french lilac</Capability>
+  <Capability Min="60" Max="84">R369 - tahitian blue</Capability>
+  <Capability Min="85" Max="109">R347 - belladonna rose</Capability>
+  <Capability Min="110" Max="134">R381 - baldassari blue</Capability>
+  <Capability Min="135" Max="159">R57 - Lavander</Capability>
+  <Capability Min="160" Max="184">R55 - lilac</Capability>
+  <Capability Min="185" Max="209">R4790 - calcolor 90 magenta</Capability>
+  <Capability Min="210" Max="234">R92 - turquise</Capability>
+  <Capability Min="235" Max="255">R370 - italian blue</Capability>
+ </Channel>
+ <Channel Name="White Tone">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="9">no effect</Capability>
+  <Capability Min="10" Max="30">2700K</Capability>
+  <Capability Min="31" Max="52">proportional value from 2700K to 3200K</Capability>
+  <Capability Min="53" Max="74">3200K</Capability>
+  <Capability Min="75" Max="96">proportional value from 3200K to 4000K</Capability>
+  <Capability Min="97" Max="118">4000K</Capability>
+  <Capability Min="119" Max="140">proportional value from 4000K to 5000K</Capability>
+  <Capability Min="141" Max="162">5000K</Capability>
+  <Capability Min="163" Max="184">proportional value from 5000K to 5600K</Capability>
+  <Capability Min="185" Max="206">5600K</Capability>
+  <Capability Min="207" Max="228">proportional value from 5600K to 6500K</Capability>
+  <Capability Min="229" Max="255">6500K</Capability>
+ </Channel>
+ <Channel Name="Green Saturation">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="9">no effect</Capability>
+  <Capability Min="10" Max="123">exalts the green color in the mixing ans diminishes the presence of magenta</Capability>
+  <Capability Min="124" Max="132">no effect</Capability>
+  <Capability Min="133" Max="246">diminishes the presence of green in the mixing and exalts the magenta color</Capability>
+  <Capability Min="247" Max="255">no effect</Capability>
+ </Channel>
+ <Channel Name="Saturation" Preset="IntensitySaturation"/>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Lime</Channel>
+  <Channel Number="6">Amber</Channel>
+  <Channel Number="7">Strobe effect</Channel>
+  <Channel Number="8">Dimmer Fine</Channel>
+  <Channel Number="9">Special functions</Channel>
+  <Channel Number="10">Red Tone</Channel>
+  <Channel Number="11">Green tone</Channel>
+  <Channel Number="12">Blue Tone</Channel>
+  <Channel Number="13">White Tone</Channel>
+  <Channel Number="14">Green Saturation</Channel>
+  <Channel Number="15">Saturation</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Lime</Channel>
+  <Channel Number="6">Amber</Channel>
+ </Mode>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="6500"/>
+  <Dimensions Weight="6" Width="212" Height="189" Depth="362"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="220" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

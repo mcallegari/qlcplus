@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick 2.14
 
 import "."
 
@@ -76,7 +76,7 @@ Rectangle
         {
             ignoreUnknownSignals: true
             target: viewLoader.item
-            onRequestView:
+            function onRequestView(ID, qmlSrc)
             {
                 console.log("SidePanel loader ID requested: " + ID)
                 itemID = ID
@@ -108,15 +108,13 @@ Rectangle
     Rectangle
     {
         id: gradientBorder
-        y: sidePanelRoot.panelAlignment == Qt.AlignRight ? 0 : width
-        x: sidePanelRoot.panelAlignment == Qt.AlignRight ? height : parent.width - height
-        height: collapseWidth
+        x: sidePanelRoot.panelAlignment == Qt.AlignRight ? 0 : parent.width - width
+        height: parent.height
         color: "#141414"
-        width: parent.height
-        transformOrigin: Item.TopLeft
-        rotation: sidePanelRoot.panelAlignment == Qt.AlignRight ? 90 : 270
+        width: collapseWidth
         gradient: Gradient
         {
+            orientation: Gradient.Horizontal
             GradientStop { position: 0; color: "#141414" }
             GradientStop { position: 0.21; color: UISettings.bgStrong }
             GradientStop { position: 0.79; color: UISettings.bgStrong }
@@ -127,10 +125,9 @@ Rectangle
         {
             anchors.fill: parent
             z: 1
-            x: parent.width - width
             hoverEnabled: true
             cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
-            drag.target: sidePanelRoot
+            drag.target: sidePanelRoot.panelAlignment == Qt.AlignRight ? sidePanelRoot : gradientBorder
             drag.axis: Drag.XAxis
             //drag.minimumX: 0
             drag.maximumX: mainView.width - collapseWidth
@@ -140,21 +137,16 @@ Rectangle
                 if (drag.active == true)
                 {
                     var newWidth
+
                     if (sidePanelRoot.panelAlignment == Qt.AlignRight)
-                    {
                         newWidth = sidePanelRoot.parent.width - sidePanelRoot.x
-                        if (newWidth < collapseWidth)
-                            return
-                        sidePanelRoot.width = newWidth
-                    }
                     else
-                    {
-                        var obj = mapToItem(null, mouseX, mouseY)
-                        newWidth = obj.x + (collapseWidth / 2)
-                        if (newWidth < collapseWidth)
-                            return
-                        sidePanelRoot.width = newWidth
-                    }
+                        newWidth = gradientBorder.x + collapseWidth
+
+                    if (newWidth < collapseWidth)
+                        return
+
+                    sidePanelRoot.width = newWidth
                 }
             }
         }

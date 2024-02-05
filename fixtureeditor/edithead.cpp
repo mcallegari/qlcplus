@@ -21,11 +21,14 @@
 #include <QTreeWidget>
 #include <QDebug>
 #include <QAction>
+#include <QSettings>
 
 #include "qlcfixturehead.h"
 #include "qlcfixturemode.h"
 #include "qlcchannel.h"
 #include "edithead.h"
+
+#define SETTINGS_GEOMETRY "edithead/geometry"
 
 EditHead::EditHead(QWidget* parent, const QLCFixtureHead& head, const QLCFixtureMode* mode)
     : QDialog(parent)
@@ -40,12 +43,19 @@ EditHead::EditHead(QWidget* parent, const QLCFixtureHead& head, const QLCFixture
 
     fillChannelTree(mode);
 
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
+
     connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
             this, SLOT(slotItemChanged(QTreeWidgetItem*,int)));
 }
 
 EditHead::~EditHead()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 QLCFixtureHead EditHead::head() const
@@ -57,7 +67,7 @@ void EditHead::fillChannelTree(const QLCFixtureMode* mode)
 {
     Q_ASSERT(mode != NULL);
 
-    for (int i = 0; i < mode->channels().size(); i++)
+    for (quint32 i = 0; i < quint32(mode->channels().size()); i++)
     {
         const QLCChannel* ch = mode->channels().at(i);
         Q_ASSERT(ch != NULL);
@@ -69,7 +79,7 @@ void EditHead::fillChannelTree(const QLCFixtureMode* mode)
         if (ch->group() == QLCChannel::Intensity && ch->colour() == QLCChannel::NoColour)
             item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
         else if (m_head.channels().contains(i) == false && mode->headForChannel(i) != -1)
-            item->setFlags(0);
+            item->setFlags(Qt::NoItemFlags);
         else
             item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
 

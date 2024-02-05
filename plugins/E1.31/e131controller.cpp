@@ -20,21 +20,22 @@
 #include "e131controller.h"
 
 #include <QMutexLocker>
+#include <QVariant>
 #include <QDebug>
 
 #define TRANSMIT_FULL    "Full"
 #define TRANSMIT_PARTIAL "Partial"
 
-E131Controller::E131Controller(QNetworkInterface const& interface, QNetworkAddressEntry const& address,
+E131Controller::E131Controller(QNetworkInterface const& iface, QNetworkAddressEntry const& address,
                                quint32 line, QObject *parent)
     : QObject(parent)
-    , m_interface(interface)
+    , m_interface(iface)
     , m_ipAddr(address.ip())
     , m_packetSent(0)
     , m_packetReceived(0)
     , m_line(line)
     , m_UdpSocket(new QUdpSocket(this))
-    , m_packetizer(new E131Packetizer())
+    , m_packetizer(new E131Packetizer(iface.hardwareAddress()))
 {
     qDebug() << Q_FUNC_INFO;
     m_UdpSocket->bind(m_ipAddr, 0);
@@ -128,7 +129,7 @@ void E131Controller::setInputMulticast(quint32 universe, bool multicast)
 
 QSharedPointer<QUdpSocket> E131Controller::getInputSocket(bool multicast, QHostAddress const& address, quint16 port)
 {
-    foreach(UniverseInfo const& info, m_universeMap)
+    foreach (UniverseInfo const& info, m_universeMap)
     {
         if (info.inputSocket && info.inputMulticast == multicast)
         {
@@ -143,11 +144,7 @@ QSharedPointer<QUdpSocket> E131Controller::getInputSocket(bool multicast, QHostA
 
     if (multicast)
     {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
         inputSocket->bind(QHostAddress::AnyIPv4, E131_DEFAULT_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
-#else
-        inputSocket->bind(QHostAddress::Any, E131_DEFAULT_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
-#endif
         inputSocket->joinMulticastGroup(address, m_interface);
     }
     else
@@ -161,7 +158,7 @@ QSharedPointer<QUdpSocket> E131Controller::getInputSocket(bool multicast, QHostA
     return inputSocket;
 }
 
-void E131Controller::setInputMCastAddress(quint32 universe, QString address)
+void E131Controller::setInputMCastAddress(quint32 universe, QString address, bool legacy)
 {
     if (m_universeMap.contains(universe) == false)
         return;
@@ -169,9 +166,12 @@ void E131Controller::setInputMCastAddress(quint32 universe, QString address)
     QMutexLocker locker(&m_dataMutex);
     UniverseInfo& info = m_universeMap[universe];
 
-    QHostAddress newAddress(QString("239.255.0.%1").arg(address));
+    QHostAddress newAddress = legacy ?
+        QHostAddress(QString("239.255.0.%1").arg(address)) : QHostAddress(address);
+
     if (info.inputMcastAddress == newAddress)
         return;
+
     info.inputMcastAddress = newAddress;
 
     if (!info.inputMulticast)
@@ -222,13 +222,14 @@ void E131Controller::setOutputMulticast(quint32 universe, bool multicast)
     m_universeMap[universe].outputMulticast = multicast;
 }
 
-void E131Controller::setOutputMCastAddress(quint32 universe, QString address)
+void E131Controller::setOutputMCastAddress(quint32 universe, QString address, bool legacy)
 {
     if (m_universeMap.contains(universe) == false)
         return;
 
     QMutexLocker locker(&m_dataMutex);
-    m_universeMap[universe].outputMcastAddress = QHostAddress(QString("239.255.0.%1").arg(address));
+    m_universeMap[universe].outputMcastAddress = legacy ?
+        QHostAddress(QString("239.255.0.%1").arg(address)) : QHostAddress(address);
 }
 
 void E131Controller::setOutputUCastAddress(quint32 universe, QString address)
@@ -314,7 +315,7 @@ UniverseInfo *E131Controller::getUniverseInfo(quint32 universe)
 E131Controller::Type E131Controller::type()
 {
     int type = Unknown;
-    foreach(UniverseInfo info, m_universeMap.values())
+    foreach (UniverseInfo info, m_universeMap.values())
     {
         type |= info.type;
     }
@@ -401,8 +402,9 @@ void E131Controller::processPendingPackets()
 
         QByteArray dmxData;
         quint32 e131universe;
-        if (m_packetizer->checkPacket(datagram)
-                && m_packetizer->fillDMXdata(datagram, dmxData, e131universe))
+
+        if (m_packetizer->checkPacket(datagram) &&
+            m_packetizer->fillDMXdata(datagram, dmxData, e131universe))
         {
             qDebug() << "Received packet with size: " << datagram.size() << ", from: " << senderAddress.toString()
                 << ", for E1.31 universe: " << e131universe;
@@ -417,6 +419,7 @@ void E131Controller::processPendingPackets()
                     QByteArray *dmxValues;
                     if (m_dmxValuesMap.contains(universe) == false)
                         m_dmxValuesMap[universe] = new QByteArray(512, 0);
+
                     dmxValues = m_dmxValuesMap[universe];
 
                     for (int i = 0; i < dmxData.length(); i++)

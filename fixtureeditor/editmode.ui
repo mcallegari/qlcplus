@@ -53,36 +53,24 @@
        <string>Channels</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_8">
-       <item row="0" column="0" rowspan="5">
-        <widget class="QTreeWidget" name="m_channelList">
-         <property name="alternatingRowColors">
-          <bool>true</bool>
+       <item row="1" column="1">
+        <widget class="QToolButton" name="m_removeChannelButton">
+         <property name="toolTip">
+          <string>Remove the selected channel</string>
+         </property>
+         <property name="text">
+          <string notr="true">...</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../ui/src/qlcui.qrc">
+           <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
          </property>
          <property name="iconSize">
           <size>
-           <width>24</width>
-           <height>24</height>
+           <width>32</width>
+           <height>32</height>
           </size>
          </property>
-         <property name="rootIsDecorated">
-          <bool>false</bool>
-         </property>
-         <property name="itemsExpandable">
-          <bool>false</bool>
-         </property>
-         <property name="allColumnsShowFocus">
-          <bool>true</bool>
-         </property>
-         <column>
-          <property name="text">
-           <string>Number</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Name</string>
-          </property>
-         </column>
         </widget>
        </item>
        <item row="0" column="1">
@@ -96,26 +84,6 @@
          <property name="icon">
           <iconset resource="../ui/src/qlcui.qrc">
            <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>32</width>
-           <height>32</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QToolButton" name="m_removeChannelButton">
-         <property name="toolTip">
-          <string>Remove the selected channel</string>
-         </property>
-         <property name="text">
-          <string notr="true">...</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../ui/src/qlcui.qrc">
-           <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -163,6 +131,46 @@
            <height>32</height>
           </size>
          </property>
+        </widget>
+       </item>
+       <item row="0" column="0" rowspan="5">
+        <widget class="QTreeWidget" name="m_channelList">
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
+         </property>
+         <property name="rootIsDecorated">
+          <bool>false</bool>
+         </property>
+         <property name="itemsExpandable">
+          <bool>false</bool>
+         </property>
+         <property name="allColumnsShowFocus">
+          <bool>true</bool>
+         </property>
+         <property name="columnCount">
+          <number>3</number>
+         </property>
+         <column>
+          <property name="text">
+           <string>Number</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Name</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Acts On</string>
+          </property>
+         </column>
         </widget>
        </item>
        <item row="4" column="1">
@@ -246,7 +254,7 @@
           <string>Edit the channels that belong to the selected head</string>
          </property>
          <property name="text">
-          <string>...</string>
+          <string notr="true"/>
          </property>
          <property name="icon">
           <iconset resource="../ui/src/qlcui.qrc">

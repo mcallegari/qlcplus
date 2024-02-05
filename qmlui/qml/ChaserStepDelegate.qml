@@ -28,24 +28,26 @@ Rectangle
     width: 500
     height: UISettings.listItemHeight
 
-    color: "transparent"
+    color: isPrinting ? "white" : "transparent"
 
     property int functionID: -1
     property QLCFunction func
     property bool showFunctionName: true
-    property string stepLabel
     property string stepFadeIn
     property string stepHold
     property string stepFadeOut
     property string stepDuration
     property string stepNote
 
+    property bool isPrinting: false
+    property color labelColor: isPrinting ? "black" : UISettings.fgMain
     property int labelFontSize: UISettings.textSizeDefault * 0.75
 
     property bool isSelected: false
     property int indexInList: -1
     property int highlightIndex: -1
     property int highlightEditTime: -1
+    property int nextIndex: -1
 
     property int col1Width: 25
     property int col2Width: UISettings.bigItemHeight * 1.5
@@ -54,22 +56,12 @@ Rectangle
     property int col5Width: UISettings.bigItemHeight
     property int col6Width: UISettings.bigItemHeight
 
-    signal clicked(int ID, var qItem, int mouseMods)
     signal doubleClicked(int ID, var qItem, int type)
 
     onFunctionIDChanged:
     {
         func = functionManager.getFunction(functionID)
-        stepLabel = func.name
         funcIconName.functionType = func.type
-    }
-
-    onHighlightIndexChanged:
-    {
-        if (indexInList >= 0 && highlightIndex == indexInList)
-            topDragLine.visible = true
-        else
-            topDragLine.visible = false
     }
 
     onHighlightEditTimeChanged:
@@ -94,7 +86,24 @@ Rectangle
             editBox.visible = false
     }
 
-    // Highlight rectangle
+    function handleDoubleClick(x, y)
+    {
+        var item = fieldsRow.childAt(x, y)
+        if (item === funcIconName)
+            stepDelegate.doubleClicked(functionID, item, QLCFunction.Name)
+        else if (item === fadeInText)
+            stepDelegate.doubleClicked(functionID, item, QLCFunction.FadeIn)
+        else if (item === holdText)
+            stepDelegate.doubleClicked(functionID, item, QLCFunction.Hold)
+        else if (item === fadeOutText)
+            stepDelegate.doubleClicked(functionID, item, QLCFunction.FadeOut)
+        else if (item === durationText)
+            stepDelegate.doubleClicked(functionID, item, QLCFunction.Duration)
+        else if (item === noteText)
+            stepDelegate.doubleClicked(functionID, item, QLCFunction.Notes)
+    }
+
+    // Selection rectangle
     Rectangle
     {
         anchors.fill: parent
@@ -130,41 +139,10 @@ Rectangle
         }
     }
 
-    MouseArea
-    {
-        anchors.fill: parent
-        onClicked:
-        {
-            clickTimer.modifiers = mouse.modifiers
-            clickTimer.start()
-        }
-        onDoubleClicked:
-        {
-            clickTimer.stop()
-            clickTimer.modifiers = 0
-            //console.log("Double click happened at " + mouse.x + "," + mouse.y)
-
-            var item = fieldsRow.childAt(mouse.x, mouse.y)
-            if (item === funcIconName)
-                stepDelegate.doubleClicked(functionID, item, QLCFunction.Name)
-            else if (item === fadeInText)
-                stepDelegate.doubleClicked(functionID, item, QLCFunction.FadeIn)
-            else if (item === holdText)
-                stepDelegate.doubleClicked(functionID, item, QLCFunction.Hold)
-            else if (item === fadeOutText)
-                stepDelegate.doubleClicked(functionID, item, QLCFunction.FadeOut)
-            else if (item === durationText)
-                stepDelegate.doubleClicked(functionID, item, QLCFunction.Duration)
-            else if (item === noteText)
-                stepDelegate.doubleClicked(functionID, item, QLCFunction.Notes)
-        }
-    }
-
     // top line drag highlight
     Rectangle
     {
-        id: topDragLine
-        visible: false
+        visible: highlightIndex == indexInList
         width: parent.width
         height: 2
         z: 1
@@ -181,7 +159,9 @@ Rectangle
         {
             width: col1Width
             height: parent.height
+            color: nextIndex === indexInList ? "orange" : "transparent"
             label: indexInList + 1
+            labelColor: stepDelegate.labelColor
             fontSize: labelFontSize
             wrapText: true
             textHAlign: Text.AlignHCenter
@@ -195,7 +175,8 @@ Rectangle
             width: col2Width
             height: 35
             anchors.verticalCenter: parent.verticalCenter
-            tLabel: stepLabel
+            tLabel: func ? func.name : ""
+            tLabelColor: stepDelegate.labelColor
         }
         Rectangle { visible: showFunctionName; height: parent.height; width: 1; color: UISettings.fgMedium }
 
@@ -205,6 +186,7 @@ Rectangle
             width: col3Width
             height: parent.height
             label: stepFadeIn
+            labelColor: stepDelegate.labelColor
             fontSize: labelFontSize
             wrapText: true
             textHAlign: Text.AlignHCenter
@@ -217,6 +199,7 @@ Rectangle
             width: col4Width
             height: parent.height
             label: stepHold
+            labelColor: stepDelegate.labelColor
             fontSize: labelFontSize
             wrapText: true
             textHAlign: Text.AlignHCenter
@@ -229,6 +212,7 @@ Rectangle
             width: col5Width
             height: parent.height
             label: stepFadeOut
+            labelColor: stepDelegate.labelColor
             fontSize: labelFontSize
             wrapText: true
             textHAlign: Text.AlignHCenter
@@ -241,6 +225,7 @@ Rectangle
             width: col6Width
             height: parent.height
             label: stepDuration
+            labelColor: stepDelegate.labelColor
             fontSize: labelFontSize
             wrapText: true
             textHAlign: Text.AlignHCenter
@@ -253,6 +238,7 @@ Rectangle
             width: stepDelegate.width - x
             height: parent.height
             label: stepNote
+            labelColor: stepDelegate.labelColor
             fontSize: labelFontSize
         }
     }

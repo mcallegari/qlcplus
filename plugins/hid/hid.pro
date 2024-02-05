@@ -4,7 +4,7 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = hidplugin
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += widgets
 
 INCLUDEPATH += ../interfaces
 CONFIG      += plugin
@@ -12,7 +12,7 @@ CONFIG      += plugin
 unix:!macx:INCLUDEPATH += linux
 macx:INCLUDEPATH += macx
 
-win32:LIBS += -lsetupapi -lwinmm
+win32:LIBS += -lsetupapi -lwinmm -lhid
 macx:LIBS += -framework IOKit -framework CoreFoundation
 
 HEADERS += ../interfaces/qlcioplugin.h
@@ -47,8 +47,8 @@ unix:!macx {
     udev.files = linux/z65-fx5-hid.rules
     INSTALLS  += udev
 
-    metainfo.path   = $$INSTALLROOT/share/appdata/
-    metainfo.files += linux/qlcplus-hid.metainfo.xml
+    metainfo.path   = $$METAINFODIR
+    metainfo.files += linux/org.qlcplus.QLCPlus.hid.metainfo.xml
     INSTALLS       += metainfo
 }
 

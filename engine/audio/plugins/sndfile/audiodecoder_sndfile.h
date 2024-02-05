@@ -44,9 +44,7 @@ class AudioDecoderSndFile : public AudioDecoder
 {
     Q_OBJECT
     Q_INTERFACES(AudioDecoder)
-#if QT_VERSION > QT_VERSION_CHECK(5, 0, 0)
     Q_PLUGIN_METADATA(IID QLCPlusAudioPlugin_iid)
-#endif
 
 public:
     virtual ~AudioDecoderSndFile();

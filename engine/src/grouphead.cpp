@@ -35,6 +35,17 @@ GroupHead::~GroupHead()
 {
 }
 
+GroupHead &GroupHead::operator=(const GroupHead &grp)
+{
+    if (this != &grp)
+    {
+        fxi = grp.fxi;
+        head = grp.head;
+    }
+
+    return *this;
+}
+
 bool GroupHead::isValid() const
 {
     if (fxi != Fixture::invalidId() && head >= 0)

@@ -45,7 +45,7 @@ public:
     ~GroupsConsole();
 
     QList<ConsoleChannel*>groups();
-    
+
 private:
     Doc* m_doc;
     /** List of active ChannelsGroup IDs */

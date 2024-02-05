@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Massimo Callegari</Author>
  </Creator>
  <Manufacturer>Proel</Manufacturer>
@@ -22,7 +22,7 @@
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="199">No function</Capability>
-  <Capability Min="200" Max="210">Reset</Capability>
+  <Capability Min="200" Max="210" Preset="ResetAll">Reset</Capability>
   <Capability Min="211" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Colour Wheel">
@@ -48,7 +48,7 @@
   <Capability Min="54" Max="71">Gobo 3</Capability>
   <Capability Min="72" Max="89">Gobo 4</Capability>
   <Capability Min="90" Max="107">Gobo 5</Capability>
-  <Capability Min="108" Max="125">Gobo 6</Capability>
+  <Capability Min="108" Max="126">Gobo 6</Capability>
   <Capability Min="127" Max="191">Rainbow effect (Slow to fast)</Capability>
   <Capability Min="192" Max="192">Stop</Capability>
   <Capability Min="193" Max="255">Rainbow effect (Slow to fast)</Capability>
@@ -61,10 +61,10 @@
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="13">Blackout</Capability>
-  <Capability Min="14" Max="214">Strobe effect (Slow to fast)</Capability>
+  <Capability Min="0" Max="13" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="14" Max="214" Preset="StrobeSlowToFast">Strobe effect (Slow to fast)</Capability>
   <Capability Min="215" Max="249">Progressive strobe</Capability>
-  <Capability Min="250" Max="255">Blackout</Capability>
+  <Capability Min="250" Max="255" Preset="ShutterClose">Blackout</Capability>
  </Channel>
  <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>

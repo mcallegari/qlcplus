@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Edgar Aichinger</Author>
  </Creator>
  <Manufacturer>LDDE</Manufacturer>
@@ -16,9 +16,9 @@
  <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="25">No strobe</Capability>
-  <Capability Min="26" Max="228">Strobe speed</Capability>
-  <Capability Min="229" Max="255">No strobe</Capability>
+  <Capability Min="0" Max="25" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="26" Max="228" Preset="StrobeSlowToFast">Strobe speed</Capability>
+  <Capability Min="229" Max="255" Preset="ShutterOpen">No strobe</Capability>
  </Channel>
  <Mode Name="Spectra">
   <Channel Number="0">Dimmer</Channel>
@@ -28,11 +28,11 @@
   <Channel Number="4">White</Channel>
   <Channel Number="5">Strobe</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="8.6" Width="1488" Height="116" Depth="80"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical DmxConnector="Other" PowerConsumption="175"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="8.6" Width="1488" Height="116" Depth="80"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="175" DmxConnector="Other"/>
+ </Physical>
 </FixtureDefinition>

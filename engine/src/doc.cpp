@@ -26,10 +26,12 @@
 #include <QList>
 #include <QTime>
 #include <QDir>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+#include <QRandomGenerator>
+#endif
 
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
-#include "qlcfile.h"
 
 #include "monitorproperties.h"
 #include "audioplugincache.h"
@@ -42,9 +44,7 @@
 #include "sequence.h"
 #include "fixture.h"
 #include "chaser.h"
-#include "scene.h"
 #include "show.h"
-#include "efx.h"
 #include "doc.h"
 #include "bus.h"
 
@@ -56,8 +56,10 @@
  #else
   #include "audiocapture_alsa.h"
  #endif
+#elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+ #include "audiocapture_qt5.h"
 #else
- #include "audiocapture_qt.h"
+ #include "audiocapture_qt6.h"
 #endif
 
 Doc::Doc(QObject* parent, int universes)
@@ -79,12 +81,16 @@ Doc::Doc(QObject* parent, int universes)
     , m_latestFixtureId(0)
     , m_latestFixtureGroupId(0)
     , m_latestChannelsGroupId(0)
+    , m_latestPaletteId(0)
     , m_latestFunctionId(0)
     , m_startupFunctionId(Function::invalidId())
 {
     Bus::init(this);
     resetModified();
+#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
     qsrand(QTime::currentTime().msec());
+#endif
+    
 }
 
 Doc::~Doc()
@@ -134,7 +140,16 @@ void Doc::clearContents()
         delete func;
     }
 
-    // Delete all channels groups
+    // Delete all palettes
+    QListIterator <quint32> palIt(m_palettes.keys());
+    while (palIt.hasNext() == true)
+    {
+        QLCPalette *palette = m_palettes.take(palIt.next());
+        emit paletteRemoved(palette->id());
+        delete palette;
+    }
+
+    // Delete all channel groups
     QListIterator <quint32> grpchans(m_channelsGroups.keys());
     while (grpchans.hasNext() == true)
     {
@@ -170,6 +185,7 @@ void Doc::clearContents()
     m_latestFixtureId = 0;
     m_latestFixtureGroupId = 0;
     m_latestChannelsGroupId = 0;
+    m_latestPaletteId = 0;
     m_addresses.clear();
     m_loadStatus = Cleared;
 
@@ -269,8 +285,10 @@ QSharedPointer<AudioCapture> Doc::audioInputCapture()
 #else
             new AudioCaptureAlsa()
 #endif
+#elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+            new AudioCaptureQt6()
 #else
-            new AudioCaptureQt()
+            new AudioCaptureQt6()
 #endif
             );
     }
@@ -430,6 +448,7 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
     {
         for (i = inputOutputMap()->universesCount(); i <= uni; i++)
             inputOutputMap()->addUniverse(i);
+        inputOutputMap()->startUniverses();
     }
 
     // Add the fixture channels capabilities to the universe they belong
@@ -439,14 +458,14 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
     QList<int> forcedLTP = fixture->forcedLTPChannels();
     quint32 fxAddress = fixture->address();
 
-    for (i = 0 ; i < fixture->channels(); i++)
+    for (i = 0; i < fixture->channels(); i++)
     {
         const QLCChannel *channel(fixture->channel(i));
 
         // Inform Universe of any HTP/LTP forcing
-        if (forcedHTP.contains(i))
+        if (forcedHTP.contains(int(i)))
             universes.at(uni)->setChannelCapability(fxAddress + i, channel->group(), Universe::HTP);
-        else if (forcedLTP.contains(i))
+        else if (forcedLTP.contains(int(i)))
             universes.at(uni)->setChannelCapability(fxAddress + i, channel->group(), Universe::LTP);
         else
             universes.at(uni)->setChannelCapability(fxAddress + i, channel->group());
@@ -516,7 +535,7 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
     m_latestFixtureId = 0;
     m_addresses.clear();
 
-    foreach(Fixture *fixture, newFixturesList)
+    foreach (Fixture *fixture, newFixturesList)
     {
         quint32 id = fixture->id();
         // create a copy of the original cause remapping will
@@ -557,6 +576,9 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
         }
 
         newFixture->setExcludeFadeChannels(fixture->excludeFadeChannels());
+        newFixture->setForcedHTPChannels(fixture->forcedHTPChannels());
+        newFixture->setForcedLTPChannels(fixture->forcedLTPChannels());
+
         m_fixtures.insert(id, newFixture);
         m_fixturesListCacheUpToDate = false;
 
@@ -598,9 +620,9 @@ bool Doc::updateFixtureChannelCapabilities(quint32 id, QList<int> forcedHTP, QLi
         const QLCChannel *channel(fixture->channel(i));
 
         // Inform Universe of any HTP/LTP forcing
-        if (forcedHTP.contains(i))
+        if (forcedHTP.contains(int(i)))
             universe->setChannelCapability(fxAddress + i, channel->group(), Universe::HTP);
-        else if (forcedLTP.contains(i))
+        else if (forcedLTP.contains(int(i)))
             universe->setChannelCapability(fxAddress + i, channel->group(), Universe::LTP);
         else
             universe->setChannelCapability(fxAddress + i, channel->group());
@@ -889,6 +911,79 @@ quint32 Doc::createChannelsGroupId()
     return m_latestChannelsGroupId;
 }
 
+/*********************************************************************
+ * Palettes
+ *********************************************************************/
+
+bool Doc::addPalette(QLCPalette *palette, quint32 id)
+{
+    Q_ASSERT(palette != NULL);
+
+    // No ID given, this method can assign one
+    if (id == QLCPalette::invalidId())
+        id = createPaletteId();
+
+    if (m_palettes.contains(id) == true || id == QLCPalette::invalidId())
+    {
+        qWarning() << Q_FUNC_INFO << "a palette with ID" << id << "already exists!";
+        return false;
+    }
+    else
+    {
+        palette->setID(id);
+        m_palettes[id] = palette;
+
+        emit paletteAdded(id);
+        setModified();
+    }
+
+    return true;
+}
+
+bool Doc::deletePalette(quint32 id)
+{
+    if (m_palettes.contains(id) == true)
+    {
+        QLCPalette *palette = m_palettes.take(id);
+        Q_ASSERT(palette != NULL);
+
+        emit paletteRemoved(id);
+        setModified();
+        delete palette;
+
+        return true;
+    }
+    else
+    {
+        qWarning() << Q_FUNC_INFO << "No palette with id" << id;
+        return false;
+    }
+}
+
+QLCPalette *Doc::palette(quint32 id) const
+{
+    if (m_palettes.contains(id) == true)
+        return m_palettes[id];
+    else
+        return NULL;
+}
+
+QList<QLCPalette *> Doc::palettes() const
+{
+    return m_palettes.values();
+}
+
+quint32 Doc::createPaletteId()
+{
+    while (m_palettes.contains(m_latestPaletteId) == true ||
+           m_latestPaletteId == FixtureGroup::invalidId())
+    {
+        m_latestPaletteId++;
+    }
+
+    return m_latestPaletteId;
+}
+
 /*****************************************************************************
  * Functions
  *****************************************************************************/
@@ -951,12 +1046,22 @@ QList <Function*> Doc::functions() const
 QList<Function *> Doc::functionsByType(Function::Type type) const
 {
     QList <Function*> list;
-    foreach(Function *f, m_functions)
+    foreach (Function *f, m_functions)
     {
         if (f != NULL && f->type() == type)
             list.append(f);
     }
     return list;
+}
+
+Function *Doc::functionByName(QString name)
+{
+    foreach (Function *f, m_functions)
+    {
+        if (f != NULL && f->name() == name)
+            return f;
+    }
+    return NULL;
 }
 
 bool Doc::deleteFunction(quint32 id)
@@ -1067,6 +1172,10 @@ QList<quint32> Doc::getUsage(quint32 fid)
                 {
                     if (l.at(i) == fid)
                     {
+                        if (i + 1 >= l.count()) {
+                            qDebug() << "Doc::getUsage: Index entry missing on " << f->name();
+                            break;
+                        }
                         usageList.append(s->id());
                         usageList.append(l.at(i + 1)); // line number
                     }
@@ -1078,7 +1187,7 @@ QList<quint32> Doc::getUsage(quint32 fid)
                 Show *s = qobject_cast<Show *>(f);
                 foreach (Track *t, s->tracks())
                 {
-                    foreach(ShowFunction *sf, t->showFunctions())
+                    foreach (ShowFunction *sf, t->showFunctions())
                     {
                         if (sf->functionID() == fid)
                         {
@@ -1125,7 +1234,7 @@ MonitorProperties *Doc::monitorProperties()
  * Load & Save
  *****************************************************************************/
 
-bool Doc::loadXML(QXmlStreamReader &doc)
+bool Doc::loadXML(QXmlStreamReader &doc, bool loadIO)
 {
     clearErrorLog();
 
@@ -1160,6 +1269,11 @@ bool Doc::loadXML(QXmlStreamReader &doc)
         {
             ChannelsGroup::loader(doc, this);
         }
+        else if (doc.name() == KXMLQLCPalette)
+        {
+            QLCPalette::loader(doc, this);
+            doc.skipCurrentElement();
+        }
         else if (doc.name() == KXMLQLCFunction)
         {
             //qDebug() << doc.attributes().value("Name").toString();
@@ -1170,7 +1284,7 @@ bool Doc::loadXML(QXmlStreamReader &doc)
             /* LEGACY */
             Bus::instance()->loadXML(doc);
         }
-        else if (doc.name() == KXMLIOMap)
+        else if (doc.name() == KXMLIOMap && loadIO)
         {
             m_ioMap->loadXML(doc);
         }
@@ -1199,10 +1313,9 @@ bool Doc::saveXML(QXmlStreamWriter *doc)
 
     /* Create the master Engine node */
     doc->writeStartElement(KXMLQLCEngine);
+
     if (startupFunction() != Function::invalidId())
-    {
         doc->writeAttribute(KXMLQLCStartupFunction, QString::number(startupFunction()));
-    }
 
     m_ioMap->saveXML(doc);
 
@@ -1210,7 +1323,7 @@ bool Doc::saveXML(QXmlStreamWriter *doc)
     QListIterator <Fixture*> fxit(fixtures());
     while (fxit.hasNext() == true)
     {
-        Fixture* fxi(fxit.next());
+        Fixture *fxi(fxit.next());
         Q_ASSERT(fxi != NULL);
         fxi->saveXML(doc);
     }
@@ -1219,7 +1332,7 @@ bool Doc::saveXML(QXmlStreamWriter *doc)
     QListIterator <FixtureGroup*> grpit(fixtureGroups());
     while (grpit.hasNext() == true)
     {
-        FixtureGroup* grp(grpit.next());
+        FixtureGroup *grp(grpit.next());
         Q_ASSERT(grp != NULL);
         grp->saveXML(doc);
     }
@@ -1228,16 +1341,25 @@ bool Doc::saveXML(QXmlStreamWriter *doc)
     QListIterator <ChannelsGroup*> chanGroups(channelsGroups());
     while (chanGroups.hasNext() == true)
     {
-        ChannelsGroup* grp(chanGroups.next());
+        ChannelsGroup *grp(chanGroups.next());
         Q_ASSERT(grp != NULL);
         grp->saveXML(doc);
+    }
+
+    /* Write palettes into an XML document */
+    QListIterator <QLCPalette*> paletteIt(palettes());
+    while (paletteIt.hasNext() == true)
+    {
+        QLCPalette *palette(paletteIt.next());
+        Q_ASSERT(palette != NULL);
+        palette->saveXML(doc);
     }
 
     /* Write functions into an XML document */
     QListIterator <Function*> funcit(functions());
     while (funcit.hasNext() == true)
     {
-        Function* func(funcit.next());
+        Function *func(funcit.next());
         Q_ASSERT(func != NULL);
         func->saveXML(doc);
     }

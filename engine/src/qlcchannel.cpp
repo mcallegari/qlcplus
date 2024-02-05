@@ -148,12 +148,16 @@ QLCChannel::Preset QLCChannel::preset() const
     return m_preset;
 }
 
+/* please see
+https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets
+when changing this function */
 void QLCChannel::setPreset(QLCChannel::Preset preset)
 {
     if (preset == m_preset)
         return;
 
     m_preset = preset;
+    emit presetChanged();
 
     if (preset == Custom)
         return;
@@ -318,10 +322,6 @@ void QLCChannel::setPreset(QLCChannel::Preset preset)
             grp = Pan;
             prname = KXMLQLCChannelGroupPan;
         break;
-        case PositionPanCounterClockwise:
-            grp = Pan;
-            prname = KXMLQLCChannelGroupPan + " counterclockwise";
-        break;
         case PositionPanFine:
             grp = Pan;
             prname = KXMLQLCChannelGroupPan + " fine";
@@ -349,7 +349,6 @@ void QLCChannel::setPreset(QLCChannel::Preset preset)
             grp = Speed;
             prname = "Pan speed";
         break;
-
         case SpeedTiltSlowFast:
         case SpeedTiltFastSlow:
             grp = Speed;
@@ -381,6 +380,10 @@ void QLCChannel::setPreset(QLCChannel::Preset preset)
             grp = Colour;
             prname = "CTO mixer";
         break;
+        case ColorCTCMixer:
+            grp = Colour;
+            prname = "CTC mixer";
+        break;
         case ColorCTBMixer:
             grp = Colour;
             prname = "CTB mixer";
@@ -408,24 +411,35 @@ void QLCChannel::setPreset(QLCChannel::Preset preset)
             grp = Shutter;
             prname = "Strobe";
         break;
+        case ShutterIrisMinToMax:
+        case ShutterIrisMaxToMin:
+            grp = Shutter;
+            prname = "Iris";
+        break;
+        case ShutterIrisFine:
+            grp = Shutter;
+            prname = "Iris fine";
+            cb = LSB;
+        break;
         case BeamFocusNearFar:
         case BeamFocusFarNear:
             grp = Beam;
-            prname = KXMLQLCChannelGroupBeam;
+            prname = "Focus";
         break;
-        case BeamIris:
+        case BeamFocusFine:
             grp = Beam;
-            prname = "Iris";
-        break;
-        case BeamIrisFine:
-            grp = Beam;
-            prname = "Iris";
+            prname = "Focus fine";
             cb = LSB;
         break;
         case BeamZoomSmallBig:
         case BeamZoomBigSmall:
             grp = Beam;
             prname = "Zoom";
+        break;
+        case BeamZoomFine:
+            grp = Beam;
+            prname = "Zoom fine";
+            cb = LSB;
         break;
         case PrismRotationFastSlow:
         case PrismRotationSlowFast:
@@ -447,6 +461,9 @@ void QLCChannel::setPreset(QLCChannel::Preset preset)
     setControlByte(cb);
 }
 
+/* please see
+https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets
+when changing this function */
 QLCCapability *QLCChannel::addPresetCapability()
 {
     QLCCapability *cap = new QLCCapability();
@@ -491,7 +508,6 @@ QLCCapability *QLCChannel::addPresetCapability()
         case IntensityLightnessFine:
         case IntensityValueFine:
         case PositionPan:
-        case PositionPanCounterClockwise:
         case PositionPanFine:
         case PositionTilt:
         case PositionTiltFine:
@@ -500,31 +516,33 @@ QLCCapability *QLCChannel::addPresetCapability()
         case ColorWheelFine:
         case ColorRGBMixer:
         case ColorCTOMixer:
+        case ColorCTCMixer:
         case ColorCTBMixer:
         case GoboWheelFine:
         case GoboIndexFine:
-        case BeamIris:
-        case BeamIrisFine:
+        case ShutterIrisFine:
+        case BeamFocusFine:
+        case BeamZoomFine:
         case NoFunction:
             cap->setName(name());
         break;
         case SpeedPanSlowFast:
-            cap->setName("Pan (Slow to fast)"); // TODO: replace with a preset
+            cap->setName("Pan (Slow to fast)");
         break;
         case SpeedPanFastSlow:
-            cap->setName("Pan (Fast to slow)"); // TODO: replace with a preset
+            cap->setName("Pan (Fast to slow)");
         break;
         case SpeedTiltSlowFast:
-            cap->setName("Tilt (Slow to fast)"); // TODO: replace with a preset
+            cap->setName("Tilt (Slow to fast)");
         break;
         case SpeedTiltFastSlow:
-            cap->setName("Tilt (Fast to slow)"); // TODO: replace with a preset
+            cap->setName("Tilt (Fast to slow)");
         break;
         case SpeedPanTiltSlowFast:
-            cap->setName("Pan and tilt (Slow to fast)"); // TODO: replace with a preset
+            cap->setName("Pan and tilt (Slow to fast)");
         break;
         case SpeedPanTiltFastSlow:
-            cap->setName("Pan and tilt (Fast to slow)"); // TODO: replace with a preset
+            cap->setName("Pan and tilt (Fast to slow)");
         break;
         case ColorMacro:
         case ColorWheel:
@@ -533,28 +551,34 @@ QLCCapability *QLCChannel::addPresetCapability()
             cap->setName(name() + " presets");
         break;
         case ShutterStrobeSlowFast:
-            cap->setName("Strobe (Slow to fast)"); // TODO: replace with a preset
+            cap->setName("Strobe (Slow to fast)");
         break;
         case ShutterStrobeFastSlow:
-            cap->setName("Strobe (Fast to slow)"); // TODO: replace with a preset
+            cap->setName("Strobe (Fast to slow)");
+        break;
+        case ShutterIrisMinToMax:
+            cap->setName("Iris (Minimum to maximum)");
+        break;
+        case ShutterIrisMaxToMin:
+            cap->setName("Iris (Maximum to minimum)");
         break;
         case BeamFocusNearFar:
-            cap->setName("Beam (Near to far)"); // TODO: replace with a preset
+            cap->setName("Beam (Near to far)");
         break;
         case BeamFocusFarNear:
-            cap->setName("Beam (Far to near)"); // TODO: replace with a preset
+            cap->setName("Beam (Far to near)");
         break;
         case BeamZoomSmallBig:
-            cap->setName("Zoom (Small to big)"); // TODO: replace with a preset
+            cap->setName("Zoom (Small to big)");
         break;
         case BeamZoomBigSmall:
-            cap->setName("Zoom (Big to small)"); // TODO: replace with a preset
+            cap->setName("Zoom (Big to small)");
         break;
         case PrismRotationSlowFast:
-            cap->setName("Prism rotation (Slow to fast)"); // TODO: replace with a preset
+            cap->setName("Prism rotation (Slow to fast)");
         break;
         case PrismRotationFastSlow:
-            cap->setName("Prism rotation (Fast to slow)"); // TODO: replace with a preset
+            cap->setName("Prism rotation (Fast to slow)");
         break;
         default:
         break;
@@ -651,9 +675,18 @@ QLCChannel::Group QLCChannel::stringToGroup(const QString& str)
         return NoGroup;
 }
 
+QString QLCChannel::groupString() const
+{
+    return groupToString(m_group);
+}
+
 void QLCChannel::setGroup(Group grp)
 {
+    if (grp == m_group)
+        return;
+
     m_group = grp;
+    emit groupChanged();
 }
 
 QLCChannel::Group QLCChannel::group() const
@@ -688,7 +721,7 @@ QIcon QLCChannel::getIntensityIcon() const
         pm = drawIntensity(Qt::red, "R");
     else if (m_colour == QLCChannel::Green)
         pm = drawIntensity(Qt::green, "G");
-    else if (m_colour == QLCChannel::Blue) 
+    else if (m_colour == QLCChannel::Blue)
         pm = drawIntensity(Qt::blue, "B");
     else if (m_colour == QLCChannel::Cyan)
         pm = drawIntensity(Qt::cyan, "C");
@@ -798,7 +831,11 @@ QString QLCChannel::name() const
 
 void QLCChannel::setName(const QString &name)
 {
+    if (name == m_name)
+        return;
+
     m_name = name;
+    emit nameChanged();
 }
 
 uchar QLCChannel::defaultValue() const
@@ -808,17 +845,25 @@ uchar QLCChannel::defaultValue() const
 
 void QLCChannel::setDefaultValue(uchar value)
 {
-    m_defaultValue = value;
-}
+    if (value == m_defaultValue)
+        return;
 
-void QLCChannel::setControlByte(ControlByte byte)
-{
-    m_controlByte = byte;
+    m_defaultValue = value;
+    emit defaultValueChanged();
 }
 
 QLCChannel::ControlByte QLCChannel::controlByte() const
 {
     return m_controlByte;
+}
+
+void QLCChannel::setControlByte(ControlByte byte)
+{
+    if (byte == m_controlByte)
+        return;
+
+    m_controlByte = byte;
+    emit controlByteChanged();
 }
 
 /*****************************************************************************
@@ -905,7 +950,12 @@ QLCChannel::PrimaryColour QLCChannel::stringToColour(const QString& str)
 
 void QLCChannel::setColour(QLCChannel::PrimaryColour colour)
 {
+    if (colour == m_colour)
+        return;
+
     m_colour = colour;
+
+    emit colourChanged();
 }
 
 QLCChannel::PrimaryColour QLCChannel::colour() const
@@ -1018,7 +1068,7 @@ static bool capsort(const QLCCapability* cap1, const QLCCapability* cap2)
 
 void QLCChannel::sortCapabilities()
 {
-    qSort(m_capabilities.begin(), m_capabilities.end(), capsort);
+    std::sort(m_capabilities.begin(), m_capabilities.end(), capsort);
 }
 
 /*****************************************************************************

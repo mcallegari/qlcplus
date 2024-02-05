@@ -32,9 +32,9 @@ class QXmlStreamReader;
  * @{
  */
 
-#define KXMLQLCSceneValue "Value"
-#define KXMLQLCSceneValueFixture "Fixture"
-#define KXMLQLCSceneValueChannel "Channel"
+#define KXMLQLCSceneValue        QString("Value")
+#define KXMLQLCSceneValueFixture QString("Fixture")
+#define KXMLQLCSceneValueChannel QString("Channel")
 
 /**
  * SceneValue is a helper class used to store individual channel TARGET values
@@ -65,7 +65,7 @@ public:
     /** Copy constructor */
     SceneValue(const SceneValue& scv);
 
-    /** NON-virtual Destructor 
+    /** NON-virtual Destructor
      *
      *  No class derives from this one and we need to keep the memory footprint
      *  as low as possible.
@@ -76,6 +76,8 @@ public:
 
     /** A SceneValue is not valid if .fxi == Fixture::invalidId() */
     bool isValid() const;
+
+    SceneValue& operator=(const SceneValue& scv);
 
     /** Comparator function for qSort() */
     bool operator< (const SceneValue& scv) const;

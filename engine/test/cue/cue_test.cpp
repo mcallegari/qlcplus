@@ -139,7 +139,7 @@ void Cue_Test::save()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Value")
+        if (xmlReader.name().toString() == "Value")
         {
             value++;
             QString ch = xmlReader.attributes().value("Channel").toString();
@@ -154,7 +154,7 @@ void Cue_Test::save()
             else
                 QFAIL(QString("Unexpected channel in value tag: %1").arg(ch).toUtf8().constData());
         }
-        else if (xmlReader.name() == "Speed")
+        else if (xmlReader.name().toString() == "Speed")
         {
             speed++;
             QCOMPARE(xmlReader.attributes().value("FadeIn").toString().toInt(), 10);

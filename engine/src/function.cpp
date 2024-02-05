@@ -26,7 +26,6 @@
 #include <math.h>
 
 #include "qlcmacros.h"
-#include "qlcfile.h"
 
 #include "scriptwrapper.h"
 #include "mastertimer.h"
@@ -36,9 +35,7 @@
 #include "sequence.h"
 #include "chaser.h"
 #include "audio.h"
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include "video.h"
-#endif
 #include "scene.h"
 #include "show.h"
 #include "efx.h"
@@ -55,9 +52,7 @@ const QString KRGBMatrixString  (  "RGBMatrix" );
 const QString KShowString       (       "Show" );
 const QString KSequenceString   (   "Sequence" );
 const QString KAudioString      (      "Audio" );
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 const QString KVideoString      (      "Video" );
-#endif
 const QString KUndefinedString  (  "Undefined" );
 
 const QString KLoopString       (       "Loop" );
@@ -99,6 +94,7 @@ Function::Function(QObject *parent)
     , m_running(false)
     , m_paused(false)
     , m_lastOverrideAttributeId(OVERRIDE_ATTRIBUTE_START_ID)
+    , m_preserveAttributes(false)
     , m_blendMode(Universe::NormalBlend)
 {
 
@@ -128,6 +124,7 @@ Function::Function(Doc* doc, Type t)
     , m_running(false)
     , m_paused(false)
     , m_lastOverrideAttributeId(OVERRIDE_ATTRIBUTE_START_ID)
+    , m_preserveAttributes(false)
     , m_blendMode(Universe::NormalBlend)
 {
     Q_ASSERT(doc != NULL);
@@ -254,9 +251,7 @@ QString Function::typeToString(Type type)
         case ShowType:       return KShowString;
         case SequenceType:   return KSequenceString;
         case AudioType:      return KAudioString;
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
         case VideoType:      return KVideoString;
-#endif
         case Undefined:
         default:
             return KUndefinedString;
@@ -283,10 +278,8 @@ Function::Type Function::stringToType(const QString& string)
         return SequenceType;
     else if (string == KAudioString)
         return AudioType;
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     else if (string == KVideoString)
         return VideoType;
-#endif
     else
         return Undefined;
 }
@@ -360,6 +353,7 @@ void Function::setRunOrder(const Function::RunOrder& order)
         m_runOrder = order;
     else
         m_runOrder = Loop;
+    emit runOrderChanged();
     emit changed(m_id);
 }
 
@@ -526,6 +520,7 @@ void Function::setTempoType(const Function::TempoType &type)
     }
 
     emit changed(m_id);
+    emit tempoTypeChanged();
 }
 
 Function::TempoType Function::tempoType() const
@@ -913,10 +908,8 @@ bool Function::loader(QXmlStreamReader &root, Doc* doc)
         function = new class Sequence(doc);
     else if (type == Function::AudioType)
         function = new class Audio(doc);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     else if (type == Function::VideoType)
         function = new class Video(doc);
-#endif
     else
         return false;
 
@@ -966,19 +959,27 @@ QList<quint32> Function::components()
  * Flash
  *****************************************************************************/
 
-void Function::flash(MasterTimer* timer)
+void Function::flash(MasterTimer *timer, bool shouldOverride, bool forceLTP)
 {
     Q_UNUSED(timer);
+    Q_UNUSED(shouldOverride);
+    Q_UNUSED(forceLTP);
+
     if (m_flashing == false)
+    {
         emit flashing(m_id, true);
+    }
+
     m_flashing = true;
 }
 
-void Function::unFlash(MasterTimer* timer)
+void Function::unFlash(MasterTimer *timer)
 {
     Q_UNUSED(timer);
+
     if (m_flashing == true)
         emit flashing(m_id, false);
+
     m_flashing = false;
 }
 
@@ -991,11 +992,11 @@ bool Function::flashing() const
  * Running
  *****************************************************************************/
 
-void Function::preRun(MasterTimer* timer)
+void Function::preRun(MasterTimer *timer)
 {
     Q_UNUSED(timer);
 
-    qDebug() << "Function preRun. Name:" << m_name << "ID: " << m_id;
+    qDebug() << "Function preRun. Name:" << m_name << "ID:" << m_id << "type:" << typeToString(type());
     m_running = true;
 
     emit running(m_id);
@@ -1007,7 +1008,7 @@ void Function::write(MasterTimer *timer, QList<Universe *> universes)
     Q_UNUSED(universes);
 }
 
-void Function::postRun(MasterTimer* timer, QList<Universe *> universes)
+void Function::postRun(MasterTimer *timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
     Q_UNUSED(universes);
@@ -1018,13 +1019,29 @@ void Function::postRun(MasterTimer* timer, QList<Universe *> universes)
         QMutexLocker locker(&m_stopMutex);
 
         resetElapsed();
-        resetAttributes();
+        if (m_preserveAttributes == false)
+            resetAttributes();
 
         m_functionStopped.wakeAll();
     }
 
+    m_paused = false;
     m_running = false;
     emit stopped(m_id);
+}
+
+void Function::dismissAllFaders()
+{
+    QMapIterator <quint32, QSharedPointer<GenericFader> > it(m_fadersMap);
+    while (it.hasNext() == true)
+    {
+        it.next();
+        QSharedPointer<GenericFader> fader = it.value();
+        if (!fader.isNull())
+            fader->requestDelete();
+    }
+
+    m_fadersMap.clear();
 }
 
 bool Function::isRunning() const
@@ -1127,7 +1144,7 @@ void Function::setPause(bool enable)
     m_paused = enable;
 }
 
-void Function::stop(FunctionParent source)
+void Function::stop(FunctionParent source, bool preserveAttributes)
 {
     qDebug() << "Function stop(). Name:" << m_name << "ID: " << m_id << "source:" << source.type() << source.id();
 
@@ -1146,8 +1163,8 @@ void Function::stop(FunctionParent source)
 
     if (m_sources.size() == 0)
     {
-        m_paused = false;
         m_stop = true;
+        m_preserveAttributes = preserveAttributes;
     }
 }
 
@@ -1254,7 +1271,7 @@ int Function::requestAttributeOverride(int attributeIndex, qreal value)
         attributeID = m_lastOverrideAttributeId;
         m_overrideMap[attributeID] = override;
 
-        qDebug() << name() << "Override requested for attribute" << attributeIndex << "value" << value << "new ID" << attributeID;
+        qDebug() << name() << "Override requested for new attribute" << attributeIndex << "value" << value << "new ID" << attributeID;
 
         calculateOverrideValue(attributeIndex);
 
@@ -1262,7 +1279,7 @@ int Function::requestAttributeOverride(int attributeIndex, qreal value)
     }
     else
     {
-        qDebug() << name() << "Override requested for attribute" << attributeIndex << "value" << value << "single ID" << attributeID;
+        qDebug() << name() << "Override requested for existing attribute" << attributeIndex << "value" << value << "single ID" << attributeID;
     }
 
     // actually apply the new override value
@@ -1321,13 +1338,13 @@ int Function::adjustAttribute(qreal value, int attributeId)
         if (attributeId >= m_attributes.count() || m_attributes[attributeId].m_value == value)
             return -1;
 
-        // Adjust the original value of an attribute. Only Function editors should do this !
+        // Adjust the original value of an attribute. Only Function editors should do this!
         m_attributes[attributeId].m_value = CLAMP(value, m_attributes[attributeId].m_min, m_attributes[attributeId].m_max);
         attrIndex = attributeId;
     }
     else
     {
-        if (m_overrideMap.contains(attributeId) == false || m_overrideMap[attributeId].m_value == value)
+        if (m_overrideMap.contains(attributeId) == false)
             return -1;
 
         // Adjust an attribute override value and recalculate the final overridden value
@@ -1369,7 +1386,7 @@ int Function::getAttributeIndex(QString name) const
     for (int i = 0; i < m_attributes.count(); i++)
     {
         Attribute attr = m_attributes.at(i);
-        if(attr.m_name == name)
+        if (attr.m_name == name)
             return i;
     }
     return -1;

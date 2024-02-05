@@ -34,7 +34,7 @@ AudioParameters::AudioParameters()
 
 AudioParameters::AudioParameters(const AudioParameters &other)
     : m_srate(other.sampleRate())
-    , m_chan( other.channels())
+    , m_chan(other.channels())
     , m_format(other.format())
 {
 }
@@ -87,14 +87,14 @@ int AudioParameters::sampleSize(AudioFormat format)
 {
     switch(format)
     {
-    case PCM_S8:
-        return 1;
-    case PCM_S16LE:
-    case PCM_UNKNOWN:
-        return 2;
-    case PCM_S24LE:
-    case PCM_S32LE:
-        return 4;
+        case PCM_S8:
+            return 1;
+        case PCM_S16LE:
+        case PCM_UNKNOWN:
+            return 2;
+        case PCM_S24LE:
+        case PCM_S32LE:
+            return 4;
     }
     return 2;
 }

@@ -30,7 +30,6 @@ Entity
     objectName: "sceneRootEntity"
 
     property size viewSize
-    readonly property Camera camera: camera
     readonly property Layer deferredLayer: Layer { objectName: "sceneDeferredLayer" }
     readonly property Layer selectionLayer: Layer { objectName: "selectionLayer" }
     readonly property GeometryRenderer selectionMesh: SelectionGeometry { }
@@ -43,25 +42,11 @@ Entity
         ConeMesh
         {
             length: 1.0
-        
+
             bottomRadius: 1.0
-            topRadius: 1.0      
-        
+            topRadius: 1.0
+
             rings: 2
             slices: 60
         }
-
-    // Global elements
-    Camera
-    {
-        id: camera
-        projectionType: CameraLens.PerspectiveProjection
-        fieldOfView: 45
-        aspectRatio: viewSize.width / viewSize.height
-        nearPlane : 1.0
-        farPlane : 1000.0
-        position: Qt.vector3d(0.0, 3.0, 7.5)
-        upVector: Qt.vector3d(0.0, 1.0, 0.0)
-        viewCenter: Qt.vector3d(0.0, 1.0, 0.0)
-    }
 }

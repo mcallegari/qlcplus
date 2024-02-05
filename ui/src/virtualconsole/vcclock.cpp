@@ -23,26 +23,23 @@
 #include <QStyle>
 #include <QtGui>
 
-#include "qlcfile.h"
-
 #include "vcclockproperties.h"
-#include "virtualconsole.h"
 #include "vcclock.h"
 #include "doc.h"
 
 #define HYSTERESIS 3 // Hysteresis for pause/reset external input
 
-#define KXMLQLCVCClockType "Type"
-#define KXMLQLCVCClockHours "Hours"
-#define KXMLQLCVCClockMinutes "Minutes"
-#define KXMLQLCVCClockSeconds "Seconds"
+#define KXMLQLCVCClockType      QString("Type")
+#define KXMLQLCVCClockHours     QString("Hours")
+#define KXMLQLCVCClockMinutes   QString("Minutes")
+#define KXMLQLCVCClockSeconds   QString("Seconds")
 
-#define KXMLQLCVCClockSchedule "Schedule"
-#define KXMLQLCVCClockScheduleFunc "Function"
-#define KXMLQLCVCClockScheduleTime "Time"
+#define KXMLQLCVCClockSchedule      QString("Schedule")
+#define KXMLQLCVCClockScheduleFunc  QString("Function")
+#define KXMLQLCVCClockScheduleTime  QString("Time")
 
-#define KXMLQLCVCClockPlay "PlayPause"
-#define KXMLQLCVCClockReset "Reset"
+#define KXMLQLCVCClockPlay  QString("PlayPause")
+#define KXMLQLCVCClockReset QString("Reset")
 
 const quint8 VCClock::playInputSourceId = 0;
 const quint8 VCClock::resetInputSourceId = 1;
@@ -84,10 +81,14 @@ void VCClock::slotModeChanged(Doc::Mode mode)
 
     if (mode == Doc::Operate)
     {
+        m_scheduleIndex = -1;
+
         if (m_scheduleList.count() > 0)
         {
             QTime currTime = QDateTime::currentDateTime().time();
-            for(int i = 0; i < m_scheduleList.count(); i++)
+
+            // find the index of the next scheduled event to run
+            for (int i = 0; i < m_scheduleList.count(); i++)
             {
                 VCClockSchedule sch = m_scheduleList.at(i);
                 if (sch.time().time() >= currTime)
@@ -97,6 +98,10 @@ void VCClock::slotModeChanged(Doc::Mode mode)
                     break;
                 }
             }
+            // if no event is found after the current time, it means the next schedule 
+            // will happen the day after so it's the first in the list
+            if (m_scheduleIndex == -1)
+                m_scheduleIndex = 0;
         }
     }
     VCWidget::slotModeChanged(mode);
@@ -143,7 +148,7 @@ void VCClock::addSchedule(VCClockSchedule schedule)
     qDebug() << Q_FUNC_INFO << "--- ID:" << schedule.function() << ", time:" << schedule.time().time().toString();
     if (schedule.function() != Function::invalidId())
         m_scheduleList.append(schedule);
-    qSort(m_scheduleList);
+    std::sort(m_scheduleList.begin(), m_scheduleList.end());
 }
 
 void VCClock::removeSchedule(int index)
@@ -188,6 +193,8 @@ void VCClock::slotUpdateTime()
                 m_currentTime++;
             else if (m_clocktype == Countdown && m_currentTime > 0)
                 m_currentTime--;
+
+            emit timeChanged(m_currentTime);
         }
         else
         {
@@ -219,18 +226,20 @@ void VCClock::slotUpdateTime()
     update();
 }
 
-void VCClock::slotResetTimer()
+void VCClock::resetTimer()
 {
     if (clockType() == Stopwatch)
         m_currentTime = 0;
     else if (clockType() == Countdown)
         m_currentTime = m_targetTime;
 
+    emit timeChanged(m_currentTime);
+
     updateFeedback();
     update();
 }
 
-void VCClock::slotPlayPauseTimer()
+void VCClock::playPauseTimer()
 {
     if (clockType() == Stopwatch || clockType() == Countdown)
         m_isPaused = !m_isPaused;
@@ -269,9 +278,9 @@ void VCClock::slotKeyPressed(const QKeySequence& keySequence)
         return;
 
     if (m_playKeySequence == keySequence)
-        slotPlayPauseTimer();
+        playPauseTimer();
     else if (m_resetKeySequence == keySequence)
-        slotResetTimer();
+        resetTimer();
 }
 
 void VCClock::updateFeedback()
@@ -313,7 +322,7 @@ void VCClock::slotInputValueChanged(quint32 universe, quint32 channel, uchar val
         // above $HYSTERESIS before a zero is accepted again.
         if (m_playLatestValue == 0 && value > 0)
         {
-            slotPlayPauseTimer();
+            playPauseTimer();
             m_playLatestValue = value;
         }
         else if (m_playLatestValue > HYSTERESIS && value == 0)
@@ -332,7 +341,7 @@ void VCClock::slotInputValueChanged(quint32 universe, quint32 channel, uchar val
         // above $HYSTERESIS before a zero is accepted again.
         if (m_resetLatestValue == 0 && value > 0)
         {
-            slotResetTimer();
+            resetTimer();
             m_resetLatestValue = value;
         }
         else if (m_resetLatestValue > HYSTERESIS && value == 0)
@@ -494,7 +503,7 @@ bool VCClock::saveXML(QXmlStreamWriter *doc)
     /* Appearance */
     saveXMLAppearance(doc);
 
-    foreach(VCClockSchedule sch, schedules())
+    foreach (VCClockSchedule sch, schedules())
         sch.saveXML(doc);
 
     if (type != Clock)
@@ -563,11 +572,11 @@ void VCClock::mousePressEvent(QMouseEvent *e)
 
     if (e->button() == Qt::RightButton)
     {
-        slotResetTimer();
+        resetTimer();
     }
     else if (e->button() == Qt::LeftButton)
     {
-        slotPlayPauseTimer();
+        playPauseTimer();
     }
     VCWidget::mousePressEvent(e);
 }

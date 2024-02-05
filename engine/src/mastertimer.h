@@ -73,6 +73,9 @@ public:
     /** Get the length of one timer tick in milliseconds */
     static uint tick();
 
+signals:
+    void tickReady();
+
 private:
     /** Execute one timer tick (called by MasterTimerPrivate) */
     void timerTick();
@@ -111,6 +114,9 @@ signals:
     /** Emitted when a Function is started */
     void functionStarted(quint32 id);
 
+    /** Emitted when a Function has just been stopped */
+    void functionStopped(quint32 id);
+
 private:
     /** Execute one timer tick for each registered Function */
     void timerTickFunctions(QList<Universe *> universes);
@@ -137,7 +143,7 @@ public:
      *
      * @param source The DMXSource to register
      */
-    virtual void registerDMXSource(DMXSource* source);
+    virtual void registerDMXSource(DMXSource *source);
 
     /**
      * Unregister a previously registered DMXSource. This should be called
@@ -145,14 +151,7 @@ public:
      *
      * @param source The DMXSource to unregister
      */
-    virtual void unregisterDMXSource(DMXSource* source);
-
-    /**
-     * Request a higher priority for a specific DMXSource.
-     * This means the source will be placed at the end of the registered
-     * sources list, but always before the Simple Desk
-     */
-    virtual void requestNewPriority(DMXSource* source);
+    virtual void unregisterDMXSource(DMXSource *source);
 
 private:
     /** Execute one timer tick for each registered DMXSource */
@@ -162,37 +161,16 @@ private:
     /** List of currently registered DMX sources */
     QList <DMXSource*> m_dmxSourceList;
 
-    /** Mutex that guards access to m_dmxSourceList 
+    /** Mutex that guards access to m_dmxSourceList
      *
      * In case both m_functionListMutex and m_dmxSourceListMutex are needed,
      * always lock m_functionListMutex first!
      */
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     QMutex m_dmxSourceListMutex;
-
-    /*************************************************************************
-     * Generic Fader
-     *************************************************************************/
-private:
-    /**
-     * Get a pointer to the MasterTimer's GenericFader. The pointer must not be
-     * deleted. The fader can be used e.g. by Scene functions to gracefully fade
-     * down such intensity (HTP) channels that are no longer in use.
-     */
-    GenericFader* fader() const;
-public:
-    void faderAdd(const FadeChannel& ch);
-    void faderForceAdd(const FadeChannel& ch);
-    QHash<FadeChannel,FadeChannel> faderChannels() const;
-    QHash<FadeChannel,FadeChannel> const& faderChannelsRef() const;
-    QMutex* faderMutex() const;
-
-private:
-    /** Execute one timer tick for the GenericFader */
-    void timerTickFader(QList<Universe *> universes);
-
-private:
-    QMutex m_faderMutex;
-    GenericFader* m_fader;
+#else
+    QRecursiveMutex m_dmxSourceListMutex;
+#endif
 
     /*************************************************************************
      * Beats generation

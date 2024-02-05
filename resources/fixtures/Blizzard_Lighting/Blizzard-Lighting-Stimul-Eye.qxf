@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>George Qualley IV</Author>
  </Creator>
  <Manufacturer>Blizzard Lighting</Manufacturer>
@@ -101,7 +101,7 @@
   <Capability Min="128" Max="130">Dynamic 21</Capability>
   <Capability Min="131" Max="133">Static 22</Capability>
   <Capability Min="134" Max="136">Dynamic 22</Capability>
-  <Capability Min="137" Max="139">Static 23 </Capability>
+  <Capability Min="137" Max="139">Static 23</Capability>
   <Capability Min="140" Max="142">Dynamic 23</Capability>
   <Capability Min="143" Max="145">Static 24</Capability>
   <Capability Min="146" Max="148">Dynamic 24</Capability>
@@ -115,13 +115,13 @@
   <Capability Min="170" Max="172">Dynamic 28</Capability>
   <Capability Min="173" Max="175">Static 29</Capability>
   <Capability Min="176" Max="178">Dynamic 29</Capability>
-  <Capability Min="179" Max="181">Static 30 </Capability>
+  <Capability Min="179" Max="181">Static 30</Capability>
   <Capability Min="182" Max="184">Dynamic 30</Capability>
   <Capability Min="185" Max="187">Static 31</Capability>
   <Capability Min="188" Max="190">Dynamic 31</Capability>
-  <Capability Min="191" Max="193">Static 32 </Capability>
+  <Capability Min="191" Max="193">Static 32</Capability>
   <Capability Min="194" Max="196">Dynamic 32</Capability>
-  <Capability Min="197" Max="199">Static 33 </Capability>
+  <Capability Min="197" Max="199">Static 33</Capability>
   <Capability Min="200" Max="202">Dynamic 33</Capability>
   <Capability Min="203" Max="205">Static 34</Capability>
   <Capability Min="206" Max="208">Dynamic 34</Capability>
@@ -137,7 +137,7 @@
   <Capability Min="236" Max="238">Dynamic 39</Capability>
   <Capability Min="239" Max="241">Static 40</Capability>
   <Capability Min="242" Max="244">Dynamic 40</Capability>
-  <Capability Min="245" Max="255">No Function</Capability>
+  <Capability Min="245" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Built-in Program Speed">
   <Group Byte="0">Speed</Group>
@@ -147,7 +147,7 @@
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="128">No function</Capability>
   <Capability Min="129" Max="249">Auto run mode</Capability>
-  <Capability Min="250" Max="255">Reset (after 6 seconds)</Capability>
+  <Capability Min="250" Max="255" Preset="ResetAll">Reset (after 6 seconds)</Capability>
  </Channel>
  <Channel Name="LED 1-6 Intensity">
   <Group Byte="0">Intensity</Group>
@@ -213,11 +213,12 @@
   <Channel Number="10">Built-in Program Speed</Channel>
   <Channel Number="11">Auto Run + System Reset</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.2" Width="223" Height="315" Depth="168"/>
-   <Lens Name="Other" DegreesMin="5" DegreesMax="40"/>
-   <Focus Type="Head" PanMax="540" TiltMax="250"/>
-   <Technical PowerConsumption="52" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.2" Width="223" Height="315" Depth="168"/>
+  <Lens Name="Other" DegreesMin="5" DegreesMax="40"/>
+  <Focus Type="Head" PanMax="540" TiltMax="250"/>
+  <Layout Width="7" Height="1"/>
+  <Technical PowerConsumption="52" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

@@ -19,6 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.2
+import QtQuick.Controls 2.13
 
 import "."
 
@@ -37,7 +38,7 @@ Rectangle
     property int fillDirection: Qt.Horizontal
 
     /** The minimum size in pixels of a cell */
-    property int mininumCellSize: 0
+    property int minimumCellSize: 0
 
     /** An array of data organized as follows: Item ID | Absolute Index | isOdd | item type */
     property variant gridData
@@ -66,7 +67,11 @@ Rectangle
     property bool externalDrag: itemDropArea.containsDrag
 
     onGridSizeChanged: calculateCellSize()
-    onGridDataChanged: { selectionData = null; updateViewData() }
+    onGridDataChanged:
+    {
+        setSelectionData(null)
+        updateViewData()
+    }
     onGridLabelsChanged: updateViewLabels()
     onWidthChanged: repaintTimer.restart()
 
@@ -94,10 +99,10 @@ Rectangle
         var horSize = width / gridSize.width
         var vertSize = height / gridSize.height
 
-        if (mininumCellSize)
+        if (minimumCellSize)
         {
-            horSize = Math.max(horSize, mininumCellSize)
-            vertSize = Math.max(vertSize, mininumCellSize)
+            horSize = Math.max(horSize, minimumCellSize)
+            vertSize = Math.max(vertSize, minimumCellSize)
         }
 
         if (fillDirection == Qt.Vertical)
@@ -152,6 +157,7 @@ Rectangle
             {
                 item.color = "#7F7F7F"
                 item.icon = ""
+                item.itemID = -1
             }
         }
     }
@@ -174,7 +180,6 @@ Rectangle
             }
             else
                 item.label = ""
-
         }
     }
 
@@ -217,6 +222,34 @@ Rectangle
         onTriggered: calculateCellSize()
     }
 
+    Text
+    {
+        id: ttText
+
+        property string tooltipText: ""
+        visible: false
+        x: gridMouseArea.mouseX
+        y: gridMouseArea.mouseY
+        ToolTip.visible: ttText.visible
+        ToolTip.timeout: 3000
+        ToolTip.text: tooltipText
+    }
+
+    Timer
+    {
+        id: ttTimer
+        repeat: false
+        interval: 1000
+        running: false
+        onTriggered:
+        {
+            var xPos = parseInt(gridMouseArea.mouseX / cellSize)
+            var yPos = parseInt(gridMouseArea.mouseY / cellSize)
+            ttText.tooltipText = getTooltip(xPos, yPos)
+            ttText.visible = true
+        }
+    }
+
     GridLayout
     {
         width: cellSize * gridSize.width
@@ -239,7 +272,7 @@ Rectangle
                     implicitWidth: cellSize
                     z: (gridSize.width * gridSize.height) - index
 
-                    property int itemID
+                    property int itemID: -1
                     property alias overColor: colorLayer.color
                     property alias icon: itemIcon.source
                     property alias label: itemLabel.label
@@ -303,8 +336,7 @@ Rectangle
             startY = parseInt(mouse.y / cellSize)
             var absStart = (startY * gridSize.width) + startX
             var item = gridItems.itemAt(absStart)
-            if (item !== null)
-                currentItemID = item.itemID
+            currentItemID = item !== null ? item.itemID : -1
             selectionOffset = 0
             movingSelection = true
             gridRoot.pressed(startX, startY, mouse.modifiers)
@@ -313,10 +345,9 @@ Rectangle
         onReleased:
         {
             if (selectionOffset != 0)
-            {
                 gridRoot.released(lastX, lastY, selectionOffset, mouse.modifiers)
-                selectionData = null
-            }
+            else
+                gridRoot.released(-1, -1, 0, mouse.modifiers)
 
             movingSelection = false
             validSelection = true
@@ -326,6 +357,9 @@ Rectangle
 
         onPositionChanged:
         {
+            ttText.visible = false
+            ttTimer.restart()
+
             if (movingSelection == false)
                 return
 
@@ -349,6 +383,7 @@ Rectangle
             updateViewSelection(selectionOffset)
         }
 
+        onExited: ttTimer.stop()
     }
 
     DropArea

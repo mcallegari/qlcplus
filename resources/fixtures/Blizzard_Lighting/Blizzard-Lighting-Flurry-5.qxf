@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.4</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>George Qualley IV</Author>
  </Creator>
  <Manufacturer>Blizzard Lighting</Manufacturer>
@@ -26,7 +26,7 @@
  <Channel Name="Color Macros">
   <Group Byte="0">Colour</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="18">Color Macro 1</Capability>
   <Capability Min="19" Max="26">Color Macro 2</Capability>
   <Capability Min="27" Max="34">Color Macro 3</Capability>
@@ -60,13 +60,13 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">Open</Capability>
-  <Capability Min="10" Max="255">Slow -&gt; Fast</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Sound Active">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="127">No Function</Capability>
-  <Capability Min="128" Max="255">Sound Active</Capability>
+  <Capability Min="0" Max="127">No function</Capability>
+  <Capability Min="128" Max="255" Preset="SilentModeOff">Sound Active</Capability>
  </Channel>
  <Mode Name="13 Channel">
   <Channel Number="0">Pan</Channel>
@@ -93,11 +93,11 @@
   <Channel Number="6">Dimmer</Channel>
   <Channel Number="7">White</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3.8" Width="173" Height="249" Depth="173"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="180"/>
-   <Technical PowerConsumption="110" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.8" Width="173" Height="249" Depth="173"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="180"/>
+  <Technical PowerConsumption="110" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

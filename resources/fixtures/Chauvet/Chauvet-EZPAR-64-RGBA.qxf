@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.7.0 RC2</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Ronnie Ross</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -16,7 +16,7 @@
  <Channel Name="Color Macros">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="15">No funciton</Capability>
-  <Capability Res="Others/rainbow.png" Min="16" Max="255">Color macros</Capability>
+  <Capability Min="16" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Color macros</Capability>
  </Channel>
  <Channel Name="Speed">
   <Group Byte="0">Speed</Group>
@@ -32,7 +32,7 @@
   <Capability Min="128" Max="159">Auto fade transition</Capability>
   <Capability Min="160" Max="191">Auto snap transition (4 colors)</Capability>
   <Capability Min="192" Max="223">Auto snap transition (15 colors)</Capability>
-  <Capability Min="224" Max="255">Sound-Active mode</Capability>
+  <Capability Min="224" Max="255" Preset="SilentModeOff">Sound-Active mode</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="8 Channel">
@@ -51,11 +51,11 @@
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">Amber</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="1325" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="276" Height="275" Weight="1.9" Depth="66"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="33" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="1325" ColourTemperature="0"/>
+  <Dimensions Weight="1.9" Width="276" Height="275" Depth="66"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="33" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

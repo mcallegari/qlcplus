@@ -34,13 +34,16 @@ Rectangle
     property int trackIndex
     property bool isSelected: false
 
-    RobotoText
+    CustomTextInput
     {
         x: 2
         width: parent.width - 4
         height: parent.height
-        label: trackRef ? trackRef.name : ""
-        wrapText: true
+        text: trackRef ? trackRef.name : ""
+        wrapMode: TextInput.Wrap
+        allowDoubleClick: true
+
+        onTextConfirmed: if(trackRef) trackRef.name = text
     }
 
     Rectangle
@@ -64,9 +67,7 @@ Rectangle
         imgSource: ""
         checkable: true
         tooltip: qsTr("Solo this track")
-        onToggled:
-        {
-        }
+        onToggled: showManager.setTrackSolo(trackIndex, checked)
 
         RobotoText
         {
@@ -89,12 +90,11 @@ Rectangle
         height: parent.height * 0.3
         bgColor: "#8191A0"
         checkedColor: "red"
+        checked: trackRef ? trackRef.mute : false
         imgSource: ""
         checkable: true
         tooltip: qsTr("Mute this track")
-        onToggled:
-        {
-        }
+        onToggled: if(trackRef) trackRef.mute = checked
 
         RobotoText
         {
@@ -110,6 +110,11 @@ Rectangle
     MouseArea
     {
         anchors.fill: parent
-        onClicked: showManager.selectedTrack = trackIndex
+        propagateComposedEvents: true
+        onClicked:
+        {
+            showManager.selectedTrackIndex = trackIndex
+            mouse.accepted = false
+        }
     }
 }

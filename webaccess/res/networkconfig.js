@@ -1,7 +1,7 @@
 /*
   Q Light Controller Plus
   networkconfig.js
-  
+
   Copyright (c) Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,13 +23,9 @@ function systemCmd(cmd, iface, mode, addr, mask, gw, ssid, wpapsk)
 }
 
 function showStatic(iface, enable) {
- var divName = iface + "StaticFields";
- var obj=document.getElementById(divName);
- if (enable === true) {
-   obj.style.visibility="visible";
- } else {
-   obj.style.visibility="hidden";
- }
+ document.getElementById(iface + "IPaddr").disabled = !enable;
+ document.getElementById(iface + "Netmask").disabled = !enable;
+ document.getElementById(iface + "Gateway").disabled = !enable;
 }
 
 function applyParams(iface) {

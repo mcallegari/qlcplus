@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Jászberényi Szabolcs</Author>
  </Creator>
  <Manufacturer>beamZ</Manufacturer>
@@ -15,16 +15,16 @@
  <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="14">No function</Capability>
-  <Capability Min="15" Max="44">Single colour strobe</Capability>
-  <Capability Min="45" Max="255">No function</Capability>
+  <Capability Min="0" Max="14" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="15" Max="44" Preset="StrobeRandom">Single colour strobe</Capability>
+  <Capability Min="45" Max="255" Preset="ShutterOpen">No function</Capability>
  </Channel>
  <Channel Name="Color / Sound control">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="0">No function</Capability>
-  <Capability Min="1" Max="19" Color="#0000ff">Blue color</Capability>
-  <Capability Min="20" Max="39" Color="#ffffff">White color</Capability>
-  <Capability Min="40" Max="59" Color="#ff0000" Color2="#ffffff">Red+White color</Capability>
+  <Capability Min="1" Max="19" Preset="ColorMacro" Res1="#0000ff">Blue color</Capability>
+  <Capability Min="20" Max="39" Preset="ColorMacro" Res1="#ffffff">White color</Capability>
+  <Capability Min="40" Max="59" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White color</Capability>
   <Capability Min="60" Max="79">Blue+Green+White color</Capability>
   <Capability Min="80" Max="99">Color change 1</Capability>
   <Capability Min="100" Max="119">Color change 2</Capability>
@@ -56,11 +56,11 @@
   <Channel Number="6">Color / Sound control</Channel>
   <Channel Number="7">Speed</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1" Width="200" Height="180" Depth="105"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="20" DmxConnector="3-pin"/>
-  </Physical>
-  </FixtureDefinition>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1" Width="200" Height="180" Depth="105"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="20" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

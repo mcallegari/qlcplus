@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Robert Box</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -84,14 +84,14 @@
  </Channel>
  <Channel Name="Strobing">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="31">Off</Capability>
-  <Capability Min="32" Max="63">LED on</Capability>
-  <Capability Min="64" Max="95">Strobing slow - fast</Capability>
-  <Capability Min="96" Max="127">LED on</Capability>
-  <Capability Min="128" Max="159">Pulse strobing low - fast</Capability>
-  <Capability Min="160" Max="191">LED on</Capability>
-  <Capability Min="192" Max="223">Random strobing</Capability>
-  <Capability Min="224" Max="255">LED on</Capability>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Off</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobing slow - fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Pulse strobing low - fast</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandom">Random strobing</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">LED on</Capability>
  </Channel>
  <Channel Name="Programs">
   <Group Byte="0">Effect</Group>

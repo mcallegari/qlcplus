@@ -27,40 +27,41 @@ import "."
 CustomPopupDialog
 {
     id: popupRoot
+    width: mainView.width / 2
     title: qsTr("Enter a name for the scene")
 
     property bool show: !dontAskCheck.checked
-    property int channelsMask: contextManager ? contextManager.dumpChannelMask : 0
-    property alias sceneName: nameInputBox.inputText
+    property int channelsMask: 0
+    property alias sceneName: nameInputBox.text
 
     function getChannelsMask()
     {
         var mask = 0
 
         if (intTypeCheck.checked)
-            mask |= ContextManager.DimmerType
+            mask |= App.DimmerType
         if (colTypeCheck.checked)
-            mask |= ContextManager.ColorType
+            mask |= App.ColorType
         if (colMacroTypeCheck.checked)
-            mask |= ContextManager.ColorMacroType
+            mask |= App.ColorMacroType
         if (goboTypeCheck.checked)
-            mask |= ContextManager.GoboType
+            mask |= App.GoboType
         if (panTypeCheck.checked)
-            mask |= ContextManager.PanType
+            mask |= App.PanType
         if (tiltTypeCheck.checked)
-            mask |= ContextManager.TiltType
+            mask |= App.TiltType
         if (speedTypeCheck.checked)
-            mask |= ContextManager.SpeedType
+            mask |= App.SpeedType
         if (shutterTypeCheck.checked)
-            mask |= ContextManager.ShutterType
+            mask |= App.ShutterType
         if (prismTypeCheck.checked)
-            mask |= ContextManager.PrismType
+            mask |= App.PrismType
         if (beamTypeCheck.checked)
-            mask |= ContextManager.BeamType
+            mask |= App.BeamType
         if (effectTypeCheck.checked)
-            mask |= ContextManager.EffectType
+            mask |= App.EffectType
         if (maintTypeCheck.checked)
-            mask |= ContextManager.MaintenanceType
+            mask |= App.MaintenanceType
 
         return mask
     }
@@ -91,8 +92,8 @@ CustomPopupDialog
                 {
                     id: nameInputBox
                     Layout.fillWidth: true
-                    inputText: qsTr("New Scene")
-                    onEnterPressed: popupRoot.accept()
+                    text: qsTr("New Scene")
+                    onAccepted: popupRoot.accept()
                 }
             }
 
@@ -122,17 +123,17 @@ CustomPopupDialog
             CustomCheckBox
             {
                 id: intTypeCheck
-                visible: channelsMask & ContextManager.DimmerType
+                visible: channelsMask & App.DimmerType
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: implicitHeight
                 Layout.alignment: Qt.AlignRight
                 autoExclusive: false
-                checked: channelsMask & ContextManager.DimmerType
+                checked: channelsMask & App.DimmerType
 
             }
             IconTextEntry
             {
-                visible: channelsMask & ContextManager.DimmerType
+                visible: channelsMask & App.DimmerType
                 Layout.fillWidth: true
                 iSrc: "qrc:/intensity.svg"
                 tLabel: qsTr("Intensity")
@@ -141,16 +142,16 @@ CustomPopupDialog
             CustomCheckBox
             {
                 id: colTypeCheck
-                visible: channelsMask & ContextManager.ColorType
+                visible: channelsMask & App.ColorType
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: implicitHeight
                 Layout.alignment: Qt.AlignRight
                 autoExclusive: false
-                checked: channelsMask & ContextManager.ColorType
+                checked: channelsMask & App.ColorType
             }
             IconTextEntry
             {
-                visible: channelsMask & ContextManager.ColorType
+                visible: channelsMask & App.ColorType
                 Layout.fillWidth: true
                 iSrc: "qrc:/color.svg"
                 tLabel: qsTr("RGB/CMY/WAUV")
@@ -160,16 +161,16 @@ CustomPopupDialog
             CustomCheckBox
             {
                 id: colMacroTypeCheck
-                visible: channelsMask & ContextManager.ColorMacroType
+                visible: channelsMask & App.ColorMacroType
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: implicitHeight
                 Layout.alignment: Qt.AlignRight
                 autoExclusive: false
-                checked: channelsMask & ContextManager.ColorMacroType
+                checked: channelsMask & App.ColorMacroType
             }
             IconTextEntry
             {
-                visible: channelsMask & ContextManager.ColorMacroType
+                visible: channelsMask & App.ColorMacroType
                 Layout.fillWidth: true
                 iSrc: "qrc:/colorwheel.svg"
                 tLabel: qsTr("Color macros")
@@ -178,16 +179,16 @@ CustomPopupDialog
             CustomCheckBox
             {
                 id: goboTypeCheck
-                visible: channelsMask & ContextManager.GoboType
+                visible: channelsMask & App.GoboType
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: implicitHeight
                 Layout.alignment: Qt.AlignRight
                 autoExclusive: false
-                checked: channelsMask & ContextManager.GoboType
+                checked: channelsMask & App.GoboType
             }
             IconTextEntry
             {
-                visible: channelsMask & ContextManager.GoboType
+                visible: channelsMask & App.GoboType
                 Layout.fillWidth: true
                 iSrc: "qrc:/gobo.svg"
                 tLabel: qsTr("Gobo")
@@ -197,16 +198,16 @@ CustomPopupDialog
             CustomCheckBox
             {
                 id: panTypeCheck
-                visible: channelsMask & ContextManager.PanType
+                visible: channelsMask & App.PanType
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: implicitHeight
                 Layout.alignment: Qt.AlignRight
                 autoExclusive: false
-                checked: channelsMask & ContextManager.PanType
+                checked: channelsMask & App.PanType
             }
             IconTextEntry
             {
-                visible: channelsMask & ContextManager.PanType
+                visible: channelsMask & App.PanType
                 Layout.fillWidth: true
                 iSrc: "qrc:/pan.svg"
                 tLabel: qsTr("Pan")
@@ -215,16 +216,16 @@ CustomPopupDialog
             CustomCheckBox
             {
                 id: tiltTypeCheck
-                visible: channelsMask & ContextManager.TiltType
+                visible: channelsMask & App.TiltType
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: implicitHeight
                 Layout.alignment: Qt.AlignRight
                 autoExclusive: false
-                checked: channelsMask & ContextManager.TiltType
+                checked: channelsMask & App.TiltType
             }
             IconTextEntry
             {
-                visible: channelsMask & ContextManager.TiltType
+                visible: channelsMask & App.TiltType
                 Layout.fillWidth: true
                 iSrc: "qrc:/tilt.svg"
                 tLabel: qsTr("Tilt")
@@ -234,16 +235,16 @@ CustomPopupDialog
             CustomCheckBox
             {
                 id: speedTypeCheck
-                visible: channelsMask & ContextManager.SpeedType
+                visible: channelsMask & App.SpeedType
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: implicitHeight
                 Layout.alignment: Qt.AlignRight
                 autoExclusive: false
-                checked: channelsMask & ContextManager.SpeedType
+                checked: channelsMask & App.SpeedType
             }
             IconTextEntry
             {
-                visible: channelsMask & ContextManager.SpeedType
+                visible: channelsMask & App.SpeedType
                 Layout.fillWidth: true
                 iSrc: "qrc:/speed.svg"
                 tLabel: qsTr("Speed")
@@ -252,16 +253,16 @@ CustomPopupDialog
             CustomCheckBox
             {
                 id: shutterTypeCheck
-                visible: channelsMask & ContextManager.ShutterType
+                visible: channelsMask & App.ShutterType
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: implicitHeight
                 Layout.alignment: Qt.AlignRight
                 autoExclusive: false
-                checked: channelsMask & ContextManager.ShutterType
+                checked: channelsMask & App.ShutterType
             }
             IconTextEntry
             {
-                visible: channelsMask & ContextManager.ShutterType
+                visible: channelsMask & App.ShutterType
                 Layout.fillWidth: true
                 iSrc: "qrc:/shutter.svg"
                 tLabel: qsTr("Shutter/Strobe")
@@ -271,16 +272,16 @@ CustomPopupDialog
             CustomCheckBox
             {
                 id: prismTypeCheck
-                visible: channelsMask & ContextManager.PrismType
+                visible: channelsMask & App.PrismType
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: implicitHeight
                 Layout.alignment: Qt.AlignRight
                 autoExclusive: false
-                checked: channelsMask & ContextManager.PrismType
+                checked: channelsMask & App.PrismType
             }
             IconTextEntry
             {
-                visible: channelsMask & ContextManager.PrismType
+                visible: channelsMask & App.PrismType
                 Layout.fillWidth: true
                 iSrc: "qrc:/prism.svg"
                 tLabel: qsTr("Prism")
@@ -289,16 +290,16 @@ CustomPopupDialog
             CustomCheckBox
             {
                 id: beamTypeCheck
-                visible: channelsMask & ContextManager.BeamType
+                visible: channelsMask & App.BeamType
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: implicitHeight
                 Layout.alignment: Qt.AlignRight
                 autoExclusive: false
-                checked: channelsMask & ContextManager.BeamType
+                checked: channelsMask & App.BeamType
             }
             IconTextEntry
             {
-                visible: channelsMask & ContextManager.BeamType
+                visible: channelsMask & App.BeamType
                 Layout.fillWidth: true
                 iSrc: "qrc:/beam.svg"
                 tLabel: qsTr("Beam")
@@ -308,16 +309,16 @@ CustomPopupDialog
             CustomCheckBox
             {
                 id: effectTypeCheck
-                visible: channelsMask & ContextManager.EffectType
+                visible: channelsMask & App.EffectType
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: implicitHeight
                 Layout.alignment: Qt.AlignRight
                 autoExclusive: false
-                checked: channelsMask & ContextManager.EffectType
+                checked: channelsMask & App.EffectType
             }
             IconTextEntry
             {
-                visible: channelsMask & ContextManager.EffectType
+                visible: channelsMask & App.EffectType
                 Layout.fillWidth: true
                 iSrc: "qrc:/star.svg"
                 tLabel: qsTr("Effect")
@@ -326,20 +327,19 @@ CustomPopupDialog
             CustomCheckBox
             {
                 id: maintTypeCheck
-                visible: channelsMask & ContextManager.MaintenanceType
+                visible: channelsMask & App.MaintenanceType
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: implicitHeight
                 Layout.alignment: Qt.AlignRight
                 autoExclusive: false
-                checked: channelsMask & ContextManager.MaintenanceType
+                checked: channelsMask & App.MaintenanceType
             }
             IconTextEntry
             {
-                visible: channelsMask & ContextManager.MaintenanceType
+                visible: channelsMask & App.MaintenanceType
                 Layout.fillWidth: true
                 iSrc: "qrc:/configure.svg"
                 tLabel: qsTr("Maintenance")
             }
-        }
-
+        } // GridLayout
 }

@@ -20,7 +20,6 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QJSEngine>
-#include <QMutex>
 #include <QDebug>
 #include <QFile>
 
@@ -31,7 +30,11 @@
 #include "qlcfile.h"
 
 QJSEngine* RGBScript::s_engine = NULL;
-QMutex* RGBScript::s_engineMutex = NULL;
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+  QMutex* RGBScript::s_engineMutex = NULL;
+#else
+  QRecursiveMutex* RGBScript::s_engineMutex = NULL;
+#endif
 
 /****************************************************************************
  * Initialization
@@ -50,10 +53,31 @@ RGBScript::RGBScript(const RGBScript& s)
     , m_apiVersion(0)
 {
     evaluate();
+    foreach (RGBScriptProperty cap, s.m_properties)
+    {
+        setProperty(cap.m_name, s.property(cap.m_name));
+    }
 }
 
 RGBScript::~RGBScript()
 {
+}
+
+RGBScript &RGBScript::operator=(const RGBScript &s)
+{
+    if (this != &s)
+    {
+        m_fileName = s.m_fileName;
+        m_contents = s.m_contents;
+        m_apiVersion = s.m_apiVersion;
+        evaluate();
+        foreach (RGBScriptProperty cap, s.m_properties)
+        {
+            setProperty(cap.m_name, s.property(cap.m_name));
+        }
+    }
+
+    return *this;
 }
 
 bool RGBScript::operator==(const RGBScript& s) const
@@ -115,14 +139,16 @@ bool RGBScript::evaluate()
     m_rgbMapStepCount = QJSValue();
     m_apiVersion = 0;
 
+    if (m_fileName.isEmpty() || m_contents.isEmpty())
+    {
+        qWarning() << m_fileName << ": Script filename or content is empty, cannot parse";
+        return false;
+    }
+
     m_script = s_engine->evaluate(m_contents, m_fileName);
     if (m_script.isError())
     {
-        QString msg("%1: Uncaught exception at line %2. Error: %3");
-        qWarning() << msg.arg(m_fileName)
-                         .arg(m_script.property("lineNumber").toInt())
-                         .arg(m_script.toString());
-        qDebug() << "Stack: " << m_script.property("stack").toString();
+        displayError(m_script, m_fileName);
         return false;
     }
 
@@ -158,11 +184,27 @@ void RGBScript::initEngine()
 {
     if (s_engineMutex == NULL)
     {
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
         s_engineMutex = new QMutex(QMutex::Recursive);
+#else
+        s_engineMutex = new QRecursiveMutex();
+#endif
         s_engine = new QJSEngine();
     }
     Q_ASSERT(s_engineMutex != NULL);
     Q_ASSERT(s_engine != NULL);
+}
+
+void RGBScript::displayError(QJSValue e, const QString& fileName)
+{
+    if (e.isError())
+    {
+        QString msg("%1: Exception at line %2. Error: %3");
+        qWarning() << msg.arg(fileName)
+                         .arg(e.property("lineNumber").toInt())
+                         .arg(e.toString());
+        qDebug() << "Stack: " << e.property("stack").toString();
+    }
 }
 
 /****************************************************************************
@@ -179,44 +221,51 @@ int RGBScript::rgbMapStepCount(const QSize& size)
     QJSValueList args;
     args << size.width() << size.height();
     QJSValue value = m_rgbMapStepCount.call(args);
-    int ret = value.isNumber() ? value.toInt() : -1;
-    return ret;
+    if (value.isError())
+    {
+        displayError(value, m_fileName);
+        return -1;
+    } 
+    else 
+    {
+        int ret = value.isNumber() ? value.toInt() : -1;
+        return ret;
+    }
 }
 
-RGBMap RGBScript::rgbMap(const QSize& size, uint rgb, int step)
+void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 {
-    RGBMap map;
-
     QMutexLocker engineLocker(s_engineMutex);
 
     if (m_rgbMap.isUndefined() == true)
-        return map;
+        return;
 
     QJSValueList args;
     args << size.width() << size.height() << rgb << step;
-    QJSValue yarray = m_rgbMap.call(args);
-    if (yarray.isArray() == true)
+    QJSValue yarray(m_rgbMap.call(args));
+    if (yarray.isError())
+        displayError(yarray, m_fileName);
+
+    if (yarray.isArray())
     {
-        int ylen = yarray.property("length").toInt();
-        map = RGBMap(ylen);
+        QVariantList yvArray = yarray.toVariant().toList();
+        int ylen = yvArray.length();
+        map.resize(ylen);
+
         for (int y = 0; y < ylen && y < size.height(); y++)
         {
-            QJSValue xarray = yarray.property(QString::number(y));
-            int xlen = xarray.property("length").toInt();
+            QVariantList xvArray = yvArray.at(y).toList();
+            int xlen = xvArray.length();
             map[y].resize(xlen);
+
             for (int x = 0; x < xlen && x < size.width(); x++)
-            {
-                QJSValue yx = xarray.property(QString::number(x));
-                map[y][x] = yx.toInt();
-            }
+                map[y][x] = xvArray.at(x).toUInt();
         }
     }
     else
     {
         qWarning() << "Returned value is not an array within an array!";
     }
-
-    return map;
 }
 
 QString RGBScript::name() const
@@ -298,14 +347,16 @@ QHash<QString, QString> RGBScript::propertiesAsStrings()
     QMutexLocker engineLocker(s_engineMutex);
 
     QHash<QString, QString> properties;
-    foreach(RGBScriptProperty cap, m_properties)
+    foreach (RGBScriptProperty cap, m_properties)
     {
         QJSValue readMethod = m_script.property(cap.m_readMethod);
         if (readMethod.isCallable())
         {
             QJSValueList args;
             QJSValue value = readMethod.call(args);
-            if (!value.isUndefined())
+            if (value.isError())
+                displayError(value, m_fileName);
+            else if (!value.isUndefined())
                 properties.insert(cap.m_name, value.toString());
         }
     }
@@ -316,7 +367,7 @@ bool RGBScript::setProperty(QString propertyName, QString value)
 {
     QMutexLocker engineLocker(s_engineMutex);
 
-    foreach(RGBScriptProperty cap, m_properties)
+    foreach (RGBScriptProperty cap, m_properties)
     {
         if (cap.m_name == propertyName)
         {
@@ -328,18 +379,26 @@ bool RGBScript::setProperty(QString propertyName, QString value)
             }
             QJSValueList args;
             args << value;
-            writeMethod.call(args);
-            return true;
+            QJSValue written = writeMethod.call(args);
+            if (written.isError())
+            {
+                displayError(written, m_fileName);
+                return false;
+            } 
+            else 
+            {
+                return true;
+            }
         }
     }
     return false;
 }
 
-QString RGBScript::property(QString propertyName)
+QString RGBScript::property(QString propertyName) const
 {
     QMutexLocker engineLocker(s_engineMutex);
 
-    foreach(RGBScriptProperty cap, m_properties)
+    foreach (RGBScriptProperty cap, m_properties)
     {
         if (cap.m_name == propertyName)
         {
@@ -351,10 +410,19 @@ QString RGBScript::property(QString propertyName)
             }
             QJSValueList args;
             QJSValue value = readMethod.call(args);
-            if (!value.isUndefined())
-                return value.toString();
-            else
+            if (value.isError())
+            {
+                displayError(value, m_fileName);
                 return QString();
+            } 
+            else if (!value.isUndefined())
+            {
+                return value.toString();
+            }
+            else
+            {
+                return QString();
+            }
         }
     }
     return QString();
@@ -385,7 +453,7 @@ bool RGBScript::loadProperties()
         RGBScriptProperty newCap;
 
         QStringList propsList = cap.split("|");
-        foreach(QString prop, propsList)
+        foreach (QString prop, propsList)
         {
             QStringList keyValue = prop.split(":");
             if (keyValue.length() < 2)
@@ -402,7 +470,7 @@ bool RGBScript::loadProperties()
             else if (key == "type")
             {
                 if (value == "list") newCap.m_type = RGBScriptProperty::List;
-                else if (value == "integer") newCap.m_type = RGBScriptProperty::Integer;
+                else if (value == "float") newCap.m_type = RGBScriptProperty::Float;
                 else if (value == "range") newCap.m_type = RGBScriptProperty::Range;
                 else if (value == "string") newCap.m_type = RGBScriptProperty::String;
             }

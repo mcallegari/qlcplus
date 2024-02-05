@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.3</Version>
+  <Version>4.12.0 GIT</Version>
   <Author>Doug</Author>
  </Creator>
  <Manufacturer>Blizzard Lighting</Manufacturer>
@@ -15,13 +15,13 @@
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Strobe">
-  <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="14">Dimming</Capability>
-  <Capability Min="15" Max="255">Strobe (Slow-Fast)</Capability>
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="14" Preset="ShutterOpen">Dimming</Capability>
+  <Capability Min="15" Max="255" Preset="StrobeSlowToFast">Strobe (Slow-Fast)</Capability>
  </Channel>
  <Channel Name="Build-In Programs Fade, Color Change, Sound Active">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="31">No Function</Capability>
+  <Capability Min="0" Max="31">No function</Capability>
   <Capability Min="32" Max="63">Fade In (CH 10 Speed)</Capability>
   <Capability Min="64" Max="95">Fade Out (CH 10 Speed)</Capability>
   <Capability Min="96" Max="127">Fade In / Fade Out (CH 10 Speed)</Capability>
@@ -45,10 +45,7 @@
  </Channel>
  <Channel Name="Amber" Preset="IntensityAmber"/>
  <Channel Name="UV" Preset="IntensityUV"/>
- <Channel Name="RGB Color Mixing">
-  <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255">RGB Color Mixing</Capability>
- </Channel>
+ <Channel Name="RGB Color Mixing" Preset="ColorRGBMixer"/>
  <Mode Name="11 Channel Mode">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
@@ -97,11 +94,11 @@
   <Channel Number="1">White</Channel>
   <Channel Number="2">Dimmer</Channel>
  </Mode>
-<Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Width="127" Depth="102" Weight="1.6" Height="127"/>
-   <Lens DegreesMin="25" DegreesMax="25" Name="Other"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="53"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.6" Width="127" Height="127" Depth="102"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="53" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

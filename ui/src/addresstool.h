@@ -85,13 +85,13 @@ protected:
 class AddressTool : public QDialog
 {
     Q_OBJECT
-    
+
 public:
     explicit AddressTool(QWidget *parent = 0, int presetValue = 1);
     ~AddressTool();
 
     int getAddress();
-    
+
 private:
     Ui::AddressTool *ui;
     DIPSwitchWidget *m_dipSwitch;

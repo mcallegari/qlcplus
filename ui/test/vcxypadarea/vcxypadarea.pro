@@ -4,8 +4,12 @@ TEMPLATE = app
 LANGUAGE = C++
 TARGET   = vcxypadarea_test
 
-QT      += testlib gui script
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT      += testlib gui widgets
+qmlui|greaterThan(QT_MAJOR_VERSION, 5) {
+  QT += qml
+} else {
+  QT += script
+}
 
 INCLUDEPATH += ../../../plugins/interfaces
 INCLUDEPATH += ../../../engine/src

@@ -114,7 +114,7 @@ QLayoutItem *FlowLayout::takeAt(int index)
 //! [6]
 Qt::Orientations FlowLayout::expandingDirections() const
 {
-    return 0;
+    return Qt::Horizontal;
 }
 //! [6]
 
@@ -147,10 +147,11 @@ QSize FlowLayout::minimumSize() const
 {
     QSize size;
     QLayoutItem *item;
+
     foreach (item, itemList)
         size = size.expandedTo(item->minimumSize());
 
-    size += QSize(2*margin(), 2*margin());
+    size += QSize(2 * contentsMargins().left(), 2 * contentsMargins().top());
     return size;
 }
 //! [8]

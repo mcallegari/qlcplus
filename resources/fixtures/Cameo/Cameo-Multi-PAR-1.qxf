@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.7.5 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Santiago Benejam Torres</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
@@ -13,13 +13,13 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="10">blackout</Capability>
   <Capability Min="11" Max="21">Dimmer</Capability>
-  <Capability Color="#ff0000" Min="22" Max="32">Red</Capability>
-  <Capability Color="#ffff00" Min="33" Max="43">Yellow</Capability>
-  <Capability Color="#005500" Min="44" Max="54">Green</Capability>
-  <Capability Color="#00aaff" Min="55" Max="65">Cyan</Capability>
-  <Capability Color="#0000ff" Min="66" Max="76">Blue</Capability>
+  <Capability Min="22" Max="32" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="33" Max="43" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="44" Max="54" Preset="ColorMacro" Res1="#005500">Green</Capability>
+  <Capability Min="55" Max="65" Preset="ColorMacro" Res1="#00aaff">Cyan</Capability>
+  <Capability Min="66" Max="76" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="77" Max="87">Purple</Capability>
-  <Capability Color="#ffffff" Min="88" Max="98">White</Capability>
+  <Capability Min="88" Max="98" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="99" Max="109">Dream</Capability>
   <Capability Min="110" Max="120">Meteor</Capability>
   <Capability Min="121" Max="131">Fade</Capability>
@@ -62,11 +62,6 @@
   <Channel Number="3">R1</Channel>
   <Channel Number="4">G1</Channel>
   <Channel Number="5">B1</Channel>
-  <Head>
-   <Channel>5</Channel>
-   <Channel>4</Channel>
-   <Channel>3</Channel>
-  </Head>
  </Mode>
  <Mode Name="9 CH - Mode ">
   <Channel Number="0">Blackout/Dimmer/Programs</Channel>
@@ -126,11 +121,12 @@
    <Channel>14</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Depth="100" Height="290" Weight="5" Width="1030"/>
-   <Lens DegreesMin="25" DegreesMax="25" Name="Other"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5" Width="1030" Height="290" Depth="100"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

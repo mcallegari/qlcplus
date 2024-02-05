@@ -83,7 +83,7 @@ QStringList DMX4Linux::outputs()
 {
     QStringList list;
     if (m_file.exists() == true)
-        list << QString("1: DMX4Linux");
+        list << QString("DMX4Linux");
     return list;
 }
 
@@ -121,9 +121,10 @@ QString DMX4Linux::outputInfo(quint32 output)
     return str;
 }
 
-void DMX4Linux::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void DMX4Linux::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (output != 0 || m_file.isOpen() == false)
         return;
@@ -132,10 +133,3 @@ void DMX4Linux::writeUniverse(quint32 universe, quint32 output, const QByteArray
     if (m_file.write(data) == -1)
         qWarning() << "DMX4Linux: Unable to write:" << m_file.errorString();
 }
-
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(dmx4linux, DMX4Linux)
-#endif

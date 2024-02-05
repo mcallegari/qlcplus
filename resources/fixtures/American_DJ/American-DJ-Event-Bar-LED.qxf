@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.5.1</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>George Qualley IV</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -14,9 +14,9 @@
  <Channel Name="Dimmer 1" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="0">Open</Capability>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">Open</Capability>
   <Capability Min="1" Max="5">Reset</Capability>
-  <Capability Min="6" Max="255">Strobe (Slow -&gt; Fast)</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeSlowToFast">Strobe (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Pan 1 (Fine)" Preset="PositionPanFine"/>
  <Channel Name="Tilt 1 (Fine)" Preset="PositionTiltFine"/>
@@ -187,11 +187,12 @@
    <Channel>19</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="80" Height="202" Weight="7.6" Depth="1000"/>
-   <Lens DegreesMax="12" Name="Other" DegreesMin="6"/>
-   <Focus PanMax="360" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="54" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.6" Width="80" Height="202" Depth="1000"/>
+  <Lens Name="Other" DegreesMin="6" DegreesMax="12"/>
+  <Focus Type="Head" PanMax="360" TiltMax="270"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="54" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

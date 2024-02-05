@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Mark Sy</Author>
  </Creator>
  <Manufacturer>AVE</Manufacturer>
@@ -33,7 +33,7 @@
  </Channel>
  <Channel Name="Machine Restoration">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="255">Machine Restoration</Capability>
+  <Capability Min="0" Max="255" Preset="ResetAll">Machine Restoration</Capability>
  </Channel>
  <Channel Name="Auto Modes">
   <Group Byte="0">Effect</Group>
@@ -57,6 +57,7 @@
   <Capability Min="9" Max="134">Adds White Dimmer</Capability>
   <Capability Min="135" Max="239">Strobe</Capability>
   <Capability Min="240" Max="254">Ch7~C10 effectivity</Capability>
+  <Capability Min="255" Max="255">No function</Capability>
  </Channel>
  <Mode Name="5 Channel">
   <Channel Number="0">Pan</Channel>

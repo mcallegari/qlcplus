@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Synkajax</Author>
  </Creator>
  <Manufacturer>Kam</Manufacturer>
@@ -33,11 +33,11 @@
  <Channel Name="Tilt Speed" Preset="SpeedTiltSlowFast"/>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="50">No Function</Capability>
-  <Capability Min="51" Max="101">Pan Reset</Capability>
-  <Capability Min="102" Max="152">Tilt Reset</Capability>
-  <Capability Min="153" Max="203">Pan/Tilt Reset</Capability>
-  <Capability Min="204" Max="255">Reset</Capability>
+  <Capability Min="0" Max="50">No function</Capability>
+  <Capability Min="51" Max="101" Preset="ResetPan">Pan Reset</Capability>
+  <Capability Min="102" Max="152" Preset="ResetTilt">Tilt Reset</Capability>
+  <Capability Min="153" Max="203" Preset="ResetPanTilt">Pan/Tilt Reset</Capability>
+  <Capability Min="204" Max="255" Preset="ResetAll">Reset</Capability>
  </Channel>
  <Mode Name="9 Channel">
   <Channel Number="0">Dimmer</Channel>
@@ -65,11 +65,11 @@
   <Channel Number="11">Tilt Speed</Channel>
   <Channel Number="12">Reset</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.3" Width="515" Height="260" Depth="100"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="360" TiltMax="270"/>
-   <Technical PowerConsumption="20" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.3" Width="515" Height="260" Depth="100"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="360" TiltMax="270"/>
+  <Technical PowerConsumption="20" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

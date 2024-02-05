@@ -30,10 +30,10 @@ Effect
             graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
             renderPasses:
             [
-                // Lights pass
+                // FXAA pass
                 RenderPass
                 {
-                    filterKeys: FilterKey { name : "pass"; value : "fxaa" }
+                    filterKeys: FilterKey { name: "pass"; value: "fxaa" }
                     shaderProgram:
                         ShaderProgram
                         {

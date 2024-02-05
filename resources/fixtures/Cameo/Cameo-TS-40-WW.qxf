@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.0 GIT</Version>
+  <Author>Andrew</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>TS 40 WW</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer Fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="20">Strobe slow -&gt; fast &lt; 1 Hz - 20 Hz</Capability>
+ </Channel>
+ <Channel Name="Set Dimmer Curve">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="63">Linear dimmer curve</Capability>
+  <Capability Min="64" Max="127">Exponential dimmer curve</Capability>
+  <Capability Min="128" Max="191">Logarythmic dimmer curve</Capability>
+  <Capability Min="192" Max="255">S-curve dimmer curve</Capability>
+ </Channel>
+ <Channel Name="Device Settings">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="63">Dimmer response LED (hold 3s)</Capability>
+  <Capability Min="64" Max="127">Dimmer response halogen (hold 3s)</Capability>
+  <Capability Min="128" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer Fine</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Set Dimmer Curve</Channel>
+  <Channel Number="4">Device Settings</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer Fine</Channel>
+  <Channel Number="2">Strobe</Channel>
+ </Mode>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="1567" ColourTemperature="0"/>
+  <Dimensions Weight="3.8" Width="145" Height="205" Depth="240"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="38"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

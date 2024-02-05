@@ -66,8 +66,8 @@ void ShowItem::updateTooltip()
     setToolTip(QString(tr("Name: %1\nStart time: %2\nDuration: %3\n%4"))
               .arg(functionName())
               .arg(Function::speedToString(m_function->startTime()))
-              .arg(Function::speedToString(m_function->duration()))
-               .arg(tr("Click to move this item across the timeline")));
+              .arg(Function::speedToString(getDuration()))
+              .arg(tr("Click to move this item along the timeline")));
 }
 
 QList<QAction *> ShowItem::getDefaultActions()
@@ -227,7 +227,7 @@ void ShowItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mousePressEvent(event);
     m_pos = this->pos();
-    if(event->button() == Qt::LeftButton)
+    if (event->button() == Qt::LeftButton)
         m_pressed = true;
     this->setSelected(true);
 }

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2 GIT</Version>
+  <Author>Andrew</Author>
+ </Creator>
+ <Manufacturer>IMG Stageline</Manufacturer>
+ <Model>PARL-36DMX</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Operating Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="63">Manual colour adjustment</Capability>
+  <Capability Min="64" Max="127" Preset="Alias">Automatic fading between 7 colours
+   <Alias Mode="5 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="5 Channel" Channel="Blue" With="No function"/>
+   <Alias Mode="5 Channel" Channel="Red" With="Speed"/>
+  </Capability>
+  <Capability Min="128" Max="191" Preset="Alias">Automatic change between 7 colours
+   <Alias Mode="5 Channel" Channel="Red" With="Speed"/>
+   <Alias Mode="5 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="5 Channel" Channel="Blue" With="No function"/>
+  </Capability>
+  <Capability Min="192" Max="255" Preset="Alias">Automatic change between red, green and blue
+   <Alias Mode="5 Channel" Channel="Red" With="Speed"/>
+   <Alias Mode="5 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="5 Channel" Channel="Blue" With="No function"/>
+  </Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Fast Change of Colour, Music Control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="100" Preset="Alias">Fast change of colour red/green/blue - speed fast to slow
+   <Alias Mode="5 Channel" Channel="Operating Mode" With="No function"/>
+   <Alias Mode="5 Channel" Channel="Red" With="No function"/>
+   <Alias Mode="5 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="5 Channel" Channel="Blue" With="No function"/>
+  </Capability>
+  <Capability Min="101" Max="150">No function</Capability>
+  <Capability Min="151" Max="255" Preset="Alias">Music-controlled change of colour - sensitivity max to min
+   <Alias Mode="5 Channel" Channel="Operating Mode" With="No function"/>
+   <Alias Mode="5 Channel" Channel="Red" With="No function"/>
+   <Alias Mode="5 Channel" Channel="Green" With="No function"/>
+   <Alias Mode="5 Channel" Channel="Blue" With="No function"/>
+  </Capability>
+ </Channel>
+ <Channel Name="No function" Preset="NoFunction"/>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Minimum speed</Capability>
+  <Capability Min="1" Max="255">Speed (Fast to slow)</Capability>
+ </Channel>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Operating Mode</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Fast Change of Colour, Music Control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1" Width="116" Height="116" Depth="155"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="12" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

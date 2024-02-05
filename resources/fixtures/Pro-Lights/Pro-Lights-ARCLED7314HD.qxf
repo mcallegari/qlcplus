@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>root</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
@@ -43,7 +43,7 @@
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="9">No function</Capability>
-  <Capability Min="10" Max="255">Strobe: 1 &gt; 20 Hz</Capability>
+  <Capability Min="10" Max="255" Preset="PulseFreqRange" Res1="1" Res2="20">Strobe: 1 &gt; 20 Hz</Capability>
  </Channel>
  <Channel Name="Auto">
   <Group Byte="0">Effect</Group>
@@ -63,6 +63,7 @@
   <Capability Min="141" Max="150">Custom 03</Capability>
   <Capability Min="151" Max="160">Custom 04</Capability>
   <Capability Min="161" Max="170">Custom 05</Capability>
+  <Capability Min="171" Max="180">No function</Capability>
   <Capability Min="181" Max="190">Custom 06</Capability>
   <Capability Min="191" Max="200">Custom 07</Capability>
   <Capability Min="201" Max="210">Custom 08</Capability>

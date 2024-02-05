@@ -20,17 +20,16 @@
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0
 
-import QtQuick 2.0    
+import QtQuick 2.0
 
 TechniqueFilter
 {
-    property Layer screenQuadBlitLayer 
-
+    property Layer screenQuadBlitLayer
     property Texture2D inTexture
 
     parameters: [
-        Parameter { name: "colorTex"; value: inTexture }  
-    ]       
+        Parameter { name: "colorTex"; value: inTexture }
+    ]
 
     RenderStateSet
     {
@@ -45,7 +44,7 @@ TechniqueFilter
         ]
         LayerFilter
         {
-            layers: screenQuadBlitLayer   
+            layers: screenQuadBlitLayer
 
             ClearBuffers
             {
@@ -55,7 +54,6 @@ TechniqueFilter
                     matchAny: FilterKey { name: "pass"; value: "blit" }
                 }
             }
-
-        }     
+        }
     }
 } // TechniqueFilter

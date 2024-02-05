@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Bob</Author>
+ </Creator>
+ <Manufacturer>Ayra</Manufacturer>
+ <Model>ERO Micro Spot</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Stroboscope SlowFast</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="140" Max="181" Preset="RampUpSlowToFast">Shutter slow open close fast</Capability>
+  <Capability Min="182" Max="189" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="190" Max="231" Preset="RampDownSlowToFast">Shutter slow close open fast</Capability>
+  <Capability Min="232" Max="239" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandom">Random strobe</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Various functions">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="199">No function</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Reset after 3 sec</Capability>
+  <Capability Min="210" Max="239">No function</Capability>
+  <Capability Min="240" Max="255">Sound control</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Colour wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">Open white</Capability>
+  <Capability Min="8" Max="15">SPL C1</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="24" Max="31">SPL C2</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="40" Max="47">SPL C3</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="56" Max="63">SPL C4</Capability>
+  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="72" Max="79">SPL C5</Capability>
+  <Capability Min="80" Max="87" Preset="ColorMacro" Res1="#00007f">Dark Blue</Capability>
+  <Capability Min="88" Max="95">SPL C6</Capability>
+  <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#00aaff">Light Blue</Capability>
+  <Capability Min="104" Max="111">SPL C7</Capability>
+  <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="128" Max="255" Preset="GenericPicture" Res1="Others/rainbow.png">Rainbow</Capability>
+ </Channel>
+ <Channel Name="Gobo wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7">Open</Capability>
+  <Capability Min="8" Max="15">Gobo 1</Capability>
+  <Capability Min="16" Max="23">Gobo 2</Capability>
+  <Capability Min="24" Max="31">Gobo 3</Capability>
+  <Capability Min="32" Max="39">Gobo 4</Capability>
+  <Capability Min="40" Max="47">Gobo 5</Capability>
+  <Capability Min="48" Max="55">Gobo 6</Capability>
+  <Capability Min="56" Max="63">Gobo 7</Capability>
+  <Capability Min="64" Max="71">Open shake</Capability>
+  <Capability Min="72" Max="79">Gobo 1 shake</Capability>
+  <Capability Min="80" Max="87">Gobo 2 shake</Capability>
+  <Capability Min="88" Max="95">Gobo 3 shake</Capability>
+  <Capability Min="96" Max="103">Gobo 4 shake</Capability>
+  <Capability Min="104" Max="111">Gobo 5 shake</Capability>
+  <Capability Min="112" Max="119">Gobo 6 shake</Capability>
+  <Capability Min="120" Max="127">Gobo 7 shake</Capability>
+  <Capability Min="128" Max="255">Gobo scroll sklow - fast</Capability>
+ </Channel>
+ <Channel Name="Sound-controlled show modes">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No function (blackout)</Capability>
+  <Capability Min="8" Max="67">Show 1</Capability>
+  <Capability Min="68" Max="127">Show 2</Capability>
+  <Capability Min="128" Max="187">Show 3</Capability>
+  <Capability Min="188" Max="247">Show 4</Capability>
+  <Capability Min="248" Max="255">Random show</Capability>
+ </Channel>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Colour wheel</Channel>
+  <Channel Number="3">Gobo wheel</Channel>
+  <Channel Number="4">Shutter</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Pan/Tilt speed</Channel>
+  <Channel Number="7">Various functions</Channel>
+ </Mode>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Sound-controlled show modes</Channel>
+ </Mode>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Colour wheel</Channel>
+  <Channel Number="5">Gobo wheel</Channel>
+  <Channel Number="6">Shutter</Channel>
+  <Channel Number="7">Dimmer</Channel>
+  <Channel Number="8">Pan/Tilt speed</Channel>
+  <Channel Number="9">Various functions</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="6500" ColourTemperature="0"/>
+  <Dimensions Weight="3.1" Width="170" Height="150" Depth="270"/>
+  <Lens Name="Other" DegreesMin="45" DegreesMax="45"/>
+  <Focus Type="Head" PanMax="540" TiltMax="180"/>
+  <Technical PowerConsumption="24" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

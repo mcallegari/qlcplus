@@ -5,8 +5,7 @@ LANGUAGE = C++
 TARGET   = dmxusb
 
 CONFIG      += plugin
-QT          += gui core
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT          += gui core widgets
 INCLUDEPATH += ../../interfaces
 
 # Uncomment the following to use QtSerialPort before
@@ -23,15 +22,11 @@ unix: {
     CONFIG += libftdi
 }
 
-macx: {
-    CONFIG += qtserial
-}
-
-CONFIG(qtserial) {
-    message(Building with QtSerialport support.)
-    DEFINES += QTSERIAL
-    QT += serialport
-}
+# always include QtSerial for DMXKing MAX devices
+CONFIG += qtserial
+message(Building with QtSerialport support.)
+DEFINES += QTSERIAL
+QT += serialport
 
 CONFIG(ftd2xx) {
     # FTD2XX is a proprietary interface by FTDI Ltd. and would therefore taint the
@@ -55,20 +50,51 @@ CONFIG(ftd2xx) {
 }
 
 CONFIG(libftdi) {
-    greaterThan(QT_MAJOR_VERSION, 4) {
-        macx:QT_CONFIG -= no-pkg-config
+    macx:QT_CONFIG -= no-pkg-config
+
+    defineReplace(findPackage) {
+        # using <package>Version variable
+        pkg = $${1}Version
+        !defined($$pkg, var) {
+            # cache miss
+            # note: $$pkgConfigExecutable() is an undocumented function from qt_functions.prf
+            $$pkg = $$system($$pkgConfigExecutable() --modversion $$1)
+            # cannot store the empty value
+            isEmpty($$pkg): $$pkg = 0
+            # save to the stash file
+            cache($$pkg, stash)
+        }
+        # return value of <package>Version
+        return($$eval($$pkg))
     }
+
     packagesExist(libftdi1) {
         CONFIG      += link_pkgconfig
         PKGCONFIG   += libftdi1 libusb-1.0
         DEFINES     += LIBFTDI1
-        message(Building with libFTDI1 support.)
+        ftdi1 = $$findPackage(libftdi1)
+        message(Building with libFTDI1 support. Version: $$ftdi1)
+
+        versionAtLeast(ftdi1, 1.5) {
+            message("Using v1.5+ buffer flush API")
+            DEFINES += LIBFTDI1_5
+        }
+
+        macx {
+            include(../../../platforms/macos/nametool.pri)
+            nametool.commands += $$pkgConfigNametool(libusb-1.0, libusb-1.0.0.dylib)
+            nametool.commands += && $$pkgConfigNametool(libftdi1, libftdi1.2.dylib)
+        }
     } else {
         packagesExist(libftdi) {
             CONFIG      += link_pkgconfig
             PKGCONFIG   += libftdi libusb
             DEFINES     += LIBFTDI
             message(Building with libFTDI support.)
+            macx {
+                include(../../../platforms/macos/nametool.pri)
+                nametool.commands += && $$pkgConfigNametool(libftdi, libftdi.1.dylib)
+            }
         } else {
             error(Neither libftdi-0.X nor libftdi-1.X found!)
         }
@@ -76,25 +102,30 @@ CONFIG(libftdi) {
 }
 
 HEADERS += ../../interfaces/qlcioplugin.h
+           ../../interfaces/rdmprotocol.h
 
 HEADERS += dmxusb.h \
            dmxusbwidget.h \
            dmxusbconfig.h \
            enttecdmxusbpro.h \
            enttecdmxusbopen.h \
+           dmxusbopenrx.h \
            stageprofi.h \
            vinceusbdmx512.h \
            dmxinterface.h
 
 unix|macx: HEADERS += nanodmx.h euroliteusbdmxpro.h
 
-SOURCES += ../../interfaces/qlcioplugin.cpp
+SOURCES += ../../interfaces/qlcioplugin.cpp \
+           ../../interfaces/rdmprotocol.cpp
+
 SOURCES += dmxinterface.cpp \
            dmxusb.cpp \
            dmxusbwidget.cpp \
            dmxusbconfig.cpp \
            enttecdmxusbpro.cpp \
            enttecdmxusbopen.cpp \
+           dmxusbopenrx.cpp \
            stageprofi.cpp \
            vinceusbdmx512.cpp
 
@@ -124,9 +155,9 @@ unix:!macx {
     udev.path  = $$UDEVRULESDIR
     udev.files = z65-dmxusb.rules
     INSTALLS  += udev
-    
-    metainfo.path   = $$INSTALLROOT/share/appdata/
-    metainfo.files += qlcplus-dmxusb.metainfo.xml
+
+    metainfo.path   = $$METAINFODIR
+    metainfo.files += org.qlcplus.QLCPlus.dmxusb.metainfo.xml
     INSTALLS       += metainfo
 }
 
@@ -140,13 +171,6 @@ TRANSLATIONS += DMX_USB_cz_CZ.ts
 TRANSLATIONS += DMX_USB_pt_BR.ts
 TRANSLATIONS += DMX_USB_ca_ES.ts
 TRANSLATIONS += DMX_USB_ja_JP.ts
-
-macx {
-    # This must be after "TARGET = " and before target installation so that
-    # install_name_tool can be run before target installation
-    include(../../../platforms/macos/nametool.pri)
-    nametool.commands += && $$pkgConfigNametool(libftdi, libftdi.1.dylib)
-}
 
 # Plugin installation
 target.path = $$INSTALLROOT/$$PLUGINDIR

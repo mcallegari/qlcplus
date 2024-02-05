@@ -42,7 +42,6 @@
 #include "capabilitywizard.h"
 #include "editchannel.h"
 #include "util.h"
-#include "app.h"
 
 #define SETTINGS_GEOMETRY "editchannel/geometry"
 #define PROP_PTR Qt::UserRole
@@ -241,7 +240,7 @@ void EditChannel::slotPresetActivated(int index)
         }
     }
 
-    foreach(QLCCapability *cap, m_channel->capabilities())
+    foreach (QLCCapability *cap, m_channel->capabilities())
         m_channel->removeCapability(cap);
 
     m_channel->addPresetCapability();
@@ -253,7 +252,7 @@ void EditChannel::slotGroupActivated(int index)
 {
     quint32 val = m_typeCombo->itemData(index).toUInt();
 
-    if (val > QLCChannel::Maintenance && val < QLCChannel::NoGroup)
+    if (val > QLCChannel::Nothing && val < QLCChannel::NoGroup)
     {
         m_channel->setGroup(QLCChannel::Intensity);
         m_channel->setColour(QLCChannel::PrimaryColour(val));
@@ -385,19 +384,17 @@ void EditChannel::slotCapabilityCellSelected(int currentRow, int currentColumn,
             return;
         }
 
-        str.sprintf("%.3d", cap->min());
-        QTableWidgetItem *item = new QTableWidgetItem(str);
+        QTableWidgetItem *item = new QTableWidgetItem(str.asprintf("%.3d", cap->min()));
         m_capabilityList->setItem(currentRow, COL_MIN, item);
 
-        str.sprintf("%.3d", cap->max());
-        item = new QTableWidgetItem(str);
+        item = new QTableWidgetItem(str.asprintf("%.3d", cap->max()));
         m_capabilityList->setItem(currentRow, COL_MAX, item);
 
         item = new QTableWidgetItem(cap->name());
         m_capabilityList->setItem(currentRow, COL_NAME, item);
 
         // QLCCapability reference
-        item->setData(Qt::UserRole, qVariantFromValue((void *)cap));
+        item->setData(Qt::UserRole, QVariant::fromValue((void *)cap));
 
         m_currentCapability = cap;
     }
@@ -500,7 +497,7 @@ void EditChannel::slotPictureButtonPressed()
     dialog.setWindowTitle(tr("Open Gobo File"));
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
     dialog.setDirectory(dir);
-    dialog.setNameFilter((tr("Gobo pictures") + " (*.jpg *.jpeg *.png *.bmp)"));
+    dialog.setNameFilter((tr("Gobo pictures") + " (*.jpg *.jpeg *.png *.bmp *.svg)"));
 
     /* Get file name */
     if (dialog.exec() != QDialog::Accepted)
@@ -558,6 +555,7 @@ void EditChannel::slotValue1SpinChanged(double value)
 
 void EditChannel::slotValue2SpinChanged(double value)
 {
+    m_currentCapability->setResource(0, m_val1Spin->value());
     m_currentCapability->setResource(1, value);
 }
 
@@ -580,13 +578,11 @@ void EditChannel::refreshCapabilities()
         QLCCapability *cap = it.next();
 
         // Min
-        str.sprintf("%.3d", cap->min());
-        QTableWidgetItem *item = new QTableWidgetItem(str);
+        QTableWidgetItem *item = new QTableWidgetItem(str.asprintf("%.3d", cap->min()));
         m_capabilityList->setItem(i, COL_MIN, item);
 
         // Max
-        str.sprintf("%.3d", cap->max());
-        item = new QTableWidgetItem(str);
+        item = new QTableWidgetItem(str.asprintf("%.3d", cap->max()));
         m_capabilityList->setItem(i, COL_MAX, item);
 
         // Name
@@ -594,7 +590,7 @@ void EditChannel::refreshCapabilities()
         m_capabilityList->setItem(i, COL_NAME, item);
 
         // QLCCapability reference
-        item->setData(Qt::UserRole, qVariantFromValue((void *)cap));
+        item->setData(Qt::UserRole, QVariant::fromValue((void *)cap));
 
         if (cap->presetType() == QLCCapability::Picture && cap->resource(0).isValid())
         {
@@ -712,9 +708,15 @@ void EditChannel::updateCapabilityPresetGroup(bool show)
             }
             break;
             case QLCCapability::SingleValue:
+                m_val1Spin->setValue(m_currentCapability->resource(0).toFloat());
+                m_val1Spin->setSuffix(m_currentCapability->presetUnits());
                 showValue1 = true;
             break;
             case QLCCapability::DoubleValue:
+                m_val1Spin->setValue(m_currentCapability->resource(0).toFloat());
+                m_val2Spin->setValue(m_currentCapability->resource(1).toFloat());
+                m_val1Spin->setSuffix(m_currentCapability->presetUnits());
+                m_val2Spin->setSuffix(m_currentCapability->presetUnits());
                 showValue1 = true;
                 showValue2 = true;
             break;

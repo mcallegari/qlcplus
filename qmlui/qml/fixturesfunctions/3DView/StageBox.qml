@@ -35,7 +35,13 @@ Entity
         Material
         {
             effect: stage.effect
-            parameters: Parameter { name: "meshColor"; value: "lightgray" }
+
+            parameters: [
+                Parameter { name: "diffuse"; value: "lightgray" },
+                Parameter { name: "specular"; value: "black" },
+                Parameter { name: "shininess"; value: 1.0 },
+                Parameter { name: "bloom"; value: 0 }
+            ]
         }
 
     CuboidMesh
@@ -69,7 +75,7 @@ Entity
 
         ObjectPicker
         {
-            id: stagePicker
+            id: groundPicker
             onClicked: contextManager.setPositionPickPoint(pick.worldIntersection)
         }
 
@@ -77,7 +83,7 @@ Entity
             groundMesh,
             stage.material,
             transform,
-            stagePicker,
+            groundPicker,
             stage.sceneLayer
         ]
     }
@@ -89,10 +95,17 @@ Entity
                                                                            (size.y / 2) - (groundMesh.yExtent / 2),
                                                                            0) }
 
+        ObjectPicker
+        {
+            id: leftPicker
+            onClicked: contextManager.setPositionPickPoint(pick.worldIntersection)
+        }
+
         components: [
             sideMesh,
             stage.material,
             transform,
+            leftPicker,
             stage.sceneLayer
         ]
     }
@@ -103,11 +116,17 @@ Entity
         property Transform transform: Transform { translation: Qt.vector3d((size.x / 2) + (groundMesh.yExtent / 2),
                                                                            (size.y / 2) - (groundMesh.yExtent / 2),
                                                                            0) }
+        ObjectPicker
+        {
+            id: rightPicker
+            onClicked: contextManager.setPositionPickPoint(pick.worldIntersection)
+        }
 
         components: [
             sideMesh,
             stage.material,
             transform,
+            rightPicker,
             stage.sceneLayer
         ]
     }
@@ -118,11 +137,17 @@ Entity
         property Transform transform: Transform { translation: Qt.vector3d(0,
                                                                            (size.y / 2) - (groundMesh.yExtent / 2),
                                                                            (-size.z / 2) - (groundMesh.yExtent / 2)) }
+        ObjectPicker
+        {
+            id: backPicker
+            onClicked: contextManager.setPositionPickPoint(pick.worldIntersection)
+        }
 
         components: [
             backMesh,
             stage.material,
             transform,
+            backPicker,
             stage.sceneLayer
         ]
     }

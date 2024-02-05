@@ -233,8 +233,10 @@ Rectangle
 
                     IconButton
                     {
-                        Layout.alignment: Qt.TopRightCorner
-                        imgSource: "qrc:/reset.svg"
+                        anchors.top: parent.top
+                        anchors.right: parent.right
+                        faSource: FontAwesome.fa_remove
+                        faColor: UISettings.bgControl
                         tooltip: qsTr("Detach the current function")
                         onClicked: widgetRef.controlledFunction = -1
                     }
@@ -250,6 +252,7 @@ Rectangle
                 CustomComboBox
                 {
                     Layout.fillWidth: true
+                    textRole: ""
                     model: widgetRef ? widgetRef.availableAttributes : null
                     currentIndex: widgetRef ? widgetRef.controlledAttribute : 0
                     onCurrentIndexChanged: if (widgetRef) widgetRef.controlledAttribute = currentIndex
@@ -296,16 +299,17 @@ Rectangle
                           {
                               if (checked)
                               {
-                                  vcRightPanel.width += UISettings.sidePanelWidth
-                                  sideLoader.width = UISettings.sidePanelWidth
+                                  if (!sideLoader.visible)
+                                      rightSidePanel.width += UISettings.sidePanelWidth
+                                  sideLoader.visible = true
                                   sideLoader.modelProvider = widgetRef
                                   sideLoader.source = "qrc:/FixtureGroupManager.qml"
                               }
                               else
                               {
-                                  vcRightPanel.width = vcRightPanel.width - sideLoader.width
+                                  rightSidePanel.width -= sideLoader.width
                                   sideLoader.source = ""
-                                  sideLoader.width = 0
+                                  sideLoader.visible = false
                               }
                           }
                       }

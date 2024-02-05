@@ -24,21 +24,21 @@
 #include "sequence.h"
 #include "track.h"
 #include "scene.h"
+#include "show.h"
 #include "doc.h"
 
-#define KXMLQLCTrackID        "ID"
-#define KXMLQLCTrackName      "Name"
-#define KXMLQLCTrackSceneID   "SceneID"
-#define KXMLQLCTrackIsMute    "isMute"
+#define KXMLQLCTrackName      QString("Name")
+#define KXMLQLCTrackSceneID   QString("SceneID")
+#define KXMLQLCTrackIsMute    QString("isMute")
 
-#define KXMLQLCTrackFunctions "Functions"
+#define KXMLQLCTrackFunctions QString("Functions")
 
-Track::Track(quint32 sceneID)
-    : m_id(Track::invalidId())
+Track::Track(quint32 sceneID, QObject *parent)
+    : QObject(parent)
+    , m_id(Track::invalidId())
     , m_showId(Function::invalidId())
     , m_sceneID(sceneID)
     , m_isMute(false)
-
 {
     setName(tr("New Track"));
 }
@@ -65,6 +65,11 @@ quint32 Track::id() const
 quint32 Track::invalidId()
 {
     return UINT_MAX;
+}
+
+quint32 Track::showId()
+{
+    return m_showId;
 }
 
 void Track::setShowId(quint32 id)
@@ -105,7 +110,12 @@ quint32 Track::getSceneID()
  *********************************************************************/
 void Track::setMute(bool state)
 {
+    if (m_isMute == state)
+        return;
+
     m_isMute = state;
+
+    emit muteChanged(state);
 }
 
 bool Track::isMute()
@@ -117,10 +127,12 @@ bool Track::isMute()
  * Sequences
  *********************************************************************/
 
-ShowFunction* Track::createShowFunction(quint32 id)
+ShowFunction *Track::createShowFunction(quint32 functionID)
 {
-    ShowFunction *func = new ShowFunction();
-    func->setFunctionID(id);
+    Show *show = qobject_cast<Show *>(parent());
+    quint32 uId = show == NULL ? 0 : show->getLatestShowFunctionId();
+    ShowFunction *func = new ShowFunction(uId);
+    func->setFunctionID(functionID);
     m_functions.append(func);
 
     return func;
@@ -136,13 +148,22 @@ bool Track::addShowFunction(ShowFunction *func)
     return true;
 }
 
+ShowFunction *Track::showFunction(quint32 id)
+{
+    foreach (ShowFunction *sf, m_functions)
+        if (sf->id() == id)
+            return sf;
+
+    return NULL;
+}
+
 bool Track::removeShowFunction(ShowFunction *function, bool performDelete)
 {
     if (m_functions.contains(function) == false)
         return false;
 
     ShowFunction *func = m_functions.takeAt(m_functions.indexOf(function));
-    if (performDelete)
+    if (performDelete && func)
         delete func;
 
     return true;
@@ -171,7 +192,7 @@ bool Track::saveXML(QXmlStreamWriter *doc)
     /* Save the list of Functions if any is present */
     if (m_functions.isEmpty() == false)
     {
-        foreach(ShowFunction *func, showFunctions())
+        foreach (ShowFunction *func, showFunctions())
             func->saveXML(doc);
     }
 
@@ -228,7 +249,9 @@ bool Track::loadXML(QXmlStreamReader &root)
     {
         if (root.name() == KXMLShowFunction)
         {
-            ShowFunction *newFunc = new ShowFunction();
+            Show *show = qobject_cast<Show *>(parent());
+            quint32 uId = show == NULL ? 0 : show->getLatestShowFunctionId();
+            ShowFunction *newFunc = new ShowFunction(uId);
             newFunc->loadXML(root);
             if (addShowFunction(newFunc) == false)
                 delete newFunc;
@@ -273,8 +296,8 @@ bool Track::postLoad(Doc* doc)
             continue;
         }
 
-        if (showFunction->duration() == 0)
-            showFunction->setDuration(function->totalDuration());
+        //if (showFunction->duration() == 0)
+        //    showFunction->setDuration(function->totalDuration());
         if (showFunction->color().isValid() == false)
             showFunction->setColor(ShowFunction::defaultColor(function->type()));
 
@@ -283,7 +306,7 @@ bool Track::postLoad(Doc* doc)
             Sequence* sequence = qobject_cast<Sequence*>(function);
             if (sequence == NULL || getSceneID() == sequence->boundSceneID())
                 continue;
-
+#ifndef QMLUI
             if (getSceneID() == Function::invalidId())
             {
                 // No scene ID, use the one from this sequence
@@ -295,6 +318,7 @@ bool Track::postLoad(Doc* doc)
                 it.remove();
                 delete showFunction;
             }
+#endif
             modified = true;
         }
     }

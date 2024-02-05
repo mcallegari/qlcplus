@@ -17,7 +17,6 @@
   limitations under the License.
 */
 
-#include <QDesktopWidget>
 #include <QApplication>
 #include <QPainter>
 #include <QMenu>
@@ -25,7 +24,6 @@
 
 #include "videoitem.h"
 #include "trackitem.h"
-#include "headeritems.h"
 
 VideoItem::VideoItem(Video *vid, ShowFunction *func)
     : ShowItem(func)
@@ -176,10 +174,7 @@ void VideoItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
-    int screenCount = 0;
-    QDesktopWidget *desktop = qApp->desktop();
-    if (desktop != NULL)
-        screenCount = desktop->screenCount();
+    int screenCount = QGuiApplication::screens().count();
 
     if (screenCount > 0)
     {
@@ -196,7 +191,7 @@ void VideoItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
         }
     }
     menu.addAction(m_fullscreenAction);
-    foreach(QAction *action, getDefaultActions())
+    foreach (QAction *action, getDefaultActions())
         menu.addAction(action);
 
     menu.exec(QCursor::pos());

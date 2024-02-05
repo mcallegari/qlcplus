@@ -97,7 +97,7 @@ void MonitorGraphicsView::setFixtureRotation(quint32 id, ushort degrees)
 
 void MonitorGraphicsView::showFixturesLabels(bool visible)
 {
-    foreach(MonitorFixtureItem *item, m_fixtures.values())
+    foreach (MonitorFixtureItem *item, m_fixtures.values())
         item->showLabel(visible);
 }
 
@@ -220,7 +220,7 @@ bool MonitorGraphicsView::removeFixture(quint32 id)
 
 void MonitorGraphicsView::clearFixtures()
 {
-    foreach(MonitorFixtureItem *item, m_fixtures.values())
+    foreach (MonitorFixtureItem *item, m_fixtures.values())
         delete item;
     m_fixtures.clear();
 }
@@ -252,7 +252,7 @@ void MonitorGraphicsView::updateGrid()
         for (int i = 0; i < m_gridSize.width() + 1; i++)
         {
             QGraphicsLineItem *item = m_scene->addLine(xPos, m_yOffset, xPos, this->height() - m_yOffset,
-                                                       QPen( QColor(40, 40, 40, 255) ));
+                                                       QPen(QColor(40, 40, 40, 255)));
             item->setZValue(1);
             xPos += m_cellPixels;
             m_gridItems.append(item);
@@ -261,7 +261,7 @@ void MonitorGraphicsView::updateGrid()
         for (int i = 0; i < m_gridSize.height() + 1; i++)
         {
             QGraphicsLineItem *item = m_scene->addLine(m_xOffset, yPos, this->width() - m_xOffset, yPos,
-                                                       QPen( QColor(40, 40, 40, 255) ));
+                                                       QPen(QColor(40, 40, 40, 255)));
             item->setZValue(1);
             yPos += m_cellPixels;
             m_gridItems.append(item);

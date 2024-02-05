@@ -37,7 +37,7 @@
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
-  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="12">Strobe 0-12Hz</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="12">Strobe 0-12Hz</Capability>
  </Channel>
  <Channel Name="Auto Speed">
   <Group Byte="0">Speed</Group>

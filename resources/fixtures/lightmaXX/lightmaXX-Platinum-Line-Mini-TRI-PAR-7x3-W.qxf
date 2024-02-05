@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.7.1</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>shoot_000</Author>
  </Creator>
  <Manufacturer>lightmaXX</Manufacturer>
@@ -15,25 +15,25 @@
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Macro">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="4" Color="#000000">Off</Capability>
-  <Capability Min="5" Max="9" Color="#ffffff">White</Capability>
-  <Capability Min="10" Max="14" Color="#00d5ff">Light blue</Capability>
-  <Capability Min="15" Max="19" Color="#0000ff">Blue</Capability>
-  <Capability Min="20" Max="24" Color="#a200ff">Purple</Capability>
-  <Capability Min="25" Max="29" Color="#ff5ae1">Light pink</Capability>
-  <Capability Min="30" Max="34" Color="#ff00ff">Magenta</Capability>
-  <Capability Min="35" Max="39" Color="#ff009d">Pink</Capability>
-  <Capability Min="40" Max="44" Color="#ff0073">Dark pink</Capability>
-  <Capability Min="45" Max="49" Color="#ff0000">Red</Capability>
-  <Capability Min="50" Max="54" Color="#ff5d00">Orange</Capability>
-  <Capability Min="55" Max="59" Color="#ffcc00">Light orange</Capability>
-  <Capability Min="60" Max="64" Color="#ffff00">Yellow</Capability>
-  <Capability Min="65" Max="69" Color="#7bff00">Light green</Capability>
-  <Capability Min="70" Max="74" Color="#00ff00">Green</Capability>
-  <Capability Min="75" Max="79" Color="#00ffbf">Aquamarine</Capability>
-  <Capability Min="80" Max="84" Color="#00ffff">Cyan</Capability>
-  <Capability Res="Others/rainbow.png" Min="85" Max="169">7-color jump from slow to fast</Capability>
-  <Capability Res="Others/rainbow.png" Min="170" Max="255">Color fade from slow to fast</Capability>
+  <Capability Min="0" Max="4" Preset="ColorMacro" Res1="#000000">Off</Capability>
+  <Capability Min="5" Max="9" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="10" Max="14" Preset="ColorMacro" Res1="#00d5ff">Light blue</Capability>
+  <Capability Min="15" Max="19" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#a200ff">Purple</Capability>
+  <Capability Min="25" Max="29" Preset="ColorMacro" Res1="#ff5ae1">Light pink</Capability>
+  <Capability Min="30" Max="34" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="35" Max="39" Preset="ColorMacro" Res1="#ff009d">Pink</Capability>
+  <Capability Min="40" Max="44" Preset="ColorMacro" Res1="#ff0073">Dark pink</Capability>
+  <Capability Min="45" Max="49" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="50" Max="54" Preset="ColorMacro" Res1="#ff5d00">Orange</Capability>
+  <Capability Min="55" Max="59" Preset="ColorMacro" Res1="#ffcc00">Light orange</Capability>
+  <Capability Min="60" Max="64" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="65" Max="69" Preset="ColorMacro" Res1="#7bff00">Light green</Capability>
+  <Capability Min="70" Max="74" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="75" Max="79" Preset="ColorMacro" Res1="#00ffbf">Aquamarine</Capability>
+  <Capability Min="80" Max="84" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="85" Max="169" Preset="GoboMacro" Res1="Others/rainbow.png">7-color jump from slow to fast</Capability>
+  <Capability Min="170" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Color fade from slow to fast</Capability>
  </Channel>
  <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
  <Mode Name="6 channel mode">
@@ -43,20 +43,12 @@
   <Channel Number="3">Blue</Channel>
   <Channel Number="4">Macro</Channel>
   <Channel Number="5">Strobe</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-   <Channel>4</Channel>
-   <Channel>5</Channel>
-  </Head>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="170" Height="170" Weight="2" Depth="160"/>
-   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2" Width="170" Height="170" Depth="160"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

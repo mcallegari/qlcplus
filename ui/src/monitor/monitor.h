@@ -91,7 +91,7 @@ protected:
     void saveSettings();
 
     /** Protected constructor to prevent multiple instances. */
-    Monitor(QWidget* parent, Doc* doc, Qt::WindowFlags f = 0);
+    Monitor(QWidget* parent, Doc* doc, Qt::WindowFlags f = Qt::Widget);
 
 protected:
     /** The singleton Monitor instance */

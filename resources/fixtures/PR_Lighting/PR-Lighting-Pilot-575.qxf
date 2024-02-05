@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.1</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Robert Box</Author>
  </Creator>
  <Manufacturer>PR Lighting</Manufacturer>
@@ -11,214 +11,214 @@
  <Type>Moving Head</Type>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Max="9" Min="0">Blackout</Capability>
-  <Capability Max="20" Min="10">Open</Capability>
-  <Capability Max="34" Min="21">1</Capability>
-  <Capability Max="48" Min="35">2</Capability>
-  <Capability Max="62" Min="49">3</Capability>
-  <Capability Max="76" Min="63">4</Capability>
-  <Capability Max="90" Min="77">5</Capability>
-  <Capability Max="104" Min="91">6</Capability>
-  <Capability Max="118" Min="105">7</Capability>
-  <Capability Max="132" Min="119">8</Capability>
-  <Capability Max="146" Min="133">9</Capability>
-  <Capability Max="160" Min="147">10</Capability>
-  <Capability Max="174" Min="161">11</Capability>
-  <Capability Max="188" Min="175">12</Capability>
-  <Capability Max="202" Min="189">13</Capability>
-  <Capability Max="216" Min="203">14</Capability>
-  <Capability Max="230" Min="217">15</Capability>
-  <Capability Max="244" Min="231">16</Capability>
-  <Capability Max="255" Min="245">Open</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="10" Max="20" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="21" Max="34">1</Capability>
+  <Capability Min="35" Max="48">2</Capability>
+  <Capability Min="49" Max="62">3</Capability>
+  <Capability Min="63" Max="76">4</Capability>
+  <Capability Min="77" Max="90">5</Capability>
+  <Capability Min="91" Max="104">6</Capability>
+  <Capability Min="105" Max="118">7</Capability>
+  <Capability Min="119" Max="132">8</Capability>
+  <Capability Min="133" Max="146">9</Capability>
+  <Capability Min="147" Max="160">10</Capability>
+  <Capability Min="161" Max="174">11</Capability>
+  <Capability Min="175" Max="188">12</Capability>
+  <Capability Min="189" Max="202">13</Capability>
+  <Capability Min="203" Max="216">14</Capability>
+  <Capability Min="217" Max="230">15</Capability>
+  <Capability Min="231" Max="244">16</Capability>
+  <Capability Min="245" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
- <Channel Name="Iris" Preset="BeamIris"/>
+ <Channel Name="Iris" Preset="ShutterIrisMaxToMin"/>
  <Channel Name="Fixed Gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Max="20" Min="0">Clear</Capability>
-  <Capability Max="40" Min="21">1</Capability>
-  <Capability Max="60" Min="41">2</Capability>
-  <Capability Max="80" Min="61">3</Capability>
-  <Capability Max="100" Min="81">4</Capability>
-  <Capability Max="120" Min="101">5</Capability>
-  <Capability Max="140" Min="121">6</Capability>
-  <Capability Max="160" Min="141">7</Capability>
-  <Capability Max="167" Min="161">Clockwise rotation in speed 1 (slowest)</Capability>
-  <Capability Max="175" Min="168">Clockwise rotation in speed 2</Capability>
-  <Capability Max="183" Min="176">Clockwise rotation in speed 3</Capability>
-  <Capability Max="191" Min="184">Clockwise rotation in speed 4 (fastest)</Capability>
-  <Capability Max="223" Min="192">Stop rotating</Capability>
-  <Capability Max="231" Min="224">Anti-clockwise rotation in speed (slowest)</Capability>
-  <Capability Max="239" Min="232">Anti-clockwise rotation in speed 2</Capability>
-  <Capability Max="247" Min="240">Anti-clockwise rotation in speed 3</Capability>
-  <Capability Max="255" Min="248">Anti-clockwise rotation in speed 4 (fastest)</Capability>
+  <Capability Min="0" Max="20">Clear</Capability>
+  <Capability Min="21" Max="40">1</Capability>
+  <Capability Min="41" Max="60">2</Capability>
+  <Capability Min="61" Max="80">3</Capability>
+  <Capability Min="81" Max="100">4</Capability>
+  <Capability Min="101" Max="120">5</Capability>
+  <Capability Min="121" Max="140">6</Capability>
+  <Capability Min="141" Max="160">7</Capability>
+  <Capability Min="161" Max="167">Clockwise rotation in speed 1 (slowest)</Capability>
+  <Capability Min="168" Max="175">Clockwise rotation in speed 2</Capability>
+  <Capability Min="176" Max="183">Clockwise rotation in speed 3</Capability>
+  <Capability Min="184" Max="191">Clockwise rotation in speed 4 (fastest)</Capability>
+  <Capability Min="192" Max="223">Stop rotating</Capability>
+  <Capability Min="224" Max="231">Anti-clockwise rotation in speed (slowest)</Capability>
+  <Capability Min="232" Max="239">Anti-clockwise rotation in speed 2</Capability>
+  <Capability Min="240" Max="247">Anti-clockwise rotation in speed 3</Capability>
+  <Capability Min="248" Max="255">Anti-clockwise rotation in speed 4 (fastest)</Capability>
  </Channel>
  <Channel Name="Pan rotation" Preset="PositionPan"/>
  <Channel Name="Tilt rotation" Preset="PositionTilt"/>
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Zoom">
   <Group Byte="0">Effect</Group>
-  <Capability Max="50" Min="0">Clear</Capability>
-  <Capability Max="101" Min="51">Angle 1 (wide)</Capability>
-  <Capability Max="152" Min="102">Angle 2 (narrow)</Capability>
-  <Capability Max="203" Min="153">CTB</Capability>
-  <Capability Max="255" Min="204">CTO</Capability>
+  <Capability Min="0" Max="50">Clear</Capability>
+  <Capability Min="51" Max="101">Angle 1 (wide)</Capability>
+  <Capability Min="102" Max="152">Angle 2 (narrow)</Capability>
+  <Capability Min="153" Max="203">CTB</Capability>
+  <Capability Min="204" Max="255">CTO</Capability>
  </Channel>
  <Channel Name="Colour Wheel 1">
   <Group Byte="0">Colour</Group>
-  <Capability Max="16" Min="0">White. Note: Stay 5 seconds while DMX value is 5, 6 or 7, the reset function is performed</Capability>
-  <Capability Max="24" Min="17">White/filter 1</Capability>
-  <Capability Max="32" Min="25">Filter 1</Capability>
-  <Capability Max="40" Min="33">Filter 1/filter 2</Capability>
-  <Capability Max="48" Min="41">Filter 2</Capability>
-  <Capability Max="56" Min="49">Filter 2/filter 3</Capability>
-  <Capability Max="64" Min="57">Filter 3</Capability>
-  <Capability Max="72" Min="65">Filter 3/filter 4</Capability>
-  <Capability Max="80" Min="73">Filter 4</Capability>
-  <Capability Max="88" Min="81">Filter 4/filter 5</Capability>
-  <Capability Max="96" Min="89">Filter 5</Capability>
-  <Capability Max="104" Min="97">Filter 5/filter 6</Capability>
-  <Capability Max="112" Min="105">Filter 6</Capability>
-  <Capability Max="120" Min="113">Filter 6/white</Capability>
-  <Capability Max="127" Min="121">White</Capability>
-  <Capability Max="133" Min="128">Clockwise rotation in speed 1</Capability>
-  <Capability Max="139" Min="134">Clockwise rotation in speed 2</Capability>
-  <Capability Max="145" Min="140">Clockwise rotation in speed 3</Capability>
-  <Capability Max="151" Min="146">Clockwise rotation in speed 4</Capability>
-  <Capability Max="157" Min="152">Clockwise rotation in speed 5</Capability>
-  <Capability Max="163" Min="158">Clockwise rotation in speed 6</Capability>
-  <Capability Max="169" Min="164">Clockwise rotation in speed 7</Capability>
-  <Capability Max="175" Min="170">Clockwise rotation in speed 8</Capability>
-  <Capability Max="181" Min="176">Clockwise rotation in speed 9</Capability>
-  <Capability Max="187" Min="182">Clockwise rotation in speed 10</Capability>
-  <Capability Max="195" Min="188">Stop rotating</Capability>
-  <Capability Max="201" Min="196">Anti-clockwise rotation in speed 1</Capability>
-  <Capability Max="207" Min="202">Anti-clockwise rotation in speed 2</Capability>
-  <Capability Max="213" Min="208">Anti-clockwise rotation in speed 3</Capability>
-  <Capability Max="219" Min="214">Anti-clockwise rotation in speed 4</Capability>
-  <Capability Max="225" Min="220">Anti-clockwise rotation in speed 5</Capability>
-  <Capability Max="231" Min="226">Anti-clockwise rotation in speed 6</Capability>
-  <Capability Max="237" Min="232">Anti-clockwise rotation in speed 7</Capability>
-  <Capability Max="243" Min="238">Anti-clockwise rotation in speed 8</Capability>
-  <Capability Max="249" Min="244">Anti-clockwise rotation in speed 9</Capability>
-  <Capability Max="255" Min="250">Anti-clockwise rotation in speed 10</Capability>
+  <Capability Min="0" Max="16">White. Note: Stay 5 seconds while DMX value is 5, 6 or 7, the reset function is performed</Capability>
+  <Capability Min="17" Max="24">White/filter 1</Capability>
+  <Capability Min="25" Max="32">Filter 1</Capability>
+  <Capability Min="33" Max="40">Filter 1/filter 2</Capability>
+  <Capability Min="41" Max="48">Filter 2</Capability>
+  <Capability Min="49" Max="56">Filter 2/filter 3</Capability>
+  <Capability Min="57" Max="64">Filter 3</Capability>
+  <Capability Min="65" Max="72">Filter 3/filter 4</Capability>
+  <Capability Min="73" Max="80">Filter 4</Capability>
+  <Capability Min="81" Max="88">Filter 4/filter 5</Capability>
+  <Capability Min="89" Max="96">Filter 5</Capability>
+  <Capability Min="97" Max="104">Filter 5/filter 6</Capability>
+  <Capability Min="105" Max="112">Filter 6</Capability>
+  <Capability Min="113" Max="120">Filter 6/white</Capability>
+  <Capability Min="121" Max="127">White</Capability>
+  <Capability Min="128" Max="133">Clockwise rotation in speed 1</Capability>
+  <Capability Min="134" Max="139">Clockwise rotation in speed 2</Capability>
+  <Capability Min="140" Max="145">Clockwise rotation in speed 3</Capability>
+  <Capability Min="146" Max="151">Clockwise rotation in speed 4</Capability>
+  <Capability Min="152" Max="157">Clockwise rotation in speed 5</Capability>
+  <Capability Min="158" Max="163">Clockwise rotation in speed 6</Capability>
+  <Capability Min="164" Max="169">Clockwise rotation in speed 7</Capability>
+  <Capability Min="170" Max="175">Clockwise rotation in speed 8</Capability>
+  <Capability Min="176" Max="181">Clockwise rotation in speed 9</Capability>
+  <Capability Min="182" Max="187">Clockwise rotation in speed 10</Capability>
+  <Capability Min="188" Max="195">Stop rotating</Capability>
+  <Capability Min="196" Max="201">Anti-clockwise rotation in speed 1</Capability>
+  <Capability Min="202" Max="207">Anti-clockwise rotation in speed 2</Capability>
+  <Capability Min="208" Max="213">Anti-clockwise rotation in speed 3</Capability>
+  <Capability Min="214" Max="219">Anti-clockwise rotation in speed 4</Capability>
+  <Capability Min="220" Max="225">Anti-clockwise rotation in speed 5</Capability>
+  <Capability Min="226" Max="231">Anti-clockwise rotation in speed 6</Capability>
+  <Capability Min="232" Max="237">Anti-clockwise rotation in speed 7</Capability>
+  <Capability Min="238" Max="243">Anti-clockwise rotation in speed 8</Capability>
+  <Capability Min="244" Max="249">Anti-clockwise rotation in speed 9</Capability>
+  <Capability Min="250" Max="255">Anti-clockwise rotation in speed 10</Capability>
  </Channel>
  <Channel Name="Colour Wheel 2">
   <Group Byte="0">Colour</Group>
-  <Capability Max="16" Min="0">White. Note: Stay 5 seconds while DMX value is 5, 6 or 7, the reset function is performed</Capability>
-  <Capability Max="24" Min="17">White/filter 1</Capability>
-  <Capability Max="32" Min="25">Filter 1</Capability>
-  <Capability Max="40" Min="33">Filter 1/filter 2</Capability>
-  <Capability Max="48" Min="41">Filter 2</Capability>
-  <Capability Max="56" Min="49">Filter 2/filter 3</Capability>
-  <Capability Max="64" Min="57">Filter 3</Capability>
-  <Capability Max="72" Min="65">Filter 3/filter 4</Capability>
-  <Capability Max="80" Min="73">Filter 4</Capability>
-  <Capability Max="88" Min="81">Filter 4/filter 5</Capability>
-  <Capability Max="96" Min="89">Filter 5</Capability>
-  <Capability Max="104" Min="97">Filter 5/filter 6</Capability>
-  <Capability Max="112" Min="105">Filter 6</Capability>
-  <Capability Max="120" Min="113">Filter 6/white</Capability>
-  <Capability Max="127" Min="121">White</Capability>
-  <Capability Max="133" Min="128">Clockwise rotation in speed 1</Capability>
-  <Capability Max="139" Min="134">Clockwise rotation in speed 2</Capability>
-  <Capability Max="145" Min="140">Clockwise rotation in speed 3</Capability>
-  <Capability Max="151" Min="146">Clockwise rotation in speed 4</Capability>
-  <Capability Max="157" Min="152">Clockwise rotation in speed 5</Capability>
-  <Capability Max="163" Min="158">Clockwise rotation in speed 6</Capability>
-  <Capability Max="169" Min="164">Clockwise rotation in speed 7</Capability>
-  <Capability Max="175" Min="170">Clockwise rotation in speed 8</Capability>
-  <Capability Max="181" Min="176">Clockwise rotation in speed 9</Capability>
-  <Capability Max="187" Min="182">Clockwise rotation in speed 10</Capability>
-  <Capability Max="195" Min="188">Stop rotating</Capability>
-  <Capability Max="201" Min="196">Anti-clockwise rotation in speed 1</Capability>
-  <Capability Max="207" Min="202">Anti-clockwise rotation in speed 2</Capability>
-  <Capability Max="213" Min="208">Anti-clockwise rotation in speed 3</Capability>
-  <Capability Max="219" Min="214">Anti-clockwise rotation in speed 4</Capability>
-  <Capability Max="225" Min="220">Anti-clockwise rotation in speed 5</Capability>
-  <Capability Max="231" Min="226">Anti-clockwise rotation in speed 6</Capability>
-  <Capability Max="237" Min="232">Anti-clockwise rotation in speed 7</Capability>
-  <Capability Max="243" Min="238">Anti-clockwise rotation in speed 8</Capability>
-  <Capability Max="249" Min="244">Anti-clockwise rotation in speed 9</Capability>
-  <Capability Max="255" Min="250">Anti-clockwise rotation in speed 10</Capability>
+  <Capability Min="0" Max="16">White. Note: Stay 5 seconds while DMX value is 5, 6 or 7, the reset function is performed</Capability>
+  <Capability Min="17" Max="24">White/filter 1</Capability>
+  <Capability Min="25" Max="32">Filter 1</Capability>
+  <Capability Min="33" Max="40">Filter 1/filter 2</Capability>
+  <Capability Min="41" Max="48">Filter 2</Capability>
+  <Capability Min="49" Max="56">Filter 2/filter 3</Capability>
+  <Capability Min="57" Max="64">Filter 3</Capability>
+  <Capability Min="65" Max="72">Filter 3/filter 4</Capability>
+  <Capability Min="73" Max="80">Filter 4</Capability>
+  <Capability Min="81" Max="88">Filter 4/filter 5</Capability>
+  <Capability Min="89" Max="96">Filter 5</Capability>
+  <Capability Min="97" Max="104">Filter 5/filter 6</Capability>
+  <Capability Min="105" Max="112">Filter 6</Capability>
+  <Capability Min="113" Max="120">Filter 6/white</Capability>
+  <Capability Min="121" Max="127">White</Capability>
+  <Capability Min="128" Max="133">Clockwise rotation in speed 1</Capability>
+  <Capability Min="134" Max="139">Clockwise rotation in speed 2</Capability>
+  <Capability Min="140" Max="145">Clockwise rotation in speed 3</Capability>
+  <Capability Min="146" Max="151">Clockwise rotation in speed 4</Capability>
+  <Capability Min="152" Max="157">Clockwise rotation in speed 5</Capability>
+  <Capability Min="158" Max="163">Clockwise rotation in speed 6</Capability>
+  <Capability Min="164" Max="169">Clockwise rotation in speed 7</Capability>
+  <Capability Min="170" Max="175">Clockwise rotation in speed 8</Capability>
+  <Capability Min="176" Max="181">Clockwise rotation in speed 9</Capability>
+  <Capability Min="182" Max="187">Clockwise rotation in speed 10</Capability>
+  <Capability Min="188" Max="195">Stop rotating</Capability>
+  <Capability Min="196" Max="201">Anti-clockwise rotation in speed 1</Capability>
+  <Capability Min="202" Max="207">Anti-clockwise rotation in speed 2</Capability>
+  <Capability Min="208" Max="213">Anti-clockwise rotation in speed 3</Capability>
+  <Capability Min="214" Max="219">Anti-clockwise rotation in speed 4</Capability>
+  <Capability Min="220" Max="225">Anti-clockwise rotation in speed 5</Capability>
+  <Capability Min="226" Max="231">Anti-clockwise rotation in speed 6</Capability>
+  <Capability Min="232" Max="237">Anti-clockwise rotation in speed 7</Capability>
+  <Capability Min="238" Max="243">Anti-clockwise rotation in speed 8</Capability>
+  <Capability Min="244" Max="249">Anti-clockwise rotation in speed 9</Capability>
+  <Capability Min="250" Max="255">Anti-clockwise rotation in speed 10</Capability>
  </Channel>
  <Channel Name="Rotating Gobo Wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Max="43" Min="0">Clear</Capability>
-  <Capability Max="85" Min="44">1</Capability>
-  <Capability Max="128" Min="86">2</Capability>
-  <Capability Max="170" Min="129">3</Capability>
-  <Capability Max="212" Min="171">4</Capability>
-  <Capability Max="255" Min="213">5</Capability>
+  <Capability Min="0" Max="43">Clear</Capability>
+  <Capability Min="44" Max="85">1</Capability>
+  <Capability Min="86" Max="128">2</Capability>
+  <Capability Min="129" Max="170">3</Capability>
+  <Capability Min="171" Max="212">4</Capability>
+  <Capability Min="213" Max="255">5</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Gobo</Group>
-  <Capability Max="120" Min="0">0~540°</Capability>
-  <Capability Max="127" Min="121">Clockwise in speed 1</Capability>
-  <Capability Max="135" Min="128">Clockwise in speed 2</Capability>
-  <Capability Max="143" Min="136">Clockwise in speed 3</Capability>
-  <Capability Max="151" Min="144">Clockwise in speed 4</Capability>
-  <Capability Max="159" Min="152">Clockwise in speed 5</Capability>
-  <Capability Max="167" Min="160">Clockwise in speed 6</Capability>
-  <Capability Max="175" Min="168">Clockwise in speed 7</Capability>
-  <Capability Max="183" Min="176">Clockwise in speed 8</Capability>
-  <Capability Max="191" Min="184">Stop</Capability>
-  <Capability Max="199" Min="192">Anti-clockwise in speed 8</Capability>
-  <Capability Max="207" Min="200">Anti-clockwise in speed 7</Capability>
-  <Capability Max="215" Min="208">Anti-clockwise in speed 6</Capability>
-  <Capability Max="223" Min="216">Anti-clockwise in speed 5</Capability>
-  <Capability Max="231" Min="224">Anti-clockwise in speed 4</Capability>
-  <Capability Max="239" Min="232">Anti-clockwise in speed 3</Capability>
-  <Capability Max="247" Min="240">Anti-clockwise in speed 2</Capability>
-  <Capability Max="255" Min="248">Anti-clockwise in speed 1</Capability>
+  <Capability Min="0" Max="120">0~540°</Capability>
+  <Capability Min="121" Max="127">Clockwise in speed 1</Capability>
+  <Capability Min="128" Max="135">Clockwise in speed 2</Capability>
+  <Capability Min="136" Max="143">Clockwise in speed 3</Capability>
+  <Capability Min="144" Max="151">Clockwise in speed 4</Capability>
+  <Capability Min="152" Max="159">Clockwise in speed 5</Capability>
+  <Capability Min="160" Max="167">Clockwise in speed 6</Capability>
+  <Capability Min="168" Max="175">Clockwise in speed 7</Capability>
+  <Capability Min="176" Max="183">Clockwise in speed 8</Capability>
+  <Capability Min="184" Max="191">Stop</Capability>
+  <Capability Min="192" Max="199">Anti-clockwise in speed 8</Capability>
+  <Capability Min="200" Max="207">Anti-clockwise in speed 7</Capability>
+  <Capability Min="208" Max="215">Anti-clockwise in speed 6</Capability>
+  <Capability Min="216" Max="223">Anti-clockwise in speed 5</Capability>
+  <Capability Min="224" Max="231">Anti-clockwise in speed 4</Capability>
+  <Capability Min="232" Max="239">Anti-clockwise in speed 3</Capability>
+  <Capability Min="240" Max="247">Anti-clockwise in speed 2</Capability>
+  <Capability Min="248" Max="255">Anti-clockwise in speed 1</Capability>
  </Channel>
  <Channel Name="Prism Rotation">
   <Group Byte="0">Prism</Group>
-  <Capability Max="120" Min="0">0~540°</Capability>
-  <Capability Max="127" Min="121">Clockwise in speed 1</Capability>
-  <Capability Max="135" Min="128">Clockwise in speed 2</Capability>
-  <Capability Max="143" Min="136">Clockwise in speed 3</Capability>
-  <Capability Max="151" Min="144">Clockwise in speed 4</Capability>
-  <Capability Max="159" Min="152">Clockwise in speed 5</Capability>
-  <Capability Max="167" Min="160">Clockwise in speed 6</Capability>
-  <Capability Max="175" Min="168">Clockwise in speed 7</Capability>
-  <Capability Max="183" Min="176">Clockwise in speed 8</Capability>
-  <Capability Max="191" Min="184">Stop</Capability>
-  <Capability Max="199" Min="192">Anti-clockwise in speed 8</Capability>
-  <Capability Max="207" Min="200">Anti-clockwise in speed 7</Capability>
-  <Capability Max="215" Min="208">Anti-clockwise in speed 6</Capability>
-  <Capability Max="223" Min="216">Anti-clockwise in speed 5</Capability>
-  <Capability Max="231" Min="224">Anti-clockwise in speed 4</Capability>
-  <Capability Max="239" Min="232">Anti-clockwise in speed 3</Capability>
-  <Capability Max="247" Min="240">Anti-clockwise in speed 2</Capability>
-  <Capability Max="255" Min="248">Anti-clockwise in speed 1</Capability>
+  <Capability Min="0" Max="120">0~540°</Capability>
+  <Capability Min="121" Max="127">Clockwise in speed 1</Capability>
+  <Capability Min="128" Max="135">Clockwise in speed 2</Capability>
+  <Capability Min="136" Max="143">Clockwise in speed 3</Capability>
+  <Capability Min="144" Max="151">Clockwise in speed 4</Capability>
+  <Capability Min="152" Max="159">Clockwise in speed 5</Capability>
+  <Capability Min="160" Max="167">Clockwise in speed 6</Capability>
+  <Capability Min="168" Max="175">Clockwise in speed 7</Capability>
+  <Capability Min="176" Max="183">Clockwise in speed 8</Capability>
+  <Capability Min="184" Max="191">Stop</Capability>
+  <Capability Min="192" Max="199">Anti-clockwise in speed 8</Capability>
+  <Capability Min="200" Max="207">Anti-clockwise in speed 7</Capability>
+  <Capability Min="208" Max="215">Anti-clockwise in speed 6</Capability>
+  <Capability Min="216" Max="223">Anti-clockwise in speed 5</Capability>
+  <Capability Min="224" Max="231">Anti-clockwise in speed 4</Capability>
+  <Capability Min="232" Max="239">Anti-clockwise in speed 3</Capability>
+  <Capability Min="240" Max="247">Anti-clockwise in speed 2</Capability>
+  <Capability Min="248" Max="255">Anti-clockwise in speed 1</Capability>
  </Channel>
  <Channel Name="Pan &amp; Tilt Speed (Extended Function)">
   <Group Byte="0">Effect</Group>
-  <Capability Max="255" Min="0">Adjust</Capability>
+  <Capability Min="0" Max="255">Adjust</Capability>
  </Channel>
  <Channel Name="Pan Fine (16-bit Extended Function)" Preset="PositionPanFine"/>
  <Channel Name="Tile Fine (16-bit Extended Function)" Preset="PositionTiltFine"/>
  <Channel Name="Gobo Rotation Fine (16-bit Extended Function)">
   <Group Byte="1">Gobo</Group>
-  <Capability Max="255" Min="0">Adjust</Capability>
+  <Capability Min="0" Max="255">Adjust</Capability>
  </Channel>
  <Channel Name="Control (When Extended functions are Invalid, Shift This Channel to 15th Channel.)">
   <Group Byte="0">Maintenance</Group>
-  <Capability Max="48" Min="0">Reserved</Capability>
-  <Capability Max="80" Min="49">Reset</Capability>
-  <Capability Max="112" Min="81">Reserved</Capability>
-  <Capability Max="144" Min="113">Turn lamp Off (stay 10 seconds)</Capability>
-  <Capability Max="223" Min="145">Reserved</Capability>
-  <Capability Max="255" Min="224">Turn lamp on</Capability>
+  <Capability Min="0" Max="48">Reserved</Capability>
+  <Capability Min="49" Max="80" Preset="ResetAll">Reset</Capability>
+  <Capability Min="81" Max="112">Reserved</Capability>
+  <Capability Min="113" Max="144" Preset="LampOff">Turn lamp Off (stay 10 seconds)</Capability>
+  <Capability Min="145" Max="223">Reserved</Capability>
+  <Capability Min="224" Max="255" Preset="LampOn">Turn lamp on</Capability>
  </Channel>
  <Channel Name="Prisms">
   <Group Byte="0">Prism</Group>
-  <Capability Max="51" Min="0">Clear</Capability>
-  <Capability Max="102" Min="52">1</Capability>
-  <Capability Max="153" Min="103">2</Capability>
-  <Capability Max="204" Min="154">UV effect</Capability>
-  <Capability Max="255" Min="205">Frost</Capability>
+  <Capability Min="0" Max="51">Clear</Capability>
+  <Capability Min="52" Max="102">1</Capability>
+  <Capability Min="103" Max="153">2</Capability>
+  <Capability Min="154" Max="204">UV effect</Capability>
+  <Capability Min="205" Max="255">Frost</Capability>
  </Channel>
  <Mode Name="19 Channel">
   <Channel Number="0">Strobe</Channel>
@@ -241,11 +241,11 @@
   <Channel Number="17">Gobo Rotation Fine (16-bit Extended Function)</Channel>
   <Channel Number="18">Control (When Extended functions are Invalid, Shift This Channel to 15th Channel.)</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="MSR 575W" Lumens="0" ColourTemperature="7200"/>
-   <Dimensions Depth="500" Height="730" Weight="39" Width="510"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="22"/>
-   <Focus Type="Head" TiltMax="270" PanMax="540"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="780"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="MSR 575W" Lumens="0" ColourTemperature="7200"/>
+  <Dimensions Weight="39" Width="510" Height="730" Depth="500"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="22"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="780" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
 </FixtureDefinition>

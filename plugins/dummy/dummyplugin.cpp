@@ -85,7 +85,7 @@ QStringList DummyPlugin::outputs()
      * the next one is output line number 1, etc..
      */
     QStringList list;
-    list << QString("1: Dummy line");
+    list << QString("Dummy line");
     return list;
 }
 
@@ -126,11 +126,12 @@ QString DummyPlugin::outputInfo(quint32 output)
     return str;
 }
 
-void DummyPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void DummyPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
     Q_UNUSED(output)
     Q_UNUSED(data)
+    Q_UNUSED(dataChanged)
 
     /** Check for output index validity and, in case, return.
      *
@@ -178,7 +179,7 @@ QStringList DummyPlugin::inputs()
      * the next one is output line number 1, etc..
      */
     QStringList list;
-    list << QString("1: Dummy line");
+    list << QString("Dummy line");
     return list;
 }
 
@@ -257,10 +258,3 @@ void DummyPlugin::setParameter(quint32 universe, quint32 line, Capability type,
      *  QLC+ to store the parameter in the project workspace XML */
     QLCIOPlugin::setParameter(universe, line, type, name, value);
 }
-
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(dummyplugin, DummyPlugin)
-#endif

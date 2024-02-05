@@ -602,7 +602,6 @@
  </widget>
  <resources>
   <include location="../qlcui.qrc"/>
-  <include location="../qlcui.qrc"/>
  </resources>
  <connections>
   <connection>

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Vassily Leushin</Author>
  </Creator>
  <Manufacturer>DTS</Manufacturer>
@@ -42,10 +42,10 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="19">Blackout</Capability>
-  <Capability Min="20" Max="39">Open</Capability>
-  <Capability Min="40" Max="59">Blackout</Capability>
-  <Capability Min="60" Max="79">Random</Capability>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="20" Max="39" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="40" Max="59" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="60" Max="79" Preset="StrobeRandom">Random</Capability>
   <Capability Min="80" Max="89">Speed 1</Capability>
   <Capability Min="90" Max="99">Speed 2</Capability>
   <Capability Min="100" Max="109">Speed 3</Capability>
@@ -62,7 +62,7 @@
   <Capability Min="210" Max="219">Close Speed 4</Capability>
   <Capability Min="220" Max="227">Color/Gobo in BO</Capability>
   <Capability Min="228" Max="233">Pan/Tilt in BO</Capability>
-  <Capability Min="234" Max="255">Open</Capability>
+  <Capability Min="234" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
@@ -292,12 +292,12 @@
  <Channel Name="Reset/Lamp">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="9">No effect</Capability>
-  <Capability Min="10" Max="60">Lamp OFF</Capability>
+  <Capability Min="10" Max="60" Preset="LampOff">Lamp OFF</Capability>
   <Capability Min="61" Max="129">No effect</Capability>
-  <Capability Min="130" Max="179">Lamp ON</Capability>
+  <Capability Min="130" Max="179" Preset="LampOn">Lamp ON</Capability>
   <Capability Min="180" Max="200">No effect</Capability>
-  <Capability Min="201" Max="239">Internal Motor Reset</Capability>
-  <Capability Min="240" Max="255">Total Reset</Capability>
+  <Capability Min="201" Max="239" Preset="ResetMotors">Internal Motor Reset</Capability>
+  <Capability Min="240" Max="255" Preset="ResetAll">Total Reset</Capability>
  </Channel>
  <Mode Name="33ch">
   <Channel Number="0">Pan Coarse</Channel>

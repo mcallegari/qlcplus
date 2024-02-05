@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>fguki</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
@@ -13,45 +13,45 @@
  <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
  <Channel Name="Strobe">
   <Group Byte="1">Shutter</Group>
-  <Capability Min="0" Max="7">Off</Capability>
-  <Capability Min="8" Max="15">Open</Capability>
-  <Capability Min="16" Max="131">Strobe, slow to fast</Capability>
-  <Capability Min="132" Max="167">Fast close, slow open</Capability>
-  <Capability Min="168" Max="203">Slow close, fast open</Capability>
-  <Capability Min="204" Max="239">Pulse open and close</Capability>
-  <Capability Min="240" Max="247">Random strobe</Capability>
-  <Capability Min="248" Max="255">Open</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Off</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="132" Max="167" Preset="FastToSlow">Fast close, slow open</Capability>
+  <Capability Min="168" Max="203" Preset="SlowToFast">Slow close, fast open</Capability>
+  <Capability Min="204" Max="239" Preset="PulseSlowToFast">Pulse open and close</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandom">Random strobe</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Color Wheel 1">
   <Group Byte="1">Colour</Group>
-  <Capability Min="0" Max="0" Color="#ffffff">White - Continuous scrolling</Capability>
-  <Capability Min="1" Max="14" Color="#ffffff" Color2="#ff0000">White to Red - Continuous scrolling</Capability>
-  <Capability Min="15" Max="15" Color="#ff0000">Red (Color 1) - Continuous scrolling</Capability>
-  <Capability Min="16" Max="29" Color="#ff0000" Color2="#0000ff">Red to Deep Blue - Continuous scrolling</Capability>
-  <Capability Min="30" Max="30" Color="#0000ff">Deep Blue (Color 2) - Continuous scrolling</Capability>
-  <Capability Min="31" Max="44" Color="#0000ff" Color2="#cc66ff">Deep Blue to Lavender - Continuous scrolling</Capability>
-  <Capability Min="45" Max="45" Color="#cc66ff">Lavender (Color 3) - Continuous scrolling</Capability>
-  <Capability Min="46" Max="59" Color="#cc66ff" Color2="#ff00ff">Lavender to Magenta - Continuous scrolling</Capability>
-  <Capability Min="60" Max="60" Color="#ff00ff">Magenta (Color 4) - Continuous scrolling</Capability>
-  <Capability Min="61" Max="74" Color="#ff00ff" Color2="#ffff00">Magenta to Yellow - Continuous scrolling</Capability>
-  <Capability Min="75" Max="75" Color="#ffff00">Yellow (Color 5) - Continuous scrolling</Capability>
-  <Capability Min="76" Max="89" Color="#ffff00" Color2="#ff8000">Yelow to Orange - Continuous scrolling</Capability>
-  <Capability Min="90" Max="90" Color="#ff8000">Orange (Color 6) - Continuous scrolling</Capability>
-  <Capability Min="91" Max="104" Color="#ff8000" Color2="#80ff00">Orange to Light Green - Continuous scrolling</Capability>
-  <Capability Min="105" Max="105" Color="#80ff00">Light Green (Color 7) - Continuous scrolling</Capability>
-  <Capability Min="106" Max="119" Color="#80ff00" Color2="#0080ff">Light Green to Light Blue - Continuous scrolling</Capability>
-  <Capability Min="120" Max="120" Color="#0080ff">Light Blue (Color 8) - Continuous scrolling</Capability>
-  <Capability Min="121" Max="134" Color="#0080ff" Color2="#ffffff">Light Blue to White - Continuous scrolling</Capability>
-  <Capability Min="135" Max="160" Color="#ffffff">White - Continuous scrolling</Capability>
-  <Capability Min="161" Max="163" Color="#ff0000">Color 1 - Red - Stepped scrolling</Capability>
-  <Capability Min="164" Max="166" Color="#0000ff">Color 2 - Deep Blue - Stepped scrolling</Capability>
-  <Capability Min="167" Max="169" Color="#cc66ff">Color 3 - Lavender - Stepped scrolling</Capability>
-  <Capability Min="170" Max="172" Color="#ff00ff">Color 4 - Magenta - Stepped scrolling</Capability>
-  <Capability Min="173" Max="175" Color="#ffff00">Color 5 - Yellow - Stepped scrolling</Capability>
-  <Capability Min="176" Max="178" Color="#ff8000">Color 6 - Orange - Stepped scrolling</Capability>
-  <Capability Min="179" Max="181" Color="#80ff00">Color 7 - Light Green - Stepped scrolling</Capability>
-  <Capability Min="182" Max="184" Color="#0080ff">Color 8 - Light Blue - Stepped scrolling</Capability>
-  <Capability Min="185" Max="192" Color="#ffffff">White - Stepped scrolling</Capability>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">White - Continuous scrolling</Capability>
+  <Capability Min="1" Max="14" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White to Red - Continuous scrolling</Capability>
+  <Capability Min="15" Max="15" Preset="ColorMacro" Res1="#ff0000">Red (Color 1) - Continuous scrolling</Capability>
+  <Capability Min="16" Max="29" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red to Deep Blue - Continuous scrolling</Capability>
+  <Capability Min="30" Max="30" Preset="ColorMacro" Res1="#0000ff">Deep Blue (Color 2) - Continuous scrolling</Capability>
+  <Capability Min="31" Max="44" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#cc66ff">Deep Blue to Lavender - Continuous scrolling</Capability>
+  <Capability Min="45" Max="45" Preset="ColorMacro" Res1="#cc66ff">Lavender (Color 3) - Continuous scrolling</Capability>
+  <Capability Min="46" Max="59" Preset="ColorDoubleMacro" Res1="#cc66ff" Res2="#ff00ff">Lavender to Magenta - Continuous scrolling</Capability>
+  <Capability Min="60" Max="60" Preset="ColorMacro" Res1="#ff00ff">Magenta (Color 4) - Continuous scrolling</Capability>
+  <Capability Min="61" Max="74" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ffff00">Magenta to Yellow - Continuous scrolling</Capability>
+  <Capability Min="75" Max="75" Preset="ColorMacro" Res1="#ffff00">Yellow (Color 5) - Continuous scrolling</Capability>
+  <Capability Min="76" Max="89" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff8000">Yelow to Orange - Continuous scrolling</Capability>
+  <Capability Min="90" Max="90" Preset="ColorMacro" Res1="#ff8000">Orange (Color 6) - Continuous scrolling</Capability>
+  <Capability Min="91" Max="104" Preset="ColorDoubleMacro" Res1="#ff8000" Res2="#80ff00">Orange to Light Green - Continuous scrolling</Capability>
+  <Capability Min="105" Max="105" Preset="ColorMacro" Res1="#80ff00">Light Green (Color 7) - Continuous scrolling</Capability>
+  <Capability Min="106" Max="119" Preset="ColorDoubleMacro" Res1="#80ff00" Res2="#0080ff">Light Green to Light Blue - Continuous scrolling</Capability>
+  <Capability Min="120" Max="120" Preset="ColorMacro" Res1="#0080ff">Light Blue (Color 8) - Continuous scrolling</Capability>
+  <Capability Min="121" Max="134" Preset="ColorDoubleMacro" Res1="#0080ff" Res2="#ffffff">Light Blue to White - Continuous scrolling</Capability>
+  <Capability Min="135" Max="160" Preset="ColorMacro" Res1="#ffffff">White - Continuous scrolling</Capability>
+  <Capability Min="161" Max="163" Preset="ColorMacro" Res1="#ff0000">Color 1 - Red - Stepped scrolling</Capability>
+  <Capability Min="164" Max="166" Preset="ColorMacro" Res1="#0000ff">Color 2 - Deep Blue - Stepped scrolling</Capability>
+  <Capability Min="167" Max="169" Preset="ColorMacro" Res1="#cc66ff">Color 3 - Lavender - Stepped scrolling</Capability>
+  <Capability Min="170" Max="172" Preset="ColorMacro" Res1="#ff00ff">Color 4 - Magenta - Stepped scrolling</Capability>
+  <Capability Min="173" Max="175" Preset="ColorMacro" Res1="#ffff00">Color 5 - Yellow - Stepped scrolling</Capability>
+  <Capability Min="176" Max="178" Preset="ColorMacro" Res1="#ff8000">Color 6 - Orange - Stepped scrolling</Capability>
+  <Capability Min="179" Max="181" Preset="ColorMacro" Res1="#80ff00">Color 7 - Light Green - Stepped scrolling</Capability>
+  <Capability Min="182" Max="184" Preset="ColorMacro" Res1="#0080ff">Color 8 - Light Blue - Stepped scrolling</Capability>
+  <Capability Min="185" Max="192" Preset="ColorMacro" Res1="#ffffff">White - Stepped scrolling</Capability>
   <Capability Min="193" Max="214">Continuous rotation - Clockwise, fast to slow</Capability>
   <Capability Min="215" Max="221">Continuous rotation - Stop</Capability>
   <Capability Min="222" Max="243">Continuous rotation - Counter-clockwise, slow to fast</Capability>
@@ -61,34 +61,34 @@
  </Channel>
  <Channel Name="Color Wheel 2">
   <Group Byte="1">Colour</Group>
-  <Capability Min="0" Max="0" Color="#ffffff">White - Continuous scrolling</Capability>
-  <Capability Min="1" Max="14" Color="#ffffff" Color2="#ff0080">White to Pink - Continuous scrolling</Capability>
-  <Capability Min="15" Max="15" Color="#ff0080">Pink (Color 1) - Continuous scrolling</Capability>
-  <Capability Min="16" Max="29" Color="#ff0080">Pink to CTO 3200K - Continuous scrolling</Capability>
-  <Capability Min="30" Max="30" Color="#e6e6e6">CTO 3200K (Color 2) - Continuous scrolling</Capability>
-  <Capability Min="31" Max="44" Color="#e6e6e6" Color2="#800080">CTO 3200K to UV Purple - Continuous scrolling</Capability>
-  <Capability Min="45" Max="45" Color="#800080">UV Purple (Color 3) - Continuous scrolling</Capability>
-  <Capability Min="46" Max="59" Color="#800080" Color2="#ffff66">UV Purple to Light Yellow - Continuous scrolling</Capability>
-  <Capability Min="60" Max="60" Color="#ffff66">Light Yellow (Color 4) - Continuous scrolling</Capability>
-  <Capability Min="61" Max="74" Color="#ffff66" Color2="#00ff00">Light Yellow to Green - Continuous scrolling</Capability>
-  <Capability Min="75" Max="75" Color="#00ff00">Green (Color 5) - Continuous scrolling</Capability>
-  <Capability Min="76" Max="89" Color="#00ff00" Color2="#00ffff">Green to Aquamarine - Continuous scrolling</Capability>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">White - Continuous scrolling</Capability>
+  <Capability Min="1" Max="14" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0080">White to Pink - Continuous scrolling</Capability>
+  <Capability Min="15" Max="15" Preset="ColorMacro" Res1="#ff0080">Pink (Color 1) - Continuous scrolling</Capability>
+  <Capability Min="16" Max="29" Preset="ColorMacro" Res1="#ff0080">Pink to CTO 3200K - Continuous scrolling</Capability>
+  <Capability Min="30" Max="30" Preset="ColorMacro" Res1="#e6e6e6">CTO 3200K (Color 2) - Continuous scrolling</Capability>
+  <Capability Min="31" Max="44" Preset="ColorDoubleMacro" Res1="#e6e6e6" Res2="#800080">CTO 3200K to UV Purple - Continuous scrolling</Capability>
+  <Capability Min="45" Max="45" Preset="ColorMacro" Res1="#800080">UV Purple (Color 3) - Continuous scrolling</Capability>
+  <Capability Min="46" Max="59" Preset="ColorDoubleMacro" Res1="#800080" Res2="#ffff66">UV Purple to Light Yellow - Continuous scrolling</Capability>
+  <Capability Min="60" Max="60" Preset="ColorMacro" Res1="#ffff66">Light Yellow (Color 4) - Continuous scrolling</Capability>
+  <Capability Min="61" Max="74" Preset="ColorDoubleMacro" Res1="#ffff66" Res2="#00ff00">Light Yellow to Green - Continuous scrolling</Capability>
+  <Capability Min="75" Max="75" Preset="ColorMacro" Res1="#00ff00">Green (Color 5) - Continuous scrolling</Capability>
+  <Capability Min="76" Max="89" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#00ffff">Green to Aquamarine - Continuous scrolling</Capability>
   <Capability Min="90" Max="90">Aquamarine (Color 6) - Continuous scrolling</Capability>
-  <Capability Min="91" Max="104" Color="#00ffff" Color2="#b3b3b3">Aquamarine to CTO 5600K - Continuous scrolling</Capability>
-  <Capability Min="105" Max="105" Color="#b3b3b3">CTO 5600K (Color 7) - Continuous scrolling</Capability>
-  <Capability Min="106" Max="119" Color="#b3b3b3" Color2="#0000ff">CTO 5600K to Blue - Continuous scrolling</Capability>
-  <Capability Min="120" Max="120" Color="#0000ff">Blue (Color 8) - Continuous scrolling</Capability>
-  <Capability Min="121" Max="134" Color="#0000ff" Color2="#ffffff">Blue to white - Continuous scrolling</Capability>
-  <Capability Min="135" Max="160" Color="#ffffff">White - Continuous scrolling</Capability>
-  <Capability Min="161" Max="163" Color="#ff00ff">Color 1 - Pink - Stepped scrolling</Capability>
-  <Capability Min="164" Max="166" Color="#e6e6e6">Color 2 - CTO 3200K - Stepped scrolling</Capability>
-  <Capability Min="167" Max="169" Color="#800080">Color 3 - UV Purple - Stepped scrolling</Capability>
-  <Capability Min="170" Max="172" Color="#ffff66">Color 4 - Light Yellow - Stepped scrolling</Capability>
-  <Capability Min="173" Max="175" Color="#80ff00">Color 5 - Light Green - Stepped scrolling</Capability>
-  <Capability Min="176" Max="178" Color="#00ffff">Color 6 - Aquamarine - Stepped scrolling</Capability>
-  <Capability Min="179" Max="181" Color="#b3b3b3">Color 7 - CTO 5600K - Stepped scrolling</Capability>
-  <Capability Min="182" Max="184" Color="#0000ff">Color 8 - Blue - Stepped scrolling</Capability>
-  <Capability Min="185" Max="192" Color="#ffffff">White  - Stepped scrolling</Capability>
+  <Capability Min="91" Max="104" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#b3b3b3">Aquamarine to CTO 5600K - Continuous scrolling</Capability>
+  <Capability Min="105" Max="105" Preset="ColorMacro" Res1="#b3b3b3">CTO 5600K (Color 7) - Continuous scrolling</Capability>
+  <Capability Min="106" Max="119" Preset="ColorDoubleMacro" Res1="#b3b3b3" Res2="#0000ff">CTO 5600K to Blue - Continuous scrolling</Capability>
+  <Capability Min="120" Max="120" Preset="ColorMacro" Res1="#0000ff">Blue (Color 8) - Continuous scrolling</Capability>
+  <Capability Min="121" Max="134" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue to white - Continuous scrolling</Capability>
+  <Capability Min="135" Max="160" Preset="ColorMacro" Res1="#ffffff">White - Continuous scrolling</Capability>
+  <Capability Min="161" Max="163" Preset="ColorMacro" Res1="#ff00ff">Color 1 - Pink - Stepped scrolling</Capability>
+  <Capability Min="164" Max="166" Preset="ColorMacro" Res1="#e6e6e6">Color 2 - CTO 3200K - Stepped scrolling</Capability>
+  <Capability Min="167" Max="169" Preset="ColorMacro" Res1="#800080">Color 3 - UV Purple - Stepped scrolling</Capability>
+  <Capability Min="170" Max="172" Preset="ColorMacro" Res1="#ffff66">Color 4 - Light Yellow - Stepped scrolling</Capability>
+  <Capability Min="173" Max="175" Preset="ColorMacro" Res1="#80ff00">Color 5 - Light Green - Stepped scrolling</Capability>
+  <Capability Min="176" Max="178" Preset="ColorMacro" Res1="#00ffff">Color 6 - Aquamarine - Stepped scrolling</Capability>
+  <Capability Min="179" Max="181" Preset="ColorMacro" Res1="#b3b3b3">Color 7 - CTO 5600K - Stepped scrolling</Capability>
+  <Capability Min="182" Max="184" Preset="ColorMacro" Res1="#0000ff">Color 8 - Blue - Stepped scrolling</Capability>
+  <Capability Min="185" Max="192" Preset="ColorMacro" Res1="#ffffff">White - Stepped scrolling</Capability>
   <Capability Min="193" Max="214">Continuous rotation - Clockwise, fast to slow</Capability>
   <Capability Min="215" Max="221">Continuous rotation - Stop</Capability>
   <Capability Min="222" Max="243">Continuous rotation - Counter clockwise, slow to fast</Capability>
@@ -99,24 +99,24 @@
  <Channel Name="Gobo Wheel 1 (rotating gobos)">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="4">Open - Gobo selection</Capability>
-  <Capability Min="5" Max="9" Res="Chauvet/gobo00059.png">Gobo 1 - Gobo selection</Capability>
-  <Capability Min="10" Max="14" Res="Others/gobo00073.svg">Gobo 2 - Gobo selection</Capability>
-  <Capability Min="15" Max="19" Res="Others/gobo00074.svg">Gobo 3 - Gobo selection</Capability>
-  <Capability Min="20" Max="24" Res="Others/gobo00075.svg">Gobo 4 - Gobo selection</Capability>
-  <Capability Min="25" Max="29" Res="Others/gobo00076.svg">Gobo 5 - Gobo selection</Capability>
-  <Capability Min="30" Max="34" Res="Others/gobo00077.svg">Gobo 6 - Gobo selection</Capability>
-  <Capability Min="35" Max="39" Res="Chauvet/gobo00059.png">Gobo 1 - Gobo rotation</Capability>
-  <Capability Min="40" Max="44" Res="Others/gobo00073.svg">Gobo 2 - Gobo rotation</Capability>
-  <Capability Min="45" Max="49" Res="Others/gobo00074.svg">Gobo 3 - Gobo rotation</Capability>
-  <Capability Min="50" Max="54" Res="Others/gobo00075.svg">Gobo 4 - Gobo rotation</Capability>
-  <Capability Min="55" Max="59" Res="Others/gobo00076.svg">Gobo 5 - Gobo rotation</Capability>
-  <Capability Min="60" Max="64" Res="Others/gobo00077.svg">Gobo 6 - Gobo rotation</Capability>
-  <Capability Min="65" Max="88" Res="Chauvet/gobo00059.png">Gobo 1 - shake</Capability>
-  <Capability Min="89" Max="112" Res="Others/gobo00073.svg">Gobo 2 - shake</Capability>
-  <Capability Min="113" Max="136" Res="Others/gobo00074.svg">Gobo 3 - shake</Capability>
-  <Capability Min="137" Max="160" Res="Others/gobo00075.svg">Gobo 4 - shake</Capability>
-  <Capability Min="161" Max="184" Res="Others/gobo00076.svg">Gobo 5 - shake</Capability>
-  <Capability Min="185" Max="208" Res="Others/gobo00077.svg">Gobo 6 - shake</Capability>
+  <Capability Min="5" Max="9" Preset="GoboMacro" Res1="Chauvet/gobo00059.svg">Gobo 1 - Gobo selection</Capability>
+  <Capability Min="10" Max="14" Preset="GoboMacro" Res1="Others/gobo00073.svg">Gobo 2 - Gobo selection</Capability>
+  <Capability Min="15" Max="19" Preset="GoboMacro" Res1="Others/gobo00074.svg">Gobo 3 - Gobo selection</Capability>
+  <Capability Min="20" Max="24" Preset="GoboMacro" Res1="Others/gobo00075.svg">Gobo 4 - Gobo selection</Capability>
+  <Capability Min="25" Max="29" Preset="GoboMacro" Res1="Others/gobo00076.svg">Gobo 5 - Gobo selection</Capability>
+  <Capability Min="30" Max="34" Preset="GoboMacro" Res1="Others/gobo00077.svg">Gobo 6 - Gobo selection</Capability>
+  <Capability Min="35" Max="39" Preset="GoboMacro" Res1="Chauvet/gobo00059.svg">Gobo 1 - Gobo rotation</Capability>
+  <Capability Min="40" Max="44" Preset="GoboMacro" Res1="Others/gobo00073.svg">Gobo 2 - Gobo rotation</Capability>
+  <Capability Min="45" Max="49" Preset="GoboMacro" Res1="Others/gobo00074.svg">Gobo 3 - Gobo rotation</Capability>
+  <Capability Min="50" Max="54" Preset="GoboMacro" Res1="Others/gobo00075.svg">Gobo 4 - Gobo rotation</Capability>
+  <Capability Min="55" Max="59" Preset="GoboMacro" Res1="Others/gobo00076.svg">Gobo 5 - Gobo rotation</Capability>
+  <Capability Min="60" Max="64" Preset="GoboMacro" Res1="Others/gobo00077.svg">Gobo 6 - Gobo rotation</Capability>
+  <Capability Min="65" Max="88" Preset="GoboShakeMacro" Res1="Chauvet/gobo00059.svg">Gobo 1 - shake</Capability>
+  <Capability Min="89" Max="112" Preset="GoboShakeMacro" Res1="Others/gobo00073.svg">Gobo 2 - shake</Capability>
+  <Capability Min="113" Max="136" Preset="GoboShakeMacro" Res1="Others/gobo00074.svg">Gobo 3 - shake</Capability>
+  <Capability Min="137" Max="160" Preset="GoboShakeMacro" Res1="Others/gobo00075.svg">Gobo 4 - shake</Capability>
+  <Capability Min="161" Max="184" Preset="GoboShakeMacro" Res1="Others/gobo00076.svg">Gobo 5 - shake</Capability>
+  <Capability Min="185" Max="208" Preset="GoboShakeMacro" Res1="Others/gobo00077.svg">Gobo 6 - shake</Capability>
   <Capability Min="209" Max="209">No function</Capability>
   <Capability Min="210" Max="232">Continuous wheel rotation, clockwise, fast to slow</Capability>
   <Capability Min="233" Max="255">Continuous wheel rotation, counter-clockwise, slow to fast</Capability>
@@ -131,30 +131,30 @@
  </Channel>
  <Channel Name="Gobo Wheel 2 (static gobos)">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="0" Res="Others/open.svg">Open - Continuous scrolling</Capability>
+  <Capability Min="0" Max="0" Preset="GoboMacro" Res1="Others/open.svg">Open - Continuous scrolling</Capability>
   <Capability Min="1" Max="14">Open to Gobo 1 - Continuous scrolling</Capability>
-  <Capability Min="15" Max="15" Res="Others/gobo00064.svg">Gobo 1 - Continuous scrolling</Capability>
+  <Capability Min="15" Max="15" Preset="GoboMacro" Res1="Others/gobo00064.svg">Gobo 1 - Continuous scrolling</Capability>
   <Capability Min="16" Max="29">Gobo 1 to Gobo 2 - Continuous scrolling</Capability>
-  <Capability Min="30" Max="30" Res="Others/gobo00078.svg"> Gobo 2 - Continuous scrolling</Capability>
+  <Capability Min="30" Max="30" Preset="GoboMacro" Res1="Others/gobo00078.svg">Gobo 2 - Continuous scrolling</Capability>
   <Capability Min="31" Max="44">Gobo 2 to Gobo 3 - Continuous scrolling</Capability>
-  <Capability Min="45" Max="45" Res="Chauvet/gobo00034.svg">Gobo 3 - Continuous scrolling</Capability>
+  <Capability Min="45" Max="45" Preset="GoboMacro" Res1="Chauvet/gobo00034.svg">Gobo 3 - Continuous scrolling</Capability>
   <Capability Min="46" Max="59">Gobo 3 to Gobo 4 - Continuous scrolling</Capability>
-  <Capability Min="60" Max="60" Res="Others/gobo00079.svg">Gobo 4 - Continuous scrolling</Capability>
+  <Capability Min="60" Max="60" Preset="GoboMacro" Res1="Others/gobo00079.svg">Gobo 4 - Continuous scrolling</Capability>
   <Capability Min="61" Max="74">Gobo 4 to Gobo 5 - Continuous scrolling</Capability>
-  <Capability Min="75" Max="75" Res="Others/gobo00080.svg"> Gobo 5 - Continuous scrolling</Capability>
+  <Capability Min="75" Max="75" Preset="GoboMacro" Res1="Others/gobo00080.svg">Gobo 5 - Continuous scrolling</Capability>
   <Capability Min="76" Max="89">Gobo 5 to Gobo 6 - Continuous scrolling</Capability>
-  <Capability Min="90" Max="90" Res="Others/gobo00081.svg"> Gobo 6 - Continuous scrolling</Capability>
-  <Capability Min="91" Max="104">Gobo 6 to Gobo 7  - Continuous scrolling</Capability>
-  <Capability Min="105" Max="105" Res="Others/gobo00082.svg">Gobo 7</Capability>
-  <Capability Min="106" Max="119"> Gobo 7 to Open - Continuous scrolling</Capability>
+  <Capability Min="90" Max="90" Preset="GoboMacro" Res1="Others/gobo00081.svg">Gobo 6 - Continuous scrolling</Capability>
+  <Capability Min="91" Max="104">Gobo 6 to Gobo 7 - Continuous scrolling</Capability>
+  <Capability Min="105" Max="105" Preset="GoboMacro" Res1="Others/gobo00082.svg">Gobo 7</Capability>
+  <Capability Min="106" Max="119">Gobo 7 to Open - Continuous scrolling</Capability>
   <Capability Min="120" Max="160">Open - Continuous scrolling</Capability>
-  <Capability Min="161" Max="163" Res="Others/gobo00064.svg">Gobo 1 - Stepped scrolling</Capability>
-  <Capability Min="164" Max="166" Res="Others/gobo00078.svg">Gobo 2 - Stepped scrolling</Capability>
-  <Capability Min="167" Max="169" Res="Chauvet/gobo00034.svg">Gobo 3 - Stepped scrolling</Capability>
-  <Capability Min="170" Max="172" Res="Others/gobo00079.svg">Gobo 4 - Stepped scrolling</Capability>
-  <Capability Min="173" Max="175" Res="Others/gobo00080.svg">Gobo 5 - Stepped scrolling</Capability>
-  <Capability Min="176" Max="178" Res="Others/gobo00081.svg">Gobo 6 - Stepped scrolling</Capability>
-  <Capability Min="179" Max="181" Res="Others/gobo00082.svg">Gobo 7 - Stepped scrolling</Capability>
+  <Capability Min="161" Max="163" Preset="GoboMacro" Res1="Others/gobo00064.svg">Gobo 1 - Stepped scrolling</Capability>
+  <Capability Min="164" Max="166" Preset="GoboMacro" Res1="Others/gobo00078.svg">Gobo 2 - Stepped scrolling</Capability>
+  <Capability Min="167" Max="169" Preset="GoboMacro" Res1="Chauvet/gobo00034.svg">Gobo 3 - Stepped scrolling</Capability>
+  <Capability Min="170" Max="172" Preset="GoboMacro" Res1="Others/gobo00079.svg">Gobo 4 - Stepped scrolling</Capability>
+  <Capability Min="173" Max="175" Preset="GoboMacro" Res1="Others/gobo00080.svg">Gobo 5 - Stepped scrolling</Capability>
+  <Capability Min="176" Max="178" Preset="GoboMacro" Res1="Others/gobo00081.svg">Gobo 6 - Stepped scrolling</Capability>
+  <Capability Min="179" Max="181" Preset="GoboMacro" Res1="Others/gobo00082.svg">Gobo 7 - Stepped scrolling</Capability>
   <Capability Min="182" Max="192">Open - Stepped scrolling</Capability>
   <Capability Min="193" Max="214">Continuous wheel rotation - Clockwise - Fast to slow</Capability>
   <Capability Min="215" Max="221">Continuous wheel rotation - Stop</Capability>
@@ -185,12 +185,12 @@
  <Channel Name="Functions / Fixture settings">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="9">No function</Capability>
-  <Capability Min="10" Max="14">Reset all</Capability>
-  <Capability Min="15" Max="19">Reset color</Capability>
-  <Capability Min="20" Max="24">Reset gobo</Capability>
-  <Capability Min="25" Max="29">Reset focus</Capability>
-  <Capability Min="30" Max="34">Reset prism</Capability>
-  <Capability Min="35" Max="39">Reset pan/tilt</Capability>
+  <Capability Min="10" Max="14" Preset="ResetAll">Reset all</Capability>
+  <Capability Min="15" Max="19" Preset="ResetColor">Reset color</Capability>
+  <Capability Min="20" Max="24" Preset="ResetGobo">Reset gobo</Capability>
+  <Capability Min="25" Max="29" Preset="ResetEffects">Reset focus</Capability>
+  <Capability Min="30" Max="34" Preset="ResetPrism">Reset prism</Capability>
+  <Capability Min="35" Max="39" Preset="ResetPanTilt">Reset pan/tilt</Capability>
   <Capability Min="40" Max="54">No function</Capability>
   <Capability Min="55" Max="59">Enable calibration</Capability>
   <Capability Min="60" Max="79">No function</Capability>
@@ -215,7 +215,7 @@
   <Capability Min="230" Max="234">Store prism rotation calibration</Capability>
   <Capability Min="235" Max="239">Store pan calibration</Capability>
   <Capability Min="240" Max="244">Store tilt calibration</Capability>
-  <Capability Min="245" Max="249">Reset all calibration settings for factory defaults</Capability>
+  <Capability Min="245" Max="249" Preset="ResetAll">Reset all calibration settings for factory defaults</Capability>
   <Capability Min="250" Max="255">No function</Capability>
  </Channel>
  <Mode Name="Mode 1">
@@ -236,11 +236,11 @@
   <Channel Number="14">Tilt (fine control)</Channel>
   <Channel Number="15">Functions / Fixture settings</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="9" Width="290" Height="416" Depth="187"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="40"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="75" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="9" Width="290" Height="416" Depth="187"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="75" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
 </FixtureDefinition>

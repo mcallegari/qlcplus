@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Andrew Newton</Author>
+ </Creator>
+ <Manufacturer>Equinox</Manufacturer>
+ <Model>Domin8R II</Model>
+ <Type>Scanner</Type>
+ <Channel Name="On">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Strobe speed" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Static pattern selector">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Static pattern selector</Capability>
+ </Channel>
+ <Channel Name="Pattern">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Static pattern</Capability>
+  <Capability Min="128" Max="255">Moving pattern</Capability>
+ </Channel>
+ <Channel Name="Moving pattern speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Moving pattern speed (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Mirror tilt speed" Preset="SpeedTiltSlowFast"/>
+ <Channel Name="Sound active">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">No function</Capability>
+  <Capability Min="128" Max="255">Sound active</Capability>
+ </Channel>
+ <Channel Name="Moving pattern selector">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Moving pattern selector</Capability>
+ </Channel>
+ <Channel Name="Tilt (8ch)">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127">Manual tilt</Capability>
+  <Capability Min="128" Max="255">Auto tilt</Capability>
+ </Channel>
+ <Channel Name="Tilt 1" Preset="PositionTilt"/>
+ <Channel Name="Tilt 2" Preset="PositionTilt"/>
+ <Channel Name="Tilt 3" Preset="PositionTilt"/>
+ <Channel Name="Tilt 4" Preset="PositionTilt"/>
+ <Channel Name="Tilt 5" Preset="PositionTilt"/>
+ <Channel Name="Tilt 6" Preset="PositionTilt"/>
+ <Channel Name="Tilt 7" Preset="PositionTilt"/>
+ <Channel Name="Tilt 8" Preset="PositionTilt"/>
+ <Mode Name="8 Channel">
+  <Channel Number="0">On</Channel>
+  <Channel Number="1">Strobe speed</Channel>
+  <Channel Number="2">Static pattern selector</Channel>
+  <Channel Number="3">Moving pattern selector</Channel>
+  <Channel Number="4">Pattern</Channel>
+  <Channel Number="5">Moving pattern speed</Channel>
+  <Channel Number="6">Tilt (8ch)</Channel>
+  <Channel Number="7">Mirror tilt speed</Channel>
+ </Mode>
+ <Mode Name="16 Channel">
+  <Channel Number="0">On</Channel>
+  <Channel Number="1">Strobe speed</Channel>
+  <Channel Number="2">Static pattern selector</Channel>
+  <Channel Number="3">Moving pattern selector</Channel>
+  <Channel Number="4">Pattern</Channel>
+  <Channel Number="5">Moving pattern speed</Channel>
+  <Channel Number="6">Tilt 1</Channel>
+  <Channel Number="7">Tilt 2</Channel>
+  <Channel Number="8">Tilt 3</Channel>
+  <Channel Number="9">Tilt 4</Channel>
+  <Channel Number="10">Tilt 5</Channel>
+  <Channel Number="11">Tilt 6</Channel>
+  <Channel Number="12">Tilt 7</Channel>
+  <Channel Number="13">Tilt 8</Channel>
+  <Channel Number="14">Mirror tilt speed</Channel>
+  <Channel Number="15">Sound active</Channel>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="8.8" Width="900" Height="320" Depth="110"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Mirror" PanMax="0" TiltMax="90"/>
+  <Layout Width="8" Height="1"/>
+  <Technical PowerConsumption="90" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

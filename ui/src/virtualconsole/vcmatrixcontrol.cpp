@@ -31,20 +31,31 @@ VCMatrixControl::VCMatrixControl(quint8 id)
     m_resource = QString();
 }
 
-VCMatrixControl::VCMatrixControl(VCMatrixControl const& vcmc)
-    : m_id(vcmc.m_id)
-    , m_type(vcmc.m_type)
-    , m_color(vcmc.m_color)
-    , m_resource(vcmc.m_resource)
-    , m_properties(vcmc.m_properties)
-    , m_keySequence(vcmc.m_keySequence)
+VCMatrixControl::VCMatrixControl(const VCMatrixControl &other)
 {
-    if (vcmc.m_inputSource != NULL)
+    *this = other;
+}
+
+VCMatrixControl &VCMatrixControl::operator=(const VCMatrixControl &vcmc)
+{
+    if (this != &vcmc)
     {
-        m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(vcmc.m_inputSource->universe(),
-                                               vcmc.m_inputSource->channel()));
-        m_inputSource->setRange(vcmc.m_inputSource->lowerValue(), vcmc.m_inputSource->upperValue());
+        m_id = vcmc.m_id;
+        m_type = vcmc.m_type;
+        m_color = vcmc.m_color;
+        m_resource = vcmc.m_resource;
+        m_properties = vcmc.m_properties;
+        m_keySequence = vcmc.m_keySequence;
+
+        if (vcmc.m_inputSource != NULL)
+        {
+            m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(vcmc.m_inputSource->universe(),
+                                                   vcmc.m_inputSource->channel()));
+            m_inputSource->setRange(vcmc.m_inputSource->lowerValue(), vcmc.m_inputSource->upperValue());
+        }
     }
+
+    return *this;
 }
 
 VCMatrixControl::~VCMatrixControl()
@@ -220,7 +231,7 @@ bool VCMatrixControl::saveXML(QXmlStreamWriter *doc)
     if (!m_properties.isEmpty())
     {
         QHashIterator<QString, QString> it(m_properties);
-        while(it.hasNext())
+        while (it.hasNext())
         {
             it.next();
             doc->writeStartElement(KXMLQLCVCMatrixControlProperty);

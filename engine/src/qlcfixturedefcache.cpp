@@ -35,8 +35,8 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-#define FIXTURES_MAP_NAME "FixturesMap.xml"
-#define KXMLQLCFixtureMap "FixturesMap"
+#define FIXTURES_MAP_NAME QString("FixturesMap.xml")
+#define KXMLQLCFixtureMap QString("FixturesMap")
 
 QLCFixtureDefCache::QLCFixtureDefCache()
 {
@@ -100,6 +100,20 @@ QStringList QLCFixtureDefCache::models(const QString& manufacturer) const
     return list;
 }
 
+QMap<QString, QMap<QString, bool> > QLCFixtureDefCache::fixtureCache() const
+{
+    QMap<QString, QMap<QString, bool> > map;
+
+    QListIterator <QLCFixtureDef*> it(m_defs);
+    while (it.hasNext() == true)
+    {
+        QLCFixtureDef *def = it.next();
+        map[def->manufacturer()][def->model()] = def->isUser();
+    }
+
+    return map;
+}
+
 bool QLCFixtureDefCache::addFixtureDef(QLCFixtureDef* fixtureDef)
 {
     if (fixtureDef == NULL)
@@ -135,6 +149,23 @@ bool QLCFixtureDefCache::storeFixtureDef(QString filename, QString data)
     return true;
 }
 
+bool QLCFixtureDefCache::reloadFixtureDef(QLCFixtureDef *fixtureDef)
+{
+    int idx = m_defs.indexOf(fixtureDef);
+    if (idx == -1)
+        return false;
+
+    QLCFixtureDef *def = m_defs.takeAt(idx);
+    QString absPath = def->definitionSourceFile();
+    delete def;
+
+    QLCFixtureDef *origDef = new QLCFixtureDef();
+    origDef->loadXML(absPath);
+    m_defs << origDef;
+
+    return true;
+}
+
 bool QLCFixtureDefCache::load(const QDir& dir)
 {
     qDebug() << Q_FUNC_INFO << dir.path();
@@ -149,7 +180,7 @@ bool QLCFixtureDefCache::load(const QDir& dir)
         QString path(dir.absoluteFilePath(it.next()));
 
         if (path.toLower().endsWith(KExtFixture) == true)
-            loadQXF(path);
+            loadQXF(path, true);
         else if (path.toLower().endsWith(KExtAvolitesFixture) == true)
             loadD4(path);
         else
@@ -167,7 +198,7 @@ int QLCFixtureDefCache::loadMapManufacturer(QXmlStreamReader *doc, QString manuf
 
     while (doc->readNextStartElement())
     {
-        if (doc->name() == "F")
+        if (doc->name() == QString("F"))
         {
             QString defFile = "";
             QString model = "";
@@ -273,7 +304,7 @@ bool QLCFixtureDefCache::loadMap(const QDir &dir)
 
     while (doc->readNextStartElement())
     {
-        if (doc->name() == "M")
+        if (doc->name() == QString("M"))
         {
             if (doc->attributes().hasAttribute("n"))
             {
@@ -325,7 +356,7 @@ void QLCFixtureDefCache::clear()
 }
 
 QDir QLCFixtureDefCache::systemDefinitionDirectory()
-{   
+{
     return QLCFile::systemDirectory(QString(FIXTUREDIR), QString(KExtFixture));
 }
 
@@ -338,7 +369,7 @@ QDir QLCFixtureDefCache::userDefinitionDirectory()
     return QLCFile::userDirectory(QString(USERFIXTUREDIR), QString(FIXTUREDIR), filters);
 }
 
-bool QLCFixtureDefCache::loadQXF(const QString& path)
+bool QLCFixtureDefCache::loadQXF(const QString& path, bool isUser)
 {
     QLCFixtureDef *fxi = new QLCFixtureDef();
     Q_ASSERT(fxi != NULL);
@@ -346,6 +377,10 @@ bool QLCFixtureDefCache::loadQXF(const QString& path)
     QFile::FileError error = fxi->loadXML(path);
     if (error == QFile::NoError)
     {
+        fxi->setIsUser(isUser);
+        fxi->setDefinitionSourceFile(path);
+        fxi->setLoaded(true);
+
         /* Delete the def if it's a duplicate. */
         if (addFixtureDef(fxi) == false)
             delete fxi;
@@ -373,6 +408,11 @@ bool QLCFixtureDefCache::loadD4(const QString& path)
         delete fxi;
         return false;
     }
+
+    // a D4 personality is always a user-made fixture
+    fxi->setIsUser(true);
+    fxi->setDefinitionSourceFile(path);
+    fxi->setLoaded(true);
 
     /* Delete the def if it's a duplicate. */
     if (addFixtureDef(fxi) == false)

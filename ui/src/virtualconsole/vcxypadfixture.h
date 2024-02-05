@@ -30,6 +30,8 @@
 class QXmlStreamReader;
 class QXmlStreamWriter;
 class VCXYPadFixture;
+class GenericFader;
+class FadeChannel;
 class Universe;
 class Doc;
 
@@ -37,17 +39,17 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCXYPadFixture "Fixture"
-#define KXMLQLCVCXYPadFixtureID "ID"
-#define KXMLQLCVCXYPadFixtureHead "Head"
+#define KXMLQLCVCXYPadFixture       QString("Fixture")
+#define KXMLQLCVCXYPadFixtureID     QString("ID")
+#define KXMLQLCVCXYPadFixtureHead   QString("Head")
 
-#define KXMLQLCVCXYPadFixtureAxis "Axis"
-#define KXMLQLCVCXYPadFixtureAxisID "ID"
-#define KXMLQLCVCXYPadFixtureAxisX "X"
-#define KXMLQLCVCXYPadFixtureAxisY "Y"
-#define KXMLQLCVCXYPadFixtureAxisLowLimit "LowLimit"
-#define KXMLQLCVCXYPadFixtureAxisHighLimit "HighLimit"
-#define KXMLQLCVCXYPadFixtureAxisReverse "Reverse"
+#define KXMLQLCVCXYPadFixtureAxis           QString("Axis")
+#define KXMLQLCVCXYPadFixtureAxisID         QString("ID")
+#define KXMLQLCVCXYPadFixtureAxisX          QString("X")
+#define KXMLQLCVCXYPadFixtureAxisY          QString("Y")
+#define KXMLQLCVCXYPadFixtureAxisLowLimit   QString("LowLimit")
+#define KXMLQLCVCXYPadFixtureAxisHighLimit  QString("HighLimit")
+#define KXMLQLCVCXYPadFixtureAxisReverse    QString("Reverse")
 
 /** This class manages one fixture head in a VCXYPad */
 class VCXYPadFixture
@@ -56,10 +58,11 @@ class VCXYPadFixture
      * Initialization
      ********************************************************************/
 public:
-    VCXYPadFixture(Doc* doc);
+    VCXYPadFixture(Doc *doc);
 
     /** Initialize from QVariant */
-    VCXYPadFixture(Doc* doc, const QVariant& variant);
+    VCXYPadFixture(Doc *doc, const QVariant& variant);
+    VCXYPadFixture(const VCXYPadFixture &other);
     ~VCXYPadFixture();
 
     /** Assignment operator */
@@ -72,7 +75,7 @@ public:
     operator QVariant() const;
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 
     /********************************************************************
      * Fixture Head
@@ -109,7 +112,7 @@ public:
 
 private:
 
-    /** Precompute m_*Offset and m_*Range to speed up actual writing 
+    /** Precompute m_*Offset and m_*Range to speed up actual writing
      *
      *  Another goal is to simplify formulas in writeDMX and readDMX
      */
@@ -120,8 +123,8 @@ private:
     qreal m_xMax; //!< end of pan range; 0.0 <= m_xMax <= 1.0; default: 1.0
     bool m_xReverse; //!< pan reverse; default: false
 
-    quint32 m_xLSB; //!< fine pan channel (absolute address)
-    quint32 m_xMSB; //!< coarse pan channel (absolute address)
+    quint32 m_xLSB; //!< fine pan channel (relative address)
+    quint32 m_xMSB; //!< coarse pan channel (relative address)
     qreal m_xOffset; //!< precomputed value for writeDMX/readDMX
     qreal m_xRange; //!< precomputed value for writeDMX/readDMX
 
@@ -149,8 +152,8 @@ private:
     qreal m_yMax; //!< end of tilt range; 0.0 <= m_yMax <= 1.0; default: 1.0
     bool m_yReverse; //!< tilt reverse; default: false
 
-    quint32 m_yLSB; //!< fine tilt channel (absolute address)
-    quint32 m_yMSB; //!< coarse tilt channel (absolute address)
+    quint32 m_yLSB; //!< fine tilt channel (relative address)
+    quint32 m_yMSB; //!< coarse tilt channel (relative address)
     qreal m_yOffset; //!< precomputed value for writeDMX/readDMX
     qreal m_yRange; //!< precomputed value for writeDMX/readDMX
 
@@ -184,35 +187,43 @@ public:
 public:
     /** Prepare for writing/reading - computes target channels */
     void arm();
+
     /** Drop information from arm() */
     void disarm();
 
     void setEnabled(bool enable);
     bool isEnabled() const;
 
+    quint32 universe() const;
+
     /** Write the value using x & y multipliers for the actual range
      *
-     *  \param xmul <0.0;1.0> - pan value scaled to range set by setX 
+     *  \param xmul <0.0;1.0> - pan value scaled to range set by setX
      *      (0.0 => min, 1.0 => max, or vice versa if the range is reversed)
      *
      *  \param ymul <0.0;1.0> - tilt value scaled to range set by setY
      *      (0.0 => min, 1.0 => max, or vice versa if the range is reversed)
      *  \param universes universes where the values are written
      */
-    void writeDMX(qreal xmul, qreal ymul, QList<Universe*> universes);
+    void writeDMX(qreal xmul, qreal ymul, QSharedPointer<GenericFader> fader, Universe *universe);
 
-    /** Read position from the current universe 
-     *  \param universes universes from which the position is read
+    /** Read position from the current universe
+     *  \param universeData universe values where this fixture is present
      *  \param xmul <0.0;1.0> - pan value in the range set by setX
      *      (min => 0.0, max => 1.0, or vice versa if the range is reversed)
      *  \param ymul <0.0;1.0> - tilt value in the range set by setY
      *      (min => 0.0, max => 1.0, or vice versa if the range is reversed)
      */
-    void readDMX(QList<Universe*> universes, qreal & xmul, qreal & ymul);
+    void readDMX(const QByteArray &universeData, qreal & xmul, qreal & ymul);
+
+private:
+    void updateChannel(FadeChannel *fc, uchar value);
 
 private:
     /** Flag to enable/disable this fixture at runtime */
     bool m_enabled;
+    quint32 m_universe;
+    quint32 m_fixtureAddress;
 };
 
 /** @} */

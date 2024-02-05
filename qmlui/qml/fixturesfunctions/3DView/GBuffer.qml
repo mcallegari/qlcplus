@@ -22,78 +22,104 @@ import Qt3D.Render 2.0
 
 RenderTarget
 {
+    objectName: "gBuffer"
+
     property alias color: colorAttachment
     property alias normal: normalAttachment
+    property alias specular: specularAttachment
     property alias depth: depthAttachment
 
-    objectName: "gBuffer"
+    Texture2D
+    {
+        id: colorAttachment
+        width: 1024
+        height: 1024
+        format: Texture.RGBA32F
+        generateMipMaps: false
+        magnificationFilter: Texture.Linear
+        minificationFilter: Texture.Linear
+        wrapMode
+        {
+            x: WrapMode.ClampToEdge
+            y: WrapMode.ClampToEdge
+        }
+    }
+
+    Texture2D
+    {
+        id: normalAttachment
+        width: 1024
+        height: 1024
+        // We use RGBA32F here instead of a more fitting format because
+        // OpenGL vendors might not support other formats
+        format: Texture.RGBA32F
+        generateMipMaps: false
+        magnificationFilter: Texture.Linear
+        minificationFilter: Texture.Linear
+        wrapMode
+        {
+            x: WrapMode.ClampToEdge
+            y: WrapMode.ClampToEdge
+        }
+    }
+
+    Texture2D
+    {
+        id: specularAttachment
+        width: 1024
+        height: 1024
+        // We use RGBA32F here instead of a more fitting format because
+        // OpenGL vendors might not support other formats
+        format: Texture.RGBA32F
+        generateMipMaps: false
+        magnificationFilter: Texture.Linear
+        minificationFilter: Texture.Linear
+        wrapMode
+        {
+            x: WrapMode.ClampToEdge
+            y: WrapMode.ClampToEdge
+        }
+    }
+
+    Texture2D
+    {
+        id: depthAttachment
+        width: 1024
+        height: 1024
+        format: Texture.D32F
+        generateMipMaps: false
+        magnificationFilter: Texture.Linear
+        minificationFilter: Texture.Linear
+        wrapMode
+        {
+            x: WrapMode.ClampToEdge
+            y: WrapMode.ClampToEdge
+        }
+    }
 
     attachments: [
         RenderTargetOutput
         {
-            objectName: "color"
             attachmentPoint: RenderTargetOutput.Color0
-            texture:
-                Texture2D
-                {
-                    id: colorAttachment
-                    width: 1024
-                    height: 1024
-                    format: Texture.RGBA32F
-                    generateMipMaps: false
-                    magnificationFilter: Texture.Linear
-                    minificationFilter: Texture.Linear
-                    wrapMode
-                    {
-                        x: WrapMode.ClampToEdge
-                        y: WrapMode.ClampToEdge
-                    }
-                }
+            texture: colorAttachment
         },
 
         RenderTargetOutput
         {
-            objectName: "normal"
             attachmentPoint: RenderTargetOutput.Color1
-            texture:
-                Texture2D
-                {
-                    id: normalAttachment
-                    width: 1024
-                    height: 1024
-                    // We use RGBA32F here instead of a more fitting format because
-                    // OpenGL vendors might not support other formats
-                    format: Texture.RGBA32F
-                    generateMipMaps: false
-                    magnificationFilter: Texture.Linear
-                    minificationFilter: Texture.Linear
-                    wrapMode
-                    {
-                        x: WrapMode.ClampToEdge
-                        y: WrapMode.ClampToEdge
-                    }
-                }
+            texture: normalAttachment
         },
+
         RenderTargetOutput
         {
-            objectName: "depth"
+            attachmentPoint: RenderTargetOutput.Color2
+            texture: specularAttachment
+        },
+
+        RenderTargetOutput
+        {
             attachmentPoint: RenderTargetOutput.Depth
-            texture:
-                Texture2D
-                {
-                    id: depthAttachment
-                    width: 1024
-                    height: 1024
-                    format: Texture.D32F
-                    generateMipMaps: false
-                    magnificationFilter: Texture.Linear
-                    minificationFilter: Texture.Linear
-                    wrapMode
-                    {
-                        x: WrapMode.ClampToEdge
-                        y: WrapMode.ClampToEdge
-                    }
-                }
+            texture: depthAttachment
         }
     ] // outputs
 }

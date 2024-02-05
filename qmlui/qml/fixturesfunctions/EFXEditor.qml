@@ -19,8 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.2
-import QtQuick.Controls 1.2 as QC1
-import QtQuick.Controls 2.1
+import QtQuick.Controls 2.13
 
 import org.qlcplus.classes 1.0
 
@@ -39,7 +38,7 @@ Rectangle
     ModelSelector
     {
         id: eeSelector
-        onItemsCountChanged: console.log("EFX Editor selected items changed !")
+        onItemsCountChanged: console.log("EFX Editor selected items changed!")
     }
 
     TimeEditTool
@@ -63,15 +62,16 @@ Rectangle
         }
     }
 
-    QC1.SplitView
+    SplitView
     {
         anchors.fill: parent
 
         Loader
         {
             id: fxTreeLoader
-            visible: width
-            width: 0
+            width: UISettings.sidePanelWidth
+            SplitView.preferredWidth: UISettings.sidePanelWidth
+            visible: false
             height: efxeContainer.height
             source: ""
 
@@ -88,13 +88,13 @@ Rectangle
                 width: 2
                 height: parent.height
                 x: parent.width - 2
-                color: UISettings.bgLighter
+                color: UISettings.bgLight
             }
         }
 
         Rectangle
         {
-            Layout.fillWidth: true
+            SplitView.fillWidth: true
             color: "transparent"
 
             EditorTopBar
@@ -105,6 +105,13 @@ Rectangle
 
                 onBackClicked:
                 {
+                    if (fxTreeLoader.visible)
+                    {
+                        fxTreeLoader.source = ""
+                        fxTreeLoader.visible = false
+                        rightSidePanel.width -= fxTreeLoader.width
+                    }
+
                     var prevID = efxEditor.previousID
                     functionManager.setEditorFunction(prevID, false, true)
                     requestView(prevID, functionManager.getEditorResource(prevID))
@@ -161,7 +168,7 @@ Rectangle
                             GridLayout
                             {
                                 width: parent.width
-                                columns: 4
+                                columns: 5
                                 columnSpacing: 0
                                 rowSpacing: 0
 
@@ -169,7 +176,7 @@ Rectangle
                                 Rectangle
                                 {
                                     Layout.fillWidth: true
-                                    Layout.columnSpan: 4
+                                    Layout.columnSpan: 5
                                     color: UISettings.bgMedium
                                     height: UISettings.listItemHeight
 
@@ -188,16 +195,17 @@ Rectangle
                                         {
                                             if (checked)
                                             {
-                                                rightSidePanel.width += UISettings.sidePanelWidth
-                                                fxTreeLoader.width = UISettings.sidePanelWidth
+                                                if (!fxTreeLoader.visible)
+                                                    rightSidePanel.width += UISettings.sidePanelWidth
+                                                fxTreeLoader.visible = true
                                                 fxTreeLoader.modelProvider = efxEditor
                                                 fxTreeLoader.source = "qrc:/FixtureGroupManager.qml"
                                             }
                                             else
                                             {
-                                                rightSidePanel.width = rightSidePanel.width - fxTreeLoader.width
+                                                rightSidePanel.width -= fxTreeLoader.width
                                                 fxTreeLoader.source = ""
-                                                fxTreeLoader.width = 0
+                                                fxTreeLoader.visible = false
                                             }
                                         }
                                     }
@@ -210,6 +218,7 @@ Rectangle
                                         height: parent.height
                                         imgSource: "qrc:/remove.svg"
                                         tooltip: qsTr("Remove the selected fixture head(s)")
+                                        onClicked: efxEditor.removeHeads(eeSelector.itemsList())
                                     }
                                 }
 
@@ -250,6 +259,22 @@ Rectangle
 
                                 RobotoText
                                 {
+                                    id: modeCol
+                                    height: UISettings.listItemHeight
+                                    width: UISettings.bigItemHeight
+                                    label: qsTr("Mode")
+
+                                    Rectangle
+                                    {
+                                        height: UISettings.listItemHeight
+                                        width: 1
+                                        anchors.right: parent.right
+                                        color: UISettings.fgMedium
+                                    }
+                                }
+
+                                RobotoText
+                                {
                                     id: reverseCol
                                     height: UISettings.listItemHeight
                                     label: qsTr("Reverse")
@@ -275,7 +300,7 @@ Rectangle
                                 {
                                     id: fixtureListView
                                     Layout.fillWidth: true
-                                    Layout.columnSpan: 4
+                                    Layout.columnSpan: 5
                                     model: efxEditor.fixtureList
                                     implicitHeight: count * UISettings.listItemHeight
                                     delegate:
@@ -284,6 +309,8 @@ Rectangle
                                             width: fixtureListView.width
                                             height: UISettings.listItemHeight
                                             color: "transparent"
+
+                                            property int headMode: model.mode
 
                                             // Highlight rectangle
                                             Rectangle
@@ -301,8 +328,7 @@ Rectangle
                                                 anchors.fill: parent
                                                 onClicked:
                                                 {
-                                                    eeSelector.selectItem(index, fixtureListView.model,
-                                                                          mouse.modifiers & Qt.ControlModifier)
+                                                    eeSelector.selectItem(index, fixtureListView.model, mouse.modifiers)
                                                 }
                                             }
 
@@ -311,6 +337,7 @@ Rectangle
                                                 //width: fixtureListView.width
                                                 height: UISettings.listItemHeight
 
+                                                /* Head number */
                                                 RobotoText
                                                 {
                                                     width: numCol.width
@@ -325,6 +352,7 @@ Rectangle
                                                         color: UISettings.fgMedium
                                                     }
                                                 }
+                                                /* Head name */
                                                 RobotoText
                                                 {
                                                     width: fxNameCol.width
@@ -339,6 +367,32 @@ Rectangle
                                                         color: UISettings.fgMedium
                                                     }
                                                 }
+                                                /* Head mode */
+                                                CustomComboBox
+                                                {
+                                                    height: editorColumn.itemsHeight
+                                                    width: modeCol.width
+
+                                                    ListModel
+                                                    {
+                                                        id: modeModel
+                                                        ListElement { mLabel: qsTr("Position"); }
+                                                        ListElement { mLabel: qsTr("Dimmer"); }
+                                                        ListElement { mLabel: qsTr("RGB"); }
+                                                    }
+                                                    model: modeModel
+                                                    currentIndex: headMode
+                                                    onCurrentIndexChanged: efxEditor.setFixtureMode(fxID, head, currentIndex)
+
+                                                    Rectangle
+                                                    {
+                                                        height: UISettings.listItemHeight
+                                                        width: 1
+                                                        anchors.right: parent.right
+                                                        color: UISettings.fgMedium
+                                                    }
+                                                }
+                                                /* Head reverse flag */
                                                 Rectangle
                                                 {
                                                     color: "transparent"
@@ -361,6 +415,7 @@ Rectangle
                                                         color: UISettings.fgMedium
                                                     }
                                                 }
+                                                /* Head offset */
                                                 CustomSpinBox
                                                 {
                                                     width: offsetCol.width
@@ -369,7 +424,7 @@ Rectangle
                                                     to: 359
                                                     suffix: "°"
                                                     value: model.offset
-                                                    onValueChanged: efxEditor.setFixtureOffset(fxID, head, value)
+                                                    onValueModified: efxEditor.setFixtureOffset(fxID, head, value)
                                                 }
 
                                             } // Row
@@ -470,6 +525,7 @@ Rectangle
                                     id: patternCombo
                                     Layout.fillWidth: true
                                     height: editorColumn.itemsHeight
+                                    textRole: ""
                                     model: efxEditor.algorithms
                                     currentIndex: efxEditor.algorithmIndex
                                     onCurrentIndexChanged: efxEditor.algorithmIndex = currentIndex
@@ -511,7 +567,7 @@ Rectangle
                                     from: 0
                                     to: 127
                                     value: efxEditor.algorithmWidth
-                                    onValueChanged: efxEditor.algorithmWidth = value
+                                    onValueModified: efxEditor.algorithmWidth = value
                                 }
 
                                 // row 4
@@ -526,7 +582,7 @@ Rectangle
                                     from: 0
                                     to: 127
                                     value: efxEditor.algorithmHeight
-                                    onValueChanged: efxEditor.algorithmHeight = value
+                                    onValueModified: efxEditor.algorithmHeight = value
                                 }
 
                                 // row 5
@@ -543,7 +599,7 @@ Rectangle
                                     from: 0
                                     to: 255
                                     value: efxEditor.algorithmXOffset
-                                    onValueChanged: efxEditor.algorithmXOffset = value
+                                    onValueModified: efxEditor.algorithmXOffset = value
                                 }
 
                                 // row 6
@@ -560,7 +616,7 @@ Rectangle
                                     from: 0
                                     to: 255
                                     value: efxEditor.algorithmYOffset
-                                    onValueChanged: efxEditor.algorithmYOffset = value
+                                    onValueModified: efxEditor.algorithmYOffset = value
                                 }
 
                                 // row 7
@@ -576,7 +632,7 @@ Rectangle
                                     to: 359
                                     suffix: "°"
                                     value: efxEditor.algorithmRotation
-                                    onValueChanged: efxEditor.algorithmRotation = value
+                                    onValueModified: efxEditor.algorithmRotation = value
                                 }
 
                                 // row 8
@@ -592,7 +648,7 @@ Rectangle
                                     to: 360
                                     suffix: "°"
                                     value: efxEditor.algorithmStartOffset
-                                    onValueChanged: efxEditor.algorithmStartOffset = value
+                                    onValueModified: efxEditor.algorithmStartOffset = value
                                 }
 
                                 // row 9
@@ -609,7 +665,7 @@ Rectangle
                                     from: 0
                                     to: 32
                                     value: efxEditor.algorithmXFrequency
-                                    onValueChanged: efxEditor.algorithmXFrequency = value
+                                    onValueModified: efxEditor.algorithmXFrequency = value
                                 }
 
                                 // row 10
@@ -626,7 +682,7 @@ Rectangle
                                     from: 0
                                     to: 32
                                     value: efxEditor.algorithmYFrequency
-                                    onValueChanged: efxEditor.algorithmYFrequency = value
+                                    onValueModified: efxEditor.algorithmYFrequency = value
                                 }
 
                                 // row 11
@@ -644,7 +700,7 @@ Rectangle
                                     to: 360
                                     suffix: "°"
                                     value: efxEditor.algorithmXPhase
-                                    onValueChanged: efxEditor.algorithmXPhase = value
+                                    onValueModified: efxEditor.algorithmXPhase = value
                                 }
 
                                 // row 9
@@ -662,7 +718,7 @@ Rectangle
                                     to: 360
                                     suffix: "°"
                                     value: efxEditor.algorithmYPhase
-                                    onValueChanged: efxEditor.algorithmYPhase = value
+                                    onValueModified: efxEditor.algorithmYPhase = value
                                 }
                             } // GridLayout
                     } // SectionBox
@@ -718,7 +774,7 @@ Rectangle
                                 {
                                     id: hLabel
                                     height: UISettings.listItemHeight
-                                    label: qsTr("Hold")
+                                    label: qsTr("Loop")
                                 }
 
                                 Rectangle
@@ -804,7 +860,7 @@ Rectangle
                                     }
                                     model: runOrderModel
 
-                                    currentValue: efxEditor.runOrder
+                                    currValue: efxEditor.runOrder
                                     onValueChanged: efxEditor.runOrder = value
                                 }
                                 RobotoText
@@ -823,7 +879,7 @@ Rectangle
                                     }
                                     model: directionModel
 
-                                    currentValue: efxEditor.direction
+                                    currValue: efxEditor.direction
                                     onValueChanged: efxEditor.direction = value
                                 }
                                 RobotoText

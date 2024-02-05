@@ -20,6 +20,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.1
 import QtQuick.Dialogs 1.2
+import QtQuick.Layouts 1.0
 
 import "."
 
@@ -29,8 +30,17 @@ Popup
     padding: 0
 
     property Item submenuItem: null
+    property int flagSize: UISettings.iconSizeDefault * 1.5
 
     onClosed: submenuItem = null
+
+    function handleSaveAction()
+    {
+        if (qlcplus.fileName())
+            qlcplus.saveWorkspace(qlcplus.fileName())
+        else
+            saveDialog.open()
+    }
 
     function saveBeforeExit()
     {
@@ -38,19 +48,26 @@ Popup
         saveFirstPopup.open()
     }
 
+    function setLanguage(lang)
+    {
+        qlcplus.setLanguage(lang)
+        menuRoot.close()
+    }
+
     FileDialog
     {
         id: openDialog
         visible: false
-        title: qsTr("Open a project")
+        title: qsTr("Open a file")
         folder: "file://" + qlcplus.workingPath
-        nameFilters: [ qsTr("Project files") + " (*.qxw)", qsTr("All files") + " (*)" ]
+        nameFilters: [ qsTr("QLC+ files") + " (*.qxw *.qxf)", qsTr("All files") + " (*)" ]
 
         onAccepted:
         {
-            console.log("You chose: " + fileUrl)
-            qlcplus.loadWorkspace(fileUrl)
-            console.log("Folder: " + folder.toString())
+            if (fileUrl.toString().endsWith("qxf") || fileUrl.toString().endsWith("d4"))
+                qlcplus.loadFixture(fileUrl)
+            else
+                qlcplus.loadWorkspace(fileUrl)
             qlcplus.workingPath = folder.toString()
         }
     }
@@ -66,7 +83,10 @@ Popup
         onAccepted:
         {
             if (qlcplus.loadImportWorkspace(fileUrl) === true)
+            {
+                importLoader.source = ""
                 importLoader.source = "qrc:/PopupImportProject.qml"
+            }
         }
     }
 
@@ -92,7 +112,7 @@ Popup
     {
         id: saveFirstPopup
         title: qsTr("Your project has changes")
-        message: qsTr("Do you wish to save the current project first ?\nChanges will be lost if you don't save them.")
+        message: qsTr("Do you wish to save the current project first?\nChanges will be lost if you don't save them.")
         standardButtons: Dialog.Yes | Dialog.No | Dialog.Cancel
 
         property string action: ""
@@ -171,7 +191,7 @@ Popup
         {
             id: fileOpen
             imgSource: "qrc:/fileopen.svg"
-            entryText: qsTr("Open project")
+            entryText: qsTr("Open file")
             onClicked:
             {
                 if (qlcplus.docModified)
@@ -233,11 +253,7 @@ Popup
 
             onClicked:
             {
-                if (qlcplus.fileName())
-                    qlcplus.saveWorkspace(qlcplus.fileName())
-                else
-                    saveDialog.open()
-
+                handleSaveAction()
                 menuRoot.close()
             }
         }
@@ -282,13 +298,15 @@ Popup
             }
         }
 
-        Row
+        RowLayout
         {
             height: UISettings.iconSizeDefault
+            width: parent.width
+            spacing: 0
 
             ContextMenuEntry
             {
-                width: actionsMenuEntries.width / 2
+                Layout.fillWidth: true
                 imgSource: "qrc:/undo.svg"
                 entryText: qsTr("Undo")
                 onEntered: submenuItem = null
@@ -301,7 +319,7 @@ Popup
             }
             ContextMenuEntry
             {
-                width: actionsMenuEntries.width / 2
+                Layout.fillWidth: true
                 imgSource: "qrc:/redo.svg"
                 entryText: qsTr("Redo")
                 onEntered: submenuItem = null
@@ -391,13 +409,26 @@ Popup
             CustomPopupDialog
             {
                 id: addrToolDialog
+                width: mainView.width / 3.5
                 title: qsTr("DMX Address tool")
                 standardButtons: Dialog.Close
 
                 contentItem:
                     DMXAddressTool { }
             }
+        }
 
+        ContextMenuEntry
+        {
+            id: uiConfig
+            imgSource: "qrc:/configure.svg"
+            entryText: qsTr("UI Settings")
+            onEntered: submenuItem = null
+            onClicked:
+            {
+                menuRoot.close()
+                mainView.loadResource("qrc:/UISettingsEditor.qml")
+            }
         }
 
         ContextMenuEntry
@@ -435,65 +466,100 @@ Popup
                 color: UISettings.bgStrong
                 visible: submenuItem === languageMenu
 
-                Column
+                GridLayout
                 {
                     id: languageColumn
+                    columns: 2
+                    columnSpacing: 0
+                    rowSpacing: 0
 
                     ContextMenuEntry
                     {
+                        Layout.fillWidth: true
                         imgSource: "qrc:/flag_ca.svg"
-                        iconWidth: UISettings.iconSizeDefault * 1.5
+                        iconWidth: flagSize
                         entryText: qsTr("Catalan")
-                        onClicked: { qlcplus.setLanguage("ca_ES"); menuRoot.close() }
+                        onClicked: setLanguage("ca_ES")
                     }
                     ContextMenuEntry
                     {
+                        Layout.fillWidth: true
                         imgSource: "qrc:/flag_nl.svg"
-                        iconWidth: UISettings.iconSizeDefault * 1.5
+                        iconWidth: flagSize
                         entryText: qsTr("Dutch")
-                        onClicked: { qlcplus.setLanguage("nl_NL"); menuRoot.close() }
+                        onClicked: setLanguage("nl_NL")
                     }
                     ContextMenuEntry
                     {
+                        Layout.fillWidth: true
                         imgSource: "qrc:/flag_uk_us.svg"
-                        iconWidth: UISettings.iconSizeDefault * 1.5
+                        iconWidth: flagSize
                         entryText: qsTr("English")
-                        onClicked: { qlcplus.setLanguage("en_EN"); menuRoot.close() }
+                        onClicked: setLanguage("en_EN")
                     }
                     ContextMenuEntry
                     {
+                        Layout.fillWidth: true
                         imgSource: "qrc:/flag_fr.svg"
-                        iconWidth: UISettings.iconSizeDefault * 1.5
+                        iconWidth: flagSize
                         entryText: qsTr("French")
-                        onClicked: { qlcplus.setLanguage("fr_FR"); menuRoot.close() }
+                        onClicked: setLanguage("fr_FR")
                     }
                     ContextMenuEntry
                     {
+                        Layout.fillWidth: true
                         imgSource: "qrc:/flag_de.svg"
-                        iconWidth: UISettings.iconSizeDefault * 1.5
+                        iconWidth: flagSize
                         entryText: qsTr("German")
-                        onClicked: { qlcplus.setLanguage("de_DE"); menuRoot.close() }
+                        onClicked: setLanguage("de_DE")
                     }
                     ContextMenuEntry
                     {
+                        Layout.fillWidth: true
                         imgSource: "qrc:/flag_it.svg"
-                        iconWidth: UISettings.iconSizeDefault * 1.5
+                        iconWidth: flagSize
                         entryText: qsTr("Italian")
-                        onClicked: { qlcplus.setLanguage("it_IT"); menuRoot.close() }
+                        onClicked: setLanguage("it_IT")
                     }
                     ContextMenuEntry
                     {
+                        Layout.fillWidth: true
                         imgSource: "qrc:/flag_jp.svg"
-                        iconWidth: UISettings.iconSizeDefault * 1.5
+                        iconWidth: flagSize
                         entryText: qsTr("Japanese")
-                        onClicked: { qlcplus.setLanguage("ja_JP"); menuRoot.close() }
+                        onClicked: setLanguage("ja_JP")
                     }
                     ContextMenuEntry
                     {
+                        Layout.fillWidth: true
+                        imgSource: "qrc:/flag_pl.svg"
+                        iconWidth: flagSize
+                        entryText: qsTr("Polish")
+                        onClicked: setLanguage("pl_PL")
+                    }
+                    ContextMenuEntry
+                    {
+                        Layout.fillWidth: true
+                        imgSource: "qrc:/flag_ru.svg"
+                        iconWidth: flagSize
+                        entryText: qsTr("Russian")
+                        onClicked: setLanguage("ru_RU")
+                    }
+                    ContextMenuEntry
+                    {
+                        Layout.fillWidth: true
                         imgSource: "qrc:/flag_es.svg"
-                        iconWidth: UISettings.iconSizeDefault * 1.5
+                        iconWidth: flagSize
                         entryText: qsTr("Spanish")
-                        onClicked: { qlcplus.setLanguage("es_ES"); menuRoot.close() }
+                        onClicked: setLanguage("es_ES")
+                    }
+                    ContextMenuEntry
+                    {
+                        Layout.fillWidth: true
+                        imgSource: "qrc:/flag_ua.svg"
+                        iconWidth: flagSize
+                        entryText: qsTr("Ukrainian")
+                        onClicked: setLanguage("uk_UA")
                     }
                 }
             }

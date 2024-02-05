@@ -26,16 +26,9 @@
 
 #include <math.h>
 
-#include "qlcfixturemode.h"
-#include "qlcfixturedef.h"
 #include "genericfader.h"
-#include "qlcchannel.h"
-#include "qlcmacros.h"
-#include "qlcfile.h"
-
 #include "mastertimer.h"
-#include "fixture.h"
-#include "scene.h"
+#include "qlcmacros.h"
 #include "doc.h"
 #include "efx.h"
 #include "bus.h"
@@ -44,29 +37,21 @@
  * Initialization
  *****************************************************************************/
 
-EFX::EFX(Doc* doc) : Function(doc, Function::EFXType)
+EFX::EFX(Doc* doc)
+    : Function(doc, Function::EFXType)
+    , m_algorithm(EFX::Circle)
+    , m_isRelative(false)
+    , m_xFrequency(2)
+    , m_yFrequency(3)
+    , m_xPhase(M_PI / 2.0)
+    , m_yPhase(0)
+    , m_propagationMode(Parallel)
+    , m_legacyFadeBus(Bus::invalid())
+    , m_legacyHoldBus(Bus::invalid())
 {
-    m_isRelative = false;
-
     updateRotationCache();
-
-    m_xFrequency = 2;
-    m_yFrequency = 3;
-    m_xPhase = M_PI / 2.0;
-    m_yPhase = 0;
-
-    m_propagationMode = Parallel;
-
-    m_algorithm = EFX::Circle;
-
     setName(tr("New EFX"));
-
-    m_fader = NULL;
-
     setDuration(20000); // 20s
-
-    m_legacyHoldBus = Bus::invalid();
-    m_legacyFadeBus = Bus::invalid();
 
     registerAttribute(tr("Width"), Function::LastWins, 0.0, 127.0, 127.0);
     registerAttribute(tr("Height"), Function::LastWins, 0.0, 127.0, 127.0);
@@ -150,10 +135,17 @@ void EFX::setDuration(uint ms)
 {
     Function::setDuration(ms);
 
-    for(int i = 0; i < m_fixtures.size(); ++i)
+    for (int i = 0; i < m_fixtures.size(); ++i)
         m_fixtures[i]->durationChanged();
 
     emit durationChanged(ms);
+}
+
+uint EFX::loopDuration() const
+{
+    uint fadeIn = overrideFadeInSpeed() == defaultSpeed() ? fadeInSpeed() : overrideFadeInSpeed();
+
+    return duration() - fadeIn;
 }
 
 /*****************************************************************************
@@ -167,6 +159,9 @@ EFX::Algorithm EFX::algorithm() const
 
 void EFX::setAlgorithm(EFX::Algorithm algo)
 {
+    if (algo == m_algorithm)
+        return;
+
     if (algo >= EFX::Circle && algo <= EFX::Lissajous)
         m_algorithm = algo;
     else
@@ -185,6 +180,7 @@ QStringList EFX::algorithmList()
     list << algorithmToString(EFX::Diamond);
     list << algorithmToString(EFX::Square);
     list << algorithmToString(EFX::SquareChoppy);
+	list << algorithmToString(EFX::SquareTrue);
     list << algorithmToString(EFX::Leaf);
     list << algorithmToString(EFX::Lissajous);
     return list;
@@ -209,6 +205,8 @@ QString EFX::algorithmToString(EFX::Algorithm algo)
             return QString(KXMLQLCEFXSquareAlgorithmName);
         case EFX::SquareChoppy:
             return QString(KXMLQLCEFXSquareChoppyAlgorithmName);
+		 case EFX::SquareTrue:
+            return QString(KXMLQLCEFXSquareTrueAlgorithmName);
         case EFX::Leaf:
             return QString(KXMLQLCEFXLeafAlgorithmName);
         case EFX::Lissajous:
@@ -230,6 +228,8 @@ EFX::Algorithm EFX::stringToAlgorithm(const QString& str)
         return EFX::Square;
     else if (str == QString(KXMLQLCEFXSquareChoppyAlgorithmName))
         return EFX::SquareChoppy;
+	 else if (str == QString(KXMLQLCEFXSquareTrueAlgorithmName))
+        return EFX::SquareTrue;
     else if (str == QString(KXMLQLCEFXLeafAlgorithmName))
         return EFX::Leaf;
     else if (str == QString(KXMLQLCEFXLissajousAlgorithmName))
@@ -289,9 +289,21 @@ void EFX::rotateAndScale(float* x, float* y) const
     float yy = *y;
     float w = getAttributeValue(Width);
     float h = getAttributeValue(Height);
+    float fadeScale = 1.0;
 
-    *x = (getAttributeValue(XOffset)) + xx * m_cosR * w + yy * m_sinR * h;
-    *y = (getAttributeValue(YOffset)) + -xx * m_sinR * w + yy * m_cosR * h;
+    if (isRunning())
+    {
+        uint fadeIn = overrideFadeInSpeed() == defaultSpeed() ? fadeInSpeed() : overrideFadeInSpeed();
+        if (fadeIn > 0 && elapsed() <= fadeIn)
+        {
+            fadeScale = SCALE(float(elapsed()),
+                              float(0), float(fadeIn),
+                              float(0), float(1.0));
+        }
+    }
+
+    *x = (getAttributeValue(XOffset)) + xx * m_cosR * (w * fadeScale) + yy * m_sinR * (h * fadeScale);
+    *y = (getAttributeValue(YOffset)) + -xx * m_sinR * (w * fadeScale) + yy * m_cosR * (h * fadeScale);
 }
 
 float EFX::calculateDirection(Function::Direction direction, float iterator) const
@@ -308,6 +320,7 @@ float EFX::calculateDirection(Function::Direction direction, float iterator) con
     case Diamond:
     case Square:
     case SquareChoppy:
+	case SquareTrue:
     case Leaf:
     case Lissajous:
         return (M_PI * 2.0) - iterator;
@@ -374,6 +387,29 @@ void EFX::calculatePoint(float iterator, float* x, float* y) const
         *x = round(cos(iterator));
         *y = round(sin(iterator));
         break;
+		
+	case SquareTrue:
+        if (iterator < M_PI / 2)
+        {
+            *x = 1;
+            *y = 1;
+        }
+        else if (M_PI / 2 <= iterator && iterator < M_PI)
+        {
+            *x = 1;
+            *y = -1;
+        }
+        else if (M_PI <= iterator && iterator < M_PI * 3 / 2)
+        {
+            *x = -1;
+            *y = -1;
+        }
+        else // M_PI * 3 / 2 <= iterator
+        {
+            *x = -1;
+            *y = 1;
+        }
+		break;
 
     case Leaf:
         *x = pow(cos(iterator + M_PI_2), 5);
@@ -607,7 +643,7 @@ bool EFX::addFixture(EFXFixture* ef)
      * not prevent multiple entries because a fixture can have multiple efx. */
     //! @todo Prevent multiple entries using head & mode
     int i;
-    for(i = 0; i < m_fixtures.size (); i++)
+    for (i = 0; i < m_fixtures.size (); i++)
     {
         if (m_fixtures[i]->head() == ef->head())
         {
@@ -617,12 +653,21 @@ bool EFX::addFixture(EFXFixture* ef)
     }
 
     /* If not inserted, put the EFXFixture object into our list */
-    if(i >= m_fixtures.size())
+    if (i >= m_fixtures.size())
         m_fixtures.append(ef);
 
     emit changed(this->id());
 
     return true;
+}
+
+bool EFX::addFixture(quint32 fxi, int head)
+{
+    EFXFixture *ef = new EFXFixture(this);
+    GroupHead gHead(fxi, head);
+    ef->setHead(gHead);
+
+    return addFixture(ef);
 }
 
 bool EFX::removeFixture(EFXFixture* ef)
@@ -1025,6 +1070,22 @@ void EFX::postLoad()
 /*****************************************************************************
  * Running
  *****************************************************************************/
+QSharedPointer<GenericFader> EFX::getFader(QList<Universe *> universes, quint32 universeID)
+{
+    // get the universe Fader first. If doesn't exist, create it
+    QSharedPointer<GenericFader> fader = m_fadersMap.value(universeID, QSharedPointer<GenericFader>());
+    if (fader.isNull())
+    {
+        fader = universes[universeID]->requestFader();
+        fader->adjustIntensity(getAttributeValue(Intensity));
+        fader->setBlendMode(blendMode());
+        fader->setName(name());
+        fader->setParentFunctionID(id());
+        m_fadersMap[universeID] = fader;
+    }
+
+    return fader;
+}
 
 void EFX::preRun(MasterTimer* timer)
 {
@@ -1038,42 +1099,41 @@ void EFX::preRun(MasterTimer* timer)
         ef->setSerialNumber(serialNumber++);
     }
 
-    Q_ASSERT(m_fader == NULL);
-    m_fader = new GenericFader(doc());
-    m_fader->adjustIntensity(getAttributeValue(Intensity));
-    m_fader->setBlendMode(blendMode());
-
     Function::preRun(timer);
 }
 
-void EFX::write(MasterTimer* timer, QList<Universe*> universes)
+void EFX::write(MasterTimer *timer, QList<Universe*> universes)
 {
     Q_UNUSED(timer);
-
-    int ready = 0;
 
     if (isPaused())
         return;
 
+    int done = 0;
+
     QListIterator <EFXFixture*> it(m_fixtures);
     while (it.hasNext() == true)
     {
-        EFXFixture* ef = it.next();
-        if (ef->isReady() == false)
-            ef->nextStep(timer, universes);
+        EFXFixture *ef = it.next();
+        if (ef->isDone() == false)
+        {
+            QSharedPointer<GenericFader> fader = getFader(universes, ef->universe());
+            ef->nextStep(universes, fader);
+        }
         else
-            ready++;
+        {
+            done++;
+        }
     }
 
     incrementElapsed();
 
     /* Check for stop condition */
-    if (ready == m_fixtures.count())
+    if (done == m_fixtures.count())
         stop(FunctionParent::master());
-    m_fader->write(universes);
 }
 
-void EFX::postRun(MasterTimer* timer, QList<Universe *> universes)
+void EFX::postRun(MasterTimer *timer, QList<Universe *> universes)
 {
     /* Reset all fixtures */
     QListIterator <EFXFixture*> it(m_fixtures);
@@ -1083,14 +1143,11 @@ void EFX::postRun(MasterTimer* timer, QList<Universe *> universes)
 
         /* Run the EFX's stop scene for Loop & PingPong modes */
         if (runOrder() != SingleShot)
-            ef->stop(timer, universes);
+            ef->stop();
         ef->reset();
     }
 
-    Q_ASSERT(m_fader != NULL);
-    m_fader->removeAll();
-    delete m_fader;
-    m_fader = NULL;
+    dismissAllFaders();
 
     Function::postRun(timer, universes);
 }
@@ -1107,8 +1164,11 @@ int EFX::adjustAttribute(qreal fraction, int attributeId)
     {
         case Intensity:
         {
-            if (m_fader != NULL)
-                m_fader->adjustIntensity(getAttributeValue(Function::Intensity));
+            foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+            {
+                if (!fader.isNull())
+                    fader->adjustIntensity(getAttributeValue(Function::Intensity));
+            }
         }
         break;
 
@@ -1133,8 +1193,11 @@ void EFX::setBlendMode(Universe::BlendMode mode)
     if (mode == blendMode())
         return;
 
-    if (m_fader != NULL)
-        m_fader->setBlendMode(mode);
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    {
+        if (!fader.isNull())
+            fader->setBlendMode(mode);
+    }
 
     Function::setBlendMode(mode);
 }

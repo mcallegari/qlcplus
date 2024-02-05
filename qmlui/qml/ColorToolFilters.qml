@@ -30,7 +30,7 @@ Rectangle
     id: rootBox
     width: 330
     height: 370
-    color: "#444"
+    color: UISettings.bgMedium
     border.color: "#222"
     border.width: 2
 
@@ -52,7 +52,7 @@ Rectangle
         rSpin.value = filterRGB.r * 255
         gSpin.value = filterRGB.g * 255
         bSpin.value = filterRGB.b * 255
-        htmlText.inputText = Helpers.getHTMLColor(filterRGB.r * 255, filterRGB.g * 255, filterRGB.b * 255)
+        htmlText.text = Helpers.getHTMLColor(filterRGB.r * 255, filterRGB.g * 255, filterRGB.b * 255)
         emitCurrentColor()
     }
     onFilterWAUVChanged:
@@ -107,6 +107,7 @@ Rectangle
             {
                 z: 2
                 Layout.fillWidth: true
+                textRole: ""
                 model: fixtureManager.colorFiltersFileList
                 currentIndex: fixtureManager.colorFilterFileIndex
                 onCurrentIndexChanged:
@@ -154,7 +155,7 @@ Rectangle
                     {
                         id: colorDisp
                         y: 1
-                        width: UISettings.bigItemHeight
+                        width: UISettings.bigItemHeight * 0.75
                         height: parent.height - 2
                         color: rgbCol
 
@@ -179,7 +180,7 @@ Rectangle
                     }
                     RobotoText
                     {
-                        x: UISettings.bigItemHeight + 3
+                        x: UISettings.bigItemHeight * 0.75 + 3
                         height: parent.height
                         label: modelData.name
                     }
@@ -213,6 +214,7 @@ Rectangle
                 id: rSpin
                 //Layout.fillWidth: true
                 height: UISettings.listItemHeight
+                width: UISettings.bigItemHeight * 0.75
                 from: 0
                 to: 255
                 onValueChanged:
@@ -233,6 +235,7 @@ Rectangle
                 id: wSpin
                 //Layout.fillWidth: true
                 height: UISettings.listItemHeight
+                width: UISettings.bigItemHeight * 0.75
                 from: 0
                 to: 255
                 onValueChanged:
@@ -254,6 +257,7 @@ Rectangle
                 id: gSpin
                 //Layout.fillWidth: true
                 height: UISettings.listItemHeight
+                width: UISettings.bigItemHeight * 0.75
                 from: 0
                 to: 255
                 onValueChanged:
@@ -274,6 +278,7 @@ Rectangle
                 id: aSpin
                 //Layout.fillWidth: true
                 height: UISettings.listItemHeight
+                width: UISettings.bigItemHeight * 0.75
                 from: 0
                 to: 255
                 onValueChanged:
@@ -295,6 +300,7 @@ Rectangle
                 id: bSpin
                 //Layout.fillWidth: true
                 height: UISettings.listItemHeight
+                width: UISettings.bigItemHeight * 0.75
                 from: 0
                 to: 255
                 onValueChanged:
@@ -315,6 +321,7 @@ Rectangle
                 id: uvSpin
                 //Layout.fillWidth: true
                 height: UISettings.listItemHeight
+                width: UISettings.bigItemHeight * 0.75
                 from: 0
                 to: 255
                 onValueChanged:
@@ -348,7 +355,7 @@ Rectangle
             CustomTextEdit
             {
                 id: htmlText
-                width: UISettings.bigItemHeight * 0.7
+                width: UISettings.bigItemHeight * 0.75
                 height: UISettings.listItemHeight
             }
         } // GridLayout

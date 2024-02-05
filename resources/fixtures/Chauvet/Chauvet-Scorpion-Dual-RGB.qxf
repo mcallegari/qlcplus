@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4</Version>
+  <Author>Ryan Morgan</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Scorpion Dual RGB</Model>
+ <Type>Laser</Type>
+ <Channel Name="Control Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="17">Manual control mode</Capability>
+  <Capability Min="18" Max="34" Preset="GenericPicture" Res1="Others/rainbow.png">Automatic mode (multi-color)</Capability>
+  <Capability Min="35" Max="51" Preset="ColorMacro" Res1="#ff0000">Automatic mode (red)</Capability>
+  <Capability Min="52" Max="68" Preset="ColorMacro" Res1="#00ff00">Automatic mode (green)</Capability>
+  <Capability Min="69" Max="85" Preset="ColorMacro" Res1="#1c36ff">Automatic mode (blue)</Capability>
+  <Capability Min="86" Max="102" Preset="ColorMacro" Res1="#ffff00">Automatic mode (yellow)</Capability>
+  <Capability Min="103" Max="119" Preset="ColorMacro" Res1="#b600f5">Automatic mode (magenta)</Capability>
+  <Capability Min="120" Max="136" Preset="ColorMacro" Res1="#00ffff">Automatic mode (cyan)</Capability>
+  <Capability Min="137" Max="153" Preset="GenericPicture" Res1="Others/rainbow.png">Sound-active mode (multi-color)</Capability>
+  <Capability Min="154" Max="170" Preset="ColorMacro" Res1="#ff0000">Sound-active mode (red)</Capability>
+  <Capability Min="171" Max="187" Preset="ColorMacro" Res1="#00ff00">Sound-active mode (green)</Capability>
+  <Capability Min="188" Max="204" Preset="ColorMacro" Res1="#2750ff">Sound-active mode (blue)</Capability>
+  <Capability Min="205" Max="221" Preset="ColorMacro" Res1="#ffff00">Sound-active mode (yellow)</Capability>
+  <Capability Min="222" Max="238" Preset="ColorMacro" Res1="#b600f5">Sound-active mode (magenta)</Capability>
+  <Capability Min="239" Max="255" Preset="ColorMacro" Res1="#00ffff">Sound-active mode (cyan)</Capability>
+ </Channel>
+ <Channel Name="Pattern">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Circle</Capability>
+  <Capability Min="8" Max="15">Dashed Circle</Capability>
+  <Capability Min="16" Max="23">Triangle</Capability>
+  <Capability Min="24" Max="31">Square</Capability>
+  <Capability Min="32" Max="39">Dashed Square</Capability>
+  <Capability Min="40" Max="47">Square in a Square</Capability>
+  <Capability Min="48" Max="55">Cross</Capability>
+  <Capability Min="56" Max="63">Star</Capability>
+  <Capability Min="64" Max="71">Backwards L</Capability>
+  <Capability Min="72" Max="79">Bow-Tie</Capability>
+  <Capability Min="80" Max="87">Spiral</Capability>
+  <Capability Min="88" Max="95">Half Circles</Capability>
+  <Capability Min="96" Max="103">Fibonacci Spiral</Capability>
+  <Capability Min="104" Max="111">Parenthesis</Capability>
+  <Capability Min="112" Max="119">Two Triangles</Capability>
+  <Capability Min="120" Max="127">zig-zag</Capability>
+  <Capability Min="128" Max="135">V-Line</Capability>
+  <Capability Min="136" Max="143">Sawtooth</Capability>
+  <Capability Min="144" Max="151">Squarewave</Capability>
+  <Capability Min="152" Max="159">Line</Capability>
+  <Capability Min="160" Max="167">Dashed Line</Capability>
+  <Capability Min="168" Max="175">Strobed Line</Capability>
+  <Capability Min="176" Max="183">Parallel Lines</Capability>
+  <Capability Min="184" Max="191">Crosshair</Capability>
+  <Capability Min="192" Max="199">Two Dashes</Capability>
+  <Capability Min="200" Max="207">Four Lines (Square)</Capability>
+  <Capability Min="208" Max="215">Two Squares</Capability>
+  <Capability Min="216" Max="223">Four Squares</Capability>
+  <Capability Min="224" Max="231">Small Circle</Capability>
+  <Capability Min="232" Max="239">Dotted Line</Capability>
+  <Capability Min="240" Max="247">Dotted Half-Circle</Capability>
+  <Capability Min="248" Max="255">Cluster Dashes</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="14">No function</Capability>
+  <Capability Min="15" Max="30">Multi-color</Capability>
+  <Capability Min="31" Max="46" Preset="ColorMacro" Res1="#fc000d">Red</Capability>
+  <Capability Min="47" Max="62" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="63" Max="78" Preset="ColorMacro" Res1="#0030ff">Blue</Capability>
+  <Capability Min="79" Max="94" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="95" Max="110" Preset="ColorMacro" Res1="#d105f5">Magenta</Capability>
+  <Capability Min="111" Max="126" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="127" Max="149" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red &amp; Green</Capability>
+  <Capability Min="150" Max="174" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#1f52ff">Green &amp; Blue</Capability>
+  <Capability Min="175" Max="199" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0549ff">Red &amp; Blue</Capability>
+  <Capability Min="200" Max="224">Red/Green/Blue/Yellow/Magenta/Cyan</Capability>
+  <Capability Min="225" Max="255" Preset="RotationClockwise">Color Roll</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="5" Max="255" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="127">Manual zoom, 100-5%</Capability>
+  <Capability Min="128" Max="169">Auto zoom, 100-5%, slow to fast</Capability>
+  <Capability Min="170" Max="209">Auto zoom, 5-100%, slow to fast</Capability>
+  <Capability Min="210" Max="255">Auto zoom, 100-5-100%, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">Manual pan (128 horizontal points)</Capability>
+  <Capability Min="128" Max="191">Auto pan, slow to fast</Capability>
+  <Capability Min="192" Max="255">Reverse auto pan, fast to slow</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127">Manual tilt (128 vertical points)</Capability>
+  <Capability Min="128" Max="191">Auto tilt, slow to fast</Capability>
+  <Capability Min="192" Max="255">Reverse auto tilt, fast to slow</Capability>
+ </Channel>
+ <Channel Name="X-Axis Rolling">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Manual x-axis rolling (0-359º)</Capability>
+  <Capability Min="128" Max="191">Auto rolling, slow to fast</Capability>
+  <Capability Min="192" Max="255">Reverse auto rolling, fast to slow</Capability>
+ </Channel>
+ <Channel Name="Y-Axis Rolling">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Manual Y-Axis rolling (0-359º)</Capability>
+  <Capability Min="128" Max="191">Auto rolling, slow to fast</Capability>
+  <Capability Min="192" Max="255">Reverse auto rolling, fast to slow</Capability>
+ </Channel>
+ <Channel Name="Z-Axis Rolling">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Manual Z-Axis rolling (0-359º)</Capability>
+  <Capability Min="128" Max="191">Auto rolling, slow to fast</Capability>
+  <Capability Min="192" Max="255">Reverse auto rolling, fast to slow</Capability>
+ </Channel>
+ <Mode Name="10-Channel">
+  <Channel Number="0">Control Mode</Channel>
+  <Channel Number="1">Pattern</Channel>
+  <Channel Number="2">Color</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Zoom</Channel>
+  <Channel Number="5">Pan</Channel>
+  <Channel Number="6">Tilt</Channel>
+  <Channel Number="7">X-Axis Rolling</Channel>
+  <Channel Number="8">Y-Axis Rolling</Channel>
+  <Channel Number="9">Z-Axis Rolling</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="Laser: Class 3R" Lumens="2" ColourTemperature="0"/>
+  <Dimensions Weight="1.7" Width="161" Height="180" Depth="216"/>
+  <Lens Name="Other" DegreesMin="1" DegreesMax="29"/>
+  <Focus Type="Fixed" PanMax="30" TiltMax="30"/>
+  <Layout Width="2" Height="1"/>
+  <Technical PowerConsumption="20" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

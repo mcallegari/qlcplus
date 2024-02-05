@@ -22,21 +22,24 @@
 
 #include "vcwidget.h"
 
-#define KXMLQLCVCButton "Button"
+#define KXMLQLCVCButton QString("Button")
 
-#define KXMLQLCVCButtonFunction "Function"
-#define KXMLQLCVCButtonFunctionID "ID"
+#define KXMLQLCVCButtonFunction     QString("Function")
+#define KXMLQLCVCButtonFunctionID   QString("ID")
 
-#define KXMLQLCVCButtonAction "Action"
-#define KXMLQLCVCButtonActionFlash "Flash"
-#define KXMLQLCVCButtonActionToggle "Toggle"
-#define KXMLQLCVCButtonActionBlackout "Blackout"
-#define KXMLQLCVCButtonActionStopAll "StopAll"
+#define KXMLQLCVCButtonAction           QString("Action")
+#define KXMLQLCVCButtonActionFlash      QString("Flash")
+#define KXMLQLCVCButtonActionToggle     QString("Toggle")
+#define KXMLQLCVCButtonActionBlackout   QString("Blackout")
+#define KXMLQLCVCButtonActionStopAll    QString("StopAll")
 
-#define KXMLQLCVCButtonStopAllFadeTime "FadeOut"
+#define KXMLQLCVCButtonFlashOverride    QString("Override")
+#define KXMLQLCVCButtonFlashForceLTP    QString("ForceLTP")
 
-#define KXMLQLCVCButtonIntensity "Intensity"
-#define KXMLQLCVCButtonIntensityAdjust "Adjust"
+#define KXMLQLCVCButtonStopAllFadeTime  QString("FadeOut")
+
+#define KXMLQLCVCButtonIntensity        QString("Intensity")
+#define KXMLQLCVCButtonIntensityAdjust  QString("Adjust")
 
 class FunctionParent;
 
@@ -49,12 +52,15 @@ class VCButton : public VCWidget
     Q_PROPERTY(quint32 functionID READ functionID WRITE setFunctionID NOTIFY functionIDChanged)
     Q_PROPERTY(bool startupIntensityEnabled READ startupIntensityEnabled WRITE setStartupIntensityEnabled NOTIFY startupIntensityEnabledChanged)
     Q_PROPERTY(qreal startupIntensity READ startupIntensity WRITE setStartupIntensity NOTIFY startupIntensityChanged)
+    Q_PROPERTY(int stopAllFadeOutTime READ stopAllFadeOutTime WRITE setStopAllFadeOutTime NOTIFY stopAllFadeOutTimeChanged)
+    Q_PROPERTY(bool flashOverrides READ flashOverrides WRITE setFlashOverride NOTIFY flashOverrideChanged)
+    Q_PROPERTY(bool flashForceLTP READ flashForceLTP WRITE setFlashForceLTP NOTIFY flashForceLTPChanged)
 
     /*********************************************************************
      * Initialization
      *********************************************************************/
 public:
-    VCButton(Doc* doc = NULL, QObject *parent = 0);
+    VCButton(Doc* doc = nullptr, QObject *parent = nullptr);
     virtual ~VCButton();
 
     /** @reimp */
@@ -99,6 +105,9 @@ public:
     /** @reimp */
     void adjustFunctionIntensity(Function *f, qreal value);
 
+    /** @reimp */
+    void adjustIntensity(qreal val);
+
     /**
      *  The actual method used to request a change of state of this
      *  Button. Depending on the action type this will start/stop
@@ -127,6 +136,27 @@ private:
 protected:
     /** The ID of the Function that this button is controlling */
     quint32 m_functionID;
+
+    /*****************************************************************************
+    * Flash Properties
+    *****************************************************************************/
+public:
+    /** Gets if flashing overrides newer values */
+    bool flashOverrides() const;
+    /** Sets if flashing should override values */
+    void setFlashOverride(bool shouldOverride);
+    /** Gets if flash channels should behave like LTP channels */
+    bool flashForceLTP() const;
+    /** Sets if the flash channels should behave like LTP channels */
+    void setFlashForceLTP(bool forceLTP);
+
+private:
+    bool m_flashOverrides;
+    bool m_flashForceLTP;
+
+signals:
+    void flashOverrideChanged(bool shouldOverride);
+    void flashForceLTPChanged(bool forceLTP);
 
     /*********************************************************************
      * Button state
@@ -172,16 +202,17 @@ public:
     static ButtonAction stringToAction(const QString& str);
 
     void setStopAllFadeOutTime(int ms);
-    int stopAllFadeTime();
+    int stopAllFadeOutTime() const;
 
 signals:
     void actionTypeChanged(ButtonAction actionType);
+    void stopAllFadeOutTimeChanged();
 
 protected:
     ButtonAction m_actionType;
     /** if button action is StopAll, this indicates the time
      *  in milliseconds of fadeout before stopping */
-    int m_blackoutFadeOutTime;
+    int m_stopAllFadeOutTime;
 
     /*****************************************************************************
      * Function startup intensity adjustment
@@ -208,6 +239,10 @@ protected:
     /*********************************************************************
      * External input
      *********************************************************************/
+public:
+    /** @reimp */
+    void updateFeedback();
+
 public slots:
     /** @reimp */
     void slotInputValueChanged(quint8 id, uchar value);

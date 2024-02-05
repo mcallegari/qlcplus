@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Tolmino Muccitelli</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
@@ -12,8 +12,8 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7">Shutter closed</Capability>
-  <Capability Min="8" Max="255">Strobe from slow to fast</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="8" Max="255" Preset="StrobeSlowToFast">Strobe from slow to fast</Capability>
  </Channel>
  <Channel Name="Colour 1">
   <Group Byte="0">Colour</Group>
@@ -69,7 +69,7 @@
   <Capability Min="72" Max="95" Preset="GoboMacro" Res1="Robe/gobo00036.svg">Gobo3 (Atomic)</Capability>
   <Capability Min="96" Max="119" Preset="GoboMacro" Res1="Robe/gobo00018.svg">Gobo4 (Ring)</Capability>
   <Capability Min="120" Max="143" Preset="GoboMacro" Res1="SGM-Color/gobo00555.png">Gobo5 (Moon)</Capability>
-  <Capability Min="144" Max="167" Preset="GoboMacro" Res1="Chauvet/gobo00052.png">Gobo6 (Sun)</Capability>
+  <Capability Min="144" Max="167" Preset="GoboMacro" Res1="Chauvet/gobo00052.svg">Gobo6 (Sun)</Capability>
   <Capability Min="168" Max="255">Gobo Rotation</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
@@ -81,8 +81,10 @@
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="1">Open</Capability>
-  <Capability Min="2" Max="7">Triple Prism Static</Capability>
-  <Capability Min="8" Max="132">Forward Rotation From Fast To Slow</Capability>
+  <Capability Min="2" Max="7">Static</Capability>
+  <Capability Min="8" Max="132" Preset="RotationClockwiseFastToSlow">Forward Rotation, fast to slow</Capability>
+  <Capability Min="133" Max="253" Preset="RotationCounterClockwiseSlowToFast">Backward Rotation, slow to fast</Capability>
+  <Capability Min="254" Max="255">Static</Capability>
  </Channel>
  <Channel Name="Iris">
   <Group Byte="0">Beam</Group>

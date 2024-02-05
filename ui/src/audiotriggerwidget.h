@@ -39,9 +39,9 @@ public:
 
     uchar getUcharVolume();
     uchar getUcharBand(int idx);
-    
+
 signals:
-    
+
 public slots:
     void displaySpectrum(double *spectrumData, double maxMagnitude, quint32 power);
 

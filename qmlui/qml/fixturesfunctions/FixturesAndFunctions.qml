@@ -135,6 +135,8 @@ Rectangle
                     onCheckedChanged: loadContext(checked, "qrc:/UniverseGridView.qml", "UNIGRID")
                     onRightClicked:
                     {
+                        if (checked)
+                            dmxView.checked = true
                         uniView.visible = false
                         contextManager.detachContext("UNIGRID")
                     }
@@ -151,6 +153,8 @@ Rectangle
                     onCheckedChanged: loadContext(checked, "qrc:/DMXView.qml", "DMX")
                     onRightClicked:
                     {
+                        if (checked)
+                            uniView.checked = true
                         dmxView.visible = false
                         contextManager.detachContext("DMX")
                     }
@@ -168,6 +172,8 @@ Rectangle
                     onCheckedChanged: loadContext(checked, "qrc:/2DView.qml", "2D")
                     onRightClicked:
                     {
+                        if (checked)
+                            dmxView.checked = true
                         twodView.visible = false
                         contextManager.detachContext("2D")
                     }
@@ -193,6 +199,8 @@ Rectangle
                     }
                     onRightClicked:
                     {
+                        if (checked)
+                            twodView.checked = true
                         threedView.visible = false
                         contextManager.detachContext("3D")
                     }
@@ -205,7 +213,7 @@ Rectangle
                     height: viewToolbar.height - 4
                     anchors.margins: 1
                     model: ioManager.universesListModel
-                    currentValue: contextManager.universeFilter
+                    currValue: contextManager.universeFilter
 
                     onValueChanged:
                     {

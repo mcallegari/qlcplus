@@ -19,6 +19,7 @@
  <Channel Name="Strobe" Preset="ShutterStrobeFastSlow"/>
  <Channel Name="Programs">
   <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="30">Chase 1</Capability>
   <Capability Min="31" Max="60">Chase 2</Capability>
   <Capability Min="61" Max="90">Chase 3</Capability>

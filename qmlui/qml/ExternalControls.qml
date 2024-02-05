@@ -139,8 +139,8 @@ Column
                 onLoaded:
                 {
                     item.dObjRef = objRef
+                    item.inputModel = objRef.externalControlsList
                     item.controlID = modelData.id
-                    item.controlIndex = modelData.cIndex
 
                     if (modelData.invalid)
                         item.invalid = modelData.invalid

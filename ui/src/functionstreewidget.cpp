@@ -17,14 +17,12 @@
   limitations under the License.
 */
 
+#include <QContextMenuEvent>
 #include <QDebug>
 
 #include "functionstreewidget.h"
 #include "function.h"
-#include "chaser.h"
-#include "scene.h"
 #include "doc.h"
-#include <QContextMenuEvent>
 
 #define COL_NAME 0
 #define COL_PATH 1
@@ -279,7 +277,7 @@ QTreeWidgetItem *FunctionsTreeWidget::folderItem(QString name)
     int type = Function::Undefined;
     QString fullPath;
     QStringList levelsList = name.split("/");
-    foreach(QString level, levelsList)
+    foreach (QString level, levelsList)
     {
         // the first round is a category node. Just retrieve the item pointer
         // and the type, then skip it.
@@ -379,8 +377,11 @@ void FunctionsTreeWidget::mousePressEvent(QMouseEvent *event)
 
 void FunctionsTreeWidget::dropEvent(QDropEvent *event)
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QTreeWidgetItem *dropItem = itemAt(event->pos());
-
+#else
+    QTreeWidgetItem *dropItem = itemAt(event->position().toPoint());
+#endif
     if (m_draggedItems.count() == 0 || dropItem == NULL)
         return;
 

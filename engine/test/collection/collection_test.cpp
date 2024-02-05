@@ -31,6 +31,7 @@
 #include "function.h"
 #include "fixture.h"
 #include "qlcfile.h"
+#include "chaser.h"
 #include "scene.h"
 #include "doc.h"
 #undef protected
@@ -106,6 +107,40 @@ void Collection_Test::functions()
     QVERIFY(c.functions().size() == 0);
 }
 
+void Collection_Test::contains()
+{
+    Doc* doc = new Doc(this);
+
+    Scene *s1 = new Scene(doc);
+    Scene *s2 = new Scene(doc);
+    Scene *s3 = new Scene(doc);
+
+    doc->addFunction(s1);
+    doc->addFunction(s2);
+    doc->addFunction(s3);
+
+    Chaser *c1 = new Chaser(doc);
+    ChaserStep step(s3->id());
+    c1->addStep(step);
+    doc->addFunction(c1);
+
+    Collection c(doc);
+    c.setID(123);
+
+    QVERIFY(c.addFunction(s1->id()) == true);
+    QVERIFY(c.addFunction(s2->id()) == true);
+    QVERIFY(c.addFunction(c1->id()) == true);
+
+    QVERIFY(c.contains(100) == false);
+    QVERIFY(c.contains(s1->id()) == true);
+    QVERIFY(c.contains(s2->id()) == true);
+    QVERIFY(c.contains(c1->id()) == true);
+    // recusrsive contains
+    QVERIFY(c.contains(s3->id()) == true);
+
+    QVERIFY(c.components().size() == 3);
+}
+
 void Collection_Test::functionRemoval()
 {
     Collection c(m_doc);
@@ -167,9 +202,9 @@ void Collection_Test::loadSuccess()
     Collection c(m_doc);
     QVERIFY(c.loadXML(xmlReader) == true);
     QVERIFY(c.functions().size() == 3);
-    QVERIFY(c.functions().contains(50) == true);
-    QVERIFY(c.functions().contains(12) == true);
-    QVERIFY(c.functions().contains(87) == true);
+    QVERIFY(c.functions().contains(quint32(50)) == true);
+    QVERIFY(c.functions().contains(quint32(12)) == true);
+    QVERIFY(c.functions().contains(quint32(87)) == true);
 }
 
 void Collection_Test::loadWrongType()
@@ -302,7 +337,7 @@ void Collection_Test::save()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Step")
+        if (xmlReader.name().toString() == "Step")
         {
             quint32 fid = xmlReader.readElementText().toUInt();
             QVERIFY(fid == 0 || fid == 1 || fid == 2 || fid == 3);
@@ -448,6 +483,28 @@ void Collection_Test::write()
     QVERIFY(mts->m_functionList[0] == c);
     QVERIFY(mts->m_functionList[1] == s1);
     QVERIFY(mts->m_functionList[2] == s2);
+
+    /* Pause/resume */
+    c->setPause(true);
+    QVERIFY(c->isPaused() == true);
+    c->setPause(false);
+
+    QVERIFY(c->stopped() == false);
+    QVERIFY(mts->m_functionList.size() == 3);
+    QVERIFY(mts->m_functionList[0] == c);
+    QVERIFY(mts->m_functionList[1] == s1);
+    QVERIFY(mts->m_functionList[2] == s2);
+
+    /* Half the intensity and check */
+    c->adjustAttribute(0.5, Function::Intensity);
+    QVERIFY(c->getAttributeValue(Function::Intensity) == 0.5);
+    QVERIFY(s1->getAttributeValue(Function::Intensity) == 0.5);
+    QVERIFY(s2->getAttributeValue(Function::Intensity) == 0.5);
+
+    c->setBlendMode(Universe::AdditiveBlend);
+    QVERIFY(c->blendMode() == Universe::AdditiveBlend);
+    QVERIFY(s1->blendMode() == Universe::AdditiveBlend);
+    QVERIFY(s2->blendMode() == Universe::AdditiveBlend);
 
     /* S2 is still running after this so the collection is also running */
     mts->stopFunction(s1);

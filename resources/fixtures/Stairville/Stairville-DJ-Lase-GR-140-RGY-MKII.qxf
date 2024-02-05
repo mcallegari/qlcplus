@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.3</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Hadley Denton</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
@@ -57,8 +57,8 @@
  </Channel>
  <Channel Name="Strobing (strobe effect)">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="4">No function</Capability>
-  <Capability Min="5" Max="254">Strobing (strobe effect), slow to fast</Capability>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="5" Max="254" Preset="StrobeSlowToFast">Strobing (strobe effect), slow to fast</Capability>
   <Capability Min="255" Max="255">Sound-controlled strobe effect</Capability>
  </Channel>
  <Mode Name="DMX 1 mode">
@@ -75,11 +75,11 @@
   <Channel Number="3">Colour selection</Channel>
   <Channel Number="4">Strobing (strobe effect)</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="80" Depth="160" Weight="1.8" Width="145"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="15"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.8" Width="145" Height="80" Depth="160"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="15" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

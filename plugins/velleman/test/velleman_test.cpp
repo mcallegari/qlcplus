@@ -44,7 +44,7 @@ void Velleman_Test::initial()
     QVERIFY(vo.m_currentlyOpen == false);
     QVERIFY(vo.m_values != NULL);
     QCOMPARE(vo.name(), QString("Velleman"));
-    QCOMPARE(vo.outputs(), QStringList() << "1: Velleman Device");
+    QCOMPARE(vo.outputs(), QStringList() << "Velleman Device");
     QVERIFY(vo.canConfigure() == false);
     vo.configure(); // Merely a crash test
 }
@@ -129,16 +129,16 @@ void Velleman_Test::writeUniverse()
     data[127] = 42;
     data[511] = 96;
 
-    vo.writeUniverse(0, 0, data);
+    vo.writeUniverse(0, 0, data, true);
     QVERIFY(_ChannelCount == 0);
     QVERIFY(_SetAllData == NULL);
 
     vo.openOutput(0, 0);
-    vo.writeUniverse(0, 1, data);
+    vo.writeUniverse(0, 1, data, true);
     QVERIFY(_ChannelCount == 0);
     QVERIFY(_SetAllData == NULL);
 
-    vo.writeUniverse(0, 0, data);
+    vo.writeUniverse(0, 0, data, true);
     QVERIFY(_ChannelCount == data.size());
     QVERIFY(_SetAllData != NULL);
     QCOMPARE(_SetAllData[0], 0);

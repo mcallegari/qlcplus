@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.1 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Flox Garden</Author>
  </Creator>
  <Manufacturer>lightmaXX</Manufacturer>
@@ -13,26 +13,26 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="10">Blackout</Capability>
   <Capability Min="11" Max="21">DMX mode</Capability>
-  <Capability Min="22" Max="32" Color="#ff0000">Red</Capability>
-  <Capability Min="33" Max="43" Color="#ffff00">Yellow</Capability>
-  <Capability Min="44" Max="54" Color="#00ff00">Green</Capability>
-  <Capability Min="55" Max="65" Color="#00ffff">Cyan</Capability>
-  <Capability Min="66" Max="76" Color="#0000ff">Blue</Capability>
-  <Capability Min="77" Max="87" Color="#ff00ff">Purple</Capability>
-  <Capability Min="88" Max="98" Color="#ffffff">White</Capability>
-  <Capability Min="99" Max="109">Program "Dream"</Capability>
-  <Capability Min="110" Max="120">Program "Meteor"</Capability>
-  <Capability Min="121" Max="131">Program "Fade"</Capability>
-  <Capability Min="132" Max="142">Program "Change"</Capability>
-  <Capability Min="143" Max="153">Program "Flow 1"</Capability>
-  <Capability Min="154" Max="164">Program "Flow 2"</Capability>
-  <Capability Min="165" Max="175">Program "Flow 3"</Capability>
-  <Capability Min="176" Max="186">Program "Flow 4"</Capability>
-  <Capability Min="187" Max="197">Program "Flow 5"</Capability>
-  <Capability Min="198" Max="208">Program "Flow 6"</Capability>
-  <Capability Min="209" Max="219">Program "Flow 7"</Capability>
-  <Capability Min="220" Max="230">Program "Flow 8"</Capability>
-  <Capability Min="231" Max="241">Program "Flow 9"</Capability>
+  <Capability Min="22" Max="32" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="33" Max="43" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="44" Max="54" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="55" Max="65" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="66" Max="76" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="77" Max="87" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="88" Max="98" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="99" Max="109">Program &quot;Dream&quot;</Capability>
+  <Capability Min="110" Max="120">Program &quot;Meteor&quot;</Capability>
+  <Capability Min="121" Max="131">Program &quot;Fade&quot;</Capability>
+  <Capability Min="132" Max="142">Program &quot;Change&quot;</Capability>
+  <Capability Min="143" Max="153">Program &quot;Flow 1&quot;</Capability>
+  <Capability Min="154" Max="164">Program &quot;Flow 2&quot;</Capability>
+  <Capability Min="165" Max="175">Program &quot;Flow 3&quot;</Capability>
+  <Capability Min="176" Max="186">Program &quot;Flow 4&quot;</Capability>
+  <Capability Min="187" Max="197">Program &quot;Flow 5&quot;</Capability>
+  <Capability Min="198" Max="208">Program &quot;Flow 6&quot;</Capability>
+  <Capability Min="209" Max="219">Program &quot;Flow 7&quot;</Capability>
+  <Capability Min="220" Max="230">Program &quot;Flow 8&quot;</Capability>
+  <Capability Min="231" Max="241">Program &quot;Flow 9&quot;</Capability>
   <Capability Min="242" Max="255">Sound active mode</Capability>
  </Channel>
  <Channel Name="Master dimmer / Program speed">
@@ -63,11 +63,6 @@
   <Channel Number="3">Red 1 / Program color select</Channel>
   <Channel Number="4">Green 1</Channel>
   <Channel Number="5">Blue 1</Channel>
-  <Head>
-   <Channel>3</Channel>
-   <Channel>5</Channel>
-   <Channel>4</Channel>
-  </Head>
  </Mode>
  <Mode Name="9 channel">
   <Channel Number="0">Mode</Channel>
@@ -128,10 +123,11 @@
   </Head>
  </Mode>
  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7" Width="1030" Height="290" Depth="100"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7" Width="1030" Height="290" Depth="100"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

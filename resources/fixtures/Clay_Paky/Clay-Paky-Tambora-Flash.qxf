@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.7 GIT</Version>
+  <Author>Gianluca Baggi</Author>
+ </Creator>
+ <Manufacturer>Clay Paky</Manufacturer>
+ <Model>Tambora Flash</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Layer 1 Red" Preset="IntensityRed"/>
+ <Channel Name="Layer 1 Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Layer 1 Green" Preset="IntensityGreen"/>
+ <Channel Name="Layer 1 Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Layer 1 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Layer 1 Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="Layer 1 White" Preset="IntensityWhite"/>
+ <Channel Name="Layere 1 White fine" Preset="IntensityWhiteFine"/>
+ <Channel Name="Layer 1 CTO">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Unused range</Capability>
+  <Capability Min="10" Max="255">Linear from 8000K to 2700K</Capability>
+ </Channel>
+ <Channel Name="Layer 1 Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterClose">Light Off</Capability>
+  <Capability Min="4" Max="103" Preset="StrobeFreqRange" Res1="1" Res2="25">Stobe Frequency from slow (1Hz) to fast (25Hz)</Capability>
+  <Capability Min="104" Max="107" Preset="ShutterOpen">Light On</Capability>
+  <Capability Min="108" Max="207" Preset="PulseFreqRange" Res1="0.5" Res2="25">Pulsation from slow (0.5Hz) to fast (25Hz)</Capability>
+  <Capability Min="208" Max="212" Preset="ShutterOpen">Light On</Capability>
+  <Capability Min="213" Max="225" Preset="StrobeRandom">Random Slow Strobe Effect</Capability>
+  <Capability Min="226" Max="238" Preset="StrobeRandom">Random Medium Strobe Effect</Capability>
+  <Capability Min="239" Max="251" Preset="StrobeRandom">Random Fast Strobe Effect On</Capability>
+  <Capability Min="252" Max="255" Preset="ShutterOpen">Light On</Capability>
+ </Channel>
+ <Channel Name="Layer 1 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Layer 1 Dimmer fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Layer 1 Color CrossFade">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">From Fast to Slow</Capability>
+ </Channel>
+ <Channel Name="Layer 1 Attack Fade">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">From Fast to Slow</Capability>
+ </Channel>
+ <Channel Name="Layer 1 Release Fade">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">From Fast to Slow</Capability>
+ </Channel>
+ <Channel Name="Layer 1 Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="1">Unused range</Capability>
+  <Capability Min="2" Max="3">Auto (default)</Capability>
+  <Capability Min="4" Max="5">Sln</Capability>
+  <Capability Min="6" Max="7">Theatre</Capability>
+  <Capability Min="8" Max="9">Constant</Capability>
+  <Capability Min="10" Max="37">Unused range</Capability>
+  <Capability Min="38" Max="42">Dimmer curve 1 (default)</Capability>
+  <Capability Min="43" Max="47">Dimmer curve 2</Capability>
+  <Capability Min="48" Max="52">Dimmer curve 3</Capability>
+  <Capability Min="53" Max="55">Dimmer curve 4</Capability>
+  <Capability Min="56" Max="57">Dimmer curve 5</Capability>
+  <Capability Min="58" Max="62">Raw Colour gamma 1</Capability>
+  <Capability Min="63" Max="67">Raw Colour gamma 1.5</Capability>
+  <Capability Min="68" Max="72">Raw Colour gamma 2.2 (default)</Capability>
+  <Capability Min="73" Max="84">Unused range</Capability>
+  <Capability Min="85" Max="86">Reverse mapping Off (default)</Capability>
+  <Capability Min="87" Max="88">Reverse mapping On</Capability>
+  <Capability Min="89" Max="97">Pixel mapping disabled (default)</Capability>
+  <Capability Min="98" Max="102">Pixel mapping On RGB mode</Capability>
+  <Capability Min="103" Max="107">Pixel mapping On RGBW mode</Capability>
+  <Capability Min="108" Max="112">Red shift On</Capability>
+  <Capability Min="113" Max="117">Red shift Off (default)</Capability>
+  <Capability Min="118" Max="120">CW Engine disable (default)</Capability>
+  <Capability Min="121" Max="122">CW Engine enable</Capability>
+  <Capability Min="123" Max="167">Unused range</Capability>
+  <Capability Min="168" Max="188">PWM frequency=600Hz</Capability>
+  <Capability Min="189" Max="199">PWM frequency=1200Hz</Capability>
+  <Capability Min="200" Max="210">PWM frequency=2000Hz (default)</Capability>
+  <Capability Min="211" Max="221">PWM frequency=4000Hz</Capability>
+  <Capability Min="222" Max="232">PWM frequency=6000Hz</Capability>
+  <Capability Min="233" Max="243">PWM frequency=25000Hz</Capability>
+  <Capability Min="244" Max="248">Display off (default)</Capability>
+  <Capability Min="249" Max="253">Dipaly On</Capability>
+  <Capability Min="254" Max="255">Default function recall</Capability>
+ </Channel>
+ <Channel Name="Layer 3 Strobe Engine">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5">No effect</Capability>
+  <Capability Min="6" Max="42">Ramp Up</Capability>
+  <Capability Min="43" Max="85">Ramp down</Capability>
+  <Capability Min="86" Max="128">Ramp Up to Down</Capability>
+  <Capability Min="129" Max="171">Random</Capability>
+  <Capability Min="172" Max="214">Lightning</Capability>
+  <Capability Min="215" Max="255">Spikes (fals over low light)</Capability>
+ </Channel>
+ <Channel Name="Layer 3 Strobe Engine Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Layer 3 Strobe Engine Duration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">From fast to slow</Capability>
+ </Channel>
+ <Channel Name="Layer 3 Strobe Engine Rate">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No effect</Capability>
+  <Capability Min="6" Max="255">Pulsation from slow (0.3Hz) to fast (25Hz)</Capability>
+ </Channel>
+ <Channel Name="Layer 2 Shape Selection">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5" Preset="Alias">Not Used</Capability>
+  <Capability Min="6" Max="130" Preset="Alias">Static
+   <Alias Mode="Shape RGBW" Channel="Layer 2 Shape Indexing Speed Nothing" With="Layer 2 Shape Indexing speed Static"/>
+   <Alias Mode="Shape RGBW 16bit" Channel="Layer 2 Shape Indexing Speed Nothing" With="Layer 2 Shape Indexing speed Static"/>
+  </Capability>
+  <Capability Min="131" Max="255" Preset="Alias">Dynamic
+   <Alias Mode="Shape RGBW" Channel="Layer 2 Shape Indexing Speed Nothing" With="Layer 2 Shape Indexing speed Dynamic"/>
+   <Alias Mode="Shape RGBW 16bit" Channel="Layer 2 Shape Indexing Speed Nothing" With="Layer 2 Shape Indexing speed Dynamic"/>
+  </Capability>
+ </Channel>
+ <Channel Name="Layer 2 Shape Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Effect 1</Capability>
+  <Capability Min="16" Max="31">Effect 2</Capability>
+  <Capability Min="32" Max="47">Effect 3</Capability>
+  <Capability Min="48" Max="63">Effect 4</Capability>
+  <Capability Min="64" Max="79">Effect 5</Capability>
+  <Capability Min="80" Max="95">Effect 6</Capability>
+  <Capability Min="96" Max="111">Effect 7</Capability>
+  <Capability Min="112" Max="127">Effect 8</Capability>
+  <Capability Min="128" Max="143">Effect 9</Capability>
+  <Capability Min="144" Max="159">Effect 10</Capability>
+  <Capability Min="160" Max="175">Effect 11</Capability>
+  <Capability Min="176" Max="191">Effect 12</Capability>
+  <Capability Min="192" Max="207">Effect 13</Capability>
+  <Capability Min="208" Max="223">Effect 14</Capability>
+  <Capability Min="224" Max="239">Effect 15</Capability>
+  <Capability Min="240" Max="255">Effect 16</Capability>
+ </Channel>
+ <Channel Name="Layer 2 Shape Indexing Speed Nothing">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Layer 2 Shape Fade">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="5">Off</Capability>
+  <Capability Min="6" Max="130">Fade change from fast to slow</Capability>
+  <Capability Min="131" Max="255">Wake change from fast to slow</Capability>
+ </Channel>
+ <Channel Name="Layer 2 Shape Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterClose">Light Off</Capability>
+  <Capability Min="4" Max="103" Preset="StrobeFreqRange" Res1="1" Res2="25">Stobe Frequency from slow (1Hz) to fast (25Hz)</Capability>
+  <Capability Min="104" Max="107" Preset="ShutterOpen">Light On</Capability>
+  <Capability Min="108" Max="207" Preset="PulseFreqRange" Res1="0.5" Res2="25">Pulsation from slow (0.5Hz) to fast (25Hz)</Capability>
+  <Capability Min="208" Max="212" Preset="ShutterOpen">Light On</Capability>
+  <Capability Min="213" Max="225" Preset="StrobeRandom">Random Slow Strobe Effect</Capability>
+  <Capability Min="226" Max="238" Preset="StrobeRandom">Random Medium Strobe Effect</Capability>
+  <Capability Min="239" Max="251" Preset="StrobeRandom">Random Fast Strobe Effect On</Capability>
+  <Capability Min="252" Max="255" Preset="ShutterOpen">Light on (Shape master)</Capability>
+ </Channel>
+ <Channel Name="Layer 2 Shape Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Layer 2 Shape Transition">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Shape Transition</Capability>
+ </Channel>
+ <Channel Name="Layer 2 Background Red" Preset="IntensityRed"/>
+ <Channel Name="Layer 2 Background Green" Preset="IntensityGreen"/>
+ <Channel Name="Layer 2 Background Blue" Preset="IntensityBlue"/>
+ <Channel Name="Layer 2 Background White" Preset="IntensityWhite"/>
+ <Channel Name="Layer 2 Background CTO">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Unused range</Capability>
+  <Capability Min="10" Max="255">From 8000K to 2700K</Capability>
+ </Channel>
+ <Channel Name="Layer 2 Background Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterClose">Light Off</Capability>
+  <Capability Min="4" Max="103" Preset="StrobeFreqRange" Res1="1" Res2="25">Stobe Frequency from slow (1Hz) to fast (25Hz)</Capability>
+  <Capability Min="104" Max="107" Preset="ShutterOpen">Light On</Capability>
+  <Capability Min="108" Max="207" Preset="PulseFreqRange" Res1="0.5" Res2="25">Pulsation from slow (0.5Hz) to fast (25Hz)</Capability>
+  <Capability Min="208" Max="212" Preset="ShutterOpen">Light On</Capability>
+  <Capability Min="213" Max="225" Preset="StrobeRandom">Random Slow Strobe Effect</Capability>
+  <Capability Min="226" Max="238" Preset="StrobeRandom">Random Medium Strobe Effect</Capability>
+  <Capability Min="239" Max="251" Preset="StrobeRandom">Random Fast Strobe Effect On</Capability>
+  <Capability Min="252" Max="255" Preset="ShutterOpen">Light On</Capability>
+ </Channel>
+ <Channel Name="Layer 2 Background Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Layer 3 Strobe Selection">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5" Preset="Alias">No function</Capability>
+  <Capability Min="6" Max="130" Preset="Alias">Static
+   <Alias Mode="Shape RGBW" Channel="Layer 3 Strobe Indexing Speed Nothing" With="Layer 3 Strobe Indexing Speed Static"/>
+   <Alias Mode="Shape RGBW 16bit" Channel="Layer 3 Strobe Indexing Speed Nothing" With="Layer 3 Strobe Indexing Speed Static"/>
+   <Alias Mode="Advance" Channel="Layer 3 Strobe Indexing Speed Nothing" With="Layer 3 Strobe Indexing Speed Static"/>
+  </Capability>
+  <Capability Min="131" Max="255" Preset="Alias">Dynamic
+   <Alias Mode="Shape RGBW" Channel="Layer 3 Strobe Indexing Speed Nothing" With="Layer 3 Strobe Indexing Speed Dynamic"/>
+   <Alias Mode="Shape RGBW 16bit" Channel="Layer 3 Strobe Indexing Speed Nothing" With="Layer 3 Strobe Indexing Speed Dynamic"/>
+   <Alias Mode="Advance" Channel="Layer 3 Strobe Indexing Speed Nothing" With="Layer 3 Strobe Indexing Speed Dynamic"/>
+  </Capability>
+ </Channel>
+ <Channel Name="Layer 3 Strobe Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Effect 1</Capability>
+  <Capability Min="16" Max="31">Effect 2</Capability>
+  <Capability Min="32" Max="47">Effect 3</Capability>
+  <Capability Min="48" Max="63">Effect 4</Capability>
+  <Capability Min="64" Max="79">Effect 5</Capability>
+  <Capability Min="80" Max="95">Effect 6</Capability>
+  <Capability Min="96" Max="111">Effect 7</Capability>
+  <Capability Min="112" Max="127">Effect 8</Capability>
+  <Capability Min="128" Max="143">Effect 9</Capability>
+  <Capability Min="144" Max="159">Effect 10</Capability>
+  <Capability Min="160" Max="175">Effect 11</Capability>
+  <Capability Min="176" Max="191">Effect 12</Capability>
+  <Capability Min="192" Max="207">Effect 13</Capability>
+  <Capability Min="208" Max="223">Effect 14</Capability>
+  <Capability Min="224" Max="239">Effect 15</Capability>
+  <Capability Min="240" Max="255">Effect 16</Capability>
+ </Channel>
+ <Channel Name="Layer 3 Strobe Indexing Speed Nothing">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Layer 3 Strobe Fade">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="5">Off</Capability>
+  <Capability Min="6" Max="130">Fade change from fast to slow</Capability>
+  <Capability Min="131" Max="255">Wake change from fast to slow</Capability>
+ </Channel>
+ <Channel Name="Layer 2 Background Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Layer 2 Background Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Layer 2 Background Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="Layer 2 Background White fine" Preset="IntensityWhiteFine"/>
+ <Channel Name="Master Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3">Light Off</Capability>
+  <Capability Min="4" Max="103">Strobe frenquency from slow (1Hz) to fast (25Hz)</Capability>
+  <Capability Min="104" Max="107">Light On</Capability>
+  <Capability Min="108" Max="207">Pulsation from slow (0.5Hz) to fast (25Hz)</Capability>
+  <Capability Min="208" Max="212">Light On</Capability>
+  <Capability Min="213" Max="225">Random slow Strobe</Capability>
+  <Capability Min="226" Max="238">Random medium Strobe</Capability>
+  <Capability Min="239" Max="251">Random fast Strobe</Capability>
+  <Capability Min="252" Max="255">Light On</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master Dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Layer 2 Selection">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5" Preset="Alias">No function</Capability>
+  <Capability Min="6" Max="130" Preset="Alias">Static
+   <Alias Mode="Advance" Channel="Layer 2 Indexing Speed Nothing" With="Layer 2 Indexing Speed Staic"/>
+  </Capability>
+  <Capability Min="131" Max="255" Preset="Alias">Dynamic
+   <Alias Mode="Advance" Channel="Layer 2 Indexing Speed Nothing" With="Layer 2 Indexing Speed Dynamic"/>
+  </Capability>
+ </Channel>
+ <Channel Name="Layer 2 Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Effect 1</Capability>
+  <Capability Min="16" Max="31">Effect 2</Capability>
+  <Capability Min="32" Max="47">Effect 3</Capability>
+  <Capability Min="48" Max="63">Effect 4</Capability>
+  <Capability Min="64" Max="79">Effect 5</Capability>
+  <Capability Min="80" Max="95">Effect 6</Capability>
+  <Capability Min="96" Max="111">Effect 7</Capability>
+  <Capability Min="112" Max="127">Effect 8</Capability>
+  <Capability Min="128" Max="143">Effect 9</Capability>
+  <Capability Min="144" Max="159">Effect 10</Capability>
+  <Capability Min="160" Max="175">Effect 11</Capability>
+  <Capability Min="176" Max="191">Effect 12</Capability>
+  <Capability Min="192" Max="207">Effect 13</Capability>
+  <Capability Min="208" Max="223">Effect 14</Capability>
+  <Capability Min="224" Max="239">Effect 15</Capability>
+  <Capability Min="240" Max="255">Effect 16</Capability>
+ </Channel>
+ <Channel Name="Layer 2 Indexing Speed Nothing">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Layer 2 Fade">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Fade from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Layer 2 Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Layer 2 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Layer 2 Transition">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Transition</Capability>
+ </Channel>
+ <Channel Name="Layer 2 Red" Preset="IntensityRed"/>
+ <Channel Name="Layer 2 Green" Preset="IntensityGreen"/>
+ <Channel Name="Layer 2 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Layer 2 White" Preset="IntensityWhite"/>
+ <Channel Name="Layer 2 CTO" Preset="ColorCTOMixer"/>
+ <Channel Name="Layer 3 Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Layer 3 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Layer 2 CTO 3" Preset="ColorCTOMixer"/>
+ <Channel Name="Layer 2 CTO 4" Preset="ColorCTOMixer"/>
+ <Channel Name="Layer 2 CTO 5" Preset="ColorCTOMixer"/>
+ <Channel Name="Layer 2 CTO 6" Preset="ColorCTOMixer"/>
+ <Channel Name="Red led 1" Preset="IntensityRed"/>
+ <Channel Name="Green Led 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue Led 1" Preset="IntensityBlue"/>
+ <Channel Name="White Led 1" Preset="IntensityWhite"/>
+ <Channel Name="Red led 2" Preset="IntensityRed"/>
+ <Channel Name="Red led 3" Preset="IntensityRed"/>
+ <Channel Name="Red led 4" Preset="IntensityRed"/>
+ <Channel Name="Green Led 2" Preset="IntensityGreen"/>
+ <Channel Name="Green Led 3" Preset="IntensityGreen"/>
+ <Channel Name="Green Led 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue Led 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue Led 3" Preset="IntensityBlue"/>
+ <Channel Name="Blue Led 4" Preset="IntensityBlue"/>
+ <Channel Name="White Led 2" Preset="IntensityWhite"/>
+ <Channel Name="White Led 3" Preset="IntensityWhite"/>
+ <Channel Name="White Led 4" Preset="IntensityWhite"/>
+ <Channel Name="White Led 5" Preset="IntensityWhite"/>
+ <Channel Name="White Led 6" Preset="IntensityWhite"/>
+ <Channel Name="White Led 7" Preset="IntensityWhite"/>
+ <Channel Name="White Led 8" Preset="IntensityWhite"/>
+ <Channel Name="White Led 9" Preset="IntensityWhite"/>
+ <Channel Name="White Led 10" Preset="IntensityWhite"/>
+ <Channel Name="White Led 11" Preset="IntensityWhite"/>
+ <Channel Name="White Led 12" Preset="IntensityWhite"/>
+ <Channel Name="White Led 13" Preset="IntensityWhite"/>
+ <Channel Name="White Led 14" Preset="IntensityWhite"/>
+ <Channel Name="White Led 15" Preset="IntensityWhite"/>
+ <Channel Name="White Led 16" Preset="IntensityWhite"/>
+ <Channel Name="Layer 2 Shape Indexing speed Static">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Indexing</Capability>
+ </Channel>
+ <Channel Name="Layer 2 Shape Indexing speed Dynamic">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="124">Speed fast to slow, foeward</Capability>
+  <Capability Min="125" Max="130">Stop</Capability>
+  <Capability Min="131" Max="255">Speed slow to fast, bachward</Capability>
+ </Channel>
+ <Channel Name="Layer 2 Indexing Speed Staic">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Indexing</Capability>
+ </Channel>
+ <Channel Name="Layer 2 Indexing Speed Dynamic">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="124">Speed from fast to slow, forwadd</Capability>
+  <Capability Min="125" Max="130">Stop</Capability>
+  <Capability Min="131" Max="255">Speed from slow to fast, backward</Capability>
+ </Channel>
+ <Channel Name="Layer 3 Strobe Indexing Speed Static">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Indexing</Capability>
+ </Channel>
+ <Channel Name="Layer 3 Strobe Indexing Speed Dynamic">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="124">Speed fast to slow, forward</Capability>
+  <Capability Min="125" Max="130">Stop</Capability>
+  <Capability Min="131" Max="255">Speed slow to fast, backward</Capability>
+ </Channel>
+ <Mode Name="Standard RGBW">
+  <Channel Number="0">Layer 1 Red</Channel>
+  <Channel Number="1">Layer 1 Green</Channel>
+  <Channel Number="2">Layer 1 Blue</Channel>
+  <Channel Number="3">Layer 1 White</Channel>
+  <Channel Number="4">Layer 1 CTO</Channel>
+  <Channel Number="5">Layer 1 Strobe</Channel>
+  <Channel Number="6">Layer 1 Dimmer</Channel>
+  <Channel Number="7">Layer 1 Dimmer fine</Channel>
+  <Channel Number="8">Layer 1 Color CrossFade</Channel>
+  <Channel Number="9">Layer 1 Attack Fade</Channel>
+  <Channel Number="10">Layer 1 Release Fade</Channel>
+  <Channel Number="11">Layer 1 Function</Channel>
+  <Channel Number="12">Layer 3 Strobe Engine</Channel>
+  <Channel Number="13">Layer 3 Strobe Engine Dimmer</Channel>
+  <Channel Number="14">Layer 3 Strobe Engine Rate</Channel>
+  <Channel Number="15">Layer 3 Strobe Engine Duration</Channel>
+ </Mode>
+ <Mode Name="Standard RGBW 16bit">
+  <Channel Number="0">Layer 1 Red</Channel>
+  <Channel Number="1">Layer 1 Red fine</Channel>
+  <Channel Number="2">Layer 1 Green</Channel>
+  <Channel Number="3">Layer 1 Green fine</Channel>
+  <Channel Number="4">Layer 1 Blue</Channel>
+  <Channel Number="5">Layer 1 Blue fine</Channel>
+  <Channel Number="6">Layer 1 White</Channel>
+  <Channel Number="7">Layere 1 White fine</Channel>
+  <Channel Number="8">Layer 1 CTO</Channel>
+  <Channel Number="9">Layer 1 Strobe</Channel>
+  <Channel Number="10">Layer 1 Dimmer</Channel>
+  <Channel Number="11">Layer 1 Dimmer fine</Channel>
+  <Channel Number="12">Layer 1 Color CrossFade</Channel>
+  <Channel Number="13">Layer 1 Attack Fade</Channel>
+  <Channel Number="14">Layer 1 Release Fade</Channel>
+  <Channel Number="15">Layer 1 Function</Channel>
+  <Channel Number="16">Layer 3 Strobe Engine</Channel>
+  <Channel Number="17">Layer 3 Strobe Engine Dimmer</Channel>
+  <Channel Number="18">Layer 3 Strobe Engine Duration</Channel>
+  <Channel Number="19">Layer 3 Strobe Engine Rate</Channel>
+ </Mode>
+ <Mode Name="Shape RGBW">
+  <Channel Number="0">Layer 1 Red</Channel>
+  <Channel Number="1">Layer 1 Green</Channel>
+  <Channel Number="2">Layer 1 Blue</Channel>
+  <Channel Number="3">Layer 1 White</Channel>
+  <Channel Number="4">Layer 1 CTO</Channel>
+  <Channel Number="5">Layer 1 Strobe</Channel>
+  <Channel Number="6">Layer 1 Dimmer</Channel>
+  <Channel Number="7">Layer 1 Dimmer fine</Channel>
+  <Channel Number="8">Layer 1 Color CrossFade</Channel>
+  <Channel Number="9">Layer 1 Attack Fade</Channel>
+  <Channel Number="10">Layer 1 Release Fade</Channel>
+  <Channel Number="11">Layer 1 Function</Channel>
+  <Channel Number="12">Layer 2 Shape Selection</Channel>
+  <Channel Number="13">Layer 2 Shape Effect</Channel>
+  <Channel Number="14">Layer 2 Shape Indexing Speed Nothing</Channel>
+  <Channel Number="15">Layer 2 Shape Fade</Channel>
+  <Channel Number="16">Layer 2 Shape Strobe</Channel>
+  <Channel Number="17">Layer 2 Shape Dimmer</Channel>
+  <Channel Number="18">Layer 2 Shape Transition</Channel>
+  <Channel Number="19">Layer 2 Background Red</Channel>
+  <Channel Number="20">Layer 2 Background Green</Channel>
+  <Channel Number="21">Layer 2 Background Blue</Channel>
+  <Channel Number="22">Layer 2 Background White</Channel>
+  <Channel Number="23">Layer 2 Background CTO</Channel>
+  <Channel Number="24">Layer 2 Background Strobe</Channel>
+  <Channel Number="25">Layer 2 Background Dimmer</Channel>
+  <Channel Number="26">Layer 3 Strobe Engine</Channel>
+  <Channel Number="27">Layer 3 Strobe Engine Dimmer</Channel>
+  <Channel Number="28">Layer 3 Strobe Engine Duration</Channel>
+  <Channel Number="29">Layer 3 Strobe Engine Rate</Channel>
+  <Channel Number="30">Layer 3 Strobe Selection</Channel>
+  <Channel Number="31">Layer 3 Strobe Effect</Channel>
+  <Channel Number="32">Layer 3 Strobe Indexing Speed Nothing</Channel>
+  <Channel Number="33">Layer 3 Strobe Fade</Channel>
+ </Mode>
+ <Mode Name="Shape RGBW 16bit">
+  <Channel Number="0">Layer 1 Red</Channel>
+  <Channel Number="1">Layer 1 Red fine</Channel>
+  <Channel Number="2">Layer 1 Green</Channel>
+  <Channel Number="3">Layer 1 Green fine</Channel>
+  <Channel Number="4">Layer 1 Blue</Channel>
+  <Channel Number="5">Layer 1 Blue fine</Channel>
+  <Channel Number="6">Layer 1 White</Channel>
+  <Channel Number="7">Layere 1 White fine</Channel>
+  <Channel Number="8">Layer 1 CTO</Channel>
+  <Channel Number="9">Layer 1 Strobe</Channel>
+  <Channel Number="10">Layer 1 Dimmer</Channel>
+  <Channel Number="11">Layer 1 Dimmer fine</Channel>
+  <Channel Number="12">Layer 1 Color CrossFade</Channel>
+  <Channel Number="13">Layer 1 Attack Fade</Channel>
+  <Channel Number="14">Layer 1 Release Fade</Channel>
+  <Channel Number="15">Layer 1 Function</Channel>
+  <Channel Number="16">Layer 2 Shape Selection</Channel>
+  <Channel Number="17">Layer 2 Shape Effect</Channel>
+  <Channel Number="18">Layer 2 Shape Indexing Speed Nothing</Channel>
+  <Channel Number="19">Layer 2 Shape Fade</Channel>
+  <Channel Number="20">Layer 2 Shape Strobe</Channel>
+  <Channel Number="21">Layer 2 Shape Dimmer</Channel>
+  <Channel Number="22">Layer 2 Shape Transition</Channel>
+  <Channel Number="23">Layer 2 Background Red</Channel>
+  <Channel Number="24">Layer 2 Background Red fine</Channel>
+  <Channel Number="25">Layer 2 Background Green</Channel>
+  <Channel Number="26">Layer 2 Background Green fine</Channel>
+  <Channel Number="27">Layer 2 Background Blue</Channel>
+  <Channel Number="28">Layer 2 Background Blue fine</Channel>
+  <Channel Number="29">Layer 2 Background White</Channel>
+  <Channel Number="30">Layer 2 Background White fine</Channel>
+  <Channel Number="31">Layer 2 Background CTO</Channel>
+  <Channel Number="32">Layer 2 Background Strobe</Channel>
+  <Channel Number="33">Layer 2 Background Dimmer</Channel>
+  <Channel Number="34">Layer 3 Strobe Engine</Channel>
+  <Channel Number="35">Layer 3 Strobe Engine Dimmer</Channel>
+  <Channel Number="36">Layer 3 Strobe Engine Duration</Channel>
+  <Channel Number="37">Layer 3 Strobe Engine Rate</Channel>
+  <Channel Number="38">Layer 3 Strobe Selection</Channel>
+  <Channel Number="39">Layer 3 Strobe Effect</Channel>
+  <Channel Number="40">Layer 3 Strobe Indexing Speed Nothing</Channel>
+  <Channel Number="41">Layer 3 Strobe Fade</Channel>
+ </Mode>
+ <Mode Name="Advance">
+  <Channel Number="0">Layer 1 Red</Channel>
+  <Channel Number="1">Layer 1 Green</Channel>
+  <Channel Number="2">Layer 1 Blue</Channel>
+  <Channel Number="3">Layer 1 White</Channel>
+  <Channel Number="4">Layer 1 CTO</Channel>
+  <Channel Number="5">Layer 1 Strobe</Channel>
+  <Channel Number="6">Layer 1 Dimmer</Channel>
+  <Channel Number="7">Master Strobe</Channel>
+  <Channel Number="8">Master Dimmer</Channel>
+  <Channel Number="9">Master Dimmer fine</Channel>
+  <Channel Number="10">Layer 1 Color CrossFade</Channel>
+  <Channel Number="11">Layer 1 Attack Fade</Channel>
+  <Channel Number="12">Layer 1 Release Fade</Channel>
+  <Channel Number="13">Layer 1 Function</Channel>
+  <Channel Number="14">Layer 2 Selection</Channel>
+  <Channel Number="15">Layer 2 Effect</Channel>
+  <Channel Number="16">Layer 2 Indexing Speed Nothing</Channel>
+  <Channel Number="17">Layer 2 Fade</Channel>
+  <Channel Number="18">Layer 2 Strobe</Channel>
+  <Channel Number="19">Layer 2 Dimmer</Channel>
+  <Channel Number="20">Layer 2 Transition</Channel>
+  <Channel Number="21">Layer 2 Red</Channel>
+  <Channel Number="22">Layer 2 Green</Channel>
+  <Channel Number="23">Layer 2 Blue</Channel>
+  <Channel Number="24">Layer 2 White</Channel>
+  <Channel Number="25">Layer 2 CTO</Channel>
+  <Channel Number="26">Layer 3 Strobe</Channel>
+  <Channel Number="27">Layer 3 Dimmer</Channel>
+  <Channel Number="28">Layer 3 Strobe Engine</Channel>
+  <Channel Number="29">Layer 3 Strobe Engine Dimmer</Channel>
+  <Channel Number="30">Layer 3 Strobe Engine Duration</Channel>
+  <Channel Number="31">Layer 3 Strobe Engine Rate</Channel>
+  <Channel Number="32">Layer 3 Strobe Selection</Channel>
+  <Channel Number="33">Layer 3 Strobe Effect</Channel>
+  <Channel Number="34">Layer 3 Strobe Indexing Speed Nothing</Channel>
+  <Channel Number="35">Layer 3 Strobe Fade</Channel>
+ </Mode>
+ <Mode Name="Pixels RGB">
+  <Channel Number="0">Red led 1</Channel>
+  <Channel Number="1">Green Led 1</Channel>
+  <Channel Number="2">Blue Led 1</Channel>
+  <Channel Number="3">Red led 2</Channel>
+  <Channel Number="4">Green Led 2</Channel>
+  <Channel Number="5">Blue Led 2</Channel>
+  <Channel Number="6">Red led 3</Channel>
+  <Channel Number="7">Green Led 3</Channel>
+  <Channel Number="8">Blue Led 3</Channel>
+  <Channel Number="9">Red led 4</Channel>
+  <Channel Number="10">Green Led 4</Channel>
+  <Channel Number="11">Blue Led 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Pixels RGBW">
+  <Channel Number="0">Red led 1</Channel>
+  <Channel Number="1">Green Led 1</Channel>
+  <Channel Number="2">Blue Led 1</Channel>
+  <Channel Number="3">White Led 1</Channel>
+  <Channel Number="4">Red led 2</Channel>
+  <Channel Number="5">Green Led 2</Channel>
+  <Channel Number="6">Blue Led 2</Channel>
+  <Channel Number="7">White Led 2</Channel>
+  <Channel Number="8">Red led 3</Channel>
+  <Channel Number="9">Green Led 3</Channel>
+  <Channel Number="10">Blue Led 3</Channel>
+  <Channel Number="11">White Led 3</Channel>
+  <Channel Number="12">Red led 4</Channel>
+  <Channel Number="13">Green Led 4</Channel>
+  <Channel Number="14">Blue Led 4</Channel>
+  <Channel Number="15">White Led 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>11</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Pixels Strobe">
+  <Channel Number="0">White Led 1</Channel>
+  <Channel Number="1">White Led 2</Channel>
+  <Channel Number="2">White Led 3</Channel>
+  <Channel Number="3">White Led 4</Channel>
+  <Channel Number="4">White Led 5</Channel>
+  <Channel Number="5">White Led 6</Channel>
+  <Channel Number="6">White Led 7</Channel>
+  <Channel Number="7">White Led 8</Channel>
+  <Channel Number="8">White Led 9</Channel>
+  <Channel Number="9">White Led 10</Channel>
+  <Channel Number="10">White Led 11</Channel>
+  <Channel Number="11">White Led 12</Channel>
+  <Channel Number="12">White Led 13</Channel>
+  <Channel Number="13">White Led 14</Channel>
+  <Channel Number="14">White Led 15</Channel>
+  <Channel Number="15">White Led 16</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="8458" ColourTemperature="6000"/>
+  <Dimensions Weight="5.7" Width="533" Height="243" Depth="180"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="500" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

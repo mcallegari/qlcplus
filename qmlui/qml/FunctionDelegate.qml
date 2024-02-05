@@ -46,12 +46,11 @@ Rectangle
 
         itemIcon = functionManager.functionIcon(cRef.type)
         if (cRef.type == QLCFunction.SceneType)
-            fdDropArea.keys = [ "dumpValues" ]
+            fdDropArea.keys = [ "dumpValues", "function" ]
     }
 
     signal toggled
     signal destruction(int ID, var qItem)
-
     signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
 
     Component.onDestruction:
@@ -113,7 +112,7 @@ Rectangle
             {
                 id: fdDropArea
                 anchors.fill: parent
-                keys: [ "none" ]
+                keys: [ "function" ]
 
                 onDropped: drag.source.itemDropped(cRef.id, cRef.name)
             }
@@ -135,7 +134,7 @@ Rectangle
         width: parent.width
         height: 1
         y: parent.height - 1
-        color: "#666"
+        color: UISettings.bgLight
     }
 }
 

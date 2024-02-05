@@ -40,20 +40,13 @@
 
 #include "vcsliderproperties.h"
 #include "vcpropertieseditor.h"
-#include "qlcinputchannel.h"
-#include "virtualconsole.h"
-#include "qlcinputsource.h"
+#include "genericfader.h"
+#include "fadechannel.h"
 #include "mastertimer.h"
-#include "collection.h"
-#include "inputpatch.h"
 #include "qlcmacros.h"
 #include "universe.h"
 #include "vcslider.h"
-#include "qlcfile.h"
 #include "apputil.h"
-#include "chaser.h"
-#include "scene.h"
-#include "efx.h"
 #include "doc.h"
 
 /** Number of DMXSource cycles to wait to consider a
@@ -88,7 +81,24 @@ const QString submasterStyleSheet =
  * Initialization
  *****************************************************************************/
 
-VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
+VCSlider::VCSlider(QWidget *parent, Doc *doc)
+    : VCWidget(parent, doc)
+    , m_valueDisplayStyle(ExactValue)
+    , m_catchValues(false)
+    , m_levelLowLimit(0)
+    , m_levelHighLimit(UCHAR_MAX)
+    , m_levelValueChanged(false)
+    , m_levelValue(0)
+    , m_monitorEnabled(false)
+    , m_monitorValue(0)
+    , m_playbackFunction(Function::invalidId())
+    , m_playbackValue(0)
+    , m_playbackChangeCounter(0)
+    , m_externalMovement(false)
+    , m_widgetMode(WSlider)
+    , m_cngType(ClickAndGoWidget::None)
+    , m_isOverriding(false)
+    , m_lastInputValue(-1)
 {
     /* Set the class name "VCSlider" as the object name as well */
     setObjectName(VCSlider::staticMetaObject.className());
@@ -97,22 +107,6 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_topLabel = NULL;
     m_slider = NULL;
     m_bottomLabel = NULL;
-
-    m_valueDisplayStyle = ExactValue;
-
-    m_levelLowLimit = 0;
-    m_levelHighLimit = UCHAR_MAX;
-
-    m_levelValue = 0;
-    m_levelValueChanged = false;
-    m_monitorEnabled = false;
-    m_monitorValue = 0;
-
-    m_playbackFunction = Function::invalidId();
-    m_playbackValue = 0;
-    m_playbackChangeCounter = 0;
-
-    m_widgetMode = WSlider;
 
     setType(VCWidget::SliderWidget);
     setCaption(QString());
@@ -150,18 +144,12 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     connect(this, SIGNAL(requestSliderUpdate(int)),
             m_slider, SLOT(setValue(int)));
 
-    m_externalMovement = false;
-    m_catchValues = false;
-    m_lastInputValue = -1;
-
     /* Put stretchable space after the slider (to its right side) */
     m_hbox->addStretch();
 
     layout()->addItem(m_hbox);
 
     /* Click & Go button */
-    m_cngType = ClickAndGoWidget::None;
-
     m_cngButton = new QToolButton(this);
     m_cngButton->setFixedSize(48, 48);
     m_cngButton->setIconSize(QSize(42, 42));
@@ -186,7 +174,6 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
             this, SLOT(slotMonitorDMXValueChanged(int)));
 
     m_resetButton = NULL;
-    m_isOverriding = false;
 
     /* Bottom label */
     m_bottomLabel = new QLabel(this);
@@ -224,6 +211,14 @@ VCSlider::~VCSlider()
        is no longer necessary. But a normal deletion of a VCSlider in
        design mode must unregister the slider. */
     m_doc->masterTimer()->unregisterDMXSource(this);
+
+    // request to delete all the active faders
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    {
+        if (!fader.isNull())
+            fader->requestDelete();
+    }
+    m_fadersMap.clear();
 }
 
 void VCSlider::setID(quint32 id)
@@ -345,16 +340,25 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
         enableWidgetUI(true);
         if (m_sliderMode == Level || m_sliderMode == Playback)
         {
-            if (m_monitorEnabled == true)
-                m_priority = DMXSource::Override;
             m_doc->masterTimer()->registerDMXSource(this);
+            if (m_sliderMode == Level)
+                m_levelValueChanged = true;
         }
     }
     else
     {
         enableWidgetUI(false);
         if (m_sliderMode == Level || m_sliderMode == Playback)
+        {
             m_doc->masterTimer()->unregisterDMXSource(this);
+            // request to delete all the active faders
+            foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+            {
+                if (!fader.isNull())
+                    fader->requestDelete();
+            }
+            m_fadersMap.clear();
+        }
     }
 
     VCWidget::slotModeChanged(mode);
@@ -445,21 +449,10 @@ QString VCSlider::sliderModeToString(SliderMode mode)
 {
     switch (mode)
     {
-    case Level:
-        return QString("Level");
-        break;
-
-    case Playback:
-        return QString("Playback");
-        break;
-
-    case Submaster:
-        return QString("Submaster");
-        break;
-
-    default:
-        return QString("Unknown");
-        break;
+        case Level: return QString("Level"); break;
+        case Playback: return QString("Playback"); break;
+        case Submaster: return QString("Submaster"); break;
+        default: return QString("Unknown"); break;
     }
 }
 
@@ -531,6 +524,7 @@ void VCSlider::setSliderMode(SliderMode mode)
     else if (mode == Submaster)
     {
         m_monitorEnabled = false;
+        setPlaybackFunction(Function::invalidId());
 
         if (m_slider)
         {
@@ -555,7 +549,7 @@ void VCSlider::addLevelChannel(quint32 fixture, quint32 channel)
     if (m_levelChannels.contains(lch) == false)
     {
         m_levelChannels.append(lch);
-        qSort(m_levelChannels.begin(), m_levelChannels.end());
+        std::sort(m_levelChannels.begin(), m_levelChannels.end());
     }
 }
 
@@ -622,12 +616,11 @@ void VCSlider::setChannelsMonitorEnabled(bool enable)
                 this, SLOT(slotResetButtonClicked()));
         m_resetButton->show();
         setSliderShadowValue(m_monitorValue);
-
-        m_priority = DMXSource::Override;
-        m_doc->masterTimer()->requestNewPriority(this);
     }
     else
+    {
         setSliderShadowValue(-1);
+    }
 }
 
 bool VCSlider::channelsMonitorEnabled() const
@@ -635,13 +628,14 @@ bool VCSlider::channelsMonitorEnabled() const
     return m_monitorEnabled;
 }
 
-void VCSlider::setLevelValue(uchar value)
+void VCSlider::setLevelValue(uchar value, bool external)
 {
     QMutexLocker locker(&m_levelValueMutex);
     m_levelValue = CLAMP(value, levelLowLimit(), levelHighLimit());
     if (m_monitorEnabled == true)
         m_monitorValue = m_levelValue;
-    m_levelValueChanged = true;
+    if (m_slider->isSliderDown() || external)
+        m_levelValueChanged = true;
 }
 
 uchar VCSlider::levelValue() const
@@ -667,8 +661,6 @@ void VCSlider::slotMonitorDMXValueChanged(int value)
 
     m_monitorValue = value;
 
-    value = invertedAppearance() ? 255 - value : value;
-
     if (m_isOverriding == false)
     {
         {
@@ -685,6 +677,62 @@ void VCSlider::slotMonitorDMXValueChanged(int value)
     }
     setSliderShadowValue(value);
     updateFeedback();
+}
+
+void VCSlider::slotUniverseWritten(quint32 idx, const QByteArray &universeData)
+{
+    if (m_levelValueChanged)
+        return;
+
+    bool mixedDMXlevels = false;
+    int monitorSliderValue = -1;
+    QListIterator <LevelChannel> it(m_levelChannels);
+
+    while (it.hasNext() == true)
+    {
+        LevelChannel lch(it.next());
+        Fixture* fxi = m_doc->fixture(lch.fixture);
+        if (fxi == NULL || fxi->universe() != idx)
+            continue;
+
+        if (lch.channel >= fxi->channels() ||
+            fxi->address() + lch.channel >= (quint32)universeData.length())
+            continue;
+
+        quint32 dmx_ch = fxi->address() + lch.channel;
+        uchar chValue = universeData.at(dmx_ch);
+        if (monitorSliderValue == -1)
+        {
+            monitorSliderValue = chValue;
+            //qDebug() << "Monitor DMX value:" << monitorSliderValue << "level value:" << m_levelValue;
+        }
+        else
+        {
+            if (chValue != (uchar)monitorSliderValue)
+            {
+                mixedDMXlevels = true;
+                // no need to proceed further as mixed values cannot
+                // be represented by one single slider
+                break;
+            }
+        }
+    }
+
+    // check if all the DMX channels controlled by this slider
+    // have the same value. If so, move the widget slider or knob
+    // to the detected position
+    if (mixedDMXlevels == false &&
+        monitorSliderValue != m_monitorValue)
+    {
+        emit monitorDMXValueChanged(monitorSliderValue);
+
+        if (m_isOverriding == false)
+        {
+            // return here. At the next call of this method,
+            // the monitor level will kick in
+            return;
+        }
+    }
 }
 
 /*********************************************************************
@@ -763,6 +811,7 @@ void VCSlider::slotClickAndGoLevelChanged(uchar level)
     QPixmap px(42, 42);
     px.fill(col);
     m_cngButton->setIcon(px);
+    m_levelValueChanged = true;
 }
 
 void VCSlider::slotClickAndGoColorChanged(QRgb color)
@@ -788,6 +837,7 @@ void VCSlider::slotClickAndGoLevelAndPresetChanged(uchar level, QImage img)
 
     QPixmap px = QPixmap::fromImage(img);
     m_cngButton->setIcon(px);
+    m_levelValueChanged = true;
 }
 
 /*********************************************************************
@@ -808,10 +858,15 @@ void VCSlider::slotResetButtonClicked()
 {
     m_isOverriding = false;
     m_resetButton->setStyleSheet(QString("QToolButton{ background: %1; }")
-                                 .arg(m_slider->palette().background().color().name()));
+                                 .arg(m_slider->palette().window().color().name()));
 
-    m_priority = DMXSource::Auto;
-    m_doc->masterTimer()->requestNewPriority(this);
+    // request to delete all the active fader channels
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    {
+        if (!fader.isNull())
+            fader->removeAll();
+    }
+
     emit monitorDMXValueChanged(m_monitorValue);
 }
 
@@ -987,7 +1042,7 @@ void VCSlider::emitSubmasterValue()
  * DMXSource
  *****************************************************************************/
 
-void VCSlider::writeDMX(MasterTimer* timer, QList<Universe *> universes)
+void VCSlider::writeDMX(MasterTimer *timer, QList<Universe *> universes)
 {
     if (sliderMode() == Level)
         writeDMXLevel(timer, universes);
@@ -995,14 +1050,13 @@ void VCSlider::writeDMX(MasterTimer* timer, QList<Universe *> universes)
         writeDMXPlayback(timer, universes);
 }
 
-void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
+void VCSlider::writeDMXLevel(MasterTimer *timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
 
     QMutexLocker locker(&m_levelValueMutex);
 
     uchar modLevel = m_levelValue;
-
     int r = 0, g = 0, b = 0, c = 0, m = 0, y = 0;
 
     if (m_cngType == ClickAndGoWidget::RGB)
@@ -1012,9 +1066,9 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
             f = SCALE(float(m_levelValue), float(m_slider->minimum()),
                       float(m_slider->maximum()), float(0), float(200));
 
-        if ((uchar)f != 0)
+        if (uchar(f) != 0)
         {
-            QColor modColor = m_cngRGBvalue.lighter((uchar)f);
+            QColor modColor = m_cngRGBvalue.lighter(uchar(f));
             r = modColor.red();
             g = modColor.green();
             b = modColor.blue();
@@ -1026,124 +1080,90 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
         if (m_slider)
             f = SCALE(float(m_levelValue), float(m_slider->minimum()),
                       float(m_slider->maximum()), float(0), float(200));
-        if ((uchar)f != 0)
+        if (uchar(f) != 0)
         {
-            QColor modColor = m_cngRGBvalue.lighter((uchar)f);
+            QColor modColor = m_cngRGBvalue.lighter(uchar(f));
             c = modColor.cyan();
             m = modColor.magenta();
             y = modColor.yellow();
         }
     }
 
-    if (m_monitorEnabled == true && m_levelValueChanged == false)
+    if (m_levelValueChanged)
     {
-        bool mixedDMXlevels = false;
-        int monitorSliderValue = -1;
         QListIterator <LevelChannel> it(m_levelChannels);
-
         while (it.hasNext() == true)
         {
             LevelChannel lch(it.next());
-            Fixture* fxi = m_doc->fixture(lch.fixture);
-            if (fxi != NULL)
-            {
-                const QLCChannel* qlcch = fxi->channel(lch.channel);
-                if (qlcch == NULL)
-                    continue;
+            Fixture *fxi = m_doc->fixture(lch.fixture);
+            if (fxi == NULL)
+                continue;
 
-                quint32 dmx_ch = fxi->address() + lch.channel;
-                int uni = fxi->universe();
-                if (uni < universes.count())
+            quint32 universe = fxi->universe();
+
+            QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+            if (fader.isNull())
+            {
+                fader = universes[universe]->requestFader(m_monitorEnabled ? Universe::Override : Universe::Auto);
+                fader->adjustIntensity(intensity());
+                m_fadersMap[universe] = fader;
+                if (m_monitorEnabled)
                 {
-                    uchar chValue = universes[uni]->preGMValue(dmx_ch);
-                    if (monitorSliderValue == -1)
-                    {
-                        monitorSliderValue = chValue;
-                        //qDebug() << "Monitor DMX value:" << monitorSliderValue << "level value:" << m_levelValue;
-                    }
-                    else
-                    {
-                        if (chValue != (uchar)monitorSliderValue)
-                        {
-                            mixedDMXlevels = true;
-                            // no need to proceed further as mixed values cannot
-                            // be represented by one single slider
-                            break;
-                        }
-                    }
+                    qDebug() << "VC slider monitor enabled";
+                    fader->setMonitoring(true);
+                    connect(fader.data(), SIGNAL(preWriteData(quint32,QByteArray)),
+                            this, SLOT(slotUniverseWritten(quint32,QByteArray)));
                 }
             }
-        }
 
-        // check if all the DMX channels controlled by this slider
-        // have the same value. If so, move the widget slider or knob
-        // to the detected position
-        if (mixedDMXlevels == false &&
-            monitorSliderValue != m_monitorValue)
-        {
-            emit monitorDMXValueChanged(monitorSliderValue);
-
-            if (m_isOverriding == false)
+            FadeChannel *fc = fader->getChannelFader(m_doc, universes[universe], lch.fixture, lch.channel);
+            if (fc->universe() == Universe::invalid())
             {
-                // return here. At the next call of this method,
-                // the monitor level will kick in
-                return;
+                fader->remove(fc);
+                continue;
             }
-        }
-    }
 
-    QListIterator <LevelChannel> it(m_levelChannels);
-    while (it.hasNext() == true)
-    {
-        LevelChannel lch(it.next());
-        Fixture* fxi = m_doc->fixture(lch.fixture);
-        if (fxi != NULL)
-        {
-            const QLCChannel* qlcch = fxi->channel(lch.channel);
+            int chType = fc->flags();
+            const QLCChannel *qlcch = fxi->channel(lch.channel);
             if (qlcch == NULL)
                 continue;
 
-            quint32 dmx_ch = fxi->address() + lch.channel;
-            int uni = fxi->universe();
+            // set override flag if needed
+            if (m_isOverriding)
+                fc->addFlag(FadeChannel::Override);
 
-            // Dirty channel group check: is the channel HTP or LTP ?
-            QLCChannel::Group group = qlcch->group();
-            if (fxi->forcedLTPChannels().contains(lch.channel))
-                group = QLCChannel::Effect;
-            if (fxi->forcedHTPChannels().contains(lch.channel))
-                group = QLCChannel::Intensity;
+            // request to autoremove LTP channels when set
+            if (qlcch->group() != QLCChannel::Intensity)
+                fc->addFlag(FadeChannel::AutoRemove);
 
-            if (group != QLCChannel::Intensity &&
-                m_levelValueChanged == false)
-            {
-                /* Value has not changed and this is not an intensity channel.
-                   LTP in effect. */
-                continue;
-            }
-            if (qlcch->group() == QLCChannel::Intensity)
+            if (chType & FadeChannel::Intensity)
             {
                 if (m_cngType == ClickAndGoWidget::RGB)
                 {
                     if (qlcch->colour() == QLCChannel::Red)
-                        modLevel = (uchar)r;
+                        modLevel = uchar(r);
                     else if (qlcch->colour() == QLCChannel::Green)
-                        modLevel = (uchar)g;
+                        modLevel = uchar(g);
                     else if (qlcch->colour() == QLCChannel::Blue)
-                        modLevel = (uchar)b;
+                        modLevel = uchar(b);
                 }
                 else if (m_cngType == ClickAndGoWidget::CMY)
                 {
                     if (qlcch->colour() == QLCChannel::Cyan)
-                        modLevel = (uchar)c;
+                        modLevel = uchar(c);
                     else if (qlcch->colour() == QLCChannel::Magenta)
-                        modLevel = (uchar)m;
+                        modLevel = uchar(m);
                     else if (qlcch->colour() == QLCChannel::Yellow)
-                        modLevel = (uchar)y;
+                        modLevel = uchar(y);
                 }
             }
 
-            if (uni < universes.count())
-                universes[uni]->write(dmx_ch, modLevel * intensity(), m_isOverriding ? true : false);
+            fc->setStart(fc->current());
+            fc->setTarget(modLevel);
+            fc->setReady(false);
+            fc->setElapsed(0);
+
+            //qDebug() << "VC Slider write channel" << fc->target();
         }
     }
     m_levelValueChanged = false;
@@ -1202,7 +1222,7 @@ void VCSlider::setTopLabelText(int value)
 
     if (valueDisplayStyle() == ExactValue)
     {
-        text.sprintf("%.3d", value);
+        text = text.asprintf("%.3d", value);
     }
     else
     {
@@ -1211,10 +1231,9 @@ void VCSlider::setTopLabelText(int value)
         if (m_slider)
             f = SCALE(float(value), float(m_slider->minimum()),
                       float(m_slider->maximum()), float(0), float(100));
-        text.sprintf("%.3d%%", static_cast<int> (f));
+        text = text.asprintf("%.3d%%", static_cast<int> (f));
     }
     m_topLabel->setText(text);
-
     emit valueChanged(text);
 }
 
@@ -1227,7 +1246,7 @@ QString VCSlider::topLabelText()
  * Slider
  *****************************************************************************/
 
-void VCSlider::setSliderValue(uchar value, bool scale)
+void VCSlider::setSliderValue(uchar value, bool scale, bool external)
 {
     if (m_slider == NULL)
         return;
@@ -1237,13 +1256,10 @@ void VCSlider::setSliderValue(uchar value, bool scale)
     /* Scale from input value range to this slider's range */
     if (scale)
     {
-        val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
-                (float) m_slider->minimum(),
-                (float) m_slider->maximum());
+        val = SCALE(float(value), float(0), float(UCHAR_MAX),
+                float(m_slider->minimum()),
+                float(m_slider->maximum()));
     }
-
-    if (m_slider->invertedAppearance() == true)
-        val = (uchar)m_slider->maximum() - val + (uchar)m_slider->minimum();
 
     /* Request the UI to update */
     if (m_slider->isSliderDown() == false && val != m_slider->value())
@@ -1255,12 +1271,10 @@ void VCSlider::setSliderValue(uchar value, bool scale)
         {
             if (m_monitorEnabled == true && m_isOverriding == false && m_slider->isSliderDown())
             {
-                m_priority = DMXSource::Override;
-                m_doc->masterTimer()->requestNewPriority(this);
                 m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
                 m_isOverriding = true;
             }
-            setLevelValue(val);
+            setLevelValue(val, external);
             setClickAndGoWidgetFromLevel(val);
         }
         break;
@@ -1277,9 +1291,6 @@ void VCSlider::setSliderValue(uchar value, bool scale)
             emitSubmasterValue();
         }
         break;
-
-        default:
-        break;
     }
 }
 
@@ -1288,19 +1299,14 @@ void VCSlider::setSliderShadowValue(int value)
     if (m_widgetMode == WSlider)
     {
         ClickAndGoSlider *sl = qobject_cast<ClickAndGoSlider*> (m_slider);
-        sl->setShadowLevel(m_slider->invertedAppearance() ? 255 - value : value);
+        sl->setShadowLevel(value);
     }
 }
 
 int VCSlider::sliderValue() const
 {
     if (m_slider)
-    {
-        if (invertedAppearance())
-            return 255 - m_slider->value();
-        else
-            return m_slider->value();
-    }
+        return m_slider->value();
 
     return 0;
 }
@@ -1398,11 +1404,11 @@ void VCSlider::updateFeedback()
     if (m_slider)
     {
         if (invertedAppearance() == true)
-            fbv = m_slider->maximum() - m_slider->value();
+            fbv = m_slider->maximum() - m_slider->value() + m_slider->minimum();
         else
             fbv = m_slider->value();
-        fbv = (int)SCALE(float(fbv), float(m_slider->minimum()),
-                         float(m_slider->maximum()), float(0), float(UCHAR_MAX));
+        fbv = int(SCALE(float(fbv), float(m_slider->minimum()),
+                        float(m_slider->maximum()), float(0), float(UCHAR_MAX)));
     }
     sendFeedback(fbv);
 }
@@ -1469,13 +1475,14 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
 
             if (m_monitorEnabled == true && m_isOverriding == false)
             {
-                m_priority = DMXSource::Override;
-                m_doc->masterTimer()->requestNewPriority(this);
                 m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
                 m_isOverriding = true;
             }
 
-            setSliderValue(value);
+            if (invertedAppearance())
+                value = UCHAR_MAX - value;
+
+            setSliderValue(value, true, true);
             m_lastInputValue = value;
         }
     }
@@ -1498,6 +1505,14 @@ void VCSlider::adjustIntensity(qreal val)
 
         qreal pIntensity = qreal(m_playbackValue) / qreal(UCHAR_MAX);
         adjustFunctionIntensity(function, pIntensity * intensity());
+    }
+    else if (sliderMode() == Level)
+    {
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        {
+            if (!fader.isNull())
+                fader->adjustIntensity(val);
+        }
     }
 }
 
@@ -1804,8 +1819,18 @@ VCSlider::LevelChannel::LevelChannel(quint32 fid, quint32 ch)
 
 VCSlider::LevelChannel::LevelChannel(const LevelChannel& lc)
 {
-    this->fixture = lc.fixture;
-    this->channel = lc.channel;
+    *this = lc;
+}
+
+VCSlider::LevelChannel &VCSlider::LevelChannel::operator=(const VCSlider::LevelChannel &lc)
+{
+    if (this != &lc)
+    {
+        this->fixture = lc.fixture;
+        this->channel = lc.channel;
+    }
+
+    return *this;
 }
 
 bool VCSlider::LevelChannel::operator==(const LevelChannel& lc) const

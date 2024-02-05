@@ -27,7 +27,7 @@ import "."
 CustomPopupDialog
 {
     id: popupRoot
-
+    width: mainView.width / 2
     title: qsTr("Information")
     standardButtons: Dialog.Close
 
@@ -52,7 +52,7 @@ CustomPopupDialog
                 font.pixelSize: UISettings.textSizeDefault
                 text: "<h3>" + qlcplus.appName + "<br>" + qlcplus.appVersion + "</h3>\n" +
                       "Copyright Ⓒ <b>Heikki Junnila, Massimo Callegari</b> " + qsTr("and contributors") + "<br>" +
-                      qsTr("Website") + ": <a href='http://www.qlcplus.org'>http://www.qlcplus.org</a><br><br>" +
+                      qsTr("Website") + ": <a href='https://www.qlcplus.org'>https://www.qlcplus.org</a><br><br>" +
                       qsTr("This application is licensed under the terms of the") +
                       " <a href='https://www.apache.org/licenses/LICENSE-2.0'>" +
                       qsTr("Apache 2.0 license") + "</a>."

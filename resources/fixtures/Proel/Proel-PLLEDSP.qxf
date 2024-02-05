@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.0 GIT</Version>
+  <Author>Martino</Author>
+ </Creator>
+ <Manufacturer>Proel</Manufacturer>
+ <Model>PLLEDSP</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer / Strobe">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="0">OFF</Capability>
+  <Capability Min="1" Max="127">Strobe effect (slow to fast)</Capability>
+  <Capability Min="128" Max="255">Dimmer effect</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Mode Name="RGB">
+  <Channel Number="0">Dimmer / Strobe</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1" Width="95" Height="160" Depth="150"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="5" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Massimo Callegari</Author>
  </Creator>
  <Manufacturer>Clay Paky</Manufacturer>
@@ -75,25 +75,25 @@
   <Capability Min="56" Max="59" Preset="GoboMacro" Res1="ClayPaky/gobo00088.svg">Gobo 14</Capability>
   <Capability Min="60" Max="63" Preset="GoboMacro" Res1="ClayPaky/gobo00087.svg">Gobo 15</Capability>
   <Capability Min="64" Max="67" Preset="GoboMacro" Res1="ClayPaky/gobo00093.svg">Gobo 16</Capability>
-  <Capability Min="68" Max="71" Preset="GoboMacro" Res1="ClayPaky/gobo00092.svg">Gobo 17</Capability>
+  <Capability Min="68" Max="71" Preset="GoboMacro" Res1="ClayPaky/gobo00012.svg">Gobo 17</Capability>
   <Capability Min="72" Max="113">Rotation (Fast 60rpm to slow 5rpm)</Capability>
   <Capability Min="114" Max="117">Stop</Capability>
   <Capability Min="118" Max="159">Rotation (Slow 5rpm to fast 60rpm)</Capability>
-  <Capability Min="160" Max="166" Preset="GoboMacro" Res1="ClayPaky/gobo00007.svg">Gobo 2 Shake (Slow to Fast)</Capability>
-  <Capability Min="167" Max="172" Preset="GoboMacro" Res1="ClayPaky/gobo00008.svg">Gobo 3 Shake (Slow to Fast)</Capability>
-  <Capability Min="173" Max="179" Preset="GoboMacro" Res1="ClayPaky/gobo00009.svg">Gobo 4 Shake (Slow to Fast)</Capability>
-  <Capability Min="180" Max="185" Preset="GoboMacro" Res1="ClayPaky/gobo00010.svg">Gobo 5 Shake (Slow to Fast)</Capability>
-  <Capability Min="186" Max="191" Preset="GoboMacro" Res1="ClayPaky/gobo00011.svg">Gobo 6 Shake (Slow to Fast)</Capability>
-  <Capability Min="192" Max="198" Preset="GoboMacro" Res1="ClayPaky/gobo00091.svg">Gobo 7 Shake (Slow to Fast)</Capability>
-  <Capability Min="199" Max="204" Preset="GoboMacro" Res1="ClayPaky/gobo00085.svg">Gobo 8 Shake (Slow to Fast)</Capability>
-  <Capability Min="205" Max="211" Preset="GoboMacro" Res1="ClayPaky/gobo00086.svg">Gobo 9 Shake (Slow to Fast)</Capability>
-  <Capability Min="212" Max="217" Preset="GoboMacro" Res1="ClayPaky/gobo00089.svg">Gobo 10 Shake (Slow to Fast)</Capability>
-  <Capability Min="218" Max="223" Preset="GoboMacro" Res1="ClayPaky/gobo00095.svg">Gobo 11 Shake (Slow to Fast)</Capability>
-  <Capability Min="224" Max="230" Preset="GoboMacro" Res1="ClayPaky/gobo00094.svg">Gobo 12 Shake (Slow to Fast)</Capability>
-  <Capability Min="231" Max="236" Preset="GoboMacro" Res1="ClayPaky/gobo00090.svg">Gobo 13 Shake (Slow to Fast)</Capability>
-  <Capability Min="237" Max="243" Preset="GoboMacro" Res1="ClayPaky/gobo00088.svg">Gobo 14 Shake (Slow to Fast)</Capability>
-  <Capability Min="244" Max="249" Preset="GoboMacro" Res1="ClayPaky/gobo00087.svg">Gobo 15 Shake (Slow to Fast)</Capability>
-  <Capability Min="250" Max="255" Preset="GoboMacro" Res1="ClayPaky/gobo00093.svg">Gobo 16 Shake (Slow 24bpm to Fast 600bpm)</Capability>
+  <Capability Min="160" Max="166" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00007.svg">Gobo 2 Shake (Slow to Fast)</Capability>
+  <Capability Min="167" Max="172" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00008.svg">Gobo 3 Shake (Slow to Fast)</Capability>
+  <Capability Min="173" Max="179" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00009.svg">Gobo 4 Shake (Slow to Fast)</Capability>
+  <Capability Min="180" Max="185" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00010.svg">Gobo 5 Shake (Slow to Fast)</Capability>
+  <Capability Min="186" Max="191" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00011.svg">Gobo 6 Shake (Slow to Fast)</Capability>
+  <Capability Min="192" Max="198" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00091.svg">Gobo 7 Shake (Slow to Fast)</Capability>
+  <Capability Min="199" Max="204" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00085.svg">Gobo 8 Shake (Slow to Fast)</Capability>
+  <Capability Min="205" Max="211" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00086.svg">Gobo 9 Shake (Slow to Fast)</Capability>
+  <Capability Min="212" Max="217" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00089.svg">Gobo 10 Shake (Slow to Fast)</Capability>
+  <Capability Min="218" Max="223" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00095.svg">Gobo 11 Shake (Slow to Fast)</Capability>
+  <Capability Min="224" Max="230" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00094.svg">Gobo 12 Shake (Slow to Fast)</Capability>
+  <Capability Min="231" Max="236" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00090.svg">Gobo 13 Shake (Slow to Fast)</Capability>
+  <Capability Min="237" Max="243" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00088.svg">Gobo 14 Shake (Slow to Fast)</Capability>
+  <Capability Min="244" Max="249" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00087.svg">Gobo 15 Shake (Slow to Fast)</Capability>
+  <Capability Min="250" Max="255" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00093.svg">Gobo 16 Shake (Slow 24bpm to Fast 600bpm)</Capability>
  </Channel>
  <Channel Name="Prism Insertion">
   <Group Byte="0">Prism</Group>
@@ -138,15 +138,15 @@
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="25">Unused</Capability>
-  <Capability Min="26" Max="76">Effects Reset</Capability>
-  <Capability Min="77" Max="127">Pan/Tilt Reset</Capability>
-  <Capability Min="128" Max="255">Complete Reset</Capability>
+  <Capability Min="26" Max="76" Preset="ResetEffects">Effects Reset</Capability>
+  <Capability Min="77" Max="127" Preset="ResetPanTilt">Pan/Tilt Reset</Capability>
+  <Capability Min="128" Max="255" Preset="ResetAll">Complete Reset</Capability>
  </Channel>
  <Channel Name="Lamp Control">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="25">Unused</Capability>
-  <Capability Min="26" Max="100">Lamp OFF</Capability>
-  <Capability Min="101" Max="255">Lamp ON</Capability>
+  <Capability Min="26" Max="100" Preset="LampOff">Lamp OFF</Capability>
+  <Capability Min="101" Max="255" Preset="LampOn">Lamp ON</Capability>
  </Channel>
  <Channel Name="Pan - Tilt Time">
   <Group Byte="0">Speed</Group>

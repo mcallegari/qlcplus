@@ -24,16 +24,15 @@ Effect
 {
     techniques:
     [
-        // OpenGL 3.1
         Technique
         {
             graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
             renderPasses:
             [
-                // Lights pass
+                // Gamma correction pass
                 RenderPass
                 {
-                    filterKeys: FilterKey { name : "pass"; value : "gamma_correct" }
+                    filterKeys: FilterKey { name: "pass"; value: "gamma_correct" }
                     shaderProgram:
                         ShaderProgram
                         {

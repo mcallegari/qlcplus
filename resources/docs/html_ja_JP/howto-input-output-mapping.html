@@ -16,10 +16,10 @@ Q Light Controller Plus オーディオの入出力</title>
 
 <p>
 By default QLC+ provides 4 universes but you can add/remove them as needed.<br>
-The input/output mapping is saved in the currently loaded project. 
+The input/output mapping is saved in the currently loaded project.
 This allows you to port your project on another computer/OS without the need to
 reconfigure it every time.<br>
-If no project is loaded, QLC+ will keep the I/O mapping as a "fallback" configuration. 
+If no project is loaded, QLC+ will keep the I/O mapping as a "fallback" configuration.
 </p>
 
 <h2 id="input-output-manager">Input/Output Manager</h2>
@@ -37,13 +37,13 @@ Every device has a checkbox whenever an input, output or feedback line is availa
 Each QLC+ universe can map a single input, a single output and a single feedback line<br>
 </p>
 
-<p>
+<P>
 Some plugins might require configuration before they can be used' so you might
 not be able to see all inputs/outputs at first. The configuration button
-is place next to the information panel and it is enabled if the plugin 
+is place next to the information panel and it is enabled if the plugin
 allows any manual setting.<br>
-The button icon is: <img src="javascript:void(0);" width="32">
-</p>
+The button icon is: <IMG SRC="qrc:/configure.png" width=32>
+</P>
 
 <h2 ="">Adding/Removing universes</h2>
 
@@ -55,13 +55,13 @@ and configure universes.
 
 <table border="1" class="qlcTable">
  <tr>
-  <td><img src="javascript:void(0);"></td>
+  <td><img src="qrc:/edit_add.png"></td>
   <td>Add a new universe. The universe will have a name like "Universe X",
       where X is a progressive number assigned by QLC+ (and also the Universe ID).
   </td>
  </tr>
  <tr>
-  <td><img src="javascript:void(0);"></td>
+  <td><img src="qrc:/edit_remove.png"></td>
   <td>Remove the currently selected universe.<br>
       <b>Please be careful with this operation as it can compromise your project and cannot be reverted.</b><br>
       When deleting a universe, if it is currently patched or some fixtures are mapped
@@ -93,7 +93,7 @@ understands and you're left with the one and only (non-selectable) choice: <u>No
 <p>
 When an input/output line is checked, the corresponding universe information on the left hand side of the screen
 will change and will display the new configuration set.<br>
-The plugin information on the bottom right hand side of the screen will change as well and will give 
+The plugin information on the bottom right hand side of the screen will change as well and will give
 you the new status of the plugin line.
 </p>
 
@@ -107,11 +107,11 @@ This is useful for several things:
     "protocol" converter. For example you can use this feature to
     transparently map an ArtNet network to a DMX USB adapter or even MIDI.
 </li>
-<li><b>Monitor external data</b>: patch fixtures and watch the data in DMX 
+<li><b>Monitor external data</b>: patch fixtures and watch the data in DMX
     monitor
 </li>
-<li><b>Merge data from external controller</b>: Have external lighting desk 
-    control some of the channels independently (for example conventionals) 
+<li><b>Merge data from external controller</b>: Have external lighting desk
+    control some of the channels independently (for example conventionals)
     and QLC+ control intelligent lights on the same universe.</li>
 <li><b>Raspberry Pi</b>: forward data from QLC+ on PC while programming scenes;
     when the workspace is transferred, Raspberry becomes main controller; the
@@ -129,20 +129,20 @@ This is useful for several things:
 <p>
 When a plugin input line is checked, it gets enabled right away, so you can perform a basic test
 to double check if your hardware is working properly with QLC+.<br>
-Just move a fader/knob on your external device, and if everything works fine, you will see a 
-<img src="javascript:void(0);" width="32"> icon appearing beside the corresponding universe
+Just move a fader/knob on your external device, and if everything works fine, you will see a
+<img src="qrc:/input.png" width="32"> icon appearing beside the corresponding universe
 on the left side of the screen.
 </p>
 
 <p>
-If your input device supports a return channel, QLC+ can send a visual/mechanical feedback 
+If your input device supports a return channel, QLC+ can send a visual/mechanical feedback
 to it. Devices such as Behringer BCF2000 support this feature.<br>
 At the moment feedbacks are supported only through MIDI, OSC and loopback.
 </p>
 
 <p>
 To learn how to setup your external input device for the best use with QLC+, please
-continue your reading with the <a href="javascript:void(0);">howto for input profiles</a>.
+continue your reading with the <a href="howto-input-profiles.html">howto for input profiles</a>.
 </p>
 </BODY>
 </html>

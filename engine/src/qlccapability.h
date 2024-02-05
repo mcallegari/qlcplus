@@ -37,22 +37,22 @@ class QFile;
  * @{
  */
 
-#define KXMLQLCCapability    "Capability"
-#define KXMLQLCCapabilityMin "Min"
-#define KXMLQLCCapabilityMax "Max"
-#define KXMLQLCCapabilityPreset "Preset"
-#define KXMLQLCCapabilityRes1 "Res1"
-#define KXMLQLCCapabilityRes2 "Res2"
+#define KXMLQLCCapability       QString("Capability")
+#define KXMLQLCCapabilityMin    QString("Min")
+#define KXMLQLCCapabilityMax    QString("Max")
+#define KXMLQLCCapabilityPreset QString("Preset")
+#define KXMLQLCCapabilityRes1   QString("Res1")
+#define KXMLQLCCapabilityRes2   QString("Res2")
 
-#define KXMLQLCCapabilityAlias "Alias"
-#define KXMLQLCCapabilityAliasMode "Mode"
-#define KXMLQLCCapabilityAliasSourceName "Channel"
-#define KXMLQLCCapabilityAliasTargetName "With"
+#define KXMLQLCCapabilityAlias              QString("Alias")
+#define KXMLQLCCapabilityAliasMode          QString("Mode")
+#define KXMLQLCCapabilityAliasSourceName    QString("Channel")
+#define KXMLQLCCapabilityAliasTargetName    QString("With")
 
 /** ****************** LEGACY ***************** */
-#define KXMLQLCCapabilityResource "Res"
-#define KXMLQLCCapabilityColor1 "Color"
-#define KXMLQLCCapabilityColor2 "Color2"
+#define KXMLQLCCapabilityResource   QString("Res")
+#define KXMLQLCCapabilityColor1     QString("Color")
+#define KXMLQLCCapabilityColor2     QString("Color2")
 
 typedef struct
 {
@@ -73,9 +73,10 @@ class QLCCapability: public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString name READ name CONSTANT)
-    Q_PROPERTY(int min READ min CONSTANT)
-    Q_PROPERTY(int max READ max CONSTANT)
+    Q_PROPERTY(int min READ min WRITE setMin NOTIFY minChanged)
+    Q_PROPERTY(int max READ max WRITE setMax NOTIFY maxChanged)
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(WarningType warning READ warning WRITE setWarning NOTIFY warningChanged)
     Q_PROPERTY(QVariantList resources READ resources CONSTANT)
 
     /********************************************************************
@@ -95,7 +96,11 @@ public:
     bool operator<(const QLCCapability& capability) const;
 
     /********************************************************************
-     * Preset
+     * Presets
+     *
+     * please see
+     * https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets
+     * when changing this list
      ********************************************************************/
 public:
     enum Preset
@@ -114,24 +119,25 @@ public:
         StrobeRandom,
         StrobeRandomSlowToFast,
         StrobeRandomFastToSlow,
+        StrobeFrequency,        /** precise frequency value in hertz specified in m_resources */
+        StrobeFreqRange,        /** specified in m_resources as 0: min, 1: max hertz */
         PulseSlowToFast,
         PulseFastToSlow,
+        PulseFrequency,
+        PulseFreqRange,
         RampUpSlowToFast,
         RampUpFastToSlow,
         RampDownSlowToFast,
         RampDownFastToSlow,
-        StrobeFrequency,        /** precise frequency value in hertz specified in m_resources */
-        StrobeFreqRange,        /** specified in m_resources as 0: min, 1: max hertz */
-        PulseFrequency,
-        PulseFreqRange,
         RampUpFrequency,
         RampUpFreqRange,
         RampDownFrequency,
         RampDownFreqRange,
+        RotationStop,
+        RotationIndexed,
         RotationClockwise,
         RotationClockwiseSlowToFast,
         RotationClockwiseFastToSlow,
-        RotationStop,
         RotationCounterClockwise,
         RotationCounterClockwiseSlowToFast,
         RotationCounterClockwiseFastToSlow,
@@ -141,6 +147,28 @@ public:
         GoboMacro,
         GoboShakeMacro,
         GenericPicture,
+        PrismEffectOn,
+        PrismEffectOff,
+        LampOn,
+        LampOff,
+        ResetAll,
+        ResetPanTilt,
+        ResetPan,
+        ResetTilt,
+        ResetMotors,
+        ResetGobo,
+        ResetColor,
+        ResetCMY,
+        ResetCTO,
+        ResetEffects,
+        ResetPrism,
+        ResetBlades,
+        ResetIris,
+        ResetFrost,
+        ResetZoom,
+        SilentModeOn,
+        SilentModeOff,
+        SilentModeAutomatic,
         Alias,
         LastPreset // dummy for cycles
     };
@@ -160,6 +188,12 @@ public:
         Picture
     };
 
+#if QT_VERSION >= 0x050500
+    Q_ENUM(PresetType)
+#else
+    Q_ENUMS(PresetType)
+#endif
+
     /** String <-> value preset conversion helpers */
     static QString presetToString(Preset preset);
     static Preset stringToPreset(const QString &preset);
@@ -173,6 +207,9 @@ public:
      *  of resources this capability is exposing */
     PresetType presetType() const;
 
+    /** Returns the value unit type of a preset as string */
+    QString presetUnits() const;
+
 protected:
     Preset m_preset;
 
@@ -180,6 +217,19 @@ protected:
      * Properties
      ********************************************************************/
 public:
+    enum WarningType
+    {
+        NoWarning,
+        EmptyName,
+        Overlapping
+    };
+
+#if QT_VERSION >= 0x050500
+    Q_ENUM(WarningType)
+#else
+    Q_ENUMS(WarningType)
+#endif
+
     /** Get/Set the capability range minimum value */
     uchar min() const;
     void setMin(uchar value);
@@ -195,6 +245,10 @@ public:
     QString name() const;
     void setName(const QString& name);
 
+    /** Get/Set a warning for this capability */
+    WarningType warning() const;
+    void setWarning(WarningType type);
+
     /** Get the resource at the provided index.
      *  Returns an empty QVariant on failure */
     QVariant resource(int index);
@@ -208,10 +262,17 @@ public:
     /** Check, whether the given capability overlaps with this */
     bool overlaps(const QLCCapability* cap);
 
+signals:
+    void minChanged();
+    void maxChanged();
+    void nameChanged();
+    void warningChanged();
+
 protected:
     uchar m_min;
     uchar m_max;
     QString m_name;
+    WarningType m_warning;
     QVariantList m_resources;
 
     /********************************************************************

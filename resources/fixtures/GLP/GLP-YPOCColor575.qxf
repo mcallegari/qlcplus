@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.1.0</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>GLP</Manufacturer>
@@ -41,18 +41,18 @@
   <Capability Min="104" Max="107">CTO 02 (slow)</Capability>
   <Capability Min="108" Max="111">Red (slow)</Capability>
   <Capability Min="112" Max="127">White (slow)</Capability>
-  <Capability Min="128" Max="191">CW rotation slow to fast</Capability>
-  <Capability Min="192" Max="253">CCW rotation fast to slow</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">CW rotation slow to fast</Capability>
+  <Capability Min="192" Max="253" Preset="RotationCounterClockwiseFastToSlow">CCW rotation fast to slow</Capability>
   <Capability Min="254" Max="254">Color chase slow</Capability>
   <Capability Min="255" Max="255">Color chase fast</Capability>
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="15">Closed</Capability>
-  <Capability Min="16" Max="31">Random strobe</Capability>
-  <Capability Min="32" Max="47">Strobe pulse slow to fast</Capability>
-  <Capability Min="48" Max="239">Strobe slow to fast</Capability>
-  <Capability Min="240" Max="253">Open</Capability>
+  <Capability Min="0" Max="15" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="16" Max="31" Preset="StrobeRandom">Random strobe</Capability>
+  <Capability Min="32" Max="47" Preset="PulseSlowToFast">Strobe pulse slow to fast</Capability>
+  <Capability Min="48" Max="239" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
+  <Capability Min="240" Max="253" Preset="ShutterOpen">Open</Capability>
   <Capability Min="254" Max="255">Lamp ON</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
@@ -66,8 +66,8 @@
   <Capability Min="96" Max="111">Pan/Tilt chaser slow</Capability>
   <Capability Min="112" Max="127">Pan/Tilt chaser fast</Capability>
   <Capability Min="128" Max="229">No function</Capability>
-  <Capability Min="230" Max="249">Lamp OFF (when shutter closed)</Capability>
-  <Capability Min="250" Max="255">Reset</Capability>
+  <Capability Min="230" Max="249" Preset="LampOff">Lamp OFF (when shutter closed)</Capability>
+  <Capability Min="250" Max="255" Preset="ResetAll">Reset</Capability>
  </Channel>
  <Channel Name="Movement">
   <Group Byte="0">Effect</Group>
@@ -95,10 +95,7 @@
   <Capability Min="16" Max="239">Shaper</Capability>
   <Capability Min="240" Max="255">Frost</Capability>
  </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">8 to 22 degrees</Capability>
- </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Mode Name="Mode1">
   <Channel Number="0">Pan coarse</Channel>
   <Channel Number="1">Pan fine</Channel>
@@ -116,11 +113,11 @@
   <Channel Number="13">Movement</Channel>
   <Channel Number="14">Movement speed</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="43000" Type="HTI 575W" ColourTemperature="7500"/>
-   <Dimensions Width="380" Height="520" Weight="19" Depth="390"/>
-   <Lens DegreesMax="22" Name="Fresnel" DegreesMin="8"/>
-   <Focus PanMax="540" Type="Head" TiltMax="280"/>
-   <Technical PowerConsumption="780" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="HTI 575W" Lumens="43000" ColourTemperature="7500"/>
+  <Dimensions Weight="19" Width="380" Height="520" Depth="390"/>
+  <Lens Name="Fresnel" DegreesMin="8" DegreesMax="22"/>
+  <Focus Type="Head" PanMax="540" TiltMax="280"/>
+  <Technical PowerConsumption="780" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

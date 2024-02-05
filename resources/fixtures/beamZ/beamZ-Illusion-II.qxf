@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4 GIT</Version>
+  <Author>Yestalgia</Author>
+ </Creator>
+ <Manufacturer>beamZ</Manufacturer>
+ <Model>Illusion II</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Color wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="30" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
+  <Capability Min="31" Max="55" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="56" Max="80" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="81" Max="105" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="106" Max="130" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="131" Max="155" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="156" Max="180" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="181" Max="205" Preset="ColorMacro" Res1="#aaff7f">Light Green</Capability>
+  <Capability Min="206" Max="230" Preset="ColorMacro" Res1="#aa55ff">Purple</Capability>
+  <Capability Min="231" Max="255" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+ </Channel>
+ <Channel Name="Gobo wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="21" Preset="GoboMacro">Open</Capability>
+  <Capability Min="22" Max="34" Preset="GoboMacro">Gobo 1</Capability>
+  <Capability Min="35" Max="47" Preset="GoboMacro">Gobo 2</Capability>
+  <Capability Min="48" Max="60" Preset="GoboMacro">Gobo 3</Capability>
+  <Capability Min="61" Max="73" Preset="GoboMacro">Gobo 4</Capability>
+  <Capability Min="74" Max="86" Preset="GoboMacro">Gobo 5</Capability>
+  <Capability Min="87" Max="99" Preset="GoboMacro">Gobo 6</Capability>
+  <Capability Min="100" Max="112" Preset="GoboMacro">Gobo 7</Capability>
+  <Capability Min="113" Max="125" Preset="GoboMacro">Gobo 8</Capability>
+  <Capability Min="126" Max="138" Preset="GoboMacro">Gobo 9</Capability>
+  <Capability Min="139" Max="151" Preset="GoboShakeMacro">Gobo 1 Shake from slow to fast</Capability>
+  <Capability Min="152" Max="164" Preset="GoboShakeMacro">Gobo 2 Shake from slow to fast</Capability>
+  <Capability Min="165" Max="177" Preset="GoboShakeMacro">Gobo 3 Shake from slow to fast</Capability>
+  <Capability Min="178" Max="190" Preset="GoboShakeMacro">Gobo 4 Shake from slow to fast</Capability>
+  <Capability Min="191" Max="203" Preset="GoboShakeMacro">Gobo 5 Shake from slow to fast</Capability>
+  <Capability Min="204" Max="216" Preset="GoboShakeMacro">Gobo 6 Shake from slow to fast</Capability>
+  <Capability Min="217" Max="229" Preset="GoboShakeMacro">Gobo 7 Shake from slow to fast</Capability>
+  <Capability Min="230" Max="242" Preset="GoboShakeMacro">Gobo 8 Shake from slow to fast</Capability>
+  <Capability Min="243" Max="255" Preset="GoboShakeMacro">Gobo 9 Shake from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterClose">Strobe off</Capability>
+  <Capability Min="16" Max="96" Preset="StrobeFreqRange" Res1="1" Res2="25">Strobe slow - Fast 1Hz to 25Hz</Capability>
+  <Capability Min="97" Max="175" Preset="RampUpSlowToFast">Strobe slow - Fast 1Hz</Capability>
+  <Capability Min="176" Max="255" Preset="StrobeRandomSlowToFast">Random strobe</Capability>
+ </Channel>
+ <Channel Name="SMD ring Red 1" Preset="IntensityRed"/>
+ <Channel Name="SMD ring Red 2" Preset="IntensityRed"/>
+ <Channel Name="SMD ring Red 3" Preset="IntensityRed"/>
+ <Channel Name="SMD ring Green 1" Preset="IntensityGreen"/>
+ <Channel Name="SMD ring Green 2" Preset="IntensityGreen"/>
+ <Channel Name="SMD ring Green 3" Preset="IntensityGreen"/>
+ <Channel Name="SMD ring Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="SMD ring Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="SMD ring Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="SMD Ring strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="29">No function</Capability>
+  <Capability Min="30" Max="225">Strobe (Slow to fast)</Capability>
+  <Capability Min="226" Max="255">SMD ring strobe off</Capability>
+ </Channel>
+ <Channel Name="SMD ring dimming" Preset="IntensityDimmer"/>
+ <Channel Name="SMD Ring auto program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="35">No function</Capability>
+  <Capability Min="36" Max="40">Red</Capability>
+  <Capability Min="41" Max="45">Green</Capability>
+  <Capability Min="46" Max="50">Blue</Capability>
+  <Capability Min="51" Max="55">Yellow</Capability>
+  <Capability Min="56" Max="60">Magenta</Capability>
+  <Capability Min="61" Max="65">Cyan</Capability>
+  <Capability Min="66" Max="70">White</Capability>
+  <Capability Min="71" Max="75">RGB Fading</Capability>
+  <Capability Min="76" Max="80">RED-chase</Capability>
+  <Capability Min="81" Max="85">Green-chase</Capability>
+  <Capability Min="86" Max="90">Blue-chase</Capability>
+  <Capability Min="91" Max="95">R/G chase</Capability>
+  <Capability Min="96" Max="100">R/B chase</Capability>
+  <Capability Min="101" Max="105">G/B chase</Capability>
+  <Capability Min="106" Max="110">R/G/B chase</Capability>
+  <Capability Min="111" Max="115">Red ring zoom out</Capability>
+  <Capability Min="116" Max="120">Green ring zoom out</Capability>
+  <Capability Min="121" Max="125">Blue ring zoom out</Capability>
+  <Capability Min="126" Max="130">R/G/B/W ring zoom out</Capability>
+  <Capability Min="131" Max="135">Red ring zoom in</Capability>
+  <Capability Min="136" Max="140">Green ring zoom in</Capability>
+  <Capability Min="141" Max="145">Blue ring zoom in</Capability>
+  <Capability Min="146" Max="150">R/G/B/W ring zoom in</Capability>
+  <Capability Min="151" Max="155">Effect switch between R/G/B/W</Capability>
+  <Capability Min="156" Max="160">Effect switch between Yellow/Purple/Cyan/White</Capability>
+  <Capability Min="161" Max="165">Colour flowing in ring 1-4, 9 effects in total, each 10 digits</Capability>
+  <Capability Min="166" Max="255">Capability 27</Capability>
+ </Channel>
+ <Channel Name="SMD ring Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Auto program">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="49">No function</Capability>
+  <Capability Min="50" Max="99">Auto program 1</Capability>
+  <Capability Min="100" Max="149">Auto program 2</Capability>
+  <Capability Min="150" Max="199">Auto program 3</Capability>
+  <Capability Min="200" Max="249">Sound activated program</Capability>
+  <Capability Min="250" Max="255">All Reset</Capability>
+ </Channel>
+ <Mode Name="12 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt speed</Channel>
+  <Channel Number="3">Master dimmer</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Color wheel</Channel>
+  <Channel Number="6">Gobo wheel</Channel>
+  <Channel Number="7">SMD Ring strobe</Channel>
+  <Channel Number="8">SMD ring dimming</Channel>
+  <Channel Number="9">SMD Ring auto program</Channel>
+  <Channel Number="10">SMD ring Speed</Channel>
+  <Channel Number="11">Auto program</Channel>
+ </Mode>
+ <Mode Name="23 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Master dimmer</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Color wheel</Channel>
+  <Channel Number="8">Gobo wheel</Channel>
+  <Channel Number="9">SMD ring Red 1</Channel>
+  <Channel Number="10">SMD ring Green 1</Channel>
+  <Channel Number="11">SMD ring Blue 1</Channel>
+  <Channel Number="12">SMD ring Red 2</Channel>
+  <Channel Number="13">SMD ring Green 2</Channel>
+  <Channel Number="14">SMD ring Blue 2</Channel>
+  <Channel Number="15">SMD ring Red 3</Channel>
+  <Channel Number="16">SMD ring Green 3</Channel>
+  <Channel Number="17">SMD ring Blue 3</Channel>
+  <Channel Number="18">SMD Ring strobe</Channel>
+  <Channel Number="19">SMD ring dimming</Channel>
+  <Channel Number="20">SMD Ring auto program</Channel>
+  <Channel Number="21">SMD ring Speed</Channel>
+  <Channel Number="22">Auto program</Channel>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.45" Width="265" Height="170" Depth="370"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="630" TiltMax="200"/>
+  <Technical PowerConsumption="80" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

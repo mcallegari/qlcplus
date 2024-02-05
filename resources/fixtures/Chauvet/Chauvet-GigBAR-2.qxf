@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Flo Edelmann</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -26,7 +26,7 @@
  <Channel Name="Par 2 UV" Preset="IntensityUV"/>
  <Channel Name="Par 2 Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="127">Dimmer 0-100%</Capability>
+  <Capability Min="0" Max="127" Preset="ShutterOpen">Dimmer 0-100%</Capability>
   <Capability Min="128" Max="239" Preset="StrobeSlowToFast">Strobe slow-fast</Capability>
   <Capability Min="240" Max="249">Strobe to sound</Capability>
   <Capability Min="250" Max="255">RGB 100%</Capability>
@@ -46,8 +46,8 @@
  </Channel>
  <Channel Name="Derby 1 Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">No strobe</Capability>
-  <Capability Min="10" Max="239" Preset="StrobeFreqRange" Res1="3" Res2="30">Strobe 0-30Hz</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="10" Max="239" Preset="StrobeFreqRange" Res1="0" Res2="30">Strobe 0-30Hz</Capability>
   <Capability Min="240" Max="255">Strobe to sound</Capability>
  </Channel>
  <Channel Name="Derby 1 Rotation">
@@ -72,8 +72,8 @@
  </Channel>
  <Channel Name="Derby 2 Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">No strobe</Capability>
-  <Capability Min="10" Max="239" Preset="StrobeFreqRange" Res1="3" Res2="30">Strobe 0-30Hz</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="10" Max="239" Preset="StrobeFreqRange" Res1="0" Res2="30">Strobe 0-30Hz</Capability>
   <Capability Min="240" Max="255">Strobe to sound</Capability>
  </Channel>
  <Channel Name="Derby 2 Rotation">
@@ -118,7 +118,7 @@
   <Capability Min="130" Max="149">Auto Strobe Program 8</Capability>
   <Capability Min="150" Max="169">Auto Strobe Program 9</Capability>
   <Capability Min="170" Max="189">Auto Strobe Program 10</Capability>
-  <Capability Min="190" Max="209">Manual Strobe slow-fast</Capability>
+  <Capability Min="190" Max="209" Preset="StrobeSlowToFast">Manual Strobe slow-fast</Capability>
   <Capability Min="210" Max="255">Strobe to sound</Capability>
  </Channel>
  <Channel Name="White Strobe Dimmer" Preset="IntensityDimmer"/>
@@ -136,7 +136,7 @@
   <Capability Min="0" Max="127">All 0-100%</Capability>
   <Capability Min="128" Max="239" Preset="StrobeSlowToFast">Strobe slow-fast</Capability>
   <Capability Min="240" Max="249">Strobe to sound</Capability>
-  <Capability Min="250" Max="255">Full on</Capability>
+  <Capability Min="250" Max="255" Preset="ShutterOpen">Full on</Capability>
  </Channel>
  <Channel Name="Derby Rotation">
   <Group Byte="0">Speed</Group>
@@ -260,6 +260,7 @@
   <Dimensions Weight="6.6" Width="1185" Height="387" Depth="110"/>
   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="6" Height="1"/>
   <Technical PowerConsumption="64" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

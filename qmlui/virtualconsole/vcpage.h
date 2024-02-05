@@ -28,13 +28,11 @@ class VCPage : public VCFrame
 {
     Q_OBJECT
 
-    Q_PROPERTY(int PIN READ PIN WRITE setPIN NOTIFY PINChanged)
-
     /*********************************************************************
      * Initialization
      *********************************************************************/
 public:
-    VCPage(QQuickView *view = NULL, Doc* doc = NULL, VirtualConsole *vc = NULL, int pageIndex = 0, QObject *parent = 0);
+    VCPage(QQuickView *view = nullptr, Doc* doc = nullptr, VirtualConsole *vc = nullptr, int pageIndex = 0, QObject *parent = nullptr);
     ~VCPage();
 
     /** Return the Preview Context associated to this VC page */
@@ -49,29 +47,6 @@ private:
     PreviewContext *m_pageContext;
 
     qreal m_pageScale;
-
-    /*********************************************************************
-     * PIN
-     *********************************************************************/
-public:
-    /** Get/Set a protection PIN for this Frame. Note that only top level frames
-     *  will expose this functionality */
-    int PIN() const;
-    void setPIN(int newPIN);
-
-    /** Validate the Frame PIN for the entire session */
-    void validatePIN();
-
-    /** Returns true if this Frame has a PIN set and has not been validated for the session.
-     *  Otherwise false is returned, and the Frame can be displayed by everyone */
-    Q_INVOKABLE bool requirePIN() const;
-
-signals:
-    void PINChanged(int PIN);
-
-protected:
-    int m_PIN;
-    bool m_validatedPIN;
 
     /*********************************************************************
      * External input
@@ -102,6 +77,10 @@ public:
 
     /** Update the key sequences map for a matching $sequence and $widget with the specified $id */
     void updateKeySequenceIDInMap(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren = false);
+
+    /** Rebuild the entire key sequence map for all the child widgets
+     *  of thiss page. This is called on project XML loading */
+    void buildKeySequenceMap();
 
     /** Method invoked by the Virtual Console when an key press/release signal is received.
      *  This is in charge of delivering the event to the children widgets expecting it. */

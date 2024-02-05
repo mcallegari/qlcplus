@@ -18,7 +18,6 @@
   limitations under the License.
 */
 
-#include <QDesktopWidget>
 #include <QApplication>
 #include <QActionGroup>
 #include <QFontDialog>
@@ -31,6 +30,7 @@
 #include <QToolBar>
 #include <QSpinBox>
 #include <QAction>
+#include <QScreen>
 #include <QLabel>
 #include <QDebug>
 #include <QFont>
@@ -141,7 +141,7 @@ void Monitor::initDMXView()
     m_monitorWidget->setBackgroundRole(QPalette::Dark);
     m_monitorLayout = new MonitorLayout(m_monitorWidget);
     m_monitorLayout->setSpacing(1);
-    m_monitorLayout->setMargin(1);
+    m_monitorLayout->setContentsMargins(1, 1, 1, 1);
 
     m_scrollArea->setWidget(m_monitorWidget);
 
@@ -156,7 +156,7 @@ void Monitor::fillDMXView()
     m_monitorWidget->setFont(m_props->font());
 
     /* Create a bunch of MonitorFixtures for each fixture */
-    foreach(Fixture* fxi, m_doc->fixtures())
+    foreach (Fixture* fxi, m_doc->fixtures())
     {
         Q_ASSERT(fxi != NULL);
         if (m_currentUniverse == Universe::invalid() ||
@@ -342,7 +342,8 @@ void Monitor::createAndShow(QWidget* parent, Doc* doc)
             window->restoreGeometry(var.toByteArray());
         else
         {
-            QRect rect = qApp->desktop()->screenGeometry();
+            QScreen *screen = QGuiApplication::screens().first();
+            QRect rect = screen->availableGeometry();
             int rWd = rect.width() / 4;
             int rHd = rect.height() / 4;
             window->resize(rWd * 3, rHd * 3);
@@ -664,7 +665,7 @@ void Monitor::slotFixtureRemoved(quint32 fxi_id)
 
 void Monitor::slotUniverseSelected(int index)
 {
-    QComboBox *combo = (QComboBox *)sender();
+    QComboBox *combo = qobject_cast<QComboBox *>(sender());
     m_currentUniverse = combo->itemData(index).toUInt();
 
     for (quint32 i = 0; i < m_doc->inputOutputMap()->universesCount(); i++)

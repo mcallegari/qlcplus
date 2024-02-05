@@ -49,6 +49,8 @@ public:
     /** Copy constructor */
     ChaserStep(const ChaserStep& cs);
 
+    ChaserStep& operator=(const ChaserStep& step);
+
     /** Comparison operator (only function IDs are compared) */
     bool operator==(const ChaserStep& cs) const;
 

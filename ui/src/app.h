@@ -50,14 +50,14 @@ class VideoProvider;
  * @{
  */
 
-#define KXMLQLCWorkspace "Workspace"
+#define KXMLQLCWorkspace QString("Workspace")
 
 class DetachedContext : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    DetachedContext() {}
+    DetachedContext(QWidget *parent) : QMainWindow(parent) {}
 
 protected slots:
     void closeEvent(QCloseEvent *ev)
@@ -126,7 +126,7 @@ public:
 
 private slots:
     void slotDocModified(bool state);
-    void slotUniversesWritten(int idx, const QByteArray& ua);
+    void slotUniverseWritten(quint32 idx, const QByteArray& ua);
 
 private:
     void initDoc();

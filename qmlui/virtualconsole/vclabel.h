@@ -22,18 +22,18 @@
 
 #include "vcwidget.h"
 
-#define KXMLQLCVCLabel "Label"
+#define KXMLQLCVCLabel QString("Label")
 
 class VCLabel : public VCWidget
 {
     Q_OBJECT
-    
+
     /*********************************************************************
      * Initialization
      *********************************************************************/
 
 public:
-    VCLabel(Doc* doc = NULL, QObject *parent = 0);
+    VCLabel(Doc* doc = nullptr, QObject *parent = nullptr);
     virtual ~VCLabel();
 
     /** @reimp */
@@ -44,14 +44,13 @@ public:
 
     /** @reimp */
     void render(QQuickView *view, QQuickItem *parent);
-    
+
     /** @reimp */
     VCWidget *createCopy(VCWidget *parent);
 
     /*********************************************************************
      * Load & Save
      *********************************************************************/
-
 public:
     /** @reimp */
     bool loadXML(QXmlStreamReader &root);

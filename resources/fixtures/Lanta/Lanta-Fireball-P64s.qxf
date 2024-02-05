@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.4.1</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Administrator</Author>
  </Creator>
  <Manufacturer>Lanta</Manufacturer>
@@ -11,19 +11,19 @@
  <Type>Color Changer</Type>
  <Channel Name="Preset Colours [1C]">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0" Color="#000000">Off</Capability>
-  <Capability Min="1" Max="22" Color="#ff0000">Red</Capability>
-  <Capability Min="23" Max="45" Color="#00ff00">Green</Capability>
-  <Capability Min="46" Max="68" Color="#0000ff">Blue</Capability>
-  <Capability Min="69" Max="91" Color="#00ffff">Cyan</Capability>
-  <Capability Min="92" Max="114" Color="#ffff00">Yellow</Capability>
-  <Capability Min="115" Max="137" Color="#ff8000">Orange</Capability>
-  <Capability Min="138" Max="160" Color="#ffc0ff">Pink</Capability>
-  <Capability Min="161" Max="183" Color="#800080">Purple</Capability>
-  <Capability Min="184" Max="206" Color="#0000c0">Dark Blue</Capability>
-  <Capability Min="207" Max="229" Color="#c0ffc0">Light Green</Capability>
-  <Capability Min="230" Max="252" Color="#ffffff">White</Capability>
-  <Capability Min="253" Max="255" Color="#ffffc0">Warm White</Capability>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#000000">Off</Capability>
+  <Capability Min="1" Max="22" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="23" Max="45" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="46" Max="68" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="69" Max="91" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="92" Max="114" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="115" Max="137" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
+  <Capability Min="138" Max="160" Preset="ColorMacro" Res1="#ffc0ff">Pink</Capability>
+  <Capability Min="161" Max="183" Preset="ColorMacro" Res1="#800080">Purple</Capability>
+  <Capability Min="184" Max="206" Preset="ColorMacro" Res1="#0000c0">Dark Blue</Capability>
+  <Capability Min="207" Max="229" Preset="ColorMacro" Res1="#c0ffc0">Light Green</Capability>
+  <Capability Min="230" Max="252" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="253" Max="255" Preset="ColorMacro" Res1="#ffffc0">Warm White</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
@@ -31,8 +31,8 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
-  <Capability Min="10" Max="255">Strobe [Slow - Fast]</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe [Slow - Fast]</Capability>
  </Channel>
  <Channel Name="Preset Colours [6C]">
   <Group Byte="0">Colour</Group>
@@ -110,11 +110,11 @@
   <Channel Number="4">Strobe</Channel>
   <Channel Number="5">Effects</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="290" Height="10" Weight="1.6" Depth="295"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.6" Width="290" Height="10" Depth="295"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

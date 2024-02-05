@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.6 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Massimo Callegari</Author>
  </Creator>
  <Manufacturer>Equinox</Manufacturer>
@@ -43,16 +43,16 @@
  <Channel Name="Colour control">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0">No function</Capability>
-  <Capability Min="1" Max="1" Color="#ff0000">Red</Capability>
-  <Capability Min="2" Max="2" Color="#00ff00">Green</Capability>
-  <Capability Min="3" Max="3" Color="#0000ff">Blue</Capability>
-  <Capability Min="4" Max="4" Color="#ffffff">White</Capability>
-  <Capability Min="5" Max="5" Color="#ff0000" Color2="#00ff00">Red+Green</Capability>
-  <Capability Min="6" Max="6" Color="#ff0000" Color2="#0000ff">Red+Blue</Capability>
-  <Capability Min="7" Max="7" Color="#ff0000" Color2="#ffffff">Red+White</Capability>
-  <Capability Min="8" Max="8" Color="#00ff00" Color2="#0000ff">Green+Blue</Capability>
-  <Capability Min="9" Max="9" Color="#00ff00" Color2="#ffffff">Green+White</Capability>
-  <Capability Min="10" Max="10" Color="#0000ff" Color2="#ffffff">Blue+White</Capability>
+  <Capability Min="1" Max="1" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="2" Max="2" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="3" Max="3" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="4" Max="4" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="5" Max="5" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="6" Max="6" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="7" Max="7" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="8" Max="8" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="9" Max="9" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="10" Max="10" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue+White</Capability>
   <Capability Min="11" Max="11">R+G+B</Capability>
   <Capability Min="12" Max="12">R+G+W</Capability>
   <Capability Min="13" Max="13">R+B+W</Capability>
@@ -73,16 +73,16 @@
  <Channel Name="Colour control 1">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7">No function</Capability>
-  <Capability Min="8" Max="24" Color="#ff0000">Red</Capability>
-  <Capability Min="25" Max="41" Color="#00ff00">Green</Capability>
-  <Capability Min="42" Max="57" Color="#0000ff">Blue</Capability>
-  <Capability Min="58" Max="74" Color="#ffffff">White</Capability>
-  <Capability Min="75" Max="90" Color="#ff0000" Color2="#00ff00">Red+Green</Capability>
-  <Capability Min="91" Max="107" Color="#ff0000" Color2="#0000ff">Red+Blue</Capability>
-  <Capability Min="108" Max="123" Color="#ff0000" Color2="#ffffff">Red+White</Capability>
-  <Capability Min="124" Max="140" Color="#00ff00" Color2="#0000ff">Green+Blue</Capability>
-  <Capability Min="141" Max="156" Color="#00ff00" Color2="#ffffff">Green+White</Capability>
-  <Capability Min="157" Max="173" Color="#0000ff" Color2="#ffffff">Blue+White</Capability>
+  <Capability Min="8" Max="24" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="25" Max="41" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="42" Max="57" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="58" Max="74" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="75" Max="90" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="91" Max="107" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="108" Max="123" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="124" Max="140" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="141" Max="156" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="157" Max="173" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue+White</Capability>
   <Capability Min="174" Max="189">R+G+B</Capability>
   <Capability Min="190" Max="206">R+G+W</Capability>
   <Capability Min="207" Max="222">R+B+W</Capability>
@@ -95,16 +95,16 @@
  <Channel Name="Colour control 2">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7">No function</Capability>
-  <Capability Min="8" Max="24" Color="#ff0000">Red</Capability>
-  <Capability Min="25" Max="41" Color="#00ff00">Green</Capability>
-  <Capability Min="42" Max="57" Color="#0000ff">Blue</Capability>
-  <Capability Min="58" Max="74" Color="#ffffff">White</Capability>
-  <Capability Min="75" Max="90" Color="#ff0000" Color2="#00ff00">Red+Green</Capability>
-  <Capability Min="91" Max="107" Color="#ff0000" Color2="#0000ff">Red+Blue</Capability>
-  <Capability Min="108" Max="123" Color="#ff0000" Color2="#ffffff">Red+White</Capability>
-  <Capability Min="124" Max="140" Color="#00ff00" Color2="#0000ff">Green+Blue</Capability>
-  <Capability Min="141" Max="156" Color="#00ff00" Color2="#ffffff">Green+White</Capability>
-  <Capability Min="157" Max="173" Color="#0000ff" Color2="#ffffff">Blue+White</Capability>
+  <Capability Min="8" Max="24" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="25" Max="41" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="42" Max="57" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="58" Max="74" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="75" Max="90" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="91" Max="107" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="108" Max="123" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="124" Max="140" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="141" Max="156" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="157" Max="173" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue+White</Capability>
   <Capability Min="174" Max="189">R+G+B</Capability>
   <Capability Min="190" Max="206">R+G+W</Capability>
   <Capability Min="207" Max="222">R+B+W</Capability>
@@ -117,16 +117,16 @@
  <Channel Name="Colour control 3">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7">No function</Capability>
-  <Capability Min="8" Max="24" Color="#ff0000">Red</Capability>
-  <Capability Min="25" Max="41" Color="#00ff00">Green</Capability>
-  <Capability Min="42" Max="57" Color="#0000ff">Blue</Capability>
-  <Capability Min="58" Max="74" Color="#ffffff">White</Capability>
-  <Capability Min="75" Max="90" Color="#ff0000" Color2="#00ff00">Red+Green</Capability>
-  <Capability Min="91" Max="107" Color="#ff0000" Color2="#0000ff">Red+Blue</Capability>
-  <Capability Min="108" Max="123" Color="#ff0000" Color2="#ffffff">Red+White</Capability>
-  <Capability Min="124" Max="140" Color="#00ff00" Color2="#0000ff">Green+Blue</Capability>
-  <Capability Min="141" Max="156" Color="#00ff00" Color2="#ffffff">Green+White</Capability>
-  <Capability Min="157" Max="173" Color="#0000ff" Color2="#ffffff">Blue+White</Capability>
+  <Capability Min="8" Max="24" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="25" Max="41" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="42" Max="57" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="58" Max="74" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="75" Max="90" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="91" Max="107" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="108" Max="123" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="124" Max="140" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="141" Max="156" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="157" Max="173" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue+White</Capability>
   <Capability Min="174" Max="189">R+G+B</Capability>
   <Capability Min="190" Max="206">R+G+W</Capability>
   <Capability Min="207" Max="222">R+B+W</Capability>
@@ -139,16 +139,16 @@
  <Channel Name="Colour control 4">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7">No function</Capability>
-  <Capability Min="8" Max="24" Color="#ff0000">Red</Capability>
-  <Capability Min="25" Max="41" Color="#00ff00">Green</Capability>
-  <Capability Min="42" Max="57" Color="#0000ff">Blue</Capability>
-  <Capability Min="58" Max="74" Color="#ffffff">White</Capability>
-  <Capability Min="75" Max="90" Color="#ff0000" Color2="#00ff00">Red+Green</Capability>
-  <Capability Min="91" Max="107" Color="#ff0000" Color2="#0000ff">Red+Blue</Capability>
-  <Capability Min="108" Max="123" Color="#ff0000" Color2="#ffffff">Red+White</Capability>
-  <Capability Min="124" Max="140" Color="#00ff00" Color2="#0000ff">Green+Blue</Capability>
-  <Capability Min="141" Max="156" Color="#00ff00" Color2="#ffffff">Green+White</Capability>
-  <Capability Min="157" Max="173" Color="#0000ff" Color2="#ffffff">Blue+White</Capability>
+  <Capability Min="8" Max="24" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="25" Max="41" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="42" Max="57" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="58" Max="74" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="75" Max="90" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="91" Max="107" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="108" Max="123" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="124" Max="140" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="141" Max="156" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="157" Max="173" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue+White</Capability>
   <Capability Min="174" Max="189">R+G+B</Capability>
   <Capability Min="190" Max="206">R+G+W</Capability>
   <Capability Min="207" Max="222">R+B+W</Capability>
@@ -161,16 +161,16 @@
  <Channel Name="Colour control 5">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7">No function</Capability>
-  <Capability Min="8" Max="24" Color="#ff0000">Red</Capability>
-  <Capability Min="25" Max="41" Color="#00ff00">Green</Capability>
-  <Capability Min="42" Max="57" Color="#0000ff">Blue</Capability>
-  <Capability Min="58" Max="74" Color="#ffffff">White</Capability>
-  <Capability Min="75" Max="90" Color="#ff0000" Color2="#00ff00">Red+Green</Capability>
-  <Capability Min="91" Max="107" Color="#ff0000" Color2="#0000ff">Red+Blue</Capability>
-  <Capability Min="108" Max="123" Color="#ff0000" Color2="#ffffff">Red+White</Capability>
-  <Capability Min="124" Max="140" Color="#00ff00" Color2="#0000ff">Green+Blue</Capability>
-  <Capability Min="141" Max="156" Color="#00ff00" Color2="#ffffff">Green+White</Capability>
-  <Capability Min="157" Max="173" Color="#0000ff" Color2="#ffffff">Blue+White</Capability>
+  <Capability Min="8" Max="24" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="25" Max="41" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="42" Max="57" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="58" Max="74" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="75" Max="90" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="91" Max="107" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="108" Max="123" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="124" Max="140" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="141" Max="156" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="157" Max="173" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue+White</Capability>
   <Capability Min="174" Max="189">R+G+B</Capability>
   <Capability Min="190" Max="206">R+G+W</Capability>
   <Capability Min="207" Max="222">R+B+W</Capability>
@@ -183,16 +183,16 @@
  <Channel Name="Colour control 6">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7">No function</Capability>
-  <Capability Min="8" Max="24" Color="#ff0000">Red</Capability>
-  <Capability Min="25" Max="41" Color="#00ff00">Green</Capability>
-  <Capability Min="42" Max="57" Color="#0000ff">Blue</Capability>
-  <Capability Min="58" Max="74" Color="#ffffff">White</Capability>
-  <Capability Min="75" Max="90" Color="#ff0000" Color2="#00ff00">Red+Green</Capability>
-  <Capability Min="91" Max="107" Color="#ff0000" Color2="#0000ff">Red+Blue</Capability>
-  <Capability Min="108" Max="123" Color="#ff0000" Color2="#ffffff">Red+White</Capability>
-  <Capability Min="124" Max="140" Color="#00ff00" Color2="#0000ff">Green+Blue</Capability>
-  <Capability Min="141" Max="156" Color="#00ff00" Color2="#ffffff">Green+White</Capability>
-  <Capability Min="157" Max="173" Color="#0000ff" Color2="#ffffff">Blue+White</Capability>
+  <Capability Min="8" Max="24" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="25" Max="41" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="42" Max="57" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="58" Max="74" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="75" Max="90" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="91" Max="107" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="108" Max="123" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="124" Max="140" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="141" Max="156" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="157" Max="173" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue+White</Capability>
   <Capability Min="174" Max="189">R+G+B</Capability>
   <Capability Min="190" Max="206">R+G+W</Capability>
   <Capability Min="207" Max="222">R+B+W</Capability>
@@ -202,9 +202,9 @@
  <Channel Name="Reset / Sound Active">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="199">No function</Capability>
-  <Capability Min="200" Max="209">Reset</Capability>
-  <Capability Min="210" Max="240">No function</Capability>
-  <Capability Min="241" Max="255">Sound active</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Reset</Capability>
+  <Capability Min="210" Max="240" >No function</Capability>
+  <Capability Min="241" Max="255" Preset="SilentModeOff">Sound active</Capability>
  </Channel>
  <Mode Name="1 Channel">
   <Channel Number="0">Show mode</Channel>
@@ -367,11 +367,12 @@
    <Channel>28</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="8.9" Width="400" Height="270" Depth="260"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="360" TiltMax="270"/>
-   <Technical PowerConsumption="125" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="8.9" Width="400" Height="270" Depth="260"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="360" TiltMax="270"/>
+  <Layout Width="3" Height="2"/>
+  <Technical PowerConsumption="125" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

@@ -3,7 +3,6 @@
   CustomScrollBar.qml
 
   Copyright (c) Massimo Callegari
-  Copied from StackOverflow and customized
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -33,7 +32,7 @@ ScrollBar
     background:
         Rectangle
         {
-            color: UISettings.bgControl
+            color: UISettings.bgMedium
             border.width: 1
             border.color: UISettings.bgMedium
         }
@@ -43,7 +42,14 @@ ScrollBar
         {
             implicitWidth: UISettings.scrollBarWidth
             implicitHeight: UISettings.scrollBarWidth
-            radius: UISettings.scrollBarWidth / 4
-            color: (control.pressed ? UISettings.highlight : UISettings.bgMedium)
+            color: (control.pressed ? UISettings.highlight : UISettings.bgControl)
+
+            Rectangle
+            {
+                anchors.centerIn: parent
+                width: control.orientation == Qt.Vertical ? parent.width * 0.8 : 5
+                height: control.orientation == Qt.Vertical ? 5 : parent.height * 0.8
+                color: UISettings.bgLight
+            }
         }
 }

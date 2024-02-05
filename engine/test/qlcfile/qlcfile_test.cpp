@@ -58,7 +58,9 @@ void QLCFile_Test::getXMLHeader()
     QXmlStreamWriter doc(&buffer);
     doc.setAutoFormatting(true);
     doc.setAutoFormattingIndent(1);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     doc.setCodec("UTF-8");
+#endif
 
     QLCFile::writeXMLHeader(&doc, "DocumentTag", "TestUnit");
     doc.writeEndDocument();
@@ -79,11 +81,11 @@ void QLCFile_Test::getXMLHeader()
          appversion = false;
 
     QVERIFY(xmlReader.hasError() == false);
-    QVERIFY(xmlReader.dtdName() == "DocumentTag");
+    QVERIFY(xmlReader.dtdName().toString() == "DocumentTag");
 
     QVERIFY(xmlReader.readNextStartElement() == true);
 
-    QVERIFY(xmlReader.name() == "DocumentTag");
+    QVERIFY(xmlReader.name().toString() == "DocumentTag");
 
     while (xmlReader.readNextStartElement())
     {
@@ -151,6 +153,14 @@ void QLCFile_Test::errorString()
 void QLCFile_Test::version()
 {
     QVERIFY(QLCFile::getQtRuntimeVersion() > 40000);
+}
+
+void QLCFile_Test::windowManager()
+{
+    QVERIFY(QLCFile::hasWindowManager() == true);
+
+    QLCFile::setHasWindowManager(false);
+    QVERIFY(QLCFile::hasWindowManager() == false);
 }
 
 QTEST_APPLESS_MAIN(QLCFile_Test)

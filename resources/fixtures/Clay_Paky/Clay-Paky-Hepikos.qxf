@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 1</Version>
+  <Author>Massimo Callegari</Author>
+ </Creator>
+ <Manufacturer>Clay Paky</Manufacturer>
+ <Model>Hepikos</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="Colour Wheel 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">Empty position</Capability>
+  <Capability Min="8" Max="15" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffdb7c">Empty + CTO 3200K</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffdb7c">CTO 3200K</Capability>
+  <Capability Min="24" Max="31" Preset="ColorDoubleMacro" Res1="#ffdb7c" Res2="#fcc53d">CTO 3200K + CTO 2500K</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#fcc53d">CTO 2500K</Capability>
+  <Capability Min="40" Max="47" Preset="ColorDoubleMacro" Res1="#fcc53d" Res2="#fab21f">CTO 2500K + Light Orange</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#fab21f">Light Orange</Capability>
+  <Capability Min="56" Max="63" Preset="ColorDoubleMacro" Res1="#fab21f" Res2="#fdeadb">Light Orange + Half Minus Green</Capability>
+  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#fdeadb">Half Minus Green</Capability>
+  <Capability Min="72" Max="79" Preset="ColorDoubleMacro" Res1="#fdeadb" Res2="#d3eefd">Half Minus Green + CTB</Capability>
+  <Capability Min="80" Max="87" Preset="ColorMacro" Res1="#d3eefd">CTB</Capability>
+  <Capability Min="88" Max="95" Preset="ColorDoubleMacro" Res1="#d3eefd" Res2="#004f9f">CTB + Brilliant Blue</Capability>
+  <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#004f9f">Brilliant Blue</Capability>
+  <Capability Min="104" Max="111" Preset="ColorDoubleMacro" Res1="#004f9f" Res2="#00ff00">Brilliant Blue + Green</Capability>
+  <Capability Min="112" Max="119" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="120" Max="126" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#213a8f">Green + Blue Wood</Capability>
+  <Capability Min="127" Max="127" Preset="ColorMacro" Res1="#213a8f">Blue Wood</Capability>
+  <Capability Min="128" Max="255" Preset="RotationClockwiseSlowToFast">Continuous CW colour wheel rotation (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Colour Wheel 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">Empty position</Capability>
+  <Capability Min="8" Max="15" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">Empty + Red</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="24" Max="31" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#006400">Red + Dark Green</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#006400">Dark Green</Capability>
+  <Capability Min="40" Max="47" Preset="ColorDoubleMacro" Res1="#006400" Res2="#ffa500">Dark Green + Orange</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="56" Max="63" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#ffb6c1">Orange + Light Pink</Capability>
+  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#ffb6c1">Light Pink</Capability>
+  <Capability Min="72" Max="79" Preset="ColorDoubleMacro" Res1="#ffb6c1" Res2="#e6e6fa">Light Pink + Lavender</Capability>
+  <Capability Min="80" Max="87" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="88" Max="95" Preset="ColorDoubleMacro" Res1="#e6e6fa" Res2="#7fffd4">Lavender + Aquamarine</Capability>
+  <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#7fffd4">Aquamarine</Capability>
+  <Capability Min="104" Max="111" Preset="ColorDoubleMacro" Res1="#7fffd4" Res2="#8b0000">Aquamarine + Dark Red</Capability>
+  <Capability Min="112" Max="119" Preset="ColorMacro" Res1="#8b0000">Dark Red</Capability>
+  <Capability Min="120" Max="126" Preset="ColorDoubleMacro" Res1="#8b0000" Res2="#00008b">Dark Red + Dark Blue</Capability>
+  <Capability Min="127" Max="127" Preset="ColorMacro" Res1="#00008b">Dark Blue</Capability>
+  <Capability Min="128" Max="255" Preset="RotationClockwiseSlowToFast">Continuous CW colour wheel rotation (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Stopper / Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterClose">Light Off</Capability>
+  <Capability Min="4" Max="103" Preset="StrobeSlowToFast">Strobe at linearly variable frequency from low to high</Capability>
+  <Capability Min="104" Max="107" Preset="ShutterOpen">Light On</Capability>
+  <Capability Min="108" Max="207" Preset="PulseSlowToFast">Pulsation at linearly variable speed from slow to fast</Capability>
+  <Capability Min="208" Max="212" Preset="ShutterOpen">Light On</Capability>
+  <Capability Min="213" Max="225" Preset="StrobeRandomSlowToFast">Random strobe, low frequency</Capability>
+  <Capability Min="226" Max="238" Preset="StrobeRandomSlowToFast">Random strobe, medium frequency</Capability>
+  <Capability Min="239" Max="251" Preset="StrobeRandomSlowToFast">Random strobe, high frequency</Capability>
+  <Capability Min="252" Max="255" Preset="ShutterOpen">Light On</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer Fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Iris">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="131">Iris linearly open from minimum to maximum aperture</Capability>
+  <Capability Min="132" Max="171">Iris pulsation from slow to fast speed</Capability>
+  <Capability Min="172" Max="211">Iris pulsation from slow to fast speed with fast opening</Capability>
+  <Capability Min="212" Max="251">Iris pulsation from slow to fast speed with fast closing</Capability>
+  <Capability Min="252" Max="255">Maximum aperture</Capability>
+ </Channel>
+ <Channel Name="Prism Insertion">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="127" Preset="PrismEffectOff">Prism out</Capability>
+  <Capability Min="128" Max="255" Preset="PrismEffectOn" Res1="4">4-Facet prism into the light beam</Capability>
+ </Channel>
+ <Channel Name="Prism Rotation">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="21" Preset="RotationIndexed">Prism indexing: 0° to 90° range</Capability>
+  <Capability Min="22" Max="42" Preset="RotationIndexed">Prism indexing: 90° to 180° range</Capability>
+  <Capability Min="43" Max="63" Preset="RotationIndexed">Prism indexing: 180° to 270° range</Capability>
+  <Capability Min="64" Max="84" Preset="RotationIndexed">Prism indexing: 270° to 360° range</Capability>
+  <Capability Min="85" Max="105" Preset="RotationIndexed">Prism indexing: 360° to 450° range</Capability>
+  <Capability Min="106" Max="127" Preset="RotationIndexed">Prism indexing: 450° to 540° range</Capability>
+  <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Continuous CW prism rotation (fast to slow)</Capability>
+  <Capability Min="191" Max="192" Preset="RotationStop">Stop rotation</Capability>
+  <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">Continuous CCW prism rotation (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Frost">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Frost moves linearly into the light beam, from no frost to wide diffusion</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="74">Frost insertion</Capability>
+  <Capability Min="75" Max="255">Zoom (narrow to wide)</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="11">Unused range</Capability>
+  <Capability Min="12" Max="24">Pan/Tilt speed -&gt; FAST (Default setting)</Capability>
+  <Capability Min="25" Max="37">Pan/Tilt speed -&gt; NORMAL</Capability>
+  <Capability Min="38" Max="50">Dimmer curve -&gt; CONVENTIONAL</Capability>
+  <Capability Min="51" Max="62">Dimmer curve -&gt; LINEAR (Default setting)</Capability>
+  <Capability Min="63" Max="75">CMY FULL RANGE (Default setting)</Capability>
+  <Capability Min="76" Max="88">CMY LIMITED RANGE</Capability>
+  <Capability Min="89" Max="101">CMY SHORTCUT ON (Default setting)</Capability>
+  <Capability Min="102" Max="113">CMY SHORTCUT OFF</Capability>
+  <Capability Min="114" Max="126">Zoom Linear (Default setting)</Capability>
+  <Capability Min="127" Max="139">Zoom Snap</Capability>
+  <Capability Min="140" Max="255">Unused range</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="25">Unused range</Capability>
+  <Capability Min="26" Max="76" Preset="ResetEffects">Effect reset</Capability>
+  <Capability Min="77" Max="127" Preset="ResetPanTilt">Pan/Tilt reset</Capability>
+  <Capability Min="128" Max="255" Preset="ResetAll">Complete reset</Capability>
+ </Channel>
+ <Channel Name="Lamp Control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="25">Unused range</Capability>
+  <Capability Min="26" Max="100">Lamp OFF</Capability>
+  <Capability Min="101" Max="255">Lamp ON</Capability>
+ </Channel>
+ <Channel Name="Pan-Tilt Time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Pan – Fine pan – Tilt – Fine tilt</Capability>
+ </Channel>
+ <Channel Name="Colour Time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Cyan – Magenta – Yellow – Colour wheel 1 – Colour wheel 2</Capability>
+ </Channel>
+ <Channel Name="Beam Time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Dimmer – Frost – Prism – Zoom</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Channel Number="0">Cyan</Channel>
+  <Channel Number="1">Magenta</Channel>
+  <Channel Number="2">Yellow</Channel>
+  <Channel Number="3">Colour Wheel 1</Channel>
+  <Channel Number="4">Colour Wheel 2</Channel>
+  <Channel Number="5">Stopper / Strobe</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Dimmer Fine</Channel>
+  <Channel Number="8">Iris</Channel>
+  <Channel Number="9">Prism Insertion</Channel>
+  <Channel Number="10">Prism Rotation</Channel>
+  <Channel Number="11">Frost</Channel>
+  <Channel Number="12">Zoom</Channel>
+  <Channel Number="13">Pan</Channel>
+  <Channel Number="14">Pan Fine</Channel>
+  <Channel Number="15">Tilt</Channel>
+  <Channel Number="16">Tilt Fine</Channel>
+  <Channel Number="17">Function</Channel>
+  <Channel Number="18">Reset</Channel>
+  <Channel Number="19">Lamp Control</Channel>
+ </Mode>
+ <Mode Name="Vector">
+  <Channel Number="0">Cyan</Channel>
+  <Channel Number="1">Magenta</Channel>
+  <Channel Number="2">Yellow</Channel>
+  <Channel Number="3">Colour Wheel 1</Channel>
+  <Channel Number="4">Colour Wheel 2</Channel>
+  <Channel Number="5">Stopper / Strobe</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Dimmer Fine</Channel>
+  <Channel Number="8">Iris</Channel>
+  <Channel Number="9">Prism Insertion</Channel>
+  <Channel Number="10">Prism Rotation</Channel>
+  <Channel Number="11">Frost</Channel>
+  <Channel Number="12">Zoom</Channel>
+  <Channel Number="13">Pan</Channel>
+  <Channel Number="14">Pan Fine</Channel>
+  <Channel Number="15">Tilt</Channel>
+  <Channel Number="16">Tilt Fine</Channel>
+  <Channel Number="17">Function</Channel>
+  <Channel Number="18">Reset</Channel>
+  <Channel Number="19">Lamp Control</Channel>
+  <Channel Number="20">Pan-Tilt Time</Channel>
+  <Channel Number="21">Colour Time</Channel>
+  <Channel Number="22">Beam Time</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="OSRAM Sirius HRI 440W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="28.9" Width="420" Height="628" Depth="380"/>
+  <Lens Name="Other" DegreesMin="5" DegreesMax="40"/>
+  <Focus Type="Head" PanMax="540" TiltMax="244"/>
+  <Technical PowerConsumption="550" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

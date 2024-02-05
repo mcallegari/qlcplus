@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.6 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Attilio Bongiorni</Author>
  </Creator>
  <Manufacturer>Griven</Manufacturer>
@@ -17,34 +17,34 @@
  </Channel>
  <Channel Name="Blackout Dimmer Strobo">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="5">Blackout Closed</Capability>
+  <Capability Min="0" Max="5" Preset="ShutterClose">Blackout Closed</Capability>
   <Capability Min="6" Max="127">Blackout 0-100%</Capability>
-  <Capability Min="128" Max="159">Blackout Open</Capability>
-  <Capability Min="160" Max="239">Strobe 0-100%</Capability>
-  <Capability Min="240" Max="255">Strobe Open</Capability>
+  <Capability Min="128" Max="159" Preset="ShutterOpen">Blackout Open</Capability>
+  <Capability Min="160" Max="239" Preset="StrobeSlowToFast">Strobe 0-100%</Capability>
+  <Capability Min="240" Max="255" Preset="ShutterOpen">Strobe Open</Capability>
  </Channel>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10" Color="#ffffff">White</Capability>
-  <Capability Min="11" Max="20" Color="#ffff00">Yellow</Capability>
-  <Capability Min="21" Max="30" Color="#ffa303">Orange</Capability>
-  <Capability Min="31" Max="40" Color="#ff0000">Red</Capability>
-  <Capability Min="41" Max="50" Color="#aa007f">Violet</Capability>
-  <Capability Min="51" Max="60" Color="#aa007f">Magenta</Capability>
-  <Capability Min="61" Max="70" Color="#00aa00">Green</Capability>
-  <Capability Min="71" Max="80" Color="#0055ff">Cyan</Capability>
-  <Capability Min="81" Max="90" Color="#00007f">Blue</Capability>
-  <Capability Min="91" Max="100" Color="#ffffff">White</Capability>
-  <Capability Min="101" Max="160" Res="Others/rainbow.png">Rotation Clockwise</Capability>
-  <Capability Min="161" Max="170" Color="#ffffff">White</Capability>
-  <Capability Min="171" Max="230" Res="Others/rainbow.png">Rotation Anticlockwise</Capability>
-  <Capability Min="231" Max="255" Color="#ffffff">White</Capability>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="11" Max="20" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="21" Max="30" Preset="ColorMacro" Res1="#ffa303">Orange</Capability>
+  <Capability Min="31" Max="40" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="41" Max="50" Preset="ColorMacro" Res1="#aa007f">Violet</Capability>
+  <Capability Min="51" Max="60" Preset="ColorMacro" Res1="#aa007f">Magenta</Capability>
+  <Capability Min="61" Max="70" Preset="ColorMacro" Res1="#00aa00">Green</Capability>
+  <Capability Min="71" Max="80" Preset="ColorMacro" Res1="#0055ff">Cyan</Capability>
+  <Capability Min="81" Max="90" Preset="ColorMacro" Res1="#00007f">Blue</Capability>
+  <Capability Min="91" Max="100" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="101" Max="160" Preset="GoboMacro" Res1="Others/rainbow.png">Rotation Clockwise</Capability>
+  <Capability Min="161" Max="170" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="171" Max="230" Preset="GoboMacro" Res1="Others/rainbow.png">Rotation Anticlockwise</Capability>
+  <Capability Min="231" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
  </Channel>
  <Channel Name="Gobo Wheel">
   <Group Byte="1">Gobo</Group>
   <Capability Min="0" Max="24">Gobo 1</Capability>
   <Capability Min="25" Max="48">Gobo 2</Capability>
-  <Capability Min="49" Max="72" Color="#ffffff">Gobo 3</Capability>
+  <Capability Min="49" Max="72" Preset="ColorMacro" Res1="#ffffff">Gobo 3</Capability>
   <Capability Min="73" Max="96">Gobo 4</Capability>
   <Capability Min="97" Max="120">Gobo 5</Capability>
   <Capability Min="121" Max="180">Clockwise rotation</Capability>
@@ -62,7 +62,7 @@
  <Channel Name="Gobo Indexing">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7">No effect</Capability>
-  <Capability Min="8" Max="248">0-360" Gobo indexing</Capability>
+  <Capability Min="8" Max="248">0-360&quot; Gobo indexing</Capability>
   <Capability Min="249" Max="255">No effect</Capability>
  </Channel>
  <Channel Name="Effects Selection">
@@ -93,9 +93,9 @@
  <Channel Name="Zap effects">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="10">No effect</Capability>
-  <Capability Min="11" Max="80">ZAP effect with opening and closing at the same speed </Capability>
+  <Capability Min="11" Max="80">ZAP effect with opening and closing at the same speed</Capability>
   <Capability Min="81" Max="90">No effect</Capability>
-  <Capability Min="91" Max="160"> ZAP effect with slow closing and quick opening </Capability>
+  <Capability Min="91" Max="160">ZAP effect with slow closing and quick opening</Capability>
   <Capability Min="161" Max="170">No effect</Capability>
   <Capability Min="171" Max="240">ZAP effect with quick closing and slow opening</Capability>
   <Capability Min="241" Max="255">No effect</Capability>
@@ -124,10 +124,10 @@
   <Channel Number="10">Shake effects</Channel>
  </Mode>
  <Physical>
-   <Bulb Type="MSR 575W" Lumens="46000" ColourTemperature="6000"/>
-   <Dimensions Weight="35" Width="473" Height="598" Depth="660"/>
-   <Lens Name="PC" DegreesMin="10" DegreesMax="16"/>
-   <Focus Type="Mirror" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="635" DmxConnector="3-pin"/>
+  <Bulb Type="MSR 575W" Lumens="46000" ColourTemperature="6000"/>
+  <Dimensions Weight="35" Width="473" Height="598" Depth="660"/>
+  <Lens Name="PC" DegreesMin="10" DegreesMax="16"/>
+  <Focus Type="Mirror" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="635" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

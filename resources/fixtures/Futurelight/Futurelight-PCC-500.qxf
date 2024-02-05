@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Justin Hornsby</Author>
+ </Creator>
+ <Manufacturer>Futurelight</Manufacturer>
+ <Model>PCC-500</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Colour Wheel 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="21" Preset="ColorMacro" Res1="#ffffff">Open / White</Capability>
+  <Capability Min="22" Max="43" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="44" Max="65" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="66" Max="87" Preset="ColorMacro" Res1="#ebaa4c">Salmon</Capability>
+  <Capability Min="88" Max="109" Preset="ColorMacro" Res1="#eace2c">Dark Yellow</Capability>
+  <Capability Min="110" Max="127" Preset="ColorMacro" Res1="#c9ebf5">Light Blue</Capability>
+  <Capability Min="128" Max="187">Forwards Rainbow Effect (fast to slow)</Capability>
+  <Capability Min="188" Max="193" Preset="RotationStop">No Rotation</Capability>
+  <Capability Min="194" Max="255">Backwards Rainbow Effect (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Colour Wheel 2 (linear fade)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="42" Preset="ColorMacro" Res1="#ffffff">Open / White</Capability>
+  <Capability Min="43" Max="85" Preset="ColorMacro" Res1="#a74b96">Purple</Capability>
+  <Capability Min="86" Max="128" Preset="ColorMacro" Res1="#30be6a">Green</Capability>
+  <Capability Min="129" Max="171" Preset="ColorMacro" Res1="#ebeb3d">Light Yellow</Capability>
+  <Capability Min="172" Max="214" Preset="ColorMacro" Res1="#f7b6be">Pink</Capability>
+  <Capability Min="215" Max="255" Preset="ColorMacro" Res1="#000000">Black Out</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="31">Normal colour change. Search position via shortest distance</Capability>
+  <Capability Min="32" Max="63">Colour change at every position. Search position via shortest distance</Capability>
+  <Capability Min="64" Max="79">No function</Capability>
+  <Capability Min="80" Max="95">Reset</Capability>
+  <Capability Min="96" Max="111">Program 1</Capability>
+  <Capability Min="112" Max="127">Program 2</Capability>
+  <Capability Min="128" Max="143">Program 3</Capability>
+  <Capability Min="144" Max="159">Program 4</Capability>
+  <Capability Min="160" Max="175">Program 5</Capability>
+  <Capability Min="176" Max="191">Program 6</Capability>
+  <Capability Min="192" Max="207">Program 7</Capability>
+  <Capability Min="208" Max="223">Program 8</Capability>
+  <Capability Min="224" Max="239">Program 9</Capability>
+  <Capability Min="240" Max="255">Program 10</Capability>
+ </Channel>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Colour Wheel 1</Channel>
+  <Channel Number="1">Colour Wheel 2 (linear fade)</Channel>
+  <Channel Number="2">Dimmer</Channel>
+  <Channel Number="3">Program</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="HPL 575W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="12" Width="325" Height="350" Depth="425"/>
+  <Lens Name="Fresnel" DegreesMin="23" DegreesMax="23"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="585" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

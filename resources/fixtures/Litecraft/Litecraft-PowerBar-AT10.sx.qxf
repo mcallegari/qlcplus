@@ -3,12 +3,12 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Thorben / Fredje</Author>
  </Creator>
  <Manufacturer>Litecraft</Manufacturer>
  <Model>PowerBar AT10.sx</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Beams)</Type>
  <Channel Name="Colour Macro">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="13">No macro</Capability>
@@ -21,8 +21,8 @@
  <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="13">No Strobe</Capability>
-  <Capability Min="14" Max="255">Strobe 16 speeds</Capability>
+  <Capability Min="0" Max="13" Preset="ShutterOpen">No Strobe</Capability>
+  <Capability Min="14" Max="255" Preset="StrobeFrequency">Strobe 16 speeds</Capability>
  </Channel>
  <Channel Name="Mode selection">
   <Group Byte="0">Effect</Group>
@@ -325,6 +325,7 @@
   <Dimensions Weight="7.8" Width="1000" Height="210" Depth="210"/>
   <Lens Name="Other" DegreesMin="20" DegreesMax="50"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="18" Height="1"/>
   <Technical PowerConsumption="138" DmxConnector="5-pin"/>
  </Physical>
 </FixtureDefinition>

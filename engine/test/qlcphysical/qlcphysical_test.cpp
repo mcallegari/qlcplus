@@ -117,6 +117,14 @@ void QLCPhysical_Test::focusTiltMax()
     p.setFocusTiltMax(270);
     QVERIFY(p.focusTiltMax() == 270);
 }
+
+void QLCPhysical_Test::layoutSize()
+{
+    QVERIFY(p.layoutSize() == QSize(1, 1));
+    p.setLayoutSize(QSize(6, 3));
+    QVERIFY(p.layoutSize() == QSize(6, 3));
+}
+
 void QLCPhysical_Test::powerConsumption()
 {
     QVERIFY(p.powerConsumption() == 0);
@@ -285,11 +293,11 @@ void QLCPhysical_Test::save()
     buffer.open(QIODevice::WriteOnly | QIODevice::Text);
     QXmlStreamWriter xmlWriter(&buffer);
 
-    bool bulb = false, dim = false, lens = false, focus = false, technical = false;
+    bool bulb = false, dim = false, lens = false, focus = false, layout = false, technical = false;
 
     QVERIFY(p.saveXML(&xmlWriter) == true);
 
-    qDebug() << buffer.buffer();
+    //qDebug() << buffer.buffer();
     xmlWriter.setDevice(NULL);
     buffer.close();
 
@@ -297,44 +305,50 @@ void QLCPhysical_Test::save()
     QXmlStreamReader xmlReader(&buffer);
 
     xmlReader.readNextStartElement();
-    QVERIFY(xmlReader.name() == "Physical");
+    QVERIFY(xmlReader.name().toString() == "Physical");
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Bulb")
+        if (xmlReader.name().toString() == "Bulb")
         {
             bulb = true;
-            QVERIFY(xmlReader.attributes().value("Type") == "LED");
-            QVERIFY(xmlReader.attributes().value("Lumens") == "18000");
-            QVERIFY(xmlReader.attributes().value("ColourTemperature") == "6500");
+            QVERIFY(xmlReader.attributes().value("Type").toString() == "LED");
+            QVERIFY(xmlReader.attributes().value("Lumens").toString() == "18000");
+            QVERIFY(xmlReader.attributes().value("ColourTemperature").toString() == "6500");
         }
-        else if (xmlReader.name() == "Dimensions")
+        else if (xmlReader.name().toString() == "Dimensions")
         {
             dim = true;
-            QVERIFY(xmlReader.attributes().value("Width") == "530");
-            QVERIFY(xmlReader.attributes().value("Depth") == "260");
-            QVERIFY(xmlReader.attributes().value("Height") == "320");
+            QVERIFY(xmlReader.attributes().value("Width").toString() == "530");
+            QVERIFY(xmlReader.attributes().value("Depth").toString() == "260");
+            QVERIFY(xmlReader.attributes().value("Height").toString() == "320");
             QCOMPARE(xmlReader.attributes().value("Weight").toString().toDouble(), 39.4);
         }
-        else if (xmlReader.name() == "Lens")
+        else if (xmlReader.name().toString() == "Lens")
         {
             lens = true;
-            QVERIFY(xmlReader.attributes().value("Name") == "Fresnel");
-            QVERIFY(xmlReader.attributes().value("DegreesMin") == "8");
-            QVERIFY(xmlReader.attributes().value("DegreesMax") == "38");
+            QVERIFY(xmlReader.attributes().value("Name").toString() == "Fresnel");
+            QVERIFY(xmlReader.attributes().value("DegreesMin").toString() == "8");
+            QVERIFY(xmlReader.attributes().value("DegreesMax").toString() == "38");
         }
-        else if (xmlReader.name() == "Focus")
+        else if (xmlReader.name().toString() == "Focus")
         {
             focus = true;
-            QVERIFY(xmlReader.attributes().value("Type") == "Head");
-            QVERIFY(xmlReader.attributes().value("PanMax") == "520");
-            QVERIFY(xmlReader.attributes().value("TiltMax") == "270");
+            QVERIFY(xmlReader.attributes().value("Type").toString() == "Head");
+            QVERIFY(xmlReader.attributes().value("PanMax").toString() == "520");
+            QVERIFY(xmlReader.attributes().value("TiltMax").toString() == "270");
         }
-        else if (xmlReader.name() == "Technical")
+        else if (xmlReader.name().toString() == "Layout")
+        {
+            layout = true;
+            QVERIFY(xmlReader.attributes().value("Width").toString() == "6");
+            QVERIFY(xmlReader.attributes().value("Height").toString() == "3");
+        }
+        else if (xmlReader.name().toString() == "Technical")
         {
             technical = true;
-            QVERIFY(xmlReader.attributes().value("PowerConsumption") == "250");
-            QVERIFY(xmlReader.attributes().value("DmxConnector") == "5-pin");
+            QVERIFY(xmlReader.attributes().value("PowerConsumption").toString() == "250");
+            QVERIFY(xmlReader.attributes().value("DmxConnector").toString() == "5-pin");
         }
         else
         {
@@ -348,6 +362,7 @@ void QLCPhysical_Test::save()
     QVERIFY(dim == true);
     QVERIFY(lens == true);
     QVERIFY(focus == true);
+    QVERIFY(layout == true);
     QVERIFY(technical == true);
 }
 

@@ -1,120 +1,205 @@
-<HTML>
-<HEAD>
-<TITLE>Q Light Controller Plus - RGBScript Development Tool</TITLE>
-<!-- Include your script on the following line, replace "oppositerows.js" -->
-<SCRIPT SRC="opposite.js"></SCRIPT>
-<SCRIPT SRC="devtool.js"></SCRIPT>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Q Light Controller Plus - RGBScript Development Tool</title>
+<style>
+  .readonly {
+    background-color: lightgrey;
+    border: solid 0px;
+  }
+  body {
+    background: #373737;
+    color: #f9f8f0;
+    font-family: Arial;
+  }
+  h2 {
+    background: #aaa;
+    color: #333;
+    padding: 10px;
+  }
+  .box {
+    padding: 10px;
+    display: inline-block;
+    vertical-align:top;
+    min-width: 200px;
+  }
+  input[type=button] {
+    background-color: #7497b6;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    margin: 4px 2px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  input[type=button]:hover {
+    background-color: #8db8dd;
+  }
+</style>
+<script type="text/javascript" src="devtool/devtool.js"></script>
+</head>
+<body onLoad="devtool.loadAlgoFile()">
 
-<SCRIPT type="text/javascript">
+<h1>Q Light Controller Plus - RGB Script Development Tool</h1>
 
-var testTimer;
-
-function startTest()
-{
-    var speed = document.getElementById("speed").value;
-    testTimer = window.setInterval("nextStep()", speed);
-}
-
-function stopTest()
-{
-    window.clearInterval(testTimer)
-}
-
-</SCRIPT>
-
-</HEAD>
-<BODY onLoad="init()" style="font-family:Arial;">
-
-<H1>Q Light Controller Plus - RGB Script Development Tool</H1>
-
-<H2>Instructions</H2>
-<P>
-To use this tool, you must first edit this file and include your script file to it and
-make sure your favourite web browser supports JavaScript. Then, to make your algorithm
-object accessible to this tool, you must create a global variable within your algorithm
-file called <B>testAlgo</B>, which then actually contains your algorithm object i.e. the
-object that provides rgbMap() and rgbMapStepCount() functions. Now you're ready to load
+<div>
+<h2>Instructions</h2>
+<p>
+To use this tool, you must first set the filename of the script you intend to test/debug
+(including the .js extension) in the 'filename' field. Then hit 'Reload' to load it.
+To make your algorithm object accessible to this tool, you must create a global variable
+within your algorithm file called <b>testAlgo</b>, which then actually contains your algorithm
+object i.e. the object that provides rgbMap() and rgbMapStepCount() functions. Now you're ready to load
 this file with your browser and see your first results.
-</P>
+</p>
 
-<P>
-If you see what you expect to see in the <B>Algorithm Properties</B> section below,
+<p>
+If you see what you expect to see in the <b>Algorithm Properties</b> section below,
 you'll know your script has been evaluated successfully. Next, put some values to the
-<B>Width</B> and <B>Height</B> boxes in the <B>Grid Size</B> section, click <B>Update</B>
-and see if your script calculates the <B>rgbMapStepCount(width, height)</B> result
-correctly. If everything is A-OK, you should already see the first frame of your RGB map
-at the bottom of the page. Clicking <B>Next</B> and <B>Previous</B> allows you to skip
-between steps.
-</P>
+<b>Width</b> and <b>Height</b> boxes in the <b>Grid Size</b> section and see if your
+script calculates the <b>rgbMapStepCount(width, height)</b> result correctly.
+If everything is OK, you should already see your RGB script running through frames.
+To inspect individual frames, stop the script and hit the previous and next buttons.
+</p>
 
-<P>
+<b>
 For troubleshooting purposes, I would suggest using some good JavaScript development
-tools for your browser. Mozilla FireFox has a built-in Web Console behind <I>Tools -> Web
-Developer</I> which is very useful in hunting errors within the JavaScript code.
-</P>
+tools for your browser. Mozilla FireFox has a built-in Web Console behind <i>Tools -> Web
+Developer</i> which is very useful in hunting errors within the JavaScript code.
+Google Chrome has one as well, that you can access with F12 or with <i>More Tools -> Developer Tools (Ctrl+Shift+I)</i>
+</b>
+</div>
 
-<H2>Algorithm Properties</H2>
-<FORM>
-<TABLE>
- <TR>
-  <TD>apiVersion</TD>
-  <TD><INPUT TYPE="text" READONLY="readonly" size="3" ID="apiversion"/></TD>
- </TR>
- <TR>
-  <TD>name</TD>
-  <TD><INPUT TYPE="text" READONLY="readonly" ID="name"/></TD>
- </TR>
- <TR>
-  <TD>author</TD>
-  <TD><INPUT TYPE="text" READONLY="readonly" ID="author"/></TD>
- </TR>
-</TABLE>
-</FORM>
+<div class="box">
+<h2>Algorithm Specification</h2>
+<form>
+<table id="definitions">
+ <tr>
+  <td>filename</td>
+  <td><input type="text" size="12" id="filename" value="Enter filename here." onChange="devtool.onFilenameUpdated(this.value)"/></td>
+ </tr>
+ <tr>
+  <td>apiVersion</td>
+  <td><input type="text" readonly="readonly" class="readonly" size="3" id="apiversion"/></td>
+ </tr>
+ <tr>
+  <td>name</td>
+  <td><input type="text" readonly="readonly" class="readonly" id="name"/></td>
+ </tr>
+ <tr>
+  <td>author</td>
+  <td><input type="text" readonly="readonly" class="readonly" id="author"/></td>
+ </tr>
+ <tr>
+  <td>acceptColors</td>
+  <td><input type="text" readonly="readonly" class="readonly" id="acceptColors"/></td>
+ </tr>
+ <tr>
+  <td colspan="2">
+   <input type="button" value="Reload" onClick="location.reload()"/>
+  </td>
+ </tr>
+</table>
+</form>
 
-<H2>Grid Size</H2>
-<FORM>
-Width: <INPUT TYPE="text" ID="width" SIZE="3" onChange="updateStepCount()"/>
-Height: <INPUT TYPE="text" ID="height" SIZE="3" onChange="updateStepCount()"/>
-<INPUT TYPE="button" value="Update" onClick="updateStepCount()"/><BR>
-</FORM>
+<h2>Grid Size</h2>
+<form>
+<table>
+ <tr>
+  <td>Width</td>
+  <td><input type="number" min="1" id="gridwidth" value="15" size="4" style="width: 8em;" required onChange="devtool.onGridSizeUpdated()"/></td>
+ </tr>
+ <tr>
+  <td>Height</td>
+  <td><input type="number" min="1" id="gridheight" value="15" size="4" style="width: 8em;" required onChange="devtool.onGridSizeUpdated()"/></td>
+ </tr>
+ <tr>
+  <td>Size</td>
+  <td><input type="number" min="1" max="20" id="gridsize" value="20" size="4" style="width: 8em;" required onChange="devtool.onGridSizeUpdated()"/></td>
+ </tr>
+</table>
+</form>
 
-<H2>Pixel colors</H2>
-<FORM>
-Primary color:<INPUT TYPE="text" ID="color1" value="FF0000" SIZE="6" onChange="updateStepCount()"/>
-Secondary color:<INPUT TYPE="checkbox" ID="bicolor" onClick="writeCurrentStep()"/>
-</FORM>
+</div>
 
-<H2>Algorithm Functions</H2>
-<FORM>
-<TABLE>
- <TR>
-  <TD>rgbMapStepCount(width, height)</TD>
-  <TD><INPUT TYPE="text" READONLY="readonly" size="3" ID="stepcount"/></TD>
- </TR>
-</TABLE>
-</FORM> 
+<div class="box">
+<form id="pixelColorChooser">
+<h2>Pixel colors</h2>
+<table>
+ <tr>
+  <td>Primary color (rrggbb)</td>
+  <td><input type="text" id="primaryColorText" value="FF0000" pattern="[0-9A-Fa-f]{6}" size="6" onInput="devtool.onColorTextChange()" required /></td>
+  <td><input type="color" id="primaryColorPicker" value="#FF0000" onInput="devtool.onPrimaryColorPickerChange()" required /></td>
+ </tr>
+ <tr id="secondaryColorChooser">
+  <td>Secondary color (rrggbb, leave empty to disable)</td>
+  <td><input type="text" id="secondaryColorText" value="" pattern="[0-9A-Fa-f]{6}" size="6" onInput="devtool.onColorTextChange()"/></td>
+  <td><input type="color" id="secondaryColorPicker" value="#000000" onInput="devtool.onSecondaryColorPickerChange()" required /></td>
+ </tr>
+</table>
+</form>
 
-<TABLE>
- <TR>
-  <TD>rgbMap(width, height, rgb, <B>step</B>)</TD>
-  <TD>
-   <FORM>
-   <INPUT TYPE="button" value="Previous" onClick="previousStep()"/>
-   <INPUT TYPE="text" ID="currentstep" size="3" onChange="writeCurrentStep()"/>
-   <INPUT TYPE="button" value="Next" onClick="nextStep()"/><BR>
-   <INPUT TYPE="button" value="Start test" onClick="startTest()"/>
-   <INPUT TYPE="button" value="Stop test" onClick="stopTest()"/>
-   Speed (ms):<INPUT TYPE="text" ID="speed" size="5" value="500"/>
-   </FORM>
-  </TD>
- </TR>
-</TABLE>
+<h2>Algorithm Properties</h2>
+<form>
+<table id="properties">
+</table>
+</form>
 
-<TABLE ID="map">
-</TABLE>
+<h2>Algorithm Functions</h2>
+<form>
+<table>
+ <tr>
+  <td>rgbMapStepCount(width, height)</td>
+  <td><input TYPE="text" readonly="readonly" class="readonly" size="3" id="stepCount"/></td>
+ </tr>
+</table>
+</form>
 
-<HR/>
-This file is licensed under the Apache 2.0 license. Copyright &copy; Heikki Junnila.
+<form>
+<table>
+ <tr>
+  <td>rgbMap(width, height, rgb, <b>step</b>)
+   <input type="number" min="0" id="currentStep" onChange="devtool.writeCurrentStep()"/>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <span>
+    <input type="button" value="Previous" onClick="devtool.previousStep()"/>
+    <input type="button" value="Next" onClick="devtool.nextStep()"/>
+   </span>
+   <span>
+    <input type="button" value="Start test" onClick="devtool.startTest(1)"/>
+    <input type="button" value="Stop test" onClick="devtool.stopTest()"/>
+    <input type="button" value="Start reversed" onClick="devtool.startTest(-1)"/>
+   </span>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   Alternate: <input type="checkbox" id="alternate" onChange="devtool.onAlternateChanged()"/>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   Speed (ms): <input type="number" min="1" id="speed" value="500" size="4" style="width: 8em;" onChange="devtool.onSpeedChanged()"/>
+  </td>
+ </tr>
+</table>
+</form>
 
-</BODY>
-</HTML>
+</div>
+
+<div class="box">
+<h2>Preview</h2>
+<table id="map">
+</table>
+</div>
+
+<hr/>
+This file is licensed under the Apache 2.0 license. Copyright &copy; Heikki Junnila, Massimo Callegari, APIv2 integration: Hans-Jürgen Tappe.
+
+</body>
+</html>

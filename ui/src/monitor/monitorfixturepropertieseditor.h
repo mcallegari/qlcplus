@@ -35,7 +35,7 @@ class MonitorProperties;
 class MonitorFixturePropertiesEditor : public QWidget, public Ui_MonitorFixturePropertiesEditor
 {
     Q_OBJECT
-    
+
 public:
     MonitorFixturePropertiesEditor(MonitorFixtureItem *fxItem, MonitorGraphicsView *gfxView,
                                    MonitorProperties *props, QWidget *parent = 0);

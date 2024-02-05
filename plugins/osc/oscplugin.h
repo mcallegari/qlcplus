@@ -30,7 +30,7 @@
 #include "qlcioplugin.h"
 #include "osccontroller.h"
 
-typedef struct
+typedef struct _oio
 {
     QString IPAddress;
     OSCController* controller;
@@ -42,14 +42,13 @@ typedef struct
 #define OSC_OUTPUTIP "outputIP"
 #define OSC_OUTPUTPORT "outputPort"
 
+#define SETTINGS_IFACE_WAIT_TIME "OSCPlugin/ifacewait"
 
 class OSCPlugin : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)
-#if QT_VERSION > QT_VERSION_CHECK(5, 0, 0)
     Q_PLUGIN_METADATA(IID QLCIOPlugin_iid)
-#endif
 
     /*********************************************************************
      * Initialization
@@ -71,7 +70,7 @@ public:
     QString pluginInfo();
 
 private:
-    bool requestLine(quint32 line, int retries);
+    bool requestLine(quint32 line);
 
     /*********************************************************************
      * Outputs
@@ -90,7 +89,7 @@ public:
     QString outputInfo(quint32 output);
 
     /** @reimp */
-    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
 
     /*************************************************************************
      * Inputs
@@ -130,6 +129,9 @@ public:
 private:
     /** Map of the OSC plugin Input/Output lines */
     QList<OSCIO>m_IOmapping;
+
+    /** Time to wait (in seconds) for interfaces to be ready */
+    int m_ifaceWaitTime;
 };
 
 #endif

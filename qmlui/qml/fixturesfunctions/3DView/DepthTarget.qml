@@ -22,34 +22,30 @@ import Qt3D.Render 2.0
 
 RenderTarget
 {
-    property alias position: positionAttachment
-
-    objectName: "depthTarget"
+    property Texture2D positionTex:
+        Texture2D
+        {
+            width: 1024
+            height: 1024
+            // We use RGBA32F here instead of a more fitting format because
+            // OpenGL vendors might not support other formats
+            format: Texture.RGBA32F
+            generateMipMaps: false
+            magnificationFilter: Texture.Nearest
+            minificationFilter: Texture.Nearest
+            wrapMode
+            {
+                x: WrapMode.ClampToEdge
+                y: WrapMode.ClampToEdge
+            }
+        }
 
     attachments: [
 
         RenderTargetOutput
         {
-            objectName: "position"
             attachmentPoint: RenderTargetOutput.Color0
-            texture:
-                Texture2D
-                {
-                    id: positionAttachment
-                    width: 1024
-                    height: 1024
-                    // We use RGBA32F here instead of a more fitting format because
-                    // OpenGL vendors might not support other formats
-                    format: Texture.RGBA32F
-                    generateMipMaps: false
-                    magnificationFilter: Texture.Nearest
-                    minificationFilter: Texture.Nearest
-                    wrapMode
-                    {
-                        x: WrapMode.ClampToEdge
-                        y: WrapMode.ClampToEdge
-                    }
-                }
+            texture: positionTex
         }
     ] // outputs
 }

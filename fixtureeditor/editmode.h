@@ -77,6 +77,9 @@ protected:
     QLCChannel *currentChannel();
     void selectChannel(const QString &name);
 
+private slots:
+    void setActsOnChannel(int index);
+
     /************************************************************************
      * Heads page
      ************************************************************************/

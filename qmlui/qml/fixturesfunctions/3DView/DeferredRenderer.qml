@@ -25,7 +25,7 @@ import QtQuick 2.0
 RenderSettings
 {
     pickingSettings.pickMethod: PickingSettings.TrianglePicking
-    renderPolicy: RenderSettings.OnDemand
+    //renderPolicy: RenderSettings.OnDemand
 
     property alias camera: sceneCameraSelector.camera
     property alias myCameraSelector: sceneCameraSelector
@@ -43,11 +43,7 @@ RenderSettings
             RenderSurfaceSelector
             {
                 FrameGraphNode { id: shadowFrameGraphNode }
-
-                FrameGraphNode
-                {
-                    CameraSelector { id: sceneCameraSelector }
-                }
+                CameraSelector { id: sceneCameraSelector }
             } // RenderSurfaceSelector
         } // Viewport
 }

@@ -27,47 +27,47 @@
 #include "qlcfile.h"
 #include "doc.h"
 
-#define KXMLQLCMonitorDisplay "DisplayMode"
-#define KXMLQLCMonitorChannels "ChannelStyle"
-#define KXMLQLCMonitorValues "ValueStyle"
-#define KXMLQLCMonitorFont "Font"
-#define KXMLQLCMonitorGrid "Grid"
-#define KXMLQLCMonitorGridWidth "Width"
-#define KXMLQLCMonitorGridHeight "Height"
-#define KXMLQLCMonitorGridDepth "Depth"
-#define KXMLQLCMonitorGridUnits "Units"
-#define KXMLQLCMonitorPointOfView "POV"
-#define KXMLQLCMonitorItemID "ID"
-#define KXMLQLCMonitorShowLabels "ShowLabels"
+#define KXMLQLCMonitorDisplay       QString("DisplayMode")
+#define KXMLQLCMonitorChannels      QString("ChannelStyle")
+#define KXMLQLCMonitorValues        QString("ValueStyle")
+#define KXMLQLCMonitorFont          QString("Font")
+#define KXMLQLCMonitorGrid          QString("Grid")
+#define KXMLQLCMonitorGridWidth     QString("Width")
+#define KXMLQLCMonitorGridHeight    QString("Height")
+#define KXMLQLCMonitorGridDepth     QString("Depth")
+#define KXMLQLCMonitorGridUnits     QString("Units")
+#define KXMLQLCMonitorPointOfView   QString("POV")
+#define KXMLQLCMonitorItemID        QString("ID")
+#define KXMLQLCMonitorShowLabels    QString("ShowLabels")
 
-#define KXMLQLCMonitorCommonBackground "Background"
-#define KXMLQLCMonitorCustomBgItem "BackgroundItem"
+#define KXMLQLCMonitorCommonBackground  QString("Background")
+#define KXMLQLCMonitorCustomBgItem      QString("BackgroundItem")
 
-#define KXMLQLCMonitorFixtureItem "FxItem"
-#define KXMLQLCMonitorStageItem "StageItem"
-#define KXMLQLCMonitorMeshItem "MeshItem"
-#define KXMLQLCMonitorItemRes "Res"
+#define KXMLQLCMonitorFixtureItem   QString("FxItem")
+#define KXMLQLCMonitorStageItem     QString("StageItem")
+#define KXMLQLCMonitorMeshItem      QString("MeshItem")
+#define KXMLQLCMonitorItemName      QString("Name")
+#define KXMLQLCMonitorItemRes       QString("Res")
 
-#define KXMLQLCMonitorItemXPosition "XPos"
-#define KXMLQLCMonitorItemYPosition "YPos"
-#define KXMLQLCMonitorItemZPosition "ZPos"
-#define KXMLQLCMonitorItemXRotation "XRot"
-#define KXMLQLCMonitorItemYRotation "YRot"
-#define KXMLQLCMonitorItemZRotation "ZRot"
-#define KXMLQLCMonitorFixtureRotation "Rotation" // LEGACY
-#define KXMLQLCMonitorItemXScale "XScale"
-#define KXMLQLCMonitorItemYScale "YScale"
-#define KXMLQLCMonitorItemZScale "ZScale"
+#define KXMLQLCMonitorItemXPosition     QString("XPos")
+#define KXMLQLCMonitorItemYPosition     QString("YPos")
+#define KXMLQLCMonitorItemZPosition     QString("ZPos")
+#define KXMLQLCMonitorItemXRotation     QString("XRot")
+#define KXMLQLCMonitorItemYRotation     QString("YRot")
+#define KXMLQLCMonitorItemZRotation     QString("ZRot")
+#define KXMLQLCMonitorFixtureRotation   QString("Rotation") // LEGACY
+#define KXMLQLCMonitorItemXScale        QString("XScale")
+#define KXMLQLCMonitorItemYScale        QString("YScale")
+#define KXMLQLCMonitorItemZScale        QString("ZScale")
 
-#define KXMLQLCMonitorFixtureHeadIndex "Head"
-#define KXMLQLCMonitorFixtureLinkedIndex "Linked"
-#define KXMLQLCMonitorFixtureLinkedName "Name"
+#define KXMLQLCMonitorFixtureHeadIndex      QString("Head")
+#define KXMLQLCMonitorFixtureLinkedIndex    QString("Linked")
 
-#define KXMLQLCMonitorFixtureGelColor "GelColor"
+#define KXMLQLCMonitorFixtureGelColor QString("GelColor")
 
-#define KXMLQLCMonitorFixtureHiddenFlag "Hidden"
-#define KXMLQLCMonitorFixtureInvPanFlag "InvertedPan"
-#define KXMLQLCMonitorFixtureInvTiltFlag "InvertedTilt"
+#define KXMLQLCMonitorFixtureHiddenFlag     QString("Hidden")
+#define KXMLQLCMonitorFixtureInvPanFlag     QString("InvertedPan")
+#define KXMLQLCMonitorFixtureInvTiltFlag    QString("InvertedTilt")
 
 #define GRID_DEFAULT_WIDTH  5
 #define GRID_DEFAULT_HEIGHT 3
@@ -298,29 +298,29 @@ QColor MonitorProperties::fixtureGelColor(quint32 fid, quint16 head, quint16 lin
     }
 }
 
-void MonitorProperties::setFixtureResource(quint32 fid, quint16 head, quint16 linked, QString resource)
+void MonitorProperties::setFixtureName(quint32 fid, quint16 head, quint16 linked, QString name)
 {
     if (head == 0 && linked == 0)
     {
-        m_fixtureItems[fid].m_baseItem.m_resource = resource;
+        m_fixtureItems[fid].m_baseItem.m_name = name;
     }
     else
     {
         quint32 subID = fixtureSubID(head, linked);
-        m_fixtureItems[fid].m_subItems[subID].m_resource = resource;
+        m_fixtureItems[fid].m_subItems[subID].m_name = name;
     }
 }
 
-QString MonitorProperties::fixtureResource(quint32 fid, quint16 head, quint16 linked) const
+QString MonitorProperties::fixtureName(quint32 fid, quint16 head, quint16 linked) const
 {
     if (head == 0 && linked == 0)
     {
-        return m_fixtureItems[fid].m_baseItem.m_resource;
+        return m_fixtureItems[fid].m_baseItem.m_name;
     }
     else
     {
         quint32 subID = fixtureSubID(head, linked);
-        return m_fixtureItems[fid].m_subItems[subID].m_resource;
+        return m_fixtureItems[fid].m_subItems[subID].m_name;
     }
 }
 
@@ -398,6 +398,22 @@ QList<quint32> MonitorProperties::fixtureIDList(quint32 fid) const
 QList<quint32> MonitorProperties::genericItemsID()
 {
     return m_genericItems.keys();
+}
+
+QString MonitorProperties::itemName(quint32 itemID)
+{
+    if (m_genericItems[itemID].m_name.isEmpty())
+    {
+        QFileInfo rName(m_genericItems[itemID].m_resource);
+        return rName.baseName();
+    }
+
+    return m_genericItems[itemID].m_name;
+}
+
+void MonitorProperties::setItemName(quint32 itemID, QString name)
+{
+    m_genericItems[itemID].m_name = name;
 }
 
 QString MonitorProperties::itemResource(quint32 itemID)
@@ -566,8 +582,8 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
             {
                 linkedIndex = tAttrs.value(KXMLQLCMonitorFixtureLinkedIndex).toString().toUInt();
 
-                if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureLinkedName))
-                    item.m_resource = tAttrs.value(KXMLQLCMonitorFixtureLinkedName).toString();
+                if (tAttrs.hasAttribute(KXMLQLCMonitorItemName))
+                    item.m_name = tAttrs.value(KXMLQLCMonitorItemName).toString();
             }
 
             if (tAttrs.hasAttribute(KXMLQLCMonitorItemXPosition))
@@ -654,6 +670,9 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
             if (tAttrs.hasAttribute(KXMLQLCMonitorItemRes))
                 item.m_resource = tAttrs.value(KXMLQLCMonitorItemRes).toString();
 
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemName))
+                item.m_name = tAttrs.value(KXMLQLCMonitorItemName).toString();
+
             m_genericItems[itemID] = item;
             root.skipCurrentElement();
         }
@@ -688,7 +707,7 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
         doc->writeTextElement(KXMLQLCMonitorCommonBackground,
                               mainDocument->normalizeComponentPath(commonBackgroundImage()));
     }
-    else if(customBackgroundList().isEmpty() == false)
+    else if (customBackgroundList().isEmpty() == false)
     {
         QMapIterator <quint32, QString> it(customBackgroundList());
         while (it.hasNext() == true)
@@ -716,6 +735,10 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
     doc->writeTextElement(KXMLQLCMonitorStageItem, QString::number(stageType()));
 #endif
 
+    // ***********************************************************
+    // *                write fixtures information               *
+    // ***********************************************************
+
     foreach (quint32 fid, fixtureItemsID())
     {
         foreach (quint32 subID, fixtureIDList(fid))
@@ -733,8 +756,8 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
             if (linkedIndex)
             {
                 doc->writeAttribute(KXMLQLCMonitorFixtureLinkedIndex, QString::number(linkedIndex));
-                if (item.m_resource.isEmpty() == false)
-                    doc->writeAttribute(KXMLQLCMonitorFixtureLinkedName, item.m_resource);
+                if (item.m_name.isEmpty() == false)
+                    doc->writeAttribute(KXMLQLCMonitorItemName, item.m_name);
             }
 
             // write flags, if present
@@ -774,8 +797,11 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
     QString meshDirAbsPath = dir.absolutePath() + QDir::separator();
 #endif
 
+    // ***********************************************************
+    // *             write generic items information             *
+    // ***********************************************************
     QMapIterator<quint32, PreviewItem> it(m_genericItems);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         quint32 itemID = it.key();
@@ -810,8 +836,9 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
             doc->writeAttribute(KXMLQLCMonitorItemZScale, QString::number(item.m_scale.z()));
 
         if (item.m_resource.isEmpty() == false)
-        {            
-            // perform normalization depending on the mesh location (mesh folder, project path, absolute path)
+        {
+            // perform normalization depending on the mesh location
+            // (mesh folder, project path, absolute path)
             QFileInfo res(item.m_resource);
 
             if (res.isRelative())
@@ -830,6 +857,9 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
                 doc->writeAttribute(KXMLQLCMonitorItemRes, mainDocument->normalizeComponentPath(item.m_resource));
             }
         }
+
+        if (item.m_name.isEmpty() == false)
+            doc->writeAttribute(KXMLQLCMonitorItemName, item.m_name);
 
         doc->writeEndElement();
     }

@@ -21,9 +21,11 @@
 #define CHASEREDITOR_H
 
 #include "functioneditor.h"
+#include "scenevalue.h"
 
 class Chaser;
 class ListModel;
+class ChaserStep;
 
 class ChaserEditor : public FunctionEditor
 {
@@ -46,7 +48,11 @@ public:
     /** Returns if the Chaser being edited is a Sequence */
     bool isSequence() const;
 
+    /** Static method to update the whole steps list */
     static void updateStepsList(Doc *doc, Chaser *chaser, ListModel *stepsList);
+
+    /** Static method to update the data of a specific step */
+    static void updateStepInListModel(Doc *doc, Chaser *chaser, ListModel *stepsList, ChaserStep *step, int index);
 
     /** Return the Chaser step list formatted as explained in m_stepsList */
     QVariant stepsList() const;
@@ -70,14 +76,39 @@ public:
      */
     Q_INVOKABLE bool addStep(int insertIndex = -1);
 
+    /**
+     * Move the selected steps at @insertIndex position
+     *
+     * @param indicesList A list of step indices to move
+     * @param insertIndex a specific insertion index (-1 means append)
+     *
+     * @return true if successful, otherwise false
+     */
+    Q_INVOKABLE bool moveSteps(QVariantList indicesList, int insertIndex = -1);
+
+    /** Duplicate the selected steps at the end of the existing steps
+     *
+     *  @param indicesList A list of step indices to move
+     *
+     *  @return true if successful, otherwise false
+     */
+    Q_INVOKABLE bool duplicateSteps(QVariantList indicesList);
+
+    /** @reimp */
+    void deleteItems(QVariantList list);
+
+    void setSequenceStepValue(SceneValue& scv);
+    void removeFixtures(QVariantList list);
+
+    /** Get/Set the Chaser playback start index */
     int playbackIndex() const;
     void setPlaybackIndex(int playbackIndex);
 
     /** @reimp */
     void setPreviewEnabled(bool enable);
 
-    /** @reimp */
-    void deleteItems(QVariantList list);
+    Q_INVOKABLE void gotoPreviousStep();
+    Q_INVOKABLE void gotoNextStep();
 
 protected:
     /** Set the steps $param to $value.
@@ -85,9 +116,13 @@ protected:
      *  otherwise it will be applied to all the steps */
     void setSelectedValue(Function::PropType type, QString param, uint value, bool selectedOnly = true);
 
+    static QVariantMap stepDataMap(Doc *doc, Chaser *chaser, ChaserStep *step);
+
+    static void addStepToListModel(Doc *doc, Chaser *chaser, ListModel *stepsList, ChaserStep *step);
+
 protected slots:
     /** Slot invoked during Chaser playback when the step index changes */
-    void slotStepChanged(int index);
+    void slotStepIndexChanged(int index);
 
 signals:
     void stepsListChanged();
@@ -96,11 +131,13 @@ signals:
 private:
     /** Reference of the Chaser currently being edited */
     Chaser *m_chaser;
+
     /** Reference to a ListModel representing the steps list for the QML UI,
      *  organized as follows:
      *  funcID | isSelected | fadeIn | fadeOut | hold | duration | note
      */
     ListModel *m_stepsList;
+
     /** Index of the current step being played. -1 when stopped */
     int m_playbackIndex;
 

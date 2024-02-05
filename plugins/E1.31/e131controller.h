@@ -21,14 +21,12 @@
 #define E131CONTROLLER_H
 
 #if defined(ANDROID)
-#include <QNetworkInterface>
 #include <QScopedPointer>
 #include <QSharedPointer>
+#endif
+#include <QNetworkInterface>
 #include <QHostAddress>
 #include <QUdpSocket>
-#else
-#include <QtNetwork>
-#endif
 #include <QMutex>
 #include <QTimer>
 
@@ -36,7 +34,7 @@
 
 #define E131_DEFAULT_PORT     5568
 
-typedef struct
+typedef struct _uinfo
 {
     bool inputMulticast;
     QHostAddress inputMcastAddress;
@@ -67,7 +65,7 @@ public:
 
     enum TransmissionMode { Full, Partial };
 
-    explicit E131Controller(QNetworkInterface const& interface,
+    explicit E131Controller(QNetworkInterface const& iface,
                             QNetworkAddressEntry const& address,
                             quint32 line, QObject *parent = 0);
 
@@ -89,7 +87,7 @@ public:
     void setInputMulticast(quint32 universe, bool multicast);
 
     /** Set input as multicast for the givin QLC+ universe */
-    void setInputMCastAddress(quint32 universe, QString address);
+    void setInputMCastAddress(quint32 universe, QString address, bool legacy);
 
     /** Set a specific port for the given QLC+ universe */
     void setInputUCastPort(quint32 universe, quint16 port);
@@ -101,7 +99,7 @@ public:
     void setOutputMulticast(quint32 universe, bool multicast);
 
     /** Set a specific multicast IP address for the given QLC+ universe */
-    void setOutputMCastAddress(quint32 universe, QString address);
+    void setOutputMCastAddress(quint32 universe, QString address, bool legacy);
 
     /** Set a specific unicast IP address for the given QLC+ universe */
     void setOutputUCastAddress(quint32 universe, QString address);

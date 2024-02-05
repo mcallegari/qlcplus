@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Henrik Bauer</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED B-40 Beam</Model>
+ <Type>Flower</Type>
+ <Channel Name="Pan/Rotation">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="9" Preset="RotationStop">No rotation</Capability>
+  <Capability Min="10" Max="127" Preset="RotationCounterClockwiseFastToSlow">Backwards PAN-rotation with decreasing speed</Capability>
+  <Capability Min="128" Max="137" Preset="RotationStop">No rotation</Capability>
+  <Capability Min="138" Max="255" Preset="RotationClockwiseSlowToFast">Forwards PAN-rotation with increasing speed</Capability>
+ </Channel>
+ <Channel Name="LED colours">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="31" Preset="ColorMacro" Res1="#000000">No function</Capability>
+  <Capability Min="32" Max="63" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="64" Max="95" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="96" Max="127" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="128" Max="159" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + Green</Capability>
+  <Capability Min="160" Max="191" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red + Blue</Capability>
+  <Capability Min="192" Max="223" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green + Blue</Capability>
+  <Capability Min="224" Max="255">Red + Green + Blue</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe-effect with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Internal program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="249">Internal program</Capability>
+  <Capability Min="250" Max="255">Sound mode</Capability>
+ </Channel>
+ <Mode Name="4 channel">
+  <Channel Number="0">Pan/Rotation</Channel>
+  <Channel Number="1">LED colours</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Internal program</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="320" Height="380" Depth="320"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="360" TiltMax="0"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -27,22 +27,22 @@
 
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
-#include "qlccapability.h"
 #include "qlcchannel.h"
-#include "qlcconfig.h"
 #include "qlcfile.h"
 #include "fixture.h"
 
 QLCFixtureDef::QLCFixtureDef()
     : m_isLoaded(false)
-    , m_relativePath(QString())
+    , m_isUser(false)
+    , m_fileAbsolutePath(QString())
     , m_type(Dimmer)
 {
 }
 
 QLCFixtureDef::QLCFixtureDef(const QLCFixtureDef* fixtureDef)
     : m_isLoaded(false)
-    , m_relativePath(QString())
+    , m_isUser(false)
+    , m_fileAbsolutePath(QString())
     , m_type(Dimmer)
 {
     if (fixtureDef != NULL)
@@ -92,12 +92,12 @@ QLCFixtureDef& QLCFixtureDef::operator=(const QLCFixtureDef& fixture)
 
 QString QLCFixtureDef::definitionSourceFile() const
 {
-    return m_relativePath;
+    return m_fileAbsolutePath;
 }
 
 void QLCFixtureDef::setDefinitionSourceFile(const QString &absPath)
 {
-    m_relativePath = absPath;
+    m_fileAbsolutePath = absPath;
     m_isLoaded = false;
 }
 
@@ -153,7 +153,8 @@ QLCFixtureDef::FixtureType QLCFixtureDef::stringToType(const QString& type)
     else if (type == "Scanner") return Scanner;
     else if (type == "Smoke") return Smoke;
     else if (type == "Strobe") return Strobe;
-    else if (type == "LED Bar") return LEDBar;
+    else if (type == "LED Bar (Beams)") return LEDBarBeams;
+    else if (type == "LED Bar (Pixels)") return LEDBarPixels;
 
     return Other;
 }
@@ -173,7 +174,8 @@ QString QLCFixtureDef::typeToString(QLCFixtureDef::FixtureType type)
         case Scanner: return "Scanner";
         case Smoke: return "Smoke";
         case Strobe: return "Strobe";
-        case LEDBar: return "LED Bar";
+        case LEDBarBeams: return "LED Bar (Beams)";
+        case LEDBarPixels: return "LED Bar (Pixels)";
         default: return "Other";
     }
 }
@@ -200,20 +202,36 @@ void QLCFixtureDef::checkLoaded(QString mapPath)
         m_isLoaded = true;
         return;
     }
-    if (m_relativePath.isEmpty())
+    if (m_fileAbsolutePath.isEmpty())
     {
-        qWarning() << Q_FUNC_INFO << "Empty file path provided ! This is a trouble.";
+        qWarning() << Q_FUNC_INFO << "Empty file path provided! This is a trouble.";
         return;
     }
 
-    QString absPath = QString("%1%2%3").arg(mapPath).arg(QDir::separator()).arg(m_relativePath);
-    qDebug() << "Loading fixture definition now... " << absPath;
-    bool error = loadXML(absPath);
+    // check if path is relative (from map) or absolute (user def)
+    QDir defPath(m_fileAbsolutePath);
+    if (defPath.isRelative())
+        m_fileAbsolutePath = QString("%1%2%3").arg(mapPath).arg(QDir::separator()).arg(m_fileAbsolutePath);
+
+    qDebug() << "Loading fixture definition now... " << m_fileAbsolutePath;
+    bool error = loadXML(m_fileAbsolutePath);
     if (error == false)
-    {
         m_isLoaded = true;
-        m_relativePath = QString();
-    }
+}
+
+void QLCFixtureDef::setLoaded(bool loaded)
+{
+    m_isLoaded = loaded;
+}
+
+bool QLCFixtureDef::isUser() const
+{
+    return m_isUser;
+}
+
+void QLCFixtureDef::setIsUser(bool flag)
+{
+    m_isUser = flag;
 }
 
 /****************************************************************************
@@ -360,7 +378,9 @@ QFile::FileError QLCFixtureDef::saveXML(const QString& fileName)
     QXmlStreamWriter doc(&file);
     doc.setAutoFormatting(true);
     doc.setAutoFormattingIndent(1);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     doc.setCodec("UTF-8");
+#endif
     QLCFile::writeXMLHeader(&doc, KXMLQLCFixtureDefDocument, author());
 
     doc.writeTextElement(KXMLQLCFixtureDefManufacturer, m_manufacturer);

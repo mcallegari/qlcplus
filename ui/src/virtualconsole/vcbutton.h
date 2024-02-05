@@ -41,24 +41,27 @@ class QEvent;
  * @{
  */
 
-#define KXMLQLCVCButton "Button"
-#define KXMLQLCVCButtonIcon "Icon"
+#define KXMLQLCVCButton     QString("Button")
+#define KXMLQLCVCButtonIcon QString("Icon")
 
-#define KXMLQLCVCButtonFunction "Function"
-#define KXMLQLCVCButtonFunctionID "ID"
+#define KXMLQLCVCButtonFunction     QString("Function")
+#define KXMLQLCVCButtonFunctionID   QString("ID")
 
-#define KXMLQLCVCButtonAction "Action"
-#define KXMLQLCVCButtonActionFlash "Flash"
-#define KXMLQLCVCButtonActionToggle "Toggle"
-#define KXMLQLCVCButtonActionBlackout "Blackout"
-#define KXMLQLCVCButtonActionStopAll "StopAll"
+#define KXMLQLCVCButtonAction           QString("Action")
+#define KXMLQLCVCButtonActionFlash      QString("Flash")
+#define KXMLQLCVCButtonActionToggle     QString("Toggle")
+#define KXMLQLCVCButtonActionBlackout   QString("Blackout")
+#define KXMLQLCVCButtonActionStopAll    QString("StopAll")
 
-#define KXMLQLCVCButtonStopAllFadeTime "FadeOut"
+#define KXMLQLCVCButtonFlashOverride    QString("Override")
+#define KXMLQLCVCButtonFlashForceLTP    QString("ForceLTP")
 
-#define KXMLQLCVCButtonKey "Key"
+#define KXMLQLCVCButtonStopAllFadeTime  QString("FadeOut")
 
-#define KXMLQLCVCButtonIntensity "Intensity"
-#define KXMLQLCVCButtonIntensityAdjust "Adjust"
+#define KXMLQLCVCButtonKey QString("Key")
+
+#define KXMLQLCVCButtonIntensity        QString("Intensity")
+#define KXMLQLCVCButtonIntensityAdjust  QString("Adjust")
 
 class VCButton : public VCWidget
 {
@@ -268,7 +271,7 @@ public:
     static Action stringToAction(const QString& str);
 
     void setStopAllFadeOutTime(int ms);
-    int stopAllFadeTime();
+    int stopAllFadeTime() const;
 
 protected:
     Action m_action;
@@ -306,6 +309,24 @@ protected:
 
 protected slots:
     void slotAttributeChanged(int value);
+
+    /*****************************************************************************
+    * Flash Properties
+    *****************************************************************************/
+public:
+    /** Gets if flashing overrides newer values */
+    bool flashOverrides() const;
+    /** Sets if flashing should override values */
+    void setFlashOverride(bool shouldOverride);
+    /** Gets if flash channels should behave like LTP channels */
+    bool flashForceLTP() const;
+    /** Sets if the flash channels should behave like LTP channels */
+    void setFlashForceLTP(bool forceLTP);
+
+private:
+    bool m_flashOverrides;
+    bool m_flashForceLTP;
+
 
     /*********************************************************************
      * Button press / release handlers

@@ -17,13 +17,16 @@
   limitations under the License.
 */
 
-#include "oscplugin.h"
-#include "configureosc.h"
-
 #include <QSettings>
 #include <QDebug>
 
-#define MAX_INIT_RETRY  10
+#include "oscplugin.h"
+#include "configureosc.h"
+
+bool addressCompare(const OSCIO &v1, const OSCIO &v2)
+{
+    return v1.IPAddress < v2.IPAddress;
+}
 
 OSCPlugin::~OSCPlugin()
 {
@@ -31,9 +34,16 @@ OSCPlugin::~OSCPlugin()
 
 void OSCPlugin::init()
 {
-    foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
+    QSettings settings;
+    QVariant value = settings.value(SETTINGS_IFACE_WAIT_TIME);
+    if (value.isValid() == true)
+        m_ifaceWaitTime = value.toInt();
+    else
+        m_ifaceWaitTime = 0;
+
+    foreach (QNetworkInterface iface, QNetworkInterface::allInterfaces())
     {
-        foreach (QNetworkAddressEntry entry, interface.addressEntries())
+        foreach (QNetworkAddressEntry entry, iface.addressEntries())
         {
             QHostAddress addr = entry.ip();
             if (addr.protocol() != QAbstractSocket::IPv6Protocol)
@@ -43,7 +53,7 @@ void OSCPlugin::init()
                 tmpIO.controller = NULL;
 
                 bool alreadyInList = false;
-                for(int j = 0; j < m_IOmapping.count(); j++)
+                for (int j = 0; j < m_IOmapping.count(); j++)
                 {
                     if (m_IOmapping.at(j).IPAddress == tmpIO.IPAddress)
                     {
@@ -58,6 +68,7 @@ void OSCPlugin::init()
             }
         }
     }
+    std::sort(m_IOmapping.begin(), m_IOmapping.end(), addressCompare);
 }
 
 QString OSCPlugin::name()
@@ -88,16 +99,19 @@ QString OSCPlugin::pluginInfo()
     return str;
 }
 
-bool OSCPlugin::requestLine(quint32 line, int retries)
+bool OSCPlugin::requestLine(quint32 line)
 {
     int retryCount = 0;
 
     while (line >= (quint32)m_IOmapping.length())
     {
         qDebug() << "[OSC] cannot open line" << line << "(available:" << m_IOmapping.length() << ")";
-        Sleep(1000);
-        init();
-        if (retryCount++ == retries)
+        if (m_ifaceWaitTime)
+        {
+            Sleep(1000);
+            init();
+        }
+        if (retryCount++ >= m_ifaceWaitTime)
             return false;
     }
 
@@ -110,15 +124,12 @@ bool OSCPlugin::requestLine(quint32 line, int retries)
 QStringList OSCPlugin::outputs()
 {
     QStringList list;
-    int j = 0;
 
     init();
 
     foreach (OSCIO line, m_IOmapping)
-    {
-        list << QString("%1: %2").arg(j + 1).arg(line.IPAddress);
-        j++;
-    }
+        list << line.IPAddress;
+
     return list;
 }
 
@@ -150,7 +161,7 @@ QString OSCPlugin::outputInfo(quint32 output)
 
 bool OSCPlugin::openOutput(quint32 output, quint32 universe)
 {
-    if (requestLine(output, MAX_INIT_RETRY) == false)
+    if (requestLine(output) == false)
         return false;
 
     qDebug() << "[OSC] Open output with address :" << m_IOmapping.at(output).IPAddress;
@@ -187,8 +198,10 @@ void OSCPlugin::closeOutput(quint32 output, quint32 universe)
     }
 }
 
-void OSCPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void OSCPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
+    Q_UNUSED(dataChanged)
+
     if (output >= (quint32)m_IOmapping.count())
         return;
 
@@ -199,25 +212,22 @@ void OSCPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray
 
 /*************************************************************************
   * Inputs
-  *************************************************************************/  
+  *************************************************************************/
 QStringList OSCPlugin::inputs()
 {
     QStringList list;
-    int j = 0;
 
     init();
 
     foreach (OSCIO line, m_IOmapping)
-    {
-        list << QString("%1: %2").arg(j + 1).arg(line.IPAddress);
-        j++;
-    }
+        list << line.IPAddress;
+
     return list;
 }
 
 bool OSCPlugin::openInput(quint32 input, quint32 universe)
 {
-    if (requestLine(input, MAX_INIT_RETRY) == false)
+    if (requestLine(input) == false)
         return false;
 
     qDebug() << "[OSC] Open input on address :" << m_IOmapping.at(input).IPAddress;
@@ -347,10 +357,3 @@ QList<OSCIO> OSCPlugin::getIOMapping()
 {
     return m_IOmapping;
 }
-
-/*****************************************************************************
- * Plugin export
- ****************************************************************************/
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(OSCPlugin, OSCPlugin)
-#endif

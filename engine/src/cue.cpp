@@ -54,6 +54,20 @@ Cue::~Cue()
 {
 }
 
+Cue &Cue::operator=(const Cue &cue)
+{
+    if (this != &cue)
+    {
+        m_name = cue.name();
+        m_values = cue.values();
+        m_fadeInSpeed = cue.fadeInSpeed();
+        m_fadeOutSpeed = cue.fadeOutSpeed();
+        m_duration = cue.duration();
+    }
+
+    return *this;
+}
+
 /****************************************************************************
  * Name
  ****************************************************************************/

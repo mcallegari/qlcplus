@@ -19,10 +19,12 @@
 
 #include <QDebug>
 #include <QPoint>
+#include <QSettings>
 
 #include "positiontool.h"
 #include "vcxypadarea.h"
-#include "qlcmacros.h"
+
+#define SETTINGS_GEOMETRY "positiontool/geometry"
 
 /*****************************************************************************
  * Initialization
@@ -40,12 +42,19 @@ PositionTool::PositionTool(const QPointF & initial, QRectF degreesRange, QWidget
     m_area->setFocus();
     m_gridLayout->addWidget(m_area, 0, 0);
 
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
+
     connect(m_area, SIGNAL(positionChanged(const QPointF &)),
             this, SLOT(slotPositionChanged(const QPointF &)));
 }
 
 PositionTool::~PositionTool()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 /*****************************************************************************
@@ -54,7 +63,7 @@ PositionTool::~PositionTool()
 
 QPointF PositionTool::position() const
 {
-    if (m_area == NULL) 
+    if (m_area == NULL)
         return QPointF(127, 127);
 
     return m_area->position();

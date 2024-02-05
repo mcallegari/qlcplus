@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>George Qualley IV</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -39,7 +39,7 @@
   <Capability Min="80" Max="89">Nothing</Capability>
   <Capability Min="90" Max="99">Blackout w/Color Change</Capability>
   <Capability Min="100" Max="199">Nothing</Capability>
-  <Capability Min="200" Max="209">Reset all</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Reset all</Capability>
   <Capability Min="210" Max="249">Nothing</Capability>
   <Capability Min="250" Max="255">Sound active</Capability>
  </Channel>

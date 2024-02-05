@@ -1,7 +1,7 @@
 /*
   Q Light Controller Plus
   empty.js
-  
+
   Copyright (c) Your Name
 
   Licensed under the Apache License, Version 2.0 (the "License");

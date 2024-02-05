@@ -94,7 +94,7 @@ void EFX_Test::initial()
     QCOMPARE(e.fixtures().size(), 0);
     QCOMPARE(e.propagationMode(), EFX::Parallel);
 
-    QCOMPARE(e.m_fader, (GenericFader*)(NULL));
+    QCOMPARE(e.m_fadersMap.count(), 0);
     QCOMPARE(e.m_legacyFadeBus, Bus::invalid());
     QCOMPARE(e.m_legacyHoldBus, Bus::invalid());
 }
@@ -102,7 +102,7 @@ void EFX_Test::initial()
 void EFX_Test::algorithmNames()
 {
     QStringList list = EFX::algorithmList();
-    QCOMPARE(list.size(), 9);
+    QCOMPARE(list.size(), 10);
     QVERIFY(list.contains("Circle"));
     QVERIFY(list.contains("Eight"));
     QVERIFY(list.contains("Line"));
@@ -110,6 +110,7 @@ void EFX_Test::algorithmNames()
     QVERIFY(list.contains("Diamond"));
     QVERIFY(list.contains("Square"));
     QVERIFY(list.contains("SquareChoppy"));
+    QVERIFY(list.contains("SquareTrue"));
     QVERIFY(list.contains("Leaf"));
     QVERIFY(list.contains("Lissajous"));
 
@@ -133,6 +134,9 @@ void EFX_Test::algorithmNames()
     e.setAlgorithm(EFX::SquareChoppy);
     QCOMPARE(e.algorithm(), EFX::SquareChoppy);
 
+    e.setAlgorithm(EFX::SquareTrue);
+    QCOMPARE(e.algorithm(), EFX::SquareTrue);
+
     e.setAlgorithm(EFX::Leaf);
     QCOMPARE(e.algorithm(), EFX::Leaf);
 
@@ -153,6 +157,7 @@ void EFX_Test::stringToAlgorithm()
     QCOMPARE(EFX::stringToAlgorithm("Diamond"), EFX::Diamond);
     QCOMPARE(EFX::stringToAlgorithm("Square"), EFX::Square);
     QCOMPARE(EFX::stringToAlgorithm("SquareChoppy"), EFX::SquareChoppy);
+    QCOMPARE(EFX::stringToAlgorithm("SquareTrue"), EFX::SquareTrue);
     QCOMPARE(EFX::stringToAlgorithm("Leaf"), EFX::Leaf);
     QCOMPARE(EFX::stringToAlgorithm("Lissajous"), EFX::Lissajous);
     QCOMPARE(EFX::stringToAlgorithm("Foobar"), EFX::Circle);
@@ -545,9 +550,12 @@ void EFX_Test::fixtures()
     e->slotFixtureRemoved(56);
     QCOMPARE(e->fixtures().size(), 0);
 
-    QVERIFY(e->addFixture(ef1));
+    EFXFixture* ef5 = new EFXFixture(e);
+    ef5->setHead(GroupHead(18, 0));
+    QVERIFY(e->addFixture(ef5));
+
     /* Remove by fixture ID and head number */
-    QVERIFY(e->removeFixture(12, 0));
+    QVERIFY(e->removeFixture(18, 0));
     QCOMPARE(e->fixtures().size(), 0);
 
     QVERIFY(!e->removeFixture(98, 99));
@@ -1549,6 +1557,145 @@ void EFX_Test::previewSquareChoppy()
     QCOMPARE(poly[127].toPoint(), QPoint(254,127));
 }
 
+void EFX_Test::previewSquareTrue()
+{
+    EFX e(m_doc);
+    e.setAlgorithm(EFX::SquareTrue);
+
+    QPolygonF poly;
+    e.preview(poly);
+    QCOMPARE(poly.size(), 128);
+
+    QCOMPARE(poly[0].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[1].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[2].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[3].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[4].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[5].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[6].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[7].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[8].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[9].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[10].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[11].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[12].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[13].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[14].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[15].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[16].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[17].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[18].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[19].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[20].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[21].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[22].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[23].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[24].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[25].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[26].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[27].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[28].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[29].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[30].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[31].toPoint(), QPoint(254,254));
+    QCOMPARE(poly[32].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[33].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[34].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[35].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[36].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[37].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[38].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[39].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[40].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[41].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[42].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[43].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[44].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[45].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[46].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[47].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[48].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[49].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[50].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[51].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[52].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[53].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[54].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[55].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[56].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[57].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[58].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[59].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[60].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[61].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[62].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[63].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[64].toPoint(), QPoint(254,0));
+    QCOMPARE(poly[65].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[66].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[67].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[68].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[69].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[70].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[71].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[72].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[73].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[74].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[75].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[76].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[77].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[78].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[79].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[80].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[81].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[82].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[83].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[84].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[85].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[86].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[87].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[88].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[89].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[90].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[91].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[92].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[93].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[94].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[95].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[96].toPoint(), QPoint(0,0));
+    QCOMPARE(poly[97].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[98].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[99].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[100].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[101].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[102].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[103].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[104].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[105].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[106].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[107].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[108].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[109].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[110].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[111].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[112].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[113].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[114].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[115].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[116].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[117].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[118].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[119].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[120].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[121].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[122].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[123].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[124].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[125].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[126].toPoint(), QPoint(0,254));
+    QCOMPARE(poly[127].toPoint(), QPoint(0,254));
+}
+
 void EFX_Test::previewLeaf()
 {
     EFX e(m_doc);
@@ -1827,7 +1974,7 @@ void EFX_Test::previewLissajous()
     QCOMPARE(poly[127].toPoint(), QPoint(115,253));
 }
 
-// Due to rounding errors, reverse direction might come out 
+// Due to rounding errors, reverse direction might come out
 // +/- one point. For now it's acceptable, but should be fixed
 // some day.
 static bool CloseEnough(QPointF const & a, QPointF const & b)
@@ -2851,11 +2998,8 @@ void EFX_Test::loadWrongRoot()
 
 void EFX_Test::loadDuplicateFixture()
 {
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-    QSKIP("Duplicate fixtures are allowed because can animate different parameters (RGB, dimmer, etc.)", SkipSingle);
-#else
     QSKIP("Duplicate fixtures are allowed because can animate different parameters (RGB, dimmer, etc.)");
-#endif
+
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly | QIODevice::Text);
     QXmlStreamWriter xmlWriter(&buffer);
@@ -2955,7 +3099,7 @@ void EFX_Test::save()
 
     while (xmlReader.readNextStartElement())
     {
-        if (xmlReader.name() == "Speed")
+        if (xmlReader.name().toString() == "Speed")
         {
             QCOMPARE(xmlReader.attributes().value("FadeIn").toString().toUInt(), uint(42));
             QCOMPARE(xmlReader.attributes().value("FadeOut").toString().toUInt(), uint(69));
@@ -2963,57 +3107,57 @@ void EFX_Test::save()
             speed = true;
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "Direction")
+        else if (xmlReader.name().toString() == "Direction")
         {
             QVERIFY(xmlReader.readElementText() == "Backward");
             dir = true;
         }
-        else if (xmlReader.name() == "StartOffset")
+        else if (xmlReader.name().toString() == "StartOffset")
         {
             QVERIFY(xmlReader.readElementText() == "91");
             off = true;
         }
-        else if (xmlReader.name() == "RunOrder")
+        else if (xmlReader.name().toString() == "RunOrder")
         {
             QVERIFY(xmlReader.readElementText() == "SingleShot");
             run = true;
         }
-        else if (xmlReader.name() == "Bus")
+        else if (xmlReader.name().toString() == "Bus")
         {
             QFAIL("EFX should not save a Bus tag anymore!");
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "Algorithm")
+        else if (xmlReader.name().toString() == "Algorithm")
         {
             QVERIFY(xmlReader.readElementText() == "Lissajous");
             algo = true;
         }
-        else if (xmlReader.name() == "Width")
+        else if (xmlReader.name().toString() == "Width")
         {
             QVERIFY(xmlReader.readElementText() == "13");
             w = true;
         }
-        else if (xmlReader.name() == "Height")
+        else if (xmlReader.name().toString() == "Height")
         {
             QVERIFY(xmlReader.readElementText() == "42");
             h = true;
         }
-        else if (xmlReader.name() == "Rotation")
+        else if (xmlReader.name().toString() == "Rotation")
         {
             QVERIFY(xmlReader.readElementText() == "78");
             rot = true;
         }
-        else if (xmlReader.name() == "IsRelative")
+        else if (xmlReader.name().toString() == "IsRelative")
         {
             QVERIFY(xmlReader.readElementText() == "0");
             isRelative = true;
         }
-        else if (xmlReader.name() == "PropagationMode")
+        else if (xmlReader.name().toString() == "PropagationMode")
         {
             QVERIFY(xmlReader.readElementText() == "Serial");
             prop = true;
         }
-        else if (xmlReader.name() == "Axis")
+        else if (xmlReader.name().toString() == "Axis")
         {
             bool axis = true;
             if (xmlReader.attributes().value("Name").toString() == "X")
@@ -3025,7 +3169,7 @@ void EFX_Test::save()
 
             while (xmlReader.readNextStartElement())
             {
-                if (xmlReader.name() == "Offset")
+                if (xmlReader.name().toString() == "Offset")
                 {
                     if (axis == true)
                     {
@@ -3038,7 +3182,7 @@ void EFX_Test::save()
                         yoff = true;
                     }
                 }
-                else if (xmlReader.name() == "Frequency")
+                else if (xmlReader.name().toString() == "Frequency")
                 {
                     if (axis == true)
                     {
@@ -3051,7 +3195,7 @@ void EFX_Test::save()
                         yfreq = true;
                     }
                 }
-                else if (xmlReader.name() == "Phase")
+                else if (xmlReader.name().toString() == "Phase")
                 {
                     if (axis == true)
                     {
@@ -3070,7 +3214,7 @@ void EFX_Test::save()
                 }
             }
         }
-        else if (xmlReader.name() == "Fixture")
+        else if (xmlReader.name().toString() == "Fixture")
         {
             int expectHead = 0;
             bool expectBackward = false;
@@ -3079,7 +3223,7 @@ void EFX_Test::save()
 
             while (xmlReader.readNextStartElement())
             {
-                if (xmlReader.name() == "ID")
+                if (xmlReader.name().toString() == "ID")
                 {
                     QString text = xmlReader.readElementText();
                     if (fixtures.contains(text) == true)
@@ -3108,12 +3252,12 @@ void EFX_Test::save()
 
                     fixtureid++;
                 }
-                else if (xmlReader.name() == "Head")
+                else if (xmlReader.name().toString() == "Head")
                 {
                     QCOMPARE(xmlReader.readElementText().toInt(), expectHead);
                     fixturehead++;
                 }
-                else if (xmlReader.name() == "Direction")
+                else if (xmlReader.name().toString() == "Direction")
                 {
                     QString text = xmlReader.readElementText();
                     if (expectBackward == false && text == "Backward")
@@ -3123,12 +3267,12 @@ void EFX_Test::save()
 
                     fixturedirection++;
                 }
-                else if (xmlReader.name() == "StartOffset")
+                else if (xmlReader.name().toString() == "StartOffset")
                 {
                     QCOMPARE(xmlReader.readElementText().toInt(), expectStartOffset);
                     fixtureStartOffset++;
                 }
-                else if (xmlReader.name() == "Mode")
+                else if (xmlReader.name().toString() == "Mode")
                 {
                     QCOMPARE(xmlReader.readElementText().toInt(), expectedMode);
                 }
@@ -3175,16 +3319,16 @@ void EFX_Test::preRunPostRun()
 
     EFX* e = new EFX(m_doc);
     e->setName("Test EFX");
-    QVERIFY(e->m_fader == NULL);
+    QVERIFY(e->m_fadersMap.count() == 0);
 
     QSignalSpy spy(e, SIGNAL(running(quint32)));
     e->preRun(&timer);
-    QVERIFY(e->m_fader != NULL);
+    QVERIFY(e->m_fadersMap.count() == 0);
     QCOMPARE(spy.size(), 1);
     QCOMPARE(spy[0].size(), 1);
     QCOMPARE(spy[0][0].toUInt(), e->id());
     e->postRun(&timer, ua);
-    QVERIFY(e->m_fader == NULL);
+    QVERIFY(e->m_fadersMap.count() == 0);
 }
 
 void EFX_Test::adjustIntensity()
@@ -3229,7 +3373,7 @@ void EFX_Test::adjustIntensity()
     e->preRun(m_doc->masterTimer());
 
     e->adjustAttribute(0.5);
-    QCOMPARE(e->m_fader->intensity(), 0.5);
+    QCOMPARE(e->getAttributeValue(Function::Intensity), 0.5);
 
     QList<Universe*> ua;
     ua.append(new Universe(0, new GrandMaster()));

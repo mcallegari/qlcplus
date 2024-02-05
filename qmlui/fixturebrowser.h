@@ -21,7 +21,6 @@
 #define FIXTUREBROWSER_H
 
 #include <QQuickView>
-#include <QDebug>
 
 class QLCFixtureMode;
 class QLCFixtureDef;
@@ -62,6 +61,8 @@ public:
     void setSelectedManufacturer(QString selectedManufacturer);
 
     QStringList modelsList();
+
+    Q_INVOKABLE bool isUserDefinition(QString manufacturer, QString model);
 
     QString selectedModel() const;
     void setSelectedModel(QString selectedModel);
@@ -117,10 +118,14 @@ signals:
 
 private:
     void updateSearchTree();
+    QLCFixtureDef *fixtureDefinition();
 
 private:
     Doc *m_doc;
     QQuickView *m_view;
+
+    /** Cache of the organized definitions for browsing */
+    QMap<QString, QMap<QString, bool>> m_defCache;
     /** The index of the currently selected manufacturer */
     int m_manufacturerIndex;
     /** The currently selected manufacturer as string */
@@ -134,8 +139,6 @@ private:
     /** The currently selected mode channels number.
      *  If no mode is available this can be defined by the user */
     int m_modeChannelsCount;
-    /** Reference of the currently selected fixture definition */
-    QLCFixtureDef *m_definition;
     /** Reference of the currently selected fixture mode */
     QLCFixtureMode *m_mode;
     /** Reference to the tree model used for searches */

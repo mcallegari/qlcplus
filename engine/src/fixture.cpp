@@ -21,6 +21,7 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QString>
+#include <QtMath>
 #include <QDebug>
 
 #include "qlcfixturedefcache.h"
@@ -30,6 +31,7 @@
 #include "qlcfixturedef.h"
 #include "qlccapability.h"
 #include "qlcchannel.h"
+#include "qlcfile.h"
 
 #include "fixture.h"
 #include "doc.h"
@@ -308,6 +310,155 @@ QVector <quint32> Fixture::cmyChannels(int head) const
     return m_fixtureMode->heads().at(head).cmyChannels();
 }
 
+QList<SceneValue> Fixture::positionToValues(int type, int degrees, bool isRelative)
+{
+    QList<SceneValue> posList;
+    // cache a list of channels processed, to avoid duplicates
+    QList<quint32> chDone;
+
+    if (m_fixtureMode == NULL)
+        return posList;
+
+    QLCPhysical phy = fixtureMode()->physical();
+    qreal headDegrees = degrees, maxDegrees;
+    float msbValue = 0, lsbValue = 0;
+
+    if (type == QLCChannel::Pan)
+    {
+        maxDegrees = phy.focusPanMax();
+        if (maxDegrees == 0) maxDegrees = 360;
+
+        for (int i = 0; i < heads(); i++)
+        {
+            quint32 panMSB = channelNumber(QLCChannel::Pan, QLCChannel::MSB, i);
+            if (panMSB == QLCChannel::invalid() || chDone.contains(panMSB))
+                continue;
+            quint32 panLSB = channelNumber(QLCChannel::Pan, QLCChannel::LSB, i);
+
+            if (isRelative)
+            {
+                // degrees is a relative value upon the current value.
+                // Recalculate absolute degrees here
+                float chDegrees = (qreal(phy.focusPanMax()) / 256.0) * channelValueAt(panMSB);
+                headDegrees = qBound(0.0, chDegrees + headDegrees, maxDegrees);
+
+                if (panLSB != QLCChannel::invalid())
+                {
+                    chDegrees = (qreal(phy.focusPanMax()) / 65536.0) * channelValueAt(panLSB);
+                    headDegrees = qBound(0.0, chDegrees + headDegrees, maxDegrees);
+                }
+            }
+
+            quint16 degToDmx = (headDegrees * 65535.0) / qreal(phy.focusPanMax());
+            posList.append(SceneValue(id(), panMSB, static_cast<uchar>(degToDmx >> 8)));
+
+            if (panLSB != QLCChannel::invalid())
+                posList.append(SceneValue(id(), panLSB, static_cast<uchar>(degToDmx & 0x00FF)));
+
+            qDebug() << "[positionToValues] Pan MSB:" << msbValue << "LSB:" << lsbValue;
+
+            chDone.append(panMSB);
+        }
+    }
+    else if (type == QLCChannel::Tilt)
+    {
+        maxDegrees = phy.focusTiltMax();
+        if (maxDegrees == 0) maxDegrees = 270;
+
+        for (int i = 0; i < heads(); i++)
+        {
+            quint32 tiltMSB = channelNumber(QLCChannel::Tilt, QLCChannel::MSB, i);
+            if (tiltMSB == QLCChannel::invalid() || chDone.contains(tiltMSB))
+                continue;
+            quint32 tiltLSB = channelNumber(QLCChannel::Tilt, QLCChannel::LSB, i);
+
+            if (isRelative)
+            {
+                // degrees is a relative value upon the current value.
+                // Recalculate absolute degrees here
+                float chDegrees = (qreal(phy.focusTiltMax()) / 256.0) * channelValueAt(tiltMSB);
+                headDegrees = qBound(0.0, chDegrees + headDegrees, maxDegrees);
+
+                if (tiltLSB != QLCChannel::invalid())
+                {
+                    chDegrees = (qreal(phy.focusPanMax()) / 65536.0) * channelValueAt(tiltLSB);
+                    headDegrees = qBound(0.0, chDegrees + headDegrees, maxDegrees);
+                }
+            }
+
+            quint16 degToDmx = (headDegrees * 65535.0) / qreal(phy.focusTiltMax());
+            posList.append(SceneValue(id(), tiltMSB, static_cast<uchar>(degToDmx >> 8)));
+
+            if (tiltLSB != QLCChannel::invalid())
+                posList.append(SceneValue(id(), tiltLSB, static_cast<uchar>(degToDmx & 0x00FF)));
+
+            qDebug() << "[positionToValues] Tilt MSB:" << msbValue << "LSB:" << lsbValue;
+
+            chDone.append(tiltMSB);
+        }
+
+    }
+
+    return posList;
+}
+
+QList<SceneValue> Fixture::zoomToValues(float degrees, bool isRelative)
+{
+    QList<SceneValue> chList;
+
+    if (m_fixtureMode == NULL)
+        return chList;
+
+    QLCPhysical phy = fixtureMode()->physical();
+    if (!isRelative)
+        degrees = qBound(float(phy.lensDegreesMin()), degrees, float(phy.lensDegreesMax()));
+
+    float deltaDegrees = phy.lensDegreesMax() - phy.lensDegreesMin();
+    // delta : 0xFFFF = deg : x
+    quint16 degToDmx = ((degrees - (isRelative ? 0 : float(phy.lensDegreesMin()))) * 65535.0) / deltaDegrees;
+    //qDebug() << "Degrees" << degrees << "DMX" << QString::number(degToDmx, 16);
+
+    for (quint32 i = 0; i < quint32(m_fixtureMode->channels().size()); i++)
+    {
+        const QLCChannel *ch = m_fixtureMode->channel(i);
+
+        if (ch->group() != QLCChannel::Beam)
+            continue;
+
+        if (ch->preset() != QLCChannel::BeamZoomBigSmall &&
+            ch->preset() != QLCChannel::BeamZoomSmallBig &&
+            ch->preset() != QLCChannel::BeamZoomFine)
+            continue;
+
+        if (isRelative)
+        {
+            // degrees is a relative value upon the current value.
+            // Recalculate absolute degrees here
+            qreal divider = ch->controlByte() == QLCChannel::MSB ? 256.0 : 65536.0;
+            float chDegrees = float((phy.lensDegreesMax() - phy.lensDegreesMin()) / divider) * float(channelValueAt(i));
+
+            //qDebug() << "Relative channel degrees:" << chDegrees << "MSB?" << ch->controlByte();
+
+            quint16 currDmxVal = (chDegrees * 65535.0) / deltaDegrees;
+            degToDmx += currDmxVal;
+        }
+
+        if (ch->controlByte() == QLCChannel::MSB)
+        {
+            if (ch->preset() == QLCChannel::BeamZoomBigSmall)
+                chList.append(SceneValue(id(), i, static_cast<uchar>(UCHAR_MAX - (degToDmx >> 8))));
+            else
+                chList.append(SceneValue(id(), i, static_cast<uchar>(degToDmx >> 8)));
+        }
+        else if (ch->controlByte() == QLCChannel::LSB)
+        {
+            chList.append(SceneValue(id(), i, static_cast<uchar>(degToDmx & 0x00FF)));
+        }
+    }
+
+    return chList;
+}
+
 void Fixture::setExcludeFadeChannels(QList<int> indices)
 {
     if (indices.count() > (int)channels())
@@ -326,7 +477,7 @@ void Fixture::setChannelCanFade(int idx, bool canFade)
     if (canFade == false && m_excludeFadeIndices.contains(idx) == false)
     {
         m_excludeFadeIndices.append(idx);
-        qSort(m_excludeFadeIndices.begin(), m_excludeFadeIndices.end());
+        std::sort(m_excludeFadeIndices.begin(), m_excludeFadeIndices.end());
     }
     else if (canFade == true && m_excludeFadeIndices.contains(idx) == true)
     {
@@ -452,7 +603,7 @@ void Fixture::checkAlias(int chIndex, uchar value)
     // If the channel @chIndex has aliases, check
     // if replacements are to be done
     QLCCapability *cap = m_fixtureMode->channel(chIndex)->searchCapability(value);
-    if (cap == m_aliasInfo[chIndex].m_currCap)
+    if (cap == NULL || cap == m_aliasInfo[chIndex].m_currCap)
         return;
 
     // first, revert any channel replaced to the original channel set
@@ -584,17 +735,19 @@ QString Fixture::iconResource(bool svg) const
 
     switch(type())
     {
-        case QLCFixtureDef::ColorChanger: return QString("%1:/fixture.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Dimmer: return QString("%1:/dimmer.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Effect: return QString("%1:/effect.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Fan: return QString("%1:/fan.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Flower: return QString("%1:/flower.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Hazer: return QString("%1:/hazer.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Laser: return QString("%1:/laser.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::MovingHead: return QString("%1:/movinghead.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Scanner: return QString("%1:/scanner.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Smoke: return QString("%1:/smoke.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Strobe: return QString("%1:/strobe.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::ColorChanger: return QString("%1:/fixture.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Dimmer: return QString("%1:/dimmer.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Effect: return QString("%1:/effect.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Fan: return QString("%1:/fan.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Flower: return QString("%1:/flower.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Hazer: return QString("%1:/hazer.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Laser: return QString("%1:/laser.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::MovingHead: return QString("%1:/movinghead.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Scanner: return QString("%1:/scanner.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Smoke: return QString("%1:/smoke.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Strobe: return QString("%1:/strobe.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::LEDBarBeams: return QString("%1:/ledbar_beams.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::LEDBarPixels: return QString("%1:/ledbar_pixels.%2").arg(prefix).arg(ext);
         default: break;
     }
 
@@ -685,7 +838,7 @@ QLCFixtureDef *Fixture::genericRGBPanelDef(int columns, Components components)
     QLCFixtureDef *def = new QLCFixtureDef();
     def->setManufacturer(KXMLFixtureGeneric);
     def->setModel(KXMLFixtureRGBPanel);
-    def->setType(QLCFixtureDef::LEDBar);
+    def->setType(QLCFixtureDef::LEDBarPixels);
     def->setAuthor("QLC+");
     for (int i = 0; i < columns; i++)
     {
@@ -843,7 +996,7 @@ bool Fixture::loader(QXmlStreamReader &root, Doc* doc)
 }
 
 bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
-                      const QLCFixtureDefCache* fixtureDefCache)
+                      QLCFixtureDefCache *fixtureDefCache)
 {
     QLCFixtureDef* fixtureDef = NULL;
     QLCFixtureMode* fixtureMode = NULL;
@@ -964,11 +1117,27 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
         fixtureDef = fixtureDefCache->fixtureDef(manufacturer, model);
         if (fixtureDef == NULL)
         {
-            doc->appendToErrorLog(QString("No fixture definition found for <b>%1</b> <b>%2</b>")
-                                  .arg(manufacturer)
-                                  .arg(model));
+            // fallback to project local path
+            QString man(manufacturer);
+            QString mod(model);
+            QString path = QString("%1%2%3-%4%5")
+                    .arg(doc->getWorkspacePath()).arg(QDir::separator())
+                    .arg(man.replace(" ", "-")).arg(mod.replace(" ", "-")).arg(KExtFixture);
+
+            qDebug() << "Fixture not found. Fallback to:" << path;
+
+            if (fixtureDefCache->loadQXF(path, true) == false)
+                qDebug() << "Failed to load definition" << path;
+
+            fixtureDef = fixtureDefCache->fixtureDef(manufacturer, model);
+            if (fixtureDef == NULL)
+            {
+                doc->appendToErrorLog(QString("No fixture definition found for <b>%1</b> <b>%2</b>")
+                                      .arg(manufacturer).arg(model));
+            }
         }
-        else
+
+        if (fixtureDef != NULL)
         {
             /* Find the given fixture mode */
             fixtureMode = fixtureDef->mode(modeName);
@@ -1293,10 +1462,15 @@ QString Fixture::status() const
 
         // Focus
         QString frange("%1&deg;");
-        info += subTitle.arg(tr("Focus"));
+        info += subTitle.arg(tr("Head(s)"));
         info += genInfo.arg(tr("Type")).arg(physical.focusType());
         info += genInfo.arg(tr("Pan Range")).arg(frange.arg(physical.focusPanMax()));
         info += genInfo.arg(tr("Tilt Range")).arg(frange.arg(physical.focusTiltMax()));
+        if (physical.layoutSize() != QSize(1, 1))
+        {
+            info += genInfo.arg(tr("Layout"))
+                           .arg(QString("%1 x %2").arg(physical.layoutSize().width()).arg(physical.layoutSize().height()));
+        }
     }
 
     // HTML document & table closure

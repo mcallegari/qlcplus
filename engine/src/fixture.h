@@ -37,28 +37,29 @@ class ChannelModifier;
 class QLCFixtureMode;
 class QLCFixtureHead;
 class FixtureConsole;
+class SceneValue;
 class Doc;
 
 /** @addtogroup engine Engine
  * @{
  */
 
-#define KXMLFixture "Fixture"
-#define KXMLFixtureName "Name"
-#define KXMLFixtureUniverse "Universe"
-#define KXMLFixtureAddress "Address"
-#define KXMLFixtureID "ID"
-#define KXMLFixtureGeneric "Generic"
-#define KXMLFixtureRGBPanel "RGBPanel"
-#define KXMLFixtureChannels "Channels"
-#define KXMLFixtureDimmer "Dimmer"
-#define KXMLFixtureExcludeFade "ExcludeFade"
-#define KXMLFixtureForcedHTP "ForcedHTP"
-#define KXMLFixtureForcedLTP "ForcedLTP"
+#define KXMLFixture             QString("Fixture")
+#define KXMLFixtureName         QString("Name")
+#define KXMLFixtureUniverse     QString("Universe")
+#define KXMLFixtureAddress      QString("Address")
+#define KXMLFixtureID           QString("ID")
+#define KXMLFixtureGeneric      QString("Generic")
+#define KXMLFixtureRGBPanel     QString("RGBPanel")
+#define KXMLFixtureChannels     QString("Channels")
+#define KXMLFixtureDimmer       QString("Dimmer")
+#define KXMLFixtureExcludeFade  QString("ExcludeFade")
+#define KXMLFixtureForcedHTP    QString("ForcedHTP")
+#define KXMLFixtureForcedLTP    QString("ForcedLTP")
 
-#define KXMLFixtureChannelModifier "Modifier"
-#define KXMLFixtureChannelIndex "Channel"
-#define KXMLFixtureModifierName "Name"
+#define KXMLFixtureChannelModifier  QString("Modifier")
+#define KXMLFixtureChannelIndex     QString("Channel")
+#define KXMLFixtureModifierName     QString("Name")
 
 typedef struct
 {
@@ -274,6 +275,13 @@ public:
     /** @see QLCFixtureHead */
     QVector <quint32> cmyChannels(int head = 0) const;
 
+    /** Return a list of DMX values based on the given position degrees
+     *  and the provided type (Pan or Tilt) */
+    QList<SceneValue> positionToValues(int type, int degrees, bool isRelative = false);
+
+    /** Return a list of DMX values based on the given zoom degrees */
+    QList<SceneValue> zoomToValues(float degrees, bool isRelative);
+
     /** Set a list of channel indices to exclude from fade transitions */
     void setExcludeFadeChannels(QList<int> indices);
 
@@ -473,7 +481,7 @@ public:
      * @return true if the fixture was loaded successfully, otherwise false
      */
     bool loadXML(QXmlStreamReader &xmlDoc, Doc* doc,
-                 const QLCFixtureDefCache* fixtureDefCache);
+                 QLCFixtureDefCache* fixtureDefCache);
 
     /**
      * Save the fixture instance into an XML document, under the given

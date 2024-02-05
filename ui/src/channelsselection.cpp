@@ -21,6 +21,7 @@
 #include <QPushButton>
 #include <QComboBox>
 #include <QDebug>
+#include <QSettings>
 
 #include "channelmodifiereditor.h"
 #include "channelsselection.h"
@@ -36,6 +37,8 @@
 #define KColumnModifier     4
 #define KColumnChIdx        5
 #define KColumnID           6
+
+#define SETTINGS_GEOMETRY "channelsselection/geometry"
 
 ChannelsSelection::ChannelsSelection(Doc *doc, QWidget *parent, ChannelSelectionType mode)
     : QDialog(parent)
@@ -64,6 +67,11 @@ ChannelsSelection::ChannelsSelection(Doc *doc, QWidget *parent, ChannelSelection
 
     updateFixturesTree();
 
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
+
     connect(m_channelsTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
             this, SLOT(slotItemChecked(QTreeWidgetItem*, int)));
     connect(m_channelsTree, SIGNAL(expanded(QModelIndex)),
@@ -78,6 +86,8 @@ ChannelsSelection::ChannelsSelection(Doc *doc, QWidget *parent, ChannelSelection
 
 ChannelsSelection::~ChannelsSelection()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 void ChannelsSelection::setChannelsList(QList<SceneValue> list)
@@ -100,7 +110,7 @@ void ChannelsSelection::updateFixturesTree()
     m_channelsTree->setIconSize(QSize(24, 24));
     m_channelsTree->setAllColumnsShowFocus(true);
 
-    foreach(Fixture *fxi, m_doc->fixtures())
+    foreach (Fixture *fxi, m_doc->fixtures())
     {
         QTreeWidgetItem *topItem = NULL;
         quint32 uni = fxi->universe();
@@ -155,14 +165,14 @@ void ChannelsSelection::updateFixturesTree()
                 QComboBox *combo = new QComboBox();
                 combo->addItem("HTP", false);
                 combo->addItem("LTP", false);
-                combo->setProperty("treeItem", qVariantFromValue((void *)item));
+                combo->setProperty("treeItem", QVariant::fromValue((void *)item));
                 m_channelsTree->setItemWidget(item, KColumnBehaviour, combo);
 
                 int bIdx = 1;
 
-                if (forcedHTP.contains(c))
+                if (forcedHTP.contains(int(c)))
                     bIdx = 0;
-                else if (forcedLTP.contains(c))
+                else if (forcedLTP.contains(int(c)))
                     bIdx = 1;
                 else if (channel->group() == QLCChannel::Intensity)
                     bIdx = 0;
@@ -177,7 +187,7 @@ void ChannelsSelection::updateFixturesTree()
                     button->setText("...");
                 else
                     button->setText(mod->name());
-                button->setProperty("treeItem", qVariantFromValue((void *)item));
+                button->setProperty("treeItem", QVariant::fromValue((void *)item));
                 m_channelsTree->setItemWidget(item, KColumnModifier, button);
 
                 connect(combo, SIGNAL(currentIndexChanged(int)),
@@ -256,7 +266,7 @@ void ChannelsSelection::slotItemChecked(QTreeWidgetItem *item, int col)
 
     Qt::CheckState enable = item->checkState(KColumnSelection);
 
-    foreach(QTreeWidgetItem *chItem, getSameChannels(item))
+    foreach (QTreeWidgetItem *chItem, getSameChannels(item))
         chItem->setCheckState(KColumnSelection, enable);
 
     m_channelsTree->blockSignals(false);
@@ -279,9 +289,9 @@ void ChannelsSelection::slotComboChanged(int idx)
             QVariant var = combo->property("treeItem");
             QTreeWidgetItem *item = (QTreeWidgetItem *) var.value<void *>();
 
-            foreach(QTreeWidgetItem *chItem, getSameChannels(item))
+            foreach (QTreeWidgetItem *chItem, getSameChannels(item))
             {
-                QComboBox *chCombo = (QComboBox *)m_channelsTree->itemWidget(chItem, KColumnBehaviour);
+                QComboBox *chCombo = qobject_cast<QComboBox *>(m_channelsTree->itemWidget(chItem, KColumnBehaviour));
                 if (chCombo != NULL)
                 {
                     chCombo->blockSignals(true);
@@ -315,9 +325,9 @@ void ChannelsSelection::slotModifierButtonClicked()
         QVariant var = button->property("treeItem");
         QTreeWidgetItem *item = (QTreeWidgetItem *) var.value<void *>();
 
-        foreach(QTreeWidgetItem *chItem, getSameChannels(item))
+        foreach (QTreeWidgetItem *chItem, getSameChannels(item))
         {
-            QPushButton *chButton = (QPushButton *)m_channelsTree->itemWidget(chItem, KColumnModifier);
+            QPushButton *chButton = qobject_cast<QPushButton *>(m_channelsTree->itemWidget(chItem, KColumnModifier));
             if (chButton != NULL)
                 chButton->setText(displayName);
         }

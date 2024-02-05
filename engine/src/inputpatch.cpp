@@ -140,7 +140,7 @@ bool InputPatch::reconnect()
         bool ret = m_plugin->openInput(m_pluginLine, m_universe);
         if (ret == true)
         {
-            foreach(QString par, m_parametersCache.keys())
+            foreach (QString par, m_parametersCache.keys())
             {
                 qDebug() << "[InputPatch] restoring parameter:" << par << m_parametersCache[par];
                 m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Input, par, m_parametersCache[par]);
@@ -281,7 +281,7 @@ void InputPatch::setProfilePageControls()
 
 void InputPatch::flush(quint32 universe)
 {
-    if (universe == UINT_MAX || (universe != UINT_MAX && universe == m_universe))
+    if (universe == UINT_MAX || universe == m_universe)
     {
         QMutexLocker inputBufferLocker(&m_inputBufferMutex);
         for (QHash<quint32, InputValue>::const_iterator it = m_inputBuffer.begin(); it != m_inputBuffer.end(); ++it)

@@ -1,7 +1,7 @@
 /*
   Q Light Controller Plus
   waves.js
-  
+
   Copyright (c) Nathan Durnan
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +22,9 @@ var testAlgo;
 (
 function()
 {
+    var util = new Object;
+    util.initialized = false;
+
     var algo = new Object;
     algo.apiVersion = 2;
     algo.name = "Waves";
@@ -42,7 +45,7 @@ function()
       algo.taillength = _tail;
       util.initialize();
     };
-    
+
     algo.getTail = function()
     {
       return algo.taillength;
@@ -88,15 +91,12 @@ function()
       else if (algo.orientation === 0) { return "Horizontal"; }
     };
 
-    var util = new Object;
-    util.initialized = false;
-    
     util.initialize = function()
     {
       // fixed size fade array
       util.fadeSteps = 100;
       var _step = (1 / util.fadeSteps);
-      
+
       util.fadeObject = new Array(util.fadeSteps);
       util.fadeObject[0] = 1;
       for (var f = 1; f < util.fadeSteps; f++)
@@ -192,7 +192,6 @@ function()
       var isEven = (span % 2 === 0);
       var tailSteps = Math.round(span * algo.taillength/100);
       if (tailSteps === 0) { tailSteps = 1; }
-      var mult = (1 + (algo.taillength/100));
       if ((algo.direction === 0) || (algo.direction === 1)) {
         return (span + tailSteps - (isEven ? 0 : 1));
       } else if ((algo.direction === 2) || (algo.direction === 3)) {

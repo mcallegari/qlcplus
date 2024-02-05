@@ -53,14 +53,45 @@
        </widget>
       </item>
       <item>
-       <widget class="QRadioButton" name="m_flash">
-        <property name="toolTip">
-         <string>Flash the assigned function with this button</string>
-        </property>
-        <property name="text">
-         <string>Flash function (only for scenes)</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QRadioButton" name="m_flash">
+          <property name="toolTip">
+           <string>Flash the assigned function with this button</string>
+          </property>
+          <property name="text">
+           <string>Flash function (only for scenes)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="m_overridePriority">
+          <property name="text">
+           <string>Override priority</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="m_forceLTP">
+          <property name="text">
+           <string>Force LTP</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <widget class="QRadioButton" name="m_blackout">
@@ -317,7 +348,6 @@
   </layout>
  </widget>
  <resources>
-  <include location="../qlcui.qrc"/>
   <include location="../qlcui.qrc"/>
  </resources>
  <connections>

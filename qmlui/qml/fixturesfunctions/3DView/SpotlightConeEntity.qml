@@ -27,107 +27,73 @@ import Qt3D.Extras 2.0
 Entity
 {
     id: spotlightConeEntity
+    enabled: mtl.fxItem && mtl.fxItem.enabled && mtl.fxItem.lightIntensity ? true : false
     property Effect coneEffect
     property Layer coneLayer: null
-    property alias coneMaterial: spotlightConeMaterial
-
-    Component
-    {
-        id: uniformComp
-        Parameter {}
-    }
-
+    property alias coneMaterial: mtl
     property ConeMesh spotlightConeMesh: null
+    property alias fxEntity: mtl.fxItem
 
     Material
     {
-        id: spotlightConeMaterial
-
+        id: mtl
         effect: coneEffect
+
+        property Entity fxItem: null
+
         parameters: [
-            Parameter { name: "meshColor"; value: "blue" }
+            Parameter { name: "diffuse"; value: "blue" },
+            Parameter { name: "specular"; value: "black" },
+            Parameter { name: "shininess"; value: 1.0 },
+            Parameter { name: "bloom"; value: 0 },
+
+            Parameter { name: "raymarchSteps"; value: mtl.fxItem ? mtl.fxItem.raymarchSteps : 0 },
+            Parameter { name: "customModelMatrix";
+                        value: {
+                            var m = Qt.matrix4x4()
+
+                            if (mtl.fxItem === null)
+                                return m
+
+                            var panRot = mtl.fxItem.invertedPan ? mtl.fxItem.panMaxDegrees - mtl.fxItem.panRotation : mtl.fxItem.panRotation
+                            var tiltRot = mtl.fxItem.invertedTilt ? mtl.fxItem.tiltMaxDegrees - mtl.fxItem.tiltRotation : mtl.fxItem.tiltRotation
+
+                            m.translate(mtl.fxItem.lightPos.times(+1.0))
+                            m = m.times(mtl.fxItem.lightMatrix)
+                            m.rotate(panRot, Qt.vector3d(0, 1, 0))
+                            m.rotate(tiltRot, Qt.vector3d(1, 0, 0))
+                            m.translate(Qt.vector3d(0, -0.5 * mtl.fxItem.distCutoff - 0.5 * mtl.fxItem.headLength, 0))
+                            return m
+                        }},
+            Parameter { name: "coneTopRadius"; value: mtl.fxItem ? mtl.fxItem.coneTopRadius : 0 },
+            Parameter { name: "coneBottomRadius"; value: mtl.fxItem ? mtl.fxItem.coneBottomRadius : 0 },
+            Parameter { name: "coneDistCutoff"; value: mtl.fxItem ? mtl.fxItem.distCutoff : 0 },
+            Parameter { name: "headLength"; value: mtl.fxItem ? mtl.fxItem.headLength : 0 },
+            Parameter { name: "lightIntensity"; value: mtl.fxItem ? mtl.fxItem.lightIntensity : 0 },
+            Parameter { name: "lightColor"; value: mtl.fxItem ? mtl.fxItem.lightColor : Qt.rgba(0,0,0,0) },
+            Parameter { name: "lightDir"; value: mtl.fxItem ? mtl.fxItem.lightDir : Qt.vector3d(0,0,0) },
+            Parameter { name: "lightPos"; value: mtl.fxItem ? mtl.fxItem.lightPos : Qt.vector3d(0,0,0) },
+            Parameter { name: "lightViewMatrix"; value: mtl.fxItem ? mtl.fxItem.lightViewMatrix : Qt.matrix4x4() },
+            Parameter { name: "lightProjectionMatrix";
+                        value: mtl.fxItem ? mtl.fxItem.lightProjectionMatrix : Qt.matrix4x4() },
+            Parameter { name: "lightViewProjectionMatrix";
+                        value: mtl.fxItem ? mtl.fxItem.lightViewProjectionMatrix : Qt.matrix4x4() },
+            Parameter { name: "lightViewProjectionScaleAndOffsetMatrix";
+                        value: mtl.fxItem ? mtl.fxItem.lightViewProjectionScaleAndOffsetMatrix : Qt.matrix4x4() },
+
+            Parameter { name: "smokeAmount"; value: View3D.smokeAmount },
+            Parameter { name: "goboTex"; value: mtl.fxItem ? mtl.fxItem.goboTexture : null },
+            Parameter { name: "goboRotation";
+                        value: {
+                             var theta = mtl.fxItem ? mtl.fxItem.goboRotation : 0
+                             return  Qt.vector4d(Math.cos(theta), -Math.sin(theta), Math.sin(theta), Math.cos(theta));
+                         } }
         ]
-
-        function bindFixture(fxItem)
-        {
-            var parameters = [].slice.apply(spotlightConeMaterial.parameters)
-
-            parameters.push(uniformComp.createObject(spotlightConeMaterial,
-                            { name: "raymarchSteps", value: Qt.binding(function() { return fxItem.raymarchSteps }) }))
-
-            parameters.push(uniformComp.createObject(spotlightConeMaterial,
-                            { name: "customModelMatrix", value: Qt.binding(
-                                function() { 
-                                    var m = Qt.matrix4x4();
-                                    m.translate(fxItem.lightPos.times(+1.0));
-                                    m = m.times(fxItem.lightMatrix)
-                                    m.rotate(fxItem.panRotation, Qt.vector3d(0, 1, 0));
-                                    m.rotate(fxItem.tiltRotation, Qt.vector3d(1, 0, 0));
-                                    m.translate( Qt.vector3d(0, -0.5 * fxItem.distCutoff - 0.5 * fxItem.headLength, 0));
-                                    return m;
-                             })}))
-
-            parameters.push(uniformComp.createObject(spotlightConeMaterial,
-                            { name: "coneTopRadius", value: Qt.binding(function() { return fxItem.coneTopRadius }) }))
-
-            parameters.push(uniformComp.createObject(spotlightConeMaterial,
-                            { name: "headLength", value: Qt.binding(function() { return fxItem.headLength }) }))
-
-            parameters.push(uniformComp.createObject(spotlightConeMaterial,
-                            { name: "coneBottomRadius", value: Qt.binding(function() { return fxItem.coneBottomRadius }) }))
-
-            parameters.push(uniformComp.createObject(spotlightConeMaterial,
-                            { name: "coneDistCutoff", value: Qt.binding(function() { return fxItem.distCutoff }) }))
-
-            parameters.push(uniformComp.createObject(spotlightConeMaterial,
-                            { name: "lightDir", value: Qt.binding(function() { return fxItem.lightDir }) }))
-
-            parameters.push(uniformComp.createObject(spotlightConeMaterial,
-                            { name: "lightPos", value: Qt.binding(function() { return fxItem.lightPos }) }))
-
-            parameters.push(uniformComp.createObject(spotlightConeMaterial,
-                            { name: "lightViewMatrix", value: Qt.binding(function() { return fxItem.lightViewMatrix }) }))
-
-            parameters.push(uniformComp.createObject(spotlightConeMaterial,
-                            { name: "lightProjectionMatrix", value: Qt.binding(function() { return fxItem.lightProjectionMatrix }) }))
-
-            parameters.push(uniformComp.createObject(spotlightConeMaterial,
-                            { name: "lightViewProjectionMatrix",
-                              value: Qt.binding(function() { return fxItem.lightViewProjectionMatrix }) }))
-
-            parameters.push(uniformComp.createObject(spotlightConeMaterial,
-                            { name: "lightViewProjectionScaleAndOffsetMatrix",
-                              value: Qt.binding(function() { return fxItem.lightViewProjectionScaleAndOffsetMatrix }) }))
-
-            parameters.push(uniformComp.createObject(spotlightConeMaterial,
-                            { name: "lightIntensity", value: Qt.binding(function() { return fxItem.lightIntensity }) }))
-
-            parameters.push(uniformComp.createObject(spotlightConeMaterial,
-                            { name: "lightColor", value: Qt.binding(function() { return fxItem.lightColor }) }))
-
-            parameters.push(uniformComp.createObject(spotlightConeMaterial,
-                            { name: "goboTex", value: Qt.binding(function() { return fxItem.goboTexture }) }))
-
-            parameters.push(uniformComp.createObject(spotlightConeMaterial,
-                            { name: "goboRotation", value: Qt.binding(
-                                function() {
-                                    var theta = fxItem.goboRotation
-                                    return  Qt.vector4d(Math.cos(theta), -Math.sin(theta), Math.sin(theta), Math.cos(theta));
-                                })}))
-
-            parameters.push(uniformComp.createObject(spotlightConeMaterial,
-                            { name: "smokeAmount", value: Qt.binding(function() { return View3D.smokeAmount }) }))  
-
-            // dump the uniform list (uncomment for debug purposes)
-            // parameters.forEach(function (p) { console.log(p.name, '=', p.value); })
-
-            spotlightConeMaterial.parameters = parameters
-        }
     }
 
     components: [
         coneLayer,
-        spotlightConeMaterial,
+        coneMaterial,
         spotlightConeMesh,
     ]
 }

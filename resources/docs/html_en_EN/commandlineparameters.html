@@ -23,9 +23,9 @@ Using command line parameters can be tricky depending on the operating system yo
   like "C:\QLC+\qlcplus.exe". There you can add command line parameters. When done click OK.<BR>
   <BR>
   Example: Setting Czech locale:<BR>
-  <IMG SRC="file:../images/locale.png"> 
+  <IMG SRC="../images/locale.png">
  </LI>
- <LI><B>OSX</B>: This is the most difficult case since QLC+ on OSX is bundled into a 
+ <LI><B>OSX</B>: This is the most difficult case since QLC+ on OSX is bundled into a
   DMG package. You need to open a terminal and "cd" into the QLC+ DMG like this:<BR>
   cd QLC+.app\Contents\MacOS<br>
   When done, type "qlcplus" followed by the parameters you need
@@ -61,12 +61,12 @@ Using command line parameters can be tricky depending on the operating system yo
   <TD STYLE="background-color: #ffffff;">
    <H2>-d or --debug</H2>
    <P>
-    <B>Description:</B> Enable debug mode and optionally set the output level. Note that since 4.8.0 messages for level DEBUG (0) 
+    <B>Description:</B> Enable debug mode and optionally set the output level. Note that since 4.8.0 messages for level DEBUG (0)
     are not included in released binaries.
    </P>
 
    <P>
-    <B>Parameters:</B> Level (see <A HREF="http://developer.qt.nokia.com/doc/qt-4.8/qtglobal.html#QtMsgType-enum">QtMsgType</A>)
+    <B>Parameters:</B> Level (see <A HREF="https://doc.qt.io/qt-5/qtglobal.html#QtMsgType-enum">QtMsgType</A>)
    </P>
 
    <P>
@@ -120,7 +120,7 @@ Using command line parameters can be tricky depending on the operating system yo
 
    <P>
     <B>Examples:</B><BR>
-    Enable debug messages and store them to log file:<BR>
+    Enable debug messages and store them to log <BR>
     qlcplus -d 0 -g<BR>
     qlcplus --debug 0 --log<BR>
    </P>
@@ -151,7 +151,7 @@ Using command line parameters can be tricky depending on the operating system yo
   <TD STYLE="background-color: #ffffff;">
    <H2>-k or --kiosk</H2>
    <P>
-    <B>Description:</B> Enable kiosk-mode (only <A HREF="file:virtualconsole.html">virtual console</A> is visible and the application is locked in <A HREF="file:concept.html#Modes">operate mode</A>)
+    <B>Description:</B> Enable kiosk-mode (only <A HREF="virtualconsole.html">virtual console</A> is visible and the application is locked in <A HREF="concept.html#Modes">operate mode</A>)
    </P>
 
    <P>
@@ -191,7 +191,7 @@ Using command line parameters can be tricky depending on the operating system yo
   <TD STYLE="background-color: #ffffff;">
    <H2>-m or --nowm</H2>
    <P>
-    <B>Description:</B> Inform the application that the system doesn't provide a window manager. 
+    <B>Description:</B> Inform the application that the system doesn't provide a window manager.
     QLC+ will therefore add some extra controls to close the windows.
    </P>
 
@@ -252,7 +252,7 @@ Using command line parameters can be tricky depending on the operating system yo
   <TD STYLE="background-color: #eeeeee;">
    <H2>-p or --operate</H2>
    <P>
-    <B>Description:</B> Start the application in <A HREF="file:concept.html#Modes">Operate</A> mode.
+    <B>Description:</B> Start the application in <A HREF="concept.html#Modes">Operate</A> mode.
    </P>
 
    <P>
@@ -305,9 +305,28 @@ Using command line parameters can be tricky depending on the operating system yo
    </P>
   </TD>
  </TR>
- 
+
  <TR>
   <TD STYLE="background-color: #ffffff;">
+   <H2>-wp or --web-port</H2>
+   <P>
+    <B>Description:</B> Use a specific port for web access
+   </P>
+
+   <P>
+    <B>Parameters:</B> Port number
+   </P>
+
+   <P>
+    <B>Examples:</B><BR>
+    qlcplus -wp 12345<BR>
+    qlcplus --web-port 12345<BR>
+   </P>
+  </TD>
+ </TR>
+
+ <TR>
+  <TD STYLE="background-color: #eeeeee;">
    <H2>-wa or --web-auth</H2>
    <P>
     <B>Description:</B> Enable remote web access with users authentication
@@ -326,7 +345,7 @@ Using command line parameters can be tricky depending on the operating system yo
  </TR>
 
  <TR>
-  <TD STYLE="background-color: #eeeeee;">
+  <TD STYLE="background-color: #ffffff;">
    <H2>-a or --web-auth-file</H2>
    <P>
     <B>Description:</B> Specify a file where to store web access basic authentication credentials

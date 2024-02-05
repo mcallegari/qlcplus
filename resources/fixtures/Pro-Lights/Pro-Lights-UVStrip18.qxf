@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Alessandro Grechi</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
@@ -11,24 +11,19 @@
  <Type>Strobe</Type>
  <Channel Name="Strobe">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="0">No Function</Capability>
+  <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="255">Slow to fast</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Sound">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="255">Sound Control</Capability>
  </Channel>
  <Mode Name="3 Ch">
   <Channel Number="0">Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Sound</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-  </Head>
  </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>

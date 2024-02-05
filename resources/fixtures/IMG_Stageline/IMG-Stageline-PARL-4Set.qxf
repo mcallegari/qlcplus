@@ -1,13 +1,13 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Mitsch</Author>
  </Creator>
  <Manufacturer>IMG Stageline</Manufacturer>
- <Model>Parl 4-SET</Model>
+ <Model>PARL-4SET</Model>
  <Type>Color Changer</Type>
  <Channel Name="spotlight S 1: red" Preset="IntensityRed"/>
  <Channel Name="spotlight S 1: green" Preset="IntensityGreen"/>
@@ -30,7 +30,7 @@
   <Capability Min="0" Max="1">LEDs off</Capability>
   <Capability Min="2" Max="190">dimmer</Capability>
   <Capability Min="191" Max="200">music control on</Capability>
-  <Capability Min="201" Max="247">stroboscope  slow → fast</Capability>
+  <Capability Min="201" Max="247">stroboscope slow → fast</Capability>
   <Capability Min="248" Max="255">full brightness</Capability>
  </Channel>
  <Channel Name="red" Preset="IntensityRed"/>
@@ -119,11 +119,12 @@
   <Channel Number="2">blue</Channel>
   <Channel Number="3">Control of dimmer and stroboscope</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="9.2" Width="1060" Height="330" Depth="90"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="110" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="9.2" Width="1060" Height="330" Depth="90"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="110" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

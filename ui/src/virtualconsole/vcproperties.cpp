@@ -23,13 +23,9 @@
 #include <QWidget>
 #include <QDebug>
 
-#include "qlcfile.h"
-
-#include "virtualconsole.h"
 #include "inputoutputmap.h"
 #include "vcproperties.h"
-#include "vcframe.h"
-#include "doc.h"
+#include "qlcchannel.h"
 
 /*****************************************************************************
  * Properties Initialization
@@ -37,7 +33,6 @@
 
 VCProperties::VCProperties()
     : m_size(QSize(1920, 1080))
-
     , m_gmChannelMode(GrandMaster::Intensity)
     , m_gmValueMode(GrandMaster::Reduce)
     , m_gmSliderMode(GrandMaster::Normal)
@@ -48,7 +43,6 @@ VCProperties::VCProperties()
 
 VCProperties::VCProperties(const VCProperties& properties)
     : m_size(properties.m_size)
-
     , m_gmChannelMode(properties.m_gmChannelMode)
     , m_gmValueMode(properties.m_gmValueMode)
     , m_gmSliderMode(properties.m_gmSliderMode)
@@ -59,6 +53,21 @@ VCProperties::VCProperties(const VCProperties& properties)
 
 VCProperties::~VCProperties()
 {
+}
+
+VCProperties &VCProperties::operator=(const VCProperties &props)
+{
+    if (this != &props)
+    {
+        m_size = props.m_size;
+        m_gmChannelMode = props.m_gmChannelMode;
+        m_gmValueMode = props.m_gmValueMode;
+        m_gmSliderMode = props.m_gmSliderMode;
+        m_gmInputUniverse = props.m_gmInputUniverse;
+        m_gmInputChannel = props.m_gmInputChannel;
+    }
+
+    return *this;
 }
 
 /*****************************************************************************

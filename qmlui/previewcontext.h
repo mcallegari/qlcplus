@@ -50,6 +50,8 @@ class PreviewContext : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(quint32 universeFilter READ universeFilter WRITE setUniverseFilter NOTIFY universeFilterChanged)
+
 public:
     explicit PreviewContext(QQuickView *view, Doc *doc, QString name, QObject *parent = 0);
     ~PreviewContext();
@@ -62,8 +64,11 @@ public:
 
     virtual bool isEnabled();
 
+    /** Get/Set the current universe filter */
+    virtual quint32 universeFilter() const;
     virtual void setUniverseFilter(quint32 universeFilter);
 
+    /** Get a handler for the associated QuickView */
     QQuickView *view();
 
     /** Get/Set the Quick item to access the context properties/objects */
@@ -96,6 +101,7 @@ protected slots:
     void slotWindowClosing();
 
 signals:
+    void universeFilterChanged(quint32 universeFilter);
     void keyPressed(QKeyEvent *e);
     void keyReleased(QKeyEvent *e);
 

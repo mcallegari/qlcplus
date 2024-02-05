@@ -499,7 +499,6 @@
  </customwidgets>
  <resources>
   <include location="../qlcui.qrc"/>
-  <include location="../qlcui.qrc"/>
  </resources>
  <connections>
   <connection>
@@ -531,70 +530,6 @@
     <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>m_addButton</sender>
-   <signal>clicked()</signal>
-   <receiver>VCSpeedDialProperties</receiver>
-   <slot>slotAddClicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>376</x>
-     <y>121</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>396</x>
-     <y>106</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>m_removeButton</sender>
-   <signal>clicked()</signal>
-   <receiver>VCSpeedDialProperties</receiver>
-   <slot>slotRemoveClicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>376</x>
-     <y>167</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>396</x>
-     <y>163</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>m_copyFactorsButton</sender>
-   <signal>clicked()</signal>
-   <receiver>VCSpeedDialProperties</receiver>
-   <slot>slotCopyFactorsClicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>376</x>
-     <y>213</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>396</x>
-     <y>223</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>m_pasteFactorsButton</sender>
-   <signal>clicked()</signal>
-   <receiver>VCSpeedDialProperties</receiver>
-   <slot>slotPasteFactorsClicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>376</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>396</x>
-     <y>283</y>
     </hint>
    </hints>
   </connection>

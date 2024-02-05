@@ -82,7 +82,6 @@ Rectangle
 
         RowLayout
         {
-            id: topBarRowLayout
             width: parent.width
             height: parent.height
             y: 1
@@ -218,7 +217,7 @@ Rectangle
                 z: 2
                 width: height
                 height: topBar.height - 2
-                bgColor: UISettings.bgMain
+                bgColor: UISettings.bgMedium
                 faColor: checked ? "white" : "gray"
                 faSource: FontAwesome.fa_search
                 checkable: true
@@ -240,10 +239,10 @@ Rectangle
           width: fmContainer.width
           height: UISettings.iconSizeMedium
           z: 5
-          color: UISettings.bgMain
+          color: UISettings.bgMedium
           radius: 5
           border.width: 2
-          border.color: "#111"
+          border.color: UISettings.borderColorDark
 
           TextInput
           {
@@ -287,6 +286,7 @@ Rectangle
 
                       onLoaded:
                       {
+                          item.z = 2
                           item.textLabel = Qt.binding(function() { return label })
                           item.isSelected = Qt.binding(function() { return isSelected })
                           item.dragItem = fDragItem
@@ -307,7 +307,7 @@ Rectangle
                       Connections
                       {
                           target: item
-                          onMouseEvent:
+                          function onMouseEvent(type, iID, iType, qItem, mouseMods)
                           {
                               //console.log("Got a mouse event in Function Manager: " + type)
                               switch (type)
@@ -320,7 +320,7 @@ Rectangle
                                     fDragItem.modifiers = mouseMods
                                 break;
                                 case App.Clicked:
-                                    if (qItem == item)
+                                    if (qItem === item)
                                     {
                                         model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
                                         if (model.hasChildren)
@@ -338,14 +338,14 @@ Rectangle
                                         fmContainer.doubleClicked(iID, iType)
                                 break;
                                 case App.DragStarted:
-                                    if (qItem == item && !model.isSelected)
+                                    if (qItem === item && !model.isSelected)
                                     {
                                         model.isSelected = 1
                                         // invalidate the modifiers to force a single selection
                                         mouseMods = -1
                                     }
 
-                                    if (mouseMods == -1)
+                                    if (mouseMods === -1)
                                         functionManager.selectFunctionID(iID, false)
 
                                     fDragItem.itemsList = functionManager.selectedFunctionsID()
@@ -370,17 +370,37 @@ Rectangle
                       {
                           ignoreUnknownSignals: true
                           target: item
-                          onPathChanged: functionManager.setFolderPath(oldPath, newPath)
+                          function onPathChanged(oldPath, newPath)
+                          {
+                              functionManager.setFolderPath(oldPath, newPath, true)
+                          }
                       }
                       Connections
                       {
                           ignoreUnknownSignals: true
                           target: item
-                          onItemsDropped: functionManager.moveFunctions(path)
+                          function onItemsDropped(path)
+                          {
+                              functionManager.moveFunctions(path)
+                          }
                       }
                   } // Loader
               } // Component
               ScrollBar.vertical: CustomScrollBar { id: fMgrScrollBar }
+
+              // "deselection" mouse area
+              MouseArea
+              {
+                  y: functionsListView.contentHeight
+                  height: Math.max(parent.height - functionsListView.contentHeight, 0)
+                  width: parent.width
+
+                  onClicked:
+                  {
+                      functionManager.selectFunctionID(-1, 0)
+                      functionManager.selectFolder("", 0)
+                  }
+              }
 
               GenericMultiDragItem
               {
@@ -394,6 +414,12 @@ Rectangle
                   Drag.source: fDragItem
                   Drag.keys: [ "function" ]
 
+                  function itemDropped(id, name)
+                  {
+                      var path = functionManager.functionPath(id)
+                      functionManager.moveFunctions(path)
+                  }
+
                   onItemsListChanged:
                   {
                       console.log("Items in list: " + itemsList.length)
@@ -402,7 +428,6 @@ Rectangle
                           var funcRef = functionManager.getFunction(itemsList[0])
                           itemLabel = funcRef.name
                           itemIcon = functionManager.functionIcon(funcRef.type)
-                          //multipleItems = itemsList.length > 1 ? true : false
                       }
                   }
               }

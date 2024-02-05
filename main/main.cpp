@@ -73,6 +73,9 @@ namespace QLCArgs
     /** If true, create and run a class to enable a web server for remote controlling */
     bool enableWebAccess = false;
 
+    /** Number of a specific port to use for webaccess */
+    int webAccessPort = 0;
+
     /** If true, the authentication feature of the web interface will be enabled */
     bool enableWebAuth = false;
 
@@ -108,28 +111,6 @@ namespace QLCArgs
 /**
  * Suppresses debug messages
  */
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-void qlcMessageHandler(QtMsgType type, const char* msg)
-{
-    if (type >= QLCArgs::debugLevel)
-    {
-        if (QLCArgs::logToFile == true && QLCArgs::logFile.isOpen())
-        {
-            QLCArgs::logFile.write(msg);
-            QLCArgs::logFile.write((char *)"\n");
-            QLCArgs::logFile.flush();
-            return;
-        }
-#if defined(WIN32) || defined(__APPLE__)
-        if (QLCArgs::dbgBox != NULL)
-            QLCArgs::dbgBox->addText(msg);
-#else
-        fprintf(stderr, "%s\n", msg);
-        fflush(stderr);
-#endif
-    }
-}
-#else
 void qlcMessageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
     Q_UNUSED(context)
@@ -147,6 +128,9 @@ void qlcMessageHandler(QtMsgType type, const QMessageLogContext &context, const 
         fflush(stderr);
     }
 }
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+#define endl Qt::endl
 #endif
 
 /**
@@ -188,6 +172,7 @@ void printUsage()
     cout << "  -p or --operate\t\tStart in operate mode" << endl;
     cout << "  -v or --version\t\tPrint version information" << endl;
     cout << "  -w or --web\t\t\tEnable remote web access" << endl;
+    cout << "  -wp or --web-port <port>\t\tSet the port to use for web access" << endl;
     cout << "  -wa or --web-auth\t\tEnable remote web access with users authentication" << endl;
     cout << "  -a or --web-auth-file <file>\tSpecify a file where to store web access basic authentication credentials" << endl;
     cout << endl;
@@ -279,14 +264,19 @@ bool parseArgs()
         {
             QLCArgs::enableWebAccess = true;
         }
+        else if (arg == "-wp" || arg == "--web-port")
+        {
+            if (it.hasNext() == true)
+                QLCArgs::webAccessPort = it.next().toInt();
+        }
         else if (arg == "-wa" || arg == "--web-auth")
         {
             QLCArgs::enableWebAccess = true;
             QLCArgs::enableWebAuth = true;
         }
-        else if(arg == "-a" || arg == "--web-auth-file")
+        else if (arg == "-a" || arg == "--web-auth-file")
         {
-            if(it.hasNext())
+            if (it.hasNext())
                 QLCArgs::webAccessPasswordFile = it.next();
         }
         else if (arg == "-v" || arg == "--version")
@@ -336,11 +326,7 @@ int main(int argc, char** argv)
     QLCi18n::loadTranslation("qlcplus");
 
     /* Handle debug messages */
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-    qInstallMsgHandler(qlcMessageHandler);
-#else
     qInstallMessageHandler(qlcMessageHandler);
-#endif
 
     /* Create and initialize the QLC application object */
     App app;
@@ -374,7 +360,7 @@ int main(int argc, char** argv)
     if (QLCArgs::enableWebAccess == true)
     {
         WebAccess *webAccess = new WebAccess(app.doc(), VirtualConsole::instance(), SimpleDesk::instance(),
-                                             QLCArgs::enableWebAuth, QLCArgs::webAccessPasswordFile);
+                                             QLCArgs::webAccessPort, QLCArgs::enableWebAuth, QLCArgs::webAccessPasswordFile);
 
         QObject::connect(webAccess, SIGNAL(toggleDocMode()),
                 &app, SLOT(slotModeToggle()));

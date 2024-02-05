@@ -24,7 +24,6 @@
  #include <Windows.h>
 #endif
 
-#include "qlcinputchannel.h"
 #include "qlcinputsource.h"
 #include "qlcmacros.h"
 

@@ -3,7 +3,7 @@
   enttecdmxusbopen.h
 
   Copyright (C) Heikki Junnila
-        		Christopher Staite
+                Christopher Staite
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@
 
 #include <QByteArray>
 #include <QThread>
-#include <QMutex>
 
 #include "dmxusbwidget.h"
 
@@ -44,7 +43,7 @@ public:
      * @param id The device's unique ID (FTD2XX only)
      * @param parent The owner of this object
      */
-    EnttecDMXUSBOpen(DMXInterface *interface,
+    EnttecDMXUSBOpen(DMXInterface *iface,
                      quint32 outputLine, QObject* parent = 0);
 
     /** Destructor */
@@ -75,7 +74,7 @@ public:
      ************************************************************************/
 public:
     /** @reimp */
-    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
 
 protected:
     enum TimerGranularity { Unknown, Good, Bad };
@@ -88,8 +87,6 @@ protected:
 
 protected:
     bool m_running;
-    QByteArray m_universe;
-    double m_frequency;
     TimerGranularity m_granularity;
 };
 

@@ -29,7 +29,7 @@
  </Channel>
  <Channel Name="Effect">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="247">Color Fade: Slow to fast</Capability>
   <Capability Min="248" Max="255">Sound Chase</Capability>
  </Channel>

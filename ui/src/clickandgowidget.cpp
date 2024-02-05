@@ -17,9 +17,10 @@
   limitations under the License.
 */
 
-#include <QDesktopWidget>
 #include <QApplication>
+#include <QMouseEvent>
 #include <QPainter>
+#include <QScreen>
 #include <qmath.h>
 #include <QDebug>
 #include <QImage>
@@ -27,7 +28,6 @@
 #include "clickandgowidget.h"
 #include "qlccapability.h"
 #include "qlcmacros.h"
-#include "vcslider.h"
 #include "gradient.h"
 
 #define CELL_W  150
@@ -210,7 +210,7 @@ QImage ClickAndGoWidget::getImageFromValue(uchar value)
      *  the pre-loaded resource */
     if (m_type == Preset)
     {
-        foreach(PresetResource res, m_resources)
+        foreach (PresetResource res, m_resources)
         {
             if (value >= res.m_min && value <= res.m_max)
                 return res.m_thumbnail;
@@ -242,7 +242,7 @@ void ClickAndGoWidget::createPresetList(const QLCChannel *chan)
 
     //qDebug() << Q_FUNC_INFO << "cap #" << chan->capabilities().size();
 
-    foreach(QLCCapability* cap, chan->capabilities())
+    foreach (QLCCapability* cap, chan->capabilities())
     {
         if (cap->presetType() == QLCCapability::Picture)
         {
@@ -273,7 +273,8 @@ void ClickAndGoWidget::setupPresetPicker()
     if (m_resources.size() == 0)
         return;
 
-    QRect screen = QApplication::desktop()->availableGeometry(this);
+    QScreen *scr = QGuiApplication::screens().first();
+    QRect screen = scr->availableGeometry();
 
     m_cols = 2;
     m_rows = qCeil((qreal)m_resources.size() / 2);
@@ -295,14 +296,14 @@ void ClickAndGoWidget::setupPresetPicker()
         m_cellWidth = screen.width() / m_cols;
         m_width = m_cellWidth * m_cols;
     }
- 
+
     int x = 0;
     int y = 0;
     m_image = QImage(m_width, m_height, QImage::Format_RGB32);
     QPainter painter(&m_image);
     painter.setRenderHint(QPainter::Antialiasing);
     QLinearGradient presetGrad(QPointF(0,0), QPointF(0, m_height));
-    presetGrad.setColorAt(0, QApplication::palette().background().color());
+    presetGrad.setColorAt(0, QApplication::palette().window().color());
     presetGrad.setColorAt(1, QColor(173, 171, 179));
     painter.fillRect(0, 0, m_width, m_height, presetGrad);
 
@@ -325,8 +326,8 @@ void ClickAndGoWidget::setupPresetPicker()
         }
         else
             x += m_cellWidth;
-         
-    }  
+
+    }
 }
 
 QSize ClickAndGoWidget::sizeHint() const
@@ -338,16 +339,16 @@ void ClickAndGoWidget::mousePressEvent(QMouseEvent *event)
 {
     if (m_linearColor == true)
     {
-        if (event->x() <= 10)
+        if (event->pos().x() <= 10)
             emit levelChanged(0);
-        else if (event->x() > 10 && event->x() < 256)
-            emit levelChanged((uchar)(event->x() - 10));
+        else if (event->pos().x() > 10 && event->pos().x() < 256)
+            emit levelChanged((uchar)(event->pos().x() - 10));
         else
             emit levelChanged(255);
     }
     else if (m_type == RGB || m_type == CMY)
     {
-        emit colorChanged(m_image.pixel(event->x(), event->y()));
+        emit colorChanged(m_image.pixel(event->pos().x(), event->pos().y()));
     }
     else if (m_type == Preset)
     {
@@ -370,24 +371,24 @@ void ClickAndGoWidget::mouseMoveEvent(QMouseEvent *event)
 {
     if (m_linearColor == true && event->buttons() == Qt::LeftButton)
     {
-        if (event->x() <= 10)
+        if (event->pos().x() <= 10)
             emit levelChanged(0);
-        else if (event->x() > 10 && event->x() < 256)
-            emit levelChanged((uchar)(event->x() - 10));
+        else if (event->pos().x() > 10 && event->pos().x() < 256)
+            emit levelChanged((uchar)(event->pos().x() - 10));
         else
             emit levelChanged(255);
     }
     else if ((m_type == RGB || m_type == CMY) && event->buttons() == Qt::LeftButton)
     {
-        emit colorChanged(m_image.pixel(event->x(), event->y()));
+        emit colorChanged(m_image.pixel(event->pos().x(), event->pos().y()));
     }
     else if (m_type == Preset)
     {
         // calculate the index of the resource where the cursor is
-        int floorX = qFloor(event->x() / m_cellWidth);
-        int floorY = qFloor((event->y() - TITLE_H) / CELL_H);
+        int floorX = qFloor(event->pos().x() / m_cellWidth);
+        int floorY = qFloor((event->pos().y() - TITLE_H) / CELL_H);
         int tmpCellIDx = (floorY * m_cols) + floorX;
-        if (event->y() < TITLE_H || tmpCellIDx < 0 || tmpCellIDx >= m_resources.length())
+        if (event->pos().y() < TITLE_H || tmpCellIDx < 0 || tmpCellIDx >= m_resources.length())
         {
             m_hoverCellIdx = -1;
             update();
@@ -395,10 +396,10 @@ void ClickAndGoWidget::mouseMoveEvent(QMouseEvent *event)
         }
         m_cellBarXpos = floorX * m_cellWidth;
         m_cellBarYpos = floorY * CELL_H + TITLE_H;
-        m_cellBarWidth = event->x() - m_cellBarXpos;
+        m_cellBarWidth = event->pos().x() - m_cellBarXpos;
         m_hoverCellIdx = tmpCellIDx;
         update();
-        qDebug() << "Idx:" << m_hoverCellIdx << "X:" << m_cellBarXpos << "mX:" << event->x();
+        qDebug() << "Idx:" << m_hoverCellIdx << "X:" << m_cellBarXpos << "mX:" << event->pos().x();
     }
 }
 

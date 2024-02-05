@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>5.0.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Robert Box</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -37,7 +37,7 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">0-20 Hz, slow to fast</Capability>
+  <Capability Min="0" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="20">0-20 Hz, slow to fast</Capability>
  </Channel>
  <Channel Name="Auto or Sound Program">
   <Group Byte="0">Effect</Group>
@@ -130,11 +130,12 @@
   <Channel Number="5">Auto Program Speed</Channel>
   <Channel Number="6">Auto or Sound Program</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="2.2" Width="180" Depth="215" Height="255"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="75"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.2" Width="180" Height="255" Depth="215"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="3" Height="2"/>
+  <Technical PowerConsumption="75" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

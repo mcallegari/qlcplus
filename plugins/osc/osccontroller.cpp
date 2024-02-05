@@ -120,14 +120,14 @@ bool OSCController::setInputPort(quint32 universe, quint16 port)
 
 QSharedPointer<QUdpSocket> OSCController::getInputSocket(quint16 port)
 {
-    foreach(UniverseInfo const& info, m_universeMap)
+    foreach (UniverseInfo const& info, m_universeMap)
     {
         if (info.inputSocket && info.inputPort == port)
             return info.inputSocket;
     }
 
     QSharedPointer<QUdpSocket> inputSocket(new QUdpSocket(this));
-    inputSocket->bind(m_ipAddr, port, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
+    inputSocket->bind(QHostAddress::Any, port, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
     connect(inputSocket.data(), SIGNAL(readyRead()),
             this, SLOT(processPendingPackets()));
     return inputSocket;
@@ -199,7 +199,7 @@ UniverseInfo* OSCController::getUniverseInfo(quint32 universe)
 OSCController::Type OSCController::type() const
 {
     int type = Unknown;
-    foreach(UniverseInfo info, m_universeMap.values())
+    foreach (UniverseInfo info, m_universeMap.values())
     {
         type |= info.type;
     }
@@ -230,7 +230,12 @@ quint16 OSCController::getHash(QString path)
     else
     {
         /** No existing hash found. Add a new key to the table */
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         hash = qChecksum(path.toUtf8().data(), path.length());
+#else
+        QByteArrayView bav(path.toUtf8().data(), path.length());
+        hash = qChecksum(bav);
+#endif
         m_hashMap[path] = hash;
     }
 
@@ -309,19 +314,19 @@ void OSCController::sendFeedback(const quint32 universe, quint32 channel, uchar 
         }
 
         values = m_universeMap[universe].multipartCache[path];
-        if (values.count() <= valIdx)
+        if (values.length() <= valIdx)
             values.resize(valIdx + 1);
         values[valIdx] = (char)value;
         m_universeMap[universe].multipartCache[path] = values;
 
         //qDebug() << "Values to send:" << QString::number((uchar)values.at(0)) <<
-        //            QString::number((uchar)values.at(1)) << values.count();
+        //            QString::number((uchar)values.at(1)) << values.length();
     }
     else
         values.append((char)value); // single value path
 
     QString pTypes;
-    pTypes.fill('f', values.count());
+    pTypes.fill('f', values.length());
 
     m_packetizer->setupOSCGeneric(oscPacket, path, pTypes, values);
     qint64 sent = m_outputSocket->writeDatagram(oscPacket.data(), oscPacket.size(),
@@ -353,7 +358,7 @@ void OSCController::handlePacket(QUdpSocket* socket, QByteArray const& datagram,
         QString path = msg.first;
         QByteArray values = msg.second;
 
-        qDebug() << "[OSC] message has path:" << path << "values:" << values.count();
+        qDebug() << "[OSC] message has path:" << path << "values:" << values.length();
         if (values.isEmpty())
             continue;
 
@@ -363,10 +368,10 @@ void OSCController::handlePacket(QUdpSocket* socket, QByteArray const& datagram,
             UniverseInfo& info = it.value();
             if (info.inputSocket == socket)
             {
-                if (values.count() > 1)
+                if (values.length() > 1)
                 {
                     info.multipartCache[path] = values;
-                    for(int i = 0; i < values.count(); i++)
+                    for (int i = 0; i < values.length(); i++)
                     {
                         QString modPath = QString("%1_%2").arg(path).arg(i);
                         emit valueChanged(universe, m_line, getHash(modPath), (uchar)values.at(i), modPath);

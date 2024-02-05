@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<!-- 
+<!--
   Q Light Controller Plus
   fixture.xsd
-  
+
   Copyright (C) Jano Svitok
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -41,7 +41,7 @@ elementFormDefault="qualified"
             <xs:element name="Type" type="typeType"/>
             <xs:element name="Channel" type="channelType" maxOccurs="unbounded"/>
             <xs:element name="Mode" type="modeType" maxOccurs="unbounded"/>
-            <xs:element name="Physical" type="physicalType"/>
+            <xs:element name="Physical" type="physicalType" minOccurs="0"/>
         </xs:sequence>
      </xs:complexType>
 </xs:element>
@@ -68,6 +68,8 @@ elementFormDefault="qualified"
         <xs:enumeration value="Scanner"/>
         <xs:enumeration value="Smoke"/>
         <xs:enumeration value="Strobe"/>
+        <xs:enumeration value="LED Bar (Beams)"/>
+        <xs:enumeration value="LED Bar (Pixels)"/>
     </xs:restriction>
 </xs:simpleType>
 
@@ -146,6 +148,9 @@ elementFormDefault="qualified"
    <xs:attribute name="Color2" type="xs:string"/>
 </xs:complexType>
 
+<!-- please see
+https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets
+when changing this list -->
 <xs:simpleType name="channelPresetType">
     <xs:restriction base="xs:string">
         <xs:enumeration value="IntensityMasterDimmer"/>
@@ -183,7 +188,6 @@ elementFormDefault="qualified"
         <xs:enumeration value="IntensityValue"/>
         <xs:enumeration value="IntensityValueFine"/>
         <xs:enumeration value="PositionPan"/>
-        <xs:enumeration value="PositionPanCounterClockwise"/>
         <xs:enumeration value="PositionPanFine"/>
         <xs:enumeration value="PositionTilt"/>
         <xs:enumeration value="PositionTiltFine"/>
@@ -198,7 +202,9 @@ elementFormDefault="qualified"
         <xs:enumeration value="ColorMacro"/>
         <xs:enumeration value="ColorWheel"/>
         <xs:enumeration value="ColorWheelFine"/>
+        <xs:enumeration value="ColorRGBMixer"/>
         <xs:enumeration value="ColorCTOMixer"/>
+        <xs:enumeration value="ColorCTCMixer"/>
         <xs:enumeration value="ColorCTBMixer"/>
         <xs:enumeration value="GoboWheel"/>
         <xs:enumeration value="GoboWheelFine"/>
@@ -206,18 +212,24 @@ elementFormDefault="qualified"
         <xs:enumeration value="GoboIndexFine"/>
         <xs:enumeration value="ShutterStrobeSlowFast"/>
         <xs:enumeration value="ShutterStrobeFastSlow"/>
+        <xs:enumeration value="ShutterIrisMinToMax"/>
+        <xs:enumeration value="ShutterIrisMaxToMin"/>
+        <xs:enumeration value="ShutterIrisFine"/>
         <xs:enumeration value="BeamFocusNearFar"/>
         <xs:enumeration value="BeamFocusFarNear"/>
-        <xs:enumeration value="BeamIris"/>
-        <xs:enumeration value="BeamIrisFine"/>
+        <xs:enumeration value="BeamFocusFine"/>
         <xs:enumeration value="BeamZoomSmallBig"/>
         <xs:enumeration value="BeamZoomBigSmall"/>
+        <xs:enumeration value="BeamZoomFine"/>
         <xs:enumeration value="PrismRotationSlowFast"/>
         <xs:enumeration value="PrismRotationFastSlow"/>
         <xs:enumeration value="NoFunction"/>
     </xs:restriction>
 </xs:simpleType>
 
+<!-- please see
+https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets
+when changing this list -->
 <xs:simpleType name="capabilityPresetType">
     <xs:restriction base="xs:string">
         <xs:enumeration value="SlowToFast" />
@@ -247,10 +259,11 @@ elementFormDefault="qualified"
         <xs:enumeration value="RampUpFreqRange" />
         <xs:enumeration value="RampDownFrequency" />
         <xs:enumeration value="RampDownFreqRange" />
+        <xs:enumeration value="RotationStop" />
+        <xs:enumeration value="RotationIndexed" />
         <xs:enumeration value="RotationClockwise" />
         <xs:enumeration value="RotationClockwiseSlowToFast" />
         <xs:enumeration value="RotationClockwiseFastToSlow" />
-        <xs:enumeration value="RotationStop" />
         <xs:enumeration value="RotationCounterClockwise" />
         <xs:enumeration value="RotationCounterClockwiseSlowToFast" />
         <xs:enumeration value="RotationCounterClockwiseFastToSlow" />
@@ -260,6 +273,28 @@ elementFormDefault="qualified"
         <xs:enumeration value="GoboMacro" />
         <xs:enumeration value="GoboShakeMacro" />
         <xs:enumeration value="GenericPicture" />
+        <xs:enumeration value="PrismEffectOn" />
+        <xs:enumeration value="PrismEffectOff" />
+        <xs:enumeration value="LampOn" />
+        <xs:enumeration value="LampOff" />
+        <xs:enumeration value="ResetAll" />
+        <xs:enumeration value="ResetPanTilt" />
+        <xs:enumeration value="ResetPan" />
+        <xs:enumeration value="ResetTilt" />
+        <xs:enumeration value="ResetMotors" />
+        <xs:enumeration value="ResetGobo" />
+        <xs:enumeration value="ResetColor" />
+        <xs:enumeration value="ResetCMY" />
+        <xs:enumeration value="ResetCTO" />
+        <xs:enumeration value="ResetEffects" />
+        <xs:enumeration value="ResetPrism" />
+        <xs:enumeration value="ResetBlades" />
+        <xs:enumeration value="ResetIris" />
+        <xs:enumeration value="ResetFrost" />
+        <xs:enumeration value="ResetZoom" />
+        <xs:enumeration value="SilentModeOn" />
+        <xs:enumeration value="SilentModeOff" />
+        <xs:enumeration value="SilentModeAutomatic" />
         <xs:enumeration value="Alias" />
     </xs:restriction>
 </xs:simpleType>
@@ -292,6 +327,7 @@ elementFormDefault="qualified"
         <xs:element name="Dimensions" type="dimensionsType"/>
         <xs:element name="Lens" type="lensType"/>
         <xs:element name="Focus" type="focusType"/>
+        <xs:element name="Layout" type="layoutType" minOccurs="0"/>
         <xs:element name="Technical" type="technicalType" minOccurs="0"/>
     </xs:sequence>
 </xs:complexType>
@@ -319,6 +355,12 @@ elementFormDefault="qualified"
     <xs:attribute name="Name" type="xs:string" use="required"/>
     <xs:attribute name="DegreesMin" type="xs:decimal" use="required"/>
     <xs:attribute name="DegreesMax" type="xs:decimal" use="required"/>
+    <xs:attribute name="PrismFaces" type="xs:positiveInteger"/>
+</xs:complexType>
+
+<xs:complexType name="layoutType">
+    <xs:attribute name="Width" type="xs:positiveInteger"/>
+    <xs:attribute name="Height" type="xs:positiveInteger"/>
 </xs:complexType>
 
 <xs:complexType name="focusType">
@@ -337,7 +379,10 @@ elementFormDefault="qualified"
         <xs:enumeration value="3-pin"/>
         <xs:enumeration value="5-pin"/>
         <xs:enumeration value="3-pin and 5-pin"/>
+        <xs:enumeration value="3-pin IP65"/>
+        <xs:enumeration value="5-pin IP65"/>
         <xs:enumeration value="3.5 mm stereo jack"/>
+        <xs:enumeration value="Wireless"/>
         <xs:enumeration value="Other"/>
     </xs:restriction>
 </xs:simpleType>
@@ -346,6 +391,7 @@ elementFormDefault="qualified"
     <xs:simpleContent>
         <xs:extension base="xs:string">
             <xs:attribute name="Number" type="xs:nonNegativeInteger" use="required"/>
+            <xs:attribute name="ActsOn" type="xs:nonNegativeInteger" use="optional"/>
         </xs:extension>
      </xs:simpleContent>
 </xs:complexType>

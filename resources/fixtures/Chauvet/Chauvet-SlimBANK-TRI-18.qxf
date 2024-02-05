@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Robert Box</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -44,8 +44,8 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10">No function</Capability>
-  <Capability Min="11" Max="255">Strobe (slow to fast)</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe (slow to fast)</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
@@ -61,15 +61,15 @@
  <Channel Name="Custom Color and Color Temperature">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">No function</Capability>
-  <Capability Min="11" Max="30" Color="#ff0000" Color2="#ffff00">Red 100% + green 0 to 100%</Capability>
-  <Capability Min="31" Max="50" Color="#ffff00" Color2="#00ff00">Red 100% to 0 + green 100%</Capability>
-  <Capability Min="51" Max="70" Color="#00ff00" Color2="#00ffff">Green 100% + blue 0 to 100%</Capability>
-  <Capability Min="71" Max="90" Color="#00ffff" Color2="#0000ff">Green 100% to 0 + blue 100%</Capability>
-  <Capability Min="91" Max="110" Color="#0000ff" Color2="#ff00ff">Red 0 to 100% + blue 100%</Capability>
-  <Capability Min="111" Max="130" Color="#ff00ff" Color2="#ff0000">Red 100% + blue 100% to 0</Capability>
-  <Capability Min="131" Max="150" Color="#ff0000" Color2="#ffffff">Red 100% + green 0 to 100% + blue 0 to 100%</Capability>
-  <Capability Min="151" Max="170" Color="#ffffff" Color2="#0000ff">Red 100% to 0 + green 100% to 0 + blue 100%</Capability>
-  <Capability Min="171" Max="200" Color="#ffffff">Red 100% + green 100% + blue 100%</Capability>
+  <Capability Min="11" Max="30" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">Red 100% + green 0 to 100%</Capability>
+  <Capability Min="31" Max="50" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Red 100% to 0 + green 100%</Capability>
+  <Capability Min="51" Max="70" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#00ffff">Green 100% + blue 0 to 100%</Capability>
+  <Capability Min="71" Max="90" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#0000ff">Green 100% to 0 + blue 100%</Capability>
+  <Capability Min="91" Max="110" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff00ff">Red 0 to 100% + blue 100%</Capability>
+  <Capability Min="111" Max="130" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ff0000">Red 100% + blue 100% to 0</Capability>
+  <Capability Min="131" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red 100% + green 0 to 100% + blue 0 to 100%</Capability>
+  <Capability Min="151" Max="170" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#0000ff">Red 100% to 0 + green 100% to 0 + blue 100%</Capability>
+  <Capability Min="171" Max="200" Preset="ColorMacro" Res1="#ffffff">Red 100% + green 100% + blue 100%</Capability>
   <Capability Min="201" Max="205">Color temperature 1</Capability>
   <Capability Min="206" Max="210">Color temperature 2</Capability>
   <Capability Min="211" Max="215">Color temperature 3</Capability>
@@ -135,11 +135,11 @@
    <Channel>7</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="1530" ColourTemperature="0"/>
-   <Dimensions Weight="3.2" Width="197" Height="187" Depth="389"/>
-   <Lens Name="Other" DegreesMin="17" DegreesMax="17"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="109" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="1530" ColourTemperature="0"/>
+  <Dimensions Weight="3.2" Width="197" Height="187" Depth="389"/>
+  <Lens Name="Other" DegreesMin="17" DegreesMax="17"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="109" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

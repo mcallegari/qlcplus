@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Gabse</Author>
+ </Creator>
+ <Manufacturer>Botex</Manufacturer>
+ <Model>SP-1500</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Brightness" Preset="IntensityDimmer"/>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Strobe (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="49">Normal</Capability>
+  <Capability Min="50" Max="99" Preset="Alias">Blinder
+   <Alias Mode="Henne's Mod" Channel="Strobe" With="Blind Speed"/>
+  </Capability>
+  <Capability Min="100" Max="149">Random</Capability>
+  <Capability Min="150" Max="199" Preset="Alias">Single Flash
+   <Alias Mode="Henne's Mod" Channel="Strobe" With="Single Flash"/>
+  </Capability>
+  <Capability Min="200" Max="255">SYNC</Capability>
+ </Channel>
+ <Channel Name="Single Flash">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">No Flash</Capability>
+  <Capability Min="128" Max="255">Flash</Capability>
+ </Channel>
+ <Channel Name="Blind Speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="63">OFF</Capability>
+  <Capability Min="64" Max="95">14Hz</Capability>
+  <Capability Min="96" Max="127">15Hz</Capability>
+  <Capability Min="128" Max="159">16,6Hz</Capability>
+  <Capability Min="160" Max="192">20Hz</Capability>
+  <Capability Min="193" Max="223">25Hz</Capability>
+  <Capability Min="224" Max="255">50Hz</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Channel Number="0">Speed</Channel>
+  <Channel Number="1">Brightness</Channel>
+ </Mode>
+ <Mode Name="Henne's Mod">
+  <Channel Number="0">Speed</Channel>
+  <Channel Number="1">Brightness</Channel>
+  <Channel Number="2">Control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type=" XOP-15" Lumens="7500" ColourTemperature="8000"/>
+  <Dimensions Weight="5.65" Width="480" Height="220" Depth="124"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="1600" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

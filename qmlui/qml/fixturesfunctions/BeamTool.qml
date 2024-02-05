@@ -20,22 +20,93 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
 
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
 {
     id: toolRoot
     width: UISettings.bigItemHeight * 3
-    height: UISettings.bigItemHeight * 2.5
+    height: UISettings.bigItemHeight * 3
     color: UISettings.bgMedium
-    border.color: "#666"
+    border.color: UISettings.bgLight
     border.width: 2
 
-    property real minDegrees: 15.0
-    property real maxDegrees: 30.0
+    property real minDegrees: 0
+    property real maxDegrees: 0
+    property bool invertedZoom: false
+    property real projectedDiameter: 0
+    property bool isUpdating: false
+
+    property alias currentDegrees: beamSpinBox.realValue
+    property int previousDegrees: 0
+    property bool relativeValue: false
+
+    signal close()
 
     onMinDegreesChanged: gCanvas.requestPaint()
     onMaxDegreesChanged: gCanvas.requestPaint()
+
+    onVisibleChanged:
+    {
+        if (visible)
+        {
+            previousDegrees = 0
+            var val = contextManager.getCurrentValue(QLCChannel.Beam, true)
+            if (val === -1)
+            {
+                relativeValue = true
+                currentDegrees = 0
+            }
+            else
+            {
+                relativeValue = false
+                currentDegrees = val
+            }
+        }
+    }
+
+    onCurrentDegreesChanged:
+    {
+        if (isUpdating)
+            return
+
+        var val = relativeValue ? currentDegrees - previousDegrees : currentDegrees
+        previousDegrees = currentDegrees
+
+        beamSpinBox.value = currentDegrees * Math.pow(10, beamSpinBox.decimals)
+        contextManager.setBeamDegrees(val, relativeValue)
+        calculateProjection()
+        gCanvas.requestPaint()
+    }
+
+    function setZoomRange(min, max, inverted)
+    {
+        if (max === maxDegrees && min === minDegrees)
+            return
+
+        isUpdating = true
+        maxDegrees = max
+        minDegrees = min
+        invertedZoom = inverted
+        currentDegrees = inverted ? maxDegrees : minDegrees
+        isUpdating = false
+    }
+
+    function calculateProjection()
+    {
+        // calculate apothem
+        var apothem = distSpinBox.realValue / Math.cos(Math.PI * beamSpinBox.realValue / 360.0)
+        // calculate projection radius r=sqrt(a^2 - h^2)
+        var radius = Math.sqrt(Math.pow(apothem, 2) - Math.pow(distSpinBox.realValue, 2))
+        projectedDiameter = radius * 2.0
+    }
+
+    MouseArea
+    {
+        anchors.fill: parent
+        onWheel: { return false }
+    }
 
     Rectangle
     {
@@ -64,6 +135,16 @@ Rectangle
         {
             anchors.fill: parent
             drag.target: toolRoot
+        }
+        GenericButton
+        {
+            width: height
+            height: parent.height
+            anchors.right: parent.right
+            border.color: UISettings.bgMedium
+            useFontawesome: true
+            label: FontAwesome.fa_times
+            onClicked: toolRoot.close()
         }
     }
 
@@ -127,52 +208,37 @@ Rectangle
 
         RobotoText { label: qsTr("Beam degrees") }
 
-        CustomSpinBox
+        CustomDoubleSpinBox
         {
             id: beamSpinBox
-            from: minDegrees * 100
-            to: maxDegrees * 100
-            value: minDegrees * 100
-            stepSize: 50
-            suffix: "°"
-
-            property int decimals: 2
-            property real realValue: value / 100
-
-            validator: DoubleValidator {
-                bottom: Math.min(beamSpinBox.from, beamSpinBox.to)
-                top:  Math.max(beamSpinBox.from, beamSpinBox.to)
-            }
-
-            textFromValue: function(value, locale) {
-                return Number(value / 100).toLocaleString(locale, 'f', beamSpinBox.decimals) + suffix
-            }
-
-            valueFromText: function(text, locale) {
-                return Number.fromLocaleString(locale, text.replace(suffix, "")) * 100
-            }
-
-            onRealValueChanged:
-            {
-                fixtureManager.setBeamValue((realValue - minDegrees) * 255 / (maxDegrees - minDegrees))
-                gCanvas.requestPaint()
-            }
+            realFrom: relativeValue ? -maxDegrees : minDegrees
+            realTo: maxDegrees
         }
 
         RobotoText { label: qsTr("Distance") }
 
-        CustomSpinBox
+        CustomDoubleSpinBox
         {
             id: distSpinBox
-            from: 1
-            to: 50
-            value: 3
+            realFrom: 1
+            realTo: 1000
+            realValue: 3
             suffix: "m"
 
-            onValueChanged:
+            onRealValueChanged:
             {
-                gCanvas.requestPaint()
+                calculateProjection()
+                //gCanvas.requestPaint()
             }
+        }
+
+        RobotoText { label: qsTr("Projected diameter") }
+
+        RobotoText
+        {
+            label: Number(toolRoot.projectedDiameter).toFixed(2) + "m"
+            fontBold: true
+            //labelColor: UISettings.highlight
         }
     }
 }

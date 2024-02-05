@@ -37,8 +37,8 @@
   <Capability Res="Chauvet/gobo00009.svg" Max="49" Min="40">Gobo 4</Capability>
   <Capability Res="ClayPaky/gobo00012.svg" Max="59" Min="50">Gobo 5</Capability>
   <Capability Res="Others/gobo00063.png" Max="69" Min="60">Gobo 6</Capability>
-  <Capability Res="Chauvet/gobo00014.png" Max="79" Min="70">Gobo 7</Capability>
-  <Capability Res="Chauvet/gobo00014.png" Max="99" Min="80">Gobo 7 Shake Slow to fast</Capability>
+  <Capability Res="Chauvet/gobo00014.svg" Max="79" Min="70">Gobo 7</Capability>
+  <Capability Res="Chauvet/gobo00014.svg" Max="99" Min="80">Gobo 7 Shake Slow to fast</Capability>
   <Capability Res="Others/gobo00063.png" Max="119" Min="100">Gobo 6 Shake Slow to fast</Capability>
   <Capability Res="ClayPaky/gobo00012.svg" Max="139" Min="120">Gobo 5 Shake Slow to fast</Capability>
   <Capability Res="Chauvet/gobo00009.svg" Max="159" Min="140">Gobo 4 Shake Slow to fast</Capability>
@@ -58,7 +58,7 @@
  </Channel>
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
-  <Capability Max="127" Min="0">No Function</Capability>
+  <Capability Max="127" Min="0">No function</Capability>
   <Capability Max="255" Min="128">3-facet Prism Effect</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
@@ -75,7 +75,7 @@
  </Channel>
  <Channel Name="Channel Functions">
   <Group Byte="0">Maintenance</Group>
-  <Capability Max="19" Min="0">No Function</Capability>
+  <Capability Max="19" Min="0">No function</Capability>
   <Capability Max="39" Min="20">Blackout during Pan/Tilt movement</Capability>
   <Capability Max="59" Min="40">Disabled blackout during Pan/Tilt movement</Capability>
   <Capability Max="79" Min="60">Auto 1</Capability>
@@ -84,9 +84,9 @@
   <Capability Max="139" Min="120">Sound 2</Capability>
   <Capability Max="159" Min="140">Custom</Capability>
   <Capability Max="179" Min="160">Test</Capability>
-  <Capability Max="199" Min="180">No Function</Capability>
+  <Capability Max="199" Min="180">No function</Capability>
   <Capability Max="219" Min="200">Reset</Capability>
-  <Capability Max="255" Min="220">No Function</Capability>
+  <Capability Max="255" Min="220">No function</Capability>
  </Channel>
  <Mode Name="Advanced">
   <Channel Number="0">Pan</Channel>

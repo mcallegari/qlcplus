@@ -63,7 +63,7 @@ QHttpConnection::QHttpConnection(QTcpSocket *socket, QObject *parent)
     connect(socket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
     connect(socket, SIGNAL(bytesWritten(qint64)), this, SLOT(updateWriteCount(qint64)));
 
-    qDebug() << "HTTP connection created !";
+    qDebug() << "HTTP connection created!";
 }
 
 QHttpConnection::~QHttpConnection()
@@ -80,7 +80,7 @@ QHttpConnection::~QHttpConnection()
     if (m_isWebSocket == true)
         Q_EMIT webSocketConnectionClose(this);
 
-    qDebug() << "HTTP connection destroyed !";
+    qDebug() << "HTTP connection destroyed!";
 }
 
 void QHttpConnection::socketDisconnected()
@@ -171,14 +171,7 @@ QUrl createUrl(const char *urlData, const http_parser_url &urlInfo)
     url.setHost(CHECK_AND_GET_FIELD(urlData, urlInfo, UF_HOST));
     // Port is dealt with separately since it is available as an integer.
     url.setPath(CHECK_AND_GET_FIELD(urlData, urlInfo, UF_PATH));
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     url.setQuery(CHECK_AND_GET_FIELD(urlData, urlInfo, UF_QUERY));
-#else
-    if (HAS_URL_FIELD(urlInfo, UF_QUERY)) {
-        url.setEncodedQuery(QByteArray(urlData + urlInfo.field_data[UF_QUERY].off,
-                                       urlInfo.field_data[UF_QUERY].len));
-    }
-#endif
     url.setFragment(CHECK_AND_GET_FIELD(urlData, urlInfo, UF_FRAGMENT));
     url.setUserInfo(CHECK_AND_GET_FIELD(urlData, urlInfo, UF_USERINFO));
 
@@ -360,7 +353,7 @@ void QHttpConnection::slotWebSocketPollTimeout()
 
 void QHttpConnection::webSocketWrite(WebSocketOpCode opCode, QByteArray data)
 {
-    qDebug() << "[webSocketWrite] data size:" << data.size();
+    qDebug() << "[webSocketWrite] data size:" << data.size() << "data:" << QString(data);
     if (data.size() < 126)
         data.prepend(quint8(data.size()));
     else

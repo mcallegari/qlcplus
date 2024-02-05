@@ -19,7 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.2
+import QtQuick.Controls 2.13
 
 import org.qlcplus.classes 1.0
 import "TimeUtils.js" as TimeUtils
@@ -36,6 +36,19 @@ Rectangle
 
     signal requestView(int ID, string qmlSrc)
 
+    function deleteSelectedItems()
+    {
+        deleteItemsPopup.open()
+    }
+
+    CustomPopupDialog
+    {
+        id: deleteItemsPopup
+        title: qsTr("Delete steps")
+        message: qsTr("Are you sure you want to remove the selected steps?")
+        onAccepted: functionManager.deleteEditorItems(chWidget.selector.itemsList())
+    }
+
     SplitView
     {
         anchors.fill: parent
@@ -43,8 +56,9 @@ Rectangle
         Loader
         {
             id: funcMgrLoader
-            visible: width
-            width: 0
+            width: UISettings.sidePanelWidth
+            SplitView.preferredWidth: UISettings.sidePanelWidth
+            visible: false
             height: ceContainer.height
             source: ""
 
@@ -59,7 +73,7 @@ Rectangle
 
         Column
         {
-            Layout.fillWidth: true
+            SplitView.fillWidth: true
 
             EditorTopBar
             {
@@ -70,11 +84,11 @@ Rectangle
 
                 onBackClicked:
                 {
-                    if (funcMgrLoader.width)
+                    if (funcMgrLoader.visible)
                     {
                         funcMgrLoader.source = ""
-                        funcMgrLoader.width = 0
-                        rightSidePanel.width = rightSidePanel.width / 2
+                        funcMgrLoader.visible = false
+                        rightSidePanel.width -= funcMgrLoader.width
                     }
 
                     var prevID = chaserEditor.previousID
@@ -84,28 +98,60 @@ Rectangle
 
                 IconButton
                 {
+                    width: height
+                    height: UISettings.iconSizeMedium - 2
+                    imgSource: "qrc:/back.svg"
+                    tooltip: qsTr("Preview the previous step")
+                    visible: chaserEditor.previewEnabled
+                    onClicked: chaserEditor.gotoPreviousStep()
+                }
+
+                IconButton
+                {
+                    width: height
+                    height: UISettings.iconSizeMedium - 2
+                    imgSource: "qrc:/forward.svg"
+                    tooltip: qsTr("Preview the next step")
+                    visible: chaserEditor.previewEnabled
+                    onClicked: chaserEditor.gotoNextStep()
+                }
+
+                IconButton
+                {
                     id: addFunc
                     width: height
                     height: UISettings.iconSizeMedium - 2
                     imgSource: "qrc:/add.svg"
                     checkable: true
+                    enabled: !chaserEditor.previewEnabled
                     tooltip: qsTr("Add a new step")
 
                     onCheckedChanged:
                     {
                         if (checked)
                         {
-                            rightSidePanel.width += mainView.width / 3
-                            funcMgrLoader.width = mainView.width / 3
+                            if (!funcMgrLoader.visible)
+                                rightSidePanel.width += UISettings.sidePanelWidth
+                            funcMgrLoader.visible = true
                             funcMgrLoader.source = "qrc:/FunctionManager.qml"
                         }
                         else
                         {
-                            rightSidePanel.width = rightSidePanel.width - funcMgrLoader.width
+                            rightSidePanel.width -= funcMgrLoader.width
                             funcMgrLoader.source = ""
-                            funcMgrLoader.width = 0
+                            funcMgrLoader.visible = false
                         }
                     }
+                }
+
+                IconButton
+                {
+                    width: height
+                    height: UISettings.iconSizeMedium - 2
+                    imgSource: "qrc:/edit-copy.svg"
+                    tooltip: qsTr("Duplicate the selected step(s)")
+                    enabled: !chaserEditor.previewEnabled && chWidget.selector.itemsCount
+                    onClicked: chaserEditor.duplicateSteps(chWidget.selector.itemsList())
                 }
 
                 IconButton
@@ -115,14 +161,21 @@ Rectangle
                     height: UISettings.iconSizeMedium - 2
                     imgSource: "qrc:/remove.svg"
                     tooltip: qsTr("Remove the selected steps")
-                    onClicked: deleteItemsPopup.open()
+                    enabled: !chaserEditor.previewEnabled && chWidget.selector.itemsCount
+                    onClicked: deleteSelectedItems()
+                }
 
-                    CustomPopupDialog
+                IconButton
+                {
+                    id: printButton
+                    width: height
+                    height: UISettings.iconSizeMedium - 2
+                    imgSource: "qrc:/printer.svg"
+                    tooltip: qsTr("Print the Chaser steps")
+                    onClicked:
                     {
-                        id: deleteItemsPopup
-                        title: qsTr("Delete steps")
-                        message: qsTr("Are you sure you want to remove the selected steps ?")
-                        onAccepted: functionManager.deleteEditorItems(chWidget.selector.itemsList())
+                        chWidget.isPrinting = true
+                        qlcplus.printItem(chWidget)
                     }
                 }
             }
@@ -130,11 +183,13 @@ Rectangle
             ChaserWidget
             {
                 id: chWidget
+                objectName: "chaserEditorWidget"
                 isSequence: ceContainer.isSequence
                 width: ceContainer.width
                 height: ceContainer.height - (topbar.visible ? topbar.height : 0) - chModes.height
                 model: chaserEditor.stepsList
                 playbackIndex: chaserEditor.playbackIndex
+                speedType: chaserEditor.stepsDuration
                 tempoType: chaserEditor.tempoType
                 isRunning: chaserEditor.previewEnabled
 
@@ -142,6 +197,7 @@ Rectangle
                 onStepValueChanged: chaserEditor.setStepSpeed(index, value, type)
                 onNoteTextChanged: chaserEditor.setStepNote(index, text)
                 onAddFunctions: chaserEditor.addFunctions(list, index)
+                onMoveSteps: chaserEditor.moveSteps(list, index)
                 onRequestEditor:
                 {
                     functionManager.setEditorFunction(funcID, false, false)
@@ -178,7 +234,7 @@ Rectangle
                         }
                         model: runOrderModel
 
-                        currentValue: chaserEditor.runOrder
+                        currValue: chaserEditor.runOrder
                         onValueChanged: chaserEditor.runOrder = value
                     }
                     RobotoText
@@ -197,7 +253,7 @@ Rectangle
                         }
                         model: directionModel
 
-                        currentValue: chaserEditor.direction
+                        currValue: chaserEditor.direction
                         onValueChanged: chaserEditor.direction = value
                     }
                     RobotoText
@@ -216,7 +272,7 @@ Rectangle
                         }
                         model: tempoModel
 
-                        currentValue: chaserEditor.tempoType
+                        currValue: chaserEditor.tempoType
                         onValueChanged: chaserEditor.tempoType = value
                     }
                     RobotoText
@@ -237,7 +293,7 @@ Rectangle
                         }
                         model: fadeInModel
 
-                        currentValue: chaserEditor.stepsFadeIn
+                        currValue: chaserEditor.stepsFadeIn
                         onValueChanged: chaserEditor.stepsFadeIn = value
                     }
                     RobotoText
@@ -257,7 +313,7 @@ Rectangle
                         }
                         model: fadeOutModel
 
-                        currentValue: chaserEditor.stepsFadeOut
+                        currValue: chaserEditor.stepsFadeOut
                         onValueChanged: chaserEditor.stepsFadeOut = value
                     }
                     RobotoText
@@ -276,7 +332,7 @@ Rectangle
                         }
                         model: durationModel
 
-                        currentValue: chaserEditor.stepsDuration
+                        currValue: chaserEditor.stepsDuration
                         onValueChanged: chaserEditor.stepsDuration = value
                     }
                     RobotoText

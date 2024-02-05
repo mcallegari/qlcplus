@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-#include <QDesktopWidget>
+#include <QDesktopServices>
 #include <QGestureEvent>
 #include <QSwipeGesture>
 #include <QApplication>
@@ -26,6 +26,7 @@
 #include <QMessageBox>
 #include <QSettings>
 #include <QToolBar>
+#include <QScreen>
 #include <QAction>
 #include <QDebug>
 #include <QIcon>
@@ -109,10 +110,13 @@ DocBrowser::DocBrowser(QWidget* parent)
     QSettings settings;
     QVariant var = settings.value(SETTINGS_GEOMETRY);
     if (var.isValid() == true)
+    {
         restoreGeometry(var.toByteArray());
+    }
     else
     {
-        QRect rect = qApp->desktop()->screenGeometry();
+        QScreen *screen = QGuiApplication::screens().first();
+        QRect rect = screen->availableGeometry();
         int rWd = rect.width() / 4;
         int rHd = rect.height() / 4;
         resize(rWd * 3, rHd * 3);
@@ -148,7 +152,10 @@ DocBrowser::DocBrowser(QWidget* parent)
 
     /* Browser */
     m_browser = new QLCTextBrowser(this);
-    m_browser->setOpenExternalLinks(true);
+    // Override the link handler to only assume http/https are external links
+    // This may be replaced with setOpenExternalLinks(true) and slotAnchorClicked removed if
+    // Qt fixes setOpenExternalLinks to work with relative URL references
+    m_browser->setOpenLinks(false);
     layout()->addWidget(m_browser);
 
     connect(m_browser, SIGNAL(backwardAvailable(bool)),
@@ -163,6 +170,7 @@ DocBrowser::DocBrowser(QWidget* parent)
             m_browser, SLOT(home()));
     connect(m_aboutQtAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAboutQt()));
+    connect(m_browser, SIGNAL(anchorClicked(QUrl)), this, SLOT(slotAnchorClicked(QUrl)));
     if (QLCFile::hasWindowManager() == false)
     {
         m_toolbar->addAction(m_closeAction);
@@ -183,6 +191,17 @@ DocBrowser::~DocBrowser()
     QSettings settings;
     settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
     s_instance = NULL;
+}
+
+void DocBrowser::slotAnchorClicked(QUrl url){
+    if (url.scheme() == QLatin1String("http") || url.scheme() == QLatin1String("https"))
+     {
+        QDesktopServices::openUrl(url);
+     }
+     else
+     {
+        m_browser->setSource(url);
+     }
 }
 
 void DocBrowser::createAndShow(QWidget* parent)

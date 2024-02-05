@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>David Morgenschweis</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
@@ -12,8 +12,8 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="0">No function</Capability>
-  <Capability Min="1" Max="255">Strobe-effect with increasing speed</Capability>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="1" Max="255" Preset="StrobeSlowToFast">Strobe-effect with increasing speed</Capability>
  </Channel>
  <Channel Name="Dimmer Curve">
   <Group Byte="1">Effect</Group>

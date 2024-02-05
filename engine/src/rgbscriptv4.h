@@ -21,13 +21,13 @@
 #define RGBSCRIPTV4_H
 
 #include <QHash>
+#include <QMutex>
 #include <QJSValue>
 
 #include "rgbalgorithm.h"
 #include "rgbscriptproperty.h"
 
 class QJSEngine;
-class QMutex;
 class QDir;
 
 /** @addtogroup engine_functions Functions
@@ -45,6 +45,8 @@ public:
     RGBScript(Doc * doc);
     RGBScript(const RGBScript& s);
     ~RGBScript();
+
+    RGBScript& operator=(const RGBScript& s);
 
     /** Comparison operator. Uses simply fileName() == s.fileName(). */
     bool operator==(const RGBScript& s) const;
@@ -69,9 +71,16 @@ private:
     /** Init engine, engine mutex, and scripts map */
     static void initEngine();
 
+    /** Handle an error after evaluate() or call() of a script */
+    static void displayError(QJSValue e, const QString& fileName);
+
 private:
     static QJSEngine* s_engine;      //! The engine that runs all scripts
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     static QMutex* s_engineMutex;   //! Protection
+#else
+    static QRecursiveMutex* s_engineMutex;
+#endif
     QString m_fileName;             //! The file name that contains this script
     QString m_contents;             //! The file's contents
 
@@ -83,7 +92,7 @@ public:
     int rgbMapStepCount(const QSize& size);
 
     /** @reimp */
-    RGBMap rgbMap(const QSize& size, uint rgb, int step);
+    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);
 
     /** @reimp */
     QString name() const;
@@ -126,7 +135,7 @@ public:
     bool setProperty(QString propertyName, QString value);
 
     /** Read the value of the property with the given name */
-    QString property(QString propertyName);
+    QString property(QString propertyName) const;
 
 private:
     /** Load the script properties if any is available */

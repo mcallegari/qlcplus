@@ -32,16 +32,11 @@
 #include <QDebug>
 #include <QPen>
 
-#include "qlcfixturemode.h"
-#include "qlcfixturedef.h"
-#include "qlcchannel.h"
-
 #include "fixtureselection.h"
 #include "speeddialwidget.h"
 #include "efxpreviewarea.h"
 #include "efxeditor.h"
 #include "fixture.h"
-#include "apputil.h"
 #include "doc.h"
 
 #define SETTINGS_GEOMETRY "efxeditor/geometry"
@@ -136,6 +131,29 @@ void EFXEditor::slotFunctionManagerActive(bool active)
 
 void EFXEditor::initGeneralPage()
 {
+    // Doc
+    connect(m_doc, SIGNAL(fixtureRemoved(quint32)), this, SLOT(slotFixtureRemoved()));
+    connect(m_doc, SIGNAL(fixtureChanged(quint32)), this, SLOT(slotFixtureChanged()));
+
+    /* Set the EFX's name to the name field */
+    m_nameEdit->setText(m_efx->name());
+    m_nameEdit->setSelection(0, m_nameEdit->text().length());
+
+    /* Put all of the EFX's fixtures to the tree view */
+    updateFixtureTree();
+
+    /* Set propagation mode */
+    if (m_efx->propagationMode() == EFX::Serial)
+        m_serialRadio->setChecked(true);
+    else if (m_efx->propagationMode() == EFX::Asymmetric)
+        m_asymmetricRadio->setChecked(true);
+    else
+        m_parallelRadio->setChecked(true);
+
+    /* Disable test button if we're in operate mode */
+    if (m_doc->mode() == Doc::Operate)
+        m_testButton->setEnabled(false);
+
     connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotNameEdited(const QString&)));
 
@@ -172,40 +190,72 @@ void EFXEditor::initGeneralPage()
             this, SLOT(slotRestartTest()));
     connect(m_asymmetricRadio, SIGNAL(toggled(bool)),
             this, SLOT(slotRestartTest()));
-
-    // Doc
-    connect(m_doc, SIGNAL(fixtureRemoved(quint32)), this, SLOT(slotFixtureRemoved()));
-    connect(m_doc, SIGNAL(fixtureChanged(quint32)), this, SLOT(slotFixtureChanged()));
-
-    /* Set the EFX's name to the name field */
-    m_nameEdit->setText(m_efx->name());
-    m_nameEdit->setSelection(0, m_nameEdit->text().length());
-
-    /* Put all of the EFX's fixtures to the tree view */
-    updateFixtureTree();
-
-    /* Set propagation mode */
-    if (m_efx->propagationMode() == EFX::Serial)
-        m_serialRadio->setChecked(true);
-    else if (m_efx->propagationMode() == EFX::Asymmetric)
-        m_asymmetricRadio->setChecked(true);
-    else
-        m_parallelRadio->setChecked(true);
-
-    /* Disable test button if we're in operate mode */
-    if (m_doc->mode() == Doc::Operate)
-        m_testButton->setEnabled(false);
 }
 
 void EFXEditor::initMovementPage()
 {
     new QHBoxLayout(m_previewFrame);
     m_previewArea = new EFXPreviewArea(m_previewFrame);
-    m_previewFrame->layout()->setMargin(0);
+    m_previewFrame->layout()->setContentsMargins(0, 0, 0, 0);
     m_previewFrame->layout()->addWidget(m_previewArea);
 
     /* Get supported algorithms and fill the algorithm combo with them */
     m_algorithmCombo->addItems(EFX::algorithmList());
+
+    QString algo(EFX::algorithmToString(m_efx->algorithm()));
+    /* Select the EFX's algorithm from the algorithm combo */
+    for (int i = 0; i < m_algorithmCombo->count(); i++)
+    {
+        if (m_algorithmCombo->itemText(i) == algo)
+        {
+            m_algorithmCombo->setCurrentIndex(i);
+            break;
+        }
+    }
+
+    /* Causes the EFX function to update the preview point array */
+    slotAlgorithmSelected(algo);
+
+    /* Get the algorithm parameters */
+    m_widthSpin->setValue(m_efx->width());
+    m_heightSpin->setValue(m_efx->height());
+    m_xOffsetSpin->setValue(m_efx->xOffset());
+    m_yOffsetSpin->setValue(m_efx->yOffset());
+    m_rotationSpin->setValue(m_efx->rotation());
+    m_startOffsetSpin->setValue(m_efx->startOffset());
+    m_isRelativeCheckbox->setChecked(m_efx->isRelative());
+
+    m_xFrequencySpin->setValue(m_efx->xFrequency());
+    m_yFrequencySpin->setValue(m_efx->yFrequency());
+    m_xPhaseSpin->setValue(m_efx->xPhase());
+    m_yPhaseSpin->setValue(m_efx->yPhase());
+
+    /* Running order */
+    switch (m_efx->runOrder())
+    {
+        default:
+        case Function::Loop:
+            m_loop->setChecked(true);
+        break;
+        case Function::SingleShot:
+            m_singleShot->setChecked(true);
+        break;
+        case Function::PingPong:
+            m_pingPong->setChecked(true);
+        break;
+    }
+
+    /* Direction */
+    switch (m_efx->direction())
+    {
+        default:
+        case Function::Forward:
+            m_forward->setChecked(true);
+        break;
+        case Function::Backward:
+            m_backward->setChecked(true);
+        break;
+    }
 
     connect(m_loop, SIGNAL(clicked()),
             this, SLOT(slotLoopClicked()));
@@ -247,61 +297,6 @@ void EFXEditor::initMovementPage()
 
     connect(m_colorCheck, SIGNAL(toggled(bool)),
             this, SLOT(slotSetColorBackground(bool)));
-
-    QString algo(EFX::algorithmToString(m_efx->algorithm()));
-    /* Select the EFX's algorithm from the algorithm combo */
-    for (int i = 0; i < m_algorithmCombo->count(); i++)
-    {
-        if (m_algorithmCombo->itemText(i) == algo)
-        {
-            m_algorithmCombo->setCurrentIndex(i);
-            break;
-        }
-    }
-
-    /* Causes the EFX function to update the preview point array */
-    slotAlgorithmSelected(algo);
-
-    /* Get the algorithm parameters */
-    m_widthSpin->setValue(m_efx->width());
-    m_heightSpin->setValue(m_efx->height());
-    m_xOffsetSpin->setValue(m_efx->xOffset());
-    m_yOffsetSpin->setValue(m_efx->yOffset());
-    m_rotationSpin->setValue(m_efx->rotation());
-    m_startOffsetSpin->setValue(m_efx->startOffset());
-    m_isRelativeCheckbox->setChecked(m_efx->isRelative());
-
-    m_xFrequencySpin->setValue(m_efx->xFrequency());
-    m_yFrequencySpin->setValue(m_efx->yFrequency());
-    m_xPhaseSpin->setValue(m_efx->xPhase());
-    m_yPhaseSpin->setValue(m_efx->yPhase());
-
-    /* Running order */
-    switch (m_efx->runOrder())
-    {
-    default:
-    case Function::Loop:
-        m_loop->setChecked(true);
-        break;
-    case Function::SingleShot:
-        m_singleShot->setChecked(true);
-        break;
-    case Function::PingPong:
-        m_pingPong->setChecked(true);
-        break;
-    }
-
-    /* Direction */
-    switch (m_efx->direction())
-    {
-    default:
-    case Function::Forward:
-        m_forward->setChecked(true);
-        break;
-    case Function::Backward:
-        m_backward->setChecked(true);
-        break;
-    }
 
     redrawPreview();
 }
@@ -348,7 +343,7 @@ void EFXEditor::slotTabChanged(int tab)
     m_efx->setUiStateValue(UI_STATE_TAB_INDEX, tab);
 
     //When preview animation is opened restart animation but avoid restart if test is running.
-    if(tab == 1 && (m_testButton->isChecked () == false))
+    if (tab == 1 && (m_testButton->isChecked () == false))
         m_previewArea->restart ();
 }
 
@@ -620,13 +615,13 @@ void EFXEditor::slotFixtureItemChanged(QTreeWidgetItem* item, int column)
 
 void EFXEditor::slotFixtureModeChanged(int index)
 {
-    QComboBox* combo = qobject_cast<QComboBox*>(QObject::sender());
+    QComboBox *combo = qobject_cast<QComboBox*>(QObject::sender());
     Q_ASSERT(combo != NULL);
 
-    EFXFixture* ef = (EFXFixture*) combo->property(PROPERTY_FIXTURE).toULongLong();
+    EFXFixture *ef = (EFXFixture*) combo->property(PROPERTY_FIXTURE).toULongLong();
     Q_ASSERT(ef != NULL);
 
-    ef->setMode ( ef->stringToMode (combo->itemText(index)) );
+    ef->setMode(ef->stringToMode (combo->itemText(index)));
 
     // Restart the test after the latest mode change, delayed
     m_testTimer.start();
@@ -634,9 +629,9 @@ void EFXEditor::slotFixtureModeChanged(int index)
 
 void EFXEditor::slotFixtureStartOffsetChanged(int startOffset)
 {
-    QSpinBox* spin = qobject_cast<QSpinBox*>(QObject::sender());
+    QSpinBox *spin = qobject_cast<QSpinBox*>(QObject::sender());
     Q_ASSERT(spin != NULL);
-    EFXFixture* ef = (EFXFixture*) spin->property(PROPERTY_FIXTURE).toULongLong();
+    EFXFixture *ef = (EFXFixture*) spin->property(PROPERTY_FIXTURE).toULongLong();
     Q_ASSERT(ef != NULL);
     ef->setStartOffset(startOffset);
 
@@ -1059,7 +1054,7 @@ void EFXEditor::redrawPreview()
 
     QVector <QPolygonF> fixturePoints;
     m_efx->previewFixtures(fixturePoints);
- 
+
     m_previewArea->setPolygon(polygon);
     m_previewArea->setFixturePolygons(fixturePoints);
 

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4</Version>
+  <Author>Jay Seaman</Author>
+ </Creator>
+ <Manufacturer>UKing</Manufacturer>
+ <Model>LED Spot Moving Head 100W</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Color Select">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#fc012f">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#24ff1e">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0e00ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#f9ff0b">Yellow</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#febb0e">Amber</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#80fcff">Cyan</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#fd7ad3">Magenta</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#fd97f3" Res2="#24ff0a">Magenta / Cyan</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#7bfff8" Res2="#fd992b">Cyan / Amber</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#fd7d28" Res2="#edff0c">Amber / Yellow</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#fffa12" Res2="#1e00ff">Yellow / Blue</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#0700ff" Res2="#28ff08">Blue / Green</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#23ff0c" Res2="#fc001a">Green / Red</Capability>
+  <Capability Min="140" Max="255" Preset="SlowToFast">Color Change Automatic Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Pattern">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Pattern 1 - Clear</Capability>
+  <Capability Min="8" Max="15" Preset="GoboMacro" Res1="ClayPaky/gobo00060.svg">Pattern 2 - Flower</Capability>
+  <Capability Min="16" Max="23" Preset="GoboMacro" Res1="SGM/gobo00008.svg">Pattern 3 - Circles</Capability>
+  <Capability Min="24" Max="31" Preset="GoboMacro" Res1="Others/gobo00027.svg">Pattern 4 - Triangle</Capability>
+  <Capability Min="32" Max="39" Preset="GoboMacro" Res1="Chauvet/gobo00038.svg">Pattern 5 - Star</Capability>
+  <Capability Min="40" Max="47" Preset="GoboMacro" Res1="SGM/gobo00037.svg">Pattern 6 - Sunburst</Capability>
+  <Capability Min="48" Max="55" Preset="GoboMacro" Res1="Others/gobo00046.svg">Pattern 7 - Spiral</Capability>
+  <Capability Min="56" Max="63" Preset="GoboMacro" Res1="Others/gobo00097.svg">Pattern 8 - Triangle Breakup</Capability>
+  <Capability Min="64" Max="71" Preset="GoboMacro" Res1="Others/open.svg">Pattern 1 Dither slow to fast</Capability>
+  <Capability Min="72" Max="79" Preset="GoboMacro" Res1="ClayPaky/gobo00060.svg">Pattern 2 Dither slow to fast</Capability>
+  <Capability Min="80" Max="87" Preset="GoboMacro" Res1="SGM/gobo00008.svg">Pattern 3 Dither slow to fast</Capability>
+  <Capability Min="88" Max="95" Preset="GoboMacro" Res1="Others/gobo00027.svg">Pattern 4 Dither slow to fast</Capability>
+  <Capability Min="96" Max="103" Preset="GoboMacro" Res1="Chauvet/gobo00038.svg">Pattern 5 Dither slow to fast</Capability>
+  <Capability Min="104" Max="111" Preset="GoboMacro" Res1="SGM/gobo00037.svg">Pattern 6 Dither slow to fast</Capability>
+  <Capability Min="112" Max="119" Preset="GoboMacro" Res1="Others/gobo00046.svg">Pattern 7 Dither slow to fast</Capability>
+  <Capability Min="120" Max="127" Preset="GoboMacro" Res1="Others/gobo00097.svg">Pattern 8 Dither slow to fast</Capability>
+  <Capability Min="128" Max="255" Preset="SlowToFast">Pattern Auto Change slow to fast</Capability>
+ </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Brightness" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Tilt/Pan speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Automatic Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="59" Preset="ShutterOpen">Other Mode</Capability>
+  <Capability Min="60" Max="84">Automatic Mode 3</Capability>
+  <Capability Min="85" Max="109">Automatic Mode 2</Capability>
+  <Capability Min="110" Max="134">Automatic Mode 1</Capability>
+  <Capability Min="135" Max="159">Automatic Mode 0</Capability>
+  <Capability Min="160" Max="184">Sound Mode 3</Capability>
+  <Capability Min="185" Max="209">Sound Mode 2</Capability>
+  <Capability Min="210" Max="234">Sound Mode 1</Capability>
+  <Capability Min="235" Max="255">Sound Mode 0</Capability>
+ </Channel>
+ <Channel Name="Other Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="20">Other Mode</Capability>
+  <Capability Min="21" Max="100">X-Motor Auto Mode</Capability>
+  <Capability Min="101" Max="200">Y-Motor Auto Mode</Capability>
+  <Capability Min="201" Max="249">XY Motor Auto Mode</Capability>
+  <Capability Min="250" Max="255" Preset="ResetAll">Reset</Capability>
+ </Channel>
+ <Mode Name="11 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Color Select</Channel>
+  <Channel Number="5">Pattern</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Brightness</Channel>
+  <Channel Number="8">Tilt/Pan speed</Channel>
+  <Channel Number="9">Automatic Mode</Channel>
+  <Channel Number="10">Other Mode</Channel>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Color Select</Channel>
+  <Channel Number="3">Pattern</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Brightness</Channel>
+  <Channel Number="6">Tilt/Pan speed</Channel>
+  <Channel Number="7">Automatic Mode</Channel>
+  <Channel Number="8">Other Mode</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="1700" ColourTemperature="0"/>
+  <Dimensions Weight="3.1" Width="220" Height="330" Depth="220"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

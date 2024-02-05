@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Carlitos AntiCrispis</Author>
+ </Creator>
+ <Manufacturer>Briteq</Manufacturer>
+ <Model>BT-575W</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">BlackOut</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Shutter (Slow &gt; Fast)</Capability>
+  <Capability Min="132" Max="247" Preset="StrobeRandomSlowToFast">Free Shutter</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="18" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="19" Max="36" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="37" Max="54" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="55" Max="72" Preset="ColorMacro" Res1="#ff7300">Orange</Capability>
+  <Capability Min="73" Max="90" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="91" Max="108" Preset="ColorMacro" Res1="#00ffee">Cyan</Capability>
+  <Capability Min="109" Max="127" Preset="ColorMacro" Res1="#d900ff">Purple</Capability>
+  <Capability Min="128" Max="191" Preset="ColorDoubleMacro" Res1="#23ffd3" Res2="#ff30e4">Color wheel clockwise</Capability>
+  <Capability Min="192" Max="255" Preset="ColorDoubleMacro" Res1="#ee01ff" Res2="#0cffeb">Color wheel anti-clockwise</Capability>
+ </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="CMY Mix Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">Open</Capability>
+  <Capability Min="8" Max="11">White</Capability>
+  <Capability Min="12" Max="127">32 Colors</Capability>
+  <Capability Min="128" Max="255">Macro</Capability>
+ </Channel>
+ <Channel Name="CMY Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">CMY Speed (Fast &gt; Slow)</Capability>
+ </Channel>
+ <Channel Name="Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Open</Capability>
+  <Capability Min="16" Max="32">Beam Shape</Capability>
+  <Capability Min="33" Max="239">Beam Shape Rotation</Capability>
+  <Capability Min="240" Max="255">Frost</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Lamp On/Off/Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="129">Normal</Capability>
+  <Capability Min="130" Max="139" Preset="LampOn">Lamp On (Keep 5 seconds to activate)</Capability>
+  <Capability Min="140" Max="199">No function</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">DMX Reset (Keep 5 seconds to activate)</Capability>
+  <Capability Min="210" Max="229">No function</Capability>
+  <Capability Min="230" Max="239" Preset="LampOff">Lamp Off (Keep 5 seconds to activate)</Capability>
+  <Capability Min="240" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt Speed</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Shutter</Channel>
+  <Channel Number="5">Color</Channel>
+  <Channel Number="6">Cyan</Channel>
+  <Channel Number="7">Magenta</Channel>
+  <Channel Number="8">Yellow</Channel>
+  <Channel Number="9">CMY Mix Macro</Channel>
+  <Channel Number="10">CMY Speed</Channel>
+  <Channel Number="11">Effect</Channel>
+  <Channel Number="12">Zoom</Channel>
+  <Channel Number="13">Pan Fine</Channel>
+  <Channel Number="14">Tilt Fine</Channel>
+  <Channel Number="15">Lamp On/Off/Reset</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Shutter</Channel>
+  <Channel Number="3">Effect</Channel>
+  <Channel Number="4">Color</Channel>
+  <Channel Number="5">CMY Mix Macro</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Zoom</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSR 575W" Lumens="28000" ColourTemperature="0"/>
+  <Dimensions Weight="30.5" Width="428" Height="387" Depth="491"/>
+  <Lens Name="Fresnel" DegreesMin="11" DegreesMax="28"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="800" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

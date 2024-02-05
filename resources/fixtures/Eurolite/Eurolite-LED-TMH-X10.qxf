@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 1</Version>
+  <Author>Michał Kluska</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED TMH-X10</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Horizontal Movement (Pan)" Preset="PositionPan"/>
+ <Channel Name="Pan-Movement with 16-bit resolution" Preset="PositionPanFine"/>
+ <Channel Name="Vertical Movement (Tilt)" Preset="PositionTilt"/>
+ <Channel Name="Tilt-Movement with 16-bit resolution" Preset="PositionTiltFine"/>
+ <Channel Name="PAN/TILT Movement" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Shutter, Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="4" Max="251" Preset="StrobeSlowToFast">Strobe effect with increasing spreed</Capability>
+  <Capability Min="252" Max="255" Preset="ShutterOpen">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Dimmer intensity" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Colour Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">white</Capability>
+  <Capability Min="1" Max="9" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">white and red</Capability>
+  <Capability Min="10" Max="11" Preset="ColorMacro" Res1="#ff0000">red</Capability>
+  <Capability Min="12" Max="19" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffa500">red and orange</Capability>
+  <Capability Min="20" Max="21" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="22" Max="29" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#00ff00">Orange and green</Capability>
+  <Capability Min="30" Max="31" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="32" Max="39" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#add8e6">Green and light blue</Capability>
+  <Capability Min="40" Max="41" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
+  <Capability Min="42" Max="49" Preset="ColorDoubleMacro" Res1="#add8e6" Res2="#a020f0">Light blue and purple</Capability>
+  <Capability Min="50" Max="51" Preset="ColorMacro" Res1="#a020f0">Purple</Capability>
+  <Capability Min="52" Max="59" Preset="ColorDoubleMacro" Res1="#a020f0" Res2="#ffff00">Purple and yellow</Capability>
+  <Capability Min="60" Max="61" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="62" Max="69" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#0000ff">Yellow and blue</Capability>
+  <Capability Min="70" Max="71" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="72" Max="79" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffc0cb">Blue and pink</Capability>
+  <Capability Min="80" Max="81" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="82" Max="89" Preset="ColorDoubleMacro" Res1="#ffc0cb" Res2="#ffffff">Pink and white</Capability>
+  <Capability Min="90" Max="90" Preset="RotationStop">Stop</Capability>
+  <Capability Min="91" Max="255" Preset="RotationClockwiseSlowToFast">Rainbow effect with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Gobo-wheel, Gobo-Shake">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="4" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="5" Max="9" Preset="GoboMacro" Res1="">Gobo 1</Capability>
+  <Capability Min="10" Max="14" Preset="GoboMacro" Res1="">Gobo 2</Capability>
+  <Capability Min="15" Max="19" Preset="GoboMacro" Res1="">Gobo 3</Capability>
+  <Capability Min="20" Max="24" Preset="GoboMacro" Res1="">Gobo 4</Capability>
+  <Capability Min="25" Max="29" Preset="GoboMacro" Res1="">Gobo 5</Capability>
+  <Capability Min="30" Max="34" Preset="GoboMacro" Res1="">Gobo 6</Capability>
+  <Capability Min="35" Max="39" Preset="GoboMacro" Res1="">Gobo 7</Capability>
+  <Capability Min="40" Max="44" Preset="GoboMacro" Res1="">Gobo 8</Capability>
+  <Capability Min="45" Max="129" Preset="RotationCounterClockwiseFastToSlow">Gobo-wheel rotation backwards with decreasing speed</Capability>
+  <Capability Min="130" Max="134" Preset="RotationStop">Open</Capability>
+  <Capability Min="135" Max="215" Preset="RotationClockwiseSlowToFast">Gobo-wheel rotation forwards with increasing speed</Capability>
+  <Capability Min="216" Max="220" Preset="GoboShakeMacro" Res1="">Gobo 1 shake with increasing speed</Capability>
+  <Capability Min="221" Max="225" Preset="GoboShakeMacro" Res1="">Gobo 2 shake with increasing speed</Capability>
+  <Capability Min="226" Max="230" Preset="GoboShakeMacro" Res1="">Gobo 3 shake with increasing speed</Capability>
+  <Capability Min="231" Max="235" Preset="GoboShakeMacro" Res1="">Gobo 4 shake with increasing speed</Capability>
+  <Capability Min="236" Max="240" Preset="GoboShakeMacro" Res1="">Gobo 5 shake with increasing speed</Capability>
+  <Capability Min="241" Max="245" Preset="GoboShakeMacro" Res1="">Gobo 6 shake with increasing speed</Capability>
+  <Capability Min="246" Max="250" Preset="GoboShakeMacro" Res1="">Gobo 7 shake with increasing speed</Capability>
+  <Capability Min="251" Max="255" Preset="GoboShakeMacro" Res1="">Gobo 8 shake with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
+ <Channel Name="Prism">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="127" Preset="GoboMacro" Res1="Others/open.svg">open</Capability>
+  <Capability Min="128" Max="255">8-facet-Prism</Capability>
+ </Channel>
+ <Channel Name="Rotating prism index, prism rotation">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="63" Preset="RotationIndexed">Prism positioning</Capability>
+  <Capability Min="64" Max="126">rotating prism shake in both directions with decreasing speed</Capability>
+  <Capability Min="127" Max="191" Preset="RotationCounterClockwiseFastToSlow">backwards prism rotation with decreasing speed</Capability>
+  <Capability Min="192" Max="255" Preset="RotationClockwiseSlowToFast">forwards prism rotation with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Frost">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">No function</Capability>
+  <Capability Min="128" Max="255">Frost Effect</Capability>
+ </Channel>
+ <Channel Name="Macros / step response">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="5">Fade delay On</Capability>
+  <Capability Min="6" Max="10">Fade delay Off</Capability>
+  <Capability Min="11" Max="15">Macro 1</Capability>
+  <Capability Min="16" Max="75">Macro 2</Capability>
+  <Capability Min="76" Max="135">Macro 3</Capability>
+  <Capability Min="136" Max="195">Macro 4</Capability>
+  <Capability Min="196" Max="255">Macro 5</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="25">No function</Capability>
+  <Capability Min="26" Max="45">Reset others</Capability>
+  <Capability Min="46" Max="103">No function</Capability>
+  <Capability Min="104" Max="119" Preset="ResetPanTilt">Reset Pan/Tilt</Capability>
+  <Capability Min="120" Max="190">No function</Capability>
+  <Capability Min="191" Max="205" Preset="ResetAll">Reset all</Capability>
+  <Capability Min="206" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="15 channel">
+  <Channel Number="0">Horizontal Movement (Pan)</Channel>
+  <Channel Number="1">Pan-Movement with 16-bit resolution</Channel>
+  <Channel Number="2">Vertical Movement (Tilt)</Channel>
+  <Channel Number="3">Tilt-Movement with 16-bit resolution</Channel>
+  <Channel Number="4">PAN/TILT Movement</Channel>
+  <Channel Number="5">Shutter, Strobe</Channel>
+  <Channel Number="6">Dimmer intensity</Channel>
+  <Channel Number="7">Colour Wheel</Channel>
+  <Channel Number="8">Gobo-wheel, Gobo-Shake</Channel>
+  <Channel Number="9">Focus</Channel>
+  <Channel Number="10">Prism</Channel>
+  <Channel Number="11" ActsOn="10">Rotating prism index, prism rotation</Channel>
+  <Channel Number="12">Frost</Channel>
+  <Channel Number="13">Macros / step response</Channel>
+  <Channel Number="14">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="10.4" Width="235" Height="400" Depth="325"/>
+  <Lens Name="Other" DegreesMin="45" DegreesMax="55"/>
+  <Focus Type="Head" PanMax="540" TiltMax="280"/>
+  <Technical PowerConsumption="175" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>
