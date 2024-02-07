@@ -25,7 +25,7 @@ DEPENDPATH      += ../engine/src
 QMAKE_LIBDIR    += ../engine/src
 
 android {
-    LIBS            += -lqlcplusengine_$${first(ANDROID_ABIS)}
+    LIBS            += -lqlcplusengine_$${QT_ARCH}
 } else {
     LIBS            += -lqlcplusengine
 }
