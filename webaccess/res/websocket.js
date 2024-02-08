@@ -46,6 +46,10 @@ function connect() {
   websocket.onmessage = function (ev) {
     //console.log(ev.data);
     var msgParams = ev.data.split("|");
+    if (msgParams[0] === "GM_VALUE") {
+      grandMasterValueChanged(msgParams[1], msgParams[2]);
+    }
+
     if (msgParams[1] === "BUTTON") {
       wsSetButtonState(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "BUTTON_DISABLE") {
