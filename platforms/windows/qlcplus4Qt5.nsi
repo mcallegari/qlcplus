@@ -91,7 +91,6 @@ Section
 	File /r styles
 	File Sample.qxw
 	File *.qm
-	File /r Documents
 	File /r Fixtures
 	File /r Gobos
 	File /r InputProfiles
@@ -133,7 +132,6 @@ Section "Uninstall"
 	RMDir /r $INSTDIR\styles
 	Delete $INSTDIR\Sample.qxw
 	Delete $INSTDIR\*.qm
-	RMDir /r $INSTDIR\Documents
 	RMDir /r $INSTDIR\Fixtures
 	RMDir /r $INSTDIR\Gobos
 	RMDir /r $INSTDIR\InputProfiles

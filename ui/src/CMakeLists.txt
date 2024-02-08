@@ -61,7 +61,6 @@ add_library(${module_name}
     ctkrangeslider.cpp ctkrangeslider.h
     cuestackmodel.cpp cuestackmodel.h
     dmxdumpfactory.cpp dmxdumpfactory.h dmxdumpfactory.ui
-    docbrowser.cpp docbrowser.h
     efxeditor.cpp efxeditor.h efxeditor.ui
     efxpreviewarea.cpp efxpreviewarea.h
     fixtureconsole.cpp fixtureconsole.h
