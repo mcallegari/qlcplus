@@ -20,7 +20,7 @@
 #include <QDebug>
 #include <QProcess>
 #include <QSettings>
-#include <cmath>
+#include <qmath.h>
 
 #include "webaccess.h"
 
@@ -2091,44 +2091,44 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
 
 void WebAccess::slotGrandMasterValueChanged(uchar value)
 {
-    GrandMaster::ValueMode value_mode = m_vc->properties().grandMasterValueMode();
-    QString g_value_show;
-    if (value_mode == GrandMaster::Limit)
+    GrandMaster::ValueMode gmValueMode = m_vc->properties().grandMasterValueMode();
+    QString gmDisplayValue;
+    if (gmValueMode == GrandMaster::Limit)
     {
-        g_value_show = QString("%1").arg(value, 3, 10, QChar('0'));
+        gmDisplayValue = QString("%1").arg(value, 3, 10, QChar('0'));
     }
     else
     {
-        int p = floor(((double(value) / double(UCHAR_MAX)) * double(100)) + 0.5);
-        g_value_show = QString("%1%").arg(p, 2, 10, QChar('0'));
+        int p = qFloor(((double(value) / double(UCHAR_MAX)) * double(100)) + 0.5);
+        gmDisplayValue = QString("%1%").arg(p, 2, 10, QChar('0'));
     }
-    QString wsMessage = QString("GM_VALUE|%1|%2").arg(value).arg(g_value_show);
+    QString wsMessage = QString("GM_VALUE|%1|%2").arg(value).arg(gmDisplayValue);
     sendWebSocketMessage(wsMessage.toUtf8());
 }
 
 QString WebAccess::getGrandMasterSliderHTML()
 {
-    GrandMaster::ValueMode value_mode = m_vc->properties().grandMasterValueMode();
-    GrandMaster::SliderMode slider_mode = m_vc->properties().grandMasterSlideMode();
-    uchar g_value = m_doc->inputOutputMap()->grandMasterValue();
+    GrandMaster::ValueMode gmValueMode = m_vc->properties().grandMasterValueMode();
+    GrandMaster::SliderMode gmSliderMode = m_vc->properties().grandMasterSlideMode();
+    uchar gmValue = m_doc->inputOutputMap()->grandMasterValue();
 
-    QString g_value_show;
-    if (value_mode == GrandMaster::Limit)
+    QString gmDisplayValue;
+    if (gmValueMode == GrandMaster::Limit)
     {
-        g_value_show = QString("%1").arg(g_value, 3, 10, QChar('0'));
+        gmDisplayValue = QString("%1").arg(gmValue, 3, 10, QChar('0'));
     }
     else
     {
-        int p = floor(((double(g_value) / double(UCHAR_MAX)) * double(100)) + 0.5);
-        g_value_show = QString("%1%").arg(p, 2, 10, QChar('0'));
+        int p = qFloor(((double(gmValue) / double(UCHAR_MAX)) * double(100)) + 0.5);
+        gmDisplayValue = QString("%1%").arg(p, 2, 10, QChar('0'));
     }
 
     QString str = "<div class=\"vcslider\" style=\"width: 100%; height: 100%;\">\n";
     str += "<div style=\"height: 100%; display: flex; flex-direction: column; justify-content: space-between; \">";
-    str += "<div class=\"vcslLabel\" id=\"vcGMSliderLabel\">"+g_value_show+"</div>\n";
+    str += "<div class=\"vcslLabel\" id=\"vcGMSliderLabel\">"+gmDisplayValue+"</div>\n";
 
-    int rotate = slider_mode == GrandMaster::SliderMode::Inverted ? 90 : 270;
-    QString mt = slider_mode == GrandMaster::SliderMode::Inverted ? "calc(-100vh + 120px)" : "calc(100vh - 120px)";
+    int rotate = gmSliderMode == GrandMaster::SliderMode::Inverted ? 90 : 270;
+    QString mt = gmSliderMode == GrandMaster::SliderMode::Inverted ? "calc(-100vh + 120px)" : "calc(100vh - 120px)";
     int min = 0;
     int max = 255;
 
@@ -2138,7 +2138,7 @@ QString WebAccess::getGrandMasterSliderHTML()
                 "margin-left: 20px; "
                 "--rotate: "+QString::number(rotate)+"\" "
                 "min=\""+QString::number(min)+"\" max=\""+QString::number(max)+"\" "
-                "step=\"1\" value=\"" + QString::number(g_value) + "\">\n";
+                "step=\"1\" value=\"" + QString::number(gmValue) + "\">\n";
     str += "<div class=\"vcslLabel\">GM</div>";
     str += "</div>\n";
     str += "</div>\n";
