@@ -60,6 +60,7 @@ qlcplus (4.12.8) stable; urgency=low
   * New fixtures: Showtec LED Par 64 Short V2, Bright XBAR (thanks to Øystein Steimler)
   * New fixtures: AFX CLUB-MIX3 19x10W RGBW, Eurolite LED Theatre COB 200 RGB+WW (thanks to Florian Faber)
   * New fixture: Chauvet COLORado Batten 72x (thanks to Greg Perrone)
+  * New fixture: Talent SSL2
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 18 Feb 2024 12:13:14 +0200
 
