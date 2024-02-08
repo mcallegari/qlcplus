@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(qlcplus VERSION 4.12.8 LANGUAGES C CXX)
+project(qlcplus VERSION 4.13.0 LANGUAGES C CXX)
 
 # Set Release build type by default
 if(NOT CMAKE_BUILD_TYPE)
