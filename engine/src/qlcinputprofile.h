@@ -40,6 +40,8 @@ class QXmlStreamReader;
 #define KXMLQLCInputProfileModel            QString("Model")
 #define KXMLQLCInputProfileType             QString("Type")
 #define KXMLQLCInputProfileMidiSendNoteOff  QString("MIDISendNoteOff")
+#define KXMLQLCInputProfileColorTable       QString("ColorTable")
+#define KXMLQLCInputProfileColor            QString("Color")
 
 class QLCInputProfile : public QObject
 {
@@ -190,6 +192,19 @@ protected:
     QMap <quint32, QLCInputChannel*> m_channels;
 
     /********************************************************************
+     * Color Translation Table
+     ********************************************************************/
+public:
+    bool hasColorTable();
+    void addColor(uchar value, QString label, QColor color);
+    void removeColor(uchar value);
+
+    QMap<uchar, QPair<QString, QColor>> colorTable();
+
+protected:
+    QMap<uchar, QPair<QString, QColor>> m_colorTable;
+
+    /********************************************************************
      * Load & Save
      ********************************************************************/
 public:
@@ -198,6 +213,8 @@ public:
 
     /** Save an input profile into a given file name */
     bool saveXML(const QString& fileName);
+
+    bool loadColorTableXML(QXmlStreamReader &tableRoot);
 
     /** Load an input profile from the given document */
     bool loadXML(QXmlStreamReader &doc);

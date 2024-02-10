@@ -35,6 +35,9 @@
 #define KXMLQLCInputProfileTypeDmx "DMX"
 #define KXMLQLCInputProfileTypeEnttec "Enttec"
 
+#define KXMLQLCInputProfileColorValue "Value"
+#define KXMLQLCInputProfileColorLabel "Label"
+#define KXMLQLCInputProfileColorRGB "RGB"
 
 /****************************************************************************
  * Initialization
@@ -71,6 +74,15 @@ QLCInputProfile *QLCInputProfile::createCopy()
         copy->insertChannel(it.key(), it.value()->createCopy());
     }
 
+    /* Copy the other profile's color table */
+    QMapIterator <uchar, QPair<QString, QColor>> it2(this->colorTable());
+    while (it2.hasNext() == true)
+    {
+        it2.next();
+        QPair<QString, QColor> lc = it2.value();
+        copy->addColor(it2.key(), lc.first, lc.second);
+    }
+
     return copy;
 }
 
@@ -90,11 +102,20 @@ QLCInputProfile& QLCInputProfile::operator=(const QLCInputProfile& profile)
         destroyChannels();
 
         /* Copy the other profile's channels */
-        QMapIterator <quint32,QLCInputChannel*> it(profile.m_channels);
+        QMapIterator <quint32, QLCInputChannel*> it(profile.m_channels);
         while (it.hasNext() == true)
         {
             it.next();
             insertChannel(it.key(), it.value()->createCopy());
+        }
+
+        /* Copy the other profile's color table */
+        QMapIterator <uchar, QPair<QString, QColor>> it2(profile.m_colorTable);
+        while (it2.hasNext() == true)
+        {
+            it2.next();
+            QPair<QString, QColor> lc = it2.value();
+            addColor(it2.key(), lc.first, lc.second);
         }
     }
 
@@ -311,6 +332,29 @@ void QLCInputProfile::destroyChannels()
     m_channels.clear();
 }
 
+bool QLCInputProfile::hasColorTable()
+{
+    return m_colorTable.isEmpty() ? false : true;
+}
+
+void QLCInputProfile::addColor(uchar value, QString label, QColor color)
+{
+    QPair<QString, QColor> lc;
+    lc.first = label;
+    lc.second = color;
+    m_colorTable.insert(value, lc);
+}
+
+void QLCInputProfile::removeColor(uchar value)
+{
+    m_colorTable.remove(value);
+}
+
+QMap<uchar, QPair<QString, QColor> > QLCInputProfile::colorTable()
+{
+    return m_colorTable;
+}
+
 /****************************************************************************
  * Load & Save
  ****************************************************************************/
@@ -343,6 +387,36 @@ QLCInputProfile* QLCInputProfile::loader(const QString& path)
     QLCFile::releaseXMLReader(doc);
 
     return profile;
+}
+
+bool QLCInputProfile::loadColorTableXML(QXmlStreamReader &tableRoot)
+{
+    if (tableRoot.name() != KXMLQLCInputProfileColorTable)
+    {
+        qWarning() << Q_FUNC_INFO << "Color table node not found";
+        return false;
+    }
+
+    tableRoot.readNextStartElement();
+
+    do
+    {
+        if (tableRoot.name() == KXMLQLCInputProfileColor)
+        {
+            /* get value & color */
+            uchar value = tableRoot.attributes().value(KXMLQLCInputProfileColorValue).toInt();
+            QString label = tableRoot.attributes().value(KXMLQLCInputProfileColorLabel).toString();
+            QColor color = QColor(tableRoot.attributes().value(KXMLQLCInputProfileColorRGB).toString());
+            addColor(value, label, color);
+        }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown color table tag:" << tableRoot.name().toString();
+        }
+        tableRoot.skipCurrentElement();
+    } while (tableRoot.readNextStartElement());
+
+    return true;
 }
 
 bool QLCInputProfile::loadXML(QXmlStreamReader& doc)
@@ -393,6 +467,10 @@ bool QLCInputProfile::loadXML(QXmlStreamReader& doc)
                 else
                     doc.skipCurrentElement();
             }
+            else if (doc.name() == KXMLQLCInputProfileColorTable)
+            {
+                loadColorTableXML(doc);
+            }
         }
 
         return true;
@@ -433,10 +511,31 @@ bool QLCInputProfile::saveXML(const QString& fileName)
         it.value()->saveXML(&doc, it.key());
     }
 
+    if (!m_colorTable.empty())
+    {
+        doc.writeStartElement(KXMLQLCInputProfileColorTable);
+
+        QMapIterator <uchar, QPair<QString, QColor>> it(m_colorTable);
+        while (it.hasNext() == true)
+        {
+            it.next();
+            QPair<QString, QColor> lc = it.value();
+            doc.writeStartElement(KXMLQLCInputProfileColor);
+            doc.writeAttribute(KXMLQLCInputProfileColorValue, QString::number(it.key()));
+            doc.writeAttribute(KXMLQLCInputProfileColorLabel, lc.first);
+            doc.writeAttribute(KXMLQLCInputProfileColorRGB, lc.second.name());
+            doc.writeEndElement();
+        }
+
+        doc.writeEndElement();
+    }
+
     m_path = fileName;
+
     /* End the document and close all the open elements */
     doc.writeEndDocument();
     file.close();
 
     return true;
 }
+
