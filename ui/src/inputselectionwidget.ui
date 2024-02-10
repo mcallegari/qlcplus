@@ -26,7 +26,7 @@
     <x>0</x>
     <y>0</y>
     <width>504</width>
-    <height>231</height>
+    <height>134</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -149,102 +149,7 @@
       <property name="bottomMargin">
        <number>4</number>
       </property>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>Input Universe</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" colspan="4">
-       <widget class="QLineEdit" name="m_inputUniverseEdit">
-        <property name="toolTip">
-         <string>The input universe that sends data to this widget</string>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0" colspan="5">
-       <widget class="QGroupBox" name="m_feedbackGroup">
-        <property name="title">
-         <string>Custom feedback</string>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_3">
-         <item row="0" column="0">
-          <widget class="QLabel" name="label">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Lower Value</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QSpinBox" name="m_lowerSpin">
-           <property name="maximum">
-            <number>255</number>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="3">
-          <widget class="QSpinBox" name="m_upperSpin">
-           <property name="minimum">
-            <number>0</number>
-           </property>
-           <property name="maximum">
-            <number>255</number>
-           </property>
-           <property name="value">
-            <number>255</number>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QLabel" name="label_2">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Upper Value</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="m_monitorLabel">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Monitor Value</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QSpinBox" name="m_monitorSpin">
-           <property name="maximum">
-            <number>255</number>
-           </property>
-          </widget>
-         </item>
-        </layout>
-        <zorder>m_upperSpin</zorder>
-        <zorder>m_lowerSpin</zorder>
-        <zorder>label_2</zorder>
-        <zorder>label</zorder>
-        <zorder>m_monitorLabel</zorder>
-        <zorder>m_monitorSpin</zorder>
-       </widget>
-      </item>
-      <item row="1" column="1" colspan="4">
+      <item row="1" column="1" colspan="2">
        <widget class="QLineEdit" name="m_inputChannelEdit">
         <property name="toolTip">
          <string>The particular input channel within the input universe that sends data to this widget</string>
@@ -261,15 +166,19 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0" colspan="5">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Input Universe</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="3">
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QToolButton" name="m_customFbButton">
+         <widget class="QPushButton" name="m_customFbButton">
           <property name="text">
            <string>Custom Feedback</string>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -322,6 +231,16 @@
          </widget>
         </item>
        </layout>
+      </item>
+      <item row="0" column="1" colspan="2">
+       <widget class="QLineEdit" name="m_inputUniverseEdit">
+        <property name="toolTip">
+         <string>The input universe that sends data to this widget</string>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

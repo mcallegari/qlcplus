@@ -18,10 +18,13 @@
 */
 
 #include <QTreeWidgetItem>
+#include <QColorDialog>
+#include <QInputDialog>
 #include <QTextBrowser>
 #include <QTreeWidget>
 #include <QToolButton>
 #include <QMessageBox>
+#include <QPushButton>
 #include <QTabWidget>
 #include <QSettings>
 #include <QCheckBox>
@@ -90,6 +93,11 @@ InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile
     connect(m_upperSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotUpperValueSpinChanged(int)));
 
+    connect(m_addColorButton, SIGNAL(clicked()),
+            this, SLOT(slotAddColor()));
+    connect(m_removeColorButton, SIGNAL(clicked()),
+            this, SLOT(slotRemoveColor()));
+
     /* Listen to input data */
     connect(m_ioMap, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)),
             this, SLOT(slotInputValueChanged(quint32, quint32, uchar, const QString&)));
@@ -135,8 +143,12 @@ InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile
 
     m_behaviourBox->hide();
     m_feedbackGroup->hide();
+
     /* Fill up the tree with profile's channels */
     fillTree();
+
+    /* Fill up the tree with color table */
+    updateColorsTree();
 
     /* Timer that clears the input data icon after a while */
     m_timer = new QTimer(this);
@@ -171,8 +183,28 @@ void InputProfileEditor::fillTree()
     m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
-void InputProfileEditor::updateChannelItem(QTreeWidgetItem* item,
-                                           QLCInputChannel* ch)
+void InputProfileEditor::updateColorsTree()
+{
+    m_colorTableTree->clear();
+
+    QMapIterator <uchar, QPair<QString, QColor>> it(m_profile->colorTable());
+    while (it.hasNext() == true)
+    {
+        it.next();
+        QPair<QString, QColor> lc = it.value();
+        QTreeWidgetItem *item = new QTreeWidgetItem(m_colorTableTree);
+        item->setText(0, QString::number(it.key()));
+        item->setText(1, lc.first);
+
+        QLabel *colLabel = new QLabel();
+        colLabel->setStyleSheet(QString("background-color: %1").arg(lc.second.name()));
+
+        m_colorTableTree->setItemWidget(item, 2, colLabel);
+    }
+}
+
+void InputProfileEditor::updateChannelItem(QTreeWidgetItem *item,
+                                           QLCInputChannel *ch)
 {
     quint32 num;
 
@@ -256,7 +288,7 @@ void InputProfileEditor::accept()
 
     /* Check that we have at least the bare necessities to save the profile */
     if (m_profile->manufacturer().isEmpty() == true ||
-            m_profile->model().isEmpty() == true)
+        m_profile->model().isEmpty() == true)
     {
         QMessageBox::warning(this, tr("Missing information"),
                              tr("Manufacturer and/or model name is missing."));
@@ -569,6 +601,31 @@ void InputProfileEditor::slotUpperValueSpinChanged(int value)
         if (channel->type() == QLCInputChannel::Button)
             channel->setRange(uchar(m_lowerSpin->value()), uchar(value));
     }
+}
+
+void InputProfileEditor::slotAddColor()
+{
+    bool ok;
+    int val = QInputDialog::getInt(this, tr("Enter value"), tr("Feedback value"), 0, 0, 255, 1, &ok);
+
+    if (ok)
+    {
+        QColor color = QColorDialog::getColor();
+
+        QString label = QInputDialog::getText(this, tr("Enter label"), tr("Color label"));
+        m_profile->addColor(val, label, color);
+        updateColorsTree();
+    }
+}
+
+void InputProfileEditor::slotRemoveColor()
+{
+    foreach (QTreeWidgetItem *item, m_colorTableTree->selectedItems())
+    {
+        uchar value = uchar(item->text(0).toInt());
+        m_profile->removeColor(value);
+    }
+    updateColorsTree();
 }
 
 void InputProfileEditor::slotInputValueChanged(quint32 universe,
