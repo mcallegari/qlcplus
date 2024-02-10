@@ -187,6 +187,7 @@ FORMS += aboutbox.ui \
          channelsselection.ui \
          collectioneditor.ui \
          createfixturegroup.ui \
+         customfeedbacksdialog.ui \
          dmxdumpfactory.ui \
          efxeditor.ui \
          fixturegroupeditor.ui \

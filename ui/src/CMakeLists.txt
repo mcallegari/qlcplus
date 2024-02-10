@@ -60,7 +60,7 @@ add_library(${module_name}
     createfixturegroup.cpp createfixturegroup.h createfixturegroup.ui
     ctkrangeslider.cpp ctkrangeslider.h
     cuestackmodel.cpp cuestackmodel.h
-    customfeedbacksdialog.cpp customfeedbacksdialog.h
+    customfeedbacksdialog.cpp customfeedbacksdialog.h customfeedbacksdialog.ui
     dmxdumpfactory.cpp dmxdumpfactory.h dmxdumpfactory.ui
     efxeditor.cpp efxeditor.h efxeditor.ui
     efxpreviewarea.cpp efxpreviewarea.h
