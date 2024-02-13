@@ -21,6 +21,18 @@ function initVirtualConsole() {
  updateTime();
 }
 
+function grandMasterValueChanged(value, displayValue) {
+ obj = document.getElementById("vcGMSlider");
+ obj.value = value;
+ var labelObj = document.getElementById("vcGMSliderLabel");
+ labelObj.innerHTML = displayValue;
+}
+
+function grandMasterValueChange() {
+ obj = document.getElementById("vcGMSlider");
+ websocket.send("GM_VALUE|" + obj.value);
+}
+
 /* VCButton */
 function buttonPress(id) {
  websocket.send(id + "|255");
