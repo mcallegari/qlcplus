@@ -224,6 +224,7 @@ void VCAudioTriggers::slotEnableButtonToggled(bool toggle)
         return;
 
     enableCapture(toggle);
+    updateFeedback();
 }
 
 void VCAudioTriggers::slotDisplaySpectrum(double *spectrumBands, int size,
@@ -359,6 +360,18 @@ void VCAudioTriggers::slotKeyPressed(const QKeySequence& keySequence)
             slotEnableButtonToggled(false);
         else
             slotEnableButtonToggled(true);
+    }
+}
+
+void VCAudioTriggers::updateFeedback()
+{
+    QSharedPointer<QLCInputSource> src = inputSource();
+    if (!src.isNull() && src->isValid() == true)
+    {
+        if (m_button->isChecked())
+            sendFeedback(src->upperValue());
+        else
+            sendFeedback(src->lowerValue());
     }
 }
 

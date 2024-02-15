@@ -124,7 +124,7 @@ protected:
      * External Input
      *************************************************************************/
 public:
-    void updateFeedback() { }
+    void updateFeedback();
 
 protected slots:
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);

@@ -16,6 +16,7 @@ qlcplus (4.13.0) stable; urgency=low
   * Virtual Console/Cue List: fix off by one offset error in steps mode (thanks to kpr0th)
   * Virtual Console/Audio Triggers: fix attached VC Slider not updating values
   * Virtual Console/Audio Triggers: fix loading a project with DMX bars with no channels set
+  * Virtual Console/Audio Triggers: fix enable button feedback to external controllers
   * Plugins/ArtNet: add default standard transmission mode as per protocol specifications
   * Plugins/ArtNet,E1.31,OSC: add a parameter to wait for interfaces to be ready
   * Plugins/DMX USB: add support for DMXKing MAX products
@@ -24,7 +25,8 @@ qlcplus (4.13.0) stable; urgency=low
   * Web Access: add support for Cue List side fader and buttons layout (thanks to Itay Lifshitz)
   * Web Access: add support for Slider knob appearance (thanks to Itay Lifshitz)
   * Web Access: add support for VC Frame disable button (thanks to Itay Lifshitz)
-  * Web Access: add VC Animation widget support (thanks to Itay Lifshitz)
+  * Web Access: add Virtual Console Animation widget support (thanks to Itay Lifshitz)
+  * Web Access: add Virtual Console Grand Master (thanks to Itay Lifshitz)
   * Web Access: add event to notify Function start/stop
   * Input profiles: added PMJ 9 Faders Controller, Circus and MidiKey
   * New fixture: Ibiza Mini Moving Star Wash (thanks to Chris Shucksmith)
