@@ -20,6 +20,7 @@
 #ifndef QLCINPUTSOURCE_H
 #define QLCINPUTSOURCE_H
 
+#include <QVariant>
 #include <QThread>
 #include <QMutex>
 
@@ -76,14 +77,23 @@ private:
      * Custom feedback
      *********************************************************************/
 public:
-    void setRange(uchar lower, uchar upper);
     uchar lowerValue() const;
     uchar upperValue() const;
-    void setMonitorValue(uchar monitor);
+    void setRange(uchar lower, uchar upper);
+
     uchar monitorValue() const;
+    void setMonitorValue(uchar monitor);
+
+    /** Get/set specific plugins params.
+     *  OSC: a string with the command path
+     *  MIDI: a channel modifier
+     */
+    QVariant extraParams() const;
+    void setExtraParams(QVariant params);
 
 protected:
     uchar m_lower, m_upper, m_monitor;
+    QVariant m_extraParams;
 
     /*********************************************************************
      * Working mode

@@ -37,7 +37,8 @@ QLCInputSource::QLCInputSource(QThread *parent)
     , m_channel(invalidChannel)
     , m_id(invalidID)
     , m_lower(0)
-    , m_upper(255)
+    , m_upper(UCHAR_MAX)
+    , m_monitor(UCHAR_MAX)
     , m_workingMode(Absolute)
     , m_sensitivity(20)
     , m_emitExtraPressRelease(false)
@@ -52,7 +53,8 @@ QLCInputSource::QLCInputSource(quint32 universe, quint32 channel, QThread *paren
     , m_universe(universe)
     , m_channel(channel)
     , m_lower(0)
-    , m_upper(255)
+    , m_upper(UCHAR_MAX)
+    , m_monitor(UCHAR_MAX)
     , m_workingMode(Absolute)
     , m_sensitivity(20)
     , m_emitExtraPressRelease(false)
@@ -120,16 +122,9 @@ quint32 QLCInputSource::id() const
     return m_id;
 }
 
-void QLCInputSource::setRange(uchar lower, uchar upper)
-{
-    m_lower = lower;
-    m_upper = upper;
-}
-
-void QLCInputSource::setMonitorValue(uchar monitor)
-{
-    m_monitor = monitor;
-}
+/*********************************************************************
+ * Custom feedback
+ *********************************************************************/
 
 uchar QLCInputSource::lowerValue() const
 {
@@ -141,9 +136,30 @@ uchar QLCInputSource::upperValue() const
     return m_upper;
 }
 
+void QLCInputSource::setRange(uchar lower, uchar upper)
+{
+    m_lower = lower;
+    m_upper = upper;
+}
+
 uchar QLCInputSource::monitorValue() const
 {
     return m_monitor;
+}
+
+void QLCInputSource::setMonitorValue(uchar monitor)
+{
+    m_monitor = monitor;
+}
+
+QVariant QLCInputSource::extraParams() const
+{
+    return m_extraParams;
+}
+
+void QLCInputSource::setExtraParams(QVariant params)
+{
+    m_extraParams = params;
 }
 
 /*********************************************************************

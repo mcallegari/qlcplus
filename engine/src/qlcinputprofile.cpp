@@ -35,8 +35,8 @@
 #define KXMLQLCInputProfileTypeDmx "DMX"
 #define KXMLQLCInputProfileTypeEnttec "Enttec"
 
-#define KXMLQLCInputProfileColorValue "Value"
-#define KXMLQLCInputProfileColorLabel "Label"
+#define KXMLQLCInputProfileValue "Value"
+#define KXMLQLCInputProfileLabel "Label"
 #define KXMLQLCInputProfileColorRGB "RGB"
 
 /****************************************************************************
@@ -83,6 +83,14 @@ QLCInputProfile *QLCInputProfile::createCopy()
         copy->addColor(it2.key(), lc.first, lc.second);
     }
 
+    /* Copy the other profile's MIDI channel tabel */
+    QMapIterator <uchar, QString> it3(this->midiChannelTable());
+    while (it3.hasNext() == true)
+    {
+        it3.next();
+        copy->addMidiChannel(it3.key(), it3.value());
+    }
+
     return copy;
 }
 
@@ -116,6 +124,14 @@ QLCInputProfile& QLCInputProfile::operator=(const QLCInputProfile& profile)
             it2.next();
             QPair<QString, QColor> lc = it2.value();
             addColor(it2.key(), lc.first, lc.second);
+        }
+
+        /* Copy the other profile's MIDI channel tabel */
+        QMapIterator <uchar, QString> it3(profile.m_midiChannelTable);
+        while (it3.hasNext() == true)
+        {
+            it3.next();
+            addMidiChannel(it3.key(), it3.value());
         }
     }
 
@@ -321,6 +337,19 @@ QMap <quint32,QLCInputChannel*> QLCInputProfile::channels() const
     return m_channels;
 }
 
+QVariant QLCInputProfile::channelExtraParams(const QLCInputChannel* channel) const
+{
+    if (channel == NULL)
+        return QVariant();
+
+    switch (m_type)
+    {
+        case OSC: return channel->name();
+        case MIDI: return channel->midiChannel();
+        default: return QVariant();
+    }
+}
+
 void QLCInputProfile::destroyChannels()
 {
     /* Delete existing channels but leave the pointers there */
@@ -353,6 +382,30 @@ void QLCInputProfile::removeColor(uchar value)
 QMap<uchar, QPair<QString, QColor> > QLCInputProfile::colorTable()
 {
     return m_colorTable;
+}
+
+/********************************************************************
+ * MIDI Channel table
+ ********************************************************************/
+
+bool QLCInputProfile::hasMidiChannelTable()
+{
+    return m_midiChannelTable.isEmpty() ? false : true;
+}
+
+void QLCInputProfile::addMidiChannel(uchar channel, QString label)
+{
+    m_midiChannelTable.insert(channel, label);
+}
+
+void QLCInputProfile::removeMidiChannel(uchar channel)
+{
+    m_midiChannelTable.remove(channel);
+}
+
+QMap<uchar, QString> QLCInputProfile::midiChannelTable()
+{
+    return m_midiChannelTable;
 }
 
 /****************************************************************************
@@ -404,14 +457,43 @@ bool QLCInputProfile::loadColorTableXML(QXmlStreamReader &tableRoot)
         if (tableRoot.name() == KXMLQLCInputProfileColor)
         {
             /* get value & color */
-            uchar value = tableRoot.attributes().value(KXMLQLCInputProfileColorValue).toInt();
-            QString label = tableRoot.attributes().value(KXMLQLCInputProfileColorLabel).toString();
+            uchar value = tableRoot.attributes().value(KXMLQLCInputProfileValue).toInt();
+            QString label = tableRoot.attributes().value(KXMLQLCInputProfileLabel).toString();
             QColor color = QColor(tableRoot.attributes().value(KXMLQLCInputProfileColorRGB).toString());
             addColor(value, label, color);
         }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown color table tag:" << tableRoot.name().toString();
+        }
+        tableRoot.skipCurrentElement();
+    } while (tableRoot.readNextStartElement());
+
+    return true;
+}
+
+bool QLCInputProfile::loadMidiChannelTableXML(QXmlStreamReader &tableRoot)
+{
+    if (tableRoot.name() != KXMLQLCInputProfileMidiChannelTable)
+    {
+        qWarning() << Q_FUNC_INFO << "MIDI channel table node not found";
+        return false;
+    }
+
+    tableRoot.readNextStartElement();
+
+    do
+    {
+        if (tableRoot.name() == KXMLQLCInputProfileMidiChannel)
+        {
+            /* get value & color */
+            uchar value = tableRoot.attributes().value(KXMLQLCInputProfileValue).toInt();
+            QString label = tableRoot.attributes().value(KXMLQLCInputProfileLabel).toString();
+            addMidiChannel(value, label);
+        }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown MIDI channel table tag:" << tableRoot.name().toString();
         }
         tableRoot.skipCurrentElement();
     } while (tableRoot.readNextStartElement());
@@ -471,6 +553,15 @@ bool QLCInputProfile::loadXML(QXmlStreamReader& doc)
             {
                 loadColorTableXML(doc);
             }
+            else if (doc.name() == KXMLQLCInputProfileMidiChannelTable)
+            {
+                loadMidiChannelTableXML(doc);
+            }
+            else
+            {
+                qWarning() << Q_FUNC_INFO << "Unknown input profile tag:" << doc.name().toString();
+                doc.skipCurrentElement();
+            }
         }
 
         return true;
@@ -511,7 +602,7 @@ bool QLCInputProfile::saveXML(const QString& fileName)
         it.value()->saveXML(&doc, it.key());
     }
 
-    if (!m_colorTable.empty())
+    if (hasColorTable())
     {
         doc.writeStartElement(KXMLQLCInputProfileColorTable);
 
@@ -521,12 +612,29 @@ bool QLCInputProfile::saveXML(const QString& fileName)
             it.next();
             QPair<QString, QColor> lc = it.value();
             doc.writeStartElement(KXMLQLCInputProfileColor);
-            doc.writeAttribute(KXMLQLCInputProfileColorValue, QString::number(it.key()));
-            doc.writeAttribute(KXMLQLCInputProfileColorLabel, lc.first);
+            doc.writeAttribute(KXMLQLCInputProfileValue, QString::number(it.key()));
+            doc.writeAttribute(KXMLQLCInputProfileLabel, lc.first);
             doc.writeAttribute(KXMLQLCInputProfileColorRGB, lc.second.name());
             doc.writeEndElement();
         }
 
+        doc.writeEndElement();
+    }
+
+    if (hasMidiChannelTable())
+    {
+        doc.writeStartElement(KXMLQLCInputProfileMidiChannelTable);
+
+        QMapIterator <uchar, QString> it(m_midiChannelTable);
+        while (it.hasNext() == true)
+        {
+            it.next();
+            doc.writeStartElement(KXMLQLCInputProfileMidiChannel);
+            doc.writeAttribute(KXMLQLCInputProfileValue, QString::number(it.key()));
+            doc.writeAttribute(KXMLQLCInputProfileLabel, it.value());
+            doc.writeEndElement();
+
+        }
         doc.writeEndElement();
     }
 

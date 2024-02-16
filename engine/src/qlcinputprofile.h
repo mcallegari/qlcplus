@@ -42,6 +42,8 @@ class QXmlStreamReader;
 #define KXMLQLCInputProfileMidiSendNoteOff  QString("MIDISendNoteOff")
 #define KXMLQLCInputProfileColorTable       QString("ColorTable")
 #define KXMLQLCInputProfileColor            QString("Color")
+#define KXMLQLCInputProfileMidiChannelTable QString("MidiChannelTable")
+#define KXMLQLCInputProfileMidiChannel      QString("Channel")
 
 class QLCInputProfile : public QObject
 {
@@ -167,7 +169,7 @@ public:
      * @param channel The number of the channel to get.
      * @return A QLCInputChannel* or NULL if not found.
      */
-    QLCInputChannel* channel(quint32 channel) const;
+    QLCInputChannel *channel(quint32 channel) const;
 
     /**
      * Get the channel number for the given input channel.
@@ -181,6 +183,12 @@ public:
      * Get available channels.
      */
     QMap <quint32,QLCInputChannel*> channels() const;
+
+    /**
+     *  Retrieve additional parameters to be passed to plugins
+     *  when sending feedbacks.
+     */
+    QVariant channelExtraParams(const QLCInputChannel *channel) const;
 
 private:
     /** Delete and remove all channels */
@@ -205,6 +213,19 @@ protected:
     QMap<uchar, QPair<QString, QColor>> m_colorTable;
 
     /********************************************************************
+     * MIDI Channel table
+     ********************************************************************/
+public:
+    bool hasMidiChannelTable();
+    void addMidiChannel(uchar channel, QString label);
+    void removeMidiChannel(uchar channel);
+
+    QMap<uchar, QString> midiChannelTable();
+
+protected:
+    QMap<uchar, QString> m_midiChannelTable;
+
+    /********************************************************************
      * Load & Save
      ********************************************************************/
 public:
@@ -214,7 +235,11 @@ public:
     /** Save an input profile into a given file name */
     bool saveXML(const QString& fileName);
 
+    /** Load an optional color table for RGB LED feedbacks */
     bool loadColorTableXML(QXmlStreamReader &tableRoot);
+
+    /** Load an optional MIDI channel table */
+    bool loadMidiChannelTableXML(QXmlStreamReader &tableRoot);
 
     /** Load an input profile from the given document */
     bool loadXML(QXmlStreamReader &doc);
