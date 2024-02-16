@@ -40,7 +40,6 @@
 #include <QSize>
 #include <QMenu>
 #include <QList>
-#include <cmath>
 
 #include "qlcinputsource.h"
 #include "qlcfile.h"
@@ -258,6 +257,7 @@ bool VCWidget::copyFrom(const VCWidget* widget)
         quint8 id = it.key();
         QSharedPointer<QLCInputSource> src(new QLCInputSource(it.value()->universe(), it.value()->channel()));
         src->setRange(it.value()->lowerValue(), it.value()->upperValue());
+        src->setExtraParams(it.value()->extraParams());
         setInputSource(src, id);
     }
 
@@ -609,12 +609,17 @@ void VCWidget::setInputSource(QSharedPointer<QLCInputSource> const& source, quin
         InputPatch *ip = m_doc->inputOutputMap()->inputPatch(source->universe());
         if (ip != NULL)
         {
-            if (ip->profile() != NULL)
+            QLCInputProfile *profile = ip->profile();
+            if (profile != NULL)
             {
                 // Do not care about the page since input profiles don't do either
-                QLCInputChannel *ich = ip->profile()->channel(source->channel() & 0xFFFF);
+                QLCInputChannel *ich = profile->channel(source->channel() & 0xFFFF);
                 if (ich != NULL)
                 {
+                    // retrieve plugin specific params for feedbacks
+                    if (source->extraParams().toInt() == -1)
+                        source->setExtraParams(profile->channelExtraParams(ich));
+
                     if (ich->movementType() == QLCInputChannel::Relative)
                     {
                         source->setWorkingMode(QLCInputSource::Relative);
@@ -693,20 +698,7 @@ void VCWidget::sendFeedback(int value, QSharedPointer<QLCInputSource> src)
     if (acceptsInput() == false)
         return;
 
-    QString chName = QString();
-
-    InputPatch* pat = m_doc->inputOutputMap()->inputPatch(src->universe());
-    if (pat != NULL)
-    {
-        QLCInputProfile* profile = pat->profile();
-        if (profile != NULL)
-        {
-            QLCInputChannel* ich = profile->channel(src->channel());
-            if (ich != NULL)
-                chName = ich->name();
-        }
-    }
-    m_doc->inputOutputMap()->sendFeedBack(src->universe(), src->channel(), value, chName);
+    m_doc->inputOutputMap()->sendFeedBack(src->universe(), src->channel(), value, src->extraParams());
 }
 
 void VCWidget::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
@@ -886,6 +878,7 @@ QSharedPointer<QLCInputSource> VCWidget::getXMLInput(QXmlStreamReader &root)
     quint32 uni = attrs.value(KXMLQLCVCWidgetInputUniverse).toString().toUInt();
     quint32 ch = attrs.value(KXMLQLCVCWidgetInputChannel).toString().toUInt();
     uchar min = 0, max = UCHAR_MAX, mon = UCHAR_MAX;
+    int fbChannel = -1;
 
     QSharedPointer<QLCInputSource>newSrc = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
     if (attrs.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
@@ -894,9 +887,12 @@ QSharedPointer<QLCInputSource> VCWidget::getXMLInput(QXmlStreamReader &root)
         max = uchar(attrs.value(KXMLQLCVCWidgetInputUpperValue).toString().toUInt());
     if (attrs.hasAttribute(KXMLQLCVCWidgetInputMonitorValue))
         mon = uchar(attrs.value(KXMLQLCVCWidgetInputMonitorValue).toString().toUInt());
+    if (attrs.hasAttribute(KXMLQLCVCWidgetInputFeedbackChannel))
+        fbChannel = attrs.value(KXMLQLCVCWidgetInputFeedbackChannel).toInt();
 
     newSrc->setRange(min, max);
     newSrc->setMonitorValue(mon);
+    newSrc->setExtraParams(fbChannel);
 
     return newSrc;
 }
@@ -1046,6 +1042,10 @@ bool VCWidget::saveXMLInput(QXmlStreamWriter *doc,
             doc->writeAttribute(KXMLQLCVCWidgetInputUpperValue, QString::number(src->upperValue()));
         if (src->monitorValue() != UCHAR_MAX)
             doc->writeAttribute(KXMLQLCVCWidgetInputMonitorValue, QString::number(src->monitorValue()));
+
+        QVariant extraParams = src->extraParams();
+        if (extraParams.isValid() && extraParams.type() == QVariant::Int && extraParams.toInt() != -1)
+            doc->writeAttribute(KXMLQLCVCWidgetInputFeedbackChannel, QString::number(extraParams.toInt()));
 
         doc->writeEndElement();
     }

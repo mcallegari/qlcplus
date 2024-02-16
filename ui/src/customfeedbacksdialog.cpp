@@ -46,6 +46,7 @@ CustomFeedbacksDialog::CustomFeedbacksDialog(Doc *doc, const QSharedPointer<QLCI
     m_monitorLabel->setVisible(false);
     m_monitorSpin->setVisible(false);
     m_profileColorsTree->setVisible(false);
+    m_midiChannelGroup->hide();
 
     if (enableControls)
     {
@@ -82,6 +83,20 @@ CustomFeedbacksDialog::CustomFeedbacksDialog(Doc *doc, const QSharedPointer<QLCI
                     m_profileColorsTree->setItemWidget(item, 2, colLabel);
                 }
             }
+            if (m_profile->type() == QLCInputProfile::MIDI && m_profile->hasMidiChannelTable())
+            {
+                m_midiChannelGroup->show();
+                m_midiChannelCombo->addItem(tr("From plugin settings"));
+
+                QMapIterator <uchar, QString> it(m_profile->midiChannelTable());
+                while (it.hasNext() == true)
+                {
+                    it.next();
+                    m_midiChannelCombo->addItem(it.value());
+                }
+                if (m_inputSource->extraParams().isValid())
+                    m_midiChannelCombo->setCurrentIndex(m_inputSource->extraParams().toInt() + 1);
+            }
         }
     }
 
@@ -114,6 +129,8 @@ void CustomFeedbacksDialog::accept()
     m_inputSource->setRange(m_lowerSpin->value(), m_upperSpin->value());
     if (m_monitorSpin->isVisible())
         m_inputSource->setMonitorValue(m_monitorSpin->value());
+    if (m_midiChannelGroup->isVisible())
+        m_inputSource->setExtraParams(m_midiChannelCombo->currentIndex() - 1);
 
     QDialog::accept();
 }

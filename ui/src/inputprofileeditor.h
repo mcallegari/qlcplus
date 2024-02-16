@@ -48,6 +48,7 @@ public:
 protected:
     void fillTree();
     void updateColorsTree();
+    void updateMidiChannelTree();
     void updateChannelItem(QTreeWidgetItem *item, QLCInputChannel *ch);
     void setOptionsVisibility(QLCInputChannel::Type type);
 
@@ -81,9 +82,13 @@ protected slots:
     void slotExtraPressChecked(bool checked);
     void slotLowerValueSpinChanged(int value);
     void slotUpperValueSpinChanged(int value);
+    void slotMidiChannelComboChanged(int index);
 
     void slotAddColor();
     void slotRemoveColor();
+
+    void slotAddMidiChannel();
+    void slotRemoveMidiChannel();
 
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
     void slotTimerTimeout();

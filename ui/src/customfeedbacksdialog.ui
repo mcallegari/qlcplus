@@ -14,18 +14,24 @@
    <string>Custom Feedbacks Configuration</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
-   <item row="1" column="0">
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
+   <item row="0" column="1" rowspan="3">
+    <widget class="QTreeWidget" name="m_profileColorsTree">
+     <column>
+      <property name="text">
+       <string>Value</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Label</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Color</string>
+      </property>
+     </column>
+    </widget>
    </item>
    <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox">
@@ -135,26 +141,20 @@
      </layout>
     </widget>
    </item>
-   <item row="0" column="1" rowspan="2">
-    <widget class="QTreeWidget" name="m_profileColorsTree">
-     <column>
-      <property name="text">
-       <string>Value</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Label</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Color</string>
-      </property>
-     </column>
-    </widget>
+   <item row="2" column="0">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
    </item>
-   <item row="2" column="0" colspan="2">
+   <item row="3" column="0" colspan="2">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -162,6 +162,38 @@
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QGroupBox" name="m_midiChannelGroup">
+     <property name="title">
+      <string>MIDI Channel</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Channel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="m_midiChannelCombo">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>
