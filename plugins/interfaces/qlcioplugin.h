@@ -264,7 +264,7 @@ public:
      * @param key a string to identify a channel by name (ATM used only by OSC)
      */
     virtual void sendFeedBack(quint32 universe, quint32 inputLine,
-                              quint32 channel, uchar value, const QString& key = 0);
+                              quint32 channel, uchar value, const QVariant &params);
 
 signals:
     /**

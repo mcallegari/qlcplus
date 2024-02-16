@@ -86,7 +86,7 @@ public:
     QString inputInfo(quint32 input);
 
     /** @reimp */
-    void sendFeedBack(quint32 universe, quint32 input, quint32 channel, uchar value, const QString& key);
+    void sendFeedBack(quint32 universe, quint32 input, quint32 channel, uchar value, const QVariant &params);
 
 private:
     //! loopback line -> channel data

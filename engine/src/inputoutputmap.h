@@ -502,7 +502,7 @@ public:
      * Send feedback value to the input profile e.g. to move a motorized
      * sliders & knobs, set indicator leds etc.
      */
-    bool sendFeedBack(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
+    bool sendFeedBack(quint32 universe, quint32 channel, uchar value, const QVariant &params);
 
 private:
     /** In case of duplicate strings, append a number to make them unique */
