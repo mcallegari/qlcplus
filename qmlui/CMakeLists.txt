@@ -1,8 +1,4 @@
-if(ANDROID)
-    set(module_name "qlcplus")
-else()
-    set(module_name "qlcplus-qml")
-endif()
+set(module_name "qlcplus-qml")
 
 set(TS_FILES
     qlcplus_ca_ES.ts
@@ -84,6 +80,9 @@ if(ANDROID)
         ${SRC_FILES}
         ${QM_FILES}
     )
+    set_target_properties(
+        ${module_name}
+        PROPERTIES LIBRARY_OUTPUT_NAME qlcplus)
 else()
     add_executable(${module_name} WIN32 MACOSX_BUNDLE
         ${SRC_FILES}

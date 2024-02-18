@@ -24,6 +24,14 @@ if (ANDROID OR IOS)
     set(qmlui ON)
 endif()
 
+if (ANDROID)
+    if(QT_VERSION_MAJOR GREATER 5)
+        set(QT_ANDROID_PACKAGE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/platforms/android CACHE INTERNAL "")
+    else()
+        set(ANDROID_PACKAGE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/platforms/android CACHE INTERNAL "")
+    endif()
+endif()
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Set up AUTOMOC and some sensible defaults for runtime execution
