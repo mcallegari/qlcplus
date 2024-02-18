@@ -1562,7 +1562,7 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
         {
             QString stepID = QString::number(cue->id()) + "_" + QString::number(i);
             str += "<tr id=\"" + stepID + "\" "
-                   "onclick=\"setCueIndex(" + QString::number(cue->id()) + ", " + QString::number(i) + ");\">\n";
+                   "onclick=\"enableCue(" + QString::number(cue->id()) + ", " + QString::number(i) + ");\">\n";
 
             ChaserStep *step = chaser->stepAt(i);
             str += "<td>" + QString::number(i + 1) + "</td>";
