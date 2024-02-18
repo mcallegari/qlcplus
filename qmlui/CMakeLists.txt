@@ -1,4 +1,8 @@
-set(module_name "qlcplus-qml")
+if(ANDROID)
+    set(module_name "qlcplus")
+else()
+    set(module_name "qlcplus-qml")
+endif()
 
 set(TS_FILES
     qlcplus_ca_ES.ts
@@ -19,7 +23,7 @@ else()
     qt5_add_translation(QM_FILES ${TS_FILES})
 endif()
 
-add_executable(${module_name} WIN32 MACOSX_BUNDLE
+set(SRC_FILES
     app.cpp app.h
     audioeditor.cpp audioeditor.h
     chasereditor.cpp chasereditor.h
@@ -73,8 +77,19 @@ add_executable(${module_name} WIN32 MACOSX_BUNDLE
     virtualconsole/vcsoloframe.cpp virtualconsole/vcsoloframe.h
     virtualconsole/vcwidget.cpp virtualconsole/vcwidget.h
     virtualconsole/virtualconsole.cpp virtualconsole/virtualconsole.h
-    ${QM_FILES}
 )
+
+if(ANDROID)
+    add_library(${module_name} SHARED
+        ${SRC_FILES}
+        ${QM_FILES}
+    )
+else()
+    add_executable(${module_name} WIN32 MACOSX_BUNDLE
+        ${SRC_FILES}
+        ${QM_FILES}
+    )
+endif()
 
 if(WIN32)
     target_sources(${module_name} PRIVATE
@@ -110,6 +125,17 @@ target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::Widgets
     qlcplusengine
 )
+
+if(ANDROID)
+    target_link_libraries(${module_name} PRIVATE
+        Qt${QT_MAJOR_VERSION}::Concurrent
+        Qt${QT_MAJOR_VERSION}::OpenGL
+        GLESv2
+        log
+        z
+        c++_shared
+    )
+endif()
 
 if(lupdate_only)
     target_sources(${module_name} PRIVATE
