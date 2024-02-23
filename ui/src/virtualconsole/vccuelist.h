@@ -180,6 +180,9 @@ public slots:
     /** Skip to the previous cue */
     void slotPreviousCue();
 
+    /** Called when m_runner skips to another step */
+    void slotCurrentStepChanged(int stepNumber);
+
     /** Update cue step note */
     void slotStepNoteChanged(int idx, QString note);
 
@@ -199,9 +202,6 @@ private slots:
 
     /** Update the step list at m_updateTimer timeout */
     void slotUpdateStepList();
-
-    /** Called when m_runner skips to another step */
-    void slotCurrentStepChanged(int stepNumber);
 
     /** Slot that is called whenever the current item changes (either by
         pressing the key binding or clicking an item with mouse) */

@@ -23,12 +23,14 @@ qlcplus (4.13.0) stable; urgency=low
   * Plugins/DMX USB: FTDI USB device no longer disappear after closing QLC+ on Linux
   * Fixture Editor: fix aliases not updated when renaming a mode
   * Web Access: add support for Cue List side fader and buttons layout (thanks to Itay Lifshitz)
+  * Web Access: add support for Cue List note editing (thanks to Itay Lifshitz)
   * Web Access: add support for Slider knob appearance (thanks to Itay Lifshitz)
   * Web Access: add support for VC Frame disable button (thanks to Itay Lifshitz)
   * Web Access: add Virtual Console Animation widget support (thanks to Itay Lifshitz)
   * Web Access: add Virtual Console Grand Master (thanks to Itay Lifshitz)
   * Web Access: add event to notify Function start/stop
   * Input profiles: added PMJ 9 Faders Controller, Circus and MidiKey
+  * Input profiles: added Worlde Easypad.12 (thanks to Christoph Müllner)
   * New fixture: Ibiza Mini Moving Star Wash (thanks to Chris Shucksmith)
   * New fixtures: FOS Technologies IQ Par, IQ 28x12 Wash, Iridium 75W Spot (thanks to Maurizio Aru)
   * New fixture: Varytec Hero Spot 60 (thanks to Hans-Jürgen Tappe)
