@@ -6,6 +6,10 @@ form {
  visibility: hidden;
 }
 
+input:focus-visible {
+ outline: none;
+}
+
 .vcbutton-wrapper {
  position: absolute;
 }

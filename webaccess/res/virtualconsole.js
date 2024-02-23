@@ -133,6 +133,33 @@ function setCueProgress(id, percent, text) {
  progressValObj.innerHTML = text;
 }
 
+function changeCueNoteToEditMode(id, idx) {
+ var cueNoteSpanObj = document.getElementById("cueNoteSpan" + id + "_" + idx);
+ var cueNoteInputObj = document.getElementById("cueNoteInput" + id + "_" + idx);
+ cueNoteSpanObj.style.display = "none";
+ cueNoteInputObj.style.display = "block";
+ cueNoteInputObj.focus();
+}
+
+function changeCueNoteToTextMode(id, idx) {
+ var cueNoteSpanObj = document.getElementById("cueNoteSpan" + id + "_" + idx);
+ var cueNoteInputObj = document.getElementById("cueNoteInput" + id + "_" + idx);
+ cueNoteSpanObj.style.display = "block";
+ cueNoteInputObj.style.display = "none";
+ var newNote = cueNoteInputObj.value;
+ cueNoteSpanObj.innerHTML = newNote;
+ websocket.send(id + "|CUE_STEP_NOTE|" + idx + "|" + newNote);
+}
+
+function setCueStepNote(id, idx, note) {
+ var cueNoteSpanObj = document.getElementById("cueNoteSpan" + id + "_" + idx);
+ var cueNoteInputObj = document.getElementById("cueNoteInput" + id + "_" + idx);
+ cueNoteSpanObj.style.display = "block";
+ cueNoteInputObj.style.display = "none";
+ cueNoteSpanObj.innerHTML = note;
+ cueNoteInputObj.value = note;
+}
+
 function showSideFaderPanel(id, checked) {
   var progressBarObj = document.getElementById("fadePanel" + id);
   showPanel[id] = parseInt(checked, 10);
