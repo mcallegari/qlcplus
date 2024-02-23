@@ -133,25 +133,32 @@ private:
 public:
 
     /** Set starting value. */
-    void setStart(uchar value, int index = 0);
+    void setStart(uchar value, int index);
+    void setStart(quint32 value);
 
     /** Get starting value. */
-    uchar start(int index = 0) const;
+    uchar start(int index) const;
+    quint32 start() const;
 
     /** Set target value. */
-    void setTarget(uchar value, int index = 0);
+    void setTarget(uchar value, int index);
+    void setTarget(quint32 value);
 
     /** Get target value. */
-    uchar target(int index = 0) const;
+    uchar target(int index) const;
+    quint32 target() const;
 
     /** Set the current value. */
-    void setCurrent(uchar value, int index = 0);
+    void setCurrent(uchar value, int index);
+    void setCurrent(quint32 value);
 
     /** Get the current value. */
-    uchar current(int index = 0) const;
+    uchar current(int index) const;
+    quint32 current() const;
 
     /** Get the current value, modified by $intensity. */
-    uchar current(qreal intensity, int index = 0) const;
+    uchar current(qreal intensity, int index) const;
+    quint32 current(qreal intensity) const;
 
     /** Mark this channel as ready (useful for writing LTP values only once). */
     void setReady(bool rdy);

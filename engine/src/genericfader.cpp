@@ -195,83 +195,79 @@ void GenericFader::write(Universe *universe)
 
     qreal compIntensity = intensity() * parentIntensity();
 
+    //qDebug() << "[GenericFader] writing channels: " << this << m_channels.count();
+
     QMutableHashIterator <quint32,FadeChannel> it(m_channels);
     while (it.hasNext() == true)
     {
         FadeChannel& fc(it.next().value());
         int flags = fc.flags();
         int address = int(fc.addressInUniverse());
-        uchar value;
-
-        // counter used at the end to detect channels to remove
-        int removeCount = fc.channelCount();
+        int channelCount = fc.channelCount();
 
         // iterate through all the channels handled by this fader
-        for (int i = 0; i < fc.channelCount(); i++)
+
+        if (flags & FadeChannel::SetTarget)
         {
-            if (flags & FadeChannel::SetTarget)
-            {
-                fc.removeFlag(FadeChannel::SetTarget);
-                fc.addFlag(FadeChannel::AutoRemove);
+            fc.removeFlag(FadeChannel::SetTarget);
+            fc.addFlag(FadeChannel::AutoRemove);
+            for (int i = 0; i < channelCount; i++)
                 fc.setTarget(universe->preGMValue(address + i), i);
-            }
-
-            // Calculate the next step
-            if (i == 0 && m_paused == false)
-                fc.nextStep(MasterTimer::tick());
-
-            value = fc.current(i);
-
-            // Apply intensity to channels that can fade
-            if (fc.canFade())
-            {
-                if ((flags & FadeChannel::CrossFade) && fc.fadeTime() == 0)
-                {
-                    // morph start <-> target depending on intensities
-                    value = uchar(((qreal(fc.target(i) - fc.start(i)) * intensity()) + fc.start(i)) * parentIntensity());
-                }
-                else if (flags & FadeChannel::Intensity)
-                {
-                    value = fc.current(compIntensity, i);
-                }
-            }
-
-            //qDebug() << "[GenericFader] >>> uni:" << universe->id() << ", address:" << (address + i) << ", value:" << value << "int:" << compIntensity;
-            if (flags & FadeChannel::Override)
-            {
-                universe->write(address + i, value, true);
-                continue;
-            }
-            else if (flags & FadeChannel::Relative)
-            {
-                universe->writeRelative(address + i, value);
-            }
-            else if (flags & FadeChannel::Flashing)
-            {
-                universe->write(address + i, value, flags & FadeChannel::ForceLTP);
-                continue;
-            }
-            else
-            {
-                universe->writeBlended(address + i, value, m_blendMode);
-            }
-
-            if (((flags & FadeChannel::Intensity) &&
-                (flags & FadeChannel::HTP) &&
-                m_blendMode == Universe::NormalBlend) || m_fadeOut)
-            {
-                // Remove all channels that reach their target _zero_ value.
-                // They have no effect either way so removing them saves a bit of CPU.
-                if (fc.current(i) == 0 && fc.target(i) == 0 && fc.isReady())
-                    removeCount--;
-            }
-
-            if (flags & FadeChannel::AutoRemove && value == fc.target(i))
-                removeCount--;
         }
 
-        // check fader removal
-        if (removeCount == 0)
+        // Calculate the next step
+        if (m_paused == false)
+            fc.nextStep(MasterTimer::tick());
+
+        quint32 value = fc.current();
+
+        // Apply intensity to channels that can fade
+        if (fc.canFade())
+        {
+            if ((flags & FadeChannel::CrossFade) && fc.fadeTime() == 0)
+            {
+                // morph start <-> target depending on intensities
+                value = quint32(((qreal(fc.target() - fc.start()) * intensity()) + fc.start()) * parentIntensity());
+            }
+            else if (flags & FadeChannel::Intensity)
+            {
+                value = fc.current(compIntensity);
+            }
+        }
+
+        //qDebug() << "[GenericFader] >>> uni:" << universe->id() << ", address:" << (address + i) << ", value:" << value << "int:" << compIntensity;
+        if (flags & FadeChannel::Override)
+        {
+            universe->write(address, value, true);
+            continue;
+        }
+        else if (flags & FadeChannel::Relative)
+        {
+            for (int i = 0; i < channelCount; i++)
+                universe->writeRelative(address + i, ((uchar *)&value)[channelCount - 1 - i]);
+        }
+        else if (flags & FadeChannel::Flashing)
+        {
+            universe->write(address, value, flags & FadeChannel::ForceLTP);
+            continue;
+        }
+        else
+        {
+            // treat value as a whole, so do this just once per FadeChannel
+            universe->writeBlended(address, value, channelCount, m_blendMode);
+        }
+
+        if (((flags & FadeChannel::Intensity) &&
+            (flags & FadeChannel::HTP) &&
+            m_blendMode == Universe::NormalBlend) || m_fadeOut)
+        {
+            // Remove all channels that reach their target _zero_ value.
+            // They have no effect either way so removing them saves a bit of CPU.
+            if (fc.current() == 0 && fc.target() == 0 && fc.isReady())
+                it.remove();
+        }
+
+        if (flags & FadeChannel::AutoRemove && value == fc.target())
             it.remove();
     }
 
@@ -347,11 +343,8 @@ void GenericFader::setFadeOut(bool enable, uint fadeTime)
         if ((fc.flags() & FadeChannel::Intensity) == 0)
             fc.addFlag(FadeChannel::SetTarget);
 
-        for (int i = 0; i < fc.channelCount(); i++)
-        {
-            fc.setStart(fc.current(i), i);
-            fc.setTarget(0, i);
-        }
+        fc.setStart(fc.current());
+        fc.setTarget(0);
         fc.setElapsed(0);
         fc.setReady(false);
         fc.setFadeTime(fc.canFade() ? fadeTime : 0);

@@ -526,6 +526,16 @@ public:
     bool write(int channel, uchar value, bool forceLTP = false);
 
     /**
+     * Write a value representing one or multiple channels
+     *
+     * @param address the DMX start address
+     * @param value the DMX value(s) to set
+     * @param channelCount number of channels that value represents
+     * @return always true
+     */
+    bool writeMultiple(int address, quint32 value, int channelCount);
+
+    /**
      * Write a relative value to a DMX channel, taking Grand Master and HTP into
      * account, if applicable.
      *
@@ -543,11 +553,12 @@ public:
      *
      * @param channel The channel number to write to
      * @param value The value to write
+     * @param channelCount The number of channels that value represents
      * @param blend The blend mode to be used on $value
      *
      * @return true if successful, otherwise false
      */
-    bool writeBlended(int channel, uchar value, BlendMode blend = NormalBlend);
+    bool writeBlended(int channel, quint32 value, int channelCount, BlendMode blend);
 
     /*********************************************************************
      * Load & Save
