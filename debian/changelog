@@ -57,16 +57,20 @@ qlcplus (4.13.0) stable; urgency=low
   * New fixture: Shehds GalaxyJet Waterproof IP65 380W 19R Beam Moving Head (thanks to István Király,  Feiyu Shehds)
   * New fixture: Martin Ego X6 (thanks to Michael Tosatto)
   * New fixture: Blizzard Lighting LB Hex Unplugged (thanks to David Sparks)
-  * New fixture: Eurolite LED Strobe SMD PRO 132 DMX RGB (thanks to Fede79)
+  * New fixtures: Eurolite LED Strobe SMD PRO 132 DMX RGB, Briteq BT Theatre HD2 (thanks to Fede79)
   * New fixture: Eurolite LED PLL-480 CW/WW (thanks to Benjamin Drung)
   * New fixture: Robe Spiider (thanks to Nicolò)
   * New fixture: Betopper LB230 (thanks to Viktor)
-  * New fixtures: EK R3 Wash, Chauvet Intimidator Spot 475ZX (thanks to Harrison Bostock)
+  * New fixtures: EK R3 Wash, Chauvet Intimidator Spot 475ZX, Chauvet Intimidator Wash Zoom 450 IRC (thanks to Harrison Bostock)
   * New fixtures: Varytec Typhoon True Kid 720Z RGBW IP65, Showtec Performer 2000 RGBAL (thanks to Clément Delabroye)
   * New fixtures: Showtec LED Par 64 Short V2, Bright XBAR (thanks to Øystein Steimler)
   * New fixtures: AFX CLUB-MIX3 19x10W RGBW, Eurolite LED Theatre COB 200 RGB+WW (thanks to Florian Faber)
   * New fixture: Chauvet COLORado Batten 72x (thanks to Greg Perrone)
   * New fixtures: Talent SSL2, Cameo P2 FC
+  * New fixture: Tecshow Nebula 6 (thanks to Federico)
+  * New fixture: beamZ Radical II (thanks to Matt Muller)
+  * New fixtures: Eurolite LED PARty TCL spot, Expolite TourSpot 50 Mini, Fun Generation LED Pot 12x1W QCL RGB WW (thanks to Christian Prison)
+  * New fixture: Chauvet COLORband Q3BT (thanks to Paul Schuh)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 10 Mar 2024 12:13:14 +0200
 

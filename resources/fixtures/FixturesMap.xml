@@ -234,6 +234,7 @@
     <F n="beamZ-MHL108-Wash-MKII" m="MHL108 Wash MKII"/>
     <F n="beamZ-MHL90-Wash-5x18W-RGBAW-UV" m="MHL90 Wash 5x18W RGBAW-UV"/>
     <F n="beamz-Panther-25-LED-Spot" m="Panther 25 LED Spot"/>
+    <F n="beamZ-Radical-II" m="Radical II"/>
     <F n="beamZ-SB200-Stage-Blinder-2x50w" m="SB200 Stage Blinder 2x50W"/>
     <F n="beamZ-SparkleWall" m="SparkleWall"/>
   </M>
@@ -293,6 +294,7 @@
     <F n="Briteq-BT-Theatre-100EC" m="BT Theatre 100EC"/>
     <F n="Briteq-BT-Theatre-50WW" m="BT-Theatre 50WW"/>
     <F n="Briteq-BT-Theatre-HD1" m="BT Theatre HD1"/>
+    <F n="Briteq-BT-Theatre-HD2" m="BT Theatre HD2"/>
     <F n="Briteq-BT-Vintage" m="BT-Vintage"/>
     <F n="Briteq-BT-W07L12" m="BT-W07L12"/>
     <F n="Briteq-BT-W12L10" m="BT-W12L10"/>
@@ -397,6 +399,7 @@
     <F n="Chauvet-ColorBand-Pix-IP" m="ColorBand Pix IP"/>
     <F n="Chauvet-ColorBand-Pix-M-USB" m="ColorBand Pix-M USB"/>
     <F n="Chauvet-ColorBand-Pix-M" m="ColorBand Pix-M"/>
+    <F n="Chauvet-COLORband-Q3BT" m="COLORband Q3BT"/>
     <F n="Chauvet-COLORband-T3-BT" m="COLORband T3 BT"/>
     <F n="Chauvet-COLORband-T3-USB" m="COLORband T3 USB"/>
     <F n="Chauvet-COLORbar-SMD" m="COLORbar SMD"/>
@@ -466,6 +469,7 @@
     <F n="Chauvet-Intimidator-Spot-LED-350" m="Intimidator Spot LED 350"/>
     <F n="Chauvet-Intimidator-Trio" m="Intimidator Trio"/>
     <F n="Chauvet-Intimidator-Wash-Zoom-350-IRC" m="Intimidator Wash Zoom 350 IRC"/>
+    <F n="Chauvet-Intimidator-Wash-Zoom-450-IRC" m="Intimidator Wash Zoom 450 IRC"/>
     <F n="Chauvet-Intimidator-Wave-360-IRC" m="Intimidator Wave 360 IRC"/>
     <F n="Chauvet-Kinta-FX" m="Kinta FX"/>
     <F n="Chauvet-LED-PAR-64-36B" m="LED PAR 64-36B"/>
@@ -760,6 +764,7 @@
     <F n="Eurolite-LED-PARty-Hybrid-spot" m="LED PARty Hybrid Spot"/>
     <F n="Eurolite-LED-Party-Panel-RGB+UV" m="LED Party Panel RGB+UV"/>
     <F n="Eurolite-LED-PARty-RGBW" m="LED PARty RGBW"/>
+    <F n="Eurolite-LED-PARty-TCL-spot" m="LED PARty TCL spot"/>
     <F n="Eurolite-LED-PLL-480-CW-WW" m="LED PLL-480 CW/WW"/>
     <F n="Eurolite-LED-PMB-4-COB-RGB-30W-Bar" m="LED PMB-4 COB RGB 30W Bar"/>
     <F n="Eurolite-LED-PMB-8-COB-RGB-30W" m="LED PMB-8 COB RGB 30W"/>
@@ -843,6 +848,7 @@
     <F n="Expolite-AkkuLED-Power-Compact" m="AkkuLED Power Compact"/>
     <F n="Expolite-TourLed-42" m="TourLed 42"/>
     <F n="Expolite-TourLED-MC180" m="TourLED MC180"/>
+    <F n="Expolite-TourSpot-50-Mini" m="TourSpot 50 Mini"/>
     <F n="Expolite-TourSpot-60" m="TourSpot 60"/>
     <F n="Expolite-TourStick-72-RGBWA" m="TourStick 72 RGBWA"/>
   </M>
@@ -859,6 +865,7 @@
   </M>
   <M n="Fun-Generation">
     <F n="Fun-Generation-LED-Diamond-Dome" m="LED Diamond Dome"/>
+    <F n="Fun-Generation-LED-Pot-12x1W-QCL-RGB-WW" m="LED Pot 12x1W QCL RGB WW"/>
     <F n="Fun-Generation-LED-Pot-12x1W-RGBW" m="LED Pot 12x1W RGBW"/>
     <F n="Fun-Generation-MiniSpider-FX" m="MiniSpider FX"/>
     <F n="Fun-Generation-PicoBeam-60" m="PicoBeam 60"/>
@@ -1679,6 +1686,9 @@
     <F n="Talent-BL63-10-LED-Bar" m="BL63 10&quot; LED Bar"/>
     <F n="Talent-SSL1" m="SSL1"/>
     <F n="Talent-SSL2" m="SSL2"/>
+  </M>
+  <M n="Tecshow">
+    <F n="Tecshow-Nebula-6" m="Nebula 6"/>
   </M>
   <M n="Tomshine">
     <F n="Tomshine-Mini-Gobo-Moving-Head" m="Mini Gobo Moving Head"/>
