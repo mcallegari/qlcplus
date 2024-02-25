@@ -181,6 +181,8 @@ void VCAudioTriggers::enableCapture(bool enable)
     {
         connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
                 this, SLOT(slotDisplaySpectrum(double*,int,double,quint32)));
+        connect(m_inputCapture, SIGNAL(volumeChanged(int)),
+                this, SLOT(slotUpdateVolumeSlider(int)));
         m_inputCapture->registerBandsNumber(m_spectrum->barsNumber());
 
         m_button->blockSignals(true);
@@ -199,6 +201,8 @@ void VCAudioTriggers::enableCapture(bool enable)
             m_inputCapture->unregisterBandsNumber(m_spectrum->barsNumber());
             disconnect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
                        this, SLOT(slotDisplaySpectrum(double*,int,double,quint32)));
+            disconnect(m_inputCapture, SIGNAL(volumeChanged(int)),
+                       this, SLOT(slotUpdateVolumeSlider(int)));
         }
 
         m_button->blockSignals(true);
@@ -230,7 +234,7 @@ void VCAudioTriggers::slotEnableButtonToggled(bool toggle)
 void VCAudioTriggers::slotDisplaySpectrum(double *spectrumBands, int size,
                                           double maxMagnitude, quint32 power)
 {
-    qDebug() << "Display spectrum ----- bars:" << size;
+    //qDebug() << "Display spectrum ----- bars:" << size;
     if (size != m_spectrum->barsNumber())
         return;
 
@@ -257,7 +261,12 @@ void VCAudioTriggers::slotDisplaySpectrum(double *spectrumBands, int size,
 
 void VCAudioTriggers::slotVolumeChanged(int volume)
 {
-    m_doc->audioInputCapture()->setVolume(intensity() * (qreal)volume / 100);
+    m_doc->audioInputCapture()->setVolume(intensity() * qreal(volume) / 100.0);
+}
+
+void VCAudioTriggers::slotUpdateVolumeSlider(int volume)
+{
+    m_volumeSlider->setValue(volume);
 }
 
 /*********************************************************************
@@ -418,7 +427,6 @@ bool VCAudioTriggers::copyFrom(const VCWidget *widget)
     return VCWidget::copyFrom(widget);
 }
 
-
 /*************************************************************************
  * VCWidget-inherited
  *************************************************************************/
@@ -540,7 +548,6 @@ void VCAudioTriggers::setSpectrumBarType(int index, int type)
     }
 }
 
-
 void VCAudioTriggers::editProperties()
 {
     // make a backup copy of the current bars
@@ -550,8 +557,7 @@ void VCAudioTriggers::editProperties()
         tmpSpectrumBars.append(bar->createCopy());
     int barsNumber = m_spectrumBars.count();
 
-    AudioTriggersConfiguration atc(this, m_doc, barsNumber,
-                                   AudioCapture::maxFrequency());
+    AudioTriggersConfiguration atc(this, m_doc, barsNumber, AudioCapture::maxFrequency());
 
     if (atc.exec() == QDialog::Rejected)
     {
@@ -562,7 +568,9 @@ void VCAudioTriggers::editProperties()
         foreach (AudioBar *bar, tmpSpectrumBars)
             m_spectrumBars.append(bar);
     }
+
     m_spectrum->setBarsNumber(m_spectrumBars.count());
+
     if (barsNumber != m_spectrumBars.count())
     {
         QSharedPointer<AudioCapture> capture(m_doc->audioInputCapture());
@@ -573,14 +581,19 @@ void VCAudioTriggers::editProperties()
         {
             if (!captureIsNew)
                 m_inputCapture->unregisterBandsNumber(barsNumber);
+
             m_inputCapture->registerBandsNumber(m_spectrumBars.count());
+
             if (captureIsNew)
+            {
                 connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
                         this, SLOT(slotDisplaySpectrum(double*,int,double,quint32)));
+                connect(m_inputCapture, SIGNAL(volumeChanged(qreal)),
+                        this, SLOT(slotUpdateVolumeSlider(int)));
+            }
         }
     }
 }
-
 
 void VCAudioTriggers::adjustIntensity(qreal val)
 {
@@ -719,7 +732,3 @@ bool VCAudioTriggers::saveXML(QXmlStreamWriter *doc)
 
     return true;
 }
-
-
-
-

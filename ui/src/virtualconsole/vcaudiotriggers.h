@@ -82,6 +82,7 @@ signals:
 protected slots:
     void slotDisplaySpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power);
     void slotVolumeChanged(int volume);
+    void slotUpdateVolumeSlider(int volume);
 
 protected:
     QHBoxLayout *m_hbox;
