@@ -31,6 +31,7 @@ qlcplus (4.13.0) stable; urgency=low
   * Web Access: add event to notify Function start/stop
   * Input profiles: added PMJ 9 Faders Controller, Circus and MidiKey
   * Input profiles: added Worlde Easypad.12 (thanks to Christoph Müllner)
+  * Input profiles: added Worlde Orca PAD16
   * New fixture: Ibiza Mini Moving Star Wash (thanks to Chris Shucksmith)
   * New fixtures: FOS Technologies IQ Par, IQ 28x12 Wash, Iridium 75W Spot (thanks to Maurizio Aru)
   * New fixture: Varytec Hero Spot 60 (thanks to Hans-Jürgen Tappe)
