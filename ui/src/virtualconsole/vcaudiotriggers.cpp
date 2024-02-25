@@ -255,12 +255,10 @@ void VCAudioTriggers::slotDisplaySpectrum(double *spectrumBands, int size,
     }
 }
 
-#if QT_VERSION >= 0x050000
 void VCAudioTriggers::slotVolumeChanged(int volume)
 {
     m_doc->audioInputCapture()->setVolume(intensity() * (qreal)volume / 100);
 }
-#endif
 
 /*********************************************************************
  * DMXSource

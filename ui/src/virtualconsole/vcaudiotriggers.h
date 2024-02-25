@@ -81,9 +81,7 @@ signals:
 
 protected slots:
     void slotDisplaySpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power);
-#if QT_VERSION >= 0x050000
     void slotVolumeChanged(int volume);
-#endif
 
 protected:
     QHBoxLayout *m_hbox;
