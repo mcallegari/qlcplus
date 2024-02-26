@@ -9,6 +9,10 @@
  <Manufacturer>Worlde</Manufacturer>
  <Model>Easypad.12</Model>
  <Type>MIDI</Type>
+ <Channel Number="36873">
+  <Name>XY Fader</Name>
+  <Type>Slider</Type>
+ </Channel>
  <Channel Number="36908">
   <Name>Record</Name>
   <Type>Button</Type>
