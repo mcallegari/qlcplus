@@ -270,6 +270,7 @@
   </M>
   <M n="BoomToneDJ">
     <F n="BoomToneDJ-Froggy-LED-RGBW" m="Froggy LED RGBW"/>
+    <F n="BoomToneDJ-KUB-500-RGB" m="KUB 500 RGB"/>
     <F n="BoomToneDJ-Moving-Wash-5X15-Speed" m="Moving Wash 5X15 Speed"/>
     <F n="BoomToneDJ-Quattro-Scan-LED" m="Quattro Scan LED"/>
     <F n="BoomToneDJ-SilentPAR-12x10w-6in1" m="SilentPAR 12x10w 6in1"/>
@@ -685,6 +686,8 @@
     <F n="Eliminator-Lighting-Electro-MH25R" m="Electro MH25R"/>
     <F n="Eliminator-Lighting-Follow-Spot-100-LED" m="Follow Spot 100 LED"/>
     <F n="Eliminator-Lighting-LP-12-HEX" m="LP 12 HEX"/>
+    <F n="Eliminator-Lighting-Stealth-Beam" m="Stealth Beam"/>
+    <F n="Eliminator-Lighting-Stealth-Wash-Zoom" m="Stealth Wash Zoom"/>
   </M>
   <M n="Elumen8">
     <F n="Elumen8-COB-Tri-4-Pixel-Batten" m="COB Tri 4 Pixel Batten"/>
@@ -733,6 +736,7 @@
     <F n="Eurolite-DMXSuperstrobe-2700" m="DMX Superstrobe 2700"/>
     <F n="Eurolite-EDX-4RT" m="EDX-4RT"/>
     <F n="Eurolite-GKF-60" m="GKF-60"/>
+    <F n="Eurolite-KLS-180-6" m="KLS-180-6"/>
     <F n="Eurolite-KLS200" m="KLS200"/>
     <F n="Eurolite-LED-ACS-BAR-12" m="LED ACS BAR-12"/>
     <F n="Eurolite-LED-B-40-Beam" m="LED B-40 Beam"/>
@@ -1463,6 +1467,7 @@
     <F n="Shehds-230W-LED-Beam-Moving-Head" m="LED 230W Beam Moving Head"/>
     <F n="Shehds-GalaxyJet-Waterproof-IP65-380W-19R-Beam-Moving-Head" m="GalaxyJet Waterproof IP65 380W 19R Beam Moving Head"/>
     <F n="Shehds-JMS-WEBB-LED-Wash-BigBeeEye-19X40W" m="JMS WEBB LED Wash Big Bee Eye 19X40W"/>
+    <F n="Shehds-LED-Beam+Wash-19x15W-RGBW-Zoom" m="LED Beam+Wash 19x15W RGBW Zoom Lighting"/>
     <F n="Shehds-LED-Flat-Par-18x18W-RGBWA+UV" m="LED Flat Par 18x18W RGBWA+UV"/>
     <F n="Shehds-LED-Flat-Par-7x18W-RGBWA+UV" m="LED Flat Par 7x18W RGBWA+UV"/>
   </M>
@@ -1724,6 +1729,7 @@
     <F n="Varytec-BAT.BAR-8-RGBW" m="BAT.BAR 8 RGBW"/>
     <F n="Varytec-BAT.PAR-6-RGBUV" m="BAT.PAR 6 RGBUV"/>
     <F n="Varytec-BAT.PAR-6-RGBWA" m="BAT.PAR 6 RGBWA"/>
+    <F n="Varytec-Blitz-Bar-240" m="Blitz Bar 240"/>
     <F n="Varytec-Easy-Move-LED-XS-Spot" m="Easy Move LED XS Spot"/>
     <F n="Varytec-Easy-Move-LED-XS-Wash" m="Easy Move LED XS Wash"/>
     <F n="Varytec-Easy-Scan-XT-Mini" m="Easy Scan XT Mini"/>

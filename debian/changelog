@@ -57,7 +57,7 @@ qlcplus (4.13.0) stable; urgency=low
   * New fixture: Shehds GalaxyJet Waterproof IP65 380W 19R Beam Moving Head (thanks to István Király,  Feiyu Shehds)
   * New fixture: Martin Ego X6 (thanks to Michael Tosatto)
   * New fixture: Blizzard Lighting LB Hex Unplugged (thanks to David Sparks)
-  * New fixtures: Eurolite LED Strobe SMD PRO 132 DMX RGB, Briteq BT Theatre HD2 (thanks to Fede79)
+  * New fixtures: Eurolite LED Strobe SMD PRO 132 DMX RGB, Briteq BT Theatre HD2, Eurolite KLS-180-6, BoomToneDJ KUB 500 RGB (thanks to Fede79)
   * New fixture: Eurolite LED PLL-480 CW/WW (thanks to Benjamin Drung)
   * New fixture: Robe Spiider (thanks to Nicolò)
   * New fixture: Betopper LB230 (thanks to Viktor)
@@ -70,7 +70,9 @@ qlcplus (4.13.0) stable; urgency=low
   * New fixture: Tecshow Nebula 6 (thanks to Federico)
   * New fixture: beamZ Radical II (thanks to Matt Muller)
   * New fixtures: Eurolite LED PARty TCL spot, Expolite TourSpot 50 Mini, Fun Generation LED Pot 12x1W QCL RGB WW (thanks to Christian Prison)
-  * New fixture: Chauvet COLORband Q3BT (thanks to Paul Schuh)
+  * New fixtures: Chauvet COLORband Q3BT, Shehds LED Beam+Wash 19x15W RGBW Zoom (thanks to Paul Schuh)
+  * New fixtures: Eliminator Lighting Stealth Beam and Stealth Wash Zoom Lighting (thanks to Paul Schuh)
+  * New fixture: Varytec Blitz Bar 240 (thanks to Stefan Lohmann)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 10 Mar 2024 12:13:14 +0200
 
