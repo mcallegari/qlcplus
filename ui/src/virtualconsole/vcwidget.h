@@ -66,7 +66,9 @@ class QFile;
 #define KXMLQLCVCWidgetInputLowerValue      QString("LowerValue")
 #define KXMLQLCVCWidgetInputUpperValue      QString("UpperValue")
 #define KXMLQLCVCWidgetInputMonitorValue    QString("MonitorValue")
-#define KXMLQLCVCWidgetInputFeedbackChannel QString("FeedbackChannel")
+#define KXMLQLCVCWidgetInputLowerParams     QString("LowerParams")
+#define KXMLQLCVCWidgetInputUpperParams     QString("UpperParams")
+#define KXMLQLCVCWidgetInputMonitorParams   QString("MonitorParams")
 
 #define KXMLQLCWindowState          QString("WindowState")
 #define KXMLQLCWindowStateVisible   QString("Visible")
@@ -448,7 +450,7 @@ public:
      * @param value value from 0 to 255 to be sent
      * @param src the QLCInputSource reference to send the feedback to
      */
-    void sendFeedback(int value, QSharedPointer<QLCInputSource> src);
+    void sendFeedback(int value, QSharedPointer<QLCInputSource> src, QVariant extraParams = QVariant());
 
     /**
      * Send the feedback data again, e.g. after page flip

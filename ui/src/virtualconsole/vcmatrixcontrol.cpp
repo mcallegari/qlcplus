@@ -51,7 +51,9 @@ VCMatrixControl &VCMatrixControl::operator=(const VCMatrixControl &vcmc)
         {
             m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(vcmc.m_inputSource->universe(),
                                                    vcmc.m_inputSource->channel()));
-            m_inputSource->setRange(vcmc.m_inputSource->lowerValue(), vcmc.m_inputSource->upperValue());
+
+            m_inputSource->setFeedbackValue(QLCInputFeedback::LowerValue, vcmc.m_inputSource->feedbackValue(QLCInputFeedback::LowerValue));
+            m_inputSource->setFeedbackValue(QLCInputFeedback::UpperValue, vcmc.m_inputSource->feedbackValue(QLCInputFeedback::UpperValue));
         }
     }
 

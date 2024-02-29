@@ -522,13 +522,12 @@ void VCButton::updateFeedback()
     QSharedPointer<QLCInputSource> src = inputSource();
     if (!src.isNull() && src->isValid() == true)
     {
-        if (m_state == Inactive) {
-            sendFeedback(src->lowerValue());
-        } else if (m_state == Monitoring) {
-            sendFeedback(src->monitorValue());
-        } else {
-            sendFeedback(src->upperValue());
-        }
+        if (m_state == Inactive)
+            sendFeedback(src->feedbackValue(QLCInputFeedback::LowerValue), src, src->feedbackExtraParams(QLCInputFeedback::LowerValue));
+        else if (m_state == Monitoring)
+            sendFeedback(src->feedbackValue(QLCInputFeedback::MonitorValue), src, src->feedbackExtraParams(QLCInputFeedback::MonitorValue));
+        else
+            sendFeedback(src->feedbackValue(QLCInputFeedback::UpperValue), src, src->feedbackExtraParams(QLCInputFeedback::UpperValue));
     }
 }
 

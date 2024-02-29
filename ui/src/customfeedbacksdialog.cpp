@@ -35,9 +35,9 @@ CustomFeedbacksDialog::CustomFeedbacksDialog(Doc *doc, const QSharedPointer<QLCI
 
     if (enableControls)
     {
-        m_lowerSpin->setValue(m_inputSource->lowerValue());
-        m_upperSpin->setValue(m_inputSource->upperValue());
-        m_monitorSpin->setValue(m_inputSource->monitorValue());
+        m_lowerSpin->setValue(m_inputSource->feedbackValue(QLCInputFeedback::LowerValue));
+        m_upperSpin->setValue(m_inputSource->feedbackValue(QLCInputFeedback::UpperValue));
+        m_monitorSpin->setValue(m_inputSource->feedbackValue(QLCInputFeedback::MonitorValue));
     }
 
     m_lowerSpin->setEnabled(enableControls);
@@ -45,6 +45,7 @@ CustomFeedbacksDialog::CustomFeedbacksDialog(Doc *doc, const QSharedPointer<QLCI
 
     m_monitorLabel->setVisible(false);
     m_monitorSpin->setVisible(false);
+    m_monitorChannelCombo->setVisible(false);
     m_profileColorsTree->setVisible(false);
     m_midiChannelGroup->hide();
 
@@ -71,13 +72,13 @@ CustomFeedbacksDialog::CustomFeedbacksDialog(Doc *doc, const QSharedPointer<QLCI
                     QLabel *colLabel = new QLabel();
                     colLabel->setStyleSheet(QString("background-color: %1").arg(lc.second.name()));
 
-                    if (it.key() == m_inputSource->lowerValue())
+                    if (it.key() == m_inputSource->feedbackValue(QLCInputFeedback::LowerValue))
                         m_lowerColor->setStyleSheet(QString("background-color: %1").arg(lc.second.name()));
 
-                    if (it.key() == m_inputSource->upperValue())
+                    if (it.key() == m_inputSource->feedbackValue(QLCInputFeedback::UpperValue))
                         m_upperColor->setStyleSheet(QString("background-color: %1").arg(lc.second.name()));
 
-                    if (it.key() == m_inputSource->monitorValue())
+                    if (it.key() == m_inputSource->feedbackValue(QLCInputFeedback::MonitorValue))
                         m_monitorColor->setStyleSheet(QString("background-color: %1").arg(lc.second.name()));
 
                     m_profileColorsTree->setItemWidget(item, 2, colLabel);
@@ -86,16 +87,30 @@ CustomFeedbacksDialog::CustomFeedbacksDialog(Doc *doc, const QSharedPointer<QLCI
             if (m_profile->type() == QLCInputProfile::MIDI && m_profile->hasMidiChannelTable())
             {
                 m_midiChannelGroup->show();
-                m_midiChannelCombo->addItem(tr("From plugin settings"));
+                m_lowerChannelCombo->addItem(tr("From plugin settings"));
+                m_upperChannelCombo->addItem(tr("From plugin settings"));
+                m_monitorChannelCombo->addItem(tr("From plugin settings"));
 
                 QMapIterator <uchar, QString> it(m_profile->midiChannelTable());
                 while (it.hasNext() == true)
                 {
                     it.next();
-                    m_midiChannelCombo->addItem(it.value());
+                    m_lowerChannelCombo->addItem(it.value());
+                    m_upperChannelCombo->addItem(it.value());
+                    m_monitorChannelCombo->addItem(it.value());
                 }
-                if (m_inputSource->extraParams().isValid())
-                    m_midiChannelCombo->setCurrentIndex(m_inputSource->extraParams().toInt() + 1);
+
+                QVariant extraParams = m_inputSource->feedbackExtraParams(QLCInputFeedback::LowerValue);
+                if (extraParams.isValid())
+                    m_lowerChannelCombo->setCurrentIndex(extraParams.toInt() + 1);
+
+                extraParams = m_inputSource->feedbackExtraParams(QLCInputFeedback::UpperValue);
+                if (extraParams.isValid())
+                    m_upperChannelCombo->setCurrentIndex(extraParams.toInt() + 1);
+
+                extraParams = m_inputSource->feedbackExtraParams(QLCInputFeedback::MonitorValue);
+                if (extraParams.isValid())
+                    m_monitorChannelCombo->setCurrentIndex(extraParams.toInt() + 1);
             }
         }
     }
@@ -119,6 +134,7 @@ void CustomFeedbacksDialog::setMonitoringVisibility(bool visible)
 {
     m_monitorLabel->setVisible(visible);
     m_monitorSpin->setVisible(visible);
+    m_monitorChannelCombo->setVisible(visible);
 }
 
 void CustomFeedbacksDialog::accept()
@@ -126,11 +142,18 @@ void CustomFeedbacksDialog::accept()
     if (m_inputSource.isNull())
         return;
 
-    m_inputSource->setRange(m_lowerSpin->value(), m_upperSpin->value());
+    m_inputSource->setFeedbackValue(QLCInputFeedback::LowerValue, m_lowerSpin->value());
+    m_inputSource->setFeedbackValue(QLCInputFeedback::UpperValue, m_upperSpin->value());
     if (m_monitorSpin->isVisible())
-        m_inputSource->setMonitorValue(m_monitorSpin->value());
+        m_inputSource->setFeedbackValue(QLCInputFeedback::MonitorValue, m_monitorSpin->value());
+
     if (m_midiChannelGroup->isVisible())
-        m_inputSource->setExtraParams(m_midiChannelCombo->currentIndex() - 1);
+    {
+        m_inputSource->setFeedbackExtraParams(QLCInputFeedback::LowerValue, m_lowerChannelCombo->currentIndex() - 1);
+        m_inputSource->setFeedbackExtraParams(QLCInputFeedback::UpperValue, m_upperChannelCombo->currentIndex() - 1);
+        if (m_monitorSpin->isVisible())
+            m_inputSource->setFeedbackExtraParams(QLCInputFeedback::MonitorValue, m_monitorChannelCombo->currentIndex() - 1);
+    }
 
     QDialog::accept();
 }

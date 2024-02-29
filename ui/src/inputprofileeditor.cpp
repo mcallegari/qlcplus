@@ -581,7 +581,7 @@ void InputProfileEditor::slotItemClicked(QTreeWidgetItem *item, int col)
             m_midiChannelCombo->blockSignals(true);
             m_lowerSpin->setValue(ich->lowerValue());
             m_upperSpin->setValue(ich->upperValue());
-            m_midiChannelCombo->setCurrentIndex(ich->midiChannel() + 1);
+            m_midiChannelCombo->setCurrentIndex(ich->lowerChannel() + 1);
             m_lowerSpin->blockSignals(false);
             m_upperSpin->blockSignals(false);
             m_midiChannelCombo->blockSignals(false);
@@ -656,7 +656,7 @@ void InputProfileEditor::slotMidiChannelComboChanged(int index)
     foreach (QLCInputChannel *channel, selectedChannels())
     {
         if (channel->type() == QLCInputChannel::Button)
-            channel->setMidiChannel(index - 1);
+            channel->setLowerChannel(index - 1);
     }
 }
 

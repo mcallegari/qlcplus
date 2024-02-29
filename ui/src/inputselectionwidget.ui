@@ -176,26 +176,6 @@
       <item row="2" column="0" colspan="3">
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QPushButton" name="m_customFbButton">
-          <property name="text">
-           <string>Custom Feedback</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
          <widget class="QPushButton" name="m_autoDetectInputButton">
           <property name="toolTip">
            <string>When toggled, you can click an external button to assign it to this widget.</string>
@@ -227,6 +207,26 @@
           </property>
           <property name="text">
            <string>Choose...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="m_customFbButton">
+          <property name="text">
+           <string>Custom Feedback</string>
           </property>
          </widget>
         </item>

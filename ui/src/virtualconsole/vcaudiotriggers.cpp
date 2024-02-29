@@ -376,9 +376,9 @@ void VCAudioTriggers::updateFeedback()
     if (!src.isNull() && src->isValid() == true)
     {
         if (m_button->isChecked())
-            sendFeedback(src->upperValue());
+            sendFeedback(src->feedbackValue(QLCInputFeedback::UpperValue));
         else
-            sendFeedback(src->lowerValue());
+            sendFeedback(src->feedbackValue(QLCInputFeedback::LowerValue));
     }
 }
 

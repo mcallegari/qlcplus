@@ -170,6 +170,13 @@
       <string>MIDI Channel</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_3">
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Upper Channel</string>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="0">
        <widget class="QLabel" name="label">
         <property name="sizePolicy">
@@ -179,12 +186,12 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Channel</string>
+         <string>Lower Channel</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QComboBox" name="m_midiChannelCombo">
+       <widget class="QComboBox" name="m_lowerChannelCombo">
         <property name="sizePolicy">
          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -192,6 +199,19 @@
          </sizepolicy>
         </property>
        </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QComboBox" name="m_upperChannelCombo"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Monitor Channel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QComboBox" name="m_monitorChannelCombo"/>
       </item>
      </layout>
     </widget>
