@@ -713,7 +713,7 @@ void VCWidget::sendFeedback(int value, QSharedPointer<QLCInputSource> src, QVari
     if (acceptsInput() == false)
         return;
 
-    qDebug() << "Send feedback to uni" << src->universe() << "," << src->channel() << ", param" << extraParams;
+    //qDebug() << "[VCWidget] Send feedback to uni" << src->universe() << "," << src->channel() << ", param" << extraParams;
 
     m_doc->inputOutputMap()->sendFeedBack(
         src->universe(), src->channel(), value,

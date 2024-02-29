@@ -1645,7 +1645,7 @@ void ContextManager::setDumpValue(quint32 fxID, quint32 channel, uchar value, bo
     currentVal.setValue(SceneValue(fxID, channel, currDmxValue));
     newVal.setValue(sValue);
 
-    if (currentVal != newVal || value != currDmxValue)
+    //if (currentVal != newVal || value != currDmxValue)
     {
         if (output)
         {
