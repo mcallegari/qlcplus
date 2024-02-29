@@ -191,8 +191,11 @@ public:
     uchar upperValue() const;
     void setUpperValue(const uchar value);
 
-    int midiChannel() const;
-    void setMidiChannel(const int channel);
+    int lowerChannel() const;
+    void setLowerChannel(const int channel);
+
+    int upperChannel() const;
+    void setUpperChannel(const int channel);
 
 signals:
     void sendExtraPressChanged();
@@ -202,8 +205,8 @@ signals:
 
 protected:
     bool m_sendExtraPress;
-    uchar m_lower, m_upper;
-    int m_midiChannel;
+    uchar m_lowerValue, m_upperValue;
+    int m_lowerChannel, m_upperChannel;
 
     /********************************************************************
      * Load & Save

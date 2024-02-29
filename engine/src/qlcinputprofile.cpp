@@ -345,7 +345,7 @@ QVariant QLCInputProfile::channelExtraParams(const QLCInputChannel* channel) con
     switch (m_type)
     {
         case OSC: return channel->name();
-        case MIDI: return channel->midiChannel();
+        case MIDI: return channel->lowerChannel();
         default: return QVariant();
     }
 }

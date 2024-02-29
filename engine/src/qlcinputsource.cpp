@@ -36,9 +36,6 @@ QLCInputSource::QLCInputSource(QThread *parent)
     , m_universe(invalidUniverse)
     , m_channel(invalidChannel)
     , m_id(invalidID)
-    , m_lower(0)
-    , m_upper(UCHAR_MAX)
-    , m_monitor(UCHAR_MAX)
     , m_workingMode(Absolute)
     , m_sensitivity(20)
     , m_emitExtraPressRelease(false)
@@ -46,15 +43,18 @@ QLCInputSource::QLCInputSource(QThread *parent)
     , m_outputValue(0)
     , m_running(false)
 {
+    m_lower.setType(QLCInputFeedback::LowerValue);
+    m_lower.setValue(0);
+    m_upper.setType(QLCInputFeedback::UpperValue);
+    m_upper.setValue(UCHAR_MAX);
+    m_monitor.setType(QLCInputFeedback::MonitorValue);
+    m_monitor.setValue(UCHAR_MAX);
 }
 
 QLCInputSource::QLCInputSource(quint32 universe, quint32 channel, QThread *parent)
     : QThread(parent)
     , m_universe(universe)
     , m_channel(channel)
-    , m_lower(0)
-    , m_upper(UCHAR_MAX)
-    , m_monitor(UCHAR_MAX)
     , m_workingMode(Absolute)
     , m_sensitivity(20)
     , m_emitExtraPressRelease(false)
@@ -62,6 +62,12 @@ QLCInputSource::QLCInputSource(quint32 universe, quint32 channel, QThread *paren
     , m_outputValue(0)
     , m_running(false)
 {
+    m_lower.setType(QLCInputFeedback::LowerValue);
+    m_lower.setValue(0);
+    m_upper.setType(QLCInputFeedback::UpperValue);
+    m_upper.setValue(UCHAR_MAX);
+    m_monitor.setType(QLCInputFeedback::MonitorValue);
+    m_monitor.setValue(UCHAR_MAX);
 }
 
 QLCInputSource::~QLCInputSource()
@@ -126,40 +132,62 @@ quint32 QLCInputSource::id() const
  * Custom feedback
  *********************************************************************/
 
-uchar QLCInputSource::lowerValue() const
+uchar QLCInputSource::feedbackValue(QLCInputFeedback::FeedbackType type) const
 {
-    return m_lower;
+    switch (type)
+    {
+        case QLCInputFeedback::LowerValue: return m_lower.value();
+        case QLCInputFeedback::UpperValue: return m_upper.value();
+        case QLCInputFeedback::MonitorValue: return m_monitor.value();
+        default: return 0;
+    }
 }
 
-uchar QLCInputSource::upperValue() const
+void QLCInputSource::setFeedbackValue(QLCInputFeedback::FeedbackType type, uchar value)
 {
-    return m_upper;
+    switch (type)
+    {
+        case QLCInputFeedback::LowerValue:
+            m_lower.setValue(value);
+        break;
+        case QLCInputFeedback::UpperValue:
+            m_upper.setValue(value);
+        break;
+        case QLCInputFeedback::MonitorValue:
+            m_monitor.setValue(value);
+        break;
+        default:
+        break;
+    }
 }
 
-void QLCInputSource::setRange(uchar lower, uchar upper)
+QVariant QLCInputSource::feedbackExtraParams(QLCInputFeedback::FeedbackType type) const
 {
-    m_lower = lower;
-    m_upper = upper;
+    switch (type)
+    {
+        case QLCInputFeedback::LowerValue: return m_lower.extraParams();
+        case QLCInputFeedback::UpperValue: return m_upper.extraParams();
+        case QLCInputFeedback::MonitorValue: return m_monitor.extraParams();
+        default: return 0;
+    }
 }
 
-uchar QLCInputSource::monitorValue() const
+void QLCInputSource::setFeedbackExtraParams(QLCInputFeedback::FeedbackType type, QVariant params)
 {
-    return m_monitor;
-}
-
-void QLCInputSource::setMonitorValue(uchar monitor)
-{
-    m_monitor = monitor;
-}
-
-QVariant QLCInputSource::extraParams() const
-{
-    return m_extraParams;
-}
-
-void QLCInputSource::setExtraParams(QVariant params)
-{
-    m_extraParams = params;
+    switch (type)
+    {
+        case QLCInputFeedback::LowerValue:
+            m_lower.setExtraParams(params);
+        break;
+        case QLCInputFeedback::UpperValue:
+            m_upper.setExtraParams(params);
+        break;
+        case QLCInputFeedback::MonitorValue:
+            m_monitor.setExtraParams(params);
+        break;
+        default:
+        break;
+    }
 }
 
 /*********************************************************************
@@ -236,8 +264,8 @@ void QLCInputSource::updateInputValue(uchar value)
     else if (m_emitExtraPressRelease == true)
     {
         locker.unlock();
-        emit inputValueChanged(m_universe, m_channel, m_upper);
-        emit inputValueChanged(m_universe, m_channel, m_lower);
+        emit inputValueChanged(m_universe, m_channel, m_upper.value());
+        emit inputValueChanged(m_universe, m_channel, m_lower.value());
     }
     else
         m_inputValue = value;

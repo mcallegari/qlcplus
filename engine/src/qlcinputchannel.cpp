@@ -34,9 +34,9 @@ QLCInputChannel::QLCInputChannel()
     , m_movementType(Absolute)
     , m_movementSensitivity(20)
     , m_sendExtraPress(false)
-    , m_lower(0)
-    , m_upper(UCHAR_MAX)
-    , m_midiChannel(-1)
+    , m_lowerValue(0)
+    , m_upperValue(UCHAR_MAX)
+    , m_lowerChannel(-1)
 {
 }
 
@@ -48,7 +48,7 @@ QLCInputChannel *QLCInputChannel::createCopy()
     copy->setMovementType(this->movementType());
     copy->setMovementSensitivity(this->movementSensitivity());
     copy->setSendExtraPress(this->sendExtraPress());
-    copy->setMidiChannel(this->midiChannel());
+    copy->setLowerChannel(this->lowerChannel());
     copy->setRange(this->lowerValue(), this->upperValue());
 
     return copy;
@@ -246,43 +246,43 @@ void QLCInputChannel::setRange(uchar lower, uchar upper)
 
 uchar QLCInputChannel::lowerValue() const
 {
-    return m_lower;
+    return m_lowerValue;
 }
 
 void QLCInputChannel::setLowerValue(const uchar value)
 {
-    if (value == m_lower)
+    if (value == m_lowerValue)
         return;
-
-    m_lower = value;
+    
+    m_lowerValue = value;
     emit lowerValueChanged();
 }
 
 uchar QLCInputChannel::upperValue() const
 {
-    return m_upper;
+    return m_upperValue;
 }
 
 void QLCInputChannel::setUpperValue(const uchar value)
 {
-    if (value == m_upper)
+    if (value == m_upperValue)
         return;
-
-    m_upper = value;
+    
+    m_upperValue = value;
     emit upperValueChanged();
 }
 
-int QLCInputChannel::midiChannel() const
+int QLCInputChannel::lowerChannel() const
 {
-    return m_midiChannel;
+    return m_lowerChannel;
 }
 
-void QLCInputChannel::setMidiChannel(const int channel)
+void QLCInputChannel::setLowerChannel(const int channel)
 {
-    if (channel == m_midiChannel)
+    if (channel == m_lowerChannel)
         return;
-
-    m_midiChannel = channel;
+    
+    m_lowerChannel = channel;
     emit midiChannelChanged();
 }
 
@@ -335,7 +335,7 @@ bool QLCInputChannel::loadXML(QXmlStreamReader &root)
                 fbChannel = attrs.value(KXMLQLCInputChannelMidiChannel).toInt();
 
             setRange(min, max);
-            setMidiChannel(fbChannel);
+            setLowerChannel(fbChannel);
             root.skipCurrentElement();
         }
         else
@@ -383,8 +383,8 @@ bool QLCInputChannel::saveXML(QXmlStreamWriter *doc, quint32 channelNumber) cons
             doc->writeAttribute(KXMLQLCInputChannelLowerValue, QString::number(lowerValue()));
         if (upperValue() != UCHAR_MAX)
             doc->writeAttribute(KXMLQLCInputChannelUpperValue, QString::number(upperValue()));
-        if (midiChannel() != -1)
-            doc->writeAttribute(KXMLQLCInputChannelMidiChannel, QString::number(midiChannel()));
+        if (lowerChannel() != -1)
+            doc->writeAttribute(KXMLQLCInputChannelMidiChannel, QString::number(lowerChannel()));
         doc->writeEndElement();
     }
 
