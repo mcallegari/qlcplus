@@ -228,7 +228,8 @@ QSharedPointer<GenericFader> Universe::requestFader(Universe::FaderPriority prio
         m_faders.insert(insertPos, fader);
     }
 
-    qDebug() << "Generic fader with priority" <<  fader->priority() << "registered at pos" << insertPos << ", count" << m_faders.count();
+    qDebug() << "[Universe]" << id() << ": Generic fader with priority" << fader->priority()
+             << "registered at pos" << insertPos << ", count" << m_faders.count();
 
     return fader;
 }
@@ -265,7 +266,8 @@ void Universe::requestFaderPriority(QSharedPointer<GenericFader> fader, Universe
     if (newPos != pos)
     {
         m_faders.move(pos, newPos);
-        qDebug() << "Generic fader moved from" << pos << "to" << m_faders.indexOf(fader) << ". Count:" << m_faders.count();
+        qDebug() << "[Universe]" << id() << ": Generic fader moved from" << pos
+                 << "to" << m_faders.indexOf(fader) << ". Count:" << m_faders.count();
     }
 }
 
@@ -929,23 +931,44 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
 {
     Q_ASSERT(channel < UNIVERSE_SIZE);
 
-    //qDebug() << "Universe write channel" << channel << ", value:" << value;
+    //qDebug() << "[Universe]" << id() << ": write channel" << channel << ", value:" << value;
 
     if (channel >= m_usedChannels)
         m_usedChannels = channel + 1;
 
-    if ((m_channelsMask->at(channel) & HTP) == false)
-        (*m_blackoutValues)[channel] = char(value);
-
-    if (forceLTP == false && (m_channelsMask->at(channel) & HTP) && value < (uchar)m_preGMValues->at(channel))
+    if (m_channelsMask->at(channel) & HTP)
     {
-        qDebug() << "[Universe] HTP check not passed" << channel << value;
-        return false;
+        if (forceLTP == false && value < (uchar)m_preGMValues->at(channel))
+        {
+            qDebug() << "[Universe] HTP check not passed" << channel << value;
+            return false;
+        }
+    }
+    else
+    {
+        // preserve non HTP channels for blackout
+        (*m_blackoutValues)[channel] = char(value);
     }
 
     (*m_preGMValues)[channel] = char(value);
 
     updatePostGMValue(channel);
+
+    return true;
+}
+
+bool Universe::writeMultiple(int address, quint32 value, int channelCount)
+{
+    for (int i = 0; i < channelCount; i++)
+    {
+        // preserve non HTP channels for blackout
+        if ((m_channelsMask->at(address + i) & HTP) == 0)
+            (*m_blackoutValues)[address + i] = ((uchar *)&value)[channelCount - 1 - i];
+
+        (*m_preGMValues)[address + i] = ((uchar *)&value)[channelCount - 1 - i];
+
+        updatePostGMValue(address + i);
+    }
 
     return true;
 }
@@ -969,53 +992,59 @@ bool Universe::writeRelative(int channel, uchar value)
     return true;
 }
 
-bool Universe::writeBlended(int channel, uchar value, Universe::BlendMode blend)
+bool Universe::writeBlended(int channel, quint32 value, int channelCount, Universe::BlendMode blend)
 {
-    if (channel >= m_usedChannels)
-        m_usedChannels = channel + 1;
+    if (channel + channelCount - 1 >= m_usedChannels)
+        m_usedChannels = channel + channelCount;
+
+    quint32 currentValue = 0;
+    for (int i = 0; i < channelCount; i++)
+        currentValue = (currentValue << 8) + uchar(m_preGMValues->at(channel + i));
 
     switch (blend)
     {
         case NormalBlend:
-            return write(channel, value);
-
+        {
+            if ((m_channelsMask->at(channel) & HTP) && value < currentValue)
+            {
+                qDebug() << "[Universe] HTP check not passed" << channel << value;
+                return false;
+            }
+        }
+        break;
         case MaskBlend:
         {
             if (value)
             {
-                float currValue = (float)uchar(m_preGMValues->at(channel));
-                if (currValue)
-                    value = currValue * ((float)value / 255.0);
+                qDebug() << "Current value" << currentValue << "value" << value;
+                if (currentValue)
+                    value = float(currentValue) * (float(value) / pow(255.0, channelCount));
                 else
                     value = 0;
             }
-            (*m_preGMValues)[channel] = char(value);
         }
         break;
         case AdditiveBlend:
         {
-            uchar currVal = uchar(m_preGMValues->at(channel));
             //qDebug() << "Universe write additive channel" << channel << ", value:" << currVal << "+" << value;
-            value = qMin(int(currVal) + value, 255);
-            (*m_preGMValues)[channel] = char(value);
+            value = fmin(float(currentValue + value), pow(255.0, channelCount));
         }
         break;
         case SubtractiveBlend:
         {
-            uchar currVal = uchar(m_preGMValues->at(channel));
-            if (value >= currVal)
+            if (value >= currentValue)
                 value = 0;
             else
-                value = currVal - value;
-            (*m_preGMValues)[channel] = char(value);
+                value = currentValue - value;
         }
         break;
         default:
             qDebug() << "[Universe] Blend mode not handled. Implement me!" << blend;
+            return false;
         break;
     }
 
-    updatePostGMValue(channel);
+    writeMultiple(channel, value, channelCount);
 
     return true;
 }

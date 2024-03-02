@@ -25,11 +25,20 @@
 #include <QHash>
 
 #include "universe.h"
+#include "scenevalue.h"
 
 class FadeChannel;
 
 /** @addtogroup engine Engine
  * @{
+ */
+
+/**
+ *  GenericFader represents all the fading channels for one Function (or feature)
+ *  and one Universe. For example a Scene will request one GenericFader for all the
+ *  channels of all the fixtures on a specific Universe.
+ *  In this way, Universes will handle a list of dedicated faders, without
+ *  any lookup
  */
 
 class GenericFader : public QObject
@@ -53,6 +62,11 @@ public:
      *  The Universe class is in charge of sorting faders by priority */
     int priority() const;
     void setPriority(int priority);
+
+    /** Get/Set if this fader should handle primary/secondary channels
+     *  when a caller requests a FadeChannel */
+    bool handleSecondary();
+    void setHandleSecondary(bool enable);
 
     /** Build a hash for a fader channel which is unique in a Universe.
      *  This is used to map channels and access them quickly */
@@ -137,6 +151,7 @@ public:
     /** Enable/disable universe monitoring before writing new data */
     void setMonitoring(bool enable);
 
+    /** Remove the Crossfade flag from every fader handled by this class */
     void resetCrossfade();
 
 signals:
@@ -148,6 +163,7 @@ private:
     QString m_name;
     quint32 m_fid;
     int m_priority;
+    bool m_handleSecondary;
     QHash <quint32,FadeChannel> m_channels;
     qreal m_intensity;
     qreal m_parentIntensity;

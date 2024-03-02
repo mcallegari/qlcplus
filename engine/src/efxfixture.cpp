@@ -475,7 +475,7 @@ void EFXFixture::updateFaderValues(FadeChannel *fc, uchar value)
 void EFXFixture::setPointPanTilt(QList<Universe *> universes, QSharedPointer<GenericFader> fader,
                                  float pan, float tilt)
 {
-    Fixture* fxi = doc()->fixture(head().fxi);
+    Fixture *fxi = doc()->fixture(head().fxi);
     Q_ASSERT(fxi != NULL);
     Universe *uni = universes[universe()];
 
@@ -485,6 +485,12 @@ void EFXFixture::setPointPanTilt(QList<Universe *> universes, QSharedPointer<Gen
     quint32 panLsbChannel = fxi->channelNumber(QLCChannel::Pan, QLCChannel::LSB, head().head);
     quint32 tiltMsbChannel = fxi->channelNumber(QLCChannel::Tilt, QLCChannel::MSB, head().head);
     quint32 tiltLsbChannel = fxi->channelNumber(QLCChannel::Tilt, QLCChannel::LSB, head().head);
+
+    if (pan < 0)
+        pan = 0;
+
+    if (tilt < 0)
+        tilt = 0;
 
     /* Write coarse point data to universes */
     if (panMsbChannel != QLCChannel::invalid() && !fader.isNull())
