@@ -338,57 +338,46 @@ void Universe_Test::write()
 void Universe_Test::writeRelative()
 {
     // 127 == 0
-    QVERIFY(m_uni->writeRelative(9, 127) == true);
-    QCOMPARE(m_uni->m_relativeValues[9], short(0));
-    QCOMPARE(m_uni->m_relativeValues[4], short(0));
-    QCOMPARE(m_uni->m_relativeValues[0], short(0));
+    QVERIFY(m_uni->writeRelative(9, 127, 1) == true);
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(0));
     QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(0));
     QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(0));
 
     // 255 == +128
-    QVERIFY(m_uni->writeRelative(9, 255) == true);
-    QCOMPARE(m_uni->m_relativeValues[9], short(128)); // 0 + 128
-    QCOMPARE(m_uni->m_relativeValues[4], short(0));
-    QCOMPARE(m_uni->m_relativeValues[0], short(0));
+    QVERIFY(m_uni->writeRelative(9, 255, 1) == true);
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(128));
     QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(0));
     QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(0));
 
     // 0 == -127
-    QVERIFY(m_uni->writeRelative(9, 0) == true);
-    QCOMPARE(m_uni->m_relativeValues[9], short(1)); // 128 - 127
-    QCOMPARE(m_uni->m_relativeValues[4], short(0));
-    QCOMPARE(m_uni->m_relativeValues[0], short(0));
+    QVERIFY(m_uni->writeRelative(9, 0, 1) == true);
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(1));
     QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(0));
     QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(0));
 
     m_uni->reset();
-    QCOMPARE(m_uni->m_relativeValues[9], short(0));
 
     QVERIFY(m_uni->write(9, 85) == true);
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(85));
 
-    QVERIFY(m_uni->writeRelative(9, 117) == true);
-    QCOMPARE(m_uni->m_relativeValues[9], short(-10));
+    QVERIFY(m_uni->writeRelative(9, 117, 1) == true);
 
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(75));
     QVERIFY(m_uni->write(9, 65) == true);
-    QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(55));
+    QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(65));
 
     m_uni->reset();
 
     QVERIFY(m_uni->write(9, 255) == true);
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(255));
-    QVERIFY(m_uni->writeRelative(9, 255) == true);
+    QVERIFY(m_uni->writeRelative(9, 255, 1) == true);
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(255));
 
     m_uni->reset();
 
     QVERIFY(m_uni->write(9, 0) == true);
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(0));
-    QVERIFY(m_uni->writeRelative(9, 0) == true);
+    QVERIFY(m_uni->writeRelative(9, 0, 1) == true);
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(0));
 }
 

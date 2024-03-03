@@ -243,12 +243,11 @@ void GenericFader::write(Universe *universe)
         }
         else if (flags & FadeChannel::Relative)
         {
-            for (int i = 0; i < channelCount; i++)
-                universe->writeRelative(address + i, ((uchar *)&value)[channelCount - 1 - i]);
+            universe->writeRelative(address, value, channelCount);
         }
         else if (flags & FadeChannel::Flashing)
         {
-            universe->write(address, value, flags & FadeChannel::ForceLTP);
+            universe->writeMultiple(address, value, channelCount);
             continue;
         }
         else

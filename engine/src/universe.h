@@ -171,7 +171,6 @@ protected:
      */
     uchar applyGM(int channel, uchar value);
 
-    uchar applyRelative(int channel, uchar value);
     uchar applyModifiers(int channel, uchar value);
     void updatePostGMValue(int channel);
 
@@ -437,9 +436,6 @@ public:
     /** Return a list with intensity channels and their values */
     QHash <int, uchar> intensityChannels();
 
-    /** Set all channel relative values to zero */
-    void zeroRelativeValues();
-
 protected:
     void applyPassthroughValues(int address, int range);
 
@@ -488,8 +484,6 @@ protected:
     /** Array of values from input line, when passtrhough is enabled */
     QScopedPointer<QByteArray> m_passthroughValues;
 
-    QVector<short> m_relativeValues;
-
     /* impl speedup */
     void updateIntensityChannelsRanges();
 
@@ -518,17 +512,17 @@ public:
      * Write a value to a DMX channel, taking Grand Master and HTP into
      * account, if applicable.
      *
-     * @param channel The channel number to write to
+     * @param address The DMX start address to write to
      * @param value The value to write
      *
      * @return true if successful, otherwise false
      */
-    bool write(int channel, uchar value, bool forceLTP = false);
+    bool write(int address, uchar value, bool forceLTP = false);
 
     /**
      * Write a value representing one or multiple channels
      *
-     * @param address the DMX start address
+     * @param address The DMX start address to write to
      * @param value the DMX value(s) to set
      * @param channelCount number of channels that value represents
      * @return always true
@@ -539,26 +533,27 @@ public:
      * Write a relative value to a DMX channel, taking Grand Master and HTP into
      * account, if applicable.
      *
-     * @param channel The channel number to write to
+     * @param address The DMX start address to write to
      * @param value The value to write
+     * @param channelCount number of channels that value represents
      *
      * @return true if successful, otherwise false
      */
-    bool writeRelative(int channel, uchar value);
+    bool writeRelative(int address, quint32 value, int channelCount);
 
     /**
      * Write DMX values with the given blend mode.
      * If blend == NormalBlend the generic write method is called
      * and all the HTP/LTP checks are performed
      *
-     * @param channel The channel number to write to
+     * @param address The DMX start address to write to
      * @param value The value to write
      * @param channelCount The number of channels that value represents
      * @param blend The blend mode to be used on $value
      *
      * @return true if successful, otherwise false
      */
-    bool writeBlended(int channel, quint32 value, int channelCount, BlendMode blend);
+    bool writeBlended(int address, quint32 value, int channelCount, BlendMode blend);
 
     /*********************************************************************
      * Load & Save

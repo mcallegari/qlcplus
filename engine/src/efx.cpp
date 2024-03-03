@@ -1081,6 +1081,7 @@ QSharedPointer<GenericFader> EFX::getFader(QList<Universe *> universes, quint32 
         fader->setBlendMode(blendMode());
         fader->setName(name());
         fader->setParentFunctionID(id());
+        fader->setHandleSecondary(true);
         m_fadersMap[universeID] = fader;
     }
 
@@ -1094,7 +1095,7 @@ void EFX::preRun(MasterTimer* timer)
     QListIterator <EFXFixture*> it(m_fixtures);
     while (it.hasNext() == true)
     {
-        EFXFixture* ef = it.next();
+        EFXFixture *ef = it.next();
         Q_ASSERT(ef != NULL);
         ef->setSerialNumber(serialNumber++);
     }
