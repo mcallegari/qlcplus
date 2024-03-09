@@ -5,6 +5,12 @@
     <F n="Abstract-Twister-4" m="Twister 4"/>
     <F n="Abstract-VR8" m="VR8"/>
   </M>
+  <M n="Acme">
+    <F n="Acme-Dotline180" m="Dotline180"/>
+    <F n="Acme-Dotline360" m="Dotline360"/>
+    <F n="Acme-Oxygen" m="Oxygen"/>
+    <F n="Acme-Super-Dotline" m="Super Dotline"/>
+  </M>
   <M n="ADB">
     <F n="ADB-ALC4" m="ALC4"/>
     <F n="ADB-Warp-M" m="Warp M"/>
@@ -665,6 +671,7 @@
     <F n="Elation-Fuze-PAR-Z175" m="Fuze PAR Z175"/>
     <F n="Elation-Fuze-Wash-Z350" m="Fuze Wash Z350"/>
     <F n="Elation-OPTI-TRI-30" m="OPTI TRI 30"/>
+    <F n="Elation-Paladin" m="Paladin"/>
     <F n="Elation-Platinum-Beam-5R" m="Platinum Beam 5R"/>
     <F n="Elation-Platinum-Spot-5R" m="Platinum Spot 5R"/>
     <F n="Elation-Platinum-Spot-III" m="Platinum Spot III"/>
@@ -691,6 +698,9 @@
   </M>
   <M n="Elumen8">
     <F n="Elumen8-COB-Tri-4-Pixel-Batten" m="COB Tri 4 Pixel Batten"/>
+    <F n="Elumen8-MP-120" m="MP 120"/>
+    <F n="Elumen8-MP-60-Mk1" m="MP 60 Mk1"/>
+    <F n="Elumen8-MP-60-Mk2" m="MP 60 Mk2"/>
     <F n="Elumen8-MS-700PE" m="MS-700PE"/>
   </M>
   <M n="Enterius">
@@ -757,6 +767,7 @@
     <F n="Eurolite-LED-KLS-2500" m="LED KLS-2500"/>
     <F n="Eurolite-LED-KLS-401" m="LED KLS-401"/>
     <F n="Eurolite-LED-KLS-Laser-Bar-FX-Light-Set" m="LED KLS Laser Bar FX Light Set"/>
+    <F n="Eurolite-LED-KLS-Scan-Pro-Next-FX-Light" m="LED KLS Scan Pro Next FX Light"/>
     <F n="Eurolite-LED-ML-56-QCL-RGBW-RGBA-18x8W" m="LED ML-56 QCL RGBW-RGBA 18x8W"/>
     <F n="Eurolite-LED-Multi-FX-Laser-Bar" m="LED Multi FX Laser Bar"/>
     <F n="Eurolite-LED-PAR-56-RGB-DMX" m="LED PAR 56 RGB DMX"/>

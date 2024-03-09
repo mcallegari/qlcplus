@@ -2,6 +2,7 @@ qlcplus (4.13.0) stable; urgency=low
 
   * engine: fix Chaser random startup (thanks to Dennis Suermann)
   * engine: do not fade out looped audio
+  * engine: further rework to properly handle 16bit fading
   * engine: fix stopping audio with fade in and fade out while fading in
   * engine: new EFX algorithm: SquareTrue (thanks to Justin Hornsby)
   * engine: handle 'string' and 'float' types in RGB Scripts
@@ -73,6 +74,10 @@ qlcplus (4.13.0) stable; urgency=low
   * New fixtures: Chauvet COLORband Q3BT, Shehds LED Beam+Wash 19x15W RGBW Zoom (thanks to Paul Schuh)
   * New fixtures: Eliminator Lighting Stealth Beam and Stealth Wash Zoom Lighting (thanks to Paul Schuh)
   * New fixture: Varytec Blitz Bar 240 (thanks to Stefan Lohmann)
+  * New fixture: Eurolite LED KLS Scan Pro Next FX Light (thanks to Kevin)
+  * New fixtures: Elumen8 MP 60 Mk1, MP 60 Mk2, MP 120 (thanks to Keith Baker)
+  * New fixture: Elation Paladin (thanks to Nicholas Harvey)
+  * New fixtures: Acme Oxygen, Dotline180, Dotline260 and Super Dotline (thank to Michael Tosatto)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 10 Mar 2024 12:13:14 +0200
 

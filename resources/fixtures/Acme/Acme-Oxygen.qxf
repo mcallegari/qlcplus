@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.0 GIT</Version>
+  <Author>Michael Tosatto</Author>
+ </Creator>
+ <Manufacturer>Acme</Manufacturer>
+ <Model>Oxygen</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Close</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobe (Slow to fast)</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="140" Max="181" Preset="RampUpSlowToFast">Fast Close Slow Open (Slow to fast)</Capability>
+  <Capability Min="182" Max="189" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="190" Max="231" Preset="RampDownSlowToFast">Fast Open Slow Close (Slow to fast)</Capability>
+  <Capability Min="232" Max="239" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandomSlowToFast">Random Strobe (Slow to fast)</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="CTO">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Null</Capability>
+  <Capability Min="1" Max="4">8000K</Capability>
+  <Capability Min="5" Max="9">7900K</Capability>
+  <Capability Min="10" Max="13">7800K</Capability>
+  <Capability Min="14" Max="18">7700K</Capability>
+  <Capability Min="19" Max="22">7600K</Capability>
+  <Capability Min="23" Max="27">7500K</Capability>
+  <Capability Min="28" Max="31">7400K</Capability>
+  <Capability Min="32" Max="36">7300K</Capability>
+  <Capability Min="37" Max="40">7200K</Capability>
+  <Capability Min="41" Max="45">7100K</Capability>
+  <Capability Min="46" Max="49">7000K</Capability>
+  <Capability Min="50" Max="54">6900K</Capability>
+  <Capability Min="55" Max="58">6800K</Capability>
+  <Capability Min="59" Max="63">6700K</Capability>
+  <Capability Min="64" Max="67">6600K</Capability>
+  <Capability Min="68" Max="72">6500K</Capability>
+  <Capability Min="73" Max="76">6400K</Capability>
+  <Capability Min="77" Max="81">6300K</Capability>
+  <Capability Min="82" Max="85">6200K</Capability>
+  <Capability Min="86" Max="90">6100K</Capability>
+  <Capability Min="91" Max="94">6000K</Capability>
+  <Capability Min="95" Max="99">5900K</Capability>
+  <Capability Min="100" Max="103">5800K</Capability>
+  <Capability Min="104" Max="108">5700K</Capability>
+  <Capability Min="109" Max="112">5600K</Capability>
+  <Capability Min="113" Max="117">5500K</Capability>
+  <Capability Min="118" Max="121">5400K</Capability>
+  <Capability Min="122" Max="126">5300K</Capability>
+  <Capability Min="127" Max="130">5200K</Capability>
+  <Capability Min="131" Max="135">5100K</Capability>
+  <Capability Min="136" Max="139">5000K</Capability>
+  <Capability Min="140" Max="144">4900K</Capability>
+  <Capability Min="145" Max="148">4800K</Capability>
+  <Capability Min="149" Max="153">4700K</Capability>
+  <Capability Min="154" Max="157">4600K</Capability>
+  <Capability Min="158" Max="162">4500K</Capability>
+  <Capability Min="163" Max="166">4400K</Capability>
+  <Capability Min="167" Max="171">4300K</Capability>
+  <Capability Min="172" Max="175">4200K</Capability>
+  <Capability Min="176" Max="180">4100K</Capability>
+  <Capability Min="181" Max="184">4000K</Capability>
+  <Capability Min="185" Max="189">3900K</Capability>
+  <Capability Min="190" Max="193">3800K</Capability>
+  <Capability Min="194" Max="198">3700K</Capability>
+  <Capability Min="199" Max="202">3600K</Capability>
+  <Capability Min="203" Max="207">3500K</Capability>
+  <Capability Min="208" Max="211">3400K</Capability>
+  <Capability Min="212" Max="216">3300K</Capability>
+  <Capability Min="217" Max="220">3200K</Capability>
+  <Capability Min="221" Max="225">3100K</Capability>
+  <Capability Min="226" Max="229">3000K</Capability>
+  <Capability Min="230" Max="234">2900K</Capability>
+  <Capability Min="235" Max="238">2800K</Capability>
+  <Capability Min="239" Max="243">2700K</Capability>
+  <Capability Min="244" Max="247">2600K</Capability>
+  <Capability Min="248" Max="255">2500K</Capability>
+ </Channel>
+ <Channel Name="Color macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">Null</Capability>
+  <Capability Min="8" Max="11">Color 1</Capability>
+  <Capability Min="12" Max="15">Color 2</Capability>
+  <Capability Min="16" Max="19">Color 3</Capability>
+  <Capability Min="20" Max="23">Color 4</Capability>
+  <Capability Min="24" Max="27">Color 5</Capability>
+  <Capability Min="28" Max="31">Color 6</Capability>
+  <Capability Min="32" Max="35">Color 7</Capability>
+  <Capability Min="36" Max="39">Color 8</Capability>
+  <Capability Min="40" Max="43">Color 9</Capability>
+  <Capability Min="44" Max="47">Color 10</Capability>
+  <Capability Min="48" Max="51">Color 11</Capability>
+  <Capability Min="52" Max="55">Color 12</Capability>
+  <Capability Min="56" Max="59">Color 13</Capability>
+  <Capability Min="60" Max="63">Color 14</Capability>
+  <Capability Min="64" Max="67">Color 15</Capability>
+  <Capability Min="68" Max="71">Color 16</Capability>
+  <Capability Min="72" Max="75">Color 17</Capability>
+  <Capability Min="76" Max="79">Color 18</Capability>
+  <Capability Min="80" Max="83">Color 19</Capability>
+  <Capability Min="84" Max="87">Color 20</Capability>
+  <Capability Min="88" Max="91">Color 21</Capability>
+  <Capability Min="92" Max="95">Color 22</Capability>
+  <Capability Min="96" Max="99">Color 23</Capability>
+  <Capability Min="100" Max="103">Color 24</Capability>
+  <Capability Min="104" Max="107">Color 25</Capability>
+  <Capability Min="108" Max="111">Color 26</Capability>
+  <Capability Min="112" Max="115">Color 27</Capability>
+  <Capability Min="116" Max="119">Color 28</Capability>
+  <Capability Min="120" Max="123">Color 29</Capability>
+  <Capability Min="124" Max="127">Color 30</Capability>
+  <Capability Min="128" Max="131">Color 31</Capability>
+  <Capability Min="132" Max="135">Color 32</Capability>
+  <Capability Min="136" Max="165">Clockwise Rotation, Fast to Slow</Capability>
+  <Capability Min="166" Max="195">Counter-Clockwise Rotation, Slow to Fast</Capability>
+  <Capability Min="196" Max="205">Red&gt;Green (Fast to slow)</Capability>
+  <Capability Min="206" Max="215">Red&gt;Blue (Fast to slow)</Capability>
+  <Capability Min="216" Max="225">Red&gt;White (Fast to slow)</Capability>
+  <Capability Min="226" Max="235">Green&gt;Blue (Fast to slow)</Capability>
+  <Capability Min="236" Max="245">Green&gt;White (Fast to slow)</Capability>
+  <Capability Min="246" Max="255">Blue&gt;White (Fast to slow)</Capability>
+ </Channel>
+ <Channel Name="Pixel select">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="3">Open</Capability>
+  <Capability Min="4" Max="7">Pattern 1</Capability>
+  <Capability Min="8" Max="11">Pattern 2</Capability>
+  <Capability Min="12" Max="15">Pattern 3</Capability>
+  <Capability Min="16" Max="19">Pattern 4</Capability>
+  <Capability Min="20" Max="23">Pattern 5</Capability>
+  <Capability Min="24" Max="27">Pattern 6</Capability>
+  <Capability Min="28" Max="31">Pattern 7</Capability>
+  <Capability Min="32" Max="35">Pattern 8</Capability>
+  <Capability Min="36" Max="39">Pattern 9</Capability>
+  <Capability Min="40" Max="43">Pattern 10</Capability>
+  <Capability Min="44" Max="47">Pattern 11</Capability>
+  <Capability Min="48" Max="51">Pattern 12</Capability>
+  <Capability Min="52" Max="55">Pattern 13</Capability>
+  <Capability Min="56" Max="59">Pattern 14</Capability>
+  <Capability Min="60" Max="63">Pattern 15</Capability>
+  <Capability Min="64" Max="67">Pattern 16</Capability>
+  <Capability Min="68" Max="71">Pattern 17</Capability>
+  <Capability Min="72" Max="75">Pattern 18</Capability>
+  <Capability Min="76" Max="79">Pattern 19</Capability>
+  <Capability Min="80" Max="83">Pattern 20</Capability>
+  <Capability Min="84" Max="87">Pattern 21</Capability>
+  <Capability Min="88" Max="91">Pattern 22</Capability>
+  <Capability Min="92" Max="95">Pattern 23</Capability>
+  <Capability Min="96" Max="99">Pattern 24</Capability>
+  <Capability Min="100" Max="103">Pattern 25</Capability>
+  <Capability Min="104" Max="107">Pattern 26</Capability>
+  <Capability Min="108" Max="111">Pattern 27</Capability>
+  <Capability Min="112" Max="115">Pattern 28</Capability>
+  <Capability Min="116" Max="119">Pattern 29</Capability>
+  <Capability Min="120" Max="123">Pattern 30</Capability>
+  <Capability Min="124" Max="127">Pattern 31</Capability>
+  <Capability Min="128" Max="131">Pattern 32</Capability>
+  <Capability Min="132" Max="135">Pattern 33</Capability>
+  <Capability Min="136" Max="139">Pattern 34</Capability>
+  <Capability Min="140" Max="143">Pattern 35</Capability>
+  <Capability Min="144" Max="147">Pattern 36</Capability>
+  <Capability Min="148" Max="151">Pattern 37</Capability>
+  <Capability Min="152" Max="155">Pattern 38</Capability>
+  <Capability Min="156" Max="159">Pattern 39</Capability>
+  <Capability Min="160" Max="163">Pattern 40</Capability>
+  <Capability Min="164" Max="167">Pattern 41</Capability>
+  <Capability Min="168" Max="171">Pattern 42</Capability>
+  <Capability Min="172" Max="175">Pattern 43</Capability>
+  <Capability Min="176" Max="179">Pattern 44</Capability>
+  <Capability Min="180" Max="183">Pattern 45</Capability>
+  <Capability Min="184" Max="187">Pattern 46</Capability>
+  <Capability Min="188" Max="191">Pattern 47</Capability>
+  <Capability Min="192" Max="195">Pattern 48</Capability>
+  <Capability Min="196" Max="199">Pattern 49</Capability>
+  <Capability Min="200" Max="203">Pattern 50</Capability>
+  <Capability Min="204" Max="207">Pattern 51</Capability>
+  <Capability Min="208" Max="211">Pattern 52</Capability>
+  <Capability Min="212" Max="215">Pattern 53</Capability>
+  <Capability Min="216" Max="219">Pattern 54</Capability>
+  <Capability Min="220" Max="223">Pattern 55</Capability>
+  <Capability Min="224" Max="227">Pattern 56</Capability>
+  <Capability Min="228" Max="231">Pattern 57</Capability>
+  <Capability Min="232" Max="235">Pattern 58</Capability>
+  <Capability Min="236" Max="239">Pattern 59</Capability>
+  <Capability Min="240" Max="243">Pattern 60</Capability>
+  <Capability Min="244" Max="247">Random (Pattern 1-7)</Capability>
+  <Capability Min="248" Max="251">Pattern 61</Capability>
+  <Capability Min="252" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Pixel rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="31">Null</Capability>
+  <Capability Min="32" Max="91" Preset="FastToSlow">Clockwise rotation (Fast to slow)</Capability>
+  <Capability Min="92" Max="101">Null</Capability>
+  <Capability Min="102" Max="161" Preset="SlowToFast">Counter-Clockwise Rotation (Slow to fast)</Capability>
+  <Capability Min="162" Max="255">Null</Capability>
+ </Channel>
+ <Channel Name="Function">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="79">Null</Capability>
+  <Capability Min="80" Max="89">Dimmer Speed: Smooth</Capability>
+  <Capability Min="90" Max="99">Dimmer Speed: Fast</Capability>
+  <Capability Min="100" Max="139">Null</Capability>
+  <Capability Min="140" Max="149" Preset="ResetPanTilt">Pan/Tilt Reset</Capability>
+  <Capability Min="150" Max="159" Preset="ResetEffects">Effect Reset</Capability>
+  <Capability Min="160" Max="199">Null</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Reset All</Capability>
+  <Capability Min="210" Max="255">Null</Capability>
+ </Channel>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="White 1" Preset="IntensityWhite"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="White 2" Preset="IntensityWhite"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="White 3" Preset="IntensityWhite"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="White 4" Preset="IntensityWhite"/>
+ <Channel Name="Red 5" Preset="IntensityRed"/>
+ <Channel Name="Green 5" Preset="IntensityGreen"/>
+ <Channel Name="Blue 5" Preset="IntensityBlue"/>
+ <Channel Name="White 5" Preset="IntensityWhite"/>
+ <Channel Name="Red 6" Preset="IntensityRed"/>
+ <Channel Name="Green 6" Preset="IntensityGreen"/>
+ <Channel Name="Blue 6" Preset="IntensityBlue"/>
+ <Channel Name="White 6" Preset="IntensityWhite"/>
+ <Channel Name="Red 7" Preset="IntensityRed"/>
+ <Channel Name="Green 7" Preset="IntensityGreen"/>
+ <Channel Name="Blue 7" Preset="IntensityBlue"/>
+ <Channel Name="White 7" Preset="IntensityWhite"/>
+ <Mode Name="17 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Zoom</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Dimmer fine</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Red</Channel>
+  <Channel Number="9">Green</Channel>
+  <Channel Number="10">Blue</Channel>
+  <Channel Number="11">White</Channel>
+  <Channel Number="12">CTO</Channel>
+  <Channel Number="13">Color macro</Channel>
+  <Channel Number="14">Pixel select</Channel>
+  <Channel Number="15">Pixel rotation</Channel>
+  <Channel Number="16">Function</Channel>
+ </Mode>
+ <Mode Name="37 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Zoom</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Dimmer fine</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Red 1</Channel>
+  <Channel Number="9">Green 1</Channel>
+  <Channel Number="10">Blue 1</Channel>
+  <Channel Number="11">White 1</Channel>
+  <Channel Number="12">Red 2</Channel>
+  <Channel Number="13">Green 2</Channel>
+  <Channel Number="14">Blue 2</Channel>
+  <Channel Number="15">White 2</Channel>
+  <Channel Number="16">Red 3</Channel>
+  <Channel Number="17">Green 3</Channel>
+  <Channel Number="18">Blue 3</Channel>
+  <Channel Number="19">White 3</Channel>
+  <Channel Number="20">Red 4</Channel>
+  <Channel Number="21">Green 4</Channel>
+  <Channel Number="22">Blue 4</Channel>
+  <Channel Number="23">White 4</Channel>
+  <Channel Number="24">Red 5</Channel>
+  <Channel Number="25">Green 5</Channel>
+  <Channel Number="26">Blue 5</Channel>
+  <Channel Number="27">White 5</Channel>
+  <Channel Number="28">Red 6</Channel>
+  <Channel Number="29">Green 6</Channel>
+  <Channel Number="30">Blue 6</Channel>
+  <Channel Number="31">White 6</Channel>
+  <Channel Number="32">Red 7</Channel>
+  <Channel Number="33">Green 7</Channel>
+  <Channel Number="34">Blue 7</Channel>
+  <Channel Number="35">White 7</Channel>
+  <Channel Number="36">Function</Channel>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>18</Channel>
+   <Channel>17</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>27</Channel>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="4200" ColourTemperature="0"/>
+  <Dimensions Weight="5.3" Width="216" Height="343" Depth="165"/>
+  <Lens Name="Other" DegreesMin="6" DegreesMax="40"/>
+  <Focus Type="Head" PanMax="540" TiltMax="230"/>
+  <Layout Width="3" Height="3"/>
+  <Technical PowerConsumption="340" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>
