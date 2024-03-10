@@ -151,7 +151,7 @@ Rectangle
         z: 10
 
         patchesNumber: inputPatchesNumber
-        showFeedback: universe ? universe.hasFeedbacks : false
+        showFeedback: universe ? universe.hasFeedback : false
     }
 
     // Input patch drop area
@@ -266,8 +266,8 @@ Rectangle
             checkedColor: "green"
             imgSource: ""
             checkable: true
-            checked: universe ? universe.hasFeedbacks : false
-            tooltip: qsTr("Enable/Disable feedbacks")
+            checked: universe ? universe.hasFeedback : false
+            tooltip: qsTr("Enable/Disable feedback")
             onToggled:
             {
                 if (universe)

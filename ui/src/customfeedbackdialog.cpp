@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  customfeedbacksdialog.cpp
+  customfeedbackdialog.cpp
 
   Copyright (c) Massimo Callegari
 
@@ -17,12 +17,12 @@
   limitations under the License.
 */
 
-#include "customfeedbacksdialog.h"
+#include "customfeedbackdialog.h"
 #include "qlcinputchannel.h"
 #include "qlcinputsource.h"
 #include "doc.h"
 
-CustomFeedbacksDialog::CustomFeedbacksDialog(Doc *doc, const QSharedPointer<QLCInputSource> &source, QWidget *parent)
+CustomFeedbackDialog::CustomFeedbackDialog(Doc *doc, const QSharedPointer<QLCInputSource> &source, QWidget *parent)
     : QDialog(parent)
     , m_doc(doc)
     , m_profile(NULL)
@@ -126,18 +126,18 @@ CustomFeedbacksDialog::CustomFeedbacksDialog(Doc *doc, const QSharedPointer<QLCI
             this, SLOT(slotColorSelected(QTreeWidgetItem *)));
 }
 
-CustomFeedbacksDialog::~CustomFeedbacksDialog()
+CustomFeedbackDialog::~CustomFeedbackDialog()
 {
 }
 
-void CustomFeedbacksDialog::setMonitoringVisibility(bool visible)
+void CustomFeedbackDialog::setMonitoringVisibility(bool visible)
 {
     m_monitorLabel->setVisible(visible);
     m_monitorSpin->setVisible(visible);
     m_monitorChannelCombo->setVisible(visible);
 }
 
-void CustomFeedbacksDialog::accept()
+void CustomFeedbackDialog::accept()
 {
     if (m_inputSource.isNull())
         return;
@@ -158,25 +158,25 @@ void CustomFeedbacksDialog::accept()
     QDialog::accept();
 }
 
-void CustomFeedbacksDialog::slotLowerColorButtonClicked()
+void CustomFeedbackDialog::slotLowerColorButtonClicked()
 {
     m_selectedFeedback = LowerValue;
     m_profileColorsTree->setVisible(true);
 }
 
-void CustomFeedbacksDialog::slotUpperColorButtonClicked()
+void CustomFeedbackDialog::slotUpperColorButtonClicked()
 {
     m_selectedFeedback = UpperValue;
     m_profileColorsTree->setVisible(true);
 }
 
-void CustomFeedbacksDialog::slotMonitorColorButtonClicked()
+void CustomFeedbackDialog::slotMonitorColorButtonClicked()
 {
     m_selectedFeedback = MonitoringValue;
     m_profileColorsTree->setVisible(true);
 }
 
-void CustomFeedbacksDialog::slotColorSelected(QTreeWidgetItem *item)
+void CustomFeedbackDialog::slotColorSelected(QTreeWidgetItem *item)
 {
     QLabel *label = qobject_cast<QLabel *>(m_profileColorsTree->itemWidget(item, 2));
 

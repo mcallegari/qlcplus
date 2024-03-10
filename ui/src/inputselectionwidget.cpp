@@ -19,7 +19,7 @@
 
 #include <QDebug>
 
-#include "customfeedbacksdialog.h"
+#include "customfeedbackdialog.h"
 #include "inputselectionwidget.h"
 #include "selectinputchannel.h"
 #include "qlcinputchannel.h"
@@ -183,7 +183,7 @@ void InputSelectionWidget::slotChooseInputClicked()
 
 void InputSelectionWidget::slotCustomFeedbackClicked()
 {
-    CustomFeedbacksDialog cfDialog(m_doc, m_inputSource, this);
+    CustomFeedbackDialog cfDialog(m_doc, m_inputSource, this);
     cfDialog.setMonitoringVisibility(m_supportMonitoring);
     cfDialog.exec();
 }

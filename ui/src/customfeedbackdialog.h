@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  customfeedbacksdialog.h
+  customfeedbackdialog.h
 
   Copyright (c) Massimo Callegari
 
@@ -17,18 +17,18 @@
   limitations under the License.
 */
 
-#ifndef CUSTOMFEEDBACKSDIALOG_H
-#define CUSTOMFEEDBACKSDIALOG_H
+#ifndef CUSTOMFEEDBACKDIALOG_H
+#define CUSTOMFEEDBACKDIALOG_H
 
 #include <QDialog>
 
-#include "ui_customfeedbacksdialog.h"
+#include "ui_customfeedbackdialog.h"
 
 class Doc;
 class QLCInputSource;
 class QLCInputProfile;
 
-class CustomFeedbacksDialog : public QDialog, public Ui_CustomFeedbacksDialog
+class CustomFeedbackDialog : public QDialog, public Ui_CustomFeedbackDialog
 {
     Q_OBJECT
 
@@ -36,8 +36,8 @@ class CustomFeedbacksDialog : public QDialog, public Ui_CustomFeedbacksDialog
      * Initialization
      *********************************************************************/
 public:
-    explicit CustomFeedbacksDialog(Doc *doc, QSharedPointer<QLCInputSource> const& source, QWidget *parent = nullptr);
-    ~CustomFeedbacksDialog();
+    explicit CustomFeedbackDialog(Doc *doc, QSharedPointer<QLCInputSource> const& source, QWidget *parent = nullptr);
+    ~CustomFeedbackDialog();
 
     enum SelectedFeedback { None, LowerValue, UpperValue, MonitoringValue };
 
@@ -59,4 +59,4 @@ private:
     SelectedFeedback m_selectedFeedback;
 };
 
-#endif // CUSTOMFEEDBACKSDIALOG_H
+#endif // CUSTOMFEEDBACKDIALOG_H

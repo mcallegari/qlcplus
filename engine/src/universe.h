@@ -74,7 +74,7 @@ class Universe: public QThread
     Q_PROPERTY(bool passthrough READ passthrough WRITE setPassthrough NOTIFY passthroughChanged)
     Q_PROPERTY(InputPatch *inputPatch READ inputPatch NOTIFY inputPatchChanged)
     Q_PROPERTY(int outputPatchesCount READ outputPatchesCount NOTIFY outputPatchesCountChanged)
-    Q_PROPERTY(bool hasFeedbacks READ hasFeedbacks NOTIFY hasFeedbacksChanged)
+    Q_PROPERTY(bool hasFeedback READ hasFeedback NOTIFY hasFeedbackChanged)
 
 public:
     /** Construct a new Universe */
@@ -209,7 +209,7 @@ public:
     bool setFeedbackPatch(QLCIOPlugin *plugin, quint32 output);
 
     /** Flag that indicates if this Universe has a patched feedback line */
-    bool hasFeedbacks() const;
+    bool hasFeedback() const;
 
     /**
      * Get the reference to the input plugin associated to this universe.
@@ -258,7 +258,7 @@ signals:
     void outputPatchesCountChanged();
 
     /** Notify the listeners that a feedback line has been patched/unpatched */
-    void hasFeedbacksChanged();
+    void hasFeedbackChanged();
 
 private:
     /** Reference to the input patch associated to this universe. */

@@ -321,7 +321,7 @@ bool QLCInputChannel::loadXML(QXmlStreamReader &root)
             if (root.readElementText() == KXMLQLCInputChannelRelative)
                 setMovementType(Relative);
         }
-        else if (root.name() == KXMLQLCInputChannelFeedbacks)
+        else if (root.name() == KXMLQLCInputChannelFeedback)
         {
             QXmlStreamAttributes attrs = root.attributes();
             uchar min = 0, max = UCHAR_MAX;
@@ -378,7 +378,7 @@ bool QLCInputChannel::saveXML(QXmlStreamWriter *doc, quint32 channelNumber) cons
     }
     else if (type() == Button && (lowerValue() != 0 || upperValue() != UCHAR_MAX))
     {
-        doc->writeStartElement(KXMLQLCInputChannelFeedbacks);
+        doc->writeStartElement(KXMLQLCInputChannelFeedback);
         if (lowerValue() != 0)
             doc->writeAttribute(KXMLQLCInputChannelLowerValue, QString::number(lowerValue()));
         if (upperValue() != UCHAR_MAX)

@@ -186,7 +186,7 @@ public:
 
     /**
      *  Retrieve additional parameters to be passed to plugins
-     *  when sending feedbacks.
+     *  when sending feedback.
      */
     QVariant channelExtraParams(const QLCInputChannel *channel) const;
 
@@ -235,7 +235,7 @@ public:
     /** Save an input profile into a given file name */
     bool saveXML(const QString& fileName);
 
-    /** Load an optional color table for RGB LED feedbacks */
+    /** Load an optional color table for RGB LED feedback */
     bool loadColorTableXML(QXmlStreamReader &tableRoot);
 
     /** Load an optional MIDI channel table */

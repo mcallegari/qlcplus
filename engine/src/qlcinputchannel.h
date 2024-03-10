@@ -48,7 +48,7 @@ class QString;
 #define KXMLQLCInputChannelRelative     QString("Relative")
 #define KXMLQLCInputChannelSensitivity  QString("Sensitivity")
 #define KXMLQLCInputChannelExtraPress   QString("ExtraPress")
-#define KXMLQLCInputChannelFeedbacks    QString("Feedbacks")
+#define KXMLQLCInputChannelFeedback     QString("Feedback")
 #define KXMLQLCInputChannelLowerValue   QString("LowerValue")
 #define KXMLQLCInputChannelUpperValue   QString("UpperValue")
 #define KXMLQLCInputChannelMidiChannel  QString("MidiChannel")

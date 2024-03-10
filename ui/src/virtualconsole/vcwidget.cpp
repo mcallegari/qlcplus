@@ -620,7 +620,7 @@ void VCWidget::setInputSource(QSharedPointer<QLCInputSource> const& source, quin
                 QLCInputChannel *ich = profile->channel(source->channel() & 0xFFFF);
                 if (ich != NULL)
                 {
-                    // retrieve plugin specific params for feedbacks
+                    // retrieve plugin specific params for feedback
                     if (source->feedbackExtraParams(QLCInputFeedback::LowerValue).toInt() == -1)
                         source->setFeedbackExtraParams(QLCInputFeedback::LowerValue, profile->channelExtraParams(ich));
                     if (source->feedbackExtraParams(QLCInputFeedback::UpperValue).toInt() == -1)
@@ -651,7 +651,7 @@ void VCWidget::setInputSource(QSharedPointer<QLCInputSource> const& source, quin
                                     this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
                         }
 
-                        // user custom feedbacks have precedence over input profile custom feedbacks
+                        // user custom feedback have precedence over input profile custom feedback
                         uchar lower = source->feedbackValue(QLCInputFeedback::LowerValue) != 0 ?
                                       source->feedbackValue(QLCInputFeedback::LowerValue) :
                                       ich->lowerValue();

@@ -639,21 +639,21 @@ bool Universe::setFeedbackPatch(QLCIOPlugin *plugin, quint32 output)
         {
             delete m_fbPatch;
             m_fbPatch = NULL;
-            emit hasFeedbacksChanged();
+            emit hasFeedbackChanged();
             return true;
         }
     }
     if (m_fbPatch != NULL)
     {
         bool result = m_fbPatch->set(plugin, output);
-        emit hasFeedbacksChanged();
+        emit hasFeedbackChanged();
         return result;
     }
 
     return false;
 }
 
-bool Universe::hasFeedbacks() const
+bool Universe::hasFeedback() const
 {
     return m_fbPatch != NULL ? true : false;
 }
