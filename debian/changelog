@@ -77,7 +77,10 @@ qlcplus (4.13.0) stable; urgency=low
   * New fixture: Eurolite LED KLS Scan Pro Next FX Light (thanks to Kevin)
   * New fixtures: Elumen8 MP 60 Mk1, MP 60 Mk2, MP 120 (thanks to Keith Baker)
   * New fixture: Elation Paladin (thanks to Nicholas Harvey)
-  * New fixtures: Acme Oxygen, Dotline180, Dotline260 and Super Dotline (thank to Michael Tosatto)
+  * New fixtures: Acme Oxygen, Dotline180, Dotline260 and Super Dotline, Chauvet Intimidator Spot Duo 155 (thank to Michael Tosatto)
+  * New fixtures: Laserworld EL-900RGB, Chauvet COLORdash Par-Quad 18, Event Lighting StrobeX and StrobeX RGB (thank to Michael Tosatto)
+  * New fixture: Chauvet Wash FX Hex (thanks to Clément Delabroye)
+  * New fixture: Shehds Wash Zoom LED 36x18W RGBWA+UV (thanks to Ioannis Iliopoulos)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 10 Mar 2024 12:13:14 +0200
 

@@ -415,6 +415,7 @@
     <F n="Chauvet-COLORdash-Batten" m="COLORdash Batten"/>
     <F n="Chauvet-COLORdash-Par-Hex-12" m="COLORdash Par-Hex 12"/>
     <F n="Chauvet-COLORdash-Par-Hex-7" m="COLORdash Par-Hex 7"/>
+    <F n="Chauvet-COLORdash-Par-Quad-18" m="COLORdash Par-Quad 18"/>
     <F n="Chauvet-COLORdash-Par-Quad-7" m="COLORdash Par-Quad 7"/>
     <F n="Chauvet-Colorpalette-II" m="Colorpalette II"/>
     <F n="Chauvet-COLORpalette" m="COLORpalette"/>
@@ -469,6 +470,7 @@
     <F n="Chauvet-Intimidator-Spot-375Z-IRC" m="Intimidator Spot 375Z IRC"/>
     <F n="Chauvet-Intimidator-Spot-400-IRC" m="Intimidator Spot 400 IRC"/>
     <F n="Chauvet-Intimidator-Spot-475ZX" m="Intimidator Spot 475ZX"/>
+    <F n="Chauvet-Intimidator-Spot-Duo-155" m="Intimidator Spot Duo 155"/>
     <F n="Chauvet-Intimidator-Spot-Duo" m="Intimidator Spot Duo"/>
     <F n="Chauvet-Intimidator-Spot-LED-150" m="Intimidator Spot LED 150"/>
     <F n="Chauvet-Intimidator-Spot-LED-250" m="Intimidator Spot LED 250"/>
@@ -552,6 +554,7 @@
     <F n="Chauvet-Vue-1.1" m="Vue 1.1"/>
     <F n="Chauvet-Vue-3.1" m="Vue 3.1"/>
     <F n="Chauvet-Vue-6.1" m="Vue 6.1"/>
+    <F n="Chauvet-Wash-FX-Hex" m="Wash FX Hex"/>
     <F n="Chauvet-Wash-FX" m="Wash FX"/>
     <F n="Chauvet-Wash-FX2" m="Wash FX2"/>
     <F n="Chauvet-Wedge-Tri" m="Wedge Tri"/>
@@ -855,6 +858,8 @@
     <F n="Event-Lighting-PAR6X12OB" m="PAR6x12OB"/>
     <F n="Event-Lighting-PAR6X12OB2" m="PAR6x12OB2"/>
     <F n="Event-Lighting-Pixbar12x12" m="Pixbar 12x12W"/>
+    <F n="Event-Lighting-StrobeX-RGB" m="StrobeX RGB"/>
+    <F n="Event-Lighting-StrobeX" m="StrobeX"/>
   </M>
   <M n="Evolight">
     <F n="Evolight-Colours-SL3" m="Colours SL3"/>
@@ -1091,6 +1096,7 @@
     <F n="Laserworld-CS-1000RGB" m="CS-1000RGB"/>
     <F n="Laserworld-EL-200RGY" m="EL-200RGY"/>
     <F n="Laserworld-EL-230RGB-MK2" m="EL-230RGB MK2"/>
+    <F n="Laserworld-EL-900RGB" m="EL-900RGB"/>
     <F n="Laserworld-ES-600B" m="ES-600B"/>
     <F n="Laserworld-PRO-1600RGB" m="PRO-1600RGB"/>
     <F n="Laserworld-PRO-730RGB" m="PRO-730RGB"/>
@@ -1481,6 +1487,7 @@
     <F n="Shehds-LED-Beam+Wash-19x15W-RGBW-Zoom" m="LED Beam+Wash 19x15W RGBW Zoom Lighting"/>
     <F n="Shehds-LED-Flat-Par-18x18W-RGBWA+UV" m="LED Flat Par 18x18W RGBWA+UV"/>
     <F n="Shehds-LED-Flat-Par-7x18W-RGBWA+UV" m="LED Flat Par 7x18W RGBWA+UV"/>
+    <F n="Shehds-Wash-Zoom-36x18W" m="Wash Zoom LED 36x18W RGBWA+UV"/>
   </M>
   <M n="Showlite">
     <F n="Showlite-Flood-Light-Panel-144x10mm-LED-RGBW" m="Flood Light Panel 144x10mm LED RGBW"/>

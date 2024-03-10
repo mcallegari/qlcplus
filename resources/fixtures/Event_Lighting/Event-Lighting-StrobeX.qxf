@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.0 GIT</Version>
+  <Author>Michael Tosatto</Author>
+ </Creator>
+ <Manufacturer>Event Lighting</Manufacturer>
+ <Model>StrobeX</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Master Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="255">Master Dimmer (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Intensity">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="255">Intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Strobe Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="255" Preset="PulseFreqRange" Res1="0.5" Res2="23">Strobe speed (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Block 1 Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeFreqRange" Res1="0.5" Res2="23">Strobe speed (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Block 2 Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeFreqRange" Res1="0.5" Res2="23">Strobe speed (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Block 3 Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeFreqRange" Res1="0.5" Res2="23">Strobe speed (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Block 4 Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeFreqRange" Res1="0.5" Res2="23">Strobe speed (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Block 1 Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="255">Intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Block 2 Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="255">Intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Block 3 Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="255">Intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Block 4 Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="255">Intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Strobe On Duration">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Strobe On Duration Short to Long</Capability>
+ </Channel>
+ <Channel Name="Strobe Effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="128">No Function</Capability>
+  <Capability Min="129" Max="171">Strobe effect 1</Capability>
+  <Capability Min="172" Max="214">Strobe effect 2</Capability>
+  <Capability Min="215" Max="255">Strobe effect 3</Capability>
+ </Channel>
+ <Channel Name="Run Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="15">Block 1 only</Capability>
+  <Capability Min="16" Max="25">Block 2 only</Capability>
+  <Capability Min="26" Max="35">Block 3 only</Capability>
+  <Capability Min="36" Max="45">Block 4 only</Capability>
+  <Capability Min="46" Max="55">Block 1, 2, 4 only</Capability>
+  <Capability Min="56" Max="65">Block 1, 3 only</Capability>
+  <Capability Min="66" Max="75">Block 3, 4 only</Capability>
+  <Capability Min="76" Max="91">Auto chase 1</Capability>
+  <Capability Min="92" Max="107">Auto chase 2</Capability>
+  <Capability Min="108" Max="123">Auto chase 3</Capability>
+  <Capability Min="124" Max="255">Auto combination</Capability>
+ </Channel>
+ <Channel Name="Auto Run Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Auto Run Speed (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Auto Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="75">No Function</Capability>
+  <Capability Min="76" Max="91">Auto chase 1</Capability>
+  <Capability Min="92" Max="107">Auto chase 2</Capability>
+  <Capability Min="108" Max="123">Auto chase 3</Capability>
+  <Capability Min="124" Max="255">Auto combination</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="41000" ColourTemperature="6500"/>
+   <Dimensions Weight="6" Width="425" Height="215" Depth="125"/>
+   <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="480" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Strobe Speed</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="41000" ColourTemperature="6500"/>
+   <Dimensions Weight="6" Width="425" Height="215" Depth="125"/>
+   <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="480" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe Speed</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="41000" ColourTemperature="6500"/>
+   <Dimensions Weight="6" Width="425" Height="215" Depth="125"/>
+   <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="480" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Intensity</Channel>
+  <Channel Number="2">Strobe Speed</Channel>
+ </Mode>
+ <Mode Name="S4 Channel">
+  <Channel Number="0">Block 1 Strobe</Channel>
+  <Channel Number="1">Block 2 Strobe</Channel>
+  <Channel Number="2">Block 3 Strobe</Channel>
+  <Channel Number="3">Block 4 Strobe</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="D4 Channel">
+  <Channel Number="0">Block 1 Dimmer</Channel>
+  <Channel Number="1">Block 2 Dimmer</Channel>
+  <Channel Number="2">Block 3 Dimmer</Channel>
+  <Channel Number="3">Block 4 Dimmer</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="41000" ColourTemperature="6500"/>
+   <Dimensions Weight="6" Width="425" Height="215" Depth="125"/>
+   <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="480" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe On Duration</Channel>
+  <Channel Number="2">Strobe Speed</Channel>
+  <Channel Number="3">Strobe Effect</Channel>
+  <Channel Number="4">Run Mode</Channel>
+  <Channel Number="5">Auto Run Speed</Channel>
+ </Mode>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Block 1 Dimmer</Channel>
+  <Channel Number="2">Block 2 Dimmer</Channel>
+  <Channel Number="3">Block 3 Dimmer</Channel>
+  <Channel Number="4">Block 4 Dimmer</Channel>
+  <Channel Number="5">Strobe On Duration</Channel>
+  <Channel Number="6">Strobe Speed</Channel>
+  <Channel Number="7">Strobe Effect</Channel>
+  <Channel Number="8">Auto Mode</Channel>
+  <Channel Number="9">Auto Run Speed</Channel>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="41000" ColourTemperature="6500"/>
+  <Dimensions Weight="6" Width="425" Height="215" Depth="125"/>
+  <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="480" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>
