@@ -647,6 +647,7 @@
     <F n="DNA-Pro-Slim-18-RGBW" m="PRO SLIM 18 RGBW"/>
   </M>
   <M n="DTS">
+    <F n="DTS-Jack" m="Jack"/>
     <F n="DTS-Katana" m="Katana"/>
     <F n="DTS-Max-FAR" m="Max FAR"/>
     <F n="DTS-Nick-NRG1201" m="Nick NRG1201"/>
@@ -1143,6 +1144,7 @@
     <F n="lightmaXX-Platinum-Line-Mini-TRI-PAR-7x3-W" m="Platinum Line Mini TRI-PAR 7x3 Watt"/>
     <F n="lightmaXX-Star-Sphere-6-RGBAW" m="Star Sphere 6 RGBAW"/>
     <F n="lightmaXX-Tour-Spot-ARC-MKII" m="Tour Spot ARC MKII"/>
+    <F n="lightmaXX-Vector-ARC-Flood-II" m="Vector ARC Flood II"/>
     <F n="lightmaXX-Vega-Arc-Pro-II-MkII" m="Vega Arc Pro II MkII"/>
     <F n="lightmaXX-Vega-Shiggy-Beam-Wash" m="Vega Shiggy Beam Wash"/>
     <F n="lightmaXX-Vega-Spot-60" m="Vega Spot 60"/>
@@ -1412,6 +1414,7 @@
     <F n="Robe-DJ-Scan-150-XT" m="DJ Scan 150 XT"/>
     <F n="Robe-Fog-1500-FT" m="Fog 1500 FT"/>
     <F n="Robe-LED-Blinder-196LT" m="LED Blinder 196LT"/>
+    <F n="Robe-LEDBeam-350" m="LEDBeam 350"/>
     <F n="Robe-ParFect-150" m="Robin ParFect 150"/>
     <F n="Robe-Pointe" m="Pointe"/>
     <F n="Robe-Robin-100-LEDBeam" m="Robin 100 LEDBeam"/>
@@ -1731,6 +1734,7 @@
     <F n="UKing-Mini-RGBW-Moving-Head" m="Mini RGBW Moving Head"/>
     <F n="UKing-Par-36" m="Par 36"/>
     <F n="UKing-Wall-Washer-24x3W" m="Wall Washer 24x3W"/>
+    <F n="UKing-ZQ-02319" m="ZQ-02319"/>
     <F n="UKing-ZQ-B117-Par-Can-4in1-RGBW" m="ZQ-B117 Par Can 4in1 RGBW"/>
     <F n="UKing-ZQ-B243" m="ZQ-B243"/>
     <F n="UKing-ZQ-B370-Laser" m="ZQ-B370"/>
