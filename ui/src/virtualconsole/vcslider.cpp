@@ -804,7 +804,7 @@ void VCSlider::setClickAndGoWidgetFromLevel(uchar level)
 
 void VCSlider::slotClickAndGoLevelChanged(uchar level)
 {
-    setSliderValue(level);
+    setSliderValue(level, false, false);
     updateFeedback();
 
     QColor col = m_cngWidget->getColorAt(level);
@@ -832,7 +832,7 @@ void VCSlider::slotClickAndGoColorChanged(QRgb color)
 
 void VCSlider::slotClickAndGoLevelAndPresetChanged(uchar level, QImage img)
 {
-    setSliderValue(level);
+    setSliderValue(level, false, false);
     updateFeedback();
 
     QPixmap px = QPixmap::fromImage(img);
