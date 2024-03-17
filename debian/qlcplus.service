@@ -5,6 +5,7 @@ After=network.target
 
 [Service]
 Type=simple
+User=pi
 Restart=always
 RestartSec=3
 ExecStart=/usr/sbin/qlcplus-start.sh

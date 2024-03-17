@@ -19,12 +19,12 @@
 
 QLCPLUS_OPTS="-platform eglfs --nowm --web --web-auth --operate --overscan"
 
-if [ -ne $HOME/.qlcplus/eglfs.json ]; then
+if [ ! -e $HOME/.qlcplus/eglfs.json ]; then
 	echo '{ "device": "/dev/dri/card1" }' > $HOME/.qlcplus/eglfs.json
 fi
 
-if [ -e /root/.qlcplus/autostart.qxw ]; then
-        QLCPLUS_OPTS="$QLCPLUS_OPTS --open /root/.qlcplus/autostart.qxw"
+if [ -e $HOME/.qlcplus/autostart.qxw ]; then
+        QLCPLUS_OPTS="$QLCPLUS_OPTS --open $HOME/.qlcplus/autostart.qxw"
 fi
 
 # if NTP hasn't done its job already, set the date to modern age...
