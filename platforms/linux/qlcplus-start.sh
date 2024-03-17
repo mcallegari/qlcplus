@@ -19,18 +19,19 @@
 
 QLCPLUS_OPTS="-platform eglfs --nowm --web --web-auth --operate --overscan"
 
-if [ ! -e $HOME/.qlcplus/eglfs.json ]; then
-	echo '{ "device": "/dev/dri/card1" }' > $HOME/.qlcplus/eglfs.json
+if [ ! -f $HOME/.qlcplus/eglfs.json ]; then
+    mkdir -p $HOME/.qlcplus
+    echo '{ "device": "/dev/dri/card1" }' > $HOME/.qlcplus/eglfs.json
 fi
 
-if [ -e $HOME/.qlcplus/autostart.qxw ]; then
-        QLCPLUS_OPTS="$QLCPLUS_OPTS --open $HOME/.qlcplus/autostart.qxw"
+if [ -f $HOME/.qlcplus/autostart.qxw ]; then
+    QLCPLUS_OPTS="$QLCPLUS_OPTS --open $HOME/.qlcplus/autostart.qxw"
 fi
 
 # if NTP hasn't done its job already, set the date to modern age...
 CURRDATE=`date +%Y`
 if [ "$CURRDATE" -lt "2024" ]; then
-date +%Y%m%d -s "20240313"
+    date +%Y%m%d -s "20240313"
 fi
 
 export QT_QPA_EGLFS_PHYSICAL_WIDTH=320
