@@ -84,7 +84,7 @@ qlcplus (4.13.0) stable; urgency=low
   * New fixture: UKing ZQ-02319 (thanks to Mike Ubl)
   * New fixtures: DTS Jack, Robe LEDBeam 350 (thanks to Tomas Hastings)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Fri, 15 Mar 2024 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 17 Mar 2024 12:13:14 +0200
 
 qlcplus (4.12.7) stable; urgency=low
 
