@@ -678,7 +678,7 @@ Voulez-vous vraiment les arrêter et basculer vers le mode Conception ?</transla
         <location filename="app.cpp" line="699"/>
         <source>SHIFT+F1</source>
         <comment>Help|Index</comment>
-        <translation>SHIFT+F1</translation>
+        <translation>MAJ+F1</translation>
     </message>
     <message>
         <location filename="app.cpp" line="702"/>
@@ -689,7 +689,7 @@ Voulez-vous vraiment les arrêter et basculer vers le mode Conception ?</transla
     <message>
         <location filename="app.cpp" line="272"/>
         <source>Fixtures</source>
-        <translation>Luminaires</translation>
+        <translation>Appareils</translation>
     </message>
     <message>
         <location filename="app.cpp" line="274"/>
@@ -1269,7 +1269,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="channelsselection.ui" line="62"/>
         <source>Apply changes to fixtures of the same type</source>
-        <translation>Appliquer les changements aux luminaires de même type</translation>
+        <translation>Appliquer les changements aux appareils de même type</translation>
     </message>
     <message>
         <location filename="channelsselection.ui" line="69"/>
@@ -1669,7 +1669,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="createfixturegroup.ui" line="33"/>
         <source>Create Fixture Group</source>
-        <translation>Créer un Groupe de Luminaires</translation>
+        <translation>Créer un Groupe d'Appareils</translation>
     </message>
     <message>
         <location filename="createfixturegroup.ui" line="39"/>
@@ -1859,7 +1859,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
         <location filename="dmxdumpfactory.cpp" line="77"/>
         <source>Dump all channels (%1 Universes, %2 Fixtures, %3 Channels)</source>
         <oldsource>Dump all DMX values (%1 Universes, %2 Fixtures, %3 Channels)</oldsource>
-        <translation>Vider toutes les canaux (%1 Univers, %2 Luminaires, %3 Chaînes)</translation>
+        <translation>Vider tous les canaux (%1 Univers, %2 Appareils, %3 Canaux)</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.cpp" line="80"/>
@@ -1897,7 +1897,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="efxeditor.ui" line="187"/>
         <source>Fixture</source>
-        <translation>Luminaire</translation>
+        <translation>Appareil</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="197"/>
@@ -1907,12 +1907,12 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="efxeditor.ui" line="101"/>
         <source>Fixture order</source>
-        <translation>Ordre des luminaires</translation>
+        <translation>Ordre des Appareils</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="107"/>
         <source>All fixtures move in parallel</source>
-        <translation>Tous les luminaires se déplacent en parallèle</translation>
+        <translation>Tous les appareils se déplacent en parallèle</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="110"/>
@@ -1922,7 +1922,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="efxeditor.ui" line="120"/>
         <source>The pattern propagates to each fixture in a sequential order</source>
-        <translation>Le modèle se propage à chaque luminaire dans un ordre séquentiel</translation>
+        <translation>Le modèle se propage à chaque appareil dans un ordre séquentiel</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="123"/>
@@ -1943,7 +1943,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="efxeditor.ui" line="130"/>
         <source>Each fixture starts moving immediately with an offset</source>
-        <translation>Chaque luminaire commence à se déplacer immédiatement avec un décalage</translation>
+        <translation>Chaque appareil commence à se déplacer immédiatement avec un décalage</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="133"/>
@@ -2149,12 +2149,12 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="efxeditor.cpp" line="731"/>
         <source>Remove fixtures</source>
-        <translation>Supprimer les luminaires</translation>
+        <translation>Supprimer les appareils</translation>
     </message>
     <message>
         <location filename="efxeditor.cpp" line="732"/>
         <source>Do you want to remove the selected fixture(s)?</source>
-        <translation>Voulez-vous supprimer le(s) luminaire(s) sélectionné(s) ?</translation>
+        <translation>Voulez-vous supprimer le(s) appareil(s) sélectionné(s) ?</translation>
     </message>
 </context>
 <context>
@@ -2162,17 +2162,17 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="fixturegroupeditor.ui" line="33"/>
         <source>Fixture Group</source>
-        <translation>Groupe de Luminaires</translation>
+        <translation>Groupe d'Appareils</translation>
     </message>
     <message>
         <location filename="fixturegroupeditor.ui" line="183"/>
         <source>Fixture group name</source>
-        <translation>Nom du groupe de luminaires</translation>
+        <translation>Nom du groupe d'appareils</translation>
     </message>
     <message>
         <location filename="fixturegroupeditor.ui" line="58"/>
         <source>Remove selected fixture/head</source>
-        <translation>Supprimer le luminaire/lyre sélectionné</translation>
+        <translation>Supprimer l'appareil/lyre sélectionné</translation>
     </message>
     <message>
         <location filename="fixturegroupeditor.ui" line="88"/>
@@ -2193,12 +2193,12 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="fixturegroupeditor.ui" line="141"/>
         <source>Add/replace fixtures to current row, starting from selected cell</source>
-        <translation>Ajouter/remplacer des luminaires à la ligne actuelle, à partir de la cellule sélectionnée</translation>
+        <translation>Ajouter/remplacer des appareils à la ligne actuelle, à partir de la cellule sélectionnée</translation>
     </message>
     <message>
         <location filename="fixturegroupeditor.ui" line="158"/>
         <source>Add/replace fixtures to current column, starting from selected cell</source>
-        <translation>Ajouter/remplacer des luminaires à la colonne actuelle, à partir de la cellule sélectionnée</translation>
+        <translation>Ajouter/remplacer des appareils à la colonne actuelle, à partir de la cellule sélectionnée</translation>
     </message>
 </context>
 <context>
@@ -2216,22 +2216,22 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="628"/>
         <source>&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected fixtures.&lt;/P&gt;</source>
-        <translation>&lt;H1&gt;Plusieurs luminaires sélectionnés&lt;/H1&gt;&lt;P&gt;Cliquez sur &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; pour supprimer les luminaires sélectionnés.&lt;/P&gt;</translation>
+        <translation>&lt;H1&gt;Plusieurs appareils sélectionnés&lt;/H1&gt;&lt;P&gt;Cliquez sur &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; pour supprimer les appareils sélectionnés.&lt;/P&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="654"/>
         <source>&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Fixture list modification is not permitted in operate mode.&lt;/P&gt;</source>
-        <translation>&lt;H1&gt;Plusieurs luminaires sélectionnés&lt;/H1&gt;&lt;P&gt;La modification de la liste des luminaires n&apos;est pas autorisée en mode Production.&lt;/P&gt;</translation>
+        <translation>&lt;H1&gt;Plusieurs appareils sélectionnés&lt;/H1&gt;&lt;P&gt;La modification de la liste des appareils n&apos;est pas autorisée en mode Production.&lt;/P&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="663"/>
         <source>&lt;H1&gt;No fixtures&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;</source>
-        <translation>&lt;H1&gt;Aucun luminaire&lt;/H1&gt;&lt;P&gt;Cliquez sur &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; pour ajouter des luminaires.&lt;/P&gt;</translation>
+        <translation>&lt;H1&gt;Aucun appareil&lt;/H1&gt;&lt;P&gt;Cliquez sur &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; pour ajouter des appareils.&lt;/P&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="669"/>
         <source>&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a fixture from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;</source>
-        <translation>&lt;H1&gt;Aucune Sélection&lt;/H1&gt;&lt;P&gt;Sélectionnez un luminaire dans la liste ou cliquez sur &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; pour ajouter des luminaires.&lt;/P&gt;</translation>
+        <translation>&lt;H1&gt;Aucune Sélection&lt;/H1&gt;&lt;P&gt;Sélectionnez un appareil dans la liste ou cliquez sur &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; pour ajouter des appareils.&lt;/P&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="722"/>
@@ -2253,7 +2253,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
         <location filename="fixturemanager.cpp" line="766"/>
         <location filename="fixturemanager.cpp" line="877"/>
         <source>Add fixture...</source>
-        <translation>Ajouter un luminaire...</translation>
+        <translation>Ajouter un appareil...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="882"/>
@@ -2278,12 +2278,12 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="903"/>
         <source>Add fixture to group...</source>
-        <translation>Ajouter un luminaire au groupe...</translation>
+        <translation>Ajouter un appareil au groupe...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="906"/>
         <source>Remove fixture from group</source>
-        <translation>Supprimer le luminaire du groupe</translation>
+        <translation>Supprimer l'appareil du groupe</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="910"/>
@@ -2303,17 +2303,17 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="925"/>
         <source>Import fixtures...</source>
-        <translation>Importer des luminaires...</translation>
+        <translation>Importer des appareils...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="930"/>
         <source>Export fixtures...</source>
-        <translation>Exporter des luminaires...</translation>
+        <translation>Exporter des appareils...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="936"/>
         <source>Remap fixtures...</source>
-        <translation>Remapper les luminaires...</translation>
+        <translation>Remapper les appareils...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1194"/>
@@ -2339,7 +2339,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="360"/>
         <source>Fixture Groups</source>
-        <translation>Groupe de Luminaires</translation>
+        <translation>Groupe d'Appareils</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="376"/>
@@ -2349,7 +2349,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="604"/>
         <source>This group contains all fixtures of</source>
-        <translation>Ce groupe contient tous les luminaires de</translation>
+        <translation>Ce groupe contient tous les appareils de</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="608"/>
@@ -2372,30 +2372,30 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="1520"/>
         <source>Ungroup fixtures?</source>
-        <translation>Dégrouper les luminaires ?</translation>
+        <translation>Dégrouper les appareils ?</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1521"/>
         <source>Do you want to ungroup the selected fixtures?</source>
-        <translation>Voulez-vous dégrouper les luminaires sélectionnés ?</translation>
+        <translation>Voulez-vous dégrouper les appareils sélectionnés ?</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1636"/>
         <source>Import Fixtures List</source>
         <oldsource>Import Fixture Definition</oldsource>
-        <translation>Importer la liste des luminaires</translation>
+        <translation>Importer la liste des appareils</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1641"/>
         <source>Export Fixtures List As</source>
         <oldsource>Export Fixture Definition As</oldsource>
-        <translation>Exporter la Liste des Luminaires Comme</translation>
+        <translation>Exporter la Liste des Appareils Comme</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1647"/>
         <source>Fixtures List (*%1)</source>
         <oldsource>Fixture Definitions (*%1)</oldsource>
-        <translation>Liste des Luminaires (*%1)</translation>
+        <translation>Liste des Appareils (*%1)</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1649"/>
@@ -2410,7 +2410,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="969"/>
         <source>Fixture manager</source>
-        <translation>Gestionnaire de luminaire</translation>
+        <translation>Gestionnaire d'appareils</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1045"/>
@@ -2420,7 +2420,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="1268"/>
         <source>Delete Fixtures</source>
-        <translation>Supprimer des luminaires</translation>
+        <translation>Supprimer des Appareils</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1325"/>
@@ -2430,7 +2430,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="1385"/>
         <source>Change fixture properties</source>
-        <translation>Modifier les propriétés du luminaire</translation>
+        <translation>Modifier les propriétés de l'appareil</translation>
     </message>
 </context>
 <context>
@@ -2438,27 +2438,27 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="fixtureremap.ui" line="33"/>
         <source>Fixtures Remap</source>
-        <translation>Remappage des Luminaires</translation>
+        <translation>Remappage des Appareils</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="47"/>
         <source>Import a fixture list...</source>
-        <translation>Importer une liste de luminaires...</translation>
+        <translation>Importer une liste d'appareils...</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="67"/>
         <source>Add target fixture...</source>
-        <translation>Ajouter un luminaire cible...</translation>
+        <translation>Ajouter un appareil cible...</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="84"/>
         <source>Remove target fixture...</source>
-        <translation>Supprimer le luminaire cible...</translation>
+        <translation>Supprimer l'appareil cible...</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="108"/>
         <source>Clone and auto-remap the selected source fixture</source>
-        <translation>Cloner et remapper auto le luminaire source sélectionné</translation>
+        <translation>Cloner et remapper auto l'appareil source sélectionné</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="132"/>
@@ -2478,7 +2478,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="fixtureremap.ui" line="200"/>
         <source>Remapped Fixtures</source>
-        <translation>Luminaires remappés</translation>
+        <translation>Appareils remappés</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="205"/>
@@ -2489,12 +2489,12 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="fixtureremap.ui" line="232"/>
         <source>Source Fixtures</source>
-        <translation>Luminaires Source</translation>
+        <translation>Appareils Source</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="292"/>
         <source>Remap fixture names</source>
-        <translation>Remapper les noms des luminaires</translation>
+        <translation>Remapper les noms des appareils</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="144"/>
@@ -2505,12 +2505,12 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="fixtureremap.cpp" line="224"/>
         <source>Import Fixtures List</source>
-        <translation>Importer la liste des luminaires</translation>
+        <translation>Importer la liste des appareils</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="229"/>
         <source>Fixtures List (*%1)</source>
-        <translation>Liste des Luminaires (*%1)</translation>
+        <translation>Liste des Appareils (*%1)</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="231"/>
@@ -2525,7 +2525,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="fixtureremap.cpp" line="259"/>
         <source>Do you want to automatically connect fixtures with the same name?</source>
-        <translation>Souhaitez-vous connecter automatiquement des luminaires portant le même nom&#xa0;?</translation>
+        <translation>Souhaitez-vous connecter automatiquement des appareils portant le même nom&#xa0;?</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="393"/>
@@ -2535,7 +2535,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="fixtureremap.cpp" line="464"/>
         <source>Delete Fixtures</source>
-        <translation>Supprimer des Luminaires</translation>
+        <translation>Supprimer des Appareils</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="465"/>
@@ -2550,7 +2550,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="fixtureremap.cpp" line="514"/>
         <source>You are trying to clone a fixture on an address already in use. Please fix the target list first.</source>
-        <translation>Vous essayez de cloner un luminaire sur une adresse déjà utilisée. Veuillez d&apos;abord corriger la liste des cibles.</translation>
+        <translation>Vous essayez de cloner un appareil sur une adresse déjà utilisée. Veuillez d&apos;abord corriger la liste des cibles.</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="576"/>
@@ -2565,7 +2565,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
         <location filename="fixtureremap.cpp" line="604"/>
         <location filename="fixtureremap.cpp" line="724"/>
         <source>Please select a source and a target fixture or channel to perform this operation.</source>
-        <translation>Veuillez sélectionner une source et un luminaire ou canal cible pour effectuer cette opération.</translation>
+        <translation>Veuillez sélectionner une source et un appareil ou canal cible pour effectuer cette opération.</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="627"/>
@@ -2588,17 +2588,17 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="fixtureselection.ui" line="33"/>
         <source>Select fixture</source>
-        <translation>Sélectionner un luminaire</translation>
+        <translation>Sélectionner un appareil</translation>
     </message>
     <message>
         <location filename="fixtureselection.cpp" line="80"/>
         <source>No fixtures available</source>
-        <translation>Aucun luminaire disponible</translation>
+        <translation>Aucun appareil disponible</translation>
     </message>
     <message>
         <location filename="fixtureselection.cpp" line="82"/>
         <source>Go to the Fixture Manager and add some fixtures first.</source>
-        <translation>Allez dans le Fixture Manager et ajoutez d&apos;abord quelques luminaires.</translation>
+        <translation>Allez dans le Fixture Manager et ajoutez d&apos;abord quelques appareils.</translation>
     </message>
 </context>
 <context>
@@ -3025,7 +3025,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Il s&apos;agit d&apos;une procédure guidée qui vous permettra de commencer à utiliser QLC+ en quelques minutes.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Cela consiste essentiellement en trois étapes simples :&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1. Ajouter un ou plusieurs luminaires&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1. Ajouter un ou plusieurs appareils&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2- Sélectionner des capacités pour créer des fonctions &lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3- Ajouter des widgets à la console virtuelle&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
@@ -3034,7 +3034,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="functionwizard.ui" line="207"/>
         <source>Fixtures that will be included in automatic function creation</source>
-        <translation>Luminaires qui seront inclus dans la création automatique de fonctions</translation>
+        <translation>Appareils qui seront inclus dans la création automatique de fonctions</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="254"/>
@@ -3047,7 +3047,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Ajoutez les luminaires pour lesquels vous souhaitez créer des fonctions et des widgets&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Ajoutez les appareils pour lesquels vous souhaitez créer des fonctions et des widgets&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="266"/>
@@ -3080,7 +3080,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; En fonction des luminaires que vous avez ajoutés, je peux créer les fonctions répertoriées à gauche. Sélectionnez simplement ce dont vous avez besoin et voyez les résultats à droite&#xa0;!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; En fonction des appareils que vous avez ajoutés, je peux créer les fonctions répertoriées à gauche. Sélectionnez simplement ce dont vous avez besoin et voyez les résultats à droite&#xa0;!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="319"/>
@@ -3109,7 +3109,7 @@ p, li { white-space: pre-wrap; }
         <location filename="functionwizard.ui" line="148"/>
         <location filename="functionwizard.ui" line="223"/>
         <source>Fixtures</source>
-        <translation>Luminaires</translation>
+        <translation>Appareils</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="228"/>
@@ -3119,7 +3119,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="functionwizard.ui" line="187"/>
         <source>Select fixtures that will be included in the automatically created functions</source>
-        <translation>Sélectionner les luminaires qui seront inclus dans les fonctions créées automatiquement</translation>
+        <translation>Sélectionner les appareils qui seront inclus dans les fonctions créées automatiquement</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="190"/>
@@ -3129,7 +3129,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="functionwizard.ui" line="154"/>
         <source>Don&apos;t include selected fixtures in the created functions</source>
-        <translation>Ne pas inclure les luminaires sélectionnés dans les fonctions créées</translation>
+        <translation>Ne pas inclure les appareils sélectionnés dans les fonctions créées</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="157"/>
@@ -3331,7 +3331,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputmanager.cpp" line="381"/>
         <source>There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it?</source>
-        <translation>Il y a des luminaires qui utilisent l&apos;univer que vous essayez de supprimer. Êtes-vous sûr de vouloir le supprimer ?</translation>
+        <translation>Il y a des appareils qui utilisent l&apos;univer que vous essayez de supprimer. Êtes-vous sûr de vouloir le supprimer ?</translation>
     </message>
 </context>
 <context>
@@ -3881,7 +3881,7 @@ Notez que l&apos;assistant ne peut pas faire la différence entre un potentiomè
     <message>
         <location filename="monitor/monitor.cpp" line="336"/>
         <source>Fixture Monitor</source>
-        <translation>Moniteur de Luminaires</translation>
+        <translation>Moniteur d'Appareils</translation>
     </message>
     <message>
         <location filename="monitor/monitor.cpp" line="377"/>
@@ -3911,7 +3911,7 @@ Notez que l&apos;assistant ne peut pas faire la différence entre un potentiomè
     <message>
         <location filename="monitor/monitor.cpp" line="405"/>
         <source>Show channel numbers relative to fixture</source>
-        <translation>Afficher les numéros de canaux par rapport au luminaire</translation>
+        <translation>Afficher les numéros de canaux par rapport aux appareils</translation>
     </message>
     <message>
         <location filename="monitor/monitor.cpp" line="421"/>
@@ -3980,12 +3980,12 @@ Notez que l&apos;assistant ne peut pas faire la différence entre un potentiomè
     <message>
         <location filename="monitor/monitor.cpp" line="528"/>
         <source>Add fixture</source>
-        <translation>Ajouter un luminaire</translation>
+        <translation>Ajouter un appareil</translation>
     </message>
     <message>
         <location filename="monitor/monitor.cpp" line="530"/>
         <source>Remove fixture</source>
-        <translation>Retirer le luminaire</translation>
+        <translation>Retirer l'appareil</translation>
     </message>
     <message>
         <location filename="monitor/monitor.cpp" line="535"/>
@@ -4048,7 +4048,7 @@ Notez que l&apos;assistant ne peut pas faire la différence entre un potentiomè
     <message>
         <location filename="monitor/monitorfixturepropertieseditor.ui" line="33"/>
         <source>Monitor Fixture Properties Editor</source>
-        <translation>Éditeur de propriétés de luminaire de moniteur</translation>
+        <translation>Éditeur de propriétés de l'appareil de moniteur</translation>
     </message>
     <message>
         <location filename="monitor/monitorfixturepropertieseditor.ui" line="49"/>
@@ -4092,7 +4092,7 @@ Notez que l&apos;assistant ne peut pas faire la différence entre un potentiomè
     <message>
         <location filename="monitor/monitorfixturepropertieseditor.ui" line="171"/>
         <source>Fixture name:</source>
-        <translation>Nom du luminaire&#xa0;:</translation>
+        <translation>Nom de l'appareil&#xa0;:</translation>
     </message>
 </context>
 <context>
@@ -4380,7 +4380,7 @@ Notez que l&apos;assistant ne peut pas faire la différence entre un potentiomè
     <message>
         <location filename="rdmmanager.ui" line="75"/>
         <source>Retrieve the selected fixture information</source>
-        <translation>Récupérer les informations relatives au luminaire sélectionné</translation>
+        <translation>Récupérer les informations relatives à l'appareil sélectionné</translation>
     </message>
     <message>
         <location filename="rdmmanager.ui" line="101"/>
@@ -4554,12 +4554,12 @@ Notez que l&apos;assistant ne peut pas faire la différence entre un potentiomè
     <message>
         <location filename="rgbmatrixeditor.ui" line="545"/>
         <source>Fixture group</source>
-        <translation>Groupe de luminaires</translation>
+        <translation>Groupe d'appareils</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="558"/>
         <source>The fixture group to use as the pixel matrix</source>
-        <translation>Le groupe de luminaires à utiliser comme matrice de pixels</translation>
+        <translation>Le groupe d'appareils à utiliser comme matrice de pixels</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="59"/>
@@ -4634,7 +4634,7 @@ Notez que l&apos;assistant ne peut pas faire la différence entre un potentiomè
     <message>
         <location filename="rgbmatrixeditor.ui" line="414"/>
         <source>Set the dimmer channel of fixtures to 100%</source>
-        <translation>Réglez le canal de gradation des luminaires à 100&#xa0;%</translation>
+        <translation>Réglez le canal de gradation des appareils à 100&#xa0;%</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="87"/>
@@ -4794,7 +4794,7 @@ Notez que l&apos;assistant ne peut pas faire la différence entre un potentiomè
     <message>
         <location filename="rgbmatrixeditor.cpp" line="609"/>
         <source>No fixture group to control</source>
-        <translation>Aucun groupe de luminaires à contrôler</translation>
+        <translation>Aucun groupe d'appareils à contrôler</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.cpp" line="878"/>
@@ -4839,7 +4839,7 @@ Notez que l&apos;assistant ne peut pas faire la différence entre un potentiomè
         <location filename="sceneeditor.ui" line="162"/>
         <source>Fixtures used in this scene</source>
         <oldsource>Name of this scene</oldsource>
-        <translation>Luminaires utilisés dans cette scène</translation>
+        <translation>Appareils utilisés dans cette scène</translation>
     </message>
     <message>
         <location filename="sceneeditor.ui" line="209"/>
@@ -4849,32 +4849,32 @@ Notez que l&apos;assistant ne peut pas faire la différence entre un potentiomè
     <message>
         <location filename="sceneeditor.ui" line="103"/>
         <source>Add a new fixture to this scene</source>
-        <translation>Ajouter un nouveau luminaire à cette scène</translation>
+        <translation>Ajouter un nouvel appareil à cette scène</translation>
     </message>
     <message>
         <location filename="sceneeditor.ui" line="170"/>
         <source>Remove the selected fixture(s) from this scene</source>
-        <translation>Supprimer le(s) Luminaires(s) sélectionné(s) de cette scène</translation>
+        <translation>Supprimer le(s) appareil(s) sélectionné(s) de cette scène</translation>
     </message>
     <message>
         <location filename="sceneeditor.ui" line="241"/>
         <source>Enable all fixtures&apos; channels</source>
-        <translation>Activer les canaux de tous les luminaires</translation>
+        <translation>Activer les canaux de tous les appareils</translation>
     </message>
     <message>
         <location filename="sceneeditor.ui" line="224"/>
         <source>Disable all fixtures&apos; channels</source>
-        <translation>Désactiver les canaux de tous les luminaires</translation>
+        <translation>Désactiver les canaux de tous les appareils</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="184"/>
         <source>Enable all channels in current fixture</source>
-        <translation>Activation de tous les canaux du luminaire actuel</translation>
+        <translation>Activation de tous les canaux de l'appareil actuel</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="186"/>
         <source>Disable all channels in current fixture</source>
-        <translation>Désactive tous les canaux du luminaire actuel</translation>
+        <translation>Désactive tous les canaux de l'appareil actuel</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="188"/>
@@ -4884,7 +4884,7 @@ Notez que l&apos;assistant ne peut pas faire la différence entre un potentiomè
     <message>
         <location filename="sceneeditor.cpp" line="190"/>
         <source>Paste clipboard values to current fixture</source>
-        <translation>Coller les valeurs du presse-papiers dans le luminaire actuel</translation>
+        <translation>Coller les valeurs du presse-papiers dans l'appareil actuel</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="192"/>
@@ -4924,12 +4924,12 @@ Notez que l&apos;assistant ne peut pas faire la différence entre un potentiomè
     <message>
         <location filename="sceneeditor.cpp" line="206"/>
         <source>Go to next fixture tab</source>
-        <translation>Passer à l&apos;onglet suivant du luminaire</translation>
+        <translation>Passer à l&apos;onglet suivant de l'appareil</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="210"/>
         <source>Go to previous fixture tab</source>
-        <translation>Passer à l&apos;onglet précedent du luminaire</translation>
+        <translation>Passer à l&apos;onglet précedent de l'appareil</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="233"/>
@@ -4945,7 +4945,7 @@ Notez que l&apos;assistant ne peut pas faire la différence entre un potentiomè
         <location filename="sceneeditor.cpp" line="928"/>
         <location filename="sceneeditor.cpp" line="929"/>
         <source>All fixtures</source>
-        <translation>Tous les luminaires</translation>
+        <translation>Tous les appareils</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="1461"/>
@@ -4962,12 +4962,12 @@ Notez que l&apos;assistant ne peut pas faire la différence entre un potentiomè
     <message>
         <location filename="sceneeditor.cpp" line="1306"/>
         <source>Remove fixtures</source>
-        <translation>Supprimer les luminaires</translation>
+        <translation>Supprimer les appareils</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="1307"/>
         <source>Do you want to remove the selected fixture(s)?</source>
-        <translation>Voulez-vous supprimer le(s) luminaire(s) sélectionné(s) ?</translation>
+        <translation>Voulez-vous supprimer le(s) appareil(s) sélectionné(s) ?</translation>
     </message>
 </context>
 <context>
@@ -5055,7 +5055,7 @@ Notez que l&apos;assistant ne peut pas faire la différence entre un potentiomè
     <message>
         <location filename="scripteditor.cpp" line="120"/>
         <source>Set Fixture</source>
-        <translation>Définir le luminaire</translation>
+        <translation>Définir l'Appareil</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="124"/>
@@ -7506,7 +7506,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcxypadarea.cpp" line="302"/>
         <source>Shift: fine, Ctrl:10x</source>
-        <translation>Shift : fin, Ctrl:10x</translation>
+        <translation>Maj : fin, Ctrl:10x</translation>
     </message>
 </context>
 <context>
@@ -7514,7 +7514,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="33"/>
         <source>XY Pad Fixture</source>
-        <translation>XY Pad Luminaire</translation>
+        <translation>Pad XY de l'appareil</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="39"/>
@@ -7578,17 +7578,17 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="143"/>
         <source>Fixtures</source>
-        <translation>Luminaires</translation>
+        <translation>Appareils</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="149"/>
         <source>List of fixtures that are controlled by this pad</source>
-        <translation>Liste des luminaires contrôlés par ce pad</translation>
+        <translation>Liste des appareils contrôlés par ce pad</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="174"/>
         <source>Fixture</source>
-        <translation>Luminaire</translation>
+        <translation>Appareil</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="179"/>
@@ -7603,7 +7603,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="192"/>
         <source>Add fixture(s) to the pad</source>
-        <translation>Ajouter Luminaire(s) au pad</translation>
+        <translation>Ajouter Appareil(s) au pad</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="252"/>
@@ -7653,7 +7653,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="366"/>
         <source>Add Fixture Group</source>
-        <translation>Ajouter un groupe de luminaires</translation>
+        <translation>Ajouter un groupe d'appareils</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="377"/>
@@ -7705,12 +7705,12 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="212"/>
         <source>Remove selected fixture(s) from the pad</source>
-        <translation>Supprimer le(s) luminaire(s) sélectionné(s) du pad</translation>
+        <translation>Supprimer le(s) appareil(s) sélectionné(s) du pad</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="232"/>
         <source>Edit the selected fixture&apos;s axis</source>
-        <translation>Modifier l&apos;axe du luminaire sélectionné</translation>
+        <translation>Modifier l&apos;axe de l'appareil sélectionné</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="110"/>
@@ -7725,12 +7725,12 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="369"/>
         <source>Remove fixtures</source>
-        <translation>Enlever les luminaires</translation>
+        <translation>Enlever les appareils</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="370"/>
         <source>Do you want to remove the selected fixtures?</source>
-        <translation>Voulez-vous supprimer les luminaires sélectionnés&#xa0;?</translation>
+        <translation>Voulez-vous supprimer les appareils sélectionnés&#xa0;?</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="733"/>
@@ -7748,12 +7748,12 @@ Veuillez en sélectionner une qui comporte de tels canaux.</translation>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="783"/>
         <source>Please select at least one fixture or head to create this type of preset!</source>
-        <translation>Veuillez sélectionner au moins un luminaire ou une lyre pour créer ce type de préréglage !</translation>
+        <translation>Veuillez sélectionner au moins un appareil ou une lyre pour créer ce type de préréglage !</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="790"/>
         <source>Fixture Group</source>
-        <translation>Groupe de luminaires</translation>
+        <translation>Groupe d'Appareils</translation>
     </message>
 </context>
 <context>
