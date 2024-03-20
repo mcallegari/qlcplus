@@ -7,7 +7,7 @@
   <Author>Olivier Michel</Author>
  </Creator>
  <Manufacturer>beamZ</Manufacturer>
- <Model>BAC506B</Model>
+ <Model>BAC506</Model>
  <Type>Color Changer</Type>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
