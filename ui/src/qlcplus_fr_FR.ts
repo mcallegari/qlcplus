@@ -942,7 +942,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="audioeditor.ui" line="205"/>
         <source>Single shot</source>
-        <translation>Unique</translation>
+        <translation>Un Passage</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="215"/>
@@ -1524,7 +1524,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="215"/>
-        <source>Single Shot</source>
+        <source>Single Un passage</source>
         <translation>Unique</translation>
     </message>
     <message>
@@ -2129,7 +2129,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="efxeditor.ui" line="627"/>
         <source>Single shot</source>
-        <translation>Unique</translation>
+        <translation>Un passage</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="634"/>
@@ -4739,7 +4739,7 @@ Notez que l&apos;assistant ne peut pas faire la différence entre un potentiomè
     <message>
         <location filename="rgbmatrixeditor.ui" line="603"/>
         <source>Single Shot</source>
-        <translation>Unique</translation>
+        <translation>Un passage</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="610"/>
@@ -7843,7 +7843,7 @@ Veuillez en sélectionner une qui comporte de tels canaux.</translation>
     <message>
         <location filename="videoeditor.ui" line="270"/>
         <source>Single shot</source>
-        <translation>Unique</translation>
+        <translation>Un passage</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="280"/>
