@@ -1203,7 +1203,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="channelmodifiereditor.ui" line="81"/>
         <source>Remove the selected handler</source>
-        <translation>Supprimer le gestionnaire sélectionné</translation>
+        <translation>Supprimer le point sélectionné</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="98"/>
