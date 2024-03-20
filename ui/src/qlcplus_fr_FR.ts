@@ -80,7 +80,7 @@
     <message>
         <location filename="addfixture.ui" line="33"/>
         <source>Add fixture</source>
-        <translation>Ajout d&apos;un Luminaire</translation>
+        <translation>Ajout d&apos;un appareil</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="180"/>
@@ -101,7 +101,7 @@
     <message>
         <location filename="addfixture.ui" line="45"/>
         <source>Fixture Properties</source>
-        <translation>Propriétés du Luminaire</translation>
+        <translation>Propriétés de l'appareil</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="51"/>
@@ -111,7 +111,7 @@
     <message>
         <location filename="addfixture.ui" line="58"/>
         <source>A friendly name for the new fixture</source>
-        <translation>Un nom convivial pour le nouveau luminaire</translation>
+        <translation>Un nom convivial pour le nouvel appareil</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="65"/>
@@ -121,12 +121,12 @@
     <message>
         <location filename="addfixture.ui" line="72"/>
         <source>Selected fixture mode</source>
-        <translation>Mode du luminaire sélectionné</translation>
+        <translation>Mode de l'appareil sélectionné</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="93"/>
         <source>Add fixture to this universe</source>
-        <translation>Ajouter un luminaire à cet univers</translation>
+        <translation>Ajouter un appareil à cet univers</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="100"/>
@@ -136,7 +136,7 @@
     <message>
         <location filename="addfixture.ui" line="109"/>
         <source>The starting address of the (first) added fixture</source>
-        <translation>L&apos;adresse de départ du (premier) luminaire ajouté</translation>
+        <translation>L&apos;adresse de départ du (premier) appareil ajouté</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="122"/>
@@ -151,12 +151,12 @@
     <message>
         <location filename="addfixture.ui" line="145"/>
         <source>Number of channels in the selected fixture</source>
-        <translation>Nombre de canaux dans le luminaire sélectionné</translation>
+        <translation>Nombre de canaux dans l'appareil sélectionné</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="167"/>
         <source>List of channels in the selected fixture mode</source>
-        <translation>Liste des canaux dans le mode du luminaire sélectionné</translation>
+        <translation>Liste des canaux dans le mode de l'appareil sélectionné</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="86"/>
@@ -166,7 +166,7 @@
     <message>
         <location filename="addfixture.ui" line="218"/>
         <source>Multiple Fixtures</source>
-        <translation>Nombre de Luminaires</translation>
+        <translation>Nombre d'appareils</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="224"/>
@@ -176,7 +176,7 @@
     <message>
         <location filename="addfixture.ui" line="237"/>
         <source>Number of fixtures to add</source>
-        <translation>Nombre de luminaires à ajouter</translation>
+        <translation>Nombre d'appareils à ajouter</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="250"/>
@@ -186,12 +186,12 @@
     <message>
         <location filename="addfixture.ui" line="257"/>
         <source>Number of empty channels to leave between added fixtures</source>
-        <translation>Nombre de canaux vides à laisser entre les luminaires ajoutés</translation>
+        <translation>Nombre de canaux vides à laisser entre les appareils ajoutés</translation>
     </message>
     <message>
         <location filename="addfixture.cpp" line="103"/>
         <source>Fixtures found: %1</source>
-        <translation>Luminaires trouvés : %1</translation>
+        <translation>Appareils trouvés : %1</translation>
     </message>
     <message>
         <location filename="addfixture.cpp" line="624"/>
@@ -351,7 +351,7 @@
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="33"/>
         <source>Add Button Matrix</source>
-        <translation>Ajout d&apos;une Matrice de Boutons</translation>
+        <translation>Ajout Matrice de Boutons</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="40"/>
@@ -391,7 +391,7 @@
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="132"/>
         <source>Button size</source>
-        <translation>Taille du Bouton</translation>
+        <translation>Taille d'un Bouton</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="139"/>
@@ -431,7 +431,7 @@
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="198"/>
         <source>Place the buttons inside a normal frame</source>
-        <translation>Placez les boutons dans un cadre normal</translation>
+        <translation>Placer les boutons dans un cadre normal</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="201"/>
@@ -441,7 +441,7 @@
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="208"/>
         <source>Place the buttons inside a frame that ensures that only one of them is pressed at a time</source>
-        <translation>Placez les boutons à l&apos;intérieur d&apos;un cadre qui garantit qu&apos;un seul d&apos;entre eux est enfoncé à la fois</translation>
+        <translation>Placer les boutons à l&apos;intérieur d&apos;un cadre qui garantit qu&apos;un seul d&apos;entre eux est enfoncé à la fois</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="211"/>
@@ -479,7 +479,7 @@
     <message>
         <location filename="virtualconsole/addvcslidermatrix.ui" line="69"/>
         <source>Vertical height of each slider</source>
-        <translation>Hauteur verticale de chaque curseur</translation>
+        <translation>Hauteur de chaque curseur</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcslidermatrix.ui" line="72"/>
@@ -542,7 +542,7 @@
     <message>
         <location filename="app.cpp" line="351"/>
         <source>Do you wish to save the current workspace before closing the application?</source>
-        <translation>Souhaitez-vous sauvegarder l&apos;espace de travail actuel avant de fermer l&apos;application ?</translation>
+        <translation>Souhaitez-vous sauvegarder l&apos;projet actuel avant de fermer l&apos;application ?</translation>
     </message>
     <message>
         <location filename="app.cpp" line="408"/>
@@ -553,7 +553,7 @@
     <message>
         <location filename="app.cpp" line="494"/>
         <source> - New Workspace</source>
-        <translation> - Nouvel Espace de Travail</translation>
+        <translation> - Nouveau Projet</translation>
     </message>
     <message>
         <location filename="app.cpp" line="559"/>
@@ -709,7 +709,7 @@ Voulez-vous vraiment les arrêter et basculer vers le mode Conception ?</transla
     <message>
         <location filename="app.cpp" line="280"/>
         <source>Simple Desk</source>
-        <translation>Bureau Simple</translation>
+        <translation>Pupitre traditionnel</translation>
     </message>
     <message>
         <location filename="app.cpp" line="282"/>
@@ -755,7 +755,7 @@ Voulez-vous vraiment les arrêter et basculer vers le mode Conception ?</transla
     <message>
         <location filename="app.cpp" line="665"/>
         <source>Stop ALL functions!</source>
-        <translation>Arrêter TOUTES les fonctions !</translation>
+        <translation>Arrêter TOUTES les fonctions&#xa0;!</translation>
     </message>
     <message>
         <location filename="app.cpp" line="670"/>
@@ -785,7 +785,7 @@ Voulez-vous vraiment les arrêter et basculer vers le mode Conception ?</transla
     <message>
         <location filename="app.cpp" line="715"/>
         <source>Workspace</source>
-        <translation>Espace de Travail</translation>
+        <translation>Projet</translation>
     </message>
     <message>
         <location filename="app.cpp" line="773"/>
@@ -838,26 +838,26 @@ Voulez-vous vraiment les arrêter et basculer vers le mode Conception ?</transla
         <location filename="app.cpp" line="1225"/>
         <source>Do you wish to save the current workspace?
 Changes will be lost if you don&apos;t save them.</source>
-        <translation>Souhaitez-vous enregistrer l&apos;espace de travail actuel ?
+        <translation>Souhaitez-vous enregistrer l&apos;projet actuel ?
 Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     </message>
     <message>
         <location filename="app.cpp" line="895"/>
         <source>New Workspace</source>
-        <translation>Nouvel Espace de Travail</translation>
+        <translation>Nouveau Projet</translation>
     </message>
     <message>
         <location filename="app.cpp" line="911"/>
         <location filename="app.cpp" line="919"/>
         <location filename="app.cpp" line="1227"/>
         <source>Open Workspace</source>
-        <translation>Ouvrir Espace de Travail</translation>
+        <translation>Ouvrir Projet</translation>
     </message>
     <message>
         <location filename="app.cpp" line="927"/>
         <location filename="app.cpp" line="1010"/>
         <source>Workspaces (*%1)</source>
-        <translation>Espace de Travail (*%1)</translation>
+        <translation>Projet (*%1)</translation>
     </message>
     <message>
         <location filename="app.cpp" line="929"/>
@@ -874,7 +874,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="app.cpp" line="1004"/>
         <source>Save Workspace As</source>
-        <translation>Enregistrer l&apos;Espace de Travail sous</translation>
+        <translation>Enregistrer l&apos;Projet sous</translation>
     </message>
     <message>
         <location filename="app.cpp" line="1218"/>
@@ -1110,12 +1110,12 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="74"/>
         <source>Info</source>
-        <translation>Info</translation>
+        <translation>Infos</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="79"/>
         <source>Disable threshold</source>
-        <translation>Désactiver le seuil</translation>
+        <translation>Seuil de désactivation</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="84"/>
@@ -1233,7 +1233,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="channelmodifiereditor.ui" line="181"/>
         <source>Unset Modifier</source>
-        <translation>Modificateur non défini</translation>
+        <translation>Désactiver Modificateur</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.cpp" line="192"/>
@@ -1354,7 +1354,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="chasereditor.ui" line="741"/>
         <source>Add step(s) to the current position</source>
-        <translation>Ajouter de(s) étape(s) à la position actuelle</translation>
+        <translation>Ajouter une(des) étape(s) à la position actuelle</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="595"/>
@@ -3011,7 +3011,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Welcome to the QLC+ wizard!&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;This is a guided procedure that will allow you to start using QLC+ in a few minutes.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;It basically consists in three simple steps:&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;It basically consists in three  steps:&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1- add fixtures&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2- select capabilities to create functions&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3- add widgets to the Virtual Console&lt;/p&gt;
