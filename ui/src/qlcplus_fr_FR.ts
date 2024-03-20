@@ -270,12 +270,12 @@
     <message>
         <location filename="addrgbpanel.ui" line="305"/>
         <source>Horizontal</source>
-        <translation>Horizontal</translation>
+        <translation>Horizontale</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="315"/>
         <source>Vertical</source>
-        <translation>Vertical</translation>
+        <translation>Verticale</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="327"/>
@@ -316,8 +316,8 @@
     <message>
         <location filename="addrgbpanel.ui" line="144"/>
         <location filename="addrgbpanel.ui" line="167"/>
-        <source>mm</source>
-        <translation>mm</translation>
+        <source> mm</source>
+        <translation> mm</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="160"/>
@@ -1243,7 +1243,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="channelmodifiereditor.cpp" line="193"/>
         <source>You are trying to overwrite a system template! Please choose another name and the template will be saved in your channel modifier&apos;s user folder.</source>
-        <translation>Vous essayez d&apos;écraser un modèle du système ! Veuillez choisir un autre nom et le modèle sera enregistré dans le dossier utilisateur de votre modificateur de canal.</translation>
+        <translation>Vous essayez d&apos;écraser un modèle du système ! Veuillez choisir un autre nom et le modèle sera enregistré dans votre dossier utilisateur de modificateur de canal.</translation>
     </message>
 </context>
 <context>
@@ -1365,7 +1365,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
         <location filename="chasereditor.ui" line="94"/>
         <location filename="chasereditor.cpp" line="981"/>
         <source>Hold</source>
-        <translation>Maintenir</translation>
+        <translation>Maintien</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="109"/>
@@ -1402,7 +1402,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
         <location filename="chasereditor.ui" line="431"/>
         <location filename="chasereditor.ui" line="509"/>
         <source>Common</source>
-        <translation>Commun</translation>
+        <translation>Commune</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="369"/>
