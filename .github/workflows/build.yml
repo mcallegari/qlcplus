@@ -382,6 +382,8 @@ jobs:
         shell: msys2 {0}
         run: |
           set MSYSTEM=MINGW64
+          # force a release build
+          sed -i -e 's/Debug/Release/g' CMakeLists.txt
           # disable Velleman plugin
           sed -i -e 's/    add_subdirectory(velleman)/#    add_subdirectory(velleman)/g' plugins/CMakeLists.txt
           # fix MSYS2 system path
