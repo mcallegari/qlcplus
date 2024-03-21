@@ -60,13 +60,13 @@
   <Capability Min="210" Max="255" Preset="SmallToBig">White8000k</Capability>
  </Channel>
  <Mode Name="2 channels">
-  <Channel Number="0" ActsOn="0">Dimmer</Channel>
-  <Channel Number="1" ActsOn="1">Preset colours</Channel>
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Preset colours</Channel>
  </Mode>
  <Mode Name="3 channels">
-  <Channel Number="0" ActsOn="0">Red</Channel>
-  <Channel Number="1" ActsOn="1">Green</Channel>
-  <Channel Number="2" ActsOn="2">Blue</Channel>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
  </Mode>
  <Mode Name="5 channels">
   <Channel Number="0">Dimmer</Channel>
