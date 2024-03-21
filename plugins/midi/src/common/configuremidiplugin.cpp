@@ -20,6 +20,7 @@
 #include <QTreeWidgetItem>
 #include <QTreeWidget>
 #include <QComboBox>
+#include <QCheckBox>
 #include <QSpinBox>
 #include <QDebug>
 #include <QSettings>
@@ -32,11 +33,12 @@
 #include "mididevice.h"
 #include "midiplugin.h"
 
-#define PROP_DEV        "dev"
-#define COL_NAME        0
-#define COL_CHANNEL     1
-#define COL_MODE        2
-#define COL_INITMESSAGE 3
+#define PROP_DEV              "dev"
+#define COL_NAME              0
+#define COL_CHANNEL           1
+#define COL_MODE              2
+#define COL_INITMESSAGE       3
+#define COL_NOTE_OFF_TRIGGERS 4
 
 #define SETTINGS_GEOMETRY "configuremidiplugin/geometry"
 
@@ -128,6 +130,18 @@ void ConfigureMidiPlugin::slotInitMessageChanged(QString midiTemplateName)
     dev->setMidiTemplateName(midiTemplateName);
 }
 
+void ConfigureMidiPlugin::slotNoteOffTriggersSceneActivated(bool noteOffTriggersScene)
+{
+    QWidget* widget = qobject_cast<QWidget*> (QObject::sender());
+    Q_ASSERT(widget != NULL);
+
+    QVariant var = widget->property(PROP_DEV);
+    Q_ASSERT(var.isValid() == true);
+
+    MidiDevice* dev = (MidiDevice*) var.toULongLong();
+    Q_ASSERT(dev != NULL);
+    dev->setNoteOffTriggersScene(noteOffTriggersScene);
+}
 
 void ConfigureMidiPlugin::slotUpdateTree()
 {
@@ -154,6 +168,10 @@ void ConfigureMidiPlugin::slotUpdateTree()
         widget = createInitMessageWidget(dev->midiTemplateName());
         widget->setProperty(PROP_DEV, (qulonglong) dev);
         m_tree->setItemWidget(item, COL_INITMESSAGE, widget);
+
+        widget = createNoteOffTriggersSceneWidget(dev->noteOffTriggersScene());
+        widget->setProperty(PROP_DEV, (qulonglong) dev);
+        m_tree->setItemWidget(item, COL_NOTE_OFF_TRIGGERS, widget);
     }
 
     QTreeWidgetItem* inputs = new QTreeWidgetItem(m_tree);
@@ -177,6 +195,10 @@ void ConfigureMidiPlugin::slotUpdateTree()
         widget = createInitMessageWidget(dev->midiTemplateName());
         widget->setProperty(PROP_DEV, (qulonglong) dev);
         m_tree->setItemWidget(item, COL_INITMESSAGE, widget);
+
+        widget = createNoteOffTriggersSceneWidget(dev->noteOffTriggersScene());
+        widget->setProperty(PROP_DEV, (qulonglong) dev);
+        m_tree->setItemWidget(item, COL_NOTE_OFF_TRIGGERS, widget);
     }
 
     outputs->setExpanded(true);
@@ -244,4 +266,18 @@ QWidget* ConfigureMidiPlugin::createInitMessageWidget(QString midiTemplateName)
     connect(combo, SIGNAL(editTextChanged(QString)), this, SLOT(slotInitMessageChanged(QString)));
 
     return combo;
+}
+
+QWidget* ConfigureMidiPlugin::createNoteOffTriggersSceneWidget(bool noteOffTriggersScene)
+{
+    QCheckBox* checkbox = new QCheckBox;
+    if (noteOffTriggersScene) {
+        checkbox->setChecked(true);
+    } else {
+        checkbox->setChecked(false);
+    }
+
+    connect(checkbox, SIGNAL(clicked(bool)), this, SLOT(slotNoteOffTriggersSceneActivated(bool)));
+
+    return checkbox;
 }

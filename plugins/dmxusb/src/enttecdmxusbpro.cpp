@@ -440,7 +440,7 @@ void EnttecDMXUSBPro::slotDataReceived(QByteArray data, bool isMidi)
                 uchar value = 0;
                 if (QLCMIDIProtocol::midiToInput(midiCmd, midiData1, midiData2,
                                                  MAX_MIDI_CHANNELS, // always listen in OMNI mode
-                                                 &channel, &value) == true)
+                                                 &channel, &value, false) == true)
                 {
                     emit valueChanged(UINT_MAX, emitLine, channel, value);
                     // for MIDI beat clock signals,

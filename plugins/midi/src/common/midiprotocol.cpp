@@ -28,7 +28,7 @@
 
 bool QLCMIDIProtocol::midiToInput(uchar cmd, uchar data1, uchar data2,
                                   uchar midiChannel, quint32* channel,
-                                  uchar* value)
+                                  uchar* value, bool noteOffTriggersScene)
 {
     /* Check if cmd is a MIDI COMMAND byte */
     if (!MIDI_IS_CMD(cmd))
@@ -48,7 +48,11 @@ bool QLCMIDIProtocol::midiToInput(uchar cmd, uchar data1, uchar data2,
     {
         case MIDI_NOTE_OFF:
             *channel = CHANNEL_OFFSET_NOTE + quint32(data1);
-            *value = 0;
+            if(noteOffTriggersScene) {
+                *value = 64;
+            } else {
+                *value = 0;
+            }
         break;
 
         case MIDI_NOTE_ON:

@@ -24,6 +24,7 @@
 #define SETTINGS_MIDICHANNEL "midiplugin/%1/%2/midichannel"
 #define SETTINGS_MODE "midiplugin/%1/%2/mode"
 #define SETTINGS_INITMESSAGE "midiplugin/%1/%2/initmessage"
+#define SETTINGS_NOTE_OFF_TRIGGERS_SCENE "midiplugin/%1/%2/noteofftriggersscene"
 
 #define SETTINGS_MIDICHANNEL_OLD "midiplugin/%1/midichannel"
 #define SETTINGS_MODE_OLD "midiplugin/%1/mode"
@@ -72,6 +73,7 @@ MidiDevice::MidiDevice(const QVariant& uid, const QString& name, DeviceType devi
     , m_midiChannel(0)
     , m_mode(ControlChange)
     , m_sendNoteOff(true)
+    , m_noteOffTriggersScene(false)
 {
     loadSettings();
 }
@@ -161,6 +163,20 @@ bool MidiDevice::sendNoteOff() const
 }
 
 /****************************************************************************
+ * Note Off Trigger Scene
+ ****************************************************************************/
+
+void MidiDevice::setNoteOffTriggersScene(bool noteOffTriggersScene)
+{
+    m_noteOffTriggersScene = noteOffTriggersScene;
+}
+
+bool MidiDevice::noteOffTriggersScene() const
+{
+    return m_noteOffTriggersScene;
+}
+
+/****************************************************************************
  * Midi template
  ****************************************************************************/
 
@@ -218,6 +234,13 @@ void MidiDevice::loadSettings()
         setMidiTemplateName(value.toString());
     else
         setMidiTemplateName("");
+
+    key = QString(SETTINGS_NOTE_OFF_TRIGGERS_SCENE).arg(devType, name());
+    value = settings.value(key);
+    if (value.isValid() == true)
+        setNoteOffTriggersScene(value.toBool());
+    else
+        setNoteOffTriggersScene(false);
 }
 
 void MidiDevice::saveSettings() const
@@ -233,6 +256,9 @@ void MidiDevice::saveSettings() const
 
     key = QString(SETTINGS_INITMESSAGE).arg(devType, name());
     settings.setValue(key, midiTemplateName());
+
+    key = QString(SETTINGS_NOTE_OFF_TRIGGERS_SCENE).arg(devType, name());
+    settings.setValue(key, noteOffTriggersScene());
 
     qDebug() << "[MIDI] Saving mididevice with template name: " << midiTemplateName();
 }
