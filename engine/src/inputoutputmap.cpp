@@ -101,6 +101,9 @@ bool InputOutputMap::setBlackout(bool blackout)
             if (op != NULL)
                 op->setBlackout(blackout);
         }
+
+        const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
+        universe->dumpOutput(postGM, true);
     }
 
     emit blackoutChanged(m_blackout);
