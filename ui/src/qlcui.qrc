@@ -82,6 +82,8 @@
         <file alias="laser.png">../../resources/icons/png/laser.png</file>
         <file alias="ledbar_beams.png">../../resources/icons/png/ledbar_beams.png</file>
         <file alias="ledbar_pixels.png">../../resources/icons/png/ledbar_pixels.png</file>
+        <file alias="lightning.png">../../resources/icons/png/lightning.png</file>
+        <file alias="lightning_off.png">../../resources/icons/png/lightning_off.png</file>
         <file alias="liveedit.png">../../resources/icons/png/liveedit.png</file>
         <file alias="liveedit_vc.png">../../resources/icons/png/liveedit_vc.png</file>
         <file alias="lock.png">../../resources/icons/png/lock.png</file>

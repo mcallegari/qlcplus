@@ -1117,7 +1117,7 @@ void VCButton::paintEvent(QPaintEvent* e)
 
         if (state() == Active)
         {
-            if(m_flashForceLTP || m_flashOverrides)
+            if (m_flashForceLTP || m_flashOverrides)
                 painter.setBrush(QBrush(QColor(230, 0, 0, 255)));
             else
                 painter.setBrush(QBrush(QColor(0, 230, 0, 255)));
@@ -1149,7 +1149,7 @@ void VCButton::paintEvent(QPaintEvent* e)
                 painter.setPen(QPen(QColor(255, 170, 0, 255), borderWidth));
             else
             {
-                if(m_flashForceLTP || m_flashOverrides)
+                if (m_flashForceLTP || m_flashOverrides)
                     painter.setPen(QPen(QColor(230, 0, 0, 255), borderWidth));
                 else
                     painter.setPen(QPen(QColor(0, 230, 0, 255), borderWidth));

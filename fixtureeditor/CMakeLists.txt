@@ -547,6 +547,8 @@ set(qlcui_resource_files
     "../ui/src/../../resources/icons/png/laser.png"
     "../ui/src/../../resources/icons/png/ledbar_beams.png"
     "../ui/src/../../resources/icons/png/ledbar_pixels.png"
+    "../ui/src/../../resources/icons/png/lightning.png"
+    "../ui/src/../../resources/icons/png/lightning_off.png"
     "../ui/src/../../resources/icons/png/liveedit.png"
     "../ui/src/../../resources/icons/png/liveedit_vc.png"
     "../ui/src/../../resources/icons/png/lock.png"
