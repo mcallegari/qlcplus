@@ -18,6 +18,7 @@
 */
 
 #include <QNetworkInterface>
+#include <sys/socket.h>
 #include <arpa/inet.h>
 #include <QTextStream>
 #include <QStringList>
