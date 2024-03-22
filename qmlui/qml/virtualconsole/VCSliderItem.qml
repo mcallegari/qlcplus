@@ -230,7 +230,7 @@ VCWidgetItem
                 if (Qt.platform.os === "android")
                     presetImageBox.source = cngResource
                 else
-                    presetImageBox.source = "file:/" + cngResource
+                    presetImageBox.source = "file:" + cngResource
             }
 
             onClicked: colorToolLoader.toggleVisibility()
