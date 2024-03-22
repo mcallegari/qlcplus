@@ -387,7 +387,9 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
 
     Tardis::instance()->enqueueAction(Tardis::VCSliderSetValue, id(), m_value, value);
 
-    m_value = value;
+    m_value = SCALE(float(value), float(0), float(UCHAR_MAX),
+            float(rangeLowLimit()),
+            float(rangeHighLimit()));
 
     switch(sliderMode())
     {
