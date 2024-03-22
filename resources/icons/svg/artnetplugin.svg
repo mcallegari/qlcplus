@@ -1,1 +1,23 @@
-<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="48" height="48" id="svg2985" version="1.1"><defs id="defs2987"/><metadata id="metadata2990"/><g id="layer1"><g id="g3868" transform="translate(0.01171733,2.8451478)"><g id="text3828" transform="scale(1.0627917,0.94091816)" style="fill:#000;font-family:Sans;font-size:21.2;letter-spacing:0;line-height:125;word-spacing:0"><path id="path3844" d="m8.59 5.72-3.31 7.59 6.34 0-3.04-7.59 -1.18-1.74 2.37 0 5.89 15.46-1.7 0-1.88-4.82-7.25 0-1.97 4.82-1.64 0 6.18-15.46" fill="#000"/></g><g id="text3832" transform="scale(0.75230103,1.3292551)" style="fill:#000;font-family:Sans;font-size:36.39;letter-spacing:0;line-height:125;word-spacing:0"><path id="path3837" d="m40.1 2.65 22.44 0 0 1.82-9.82 0 0 24.71-3.21 0 0-24.71-9.42 0 0-1.82" fill="#000"/></g><g id="text3839" transform="scale(1.0758595,0.92948938)" style="fill:#000;font-family:Sans;font-size:21.48;letter-spacing:0;line-height:125;word-spacing:0"><path id="path3847" transform="scale(0.9294894,1.0758595)" d="m26.78 18.28 1.84 0-4.16-5.75c0 0 1.86-0.14 1.38-0.28l1-0.44c0.94-0.23 0.82-0.71 1.31-1.31 0.5-0.6 0.53-1.68 0.53-2.59 0-1.4-0.96-2.43-1.91-3.12-0.95-0.7-2.01-1.06-3.94-1.06l-5.12 0 0 14.56 1.69 0 0-13.06 3.44 0.02c1.1 0 2.35 0.22 2.91 0.66 0.56 0.43 1.12 1.15 1.13 2.01 0 0.85-0.46 2.08-1.03 2.52-0.56 0.44-2.62 1.2-4.32 0.75" fill="#000"/></g><g id="text3854" transform="scale(1.1108167,0.90023857)" style="fill:#000;font-family:Sans;font-size:30.07;letter-spacing:0;line-height:125;word-spacing:0"><path id="path3859" d="m0.83 21.17 2.64 0 11.79 19 0-19 2.16 0 0 21.92-2.64 0-11.79-19.11 0 19.11-2.16 0 0-21.92" fill="#000"/></g><g id="text3861" transform="scale(0.98600529,1.0141933)" style="fill:#000;font-family:Sans;font-size:26.69;letter-spacing:0;line-height:125;word-spacing:0"><path id="path3866" d="m22.82 18.79 12.5 0 0 2.22-10.07 0 0 6.45 10.08 0 0 2.02-10.08 0 0 6.95 10.11 0 0 1.82-12.54 0 0-19.46" fill="#000"/></g></g></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 256 256">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        fill-rule: evenodd;
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        isolation: isolate;
+        opacity: .6;
+      }
+    </style>
+  </defs>
+  <g class="cls-2">
+    <path class="cls-1" d="M50.2,115.9h-7.5l27.9-60.6h8.5l27.8,60.6h-7.6l-8.6-19h-32l-8.5,19h0ZM88.4,91.4l-13.6-30.4-13.5,30.4h27.1ZM118.4,61.3v54.7h-7v-60.7h19.3c4.3,0,7.7.3,10.3.8s4.9,1.4,7,2.7c2.9,1.7,5.1,4,6.8,6.8,1.7,2.8,2.5,5.8,2.5,9,0,4.7-1.7,8.7-5,12.1s-7.5,5.2-12.4,5.5l17.4,23.7h-8.3l-21.4-29.2h6.8c4.6,0,8.3-1.1,11.1-3.4,2.9-2.2,4.3-5.1,4.3-8.7s-.4-4.1-1.3-5.8c-.9-1.7-2.2-3.3-3.9-4.6-1.4-1.1-3.1-1.8-5.1-2.3s-5.6-.7-10.7-.7h-10.4Z"/>
+    <polygon class="cls-1" points="203 201.5 193 201.5 193 64.2 163.6 64.2 163.6 54.5 233.6 54.5 233.6 64.2 203 64.2 203 201.5"/>
+    <polygon class="cls-1" points="141.3 156.1 182.5 156.1 182.5 164.2 141.3 164.2 141.3 193.5 182.5 193.5 182.5 201.5 131.6 201.5 131.6 119.1 182.5 119.1 182.5 127.2 141.3 127.2 141.3 156.1"/>
+    <polygon class="cls-1" points="109.3 191.7 108.1 119.1 118 119.1 118 201.5 106.1 201.5 50.5 128.9 51.6 201.5 41.8 201.5 41.8 119.1 53.8 119.1 109.3 191.7"/>
+  </g>
+</svg>

@@ -623,6 +623,79 @@ Rectangle
             }
         }
 
+        //Row 14
+        RobotoText
+        {
+            height: origItemHeight
+            label: qsTr("Icon Normal")
+        }
+        Loader
+        {
+            property string kName: "bgIconButton"
+            sourceComponent: colorSelector
+            onLoaded: item.init(this, uiManager.getDefault(kName),
+                                      uiManager.getModified(kName))
+
+            function updateColor(col)
+            {
+                uiManager.setModified(kName, col)
+            }
+        }
+
+        RobotoText
+        {
+            height: origItemHeight
+            label: qsTr("Icon Hover")
+        }
+        Loader
+        {
+            property string kName: "bgIconButtonHover"
+            sourceComponent: colorSelector
+            onLoaded: item.init(this, uiManager.getDefault(kName),
+                                      uiManager.getModified(kName))
+
+            function updateColor(col)
+            {
+                uiManager.setModified(kName, col)
+            }
+        }
+        //Row 15
+        RobotoText
+        {
+            height: origItemHeight
+            label: qsTr("Icon Pressed")
+        }
+        Loader
+        {
+            property string kName: "bgIconButtonHighlightPressed"
+            sourceComponent: colorSelector
+            onLoaded: item.init(this, uiManager.getDefault(kName),
+                                      uiManager.getModified(kName))
+
+            function updateColor(col)
+            {
+                uiManager.setModified(kName, col)
+            }
+        }
+
+        RobotoText
+        {
+            height: origItemHeight
+            label: qsTr("Icon highlighted")
+        }
+        Loader
+        {
+            property string kName: "bgIconButtonHighlight"
+            sourceComponent: colorSelector
+            onLoaded: item.init(this, uiManager.getDefault(kName),
+                                      uiManager.getModified(kName))
+
+            function updateColor(col)
+            {
+                uiManager.setModified(kName, col)
+            }
+        }
+
         GenericButton
         {
             Layout.columnSpan: 4
