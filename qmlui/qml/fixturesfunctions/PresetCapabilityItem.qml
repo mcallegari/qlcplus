@@ -63,7 +63,7 @@ Rectangle
             if (Qt.platform.os === "android")
                 pic.source = resArray[0]
             else
-                pic.source = "file:/" + resArray[0]
+                pic.source = "file:" + resArray[0]
         }
     }
 
