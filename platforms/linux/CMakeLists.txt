@@ -2,7 +2,7 @@ project(icons)
 
 set(desktop_FILES qlcplus.desktop)
 if(NOT qmlui)
-    set(APPEND desktop_FILES qlcplus-fixtureeditor.desktop)
+    list(APPEND desktop_FILES qlcplus-fixtureeditor.desktop)
 endif()
 install(FILES ${desktop_FILES} DESTINATION ${INSTALLROOT}/share/applications/)
 
