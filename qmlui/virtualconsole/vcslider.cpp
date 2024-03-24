@@ -1029,7 +1029,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
 
     if (clickAndGoType() == CnGColors)
     {
-        float f = SCALE(float(m_value), rangeLowLimit(), rangeHighLimit(), 0.0, 200.0);
+        float f = SCALE(float(modLevel), rangeLowLimit(), rangeHighLimit(), 0.0, 200.0);
 
         if ((uchar)f != 0)
         {
@@ -1135,6 +1135,10 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
             // on override, force channel to LTP
             if (m_isOverriding)
                 fc->addFlag(FadeChannel::Override);
+
+            // request to autoremove LTP channels when set
+            if (! (chType & FadeChannel::Intensity))
+                fc->addFlag(FadeChannel::AutoRemove);
 
             if (chType & FadeChannel::Intensity && clickAndGoType() == CnGColors)
             {
