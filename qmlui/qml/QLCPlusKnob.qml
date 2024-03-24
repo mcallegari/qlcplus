@@ -88,16 +88,20 @@ Dial
             anchors.fill: parent
             z: 2
             onWheel: {
-                console.log("Wheel delta: " + wheel.angleDelta.y)
-                from: sliderObj ? sliderObj.rangeLowLimit : 0
-                to: sliderObj ? sliderObj.rangeHighLimit : 255
+                //console.log("Wheel delta: " + wheel.angleDelta.y)
+                var from = sliderObj ? sliderObj.rangeLowLimit : 0
+                var to = sliderObj ? sliderObj.rangeHighLimit : 255
+                var sliderValue = sliderObj ? sliderObj.value : 128
 
-                if (wheel.angleDelta.y > 0)
-                    //if (sliderObj && sliderValue < to)
+                if (wheel.angleDelta.y > 0) {
+                    if (sliderObj && sliderValue < to) {
                         sliderObj.value += 1
-                else
-                    //if (sliderObj && sliderValue > from)
+                    }
+                } else {
+                    if (sliderObj && sliderValue > from) {
                         sliderObj.value -= 1
+                    }
+                }
             }
             onPressed: {
                 mouse.accepted = false

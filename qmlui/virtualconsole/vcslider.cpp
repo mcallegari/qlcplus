@@ -387,9 +387,7 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
 
     Tardis::instance()->enqueueAction(Tardis::VCSliderSetValue, id(), m_value, value);
 
-    m_value = SCALE(float(value), float(0), float(UCHAR_MAX),
-            float(rangeLowLimit()),
-            float(rangeHighLimit()));
+    m_value = value;
 
     switch(sliderMode())
     {
@@ -1235,10 +1233,13 @@ void VCSlider::updateFeedback()
 
 void VCSlider::slotInputValueChanged(quint8 id, uchar value)
 {
+    int scaledValue = SCALE(float(value), float(0), float(UCHAR_MAX),
+            float(rangeLowLimit()),
+            float(rangeHighLimit()));
     switch (id)
     {
         case INPUT_SLIDER_CONTROL_ID:
-            setValue(value, true, false);
+            setValue(scaledValue, true, false);
         break;
         case INPUT_SLIDER_RESET_ID:
             if (value)
