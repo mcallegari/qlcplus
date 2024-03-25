@@ -196,7 +196,7 @@
     <message>
         <location filename="addfixture.cpp" line="624"/>
         <source>Dimmers</source>
-        <translation>Variateurs</translation>
+        <translation>Dimmers</translation>
     </message>
 </context>
 <context>
@@ -2415,7 +2415,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="1045"/>
         <source>Generic Dimmer</source>
-        <translation>Variateur Générique</translation>
+        <translation>Dimmer Générique</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1268"/>
@@ -2530,7 +2530,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="fixtureremap.cpp" line="393"/>
         <source>Generic Dimmer</source>
-        <translation>Variateur Générique</translation>
+        <translation>Dimmer Générique</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="464"/>
@@ -4629,7 +4629,7 @@ Notez que l&apos;assistant ne peut pas faire la différence entre un potentiomè
     <message>
         <location filename="rgbmatrixeditor.ui" line="417"/>
         <source>Dimmer control</source>
-        <translation>Contrôle du variateur</translation>
+        <translation>Contrôle du Dimmer</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="414"/>
@@ -4704,7 +4704,7 @@ Notez que l&apos;assistant ne peut pas faire la différence entre un potentiomè
     <message>
         <location filename="rgbmatrixeditor.ui" line="180"/>
         <source>Dimmer</source>
-        <translation>Variateur</translation>
+        <translation>Dimmer</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="185"/>
