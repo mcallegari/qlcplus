@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  ballscolors.js
+  balls5colors.js
 
   Copyright (c) Rob Nieuwenhuizen
 
@@ -22,92 +22,21 @@ var testAlgo;
 
 (
   function () {
-    var colorPalette = new Object;
-    colorPalette.collection = new Array(
-      ["White"        , 0xFFFFFF],	//  0
-      ["Cream"        , 0xFFFF7F],	//  1
-      ["Pink"         , 0xFF7F7F],	//  2
-      ["Rose"         , 0x7F3F3F],	//  3
-      ["Coral"        , 0x7F3F1F],	//  4
-      ["Dim Red"      , 0x7F0000],	//  5
-      ["Red"          , 0xFF0000],	//  6
-      ["Orange"       , 0xFF3F00],	//  7
-      ["Dim Orange"   , 0x7F1F00],	//  8
-      ["Goldenrod"    , 0x7F3F00],	//  9
-      ["Gold"         , 0xFF7F00],	// 10
-      ["Yellow"       , 0xFFFF00],	// 11
-      ["Dim Yellow"   , 0x7F7F00],	// 12
-      ["Lime"         , 0x7FFF00],	// 13
-      ["Pale Green"   , 0x3F7F00],	// 14
-      ["Dim Green"    , 0x007F00],	// 15
-      ["Green"        , 0x00FF00],	// 16
-      ["Seafoam"      , 0x00FF3F],	// 17
-      ["Turquoise"    , 0x007F3F],	// 18
-      ["Teal"         , 0x007F7F],	// 19
-      ["Cyan"         , 0x00FFFF],	// 20
-      ["Electric Blue", 0x007FFF],	// 21
-      ["Blue"         , 0x0000FF],	// 22
-      ["Dim Blue"     , 0x00007F],	// 23
-      ["Pale Blue"    , 0x1F1F7F],	// 24
-      ["Indigo"       , 0x1F00BF],	// 25
-      ["Purple"       , 0x3F00BF],	// 26
-      ["Violet"       , 0x7F007F],	// 27
-      ["Magenta"      , 0xFF00FF],	// 28
-      ["Hot Pink"     , 0xFF003F],	// 29
-      ["Deep Pink"    , 0x7F001F],	// 30
-      ["Black"        , 0x000000]);	// 31
-
-    colorPalette.makeSubArray = function (_index) {
-      var _array = new Array();
-      for (var i = 0; i < colorPalette.collection.length; i++) {
-        _array.push(colorPalette.collection[i][_index]);
-      }
-      return _array;
-    };
-    colorPalette.names = colorPalette.makeSubArray(0);
-
     var algo = new Object;
-    algo.apiVersion = 2;
-    algo.name = "Balls (Colors)";
+    algo.apiVersion = 3;
+    algo.name = "Balls (5 Colors)";
     algo.author = "Rob Nieuwenhuizen";
-    algo.acceptColors = 0;
+    algo.acceptColors = 5;
     algo.properties = new Array();
     algo.presetSize = 1;
     algo.properties.push("name:presetSize|type:range|display:Size|values:1,20|write:setSize|read:getSize");
     algo.presetNumber = 5;
-    algo.properties.push("name:presetNumber|type:range|display:Number|values:1,5|write:setNumber|read:getNumber");
+    algo.properties.push("name:presetNumber|type:range|display:Number|values:1,15|write:setNumber|read:getNumber");
     algo.presetCollision = 0;
     algo.properties.push("name:presetCollision|type:list|display:Self Collision|values:No,Yes|write:setCollision|read:getCollision");
-    algo.color1Index = 0;
-    algo.properties.push(
-      "name:color1Index|type:list|display:Color 1|" +
-      "values:" + colorPalette.names.toString() + "|" +
-      "write:setColor1|read:getColor1");
-    algo.color2Index = 6;
-    algo.properties.push(
-      "name:color2Index|type:list|display:Color 2|" +
-      "values:" + colorPalette.names.toString() + "|" +
-      "write:setColor2|read:getColor2");
-    algo.color3Index = 16;
-    algo.properties.push(
-      "name:color3Index|type:list|display:Color 3|" +
-      "values:" + colorPalette.names.toString() + "|" +
-      "write:setColor3|read:getColor3");
-    algo.color4Index = 22;
-    algo.properties.push(
-      "name:color4Index|type:list|display:Color 4|" +
-      "values:" + colorPalette.names.toString() + "|" +
-      "write:setColor4|read:getColor4");
-    algo.color5Index = 7;
-    algo.properties.push(
-      "name:color5Index|type:list|display:Color 5|" +
-      "values:" + colorPalette.names.toString() + "|" +
-      "write:setColor5|read:getColor5");
     algo.presetSize = 5;
 
     algo.colorIndex = new Array(
-      algo.color1Index,
-      algo.color2Index,
       algo.color3Index,
       algo.color4Index,
       algo.color5Index);
@@ -138,62 +67,13 @@ var testAlgo;
       else if (algo.presetCollision === 1) { return "No"; }
     };
 
-    algo.setColor = function (_index, _preset) {
-      var i = colorPalette.names.indexOf(_preset);
-      if (i === -1) {
-        i = (colorPalette.collection.length - 1);
+    algo.getRawColor = function (rawColors, idx) {
+      if (Array.isArray(rawColors) && rawColors.length > idx && ! isNaN(rawColors[idx])) {
+        return rawColors[idx];
+      } else {
+        return 0;
       }
-      algo.colorIndex[_index] = i;
-      return algo.colorIndex[_index];
-    };
-    algo.getColor = function (_index) {
-      var i = algo.colorIndex[_index];
-      if (i < 0) { i = 0; }
-      if (i >= colorPalette.collection.length) {
-        i = (colorPalette.collection.length - 1);
-      }
-      return colorPalette.collection[i][0];
-    };
-
-    algo.setColor1 = function (_preset) {
-      algo.color1Index = algo.setColor(0, _preset);
-      algo.initialized = false;
-    };
-    algo.getColor1 = function () {
-      return algo.getColor(0);
-    };
-
-    algo.setColor2 = function (_preset) {
-      algo.color2Index = algo.setColor(1, _preset);
-      algo.initialized = false;
-    };
-    algo.getColor2 = function () {
-      return algo.getColor(1);
-    };
-
-    algo.setColor3 = function (_preset) {
-      algo.color3Index = algo.setColor(2, _preset);
-      algo.initialized = false;
-    };
-    algo.getColor3 = function () {
-      return algo.getColor(2);
-    };
-
-    algo.setColor4 = function (_preset) {
-      algo.color4Index = algo.setColor(3, _preset);
-      algo.initialized = false;
-    };
-    algo.getColor4 = function () {
-      return algo.getColor(3);
-    };
-
-    algo.setColor5 = function (_preset) {
-      algo.color5Index = algo.setColor(4, _preset);
-      algo.initialized = false;
-    };
-    algo.getColor5 = function () {
-      return algo.getColor(4);
-    };
+    }
 
     util.initialize = function (width, height) {
       algo.ball = new Array(algo.presetNumber);
@@ -207,17 +87,20 @@ var testAlgo;
         var yDirection = (Math.random() * 2) - 1; // and random directions
         var xDirection = (Math.random() * 2) - 1;
         algo.direction[i] = [yDirection, xDirection];
-        algo.colour[i] = colorPalette.collection[algo.colorIndex[i]][1];
       }
       algo.initialized = true;
       return;
     };
 
-    algo.rgbMap = function (width, height, rgb, progstep) {
+    algo.rgbMap = function (width, height, rgb, progstep, rawColors) {
       if (algo.initialized === false) {
         util.initialize(width, height);
       }
-      var map = new Array(height);	// Clear map data
+      for (var i = 0; i < algo.presetNumber; i++) {
+        algo.colour[i] = algo.getRawColor(rawColors, i % algo.acceptColors);
+      }
+
+      var map = new Array(height); // Clear map data
       for (var y = 0; y < height; y++) {
         map[y] = new Array();
 
@@ -242,7 +125,7 @@ var testAlgo;
           for (var rx = mx - boxSize; rx < mx + boxSize + 2; rx++) {  // to display ball
 
             if (rx < width && rx > -1 && ry < height && ry > -1) {  // if edges are off the map dont draw
-              var pointRGB = map[ry][rx];	    // get curent colour on the map
+              var pointRGB = map[ry][rx];    // get curent colour on the map
               var pointr = (pointRGB >> 16) & 0x00FF;// so that colours mix and don't over
               var pointg = (pointRGB >> 8) & 0x00FF; // write.
               var pointb = pointRGB & 0x00FF;  // splt rgb in to components
