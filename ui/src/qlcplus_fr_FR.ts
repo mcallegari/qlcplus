@@ -896,7 +896,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="app.cpp" line="1396"/>
         <source>Some errors occurred while loading the project:</source>
-        <translation>Certaines erreurs se sont produites lors du chargement du projet&#xa0;:</translation>
+        <translation>Plusieurs erreurs se sont produites lors du chargement du projet&#xa0;:</translation>
     </message>
 </context>
 <context>
@@ -1203,7 +1203,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="channelmodifiereditor.ui" line="81"/>
         <source>Remove the selected handler</source>
-        <translation>Supprimer le point sélectionné</translation>
+        <translation>Supprimer le marqueur sélectionné</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="98"/>
@@ -1213,7 +1213,7 @@ Le fichier sélectionné a été déplacé ou supprimé.</translation>
     <message>
         <location filename="channelmodifiereditor.ui" line="115"/>
         <source>Add a new handler</source>
-        <translation>Ajouter un nouveau gestionnaire</translation>
+        <translation>Ajouter un nouveau marqueur</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="149"/>
