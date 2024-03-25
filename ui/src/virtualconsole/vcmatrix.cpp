@@ -1402,8 +1402,8 @@ void VCMatrix::updateFeedback()
             {
                 QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
                 sendFeedback(button->isDown() ?
-                                 control->m_inputSource->upperValue() :
-                                 control->m_inputSource->lowerValue(),
+                                 control->m_inputSource->feedbackValue(QLCInputFeedback::UpperValue) :
+                                 control->m_inputSource->feedbackValue(QLCInputFeedback::LowerValue),
                                  control->m_inputSource);
             }
         }

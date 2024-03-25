@@ -343,9 +343,9 @@ Rectangle
                 aspectRatio: viewSize.width / viewSize.height
                 nearPlane: 1.0
                 farPlane: 1000.0
-                position: Qt.vector3d(0.0, 3.0, 7.5)
-                upVector: Qt.vector3d(0.0, 1.0, 0.0)
-                viewCenter: Qt.vector3d(0.0, 1.0, 0.0)
+                position: View3D.cameraPosition
+                upVector: View3D.cameraUpVector
+                viewCenter: View3D.cameraViewCenter
 
                 function setZoom(amount)
                 {
@@ -455,6 +455,10 @@ Rectangle
                             viewCamera.panAboutViewCenter(-xDelta, Qt.vector3d(0, 1, 0))
                         if (!mouse.modifiers || (mouse.modifiers & Qt.ShiftModifier && direction == Qt.Vertical))
                             viewCamera.tiltAboutViewCenter(yDelta, Qt.vector3d(1, 0, 0))
+
+                        View3D.cameraPosition = viewCamera.position
+                        View3D.cameraUpVector = viewCamera.upVector
+                        View3D.cameraViewCenter = viewCamera.viewCenter
                     }
                     else if (mouse.buttons === Qt.MiddleButton) // camera translation
                     {
@@ -462,6 +466,10 @@ Rectangle
                             viewCamera.translate(Qt.vector3d(-xDelta / 100, 0, 0))
                         if (!mouse.modifiers || (mouse.modifiers & Qt.ShiftModifier && direction == Qt.Vertical))
                             viewCamera.translate(Qt.vector3d(0, yDelta / 100, 0))
+
+                        View3D.cameraPosition = viewCamera.position
+                        View3D.cameraUpVector = viewCamera.upVector
+                        View3D.cameraViewCenter = viewCamera.viewCenter
                     }
                     startPoint = Qt.point(mouse.x, mouse.y)
                 }

@@ -39,7 +39,6 @@
 #include "mastertimer.h"
 #include "addresstool.h"
 #include "simpledesk.h"
-#include "docbrowser.h"
 #include "aboutbox.h"
 #include "monitor.h"
 #include "vcframe.h"
@@ -1198,7 +1197,7 @@ void App::slotControlFullScreen(bool usingGeometry)
 
 void App::slotHelpIndex()
 {
-    DocBrowser::createAndShow(this);
+    QDesktopServices::openUrl(QUrl("https://docs.qlcplus.org/"));
 }
 
 void App::slotHelpAbout()

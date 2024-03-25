@@ -24,6 +24,7 @@
 #include <QString>
 #include <QTimer>
 #include <QDebug>
+#include <QSettings>
 
 #include "configurehid.h"
 #include "hiddevice.h"
@@ -31,6 +32,8 @@
 
 #define KColumnNumber  0
 #define KColumnName    1
+
+#define SETTINGS_GEOMETRY "configurehid/geometry"
 
 /*****************************************************************************
  * Initialization
@@ -44,6 +47,11 @@ ConfigureHID::ConfigureHID(QWidget* parent, HIDPlugin* plugin)
 
     /* Setup UI controls */
     setupUi(this);
+
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 
     connect(m_refreshButton, SIGNAL(clicked()),
             this, SLOT(slotRefreshClicked()));
@@ -59,6 +67,8 @@ ConfigureHID::ConfigureHID(QWidget* parent, HIDPlugin* plugin)
 
 ConfigureHID::~ConfigureHID()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 /*****************************************************************************

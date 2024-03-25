@@ -139,6 +139,7 @@ QString GPIOPlugin::outputInfo(quint32 output)
 void GPIOPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (output != 0)
         return;

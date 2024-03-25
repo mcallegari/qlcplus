@@ -188,18 +188,25 @@ private:
      * Running
      *************************************************************************/
 private:
-    void start();
+    void start(QSharedPointer<GenericFader> fader);
     void stop();
 
     /** Calculate the next step data for this fixture */
     void nextStep(QList<Universe *> universes, QSharedPointer<GenericFader> fader);
 
-    void updateFaderValues(FadeChannel *fc, uchar value);
+    /** Set a 16bit value on a fader gotten from the engine */
+    void updateFaderValues(FadeChannel *fc, quint32 value);
 
     /** Write this EFXFixture's channel data to universe faders */
     void setPointPanTilt(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float pan, float tilt);
     void setPointDimmer(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float dimmer);
     void setPointRGB (QList<Universe *> universes, QSharedPointer<GenericFader> fader, float x, float y);
+
+private:
+    quint32 m_firstMsbChannel;
+    quint32 m_firstLsbChannel;
+    quint32 m_secondMsbChannel;
+    quint32 m_secondLsbChannel;
 
 private:
     static QImage m_rgbGradient;

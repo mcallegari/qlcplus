@@ -20,6 +20,8 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.1
+
+import "GenericHelpers.js" as Helpers
 import "."
 
 Rectangle
@@ -89,6 +91,7 @@ Rectangle
 
             width: parent.width
             height: UISettings.bigItemHeight * 2
+            clip: true
             boundsBehavior: Flickable.StopAtBounds
 
             delegate:
@@ -99,11 +102,11 @@ Rectangle
 
                     Component.onCompleted:
                     {
-                        if (modelData.type === "MIDI")
+                        if (modelData.type === "PLUGIN")
                         {
                             iconBox.color = "white"
                             iconBox.visible = true
-                            genIcon.source = "qrc:/midiplugin.svg"
+                            genIcon.source = Helpers.pluginIconFromName(modelData.privateName)
                         }
                         else if (modelData.type === "AUDIO")
                         {

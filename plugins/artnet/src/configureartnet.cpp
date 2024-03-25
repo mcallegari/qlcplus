@@ -46,6 +46,7 @@
 
 // ArtNet universe is a 15bit value
 #define ARTNET_UNIVERSE_MAX 0x7fff
+#define SETTINGS_GEOMETRY "configureartnet/geometry"
 
 /*****************************************************************************
  * Initialization
@@ -67,6 +68,9 @@ ConfigureArtNet::ConfigureArtNet(ArtNetPlugin* plugin, QWidget* parent)
     QVariant value = settings.value(SETTINGS_IFACE_WAIT_TIME);
     if (value.isValid() == true)
         m_waitReadySpin->setValue(value.toInt());
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 }
 
 
@@ -200,6 +204,8 @@ void ConfigureArtNet::showIPAlert(QString ip)
 
 ConfigureArtNet::~ConfigureArtNet()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 /*****************************************************************************

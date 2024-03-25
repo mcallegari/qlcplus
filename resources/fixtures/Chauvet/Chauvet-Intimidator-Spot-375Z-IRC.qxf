@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.6</Version>
+  <Version>4.12.8 GIT</Version>
   <Author>Andrew Pavlin</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -40,13 +40,13 @@
   <Capability Min="40" Max="47" Preset="GoboMacro" Res1="Others/gobo00044.svg">Gobo 5</Capability>
   <Capability Min="48" Max="55" Preset="GoboMacro" Res1="Chauvet/gobo00057.svg">Gobo 6</Capability>
   <Capability Min="56" Max="63" Preset="GoboMacro" Res1="Others/gobo00039.svg">Gobo 7</Capability>
-  <Capability Min="64" Max="71" Preset="GoboMacro" Res1="Others/gobo00039.svg">Gobo 7 shake, slow to fast</Capability>
-  <Capability Min="72" Max="79" Preset="GoboMacro" Res1="Chauvet/gobo00057.svg">Gobo 6 shake, slow to fast</Capability>
-  <Capability Min="80" Max="87" Preset="GoboMacro" Res1="Others/gobo00044.svg">Gobo 5 shake, slow to fast</Capability>
-  <Capability Min="88" Max="95" Preset="GoboMacro" Res1="Others/gobo00108.svg">Gobo 4 shake, slow to fast</Capability>
-  <Capability Min="96" Max="103" Preset="GoboMacro" Res1="Chauvet/gobo00037.svg">Gobo 3 shake, slow to fast</Capability>
-  <Capability Min="104" Max="111" Preset="GoboMacro" Res1="Chauvet/gobo00045.svg">Gobo 2 shake, slow to fast</Capability>
-  <Capability Min="112" Max="119" Preset="GoboMacro" Res1="Others/gobo00013.svg">Gobo 1 shake, slow to fast</Capability>
+  <Capability Min="64" Max="71" Preset="GoboShakeMacro" Res1="Others/gobo00039.svg">Gobo 7 shake, slow to fast</Capability>
+  <Capability Min="72" Max="79" Preset="GoboShakeMacro" Res1="Chauvet/gobo00057.svg">Gobo 6 shake, slow to fast</Capability>
+  <Capability Min="80" Max="87" Preset="GoboShakeMacro" Res1="Others/gobo00044.svg">Gobo 5 shake, slow to fast</Capability>
+  <Capability Min="88" Max="95" Preset="GoboShakeMacro" Res1="Others/gobo00108.svg">Gobo 4 shake, slow to fast</Capability>
+  <Capability Min="96" Max="103" Preset="GoboShakeMacro" Res1="Chauvet/gobo00037.svg">Gobo 3 shake, slow to fast</Capability>
+  <Capability Min="104" Max="111" Preset="GoboShakeMacro" Res1="Chauvet/gobo00045.svg">Gobo 2 shake, slow to fast</Capability>
+  <Capability Min="112" Max="119" Preset="GoboShakeMacro" Res1="Others/gobo00013.svg">Gobo 1 shake, slow to fast</Capability>
   <Capability Min="120" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Cycle gobos, slow to fast</Capability>
   <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>

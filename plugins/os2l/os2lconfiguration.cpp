@@ -17,8 +17,12 @@
   limitations under the License.
 */
 
+#include <QSettings>
+
 #include "os2lconfiguration.h"
 #include "os2lplugin.h"
+
+#define SETTINGS_GEOMETRY "os2lconfiguration/geometry"
 
 /*****************************************************************************
  * Initialization
@@ -37,11 +41,17 @@ OS2LConfiguration::OS2LConfiguration(OS2LPlugin* plugin, QWidget* parent)
         m_hostGroup->hide();
     else
         m_activateLabel->hide();
+
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 }
 
 OS2LConfiguration::~OS2LConfiguration()
 {
-    /** Cleanup the allocated resources, if any */
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 /*****************************************************************************

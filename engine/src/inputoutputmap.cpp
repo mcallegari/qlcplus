@@ -41,12 +41,11 @@
 #include "qlcfile.h"
 #include "doc.h"
 
-#include "../../plugins/midi/src/common/midiprotocol.h"
-
 InputOutputMap::InputOutputMap(Doc *doc, quint32 universes)
   : QObject(doc)
   , m_blackout(false)
   , m_universeChanged(false)
+  , m_currentBPM(0)
   , m_beatTime(new QElapsedTimer())
 {
     m_grandMaster = new GrandMaster(this);
@@ -102,6 +101,9 @@ bool InputOutputMap::setBlackout(bool blackout)
             if (op != NULL)
                 op->setBlackout(blackout);
         }
+
+        const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
+        universe->dumpOutput(postGM, true);
     }
 
     emit blackoutChanged(m_blackout);
@@ -408,10 +410,10 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
         currProfile = currInPatch->profile();
         disconnect(currInPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
                 this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
-        if (currInPatch->pluginName() == "MIDI")
+        if (currInPatch->plugin()->capabilities() & QLCIOPlugin::Beats)
         {
             disconnect(currInPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                       this, SLOT(slotMIDIBeat(quint32,quint32,uchar)));
+                       this, SLOT(slotPluginBeat(quint32,quint32,uchar,const QString&)));
         }
     }
     InputPatch *ip = NULL;
@@ -441,10 +443,10 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
         {
             connect(ip, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
                     this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
-            if (ip->pluginName() == "MIDI")
+            if (ip->plugin()->capabilities() & QLCIOPlugin::Beats)
             {
                 connect(ip, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                        this, SLOT(slotMIDIBeat(quint32,quint32,uchar)));
+                        this, SLOT(slotPluginBeat(quint32,quint32,uchar,const QString&)));
             }
         }
     }
@@ -749,7 +751,7 @@ QString InputOutputMap::outputPluginStatus(const QString& pluginName, quint32 ou
     }
 }
 
-bool InputOutputMap::sendFeedBack(quint32 universe, quint32 channel, uchar value, const QString& key)
+bool InputOutputMap::sendFeedBack(quint32 universe, quint32 channel, uchar value, const QVariant &params)
 {
     if (universe >= universesCount())
         return false;
@@ -758,7 +760,7 @@ bool InputOutputMap::sendFeedBack(quint32 universe, quint32 channel, uchar value
 
     if (patch != NULL && patch->isPatched())
     {
-        patch->plugin()->sendFeedBack(universe, patch->output(), channel, value, key);
+        patch->plugin()->sendFeedBack(universe, patch->output(), channel, value, params);
         return true;
     }
     else
@@ -997,7 +999,7 @@ void InputOutputMap::setBeatGeneratorType(InputOutputMap::BeatGeneratorType type
             doc()->masterTimer()->setBeatSourceType(MasterTimer::Internal);
             setBpmNumber(doc()->masterTimer()->bpmNumber());
         break;
-        case MIDI:
+        case Plugin:
             doc()->masterTimer()->setBeatSourceType(MasterTimer::External);
             // reset the current BPM number and detect it from the MIDI beats
             setBpmNumber(0);
@@ -1022,6 +1024,29 @@ void InputOutputMap::setBeatGeneratorType(InputOutputMap::BeatGeneratorType type
 InputOutputMap::BeatGeneratorType InputOutputMap::beatGeneratorType() const
 {
     return m_beatGeneratorType;
+}
+
+QString InputOutputMap::beatTypeToString(BeatGeneratorType type) const
+{
+    switch (type)
+    {
+        case Internal:  return "Internal";
+        case Plugin:    return "Plugin";
+        case Audio:     return "Audio";
+        default:        return "Disabled";
+    }
+}
+
+InputOutputMap::BeatGeneratorType InputOutputMap::stringToBeatType(QString str)
+{
+    if (str == "Internal")
+        return Internal;
+    else if (str == "Plugin")
+        return Plugin;
+    else if (str == "Audio")
+        return Audio;
+
+    return Disabled;
 }
 
 void InputOutputMap::setBpmNumber(int bpm)
@@ -1054,35 +1079,32 @@ void InputOutputMap::slotMasterTimerBeat()
     emit beat();
 }
 
-void InputOutputMap::slotMIDIBeat(quint32 universe, quint32 channel, uchar value)
+void InputOutputMap::slotPluginBeat(quint32 universe, quint32 channel, uchar value, const QString &key)
 {
     Q_UNUSED(universe)
 
-    // not interested in synthetic release event or non-MBC ones
-    if (m_beatGeneratorType != MIDI || value == 0 || channel < CHANNEL_OFFSET_MBC_PLAYBACK)
+    // not interested in synthetic release or non-beat event
+    if (m_beatGeneratorType != Plugin || value == 0 || key != "beat")
         return;
 
-    qDebug() << "MIDI MBC:" << channel << m_beatTime->elapsed();
+    qDebug() << "Plugin beat:" << channel << m_beatTime->elapsed();
 
     // process the timer as first thing, to avoid wasting time
     // with the operations below
     int elapsed = m_beatTime->elapsed();
     m_beatTime->restart();
 
-    if (channel == CHANNEL_OFFSET_MBC_BEAT)
-    {
-        int bpm = qRound(60000.0 / (float)elapsed);
-        float currBpmTime = 60000.0 / (float)m_currentBPM;
-        // here we check if the difference between the current BPM duration
-        // and the current time elapsed is within a range of +/-1ms.
-        // If it isn't, then the BPM number has really changed, otherwise
-        // it's just a tiny time drift
-        if (qAbs((float)elapsed - currBpmTime) > 1)
-            setBpmNumber(bpm);
+    int bpm = qRound(60000.0 / (float)elapsed);
+    float currBpmTime = 60000.0 / (float)m_currentBPM;
+    // here we check if the difference between the current BPM duration
+    // and the current time elapsed is within a range of +/-1ms.
+    // If it isn't, then the BPM number has really changed, otherwise
+    // it's just a tiny time drift
+    if (qAbs((float)elapsed - currBpmTime) > 1)
+        setBpmNumber(bpm);
 
-        doc()->masterTimer()->requestBeat();
-        emit beat();
-    }
+    doc()->masterTimer()->requestBeat();
+    emit beat();
 }
 
 void InputOutputMap::slotAudioSpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power)
@@ -1270,6 +1292,18 @@ bool InputOutputMap::loadXML(QXmlStreamReader &root)
                 uni->loadXML(root, m_universeArray.count() - 1, this);
             }
         }
+        else if (root.name() == KXMLIOBeatGenerator)
+        {
+            QXmlStreamAttributes attrs = root.attributes();
+
+            if (attrs.hasAttribute(KXMLIOBeatType))
+                setBeatGeneratorType(stringToBeatType(attrs.value(KXMLIOBeatType).toString()));
+
+            if (attrs.hasAttribute(KXMLIOBeatsPerMinute))
+                setBpmNumber(attrs.value(KXMLIOBeatsPerMinute).toInt());
+
+            root.skipCurrentElement();
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown IO Map tag:" << root.name();
@@ -1287,6 +1321,11 @@ bool InputOutputMap::saveXML(QXmlStreamWriter *doc) const
     /* IO Map Instance entry */
     doc->writeStartElement(KXMLIOMap);
 
+    doc->writeStartElement(KXMLIOBeatGenerator);
+    doc->writeAttribute(KXMLIOBeatType, beatTypeToString(m_beatGeneratorType));
+    doc->writeAttribute(KXMLIOBeatsPerMinute, QString::number(m_currentBPM));
+    doc->writeEndElement();
+
     foreach (Universe *uni, m_universeArray)
         uni->saveXML(doc);
 
@@ -1294,5 +1333,3 @@ bool InputOutputMap::saveXML(QXmlStreamWriter *doc) const
 
     return true;
 }
-
-

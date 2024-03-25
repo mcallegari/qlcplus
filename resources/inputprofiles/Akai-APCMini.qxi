@@ -3,7 +3,7 @@
 <InputProfile xmlns="http://www.qlcplus.org/InputProfile">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.0</Version>
+  <Version>4.13.0</Version>
   <Author>Maikel Boerebach</Author>
  </Creator>
  <Manufacturer>Akai</Manufacturer>
@@ -370,4 +370,14 @@
   <Name>Shift Button</Name>
   <Type>Button</Type>
  </Channel>
+ <ColorTable>
+  <Color Value="0" Label="Off" RGB="#000000"/>
+  <Color Value="2" Label="Green" RGB="#00ff00"/>
+  <Color Value="4" Label="Green Blinking" RGB="#00ff00"/>
+  <Color Value="6" Label="Red" RGB="#ff0000"/>
+  <Color Value="8" Label="Red Blinking" RGB="#ff0000"/>
+  <Color Value="10" Label="Yellow" RGB="#ffff00"/>
+  <Color Value="12" Label="Yellow Blinking" RGB="#ffff00"/>
+  <Color Value="255" Label="Green" RGB="#00ff00"/>
+ </ColorTable>
 </InputProfile>

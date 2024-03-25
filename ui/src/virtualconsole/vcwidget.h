@@ -59,12 +59,16 @@ class QFile;
 #define KVCFrameStyleRaised (QFrame::Panel | QFrame::Raised)
 #define KVCFrameStyleNone   (QFrame::NoFrame)
 
-#define KXMLQLCVCWidgetKey              QString("Key")
-#define KXMLQLCVCWidgetInput            QString("Input")
-#define KXMLQLCVCWidgetInputUniverse    QString("Universe")
-#define KXMLQLCVCWidgetInputChannel     QString("Channel")
-#define KXMLQLCVCWidgetInputLowerValue  QString("LowerValue")
-#define KXMLQLCVCWidgetInputUpperValue  QString("UpperValue")
+#define KXMLQLCVCWidgetKey                  QString("Key")
+#define KXMLQLCVCWidgetInput                QString("Input")
+#define KXMLQLCVCWidgetInputUniverse        QString("Universe")
+#define KXMLQLCVCWidgetInputChannel         QString("Channel")
+#define KXMLQLCVCWidgetInputLowerValue      QString("LowerValue")
+#define KXMLQLCVCWidgetInputUpperValue      QString("UpperValue")
+#define KXMLQLCVCWidgetInputMonitorValue    QString("MonitorValue")
+#define KXMLQLCVCWidgetInputLowerParams     QString("LowerParams")
+#define KXMLQLCVCWidgetInputUpperParams     QString("UpperParams")
+#define KXMLQLCVCWidgetInputMonitorParams   QString("MonitorParams")
 
 #define KXMLQLCWindowState          QString("WindowState")
 #define KXMLQLCWindowStateVisible   QString("Visible")
@@ -166,6 +170,9 @@ public:
     virtual void enableWidgetUI(bool enable);
 
     bool isDisabled();
+
+signals:
+    void disableStateChanged(bool disable);
 
 protected:
     bool m_disableState;
@@ -443,7 +450,7 @@ public:
      * @param value value from 0 to 255 to be sent
      * @param src the QLCInputSource reference to send the feedback to
      */
-    void sendFeedback(int value, QSharedPointer<QLCInputSource> src);
+    void sendFeedback(int value, QSharedPointer<QLCInputSource> src, QVariant extraParams = QVariant());
 
     /**
      * Send the feedback data again, e.g. after page flip

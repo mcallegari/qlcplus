@@ -42,7 +42,10 @@ class Doc;
  * @{
  */
 
-#define KXMLIOMap QString("InputOutputMap")
+#define KXMLIOMap               QString("InputOutputMap")
+#define KXMLIOBeatGenerator     QString("BeatGenerator")
+#define KXMLIOBeatType          QString("BeatType")
+#define KXMLIOBeatsPerMinute    QString("BPM")
 
 class InputOutputMap : public QObject
 {
@@ -499,7 +502,7 @@ public:
      * Send feedback value to the input profile e.g. to move a motorized
      * sliders & knobs, set indicator leds etc.
      */
-    bool sendFeedBack(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
+    bool sendFeedBack(quint32 universe, quint32 channel, uchar value, const QVariant &params);
 
 private:
     /** In case of duplicate strings, append a number to make them unique */
@@ -580,19 +583,22 @@ public:
     {
         Disabled,   //! No one is generating beats
         Internal,   //! MasterTimer is the beat generator
-        MIDI,       //! A MIDI plugin is the beat generator
+        Plugin,     //! A plugin is the beat generator
         Audio       //! An audio input device is the beat generator
     };
 
     void setBeatGeneratorType(BeatGeneratorType type);
     BeatGeneratorType beatGeneratorType() const;
 
+    QString beatTypeToString(BeatGeneratorType type) const;
+    BeatGeneratorType stringToBeatType(QString str);
+
     void setBpmNumber(int bpm);
     int bpmNumber() const;
 
 protected slots:
     void slotMasterTimerBeat();
-    void slotMIDIBeat(quint32 universe, quint32 channel, uchar value);
+    void slotPluginBeat(quint32 universe, quint32 channel, uchar value, const QString &key);
     void slotAudioSpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power);
 
 signals:

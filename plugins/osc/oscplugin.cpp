@@ -293,14 +293,14 @@ QString OSCPlugin::inputInfo(quint32 input)
 }
 
 void OSCPlugin::sendFeedBack(quint32 universe, quint32 input,
-                             quint32 channel, uchar value, const QString &key)
+                             quint32 channel, uchar value, const QVariant &params)
 {
     if (input >= (quint32)m_IOmapping.count())
         return;
 
     OSCController *controller = m_IOmapping[input].controller;
     if (controller != NULL)
-        controller->sendFeedback(universe, channel, value, key);
+        controller->sendFeedback(universe, channel, value, params.toString());
 }
 
 /*********************************************************************

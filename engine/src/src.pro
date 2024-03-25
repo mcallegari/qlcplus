@@ -51,6 +51,7 @@ HEADERS += avolitesd4parser.h \
            qlcfixturemode.h \
            qlci18n.h \
            qlcinputchannel.h \
+           qlcinputfeedback.h \
            qlcinputprofile.h \
            qlcinputsource.h \
            qlcmodifierscache.h \
@@ -131,6 +132,7 @@ SOURCES += avolitesd4parser.cpp \
            qlcfixturemode.cpp \
            qlci18n.cpp \
            qlcinputchannel.cpp \
+           qlcinputfeedback.cpp \
            qlcinputprofile.cpp \
            qlcinputsource.cpp \
            qlcmodifierscache.cpp \

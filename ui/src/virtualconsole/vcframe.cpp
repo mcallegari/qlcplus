@@ -123,6 +123,8 @@ void VCFrame::setDisableState(bool disable)
     }
 
     m_disableState = disable;
+
+    emit disableStateChanged(disable);
     updateFeedback();
 }
 
@@ -748,14 +750,14 @@ void VCFrame::updateFeedback()
     {
         if (m_disableState == false)
         {
-            sendFeedback(src->upperValue(), enableInputSourceId);
+            sendFeedback(src->feedbackValue(QLCInputFeedback::UpperValue), enableInputSourceId);
         }
         else
         {
             // temporarily revert the disabled state otherwise this
             // feedback will never go through (cause of acceptsInput)
             m_disableState = false;
-            sendFeedback(src->lowerValue(), enableInputSourceId);
+            sendFeedback(src->feedbackValue(QLCInputFeedback::LowerValue), enableInputSourceId);
             m_disableState = true;
         }
     }
@@ -766,9 +768,9 @@ void VCFrame::updateFeedback()
         if (!src.isNull() && src->isValid() == true)
         {
             if (m_currentPage == shortcut->m_page)
-                sendFeedback(src->upperValue(), src);
+                sendFeedback(src->feedbackValue(QLCInputFeedback::UpperValue), src);
             else
-                sendFeedback(src->lowerValue(), src);
+                sendFeedback(src->feedbackValue(QLCInputFeedback::LowerValue), src);
         }
     }
 

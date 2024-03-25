@@ -40,7 +40,7 @@ CONFIG(ftd2xx) {
 
     win32 {
         # Windows target
-        FTD2XXDIR    = C:/Qt/D2XXSDK
+        FTD2XXDIR    = C:/projects/D2XXSDK
         LIBS        += -L$$FTD2XXDIR/i386 -lftd2xx
         LIBS     += $$FTD2XXDIR/i386/libftd2xx.a
         INCLUDEPATH += $$FTD2XXDIR

@@ -266,8 +266,8 @@ jobs:
       QMAKESPEC: win32-g++
       QT_MODULES:
         qtscript
-      CC: /mingw32/bin/i686-w64-mingw32-gcc.exe
-      CXX: /mingw32/bin/i686-w64-mingw32-g++.exe
+      CC: /mingw64/bin/x86_64-w64-mingw32-gcc.exe
+      CXX: /mingw64/bin/x86_64-w64-mingw32-g++.exe
 
     steps:
       - name: Checkout
@@ -321,41 +321,52 @@ jobs:
       - name: Update and install MSYS2
         uses: msys2/setup-msys2@v2
         with:
-          msystem: mingw32
+          msystem: mingw64
           release: true
           update: false
           path-type: inherit
           install: >-
             wget
             unzip
-            mingw-w64-i686-gcc
-            mingw-w64-i686-gcc-libs
-            mingw-w64-i686-cmake
-            mingw-w64-i686-libmad
-            mingw-w64-i686-libsndfile
-            mingw-w64-i686-flac
-            mingw-w64-i686-fftw
-            mingw-w64-i686-libusb
-            mingw-w64-i686-python-lxml
-            mingw-w64-i686-qt5
-            mingw-w64-i686-nsis
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-gcc-libs
+            mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-libmad
+            mingw-w64-x86_64-libsndfile
+            mingw-w64-x86_64-flac
+            mingw-w64-x86_64-fftw
+            mingw-w64-x86_64-libusb
+            mingw-w64-x86_64-python-lxml
+            mingw-w64-x86_64-qt5-base
+            mingw-w64-x86_64-qt5-multimedia
+            mingw-w64-x86_64-qt5-serialport
+            mingw-w64-x86_64-qt5-script
+            mingw-w64-x86_64-qt5-tools
+            mingw-w64-x86_64-qt5-imageformats
+            mingw-w64-x86_64-qt5-svg
+            mingw-w64-x86_64-qt5-declarative
+            mingw-w64-x86_64-qt5-quickcontrols
+            mingw-w64-x86_64-qt5-quickcontrols2
+            mingw-w64-x86_64-qt5-3d
+            mingw-w64-x86_64-qt5-quick3d
+            mingw-w64-x86_64-nsis
 
       - name: D2XX SDK
         shell: msys2 {0}
         run: |
-          set MSYSTEM=MINGW32
-          mkdir -p /c/Qt/D2XXSDK
-          wget https://ftdichip.com/wp-content/uploads/2023/09/CDM-v2.12.36.4-WHQL-Certified.zip -O /c/Qt/D2XXSDK/cdm.zip
-          cd /c/Qt/D2XXSDK
+          set MSYSTEM=MINGW64
+          mkdir -p /c/projects/D2XXSDK
+          wget https://ftdichip.com/wp-content/uploads/2023/09/CDM-v2.12.36.4-WHQL-Certified.zip -O /c/projects/D2XXSDK/cdm.zip
+          cd /c/projects/D2XXSDK
           unzip cdm.zip
-          cd i386
-          gendef.exe - ftd2xx.dll > ftd2xx.def
-          dlltool -k --input-def ftd2xx.def --dllname ftd2xx.dll --output-lib libftd2xx.a
+          cd amd64
+          gendef.exe - ftd2xx64.dll > ftd2xx.def
+          dlltool -k --input-def ftd2xx.def --dllname ftd2xx64.dll --output-lib libftd2xx.a
 
       - name: Print program versions
         shell: msys2 {0}
         run: |
-          set MSYSTEM=MINGW32
+          set MSYSTEM=MINGW64
           echo "pwd:"
           pwd
           echo "CXX:"
@@ -370,19 +381,21 @@ jobs:
         #if: false
         shell: msys2 {0}
         run: |
-          set MSYSTEM=MINGW32
+          set MSYSTEM=MINGW64
+          # force a release build
+          sed -i -e 's/Debug/Release/g' CMakeLists.txt
           # disable Velleman plugin
           sed -i -e 's/    add_subdirectory(velleman)/#    add_subdirectory(velleman)/g' plugins/CMakeLists.txt
           # fix MSYS2 system path
           sed -i -e 's/$ENV{SystemDrive}\/msys64/D:\/a\/_temp\/msys64/g' platforms/windows/CMakeLists.txt
           # fix project path in NSIS script
-          sed -i -e 's/c\:\\Qt/d:\\a\\qlcplus/g' platforms/windows/${{env.NSIS_SCRIPT}}
+          sed -i -e 's/c\:\\projects/d:\\a\\qlcplus/g' platforms/windows/${{env.NSIS_SCRIPT}}
 
       - name: Configure v4 build for Windows
         shell: msys2 {0}
         if: ${{ matrix.task == 'compile-qt5' }}
         run: |
-          set MSYSTEM=MINGW32
+          set MSYSTEM=MINGW64
           mkdir build
           cd build
           cmake -G "Unix Makefiles" ..
@@ -391,7 +404,7 @@ jobs:
         shell: msys2 {0}
         if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
-          set MSYSTEM=MINGW32
+          set MSYSTEM=MINGW64
           mkdir build
           cd build
           cmake -G "Unix Makefiles" -Dqmlui=ON ..
@@ -399,14 +412,14 @@ jobs:
       - name: Build for Windows
         shell: msys2 {0}
         run: |
-          set MSYSTEM=MINGW32
+          set MSYSTEM=MINGW64
           cd build
           make -j${NPROC}
 
       - name: Install on Windows
         shell: msys2 {0}
         run: |
-          set MSYSTEM=MINGW32
+          set MSYSTEM=MINGW64
           #echo 'Silently installing QLC+...'
           cd build
           make install/fast
@@ -416,7 +429,7 @@ jobs:
       - name: Build installation package
         shell: msys2 {0}
         run: |
-          set MSYSTEM=MINGW32
+          set MSYSTEM=MINGW64
           cd /c/qlcplus
           echo 'Creating package...'
           makensis -X'SetCompressor /FINAL lzma' ${{env.NSIS_SCRIPT}}

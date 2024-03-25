@@ -99,202 +99,202 @@
  <Channel Number="128">
   <Name>Button 5-1</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="129">
   <Name>Button 5-2</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="130">
   <Name>Button 5-3</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="131">
   <Name>Button 5-4</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="132">
   <Name>Button 5-5</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="133">
   <Name>Button 5-6</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="134">
   <Name>Button 5-7</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="135">
   <Name>Button 5-8</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="136">
   <Name>Button 4-1</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="137">
   <Name>Button 4-2</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="138">
   <Name>Button 4-3</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="139">
   <Name>Button 4-4</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="140">
   <Name>Button 4-5</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="141">
   <Name>Button 4-6</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="142">
   <Name>Button 4-7</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="143">
   <Name>Button 4-8</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="144">
   <Name>Button 3-1</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="145">
   <Name>Button 3-2</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="146">
   <Name>Button 3-3</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="147">
   <Name>Button 3-4</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="148">
   <Name>Button 3-5</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="149">
   <Name>Button 3-6</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="150">
   <Name>Button 3-7</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="151">
   <Name>Button 3-8</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="152">
   <Name>Button 2-1</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="153">
   <Name>Button 2-2</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="154">
   <Name>Button 2-3</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="155">
   <Name>Button 2-4</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="156">
   <Name>Button 2-5</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="157">
   <Name>Button 2-6</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="158">
   <Name>Button 2-7</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="159">
   <Name>Button 2-8</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="160">
   <Name>Button 1-1</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="161">
   <Name>Button 1-2</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="162">
   <Name>Button 1-3</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="163">
   <Name>Button 1-4</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="164">
   <Name>Button 1-5</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="165">
   <Name>Button 1-6</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="166">
   <Name>Button 1-7</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="167">
   <Name>Button 1-8</Name>
   <Type>Button</Type>
-  <Feedbacks LowerValue="2" UpperValue="42"/>
+  <Feedback LowerValue="2" UpperValue="42"/>
  </Channel>
  <Channel Number="176">
   <Name>R 1</Name>
@@ -355,7 +355,7 @@
  <Channel Number="208">
   <Name>Master</Name>
   <Type>Button</Type>
-  <Feedbacks UpperValue="2"/>
+  <Feedback UpperValue="2"/>
  </Channel>
  <Channel Number="209">
   <Name>Stop all clips</Name>

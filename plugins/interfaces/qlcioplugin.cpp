@@ -86,13 +86,13 @@ QString QLCIOPlugin::inputInfo(quint32 input)
 }
 
 void QLCIOPlugin::sendFeedBack(quint32 universe, quint32 inputLine,
-                               quint32 channel, uchar value, const QString &key)
+                               quint32 channel, uchar value, const QVariant &params)
 {
     Q_UNUSED(universe)
     Q_UNUSED(inputLine)
     Q_UNUSED(channel)
     Q_UNUSED(value)
-    Q_UNUSED(key)
+    Q_UNUSED(params)
 }
 
 /*************************************************************************

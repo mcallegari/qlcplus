@@ -87,21 +87,19 @@ function handleDrag(mouse)
 function endDrag(mouse)
 {
     if (draggedItem == null)
-    {
         return;
-    }
 
     var currContext = previewLoader.item.contextName;
     var offset = 0;
-    console.log("Current context: " + currContext);
+    console.log("[FixtureDrag] Current context: " + currContext);
+
     if (currContext === "2D")
-    {
         offset = View2D.gridPosition.x;
-    }
+
     var x = draggedItem.x - leftSidePanel.width - offset;
     var y = draggedItem.y - previewLoader.y - viewToolbar.height;
 
-    console.log("Item x: " + x + ", y: " + y);
+    console.log("[FixtureDrag] Item x: " + x + ", y: " + y);
 
     if (x >= 0 && y >= 0)
     {

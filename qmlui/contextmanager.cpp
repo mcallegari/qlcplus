@@ -1381,6 +1381,8 @@ void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal
 
     qDebug() << "[ContextManager] New fixture created" << fxID;
 
+    if (m_uniGridView->isEnabled())
+        m_monProps->setFixturePosition(fxID, 0, 0, QVector3D(0, 0, 0));
     if (m_DMXView->isEnabled())
         m_DMXView->createFixtureItem(fxID);
     if (m_2DView->isEnabled())
@@ -1643,7 +1645,7 @@ void ContextManager::setDumpValue(quint32 fxID, quint32 channel, uchar value, bo
     currentVal.setValue(SceneValue(fxID, channel, currDmxValue));
     newVal.setValue(sValue);
 
-    if (currentVal != newVal || value != currDmxValue)
+    //if (currentVal != newVal || value != currDmxValue)
     {
         if (output)
         {

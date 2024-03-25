@@ -90,6 +90,8 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     QStringList listRoles;
     listRoles << "itemID" << "name" << "isSelected";
     m_genericItemsList->setRoleNames(listRoles);
+
+    resetCameraPosition();
 }
 
 MainView3D::~MainView3D()
@@ -194,6 +196,52 @@ void MainView3D::resetItems()
     m_maxFrameCount = 0;
     m_avgFrameCount = 1.0;
     setFrameCountEnabled(false);
+}
+
+void MainView3D::resetCameraPosition()
+{
+    setCameraPosition(QVector3D(0.0, 3.0, 7.5));
+    setCameraUpVector(QVector3D(0.0, 1.0, 0.0));
+    setCameraViewCenter(QVector3D(0.0, 1.0, 0.0));
+}
+
+QVector3D MainView3D::cameraPosition() const
+{
+    return m_cameraPosition;
+}
+
+void MainView3D::setCameraPosition(const QVector3D &newCameraPosition)
+{
+    if (m_cameraPosition == newCameraPosition)
+        return;
+    m_cameraPosition = newCameraPosition;
+    emit cameraPositionChanged();
+}
+
+QVector3D MainView3D::cameraUpVector() const
+{
+    return m_cameraUpVector;
+}
+
+void MainView3D::setCameraUpVector(const QVector3D &newCameraUpVector)
+{
+    if (m_cameraUpVector == newCameraUpVector)
+        return;
+    m_cameraUpVector = newCameraUpVector;
+    emit cameraUpVectorChanged();
+}
+
+QVector3D MainView3D::cameraViewCenter() const
+{
+    return m_cameraViewCenter;
+}
+
+void MainView3D::setCameraViewCenter(const QVector3D &newCameraViewCenter)
+{
+    if (m_cameraViewCenter == newCameraViewCenter)
+        return;
+    m_cameraViewCenter = newCameraViewCenter;
+    emit cameraViewCenterChanged();
 }
 
 QString MainView3D::meshDirectory() const

@@ -17,8 +17,12 @@
   limitations under the License.
 */
 
+#include <QSettings>
+
 #include "dummyconfiguration.h"
 #include "dummyplugin.h"
+
+#define SETTINGS_GEOMETRY "dummyconfiguration/geometry"
 
 /*****************************************************************************
  * Initialization
@@ -33,6 +37,11 @@ DummyConfiguration::DummyConfiguration(DummyPlugin* plugin, QWidget* parent)
     /* Setup UI controls */
     setupUi(this);
 
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
+
     /**
      * Do the dialog initializations here.
      *  E.g.: fill combo boxes, set spin boxes values, fill lists, etc...
@@ -41,7 +50,8 @@ DummyConfiguration::DummyConfiguration(DummyPlugin* plugin, QWidget* parent)
 
 DummyConfiguration::~DummyConfiguration()
 {
-    /** Cleanup the allocated resources, if any */
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 /*****************************************************************************

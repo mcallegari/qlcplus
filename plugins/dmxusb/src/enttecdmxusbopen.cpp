@@ -20,7 +20,6 @@
 
 #include <QSettings>
 #include <QDebug>
-#include <math.h>
 #include <QTime>
 
 #include "enttecdmxusbopen.h"

@@ -374,6 +374,24 @@ QString EditorView::checkFixture()
                     errors.append(tr("<li>Empty capability description provided in channel '%1'</li>").arg(channel->name()));
             }
         }
+
+        for (QLCFixtureMode *mode : m_fixtureDef->modes())
+        {
+            if (mode->name().isEmpty())
+                errors.append(tr("<li>Empty mode name provided</li>"));
+
+            if (mode->channels().count() == 0)
+                errors.append(tr("<li>Mode '%1' has no channels defined</li>").arg(mode->name()));
+
+            quint32 chIndex = 0;
+            for (QLCChannel *channel : mode->channels())
+            {
+
+                if (mode->channelActsOn(chIndex) == chIndex)
+                    errors.append(tr("<li>In mode '%1', channel '%2' cannot act on itself</li>").arg(mode->name(), channel->name()));
+                chIndex++;
+            }
+        }
     }
 
     if (m_fixtureDef->modes().count() == 0)

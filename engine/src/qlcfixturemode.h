@@ -206,31 +206,30 @@ public:
      */
     quint32 channelNumber(QLCChannel::Group group, QLCChannel::ControlByte cByte = QLCChannel::MSB) const;
 
+    /** Return the auto-detected channel index of the Fixture master dimmer for this mode */
     quint32 masterIntensityChannel() const;
 
-    /*!
-     * \brief The ChannelActsOnData struct
-     *
-     * Contains channel pointer and acts on channel index.
-     *
-     */
+    /** Return the index of the primary channel $chIndex relates to.
+     *  Return invalid if not present */
+    quint32 primaryChannel(quint32 chIndex);
 
-    struct ChannelActsOnData
-    {
-        QLCChannel *channel;
-        int actsOnIndex;
-
-        ChannelActsOnData(QLCChannel *newChannel, int newAcsOnIndex);
-    };
-
-    void updateActsOnChannel(QLCChannel *mainChannel, QLCChannel *actsOnChannel);
+    /** Return the channel index on which the given $chIndex acts on.
+     *  Return invalid if not present */
+    quint32 channelActsOn(quint32 chIndex);
+    void setChannelActsOn(quint32 chIndex, quint32 actsOnIndex);
 
 protected:
     /** List of channels (pointers are not owned) */
     QVector<QLCChannel*> m_channels;
 
-    /** List of acts on channels */
-    QHash<QLCChannel *, QLCChannel *> m_actsOnChannelsList;
+    /** Map of channel indices that act on other channels.
+     * These are stored as: <index, acts on index> */
+    QMap<quint32, quint32> m_actsOnMap;
+
+    /** Map of channel indices that relate to some other primary channel.
+     *  For example Pan Fine vs Pan, Red Fine vs Red, etc
+     *  These are stored as: <secondary index, primary index> */
+    QMap<quint32, quint32> m_secondaryMap;
 
     quint32 m_masterIntensityChannel;
 

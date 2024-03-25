@@ -31,6 +31,8 @@
 #include "inputpatch.h"
 #include "function.h"
 
+#define SETTINGS_GEOMETRY "vcpropertieseditor/geometry"
+
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
@@ -189,6 +191,10 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
         m_matrixHspin->setValue(120);
     }
 
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
+
     /* Grand Master page */
     switch (properties.grandMasterChannelMode())
     {
@@ -228,6 +234,8 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
 
 VCPropertiesEditor::~VCPropertiesEditor()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 VCProperties VCPropertiesEditor::properties() const
