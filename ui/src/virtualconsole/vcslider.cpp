@@ -572,6 +572,8 @@ QList <VCSlider::LevelChannel> VCSlider::levelChannels()
 void VCSlider::setLevelLowLimit(uchar value)
 {
     m_levelLowLimit = value;
+    if (m_cngWidget != NULL)
+        m_cngWidget->setLevelLowLimit(value);
 }
 
 uchar VCSlider::levelLowLimit() const
@@ -582,6 +584,8 @@ uchar VCSlider::levelLowLimit() const
 void VCSlider::setLevelHighLimit(uchar value)
 {
     m_levelHighLimit = value;
+    if (m_cngWidget != NULL)
+        m_cngWidget->setLevelHighLimit(value);
 }
 
 uchar VCSlider::levelHighLimit() const
@@ -762,6 +766,8 @@ void VCSlider::setupClickAndGoWidget()
             {
                 const QLCChannel *chan = fxi->channel(lChan.channel);
                 m_cngWidget->setType(m_cngType, chan);
+                m_cngWidget->setLevelLowLimit(this->levelLowLimit());
+                m_cngWidget->setLevelHighLimit(this->levelHighLimit());
             }
         }
         else
@@ -804,7 +810,7 @@ void VCSlider::setClickAndGoWidgetFromLevel(uchar level)
 
 void VCSlider::slotClickAndGoLevelChanged(uchar level)
 {
-    setSliderValue(level);
+    setSliderValue(level, false, false);
     updateFeedback();
 
     QColor col = m_cngWidget->getColorAt(level);
@@ -832,7 +838,7 @@ void VCSlider::slotClickAndGoColorChanged(QRgb color)
 
 void VCSlider::slotClickAndGoLevelAndPresetChanged(uchar level, QImage img)
 {
-    setSliderValue(level);
+    setSliderValue(level, false, false);
     updateFeedback();
 
     QPixmap px = QPixmap::fromImage(img);

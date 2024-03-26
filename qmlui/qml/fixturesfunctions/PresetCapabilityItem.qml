@@ -42,6 +42,9 @@ Rectangle
             return
 
         var resArray = capability.resources
+        var slMin = (sliderRoot && sliderRoot.sliderObj) ? sliderRoot.sliderObj.rangeLowLimit : 0
+        var slMax = (sliderRoot && sliderRoot.sliderObj) ? sliderRoot.sliderObj.rangeHighLimit : 255
+        visible = (capability.min <= slMax || capability.max <= slMin)
         capName.label = capability.name
 
         if (resArray.length === 0)
@@ -63,7 +66,7 @@ Rectangle
             if (Qt.platform.os === "android")
                 pic.source = resArray[0]
             else
-                pic.source = "file:/" + resArray[0]
+                pic.source = "file:" + resArray[0]
         }
     }
 
@@ -147,8 +150,12 @@ Rectangle
         onReleased: iRoot.color = "white"
         onClicked:
         {
-            var value = ((capability.max - capability.min) * capBar.width) / iRoot.width
-            //console.log("max: " + capability.max + " min: " + capability.min + " value: " + value)
+            var slMin = (sliderRoot && sliderRoot.sliderObj) ? sliderRoot.sliderObj.rangeLowLimit : 0
+            var slMax = (sliderRoot && sliderRoot.sliderObj) ? sliderRoot.sliderObj.rangeHighLimit : 255
+            var cMin = Math.max(capability.min, slMin)
+            var cMax = Math.min(capability.max, slMax)
+            var value = Math.round(((cMax - cMin) * capBar.width) / iRoot.width)
+            //console.log("max: " + capability.max + "|" + slMax + "|" + cMax + " min: " + capability.min + "|" + slMin + "|" + cMin + " value: " + value)
             valueChanged(value + capability.min)
         }
     }

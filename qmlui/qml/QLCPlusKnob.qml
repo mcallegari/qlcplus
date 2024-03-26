@@ -82,6 +82,38 @@ Dial
             context.stroke()
             context.closePath()
         }
+
+        MouseArea
+        {
+            anchors.fill: parent
+            z: 2
+            onWheel: {
+                //console.log("Wheel delta: " + wheel.angleDelta.y)
+                var from = sliderObj ? sliderObj.rangeLowLimit : 0
+                var to = sliderObj ? sliderObj.rangeHighLimit : 255
+                var sliderValue = sliderObj ? sliderObj.value : 128
+
+                if (wheel.angleDelta.y > 0) {
+                    if (sliderObj && sliderValue < to) {
+                        sliderObj.value += 1
+                    }
+                } else {
+                    if (sliderObj && sliderValue > from) {
+                        sliderObj.value -= 1
+                    }
+                }
+            }
+            onPressed: {
+                mouse.accepted = false
+            }
+            onPositionChanged: {
+                mouse.accepted = false
+                kCanvas.requestPaint()
+            }
+            onReleased: {
+                mouse.accepted = false
+            }
+        }
     }
 
     handle: Rectangle {
