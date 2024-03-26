@@ -1,6 +1,7 @@
 qlcplus (4.13.1) stable; urgency=low
 
   * engine: fix blackout not working
+  * engine: fix RGB Matrix clone control mode
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Jun 2024 12:13:14 +0200
 
