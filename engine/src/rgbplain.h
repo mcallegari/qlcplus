@@ -50,7 +50,7 @@ public:
     int rgbMapStepCount(const QSize& size);
 
     /** @reimp */
-    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);
+    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, uint (&rawColors)[RGBAlgorithmRawColorCount]);
 
     /** @reimp */
     QString name() const;
@@ -62,7 +62,7 @@ public:
     int apiVersion() const;
 
     /** @reimp */
-    void setColors(QColor start, QColor end);
+    void setColors(QColor colors[RGBAlgorithmRawColorCount]);
 
     /** @reimp */
     RGBAlgorithm::Type type() const;

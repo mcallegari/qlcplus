@@ -55,9 +55,10 @@ int RGBPlain::rgbMapStepCount(const QSize& size)
     return 1;
 }
 
-void RGBPlain::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
+void RGBPlain::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, uint (&rawColors)[RGBAlgorithmRawColorCount])
 {
-    Q_UNUSED(step)
+    Q_UNUSED(step);
+    Q_UNUSED(rawColors);
     map.resize(size.height());
     for (int y = 0; y < size.height(); y++)
     {
@@ -81,9 +82,9 @@ int RGBPlain::apiVersion() const
     return 1;
 }
 
-void RGBPlain::setColors(QColor start, QColor end)
+void RGBPlain::setColors(QColor colors[RGBAlgorithmRawColorCount])
 {
-    RGBAlgorithm::setColors(start, end);
+    RGBAlgorithm::setColors(colors);
 }
 
 RGBAlgorithm::Type RGBPlain::type() const
