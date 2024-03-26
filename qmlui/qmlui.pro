@@ -126,6 +126,7 @@ HEADERS += \
     virtualconsole/vcbutton.h \
     virtualconsole/vclabel.h \
     virtualconsole/vcslider.h \
+    virtualconsole/vcaudio.h \
     virtualconsole/vcclock.h \
     virtualconsole/vccuelist.h
 
@@ -138,6 +139,7 @@ SOURCES += \
     virtualconsole/vcbutton.cpp \
     virtualconsole/vclabel.cpp \
     virtualconsole/vcslider.cpp \
+    virtualconsole/vcaudio.cpp \
     virtualconsole/vcclock.cpp \
     virtualconsole/vccuelist.cpp
 

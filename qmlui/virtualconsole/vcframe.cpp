@@ -25,6 +25,7 @@
 #include "tardis.h"
 #include "vcframe.h"
 #include "vclabel.h"
+#include "vcaudio.h"
 #include "vcclock.h"
 #include "vcbutton.h"
 #include "vcslider.h"
@@ -287,6 +288,18 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
                 slider->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 15, m_vc->pixelDensity() * 40));
             setupWidget(slider, currentPage());
             slider->render(m_vc->view(), parent);
+        }
+        break;
+        case AudioTriggersWidget:
+        {
+            VCAudio *audio = new VCAudio(m_doc, this);
+            QQmlEngine::setObjectOwnership(audio, QQmlEngine::CppOwnership);
+            m_vc->addWidgetToMap(audio);
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, audio->id()));
+            audio->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
+            setupWidget(audio, currentPage());
+            audio->render(m_vc->view(), parent);
         }
         break;
         case ClockWidget:

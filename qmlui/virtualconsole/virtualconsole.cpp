@@ -33,6 +33,7 @@
 #include "vcslider.h"
 #include "vcframe.h"
 #include "vclabel.h"
+#include "vcaudio.h"
 #include "vcclock.h"
 #include "vcpage.h"
 #include "tardis.h"
@@ -96,6 +97,7 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
     qmlRegisterType<VCButton>("org.qlcplus.classes", 1, 0, "VCButton");
     qmlRegisterType<VCLabel>("org.qlcplus.classes", 1, 0, "VCLabel");
     qmlRegisterType<VCSlider>("org.qlcplus.classes", 1, 0, "VCSlider");
+    qmlRegisterType<VCAudio>("org.qlcplus.classes", 1, 0, "VCAudio");
     qmlRegisterType<VCClock>("org.qlcplus.classes", 1, 0, "VCClock");
     qmlRegisterType<VCClockSchedule>("org.qlcplus.classes", 1, 0, "VCClockSchedule");
     qmlRegisterType<VCCueList>("org.qlcplus.classes", 1, 0, "VCCueList");
