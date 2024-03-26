@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  alternate-2colors.js
+  alternate2colors.js
 
   Copyright (c) Hans-Jürgen Tappe
 

@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  marquee-2colors.js
+  marquee2colors.js
 
   Copyright (c) Branson Matheson
 
