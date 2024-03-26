@@ -23,7 +23,14 @@ INCLUDEPATH     += ../plugins/interfaces
 INCLUDEPATH     += ../plugins/midi/src/common
 DEPENDPATH      += ../engine/src
 QMAKE_LIBDIR    += ../engine/src
-LIBS            += -lqlcplusengine
+
+android {
+    LIBS            += -lqlcplusengine_$${QT_ARCH}
+} else {
+    LIBS            += -lqlcplusengine
+}
+
+
 #win32:QMAKE_LFLAGS += -shared
 win32:RC_FILE = qmlui.rc
 
