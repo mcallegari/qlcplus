@@ -180,6 +180,7 @@ bool RGBMatrix::copyFrom(const Function* function)
 
     for(unsigned int i = 0; i < RGBAlgorithmRawColorCount; i++)
         setColor(i, mtx->getColor(i));
+    setControlMode(mtx->controlMode());
 
     return Function::copyFrom(function);
 }
