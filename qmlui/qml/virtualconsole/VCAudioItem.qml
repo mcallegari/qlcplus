@@ -29,10 +29,15 @@ VCWidgetItem
     id: audioRoot
     property VCAudio audioObj: null
 
-    clip: true
-
-    Row
+    onAudioObjChanged:
     {
+        setCommonProperties(audioObj)
+    }
+
+    Rectangle
+    {
+        clip: true
+        color: "grey"
         anchors.fill: parent
 
         // value text box
@@ -41,7 +46,7 @@ VCWidgetItem
             Layout.alignment: Qt.AlignHCenter
             height: UISettings.listItemHeight
             text: "Not implemented"
-            color: "grey"
+            color: "#111"
         }
     }
 }
