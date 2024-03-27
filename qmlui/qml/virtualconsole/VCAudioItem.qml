@@ -19,9 +19,9 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
+import QtQuick.Controls 2.2
 
 import org.qlcplus.classes 1.0
-
 import "."
 
 VCWidgetItem
@@ -29,24 +29,38 @@ VCWidgetItem
     id: audioRoot
     property VCAudio audioObj: null
 
+    clip: true
+
     onAudioObjChanged:
     {
         setCommonProperties(audioObj)
     }
 
-    Rectangle
+    Row
     {
-        clip: true
-        color: "grey"
         anchors.fill: parent
 
         // value text box
         Text
         {
-            Layout.alignment: Qt.AlignHCenter
-            height: UISettings.listItemHeight
-            text: "Not implemented"
+            width: parent.width
+            height: parent.height
             color: "#111"
+            lineHeight: 0.8
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            textFormat: Text.RichText
+            wrapMode: Text.Wrap
+            text: "Not implemented.<br />See <a href=\"https://docs.google.com/spreadsheets/d/1J1BK0pYCsLVBfLpDZ-GqpNgUzbgTwmhf9zOjg4J_MWg\">QML Status</a>"
+
+            onLinkActivated: Qt.openUrlExternally(link)
+
+            MouseArea
+            {
+                anchors.fill: parent
+                acceptedButtons: Qt.NoButton
+                cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+            }
         }
     }
 }

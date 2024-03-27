@@ -58,7 +58,7 @@ Rectangle
                 {
                     height: gridItemsHeight
                     Layout.fillWidth: true
-                    label: qsTr("Not implemented.")
+                    label: "Not implemented."
                 }
               } // GridLayout
         } // SectionBox
