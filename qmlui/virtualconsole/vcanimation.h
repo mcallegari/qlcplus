@@ -22,7 +22,13 @@
 
 #include "vcwidget.h"
 
-#define KXMLQLCVCAnimation QString("Animation")
+#define KXMLQLCVCAnimation              QString("Control")
+#define KXMLQLCVCAnimationID            QString("ID")
+#define KXMLQLCVCAnimationType          QString("Type")
+#define KXMLQLCVCAnimationColor         QString("Color")
+#define KXMLQLCVCAnimationResource      QString("Resource")
+#define KXMLQLCVCAnimationProperty      QString("Property")
+#define KXMLQLCVCAnimationPropertyName  QString("Name")
 
 class VCAnimation : public VCWidget
 {

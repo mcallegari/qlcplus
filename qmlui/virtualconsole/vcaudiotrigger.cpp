@@ -113,7 +113,7 @@ FunctionParent VCAudioTrigger::functionParent() const
 
 bool VCAudioTrigger::loadXML(QXmlStreamReader &root)
 {
-    if (root.name() != KXMLQLCVCAudioTrigger)
+    if (root.name() != KXMLQLCVCAudioTriggers)
     {
         qWarning() << Q_FUNC_INFO << "Audio trigger node not found";
         return false;
@@ -152,7 +152,7 @@ bool VCAudioTrigger::saveXML(QXmlStreamWriter *doc)
     Q_ASSERT(doc != nullptr);
 
     /* VC object entry */
-    doc->writeStartElement(KXMLQLCVCAudioTrigger);
+    doc->writeStartElement(KXMLQLCVCAudioTriggers);
 
     saveXMLCommon(doc);
 

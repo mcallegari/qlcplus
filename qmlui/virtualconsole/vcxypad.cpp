@@ -66,7 +66,7 @@ void VCXYPad::render(QQuickView *view, QQuickItem *parent)
     m_item = qobject_cast<QQuickItem*>(component->create());
 
     m_item->setParentItem(parent);
-    m_item->setProperty("XYPadObj", QVariant::fromValue(this));
+    m_item->setProperty("xyPadObj", QVariant::fromValue(this));
 }
 
 QString VCXYPad::propertiesResource() const
@@ -113,7 +113,7 @@ FunctionParent VCXYPad::functionParent() const
 
 bool VCXYPad::loadXML(QXmlStreamReader &root)
 {
-    if (root.name() != KXMLQLCVCXYPAD)
+    if (root.name() != KXMLQLCVCXYPad)
     {
         qWarning() << Q_FUNC_INFO << "XY Pad node not found";
         return false;
@@ -152,7 +152,7 @@ bool VCXYPad::saveXML(QXmlStreamWriter *doc)
     Q_ASSERT(doc != nullptr);
 
     /* VC object entry */
-    doc->writeStartElement(KXMLQLCVCXYPAD);
+    doc->writeStartElement(KXMLQLCVCXYPad);
 
     saveXMLCommon(doc);
 

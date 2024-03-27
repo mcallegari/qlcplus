@@ -22,7 +22,28 @@
 
 #include "vcwidget.h"
 
-#define KXMLQLCVCSpeedDial QString("Speed Dial")
+#define KXMLQLCVCSpeedDial                  QString("SpeedDial")
+#define KXMLQLCVCSpeedDialSpeedTypes        QString("SpeedTypes")
+#define KXMLQLCVCSpeedDialAbsoluteValue     QString("AbsoluteValue")
+#define KXMLQLCVCSpeedDialAbsoluteValueMin  QString("Minimum")
+#define KXMLQLCVCSpeedDialAbsoluteValueMax  QString("Maximum")
+#define KXMLQLCVCSpeedDialTap               QString("Tap")
+#define KXMLQLCVCSpeedDialMult              QString("Mult")
+#define KXMLQLCVCSpeedDialDiv               QString("Div")
+#define KXMLQLCVCSpeedDialMultDivReset      QString("MultDivReset")
+#define KXMLQLCVCSpeedDialApply             QString("Apply")
+#define KXMLQLCVCSpeedDialTapKey            QString("Key")
+#define KXMLQLCVCSpeedDialMultKey           QString("MultKey")
+#define KXMLQLCVCSpeedDialDivKey            QString("DivKey")
+#define KXMLQLCVCSpeedDialMultDivResetKey   QString("MultDivResetKey")
+#define KXMLQLCVCSpeedDialApplyKey          QString("ApplyKey")
+#define KXMLQLCVCSpeedDialResetFactorOnDialChange QString("ResetFactorOnDialChange")
+#define KXMLQLCVCSpeedDialVisibilityMask    QString("Visibility")
+#define KXMLQLCVCSpeedDialTime              QString("Time")
+
+// Legacy: infinite checkbox
+#define KXMLQLCVCSpeedDialInfinite      QString("Infinite")
+#define KXMLQLCVCSpeedDialInfiniteKey   QString("InfiniteKey")
 
 class VCSpeedDial : public VCWidget
 {

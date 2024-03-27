@@ -31,7 +31,7 @@ VCWidgetItem
 
     clip: true
 
-    onXYPadObjChanged:
+    onXyPadObjChanged:
     {
         setCommonProperties(xyPadObj)
     }
@@ -51,7 +51,7 @@ VCWidgetItem
             verticalAlignment: Text.AlignVCenter
             textFormat: Text.RichText
             wrapMode: Text.Wrap
-            text: "Not implemented.<br />See <a href=\"https://docs.google.com/spreadsheets/d/1J1BK0pYCsLVBfLpDZ-GqpNgUzbgTwmhf9zOjg4J_MWg\">QML Status</a>"
+            text: "VCXYPad not implemented yet.<br />See <a href=\"https://docs.google.com/spreadsheets/d/1J1BK0pYCsLVBfLpDZ-GqpNgUzbgTwmhf9zOjg4J_MWg\">QML Status</a>"
 
             onLinkActivated: Qt.openUrlExternally(link)
 

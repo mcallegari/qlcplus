@@ -22,7 +22,7 @@
 
 #include "vcwidget.h"
 
-#define KXMLQLCVCAudioTrigger QString("Audio Trigger")
+#define KXMLQLCVCAudioTriggers QString("AudioTriggers")
 
 class VCAudioTrigger : public VCWidget
 {
