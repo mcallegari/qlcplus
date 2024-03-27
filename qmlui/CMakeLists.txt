@@ -75,6 +75,7 @@ add_executable(${module_name} WIN32 MACOSX_BUNDLE
     virtualconsole/vcsoloframe.cpp virtualconsole/vcsoloframe.h
     virtualconsole/vcwidget.cpp virtualconsole/vcwidget.h
     virtualconsole/vcxypad.cpp virtualconsole/vcxypad.h
+    virtualconsole/vcspeeddial.cpp virtualconsole/vcspeeddial.h
     virtualconsole/virtualconsole.cpp virtualconsole/virtualconsole.h
     ${QM_FILES}
 )

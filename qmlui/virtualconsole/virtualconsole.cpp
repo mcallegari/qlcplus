@@ -36,6 +36,7 @@
 #include "vcanimation.h"
 #include "vcaudiotrigger.h"
 #include "vcxypad.h"
+#include "vcspeeddial.h"
 #include "vcclock.h"
 #include "vcpage.h"
 #include "tardis.h"
@@ -102,6 +103,7 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
     qmlRegisterType<VCAnimation>("org.qlcplus.classes", 1, 0, "VCAnimation");
     qmlRegisterType<VCAudioTrigger>("org.qlcplus.classes", 1, 0, "VCAudioTrigger");
     qmlRegisterType<VCXYPad>("org.qlcplus.classes", 1, 0, "VCXYPad");
+    qmlRegisterType<VCSpeedDial>("org.qlcplus.classes", 1, 0, "VCSpeedDial");
     qmlRegisterType<VCClock>("org.qlcplus.classes", 1, 0, "VCClock");
     qmlRegisterType<VCClockSchedule>("org.qlcplus.classes", 1, 0, "VCClockSchedule");
     qmlRegisterType<VCCueList>("org.qlcplus.classes", 1, 0, "VCCueList");
