@@ -1086,6 +1086,66 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
                 slider->render(m_vc->view(), m_item);
         }
     }
+    else if (root.name() == KXMLQLCVCAnimation)
+    {
+        /* Create a new clock into its parent */
+        VCAnimation *animation = new VCAnimation(m_doc, this);
+        if (animation->loadXML(root) == false)
+            delete animation;
+        else
+        {
+            QQmlEngine::setObjectOwnership(animation, QQmlEngine::CppOwnership);
+            setupWidget(animation, animation->page());
+            m_vc->addWidgetToMap(animation);
+            if (render && m_item)
+                animation->render(m_vc->view(), m_item);
+        }
+    }
+    else if (root.name() == KXMLQLCVCAudioTriggers)
+    {
+        /* Create a new clock into its parent */
+        VCAnimation *animation = new VCAnimation(m_doc, this);
+        if (animation->loadXML(root) == false)
+            delete animation;
+        else
+        {
+            QQmlEngine::setObjectOwnership(animation, QQmlEngine::CppOwnership);
+            setupWidget(animation, animation->page());
+            m_vc->addWidgetToMap(animation);
+            if (render && m_item)
+                animation->render(m_vc->view(), m_item);
+        }
+    }
+    else if (root.name() == KXMLQLCVCSpeedDial)
+    {
+        /* Create a new speedDial into its parent */
+        VCSpeedDial *speedDial = new VCSpeedDial(m_doc, this);
+        if (speedDial->loadXML(root) == false)
+            delete speedDial;
+        else
+        {
+            QQmlEngine::setObjectOwnership(speedDial, QQmlEngine::CppOwnership);
+            setupWidget(speedDial, speedDial->page());
+            m_vc->addWidgetToMap(speedDial);
+            if (render && m_item)
+                speedDial->render(m_vc->view(), m_item);
+        }
+    }
+    else if (root.name() == KXMLQLCVCXYPad)
+    {
+        /* Create a new xyPad into its parent */
+        VCXYPad *xyPad = new VCXYPad(m_doc, this);
+        if (xyPad->loadXML(root) == false)
+            delete xyPad;
+        else
+        {
+            QQmlEngine::setObjectOwnership(xyPad, QQmlEngine::CppOwnership);
+            setupWidget(xyPad, xyPad->page());
+            m_vc->addWidgetToMap(xyPad);
+            if (render && m_item)
+                xyPad->render(m_vc->view(), m_item);
+        }
+    }
     else if (root.name() == KXMLQLCVCClock)
     {
         /* Create a new clock into its parent */
