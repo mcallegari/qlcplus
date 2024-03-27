@@ -63,6 +63,8 @@ add_executable(${module_name} WIN32 MACOSX_BUNDLE
     uimanager.cpp uimanager.h
     videoeditor.cpp videoeditor.h
     videoprovider.cpp videoprovider.h
+    virtualconsole/vcanimation.cpp virtualconsole/vcanimation.h
+    virtualconsole/vcaudiotrigger.cpp virtualconsole/vcaudiotrigger.h
     virtualconsole/vcbutton.cpp virtualconsole/vcbutton.h
     virtualconsole/vcclock.cpp virtualconsole/vcclock.h
     virtualconsole/vccuelist.cpp virtualconsole/vccuelist.h
@@ -72,6 +74,8 @@ add_executable(${module_name} WIN32 MACOSX_BUNDLE
     virtualconsole/vcslider.cpp virtualconsole/vcslider.h
     virtualconsole/vcsoloframe.cpp virtualconsole/vcsoloframe.h
     virtualconsole/vcwidget.cpp virtualconsole/vcwidget.h
+    virtualconsole/vcxypad.cpp virtualconsole/vcxypad.h
+    virtualconsole/vcspeeddial.cpp virtualconsole/vcspeeddial.h
     virtualconsole/virtualconsole.cpp virtualconsole/virtualconsole.h
     ${QM_FILES}
 )
