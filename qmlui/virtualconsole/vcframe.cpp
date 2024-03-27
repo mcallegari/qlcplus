@@ -33,6 +33,7 @@
 #include "simplecrypt.h"
 #include "vcanimation.h"
 #include "vcaudiotrigger.h"
+#include "vcxypad.h"
 #include "virtualconsole.h"
 
 #define INPUT_NEXT_PAGE_ID      0
@@ -313,6 +314,18 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             audioTrigger->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
             setupWidget(audioTrigger, currentPage());
             audioTrigger->render(m_vc->view(), parent);
+        }
+        break;
+        case XYPadWidget:
+        {
+            VCXYPad *xyPad = new VCXYPad(m_doc, this);
+            QQmlEngine::setObjectOwnership(xyPad, QQmlEngine::CppOwnership);
+            m_vc->addWidgetToMap(xyPad);
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, xyPad->id()));
+            xyPad->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
+            setupWidget(xyPad, currentPage());
+            xyPad->render(m_vc->view(), parent);
         }
         break;
         case ClockWidget:

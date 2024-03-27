@@ -237,6 +237,8 @@
     <file alias="VCAnimationProperties.qml">qml/virtualconsole/VCAnimationProperties.qml</file>
     <file alias="VCAudioTriggerItem.qml">qml/virtualconsole/VCAudioTriggerItem.qml</file>
     <file alias="VCAudioTriggerProperties.qml">qml/virtualconsole/VCAudioTriggerProperties.qml</file>
+    <file alias="VCXYPadItem.qml">qml/virtualconsole/VCXYPadItem.qml</file>
+    <file alias="VCXYPadProperties.qml">qml/virtualconsole/VCXYPadProperties.qml</file>
     <file alias="VCClockItem.qml">qml/virtualconsole/VCClockItem.qml</file>
     <file alias="VCClockProperties.qml">qml/virtualconsole/VCClockProperties.qml</file>
     <file alias="VCCueListItem.qml">qml/virtualconsole/VCCueListItem.qml</file>

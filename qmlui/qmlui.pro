@@ -128,6 +128,7 @@ HEADERS += \
     virtualconsole/vcslider.h \
     virtualconsole/vcanimation.h \
     virtualconsole/vcaudiotrigger.h \
+    virtualconsole/vcxypad.h \
     virtualconsole/vcclock.h \
     virtualconsole/vccuelist.h
 
@@ -142,6 +143,7 @@ SOURCES += \
     virtualconsole/vcslider.cpp \
     virtualconsole/vcanimation.cpp \
     virtualconsole/vcaudiotrigger.cpp \
+    virtualconsole/vcxypad.cpp \
     virtualconsole/vcclock.cpp \
     virtualconsole/vccuelist.cpp
 
