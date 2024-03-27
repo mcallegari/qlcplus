@@ -25,13 +25,13 @@
 #include "tardis.h"
 #include "vcframe.h"
 #include "vclabel.h"
-#include "vcaudio.h"
 #include "vcclock.h"
 #include "vcbutton.h"
 #include "vcslider.h"
 #include "vccuelist.h"
 #include "vcsoloframe.h"
 #include "simplecrypt.h"
+#include "vcaudiotrigger.h"
 #include "virtualconsole.h"
 
 #define INPUT_NEXT_PAGE_ID      0
@@ -292,14 +292,14 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         break;
         case AudioTriggersWidget:
         {
-            VCAudio *audio = new VCAudio(m_doc, this);
-            QQmlEngine::setObjectOwnership(audio, QQmlEngine::CppOwnership);
-            m_vc->addWidgetToMap(audio);
+            VCAudioTrigger *audioTrigger = new VCAudioTrigger(m_doc, this);
+            QQmlEngine::setObjectOwnership(audioTrigger, QQmlEngine::CppOwnership);
+            m_vc->addWidgetToMap(audioTrigger);
             Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
-                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, audio->id()));
-            audio->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
-            setupWidget(audio, currentPage());
-            audio->render(m_vc->view(), parent);
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, audioTrigger->id()));
+            audioTrigger->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
+            setupWidget(audioTrigger, currentPage());
+            audioTrigger->render(m_vc->view(), parent);
         }
         break;
         case ClockWidget:

@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  VCAudioItem.qml
+  VCAudioTriggerItem.qml
 
   Copyright (c) Massimo Callegari
 
@@ -26,14 +26,14 @@ import "."
 
 VCWidgetItem
 {
-    id: audioRoot
-    property VCAudio audioObj: null
+    id: audioTriggerRoot
+    property VCAudioTrigger audioTriggerObj: null
 
     clip: true
 
-    onAudioObjChanged:
+    onAudioTriggerObjChanged:
     {
-        setCommonProperties(audioObj)
+        setCommonProperties(audioTriggerObj)
     }
 
     Row
@@ -45,7 +45,7 @@ VCWidgetItem
         {
             width: parent.width
             height: parent.height
-            color: "#111"
+            color: "#bbb"
             lineHeight: 0.8
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter

@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  vcaudio.h
+  vcaudiotrigger.h
 
   Copyright (c) Massimo Callegari
 
@@ -17,14 +17,14 @@
   limitations under the License.
 */
 
-#ifndef VCAUDIO_H
-#define VCAUDIO_H
+#ifndef VCAUDIOTRIGGER_H
+#define VCAUDIOTRIGGER_H
 
 #include "vcwidget.h"
 
-#define KXMLQLCVCAudio QString("Audio Trigger")
+#define KXMLQLCVCAudioTrigger QString("Audio Trigger")
 
-class VCAudio : public VCWidget
+class VCAudioTrigger : public VCWidget
 {
     Q_OBJECT
 
@@ -32,8 +32,8 @@ class VCAudio : public VCWidget
      * Initialization
      *********************************************************************/
 public:
-    VCAudio(Doc* doc = nullptr, QObject *parent = nullptr);
-    virtual ~VCAudio();
+    VCAudioTrigger(Doc* doc = nullptr, QObject *parent = nullptr);
+    virtual ~VCAudioTrigger();
 
     /** @reimp */
     QString defaultCaption();

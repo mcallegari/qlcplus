@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  VCAudioProperties.qml
+  VCAudioTriggerProperties.qml
 
   Copyright (c) Massimo Callegari
 
@@ -28,22 +28,22 @@ Rectangle
 {
     id: propsRoot
     color: "transparent"
-    height: audioPropsColumn.height
+    height: audioTriggerPropsColumn.height
 
-    property VCAudio widgetRef: null
+    property VCAudioTrigger widgetRef: null
 
     property int gridItemsHeight: UISettings.listItemHeight
 
     Column
     {
-        id: audioPropsColumn
+        id: audioTriggerPropsColumn
         width: parent.width
         spacing: 5
 
         SectionBox
         {
-            id: audioProp
-            sectionLabel: qsTr("Audio Property")
+            id: audioTriggerProp
+            sectionLabel: qsTr("Audio Trigger Properties")
 
             sectionContents:
               GridLayout

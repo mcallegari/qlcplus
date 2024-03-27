@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  vcaudio.cpp
+  vcaudiotrigger.cpp
 
   Copyright (c) Massimo Callegari
 
@@ -21,27 +21,27 @@
 #include <QXmlStreamWriter>
 #include <QQmlEngine>
 
-#include "vcaudio.h"
 #include "doc.h"
+#include "vcaudiotrigger.h"
 
-VCAudio::VCAudio(Doc *doc, QObject *parent)
+VCAudioTrigger::VCAudioTrigger(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
 {
     setType(VCWidget::AudioTriggersWidget);
 }
 
-VCAudio::~VCAudio()
+VCAudioTrigger::~VCAudioTrigger()
 {
     if (m_item)
         delete m_item;
 }
 
-QString VCAudio::defaultCaption()
+QString VCAudioTrigger::defaultCaption()
 {
     return tr("Audio Trigger %1").arg(id() + 1);
 }
 
-void VCAudio::setupLookAndFeel(qreal pixelDensity, int page)
+void VCAudioTrigger::setupLookAndFeel(qreal pixelDensity, int page)
 {
     setPage(page);
     QFont wFont = font();
@@ -50,12 +50,12 @@ void VCAudio::setupLookAndFeel(qreal pixelDensity, int page)
     setFont(wFont);
 }
 
-void VCAudio::render(QQuickView *view, QQuickItem *parent)
+void VCAudioTrigger::render(QQuickView *view, QQuickItem *parent)
 {
     if (view == nullptr || parent == nullptr)
         return;
 
-    QQmlComponent *component = new QQmlComponent(view->engine(), QUrl("qrc:/VCAudioItem.qml"));
+    QQmlComponent *component = new QQmlComponent(view->engine(), QUrl("qrc:/VCAudioTriggerItem.qml"));
 
     if (component->isError())
     {
@@ -66,31 +66,31 @@ void VCAudio::render(QQuickView *view, QQuickItem *parent)
     m_item = qobject_cast<QQuickItem*>(component->create());
 
     m_item->setParentItem(parent);
-    m_item->setProperty("audioObj", QVariant::fromValue(this));
+    m_item->setProperty("audioTriggerObj", QVariant::fromValue(this));
 }
 
-QString VCAudio::propertiesResource() const
+QString VCAudioTrigger::propertiesResource() const
 {
-    return QString("qrc:/VCAudioProperties.qml");
+    return QString("qrc:/VCAudioTriggerProperties.qml");
 }
 
-VCWidget *VCAudio::createCopy(VCWidget *parent)
+VCWidget *VCAudioTrigger::createCopy(VCWidget *parent)
 {
     Q_ASSERT(parent != nullptr);
 
-    VCAudio *audio = new VCAudio(m_doc, parent);
-    if (audio->copyFrom(this) == false)
+    VCAudioTrigger *audioTrigger = new VCAudioTrigger(m_doc, parent);
+    if (audioTrigger->copyFrom(this) == false)
     {
-        delete audio;
-        audio = nullptr;
+        delete audioTrigger;
+        audioTrigger = nullptr;
     }
 
-    return audio;
+    return audioTrigger;
 }
 
-bool VCAudio::copyFrom(const VCWidget *widget)
+bool VCAudioTrigger::copyFrom(const VCWidget *widget)
 {
-    const VCAudio *audio = qobject_cast<const VCAudio*> (widget);
+    const VCAudioTrigger *audio = qobject_cast<const VCAudioTrigger*> (widget);
     if (audio == nullptr)
         return false;
 
@@ -102,7 +102,7 @@ bool VCAudio::copyFrom(const VCWidget *widget)
     return VCWidget::copyFrom(widget);
 }
 
-FunctionParent VCAudio::functionParent() const
+FunctionParent VCAudioTrigger::functionParent() const
 {
     return FunctionParent(FunctionParent::AutoVCWidget, id());
 }
@@ -111,9 +111,9 @@ FunctionParent VCAudio::functionParent() const
  * Load & Save
  *********************************************************************/
 
-bool VCAudio::loadXML(QXmlStreamReader &root)
+bool VCAudioTrigger::loadXML(QXmlStreamReader &root)
 {
-    if (root.name() != KXMLQLCVCAudio)
+    if (root.name() != KXMLQLCVCAudioTrigger)
     {
         qWarning() << Q_FUNC_INFO << "Audio node not found";
         return false;
@@ -139,7 +139,7 @@ bool VCAudio::loadXML(QXmlStreamReader &root)
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown audio tag:" << root.name().toString();
+            qWarning() << Q_FUNC_INFO << "Unknown audio trigger tag:" << root.name().toString();
             root.skipCurrentElement();
         }
     }
@@ -147,12 +147,12 @@ bool VCAudio::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCAudio::saveXML(QXmlStreamWriter *doc)
+bool VCAudioTrigger::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != nullptr);
 
     /* VC object entry */
-    doc->writeStartElement(KXMLQLCVCAudio);
+    doc->writeStartElement(KXMLQLCVCAudioTrigger);
 
     saveXMLCommon(doc);
 

@@ -63,7 +63,7 @@ add_executable(${module_name} WIN32 MACOSX_BUNDLE
     uimanager.cpp uimanager.h
     videoeditor.cpp videoeditor.h
     videoprovider.cpp videoprovider.h
-    virtualconsole/vcaudio.cpp virtualconsole/vcaudio.h
+    virtualconsole/vcaudiotrigger.cpp virtualconsole/vcaudiotrigger.h
     virtualconsole/vcbutton.cpp virtualconsole/vcbutton.h
     virtualconsole/vcclock.cpp virtualconsole/vcclock.h
     virtualconsole/vccuelist.cpp virtualconsole/vccuelist.h
