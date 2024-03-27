@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  vcaudiotrigger.cpp
+  vcanimation.cpp
 
   Copyright (c) Massimo Callegari
 
@@ -22,26 +22,26 @@
 #include <QQmlEngine>
 
 #include "doc.h"
-#include "vcaudiotrigger.h"
+#include "vcanimation.h"
 
-VCAudioTrigger::VCAudioTrigger(Doc *doc, QObject *parent)
+VCAnimation::VCAnimation(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
 {
-    setType(VCWidget::AudioTriggersWidget);
+    setType(VCWidget::AnimationWidget);
 }
 
-VCAudioTrigger::~VCAudioTrigger()
+VCAnimation::~VCAnimation()
 {
     if (m_item)
         delete m_item;
 }
 
-QString VCAudioTrigger::defaultCaption()
+QString VCAnimation::defaultCaption()
 {
-    return tr("Audio Trigger %1").arg(id() + 1);
+    return tr("Animation %1").arg(id() + 1);
 }
 
-void VCAudioTrigger::setupLookAndFeel(qreal pixelDensity, int page)
+void VCAnimation::setupLookAndFeel(qreal pixelDensity, int page)
 {
     setPage(page);
     QFont wFont = font();
@@ -50,12 +50,12 @@ void VCAudioTrigger::setupLookAndFeel(qreal pixelDensity, int page)
     setFont(wFont);
 }
 
-void VCAudioTrigger::render(QQuickView *view, QQuickItem *parent)
+void VCAnimation::render(QQuickView *view, QQuickItem *parent)
 {
     if (view == nullptr || parent == nullptr)
         return;
 
-    QQmlComponent *component = new QQmlComponent(view->engine(), QUrl("qrc:/VCAudioTriggerItem.qml"));
+    QQmlComponent *component = new QQmlComponent(view->engine(), QUrl("qrc:/VCAnimationItem.qml"));
 
     if (component->isError())
     {
@@ -66,32 +66,32 @@ void VCAudioTrigger::render(QQuickView *view, QQuickItem *parent)
     m_item = qobject_cast<QQuickItem*>(component->create());
 
     m_item->setParentItem(parent);
-    m_item->setProperty("audioTriggerObj", QVariant::fromValue(this));
+    m_item->setProperty("animationObj", QVariant::fromValue(this));
 }
 
-QString VCAudioTrigger::propertiesResource() const
+QString VCAnimation::propertiesResource() const
 {
-    return QString("qrc:/VCAudioTriggerProperties.qml");
+    return QString("qrc:/VCAnimationProperties.qml");
 }
 
-VCWidget *VCAudioTrigger::createCopy(VCWidget *parent)
+VCWidget *VCAnimation::createCopy(VCWidget *parent)
 {
     Q_ASSERT(parent != nullptr);
 
-    VCAudioTrigger *audioTrigger = new VCAudioTrigger(m_doc, parent);
-    if (audioTrigger->copyFrom(this) == false)
+    VCAnimation *animation = new VCAnimation(m_doc, parent);
+    if (animation->copyFrom(this) == false)
     {
-        delete audioTrigger;
-        audioTrigger = nullptr;
+        delete animation;
+        animation = nullptr;
     }
 
-    return audioTrigger;
+    return animation;
 }
 
-bool VCAudioTrigger::copyFrom(const VCWidget *widget)
+bool VCAnimation::copyFrom(const VCWidget *widget)
 {
-    const VCAudioTrigger *audioTrigger = qobject_cast<const VCAudioTrigger*> (widget);
-    if (audioTrigger == nullptr)
+    const VCAnimation *animation = qobject_cast<const VCAnimation*> (widget);
+    if (animation == nullptr)
         return false;
 
     /* Copy and set properties */
@@ -102,7 +102,7 @@ bool VCAudioTrigger::copyFrom(const VCWidget *widget)
     return VCWidget::copyFrom(widget);
 }
 
-FunctionParent VCAudioTrigger::functionParent() const
+FunctionParent VCAnimation::functionParent() const
 {
     return FunctionParent(FunctionParent::AutoVCWidget, id());
 }
@@ -111,11 +111,11 @@ FunctionParent VCAudioTrigger::functionParent() const
  * Load & Save
  *********************************************************************/
 
-bool VCAudioTrigger::loadXML(QXmlStreamReader &root)
+bool VCAnimation::loadXML(QXmlStreamReader &root)
 {
-    if (root.name() != KXMLQLCVCAudioTrigger)
+    if (root.name() != KXMLQLCVCAnimation)
     {
-        qWarning() << Q_FUNC_INFO << "Audio trigger node not found";
+        qWarning() << Q_FUNC_INFO << "Animation node not found";
         return false;
     }
 
@@ -139,7 +139,7 @@ bool VCAudioTrigger::loadXML(QXmlStreamReader &root)
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown audio trigger tag:" << root.name().toString();
+            qWarning() << Q_FUNC_INFO << "Unknown animation tag:" << root.name().toString();
             root.skipCurrentElement();
         }
     }
@@ -147,12 +147,12 @@ bool VCAudioTrigger::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCAudioTrigger::saveXML(QXmlStreamWriter *doc)
+bool VCAnimation::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != nullptr);
 
     /* VC object entry */
-    doc->writeStartElement(KXMLQLCVCAudioTrigger);
+    doc->writeStartElement(KXMLQLCVCAnimation);
 
     saveXMLCommon(doc);
 

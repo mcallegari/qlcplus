@@ -31,6 +31,7 @@
 #include "vccuelist.h"
 #include "vcsoloframe.h"
 #include "simplecrypt.h"
+#include "vcanimation.h"
 #include "vcaudiotrigger.h"
 #include "virtualconsole.h"
 
@@ -288,6 +289,18 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
                 slider->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 15, m_vc->pixelDensity() * 40));
             setupWidget(slider, currentPage());
             slider->render(m_vc->view(), parent);
+        }
+        break;
+        case AnimationWidget:
+        {
+            VCAnimation *animation = new VCAnimation(m_doc, this);
+            QQmlEngine::setObjectOwnership(animation, QQmlEngine::CppOwnership);
+            m_vc->addWidgetToMap(animation);
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, animation->id()));
+            animation->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
+            setupWidget(animation, currentPage());
+            animation->render(m_vc->view(), parent);
         }
         break;
         case AudioTriggersWidget:

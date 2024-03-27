@@ -233,6 +233,8 @@
     <file alias="VCLabelItem.qml">qml/virtualconsole/VCLabelItem.qml</file>
     <file alias="VCSliderItem.qml">qml/virtualconsole/VCSliderItem.qml</file>
     <file alias="VCSliderProperties.qml">qml/virtualconsole/VCSliderProperties.qml</file>
+    <file alias="VCAnimationItem.qml">qml/virtualconsole/VCAnimationItem.qml</file>
+    <file alias="VCAnimationProperties.qml">qml/virtualconsole/VCAnimationProperties.qml</file>
     <file alias="VCAudioTriggerItem.qml">qml/virtualconsole/VCAudioTriggerItem.qml</file>
     <file alias="VCAudioTriggerProperties.qml">qml/virtualconsole/VCAudioTriggerProperties.qml</file>
     <file alias="VCClockItem.qml">qml/virtualconsole/VCClockItem.qml</file>
