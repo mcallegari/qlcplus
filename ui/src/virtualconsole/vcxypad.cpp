@@ -228,6 +228,13 @@ VCWidget* VCXYPad::createCopy(VCWidget* parent)
         xypad = NULL;
     }
 
+    for (QHash<QWidget*, VCXYPadPreset*>::iterator it = m_presets.begin();
+            it != m_presets.end(); ++it)
+    {
+        VCXYPadPreset *preset = it.value();
+        xypad->addPreset(*preset);
+    }
+
     return xypad;
 }
 
