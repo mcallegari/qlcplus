@@ -63,7 +63,7 @@
   <Capability Min="90" Max="129">White 4300K</Capability>
   <Capability Min="130" Max="169">White 5600K</Capability>
   <Capability Min="170" Max="209">White 6500K</Capability>
-  <Capability Min="210" Max="255" Preset="SmallToBig">White 8000K</Capability>
+  <Capability Min="210" Max="255">White 8000K</Capability>
  </Channel>
  <Mode Name="3 Channel">
   <Channel Number="0">Red</Channel>
