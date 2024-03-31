@@ -227,7 +227,9 @@
   <M n="beamZ">
     <F n="beamZ-BAC302" m="BAC302"/>
     <F n="beamZ-BAC406" m="BAC406 ProPar 6x18W 6-1 Hex"/>
+    <F n="beamZ-BAC500" m="BAC500"/>
     <F n="beamZ-BAC503" m="BAC503"/>
+    <F n="beamZ-BAC506" m="BAC506"/>
     <F n="beamZ-BT270-LED-FlatPAR" m="BT270 LED FlatPAR"/>
     <F n="beamZ-BT310-LED-FlatPAR" m="BT310 LED FlatPAR 12x8W 4-1 DMX IR"/>
     <F n="beamZ-Fuze-75B-Beam" m="Fuze 75B Beam"/>
