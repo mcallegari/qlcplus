@@ -274,7 +274,7 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
     {
         Fixture *fxi = new Fixture(m_doc);
         //quint32 fxAddress = address + (i * channels) + (i * gap);
-        if (fxAddress + channels >= UNIVERSE_SIZE)
+        if (fxAddress + channels > UNIVERSE_SIZE)
         {
             uniIdx++;
             if (m_doc->inputOutputMap()->getUniverseID(uniIdx) == m_doc->inputOutputMap()->invalidUniverse())
