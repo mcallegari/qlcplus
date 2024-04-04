@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Controls 2.0
+import QtQuick 2.14
+import QtQuick.Controls 2.14
 
 import "CanvasDrawFunctions.js" as DrawFuncs
 import "."
@@ -33,6 +33,8 @@ Dial
 
     from: 0
     to: 255
+    stepSize: 1.0
+    wheelEnabled: true
 
     onPositionChanged: kCanvas.requestPaint()
     onHeightChanged: kCanvas.requestPaint()
@@ -81,38 +83,6 @@ Dial
                         DrawFuncs.degToRad(startAngle + (control.position * 280)))
             context.stroke()
             context.closePath()
-        }
-
-        MouseArea
-        {
-            anchors.fill: parent
-            z: 2
-            onWheel: {
-                //console.log("Wheel delta: " + wheel.angleDelta.y)
-                var from = sliderObj ? sliderObj.rangeLowLimit : 0
-                var to = sliderObj ? sliderObj.rangeHighLimit : 255
-                var sliderValue = sliderObj ? sliderObj.value : 128
-
-                if (wheel.angleDelta.y > 0) {
-                    if (sliderObj && sliderValue < to) {
-                        sliderObj.value += 1
-                    }
-                } else {
-                    if (sliderObj && sliderValue > from) {
-                        sliderObj.value -= 1
-                    }
-                }
-            }
-            onPressed: {
-                mouse.accepted = false
-            }
-            onPositionChanged: {
-                mouse.accepted = false
-                kCanvas.requestPaint()
-            }
-            onReleased: {
-                mouse.accepted = false
-            }
         }
     }
 

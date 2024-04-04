@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick 2.14
 import QtQuick.Layouts 1.1
 
 import org.qlcplus.classes 1.0
@@ -149,7 +149,7 @@ VCWidgetItem
             to: sliderObj ? sliderObj.rangeHighLimit : 255
             value: sliderValue
 
-            onMoved: if (sliderObj) sliderObj.value = value // position * 255
+            onValueChanged: if (sliderObj) sliderObj.value = value
         }
 
         // widget name text box
