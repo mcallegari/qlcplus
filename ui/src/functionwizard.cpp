@@ -41,6 +41,7 @@
 #include "doc.h"
 
 #include "qlcfixturedef.h"
+#include "qlcfixturehead.h"
 #include "qlccapability.h"
 #include "qlcchannel.h"
 
@@ -230,6 +231,11 @@ void FunctionWizard::slotRemoveClicked()
     
     updateWidgetsTree();
     checkTabsAndButtons();
+}
+
+void FunctionWizard::slotPageCheckboxChanged()
+{
+    updateWidgetsTree();
 }
 
 QList <quint32> FunctionWizard::fixtureIds() const
@@ -502,6 +508,98 @@ void FunctionWizard::checkRGB(QTreeWidgetItem *grpItem,
 
 }
 
+void FunctionWizard::addChannelsToTree(QTreeWidgetItem *frame, QTreeWidgetItem *fxGrpItem, QList<quint32> channels)
+{
+    QTreeWidgetItem *fxItem = fxGrpItem->child(0);
+    quint32 fxID = fxItem->data(KFixtureColumnName, Qt::UserRole).toUInt();
+    Fixture *fxi = m_doc->fixture(fxID);
+    Q_ASSERT(fxi != NULL);
+
+    qint32 lastPanTilt[] = {-1, -1, -1, -1};
+    qint32 lastRGB[] = {-1, -1, -1};
+
+    
+    for (auto &&ch : channels)
+    //for (quint32 ch = 0; ch < fxi->channels(); ch++)
+    {
+        const QLCChannel *channel(fxi->channel(ch));
+        Q_ASSERT(channel != NULL);
+
+        switch (channel->group())
+        {
+        case QLCChannel::Pan: {
+            if (channel->preset() == QLCChannel::PositionPan)
+                lastPanTilt[0] = ch;
+            if (channel->preset() == QLCChannel::PositionPanFine)
+                lastPanTilt[1] = ch;
+
+            checkPanTilt(frame, fxGrpItem, lastPanTilt);
+        }
+        break;
+        case QLCChannel::Tilt: {
+            if (channel->preset() == QLCChannel::PositionTilt)
+                lastPanTilt[2] = ch;
+            if (channel->preset() == QLCChannel::PositionTiltFine)
+                lastPanTilt[3] = ch;
+
+            checkPanTilt(frame, fxGrpItem, lastPanTilt);
+        }
+        break;
+
+        // Glick & Go's
+        case QLCChannel::Gobo:
+        case QLCChannel::Shutter:
+        case QLCChannel::Prism:
+        case QLCChannel::Beam:
+        case QLCChannel::Effect:
+        case QLCChannel::Colour:
+            addWidgetItem(frame, QLCChannel::groupToString(channel->group()) + " - Click & Go",
+                          VCWidget::SliderWidget, fxGrpItem, &ch);
+            break;
+
+        case QLCChannel::Intensity: {
+            QLCChannel::PrimaryColour col = channel->colour();
+            switch (col)
+            {
+            case QLCChannel::Red: {
+                lastRGB[0] = ch;
+                checkRGB(frame, fxGrpItem, lastRGB);
+            }
+            break;
+            case QLCChannel::Green: {
+                lastRGB[1] = ch;
+                checkRGB(frame, fxGrpItem, lastRGB);
+            }
+            break;
+            case QLCChannel::Blue: {
+                lastRGB[2] = ch;
+                checkRGB(frame, fxGrpItem, lastRGB);
+            }
+            break;
+            default: {
+                addWidgetItem(frame, channel->name() + " - Intensity", VCWidget::SliderWidget,
+                              fxGrpItem, &ch);
+            }
+            break;
+            }
+        }
+        break;
+        case QLCChannel::Speed:
+            addWidgetItem(frame,
+                          channel->name() + " - " + QLCChannel::groupToString(channel->group()),
+                          VCWidget::SliderWidget, fxGrpItem, &ch);
+            break;
+            break;
+        default:
+            addWidgetItem(frame,
+                          channel->name() + " - " + QLCChannel::groupToString(channel->group()),
+                          VCWidget::SliderWidget, fxGrpItem, &ch);
+            break;
+            break;
+        }
+    }
+}
+
 void FunctionWizard::updateWidgetsTree()
 {
     m_widgetsTree->clear();
@@ -597,6 +695,10 @@ void FunctionWizard::updateWidgetsTree()
     }
 
     // Populate Fixture channel Widgets
+    if (m_checkBoxAll->checkState() == 0 && m_checkBoxHeads->checkState() == 0 &&
+        m_checkBoxFixtures->checkState() == 0)
+        return;
+
     for (int i = 0; i < m_fixtureTree->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *fxGrpItem = m_fixtureTree->topLevelItem(i);
@@ -622,75 +724,78 @@ void FunctionWizard::updateWidgetsTree()
         Q_ASSERT(fxi != NULL);
 
         frame->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)fxi));
-        
-        qint32 lastPanTilt[] = {-1, -1, -1, -1};
-        qint32 lastRGB[] = {-1, -1, -1};
 
-        for (quint32 ch = 0; ch < fxi->channels(); ch++)
+        quint8 fixtureCount = fxGrpItem->childCount();
+        quint8 headCount = fxi->heads();
+
+        QList<quint32> HeadChannels = fxi->head(0).channels();
+        QList<quint32> noHeadChannels;
+        for (size_t i = 0; i < fxi->channels(); i++)
         {
-            const QLCChannel* channel(fxi->channel(ch));
-            Q_ASSERT(channel != NULL);
-                    
-            switch (channel->group())
+            noHeadChannels.append(i);
+        }
+        for (int h = 0; h < fxi->heads(); h++)
+        {
+            for (auto &&ch : fxi->head(h).channels())
             {
-                case QLCChannel::Pan: {
-                    if(channel->preset()==QLCChannel::PositionPan) lastPanTilt[0] = ch;
-                    if(channel->preset()==QLCChannel::PositionPanFine) lastPanTilt[1] = ch;
-
-                    checkPanTilt(frame, fxGrpItem, lastPanTilt);
-                } 
-                break;
-                case QLCChannel::Tilt: {
-                    if(channel->preset()==QLCChannel::PositionTilt) lastPanTilt[2] = ch;
-                    if(channel->preset()==QLCChannel::PositionTiltFine) lastPanTilt[3] = ch;
-
-                    checkPanTilt(frame, fxGrpItem, lastPanTilt);
-                } 
-                break;
-                
-                // Glick & Go's
-                case QLCChannel::Gobo: 
-                case QLCChannel::Shutter:
-                case QLCChannel::Prism:
-                case QLCChannel::Beam:
-                case QLCChannel::Effect:
-                case QLCChannel::Colour:
-                    addWidgetItem(frame, QLCChannel::groupToString(channel->group()) + " - Click & Go", VCWidget::SliderWidget, fxGrpItem, &ch);
-                break;
-               
-                case QLCChannel::Intensity:
-                { QLCChannel::PrimaryColour col = channel->colour();
-                    switch (col)
-                    {
-                        case QLCChannel::Red: {
-                            lastRGB[0]=ch;
-                            checkRGB(frame, fxGrpItem, lastRGB);
-                        }
-                        break;
-                        case QLCChannel::Green: 
-                        {
-                            lastRGB[1]=ch;
-                            checkRGB(frame, fxGrpItem, lastRGB);
-                        }
-                        break;
-                        case QLCChannel::Blue: {
-                            lastRGB[2]=ch;
-                            checkRGB(frame, fxGrpItem, lastRGB);
-                        }
-                        break;
-                        default:{                            
-                            addWidgetItem(frame, channel->name() + " - Intensity", VCWidget::SliderWidget, fxGrpItem, &ch);
-                        } break;
-                    }
-                }
-                break; 
-                case QLCChannel::Speed: addWidgetItem(frame, channel->name() + " - " + QLCChannel::groupToString(channel->group()), VCWidget::SliderWidget, fxGrpItem, &ch); break;
-                break;
-                default: addWidgetItem(frame, channel->name() + " - " + QLCChannel::groupToString(channel->group()), VCWidget::SliderWidget, fxGrpItem, &ch); break;
-                break;
-
+                noHeadChannels.removeAll(ch);
             }
-        }           
+        }
+
+        QList<quint32> allChannels = HeadChannels;
+        allChannels.append(noHeadChannels);
+
+        if (m_checkBoxAll->checkState() == 2 && m_checkBoxHeads->checkState() == 0 &&
+            m_checkBoxFixtures->checkState() == 0 && (fixtureCount > 1 || headCount > 1))
+        {
+            // No Pages
+            addChannelsToTree(frame, fxGrpItem, allChannels);
+            continue;
+        }
+
+        if (m_checkBoxAll->checkState() == 2)
+        {
+            QTreeWidgetItem *page = new QTreeWidgetItem(frame);
+            page->setText(KWidgetName, "Page - All");
+            page->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::FrameWidget));
+            page->setFlags(frame->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
+            page->setCheckState(KWidgetName, Qt::Unchecked);
+            page->setExpanded(true);
+
+            addChannelsToTree(page, fxGrpItem, allChannels);
+        }
+
+        quint16 pageCount = 0;
+
+        QString pageName = "%1 Pages - ";
+        if (m_checkBoxFixtures->checkState()){
+            pageName.append("[F]");
+            pageCount = fixtureCount;
+        }
+        if (headCount > 1 && m_checkBoxHeads->checkState() == 2)
+        {
+            if (pageCount > 0)
+            {
+                pageCount *= headCount;
+                pageName.append("/");
+            }
+            else
+                pageCount = headCount;
+            pageName.append(" [H] ");
+        }
+
+        pageName = pageName.arg(pageCount);
+
+        QTreeWidgetItem *page = new QTreeWidgetItem(frame);
+        page->setText(KWidgetName, pageName);
+        page->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::FrameWidget));
+        page->setFlags(frame->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
+        page->setCheckState(KWidgetName, Qt::Unchecked);
+        page->setExpanded(true);
+
+        addChannelsToTree(page, fxGrpItem,
+                          (headCount > 1 && m_checkBoxHeads->checkState() == 2) ? HeadChannels
+                                                                                : allChannels);
     }
 }
 

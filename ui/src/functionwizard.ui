@@ -335,10 +335,20 @@ p, li { white-space: pre-wrap; }
            </property>
           </widget>
          </item>
-         <item row="0" column="2">
-          <widget class="QLabel" name="labelCnt">
+         <item row="1" column="5">
+          <widget class="QCheckBox" name="m_checkBoxHeads">
            <property name="text">
-            <string>Widgets/Line</string>
+            <string>Heads</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="4">
+          <widget class="QCheckBox" name="m_checkBoxAll">
+           <property name="text">
+            <string>All</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -347,9 +357,6 @@ p, li { white-space: pre-wrap; }
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Ignored</enum>
-           </property>
            <property name="sizeHint" stdset="0">
             <size>
              <width>40</width>
@@ -357,6 +364,37 @@ p, li { white-space: pre-wrap; }
             </size>
            </property>
           </spacer>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="labelCnt">
+           <property name="text">
+            <string>Widgets/Line</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="6">
+          <widget class="QCheckBox" name="m_checkBoxFixtures">
+           <property name="text">
+            <string>Fixtures</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="4" colspan="3">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Channel Frame Pages</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="4" colspan="2">
+          <widget class="QCheckBox" name="m_checkBoxMonitored">
+           <property name="text">
+            <string>Channels Monitored</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -502,6 +540,54 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel">
      <x>288</x>
      <y>650</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_checkBoxAll</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>FunctionWizard</receiver>
+   <slot>slotPageCheckboxChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>354</x>
+     <y>146</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>305</x>
+     <y>264</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_checkBoxFixtures</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>FunctionWizard</receiver>
+   <slot>slotPageCheckboxChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>549</x>
+     <y>146</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>305</x>
+     <y>264</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_checkBoxHeads</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>FunctionWizard</receiver>
+   <slot>slotPageCheckboxChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>451</x>
+     <y>146</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>305</x>
+     <y>264</y>
     </hint>
    </hints>
   </connection>
