@@ -745,26 +745,6 @@ void FunctionWizard::updateWidgetsTree()
         QList<quint32> allChannels = HeadChannels;
         allChannels.append(noHeadChannels);
 
-        if (m_checkBoxAll->checkState() == 2 && m_checkBoxHeads->checkState() == 0 &&
-            m_checkBoxFixtures->checkState() == 0 && (fixtureCount > 1 || headCount > 1))
-        {
-            // No Pages
-            addChannelsToTree(frame, fxGrpItem, allChannels);
-            continue;
-        }
-
-        if (m_checkBoxAll->checkState() == 2)
-        {
-            QTreeWidgetItem *page = new QTreeWidgetItem(frame);
-            page->setText(KWidgetName, "Page - All");
-            page->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::FrameWidget));
-            page->setFlags(frame->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
-            page->setCheckState(KWidgetName, Qt::Unchecked);
-            page->setExpanded(true);
-
-            addChannelsToTree(page, fxGrpItem, allChannels);
-        }
-
         quint16 pageCount = 0;
 
         QString pageName = "%1 Pages - ";
@@ -782,6 +762,25 @@ void FunctionWizard::updateWidgetsTree()
             else
                 pageCount = headCount;
             pageName.append(" [H] ");
+        }
+
+        if (pageCount < 2)
+        {
+            // No Pages
+            addChannelsToTree(frame, fxGrpItem, allChannels);
+            continue;
+        }
+
+        if (m_checkBoxAll->checkState() == 2)
+        {
+            QTreeWidgetItem *page = new QTreeWidgetItem(frame);
+            page->setText(KWidgetName, "Page - All");
+            page->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::FrameWidget));
+            page->setFlags(frame->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
+            page->setCheckState(KWidgetName, Qt::Unchecked);
+            page->setExpanded(true);
+
+            addChannelsToTree(page, fxGrpItem, allChannels);
         }
 
         pageName = pageName.arg(pageCount);
