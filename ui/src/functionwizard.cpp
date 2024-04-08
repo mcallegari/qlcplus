@@ -748,10 +748,13 @@ void FunctionWizard::updateWidgetsTree()
         quint16 pageCount = 0;
 
         QString pageName = "%1 Pages - ";
-        if (m_checkBoxFixtures->checkState()){
+        if (m_checkBoxFixtures->checkState())
+        {
             pageName.append("[F]");
             pageCount = fixtureCount;
         }
+        else
+            fixtureCount = 0;
         if (headCount > 1 && m_checkBoxHeads->checkState() == 2)
         {
             if (pageCount > 0)
@@ -761,8 +764,10 @@ void FunctionWizard::updateWidgetsTree()
             }
             else
                 pageCount = headCount;
-            pageName.append(" [H] ");
+            pageName.append("[H]");
         }
+        else
+            headCount = 0;
 
         if (pageCount < 2)
         {
@@ -788,6 +793,8 @@ void FunctionWizard::updateWidgetsTree()
         QTreeWidgetItem *page = new QTreeWidgetItem(frame);
         page->setText(KWidgetName, pageName);
         page->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::FrameWidget));
+        page->setData(KWidgetName, Qt::UserRole + 1, fixtureCount); // FixturePageCount
+        page->setData(KWidgetName, Qt::UserRole + 2, headCount);    // HeadPageCount
         page->setFlags(frame->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
         page->setCheckState(KWidgetName, Qt::Unchecked);
         page->setExpanded(true);
@@ -800,7 +807,7 @@ void FunctionWizard::updateWidgetsTree()
 
 VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int ypos,
                                        Function *func, int pType, QTreeWidgetItem *fxGrpItem,
-                                       quint32 chan)
+                                       quint32 chan, qint32 fixtureNr, qint32 headId)
 {
     VirtualConsole *vc = VirtualConsole::instance();
     VCWidget *widget = NULL;
@@ -876,7 +883,7 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
                 const QLCChannel *channel = fixture->channel(chan);
 
                 bool isRGB = channel->colour()==QLCChannel::Red;
-                
+
                 for (int c = 0; c < fxGrpItem->childCount(); c++)
                 {   
                     QTreeWidgetItem *fxItem = fxGrpItem->child(c);
@@ -1001,10 +1008,73 @@ QSize FunctionWizard::recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *par
                 fxGrpItem = (QTreeWidgetItem *) childItem->data(KWidgetName, Qt::UserRole + 1).value<void *>();
                 channel = childItem->data(KWidgetName, Qt::UserRole + 2).toUInt();
 
-            }   
-                
+            }
 
-            VCWidget *childWidget = createWidget(cType, parent, subX, subY, func, type, fxGrpItem, channel);
+            if (childItem->text(KWidgetName).contains("Page"))
+            {
+                VCFrame *frame = (VCFrame *)parent;
+                frame->setMultipageMode(true);
+
+                if (childItem->childCount() > 0)
+                {
+                    if (childItem->text(KWidgetName).contains("All"))
+                    {
+                        groupSize = recursiveCreateWidget(childItem, parent, type);
+                         // frame
+                        childItem->parent()->setData(KWidgetName, Qt::UserRole + 3, groupSize);
+                        // page
+                        childItem->setData(KWidgetName, Qt::UserRole + 1, -1); // all fixtures
+                        childItem->setData(KWidgetName, Qt::UserRole + 2, -1); // all heads
+                        frame->setTotalPagesNumber(frame->totalPagesNumber() + 1);
+                        frame->slotNextPage();
+                        continue;
+                    }
+                    else
+                    {
+                        qint32 fxPages = childItem->data(KWidgetName, Qt::UserRole + 1).toInt();
+                        qint32 headPages = childItem->data(KWidgetName, Qt::UserRole + 2).toInt();
+                        qint32 f = fxPages ? 0 : -1;
+
+                        for (; f < fxPages; f++)
+                        {
+                            qint32 h = headPages ? 0 : -1;
+                            for (; h < headPages; h++)
+                            {
+                                // page
+                                childItem->setData(KWidgetName, Qt::UserRole + 1, f); // fixture
+                                childItem->setData(KWidgetName, Qt::UserRole + 2, h); // head
+
+                                QSize size = recursiveCreateWidget(childItem, parent, type);
+                                groupSize = childItem->parent()
+                                                ->data(KWidgetName, Qt::UserRole + 3)
+                                                .toSize();
+
+                                if (size.width() > groupSize.width())
+                                    groupSize.setWidth(size.width());
+                                if (size.height() > groupSize.height())
+                                    groupSize.setHeight(size.height());
+
+                                frame->setTotalPagesNumber(frame->totalPagesNumber() + 1);
+                                frame->slotNextPage();
+                            }
+                        }
+                        frame->setTotalPagesNumber(frame->totalPagesNumber() - 1);
+                        frame->slotSetPage(0);
+                    }
+                }
+                continue;
+            }
+
+            qint32 fxNr = -1;
+            qint32 headId = -1;
+            if(childItem->parent()->text(KWidgetName).contains("Page")){
+                fxNr = childItem->parent()->data(KWidgetName, Qt::UserRole + 1).toInt();
+                headId = childItem->parent()->data(KWidgetName, Qt::UserRole + 2).toInt();
+            }
+
+
+            VCWidget *childWidget = createWidget(cType, parent, subX, subY, func, type, fxGrpItem,
+                                                 channel, fxNr, headId);
             if (childWidget != NULL)
             {
                 if(childWidget->type()==VCWidget::SliderWidget)

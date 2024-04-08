@@ -113,7 +113,7 @@ protected:
 
     VCWidget *createWidget(int type, VCWidget *parent, int xpos, int ypos,
                            Function *func = NULL, int pType = 0, QTreeWidgetItem* fxGrpItem = NULL,
-                           quint32 chan = 0);
+                           quint32 chan = 0, qint32 fixtureNr = -1, qint32 headId = -1);
 
     QSize recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *parent, int type);
 
