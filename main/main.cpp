@@ -95,7 +95,7 @@ namespace QLCArgs
     QRect closeButtonRect = QRect();
 
     /** Debug output level */
-    QtMsgType debugLevel = QtSystemMsg;
+    QtMsgType debugLevel = QtCriticalMsg;
 
     /** Log to file flag */
     bool logToFile = false;

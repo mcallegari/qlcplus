@@ -30,6 +30,7 @@
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
 #include "genericfader.h"
+#include "fadechannel.h"
 #include "efxfixture.h"
 #include "qlcchannel.h"
 #include "universe.h"

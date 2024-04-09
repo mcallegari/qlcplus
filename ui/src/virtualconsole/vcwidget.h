@@ -536,6 +536,7 @@ protected:
     /** Load input source from $root to $uni and $ch */
     bool loadXMLInput(QXmlStreamReader &root, quint32* uni, quint32* ch) const;
 
+    static QString extraParamToString(QVariant param);
     bool saveXMLCommon(QXmlStreamWriter *doc);
     bool saveXMLAppearance(QXmlStreamWriter *doc);
     /** Save the defualt input source to $root */
@@ -564,7 +565,6 @@ protected:
      */
     bool loadXMLWindowState(QXmlStreamReader &tag, int* x, int* y,
                             int* w, int* h, bool* visible);
-
 
     /*********************************************************************
      * QLC+ Mode change

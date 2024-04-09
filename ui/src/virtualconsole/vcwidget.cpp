@@ -978,6 +978,21 @@ bool VCWidget::loadXMLInput(QXmlStreamReader &root, quint32* uni, quint32* ch) c
     return true;
 }
 
+QString VCWidget::extraParamToString(QVariant param)
+{
+    if (param.isValid() == false)
+        return QString();
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    if (param.type() == QVariant::Int && param.toInt() != -1)
+        return QString::number(param.toInt());
+#else
+    if (param.metaType().id() == QMetaType::Int && param.toInt() != -1)
+        return QString::number(param.toInt());
+#endif
+    return QString();
+}
+
 bool VCWidget::saveXMLCommon(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
@@ -1068,20 +1083,20 @@ bool VCWidget::saveXMLInput(QXmlStreamWriter *doc,
             doc->writeAttribute(KXMLQLCVCWidgetInputMonitorValue, QString::number(src->feedbackValue(QLCInputFeedback::MonitorValue)));
 
         // save feedback extra params
-        QVariant extraParams = src->feedbackExtraParams(QLCInputFeedback::LowerValue);
+        QString extraParams = extraParamToString(src->feedbackExtraParams(QLCInputFeedback::LowerValue));
 
-        if (extraParams.isValid() && extraParams.type() == QVariant::Int && extraParams.toInt() != -1)
-            doc->writeAttribute(KXMLQLCVCWidgetInputLowerParams, QString::number(extraParams.toInt()));
+        if (!extraParams.isEmpty())
+            doc->writeAttribute(KXMLQLCVCWidgetInputLowerParams, extraParams);
 
-        extraParams = src->feedbackExtraParams(QLCInputFeedback::UpperValue);
+        extraParams = extraParamToString(src->feedbackExtraParams(QLCInputFeedback::UpperValue));
 
-        if (extraParams.isValid() && extraParams.type() == QVariant::Int && extraParams.toInt() != -1)
-            doc->writeAttribute(KXMLQLCVCWidgetInputUpperParams, QString::number(extraParams.toInt()));
+        if (!extraParams.isEmpty())
+            doc->writeAttribute(KXMLQLCVCWidgetInputUpperParams, extraParams);
 
-        extraParams = src->feedbackExtraParams(QLCInputFeedback::MonitorValue);
+        extraParams = extraParamToString(src->feedbackExtraParams(QLCInputFeedback::MonitorValue));
 
-        if (extraParams.isValid() && extraParams.type() == QVariant::Int && extraParams.toInt() != -1)
-            doc->writeAttribute(KXMLQLCVCWidgetInputMonitorParams, QString::number(extraParams.toInt()));
+        if (!extraParams.isEmpty())
+            doc->writeAttribute(KXMLQLCVCWidgetInputMonitorParams, extraParams);
 
         doc->writeEndElement();
     }

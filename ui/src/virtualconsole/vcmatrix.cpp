@@ -536,7 +536,7 @@ void VCMatrix::slotUpdate()
     QString algorithmText;
 
     {
-        QMutexLocker(&matrix->algorithmMutex());
+        QMutexLocker locker(&matrix->algorithmMutex());
 
         RGBAlgorithm *algo = matrix->algorithm();
         if (algo != NULL)
