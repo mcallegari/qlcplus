@@ -913,7 +913,9 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
                 if(channel->group()==QLCChannel::Speed)
                     slider->setWidgetStyle(VCSlider::WKnob);
 
-               
+                if ((fixtureNr >= 0 || headId >= 0) && m_checkBoxAll->checkState() == Qt::Checked)
+                    slider->setChannelsMonitorEnabled(true);
+
                 slider->setSliderMode(VCSlider::Level); 
             }
 
