@@ -930,11 +930,21 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
 
             for (int c = 0; c < fxGrpItem->childCount(); c++)
             {
+                if (fixtureNr >= 0 && c != fixtureNr)
+                    continue;
+
                 QTreeWidgetItem *fxItem = fxGrpItem->child(c);
                 int fxID = fxItem->data(KFixtureColumnName, Qt::UserRole).toInt();
-                VCXYPadFixture fxi = VCXYPadFixture(m_doc);
-                fxi.setHead(GroupHead(fxID,0));
-                XYPad->appendFixture(fxi);
+                Fixture *fixture = m_doc->fixture(fxID);
+                for (qint32 h = 0; h < fixture->heads(); h++)
+                {
+                    if (headId >= 0 && h != headId)
+                        continue;
+
+                    VCXYPadFixture fxi = VCXYPadFixture(m_doc);
+                    fxi.setHead(GroupHead(fxID, h));
+                    XYPad->appendFixture(fxi);
+                }
             }
             XYPad->resize(QSize(m_sliderHeightSpin->value(), m_sliderHeightSpin->value()));
                       
