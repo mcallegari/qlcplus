@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.7</Version>
+  <Version>4.12.3</Version>
   <Author>kompot</Author>
  </Creator>
  <Manufacturer>OXO</Manufacturer>
@@ -34,8 +34,7 @@
   <Capability Min="144" Max="179">Auto mix color mode</Capability>
   <Capability Min="180" Max="215">3 colors strobe</Capability>
   <Capability Min="216" Max="251">7 colors strobe</Capability>
-  <Capability Min="252" Max="255">7 colors
-audio control / Light changes with sound value</Capability>
+  <Capability Min="252" Max="255">7 colors audio control / Light changes with sound value</Capability>
  </Channel>
  <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
  <Mode Name="1 channel">
@@ -62,10 +61,10 @@ audio control / Light changes with sound value</Capability>
   <Channel Number="7">Master dimmer</Channel>
  </Mode>
  <Physical>
-  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-  <Dimensions Weight="0" Width="0" Height="0" Depth="0"/>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.9" Width="184" Height="146" Depth="254"/>
   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-  <Technical PowerConsumption="0" DmxConnector="5 pin"/>
+  <Technical PowerConsumption="35" DmxConnector="5 pin"/>
  </Physical>
 </FixtureDefinition>

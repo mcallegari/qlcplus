@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.7</Version>
+  <Version>4.12.3</Version>
   <Author>kompot</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -77,10 +77,10 @@
   <Channel Number="8">Color Temp</Channel>
  </Mode>
  <Physical>
-  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-  <Dimensions Weight="0" Width="0" Height="0" Depth="0"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.5" Width="185" Height="118" Depth="263"/>
+  <Lens Name="Other" DegreesMin="10" DegreesMax="60"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-  <Technical PowerConsumption="0" DmxConnector="3-pin"/>
+  <Technical PowerConsumption="52" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

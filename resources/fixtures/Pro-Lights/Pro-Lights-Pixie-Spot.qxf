@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.7</Version>
+  <Version>4.12.3</Version>
   <Author>kompot</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
@@ -141,7 +141,7 @@
   <Capability Min="0" Max="255">Speed (Slow to Fast)</Capability>
  </Channel>
  <Channel Name="Dimmer Speed Mode">
-  <Group Byte="0">Effect</Group>
+  <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="51">Preset dimmer speed from display menu</Capability>
   <Capability Min="52" Max="101">Dimmer speed mode off</Capability>
   <Capability Min="102" Max="152">Dimmer speed mode 1</Capability>
@@ -211,10 +211,10 @@
   <Channel Number="22">Dimmer Speed Mode</Channel>
  </Mode>
  <Physical>
-  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-  <Dimensions Weight="0" Width="0" Height="0" Depth="0"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-  <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+  <Bulb Type="LED" Lumens="1069" ColourTemperature="0"/>
+  <Dimensions Weight="7" Width="253" Height="352" Depth="192"/>
+  <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="118" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>
