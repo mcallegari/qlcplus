@@ -447,21 +447,8 @@ void FunctionWizard::addWidgetItem(QTreeWidgetItem *grpItem, QString name, int t
     if (grpItem == NULL)
         return;
 
-    QString channelsStr = "(";
-    size_t cnt = 1;
-    if(name.contains("RGB"))cnt = 3;
-    if(name.contains("XY PAD"))cnt = 4;
-
-    for (size_t i = 0; i < cnt; i++)
-    {   
-        if((channels[i]+1)==0) continue;
-        channelsStr.append( QString::number((uint)channels[i]+1)+ ", ");
-    }
-    channelsStr.chop(2);
-    channelsStr.append(")");
-
     QTreeWidgetItem *item = new QTreeWidgetItem(grpItem);
-    item->setText(KWidgetName, name + " " + channelsStr );
+    item->setText(KWidgetName, name );
     item->setCheckState(KWidgetName, Qt::Unchecked);
     item->setData(KWidgetName, Qt::UserRole, type);
     item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void*)fxGrpItem));
