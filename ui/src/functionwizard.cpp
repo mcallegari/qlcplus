@@ -1019,12 +1019,13 @@ QSize FunctionWizard::recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *par
                 {
                     if (childItem->text(KWidgetName).contains("All"))
                     {
-                        groupSize = recursiveCreateWidget(childItem, parent, type);
-                         // frame
-                        childItem->parent()->setData(KWidgetName, Qt::UserRole + 3, groupSize);
-                        // page
+                        //         v page v
                         childItem->setData(KWidgetName, Qt::UserRole + 1, -1); // all fixtures
                         childItem->setData(KWidgetName, Qt::UserRole + 2, -1); // all heads
+                        
+                        groupSize = recursiveCreateWidget(childItem, parent, type);                         
+                        //                   v frame v
+                        childItem->parent()->setData(KWidgetName, Qt::UserRole + 3, groupSize);
                         frame->setTotalPagesNumber(frame->totalPagesNumber() + 1);
                         frame->slotNextPage();
                         continue;
