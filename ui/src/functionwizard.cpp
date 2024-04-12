@@ -872,15 +872,29 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
                 bool isRGB = channel->colour()==QLCChannel::Red;
 
                 for (int c = 0; c < fxGrpItem->childCount(); c++)
-                {   
+                {
+                    if (fixtureNr >= 0 && c != fixtureNr)
+                        continue;
+
                     QTreeWidgetItem *fxItem = fxGrpItem->child(c);
                     int fxi = fxItem->data(KFixtureColumnName, Qt::UserRole).toInt();
-                    
-                    slider->addLevelChannel(fxi, chan);
-                    if(isRGB)
+                    Fixture *fixture = m_doc->fixture(fxID);
+                    qDebug() << fixture->head(0).channels();
+                    qint16 chanIndex = fixture->head(0).channels().indexOf(chan);
+                    for (qint32 h = 0; h < fixture->heads(); h++)
                     {
-                        slider->addLevelChannel(fxi, chan + 1);
-                        slider->addLevelChannel(fxi, chan + 2);
+                        if (headId >= 0 && h != headId)
+                            continue;
+
+                        if (chanIndex > 0) // check if channel is in head
+                            chan = fixture->head(h).channels().at(chanIndex);
+
+                        slider->addLevelChannel(fxi, chan);
+                        if (isRGB)
+                        {
+                            slider->addLevelChannel(fxi, chan + 1);
+                            slider->addLevelChannel(fxi, chan + 2);
+                        }
                     }
                 }
                 
