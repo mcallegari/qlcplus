@@ -880,21 +880,21 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
                     QTreeWidgetItem *fxItem = fxGrpItem->child(c);
                     int fxi = fxItem->data(KFixtureColumnName, Qt::UserRole).toInt();
                     Fixture *fixture = m_doc->fixture(fxID);
-                    qDebug() << fixture->head(0).channels();
                     qint16 chanIndex = fixture->head(0).channels().indexOf(chan);
                     for (qint32 h = 0; h < fixture->heads(); h++)
                     {
                         if (headId >= 0 && h != headId)
                             continue;
 
-                        if (chanIndex > 0) // check if channel is in head
-                            chan = fixture->head(h).channels().at(chanIndex);
+                        quint32 headChannel = chan;
+                        if (chanIndex >= 0) // check if channel is in head
+                            headChannel = fixture->head(h).channels().at(chanIndex);
 
-                        slider->addLevelChannel(fxi, chan);
+                        slider->addLevelChannel(fxi, headChannel);
                         if (isRGB)
                         {
-                            slider->addLevelChannel(fxi, chan + 1);
-                            slider->addLevelChannel(fxi, chan + 2);
+                            slider->addLevelChannel(fxi, headChannel + 1);
+                            slider->addLevelChannel(fxi, headChannel + 2);
                         }
                     }
                 }
