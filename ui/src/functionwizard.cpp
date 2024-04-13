@@ -44,6 +44,7 @@
 #include "qlcfixturehead.h"
 #include "qlccapability.h"
 #include "qlcchannel.h"
+#include "vcframepageshortcut.h"
 
 #define KFixtureColumnName          0
 #define KFixtureColumnCaps          1
@@ -1039,6 +1040,7 @@ QSize FunctionWizard::recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *par
                         groupSize = recursiveCreateWidget(childItem, parent, type);                         
                         //                   v frame v
                         childItem->parent()->setData(KWidgetName, Qt::UserRole + 3, groupSize);
+                        frame->shortcuts().at(frame->currentPage())->setName("All");
                         frame->setTotalPagesNumber(frame->totalPagesNumber() + 1);
                         frame->slotNextPage();
                         continue;
@@ -1068,12 +1070,21 @@ QSize FunctionWizard::recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *par
                                 if (size.height() > groupSize.height())
                                     groupSize.setHeight(size.height());
 
+                                QString pageName = "";
+                                if (f >= 0)
+                                    pageName.append(QString("F%1").arg(f));
+
+                                if (h >= 0)
+                                    pageName.append(QString("%1H%2").arg((f >= 0) ? "/" : "").arg(h));
+
+                                frame->shortcuts().at(frame->currentPage())->setName(pageName);
                                 frame->setTotalPagesNumber(frame->totalPagesNumber() + 1);
                                 frame->slotNextPage();
                             }
                         }
                         frame->setTotalPagesNumber(frame->totalPagesNumber() - 1);
                         frame->slotSetPage(0);
+                        frame->updatePageCombo();
                     }
                 }
                 continue;
