@@ -1273,6 +1273,7 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
     for (int i = 0; i < rows; i++)
     {
         Fixture *fxi = new Fixture(m_doc);
+        bool addSuccess = false;
         Q_ASSERT(fxi != nullptr);
         fxi->setName(tr("%1 - Row %2").arg(name).arg(i + 1));
         if (rowDef == nullptr)
@@ -1296,7 +1297,7 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
         fxi->setUniverse(m_doc->inputOutputMap()->getUniverseID(uniIndex));
         fxi->setAddress(address - 1);
         address += fxi->channels();
-        m_doc->addFixture(fxi);
+        addSuccess = m_doc->addFixture(fxi);
 
         if (displacement == ZigZag)
         {
@@ -1374,7 +1375,8 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
         }
         m_monProps->setFixturePosition(fxi->id(), 0, 0, pos);
         m_monProps->setFixtureRotation(fxi->id(), 0, 0, rot);
-        slotFixtureAdded(fxi->id(), QVector3D(pos.x(), pos.y(), pos.z()));
+        if(addSuccess)
+            slotFixtureAdded(fxi->id(), QVector3D(pos.x(), pos.y(), pos.z()));
         yPos += (qreal)phyHeight;
         currRow += rowInc;
     }
