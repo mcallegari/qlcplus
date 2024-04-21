@@ -158,6 +158,7 @@ Rectangle
             RobotoText
             {
                 height: origItemHeight
+                fontSize: origTextSizeDefault
                 label: sfSlider.value.toFixed(2) + "x"
             }
 
