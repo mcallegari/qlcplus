@@ -128,6 +128,7 @@
     <F n="American-DJ-On-X" m="On-X"/>
     <F n="American-DJ-P64-LED-Plus" m="P64 LED Plus"/>
     <F n="American-DJ-Par-38-Pro" m="Par 38 Pro"/>
+    <F n="American-DJ-Par-Z4" m="Par Z4"/>
     <F n="American-DJ-Pearl-LED-WH" m="Pearl LED WH"/>
     <F n="American-DJ-Pinspot-LED-Quad-DMX" m="Pinspot LED Quad DMX"/>
     <F n="American-DJ-Pocket-Pro" m="Pocket Pro"/>
@@ -244,6 +245,7 @@
     <F n="beamz-Panther-25-LED-Spot" m="Panther 25 LED Spot"/>
     <F n="beamZ-Radical-II" m="Radical II"/>
     <F n="beamZ-SB200-Stage-Blinder-2x50w" m="SB200 Stage Blinder 2x50W"/>
+    <F n="beamZ-SB400" m="SB400"/>
     <F n="beamZ-SparkleWall" m="SparkleWall"/>
   </M>
   <M n="Betopper">
@@ -1308,6 +1310,7 @@
     <F n="Orion-Effects-Lighting-ORCAN2" m="ORCAN2"/>
   </M>
   <M n="OXO">
+    <F n="OXO-ColorBeam-7-FCW-IR" m="ColorBeam 7 FCW IR"/>
     <F n="OXO-LED-Funstrip-DMX" m="LED Funstrip DMX"/>
   </M>
   <M n="Philips_Selecon">
@@ -1353,6 +1356,7 @@
     <F n="Pro-Lights-Moonstone" m="Moonstone"/>
     <F n="Pro-Lights-Omni-Tri-9" m="Omni Tri-9"/>
     <F n="Pro-Lights-Onyx" m="Onyx"/>
+    <F n="Pro-Lights-Pixie-Spot" m="Pixie Spot"/>
     <F n="Pro-Lights-PIXIEWASH" m="PIXIEWASH"/>
     <F n="Pro-Lights-SmartBat" m="SmartBat"/>
     <F n="Pro-Lights-SmartBatHEX" m="SmartBatHEX"/>
