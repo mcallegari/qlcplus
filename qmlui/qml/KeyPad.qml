@@ -36,7 +36,7 @@ Rectangle
     property bool showTapButton: false
     
     property alias commandString: commandBox.text
-    property real itemHeight: Math.max(UISettings.iconSizeDefault, keyPadRoot.height / keyPadGrid.rows) - 3
+    property real itemHeight: UISettings.iconSizeDefault - 3
 
     //needed for bpm tapping
     property double tapTimeValue: 0
