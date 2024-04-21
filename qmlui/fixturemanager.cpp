@@ -1054,6 +1054,9 @@ void FixtureManager::slotFixtureAdded(quint32 id, QVector3D pos)
     else
     {
         Fixture *fixture = m_doc->fixture(id);
+        if (fixture == nullptr)
+            return;
+
         QStringList uniNames = m_doc->inputOutputMap()->universeNames();
         QString universeName = uniNames.at(fixture->universe());
         int matchMask = 0;
