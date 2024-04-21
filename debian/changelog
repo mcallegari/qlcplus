@@ -3,9 +3,10 @@ qlcplus (4.13.1) stable; urgency=low
   * engine: fix blackout not working
   * engine: include relative EFX in blackout
   * engine: fix RGB Matrix clone control mode
-  * Show Manage: improve resume after pause
+  * Show Manager: improve resume after pause
   * Virtual Console/XY Pad: copy presets when cloning (thanks to Hans-Jürgen Tappe)
   * New fixtures: beamZ BAC500 and BAC506 (thanks to Olivier Michel)
+  * New fixtures: American DJ Par Z4, beamZ SB400, OXO ColorBeam 7 FCW IR, Pro-Lights Pixie Spot (thanks to Dmitry Kolesnikov)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Jun 2024 12:13:14 +0200
 
