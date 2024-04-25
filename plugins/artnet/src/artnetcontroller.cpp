@@ -24,7 +24,7 @@
 #include <QStringList>
 #include <QDebug>
 
-#define POLL_INTERVAL_MS   5000
+#define POLL_INTERVAL_MS   3000
 #define SEND_INTERVAL_MS   2000
 
 #define TRANSMIT_STANDARD  "Standard"
@@ -429,9 +429,16 @@ bool ArtNetController::handleArtNetPoll(QByteArray const& datagram, QHostAddress
     qDebug() << "[ArtNet] ArtPoll received";
 #endif
     QByteArray pollReplyPacket;
-    m_packetizer->setupArtNetPollReply(pollReplyPacket, m_ipAddr, m_MACAddress);
-    m_udpSocket->writeDatagram(pollReplyPacket, senderAddress, ARTNET_PORT);
-    ++m_packetSent;
+    for (QMap<quint32, UniverseInfo>::iterator it = m_universeMap.begin(); it != m_universeMap.end(); ++it)
+    {
+        quint32 universe = it.key();
+        UniverseInfo &info = it.value();
+        bool isInput = (info.type & Input) ? true : false;
+
+        m_packetizer->setupArtNetPollReply(pollReplyPacket, m_ipAddr, m_MACAddress, universe, isInput);
+        m_udpSocket->writeDatagram(pollReplyPacket, senderAddress, ARTNET_PORT);
+        ++m_packetSent;
+    }
     ++m_packetReceived;
     return true;
 }
@@ -451,7 +458,7 @@ bool ArtNetController::handleArtNetDmx(QByteArray const& datagram, QHostAddress 
 #if _DEBUG_RECEIVED_PACKETS
     qDebug() << "[ArtNet] DMX data received. Universe:" << artnetUniverse << ", Data size:" << dmxData.size()
         << ", data[0]=" << (int)dmxData[0]
-        << ", from=" << senderAddress.toString();
+        << ", from=" << QHostAddress(senderAddress.toIPv4Address()).toString();
 #endif
 
     for (QMap<quint32, UniverseInfo>::iterator it = m_universeMap.begin(); it != m_universeMap.end(); ++it)
@@ -524,7 +531,7 @@ bool ArtNetController::handlePacket(QByteArray const& datagram, QHostAddress con
     //    return false;
 
 #if _DEBUG_RECEIVED_PACKETS
-    qDebug() << "Received packet with size: " << datagram.size() << ", host: " << senderAddress.toString();
+    qDebug() << "Received packet with size: " << datagram.size() << ", host: " << QHostAddress(senderAddress.toIPv4Address()).toString();
 #endif
     quint16 opCode = -1;
 
