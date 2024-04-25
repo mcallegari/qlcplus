@@ -623,7 +623,8 @@ void VCWidget::setInputSource(QSharedPointer<QLCInputSource> const& source, quin
                     // retrieve plugin specific params for feedback
                     if (source->feedbackExtraParams(QLCInputFeedback::LowerValue).toInt() == -1)
                         source->setFeedbackExtraParams(QLCInputFeedback::LowerValue, profile->channelExtraParams(ich));
-                    if (source->feedbackExtraParams(QLCInputFeedback::UpperValue).toInt() == -1 || !source->feedbackExtraParams(QLCInputFeedback::UpperValue).isValid())
+                    if (source->feedbackExtraParams(QLCInputFeedback::UpperValue).toInt() == -1 ||
+                        !source->feedbackExtraParams(QLCInputFeedback::UpperValue).isValid())
                         source->setFeedbackExtraParams(QLCInputFeedback::UpperValue, profile->channelExtraParams(ich));
                     if (source->feedbackExtraParams(QLCInputFeedback::MonitorValue).toInt() == -1)
                         source->setFeedbackExtraParams(QLCInputFeedback::MonitorValue, profile->channelExtraParams(ich));
@@ -713,7 +714,7 @@ void VCWidget::sendFeedback(int value, QSharedPointer<QLCInputSource> src, QVari
     if (acceptsInput() == false)
         return;
 
-    qDebug() << "[VCWidget] Send feedback to uni" << src->universe() << "," << src->channel() << ", param" << extraParams;
+    //qDebug() << "[VCWidget] Send feedback to uni" << src->universe() << "," << src->channel() << ", param" << extraParams;
 
     m_doc->inputOutputMap()->sendFeedBack(
         src->universe(), src->channel(), value,
