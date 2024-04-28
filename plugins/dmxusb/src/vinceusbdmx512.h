@@ -21,7 +21,7 @@
 #define VINCEUSBDMX512_H
 
 #include <QByteArray>
-#include <QObject>
+#include <QThread>
 
 #include "dmxusbwidget.h"
 
@@ -39,37 +39,17 @@
 #define VINCE_RESP_IO_ERR     char(0x10) //! CMD_IO_ERR
 #define VINCE_RESP_PARAM_ERR  char(0x11) //! CMD_PARAM_ERR
 
-/**
- * This is the base interface class for Vince USB-DMX512 widgets.
- */
-class VinceUSBDMX512 : public DMXUSBWidget
+class VinceUSBDMX512 : public QThread, public DMXUSBWidget
 {
-    /************************************************************************
-     * Initialization
-     ************************************************************************/
+    Q_OBJECT
+
 public:
-    VinceUSBDMX512(DMXInterface *interface, quint32 outputLine);
+    VinceUSBDMX512(DMXInterface *iface, quint32 outputLine);
+
     virtual ~VinceUSBDMX512();
 
     /** @reimp */
     Type type() const;
-
-protected:
-    /** Requests commands */
-    enum Command
-    {
-        StartDMX  = VINCE_CMD_START_DMX,
-        StopDMX   = VINCE_CMD_STOP_DMX,
-        ResetDMX  = VINCE_CMD_RESET_DMX,
-        UpdateDMX = VINCE_CMD_UPDATE_DMX
-    };
-
-    /****************************************************************************
-     * Name & Serial
-     ****************************************************************************/
-public:
-    /** @reimp */
-    QString additionalInfo() const;
 
     /****************************************************************************
      * Open & Close
@@ -79,38 +59,31 @@ public:
     bool open(quint32 line = 0, bool input = false);
 
     /** @reimp */
-    virtual bool close(quint32 line = 0, bool input = false);
+    bool close(quint32 line = 0, bool input = false);
 
-    /************************************************************************
-     * Write & Read
-     ************************************************************************/
-protected:
-    /**
-     * Format and write data to the opened interface.
-     *
-     * @param command The request type
-     * @param data The data to write
-     * @return true if the values were sent successfully, otherwise false
-     */
-    bool writeData(enum Command command, const QByteArray& data = QByteArray());
-
-    /**
-     * Read and extract data from the opened interface.
-     *
-     * @param ok A pointer which tells if data was read or not
-     * @return The available data
-     */
-    QByteArray readData(bool* ok = NULL);
-
-    /************************************************************************
-     * Write universe
-     ************************************************************************/
+    /********************************************************************
+     * Outputs
+     ********************************************************************/
 public:
     /** @reimp */
     bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
 
 private:
-    QByteArray m_universe;
+    /** Stop the output thread */
+    void stopOutputThread();
+
+    /** Output thread worker method */
+    void run();
+
+private:
+    bool m_running;
+
+    /****************************************************************************
+     * Serial & name
+     ****************************************************************************/
+public:
+    /** @reimp */
+    QString additionalInfo() const;
 };
 
 #endif
