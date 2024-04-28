@@ -20,6 +20,18 @@ if(UNIX)
     endif()
 endif()
 
+if (ANDROID OR IOS)
+    set(qmlui ON)
+endif()
+
+if (ANDROID)
+    if(QT_VERSION_MAJOR GREATER 5)
+        set(QT_ANDROID_PACKAGE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/platforms/android CACHE INTERNAL "")
+    else()
+        set(ANDROID_PACKAGE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/platforms/android CACHE INTERNAL "")
+    endif()
+endif()
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Set up AUTOMOC and some sensible defaults for runtime execution
@@ -32,6 +44,9 @@ find_package(QT NAMES Qt5 Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui Multimedia MultimediaWidgets Network PrintSupport Qml Quick Svg Test Widgets LinguistTools)
 if(qmlui)
     find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS 3DCore 3DInput 3DQuick 3DQuickExtras 3DRender)
+    if(ANDROID)
+        find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Concurrent OpenGL)
+    endif()
 endif()
 
 message("Found Qt version ${QT_VERSION_MAJOR}: ${QT_DIR}")
