@@ -1104,16 +1104,16 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
     else if (root.name() == KXMLQLCVCAudioTriggers)
     {
         /* Create a new clock into its parent */
-        VCAnimation *animation = new VCAnimation(m_doc, this);
-        if (animation->loadXML(root) == false)
-            delete animation;
+        VCAudioTrigger *audioTrigger = new VCAudioTrigger(m_doc, this);
+        if (audioTrigger->loadXML(root) == false)
+            delete audioTrigger;
         else
         {
-            QQmlEngine::setObjectOwnership(animation, QQmlEngine::CppOwnership);
-            setupWidget(animation, animation->page());
-            m_vc->addWidgetToMap(animation);
+            QQmlEngine::setObjectOwnership(audioTrigger, QQmlEngine::CppOwnership);
+            setupWidget(audioTrigger, audioTrigger->page());
+            m_vc->addWidgetToMap(audioTrigger);
             if (render && m_item)
-                animation->render(m_vc->view(), m_item);
+                audioTrigger->render(m_vc->view(), m_item);
         }
     }
     else if (root.name() == KXMLQLCVCSpeedDial)
