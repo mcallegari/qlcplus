@@ -37,7 +37,6 @@ Rectangle
 
     onVisibleChanged:
     {
-        console.log("visibility change");
         origItemHeight = UISettings.listItemHeight
         origIconMedium = UISettings.iconSizeMedium
         origTextSizeDefault = UISettings.textSizeDefault
