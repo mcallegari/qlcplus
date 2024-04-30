@@ -5,7 +5,7 @@ on: ["push", "pull_request"]
 jobs:
   build-linux:
     #if: false
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     name: QLCplus Linux ${{matrix.task}}
     strategy:
       #fail-fast: false
@@ -45,7 +45,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: false
 
@@ -107,7 +107,7 @@ jobs:
           version: ${{runner.os}}-apt
 
       - name: Install Qt through aqt (and python)
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
           cache: true
@@ -202,7 +202,7 @@ jobs:
       - name: Store original install artifacts before stripping and AppImage
         # Activate for debugging
         if: ${{ false && ! startsWith( matrix.task, 'coverage') }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.task }}-files
           path: ${{ env.INSTALL_ROOT }}
@@ -246,7 +246,7 @@ jobs:
 
       - name: Store AppImage artifacts
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.task }}-AppImage
           path: qlcplus-${{env.TASK}}-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.AppImage
@@ -271,7 +271,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: false
 
@@ -436,7 +436,7 @@ jobs:
           mv /c/qlcplus/${{env.OUTFILE}} /d/a/qlcplus/qlcplus
 
       - name: Store executable artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: QLC+-${{env.TASK}}-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.exe
           path: ${{env.OUTFILE}}
