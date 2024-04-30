@@ -107,7 +107,7 @@ jobs:
           version: ${{runner.os}}-apt
 
       - name: Install Qt through aqt (and python)
-        uses: jurplel/install-qt-action@v4
+        uses: jurplel/install-qt-action@v3
         with:
           version: ${{ env.QT_VERSION }}
           cache: true
