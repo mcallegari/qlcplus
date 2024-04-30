@@ -154,6 +154,7 @@ Rectangle
         {
             id: keyPadBox
             width: parent.width
+            height: UISettings.iconSizeDefault * 6
             showDMXcontrol: false
             showTapButton: true
             visible: ioManager.beatType === "INTERNAL"
