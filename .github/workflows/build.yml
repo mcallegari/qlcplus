@@ -179,7 +179,8 @@ jobs:
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: coverage/coverage.info
+          file: coverage/coverage.info
+          format: lcov
 
       - name: Install
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
