@@ -123,6 +123,8 @@ void App::startup()
     qmlRegisterUncreatableType<Function>("org.qlcplus.classes", 1, 0, "QLCFunction", "Can't create a Function!");
     qmlRegisterType<ModelSelector>("org.qlcplus.classes", 1, 0, "ModelSelector");
 
+    qputenv("QT3D_RENDERER", "opengl");
+
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QQmlFileSelector* selector = new QQmlFileSelector(engine());
     selector->setExtraSelectors({"qt5"});
