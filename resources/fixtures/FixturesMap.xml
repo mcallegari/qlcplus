@@ -281,6 +281,7 @@
   <M n="BoomToneDJ">
     <F n="BoomToneDJ-Froggy-LED-RGBW" m="Froggy LED RGBW"/>
     <F n="BoomToneDJ-KUB-500-RGB" m="KUB 500 RGB"/>
+    <F n="BoomToneDJ-LED-PAR-7X10W-5in1" m="LED PAR 7X10W 5in1"/>
     <F n="BoomToneDJ-Moving-Wash-5X15-Speed" m="Moving Wash 5X15 Speed"/>
     <F n="BoomToneDJ-Quattro-Scan-LED" m="Quattro Scan LED"/>
     <F n="BoomToneDJ-SilentPAR-12x10w-6in1" m="SilentPAR 12x10w 6in1"/>
@@ -788,6 +789,7 @@
     <F n="Eurolite-LED-Party-Panel-RGB+UV" m="LED Party Panel RGB+UV"/>
     <F n="Eurolite-LED-PARty-RGBW" m="LED PARty RGBW"/>
     <F n="Eurolite-LED-PARty-TCL-spot" m="LED PARty TCL spot"/>
+    <F n="Eurolite-LED-PIX-16-QCL-Bar" m="LED PIX-16 QCL Bar"/>
     <F n="Eurolite-LED-PLL-480-CW-WW" m="LED PLL-480 CW/WW"/>
     <F n="Eurolite-LED-PMB-4-COB-RGB-30W-Bar" m="LED PMB-4 COB RGB 30W Bar"/>
     <F n="Eurolite-LED-PMB-8-COB-RGB-30W" m="LED PMB-8 COB RGB 30W"/>
@@ -1189,6 +1191,7 @@
     <F n="Luxibel-LX161" m="LX161"/>
   </M>
   <M n="Mac_Mah">
+    <F n="Mac-Mah-FLAT-PAR-7x12W-6in1" m="FLAT PAR 7x12W 6in1"/>
     <F n="Mac-Mah-Mac-FOG-DMX" m="Mac FOG DMX"/>
     <F n="Mac-Mah-Mac-Follow-1200" m="Mac Follow 1200"/>
     <F n="Mac-Mah-WiderPanel" m="Wider Panel"/>
@@ -1505,6 +1508,7 @@
   </M>
   <M n="Showtec">
     <F n="Showtec-Acrobat" m="Acrobat"/>
+    <F n="Showtec-ACT-PC-60-RGBW" m="ACT PC 60 RGBW"/>
     <F n="Showtec-Atmos-F-350" m="Atmos F-350"/>
     <F n="Showtec-Blade-Runner" m="Blade Runner"/>
     <F n="Showtec-Club-Par-12x6-RGBWAUV" m="Club Par 12-6 RGBWAUV"/>
