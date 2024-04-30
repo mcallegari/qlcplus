@@ -188,7 +188,6 @@ Rectangle
             height: origItemHeight
             fontSize: origTextSizeDefault
             label: qsTr("Background darker")
-            onHeightChanged: console.log("Row 2 height: " + height);
         }
         Loader
         {
@@ -208,7 +207,6 @@ Rectangle
             height: origItemHeight
             fontSize: origTextSizeDefault
             label: qsTr("Background dark")
-            onHeightChanged: console.log("text height changed " + height)
         }
         Loader
         {
