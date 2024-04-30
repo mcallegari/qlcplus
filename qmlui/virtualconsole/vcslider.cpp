@@ -1029,7 +1029,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
 
     if (clickAndGoType() == CnGColors)
     {
-        float f = SCALE(float(m_value), rangeLowLimit(), rangeHighLimit(), 0.0, 200.0);
+        float f = SCALE(float(modLevel), rangeLowLimit(), rangeHighLimit(), 0.0, 200.0);
 
         if ((uchar)f != 0)
         {
@@ -1136,6 +1136,10 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
             if (m_isOverriding)
                 fc->addFlag(FadeChannel::Override);
 
+            // request to autoremove LTP channels when set
+            if (! (chType & FadeChannel::Intensity))
+                fc->addFlag(FadeChannel::AutoRemove);
+
             if (chType & FadeChannel::Intensity && clickAndGoType() == CnGColors)
             {
                 const QLCChannel *qlcch = fxi->channel(scv.channel);
@@ -1233,10 +1237,13 @@ void VCSlider::updateFeedback()
 
 void VCSlider::slotInputValueChanged(quint8 id, uchar value)
 {
+    int scaledValue = SCALE(float(value), float(0), float(UCHAR_MAX),
+            float(rangeLowLimit()),
+            float(rangeHighLimit()));
     switch (id)
     {
         case INPUT_SLIDER_CONTROL_ID:
-            setValue(value, true, false);
+            setValue(scaledValue, true, false);
         break;
         case INPUT_SLIDER_RESET_ID:
             if (value)
