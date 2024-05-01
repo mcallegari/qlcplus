@@ -1,5 +1,9 @@
 project(resources)
 
+if (NOT qmlui)
+    add_subdirectory(docs)
+endif()
+
 add_subdirectory(fixtures)
 add_subdirectory(gobos)
 add_subdirectory(inputprofiles)
