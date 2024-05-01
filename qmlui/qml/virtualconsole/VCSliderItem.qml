@@ -285,6 +285,11 @@ VCWidgetItem
                 {
                     item.visible = false
                     item.closeOnSelect = true
+                    if (sliderObj && clickAndGoButton.cngType == VCSlider.CnGPreset)
+                    {
+                        item.rangeLowLimit = sliderObj.rangeLowLimit
+                        item.rangeHighLimit = sliderObj.rangeHighLimit
+                    }
                 }
 
                 Connections

@@ -38,6 +38,8 @@ Rectangle
     property int selectedChannel: -1
     property bool showPalette: false
     property int currentValue: 0 // as DMX value
+    property int rangeLowLimit: 0
+    property int rangeHighLimit: 255
 
     signal presetSelected(QLCCapability cap, int fxID, int chIdx, int value)
     signal valueChanged(int value)
@@ -152,6 +154,7 @@ Rectangle
                 {
                     capability: modelData
                     capIndex: index + 1
+                    visible: (capability.min <= toolRoot.rangeHighLimit || capability.max <= toolRoot.rangeLowLimit)
                     onValueChanged:
                     {
                         toolRoot.currentValue = value

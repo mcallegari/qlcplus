@@ -42,9 +42,6 @@ Rectangle
             return
 
         var resArray = capability.resources
-        var slMin = (sliderRoot && sliderRoot.sliderObj) ? sliderRoot.sliderObj.rangeLowLimit : 0
-        var slMax = (sliderRoot && sliderRoot.sliderObj) ? sliderRoot.sliderObj.rangeHighLimit : 255
-        visible = (capability.min <= slMax || capability.max <= slMin)
         capName.label = capability.name
 
         if (resArray.length === 0)
