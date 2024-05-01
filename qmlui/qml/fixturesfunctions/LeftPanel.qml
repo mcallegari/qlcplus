@@ -98,8 +98,10 @@ SidePanel
                 autoExclusive: false
                 onToggled:
                 {
-                    if (checked == true)
+                    if (checked == true) {
                         loaderSource = "qrc:/FixtureGroupManager.qml"
+                        fixtureManager.searchFilter = ""
+                    }
                     animatePanel(checked)
                 }
             }
