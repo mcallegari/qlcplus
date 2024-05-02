@@ -17,9 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.2
-
-import "."
+import QtQuick 2.15
 
 Rectangle
 {

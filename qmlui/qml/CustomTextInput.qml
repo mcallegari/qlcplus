@@ -17,8 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.7
-import "."
+import QtQuick 2.15
 
 TextInput
 {

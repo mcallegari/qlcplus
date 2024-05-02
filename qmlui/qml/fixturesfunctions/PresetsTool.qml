@@ -17,10 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.3
+import QtQuick 2.15
 import org.qlcplus.classes 1.0
-
-import "."
 
 Rectangle
 {

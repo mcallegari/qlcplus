@@ -18,15 +18,14 @@
   limitations under the License.
 */
 
-import QtQuick 2.7 as QQ2
+import QtQuick 2.15 as QQ2
 
-import Qt3D.Core 2.0
-import Qt3D.Render 2.0
-import Qt3D.Extras 2.0
+import Qt3D.Core 2.15
+import Qt3D.Render 2.15
+import Qt3D.Extras 2.15
 
 import org.qlcplus.classes 1.0
 import "Math3DView.js" as Math3D
-import "."
 
 Entity
 {

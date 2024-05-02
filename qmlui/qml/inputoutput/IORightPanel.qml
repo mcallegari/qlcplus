@@ -17,10 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.0
-
-import "."
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
 
 SidePanel
 {

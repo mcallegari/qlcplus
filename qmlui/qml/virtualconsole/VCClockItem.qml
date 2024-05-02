@@ -17,13 +17,12 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.0
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
 
 import org.qlcplus.classes 1.0
 
 import "TimeUtils.js" as TimeUtils
-import "."
 
 VCWidgetItem
 {

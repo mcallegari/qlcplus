@@ -17,13 +17,12 @@
   limitations under the License.
 */
 
-import QtQuick 2.6
-import QtQuick.Layouts 1.0
-import QtQuick.Dialogs 1.2
-import QtQuick.Controls 2.1
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
+import QtQuick.Dialogs 1.3
+import QtQuick.Controls 2.15
 
 import org.qlcplus.classes 1.0
-import "."
 
 Rectangle
 {

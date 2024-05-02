@@ -17,9 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.1
-
-import "."
+import QtQuick 2.15
 
 /** This is a wrapper item to achieve 3 things:
   * 1) load a detached context on a surface with the application background
