@@ -274,7 +274,7 @@ Entity
 
         property var lastPos
 
-        onClicked: function (pick) {
+        onClicked: (pick) => {
             console.log("3D item clicked")
             isSelected = !isSelected
             contextManager.setItemSelection(itemID, isSelected, pick.modifiers)

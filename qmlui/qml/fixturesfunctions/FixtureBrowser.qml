@@ -132,7 +132,7 @@ Rectangle
                 width: modelsList.width - (manufScroll.visible ? manufScroll.width : 0)
                 isManufacturer: true
                 textLabel: modelData
-                onMouseEvent: function (type, iID, iType, qItem, mouseMods) {
+                onMouseEvent: (type, iID, iType, qItem, mouseMods) => {
                     if (type == App.Clicked)
                     {
                         mfText.label = modelData
@@ -238,7 +238,7 @@ Rectangle
                     manufacturer: fixtureBrowser.selectedManufacturer
                     textLabel: modelData
 
-                    onMouseEvent: function (type, iID, iType, qItem, mouseMods) {
+                    onMouseEvent: (type, iID, iType, qItem, mouseMods) => {
                         if (type == App.Clicked)
                         {
                             modelsList.currentIndex = index

@@ -322,7 +322,7 @@ Entity
     {
         id: eSceneLoader
 
-        onStatusChanged: function (status) {
+        onStatusChanged: (status) => {
             if (status === SceneLoader.Ready)
                 View3D.initializeFixture(itemID, fixtureEntity, eSceneLoader)
         }
@@ -339,7 +339,7 @@ Entity
 
         property var lastPos
 
-        onClicked: function (pick) {
+        onClicked: (pick) => {
             console.log("3D item clicked")
             isSelected = !isSelected
             contextManager.setItemSelection(itemID, isSelected, pick.modifiers)

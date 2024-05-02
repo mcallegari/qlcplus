@@ -117,7 +117,7 @@ Popup
 
         property string action: ""
 
-        onClicked: function (role) {
+        onClicked: (role) => {
             if (role === Dialog.Yes)
             {
                 if (qlcplus.fileName())

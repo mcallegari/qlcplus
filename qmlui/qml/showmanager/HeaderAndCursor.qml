@@ -212,7 +212,7 @@ Rectangle
     {
         enabled: showTimeMarkers
         anchors.fill: parent
-        onClicked: function (mouse) {
+        onClicked: (mouse) => {
             tlHeaderCursorLayer.clicked(mouse.x, mouse.y)
         }
     }

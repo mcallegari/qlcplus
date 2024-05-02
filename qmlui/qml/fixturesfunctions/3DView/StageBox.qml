@@ -76,7 +76,7 @@ Entity
         ObjectPicker
         {
             id: groundPicker
-            onClicked: function(pick) {
+            onClicked: (pick) => {
                 contextManager.setPositionPickPoint(pick.worldIntersection)
             }
         }
@@ -100,7 +100,7 @@ Entity
         ObjectPicker
         {
             id: leftPicker
-            onClicked: function (pick) {
+            onClicked: (pick) => {
                 contextManager.setPositionPickPoint(pick.worldIntersection)
             }
         }
@@ -123,7 +123,7 @@ Entity
         ObjectPicker
         {
             id: rightPicker
-            onClicked: function (pick) {
+            onClicked: (pick) => {
                 contextManager.setPositionPickPoint(pick.worldIntersection)
             }
         }
@@ -146,7 +146,7 @@ Entity
         ObjectPicker
         {
             id: backPicker
-            onClicked: function (pick) {
+            onClicked: (pick) => {
                 contextManager.setPositionPickPoint(pick.worldIntersection)
             }
         }

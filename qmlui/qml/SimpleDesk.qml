@@ -39,7 +39,7 @@ Rectangle
         id: channelToolLoader
         z: 2
 
-        onValueChanged: function (fixtureID, channelIndex, value) {
+        onValueChanged: (fixtureID, channelIndex, value) => {
             simpleDesk.setValue(fixtureID, channelIndex, value)
         }
     }
@@ -87,7 +87,7 @@ Rectangle
                         padding: 0
                         model: simpleDesk.universesListModel
                         currValue: simpleDesk.universeFilter
-                        onValueChanged: function (value) {
+                        onValueChanged: (value) => {
                             simpleDesk.universeFilter = value
                         }
                     }

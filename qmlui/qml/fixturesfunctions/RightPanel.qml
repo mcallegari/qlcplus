@@ -103,7 +103,7 @@ SidePanel
         animatePanel(true)
     }
 
-    onContentLoaded: function(item, ID) {
+    onContentLoaded: (item, ID) => {
         if (item.hasOwnProperty("functionID"))
             item.functionID = itemID
     }

@@ -49,11 +49,11 @@ SpinBox
         if (focus) contentItem.selectAll()
     }
 
-    textFromValue: function(value) {
+    textFromValue: (value) => {
         return value + suffix
     }
 
-    valueFromText: function(text) {
+    valueFromText: (text) => {
         return parseInt(text.replace(suffix, ""))
     }
 

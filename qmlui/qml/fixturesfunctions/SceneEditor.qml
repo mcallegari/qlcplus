@@ -119,7 +119,7 @@ Rectangle
                 id: toolbar
                 visible: !boundToSequence
                 text: sceneEditor ? sceneEditor.functionName : ""
-                onTextChanged: function(text) {
+                onTextChanged: (text) => {
                     sceneEditor.functionName = text
                 }
 

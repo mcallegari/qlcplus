@@ -372,14 +372,14 @@ Rectangle
                 property int selGenericCount: View3D.genericSelectedCount
 
                 sourceDevice: mDevice
-                onPressed: function (mouse) {
+                onPressed: (mouse) => {
                     directionCounter = 0
                     dx = 0
                     dy = 0
                     startPoint = Qt.point(mouse.x, mouse.y)
                 }
 
-                onPositionChanged: function (mouse) {
+                onPositionChanged: (mouse) => {
                     if (directionCounter < 3)
                     {
                         dx += (Math.abs(mouse.x - startPoint.x))
@@ -474,7 +474,7 @@ Rectangle
                     startPoint = Qt.point(mouse.x, mouse.y)
                 }
 
-                onWheel: function (wheel) {
+                onWheel: (wheel) => {
                     if (wheel.angleDelta.y > 0)
                         viewCamera.setZoom(-1)
                     else

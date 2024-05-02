@@ -103,13 +103,13 @@ Rectangle
 
                 drag.target: dragItem
 
-                onPressed: function(mouse) {
+                onPressed: (mouse) => {
                     funcDelegate.mouseEvent(App.Pressed, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
                 }
-                onClicked: function(mouse) {
+                onClicked: (mouse) => {
                     funcDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
                 }
-                onDoubleClicked: function(mouse) {
+                onDoubleClicked: (mouse) => {
                     funcDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
                 }
             }

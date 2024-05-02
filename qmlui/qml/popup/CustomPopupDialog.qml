@@ -95,7 +95,7 @@ Dialog
 
             contentItem.implicitHeight: UISettings.iconSizeDefault
 
-            onClicked: function (button) {
+            onClicked: (button) => {
                 if (button === standardButton(Dialog.Yes))
                     control.clicked(Dialog.Yes)
                 else if (button === standardButton(Dialog.No))
