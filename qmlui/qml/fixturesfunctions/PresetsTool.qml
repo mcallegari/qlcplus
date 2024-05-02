@@ -157,9 +157,10 @@ Rectangle
                     visible: (capability.min <= toolRoot.rangeHighLimit || capability.max <= toolRoot.rangeLowLimit)
                     onValueChanged:
                     {
-                        toolRoot.currentValue = value
-                        toolRoot.presetSelected(capability, selectedFixture, selectedChannel, value)
-                        toolRoot.valueChanged(value)
+                        var val = Math.min(Math.max(value, rangeLowLimit), rangeHighLimit)
+                        toolRoot.currentValue = val
+                        toolRoot.presetSelected(capability, selectedFixture, selectedChannel, val)
+                        toolRoot.valueChanged(val)
                         if (closeOnSelect)
                             toolRoot.visible = false
                     }

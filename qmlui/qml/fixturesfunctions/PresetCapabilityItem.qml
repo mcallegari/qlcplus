@@ -27,6 +27,7 @@ Rectangle
     id: iRoot
     width: UISettings.bigItemHeight * 1.5
     height: UISettings.iconSizeDefault * 1.2
+    color: capMouseArea.pressed ? UISettings.bgLight : "white"
 
     border.width: 1
     border.color: UISettings.borderColorDark
@@ -137,22 +138,17 @@ Rectangle
     }
     MouseArea
     {
+        id: capMouseArea
         anchors.fill: parent
         hoverEnabled: true
         preventStealing: false
 
         onPositionChanged: capBar.width = mouse.x
         onExited: capBar.width = 0
-        onPressed: iRoot.color = UISettings.bgLight
-        onReleased: iRoot.color = "white"
         onClicked:
         {
-            var slMin = (sliderRoot && sliderRoot.sliderObj) ? sliderRoot.sliderObj.rangeLowLimit : 0
-            var slMax = (sliderRoot && sliderRoot.sliderObj) ? sliderRoot.sliderObj.rangeHighLimit : 255
-            var cMin = Math.max(capability.min, slMin)
-            var cMax = Math.min(capability.max, slMax)
-            var value = Math.round(((cMax - cMin) * capBar.width) / iRoot.width)
-            //console.log("max: " + capability.max + "|" + slMax + "|" + cMax + " min: " + capability.min + "|" + slMin + "|" + cMin + " value: " + value)
+            var value = ((capability.max - capability.min) * capBar.width) / iRoot.width
+            //console.log("max: " + capability.max + " min: " + capability.min + " value: " + value)
             valueChanged(value + capability.min)
         }
     }
