@@ -323,16 +323,6 @@ Rectangle
             objectName: "scene3DEntity"
             Component.onCompleted: contextManager.enableContext("3D", true, scene3d)
 
-/*
-            OrbitCameraController
-            {
-                id: camController
-                camera: sceneEntity.camera
-                linearSpeed: 40.0
-                lookSpeed: 300.0
-            }
-*/
-
             // Global elements
             Camera
             {
