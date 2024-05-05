@@ -18,10 +18,12 @@
  <Channel Name="Mode Pattern">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="119">Pattern</Capability>
+  <Capability Min="120" Max="239">Chase</Capability>
   <Capability Min="240" Max="255">Stand-alone</Capability>
  </Channel>
  <Channel Name="Mode Chase">
   <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="119">No function</Capability>
   <Capability Min="120" Max="239">Pattern</Capability>
   <Capability Min="240" Max="255">Stand-alone</Capability>
  </Channel>

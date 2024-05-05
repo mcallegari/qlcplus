@@ -46,6 +46,7 @@ Rectangle
     {
         anchors.fill: parent
         orientation: Qt.Vertical
+        z: 1
 
         // Top view (faders)
         Rectangle
@@ -201,7 +202,9 @@ Rectangle
                         height: channelView.height - sbar.height
                         color: {
                             if (isOverride)
-                                return "red";
+                            {
+                                return "red"
+                            }
                             else
                             {
                                 switch(chDisplay)
@@ -252,7 +255,8 @@ Rectangle
                                 from: 0
                                 to: 255
                                 value: model.chValue
-                                onMoved: {
+                                onMoved:
+                                {
                                     model.isOverride = true
                                     model.chValue = valueAt(position)
                                     simpleDesk.setValue(fixtureObj ? fixtureObj.id : -1, fixtureObj ? model.chIndex : index, model.chValue)
@@ -272,7 +276,8 @@ Rectangle
                                 padding: 0
                                 horizontalAlignment: Qt.AlignHCenter
                                 value: dmxValues ? model.chValue : (model.chValue / 255.0) * 100.0
-                                onValueModified: {
+                                onValueModified:
+                                {
                                     model.isOverride = true
                                     model.chValue = value * (dmxValues ? 1.0 : 2.55)
                                     simpleDesk.setValue(fixtureObj ? fixtureObj.id : -1, fixtureObj ? model.chIndex : index, model.chValue)
@@ -376,7 +381,7 @@ Rectangle
                                 x: parent.width - width
                                 height: UISettings.listItemHeight
                                 rightMargin: 5
-                                label: (fixtureObj.address + 1) + " - " + (fixtureObj.address + fixtureObj.channels + 1)
+                                label: (fixtureObj.address + 1) + " - " + (fixtureObj.address + fixtureObj.channels)
                             }
                         }
                 }

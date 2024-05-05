@@ -15,7 +15,7 @@
  <Channel Name="Saturation" Preset="IntensitySaturation"/>
  <Channel Name="CCT">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="30">2700K</Capability>
   <Capability Min="31" Max="50">3000K</Capability>
   <Capability Min="51" Max="70">3200K</Capability>
@@ -31,23 +31,23 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
   <Capability Min="10" Max="99" Preset="StrobeFreqRange" Res1="0" Res2="25">Strobe From Slow To Fast 0-25Hz</Capability>
-  <Capability Min="100" Max="109" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="100" Max="109" Preset="ShutterOpen">No function</Capability>
   <Capability Min="110" Max="179" Preset="StrobeSlowToFast">Lighting Strobe</Capability>
-  <Capability Min="180" Max="189" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="180" Max="189" Preset="ShutterOpen">No function</Capability>
   <Capability Min="190" Max="255" Preset="StrobeRandom">Random Strobe</Capability>
  </Channel>
  <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="Zoom Reset">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="200">No Function</Capability>
+  <Capability Min="0" Max="200">No function</Capability>
   <Capability Min="201" Max="220" Preset="ResetZoom">Zoom Reset</Capability>
-  <Capability Min="221" Max="255">No Function</Capability>
+  <Capability Min="221" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Dimmer Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="29">Off</Capability>
   <Capability Min="30" Max="69">Dim1</Capability>
   <Capability Min="70" Max="129">Dim2</Capability>
@@ -65,7 +65,7 @@
  <Channel Name="White Fine" Preset="IntensityWhiteFine"/>
  <Channel Name="Color Macros">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="30" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">Red 100% / Green Up / Blue 0%</Capability>
   <Capability Min="31" Max="50" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Red Down / Green 100% / Blue 0%</Capability>
   <Capability Min="51" Max="70" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Red 0% / Green 100% / Blue 100%</Capability>
@@ -90,7 +90,7 @@
  </Channel>
  <Channel Name="Auto">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="40">No Function</Capability>
+  <Capability Min="0" Max="40">No function</Capability>
   <Capability Min="41" Max="50">Auto1</Capability>
   <Capability Min="51" Max="60">Auto2</Capability>
   <Capability Min="61" Max="70">Auto3</Capability>

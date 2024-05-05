@@ -217,7 +217,7 @@ Rectangle
                 z: 2
                 width: height
                 height: topBar.height - 2
-                bgColor: UISettings.bgMain
+                bgColor: UISettings.bgMedium
                 faColor: checked ? "white" : "gray"
                 faSource: FontAwesome.fa_search
                 checkable: true
@@ -239,7 +239,7 @@ Rectangle
           width: fmContainer.width
           height: UISettings.iconSizeMedium
           z: 5
-          color: UISettings.bgMain
+          color: UISettings.bgMedium
           radius: 5
           border.width: 2
           border.color: UISettings.borderColorDark
@@ -428,7 +428,6 @@ Rectangle
                           var funcRef = functionManager.getFunction(itemsList[0])
                           itemLabel = funcRef.name
                           itemIcon = functionManager.functionIcon(funcRef.type)
-                          //multipleItems = itemsList.length > 1 ? true : false
                       }
                   }
               }

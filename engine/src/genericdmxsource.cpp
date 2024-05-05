@@ -21,7 +21,6 @@
 #include "genericfader.h"
 #include "mastertimer.h"
 #include "fadechannel.h"
-#include "qlcchannel.h"
 #include "universe.h"
 #include "doc.h"
 

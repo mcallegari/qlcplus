@@ -138,7 +138,7 @@
  <Channel Name="Auto Program Fade">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="0">Normal</Capability>
-  <Capability Min="255" Max="255">Slow - Fast</Capability>
+  <Capability Min="1" Max="255">Slow - Fast</Capability>
  </Channel>
  <Channel Name="Dimmer Mode">
   <Group Byte="0">Effect</Group>
@@ -153,21 +153,21 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="225">Fast - Slow</Capability>
   <Capability Min="226" Max="235">Blackout by Movement</Capability>
-  <Capability Min="236" Max="255">No Function</Capability>
+  <Capability Min="236" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Internal Programs">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="79">Normal</Capability>
   <Capability Min="80" Max="84">All Motor Reset</Capability>
-  <Capability Min="85" Max="99">No Function</Capability>
-  <Capability Min="101" Max="119">Internal Program 1</Capability>
+  <Capability Min="85" Max="99">No function</Capability>
+  <Capability Min="100" Max="119">Internal Program 1</Capability>
   <Capability Min="120" Max="139">Internal Program 2</Capability>
   <Capability Min="140" Max="159">Internal Program 3</Capability>
   <Capability Min="160" Max="179">Internal Program 4</Capability>
   <Capability Min="180" Max="199">Internal Program 5</Capability>
   <Capability Min="200" Max="219">Internal Program 6</Capability>
   <Capability Min="220" Max="239">Internal Program 7</Capability>
-  <Capability Min="240" Max="255">No Function</Capability>
+  <Capability Min="240" Max="255">No function</Capability>
  </Channel>
  <Mode Name="19 Channel">
   <Channel Number="0">Pan</Channel>

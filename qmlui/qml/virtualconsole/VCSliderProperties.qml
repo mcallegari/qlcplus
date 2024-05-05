@@ -299,16 +299,17 @@ Rectangle
                           {
                               if (checked)
                               {
-                                  rightSidePanel.width += UISettings.sidePanelWidth
-                                  sideLoader.width = UISettings.sidePanelWidth
+                                  if (!sideLoader.visible)
+                                      rightSidePanel.width += UISettings.sidePanelWidth
+                                  sideLoader.visible = true
                                   sideLoader.modelProvider = widgetRef
                                   sideLoader.source = "qrc:/FixtureGroupManager.qml"
                               }
                               else
                               {
-                                  rightSidePanel.width = rightSidePanel.width - sideLoader.width
+                                  rightSidePanel.width -= sideLoader.width
                                   sideLoader.source = ""
-                                  sideLoader.width = 0
+                                  sideLoader.visible = false
                               }
                           }
                       }

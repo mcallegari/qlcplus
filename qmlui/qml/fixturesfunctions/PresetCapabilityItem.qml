@@ -27,6 +27,7 @@ Rectangle
     id: iRoot
     width: UISettings.bigItemHeight * 1.5
     height: UISettings.iconSizeDefault * 1.2
+    color: capMouseArea.pressed ? UISettings.bgLight : "white"
 
     border.width: 1
     border.color: UISettings.borderColorDark
@@ -63,7 +64,7 @@ Rectangle
             if (Qt.platform.os === "android")
                 pic.source = resArray[0]
             else
-                pic.source = "file:/" + resArray[0]
+                pic.source = "file:" + resArray[0]
         }
     }
 
@@ -137,14 +138,13 @@ Rectangle
     }
     MouseArea
     {
+        id: capMouseArea
         anchors.fill: parent
         hoverEnabled: true
         preventStealing: false
 
         onPositionChanged: capBar.width = mouse.x
         onExited: capBar.width = 0
-        onPressed: iRoot.color = UISettings.bgLight
-        onReleased: iRoot.color = "white"
         onClicked:
         {
             var value = ((capability.max - capability.min) * capBar.width) / iRoot.width

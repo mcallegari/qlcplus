@@ -27,9 +27,7 @@
 
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
-#include "qlccapability.h"
 #include "qlcchannel.h"
-#include "qlcconfig.h"
 #include "qlcfile.h"
 #include "fixture.h"
 
@@ -206,18 +204,24 @@ void QLCFixtureDef::checkLoaded(QString mapPath)
     }
     if (m_fileAbsolutePath.isEmpty())
     {
-        qWarning() << Q_FUNC_INFO << "Empty file path provided ! This is a trouble.";
+        qWarning() << Q_FUNC_INFO << "Empty file path provided! This is a trouble.";
         return;
     }
 
-    QString absPath = QString("%1%2%3").arg(mapPath).arg(QDir::separator()).arg(m_fileAbsolutePath);
-    qDebug() << "Loading fixture definition now... " << absPath;
-    bool error = loadXML(absPath);
+    // check if path is relative (from map) or absolute (user def)
+    QDir defPath(m_fileAbsolutePath);
+    if (defPath.isRelative())
+        m_fileAbsolutePath = QString("%1%2%3").arg(mapPath).arg(QDir::separator()).arg(m_fileAbsolutePath);
+
+    qDebug() << "Loading fixture definition now... " << m_fileAbsolutePath;
+    bool error = loadXML(m_fileAbsolutePath);
     if (error == false)
-    {
         m_isLoaded = true;
-        m_fileAbsolutePath = QString();
-    }
+}
+
+void QLCFixtureDef::setLoaded(bool loaded)
+{
+    m_isLoaded = loaded;
 }
 
 bool QLCFixtureDef::isUser() const

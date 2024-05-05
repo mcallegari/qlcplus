@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>Michel Sliepenbeek</Author>
+ </Creator>
+ <Manufacturer>Betopper</Manufacturer>
+ <Model>LPC-017</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe " Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Auto Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Auto Speed</Capability>
+ </Channel>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">Blackout</Capability>
+  <Capability Min="5" Max="9" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="10" Max="14" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="15" Max="19" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#00aa00">Grass green</Capability>
+  <Capability Min="25" Max="29" Preset="ColorMacro" Res1="#ff5500">Amber</Capability>
+  <Capability Min="30" Max="34" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="35" Max="39" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="40" Max="44" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="45" Max="49" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="50" Max="54" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="55" Max="59" Preset="ColorMacro" Res1="#fad3ff">Rosiness</Capability>
+  <Capability Min="60" Max="64" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="65" Max="69" Preset="ColorMacro" Res1="#aaff00">Pea green</Capability>
+  <Capability Min="70" Max="74" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="75" Max="79" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="80" Max="84">Ring control color</Capability>
+  <Capability Min="85" Max="89">Ring control color</Capability>
+  <Capability Min="90" Max="94">Ring control color</Capability>
+  <Capability Min="95" Max="99">Ring control color</Capability>
+  <Capability Min="100" Max="104">Ring control color</Capability>
+  <Capability Min="105" Max="109">Ring control color</Capability>
+  <Capability Min="110" Max="129">Colour jumping</Capability>
+  <Capability Min="130" Max="149">Colour snap</Capability>
+  <Capability Min="150" Max="169">Colour strobe</Capability>
+  <Capability Min="170" Max="189">Colour fade</Capability>
+  <Capability Min="190" Max="209">Ring control effect 1</Capability>
+  <Capability Min="210" Max="229">Ring control effect 1</Capability>
+  <Capability Min="230" Max="249">color jumping+mutation+strobe+ring control</Capability>
+  <Capability Min="250" Max="255">Sound Control</Capability>
+ </Channel>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Strobe </Channel>
+ </Mode>
+ <Mode Name="7 Channel ">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe </Channel>
+  <Channel Number="2">Auto Speed</Channel>
+  <Channel Number="3">Macro</Channel>
+  <Channel Number="4">Red 1</Channel>
+  <Channel Number="5">Green 1</Channel>
+  <Channel Number="6">Blue 1</Channel>
+ </Mode>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe </Channel>
+  <Channel Number="2">Auto Speed</Channel>
+  <Channel Number="3">Macro</Channel>
+  <Channel Number="4">Red 1</Channel>
+  <Channel Number="5">Green 1</Channel>
+  <Channel Number="6">Blue 1</Channel>
+  <Channel Number="7">Red 2</Channel>
+  <Channel Number="8">Green 2</Channel>
+  <Channel Number="9">Blue 2</Channel>
+  <Channel Number="10">Red 3</Channel>
+  <Channel Number="11">Green 3</Channel>
+  <Channel Number="12">Blue 3</Channel>
+  <Channel Number="13">Red 4</Channel>
+  <Channel Number="14">Green 4</Channel>
+  <Channel Number="15">Blue 4</Channel>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.56" Width="223" Height="215" Depth="220"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="2" Height="2"/>
+  <Technical PowerConsumption="15" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

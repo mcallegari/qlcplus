@@ -57,6 +57,7 @@
   <Capability Min="9" Max="134">Adds White Dimmer</Capability>
   <Capability Min="135" Max="239">Strobe</Capability>
   <Capability Min="240" Max="254">Ch7~C10 effectivity</Capability>
+  <Capability Min="255" Max="255">No function</Capability>
  </Channel>
  <Mode Name="5 Channel">
   <Channel Number="0">Pan</Channel>

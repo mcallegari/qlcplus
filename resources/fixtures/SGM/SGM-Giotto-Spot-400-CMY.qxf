@@ -20,7 +20,7 @@
   <Capability Min="36" Max="71" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="72" Max="107" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="108" Max="145" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
-  <Capability Min="146" Max="181" Preset="ColorMacro" Res1="#ff00ff">Pink</Capability>
+  <Capability Min="146" Max="181" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
   <Capability Min="182" Max="215" Preset="ColorMacro" Res1="#ff8000">Amber</Capability>
   <Capability Min="216" Max="255" Preset="ColorMacro" Res1="#876d2f">Wood</Capability>
  </Channel>

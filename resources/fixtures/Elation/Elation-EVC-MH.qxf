@@ -28,12 +28,12 @@
  </Channel>
  <Channel Name="Function">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="69">No Function</Capability>
+  <Capability Min="0" Max="69">No function</Capability>
   <Capability Min="70" Max="79">Enable Blackout while moving</Capability>
   <Capability Min="80" Max="89">Disable Blackout while moving</Capability>
-  <Capability Min="90" Max="199">No Function</Capability>
+  <Capability Min="90" Max="199">No function</Capability>
   <Capability Min="200" Max="209" Preset="ResetAll">Reset All</Capability>
-  <Capability Min="210" Max="255">No Function</Capability>
+  <Capability Min="210" Max="255">No function</Capability>
  </Channel>
  <Channel Name="LED Color Temperature">
   <Group Byte="0">Colour</Group>

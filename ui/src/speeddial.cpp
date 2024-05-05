@@ -30,7 +30,6 @@
 #include <QDial>
 #include <qmath.h>
 
-#include "mastertimer.h"
 #include "speeddial.h"
 #include "qlcmacros.h"
 #include "function.h"
@@ -566,7 +565,7 @@ void SpeedDial::slotTapClicked()
     m_tapHistory.append(m_value);
     // This algorithm stabilizes around a tempo very quickly,
     // so keeping more than a few taps in the history merely complicates tempo changes.
-    while(m_tapHistory.count() > 16)
+    while (m_tapHistory.count() > 16)
         m_tapHistory.removeFirst();
 
     // Find the median time between taps, assume that the tempo is +-40% of this

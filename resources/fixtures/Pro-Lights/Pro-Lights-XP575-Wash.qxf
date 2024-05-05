@@ -90,11 +90,11 @@
  </Channel>
  <Channel Name="LampSwitch">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="47">No Function</Capability>
+  <Capability Min="0" Max="47">No function</Capability>
   <Capability Min="48" Max="95">Switch On After 3 Seconds</Capability>
-  <Capability Min="96" Max="159">No Function</Capability>
+  <Capability Min="96" Max="159">No function</Capability>
   <Capability Min="160" Max="207">Switch Off After 3 Seconds</Capability>
-  <Capability Min="208" Max="255">No Function</Capability>
+  <Capability Min="208" Max="255">No function</Capability>
  </Channel>
  <Mode Name="XP575 Wash">
   <Channel Number="0">Dimmer</Channel>

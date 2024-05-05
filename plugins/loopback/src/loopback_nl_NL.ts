@@ -4,12 +4,6 @@
 <context>
     <name>Loopback</name>
     <message>
-        <location filename="loopback.cpp" line="91"/>
-        <location filename="loopback.cpp" line="117"/>
-        <source>Loopback</source>
-        <translation>Loopback</translation>
-    </message>
-    <message>
         <location filename="loopback.cpp" line="133"/>
         <source>This plugin provides DMX loopback. Data written to each output is forwarded to the respective input.</source>
         <translation>Deze plugin verzorgt DMX loopback. Data die naar een output geschreven wordt zal doorgestuurd worden naar de respectievelijke input.</translation>

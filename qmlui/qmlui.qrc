@@ -54,6 +54,7 @@
     <file alias="TimeEditTool.qml">qml/TimeEditTool.qml</file>
     <file alias="TreeNodeDelegate.qml">qml/TreeNodeDelegate.qml</file>
     <file alias="UISettings.qml">qml/UISettings.qml</file>
+    <file alias="UISettingsEditor.qml">qml/UISettingsEditor.qml</file>
     <file alias="UsageList.qml">qml/UsageList.qml</file>
     <file alias="WidgetDelegate.qml">qml/WidgetDelegate.qml</file>
     <file alias="WindowLoader.qml">qml/WindowLoader.qml</file>
@@ -62,6 +63,8 @@
     <!-- Popup system -->
     <file alias="CustomPopupDialog.qml">qml/popup/CustomPopupDialog.qml</file>
     <file alias="PopupAbout.qml">qml/popup/PopupAbout.qml</file>
+    <file alias="PopupChannelModifiers.qml">qml/popup/PopupChannelModifiers.qml</file>
+    <file alias="PopupChannelWizard.qml">qml/popup/PopupChannelWizard.qml</file>
     <file alias="PopupCreatePalette.qml">qml/popup/PopupCreatePalette.qml</file>
     <file alias="PopupDisclaimer.qml">qml/popup/PopupDisclaimer.qml</file>
     <file alias="PopupImportProject.qml">qml/popup/PopupImportProject.qml</file>
@@ -74,6 +77,7 @@
     <file alias="PopupNetworkConnect.qml">qml/popup/PopupNetworkConnect.qml</file>
     <file alias="PopupNetworkServer.qml">qml/popup/PopupNetworkServer.qml</file>
     <file alias="PopupManualInputSource.qml">qml/popup/PopupManualInputSource.qml</file>
+    <file alias="PopupInputChannelEditor.qml">qml/popup/PopupInputChannelEditor.qml</file>
 
     <!-- Fixtures and Functions -->
     <file alias="FixturesAndFunctions.qml">qml/fixturesfunctions/FixturesAndFunctions.qml</file>
@@ -207,6 +211,7 @@
     <file alias="AudioDeviceItem.qml">qml/inputoutput/AudioDeviceItem.qml</file>
     <file alias="PluginsList.qml">qml/inputoutput/PluginsList.qml</file>
     <file alias="ProfilesList.qml">qml/inputoutput/ProfilesList.qml</file>
+    <file alias="InputProfileEditor.qml">qml/inputoutput/InputProfileEditor.qml</file>
     <file alias="PluginDragItem.qml">qml/inputoutput/PluginDragItem.qml</file>
     <file alias="OutputPatchItem.qml">qml/inputoutput/OutputPatchItem.qml</file>
     <file alias="InputPatchItem.qml">qml/inputoutput/InputPatchItem.qml</file>
@@ -228,6 +233,14 @@
     <file alias="VCLabelItem.qml">qml/virtualconsole/VCLabelItem.qml</file>
     <file alias="VCSliderItem.qml">qml/virtualconsole/VCSliderItem.qml</file>
     <file alias="VCSliderProperties.qml">qml/virtualconsole/VCSliderProperties.qml</file>
+    <file alias="VCAnimationItem.qml">qml/virtualconsole/VCAnimationItem.qml</file>
+    <file alias="VCAnimationProperties.qml">qml/virtualconsole/VCAnimationProperties.qml</file>
+    <file alias="VCAudioTriggerItem.qml">qml/virtualconsole/VCAudioTriggerItem.qml</file>
+    <file alias="VCAudioTriggerProperties.qml">qml/virtualconsole/VCAudioTriggerProperties.qml</file>
+    <file alias="VCXYPadItem.qml">qml/virtualconsole/VCXYPadItem.qml</file>
+    <file alias="VCXYPadProperties.qml">qml/virtualconsole/VCXYPadProperties.qml</file>
+    <file alias="VCSpeedDialItem.qml">qml/virtualconsole/VCSpeedDialItem.qml</file>
+    <file alias="VCSpeedDialProperties.qml">qml/virtualconsole/VCSpeedDialProperties.qml</file>
     <file alias="VCClockItem.qml">qml/virtualconsole/VCClockItem.qml</file>
     <file alias="VCClockProperties.qml">qml/virtualconsole/VCClockProperties.qml</file>
     <file alias="VCCueListItem.qml">qml/virtualconsole/VCCueListItem.qml</file>

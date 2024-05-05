@@ -33,7 +33,7 @@
  <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Tilt Movement Macro">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="43">60º - 120º</Capability>
   <Capability Min="44" Max="79">45º - 135º</Capability>
   <Capability Min="80" Max="115">30º - 150º</Capability>
@@ -44,12 +44,12 @@
  </Channel>
  <Channel Name="Tilt Movement Macro Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="255">Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Chases">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="22">Chase 1</Capability>
   <Capability Min="23" Max="37">Chase 2</Capability>
   <Capability Min="38" Max="52">Chase 3</Capability>

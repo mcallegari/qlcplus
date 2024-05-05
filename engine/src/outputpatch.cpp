@@ -97,7 +97,7 @@ bool OutputPatch::reconnect()
         bool ret = m_plugin->openOutput(m_pluginLine, m_universe);
         if (ret == true)
         {
-            foreach(QString par, m_parametersCache.keys())
+            foreach (QString par, m_parametersCache.keys())
                 m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Output, par, m_parametersCache[par]);
         }
         return ret;
@@ -191,7 +191,7 @@ void OutputPatch::setBlackout(bool blackout)
     emit blackoutChanged(m_blackout);
 }
 
-void OutputPatch::dump(quint32 universe, const QByteArray& data)
+void OutputPatch::dump(quint32 universe, const QByteArray& data, bool dataChanged)
 {
     /* Don't do anything if there is no plugin and/or output line. */
     if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine())
@@ -201,11 +201,11 @@ void OutputPatch::dump(quint32 universe, const QByteArray& data)
             if (m_pauseBuffer.isNull())
                 m_pauseBuffer.append(data);
 
-            m_plugin->writeUniverse(universe, m_pluginLine, m_pauseBuffer);
+            m_plugin->writeUniverse(universe, m_pluginLine, m_pauseBuffer, dataChanged);
         }
         else
         {
-            m_plugin->writeUniverse(universe, m_pluginLine, data);
+            m_plugin->writeUniverse(universe, m_pluginLine, data, dataChanged);
         }
     }
 }

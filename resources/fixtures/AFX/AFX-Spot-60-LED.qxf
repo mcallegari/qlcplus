@@ -22,7 +22,7 @@
   <Capability Min="30" Max="49" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="50" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="70" Max="89" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
-  <Capability Min="90" Max="109" Preset="ColorMacro" Res1="#ff00ff">Pink</Capability>
+  <Capability Min="90" Max="109" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="110" Max="129">Simple green</Capability>
   <Capability Min="130" Max="149">Simple blue</Capability>
   <Capability Min="150" Max="255">Rainbow</Capability>

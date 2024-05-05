@@ -24,6 +24,7 @@
 #include "addvcslidermatrix.h"
 #include "vcpropertieseditor.h"
 
+#define SETTINGS_GEOMETRY "addvcslidermatrix/geometry"
 #define SETTINGS_SLIDER_MATRIX_SIZE "slidermatrix/defaultSize"
 
 AddVCSliderMatrix::AddVCSliderMatrix(QWidget* parent)
@@ -56,6 +57,10 @@ AddVCSliderMatrix::AddVCSliderMatrix(QWidget* parent)
         m_height = size.height();
     }
 
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
+
     m_amountSpin->setValue(m_amount);
     m_heightSpin->setValue(m_height);
     m_widthSpin->setValue(m_width);
@@ -63,6 +68,8 @@ AddVCSliderMatrix::AddVCSliderMatrix(QWidget* parent)
 
 AddVCSliderMatrix::~AddVCSliderMatrix()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 int AddVCSliderMatrix::amount() const

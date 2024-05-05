@@ -419,16 +419,7 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
         m_levelValueChanged = true;
 
     if (updateFeedback)
-    {
-        int fbv = 0;
-        if (invertedAppearance() == true)
-            fbv = rangeHighLimit() - m_value;
-        else
-            fbv = m_value;
-        fbv = (int)SCALE(float(fbv), float(rangeLowLimit()),
-                         float(rangeHighLimit()), float(0), float(UCHAR_MAX));
-        sendFeedback(fbv, INPUT_SLIDER_CONTROL_ID);
-    }
+        this->updateFeedback();
 }
 
 void VCSlider::setRangeLowLimit(qreal value)
@@ -812,7 +803,7 @@ void VCSlider::setControlledFunction(quint32 fid)
         disconnect(current, SIGNAL(attributeChanged(int,qreal)),
                 this, SLOT(slotControlledFunctionAttributeChanged(int,qreal)));
 
-        if(current->isRunning())
+        if (current->isRunning())
         {
             running = true;
             current->stop(functionParent());
@@ -1038,7 +1029,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
 
     if (clickAndGoType() == CnGColors)
     {
-        float f = SCALE(float(m_value), rangeLowLimit(), rangeHighLimit(), 0.0, 200.0);
+        float f = SCALE(float(modLevel), rangeLowLimit(), rangeHighLimit(), 0.0, 200.0);
 
         if ((uchar)f != 0)
         {
@@ -1145,6 +1136,10 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
             if (m_isOverriding)
                 fc->addFlag(FadeChannel::Override);
 
+            // request to autoremove LTP channels when set
+            if (! (chType & FadeChannel::Intensity))
+                fc->addFlag(FadeChannel::AutoRemove);
+
             if (chType & FadeChannel::Intensity && clickAndGoType() == CnGColors)
             {
                 const QLCChannel *qlcch = fxi->channel(scv.channel);
@@ -1231,12 +1226,24 @@ void VCSlider::writeDMXAdjust(MasterTimer* timer, QList<Universe *> ua)
  * External input
  *********************************************************************/
 
+void VCSlider::updateFeedback()
+{
+    int fbv = invertedAppearance() ? rangeHighLimit() - m_value : m_value;
+    fbv = int(SCALE(float(fbv), float(rangeLowLimit()),
+                    float(rangeHighLimit()), float(0), float(UCHAR_MAX)));
+
+    sendFeedback(fbv, INPUT_SLIDER_CONTROL_ID);
+}
+
 void VCSlider::slotInputValueChanged(quint8 id, uchar value)
 {
+    int scaledValue = SCALE(float(value), float(0), float(UCHAR_MAX),
+            float(rangeLowLimit()),
+            float(rangeHighLimit()));
     switch (id)
     {
         case INPUT_SLIDER_CONTROL_ID:
-            setValue(value, true, false);
+            setValue(scaledValue, true, false);
         break;
         case INPUT_SLIDER_RESET_ID:
             if (value)

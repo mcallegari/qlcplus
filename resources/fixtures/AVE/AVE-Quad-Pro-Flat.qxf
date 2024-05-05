@@ -16,7 +16,7 @@
  <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="99" Preset="StrobeSlowToFast">Slow To Fast</Capability>
   <Capability Min="100" Max="149" Preset="StrobeFastToSlow">Fast to slow</Capability>
   <Capability Min="150" Max="199">Slow #1</Capability>
@@ -31,7 +31,7 @@
  </Channel>
  <Channel Name="Colour Walking">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="255">Color Auto</Capability>
  </Channel>
  <Mode Name="8 Channel">

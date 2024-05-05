@@ -19,6 +19,7 @@
   <Capability Min="0" Max="7" Preset="ShutterClose">Not active</Capability>
   <Capability Min="8" Max="15" Preset="ShutterOpen">LED quick start</Capability>
   <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="132" Max="139">No function</Capability>
   <Capability Min="140" Max="181">Slow start, quick close</Capability>
   <Capability Min="182" Max="189" Preset="ShutterOpen">LED quick start</Capability>
   <Capability Min="190" Max="231">Quick start, slow close</Capability>

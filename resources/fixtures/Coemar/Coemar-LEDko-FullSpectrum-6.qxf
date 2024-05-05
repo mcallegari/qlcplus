@@ -45,70 +45,70 @@
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
   <Capability Min="0" Max="9">No effect</Capability>
-  <Capability Min="10" Max="34" Preset="ColorMacro">R24 - scarlet red</Capability>
-  <Capability Min="35" Max="59" Preset="ColorMacro">R02 - bastard amber</Capability>
-  <Capability Min="60" Max="84" Preset="ColorMacro">R313 - Light relief yellow</Capability>
-  <Capability Min="85" Max="109" Preset="ColorMacro">R18 - Flame</Capability>
-  <Capability Min="110" Max="134" Preset="ColorMacro">R331 - Shell pink</Capability>
-  <Capability Min="135" Max="159" Preset="ColorMacro">R25 - Orange Red</Capability>
-  <Capability Min="160" Max="184" Preset="ColorMacro">R46 - Magenta</Capability>
-  <Capability Min="185" Max="209" Preset="ColorMacro">R08 - Pale gold</Capability>
-  <Capability Min="210" Max="234" Preset="ColorMacro">R27 - Medium red</Capability>
-  <Capability Min="235" Max="255" Preset="ColorMacro">R318 - Mayan sun</Capability>
+  <Capability Min="10" Max="34">R24 - scarlet red</Capability>
+  <Capability Min="35" Max="59">R02 - bastard amber</Capability>
+  <Capability Min="60" Max="84">R313 - Light relief yellow</Capability>
+  <Capability Min="85" Max="109">R18 - Flame</Capability>
+  <Capability Min="110" Max="134">R331 - Shell pink</Capability>
+  <Capability Min="135" Max="159">R25 - Orange Red</Capability>
+  <Capability Min="160" Max="184">R46 - Magenta</Capability>
+  <Capability Min="185" Max="209">R08 - Pale gold</Capability>
+  <Capability Min="210" Max="234">R27 - Medium red</Capability>
+  <Capability Min="235" Max="255">R318 - Mayan sun</Capability>
  </Channel>
  <Channel Name="Green tone">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="9" Preset="ColorMacro">no effect</Capability>
-  <Capability Min="10" Max="34" Preset="ColorMacro">R4460 - calcolor 60 green</Capability>
-  <Capability Min="35" Max="59" Preset="ColorMacro">R2004 - storaro green</Capability>
-  <Capability Min="60" Max="84" Preset="ColorMacro">E730 - liberty green</Capability>
-  <Capability Min="85" Max="109" Preset="ColorMacro">E088 - lime green</Capability>
-  <Capability Min="110" Max="134" Preset="ColorMacro">R90 - kelly green</Capability>
-  <Capability Min="135" Max="159" Preset="ColorMacro">R395 - teal green</Capability>
-  <Capability Min="160" Max="184" Preset="ColorMacro">R91 - primary green</Capability>
-  <Capability Min="185" Max="209" Preset="ColorMacro">R393 - emerald green</Capability>
-  <Capability Min="210" Max="234" Preset="ColorMacro">R393 - leaf green</Capability>
-  <Capability Min="235" Max="255" Preset="ColorMacro">R86 - pea green</Capability>
+  <Capability Min="0" Max="9">no effect</Capability>
+  <Capability Min="10" Max="34">R4460 - calcolor 60 green</Capability>
+  <Capability Min="35" Max="59">R2004 - storaro green</Capability>
+  <Capability Min="60" Max="84">E730 - liberty green</Capability>
+  <Capability Min="85" Max="109">E088 - lime green</Capability>
+  <Capability Min="110" Max="134">R90 - kelly green</Capability>
+  <Capability Min="135" Max="159">R395 - teal green</Capability>
+  <Capability Min="160" Max="184">R91 - primary green</Capability>
+  <Capability Min="185" Max="209">R393 - emerald green</Capability>
+  <Capability Min="210" Max="234">R393 - leaf green</Capability>
+  <Capability Min="235" Max="255">R86 - pea green</Capability>
  </Channel>
  <Channel Name="Blue Tone">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
   <Capability Min="0" Max="9">no effect</Capability>
-  <Capability Min="10" Max="34" Preset="ColorMacro">R2008 - storaro indigo</Capability>
-  <Capability Min="35" Max="59" Preset="ColorMacro">E5058 - french lilac</Capability>
-  <Capability Min="60" Max="84" Preset="ColorMacro">R369 - tahitian blue</Capability>
-  <Capability Min="85" Max="109" Preset="ColorMacro">R347 - belladonna rose</Capability>
-  <Capability Min="110" Max="134" Preset="ColorMacro">R381 - baldassari blue</Capability>
-  <Capability Min="135" Max="159" Preset="ColorMacro">R57 - Lavander</Capability>
-  <Capability Min="160" Max="184" Preset="ColorMacro">R55 - lilac</Capability>
-  <Capability Min="185" Max="209" Preset="ColorMacro">R4790 - calcolor 90 magenta</Capability>
-  <Capability Min="210" Max="234" Preset="ColorMacro">R92 - turquise</Capability>
-  <Capability Min="235" Max="255" Preset="ColorMacro">R370 - italian blue</Capability>
+  <Capability Min="10" Max="34">R2008 - storaro indigo</Capability>
+  <Capability Min="35" Max="59">E5058 - french lilac</Capability>
+  <Capability Min="60" Max="84">R369 - tahitian blue</Capability>
+  <Capability Min="85" Max="109">R347 - belladonna rose</Capability>
+  <Capability Min="110" Max="134">R381 - baldassari blue</Capability>
+  <Capability Min="135" Max="159">R57 - Lavander</Capability>
+  <Capability Min="160" Max="184">R55 - lilac</Capability>
+  <Capability Min="185" Max="209">R4790 - calcolor 90 magenta</Capability>
+  <Capability Min="210" Max="234">R92 - turquise</Capability>
+  <Capability Min="235" Max="255">R370 - italian blue</Capability>
  </Channel>
  <Channel Name="White Tone">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
   <Capability Min="0" Max="9">no effect</Capability>
-  <Capability Min="10" Max="30" Preset="ColorMacro">2700K</Capability>
-  <Capability Min="31" Max="52" Preset="ColorMacro">proportional value from 2700K to 3200K</Capability>
-  <Capability Min="53" Max="74" Preset="ColorMacro">3200K</Capability>
-  <Capability Min="75" Max="96" Preset="ColorMacro">proportional value from 3200K to 4000K</Capability>
-  <Capability Min="97" Max="118" Preset="ColorMacro">4000K</Capability>
-  <Capability Min="119" Max="140" Preset="ColorMacro">proportional value from 4000K to 5000K</Capability>
-  <Capability Min="141" Max="162" Preset="ColorMacro">5000K</Capability>
-  <Capability Min="163" Max="184" Preset="ColorMacro">proportional value from 5000K to 5600K</Capability>
-  <Capability Min="185" Max="206" Preset="ColorMacro">5600K</Capability>
-  <Capability Min="207" Max="228" Preset="ColorMacro">proportional value from 5600K to 6500K</Capability>
-  <Capability Min="229" Max="255" Preset="ColorMacro">6500K</Capability>
+  <Capability Min="10" Max="30">2700K</Capability>
+  <Capability Min="31" Max="52">proportional value from 2700K to 3200K</Capability>
+  <Capability Min="53" Max="74">3200K</Capability>
+  <Capability Min="75" Max="96">proportional value from 3200K to 4000K</Capability>
+  <Capability Min="97" Max="118">4000K</Capability>
+  <Capability Min="119" Max="140">proportional value from 4000K to 5000K</Capability>
+  <Capability Min="141" Max="162">5000K</Capability>
+  <Capability Min="163" Max="184">proportional value from 5000K to 5600K</Capability>
+  <Capability Min="185" Max="206">5600K</Capability>
+  <Capability Min="207" Max="228">proportional value from 5600K to 6500K</Capability>
+  <Capability Min="229" Max="255">6500K</Capability>
  </Channel>
  <Channel Name="Green Saturation">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
   <Capability Min="0" Max="9">no effect</Capability>
-  <Capability Min="10" Max="123" Preset="ColorDoubleMacro">exalts the green color in the mixing ans diminishes the presence of magenta</Capability>
+  <Capability Min="10" Max="123">exalts the green color in the mixing ans diminishes the presence of magenta</Capability>
   <Capability Min="124" Max="132">no effect</Capability>
-  <Capability Min="133" Max="246" Preset="ColorDoubleMacro">diminishes the presence of green in the mixing and exalts the magenta color</Capability>
+  <Capability Min="133" Max="246">diminishes the presence of green in the mixing and exalts the magenta color</Capability>
   <Capability Min="247" Max="255">no effect</Capability>
  </Channel>
  <Channel Name="Saturation" Preset="IntensitySaturation"/>

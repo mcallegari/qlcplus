@@ -59,21 +59,22 @@
  <Channel Name="White 12" Preset="IntensityWhite"/>
  <Channel Name="Program">
   <Group Byte="0">Effect</Group>
-  <Capability Min="1" Max="14">Program2</Capability>
-  <Capability Min="15" Max="29">Program3</Capability>
-  <Capability Min="30" Max="44">Program4</Capability>
-  <Capability Min="45" Max="59">Program5</Capability>
-  <Capability Min="60" Max="74">Program6</Capability>
-  <Capability Min="75" Max="89">Program7</Capability>
-  <Capability Min="90" Max="104">Program8</Capability>
-  <Capability Min="105" Max="119">Program9</Capability>
-  <Capability Min="120" Max="134">Program10</Capability>
-  <Capability Min="135" Max="149">Program11</Capability>
-  <Capability Min="150" Max="164">Program12</Capability>
-  <Capability Min="165" Max="179">Program13</Capability>
-  <Capability Min="180" Max="194">Program14</Capability>
-  <Capability Min="195" Max="209">Program15</Capability>
-  <Capability Min="210" Max="224">Program16</Capability>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="14">Program 2</Capability>
+  <Capability Min="15" Max="29">Program 3</Capability>
+  <Capability Min="30" Max="44">Program 4</Capability>
+  <Capability Min="45" Max="59">Program 5</Capability>
+  <Capability Min="60" Max="74">Program 6</Capability>
+  <Capability Min="75" Max="89">Program 7</Capability>
+  <Capability Min="90" Max="104">Program 8</Capability>
+  <Capability Min="105" Max="119">Program 9</Capability>
+  <Capability Min="120" Max="134">Program 10</Capability>
+  <Capability Min="135" Max="149">Program 11</Capability>
+  <Capability Min="150" Max="164">Program 12</Capability>
+  <Capability Min="165" Max="179">Program 13</Capability>
+  <Capability Min="180" Max="194">Program 14</Capability>
+  <Capability Min="195" Max="209">Program 15</Capability>
+  <Capability Min="210" Max="224">Program 16</Capability>
   <Capability Min="225" Max="255">Sound Active</Capability>
  </Channel>
  <Channel Name="Speed/Sensitivity">

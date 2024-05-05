@@ -248,7 +248,7 @@
  <Channel Name="Master Dimmer fine" Preset="IntensityMasterDimmerFine"/>
  <Channel Name="Layer 2 Selection">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="5" Preset="Alias">No Function</Capability>
+  <Capability Min="0" Max="5" Preset="Alias">No function</Capability>
   <Capability Min="6" Max="130" Preset="Alias">Static
    <Alias Mode="Advance" Channel="Layer 2 Indexing Speed Nothing" With="Layer 2 Indexing Speed Staic"/>
   </Capability>
@@ -516,7 +516,7 @@
   <Channel Number="34">Layer 3 Strobe Indexing Speed Nothing</Channel>
   <Channel Number="35">Layer 3 Strobe Fade</Channel>
  </Mode>
- <Mode Name="Pixels RGB mode">
+ <Mode Name="Pixels RGB">
   <Channel Number="0">Red led 1</Channel>
   <Channel Number="1">Green Led 1</Channel>
   <Channel Number="2">Blue Led 1</Channel>
@@ -550,7 +550,7 @@
    <Channel>11</Channel>
   </Head>
  </Mode>
- <Mode Name="Pixels RGBW mode">
+ <Mode Name="Pixels RGBW">
   <Channel Number="0">Red led 1</Channel>
   <Channel Number="1">Green Led 1</Channel>
   <Channel Number="2">Blue Led 1</Channel>
@@ -592,7 +592,7 @@
    <Channel>15</Channel>
   </Head>
  </Mode>
- <Mode Name="Pixels Strobe mode">
+ <Mode Name="Pixels Strobe">
   <Channel Number="0">White Led 1</Channel>
   <Channel Number="1">White Led 2</Channel>
   <Channel Number="2">White Led 3</Channel>

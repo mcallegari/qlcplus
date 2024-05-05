@@ -26,14 +26,12 @@
 #include <cmath>
 #include <QDir>
 
+#include "rgbscriptscache.h"
 #include "qlcfixturehead.h"
 #include "fixturegroup.h"
 #include "genericfader.h"
 #include "fadechannel.h"
 #include "rgbmatrix.h"
-#include "qlcmacros.h"
-#include "rgbaudio.h"
-#include "rgbscriptscache.h"
 #include "doc.h"
 
 #define KXMLQLCRGBMatrixStartColor      QString("MonoColor")
@@ -170,6 +168,7 @@ bool RGBMatrix::copyFrom(const Function* function)
         setAlgorithm(NULL);
     setStartColor(mtx->startColor());
     setEndColor(mtx->endColor());
+    setControlMode(mtx->controlMode());
 
     return Function::copyFrom(function);
 }
@@ -218,7 +217,7 @@ void RGBMatrix::setAlgorithm(RGBAlgorithm* algo)
         {
             RGBScript *script = static_cast<RGBScript*> (m_algorithm);
             QHashIterator<QString, QString> it(m_properties);
-            while(it.hasNext())
+            while (it.hasNext())
             {
                 it.next();
                 if (script->setProperty(it.key(), it.value()) == false)
@@ -478,7 +477,7 @@ bool RGBMatrix::saveXML(QXmlStreamWriter *doc)
 
     /* Properties */
     QHashIterator<QString, QString> it(m_properties);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         doc->writeStartElement(KXMLQLCRGBMatrixProperty);
@@ -533,7 +532,7 @@ void RGBMatrix::preRun(MasterTimer *timer)
             {
                 RGBScript *script = static_cast<RGBScript*> (m_algorithm);
                 QHashIterator<QString, QString> it(m_properties);
-                while(it.hasNext())
+                while (it.hasNext())
                 {
                     it.next();
                     script->setProperty(it.key(), it.value());

@@ -27,6 +27,7 @@ import "."
 Rectangle
 {
     id: fgmContainer
+    objectName: "fixtureGroupManager"
     anchors.fill: parent
     color: "transparent"
 
@@ -79,6 +80,31 @@ Rectangle
                 fixtureAndFunctions.currentViewQML = "qrc:/FixtureSummary.qml"
             break;
         }
+    }
+
+    function showChannelModifierEditor(itemID, channelIndex, modifierName)
+    {
+        chModifierEditor.itemID = itemID
+        chModifierEditor.chIndex = channelIndex
+        chModifierEditor.modName = modifierName
+        chModifierEditor.open()
+    }
+
+    CustomPopupDialog
+    {
+        id: fmGenericPopup
+        visible: false
+        title: qsTr("Error")
+        message: ""
+        onAccepted: {}
+    }
+
+    PopupChannelModifiers
+    {
+        id: chModifierEditor
+        visible: false
+
+        onAccepted: fixtureManager.setChannelModifier(itemID, chIndex)
     }
 
     ColumnLayout
@@ -171,7 +197,7 @@ Rectangle
                     z: 2
                     width: height
                     height: topBar.height - 2
-                    bgColor: UISettings.bgMain
+                    bgColor: UISettings.bgMedium
                     faColor: checked ? "white" : "gray"
                     faSource: FontAwesome.fa_search
                     checkable: true
@@ -316,13 +342,15 @@ Rectangle
             implicitHeight: UISettings.iconSizeMedium
             implicitWidth: fgmContainer.width - (gEditScrollBar.visible ? gEditScrollBar.width : 0)
             z: 5
-            color: UISettings.bgMain
+            color: UISettings.bgMedium
 
             RowLayout
             {
                 anchors.fill: parent
 
                 RobotoText { label: qsTr("Name"); Layout.fillWidth: true; height: parent.height }
+                Rectangle { width: 1; height: parent.height }
+                RobotoText { label: qsTr("Mode"); width: UISettings.chPropsModesWidth; height: parent.height }
                 Rectangle { width: 1; height: parent.height }
                 RobotoText { label: qsTr("Flags"); width: UISettings.chPropsFlagsWidth; height: parent.height }
                 Rectangle { width: 1; height: parent.height }
@@ -341,7 +369,7 @@ Rectangle
             width: fgmContainer.width
             implicitHeight: UISettings.iconSizeMedium
             z: 5
-            color: UISettings.bgMain
+            color: UISettings.bgMedium
             radius: 5
             border.width: 2
             border.color: UISettings.borderColorDark
@@ -439,7 +467,6 @@ Rectangle
                                             else
                                                 gfhcDragItem.itemIcon = ""
                                         }
-                                        gfhcDragItem.multipleItems = gfhcDragItem.itemsList.length > 1 ? true : false
                                     }
                                 break;
                                 case App.Clicked:

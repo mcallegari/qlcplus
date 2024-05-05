@@ -24,6 +24,7 @@
 #include <QScrollBar>
 #include <QDebug>
 #include <QDir>
+#include <QSettings>
 
 #include "monitorproperties.h"
 #include "vcaudiotriggers.h"
@@ -56,6 +57,8 @@
 #define KColumnID           3
 #define KColumnChIdx        4
 
+#define SETTINGS_GEOMETRY "fixturemap/geometry"
+
 FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
     : QDialog(parent)
     , m_doc(doc)
@@ -64,6 +67,10 @@ FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
 
     setupUi(this);
 
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 
     connect(m_importButton, SIGNAL(clicked()),
             this, SLOT(slotImportFixtures()));
@@ -94,7 +101,7 @@ FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
     m_targetDoc->inputOutputMap()->removeAllUniverses();
 
     int index = 0;
-    foreach(Universe *uni, m_doc->inputOutputMap()->universes())
+    foreach (Universe *uni, m_doc->inputOutputMap()->universes())
     {
         m_targetDoc->inputOutputMap()->addUniverse(uni->id());
         m_targetDoc->inputOutputMap()->setUniverseName(index, uni->name());
@@ -143,6 +150,9 @@ FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
 
 FixtureRemap::~FixtureRemap()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
+
     delete m_targetDoc;
 }
 
@@ -176,7 +186,7 @@ QTreeWidgetItem *FixtureRemap::getUniverseItem(Doc *doc, quint32 universe, QTree
 
 void FixtureRemap::fillFixturesTree(Doc *doc, QTreeWidget *tree)
 {
-    foreach(Fixture *fxi, doc->fixtures())
+    foreach (Fixture *fxi, doc->fixtures())
     {
         quint32 uni = fxi->universe();
         QTreeWidgetItem *topItem = getUniverseItem(doc, uni, tree);
@@ -370,7 +380,7 @@ void FixtureRemap::slotAddTargetFixture()
     QLCFixtureMode* mode = af.mode();
     int gap = af.gap();
 
-    for(int i = 0; i < af.amount(); i++)
+    for (int i = 0; i < af.amount(); i++)
     {
         QString modname;
 
@@ -550,7 +560,7 @@ void FixtureRemap::slotCloneSourceFixture()
 
     m_targetTree->resizeColumnToContents(KColumnName);
 
-    foreach(QTreeWidgetItem *it, m_targetTree->selectedItems())
+    foreach (QTreeWidgetItem *it, m_targetTree->selectedItems())
         it->setSelected(false);
     fItem->setSelected(true);
 
@@ -610,7 +620,7 @@ void FixtureRemap::connectFixtures(QTreeWidgetItem *sourceItem, QTreeWidgetItem 
     qDebug() << "Idx:" << srcIdx << ", src:" << srcFxiSelected << ", tgt:" << tgtFxiSelected;
 
     if ((srcFxiSelected == true && tgtFxiSelected == false) ||
-        (srcFxiSelected == false && tgtFxiSelected == true) )
+        (srcFxiSelected == false && tgtFxiSelected == true))
     {
         QMessageBox::warning(this,
                              tr("Invalid selection"),
@@ -778,7 +788,7 @@ QList<SceneValue> FixtureRemap::remapSceneValues(QList<SceneValue> funcList,
                                     QList<SceneValue> &tgtList)
 {
     QList <SceneValue> newValuesList;
-    foreach(SceneValue val, funcList)
+    foreach (SceneValue val, funcList)
     {
         for (int v = 0; v < srcList.count(); v++)
         {
@@ -832,13 +842,13 @@ void FixtureRemap::accept()
     /* **********************************************************************
      * 4 - remap fixture groups and channel groups
      * ********************************************************************** */
-    foreach(FixtureGroup *group, m_doc->fixtureGroups())
+    foreach (FixtureGroup *group, m_doc->fixtureGroups())
     {
         QMap<QLCPoint, GroupHead> grpHash = group->headsMap();
         group->reset();
 
         QMapIterator<QLCPoint, GroupHead> it(grpHash);
-        while(it.hasNext())
+        while (it.hasNext())
         {
             it.next();
 
@@ -915,7 +925,7 @@ void FixtureRemap::accept()
                 EFX *e = qobject_cast<EFX*>(func);
                 // make a copy of this EFX fixtures list
                 QList <EFXFixture*> fixListCopy;
-                foreach(EFXFixture *efxFix, e->fixtures())
+                foreach (EFXFixture *efxFix, e->fixtures())
                 {
                     EFXFixture* ef = new EFXFixture(e);
                     ef->copyFrom(efxFix);
@@ -925,7 +935,7 @@ void FixtureRemap::accept()
                 e->removeAllFixtures();
                 QList<quint32>remappedFixtures;
 
-                foreach( EFXFixture *efxFix, fixListCopy)
+                foreach (EFXFixture *efxFix, fixListCopy)
                 {
                     quint32 fxID = efxFix->head().fxi;
                     for (int i = 0; i < sourceList.count(); i++)
@@ -959,7 +969,7 @@ void FixtureRemap::accept()
             default:
             break;
         }
-        if(progress.wasCanceled())
+        if (progress.wasCanceled())
             break;
         f++;
         progress.setValue((f * 100) / funcNum);
@@ -1065,7 +1075,7 @@ void FixtureRemap::accept()
 
         foreach (quint32 fxID, props->fixtureItemsID())
         {
-            for( int v = 0; v < sourceList.count(); v++)
+            for (int v = 0; v < sourceList.count(); v++)
             {
                 if (sourceList.at(v).fxi == fxID)
                 {

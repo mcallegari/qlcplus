@@ -47,7 +47,7 @@
   <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
   <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
-  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#ff00ff">Purple</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="64" Max="71" Preset="GoboMacro" Res1="Others/rainbow.png">Program 02</Capability>
   <Capability Min="72" Max="79" Preset="GoboMacro" Res1="Others/rainbow.png">Program 03</Capability>

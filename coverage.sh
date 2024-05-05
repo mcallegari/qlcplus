@@ -5,7 +5,9 @@
 # 1. qmake
 # 2. make distclean
 # 3. qmake CONFIG+=coverage
-# 4. ./coverage.sh
+# 4. make -j8
+# 5. ./coverage.sh ui|qmlui # OR
+# 5. make lcov
 #
 # Human-readable HTML results are written under coverage/html.
 #
@@ -54,6 +56,7 @@ tlen=${#test[@]}
 # arg1:srcdir arg2:testname
 function prepare {
     lcov -d ${1} -z || exit $?
+    rm -f ${1}/moc_*.gcno ${1}/moc_*.gcda
     lcov -d ${1} -c -i -o coverage/${2}-base.info
 }
 

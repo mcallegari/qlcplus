@@ -12,7 +12,7 @@
  <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe Effect">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="0" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">No function</Capability>
   <Capability Min="1" Max="127" Preset="StrobeSlowToFast">Strobe with increasing speed</Capability>
   <Capability Min="128" Max="159" Preset="RampUpSlowToFast">Opening pulse</Capability>
   <Capability Min="160" Max="191" Preset="RampDownSlowToFast">Closing pulse</Capability>

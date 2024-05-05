@@ -94,15 +94,18 @@
   <Capability Min="0" Max="225">Max to Min Speed</Capability>
   <Capability Min="226" Max="235">Blackout by Movement</Capability>
   <Capability Min="236" Max="245">Blackout by Wheel Changing</Capability>
+  <Capability Min="246" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Reset &amp; Internal Programs">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="19" Preset="ColorMacro">Color Change Normal</Capability>
-  <Capability Min="20" Max="39" Preset="ColorMacro">Color Change to any Position</Capability>
+  <Capability Min="0" Max="19">Color Change Normal</Capability>
+  <Capability Min="20" Max="39">Color Change to any Position</Capability>
+  <Capability Min="40" Max="79">No function</Capability>
   <Capability Min="80" Max="84" Preset="ResetAll">All Motor Reset</Capability>
   <Capability Min="85" Max="87">Scan Motor Reset</Capability>
   <Capability Min="88" Max="90" Preset="ResetColor">Color Motor Reset</Capability>
   <Capability Min="91" Max="93" Preset="ResetGobo">Gobo Motor Reset</Capability>
+  <Capability Min="94" Max="96">No function</Capability>
   <Capability Min="97" Max="99" Preset="ResetMotors">Other Motor Reset</Capability>
   <Capability Min="100" Max="119">Internal Program 1</Capability>
   <Capability Min="120" Max="139">Internal Program 2</Capability>

@@ -60,7 +60,7 @@
  </Channel>
  <Channel Name="Macro Effects">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="23">Auto move 1</Capability>
   <Capability Min="24" Max="39">Auto move 2</Capability>
   <Capability Min="40" Max="55">Auto move 3</Capability>
@@ -80,7 +80,7 @@
  </Channel>
  <Channel Name="Control">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="49">No Function</Capability>
+  <Capability Min="0" Max="49">No function</Capability>
   <Capability Min="50" Max="59">Blackout During Pan/Tilt or Colour/Gobo Change</Capability>
   <Capability Min="60" Max="69">Disable Blackout During Pan/Tilt or Colour/Gobo Change</Capability>
   <Capability Min="70" Max="79">Blackout During Pan/Tilt</Capability>
@@ -89,12 +89,12 @@
   <Capability Min="100" Max="109">Disable Blackout During Colour Change</Capability>
   <Capability Min="110" Max="119">Blackout During Gobo Change</Capability>
   <Capability Min="120" Max="129">Disable Blackout During Gobo Change</Capability>
-  <Capability Min="130" Max="139">No Function</Capability>
+  <Capability Min="130" Max="139">No function</Capability>
   <Capability Min="140" Max="149">Reset Pan / Tilt</Capability>
   <Capability Min="150" Max="169">Reset Colour / Gobo / Prism</Capability>
-  <Capability Min="170" Max="199">No Function</Capability>
+  <Capability Min="170" Max="199">No function</Capability>
   <Capability Min="200" Max="209">Reset All</Capability>
-  <Capability Min="210" Max="255">No Function</Capability>
+  <Capability Min="210" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
@@ -104,7 +104,7 @@
   <Capability Min="21" Max="27" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="28" Max="34" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="35" Max="41" Preset="ColorMacro" Res1="#ff007f">Purple</Capability>
-  <Capability Min="42" Max="48" Preset="ColorMacro" Res1="#00ffff">Light Blue</Capability>
+  <Capability Min="42" Max="48" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
   <Capability Min="49" Max="55" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
   <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ff55ff">Pink</Capability>
   <Capability Min="64" Max="127" Preset="RotationIndexed">Colour Indexing</Capability>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.0 GIT</Version>
+  <Author>Christoph Müllner</Author>
+ </Creator>
+ <Manufacturer>Worlde</Manufacturer>
+ <Model>Easypad.12</Model>
+ <Type>MIDI</Type>
+ <Channel Number="36873">
+  <Name>XY Fader</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="36908">
+  <Name>Record</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="36909">
+  <Name>Play</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="36910">
+  <Name>Stop</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="36911">
+  <Name>Back</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="36912">
+  <Name>Next</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="36913">
+  <Name>Refresh</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="36993">
+  <Name>Left</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="36994">
+  <Name>Right</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37028">
+  <Name>Pad 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37030">
+  <Name>Pad 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37031">
+  <Name>Pad 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37032">
+  <Name>Pad 9</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37034">
+  <Name>Pad 10</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37035">
+  <Name>Pad 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37036">
+  <Name>Pad 11</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37037">
+  <Name>Pad 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37038">
+  <Name>Pad 12</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37040">
+  <Name>Pad 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37041">
+  <Name>Pad 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37043">
+  <Name>Pad 5</Name>
+  <Type>Button</Type>
+ </Channel>
+</InputProfile>

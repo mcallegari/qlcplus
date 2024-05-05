@@ -48,7 +48,7 @@
   <Capability Min="54" Max="71">Gobo 3</Capability>
   <Capability Min="72" Max="89">Gobo 4</Capability>
   <Capability Min="90" Max="107">Gobo 5</Capability>
-  <Capability Min="108" Max="125">Gobo 6</Capability>
+  <Capability Min="108" Max="126">Gobo 6</Capability>
   <Capability Min="127" Max="191">Rainbow effect (Slow to fast)</Capability>
   <Capability Min="192" Max="192">Stop</Capability>
   <Capability Min="193" Max="255">Rainbow effect (Slow to fast)</Capability>

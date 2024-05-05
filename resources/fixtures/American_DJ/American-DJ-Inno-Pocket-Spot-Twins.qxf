@@ -68,7 +68,7 @@
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="8" Max="14" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
-  <Capability Min="15" Max="21" Preset="ColorMacro" Res1="#ff7f00">Orange</Capability>
+  <Capability Min="15" Max="21" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
   <Capability Min="22" Max="28" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="29" Max="35" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="36" Max="42" Preset="ColorMacro" Res1="#1a46ff">Blue</Capability>
@@ -112,7 +112,7 @@
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="8" Max="14" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
-  <Capability Min="15" Max="21" Preset="ColorMacro" Res1="#ff7f00">Orange</Capability>
+  <Capability Min="15" Max="21" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
   <Capability Min="22" Max="28" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="29" Max="35" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="36" Max="42" Preset="ColorMacro" Res1="#1a46ff">Blue</Capability>

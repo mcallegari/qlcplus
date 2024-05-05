@@ -79,6 +79,9 @@ public:
     /** Return the currently active context */
     QString currentContext() const;
 
+    MainView2D *get2DView();
+    MainView3D *get3DView();
+
     /** Get/Set the environment width/height/depth size */
     QVector3D environmentSize() const;
     void setEnvironmentSize(QVector3D environmentSize);
@@ -212,20 +215,38 @@ public:
 
     Q_INVOKABLE void updateFixturesCapabilities();
 
+    /** Get the DMX/degrees value of the current fixture selection
+     *  for the requested channel type.
+     *  Returns -1 in case of mixed values */
+    Q_INVOKABLE qreal getCurrentValue(int type, bool degrees);
+
+    /** Get the RGB color of the current fixture selection */
+    Q_INVOKABLE void getCurrentColors(QQuickItem *item);
+
     Q_INVOKABLE void createFixtureGroup();
 
     /** Set/Get the rotation of the currently selected fixtures */
     QVector3D fixturesRotation() const;
     void setFixturesRotation(QVector3D degrees);
+    void setFixtureRotation(quint32 itemID, QVector3D degrees);
 
     /** Select/Deselect all the fixtures of the Group/Universe with the provided $id */
     Q_INVOKABLE void setFixtureGroupSelection(quint32 id, bool enable, bool isUniverse);
 
+    Q_INVOKABLE void setChannelValueByType(int type, int value, bool isRelative = false, quint32 channel = UINT_MAX);
+
+    Q_INVOKABLE void setColorValue(QColor col, QColor wauv);
+
     /** Set a Pan/Tilt position in degrees */
-    Q_INVOKABLE void setPositionValue(int type, int degrees);
+    Q_INVOKABLE void setPositionValue(int type, int degrees, bool isRelative);
+
+    /** Set Pan/Tilt values at half position */
+    Q_INVOKABLE void setPositionCenter();
 
     /** Set a zoom channel in degrees */
-    Q_INVOKABLE void setBeamDegrees(float degrees);
+    Q_INVOKABLE void setBeamDegrees(float degrees, bool isRelative);
+
+    Q_INVOKABLE void highlightFixtureSelection();
 
     void setChannelValues(QList<SceneValue> values);
 
@@ -235,9 +256,6 @@ protected slots:
     void slotFixtureFlagsChanged(quint32 itemID, quint32 flags);
 
     void slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value);
-    void slotChannelTypeValueChanged(int type, quint8 value, quint32 channel = UINT_MAX);
-    void slotColorChanged(QColor col, QColor wauv);
-
     void slotPresetChanged(const QLCChannel *channel, quint8 value);
 
     void slotSimpleDeskValueChanged(quint32 fxID, quint32 channel, quint8 value);

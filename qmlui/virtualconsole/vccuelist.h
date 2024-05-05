@@ -283,6 +283,10 @@ private:
     /*********************************************************************
      * External input
      *********************************************************************/
+public:
+    /** @reimp */
+    void updateFeedback();
+
 public slots:
     /** @reimp */
     void slotInputValueChanged(quint8 id, uchar value);

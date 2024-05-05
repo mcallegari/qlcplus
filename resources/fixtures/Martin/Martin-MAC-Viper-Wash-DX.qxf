@@ -258,7 +258,7 @@
   <Capability Min="235" Max="239">Store pan calibration – 5 sec.</Capability>
   <Capability Min="240" Max="244">Store tilt calibration – 5 sec.</Capability>
   <Capability Min="245" Max="249">Reset all calibration values to factory defaults – 5 sec.</Capability>
-  <Capability Min="250" Max="254">No function</Capability>
+  <Capability Min="250" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Reserved for future use" Preset="NoFunction"/>
  <Channel Name="Reserved for future use 1" Preset="NoFunction"/>

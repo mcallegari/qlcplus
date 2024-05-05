@@ -20,9 +20,17 @@ INCLUDEPATH     += virtualconsole
 INCLUDEPATH     += fixtureeditor
 INCLUDEPATH     += tardis
 INCLUDEPATH     += ../plugins/interfaces
+INCLUDEPATH     += ../plugins/midi/src/common
 DEPENDPATH      += ../engine/src
 QMAKE_LIBDIR    += ../engine/src
-LIBS            += -lqlcplusengine
+
+android {
+    LIBS            += -lqlcplusengine_$${QT_ARCH}
+} else {
+    LIBS            += -lqlcplusengine
+}
+
+
 #win32:QMAKE_LFLAGS += -shared
 win32:RC_FILE = qmlui.rc
 
@@ -42,6 +50,7 @@ HEADERS += \
     functionmanager.h \
     importmanager.h \
     inputoutputmanager.h \
+    inputprofileeditor.h \
     listmodel.h \
     mainview2d.h \
     mainview3d.h \
@@ -56,6 +65,7 @@ HEADERS += \
     simpledesk.h \
     treemodel.h \
     treemodelitem.h \
+    uimanager.h \
     videoeditor.h \
     videoprovider.h
 
@@ -75,6 +85,7 @@ SOURCES += main.cpp \
     functionmanager.cpp \
     importmanager.cpp \
     inputoutputmanager.cpp \
+    inputprofileeditor.cpp \
     listmodel.cpp \
     mainview2d.cpp \
     mainview3d.cpp \
@@ -89,6 +100,7 @@ SOURCES += main.cpp \
     simpledesk.cpp \
     treemodel.cpp \
     treemodelitem.cpp \
+    uimanager.cpp \
     videoeditor.cpp \
     videoprovider.cpp
 
@@ -121,6 +133,10 @@ HEADERS += \
     virtualconsole/vcbutton.h \
     virtualconsole/vclabel.h \
     virtualconsole/vcslider.h \
+    virtualconsole/vcanimation.h \
+    virtualconsole/vcaudiotrigger.h \
+    virtualconsole/vcxypad.h \
+    virtualconsole/vcspeeddial.h \
     virtualconsole/vcclock.h \
     virtualconsole/vccuelist.h
 
@@ -133,6 +149,10 @@ SOURCES += \
     virtualconsole/vcbutton.cpp \
     virtualconsole/vclabel.cpp \
     virtualconsole/vcslider.cpp \
+    virtualconsole/vcanimation.cpp \
+    virtualconsole/vcaudiotrigger.cpp \
+    virtualconsole/vcxypad.cpp \
+    virtualconsole/vcspeeddial.cpp \
     virtualconsole/vcclock.cpp \
     virtualconsole/vccuelist.cpp
 

@@ -92,6 +92,7 @@
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="4">No function</Capability>
   <Capability Min="5" Max="29">Red</Capability>
+  <Capability Min="30" Max="54">Green</Capability>
   <Capability Min="55" Max="79">Blue</Capability>
   <Capability Min="80" Max="104">White</Capability>
   <Capability Min="105" Max="129">Color preset 1</Capability>
@@ -157,6 +158,7 @@
   <Capability Min="111" Max="126">Chaser 1</Capability>
   <Capability Min="127" Max="142">Chaser 2</Capability>
   <Capability Min="143" Max="158">Chaser 3</Capability>
+  <Capability Min="159" Max="174">Chaser 4</Capability>
   <Capability Min="175" Max="190">Chaser 5</Capability>
   <Capability Min="191" Max="206">Chaser 6</Capability>
   <Capability Min="207" Max="222">Chaser 7</Capability>

@@ -355,7 +355,7 @@ void ScriptEditor::slotAddSetFixture()
         return; // User pressed cancel
 
     QList<SceneValue> channelsList = cfg.channelsList();
-    foreach(SceneValue sv, channelsList)
+    foreach (SceneValue sv, channelsList)
     {
         Fixture* fxi = m_doc->fixture(sv.fxi);
         if (fxi != NULL)
@@ -392,7 +392,7 @@ void ScriptEditor::slotAddSystemCommand()
 
     QStringList argsList = args.split(" ");
     QString formattedArgs;
-    foreach(QString arg, argsList)
+    foreach (QString arg, argsList)
     {
         formattedArgs.append(QString("arg:%1 ").arg(arg));
     }
@@ -476,7 +476,7 @@ void ScriptEditor::slotCheckSyntax()
     else
     {
         QStringList lines = scriptText.split(QRegularExpression("(\\r\\n|\\n\\r|\\r|\\n)"));
-        foreach(int line, errLines)
+        foreach (int line, errLines)
         {
             errResult.append(tr("Syntax error at line %1:\n%2\n\n").arg(line).arg(lines.at(line - 1)));
         }

@@ -21,22 +21,22 @@
  </Channel>
  <Channel Name="Gobo/Colour">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
-  <Capability Min="10" Max="10" Preset="ColorMacro" Res1="#ffffff">White [Open]</Capability>
-  <Capability Min="26" Max="26" Preset="ColorMacro" Res1="#ff0000">Red [Dot Tunnel]</Capability>
-  <Capability Min="43" Max="43" Preset="ColorMacro" Res1="#0000ff">Blue [Slash]</Capability>
-  <Capability Min="59" Max="59" Preset="ColorMacro" Res1="#00ff00">Green [Segment]</Capability>
-  <Capability Min="75" Max="75" Preset="ColorMacro" Res1="#ffff00">Yellow [Triangle]</Capability>
-  <Capability Min="91" Max="91" Preset="ColorMacro" Res1="#00ffff">Cyan [Tunnel]</Capability>
-  <Capability Min="108" Max="108" Preset="ColorMacro" Res1="#ffaa00">Orange [Bubbles]</Capability>
-  <Capability Min="124" Max="124" Preset="ColorMacro" Res1="#ff557f">Pink [Stars]</Capability>
-  <Capability Min="140" Max="140">Multi Colour [Quadrant]</Capability>
-  <Capability Min="156" Max="156" Preset="ColorMacro" Res1="#ffaa00">Orange [Bubbles]</Capability>
-  <Capability Min="173" Max="173" Preset="ColorMacro" Res1="#00ffff">Cyan [Tunnel]</Capability>
-  <Capability Min="189" Max="189" Preset="ColorMacro" Res1="#ffff00">Yellow [Triangle]</Capability>
-  <Capability Min="221" Max="221" Preset="ColorMacro" Res1="#0000ff">Blue [Slash]</Capability>
-  <Capability Min="238" Max="238" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#000000">Slow Strobe</Capability>
-  <Capability Min="254" Max="254" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#000000">Fast Strobe</Capability>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="10" Max="25" Preset="ColorMacro" Res1="#ffffff">White [Open]</Capability>
+  <Capability Min="26" Max="42" Preset="ColorMacro" Res1="#ff0000">Red [Dot Tunnel]</Capability>
+  <Capability Min="43" Max="58" Preset="ColorMacro" Res1="#0000ff">Blue [Slash]</Capability>
+  <Capability Min="59" Max="74" Preset="ColorMacro" Res1="#00ff00">Green [Segment]</Capability>
+  <Capability Min="75" Max="90" Preset="ColorMacro" Res1="#ffff00">Yellow [Triangle]</Capability>
+  <Capability Min="91" Max="107" Preset="ColorMacro" Res1="#00ffff">Cyan [Tunnel]</Capability>
+  <Capability Min="108" Max="123" Preset="ColorMacro" Res1="#ffaa00">Orange [Bubbles]</Capability>
+  <Capability Min="124" Max="139" Preset="ColorMacro" Res1="#ff557f">Pink [Stars]</Capability>
+  <Capability Min="140" Max="155">Multi Colour [Quadrant]</Capability>
+  <Capability Min="156" Max="172" Preset="ColorMacro" Res1="#ffaa00">Orange [Bubbles]</Capability>
+  <Capability Min="173" Max="188" Preset="ColorMacro" Res1="#00ffff">Cyan [Tunnel]</Capability>
+  <Capability Min="189" Max="220" Preset="ColorMacro" Res1="#ffff00">Yellow [Triangle]</Capability>
+  <Capability Min="221" Max="237" Preset="ColorMacro" Res1="#0000ff">Blue [Slash]</Capability>
+  <Capability Min="238" Max="253" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#000000">Slow Strobe</Capability>
+  <Capability Min="254" Max="255" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#000000">Fast Strobe</Capability>
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>

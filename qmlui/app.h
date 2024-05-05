@@ -29,6 +29,7 @@
 class MainView2D;
 class ShowManager;
 class SimpleDesk;
+class UiManager;
 class ActionManager;
 class FixtureBrowser;
 class FixtureManager;
@@ -149,6 +150,8 @@ public:
 
     Q_INVOKABLE void setLanguage(QString locale);
 
+    Q_INVOKABLE QString goboSystemPath() const;
+
     void enableKioskMode();
     void createKioskCloseButton(const QRect& rect);
 
@@ -205,6 +208,7 @@ private:
     ActionManager *m_actionManager;
     VideoProvider *m_videoProvider;
     NetworkManager *m_networkManager;
+    UiManager *m_uiManager;
     Tardis *m_tardis;
 
     /*********************************************************************

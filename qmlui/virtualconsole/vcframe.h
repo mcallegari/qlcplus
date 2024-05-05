@@ -39,6 +39,9 @@
 #define KXMLQLCVCFrameNext          QString("Next")
 #define KXMLQLCVCFramePrevious      QString("Previous")
 #define KXMLQLCVCFramePagesLoop     QString("PagesLoop")
+#define KXMLQLCVCFrameShortcut      QString("Shortcut")
+#define KXMLQLCVCFrameShortcutPage  QString("Page")
+#define KXMLQLCVCFrameShortcutName  QString("Name")
 
 class VirtualConsole;
 
@@ -51,9 +54,10 @@ class VCFrame : public VCWidget
     Q_PROPERTY(bool isCollapsed READ isCollapsed WRITE setCollapsed NOTIFY collapsedChanged)
     Q_PROPERTY(bool multiPageMode READ multiPageMode WRITE setMultiPageMode NOTIFY multiPageModeChanged)
     Q_PROPERTY(bool pagesLoop READ pagesLoop WRITE setPagesLoop NOTIFY pagesLoopChanged)
-    Q_PROPERTY(int currentPage READ currentPage NOTIFY currentPageChanged)
+    Q_PROPERTY(int currentPage READ currentPage WRITE setCurrentPage NOTIFY currentPageChanged)
     Q_PROPERTY(int totalPagesNumber READ totalPagesNumber WRITE setTotalPagesNumber NOTIFY totalPagesNumberChanged)
     Q_PROPERTY(int PIN READ PIN WRITE setPIN NOTIFY PINChanged)
+    Q_PROPERTY(QStringList pageLabels READ pageLabels NOTIFY pageLabelsChanged)
 
     /*********************************************************************
      * Initialization
@@ -215,14 +219,20 @@ public:
     void setPagesLoop(bool pagesLoop);
     bool pagesLoop() const;
 
+    QStringList pageLabels();
+    Q_INVOKABLE void setShortcutName(int pageIndex, QString name);
+
     Q_INVOKABLE void gotoPreviousPage();
     Q_INVOKABLE void gotoNextPage();
+    Q_INVOKABLE void gotoPage(int pageIndex);
+    Q_INVOKABLE void cloneFirstPage();
 
 signals:
     void multiPageModeChanged(bool multiPageMode);
     void pagesLoopChanged(bool loop);
     void currentPageChanged(int page);
     void totalPagesNumberChanged(int num);
+    void pageLabelsChanged();
 
 protected:
     /** Flag to enable/disable multiple pages on this frame */
@@ -233,6 +243,8 @@ protected:
     ushort m_totalPagesNumber;
     /** Flag to cycle through pages when reaching the end */
     bool m_pagesLoop;
+    /** Map of the page index/label */
+    QMap<int, QString> m_pageLabels;
 
     /** This holds a map of pages/widgets to be
      *  shown/hidden when page is changed */
@@ -276,6 +288,10 @@ protected slots:
     /*********************************************************************
      * External input
      *********************************************************************/
+public:
+    /** @reimp */
+    void updateFeedback();
+
 public slots:
     /** @reimp */
     void slotInputValueChanged(quint8 id, uchar value);

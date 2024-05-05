@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Controls 2.0
+import QtQuick 2.14
+import QtQuick.Controls 2.14
 
 import "CanvasDrawFunctions.js" as DrawFuncs
 import "."
@@ -33,6 +33,8 @@ Dial
 
     from: 0
     to: 255
+    stepSize: 1.0
+    wheelEnabled: true
 
     onPositionChanged: kCanvas.requestPaint()
     onHeightChanged: kCanvas.requestPaint()

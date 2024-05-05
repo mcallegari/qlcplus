@@ -47,7 +47,9 @@ win32:coverage.commands = @echo Get a better OS.
 
 # Translations
 translations.target = translate
-QMAKE_EXTRA_TARGETS += translations
+!android: {
+  QMAKE_EXTRA_TARGETS += translations
+}
 qmlui: {
   translations.commands += ./translate.sh "qmlui"
 } else {
@@ -59,7 +61,9 @@ appimage: {
 } else {
   translations.path   = $$INSTALLROOT/$$TRANSLATIONDIR
 }
-INSTALLS           += translations
+!android: {
+  INSTALLS           += translations
+}
 QMAKE_DISTCLEAN += $$translations.files
 
 # run
@@ -69,6 +73,14 @@ qmlui: {
 unix:run.commands += LD_LIBRARY_PATH=engine/src:\$\$LD_LIBRARY_PATH qmlui/qlcplus-qml
 } else {
 unix:run.commands += LD_LIBRARY_PATH=engine/src:ui/src:webaccess/src:\$\$LD_LIBRARY_PATH main/qlcplus
+}
+
+# run-fxe
+run-fxe.target = run-fxe
+QMAKE_EXTRA_TARGETS += run-fxe
+qmlui: {
+} else {
+unix:run-fxe.commands += LD_LIBRARY_PATH=engine/src:ui/src:webaccess/src:\$\$LD_LIBRARY_PATH ./fixtureeditor/qlcplus-fixtureeditor
 }
 
 # doxygen

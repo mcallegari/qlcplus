@@ -159,6 +159,7 @@ Popup
             border.width: 1
             border.color: UISettings.bgStronger
             color: UISettings.bgStrong
+            height: actionsMenuEntries.height
         }
 
     Column
@@ -296,13 +297,16 @@ Popup
             }
         }
 
-        Row
+        RowLayout
         {
             height: UISettings.iconSizeDefault
+            width: parent.width
+            spacing: 0
 
             ContextMenuEntry
             {
-                width: actionsMenuEntries.width / 2
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 imgSource: "qrc:/undo.svg"
                 entryText: qsTr("Undo")
                 onEntered: submenuItem = null
@@ -315,7 +319,8 @@ Popup
             }
             ContextMenuEntry
             {
-                width: actionsMenuEntries.width / 2
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 imgSource: "qrc:/redo.svg"
                 entryText: qsTr("Redo")
                 onEntered: submenuItem = null
@@ -405,10 +410,25 @@ Popup
             CustomPopupDialog
             {
                 id: addrToolDialog
+                width: mainView.width / 3.5
                 title: qsTr("DMX Address tool")
                 standardButtons: Dialog.Close
 
-                contentItem: DMXAddressTool { }
+                contentItem:
+                    DMXAddressTool { }
+            }
+        }
+
+        ContextMenuEntry
+        {
+            id: uiConfig
+            imgSource: "qrc:/configure.svg"
+            entryText: qsTr("UI Settings")
+            onEntered: submenuItem = null
+            onClicked:
+            {
+                menuRoot.close()
+                mainView.loadResource("qrc:/UISettingsEditor.qml")
             }
         }
 

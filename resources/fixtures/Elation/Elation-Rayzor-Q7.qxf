@@ -17,7 +17,7 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="225">Max To Min Speed</Capability>
   <Capability Min="226" Max="235">Blackout By Movement</Capability>
-  <Capability Min="236" Max="255">No Function</Capability>
+  <Capability Min="236" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
@@ -53,12 +53,12 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="255">Color Macro Slow To Fast</Capability>
  </Channel>
  <Channel Name="Color Presets">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="20">White 2700K</Capability>
   <Capability Min="21" Max="30">White 3200K</Capability>
   <Capability Min="31" Max="40">White 4300K</Capability>
@@ -74,7 +74,7 @@
  </Channel>
  <Channel Name="Color Mode">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="189">No Function</Capability>
+  <Capability Min="0" Max="189">No function</Capability>
   <Capability Min="190" Max="254">Edit A New White Balance</Capability>
   <Capability Min="255" Max="255">Store A New White Balance</Capability>
  </Channel>
@@ -98,11 +98,11 @@
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="79" Preset="LampOn">Normal</Capability>
   <Capability Min="80" Max="84" Preset="ResetMotors">All Motor Reset</Capability>
-  <Capability Min="85" Max="87">No Function</Capability>
-  <Capability Min="88" Max="90">No Function</Capability>
+  <Capability Min="85" Max="87">No function</Capability>
+  <Capability Min="88" Max="90">No function</Capability>
   <Capability Min="91" Max="93">Store White Balance Enabled</Capability>
-  <Capability Min="94" Max="96">No Function</Capability>
-  <Capability Min="97" Max="99" Preset="PrismEffectOff">No Function</Capability>
+  <Capability Min="94" Max="96">No function</Capability>
+  <Capability Min="97" Max="99" Preset="PrismEffectOff">No function</Capability>
   <Capability Min="100" Max="119">Internal Program 1 (Scene 1 - 8)</Capability>
   <Capability Min="120" Max="139">Internal Program 2 (Scene 9 - 16)</Capability>
   <Capability Min="140" Max="159">Internal Program 3 (Scene 17 - 24)</Capability>

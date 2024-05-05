@@ -148,7 +148,7 @@
  <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Control / Settings">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="14" Preset="ResetAll">Reset entire fixture</Capability>
   <Capability Min="15" Max="19">Reset dimmer and shutter only</Capability>
   <Capability Min="20" Max="24" Preset="ResetColor">Reset color</Capability>
@@ -192,7 +192,7 @@
   <Capability Min="195" Max="199">Store all CMY and CTC calibration</Capability>
   <Capability Min="200" Max="204">Store aerial effect gobo wheel (wheel 1) slot index calibration</Capability>
   <Capability Min="205" Max="209">Store beamshaper accessory calibration</Capability>
-  <Capability Min="210" Max="219">No Function</Capability>
+  <Capability Min="210" Max="219">No function</Capability>
   <Capability Min="220" Max="224">Store iris calibration</Capability>
   <Capability Min="225" Max="229">Store focus calibration</Capability>
   <Capability Min="230" Max="234">Store zoom calibration</Capability>

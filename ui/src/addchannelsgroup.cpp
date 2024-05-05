@@ -35,6 +35,7 @@
 #define KColumnChIdx 3
 #define KColumnID    4
 
+#define SETTINGS_GEOMETRY "addchannelsgroup/geometry"
 #define SETTINGS_APPLYALL "addchannelsgroup/applyall"
 
 AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup *group)
@@ -119,9 +120,12 @@ AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup *gro
     m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_APPLYALL);
-    if (var.isValid() == true)
-       m_applyAllCheck->setChecked(var.toBool());
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
+    QVariant apply4AllSettings = settings.value(SETTINGS_APPLYALL);
+    if (apply4AllSettings.isValid() == true)
+       m_applyAllCheck->setChecked(apply4AllSettings.toBool());
 
     m_inputSelWidget = new InputSelectionWidget(m_doc, this);
     m_inputSelWidget->setKeyInputVisibility(false);
@@ -143,6 +147,7 @@ AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup *gro
 AddChannelsGroup::~AddChannelsGroup()
 {
     QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
     settings.setValue(SETTINGS_APPLYALL, m_applyAllCheck->isChecked());
 }
 

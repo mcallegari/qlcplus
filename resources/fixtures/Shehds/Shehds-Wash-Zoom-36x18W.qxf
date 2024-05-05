@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.0 GIT</Version>
+  <Author>Ioannis Iliopoulos</Author>
+ </Creator>
+ <Manufacturer>Shehds</Manufacturer>
+ <Model>Wash Zoom LED 36x18W RGBWA+UV</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan/Tilt speed - Pan/Tilt time" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Violet" Preset="IntensityUV"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterClose">Off</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Pan/Tilt Auto">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="49">No Function</Capability>
+  <Capability Min="50" Max="99">Pan Auto Mode</Capability>
+  <Capability Min="100" Max="149">Tilt Auto Mode</Capability>
+  <Capability Min="150" Max="199">Pan &amp; Tilt Auto Mode</Capability>
+  <Capability Min="200" Max="255">Sound Control Mode</Capability>
+ </Channel>
+ <Channel Name="Color Auto">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="127">Gradient Color Mode</Capability>
+  <Capability Min="128" Max="191">Pulse Color Mode</Capability>
+  <Capability Min="192" Max="255">Jump Color Mode</Capability>
+ </Channel>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Reset System">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="249">No Function</Capability>
+  <Capability Min="250" Max="255" Preset="ResetAll">Reset System</Capability>
+ </Channel>
+ <Channel Name="Macro Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="41">CTO</Capability>
+  <Capability Min="42" Max="255">Macro Color</Capability>
+ </Channel>
+ <Mode Name="12 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt speed - Pan/Tilt time</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">White</Channel>
+  <Channel Number="8">Amber</Channel>
+  <Channel Number="9">Violet</Channel>
+  <Channel Number="10">Strobe</Channel>
+  <Channel Number="11">Zoom</Channel>
+ </Mode>
+ <Mode Name="18 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt speed - Pan/Tilt time</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">White</Channel>
+  <Channel Number="8">Amber</Channel>
+  <Channel Number="9">Violet</Channel>
+  <Channel Number="10">Strobe</Channel>
+  <Channel Number="11">Zoom</Channel>
+  <Channel Number="12">Pan/Tilt Auto</Channel>
+  <Channel Number="13">Color Auto</Channel>
+  <Channel Number="14">Pan Fine</Channel>
+  <Channel Number="15">Tilt Fine</Channel>
+  <Channel Number="16">Reset System</Channel>
+  <Channel Number="17">Macro Color</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="8500"/>
+  <Dimensions Weight="7.5" Width="310" Height="400" Depth="220"/>
+  <Lens Name="Other" DegreesMin="10" DegreesMax="60"/>
+  <Focus Type="Head" PanMax="540" TiltMax="185"/>
+  <Technical PowerConsumption="285" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

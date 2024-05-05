@@ -59,6 +59,9 @@ class FixtureManager : public QObject
     Q_PROPERTY(int colorFilterFileIndex READ colorFilterFileIndex WRITE setColorFilterFileIndex NOTIFY colorFilterFileIndexChanged)
     Q_PROPERTY(ColorFilters *selectedFilters READ selectedFilters NOTIFY selectedFiltersChanged)
 
+    Q_PROPERTY(QStringList channelModifiersList READ channelModifiersList NOTIFY channelModifiersListChanged)
+    Q_PROPERTY(QVariantList channelModifierValues READ channelModifierValues NOTIFY channelModifierValuesChanged)
+
 public:
     FixtureManager(QQuickView *view, Doc *doc, QObject *parent = nullptr);
     ~FixtureManager();
@@ -182,6 +185,8 @@ public:
 
     Q_INVOKABLE void setItemRoleData(int itemID, int index, QString role, QVariant value);
 
+    void setItemRoleData(int itemID, QVariant value, int role);
+
     static void addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fixture, QString basePath, quint32 nodeSubID,
                                int &matchMask, QString searchFilter = QString(), int showFlags = ShowGroups | ShowLinked | ShowHeads,
                                QList<SceneValue> checkedChannels = QList<SceneValue>());
@@ -197,6 +202,14 @@ public:
 
     /** Return the type as string of the Fixture with ID $fixtureID */
     Q_INVOKABLE QString fixtureIcon(quint32 fixtureID);
+
+    /** Return the list of modes available for the item with the provided $itemID */
+    Q_INVOKABLE QStringList fixtureModes(quint32 itemID);
+
+    /** Get/Set the currently selected fixture mode index
+     *  for the item with the provided $itemID */
+    Q_INVOKABLE int fixtureModeIndex(quint32 itemID);
+    Q_INVOKABLE bool setFixtureModeIndex(quint32 itemID, int index);
 
     /** Return the Fixture ID of the provided $itemID */
     Q_INVOKABLE int fixtureIDfromItemID(quint32 itemID);
@@ -382,9 +395,6 @@ public:
 
     /** Wrapper methods to emit a signal to listeners interested in changes of
      *  channel values per capability */
-    Q_INVOKABLE void setIntensityValue(quint8 value);
-    Q_INVOKABLE void setColorValue(quint8 red, quint8 green, quint8 blue,
-                                   quint8 white, quint8 amber, quint8 uv);
     Q_INVOKABLE void setPresetValue(quint32 fixtureID, int chIndex, quint8 value);
 
     /**
@@ -433,10 +443,6 @@ public:
 signals:
     /** Notify the listeners that $value of $channelIndex of $fixtureID has changed */
     void channelValueChanged(quint32 fixtureID, quint32 channelIndex, quint8 value);
-
-    /** Notify the listeners that channels of the specified $type should
-     *  be set to the provided $value */
-    void channelTypeValueChanged(int type, quint8 value);
 
     /** Notify the listeners that a color has been picked in the ColorTool.
      *  It emits all the possible components: RGB, White, Amber and UV */
@@ -490,6 +496,33 @@ private:
     int m_colorsMask;
     /** A map of the currently available colors and their counters */
     QMap<int, int> m_colorCounters;
+
+    /*********************************************************************
+     * Channel modifiers
+     *********************************************************************/
+public:
+    /** Return a list of the available channel modifiers */
+    QStringList channelModifiersList() const;
+
+    /** Request the UI to open the channel modifier editor */
+    Q_INVOKABLE void showModifierEditor(quint32 itemID, quint32 channelIndex);
+
+    /** Select the current channel modifier to display */
+    Q_INVOKABLE void selectChannelModifier(QString name);
+
+    /** Assign the currently selected channel modifier to the given fixture's channel */
+    Q_INVOKABLE void setChannelModifier(quint32 itemID, quint32 channelIndex);
+
+    /** Return a list of values to render the currently selected channel
+     *  modifier in the UI. Values are stored as original,modified */
+    QVariantList channelModifierValues() const;
+
+signals:
+    void channelModifiersListChanged();
+    void channelModifierValuesChanged();
+
+private:
+    ChannelModifier *m_selectedChannelModifier;
 };
 
 #endif // FIXTUREMANAGER_H

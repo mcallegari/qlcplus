@@ -38,8 +38,9 @@
   <Capability Min="48" Max="63">R G - -</Capability>
   <Capability Min="64" Max="79">- - R -</Capability>
   <Capability Min="80" Max="95">R - R -</Capability>
-  <Capability Min="96" Max="111">R G R -</Capability>
-  <Capability Min="112" Max="127">- - - G</Capability>
+  <Capability Min="96" Max="111">- G R -</Capability>
+  <Capability Min="112" Max="127">R G R -</Capability>
+  <Capability Min="128" Max="143">- - - G</Capability>
   <Capability Min="144" Max="159">R - - G</Capability>
   <Capability Min="160" Max="175">- G - G</Capability>
   <Capability Min="176" Max="191">R G - G</Capability>

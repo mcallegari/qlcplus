@@ -263,7 +263,7 @@ bool ChannelsGroup::saveXML(QXmlStreamWriter *doc)
     Q_ASSERT(doc != NULL);
 
     QString str;
-    foreach(SceneValue value, this->getChannels())
+    foreach (SceneValue value, this->getChannels())
     {
         if (str.isEmpty() == false)
             str.append(",");

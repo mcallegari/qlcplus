@@ -14,12 +14,14 @@
   <Capability Min="0" Max="19">No fog</Capability>
   <Capability Min="20" Max="220">Output level in 20 steps</Capability>
   <Capability Min="221" Max="230">Prime function</Capability>
+  <Capability Min="231" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Fan speed">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="19">Fan off</Capability>
   <Capability Min="20" Max="220" Preset="SlowToFast">Fan speed in 20 steps</Capability>
   <Capability Min="221" Max="230">Auto fan mode</Capability>
+  <Capability Min="231" Max="244">No function</Capability>
   <Capability Min="245" Max="255">Fan off, Fog off, Heater off</Capability>
  </Channel>
  <Mode Name="Default">

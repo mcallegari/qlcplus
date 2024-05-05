@@ -11,7 +11,7 @@
  <Type>Flower</Type>
  <Channel Name="strobe">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="0" Max="5">No function</Capability>
   <Capability Min="6" Max="250">Strobe Speed</Capability>
   <Capability Min="251" Max="255">Full On</Capability>
  </Channel>
@@ -25,7 +25,7 @@
  </Channel>
  <Channel Name="program">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="0" Max="5">No function</Capability>
   <Capability Min="6" Max="55">Red / White Auto Speed Slow to Fast</Capability>
   <Capability Min="56" Max="105">Green / Orange Auto Speed Slow to Fast</Capability>
   <Capability Min="106" Max="155">Blue Auto Speed Slow to Fast</Capability>

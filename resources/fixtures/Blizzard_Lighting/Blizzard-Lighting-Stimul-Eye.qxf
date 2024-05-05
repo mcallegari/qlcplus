@@ -137,7 +137,7 @@
   <Capability Min="236" Max="238">Dynamic 39</Capability>
   <Capability Min="239" Max="241">Static 40</Capability>
   <Capability Min="242" Max="244">Dynamic 40</Capability>
-  <Capability Min="245" Max="255">No Function</Capability>
+  <Capability Min="245" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Built-in Program Speed">
   <Group Byte="0">Speed</Group>

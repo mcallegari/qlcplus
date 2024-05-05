@@ -106,7 +106,7 @@ App::~App()
 
 QString App::longName()
 {
-    return QString("%1 - %2").arg(APPNAME).arg(FXEDNAME);
+    return QString("%1 - %2").arg(APPNAME, FXEDNAME);
 }
 
 QString App::version()
@@ -120,9 +120,9 @@ void App::loadFixtureDefinition(const QString& path)
 
     /* Attempt to create a fixture definition from the selected file */
     QString error(tr("Unrecognized file extension: %1").arg(path));
-    if (path.toLower().endsWith(KExtFixture) == true)
+    if (path.endsWith(KExtFixture, Qt::CaseInsensitive) == true)
         fixtureDef = loadQXF(path, error);
-    else if (path.toLower().endsWith(KExtAvolitesFixture) == true)
+    else if (path.endsWith(KExtAvolitesFixture, Qt::CaseInsensitive) == true)
         fixtureDef = loadD4(path, error);
     else
         fixtureDef = NULL;
@@ -137,6 +137,10 @@ void App::loadFixtureDefinition(const QString& path)
         sub->setWidget(editor);
         sub->setAttribute(Qt::WA_DeleteOnClose);
         qobject_cast<QMdiArea*> (centralWidget())->addSubWindow(sub);
+
+        // check if sub-window is outside main area
+        if (sub->x() >= this->width() || sub->y() >= this->height())
+            sub->setGeometry(0, 0, sub->width(), sub->height());
 
         editor->show();
         sub->show();
@@ -367,9 +371,7 @@ void App::slotFileOpen()
 
     QVariant var = settings.value(SETTINGS_OPENDIALOGSTATE);
     if (var.isValid() == true)
-    {
         dialog.restoreState(var.toByteArray());
-    }
 
     dialog.setDirectory(m_workingDirectory);
 

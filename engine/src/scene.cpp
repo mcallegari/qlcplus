@@ -25,8 +25,6 @@
 #include <QFile>
 
 #include "qlcfixturedef.h"
-#include "qlcmacros.h"
-#include "qlcfile.h"
 #include "qlccapability.h"
 
 #include "genericfader.h"
@@ -43,6 +41,8 @@
 Scene::Scene(Doc* doc)
     : Function(doc, Function::SceneType)
     , m_legacyFadeBus(Bus::invalid())
+    , m_flashOverrides(false)
+    , m_flashForceLTP(false)
     , m_blendFunctionID(Function::invalidId())
 {
     setName(tr("New Scene"));
@@ -161,7 +161,7 @@ void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
                         m_fadersMap[universe]->add(fc);
                 }
             }
-         }
+        }
     }
 
     emit changed(this->id());
@@ -206,7 +206,7 @@ QList<quint32> Scene::components()
 {
     QList<quint32> ids;
 
-    foreach(SceneValue scv, m_values.keys())
+    foreach (SceneValue scv, m_values.keys())
     {
         if (ids.contains(scv.fxi) == false)
             ids.append(scv.fxi);
@@ -222,7 +222,7 @@ QColor Scene::colorValue(quint32 fxi)
     bool found = false;
     QColor CMYcol;
 
-    foreach(SceneValue scv, m_values.keys())
+    foreach (SceneValue scv, m_values.keys())
     {
         if (fxi != Fixture::invalidId() && fxi != scv.fxi)
             continue;
@@ -540,7 +540,7 @@ bool Scene::loadXML(QXmlStreamReader &root)
             if (chGrpIDs.isEmpty() == false)
             {
                 QStringList grpArray = chGrpIDs.split(",");
-                foreach(QString grp, grpArray)
+                foreach (QString grp, grpArray)
                 {
                     m_channelGroups.append(grp.toUInt());
                     m_channelGroupsLevels.append(0);
@@ -634,13 +634,16 @@ void Scene::postLoad()
  * Flashing
  ****************************************************************************/
 
-void Scene::flash(MasterTimer *timer)
+void Scene::flash(MasterTimer *timer, bool shouldOverride, bool forceLTP)
 {
     if (flashing() == true)
         return;
 
+    m_flashOverrides = shouldOverride;
+    m_flashForceLTP = forceLTP;
+
     Q_ASSERT(timer != NULL);
-    Function::flash(timer);
+    Function::flash(timer, shouldOverride, forceLTP);
     timer->registerDMXSource(this);
 }
 
@@ -673,7 +676,8 @@ void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                 QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
                 if (fader.isNull())
                 {
-                    fader = ua[universe]->requestFader();
+                    fader = ua[universe]->requestFader(m_flashOverrides ? Universe::Flashing : Universe::Auto);
+
                     fader->adjustIntensity(getAttributeValue(Intensity));
                     fader->setBlendMode(blendMode());
                     fader->setName(name());
@@ -681,6 +685,8 @@ void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                     m_fadersMap[universe] = fader;
                 }
 
+                if (m_flashForceLTP)
+                    fc.addFlag(FadeChannel::ForceLTP);
                 fc.setTarget(sv.value);
                 fc.addFlag(FadeChannel::Flashing);
                 fader->add(fc);
@@ -717,12 +723,13 @@ void Scene::processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, S
         fader->setBlendMode(blendMode());
         fader->setName(name());
         fader->setParentFunctionID(id());
-        m_fadersMap[universe] = fader;
-
         fader->setParentIntensity(getAttributeValue(ParentIntensity));
+        fader->setHandleSecondary(true);
+        m_fadersMap[universe] = fader;
     }
 
     FadeChannel *fc = fader->getChannelFader(doc(), ua[universe], scv.fxi, scv.channel);
+    int chIndex = fc->channelIndex(scv.channel);
 
     /** If a blend Function has been set, check if this channel needs to
      *  be blended from a previous value. If so, mark it for crossfade
@@ -733,18 +740,18 @@ void Scene::processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, S
         if (blendScene != NULL && blendScene->checkValue(scv))
         {
             fc->addFlag(FadeChannel::CrossFade);
-            fc->setCurrent(blendScene->value(scv.fxi, scv.channel));
+            fc->setCurrent(blendScene->value(scv.fxi, scv.channel), chIndex);
             qDebug() << "----- BLEND from Scene" << blendScene->name()
                      << ", fixture:" << scv.fxi << ", channel:" << scv.channel << ", value:" << fc->current();
         }
     }
     else
     {
-        qDebug() << "Scene" << name() << "add channel" << scv.channel << "from" << fc->current() << "to" << scv.value;
+        qDebug() << "Scene" << name() << "add channel" << scv.channel << "from" << fc->current(chIndex) << "to" << scv.value;
     }
 
-    fc->setStart(fc->current());
-    fc->setTarget(scv.value);
+    fc->setStart(fc->current(chIndex), chIndex);
+    fc->setTarget(scv.value, chIndex);
 
     if (fc->canFade() == false)
     {

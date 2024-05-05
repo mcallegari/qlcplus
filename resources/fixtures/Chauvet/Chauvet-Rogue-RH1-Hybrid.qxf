@@ -31,7 +31,7 @@
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="3" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
   <Capability Min="4" Max="7" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
-  <Capability Min="8" Max="11" Preset="ColorMacro" Res1="#ff7f00">Orange</Capability>
+  <Capability Min="8" Max="11" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
   <Capability Min="12" Max="15" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
   <Capability Min="16" Max="19" Preset="ColorMacro" Res1="#7fff7f">Light green</Capability>
   <Capability Min="20" Max="23" Preset="ColorMacro" Res1="#ffff7f">Light yellow</Capability>

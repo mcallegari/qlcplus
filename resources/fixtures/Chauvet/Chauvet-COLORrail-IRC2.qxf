@@ -36,12 +36,12 @@
  <Channel Name="Blue (section 8)" Preset="IntensityBlue"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="0">No Function</Capability>
+  <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="255">1~100%</Capability>
  </Channel>
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#00ff00">Green</Capability>

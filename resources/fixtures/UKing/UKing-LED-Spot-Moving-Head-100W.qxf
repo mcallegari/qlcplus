@@ -15,7 +15,7 @@
  <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Color Select">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="9" Preset="ColorMacro">Clear</Capability>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#fc012f">Red</Capability>
   <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#24ff1e">Green</Capability>
   <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0e00ff">Blue</Capability>

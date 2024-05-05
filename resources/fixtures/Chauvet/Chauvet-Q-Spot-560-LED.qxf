@@ -22,8 +22,8 @@
   <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ff5500">Orange</Capability>
   <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
-  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#00ffff">Light Blue</Capability>
-  <Capability Min="80" Max="99" Preset="ColorDoubleMacro" Res1="#55ffff" Res2="#ff00ff">Light Blue / Magenta</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
+  <Capability Min="80" Max="99" Preset="ColorDoubleMacro" Res1="#add8e6" Res2="#ff00ff">Light Blue / Magenta</Capability>
   <Capability Min="100" Max="119" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ff5500">Magenta / Orange</Capability>
   <Capability Min="120" Max="139" Preset="ColorDoubleMacro" Res1="#ff5500" Res2="#0000ff">Orange / Blue</Capability>
   <Capability Min="140" Max="159" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Blue / Yellow</Capability>
@@ -62,7 +62,7 @@
   <Capability Min="61" Max="70" Preset="GoboMacro" Res1="Chauvet/gobo00013.svg">Gobo 6</Capability>
   <Capability Min="71" Max="85" Preset="GoboShakeMacro" Res1="Chauvet/gobo00013.svg">Shaking Gobo 6</Capability>
   <Capability Min="86" Max="100" Preset="GoboShakeMacro" Res1="Chauvet/gobo00012.svg">Shaking Gobo 5</Capability>
-  <Capability Min="101" Max="105" Preset="GoboShakeMacro" Res1="Chauvet/gobo00011.png">Shaking Gobo 4</Capability>
+  <Capability Min="101" Max="115" Preset="GoboShakeMacro" Res1="Chauvet/gobo00011.png">Shaking Gobo 4</Capability>
   <Capability Min="116" Max="130" Preset="GoboShakeMacro" Res1="Chauvet/gobo00010.svg">Shaking Gobo 3</Capability>
   <Capability Min="131" Max="145" Preset="GoboShakeMacro" Res1="Chauvet/gobo00009.svg">Shaking Gobo 2</Capability>
   <Capability Min="146" Max="160" Preset="GoboShakeMacro" Res1="Chauvet/gobo00008.svg">Shaking Gobo 1</Capability>
@@ -72,15 +72,15 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="60" Preset="RotationIndexed">360° Indexing</Capability>
   <Capability Min="61" Max="150" Preset="RotationClockwiseSlowToFast">Rotation (slow-fast)</Capability>
-  <Capability Min="151" Max="165">No Function</Capability>
+  <Capability Min="151" Max="165">No function</Capability>
   <Capability Min="166" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter Rotation (slow-fast)</Capability>
  </Channel>
  <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Prism Rotation">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="119">Rotation (slow-fast)</Capability>
-  <Capability Min="120" Max="129">No Function</Capability>
+  <Capability Min="120" Max="129">No function</Capability>
   <Capability Min="130" Max="255">Counter Rotation (slow-fast)</Capability>
  </Channel>
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
@@ -118,7 +118,7 @@
  </Channel>
  <Channel Name="Prism effects">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="39">Prism</Capability>
   <Capability Min="40" Max="49">Effect1</Capability>
   <Capability Min="50" Max="59">Effect2</Capability>

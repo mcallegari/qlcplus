@@ -17,7 +17,7 @@
  <Channel Name="Amber" Preset="IntensityAmber"/>
  <Channel Name="Color Macro + White Balance">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="30">R: 100% G: 0~100% B: 0%</Capability>
   <Capability Min="31" Max="50">R: 100~0% G: 100% B: 0%</Capability>
   <Capability Min="51" Max="70">R: 0% G: 100% B: 0~100%</Capability>

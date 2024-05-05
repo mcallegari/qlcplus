@@ -328,8 +328,7 @@ Rectangle
                                                 anchors.fill: parent
                                                 onClicked:
                                                 {
-                                                    eeSelector.selectItem(index, fixtureListView.model,
-                                                                          mouse.modifiers & Qt.ControlModifier)
+                                                    eeSelector.selectItem(index, fixtureListView.model, mouse.modifiers)
                                                 }
                                             }
 

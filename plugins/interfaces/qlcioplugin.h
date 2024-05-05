@@ -129,7 +129,8 @@ public:
         Input       = 1 << 1,
         Feedback    = 1 << 2,
         Infinite    = 1 << 3,
-        RDM         = 1 << 4
+        RDM         = 1 << 4,
+        Beats       = 1 << 5
     };
 
     /**
@@ -202,7 +203,7 @@ public:
      * @param output The output universe to write to
      * @param universe The universe data to write
      */
-    virtual void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    virtual void writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
 
     /*************************************************************************
      * Inputs
@@ -263,7 +264,7 @@ public:
      * @param key a string to identify a channel by name (ATM used only by OSC)
      */
     virtual void sendFeedBack(quint32 universe, quint32 inputLine,
-                              quint32 channel, uchar value, const QString& key = 0);
+                              quint32 channel, uchar value, const QVariant &params);
 
 signals:
     /**

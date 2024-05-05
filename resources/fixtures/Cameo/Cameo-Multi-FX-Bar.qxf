@@ -20,7 +20,7 @@
  <Channel Name="Derby 1 Rotate">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="4" Preset="RotationStop">Stop</Capability>
-  <Capability Min="6" Max="127" Preset="RotationClockwiseSlowToFast">Rotate clockwise slow -&gt; fast</Capability>
+  <Capability Min="5" Max="127" Preset="RotationClockwiseSlowToFast">Rotate clockwise slow -&gt; fast</Capability>
   <Capability Min="128" Max="133" Preset="RotationStop">Stop</Capability>
   <Capability Min="134" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotate anticlockwise slow -&gt; fast</Capability>
  </Channel>
@@ -35,7 +35,7 @@
  <Channel Name="Derby 2 Rotate">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="4" Preset="RotationStop">Stop</Capability>
-  <Capability Min="6" Max="127" Preset="RotationClockwiseSlowToFast">Rotate clockwise slow -&gt; fast</Capability>
+  <Capability Min="5" Max="127" Preset="RotationClockwiseSlowToFast">Rotate clockwise slow -&gt; fast</Capability>
   <Capability Min="128" Max="133" Preset="RotationStop">Stop</Capability>
   <Capability Min="134" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotate anticlockwise slow -&gt; fast</Capability>
  </Channel>

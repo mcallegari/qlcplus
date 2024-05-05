@@ -69,6 +69,14 @@ Rectangle
 
                 onClicked: boxRoot.isExpanded = !boxRoot.isExpanded
             }
+
+            Rectangle
+            {
+                width: parent.width
+                height: 1
+                y: parent.height - 1
+                color: UISettings.sectionHeaderDiv
+            }
         }
 
         Loader

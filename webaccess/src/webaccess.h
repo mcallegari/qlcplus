@@ -39,6 +39,7 @@ class VCSlider;
 class VCLabel;
 class VCFrame;
 class VCClock;
+class VCMatrix;
 class Doc;
 
 class QHttpServer;
@@ -70,6 +71,8 @@ private:
     QString getAudioTriggersHTML(VCAudioTriggers *triggers);
     QString getCueListHTML(VCCueList *cue);
     QString getClockHTML(VCClock *clock);
+    QString getMatrixHTML(VCMatrix *matrix);
+    QString getGrandMasterSliderHTML();
 
     QString getChildrenHTML(VCWidget *frame, int pagesNum, int currentPageIdx);
     QString getVCHTML();
@@ -81,13 +84,34 @@ protected slots:
     void slotHandleWebSocketRequest(QHttpConnection *conn, QString data);
     void slotHandleWebSocketClose(QHttpConnection *conn);
 
+    void slotFunctionStarted(quint32 fid);
+    void slotFunctionStopped(quint32 fid);
+
     void slotVCLoaded();
     void slotButtonStateChanged(int state);
+    void slotButtonDisableStateChanged(bool disable);
+    void slotLabelDisableStateChanged(bool disable);
     void slotSliderValueChanged(QString val);
+    void slotSliderDisableStateChanged(bool disable);
     void slotAudioTriggersToggled(bool toggle);
     void slotCueIndexChanged(int idx);
+    void slotCueStepNoteChanged(int idx, QString note);
+    void slotCueProgressStateChanged();
+    void slotCueShowSideFaderPanel();
+    void slotCueSideFaderValueChanged();
+    void slotCuePlaybackStateChanged();
+    void slotCueDisableStateChanged(bool disable);
     void slotClockTimeChanged(quint32 time);
+    void slotClockDisableStateChanged(bool disable);
     void slotFramePageChanged(int pageNum);
+    void slotFrameDisableStateChanged(bool disable);
+    void slotMatrixSliderValueChanged(int value);
+    void slotMatrixStartColorChanged();
+    void slotMatrixEndColorChanged();
+    void slotMatrixAnimationValueChanged(QString name);
+    void slotMatrixControlKnobValueChanged(int controlID, int value);
+
+    void slotGrandMasterValueChanged(uchar value);
 
 protected:
     QString m_JScode;

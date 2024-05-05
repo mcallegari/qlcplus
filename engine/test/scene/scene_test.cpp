@@ -623,7 +623,7 @@ void Scene_Test::flashUnflash()
 
     QVERIFY(timer.m_dmxSourceList.size() == 0);
 
-    s1->flash(&timer);
+    s1->flash(&timer, false, false);
     QVERIFY(timer.m_dmxSourceList.size() == 1);
     QVERIFY(s1->stopped() == true);
     QVERIFY(s1->flashing() == true);
@@ -636,7 +636,7 @@ void Scene_Test::flashUnflash()
     QVERIFY(ua[0]->preGMValues()[2] == char(67));
     doc->inputOutputMap()->releaseUniverses(false);
 
-    s1->flash(&timer);
+    s1->flash(&timer, false, false);
     QVERIFY(timer.m_dmxSourceList.size() == 1);
     QVERIFY(s1->stopped() == true);
     QVERIFY(s1->flashing() == true);

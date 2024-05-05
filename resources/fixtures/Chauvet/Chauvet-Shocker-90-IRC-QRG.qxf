@@ -81,7 +81,7 @@ QRG</Model>
   <Capability Min="43" Max="85">Ramp down</Capability>
   <Capability Min="86" Max="128">Ramp up - ramp down</Capability>
   <Capability Min="129" Max="171">Random</Capability>
-  <Capability Min="173" Max="214">Lightning</Capability>
+  <Capability Min="172" Max="214">Lightning</Capability>
   <Capability Min="215" Max="255">Spikes</Capability>
  </Channel>
  <Channel Name="Zone Strobe Macros">

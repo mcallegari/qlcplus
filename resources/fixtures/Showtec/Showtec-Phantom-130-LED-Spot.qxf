@@ -78,7 +78,7 @@
  </Channel>
  <Channel Name="Macros">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="23">Macro 1</Capability>
   <Capability Min="24" Max="39">Macro 2</Capability>
   <Capability Min="40" Max="55">Macro 3</Capability>
@@ -140,7 +140,7 @@
   <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
-  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#ff00ff">Pink</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
   <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#55ff7f">Light green</Capability>
   <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#55ffff">Light blue</Capability>
   <Capability Min="64" Max="83" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White/red</Capability>

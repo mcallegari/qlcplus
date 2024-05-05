@@ -26,7 +26,7 @@ import "."
 CustomPopupDialog
 {
     id: popupRoot
-
+    width: mainView.width / 3
     title: qsTr("QLC+ server setup")
 
     contentItem:

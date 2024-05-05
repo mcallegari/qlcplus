@@ -710,7 +710,7 @@
   <Capability Min="134" Max="141">Rotor</Capability>
   <Capability Min="142" Max="149">Rotor Split 2</Capability>
   <Capability Min="150" Max="157">Rotor Split 4</Capability>
-  <Capability Min="158" Max="255">No Function</Capability>
+  <Capability Min="158" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Program Speed">
   <Group Byte="0">Speed</Group>

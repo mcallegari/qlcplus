@@ -81,7 +81,7 @@ QStringList Peperoni::outputs()
     int i = 0;
 
     QList <PeperoniDevice*> devList = m_devices.values();
-    foreach(PeperoniDevice* dev, devList)
+    foreach (PeperoniDevice* dev, devList)
         list << dev->name(i++);
 
     return list;
@@ -125,9 +125,10 @@ QString Peperoni::outputInfo(quint32 output)
     return str;
 }
 
-void Peperoni::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void Peperoni::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (m_devices.contains(output) == false)
         return;
@@ -174,7 +175,7 @@ QStringList Peperoni::inputs()
     int i = 0;
 
     QList <PeperoniDevice*> devList = m_devices.values();
-    foreach(PeperoniDevice* dev, devList)
+    foreach (PeperoniDevice* dev, devList)
         list << dev->name(i++);
 
     return list;
@@ -272,7 +273,7 @@ void Peperoni::rescanDevices()
 
     //qDebug() << "[Peperoni] Need to destroy" << destroyList.count() << "devices";
     QHashIterator<quint32, PeperoniDevice*> it(destroyList);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         PeperoniDevice *dev = m_devices.take(it.key());

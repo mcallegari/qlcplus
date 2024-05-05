@@ -46,6 +46,7 @@
   <Capability Min="86" Max="128">Ramp Up-Down</Capability>
   <Capability Min="129" Max="171">Lightning</Capability>
   <Capability Min="172" Max="214">Random</Capability>
+  <Capability Min="215" Max="250">No function</Capability>
   <Capability Min="251" Max="255">Spikes</Capability>
  </Channel>
  <Mode Name="Ch3 Mode">

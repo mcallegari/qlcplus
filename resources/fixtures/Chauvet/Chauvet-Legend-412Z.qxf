@@ -22,9 +22,9 @@
  <Channel Name="Dimmer Quadrant 1" Preset="IntensityDimmer"/>
  <Channel Name="Strobe Quadrant 1">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="19" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="19" Preset="ShutterOpen">No function</Capability>
   <Capability Min="20" Max="249" Preset="StrobeFreqRange" Res1="0" Res2="20">0-20hz</Capability>
-  <Capability Min="250" Max="255">No Function</Capability>
+  <Capability Min="250" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Red Quadrant 2" Preset="IntensityRed"/>
  <Channel Name="Green Quadrant 2" Preset="IntensityGreen"/>
@@ -33,9 +33,9 @@
  <Channel Name="Dimmer Quadrant 2" Preset="IntensityDimmer"/>
  <Channel Name="Strobe Quadrant 2">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="19" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="19" Preset="ShutterOpen">No function</Capability>
   <Capability Min="20" Max="249" Preset="StrobeFreqRange" Res1="0" Res2="20">0-20hz</Capability>
-  <Capability Min="250" Max="255">No Function</Capability>
+  <Capability Min="250" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Red Quadrant 3" Preset="IntensityRed"/>
  <Channel Name="Green Quadrant 3" Preset="IntensityGreen"/>
@@ -44,9 +44,9 @@
  <Channel Name="Dimmer Quadrant 3" Preset="IntensityDimmer"/>
  <Channel Name="Strobe Quadrant 3">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="19" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="19" Preset="ShutterOpen">No function</Capability>
   <Capability Min="20" Max="249" Preset="StrobeFreqRange" Res1="0" Res2="20">0-20hz</Capability>
-  <Capability Min="250" Max="255">No Function</Capability>
+  <Capability Min="250" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Red Quadrant 4" Preset="IntensityRed"/>
  <Channel Name="Green Quadrant 4" Preset="IntensityGreen"/>
@@ -55,13 +55,13 @@
  <Channel Name="Dimmer Quadrant 4" Preset="IntensityDimmer"/>
  <Channel Name="Strobe Quadrant 4">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="19" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="19" Preset="ShutterOpen">No function</Capability>
   <Capability Min="20" Max="249" Preset="StrobeFreqRange" Res1="0" Res2="20">0-20hz</Capability>
-  <Capability Min="250" Max="255">No Function</Capability>
+  <Capability Min="250" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="19">No Function</Capability>
+  <Capability Min="0" Max="19">No function</Capability>
   <Capability Min="20" Max="29">Macro 1</Capability>
   <Capability Min="30" Max="39">Macro 2</Capability>
   <Capability Min="40" Max="49">Macro 3</Capability>
@@ -102,7 +102,7 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="19" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="19" Preset="ShutterOpen">No function</Capability>
   <Capability Min="20" Max="39" Preset="StrobeFreqRange" Res1="0" Res2="20">0-20Hz</Capability>
   <Capability Min="40" Max="59">Strobe Macro 1</Capability>
   <Capability Min="60" Max="79">Strobe Macro 2</Capability>
@@ -113,7 +113,7 @@
   <Capability Min="160" Max="179">Strobe Macro 7</Capability>
   <Capability Min="180" Max="199">Strobe Macro 8</Capability>
   <Capability Min="200" Max="219">Strobe Macro 9</Capability>
-  <Capability Min="220" Max="255">No Function</Capability>
+  <Capability Min="220" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>

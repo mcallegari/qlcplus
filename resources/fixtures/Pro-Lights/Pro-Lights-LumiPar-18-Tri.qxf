@@ -24,7 +24,7 @@
   <Capability Min="111" Max="130" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ff0000">R: 100% / G: 0% / B: Down</Capability>
   <Capability Min="131" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">R: 100% / G: Up / B: Up</Capability>
   <Capability Min="151" Max="170" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#0000ff">R: Down / G: Down / B: 100%</Capability>
-  <Capability Min="171" Max="190" Preset="ColorMacro" Res1="#ffffff">R: 100% / G: 100% / B: 100%</Capability>
+  <Capability Min="171" Max="200" Preset="ColorMacro" Res1="#ffffff">R: 100% / G: 100% / B: 100%</Capability>
   <Capability Min="201" Max="205" Preset="ColorMacro" Res1="#ffc076">White 1: 3200K</Capability>
   <Capability Min="206" Max="210" Preset="ColorMacro" Res1="#ffc61e">White 2: 3400K</Capability>
   <Capability Min="211" Max="215" Preset="ColorMacro" Res1="#ffd9ab">White 3: 4200K</Capability>

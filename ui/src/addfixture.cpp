@@ -37,7 +37,6 @@
 #include "qlcfixturedef.h"
 
 #include "addresstool.h"
-#include "outputpatch.h"
 #include "addfixture.h"
 #include "apputil.h"
 #include "doc.h"
@@ -278,7 +277,7 @@ void AddFixture::fillTree(const QString& selectManufacturer,
                 parent->setExpanded(true);
                 m_tree->setCurrentItem(child);
             }
-            else if(expanded.indexOf(manuf) != -1)
+            else if (expanded.indexOf(manuf) != -1)
             {
                 parent->setExpanded(true);
             }
@@ -305,7 +304,7 @@ void AddFixture::fillTree(const QString& selectManufacturer,
             parent->setExpanded(true);
             m_tree->setCurrentItem(child);
         }
-        else if(expanded.indexOf(manuf) != -1)
+        else if (expanded.indexOf(manuf) != -1)
         {
             parent->setExpanded(true);
         }

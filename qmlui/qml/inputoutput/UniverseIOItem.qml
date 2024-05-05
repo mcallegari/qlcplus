@@ -46,7 +46,7 @@ Rectangle
     onIsSelectedChanged:
     {
         if (isSelected == false)
-            uniNameEdit.enableEditing(false)
+            uniNameEdit.setEditingStatus(false)
     }
 
     // area containing the input patches
@@ -151,7 +151,7 @@ Rectangle
         z: 10
 
         patchesNumber: inputPatchesNumber
-        showFeedback: universe ? universe.hasFeedbacks : false
+        showFeedback: universe ? universe.hasFeedback : false
     }
 
     // Input patch drop area
@@ -250,7 +250,7 @@ Rectangle
             height: UISettings.iconSizeMedium * 0.8
             faSource: FontAwesome.fa_long_arrow_right
             checkable: true
-            tooltip: qsTr("Passthrough")
+            tooltip: qsTr("Enable/Disable passthrough")
             checked: universe ? universe.passthrough : false
             onToggled: if (universe) universe.passthrough = checked
         }
@@ -266,8 +266,8 @@ Rectangle
             checkedColor: "green"
             imgSource: ""
             checkable: true
-            checked: universe ? universe.hasFeedbacks : false
-            tooltip: qsTr("Enable/Disable feedbacks")
+            checked: universe ? universe.hasFeedback : false
+            tooltip: qsTr("Enable/Disable feedback")
             onToggled:
             {
                 if (universe)

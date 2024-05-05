@@ -18,6 +18,7 @@
  <Channel Name="UV" Preset="IntensityUV"/>
  <Channel Name="Function">
   <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="49">No function</Capability>
   <Capability Min="50" Max="101">Color Macro 1 (Fade)</Capability>
   <Capability Min="102" Max="152">Color Macro 2 (Color Change)</Capability>
   <Capability Min="153" Max="203">Sound Mode 1 (Strobe)</Capability>

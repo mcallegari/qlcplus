@@ -39,7 +39,9 @@
  </Channel>
  <Channel Name="Sound sensitivity / Flash">
   <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="5">Sound sensitivity - 1 (lowest) to 5 (highest)</Capability>
+  <Capability Min="6" Max="10">No function</Capability>
   <Capability Min="11" Max="255">Flash Speed (11 slowest 255 highest)</Capability>
  </Channel>
  <Channel Name="R1 R2" Preset="IntensityRed"/>

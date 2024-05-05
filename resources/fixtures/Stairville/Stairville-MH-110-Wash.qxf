@@ -40,7 +40,7 @@
  </Channel>
  <Channel Name="Strobe effect">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
   <Capability Min="10" Max="140" Preset="StrobeSlowToFast">Strobe, Increasing speed</Capability>
   <Capability Min="141" Max="255" Preset="StrobeRandom">Strobe, Random speed</Capability>
  </Channel>

@@ -35,7 +35,8 @@
 #include "qlcfile.h"
 #include "utils.h"
 
-#define RELATIVE_ZERO 127
+#define RELATIVE_ZERO_8BIT   0x7F
+#define RELATIVE_ZERO_16BIT  0x7F00
 
 #define KXMLUniverseNormalBlend "Normal"
 #define KXMLUniverseMaskBlend "Mask"
@@ -59,9 +60,9 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     , m_preGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_postGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_lastPostGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
+    , m_blackoutValues(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_passthroughValues()
 {
-    m_relativeValues.fill(0, UNIVERSE_SIZE);
     m_modifiers.fill(NULL, UNIVERSE_SIZE);
 
     m_name = QString("Universe %1").arg(id + 1);
@@ -227,7 +228,8 @@ QSharedPointer<GenericFader> Universe::requestFader(Universe::FaderPriority prio
         m_faders.insert(insertPos, fader);
     }
 
-    qDebug() << "Generic fader with priority" <<  fader->priority() << "registered at pos" << insertPos << ", count" << m_faders.count();
+    qDebug() << "[Universe]" << id() << ": Generic fader with priority" << fader->priority()
+             << "registered at pos" << insertPos << ", count" << m_faders.count();
 
     return fader;
 }
@@ -264,7 +266,8 @@ void Universe::requestFaderPriority(QSharedPointer<GenericFader> fader, Universe
     if (newPos != pos)
     {
         m_faders.move(pos, newPos);
-        qDebug() << "Generic fader moved from" << pos << "to" << m_faders.indexOf(fader) << ". Count:" << m_faders.count();
+        qDebug() << "[Universe]" << id() << ": Generic fader moved from" << pos
+                 << "to" << m_faders.indexOf(fader) << ". Count:" << m_faders.count();
     }
 }
 
@@ -295,7 +298,6 @@ void Universe::processFaders()
 {
     flushInput();
     zeroIntensityChannels();
-    zeroRelativeValues();
 
     QMutableListIterator<QSharedPointer<GenericFader> > it(m_faders);
     while (it.hasNext())
@@ -321,10 +323,11 @@ void Universe::processFaders()
         fader->write(this);
     }
 
+    bool dataChanged = hasChanged();
     const QByteArray postGM = m_postGMValues->mid(0, m_usedChannels);
-    dumpOutput(postGM);
+    dumpOutput(postGM, dataChanged);
 
-    if (hasChanged())
+    if (dataChanged)
         emit universeWritten(id(), postGM);
 }
 
@@ -335,7 +338,7 @@ void Universe::run()
 
     qDebug() << "Universe thread started" << id();
 
-    while(m_running)
+    while (m_running)
     {
         if (m_semaphore.tryAcquire(1, timeout) == false)
         {
@@ -359,15 +362,13 @@ void Universe::run()
 void Universe::reset()
 {
     m_preGMValues->fill(0);
+    m_blackoutValues->fill(0);
+
     if (m_passthrough)
-    {
         (*m_postGMValues) = (*m_passthroughValues);
-    }
     else
-    {
         m_postGMValues->fill(0);
-    }
-    zeroRelativeValues();
+
     m_modifiers.fill(NULL, UNIVERSE_SIZE);
     m_passthrough = false; // not releasing m_passthroughValues, see comment in setPassthrough
 }
@@ -381,7 +382,7 @@ void Universe::reset(int address, int range)
        range = UNIVERSE_SIZE - address;
 
     memset(m_preGMValues->data() + address, 0, range * sizeof(*m_preGMValues->data()));
-    memset(m_relativeValues.data() + address, 0, range * sizeof(*m_relativeValues.data()));
+    memset(m_blackoutValues->data() + address, 0, range * sizeof(*m_blackoutValues->data()));
     memcpy(m_postGMValues->data() + address, m_modifiedZeroValues->data() + address, range * sizeof(*m_postGMValues->data()));
 
     applyPassthroughValues(address, range);
@@ -438,11 +439,6 @@ const QByteArray* Universe::postGMValues() const
     return m_postGMValues.data();
 }
 
-void Universe::zeroRelativeValues()
-{
-    memset(m_relativeValues.data(), 0, UNIVERSE_SIZE * sizeof(*m_relativeValues.data()));
-}
-
 Universe::BlendMode Universe::stringToBlendMode(QString mode)
 {
     if (mode == KXMLUniverseNormalBlend)
@@ -490,17 +486,6 @@ uchar Universe::preGMValue(int address) const
     return static_cast<uchar>(m_preGMValues->at(address));
 }
 
-uchar Universe::applyRelative(int channel, uchar value)
-{
-    if (m_relativeValues[channel] != 0)
-    {
-        int val = m_relativeValues[channel] + value;
-        return CLAMP(val, 0, (int)UCHAR_MAX);
-    }
-
-    return value;
-}
-
 uchar Universe::applyGM(int channel, uchar value)
 {
     if ((m_grandMaster->channelMode() == GrandMaster::Intensity && m_channelsMask->at(channel) & Intensity) ||
@@ -541,18 +526,10 @@ void Universe::updatePostGMValue(int channel)
 {
     uchar value = preGMValue(channel);
 
-    value = applyRelative(channel, value);
-
-    if (value == 0)
-    {
-        value = static_cast<uchar>(m_modifiedZeroValues->at(channel));
-    }
-    else
-    {
+    if (value != 0)
         value = applyGM(channel, value);
-        value = applyModifiers(channel, value);
-    }
 
+    value = applyModifiers(channel, value);
     value = applyPassthrough(channel, value);
 
     (*m_postGMValues)[channel] = static_cast<char>(value);
@@ -662,21 +639,21 @@ bool Universe::setFeedbackPatch(QLCIOPlugin *plugin, quint32 output)
         {
             delete m_fbPatch;
             m_fbPatch = NULL;
-            emit hasFeedbacksChanged();
+            emit hasFeedbackChanged();
             return true;
         }
     }
     if (m_fbPatch != NULL)
     {
         bool result = m_fbPatch->set(plugin, output);
-        emit hasFeedbacksChanged();
+        emit hasFeedbackChanged();
         return result;
     }
 
     return false;
 }
 
-bool Universe::hasFeedbacks() const
+bool Universe::hasFeedback() const
 {
     return m_fbPatch != NULL ? true : false;
 }
@@ -704,7 +681,7 @@ OutputPatch *Universe::feedbackPatch() const
     return m_fbPatch;
 }
 
-void Universe::dumpOutput(const QByteArray &data)
+void Universe::dumpOutput(const QByteArray &data, bool dataChanged)
 {
     if (m_outputPatchList.count() == 0)
         return;
@@ -715,21 +692,11 @@ void Universe::dumpOutput(const QByteArray &data)
             op->setPluginParameter(PLUGIN_UNIVERSECHANNELS, m_totalChannels);
 
         if (op->blackout())
-            op->dump(m_id, *m_modifiedZeroValues);
+            op->dump(m_id, *m_blackoutValues, dataChanged);
         else
-            op->dump(m_id, data);
+            op->dump(m_id, data, dataChanged);
     }
     m_totalChannelsChanged = false;
-}
-
-void Universe::dumpBlackout()
-{
-    dumpOutput(*m_modifiedZeroValues);
-}
-
-const QByteArray& Universe::blackoutData()
-{
-    return *m_modifiedZeroValues;
 }
 
 void Universe::flushInput()
@@ -936,94 +903,143 @@ void Universe::updateIntensityChannelsRanges()
  * Writing
  ****************************************************************************/
 
-bool Universe::write(int channel, uchar value, bool forceLTP)
+bool Universe::write(int address, uchar value, bool forceLTP)
 {
-    Q_ASSERT(channel < UNIVERSE_SIZE);
+    Q_ASSERT(address < UNIVERSE_SIZE);
 
-    //qDebug() << "Universe write channel" << channel << ", value:" << value;
+    //qDebug() << "[Universe]" << id() << ": write channel" << address << ", value:" << value;
 
-    if (channel >= m_usedChannels)
-        m_usedChannels = channel + 1;
+    if (address >= m_usedChannels)
+        m_usedChannels = address + 1;
 
-    if (forceLTP == false && (m_channelsMask->at(channel) & HTP) && value < (uchar)m_preGMValues->at(channel))
+    if (m_channelsMask->at(address) & HTP)
     {
-        qDebug() << "[Universe] HTP check not passed" << channel << value;
-        return false;
+        if (forceLTP == false && value < (uchar)m_preGMValues->at(address))
+        {
+            qDebug() << "[Universe] HTP check not passed" << address << value;
+            return false;
+        }
+    }
+    else
+    {
+        // preserve non HTP channels for blackout
+        (*m_blackoutValues)[address] = char(value);
     }
 
-    (*m_preGMValues)[channel] = char(value);
+    (*m_preGMValues)[address] = char(value);
 
-    updatePostGMValue(channel);
-
-    return true;
-}
-
-bool Universe::writeRelative(int channel, uchar value)
-{
-    Q_ASSERT(channel < UNIVERSE_SIZE);
-
-    //qDebug() << "Write relative channel" << channel << value;
-
-    if (channel >= m_usedChannels)
-        m_usedChannels = channel + 1;
-
-    if (value == RELATIVE_ZERO)
-        return true;
-
-    m_relativeValues[channel] += value - RELATIVE_ZERO;
-
-    updatePostGMValue(channel);
+    updatePostGMValue(address);
 
     return true;
 }
 
-bool Universe::writeBlended(int channel, uchar value, Universe::BlendMode blend)
+bool Universe::writeMultiple(int address, quint32 value, int channelCount)
 {
-    if (channel >= m_usedChannels)
-        m_usedChannels = channel + 1;
+    for (int i = 0; i < channelCount; i++)
+    {
+        //qDebug() << "[Universe]" << id() << ": write channel" << (address + i) << ", value:" << QString::number(((uchar *)&value)[channelCount - 1 - i]);
+
+        // preserve non HTP channels for blackout
+        if ((m_channelsMask->at(address + i) & HTP) == 0)
+            (*m_blackoutValues)[address + i] = ((uchar *)&value)[channelCount - 1 - i];
+
+        (*m_preGMValues)[address + i] = ((uchar *)&value)[channelCount - 1 - i];
+
+        updatePostGMValue(address + i);
+    }
+
+    return true;
+}
+
+bool Universe::writeRelative(int address, quint32 value, int channelCount)
+{
+    Q_ASSERT(address < UNIVERSE_SIZE);
+
+    //qDebug() << "Write relative channel" << address << "value" << value;
+
+    if (address + channelCount >= m_usedChannels)
+        m_usedChannels = address + channelCount;
+
+    if (channelCount == 1)
+    {
+        short newVal = uchar((*m_preGMValues)[address]);
+        newVal += short(value) - RELATIVE_ZERO_8BIT;
+        (*m_preGMValues)[address] = char(CLAMP(newVal, 0, UCHAR_MAX));
+        (*m_blackoutValues)[address] = char(CLAMP(newVal, 0, UCHAR_MAX));
+        updatePostGMValue(address);
+    }
+    else
+    {
+        quint32 currentValue = 0;
+        for (int i = 0; i < channelCount; i++)
+            currentValue = (currentValue << 8) + uchar(m_preGMValues->at(address + i));
+
+        currentValue += (value - RELATIVE_ZERO_16BIT);
+
+        for (int i = 0; i < channelCount; i++)
+        {
+            (*m_preGMValues)[address + i] = ((uchar *)&currentValue)[channelCount - 1 - i];
+            (*m_blackoutValues)[address + i] = ((uchar *)&currentValue)[channelCount - 1 - i];
+            updatePostGMValue(address + i);
+        }
+    }
+
+    return true;
+}
+
+bool Universe::writeBlended(int address, quint32 value, int channelCount, Universe::BlendMode blend)
+{
+    if (address + channelCount >= m_usedChannels)
+        m_usedChannels = address + channelCount;
+
+    quint32 currentValue = 0;
+    for (int i = 0; i < channelCount; i++)
+        currentValue = (currentValue << 8) + uchar(m_preGMValues->at(address + i));
 
     switch (blend)
     {
         case NormalBlend:
-            return write(channel, value);
-
+        {
+            if ((m_channelsMask->at(address) & HTP) && value < currentValue)
+            {
+                qDebug() << "[Universe] HTP check not passed" << address << value;
+                return false;
+            }
+        }
+        break;
         case MaskBlend:
         {
             if (value)
             {
-                float currValue = (float)uchar(m_preGMValues->at(channel));
-                if (currValue)
-                    value = currValue * ((float)value / 255.0);
+                qDebug() << "Current value" << currentValue << "value" << value;
+                if (currentValue)
+                    value = float(currentValue) * (float(value) / pow(255.0, channelCount));
                 else
                     value = 0;
             }
-            (*m_preGMValues)[channel] = char(value);
         }
         break;
         case AdditiveBlend:
         {
-            uchar currVal = uchar(m_preGMValues->at(channel));
             //qDebug() << "Universe write additive channel" << channel << ", value:" << currVal << "+" << value;
-            value = qMin(int(currVal) + value, 255);
-            (*m_preGMValues)[channel] = char(value);
+            value = fmin(float(currentValue + value), pow(255.0, channelCount));
         }
         break;
         case SubtractiveBlend:
         {
-            uchar currVal = uchar(m_preGMValues->at(channel));
-            if (value >= currVal)
+            if (value >= currentValue)
                 value = 0;
             else
-                value = currVal - value;
-            (*m_preGMValues)[channel] = char(value);
+                value = currentValue - value;
         }
         break;
         default:
             qDebug() << "[Universe] Blend mode not handled. Implement me!" << blend;
+            return false;
         break;
     }
 
-    updatePostGMValue(channel);
+    writeMultiple(address, value, channelCount);
 
     return true;
 }
@@ -1266,7 +1282,7 @@ bool Universe::savePluginParametersXML(QXmlStreamWriter *doc,
 
     doc->writeStartElement(KXMLQLCUniversePluginParameters);
     QMapIterator<QString, QVariant> it(parameters);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         QString pName = it.key();

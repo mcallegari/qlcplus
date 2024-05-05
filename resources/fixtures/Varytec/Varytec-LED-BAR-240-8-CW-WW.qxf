@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>Michel Sliepenbeek</Author>
+ </Creator>
+ <Manufacturer>Varytec</Manufacturer>
+ <Model>LED Bar 240/8 CW/WW</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="Dimmer (0 % to 100 %) for all LEDs" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe effect, increasing speed" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Program Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Warm and cold white adjustment with channels 2 and 3</Capability>
+  <Capability Min="10" Max="19">Warm white</Capability>
+  <Capability Min="20" Max="29">Warm white, cold white</Capability>
+  <Capability Min="30" Max="39">Cold white</Capability>
+  <Capability Min="40" Max="49">Program 2</Capability>
+  <Capability Min="50" Max="59">Program 3</Capability>
+  <Capability Min="60" Max="69">Program 4</Capability>
+  <Capability Min="70" Max="79">Program 5</Capability>
+  <Capability Min="80" Max="89">Program 6</Capability>
+  <Capability Min="90" Max="99">Program 7</Capability>
+  <Capability Min="100" Max="109">Program 8</Capability>
+  <Capability Min="110" Max="119">Program 9</Capability>
+  <Capability Min="120" Max="129">Program 10</Capability>
+  <Capability Min="130" Max="139">Program 11</Capability>
+  <Capability Min="140" Max="149">Program 12</Capability>
+  <Capability Min="150" Max="159">Program 13</Capability>
+  <Capability Min="160" Max="169">Program 14</Capability>
+  <Capability Min="170" Max="179">Program 15</Capability>
+  <Capability Min="180" Max="189">Program 16</Capability>
+  <Capability Min="190" Max="199">Program 17</Capability>
+  <Capability Min="200" Max="209">Program 18</Capability>
+  <Capability Min="210" Max="219">Program 19</Capability>
+  <Capability Min="220" Max="229">Program 20</Capability>
+  <Capability Min="230" Max="255">Sound-controlled operation</Capability>
+ </Channel>
+ <Channel Name="Sound Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Increasing speed / Mic Sensitivity</Capability>
+ </Channel>
+ <Channel Name="Warm White 1" Preset="IntensityWhite"/>
+ <Channel Name="Cold White 1" Preset="IntensityWhite"/>
+ <Channel Name="Warm White 2" Preset="IntensityWhite"/>
+ <Channel Name="Cold White 2" Preset="IntensityWhite"/>
+ <Channel Name="Warm White 3" Preset="IntensityWhite"/>
+ <Channel Name="Cold White 3" Preset="IntensityWhite"/>
+ <Channel Name="Warm White 4" Preset="IntensityWhite"/>
+ <Channel Name="Cold White 4" Preset="IntensityWhite"/>
+ <Channel Name="Warm White 5" Preset="IntensityWhite"/>
+ <Channel Name="Cold White 5" Preset="IntensityWhite"/>
+ <Channel Name="Warm White 6" Preset="IntensityWhite"/>
+ <Channel Name="Cold White 6" Preset="IntensityWhite"/>
+ <Channel Name="Warm White 7" Preset="IntensityWhite"/>
+ <Channel Name="Cold White 7" Preset="IntensityWhite"/>
+ <Channel Name="Warm White 8" Preset="IntensityWhite"/>
+ <Channel Name="Cold White 8" Preset="IntensityWhite"/>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Warm White 1</Channel>
+  <Channel Number="1">Cold White 1</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Dimmer (0 % to 100 %) for all LEDs</Channel>
+  <Channel Number="1">Warm White 1</Channel>
+  <Channel Number="2">Cold White 1</Channel>
+  <Channel Number="3">Strobe effect, increasing speed</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Dimmer (0 % to 100 %) for all LEDs</Channel>
+  <Channel Number="1">Warm White 1</Channel>
+  <Channel Number="2">Cold White 1</Channel>
+  <Channel Number="3">Program Mode</Channel>
+  <Channel Number="4">Sound Mode</Channel>
+  <Channel Number="5">Strobe effect, increasing speed</Channel>
+ </Mode>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Warm White 1</Channel>
+  <Channel Number="1">Cold White 1</Channel>
+  <Channel Number="2">Warm White 2</Channel>
+  <Channel Number="3">Cold White 2</Channel>
+  <Channel Number="4">Warm White 3</Channel>
+  <Channel Number="5">Cold White 3</Channel>
+  <Channel Number="6">Warm White 4</Channel>
+  <Channel Number="7">Cold White 4</Channel>
+  <Channel Number="8">Warm White 5</Channel>
+  <Channel Number="9">Cold White 5</Channel>
+  <Channel Number="10">Warm White 6</Channel>
+  <Channel Number="11">Cold White 6</Channel>
+  <Channel Number="12">Warm White 7</Channel>
+  <Channel Number="13">Cold White 7</Channel>
+  <Channel Number="14">Warm White 8</Channel>
+  <Channel Number="15">Cold White 8</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.6" Width="1064" Height="88" Depth="65"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="8" Height="1"/>
+  <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

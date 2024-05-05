@@ -306,7 +306,7 @@ bool Script::saveXML(QXmlStreamWriter *doc)
     saveXMLRunOrder(doc);
 
     /* Contents */
-    foreach(QString cmd, dataLines())
+    foreach (QString cmd, dataLines())
     {
         doc->writeTextElement(KXMLQLCScriptCommand, QUrl::toPercentEncoding(cmd));
     }

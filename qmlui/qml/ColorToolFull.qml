@@ -45,26 +45,7 @@ Rectangle
 
     onCurrentRGBChanged:
     {
-        rSpin.value = currentRGB.r * 255
-        gSpin.value = currentRGB.g * 255
-        bSpin.value = currentRGB.b * 255
         htmlText.text = Helpers.getHTMLColor(currentRGB.r * 255, currentRGB.g * 255, currentRGB.b * 255)
-        emitCurrentColor()
-    }
-    onCurrentWAUVChanged:
-    {
-        wSpin.value = currentWAUV.r * 255
-        aSpin.value = currentWAUV.g * 255
-        uvSpin.value = currentWAUV.b * 255
-        wSlider.value = currentWAUV.r * 255
-        aSlider.value = currentWAUV.g * 255
-        uvSlider.value = currentWAUV.b * 255
-        emitCurrentColor()
-    }
-
-    function emitCurrentColor()
-    {
-        colorChanged(currentRGB.r, currentRGB.g, currentRGB.b, currentWAUV.r, currentWAUV.g, currentWAUV.b)
     }
 
     Canvas
@@ -144,6 +125,7 @@ Rectangle
                 bSpin.value = b*/
 
                 currentRGB = Qt.rgba(r / 255, g / 255, b / 255, 1.0)
+                colorChanged(currentRGB.r, currentRGB.g, currentRGB.b, currentWAUV.r, currentWAUV.g, currentWAUV.b)
             }
 
             onPressed: setPickedColor(mouse)
@@ -173,7 +155,9 @@ Rectangle
             height: UISettings.listItemHeight
             from: 0
             to: 255
-            onValueChanged: currentRGB = Qt.rgba(value / 255, currentRGB.g, currentRGB.b, 1.0)
+            value: currentRGB.r * 255
+            onValueModified: colorChanged(value / 255, currentRGB.g, currentRGB.b,
+                                          currentWAUV.r, currentWAUV.g, currentWAUV.b)
         }
 
         RobotoText
@@ -189,7 +173,9 @@ Rectangle
             height: UISettings.listItemHeight
             from: 0
             to: 255
-            onValueChanged: currentRGB = Qt.rgba(currentRGB.r, value / 255, currentRGB.b, 1.0)
+            value: currentRGB.g * 255
+            onValueModified: colorChanged(currentRGB.r, value / 255, currentRGB.b,
+                                          currentWAUV.r, currentWAUV.g, currentWAUV.b)
         }
 
         RobotoText
@@ -205,7 +191,9 @@ Rectangle
             height: UISettings.listItemHeight
             from: 0
             to: 255
-            onValueChanged: currentRGB = Qt.rgba(currentRGB.r, currentRGB.g, value / 255, 1.0)
+            value: currentRGB.b * 255
+            onValueModified: colorChanged(currentRGB.r, currentRGB.g, value / 255,
+                                          currentWAUV.r, currentWAUV.g, currentWAUV.b)
         }
 
         RobotoText
@@ -244,7 +232,9 @@ Rectangle
             Layout.fillWidth: true
             from: 0
             to: 255
-            onPositionChanged: currentWAUV = Qt.rgba(valueAt(position) / 255, currentWAUV.g, currentWAUV.b, 1.0)
+            value: currentWAUV.r * 255
+            onMoved: colorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                                  valueAt(position) / 255, currentWAUV.g, currentWAUV.b)
         }
 
         CustomSpinBox
@@ -255,7 +245,9 @@ Rectangle
             height: UISettings.listItemHeight
             from: 0
             to: 255
-            onValueChanged: currentWAUV = Qt.rgba(value / 255, currentWAUV.g, currentWAUV.b, 1.0)
+            value: currentWAUV.r * 255
+            onValueModified: colorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                                          value / 255, currentWAUV.g, currentWAUV.b)
         }
 
         RobotoText
@@ -272,7 +264,9 @@ Rectangle
             Layout.fillWidth: true
             from: 0
             to: 255
-            onPositionChanged: currentWAUV = Qt.rgba(currentWAUV.r, valueAt(position) / 255, currentWAUV.b, 1.0)
+            value: currentWAUV.g * 255
+            onMoved: colorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                                  currentWAUV.r, valueAt(position) / 255, currentWAUV.b)
         }
 
         CustomSpinBox
@@ -283,7 +277,9 @@ Rectangle
             height: UISettings.listItemHeight
             from: 0
             to: 255
-            onValueChanged: currentWAUV = Qt.rgba(currentWAUV.r, value / 255, currentWAUV.b, 1.0)
+            value: currentWAUV.g * 255
+            onValueModified: colorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                                          currentWAUV.r, value / 255, currentWAUV.b)
         }
 
         RobotoText
@@ -300,7 +296,9 @@ Rectangle
             Layout.fillWidth: true
             from: 0
             to: 255
-            onPositionChanged: currentWAUV = Qt.rgba(currentWAUV.r, currentWAUV.g, valueAt(position) / 255, 1.0)
+            value: currentWAUV.b * 255
+            onMoved: colorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                                  currentWAUV.r, currentWAUV.g, valueAt(position) / 255)
         }
 
         CustomSpinBox
@@ -312,7 +310,8 @@ Rectangle
             from: 0
             to: 255
             value: currentWAUV.b * 255
-            onValueChanged: currentWAUV = Qt.rgba(currentWAUV.r, currentWAUV.g, value / 255, 1.0)
+            onValueModified: colorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                                          currentWAUV.r, currentWAUV.g, value / 255)
         }
     }
 
@@ -329,7 +328,6 @@ Rectangle
 
         MultiColorBox
         {
-            id: previewBox
             width: UISettings.mediumItemHeight
             height: UISettings.listItemHeight
             primary: currentRGB

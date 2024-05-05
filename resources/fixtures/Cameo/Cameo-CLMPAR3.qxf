@@ -91,7 +91,7 @@
   <Capability Min="232" Max="239">Flow9 Effect</Capability>
   <Capability Min="240" Max="255">Music control</Capability>
  </Channel>
- <Channel Name="Fonction channel 6 mode 6">
+ <Channel Name="Function channel 6 mode 6">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="0">Pres-set colour In channel 1-4</Capability>
   <Capability Min="1" Max="128">Music control (microphone sensivity 0-100%)</Capability>
@@ -211,7 +211,7 @@
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">White</Channel>
   <Channel Number="4">Master dimmer</Channel>
-  <Channel Number="5">Fonction channel 6 mode 6</Channel>
+  <Channel Number="5">Function channel 6 mode 6</Channel>
  </Mode>
  <Mode Name="8 Channel">
   <Channel Number="0">Red Light 1+2</Channel>

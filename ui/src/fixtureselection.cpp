@@ -22,14 +22,13 @@
 #include <QHeaderView>
 #include <QLabel>
 #include <QAction>
-
-#include "qlcfixturedef.h"
+#include <QSettings>
 
 #include "fixturetreewidget.h"
 #include "fixtureselection.h"
-#include "fixturegroup.h"
-#include "fixture.h"
 #include "doc.h"
+
+#define SETTINGS_GEOMETRY "fixtureselection/geometry"
 
 FixtureSelection::FixtureSelection(QWidget* parent, Doc* doc)
     : QDialog(parent)
@@ -54,6 +53,11 @@ FixtureSelection::FixtureSelection(QWidget* parent, Doc* doc)
     m_tree = new FixtureTreeWidget(m_doc, m_treeFlags, this);
     m_mainLayout->addWidget(m_tree);
 
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
+
     connect(m_tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
             this, SLOT(slotItemDoubleClicked()));
 
@@ -63,6 +67,8 @@ FixtureSelection::FixtureSelection(QWidget* parent, Doc* doc)
 
 FixtureSelection::~FixtureSelection()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 int FixtureSelection::exec()

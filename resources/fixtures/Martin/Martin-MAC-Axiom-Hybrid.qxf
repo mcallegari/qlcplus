@@ -15,7 +15,10 @@
  <Channel Name="Color wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0" Preset="ColorWheelIndex">Open</Capability>
+  <Capability Min="1" Max="8">Open -&gt; Slot 1</Capability>
   <Capability Min="9" Max="9">Slot 1</Capability>
+  <Capability Min="10" Max="17">Slot 1 -&gt; Slot 2</Capability>
+  <Capability Min="18" Max="18">Slot 2</Capability>
   <Capability Min="19" Max="26">Slot 2 -&gt; Slot 3</Capability>
   <Capability Min="27" Max="27">Slot 3</Capability>
   <Capability Min="28" Max="35">Slot 3 -&gt; Slot 4</Capability>

@@ -17,7 +17,7 @@
  </Channel>
  <Channel Name="Shows">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="49">Show 1</Capability>
   <Capability Min="50" Max="91">Show 2</Capability>
   <Capability Min="92" Max="133">Show 3</Capability>
@@ -28,7 +28,7 @@
  </Channel>
  <Channel Name="Colour Macros">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="0" Max="5">No function</Capability>
   <Capability Min="6" Max="9" Preset="ColorMacro" Res1="#ff0000">R</Capability>
   <Capability Min="10" Max="13" Preset="ColorMacro" Res1="#00ff00">G</Capability>
   <Capability Min="14" Max="17" Preset="ColorMacro" Res1="#0000ff">B</Capability>
@@ -69,7 +69,7 @@
  <Channel Name="Tilt Movement Speed" Preset="SpeedTiltFastSlow"/>
  <Channel Name="LED 1 Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="8">No Function</Capability>
+  <Capability Min="0" Max="8">No function</Capability>
   <Capability Min="9" Max="24">LED 1 - R</Capability>
   <Capability Min="25" Max="41">LED 1 - G</Capability>
   <Capability Min="42" Max="57">LED 1 - B</Capability>
@@ -88,7 +88,7 @@
  </Channel>
  <Channel Name="LED 2 Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="8">No Function</Capability>
+  <Capability Min="0" Max="8">No function</Capability>
   <Capability Min="9" Max="24">LED 2 - R</Capability>
   <Capability Min="25" Max="41">LED 2 - G</Capability>
   <Capability Min="42" Max="57">LED 2 - B</Capability>
@@ -107,7 +107,7 @@
  </Channel>
  <Channel Name="LED 3 Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="8">No Function</Capability>
+  <Capability Min="0" Max="8">No function</Capability>
   <Capability Min="9" Max="24">LED 3 - R</Capability>
   <Capability Min="25" Max="41">LED 3 - G</Capability>
   <Capability Min="42" Max="57">LED 3 - B</Capability>
@@ -126,7 +126,7 @@
  </Channel>
  <Channel Name="LED 4 Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="8">No Function</Capability>
+  <Capability Min="0" Max="8">No function</Capability>
   <Capability Min="9" Max="24">LED 4 - R</Capability>
   <Capability Min="25" Max="41">LED 4 - G</Capability>
   <Capability Min="42" Max="57">LED 4 - B</Capability>
@@ -145,7 +145,7 @@
  </Channel>
  <Channel Name="LED 5 Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="8">No Function</Capability>
+  <Capability Min="0" Max="8">No function</Capability>
   <Capability Min="9" Max="24">LED 5 - R</Capability>
   <Capability Min="25" Max="41">LED 5 - G</Capability>
   <Capability Min="42" Max="57">LED 5 - B</Capability>
@@ -164,7 +164,7 @@
  </Channel>
  <Channel Name="LED 6 Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="8">No Function</Capability>
+  <Capability Min="0" Max="8">No function</Capability>
   <Capability Min="9" Max="24">LED 6 - R</Capability>
   <Capability Min="25" Max="41">LED 6 - G</Capability>
   <Capability Min="42" Max="57">LED 6 - B</Capability>
@@ -183,7 +183,7 @@
  </Channel>
  <Channel Name="LED 7 Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="8">No Function</Capability>
+  <Capability Min="0" Max="8">No function</Capability>
   <Capability Min="9" Max="24">LED 7 - R</Capability>
   <Capability Min="25" Max="41">LED 7 - G</Capability>
   <Capability Min="42" Max="57">LED 7 - B</Capability>
@@ -202,7 +202,7 @@
  </Channel>
  <Channel Name="LED 8 Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="8">No Function</Capability>
+  <Capability Min="0" Max="8">No function</Capability>
   <Capability Min="9" Max="24">LED 8 - R</Capability>
   <Capability Min="25" Max="41">LED 8 - G</Capability>
   <Capability Min="42" Max="57">LED 8 - B</Capability>

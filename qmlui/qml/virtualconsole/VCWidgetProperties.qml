@@ -73,6 +73,7 @@ Rectangle
             else
                 virtualConsole.setWidgetsBackgroundColor(Qt.rgba(r, g, b, 1.0))
         }
+        onClose: visible = false
     }
 
     ColorTool
@@ -92,6 +93,7 @@ Rectangle
             else
                 virtualConsole.setWidgetsForegroundColor(Qt.rgba(r, g, b, 1.0))
         }
+        onClose: visible = false
     }
 
     SplitView

@@ -15,12 +15,12 @@
  <Channel Name="UV" Preset="IntensityUV"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
   <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe</Capability>
  </Channel>
  <Channel Name="Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="199">Auto Mode via DMX</Capability>
   <Capability Min="200" Max="255">Sound Mode via DMX</Capability>
  </Channel>
@@ -30,20 +30,21 @@
  </Channel>
  <Channel Name="Color Presets">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">No Function</Capability>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">No function</Capability>
   <Capability Min="10" Max="29" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="30" Max="49" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="50" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
-  <Capability Min="70" Max="109" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
-  <Capability Min="110" Max="129" Preset="ColorMacro" Res1="#ff00ff">Purple</Capability>
+  <Capability Min="70" Max="89" Preset="ColorMacro" Res1="#460764">UV</Capability>
+  <Capability Min="90" Max="109" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="110" Max="129" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="130" Max="149" Preset="ColorDoubleMacro" Res1="#ff2020" Res2="#460764">Red + UV</Capability>
   <Capability Min="150" Max="169" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
   <Capability Min="170" Max="189" Preset="ColorDoubleMacro" Res1="#20ff20" Res2="#460764">Green + UV</Capability>
   <Capability Min="190" Max="209" Preset="ColorDoubleMacro" Res1="#2020ff" Res2="#460764">Blue + UV</Capability>
   <Capability Min="210" Max="219" Preset="ColorMacro" Res1="#ffffff">White</Capability>
-  <Capability Min="220" Max="229" Preset="ColorDoubleMacro" Res1="#ffff20" Res2="#460764">Yellow + UV</Capability>
-  <Capability Min="230" Max="239" Preset="ColorDoubleMacro" Res1="#ff20ff" Res2="#460764">Purple + UV</Capability>
-  <Capability Min="240" Max="249" Preset="ColorDoubleMacro" Res1="#20ffff" Res2="#460764">Cyan + UV</Capability>
+  <Capability Min="220" Max="229" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#460764">Yellow + UV</Capability>
+  <Capability Min="230" Max="239" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#460764">Magenta + UV</Capability>
+  <Capability Min="240" Max="249" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#460764">Cyan + UV</Capability>
   <Capability Min="250" Max="255" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#460764">White + UV</Capability>
  </Channel>
  <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>

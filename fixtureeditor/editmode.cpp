@@ -43,7 +43,6 @@
 #include "editmode.h"
 #include "edithead.h"
 #include "util.h"
-#include "app.h"
 
 #define KSettingsGeometry "editmode/geometry"
 
@@ -226,17 +225,6 @@ void EditMode::slotLowerChannelClicked()
     selectChannel(ch->name());
 }
 
-void EditMode::slotActsOnChannelChanged(QLCChannel *newActsOnChannel)
-{
-    QLCChannel *channel = currentChannel();
-
-    if (channel == NULL)
-        return;
-
-    m_mode->updateActsOnChannel(channel, newActsOnChannel);
-    //refreshChannelList();
-}
-
 void EditMode::refreshChannelList()
 {
     m_channelList->clear();
@@ -245,8 +233,7 @@ void EditMode::refreshChannelList()
     {
         QTreeWidgetItem *item = new QTreeWidgetItem(m_channelList);
         QLCChannel *ch = m_mode->channel(i);
-
-        int actsOnChannelIndex = m_mode->channels().indexOf(m_mode->actsOnChannelsList().value(ch));
+        quint32 actsOnChannelIndex = m_mode->channelActsOn(i);
 
         Q_ASSERT(ch != NULL);
 
@@ -269,10 +256,8 @@ void EditMode::refreshChannelList()
         QComboBox *comboBox = new QComboBox(this);
         comboBox->addItems(comboList);
 
-        if (actsOnChannelIndex >= 0)
+        if (actsOnChannelIndex != QLCChannel::invalid())
             comboBox->setCurrentIndex(actsOnChannelIndex + 1);
-        else
-            comboBox->setCurrentIndex(0);
 
         m_channelList->setItemWidget(item, COL_ACTS_ON, comboBox);
 
@@ -311,14 +296,10 @@ void EditMode::selectChannel(const QString &name)
 
 void EditMode::setActsOnChannel(int index)
 {
-    int channelNumber = index - 1;
+    quint32 chIndex = m_mode->channelNumber(currentChannel());
+    quint32 actsOnChannel = index == 0 ? QLCChannel::invalid() : index - 1;
 
-    QLCChannel *actsOnChannel = NULL;
-
-    if (channelNumber >= 0)
-        actsOnChannel = m_mode->channels().at(channelNumber);
-
-    slotActsOnChannelChanged(actsOnChannel);
+    m_mode->setChannelActsOn(chIndex, actsOnChannel);
 }
 
 /****************************************************************************

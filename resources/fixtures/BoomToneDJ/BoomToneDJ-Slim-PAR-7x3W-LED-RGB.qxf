@@ -42,7 +42,7 @@
  <Channel Name="Function Mode">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="59" Preset="ShutterOpen">Dimmer Mode</Capability>
-  <Capability Min="60" Max="119" Preset="ColorMacro">Static Color Mode</Capability>
+  <Capability Min="60" Max="119">Static Color Mode</Capability>
   <Capability Min="120" Max="179">Hop Change Mode</Capability>
   <Capability Min="180" Max="239">Gradual Change Mode</Capability>
   <Capability Min="240" Max="255" Preset="SilentModeOff">Sound Active Mode</Capability>

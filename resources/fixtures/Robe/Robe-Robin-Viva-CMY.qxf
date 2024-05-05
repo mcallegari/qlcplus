@@ -78,73 +78,73 @@
  <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="Virtual colour wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0">No function (0=default)</Capability>
-  <Capability Min="1" Max="2">LEE 4 (Medium Bastard Amber)</Capability>
-  <Capability Min="3" Max="4">LEE 10 (Medium Yellow)</Capability>
-  <Capability Min="5" Max="6">LEE 19 (Fire)</Capability>
-  <Capability Min="7" Max="8">LEE 24 (Scarlet)</Capability>
-  <Capability Min="9" Max="10">LEE 58 (Lavender)</Capability>
-  <Capability Min="11" Max="12">LEE 68 (Sky Blue)</Capability>
-  <Capability Min="13" Max="14">LEE 71 (Tokyo Blue)</Capability>
-  <Capability Min="15" Max="16">LEE 79 (Just Blue)</Capability>
-  <Capability Min="17" Max="18">LEE 88 (Lime Green)</Capability>
-  <Capability Min="19" Max="20">LEE 90 (Dark Yellow Green)</Capability>
-  <Capability Min="21" Max="22">LEE 100 (Spring Yellow)</Capability>
-  <Capability Min="23" Max="24">LEE 101 (Yellow)</Capability>
-  <Capability Min="25" Max="26">LEE 102 (Light Amber)</Capability>
-  <Capability Min="27" Max="28">LEE 103 (Straw)</Capability>
-  <Capability Min="29" Max="30">Lee 104 (Deep Amber)</Capability>
-  <Capability Min="31" Max="32">LEE 105 (Orange)</Capability>
-  <Capability Min="33" Max="34">LEE 781 (Terry Red)</Capability>
-  <Capability Min="35" Max="36">LEE 111 (Dark Pink)</Capability>
-  <Capability Min="37" Max="38">LEE 115 (Peacock Blue)</Capability>
-  <Capability Min="39" Max="40">LEE 505 (Sally Green)</Capability>
-  <Capability Min="41" Max="42">LEE 117 (Steel Blue)</Capability>
-  <Capability Min="43" Max="44">LEE 118 (Light Blue)</Capability>
-  <Capability Min="45" Max="46">LEE 724 (Ocean Blue)</Capability>
-  <Capability Min="47" Max="48">LEE 725 (Old Steel Blue</Capability>
-  <Capability Min="49" Max="50">LEE 121 (LEE Green)</Capability>
-  <Capability Min="51" Max="52">LEE 128 (Bright Pink)</Capability>
-  <Capability Min="53" Max="54">LEE 131 (Marine Blue)</Capability>
-  <Capability Min="55" Max="56">LEE 132 (Medium Blue)</Capability>
-  <Capability Min="57" Max="58">LEE 134 (Golden Amber)</Capability>
-  <Capability Min="59" Max="60">LEE 135 (Deep Golden Amber)</Capability>
-  <Capability Min="61" Max="62">LEE 136 (Pale Lavender)</Capability>
-  <Capability Min="63" Max="64">LEE 137 (Special Lavender)</Capability>
-  <Capability Min="65" Max="66">LEE 138 (Pale Green)</Capability>
-  <Capability Min="67" Max="68">LEE 139 (Primary Green)</Capability>
-  <Capability Min="69" Max="70">LEE 141 (Bright Blue)</Capability>
-  <Capability Min="71" Max="72">LEE 147 (Apricot)</Capability>
-  <Capability Min="73" Max="74">LEE 148 (Bright Rose)</Capability>
-  <Capability Min="75" Max="76">LEE 152 (Pale Gold)</Capability>
-  <Capability Min="77" Max="78">LEE 154 (Pale Rose)</Capability>
-  <Capability Min="79" Max="80">LEE 157 (Pink)</Capability>
-  <Capability Min="81" Max="82">LEE 158 (Deep Orange)</Capability>
-  <Capability Min="83" Max="84">LEE 162 (Bastard Amber)</Capability>
-  <Capability Min="85" Max="86">LEE 164 (Flame Red)</Capability>
-  <Capability Min="87" Max="88">LEE 165 (Daylight Blue)</Capability>
-  <Capability Min="89" Max="90">LEE 169 (Lilac Tint)</Capability>
-  <Capability Min="91" Max="92">LEE 170 (Deep Lavender)</Capability>
-  <Capability Min="93" Max="94">LEE 172 (Lagoon Blue)</Capability>
-  <Capability Min="95" Max="96">LEE 179 (Chrome Orange)</Capability>
-  <Capability Min="97" Max="98">LEE 180 (Dark Lavender)</Capability>
-  <Capability Min="99" Max="100">LEE 181 (Congo Blue)</Capability>
-  <Capability Min="101" Max="102">LEE 197 (Alice Blue)</Capability>
-  <Capability Min="103" Max="104">LEE 201 (Full C.T. Blue)</Capability>
-  <Capability Min="105" Max="106">LEE 202 (Half C.T. Blue)</Capability>
-  <Capability Min="107" Max="108">LEE 203 (Quarter C.T. Blue)</Capability>
-  <Capability Min="109" Max="110">LEE 204 (Full C.T. Orange)</Capability>
-  <Capability Min="111" Max="112">LEE 205 (Half C.T. Orange)</Capability>
-  <Capability Min="113" Max="114">LEE 206 (Quarter C.T. Orange)</Capability>
-  <Capability Min="115" Max="116">LEE 247 (LEE Minus Green)</Capability>
-  <Capability Min="117" Max="118">LEE 248 (Half Minus Green)</Capability>
-  <Capability Min="119" Max="120">LEE 281 (Three Quarter C.T. Blue)</Capability>
-  <Capability Min="121" Max="122">LEE 285 (Three Quarter C.T. Orange)</Capability>
-  <Capability Min="123" Max="124">LEE 352 (Glacier Blue)</Capability>
-  <Capability Min="125" Max="126">LEE 353 (Lighter Blue)</Capability>
-  <Capability Min="127" Max="128">LEE 715 (Cabana Blue)</Capability>
-  <Capability Min="129" Max="130">LEE 778 (Millennium Gold)</Capability>
-  <Capability Min="131" Max="132">LEE 328 (Follies Pink)</Capability>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">No function (0=default)</Capability>
+  <Capability Min="1" Max="2" Preset="ColorMacro" Res1="#ffc8b4">LEE 004 (Medium Bastard Amber)</Capability>
+  <Capability Min="3" Max="4" Preset="ColorMacro" Res1="#000000">LEE 010 (Medium Yellow)</Capability>
+  <Capability Min="5" Max="6" Preset="ColorMacro" Res1="#ff4600">LEE 019 (Fire)</Capability>
+  <Capability Min="7" Max="8" Preset="ColorMacro" Res1="#ff5a64">LEE 024 (Scarlet)</Capability>
+  <Capability Min="9" Max="10" Preset="ColorMacro" Res1="#b46ef0">LEE 058 (Lavender)</Capability>
+  <Capability Min="11" Max="12" Preset="ColorMacro" Res1="#46b4f0">LEE 068 (Sky Blue)</Capability>
+  <Capability Min="13" Max="14" Preset="ColorMacro" Res1="#0000b4">LEE 071 (Tokyo Blue)</Capability>
+  <Capability Min="15" Max="16" Preset="ColorMacro" Res1="#3c8cd2">LEE 079 (Just Blue)</Capability>
+  <Capability Min="17" Max="18" Preset="ColorMacro" Res1="#dcff64">LEE 088 (Lime Green)</Capability>
+  <Capability Min="19" Max="20" Preset="ColorMacro" Res1="#00be00">LEE 090 (Dark Yellow Green)</Capability>
+  <Capability Min="21" Max="22" Preset="ColorMacro" Res1="#f5ff00">LEE 100 (Spring Yellow)</Capability>
+  <Capability Min="23" Max="24" Preset="ColorMacro" Res1="#fff500">LEE 101 (Yellow)</Capability>
+  <Capability Min="25" Max="26" Preset="ColorMacro" Res1="#ffdc5f">LEE 102 (Light Amber)</Capability>
+  <Capability Min="27" Max="28" Preset="ColorMacro" Res1="#fceacc">LEE 103 (Straw)</Capability>
+  <Capability Min="29" Max="30" Preset="ColorMacro" Res1="#ffdc00">Lee 104 (Deep Amber)</Capability>
+  <Capability Min="31" Max="32" Preset="ColorMacro" Res1="#ffa000">LEE 105 (Orange)</Capability>
+  <Capability Min="33" Max="34" Preset="ColorMacro" Res1="#ff5000">LEE 781 (Terry Red)</Capability>
+  <Capability Min="35" Max="36" Preset="ColorMacro" Res1="#ff8cbe">LEE 111 (Dark Pink)</Capability>
+  <Capability Min="37" Max="38" Preset="ColorMacro" Res1="#00ebc8">LEE 115 (Peacock Blue)</Capability>
+  <Capability Min="39" Max="40" Preset="ColorMacro" Res1="#e3ff5a">LEE 505 (Sally Green)</Capability>
+  <Capability Min="41" Max="42" Preset="ColorMacro" Res1="#b4faf5">LEE 117 (Steel Blue)</Capability>
+  <Capability Min="43" Max="44" Preset="ColorMacro" Res1="#00e1eb">LEE 118 (Light Blue)</Capability>
+  <Capability Min="45" Max="46" Preset="ColorMacro" Res1="#69e1eb">LEE 724 (Ocean Blue)</Capability>
+  <Capability Min="47" Max="48" Preset="ColorMacro" Res1="#bef2f3">LEE 725 (Old Steel Blue</Capability>
+  <Capability Min="49" Max="50" Preset="ColorMacro" Res1="#b4ff64">LEE 121 (LEE Green)</Capability>
+  <Capability Min="51" Max="52" Preset="ColorMacro" Res1="#ff50b4">LEE 128 (Bright Pink)</Capability>
+  <Capability Min="53" Max="54" Preset="ColorMacro" Res1="#64fad2">LEE 131 (Marine Blue)</Capability>
+  <Capability Min="55" Max="56" Preset="ColorMacro" Res1="#00a0dc">LEE 132 (Medium Blue)</Capability>
+  <Capability Min="57" Max="58" Preset="ColorMacro" Res1="#faa873">LEE 134 (Golden Amber)</Capability>
+  <Capability Min="59" Max="60" Preset="ColorMacro" Res1="#ff5f00">LEE 135 (Deep Golden Amber)</Capability>
+  <Capability Min="61" Max="62" Preset="ColorMacro" Res1="#f0bee6">LEE 136 (Pale Lavender)</Capability>
+  <Capability Min="63" Max="64" Preset="ColorMacro" Res1="#c8b4e6">LEE 137 (Special Lavender)</Capability>
+  <Capability Min="65" Max="66" Preset="ColorMacro" Res1="#dcffa0">LEE 138 (Pale Green)</Capability>
+  <Capability Min="67" Max="68" Preset="ColorMacro" Res1="#4bc300">LEE 139 (Primary Green)</Capability>
+  <Capability Min="69" Max="70" Preset="ColorMacro" Res1="#00d2e6">LEE 141 (Bright Blue)</Capability>
+  <Capability Min="71" Max="72" Preset="ColorMacro" Res1="#fcb98c">LEE 147 (Apricot)</Capability>
+  <Capability Min="73" Max="74" Preset="ColorMacro" Res1="#ff507d">LEE 148 (Bright Rose)</Capability>
+  <Capability Min="75" Max="76" Preset="ColorMacro" Res1="#ffd2c1">LEE 152 (Pale Gold)</Capability>
+  <Capability Min="77" Max="78" Preset="ColorMacro" Res1="#ffd5cf">LEE 154 (Pale Rose)</Capability>
+  <Capability Min="79" Max="80" Preset="ColorMacro" Res1="#ff92a3">LEE 157 (Pink)</Capability>
+  <Capability Min="81" Max="82" Preset="ColorMacro" Res1="#ff8700">LEE 158 (Deep Orange)</Capability>
+  <Capability Min="83" Max="84" Preset="ColorMacro" Res1="#fcded8">LEE 162 (Bastard Amber)</Capability>
+  <Capability Min="85" Max="86" Preset="ColorMacro" Res1="#ff3200">LEE 164 (Flame Red)</Capability>
+  <Capability Min="87" Max="88" Preset="ColorMacro" Res1="#5ac8eb">LEE 165 (Daylight Blue)</Capability>
+  <Capability Min="89" Max="90" Preset="ColorMacro" Res1="#fadcf0">LEE 169 (Lilac Tint)</Capability>
+  <Capability Min="91" Max="92" Preset="ColorMacro" Res1="#e6aadc">LEE 170 (Deep Lavender)</Capability>
+  <Capability Min="93" Max="94" Preset="ColorMacro" Res1="#00dcdc">LEE 172 (Lagoon Blue)</Capability>
+  <Capability Min="95" Max="96" Preset="ColorMacro" Res1="#ffbe00">LEE 179 (Chrome Orange)</Capability>
+  <Capability Min="97" Max="98" Preset="ColorMacro" Res1="#a064e6">LEE 180 (Dark Lavender)</Capability>
+  <Capability Min="99" Max="100" Preset="ColorMacro" Res1="#5000aa">LEE 181 (Congo Blue)</Capability>
+  <Capability Min="101" Max="102" Preset="ColorMacro" Res1="#82aae6">LEE 197 (Alice Blue)</Capability>
+  <Capability Min="103" Max="104" Preset="ColorMacro" Res1="#c3e1fa">LEE 201 (Full C.T. Blue)</Capability>
+  <Capability Min="105" Max="106" Preset="ColorMacro" Res1="#d7f0ff">LEE 202 (Half C.T. Blue)</Capability>
+  <Capability Min="107" Max="108" Preset="ColorMacro" Res1="#ebfcff">LEE 203 (Quarter C.T. Blue)</Capability>
+  <Capability Min="109" Max="110" Preset="ColorMacro" Res1="#fac387">LEE 204 (Full C.T. Orange)</Capability>
+  <Capability Min="111" Max="112" Preset="ColorMacro" Res1="#fcd9b1">LEE 205 (Half C.T. Orange)</Capability>
+  <Capability Min="113" Max="114" Preset="ColorMacro" Res1="#fcead6">LEE 206 (Quarter C.T. Orange)</Capability>
+  <Capability Min="115" Max="116" Preset="ColorMacro" Res1="#fac3d7">LEE 247 (LEE Minus Green)</Capability>
+  <Capability Min="117" Max="118" Preset="ColorMacro" Res1="#ffe2e4">LEE 248 (Half Minus Green)</Capability>
+  <Capability Min="119" Max="120" Preset="ColorMacro" Res1="#cde6fa">LEE 281 (Three Quarter C.T. Blue)</Capability>
+  <Capability Min="121" Max="122" Preset="ColorMacro" Res1="#fccd94">LEE 285 (Three Quarter C.T. Orange)</Capability>
+  <Capability Min="123" Max="124" Preset="ColorMacro" Res1="#5ac8e1">LEE 352 (Glacier Blue)</Capability>
+  <Capability Min="125" Max="126" Preset="ColorMacro" Res1="#61e8e3">LEE 353 (Lighter Blue)</Capability>
+  <Capability Min="127" Max="128" Preset="ColorMacro" Res1="#3c6edc">LEE 715 (Cabana Blue)</Capability>
+  <Capability Min="129" Max="130" Preset="ColorMacro" Res1="#ff7600">LEE 778 (Millennium Gold)</Capability>
+  <Capability Min="131" Max="132" Preset="ColorMacro" Res1="#ff64c8">LEE 328 (Follies Pink)</Capability>
   <Capability Min="133" Max="255">Reserved</Capability>
  </Channel>
  <Channel Name="Effect speed">

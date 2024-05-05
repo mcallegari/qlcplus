@@ -29,7 +29,7 @@ Column
 
     property var dObjRef: null
     property int controlID
-    property alias controlIndex: controlsCombo.currentIndex
+    property alias inputModel: controlsCombo.model
     property string sequence
     property bool invalid: false
 
@@ -51,8 +51,7 @@ Column
             Layout.fillWidth: true
             Layout.columnSpan: 3
             height: UISettings.listItemHeight
-            model: dObjRef ? dObjRef.externalControlsList : null
-            //currentValue: controlID
+            currValue: controlID
             onValueChanged:
             {
                 if (dObjRef && value != controlID)

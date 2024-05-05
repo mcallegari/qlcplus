@@ -17,18 +17,18 @@
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">Open White</Capability>
   <Capability Min="8" Max="15" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">SPLC 1</Capability>
-  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ff5500">Red</Capability>
-  <Capability Min="24" Max="31" Preset="ColorDoubleMacro" Res1="#ff5500" Res2="#ffaa00">SPLC 2</Capability>
-  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
-  <Capability Min="40" Max="47" Preset="ColorDoubleMacro" Res1="#ffaa00" Res2="#ffff00">SPLC 3</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="24" Max="31" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffa500">SPLC 2</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="40" Max="47" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#ffff00">SPLC 3</Capability>
   <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
-  <Capability Min="56" Max="63" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00aa00">SPLC 4</Capability>
-  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#00aa00">Green</Capability>
-  <Capability Min="72" Max="79" Preset="ColorDoubleMacro" Res1="#00aa00" Res2="#0000ff">SPLC 5</Capability>
-  <Capability Min="80" Max="87" Preset="ColorMacro" Res1="#0000ff">Dark Blue</Capability>
-  <Capability Min="88" Max="95" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#55ffff">SPLC 6</Capability>
-  <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#00ffff">Light Blue</Capability>
-  <Capability Min="104" Max="111" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ff00ff">SPLC 7</Capability>
+  <Capability Min="56" Max="63" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">SPLC 4</Capability>
+  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="72" Max="79" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#00008b">SPLC 5</Capability>
+  <Capability Min="80" Max="87" Preset="ColorMacro" Res1="#00008b">Dark Blue</Capability>
+  <Capability Min="88" Max="95" Preset="ColorDoubleMacro" Res1="#00008b" Res2="#add8e6">SPLC 6</Capability>
+  <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
+  <Capability Min="104" Max="111" Preset="ColorDoubleMacro" Res1="#add8e6" Res2="#ff00ff">SPLC 7</Capability>
   <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="128" Max="255" Preset="SlowToFast">Rainbow effect, slow -&gt; fast</Capability>
  </Channel>
@@ -68,11 +68,13 @@
  <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Diverse functions">
   <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="69">No function</Capability>
   <Capability Min="70" Max="79">Blackout during pan/tilt movement, fast LED switching</Capability>
   <Capability Min="80" Max="89">Disable Blackout during pan/tilt movement</Capability>
-  <Capability Min="200" Max="209">reset after 3 seconds within these values</Capability>
+  <Capability Min="90" Max="199">No function</Capability>
+  <Capability Min="200" Max="209">Reset after 3 seconds within these values</Capability>
   <Capability Min="210" Max="239" Preset="ResetAll">No Function</Capability>
-  <Capability Min="240" Max="255">sound activated mode</Capability>
+  <Capability Min="240" Max="255">Sound activated mode</Capability>
  </Channel>
  <Channel Name="Sound-controlled Shows">
   <Group Byte="0">Effect</Group>

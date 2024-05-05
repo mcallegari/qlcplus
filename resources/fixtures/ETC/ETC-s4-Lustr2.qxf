@@ -40,7 +40,7 @@
   <Capability Min="1" Max="255">Fan Forced Speed Slow to Fast</Capability>
  </Channel>
  <Channel Name="No function" Preset="NoFunction"/>
- <Channel Name="No Function (Plus 7)" Preset="NoFunction"/>
+ <Channel Name="No function (Plus 7)" Preset="NoFunction"/>
  <Channel Name="Red Additive XF" Preset="IntensityRed"/>
  <Channel Name="Green Additive XF" Preset="IntensityGreen"/>
  <Channel Name="Blue Additive XF" Preset="IntensityBlue"/>
@@ -96,7 +96,7 @@
   <Channel Number="3">No function</Channel>
   <Channel Number="4">Strobe</Channel>
   <Channel Number="5">Fan Control</Channel>
-  <Channel Number="6">No Function (Plus 7)</Channel>
+  <Channel Number="6">No function (Plus 7)</Channel>
   <Channel Number="7">Plus 7 Control</Channel>
   <Channel Number="8">Red</Channel>
   <Channel Number="9">Green</Channel>
@@ -113,7 +113,7 @@
   <Channel Number="3">Intensity</Channel>
   <Channel Number="4">Strobe</Channel>
   <Channel Number="5">Fan Control</Channel>
-  <Channel Number="6">No Function (Plus 7)</Channel>
+  <Channel Number="6">No function (Plus 7)</Channel>
   <Channel Number="7">Plus 7 Control</Channel>
   <Channel Number="8">Red</Channel>
   <Channel Number="9">Lime</Channel>

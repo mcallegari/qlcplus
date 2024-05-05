@@ -26,11 +26,11 @@
   <Capability Min="0" Max="13" Preset="ColorMacro" Res1="#ffffff">Open (white)</Capability>
   <Capability Min="14" Max="31" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="32" Max="49" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
-  <Capability Min="50" Max="67" Preset="ColorMacro" Res1="#00ffff">Light blue</Capability>
-  <Capability Min="68" Max="85" Preset="ColorMacro" Res1="#55ff00">Green</Capability>
-  <Capability Min="86" Max="103" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
-  <Capability Min="104" Max="121" Preset="ColorMacro" Res1="#ff55ff">Magenta</Capability>
-  <Capability Min="122" Max="130" Preset="ColorMacro" Res1="#0055ff">Blue</Capability>
+  <Capability Min="50" Max="67" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
+  <Capability Min="68" Max="85" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="86" Max="103" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="104" Max="121" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="122" Max="130" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="131" Max="139" Preset="ColorMacro" Res1="#ffffff">Open (white)</Capability>
   <Capability Min="140" Max="195" Preset="GenericPicture" Res1="Others/rainbow.png">Forward rainbow effect from fast to slow</Capability>
   <Capability Min="196" Max="199" Preset="RotationStop">Rotation stop</Capability>

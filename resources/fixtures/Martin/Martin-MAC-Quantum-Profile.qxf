@@ -11,7 +11,7 @@
  <Type>Moving Head</Type>
  <Channel Name="Strobe/shutter effect">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="0" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Shutter closed</Capability>
   <Capability Min="20" Max="49" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="50" Max="200" Preset="StrobeSlowToFast">Strobe, slow → fast</Capability>
   <Capability Min="201" Max="210" Preset="ShutterOpen">Shutter open</Capability>

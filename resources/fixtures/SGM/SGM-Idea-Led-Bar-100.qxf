@@ -22,7 +22,7 @@
  </Channel>
  <Channel Name="Internal Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="1" Max="10">No function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="40">internal program 1</Capability>
   <Capability Min="41" Max="70">internal program 2</Capability>
   <Capability Min="71" Max="100">internal program 3</Capability>

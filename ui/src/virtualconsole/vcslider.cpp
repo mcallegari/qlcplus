@@ -40,20 +40,13 @@
 
 #include "vcsliderproperties.h"
 #include "vcpropertieseditor.h"
-#include "qlcinputchannel.h"
-#include "virtualconsole.h"
-#include "qlcinputsource.h"
+#include "genericfader.h"
+#include "fadechannel.h"
 #include "mastertimer.h"
-#include "collection.h"
-#include "inputpatch.h"
 #include "qlcmacros.h"
 #include "universe.h"
 #include "vcslider.h"
-#include "qlcfile.h"
 #include "apputil.h"
-#include "chaser.h"
-#include "scene.h"
-#include "efx.h"
 #include "doc.h"
 
 /** Number of DMXSource cycles to wait to consider a
@@ -531,6 +524,7 @@ void VCSlider::setSliderMode(SliderMode mode)
     else if (mode == Submaster)
     {
         m_monitorEnabled = false;
+        setPlaybackFunction(Function::invalidId());
 
         if (m_slider)
         {
@@ -578,6 +572,8 @@ QList <VCSlider::LevelChannel> VCSlider::levelChannels()
 void VCSlider::setLevelLowLimit(uchar value)
 {
     m_levelLowLimit = value;
+    if (m_cngWidget != NULL)
+        m_cngWidget->setLevelLowLimit(value);
 }
 
 uchar VCSlider::levelLowLimit() const
@@ -588,6 +584,8 @@ uchar VCSlider::levelLowLimit() const
 void VCSlider::setLevelHighLimit(uchar value)
 {
     m_levelHighLimit = value;
+    if (m_cngWidget != NULL)
+        m_cngWidget->setLevelHighLimit(value);
 }
 
 uchar VCSlider::levelHighLimit() const
@@ -768,6 +766,8 @@ void VCSlider::setupClickAndGoWidget()
             {
                 const QLCChannel *chan = fxi->channel(lChan.channel);
                 m_cngWidget->setType(m_cngType, chan);
+                m_cngWidget->setLevelLowLimit(this->levelLowLimit());
+                m_cngWidget->setLevelHighLimit(this->levelHighLimit());
             }
         }
         else
@@ -810,7 +810,7 @@ void VCSlider::setClickAndGoWidgetFromLevel(uchar level)
 
 void VCSlider::slotClickAndGoLevelChanged(uchar level)
 {
-    setSliderValue(level);
+    setSliderValue(level, false, false);
     updateFeedback();
 
     QColor col = m_cngWidget->getColorAt(level);
@@ -838,7 +838,7 @@ void VCSlider::slotClickAndGoColorChanged(QRgb color)
 
 void VCSlider::slotClickAndGoLevelAndPresetChanged(uchar level, QImage img)
 {
-    setSliderValue(level);
+    setSliderValue(level, false, false);
     updateFeedback();
 
     QPixmap px = QPixmap::fromImage(img);
@@ -1140,7 +1140,7 @@ void VCSlider::writeDMXLevel(MasterTimer *timer, QList<Universe *> universes)
 
             // request to autoremove LTP channels when set
             if (qlcch->group() != QLCChannel::Intensity)
-                fc->addFlag(FadeChannel::Autoremove);
+                fc->addFlag(FadeChannel::AutoRemove);
 
             if (chType & FadeChannel::Intensity)
             {

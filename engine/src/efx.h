@@ -64,6 +64,7 @@ class Fixture;
 #define KXMLQLCEFXDiamondAlgorithmName      QString("Diamond")
 #define KXMLQLCEFXSquareAlgorithmName       QString("Square")
 #define KXMLQLCEFXSquareChoppyAlgorithmName QString("SquareChoppy")
+#define KXMLQLCEFXSquareTrueAlgorithmName   QString("SquareTrue")
 #define KXMLQLCEFXLeafAlgorithmName         QString("Leaf")
 #define KXMLQLCEFXLissajousAlgorithmName    QString("Lissajous")
 
@@ -134,6 +135,7 @@ public:
         Diamond,
         Square,
         SquareChoppy,
+		SquareTrue,
         Leaf,
         Lissajous
     };
@@ -181,7 +183,7 @@ public:
      * @param x Used to store the calculated X coordinate (output)
      * @param y Used to store the calculated Y coordinate (output)
      */
-    void calculatePoint(Function::Direction direction, int startOffset, float iterator, float* x, float* y) const;
+    void calculatePoint(Function::Direction direction, int startOffset, float iterator, float *x, float *y) const;
 
 private:
 

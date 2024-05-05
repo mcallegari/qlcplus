@@ -25,6 +25,8 @@ import "."
 
 CustomPopupDialog
 {
+    width: mainView.width / 3
+
     property alias editText: newNameEdit.text
     property bool showNumbering: false
     property alias numberingEnabled: numCheckBox.checked

@@ -17,8 +17,10 @@
  </Channel>
  <Channel Name="Fan Speed">
   <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="19">Fan off</Capability>
   <Capability Min="20" Max="219">Proportional speed control step 20</Capability>
   <Capability Min="220" Max="230">Auto fan mode</Capability>
+  <Capability Min="231" Max="244">No function</Capability>
   <Capability Min="245" Max="255">Machine shutdown, all off</Capability>
  </Channel>
  <Mode Name="Default">

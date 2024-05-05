@@ -24,6 +24,7 @@
 #include <QSpinBox>
 #include <QLabel>
 #include <QDebug>
+#include <QSettings>
 
 #include "configureosc.h"
 #include "oscplugin.h"
@@ -37,6 +38,8 @@
 #define PROP_UNIVERSE (Qt::UserRole + 0)
 #define PROP_LINE (Qt::UserRole + 1)
 #define PROP_TYPE (Qt::UserRole + 2)
+
+#define SETTINGS_GEOMETRY "configureosc/geometry"
 
 /*****************************************************************************
  * Initialization
@@ -55,10 +58,20 @@ ConfigureOSC::ConfigureOSC(OSCPlugin* plugin, QWidget* parent)
             this, SLOT(slotOSCPathChanged(QString)));
 
     fillMappingTree();
+
+    QSettings settings;
+    QVariant value = settings.value(SETTINGS_IFACE_WAIT_TIME);
+    if (value.isValid() == true)
+        m_waitReadySpin->setValue(value.toInt());
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 }
 
 ConfigureOSC::~ConfigureOSC()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 void ConfigureOSC::fillMappingTree()
@@ -67,7 +80,7 @@ void ConfigureOSC::fillMappingTree()
     QTreeWidgetItem* outputItem = NULL;
 
     QList<OSCIO> IOmap = m_plugin->getIOMapping();
-    foreach(OSCIO io, IOmap)
+    foreach (OSCIO io, IOmap)
     {
         if (io.controller == NULL)
             continue;
@@ -89,7 +102,7 @@ void ConfigureOSC::fillMappingTree()
             outputItem->setText(KMapColumnInterface, tr("Outputs"));
             outputItem->setExpanded(true);
         }
-        foreach(quint32 universe, controller->universesList())
+        foreach (quint32 universe, controller->universesList())
         {
             UniverseInfo *info = controller->getUniverseInfo(universe);
             QString networkIP = controller->getNetworkIP().toString();
@@ -177,10 +190,10 @@ void ConfigureOSC::showIPAlert(QString ip)
 
 void ConfigureOSC::accept()
 {
-    for(int i = 0; i < m_uniMapTree->topLevelItemCount(); i++)
+    for (int i = 0; i < m_uniMapTree->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *topItem = m_uniMapTree->topLevelItem(i);
-        for(int c = 0; c < topItem->childCount(); c++)
+        for (int c = 0; c < topItem->childCount(); c++)
         {
             QTreeWidgetItem *item = topItem->child(c);
             if (item->data(KMapColumnInterface, PROP_UNIVERSE).isValid() == false)
@@ -223,6 +236,13 @@ void ConfigureOSC::accept()
             }
         }
     }
+
+    QSettings settings;
+    int waitTime = m_waitReadySpin->value();
+    if (waitTime == 0)
+        settings.remove(SETTINGS_IFACE_WAIT_TIME);
+    else
+        settings.setValue(SETTINGS_IFACE_WAIT_TIME, waitTime);
 
     QDialog::accept();
 }

@@ -58,7 +58,7 @@ void MainViewDMX::setUniverseFilter(quint32 universeFilter)
 {
     PreviewContext::setUniverseFilter(universeFilter);
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         quint32 fxID = it.key();
@@ -77,7 +77,7 @@ void MainViewDMX::setUniverseFilter(quint32 universeFilter)
 void MainViewDMX::reset()
 {
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         Fixture *fixture = m_doc->fixture(it.key());
@@ -102,6 +102,9 @@ void MainViewDMX::createFixtureItem(quint32 fxID)
     QQuickItem *newFixtureItem = qobject_cast<QQuickItem*>(fixtureComponent->create());
     MonitorProperties *monProps = m_doc->monitorProperties();
     quint32 itemFlags = monProps->fixtureFlags(fxID, 0, 0);
+
+    if (monProps->containsFixture(fxID) == false)
+        monProps->setFixturePosition(fxID, 0, 0, QVector3D(0, 0, 0));
 
     newFixtureItem->setParentItem(contextItem());
     newFixtureItem->setProperty("fixtureObj", QVariant::fromValue(fixture));
@@ -150,7 +153,7 @@ void MainViewDMX::updateFixture(Fixture *fixture)
 void MainViewDMX::updateFixtureSelection(QList<quint32>fixtures)
 {
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         quint32 itemID = FixtureUtils::fixtureItemID(it.key(), 0, 0);

@@ -36,6 +36,19 @@ Rectangle
 
     signal requestView(int ID, string qmlSrc)
 
+    function deleteSelectedItems()
+    {
+        deleteItemsPopup.open()
+    }
+
+    CustomPopupDialog
+    {
+        id: deleteItemsPopup
+        title: qsTr("Delete steps")
+        message: qsTr("Are you sure you want to remove the selected steps?")
+        onAccepted: functionManager.deleteEditorItems(chWidget.selector.itemsList())
+    }
+
     SplitView
     {
         anchors.fill: parent
@@ -85,11 +98,32 @@ Rectangle
 
                 IconButton
                 {
+                    width: height
+                    height: UISettings.iconSizeMedium - 2
+                    imgSource: "qrc:/back.svg"
+                    tooltip: qsTr("Preview the previous step")
+                    visible: chaserEditor.previewEnabled
+                    onClicked: chaserEditor.gotoPreviousStep()
+                }
+
+                IconButton
+                {
+                    width: height
+                    height: UISettings.iconSizeMedium - 2
+                    imgSource: "qrc:/forward.svg"
+                    tooltip: qsTr("Preview the next step")
+                    visible: chaserEditor.previewEnabled
+                    onClicked: chaserEditor.gotoNextStep()
+                }
+
+                IconButton
+                {
                     id: addFunc
                     width: height
                     height: UISettings.iconSizeMedium - 2
                     imgSource: "qrc:/add.svg"
                     checkable: true
+                    enabled: !chaserEditor.previewEnabled
                     tooltip: qsTr("Add a new step")
 
                     onCheckedChanged:
@@ -112,20 +146,23 @@ Rectangle
 
                 IconButton
                 {
+                    width: height
+                    height: UISettings.iconSizeMedium - 2
+                    imgSource: "qrc:/edit-copy.svg"
+                    tooltip: qsTr("Duplicate the selected step(s)")
+                    enabled: !chaserEditor.previewEnabled && chWidget.selector.itemsCount
+                    onClicked: chaserEditor.duplicateSteps(chWidget.selector.itemsList())
+                }
+
+                IconButton
+                {
                     id: removeFunc
                     width: height
                     height: UISettings.iconSizeMedium - 2
                     imgSource: "qrc:/remove.svg"
                     tooltip: qsTr("Remove the selected steps")
-                    onClicked: deleteItemsPopup.open()
-
-                    CustomPopupDialog
-                    {
-                        id: deleteItemsPopup
-                        title: qsTr("Delete steps")
-                        message: qsTr("Are you sure you want to remove the selected steps?")
-                        onAccepted: functionManager.deleteEditorItems(chWidget.selector.itemsList())
-                    }
+                    enabled: !chaserEditor.previewEnabled && chWidget.selector.itemsCount
+                    onClicked: deleteSelectedItems()
                 }
 
                 IconButton
@@ -146,6 +183,7 @@ Rectangle
             ChaserWidget
             {
                 id: chWidget
+                objectName: "chaserEditorWidget"
                 isSequence: ceContainer.isSequence
                 width: ceContainer.width
                 height: ceContainer.height - (topbar.visible ? topbar.height : 0) - chModes.height

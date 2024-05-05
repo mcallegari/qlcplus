@@ -37,20 +37,27 @@
  <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0">White</Capability>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="1" Max="25" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffffff">White/CTC 5500-2900</Capability>
   <Capability Min="26" Max="26">CTC 5500-2900</Capability>
-  <Capability Min="52" Max="52">Pink 312</Capability>
-  <Capability Min="78" Max="78">UV</Capability>
-  <Capability Min="104" Max="104">Red 308</Capability>
-  <Capability Min="130" Max="130">Green 206</Capability>
-  <Capability Min="156" Max="156">Blue 108</Capability>
-  <Capability Min="180" Max="183">Blue 108</Capability>
-  <Capability Min="184" Max="187">Green 206</Capability>
-  <Capability Min="188" Max="191">Red 308</Capability>
-  <Capability Min="192" Max="195">UV</Capability>
-  <Capability Min="196" Max="199">Pink 312</Capability>
+  <Capability Min="27" Max="51" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffc0c0">CTC 5500-2900/Pink 312</Capability>
+  <Capability Min="52" Max="52" Preset="ColorMacro" Res1="#ffc0c0">Pink 312</Capability>
+  <Capability Min="53" Max="77" Preset="ColorDoubleMacro" Res1="#ffc0c0" Res2="#400080">Pink 312/UV</Capability>
+  <Capability Min="78" Max="78" Preset="ColorMacro" Res1="#400080">UV</Capability>
+  <Capability Min="79" Max="103" Preset="ColorDoubleMacro" Res1="#400080" Res2="#ff0000">UV/Red 308</Capability>
+  <Capability Min="104" Max="104" Preset="ColorMacro" Res1="#ff0000">Red 308</Capability>
+  <Capability Min="105" Max="129" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red 308/Green 206</Capability>
+  <Capability Min="130" Max="130" Preset="ColorMacro" Res1="#00ff00">Green 206</Capability>
+  <Capability Min="131" Max="155" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green 206/Blue 108</Capability>
+  <Capability Min="156" Max="156" Preset="ColorMacro" Res1="#0000ff">Blue 108</Capability>
+  <Capability Min="157" Max="179" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#0000ff">Blue 108</Capability>
+  <Capability Min="180" Max="183" Preset="ColorMacro" Res1="#0000ff">Blue 108</Capability>
+  <Capability Min="184" Max="187" Preset="ColorMacro" Res1="#00ff00">Green 206</Capability>
+  <Capability Min="188" Max="191" Preset="ColorMacro" Res1="#ff0000">Red 308</Capability>
+  <Capability Min="192" Max="195" Preset="ColorMacro" Res1="#400080">UV</Capability>
+  <Capability Min="196" Max="199" Preset="ColorMacro" Res1="#ffc0c0">Pink 312</Capability>
   <Capability Min="200" Max="203">CTC 5500-2900</Capability>
-  <Capability Min="204" Max="207">White</Capability>
+  <Capability Min="204" Max="207" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="208" Max="226">CW fast to slow</Capability>
   <Capability Min="227" Max="245">CCW slow to fast</Capability>
   <Capability Min="246" Max="248">Random CMY fast</Capability>

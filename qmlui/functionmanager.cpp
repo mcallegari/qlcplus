@@ -267,6 +267,13 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
                  * that awful effect of playing steps with 0 duration */
                 Chaser *chaser = qobject_cast<Chaser*>(f);
                 chaser->setDuration(1000);
+
+                for (QVariant &fId : m_selectedIDList)
+                {
+                    ChaserStep chs;
+                    chs.fid = fId.toUInt();
+                    chaser->addStep(chs);
+                }
             }
             m_chaserCount++;
             emit chaserCountChanged();
@@ -844,6 +851,19 @@ void FunctionManager::deleteEditorItems(QVariantList list)
         m_currentEditor->deleteItems(list);
 }
 
+void FunctionManager::deleteSequenceFixtures(QVariantList list)
+{
+    if (m_sceneEditor == nullptr)
+        return;
+
+    // First remove fixtures from the Sequence steps
+    ChaserEditor *chaserEditor = qobject_cast<ChaserEditor*>(m_currentEditor);
+    chaserEditor->removeFixtures(list);
+
+    // Then delete the fixtures from the Scene
+    m_sceneEditor->deleteItems(list);
+}
+
 void FunctionManager::renameSelectedItems(QString newName, bool numbering, int startNumber, int digits)
 {
     if (m_selectedIDList.isEmpty() && m_selectedFolderList.isEmpty())
@@ -1013,7 +1033,7 @@ void FunctionManager::createFolder()
         if (m_emptyFolderList.contains(fName) == false)
             break;
         index++;
-    } while(1);
+    } while (1);
 
     // check if there is some selected folder
     if (m_selectedFolderList.count())

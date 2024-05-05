@@ -816,6 +816,8 @@ QLCFixtureDef::FixtureType AvolitesD4Parser::guessType(QLCFixtureDef *def) const
         return QLCFixtureDef::Strobe; // Duh.
     else if (smoke > 0)
         return QLCFixtureDef::Smoke; // Duh.
+    else if (haze > 0)
+        return QLCFixtureDef::Hazer; // Duh.
     else if (nocol > 0)
         return QLCFixtureDef::Dimmer; // Kinda..mmmmh..
     else

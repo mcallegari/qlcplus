@@ -16,21 +16,21 @@
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#ffffff">Empty position</Capability>
-  <Capability Min="10" Max="15" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#c80000">Empty + Dark Red</Capability>
-  <Capability Min="16" Max="22" Preset="ColorMacro" Res1="#c80000">Dark Red</Capability>
-  <Capability Min="23" Max="31" Preset="ColorDoubleMacro" Res1="#c80000" Res2="#0128ff">Dark Red + Brilliant Blue</Capability>
+  <Capability Min="10" Max="15" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#8b0000">Empty + Dark Red</Capability>
+  <Capability Min="16" Max="22" Preset="ColorMacro" Res1="#8b0000">Dark Red</Capability>
+  <Capability Min="23" Max="31" Preset="ColorDoubleMacro" Res1="#8b0000" Res2="#0128ff">Dark Red + Brilliant Blue</Capability>
   <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#0128ff">Brilliant Blue</Capability>
-  <Capability Min="40" Max="47" Preset="ColorDoubleMacro" Res1="#0128ff" Res2="#30d401">Brilliant Blue + Green</Capability>
-  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#30d401">Green</Capability>
-  <Capability Min="56" Max="63" Preset="ColorDoubleMacro" Res1="#30d401" Res2="#f0e6dc">Green + Half Minus Green</Capability>
+  <Capability Min="40" Max="47" Preset="ColorDoubleMacro" Res1="#0128ff" Res2="#00ff00">Brilliant Blue + Green</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="56" Max="63" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#f0e6dc">Green + Half Minus Green</Capability>
   <Capability Min="64" Max="70" Preset="ColorMacro" Res1="#f2e5dc">Half Minus Green</Capability>
   <Capability Min="71" Max="79" Preset="ColorDoubleMacro" Res1="#f0e6dc" Res2="#ffa401">Half Minus Green + Light Orange</Capability>
   <Capability Min="80" Max="86" Preset="ColorMacro" Res1="#ffa401">Light Orange</Capability>
-  <Capability Min="87" Max="95" Preset="ColorDoubleMacro" Res1="#ffa401" Res2="#ff4401">Light Orange + Dark Orange</Capability>
-  <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#ff4401">Dark Orange</Capability>
-  <Capability Min="104" Max="111" Preset="ColorDoubleMacro" Res1="#ff4300" Res2="#005395">Dark Orange + Navy Blue</Capability>
-  <Capability Min="112" Max="117" Preset="ColorMacro" Res1="#005395">Navy Blue</Capability>
-  <Capability Min="118" Max="126" Preset="ColorDoubleMacro" Res1="#005395" Res2="#ffffff">Navy Blue + Empty position</Capability>
+  <Capability Min="87" Max="95" Preset="ColorDoubleMacro" Res1="#ffa401" Res2="#ff8c00">Light Orange + Dark Orange</Capability>
+  <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#ff8c00">Dark Orange</Capability>
+  <Capability Min="104" Max="111" Preset="ColorDoubleMacro" Res1="#ff8c00" Res2="#000080">Dark Orange + Navy Blue</Capability>
+  <Capability Min="112" Max="117" Preset="ColorMacro" Res1="#000080">Navy Blue</Capability>
+  <Capability Min="118" Max="126" Preset="ColorDoubleMacro" Res1="#000080" Res2="#ffffff">Navy Blue + Empty position</Capability>
   <Capability Min="127" Max="127" Preset="ColorMacro" Res1="#ffffff">Empty</Capability>
   <Capability Min="128" Max="255" Preset="RotationClockwiseSlowToFast">Continuous CW colour wheel rotation (slow to fast)</Capability>
  </Channel>

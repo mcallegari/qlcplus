@@ -32,7 +32,7 @@ Rectangle
 {
     id: mainView
     anchors.fill: parent
-    color: UISettings.bgMain
+    color: UISettings.bgMedium
 
     function closeWindow()
     {

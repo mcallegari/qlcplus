@@ -187,8 +187,8 @@
   <Capability Min="224" Max="255" Preset="ShutterOpen">open</Capability>
  </Channel>
  <Channel Name="Dimmer 2" Preset="IntensityDimmer"/>
- <Channel Name="No Function" Preset="NoFunction"/>
- <Channel Name="No Function 2" Preset="NoFunction"/>
+ <Channel Name="No function" Preset="NoFunction"/>
+ <Channel Name="No function 2" Preset="NoFunction"/>
  <Mode Name="Standard">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
@@ -215,12 +215,12 @@
   <Channel Number="4">Pan / Tilt Speed 2</Channel>
   <Channel Number="5">Lamp on / Fan speed</Channel>
   <Channel Number="6">Colors</Channel>
-  <Channel Number="7">No Function</Channel>
+  <Channel Number="7">No function</Channel>
   <Channel Number="8">Effect wheel</Channel>
   <Channel Number="9">3 facet prism rotation</Channel>
   <Channel Number="10">Gobo selection 2</Channel>
   <Channel Number="11">Gobo rotation / positioning</Channel>
-  <Channel Number="12">No Function 2</Channel>
+  <Channel Number="12">No function 2</Channel>
   <Channel Number="13">Focus</Channel>
   <Channel Number="14">Shutter / Strobe 2</Channel>
   <Channel Number="15">Dimmer 2</Channel>

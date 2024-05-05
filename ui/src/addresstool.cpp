@@ -17,12 +17,15 @@
   limitations under the License.
 */
 
-#include "addresstool.h"
-#include "ui_addresstool.h"
-
 #include <QPainter>
 #include <QPixmap>
 #include <QMouseEvent>
+#include <QSettings>
+
+#include "addresstool.h"
+#include "ui_addresstool.h"
+
+#define SETTINGS_GEOMETRY "addresstool/geometry"
 
 AddressTool::AddressTool(QWidget *parent, int presetValue) :
     QDialog(parent)
@@ -47,6 +50,11 @@ AddressTool::AddressTool(QWidget *parent, int presetValue) :
     ui->m_gridLayout->addWidget(m_dipSwitch, 0, 0, 1, 5);
     m_dipSwitch->setMinimumHeight(80);
 
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
+
     connect(ui->m_addressSpin, SIGNAL(valueChanged(int)),
             m_dipSwitch, SLOT(slotSetValue(int)));
     connect(m_dipSwitch, SIGNAL(valueChanged(int)),
@@ -60,6 +68,9 @@ AddressTool::AddressTool(QWidget *parent, int presetValue) :
 
 AddressTool::~AddressTool()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
+
     delete ui;
 }
 
@@ -166,7 +177,7 @@ void DIPSwitchWidget::mousePressEvent(QMouseEvent *e)
             quint32 newvalue = m_value ^ (1<<it.key());
 
 			if (newvalue == 0 && m_value != 512) newvalue = m_value;
-			if (newvalue == 0 ) newvalue = 1;
+            if (newvalue == 0) newvalue = 1;
             if (newvalue > 512) newvalue = 512;
 
             m_value = newvalue;

@@ -47,15 +47,15 @@ typedef struct pthread_barrier {
 
 static int pthread_barrier_init(pthread_barrier_t *barrier, const pthread_barrierattr_t *, unsigned int count)
 {
-    if(count == 0) {
+    if (count == 0) {
         errno = EINVAL;
         return -1;
     }
 
-    if(pthread_mutex_init(&barrier->mutex, 0) < 0) {
+    if (pthread_mutex_init(&barrier->mutex, 0) < 0) {
         return -1;
     }
-    if(pthread_cond_init(&barrier->cond, 0) < 0) {
+    if (pthread_cond_init(&barrier->cond, 0) < 0) {
         pthread_mutex_destroy(&barrier->mutex);
         return -1;
     }
@@ -76,7 +76,7 @@ static int pthread_barrier_wait(pthread_barrier_t *barrier)
 {
     pthread_mutex_lock(&barrier->mutex);
     ++(barrier->count);
-    if(barrier->count >= barrier->trip_count)
+    if (barrier->count >= barrier->trip_count)
     {
         barrier->count = 0;
         pthread_cond_broadcast(&barrier->cond);
@@ -282,8 +282,7 @@ static int get_string_property_utf8(IOHIDDeviceRef device, CFStringRef prop, cha
         range.location = 0;
         range.length = str_len;
         CFIndex used_buf_len;
-        CFIndex chars_copied;
-        chars_copied = CFStringGetBytes(str,
+        CFStringGetBytes(str,
             range,
             kCFStringEncodingUTF8,
             (char)'?',
@@ -402,7 +401,7 @@ static void process_pending_events(void) {
     SInt32 res;
     do {
         res = CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.001, FALSE);
-    } while(res != kCFRunLoopRunFinished && res != kCFRunLoopRunTimedOut);
+    } while (res != kCFRunLoopRunFinished && res != kCFRunLoopRunTimedOut);
 }
 
 struct hid_device_info  HID_API_EXPORT *hid_enumerate(unsigned short vendor_id, unsigned short product_id)
@@ -448,7 +447,6 @@ struct hid_device_info  HID_API_EXPORT *hid_enumerate(unsigned short vendor_id, 
             (product_id == 0x0 || product_id == dev_pid))
         {
             struct hid_device_info *tmp;
-            size_t len;
             char cbuf[BUF_LEN];
 
             /* VID/PID match. Create the record. */
@@ -467,7 +465,7 @@ struct hid_device_info  HID_API_EXPORT *hid_enumerate(unsigned short vendor_id, 
 
             /* Fill out the record */
             cur_dev->next = NULL;
-            len = make_path(dev, cbuf, sizeof(cbuf));
+            make_path(dev, cbuf, sizeof(cbuf));
             cur_dev->path = strdup(cbuf);
 
             /* Serial Number */
@@ -704,10 +702,9 @@ hid_device * HID_API_EXPORT hid_open_path(const char *path)
     CFSetGetValues(device_set, (const void **) device_array);
     for (i = 0; i < num_devices; i++) {
         char cbuf[BUF_LEN];
-        size_t len;
         IOHIDDeviceRef os_dev = device_array[i];
 
-        len = make_path(os_dev, cbuf, sizeof(cbuf));
+        make_path(os_dev, cbuf, sizeof(cbuf));
         if (!strcmp(cbuf, path)) {
             /* Matched Paths. Open this Device. */
             IOReturn ret = IOHIDDeviceOpen(os_dev, kIOHIDOptionsTypeSeizeDevice);
@@ -725,7 +722,7 @@ hid_device * HID_API_EXPORT hid_open_path(const char *path)
 
                 /* Create the Run Loop Mode for this device.
                    printing the reference seems to work. */
-                sprintf(str, "HIDAPI_%p", os_dev);
+                snprintf(str, 32, "HIDAPI_%p", os_dev);
                 dev->run_loop_mode =
                     CFStringCreateWithCString(NULL, str, kCFStringEncodingASCII);
 
@@ -1028,7 +1025,7 @@ int HID_API_EXPORT_CALL hid_get_serial_number_string(hid_device *dev, wchar_t *s
     return get_serial_number(dev->device_handle, string, maxlen);
 }
 
-int HID_API_EXPORT_CALL hid_get_indexed_string(hid_device *, int , wchar_t *, size_t )
+int HID_API_EXPORT_CALL hid_get_indexed_string(hid_device *, int , wchar_t *, size_t)
 {
     /* TODO: */
 

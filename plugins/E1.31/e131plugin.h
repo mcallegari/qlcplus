@@ -46,6 +46,8 @@ typedef struct _eio
 #define E131_TRANSMITMODE "transmitMode"
 #define E131_PRIORITY "priority"
 
+#define SETTINGS_IFACE_WAIT_TIME "E131Plugin/ifacewait"
+
 class E131Plugin : public QLCIOPlugin
 {
     Q_OBJECT
@@ -73,7 +75,7 @@ public:
 
 
 private:
-    bool requestLine(quint32 line, int retries);
+    bool requestLine(quint32 line);
 
     /*********************************************************************
      * Outputs
@@ -92,7 +94,7 @@ public:
     QString outputInfo(quint32 output);
 
     /** @reimp */
-    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
 
     /*************************************************************************
      * Inputs
@@ -129,6 +131,9 @@ public:
 private:
     /** Map of the E131 plugin Input/Output lines */
     QList<E131IO> m_IOmapping;
+
+    /** Time to wait (in seconds) for interfaces to be ready */
+    int m_ifaceWaitTime;
 };
 
 #endif

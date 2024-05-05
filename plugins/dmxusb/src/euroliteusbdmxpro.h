@@ -35,7 +35,7 @@ class EuroliteUSBDMXPro : public QThread, public DMXUSBWidget
      * Initialization
      ************************************************************************/
 public:
-    EuroliteUSBDMXPro(DMXInterface *interface, quint32 outputLine);
+    EuroliteUSBDMXPro(DMXInterface *iface, quint32 outputLine);
     virtual ~EuroliteUSBDMXPro();
 
     /** @reimp */
@@ -58,7 +58,7 @@ public:
     QString additionalInfo() const;
 
     /** @reimp */
-    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
 
 protected:
     /** Stop the writer thread */

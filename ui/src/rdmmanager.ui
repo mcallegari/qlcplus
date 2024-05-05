@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>396</width>
+    <width>402</width>
     <height>617</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string notr="true"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -38,6 +38,26 @@
      </item>
      <item>
       <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="m_devFoundLabel">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -211,6 +231,17 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>m_rdmTree</tabstop>
+  <tabstop>m_getInfoButton</tabstop>
+  <tabstop>m_pidEdit</tabstop>
+  <tabstop>m_pidArgsEdit</tabstop>
+  <tabstop>m_readButton</tabstop>
+  <tabstop>m_writeButton</tabstop>
+  <tabstop>m_dataTypeCombo</tabstop>
+  <tabstop>m_pidResult</tabstop>
+  <tabstop>m_refreshButton</tabstop>
+ </tabstops>
  <resources>
   <include location="qlcui.qrc"/>
  </resources>

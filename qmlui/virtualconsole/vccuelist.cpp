@@ -259,13 +259,14 @@ void VCCueList::setSideFaderLevel(int level)
         int newStep = level; // by default we assume the Chaser has more than 256 steps
         if (ch->stepsCount() < 256)
         {
-            float stepSize = 255 / float(ch->stepsCount());
-            if(level >= 255 - stepSize)
+            float stepSize = 256 / float(ch->stepsCount()); //divide up the full 0..255 range
+            stepSize = qFloor((stepSize * 100000.0) + 0.5) / 100000.0; //round to 5 decimals to fix corner cases
+            if (level >= 256.0 - stepSize)
                 newStep = ch->stepsCount() - 1;
             else
                 newStep = qFloor(qreal(level) / qreal(stepSize));
+            //qDebug() << "value:" << value << " new step:" << newStep << " stepSize:" << stepSize;
         }
-        //qDebug() << "value:" << value << "steps:" << ch->stepsCount() << "new step:" << newStep;
 
         ChaserAction action;
         action.m_action = ChaserSetStepIndex;
@@ -419,10 +420,13 @@ void VCCueList::addFunctions(QVariantList idsList, int insertIndex)
 void VCCueList::setStepNote(int index, QString text)
 {
     Chaser *ch = chaser();
-    if (ch == NULL)
+    if (ch == nullptr)
         return;
 
     ChaserStep *step = ch->stepAt(index);
+    if (step == nullptr)
+        return;
+
     step->note = text;
 
     QModelIndex mIdx = m_stepsList->index(index, 0, QModelIndex());
@@ -641,6 +645,21 @@ void VCCueList::stopChaser()
     ch->stop(functionParent());
     resetIntensityOverrideAttribute();
     emit playbackStatusChanged();
+}
+
+/*********************************************************************
+ * External input
+ *********************************************************************/
+
+void VCCueList::updateFeedback()
+{
+    sendFeedback(m_sideFaderLevel, INPUT_SIDE_FADER_ID, VCWidget::ExactValue);
+
+    Chaser *ch = chaser();
+    if (ch == NULL)
+        return;
+
+    sendFeedback(ch->isRunning() ? UCHAR_MAX : 0, INPUT_PLAY_PAUSE_ID, VCWidget::ExactValue);
 }
 
 void VCCueList::slotInputValueChanged(quint8 id, uchar value)
@@ -1053,6 +1072,7 @@ bool VCCueList::saveXML(QXmlStreamWriter *doc)
     saveXMLInputControl(doc, INPUT_PREVIOUS_STEP_ID, KXMLQLCVCCueListPrevious);
     saveXMLInputControl(doc, INPUT_PLAY_PAUSE_ID, KXMLQLCVCCueListPlayback);
     saveXMLInputControl(doc, INPUT_STOP_PAUSE_ID, KXMLQLCVCCueListStop);
+    saveXMLInputControl(doc, INPUT_SIDE_FADER_ID, KXMLQLCVCCueListCrossfadeLeft);
 
     /* End the <CueList> tag */
     doc->writeEndElement();

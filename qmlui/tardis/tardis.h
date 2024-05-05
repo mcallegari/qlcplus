@@ -54,6 +54,9 @@ Q_DECLARE_METATYPE(UIntPair)
 typedef QPair<QString, int> StringIntPair;
 Q_DECLARE_METATYPE(StringIntPair)
 
+typedef QPair<QString, double> StringDoublePair;
+Q_DECLARE_METATYPE(StringDoublePair)
+
 typedef QPair<QString, QString> StringStringPair;
 Q_DECLARE_METATYPE(StringStringPair)
 
@@ -64,8 +67,14 @@ class Tardis : public QThread
 public:
     enum ActionCodes
     {
-        /* Global settings */
+        /* Preview settings */
         EnvironmentSetSize = 0x0000,
+        EnvironmentBackgroundImage,
+        FixtureSetPosition,
+        FixtureSetRotation,
+        GenericItemSetPosition,
+        GenericItemSetRotation,
+        GenericItemSetScale,
 
         IOAddUniverse = 0x0090,
         IORemoveUniverse,
@@ -75,7 +84,6 @@ public:
         FixtureDelete,
         FixtureMove,
         FixtureSetName,
-        FixtureSetPosition,
         FixtureSetDumpValue,
 
         /* Fixture group editing actions */
@@ -96,9 +104,16 @@ public:
 
         SceneSetChannelValue,
         SceneUnsetChannelValue,
+        SceneAddFixture,
+        SceneRemoveFixture,
+        SceneAddFixtureGroup,
+        SceneRemoveFixtureGroup,
+        SceneAddPalette,
+        SceneRemovePalette,
 
         ChaserAddStep,
         ChaserRemoveStep,
+        ChaserMoveStep,
         ChaserSetStepFadeIn,
         ChaserSetStepHold,
         ChaserSetStepFadeOut,
@@ -127,6 +142,7 @@ public:
         RGBMatrixSetStartColor,
         RGBMatrixSetEndColor,
         RGBMatrixSetScriptIntValue,
+        RGBMatrixSetScriptDoubleValue,
         RGBMatrixSetScriptStringValue,
         RGBMatrixSetText,
         RGBMatrixSetTextFont,
@@ -135,6 +151,7 @@ public:
         RGBMatrixSetAnimationStyle,
 
         AudioSetSource,
+        AudioSetVolume,
 
         VideoSetSource,
         VideoSetScreenIndex,
@@ -142,6 +159,14 @@ public:
         VideoSetGeometry,
         VideoSetRotation,
         VideoSetLayer,
+
+        /* Show Manager actions */
+        ShowManagerAddTrack = 0xB000,
+        ShowManagerDeleteTrack,
+        ShowManagerAddFunction,
+        ShowManagerDeleteFunction,
+        ShowManagerItemSetStartTime,
+        ShowManagerItemSetDuration,
 
         /* Simple Desk actions */
         SimpleDeskSetChannel = 0xC000,

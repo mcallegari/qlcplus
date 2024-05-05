@@ -54,10 +54,16 @@ public:
     /** Get the list of capabilities for the channel being edited */
     QVariantList capabilities() const;
 
-    Q_INVOKABLE QLCCapability *addCapability();
+    /** Methods to add a new capability */
+    Q_INVOKABLE QLCCapability *addNewCapability();
+    Q_INVOKABLE QLCCapability *addCapability(int min, int max, QString name);
 
-    /** Get the selected preset for a capability at the given index */
+    /** Delete the capability at the given index */
+    Q_INVOKABLE void removeCapabilityAtIndex(int index);
+
+    /** Get/Set a preset for a capability at the given index */
     Q_INVOKABLE int getCapabilityPresetAtIndex(int index);
+    Q_INVOKABLE void setCapabilityPresetAtIndex(int index, int preset);
 
     /** Get the type of preset for a capability at the given index */
     Q_INVOKABLE int getCapabilityPresetType(int index);
@@ -65,14 +71,18 @@ public:
     /** Get the units of a preset for a capability at the given index */
     Q_INVOKABLE QString getCapabilityPresetUnits(int index);
 
-    /** Get the value/resource of a preset for a capability at the given index */
+    /** Get/Set the value/resource of a preset for a capability at the given index */
     Q_INVOKABLE QVariant getCapabilityValueAt(int index, int vIndex);
+    Q_INVOKABLE void setCapabilityValueAt(int index, int vIndex, QVariant value);
 
     /** Perform a check on a recently modified capability for overlapping and integrity */
     Q_INVOKABLE void checkCapabilities();
 
 private:
     void updateCapabilities();
+
+protected slots:
+    void setupPreset();
 
 signals:
     void channelChanged();

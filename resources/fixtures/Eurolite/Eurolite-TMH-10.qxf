@@ -15,13 +15,13 @@
  <Channel Name="Colour wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">Open/white</Capability>
-  <Capability Min="8" Max="15" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff00ff">White/Purple</Capability>
-  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ff00ff">Purple</Capability>
-  <Capability Min="24" Max="31" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#00ff00">Purple/green</Capability>
+  <Capability Min="8" Max="15" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#a020f0">White/Purple</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#a020f0">Purple</Capability>
+  <Capability Min="24" Max="31" Preset="ColorDoubleMacro" Res1="#a020f0" Res2="#00ff00">Purple/green</Capability>
   <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
-  <Capability Min="40" Max="47" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#00ffff">Green/light blue</Capability>
-  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#00ffff">Light blue</Capability>
-  <Capability Min="56" Max="63" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ffff00">Light blue/yellow</Capability>
+  <Capability Min="40" Max="47" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#add8e6">Green/light blue</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
+  <Capability Min="56" Max="63" Preset="ColorDoubleMacro" Res1="#add8e6" Res2="#ffff00">Light blue/yellow</Capability>
   <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="72" Max="79" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#005500">Yellow/dark green</Capability>
   <Capability Min="80" Max="87" Preset="ColorMacro" Res1="#005500">Dark green</Capability>

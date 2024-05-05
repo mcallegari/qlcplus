@@ -28,7 +28,7 @@
   <Capability Min="192" Max="222">Auto Program 7</Capability>
   <Capability Min="223" Max="255">Auto Program 8</Capability>
  </Channel>
- <Channel Name="Pan/Tilt Speed (Set Speed Auto Programms)" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Pan/Tilt Speed (Set Speed Auto Programs)" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Pan" Preset="PositionPan"/>
  <Channel Name="Pan fine" Preset="PositionPanFine"/>
  <Channel Name="Endless Pan rotation">
@@ -56,7 +56,7 @@
   <Capability Min="34" Max="56" Preset="RampUpSlowToFast">Ramp up Random, slow -&gt; fast</Capability>
   <Capability Min="57" Max="79" Preset="RampDownSlowToFast">Ramp down Random, slow -&gt; fast</Capability>
   <Capability Min="80" Max="102" Preset="StrobeRandomSlowToFast">Random Strobe Effect, slow -&gt; fast</Capability>
-  <Capability Min="103" Max="127">Strobe Break Effekt, 5s.....1s (Short burst with break)</Capability>
+  <Capability Min="103" Max="127">Strobe Break Effect, 5s.....1s (Short burst with break)</Capability>
   <Capability Min="128" Max="250" Preset="StrobeFreqRange" Res1="1" Res2="20">Strobe slow -&gt; fast &lt;1Hz -20 Hz</Capability>
   <Capability Min="251" Max="255" Preset="ShutterOpen">Strobe open</Capability>
  </Channel>
@@ -105,7 +105,7 @@
   <Capability Min="128" Max="191">Logarithmic Dimmer Curve</Capability>
   <Capability Min="192" Max="255">S-Curve Dimmer Curve</Capability>
  </Channel>
- <Channel Name="Pan/Tilt Speed (Set Speed of Pan&amp;Tilt / Auto Programms / Pan&amp;Tilt Macros)" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Pan/Tilt Speed (Set Speed of Pan&amp;Tilt / Auto Programs / Pan&amp;Tilt Macros)" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Device settings">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="5">no function</Capability>
@@ -167,7 +167,7 @@
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Zoom</Channel>
   <Channel Number="3">Auto Program</Channel>
-  <Channel Number="4">Pan/Tilt Speed (Set Speed Auto Programms)</Channel>
+  <Channel Number="4">Pan/Tilt Speed (Set Speed Auto Programs)</Channel>
  </Mode>
  <Mode Name="16 Channel">
   <Channel Number="0">Pan</Channel>
@@ -206,7 +206,7 @@
   <Channel Number="15">Auto Program</Channel>
   <Channel Number="16">Pan/Tilt Macro</Channel>
   <Channel Number="17">Set dimmer curve</Channel>
-  <Channel Number="18">Pan/Tilt Speed (Set Speed of Pan&amp;Tilt / Auto Programms / Pan&amp;Tilt Macros)</Channel>
+  <Channel Number="18">Pan/Tilt Speed (Set Speed of Pan&amp;Tilt / Auto Programs / Pan&amp;Tilt Macros)</Channel>
   <Channel Number="19">Device settings</Channel>
   <Channel Number="20">Dimmer Colour Ring</Channel>
   <Channel Number="21">Strobe Colour Ring</Channel>

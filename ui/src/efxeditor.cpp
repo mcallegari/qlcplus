@@ -32,16 +32,11 @@
 #include <QDebug>
 #include <QPen>
 
-#include "qlcfixturemode.h"
-#include "qlcfixturedef.h"
-#include "qlcchannel.h"
-
 #include "fixtureselection.h"
 #include "speeddialwidget.h"
 #include "efxpreviewarea.h"
 #include "efxeditor.h"
 #include "fixture.h"
-#include "apputil.h"
 #include "doc.h"
 
 #define SETTINGS_GEOMETRY "efxeditor/geometry"
@@ -348,7 +343,7 @@ void EFXEditor::slotTabChanged(int tab)
     m_efx->setUiStateValue(UI_STATE_TAB_INDEX, tab);
 
     //When preview animation is opened restart animation but avoid restart if test is running.
-    if(tab == 1 && (m_testButton->isChecked () == false))
+    if (tab == 1 && (m_testButton->isChecked () == false))
         m_previewArea->restart ();
 }
 
@@ -620,13 +615,13 @@ void EFXEditor::slotFixtureItemChanged(QTreeWidgetItem* item, int column)
 
 void EFXEditor::slotFixtureModeChanged(int index)
 {
-    QComboBox* combo = qobject_cast<QComboBox*>(QObject::sender());
+    QComboBox *combo = qobject_cast<QComboBox*>(QObject::sender());
     Q_ASSERT(combo != NULL);
 
-    EFXFixture* ef = (EFXFixture*) combo->property(PROPERTY_FIXTURE).toULongLong();
+    EFXFixture *ef = (EFXFixture*) combo->property(PROPERTY_FIXTURE).toULongLong();
     Q_ASSERT(ef != NULL);
 
-    ef->setMode ( ef->stringToMode (combo->itemText(index)) );
+    ef->setMode(ef->stringToMode (combo->itemText(index)));
 
     // Restart the test after the latest mode change, delayed
     m_testTimer.start();
@@ -634,9 +629,9 @@ void EFXEditor::slotFixtureModeChanged(int index)
 
 void EFXEditor::slotFixtureStartOffsetChanged(int startOffset)
 {
-    QSpinBox* spin = qobject_cast<QSpinBox*>(QObject::sender());
+    QSpinBox *spin = qobject_cast<QSpinBox*>(QObject::sender());
     Q_ASSERT(spin != NULL);
-    EFXFixture* ef = (EFXFixture*) spin->property(PROPERTY_FIXTURE).toULongLong();
+    EFXFixture *ef = (EFXFixture*) spin->property(PROPERTY_FIXTURE).toULongLong();
     Q_ASSERT(ef != NULL);
     ef->setStartOffset(startOffset);
 

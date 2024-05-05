@@ -27,7 +27,7 @@ import "."
 CustomPopupDialog
 {
     id: popupRoot
-
+    width: mainView.width / 2
     title: qsTr("Import from project")
     standardButtons: Dialog.Cancel | Dialog.Apply
 
@@ -68,7 +68,7 @@ CustomPopupDialog
                 width: mainView.width / 3
                 height: UISettings.iconSizeMedium
                 z: 5
-                color: UISettings.bgMain
+                color: UISettings.bgMedium
                 radius: 5
                 border.width: 2
                 border.color: UISettings.borderColorDark
@@ -108,7 +108,7 @@ CustomPopupDialog
                 width: mainView.width / 3
                 height: UISettings.iconSizeMedium
                 z: 5
-                color: UISettings.bgMain
+                color: UISettings.bgMedium
                 radius: 5
                 border.width: 2
                 border.color: UISettings.borderColorDark

@@ -76,7 +76,7 @@
   <Capability Min="88" Max="90">Color Wheel Motor Reset</Capability>
   <Capability Min="91" Max="93">Gobo Wheel Motor Reset</Capability>
   <Capability Min="94" Max="96">Shutter/Dimmer Motor Reset</Capability>
-  <Capability Min="97" Max="99">No Function</Capability>
+  <Capability Min="97" Max="99">No function</Capability>
   <Capability Min="100" Max="119">Internal Program 1</Capability>
   <Capability Min="120" Max="139">Internal Program 2</Capability>
   <Capability Min="140" Max="159">Internal Program 3</Capability>
@@ -91,7 +91,7 @@
   <Capability Min="0" Max="225">Max -&gt; Min</Capability>
   <Capability Min="226" Max="235">Blackout By Movement</Capability>
   <Capability Min="236" Max="245">Blackout By Wheel Movement</Capability>
-  <Capability Min="246" Max="255">No Function</Capability>
+  <Capability Min="246" Max="255">No function</Capability>
  </Channel>
  <Mode Name="8 Channel Mode">
   <Channel Number="0">Pan</Channel>

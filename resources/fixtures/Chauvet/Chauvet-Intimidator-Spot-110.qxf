@@ -51,20 +51,21 @@
  </Channel>
  <Channel Name="Function">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="69">No Function</Capability>
+  <Capability Min="0" Max="69">No function</Capability>
   <Capability Min="70" Max="89">Blackout on pan/tilt on</Capability>
   <Capability Min="90" Max="109">Blackout on pan/tilt off</Capability>
   <Capability Min="110" Max="129">Blackout on color wheel move on</Capability>
   <Capability Min="130" Max="149">Blackout on color wheel move off</Capability>
   <Capability Min="150" Max="169">Blackout on gobo wheel move on</Capability>
   <Capability Min="170" Max="189">Blackout on gobo wheel move off</Capability>
+  <Capability Min="190" Max="199">No function</Capability>
   <Capability Min="200" Max="209">Reset all</Capability>
-  <Capability Min="210" Max="249">No Function</Capability>
+  <Capability Min="210" Max="249">No function</Capability>
   <Capability Min="250" Max="255">Sound-active program</Capability>
  </Channel>
  <Channel Name="Movement Macro">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="0" Max="15">No function</Capability>
   <Capability Min="16" Max="35">Movement macro 1</Capability>
   <Capability Min="36" Max="55">Movement macro 2</Capability>
   <Capability Min="56" Max="75">Movement macro 3</Capability>

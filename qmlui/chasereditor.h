@@ -86,7 +86,19 @@ public:
      */
     Q_INVOKABLE bool moveSteps(QVariantList indicesList, int insertIndex = -1);
 
+    /** Duplicate the selected steps at the end of the existing steps
+     *
+     *  @param indicesList A list of step indices to move
+     *
+     *  @return true if successful, otherwise false
+     */
+    Q_INVOKABLE bool duplicateSteps(QVariantList indicesList);
+
+    /** @reimp */
+    void deleteItems(QVariantList list);
+
     void setSequenceStepValue(SceneValue& scv);
+    void removeFixtures(QVariantList list);
 
     /** Get/Set the Chaser playback start index */
     int playbackIndex() const;
@@ -95,8 +107,8 @@ public:
     /** @reimp */
     void setPreviewEnabled(bool enable);
 
-    /** @reimp */
-    void deleteItems(QVariantList list);
+    Q_INVOKABLE void gotoPreviousStep();
+    Q_INVOKABLE void gotoNextStep();
 
 protected:
     /** Set the steps $param to $value.
@@ -119,11 +131,13 @@ signals:
 private:
     /** Reference of the Chaser currently being edited */
     Chaser *m_chaser;
+
     /** Reference to a ListModel representing the steps list for the QML UI,
      *  organized as follows:
      *  funcID | isSelected | fadeIn | fadeOut | hold | duration | note
      */
     ListModel *m_stepsList;
+
     /** Index of the current step being played. -1 when stopped */
     int m_playbackIndex;
 

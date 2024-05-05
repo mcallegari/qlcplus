@@ -19,6 +19,7 @@
 
 #include <QTreeWidgetItem>
 #include <QFileDialog>
+#include <QSettings>
 
 #include "monitorbackgroundselection.h"
 #include "monitorproperties.h"
@@ -28,6 +29,8 @@
 
 #define KColumnName     0
 #define KColumnImage    1
+
+#define SETTINGS_GEOMETRY "monitorbackgroundselection/geometry"
 
 MonitorBackgroundSelection::MonitorBackgroundSelection(QWidget *parent, Doc *doc)
     : QDialog(parent)
@@ -43,6 +46,11 @@ MonitorBackgroundSelection::MonitorBackgroundSelection(QWidget *parent, Doc *doc
     m_customBackgroundImages = m_props->customBackgroundList();
 
     m_lastUsedPath = QString();
+
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 
     connect(m_noBgRadio, SIGNAL(clicked(bool)),
             this, SLOT(slotNoBackgroundChecked(bool)));
@@ -79,7 +87,8 @@ MonitorBackgroundSelection::MonitorBackgroundSelection(QWidget *parent, Doc *doc
 
 MonitorBackgroundSelection::~MonitorBackgroundSelection()
 {
-
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 void MonitorBackgroundSelection::accept()

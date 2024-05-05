@@ -33,6 +33,7 @@ Rectangle
     color: UISettings.bgMedium
 
     property bool closeOnSelect: false
+    property var dragTarget: null
     property int colorsMask: 0
     property color currentRGB
     property color currentWAUV
@@ -40,6 +41,25 @@ Rectangle
     property alias showPalette: paletteBox.visible
 
     signal colorChanged(real r, real g, real b, real w, real a, real uv)
+    signal close()
+
+    onVisibleChanged:
+    {
+        if (visible)
+        {
+            // invoke a method that will invoke
+            // the updateColors function below
+            contextManager.getCurrentColors(colorToolBox)
+        }
+    }
+
+    function updateColors(validRgb, rgb, validWauv, wauv)
+    {
+        if (validRgb)
+            currentRGB = rgb
+        if (validWauv)
+            currentWAUV = wauv
+    }
 
     function loadPalette(id)
     {
@@ -145,7 +165,16 @@ Rectangle
                 {
                     Layout.fillWidth: true
                     height: colorToolBar.height
-                    drag.target: paletteBox.isEditing ? null : colorToolBox
+                    drag.target: paletteBox.isEditing ? null : (colorToolBox.dragTarget ? colorToolBox.dragTarget : colorToolBox)
+                }
+                GenericButton
+                {
+                    width: height
+                    height: parent.height
+                    border.color: UISettings.bgMedium
+                    useFontawesome: true
+                    label: FontAwesome.fa_times
+                    onClicked: colorToolBox.close()
                 }
             }
         }
@@ -184,6 +213,8 @@ Rectangle
                     }
                     else
                     {
+                        //console.log("MAIN r:"+r+" g:"+g+" b:"+b)
+                        //console.log("MAIN w:"+w+" a:"+a+" uv:"+uv)
                         currentRGB = Qt.rgba(r, g, b, 1.0)
                         currentWAUV = Qt.rgba(w, a, uv, 1.0)
                         colorToolBox.colorChanged(r, g, b, w, a, uv)

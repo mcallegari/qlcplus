@@ -22,57 +22,81 @@
 
 ModelSelector::ModelSelector(QObject *parent)
     : QObject(parent)
+    , m_previousIndex(-1)
     , m_itemsCount(0)
 {
 }
 
 ModelSelector::~ModelSelector()
 {
-    m_selectedIndices.clear();
 }
 
-void ModelSelector::selectItem(quint32 index, ListModel *model, bool multiSelection)
+void ModelSelector::selectSingleItem(int index, ListModel *model)
+{
+    if (model == nullptr)
+        return;
+
+    QModelIndex idx = model->index(index, 0, QModelIndex());
+    model->setDataWithRole(idx, "isSelected", true);
+    m_selectedIndices.append(index);
+    m_itemsCount++;
+}
+
+void ModelSelector::selectItem(int index, ListModel *model, int keyModifiers)
 {
     if (model == nullptr)
         return;
 
     //qDebug() << "select item with index:" << index;
-    if (multiSelection == false)
-    {
-        for (quint32 sidx : m_selectedIndices)
-        {
-            QModelIndex idx = model->index(int(sidx), 0, QModelIndex());
-            model->setDataWithRole(idx, "isSelected", false);
-        }
+    if (keyModifiers == 0)
+        resetSelection(model);
 
-        m_selectedIndices.clear();
-        m_itemsCount = 0;
+    // handle multirow selection
+    if (keyModifiers & Qt::ShiftModifier)
+    {
+        if (index == m_previousIndex)
+            return;
+
+        int startIndex = index > m_previousIndex ? m_previousIndex + 1 : index;
+        int endIndex = index > m_previousIndex ? index : m_previousIndex - 1;
+
+        for (int i = startIndex; i <= endIndex; i++)
+            selectSingleItem(i, model);
+    }
+    else
+    {
+        // Ctrl + select a single item
+        selectSingleItem(index, model);
+        m_previousIndex = index;
+    }
+    emit itemsCountChanged(m_itemsCount);
+}
+
+void ModelSelector::resetSelection(ListModel *model)
+{
+    for (quint32 &sidx : m_selectedIndices)
+    {
+        QModelIndex idx = model->index(int(sidx), 0, QModelIndex());
+        model->setDataWithRole(idx, "isSelected", false);
     }
 
-    QModelIndex idx = model->index(int(index), 0, QModelIndex());
-    model->setDataWithRole(idx, "isSelected", true);
-    m_selectedIndices.append(index);
-    m_itemsCount++;
-    emit itemsCountChanged(m_itemsCount);
+    m_selectedIndices.clear();
+    m_itemsCount = 0;
+    m_previousIndex = -1;
 }
 
 QVariantList ModelSelector::itemsList()
 {
     QVariantList list;
-    for (quint32 sidx : m_selectedIndices)
+    for (quint32 &sidx : m_selectedIndices)
         list.append(sidx);
 
     return list;
-}
-
-void ModelSelector::resetSelection()
-{
-    //qDebug() << "[ModelSelector] resetSelection";
-    m_selectedIndices.clear();
 }
 
 int ModelSelector::itemsCount() const
 {
     return m_itemsCount;
 }
+
 

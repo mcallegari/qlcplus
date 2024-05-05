@@ -66,11 +66,6 @@ Rectangle
         bgImage.anchors.margins = m
     }
 
-    function checkSnapping()
-    {
-
-    }
-
     function updateGeometry(d)
     {
         d.target = null
@@ -83,6 +78,11 @@ Rectangle
             width = Math.round(width / snappingSize) * snappingSize
             height = Math.round(height / snappingSize) * snappingSize
         }
+
+        if (height < UISettings.iconSizeMedium)
+            height = UISettings.iconSizeMedium
+        if (width < UISettings.iconSizeMedium)
+            width = UISettings.iconSizeMedium
 
         wObj.geometry = Qt.rect(x, y, width, height)
 

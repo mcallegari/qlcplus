@@ -44,7 +44,7 @@
  <Channel Name="Blue S8" Preset="IntensityBlue"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#55ff00">Green</Capability>

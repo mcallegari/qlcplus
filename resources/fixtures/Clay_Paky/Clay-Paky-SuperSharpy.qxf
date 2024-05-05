@@ -144,7 +144,7 @@
  <Channel Name="Prism Insertion">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="127" Preset="PrismEffectOff">Prism out</Capability>
-  <Capability Min="128" Max="132" Preset="PrismEffectOn" Res1="8">Prism 8-facet into the light beam</Capability>
+  <Capability Min="128" Max="255" Preset="PrismEffectOn" Res1="8">Prism 8-facet into the light beam</Capability>
  </Channel>
  <Channel Name="Prism Rotation">
   <Group Byte="0">Prism</Group>

@@ -68,16 +68,16 @@
  </Channel>
  <Channel Name="Function">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="70">No Function</Capability>
+  <Capability Min="0" Max="70">No function</Capability>
   <Capability Min="71" Max="89">Enable Blackout White Pan/Tilt Move</Capability>
   <Capability Min="90" Max="109">Disable Blackout While Pan/Tilt Move</Capability>
   <Capability Min="110" Max="129">Enable Blackout While Color Wheel Move</Capability>
   <Capability Min="130" Max="149">Disable Blacout While Color Wheel Move</Capability>
   <Capability Min="150" Max="169">Enable Blackout While Pattern Plate Move</Capability>
   <Capability Min="170" Max="189">Disable Blackout While Pattern Plate Move</Capability>
-  <Capability Min="190" Max="199">No Function</Capability>
+  <Capability Min="190" Max="199">No function</Capability>
   <Capability Min="200" Max="209">Reset All</Capability>
-  <Capability Min="210" Max="249">No Function</Capability>
+  <Capability Min="210" Max="249">No function</Capability>
   <Capability Min="250" Max="255">Stand Alone</Capability>
  </Channel>
  <Channel Name="Pan Fine" Preset="PositionPanFine"/>

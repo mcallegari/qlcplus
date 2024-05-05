@@ -517,6 +517,18 @@ bool ScriptRunner::setBlackout(bool enable)
     return true;
 }
 
+bool ScriptRunner::setBPM(int bpm)
+{
+    if (m_running == false)
+        return false;
+
+    qDebug() << Q_FUNC_INFO;
+
+    m_doc->inputOutputMap()->setBpmNumber(bpm);
+
+    return true;
+}
+
 int ScriptRunner::random(QString minTime, QString maxTime)
 {
     if (m_running == false)

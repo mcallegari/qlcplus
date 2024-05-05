@@ -19,10 +19,13 @@
   <Capability Min="8" Max="15">White balance 8500K</Capability>
   <Capability Min="16" Max="23">White balance 6500K</Capability>
   <Capability Min="24" Max="31">White balance</Capability>
+  <Capability Min="32" Max="207">No function</Capability>
   <Capability Min="208" Max="215">Camera mode, 50Hz</Capability>
   <Capability Min="216" Max="223">Camera mode, 60Hz</Capability>
   <Capability Min="224" Max="231">Camera mode, FLEX</Capability>
+  <Capability Min="232" Max="239">No function</Capability>
   <Capability Min="240" Max="247" Preset="ResetAll">Reset (after 1 second delay)</Capability>
+  <Capability Min="248" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Electronic shutter effect">
   <Group Byte="0">Shutter</Group>
@@ -95,8 +98,10 @@
  </Channel>
  <Channel Name="Movement blackout">
   <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="95">No function</Capability>
   <Capability Min="96" Max="127">Blackout during pan/tilt movement</Capability>
   <Capability Min="128" Max="159">Blackout during color changes</Capability>
+  <Capability Min="160" Max="223">No function</Capability>
   <Capability Min="224" Max="255">Blackout during pan/tile movement and color changes</Capability>
  </Channel>
  <Mode Name="Standard 8bit">

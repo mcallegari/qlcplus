@@ -14,12 +14,12 @@
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Colour Macro (override CH 1-3)">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="0" Max="15">No function</Capability>
   <Capability Min="16" Max="255">Color Macros</Capability>
  </Channel>
  <Channel Name="Strobe (0 - 255, Slow - Fast, CH 6 @ values 32 - 223)">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="15" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">No function</Capability>
   <Capability Min="16" Max="255" Preset="StrobeSlowToFast">Strobe Slow - Fast</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>

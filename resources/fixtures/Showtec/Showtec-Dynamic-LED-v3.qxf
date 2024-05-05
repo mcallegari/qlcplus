@@ -11,7 +11,7 @@
  <Type>Effect</Type>
  <Channel Name="Programs (FX Control Mode)">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="0">No Function</Capability>
+  <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="5">Program 1</Capability>
   <Capability Min="6" Max="11">Program 2</Capability>
   <Capability Min="12" Max="17">Program 3</Capability>
@@ -64,7 +64,7 @@
  <Channel Name="Strobe (Flash)" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Programs (Color Control Mode)">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="0">No Function</Capability>
+  <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="22" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="23" Max="45" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="46" Max="68" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>

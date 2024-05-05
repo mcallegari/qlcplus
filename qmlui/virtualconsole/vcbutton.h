@@ -33,6 +33,9 @@
 #define KXMLQLCVCButtonActionBlackout   QString("Blackout")
 #define KXMLQLCVCButtonActionStopAll    QString("StopAll")
 
+#define KXMLQLCVCButtonFlashOverride    QString("Override")
+#define KXMLQLCVCButtonFlashForceLTP    QString("ForceLTP")
+
 #define KXMLQLCVCButtonStopAllFadeTime  QString("FadeOut")
 
 #define KXMLQLCVCButtonIntensity        QString("Intensity")
@@ -50,6 +53,8 @@ class VCButton : public VCWidget
     Q_PROPERTY(bool startupIntensityEnabled READ startupIntensityEnabled WRITE setStartupIntensityEnabled NOTIFY startupIntensityEnabledChanged)
     Q_PROPERTY(qreal startupIntensity READ startupIntensity WRITE setStartupIntensity NOTIFY startupIntensityChanged)
     Q_PROPERTY(int stopAllFadeOutTime READ stopAllFadeOutTime WRITE setStopAllFadeOutTime NOTIFY stopAllFadeOutTimeChanged)
+    Q_PROPERTY(bool flashOverrides READ flashOverrides WRITE setFlashOverride NOTIFY flashOverrideChanged)
+    Q_PROPERTY(bool flashForceLTP READ flashForceLTP WRITE setFlashForceLTP NOTIFY flashForceLTPChanged)
 
     /*********************************************************************
      * Initialization
@@ -132,6 +137,27 @@ protected:
     /** The ID of the Function that this button is controlling */
     quint32 m_functionID;
 
+    /*****************************************************************************
+    * Flash Properties
+    *****************************************************************************/
+public:
+    /** Gets if flashing overrides newer values */
+    bool flashOverrides() const;
+    /** Sets if flashing should override values */
+    void setFlashOverride(bool shouldOverride);
+    /** Gets if flash channels should behave like LTP channels */
+    bool flashForceLTP() const;
+    /** Sets if the flash channels should behave like LTP channels */
+    void setFlashForceLTP(bool forceLTP);
+
+private:
+    bool m_flashOverrides;
+    bool m_flashForceLTP;
+
+signals:
+    void flashOverrideChanged(bool shouldOverride);
+    void flashForceLTPChanged(bool forceLTP);
+
     /*********************************************************************
      * Button state
      *********************************************************************/
@@ -176,7 +202,7 @@ public:
     static ButtonAction stringToAction(const QString& str);
 
     void setStopAllFadeOutTime(int ms);
-    int stopAllFadeOutTime();
+    int stopAllFadeOutTime() const;
 
 signals:
     void actionTypeChanged(ButtonAction actionType);
@@ -213,6 +239,10 @@ protected:
     /*********************************************************************
      * External input
      *********************************************************************/
+public:
+    /** @reimp */
+    void updateFeedback();
+
 public slots:
     /** @reimp */
     void slotInputValueChanged(quint8 id, uchar value);

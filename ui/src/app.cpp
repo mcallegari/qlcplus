@@ -39,7 +39,6 @@
 #include "mastertimer.h"
 #include "addresstool.h"
 #include "simpledesk.h"
-#include "docbrowser.h"
 #include "aboutbox.h"
 #include "monitor.h"
 #include "vcframe.h"
@@ -49,10 +48,10 @@
 #include "qlcfixturedefcache.h"
 #include "audioplugincache.h"
 #include "rgbscriptscache.h"
-#include "qlcfixturedef.h"
 #include "videoprovider.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
+#include "apputil.h"
 
 #if defined(WIN32) || defined(Q_OS_WIN)
 #   include "hotplugmonitor.h"
@@ -301,28 +300,11 @@ void App::init()
     // Start up in non-modified state
     m_doc->resetModified();
 
-    QString ssDir;
-
 #if defined(WIN32) || defined(Q_OS_WIN)
-    /* User's input profile directory on Windows */
-    LPTSTR home = (LPTSTR) malloc(256 * sizeof(TCHAR));
-    GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
-    ssDir = QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<char16_t*> (home)))
-                            .arg(USERQLCPLUSDIR);
-    free(home);
     HotPlugMonitor::setWinId(winId());
-#else
-    /* User's input profile directory on *NIX systems */
-    ssDir = QString("%1/%2").arg(getenv("HOME")).arg(USERQLCPLUSDIR);
 #endif
 
-    QFile ssFile(ssDir + QDir::separator() + "qlcplusStyle.qss");
-    if (ssFile.exists() == true)
-    {
-        ssFile.open(QFile::ReadOnly);
-        QString styleSheet = QLatin1String(ssFile.readAll());
-        this->setStyleSheet(styleSheet);
-    }
+    this->setStyleSheet(AppUtil::getStyleSheet("MAIN"));
 
     m_videoProvider = new VideoProvider(m_doc, this);
 }
@@ -366,7 +348,7 @@ void App::closeEvent(QCloseEvent* e)
 
     if (m_doc->isKiosk() == false)
     {
-        if( saveModifiedDoc(tr("Close"), tr("Do you wish to save the current workspace " \
+        if (saveModifiedDoc(tr("Close"), tr("Do you wish to save the current workspace " \
                                             "before closing the application?")) == true)
         {
             e->accept();
@@ -519,7 +501,7 @@ void App::slotDocModified(bool state)
 
 void App::slotUniverseWritten(quint32 idx, const QByteArray &ua)
 {
-    foreach(Fixture *fixture, m_doc->fixtures())
+    foreach (Fixture *fixture, m_doc->fixtures())
     {
         if (fixture->universe() != idx)
             continue;
@@ -1215,7 +1197,7 @@ void App::slotControlFullScreen(bool usingGeometry)
 
 void App::slotHelpIndex()
 {
-    DocBrowser::createAndShow(this);
+    QDesktopServices::openUrl(QUrl("https://docs.qlcplus.org/"));
 }
 
 void App::slotHelpAbout()

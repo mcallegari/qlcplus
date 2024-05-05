@@ -157,6 +157,49 @@ Column
                 height: parent.height
             }
 
+            // fixture modes
+            Rectangle
+            {
+                id: fxModes
+                visible: showFlags
+                width: UISettings.chPropsModesWidth
+                height: parent.height
+                color: "transparent"
+                z: 1
+
+                CustomComboBox
+                {
+                    visible: showFlags
+                    implicitWidth: parent.width
+                    height: UISettings.listItemHeight
+                    textRole: ""
+                    model: showFlags ? fixtureManager.fixtureModes(itemID) : null
+                    currentIndex: showFlags ? fixtureManager.fixtureModeIndex(itemID) : -1
+
+                    onActivated:
+                    {
+                        if (!visible)
+                            return
+
+                        if (fixtureManager.setFixtureModeIndex(itemID, index) === false)
+                        {
+                            // show error popup on failure
+                            fmGenericPopup.message = qsTr("Mode <" + currentText + "> overlaps with another fixture!")
+                            fmGenericPopup.open()
+                            currentIndex = fixtureManager.fixtureModeIndex(itemID)
+                        }
+                    }
+                }
+            }
+
+            // divider
+            Rectangle
+            {
+                visible: showFlags
+                width: 1
+                height: parent.height
+            }
+
             // fixture flags
             Rectangle
             {
@@ -183,6 +226,7 @@ Column
                         checkedColor: "transparent"
                         checkable: true
                         checked: itemFlags & MonitorProperties.HiddenFlag ? false : true
+                        tooltip: qsTr("Show/Hide this fixture")
                         onToggled:
                         {
                             if (itemFlags & MonitorProperties.HiddenFlag)
@@ -203,6 +247,7 @@ Column
                         checkedColor: "transparent"
                         checkable: true
                         checked: itemFlags & MonitorProperties.InvertedPanFlag ? true : false
+                        tooltip: qsTr("Invert Pan")
                         onToggled:
                         {
                             if (itemFlags & MonitorProperties.InvertedPanFlag)
@@ -224,6 +269,7 @@ Column
                         checkedColor: "transparent"
                         checkable: true
                         checked: itemFlags & MonitorProperties.InvertedTiltFlag ? true : false
+                        tooltip: qsTr("Invert Tilt")
                         onToggled:
                         {
                             if (itemFlags & MonitorProperties.InvertedTiltFlag)
@@ -245,7 +291,7 @@ Column
 
         MouseArea
         {
-            width: showFlags ? fxFlags.x : parent.width
+            width: showFlags ? fxModes.x : parent.width
             height: parent.height
 
             property bool dragActive: drag.active

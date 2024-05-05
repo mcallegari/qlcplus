@@ -30,7 +30,7 @@ Rectangle
     width: 800
     height: 600
     anchors.fill: parent
-    color: UISettings.bgMain
+    color: UISettings.bgMedium
 
     FontLoader
     {
@@ -93,9 +93,9 @@ Rectangle
     {
         id: saveBeforeExitPopup
         title: qsTr("Warning")
-        message: qsTr("Do you wish to save the following definition first?<br>" +
-                      "<i>" + editRef.manufacturer + " - " + editRef.model + "</i><br>" +
-                      "Changes will be lost if you don't save them.")
+        message: editRef ? qsTr("Do you wish to save the following definition first?<br>" +
+                 "<i>" + editRef.manufacturer + " - " + editRef.model + "</i><br>" +
+                 "Changes will be lost if you don't save them.") : ""
         standardButtons: Dialog.Yes | Dialog.No | Dialog.Cancel
 
         property var editRef
