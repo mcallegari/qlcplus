@@ -17,10 +17,10 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Layouts
 import QtQuick.Dialogs
-import QtQuick.Controls 2.1
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."

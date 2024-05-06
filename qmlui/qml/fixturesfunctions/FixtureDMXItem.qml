@@ -17,7 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.2
+import QtQuick
+
 import org.qlcplus.classes 1.0
 import "."
 

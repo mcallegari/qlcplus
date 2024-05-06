@@ -17,11 +17,11 @@
   limitations under the License.
 */
 
-import QtQuick 2.7
+import QtQuick
 
-import Qt3D.Core 2.0
-import Qt3D.Render 2.0
-import Qt3D.Extras 2.0
+import Qt3D.Core
+import Qt3D.Render
+import Qt3D.Extras
 
 import org.qlcplus.classes 1.0
 import "."
