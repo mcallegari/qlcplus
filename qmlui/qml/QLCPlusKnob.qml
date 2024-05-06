@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.14
-import QtQuick.Controls 2.14
+import QtQuick
+import QtQuick.Controls
 
 import "CanvasDrawFunctions.js" as DrawFuncs
 import "."

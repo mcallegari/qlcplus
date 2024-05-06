@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick
 
 import "CanvasDrawFunctions.js" as DrawFuncs
 import "."

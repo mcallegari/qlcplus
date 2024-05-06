@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.1
+import QtQuick
 
 import "."
 
