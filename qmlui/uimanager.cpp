@@ -47,7 +47,7 @@ void UiManager::initialize()
      *  to change the UI settings at runtime */
     QQmlComponent component(m_view->engine());
     const char *source =
-            "import QtQuick 2.0\n"
+            "import QtQuick\n"
             "import \".\"\n"
             "QtObject {\n"
             "    property var style: UISettings\n"
