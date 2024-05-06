@@ -194,8 +194,8 @@ void RGBMatrixEditor::init()
             this, SLOT(slotSaveToSequenceClicked()));
     connect(m_shapeButton, SIGNAL(toggled(bool)),
             this, SLOT(slotShapeToggle(bool)));
-    connect(m_patternCombo, SIGNAL(activated(const QString&)),
-            this, SLOT(slotPatternActivated(const QString&)));
+    connect(m_patternCombo, SIGNAL(activated(int)),
+            this, SLOT(slotPatternActivated(int)));
     connect(m_fixtureGroupCombo, SIGNAL(activated(int)),
             this, SLOT(slotFixtureGroupActivated(int)));
     connect(m_blendModeCombo, SIGNAL(activated(int)),
@@ -212,14 +212,14 @@ void RGBMatrixEditor::init()
             this, SLOT(slotTextEdited(const QString&)));
     connect(m_fontButton, SIGNAL(clicked()),
             this, SLOT(slotFontButtonClicked()));
-    connect(m_animationCombo, SIGNAL(activated(const QString&)),
-            this, SLOT(slotAnimationActivated(const QString&)));
+    connect(m_animationCombo, SIGNAL(activated(int)),
+            this, SLOT(slotAnimationActivated(int)));
     connect(m_imageEdit, SIGNAL(editingFinished()),
             this, SLOT(slotImageEdited()));
     connect(m_imageButton, SIGNAL(clicked()),
             this, SLOT(slotImageButtonClicked()));
-    connect(m_imageAnimationCombo, SIGNAL(activated(const QString&)),
-            this, SLOT(slotImageAnimationActivated(const QString&)));
+    connect(m_imageAnimationCombo, SIGNAL(activated(int)),
+            this, SLOT(slotImageAnimationActivated(int)));
     connect(m_xOffsetSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotOffsetSpinChanged()));
     connect(m_yOffsetSpin, SIGNAL(valueChanged(int)),
@@ -721,9 +721,10 @@ void RGBMatrixEditor::slotDialDestroyed(QObject *)
     m_speedDialButton->setChecked(false);
 }
 
-void RGBMatrixEditor::slotPatternActivated(const QString& text)
+void RGBMatrixEditor::slotPatternActivated(int patternIndex)
 {
-    RGBAlgorithm* algo = RGBAlgorithm::algorithm(m_doc, text);
+    QString algoName = m_patternCombo->itemText(patternIndex);
+    RGBAlgorithm *algo = RGBAlgorithm::algorithm(m_doc, algoName);
     if (algo != NULL)
         algo->setColors(m_matrix->startColor(), m_matrix->endColor());
     m_matrix->setAlgorithm(algo);
@@ -808,7 +809,7 @@ void RGBMatrixEditor::slotTextEdited(const QString& text)
 {
     if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Text)
     {
-        RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
+        RGBText *algo = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
         {
             QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
@@ -822,7 +823,7 @@ void RGBMatrixEditor::slotFontButtonClicked()
 {
     if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Text)
     {
-        RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
+        RGBText *algo = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
 
         bool ok = false;
@@ -838,14 +839,15 @@ void RGBMatrixEditor::slotFontButtonClicked()
     }
 }
 
-void RGBMatrixEditor::slotAnimationActivated(const QString& text)
+void RGBMatrixEditor::slotAnimationActivated(int index)
 {
     if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Text)
     {
-        RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
+        RGBText *algo = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
         {
             QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
+            QString text = m_animationCombo->itemText(index);
             algo->setAnimationStyle(RGBText::stringToAnimationStyle(text));
         }
         slotRestartTest();
@@ -856,7 +858,7 @@ void RGBMatrixEditor::slotImageEdited()
 {
     if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Image)
     {
-        RGBImage* algo = static_cast<RGBImage*> (m_matrix->algorithm());
+        RGBImage *algo = static_cast<RGBImage*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
         {
             QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
@@ -870,7 +872,7 @@ void RGBMatrixEditor::slotImageButtonClicked()
 {
     if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Image)
     {
-        RGBImage* algo = static_cast<RGBImage*> (m_matrix->algorithm());
+        RGBImage *algo = static_cast<RGBImage*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
 
         QString path = algo->filename();
@@ -890,14 +892,15 @@ void RGBMatrixEditor::slotImageButtonClicked()
     }
 }
 
-void RGBMatrixEditor::slotImageAnimationActivated(const QString& text)
+void RGBMatrixEditor::slotImageAnimationActivated(int index)
 {
     if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Image)
     {
-        RGBImage* algo = static_cast<RGBImage*> (m_matrix->algorithm());
+        RGBImage *algo = static_cast<RGBImage*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
         {
             QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
+            QString text = m_imageAnimationCombo->itemText(index);
             algo->setAnimationStyle(RGBImage::stringToAnimationStyle(text));
         }
         slotRestartTest();
@@ -908,7 +911,7 @@ void RGBMatrixEditor::slotOffsetSpinChanged()
 {
     if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Text)
     {
-        RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
+        RGBText *algo = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
         {
             QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
@@ -920,7 +923,7 @@ void RGBMatrixEditor::slotOffsetSpinChanged()
 
     if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Image)
     {
-        RGBImage* algo = static_cast<RGBImage*> (m_matrix->algorithm());
+        RGBImage *algo = static_cast<RGBImage*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
         {
             QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
