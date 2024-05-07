@@ -173,7 +173,7 @@ jobs:
 
       - name: Test with Coverage
         if: ${{ startsWith( matrix.task, 'coverage') }}
-        run: make lcov
+        run: cmake --build build --target lcov
 
       - name: Coveralls
         if: ${{ startsWith( matrix.task, 'coverage') }}
@@ -186,7 +186,7 @@ jobs:
       - name: Install
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
         run: |
-          make install
+          cmake --build build --target install
           cp -v resources/icons/svg/qlcplus.svg ${INSTALL_ROOT}
           cp -v platforms/linux/qlcplus.desktop ${INSTALL_ROOT}
 
