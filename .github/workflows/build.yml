@@ -169,7 +169,7 @@ jobs:
 
       - name: Test
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
-        run: make check
+        run: cmake --build build --target check
 
       - name: Test with Coverage
         if: ${{ startsWith( matrix.task, 'coverage') }}
