@@ -81,7 +81,7 @@ jobs:
           echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)}" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
           echo "QT_VERSION=6.7.0" >> $GITHUB_ENV
-          echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
+          #echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           echo "APPVERSION=`grep '^qmlui' variables.pri | grep APPVERSION | sed 's/^.*= *//;s/ /_/g'`" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
@@ -164,7 +164,9 @@ jobs:
       - name: Configure for QT5 coverage build
         if: ${{ matrix.task == 'coverage-qt5' }}
         run: |
-          $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" CONFIG+=coverage
+          # force a release build
+          sed -i -e 's/Debug/Release/g' CMakeLists.txt
+          cmake -DCMAKE_PREFIX_PATH="/opt/Qt/$QT_VERSION/gcc_64/lib/cmake" -Dcoverage=ON -DINSTALL_ROOT=${INSTALL_ROOT} -B build
 
       - name: Build
         run: cmake --build build --parallel `nproc`
