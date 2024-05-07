@@ -80,7 +80,7 @@ jobs:
         run: |
           echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)}" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
-          echo "QT_VERSION=5.14.2" >> $GITHUB_ENV
+          echo "QT_VERSION=6.7.0" >> $GITHUB_ENV
           echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           echo "APPVERSION=`grep '^qmlui' variables.pri | grep APPVERSION | sed 's/^.*= *//;s/ /_/g'`" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
@@ -150,21 +150,24 @@ jobs:
       - name: Configure for QT5 build
         if: ${{ matrix.task == 'compile-qt5' }}
         run: |
-          ${QMAKE} QMAKE_CXX="${CXX}" QMAKE_CC="${CC}" QMAKE_LINK="${CXX}" QMAKE_LINK_SHLIB="${CXX}" CONFIG+=appimage FORCECONFIG=release
+          # force a release build
+          sed -i -e 's/Debug/Release/g' CMakeLists.txt
+          cmake -DCMAKE_PREFIX_PATH="/opt/Qt/$QT_VERSION/gcc_64/lib/cmake" -Dappimage=ON -DINSTALL_ROOT=${INSTALL_ROOT} -B build
 
       - name: Configure for QT5QML build
         if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
-          $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" CONFIG+=appimage CONFIG+=qmlui FORCECONFIG=release
+          # force a release build
+          sed -i -e 's/Debug/Release/g' CMakeLists.txt
+          cmake -DCMAKE_PREFIX_PATH="/opt/Qt/$QT_VERSION/gcc_64/lib/cmake" -Dqmlui=ON -Dappimage=ON -DINSTALL_ROOT=${INSTALL_ROOT} -B build
 
       - name: Configure for QT5 coverage build
         if: ${{ matrix.task == 'coverage-qt5' }}
         run: |
           $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" CONFIG+=coverage
-          #QMAKE_CXXFLAGS+="-fno-sized-deallocation"
 
       - name: Build
-        run: make -j $NPROC
+        run: cmake --build build --parallel `nproc`
 
       - name: Test
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
@@ -185,7 +188,7 @@ jobs:
       - name: Install
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
         run: |
-          make INSTALL_ROOT=${INSTALL_ROOT} install
+          make install
           cp -v resources/icons/svg/qlcplus.svg ${INSTALL_ROOT}
           cp -v platforms/linux/qlcplus.desktop ${INSTALL_ROOT}
 
