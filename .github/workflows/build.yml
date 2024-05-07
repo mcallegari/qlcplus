@@ -41,6 +41,8 @@ jobs:
         #qtscript
         qtmultimedia
         qtserialport
+        qt3d
+        qtquickcontrols
     defaults:
       run:
         shell: bash
