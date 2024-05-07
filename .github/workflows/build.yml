@@ -160,8 +160,6 @@ jobs:
       - name: Configure for QT5 coverage build
         if: ${{ matrix.task == 'coverage-qt5' }}
         run: |
-          # force a release build
-          sed -i -e 's/Debug/Release/g' CMakeLists.txt
           cmake -DCMAKE_PREFIX_PATH="/opt/Qt/$QT_VERSION/gcc_64/lib/cmake" -Dcoverage=ON -DINSTALL_ROOT=${INSTALL_ROOT} -B build
 
       - name: Build
