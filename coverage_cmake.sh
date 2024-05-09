@@ -37,8 +37,8 @@ COUNT=$((COUNT+1))
 fi
 test[$COUNT]="$DEST_DIR/plugins/artnet/test"
 COUNT=$((COUNT+1))
-test[$COUNT]="$DEST_DIR/plugins/enttecwing/src"
-COUNT=$((COUNT+1))
+#test[$COUNT]="$DEST_DIR/plugins/enttecwing/src"
+#COUNT=$((COUNT+1))
 #test[$COUNT]="$DEST_DIR/plugins/midiinput/common/src"
 #COUNT=$((COUNT+1))
 if [ ${ARCH} != "Darwin" ]; then
