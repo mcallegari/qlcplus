@@ -108,19 +108,6 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
 
     /* Slider mode */
     m_sliderMode = m_slider->sliderMode();
-    switch (m_sliderMode)
-    {
-        default:
-        case VCSlider::Level:
-            slotModeLevelClicked();
-        break;
-        case VCSlider::Playback:
-            slotModePlaybackClicked();
-        break;
-        case VCSlider::Submaster:
-            slotModeSubmasterClicked();
-        break;
-    }
 
     /* Slider movement (Qt understands inverted appearance vice versa) */
     if (m_slider->invertedAppearance() == true)
@@ -195,6 +182,33 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     /* Function */
     m_playbackFunctionId = m_slider->playbackFunction();
     updatePlaybackFunctionName();
+
+    m_flashInputWidget = new InputSelectionWidget(m_doc, this);
+    m_flashInputWidget->setKeySequence(m_slider->playbackFlashKeySequence());
+    m_flashInputWidget->setInputSource(m_slider->inputSource(VCSlider::flashButtonInputSourceId));
+    m_flashInputWidget->setWidgetPage(m_slider->page());
+    m_flashInputWidget->show();
+    m_flashInputWidget->setEnabled(m_slider->playbackFlashEnable());
+    m_flashButtonLayout->addWidget(m_flashInputWidget);
+
+    connect(m_flashButtonCheck, SIGNAL(clicked(bool)),
+            this, SLOT(slotFlashCheckClicked(bool)));
+    m_flashButtonCheck->setChecked(m_slider->playbackFlashEnable());
+
+    /* At last, sort out visibility */
+    switch (m_sliderMode)
+    {
+        default:
+        case VCSlider::Level:
+            slotModeLevelClicked();
+        break;
+        case VCSlider::Playback:
+            slotModePlaybackClicked();
+        break;
+        case VCSlider::Submaster:
+            slotModeSubmasterClicked();
+        break;
+    }
 }
 
 VCSliderProperties::~VCSliderProperties()
@@ -298,6 +312,8 @@ void VCSliderProperties::setLevelPageVisibility(bool visible)
 void VCSliderProperties::setPlaybackPageVisibility(bool visible)
 {
     m_playbackFunctionGroup->setVisible(visible);
+    m_flashButtonCheck->setVisible(visible);
+    m_flashInputWidget->setVisible(visible);
 
     if (visible == true)
     {
@@ -688,6 +704,11 @@ void VCSliderProperties::slotDetachPlaybackFunctionClicked()
     updatePlaybackFunctionName();
 }
 
+void VCSliderProperties::slotFlashCheckClicked(bool checked)
+{
+    m_flashInputWidget->setEnabled(checked);
+}
+
 void VCSliderProperties::updatePlaybackFunctionName()
 {
     Function* function = m_doc->function(m_playbackFunctionId);
@@ -847,6 +868,9 @@ void VCSliderProperties::accept()
 
     /* Playback page */
     m_slider->setPlaybackFunction(m_playbackFunctionId);
+    m_slider->setPlaybackFlashEnable(m_flashButtonCheck->isChecked());
+    m_slider->setPlaybackFlashKeySequence(m_flashInputWidget->keySequence());
+    m_slider->setInputSource(m_flashInputWidget->inputSource(), VCSlider::flashButtonInputSourceId);
 
     /* Slider mode */
     if (m_slider->sliderMode() != m_sliderMode)
