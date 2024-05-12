@@ -7,7 +7,7 @@
   <Author>Giacomo Gorini</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
- <Model>LEDBeam 350</Model>
+ <Model>LEDBeam 350 RGBA</Model>
  <Type>Moving Head</Type>
  <Channel Name="Pan" Default="128" Preset="PositionPan"/>
  <Channel Name="Pan Fine" Preset="PositionPanFine"/>
@@ -159,8 +159,8 @@
  <Channel Name="Green/Magenta Fine" Default="255" Preset="IntensityGreenFine"/>
  <Channel Name="Blue/Yellow" Default="255" Preset="IntensityBlue"/>
  <Channel Name="Blue/Yellow Fine" Default="255" Preset="IntensityBlueFine"/>
- <Channel Name="White" Default="255" Preset="IntensityWhite"/>
- <Channel Name="White Fine" Default="255" Preset="IntensityWhiteFine"/>
+ <Channel Name="Amber" Default="255" Preset="IntensityAmber"/>
+ <Channel Name="Amber Fine" Default="255" Preset="IntensityAmberFine"/>
  <Channel Name="CTC">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="255">If function &quot;White Point 8000K&quot; ON: Col. temperature correction from 8000K to 2700K for whites only. If function &quot;White Point 8000K&quot; OFF: Colour temperature correction from cool white to 2700K</Capability>
@@ -209,8 +209,8 @@
   <Channel Number="10">Green/Magenta Fine</Channel>
   <Channel Number="11">Blue/Yellow</Channel>
   <Channel Number="12">Blue/Yellow Fine</Channel>
-  <Channel Number="13">White</Channel>
-  <Channel Number="14">White Fine</Channel>
+  <Channel Number="13">Amber</Channel>
+  <Channel Number="14">Amber Fine</Channel>
   <Channel Number="15">CTC</Channel>
   <Channel Number="16">Color Mix Control</Channel>
   <Channel Number="17">Zoom</Channel>
@@ -230,7 +230,7 @@
   <Channel Number="7">Red/Cyan</Channel>
   <Channel Number="8">Green/Magenta</Channel>
   <Channel Number="9">Blue/Yellow</Channel>
-  <Channel Number="10">White</Channel>
+  <Channel Number="10">Amber</Channel>
   <Channel Number="11">CTC</Channel>
   <Channel Number="12">Color Mix Control</Channel>
   <Channel Number="13">Zoom</Channel>
@@ -253,8 +253,8 @@
   <Channel Number="12">Green/Magenta Fine</Channel>
   <Channel Number="13">Blue/Yellow</Channel>
   <Channel Number="14">Blue/Yellow Fine</Channel>
-  <Channel Number="15">White</Channel>
-  <Channel Number="16">White Fine</Channel>
+  <Channel Number="15">Amber</Channel>
+  <Channel Number="16">Amber Fine</Channel>
   <Channel Number="17">CTC</Channel>
   <Channel Number="18">Color Mix Control</Channel>
   <Channel Number="19">Zoom</Channel>

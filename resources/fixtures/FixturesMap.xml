@@ -223,6 +223,7 @@
     <F n="Ayrton-Arcaline-100-RGB" m="Arcaline 100 RGB"/>
     <F n="Ayrton-MagicBlade-R" m="MagicBlade R"/>
     <F n="Ayrton-MagicPanel-602" m="MagicPanel 602"/>
+    <F n="Ayrton-MiniPanel-FX" m="MiniPanel FX"/>
     <F n="Ayrton-NandoBeam-S3" m="NandoBeam S3"/>
   </M>
   <M n="beamZ">
@@ -282,6 +283,7 @@
     <F n="BoomToneDJ-Froggy-LED-RGBW" m="Froggy LED RGBW"/>
     <F n="BoomToneDJ-KUB-500-RGB" m="KUB 500 RGB"/>
     <F n="BoomToneDJ-LED-PAR-7X10W-5in1" m="LED PAR 7X10W 5in1"/>
+    <F n="BoomToneDJ-Maxi-Spot-60" m="Maxi Spot 60"/>
     <F n="BoomToneDJ-Moving-Wash-5X15-Speed" m="Moving Wash 5X15 Speed"/>
     <F n="BoomToneDJ-Quattro-Scan-LED" m="Quattro Scan LED"/>
     <F n="BoomToneDJ-SilentPAR-12x10w-6in1" m="SilentPAR 12x10w 6in1"/>
@@ -312,6 +314,7 @@
     <F n="Briteq-BT-W12L10" m="BT-W12L10"/>
     <F n="Briteq-BTX-180LS" m="BTX-180LS"/>
     <F n="Briteq-BTX-Saturn" m="BTX-Saturn"/>
+    <F n="Briteq-COB-Blinder-2x100W" m="COB Blinder 2x100W"/>
     <F n="Briteq-COB-PAR56-RGB" m="COB PAR56 RGB"/>
     <F n="Briteq-COB-slim-100-RGB" m="COB Slim 100-RGB"/>
     <F n="Briteq-Giga-Flash-RGB" m="Giga Flash RGB"/>
@@ -676,6 +679,7 @@
     <F n="Elation-Cuepix-Blinder-WW2" m="Cuepix Blinder WW2"/>
     <F n="Elation-DW-Fresnel" m="DW Fresnel"/>
     <F n="Elation-E-Spot-III" m="E Spot III"/>
+    <F n="Elation-ELED-B48" m="ELED B48"/>
     <F n="Elation-EVC-MH" m="EVC MH"/>
     <F n="Elation-Fuze-PAR-Z175" m="Fuze PAR Z175"/>
     <F n="Elation-Fuze-Wash-Z350" m="Fuze Wash Z350"/>
@@ -1423,6 +1427,7 @@
     <F n="Robe-DJ-Scan-150-XT" m="DJ Scan 150 XT"/>
     <F n="Robe-Fog-1500-FT" m="Fog 1500 FT"/>
     <F n="Robe-LED-Blinder-196LT" m="LED Blinder 196LT"/>
+    <F n="Robe-LEDBeam-350-RGBA" m="LEDBeam 350 RGBA"/>
     <F n="Robe-LEDBeam-350" m="LEDBeam 350"/>
     <F n="Robe-ParFect-150" m="Robin ParFect 150"/>
     <F n="Robe-Pointe" m="Pointe"/>
