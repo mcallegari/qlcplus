@@ -50,6 +50,7 @@ contains(FORCECONFIG, release) {
  }
  else {
    QMAKE_CXXFLAGS += -Wno-unused-local-typedefs # Fix to build with GCC 4.8
+   QMAKE_CXXFLAGS += -Wno-error-template-id-cdtor # Fix to build with GCC 14
  }
 }
 
