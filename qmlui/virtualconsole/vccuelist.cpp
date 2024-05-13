@@ -488,6 +488,8 @@ void VCCueList::setChaserID(quint32 fid)
                 this, SLOT(slotCurrentStepChanged(int)));
         connect(function, SIGNAL(stepChanged(int)),
                 this, SLOT(slotStepChanged(int)));
+        connect(function, SIGNAL(stepListChange(quint32)),
+                this, SLOT(slotStepListChange(quint32)));
 
         emit chaserIDChanged(fid);
     }
@@ -516,6 +518,12 @@ void VCCueList::slotFunctionRemoved(quint32 fid)
 
         resetIntensityOverrideAttribute();
     }
+}
+
+void VCCueList::slotStepListChange(quint32 fid)
+{
+    if (fid == m_chaserID)
+        ChaserEditor::updateStepsList(m_doc, chaser(), m_stepsList);
 }
 
 void VCCueList::slotStepChanged(int index)
