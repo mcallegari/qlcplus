@@ -520,7 +520,8 @@ void VCCueList::slotFunctionRemoved(quint32 fid)
     }
 }
 
-void VCCueList::slotStepListChange(quint32 fid) {
+void VCCueList::slotStepListChange(quint32 fid)
+{
     if (fid == m_chaserID)
         ChaserEditor::updateStepsList(m_doc, chaser(), m_stepsList);
 }
