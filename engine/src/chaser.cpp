@@ -132,7 +132,7 @@ bool Chaser::addStep(const ChaserStep& step, int index)
         }
 
         emit changed(this->id());
-        emit stepListChange(this->id());
+        emit stepsListChanged(this->id());
         return true;
     }
     else
@@ -151,7 +151,7 @@ bool Chaser::removeStep(int index)
         }
 
         emit changed(this->id());
-        emit stepListChange(this->id());
+        emit stepsListChanged(this->id());
         return true;
     }
     else
