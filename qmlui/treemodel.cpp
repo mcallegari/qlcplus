@@ -202,6 +202,8 @@ TreeModelItem *TreeModel::itemAtPath(QString path)
             return nullptr;
     }
 
+    if (m_itemsPathMap.contains(pathList.at(0)))
+        return nullptr;
     TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
     QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
     return item->children()->itemAtPath(subPath);
@@ -270,6 +272,8 @@ void TreeModel::setItemRoleData(QString path, const QVariant &value, int role)
     }
     else
     {
+        if (!m_itemsPathMap.contains(pathList.at(0)))
+            return;
         TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
         QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
         item->children()->setItemRoleData(subPath, value, role);
