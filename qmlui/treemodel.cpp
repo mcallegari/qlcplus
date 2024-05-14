@@ -136,7 +136,7 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
         QStringList pathList = path.split(TreeModel::separator());
         if (m_itemsPathMap.contains(pathList.at(0)))
         {
-            item = m_itemsPathMap[pathList.at(0)];
+            item = m_itemsPathMap.value(pathList.at(0), nullptr);
         }
         else
         {
@@ -202,9 +202,10 @@ TreeModelItem *TreeModel::itemAtPath(QString path)
             return nullptr;
     }
 
-    if (m_itemsPathMap.contains(pathList.at(0)))
+    TreeModelItem *item = m_itemsPathMap.value(pathList.at(0), nullptr);
+    if (item == nullptr)
         return nullptr;
-    TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
+
     QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
     return item->children()->itemAtPath(subPath);
 }
@@ -238,7 +239,10 @@ bool TreeModel::removeItem(QString path)
     }
     else
     {
-        TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
+        TreeModelItem *item = m_itemsPathMap.value(pathList.at(0), nullptr);
+        if (item == nullptr)
+            return false;
+
         QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
         item->children()->removeItem(subPath);
     }
@@ -272,9 +276,10 @@ void TreeModel::setItemRoleData(QString path, const QVariant &value, int role)
     }
     else
     {
-        if (!m_itemsPathMap.contains(pathList.at(0)))
+        TreeModelItem *item = m_itemsPathMap.value(pathList.at(0), nullptr);
+        if (item == nullptr)
             return;
-        TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
+
         QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
         item->children()->setItemRoleData(subPath, value, role);
     }
@@ -304,18 +309,18 @@ void TreeModel::setPathData(QString path, QVariantList data)
         return;
 
     QStringList pathList = path.split(TreeModel::separator());
-    if (m_itemsPathMap.contains(pathList.at(0)))
+    TreeModelItem *item = m_itemsPathMap.value(pathList.at(0), nullptr);
+    if (item == nullptr)
+        return;
+
+    if (pathList.count() == 1)
     {
-        TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
-        if (pathList.count() == 1)
-        {
-            item->setData(data);
-        }
-        else if (item->hasChildren())
-        {
-            QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
-            item->children()->setPathData(subPath, data);
-        }
+        item->setData(data);
+    }
+    else if (item->hasChildren())
+    {
+        QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
+        item->children()->setPathData(subPath, data);
     }
 }
 
