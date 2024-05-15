@@ -122,6 +122,22 @@ function vcFrameControl(frIDObjName, frOperation)
   }
 }
 
+function vcAnimationWidgetControl(animIDObjName, controlIDObjName)
+{
+  var animObj = document.getElementById(animIDObjName);
+  var controlIDObj = document.getElementById(controlIDObjName);
+
+  if (animObj && controlIDObj)
+  {
+    if (isConnected === true)
+    {
+        websocket.send(animObj.value + "|MATRIX_PUSHBUTTON|" + controlIDObj.value);
+    }
+    else
+      alert("You must connect to QLC+ WebSocket first!");
+  }
+}
+
 function connectToWebSocket(host) {
   var url = 'ws://' + host + '/qlcplusWS';
   websocket = new WebSocket(url);
@@ -493,6 +509,20 @@ Load a project:
     The parameters to be used are:<br>
     <b>Frame ID</b>: The Frame widget ID as retrieved with the 'getWidgetsList' API<br>
     <b>Operation</b>: The Frame operation to perform. Accepted values are 'NEXT_PG' and 'PREV_PG'.
+  </td>
+ </tr>
+
+ <tr>
+  <td>
+   <div class="apiButton" onclick="javascript:vcAnimationWidgetControl('animWidgetID', 'animControlID');">Animation widget control</div><br>
+   Animation widget ID: <input id="animWidgetID" type="text" value="0" size="6"><br>
+   Control ID: <input id="animControlID" type="text" value="0" size="6">
+  </td>
+  <td colspan="2">
+    This API demonstrates how to control Virtual Console Animation widget.
+    The parameters to be used are:<br>
+    <b>Animation widget ID</b>: The Animation widget ID as retrieved with the 'getWidgetsList' API<br>
+    <b>Control ID</b>: The Animation control ID of preset buttons.
   </td>
  </tr>
 
