@@ -22,6 +22,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
+#include "qMDNS.h"
 #include "os2lplugin.h"
 #include "os2lconfiguration.h"
 
@@ -38,6 +39,8 @@ void OS2LPlugin::init()
 {
     m_inputUniverse = UINT_MAX;
     m_hostPort = OS2L_DEFAULT_PORT;
+    m_mDNS = qMDNS::getInstance();
+    m_mDNS->setHostName("_os2l._tcp.local");
     m_tcpServer = NULL;
 }
 
@@ -83,6 +86,9 @@ bool OS2LPlugin::openInput(quint32 input, quint32 universe)
     m_inputUniverse = universe;
 
     addToMap(universe, input, Input);
+
+    connect(m_mDNS, SIGNAL(hostFound(const QHostInfo&)),
+            this, SLOT(slotHostFound(const QHostInfo &)));
 
     enableTCPServer(true);
 
@@ -240,6 +246,14 @@ void OS2LPlugin::slotProcessTCPPackets()
     {
        qDebug() << "Got beat message" << message;
        emit valueChanged(m_inputUniverse, 0, 8341, 255, "beat");
+    }
+}
+
+void OS2LPlugin::slotHostFound(const QHostInfo &info)
+{
+    if (info.hostName().isEmpty())
+    {
+
     }
 }
 

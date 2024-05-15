@@ -20,6 +20,8 @@
 #ifndef OS2LPLUGIN_H
 #define OS2LPLUGIN_H
 
+#include <QHostInfo>
+
 #include "qlcioplugin.h"
 
 #define OS2L_HOST_ADDRESS "hostAddress"
@@ -28,6 +30,7 @@
 #define OS2L_DEFAULT_PORT 9996
 
 class QTcpServer;
+class qMDNS;
 
 class OS2LPlugin : public QLCIOPlugin
 {
@@ -85,12 +88,16 @@ protected slots:
     /** Async event raised when unicast packets are received */
     void slotProcessTCPPackets();
 
+    void slotHostFound(const QHostInfo& info);
+
 protected:
     /** Universe selected for this plugin */
     quint32 m_inputUniverse;
 
     /** Port to listen for incoming packets */
     quint16 m_hostPort;
+
+    qMDNS *m_mDNS;
 
     /** Reference to the TCP listener for incoming connections */
     QTcpServer *m_tcpServer;
