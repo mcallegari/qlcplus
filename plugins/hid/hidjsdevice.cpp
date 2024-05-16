@@ -29,7 +29,8 @@
 HIDJsDevice::HIDJsDevice(HIDPlugin* parent, quint32 line, struct hid_device_info *info)
     : HIDDevice(parent, line,
                 QString::fromWCharArray(info->manufacturer_string) + " " +
-                QString::fromWCharArray(info->product_string),
+                QString::fromWCharArray(info->product_string) + " (" +
+                QString::fromWCharArray(info->serial_number) + ")" ,
                 QString(info->path))
 {
     m_dev_info = (struct hid_device_info*) malloc (sizeof(struct hid_device_info));
