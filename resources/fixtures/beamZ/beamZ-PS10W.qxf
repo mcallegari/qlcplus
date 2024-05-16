@@ -19,10 +19,10 @@
   <Capability Min="0" Max="15" Preset="ShutterOpen">Lamp on</Capability>
   <Capability Min="16" Max="255" Preset="StrobeSlowToFast">Strobe (Slow to fast)</Capability>
  </Channel>
- <Channel Name="Color wheel">
+ <Channel Name="Auto">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="15">Normal function</Capability>
-  <Capability Min="16" Max="255" Preset="RotationClockwiseSlowToFast">Color wheel speed</Capability>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="255">Colour random, from slow to fast</Capability>
  </Channel>
  <Mode Name="4 Channel">
   <Channel Number="0">Red</Channel>
@@ -37,7 +37,7 @@
   <Channel Number="3">Blue</Channel>
   <Channel Number="4">White</Channel>
   <Channel Number="5">Strobe</Channel>
-  <Channel Number="6">Color wheel</Channel>
+  <Channel Number="6">Auto</Channel>
  </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="40" ColourTemperature="0"/>

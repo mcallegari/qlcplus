@@ -14,6 +14,9 @@ qlcplus (4.13.1) stable; urgency=low
   * New fixture: Showtec ACT PC 60 RGBW (thanks to Michel Sliepenbeek)
   * New fixtures: Robe LEDBeam 350, Robe LEDBeam 350 RGBA, Briteq COB Blinder 2x100W, Ayrton MiniPanel FX (thanks to Giacomo Gorini)
   * New fixture: Elation ELED B48 (thanks to Xoneoo)
+  * New fixture: beamZ PS10W (thanks to Jesper Korsen)
+  * New fixtures: Ayra ComPar 10 and ERO 406 (thanks to René Knuvers)
+  * New fixtures: Mac Mah Moving-FX Bar, Varytec LED Pad Bar Compact ST RGB (thanks to Clément Delabroye)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Jun 2024 12:13:14 +0200
 

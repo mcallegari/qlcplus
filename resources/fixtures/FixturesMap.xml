@@ -209,9 +209,11 @@
   </M>
   <M n="Ayra">
     <F n="Ayra-ALO-Micro-Scan" m="ALO Micro Scan"/>
+    <F n="Ayra-ComPar-10" m="ComPar 10"/>
     <F n="Ayra-Compar-Kit-1" m="Compar Kit 1"/>
     <F n="Ayra-ComPar20" m="ComPar 20"/>
     <F n="Ayra-ERO-075" m="ERO 075"/>
+    <F n="Ayra-ERO-406" m="ERO 406"/>
     <F n="Ayra-ERO-506" m="ERO 506"/>
     <F n="Ayra-ERO-Microspot" m="ERO Micro Spot"/>
     <F n="Ayra-IntenZ-CB-150" m="IntenZ CB-150 "/>
@@ -244,6 +246,7 @@
     <F n="beamZ-MHL108-Wash-MKII" m="MHL108 Wash MKII"/>
     <F n="beamZ-MHL90-Wash-5x18W-RGBAW-UV" m="MHL90 Wash 5x18W RGBAW-UV"/>
     <F n="beamz-Panther-25-LED-Spot" m="Panther 25 LED Spot"/>
+    <F n="beamZ-PS10W" m="PS10W"/>
     <F n="beamZ-Radical-II" m="Radical II"/>
     <F n="beamZ-SB200-Stage-Blinder-2x50w" m="SB200 Stage Blinder 2x50W"/>
     <F n="beamZ-SB400" m="SB400"/>
@@ -1198,6 +1201,7 @@
     <F n="Mac-Mah-FLAT-PAR-7x12W-6in1" m="FLAT PAR 7x12W 6in1"/>
     <F n="Mac-Mah-Mac-FOG-DMX" m="Mac FOG DMX"/>
     <F n="Mac-Mah-Mac-Follow-1200" m="Mac Follow 1200"/>
+    <F n="Mac-Mah-Moving-FX-Bar" m="Moving-FX Bar"/>
     <F n="Mac-Mah-WiderPanel" m="Wider Panel"/>
   </M>
   <M n="MARQ">
@@ -1790,6 +1794,7 @@
     <F n="Varytec-LED-Laser-4" m="LED Laser 4"/>
     <F n="Varytec-LED-Magic-Mushroom" m="LED Magic Mushroom"/>
     <F n="Varytec-LED-Pad-7-BA-D" m="LED Pad 7 BA-D"/>
+    <F n="Varytec-LED-Pad-Bar-Compact-ST-RGB" m="LED Pad Bar Compact ST RGB"/>
     <F n="Varytec-LED-PAR-14x8W" m="LED PAR 14x8W"/>
     <F n="Varytec-LED-PAR-64-Floor-5in1" m="LED Par 64 Floor 5in1 7x10W RGBWA"/>
     <F n="Varytec-LED-PAR56" m="LED PAR56"/>
