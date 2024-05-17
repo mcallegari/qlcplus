@@ -26,11 +26,37 @@
 #include "hidjsdevice.h"
 #include "hidplugin.h"
 
+/**
+* Helper for constructing the name from the device info delivered by info
+* (e.g. manufacturer name, product name, PID, VID, or serial number)
+*/
+static QString assembleDevicesName(struct hid_device_info *info)
+{
+
+    QString name_part = QString::fromWCharArray(info->manufacturer_string) + " " +
+                        QString::fromWCharArray(info->product_string);
+                    
+    if (name_part.trimmed().isEmpty())
+    {
+        //use the vendor and product_id combination if name is empty
+        name_part = QString::number(info->vendor_id, 16) + ":" +
+                    QString::number(info->product_id, 16);
+    }
+
+    QString serial_number_part = QString::fromWCharArray(info->serial_number);
+
+    if (!serial_number_part.isEmpty())
+    {
+        //use serial number in parenthesis, if available
+        serial_number_part = " (" + serial_number_part + ")";
+    }
+
+    return name_part + serial_number_part;
+}
+
 HIDJsDevice::HIDJsDevice(HIDPlugin* parent, quint32 line, struct hid_device_info *info)
     : HIDDevice(parent, line,
-                QString::fromWCharArray(info->manufacturer_string) + " " +
-                QString::fromWCharArray(info->product_string) + " (" +
-                QString::fromWCharArray(info->serial_number) + ")" ,
+                assembleDevicesName(info),
                 QString(info->path))
 {
     m_dev_info = (struct hid_device_info*) malloc (sizeof(struct hid_device_info));
