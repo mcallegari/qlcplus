@@ -690,6 +690,16 @@ QList<VCXYPadPreset *> VCXYPad::presets() const
     return presets;
 }
 
+QMap<quint32,QString> VCXYPad::presetsMap() const
+{
+    QMap<quint32,QString> map;
+
+    foreach (VCXYPadPreset *control, m_presets.values())
+        map.insert(control->m_id, VCXYPadPreset::typeToString(control->m_type));
+
+    return map;
+}
+
 void VCXYPad::slotPresetClicked(bool checked)
 {
     if (mode() == Doc::Design)
