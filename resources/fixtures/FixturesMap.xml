@@ -701,7 +701,12 @@
     <F n="Elation-Vision-250" m="Vision 250"/>
   </M>
   <M n="Electroconcept">
+    <F n="Electroconcept-Club-Scan-120" m="Club Scan 120"/>
+    <F n="Electroconcept-Club-Scan-30" m="Club Scan 30"/>
+    <F n="Electroconcept-LED-Blinder" m="LED Blinder"/>
+    <F n="Electroconcept-Micro-Spot-60-LED" m="Micro Spot 60 LED"/>
     <F n="Electroconcept-PAR-56-LED-Full-RGB-18x3W" m="PAR 56 LED Full RGB 18x3W"/>
+    <F n="Electroconcept-Profile-120-Spot-LED" m="Profile 120 Spot LED"/>
     <F n="Electroconcept-SPC029" m="SPC029"/>
   </M>
   <M n="Eliminator_Lighting">
@@ -1110,6 +1115,7 @@
     <F n="Laserworld-CS-1000RGB" m="CS-1000RGB"/>
     <F n="Laserworld-EL-200RGY" m="EL-200RGY"/>
     <F n="Laserworld-EL-230RGB-MK2" m="EL-230RGB MK2"/>
+    <F n="Laserworld-EL-400RGB-MK2" m="EL-400RGB MK2"/>
     <F n="Laserworld-EL-900RGB" m="EL-900RGB"/>
     <F n="Laserworld-ES-600B" m="ES-600B"/>
     <F n="Laserworld-PRO-1600RGB" m="PRO-1600RGB"/>

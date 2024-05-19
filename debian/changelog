@@ -17,7 +17,8 @@ qlcplus (4.13.1) stable; urgency=low
   * New fixture: Elation ELED B48 (thanks to Xoneoo)
   * New fixture: beamZ PS10W (thanks to Jesper Korsen)
   * New fixtures: Ayra ComPar 10 and ERO 406 (thanks to René Knuvers)
-  * New fixtures: Mac Mah Moving-FX Bar, Varytec LED Pad Bar Compact ST RGB (thanks to Clément Delabroye)
+  * New fixtures: Mac Mah Moving-FX Bar, Varytec LED Pad Bar Compact ST RGB, Laserworld EL-400RGB MK2 (thanks to Clément Delabroye)
+  * New fixtures: Electroconcept Club Scan 30, Club Scan 120, LED Blinder, Profile 120 Spot LED, Micro Spot 60 LED (thanks to Clément Delabroye)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Jun 2024 12:13:14 +0200
 
