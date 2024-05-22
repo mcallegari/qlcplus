@@ -39,7 +39,7 @@ ScriptRunner::ScriptRunner(Doc *doc, QString &content, QObject *parent)
     , m_running(false)
     , m_engine(NULL)
     , m_waitCount(0)
-    , m_stopOnExit(false)
+    , m_stopOnExit(true)
 {
 }
 
