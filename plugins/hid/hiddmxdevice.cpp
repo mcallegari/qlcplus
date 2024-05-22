@@ -82,8 +82,10 @@ bool HIDDMXDevice::isMergerModeEnabled()
 
 void HIDDMXDevice::enableMergerMode(bool mergerModeEnabled)
 {
-    if (mergerModeEnabled) m_mode |= DMX_MODE_MERGER;
-    else m_mode &= ~DMX_MODE_MERGER;
+    if (mergerModeEnabled)
+        m_mode |= DMX_MODE_MERGER;
+    else
+        m_mode &= ~DMX_MODE_MERGER;
     updateMode();
 }
 

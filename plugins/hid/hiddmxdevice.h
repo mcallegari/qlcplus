@@ -65,9 +65,7 @@ protected:
     bool hasOutput() { return true; }
 
     /** @reimp */
-    bool hasMergerMode() {
-        return true; //DE, FX5, and Nodle have a merger mode
-    }
+    bool hasMergerMode() { return true; /*DE, FX5, and Nodle have a merger mode*/ }
 
     /*********************************************************************
      * File operations
@@ -130,7 +128,7 @@ private:
         DMX_MODE_NONE   = 1 << 0,
         DMX_MODE_OUTPUT = 1 << 1,
         DMX_MODE_INPUT  = 1 << 2,
-        DMX_MODE_MERGER  = 1 << 3
+        DMX_MODE_MERGER = 1 << 3
     };
 
     /** mode selection function */

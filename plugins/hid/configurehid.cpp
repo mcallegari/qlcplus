@@ -104,7 +104,8 @@ void ConfigureHID::refreshList()
         item->setText(KColumnName, dev->name());
         item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
 
-        if (dev->hasMergerMode()) {
+        if (dev->hasMergerMode())
+        {
             QWidget* widget = createMergerModeWidget(dev->isMergerModeEnabled());
             widget->setProperty(PROP_DEV, (qulonglong) dev);
             m_list->setItemWidget(item, KColumnMerger, widget);
@@ -138,10 +139,11 @@ QWidget* ConfigureHID::createMergerModeWidget(bool mergerModeEnabled)
 {
     QCheckBox* checkbox = new QCheckBox;
 
-        if (mergerModeEnabled)
-            checkbox->setCheckState(Qt::Checked);
-        else
-            checkbox->setCheckState(Qt::Unchecked);  
+    if (mergerModeEnabled)
+        checkbox->setCheckState(Qt::Checked);
+    else
+        checkbox->setCheckState(Qt::Unchecked);
+
     connect(checkbox, SIGNAL(stateChanged(int)), this, SLOT(slotMergerModeChanged(int)));
 
     return checkbox;
