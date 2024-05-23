@@ -43,6 +43,8 @@ class Script : public Function
      * Script keywords
      ************************************************************************/
 public:
+    static const QString stopOnExitLegacy;
+    static const QString stopOnExitCmd;
     static const QString startFunctionLegacy;
     static const QString startFunctionCmd;
     static const QString stopFunctionLegacy;
