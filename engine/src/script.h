@@ -50,6 +50,7 @@ public:
 
     static const QString waitCmd;
     static const QString waitKeyCmd;
+    static const QString waitFunctionCmd;
 
     static const QString setFixtureCmd;
     static const QString systemCmd;
@@ -151,9 +152,10 @@ private:
      * Check, if the script should still wait or if it should proceed to executing
      * the next command.
      *
+     * @param timer The MasterTimer that should run the functions
      * @return true if no longer waiting, false if script is waiting
      */
-    bool waiting();
+    bool waiting(MasterTimer* timer);
 
     /**
      * Parse a string in the form "random(min,max)" and returns
@@ -213,6 +215,14 @@ private:
     QString handleWaitKey(const QList<QStringList>& tokens);
 
     /**
+     * Handle "waitfunction" command.
+     *
+     * @param tokens A list of keyword:value pairs
+     * @return An empty string if successful. Otherwise an error string.
+     */
+    QString handleWaitFunction(const QList<QStringList>& tokens);
+
+    /**
      * Handle "setfixture" command.
      *
      * @param tokens A list of keyword:value pairs
@@ -259,6 +269,7 @@ private:
     bool m_stopOnExit;           //! add (true) or do not add (false) functions to m_startedFunctions
     int m_currentCommand;        //! Current command line being handled
     quint32 m_waitCount;         //! Timer ticks to wait before executing the next line
+    Function* m_waitFunction;      //! Function to wait for before executing the next line
     QList < QList<QStringList> > m_lines; //! Raw data parsed into lines of tokens
     QMap <QString,int> m_labels; //! Labels and their line numbers
     QList <Function*> m_startedFunctions; //! Functions started by this script

@@ -174,6 +174,14 @@ public slots:
     bool waitTime(QString time);
 
     /**
+     * Handle "waitFunction" command (string version)
+     *
+     * @param fID The Function ID to wait for
+     * @return true if successful. False on error.
+     */
+    bool waitFunction(quint32 fID);
+
+    /**
      * Handle "setBlackout" command
      *
      * @param enable If true, requests blackout, otherwise release blackout
@@ -212,12 +220,13 @@ protected:
     void run();
 
 private:
-    /** ScriptRunner function operations enum to handle start/stop commands */
+    /** ScriptRunner function operations enum to handle start/stop/wait commands */
     enum class SRFuncOpe : char
     {
         START,
         START_DONT_STOP,
-        STOP
+        STOP,
+        WAIT
     };
 
     Doc *m_doc;

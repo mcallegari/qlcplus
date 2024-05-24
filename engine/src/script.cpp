@@ -45,6 +45,7 @@ const QString Script::blackoutCmd = QString("blackout");
 
 const QString Script::waitCmd = QString("wait");
 const QString Script::waitKeyCmd = QString("waitkey");
+const QString Script::waitFunctionCmd = QString("waitfunction");
 
 const QString Script::setFixtureCmd = QString("setfixture");
 const QString Script::systemCmd = QString("systemcommand");
@@ -64,6 +65,7 @@ const QStringList knownKeywords(QStringList() << "ch" << "val" << "arg");
 Script::Script(Doc* doc) : Function(doc, Function::ScriptType)
     , m_currentCommand(0)
     , m_waitCount(0)
+    , m_waitFunction(NULL)
 {
     setName(tr("New Script"));
 }
@@ -327,6 +329,7 @@ void Script::preRun(MasterTimer *timer)
 {
     // Reset
     m_waitCount = 0;
+    m_waitFunction = NULL;
     m_currentCommand = 0;
     m_startedFunctions.clear();
     m_stopOnExit = true;
@@ -341,7 +344,7 @@ void Script::write(MasterTimer *timer, QList<Universe *> universes)
 
     incrementElapsed();
 
-    if (waiting() == false)
+    if (waiting(timer) == false)
     {
         // Not currently waiting for anything. Free to proceed to next command.
         while (m_currentCommand < m_lines.size() && stopped() == false)
@@ -352,8 +355,8 @@ void Script::write(MasterTimer *timer, QList<Universe *> universes)
                 break; // Executed command told to skip to the next cycle
         }
 
-        // In case wait() is the last command, don't stop the script prematurely
-        if (m_currentCommand >= m_lines.size() && m_waitCount == 0)
+        // In case wait() or waitfunction() is the last command, don't stop the script prematurely
+        if (m_currentCommand >= m_lines.size() && m_waitCount == 0 && m_waitFunction == NULL)
             stop(FunctionParent::master());
     }
 
@@ -375,7 +378,7 @@ void Script::postRun(MasterTimer *timer, QList<Universe *> universes)
     Function::postRun(timer, universes);
 }
 
-bool Script::waiting()
+bool Script::waiting(MasterTimer* timer)
 {
     if (m_waitCount > 0)
     {
@@ -383,11 +386,17 @@ bool Script::waiting()
         m_waitCount--;
         return true;
     }
-    else
+    else if (m_waitFunction != NULL)
     {
-        // Not waiting.
-        return false;
+        if(timer->functionHasToStart(m_waitFunction) || m_waitFunction->isRunning())
+            // Still waiting for the function to finish.
+            return true;
+        else
+            // Wait function is done.
+            m_waitFunction = NULL;
     }
+    // Not waiting.
+    return false;
 }
 
 quint32 Script::getValueFromString(QString str, bool *ok)
@@ -465,6 +474,15 @@ bool Script::executeCommand(int index, MasterTimer* timer, QList<Universe *> uni
         // skipping straight to the next command. If there is no error in waitkey
         // parsing,we must wait at least one cycle.
         error = handleWaitKey(tokens);
+        if (error.isEmpty() == true)
+            continueLoop = false;
+    }
+    else if (tokens[0][0] == Script::waitFunctionCmd)
+    {
+        // Waiting for a funcion should break out of the execution loop to
+        // prevent skipping straight to the next command. If there is no error
+        // in waitfunction parsing, we must wait at least one cycle.
+        error = handleWaitFunction(tokens);
         if (error.isEmpty() == true)
             continueLoop = false;
     }
@@ -632,6 +650,32 @@ QString Script::handleWaitKey(const QList<QStringList>& tokens)
 
     QString key = QString(tokens[0][1]).remove("\"");
     qDebug() << "Ought to wait for" << key;
+
+    return QString();
+}
+
+QString Script::handleWaitFunction(const QList<QStringList> &tokens)
+{
+    qDebug() << Q_FUNC_INFO << tokens;
+
+    if (tokens.size() > 1)
+        return QString("Too many arguments");
+
+    bool ok = false;
+    quint32 id = tokens[0][1].toUInt(&ok);
+    if (ok == false)
+        return QString("Invalid function ID: %1").arg(tokens[0][1]);
+
+    Doc *doc = qobject_cast<Doc *>(parent());
+    Q_ASSERT(doc != NULL);
+
+    Function *function = doc->function(id);
+    if (function == NULL)
+    {
+        return QString("No such function (ID %1)").arg(id);
+    }
+
+    m_waitFunction = function;
 
     return QString();
 }

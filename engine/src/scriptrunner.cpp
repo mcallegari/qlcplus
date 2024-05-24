@@ -175,7 +175,7 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
     {
         while (!m_functionQueue.isEmpty())
         {
-            QPair<quint32, SRFuncOpe> pair = m_functionQueue.dequeue();
+            QPair<quint32, SRFuncOpe> &pair = m_functionQueue.head();
             quint32 fID = pair.first;
             SRFuncOpe operation = pair.second;
 
@@ -191,11 +191,26 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
                 function->start(timer, FunctionParent::master());
                 if (operation == SRFuncOpe::START)
                     m_startedFunctions << fID;
+                m_functionQueue.removeFirst();
             }
             else if (operation == SRFuncOpe::STOP)
             {
                 function->stop(FunctionParent::master());
                 m_startedFunctions.removeAll(fID);
+                m_functionQueue.removeFirst();
+            }
+            else if (operation == SRFuncOpe::WAIT)
+            {
+                if (timer->functionHasToStart(function) || function->isRunning())
+                {
+                    // the function has to strat or is still running, so we stop dequeuing
+                    break;
+                }
+                else
+                {
+                    // the function is not running, so we can continue with the next function in the queue
+                    m_functionQueue.removeFirst();
+                }
             }
         }
     }
@@ -512,6 +527,27 @@ bool ScriptRunner::waitTime(QString time)
 
         usleep(10000);
     }
+
+    return true;
+}
+
+bool ScriptRunner::waitFunction(quint32 fID)
+{
+    if (m_running == false)
+        return false;
+
+    Function *function = m_doc->function(fID);
+    if (function == NULL)
+    {
+        qWarning() << QString("No such function (ID %1)").arg(fID);
+        return false;
+    }
+
+    QPair<quint32, SRFuncOpe> pair;
+    pair.first = fID;
+    pair.second = SRFuncOpe::WAIT;
+
+    m_functionQueue.enqueue(pair);
 
     return true;
 }
