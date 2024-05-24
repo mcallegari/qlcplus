@@ -20,6 +20,7 @@
 #include <QVersionNumber>
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
  #include <QMediaMetaData>
+ #include <QAudioOutput>
 #endif
 #include <QApplication>
 #include <QMediaPlayer>
@@ -84,6 +85,8 @@ VideoWidget::VideoWidget(Video *video, QObject *parent)
     m_videoPlayer = new QMediaPlayer(this, QMediaPlayer::VideoSurface);
 #else
     m_videoPlayer = new QMediaPlayer(this);
+    m_audioOutput = new QAudioOutput(this);
+    m_videoPlayer->setAudioOutput(m_audioOutput);
 #endif
     m_videoPlayer->moveToThread(QCoreApplication::instance()->thread());
 

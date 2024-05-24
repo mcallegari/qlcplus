@@ -34,7 +34,7 @@ Rectangle
 
     property bool showDMXcontrol: true
     property bool showTapButton: false
-    
+
     property alias commandString: commandBox.text
     property real itemHeight: Math.max(UISettings.iconSizeDefault, keyPadRoot.height / keyPadGrid.rows) - 3
 
@@ -109,15 +109,15 @@ Rectangle
                 else
                 {
                     var currTime = new Date().getTime()
-                    
+
                     if (lastTap != 0 && currTime - lastTap < 1500)
                     {
                         var newTime = currTime - lastTap
-                        
+
                         tapHistory.push(newTime)
 
                         tapTimeValue = TimeUtils.calculateBPMByTapIntervals(tapHistory)
-                        
+
                         keyPadRoot.tapTimeChanged(tapTimeValue)
                         tapTimer.interval = tapTimeValue
                         tapTimer.restart()

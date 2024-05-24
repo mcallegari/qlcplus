@@ -92,7 +92,7 @@ public:
      *  get the rgb value for this value of the knob
      */
     QRgb valueToRgb(quint8 value) const;
-protected:
+
     static QString typeToString(ControlType type);
     static ControlType stringToType(QString str);
 

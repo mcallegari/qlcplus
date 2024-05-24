@@ -125,6 +125,7 @@ Rectangle
                 bSpin.value = b*/
 
                 currentRGB = Qt.rgba(r / 255, g / 255, b / 255, 1.0)
+                colorChanged(currentRGB.r, currentRGB.g, currentRGB.b, currentWAUV.r, currentWAUV.g, currentWAUV.b)
             }
 
             onPressed: setPickedColor(mouse)

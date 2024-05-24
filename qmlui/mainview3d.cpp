@@ -166,13 +166,11 @@ void MainView3D::resetItems()
     {
         it.next();
         SceneItem *e = it.value();
-        //if (e->m_headItem)
-        //    delete e->m_headItem;
-        //if (e->m_armItem)
-        //    delete e->m_armItem;
         delete e->m_goboTexture;
-        // delete e->m_rootItem; // TODO: with this -> segfault
         delete e->m_selectionBox;
+        // delete e->m_rootItem; // TODO: with this -> segfault
+        e->m_rootItem->setProperty("enabled", false); // workaround for the above
+        delete e;
     }
 
     //const auto end = m_entitiesMap.end();
@@ -1502,8 +1500,11 @@ void MainView3D::removeFixtureItem(quint32 itemID)
 
     SceneItem *mesh = m_entitiesMap.take(itemID);
 
-    delete mesh->m_rootItem;
+    delete mesh->m_goboTexture;
     delete mesh->m_selectionBox;
+    delete mesh->m_rootTransform;
+//    delete mesh->m_rootItem; // this will cause a segfault
+    mesh->m_rootItem->setProperty("enabled", false); // workaround for the above
 
     delete mesh;
 }

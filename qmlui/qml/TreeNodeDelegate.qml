@@ -103,6 +103,7 @@ Column
                 id: nodeLabel
                 width: nodeBgRect.width - x - 1
                 text: cRef ? cRef.name : textLabel
+                originalText: text
 
                 onTextConfirmed: nodeContainer.pathChanged(nodePath, text)
             }

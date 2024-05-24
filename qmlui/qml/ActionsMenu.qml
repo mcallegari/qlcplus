@@ -161,6 +161,7 @@ Popup
             border.width: 1
             border.color: UISettings.bgStronger
             color: UISettings.bgStrong
+            height: actionsMenuEntries.height
         }
 
     Column
@@ -307,6 +308,7 @@ Popup
             ContextMenuEntry
             {
                 Layout.fillWidth: true
+                Layout.fillHeight: true
                 imgSource: "qrc:/undo.svg"
                 entryText: qsTr("Undo")
                 onEntered: submenuItem = null
@@ -320,6 +322,7 @@ Popup
             ContextMenuEntry
             {
                 Layout.fillWidth: true
+                Layout.fillHeight: true
                 imgSource: "qrc:/redo.svg"
                 entryText: qsTr("Redo")
                 onEntered: submenuItem = null

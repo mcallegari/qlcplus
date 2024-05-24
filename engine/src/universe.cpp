@@ -965,6 +965,7 @@ bool Universe::writeRelative(int address, quint32 value, int channelCount)
         short newVal = uchar((*m_preGMValues)[address]);
         newVal += short(value) - RELATIVE_ZERO_8BIT;
         (*m_preGMValues)[address] = char(CLAMP(newVal, 0, UCHAR_MAX));
+        (*m_blackoutValues)[address] = char(CLAMP(newVal, 0, UCHAR_MAX));
         updatePostGMValue(address);
     }
     else
@@ -978,6 +979,7 @@ bool Universe::writeRelative(int address, quint32 value, int channelCount)
         for (int i = 0; i < channelCount; i++)
         {
             (*m_preGMValues)[address + i] = ((uchar *)&currentValue)[channelCount - 1 - i];
+            (*m_blackoutValues)[address + i] = ((uchar *)&currentValue)[channelCount - 1 - i];
             updatePostGMValue(address + i);
         }
     }

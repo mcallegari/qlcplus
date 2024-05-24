@@ -58,7 +58,7 @@ public:
 protected slots:
     void slotNumberChanged(int number);
     void slotNameEdited(const QString& text);
-    void slotTypeActivated(const QString& text);
+    void slotTypeActivated(int index);
 
 protected:
     quint32 m_channel;

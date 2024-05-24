@@ -274,7 +274,7 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
     {
         Fixture *fxi = new Fixture(m_doc);
         //quint32 fxAddress = address + (i * channels) + (i * gap);
-        if (fxAddress + channels >= UNIVERSE_SIZE)
+        if (fxAddress + channels > UNIVERSE_SIZE)
         {
             uniIdx++;
             if (m_doc->inputOutputMap()->getUniverseID(uniIdx) == m_doc->inputOutputMap()->invalidUniverse())
@@ -1054,6 +1054,9 @@ void FixtureManager::slotFixtureAdded(quint32 id, QVector3D pos)
     else
     {
         Fixture *fixture = m_doc->fixture(id);
+        if (fixture == nullptr)
+            return;
+
         QStringList uniNames = m_doc->inputOutputMap()->universeNames();
         QString universeName = uniNames.at(fixture->universe());
         int matchMask = 0;

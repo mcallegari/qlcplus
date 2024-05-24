@@ -1,12 +1,12 @@
 [Unit]
 Description=Q Light Controller Plus
 Documentation=man:qlcplus(1)
-After=network.target
+After=basic.target
 
 [Service]
 Type=simple
 User=pi
-Restart=always
+Restart=on-failure
 RestartSec=3
 ExecStart=/usr/sbin/qlcplus-start.sh
 

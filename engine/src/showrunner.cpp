@@ -90,11 +90,11 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
 #if 1
     qDebug() << "Ordered list of ShowFunctions (time):";
     foreach (ShowFunction *sfunc, m_timeFunctions)
-        qDebug() << "ID:" << sfunc->functionID() << "st:" << sfunc->startTime() << "dur:" << sfunc->duration(m_doc);
+        qDebug() << "[Show] Function ID:" << sfunc->functionID() << "start time:" << sfunc->startTime() << "duration:" << sfunc->duration(m_doc);
 
     qDebug() << "Ordered list of ShowFunctions (beats):";
     foreach (ShowFunction *sfunc, m_beatFunctions)
-        qDebug() << "ID:" << sfunc->functionID() << "st:" << sfunc->startTime() << "dur:" << sfunc->duration(m_doc);
+        qDebug() << "[Show] Function ID:" << sfunc->functionID() << "start time:" << sfunc->startTime() << "duration:" << sfunc->duration(m_doc);
 #endif
     m_runningQueue.clear();
 

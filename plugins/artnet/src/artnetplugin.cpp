@@ -441,7 +441,7 @@ void ArtNetPlugin::slotReadyRead()
 
 void ArtNetPlugin::handlePacket(QByteArray const& datagram, QHostAddress const& senderAddress)
 {
-    // A firts filter: look for a controller on the same subnet as the sender.
+    // A first filter: look for a controller on the same subnet as the sender.
     // This allows having the same ArtNet Universe on 2 different network interfaces.
     foreach (ArtNetIO io, m_IOmapping)
     {

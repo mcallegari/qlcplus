@@ -19,7 +19,7 @@ else()
     qt5_add_translation(QM_FILES ${TS_FILES})
 endif()
 
-add_executable(${module_name} WIN32 MACOSX_BUNDLE
+add_executable(${module_name} MACOSX_BUNDLE
     launcher.cpp launcher.h
     main.cpp
     ${QM_FILES}
@@ -36,7 +36,6 @@ target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::Widgets
 )
 
-
 # Resources:
 set_source_files_properties("../resources/icons/png/qlcplus-fixtureeditor.png"
     PROPERTIES QT_RESOURCE_ALIAS "qlcplus-fixtureeditor.png"
@@ -49,12 +48,20 @@ set(launcher_resource_files
     "../resources/icons/png/qlcplus.png"
 )
 
-qt_add_resources(${module_name} "launcher"
+if(QT_VERSION_MAJOR GREATER 5)
+    qt_add_resources(${module_name} "launcher"
     PREFIX
         "/"
+    BASE
+        "."
     FILES
         ${launcher_resource_files}
 )
+else()
+    qt5_add_resources($launcher.qrc)
+    target_sources(${module_name} PRIVATE
+        ${launcher_resource_files})
+endif()
 
 install(TARGETS ${module_name}
     DESTINATION ${INSTALLROOT}/${BINDIR}

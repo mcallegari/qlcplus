@@ -95,7 +95,7 @@ void ConfigureArtNet::fillNodesTree()
                 it.next();
                 QTreeWidgetItem* nitem = new QTreeWidgetItem(pitem);
                 ArtNetNodeInfo nInfo = it.value();
-                nitem->setText(KNodesColumnIP, it.key().toString());
+                nitem->setText(KNodesColumnIP, QHostAddress(it.key().toIPv4Address()).toString());
                 nitem->setText(KNodesColumnShortName, nInfo.shortName);
                 nitem->setText(KNodesColumnLongName, nInfo.longName);
             }

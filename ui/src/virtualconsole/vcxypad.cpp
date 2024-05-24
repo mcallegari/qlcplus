@@ -228,6 +228,13 @@ VCWidget* VCXYPad::createCopy(VCWidget* parent)
         xypad = NULL;
     }
 
+    for (QHash<QWidget*, VCXYPadPreset*>::iterator it = m_presets.begin();
+            it != m_presets.end(); ++it)
+    {
+        VCXYPadPreset *preset = it.value();
+        xypad->addPreset(*preset);
+    }
+
     return xypad;
 }
 
@@ -681,6 +688,16 @@ QList<VCXYPadPreset *> VCXYPad::presets() const
     QList<VCXYPadPreset*> presets = m_presets.values();
     std::sort(presets.begin(), presets.end(), VCXYPadPreset::compare);
     return presets;
+}
+
+QMap<quint32,QString> VCXYPad::presetsMap() const
+{
+    QMap<quint32,QString> map;
+
+    foreach (VCXYPadPreset *control, m_presets.values())
+        map.insert(control->m_id, VCXYPadPreset::typeToString(control->m_type));
+
+    return map;
 }
 
 void VCXYPad::slotPresetClicked(bool checked)

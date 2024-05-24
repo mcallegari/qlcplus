@@ -680,7 +680,7 @@ void VCMatrix::slotUpdate()
     QString algorithmText;
 
     {
-        QMutexLocker(&matrix->algorithmMutex());
+        QMutexLocker locker(&matrix->algorithmMutex());
 
         RGBAlgorithm *algo = matrix->algorithm();
         if (algo != NULL)
@@ -1143,6 +1143,16 @@ QList<VCMatrixControl *> VCMatrix::customControls() const
     QList<VCMatrixControl*> controls = m_controls.values();
     std::sort(controls.begin(), controls.end(), VCMatrixControl::compare);
     return controls;
+}
+
+QMap<quint32,QString> VCMatrix::customControlsMap() const
+{
+    QMap<quint32,QString> map;
+
+    foreach (VCMatrixControl *control, m_controls.values())
+        map.insert(control->m_id, VCMatrixControl::typeToString(control->m_type));
+
+    return map;
 }
 
 QWidget *VCMatrix::getWidget(VCMatrixControl* control) const

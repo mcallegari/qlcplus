@@ -1628,6 +1628,9 @@ void ContextManager::slotUniverseWritten(quint32 idx, const QByteArray &ua)
 
 void ContextManager::slotFunctionEditingChanged(bool status)
 {
+    if (status == m_editingEnabled)
+        return;
+
     resetFixtureSelection();
     m_editingEnabled = status;
 }

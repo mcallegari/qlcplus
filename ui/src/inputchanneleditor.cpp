@@ -76,8 +76,8 @@ InputChannelEditor::InputChannelEditor(QWidget* parent,
             this, SLOT(slotNumberChanged(int)));
     connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotNameEdited(const QString&)));
-    connect(m_typeCombo, SIGNAL(activated(const QString&)),
-            this, SLOT(slotTypeActivated(const QString &)));
+    connect(m_typeCombo, SIGNAL(activated(int)),
+            this, SLOT(slotTypeActivated(int)));
 
     /* Fill type combo with type icons and names */
     QStringListIterator it(QLCInputChannel::types());
@@ -182,9 +182,9 @@ void InputChannelEditor::slotNameEdited(const QString& text)
     m_name = text;
 }
 
-void InputChannelEditor::slotTypeActivated(const QString& text)
+void InputChannelEditor::slotTypeActivated(int index)
 {
-    m_type = QLCInputChannel::stringToType(text);
+    m_type = QLCInputChannel::stringToType(m_typeCombo->itemText(index));
 }
 
 /****************************************************************************

@@ -17,7 +17,14 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-QLCPLUS_OPTS="-platform eglfs --nowm --web --web-auth --operate --overscan"
+# detect HDMI plug state
+QTPLATFORM="eglfs"
+kmsprint -m | grep connected > /dev/null
+if [ $? -eq 1 ]; then
+    QTPLATFORM="offscreen"
+fi
+
+QLCPLUS_OPTS="-platform $QTPLATFORM --nowm --web --web-auth --operate --overscan"
 
 if [ ! -f $HOME/.qlcplus/eglfs.json ]; then
     mkdir -p $HOME/.qlcplus

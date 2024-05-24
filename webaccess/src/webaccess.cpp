@@ -30,6 +30,7 @@
 #include "webaccessnetwork.h"
 #include "vcaudiotriggers.h"
 #include "virtualconsole.h"
+#include "rgbalgorithm.h"
 #include "commonjscss.h"
 #include "vcsoloframe.h"
 #include "outputpatch.h"
@@ -41,11 +42,11 @@
 #include "vcbutton.h"
 #include "vcslider.h"
 #include "function.h"
+#include "vcmatrix.h"
 #include "vclabel.h"
 #include "vcframe.h"
 #include "vcclock.h"
-#include "vcmatrix.h"
-#include "rgbalgorithm.h"
+#include "vcxypad.h"
 #include "qlcfile.h"
 #include "chaser.h"
 #include "doc.h"
@@ -650,7 +651,57 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                             wsAPIMessage.append("STOP");
                     }
                     break;
+                    case VCWidget::AnimationWidget:
+                    {
+                        VCMatrix *animation = qobject_cast<VCMatrix*>(widget);
+                        wsAPIMessage.append(QString::number(animation->sliderValue()));
+                    }
+                    break;
+                    default:
+                    {
+                        wsAPIMessage.append("0");
+                    }
+                    break;
                 }
+            }
+        }
+        else if (apiCmd == "getWidgetSubIdList")
+        {
+            if (cmdList.count() < 3)
+                return;
+
+            quint32 wID = cmdList[2].toUInt();
+            VCWidget *widget = m_vc->widget(wID);
+            switch(widget->type())
+            {
+                case VCWidget::AnimationWidget:
+                {
+                    VCMatrix *animation = qobject_cast<VCMatrix*>(widget);
+
+                    QMapIterator <quint32,QString> it(animation->customControlsMap());
+                    while (it.hasNext() == true)
+                    {
+                        it.next();
+                        wsAPIMessage.append(QString("%1|%2|").arg(it.key()).arg(it.value()));
+                    }
+                    // remove trailing separator
+                    wsAPIMessage.truncate(wsAPIMessage.length() - 1);
+                }
+                break;
+                case VCWidget::XYPadWidget:
+                {
+                    VCXYPad *xypad = qobject_cast<VCXYPad*>(widget);
+
+                    QMapIterator <quint32,QString> it(xypad->presetsMap());
+                    while (it.hasNext() == true)
+                    {
+                        it.next();
+                        wsAPIMessage.append(QString("%1|%2|").arg(it.key()).arg(it.value()));
+                    }
+                    // remove trailing separator
+                    wsAPIMessage.truncate(wsAPIMessage.length() - 1);
+                }
+                break;
             }
         }
         else if (apiCmd == "getChannelsValues")

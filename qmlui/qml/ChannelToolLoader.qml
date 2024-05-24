@@ -23,10 +23,10 @@ import QtQuick.Controls 2.5
 import org.qlcplus.classes 1.0
 import "."
 
-Popup
+Item
 {
-    id: popupRoot
-    padding: 0
+    id: itemRoot
+    visible: false
 
     property int fixtureId: -1
     property int channelType: -1
@@ -39,13 +39,14 @@ Popup
     function loadChannelTool(cItem, fxId, chIdx, val)
     {
         channelType = fixtureManager.channelType(fxId, chIdx)
+
         if (channelType === QLCChannel.NoGroup || channelType === QLCChannel.Nothing)
             return
 
         var map = cItem.mapToItem(parent, cItem.x, cItem.y)
         toolLoader.source = ""
-        x = map.x
-        yPos = map.y
+        x = map.x + UISettings.iconSizeMedium
+        y = map.y
         fixtureId = fxId
         channelIndex = chIdx
         channelValue = val
@@ -59,7 +60,6 @@ Popup
             case QLCChannel.Tilt:
                 toolLoader.source = "qrc:/SingleAxisTool.qml"
             break
-
             case QLCChannel.Colour:
             case QLCChannel.Gobo:
             case QLCChannel.Speed:
@@ -82,34 +82,35 @@ Popup
 
         onLoaded:
         {
-            popupRoot.y = popupRoot.yPos - height
-            popupRoot.width = width
-            popupRoot.height = height
+            itemRoot.width = width
+            itemRoot.height = height
 
             item.showPalette = false
-            //item.closeOnSelect = true
-
-            popupRoot.open()
+            if (item.hasOwnProperty('dragTarget'))
+                item.dragTarget = itemRoot
 
             if (channelType >= 0xFF)
             {
-                item.currentValue = popupRoot.channelValue
-                item.targetColor = popupRoot.channelType
+                item.currentValue = itemRoot.channelValue
+                item.targetColor = itemRoot.channelType
             }
             else if (channelType == QLCChannel.Intensity)
             {
-                item.currentValue = popupRoot.channelValue
+                item.show(itemRoot.channelValue)
             }
             else if (channelType == QLCChannel.Pan ||
                      channelType == QLCChannel.Tilt)
             {
-                item.currentValue = popupRoot.channelValue
-                item.maxDegrees = fixtureManager.channelDegrees(popupRoot.fixtureId, popupRoot.channelIndex)
+                item.currentValue = itemRoot.channelValue
+                item.maxDegrees = fixtureManager.channelDegrees(itemRoot.fixtureId, itemRoot.channelIndex)
             }
             else
             {
-                item.updatePresets(fixtureManager.presetChannel(popupRoot.fixtureId, popupRoot.channelIndex))
+                item.updatePresets(fixtureManager.presetChannel(itemRoot.fixtureId, itemRoot.channelIndex))
             }
+
+            item.closeOnSelect = true
+            itemRoot.visible = true
         }
 
         Connections
@@ -118,7 +119,12 @@ Popup
             target: toolLoader.item
             function onValueChanged()
             {
-                popupRoot.valueChanged(popupRoot.fixtureId, popupRoot.channelIndex, target.currentValue)
+                itemRoot.valueChanged(itemRoot.fixtureId, itemRoot.channelIndex, target.currentValue)
+            }
+            function onClose()
+            {
+                itemRoot.visible = false
+                toolLoader.source = ""
             }
         }
     }

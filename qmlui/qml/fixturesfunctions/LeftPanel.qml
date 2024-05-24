@@ -99,7 +99,10 @@ SidePanel
                 onToggled:
                 {
                     if (checked == true)
+                    {
                         loaderSource = "qrc:/FixtureGroupManager.qml"
+                        fixtureManager.searchFilter = ""
+                    }
                     animatePanel(checked)
                 }
             }
@@ -133,7 +136,16 @@ SidePanel
                 tooltip: qsTr("Intensity")
                 counter: 0
                 ButtonGroup.group: capabilitiesGroup
-                onCheckedChanged: intTool.visible = !intTool.visible
+                onCheckedChanged:
+                {
+                    if (checked)
+                    {
+                        var val = contextManager.getCurrentValue(QLCChannel.Intensity, false)
+                        intTool.show(val)
+                    }
+                    else
+                        intTool.visible = false
+                }
                 onCounterChanged: if (counter == 0) intTool.visible = false
 
                 IntensityTool

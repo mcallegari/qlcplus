@@ -52,7 +52,7 @@ ChaserRunner::ChaserRunner(const Doc *doc, const Chaser *chaser, quint32 startTi
     m_pendingAction.m_fadeMode = Chaser::FromFunction;
     m_pendingAction.m_stepIndex = -1;
 
-    if (m_chaser->type() == Function::SequenceType && startTime > 0)
+    if (startTime > 0)
     {
         qDebug() << "[ChaserRunner] startTime:" << startTime;
         int idx = 0;
@@ -577,7 +577,7 @@ void ChaserRunner::startNewStep(int index, MasterTimer *timer, qreal mIntensity,
         newStep->m_intensityOverrideId = func->requestAttributeOverride(Function::Intensity, mIntensity * sIntensity);
     }
 
-    // Start the fire up !
+    // Start the fire up!
     func->start(timer, functionParent(), 0, newStep->m_fadeIn, newStep->m_fadeOut,
                 func->defaultSpeed(), m_chaser->tempoType());
     m_runnerSteps.append(newStep);
