@@ -341,7 +341,7 @@
          <item row="2" column="2">
           <widget class="QPushButton" name="m_addMtxColor2Button">
            <property name="text">
-            <string> Add color 1</string>
+            <string> Add color 2</string>
            </property>
            <property name="icon">
             <iconset resource="../qlcui.qrc">
