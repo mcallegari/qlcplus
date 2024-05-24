@@ -75,6 +75,20 @@ void HIDDMXDevice::init()
  * File operations
  *****************************************************************************/
 
+bool HIDDMXDevice::isMergerModeEnabled()
+{
+    return (m_mode & DMX_MODE_MERGER);
+}
+
+void HIDDMXDevice::enableMergerMode(bool mergerModeEnabled)
+{
+    if (mergerModeEnabled)
+        m_mode |= DMX_MODE_MERGER;
+    else
+        m_mode &= ~DMX_MODE_MERGER;
+    updateMode();
+}
+
 bool HIDDMXDevice::openInput()
 {
     m_mode |= DMX_MODE_INPUT;
@@ -216,6 +230,8 @@ void HIDDMXDevice::updateMode()
         driver_mode += 2;
     if (m_mode & DMX_MODE_INPUT)
         driver_mode += 4;
+    if (m_mode & DMX_MODE_MERGER)
+        driver_mode += 1;
 
     unsigned char buffer[34];
 
