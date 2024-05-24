@@ -48,6 +48,8 @@
 #define E131_PRIORITY_MIN 0
 #define E131_PRIORITY_MAX 200
 
+#define SETTINGS_GEOMETRY "conifguree131/geometry"
+
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
@@ -67,10 +69,15 @@ ConfigureE131::ConfigureE131(E131Plugin* plugin, QWidget* parent)
     QVariant value = settings.value(SETTINGS_IFACE_WAIT_TIME);
     if (value.isValid() == true)
         m_waitReadySpin->setValue(value.toInt());
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 }
 
 ConfigureE131::~ConfigureE131()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 void ConfigureE131::fillMappingTree()

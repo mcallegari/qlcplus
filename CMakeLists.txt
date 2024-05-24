@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.16)
-project(qlcplus VERSION 4.12.8 LANGUAGES C CXX)
+project(qlcplus VERSION 4.13.0 LANGUAGES C CXX)
 
 # Set Release build type by default
 if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel." FORCE)
+  set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel." FORCE)
 endif()
 
 # Prevent CMake make install strips off non-standard build paths
@@ -20,6 +20,18 @@ if(UNIX)
     endif()
 endif()
 
+if (ANDROID OR IOS)
+    set(qmlui ON)
+endif()
+
+if (ANDROID)
+    if(QT_VERSION_MAJOR GREATER 5)
+        set(QT_ANDROID_PACKAGE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/platforms/android CACHE INTERNAL "")
+    else()
+        set(ANDROID_PACKAGE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/platforms/android CACHE INTERNAL "")
+    endif()
+endif()
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Set up AUTOMOC and some sensible defaults for runtime execution
@@ -32,6 +44,9 @@ find_package(QT NAMES Qt5 Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui Multimedia MultimediaWidgets Network PrintSupport Qml Quick Svg Test Widgets LinguistTools)
 if(qmlui)
     find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS 3DCore 3DInput 3DQuick 3DQuickExtras 3DRender)
+    if(ANDROID)
+        find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Concurrent OpenGL)
+    endif()
 endif()
 
 message("Found Qt version ${QT_VERSION_MAJOR}: ${QT_DIR}")

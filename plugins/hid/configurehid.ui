@@ -57,6 +57,11 @@
        <string>Name</string>
       </property>
      </column>
+     <column>
+      <property name="text">
+       <string>Merger Mode</string>
+      </property>
+     </column>
     </widget>
    </item>
    <item row="1" column="0">

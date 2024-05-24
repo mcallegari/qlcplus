@@ -9,6 +9,7 @@ add_library(${module_name}
     audioplugincache.cpp audioplugincache.h
     audiorenderer.cpp audiorenderer.h
 )
+set_property(TARGET ${module_name} PROPERTY POSITION_INDEPENDENT_CODE ON)
 target_include_directories(${module_name} PUBLIC
     ../../../plugins/interfaces
     ../../src

@@ -164,7 +164,7 @@ protected:
      *********************************************************************/
 protected slots:
     /** Callback for mode selection changes */
-    void slotModeActivated(const QString& modeName);
+    void slotModeActivated(int modeIndex);
 
     /** Callback for universe combo activations */
     void slotUniverseActivated(int universe);

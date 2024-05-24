@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>Clément Delabroye</Author>
+ </Creator>
+ <Manufacturer>Varytec</Manufacturer>
+ <Model>Typhoon True Kid 720Z RGBW IP65</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Colour selection">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">None</Capability>
+  <Capability Min="10" Max="13" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="14" Max="17" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="18" Max="21" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="22" Max="25" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="26" Max="29" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="30" Max="33" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="34" Max="37" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="38" Max="41" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="42" Max="45" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="46" Max="49" Preset="ColorMacro" Res1="#ee82ee">Violet</Capability>
+  <Capability Min="50" Max="53" Preset="ColorMacro" Res1="#7fffd4">Aquamarine</Capability>
+  <Capability Min="54" Max="57" Preset="ColorMacro" Res1="#00aaff">Sky-blue</Capability>
+  <Capability Min="58" Max="61" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="62" Max="65" Preset="ColorMacro" Res1="#e1fff7">Cold white</Capability>
+  <Capability Min="66" Max="69" Preset="ColorMacro" Res1="#fefff2">Warm white</Capability>
+  <Capability Min="70" Max="73" Preset="ColorMacro" Res1="#ffffff">White 3200</Capability>
+  <Capability Min="74" Max="77" Preset="ColorMacro" Res1="#ffffff">White 2500</Capability>
+  <Capability Min="78" Max="81" Preset="ColorMacro" Res1="#eeee00">Yellow 2</Capability>
+  <Capability Min="82" Max="85" Preset="ColorMacro" Res1="#fff9a5">Straw</Capability>
+  <Capability Min="86" Max="89" Preset="ColorMacro" Res1="#ee9a00">Orange 2</Capability>
+  <Capability Min="90" Max="93" Preset="ColorMacro" Res1="#ffb6c1">Light pink</Capability>
+  <Capability Min="94" Max="97" Preset="ColorMacro" Res1="#c79889">Dark pink</Capability>
+  <Capability Min="98" Max="101" Preset="ColorMacro" Res1="#ee00ee">Magenta 2</Capability>
+  <Capability Min="102" Max="105" Preset="ColorMacro" Res1="#0000ee">Blue 2</Capability>
+  <Capability Min="106" Max="109" Preset="ColorMacro" Res1="#ffffff">Medium teal</Capability>
+  <Capability Min="110" Max="113" Preset="ColorMacro" Res1="#00008b">Dark blue</Capability>
+  <Capability Min="114" Max="117" Preset="ColorMacro" Res1="#ffc09b">Bright pink</Capability>
+  <Capability Min="118" Max="121" Preset="ColorMacro" Res1="#0000cd">Medium blue</Capability>
+  <Capability Min="122" Max="125" Preset="ColorMacro" Res1="#fff235">Golden amber</Capability>
+  <Capability Min="126" Max="129" Preset="ColorMacro" Res1="#ffd631">Deep golden amber</Capability>
+  <Capability Min="130" Max="133" Preset="ColorMacro" Res1="#cfd2ff">Bright lavender</Capability>
+  <Capability Min="134" Max="137" Preset="ColorMacro" Res1="#ffcc65">Apricot</Capability>
+  <Capability Min="138" Max="141" Preset="ColorMacro" Res1="#7575b0">Dark lavender</Capability>
+  <Capability Min="142" Max="145" Preset="ColorMacro" Res1="#d2691e">Chocolate</Capability>
+  <Capability Min="146" Max="149" Preset="ColorMacro" Res1="#0055ff">Simple blue</Capability>
+  <Capability Min="150" Max="153" Preset="ColorMacro" Res1="#ffc09b">Bright pink</Capability>
+  <Capability Min="154" Max="157" Preset="ColorMacro" Res1="#ff5353">Scarlet</Capability>
+  <Capability Min="158" Max="161" Preset="ColorMacro" Res1="#ffaf94">Peach-coloured</Capability>
+  <Capability Min="162" Max="165" Preset="ColorMacro" Res1="#ff5500">Fire</Capability>
+  <Capability Min="166" Max="169" Preset="ColorMacro" Res1="#ffaaff">English pink</Capability>
+  <Capability Min="170" Max="173" Preset="ColorMacro" Res1="#aa0000">Mauve</Capability>
+  <Capability Min="174" Max="177" Preset="ColorMacro" Res1="#5500ff">Beaming blue</Capability>
+  <Capability Min="178" Max="181" Preset="ColorMacro" Res1="#f0f8ff">Alice blue</Capability>
+  <Capability Min="182" Max="185" Preset="ColorMacro" Res1="#e4dbff">Indigo rosé</Capability>
+  <Capability Min="186" Max="189" Preset="ColorMacro" Res1="#0055ff">Urban blue</Capability>
+  <Capability Min="190" Max="193" Preset="ColorMacro" Res1="#c5f0ff">Cold blue</Capability>
+  <Capability Min="194" Max="197" Preset="ColorMacro" Res1="#ffc9aa">Light salmon-coloured</Capability>
+  <Capability Min="198" Max="201" Preset="ColorMacro" Res1="#ffaa00">Maya Sun</Capability>
+  <Capability Min="202" Max="205" Preset="ColorMacro" Res1="#ffe2de">Cherry rosé</Capability>
+  <Capability Min="206" Max="209" Preset="ColorMacro" Res1="#ffaaff">Flesh-coloured</Capability>
+  <Capability Min="210" Max="213" Preset="ColorMacro" Res1="#ff5500">Skeleton Exotic Sangria</Capability>
+  <Capability Min="214" Max="255">RGBW</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="Hue" Preset="IntensityHue"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Strobe Effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="8" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="9" Max="255" Preset="StrobeSlowToFast">Stroboscope effect</Capability>
+ </Channel>
+ <Channel Name="Motor speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Motor speed</Capability>
+ </Channel>
+ <Channel Name="None" Preset="NoFunction"/>
+ <Channel Name="Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="White fine" Preset="IntensityWhiteFine"/>
+ <Channel Name="Dimmer curves with afterglow effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="49">Standard</Capability>
+  <Capability Min="50" Max="99">Dimmer mode 1 (slight afterglow)</Capability>
+  <Capability Min="100" Max="149">Dimmer mode 2</Capability>
+  <Capability Min="150" Max="199">Dimmer mode 3</Capability>
+  <Capability Min="200" Max="255">Dimmer mode 4 (strong afterglow)</Capability>
+ </Channel>
+ <Channel Name="Automatic shows">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Standard</Capability>
+  <Capability Min="8" Max="10">Programme 1</Capability>
+  <Capability Min="11" Max="20">Programme 2</Capability>
+  <Capability Min="21" Max="30">Programme 3</Capability>
+  <Capability Min="31" Max="40">Programme 4</Capability>
+  <Capability Min="41" Max="50">Programme 5</Capability>
+  <Capability Min="51" Max="60">Programme 6</Capability>
+  <Capability Min="61" Max="70">Programme 7</Capability>
+  <Capability Min="71" Max="80">Programme 8</Capability>
+  <Capability Min="81" Max="90">Programme 9</Capability>
+  <Capability Min="91" Max="100">Programme 10</Capability>
+  <Capability Min="101" Max="109">Programme 11</Capability>
+  <Capability Min="110" Max="255">None</Capability>
+ </Channel>
+ <Channel Name="Auto programme running speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Auto programme running speed</Capability>
+ </Channel>
+ <Channel Name="Motor Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="200">No function</Capability>
+  <Capability Min="201" Max="220">Motor Reset</Capability>
+  <Capability Min="221" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Colour macros 36 colours" Preset="ColorMacro"/>
+ <Channel Name="Device ID">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="9">all IDs</Capability>
+  <Capability Min="10" Max="19">ID1</Capability>
+  <Capability Min="20" Max="29">ID2</Capability>
+  <Capability Min="30" Max="39">ID3</Capability>
+  <Capability Min="40" Max="49">ID4</Capability>
+  <Capability Min="50" Max="59">ID5</Capability>
+  <Capability Min="60" Max="69">ID6</Capability>
+  <Capability Min="70" Max="79">ID7</Capability>
+  <Capability Min="80" Max="89">ID8</Capability>
+  <Capability Min="90" Max="99">ID9</Capability>
+  <Capability Min="100" Max="109">ID10</Capability>
+  <Capability Min="110" Max="119">ID11</Capability>
+  <Capability Min="120" Max="129">ID12</Capability>
+  <Capability Min="130" Max="139">ID13</Capability>
+  <Capability Min="140" Max="149">ID14</Capability>
+  <Capability Min="150" Max="159">ID15</Capability>
+  <Capability Min="160" Max="169">ID16</Capability>
+  <Capability Min="170" Max="179">ID17</Capability>
+  <Capability Min="180" Max="189">ID18</Capability>
+  <Capability Min="190" Max="199">ID19</Capability>
+  <Capability Min="200" Max="209">ID20</Capability>
+  <Capability Min="210" Max="210">ID21</Capability>
+  <Capability Min="211" Max="211">ID22</Capability>
+  <Capability Min="212" Max="212">ID23</Capability>
+  <Capability Min="213" Max="213">ID24</Capability>
+  <Capability Min="214" Max="214">ID25</Capability>
+  <Capability Min="215" Max="215">ID26</Capability>
+  <Capability Min="216" Max="216">ID27</Capability>
+  <Capability Min="217" Max="217">ID28</Capability>
+  <Capability Min="218" Max="218">ID29</Capability>
+  <Capability Min="219" Max="219">ID30</Capability>
+  <Capability Min="220" Max="220">ID31</Capability>
+  <Capability Min="221" Max="221">ID32</Capability>
+  <Capability Min="222" Max="222">ID33</Capability>
+  <Capability Min="223" Max="223">ID34</Capability>
+  <Capability Min="224" Max="224">ID35</Capability>
+  <Capability Min="225" Max="225">ID36</Capability>
+  <Capability Min="226" Max="226">ID37</Capability>
+  <Capability Min="227" Max="227">ID38</Capability>
+  <Capability Min="228" Max="228">ID39</Capability>
+  <Capability Min="229" Max="229">ID40</Capability>
+  <Capability Min="230" Max="230">ID41</Capability>
+  <Capability Min="231" Max="231">ID42</Capability>
+  <Capability Min="232" Max="232">ID43</Capability>
+  <Capability Min="233" Max="233">ID44</Capability>
+  <Capability Min="234" Max="234">ID45</Capability>
+  <Capability Min="235" Max="235">ID46</Capability>
+  <Capability Min="236" Max="236">ID47</Capability>
+  <Capability Min="237" Max="237">ID48</Capability>
+  <Capability Min="238" Max="238">ID49</Capability>
+  <Capability Min="239" Max="239">ID50</Capability>
+  <Capability Min="240" Max="240">ID51</Capability>
+  <Capability Min="241" Max="241">ID52</Capability>
+  <Capability Min="242" Max="242">ID53</Capability>
+  <Capability Min="243" Max="243">ID54</Capability>
+  <Capability Min="244" Max="244">ID55</Capability>
+  <Capability Min="245" Max="245">ID56</Capability>
+  <Capability Min="246" Max="246">ID57</Capability>
+  <Capability Min="247" Max="247">ID58</Capability>
+  <Capability Min="248" Max="248">ID59</Capability>
+  <Capability Min="249" Max="249">ID60</Capability>
+  <Capability Min="250" Max="250">ID61</Capability>
+  <Capability Min="251" Max="251">ID62</Capability>
+  <Capability Min="252" Max="252">ID63</Capability>
+  <Capability Min="253" Max="253">ID64</Capability>
+  <Capability Min="254" Max="254">ID65</Capability>
+  <Capability Min="255" Max="255">ID66</Capability>
+ </Channel>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Colour selection</Channel>
+  <Channel Number="1">Zoom</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Saturation</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Hue</Channel>
+  <Channel Number="3">Zoom</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Strobe Effect</Channel>
+  <Channel Number="6">Zoom</Channel>
+  <Channel Number="7">Motor speed</Channel>
+ </Mode>
+ <Mode Name="17 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">None</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Red fine</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Green fine</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">Blue fine</Channel>
+  <Channel Number="8">White</Channel>
+  <Channel Number="9">White fine</Channel>
+  <Channel Number="10">Dimmer curves with afterglow effect</Channel>
+  <Channel Number="11">Strobe Effect</Channel>
+  <Channel Number="12">Zoom</Channel>
+  <Channel Number="13">Motor speed</Channel>
+  <Channel Number="14">Automatic shows</Channel>
+  <Channel Number="15">Auto programme running speed</Channel>
+  <Channel Number="16">Motor Reset</Channel>
+ </Mode>
+ <Mode Name="19 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">None</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Red fine</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Green fine</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">Blue fine</Channel>
+  <Channel Number="8">White</Channel>
+  <Channel Number="9">White fine</Channel>
+  <Channel Number="10">Dimmer curves with afterglow effect</Channel>
+  <Channel Number="11">Colour macros 36 colours</Channel>
+  <Channel Number="12">Strobe Effect</Channel>
+  <Channel Number="13">Zoom</Channel>
+  <Channel Number="14">Motor speed</Channel>
+  <Channel Number="15">Device ID</Channel>
+  <Channel Number="16">Automatic shows</Channel>
+  <Channel Number="17">Auto programme running speed</Channel>
+  <Channel Number="18">Motor Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5" Width="295" Height="189" Depth="369"/>
+  <Lens Name="Other" DegreesMin="8" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="150" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

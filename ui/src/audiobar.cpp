@@ -191,7 +191,7 @@ void AudioBar::checkWidgetFunctionality()
     else if (m_widget->type() == VCWidget::SliderWidget)
     {
         VCSlider *slider = (VCSlider *)m_widget;
-        slider->setSliderValue(m_value);
+        slider->setSliderValue(m_value, true, true);
     }
     else if (m_widget->type() == VCWidget::SpeedDialWidget)
     {
@@ -270,7 +270,16 @@ bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
             break;
             case AudioBar::DMXBar:
             {
-                root.readNextStartElement();
+                QXmlStreamReader::TokenType tType = root.readNext();
+
+                if (tType == QXmlStreamReader::EndElement)
+                {
+                    root.readNext();
+                    return true;
+                }
+
+                if (tType == QXmlStreamReader::Characters)
+                    root.readNext();
 
                 if (root.name() == KXMLQLCAudioBarDMXChannels)
                 {

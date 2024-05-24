@@ -28,6 +28,7 @@
 #include <QGradient>
 #include <QSettings>
 #include <QComboBox>
+#include <QLineEdit>
 #include <QSpinBox>
 #include <QLabel>
 #include <QTimer>
@@ -193,8 +194,8 @@ void RGBMatrixEditor::init()
             this, SLOT(slotSaveToSequenceClicked()));
     connect(m_shapeButton, SIGNAL(toggled(bool)),
             this, SLOT(slotShapeToggle(bool)));
-    connect(m_patternCombo, SIGNAL(activated(const QString&)),
-            this, SLOT(slotPatternActivated(const QString&)));
+    connect(m_patternCombo, SIGNAL(activated(int)),
+            this, SLOT(slotPatternActivated(int)));
     connect(m_fixtureGroupCombo, SIGNAL(activated(int)),
             this, SLOT(slotFixtureGroupActivated(int)));
     connect(m_blendModeCombo, SIGNAL(activated(int)),
@@ -211,14 +212,14 @@ void RGBMatrixEditor::init()
             this, SLOT(slotTextEdited(const QString&)));
     connect(m_fontButton, SIGNAL(clicked()),
             this, SLOT(slotFontButtonClicked()));
-    connect(m_animationCombo, SIGNAL(activated(const QString&)),
-            this, SLOT(slotAnimationActivated(const QString&)));
+    connect(m_animationCombo, SIGNAL(activated(int)),
+            this, SLOT(slotAnimationActivated(int)));
     connect(m_imageEdit, SIGNAL(editingFinished()),
             this, SLOT(slotImageEdited()));
     connect(m_imageButton, SIGNAL(clicked()),
             this, SLOT(slotImageButtonClicked()));
-    connect(m_imageAnimationCombo, SIGNAL(activated(const QString&)),
-            this, SLOT(slotImageAnimationActivated(const QString&)));
+    connect(m_imageAnimationCombo, SIGNAL(activated(int)),
+            this, SLOT(slotImageAnimationActivated(int)));
     connect(m_xOffsetSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotOffsetSpinChanged()));
     connect(m_yOffsetSpin, SIGNAL(valueChanged(int)),
@@ -304,7 +305,6 @@ void RGBMatrixEditor::fillImageAnimationCombo()
 
 void RGBMatrixEditor::updateExtraOptions()
 {
-
     resetProperties(m_propertiesLayout->layout());
     m_propertiesGroup->hide();
 
@@ -334,7 +334,7 @@ void RGBMatrixEditor::updateExtraOptions()
         m_imageGroup->show();
         m_offsetGroup->show();
 
-        RGBImage* image = static_cast<RGBImage*> (m_matrix->algorithm());
+        RGBImage *image = static_cast<RGBImage*> (m_matrix->algorithm());
         Q_ASSERT(image != NULL);
         m_imageEdit->setText(image->filename());
 
@@ -352,7 +352,7 @@ void RGBMatrixEditor::updateExtraOptions()
         m_offsetGroup->show();
         m_imageGroup->hide();
 
-        RGBText* text = static_cast<RGBText*> (m_matrix->algorithm());
+        RGBText *text = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(text != NULL);
         m_textEdit->setText(text->text());
 
@@ -509,9 +509,7 @@ void RGBMatrixEditor::displayProperties(RGBScript *script)
                     {
                         pValue = script->property(prop.m_name);
                         if (!pValue.isEmpty())
-                        {
                             propCombo->setCurrentText(pValue);
-                        }
                     }
                 }
                 gridRowIdx++;
@@ -537,6 +535,57 @@ void RGBMatrixEditor::displayProperties(RGBScript *script)
                         pValue = script->property(prop.m_name);
                         if (!pValue.isEmpty())
                             propSpin->setValue(pValue.toInt());
+                    }
+                }
+                gridRowIdx++;
+            }
+            break;
+            case RGBScriptProperty::Float:
+            {
+                QLabel *propLabel = new QLabel(prop.m_displayName);
+                m_propertiesLayout->addWidget(propLabel, gridRowIdx, 0);
+                QDoubleSpinBox *propSpin = new QDoubleSpinBox(this);
+                propSpin->setDecimals(3);
+                propSpin->setRange(-1000000, 1000000);
+                propSpin->setProperty("pName", prop.m_name);
+                connect(propSpin, SIGNAL(valueChanged(double)),
+                        this, SLOT(slotPropertyDoubleSpinChanged(double)));
+                m_propertiesLayout->addWidget(propSpin, gridRowIdx, 1);
+                if (m_matrix != NULL)
+                {
+                    QString pValue = m_matrix->property(prop.m_name);
+                    if (!pValue.isEmpty())
+                        propSpin->setValue(pValue.toDouble());
+                    else
+                    {
+                        pValue = script->property(prop.m_name);
+                        if (!pValue.isEmpty())
+                            propSpin->setValue(pValue.toDouble());
+                    }
+                }
+                gridRowIdx++;
+            }
+            break;
+            case RGBScriptProperty::String:
+            {
+                QLabel *propLabel = new QLabel(prop.m_displayName);
+                m_propertiesLayout->addWidget(propLabel, gridRowIdx, 0);
+                QLineEdit *propEdit = new QLineEdit(this);
+                propEdit->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
+                propEdit->setProperty("pName", prop.m_name);
+                connect(propEdit, SIGNAL(textEdited(QString)),
+                        this, SLOT(slotPropertyEditChanged(QString)));
+                m_propertiesLayout->addWidget(propEdit, gridRowIdx, 1);
+                if (m_matrix != NULL)
+                {
+                    QString pValue = m_matrix->property(prop.m_name);
+                    if (!pValue.isEmpty())
+                        propEdit->setText(pValue);
+                    else
+                    {
+                        pValue = script->property(prop.m_name);
+                        if (!pValue.isEmpty())
+                            propEdit->setText(pValue);
                     }
                 }
                 gridRowIdx++;
@@ -672,9 +721,10 @@ void RGBMatrixEditor::slotDialDestroyed(QObject *)
     m_speedDialButton->setChecked(false);
 }
 
-void RGBMatrixEditor::slotPatternActivated(const QString& text)
+void RGBMatrixEditor::slotPatternActivated(int patternIndex)
 {
-    RGBAlgorithm* algo = RGBAlgorithm::algorithm(m_doc, text);
+    QString algoName = m_patternCombo->itemText(patternIndex);
+    RGBAlgorithm *algo = RGBAlgorithm::algorithm(m_doc, algoName);
     if (algo != NULL)
         algo->setColors(m_matrix->startColor(), m_matrix->endColor());
     m_matrix->setAlgorithm(algo);
@@ -759,7 +809,7 @@ void RGBMatrixEditor::slotTextEdited(const QString& text)
 {
     if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Text)
     {
-        RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
+        RGBText *algo = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
         {
             QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
@@ -773,7 +823,7 @@ void RGBMatrixEditor::slotFontButtonClicked()
 {
     if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Text)
     {
-        RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
+        RGBText *algo = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
 
         bool ok = false;
@@ -789,14 +839,15 @@ void RGBMatrixEditor::slotFontButtonClicked()
     }
 }
 
-void RGBMatrixEditor::slotAnimationActivated(const QString& text)
+void RGBMatrixEditor::slotAnimationActivated(int index)
 {
     if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Text)
     {
-        RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
+        RGBText *algo = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
         {
             QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
+            QString text = m_animationCombo->itemText(index);
             algo->setAnimationStyle(RGBText::stringToAnimationStyle(text));
         }
         slotRestartTest();
@@ -807,7 +858,7 @@ void RGBMatrixEditor::slotImageEdited()
 {
     if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Image)
     {
-        RGBImage* algo = static_cast<RGBImage*> (m_matrix->algorithm());
+        RGBImage *algo = static_cast<RGBImage*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
         {
             QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
@@ -821,7 +872,7 @@ void RGBMatrixEditor::slotImageButtonClicked()
 {
     if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Image)
     {
-        RGBImage* algo = static_cast<RGBImage*> (m_matrix->algorithm());
+        RGBImage *algo = static_cast<RGBImage*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
 
         QString path = algo->filename();
@@ -841,14 +892,15 @@ void RGBMatrixEditor::slotImageButtonClicked()
     }
 }
 
-void RGBMatrixEditor::slotImageAnimationActivated(const QString& text)
+void RGBMatrixEditor::slotImageAnimationActivated(int index)
 {
     if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Image)
     {
-        RGBImage* algo = static_cast<RGBImage*> (m_matrix->algorithm());
+        RGBImage *algo = static_cast<RGBImage*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
         {
             QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
+            QString text = m_imageAnimationCombo->itemText(index);
             algo->setAnimationStyle(RGBImage::stringToAnimationStyle(text));
         }
         slotRestartTest();
@@ -859,7 +911,7 @@ void RGBMatrixEditor::slotOffsetSpinChanged()
 {
     if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Text)
     {
-        RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
+        RGBText *algo = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
         {
             QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
@@ -871,7 +923,7 @@ void RGBMatrixEditor::slotOffsetSpinChanged()
 
     if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Image)
     {
-        RGBImage* algo = static_cast<RGBImage*> (m_matrix->algorithm());
+        RGBImage *algo = static_cast<RGBImage*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
         {
             QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
@@ -1237,7 +1289,7 @@ void RGBMatrixEditor::slotPropertyComboChanged(QString value)
     if (m_matrix->algorithm() == NULL ||
         m_matrix->algorithm()->type() == RGBAlgorithm::Script)
     {
-        QComboBox *combo = (QComboBox *)sender();
+        QComboBox *combo = qobject_cast<QComboBox *>(sender());
         QString pName = combo->property("pName").toString();
         m_matrix->setProperty(pName, value);
     }
@@ -1249,9 +1301,33 @@ void RGBMatrixEditor::slotPropertySpinChanged(int value)
     if (m_matrix->algorithm() == NULL ||
         m_matrix->algorithm()->type() == RGBAlgorithm::Script)
     {
-        QSpinBox *spin = (QSpinBox *)sender();
+        QSpinBox *spin = qobject_cast<QSpinBox *>(sender());
         QString pName = spin->property("pName").toString();
         m_matrix->setProperty(pName, QString::number(value));
+    }
+}
+
+void RGBMatrixEditor::slotPropertyDoubleSpinChanged(double value)
+{
+    qDebug() << "Property float changed to" << value;
+    if (m_matrix->algorithm() == NULL ||
+        m_matrix->algorithm()->type() == RGBAlgorithm::Script)
+    {
+        QDoubleSpinBox *spin = qobject_cast<QDoubleSpinBox *>(sender());
+        QString pName = spin->property("pName").toString();
+        m_matrix->setProperty(pName, QString::number(value));
+    }
+}
+
+void RGBMatrixEditor::slotPropertyEditChanged(QString text)
+{
+    qDebug() << "Property string changed to" << text;
+    if (m_matrix->algorithm() == NULL ||
+        m_matrix->algorithm()->type() == RGBAlgorithm::Script)
+    {
+        QLineEdit *edit = qobject_cast<QLineEdit *>(sender());
+        QString pName = edit->property("pName").toString();
+        m_matrix->setProperty(pName, text);
     }
 }
 

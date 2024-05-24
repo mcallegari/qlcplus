@@ -228,6 +228,13 @@ VCWidget* VCXYPad::createCopy(VCWidget* parent)
         xypad = NULL;
     }
 
+    for (QHash<QWidget*, VCXYPadPreset*>::iterator it = m_presets.begin();
+            it != m_presets.end(); ++it)
+    {
+        VCXYPadPreset *preset = it.value();
+        xypad->addPreset(*preset);
+    }
+
     return xypad;
 }
 
@@ -683,6 +690,16 @@ QList<VCXYPadPreset *> VCXYPad::presets() const
     return presets;
 }
 
+QMap<quint32,QString> VCXYPad::presetsMap() const
+{
+    QMap<quint32,QString> map;
+
+    foreach (VCXYPadPreset *control, m_presets.values())
+        map.insert(control->m_id, VCXYPadPreset::typeToString(control->m_type));
+
+    return map;
+}
+
 void VCXYPad::slotPresetClicked(bool checked)
 {
     if (mode() == Doc::Design)
@@ -736,7 +753,7 @@ void VCXYPad::slotPresetClicked(bool checked)
             {
                 cBtn->setChecked(false);
                 if (cPr->m_inputSource.isNull() == false)
-                    sendFeedback(cPr->m_inputSource->lowerValue(), cPr->m_inputSource);
+                    sendFeedback(cPr->m_inputSource->feedbackValue(QLCInputFeedback::LowerValue), cPr->m_inputSource);
             }
         }
         else if (cPr->m_type == VCXYPadPreset::EFX ||
@@ -746,7 +763,7 @@ void VCXYPad::slotPresetClicked(bool checked)
             {
                 cBtn->setChecked(false);
                 if (cPr->m_inputSource.isNull() == false)
-                    sendFeedback(cPr->m_inputSource->lowerValue(), cPr->m_inputSource);
+                    sendFeedback(cPr->m_inputSource->feedbackValue(QLCInputFeedback::LowerValue), cPr->m_inputSource);
             }
         }
         else
@@ -755,12 +772,12 @@ void VCXYPad::slotPresetClicked(bool checked)
             {
                 cBtn->setDown(false);
                 if (cPr->m_inputSource.isNull() == false)
-                    sendFeedback(cPr->m_inputSource->lowerValue(), cPr->m_inputSource);
+                    sendFeedback(cPr->m_inputSource->feedbackValue(QLCInputFeedback::LowerValue), cPr->m_inputSource);
             }
         }
         cBtn->blockSignals(false);
         if (cPr->m_inputSource.isNull() == false)
-            sendFeedback(cPr->m_inputSource->lowerValue(), cPr->m_inputSource);
+            sendFeedback(cPr->m_inputSource->feedbackValue(QLCInputFeedback::LowerValue), cPr->m_inputSource);
     }
 
     if (preset->m_type == VCXYPadPreset::EFX)
@@ -801,7 +818,7 @@ void VCXYPad::slotPresetClicked(bool checked)
         connect(m_efx, SIGNAL(durationChanged(uint)), this, SLOT(slotEFXDurationChanged(uint)));
 
         if (preset->m_inputSource.isNull() == false)
-            sendFeedback(preset->m_inputSource->upperValue(), preset->m_inputSource);
+            sendFeedback(preset->m_inputSource->feedbackValue(QLCInputFeedback::UpperValue), preset->m_inputSource);
     }
     else if (preset->m_type == VCXYPadPreset::Scene)
     {
@@ -843,7 +860,7 @@ void VCXYPad::slotPresetClicked(bool checked)
         m_scene->start(m_doc->masterTimer(), functionParent());
 
         if (preset->m_inputSource.isNull() == false)
-            sendFeedback(preset->m_inputSource->upperValue(), preset->m_inputSource);
+            sendFeedback(preset->m_inputSource->feedbackValue(QLCInputFeedback::UpperValue), preset->m_inputSource);
     }
     else if (preset->m_type == VCXYPadPreset::Position)
     {
@@ -854,7 +871,7 @@ void VCXYPad::slotPresetClicked(bool checked)
         m_area->setPosition(preset->m_dmxPos);
         m_area->repaint();
         if (preset->m_inputSource.isNull() == false)
-            sendFeedback(preset->m_inputSource->upperValue(), preset->m_inputSource);
+            sendFeedback(preset->m_inputSource->feedbackValue(QLCInputFeedback::UpperValue), preset->m_inputSource);
         btn->blockSignals(true);
         btn->setDown(true);
         btn->blockSignals(false);

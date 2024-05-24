@@ -18,8 +18,11 @@
 */
 
 #include <QNetworkInterface>
+#include <sys/socket.h>
+#include <arpa/inet.h>
 #include <QTextStream>
 #include <QStringList>
+#include <QProcess>
 #include <QDebug>
 #include <QFile>
 
@@ -38,7 +41,9 @@ WebAccessNetwork::WebAccessNetwork(QObject *parent) :
 
 void WebAccessNetwork::resetInterface(InterfaceInfo *iface)
 {
-    iface->name = "";
+    iface->devName = "";
+    iface->connName = "";
+    iface->connUUID = "";
     iface->isStatic = false;
     iface->isWireless = false;
     iface->address = "";
@@ -54,12 +59,12 @@ void WebAccessNetwork::resetInterface(InterfaceInfo *iface)
 
 void WebAccessNetwork::appendInterface(InterfaceInfo iface)
 {
-    if (iface.name.contains("wlan") || iface.name.contains("ra"))
+    if (iface.devName.contains("wlan") || iface.devName.contains("ra"))
         iface.isWireless = true;
 
     for (int i = 0; i < m_interfaces.count(); i++)
     {
-        if (m_interfaces.at(i).name == iface.name)
+        if (m_interfaces.at(i).devName == iface.devName)
         {
             m_interfaces[i].isStatic = iface.isStatic;
             m_interfaces[i].isWireless = iface.isWireless;
@@ -93,215 +98,155 @@ QString WebAccessNetwork::getInterfaceHTML(InterfaceInfo *iface)
 {
     QString dhcpChk = iface->isStatic ? QString() : QString("checked");
     QString staticChk = iface->isStatic ? QString("checked") : QString();
-    QString visibility = iface->isStatic ? QString("visible") : QString("hidden");
+    QString editable = iface->isStatic ? QString("") : QString("disabled");
     QString html = "<div style=\"margin: 20px 7% 20px 7%; width: 86%;\" >\n";
     html += "<div style=\"font-family: verdana,arial,sans-serif; padding: 5px 7px; font-size:20px; "
             "color:#CCCCCC; background:#222; border-radius: 7px;\">";
 
-    html += tr("Network interface: ") + iface->name + "<br>\n";
+    html += tr("Network interface: ") + iface->devName + "<br>\n";
 
     html += "<form style=\"margin: 5px 15px; color:#FFF;\">\n";
     if (iface->isWireless)
     {
         html += tr("Access point name (SSID): ") + "<input type=\"text\" id=\"" +
-                iface->name + "SSID\" size=\"15\" value=\"" + iface->ssid + "\"><br>\n";
+                iface->devName + "SSID\" size=\"15\" value=\"" + iface->ssid + "\"><br>\n";
         html += tr("WPA-PSK Password: ") + "<input type=\"text\" id=\"" +
-                iface->name + "WPAPSK\" size=\"15\" value=\"" + iface->wpaPass + "\"><br>\n";
+                iface->devName + "WPAPSK\" size=\"15\" value=\"" + iface->wpaPass + "\"><br>\n";
     }
     /** IP mode radio buttons */
-    html += "<input type=\"radio\" name=" + iface->name + "NetGroup onclick=\"showStatic('" +
-            iface->name + "', false);\" value=\"dhcp\" " + dhcpChk + ">" + tr("Dynamic (DHCP)") + "<br>\n";
-    html += "<input type=\"radio\" name=" + iface->name + "NetGroup onclick=\"showStatic('" +
-            iface->name + "', true);\" value=\"static\" " + staticChk + ">" + tr("Static") + "<br>\n";
+    html += "<input type=\"radio\" name=" + iface->devName + "NetGroup onclick=\"showStatic('" +
+            iface->devName + "', false);\" value=\"dhcp\" " + dhcpChk + ">" + tr("Dynamic (DHCP)") + "<br>\n";
+    html += "<input type=\"radio\" name=" + iface->devName + "NetGroup onclick=\"showStatic('" +
+            iface->devName + "', true);\" value=\"static\" " + staticChk + ">" + tr("Static") + "<br>\n";
 
     /** Static IP fields */
-    html += "<div id=\"" + iface->name + "StaticFields\" style=\"padding: 5px 30px; visibility:" + visibility + ";\">\n";
+    html += "<div id=\"" + iface->devName + "StaticFields\" style=\"padding: 5px 30px;\">\n";
     html += tr("IP Address: ") + "<input type=\"text\" id=\"" +
-            iface->name + "IPaddr\" size=\"15\" value=\"" + iface->address + "\"><br>\n";
+            iface->devName + "IPaddr\" size=\"15\" value=\"" + iface->address + "\" " + editable + "><br>\n";
     html += tr("Netmask: ") + "<input type=\"text\" id=\"" +
-            iface->name + "Netmask\" size=\"15\" value=\"" + iface->netmask + "\"><br>\n";
+            iface->devName + "Netmask\" size=\"15\" value=\"" + iface->netmask + "\" " + editable + "><br>\n";
     html += tr("Gateway: ") + "<input type=\"text\" size=\"15\" id=\"" +
-            iface->name + "Gateway\" value=\"" + iface->gateway + "\"><br>\n";
+            iface->devName + "Gateway\" value=\"" + iface->gateway + "\" " + editable + "><br>\n";
     html += "</div>\n";
-    html += "<input type=\"button\" value=\"" + tr("Apply changes") + "\" onclick=\"applyParams('" + iface->name + "');\" >\n";
+    html += "<input type=\"button\" value=\"" + tr("Apply changes") + "\" onclick=\"applyParams('" + iface->devName + "');\" >\n";
     html += "</form></div></div>";
 
     return html;
 }
 
-QString WebAccessNetwork::getNetworkHTML()
+QStringList WebAccessNetwork::getNmcliOutput(QStringList args, bool verbose)
 {
-    /* The complete picture of the current network interfaces status
-     *  come from several places:
-     * 1- Qt network interfaces
-     * 2- /etc/network/interfaces
-     * 3- /etc/dhcpcd.conf
-     * 4- /etc/wpa_supplicant/wpa_supplicant.conf
-     *
-     * It is necessary to parse all of them and, only at the end,
-     * produce the HTML code to be sent to a web browser
-     */
+    QStringList outputLines;
+    QProcess process;
 
-    QString html = "";
-    m_interfaces.clear();
+    qDebug() << "Executing command line: nmcli" << args.join(' ');
+    process.start("nmcli", args);
+
+    if (process.waitForFinished())
+    {
+        process.setReadChannel(QProcess::StandardOutput);
+        while (process.canReadLine())
+        {
+            QString line = process.readLine().simplified();
+            if (verbose)
+                qDebug() << "Output::" << line;
+
+            outputLines << line;
+        }
+    }
+
+    return outputLines;
+}
+
+void WebAccessNetwork::refreshConnectionsList()
+{
     InterfaceInfo currInterface;
+
+    m_interfaces.clear();
     resetInterface(&currInterface);
 
-    // 1- gather the active network interface names with Qt
-    QStringList systemDevs;
-    foreach (QNetworkInterface interface, QNetworkInterface::allInterfaces())
+    // execute "nmcli -t device status" to list all avilable devices
+    QStringList devStatusOutput = getNmcliOutput(QStringList() << "-t" << "device" << "status");
+
+    foreach (QString dLine, devStatusOutput)
     {
-        qDebug() << "Qt detected interface:" << interface.name();
-        if (interface.name() != "lo")
-            systemDevs.append(interface.name());
-    }
+        QStringList devTokens = dLine.split(':');
+        qDebug() << "output " << devTokens.at(0) << devTokens.at(3);
 
-    // 2- parse the interfaces file
-    QFile interfacesFile(IFACES_SYSTEM_FILE);
-    if (interfacesFile.open(QIODevice::ReadOnly | QIODevice::Text) == false)
-        return "";
+        if (!currInterface.devName.isEmpty())
+            appendInterface(currInterface);
 
-    QTextStream ifacesQTS(&interfacesFile);
-    while (!ifacesQTS.atEnd())
-    {
-        QString line = ifacesQTS.readLine();
-        line = line.simplified();
-        // skip comments
-        if (line.startsWith('#'))
-            continue;
-
-        QStringList ifaceRow = line.split(" ");
-        if (ifaceRow.count() == 0)
-            continue;
-
-        QString keyword = ifaceRow.at(0);
-        if (keyword == "iface")
-        {
-            if (currInterface.name.isEmpty() == false)
-            {
-                appendInterface(currInterface);
-                resetInterface(&currInterface);
-            }
-
-            if (ifaceRow.count() < 4)
-                continue;
-
-            currInterface.name = ifaceRow.at(1);
-            if (systemDevs.contains(currInterface.name))
-                currInterface.enabled = true;
-
-            if (ifaceRow.at(3) == "static")
-                currInterface.isStatic = true;
-        }
-        else if (keyword == "wpa-conf")
-        {
-            currInterface.wpaConfFile = ifaceRow.at(1);
-            parseWPAConfFile(&currInterface);
-        }
-        else if (keyword == "address")
-            currInterface.address = ifaceRow.at(1);
-        else if (keyword == "netmask")
-            currInterface.netmask = ifaceRow.at(1);
-        else if (keyword == "gateway")
-            currInterface.gateway = ifaceRow.at(1);
-        else if (keyword == "wpa-ssid")
-            currInterface.ssid = ifaceRow.at(1);
-        else if (keyword == "wpa-psk")
-            currInterface.wpaPass = ifaceRow.at(1);
-    }
-
-    if (currInterface.name.isEmpty() == false)
-    {
-        appendInterface(currInterface);
         resetInterface(&currInterface);
-    }
+        currInterface.enabled = true;
+        currInterface.devName = devTokens.at(0);
+        currInterface.connName = devTokens.at(3);
 
-    interfacesFile.close();
-
-    // 3- parse the dhcpcd.conf file
-    bool qlcplusSectionFound = false;
-    QFile dhcpcdFile(DHCPCD_CONF_FILE);
-    if (dhcpcdFile.open(QIODevice::ReadOnly | QIODevice::Text) == false)
-        return "";
-
-    m_dhcpcdConfCache.clear();
-
-    QTextStream dhcpQTS(&dhcpcdFile);
-    while (!dhcpQTS.atEnd())
-    {
-        QString line = dhcpQTS.readLine();
-        line = line.simplified();
-        if (line.contains("QLC+"))
-            qlcplusSectionFound = true;
-
-        // cache the original file BEFORE the QLC+ section
-        if (qlcplusSectionFound == false)
+        // skip loopback and disconnected interfaces
+        if (currInterface.devName == "lo" || currInterface.devName.contains("p2p"))
         {
-            m_dhcpcdConfCache.append(line);
+            currInterface.devName = "";
             continue;
         }
 
-        line = line.simplified();
-
-        QStringList ifaceRow = line.split(" ");
-        if (ifaceRow.count() < 2)
+        if (currInterface.connName.isEmpty())
             continue;
 
-        QString keyword = ifaceRow.at(0);
-        if (keyword == "interface")
+        // run "nmcli -t con show CONN_NAME" to retrieve everything about a connection
+        QStringList conShowOuput = getNmcliOutput(QStringList() << "-t" << "con" << "show" << currInterface.connName);
+        foreach (QString cLine, conShowOuput)
         {
-            if (currInterface.name.isEmpty() == false)
+            QStringList params = cLine.split(':');
+            if (params.at(0) == "connection.uuid")
             {
-                appendInterface(currInterface);
-                resetInterface(&currInterface);
+                currInterface.connUUID = params.at(1);
             }
-
-            currInterface.name = ifaceRow.at(1);
-            if (systemDevs.contains(currInterface.name))
-                currInterface.enabled = true;
-        }
-        else if (keyword == "static")
-        {
-            QStringList params = ifaceRow.at(1).split("=");
-            if (params.count() < 2)
-                continue;
-
-            currInterface.isStatic = true;
-
-            QString paramKey = params.at(0);
-
-            if (paramKey == "ip_address")
+            else if (params.at(0) == "ipv4.method")
             {
-                QStringList ipAddrVals = params.at(1).split("/");
-                if (ipAddrVals.count() < 2)
-                    continue;
-                currInterface.address = ipAddrVals.at(0);
-                currInterface.netmask = netmaskToString(ipAddrVals.at(1).toInt());
+                currInterface.isStatic = params.at(1) == "auto" ? false : true;
             }
-            else if (paramKey == "routers")
+            else if (params.at(0).startsWith("IP4.ADDRESS"))
+            {
+                QStringList ipAddrTokens = params.at(1).split("/");
+                if (ipAddrTokens.count() == 2)
+                {
+                    currInterface.address = ipAddrTokens.at(0);
+                    unsigned long mask = (0xFFFFFFFF << (32 - ipAddrTokens.at(1).toUInt())) & 0xFFFFFFFF;
+                    currInterface.netmask = QString::number(mask >> 24) + '.' +
+                                            QString::number((mask >> 16) & 0xFF) + '.' +
+                                            QString::number((mask >> 8) & 0xFF) + '.' +
+                                            QString::number(mask & 0xFF);
+                }
+            }
+            else if (params.at(0).startsWith("IP4.GATEWAY"))
             {
                 currInterface.gateway = params.at(1);
             }
-            else if (paramKey == "domain_name_servers")
+            else if (params.at(0).startsWith("IP4.DNS"))
             {
-                currInterface.dns1 = params.at(1);
-                if (ifaceRow.count() == 3)
-                    currInterface.dns2 = ifaceRow.at(2);
+                if (currInterface.dns1.isEmpty())
+                    currInterface.dns1 = params.at(1);
+                else
+                    currInterface.dns2 = params.at(1);
+            }
+            else if (params.at(0) == "802-11-wireless.ssid")
+            {
+                currInterface.ssid = params.at(1);
             }
         }
     }
+}
 
-    if (currInterface.name.isEmpty() == false)
-    {
-        appendInterface(currInterface);
-        resetInterface(&currInterface);
-    }
+QString WebAccessNetwork::getNetworkHTML()
+{
+    QString html = "";
+
+    refreshConnectionsList();
 
     foreach (InterfaceInfo info, m_interfaces)
     {
         if (info.enabled)
             html += getInterfaceHTML(&info);
-        qDebug() << "Interface:" << info.name << "isstatic:" << info.isStatic << "address:" << info.address
+        qDebug() << "Interface:" << info.devName << "isStatic:" << info.isStatic << "address:" << info.address
                  << "netmask:" << info.netmask << "gateway:" << info.gateway;
     }
 
@@ -315,11 +260,10 @@ QString WebAccessNetwork::getHTML()
 
     QString m_CSScode = "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"common.css\">\n";
     m_CSScode += "<style type=\"text/css\" media=\"screen\">\n"
-                 "html { height: 100%; background-color: #111; }\n"
+                 "html { height: 100%; background-color: #222; }\n"
                  "body {\n"
                  " margin: 0px;\n"
-                 " background-image: linear-gradient(to bottom, #45484d 0%, #111 100%);\n"
-                 " background-image: -webkit-linear-gradient(top, #45484d 0%, #111 100%);\n"
+                 " background: #222;\n"
                  "}\n"
                  "</style>\n";
 
@@ -354,233 +298,79 @@ QString WebAccessNetwork::getHTML()
     return str;
 }
 
-bool WebAccessNetwork::updateNetworkFile(QStringList cmdList)
+bool WebAccessNetwork::updateNetworkSettings(QStringList cmdList)
 {
     for (int i = 0; i < m_interfaces.count(); i++)
     {
-        if (m_interfaces.at(i).name == cmdList.at(2))
+        if (m_interfaces.at(i).devName == cmdList.at(2))
         {
-            m_interfaces[i].enabled = true;
-            if (cmdList.at(3) == "static")
-                m_interfaces[i].isStatic = true;
-            else
-                m_interfaces[i].isStatic = false;
-            m_interfaces[i].address = cmdList.at(4);
-            m_interfaces[i].netmask = cmdList.at(5);
-            m_interfaces[i].gateway = cmdList.at(6);
-            if (m_interfaces[i].isWireless == true)
+            if (!m_interfaces[i].connName.isEmpty())
             {
-                m_interfaces[i].ssid = cmdList.at(7);
-                m_interfaces[i].wpaPass = cmdList.at(8);
+                // first off, delete the current connection profile
+                getNmcliOutput(QStringList() << "con" << "del" << m_interfaces[i].connName);
             }
-            return writeNetworkFile();
+
+            m_interfaces[i].enabled = true;
+            bool staticRequest = cmdList.at(3) == "static" ? true : false;
+            QString args = "con add con-name qlcplus" + m_interfaces[i].devName + " ifname " + m_interfaces[i].devName;
+
+            if (staticRequest)
+            {
+                // convert netmask to bitwise notation
+                uint32_t intNetMask;
+                uint32_t bitCount = 0;
+
+                if (inet_pton(AF_INET, cmdList.at(5).toUtf8().constData(), &intNetMask) == 0)
+                {
+                    qDebug() << "Invalid netmask";
+                    return false;
+                }
+
+                while (intNetMask > 0)
+                {
+                    intNetMask = intNetMask >> 1;
+                    bitCount++;
+                }
+
+                if (m_interfaces[i].isWireless)
+                    args = args + " type wifi ssid " + cmdList.at(7);
+                else
+                    args = args + " type ethernet";
+
+                args = args + " ip4 " + cmdList.at(4) + "/" + QString::number(bitCount) + " gw4 " + cmdList.at(6);
+            }
+            else // DHCP
+            {
+                if (m_interfaces[i].isWireless)
+                {
+                    //m_interfaces[i].ssid = cmdList.at(7);
+                    //m_interfaces[i].wpaPass = cmdList.at(8);
+                    args = args + " type wifi ssid " + cmdList.at(7);
+                }
+                else
+                {
+                    args += " type ethernet";
+                }
+            }
+
+            // add the new/updated connection profile
+            getNmcliOutput(args.split(" "));
+
+            // if a password is set, modify the just created connection
+            if (m_interfaces[i].isWireless && !cmdList.at(8).isEmpty())
+            {
+                args = "con mod qlcplus" + m_interfaces[i].devName + " wifi-sec.key-mgmt wpa-psk wifi-sec.psk " + cmdList.at(8);
+                getNmcliOutput(args.split(" "));
+            }
+
+            // finally, activate the connection
+            args = "con up qlcplus" + m_interfaces[i].devName;
+            getNmcliOutput(args.split(" "));
+
+            refreshConnectionsList();
+
+            return true;
         }
     }
     return false;
 }
-
-void WebAccessNetwork::parseWPAConfFile(InterfaceInfo *iface)
-{
-    bool inNetwork = false;
-
-    if (iface == NULL || iface->wpaConfFile.isEmpty())
-        return;
-
-    qDebug() << "Parsing WPA conf file" << iface->wpaConfFile;
-
-    QFile wpaConfFile(iface->wpaConfFile);
-    if (wpaConfFile.open(QIODevice::ReadOnly | QIODevice::Text) == false)
-        return;
-
-    QTextStream wpaConfQTS(&wpaConfFile);
-    while (!wpaConfQTS.atEnd())
-    {
-        QString line = wpaConfQTS.readLine();
-        line = line.simplified();
-
-        if (line.startsWith("network"))
-        {
-            inNetwork = true;
-            continue;
-        }
-
-        if (inNetwork)
-        {
-            if (line.contains("}"))
-            {
-                inNetwork = false;
-                continue;
-            }
-
-            QStringList tokens = line.split("=");
-            if (tokens.count() == 2)
-            {
-                QString param = tokens.at(0);
-                QString value = tokens.at(1);
-
-                //qDebug() << "Tokens:"<< param << value;
-
-                if (param == "ssid")
-                    iface->ssid = value.remove(QChar('"'));
-                else if (param == "psk")
-                    iface->wpaPass = value.remove(QChar('"'));
-            }
-        }
-
-    }
-
-    wpaConfFile.close();
-}
-
-bool WebAccessNetwork::writeNetworkFile()
-{
-    /* Here 3 things again:
-     * 1- the /etc/network/interfaces file is left untouched
-     * 2- /etc/dhcpcd.conf is written only if there are static IPs set
-     * 3- the wpa_supplicant.conf file(s) are written for each wireless adapter
-     */
-
-    bool dhcpcdCacheWritten = false;
-    QFile dhcpcdFile(DHCPCD_CONF_FILE);
-    if (dhcpcdFile.open(QIODevice::WriteOnly | QIODevice::Text) == false)
-        return false;
-
-    foreach (InterfaceInfo iface, m_interfaces)
-    {
-        if (iface.enabled == false)
-            continue;
-
-        if (iface.isStatic == true)
-        {
-            if (dhcpcdCacheWritten == false && m_dhcpcdConfCache.isEmpty() == false)
-            {
-                foreach (QString line, m_dhcpcdConfCache)
-                {
-                    dhcpcdFile.write(line.toLatin1());
-                    dhcpcdFile.write("\n");
-                }
-                dhcpcdFile.write("\n######### QLC+ parameters. Do not edit #########\n\n");
-                dhcpcdCacheWritten = true;
-            }
-            else
-                qDebug() << "[writeNetworkFile] ERROR. No dhcpcd cache found!";
-
-            dhcpcdFile.write((QString("interface %1\n").arg(iface.name)).toLatin1());
-            dhcpcdFile.write((QString("static ip_address=%1/%2\n").arg(iface.address).arg(stringToNetmask(iface.netmask))).toLatin1());
-            dhcpcdFile.write((QString("static routers=%1\n").arg(iface.gateway)).toLatin1());
-            if (iface.dns1.isEmpty() == false)
-                dhcpcdFile.write((QString("static domain_name_servers=%1\n\n").arg(iface.dns1)).toLatin1());
-            else
-                dhcpcdFile.write(QString("static domain_name_servers=127.0.0.1\n\n").toLatin1());
-        }
-
-        if (iface.isWireless)
-        {
-            QString wpaConfName = iface.wpaConfFile.isEmpty() ? WPA_SUPP_CONF_FILE : iface.wpaConfFile;
-            qDebug() << "[writeNetworkFile] Writing wpa conf file:" << wpaConfName;
-            QFile wpaConfFile(wpaConfName);
-            if (wpaConfFile.open(QIODevice::WriteOnly | QIODevice::Text) == false)
-            {
-                qDebug() << "[writeNetworkFile] Error opening file" << wpaConfName;
-                return false;
-            }
-
-            wpaConfFile.write(QString("ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev\n").toLatin1());
-            wpaConfFile.write(QString("update_config=1\n\n").toLatin1());
-            wpaConfFile.write(QString("network={\n").toLatin1());
-            wpaConfFile.write(QString("scan_ssid=1\n").toLatin1());
-            wpaConfFile.write((QString("ssid=\"%1\"\n").arg(iface.ssid)).toLatin1());
-            wpaConfFile.write((QString("psk=\"%1\"\n").arg(iface.wpaPass)).toLatin1());
-            wpaConfFile.write(QString("}\n").toLatin1());
-            wpaConfFile.close();
-        }
-    }
-
-    dhcpcdFile.close();
-
-    return true;
-}
-
-#if 0 // old Wheezy configuration
-bool WebAccessNetwork::writeNetworkFile()
-{
-    QFile netFile(IFACES_SYSTEM_FILE);
-    if (netFile.open(QIODevice::WriteOnly | QIODevice::Text) == false)
-        return false;
-
-    netFile.write(QString("auto lo\n").toLatin1());
-    netFile.write(QString("iface lo inet loopback\n").toLatin1());
-    netFile.write(QString("allow-hotplug eth0\n").toLatin1());
-
-    foreach (InterfaceInfo iface, m_interfaces)
-    {
-        if (iface.enabled == false)
-            continue;
-
-        if (iface.isWireless)
-            netFile.write((QString("auto %1\n").arg(iface.name)).toLatin1());
-
-        if (iface.isStatic == false)
-            netFile.write((QString("iface %1 inet dhcp\n").arg(iface.name)).toLatin1());
-        else
-        {
-            netFile.write((QString("iface %1 inet static\n").arg(iface.name)).toLatin1());
-            netFile.write((QString("  address %1\n").arg(iface.address)).toLatin1());
-            netFile.write((QString("  netmask %1\n").arg(iface.netmask)).toLatin1());
-            netFile.write((QString("  gateway %1\n").arg(iface.gateway)).toLatin1());
-        }
-        if (iface.isWireless)
-        {
-            if (iface.ssid.isEmpty() == false)
-                netFile.write((QString("  wpa-ssid %1\n").arg(iface.ssid)).toLatin1());
-            if (iface.wpaPass.isEmpty() == false)
-                netFile.write((QString("  wpa-psk %1\n").arg(iface.wpaPass)).toLatin1());
-        }
-    }
-
-    netFile.close();
-
-    return true;
-}
-#endif
-
-QString WebAccessNetwork::netmaskToString(int mask)
-{
-    QString nmString;
-
-    quint32 bitmask = 0;
-    for (int i = 0; i < mask; i++)
-        bitmask |= (1 << (31 - i));
-
-    for (int n = 0; n < 4; n++)
-    {
-        if (nmString.isEmpty() == false)
-            nmString.prepend(".");
-        nmString.prepend(QString::number((bitmask >> (8 * n)) & 0x00FF));
-    }
-    return nmString;
-}
-
-int WebAccessNetwork::stringToNetmask(QString mask)
-{
-    quint32 lMask = 0;
-    int nMask = 0;
-
-    QStringList nibbles = mask.split(".");
-    if (nibbles.count() != 4)
-        return 24;
-
-    for (int i = 0; i < 4; i++)
-        lMask |= (nibbles.at(i).toInt() << (8 * (3 - i)));
-
-    for (int b = 0; b < 32; b++)
-    {
-        if (lMask & (1 << (31 - b)))
-            nMask++;
-        else
-            break;
-    }
-
-    return nMask;
-}
-

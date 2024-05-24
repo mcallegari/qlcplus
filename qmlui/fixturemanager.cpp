@@ -274,7 +274,7 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
     {
         Fixture *fxi = new Fixture(m_doc);
         //quint32 fxAddress = address + (i * channels) + (i * gap);
-        if (fxAddress + channels >= UNIVERSE_SIZE)
+        if (fxAddress + channels > UNIVERSE_SIZE)
         {
             uniIdx++;
             if (m_doc->inputOutputMap()->getUniverseID(uniIdx) == m_doc->inputOutputMap()->invalidUniverse())
@@ -540,6 +540,26 @@ void FixtureManager::setItemRoleData(int itemID, int index, QString role, QVaria
     //qDebug() << "Path" << path << ", role index" << roleIndex;
 
     m_fixtureTree->setItemRoleData(path, value, roleIndex);
+}
+
+void FixtureManager::setItemRoleData(int itemID, QVariant value, int role)
+{
+    if (m_fixtureTree == nullptr)
+        return;
+
+    quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+
+    Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == nullptr)
+        return;
+
+    QString fxName = fixture->name();
+    QStringList uniNames = m_doc->inputOutputMap()->universeNames();
+
+    QString path = QString("%1%2%3").arg(uniNames.at(fixture->universe()))
+               .arg(TreeModel::separator()).arg(fxName);
+
+    m_fixtureTree->setItemRoleData(path, value, role);
 }
 
 bool FixtureManager::compareFixtures(Fixture *left, Fixture *right)
@@ -1034,6 +1054,9 @@ void FixtureManager::slotFixtureAdded(quint32 id, QVector3D pos)
     else
     {
         Fixture *fixture = m_doc->fixture(id);
+        if (fixture == nullptr)
+            return;
+
         QStringList uniNames = m_doc->inputOutputMap()->universeNames();
         QString universeName = uniNames.at(fixture->universe());
         int matchMask = 0;

@@ -516,16 +516,18 @@ void VCButton::slotKeyReleased(const QKeySequence& keySequence)
 
 void VCButton::updateFeedback()
 {
-    if (m_state == Monitoring)
-        return;
+    //if (m_state == Monitoring)
+    //    return;
 
     QSharedPointer<QLCInputSource> src = inputSource();
     if (!src.isNull() && src->isValid() == true)
     {
         if (m_state == Inactive)
-            sendFeedback(src->lowerValue());
+            sendFeedback(src->feedbackValue(QLCInputFeedback::LowerValue), src, src->feedbackExtraParams(QLCInputFeedback::LowerValue));
+        else if (m_state == Monitoring)
+            sendFeedback(src->feedbackValue(QLCInputFeedback::MonitorValue), src, src->feedbackExtraParams(QLCInputFeedback::MonitorValue));
         else
-            sendFeedback(src->upperValue());
+            sendFeedback(src->feedbackValue(QLCInputFeedback::UpperValue), src, src->feedbackExtraParams(QLCInputFeedback::UpperValue));
     }
 }
 
@@ -1114,7 +1116,12 @@ void VCButton::paintEvent(QPaintEvent* e)
         painter.setPen(QPen(QColor(160, 160, 160, 255), 2));
 
         if (state() == Active)
-            painter.setBrush(QBrush(QColor(0, 230, 0, 255)));
+        {
+            if (m_flashForceLTP || m_flashOverrides)
+                painter.setBrush(QBrush(QColor(230, 0, 0, 255)));
+            else
+                painter.setBrush(QBrush(QColor(0, 230, 0, 255)));
+        }
         else if (state() == Monitoring)
             painter.setBrush(QBrush(QColor(255, 170, 0, 255)));
         else
@@ -1141,7 +1148,12 @@ void VCButton::paintEvent(QPaintEvent* e)
             if (state() == Monitoring)
                 painter.setPen(QPen(QColor(255, 170, 0, 255), borderWidth));
             else
-                painter.setPen(QPen(QColor(0, 230, 0, 255), borderWidth));
+            {
+                if (m_flashForceLTP || m_flashOverrides)
+                    painter.setPen(QPen(QColor(230, 0, 0, 255), borderWidth));
+                else
+                    painter.setPen(QPen(QColor(0, 230, 0, 255), borderWidth));
+            }
             painter.drawRoundedRect(borderWidth, borderWidth,
                                     rect().width() - borderWidth * 2, rect().height() - (borderWidth * 2),
                                     borderWidth, borderWidth);

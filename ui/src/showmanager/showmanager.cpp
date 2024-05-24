@@ -63,6 +63,7 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     , m_currentEditor(NULL)
     , m_editorFunctionID(Function::invalidId())
     , m_selectedShowIndex(-1)
+    , cursorMovedDuringPause(false)
     , m_splitter(NULL)
     , m_vsplitter(NULL)
     , m_showview(NULL)
@@ -1201,6 +1202,7 @@ void ShowManager::slotStartPlayback()
 
     if (m_show->isRunning() == false)
     {
+        cursorMovedDuringPause = false;
         m_show->start(m_doc->masterTimer(), functionParent(), m_showview->getTimeFromCursor());
         m_playAction->setIcon(QIcon(":/player_pause.png"));
     }
@@ -1209,7 +1211,17 @@ void ShowManager::slotStartPlayback()
         if (m_show->isPaused())
         {
             m_playAction->setIcon(QIcon(":/player_pause.png"));
-            m_show->setPause(false);
+            if (cursorMovedDuringPause)
+            {
+                m_show->stop(functionParent());
+                m_show->stopAndWait();
+                cursorMovedDuringPause = false;
+                m_show->start(m_doc->masterTimer(), functionParent(), m_showview->getTimeFromCursor());
+            }
+            else
+            {
+                m_show->setPause(false);
+            }
         }
         else
         {
@@ -1338,7 +1350,7 @@ void ShowManager::slotShowItemMoved(ShowItem *item, quint32 time, bool moved)
         m_doc->setModified();
 }
 
-void ShowManager::slotupdateTimeAndCursor(quint32 msec_time)
+void ShowManager::slotUpdateTimeAndCursor(quint32 msec_time)
 {
     //qDebug() << Q_FUNC_INFO << "time: " << msec_time;
     slotUpdateTime(msec_time);
@@ -1369,6 +1381,9 @@ void ShowManager::slotUpdateTime(quint32 msec_time)
               .arg(s, 2, 10, QChar('0')).arg(msec_time / 10, 2, 10, QChar('0'));
 
     m_timeLabel->setText(str);
+
+    if (m_show != NULL && m_show->isPaused())
+        cursorMovedDuringPause = true;
 }
 
 void ShowManager::slotTrackClicked(Track *track)
@@ -1636,7 +1651,7 @@ void ShowManager::updateMultiTrackView()
     m_timeDivisionCombo->setCurrentIndex(tIdx);
 
     connect(m_bpmField, SIGNAL(valueChanged(int)), this, SLOT(slotBPMValueChanged(int)));
-    connect(m_show, SIGNAL(timeChanged(quint32)), this, SLOT(slotupdateTimeAndCursor(quint32)));
+    connect(m_show, SIGNAL(timeChanged(quint32)), this, SLOT(slotUpdateTimeAndCursor(quint32)));
     connect(m_show, SIGNAL(showFinished()), this, SLOT(slotStopPlayback()));
     connect(m_show, SIGNAL(stopped(quint32)), this, SLOT(slotShowStopped()));
 

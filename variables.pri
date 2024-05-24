@@ -4,7 +4,7 @@
 
 APPNAME    = Q Light Controller Plus
 FXEDNAME   = Fixture Definition Editor
-!qmlui: APPVERSION = 4.12.8 GIT
+!qmlui: APPVERSION = 4.13.1 GIT
 qmlui:  APPVERSION = 5.0.0 Beta 3
 
 # Disable these if you don't want to see GIT short hash in the About Box
@@ -50,6 +50,7 @@ contains(FORCECONFIG, release) {
  }
  else {
    QMAKE_CXXFLAGS += -Wno-unused-local-typedefs # Fix to build with GCC 4.8
+   QMAKE_CXXFLAGS += -Wno-template-id-cdtor # Fix to build with GCC 14
  }
 }
 

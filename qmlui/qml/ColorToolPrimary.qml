@@ -38,6 +38,7 @@ Rectangle
     property bool showPalette: false
 
     signal valueChanged(int value)
+    signal close()
 
     Canvas
     {
@@ -92,7 +93,8 @@ Rectangle
         {
             anchors.fill: parent
 
-            onClicked: {
+            function calculateValue(mouse)
+            {
                 var val = 0
 
                 if (mouse.x < width * 0.1)
@@ -111,6 +113,20 @@ Rectangle
 
                 boxRoot.currentValue = val
                 boxRoot.valueChanged(val)
+            }
+
+            onPressed: calculateValue()
+            onPositionChanged:
+            {
+                if (!pressed)
+                    return
+
+                calculateValue(mouse)
+            }
+            onReleased:
+            {
+                if (closeOnSelect)
+                    boxRoot.close()
             }
         }
     }

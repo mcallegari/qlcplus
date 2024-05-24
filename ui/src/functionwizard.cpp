@@ -22,6 +22,7 @@
 #include <QDebug>
 #include <QHash>
 #include <QAction>
+#include <QSettings>
 
 #include "palettegenerator.h"
 #include "fixtureselection.h"
@@ -56,6 +57,8 @@
 
 #define KWidgetName                 0
 
+#define SETTINGS_GEOMETRY "functionwizard/geometry"
+
 FunctionWizard::FunctionWizard(QWidget* parent, Doc* doc)
     : QDialog(parent)
     , m_doc(doc)
@@ -74,6 +77,11 @@ FunctionWizard::FunctionWizard(QWidget* parent, Doc* doc)
 
     m_fixtureTree->sortItems(KFixtureColumnName, Qt::AscendingOrder);
 
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
+
     connect(m_nextButton, SIGNAL(clicked()),
             this, SLOT(slotNextPageClicked()));
 
@@ -85,6 +93,9 @@ FunctionWizard::FunctionWizard(QWidget* parent, Doc* doc)
 
 FunctionWizard::~FunctionWizard()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
+
     m_paletteList.clear();
 }
 

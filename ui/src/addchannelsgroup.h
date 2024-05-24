@@ -23,7 +23,6 @@
 #include <QDialog>
 
 #include "ui_addchannelsgroup.h"
-#include "qlcinputsource.h"
 
 class InputSelectionWidget;
 class ChannelsGroup;
@@ -55,8 +54,8 @@ public:
     void accept();
 
 private:
-    Doc* m_doc;
-    ChannelsGroup* m_chansGroup;
+    Doc *m_doc;
+    ChannelsGroup *m_chansGroup;
     InputSelectionWidget *m_inputSelWidget;
 
 protected:

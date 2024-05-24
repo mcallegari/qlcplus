@@ -6,6 +6,10 @@ form {
  visibility: hidden;
 }
 
+input:focus-visible {
+ outline: none;
+}
+
 .vcbutton-wrapper {
  position: absolute;
 }
@@ -21,6 +25,10 @@ form {
  font-family: arial, verdana, sans-serif;
  text-decoration: none;
  text-align: center;
+}
+
+.vcbutton-disabled {
+ color: #A0A0A0!important;
 }
 
 .vccuelist {
@@ -47,6 +55,11 @@ form {
  text-align: center;
 }
 
+.vccuelistButton-disabled {
+ background: #888;
+ opacity: 0.5;
+}
+
 .vccuelistButtonPaused {
  background: #5B81FF!important;
 }
@@ -60,6 +73,11 @@ form {
  padding: 1px;
  height: 27px;
  width: 27px;
+}
+
+.vccuelistFadeButton-disabled {
+ background: #888;
+ opacity: 0.5;
 }
 
 .vccuelistProgress {
@@ -106,6 +124,14 @@ table.hovertable tr {
  background-color:#ffffff;
 }
 
+table.cell-disabled tr {
+  background-color: #eee;
+ }
+
+table.hovertable tr:hover {
+ background-color:#CCD9FF;
+}
+
 table.hovertable td {
  border-width: 1px;
  padding: 3px;
@@ -128,16 +154,20 @@ table.hovertable td {
  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666666), color-stop(1, #000000));
  background: -webkit-linear-gradient(top, #666666 0%, #000000 100%);
  border-radius: 3px;
- margin: 2px 2px 0 36px;
+ margin: 2px 0 0 2px;
  padding: 0 0 0 3px;
  height: 32px;
 }
 
 .vcFrameText {
- display: table-cell;
- height: 32px;
- vertical-align: middle;
- font:normal 18px/1.0em sans-serif;
+ height: 30px;
+ font:normal 14px/1.0em sans-serif;
+ white-space: nowrap;
+ overflow: hidden;
+ text-overflow: clip;
+ display: flex;
+ align-items: center;
+ flex-direction: row;
 }
 
 .vcframeButton {
@@ -158,7 +188,7 @@ table.hovertable td {
  display: inline-block;
  background: #000000;
  border-radius: 3px;
- margin: 2px 0 0 0;
+ margin: 2px 0 0 2px;
  height: 32px;
  width: 100px;
  text-align: center;
@@ -183,7 +213,7 @@ table.hovertable td {
  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #BC0A0A), color-stop(1, #370303));
  background: -webkit-linear-gradient(top, #BC0A0A 0%, #370303 100%);
  border-radius: 3px;
- margin: 2px 2px 0 36px;
+ margin: 2px 2px 0 2px;
  padding: 0 0 0 3px;
  height: 32px;
 }
@@ -197,6 +227,10 @@ table.hovertable td {
  font-family: arial, verdana, sans-serif;
  text-align:center;
  vertical-align: middle;
+}
+
+.vclabel-disabled {
+ color: #A0A0A0!important;
 }
 
 .vcclock, .vcclockcount {
@@ -217,9 +251,17 @@ table.hovertable td {
  font:normal 16px sans-serif;
 }
 
+.vcslLabel-disabled {
+ color: #A0A0A0!important;
+}
+
+input[type=range]{
+ -webkit-appearance: none;
+}
+
+/* Chrome, Firefox */
 input[type="range"].vVertical {
  --rotate: 270;
- -webkit-appearance: none;
  height: 4px;
  border: 1px solid #8E8A86;
  background-color: #888888;
@@ -233,6 +275,10 @@ input[type="range"].vVertical {
  transform-origin:0% 50%;
 }
 
+input[type="range"].vVertical-disabled {
+ background-color: #ccc!important;
+}
+
 input[type="range"]::-webkit-slider-thumb {
  -webkit-appearance: none;
  background-color: #999999;
@@ -240,6 +286,21 @@ input[type="range"]::-webkit-slider-thumb {
  border: 1px solid #5c5c5c;
  width: 20px;
  height: 36px;
+}
+
+input[type="range"]:disabled::-webkit-slider-thumb {
+ -webkit-appearance: none;
+ background-color: #ccc;
+}
+
+/* Firefox */
+input[type=range]::-moz-range-thumb {
+ background-color: #ccc;
+}
+
+input[type="range"]:disabled::-webkit-slider-thumb {
+ -webkit-appearance: none;
+ background-color: #ccc;
 }
 
 .vcaudiotriggers {

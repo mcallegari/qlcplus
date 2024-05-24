@@ -21,6 +21,18 @@ function initVirtualConsole() {
  updateTime();
 }
 
+function grandMasterValueChanged(value, displayValue) {
+ obj = document.getElementById("vcGMSlider");
+ obj.value = value;
+ var labelObj = document.getElementById("vcGMSliderLabel");
+ labelObj.innerHTML = displayValue;
+}
+
+function grandMasterValueChange() {
+ obj = document.getElementById("vcGMSlider");
+ websocket.send("GM_VALUE|" + obj.value);
+}
+
 /* VCButton */
 function buttonPress(id) {
  websocket.send(id + "|255");
@@ -58,38 +70,54 @@ window.addEventListener("load",() => {
  }
 });
 
+function setButtonDisableState(id, disable) {
+  var btnObj = document.getElementById(id);
+  if (disable === "1") {
+    btnObj.removeAttribute("onmousedown");
+    btnObj.removeAttribute("onmouseup");
+    btnObj.classList.add('vcbutton-disabled');
+  } else {
+    btnObj.setAttribute("onmousedown", "buttonPress("+id+");");
+    btnObj.setAttribute("onmouseup", "buttonRelease("+id+");");
+    btnObj.classList.remove('vcbutton-disabled');
+  }
+}
+
+/* VCLabel */
+function setLabelDisableState(id, disable) {
+  var lblObj = document.getElementById("lbl" + id);
+  if (disable === "1") {
+    lblObj.classList.add('vclabel-disabled');
+  } else {
+    lblObj.classList.remove('vclabel-disabled');
+  }
+}
+
 /* VCCueList */
 var cueListsIndices = new Array();
 var showPanel = new Array();
+var isDisableCue = new Array();
 
 function setCueIndex(id, idx) {
  var oldIdx = cueListsIndices[id];
  if (oldIdx != undefined && oldIdx !== "-1") {
    var oldCueObj = document.getElementById(id + "_" + oldIdx);
-   oldCueObj.style.backgroundColor="#FFFFFF";
+   oldCueObj.style.backgroundColor = "";
  }
  cueListsIndices[id] = idx;
  var currCueObj = document.getElementById(id + "_" + idx);
  if (idx !== "-1") {
-   currCueObj.style.backgroundColor="#5E7FDF";
+   currCueObj.style.setProperty("background-color", "#5E7FDF", "important");
  }
 }
 
 function sendCueCmd(id, cmd) {
+ if (isDisableCue[id]) return;
  websocket.send(id + "|" + cmd);
 }
 
-function checkMouseOut(id, idx) {
- var obj = document.getElementById(id + "_" + idx);
- if(idx == cueListsIndices[id]) {
-   obj.style.backgroundColor="#5E7FDF";
- }
- else {
-   obj.style.backgroundColor="#FFFFFF";
- }
-}
-
 function enableCue(id, idx) {
+ if (isDisableCue[id]) return;
  setCueIndex(id, idx);
  websocket.send(id + "|STEP|" + idx);
 }
@@ -105,9 +133,36 @@ function setCueProgress(id, percent, text) {
  progressValObj.innerHTML = text;
 }
 
+function changeCueNoteToEditMode(id, idx) {
+ var cueNoteSpanObj = document.getElementById("cueNoteSpan" + id + "_" + idx);
+ var cueNoteInputObj = document.getElementById("cueNoteInput" + id + "_" + idx);
+ cueNoteSpanObj.style.display = "none";
+ cueNoteInputObj.style.display = "block";
+ cueNoteInputObj.focus();
+}
+
+function changeCueNoteToTextMode(id, idx) {
+ var cueNoteSpanObj = document.getElementById("cueNoteSpan" + id + "_" + idx);
+ var cueNoteInputObj = document.getElementById("cueNoteInput" + id + "_" + idx);
+ cueNoteSpanObj.style.display = "block";
+ cueNoteInputObj.style.display = "none";
+ var newNote = cueNoteInputObj.value;
+ cueNoteSpanObj.innerHTML = newNote;
+ websocket.send(id + "|CUE_STEP_NOTE|" + idx + "|" + newNote);
+}
+
+function setCueStepNote(id, idx, note) {
+ var cueNoteSpanObj = document.getElementById("cueNoteSpan" + id + "_" + idx);
+ var cueNoteInputObj = document.getElementById("cueNoteInput" + id + "_" + idx);
+ cueNoteSpanObj.style.display = "block";
+ cueNoteInputObj.style.display = "none";
+ cueNoteSpanObj.innerHTML = note;
+ cueNoteInputObj.value = note;
+}
+
 function showSideFaderPanel(id, checked) {
   var progressBarObj = document.getElementById("fadePanel" + id);
-  showPanel[id] = parseInt(checked);
+  showPanel[id] = parseInt(checked, 10);
   if (checked === "1") {
     progressBarObj.style.display="block";
   } else {
@@ -127,6 +182,7 @@ function setCueButtonStyle(id, playImage, playPaused, stopImage, stopPaused) {
 }
 
 function wsShowCrossfadePanel(id) {
+  if (isDisableCue[id]) return;
   websocket.send(id + "|CUE_SHOWPANEL|" + showPanel[id]);
 }
 
@@ -153,9 +209,47 @@ function setCueSideFaderValues(id, topPercent, bottomPercent, topStep, bottomSte
 }
 
 function cueCVchange(id) {
+  if (isDisableCue[id]) return;
   var cueCVObj = document.getElementById("cueC" + id);
   var msg = id + "|CUE_SIDECHANGE|" + cueCVObj.value;
   websocket.send(msg);
+}
+
+function setCueDisableState(id, disable) {
+  isDisableCue[id] = parseInt(disable, 10);
+  var cueTable = document.getElementById("cueTable" + id);
+  var fadeObj = document.getElementById("fade" + id);
+  var playObj = document.getElementById("play" + id);
+  var stopObj = document.getElementById("stop" + id);
+  var nextObj = document.getElementById("next" + id);
+  var prevObj = document.getElementById("prev" + id);
+  var cueCObj = document.getElementById("cueC" + id);
+  var cueCTPObj = document.getElementById("cueCTP" + id);
+  var cueCBPObj = document.getElementById("cueCBP" + id);
+
+  if (disable === "1") {
+    fadeObj.classList.add('vccuelistFadeButton-disabled');
+    cueTable.classList.add('cell-disabled');
+    playObj.classList.add('vccuelistButton-disabled');
+    stopObj.classList.add('vccuelistButton-disabled');
+    nextObj.classList.add('vccuelistButton-disabled');
+    prevObj.classList.add('vccuelistButton-disabled');
+    cueCObj.setAttribute("disabled", "diabled");
+    cueCObj.classList.add('vVertical-disabled');
+    cueCTPObj.classList.add('vcslLabel-disabled');
+    cueCBPObj.classList.add('vcslLabel-disabled');
+  } else {
+    fadeObj.classList.remove('vccuelistFadeButton-disabled');
+    cueTable.classList.remove('cell-disabled');
+    playObj.classList.remove('vccuelistButton-disabled');
+    stopObj.classList.remove('vccuelistButton-disabled');
+    nextObj.classList.remove('vccuelistButton-disabled');
+    prevObj.classList.remove('vccuelistButton-disabled');
+    cueCObj.removeAttribute("disabled");
+    cueCObj.classList.remove('vVertical-disabled');
+    cueCTPObj.classList.remove('vcslLabel-disabled');
+    cueCBPObj.classList.remove('vcslLabel-disabled');
+  }
 }
 
 /* VCFrame */
@@ -163,38 +257,55 @@ var framesWidth = new Array();
 var framesHeight = new Array();
 var framesTotalPages = new Array();
 var framesCurrentPage = new Array();
+var frameDisableState = new Array();
+var frameCaption = new Array();
 
 function updateFrameLabel(id) {
- var framePageObj = document.getElementById("fr" + id + "Page");
- var newLabel = "Page " + (framesCurrentPage[id] + 1);
- framePageObj.innerHTML = newLabel;
+  var framePageObj = document.getElementById("fr" + id + "Page");
+  var newLabel = "Page " + (framesCurrentPage[id] + 1);
+  framePageObj.innerHTML = newLabel;
+
+  var frameCaptionObj = document.getElementById("fr" + id + "Caption");
+  var frMpHdr = document.getElementById("frMpHdr" + id);
+  var newCaption = frameCaption[id];
+  if (frMpHdr) { // if multi page mode
+    newCaption = frameCaption[id] ? frameCaption[id] + " - " + newLabel : newLabel;
+  }
+  frameCaptionObj.innerHTML = newCaption;
 }
 
 function frameToggleCollapse(id) {
   var frameObj = document.getElementById("fr" + id);
-  var mpHeader = document.getElementById("frMpHdr" + id);
+  var vcframeHeader = document.getElementById("vcframeHeader" + id);
+  var frEnBtn = document.getElementById("frEnBtn" + id);
+  var frMpHdrPrev = document.getElementById("frMpHdrPrev" + id);
+  var frMpHdrNext = document.getElementById("frMpHdrNext" + id);
+  var frPglbl = document.getElementById("frPglbl" + id);
+
   var origWidth = framesWidth[id];
   var origHeight = framesHeight[id];
 
-  if (frameObj.clientWidth === origWidth)
-  {
-    frameObj.style.width = "200px";
-    if (mpHeader) {
-      mpHeader.style.visibility = "hidden";
-    }
-  }
-  else
-  {
-    frameObj.style.width = origWidth + "px";
-    if (mpHeader) {
-      mpHeader.style.visibility = "visible";
-    }
-  }
+  var ew = frEnBtn ? 36 : 0;
+  var pw = 0;
 
+  if (frameObj.clientWidth === origWidth) {
+    pw = frMpHdrPrev && frMpHdrNext ? 64 : 0;
+    frameObj.style.width = "200px";
+    if (frPglbl) frPglbl.style.width = "60px";
+    if (frMpHdrPrev) frMpHdrPrev.style.display = "none";
+    if (frMpHdrNext) frMpHdrNext.style.display = "none";
+    vcframeHeader.style.width = (200 - pw - ew - 36) + "px";
+  } else {
+    pw = frMpHdrPrev && frMpHdrNext ? 168 : 0;
+    frameObj.style.width = origWidth + "px";
+    if (frPglbl) frPglbl.style.width = "100px";
+    if (frMpHdrPrev) frMpHdrPrev.style.display = "block";
+    if (frMpHdrNext) frMpHdrNext.style.display = "block";
+    vcframeHeader.style.width = (origWidth - pw - ew - 36) + "px";
+  }
   if (frameObj.clientHeight === origHeight) {
     frameObj.style.height = "36px";
-  }
-  else {
+  } else {
     frameObj.style.height = origHeight + "px";
   }
 }
@@ -208,7 +319,7 @@ function framePreviousPage(id) {
 }
 
 function setFramePage(id, page) {
- var iPage = parseInt(page);
+ var iPage = parseInt(page, 10);
  if (framesCurrentPage[id] === iPage || iPage >= framesTotalPages[id]) { return; }
  var framePageObj = document.getElementById("fp" + id + "_" + framesCurrentPage[id]);
  framePageObj.style.visibility = "hidden";
@@ -218,8 +329,24 @@ function setFramePage(id, page) {
  updateFrameLabel(id);
 }
 
+function setFrameDisableState(id, disable) {
+  var frameObj = document.getElementById("frEnBtn" + id);
+  if (disable === "1") {
+    frameDisableState[id] = 1;
+    frameObj.style.background = "#E0DFDF";
+  } else {
+    frameDisableState[id] = 0;
+    frameObj.style.background = "#D7DE75";
+  }
+}
+
+function frameDisableStateChange(id) {
+  websocket.send(id + "|FRAME_DISABLE|" + frameDisableState[id]);
+}
+
 /* VCSlider with Knob */
 var isDragging = new Array();
+var isDisableKnob = new Array();
 var maxVal = new Array();
 var minVal = new Array();
 var initVal = new Array();
@@ -241,6 +368,44 @@ function wsSetSliderValue(id, sliderValue, displayValue) {
  getPositionFromValue(sliderValue, id);
 }
 
+function setSliderDisableState(id, disable) {
+  var sliderObj = document.getElementById(id);
+  var slvObj = document.getElementById("slv" + id);
+  var slnObj = document.getElementById("sln" + id);
+  var pie = document.getElementById("pie" + id);
+  isDisableKnob[id] = parseInt(disable, 10);
+  isDragging[id] = false;
+  if (disable === "1") {
+    if (pie) {
+      if (inverted[id]) {
+        pie.style.setProperty('--color1', '#555');
+        pie.style.setProperty('--color2', '#c0c0c0');
+      } else {
+        pie.style.setProperty('--color1', '#c0c0c0');
+        pie.style.setProperty('--color2', '#555');
+      }
+    }
+    sliderObj.setAttribute("disabled", "diabled");
+    sliderObj.classList.add('vVertical-disabled');
+    slvObj.classList.add('vcslLabel-disabled');
+    slnObj.classList.add('vcslLabel-disabled');
+  } else {
+    if (pie) {
+      if (inverted[id]) {
+        pie.style.setProperty('--color1', '#555');
+        pie.style.setProperty('--color2', 'lime');
+      } else {
+        pie.style.setProperty('--color1', 'lime');
+        pie.style.setProperty('--color2', '#555');
+      }
+    }
+    sliderObj.removeAttribute("disabled");
+    sliderObj.classList.remove('vVertical-disabled');
+    slvObj.classList.remove('vcslLabel-disabled');
+    slnObj.classList.remove('vcslLabel-disabled');
+  }
+}
+
 function getPositionFromValue(val, id) {
   var knobRect = document.getElementById("knob" + id).getBoundingClientRect();
   var pie = document.getElementById("pie" + id);
@@ -255,14 +420,15 @@ function getPositionFromValue(val, id) {
   pie.style.setProperty('--degValue', Math.round(angle));
   if (inverted[id]) {
     pie.style.setProperty('--color1', '#555');
-    pie.style.setProperty('--color2', 'lime');
+    pie.style.setProperty('--color2', isDisableKnob[id] ? '#c0c0c0' : 'lime');
   } else {
-    pie.style.setProperty('--color1', 'lime');
+    pie.style.setProperty('--color1', isDisableKnob[id] ? '#c0c0c0' : 'lime');
     pie.style.setProperty('--color2', '#555');
   }
 }
 
 function onMouseMove(e) {
+  if (isDisableKnob[selectedID]) return;
   if (isDragging[selectedID]) {
     pie = document.getElementById("pie" + selectedID);
     knob = document.getElementById("knob" + selectedID);
@@ -297,7 +463,8 @@ function onMouseMove(e) {
     }
   }
 }
-function onMouseUp() {
+function onMouseUp() {    
+  if (isDisableKnob[selectedID]) return;
   isDragging[selectedID] = false;
   var knob = document.getElementById("knob" + selectedID);
   knob.style.transition = "transform 0.2s ease";
@@ -385,13 +552,27 @@ function wsUpdateClockTime(id, time) {
  var obj = document.getElementById(id);
  var s = time;
  var h, m;
- h = parseInt(s / 3600);
+ h = parseInt(s / 3600, 10);
  s -= (h * 3600);
- m = parseInt(s / 60);
+ m = parseInt(s / 60, 10);
  s -= (m * 60);
 
  var timeString = hmsToString(h, m, s);
  obj.innerHTML = timeString;
+}
+
+function setClockDisableState(id, disable) {
+  var clockObj = document.getElementById(id);
+
+  if (disable === "1") {
+    clockObj.removeAttribute("href");
+    clockObj.removeAttribute("oncontextmenu");
+    clockObj.classList.add('vclabel-disabled');
+  } else {
+    clockObj.setAttribute("href", "javascript:controlWatch("+id+", 'S');");
+    clockObj.setAttribute("oncontextmenu", "javascript:controlWatch("+id+", 'R'); return false;");
+    clockObj.classList.remove('vclabel-disabled');
+  }
 }
 
 /* VCMatrix */
@@ -430,7 +611,6 @@ function setMatrixComboValue(id, comboValue) {
 function matrixStartColorChange(id) {
   var colorObj = document.querySelector("#msc" + id);
   var colorMsg = id + "|MATRIX_COLOR_CHANGE|START|" + hexToUint(colorObj.value);
-    console.log(colorMsg);
   websocket.send(colorMsg);
 }
 
@@ -521,7 +701,7 @@ window.addEventListener("load", (event) => {
 });
 
 function setMatrixControlKnobValue(controlID, value) {
-  getPositionFromValueForMatrix(parseInt(value), parseInt(controlID));
+  getPositionFromValueForMatrix(parseInt(value, 10), parseInt(controlID, 10));
 }
 
 function wcMatrixPushButtonClicked(controlID) {

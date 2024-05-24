@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.0 GIT</Version>
+  <Author>Michael Tosatto</Author>
+ </Creator>
+ <Manufacturer>Laserworld</Manufacturer>
+ <Model>EL-900RGB</Model>
+ <Type>Laser</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="49">Laser off</Capability>
+  <Capability Min="50" Max="99">Sound mode</Capability>
+  <Capability Min="100" Max="149">Automatic mode</Capability>
+  <Capability Min="150" Max="199">Static patterns of DMX mode</Capability>
+  <Capability Min="200" Max="255">Dynamic patterns of DMX mode</Capability>
+ </Channel>
+ <Channel Name="Pattern selection">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="14">Circle Fast</Capability>
+  <Capability Min="15" Max="19">Circle Slow</Capability>
+  <Capability Min="20" Max="24">Scan Horizontal Fast</Capability>
+  <Capability Min="25" Max="29">Scan Horizontal Slow</Capability>
+  <Capability Min="30" Max="34">Scan Vertical Fast</Capability>
+  <Capability Min="35" Max="39">Scan Vertical Slow</Capability>
+  <Capability Min="40" Max="44">Fan Diagonal In Fast</Capability>
+  <Capability Min="45" Max="49">Fan Diagonal In Slow</Capability>
+  <Capability Min="50" Max="54">Fan Diagonal Out Fast</Capability>
+  <Capability Min="55" Max="59">Fan Diagonal Out Slow</Capability>
+  <Capability Min="60" Max="64">A Fast (HIGH)</Capability>
+  <Capability Min="65" Max="69">A Slow (HIGH)</Capability>
+  <Capability Min="70" Max="74">V Fast (LOW)</Capability>
+  <Capability Min="75" Max="79">V Slow (LOW)</Capability>
+  <Capability Min="80" Max="84">Triangle Up Fast (HIGH)</Capability>
+  <Capability Min="85" Max="89">Triangle Up Slow (HIGH)</Capability>
+  <Capability Min="90" Max="94">Triangle Down Fast (LOW)</Capability>
+  <Capability Min="95" Max="99">Triangle Down Slow (LOW)</Capability>
+  <Capability Min="100" Max="104">Square Fast</Capability>
+  <Capability Min="105" Max="109">Square Slow</Capability>
+  <Capability Min="110" Max="114">Square Tall Fast</Capability>
+  <Capability Min="115" Max="119">Square Tall Slow</Capability>
+  <Capability Min="120" Max="124">Square Wide Fast</Capability>
+  <Capability Min="125" Max="129">Square Wide Slow</Capability>
+  <Capability Min="130" Max="134">+</Capability>
+  <Capability Min="135" Max="139">x</Capability>
+  <Capability Min="140" Max="144">Fan Horizontal Fast</Capability>
+  <Capability Min="145" Max="149">Fan Horizonttal Slow</Capability>
+  <Capability Min="150" Max="154">Fan Shake Horizontal Fast</Capability>
+  <Capability Min="155" Max="159">Fan Shake Horizontal Slow</Capability>
+  <Capability Min="160" Max="164">Fan Shake Vertical Fast 1</Capability>
+  <Capability Min="165" Max="169">Fan Shake Vertical Fast 2</Capability>
+  <Capability Min="170" Max="174">Fan Shake Vertical Medium</Capability>
+  <Capability Min="175" Max="179">Fan Shake Vertical Slow</Capability>
+  <Capability Min="180" Max="184">Square Diagonal In</Capability>
+  <Capability Min="185" Max="189">Square Diagonal Out</Capability>
+  <Capability Min="190" Max="194">Vertical Boxes 1</Capability>
+  <Capability Min="195" Max="199">Vertical Boxes 2</Capability>
+  <Capability Min="200" Max="204">Ninja Star +</Capability>
+  <Capability Min="205" Max="209">Ninja Star x</Capability>
+  <Capability Min="210" Max="214">Star 1</Capability>
+  <Capability Min="215" Max="219">Star 1 U-S Down</Capability>
+  <Capability Min="220" Max="224">Star 2 Fast</Capability>
+  <Capability Min="225" Max="229">Star 2 Slow</Capability>
+  <Capability Min="230" Max="234">Waves Fast</Capability>
+  <Capability Min="235" Max="239">Waves Slow</Capability>
+  <Capability Min="240" Max="255">Spiral</Capability>
+ </Channel>
+ <Channel Name="Strobe effect" Preset="ShutterStrobeFastSlow"/>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="39" Preset="ColorMacro" Res1="#ffffff">White color</Capability>
+  <Capability Min="40" Max="79" Preset="ColorMacro" Res1="#ffff00">Yellow color</Capability>
+  <Capability Min="80" Max="119" Preset="ColorMacro" Res1="#ff00ff">Purple color</Capability>
+  <Capability Min="120" Max="159" Preset="ColorMacro" Res1="#00ffff">Cyan color</Capability>
+  <Capability Min="160" Max="199" Preset="ColorMacro" Res1="#ff0000">Red color</Capability>
+  <Capability Min="200" Max="239" Preset="ColorMacro" Res1="#00ff00">Green color</Capability>
+  <Capability Min="240" Max="255" Preset="ColorMacro" Res1="#0000ff">Blue color</Capability>
+ </Channel>
+ <Channel Name="X Axis Positioning" Preset="PositionXAxis"/>
+ <Channel Name="Y Axis Positioning" Preset="PositionYAxis"/>
+ <Channel Name="Scan Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Scan speed</Capability>
+ </Channel>
+ <Channel Name="Dynamic Patterns Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Dynamic patterns speed</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Pattern selection</Channel>
+  <Channel Number="2">Strobe effect</Channel>
+  <Channel Number="3">Color</Channel>
+  <Channel Number="4">X Axis Positioning</Channel>
+  <Channel Number="5">Y Axis Positioning</Channel>
+  <Channel Number="6">Scan Speed</Channel>
+  <Channel Number="7">Dynamic Patterns Speed</Channel>
+  <Channel Number="8">Zoom</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.5" Width="530" Height="90" Depth="240"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="30"/>
+  <Focus Type="Mirror" PanMax="110" TiltMax="45"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

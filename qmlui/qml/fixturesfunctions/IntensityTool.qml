@@ -35,6 +35,7 @@ Rectangle
 
     property bool dmxValues: true
     property bool closeOnSelect: false
+    property var dragTarget: null
     property alias showPalette: paletteBox.visible
 
     property alias currentValue: spinBox.value
@@ -55,34 +56,34 @@ Rectangle
         else
         {
             var val = relativeValue ? currentValue - previousValue : currentValue
-            intRoot.valueChanged(dmxValues ? val : val * 2.55)
-            if (closeOnSelect)
-                intRoot.visible = false
+            if (intRoot.visible)
+                intRoot.valueChanged(dmxValues ? val : val * 2.55)
+            //if (closeOnSelect)
+            //    intRoot.close()
         }
         previousValue = currentValue
     }
 
     onVisibleChanged:
     {
-        if (visible)
+        if (!visible)
+            paletteBox.checked = false
+    }
+
+    function show(value)
+    {
+        previousValue = 0
+        if (value === -1)
         {
-            previousValue = 0
-            var val = contextManager.getCurrentValue(QLCChannel.Intensity, false)
-            if (val === -1)
-            {
-                relativeValue = true
-                currentValue = 0
-            }
-            else
-            {
-                relativeValue = false
-                currentValue = dmxValues ? Math.round(val) : Math.round(val / 2.55)
-            }
+            relativeValue = true
+            currentValue = 0
         }
         else
         {
-            paletteBox.checked = false
+            relativeValue = false
+            currentValue = dmxValues ? Math.round(value) : Math.round(value / 2.55)
         }
+        visible = true
     }
 
     function loadPalette(pId)
@@ -137,7 +138,7 @@ Rectangle
             MouseArea
             {
                 anchors.fill: parent
-                drag.target: intRoot
+                drag.target: intRoot.dragTarget ? intRoot.dragTarget : intRoot
             }
 
             GenericButton
@@ -232,7 +233,7 @@ Rectangle
                 suffix: dmxValues ? "" : "%"
                 to: dmxValues ? 255 : 100
 
-                onValueChanged: currentValue = value
+                onValueModified: currentValue = value
             }
 
             DMXPercentageButton

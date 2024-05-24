@@ -21,6 +21,7 @@
 #ifndef VCSLIDER_H
 #define VCSLIDER_H
 
+#include <QToolButton>
 #include <QMutex>
 #include <QList>
 
@@ -32,7 +33,6 @@
 
 class QXmlStreamReader;
 class QXmlStreamWriter;
-class QToolButton;
 class QHBoxLayout;
 class QLabel;
 
@@ -70,6 +70,7 @@ class VCSliderProperties;
 
 #define KXMLQLCVCSliderPlayback         QString("Playback")
 #define KXMLQLCVCSliderPlaybackFunction QString("Function")
+#define KXMLQLCVCSliderPlaybackFlash    QString("Flash")
 
 class VCSlider : public VCWidget, public DMXSource
 {
@@ -81,6 +82,7 @@ class VCSlider : public VCWidget, public DMXSource
 public:
     static const quint8 sliderInputSourceId;
     static const quint8 overrideResetInputSourceId;
+    static const quint8 flashButtonInputSourceId;
 
     static const QSize defaultSize;
 
@@ -392,6 +394,13 @@ public:
     /** @reimp */
     virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
 
+    /** Get/Set the status of the flash button enablement */
+    bool playbackFlashEnable();
+    void setPlaybackFlashEnable(bool enable);
+
+protected:
+    void flashPlayback(bool on);
+
 protected slots:
     void slotPlaybackFunctionRunning(quint32 fid);
     void slotPlaybackFunctionStopped(quint32 fid);
@@ -403,6 +412,10 @@ protected:
     uchar m_playbackValue;
     int m_playbackChangeCounter;
     QMutex m_playbackValueMutex;
+
+    bool m_playbackFlashEnable;
+    bool m_playbackIsFlashing;
+    uchar m_playbackFlashPreviousValue;
 
 private:
     FunctionParent functionParent() const;
@@ -568,7 +581,10 @@ private slots:
     void slotResetButtonClicked();
 
 protected slots:
+    /** @reimp */
     void slotKeyPressed(const QKeySequence& keySequence);
+    /** @reimp */
+    void slotKeyReleased(const QKeySequence& keySequence);
 
 protected:
     QToolButton *m_resetButton;
@@ -576,6 +592,33 @@ protected:
 
 private:
     QKeySequence m_overrideResetKeySequence;
+
+    /*********************************************************************
+     * Flash button
+     *********************************************************************/
+public:
+    /** Get/set the keyboard key combination to flash the playback */
+    QKeySequence playbackFlashKeySequence() const;
+    void setPlaybackFlashKeySequence(const QKeySequence& keySequence);
+
+protected:
+    void mousePressEvent(QMouseEvent *e);
+    void mouseReleaseEvent(QMouseEvent *e);
+
+protected:
+    class FlashButton : public QToolButton
+    {
+    public:
+        FlashButton(QWidget *parent)
+            : QToolButton(parent) {}
+    protected:
+        void mousePressEvent(QMouseEvent *e);
+        void mouseReleaseEvent(QMouseEvent *e);
+    };
+    FlashButton *m_flashButton;
+
+private:
+    QKeySequence m_playbackFlashKeySequence;
 
     /*********************************************************************
      * External input

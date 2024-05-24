@@ -74,7 +74,7 @@ class Universe: public QThread
     Q_PROPERTY(bool passthrough READ passthrough WRITE setPassthrough NOTIFY passthroughChanged)
     Q_PROPERTY(InputPatch *inputPatch READ inputPatch NOTIFY inputPatchChanged)
     Q_PROPERTY(int outputPatchesCount READ outputPatchesCount NOTIFY outputPatchesCountChanged)
-    Q_PROPERTY(bool hasFeedbacks READ hasFeedbacks NOTIFY hasFeedbacksChanged)
+    Q_PROPERTY(bool hasFeedback READ hasFeedback NOTIFY hasFeedbackChanged)
 
 public:
     /** Construct a new Universe */
@@ -171,7 +171,6 @@ protected:
      */
     uchar applyGM(int channel, uchar value);
 
-    uchar applyRelative(int channel, uchar value);
     uchar applyModifiers(int channel, uchar value);
     void updatePostGMValue(int channel);
 
@@ -210,7 +209,7 @@ public:
     bool setFeedbackPatch(QLCIOPlugin *plugin, quint32 output);
 
     /** Flag that indicates if this Universe has a patched feedback line */
-    bool hasFeedbacks() const;
+    bool hasFeedback() const;
 
     /**
      * Get the reference to the input plugin associated to this universe.
@@ -259,7 +258,7 @@ signals:
     void outputPatchesCountChanged();
 
     /** Notify the listeners that a feedback line has been patched/unpatched */
-    void hasFeedbacksChanged();
+    void hasFeedbackChanged();
 
 private:
     /** Reference to the input patch associated to this universe. */
@@ -437,9 +436,6 @@ public:
     /** Return a list with intensity channels and their values */
     QHash <int, uchar> intensityChannels();
 
-    /** Set all channel relative values to zero */
-    void zeroRelativeValues();
-
 protected:
     void applyPassthroughValues(int address, int range);
 
@@ -488,8 +484,6 @@ protected:
     /** Array of values from input line, when passtrhough is enabled */
     QScopedPointer<QByteArray> m_passthroughValues;
 
-    QVector<short> m_relativeValues;
-
     /* impl speedup */
     void updateIntensityChannelsRanges();
 
@@ -518,36 +512,48 @@ public:
      * Write a value to a DMX channel, taking Grand Master and HTP into
      * account, if applicable.
      *
-     * @param channel The channel number to write to
+     * @param address The DMX start address to write to
      * @param value The value to write
      *
      * @return true if successful, otherwise false
      */
-    bool write(int channel, uchar value, bool forceLTP = false);
+    bool write(int address, uchar value, bool forceLTP = false);
+
+    /**
+     * Write a value representing one or multiple channels
+     *
+     * @param address The DMX start address to write to
+     * @param value the DMX value(s) to set
+     * @param channelCount number of channels that value represents
+     * @return always true
+     */
+    bool writeMultiple(int address, quint32 value, int channelCount);
 
     /**
      * Write a relative value to a DMX channel, taking Grand Master and HTP into
      * account, if applicable.
      *
-     * @param channel The channel number to write to
+     * @param address The DMX start address to write to
      * @param value The value to write
+     * @param channelCount number of channels that value represents
      *
      * @return true if successful, otherwise false
      */
-    bool writeRelative(int channel, uchar value);
+    bool writeRelative(int address, quint32 value, int channelCount);
 
     /**
      * Write DMX values with the given blend mode.
      * If blend == NormalBlend the generic write method is called
      * and all the HTP/LTP checks are performed
      *
-     * @param channel The channel number to write to
+     * @param address The DMX start address to write to
      * @param value The value to write
+     * @param channelCount The number of channels that value represents
      * @param blend The blend mode to be used on $value
      *
      * @return true if successful, otherwise false
      */
-    bool writeBlended(int channel, uchar value, BlendMode blend = NormalBlend);
+    bool writeBlended(int address, quint32 value, int channelCount, BlendMode blend);
 
     /*********************************************************************
      * Load & Save

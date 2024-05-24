@@ -32,9 +32,7 @@
 #include "trackitem.h"
 #include "audioitem.h"
 #include "efxitem.h"
-#if QT_VERSION >= 0x050000
 #include "videoitem.h"
-#endif
 #include "chaser.h"
 #include "track.h"
 

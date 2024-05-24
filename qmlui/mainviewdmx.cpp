@@ -103,6 +103,9 @@ void MainViewDMX::createFixtureItem(quint32 fxID)
     MonitorProperties *monProps = m_doc->monitorProperties();
     quint32 itemFlags = monProps->fixtureFlags(fxID, 0, 0);
 
+    if (monProps->containsFixture(fxID) == false)
+        monProps->setFixturePosition(fxID, 0, 0, QVector3D(0, 0, 0));
+
     newFixtureItem->setParentItem(contextItem());
     newFixtureItem->setProperty("fixtureObj", QVariant::fromValue(fixture));
     if (itemFlags & MonitorProperties::HiddenFlag)

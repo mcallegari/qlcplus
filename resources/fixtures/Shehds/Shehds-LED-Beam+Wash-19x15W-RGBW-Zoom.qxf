@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.0 GIT</Version>
+  <Author>Paul Schuh</Author>
+ </Creator>
+ <Manufacturer>Shehds</Manufacturer>
+ <Model>LED Beam+Wash 19x15W RGBW Zoom Lighting</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="X axis rotation" Preset="PositionPan"/>
+ <Channel Name="X-axis fine-tuning" Preset="PositionPanFine"/>
+ <Channel Name="Y axis rotation" Preset="PositionTilt"/>
+ <Channel Name="Y-axis fine-tuning" Preset="PositionTiltFine"/>
+ <Channel Name="XY speed adjustment" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red 1 Dimmer" Preset="IntensityRed"/>
+ <Channel Name="Green 1 Dimmer" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1 Dimmer" Preset="IntensityBlue"/>
+ <Channel Name="White 1 Dimmer" Preset="IntensityWhite"/>
+ <Channel Name="Red 2 Dimmer" Preset="IntensityRed"/>
+ <Channel Name="Green 2 Dimmer" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2 Dimmer" Preset="IntensityBlue"/>
+ <Channel Name="White 2 Dimmer" Preset="IntensityWhite"/>
+ <Channel Name="Red 3 Dimmer" Preset="IntensityRed"/>
+ <Channel Name="Green 3 Dimmer" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3 Dimmer" Preset="IntensityBlue"/>
+ <Channel Name="White 3 Dimmer" Preset="IntensityWhite"/>
+ <Channel Name="Program Selection">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="175">Preset Color</Capability>
+  <Capability Min="176" Max="200">Program Jump</Capability>
+  <Capability Min="201" Max="224">Program Gradient</Capability>
+  <Capability Min="225" Max="255">Program Pulse</Capability>
+ </Channel>
+ <Channel Name="Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Program Speed Adjustment</Capability>
+ </Channel>
+ <Channel Name="Program Activation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="49">No Function</Capability>
+  <Capability Min="50" Max="99">Program Activation</Capability>
+  <Capability Min="100" Max="150">Self-propelled mode (1)</Capability>
+  <Capability Min="151" Max="199">Self-propelled mode (2)</Capability>
+  <Capability Min="200" Max="255">Audio control mode</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">Reset</Capability>
+ </Channel>
+ <Channel Name="Red Dimmer" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer" Preset="IntensityBlue"/>
+ <Channel Name="White Dimmer" Preset="IntensityWhite"/>
+ <Mode Name="16 Channel">
+  <Channel Number="0">X axis rotation</Channel>
+  <Channel Number="1">X-axis fine-tuning</Channel>
+  <Channel Number="2">Y axis rotation</Channel>
+  <Channel Number="3">Y-axis fine-tuning</Channel>
+  <Channel Number="4">XY speed adjustment</Channel>
+  <Channel Number="5">Master Dimmer</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Red Dimmer</Channel>
+  <Channel Number="8">Green Dimmer</Channel>
+  <Channel Number="9">Blue Dimmer</Channel>
+  <Channel Number="10">White Dimmer</Channel>
+  <Channel Number="11">Focus</Channel>
+  <Channel Number="12">Program Selection</Channel>
+  <Channel Number="13">Program Speed</Channel>
+  <Channel Number="14">Program Activation</Channel>
+  <Channel Number="15">Reset</Channel>
+ </Mode>
+ <Mode Name="24 Channel">
+  <Channel Number="0">X axis rotation</Channel>
+  <Channel Number="1">X-axis fine-tuning</Channel>
+  <Channel Number="2">Y axis rotation</Channel>
+  <Channel Number="3">Y-axis fine-tuning</Channel>
+  <Channel Number="4">XY speed adjustment</Channel>
+  <Channel Number="5">Focus</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Red 1 Dimmer</Channel>
+  <Channel Number="9">Green 1 Dimmer</Channel>
+  <Channel Number="10">Blue 1 Dimmer</Channel>
+  <Channel Number="11">White 1 Dimmer</Channel>
+  <Channel Number="12">Red 2 Dimmer</Channel>
+  <Channel Number="13">Green 2 Dimmer</Channel>
+  <Channel Number="14">Blue 2 Dimmer</Channel>
+  <Channel Number="15">White 2 Dimmer</Channel>
+  <Channel Number="16">Red 3 Dimmer</Channel>
+  <Channel Number="17">Green 3 Dimmer</Channel>
+  <Channel Number="18">Blue 3 Dimmer</Channel>
+  <Channel Number="19">White 3 Dimmer</Channel>
+  <Channel Number="20">Program Selection</Channel>
+  <Channel Number="21">Program Speed</Channel>
+  <Channel Number="22">Program Activation</Channel>
+  <Channel Number="23">Reset</Channel>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="8000" ColourTemperature="0"/>
+  <Dimensions Weight="7.7" Width="310" Height="400" Depth="220"/>
+  <Lens Name="Other" DegreesMin="8" DegreesMax="55"/>
+  <Focus Type="Head" PanMax="540" TiltMax="180"/>
+  <Technical PowerConsumption="285" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

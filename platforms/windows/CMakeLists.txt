@@ -20,7 +20,7 @@ endif()
 get_filename_component(QT_LIBS_PATH ${QT_DIR}/../../../bin ABSOLUTE)
 get_filename_component(QT_PLUGINS_PATH ${QT_LIBS_PATH}/../share/${QT_P}/plugins ABSOLUTE)
 get_filename_component(QT_QML_PATH ${QT_LIBS_PATH}/../share/${QT_P}/qml ABSOLUTE)
-set(SYS_LIBS_PATH $ENV{SystemDrive}/msys64/mingw32/bin)
+set(SYS_LIBS_PATH $ENV{SystemDrive}/msys64/mingw64/bin)
 # set(SYS_LIBS_PATH D:/msys64/mingw32/bin)
 
 # Qt library dependencies
@@ -172,11 +172,11 @@ endif()
 # MSYS2 libraries
 set(msys_path "${INSTALLROOT}/${LIBSDIR}")
 set(msys_files "${SYS_LIBS_PATH}/libstdc++-6.dll"
-                "${SYS_LIBS_PATH}/libgcc_s_dw2-1.dll"
+                "${SYS_LIBS_PATH}/libgcc_s_seh-1.dll"
                 "${SYS_LIBS_PATH}/libwinpthread-1.dll"
-                "${SYS_LIBS_PATH}/libicuin73.dll"
-                "${SYS_LIBS_PATH}/libicuuc73.dll"
-                "${SYS_LIBS_PATH}/libicudt73.dll"
+                "${SYS_LIBS_PATH}/libicuin74.dll"
+                "${SYS_LIBS_PATH}/libicuuc74.dll"
+                "${SYS_LIBS_PATH}/libicudt74.dll"
                 "${SYS_LIBS_PATH}/libmd4c.dll"
                 "${SYS_LIBS_PATH}/libusb-1.0.dll")
 install(FILES ${msys_files} DESTINATION ${msys_path})

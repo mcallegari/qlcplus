@@ -17,16 +17,27 @@
   limitations under the License.
 */
 
+#include <QSettings>
+
 #include "createfixturegroup.h"
+
+#define SETTINGS_GEOMETRY "createfixturegroup/geometry"
 
 CreateFixtureGroup::CreateFixtureGroup(QWidget* parent)
     : QDialog(parent)
 {
     setupUi(this);
+
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 }
 
 CreateFixtureGroup::~CreateFixtureGroup()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 QString CreateFixtureGroup::name() const

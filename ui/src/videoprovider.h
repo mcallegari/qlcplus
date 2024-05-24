@@ -60,6 +60,9 @@ protected:
     QMediaPlayer *m_videoPlayer;
     /** Qt widget that actually displays the video */
     QVideoWidget *m_videoWidget;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    QAudioOutput *m_audioOutput;
+#endif
 
 private:
     FunctionParent functionParent() const;

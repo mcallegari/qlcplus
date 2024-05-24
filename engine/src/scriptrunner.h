@@ -174,6 +174,14 @@ public slots:
     bool setBlackout(bool enable);
 
     /**
+     * Set the BPM (beat per minute) number of the internal beat generator
+     *
+     * @param bpm the number of beats per minute requested
+     * @return true if successful. False on error.
+     */
+    bool setBPM(int bpm);
+
+    /**
      * Handle "random" command (string version)
      *
      * @param minTime Minimum time, expressed as QLC+ styled string

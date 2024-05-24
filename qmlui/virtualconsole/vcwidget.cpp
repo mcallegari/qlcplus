@@ -120,7 +120,12 @@ bool VCWidget::copyFrom(const VCWidget* widget)
     {
         QSharedPointer<QLCInputSource> dst(new QLCInputSource(src->universe(), src->channel()));
         dst->setID(src->id());
-        dst->setRange(src->lowerValue(), src->upperValue());
+        dst->setFeedbackValue(QLCInputFeedback::LowerValue, src->feedbackValue(QLCInputFeedback::LowerValue));
+        dst->setFeedbackValue(QLCInputFeedback::UpperValue, src->feedbackValue(QLCInputFeedback::UpperValue));
+        dst->setFeedbackValue(QLCInputFeedback::MonitorValue, src->feedbackValue(QLCInputFeedback::MonitorValue));
+        dst->setFeedbackExtraParams(QLCInputFeedback::LowerValue, src->feedbackExtraParams(QLCInputFeedback::LowerValue));
+        dst->setFeedbackExtraParams(QLCInputFeedback::UpperValue, src->feedbackExtraParams(QLCInputFeedback::UpperValue));
+        dst->setFeedbackExtraParams(QLCInputFeedback::MonitorValue, src->feedbackExtraParams(QLCInputFeedback::MonitorValue));
         addInputSource(dst);
     }
 
@@ -659,6 +664,16 @@ void VCWidget::addInputSource(QSharedPointer<QLCInputSource> const& source)
         QLCInputChannel *ich = ip->profile()->channel(source->channel() & 0x0000FFFF);
         if (ich != nullptr)
         {
+            QLCInputProfile *profile = ip->profile();
+
+            // retrieve plugin specific params for feedback
+            if (source->feedbackExtraParams(QLCInputFeedback::LowerValue).toInt() == -1)
+                source->setFeedbackExtraParams(QLCInputFeedback::LowerValue, profile->channelExtraParams(ich));
+            if (source->feedbackExtraParams(QLCInputFeedback::UpperValue).toInt() == -1)
+                source->setFeedbackExtraParams(QLCInputFeedback::UpperValue, profile->channelExtraParams(ich));
+            if (source->feedbackExtraParams(QLCInputFeedback::MonitorValue).toInt() == -1)
+                source->setFeedbackExtraParams(QLCInputFeedback::MonitorValue, profile->channelExtraParams(ich));
+
             if (ich->movementType() == QLCInputChannel::Relative)
             {
                 source->setWorkingMode(QLCInputSource::Relative);
@@ -682,9 +697,16 @@ void VCWidget::addInputSource(QSharedPointer<QLCInputSource> const& source)
                             this, SLOT(slotInputSourceValueChanged(quint32,quint32,uchar)));
                 }
 
-                // user custom feedbacks have precedence over input profile custom feedbacks
-                source->setRange((source->lowerValue() != 0) ? source->lowerValue() : ich->lowerValue(),
-                                 (source->upperValue() != UCHAR_MAX) ? source->upperValue() : ich->upperValue());
+                // user custom feedback have precedence over input profile custom feedback
+                uchar lower = source->feedbackValue(QLCInputFeedback::LowerValue) != 0 ?
+                                  source->feedbackValue(QLCInputFeedback::LowerValue) :
+                                  ich->lowerValue();
+                uchar upper = source->feedbackValue(QLCInputFeedback::UpperValue) != UCHAR_MAX ?
+                                  source->feedbackValue(QLCInputFeedback::UpperValue) :
+                                  ich->upperValue();
+
+                source->setFeedbackValue(QLCInputFeedback::LowerValue, lower);
+                source->setFeedbackValue(QLCInputFeedback::UpperValue, upper);
             }
         }
     }
@@ -725,7 +747,8 @@ bool VCWidget::updateInputSourceRange(quint32 universe, quint32 channel, quint8 
     {
         if (source->universe() == universe && source->channel() == channel)
         {
-            source->setRange(lower, upper);
+            source->setFeedbackValue(QLCInputFeedback::LowerValue, lower);
+            source->setFeedbackValue(QLCInputFeedback::UpperValue, upper);
             return true;
         }
     }
@@ -787,16 +810,20 @@ QVariantList VCWidget::inputSourcesList()
         }
 
         QVariantMap sourceMap;
+        uchar lower = source->feedbackValue(QLCInputFeedback::LowerValue);
+        uchar upper = source->feedbackValue(QLCInputFeedback::UpperValue);
+
         if (source->isValid() == false)
             sourceMap.insert("invalid", true);
+
         sourceMap.insert("type", Controller);
         sourceMap.insert("id", source->id());
         sourceMap.insert("uniString", uniName);
         sourceMap.insert("chString", chName);
         sourceMap.insert("universe", source->universe());
         sourceMap.insert("channel", source->channel());
-        sourceMap.insert("lower", source->lowerValue() != 0 ? source->lowerValue() : min);
-        sourceMap.insert("upper", source->upperValue() != UCHAR_MAX ? source->upperValue() : max);
+        sourceMap.insert("lower", lower != 0 ? lower : min);
+        sourceMap.insert("upper", upper != UCHAR_MAX ? upper : max);
         sourceMap.insert("customFeedback", supportCustomFeedback);
         m_sourcesList.append(sourceMap);
     }
@@ -863,9 +890,11 @@ void VCWidget::sendFeedback(int value, quint8 id, SourceValueType type)
             continue;
 
         if (type == LowerValue)
-            value = source->lowerValue();
+            value = source->feedbackValue(QLCInputFeedback::LowerValue);
         else if (type == UpperValue)
-            value = source->upperValue();
+            value = source->feedbackValue(QLCInputFeedback::UpperValue);
+        else if (type == MonitorValue)
+            value = source->feedbackValue(QLCInputFeedback::MonitorValue);
 
         // if in relative mode, send a "feedback" to this
         // input source so it can continue to emit values
@@ -1084,7 +1113,7 @@ bool VCWidget::loadXMLInputSource(QXmlStreamReader &root, const quint8 &id)
 
     quint32 uni = attrs.value(KXMLQLCVCWidgetInputUniverse).toString().toUInt();
     quint32 ch = attrs.value(KXMLQLCVCWidgetInputChannel).toString().toUInt();
-    uchar min = 0, max = UCHAR_MAX;
+    uchar min = 0, max = UCHAR_MAX, mon = UCHAR_MAX;
 
     QSharedPointer<QLCInputSource>inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
     inputSource->setID(id);
@@ -1093,8 +1122,20 @@ bool VCWidget::loadXMLInputSource(QXmlStreamReader &root, const quint8 &id)
         min = uchar(attrs.value(KXMLQLCVCWidgetInputLowerValue).toString().toUInt());
     if (attrs.hasAttribute(KXMLQLCVCWidgetInputUpperValue))
         max = uchar(attrs.value(KXMLQLCVCWidgetInputUpperValue).toString().toUInt());
+    if (attrs.hasAttribute(KXMLQLCVCWidgetInputMonitorValue))
+        mon = uchar(attrs.value(KXMLQLCVCWidgetInputMonitorValue).toString().toUInt());
 
-    inputSource->setRange(min, max);
+    inputSource->setFeedbackValue(QLCInputFeedback::LowerValue, min);
+    inputSource->setFeedbackValue(QLCInputFeedback::UpperValue, max);
+    inputSource->setFeedbackValue(QLCInputFeedback::MonitorValue, mon);
+
+    // load feedback extra params
+    if (attrs.hasAttribute(KXMLQLCVCWidgetInputLowerParams))
+        inputSource->setFeedbackExtraParams(QLCInputFeedback::LowerValue, attrs.value(KXMLQLCVCWidgetInputLowerParams).toInt());
+    if (attrs.hasAttribute(KXMLQLCVCWidgetInputUpperParams))
+        inputSource->setFeedbackExtraParams(QLCInputFeedback::UpperValue, attrs.value(KXMLQLCVCWidgetInputUpperParams).toInt());
+    if (attrs.hasAttribute(KXMLQLCVCWidgetInputMonitorParams))
+        inputSource->setFeedbackExtraParams(QLCInputFeedback::MonitorValue, attrs.value(KXMLQLCVCWidgetInputMonitorParams).toInt());
 
     addInputSource(inputSource);
 
@@ -1262,10 +1303,29 @@ bool VCWidget::saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QStr
         doc->writeStartElement(KXMLQLCVCWidgetInput);
         doc->writeAttribute(KXMLQLCVCWidgetInputUniverse, QString("%1").arg(source->universe()));
         doc->writeAttribute(KXMLQLCVCWidgetInputChannel, QString("%1").arg(source->channel()));
-        if (source->lowerValue() != 0)
-            doc->writeAttribute(KXMLQLCVCWidgetInputLowerValue, QString::number(source->lowerValue()));
-        if (source->upperValue() != UCHAR_MAX)
-            doc->writeAttribute(KXMLQLCVCWidgetInputUpperValue, QString::number(source->upperValue()));
+        if (source->feedbackValue(QLCInputFeedback::LowerValue) != 0)
+            doc->writeAttribute(KXMLQLCVCWidgetInputLowerValue, QString::number(source->feedbackValue(QLCInputFeedback::LowerValue)));
+        if (source->feedbackValue(QLCInputFeedback::UpperValue) != UCHAR_MAX)
+            doc->writeAttribute(KXMLQLCVCWidgetInputUpperValue, QString::number(source->feedbackValue(QLCInputFeedback::UpperValue)));
+        if (source->feedbackValue(QLCInputFeedback::MonitorValue) != UCHAR_MAX)
+            doc->writeAttribute(KXMLQLCVCWidgetInputMonitorValue, QString::number(source->feedbackValue(QLCInputFeedback::MonitorValue)));
+
+        // save feedback extra params
+        QVariant extraParams = source->feedbackExtraParams(QLCInputFeedback::LowerValue);
+
+        if (extraParams.isValid() && extraParams.type() == QVariant::Int && extraParams.toInt() != -1)
+            doc->writeAttribute(KXMLQLCVCWidgetInputLowerParams, QString::number(extraParams.toInt()));
+
+        extraParams = source->feedbackExtraParams(QLCInputFeedback::UpperValue);
+
+        if (extraParams.isValid() && extraParams.type() == QVariant::Int && extraParams.toInt() != -1)
+            doc->writeAttribute(KXMLQLCVCWidgetInputUpperParams, QString::number(extraParams.toInt()));
+
+        extraParams = source->feedbackExtraParams(QLCInputFeedback::MonitorValue);
+
+        if (extraParams.isValid() && extraParams.type() == QVariant::Int && extraParams.toInt() != -1)
+            doc->writeAttribute(KXMLQLCVCWidgetInputMonitorParams, QString::number(extraParams.toInt()));
+
         doc->writeEndElement();
     }
 

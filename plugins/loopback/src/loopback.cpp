@@ -206,7 +206,7 @@ void Loopback::writeUniverse(quint32 universe, quint32 output, const QByteArray 
     }
 }
 
-void Loopback::sendFeedBack(quint32 universe, quint32 input, quint32 channel, uchar value, const QString &)
+void Loopback::sendFeedBack(quint32 universe, quint32 input, quint32 channel, uchar value, const QVariant &)
 {
     if (!m_inputMap.contains(input))
         return;

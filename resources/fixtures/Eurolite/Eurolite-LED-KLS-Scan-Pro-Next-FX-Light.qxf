@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.0 GIT</Version>
+  <Author>Kevin</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED KLS Scan Pro Next FX Light</Model>
+ <Type>Other</Type>
+ <Channel Name="Dimmer Spots + Derby" Preset="IntensityDimmer"/>
+ <Channel Name="Integrated show programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="17">Automatic / sound program 1</Capability>
+  <Capability Min="18" Max="30">Automatic / sound program 2</Capability>
+  <Capability Min="31" Max="42">Automatic / sound program 3</Capability>
+  <Capability Min="43" Max="56">Automatic / sound program 4</Capability>
+  <Capability Min="57" Max="69">Automatic / sound program 5</Capability>
+  <Capability Min="70" Max="82">Automatic / sound program 6</Capability>
+  <Capability Min="83" Max="95">Automatic / sound program 7</Capability>
+  <Capability Min="96" Max="108">Automatic / sound program 8</Capability>
+  <Capability Min="109" Max="121">Automatic / sound program 9</Capability>
+  <Capability Min="122" Max="134">Automatic / sound program 10</Capability>
+  <Capability Min="135" Max="147">Automatic / sound program 11</Capability>
+  <Capability Min="148" Max="160">Automatic / sound program 12</Capability>
+  <Capability Min="161" Max="173">Automatic / sound program 13</Capability>
+  <Capability Min="174" Max="186">Automatic / sound program 14</Capability>
+  <Capability Min="187" Max="199">Automatic / sound program 15</Capability>
+  <Capability Min="200" Max="212">Automatic / sound program 16</Capability>
+  <Capability Min="213" Max="225">Automatic / sound program 17</Capability>
+  <Capability Min="226" Max="238">Automatic / sound program 18</Capability>
+  <Capability Min="239" Max="251">Automatic / sound program 19</Capability>
+  <Capability Min="252" Max="255">Automatic / sound program 20</Capability>
+ </Channel>
+ <Channel Name="Automatic Mode / Sound Control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="100">Automatic program with color change</Capability>
+  <Capability Min="101" Max="200">Automatic program with color fade</Capability>
+  <Capability Min="201" Max="225">Sound program with color change</Capability>
+  <Capability Min="226" Max="255">Sound program with color fade</Capability>
+ </Channel>
+ <Channel Name="Spots Red" Preset="IntensityRed"/>
+ <Channel Name="Spots Green" Preset="IntensityGreen"/>
+ <Channel Name="Spots Blue" Preset="IntensityBlue"/>
+ <Channel Name="Spots White" Preset="IntensityWhite"/>
+ <Channel Name="Derby">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="55">Program 1 (slow to fast)</Capability>
+  <Capability Min="56" Max="105">Program 2 (slow to fast)</Capability>
+  <Capability Min="106" Max="155">Program 3 (slow to fast)</Capability>
+  <Capability Min="156" Max="205">Program 4 (slow to fast)</Capability>
+  <Capability Min="206" Max="255">Program 5 (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Scanner">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="31">Pan-/Tilt Program 1</Capability>
+  <Capability Min="32" Max="63">Pan-/Tilt Program 2</Capability>
+  <Capability Min="64" Max="95">Pan-/Tilt Program 3</Capability>
+  <Capability Min="96" Max="127">Pan-/Tilt Program 4</Capability>
+  <Capability Min="128" Max="159">Pan-/Tilt Program 5</Capability>
+  <Capability Min="160" Max="191">Pan-/Tilt Program 6</Capability>
+  <Capability Min="192" Max="223">Pan-/Tilt Program 7</Capability>
+  <Capability Min="224" Max="255">Pan-/Tilt Program 8</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterOpen">On</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe speed (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Derby motor">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0" Preset="RotationStop">Stop</Capability>
+  <Capability Min="1" Max="127" Preset="RotationClockwiseSlowToFast">Rotation clockwise (slow to fast)</Capability>
+  <Capability Min="128" Max="128" Preset="RotationStop">Stop</Capability>
+  <Capability Min="129" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotation counterclockwise (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Scanner Pan" Preset="PositionPan"/>
+ <Channel Name="Scanner Tilt" Preset="PositionTilt"/>
+ <Channel Name="Scanner Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Scanner Color wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">Open</Capability>
+  <Capability Min="16" Max="31" Preset="ColorMacro" Res1="#ee82ee">Violet</Capability>
+  <Capability Min="32" Max="47" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="48" Max="63" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="64" Max="79" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="80" Max="95" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="96" Max="111" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="128" Max="143" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ee82ee">Open + Violet</Capability>
+  <Capability Min="144" Max="159" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffff00">Green + Yellow</Capability>
+  <Capability Min="160" Max="175" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ff0000">Cyan + Red</Capability>
+  <Capability Min="176" Max="191" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#0000ff">Orange + Blue</Capability>
+  <Capability Min="192" Max="207" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#00ff00">Open + Green</Capability>
+  <Capability Min="208" Max="223" Preset="ColorDoubleMacro" Res1="#ee82ee" Res2="#ffff00">Violet + Yellow</Capability>
+  <Capability Min="224" Max="239" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ffa500">Cyan + Orange</Capability>
+  <Capability Min="240" Max="255" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red + Blue</Capability>
+ </Channel>
+ <Channel Name="Scanner Gobos">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="16" Max="31" Preset="GoboMacro" Res1="SGM/gobo00008.svg">Gobo 1</Capability>
+  <Capability Min="32" Max="47" Preset="GoboMacro" Res1="SGM/gobo00025.svg">Gobo 2</Capability>
+  <Capability Min="48" Max="63" Preset="GoboMacro" Res1="SGM/gobo00181.svg">Gobo 3</Capability>
+  <Capability Min="64" Max="79" Preset="GoboMacro" Res1="Chauvet/gobo00098.svg">Gobo 4</Capability>
+  <Capability Min="80" Max="95" Preset="GoboMacro" Res1="ClayPaky/gobo00108.svg">Gobo 5</Capability>
+  <Capability Min="96" Max="111" Preset="GoboMacro" Res1="ClayPaky/gobo00062.svg">Gobo 6</Capability>
+  <Capability Min="112" Max="127" Preset="GoboMacro" Res1="SGM/gobo00376.svg">Gobo 7</Capability>
+  <Capability Min="128" Max="143">Gobo open+1</Capability>
+  <Capability Min="144" Max="159">Gobo 2+3</Capability>
+  <Capability Min="160" Max="175">Gobo 4+5</Capability>
+  <Capability Min="176" Max="191">Gobo 6+7</Capability>
+  <Capability Min="192" Max="207">Gobo open+7</Capability>
+  <Capability Min="208" Max="223">Gobo 1+6</Capability>
+  <Capability Min="224" Max="239">Gobo 2+5</Capability>
+  <Capability Min="240" Max="255">Gobo 3+4</Capability>
+ </Channel>
+ <Channel Name="Scanner Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Scanner strobe effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterOpen">On</Capability>
+  <Capability Min="4" Max="7" Preset="ShutterClose">Off</Capability>
+  <Capability Min="8" Max="76" Preset="StrobeSlowToFast">Strobe effect (slow to fast)</Capability>
+  <Capability Min="77" Max="145" Preset="PulseSlowToFast">Pulsating strobe effect (slow to fast)</Capability>
+  <Capability Min="146" Max="215" Preset="StrobeRandomSlowToFast">Random strobe effect (slow to fast)</Capability>
+  <Capability Min="216" Max="255" Preset="ShutterOpen">On</Capability>
+ </Channel>
+ <Channel Name="UV Dimmer" Preset="IntensityUV"/>
+ <Channel Name="Spots 1+4 Red" Preset="IntensityRed"/>
+ <Channel Name="Spots 1+4 Green" Preset="IntensityGreen"/>
+ <Channel Name="Spots 1+4 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Spots 1+4 White" Preset="IntensityWhite"/>
+ <Channel Name="Spots 2+3 Red" Preset="IntensityRed"/>
+ <Channel Name="Spots 2+3 Green" Preset="IntensityGreen"/>
+ <Channel Name="Spots 2+3 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Spots 2+3 White" Preset="IntensityWhite"/>
+ <Channel Name="Derby Red" Preset="IntensityRed"/>
+ <Channel Name="Derby Green" Preset="IntensityGreen"/>
+ <Channel Name="Derby Blue" Preset="IntensityBlue"/>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Spot 1 Red" Preset="IntensityRed"/>
+ <Channel Name="Spot 1 Green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 1 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot 1 White" Preset="IntensityWhite"/>
+ <Channel Name="Spot 2 Red" Preset="IntensityRed"/>
+ <Channel Name="Spot 2 Green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 2 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot 2 White" Preset="IntensityWhite"/>
+ <Channel Name="Spot 3 Red" Preset="IntensityRed"/>
+ <Channel Name="Spot 3 Green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 3 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot 3 White" Preset="IntensityWhite"/>
+ <Channel Name="Spot 4 Red" Preset="IntensityRed"/>
+ <Channel Name="Spot 4 Green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 4 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot 4 White" Preset="IntensityWhite"/>
+ <Channel Name="Strobe effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="55">Strobe effect 1 (slow to fast)</Capability>
+  <Capability Min="56" Max="105">Strobe effect 2 (slow to fast)</Capability>
+  <Capability Min="106" Max="155">Strobe effect 3 (slow to fast)</Capability>
+  <Capability Min="156" Max="205">Strobe effect 4 (slow to fast)</Capability>
+  <Capability Min="206" Max="255">Strobe effect 5 (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Scanner 1 Pan" Preset="PositionPan"/>
+ <Channel Name="Scanner 1 Tilt" Preset="PositionTilt"/>
+ <Channel Name="Scanner 1 Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Scanner 1 Color wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">Open</Capability>
+  <Capability Min="16" Max="31" Preset="ColorMacro" Res1="#ee82ee">Violet</Capability>
+  <Capability Min="32" Max="47" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="48" Max="63" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="64" Max="79" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="80" Max="95" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="96" Max="111" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="128" Max="143" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ee82ee">Open + Violet</Capability>
+  <Capability Min="144" Max="159" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffff00">Green + Yellow</Capability>
+  <Capability Min="160" Max="175" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ff0000">Cyan + Red</Capability>
+  <Capability Min="176" Max="191" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#0000ff">Orange + Blue</Capability>
+  <Capability Min="192" Max="207" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#00ff00">Open + Green</Capability>
+  <Capability Min="208" Max="223" Preset="ColorDoubleMacro" Res1="#ee82ee" Res2="#ffff00">Violet + Yellow</Capability>
+  <Capability Min="224" Max="239" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ffa500">Cyan + Orange</Capability>
+  <Capability Min="240" Max="255" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red + Blue</Capability>
+ </Channel>
+ <Channel Name="Scanner 1 Gobos">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="16" Max="31" Preset="GoboMacro" Res1="SGM/gobo00008.svg">Gobo 1</Capability>
+  <Capability Min="32" Max="47" Preset="GoboMacro" Res1="SGM/gobo00025.svg">Gobo 2</Capability>
+  <Capability Min="48" Max="63" Preset="GoboMacro" Res1="SGM/gobo00181.svg">Gobo 3</Capability>
+  <Capability Min="64" Max="79" Preset="GoboMacro" Res1="Chauvet/gobo00098.svg">Gobo 4</Capability>
+  <Capability Min="80" Max="95" Preset="GoboMacro" Res1="ClayPaky/gobo00108.svg">Gobo 5</Capability>
+  <Capability Min="96" Max="111" Preset="GoboMacro" Res1="ClayPaky/gobo00062.svg">Gobo 6</Capability>
+  <Capability Min="112" Max="127" Preset="GoboMacro" Res1="SGM/gobo00376.svg">Gobo 7</Capability>
+  <Capability Min="128" Max="143">Gobo open+1</Capability>
+  <Capability Min="144" Max="159">Gobo 2+3</Capability>
+  <Capability Min="160" Max="175">Gobo 4+5</Capability>
+  <Capability Min="176" Max="191">Gobo 6+7</Capability>
+  <Capability Min="192" Max="207">Gobo open+7</Capability>
+  <Capability Min="208" Max="223">Gobo 1+6</Capability>
+  <Capability Min="224" Max="239">Gobo 2+5</Capability>
+  <Capability Min="240" Max="255">Gobo 3+4</Capability>
+ </Channel>
+ <Channel Name="Scanner 1 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Scanner 1 strobe effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterOpen">On</Capability>
+  <Capability Min="4" Max="7" Preset="ShutterClose">Off</Capability>
+  <Capability Min="8" Max="76" Preset="StrobeSlowToFast">Strobe effect (slow to fast)</Capability>
+  <Capability Min="77" Max="145" Preset="PulseSlowToFast">Pulsating strobe effect (slow to fast)</Capability>
+  <Capability Min="146" Max="215" Preset="StrobeRandomSlowToFast">Random strobe effect (slow to fast)</Capability>
+  <Capability Min="216" Max="255" Preset="ShutterOpen">On</Capability>
+ </Channel>
+ <Channel Name="Scanner 2 Pan" Preset="PositionPan"/>
+ <Channel Name="Scanner 2 Tilt" Preset="PositionTilt"/>
+ <Channel Name="Scanner 2 Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Scanner 2 Color wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">Open</Capability>
+  <Capability Min="16" Max="31" Preset="ColorMacro" Res1="#ee82ee">Violet</Capability>
+  <Capability Min="32" Max="47" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="48" Max="63" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="64" Max="79" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="80" Max="95" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="96" Max="111" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="128" Max="143" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ee82ee">Open + Violet</Capability>
+  <Capability Min="144" Max="159" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffff00">Green + Yellow</Capability>
+  <Capability Min="160" Max="175" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ff0000">Cyan + Red</Capability>
+  <Capability Min="176" Max="191" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#0000ff">Orange + Blue</Capability>
+  <Capability Min="192" Max="207" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#00ff00">Open + Green</Capability>
+  <Capability Min="208" Max="223" Preset="ColorDoubleMacro" Res1="#ee82ee" Res2="#ffff00">Violet + Yellow</Capability>
+  <Capability Min="224" Max="239" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ffa500">Cyan + Orange</Capability>
+  <Capability Min="240" Max="255" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red + Blue</Capability>
+ </Channel>
+ <Channel Name="Scanner 2 Gobos">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="16" Max="31" Preset="GoboMacro" Res1="SGM/gobo00008.svg">Gobo 1</Capability>
+  <Capability Min="32" Max="47" Preset="GoboMacro" Res1="SGM/gobo00025.svg">Gobo 2</Capability>
+  <Capability Min="48" Max="63" Preset="GoboMacro" Res1="SGM/gobo00181.svg">Gobo 3</Capability>
+  <Capability Min="64" Max="79" Preset="GoboMacro" Res1="Chauvet/gobo00098.svg">Gobo 4</Capability>
+  <Capability Min="80" Max="95" Preset="GoboMacro" Res1="ClayPaky/gobo00108.svg">Gobo 5</Capability>
+  <Capability Min="96" Max="111" Preset="GoboMacro" Res1="ClayPaky/gobo00062.svg">Gobo 6</Capability>
+  <Capability Min="112" Max="127" Preset="GoboMacro" Res1="SGM/gobo00376.svg">Gobo 7</Capability>
+  <Capability Min="128" Max="143">Gobo open+1</Capability>
+  <Capability Min="144" Max="159">Gobo 2+3</Capability>
+  <Capability Min="160" Max="175">Gobo 4+5</Capability>
+  <Capability Min="176" Max="191">Gobo 6+7</Capability>
+  <Capability Min="192" Max="207">Gobo open+7</Capability>
+  <Capability Min="208" Max="223">Gobo 1+6</Capability>
+  <Capability Min="224" Max="239">Gobo 2+5</Capability>
+  <Capability Min="240" Max="255">Gobo 3+4</Capability>
+ </Channel>
+ <Channel Name="Scanner 2 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Scanner 2 strobe effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterOpen">On</Capability>
+  <Capability Min="4" Max="7" Preset="ShutterClose">Off</Capability>
+  <Capability Min="8" Max="76" Preset="StrobeSlowToFast">Strobe effect (slow to fast)</Capability>
+  <Capability Min="77" Max="145" Preset="PulseSlowToFast">Pulsating strobe effect (slow to fast)</Capability>
+  <Capability Min="146" Max="215" Preset="StrobeRandomSlowToFast">Random strobe effect (slow to fast)</Capability>
+  <Capability Min="216" Max="255" Preset="ShutterOpen">On</Capability>
+ </Channel>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Dimmer Spots + Derby</Channel>
+  <Channel Number="1">Integrated show programs</Channel>
+  <Channel Number="2">Automatic Mode / Sound Control</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Spots Red</Channel>
+  <Channel Number="1">Spots Green</Channel>
+  <Channel Number="2">Spots Blue</Channel>
+  <Channel Number="3">Spots White</Channel>
+  <Channel Number="4">Derby</Channel>
+  <Channel Number="5">Scanner</Channel>
+  <Channel Number="6">Strobe</Channel>
+ </Mode>
+ <Mode Name="13 Channel">
+  <Channel Number="0">Spots Red</Channel>
+  <Channel Number="1">Spots Green</Channel>
+  <Channel Number="2">Spots Blue</Channel>
+  <Channel Number="3">Spots White</Channel>
+  <Channel Number="4">Derby motor</Channel>
+  <Channel Number="5">Scanner Pan</Channel>
+  <Channel Number="6">Scanner Tilt</Channel>
+  <Channel Number="7">Scanner Pan/Tilt Speed</Channel>
+  <Channel Number="8">Scanner Color wheel</Channel>
+  <Channel Number="9">Scanner Gobos</Channel>
+  <Channel Number="10">Scanner Dimmer</Channel>
+  <Channel Number="11">Scanner strobe effect</Channel>
+  <Channel Number="12">UV Dimmer</Channel>
+ </Mode>
+ <Mode Name="14 Channel">
+  <Channel Number="0">Spots 1+4 Red</Channel>
+  <Channel Number="1">Spots 1+4 Green</Channel>
+  <Channel Number="2">Spots 1+4 Blue</Channel>
+  <Channel Number="3">Spots 1+4 White</Channel>
+  <Channel Number="4">Spots 2+3 Red</Channel>
+  <Channel Number="5">Spots 2+3 Green</Channel>
+  <Channel Number="6">Spots 2+3 Blue</Channel>
+  <Channel Number="7">Spots 2+3 White</Channel>
+  <Channel Number="8">Derby Red</Channel>
+  <Channel Number="9">Derby Green</Channel>
+  <Channel Number="10">Derby Blue</Channel>
+  <Channel Number="11">Derby motor</Channel>
+  <Channel Number="12">Scanner</Channel>
+  <Channel Number="13">UV Dimmer</Channel>
+ </Mode>
+ <Mode Name="15 Channel">
+  <Channel Number="0">Spots Red</Channel>
+  <Channel Number="1">Spots Green</Channel>
+  <Channel Number="2">Spots Blue</Channel>
+  <Channel Number="3">Spots White</Channel>
+  <Channel Number="4">Derby motor</Channel>
+  <Channel Number="5">Scanner Pan</Channel>
+  <Channel Number="6">Scanner Tilt</Channel>
+  <Channel Number="7">Scanner Pan/Tilt Speed</Channel>
+  <Channel Number="8">Scanner Color wheel</Channel>
+  <Channel Number="9">Scanner Gobos</Channel>
+  <Channel Number="10">Scanner Dimmer</Channel>
+  <Channel Number="11">Scanner strobe effect</Channel>
+  <Channel Number="12">UV Dimmer</Channel>
+  <Channel Number="13">Integrated show programs</Channel>
+  <Channel Number="14">Automatic Mode / Sound Control</Channel>
+ </Mode>
+ <Mode Name="18 Channel">
+  <Channel Number="0">Spots 1+4 Red</Channel>
+  <Channel Number="1">Spots 1+4 Green</Channel>
+  <Channel Number="2">Spots 1+4 Blue</Channel>
+  <Channel Number="3">Spots 1+4 White</Channel>
+  <Channel Number="4">Spots 2+3 Red</Channel>
+  <Channel Number="5">Spots 2+3 Green</Channel>
+  <Channel Number="6">Spots 2+3 Blue</Channel>
+  <Channel Number="7">Spots 2+3 White</Channel>
+  <Channel Number="8">Derby Red</Channel>
+  <Channel Number="9">Derby Green</Channel>
+  <Channel Number="10">Derby Blue</Channel>
+  <Channel Number="11">Derby motor</Channel>
+  <Channel Number="12">Scanner</Channel>
+  <Channel Number="13">Scanner Color wheel</Channel>
+  <Channel Number="14">Scanner Gobos</Channel>
+  <Channel Number="15">Master dimmer</Channel>
+  <Channel Number="16">Scanner strobe effect</Channel>
+  <Channel Number="17">UV Dimmer</Channel>
+ </Mode>
+ <Mode Name="19 Channel">
+  <Channel Number="0">Spot 1 Red</Channel>
+  <Channel Number="1">Spot 1 Green</Channel>
+  <Channel Number="2">Spot 1 Blue</Channel>
+  <Channel Number="3">Spot 1 White</Channel>
+  <Channel Number="4">Spot 2 Red</Channel>
+  <Channel Number="5">Spot 2 Green</Channel>
+  <Channel Number="6">Spot 2 Blue</Channel>
+  <Channel Number="7">Spot 2 White</Channel>
+  <Channel Number="8">Spot 3 Red</Channel>
+  <Channel Number="9">Spot 3 Green</Channel>
+  <Channel Number="10">Spot 3 Blue</Channel>
+  <Channel Number="11">Spot 3 White</Channel>
+  <Channel Number="12">Spot 4 Red</Channel>
+  <Channel Number="13">Spot 4 Green</Channel>
+  <Channel Number="14">Spot 4 Blue</Channel>
+  <Channel Number="15">Spot 4 White</Channel>
+  <Channel Number="16">Derby</Channel>
+  <Channel Number="17">Scanner</Channel>
+  <Channel Number="18">UV Dimmer</Channel>
+ </Mode>
+ <Mode Name="30 Channel">
+  <Channel Number="0">Spot 1 Red</Channel>
+  <Channel Number="1">Spot 1 Green</Channel>
+  <Channel Number="2">Spot 1 Blue</Channel>
+  <Channel Number="3">Spot 1 White</Channel>
+  <Channel Number="4">Spot 2 Red</Channel>
+  <Channel Number="5">Spot 2 Green</Channel>
+  <Channel Number="6">Spot 2 Blue</Channel>
+  <Channel Number="7">Spot 2 White</Channel>
+  <Channel Number="8">Spot 3 Red</Channel>
+  <Channel Number="9">Spot 3 Green</Channel>
+  <Channel Number="10">Spot 3 Blue</Channel>
+  <Channel Number="11">Spot 3 White</Channel>
+  <Channel Number="12">Spot 4 Red</Channel>
+  <Channel Number="13">Spot 4 Green</Channel>
+  <Channel Number="14">Spot 4 Blue</Channel>
+  <Channel Number="15">Spot 4 White</Channel>
+  <Channel Number="16">Derby Red</Channel>
+  <Channel Number="17">Derby Green</Channel>
+  <Channel Number="18">Derby Blue</Channel>
+  <Channel Number="19">Derby motor</Channel>
+  <Channel Number="20">Master dimmer</Channel>
+  <Channel Number="21">Strobe effect</Channel>
+  <Channel Number="22">Scanner Pan</Channel>
+  <Channel Number="23">Scanner Tilt</Channel>
+  <Channel Number="24">Scanner Pan/Tilt Speed</Channel>
+  <Channel Number="25">Scanner Color wheel</Channel>
+  <Channel Number="26">Scanner Gobos</Channel>
+  <Channel Number="27">Scanner Dimmer</Channel>
+  <Channel Number="28">Scanner strobe effect</Channel>
+  <Channel Number="29">UV Dimmer</Channel>
+ </Mode>
+ <Mode Name="32 Channel">
+  <Channel Number="0">Spot 1 Red</Channel>
+  <Channel Number="1">Spot 1 Green</Channel>
+  <Channel Number="2">Spot 1 Blue</Channel>
+  <Channel Number="3">Spot 1 White</Channel>
+  <Channel Number="4">Spot 2 Red</Channel>
+  <Channel Number="5">Spot 2 Green</Channel>
+  <Channel Number="6">Spot 2 Blue</Channel>
+  <Channel Number="7">Spot 2 White</Channel>
+  <Channel Number="8">Spot 3 Red</Channel>
+  <Channel Number="9">Spot 3 Green</Channel>
+  <Channel Number="10">Spot 3 Blue</Channel>
+  <Channel Number="11">Spot 3 White</Channel>
+  <Channel Number="12">Spot 4 Red</Channel>
+  <Channel Number="13">Spot 4 Green</Channel>
+  <Channel Number="14">Spot 4 Blue</Channel>
+  <Channel Number="15">Spot 4 White</Channel>
+  <Channel Number="16">Derby Red</Channel>
+  <Channel Number="17">Derby Green</Channel>
+  <Channel Number="18">Derby Blue</Channel>
+  <Channel Number="19">Derby motor</Channel>
+  <Channel Number="20">Master dimmer</Channel>
+  <Channel Number="21">Strobe effect</Channel>
+  <Channel Number="22">Scanner Pan</Channel>
+  <Channel Number="23">Scanner Tilt</Channel>
+  <Channel Number="24">Scanner Pan/Tilt Speed</Channel>
+  <Channel Number="25">Scanner Color wheel</Channel>
+  <Channel Number="26">Scanner Gobos</Channel>
+  <Channel Number="27">Scanner Dimmer</Channel>
+  <Channel Number="28">Scanner strobe effect</Channel>
+  <Channel Number="29">UV Dimmer</Channel>
+  <Channel Number="30">Integrated show programs</Channel>
+  <Channel Number="31">Automatic Mode / Sound Control</Channel>
+ </Mode>
+ <Mode Name="39 Channel">
+  <Channel Number="0">Spot 1 Red</Channel>
+  <Channel Number="1">Spot 1 Green</Channel>
+  <Channel Number="2">Spot 1 Blue</Channel>
+  <Channel Number="3">Spot 1 White</Channel>
+  <Channel Number="4">Spot 2 Red</Channel>
+  <Channel Number="5">Spot 2 Green</Channel>
+  <Channel Number="6">Spot 2 Blue</Channel>
+  <Channel Number="7">Spot 2 White</Channel>
+  <Channel Number="8">Spot 3 Red</Channel>
+  <Channel Number="9">Spot 3 Green</Channel>
+  <Channel Number="10">Spot 3 Blue</Channel>
+  <Channel Number="11">Spot 3 White</Channel>
+  <Channel Number="12">Spot 4 Red</Channel>
+  <Channel Number="13">Spot 4 Green</Channel>
+  <Channel Number="14">Spot 4 Blue</Channel>
+  <Channel Number="15">Spot 4 White</Channel>
+  <Channel Number="16">Derby Red</Channel>
+  <Channel Number="17">Derby Green</Channel>
+  <Channel Number="18">Derby Blue</Channel>
+  <Channel Number="19">Derby motor</Channel>
+  <Channel Number="20">Master dimmer</Channel>
+  <Channel Number="21">Strobe effect</Channel>
+  <Channel Number="22">Scanner 1 Pan</Channel>
+  <Channel Number="23">Scanner 1 Tilt</Channel>
+  <Channel Number="24">Scanner 1 Pan/Tilt Speed</Channel>
+  <Channel Number="25">Scanner 1 Color wheel</Channel>
+  <Channel Number="26">Scanner 1 Gobos</Channel>
+  <Channel Number="27">Scanner 1 Dimmer</Channel>
+  <Channel Number="28">Scanner 1 strobe effect</Channel>
+  <Channel Number="29">Scanner 2 Pan</Channel>
+  <Channel Number="30">Scanner 2 Tilt</Channel>
+  <Channel Number="31">Scanner 2 Pan/Tilt Speed</Channel>
+  <Channel Number="32">Scanner 2 Color wheel</Channel>
+  <Channel Number="33">Scanner 2 Gobos</Channel>
+  <Channel Number="34">Scanner 2 Dimmer</Channel>
+  <Channel Number="35">Scanner 2 strobe effect</Channel>
+  <Channel Number="36">UV Dimmer</Channel>
+  <Channel Number="37">Integrated show programs</Channel>
+  <Channel Number="38">Automatic Mode / Sound Control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="15" Width="1120" Height="420" Depth="100"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Mirror" PanMax="90" TiltMax="90"/>
+  <Layout Width="4" Height="2"/>
+  <Technical PowerConsumption="265" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

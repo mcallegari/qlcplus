@@ -203,18 +203,20 @@ void EFXEditor::initMovementPage()
     m_algorithmCombo->addItems(EFX::algorithmList());
 
     QString algo(EFX::algorithmToString(m_efx->algorithm()));
+    int algoIndex = 0;
     /* Select the EFX's algorithm from the algorithm combo */
     for (int i = 0; i < m_algorithmCombo->count(); i++)
     {
         if (m_algorithmCombo->itemText(i) == algo)
         {
             m_algorithmCombo->setCurrentIndex(i);
+            algoIndex = i;
             break;
         }
     }
 
     /* Causes the EFX function to update the preview point array */
-    slotAlgorithmSelected(algo);
+    slotAlgorithmSelected(algoIndex);
 
     /* Get the algorithm parameters */
     m_widthSpin->setValue(m_efx->width());
@@ -269,8 +271,8 @@ void EFXEditor::initMovementPage()
     connect(m_backward, SIGNAL(clicked()),
             this, SLOT(slotBackwardClicked()));
 
-    connect(m_algorithmCombo, SIGNAL(activated(const QString&)),
-            this, SLOT(slotAlgorithmSelected(const QString&)));
+    connect(m_algorithmCombo, SIGNAL(activated(int)),
+            this, SLOT(slotAlgorithmSelected(int)));
     connect(m_widthSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotWidthSpinChanged(int)));
     connect(m_heightSpin, SIGNAL(valueChanged(int)),
@@ -884,12 +886,11 @@ void EFXEditor::slotFixtureChanged()
  * Movement page
  *****************************************************************************/
 
-void EFXEditor::slotAlgorithmSelected(const QString &text)
+void EFXEditor::slotAlgorithmSelected(int algoIndex)
 {
     Q_ASSERT(m_efx != NULL);
 
-    EFX::Algorithm algo = EFX::stringToAlgorithm(text);
-    m_efx->setAlgorithm(algo);
+    m_efx->setAlgorithm(EFX::Algorithm(algoIndex));
 
     if (m_efx->isFrequencyEnabled())
     {

@@ -144,6 +144,7 @@ Rectangle
             MenuBarEntry
             {
                 id: actEntry
+                Layout.alignment: Qt.AlignTop
                 imgSource: "qrc:/qlcplus.svg"
                 entryText: qsTr("Actions")
                 onPressed: actionsMenu.open()
@@ -165,6 +166,7 @@ Rectangle
             {
                 id: fnfEntry
                 property string ctxName: "FIXANDFUNC"
+                Layout.alignment: Qt.AlignTop
                 property string ctxRes: "qrc:/FixturesAndFunctions.qml"
 
                 imgSource: "qrc:/editor.svg"
@@ -180,6 +182,7 @@ Rectangle
             MenuBarEntry
             {
                 id: vcEntry
+                Layout.alignment: Qt.AlignTop
                 property string ctxName: "VC"
                 property string ctxRes: "qrc:/VirtualConsole.qml"
 
@@ -201,6 +204,7 @@ Rectangle
             MenuBarEntry
             {
                 id: sdEntry
+                Layout.alignment: Qt.AlignTop
                 property string ctxName: "SDESK"
                 property string ctxRes: "qrc:/SimpleDesk.qml"
 
@@ -222,6 +226,7 @@ Rectangle
             MenuBarEntry
             {
                 id: smEntry
+                Layout.alignment: Qt.AlignTop
                 property string ctxName: "SHOWMGR"
                 property string ctxRes: "qrc:/ShowManager.qml"
 
@@ -243,6 +248,7 @@ Rectangle
             MenuBarEntry
             {
                 id: ioEntry
+                Layout.alignment: Qt.AlignTop
                 property string ctxName: "IOMGR"
                 property string ctxRes: "qrc:/InputOutputManager.qml"
 
@@ -265,7 +271,7 @@ Rectangle
             {
                 // acts like an horizontal spacer
                 Layout.fillWidth: true
-                height: parent.height
+                implicitHeight: parent.height
                 color: "transparent"
             }
             RobotoText
@@ -273,6 +279,9 @@ Rectangle
                 label: "BPM: " + (ioManager.bpmNumber > 0 ? ioManager.bpmNumber : qsTr("Off"))
                 color: gsMouseArea.containsMouse ? UISettings.bgLight : "transparent"
                 fontSize: UISettings.textSizeDefault
+                Layout.alignment: Qt.AlignTop
+                implicitWidth: width
+                implicitHeight: parent.height
 
                 MouseArea
                 {
@@ -294,8 +303,9 @@ Rectangle
             Rectangle
             {
                 id: beatIndicator
-                width: height
-                height: parent.height * 0.5
+                implicitWidth: height
+                implicitHeight: parent.height * 0.5
+                Layout.alignment: Qt.AlignVCenter
                 radius: height / 2
                 border.width: 2
                 border.color: "#333"
@@ -324,8 +334,9 @@ Rectangle
             IconButton
             {
                 id: stopAllButton
-                width: UISettings.iconSizeDefault
-                height: UISettings.iconSizeDefault
+                implicitWidth: UISettings.iconSizeDefault
+                implicitHeight: UISettings.iconSizeDefault
+                Layout.alignment: Qt.AlignTop
                 enabled: runningCount ? true : false
                 bgColor: "transparent"
                 imgSource: "qrc:/stop.svg"

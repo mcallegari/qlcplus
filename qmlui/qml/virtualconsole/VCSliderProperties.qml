@@ -257,6 +257,21 @@ Rectangle
                     currentIndex: widgetRef ? widgetRef.controlledAttribute : 0
                     onCurrentIndexChanged: if (widgetRef) widgetRef.controlledAttribute = currentIndex
                 }
+
+                CustomCheckBox
+                {
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    checked: widgetRef ? widgetRef.adjustFlashEnabled : false
+                    onClicked: if (widgetRef) widgetRef.adjustFlashEnabled = checked
+                }
+
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    Layout.fillWidth: true
+                    label: qsTr("Show flash button")
+                }
               } // GridLayout
         } // SectionBox Function control
 

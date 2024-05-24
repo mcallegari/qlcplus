@@ -1020,6 +1020,13 @@ int Tardis::processAction(TardisAction &action, bool undo)
             matrix->setProperty(pairValue.first, QString::number(pairValue.second));
         }
         break;
+        case RGBMatrixSetScriptDoubleValue:
+        {
+            RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
+            StringDoublePair pairValue = value->value<StringIntPair>(); // param name on first, value on second
+            matrix->setProperty(pairValue.first, QString::number(pairValue.second));
+        }
+        break;
         case RGBMatrixSetScriptStringValue:
         {
             RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));

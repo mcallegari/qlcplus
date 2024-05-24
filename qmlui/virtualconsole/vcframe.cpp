@@ -31,6 +31,10 @@
 #include "vccuelist.h"
 #include "vcsoloframe.h"
 #include "simplecrypt.h"
+#include "vcanimation.h"
+#include "vcaudiotrigger.h"
+#include "vcxypad.h"
+#include "vcspeeddial.h"
 #include "virtualconsole.h"
 
 #define INPUT_NEXT_PAGE_ID      0
@@ -287,6 +291,54 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
                 slider->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 15, m_vc->pixelDensity() * 40));
             setupWidget(slider, currentPage());
             slider->render(m_vc->view(), parent);
+        }
+        break;
+        case AnimationWidget:
+        {
+            VCAnimation *animation = new VCAnimation(m_doc, this);
+            QQmlEngine::setObjectOwnership(animation, QQmlEngine::CppOwnership);
+            m_vc->addWidgetToMap(animation);
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, animation->id()));
+            animation->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
+            setupWidget(animation, currentPage());
+            animation->render(m_vc->view(), parent);
+        }
+        break;
+        case AudioTriggersWidget:
+        {
+            VCAudioTrigger *audioTrigger = new VCAudioTrigger(m_doc, this);
+            QQmlEngine::setObjectOwnership(audioTrigger, QQmlEngine::CppOwnership);
+            m_vc->addWidgetToMap(audioTrigger);
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, audioTrigger->id()));
+            audioTrigger->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
+            setupWidget(audioTrigger, currentPage());
+            audioTrigger->render(m_vc->view(), parent);
+        }
+        break;
+        case XYPadWidget:
+        {
+            VCXYPad *xyPad = new VCXYPad(m_doc, this);
+            QQmlEngine::setObjectOwnership(xyPad, QQmlEngine::CppOwnership);
+            m_vc->addWidgetToMap(xyPad);
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, xyPad->id()));
+            xyPad->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
+            setupWidget(xyPad, currentPage());
+            xyPad->render(m_vc->view(), parent);
+        }
+        break;
+        case SpeedDialWidget:
+        {
+            VCSpeedDial *speedDial = new VCSpeedDial(m_doc, this);
+            QQmlEngine::setObjectOwnership(speedDial, QQmlEngine::CppOwnership);
+            m_vc->addWidgetToMap(speedDial);
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, speedDial->id()));
+            speedDial->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
+            setupWidget(speedDial, currentPage());
+            speedDial->render(m_vc->view(), parent);
         }
         break;
         case ClockWidget:
@@ -1032,6 +1084,66 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
             m_vc->addWidgetToMap(slider);
             if (render && m_item)
                 slider->render(m_vc->view(), m_item);
+        }
+    }
+    else if (root.name() == KXMLQLCVCAnimation)
+    {
+        /* Create a new clock into its parent */
+        VCAnimation *animation = new VCAnimation(m_doc, this);
+        if (animation->loadXML(root) == false)
+            delete animation;
+        else
+        {
+            QQmlEngine::setObjectOwnership(animation, QQmlEngine::CppOwnership);
+            setupWidget(animation, animation->page());
+            m_vc->addWidgetToMap(animation);
+            if (render && m_item)
+                animation->render(m_vc->view(), m_item);
+        }
+    }
+    else if (root.name() == KXMLQLCVCAudioTriggers)
+    {
+        /* Create a new clock into its parent */
+        VCAudioTrigger *audioTrigger = new VCAudioTrigger(m_doc, this);
+        if (audioTrigger->loadXML(root) == false)
+            delete audioTrigger;
+        else
+        {
+            QQmlEngine::setObjectOwnership(audioTrigger, QQmlEngine::CppOwnership);
+            setupWidget(audioTrigger, audioTrigger->page());
+            m_vc->addWidgetToMap(audioTrigger);
+            if (render && m_item)
+                audioTrigger->render(m_vc->view(), m_item);
+        }
+    }
+    else if (root.name() == KXMLQLCVCSpeedDial)
+    {
+        /* Create a new speedDial into its parent */
+        VCSpeedDial *speedDial = new VCSpeedDial(m_doc, this);
+        if (speedDial->loadXML(root) == false)
+            delete speedDial;
+        else
+        {
+            QQmlEngine::setObjectOwnership(speedDial, QQmlEngine::CppOwnership);
+            setupWidget(speedDial, speedDial->page());
+            m_vc->addWidgetToMap(speedDial);
+            if (render && m_item)
+                speedDial->render(m_vc->view(), m_item);
+        }
+    }
+    else if (root.name() == KXMLQLCVCXYPad)
+    {
+        /* Create a new xyPad into its parent */
+        VCXYPad *xyPad = new VCXYPad(m_doc, this);
+        if (xyPad->loadXML(root) == false)
+            delete xyPad;
+        else
+        {
+            QQmlEngine::setObjectOwnership(xyPad, QQmlEngine::CppOwnership);
+            setupWidget(xyPad, xyPad->page());
+            m_vc->addWidgetToMap(xyPad);
+            if (render && m_item)
+                xyPad->render(m_vc->view(), m_item);
         }
     }
     else if (root.name() == KXMLQLCVCClock)

@@ -86,7 +86,8 @@ public:
     void setupArtNetPoll(QByteArray& data);
 
     /** Prepare an ArtNetPollReply packet */
-    void setupArtNetPollReply(QByteArray &data, QHostAddress ipAddr, QString MACaddr);
+    void setupArtNetPollReply(QByteArray &data, QHostAddress ipAddr,
+                              QString MACaddr, quint32 universe, bool isInput);
 
     /** Prepare an ArtNetDmx packet */
     void setupArtNetDmx(QByteArray& data, const int& universe, const QByteArray &values);

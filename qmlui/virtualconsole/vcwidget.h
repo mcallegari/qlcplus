@@ -54,12 +54,16 @@
 #define KXMLQLCWindowStateWidth     QString("Width")
 #define KXMLQLCWindowStateHeight    QString("Height")
 
-#define KXMLQLCVCWidgetKey              QString("Key")
-#define KXMLQLCVCWidgetInput            QString("Input")
-#define KXMLQLCVCWidgetInputUniverse    QString("Universe")
-#define KXMLQLCVCWidgetInputChannel     QString("Channel")
-#define KXMLQLCVCWidgetInputLowerValue  QString("LowerValue")
-#define KXMLQLCVCWidgetInputUpperValue  QString("UpperValue")
+#define KXMLQLCVCWidgetKey                  QString("Key")
+#define KXMLQLCVCWidgetInput                QString("Input")
+#define KXMLQLCVCWidgetInputUniverse        QString("Universe")
+#define KXMLQLCVCWidgetInputChannel         QString("Channel")
+#define KXMLQLCVCWidgetInputLowerValue      QString("LowerValue")
+#define KXMLQLCVCWidgetInputUpperValue      QString("UpperValue")
+#define KXMLQLCVCWidgetInputMonitorValue    QString("MonitorValue")
+#define KXMLQLCVCWidgetInputLowerParams     QString("LowerParams")
+#define KXMLQLCVCWidgetInputUpperParams     QString("UpperParams")
+#define KXMLQLCVCWidgetInputMonitorParams   QString("MonitorParams")
 
 typedef struct
 {
@@ -480,7 +484,7 @@ protected:
      * Input sources
      *********************************************************************/
 public:
-    enum SourceValueType { ExactValue, LowerValue, UpperValue };
+    enum SourceValueType { ExactValue, LowerValue, UpperValue, MonitorValue };
     Q_ENUM(SourceValueType)
 
     /**

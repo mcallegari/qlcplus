@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.0 GIT</Version>
+  <Author>Michael Tosatto</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Intimidator Spot Duo 155</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Fine Pan" Preset="PositionPanFine"/>
+ <Channel Name="Fine Tilt" Preset="PositionTiltFine"/>
+ <Channel Name="Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Color Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="6" Max="11" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="12" Max="17" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="18" Max="23" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="24" Max="29" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="30" Max="35" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="36" Max="41" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="42" Max="47" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="48" Max="53" Preset="ColorMacro" Res1="#90ee90">Light green</Capability>
+  <Capability Min="54" Max="63" Preset="ColorMacro" Res1="#ffbf00">Amber</Capability>
+  <Capability Min="64" Max="69" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffff00">White + yellow</Capability>
+  <Capability Min="70" Max="75" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff00ff">Yellow + magenta</Capability>
+  <Capability Min="76" Max="81" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#00ff00">Magenta + green</Capability>
+  <Capability Min="82" Max="87" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff0000">Green + red</Capability>
+  <Capability Min="88" Max="93" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00aaff">Red + cyan</Capability>
+  <Capability Min="94" Max="99" Preset="ColorDoubleMacro" Res1="#00aaff" Res2="#ffa500">Cyan + orange</Capability>
+  <Capability Min="100" Max="105" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#0000ff">Orange + blue</Capability>
+  <Capability Min="106" Max="111" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ff00">Blue + light green</Capability>
+  <Capability Min="112" Max="117" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#90ee90">Light green + amber</Capability>
+  <Capability Min="118" Max="127" Preset="ColorDoubleMacro" Res1="#ffbf00" Res2="#ffffff">Amber + white</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Color cycling rainbow with increasing speed</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse color cycling rainbow with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Gobo Wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="5" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="6" Max="11" Preset="GoboMacro" Res1="Chauvet/gobo00045.svg">Gobo 1</Capability>
+  <Capability Min="12" Max="17" Preset="GoboMacro" Res1="Chauvet/gobo00046.png">Gobo 2</Capability>
+  <Capability Min="18" Max="23" Preset="GoboMacro" Res1="Chauvet/gobo00047.svg">Gobo 3</Capability>
+  <Capability Min="24" Max="29" Preset="GoboMacro" Res1="Chauvet/gobo00048.svg">Gobo 4</Capability>
+  <Capability Min="30" Max="35" Preset="GoboMacro" Res1="Chauvet/gobo00049.svg">Gobo 5</Capability>
+  <Capability Min="36" Max="41" Preset="GoboMacro" Res1="Chauvet/gobo00050.png">Gobo 6</Capability>
+  <Capability Min="42" Max="47" Preset="GoboMacro" Res1="Chauvet/gobo00042.svg">Gobo 7</Capability>
+  <Capability Min="48" Max="53" Preset="GoboMacro" Res1="Chauvet/gobo00052.svg">Gobo 8</Capability>
+  <Capability Min="54" Max="63" Preset="GoboMacro" Res1="Chauvet/gobo00053.svg">Gobo 9</Capability>
+  <Capability Min="64" Max="73" Preset="GoboShakeMacro" Res1="Chauvet/gobo00053.svg">Gobo 9 shake, from slow to fast</Capability>
+  <Capability Min="74" Max="79" Preset="GoboShakeMacro" Res1="Chauvet/gobo00052.svg">Gobo 8 shake, from slow to fast</Capability>
+  <Capability Min="80" Max="85" Preset="GoboShakeMacro" Res1="Chauvet/gobo00042.svg">Gobo 7 shake, from slow to fast</Capability>
+  <Capability Min="86" Max="91" Preset="GoboShakeMacro" Res1="Chauvet/gobo00050.png">Gobo 6 shake, from slow to fast</Capability>
+  <Capability Min="92" Max="97" Preset="GoboShakeMacro" Res1="Chauvet/gobo00049.svg">Gobo 5 shake, from slow to fast</Capability>
+  <Capability Min="98" Max="103" Preset="GoboShakeMacro" Res1="Chauvet/gobo00048.svg">Gobo 4 shake, from slow to fast</Capability>
+  <Capability Min="104" Max="109" Preset="GoboShakeMacro" Res1="Chauvet/gobo00047.svg">Gobo 3 shake, from slow to fast</Capability>
+  <Capability Min="110" Max="115" Preset="GoboShakeMacro" Res1="Chauvet/gobo00046.png">Gobo 2 shake, from slow to fast</Capability>
+  <Capability Min="116" Max="121" Preset="GoboShakeMacro" Res1="Chauvet/gobo00045.svg">Gobo 1 shake, from slow to fast</Capability>
+  <Capability Min="122" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Cycle effect with increasing speed</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse cycle effect with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="4" Max="7" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="8" Max="76" Preset="StrobeFreqRange" Res1="0" Res2="17">Strobe effect 0-17 Hz</Capability>
+  <Capability Min="77" Max="145" Preset="PulseSlowToFast">Pulse strobe (Slow to fast)</Capability>
+  <Capability Min="146" Max="215" Preset="StrobeRandomSlowToFast">Random strobe (Slow to fast)</Capability>
+  <Capability Min="216" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Control Functions">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="14">Pan/Tilt blackout</Capability>
+  <Capability Min="15" Max="19">Color blackout</Capability>
+  <Capability Min="20" Max="24">Gobo blackout</Capability>
+  <Capability Min="25" Max="29">Pan/Tilt/Color blackout</Capability>
+  <Capability Min="30" Max="34">Pan/Tilt/Gobo blackout</Capability>
+  <Capability Min="35" Max="39">Color/Gobo blackout</Capability>
+  <Capability Min="40" Max="44">Pan/Tilt/Color/Gobo blackout</Capability>
+  <Capability Min="45" Max="49">No function</Capability>
+  <Capability Min="50" Max="54" Preset="ResetPan">First two heads setting</Capability>
+  <Capability Min="55" Max="59" Preset="ResetTilt">Latter two heads setting</Capability>
+  <Capability Min="60" Max="64" Preset="ResetColor">Cancel four heads</Capability>
+  <Capability Min="65" Max="69" Preset="ResetGobo">No function</Capability>
+  <Capability Min="70" Max="74">Reset</Capability>
+  <Capability Min="75" Max="79">No function</Capability>
+  <Capability Min="80" Max="84" Preset="ResetAll">Reverse pan/tilt for both heads</Capability>
+  <Capability Min="85" Max="89">Reverse pan for head 1</Capability>
+  <Capability Min="90" Max="94">Reverse pan for head 2</Capability>
+  <Capability Min="95" Max="99">Reverse tilt for head 1</Capability>
+  <Capability Min="100" Max="104">Reverse tilt for head 2</Capability>
+  <Capability Min="105" Max="109">Cancel reverse pan for head 1</Capability>
+  <Capability Min="110" Max="114">Cancel reverse pan for head 2</Capability>
+  <Capability Min="115" Max="119">Cancel reverse tilt for head 1</Capability>
+  <Capability Min="120" Max="124">Cancel reverse tilt for head 2</Capability>
+  <Capability Min="125" Max="129">Cancel reverse pan/tilt for both heads</Capability>
+  <Capability Min="130" Max="135">No function</Capability>
+  <Capability Min="136" Max="175">Strone pattern 1 (Slow to fast)</Capability>
+  <Capability Min="176" Max="215">Strobe pattern 2 (Slow to fast)</Capability>
+  <Capability Min="216" Max="255">Strobe pattern 3 (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Movement Macros">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="22">Movement macro 1</Capability>
+  <Capability Min="23" Max="37">Movement macro 2</Capability>
+  <Capability Min="38" Max="52">Movement macro 3</Capability>
+  <Capability Min="53" Max="67">Movement macro 4</Capability>
+  <Capability Min="68" Max="82">Movement macro 5</Capability>
+  <Capability Min="83" Max="97">Movement macro 6</Capability>
+  <Capability Min="98" Max="112">Movement macro 7</Capability>
+  <Capability Min="113" Max="127">Movement macro 8</Capability>
+  <Capability Min="128" Max="142">Movement macro 9</Capability>
+  <Capability Min="143" Max="157">Movement macro 10</Capability>
+  <Capability Min="158" Max="172">Movement macro 11</Capability>
+  <Capability Min="173" Max="187">Movement macro 12</Capability>
+  <Capability Min="188" Max="202">Movement macro 13</Capability>
+  <Capability Min="203" Max="217">Movement macro 14</Capability>
+  <Capability Min="218" Max="232">Movement macro 15</Capability>
+  <Capability Min="233" Max="247">All movement macros 1-15</Capability>
+  <Capability Min="248" Max="255">Sound-Active Mode</Capability>
+ </Channel>
+ <Channel Name="Pan 1" Preset="PositionPan"/>
+ <Channel Name="Pan 2" Preset="PositionPan"/>
+ <Channel Name="Tilt 1" Preset="PositionTilt"/>
+ <Channel Name="Tilt 2" Preset="PositionTilt"/>
+ <Channel Name="Fine Pan 1" Preset="PositionPanFine"/>
+ <Channel Name="Fine Pan 2" Preset="PositionPanFine"/>
+ <Channel Name="Fine Tilt 1" Preset="PositionTiltFine"/>
+ <Channel Name="Fine Tilt 2" Preset="PositionTiltFine"/>
+ <Channel Name="Color Wheel 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="6" Max="11" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="12" Max="17" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="18" Max="23" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="24" Max="29" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="30" Max="35" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="36" Max="41" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="42" Max="47" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="48" Max="53" Preset="ColorMacro" Res1="#90ee90">Light green</Capability>
+  <Capability Min="54" Max="63" Preset="ColorMacro" Res1="#ffbf00">Amber</Capability>
+  <Capability Min="64" Max="69" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffff00">White + yellow</Capability>
+  <Capability Min="70" Max="75" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff00ff">Yellow + magenta</Capability>
+  <Capability Min="76" Max="81" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#00ff00">Magenta + green</Capability>
+  <Capability Min="82" Max="87" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff0000">Green + red</Capability>
+  <Capability Min="88" Max="93" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00aaff">Red + cyan</Capability>
+  <Capability Min="94" Max="99" Preset="ColorDoubleMacro" Res1="#00aaff" Res2="#ffa500">Cyan + orange</Capability>
+  <Capability Min="100" Max="105" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#0000ff">Orange + blue</Capability>
+  <Capability Min="106" Max="111" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ff00">Blue + light green</Capability>
+  <Capability Min="112" Max="117" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#90ee90">Light green + amber</Capability>
+  <Capability Min="118" Max="127" Preset="ColorDoubleMacro" Res1="#ffbf00" Res2="#ffffff">Amber + white</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Color cycling rainbow with increasing speed</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse color cycling rainbow with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Color Wheel 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="6" Max="11" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="12" Max="17" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="18" Max="23" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="24" Max="29" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="30" Max="35" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="36" Max="41" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="42" Max="47" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="48" Max="53" Preset="ColorMacro" Res1="#90ee90">Light green</Capability>
+  <Capability Min="54" Max="63" Preset="ColorMacro" Res1="#ffbf00">Amber</Capability>
+  <Capability Min="64" Max="69" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffff00">White + yellow</Capability>
+  <Capability Min="70" Max="75" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff00ff">Yellow + magenta</Capability>
+  <Capability Min="76" Max="81" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#00ff00">Magenta + green</Capability>
+  <Capability Min="82" Max="87" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff0000">Green + red</Capability>
+  <Capability Min="88" Max="93" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00aaff">Red + cyan</Capability>
+  <Capability Min="94" Max="99" Preset="ColorDoubleMacro" Res1="#00aaff" Res2="#ffa500">Cyan + orange</Capability>
+  <Capability Min="100" Max="105" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#0000ff">Orange + blue</Capability>
+  <Capability Min="106" Max="111" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ff00">Blue + light green</Capability>
+  <Capability Min="112" Max="117" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#90ee90">Light green + amber</Capability>
+  <Capability Min="118" Max="127" Preset="ColorDoubleMacro" Res1="#ffbf00" Res2="#ffffff">Amber + white</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Color cycling rainbow with increasing speed</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse color cycling rainbow with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Gobo Wheel 1">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="5" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="6" Max="11" Preset="GoboMacro" Res1="Chauvet/gobo00045.svg">Gobo 1</Capability>
+  <Capability Min="12" Max="17" Preset="GoboMacro" Res1="Chauvet/gobo00046.png">Gobo 2</Capability>
+  <Capability Min="18" Max="23" Preset="GoboMacro" Res1="Chauvet/gobo00047.svg">Gobo 3</Capability>
+  <Capability Min="24" Max="29" Preset="GoboMacro" Res1="Chauvet/gobo00048.svg">Gobo 4</Capability>
+  <Capability Min="30" Max="35" Preset="GoboMacro" Res1="Chauvet/gobo00049.svg">Gobo 5</Capability>
+  <Capability Min="36" Max="41" Preset="GoboMacro" Res1="Chauvet/gobo00050.png">Gobo 6</Capability>
+  <Capability Min="42" Max="47" Preset="GoboMacro" Res1="Chauvet/gobo00042.svg">Gobo 7</Capability>
+  <Capability Min="48" Max="53" Preset="GoboMacro" Res1="Chauvet/gobo00052.svg">Gobo 8</Capability>
+  <Capability Min="54" Max="63" Preset="GoboMacro" Res1="Chauvet/gobo00053.svg">Gobo 9</Capability>
+  <Capability Min="64" Max="73" Preset="GoboShakeMacro" Res1="Chauvet/gobo00053.svg">Gobo 9 shake, from slow to fast</Capability>
+  <Capability Min="74" Max="79" Preset="GoboShakeMacro" Res1="Chauvet/gobo00052.svg">Gobo 8 shake, from slow to fast</Capability>
+  <Capability Min="80" Max="85" Preset="GoboShakeMacro" Res1="Chauvet/gobo00042.svg">Gobo 7 shake, from slow to fast</Capability>
+  <Capability Min="86" Max="91" Preset="GoboShakeMacro" Res1="Chauvet/gobo00050.png">Gobo 6 shake, from slow to fast</Capability>
+  <Capability Min="92" Max="97" Preset="GoboShakeMacro" Res1="Chauvet/gobo00049.svg">Gobo 5 shake, from slow to fast</Capability>
+  <Capability Min="98" Max="103" Preset="GoboShakeMacro" Res1="Chauvet/gobo00048.svg">Gobo 4 shake, from slow to fast</Capability>
+  <Capability Min="104" Max="109" Preset="GoboShakeMacro" Res1="Chauvet/gobo00047.svg">Gobo 3 shake, from slow to fast</Capability>
+  <Capability Min="110" Max="115" Preset="GoboShakeMacro" Res1="Chauvet/gobo00046.png">Gobo 2 shake, from slow to fast</Capability>
+  <Capability Min="116" Max="121" Preset="GoboShakeMacro" Res1="Chauvet/gobo00045.svg">Gobo 1 shake, from slow to fast</Capability>
+  <Capability Min="122" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Cycle effect with increasing speed</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse cycle effect with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Gobo Wheel 2">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="5" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="6" Max="11" Preset="GoboMacro" Res1="Chauvet/gobo00045.svg">Gobo 1</Capability>
+  <Capability Min="12" Max="17" Preset="GoboMacro" Res1="Chauvet/gobo00046.png">Gobo 2</Capability>
+  <Capability Min="18" Max="23" Preset="GoboMacro" Res1="Chauvet/gobo00047.svg">Gobo 3</Capability>
+  <Capability Min="24" Max="29" Preset="GoboMacro" Res1="Chauvet/gobo00048.svg">Gobo 4</Capability>
+  <Capability Min="30" Max="35" Preset="GoboMacro" Res1="Chauvet/gobo00049.svg">Gobo 5</Capability>
+  <Capability Min="36" Max="41" Preset="GoboMacro" Res1="Chauvet/gobo00050.png">Gobo 6</Capability>
+  <Capability Min="42" Max="47" Preset="GoboMacro" Res1="Chauvet/gobo00042.svg">Gobo 7</Capability>
+  <Capability Min="48" Max="53" Preset="GoboMacro" Res1="Chauvet/gobo00052.svg">Gobo 8</Capability>
+  <Capability Min="54" Max="63" Preset="GoboMacro" Res1="Chauvet/gobo00053.svg">Gobo 9</Capability>
+  <Capability Min="64" Max="73" Preset="GoboShakeMacro" Res1="Chauvet/gobo00053.svg">Gobo 9 shake, from slow to fast</Capability>
+  <Capability Min="74" Max="79" Preset="GoboShakeMacro" Res1="Chauvet/gobo00052.svg">Gobo 8 shake, from slow to fast</Capability>
+  <Capability Min="80" Max="85" Preset="GoboShakeMacro" Res1="Chauvet/gobo00042.svg">Gobo 7 shake, from slow to fast</Capability>
+  <Capability Min="86" Max="91" Preset="GoboShakeMacro" Res1="Chauvet/gobo00050.png">Gobo 6 shake, from slow to fast</Capability>
+  <Capability Min="92" Max="97" Preset="GoboShakeMacro" Res1="Chauvet/gobo00049.svg">Gobo 5 shake, from slow to fast</Capability>
+  <Capability Min="98" Max="103" Preset="GoboShakeMacro" Res1="Chauvet/gobo00048.svg">Gobo 4 shake, from slow to fast</Capability>
+  <Capability Min="104" Max="109" Preset="GoboShakeMacro" Res1="Chauvet/gobo00047.svg">Gobo 3 shake, from slow to fast</Capability>
+  <Capability Min="110" Max="115" Preset="GoboShakeMacro" Res1="Chauvet/gobo00046.png">Gobo 2 shake, from slow to fast</Capability>
+  <Capability Min="116" Max="121" Preset="GoboShakeMacro" Res1="Chauvet/gobo00045.svg">Gobo 1 shake, from slow to fast</Capability>
+  <Capability Min="122" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Cycle effect with increasing speed</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse cycle effect with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Dimmer 1" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 2" Preset="IntensityDimmer"/>
+ <Channel Name="Movement Macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Movement Macro Speed (Fast to slow)</Capability>
+ </Channel>
+ <Channel Name="Shutter 1">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="4" Max="7" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="8" Max="76" Preset="StrobeFreqRange" Res1="0" Res2="20">Strobe effect 0-17 Hz</Capability>
+  <Capability Min="77" Max="145" Preset="PulseSlowToFast">Pulse strobe (Slow to fast)</Capability>
+  <Capability Min="146" Max="215" Preset="StrobeRandomSlowToFast">Random strobe (Slow to fast)</Capability>
+  <Capability Min="216" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Shutter 2">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="4" Max="7" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="8" Max="76" Preset="StrobeFreqRange" Res1="0" Res2="20">Strobe effect 0-17 Hz</Capability>
+  <Capability Min="77" Max="145" Preset="PulseSlowToFast">Pulse strobe (Slow to fast)</Capability>
+  <Capability Min="146" Max="215" Preset="StrobeRandomSlowToFast">Random strobe (Slow to fast)</Capability>
+  <Capability Min="216" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Mode Name="20 Channel">
+  <Channel Number="0">Pan 1</Channel>
+  <Channel Number="1">Fine Pan 1</Channel>
+  <Channel Number="2">Tilt 1</Channel>
+  <Channel Number="3">Fine Tilt 1</Channel>
+  <Channel Number="4">Pan 2</Channel>
+  <Channel Number="5">Fine Pan 2</Channel>
+  <Channel Number="6">Tilt 2</Channel>
+  <Channel Number="7">Fine Tilt 2</Channel>
+  <Channel Number="8">Speed</Channel>
+  <Channel Number="9">Color Wheel 1</Channel>
+  <Channel Number="10">Color Wheel 2</Channel>
+  <Channel Number="11">Gobo Wheel 1</Channel>
+  <Channel Number="12">Gobo Wheel 2</Channel>
+  <Channel Number="13">Dimmer 1</Channel>
+  <Channel Number="14">Dimmer 2</Channel>
+  <Channel Number="15">Shutter 1</Channel>
+  <Channel Number="16">Shutter 2</Channel>
+  <Channel Number="17">Control Functions</Channel>
+  <Channel Number="18">Movement Macros</Channel>
+  <Channel Number="19">Movement Macro Speed</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>9</Channel>
+   <Channel>11</Channel>
+   <Channel>13</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>10</Channel>
+   <Channel>12</Channel>
+   <Channel>14</Channel>
+   <Channel>16</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="17 Channel">
+  <Channel Number="0">Pan 1</Channel>
+  <Channel Number="1">Fine Pan 1</Channel>
+  <Channel Number="2">Tilt 1</Channel>
+  <Channel Number="3">Fine Tilt 1</Channel>
+  <Channel Number="4">Pan 2</Channel>
+  <Channel Number="5">Fine Pan 2</Channel>
+  <Channel Number="6">Tilt 2</Channel>
+  <Channel Number="7">Fine Tilt 2</Channel>
+  <Channel Number="8">Speed</Channel>
+  <Channel Number="9">Color Wheel</Channel>
+  <Channel Number="10">Gobo Wheel</Channel>
+  <Channel Number="11">Dimmer 1</Channel>
+  <Channel Number="12">Dimmer 2</Channel>
+  <Channel Number="13">Shutter</Channel>
+  <Channel Number="14">Control Functions</Channel>
+  <Channel Number="15">Movement Macros</Channel>
+  <Channel Number="16">Movement Macro Speed</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>12</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Color Wheel</Channel>
+  <Channel Number="3">Gobo Wheel</Channel>
+  <Channel Number="4">Dimmer 1</Channel>
+  <Channel Number="5">Dimmer 2</Channel>
+  <Channel Number="6">Shutter</Channel>
+  <Channel Number="7">Control Functions</Channel>
+  <Channel Number="8">Movement Macros</Channel>
+  <Channel Number="9">Movement Macro Speed</Channel>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED 32W" Lumens="1193" ColourTemperature="0"/>
+  <Dimensions Weight="9" Width="546" Height="290" Depth="165"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+  <Focus Type="Head" PanMax="360" TiltMax="270"/>
+  <Layout Width="2" Height="1"/>
+  <Technical PowerConsumption="140" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

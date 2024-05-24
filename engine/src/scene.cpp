@@ -161,7 +161,7 @@ void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
                         m_fadersMap[universe]->add(fc);
                 }
             }
-         }
+        }
     }
 
     emit changed(this->id());
@@ -723,12 +723,13 @@ void Scene::processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, S
         fader->setBlendMode(blendMode());
         fader->setName(name());
         fader->setParentFunctionID(id());
-        m_fadersMap[universe] = fader;
-
         fader->setParentIntensity(getAttributeValue(ParentIntensity));
+        fader->setHandleSecondary(true);
+        m_fadersMap[universe] = fader;
     }
 
     FadeChannel *fc = fader->getChannelFader(doc(), ua[universe], scv.fxi, scv.channel);
+    int chIndex = fc->channelIndex(scv.channel);
 
     /** If a blend Function has been set, check if this channel needs to
      *  be blended from a previous value. If so, mark it for crossfade
@@ -739,18 +740,18 @@ void Scene::processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, S
         if (blendScene != NULL && blendScene->checkValue(scv))
         {
             fc->addFlag(FadeChannel::CrossFade);
-            fc->setCurrent(blendScene->value(scv.fxi, scv.channel));
+            fc->setCurrent(blendScene->value(scv.fxi, scv.channel), chIndex);
             qDebug() << "----- BLEND from Scene" << blendScene->name()
                      << ", fixture:" << scv.fxi << ", channel:" << scv.channel << ", value:" << fc->current();
         }
     }
     else
     {
-        qDebug() << "Scene" << name() << "add channel" << scv.channel << "from" << fc->current() << "to" << scv.value;
+        qDebug() << "Scene" << name() << "add channel" << scv.channel << "from" << fc->current(chIndex) << "to" << scv.value;
     }
 
-    fc->setStart(fc->current());
-    fc->setTarget(scv.value);
+    fc->setStart(fc->current(chIndex), chIndex);
+    fc->setTarget(scv.value, chIndex);
 
     if (fc->canFade() == false)
     {

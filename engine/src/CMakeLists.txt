@@ -44,6 +44,7 @@ add_library(${module_name} SHARED
     qlcfixturemode.cpp qlcfixturemode.h
     qlci18n.cpp qlci18n.h
     qlcinputchannel.cpp qlcinputchannel.h
+    qlcinputfeedback.cpp qlcinputfeedback.h
     qlcinputprofile.cpp qlcinputprofile.h
     qlcinputsource.cpp qlcinputsource.h
     qlcmodifierscache.cpp qlcmodifierscache.h
