@@ -175,9 +175,9 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
     {
         while (!m_functionQueue.isEmpty())
         {
-            QPair<quint32,bool> pair = m_functionQueue.dequeue();
+            QPair<quint32, SRFuncOpe> pair = m_functionQueue.dequeue();
             quint32 fID = pair.first;
-            bool start = pair.second;
+            SRFuncOpe operation = pair.second;
 
             Function *function = m_doc->function(fID);
             if (function == NULL)
@@ -186,15 +186,13 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
                 continue;
             }
 
-            if (start)
+            if (operation == SRFuncOpe::START || operation == SRFuncOpe::START_DONT_STOP)
             {
                 function->start(timer, FunctionParent::master());
-                if (m_stopOnExit)
-                {
+                if (operation == SRFuncOpe::START)
                     m_startedFunctions << fID;
-                }
             }
-            else
+            else if (operation == SRFuncOpe::STOP)
             {
                 function->stop(FunctionParent::master());
                 m_startedFunctions.removeAll(fID);
@@ -324,9 +322,12 @@ bool ScriptRunner::startFunction(quint32 fID)
         return false;
     }
 
-    QPair<quint32,bool> pair;
+    QPair<quint32, SRFuncOpe> pair;
     pair.first = fID;
-    pair.second = true;
+    if(m_stopOnExit)
+        pair.second = SRFuncOpe::START;
+    else
+        pair.second = SRFuncOpe::START_DONT_STOP;
 
     m_functionQueue.enqueue(pair);
 
@@ -345,9 +346,9 @@ bool ScriptRunner::stopFunction(quint32 fID)
         return false;
     }
 
-    QPair<quint32,bool> pair;
+    QPair<quint32, SRFuncOpe> pair;
     pair.first = fID;
-    pair.second = false;
+    pair.second = SRFuncOpe::STOP;
 
     m_functionQueue.enqueue(pair);
 

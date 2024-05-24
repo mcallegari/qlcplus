@@ -212,13 +212,21 @@ protected:
     void run();
 
 private:
+    /** ScriptRunner function operations enum to handle start/stop commands */
+    enum class SRFuncOpe : char
+    {
+        START,
+        START_DONT_STOP,
+        STOP
+    };
+
     Doc *m_doc;
     QString m_content;
     bool m_running;
 
     QJSEngine *m_engine;
     // Queue holding the Function IDs to start/stop
-    QQueue<QPair<quint32,bool>> m_functionQueue;
+    QQueue<QPair<quint32, SRFuncOpe>> m_functionQueue;
     // Queue holding Fixture values to send to Universes
     QQueue<FixtureValue> m_fixtureValueQueue;
     // Indicate to add (true) or to not add (false) to the Functions started by this script
