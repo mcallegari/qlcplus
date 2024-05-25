@@ -62,7 +62,7 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7">Open</Capability>
   <Capability Min="8" Max="15" Preset="GoboMacro" Res1="Others/gobo00009.svg">Gobo 1</Capability>
-  <Capability Min="16" Max="23" Preset="GoboMacro" Res1="Others/gobo00010.svg">Gobo 2</Capability>
+  <Capability Min="16" Max="23" Preset="GoboMacro" Res1="GLP/gobo00022.svg">Gobo 2</Capability>
   <Capability Min="24" Max="31" Preset="GoboMacro" Res1="Others/gobo00011.svg">Gobo 3</Capability>
   <Capability Min="32" Max="39" Preset="GoboMacro" Res1="Others/gobo00012.svg">Gobo 4</Capability>
   <Capability Min="40" Max="47" Preset="GoboMacro" Res1="Others/gobo00013.svg">Gobo 5</Capability>
@@ -76,7 +76,7 @@
   <Capability Min="104" Max="111" Preset="GoboMacro" Res1="Others/gobo00020.svg">Gobo 13</Capability>
   <Capability Min="112" Max="119" Preset="GoboMacro" Res1="Others/gobo00021.svg">Gobo 14</Capability>
   <Capability Min="120" Max="126" Preset="GoboShakeMacro" Res1="Others/gobo00009.svg">Gobo 1 Shake (Slow -&gt; Fast)</Capability>
-  <Capability Min="127" Max="133" Preset="GoboShakeMacro" Res1="Others/gobo00010.svg">Gobo 2 Shake (Slow -&gt; Fast)</Capability>
+  <Capability Min="127" Max="133" Preset="GoboShakeMacro" Res1="GLP/gobo00022.svg">Gobo 2 Shake (Slow -&gt; Fast)</Capability>
   <Capability Min="134" Max="140" Preset="GoboShakeMacro" Res1="Others/gobo00011.svg">Gobo 3 Shake (Slow -&gt; Fast)</Capability>
   <Capability Min="141" Max="147" Preset="GoboShakeMacro" Res1="Others/gobo00012.svg">Gobo 4 Shake (Slow -&gt; Fast)</Capability>
   <Capability Min="148" Max="154" Preset="GoboShakeMacro" Res1="Others/gobo00013.svg">Gobo 5 Shake (Slow -&gt; Fast)</Capability>

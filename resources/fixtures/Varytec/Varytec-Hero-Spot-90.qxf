@@ -74,7 +74,7 @@
   <Capability Min="22" Max="37" Preset="GoboMacro" Res1="Robe/gobo00054.svg">Gobo 2</Capability>
   <Capability Min="38" Max="53" Preset="GoboMacro" Res1="ClayPaky/gobo00065.svg">Gobo 3</Capability>
   <Capability Min="54" Max="69" Preset="GoboMacro" Res1="Chauvet/gobo00034.svg">Gobo 4</Capability>
-  <Capability Min="70" Max="85" Preset="GoboMacro" Res1="Others/gobo00010.svg">Gobo 5</Capability>
+  <Capability Min="70" Max="85" Preset="GoboMacro" Res1="GLP/gobo00022.svg">Gobo 5</Capability>
   <Capability Min="86" Max="101" Preset="GoboMacro" Res1="SGM/gobo00361.svg">Gobo 6</Capability>
   <Capability Min="102" Max="117" Preset="GoboMacro" Res1="GLP/gobo00013.svg">Gobo 7</Capability>
   <Capability Min="118" Max="133" Preset="GoboMacro" Res1="Others/gobo00006.svg">Gobo 8</Capability>
