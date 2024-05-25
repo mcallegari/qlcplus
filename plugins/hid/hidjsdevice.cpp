@@ -39,8 +39,9 @@ static QString assembleDevicesName(struct hid_device_info *info)
     if (name_part.trimmed().isEmpty())
     {
         //use the vendor and product_id combination if name is empty
-        name_part = QString::number(info->vendor_id, 16) + ":" +
-                    QString::number(info->product_id, 16);
+        name_part = "HID Input Device (" +
+                    QString::number(info->vendor_id, 16).toUpper() + ":" +
+                    QString::number(info->product_id, 16).toUpper() + ")";
     }
 
     QString serial_number_part = QString::fromWCharArray(info->serial_number);
