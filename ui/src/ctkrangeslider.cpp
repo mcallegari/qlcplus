@@ -84,7 +84,7 @@ public:
     int m_SubclassPosition;
 
     /// Original width between the 2 bounds before any moves
-    int m_SubclassWidth;
+    float m_SubclassWidth;
 
     ctkRangeSliderPrivate::Handles m_SelectedHandles;
 
@@ -110,8 +110,8 @@ ctkRangeSliderPrivate::ctkRangeSliderPrivate(ctkRangeSlider& object)
     this->m_MaximumSliderSelected = QStyle::SC_None;
     this->m_SubclassClickOffset = 0;
     this->m_SubclassPosition = 0;
-    this->m_SubclassWidth = 0;
-    this->m_SelectedHandles = NoHandle;
+    this->m_SubclassWidth = 0.0;
+    this->m_SelectedHandles = ctkRangeSliderPrivate::Handles();;
     this->m_SymmetricMoves = false;
 }
 
@@ -203,25 +203,25 @@ int ctkRangeSliderPrivate::pixelPosToRangeValue(int pos) const
                                           &option,
                                           QStyle::SC_SliderHandle,
                                           q);
-  int sliderMin, sliderMax, sliderLength;
-  if (option.orientation == Qt::Horizontal)
+    int sliderMin, sliderMax, sliderLength;
+    if (option.orientation == Qt::Horizontal)
     {
-    sliderLength = sr.width();
-    sliderMin = gr.x();
-    sliderMax = gr.right() - sliderLength + 1;
+        sliderLength = sr.width();
+        sliderMin = gr.x();
+        sliderMax = gr.right() - sliderLength + 1;
     }
-  else
+    else
     {
-    sliderLength = sr.height();
-    sliderMin = gr.y();
-    sliderMax = gr.bottom() - sliderLength + 1;
+        sliderLength = sr.height();
+        sliderMin = gr.y();
+        sliderMax = gr.bottom() - sliderLength + 1;
     }
 
-  return QStyle::sliderValueFromPosition(q->minimum(),
-                                         q->maximum(),
-                                         pos - sliderMin,
-                                         sliderMax - sliderMin,
-                                         option.upsideDown);
+    return QStyle::sliderValueFromPosition(q->minimum(),
+                                           q->maximum(),
+                                           pos - sliderMin,
+                                           sliderMax - sliderMin,
+                                           option.upsideDown);
 }
 
 //---------------------------------------------------------------------------
@@ -316,7 +316,7 @@ ctkRangeSlider::ctkRangeSlider(QWidget *_parent)
     , d_ptr(new ctkRangeSliderPrivate(*this))
 {
     Q_D(ctkRangeSlider);
-     d->init();
+    d->init();
 }
 
 // --------------------------------------------------------------------------
@@ -585,7 +585,7 @@ void ctkRangeSlider::paintEvent(QPaintEvent *)
 
     // Create default colors based on the transfer function.
     //
-    QColor highlight = this->palette().color(QPalette::Normal, QPalette::Highlight);
+    QColor highlight = this->palette().color(QPalette::Highlight);
     QLinearGradient gradient;
     if (option.orientation == Qt::Horizontal)
     {
@@ -602,6 +602,7 @@ void ctkRangeSlider::paintEvent(QPaintEvent *)
     //QColor l = Qt::darkGray;
     //QColor u = Qt::black;
 
+    // Like Fusion Style to match QSlider
     gradient.setColorAt(0, highlight.darker(120));
     gradient.setColorAt(1, highlight.lighter(160));
 
@@ -614,12 +615,16 @@ void ctkRangeSlider::paintEvent(QPaintEvent *)
     //
     if (this->isMinimumSliderDown())
     {
+        painter.setClipRect(ur);
         d->drawMaximumSlider(&painter);
+        painter.setClipRect(lr);
         d->drawMinimumSlider(&painter);
     }
     else
     {
+        painter.setClipRect(lr);
         d->drawMinimumSlider(&painter);
+        painter.setClipRect(ur);
         d->drawMaximumSlider(&painter);
     }
 }
@@ -742,8 +747,8 @@ void ctkRangeSlider::mouseMoveEvent(QMouseEvent* mouseEvent)
     // Both handles are down (the user clicked in between the handles)
     else if (this->isMinimumSliderDown() && this->isMaximumSliderDown())
     {
-        this->setPositions(newPosition - d->m_SubclassWidth,
-                           newPosition + d->m_SubclassWidth);
+        this->setPositions(newPosition - static_cast<int>(d->m_SubclassWidth),
+                           newPosition + static_cast<int>(d->m_SubclassWidth + .5));
     }
     mouseEvent->accept();
 }
@@ -756,7 +761,7 @@ void ctkRangeSlider::mouseReleaseEvent(QMouseEvent* mouseEvent)
     this->QSlider::mouseReleaseEvent(mouseEvent);
 
     setSliderDown(false);
-    d->m_SelectedHandles = ctkRangeSliderPrivate::NoHandle;
+    d->m_SelectedHandles = ctkRangeSliderPrivate::Handles();
 
     this->update();
 }
