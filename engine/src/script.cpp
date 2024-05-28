@@ -175,6 +175,7 @@ void Script::scanForLabels()
             line.first().size() == 2 && line.first()[0] == Script::labelCmd)
         {
             m_labels[line.first()[1]] = i;
+            qDebug() << QString("Map label '%1' to line '%2'").arg(line.first()[1]).arg(i);
         }
     }
 }
@@ -798,6 +799,8 @@ QString Script::handleLabel(const QList<QStringList>& tokens)
 
     if (tokens.size() > 1)
         return QString("Too many arguments");
+
+    qDebug() << QString("Found label '%1'").arg(tokens[0][1]);
 
     return QString();
 }
