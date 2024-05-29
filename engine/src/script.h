@@ -157,10 +157,9 @@ private:
      * Check, if the script should still wait or if it should proceed to executing
      * the next command.
      *
-     * @param timer The MasterTimer that should run the functions
      * @return true if no longer waiting, false if script is waiting
      */
-    bool waiting(MasterTimer* timer);
+    bool waiting();
 
     /**
      * Parse a string in the form "random(min,max)" and returns
@@ -223,9 +222,11 @@ private:
      * Handle "waitfunction" command.
      *
      * @param tokens A list of keyword:value pairs
+     * @param timer The MasterTimer that should run the function
      * @return An empty string if successful. Otherwise an error string.
      */
-    QString handleWaitFunction(const QList<QStringList>& tokens);
+    QString handleWaitFunction(const QList<QStringList>& tokens, MasterTimer* timer);
+
 
     /**
      * Handle "setfixture" command.
@@ -269,6 +270,10 @@ private:
      * @return A list of tokens parsed from the line
      */
     static QList <QStringList> tokenizeLine(const QString& line, bool* ok = NULL);
+
+protected slots:
+    /** Called whenever the script has to wait a function to stop */
+    void slotWaitFunctionStopped(quint32 fid);
 
 private:
     bool m_stopOnExit;           //! add (true) or do not add (false) functions to m_startedFunctions

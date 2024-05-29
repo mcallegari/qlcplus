@@ -185,8 +185,6 @@ bool Script::appendData(const QString &str)
     m_data.append(str + QString("\n"));
     m_lines << tokenizeLine(str + QString("\n"));
 
-    scanForLabels();
-
     return true;
 }
 
@@ -295,6 +293,8 @@ bool Script::loadXML(QXmlStreamReader &root)
         }
     }
 
+    scanForLabels();
+
     return true;
 }
 
@@ -352,7 +352,7 @@ void Script::write(MasterTimer *timer, QList<Universe *> universes)
 
     incrementElapsed();
 
-    if (waiting(timer) == false)
+    if (waiting() == false)
     {
         // Not currently waiting for anything. Free to proceed to next command.
         while (m_currentCommand < m_lines.size() && stopped() == false)
@@ -386,7 +386,7 @@ void Script::postRun(MasterTimer *timer, QList<Universe *> universes)
     Function::postRun(timer, universes);
 }
 
-bool Script::waiting(MasterTimer* timer)
+bool Script::waiting()
 {
     if (m_waitCount > 0)
     {
@@ -396,12 +396,9 @@ bool Script::waiting(MasterTimer* timer)
     }
     else if (m_waitFunction != NULL)
     {
-        if(timer->functionHasToStart(m_waitFunction) || m_waitFunction->isRunning())
-            // Still waiting for the function to finish.
-            return true;
-        else
-            // Wait function is done.
-            m_waitFunction = NULL;
+        qDebug() << QString("%1 waitfunction %2 ...").arg(id()).arg(m_waitFunction->id());
+        // Still waiting for the function to finish.
+        return true;
     }
     // Not waiting.
     return false;
@@ -490,7 +487,7 @@ bool Script::executeCommand(int index, MasterTimer* timer, QList<Universe *> uni
         // Waiting for a funcion should break out of the execution loop to
         // prevent skipping straight to the next command. If there is no error
         // in waitfunction parsing, we must wait at least one cycle.
-        error = handleWaitFunction(tokens);
+        error = handleWaitFunction(tokens, timer);
         if (error.isEmpty() == true)
             continueLoop = false;
     }
@@ -662,7 +659,7 @@ QString Script::handleWaitKey(const QList<QStringList>& tokens)
     return QString();
 }
 
-QString Script::handleWaitFunction(const QList<QStringList> &tokens)
+QString Script::handleWaitFunction(const QList<QStringList> &tokens, MasterTimer* timer)
 {
     qDebug() << Q_FUNC_INFO << tokens;
 
@@ -683,9 +680,25 @@ QString Script::handleWaitFunction(const QList<QStringList> &tokens)
         return QString("No such function (ID %1)").arg(id);
     }
 
-    m_waitFunction = function;
+    if (timer->functionHasToStart(function) || function->isRunning())
+    {
+        m_waitFunction = function;
+        connect(m_waitFunction, SIGNAL(stopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
+        qDebug() << QString("%1 waitfunction %2 stop signal").arg(this->id()).arg(m_waitFunction->id());
+    }
 
     return QString();
+}
+
+void Script::slotWaitFunctionStopped(quint32 fid)
+{
+    if (m_waitFunction != NULL && m_waitFunction->id() == fid)
+    {
+        disconnect(m_waitFunction, SIGNAL(stopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
+        m_startedFunctions.removeAll(m_waitFunction);
+        qDebug() << QString("%1 waitfunction %2 done").arg(id()).arg(m_waitFunction->id());
+        m_waitFunction = NULL;
+    }
 }
 
 QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Universe *> universes)
