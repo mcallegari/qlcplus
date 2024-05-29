@@ -174,12 +174,12 @@ public slots:
     bool waitTime(QString time);
 
     /**
-     * Handle "waitFunction" command (string version)
+     * Handle "waitFunctionStop" command (string version)
      *
      * @param fID The Function ID to wait for
      * @return true if successful. False on error.
      */
-    bool waitFunction(quint32 fID);
+    bool waitFunctionStop(quint32 fID);
 
     /**
      * Handle "setBlackout" command

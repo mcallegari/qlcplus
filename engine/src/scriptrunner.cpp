@@ -531,7 +531,7 @@ bool ScriptRunner::waitTime(QString time)
     return true;
 }
 
-bool ScriptRunner::waitFunction(quint32 fID)
+bool ScriptRunner::waitFunctionStop(quint32 fID)
 {
     if (m_running == false)
         return false;

@@ -50,7 +50,7 @@ public:
 
     static const QString waitCmd;
     static const QString waitKeyCmd;
-    static const QString waitFunctionCmd;
+    static const QString waitFunctionStopCmd;
 
     static const QString setFixtureCmd;
     static const QString systemCmd;
@@ -219,13 +219,13 @@ private:
     QString handleWaitKey(const QList<QStringList>& tokens);
 
     /**
-     * Handle "waitfunction" command.
+     * Handle "waitfunctionstop" command.
      *
      * @param tokens A list of keyword:value pairs
      * @param timer The MasterTimer that should run the function
      * @return An empty string if successful. Otherwise an error string.
      */
-    QString handleWaitFunction(const QList<QStringList>& tokens, MasterTimer* timer);
+    QString handleWaitFunctionStop(const QList<QStringList>& tokens, MasterTimer* timer);
 
 
     /**
