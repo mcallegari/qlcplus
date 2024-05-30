@@ -44,6 +44,8 @@ const QString Script::blackoutLegacy = QString("blackout");
 const QString Script::blackoutCmd = QString("Engine.setBlackout");
 const QString Script::waitLegacy = QString("wait");
 const QString Script::waitCmd = QString("Engine.waitTime");
+const QString Script::waitFunctionStartLegacy = QString("waitfunctionstart");
+const QString Script::waitFunctionStartCmd = QString("Engine.waitFunctionStart");
 const QString Script::waitFunctionStopLegacy = QString("waitfunctionstop");
 const QString Script::waitFunctionStopCmd = QString("Engine.waitFunctionStop");
 const QString Script::setFixtureLegacy = QString("setfixture");
@@ -560,6 +562,7 @@ QString Script::convertLegacyMethod(QString method)
     else if (method == stopFunctionLegacy) return stopFunctionCmd;
     else if (method == blackoutLegacy) return blackoutCmd;
     else if (method == waitLegacy) return waitCmd;
+    else if (method == waitFunctionStartLegacy) return waitFunctionStartCmd;
     else if (method == waitFunctionStopLegacy) return waitFunctionStopCmd;
     else if (method == setFixtureLegacy) return setFixtureCmd;
     else if (method == systemLegacy) return systemCmd;

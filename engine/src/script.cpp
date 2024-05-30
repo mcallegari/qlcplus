@@ -45,6 +45,7 @@ const QString Script::blackoutCmd = QString("blackout");
 
 const QString Script::waitCmd = QString("wait");
 const QString Script::waitKeyCmd = QString("waitkey");
+const QString Script::waitFunctionStartCmd = QString("waitfunctionstart");
 const QString Script::waitFunctionStopCmd = QString("waitfunctionstop");
 
 const QString Script::setFixtureCmd = QString("setfixture");
@@ -363,7 +364,7 @@ void Script::write(MasterTimer *timer, QList<Universe *> universes)
                 break; // Executed command told to skip to the next cycle
         }
 
-        // In case wait() or waitfunctionstop() is the last command, don't stop the script prematurely
+        // In case a wait command is the last command, don't stop the script prematurely
         if (m_currentCommand >= m_lines.size() && m_waitCount == 0 && m_waitFunction == NULL)
             stop(FunctionParent::master());
     }
@@ -396,8 +397,8 @@ bool Script::waiting()
     }
     else if (m_waitFunction != NULL)
     {
-        qDebug() << QString("%1 waitfunctionstop %2 ...").arg(id()).arg(m_waitFunction->id());
-        // Still waiting for the function to finish.
+        qDebug() << QString("%1 wait function %2 ...").arg(id()).arg(m_waitFunction->id());
+        // Still waiting for the function to start/stop.
         return true;
     }
     // Not waiting.
@@ -482,12 +483,21 @@ bool Script::executeCommand(int index, MasterTimer* timer, QList<Universe *> uni
         if (error.isEmpty() == true)
             continueLoop = false;
     }
+    else if (tokens[0][0] == Script::waitFunctionStartCmd)
+    {
+        // Waiting for a funcion should break out of the execution loop to
+        // prevent skipping straight to the next command. If there is no error
+        // in waitfunctionstart parsing, we must wait at least one cycle.
+        error = handleWaitFunction(tokens, timer, true);
+        if (error.isEmpty() == true)
+            continueLoop = false;
+    }
     else if (tokens[0][0] == Script::waitFunctionStopCmd)
     {
         // Waiting for a funcion should break out of the execution loop to
         // prevent skipping straight to the next command. If there is no error
         // in waitfunctionstop parsing, we must wait at least one cycle.
-        error = handleWaitFunctionStop(tokens, timer);
+        error = handleWaitFunction(tokens, timer, false);
         if (error.isEmpty() == true)
             continueLoop = false;
     }
@@ -659,7 +669,7 @@ QString Script::handleWaitKey(const QList<QStringList>& tokens)
     return QString();
 }
 
-QString Script::handleWaitFunctionStop(const QList<QStringList> &tokens, MasterTimer* timer)
+QString Script::handleWaitFunction(const QList<QStringList> &tokens, MasterTimer* timer, bool start)
 {
     qDebug() << Q_FUNC_INFO << tokens;
 
@@ -680,23 +690,43 @@ QString Script::handleWaitFunctionStop(const QList<QStringList> &tokens, MasterT
         return QString("No such function (ID %1)").arg(id);
     }
 
-    if (timer->functionHasToStart(function) || function->isRunning())
+    if (start)
     {
-        m_waitFunction = function;
-        connect(m_waitFunction, SIGNAL(stopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
-        qDebug() << QString("%1 waitfunctionstop %2 stop signal").arg(this->id()).arg(m_waitFunction->id());
+        if (!function->isRunning())
+        {
+            m_waitFunction = function;
+            connect(m_waitFunction, SIGNAL(running(quint32)), this, SLOT(slotWaitFunctionStarted(quint32)));
+            qDebug() << QString("%1 wait function %2 start signal").arg(this->id()).arg(m_waitFunction->id());
+        }
+    }
+    else
+    {
+        if (timer->functionHasToStart(function) || function->isRunning())
+        {
+            m_waitFunction = function;
+            connect(m_waitFunction, SIGNAL(stopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
+            qDebug() << QString("%1 wait function %2 stop signal").arg(this->id()).arg(m_waitFunction->id());
+        }
     }
 
     return QString();
 }
 
+void Script::slotWaitFunctionStarted(quint32 fid)
+{
+    if (m_waitFunction != NULL && m_waitFunction->id() == fid) {
+        disconnect(m_waitFunction, SIGNAL(running(quint32)), this, SLOT(slotWaitFunctionStarted(quint32)));
+        qDebug() << QString("%1 function %2 started").arg(id()).arg(m_waitFunction->id());
+        m_waitFunction = NULL;
+    }
+}
+
 void Script::slotWaitFunctionStopped(quint32 fid)
 {
-    if (m_waitFunction != NULL && m_waitFunction->id() == fid)
-    {
+    if (m_waitFunction != NULL && m_waitFunction->id() == fid) {
         disconnect(m_waitFunction, SIGNAL(stopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
         m_startedFunctions.removeAll(m_waitFunction);
-        qDebug() << QString("%1 waitfunctionstop %2 done").arg(id()).arg(m_waitFunction->id());
+        qDebug() << QString("%1 function %2 stopped").arg(id()).arg(m_waitFunction->id());
         m_waitFunction = NULL;
     }
 }

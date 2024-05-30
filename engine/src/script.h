@@ -50,6 +50,7 @@ public:
 
     static const QString waitCmd;
     static const QString waitKeyCmd;
+    static const QString waitFunctionStartCmd;
     static const QString waitFunctionStopCmd;
 
     static const QString setFixtureCmd;
@@ -219,14 +220,14 @@ private:
     QString handleWaitKey(const QList<QStringList>& tokens);
 
     /**
-     * Handle "waitfunctionstop" command.
+     * Handle 'waitfunctionstart' and "waitfunctionstop" commands.
      *
      * @param tokens A list of keyword:value pairs
      * @param timer The MasterTimer that should run the function
+     * @param start Whether to wait for start or stop
      * @return An empty string if successful. Otherwise an error string.
      */
-    QString handleWaitFunctionStop(const QList<QStringList>& tokens, MasterTimer* timer);
-
+    QString handleWaitFunction(const QList<QStringList>& tokens, MasterTimer* timer, bool start);
 
     /**
      * Handle "setfixture" command.
@@ -272,7 +273,10 @@ private:
     static QList <QStringList> tokenizeLine(const QString& line, bool* ok = NULL);
 
 protected slots:
-    /** Called whenever the script has to wait a function to stop */
+    /** Triggered when the script's execution pauses to await the starting of a function */
+    void slotWaitFunctionStarted(quint32 fid);
+
+    /** Triggered when the script's execution pauses to await the completion of a function */
     void slotWaitFunctionStopped(quint32 fid);
 
 private:

@@ -174,9 +174,17 @@ public slots:
     bool waitTime(QString time);
 
     /**
+     * Handle "waitFunctionStart" command (string version)
+     *
+     * @param fID The Function ID to wait for starting
+     * @return true if successful. False on error.
+     */
+    bool waitFunctionStop(quint32 fID);
+
+    /**
      * Handle "waitFunctionStop" command (string version)
      *
-     * @param fID The Function ID to wait for
+     * @param fID The Function ID to wait for completion
      * @return true if successful. False on error.
      */
     bool waitFunctionStop(quint32 fID);
@@ -226,7 +234,8 @@ private:
         START,
         START_DONT_STOP,
         STOP,
-        WAIT
+        WAIT_START,
+        WAIT_STOP
     };
 
     Doc *m_doc;

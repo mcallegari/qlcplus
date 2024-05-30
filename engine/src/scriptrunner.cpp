@@ -199,11 +199,24 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
                 m_startedFunctions.removeAll(fID);
                 m_functionQueue.removeFirst();
             }
-            else if (operation == SRFuncOpe::WAIT)
+            else if (operation == SRFuncOpe::WAIT_START)
+            {
+                if (!function->isRunning())
+                {
+                    // the function is not running, so we stop dequeuing
+                    break;
+                }
+                else
+                {
+                    // the function is running, so we can continue with the next function in the queue
+                    m_functionQueue.removeFirst();
+                }
+            }
+            else if (operation == SRFuncOpe::WAIT_STOP)
             {
                 if (timer->functionHasToStart(function) || function->isRunning())
                 {
-                    // the function has to strat or is still running, so we stop dequeuing
+                    // the function has to start or is still running, so we stop dequeuing
                     break;
                 }
                 else
@@ -531,6 +544,27 @@ bool ScriptRunner::waitTime(QString time)
     return true;
 }
 
+bool ScriptRunner::waitFunctionStart(quint32 fID)
+{
+    if (m_running == false)
+        return false;
+
+    Function *function = m_doc->function(fID);
+    if (function == NULL)
+    {
+        qWarning() << QString("No such function (ID %1)").arg(fID);
+        return false;
+    }
+
+    QPair<quint32, SRFuncOpe> pair;
+    pair.first = fID;
+    pair.second = SRFuncOpe::WAIT_START;
+
+    m_functionQueue.enqueue(pair);
+
+    return true;
+}
+
 bool ScriptRunner::waitFunctionStop(quint32 fID)
 {
     if (m_running == false)
@@ -545,7 +579,7 @@ bool ScriptRunner::waitFunctionStop(quint32 fID)
 
     QPair<quint32, SRFuncOpe> pair;
     pair.first = fID;
-    pair.second = SRFuncOpe::WAIT;
+    pair.second = SRFuncOpe::WAIT_STOP;
 
     m_functionQueue.enqueue(pair);
 

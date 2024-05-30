@@ -54,6 +54,8 @@ public:
 
     static const QString waitLegacy;
     static const QString waitCmd;
+    static const QString waitFunctionStartLegacy;
+    static const QString waitFunctionStartCmd;
     static const QString waitFunctionStopLegacy;
     static const QString waitFunctionStopCmd;
 
