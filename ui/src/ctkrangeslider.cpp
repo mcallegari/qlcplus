@@ -142,17 +142,18 @@ ctkRangeSliderPrivate::Handle ctkRangeSliderPrivate::handleAtPos(const QPoint& p
     option.sliderPosition = this->m_MinimumPosition;
     option.sliderValue    = this->m_MinimumValue;
 
-    QStyle::SubControl minimumControl = q->style()->hitTestComplexControl(QStyle::CC_Slider, &option, pos, q);
+    //QStyle::SubControl minimumControl = q->style()->hitTestComplexControl(QStyle::CC_Slider, &option, pos, q);
     QRect minimumHandleRect = q->style()->subControlRect(QStyle::CC_Slider, &option, QStyle::SC_SliderHandle, q);
 
     // Test if the pos is under the Maximum handle
     option.sliderPosition = this->m_MaximumPosition;
     option.sliderValue    = this->m_MaximumValue;
 
-    QStyle::SubControl maximumControl = q->style()->hitTestComplexControl(QStyle::CC_Slider, &option, pos, q);
+    //QStyle::SubControl maximumControl = q->style()->hitTestComplexControl(QStyle::CC_Slider, &option, pos, q);
     QRect maximumHandleRect = q->style()->subControlRect(QStyle::CC_Slider, &option, QStyle::SC_SliderHandle, q);
 
     // The pos is above both handles, select the closest handle
+/*
     if (minimumControl == QStyle::SC_SliderHandle &&
         maximumControl == QStyle::SC_SliderHandle)
     {
@@ -171,13 +172,13 @@ ctkRangeSliderPrivate::Handle ctkRangeSliderPrivate::handleAtPos(const QPoint& p
         Q_ASSERT(minDist >= 0 && maxDist >= 0);
         minimumControl = minDist < maxDist ? minimumControl : QStyle::SC_None;
     }
-
-    if (minimumControl == QStyle::SC_SliderHandle)
+*/
+    if (minimumHandleRect.contains(pos))
     {
         handleRect = minimumHandleRect;
         return MinimumHandle;
     }
-    else if (maximumControl == QStyle::SC_SliderHandle)
+    else if (maximumHandleRect.contains(pos))
     {
         handleRect = maximumHandleRect;
         return MaximumHandle;
