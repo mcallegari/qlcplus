@@ -21,7 +21,7 @@ if(qmlui)
     add_definitions(-DQMLUI)
     set(APPVERSION "5.0.0 Beta 3")
 else()
-    set(APPVERSION "4.13.1 GIT")
+    set(APPVERSION "4.13.1")
 endif()
 
 if(UNIX)

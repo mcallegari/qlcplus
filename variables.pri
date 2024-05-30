@@ -4,7 +4,7 @@
 
 APPNAME    = Q Light Controller Plus
 FXEDNAME   = Fixture Definition Editor
-!qmlui: APPVERSION = 4.13.1 GIT
+!qmlui: APPVERSION = 4.13.1
 qmlui:  APPVERSION = 5.0.0 Beta 3
 
 # Disable these if you don't want to see GIT short hash in the About Box
@@ -36,11 +36,11 @@ contains(FORCECONFIG, release) {
   #DEFINES += QT_NO_DEBUG_OUTPUT
 } else {
   # Enable the following 2 lines when making a release
-  CONFIG         -= release
-  #DEFINES        += QT_NO_DEBUG_OUTPUT
+  CONFIG         += release
+  DEFINES        += QT_NO_DEBUG_OUTPUT
 
   # Disable this when making a release
-  CONFIG         += debug
+  CONFIG         -= debug
 }
 
 !macx:!ios: {
