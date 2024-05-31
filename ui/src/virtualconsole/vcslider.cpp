@@ -282,6 +282,9 @@ bool VCSlider::copyFrom(const VCWidget* widget)
     /* Copy monitor mode */
     setChannelsMonitorEnabled(slider->channelsMonitorEnabled());
 
+    /* Copy flash enabling */
+    setPlaybackFlashEnable(slider->playbackFlashEnable());
+
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
 }
@@ -1034,7 +1037,7 @@ void VCSlider::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
     }
 }
 
-bool VCSlider::playbackFlashEnable()
+bool VCSlider::playbackFlashEnable() const
 {
     return m_playbackFlashEnable;
 }
