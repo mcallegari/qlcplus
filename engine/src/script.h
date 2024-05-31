@@ -260,7 +260,7 @@ private:
      * @param tokens A list of keyword:value pairs
      * @return An empty string if successful. Otherwise an error string.
      */
-    QString handleJump(const QList<QStringList>& tokens);
+    QString handleJump(const QList<QStringList>& tokens, MasterTimer* timer);
 
     /**
      * Parse one line of script data into a list of token string lists

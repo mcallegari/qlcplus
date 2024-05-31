@@ -518,7 +518,7 @@ bool Script::executeCommand(int index, MasterTimer* timer, QList<Universe *> uni
         // among other functions. Therefore, the script must relinquish its
         // time slot after each jump. If there is no error in jumping, the jump
         // must have happened.
-        error = handleJump(tokens);
+        error = handleJump(tokens, timer);
         if (error.isEmpty() == true)
             continueLoop = false;
     }
@@ -843,7 +843,7 @@ QString Script::handleLabel(const QList<QStringList>& tokens)
     return QString();
 }
 
-QString Script::handleJump(const QList<QStringList>& tokens)
+QString Script::handleJump(const QList<QStringList>& tokens, MasterTimer* timer)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -855,6 +855,16 @@ QString Script::handleJump(const QList<QStringList>& tokens)
         int lineNumber = m_labels[tokens[0][1]];
         Q_ASSERT(lineNumber >= 0 && lineNumber < m_lines.size());
         m_currentCommand = lineNumber;
+
+        // cleanup m_startedFunctions to avoid infinite growth
+        QList<Function*>::iterator it = m_startedFunctions.begin();
+        while (it != m_startedFunctions.end()) {
+            if (!timer->functionHasToStart(*it) && !(*it)->isRunning())
+                it = m_startedFunctions.erase(it);
+            else
+                ++it;
+        }
+
         return QString();
     }
     else
