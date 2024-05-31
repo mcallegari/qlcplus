@@ -397,7 +397,6 @@ bool Script::waiting()
     }
     else if (m_waitFunction != NULL)
     {
-        qDebug() << QString("%1 wait function %2 ...").arg(id()).arg(m_waitFunction->id());
         // Still waiting for the function to start/stop.
         return true;
     }
@@ -696,7 +695,6 @@ QString Script::handleWaitFunction(const QList<QStringList> &tokens, MasterTimer
         {
             m_waitFunction = function;
             connect(m_waitFunction, SIGNAL(running(quint32)), this, SLOT(slotWaitFunctionStarted(quint32)));
-            qDebug() << QString("%1 wait function %2 start signal").arg(this->id()).arg(m_waitFunction->id());
         }
     }
     else
@@ -705,7 +703,6 @@ QString Script::handleWaitFunction(const QList<QStringList> &tokens, MasterTimer
         {
             m_waitFunction = function;
             connect(m_waitFunction, SIGNAL(stopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
-            qDebug() << QString("%1 wait function %2 stop signal").arg(this->id()).arg(m_waitFunction->id());
         }
     }
 
@@ -716,7 +713,6 @@ void Script::slotWaitFunctionStarted(quint32 fid)
 {
     if (m_waitFunction != NULL && m_waitFunction->id() == fid) {
         disconnect(m_waitFunction, SIGNAL(running(quint32)), this, SLOT(slotWaitFunctionStarted(quint32)));
-        qDebug() << QString("%1 function %2 started").arg(id()).arg(m_waitFunction->id());
         m_waitFunction = NULL;
     }
 }
@@ -726,7 +722,6 @@ void Script::slotWaitFunctionStopped(quint32 fid)
     if (m_waitFunction != NULL && m_waitFunction->id() == fid) {
         disconnect(m_waitFunction, SIGNAL(stopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
         m_startedFunctions.removeAll(m_waitFunction);
-        qDebug() << QString("%1 function %2 stopped").arg(id()).arg(m_waitFunction->id());
         m_waitFunction = NULL;
     }
 }
