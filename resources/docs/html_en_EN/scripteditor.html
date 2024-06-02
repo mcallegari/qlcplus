@@ -260,6 +260,28 @@ wait:03s.20 // Waits for 3 seconds and 200 milliseconds</PRE>
 setfixture:1 ch:2 val:random(20,235)</PRE>
   </TD>
  </TR>
+ <TR>
+  <TD>stoponexit</TD>
+  <TD>
+    <B>Type</B>: keyword<br>
+    <B>Description</B>: controls whether functions started during the script should be stopped at the end.<br>
+    <B>Syntax</B>: stoponexit:[true|false]<br><br>
+    <I>true</I>: all functions started afterward will be stopped when the script finishes (default).<br>
+    <I>false</I>: all functions started afterward will continue running when the script finishes.<br>
+    <B>Example</B>:
+    <PRE>startfunction:1
+
+stoponexit:false
+startfunction:2
+
+stoponexit:true
+startfunction:3
+
+stoponexit:false
+startfunction:4</PRE>
+    In this script example, functions 1 and 3 will be stopped at the end, but functions 2 and 4 will continue running.
+  </TD>
+ </TR>
 </TABLE>
 
 </BODY>
