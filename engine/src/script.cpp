@@ -487,7 +487,7 @@ bool Script::executeCommand(int index, MasterTimer* timer, QList<Universe *> uni
         // Waiting for a funcion should break out of the execution loop to
         // prevent skipping straight to the next command. If there is no error
         // in waitfunctionstart parsing, we must wait at least one cycle.
-        error = handleWaitFunction(tokens, timer, true);
+        error = handleWaitFunction(tokens, true);
         if (error.isEmpty() == true)
             continueLoop = false;
     }
@@ -496,7 +496,7 @@ bool Script::executeCommand(int index, MasterTimer* timer, QList<Universe *> uni
         // Waiting for a funcion should break out of the execution loop to
         // prevent skipping straight to the next command. If there is no error
         // in waitfunctionstop parsing, we must wait at least one cycle.
-        error = handleWaitFunction(tokens, timer, false);
+        error = handleWaitFunction(tokens, false);
         if (error.isEmpty() == true)
             continueLoop = false;
     }
@@ -518,7 +518,7 @@ bool Script::executeCommand(int index, MasterTimer* timer, QList<Universe *> uni
         // among other functions. Therefore, the script must relinquish its
         // time slot after each jump. If there is no error in jumping, the jump
         // must have happened.
-        error = handleJump(tokens, timer);
+        error = handleJump(tokens);
         if (error.isEmpty() == true)
             continueLoop = false;
     }
@@ -668,7 +668,7 @@ QString Script::handleWaitKey(const QList<QStringList>& tokens)
     return QString();
 }
 
-QString Script::handleWaitFunction(const QList<QStringList> &tokens, MasterTimer* timer, bool start)
+QString Script::handleWaitFunction(const QList<QStringList> &tokens, bool start)
 {
     qDebug() << Q_FUNC_INFO << tokens;
 
@@ -699,7 +699,7 @@ QString Script::handleWaitFunction(const QList<QStringList> &tokens, MasterTimer
     }
     else
     {
-        if (timer->functionHasToStart(function) || function->isRunning())
+        if (!function->stopped())
         {
             m_waitFunction = function;
             connect(m_waitFunction, SIGNAL(stopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
@@ -843,7 +843,7 @@ QString Script::handleLabel(const QList<QStringList>& tokens)
     return QString();
 }
 
-QString Script::handleJump(const QList<QStringList>& tokens, MasterTimer* timer)
+QString Script::handleJump(const QList<QStringList>& tokens)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -859,7 +859,7 @@ QString Script::handleJump(const QList<QStringList>& tokens, MasterTimer* timer)
         // cleanup m_startedFunctions to avoid infinite growth
         QList<Function*>::iterator it = m_startedFunctions.begin();
         while (it != m_startedFunctions.end()) {
-            if (!timer->functionHasToStart(*it) && !(*it)->isRunning())
+            if ((*it)->stopped())
                 it = m_startedFunctions.erase(it);
             else
                 ++it;

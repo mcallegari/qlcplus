@@ -223,11 +223,10 @@ private:
      * Handle 'waitfunctionstart' and "waitfunctionstop" commands.
      *
      * @param tokens A list of keyword:value pairs
-     * @param timer The MasterTimer that should run the function
      * @param start Whether to wait for start or stop
      * @return An empty string if successful. Otherwise an error string.
      */
-    QString handleWaitFunction(const QList<QStringList>& tokens, MasterTimer* timer, bool start);
+    QString handleWaitFunction(const QList<QStringList>& tokens, bool start);
 
     /**
      * Handle "setfixture" command.
@@ -260,7 +259,7 @@ private:
      * @param tokens A list of keyword:value pairs
      * @return An empty string if successful. Otherwise an error string.
      */
-    QString handleJump(const QList<QStringList>& tokens, MasterTimer* timer);
+    QString handleJump(const QList<QStringList>& tokens);
 
     /**
      * Parse one line of script data into a list of token string lists

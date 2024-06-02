@@ -214,7 +214,7 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
             }
             else if (operation == SRFuncOpe::WAIT_STOP)
             {
-                if (timer->functionHasToStart(function) || function->isRunning())
+                if (!function->stopped())
                 {
                     // the function has to start or is still running, so we stop dequeuing
                     break;

@@ -98,9 +98,6 @@ public:
     /** This should be called by the function itself */
     virtual void startFunction(Function* function);
 
-    /** Indicate if the function has to start but not yet running */
-    bool functionHasToStart(Function* function);
-
     /** Stop all functions. Doesn't affect registered DMX sources. */
     void stopAllFunctions();
 

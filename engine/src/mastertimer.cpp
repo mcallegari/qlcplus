@@ -181,14 +181,6 @@ void MasterTimer::startFunction(Function* function)
         m_startQueue.append(function);
 }
 
-bool MasterTimer::functionHasToStart(Function* function)
-{
-    if (function == NULL)
-        return false;
-
-    return m_startQueue.contains(function);
-}
-
 void MasterTimer::stopAllFunctions()
 {
     m_stopAllFunctions = true;
