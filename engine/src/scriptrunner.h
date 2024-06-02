@@ -179,7 +179,7 @@ public slots:
      * @param fID The Function ID to wait for starting
      * @return true if successful. False on error.
      */
-    bool waitFunctionStop(quint32 fID);
+    bool waitFunctionStart(quint32 fID);
 
     /**
      * Handle "waitFunctionStop" command (string version)
