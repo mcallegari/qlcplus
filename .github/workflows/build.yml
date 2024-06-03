@@ -376,11 +376,6 @@ jobs:
             mingw-w64-i686-qt5-tools
             mingw-w64-i686-qt5-imageformats
             mingw-w64-i686-qt5-svg
-            mingw-w64-i686-qt5-declarative
-            mingw-w64-i686-qt5-quickcontrols
-            mingw-w64-i686-qt5-quickcontrols2
-            mingw-w64-i686-qt5-3d
-            mingw-w64-i686-qt5-quick3d
             mingw-w64-i686-nsis
 
       - name: Install legacy libusb (32 bit)
@@ -476,7 +471,6 @@ jobs:
       - name: Install on Windows
         shell: msys2 {0}
         run: |
-          #echo 'Silently installing QLC+...'
           cd build
           make install/fast
           cd ..
@@ -488,10 +482,10 @@ jobs:
           cd /c/qlcplus
           echo 'Creating package...'
           makensis -X'SetCompressor /FINAL lzma' ${{env.NSIS_SCRIPT}}
-          mv /c/qlcplus/${{env.OUTFILE}} /d/a/qlcplus/qlcplus
+          mv /c/qlcplus/${{env.OUTFILE}}-${{env.TASK}} /d/a/qlcplus/qlcplus
 
       - name: Store executable artifact
         uses: actions/upload-artifact@v4
         with:
           name: QLC+-${{env.TASK}}-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.exe
-          path: ${{env.OUTFILE}}
+          path: ${{env.OUTFILE}}-${{env.TASK}}
