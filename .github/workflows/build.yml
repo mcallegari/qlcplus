@@ -388,7 +388,7 @@ jobs:
         if: ${{ matrix.task == 'compile-qt5-32bit' }}
         run: |
           wget https://www.qlcplus.org/misc/mingw-w64-i686-libusb-1.0.26-1-any.pkg.tar.zst
-          pacman -U mingw-w64-i686-libusb-1.0.26-1-any.pkg.tar.zst
+          pacman --noconfirm --needed -U mingw-w64-i686-libusb-1.0.26-1-any.pkg.tar.zst
 
       - name: D2XX SDK (64 bit)
         shell: msys2 {0}
