@@ -449,6 +449,7 @@ jobs:
           sed -i -e 's/libgcc_s_seh/libgcc_s_dw2/g' platforms/windows/CMakeLists.txt
           # fix DMX USB path
           sed -i -e 's/amd64/i386/g' plugins/dmxusb/src/CMakeLists.txt
+          sed -i -e 's/ftd2xx64.dll/ftd2xx.dll/g' plugins/dmxusb/src/CMakeLists.txt
 
       - name: Configure v4 build for Windows
         shell: msys2 {0}
