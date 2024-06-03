@@ -1,3 +1,7 @@
+qlcplus (4.13.2) stable; urgency=low
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Sep 2024 18:19:20 +0200
+
 qlcplus (4.13.1) stable; urgency=low
 
   * engine: fix blackout not working

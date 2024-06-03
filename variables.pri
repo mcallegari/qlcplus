@@ -4,7 +4,7 @@
 
 APPNAME    = Q Light Controller Plus
 FXEDNAME   = Fixture Definition Editor
-!qmlui: APPVERSION = 4.13.1
+!qmlui: APPVERSION = 4.13.2 GIT
 qmlui:  APPVERSION = 5.0.0 Beta 3
 
 # Disable these if you don't want to see GIT short hash in the About Box
