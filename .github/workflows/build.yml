@@ -368,7 +368,6 @@ jobs:
             mingw-w64-i686-libsndfile
             mingw-w64-i686-flac
             mingw-w64-i686-fftw
-            mingw-w64-i686-libusb
             mingw-w64-i686-python-lxml
             mingw-w64-i686-qt5-base
             mingw-w64-i686-qt5-multimedia
@@ -383,6 +382,13 @@ jobs:
             mingw-w64-i686-qt5-3d
             mingw-w64-i686-qt5-quick3d
             mingw-w64-i686-nsis
+
+      - name: Install legacy libusb (32 bit)
+        shell: msys2 {0}
+        if: ${{ matrix.task == 'compile-qt5-32bit' }}
+        run: |
+          wget https://www.qlcplus.org/misc/mingw-w64-i686-libusb-1.0.26-1-any.pkg.tar.zst
+          pacman -U mingw-w64-i686-libusb-1.0.26-1-any.pkg.tar.zst
 
       - name: D2XX SDK (64 bit)
         shell: msys2 {0}
