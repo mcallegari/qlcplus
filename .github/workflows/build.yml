@@ -266,8 +266,6 @@ jobs:
       QMAKESPEC: win32-g++
       QT_MODULES:
         qtscript
-      #CC: /mingw64/bin/x86_64-w64-mingw32-gcc.exe
-      #CXX: /mingw64/bin/x86_64-w64-mingw32-g++.exe
 
     steps:
       - name: Checkout
@@ -483,10 +481,10 @@ jobs:
           cd /c/qlcplus
           echo 'Creating package...'
           makensis -X'SetCompressor /FINAL lzma' ${{env.NSIS_SCRIPT}}
-          mv /c/qlcplus/${{env.OUTFILE}} /d/a/qlcplus/qlcplus/${{env.TASK}}-${{env.OUTFILE}}
+          mv /c/qlcplus/${{env.OUTFILE}} /d/a/qlcplus/qlcplus/${{matrix.task}}-${{env.OUTFILE}}
 
       - name: Store executable artifact
         uses: actions/upload-artifact@v4
         with:
-          name: QLC+-${{env.TASK}}-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.exe
-          path: ${{env.TASK}}-${{env.OUTFILE}}
+          name: QLC+-${{matrix.task}}-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.exe
+          path: ${{matrix.task}}-${{env.OUTFILE}}
