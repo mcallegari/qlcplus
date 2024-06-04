@@ -24,6 +24,7 @@
 #include <QQueue>
 #include <QPair>
 #include <QMap>
+#include "function.h"
 
 class GenericFader;
 class MasterTimer;
@@ -223,6 +224,13 @@ public slots:
      */
     int random(int minTime, int maxTime);
 
+protected slots:
+    /** Triggered when the script's execution pauses to await the starting of a function */
+    void slotWaitFunctionStarted(quint32 fid);
+
+    /** Triggered when the script's execution pauses to await the completion of a function */
+    void slotWaitFunctionStopped(quint32 fid);
+
 protected:
     /** QThread reimplemented method */
     void run();
@@ -253,6 +261,8 @@ private:
     QList <quint32> m_startedFunctions;
     // Timer ticks to wait before executing the next line
     quint32 m_waitCount;
+    // Function that the script is waiting for
+    Function* m_waitFunction;
     // Map used to lookup a GenericFader instance for a Universe ID
     QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
 };

@@ -40,6 +40,7 @@ ScriptRunner::ScriptRunner(Doc *doc, QString &content, QObject *parent)
     , m_engine(NULL)
     , m_stopOnExit(true)
     , m_waitCount(0)
+    , m_waitFunction(NULL)
 {
 }
 
@@ -171,7 +172,8 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
             fc->setReady(false);
         }
     }
-    if (m_functionQueue.count())
+    // if we don't have to wait and there are some funtions in the queue
+    if (m_waitFunction == NULL && m_functionQueue.count())
     {
         while (!m_functionQueue.isEmpty())
         {
@@ -191,40 +193,34 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
                 function->start(timer, FunctionParent::master());
                 if (operation == SRFuncOpe::START)
                     m_startedFunctions << fID;
-                m_functionQueue.removeFirst();
             }
             else if (operation == SRFuncOpe::STOP)
             {
                 function->stop(FunctionParent::master());
                 m_startedFunctions.removeAll(fID);
-                m_functionQueue.removeFirst();
             }
             else if (operation == SRFuncOpe::WAIT_START)
             {
                 if (!function->isRunning())
                 {
-                    // the function is not running, so we stop dequeuing
+                    // the function is not running, so we we wait and we stop dequeuing
+                    m_waitFunction = function;
+                    connect(m_waitFunction, SIGNAL(running(quint32)), this, SLOT(slotWaitFunctionStarted(quint32)));
                     break;
-                }
-                else
-                {
-                    // the function is running, so we can continue with the next function in the queue
-                    m_functionQueue.removeFirst();
                 }
             }
             else if (operation == SRFuncOpe::WAIT_STOP)
             {
                 if (!function->stopped())
                 {
-                    // the function has to start or is still running, so we stop dequeuing
+                    // the function has to start or is still running, so we wait and we stop dequeuing
+                    m_waitFunction = function;
+                    connect(m_waitFunction, SIGNAL(stopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
                     break;
                 }
-                else
-                {
-                    // the function is not running, so we can continue with the next function in the queue
-                    m_functionQueue.removeFirst();
-                }
             }
+            // we can continue with the next function in the queue
+            m_functionQueue.removeFirst();
         }
     }
 
@@ -234,6 +230,23 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
         return false;
 
     return true;
+}
+
+void ScriptRunner::slotWaitFunctionStarted(quint32 fid)
+{
+    if (m_waitFunction != NULL && m_waitFunction->id() == fid) {
+        disconnect(m_waitFunction, SIGNAL(running(quint32)), this, SLOT(slotWaitFunctionStarted(quint32)));
+        m_waitFunction = NULL;
+    }
+}
+
+void ScriptRunner::slotWaitFunctionStopped(quint32 fid)
+{
+    if (m_waitFunction != NULL && m_waitFunction->id() == fid) {
+        disconnect(m_waitFunction, SIGNAL(stopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
+        m_startedFunctions.removeAll(fid);
+        m_waitFunction = NULL;
+    }
 }
 
 void ScriptRunner::run()
