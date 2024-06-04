@@ -376,6 +376,7 @@ jobs:
             mingw-w64-i686-qt5-tools
             mingw-w64-i686-qt5-imageformats
             mingw-w64-i686-qt5-svg
+            mingw-w64-i686-qt5-declarative
             mingw-w64-i686-nsis
 
       - name: Install legacy libusb (32 bit)
