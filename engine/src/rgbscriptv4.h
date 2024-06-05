@@ -92,7 +92,7 @@ public:
     int rgbMapStepCount(const QSize& size);
 
     /** @reimp */
-    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, uint (&rawColors)[RGBAlgorithmRawColorCount]);
+    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, QVector<uint> &rawColors);
 
     /** @reimp */
     QString name() const;

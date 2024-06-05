@@ -71,7 +71,7 @@ public:
     int rgbMapStepCount(const QSize& size);
 
     /** @reimp */
-    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, uint (&rawColors)[RGBAlgorithmRawColorCount]);
+    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, QVector<uint> &rawColors);
 
     /** @reimp */
     virtual void postRun();
@@ -86,7 +86,7 @@ public:
     int apiVersion() const;
 
     /** @reimp */
-    void setColors(QColor colors[RGBAlgorithmRawColorCount]);
+    void setColors(QVector<QColor> colors);
 
     /** @reimp */
     RGBAlgorithm::Type type() const;

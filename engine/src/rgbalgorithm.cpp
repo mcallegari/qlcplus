@@ -40,26 +40,22 @@
 RGBAlgorithm::RGBAlgorithm(Doc * doc)
     : m_doc(doc)
 {
-    Q_ASSERT(5 == RGBAlgorithmRawColorCount);
-    m_colors[0] = QColor();
-    m_colors[1] = QColor();
-    m_colors[2] = QColor();
-    m_colors[3] = QColor();
-    m_colors[4] = QColor();
 }
 
-void RGBAlgorithm::setColors(QColor colors[RGBAlgorithmRawColorCount])
+void RGBAlgorithm::setColors(QVector<QColor> colors)
 {
-    for (int i = 0; i < RGBAlgorithmRawColorCount; i++)
-    {
-        if (acceptColors() <= i)
-            m_colors[i] = colors[i];
-        else
-            m_colors[i] = QColor();
+    m_colors.clear();
+    QVectorIterator<QColor> it(colors);
+    int count = 0;
+    while (it.hasNext()) {
+        QColor color = it.next();
+        if (acceptColors() < count)
+            m_colors.append(color);
+        count ++;
     }
 }
 
-QColor RGBAlgorithm::getColor(unsigned int i) const
+QColor RGBAlgorithm::getColor(uint i) const
 {
     return m_colors[i];
 }

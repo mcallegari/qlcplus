@@ -324,7 +324,7 @@ void RGBText_Test::staticLetters()
 
     QRgb color(0xFFFFFFFF);
     RGBMap map;
-    uint rawRgbColors[RGBAlgorithmRawColorCount] = {
+    QVector<uint> rawRgbColors = {
         QColor(Qt::red).rgb()
         ,QColor(Qt::green).rgb()
         ,0
@@ -369,7 +369,7 @@ void RGBText_Test::horizontalScroll()
     RGBText text(m_doc);
     text.setText("QLC");
     text.setAnimationStyle(RGBText::Horizontal);
-    uint rawRgbColors[RGBAlgorithmRawColorCount] = {
+    QVector<uint> rawRgbColors = {
         QColor(Qt::red).rgb()
         ,QColor(Qt::green).rgb()
         ,0
@@ -424,7 +424,7 @@ void RGBText_Test::verticalScroll()
     RGBText text(m_doc);
     text.setText("QLC");
     text.setAnimationStyle(RGBText::Vertical);
-    uint rawRgbColors[RGBAlgorithmRawColorCount] = {
+    QVector<uint> rawRgbColors = {
         QColor(Qt::red).rgb()
         ,QColor(Qt::green).rgb()
         ,0

@@ -188,13 +188,14 @@ private:
      * Color
      ************************************************************************/
 public:
-    void setColor(unsigned int i, QColor c);
-    QColor getColor(unsigned int i) const;
+    void setColor(int i, QColor c);
+    QColor getColor(int i) const;
+    QVector <QColor> getColors() const;
 
     void updateColorDelta();
 
 private:
-    QColor m_rgbColors[RGBAlgorithmRawColorCount];
+    QVector<QColor> m_rgbColors;
     RGBMatrixStep *m_stepHandler;
 
     /************************************************************************

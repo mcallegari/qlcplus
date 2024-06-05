@@ -887,7 +887,10 @@ void RGBMatrixEditor::slotPatternActivated(int patternIndex)
     m_matrix->setAlgorithm(algo);
     if (algo != NULL) {
         updateColors();
-        QColor colors[RGBAlgorithmRawColorCount] = {
+#if (5 != RGBAlgorithmColorDisplayCount)
+#error "Further colors need to be displayed."
+#endif
+        QVector<QColor> colors = {
                 m_matrix->getColor(0),
                 m_matrix->getColor(1),
                 m_matrix->getColor(2),

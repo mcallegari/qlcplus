@@ -123,7 +123,7 @@ int RGBAudio::rgbMapStepCount(const QSize& size)
     return 1;
 }
 
-void RGBAudio::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, uint (&rawColors)[RGBAlgorithmRawColorCount])
+void RGBAudio::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, QVector<uint> &rawColors)
 {
     Q_UNUSED(step);
     Q_UNUSED(rawColors);
@@ -206,7 +206,7 @@ int RGBAudio::apiVersion() const
     return 1;
 }
 
-void RGBAudio::setColors(QColor colors[RGBAlgorithmRawColorCount])
+void RGBAudio::setColors(QVector<QColor> colors)
 {
     RGBAlgorithm::setColors(colors);
 
