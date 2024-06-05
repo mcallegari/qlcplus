@@ -277,7 +277,8 @@ void HIDPlugin::rescanDevices()
             /* Device is a USB DMX Interface, add it */
             dev = new HIDDMXDevice(this, line++,
                                    QString::fromWCharArray(cur_dev->manufacturer_string) + " " +
-                                   QString::fromWCharArray(cur_dev->product_string),
+                                   QString::fromWCharArray(cur_dev->product_string) + " " +
+                                   "(" + QString::fromWCharArray(cur_dev->serial_number) + ")",
                                    QString(cur_dev->path));
             addDevice(dev);
         }

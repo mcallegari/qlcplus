@@ -83,7 +83,7 @@
   <Capability Min="36" Max="42" Preset="GoboMacro" Res1="Others/gobo00107.svg">Static / Fixed Gobo 5</Capability>
   <Capability Min="43" Max="49" Preset="GoboMacro" Res1="Others/gobo00106.svg">Static / Fixed Gobo 6</Capability>
   <Capability Min="50" Max="56" Preset="GoboMacro" Res1="Others/gobo00042.svg">Static / Fixed Gobo 7</Capability>
-  <Capability Min="57" Max="63" Preset="GoboMacro" Res1="Others/gobo00032.svg">Static / Fixed Gobo 8</Capability>
+  <Capability Min="57" Max="63" Preset="GoboMacro" Res1="Others/gobo00044.svg">Static / Fixed Gobo 8</Capability>
   <Capability Min="64" Max="70" Preset="GoboMacro" Res1="Others/gobo00023.svg">Static / Fixed Gobo 9</Capability>
   <Capability Min="71" Max="77" Preset="GoboMacro" Res1="Others/gobo00018.svg">Static / Fixed Gobo 10</Capability>
   <Capability Min="78" Max="84" Preset="GoboMacro" Res1="Others/gobo00108.svg">Static / Fixed Gobo 11</Capability>
@@ -96,7 +96,7 @@
   <Capability Min="127" Max="133" Preset="GoboShakeMacro" Res1="Others/gobo00107.svg">Shake Slow to Fast Static / Fixed Gobo 5</Capability>
   <Capability Min="134" Max="140" Preset="GoboShakeMacro" Res1="Others/gobo00106.svg">Shake Slow to Fast Static / Fixed Gobo 6</Capability>
   <Capability Min="141" Max="147" Preset="GoboShakeMacro" Res1="Others/gobo00042.svg">Shake Slow to Fast Static / Fixed Gobo 7</Capability>
-  <Capability Min="148" Max="154" Preset="GoboShakeMacro" Res1="Others/gobo00032.svg">Shake Slow to Fast Static / Fixed Gobo 8</Capability>
+  <Capability Min="148" Max="154" Preset="GoboShakeMacro" Res1="Others/gobo00044.svg">Shake Slow to Fast Static / Fixed Gobo 8</Capability>
   <Capability Min="155" Max="161" Preset="GoboShakeMacro" Res1="Others/gobo00023.svg">Shake Slow to Fast Static / Fixed Gobo 9</Capability>
   <Capability Min="162" Max="168" Preset="GoboShakeMacro" Res1="Others/gobo00018.svg">Shake Slow to Fast Static / Fixed Gobo 10</Capability>
   <Capability Min="169" Max="175" Preset="GoboShakeMacro" Res1="Others/gobo00108.svg">Shake Slow to Fast Static / Fixed Gobo 11</Capability>

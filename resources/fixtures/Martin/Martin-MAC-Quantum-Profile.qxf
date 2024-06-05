@@ -61,19 +61,19 @@
   <Capability Min="15" Max="19" Preset="GoboMacro" Res1="ClayPaky/gobo00032.png">Index Gobo 3 (Limbo)</Capability>
   <Capability Min="20" Max="24" Preset="GoboMacro" Res1="Robe/gobo00069.png">Index Gobo 4 (Ray Brush)</Capability>
   <Capability Min="25" Max="29" Preset="GoboMacro" Res1="Others/gobo00055.png">Index Gobo 5 (Whirlpool)</Capability>
-  <Capability Min="30" Max="34" Preset="GoboMacro" Res1="ClayPaky/gobo00040.png">Index Gobo 6 (To Boldly Go)</Capability>
+  <Capability Min="30" Max="34" Preset="GoboMacro" Res1="ClayPaky/gobo00040.svg">Index Gobo 6 (To Boldly Go)</Capability>
   <Capability Min="35" Max="39" Preset="GoboMacro" Res1="GLP/gobo00016.png">Gobo Rot 1</Capability>
   <Capability Min="40" Max="44" Preset="GoboMacro" Res1="Chauvet/gobo00037.svg">Gobo Rot 2</Capability>
   <Capability Min="45" Max="49" Preset="GoboMacro" Res1="ClayPaky/gobo00032.png">Gobo Rot 3</Capability>
   <Capability Min="50" Max="54" Preset="GoboMacro" Res1="Robe/gobo00069.png">Gobo Rot 4</Capability>
   <Capability Min="55" Max="59" Preset="GoboMacro" Res1="Others/gobo00055.png">Gobo Rot 5</Capability>
-  <Capability Min="60" Max="64" Preset="GoboMacro" Res1="ClayPaky/gobo00040.png">Gobo Rot 6</Capability>
+  <Capability Min="60" Max="64" Preset="GoboMacro" Res1="ClayPaky/gobo00040.svg">Gobo Rot 6</Capability>
   <Capability Min="65" Max="88" Preset="GoboShakeMacro" Res1="GLP/gobo00016.png">Gobo 1 Shake, 360° slow → 10° fast</Capability>
   <Capability Min="89" Max="112" Preset="GoboShakeMacro" Res1="Chauvet/gobo00037.svg">Gobo 2 Shake, 360° slow → 10° fast</Capability>
   <Capability Min="113" Max="136" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00032.png">Gobo 3 Shake, 360° slow → 10° fast</Capability>
   <Capability Min="137" Max="160" Preset="GoboShakeMacro" Res1="Robe/gobo00069.png">Gobo 4 Shake, 360° slow → 10° fast</Capability>
   <Capability Min="161" Max="184" Preset="GoboShakeMacro" Res1="Others/gobo00055.png">Gobo 5 Shake, 360° slow → 10° fast</Capability>
-  <Capability Min="185" Max="209" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00040.png">Gobo 6 Shake, 360° slow → 10° fast</Capability>
+  <Capability Min="185" Max="209" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00040.svg">Gobo 6 Shake, 360° slow → 10° fast</Capability>
   <Capability Min="210" Max="232">CW gobo wheel scroll, fast → slow</Capability>
   <Capability Min="233" Max="255">CCW gobo wheel scroll, slow* → fast</Capability>
  </Channel>
