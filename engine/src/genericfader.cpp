@@ -227,7 +227,10 @@ void GenericFader::write(Universe *universe)
             if ((flags & FadeChannel::CrossFade) && fc.fadeTime() == 0)
             {
                 // morph start <-> target depending on intensities
-                value = quint32(((qreal(fc.target() - fc.start()) * intensity()) + fc.start()) * parentIntensity());
+                bool rampUp = fc.target() > fc.start() ? true : false;
+                value = rampUp ? fc.target() - fc.start() : fc.start() - fc.target();
+                value = qreal(value) * intensity();
+                value = qreal(rampUp ? fc.start() + value : fc.start() - value) * parentIntensity();
             }
             else if (flags & FadeChannel::Intensity)
             {
@@ -235,7 +238,7 @@ void GenericFader::write(Universe *universe)
             }
         }
 
-        //qDebug() << "[GenericFader] >>> uni:" << universe->id() << ", address:" << (address + i) << ", value:" << value << "int:" << compIntensity;
+        //qDebug() << "[GenericFader] >>> uni:" << universe->id() << ", address:" << address << ", value:" << value << "int:" << compIntensity;
         if (flags & FadeChannel::Override)
         {
             universe->write(address, value, true);
