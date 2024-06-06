@@ -430,8 +430,8 @@ bool RGBMatrix::loadXML(QXmlStreamReader &root)
         {
             QString colorNumText = root.name().string()->right(
                     root.name().length() - KXMLQLCRGBMatrixColorBase.length());
-            uint colorNum = colorNumText.toUInt();
-            setColor(colorNum, QColor::fromRgb(QRgb(root.readElementText().toUInt())));
+            uint colorIdx = colorNumText.toUInt() - 1;
+            setColor(colorIdx, QColor::fromRgb(QRgb(root.readElementText().toUInt())));
         }
         else if (root.name() == KXMLQLCRGBMatrixControlMode)
         {
@@ -490,7 +490,7 @@ bool RGBMatrix::saveXML(QXmlStreamWriter *doc)
     uint count = 0;
     while (colorIt.hasNext()) {
         QColor color = colorIt.next();
-        QString elementName = KXMLQLCRGBMatrixColorBase.append(QString::number(count));
+        QString elementName = KXMLQLCRGBMatrixColorBase.append(QString::number(count + 1));
         doc->writeTextElement(elementName, QString::number(color.rgb()));
         count ++;
     }

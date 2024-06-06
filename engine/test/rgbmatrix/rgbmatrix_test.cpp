@@ -240,7 +240,8 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(xmlReader.attributes().value("ID").toString(), QString::number(mtx->id()));
     QCOMPARE(xmlReader.attributes().value("Name").toString(), QString("Xyzzy"));
 
-    int speed = 0, dir = 0, run = 0, algo = 0, color1 = 0, color2 = 0, color3 = 0, color4 = 0, color5 = 0, grp = 0, colormode = 0;
+    int speed = 0, dir = 0, run = 0, algo = 0, grp = 0, color1 = 0, color2 = 0, color3 = 0, color4 = 0, color5 = 0, colormode = 0;
+    QVector<int> colors;
 
     while (xmlReader.readNextStartElement())
     {
@@ -268,30 +269,40 @@ void RGBMatrix_Test::loadSave()
             algo++;
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name().toString() == "Color1")
+        else if (xmlReader.name().toString().startsWith("Color", Qt::CaseSensitive))
         {
-            QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::magenta).rgb());
-            color1++;
-        }
-        else if (xmlReader.name().toString() == "Color2")
-        {
-            QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::blue).rgb());
-            color2++;
-        }
-        else if (xmlReader.name().toString() == "Color3")
-        {
-            QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::green).rgb());
-            color3++;
-        }
-        else if (xmlReader.name().toString() == "Color4")
-        {
-            QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::red).rgb());
-            color4++;
-        }
-        else if (xmlReader.name().toString() == "Color5")
-        {
-            QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::yellow).rgb());
-            color5++;
+            bool ok = false;
+            QString colorNumText = xmlReader.name().toString().right(
+                    xmlReader.name().toString().length() - QString("Color").length());
+            int colorNum = colorNumText.toInt(&ok, 10);
+            QVERIFY(ok);
+
+            switch (colorNum) {
+            case 1:
+                QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::magenta).rgb());
+                color1 ++;
+                break;
+            case 2:
+                QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::blue).rgb());
+                color2++;
+                break;
+            case 3:
+                QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::green).rgb());
+                color3++;
+                break;
+            case 4:
+                QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::red).rgb());
+                color4++;
+                break;
+            case 5:
+                QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::yellow).rgb());
+                color5++;
+                break;
+            default:
+                // The color number can be between 1 and MAXINT, but here we expect only 5.
+                QVERIFY(colorNum > 0 && colorNum <= 5);
+                break;
+            }
         }
         else if (xmlReader.name().toString() == "FixtureGroup")
         {
