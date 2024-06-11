@@ -146,6 +146,9 @@ AddFixture::AddFixture(QWidget* parent, const Doc* doc, const Fixture* fxi)
     if (var.isValid() == true)
         restoreGeometry(var.toByteArray());
     AppUtil::ensureWidgetIsVisible(this);
+
+    // Set focus on the search bar
+    m_searchEdit->setFocus();
 }
 
 AddFixture::~AddFixture()
