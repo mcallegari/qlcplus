@@ -1583,7 +1583,7 @@ void VirtualConsole::initContents()
 {
     Q_ASSERT(layout() != NULL);
 
-    m_scrollArea = new QScrollArea(this);
+    m_scrollArea = new VCScrollArea(this);
     m_contentsLayout->addWidget(m_scrollArea);
     m_scrollArea->setAlignment(Qt::AlignCenter);
     m_scrollArea->setWidgetResizable(false);
@@ -1661,6 +1661,8 @@ bool VirtualConsole::liveEdit() const
 
 void VirtualConsole::enableEdit()
 {
+    disableKeyOverrides();
+
     // Allow editing and adding in design mode
     m_toolsSettingsAction->setEnabled(true);
     m_editActionGroup->setEnabled(true);
@@ -1759,6 +1761,8 @@ void VirtualConsole::disableEdit()
     m_stackingRaiseAction->setShortcut(QKeySequence());
     m_stackingLowerAction->setShortcut(QKeySequence());
 
+    enableKeyOverrides();
+
     // Hide toolbar; there's nothing usable there in operate mode
     m_toolbar->hide();
 
@@ -1766,6 +1770,24 @@ void VirtualConsole::disableEdit()
     // Without this, key combinations don't work unless
     // the user clicks on some VC area
     m_contents->setFocus();
+}
+
+void VirtualConsole::enableKeyOverrides() {
+    QList<QKeySequence> keySequencesToOverride;
+
+    for (QHash<quint32, VCWidget *>::const_iterator it = m_widgetsMap.constBegin();
+         it != m_widgetsMap.constEnd();
+         ++it) {
+        VCButton *btn = qobject_cast<VCButton*>(*it);
+        if (btn) {
+            keySequencesToOverride.append(btn->keySequence());
+        }
+    }
+    m_scrollArea->setKeyOverrides(keySequencesToOverride);
+}
+
+void VirtualConsole::disableKeyOverrides() {
+    m_scrollArea->clearKeyOverrides();
 }
 
 void VirtualConsole::slotModeChanged(Doc::Mode mode)
