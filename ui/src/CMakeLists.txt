@@ -141,6 +141,7 @@ add_library(${module_name}
     virtualconsole/vcmatrixproperties.cpp virtualconsole/vcmatrixproperties.h virtualconsole/vcmatrixproperties.ui
     virtualconsole/vcproperties.cpp virtualconsole/vcproperties.h virtualconsole/vcproperties.ui
     virtualconsole/vcpropertieseditor.cpp virtualconsole/vcpropertieseditor.h
+    virtualconsole/vcscrollarea.cpp virtualconsole/vcscrollarea.h
     virtualconsole/vcslider.cpp virtualconsole/vcslider.h
     virtualconsole/vcsliderproperties.cpp virtualconsole/vcsliderproperties.h virtualconsole/vcsliderproperties.ui
     virtualconsole/vcsoloframe.cpp virtualconsole/vcsoloframe.h
