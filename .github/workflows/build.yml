@@ -595,5 +595,5 @@ jobs:
       - name: Store DMG artifact
         uses: actions/upload-artifact@v4
         with:
-          name: QLC+_${{ matrix.task }}.dmg
-          path: QLC+-${{env.TASK}}-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.dmg
+          name: QLC+-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.dmg
+          path: QLC+_${{ matrix.task }}.dmg
