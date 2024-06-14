@@ -16,7 +16,8 @@ endif()
 install(CODE "execute_process(COMMAND sed -i -e \"s/__QLC_VERSION__/${APPVERSION}/g\" ${INSTALLROOT}/Info.plist)")
 
 # install Qt library frameworks
-set(QT_FRAMEWORKS_DIR ${_qt5_root_dir}/../../Frameworks)
+#set(QT_FRAMEWORKS_DIR ${_qt5_root_dir}/../../Frameworks) # homebrew
+set(QT_FRAMEWORKS_DIR ${_qt5_root_dir}/..)
 set(QT_FRAMEWORK_NAMES
     "QtCore"
     "QtDBus"
@@ -53,22 +54,33 @@ install(FILES ${QT_PLUGINS_DIR}/platforms/libqcocoa.dylib DESTINATION ${INSTALLR
 install(FILES ${QT_PLUGINS_DIR}/styles/libqmacstyle.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/styles)
 
 # install support libraries
-pkg_check_modules(SNDFILE IMPORTED_TARGET flac)
-pkg_check_modules(SNDFILE IMPORTED_TARGET ogg)
-pkg_check_modules(SNDFILE IMPORTED_TARGET opus)
-pkg_check_modules(SNDFILE IMPORTED_TARGET vorbis)
-pkg_check_modules(SNDFILE IMPORTED_TARGET vorbisenc)
+install(FILES ${FFTW3_LIBDIR}/libfftw3.3.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
+install(FILES ${LIBFTDI1_libftdi1_LIBDIR}/libftdi1.2.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
+install(FILES ${LIBFTDI1_libftdi1_LIBDIR}/libftdi1.2.5.0.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
+install(FILES ${LIBUSB1_LIBDIR}/libusb-1.0.0.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
+install(FILES ${MAD_LIBDIR}/libmad.0.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
+install(FILES ${SNDFILE_LIBDIR}/libsndfile.1.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
+install(FILES ${SNDFILE_LIBDIR}/libsndfile.1.0.37.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
 
-install(FILES "${pkgcfg_lib_FFTW3_fftw3}" DESTINATION ${INSTALLROOT}/${LIBSDIR})
-install(FILES "${pkgcfg_lib_LIBFTDI1_ftdi1}" DESTINATION ${INSTALLROOT}/${LIBSDIR})
-install(FILES "${pkgcfg_lib_LIBUSB1_usb-1.0}" DESTINATION ${INSTALLROOT}/${LIBSDIR})
-install(FILES "${pkgcfg_lib_MAD_mad}" DESTINATION ${INSTALLROOT}/${LIBSDIR})
-install(FILES "${pkgcfg_lib_SNDFILE_sndfile}" DESTINATION ${INSTALLROOT}/${LIBSDIR})
-install(FILES "${pkgcfg_lib_SNDFILE_FLAC}" DESTINATION ${INSTALLROOT}/${LIBSDIR})
-install(FILES "${pkgcfg_lib_SNDFILE_ogg}" DESTINATION ${INSTALLROOT}/${LIBSDIR})
-install(FILES "${pkgcfg_lib_SNDFILE_opus}" DESTINATION ${INSTALLROOT}/${LIBSDIR})
-install(FILES "${pkgcfg_lib_SNDFILE_vorbis}" DESTINATION ${INSTALLROOT}/${LIBSDIR})
-install(FILES "${pkgcfg_lib_SNDFILE_vorbisenc}" DESTINATION ${INSTALLROOT}/${LIBSDIR})
+#pkg_check_modules(FLAC IMPORTED_TARGET flac)
+#pkg_check_modules(OGG IMPORTED_TARGET ogg)
+#pkg_check_modules(OPUS IMPORTED_TARGET opus)
+#pkg_check_modules(MPG123 IMPORTED_TARGET libmpg123)
+#pkg_check_modules(LAME IMPORTED_TARGET lame)
+#pkg_check_modules(VORBIS IMPORTED_TARGET vorbis)
+#pkg_check_modules(VORBISENC IMPORTED_TARGET vorbisenc)
+#install(FILES ${FLAC_LIBDIR}/libFLAC.12.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
+#install(FILES ${OGG_LIBDIR}/libogg.0.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
+#install(FILES ${OGG_LIBDIR}/libogg.0.8.5.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
+#install(FILES ${OPUS_LIBDIR}/libopus.0.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
+#install(FILES ${MPG123_LIBDIR}/libmpg123.0.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
+#install(FILES ${LAME_LIBDIR}/libmp3lame.0.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
+#install(FILES ${VORBIS_LIBDIR}/libvorbis.0.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
+#install(FILES ${VORBISENC_LIBDIR}/libvorbisenc.2.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
+
+#install(FILES ${FFTW3_LIBDIR}/libpcre2-16.0.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
+# more deps: libzstd.1.dylib #libgthread-2.0.0.dylib #libglib-2.0.0.dylib #libintl.8.dylib
+#            libpng16.16.dylib #libqjpeg.dylib #libjpeg.8.dylib #libmp3lame.0.dylib
 
 # HELPER: PRINT ALL VARIABLES KNOWN BY CMAKE
 

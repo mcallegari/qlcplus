@@ -488,3 +488,112 @@ jobs:
         with:
           name: QLC+-${{matrix.task}}-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.exe
           path: ${{matrix.task}}-${{env.OUTFILE}}
+
+  build-macos:
+    runs-on: macos-12
+    name: QLCplus macOS ${{matrix.task}}
+    strategy:
+      fail-fast: false
+      matrix:
+        task: [ compile-qt5 ]
+    env:
+      CI_REPO_SLUG: ${{ github.repository }}
+      CI_BRANCH: ${{ github.head_ref }}
+      CI_PULL_REQUEST: ${{ github.event.number }}
+      QT_VERSION: "5.15.2"
+      QT_MODULES:
+        qtscript
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: false
+
+      - name: Add more ENV variables
+        shell: bash
+        run: |
+          echo "APPVERSION=`grep '^!qmlui' variables.pri | grep APPVERSION | sed 's/^.*= *//;s/ /_/g'`" >> $GITHUB_ENV
+          echo "BUILD_DATE=`date -u '+%Y%m%d'`" >> $GITHUB_ENV
+          echo "GIT_REV=`git rev-parse --short HEAD`" >> $GITHUB_ENV
+          echo "QTDIR="${{ github.workspace }}/qt/clang_64" >> $GITHUB_ENV
+          echo "NPROC=`sysctl -n hw.ncpu`" >> $GITHUB_ENV
+
+      - name: Print ENV vars
+        shell: bash
+        run: |
+          echo "CI_BRANCH: ${CI_BRANCH}"
+          echo "CI_PULL_REQUEST: ${CI_PULL_REQUEST}"
+          echo "CI_REPO_SLUG: ${CI_REPO_SLUG}"
+          echo "CI_EVENT_TYPE: ${CI_EVENT_TYPE}"
+          echo "CI_SECURE_ENV_VARS: ${CI_SECURE_ENV_VARS}"
+          echo "TASK: ${TASK}"
+          echo "QTDIR: ${QTDIR}"
+          echo "NPROC: ${NPROC}"
+
+      - name: Dependencies
+        run: | 
+          brew update
+          brew install fftw libftdi mad libsndfile
+    
+      - name: Cache Qt
+        id: cache-qt
+        uses: actions/cache@v3
+        with:
+          path: "${{ github.workspace }}/qt/"
+          key: qt-${{ matrix.os }}-${{ env.QT_VERSION }}
+    
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          cached: ${{ steps.cache-qt.outputs.cache-hit }}
+          version: ${{ env.QT_VERSION }}
+          dir: "${{ github.workspace }}/qt/"
+          modules: ${{ env.QT_MODULES }}
+
+      - name: Configure build
+        shell: bash
+        run: |-
+          mkdir build
+          cd build
+          ls ${{ github.workspace }}/qt
+          cmake -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" ..
+
+      - name: Build
+        shell: bash
+        run: |-
+          cd build
+          make -j${{ env.NPROC }}
+
+      - name: Install
+        shell: bash
+        run: |-
+          cd build
+          make install/fast
+
+      - name: run macosdeploy
+        shell: bash
+        run: |-
+          ${{ env.QTDIR }}/bin/macdeployqt ~/QLC+.app
+  
+      - name: create DMG
+        shell: bash
+        run: |-
+          OUTDIR=$PWD
+          cd platforms/macos/dmg
+          ./create-dmg --volname "Q Light Controller Plus ${{env.APPVERSION}}" \
+          --volicon $OUTDIR/resources/icons/qlcplus.icns \
+          --background background.png \
+          --window-size 400 300 \
+          --window-pos 200 100 \
+          --icon-size 64 \
+          --icon "QLC+" 0 150 \
+          --app-drop-link 200 150 \
+          $OUTDIR/QLC+_${{ matrix.task }}.dmg \
+          ~/QLC+.app
+
+      - name: Store DMG artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: QLC+_${{ matrix.task }}.dmg
+          path: QLC+-${{env.TASK}}-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.dmg
