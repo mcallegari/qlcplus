@@ -1776,10 +1776,11 @@ void VirtualConsole::enableKeyOverrides() {
     QList<QKeySequence> keySequencesToOverride;
 
     for (QHash<quint32, VCWidget *>::const_iterator it = m_widgetsMap.constBegin();
-         it != m_widgetsMap.constEnd();
-         ++it) {
+         it != m_widgetsMap.constEnd(); ++it)
+    {
         VCButton *btn = qobject_cast<VCButton*>(*it);
-        if (btn) {
+        if (btn)
+        {
             keySequencesToOverride.append(btn->keySequence());
         }
     }

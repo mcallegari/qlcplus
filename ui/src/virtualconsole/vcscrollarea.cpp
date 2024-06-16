@@ -10,9 +10,12 @@ VCScrollArea::VCScrollArea(QWidget *parent) : QScrollArea(parent) {
 void VCScrollArea::keyPressEvent(QKeyEvent *ev) {
     unsigned int keyCode = ev->key() | ev->modifiers();
     QList<unsigned int>::const_iterator it = std::find(m_overriddenKeyCodes.constBegin(), m_overriddenKeyCodes.constEnd(), keyCode);
-    if (it != m_overriddenKeyCodes.constEnd()) {
+    if (it != m_overriddenKeyCodes.constEnd())
+    {
         ev->ignore();
-    } else {
+    }
+    else
+    {
         QScrollArea::keyPressEvent(ev);
     }
 }
@@ -29,8 +32,10 @@ bool VCScrollArea::needsOverride(const QKeySequence& ks) {
 void VCScrollArea::setKeyOverrides(const QList<QKeySequence> &keyOverrides) {
     m_overriddenKeyCodes.clear();
     for (QList<QKeySequence>::const_iterator it = keyOverrides.constBegin();
-         it != keyOverrides.constEnd(); ++it) {
-        if (needsOverride(*it)) {
+         it != keyOverrides.constEnd(); ++it)
+    {
+        if (needsOverride(*it))
+        {
             // all our key sequences have only one key
             unsigned int keyCode = (*it)[0];
             m_overriddenKeyCodes.append(keyCode);
