@@ -1001,16 +1001,34 @@ int Tardis::processAction(TardisAction &action, bool undo)
             matrix->setAlgorithm(algo);
         }
         break;
-        case RGBMatrixSetStartColor:
+        case RGBMatrixSetColor1:
         {
-            auto member = std::mem_fn(&RGBMatrix::setStartColor);
-            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), value->value<QColor>());
+            auto member = std::mem_fn(&RGBMatrix::setColor);
+            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), 0, value->value<QColor>());
         }
         break;
-        case RGBMatrixSetEndColor:
+        case RGBMatrixSetColor2:
         {
-            auto member = std::mem_fn(&RGBMatrix::setEndColor);
-            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), value->value<QColor>());
+            auto member = std::mem_fn(&RGBMatrix::setColor);
+            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), 1, value->value<QColor>());
+        }
+        break;
+        case RGBMatrixSetColor3:
+        {
+            auto member = std::mem_fn(&RGBMatrix::setColor);
+            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), 2, value->value<QColor>());
+        }
+        break;
+        case RGBMatrixSetColor4:
+        {
+            auto member = std::mem_fn(&RGBMatrix::setColor);
+            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), 3, value->value<QColor>());
+        }
+        break;
+        case RGBMatrixSetColor5:
+        {
+            auto member = std::mem_fn(&RGBMatrix::setColor);
+            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), 4, value->value<QColor>());
         }
         break;
         case RGBMatrixSetScriptIntValue:

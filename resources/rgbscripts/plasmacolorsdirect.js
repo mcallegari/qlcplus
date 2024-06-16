@@ -1,8 +1,8 @@
 /*
   Q Light Controller Plus
-  plasma.js
+  plasma5colors.js
 
-  Copyright (c) Tim Cullingworth
+  Copyright (c) Nathan Durnan
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -24,24 +24,19 @@ var testAlgo;
   function()
   {
     var algo = new Object;
-    algo.apiVersion = 2;
-    algo.name = "Plasma";
-    algo.author = "Tim Cullingworth";
-    algo.acceptColors = 0;
+    algo.apiVersion = 3;
+    algo.name = "Plasma (5 Colors)";
+    algo.author = "Nathan Durnan";
+    algo.acceptColors = 5;
     algo.properties = new Array();
     algo.rstepcount = 0;
     algo.gstepcount = 50;
     algo.bstepcount = 100;
-    algo.presetIndex = 0;
-    algo.properties.push(
-      "name:presetIndex|type:list|display:Preset|" +
-      "values:Rainbow,Fire,Abstract,Ocean|" +
-      "write:setPreset|read:getPreset");
     algo.presetSize = 5;
     algo.properties.push(
       "name:presetSize|type:range|display:Size|" +
       "values:1,20|write:setSize|read:getSize");
-    algo.ramp = 20;
+    algo.ramp = 15;
     algo.properties.push(
       "name:ramp|type:range|display:Ramp|" +
       "values:10,30|write:setRamp|read:getRamp");
@@ -53,30 +48,15 @@ var testAlgo;
     var util = new Object;
     util.initialized = false;
     util.gradientData = new Array();
-    util.presets = new Array();
-    util.presets.push(new Array(0xFF0000, 0x00FF00, 0x0000FF));
-    util.presets.push(new Array(0xFFFF00, 0xFF0000, 0x000040, 0xFF0000));
-    util.presets.push(new Array(0x5571FF, 0x00FFFF, 0xFF00FF, 0xFFFF00));
-    util.presets.push(new Array(0x003AB9, 0x02EAFF));
+    util.colorArray = new Array();
 
-    algo.setPreset = function(_preset)
-    {
-      if (_preset === "Rainbow") { algo.presetIndex = 0; }
-      else if (_preset === "Fire") { algo.presetIndex = 1; }
-      else if (_preset === "Abstract") { algo.presetIndex = 2; }
-      else if (_preset === "Ocean") { algo.presetIndex = 3; }
-      else { algo.presetIndex = 0; }
-      util.initialized = false;
-    };
-
-    algo.getPreset = function()
-    {
-      if (algo.presetIndex === 0) { return "Rainbow"; }
-      else if (algo.presetIndex === 1) { return "Fire"; }
-      else if (algo.presetIndex === 2) { return "Abstract"; }
-      else if (algo.presetIndex === 3) { return "Ocean"; }
-      else { return "Rainbow"; }
-    };
+    algo.getRawColor = function (rawColors, idx) {
+      if (Array.isArray(rawColors) && rawColors.length > idx && ! isNaN(rawColors[idx])) {
+        return rawColors[idx];
+      } else {
+        return 0;
+      }
+    }
 
     algo.setSize = function(_size)
     {
@@ -111,18 +91,23 @@ var testAlgo;
       return algo.stepsize;
     };
 
-    util.initialize = function()
+    util.initialize = function(rawColors)
     {
+      // Get the colors from the external preset.
+      for (var i = 0; i < algo.acceptColors; i++) {
+        util.colorArray[i] = algo.getRawColor(rawColors, i);
+      }
+
       // calculate the gradient for the selected preset
       // with the given width
       var gradIdx = 0;
       util.gradientData = new Array();
-      for (var i = 0; i < util.presets[algo.presetIndex].length; i++)
+      for (var i = 0; i < util.colorArray.length; i++)
       {
-        var sColor = util.presets[algo.presetIndex][i];
-        var eColor = util.presets[algo.presetIndex][0];
-        if (i < util.presets.length - 1) {
-          eColor = util.presets[algo.presetIndex][i + 1];
+        var sColor = util.colorArray[i];
+        var eColor = util.colorArray[0];
+        if (i < util.colorArray.length - 1) {
+          eColor = util.colorArray[i + 1];
         }
         util.gradientData[gradIdx++] = sColor;
         var sr = (sColor >> 16) & 0x00FF;
@@ -243,11 +228,21 @@ var testAlgo;
       return scaled;
     }
 
-    algo.rgbMap = function(width, height, rgb, step)
+    algo.rgbMap = function(width, height, rgb, step, rawColors)
     {
+      if (util.colorArray.length === 0) {
+        util.initialized = false;
+      } else if (util.colorArray.length >= algo.acceptColors - 1 && Array.isArray(rawColors)) {
+        // Check if the externally provided color has changed.
+        for (var i = 0; i < Math.min(algo.acceptColors, rawColors.length); i++) {
+          if (util.colorArray[i] !== rawColors[i]) {
+            util.initialized = false;
+          }
+        }
+      }
       if (util.initialized === false)
       {
-        util.initialize();
+        util.initialize(rawColors);
       }
 
       // set a scaling value
