@@ -37,7 +37,7 @@
     <widget class="QTextBrowser" name="m_infoText"/>
    </item>
    <item>
-    <widget class="QLabel" name="m_previewLabel">
+    <widget class="QLabel" name="m_keyCombinationLabel">
      <property name="text">
       <string>Key combination</string>
      </property>
@@ -47,12 +47,27 @@
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="m_previewEdit">
+    <widget class="QLabel" name="m_previewLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
-     <property name="readOnly">
-      <bool>true</bool>
+     <property name="margin">
+      <number>3</number>
      </property>
     </widget>
    </item>
