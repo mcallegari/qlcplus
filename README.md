@@ -10,7 +10,7 @@ https://www.qlcplus.org/download
 
 ## Introduction
 QLC+ is powerful and user-friendly software designed to control lighting. Whether you're an experienced lighting professional or just getting started, QLC+ empowers you to take control of your lighting fixtures with ease. The primary goal of this project is to bring QLC+ to the level of available commercial software. 
-QLC+ runs on Linux, Windows (7+), macOS (10.7+) and the Raspberry Pi.
+QLC+ runs on Linux, Windows (7+), macOS (10.12+) and the Raspberry Pi.
 
 Copyright © Heikki Junnila, Massimo Callegari
 ### Supported Protocols
@@ -94,15 +94,15 @@ Please refer to the online wiki pages: https://github.com/mcallegari/qlcplus/wik
 *   OLA plugin: **Not available**
 *   Velleman plugin: K8062 SDK from www.velleman.eu
 
-### Mac OS X
+### macOS
 
-*   XCode (http://developer.apple.com/technologies/tools/xcode.html)
-*   Qt >= 5.0.x (http://download.qt.io/official_releases/qt/)
-*   macports (https://www.macports.org/)
-*   DMX USB plugin: macports, libftdi-dev, pkg-config
-*   OLA plugin: libola, ola-dev, pkg-config (see libs/olaout/README)
-*   uDMX plugin: macports, libusb-compat, pkg-config
-*   Peperoni plugin: macports, libusb-compat, pkg-config
+*   XCode (https://developer.apple.com/xcode/)
+*   Qt >= 5.15.x (https://www.qt.io/download-open-source)
+*   homebrew (https://brew.sh/)
+*   DMX USB plugin: libftdi, pkg-config
+*   OLA plugin: ola, pkg-config (see libs/olaout/README)
+*   uDMX plugin: libusb, pkg-config
+*   Peperoni plugin: libusb, pkg-config
 *   Velleman plugin: **Not available**
 
 ## Support & Bug Reports
