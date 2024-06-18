@@ -84,6 +84,7 @@ private:
 private slots:
     void slotSizeXChanged(int value);
     void slotSizeYChanged(int value);
+    void slotKeyboardScrollToggled(bool checked);
 
     /*************************************************************************
      * Widgets page

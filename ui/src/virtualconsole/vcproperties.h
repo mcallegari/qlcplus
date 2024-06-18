@@ -35,12 +35,13 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVirtualConsole           QStringLiteral("VirtualConsole")
+#define KXMLQLCVirtualConsole             QStringLiteral("VirtualConsole")
 
-#define KXMLQLCVCProperties             QStringLiteral("Properties")
-#define KXMLQLCVCPropertiesSize         QStringLiteral("Size")
-#define KXMLQLCVCPropertiesSizeWidth    QStringLiteral("Width")
-#define KXMLQLCVCPropertiesSizeHeight   QStringLiteral("Height")
+#define KXMLQLCVCProperties               QStringLiteral("Properties")
+#define KXMLQLCVCPropertiesSize           QStringLiteral("Size")
+#define KXMLQLCVCPropertiesSizeWidth      QStringLiteral("Width")
+#define KXMLQLCVCPropertiesSizeHeight     QStringLiteral("Height")
+#define KXMLQLCVCPropertiesKeyboardScroll QStringLiteral("KeyboardScroll")
 
 #define KXMLQLCVCPropertiesGrandMaster              QStringLiteral("GrandMaster")
 #define KXMLQLCVCPropertiesGrandMasterVisible       QStringLiteral("Visible")
@@ -98,8 +99,19 @@ public:
     quint32 grandMasterInputUniverse() const;
     quint32 grandMasterInputChannel() const;
 
+    /*********************************************************************
+     * Keyboard scrolling
+     *********************************************************************/
+
+    /** Set Virtual Console keyboard scrolling */
+    void setKeyboardScroll(const bool enable);
+
+    /** Get Virtual Console keyboard scrolling */
+    bool keyboardScroll() const;
+
 private:
     bool m_gmVisible;
+    bool m_keyboardScroll;
     GrandMaster::ChannelMode m_gmChannelMode;
     GrandMaster::ValueMode m_gmValueMode;
     GrandMaster::SliderMode m_gmSliderMode;
