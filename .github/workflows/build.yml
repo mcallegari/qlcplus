@@ -506,7 +506,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: false
 
@@ -534,19 +534,11 @@ jobs:
       - name: Dependencies
         run: | 
           brew update
-          brew install fftw libftdi mad libsndfile
-    
-      - name: Cache Qt
-        id: cache-qt
-        uses: actions/cache@v3
-        with:
-          path: "${{ github.workspace }}/qt/"
-          key: qt-${{ matrix.os }}-${{ env.QT_VERSION }}
+          brew install fftw libftdi
     
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
         with:
-          cached: ${{ steps.cache-qt.outputs.cache-hit }}
           version: ${{ env.QT_VERSION }}
           dir: "${{ github.workspace }}/qt/"
           modules: ${{ env.QT_MODULES }}
@@ -556,7 +548,6 @@ jobs:
         run: |-
           mkdir build
           cd build
-          ls ${{ github.workspace }}/qt
           cmake -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" ..
 
       - name: Build
