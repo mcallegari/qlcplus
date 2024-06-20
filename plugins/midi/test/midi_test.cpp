@@ -38,8 +38,9 @@ void Midi_Test::midiToInput()
     uchar cmd = MIDI_NOTE_ON | midiChannel;
     uchar data1 = 10;
     uchar data2 = 127;
+    bool noteOffTriggersScene = false;
 
-    QLCMIDIProtocol::midiToInput(cmd, data1, data2, midiChannel, &channel, &value);
+    QLCMIDIProtocol::midiToInput(cmd, data1, data2, midiChannel, &channel, &value, noteOffTriggersScene);
 
     QCOMPARE(channel, 138U);
     QCOMPARE(value, uchar(255U));

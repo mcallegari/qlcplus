@@ -75,7 +75,7 @@ static void MidiInProc(const MIDIPacketList* pktList, void* readProcRefCon,
 
             // Convert the data to QLC input channel & value
             if (QLCMIDIProtocol::midiToInput(cmd, data1, data2, self->midiChannel(),
-                                             &channel, &value) == true)
+                                             &channel, &value, self->noteOffTriggersScene()) == true)
             {
                 self->emitValueChanged(channel, value);
                 // for MIDI beat clock signals,

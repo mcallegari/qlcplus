@@ -98,6 +98,16 @@ private:
     bool m_sendNoteOff;
 
     /************************************************************************
+    * Note Off Triggers Scene
+    ************************************************************************/
+public:
+    void setNoteOffTriggersScene(bool noteOffTriggersScene);
+    bool noteOffTriggersScene() const;
+
+private:
+    bool m_noteOffTriggersScene;
+
+    /************************************************************************
      * Midi template
      ************************************************************************/
 public:
