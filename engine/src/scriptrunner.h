@@ -24,7 +24,6 @@
 #include <QQueue>
 #include <QPair>
 #include <QMap>
-#include "function.h"
 
 class GenericFader;
 class MasterTimer;
@@ -237,9 +236,9 @@ protected:
 
 private:
     /** ScriptRunner function operations enum to handle start/stop/wait commands */
-    enum class SRFuncOpe : char
+    enum FunctionOperation
     {
-        START,
+        START = 0,
         START_DONT_STOP,
         STOP,
         WAIT_START,
@@ -252,7 +251,7 @@ private:
 
     QJSEngine *m_engine;
     // Queue holding the Function IDs to start/stop
-    QQueue<QPair<quint32, SRFuncOpe>> m_functionQueue;
+    QQueue<QPair<quint32, FunctionOperation>> m_functionQueue;
     // Queue holding Fixture values to send to Universes
     QQueue<FixtureValue> m_fixtureValueQueue;
     // Indicate to add (true) or to not add (false) to the Functions started by this script
@@ -261,8 +260,8 @@ private:
     QList <quint32> m_startedFunctions;
     // Timer ticks to wait before executing the next line
     quint32 m_waitCount;
-    // Function that the script is waiting for
-    Function* m_waitFunction;
+    // ID of the function that the script is waiting for
+    quint32 m_waitFunctionId;
     // Map used to lookup a GenericFader instance for a Universe ID
     QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
 };
