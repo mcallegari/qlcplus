@@ -222,8 +222,8 @@ Entity
             effect: sceneEffect
 
             parameters: [
-                Parameter { name: "diffuse"; value: "gray" },
-                Parameter { name: "specular"; value: "black" },
+                Parameter { name: "diffuse"; value: Qt.rgba(0.502, 0.502, 0.502, 1.0) },
+                Parameter { name: "specular"; value: Qt.rgba(0.0, 0.0, 0.0, 1.0) },
                 Parameter { name: "shininess"; value: 1.0 },
                 Parameter { name: "bloom"; value: 0 }
             ]
@@ -274,8 +274,7 @@ Entity
 
         property var lastPos
 
-        onClicked:
-        {
+        onClicked: (pick) => {
             console.log("3D item clicked")
             isSelected = !isSelected
             contextManager.setItemSelection(itemID, isSelected, pick.modifiers)

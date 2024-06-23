@@ -1313,17 +1313,17 @@ bool VCWidget::saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QStr
         // save feedback extra params
         QVariant extraParams = source->feedbackExtraParams(QLCInputFeedback::LowerValue);
 
-        if (extraParams.isValid() && extraParams.type() == QVariant::Int && extraParams.toInt() != -1)
+        if (extraParams.isValid() && extraParams.userType() == QMetaType::Type::Int && extraParams.toInt() != -1)
             doc->writeAttribute(KXMLQLCVCWidgetInputLowerParams, QString::number(extraParams.toInt()));
 
         extraParams = source->feedbackExtraParams(QLCInputFeedback::UpperValue);
 
-        if (extraParams.isValid() && extraParams.type() == QVariant::Int && extraParams.toInt() != -1)
+        if (extraParams.isValid() && extraParams.userType() == QMetaType::Type::Int && extraParams.toInt() != -1)
             doc->writeAttribute(KXMLQLCVCWidgetInputUpperParams, QString::number(extraParams.toInt()));
 
         extraParams = source->feedbackExtraParams(QLCInputFeedback::MonitorValue);
 
-        if (extraParams.isValid() && extraParams.type() == QVariant::Int && extraParams.toInt() != -1)
+        if (extraParams.isValid() && extraParams.userType() == QMetaType::Type::Int && extraParams.toInt() != -1)
             doc->writeAttribute(KXMLQLCVCWidgetInputMonitorParams, QString::number(extraParams.toInt()));
 
         doc->writeEndElement();
