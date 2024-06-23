@@ -353,92 +353,63 @@ bool ScriptRunner::stopOnExit(bool value)
     return true;
 }
 
-bool ScriptRunner::startFunction(quint32 fID)
+Function* ScriptRunner::getFunctionIfRunning(quint32 fID)
 {
     if (m_running == false)
-        return false;
+        return NULL;
 
     Function *function = m_doc->function(fID);
     if (function == NULL)
     {
         qWarning() << QString("No such function (ID %1)").arg(fID);
-        return false;
+        return NULL;
     }
+
+    return function;
+}
+
+bool ScriptRunner::enqueueFunction(quint32 fID, FunctionOperation operation)
+{
+    Function *function = getFunctionIfRunning(fID);
+    if (function == NULL)
+        return false;
 
     QPair<quint32, FunctionOperation> pair;
     pair.first = fID;
-    if(m_stopOnExit)
-        pair.second = FunctionOperation::START;
-    else
-        pair.second = FunctionOperation::START_DONT_STOP;
+    pair.second = operation;
 
     m_functionQueue.enqueue(pair);
 
     return true;
+}
+
+bool ScriptRunner::startFunction(quint32 fID)
+{
+    return enqueueFunction(fID, m_stopOnExit ? FunctionOperation::START : FunctionOperation::START_DONT_STOP);
 }
 
 bool ScriptRunner::stopFunction(quint32 fID)
 {
-    if (m_running == false)
-        return false;
-
-    Function *function = m_doc->function(fID);
-    if (function == NULL)
-    {
-        qWarning() << QString("No such function (ID %1)").arg(fID);
-        return false;
-    }
-
-    QPair<quint32, FunctionOperation> pair;
-    pair.first = fID;
-    pair.second = FunctionOperation::STOP;
-
-    m_functionQueue.enqueue(pair);
-
-    return true;
+    return enqueueFunction(fID, FunctionOperation::STOP);
 }
 
 bool ScriptRunner::isFunctionRunning(quint32 fID)
 {
-    if (m_running == false)
-        return false;
-
-    Function *function = m_doc->function(fID);
-    if (function == NULL)
-    {
-        qWarning() << QString("No such function (ID %1)").arg(fID);
-        return false;
-    }
-
-    return function->isRunning();
+    Function *function = getFunctionIfRunning(fID);
+    return function == NULL ? false : function->isRunning();
 }
 
 float ScriptRunner::getFunctionAttribute(quint32 fID, int attributeIndex)
 {
-    if (m_running == false)
-        return false;
-
-    Function *function = m_doc->function(fID);
-    if (function == NULL)
-    {
-        qWarning() << QString("No such function (ID %1)").arg(fID);
-        return 0;
-    }
-
-    return function->getAttributeValue(attributeIndex);
+    Function *function = getFunctionIfRunning(fID);
+    return function == NULL ? 0 : function->getAttributeValue(attributeIndex);
 }
 
 bool ScriptRunner::setFunctionAttribute(quint32 fID, int attributeIndex, float value)
 {
-    if (m_running == false)
-        return false;
-
-    Function *function = m_doc->function(fID);
+    Function *function = getFunctionIfRunning(fID);
     if (function == NULL)
-    {
-        qWarning() << QString("No such function (ID %1)").arg(fID);
         return false;
-    }
 
     function->adjustAttribute(value, attributeIndex);
 
@@ -447,15 +418,9 @@ bool ScriptRunner::setFunctionAttribute(quint32 fID, int attributeIndex, float v
 
 bool ScriptRunner::setFunctionAttribute(quint32 fID, QString attributeName, float value)
 {
-    if (m_running == false)
-        return false;
-
-    Function *function = m_doc->function(fID);
+    Function *function = getFunctionIfRunning(fID);
     if (function == NULL)
-    {
-        qWarning() << QString("No such function (ID %1)").arg(fID);
         return false;
-    }
 
     int attrIndex = function->getAttributeIndex(attributeName);
     function->adjustAttribute(value, attrIndex);
@@ -561,44 +526,12 @@ bool ScriptRunner::waitTime(QString time)
 
 bool ScriptRunner::waitFunctionStart(quint32 fID)
 {
-    if (m_running == false)
-        return false;
-
-    Function *function = m_doc->function(fID);
-    if (function == NULL)
-    {
-        qWarning() << QString("No such function (ID %1)").arg(fID);
-        return false;
-    }
-
-    QPair<quint32, FunctionOperation> pair;
-    pair.first = fID;
-    pair.second = FunctionOperation::WAIT_START;
-
-    m_functionQueue.enqueue(pair);
-
-    return true;
+    return enqueueFunction(fID, FunctionOperation::WAIT_START);
 }
 
 bool ScriptRunner::waitFunctionStop(quint32 fID)
 {
-    if (m_running == false)
-        return false;
-
-    Function *function = m_doc->function(fID);
-    if (function == NULL)
-    {
-        qWarning() << QString("No such function (ID %1)").arg(fID);
-        return false;
-    }
-
-    QPair<quint32, FunctionOperation> pair;
-    pair.first = fID;
-    pair.second = FunctionOperation::WAIT_STOP;
-
-    m_functionQueue.enqueue(pair);
-
-    return true;
+    return enqueueFunction(fID, FunctionOperation::WAIT_STOP);
 }
 
 bool ScriptRunner::setBlackout(bool enable)

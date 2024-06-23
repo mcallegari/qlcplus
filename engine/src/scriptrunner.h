@@ -24,6 +24,7 @@
 #include <QQueue>
 #include <QPair>
 #include <QMap>
+#include "function.h"
 
 class GenericFader;
 class MasterTimer;
@@ -235,6 +236,9 @@ protected:
     void run();
 
 private:
+    /** Common code to check if script is running and if function exists */
+    Function* getFunctionIfRunning(quint32 fID);
+
     /** ScriptRunner function operations enum to handle start/stop/wait commands */
     enum FunctionOperation
     {
@@ -245,6 +249,10 @@ private:
         WAIT_STOP
     };
 
+    /** Common code to enqueue function */
+    bool enqueueFunction(quint32 fID, FunctionOperation operation);
+
+private:
     Doc *m_doc;
     QString m_content;
     bool m_running;
