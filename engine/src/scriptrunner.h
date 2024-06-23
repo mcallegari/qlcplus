@@ -24,6 +24,7 @@
 #include <QQueue>
 #include <QPair>
 #include <QMap>
+#include "function.h"
 
 class GenericFader;
 class MasterTimer;
@@ -87,6 +88,14 @@ public slots:
      * @return true if successful. False on error.
      */
     bool setFixture(quint32 fxID, quint32 channel, uchar value, uint time = 0);
+
+    /**
+     * Handle "stopOnExit" command
+     *
+     * @param value Indicate to add (true) or to not add (false) to the Functions started by this script
+     * @return true if successful. False on error.
+     */
+    bool stopOnExit(bool value);
 
     /**
      * Handle "startFunction" command
@@ -166,6 +175,22 @@ public slots:
     bool waitTime(QString time);
 
     /**
+     * Handle "waitFunctionStart" command (string version)
+     *
+     * @param fID The Function ID to wait for starting
+     * @return true if successful. False on error.
+     */
+    bool waitFunctionStart(quint32 fID);
+
+    /**
+     * Handle "waitFunctionStop" command (string version)
+     *
+     * @param fID The Function ID to wait for completion
+     * @return true if successful. False on error.
+     */
+    bool waitFunctionStop(quint32 fID);
+
+    /**
      * Handle "setBlackout" command
      *
      * @param enable If true, requests blackout, otherwise release blackout
@@ -199,9 +224,33 @@ public slots:
      */
     int random(int minTime, int maxTime);
 
+protected slots:
+    /** Triggered when the script's execution pauses to await the starting of a function */
+    void slotWaitFunctionStarted(quint32 fid);
+
+    /** Triggered when the script's execution pauses to await the completion of a function */
+    void slotWaitFunctionStopped(quint32 fid);
+
 protected:
     /** QThread reimplemented method */
     void run();
+
+private:
+    /** Common code to check if script is running and if function exists */
+    Function* getFunctionIfRunning(quint32 fID);
+
+    /** ScriptRunner function operations enum to handle start/stop/wait commands */
+    enum FunctionOperation
+    {
+        START = 0,
+        START_DONT_STOP,
+        STOP,
+        WAIT_START,
+        WAIT_STOP
+    };
+
+    /** Common code to enqueue function */
+    bool enqueueFunction(quint32 fID, FunctionOperation operation);
 
 private:
     Doc *m_doc;
@@ -210,13 +259,17 @@ private:
 
     QJSEngine *m_engine;
     // Queue holding the Function IDs to start/stop
-    QQueue<QPair<quint32,bool>> m_functionQueue;
+    QQueue<QPair<quint32, FunctionOperation>> m_functionQueue;
     // Queue holding Fixture values to send to Universes
     QQueue<FixtureValue> m_fixtureValueQueue;
+    // Indicate to add (true) or to not add (false) to the Functions started by this script
+    bool m_stopOnExit;
     // IDs of the Functions started by this script
     QList <quint32> m_startedFunctions;
     // Timer ticks to wait before executing the next line
     quint32 m_waitCount;
+    // ID of the function that the script is waiting for
+    quint32 m_waitFunctionId;
     // Map used to lookup a GenericFader instance for a Universe ID
     QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
 };
