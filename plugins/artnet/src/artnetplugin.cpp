@@ -412,7 +412,7 @@ QSharedPointer<QUdpSocket> ArtNetPlugin::getUdpSocket()
     udpSocket = QSharedPointer<QUdpSocket>(new QUdpSocket());
     m_udpSocket = udpSocket.toWeakRef();
 
-    if (udpSocket->bind(ARTNET_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint))
+    if (udpSocket->bind(QHostAddress::SpecialAddress::AnyIPv4, ARTNET_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint))
     {
         connect(udpSocket.data(), SIGNAL(readyRead()),
                 this, SLOT(slotReadyRead()));
