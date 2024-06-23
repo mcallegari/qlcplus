@@ -38,6 +38,10 @@ cd ..
 echo "Run macdeployqt..."
 $QTDIR/bin/macdeployqt ~/QLC+.app
 
+echo "Fix some more dependencies..."
+install_name_tool -change /usr/local/opt/fftw/lib/libfftw3.3.dylib @executable_path/../Frameworks/libfftw3.3.dylib ~/QLC+.app/Contents/MacOS/qlcplus
+install_name_tool -change /usr/local/opt/fftw/lib/libfftw3.3.dylib @executable_path/../Frameworks/libfftw3.3.dylib ~/QLC+.app/Contents/MacOS/qlcplus-fixtureeditor 
+
 # Create Apple Disk iMaGe from ~/QLC+.app/
 OUTDIR=$PWD
 cd platforms/macos/dmg

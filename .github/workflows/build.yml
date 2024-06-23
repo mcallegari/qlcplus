@@ -562,11 +562,17 @@ jobs:
           cd build
           make install/fast
 
-      - name: run macosdeploy
+      - name: Run macosdeploy
         shell: bash
         run: |-
           ${{ env.QTDIR }}/bin/macdeployqt ~/QLC+.app
   
+      - name: Fix mode deps
+        shell: bash
+        run: |-
+          install_name_tool -change /usr/local/opt/fftw/lib/libfftw3.3.dylib @executable_path/../Frameworks/libfftw3.3.dylib ~/QLC+.app/Contents/MacOS/qlcplus
+          install_name_tool -change /usr/local/opt/fftw/lib/libfftw3.3.dylib @executable_path/../Frameworks/libfftw3.3.dylib ~/QLC+.app/Contents/MacOS/qlcplus-fixtureeditor 
+
       - name: create DMG
         shell: bash
         run: |-
