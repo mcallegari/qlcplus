@@ -251,7 +251,6 @@ void Monitor::fillGraphicsView()
 
     m_graphicsView->setGridSize(QSize(m_props->gridSize().x(), m_props->gridSize().z()));
     m_graphicsView->setBackgroundImage(m_props->commonBackgroundImage());
-    m_graphicsView->showFixturesLabels(m_props->labelsVisible());
 
     foreach (quint32 fid, m_props->fixtureItemsID())
     {
@@ -264,6 +263,8 @@ void Monitor::fillGraphicsView()
             m_graphicsView->setFixtureRotation(fid, item.m_rotation.y());
         }
     }
+
+    m_graphicsView->showFixturesLabels(m_props->labelsVisible());
 }
 
 void Monitor::showGraphicsView()
