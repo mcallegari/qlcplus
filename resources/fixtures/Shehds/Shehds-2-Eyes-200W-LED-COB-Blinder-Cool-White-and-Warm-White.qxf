@@ -9,7 +9,7 @@
  <Manufacturer>Shehds</Manufacturer>
  <Model>2 Eyes 200W LED COB Blinder - Cool White and Warm White</Model>
  <Type>Dimmer</Type>
- <Channel Name="Total Dimme" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Total Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="#1 Cool Light Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="#2 Cool Light Dimmer " Preset="IntensityDimmer"/>
  <Channel Name="#1 Warm Light Dimmer" Preset="IntensityDimmer"/>
