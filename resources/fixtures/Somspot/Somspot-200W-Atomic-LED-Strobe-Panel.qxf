@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.0</Version>
+  <Author>Devsider</Author>
+ </Creator>
+ <Manufacturer>Somspot</Manufacturer>
+ <Model>200W Atromic LED Strobe Panel</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="RGB Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">RGB Strobe SLOW =&gt; Fast</Capability>
+ </Channel>
+ <Channel Name="Effect Selector">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Perform CH9-CH11 RGB Dimming</Capability>
+  <Capability Min="6" Max="10">Static Color, CH4 Select (Red, Green, Blue, Yellow, Purple, Cyan, White)</Capability>
+  <Capability Min="11" Max="15">Breathing Effect, CH5 = Color Selector</Capability>
+  <Capability Min="16" Max="20">Jump Change Effect</Capability>
+  <Capability Min="21" Max="25">Gradient Change Effect</Capability>
+  <Capability Min="26" Max="30">Pulse Change Effect, CH5 = Color Selector</Capability>
+  <Capability Min="31" Max="32">Autorun Effect 1 CH5 = Color Selector</Capability>
+  <Capability Min="33" Max="34">Autorun Effect 2 CH5 = Color Selector</Capability>
+  <Capability Min="35" Max="36">Autorun Effect 3 CH5 = Color Selector</Capability>
+  <Capability Min="37" Max="38">Autorun Effect 4 CH5 = Color Selector</Capability>
+  <Capability Min="39" Max="40">Autorun Effect 5 CH5 = Color Selector</Capability>
+  <Capability Min="41" Max="42">Autorun Effect 6 CH5 = Color Selector</Capability>
+  <Capability Min="43" Max="44">Autorun Effect 7 CH5 = Color Selector</Capability>
+  <Capability Min="45" Max="46">Autorun Effect 8 CH5 = Color Selector</Capability>
+  <Capability Min="47" Max="48">Autorun Effect 9 CH5 = Color Selector</Capability>
+  <Capability Min="49" Max="50">Autorun Effect 10 CH5 = Color Selector</Capability>
+  <Capability Min="51" Max="52">Autorun Effect 11 CH5 = Color Selector</Capability>
+  <Capability Min="53" Max="54">Autorun Effect 12 CH5 = Color Selector</Capability>
+  <Capability Min="55" Max="56">Autorun Effect 13 CH5 = Color Selector</Capability>
+  <Capability Min="57" Max="58">Autorun Effect 14 CH5 = Color Selector</Capability>
+  <Capability Min="59" Max="60">Autorun Effect 15 CH5 = Color Selector</Capability>
+  <Capability Min="61" Max="62">Autorun Effect 16 CH5 = Color Selector</Capability>
+  <Capability Min="63" Max="64">Autorun Effect 17 CH5 = Color Selector</Capability>
+  <Capability Min="65" Max="66">Autorun Effect 18 CH5 = Color Selector</Capability>
+  <Capability Min="67" Max="68">Autorun Effect 19 CH5 = Color Selector</Capability>
+  <Capability Min="69" Max="70">Autorun Effect 20 CH5 = Color Selector</Capability>
+  <Capability Min="71" Max="72">Autorun Effect 21 CH5 = Color Selector</Capability>
+  <Capability Min="73" Max="74">Autorun Effect 22 CH5 = Color Selector</Capability>
+  <Capability Min="75" Max="76">Autorun Effect 23 CH5 = Color Selector</Capability>
+  <Capability Min="77" Max="78">Autorun Effect 24 CH5 = Color Selector</Capability>
+  <Capability Min="79" Max="80">Autorun Effect 25 CH5 = Color Selector</Capability>
+  <Capability Min="81" Max="82">Autorun Effect 26 CH5 = Color Selector</Capability>
+  <Capability Min="83" Max="84">Autorun Effect 27 CH5 = Color Selector</Capability>
+  <Capability Min="85" Max="86">Autorun Effect 28 CH5 = Color Selector</Capability>
+  <Capability Min="87" Max="88">Autorun Effect 29 CH5 = Color Selector</Capability>
+  <Capability Min="89" Max="90">Autorun Effect 30 CH5 = Color Selector</Capability>
+  <Capability Min="91" Max="92">Autorun Effect 31 CH5 = Color Selector</Capability>
+  <Capability Min="93" Max="94">Autorun Effect 32 CH5 = Color Selector</Capability>
+  <Capability Min="95" Max="96">Autorun Effect 33 CH5 = Color Selector</Capability>
+  <Capability Min="97" Max="98">Autorun Effect 34 CH5 = Color Selector</Capability>
+  <Capability Min="99" Max="100">Autorun Effect 35 CH5 = Color Selector</Capability>
+  <Capability Min="101" Max="102">Autorun Effect 36 CH5 = Color Selector</Capability>
+  <Capability Min="103" Max="104">Autorun Effect 37 CH5 = Color Selector</Capability>
+  <Capability Min="105" Max="106">Autorun Effect 38 CH5 = Color Selector</Capability>
+  <Capability Min="107" Max="108">Autorun Effect 39 CH5 = Color Selector</Capability>
+  <Capability Min="109" Max="110">Autorun Effect 40 CH5 = Color Selector</Capability>
+  <Capability Min="111" Max="112">Autorun Effect 41 CH5 = Color Selector</Capability>
+  <Capability Min="113" Max="114">Autorun Effect 42 CH5 = Color Selector</Capability>
+  <Capability Min="115" Max="116">Autorun Effect 43 CH5 = Color Selector</Capability>
+  <Capability Min="117" Max="118">Autorun Effect 44 CH5 = Color Selector</Capability>
+  <Capability Min="119" Max="120">Autorun Effect 45 CH5 = Color Selector</Capability>
+  <Capability Min="121" Max="122">Autorun Effect 46 CH5 = Color Selector</Capability>
+  <Capability Min="123" Max="124">Autorun Effect 47 CH5 = Color Selector</Capability>
+  <Capability Min="125" Max="126">Autorun Effect 48 CH5 = Color Selector</Capability>
+  <Capability Min="127" Max="128">Autorun Effect 49 CH5 = Color Selector</Capability>
+  <Capability Min="129" Max="130">Autorun Effect 50 CH5 = Color Selector</Capability>
+  <Capability Min="131" Max="132">Autorun Effect 51 CH5 = Color Selector</Capability>
+  <Capability Min="133" Max="134">Autorun Effect 52 CH5 = Color Selector</Capability>
+  <Capability Min="135" Max="136">Autorun Effect 53 CH5 = Color Selector</Capability>
+  <Capability Min="137" Max="138">Autorun Effect 54 CH5 = Color Selector</Capability>
+  <Capability Min="139" Max="140">Autorun Effect 55 CH5 = Color Selector</Capability>
+  <Capability Min="141" Max="142">Autorun Effect 56 CH5 = Color Selector</Capability>
+  <Capability Min="143" Max="144">Autorun Effect 57 CH5 = Color Selector</Capability>
+  <Capability Min="145" Max="146">Autorun Effect 58 CH5 = Color Selector</Capability>
+  <Capability Min="147" Max="148">Autorun Effect 59 CH5 = Color Selector</Capability>
+  <Capability Min="149" Max="150">Autorun Effect 60 CH5 = Color Selector</Capability>
+  <Capability Min="151" Max="152">Autorun Effect 61 CH5 = Color Selector</Capability>
+  <Capability Min="153" Max="154">Autorun Effect 62 CH5 = Color Selector</Capability>
+  <Capability Min="155" Max="156">Autorun Effect 63 CH5 = Color Selector</Capability>
+  <Capability Min="157" Max="158">Autorun Effect 64 CH5 = Color Selector</Capability>
+  <Capability Min="159" Max="160">Autorun Effect 65 CH5 = Color Selector</Capability>
+  <Capability Min="161" Max="162">Autorun Effect 66 CH5 = Color Selector</Capability>
+  <Capability Min="163" Max="164">Autorun Effect 67 CH5 = Color Selector</Capability>
+  <Capability Min="165" Max="166">Autorun Effect 68 CH5 = Color Selector</Capability>
+  <Capability Min="167" Max="168">Autorun Effect 69 CH5 = Color Selector</Capability>
+  <Capability Min="169" Max="170">Autorun Effect 70 CH5 = Color Selector</Capability>
+  <Capability Min="171" Max="172">Autorun Effect 71 CH5 = Color Selector</Capability>
+  <Capability Min="173" Max="174">Autorun Effect 72 CH5 = Color Selector</Capability>
+  <Capability Min="175" Max="176">Autorun Effect 73 CH5 = Color Selector</Capability>
+  <Capability Min="177" Max="178">Autorun Effect 74 CH5 = Color Selector</Capability>
+  <Capability Min="179" Max="180">Autorun Effect 75 CH5 = Color Selector</Capability>
+  <Capability Min="181" Max="182">Autorun Effect 76 CH5 = Color Selector</Capability>
+  <Capability Min="183" Max="184">Autorun Effect 77 CH5 = Color Selector</Capability>
+  <Capability Min="185" Max="186">Autorun Effect 78 CH5 = Color Selector</Capability>
+  <Capability Min="187" Max="188">Autorun Effect 79 CH5 = Color Selector</Capability>
+  <Capability Min="189" Max="190">Autorun Effect 80 CH5 = Color Selector</Capability>
+  <Capability Min="191" Max="192">Autorun Effect 81 CH5 = Color Selector</Capability>
+  <Capability Min="193" Max="194">Autorun Effect 82 CH5 = Color Selector</Capability>
+  <Capability Min="195" Max="196">Autorun Effect 83 CH5 = Color Selector</Capability>
+  <Capability Min="203" Max="204">Autorun Effect 87 CH5 = Color Selector</Capability>
+  <Capability Min="205" Max="229">Autorun Effect 88 CH5 = Color Selector</Capability>
+  <Capability Min="230" Max="233">Sound Mode 1 CH5 = Color Selector</Capability>
+  <Capability Min="234" Max="237">Sound Mode 2 CH5 = Color Selector</Capability>
+  <Capability Min="246" Max="249">Sound Mode 5 CH5 = Color Selector</Capability>
+  <Capability Min="250" Max="255">Sound Mode 6 CH5 = Color Selector</Capability>
+ </Channel>
+ <Channel Name="Speed / Intensity">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Autorun: SPEED, SOUND: Sensitivity</Capability>
+ </Channel>
+ <Channel Name="Color Selector">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="31">Default Color</Capability>
+  <Capability Min="32" Max="63">Red</Capability>
+  <Capability Min="64" Max="95">Green</Capability>
+  <Capability Min="96" Max="127">Blue</Capability>
+  <Capability Min="128" Max="159">Yellow</Capability>
+  <Capability Min="160" Max="191">Purple</Capability>
+  <Capability Min="192" Max="223">Cyan</Capability>
+  <Capability Min="224" Max="255">White</Capability>
+ </Channel>
+ <Channel Name="WHITE Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="5" Max="255">White Strobe SLOW =&gt; FAST</Capability>
+ </Channel>
+ <Channel Name="WHITE Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">CH12 White Dimming</Capability>
+  <Capability Min="6" Max="10">Effect 1 (Cycle Effect)</Capability>
+  <Capability Min="11" Max="15">Effect 2 (Static Effect)</Capability>
+  <Capability Min="16" Max="20">Effect 3</Capability>
+  <Capability Min="21" Max="25">Effect 4</Capability>
+  <Capability Min="26" Max="30">Effect 5</Capability>
+  <Capability Min="31" Max="35">Effect 6</Capability>
+  <Capability Min="36" Max="40">Effect 7</Capability>
+  <Capability Min="41" Max="45">Effect 8</Capability>
+  <Capability Min="46" Max="50">Effect 9</Capability>
+  <Capability Min="51" Max="55">Effect 10</Capability>
+  <Capability Min="56" Max="60">Effect 11</Capability>
+  <Capability Min="61" Max="65">Effect 12</Capability>
+  <Capability Min="66" Max="70">Effect 13</Capability>
+  <Capability Min="71" Max="75">Effect 14</Capability>
+  <Capability Min="76" Max="80">Effect 15</Capability>
+  <Capability Min="81" Max="85">Effect 16</Capability>
+  <Capability Min="86" Max="90">Effect 17</Capability>
+  <Capability Min="91" Max="95">Effect 18</Capability>
+  <Capability Min="96" Max="100">Effect 19</Capability>
+  <Capability Min="101" Max="105">Effect 20</Capability>
+  <Capability Min="106" Max="110">Effect 21</Capability>
+  <Capability Min="111" Max="115">Effect 22</Capability>
+  <Capability Min="116" Max="120">Effect 23</Capability>
+  <Capability Min="121" Max="125">Effect 24</Capability>
+  <Capability Min="126" Max="130">Effect 25</Capability>
+  <Capability Min="131" Max="135">Effect 26</Capability>
+  <Capability Min="136" Max="140">Effect 27</Capability>
+  <Capability Min="141" Max="145">Effect 28</Capability>
+  <Capability Min="146" Max="150">Effect 29</Capability>
+  <Capability Min="151" Max="155">Effect 30</Capability>
+  <Capability Min="156" Max="160">Effect 31</Capability>
+  <Capability Min="161" Max="165">Effect 32</Capability>
+  <Capability Min="166" Max="170">Effect 33</Capability>
+  <Capability Min="171" Max="175">Effect 34</Capability>
+  <Capability Min="176" Max="180">Effect 35</Capability>
+  <Capability Min="181" Max="185">Effect 36</Capability>
+  <Capability Min="186" Max="190">Effect 37</Capability>
+  <Capability Min="191" Max="195">Effect 38</Capability>
+  <Capability Min="196" Max="200">Effect 39</Capability>
+  <Capability Min="201" Max="205">Effect 40</Capability>
+  <Capability Min="206" Max="210">Effect 41</Capability>
+  <Capability Min="211" Max="255">Effect 42</Capability>
+ </Channel>
+ <Channel Name="White Effect Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">White Effect Speed SLOW =&gt; FAST</Capability>
+ </Channel>
+ <Channel Name="R1 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G1 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B1 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R2 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G2 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B2 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R3 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G3 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B3 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R4 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G4 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B4 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R5 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G5 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B5 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R6 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G6 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B6 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R7 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G7 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B7 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R8 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G8 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B8 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R9 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G9 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B9 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R10 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G10 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B10 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R11 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G11 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B11 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R12 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G12 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B12 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R13 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G13 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B13 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R14 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G14 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B14 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R15 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G15 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B15 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R16 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G16 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B16 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R17 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G17 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B17 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R18 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G18 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B18 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R19 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G19 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B19 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R20 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G20 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B20 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R21 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G21 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B21 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R22 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G22 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B22 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R23 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G23 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B23 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R24 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G24 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B24 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R25 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G25 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B25 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R26 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G26 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B26 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R27 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G27 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B27 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R28 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G28 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B28 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R29 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G29 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B29 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R30 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G30 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B30 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R31 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G31 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B31 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R32 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G32 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B32 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R33 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G33 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B33 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R34 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G34 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B34 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R35 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G35 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B35 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R36 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G36 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B36 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R37 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G37 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B37 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R38 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G38 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B38 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R39 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G39 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B39 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R40 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G40 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B40 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R41 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G41 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B41 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R42 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G42 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B42 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R43 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G43 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B43 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R44 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G44 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B44 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R45 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G45 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B45 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R46 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G46 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B46 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R47 Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="G47 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B47 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="R48 Red Dimming " Preset="IntensityRed"/>
+ <Channel Name="G48 Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="B48 Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="W1 White Dimming" Preset="IntensityWhite"/>
+ <Channel Name="W2 White Dimming" Preset="IntensityWhite"/>
+ <Channel Name="W3 White Dimming" Preset="IntensityWhite"/>
+ <Channel Name="W4 White Dimming" Preset="IntensityWhite"/>
+ <Channel Name="W5 White Dimming" Preset="IntensityWhite"/>
+ <Channel Name="W6 White Dimming" Preset="IntensityWhite"/>
+ <Channel Name="W7 White Dimming" Preset="IntensityWhite"/>
+ <Channel Name="W8 White Dimming" Preset="IntensityWhite"/>
+ <Mode Name="4CH">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Mode Name="6CH">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Master Strobe</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">White</Channel>
+ </Mode>
+ <Mode Name="12CH (Basic Function)">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">RGB Strobe</Channel>
+  <Channel Number="2">Effect Selector</Channel>
+  <Channel Number="3">Speed / Intensity</Channel>
+  <Channel Number="4">Color Selector</Channel>
+  <Channel Number="5">WHITE Strobe</Channel>
+  <Channel Number="6">WHITE Effect</Channel>
+  <Channel Number="7">White Effect Speed</Channel>
+  <Channel Number="8">Red</Channel>
+  <Channel Number="9">Green</Channel>
+  <Channel Number="10">Blue</Channel>
+  <Channel Number="11">White</Channel>
+ </Mode>
+ <Mode Name="144CH (Point Control)">
+  <Channel Number="0">R1 Red Dimming</Channel>
+  <Channel Number="1">G1 Green Dimming</Channel>
+  <Channel Number="2">B1 Blue Dimming</Channel>
+  <Channel Number="3">R2 Red Dimming</Channel>
+  <Channel Number="4">G2 Green Dimming</Channel>
+  <Channel Number="5">B2 Blue Dimming</Channel>
+  <Channel Number="6">R3 Red Dimming</Channel>
+  <Channel Number="7">G3 Green Dimming</Channel>
+  <Channel Number="8">B3 Blue Dimming</Channel>
+  <Channel Number="9">R4 Red Dimming</Channel>
+  <Channel Number="10">G4 Green Dimming</Channel>
+  <Channel Number="11">B4 Blue Dimming</Channel>
+  <Channel Number="12">R5 Red Dimming</Channel>
+  <Channel Number="13">G5 Green Dimming</Channel>
+  <Channel Number="14">B5 Blue Dimming</Channel>
+  <Channel Number="15">R6 Red Dimming</Channel>
+  <Channel Number="16">G6 Green Dimming</Channel>
+  <Channel Number="17">B6 Blue Dimming</Channel>
+  <Channel Number="18">R7 Red Dimming</Channel>
+  <Channel Number="19">G7 Green Dimming</Channel>
+  <Channel Number="20">B7 Blue Dimming</Channel>
+  <Channel Number="21">R8 Red Dimming</Channel>
+  <Channel Number="22">G8 Green Dimming</Channel>
+  <Channel Number="23">B8 Blue Dimming</Channel>
+  <Channel Number="24">R9 Red Dimming</Channel>
+  <Channel Number="25">G9 Green Dimming</Channel>
+  <Channel Number="26">B9 Blue Dimming</Channel>
+  <Channel Number="27">R10 Red Dimming</Channel>
+  <Channel Number="28">G10 Green Dimming</Channel>
+  <Channel Number="29">B10 Blue Dimming</Channel>
+  <Channel Number="30">R11 Red Dimming</Channel>
+  <Channel Number="31">G11 Green Dimming</Channel>
+  <Channel Number="32">B11 Blue Dimming</Channel>
+  <Channel Number="33">R12 Red Dimming</Channel>
+  <Channel Number="34">G12 Green Dimming</Channel>
+  <Channel Number="35">B12 Blue Dimming</Channel>
+  <Channel Number="36">R13 Red Dimming</Channel>
+  <Channel Number="37">G13 Green Dimming</Channel>
+  <Channel Number="38">B13 Blue Dimming</Channel>
+  <Channel Number="39">R14 Red Dimming</Channel>
+  <Channel Number="40">G14 Green Dimming</Channel>
+  <Channel Number="41">B14 Blue Dimming</Channel>
+  <Channel Number="42">R15 Red Dimming</Channel>
+  <Channel Number="43">G15 Green Dimming</Channel>
+  <Channel Number="44">B15 Blue Dimming</Channel>
+  <Channel Number="45">R16 Red Dimming</Channel>
+  <Channel Number="46">G16 Green Dimming</Channel>
+  <Channel Number="47">B16 Blue Dimming</Channel>
+  <Channel Number="48">R17 Red Dimming</Channel>
+  <Channel Number="49">G17 Green Dimming</Channel>
+  <Channel Number="50">B17 Blue Dimming</Channel>
+  <Channel Number="51">R18 Red Dimming</Channel>
+  <Channel Number="52">G18 Green Dimming</Channel>
+  <Channel Number="53">B18 Blue Dimming</Channel>
+  <Channel Number="54">R19 Red Dimming</Channel>
+  <Channel Number="55">G19 Green Dimming</Channel>
+  <Channel Number="56">B19 Blue Dimming</Channel>
+  <Channel Number="57">R20 Red Dimming</Channel>
+  <Channel Number="58">G20 Green Dimming</Channel>
+  <Channel Number="59">B20 Blue Dimming</Channel>
+  <Channel Number="60">R21 Red Dimming</Channel>
+  <Channel Number="61">G21 Green Dimming</Channel>
+  <Channel Number="62">B21 Blue Dimming</Channel>
+  <Channel Number="63">R22 Red Dimming</Channel>
+  <Channel Number="64">G22 Green Dimming</Channel>
+  <Channel Number="65">B22 Blue Dimming</Channel>
+  <Channel Number="66">R23 Red Dimming</Channel>
+  <Channel Number="67">G23 Green Dimming</Channel>
+  <Channel Number="68">B23 Blue Dimming</Channel>
+  <Channel Number="69">R24 Red Dimming</Channel>
+  <Channel Number="70">G24 Green Dimming</Channel>
+  <Channel Number="71">B24 Blue Dimming</Channel>
+  <Channel Number="72">R25 Red Dimming</Channel>
+  <Channel Number="73">G25 Green Dimming</Channel>
+  <Channel Number="74">B25 Blue Dimming</Channel>
+  <Channel Number="75">R26 Red Dimming</Channel>
+  <Channel Number="76">G26 Green Dimming</Channel>
+  <Channel Number="77">B26 Blue Dimming</Channel>
+  <Channel Number="78">R27 Red Dimming</Channel>
+  <Channel Number="79">G27 Green Dimming</Channel>
+  <Channel Number="80">B27 Blue Dimming</Channel>
+  <Channel Number="81">R28 Red Dimming</Channel>
+  <Channel Number="82">G28 Green Dimming</Channel>
+  <Channel Number="83">B28 Blue Dimming</Channel>
+  <Channel Number="84">R29 Red Dimming</Channel>
+  <Channel Number="85">G29 Green Dimming</Channel>
+  <Channel Number="86">B29 Blue Dimming</Channel>
+  <Channel Number="87">R30 Red Dimming</Channel>
+  <Channel Number="88">G30 Green Dimming</Channel>
+  <Channel Number="89">B30 Blue Dimming</Channel>
+  <Channel Number="90">R31 Red Dimming</Channel>
+  <Channel Number="91">G31 Green Dimming</Channel>
+  <Channel Number="92">B31 Blue Dimming</Channel>
+  <Channel Number="93">R32 Red Dimming</Channel>
+  <Channel Number="94">G32 Green Dimming</Channel>
+  <Channel Number="95">B32 Blue Dimming</Channel>
+  <Channel Number="96">R33 Red Dimming</Channel>
+  <Channel Number="97">G33 Green Dimming</Channel>
+  <Channel Number="98">B33 Blue Dimming</Channel>
+  <Channel Number="99">R34 Red Dimming</Channel>
+  <Channel Number="100">G34 Green Dimming</Channel>
+  <Channel Number="101">B34 Blue Dimming</Channel>
+  <Channel Number="102">R35 Red Dimming</Channel>
+  <Channel Number="103">G35 Green Dimming</Channel>
+  <Channel Number="104">B35 Blue Dimming</Channel>
+  <Channel Number="105">R36 Red Dimming</Channel>
+  <Channel Number="106">G36 Green Dimming</Channel>
+  <Channel Number="107">B36 Blue Dimming</Channel>
+  <Channel Number="108">R37 Red Dimming</Channel>
+  <Channel Number="109">G37 Green Dimming</Channel>
+  <Channel Number="110">B37 Blue Dimming</Channel>
+  <Channel Number="111">R38 Red Dimming</Channel>
+  <Channel Number="112">G38 Green Dimming</Channel>
+  <Channel Number="113">B38 Blue Dimming</Channel>
+  <Channel Number="114">R39 Red Dimming</Channel>
+  <Channel Number="115">G39 Green Dimming</Channel>
+  <Channel Number="116">B39 Blue Dimming</Channel>
+  <Channel Number="117">R40 Red Dimming</Channel>
+  <Channel Number="118">G40 Green Dimming</Channel>
+  <Channel Number="119">B40 Blue Dimming</Channel>
+  <Channel Number="120">R41 Red Dimming</Channel>
+  <Channel Number="121">G41 Green Dimming</Channel>
+  <Channel Number="122">B41 Blue Dimming</Channel>
+  <Channel Number="123">R42 Red Dimming</Channel>
+  <Channel Number="124">G42 Green Dimming</Channel>
+  <Channel Number="125">B42 Blue Dimming</Channel>
+  <Channel Number="126">R43 Red Dimming</Channel>
+  <Channel Number="127">G43 Green Dimming</Channel>
+  <Channel Number="128">B43 Blue Dimming</Channel>
+  <Channel Number="129">R44 Red Dimming</Channel>
+  <Channel Number="130">G44 Green Dimming</Channel>
+  <Channel Number="131">B44 Blue Dimming</Channel>
+  <Channel Number="132">R45 Red Dimming</Channel>
+  <Channel Number="133">G45 Green Dimming</Channel>
+  <Channel Number="134">B45 Blue Dimming</Channel>
+  <Channel Number="135">R46 Red Dimming</Channel>
+  <Channel Number="136">G46 Green Dimming</Channel>
+  <Channel Number="137">B46 Blue Dimming</Channel>
+  <Channel Number="138">R47 Red Dimming</Channel>
+  <Channel Number="139">G47 Green Dimming</Channel>
+  <Channel Number="140">B47 Blue Dimming</Channel>
+  <Channel Number="141">R48 Red Dimming </Channel>
+  <Channel Number="142">G48 Green Dimming</Channel>
+  <Channel Number="143">B48 Blue Dimming</Channel>
+ </Mode>
+ <Mode Name="154CH">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Master Strobe</Channel>
+  <Channel Number="2">R1 Red Dimming</Channel>
+  <Channel Number="3">G1 Green Dimming</Channel>
+  <Channel Number="4">B1 Blue Dimming</Channel>
+  <Channel Number="5">R2 Red Dimming</Channel>
+  <Channel Number="6">G2 Green Dimming</Channel>
+  <Channel Number="7">B2 Blue Dimming</Channel>
+  <Channel Number="8">R3 Red Dimming</Channel>
+  <Channel Number="9">G3 Green Dimming</Channel>
+  <Channel Number="10">B3 Blue Dimming</Channel>
+  <Channel Number="11">R4 Red Dimming</Channel>
+  <Channel Number="12">G4 Green Dimming</Channel>
+  <Channel Number="13">B4 Blue Dimming</Channel>
+  <Channel Number="14">R5 Red Dimming</Channel>
+  <Channel Number="15">G5 Green Dimming</Channel>
+  <Channel Number="16">B5 Blue Dimming</Channel>
+  <Channel Number="17">R6 Red Dimming</Channel>
+  <Channel Number="18">G6 Green Dimming</Channel>
+  <Channel Number="19">B6 Blue Dimming</Channel>
+  <Channel Number="20">R7 Red Dimming</Channel>
+  <Channel Number="21">G7 Green Dimming</Channel>
+  <Channel Number="22">B7 Blue Dimming</Channel>
+  <Channel Number="23">R8 Red Dimming</Channel>
+  <Channel Number="24">G8 Green Dimming</Channel>
+  <Channel Number="25">B8 Blue Dimming</Channel>
+  <Channel Number="26">R9 Red Dimming</Channel>
+  <Channel Number="27">G9 Green Dimming</Channel>
+  <Channel Number="28">B9 Blue Dimming</Channel>
+  <Channel Number="29">R10 Red Dimming</Channel>
+  <Channel Number="30">G10 Green Dimming</Channel>
+  <Channel Number="31">B10 Blue Dimming</Channel>
+  <Channel Number="32">R11 Red Dimming</Channel>
+  <Channel Number="33">G11 Green Dimming</Channel>
+  <Channel Number="34">B11 Blue Dimming</Channel>
+  <Channel Number="35">R12 Red Dimming</Channel>
+  <Channel Number="36">G12 Green Dimming</Channel>
+  <Channel Number="37">B12 Blue Dimming</Channel>
+  <Channel Number="38">R13 Red Dimming</Channel>
+  <Channel Number="39">G13 Green Dimming</Channel>
+  <Channel Number="40">B13 Blue Dimming</Channel>
+  <Channel Number="41">R14 Red Dimming</Channel>
+  <Channel Number="42">G14 Green Dimming</Channel>
+  <Channel Number="43">B14 Blue Dimming</Channel>
+  <Channel Number="44">R15 Red Dimming</Channel>
+  <Channel Number="45">G15 Green Dimming</Channel>
+  <Channel Number="46">B15 Blue Dimming</Channel>
+  <Channel Number="47">R16 Red Dimming</Channel>
+  <Channel Number="48">G16 Green Dimming</Channel>
+  <Channel Number="49">B16 Blue Dimming</Channel>
+  <Channel Number="50">R17 Red Dimming</Channel>
+  <Channel Number="51">G17 Green Dimming</Channel>
+  <Channel Number="52">B17 Blue Dimming</Channel>
+  <Channel Number="53">R18 Red Dimming</Channel>
+  <Channel Number="54">G18 Green Dimming</Channel>
+  <Channel Number="55">B18 Blue Dimming</Channel>
+  <Channel Number="56">R19 Red Dimming</Channel>
+  <Channel Number="57">G19 Green Dimming</Channel>
+  <Channel Number="58">B19 Blue Dimming</Channel>
+  <Channel Number="59">R20 Red Dimming</Channel>
+  <Channel Number="60">G20 Green Dimming</Channel>
+  <Channel Number="61">B20 Blue Dimming</Channel>
+  <Channel Number="62">R21 Red Dimming</Channel>
+  <Channel Number="63">G21 Green Dimming</Channel>
+  <Channel Number="64">B21 Blue Dimming</Channel>
+  <Channel Number="65">R22 Red Dimming</Channel>
+  <Channel Number="66">G22 Green Dimming</Channel>
+  <Channel Number="67">B22 Blue Dimming</Channel>
+  <Channel Number="68">R23 Red Dimming</Channel>
+  <Channel Number="69">G23 Green Dimming</Channel>
+  <Channel Number="70">B23 Blue Dimming</Channel>
+  <Channel Number="71">R24 Red Dimming</Channel>
+  <Channel Number="72">G24 Green Dimming</Channel>
+  <Channel Number="73">B24 Blue Dimming</Channel>
+  <Channel Number="74">R25 Red Dimming</Channel>
+  <Channel Number="75">G25 Green Dimming</Channel>
+  <Channel Number="76">B25 Blue Dimming</Channel>
+  <Channel Number="77">R26 Red Dimming</Channel>
+  <Channel Number="78">G26 Green Dimming</Channel>
+  <Channel Number="79">B26 Blue Dimming</Channel>
+  <Channel Number="80">R27 Red Dimming</Channel>
+  <Channel Number="81">G27 Green Dimming</Channel>
+  <Channel Number="82">B27 Blue Dimming</Channel>
+  <Channel Number="83">R28 Red Dimming</Channel>
+  <Channel Number="84">G28 Green Dimming</Channel>
+  <Channel Number="85">B28 Blue Dimming</Channel>
+  <Channel Number="86">R29 Red Dimming</Channel>
+  <Channel Number="87">G29 Green Dimming</Channel>
+  <Channel Number="88">B29 Blue Dimming</Channel>
+  <Channel Number="89">R30 Red Dimming</Channel>
+  <Channel Number="90">G30 Green Dimming</Channel>
+  <Channel Number="91">B30 Blue Dimming</Channel>
+  <Channel Number="92">R31 Red Dimming</Channel>
+  <Channel Number="93">G31 Green Dimming</Channel>
+  <Channel Number="94">B31 Blue Dimming</Channel>
+  <Channel Number="95">R32 Red Dimming</Channel>
+  <Channel Number="96">G32 Green Dimming</Channel>
+  <Channel Number="97">B32 Blue Dimming</Channel>
+  <Channel Number="98">R33 Red Dimming</Channel>
+  <Channel Number="99">G33 Green Dimming</Channel>
+  <Channel Number="100">B33 Blue Dimming</Channel>
+  <Channel Number="101">R34 Red Dimming</Channel>
+  <Channel Number="102">G34 Green Dimming</Channel>
+  <Channel Number="103">B34 Blue Dimming</Channel>
+  <Channel Number="104">R35 Red Dimming</Channel>
+  <Channel Number="105">G35 Green Dimming</Channel>
+  <Channel Number="106">B35 Blue Dimming</Channel>
+  <Channel Number="107">R36 Red Dimming</Channel>
+  <Channel Number="108">G36 Green Dimming</Channel>
+  <Channel Number="109">B36 Blue Dimming</Channel>
+  <Channel Number="110">R37 Red Dimming</Channel>
+  <Channel Number="111">G37 Green Dimming</Channel>
+  <Channel Number="112">B37 Blue Dimming</Channel>
+  <Channel Number="113">R38 Red Dimming</Channel>
+  <Channel Number="114">G38 Green Dimming</Channel>
+  <Channel Number="115">B38 Blue Dimming</Channel>
+  <Channel Number="116">R39 Red Dimming</Channel>
+  <Channel Number="117">G39 Green Dimming</Channel>
+  <Channel Number="118">B39 Blue Dimming</Channel>
+  <Channel Number="119">R40 Red Dimming</Channel>
+  <Channel Number="120">G40 Green Dimming</Channel>
+  <Channel Number="121">B40 Blue Dimming</Channel>
+  <Channel Number="122">R41 Red Dimming</Channel>
+  <Channel Number="123">G41 Green Dimming</Channel>
+  <Channel Number="124">B41 Blue Dimming</Channel>
+  <Channel Number="125">R42 Red Dimming</Channel>
+  <Channel Number="126">G42 Green Dimming</Channel>
+  <Channel Number="127">B42 Blue Dimming</Channel>
+  <Channel Number="128">R43 Red Dimming</Channel>
+  <Channel Number="129">G43 Green Dimming</Channel>
+  <Channel Number="130">B43 Blue Dimming</Channel>
+  <Channel Number="131">R44 Red Dimming</Channel>
+  <Channel Number="132">G44 Green Dimming</Channel>
+  <Channel Number="133">B44 Blue Dimming</Channel>
+  <Channel Number="134">R45 Red Dimming</Channel>
+  <Channel Number="135">G45 Green Dimming</Channel>
+  <Channel Number="136">B45 Blue Dimming</Channel>
+  <Channel Number="137">R46 Red Dimming</Channel>
+  <Channel Number="138">G46 Green Dimming</Channel>
+  <Channel Number="139">B46 Blue Dimming</Channel>
+  <Channel Number="140">R47 Red Dimming</Channel>
+  <Channel Number="141">G47 Green Dimming</Channel>
+  <Channel Number="142">B47 Blue Dimming</Channel>
+  <Channel Number="143">R48 Red Dimming </Channel>
+  <Channel Number="144">G48 Green Dimming</Channel>
+  <Channel Number="145">B48 Blue Dimming</Channel>
+  <Channel Number="146">W1 White Dimming</Channel>
+  <Channel Number="147">W2 White Dimming</Channel>
+  <Channel Number="148">W3 White Dimming</Channel>
+  <Channel Number="149">W4 White Dimming</Channel>
+  <Channel Number="150">W5 White Dimming</Channel>
+  <Channel Number="151">W6 White Dimming</Channel>
+  <Channel Number="152">W7 White Dimming</Channel>
+  <Channel Number="153">W8 White Dimming</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="4500"/>
+  <Dimensions Weight="2.4" Width="400" Height="210" Depth="80"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="200" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>
