@@ -43,12 +43,15 @@ class Script : public Function
      * Script keywords
      ************************************************************************/
 public:
+    static const QString stopOnExitCmd;
     static const QString startFunctionCmd;
     static const QString stopFunctionCmd;
     static const QString blackoutCmd;
 
     static const QString waitCmd;
     static const QString waitKeyCmd;
+    static const QString waitFunctionStartCmd;
+    static const QString waitFunctionStopCmd;
 
     static const QString setFixtureCmd;
     static const QString systemCmd;
@@ -94,6 +97,11 @@ public:
 
     /** Get the raw script data */
     QString data() const;
+
+    /** Parse existing, tokenized lines for jump label definitions.
+     * Used to be part of data() but was not called after loadXML,
+     * so moved to a separate function */
+    void scanForLabels();
 
     /** Get the script data lines as a list of  strings */
     QStringList dataLines() const;
@@ -163,6 +171,14 @@ private:
     static quint32 getValueFromString(QString str, bool *ok);
 
     /**
+     * Handle "stoponexit" command.
+     *
+     * @param tokens A list of keyword:value pairs
+     * @return An empty string if successful. Otherwise an error string.
+     */
+    QString handleStopOnExit(const QList<QStringList>& tokens);
+
+    /**
      * Handle "startfunction" command.
      *
      * @param tokens A list of keyword:value pairs
@@ -202,6 +218,15 @@ private:
      * @return An empty string if successful. Otherwise an error string.
      */
     QString handleWaitKey(const QList<QStringList>& tokens);
+
+    /**
+     * Handle 'waitfunctionstart' and "waitfunctionstop" commands.
+     *
+     * @param tokens A list of keyword:value pairs
+     * @param start Whether to wait for start or stop
+     * @return An empty string if successful. Otherwise an error string.
+     */
+    QString handleWaitFunction(const QList<QStringList>& tokens, bool start);
 
     /**
      * Handle "setfixture" command.
@@ -246,9 +271,18 @@ private:
      */
     static QList <QStringList> tokenizeLine(const QString& line, bool* ok = NULL);
 
+protected slots:
+    /** Triggered when the script's execution pauses to await the starting of a function */
+    void slotWaitFunctionStarted(quint32 fid);
+
+    /** Triggered when the script's execution pauses to await the completion of a function */
+    void slotWaitFunctionStopped(quint32 fid);
+
 private:
+    bool m_stopOnExit;           //! add (true) or do not add (false) functions to m_startedFunctions
     int m_currentCommand;        //! Current command line being handled
     quint32 m_waitCount;         //! Timer ticks to wait before executing the next line
+    Function* m_waitFunction;      //! Function to wait for before executing the next line
     QList < QList<QStringList> > m_lines; //! Raw data parsed into lines of tokens
     QMap <QString,int> m_labels; //! Labels and their line numbers
     QList <Function*> m_startedFunctions; //! Functions started by this script
