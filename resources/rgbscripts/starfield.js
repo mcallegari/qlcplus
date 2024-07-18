@@ -158,7 +158,7 @@ var testAlgo;
         var px = Math.floor(stars[i].x * k + halfWidth);    // x position of star
         var py = Math.floor(stars[i].y * k + halfHeight);   // y position of star
 
-        if (px > 0 && px < width && py > 0 && py < height) {
+        if (px >= 0 && px < width && py >= 0 && py < height) {
           // if star is in the center, then it should be darker (farther away)
           // and lighten as it moves "closer" (out to the edges)
           if (algo.invertColor == 1) {

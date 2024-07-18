@@ -23,20 +23,19 @@
 #include "importmanager.h"
 #include "treemodelitem.h"
 #include "fixturemanager.h"
-#include "functionmanager.h"
 
 #include "qlcfixturedefcache.h"
-#include "audioplugincache.h"
-#include "rgbscriptscache.h"
+#include "monitorproperties.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
-#include "scriptwrapper.h"
 #include "fixtureutils.h"
+#include "qlcpalette.h"
 #include "collection.h"
 #include "rgbmatrix.h"
 #include "sequence.h"
 #include "qlcfile.h"
 #include "chaser.h"
+#include "script.h"
 #include "scene.h"
 #include "efx.h"
 #include "doc.h"
@@ -76,6 +75,12 @@ ImportManager::~ImportManager()
      * this is shared with the original Doc */
     m_importDoc->setFixtureDefinitionCache(nullptr);
     delete m_importDoc;
+
+    m_functionTree->clear();
+    m_fixtureTree->clear();
+
+    delete m_functionTree;
+    delete m_fixtureTree;
 }
 
 bool ImportManager::loadWorkspace(const QString &fileName)
@@ -133,6 +138,8 @@ void ImportManager::apply()
     std::sort(m_fixtureIDList.begin(), m_fixtureIDList.end());
     importFixtures();
 
+    importPalettes();
+
     /* Functions need to be imported respecting their
      * dependency order. Otherwise ID remapping will be
      * messed up */
@@ -157,7 +164,7 @@ bool ImportManager::loadXML(QXmlStreamReader &doc)
     {
         if (doc.name() == KXMLQLCEngine)
         {
-            m_importDoc->loadXML(doc);
+            m_importDoc->loadXML(doc, false);
         }
 /*
         else if (doc.name() == KXMLQLCVirtualConsole)
@@ -200,6 +207,10 @@ void ImportManager::getAvailableFixtureAddress(int channels, int &universe, int 
 
 void ImportManager::importFixtures()
 {
+    MonitorProperties *importMonProps = m_importDoc->monitorProperties();
+    MonitorProperties *monProps = m_doc->monitorProperties();
+
+    /* ************************ Import fixtures ************************ */
     for (quint32 importID : m_fixtureIDList)
     {
         bool matchFound = false;
@@ -230,8 +241,10 @@ void ImportManager::importFixtures()
          * in m_doc, which implies finding an available address and ID remapping */
         if (matchFound == false)
         {
-            int uniIdx = 0;
-            int address = 0;
+            // Attempt to preserve original universe/address.
+            // Will be checked later if available
+            int uniIdx = importFixture->universe();
+            int address = importFixture->address();
 
             QLCFixtureDef *importDef = importFixture->fixtureDef();
             QLCFixtureMode *importMode = importFixture->fixtureMode();
@@ -250,7 +263,7 @@ void ImportManager::importFixtures()
 
             if (fxiDef == nullptr && fxiMode == nullptr)
             {
-                if (importDef->model() == "Generic Dimmer")
+                if (importDef->model() == "Generic")
                 {
                     fxiDef = fxi->genericDimmerDef(importFixture->channels());
                     fxiMode = fxi->genericDimmerMode(fxiDef, importFixture->channels());
@@ -277,7 +290,24 @@ void ImportManager::importFixtures()
             }
         }
     }
+    /* ******************** Import linked fixtures ********************* */
+    for (quint32 itemID : m_itemIDList)
+    {
+        quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+        quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
 
+        // if no original fixture was selected, skip linked
+        if (m_fixtureIDList.contains(fixtureID) == false)
+            continue;
+
+        QString name = importMonProps->fixtureName(fixtureID, headIndex, linkedIndex);
+        //quint32 remappedID = FixtureUtils::fixtureItemID(m_fixtureIDRemap[fixtureID], headIndex, linkedIndex);
+        monProps->setFixtureName(m_fixtureIDRemap[fixtureID], headIndex, linkedIndex, name);
+    }
+
+
+    /* ********************* Import fixture groups ********************* */
     for (quint32 groupID : m_fixtureGroupIDList)
     {
         bool matchFound = false;
@@ -332,6 +362,57 @@ void ImportManager::importFixtures()
     }
 }
 
+void ImportManager::importPalettes()
+{
+    for (quint32 paletteID : m_paletteIDList)
+    {
+        QLCPalette *importPalette = m_importDoc->palette(paletteID);
+        bool matchFound = false;
+
+        qDebug() << "Import palette" << importPalette->name();
+
+        /* Check if a Palette with the same name already exists in m_doc.
+         * If it does, check also if the ID needs to be remapped */
+        for (QLCPalette *docPalette : m_doc->palettes())
+        {
+            if (docPalette->name() == importPalette->name())
+            {
+                if (docPalette->id() != paletteID)
+                {
+                    qDebug() << "Match found. Palette" << importPalette->name()
+                             << "with ID" << paletteID << "will be remapped to ID" << docPalette->id();
+                }
+
+                m_fixtureIDRemap[paletteID] = docPalette->id();
+                matchFound = true;
+                break;
+            }
+        }
+
+        if (matchFound == false)
+        {
+            QLCPalette *palette = new QLCPalette(importPalette->type());
+            palette->setName(importPalette->name());
+
+            palette->setValues(importPalette->values());
+            palette->setFanningType(importPalette->fanningType());
+            palette->setFanningLayout(importPalette->fanningLayout());
+            palette->setFanningAmount(importPalette->fanningAmount());
+            palette->setFanningValue(importPalette->fanningValue());
+
+            if (m_doc->addPalette(palette) == true)
+            {
+                m_paletteIDRemap[paletteID] = palette->id();
+            }
+            else
+            {
+                qWarning() << "ERROR: Failed to add Palette" << palette->name();
+                delete palette;
+            }
+        }
+    }
+}
+
 void ImportManager::importFunctionID(quint32 funcID)
 {
     Function *importFunction = m_importDoc->function(funcID);
@@ -377,10 +458,28 @@ void ImportManager::importFunctionID(quint32 funcID)
         case Function::SceneType:
         {
             Scene *scene = qobject_cast<Scene *>(docFunction);
-            // create a copy of the existing values
+            // create a copy of the existing components
             QList<SceneValue> sceneValues = scene->values();
-            // point of no return. Delete all values
+            QList<quint32> fixtureGroupList = scene->fixtureGroups();
+            QList<quint32> paletteList = scene->palettes();
+
+            // point of no return. Delete everything
             scene->clear();
+
+            // add referenced fixture groups
+            for (quint32 groupID : fixtureGroupList)
+            {
+                if (m_fixtureGroupIDRemap.contains(groupID))
+                    scene->addFixtureGroup(m_fixtureGroupIDRemap[groupID]);
+            }
+
+            // add referenced palettes
+            for (quint32 paletteID : paletteList)
+            {
+                if (m_paletteIDRemap.contains(paletteID))
+                    scene->addPalette(m_paletteIDRemap[paletteID]);
+            }
+
             // remap values against existing/remapped fixtures
             for (SceneValue scv : sceneValues)
             {
@@ -513,12 +612,12 @@ QVariant ImportManager::groupsTreeModel()
         m_fixtureTree = new TreeModel(this);
         QQmlEngine::setObjectOwnership(m_fixtureTree, QQmlEngine::CppOwnership);
         QStringList treeColumns;
-        treeColumns << "classRef" << "type" << "id" << "subid" << "chIdx";
+        treeColumns << "classRef" << "type" << "id" << "subid" << "chIdx" << "inGroup";
         m_fixtureTree->setColumnNames(treeColumns);
         m_fixtureTree->enableSorting(false);
 
         FixtureManager::updateGroupsTree(m_importDoc, m_fixtureTree, m_fixtureSearchFilter,
-                                         FixtureManager::ShowCheckBoxes | FixtureManager::ShowGroups);
+                                         FixtureManager::ShowCheckBoxes | FixtureManager::ShowHeads | FixtureManager::ShowLinked);
 
         connect(m_fixtureTree, SIGNAL(roleChanged(TreeModelItem*,int,const QVariant&)),
                 this, SLOT(slotFixtureTreeDataChanged(TreeModelItem*,int,const QVariant&)));
@@ -545,8 +644,8 @@ void ImportManager::slotFixtureTreeDataChanged(TreeModelItem *item, int role, co
         setChildrenChecked(item->children(), checked);
 
     QVariantList itemData = item->data();
-    // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx";
-    if (itemData.count() != 5)
+    // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx" << "inGroup";
+    if (itemData.count() != 6)
         return;
 
     int itemType = itemData.at(1).toInt();
@@ -555,15 +654,25 @@ void ImportManager::slotFixtureTreeDataChanged(TreeModelItem *item, int role, co
     if (itemType == App::FixtureDragItem)
     {
         quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
 
         if (checked)
         {
             if (m_fixtureIDList.contains(fixtureID) == false)
                 m_fixtureIDList.append(fixtureID);
+
+            if (linkedIndex > 0 && m_itemIDList.contains(itemID) == false)
+            {
+                m_itemIDList.append(itemID);
+                checkFixtureTree(m_fixtureTree);
+            }
         }
         else
         {
-            m_fixtureIDList.removeOne(fixtureID);
+            if (linkedIndex > 0)
+                m_itemIDList.removeOne(itemID);
+            else
+                m_fixtureIDList.removeOne(fixtureID);
         }
     }
     else if (itemType == App::FixtureGroupDragItem)
@@ -620,12 +729,14 @@ void ImportManager::checkFixtureTree(TreeModel *tree)
     {
         QVariantList itemData = item->data();
 
-        // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx";
-        if (itemData.count() == 5 && itemData.at(1).toInt() == App::FixtureDragItem)
+        // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx" << "inGroup";
+        if (itemData.count() == 6 && itemData.at(1).toInt() == App::FixtureDragItem)
         {
-            quint32 fixtureID = FixtureUtils::itemFixtureID(itemData.at(2).toUInt());
+            quint32 itemID = itemData.at(2).toUInt();
+            quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+            quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
 
-            if (m_fixtureIDList.contains(fixtureID))
+            if (m_fixtureIDList.contains(fixtureID) && linkedIndex == 0)
                 tree->setItemRoleData(item, true, TreeModel::IsCheckedRole);
         }
 
@@ -642,7 +753,7 @@ void ImportManager::updateFunctionsTree()
 {
     m_functionTree->clear();
 
-    for(Function *func : m_importDoc->functions()) // C++11
+    for (Function *func : m_importDoc->functions()) // C++11
     {
         if (func == nullptr || func->isVisible() == false)
             return;
@@ -668,7 +779,7 @@ QVariant ImportManager::functionsTreeModel()
     if (m_functionTree == nullptr)
     {
         m_functionTree = new TreeModel(this);
-        QQmlEngine::setObjectOwnership(m_fixtureTree, QQmlEngine::CppOwnership);
+        QQmlEngine::setObjectOwnership(m_functionTree, QQmlEngine::CppOwnership);
         QStringList treeColumns;
         treeColumns << "classRef";
         m_functionTree->setColumnNames(treeColumns);
@@ -691,6 +802,9 @@ void ImportManager::checkFunctionTree(TreeModel *tree)
 
     for (TreeModelItem *item : tree->items())
     {
+        if (item->data().count() == 0)
+            continue;
+
         QVariant cRef = item->data().first();
         if (cRef.canConvert<Function *>())
         {
@@ -785,11 +899,22 @@ void ImportManager::checkFunctionDependency(quint32 fid)
 
     QList<quint32> funcList;
     QList<quint32> fxList;
+    QList<quint32> fxGroupList;
+    QList<quint32> paletteList;
 
     switch (func->type())
     {
-        // these are 'leaves' and will return only Fixture IDs
+        // a Scene can reference fixtures, fixture groups and palettes
         case Function::SceneType:
+        {
+            Scene *scene = qobject_cast<Scene *>(func);
+            fxList = scene->components();
+            fxGroupList = scene->fixtureGroups();
+            paletteList = scene->palettes();
+        }
+        break;
+
+        // EFX needs only fixtures
         case Function::EFXType:
             fxList = func->components();
         break;
@@ -797,22 +922,10 @@ void ImportManager::checkFunctionDependency(quint32 fid)
         // RGB Matrix requires a fixture group
         case Function::RGBMatrixType:
         {
-            fxList = func->components();
             RGBMatrix *rgbm = qobject_cast<RGBMatrix *>(func);
+            fxList = rgbm->components();
             quint32 groupID = rgbm->fixtureGroup();
-            if (groupID != FixtureGroup::invalidId() &&
-                m_fixtureGroupIDList.contains(groupID) == false)
-            {
-                FixtureGroup *group = m_importDoc->fixtureGroup(groupID);
-                // include the fixture group to the import
-                m_fixtureGroupIDList.append(groupID);
-                // include also all the group fixtures
-                for (quint32 id : group->fixtureList())
-                {
-                    if (m_fixtureIDList.contains(id))
-                        m_fixtureIDList.append(id);
-                }
-            }
+            fxGroupList.append(groupID);
         }
         break;
 
@@ -837,18 +950,43 @@ void ImportManager::checkFunctionDependency(quint32 fid)
         break;
     }
 
-    for (quint32 id : fxList)
+    for (quint32 groupID : fxGroupList)
     {
-        if (m_fixtureIDList.contains(id) == false)
-            m_fixtureIDList.append(id);
+        if (groupID != FixtureGroup::invalidId() &&
+            m_fixtureGroupIDList.contains(groupID) == false)
+        {
+            FixtureGroup *group = m_importDoc->fixtureGroup(groupID);
+            m_fixtureGroupIDList.append(groupID);
+
+            for (quint32 id : group->fixtureList())
+            {
+                if (m_fixtureIDList.contains(id) == false)
+                    m_fixtureIDList.append(id);
+            }
+        }
     }
 
-    for (quint32 id : funcList)
+    for (quint32 paletteID : paletteList)
     {
-        if (m_functionIDList.contains(id) == false)
+        if (paletteID != QLCPalette::invalidId() &&
+            m_paletteIDList.contains(paletteID) == false)
         {
-            m_functionIDList.append(id);
-            checkFunctionDependency(id);
+            m_paletteIDList.append(paletteID);
+        }
+    }
+
+    for (quint32 fixtureID : fxList)
+    {
+        if (m_fixtureIDList.contains(fixtureID) == false)
+            m_fixtureIDList.append(fixtureID);
+    }
+
+    for (quint32 functionID : funcList)
+    {
+        if (m_functionIDList.contains(functionID) == false)
+        {
+            m_functionIDList.append(functionID);
+            checkFunctionDependency(functionID);
         }
     }
 }

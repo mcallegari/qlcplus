@@ -56,6 +56,7 @@
   <Capability Min="101" Max="109">Gobo 5 shake, slow-fast</Capability>
   <Capability Min="110" Max="127">Gobo 6 shake, slow-fast</Capability>
   <Capability Min="128" Max="129">Gobo scroll effect, clockwise, fast-slow</Capability>
+  <Capability Min="130" Max="189">No function</Capability>
   <Capability Min="190" Max="193">Stop</Capability>
   <Capability Min="194" Max="255">Gobo scroll effect, anti-clockwise, slow-fast</Capability>
  </Channel>
@@ -74,7 +75,7 @@
  </Channel>
  <Channel Name="Auto mode">
   <Group Byte="0">Effect</Group>
-  <Capability Min="1" Max="10">No function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="255">Auto mode</Capability>
  </Channel>
  <Channel Name="Reset">
@@ -85,20 +86,20 @@
   <Capability Min="128" Max="255" Preset="ResetAll">hold 5 seconds for all reset</Capability>
  </Channel>
  <Mode Name="Default">
-  <Channel Number="0" ActsOn="0">Pan</Channel>
-  <Channel Number="1" ActsOn="1">Pan fine</Channel>
-  <Channel Number="2" ActsOn="2">Tilt</Channel>
-  <Channel Number="3" ActsOn="3">Tilt fine</Channel>
-  <Channel Number="4" ActsOn="4">Pan/tilt speed</Channel>
-  <Channel Number="5" ActsOn="5">Dimmer</Channel>
-  <Channel Number="6" ActsOn="6">Shutter/Strobe</Channel>
-  <Channel Number="7" ActsOn="7">Colour</Channel>
-  <Channel Number="8" ActsOn="8">Gobo</Channel>
-  <Channel Number="9" ActsOn="9">Gobo rotation</Channel>
-  <Channel Number="10" ActsOn="10">Focus</Channel>
-  <Channel Number="11" ActsOn="11">Prism</Channel>
-  <Channel Number="12" ActsOn="12">Auto mode</Channel>
-  <Channel Number="13" ActsOn="13">Reset</Channel>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/tilt speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Shutter/Strobe</Channel>
+  <Channel Number="7">Colour</Channel>
+  <Channel Number="8">Gobo</Channel>
+  <Channel Number="9">Gobo rotation</Channel>
+  <Channel Number="10">Focus</Channel>
+  <Channel Number="11">Prism</Channel>
+  <Channel Number="12">Auto mode</Channel>
+  <Channel Number="13">Reset</Channel>
  </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="7" ColourTemperature="0"/>

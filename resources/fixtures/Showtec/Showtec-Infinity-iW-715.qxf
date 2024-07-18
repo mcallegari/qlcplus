@@ -20,7 +20,7 @@
  <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Built-in Colors">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="4">No Function</Capability>
+  <Capability Min="0" Max="4">No function</Capability>
   <Capability Min="5" Max="9">Color 1</Capability>
   <Capability Min="10" Max="14">Color 2</Capability>
   <Capability Min="15" Max="19">Color 3</Capability>
@@ -55,11 +55,11 @@
   <Capability Min="160" Max="164">Color 32</Capability>
   <Capability Min="165" Max="169">Color 33</Capability>
   <Capability Min="170" Max="174">Color 34</Capability>
-  <Capability Min="175" Max="179">No Function</Capability>
+  <Capability Min="175" Max="179">No function</Capability>
   <Capability Min="180" Max="201">CW Color-flow from fast to slow</Capability>
   <Capability Min="202" Max="207">Stop color at this point</Capability>
   <Capability Min="208" Max="229">CCW Color-flow from fast to slow</Capability>
-  <Capability Min="230" Max="234">No Function</Capability>
+  <Capability Min="230" Max="234">No function</Capability>
   <Capability Min="235" Max="249">Color Jump from fast to slow</Capability>
   <Capability Min="250" Max="255">Sound-controlled</Capability>
  </Channel>
@@ -91,7 +91,7 @@
  </Channel>
  <Channel Name="Channel Functions">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="14">Blackout during Pan/Tilt movement</Capability>
   <Capability Min="15" Max="49">Reserved</Capability>
   <Capability Min="50" Max="54">Reset Pan after 3 seconds</Capability>
@@ -106,13 +106,13 @@
   <Capability Min="130" Max="134">Fan Temperature controlled</Capability>
   <Capability Min="135" Max="139">Dimming Fast</Capability>
   <Capability Min="140" Max="144">Dimming Smooth</Capability>
-  <Capability Min="145" Max="239">No Function</Capability>
+  <Capability Min="145" Max="239">No function</Capability>
   <Capability Min="240" Max="247">XY Smoothing model open</Capability>
   <Capability Min="248" Max="255">XY Smoothing model to shut down</Capability>
  </Channel>
  <Channel Name="Built-in Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="23">Built-in Program 1</Capability>
   <Capability Min="24" Max="39">Built-in Program 2</Capability>
   <Capability Min="40" Max="55">Built-in Program 3</Capability>

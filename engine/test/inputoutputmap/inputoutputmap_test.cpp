@@ -657,7 +657,7 @@ void InputOutputMap_Test::claimReleaseDumpReset()
     foreach (Universe *universe, unis)
     {
         const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
-        universe->dumpOutput(postGM);
+        universe->dumpOutput(postGM, true);
     }
 
     for (int i = 0; i < 512; i++)
@@ -694,6 +694,11 @@ void InputOutputMap_Test::blackout()
     iom.setOutputPatch(3, stub->name(), stub->outputs().at(3), 3);
 
     QList<Universe*> unis = iom.claimUniverses();
+    unis[0]->setChannelCapability(42, QLCChannel::Intensity);
+    unis[1]->setChannelCapability(42, QLCChannel::Intensity);
+    unis[2]->setChannelCapability(42, QLCChannel::Intensity);
+    unis[3]->setChannelCapability(42, QLCChannel::Intensity);
+
     for (int i = 0; i < 512; i++)
         unis[0]->write(i, 'a');
     for (int i = 0; i < 512; i++)
@@ -707,7 +712,7 @@ void InputOutputMap_Test::blackout()
     foreach (Universe *universe, unis)
     {
         const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
-        universe->dumpOutput(postGM);
+        universe->dumpOutput(postGM, true);
     }
 
     iom.setBlackout(true);
@@ -716,11 +721,29 @@ void InputOutputMap_Test::blackout()
     foreach (Universe *universe, unis)
     {
         const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
-        universe->dumpOutput(postGM);
+        universe->dumpOutput(postGM, true);
     }
 
-    for (int i = 0; i < 2048; i++)
-        QVERIFY(stub->m_universe[i] == (char) 0);
+    int offset = 0;
+
+    for (int u = 0; u < 4; u++)
+    {
+        for (int i = 0; i < 512; i++)
+        {
+            if (i == 42)
+                QVERIFY(stub->m_universe[offset + i] == (char) 0);
+            else if (u == 0)
+                QVERIFY(stub->m_universe[offset + i] == (char) 'a');
+            else if (u == 1)
+                QVERIFY(stub->m_universe[offset + i] == (char) 'b');
+            else if (u == 2)
+                QVERIFY(stub->m_universe[offset + i] == (char) 'c');
+            else if (u == 3)
+                QVERIFY(stub->m_universe[offset + i] == (char) 'd');
+        }
+
+        offset += 512;
+    }
 
     iom.setBlackout(true);
     QVERIFY(iom.blackout() == true);
@@ -728,11 +751,29 @@ void InputOutputMap_Test::blackout()
     foreach (Universe *universe, unis)
     {
         const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
-        universe->dumpOutput(postGM);
+        universe->dumpOutput(postGM, true);
     }
 
-    for (int i = 0; i < 2048; i++)
-        QVERIFY(stub->m_universe[i] == (char) 0);
+    offset = 0;
+
+    for (int u = 0; u < 4; u++)
+    {
+        for (int i = 0; i < 512; i++)
+        {
+            if (i == 42)
+                QVERIFY(stub->m_universe[offset + i] == (char) 0);
+            else if (u == 0)
+                QVERIFY(stub->m_universe[offset + i] == (char) 'a');
+            else if (u == 1)
+                QVERIFY(stub->m_universe[offset + i] == (char) 'b');
+            else if (u == 2)
+                QVERIFY(stub->m_universe[offset + i] == (char) 'c');
+            else if (u == 3)
+                QVERIFY(stub->m_universe[offset + i] == (char) 'd');
+        }
+
+        offset += 512;
+    }
 
     iom.toggleBlackout();
     QVERIFY(iom.blackout() == false);
@@ -740,7 +781,7 @@ void InputOutputMap_Test::blackout()
     foreach (Universe *universe, unis)
     {
         const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
-        universe->dumpOutput(postGM);
+        universe->dumpOutput(postGM, true);
     }
 
     for (int i = 0; i < 512; i++)
@@ -758,7 +799,7 @@ void InputOutputMap_Test::blackout()
     foreach (Universe *universe, unis)
     {
         const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
-        universe->dumpOutput(postGM);
+        universe->dumpOutput(postGM, true);
     }
 
     for (int i = 0; i < 512; i++)
@@ -776,11 +817,29 @@ void InputOutputMap_Test::blackout()
     foreach (Universe *universe, unis)
     {
         const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
-        universe->dumpOutput(postGM);
+        universe->dumpOutput(postGM, true);
     }
 
-    for (int i = 0; i < 2048; i++)
-        QVERIFY(stub->m_universe[i] == (char) 0);
+    offset = 0;
+
+    for (int u = 0; u < 4; u++)
+    {
+        for (int i = 0; i < 512; i++)
+        {
+            if (i == 42)
+                QVERIFY(stub->m_universe[offset + i] == (char) 0);
+            else if (u == 0)
+                QVERIFY(stub->m_universe[offset + i] == (char) 'a');
+            else if (u == 1)
+                QVERIFY(stub->m_universe[offset + i] == (char) 'b');
+            else if (u == 2)
+                QVERIFY(stub->m_universe[offset + i] == (char) 'c');
+            else if (u == 3)
+                QVERIFY(stub->m_universe[offset + i] == (char) 'd');
+        }
+
+        offset += 512;
+    }
 }
 
 void InputOutputMap_Test::grandMaster()

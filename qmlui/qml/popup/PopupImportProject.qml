@@ -27,7 +27,7 @@ import "."
 CustomPopupDialog
 {
     id: popupRoot
-
+    width: mainView.width / 2
     title: qsTr("Import from project")
     standardButtons: Dialog.Cancel | Dialog.Apply
 
@@ -68,20 +68,34 @@ CustomPopupDialog
                 width: mainView.width / 3
                 height: UISettings.iconSizeMedium
                 z: 5
-                color: UISettings.bgMain
+                color: UISettings.bgMedium
                 radius: 5
                 border.width: 2
-                border.color: "#111"
+                border.color: UISettings.borderColorDark
+
+                Text
+                {
+                    id: fxSearchIcon
+                    x: 6
+                    width: height
+                    height: parent.height - 6
+                    anchors.verticalCenter: parent.verticalCenter
+                    color: "gray"
+                    font.family: "FontAwesome"
+                    font.pixelSize: height - 6
+                    text: FontAwesome.fa_search
+                }
 
                 TextInput
                 {
+                    x: fxSearchIcon.width + 14
                     y: 3
                     height: parent.height - 6
-                    width: parent.width
+                    width: parent.width - x
                     color: UISettings.fgMain
                     text: importManager.fixtureSearchFilter
                     font.family: "Roboto Condensed"
-                    font.pixelSize: parent.height - 6
+                    font.pixelSize: height - 6
                     selectionColor: UISettings.highlightPressed
                     selectByMouse: true
 
@@ -94,20 +108,34 @@ CustomPopupDialog
                 width: mainView.width / 3
                 height: UISettings.iconSizeMedium
                 z: 5
-                color: UISettings.bgMain
+                color: UISettings.bgMedium
                 radius: 5
                 border.width: 2
-                border.color: "#111"
+                border.color: UISettings.borderColorDark
+
+                Text
+                {
+                    id: funcSearchIcon
+                    x: 6
+                    width: height
+                    height: parent.height - 6
+                    anchors.verticalCenter: parent.verticalCenter
+                    color: "gray"
+                    font.family: "FontAwesome"
+                    font.pixelSize: height - 6
+                    text: FontAwesome.fa_search
+                }
 
                 TextInput
                 {
+                    x: funcSearchIcon.width + 14
                     y: 3
                     height: parent.height - 6
-                    width: parent.width
+                    width: parent.width - x
                     color: UISettings.fgMain
                     text: importManager.functionSearchFilter
                     font.family: "Roboto Condensed"
-                    font.pixelSize: parent.height - 6
+                    font.pixelSize: height - 6
                     selectionColor: UISettings.highlightPressed
                     selectByMouse: true
 
@@ -127,7 +155,7 @@ CustomPopupDialog
 
                 property bool dragActive: false
 
-                model: importManager.groupsTreeModel
+                model: popupRoot.visible ? importManager.groupsTreeModel : null
                 delegate:
                   Component
                   {
@@ -138,6 +166,7 @@ CustomPopupDialog
                         onLoaded:
                         {
                             //console.log("[groupEditor] Item " + label + " has children: " + hasChildren)
+                            item.width = Qt.binding(function() { return groupListView.width - (gEditScrollBar.visible ? gEditScrollBar.width : 0) })
                             item.cRef = classRef
                             item.textLabel = label
                             item.isSelected = Qt.binding(function() { return isSelected })
@@ -150,11 +179,12 @@ CustomPopupDialog
                                 if (type)
                                 {
                                     item.itemType = type
-                                    if (type == App.UniverseDragItem)
+                                    if (type === App.UniverseDragItem)
                                         isExpanded = true
                                 }
                                 item.nodePath = path
                                 item.isExpanded = isExpanded
+                                item.subTreeDelegate = "qrc:/FixtureNodeDelegate.qml"
                                 item.childrenDelegate = "qrc:/FixtureDelegate.qml"
                                 item.nodeChildren = childrenModel
                             }
@@ -163,12 +193,12 @@ CustomPopupDialog
                         {
                             target: item
 
-                            onMouseEvent:
+                            function onMouseEvent(type, iID, iType, qItem, mouseMods)
                             {
                                 switch (type)
                                 {
                                     case App.Clicked:
-                                        if (qItem == item)
+                                        if (qItem === item)
                                         {
                                             model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
                                             if (model.hasChildren)
@@ -176,11 +206,9 @@ CustomPopupDialog
                                         }
                                     break;
                                     case App.Checked:
-                                        console.log("Item checked " + qItem + "  " + item)
-                                        if (qItem == item)
-                                        {
-                                            model.isChecked = iType
-                                        }
+                                        console.log("Item checked " + iType)
+                                        if (qItem === item)
+                                            item.isChecked = iType
                                     break;
                                 }
                             }
@@ -200,7 +228,7 @@ CustomPopupDialog
                 boundsBehavior: Flickable.StopAtBounds
 
 
-                model: importManager.functionsTreeModel
+                model: popupRoot.visible ? importManager.functionsTreeModel : null
                 delegate:
                     Component
                     {
@@ -211,6 +239,7 @@ CustomPopupDialog
 
                             onLoaded:
                             {
+                                item.width = Qt.binding(function() { return functionsListView.width - (fMgrScrollBar.visible ? fMgrScrollBar.width : 0) })
                                 item.textLabel = label
                                 item.isSelected = Qt.binding(function() { return isSelected })
                                 item.isCheckable = isCheckable
@@ -236,12 +265,12 @@ CustomPopupDialog
                             {
                                 target: item
 
-                                onMouseEvent:
+                                function onMouseEvent(type, iID, iType, qItem, mouseMods)
                                 {
                                     switch (type)
                                     {
                                         case App.Clicked:
-                                            if (qItem == item)
+                                            if (qItem === item)
                                             {
                                                 model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
                                                 if (model.hasChildren)
@@ -249,10 +278,8 @@ CustomPopupDialog
                                             }
                                         break;
                                         case App.Checked:
-                                            if (qItem == item)
-                                            {
+                                            if (qItem === item)
                                                 model.isChecked = iType
-                                            }
                                         break;
                                     }
                                 }

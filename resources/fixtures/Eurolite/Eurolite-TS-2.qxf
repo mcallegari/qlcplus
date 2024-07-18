@@ -52,6 +52,7 @@
  <Channel Name="Lamp">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="0" Preset="LampOff">Lamp OFF</Capability>
+  <Capability Min="1" Max="254">No function</Capability>
   <Capability Min="255" Max="255" Preset="LampOn">Lamp ON</Capability>
  </Channel>
  <Mode Name="Normal">

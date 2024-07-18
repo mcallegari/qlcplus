@@ -47,7 +47,7 @@
  </Channel>
  <Channel Name="Rotating Gobo Index">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="63" Preset="RotationIndexed">Gobo Indexing</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Gobo Indexing</Capability>
   <Capability Min="128" Max="187" Preset="RotationClockwiseFastToSlow">Forward Gobo Rot. Fast - Slow</Capability>
   <Capability Min="188" Max="193" Preset="RotationStop">No Rotation</Capability>
   <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backward Gobo Rot. Slow - Fast</Capability>
@@ -112,7 +112,7 @@
   <Capability Min="0" Max="225">Speed Max - Min</Capability>
   <Capability Min="226" Max="235">Blackout by Movement</Capability>
   <Capability Min="236" Max="245">Blackout by all Wheel Change</Capability>
-  <Capability Min="246" Max="255">No Function</Capability>
+  <Capability Min="246" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Lamp on/off, Reset, internal Programs">
   <Group Byte="0">Maintenance</Group>

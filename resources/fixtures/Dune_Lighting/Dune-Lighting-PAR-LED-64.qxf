@@ -16,7 +16,7 @@
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="189">Dimmer</Capability>
   <Capability Min="190" Max="250">Stobe</Capability>
-  <Capability Min="251" Max="255">No Function</Capability>
+  <Capability Min="251" Max="255">No function</Capability>
  </Channel>
  <Mode Name="4 Channel">
   <Channel Number="0">Red</Channel>

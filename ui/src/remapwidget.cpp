@@ -58,7 +58,7 @@ void RemapWidget::paintEvent(QPaintEvent *e)
 
     int yOffset = m_sourceTree->header()->height() + 10;
 
-    foreach(RemapInfo info, m_list)
+    foreach (RemapInfo info, m_list)
     {
         QRect srcRect = m_sourceTree->visualItemRect(info.source);
         QRect tgtRect = m_targetTree->visualItemRect(info.target);

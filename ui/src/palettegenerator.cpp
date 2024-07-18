@@ -37,12 +37,12 @@
 
 PaletteGenerator::PaletteGenerator(Doc* doc, const QList <Fixture*>& fxList,
                                    PaletteType type, PaletteSubType subType)
-        : m_doc(doc)
-        , m_name(QString())
-        , m_type(type)
-        , m_subType(subType)
-        , m_fixtures(fxList)
-        , m_fixtureGroup(NULL)
+    : m_doc(doc)
+    , m_name(QString())
+    , m_type(type)
+    , m_subType(subType)
+    , m_fixtures(fxList)
+    , m_fixtureGroup(NULL)
 {
     if (m_fixtures.count() > 0)
     {
@@ -196,12 +196,12 @@ QList<RGBMatrix *> PaletteGenerator::matrices()
 
 void PaletteGenerator::addToDoc()
 {
-    foreach(Scene *scene, m_scenes)
+    foreach (Scene *scene, m_scenes)
         m_doc->addFunction(scene);
 
-    foreach(Chaser *chaser, m_chasers)
+    foreach (Chaser *chaser, m_chasers)
     {
-        foreach(Scene *scene, m_scenes)
+        foreach (Scene *scene, m_scenes)
         {
             qDebug() << "Add chaser step:" << scene->id();
             chaser->addStep(ChaserStep(scene->id()));
@@ -212,7 +212,7 @@ void PaletteGenerator::addToDoc()
     if (m_fixtureGroup != NULL)
         m_doc->addFixtureGroup(m_fixtureGroup);
 
-    foreach(RGBMatrix *matrix, m_matrices)
+    foreach (RGBMatrix *matrix, m_matrices)
     {
         matrix->setFixtureGroup(m_fixtureGroup->id());
         m_doc->addFunction(matrix);
@@ -235,7 +235,7 @@ void PaletteGenerator::createColorScene(QList<SceneValue> chMap, QString name, P
         oddScene = new Scene(m_doc);
     }
 
-    foreach(SceneValue scv, chMap)
+    foreach (SceneValue scv, chMap)
     {
 
         scene->setValue(scv.fxi, scv.channel, 255);
@@ -248,12 +248,12 @@ void PaletteGenerator::createColorScene(QList<SceneValue> chMap, QString name, P
             even = !even;
         }
     }
-    scene->setName(name + " - " + m_model);
+    scene->setName(getNamePrefix("Color", name));
     m_scenes.append(scene);
     if (subType == OddEven)
     {
-        evenScene->setName(tr("%1 - %2 (Even)").arg(name).arg(m_model));
-        oddScene->setName(tr("%1 - %2 (Odd)").arg(name).arg(m_model));
+        evenScene->setName(tr("%1 (Even)").arg(getNamePrefix("Color", name)));
+        oddScene->setName(tr("%1 (Odd)").arg(getNamePrefix("Color", name)));
         m_scenes.append(evenScene);
         m_scenes.append(oddScene);
     }
@@ -305,7 +305,7 @@ void PaletteGenerator::createRGBCMYScene(QList<SceneValue> rcMap,
             oddScene = new Scene(m_doc);
         }
 
-        foreach(SceneValue scv, rcMap)
+        foreach (SceneValue scv, rcMap)
         {
             Fixture *fxi = m_doc->fixture(scv.fxi);
             int gmCh = -1, byCh = -1;
@@ -313,7 +313,7 @@ void PaletteGenerator::createRGBCMYScene(QList<SceneValue> rcMap,
             for (int i = 0; i < fxi->heads(); i++)
             {
                 QLCFixtureHead head = fxi->head(i);
-                if(head.channels().contains(scv.channel))
+                if (head.channels().contains(scv.channel))
                 {
                     if (head.rgbChannels().count() == 3)
                     {
@@ -357,12 +357,12 @@ void PaletteGenerator::createRGBCMYScene(QList<SceneValue> rcMap,
         }
         qDebug() << "color name:" << m_colNames.at(i) << "i:" << i << "count:" << m_colNames.count();
 
-        scene->setName(tr("%1 %2 - %3").arg(name).arg(m_colNames.at(i)).arg(m_model));
+        scene->setName(getNamePrefix(m_colNames.at(i), name));
         m_scenes.append(scene);
         if (subType == OddEven)
         {
-            evenScene->setName(tr("%1 %2 - %3 (Even)").arg(name).arg(m_colNames.at(i)).arg(m_model));
-            oddScene->setName(tr("%1 %2 - %3 (Odd)").arg(name).arg(m_colNames.at(i)).arg(m_model));
+            evenScene->setName(tr("%1 (Even)").arg(getNamePrefix(m_colNames.at(i),name)));
+            oddScene->setName(tr("%1 (Odd)").arg(getNamePrefix(m_colNames.at(i),name)));
             m_scenes.append(evenScene);
             m_scenes.append(oddScene);
         }
@@ -420,12 +420,12 @@ void PaletteGenerator::createCapabilityScene(QHash<quint32, quint32> chMap,
             }
         }
 
-        scene->setName(name + " - " + m_model);
+        scene->setName(getNamePrefix(channel->name(),  name));
         m_scenes.append(scene);
         if (subType == OddEven)
         {
-            evenScene->setName(name + " - " + m_model + tr(" - Even"));
-            oddScene->setName(name + " - " + m_model + tr(" - Odd"));
+            evenScene->setName(getNamePrefix(channel->name(),  name) + tr(" - Even"));
+            oddScene->setName(getNamePrefix(channel->name(),  name) + tr(" - Odd"));
             m_scenes.append(evenScene);
             m_scenes.append(oddScene);
         }
@@ -437,13 +437,13 @@ void PaletteGenerator::createRGBMatrices(QList<SceneValue> rgbMap)
     m_fixtureGroup = new FixtureGroup(m_doc);
     m_fixtureGroup->setSize(QSize(rgbMap.size(), 1));
 
-    foreach(SceneValue scv, rgbMap)
+    foreach (SceneValue scv, rgbMap)
     {
         m_fixtureGroup->assignFixture(scv.fxi);
         m_fixtureGroup->setName(m_model + tr(" - RGB Group"));
     }
     QStringList algoList = m_doc->rgbScriptsCache()->names();
-    foreach(QString algo, algoList)
+    foreach (QString algo, algoList)
     {
         RGBMatrix *matrix = new RGBMatrix(m_doc);
         matrix->setName(tr("Animation %1").arg(algo) + " - " + m_model);
@@ -493,7 +493,7 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type,
     QHash<quint32, quint32> m_shutterList;
     QHash<quint32, quint32> m_colorMacroList;
 
-    for(int i = 0; i < m_fixtures.count(); i++)
+    for (int i = 0; i < m_fixtures.count(); i++)
     {
         Fixture *fixture = m_fixtures.at(i);
         Q_ASSERT(fixture != NULL);
@@ -585,5 +585,16 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type,
         break;
 
     }
+}
 
+QString PaletteGenerator::getNamePrefix(QString name)
+{
+    // return name + " - " + m_model; // old naming
+    return m_model + " - " + name;
+}
+
+QString PaletteGenerator::getNamePrefix(QString type, QString name)
+{
+    // return name + " - " + type + " - " + m_model; // old naming
+    return m_model + " - " + type + " - " + name;
 }

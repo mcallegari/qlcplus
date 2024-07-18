@@ -19,7 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.2
+import QtQuick.Dialogs 1.3
 import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
@@ -718,7 +718,7 @@ Rectangle
                                             anchors.fill: parent
                                             onClicked:
                                             {
-                                                giSelector.selectItem(index, itemsList.model, mouse.modifiers & Qt.ControlModifier)
+                                                giSelector.selectItem(index, itemsList.model, mouse.modifiers)
                                                 View3D.setItemSelection(itemID, isSelected, mouse.modifiers)
                                             }
                                         }

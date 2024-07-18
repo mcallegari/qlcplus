@@ -48,6 +48,7 @@
   <Capability Min="71" Max="71">Register Colours</Capability>
   <Capability Min="72" Max="79">Random medium</Capability>
   <Capability Min="80" Max="87">Random Fast</Capability>
+  <Capability Min="88" Max="255">No function</Capability>
  </Channel>
  <Channel Name="White Balance">
   <Group Byte="0">Maintenance</Group>

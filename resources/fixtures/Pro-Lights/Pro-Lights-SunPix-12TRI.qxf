@@ -15,7 +15,7 @@
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="30">Red 100% / Green 0-100% / Blue 0%</Capability>
   <Capability Min="31" Max="50">Red 100-0% / Green 100% / Blue 0%</Capability>
   <Capability Min="51" Max="70">Red 0% / Green 100% / Blue 0-100%</Capability>
@@ -39,12 +39,12 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
   <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="30">Strobe 0-100% (0-30 Hz)</Capability>
  </Channel>
  <Channel Name="Auto Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="19">Fade Transition (R,G,B,C,M,Y,W) 0-100-0 %</Capability>
   <Capability Min="20" Max="29">Fade Transition (R,G,B,C,M,Y,W) 0-100 %</Capability>
   <Capability Min="30" Max="39">Fade Transition (R,G,B,C,M,Y,W) 100-0 %</Capability>

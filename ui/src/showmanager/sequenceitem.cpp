@@ -22,7 +22,6 @@
 #include <QMenu>
 
 #include "sequenceitem.h"
-#include "headeritems.h"
 #include "chaserstep.h"
 #include "trackitem.h"
 
@@ -50,20 +49,28 @@ SequenceItem::SequenceItem(Chaser *seq, ShowFunction *func)
 void SequenceItem::calculateWidth()
 {
     int newWidth = 0;
-    unsigned long seq_duration = m_chaser->totalDuration();
+    quint32 seq_duration = m_chaser->totalDuration();
+    float timeUnit = 50.0 / float(getTimeScale());
 
-    if (seq_duration != 0)
-        newWidth = ((50/(float)getTimeScale()) * (float)seq_duration) / 1000;
+    if (seq_duration == Function::infiniteSpeed())
+    {
+        newWidth = timeUnit * 10000;
+    }
+    else
+    {
+        if (seq_duration != 0)
+            newWidth = (timeUnit * float(seq_duration)) / 1000.0;
 
-    if (newWidth < (50 / m_timeScale))
-        newWidth = 50 / m_timeScale;
+        if (newWidth < timeUnit)
+            newWidth = timeUnit;
+    }
     setWidth(newWidth);
 }
 
 void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     float xpos = 0;
-    float timeScale = 50/(float)m_timeScale;
+    float timeUnit = 50.0 / float(m_timeScale);
     int stepIdx = 0;
 
     ShowItem::paint(painter, option, widget);
@@ -83,10 +90,14 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
         if (m_chaser->durationMode() == Chaser::Common)
             stepDuration = m_chaser->duration();
 
+        // avoid hanging on infinite duration
+        if (stepDuration == Function::infiniteSpeed())
+            stepDuration = 10 * 1000 * 1000;
+
         // draw fade in line
         if (stepFadeIn > 0)
         {
-            int fadeXpos = xpos + ((timeScale * (float)stepFadeIn) / 1000);
+            int fadeXpos = xpos + ((timeUnit * (float)stepFadeIn) / 1000);
             // doesn't even draw it if too small
             if (fadeXpos - xpos > 5)
             {
@@ -94,7 +105,7 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
                 painter->drawLine(xpos, TRACK_HEIGHT - 4, fadeXpos, 1);
             }
         }
-        float stepWidth = ((timeScale * (float)stepDuration) / 1000);
+        float stepWidth = ((timeUnit * (float)stepDuration) / 1000);
         // draw selected step
         if (stepIdx == m_selectedStep)
         {
@@ -111,7 +122,7 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
         // draw fade out line
         if (stepFadeOut > 0)
         {
-            int fadeXpos = xpos + ((timeScale * (float)stepFadeOut) / 1000);
+            int fadeXpos = xpos + ((timeUnit * (float)stepFadeOut) / 1000);
             // doesn't even draw it if too small
             if (fadeXpos - xpos > 5)
             {
@@ -171,7 +182,7 @@ void SequenceItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
-    foreach(QAction *action, getDefaultActions())
+    foreach (QAction *action, getDefaultActions())
         menu.addAction(action);
 
     menu.exec(QCursor::pos());

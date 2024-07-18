@@ -13,10 +13,10 @@
  <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Tilt Continuous Rotation">
   <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="55">No Function</Capability>
+  <Capability Min="0" Max="55">No function</Capability>
   <Capability Min="56" Max="127" Preset="RotationClockwise">Clockwise Rotation</Capability>
   <Capability Min="128" Max="199" Preset="RotationCounterClockwise">Counter-Clockwise Rotation</Capability>
-  <Capability Min="200" Max="255">No Function</Capability>
+  <Capability Min="200" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Tilt Continuous Rotation Speed" Preset="SpeedTiltSlowFast"/>
  <Channel Name="Red LED" Preset="IntensityRed"/>
@@ -25,7 +25,7 @@
  <Channel Name="White LED" Preset="IntensityWhite"/>
  <Channel Name="Color Macros &amp; Effects">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="20">Red</Capability>
   <Capability Min="21" Max="30">Green</Capability>
   <Capability Min="31" Max="40">Red &amp; Green</Capability>
@@ -69,13 +69,13 @@
  <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Special Functions">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="69">No Function</Capability>
+  <Capability Min="0" Max="69">No function</Capability>
   <Capability Min="70" Max="79">Blackout With Pan/Tilt Movement</Capability>
-  <Capability Min="80" Max="89">No Function</Capability>
+  <Capability Min="80" Max="89">No function</Capability>
   <Capability Min="90" Max="99">Blackout with RGBW Value Changes</Capability>
-  <Capability Min="100" Max="199">No Function</Capability>
+  <Capability Min="100" Max="199">No function</Capability>
   <Capability Min="200" Max="209" Preset="ResetAll">Reset All</Capability>
-  <Capability Min="210" Max="255">No Function</Capability>
+  <Capability Min="210" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Dimmer Mode">
   <Group Byte="0">Effect</Group>

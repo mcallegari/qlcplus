@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick 2.12
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.1
 
@@ -30,7 +30,7 @@ Column
     id: widgetRoot
     property bool isSequence: false
     property alias model: cStepsList.model
-    property alias playbackIndex: cStepsList.currentIndex
+    property int playbackIndex: -1
     property int nextIndex: -1
     property alias speedType: timeEditTool.speedType
     property int tempoType: QLCFunction.Time
@@ -41,6 +41,7 @@ Column
 
     property int editStepIndex: -1
     property int editStepType
+    property int selectionRequestIndex: -1
 
     signal indexChanged(int index)
     signal stepValueChanged(int index, int value, int type)
@@ -50,6 +51,9 @@ Column
     signal requestEditor(int funcID)
     signal dragEntered(var item)
     signal dragExited(var item)
+    signal enterPressed(int index)
+
+    onPlaybackIndexChanged: ceSelector.selectItem(playbackIndex, cStepsList.model, false)
 
     function editStepTime(stepIndex, stepItem, type)
     {
@@ -94,10 +98,15 @@ Column
         timeEditTool.show(-1, stepItem.mapToItem(mainView, 0, 0).y, title, timeValueString, type)
     }
 
+    function selectStep(stepIndex, multiSelect)
+    {
+        ceSelector.selectItem(stepIndex, cStepsList.model, multiSelect)
+    }
+
     ModelSelector
     {
         id: ceSelector
-        onItemsCountChanged: console.log("Chaser Editor selected items changed!")
+        onItemsCountChanged: console.log("Chaser Editor selected items: " + itemsCount)
     }
 
     TimeEditTool
@@ -196,8 +205,8 @@ Column
                     }
                     onPositionChanged:
                     {
-                        if (drag.target === null)
-                            return;
+                        if (drag.target == null)
+                            return
                         nameCol.width = nameColDrag.x - nameCol.x - 1
                     }
                     onReleased: drag.target = null
@@ -234,8 +243,8 @@ Column
                     }
                     onPositionChanged:
                     {
-                        if (drag.target === null)
-                            return;
+                        if (drag.target == null)
+                            return
                         fInCol.width = fInColDrag.x - fInCol.x - 1
                     }
                     onReleased: drag.target = null
@@ -272,8 +281,8 @@ Column
                     }
                     onPositionChanged:
                     {
-                        if (drag.target === null)
-                            return;
+                        if (drag.target == null)
+                            return
                         holdCol.width = holdColDrag.x - holdCol.x - 1
                     }
                     onReleased: drag.target = null
@@ -310,8 +319,8 @@ Column
                     }
                     onPositionChanged:
                     {
-                        if (drag.target === null)
-                            return;
+                        if (drag.target == null)
+                            return
                         fOutCol.width = fOutColDrag.x - fOutCol.x - 1
                     }
                     onReleased: drag.target = null
@@ -348,8 +357,8 @@ Column
                     }
                     onPositionChanged:
                     {
-                        if (drag.target === null)
-                            return;
+                        if (drag.target == null)
+                            return
                         durCol.width = durColDrag.x - durCol.x - 1
                     }
                     onReleased: drag.target = null
@@ -377,9 +386,10 @@ Column
         boundsBehavior: Flickable.StopAtBounds
         clip: true
 
+        property bool dragActive: false
         property int dragInsertIndex: -1
 
-        onCurrentIndexChanged: ceSelector.selectItem(currentIndex, model, 0)
+        //onCurrentIndexChanged: ceSelector.selectItem(currentIndex, model, false)
 
         CustomTextEdit
         {
@@ -405,13 +415,33 @@ Column
                 editStepIndex = -1
                 visible = false
             }
+
+            Keys.onPressed:
+            {
+                if (event.key === Qt.Key_Escape)
+                {
+                    editStepIndex = -1
+                    visible = false
+                }
+            }
         }
 
         delegate:
             Item
             {
+                id: itemRoot
                 width: cStepsList.width
                 height: UISettings.listItemHeight
+
+                Keys.onPressed:
+                {
+                    if (event.key === Qt.Key_Return ||
+                        event.key === Qt.Key_Enter)
+                    {
+                        widgetRoot.enterPressed(index)
+                        event.accepted = true
+                    }
+                }
 
                 MouseArea
                 {
@@ -419,31 +449,46 @@ Column
                     width: cStepsList.width
                     height: parent.height
 
-                    drag.target: csDelegate
-                    drag.threshold: height / 2
+                    drag.target: csDragItem
+                    drag.threshold: height / 4
+
+                    property bool dragActive: drag.active
 
                     onPressed:
                     {
+                        var posInList = delegateRoot.mapToItem(widgetRoot, mouse.x, mouse.y)
+                        csDragItem.parent = widgetRoot
+                        csDragItem.x = posInList.x
+                        csDragItem.y = posInList.y
+                        csDragItem.z = 10
+
+                        if (model.isSelected)
+                            return
+
                         ceSelector.selectItem(index, cStepsList.model, mouse.modifiers & Qt.ControlModifier)
-                        console.log("mouse mods: " + mouse.modifiers)
-                        if ((mouse.modifiers & Qt.ControlModifier) == 0)
+                        if (mouse.modifiers == 0)
+                        {
                             widgetRoot.indexChanged(index)
+                            csDragItem.itemsList = []
+                        }
+
+                        csDragItem.itemsList = ceSelector.itemsList()
+                        itemRoot.forceActiveFocus()
                     }
 
                     onDoubleClicked: csDelegate.handleDoubleClick(mouse.x, mouse.y)
 
-                    onReleased:
+                    onDragActiveChanged:
                     {
-                        if (csDelegate.Drag.target === cwDropArea)
+                        if (dragActive)
                         {
-                            csDelegate.Drag.drop()
+                            csDragItem.itemLabel = csDelegate.func.name
+                            csDragItem.itemIcon = functionManager.functionIcon(csDelegate.func.type)
+                            cStepsList.dragActive = true
                         }
                         else
                         {
-                            // return the dragged item to its original position
-                            parent = delegateRoot
-                            csDelegate.x = 0
-                            csDelegate.y = 0
+                            csDragItem.Drag.drop()
                         }
                     }
 
@@ -473,10 +518,6 @@ Column
                         highlightEditTime: editStepIndex === index ? editStepType : -1
                         nextIndex: widgetRoot.nextIndex
 
-                        Drag.active: delegateRoot.drag.active
-                        Drag.source: csDelegate
-                        Drag.keys: [ "function" ]
-
                         onDoubleClicked:
                         {
                             console.log("Double clicked: " + indexInList + ", " + type)
@@ -490,6 +531,19 @@ Column
                     } // ChaserStepDelegate
                 } // MouseArea
             } // Item
+
+        GenericMultiDragItem
+        {
+            id: csDragItem
+
+            property bool fromFunctionManager: false
+
+            visible: cStepsList.dragActive
+
+            Drag.active: cStepsList.dragActive
+            Drag.source: csDragItem
+            Drag.keys: [ "function" ]
+        }
 
         DropArea
         {
@@ -510,22 +564,30 @@ Column
                 console.log("Item dropped here. x: " + drag.x + " y: " + drag.y)
 
                 /* Check if the dragging was started from a Function Manager */
-                if (drag.source.hasOwnProperty("fromFunctionManager"))
+                if (drag.source.fromFunctionManager === true)
                 {
                     widgetRoot.addFunctions(drag.source.itemsList, cStepsList.dragInsertIndex)
                 }
                 else
                 {
                     widgetRoot.moveSteps(ceSelector.itemsList(), cStepsList.dragInsertIndex)
+                    cStepsList.currentIndex = -1
                 }
 
                 cStepsList.dragInsertIndex = -1
+                cStepsList.dragActive = false
             }
             onPositionChanged:
             {
                 var idx = cStepsList.indexAt(drag.x, drag.y)
+                var item = cStepsList.itemAt(drag.x, drag.y)
+                var itemY = item.mapToItem(cStepsList, 0, 0).y
                 //console.log("Item index:" + idx)
-                cStepsList.dragInsertIndex = idx
+
+                if (drag.y < (itemY + item.height) / 2)
+                    cStepsList.dragInsertIndex = idx
+                else
+                    cStepsList.dragInsertIndex = idx + 1
             }
         }
         ScrollBar.vertical: CustomScrollBar { }

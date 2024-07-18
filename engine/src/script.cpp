@@ -32,7 +32,6 @@
 #include "genericfader.h"
 #include "fadechannel.h"
 #include "mastertimer.h"
-#include "qlcmacros.h"
 #include "universe.h"
 #include "script.h"
 #include "doc.h"
@@ -308,7 +307,7 @@ bool Script::saveXML(QXmlStreamWriter *doc)
     saveXMLRunOrder(doc);
 
     /* Contents */
-    foreach(QString cmd, dataLines())
+    foreach (QString cmd, dataLines())
     {
         doc->writeTextElement(KXMLQLCScriptCommand, QUrl::toPercentEncoding(cmd));
     }
@@ -707,7 +706,13 @@ QString Script::handleSystemCommand(const QList<QStringList> &tokens)
         programArgs << tokens[i][1];
 #if !defined(Q_OS_IOS)
     QProcess *newProcess = new QProcess();
-    newProcess->start(programName, programArgs);
+
+    // startDetached() enables to delete QProcess object without killing actual process
+    qint64 pid;
+    newProcess->setProgram(programName);
+    newProcess->setArguments(programArgs);
+    newProcess->startDetached(&pid);
+    delete newProcess;
 #endif
     return QString();
 }

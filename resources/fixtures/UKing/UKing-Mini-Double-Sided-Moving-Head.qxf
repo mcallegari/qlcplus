@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>e-shock</Author>
+ </Creator>
+ <Manufacturer>UKing</Manufacturer>
+ <Model>Mini Double Sided Moving Head</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Horizontal" Preset="PositionPan"/>
+ <Channel Name="Horizontal fine tuning" Preset="PositionPanFine"/>
+ <Channel Name="Vertical" Preset="PositionTilt"/>
+ <Channel Name="Vertical fine tuning" Preset="PositionTiltFine"/>
+ <Channel Name="Speed" Preset="SpeedPanSlowFast"/>
+ <Channel Name="Total dimming" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe / flash" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red dimming" Preset="IntensityRed"/>
+ <Channel Name="Green dimming" Preset="IntensityGreen"/>
+ <Channel Name="Blue dimming" Preset="IntensityBlue"/>
+ <Channel Name="White dimming" Preset="IntensityWhite"/>
+ <Channel Name="Laser dimming" Preset="IntensityDimmer"/>
+ <Channel Name="Custom1">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="30">none</Capability>
+  <Capability Min="31" Max="127">Self-walking1</Capability>
+  <Capability Min="128" Max="249">Self-walking2</Capability>
+  <Capability Min="250" Max="255">sound control</Capability>
+ </Channel>
+ <Channel Name="Custom2">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">Turn of the light belt</Capability>
+  <Capability Min="5" Max="109">Lamp band color selection</Capability>
+  <Capability Min="110" Max="255">Lamp belt self-walking</Capability>
+ </Channel>
+ <Channel Name="Custom3">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="249">none</Capability>
+  <Capability Min="250" Max="255">reset</Capability>
+ </Channel>
+ <Mode Name="15 Channel">
+  <Channel Number="0">Horizontal</Channel>
+  <Channel Number="1">Horizontal fine tuning</Channel>
+  <Channel Number="2">Vertical</Channel>
+  <Channel Number="3">Vertical fine tuning</Channel>
+  <Channel Number="4">Speed</Channel>
+  <Channel Number="5">Total dimming</Channel>
+  <Channel Number="6">Strobe / flash</Channel>
+  <Channel Number="7">Red dimming</Channel>
+  <Channel Number="8">Green dimming</Channel>
+  <Channel Number="9">Blue dimming</Channel>
+  <Channel Number="10">White dimming</Channel>
+  <Channel Number="11">Laser dimming</Channel>
+  <Channel Number="12">Custom1</Channel>
+  <Channel Number="13">Custom2</Channel>
+  <Channel Number="14">Custom3</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.5" Width="146" Height="195" Depth="129"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

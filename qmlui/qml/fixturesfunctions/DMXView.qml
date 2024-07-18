@@ -26,7 +26,7 @@ Rectangle
 {
     id: dmxViewRoot
     anchors.fill: parent
-    color: UISettings.bgMain
+    color: UISettings.bgMedium
 
     property alias contextItem: flowLayout
     property int viewMargin: 20
@@ -55,11 +55,10 @@ Rectangle
         anchors.fill: parent
         anchors.leftMargin: viewMargin
         anchors.topMargin: viewMargin
-        //anchors.bottomMargin: viewMargin
 
         contentHeight: flowLayout.height
         contentWidth: flowLayout.width
-        interactive: false
+        //interactive: false
 
         boundsBehavior: Flickable.StopAtBounds
 
@@ -77,8 +76,14 @@ Rectangle
                 channelToolLoader.loadChannelTool(item, fixtureID, chIndex, value)
             }
 
+            function itemWidthChanged(width)
+            {
+                if (fixtureDMXView.contentWidth < width)
+                    fixtureDMXView.contentWidth = width + (viewMargin * 2)
+            }
+
             Component.onCompleted: contextManager.enableContext("DMX", true, flowLayout)
-            Component.onDestruction: if(contextManager) contextManager.enableContext("DMX", false, flowLayout)
+            Component.onDestruction: if (contextManager) contextManager.enableContext("DMX", false, flowLayout)
         }
 
         ScrollBar.vertical: CustomScrollBar { }

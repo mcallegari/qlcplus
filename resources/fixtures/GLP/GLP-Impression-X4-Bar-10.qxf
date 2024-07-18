@@ -41,7 +41,7 @@
   <Capability Min="80" Max="111" Preset="RampDownSlowToFast">Snap on, fade off (random patterns)</Capability>
   <Capability Min="112" Max="143" Preset="PulseSlowToFast">Fade on, fade off (random patterns)</Capability>
   <Capability Min="144" Max="199" Preset="StrobeRandom">Strobe Random (5s - 0,1s)</Capability>
-  <Capability Min="200" Max="239" Preset="StrobeFreqRange" Res1="1" Res2="10">Strobe Effekt slow - fast (1Hz to 10Hz)</Capability>
+  <Capability Min="200" Max="239" Preset="StrobeFreqRange" Res1="1" Res2="10">Strobe Effect slow - fast (1Hz to 10Hz)</Capability>
   <Capability Min="240" Max="255" Preset="ShutterOpen">Shutter Open</Capability>
  </Channel>
  <Channel Name="CTO">
@@ -88,6 +88,7 @@
   <Capability Min="0" Max="3">No Mirror</Capability>
   <Capability Min="4" Max="7">Mirror color priority</Capability>
   <Capability Min="8" Max="11">Mirror color mixing</Capability>
+  <Capability Min="12" Max="119">No function</Capability>
   <Capability Min="120" Max="123">Tilt slow mode off</Capability>
   <Capability Min="124" Max="127">Tilt slow mode on</Capability>
   <Capability Min="128" Max="131">Tilt current off</Capability>

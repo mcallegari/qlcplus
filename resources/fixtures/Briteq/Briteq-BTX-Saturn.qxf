@@ -46,12 +46,12 @@
   <Capability Min="0" Max="6" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
   <Capability Min="7" Max="12" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="13" Max="18" Preset="ColorMacro" Res1="#00ffb6">Aqua Marine</Capability>
-  <Capability Min="19" Max="25" Preset="ColorMacro" Res1="#ff5500">Orange</Capability>
+  <Capability Min="19" Max="25" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
   <Capability Min="26" Max="31" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="32" Max="37" Preset="ColorMacro" Res1="#ffaa00">CTO 8000K</Capability>
   <Capability Min="38" Max="44" Preset="ColorMacro" Res1="#ffff67">CTO 5600K</Capability>
   <Capability Min="45" Max="50" Preset="ColorMacro" Res1="#ffffd0">CTO 3200K</Capability>
-  <Capability Min="51" Max="56" Preset="ColorMacro" Res1="#00ff7f">Lime Green</Capability>
+  <Capability Min="51" Max="56" Preset="ColorMacro" Res1="#32cd32">Lime Green</Capability>
   <Capability Min="57" Max="63" Preset="ColorMacro" Res1="#55007f">UV</Capability>
   <Capability Min="64" Max="127" Preset="RotationIndexed">Color Index</Capability>
   <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Clockwise color wheel rotation (fast-&gt;slow)</Capability>
@@ -63,46 +63,46 @@
  <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="9" Preset="ColorMacro">CMY color mixing usind channels 8 to 10</Capability>
-  <Capability Min="10" Max="14" Preset="ColorMacro">LEE 790 - Moroccan pink</Capability>
-  <Capability Min="15" Max="19" Preset="ColorMacro">LEE 157 - Pink</Capability>
-  <Capability Min="20" Max="24" Preset="ColorMacro">LEE 332 - Special rose pink</Capability>
-  <Capability Min="25" Max="29" Preset="ColorMacro">LEE 328 - Follies pink</Capability>
-  <Capability Min="30" Max="34" Preset="ColorMacro">LEE 345 - Fuchsia pink</Capability>
-  <Capability Min="35" Max="39" Preset="ColorMacro">LEE 194 - Surprise pink</Capability>
-  <Capability Min="40" Max="44" Preset="ColorMacro">LEE 181 - Congo Blue</Capability>
-  <Capability Min="45" Max="49" Preset="ColorMacro">LEE 071 - Tokyo Blue</Capability>
-  <Capability Min="50" Max="54" Preset="ColorMacro">LEE 120 - Deep Blue</Capability>
-  <Capability Min="55" Max="59" Preset="ColorMacro">LEE 079 - Just Blue</Capability>
-  <Capability Min="60" Max="64" Preset="ColorMacro">LEE 132 - Medium Blue</Capability>
-  <Capability Min="65" Max="69" Preset="ColorMacro">LEE 200 - Double CT Blue</Capability>
-  <Capability Min="70" Max="74" Preset="ColorMacro">LEE 161 - Slate Blue</Capability>
-  <Capability Min="75" Max="79" Preset="ColorMacro">LEE 201 - Full CT Blue</Capability>
-  <Capability Min="80" Max="84" Preset="ColorMacro">LEE 202 - Half CT Blue</Capability>
-  <Capability Min="85" Max="89" Preset="ColorMacro">LEE 117 - Steel Blue</Capability>
-  <Capability Min="90" Max="94" Preset="ColorMacro">LEE 353 - Lighter Blue</Capability>
-  <Capability Min="95" Max="99" Preset="ColorMacro">LEE 118 - Light Blue</Capability>
-  <Capability Min="100" Max="104" Preset="ColorMacro">LEE 116 - Medium Blue Green</Capability>
-  <Capability Min="105" Max="109" Preset="ColorMacro">LEE 124 - Dark Green</Capability>
-  <Capability Min="110" Max="114" Preset="ColorMacro">LEE 139 - Primary Green</Capability>
-  <Capability Min="115" Max="119" Preset="ColorMacro">LEE 089 - Moss Green</Capability>
-  <Capability Min="120" Max="124" Preset="ColorMacro">LEE 122 - Fern Green</Capability>
-  <Capability Min="125" Max="129" Preset="ColorMacro">LEE 738 - JAS Green</Capability>
-  <Capability Min="130" Max="134" Preset="ColorMacro">LEE 088 - Lime Green</Capability>
-  <Capability Min="135" Max="139" Preset="ColorMacro">LEE 100 - Spring Yellow</Capability>
-  <Capability Min="140" Max="144" Preset="ColorMacro">LEE 104 - Deep Amber</Capability>
-  <Capability Min="145" Max="149" Preset="ColorMacro">LEE 179 - Chrome Orange</Capability>
-  <Capability Min="150" Max="154" Preset="ColorMacro">LEE 105 - Orange</Capability>
-  <Capability Min="155" Max="159" Preset="ColorMacro">LEE 021 - Gold Amber</Capability>
-  <Capability Min="160" Max="164" Preset="ColorMacro">LEE 778 - Millennium Gold</Capability>
-  <Capability Min="165" Max="169" Preset="ColorMacro">LEE 135 - Deep Golden Amber</Capability>
-  <Capability Min="170" Max="174" Preset="ColorMacro">LEE 164 - Flame Red</Capability>
+  <Capability Min="0" Max="9">CMY color mixing usind channels 8 to 10</Capability>
+  <Capability Min="10" Max="14" Preset="ColorMacro" Res1="#ffb4a5">LEE 790 - Moroccan pink</Capability>
+  <Capability Min="15" Max="19" Preset="ColorMacro" Res1="#ff92a3">LEE 157 - Pink</Capability>
+  <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#ff3787">LEE 332 - Special rose pink</Capability>
+  <Capability Min="25" Max="29" Preset="ColorMacro" Res1="#ff64c8">LEE 328 - Follies pink</Capability>
+  <Capability Min="30" Max="34" Preset="ColorMacro" Res1="#cd6ed7">LEE 345 - Fuchsia pink</Capability>
+  <Capability Min="35" Max="39" Preset="ColorMacro" Res1="#be8cf0">LEE 194 - Surprise pink</Capability>
+  <Capability Min="40" Max="44" Preset="ColorMacro" Res1="#5000aa">LEE 181 - Congo Blue</Capability>
+  <Capability Min="45" Max="49" Preset="ColorMacro" Res1="#0000b4">LEE 071 - Tokyo Blue</Capability>
+  <Capability Min="50" Max="54" Preset="ColorMacro" Res1="#005fbe">LEE 120 - Deep Blue</Capability>
+  <Capability Min="55" Max="59" Preset="ColorMacro" Res1="#3c8cd2">LEE 079 - Just Blue</Capability>
+  <Capability Min="60" Max="64" Preset="ColorMacro" Res1="#00a0dc">LEE 132 - Medium Blue</Capability>
+  <Capability Min="65" Max="69" Preset="ColorMacro" Res1="#91bef5">LEE 200 - Double CT Blue</Capability>
+  <Capability Min="70" Max="74" Preset="ColorMacro" Res1="#7dd2f5">LEE 161 - Slate Blue</Capability>
+  <Capability Min="75" Max="79" Preset="ColorMacro" Res1="#c3e1fa">LEE 201 - Full CT Blue</Capability>
+  <Capability Min="80" Max="84" Preset="ColorMacro" Res1="#d7f0ff">LEE 202 - Half CT Blue</Capability>
+  <Capability Min="85" Max="89" Preset="ColorMacro" Res1="#b4faf5">LEE 117 - Steel Blue</Capability>
+  <Capability Min="90" Max="94" Preset="ColorMacro" Res1="#61e8e3">LEE 353 - Lighter Blue</Capability>
+  <Capability Min="95" Max="99" Preset="ColorMacro" Res1="#00e1eb">LEE 118 - Light Blue</Capability>
+  <Capability Min="100" Max="104" Preset="ColorMacro" Res1="#00c8b9">LEE 116 - Medium Blue Green</Capability>
+  <Capability Min="105" Max="109" Preset="ColorMacro" Res1="#00dc78">LEE 124 - Dark Green</Capability>
+  <Capability Min="110" Max="114" Preset="ColorMacro" Res1="#4bc300">LEE 139 - Primary Green</Capability>
+  <Capability Min="115" Max="119" Preset="ColorMacro" Res1="#5adc5a">LEE 089 - Moss Green</Capability>
+  <Capability Min="120" Max="124" Preset="ColorMacro" Res1="#78fa6e">LEE 122 - Fern Green</Capability>
+  <Capability Min="125" Max="129" Preset="ColorMacro" Res1="#aaff00">LEE 738 - JAS Green</Capability>
+  <Capability Min="130" Max="134" Preset="ColorMacro" Res1="#dcff64">LEE 088 - Lime Green</Capability>
+  <Capability Min="135" Max="139" Preset="ColorMacro" Res1="#f5ff00">LEE 100 - Spring Yellow</Capability>
+  <Capability Min="140" Max="144" Preset="ColorMacro" Res1="#ffdc00">LEE 104 - Deep Amber</Capability>
+  <Capability Min="145" Max="149" Preset="ColorMacro" Res1="#ffbe00">LEE 179 - Chrome Orange</Capability>
+  <Capability Min="150" Max="154" Preset="ColorMacro" Res1="#ffa000">LEE 105 - Orange</Capability>
+  <Capability Min="155" Max="159" Preset="ColorMacro" Res1="#ff8c32">LEE 021 - Gold Amber</Capability>
+  <Capability Min="160" Max="164" Preset="ColorMacro" Res1="#ff7600">LEE 778 - Millennium Gold</Capability>
+  <Capability Min="165" Max="169" Preset="ColorMacro" Res1="#ff5f00">LEE 135 - Deep Golden Amber</Capability>
+  <Capability Min="170" Max="174" Preset="ColorMacro" Res1="#ff3200">LEE 164 - Flame Red</Capability>
   <Capability Min="175" Max="179" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
   <Capability Min="180" Max="201" Preset="RotationClockwiseFastToSlow">Clockwise color macro rotation (fast -&gt; slow)</Capability>
   <Capability Min="202" Max="207" Preset="RotationStop">Stop (this will stop wherever the color is at the time)</Capability>
   <Capability Min="208" Max="229" Preset="RotationCounterClockwiseSlowToFast">Counter-clockwise color macro rotation (slow -&gt; fast)</Capability>
   <Capability Min="230" Max="234" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
-  <Capability Min="235" Max="249">Random color macro (fast -&gt; slow)</Capability>
+  <Capability Min="235" Max="249" Preset="FastToSlow">Random color macro (fast -&gt; slow)</Capability>
   <Capability Min="250" Max="255" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
  </Channel>
  <Channel Name="Gobo wheel 1 - select (rotating gobos)">

@@ -35,7 +35,7 @@
  </Channel>
  <Channel Name="Auto Program (3 Ch)">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="4">No Function</Capability>
+  <Capability Min="0" Max="4">No function</Capability>
   <Capability Min="5" Max="20">Auto Program 1</Capability>
   <Capability Min="21" Max="35">Auto Program 2</Capability>
   <Capability Min="36" Max="50">Auto Program 3</Capability>

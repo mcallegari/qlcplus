@@ -13,15 +13,17 @@
   <Group Byte="0">Effect</Group>
   <Colour>Red</Colour>
   <Capability Min="0" Max="40" Preset="ColorMacro" Res1="#000000">Black out</Capability>
-  <Capability Min="41" Max="80" Preset="GoboMacro" Res1="Others/rainbow.png">Dimmer 1 (RGB mix, seperated segments)</Capability>
-  <Capability Min="81" Max="120" Preset="GoboMacro" Res1="Others/rainbow.png">Dimmer 2 (RGB mix, all segments)</Capability>
-  <Capability Min="161" Max="200" Preset="GoboMacro" Res1="SGM-Color/gobo00529.png">Color change</Capability>
-  <Capability Min="201" Max="240" Preset="GoboMacro" Res1="SGM-Color/gobo00542.png">Color flow</Capability>
-  <Capability Min="241" Max="255" Preset="GoboMacro" Res1="SGM-Color/gobo00484.png">Dream flow</Capability>
+  <Capability Min="41" Max="80" Preset="GoboMacro" Res1="Others/rainbow.png">3-Segment Dimmer</Capability>
+  <Capability Min="81" Max="120" Preset="GoboMacro" Res1="Others/rainbow.png">1-Segment Dimmer</Capability>
+  <Capability Min="121" Max="160" Preset="GoboMacro" Res1="SGM-Color/gobo00488.png">Color Shutter</Capability>
+  <Capability Min="161" Max="200" Preset="GoboMacro" Res1="SGM-Color/gobo00529.png">Color Change</Capability>
+  <Capability Min="201" Max="240" Preset="GoboMacro" Res1="SGM-Color/gobo00542.png">Color Flow</Capability>
+  <Capability Min="241" Max="255" Preset="GoboMacro" Res1="SGM-Color/gobo00484.png">Dream Flow</Capability>
  </Channel>
  <Channel Name="Shutter / Speed">
   <Group Byte="0">Speed</Group>
   <Colour>Blue</Colour>
+  <Capability Min="0" Max="40">No Function</Capability>
   <Capability Min="41" Max="160">Shutter</Capability>
   <Capability Min="161" Max="255">Speed</Capability>
  </Channel>
@@ -38,10 +40,12 @@
   <Group Byte="0">Effect</Group>
   <Colour>Red</Colour>
   <Capability Min="0" Max="40" Preset="ColorMacro" Res1="#000000">Black out</Capability>
-  <Capability Min="81" Max="120" Preset="GoboMacro" Res1="Others/rainbow.png">Dimmer 2 (RGB mix, all segments)</Capability>
-  <Capability Min="161" Max="200" Preset="GoboMacro" Res1="SGM-Color/gobo00529.png">Color change</Capability>
-  <Capability Min="201" Max="240" Preset="GoboMacro" Res1="SGM-Color/gobo00542.png">Color flow</Capability>
-  <Capability Min="241" Max="255" Preset="GoboMacro" Res1="SGM-Color/gobo00484.png">Dream flow</Capability>
+  <Capability Min="41" Max="80">&lt;11-Channel&gt;</Capability>
+  <Capability Min="81" Max="120" Preset="GoboMacro" Res1="Others/rainbow.png">1-Segment Dimmer</Capability>
+  <Capability Min="121" Max="160" Preset="GoboMacro" Res1="SGM-Color/gobo00488.png">Color Shutter</Capability>
+  <Capability Min="161" Max="200" Preset="GoboMacro" Res1="SGM-Color/gobo00529.png">Color Change</Capability>
+  <Capability Min="201" Max="240" Preset="GoboMacro" Res1="SGM-Color/gobo00542.png">Color Flow</Capability>
+  <Capability Min="241" Max="255" Preset="GoboMacro" Res1="SGM-Color/gobo00484.png">Dream Flow</Capability>
  </Channel>
  <Mode Name="Mode 1">
   <Channel Number="0">Mode 1</Channel>

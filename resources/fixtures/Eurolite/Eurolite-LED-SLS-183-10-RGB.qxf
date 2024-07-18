@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>Felix Hartnagel</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED SLS-183/10 RGB</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Functions">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">ON</Capability>
+  <Capability Min="1" Max="5">Music control (7 colours)</Capability>
+  <Capability Min="6" Max="10">ON</Capability>
+  <Capability Min="11" Max="255">Strobe (min &lt; max)</Capability>
+ </Channel>
+ <Mode Name="5 channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Master dimmer</Channel>
+  <Channel Number="4">Functions</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2" Width="90" Height="280" Depth="285"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="20" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

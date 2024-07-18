@@ -19,7 +19,7 @@
  <Channel Name="Strobe" Preset="ShutterStrobeFastSlow"/>
  <Channel Name="Effects">
   <Group Byte="1">Effect</Group>
-  <Capability Min="0" Max="0">No Function</Capability>
+  <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="7">Slow Effect</Capability>
   <Capability Min="8" Max="140">Auto Effect</Capability>
   <Capability Min="141" Max="255">Sound Effect</Capability>
@@ -28,7 +28,7 @@
   <Group Byte="1">Effect</Group>
   <Capability Min="0" Max="15">No Effect</Capability>
   <Capability Min="16" Max="44">Auto Effect 0</Capability>
-  <Capability Min="45" Max="47">Auto Effect 1</Capability>
+  <Capability Min="45" Max="74">Auto Effect 1</Capability>
   <Capability Min="75" Max="104">Auto Effect 2</Capability>
   <Capability Min="105" Max="128">Auto Effect 3</Capability>
   <Capability Min="129" Max="157">Sound Effect 0</Capability>
@@ -79,6 +79,7 @@
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="250" Preset="ResetAll">Reset</Capability>
+  <Capability Min="251" Max="255">No function</Capability>
  </Channel>
  <Mode Name="48 Channel">
   <Channel Number="0">X Pan Fine</Channel>

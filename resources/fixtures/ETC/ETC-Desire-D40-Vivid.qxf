@@ -36,7 +36,8 @@
  </Channel>
  <Channel Name="Plus 7 Control on/off">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="51" Max="255">Plus 7 Control on/off</Capability>
+  <Capability Min="0" Max="130">Plus 7 off</Capability>
+  <Capability Min="131" Max="255">Plus 7 on</Capability>
  </Channel>
  <Channel Name="Tint">
   <Group Byte="0">Intensity</Group>

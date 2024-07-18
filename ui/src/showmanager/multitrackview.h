@@ -32,9 +32,7 @@
 #include "trackitem.h"
 #include "audioitem.h"
 #include "efxitem.h"
-#if QT_VERSION >= 0x050000
 #include "videoitem.h"
-#endif
 #include "chaser.h"
 #include "track.h"
 
@@ -111,9 +109,9 @@ private:
 public:
     /** Set the type of header. Can be Time (seconds) or BPM,
      *  in various forms (4/4, 3/4) */
-    void setHeaderType(ShowHeaderItem::TimeDivision type);
+    void setHeaderType(Show::TimeDivision type);
 
-    ShowHeaderItem::TimeDivision getHeaderType();
+    Show::TimeDivision getHeaderType();
 
     /** When BPM is selected, this function can set a precise
      *  value of time division */

@@ -273,7 +273,7 @@ Rectangle
                     radius: 5
                     border.color: scMouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: startColTool.selectedColor
+                    color: rgbMatrixEditor.startColor
                     visible: rgbMatrixEditor.algoColors > 0 ? true : false
 
                     MouseArea
@@ -287,9 +287,9 @@ Rectangle
                     ColorTool
                     {
                         id: startColTool
-                        parent: mainView
-                        x: rightSidePanel.x - width
-                        y: rightSidePanel.y
+                        parent: rgbmeContainer
+                        x: -width - (UISettings.iconSizeDefault * 1.25)
+                        y: UISettings.bigItemHeight
                         visible: false
                         closeOnSelect: true
                         currentRGB: rgbMatrixEditor.startColor
@@ -299,6 +299,7 @@ Rectangle
                             startColButton.color = Qt.rgba(r, g, b, 1.0)
                             rgbMatrixEditor.startColor = startColButton.color
                         }
+                        onClose: visible = false
                     }
                 }
                 Rectangle
@@ -317,20 +318,21 @@ Rectangle
                         id: ecMouseArea
                         anchors.fill: parent
                         hoverEnabled: true
-                        onClicked: endColTool.visible = !startColTool.visible
+                        onClicked: endColTool.visible = !endColTool.visible
                     }
 
                     ColorTool
                     {
                         id: endColTool
-                        parent: mainView
-                        x: rightSidePanel.x - width
-                        y: rightSidePanel.y
+                        parent: rgbmeContainer
+                        x: -width - (UISettings.iconSizeDefault * 1.25)
+                        y: UISettings.bigItemHeight
                         visible: false
                         closeOnSelect: true
                         currentRGB: rgbMatrixEditor.endColor
 
                         onColorChanged: rgbMatrixEditor.endColor = Qt.rgba(r, g, b, 1.0)
+                        onClose: visible = false
                     }
                 }
                 IconButton
@@ -886,6 +888,22 @@ Rectangle
                     console.log("Spin component is not ready !!")
             }
 
+            function addDoubleSpinBox(propName, currentValue)
+            {
+                doubleSpinComponent.createObject(scriptAlgoGrid,
+                              {"propName": propName, "realValue": currentValue });
+                if (spinComponent.status !== Component.Ready)
+                    console.log("Double spin component is not ready !!")
+            }
+
+            function addTextEdit(propName, currentText)
+            {
+                textEditComponent.createObject(scriptAlgoGrid,
+                               {"propName": propName, "text": currentText });
+                if (comboComponent.status !== Component.Ready)
+                    console.log("TextEdit component is not ready !!")
+            }
+
             Component.onCompleted:
             {
                 rgbMatrixEditor.createScriptObjects(scriptAlgoGrid)
@@ -936,4 +954,33 @@ Rectangle
         }
     }
 
+    // Script algorithm float box property
+    Component
+    {
+        id: doubleSpinComponent
+
+        CustomDoubleSpinBox
+        {
+            Layout.fillWidth: true
+            property string propName
+
+            decimals: 3
+            suffix: ""
+            onRealValueChanged: rgbMatrixEditor.setScriptFloatProperty(propName, realValue)
+        }
+    }
+
+    // Script algorithm combo box property
+    Component
+    {
+        id: textEditComponent
+
+        CustomTextEdit
+        {
+            Layout.fillWidth: true
+            property string propName
+
+            onTextChanged: rgbMatrixEditor.setScriptStringProperty(propName, text)
+        }
+    }
 }

@@ -23,19 +23,19 @@
   <Capability Min="5" Max="9" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="10" Max="14" Preset="ColorMacro" Res1="#ff55ff">Pink</Capability>
   <Capability Min="15" Max="19" Preset="ColorMacro" Res1="#55aa00">Green</Capability>
-  <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#ff00ff">Violet</Capability>
+  <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#ee82ee">Violet</Capability>
   <Capability Min="25" Max="29" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="30" Max="34" Preset="ColorMacro" Res1="#00c000">Kelly-green</Capability>
   <Capability Min="35" Max="39" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
-  <Capability Min="40" Max="44" Preset="ColorMacro" Res1="#000080">Dark blue</Capability>
+  <Capability Min="40" Max="44" Preset="ColorMacro" Res1="#00008b">Dark blue</Capability>
   <Capability Min="45" Max="56" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffff00">White+Yellow</Capability>
   <Capability Min="57" Max="65" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffc0c0">Yellow+Pink</Capability>
   <Capability Min="66" Max="74" Preset="ColorDoubleMacro" Res1="#ffc0c0" Res2="#00ff00">Pink+Green</Capability>
-  <Capability Min="75" Max="83" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff00ff">Green+Violet</Capability>
-  <Capability Min="84" Max="92" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#0000ff">Violet+Blue</Capability>
+  <Capability Min="75" Max="83" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ee82ee">Green+Violet</Capability>
+  <Capability Min="84" Max="92" Preset="ColorDoubleMacro" Res1="#ee82ee" Res2="#0000ff">Violet+Blue</Capability>
   <Capability Min="93" Max="101" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00c000">Blue+Kelly-green</Capability>
   <Capability Min="102" Max="110" Preset="ColorDoubleMacro" Res1="#00c000" Res2="#ff0000">Kelly-green+Red</Capability>
-  <Capability Min="111" Max="127" Preset="ColorDoubleMacro" Res1="#000080" Res2="#ffffff">Dark blue+White</Capability>
+  <Capability Min="111" Max="127" Preset="ColorDoubleMacro" Res1="#00008b" Res2="#ffffff">Dark blue+White</Capability>
   <Capability Min="128" Max="191" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow effect in positive roration (speed)</Capability>
   <Capability Min="192" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow effect in négative roration (speed)</Capability>
  </Channel>
@@ -96,7 +96,7 @@
   <Capability Min="152" Max="159" Preset="ResetAll">Reset all channels</Capability>
   <Capability Min="160" Max="255">Unused</Capability>
  </Channel>
- <Channel Name="Built-in programmes">
+ <Channel Name="Built-in programs">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">Unused</Capability>
   <Capability Min="8" Max="23">Program 1</Capability>
@@ -128,7 +128,7 @@
   <Channel Number="8">Gobo Wheel</Channel>
   <Channel Number="9">Gobo rotation</Channel>
   <Channel Number="10">Special functions</Channel>
-  <Channel Number="11">Built-in programmes</Channel>
+  <Channel Number="11">Built-in programs</Channel>
  </Mode>
  <Mode Name="6 Ch">
   <Channel Number="0">Pan</Channel>

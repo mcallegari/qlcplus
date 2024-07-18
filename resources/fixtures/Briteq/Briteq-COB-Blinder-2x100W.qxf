@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.1 GIT</Version>
+  <Author>Giacomo Gorini</Author>
+ </Creator>
+ <Manufacturer>Briteq</Manufacturer>
+ <Model>COB Blinder 2x100W</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Dim Left" Preset="IntensityDimmer"/>
+ <Channel Name="Dim Right" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Dimmer Curve" Default="22">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="15">Fixture Selected Curve</Capability>
+  <Capability Min="16" Max="135">Linear Curve</Capability>
+  <Capability Min="136" Max="255">Square Curve</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Dim Left</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Dim Left</Channel>
+  <Channel Number="1">Dim Right</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Dimmer Curve</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="4000" ColourTemperature="3200"/>
+  <Dimensions Weight="3.9" Width="440" Height="253" Depth="144"/>
+  <Lens Name="Other" DegreesMin="60" DegreesMax="60"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="2" Height="1"/>
+  <Technical PowerConsumption="235" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

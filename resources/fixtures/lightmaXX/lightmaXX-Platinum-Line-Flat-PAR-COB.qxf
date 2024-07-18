@@ -15,7 +15,7 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Macro">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="0">Off</Capability>
+  <Capability Min="0" Max="5">Off</Capability>
   <Capability Min="6" Max="10">Dimmer</Capability>
   <Capability Min="11" Max="255">Strobe</Capability>
  </Channel>

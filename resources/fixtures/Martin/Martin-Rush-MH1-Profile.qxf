@@ -39,7 +39,7 @@
   <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#ffa000">Orange</Capability>
   <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
-  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#0000ff">Dark Blue</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#00008b">Dark Blue</Capability>
   <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="64" Max="127">Indexing</Capability>
   <Capability Min="128" Max="189" Preset="GoboMacro" Res1="Others/rainbow.png">Scroll CW</Capability>
@@ -139,13 +139,13 @@
   <Capability Min="140" Max="149" Preset="ResetPanTilt">Pan/tilt reset</Capability>
   <Capability Min="150" Max="159" Preset="ResetColor">Color reset</Capability>
   <Capability Min="160" Max="169" Preset="ResetGobo">Gobo reset</Capability>
-  <Capability Min="170" Max="179">No Function</Capability>
+  <Capability Min="170" Max="179">No function</Capability>
   <Capability Min="180" Max="189" Preset="ResetEffects">Focus reset</Capability>
-  <Capability Min="190" Max="199">No Function</Capability>
+  <Capability Min="190" Max="199">No function</Capability>
   <Capability Min="200" Max="209" Preset="ResetAll">Reset All</Capability>
   <Capability Min="210" Max="219">Blackout during pan/tilt or color/gobo change</Capability>
   <Capability Min="220" Max="229">Blackout during pan/tilt or color/gobo change</Capability>
-  <Capability Min="230" Max="255">No Function</Capability>
+  <Capability Min="230" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="Standard 16bit">

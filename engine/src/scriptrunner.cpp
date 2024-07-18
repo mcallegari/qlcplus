@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QQmlEngine>
 #include <QJSEngine>
 #include <QJSValue>
 #include <QRandomGenerator>
@@ -61,14 +62,13 @@ void ScriptRunner::stop()
     if (m_running == false)
         return;
 
-    m_running = false;
-/*
     if (m_engine)
     {
-        delete m_engine;
+        m_engine->setInterrupted(true);
+        m_engine->deleteLater();
         m_engine = NULL;
     }
-*/
+
     // Stop all functions started by this script
     foreach (quint32 fID, m_startedFunctions)
     {
@@ -87,6 +87,8 @@ void ScriptRunner::stop()
             fader->requestDelete();
     }
     m_fadersMap.clear();
+
+    m_running = false;
 }
 
 QStringList ScriptRunner::collectScriptData()
@@ -95,6 +97,7 @@ QStringList ScriptRunner::collectScriptData()
     QJSEngine *engine = new QJSEngine();
     QJSValue objectValue = engine->newQObject(this);
     engine->globalObject().setProperty("Engine", objectValue);
+    QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
 
     QJSValue script = engine->evaluate("(function run() { " + m_content + " })");
     if (script.isError())
@@ -210,6 +213,7 @@ void ScriptRunner::run()
     m_engine = new QJSEngine();
     QJSValue objectValue = m_engine->newQObject(this);
     m_engine->globalObject().setProperty("Engine", objectValue);
+    QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
 
     QJSValue script = m_engine->evaluate("(function run() { " + m_content + " })");
 
@@ -228,16 +232,12 @@ void ScriptRunner::run()
                              .arg(ret.toString());
         }
     }
-/*
-    if (m_engine)
-    {
-        delete m_engine;
-        m_engine = NULL;
-    }
-*/
-    qDebug() << "ScriptRunner thread over.";
-    // this thread is done. The calling Script can stop
-    m_running = false;
+
+    qDebug() << "[ScriptRunner] Code executed";
+
+    // this thread is done. Wait for the calling Script to stop
+    while (m_running)
+        msleep(50);
 }
 
 /************************************************************************
@@ -454,8 +454,11 @@ bool ScriptRunner::systemCommand(QString command)
     }
 
 #if !defined(Q_OS_IOS)
+    qint64 pid;
     QProcess *newProcess = new QProcess();
-    newProcess->start(programName, programArgs);
+    newProcess->setProgram(programName);
+    newProcess->setArguments(programArgs);
+    newProcess->startDetached(&pid);
 #endif
 
     return true;
@@ -510,6 +513,18 @@ bool ScriptRunner::setBlackout(bool enable)
 
     m_doc->inputOutputMap()->requestBlackout(enable ? InputOutputMap::BlackoutRequestOn :
                                                       InputOutputMap::BlackoutRequestOff);
+
+    return true;
+}
+
+bool ScriptRunner::setBPM(int bpm)
+{
+    if (m_running == false)
+        return false;
+
+    qDebug() << Q_FUNC_INFO;
+
+    m_doc->inputOutputMap()->setBpmNumber(bpm);
 
     return true;
 }

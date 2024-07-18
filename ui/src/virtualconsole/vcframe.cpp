@@ -42,7 +42,6 @@
 #include "virtualconsole.h"
 #include "vcsoloframe.h"
 #include "vcspeeddial.h"
-#include "inputpatch.h"
 #include "vccuelist.h"
 #include "vcbutton.h"
 #include "vcslider.h"
@@ -117,9 +116,15 @@ void VCFrame::setDisableState(bool disable)
     }
 
     foreach (VCWidget* widget, this->findChildren<VCWidget*>())
+    {
         widget->setDisableState(disable);
+        if (!disable)
+            widget->adjustIntensity(intensity());
+    }
 
     m_disableState = disable;
+
+    emit disableStateChanged(disable);
     updateFeedback();
 }
 
@@ -143,7 +148,7 @@ void VCFrame::setCaption(const QString& text)
 {
     if (m_label != NULL)
     {
-        if(!shortcuts().isEmpty() && m_currentPage < shortcuts().length())
+        if (!shortcuts().isEmpty() && m_currentPage < shortcuts().length())
         {
             // Show caption, if there is no page name
             if (m_pageShortcuts.at(m_currentPage)->name() == "")
@@ -411,7 +416,7 @@ void VCFrame::setMultipageMode(bool enable)
         connect (m_pageCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSetPage(int)));
         connect (m_nextPageBtn, SIGNAL(clicked()), this, SLOT(slotNextPage()));
 
-        if(this->isCollapsed() == false)
+        if (this->isCollapsed() == false)
         {
             m_prevPageBtn->show();
             m_nextPageBtn->show();
@@ -522,7 +527,7 @@ void VCFrame::addShortcut()
 void VCFrame::setShortcuts(QList<VCFramePageShortcut *> shortcuts)
 {
     resetShortcuts();
-    foreach(VCFramePageShortcut const* shortcut, shortcuts)
+    foreach (VCFramePageShortcut const* shortcut, shortcuts)
     {
         m_pageShortcuts.append(new VCFramePageShortcut(*shortcut));
         if (shortcut->m_inputSource != NULL)
@@ -647,7 +652,7 @@ void VCFrame::slotSubmasterValueChanged(qreal value)
     while (it.hasNext() == true)
     {
         VCWidget *child = it.next();
-        if (child->parent() == this && child->page() == this->currentPage() && child != submaster)
+        if (child->parent() == this && child != submaster)
             child->adjustIntensity(value);
     }
 }
@@ -669,14 +674,18 @@ void VCFrame::updateSubmasterValue()
 
 void VCFrame::adjustIntensity(qreal val)
 {
+    VCWidget::adjustIntensity(val);
+
+    if (isDisabled())
+        return;
+
     QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
         VCWidget *child = it.next();
-        if (child->parent() == this && child->page() == this->currentPage())
+        if (child->parent() == this)
             child->adjustIntensity(val);
     }
-    VCWidget::adjustIntensity(val);
 }
 
 /*****************************************************************************
@@ -741,14 +750,14 @@ void VCFrame::updateFeedback()
     {
         if (m_disableState == false)
         {
-            sendFeedback(src->upperValue(), enableInputSourceId);
+            sendFeedback(src->feedbackValue(QLCInputFeedback::UpperValue), enableInputSourceId);
         }
         else
         {
             // temporarily revert the disabled state otherwise this
             // feedback will never go through (cause of acceptsInput)
             m_disableState = false;
-            sendFeedback(src->lowerValue(), enableInputSourceId);
+            sendFeedback(src->feedbackValue(QLCInputFeedback::LowerValue), enableInputSourceId);
             m_disableState = true;
         }
     }
@@ -759,9 +768,9 @@ void VCFrame::updateFeedback()
         if (!src.isNull() && src->isValid() == true)
         {
             if (m_currentPage == shortcut->m_page)
-                sendFeedback(src->upperValue(), src);
+                sendFeedback(src->feedbackValue(QLCInputFeedback::UpperValue), src);
             else
-                sendFeedback(src->lowerValue(), src);
+                sendFeedback(src->feedbackValue(QLCInputFeedback::LowerValue), src);
         }
     }
 
@@ -1078,7 +1087,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             if (attrs.hasAttribute(KXMLQLCVCFramePagesNumber))
                 setTotalPagesNumber(attrs.value(KXMLQLCVCFramePagesNumber).toString().toInt());
 
-            if(attrs.hasAttribute(KXMLQLCVCFrameCurrentPage))
+            if (attrs.hasAttribute(KXMLQLCVCFrameCurrentPage))
                 slotSetPage(attrs.value(KXMLQLCVCFrameCurrentPage).toString().toInt());
             root.skipCurrentElement();
         }

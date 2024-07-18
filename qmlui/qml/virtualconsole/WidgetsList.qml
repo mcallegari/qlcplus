@@ -105,7 +105,7 @@ Rectangle
                             width: parent.width - 6
                             height: 1
                             y: parent.height - 1
-                            color: "#555"
+                            color: UISettings.bgLight
                             visible: widgetItem.reduced ? false : true
                         }
                     } // WidgetDragItem

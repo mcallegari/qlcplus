@@ -15,16 +15,16 @@
  <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Pan Continuous Rotation">
   <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="127">No Function</Capability>
+  <Capability Min="0" Max="127">No function</Capability>
   <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Clockwise Rotation Fast-&gt;Slow</Capability>
-  <Capability Min="190" Max="193" Preset="RotationStop">No Function</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">No function</Capability>
   <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter-Clockwise Rotation Slow-&gt;Fast</Capability>
  </Channel>
  <Channel Name="Tilt Continuous Rotation">
   <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="127">No Function</Capability>
+  <Capability Min="0" Max="127">No function</Capability>
   <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Clockwise Rotation Fast-&gt;Slow</Capability>
-  <Capability Min="190" Max="193" Preset="RotationStop">No Function</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">No function</Capability>
   <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter-Clockwise Rotation Slow-&gt;Fast</Capability>
  </Channel>
  <Channel Name="Red 01" Preset="IntensityRed"/>
@@ -195,13 +195,13 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="225">Fast-&gt;Slow</Capability>
   <Capability Min="226" Max="235">Blackout By Movement</Capability>
-  <Capability Min="236" Max="255">No Function</Capability>
+  <Capability Min="236" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Auto Programs 2">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="79">Normal</Capability>
   <Capability Min="80" Max="84">All Motor Reset</Capability>
-  <Capability Min="85" Max="99">No Function</Capability>
+  <Capability Min="85" Max="99">No function</Capability>
   <Capability Min="100" Max="119">Internal Program 1</Capability>
   <Capability Min="120" Max="139">Internal Program 2</Capability>
   <Capability Min="140" Max="159">Internal Program 3</Capability>
@@ -209,7 +209,7 @@
   <Capability Min="180" Max="199">Internal Program 5</Capability>
   <Capability Min="200" Max="219">Internal Program 6</Capability>
   <Capability Min="220" Max="239">Internal Program 7</Capability>
-  <Capability Min="240" Max="255">No Function</Capability>
+  <Capability Min="240" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>

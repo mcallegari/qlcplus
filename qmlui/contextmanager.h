@@ -56,7 +56,7 @@ class ContextManager : public QObject
 public:
     explicit ContextManager(QQuickView *view, Doc *doc,
                             FixtureManager *fxMgr, FunctionManager *funcMgr,
-                            SimpleDesk *sDesk, QObject *parent = 0);
+                            QObject *parent = 0);
     ~ContextManager();
 
     /** Register/Unregister a context to the map of known contexts */
@@ -78,6 +78,9 @@ public:
 
     /** Return the currently active context */
     QString currentContext() const;
+
+    MainView2D *get2DView();
+    MainView3D *get3DView();
 
     /** Get/Set the environment width/height/depth size */
     QVector3D environmentSize() const;
@@ -130,8 +133,6 @@ private:
     FixtureManager *m_fixtureManager;
     /** Reference to the Function Manager */
     FunctionManager *m_functionManager;
-    /** Reference to the Simple Desk context */
-    SimpleDesk *m_simpleDesk;
 
     QMap <QString, PreviewContext *> m_contextsMap;
 
@@ -178,7 +179,13 @@ public:
     /** Select the fixtures that intersects the provided rectangle coordinates in a 2D environment */
     Q_INVOKABLE void setRectangleSelection(qreal x, qreal y, qreal width, qreal height, int keyModifiers);
 
-    /** Returns if at least one fixture is currently selected */
+    /** Returns a list of the selected fixture addresses */
+    Q_INVOKABLE QVariantList selectedFixtureAddress();
+
+    /** Returns a list of the selected Fixture IDs as QVariant */
+    Q_INVOKABLE QVariantList selectedFixtureIDVariantList();
+
+    /** Returns the number of currently selected fixtures */
     int selectedFixturesCount();
 
     /** Returns if the fixture with $fxID is currently selected */
@@ -208,20 +215,38 @@ public:
 
     Q_INVOKABLE void updateFixturesCapabilities();
 
+    /** Get the DMX/degrees value of the current fixture selection
+     *  for the requested channel type.
+     *  Returns -1 in case of mixed values */
+    Q_INVOKABLE qreal getCurrentValue(int type, bool degrees);
+
+    /** Get the RGB color of the current fixture selection */
+    Q_INVOKABLE void getCurrentColors(QQuickItem *item);
+
     Q_INVOKABLE void createFixtureGroup();
 
     /** Set/Get the rotation of the currently selected fixtures */
     QVector3D fixturesRotation() const;
     void setFixturesRotation(QVector3D degrees);
+    void setFixtureRotation(quint32 itemID, QVector3D degrees);
 
     /** Select/Deselect all the fixtures of the Group/Universe with the provided $id */
     Q_INVOKABLE void setFixtureGroupSelection(quint32 id, bool enable, bool isUniverse);
 
+    Q_INVOKABLE void setChannelValueByType(int type, int value, bool isRelative = false, quint32 channel = UINT_MAX);
+
+    Q_INVOKABLE void setColorValue(QColor col, QColor wauv);
+
     /** Set a Pan/Tilt position in degrees */
-    Q_INVOKABLE void setPositionValue(int type, int degrees);
+    Q_INVOKABLE void setPositionValue(int type, int degrees, bool isRelative);
+
+    /** Set Pan/Tilt values at half position */
+    Q_INVOKABLE void setPositionCenter();
 
     /** Set a zoom channel in degrees */
-    Q_INVOKABLE void setBeamDegrees(float degrees);
+    Q_INVOKABLE void setBeamDegrees(float degrees, bool isRelative);
+
+    Q_INVOKABLE void highlightFixtureSelection();
 
     void setChannelValues(QList<SceneValue> values);
 
@@ -231,9 +256,6 @@ protected slots:
     void slotFixtureFlagsChanged(quint32 itemID, quint32 flags);
 
     void slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value);
-    void slotChannelTypeValueChanged(int type, quint8 value, quint32 channel = UINT_MAX);
-    void slotColorChanged(QColor col, QColor wauv);
-
     void slotPresetChanged(const QLCChannel *channel, quint8 value);
 
     void slotSimpleDeskValueChanged(quint32 fxID, quint32 channel, quint8 value);
@@ -268,23 +290,6 @@ private:
      * DMX channels dump
      *********************************************************************/
 public:
-    enum ChannelType
-    {
-        DimmerType      = (1 << QLCChannel::Intensity),
-        ColorMacroType  = (1 << QLCChannel::Colour), // Color wheels, color macros
-        GoboType        = (1 << QLCChannel::Gobo),
-        SpeedType       = (1 << QLCChannel::Speed),
-        PanType         = (1 << QLCChannel::Pan),
-        TiltType        = (1 << QLCChannel::Tilt),
-        ShutterType     = (1 << QLCChannel::Shutter),
-        PrismType       = (1 << QLCChannel::Prism),
-        BeamType        = (1 << QLCChannel::Beam),
-        EffectType      = (1 << QLCChannel::Effect),
-        MaintenanceType = (1 << QLCChannel::Maintenance),
-        ColorType       = (1 << (QLCChannel::Maintenance + 1)) // RGB/CMY/WAUV
-    };
-    Q_ENUM(ChannelType)
-
     /** Store a channel value for Scene dumping */
     Q_INVOKABLE void setDumpValue(quint32 fxID, quint32 channel, uchar value, bool output = true);
 

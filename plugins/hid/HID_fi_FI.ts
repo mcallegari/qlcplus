@@ -19,7 +19,12 @@
         <translation type="unfinished">Nimi</translation>
     </message>
     <message>
-        <location filename="configurehid.ui" line="65"/>
+        <location filename="configurehid.ui" line="62"/>
+        <source>Merger Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configurehid.ui" line="70"/>
         <source>Refresh</source>
         <translation type="unfinished">Päivitä</translation>
     </message>

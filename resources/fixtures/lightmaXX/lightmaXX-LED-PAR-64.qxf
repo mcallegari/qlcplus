@@ -16,7 +16,7 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="189">Dimmer</Capability>
   <Capability Min="190" Max="250" Preset="StrobeSlowToFast">Strobe</Capability>
-  <Capability Min="251" Max="255" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">No function</Capability>
  </Channel>
  <Mode Name="Default">
   <Channel Number="0">Red</Channel>

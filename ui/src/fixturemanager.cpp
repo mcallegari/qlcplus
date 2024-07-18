@@ -39,7 +39,6 @@
 
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
-#include "qlccapability.h"
 #include "qlcchannel.h"
 #include "qlcfile.h"
 
@@ -50,12 +49,8 @@
 #include "addchannelsgroup.h"
 #include "fixturemanager.h"
 #include "fixtureremap.h"
-#include "mastertimer.h"
-#include "outputpatch.h"
-#include "qlcioplugin.h"
 #include "addrgbpanel.h"
 #include "addfixture.h"
-#include "collection.h"
 #include "rdmmanager.h"
 #include "universe.h"
 #include "fixture.h"
@@ -592,7 +587,7 @@ void FixtureManager::slotSelectionChanged()
             if (uniID.isValid() == true)
                 uniName = m_doc->inputOutputMap()->getUniverseNameByID(uniID.toUInt());
 
-            foreach(Fixture *fixture, m_doc->fixtures())
+            foreach (Fixture *fixture, m_doc->fixtures())
             {
                 if (fixture == NULL || fixture->universe() != uniID.toUInt() || fixture->fixtureMode() == NULL)
                     continue;
@@ -634,7 +629,7 @@ void FixtureManager::slotSelectionChanged()
                           "<P>Click <IMG SRC=\"" ":/edit_remove.png\">" \
                           " to remove the selected fixtures.</P>");
 
-                foreach(QTreeWidgetItem *item, m_fixtures_tree->selectedItems())
+                foreach (QTreeWidgetItem *item, m_fixtures_tree->selectedItems())
                 {
                     QVariant fxID = item->data(KColumnName, PROP_ID);
                     if (fxID.isValid() == false)
@@ -915,13 +910,13 @@ void FixtureManager::initActions()
     m_newGroupAction = new QAction(tr("New Group..."), this);
 
     m_moveUpAction = new QAction(QIcon(":/up.png"),
-                                 tr("Move group up..."), this);
+                                 tr("Move channel group up..."), this);
     m_moveUpAction->setEnabled(false);
     connect(m_moveUpAction, SIGNAL(triggered(bool)),
             this, SLOT(slotMoveGroupUp()));
 
     m_moveDownAction = new QAction(QIcon(":/down.png"),
-                                 tr("Move group down..."), this);
+                                 tr("Move channel group down..."), this);
     m_moveDownAction->setEnabled(false);
     connect(m_moveDownAction, SIGNAL(triggered(bool)),
             this, SLOT(slotMoveGroupDown()));

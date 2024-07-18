@@ -137,10 +137,10 @@ void EFXFixture_Test::initial()
     QVERIFY(ef.direction() == EFX::Forward);
     QVERIFY(ef.serialNumber() == 0);
     QVERIFY(ef.isValid() == false);
-    QVERIFY(ef.isReady() == false);
+    QVERIFY(ef.isDone() == false);
 
     QVERIFY(ef.m_runTimeDirection == EFX::Forward);
-    QVERIFY(ef.m_ready == false);
+    QVERIFY(ef.m_done == false);
     QVERIFY(ef.m_elapsed == 0);
 }
 
@@ -154,7 +154,7 @@ void EFXFixture_Test::copyFrom()
     ef.m_direction = EFX::Backward;
     ef.m_serialNumber = 25;
     ef.m_runTimeDirection = EFX::Backward;
-    ef.m_ready = true;
+    ef.m_done = true;
     ef.m_elapsed = 31337;
 
     EFXFixture copy(&e);
@@ -164,7 +164,7 @@ void EFXFixture_Test::copyFrom()
     QVERIFY(copy.m_direction == EFX::Backward);
     QVERIFY(copy.m_serialNumber == 25);
     QVERIFY(copy.m_runTimeDirection == EFX::Backward);
-    QVERIFY(copy.m_ready == true);
+    QVERIFY(copy.m_done == true);
     QVERIFY(copy.m_elapsed == 31337);
 }
 
@@ -367,7 +367,7 @@ void EFXFixture_Test::reset()
     ef1->setHead(GroupHead(1,0));
     ef1->setSerialNumber(0);
     ef1->m_runTimeDirection = EFX::Forward;
-    ef1->m_ready = true;
+    ef1->m_done = true;
     ef1->m_elapsed = 1337;
     e.addFixture(ef1);
 
@@ -375,7 +375,7 @@ void EFXFixture_Test::reset()
     ef2->setHead(GroupHead(2,0));
     ef2->setSerialNumber(1);
     ef2->m_runTimeDirection = EFX::Forward;
-    ef2->m_ready = true;
+    ef2->m_done = true;
     ef2->m_elapsed = 13;
     e.addFixture(ef2);
 
@@ -384,7 +384,7 @@ void EFXFixture_Test::reset()
     ef3->setSerialNumber(2);
     ef3->setDirection(EFX::Forward);
     ef3->m_runTimeDirection = EFX::Backward;
-    ef3->m_ready = true;
+    ef3->m_done = true;
     ef3->m_elapsed = 69;
     e.addFixture(ef3);
 
@@ -393,7 +393,7 @@ void EFXFixture_Test::reset()
     ef4->setSerialNumber(3);
     ef4->setDirection(EFX::Forward);
     ef4->m_runTimeDirection = EFX::Backward;
-    ef4->m_ready = true;
+    ef4->m_done = true;
     ef4->m_elapsed = 42;
     e.addFixture(ef4);
 
@@ -402,7 +402,7 @@ void EFXFixture_Test::reset()
     QVERIFY(ef1->m_direction == EFX::Forward);
     QVERIFY(ef1->m_serialNumber == 0);
     QVERIFY(ef1->m_runTimeDirection == EFX::Forward);
-    QVERIFY(ef1->m_ready == false);
+    QVERIFY(ef1->m_done == false);
     QVERIFY(ef1->m_elapsed == 0);
 
     ef2->reset();
@@ -410,7 +410,7 @@ void EFXFixture_Test::reset()
     QVERIFY(ef2->m_direction == EFX::Forward);
     QVERIFY(ef2->m_serialNumber == 1);
     QVERIFY(ef2->m_runTimeDirection == EFX::Forward);
-    QVERIFY(ef2->m_ready == false);
+    QVERIFY(ef2->m_done == false);
     QVERIFY(ef2->m_elapsed == 0);
 
     ef3->reset();
@@ -418,7 +418,7 @@ void EFXFixture_Test::reset()
     QVERIFY(ef3->m_direction == EFX::Forward);
     QVERIFY(ef3->m_serialNumber == 2);
     QVERIFY(ef3->m_runTimeDirection == EFX::Forward);
-    QVERIFY(ef3->m_ready == false);
+    QVERIFY(ef3->m_done == false);
     QVERIFY(ef3->m_elapsed == 0);
 
     ef4->reset();
@@ -426,7 +426,7 @@ void EFXFixture_Test::reset()
     QVERIFY(ef4->m_direction == EFX::Forward);
     QVERIFY(ef4->m_serialNumber == 3);
     QVERIFY(ef4->m_runTimeDirection == EFX::Forward);
-    QVERIFY(ef4->m_ready == false);
+    QVERIFY(ef4->m_done == false);
     QVERIFY(ef4->m_elapsed == 0);
 }
 
@@ -437,7 +437,7 @@ void EFXFixture_Test::startOffset()
     ef.setHead(GroupHead(0,0));
 
     QCOMPARE(0, ef.startOffset());
-    for(int i = 0; i < 360; i += 90)
+    for (int i = 0; i < 360; i += 90)
     {
         ef.setStartOffset(i);
         QCOMPARE(i, ef.startOffset());
@@ -454,6 +454,7 @@ void EFXFixture_Test::setPoint8bit()
     Universe *universe = ua[0];
     QSharedPointer<GenericFader> fader = universe->requestFader();
 
+    ef.start(fader);
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE(fader->channels().count(), 2);
     universe->processFaders();
@@ -474,6 +475,7 @@ void EFXFixture_Test::setPoint16bit()
     Universe *universe = ua[0];
     QSharedPointer<GenericFader> fader = universe->requestFader();
 
+    ef.start(fader);
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE(fader->channels().count(), 4);
     universe->processFaders();
@@ -493,6 +495,7 @@ void EFXFixture_Test::setPointPanOnly()
     Universe *universe = ua[0];
     QSharedPointer<GenericFader> fader = universe->requestFader();
 
+    ef.start(fader);
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE(fader->channels().count(), 1);
     universe->processFaders();
@@ -512,6 +515,7 @@ void EFXFixture_Test::setPointLedBar()
     Universe *universe = ua[0];
     QSharedPointer<GenericFader> fader = universe->requestFader();
 
+    ef.start(fader);
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE(fader->channels().count(), 1);
     universe->processFaders();
@@ -540,20 +544,20 @@ void EFXFixture_Test::nextStepLoop()
     /* Initialize the EFXFixture so that it can do the math */
     ef->setSerialNumber(0);
     QVERIFY(ef->isValid() == true);
-    QVERIFY(ef->isReady() == false);
+    QVERIFY(ef->isDone() == false);
     QVERIFY(ef->m_elapsed == 0);
 
     e.preRun(&mts);
 
     /* Run two cycles (2 * tickms * freq) to see that Loop never quits */
-    uint max = MasterTimer::tick() * MasterTimer::frequency();
+    uint max = (MasterTimer::tick() * MasterTimer::frequency()) + MasterTimer::tick();
     uint i = MasterTimer::tick();
     for (uint times = 0; times < 2; times++)
     {
         for (; i < max; i += MasterTimer::tick())
         {
             ef->nextStep(ua, fader);
-            QVERIFY(ef->isReady() == false); // Loop is never ready
+            QVERIFY(ef->isDone() == false); // Loop is never ready
             QCOMPARE(ef->m_elapsed, i);
         }
 
@@ -580,21 +584,21 @@ void EFXFixture_Test::nextStepLoopZeroDuration()
     /* Initialize the EFXFixture so that it can do math */
     ef->setSerialNumber(0);
     QVERIFY(ef->isValid() == true);
-    QVERIFY(ef->isReady() == false);
+    QVERIFY(ef->isDone() == false);
     QVERIFY(ef->m_elapsed == 0);
 
     e.preRun(&mts);
 
     /* Run two cycles (2 * tickms * freq) to see that Loop never quits */
-    uint max = MasterTimer::tick() * MasterTimer::frequency();
+    uint max = (MasterTimer::tick() * MasterTimer::frequency()) + MasterTimer::tick();
     uint i = MasterTimer::tick();
     for (uint times = 0; times < 2; times++)
     {
         for (; i < max; i += MasterTimer::tick())
         {
             ef->nextStep(ua, fader);
-            QVERIFY(ef->isReady() == false); // Loop is never ready
-            QCOMPARE(ef->m_elapsed, i);
+            QVERIFY(ef->isDone() == false); // Loop is never ready
+            QVERIFY(ef->m_elapsed == 0); // elapsed is never increased
         }
 
         // m_elapsed is NOT zeroed since there are no "rounds" when duration == 0
@@ -621,7 +625,7 @@ void EFXFixture_Test::nextStepSingleShot()
     /* Initialize the EFXFixture so that it can do math */
     ef->setSerialNumber(0);
     QVERIFY(ef->isValid() == true);
-    QVERIFY(ef->isReady() == false);
+    QVERIFY(ef->isDone() == false);
     QVERIFY(ef->m_elapsed == 0);
 
     e.preRun(&mts);
@@ -629,18 +633,18 @@ void EFXFixture_Test::nextStepSingleShot()
     ef->reset();
 
     /* Run one cycle (50 steps) */
-    uint max = MasterTimer::tick() * MasterTimer::frequency();
+    uint max = (MasterTimer::tick() * MasterTimer::frequency()) + MasterTimer::tick();
     for (uint i = MasterTimer::tick(); i < max; i += MasterTimer::tick())
     {
         ef->nextStep(ua, fader);
-        QVERIFY(ef->isReady() == false);
+        QVERIFY(ef->isDone() == false);
         QCOMPARE(ef->m_elapsed, i);
     }
 
     ef->nextStep(ua, fader);
 
     /* Single-shot EFX should now be ready */
-    QVERIFY(ef->isReady() == true);
+    QVERIFY(ef->isDone() == true);
 
     e.postRun(&mts, ua);
 }

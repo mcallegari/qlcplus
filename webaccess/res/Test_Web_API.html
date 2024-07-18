@@ -122,6 +122,22 @@ function vcFrameControl(frIDObjName, frOperation)
   }
 }
 
+function vcAnimationWidgetControl(animIDObjName, controlIDObjName)
+{
+  var animObj = document.getElementById(animIDObjName);
+  var controlIDObj = document.getElementById(controlIDObjName);
+
+  if (animObj && controlIDObj)
+  {
+    if (isConnected === true)
+    {
+        websocket.send(animObj.value + "|MATRIX_PUSHBUTTON|" + controlIDObj.value);
+    }
+    else
+      alert("You must connect to QLC+ WebSocket first!");
+  }
+}
+
 function connectToWebSocket(host) {
   var url = 'ws://' + host + '/qlcplusWS';
   websocket = new WebSocket(url);
@@ -183,10 +199,10 @@ function connectToWebSocket(host) {
       {
         document.getElementById('getWidgetsNumberBox').innerHTML = msgParams[2];
       }
-      // Arguments is an array formatted as follows:
-      // Widget ID|Widget name|Widget ID|Widget name|...
       else if (msgParams[1] === "getWidgetsList")
       {
+        // Arguments is an array formatted as follows:
+        // Widget ID|Widget name|Widget ID|Widget name|...
         var tableCode = "<table class='apiTable'><tr><th>ID</th><th>Name</th></tr>";
         for (i = 2; i < msgParams.length; i+=2)
         {
@@ -205,6 +221,18 @@ function connectToWebSocket(host) {
         if (msgParams[2] === "PLAY")
             status = msgParams[2] + "(Step: " + msgParams[3] + ")";
         document.getElementById('getWidgetStatusBox').innerHTML = status;
+      }
+      else if (msgParams[1] === "getWidgetSubIdList")
+      {
+        // Arguments is an array formatted as follows:
+        // Widget ID|Preset ID|Preset Type|Preset ID|Preset Type|...
+        var tableCode = "<table class='apiTable'><tr><th>ID</th><th>Type</th></tr>";
+        for (i = 2; i < msgParams.length; i+=2)
+        {
+            tableCode = tableCode + "<tr><td>" + msgParams[i] + "</td><td>" + msgParams[i + 1] + "</td></tr>";
+        }
+        tableCode += "</table>";
+        document.getElementById('getWidgetSubIdBox').innerHTML = tableCode;
       }
       else if (msgParams[1] === "getChannelsValues")
       {
@@ -256,20 +284,28 @@ iframe {
 }
 
 .apiTable th {
-  font-size: 18px;
+  font-size: 20px;
   color: white;
-  border: solid 1px white;
+  background-color: #3da1ff;
+  border: solid 1px grey;
+  padding: 10px 0 10px 0 !important;
 }
 
 .apiTable tr {
   font-size: 14px;
-  border: solid 1px white;
+  border: solid 1px grey;
 }
 
 .apiTable td {
-  border: solid 1px white;
-  padding: 2px 5px 2px 5px;
+  border: solid 1px grey;
+  padding: 5px 5px 5px 5px;
   margin: 0 5px 0 5px;
+}
+
+.apiHeader {
+  font-size: 18px;
+  background-color: #3bc247;
+  padding: 10px 0 10px 0 !important;
 }
 
 .apiButton {
@@ -335,9 +371,10 @@ Load a project:
 <!-- ############## Channels API tests ####################### -->
 
  <tr>
-  <td colspan="3" align="center"><b>Channels APIs</b></td>
+  <td colspan="3" align="center" class="apiHeader"><b>Channels APIs</b></td>
  </tr>
-  <tr>
+
+ <tr>
   <td>
     <div class="apiButton" onclick="javascript:requestChannelsRange('getChannelsValues', 'chUniIdx', 'chDMXaddr', 'chRange');">getChannelsValues</div><br>
     Universe index: <input id="chUniIdx" type="text" value="1" size="6"><br>
@@ -352,18 +389,21 @@ Load a project:
 <!-- ############## Functions API tests ####################### -->
 
  <tr>
-  <td colspan="3" align="center"><b>Function APIs</b></td>
+  <td colspan="3" align="center" class="apiHeader"><b>Function APIs</b></td>
  </tr>
+
  <tr>
   <td><div class="apiButton" onclick="javascript:requestAPI('getFunctionsNumber');">getFunctionsNumber</div></td>
   <td>Retrieve the number of functions loaded</td>
   <td><div id="getFunctionsNumberBox" class="resultBox"></div></td>
  </tr>
+
  <tr>
   <td><div class="apiButton" onclick="javascript:requestAPI('getFunctionsList');">getFunctionsList</div></td>
   <td>Retrieve the list of functions with their ID and name</td>
   <td><div id="getFunctionsListBox" style="height: 150px; overflow-y: scroll;"></div></td>
  </tr>
+
  <tr>
   <td>
     <div class="apiButton" onclick="javascript:requestAPIWithParam('getFunctionType', 'fTypeID');">getFunctionType</div><br>
@@ -372,6 +412,7 @@ Load a project:
   <td>Retrieve the type of a function with the given ID</td>
   <td><div id="getFunctionTypeBox" class="resultBox"></div></td>
  </tr>
+
  <tr>
   <td>
     <div class="apiButton" onclick="javascript:requestAPIWithParam('getFunctionStatus', 'gfFuncID');">getFunctionStatus</div><br>
@@ -380,6 +421,7 @@ Load a project:
   <td>Retrieve the running status of a function with the given ID. Possible values are "Running", "Stopped" and "Undefined"</td>
   <td><div id="getFunctionStatusBox" class="resultBox"></div></td>
  </tr>
+
  <tr>
   <td>
     <div class="apiButton" onclick="javascript:requestAPIWith2Params('setFunctionStatus', 'sfFuncID', 'sfStatus');">setFunctionStatus</div><br>
@@ -393,8 +435,9 @@ Load a project:
 <!-- ############## Widgets API tests ####################### -->
 
  <tr>
-  <td colspan="3" align="center"><b>Virtual Console Widget APIs</b></td>
+  <td colspan="3" align="center" class="apiHeader"><b>Virtual Console Widget APIs</b></td>
  </tr>
+
  <tr>
   <td><div class="apiButton" onclick="javascript:requestAPI('getWidgetsNumber');">getWidgetsNumber</div></td>
   <td>Retrieve the number of widgets loaded</td>
@@ -405,6 +448,7 @@ Load a project:
   <td>Retrieve the list of Virtual Console Widgets with their ID and name</td>
   <td><div id="getWidgetsListBox" style="height: 150px; overflow-y: scroll;"></div></td>
  </tr>
+
  <tr>
   <td>
     <div class="apiButton" onclick="javascript:requestAPIWithParam('getWidgetType', 'wTypeID');">getWidgetType</div><br>
@@ -413,6 +457,7 @@ Load a project:
   <td>Retrieve the type of a Virtual Console Widget with the given ID</td>
   <td><div id="getWidgetTypeBox" class="resultBox"></div></td>
  </tr>
+
  <tr>
   <td>
     <div class="apiButton" onclick="javascript:requestAPIWithParam('getWidgetStatus', 'wStatusID');">getWidgetStatus</div><br>
@@ -422,10 +467,33 @@ Load a project:
   <td><div id="getWidgetStatusBox" class="resultBox"></div></td>
  </tr>
 
+ <tr>
+  <td>
+    <div class="apiButton" onclick="javascript:requestAPIWithParam('getWidgetSubIdList', 'wSubListID');">getWidgetSubIdList</div><br>
+    Widget ID: <input id="wSubListID" type="text" value="0" size="6">
+  </td>
+  <td>Retrieve information about sub-widgets (aka presets) of a Virtual Console Widget with the given ID</td>
+  <td><div id="getWidgetSubIdBox" style="height: 150px; overflow-y: scroll;"></div></td>
+ </tr>
+
+ <tr>
+  <td>
+   <div class="apiButton" onclick="javascript:vcAnimationWidgetControl('animWidgetID', 'animControlID');">Animation widget control</div><br>
+   Animation widget ID: <input id="animWidgetID" type="text" value="0" size="6"><br>
+   Control ID: <input id="animControlID" type="text" value="0" size="6">
+  </td>
+  <td colspan="2">
+    This API demonstrates how to control Virtual Console Animation widget.
+    The parameters to be used are:<br>
+    <b>Animation widget ID</b>: The Animation widget ID as retrieved with the 'getWidgetsList' API<br>
+    <b>Control ID</b>: The Animation control ID of preset buttons.
+  </td>
+ </tr>
+
 <!-- ############## High rate API tests ####################### -->
 
  <tr>
-  <td colspan="3" align="center"><b>High rate APIs</b></td>
+  <td colspan="3" align="center" class="apiHeader"><b>High rate APIs</b></td>
  </tr>
  <tr>
   <td colspan="3">Due to the nature of some type of transmissions (for example a slider changing rapidly),

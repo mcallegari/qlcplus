@@ -57,15 +57,27 @@
  <Channel Name="Colours">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="1" Max="10" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#008000">White/Dark green</Capability>
   <Capability Min="11" Max="11" Preset="ColorMacro" Res1="#008000">Dark Green</Capability>
+  <Capability Min="12" Max="22" Preset="ColorDoubleMacro" Res1="#008000" Res2="#ff0000">Dark Green/Red</Capability>
   <Capability Min="23" Max="23" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="24" Max="34" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ffff">Red/Cyan</Capability>
   <Capability Min="35" Max="35" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="36" Max="45" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ff00ff">Cyan/Magenta</Capability>
   <Capability Min="46" Max="46" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
-  <Capability Min="58" Max="70" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="47" Max="57" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#0000ff">Magenta/Blue</Capability>
+  <Capability Min="58" Max="58" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="59" Max="69" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Blue/Yellow</Capability>
+  <Capability Min="70" Max="70" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="71" Max="80" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Yellow/Green</Capability>
   <Capability Min="81" Max="81" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="82" Max="92" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffc0ff">Green/Pink</Capability>
   <Capability Min="93" Max="93" Preset="ColorMacro" Res1="#ffc0ff">Pink</Capability>
+  <Capability Min="94" Max="104" Preset="ColorDoubleMacro" Res1="#ffc0ff" Res2="#0000c0">Pink/Dark Blue</Capability>
   <Capability Min="105" Max="105" Preset="ColorMacro" Res1="#0000c0">Dark Blue</Capability>
+  <Capability Min="106" Max="115" Preset="ColorDoubleMacro" Res1="#0000c0" Res2="#ff8000">Dark Blue/Orange</Capability>
   <Capability Min="116" Max="116" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
+  <Capability Min="117" Max="127" Preset="ColorDoubleMacro" Res1="#ff8000" Res2="#ffffff">Orange/White</Capability>
   <Capability Min="128" Max="189" Preset="GoboMacro" Res1="Others/rainbow.png">Forwards rainbow fast to slow</Capability>
   <Capability Min="190" Max="193">No rotation</Capability>
   <Capability Min="194" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Backwards rainbow slow to fast</Capability>

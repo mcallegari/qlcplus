@@ -22,7 +22,7 @@
   <Capability Min="128" Max="143" Preset="ColorMacro" Res1="#4eff6b">Light Green</Capability>
   <Capability Min="144" Max="159" Preset="ColorMacro" Res1="#3374ff">Light Blue</Capability>
   <Capability Min="160" Max="175" Preset="ColorMacro" Res1="#ff6fff">Magenta</Capability>
-  <Capability Min="176" Max="191" Preset="ColorMacro" Res1="#ff00ff">Pink</Capability>
+  <Capability Min="176" Max="191" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
   <Capability Min="192" Max="223" Preset="SlowToFast">Rainbow effect, slow -&gt; fast</Capability>
   <Capability Min="224" Max="255" Preset="StrobeSlowToFast">Strobe, slow -&gt; fast</Capability>
  </Channel>

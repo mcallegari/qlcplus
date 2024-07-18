@@ -1,0 +1,1238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.1 GIT</Version>
+  <Author>István Király</Author>
+ </Creator>
+ <Manufacturer>Shehds</Manufacturer>
+ <Model>Big Bee Eyes LED Wash 19x40W RGBW</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Barrel Roll">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="155">Barrel Roll 0-60°</Capability>
+  <Capability Min="156" Max="205">Clockwise Barrel Roll</Capability>
+  <Capability Min="206" Max="255">Anti-clockwise Barrel Roll</Capability>
+ </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="4" Max="203" Preset="StrobeFreqRange" Res1="1" Res2="25">1Hz to 25Hz</Capability>
+  <Capability Min="204" Max="255" Preset="StrobeRandomSlowToFast">Random Strobe</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="CTO" Preset="ColorCTOMixer"/>
+ <Channel Name="Macro Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">One effect per 10 values</Capability>
+ </Channel>
+ <Channel Name="Static Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">None</Capability>
+  <Capability Min="10" Max="12">Single Color Effect 1</Capability>
+  <Capability Min="13" Max="15">Single Color Effect 2</Capability>
+  <Capability Min="16" Max="18">Single Color Effect 3</Capability>
+  <Capability Min="19" Max="21">Single Color Effect 4</Capability>
+  <Capability Min="22" Max="24">Single Color Effect 5</Capability>
+  <Capability Min="25" Max="27">Single Color Effect 6</Capability>
+  <Capability Min="28" Max="30">Single Color Effect 7</Capability>
+  <Capability Min="31" Max="33">Single Color Effect 8</Capability>
+  <Capability Min="34" Max="36">Single Color Effect 9</Capability>
+  <Capability Min="37" Max="39">Single Color Effect 10</Capability>
+  <Capability Min="40" Max="42">Single Color Effect 11</Capability>
+  <Capability Min="43" Max="45">Single Color Effect 12</Capability>
+  <Capability Min="46" Max="48">Single Color Effect 13</Capability>
+  <Capability Min="49" Max="51">Single Color Effect 14</Capability>
+  <Capability Min="52" Max="54">Single Color Effect 15</Capability>
+  <Capability Min="55" Max="57">Single Color Effect 16</Capability>
+  <Capability Min="58" Max="60">Single Color Effect 17</Capability>
+  <Capability Min="61" Max="63">Single Color Effect 18</Capability>
+  <Capability Min="64" Max="66">Single Color Effect 19</Capability>
+  <Capability Min="67" Max="69">Single Color Effect 20</Capability>
+  <Capability Min="70" Max="72">Single Color Effect 21</Capability>
+  <Capability Min="73" Max="75">Single Color Effect 22</Capability>
+  <Capability Min="76" Max="78">Single Color Effect 23</Capability>
+  <Capability Min="79" Max="81">Single Color Effect 24</Capability>
+  <Capability Min="82" Max="84">Single Color Effect 25</Capability>
+  <Capability Min="85" Max="87">Single Color Effect 26</Capability>
+  <Capability Min="88" Max="90">Single Color Effect 27</Capability>
+  <Capability Min="91" Max="93">Single Color Effect 28</Capability>
+  <Capability Min="94" Max="96">Single Color Effect 29</Capability>
+  <Capability Min="97" Max="99">Single Color Effect 30</Capability>
+  <Capability Min="100" Max="102">Single Color Effect 31</Capability>
+  <Capability Min="103" Max="105">Single Color Effect 32</Capability>
+  <Capability Min="106" Max="108">Single Color Effect 33</Capability>
+  <Capability Min="109" Max="111">Single Color Effect 34</Capability>
+  <Capability Min="112" Max="114">Single Color Effect 35</Capability>
+  <Capability Min="115" Max="117">Single Color Effect 36</Capability>
+  <Capability Min="118" Max="120">Single Color Effect 37</Capability>
+  <Capability Min="121" Max="123">Single Color Effect 38</Capability>
+  <Capability Min="124" Max="126">Single Color Effect 39</Capability>
+  <Capability Min="127" Max="129">Single Color Effect 40</Capability>
+  <Capability Min="130" Max="132">Single Color Effect 41</Capability>
+  <Capability Min="133" Max="135">Single Color Effect 42</Capability>
+  <Capability Min="136" Max="138">Single Color Effect 43</Capability>
+  <Capability Min="139" Max="141">Single Color Effect 44</Capability>
+  <Capability Min="142" Max="144">Single Color Effect 45</Capability>
+  <Capability Min="145" Max="147">Single Color Effect 46</Capability>
+  <Capability Min="148" Max="150">Single Color Effect 47</Capability>
+  <Capability Min="151" Max="153">Single Color Effect 48</Capability>
+  <Capability Min="154" Max="156">Single Color Effect 49</Capability>
+  <Capability Min="157" Max="159">Single Color Effect 50</Capability>
+  <Capability Min="160" Max="162">Single Color Effect 51</Capability>
+  <Capability Min="163" Max="165">Single Color Effect 52</Capability>
+  <Capability Min="166" Max="168">Single Color Effect 53</Capability>
+  <Capability Min="169" Max="171">Single Color Effect 54</Capability>
+  <Capability Min="172" Max="174">Single Color Effect 55</Capability>
+  <Capability Min="175" Max="177">Single Color Effect 56</Capability>
+  <Capability Min="178" Max="180">Single Color Effect 57</Capability>
+  <Capability Min="181" Max="183">Single Color Effect 58</Capability>
+  <Capability Min="184" Max="186">Single Color Effect 59</Capability>
+  <Capability Min="187" Max="189">Single Color Effect 60</Capability>
+  <Capability Min="190" Max="192">Single Color Effect 61</Capability>
+  <Capability Min="193" Max="195">Single Color Effect 62</Capability>
+  <Capability Min="196" Max="198">Single Color Effect 63</Capability>
+  <Capability Min="199" Max="201">Single Color Effect 64</Capability>
+  <Capability Min="202" Max="204">Single Color Effect 65</Capability>
+  <Capability Min="205" Max="207">Single Color Effect 66</Capability>
+  <Capability Min="208" Max="210">Single Color Effect 67</Capability>
+  <Capability Min="211" Max="213">Mixing Effect 1</Capability>
+  <Capability Min="214" Max="216">Mixing Effect 2</Capability>
+  <Capability Min="217" Max="219">Mixing Effect 3</Capability>
+  <Capability Min="220" Max="222">Mixing Effect 4</Capability>
+  <Capability Min="223" Max="225">Mixing Effect 5</Capability>
+  <Capability Min="226" Max="228">Mixing Effect 6</Capability>
+  <Capability Min="229" Max="231">Mixing Effect 7</Capability>
+  <Capability Min="232" Max="234">Mixing Effect 8</Capability>
+  <Capability Min="235" Max="237">Mixing Effect 9</Capability>
+  <Capability Min="238" Max="240">Mixing Effect 10</Capability>
+  <Capability Min="241" Max="243">Mixing Effect 11</Capability>
+  <Capability Min="244" Max="246">Mixing Effect 12</Capability>
+  <Capability Min="247" Max="249">Mixing Effect 13</Capability>
+  <Capability Min="250" Max="252">Mixing Effect 14</Capability>
+  <Capability Min="253" Max="255">Mixing Effect 15</Capability>
+ </Channel>
+ <Channel Name="Dynamic Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">None</Capability>
+  <Capability Min="10" Max="14">Single Color Dynamic Effect 1</Capability>
+  <Capability Min="15" Max="19">Single Color Dynamic Effect 2</Capability>
+  <Capability Min="20" Max="24">Single Color Dynamic Effect 3</Capability>
+  <Capability Min="25" Max="29">Single Color Dynamic Effect 4</Capability>
+  <Capability Min="30" Max="34">Single Color Dynamic Effect 5</Capability>
+  <Capability Min="35" Max="39">Single Color Dynamic Effect 6</Capability>
+  <Capability Min="40" Max="44">Single Color Dynamic Effect 7</Capability>
+  <Capability Min="45" Max="49">Single Color Dynamic Effect 8</Capability>
+  <Capability Min="50" Max="54">Single Color Dynamic Effect 9</Capability>
+  <Capability Min="55" Max="59">Single Color Dynamic Effect 10</Capability>
+  <Capability Min="60" Max="64">Single Color Dynamic Effect 11</Capability>
+  <Capability Min="65" Max="69">Single Color Dynamic Effect 12</Capability>
+  <Capability Min="70" Max="74">Single Color Dynamic Effect 13</Capability>
+  <Capability Min="75" Max="79">Single Color Dynamic Effect 14</Capability>
+  <Capability Min="80" Max="84">Single Color Dynamic Effect 15</Capability>
+  <Capability Min="85" Max="89">Single Color Dynamic Effect 16</Capability>
+  <Capability Min="90" Max="94">Single Color Dynamic Effect 17</Capability>
+  <Capability Min="95" Max="99">Single Color Dynamic Effect 18</Capability>
+  <Capability Min="100" Max="104">Single Color Dynamic Effect 19</Capability>
+  <Capability Min="105" Max="109">Single Color Dynamic Effect 20</Capability>
+  <Capability Min="110" Max="114">Single Color Dynamic Effect 21</Capability>
+  <Capability Min="115" Max="119">Single Color Dynamic Effect 22</Capability>
+  <Capability Min="120" Max="124">Single Color Dynamic Effect 23</Capability>
+  <Capability Min="125" Max="129">Single Color Dynamic Effect 24</Capability>
+  <Capability Min="130" Max="134">Single Color Dynamic Effect 25</Capability>
+  <Capability Min="135" Max="139">Single Color Dynamic Effect 26</Capability>
+  <Capability Min="140" Max="144">Single Color Dynamic Effect 27</Capability>
+  <Capability Min="145" Max="149">Single Color Dynamic Effect 28</Capability>
+  <Capability Min="150" Max="154">Single Color Dynamic Effect 29</Capability>
+  <Capability Min="155" Max="159">Single Color Dynamic Effect 30</Capability>
+  <Capability Min="160" Max="164">Mixing Color Dynamic Effect 1</Capability>
+  <Capability Min="165" Max="169">Mixing Color Dynamic Effect 2</Capability>
+  <Capability Min="170" Max="174">Mixing Color Dynamic Effect 3</Capability>
+  <Capability Min="175" Max="179">Mixing Color Dynamic Effect 4</Capability>
+  <Capability Min="180" Max="184">Mixing Color Dynamic Effect 5</Capability>
+  <Capability Min="185" Max="189">Mixing Color Dynamic Effect 6</Capability>
+  <Capability Min="190" Max="194">Mixing Color Dynamic Effect 7</Capability>
+  <Capability Min="195" Max="199">Mixing Color Dynamic Effect 8</Capability>
+  <Capability Min="200" Max="204">Mixing Color Dynamic Effect 9</Capability>
+  <Capability Min="205" Max="209">Mixing Color Dynamic Effect 10</Capability>
+  <Capability Min="210" Max="214">Mixing Color Dynamic Effect 11</Capability>
+  <Capability Min="215" Max="219">Mixing Color Dynamic Effect 12</Capability>
+  <Capability Min="220" Max="224">Mixing Color Dynamic Effect 13</Capability>
+  <Capability Min="225" Max="255">Mixing Color Dynamic Effect 14</Capability>
+ </Channel>
+ <Channel Name="Dynamic effect speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Clockwise</Capability>
+  <Capability Min="128" Max="255">Anti clockwise</Capability>
+ </Channel>
+ <Channel Name="Effect-R">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Effect Red</Capability>
+ </Channel>
+ <Channel Name="Effect-G">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Effect Green</Capability>
+ </Channel>
+ <Channel Name="Effect-B">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Effect Blue</Capability>
+ </Channel>
+ <Channel Name="Effect-W">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Effect White</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="250">No function</Capability>
+  <Capability Min="251" Max="255">System reset after 5s</Capability>
+ </Channel>
+ <Channel Name="Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="White fine" Preset="IntensityWhiteFine"/>
+ <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Dim Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">Dim Mode</Capability>
+ </Channel>
+ <Channel Name="Dynamic effect speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Clockwise</Capability>
+  <Capability Min="128" Max="255">Anti clockwise</Capability>
+ </Channel>
+ <Channel Name="Effect Fade">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Effect fade change</Capability>
+ </Channel>
+ <Channel Name="Effect-R">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Red - CH16/CH17 Effect color</Capability>
+ </Channel>
+ <Channel Name="Effect-G">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Green - CH16/CH17 Effect color</Capability>
+ </Channel>
+ <Channel Name="Effect-B">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Blue - CH16/CH17 Effect color</Capability>
+ </Channel>
+ <Channel Name="Effect-W">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">White - CH16/CH17 Effect color</Capability>
+ </Channel>
+ <Channel Name="Effect Dim 1">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Effect-Dim 1</Capability>
+ </Channel>
+ <Channel Name="Effect Dim 2">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Effect-Dim 2</Capability>
+ </Channel>
+ <Channel Name="Effect Mix">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Effect color mixing</Capability>
+ </Channel>
+ <Channel Name="Effect Move">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">For CH22 effect movement</Capability>
+ </Channel>
+ <Channel Name="Effect Strobe 1">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Effect Strobe 1</Capability>
+ </Channel>
+ <Channel Name="Effect Strobe 2">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Effect Strobe 2</Capability>
+ </Channel>
+ <Channel Name="Effect Select">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Effect Select for CH22</Capability>
+ </Channel>
+ <Channel Name="R Dim">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Red</Capability>
+ </Channel>
+ <Channel Name="G Dim">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Green</Capability>
+ </Channel>
+ <Channel Name="B Dim">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Blue</Capability>
+ </Channel>
+ <Channel Name="W Dim">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">White</Capability>
+ </Channel>
+ <Channel Name="R1" Preset="IntensityRed"/>
+ <Channel Name="G1" Preset="IntensityGreen"/>
+ <Channel Name="B1" Preset="IntensityBlue"/>
+ <Channel Name="W1" Preset="IntensityWhite"/>
+ <Channel Name="R2" Preset="IntensityRed"/>
+ <Channel Name="G2" Preset="IntensityGreen"/>
+ <Channel Name="B2" Preset="IntensityBlue"/>
+ <Channel Name="W2" Preset="IntensityWhite"/>
+ <Channel Name="R3" Preset="IntensityRed"/>
+ <Channel Name="G3" Preset="IntensityGreen"/>
+ <Channel Name="B3" Preset="IntensityBlue"/>
+ <Channel Name="W3" Preset="IntensityWhite"/>
+ <Channel Name="R4" Preset="IntensityRed"/>
+ <Channel Name="G4" Preset="IntensityGreen"/>
+ <Channel Name="B4" Preset="IntensityBlue"/>
+ <Channel Name="W4" Preset="IntensityWhite"/>
+ <Channel Name="R5" Preset="IntensityRed"/>
+ <Channel Name="G5" Preset="IntensityGreen"/>
+ <Channel Name="B5" Preset="IntensityBlue"/>
+ <Channel Name="W5" Preset="IntensityWhite"/>
+ <Channel Name="R6" Preset="IntensityRed"/>
+ <Channel Name="G6" Preset="IntensityGreen"/>
+ <Channel Name="B6" Preset="IntensityBlue"/>
+ <Channel Name="W6" Preset="IntensityWhite"/>
+ <Channel Name="R7" Preset="IntensityRed"/>
+ <Channel Name="G7" Preset="IntensityGreen"/>
+ <Channel Name="B7" Preset="IntensityBlue"/>
+ <Channel Name="W7" Preset="IntensityWhite"/>
+ <Channel Name="R8" Preset="IntensityRed"/>
+ <Channel Name="G8" Preset="IntensityGreen"/>
+ <Channel Name="B8" Preset="IntensityBlue"/>
+ <Channel Name="W8" Preset="IntensityWhite"/>
+ <Channel Name="R9" Preset="IntensityRed"/>
+ <Channel Name="G9" Preset="IntensityGreen"/>
+ <Channel Name="B9" Preset="IntensityBlue"/>
+ <Channel Name="W9" Preset="IntensityWhite"/>
+ <Channel Name="R10" Preset="IntensityRed"/>
+ <Channel Name="G10" Preset="IntensityGreen"/>
+ <Channel Name="B10" Preset="IntensityBlue"/>
+ <Channel Name="W10" Preset="IntensityWhite"/>
+ <Channel Name="R11" Preset="IntensityRed"/>
+ <Channel Name="G11" Preset="IntensityGreen"/>
+ <Channel Name="B11" Preset="IntensityBlue"/>
+ <Channel Name="W11" Preset="IntensityWhite"/>
+ <Channel Name="R12" Preset="IntensityRed"/>
+ <Channel Name="G12" Preset="IntensityGreen"/>
+ <Channel Name="B12" Preset="IntensityBlue"/>
+ <Channel Name="W12" Preset="IntensityWhite"/>
+ <Channel Name="R13" Preset="IntensityRed"/>
+ <Channel Name="G13" Preset="IntensityGreen"/>
+ <Channel Name="B13" Preset="IntensityBlue"/>
+ <Channel Name="W13" Preset="IntensityWhite"/>
+ <Channel Name="R14" Preset="IntensityRed"/>
+ <Channel Name="G14" Preset="IntensityGreen"/>
+ <Channel Name="B14" Preset="IntensityBlue"/>
+ <Channel Name="W14" Preset="IntensityWhite"/>
+ <Channel Name="R15" Preset="IntensityRed"/>
+ <Channel Name="G15" Preset="IntensityGreen"/>
+ <Channel Name="B15" Preset="IntensityBlue"/>
+ <Channel Name="W15" Preset="IntensityWhite"/>
+ <Channel Name="R16" Preset="IntensityRed"/>
+ <Channel Name="G16" Preset="IntensityGreen"/>
+ <Channel Name="B16" Preset="IntensityBlue"/>
+ <Channel Name="W16" Preset="IntensityWhite"/>
+ <Channel Name="R17" Preset="IntensityRed"/>
+ <Channel Name="G17" Preset="IntensityGreen"/>
+ <Channel Name="B17" Preset="IntensityBlue"/>
+ <Channel Name="W17" Preset="IntensityWhite"/>
+ <Channel Name="R18" Preset="IntensityRed"/>
+ <Channel Name="G18" Preset="IntensityGreen"/>
+ <Channel Name="B18" Preset="IntensityBlue"/>
+ <Channel Name="W18" Preset="IntensityWhite"/>
+ <Channel Name="R19" Preset="IntensityRed"/>
+ <Channel Name="G19" Preset="IntensityGreen"/>
+ <Channel Name="B19" Preset="IntensityBlue"/>
+ <Channel Name="W19" Preset="IntensityWhite"/>
+ <Mode Name="21 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Red fine</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Green fine</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Blue fine</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">White fine</Channel>
+  <Channel Number="8">CTO</Channel>
+  <Channel Number="9">Macro Color</Channel>
+  <Channel Number="10">Strobe</Channel>
+  <Channel Number="11">Master dimmer</Channel>
+  <Channel Number="12">Dimmer fine</Channel>
+  <Channel Number="13">Pan</Channel>
+  <Channel Number="14">Pan fine</Channel>
+  <Channel Number="15">Tilt</Channel>
+  <Channel Number="16">Tilt fine</Channel>
+  <Channel Number="17">Dim Mode</Channel>
+  <Channel Number="18">Reset</Channel>
+  <Channel Number="19">Zoom</Channel>
+  <Channel Number="20">Barrel Roll</Channel>
+ </Mode>
+ <Mode Name="23 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Master dimmer</Channel>
+  <Channel Number="6">Red</Channel>
+  <Channel Number="7">Green</Channel>
+  <Channel Number="8">Blue</Channel>
+  <Channel Number="9">White</Channel>
+  <Channel Number="10">CTO</Channel>
+  <Channel Number="11">Strobe</Channel>
+  <Channel Number="12">Macro Color</Channel>
+  <Channel Number="13">Static Effect</Channel>
+  <Channel Number="14">Dynamic Effect</Channel>
+  <Channel Number="15">Dynamic effect speed</Channel>
+  <Channel Number="16">Effect-R</Channel>
+  <Channel Number="17">Effect-G</Channel>
+  <Channel Number="18">Effect-B</Channel>
+  <Channel Number="19">Effect-W</Channel>
+  <Channel Number="20">Zoom</Channel>
+  <Channel Number="21">Barrel Roll</Channel>
+  <Channel Number="22">Reset</Channel>
+ </Mode>
+ <Mode Name="35 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Red fine</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Green fine</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Blue fine</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">White fine</Channel>
+  <Channel Number="8">CTO</Channel>
+  <Channel Number="9">Macro Color</Channel>
+  <Channel Number="10">Strobe</Channel>
+  <Channel Number="11">Master dimmer</Channel>
+  <Channel Number="12">Dimmer fine</Channel>
+  <Channel Number="13">Pan</Channel>
+  <Channel Number="14">Pan fine</Channel>
+  <Channel Number="15">Tilt</Channel>
+  <Channel Number="16">Tilt fine</Channel>
+  <Channel Number="17">Dim Mode</Channel>
+  <Channel Number="18">Reset</Channel>
+  <Channel Number="19">Zoom</Channel>
+  <Channel Number="20">Barrel Roll</Channel>
+  <Channel Number="21">Dynamic Effect</Channel>
+  <Channel Number="22">Dynamic effect speed</Channel>
+  <Channel Number="23">Effect Fade</Channel>
+  <Channel Number="24">Effect-R</Channel>
+  <Channel Number="25">Effect-G</Channel>
+  <Channel Number="26">Effect-B</Channel>
+  <Channel Number="27">Effect-W</Channel>
+  <Channel Number="28">Effect Dim 1</Channel>
+  <Channel Number="29">Effect Dim 2</Channel>
+  <Channel Number="30">Effect Mix</Channel>
+  <Channel Number="31">Effect Move</Channel>
+  <Channel Number="32">Effect Strobe 1</Channel>
+  <Channel Number="33">Effect Strobe 2</Channel>
+  <Channel Number="34">Effect Select</Channel>
+ </Mode>
+ <Mode Name="78 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Red fine</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Green fine</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Blue fine</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">White fine</Channel>
+  <Channel Number="8">CTO</Channel>
+  <Channel Number="9">Macro Color</Channel>
+  <Channel Number="10">Strobe</Channel>
+  <Channel Number="11">Master dimmer</Channel>
+  <Channel Number="12">Dimmer fine</Channel>
+  <Channel Number="13">Pan</Channel>
+  <Channel Number="14">Pan fine</Channel>
+  <Channel Number="15">Tilt</Channel>
+  <Channel Number="16">Tilt fine</Channel>
+  <Channel Number="17">Dim Mode</Channel>
+  <Channel Number="18">Reset</Channel>
+  <Channel Number="19">Zoom</Channel>
+  <Channel Number="20">Barrel Roll</Channel>
+  <Channel Number="21">R1</Channel>
+  <Channel Number="22">G1</Channel>
+  <Channel Number="23">B1</Channel>
+  <Channel Number="24">R2</Channel>
+  <Channel Number="25">G2</Channel>
+  <Channel Number="26">B2</Channel>
+  <Channel Number="27">R3</Channel>
+  <Channel Number="28">G3</Channel>
+  <Channel Number="29">B3</Channel>
+  <Channel Number="30">R4</Channel>
+  <Channel Number="31">G4</Channel>
+  <Channel Number="32">B4</Channel>
+  <Channel Number="33">R5</Channel>
+  <Channel Number="34">G5</Channel>
+  <Channel Number="35">B5</Channel>
+  <Channel Number="36">R6</Channel>
+  <Channel Number="37">G6</Channel>
+  <Channel Number="38">B6</Channel>
+  <Channel Number="39">R7</Channel>
+  <Channel Number="40">G7</Channel>
+  <Channel Number="41">B7</Channel>
+  <Channel Number="42">R8</Channel>
+  <Channel Number="43">G8</Channel>
+  <Channel Number="44">B8</Channel>
+  <Channel Number="45">R9</Channel>
+  <Channel Number="46">G9</Channel>
+  <Channel Number="47">B9</Channel>
+  <Channel Number="48">R10</Channel>
+  <Channel Number="49">G10</Channel>
+  <Channel Number="50">B10</Channel>
+  <Channel Number="51">R11</Channel>
+  <Channel Number="52">G11</Channel>
+  <Channel Number="53">B11</Channel>
+  <Channel Number="54">R12</Channel>
+  <Channel Number="55">G12</Channel>
+  <Channel Number="56">B12</Channel>
+  <Channel Number="57">R13</Channel>
+  <Channel Number="58">G13</Channel>
+  <Channel Number="59">B13</Channel>
+  <Channel Number="60">R14</Channel>
+  <Channel Number="61">G14</Channel>
+  <Channel Number="62">B14</Channel>
+  <Channel Number="63">R15</Channel>
+  <Channel Number="64">G15</Channel>
+  <Channel Number="65">B15</Channel>
+  <Channel Number="66">R16</Channel>
+  <Channel Number="67">G16</Channel>
+  <Channel Number="68">B16</Channel>
+  <Channel Number="69">R17</Channel>
+  <Channel Number="70">G17</Channel>
+  <Channel Number="71">B17</Channel>
+  <Channel Number="72">R18</Channel>
+  <Channel Number="73">G18</Channel>
+  <Channel Number="74">B18</Channel>
+  <Channel Number="75">R19</Channel>
+  <Channel Number="76">G19</Channel>
+  <Channel Number="77">B19</Channel>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+  </Head>
+  <Head>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+  </Head>
+  <Head>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+  </Head>
+  <Head>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+  </Head>
+  <Head>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+  <Head>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+  </Head>
+  <Head>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+  </Head>
+  <Head>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+   <Channel>56</Channel>
+  </Head>
+  <Head>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+  </Head>
+  <Head>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+  </Head>
+  <Head>
+   <Channel>63</Channel>
+   <Channel>64</Channel>
+   <Channel>65</Channel>
+  </Head>
+  <Head>
+   <Channel>66</Channel>
+   <Channel>67</Channel>
+   <Channel>68</Channel>
+  </Head>
+  <Head>
+   <Channel>69</Channel>
+   <Channel>70</Channel>
+   <Channel>71</Channel>
+  </Head>
+  <Head>
+   <Channel>72</Channel>
+   <Channel>73</Channel>
+   <Channel>74</Channel>
+  </Head>
+  <Head>
+   <Channel>75</Channel>
+   <Channel>76</Channel>
+   <Channel>77</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="92 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Red fine</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Green fine</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Blue fine</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">White fine</Channel>
+  <Channel Number="8">CTO</Channel>
+  <Channel Number="9">Macro Color</Channel>
+  <Channel Number="10">Strobe</Channel>
+  <Channel Number="11">Master dimmer</Channel>
+  <Channel Number="12">Dimmer fine</Channel>
+  <Channel Number="13">Pan</Channel>
+  <Channel Number="14">Pan fine</Channel>
+  <Channel Number="15">Tilt</Channel>
+  <Channel Number="16">Tilt fine</Channel>
+  <Channel Number="17">Dim Mode</Channel>
+  <Channel Number="18">Reset</Channel>
+  <Channel Number="19">Zoom</Channel>
+  <Channel Number="20">Barrel Roll</Channel>
+  <Channel Number="21">Dynamic Effect</Channel>
+  <Channel Number="22">Dynamic effect speed</Channel>
+  <Channel Number="23">Effect Fade</Channel>
+  <Channel Number="24">Effect-R</Channel>
+  <Channel Number="25">Effect-G</Channel>
+  <Channel Number="26">Effect-B</Channel>
+  <Channel Number="27">Effect-W</Channel>
+  <Channel Number="28">Effect Dim 1</Channel>
+  <Channel Number="29">Effect Dim 2</Channel>
+  <Channel Number="30">Effect Mix</Channel>
+  <Channel Number="31">Effect Move</Channel>
+  <Channel Number="32">Effect Strobe 1</Channel>
+  <Channel Number="33">Effect Strobe 2</Channel>
+  <Channel Number="34">Effect Select</Channel>
+  <Channel Number="35">R1</Channel>
+  <Channel Number="36">G1</Channel>
+  <Channel Number="37">B1</Channel>
+  <Channel Number="38">R2</Channel>
+  <Channel Number="39">G2</Channel>
+  <Channel Number="40">B2</Channel>
+  <Channel Number="41">R3</Channel>
+  <Channel Number="42">G3</Channel>
+  <Channel Number="43">B3</Channel>
+  <Channel Number="44">R4</Channel>
+  <Channel Number="45">G4</Channel>
+  <Channel Number="46">B4</Channel>
+  <Channel Number="47">R5</Channel>
+  <Channel Number="48">G5</Channel>
+  <Channel Number="49">B5</Channel>
+  <Channel Number="50">R6</Channel>
+  <Channel Number="51">G6</Channel>
+  <Channel Number="52">B6</Channel>
+  <Channel Number="53">R7</Channel>
+  <Channel Number="54">G7</Channel>
+  <Channel Number="55">B7</Channel>
+  <Channel Number="56">R8</Channel>
+  <Channel Number="57">G8</Channel>
+  <Channel Number="58">B8</Channel>
+  <Channel Number="59">R9</Channel>
+  <Channel Number="60">G9</Channel>
+  <Channel Number="61">B9</Channel>
+  <Channel Number="62">R10</Channel>
+  <Channel Number="63">G10</Channel>
+  <Channel Number="64">B10</Channel>
+  <Channel Number="65">R11</Channel>
+  <Channel Number="66">G11</Channel>
+  <Channel Number="67">B11</Channel>
+  <Channel Number="68">R12</Channel>
+  <Channel Number="69">G12</Channel>
+  <Channel Number="70">B12</Channel>
+  <Channel Number="71">R13</Channel>
+  <Channel Number="72">G13</Channel>
+  <Channel Number="73">B13</Channel>
+  <Channel Number="74">R14</Channel>
+  <Channel Number="75">G14</Channel>
+  <Channel Number="76">B14</Channel>
+  <Channel Number="77">R15</Channel>
+  <Channel Number="78">G15</Channel>
+  <Channel Number="79">B15</Channel>
+  <Channel Number="80">R16</Channel>
+  <Channel Number="81">G16</Channel>
+  <Channel Number="82">B16</Channel>
+  <Channel Number="83">R17</Channel>
+  <Channel Number="84">G17</Channel>
+  <Channel Number="85">B17</Channel>
+  <Channel Number="86">R18</Channel>
+  <Channel Number="87">G18</Channel>
+  <Channel Number="88">B18</Channel>
+  <Channel Number="89">R19</Channel>
+  <Channel Number="90">G19</Channel>
+  <Channel Number="91">B19</Channel>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+  </Head>
+  <Head>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+  </Head>
+  <Head>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+  </Head>
+  <Head>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+  </Head>
+  <Head>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+  </Head>
+  <Head>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+  </Head>
+  <Head>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+  </Head>
+  <Head>
+   <Channel>59</Channel>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+  </Head>
+  <Head>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+   <Channel>64</Channel>
+  </Head>
+  <Head>
+   <Channel>65</Channel>
+   <Channel>66</Channel>
+   <Channel>67</Channel>
+  </Head>
+  <Head>
+   <Channel>68</Channel>
+   <Channel>69</Channel>
+   <Channel>70</Channel>
+  </Head>
+  <Head>
+   <Channel>71</Channel>
+   <Channel>72</Channel>
+   <Channel>73</Channel>
+  </Head>
+  <Head>
+   <Channel>74</Channel>
+   <Channel>75</Channel>
+   <Channel>76</Channel>
+  </Head>
+  <Head>
+   <Channel>77</Channel>
+   <Channel>78</Channel>
+   <Channel>79</Channel>
+  </Head>
+  <Head>
+   <Channel>80</Channel>
+   <Channel>81</Channel>
+   <Channel>82</Channel>
+  </Head>
+  <Head>
+   <Channel>83</Channel>
+   <Channel>84</Channel>
+   <Channel>85</Channel>
+  </Head>
+  <Head>
+   <Channel>86</Channel>
+   <Channel>87</Channel>
+   <Channel>88</Channel>
+  </Head>
+  <Head>
+   <Channel>89</Channel>
+   <Channel>90</Channel>
+   <Channel>91</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="97 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Red fine</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Green fine</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Blue fine</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">White fine</Channel>
+  <Channel Number="8">CTO</Channel>
+  <Channel Number="9">Macro Color</Channel>
+  <Channel Number="10">Strobe</Channel>
+  <Channel Number="11">Master dimmer</Channel>
+  <Channel Number="12">Dimmer fine</Channel>
+  <Channel Number="13">Pan</Channel>
+  <Channel Number="14">Pan fine</Channel>
+  <Channel Number="15">Tilt</Channel>
+  <Channel Number="16">Tilt fine</Channel>
+  <Channel Number="17">Dim Mode</Channel>
+  <Channel Number="18">Reset</Channel>
+  <Channel Number="19">Zoom</Channel>
+  <Channel Number="20">Barrel Roll</Channel>
+  <Channel Number="21">R1</Channel>
+  <Channel Number="22">G1</Channel>
+  <Channel Number="23">B1</Channel>
+  <Channel Number="24">W1</Channel>
+  <Channel Number="25">R2</Channel>
+  <Channel Number="26">G2</Channel>
+  <Channel Number="27">B2</Channel>
+  <Channel Number="28">W2</Channel>
+  <Channel Number="29">R3</Channel>
+  <Channel Number="30">G3</Channel>
+  <Channel Number="31">B3</Channel>
+  <Channel Number="32">W3</Channel>
+  <Channel Number="33">R4</Channel>
+  <Channel Number="34">G4</Channel>
+  <Channel Number="35">B4</Channel>
+  <Channel Number="36">W4</Channel>
+  <Channel Number="37">R5</Channel>
+  <Channel Number="38">G5</Channel>
+  <Channel Number="39">B5</Channel>
+  <Channel Number="40">W5</Channel>
+  <Channel Number="41">R6</Channel>
+  <Channel Number="42">G6</Channel>
+  <Channel Number="43">B6</Channel>
+  <Channel Number="44">W6</Channel>
+  <Channel Number="45">R7</Channel>
+  <Channel Number="46">G7</Channel>
+  <Channel Number="47">B7</Channel>
+  <Channel Number="48">W7</Channel>
+  <Channel Number="49">R8</Channel>
+  <Channel Number="50">G8</Channel>
+  <Channel Number="51">B8</Channel>
+  <Channel Number="52">W8</Channel>
+  <Channel Number="53">R9</Channel>
+  <Channel Number="54">G9</Channel>
+  <Channel Number="55">B9</Channel>
+  <Channel Number="56">W9</Channel>
+  <Channel Number="57">R10</Channel>
+  <Channel Number="58">G10</Channel>
+  <Channel Number="59">B10</Channel>
+  <Channel Number="60">W10</Channel>
+  <Channel Number="61">R11</Channel>
+  <Channel Number="62">G11</Channel>
+  <Channel Number="63">B11</Channel>
+  <Channel Number="64">W11</Channel>
+  <Channel Number="65">R12</Channel>
+  <Channel Number="66">G12</Channel>
+  <Channel Number="67">B12</Channel>
+  <Channel Number="68">W12</Channel>
+  <Channel Number="69">R13</Channel>
+  <Channel Number="70">G13</Channel>
+  <Channel Number="71">B13</Channel>
+  <Channel Number="72">W13</Channel>
+  <Channel Number="73">R14</Channel>
+  <Channel Number="74">G14</Channel>
+  <Channel Number="75">B14</Channel>
+  <Channel Number="76">W14</Channel>
+  <Channel Number="77">R15</Channel>
+  <Channel Number="78">G15</Channel>
+  <Channel Number="79">B15</Channel>
+  <Channel Number="80">W15</Channel>
+  <Channel Number="81">R16</Channel>
+  <Channel Number="82">G16</Channel>
+  <Channel Number="83">B16</Channel>
+  <Channel Number="84">W16</Channel>
+  <Channel Number="85">R17</Channel>
+  <Channel Number="86">G17</Channel>
+  <Channel Number="87">B17</Channel>
+  <Channel Number="88">W17</Channel>
+  <Channel Number="89">R18</Channel>
+  <Channel Number="90">G18</Channel>
+  <Channel Number="91">B18</Channel>
+  <Channel Number="92">W18</Channel>
+  <Channel Number="93">R19</Channel>
+  <Channel Number="94">G19</Channel>
+  <Channel Number="95">B19</Channel>
+  <Channel Number="96">W19</Channel>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+  </Head>
+  <Head>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+  </Head>
+  <Head>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+  </Head>
+  <Head>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+  </Head>
+  <Head>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+  </Head>
+  <Head>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+  </Head>
+  <Head>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+  </Head>
+  <Head>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+   <Channel>56</Channel>
+  </Head>
+  <Head>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+   <Channel>60</Channel>
+  </Head>
+  <Head>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+   <Channel>64</Channel>
+  </Head>
+  <Head>
+   <Channel>65</Channel>
+   <Channel>66</Channel>
+   <Channel>67</Channel>
+   <Channel>68</Channel>
+  </Head>
+  <Head>
+   <Channel>69</Channel>
+   <Channel>70</Channel>
+   <Channel>71</Channel>
+   <Channel>72</Channel>
+  </Head>
+  <Head>
+   <Channel>73</Channel>
+   <Channel>74</Channel>
+   <Channel>75</Channel>
+   <Channel>76</Channel>
+  </Head>
+  <Head>
+   <Channel>77</Channel>
+   <Channel>78</Channel>
+   <Channel>79</Channel>
+   <Channel>80</Channel>
+  </Head>
+  <Head>
+   <Channel>81</Channel>
+   <Channel>82</Channel>
+   <Channel>83</Channel>
+   <Channel>84</Channel>
+  </Head>
+  <Head>
+   <Channel>85</Channel>
+   <Channel>86</Channel>
+   <Channel>87</Channel>
+   <Channel>88</Channel>
+  </Head>
+  <Head>
+   <Channel>89</Channel>
+   <Channel>90</Channel>
+   <Channel>91</Channel>
+   <Channel>92</Channel>
+  </Head>
+  <Head>
+   <Channel>93</Channel>
+   <Channel>94</Channel>
+   <Channel>95</Channel>
+   <Channel>96</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="99 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Zoom</Channel>
+  <Channel Number="6">Barrel Roll</Channel>
+  <Channel Number="7">Master dimmer</Channel>
+  <Channel Number="8">Strobe</Channel>
+  <Channel Number="9">R Dim</Channel>
+  <Channel Number="10">G Dim</Channel>
+  <Channel Number="11">B Dim</Channel>
+  <Channel Number="12">W Dim</Channel>
+  <Channel Number="13">CTO</Channel>
+  <Channel Number="14">Macro Color</Channel>
+  <Channel Number="15">Static Effect</Channel>
+  <Channel Number="16">Dynamic Effect</Channel>
+  <Channel Number="17">Dynamic effect speed</Channel>
+  <Channel Number="18">Effect-R</Channel>
+  <Channel Number="19">Effect-G</Channel>
+  <Channel Number="20">Effect-B</Channel>
+  <Channel Number="21">Effect-W</Channel>
+  <Channel Number="22">Reset</Channel>
+  <Channel Number="23">R1</Channel>
+  <Channel Number="24">G1</Channel>
+  <Channel Number="25">B1</Channel>
+  <Channel Number="26">W1</Channel>
+  <Channel Number="27">R2</Channel>
+  <Channel Number="28">G2</Channel>
+  <Channel Number="29">B2</Channel>
+  <Channel Number="30">W2</Channel>
+  <Channel Number="31">R3</Channel>
+  <Channel Number="32">G3</Channel>
+  <Channel Number="33">B3</Channel>
+  <Channel Number="34">W3</Channel>
+  <Channel Number="35">R4</Channel>
+  <Channel Number="36">G4</Channel>
+  <Channel Number="37">B4</Channel>
+  <Channel Number="38">W4</Channel>
+  <Channel Number="39">R5</Channel>
+  <Channel Number="40">G5</Channel>
+  <Channel Number="41">B5</Channel>
+  <Channel Number="42">W5</Channel>
+  <Channel Number="43">R6</Channel>
+  <Channel Number="44">G6</Channel>
+  <Channel Number="45">B6</Channel>
+  <Channel Number="46">W6</Channel>
+  <Channel Number="47">R7</Channel>
+  <Channel Number="48">G7</Channel>
+  <Channel Number="49">B7</Channel>
+  <Channel Number="50">W7</Channel>
+  <Channel Number="51">R8</Channel>
+  <Channel Number="52">G8</Channel>
+  <Channel Number="53">B8</Channel>
+  <Channel Number="54">W8</Channel>
+  <Channel Number="55">R9</Channel>
+  <Channel Number="56">G9</Channel>
+  <Channel Number="57">B9</Channel>
+  <Channel Number="58">W9</Channel>
+  <Channel Number="59">R10</Channel>
+  <Channel Number="60">G10</Channel>
+  <Channel Number="61">B10</Channel>
+  <Channel Number="62">W10</Channel>
+  <Channel Number="63">R11</Channel>
+  <Channel Number="64">G11</Channel>
+  <Channel Number="65">B11</Channel>
+  <Channel Number="66">W11</Channel>
+  <Channel Number="67">R12</Channel>
+  <Channel Number="68">G12</Channel>
+  <Channel Number="69">B12</Channel>
+  <Channel Number="70">W12</Channel>
+  <Channel Number="71">R13</Channel>
+  <Channel Number="72">G13</Channel>
+  <Channel Number="73">B13</Channel>
+  <Channel Number="74">W13</Channel>
+  <Channel Number="75">R14</Channel>
+  <Channel Number="76">G14</Channel>
+  <Channel Number="77">B14</Channel>
+  <Channel Number="78">W14</Channel>
+  <Channel Number="79">R15</Channel>
+  <Channel Number="80">G15</Channel>
+  <Channel Number="81">B15</Channel>
+  <Channel Number="82">W15</Channel>
+  <Channel Number="83">R16</Channel>
+  <Channel Number="84">G16</Channel>
+  <Channel Number="85">B16</Channel>
+  <Channel Number="86">W16</Channel>
+  <Channel Number="87">R17</Channel>
+  <Channel Number="88">G17</Channel>
+  <Channel Number="89">B17</Channel>
+  <Channel Number="90">W17</Channel>
+  <Channel Number="91">R18</Channel>
+  <Channel Number="92">G18</Channel>
+  <Channel Number="93">B18</Channel>
+  <Channel Number="94">W18</Channel>
+  <Channel Number="95">R19</Channel>
+  <Channel Number="96">G19</Channel>
+  <Channel Number="97">B19</Channel>
+  <Channel Number="98">W19</Channel>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+  </Head>
+  <Head>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+  </Head>
+  <Head>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+  </Head>
+  <Head>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+  </Head>
+  <Head>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+  </Head>
+  <Head>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+  </Head>
+  <Head>
+   <Channel>55</Channel>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+  </Head>
+  <Head>
+   <Channel>59</Channel>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+  </Head>
+  <Head>
+   <Channel>63</Channel>
+   <Channel>64</Channel>
+   <Channel>65</Channel>
+   <Channel>66</Channel>
+  </Head>
+  <Head>
+   <Channel>67</Channel>
+   <Channel>68</Channel>
+   <Channel>69</Channel>
+   <Channel>70</Channel>
+  </Head>
+  <Head>
+   <Channel>71</Channel>
+   <Channel>72</Channel>
+   <Channel>73</Channel>
+   <Channel>74</Channel>
+  </Head>
+  <Head>
+   <Channel>75</Channel>
+   <Channel>76</Channel>
+   <Channel>77</Channel>
+   <Channel>78</Channel>
+  </Head>
+  <Head>
+   <Channel>79</Channel>
+   <Channel>80</Channel>
+   <Channel>81</Channel>
+   <Channel>82</Channel>
+  </Head>
+  <Head>
+   <Channel>83</Channel>
+   <Channel>84</Channel>
+   <Channel>85</Channel>
+   <Channel>86</Channel>
+  </Head>
+  <Head>
+   <Channel>87</Channel>
+   <Channel>88</Channel>
+   <Channel>89</Channel>
+   <Channel>90</Channel>
+  </Head>
+  <Head>
+   <Channel>91</Channel>
+   <Channel>92</Channel>
+   <Channel>93</Channel>
+   <Channel>94</Channel>
+  </Head>
+  <Head>
+   <Channel>95</Channel>
+   <Channel>96</Channel>
+   <Channel>97</Channel>
+   <Channel>98</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="22" Width="434" Height="298" Depth="530"/>
+  <Lens Name="Other" DegreesMin="4" DegreesMax="45"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="640" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

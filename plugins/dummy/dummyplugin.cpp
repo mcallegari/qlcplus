@@ -126,11 +126,12 @@ QString DummyPlugin::outputInfo(quint32 output)
     return str;
 }
 
-void DummyPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void DummyPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
     Q_UNUSED(output)
     Q_UNUSED(data)
+    Q_UNUSED(dataChanged)
 
     /** Check for output index validity and, in case, return.
      *
@@ -199,13 +200,13 @@ QString DummyPlugin::inputInfo(quint32 input)
     return str;
 }
 
-void DummyPlugin::sendFeedBack(quint32 universe, quint32 output, quint32 channel, uchar value, const QString &key)
+void DummyPlugin::sendFeedBack(quint32 universe, quint32 output, quint32 channel, uchar value, const QVariant &params)
 {
     Q_UNUSED(universe)
     Q_UNUSED(output)
     Q_UNUSED(channel)
     Q_UNUSED(value)
-    Q_UNUSED(key)
+    Q_UNUSED(params)
 
     /**
      * If the device support this feature, this is the method to send data back for

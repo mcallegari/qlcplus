@@ -35,13 +35,13 @@
   <Capability Min="22" Max="29" Preset="ColorMacro" Res1="#ffdb6c">Yellow warm</Capability>
   <Capability Min="30" Max="37" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="38" Max="45" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
-  <Capability Min="46" Max="53" Preset="ColorMacro" Res1="#aaffff">Turquoise</Capability>
+  <Capability Min="46" Max="53" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
   <Capability Min="54" Max="61" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
   <Capability Min="62" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
-  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#aaaaff">Lavender</Capability>
+  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
   <Capability Min="78" Max="85" Preset="ColorMacro" Res1="#aa557f">Mauve</Capability>
   <Capability Min="86" Max="93" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
-  <Capability Min="94" Max="101" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="94" Max="101" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
   <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#fffaee">Warm White</Capability>
   <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#edfffc">Cold White</Capability>
@@ -163,7 +163,7 @@
  <Physical>
   <Bulb Type="LED" Lumens="2117" ColourTemperature="0"/>
   <Dimensions Weight="8.3" Width="230" Height="230" Depth="300"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Lens Name="Other" DegreesMin="7" DegreesMax="55"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
   <Technical PowerConsumption="180" DmxConnector="5-pin"/>
  </Physical>

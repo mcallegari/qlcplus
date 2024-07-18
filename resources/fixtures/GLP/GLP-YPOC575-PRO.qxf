@@ -167,7 +167,7 @@
   <Capability Min="160" Max="175">Laser blinking, slow - fast</Capability>
   <Capability Min="176" Max="191">Laser flashing, slow - fast</Capability>
   <Capability Min="192" Max="207">Laser ON</Capability>
-  <Capability Min="208" Max="223">No Function</Capability>
+  <Capability Min="208" Max="223">No function</Capability>
   <Capability Min="224" Max="229">Fan silent</Capability>
   <Capability Min="230" Max="249" Preset="LampOff">Lamp OFF (3sec when shutter closed)</Capability>
   <Capability Min="250" Max="255" Preset="ResetAll">Reset</Capability>

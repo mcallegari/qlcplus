@@ -15,7 +15,7 @@
   <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="255">Strobe speed</Capability>
  </Channel>
- <Channel Name="Colour and programmes">
+ <Channel Name="Colour and programs">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="49">RGB mode</Capability>
   <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
@@ -26,21 +26,21 @@
   <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
   <Capability Min="110" Max="119" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="120" Max="129" Preset="ColorMacro" Res1="#ffffff">White</Capability>
-  <Capability Min="130" Max="139">Programme 1</Capability>
-  <Capability Min="140" Max="149">Programme 2</Capability>
-  <Capability Min="150" Max="159">Programme 3</Capability>
-  <Capability Min="160" Max="169">Programme 4</Capability>
-  <Capability Min="170" Max="179">Programme 5</Capability>
-  <Capability Min="180" Max="189">Programme 6</Capability>
-  <Capability Min="190" Max="199">Programme 7</Capability>
-  <Capability Min="200" Max="209">Programme 8</Capability>
-  <Capability Min="210" Max="219">Programme 9</Capability>
-  <Capability Min="220" Max="229">Programme 10</Capability>
+  <Capability Min="130" Max="139">Program 1</Capability>
+  <Capability Min="140" Max="149">Program 2</Capability>
+  <Capability Min="150" Max="159">Program 3</Capability>
+  <Capability Min="160" Max="169">Program 4</Capability>
+  <Capability Min="170" Max="179">Program 5</Capability>
+  <Capability Min="180" Max="189">Program 6</Capability>
+  <Capability Min="190" Max="199">Program 7</Capability>
+  <Capability Min="200" Max="209">Program 8</Capability>
+  <Capability Min="210" Max="219">Program 9</Capability>
+  <Capability Min="220" Max="229">Program 10</Capability>
   <Capability Min="230" Max="239">Colour macros</Capability>
   <Capability Min="240" Max="249">Sound active</Capability>
   <Capability Min="250" Max="255">No function</Capability>
  </Channel>
- <Channel Name="Programme speed">
+ <Channel Name="Program speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="4">Normal speed</Capability>
   <Capability Min="5" Max="255">Speed</Capability>
@@ -75,8 +75,8 @@
  <Mode Name="7 channel">
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
-  <Channel Number="2">Colour and programmes</Channel>
-  <Channel Number="3">Programme speed</Channel>
+  <Channel Number="2">Colour and programs</Channel>
+  <Channel Number="3">Program speed</Channel>
   <Channel Number="4">All red</Channel>
   <Channel Number="5">All green</Channel>
   <Channel Number="6">All blue</Channel>
@@ -84,8 +84,8 @@
  <Mode Name="28 channel">
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
-  <Channel Number="2">Colour and programmes</Channel>
-  <Channel Number="3">Programme speed</Channel>
+  <Channel Number="2">Colour and programs</Channel>
+  <Channel Number="3">Program speed</Channel>
   <Channel Number="4">Red 1</Channel>
   <Channel Number="5">Green 1</Channel>
   <Channel Number="6">Blue 1</Channel>

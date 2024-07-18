@@ -44,6 +44,7 @@
 #define KXMLQLCVCSliderLevelValue       QString("Value")
 #define KXMLQLCVCSliderLevelMonitor     QString("Monitor")
 #define KXMLQLCVCSliderOverrideReset    QString("Reset")
+#define KXMLQLCVCSliderFunctionFlash    QString("Flash")
 
 #define KXMLQLCVCSliderChannel          QString("Channel")
 #define KXMLQLCVCSliderChannelFixture   QString("Fixture")
@@ -74,6 +75,8 @@ class VCSlider : public VCWidget, public DMXSource
     Q_PROPERTY(bool monitorEnabled READ monitorEnabled WRITE setMonitorEnabled NOTIFY monitorEnabledChanged)
     Q_PROPERTY(int monitorValue READ monitorValue NOTIFY monitorValueChanged)
     Q_PROPERTY(bool isOverriding READ isOverriding WRITE setIsOverriding NOTIFY isOverridingChanged)
+
+    Q_PROPERTY(bool adjustFlashEnabled READ adjustFlashEnabled WRITE setAdjustFlashEnabled NOTIFY adjustFlashEnabledChanged)
 
     Q_PROPERTY(quint32 controlledFunction READ controlledFunction WRITE setControlledFunction NOTIFY controlledFunctionChanged)
     Q_PROPERTY(int controlledAttribute READ controlledAttribute WRITE setControlledAttribute NOTIFY controlledAttributeChanged)
@@ -280,6 +283,9 @@ public:
     QString searchFilter() const;
     void setSearchFilter(QString searchFilter);
 
+private:
+    void removeActiveFaders();
+
 protected slots:
     void slotTreeDataChanged(TreeModelItem *item, int role, const QVariant &value);
 
@@ -369,6 +375,12 @@ public:
 
     void adjustFunctionAttribute(Function *f, qreal value);
 
+    /** Get/Set the status of the flash button enablement */
+    bool adjustFlashEnabled() const;
+    void setAdjustFlashEnabled(bool enable);
+
+    Q_INVOKABLE void flashFunction(bool on);
+
     /** Get the list of the available attributes for the Function to control */
     QStringList availableAttributes() const;
 
@@ -385,6 +397,7 @@ private:
 signals:
     void controlledFunctionChanged(quint32 fid);
     void controlledAttributeChanged(int attr);
+    void adjustFlashEnabledChanged(bool enable);
     void availableAttributesChanged();
     void attributeMinValueChanged();
     void attributeMaxValueChanged();
@@ -400,6 +413,9 @@ protected:
     int m_controlledAttributeId;
     qreal m_attributeMinValue;
     qreal m_attributeMaxValue;
+
+    bool m_adjustFlashEnabled;
+    qreal m_adjustFlashPreviousValue;
 
     /*********************************************************************
      * Submaster
@@ -439,11 +455,14 @@ protected:
 private:
     /** Map used to lookup a GenericFader instance for a Universe ID */
     QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
-    int m_priorityRequest;
 
     /*********************************************************************
      * External input
      *********************************************************************/
+public:
+    /** @reimp */
+    void updateFeedback();
+
 public slots:
     /** @reimp */
     void slotInputValueChanged(quint8 id, uchar value);

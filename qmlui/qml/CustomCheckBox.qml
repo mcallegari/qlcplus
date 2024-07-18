@@ -54,7 +54,7 @@ RadioButton
         background:
             Rectangle
             {
-                color: UISettings.bgMain
+                color: UISettings.bgMedium
                 border.width: 1
                 border.color: UISettings.bgLight
             }

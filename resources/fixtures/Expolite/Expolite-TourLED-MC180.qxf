@@ -18,7 +18,7 @@
  <Channel Name="Saturation" Preset="IntensitySaturation"/>
  <Channel Name="CCT">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="30">2700K</Capability>
   <Capability Min="31" Max="50">3000K</Capability>
   <Capability Min="51" Max="70">3200K</Capability>
@@ -34,17 +34,17 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
   <Capability Min="10" Max="99" Preset="StrobeFreqRange" Res1="0" Res2="25">Strobe Slow to Fast 0 - 25Hz</Capability>
-  <Capability Min="100" Max="109" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="100" Max="109" Preset="ShutterOpen">No function</Capability>
   <Capability Min="110" Max="179" Preset="StrobeSlowToFast">Lightning Strobe</Capability>
-  <Capability Min="180" Max="189" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="180" Max="189" Preset="ShutterOpen">No function</Capability>
   <Capability Min="190" Max="255" Preset="StrobeRandom">Random Strobe</Capability>
  </Channel>
  <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="Zoom Control">
   <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="200">No Function</Capability>
+  <Capability Min="0" Max="200">No function</Capability>
   <Capability Min="201" Max="220">Zoom Reset</Capability>
   <Capability Min="221" Max="255">Function</Capability>
  </Channel>
@@ -64,7 +64,7 @@
  <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Color Macros">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="30">Red 100% / Green Up / Blue 0%</Capability>
   <Capability Min="31" Max="50">Red Down / Green 100% / Blue 0%</Capability>
   <Capability Min="51" Max="70">Red 0% / Green 100% / Blue Up</Capability>
@@ -89,7 +89,7 @@
  </Channel>
  <Channel Name="Auto">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="40">No Function</Capability>
+  <Capability Min="0" Max="40">No function</Capability>
   <Capability Min="41" Max="50">Auto 1</Capability>
   <Capability Min="51" Max="60">Auto 2</Capability>
   <Capability Min="61" Max="70">Auto 3</Capability>
@@ -178,7 +178,7 @@
  <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
   <Dimensions Weight="9.1" Width="311" Height="250" Depth="404"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Lens Name="Other" DegreesMin="4.5" DegreesMax="45"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
   <Technical PowerConsumption="180" DmxConnector="3-pin"/>
  </Physical>

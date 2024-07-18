@@ -174,7 +174,7 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
     m_shutterChannels.clear();
     m_channelsMap.clear();
 
-    foreach(quint32 i, m_channels)
+    foreach (quint32 i, m_channels)
     {
         if ((int)i >= mode->channels().size())
         {
@@ -264,7 +264,7 @@ bool QLCFixtureHead::saveXML(QXmlStreamWriter *doc) const
 
     doc->writeStartElement(KXMLQLCFixtureHead);
 
-    foreach(quint32 index, m_channels)
+    foreach (quint32 index, m_channels)
         doc->writeTextElement(KXMLQLCFixtureHeadChannel, QString::number(index));
 
     doc->writeEndElement();

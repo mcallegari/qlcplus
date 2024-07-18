@@ -104,7 +104,7 @@
  </Channel>
  <Channel Name="BlackOut">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="0">BlackOut</Capability>
+  <Capability Min="0" Max="255" Preset="ColorMacro" Res1="#000000">BlackOut</Capability>
  </Channel>
  <Mode Name="6 Channel">
   <Channel Number="0">Red</Channel>

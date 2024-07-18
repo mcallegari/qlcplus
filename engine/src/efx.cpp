@@ -26,16 +26,9 @@
 
 #include <math.h>
 
-#include "qlcfixturemode.h"
-#include "qlcfixturedef.h"
 #include "genericfader.h"
-#include "qlcchannel.h"
-#include "qlcmacros.h"
-#include "qlcfile.h"
-
 #include "mastertimer.h"
-#include "fixture.h"
-#include "scene.h"
+#include "qlcmacros.h"
 #include "doc.h"
 #include "efx.h"
 #include "bus.h"
@@ -142,10 +135,17 @@ void EFX::setDuration(uint ms)
 {
     Function::setDuration(ms);
 
-    for(int i = 0; i < m_fixtures.size(); ++i)
+    for (int i = 0; i < m_fixtures.size(); ++i)
         m_fixtures[i]->durationChanged();
 
     emit durationChanged(ms);
+}
+
+uint EFX::loopDuration() const
+{
+    uint fadeIn = overrideFadeInSpeed() == defaultSpeed() ? fadeInSpeed() : overrideFadeInSpeed();
+
+    return duration() - fadeIn;
 }
 
 /*****************************************************************************
@@ -180,6 +180,7 @@ QStringList EFX::algorithmList()
     list << algorithmToString(EFX::Diamond);
     list << algorithmToString(EFX::Square);
     list << algorithmToString(EFX::SquareChoppy);
+	list << algorithmToString(EFX::SquareTrue);
     list << algorithmToString(EFX::Leaf);
     list << algorithmToString(EFX::Lissajous);
     return list;
@@ -204,6 +205,8 @@ QString EFX::algorithmToString(EFX::Algorithm algo)
             return QString(KXMLQLCEFXSquareAlgorithmName);
         case EFX::SquareChoppy:
             return QString(KXMLQLCEFXSquareChoppyAlgorithmName);
+		 case EFX::SquareTrue:
+            return QString(KXMLQLCEFXSquareTrueAlgorithmName);
         case EFX::Leaf:
             return QString(KXMLQLCEFXLeafAlgorithmName);
         case EFX::Lissajous:
@@ -225,6 +228,8 @@ EFX::Algorithm EFX::stringToAlgorithm(const QString& str)
         return EFX::Square;
     else if (str == QString(KXMLQLCEFXSquareChoppyAlgorithmName))
         return EFX::SquareChoppy;
+	 else if (str == QString(KXMLQLCEFXSquareTrueAlgorithmName))
+        return EFX::SquareTrue;
     else if (str == QString(KXMLQLCEFXLeafAlgorithmName))
         return EFX::Leaf;
     else if (str == QString(KXMLQLCEFXLissajousAlgorithmName))
@@ -267,7 +272,7 @@ void EFX::preview(QPolygonF &polygon, Function::Direction direction, int startOf
     }
 }
 
-void EFX::calculatePoint(Function::Direction direction, int startOffset, float iterator, float* x, float* y) const
+void EFX::calculatePoint(Function::Direction direction, int startOffset, float iterator, float *x, float *y) const
 {
     iterator = calculateDirection(direction, iterator);
     iterator += convertOffset(startOffset + getAttributeValue(StartOffset));
@@ -278,15 +283,27 @@ void EFX::calculatePoint(Function::Direction direction, int startOffset, float i
     calculatePoint(iterator, x, y);
 }
 
-void EFX::rotateAndScale(float* x, float* y) const
+void EFX::rotateAndScale(float *x, float *y) const
 {
     float xx = *x;
     float yy = *y;
     float w = getAttributeValue(Width);
     float h = getAttributeValue(Height);
+    float fadeScale = 1.0;
 
-    *x = (getAttributeValue(XOffset)) + xx * m_cosR * w + yy * m_sinR * h;
-    *y = (getAttributeValue(YOffset)) + -xx * m_sinR * w + yy * m_cosR * h;
+    if (isRunning())
+    {
+        uint fadeIn = overrideFadeInSpeed() == defaultSpeed() ? fadeInSpeed() : overrideFadeInSpeed();
+        if (fadeIn > 0 && elapsed() <= fadeIn)
+        {
+            fadeScale = SCALE(float(elapsed()),
+                              float(0), float(fadeIn),
+                              float(0), float(1.0));
+        }
+    }
+
+    *x = (getAttributeValue(XOffset)) + xx * m_cosR * (w * fadeScale) + yy * m_sinR * (h * fadeScale);
+    *y = (getAttributeValue(YOffset)) + -xx * m_sinR * (w * fadeScale) + yy * m_cosR * (h * fadeScale);
 }
 
 float EFX::calculateDirection(Function::Direction direction, float iterator) const
@@ -303,6 +320,7 @@ float EFX::calculateDirection(Function::Direction direction, float iterator) con
     case Diamond:
     case Square:
     case SquareChoppy:
+	case SquareTrue:
     case Leaf:
     case Lissajous:
         return (M_PI * 2.0) - iterator;
@@ -312,7 +330,7 @@ float EFX::calculateDirection(Function::Direction direction, float iterator) con
 }
 
 // this function should map from 0..M_PI * 2 -> -1..1
-void EFX::calculatePoint(float iterator, float* x, float* y) const
+void EFX::calculatePoint(float iterator, float *x, float *y) const
 {
     switch (algorithm())
     {
@@ -369,6 +387,29 @@ void EFX::calculatePoint(float iterator, float* x, float* y) const
         *x = round(cos(iterator));
         *y = round(sin(iterator));
         break;
+		
+	case SquareTrue:
+        if (iterator < M_PI / 2)
+        {
+            *x = 1;
+            *y = 1;
+        }
+        else if (M_PI / 2 <= iterator && iterator < M_PI)
+        {
+            *x = 1;
+            *y = -1;
+        }
+        else if (M_PI <= iterator && iterator < M_PI * 3 / 2)
+        {
+            *x = -1;
+            *y = -1;
+        }
+        else // M_PI * 3 / 2 <= iterator
+        {
+            *x = -1;
+            *y = 1;
+        }
+		break;
 
     case Leaf:
         *x = pow(cos(iterator + M_PI_2), 5);
@@ -602,7 +643,7 @@ bool EFX::addFixture(EFXFixture* ef)
      * not prevent multiple entries because a fixture can have multiple efx. */
     //! @todo Prevent multiple entries using head & mode
     int i;
-    for(i = 0; i < m_fixtures.size (); i++)
+    for (i = 0; i < m_fixtures.size (); i++)
     {
         if (m_fixtures[i]->head() == ef->head())
         {
@@ -612,12 +653,21 @@ bool EFX::addFixture(EFXFixture* ef)
     }
 
     /* If not inserted, put the EFXFixture object into our list */
-    if(i >= m_fixtures.size())
+    if (i >= m_fixtures.size())
         m_fixtures.append(ef);
 
     emit changed(this->id());
 
     return true;
+}
+
+bool EFX::addFixture(quint32 fxi, int head)
+{
+    EFXFixture *ef = new EFXFixture(this);
+    GroupHead gHead(fxi, head);
+    ef->setHead(gHead);
+
+    return addFixture(ef);
 }
 
 bool EFX::removeFixture(EFXFixture* ef)
@@ -1031,6 +1081,7 @@ QSharedPointer<GenericFader> EFX::getFader(QList<Universe *> universes, quint32 
         fader->setBlendMode(blendMode());
         fader->setName(name());
         fader->setParentFunctionID(id());
+        fader->setHandleSecondary(true);
         m_fadersMap[universeID] = fader;
     }
 
@@ -1044,15 +1095,10 @@ void EFX::preRun(MasterTimer* timer)
     QListIterator <EFXFixture*> it(m_fixtures);
     while (it.hasNext() == true)
     {
-        EFXFixture* ef = it.next();
+        EFXFixture *ef = it.next();
         Q_ASSERT(ef != NULL);
         ef->setSerialNumber(serialNumber++);
     }
-
-    //Q_ASSERT(m_fader == NULL);
-    //m_fader = new GenericFader(doc());
-    //m_fader->adjustIntensity(getAttributeValue(Intensity));
-    //m_fader->setBlendMode(blendMode());
 
     Function::preRun(timer);
 }
@@ -1061,32 +1107,31 @@ void EFX::write(MasterTimer *timer, QList<Universe*> universes)
 {
     Q_UNUSED(timer);
 
-    int ready = 0;
-
     if (isPaused())
         return;
+
+    int done = 0;
 
     QListIterator <EFXFixture*> it(m_fixtures);
     while (it.hasNext() == true)
     {
         EFXFixture *ef = it.next();
-        if (ef->isReady() == false)
+        if (ef->isDone() == false)
         {
             QSharedPointer<GenericFader> fader = getFader(universes, ef->universe());
             ef->nextStep(universes, fader);
         }
         else
         {
-            ready++;
+            done++;
         }
     }
 
     incrementElapsed();
 
     /* Check for stop condition */
-    if (ready == m_fixtures.count())
+    if (done == m_fixtures.count())
         stop(FunctionParent::master());
-    //m_fader->write(universes);
 }
 
 void EFX::postRun(MasterTimer *timer, QList<Universe *> universes)

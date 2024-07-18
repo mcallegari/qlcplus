@@ -59,17 +59,24 @@
   <Capability Min="0" Max="9">Safe (Disables all Control settings)</Capability>
   <Capability Min="10" Max="19">Pan &amp; Tilt MSpeed off</Capability>
   <Capability Min="20" Max="28">Display Off</Capability>
+  <Capability Min="29" Max="29">No function</Capability>
   <Capability Min="30" Max="38">Display Dim</Capability>
+  <Capability Min="39" Max="39">No function</Capability>
   <Capability Min="40" Max="48">Display Bright</Capability>
+  <Capability Min="49" Max="59">No function</Capability>
   <Capability Min="60" Max="68">Home</Capability>
+  <Capability Min="69" Max="79">No function</Capability>
   <Capability Min="80" Max="88" Preset="LampOn">Lamp On</Capability>
+  <Capability Min="89" Max="89">No function</Capability>
   <Capability Min="90" Max="98" Preset="LampOff">Lamp Off</Capability>
+  <Capability Min="99" Max="119">No function</Capability>
   <Capability Min="120" Max="130">Shutdown (send for 5 secs)</Capability>
+  <Capability Min="131" Max="133">No function</Capability>
   <Capability Min="134" Max="137">Lamp Assisted Strobes</Capability>
   <Capability Min="138" Max="141">Lamp Functions (modifies the shutter channel)</Capability>
   <Capability Min="142" Max="145">Lamp/mechanical dimming</Capability>
   <Capability Min="146" Max="149">Lamp only dimming</Capability>
-  <Capability Min="150" Max="255">TBD</Capability>
+  <Capability Min="150" Max="255">Reserved</Capability>
  </Channel>
  <Channel Name="Dim" Preset="IntensityDimmer"/>
  <Mode Name="16-Bit Mode">

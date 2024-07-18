@@ -80,7 +80,7 @@
  </Channel>
  <Channel Name="Channel Function">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="6">Reserved</Capability>
+  <Capability Min="0" Max="7">Reserved</Capability>
   <Capability Min="8" Max="27">Blackout while Pan/Tilt Moving</Capability>
   <Capability Min="28" Max="47">Blackout while Gobo Wheel Moving</Capability>
   <Capability Min="48" Max="67">Disable Blackout while Pan/Tilt/Gobo Moving</Capability>

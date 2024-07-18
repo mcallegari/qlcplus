@@ -30,9 +30,9 @@
   <Capability Min="0" Max="69">Not used</Capability>
   <Capability Min="70" Max="79">Enable Pan/tilt blackout (after 5 seconds)</Capability>
   <Capability Min="80" Max="89">Disable Pan/tilt blackout (after 5 seconds)</Capability>
-  <Capability Min="90" Max="199">No Function</Capability>
+  <Capability Min="90" Max="199">No function</Capability>
   <Capability Min="200" Max="209">Reset All (after 5 seconds)</Capability>
-  <Capability Min="210" Max="249">No Function</Capability>
+  <Capability Min="210" Max="249">No function</Capability>
   <Capability Min="250" Max="255">Sound-controlled</Capability>
  </Channel>
  <Channel Name="Pan fine 16 bit" Preset="PositionPanFine"/>

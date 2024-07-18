@@ -87,7 +87,7 @@ public:
     QString outputInfo(quint32 output);
 
     /** @reimp */
-    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
 
 private:
     /** Get an output device by its output index */
@@ -110,7 +110,7 @@ public:
     QString inputInfo(quint32 input);
 
     /** @reimp */
-    void sendFeedBack(quint32 universe, quint32 output, quint32 channel, uchar value, const QString& key);
+    void sendFeedBack(quint32 universe, quint32 output, quint32 channel, uchar value, const QVariant &params);
 
     void sendSysEx(quint32 output, const QByteArray &data);
 

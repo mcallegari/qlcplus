@@ -51,17 +51,12 @@
 
 #include "vcbuttonproperties.h"
 #include "vcpropertieseditor.h"
-#include "functionselection.h"
-#include "clickandgoslider.h"
-#include "qlcinputchannel.h"
 #include "virtualconsole.h"
 #include "chaseraction.h"
 #include "mastertimer.h"
 #include "vcsoloframe.h"
-#include "inputpatch.h"
 #include "vcbutton.h"
 #include "function.h"
-#include "fixture.h"
 #include "apputil.h"
 #include "chaser.h"
 #include "doc.h"
@@ -77,6 +72,8 @@ VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     , m_blackoutFadeOutTime(0)
     , m_startupIntensityEnabled(false)
     , m_startupIntensity(1.0)
+    , m_flashOverrides(false)
+    , m_flashForceLTP(false)
 {
     /* Set the class name "VCButton" as the object name as well */
     setObjectName(VCButton::staticMetaObject.className());
@@ -167,8 +164,12 @@ bool VCButton::copyFrom(const VCWidget* widget)
     setFunction(button->function());
     enableStartupIntensity(button->isStartupIntensityEnabled());
     setStartupIntensity(button->startupIntensity());
+    setStopAllFadeOutTime(button->stopAllFadeTime());
     setAction(button->action());
     m_state = button->m_state;
+
+    m_flashForceLTP = button->flashForceLTP();
+    m_flashOverrides = button->flashOverrides();
 
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
@@ -316,7 +317,7 @@ void VCButton::slotChooseIcon()
                                         iconPath(), tr("Images (%1)").arg(formats));
     if (path.isEmpty() == false)
     {
-        foreach(VCWidget *widget, vc->selectedWidgets())
+        foreach (VCWidget *widget, vc->selectedWidgets())
         {
             VCButton *button = qobject_cast<VCButton*> (widget);
             if (button != NULL)
@@ -515,16 +516,18 @@ void VCButton::slotKeyReleased(const QKeySequence& keySequence)
 
 void VCButton::updateFeedback()
 {
-    if (m_state == Monitoring)
-        return;
+    //if (m_state == Monitoring)
+    //    return;
 
     QSharedPointer<QLCInputSource> src = inputSource();
     if (!src.isNull() && src->isValid() == true)
     {
         if (m_state == Inactive)
-            sendFeedback(src->lowerValue());
+            sendFeedback(src->feedbackValue(QLCInputFeedback::LowerValue), src, src->feedbackExtraParams(QLCInputFeedback::LowerValue));
+        else if (m_state == Monitoring)
+            sendFeedback(src->feedbackValue(QLCInputFeedback::MonitorValue), src, src->feedbackExtraParams(QLCInputFeedback::MonitorValue));
         else
-            sendFeedback(src->upperValue());
+            sendFeedback(src->feedbackValue(QLCInputFeedback::UpperValue), src, src->feedbackExtraParams(QLCInputFeedback::UpperValue));
     }
 }
 
@@ -625,7 +628,7 @@ void VCButton::setStopAllFadeOutTime(int ms)
     m_blackoutFadeOutTime = ms;
 }
 
-int VCButton::stopAllFadeTime()
+int VCButton::stopAllFadeTime() const
 {
     return m_blackoutFadeOutTime;
 }
@@ -667,6 +670,34 @@ void VCButton::slotAttributeChanged(int value)
     Q_UNUSED(value)
 #endif
 }
+
+
+
+/*****************************************************************************
+ * Flash Properties
+ *****************************************************************************/
+
+bool VCButton::flashOverrides() const
+{
+    return m_flashOverrides;
+}
+
+void VCButton::setFlashOverride(bool shouldOverride)
+{
+    m_flashOverrides = shouldOverride;
+}
+
+bool VCButton::flashForceLTP() const
+{
+    return m_flashForceLTP;
+}
+
+void VCButton::setFlashForceLTP(bool forceLTP)
+{
+    m_flashForceLTP = forceLTP;
+}
+
+
 
 /*****************************************************************************
  * Button press / release handlers
@@ -724,7 +755,7 @@ void VCButton::pressFunction()
         if (f != NULL)
         {
             adjustFunctionIntensity(f, intensity());
-            f->flash(m_doc->masterTimer());
+            f->flash(m_doc->masterTimer(), flashOverrides(), flashForceLTP());
             setState(Active);
         }
     }
@@ -916,6 +947,12 @@ bool VCButton::loadXML(QXmlStreamReader &root)
             setAction(stringToAction(root.readElementText()));
             if (attrs.hasAttribute(KXMLQLCVCButtonStopAllFadeTime))
                 setStopAllFadeOutTime(attrs.value(KXMLQLCVCButtonStopAllFadeTime).toString().toInt());
+
+            if (attrs.hasAttribute(KXMLQLCVCButtonFlashOverride))
+                setFlashOverride(attrs.value(KXMLQLCVCButtonFlashOverride).toInt());
+
+            if (attrs.hasAttribute(KXMLQLCVCButtonFlashForceLTP))
+                setFlashForceLTP(attrs.value(KXMLQLCVCButtonFlashForceLTP).toInt());
         }
         else if (root.name() == KXMLQLCVCButtonKey)
         {
@@ -973,6 +1010,11 @@ bool VCButton::saveXML(QXmlStreamWriter *doc)
     if (action() == StopAll && stopAllFadeTime() != 0)
     {
         doc->writeAttribute(KXMLQLCVCButtonStopAllFadeTime, QString::number(stopAllFadeTime()));
+    }
+    else if (action() == Flash)
+    {
+        doc->writeAttribute(KXMLQLCVCButtonFlashOverride, QString::number(flashOverrides()));
+        doc->writeAttribute(KXMLQLCVCButtonFlashForceLTP, QString::number(flashForceLTP()));
     }
     doc->writeCharacters(actionToString(action()));
     doc->writeEndElement();
@@ -1074,7 +1116,12 @@ void VCButton::paintEvent(QPaintEvent* e)
         painter.setPen(QPen(QColor(160, 160, 160, 255), 2));
 
         if (state() == Active)
-            painter.setBrush(QBrush(QColor(0, 230, 0, 255)));
+        {
+            if (m_flashForceLTP || m_flashOverrides)
+                painter.setBrush(QBrush(QColor(230, 0, 0, 255)));
+            else
+                painter.setBrush(QBrush(QColor(0, 230, 0, 255)));
+        }
         else if (state() == Monitoring)
             painter.setBrush(QBrush(QColor(255, 170, 0, 255)));
         else
@@ -1101,7 +1148,12 @@ void VCButton::paintEvent(QPaintEvent* e)
             if (state() == Monitoring)
                 painter.setPen(QPen(QColor(255, 170, 0, 255), borderWidth));
             else
-                painter.setPen(QPen(QColor(0, 230, 0, 255), borderWidth));
+            {
+                if (m_flashForceLTP || m_flashOverrides)
+                    painter.setPen(QPen(QColor(230, 0, 0, 255), borderWidth));
+                else
+                    painter.setPen(QPen(QColor(0, 230, 0, 255), borderWidth));
+            }
             painter.drawRoundedRect(borderWidth, borderWidth,
                                     rect().width() - borderWidth * 2, rect().height() - (borderWidth * 2),
                                     borderWidth, borderWidth);
@@ -1137,7 +1189,7 @@ void VCButton::mousePressEvent(QMouseEvent* e)
             QMenu *menu = new QMenu();
             menu->setStyleSheet(menuStyle);
             int idx = 0;
-            foreach(Attribute attr, func->attributes())
+            foreach (Attribute attr, func->attributes())
             {
                 QString slStyle = "QSlider::groove:horizontal { border: 1px solid #999999; margin: 0; border-radius: 2px;"
                         "height: 15px; background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4); }"

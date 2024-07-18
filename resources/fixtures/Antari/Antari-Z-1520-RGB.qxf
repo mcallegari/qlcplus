@@ -19,6 +19,7 @@
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Chase">
   <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="15">Chase 1</Capability>
   <Capability Min="16" Max="31">Chase 2</Capability>
   <Capability Min="32" Max="47">Chase 3</Capability>

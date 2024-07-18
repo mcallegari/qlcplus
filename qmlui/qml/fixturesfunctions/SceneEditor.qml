@@ -19,8 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.2 as QC1
-import QtQuick.Controls 2.1
+import QtQuick.Controls 2.13
 
 import org.qlcplus.classes 1.0
 import "TimeUtils.js" as TimeUtils
@@ -33,9 +32,28 @@ Rectangle
     color: "transparent"
 
     property int functionID
-    property bool showToolBar: true
+    property bool boundToSequence: false
 
     signal requestView(int ID, string qmlSrc)
+
+    function deleteSelectedItems()
+    {
+        deleteItemsPopup.open()
+    }
+
+    CustomPopupDialog
+    {
+        id: deleteItemsPopup
+        title: qsTr("Delete items")
+        message: qsTr("Are you sure you want to remove the selected items?")
+        onAccepted:
+        {
+            if (boundToSequence)
+                functionManager.deleteSequenceFixtures(seSelector.itemsList())
+            else
+                functionManager.deleteEditorItems(seSelector.itemsList())
+        }
+    }
 
     ModelSelector
     {
@@ -64,14 +82,16 @@ Rectangle
         }
     }
 
-    QC1.SplitView
+    SplitView
     {
         anchors.fill: parent
+
         Loader
         {
             id: sideLoader
-            visible: width
-            width: 0
+            width: UISettings.sidePanelWidth
+            SplitView.preferredWidth: UISettings.sidePanelWidth
+            visible: false
             height: seContainer.height
             source: ""
 
@@ -86,26 +106,28 @@ Rectangle
                 width: 2
                 height: parent.height
                 x: parent.width - 2
-                color: UISettings.bgLighter
+                color: UISettings.bgLight
             }
         }
 
         Column
         {
+            SplitView.fillWidth: true
+
             EditorTopBar
             {
                 id: toolbar
-                visible: showToolBar
+                visible: !boundToSequence
                 text: sceneEditor ? sceneEditor.functionName : ""
                 onTextChanged: sceneEditor.functionName = text
 
                 onBackClicked:
                 {
-                    if (sideLoader.width)
+                    if (sideLoader.visible)
                     {
                         sideLoader.source = ""
-                        sideLoader.width = 0
-                        rightSidePanel.width = rightSidePanel.width / 2
+                        sideLoader.visible = false
+                        rightSidePanel.width -= sideLoader.width
                     }
 
                     var prevID = sceneEditor.previousID
@@ -136,15 +158,16 @@ Rectangle
                     {
                         if (checked)
                         {
-                            rightSidePanel.width += UISettings.sidePanelWidth
-                            sideLoader.width = UISettings.sidePanelWidth
+                            if (!sideLoader.visible)
+                                rightSidePanel.width += UISettings.sidePanelWidth
+                            sideLoader.visible = true
                             sideLoader.source = "qrc:/FixtureGroupManager.qml"
                         }
                         else
                         {
-                            rightSidePanel.width = rightSidePanel.width - sideLoader.width
+                            rightSidePanel.width -= sideLoader.width
                             sideLoader.source = ""
-                            sideLoader.width = 0
+                            sideLoader.visible = false
                         }
                     }
                 }
@@ -172,15 +195,16 @@ Rectangle
                     {
                         if (checked)
                         {
-                            rightSidePanel.width += UISettings.sidePanelWidth
-                            sideLoader.width = UISettings.sidePanelWidth
+                            if (!sideLoader.visible)
+                                rightSidePanel.width += UISettings.sidePanelWidth
+                            sideLoader.visible = true
                             sideLoader.source = "qrc:/PaletteManager.qml"
                         }
                         else
                         {
-                            rightSidePanel.width = rightSidePanel.width - sideLoader.width
+                            rightSidePanel.width -= sideLoader.width
                             sideLoader.source = ""
-                            sideLoader.width = 0
+                            sideLoader.visible = false
                         }
                     }
                 }
@@ -193,15 +217,7 @@ Rectangle
                     height: UISettings.iconSizeMedium
                     imgSource: "qrc:/remove.svg"
                     tooltip: qsTr("Remove the selected items")
-                    onClicked: deleteItemsPopup.open()
-
-                    CustomPopupDialog
-                    {
-                        id: deleteItemsPopup
-                        title: qsTr("Delete items")
-                        message: qsTr("Are you sure you want to remove the selected items?")
-                        onAccepted: functionManager.deleteEditorItems(seSelector.itemsList())
-                    }
+                    onClicked: deleteSelectedItems()
                 }
             }
 
@@ -257,7 +273,7 @@ Rectangle
 
                                 onClicked:
                                 {
-                                    seSelector.selectItem(index, sfxList.model, mouse.modifiers & Qt.ControlModifier)
+                                    seSelector.selectItem(index, sfxList.model, mouse.modifiers)
 
                                     if (compDelegate.itemType === App.FixtureDragItem)
                                     {
@@ -284,7 +300,7 @@ Rectangle
                         {
                             if (type === App.Clicked)
                             {
-                                seSelector.selectItem(index, sfxList.model, mouseMods & Qt.ControlModifier)
+                                seSelector.selectItem(index, sfxList.model, mouseMods)
 
                                 if (!(mouseMods & Qt.ControlModifier))
                                     contextManager.resetFixtureSelection()

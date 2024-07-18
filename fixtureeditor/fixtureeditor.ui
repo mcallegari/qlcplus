@@ -223,7 +223,7 @@
          </item>
          <item>
           <property name="text">
-           <string>LED Bar (Beams)</string>
+           <string notr="true">LED Bar (Beams)</string>
           </property>
           <property name="icon">
            <iconset resource="../ui/src/qlcui.qrc">
@@ -232,7 +232,7 @@
          </item>
          <item>
           <property name="text">
-           <string>LED Bar (Pixels)</string>
+           <string notr="true">LED Bar (Pixels)</string>
           </property>
           <property name="icon">
            <iconset resource="../ui/src/qlcui.qrc">

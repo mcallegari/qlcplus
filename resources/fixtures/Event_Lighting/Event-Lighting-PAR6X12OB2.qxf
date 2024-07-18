@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.7 GIT</Version>
+  <Author>Michael Tosatto</Author>
+ </Creator>
+ <Manufacturer>Event Lighting</Manufacturer>
+ <Model>PAR6x12OB2</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Color macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="8">No function</Capability>
+  <Capability Min="9" Max="127">40 preset colours</Capability>
+  <Capability Min="128" Max="255">63 factory colours</Capability>
+ </Channel>
+ <Channel Name="Chases">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="19">No function</Capability>
+  <Capability Min="20" Max="89">18 chases</Capability>
+  <Capability Min="90" Max="127">Custom chases</Capability>
+  <Capability Min="128" Max="159">63 colour fade</Capability>
+  <Capability Min="160" Max="191">63 colour jump</Capability>
+  <Capability Min="192" Max="223">63 colour pulse</Capability>
+  <Capability Min="224" Max="255">Sound active mode</Capability>
+ </Channel>
+ <Channel Name="Auto Run Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Auto run speed, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Dimming Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="55">Dimming speed 1</Capability>
+  <Capability Min="56" Max="105">Dimming speed 2</Capability>
+  <Capability Min="106" Max="155">Dimming speed 3</Capability>
+  <Capability Min="156" Max="205">Dimming speed 4</Capability>
+  <Capability Min="206" Max="255">Dimming speed 5</Capability>
+ </Channel>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Mode Name="Normal 12 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">UV</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Color macro</Channel>
+  <Channel Number="9">Chases</Channel>
+  <Channel Number="10">Auto Run Speed</Channel>
+  <Channel Number="11">Dimming Speed</Channel>
+ </Mode>
+ <Mode Name="Simple 6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="1600" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="240" Height="165" Depth="210"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="72" DmxConnector="3-pin IP65"/>
+ </Physical>
+</FixtureDefinition>

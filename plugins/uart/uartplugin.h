@@ -68,7 +68,7 @@ public:
     QString outputInfo(quint32 output);
 
     /** @reimp */
-    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
 
     /*************************************************************************
      * Inputs
@@ -85,9 +85,6 @@ public:
 
     /** @reimp */
     QString inputInfo(quint32 input);
-
-    /** @reimp */
-    void sendFeedBack(quint32 universe, quint32 output, quint32 channel, uchar value, const QString& key);
 };
 
 #endif

@@ -25,6 +25,7 @@
 
 AudioRenderer::AudioRenderer (QObject* parent)
     : QThread (parent)
+    , m_looped(false)
     , m_fadeStep(0.0)
     , m_userStop(true)
     , m_pause(false)
@@ -33,7 +34,6 @@ AudioRenderer::AudioRenderer (QObject* parent)
     , m_adec(NULL)
     , audioDataRead(0)
     , pendingAudioBytes(0)
-    , m_looped(false)
 {
 }
 
@@ -47,8 +47,25 @@ void AudioRenderer::adjustIntensity(qreal fraction)
     m_intensity = CLAMP(fraction, 0.0, 1.0);
 }
 
+bool AudioRenderer::isLooped()
+{
+    return m_looped;
+}
+
+void AudioRenderer::setLooped(bool looped)
+{
+    m_looped = looped;
+}
+
+/*********************************************************************
+ * Fade sequences
+ *********************************************************************/
+
 void AudioRenderer::setFadeIn(uint fadeTime)
 {
+    m_fadeStep = 0;
+    m_currentIntensity = 1.0;
+
     if (fadeTime == 0 || m_adec == NULL)
         return;
 
@@ -63,14 +80,13 @@ void AudioRenderer::setFadeIn(uint fadeTime)
 
 void AudioRenderer::setFadeOut(uint fadeTime)
 {
-    if (fadeTime == 0 || m_fadeStep != 0  || m_adec == NULL)
+    if (fadeTime == 0 || m_adec == NULL)
         return;
 
     quint32 sampleRate = m_adec->audioParameters().sampleRate();
     int channels = m_adec->audioParameters().channels();
     qreal stepsCount = (qreal)fadeTime * ((qreal)(sampleRate * channels) / 1000);
     m_fadeStep = -(m_intensity / stepsCount);
-    m_currentIntensity = m_intensity;
 
     qDebug() << Q_FUNC_INFO << "stepsCount:" << stepsCount << ", fadeStep:" << m_fadeStep;
 }
@@ -84,10 +100,16 @@ void AudioRenderer::stop()
     m_currentIntensity = 1.0;
 }
 
+/*********************************************************************
+ * Thread functions
+ *********************************************************************/
+
 void AudioRenderer::run()
 {
+    qint64 audioDataWritten;
     m_userStop = false;
     audioDataRead = 0;
+
     int sampleSize = m_adec->audioParameters().sampleSize();
     if (sampleSize > 2)
         sampleSize = 2;
@@ -95,7 +117,7 @@ void AudioRenderer::run()
     while (!m_userStop)
     {
         QMutexLocker locker(&m_mutex);
-        qint64 audioDataWritten = 0;
+
         if (m_pause == false)
         {
             //qDebug() << "Pending audio bytes: " << pendingAudioBytes;
@@ -117,6 +139,8 @@ void AudioRenderer::run()
                 }
                 if (m_intensity != 1.0 || m_fadeStep != 0)
                 {
+                    //qDebug() << "Intensity" << m_intensity << ", current" << m_currentIntensity << ", fadeStep" << m_fadeStep;
+
                     for (int i = 0; i < audioDataRead; i+=sampleSize)
                     {
                         qreal scaleFactor = m_intensity;
@@ -175,7 +199,7 @@ void AudioRenderer::run()
                 if (audioDataWritten == 0)
                     usleep(15000);
             }
-            //qDebug() << "[Cycle] read: " << audioDataRead << ", written: " << audioDataWritten;
+            //qDebug() << "[Cycle] read:" << audioDataRead << ", written:" << audioDataWritten << ", pending:" << pendingAudioBytes;
         }
         else
         {
@@ -186,7 +210,3 @@ void AudioRenderer::run()
     reset();
 }
 
-void AudioRenderer::setLooped(bool looped)
-{
-    m_looped = looped;
-}

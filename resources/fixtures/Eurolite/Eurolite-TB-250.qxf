@@ -33,7 +33,7 @@
   <Capability Min="144" Max="161" Preset="ColorMacro" Res1="#2aff2e">Light green</Capability>
   <Capability Min="162" Max="179" Preset="ColorMacro" Res1="#46aeff">Light blue</Capability>
   <Capability Min="180" Max="197" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
-  <Capability Min="198" Max="215" Preset="ColorMacro" Res1="#ffff00">Light yellow</Capability>
+  <Capability Min="198" Max="215" Preset="ColorMacro" Res1="#ffffe0">Light yellow</Capability>
   <Capability Min="216" Max="233" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="234" Max="251" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red/blue</Capability>
   <Capability Min="252" Max="255" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Yellow/green</Capability>

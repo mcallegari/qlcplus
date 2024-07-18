@@ -22,9 +22,12 @@
 #include <QDialog>
 #include <QString>
 #include <cmath>
+#include <QSettings>
 
 #include "vcxypadfixtureeditor.h"
 #include "vcxypadfixture.h"
+
+#define SETTINGS_GEOMETRY "vcxypadfixtureeditor/geometry"
 
 /*****************************************************************************
  * Initialization
@@ -74,10 +77,17 @@ VCXYPadFixtureEditor::VCXYPadFixtureEditor(QWidget* parent, QList <VCXYPadFixtur
         m_yMax->setValue(int(floor((fxi.yMax() * qreal(m_maxYVal)) + qreal(0.5))));
         m_yReverse->setChecked(fxi.yReverse());
     }
+
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 }
 
 VCXYPadFixtureEditor::~VCXYPadFixtureEditor()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 void VCXYPadFixtureEditor::slotXMinChanged(int value)

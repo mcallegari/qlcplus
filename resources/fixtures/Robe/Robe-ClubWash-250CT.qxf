@@ -21,10 +21,12 @@
   <Capability Min="253" Max="255">BO during Pan/Tilt/Col</Capability>
  </Channel>
  <Channel Name="Control">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="0">Safe</Capability>
-  <Capability Min="128" Max="129">Lamp On, Reset</Capability>
-  <Capability Min="230" Max="239">Lamp Off</Capability>
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127">Fan speed, max to min</Capability>
+  <Capability Min="128" Max="139">Lamp On, reset</Capability>
+  <Capability Min="140" Max="229">No function</Capability>
+  <Capability Min="230" Max="239">Lamp Off after 3s</Capability>
+  <Capability Min="240" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
@@ -49,10 +51,13 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="31" Preset="ShutterClose">Closed</Capability>
   <Capability Min="32" Max="63" Preset="ShutterOpen">Open</Capability>
-  <Capability Min="64" Max="95">Strobe Speed</Capability>
-  <Capability Min="128" Max="143">Close Pulse</Capability>
-  <Capability Min="144" Max="159">Open Pulse</Capability>
-  <Capability Min="192" Max="223" Preset="StrobeRandom">Random Strobe</Capability>
+  <Capability Min="64" Max="95">Strobe Speed, slow to fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="128" Max="143">Closing pulses, slow to fast</Capability>
+  <Capability Min="144" Max="159">Opening pulses, fast to slow</Capability>
+  <Capability Min="160" Max="191">No function</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandom">Random strobe, slow to fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="16bit">

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.7 GIT</Version>
+  <Author>Michael Tosatto</Author>
+ </Creator>
+ <Manufacturer>Event Lighting</Manufacturer>
+ <Model>PAR19x12O</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">Shutter on</Capability>
+  <Capability Min="16" Max="119" Preset="StrobeFreqRange" Res1="1" Res2="25">Strobe slow to fast: (1-25hz)</Capability>
+  <Capability Min="120" Max="127" Preset="ShutterOpen">Shutter on</Capability>
+  <Capability Min="128" Max="183" Preset="StrobeRandomSlowToFast">Strobe (random) slow to fast</Capability>
+  <Capability Min="184" Max="191" Preset="ShutterOpen">Shutter on</Capability>
+  <Capability Min="192" Max="247" Preset="StrobeSlowToFast">Strobe (audio) sensitivity low to high</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Shutter on</Capability>
+ </Channel>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="White Mode">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="9">Shutter on</Capability>
+  <Capability Min="10" Max="31">White 1</Capability>
+  <Capability Min="32" Max="54">White 2</Capability>
+  <Capability Min="55" Max="77">White 3</Capability>
+  <Capability Min="78" Max="100">White 4</Capability>
+  <Capability Min="101" Max="123">White 5</Capability>
+  <Capability Min="124" Max="146">White 6</Capability>
+  <Capability Min="147" Max="169">White 7</Capability>
+  <Capability Min="170" Max="192">White 8</Capability>
+  <Capability Min="193" Max="215">White 9</Capability>
+  <Capability Min="216" Max="238">White 10</Capability>
+  <Capability Min="239" Max="255">White 11</Capability>
+ </Channel>
+ <Channel Name="Auto Run">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Shutter on</Capability>
+  <Capability Min="10" Max="39">Auto run 1</Capability>
+  <Capability Min="40" Max="70">Auto run 2</Capability>
+  <Capability Min="71" Max="101">Auto run 3</Capability>
+  <Capability Min="102" Max="132">Auto run 4</Capability>
+  <Capability Min="133" Max="163">Auto run 5</Capability>
+  <Capability Min="164" Max="194">Auto run 6</Capability>
+  <Capability Min="195" Max="224">Auto run 7</Capability>
+  <Capability Min="225" Max="255">Sound active</Capability>
+ </Channel>
+ <Channel Name="Auto Run Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed of auto programs (slow ~ fast)</Capability>
+ </Channel>
+ <Channel Name="Dimmer Curve">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Dimmer as set in main menu</Capability>
+  <Capability Min="10" Max="58">Dimming mode 1 (Standard)</Capability>
+  <Capability Min="59" Max="108">Dimming mode 2 (Stage)</Capability>
+  <Capability Min="109" Max="158">Dimming mode 3 (TV)</Capability>
+  <Capability Min="159" Max="208">Dimming mode 4 (Architecture)</Capability>
+  <Capability Min="209" Max="255">Dimming mode 5 (Theatre)</Capability>
+ </Channel>
+ <Channel Name="Master dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+ </Mode>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Master dimmer</Channel>
+  <Channel Number="7">Master dimmer fine</Channel>
+  <Channel Number="8">Strobe</Channel>
+  <Channel Number="9">Dimmer Curve</Channel>
+ </Mode>
+ <Mode Name="12 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Master dimmer</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">White Mode</Channel>
+  <Channel Number="9">Auto Run</Channel>
+  <Channel Number="10">Auto Run Speed</Channel>
+  <Channel Number="11">Dimmer Curve</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="7400" ColourTemperature="0"/>
+  <Dimensions Weight="9.5" Width="370" Height="380" Depth="165"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="200" DmxConnector="3-pin IP65"/>
+ </Physical>
+</FixtureDefinition>

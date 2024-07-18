@@ -138,6 +138,9 @@ private:
      */
     void createFunctions(PaletteType type, PaletteSubType subType);
 
+    QString getNamePrefix(QString name);
+    QString getNamePrefix(QString type, QString name);
+
 private:
     Doc* m_doc;
     QString m_name;

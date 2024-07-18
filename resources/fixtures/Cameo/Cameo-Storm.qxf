@@ -92,7 +92,7 @@
  <Channel Name="Laser Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="4" Preset="ShutterOpen">No Strobe</Capability>
-  <Capability Min="5" Max="249" Preset="StrobeSlowToFast">Stobe funktion wirh increasing speed</Capability>
+  <Capability Min="5" Max="249" Preset="StrobeSlowToFast">Strobe function with increasing speed</Capability>
   <Capability Min="250" Max="255">Music Controlled stobe for laser</Capability>
  </Channel>
  <Channel Name="Laser pattern and rotation">

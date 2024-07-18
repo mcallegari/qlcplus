@@ -29,7 +29,7 @@
  <Channel Name="White PAR 4" Preset="IntensityWhite"/>
  <Channel Name="Function">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="99">Full On</Capability>
   <Capability Min="100" Max="129">Colour Change erratic</Capability>
   <Capability Min="130" Max="159">Colour Change fade</Capability>

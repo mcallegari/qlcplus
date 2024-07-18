@@ -26,7 +26,7 @@
   <Capability Min="32" Max="47" Preset="GoboMacro" Res1="ClayPaky/gobo00035.png">Gobo 2</Capability>
   <Capability Min="48" Max="63" Preset="GoboMacro" Res1="Others/gobo00046.svg">Gobo 3</Capability>
   <Capability Min="64" Max="79" Preset="GoboMacro" Res1="Others/gobo00037.svg">Gobo 4</Capability>
-  <Capability Min="80" Max="95" Preset="GoboMacro" Res1="ClayPaky/gobo00033.png">Gobo 5</Capability>
+  <Capability Min="80" Max="95" Preset="GoboMacro" Res1="ClayPaky/gobo00032.png">Gobo 5</Capability>
   <Capability Min="96" Max="111" Preset="GoboMacro" Res1="Robe/gobo00037.svg">Gobo 6</Capability>
   <Capability Min="112" Max="127" Preset="GoboMacro" Res1="Chauvet/gobo00047.svg">Gobo 7</Capability>
   <Capability Min="128" Max="255">Gobo change from slow to fast</Capability>
@@ -36,12 +36,12 @@
   <Capability Min="0" Max="12" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="13" Max="25" Preset="ColorMacro" Res1="#00aa00">Green</Capability>
   <Capability Min="26" Max="38" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
-  <Capability Min="39" Max="51" Preset="ColorMacro" Res1="#00ffff">Light blue</Capability>
+  <Capability Min="39" Max="51" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
   <Capability Min="52" Max="63" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="64" Max="76" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
   <Capability Min="77" Max="89" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="90" Max="102" Preset="ColorMacro" Res1="#aa00ff">UV purple</Capability>
-  <Capability Min="103" Max="115" Preset="ColorMacro" Res1="#00ff00">Light green</Capability>
+  <Capability Min="103" Max="115" Preset="ColorMacro" Res1="#90ee90">Light green</Capability>
   <Capability Min="116" Max="127" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
   <Capability Min="128" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow effect slow to fast</Capability>
  </Channel>
@@ -51,9 +51,9 @@
   <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#00aa00">Green</Capability>
   <Capability Min="16" Max="22" Preset="ColorDoubleMacro" Res1="#00aa00" Res2="#ff00ff">Green + Magenta</Capability>
   <Capability Min="23" Max="30" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
-  <Capability Min="31" Max="37" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#00ffff">Magenta + Light blue</Capability>
-  <Capability Min="38" Max="45" Preset="ColorMacro" Res1="#00ffff">Light blue</Capability>
-  <Capability Min="46" Max="52" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ffff00">Light blue + Yellow</Capability>
+  <Capability Min="31" Max="37" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#add8e6">Magenta + Light blue</Capability>
+  <Capability Min="38" Max="45" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
+  <Capability Min="46" Max="52" Preset="ColorDoubleMacro" Res1="#add8e6" Res2="#ffff00">Light blue + Yellow</Capability>
   <Capability Min="53" Max="60" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="61" Max="67" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffaa00">Yellow + Orange</Capability>
   <Capability Min="68" Max="75" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
@@ -61,8 +61,8 @@
   <Capability Min="83" Max="90" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="91" Max="97" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#aa00ff">Blue + UV purple</Capability>
   <Capability Min="98" Max="105" Preset="ColorMacro" Res1="#aa00ff">UV purple</Capability>
-  <Capability Min="106" Max="112" Preset="ColorDoubleMacro" Res1="#aa00ff" Res2="#00ff00">UV purple + Light green</Capability>
-  <Capability Min="113" Max="120" Preset="ColorMacro" Res1="#00ff00">Light green</Capability>
+  <Capability Min="106" Max="112" Preset="ColorDoubleMacro" Res1="#aa00ff" Res2="#90ee90">UV purple + Light green</Capability>
+  <Capability Min="113" Max="120" Preset="ColorMacro" Res1="#90ee90">Light green</Capability>
   <Capability Min="121" Max="127" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
   <Capability Min="128" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow effect slow to fast</Capability>
  </Channel>

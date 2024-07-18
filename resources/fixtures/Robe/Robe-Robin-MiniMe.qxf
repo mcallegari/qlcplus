@@ -83,6 +83,7 @@
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="1">Horizontal linear shade, white --&gt; black</Capability>
+  <Capability Min="2" Max="2">Horizontal linear shade, black --&gt; white</Capability>
   <Capability Min="3" Max="3">Vertical linear shade, black --&gt; white</Capability>
   <Capability Min="4" Max="4">Vertical linear shade, white --&gt; black</Capability>
   <Capability Min="5" Max="5">Diagonal shade, white --&gt; black</Capability>

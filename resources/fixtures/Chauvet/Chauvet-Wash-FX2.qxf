@@ -27,7 +27,7 @@
   <Capability Min="186" Max="200">Program 13</Capability>
   <Capability Min="201" Max="215">Program 14</Capability>
   <Capability Min="216" Max="230">Program 15</Capability>
-  <Capability Min="231" Max="245">Program 16</Capability>
+  <Capability Min="231" Max="255">Program 16</Capability>
  </Channel>
  <Channel Name="Speed">
   <Group Byte="0">Speed</Group>

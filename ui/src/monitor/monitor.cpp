@@ -156,7 +156,7 @@ void Monitor::fillDMXView()
     m_monitorWidget->setFont(m_props->font());
 
     /* Create a bunch of MonitorFixtures for each fixture */
-    foreach(Fixture* fxi, m_doc->fixtures())
+    foreach (Fixture* fxi, m_doc->fixtures())
     {
         Q_ASSERT(fxi != NULL);
         if (m_currentUniverse == Universe::invalid() ||
@@ -251,7 +251,6 @@ void Monitor::fillGraphicsView()
 
     m_graphicsView->setGridSize(QSize(m_props->gridSize().x(), m_props->gridSize().z()));
     m_graphicsView->setBackgroundImage(m_props->commonBackgroundImage());
-    m_graphicsView->showFixturesLabels(m_props->labelsVisible());
 
     foreach (quint32 fid, m_props->fixtureItemsID())
     {
@@ -264,6 +263,8 @@ void Monitor::fillGraphicsView()
             m_graphicsView->setFixtureRotation(fid, item.m_rotation.y());
         }
     }
+
+    m_graphicsView->showFixturesLabels(m_props->labelsVisible());
 }
 
 void Monitor::showGraphicsView()

@@ -53,6 +53,7 @@
   <Capability Min="128" Max="140">Loop Slow</Capability>
   <Capability Min="141" Max="158" Preset="GoboMacro" Res1="Chauvet/gobo00081.png">Loop Fast</Capability>
   <Capability Min="159" Max="160">Loop Medium</Capability>
+  <Capability Min="161" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Gobos rotation">
   <Group Byte="0">Gobo</Group>
@@ -60,6 +61,7 @@
   <Capability Min="11" Max="45">Slow</Capability>
   <Capability Min="46" Max="90">Med</Capability>
   <Capability Min="91" Max="121">Fast</Capability>
+  <Capability Min="122" Max="255">No Rotation</Capability>
  </Channel>
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
@@ -72,6 +74,7 @@
   <Capability Min="11" Max="45">Fast</Capability>
   <Capability Min="46" Max="90">Medium</Capability>
   <Capability Min="91" Max="121">Slow</Capability>
+  <Capability Min="122" Max="255">No Rotation</Capability>
  </Channel>
  <Channel Name="Focus">
   <Group Byte="0">Effect</Group>

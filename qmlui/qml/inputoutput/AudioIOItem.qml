@@ -91,7 +91,7 @@ Rectangle
             GradientStop { position: 1 ; color: "#3C832B" }
         }
         border.width: 2
-        border.color: "#111"
+        border.color: UISettings.borderColorDark
 
         RobotoText
         {

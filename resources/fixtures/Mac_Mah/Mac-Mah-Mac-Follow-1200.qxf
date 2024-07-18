@@ -13,7 +13,7 @@
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="24" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="25" Max="49" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
-  <Capability Min="50" Max="74" Preset="ColorMacro" Res1="#ff00ff">Purple</Capability>
+  <Capability Min="50" Max="74" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="75" Max="99" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="100" Max="124" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="125" Max="149" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>

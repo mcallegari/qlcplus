@@ -54,6 +54,7 @@
   <Capability Min="120" Max="123">Custom 4</Capability>
   <Capability Min="124" Max="127">Custom 5</Capability>
   <Capability Min="128" Max="131">Custom 6</Capability>
+  <Capability Min="132" Max="252">No function</Capability>
   <Capability Min="253" Max="255">No Preset Activated</Capability>
  </Channel>
  <Channel Name="Intensity Time">
@@ -69,11 +70,13 @@
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="0">Default setting on console</Capability>
+  <Capability Min="1" Max="2">Reserved</Capability>
   <Capability Min="3" Max="4">Display on/off</Capability>
   <Capability Min="5" Max="7" Preset="ResetAll">Reset all settings to defaults</Capability>
   <Capability Min="8" Max="10">Quiet mode</Capability>
   <Capability Min="11" Max="13">Studio mode</Capability>
   <Capability Min="14" Max="15">Normal mode</Capability>
+  <Capability Min="16" Max="19">No function</Capability>
   <Capability Min="20" Max="21">Preset 1 store</Capability>
   <Capability Min="22" Max="23">Preset 2 store (intensity only)</Capability>
   <Capability Min="24" Max="25">Preset 3 store (intensity only)</Capability>
@@ -106,11 +109,13 @@
   <Capability Min="78" Max="79">Preset 30 store</Capability>
   <Capability Min="80" Max="81">Preset 31 store</Capability>
   <Capability Min="82" Max="83">Preset 32 store</Capability>
+  <Capability Min="84" Max="99">Reserved</Capability>
   <Capability Min="100" Max="103">Color normalization on</Capability>
   <Capability Min="104" Max="107">Color normalization off</Capability>
   <Capability Min="108" Max="112" Preset="ResetAll">Fixture reset</Capability>
   <Capability Min="113" Max="115">Red correction on</Capability>
   <Capability Min="116" Max="118">Red correction off</Capability>
+  <Capability Min="119" Max="255">Reserved</Capability>
  </Channel>
  <Channel Name="Intensity" Preset="IntensityDimmer"/>
  <Channel Name="Red" Preset="IntensityRed"/>

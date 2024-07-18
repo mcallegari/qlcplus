@@ -53,6 +53,7 @@
     <file alias="down.svg">down.svg</file>
     <file alias="e131plugin.svg">e131plugin.svg</file>
     <file alias="edit-copy.svg">edit-copy.svg</file>
+    <file alias="edit-cut.svg">edit-cut.svg</file>
     <file alias="edit-paste.svg">edit-paste.svg</file>
     <file alias="edit.svg">edit.svg</file>
     <file alias="editor.svg">editor.svg</file>
@@ -101,8 +102,10 @@
     <file alias="knob.svg">knob.svg</file>
     <file alias="label.svg">label.svg</file>
     <file alias="laser.svg">laser.svg</file>
+    <file alias="layout-btf.svg">layout-btf.svg</file>
     <file alias="layout-btt.svg">layout-btt.svg</file>
     <file alias="layout-center.svg">layout-center.svg</file>
+    <file alias="layout-ftb.svg">layout-ftb.svg</file>
     <file alias="layout-ltr.svg">layout-ltr.svg</file>
     <file alias="layout-rtl.svg">layout-rtl.svg</file>
     <file alias="layout-ttb.svg">layout-ttb.svg</file>
@@ -165,6 +168,7 @@
     <file alias="video.svg">video.svg</file>
     <file alias="virtualconsole.svg">virtualconsole.svg</file>
     <file alias="white.svg">white.svg</file>
+    <file alias="wizard.svg">wizard.svg</file>
     <file alias="xypad.svg">xypad.svg</file>
     <file alias="yellow.svg">yellow.svg</file>
   </qresource>

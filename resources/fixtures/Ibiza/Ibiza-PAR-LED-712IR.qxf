@@ -45,7 +45,7 @@
  </Channel>
  <Channel Name="Effect">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="199">Auto program</Capability>
   <Capability Min="200" Max="255">Sound Program</Capability>
  </Channel>

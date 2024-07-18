@@ -97,7 +97,7 @@
   <Capability Min="40" Max="44">Pan Tilt speed NORM</Capability>
   <Capability Min="45" Max="49">Pan Tilt speed FAST</Capability>
   <Capability Min="50" Max="54">Pan Tilt speed SLOW</Capability>
-  <Capability Min="55" Max="79">No Function</Capability>
+  <Capability Min="55" Max="79">No function</Capability>
   <Capability Min="80" Max="84">Fast Dimming</Capability>
   <Capability Min="85" Max="89">No function</Capability>
   <Capability Min="90" Max="94">Smooth Dimming</Capability>

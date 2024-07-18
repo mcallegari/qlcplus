@@ -39,7 +39,7 @@ var testAlgo;
       ["Bottom Half", {minFactor: 0, maxFactor: 0.5}],
       ["Bottom Third", {minFactor: 0, maxFactor: 0.3}],
       ["Centered Third", {minFactor: 0.3, maxFactor: 0.7}],
-      ["Full Size", {minFactor: 0, maxFactor: 1}],
+      ["Full Size", {minFactor: 0, maxFactor: 1}]
     );
     algo.makeSubArray = function(_index) {
       var _array = new Array();
@@ -139,11 +139,11 @@ var testAlgo;
       }
 
       // Dim current map data
-      util.map = util.map.map(col => {
-	      return col.map(pxl => {
-		      return util.dimColor(pxl, 0.8);
-        })
-      });
+      for (var y = 0; y < height; y++) {
+        for (var x = 0; x < width; x ++) {
+          util.map[y][x] = util.dimColor(util.map[y][x], 0.8);
+        }
+      }
 
       // Initialize each rocket displayed
       for (var i = 0; i < algo.rocketsCount; i++) {

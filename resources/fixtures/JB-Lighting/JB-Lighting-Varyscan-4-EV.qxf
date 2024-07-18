@@ -47,7 +47,7 @@
   <Capability Min="128" Max="138">Open</Capability>
   <Capability Min="139" Max="139">Closed</Capability>
   <Capability Min="140" Max="243">Strobe speed 1-11/sec</Capability>
-  <Capability Min="255" Max="255">Open</Capability>
+  <Capability Min="244" Max="255">Open</Capability>
  </Channel>
  <Channel Name="Iris" Preset="ShutterIrisMaxToMin"/>
  <Channel Name="Gobo rotation">

@@ -33,7 +33,7 @@
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="6" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="7" Max="13" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
-  <Capability Min="14" Max="20" Preset="ColorMacro" Res1="#ff00ff">Pink</Capability>
+  <Capability Min="14" Max="20" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
   <Capability Min="21" Max="27" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="28" Max="34" Preset="ColorMacro" Res1="#d76aed">Peachblow</Capability>
   <Capability Min="35" Max="41" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
@@ -41,8 +41,8 @@
   <Capability Min="49" Max="55" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#00008b">Dark blue</Capability>
   <Capability Min="64" Max="70" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffff00">White + yellow</Capability>
-  <Capability Min="71" Max="77" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff00ff">Yellow + pink</Capability>
-  <Capability Min="78" Max="84" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#00ff00">Pink + green</Capability>
+  <Capability Min="71" Max="77" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffc0cb">Yellow + pink</Capability>
+  <Capability Min="78" Max="84" Preset="ColorDoubleMacro" Res1="#ffc0cb" Res2="#00ff00">Pink + green</Capability>
   <Capability Min="85" Max="91" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#d76aed">Green + peachblow</Capability>
   <Capability Min="92" Max="98" Preset="ColorDoubleMacro" Res1="#d76aed" Res2="#0000ff">Peachblow + blue</Capability>
   <Capability Min="99" Max="105" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#4cbb17">Blue + kelly-green</Capability>
@@ -110,17 +110,17 @@
   <Capability Min="152" Max="159" Preset="ResetAll">All channels reset</Capability>
   <Capability Min="160" Max="255">Unused</Capability>
  </Channel>
- <Channel Name="Built in Programmes">
+ <Channel Name="Built in Programs">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">Unused</Capability>
-  <Capability Min="8" Max="23">Programme 1</Capability>
-  <Capability Min="24" Max="39">Programme 2</Capability>
-  <Capability Min="40" Max="55">Programme 3</Capability>
-  <Capability Min="56" Max="71">Programme 4</Capability>
-  <Capability Min="72" Max="87">Programme 5</Capability>
-  <Capability Min="88" Max="103">Programme 6</Capability>
-  <Capability Min="104" Max="119">Programme 7</Capability>
-  <Capability Min="120" Max="135">Programme 8</Capability>
+  <Capability Min="8" Max="23">Program 1</Capability>
+  <Capability Min="24" Max="39">Program 2</Capability>
+  <Capability Min="40" Max="55">Program 3</Capability>
+  <Capability Min="56" Max="71">Program 4</Capability>
+  <Capability Min="72" Max="87">Program 5</Capability>
+  <Capability Min="88" Max="103">Program 6</Capability>
+  <Capability Min="104" Max="119">Program 7</Capability>
+  <Capability Min="120" Max="135">Program 8</Capability>
   <Capability Min="136" Max="151">Sound-control 1</Capability>
   <Capability Min="152" Max="167">Sound-control 2</Capability>
   <Capability Min="168" Max="183">Sound-control 3</Capability>
@@ -154,7 +154,7 @@
   <Channel Number="8">Gobo Wheel</Channel>
   <Channel Number="9">Gobo Rotation</Channel>
   <Channel Number="10">Special Functions</Channel>
-  <Channel Number="11">Built in Programmes</Channel>
+  <Channel Number="11">Built in Programs</Channel>
   <Channel Number="12">Prism</Channel>
   <Channel Number="13">Sharpness</Channel>
  </Mode>

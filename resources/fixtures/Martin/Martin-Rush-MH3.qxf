@@ -16,7 +16,7 @@
  <Channel Name="Pan-Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Funtions">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="29">No Function</Capability>
+  <Capability Min="0" Max="29">No function</Capability>
   <Capability Min="30" Max="39">Dimmer Conventional</Capability>
   <Capability Min="40" Max="49">Dimmer Linear</Capability>
   <Capability Min="50" Max="59">Pan tilt Fast</Capability>
@@ -32,13 +32,13 @@
   <Capability Min="150" Max="159">Color Reset</Capability>
   <Capability Min="160" Max="169">Gobo Reset</Capability>
   <Capability Min="170" Max="179">Shutter/prism/rotating prism reset</Capability>
-  <Capability Min="180" Max="189">No Function</Capability>
+  <Capability Min="180" Max="189">No function</Capability>
   <Capability Min="190" Max="199">Frost/focus/zoom reset</Capability>
   <Capability Min="200" Max="209">Reset All</Capability>
   <Capability Min="210" Max="219">Blackout during pan/tilt or color/gobo change</Capability>
   <Capability Min="220" Max="229">Disable blackout during pan/tilt or color/gobo change</Capability>
   <Capability Min="230" Max="239">Lamp Off</Capability>
-  <Capability Min="240" Max="255">No Function</Capability>
+  <Capability Min="240" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Pan - Tilt Macros">
   <Group Byte="0">Effect</Group>
@@ -160,7 +160,7 @@
  </Channel>
  <Channel Name="Prism Effects">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="127">Prism Effect</Capability>
   <Capability Min="128" Max="132">Prism Rotation Effects 1</Capability>
   <Capability Min="133" Max="137">Prism Rotation Effects 2</Capability>
@@ -245,7 +245,7 @@
  <Physical>
   <Bulb Type="MSD Platinum 5R" Lumens="0" ColourTemperature="8000"/>
   <Dimensions Weight="20.5" Width="418" Height="321" Depth="489"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Lens Name="Other" DegreesMin="1" DegreesMax="3.8"/>
   <Focus Type="Head" PanMax="540" TiltMax="270"/>
   <Technical PowerConsumption="348" DmxConnector="3-pin and 5-pin"/>
  </Physical>

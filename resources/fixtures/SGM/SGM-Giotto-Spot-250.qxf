@@ -25,7 +25,7 @@
   <Capability Min="150" Max="174" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="175" Max="200" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
   <Capability Min="201" Max="225" Preset="ColorMacro" Res1="#ffc000">Amber</Capability>
-  <Capability Min="226" Max="255" Preset="ColorMacro" Res1="#ff7f00">Orange</Capability>
+  <Capability Min="226" Max="255" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>

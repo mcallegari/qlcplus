@@ -18,46 +18,101 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Dialogs 1.2
+import QtQuick.Layouts 1.14
+
 import "."
 
 Flickable
 {
     id: universeGridView
     anchors.fill: parent
-    anchors.margins: 20
     boundsBehavior: Flickable.StopAtBounds
+    contentHeight: uniGrid.height + topbar.height + UISettings.bigItemHeight
 
-    contentHeight: uniGrid.height + uniText.height
-
+    property alias contextItem: uniGrid
     property string contextName: "UNIGRID"
-    property int uniStartAddr: viewUniverseCombo.currentIndex * 512
+    property int uniStartAddr: contextManager.universeFilter * 512
+    property var fixtureClipboard: null
 
     function hasSettings()
     {
         return false;
     }
 
-    RobotoText
+    CustomPopupDialog
     {
-        id: uniText
-        height: UISettings.textSizeDefault * 2
-        labelColor: UISettings.fgLight
-        label: viewUniverseCombo.currentText
-        fontSize: UISettings.textSizeDefault * 1.5
-        fontBold: true
+        id: errorPopup
+        standardButtons: Dialog.Ok
+        title: qsTr("Error")
+        message: qsTr("Unable to perform the operation.\nThere is either not enough space or the target universe is invalid")
+        onAccepted: close()
+    }
+
+    RowLayout
+    {
+        id: topbar
+        x: UISettings.iconSizeMedium
+        height: UISettings.iconSizeDefault * 1.5
+        width: parent.width - (UISettings.iconSizeMedium * 2)
+
+        RobotoText
+        {
+            id: uniText
+            height: UISettings.textSizeDefault * 2
+            labelColor: UISettings.fgLight
+            label: ioManager.universeName(contextManager.universeFilter)
+            fontSize: UISettings.textSizeDefault * 1.5
+            fontBold: true
+        }
+
+        // filler
+        Rectangle
+        {
+            Layout.fillWidth: true
+            height: parent.height
+            color: "transparent"
+        }
+
+        IconButton
+        {
+            id: cutBtn
+            imgSource: "qrc:/edit-cut.svg"
+            tooltip: qsTr("Cut the selected items into clipboard")
+            onClicked: fixtureClipboard = contextManager.selectedFixtureIDVariantList()
+        }
+
+        IconButton
+        {
+            id: pasteBtn
+            enabled: fixtureClipboard && fixtureClipboard.length
+            imgSource: "qrc:/edit-paste.svg"
+            tooltip: qsTr("Paste items in the clipboard at the first available position")
+            onClicked:
+            {
+                if (fixtureManager.pasteFromClipboard(fixtureClipboard) !== 0)
+                    errorPopup.open()
+            }
+        }
     }
 
     GridEditor
     {
         id: uniGrid
-        anchors.top: uniText.bottom
-        width: parent.width - 40
-        height: cellSize * gridSize.height
+        x: UISettings.iconSizeMedium
+        anchors.top: topbar.bottom
+        width: parent.width - (UISettings.iconSizeMedium * 3)
+        height: 32 * gridSize.height
 
         showIndices: 512
         gridSize: Qt.size(24, 22)
         gridLabels: fixtureManager.fixtureNamesMap
         gridData: fixtureManager.fixturesMap
+
+        Component.onCompleted: contextManager.enableContext("UNIGRID", true, uniGrid)
+        Component.onDestruction: if (contextManager) contextManager.enableContext("UNIGRID", false, uniGrid)
+
+        property int prevFixtureID: -1
 
         function getItemIcon(itemID, chNumber)
         {
@@ -74,22 +129,36 @@ Flickable
         {
             universeGridView.interactive = false
             var uniAddress = (yPos * gridSize.width) + xPos
+            var multiSelection = (contextManager.multipleSelection || mods)
+
             if (selectionData && selectionData.indexOf(uniAddress) >= 0)
                 return
-            if (contextManager.multipleSelection === false && mods == 0)
-            {
-                var empty = []
-                setSelectionData(empty)
-            }
-            console.log("Fixture pressed at address: " + uniAddress)
-            setSelectionData(fixtureManager.fixtureSelection(uniAddress))
+
+            // no modifiers means exclusive selection:
+            // start from an empty selection
+            if (multiSelection === 0)
+                contextManager.resetFixtureSelection()
+
+            console.log("prevFixtureID: " + prevFixtureID + "currentItemID: " + currentItemID)
+            if (prevFixtureID != currentItemID && multiSelection === 0)
+                contextManager.setFixtureIDSelection(prevFixtureID, false)
+
+            if (currentItemID != -1)
+                contextManager.setFixtureIDSelection(currentItemID, true)
+
+            console.log("Fixture pressed at address: " + uniAddress + ", itemID: " + currentItemID)
+            setSelectionData(contextManager.selectedFixtureAddress())
+
+            prevFixtureID = currentItemID
         }
 
         onReleased:
         {
             universeGridView.interactive = true
-            if (currentItemID === -1 || validSelection == false)
-                return;
+
+            if (currentItemID === -1 || validSelection === false || offset === 0)
+                return
+
             var uniAddress = (yPos * gridSize.width) + xPos
             fixtureManager.moveFixture(currentItemID, selectionData[0] + offset)
         }

@@ -49,7 +49,7 @@
  </Channel>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="19">No Function</Capability>
+  <Capability Min="0" Max="19">No function</Capability>
   <Capability Min="20" Max="39">Blackout during Pan/Tilt movement</Capability>
   <Capability Min="40" Max="59">Disabled blackout during Pan/Tilt movement</Capability>
   <Capability Min="60" Max="79">Fan Auto</Capability>
@@ -63,7 +63,7 @@
   <Capability Min="180" Max="189">Sound 1</Capability>
   <Capability Min="190" Max="199">Sound 2</Capability>
   <Capability Min="200" Max="219">Reset activated after 5 seconds</Capability>
-  <Capability Min="220" Max="235">No Function</Capability>
+  <Capability Min="220" Max="235">No function</Capability>
   <Capability Min="236" Max="239">DIM 0 activated after 5 seconds</Capability>
   <Capability Min="240" Max="243">DIM 1 activated after 5 seconds</Capability>
   <Capability Min="244" Max="247">DIM 2 activated after 5 seconds</Capability>

@@ -247,10 +247,10 @@ qmlui: {
     INSTALLS += geometryloaders
     INSTALLS += renderers
 
-    lessThan(QT_MINOR_VERSION, 15) {
-        include(sceneparsers-nametool.pri)
-        INSTALLS += sceneparsers
-    } else {
+    include(sceneparsers-nametool.pri)
+    INSTALLS += sceneparsers
+
+    greaterThan(QT_MINOR_VERSION, 14) {
         include(assetimporters-nametool.pri)
         INSTALLS += assetimporters
     }

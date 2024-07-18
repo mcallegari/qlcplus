@@ -41,20 +41,27 @@
  </Channel>
  <Channel Name="Colour Wheel 1">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">Open/white - proportional</Capability>
-  <Capability Min="18" Max="18" Preset="ColorMacro" Res1="#bf0000">Deep red - proportional</Capability>
-  <Capability Min="37" Max="37" Preset="ColorMacro" Res1="#0000bf">Deep blue - proportional</Capability>
-  <Capability Min="55" Max="55" Preset="ColorMacro" Res1="#00ff00">Green - proportional</Capability>
-  <Capability Min="73" Max="73" Preset="ColorMacro" Res1="#ff7f00">Orange - proportional</Capability>
-  <Capability Min="91" Max="91" Preset="ColorMacro" Res1="#eaf1ff">6000K temperature filter - proportional</Capability>
-  <Capability Min="110" Max="110" Preset="ColorMacro" Res1="#dcb48c">UV filter - proportional</Capability>
-  <Capability Min="128" Max="129" Preset="ColorMacro" Res1="#ffffff">White - proportional</Capability>
-  <Capability Min="130" Max="139" Preset="ColorMacro" Res1="#bf0000">Deep red - step</Capability>
-  <Capability Min="140" Max="149" Preset="ColorMacro" Res1="#0000bf">Deep blue - step</Capability>
-  <Capability Min="150" Max="159" Preset="ColorMacro" Res1="#00ff00">Green - step</Capability>
-  <Capability Min="160" Max="169" Preset="ColorMacro" Res1="#ff7f00">Orange - step</Capability>
-  <Capability Min="170" Max="179" Preset="ColorMacro" Res1="#eaf1ff">6000K temperature filter - step</Capability>
-  <Capability Min="180" Max="189" Preset="ColorMacro" Res1="#dcb48c">UV filter - step</Capability>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">Open/white</Capability>
+  <Capability Min="1" Max="17" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#bf0000">White/Deep red</Capability>
+  <Capability Min="18" Max="18" Preset="ColorMacro" Res1="#bf0000">Deep red</Capability>
+  <Capability Min="19" Max="36" Preset="ColorDoubleMacro" Res1="#bf0000" Res2="#0000bf">Deep red/Deep blue</Capability>
+  <Capability Min="37" Max="37" Preset="ColorMacro" Res1="#0000bf">Deep blue</Capability>
+  <Capability Min="38" Max="54" Preset="ColorDoubleMacro" Res1="#0000bf" Res2="#00ff00">Deep blue/Green</Capability>
+  <Capability Min="55" Max="55" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="56" Max="72" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffa500">Green/Orange</Capability>
+  <Capability Min="73" Max="73" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="74" Max="90" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#eaf1ff">6000K/Orange</Capability>
+  <Capability Min="91" Max="91" Preset="ColorMacro" Res1="#eaf1ff">6000K filter</Capability>
+  <Capability Min="92" Max="109" Preset="ColorDoubleMacro" Res1="#eaf1ff" Res2="#dcb48c">6000K/UV</Capability>
+  <Capability Min="110" Max="110" Preset="ColorMacro" Res1="#dcb48c">UV filter</Capability>
+  <Capability Min="111" Max="127" Preset="ColorDoubleMacro" Res1="#dcb48c" Res2="#ffffff">UV/White</Capability>
+  <Capability Min="128" Max="129" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="130" Max="139" Preset="ColorMacro" Res1="#bf0000">Deep red</Capability>
+  <Capability Min="140" Max="149" Preset="ColorMacro" Res1="#0000bf">Deep blue</Capability>
+  <Capability Min="150" Max="159" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="160" Max="169" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="170" Max="179" Preset="ColorMacro" Res1="#eaf1ff">6000K filter</Capability>
+  <Capability Min="180" Max="189" Preset="ColorMacro" Res1="#dcb48c">UV filter</Capability>
   <Capability Min="190" Max="215" Preset="GoboMacro" Res1="Others/rainbow.png">Forwards rainbow effect from fast to slow</Capability>
   <Capability Min="216" Max="217">No rotation</Capability>
   <Capability Min="218" Max="243" Preset="GoboMacro" Res1="Others/rainbow.png">Backwards rainbow effect from slow to fast</Capability>
@@ -176,20 +183,27 @@
  </Channel>
  <Channel Name="Colour Wheel 2">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">Open/white - proportional</Capability>
-  <Capability Min="17" Max="18" Preset="ColorMacro" Res1="#aa0000">Red ring - proportional</Capability>
-  <Capability Min="37" Max="37" Preset="ColorMacro" Res1="#55aaff">Blue dot - proportional</Capability>
-  <Capability Min="55" Max="55" Preset="ColorMacro" Res1="#ffff00">Yellow ring - proportional</Capability>
-  <Capability Min="73" Max="73" Preset="ColorDoubleMacro" Res1="#00007f" Res2="#aa0000">Blue/red - proportional</Capability>
-  <Capability Min="91" Max="91" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff7f00">Green/orange - proportional</Capability>
-  <Capability Min="110" Max="110">Yellow/blue/orange/magenta - proportional</Capability>
-  <Capability Min="128" Max="129" Preset="ColorMacro" Res1="#ffffff">White - proportional</Capability>
-  <Capability Min="130" Max="139" Preset="ColorMacro" Res1="#aa0000">Red ring - step</Capability>
-  <Capability Min="140" Max="149" Preset="ColorMacro" Res1="#55aaff">Blue dot - step</Capability>
-  <Capability Min="150" Max="159" Preset="ColorMacro" Res1="#7fff7f">Yellow ring - step</Capability>
-  <Capability Min="160" Max="169" Preset="ColorDoubleMacro" Res1="#00007f" Res2="#aa0000">Blue/red - step</Capability>
-  <Capability Min="170" Max="179" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff7f00">Green/orange - step</Capability>
-  <Capability Min="180" Max="189">Yellow/blue/orange/magenta - step</Capability>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">Open/white</Capability>
+  <Capability Min="1" Max="16" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#aa0000">White/Red ring</Capability>
+  <Capability Min="17" Max="18" Preset="ColorMacro" Res1="#aa0000">Red ring</Capability>
+  <Capability Min="19" Max="36" Preset="ColorDoubleMacro" Res1="#aa0000" Res2="#55aaff">Red ring/Blue dot</Capability>
+  <Capability Min="37" Max="37" Preset="ColorMacro" Res1="#55aaff">Blue dot</Capability>
+  <Capability Min="38" Max="54" Preset="ColorDoubleMacro" Res1="#55aaff" Res2="#ffff00">Blue dot/Yellow ring</Capability>
+  <Capability Min="55" Max="55" Preset="ColorMacro" Res1="#ffff00">Yellow ring</Capability>
+  <Capability Min="56" Max="72" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00007f">Yellow ring/Blue+red</Capability>
+  <Capability Min="73" Max="73" Preset="ColorDoubleMacro" Res1="#00007f" Res2="#aa0000">Blue+red</Capability>
+  <Capability Min="74" Max="90" Preset="ColorDoubleMacro" Res1="#00007f" Res2="#00ff00">Blue+red/Green+orange</Capability>
+  <Capability Min="91" Max="91" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff7f00">Green+orange</Capability>
+  <Capability Min="92" Max="109" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#0000ff">Green+orange/Multicolour</Capability>
+  <Capability Min="110" Max="110">Yellow/blue/orange/magenta</Capability>
+  <Capability Min="111" Max="127" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Multicolour/White</Capability>
+  <Capability Min="128" Max="129" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="130" Max="139" Preset="ColorMacro" Res1="#aa0000">Red ring</Capability>
+  <Capability Min="140" Max="149" Preset="ColorMacro" Res1="#55aaff">Blue dot</Capability>
+  <Capability Min="150" Max="159" Preset="ColorMacro" Res1="#7fff7f">Yellow ring</Capability>
+  <Capability Min="160" Max="169" Preset="ColorDoubleMacro" Res1="#00007f" Res2="#aa0000">Blue/red</Capability>
+  <Capability Min="170" Max="179" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff7f00">Green/orange</Capability>
+  <Capability Min="180" Max="189">Yellow/blue/orange/magenta</Capability>
   <Capability Min="190" Max="215" Preset="GoboMacro" Res1="Others/rainbow.png">Forwards rainbow effect from fast to slow</Capability>
   <Capability Min="216" Max="217">No rotation</Capability>
   <Capability Min="218" Max="243" Preset="GoboMacro" Res1="Others/rainbow.png">Backwards rainbow effect from slow to fast</Capability>

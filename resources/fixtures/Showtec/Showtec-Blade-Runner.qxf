@@ -25,7 +25,7 @@
   <Capability Min="230" Max="252" Preset="ColorMacro" Res1="#ffff7f">Red + green + blue + amber + white</Capability>
   <Capability Min="253" Max="255">Sound-controlled</Capability>
  </Channel>
- <Channel Name="No Function/Strobe/Audio Sensitivity">
+ <Channel Name="No function/Strobe/Audio Sensitivity">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">No function/Slow to fast/Less sensitive to highly sensitive</Capability>
  </Channel>
@@ -59,22 +59,22 @@
   <Capability Min="240" Max="249">Program 25</Capability>
   <Capability Min="250" Max="255">Sound-controlled</Capability>
  </Channel>
- <Channel Name="No Function/LED Running Speed/Audio Sensitivity">
+ <Channel Name="No function/LED Running Speed/Audio Sensitivity">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">No function/Slow to fast/Less sensitive to highly sensitive</Capability>
  </Channel>
- <Channel Name="No Function/Strobe">
+ <Channel Name="No function/Strobe">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">No function/Flash frequency from slow to fast</Capability>
  </Channel>
  <Mode Name="2 Channels">
   <Channel Number="0">Built-in Programs - 2-Channel Mode</Channel>
-  <Channel Number="1">No Function/Strobe/Audio Sensitivity</Channel>
+  <Channel Number="1">No function/Strobe/Audio Sensitivity</Channel>
  </Mode>
  <Mode Name="3 Channels">
   <Channel Number="0">Built-in Programs - 3-Channel Mode</Channel>
-  <Channel Number="1">No Function/LED Running Speed/Audio Sensitivity</Channel>
-  <Channel Number="2">No Function/Strobe</Channel>
+  <Channel Number="1">No function/LED Running Speed/Audio Sensitivity</Channel>
+  <Channel Number="2">No function/Strobe</Channel>
  </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>

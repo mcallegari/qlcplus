@@ -15,16 +15,16 @@
  <Channel Name="Master" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe / Speed Adjust / Sensitivity Adjust">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="16">No Function</Capability>
+  <Capability Min="0" Max="16">No function</Capability>
   <Capability Min="17" Max="255">Strobe / Speed Adjust / Sensitivity Adjust</Capability>
  </Channel>
  <Channel Name="Effect">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="31">No Function</Capability>
+  <Capability Min="0" Max="31">No function</Capability>
   <Capability Min="32" Max="95">Colour Mixing</Capability>
   <Capability Min="96" Max="159">RGB Colour Change</Capability>
   <Capability Min="160" Max="233">7 Colour Change</Capability>
-  <Capability Min="234" Max="243">No Function</Capability>
+  <Capability Min="234" Max="243">No function</Capability>
   <Capability Min="244" Max="255">Sound Activation</Capability>
  </Channel>
  <Mode Name="4-Channel Mode (Red Dot)">

@@ -76,7 +76,7 @@
  </Channel>
  <Channel Name="Special Functions">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="29">No Function</Capability>
+  <Capability Min="0" Max="29">No function</Capability>
   <Capability Min="30" Max="39">Enable Colour Wheel To Any Position</Capability>
   <Capability Min="40" Max="59" Preset="LampOn">Lamp On</Capability>
   <Capability Min="60" Max="79" Preset="LampOff">Lamp Off</Capability>
@@ -90,7 +90,7 @@
   <Capability Min="110" Max="119">Enable Blackout With Colour Change</Capability>
   <Capability Min="120" Max="129">Enable Blackout With Gobo Change</Capability>
   <Capability Min="130" Max="139">Enable Blackout With Any Change</Capability>
-  <Capability Min="140" Max="255">No Function</Capability>
+  <Capability Min="140" Max="255">No function</Capability>
  </Channel>
  <Mode Name="8 Channel">
   <Channel Number="0">Pan</Channel>

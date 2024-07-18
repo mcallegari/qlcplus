@@ -113,9 +113,14 @@ qint64 AudioCaptureQt6::latency()
 
 void AudioCaptureQt6::setVolume(qreal volume)
 {
+    if (volume == m_volume)
+        return;
+
     m_volume = volume;
     if (m_audioSource != NULL)
         m_audioSource->setVolume(volume);
+
+    emit volumeChanged(volume * 100.0);
 }
 
 void AudioCaptureQt6::suspend()

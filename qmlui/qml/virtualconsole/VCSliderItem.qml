@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick 2.14
 import QtQuick.Layouts 1.1
 
 import org.qlcplus.classes 1.0
@@ -111,7 +111,7 @@ VCWidgetItem
             height: UISettings.listItemHeight
             font: sliderObj ? sliderObj.font : ""
             text: sliderObj ? (sliderObj.valueDisplayStyle === VCSlider.DMXValue ?
-                               sliderValue : parseInt((sliderValue * 100) / 255) + "%") : sliderValue
+                               sliderValue : Math.round((sliderValue * 100.0) / 255.0) + "%") : sliderValue
             color: sliderObj ? sliderObj.foregroundColor : "white"
         }
 
@@ -120,7 +120,7 @@ VCWidgetItem
         {
             id: slFader
             visible: sliderObj ? sliderObj.widgetStyle === VCSlider.WSlider : false
-            enabled: visible
+            enabled: visible && !sliderObj.isDisabled
             Layout.alignment: Qt.AlignHCenter
             Layout.fillHeight: true
             width: parent.width
@@ -141,15 +141,15 @@ VCWidgetItem
         {
             id: slKnob
             visible: sliderObj ? sliderObj.widgetStyle === VCSlider.WKnob : false
-            enabled: visible
+            enabled: visible && !sliderObj.isDisabled
             Layout.alignment: Qt.AlignHCenter
             Layout.fillHeight: true
-            //width: parent.width
+            Layout.fillWidth: true
             from: sliderObj ? sliderObj.rangeLowLimit : 0
             to: sliderObj ? sliderObj.rangeHighLimit : 255
             value: sliderValue
 
-            onMoved: if (sliderObj) sliderObj.value = value // position * 255
+            onValueChanged: if (sliderObj) sliderObj.value = value
         }
 
         // widget name text box
@@ -194,6 +194,24 @@ VCWidgetItem
             onClicked: if (sliderObj) sliderObj.isOverriding = false
         }
 
+        IconButton
+        {
+            visible: sliderObj ? sliderObj.adjustFlashEnabled : false
+            Layout.alignment: Qt.AlignHCenter
+            imgSource: "qrc:/flash.svg"
+            tooltip: qsTr("Flash the controlled Function")
+            onPressed:
+            {
+                if (sliderObj)
+                    sliderObj.flashFunction(true)
+            }
+            onReleased:
+            {
+                if (sliderObj)
+                    sliderObj.flashFunction(false)
+            }
+        }
+
         // Click & Go button
         IconButton
         {
@@ -230,7 +248,7 @@ VCWidgetItem
                 if (Qt.platform.os === "android")
                     presetImageBox.source = cngResource
                 else
-                    presetImageBox.source = "file:/" + cngResource
+                    presetImageBox.source = "file:" + cngResource
             }
 
             onClicked: colorToolLoader.toggleVisibility()
@@ -275,33 +293,40 @@ VCWidgetItem
                     item.visible = !item.visible
                     if (sliderObj && clickAndGoButton.cngType == VCSlider.CnGPreset)
                         item.updatePresets(sliderObj.clickAndGoPresetsList)
+                    item.parent = virtualConsole.currentPageItem()
+                    var posInPage = clickAndGoButton.mapToItem(item.parent, 0, clickAndGoButton.height)
+                    item.x = posInPage.x
+                    item.y = posInPage.y
                 }
 
                 onLoaded:
                 {
-                    item.y = parent.height
                     item.visible = false
                     item.closeOnSelect = true
+                    if (sliderObj && clickAndGoButton.cngType == VCSlider.CnGPreset)
+                    {
+                        item.rangeLowLimit = sliderObj.rangeLowLimit
+                        item.rangeHighLimit = sliderObj.rangeHighLimit
+                    }
                 }
 
                 Connections
                 {
                     ignoreUnknownSignals: true
                     target: colorToolLoader.item
-                    onColorChanged:
+                    function onColorChanged(r, g, b, w, a, uv)
                     {
                         if (sliderObj)
                             sliderObj.setClickAndGoColors(Qt.rgba(r, g, b, 1.0), Qt.rgba(w, a, uv, 1.0))
                     }
-                }
-                Connections
-                {
-                    ignoreUnknownSignals: true
-                    target: colorToolLoader.item
-                    onPresetSelected:
+                    function onPresetSelected(cap, fxID, chIdx, value)
                     {
                         if (sliderObj)
                             sliderObj.setClickAndGoPresetValue(value)
+                    }
+                    function onClose()
+                    {
+                        target.visible = false
                     }
                 }
             }

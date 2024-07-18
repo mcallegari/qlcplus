@@ -18,7 +18,7 @@
   <Capability Min="0" Max="20" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="21" Max="40" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="41" Max="60" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
-  <Capability Min="61" Max="80" Preset="ColorMacro" Res1="#ff7f00">Orange</Capability>
+  <Capability Min="61" Max="80" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
   <Capability Min="81" Max="100" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="101" Max="120" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="121" Max="140" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
@@ -99,6 +99,7 @@
   <Capability Min="112" Max="119">Macro 13, frost</Capability>
   <Capability Min="120" Max="127">Macro 14, frost</Capability>
   <Capability Min="128" Max="135">Macro 15, frost</Capability>
+  <Capability Min="136" Max="255">Reserved</Capability>
  </Channel>
  <Channel Name="Beam shaper">
   <Group Byte="0">Beam</Group>

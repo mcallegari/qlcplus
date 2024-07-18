@@ -16,11 +16,11 @@
  <Channel Name="Pan/Tilt Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="225">Decreasing Speed</Capability>
-  <Capability Min="226" Max="255">No Function</Capability>
+  <Capability Min="226" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
   <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe - Increasing Speed</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
@@ -44,7 +44,7 @@
  <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Colour Preset">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="4">No Function</Capability>
+  <Capability Min="0" Max="4">No function</Capability>
   <Capability Min="5" Max="29" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="30" Max="54" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="55" Max="79" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
@@ -59,14 +59,14 @@
   <Capability Min="195" Max="199">Preset 8</Capability>
   <Capability Min="200" Max="204">Preset 9</Capability>
   <Capability Min="205" Max="209">Preset 10</Capability>
-  <Capability Min="210" Max="210">No Function</Capability>
+  <Capability Min="210" Max="210">No function</Capability>
   <Capability Min="211" Max="255">Color Fade</Capability>
  </Channel>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="79">No Function</Capability>
+  <Capability Min="0" Max="79">No function</Capability>
   <Capability Min="80" Max="99" Preset="ResetAll">Reset All</Capability>
-  <Capability Min="100" Max="255">No Function</Capability>
+  <Capability Min="100" Max="255">No function</Capability>
  </Channel>
  <Mode Name="15-Channel">
   <Channel Number="0">Pan</Channel>

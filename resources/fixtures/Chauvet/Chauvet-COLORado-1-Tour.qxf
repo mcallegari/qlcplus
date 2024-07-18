@@ -16,7 +16,7 @@
  <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Color Macros">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="30">R:100 | G:Up | B:0</Capability>
   <Capability Min="31" Max="50">R:Down | G:100 | B:0</Capability>
   <Capability Min="51" Max="70">R:0 | G:100 | B:Up</Capability>
@@ -45,7 +45,7 @@
  </Channel>
  <Channel Name="Auto Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="20">No Function</Capability>
+  <Capability Min="0" Max="20">No function</Capability>
   <Capability Min="21" Max="30">Auto 1</Capability>
   <Capability Min="31" Max="40">Auto 2</Capability>
   <Capability Min="41" Max="50">Auto 3</Capability>
@@ -66,7 +66,7 @@
   <Capability Min="191" Max="200">Custom 8</Capability>
   <Capability Min="201" Max="210">Custom 9</Capability>
   <Capability Min="211" Max="220">Custom 10</Capability>
-  <Capability Min="221" Max="255">No Function</Capability>
+  <Capability Min="221" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Auto Speed">
   <Group Byte="0">Speed</Group>

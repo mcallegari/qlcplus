@@ -205,7 +205,7 @@
  <Channel Name="Pan/Tilt Movement Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Special Functions" Default="19">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="49">No Function</Capability>
+  <Capability Min="0" Max="49">No function</Capability>
   <Capability Min="50" Max="59">Pan/Tilt Fast Mode</Capability>
   <Capability Min="60" Max="69">Pan/Tilt Normal Mode</Capability>
   <Capability Min="70" Max="79">Blackout with Pan/Tilt Move Enabled</Capability>
@@ -219,12 +219,12 @@
   <Capability Min="150" Max="159" Preset="ResetColor">Color Wheel Reset</Capability>
   <Capability Min="160" Max="169" Preset="ResetGobo">Gobo/Wheel Reset</Capability>
   <Capability Min="170" Max="179" Preset="ResetEffects">Shutter/Prism &amp; Prism Rotation/Frost/Focus Reset</Capability>
-  <Capability Min="180" Max="199">No Function</Capability>
+  <Capability Min="180" Max="199">No function</Capability>
   <Capability Min="200" Max="209" Preset="ResetAll">Reset All</Capability>
   <Capability Min="210" Max="219">Blackout with Pan/Tilt/Color/Gobo Change Enabled</Capability>
   <Capability Min="220" Max="229">Blackout with Pan/Tilt/Color/Gobo Change Disabled</Capability>
   <Capability Min="230" Max="239" Preset="LampOff">Lamp OFF</Capability>
-  <Capability Min="240" Max="255">No Function</Capability>
+  <Capability Min="240" Max="255">No function</Capability>
  </Channel>
  <Mode Name="19 Channel">
   <Channel Number="0">Pan Movement</Channel>

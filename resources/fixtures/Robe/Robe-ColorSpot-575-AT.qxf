@@ -240,24 +240,33 @@
  <Channel Name="Colour Wheel 2 - Fine Positioning" Preset="ColorWheelFine"/>
  <Channel Name="Colour Wheel 2">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">Open/white - continual positioning</Capability>
-  <Capability Min="14" Max="14" Preset="ColorMacro" Res1="#7f0000">Deep red - continual positioning</Capability>
-  <Capability Min="28" Max="28" Preset="ColorMacro" Res1="#00007f">Deep blue - continual positioning</Capability>
-  <Capability Min="42" Max="42" Preset="ColorMacro" Res1="#ff7fff">Pink - continual positioning</Capability>
-  <Capability Min="56" Max="56" Preset="ColorMacro" Res1="#00ffff">Cyan - continual positioning</Capability>
-  <Capability Min="70" Max="70" Preset="ColorMacro" Res1="#ff00ff">Magenta - continual positioning</Capability>
-  <Capability Min="84" Max="84" Preset="ColorMacro" Res1="#ffff00">Yellow - continual positioning</Capability>
-  <Capability Min="98" Max="98" Preset="ColorMacro" Res1="#ffe7c4">3200°K correction filter - continual positioning</Capability>
-  <Capability Min="112" Max="112" Preset="ColorMacro" Res1="#55007f">UV filter - continual positioning</Capability>
-  <Capability Min="128" Max="129" Preset="ColorMacro" Res1="#ffffff">White - continual positioning</Capability>
-  <Capability Min="130" Max="136" Preset="ColorMacro" Res1="#7f0000">Deep red - positioning</Capability>
-  <Capability Min="137" Max="144" Preset="ColorMacro" Res1="#00007f">Deep blue - positioning</Capability>
-  <Capability Min="145" Max="151" Preset="ColorMacro" Res1="#ff7fff">Pink - positioning</Capability>
-  <Capability Min="152" Max="159" Preset="ColorMacro" Res1="#00ffff">Cyan - positioning</Capability>
-  <Capability Min="160" Max="166" Preset="ColorMacro" Res1="#ff00ff">Magenta - positioning</Capability>
-  <Capability Min="167" Max="174" Preset="ColorMacro" Res1="#ffff00">Yellow - positioning</Capability>
-  <Capability Min="175" Max="181" Preset="ColorMacro" Res1="#ffe7c4">3200°K correction filter - positioning</Capability>
-  <Capability Min="182" Max="189" Preset="ColorMacro" Res1="#55007f">UV filter - positioning</Capability>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">Open/white</Capability>
+  <Capability Min="1" Max="13" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#7f0000">White/Deep red</Capability>
+  <Capability Min="14" Max="14" Preset="ColorMacro" Res1="#7f0000">Deep red</Capability>
+  <Capability Min="15" Max="27" Preset="ColorDoubleMacro" Res1="#7f0000" Res2="#00007f">Deep red/Deep blue</Capability>
+  <Capability Min="28" Max="28" Preset="ColorMacro" Res1="#00007f">Deep blue</Capability>
+  <Capability Min="29" Max="41" Preset="ColorDoubleMacro" Res1="#00007f" Res2="#ff7fff">Deep blue/Pink</Capability>
+  <Capability Min="42" Max="42" Preset="ColorMacro" Res1="#ff7fff">Pink</Capability>
+  <Capability Min="43" Max="55" Preset="ColorDoubleMacro" Res1="#ff7fff" Res2="#00ffff">Pink/Cyan</Capability>
+  <Capability Min="56" Max="56" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="57" Max="69" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ff00ff">Cyan/Magenta</Capability>
+  <Capability Min="70" Max="70" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="71" Max="83" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ffff00">Magenta/Yellow</Capability>
+  <Capability Min="84" Max="84" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="85" Max="97" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffe7c4">Yellow/3200°K</Capability>
+  <Capability Min="98" Max="98" Preset="ColorMacro" Res1="#ffe7c4">3200°K filter</Capability>
+  <Capability Min="99" Max="111" Preset="ColorDoubleMacro" Res1="#ffe7c4" Res2="#55007f">3200°K/UV</Capability>
+  <Capability Min="112" Max="112" Preset="ColorMacro" Res1="#55007f">UV filter</Capability>
+  <Capability Min="113" Max="127" Preset="ColorDoubleMacro" Res1="#55007f" Res2="#ffffff">UV/White</Capability>
+  <Capability Min="128" Max="129" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="130" Max="136" Preset="ColorMacro" Res1="#7f0000">Deep red</Capability>
+  <Capability Min="137" Max="144" Preset="ColorMacro" Res1="#00007f">Deep blue</Capability>
+  <Capability Min="145" Max="151" Preset="ColorMacro" Res1="#ff7fff">Pink</Capability>
+  <Capability Min="152" Max="159" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="160" Max="166" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="167" Max="174" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="175" Max="181" Preset="ColorMacro" Res1="#ffe7c4">3200°K filter</Capability>
+  <Capability Min="182" Max="189" Preset="ColorMacro" Res1="#55007f">UV filter</Capability>
   <Capability Min="190" Max="215">Forwards rainbow effect from fast to slow</Capability>
   <Capability Min="216" Max="217">No rotation</Capability>
   <Capability Min="218" Max="243">Backwards rainbow effect from slow to fast</Capability>

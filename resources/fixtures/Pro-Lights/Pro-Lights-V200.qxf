@@ -32,8 +32,8 @@
   <Capability Min="85" Max="98">Gobo 6</Capability>
   <Capability Min="99" Max="112">Gobo 7</Capability>
   <Capability Min="113" Max="127">Gobo 8</Capability>
-  <Capability Min="129" Max="191">Rainbow CW speed</Capability>
-  <Capability Min="192" Max="255">Rainbow CCW speed</Capability>
+  <Capability Min="128" Max="191">Gobo Change, fast to slow</Capability>
+  <Capability Min="192" Max="255">Gobo Change, slow to fast</Capability>
  </Channel>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
@@ -50,9 +50,9 @@
   <Capability Min="75" Max="82" Preset="ColorMacro" Res1="#008000">Deep green</Capability>
   <Capability Min="83" Max="89" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff8000">Green + orange</Capability>
   <Capability Min="90" Max="97" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
-  <Capability Min="98" Max="104" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff8000">Yellow + orange</Capability>
-  <Capability Min="105" Max="112" Preset="ColorMacro" Res1="#ffff00">Yellow 2</Capability>
-  <Capability Min="113" Max="119" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffc0c0">Yellow + pink</Capability>
+  <Capability Min="98" Max="104" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#eeee00">Yellow + orange</Capability>
+  <Capability Min="105" Max="112" Preset="ColorMacro" Res1="#eeee00">Yellow 2</Capability>
+  <Capability Min="113" Max="119" Preset="ColorDoubleMacro" Res1="#eeee00" Res2="#ffc0c0">Yellow + pink</Capability>
   <Capability Min="120" Max="127" Preset="ColorMacro" Res1="#ffc0c0">Pink</Capability>
   <Capability Min="128" Max="191" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow CW speed</Capability>
   <Capability Min="192" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow CCW speed</Capability>

@@ -45,6 +45,8 @@ Entity
     /* **************** Pan/Tilt properties **************** */
     property real panMaxDegrees: 360
     property real tiltMaxDegrees: 270
+    property bool invertedPan: false
+    property bool invertedTilt: false
     property real panSpeed: 4000 // in milliseconds
     property real tiltSpeed: 4000 // in milliseconds
 
@@ -107,7 +109,10 @@ Entity
     /* ********************** Light matrices ********************** */
     property matrix4x4 lightMatrix
     property matrix4x4 lightViewMatrix:
-        Math3D.getLightViewMatrix(lightMatrix, panRotation, tiltRotation, lightPos)
+        Math3D.getLightViewMatrix(lightMatrix,
+                                  invertedPan ? panMaxDegrees - panRotation : panRotation,
+                                  invertedTilt ? tiltMaxDegrees - tiltRotation : tiltRotation,
+                                  lightPos)
     property matrix4x4 lightProjectionMatrix:
         Math3D.getLightProjectionMatrix(distCutoff, coneBottomRadius, coneTopRadius, headLength, cutoffAngle)
     property matrix4x4 lightViewProjectionMatrix: lightProjectionMatrix.times(lightViewMatrix)
@@ -125,7 +130,9 @@ Entity
         console.log("Binding pan ----")
         fixtureEntity.panTransform = t
         fixtureEntity.panMaxDegrees = maxDegrees
-        t.rotationY = Qt.binding(function() { return panRotation })
+        t.rotationY = Qt.binding(function() {
+            return invertedPan ? panMaxDegrees - panRotation : panRotation
+        })
     }
 
     function bindTiltTransform(t, maxDegrees)
@@ -134,7 +141,9 @@ Entity
         fixtureEntity.tiltTransform = t
         fixtureEntity.tiltMaxDegrees = maxDegrees
         tiltRotation = maxDegrees / 2
-        t.rotationX = Qt.binding(function() { return tiltRotation })
+        t.rotationX = Qt.binding(function() {
+            return invertedTilt ? tiltMaxDegrees - tiltRotation : tiltRotation
+        })
     }
 
     function getHead(headIndex)

@@ -31,7 +31,7 @@ Rectangle
     width: 800
     height: 600
     anchors.fill: parent
-    color: UISettings.bgMain
+    color: UISettings.bgMedium
 
     property string currentContext: ""
 
@@ -94,10 +94,20 @@ Rectangle
         clientAccessPopup.open()
     }
 
+    function saveProject()
+    {
+        actionsMenu.handleSaveAction()
+    }
+
     function saveBeforeExit()
     {
         //actionsMenu.open()
         actionsMenu.saveBeforeExit()
+    }
+
+    function loadResource(qmlRes)
+    {
+        mainViewLoader.source = qmlRes
     }
 
     FontLoader
@@ -134,6 +144,7 @@ Rectangle
             MenuBarEntry
             {
                 id: actEntry
+                Layout.alignment: Qt.AlignTop
                 imgSource: "qrc:/qlcplus.svg"
                 entryText: qsTr("Actions")
                 onPressed: actionsMenu.open()
@@ -155,6 +166,7 @@ Rectangle
             {
                 id: fnfEntry
                 property string ctxName: "FIXANDFUNC"
+                Layout.alignment: Qt.AlignTop
                 property string ctxRes: "qrc:/FixturesAndFunctions.qml"
 
                 imgSource: "qrc:/editor.svg"
@@ -170,6 +182,7 @@ Rectangle
             MenuBarEntry
             {
                 id: vcEntry
+                Layout.alignment: Qt.AlignTop
                 property string ctxName: "VC"
                 property string ctxRes: "qrc:/VirtualConsole.qml"
 
@@ -191,6 +204,7 @@ Rectangle
             MenuBarEntry
             {
                 id: sdEntry
+                Layout.alignment: Qt.AlignTop
                 property string ctxName: "SDESK"
                 property string ctxRes: "qrc:/SimpleDesk.qml"
 
@@ -212,6 +226,7 @@ Rectangle
             MenuBarEntry
             {
                 id: smEntry
+                Layout.alignment: Qt.AlignTop
                 property string ctxName: "SHOWMGR"
                 property string ctxRes: "qrc:/ShowManager.qml"
 
@@ -233,6 +248,7 @@ Rectangle
             MenuBarEntry
             {
                 id: ioEntry
+                Layout.alignment: Qt.AlignTop
                 property string ctxName: "IOMGR"
                 property string ctxRes: "qrc:/InputOutputManager.qml"
 
@@ -255,7 +271,7 @@ Rectangle
             {
                 // acts like an horizontal spacer
                 Layout.fillWidth: true
-                height: parent.height
+                implicitHeight: parent.height
                 color: "transparent"
             }
             RobotoText
@@ -263,6 +279,9 @@ Rectangle
                 label: "BPM: " + (ioManager.bpmNumber > 0 ? ioManager.bpmNumber : qsTr("Off"))
                 color: gsMouseArea.containsMouse ? UISettings.bgLight : "transparent"
                 fontSize: UISettings.textSizeDefault
+                Layout.alignment: Qt.AlignTop
+                implicitWidth: width
+                implicitHeight: parent.height
 
                 MouseArea
                 {
@@ -284,8 +303,9 @@ Rectangle
             Rectangle
             {
                 id: beatIndicator
-                width: height
-                height: parent.height * 0.5
+                implicitWidth: height
+                implicitHeight: parent.height * 0.5
+                Layout.alignment: Qt.AlignVCenter
                 radius: height / 2
                 border.width: 2
                 border.color: "#333"
@@ -305,7 +325,48 @@ Rectangle
                 {
                     id: beatSignal
                     target: ioManager
-                    onBeat: cAnim.restart()
+                    function onBeat()
+                    {
+                        cAnim.restart()
+                    }
+                }
+            }
+            IconButton
+            {
+                id: stopAllButton
+                implicitWidth: UISettings.iconSizeDefault
+                implicitHeight: UISettings.iconSizeDefault
+                Layout.alignment: Qt.AlignTop
+                enabled: runningCount ? true : false
+                bgColor: "transparent"
+                imgSource: "qrc:/stop.svg"
+                tooltip: qsTr("Stop all the running functions")
+                onClicked: qlcplus.stopAllFunctions()
+
+                property int runningCount: qlcplus.runningFunctionsCount
+
+                onRunningCountChanged: console.log("Functions running: " + runningCount)
+
+                Rectangle
+                {
+                    x: parent.width / 2
+                    y: parent.height / 2
+                    width: parent.width * 0.4
+                    height: width
+                    color: UISettings.highlight
+                    border.width: 1
+                    border.color: UISettings.fgMain
+                    radius: 3
+                    clip: true
+                    visible: stopAllButton.runningCount
+
+                    RobotoText
+                    {
+                        anchors.centerIn: parent
+                        height: parent.height * 0.7
+                        label: stopAllButton.runningCount
+                        fontSize: height
+                    }
                 }
             }
 

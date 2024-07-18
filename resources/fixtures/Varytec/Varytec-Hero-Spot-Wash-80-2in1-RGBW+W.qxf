@@ -87,7 +87,7 @@
   <Capability Min="76" Max="100" Preset="ColorMacro" Res1="#aaffff">Light Blue</Capability>
   <Capability Min="101" Max="125" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="126" Max="150" Preset="ColorMacro" Res1="#ffff7f">Amber</Capability>
-  <Capability Min="151" Max="175" Preset="ColorMacro" Res1="#ff00ff">Purple</Capability>
+  <Capability Min="151" Max="175" Preset="ColorMacro" Res1="#ee82ee">Violet</Capability>
   <Capability Min="176" Max="200" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="201" Max="255" Preset="SlowToFast">Rotating</Capability>
  </Channel>
@@ -113,6 +113,7 @@
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Color Temperature">
   <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Gradual increase in color temperature (0% to 100%)</Capability>
  </Channel>
  <Mode Name="8 Channel">
   <Channel Number="0">Pan</Channel>

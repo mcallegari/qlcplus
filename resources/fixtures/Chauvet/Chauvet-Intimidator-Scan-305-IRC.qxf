@@ -20,7 +20,7 @@
   <Capability Min="28" Max="34" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="35" Max="41" Preset="ColorMacro" Res1="#7f7fff">Light blue</Capability>
   <Capability Min="42" Max="48" Preset="ColorMacro" Res1="#4cbb17">Kelly green</Capability>
-  <Capability Min="49" Max="55" Preset="ColorMacro" Res1="#ff7f00">Orange</Capability>
+  <Capability Min="49" Max="55" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
   <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#00007f">Dark blue</Capability>
   <Capability Min="64" Max="70" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffff00">White/yellow (split colors)</Capability>
   <Capability Min="71" Max="77" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#55007f">Yellow/purple (split colors)</Capability>
@@ -29,7 +29,7 @@
   <Capability Min="92" Max="98" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#7f7fff">Red/light blue (split colors)</Capability>
   <Capability Min="99" Max="105" Preset="ColorDoubleMacro" Res1="#7f7fff" Res2="#4cbb17">Light blue/Kelly green (split colors)</Capability>
   <Capability Min="106" Max="112" Preset="ColorDoubleMacro" Res1="#4cbb17" Res2="#ff7f00">Kelly green/orange (split colors)</Capability>
-  <Capability Min="113" Max="119" Preset="ColorDoubleMacro" Res1="#ff7f00" Res2="#00007f">Orange/dark blue (split colors)</Capability>
+  <Capability Min="113" Max="119" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#00007f">Orange/dark blue (split colors)</Capability>
   <Capability Min="120" Max="127" Preset="ColorDoubleMacro" Res1="#00007f" Res2="#ffffff">Dark blue/white (split colors)</Capability>
   <Capability Min="128" Max="191" Preset="RotationCounterClockwiseSlowToFast">Rotate counter-clockwise (slow to fast)</Capability>
   <Capability Min="192" Max="255" Preset="RotationClockwiseSlowToFast">Rotate clockwise (slow to fast)</Capability>

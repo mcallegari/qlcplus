@@ -21,12 +21,13 @@
 #define AUDIORENDERER_QT6_H
 
 #include "audiorenderer.h"
-#include "audiodecoder.h"
 
 #include <QAudioFormat>
 #include <QAudioDevice>
 #include <QAudioSink>
 #include <QIODevice>
+
+class Doc;
 
 /** @addtogroup engine_audio Audio
  * @{
@@ -36,7 +37,7 @@ class AudioRendererQt6 : public AudioRenderer
 {
     Q_OBJECT
 public:
-    AudioRendererQt6(QString device, QObject * parent = 0);
+    AudioRendererQt6(QString device, Doc *doc, QObject * parent = 0);
     ~AudioRendererQt6();
 
     /** @reimpl */
@@ -76,6 +77,7 @@ private:
     QAudioFormat m_format;
     QString m_device;
     QAudioDevice m_deviceInfo;
+    QByteArray m_outputBuffer;
 };
 
 /** @} */

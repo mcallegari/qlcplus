@@ -37,6 +37,7 @@
  </Channel>
  <Channel Name="Stop/strobe">
   <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterClose">Closed</Capability>
   <Capability Min="4" Max="103" Preset="StrobeSlowToFast">Slow strobe (1 flash/s) - fast strobe (12 flash/s)</Capability>
   <Capability Min="104" Max="107" Preset="ShutterOpen">Open</Capability>
   <Capability Min="108" Max="207" Preset="PulseSlowToFast">Slow pulsation - fast pulsation</Capability>
@@ -213,7 +214,7 @@
  <Physical>
   <Bulb Type="MSR 700W" Lumens="50000" ColourTemperature="7200"/>
   <Dimensions Weight="20.6" Width="385" Height="575" Depth="405"/>
-  <Lens Name="Fresnel" DegreesMin="0" DegreesMax="0"/>
+  <Lens Name="Fresnel" DegreesMin="9" DegreesMax="50"/>
   <Focus Type="Fixed" PanMax="540" TiltMax="250"/>
   <Technical PowerConsumption="1050" DmxConnector="3-pin and 5-pin"/>
  </Physical>

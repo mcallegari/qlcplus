@@ -33,11 +33,12 @@ Rectangle
     border.width: 2
 
     property int targetColor: QLCChannel.NoColour
-    property int currentValue: 0
+    property int currentValue: 0 // as DMX value
     property bool closeOnSelect: false
     property bool showPalette: false
 
     signal valueChanged(int value)
+    signal close()
 
     Canvas
     {
@@ -92,7 +93,8 @@ Rectangle
         {
             anchors.fill: parent
 
-            onClicked: {
+            function calculateValue(mouse)
+            {
                 var val = 0
 
                 if (mouse.x < width * 0.1)
@@ -109,7 +111,22 @@ Rectangle
                     val = ((mouse.x - (width * 0.1)) * 255.0) / (width * 0.8)
                 }
 
+                boxRoot.currentValue = val
                 boxRoot.valueChanged(val)
+            }
+
+            onPressed: calculateValue()
+            onPositionChanged:
+            {
+                if (!pressed)
+                    return
+
+                calculateValue(mouse)
+            }
+            onReleased:
+            {
+                if (closeOnSelect)
+                    boxRoot.close()
             }
         }
     }

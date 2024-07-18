@@ -27,7 +27,7 @@ import "."
 CustomPopupDialog
 {
     id: popupRoot
-
+    width: mainView.width / 2
     title: qsTr("Manual input source selection")
     standardButtons: Dialog.Cancel | Dialog.Ok
 
@@ -140,12 +140,12 @@ CustomPopupDialog
                         {
                             target: item
 
-                            onMouseEvent:
+                            function onMouseEvent(type, iID, iType, qItem, mouseMods)
                             {
                                 switch (type)
                                 {
                                     case App.Clicked:
-                                        if (qItem == item)
+                                        if (qItem === item)
                                         {
                                             model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
                                             if (model.hasChildren)

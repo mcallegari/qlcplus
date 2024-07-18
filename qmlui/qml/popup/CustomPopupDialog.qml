@@ -28,10 +28,11 @@ Dialog
     id: control
     x: (mainView.width - width) / 2
     y: (mainView.height - height) / 2
-    //width: mainView.width / 2
+    width: mainView.width / 3
     parent: mainView
 
     modal: true
+    closePolicy: Popup.CloseOnEscape
     title: ""
     standardButtons: Dialog.Ok | Dialog.Cancel
     onVisibleChanged: mainView.setDimScreen(visible)
@@ -82,6 +83,7 @@ Dialog
             font.family: UISettings.robotoFontName
             font.pixelSize: UISettings.textSizeDefault
             color: UISettings.fgMain
+            wrapMode: Text.Wrap
             text: message
         }
 

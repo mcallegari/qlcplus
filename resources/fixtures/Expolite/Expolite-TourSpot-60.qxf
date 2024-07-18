@@ -26,7 +26,7 @@
   <Capability Min="38" Max="56" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="57" Max="75" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="76" Max="94" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
-  <Capability Min="95" Max="113" Preset="ColorMacro" Res1="#ff8c00">Orange</Capability>
+  <Capability Min="95" Max="113" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
   <Capability Min="114" Max="127" Preset="ColorMacro" Res1="#5500ff">Violet</Capability>
   <Capability Min="128" Max="191" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow Effect, CW, fast to slow</Capability>
   <Capability Min="192" Max="255">Rainbow Effect, counter CW, slow to fast</Capability>

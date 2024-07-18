@@ -271,7 +271,7 @@ QPointF FixtureUtils::available2DPosition(Doc *doc, int pointOfView, QRectF fxRe
             qreal itemHeight = fxSize.height();
 
             // store the next Y row in case we need to lower down
-            if (itemYPos + itemHeight > maxYOffset )
+            if (itemYPos + itemHeight > maxYOffset)
                 maxYOffset = itemYPos + itemHeight;
 
             QRectF itemRect(itemXPos, itemYPos, itemWidth, itemHeight);
@@ -315,9 +315,13 @@ QColor FixtureUtils::blendColors(QColor a, QColor b, float mix)
     return QColor(mr * 255.0, mg * 255.0, mb * 255.0);
 }
 
-QColor FixtureUtils::headColor(Fixture *fixture, int headIndex)
+QColor FixtureUtils::headColor(Fixture *fixture, bool hasDimmer, int headIndex)
 {
-    QColor finalColor = Qt::white;
+    if (fixture == nullptr)
+        return QColor();
+
+    QColor finalColor = hasDimmer ? Qt::black : Qt::white;
+    bool colorFound = false;
 
     QVector <quint32> rgbCh = fixture->rgbChannels(headIndex);
     if (rgbCh.size() == 3)
@@ -325,6 +329,7 @@ QColor FixtureUtils::headColor(Fixture *fixture, int headIndex)
         finalColor.setRgb(fixture->channelValueAt(rgbCh.at(0)),
                           fixture->channelValueAt(rgbCh.at(1)),
                           fixture->channelValueAt(rgbCh.at(2)));
+        colorFound = true;
     }
 
     QVector <quint32> cmyCh = fixture->cmyChannels(headIndex);
@@ -333,6 +338,7 @@ QColor FixtureUtils::headColor(Fixture *fixture, int headIndex)
         finalColor.setCmyk(fixture->channelValueAt(cmyCh.at(0)),
                            fixture->channelValueAt(cmyCh.at(1)),
                            fixture->channelValueAt(cmyCh.at(2)), 0);
+        colorFound = true;
     }
 
     quint32 white = fixture->channelNumber(QLCChannel::White, QLCChannel::MSB, headIndex);
@@ -355,6 +361,15 @@ QColor FixtureUtils::headColor(Fixture *fixture, int headIndex)
 
     if (indigo != QLCChannel::invalid() && fixture->channelValueAt(indigo))
         finalColor = blendColors(finalColor, QColor(0xFF4B0082), (float)fixture->channelValueAt(indigo) / 255.0);
+
+    if (white != QLCChannel::invalid() || amber != QLCChannel::invalid() || UV != QLCChannel::invalid() ||
+        lime != QLCChannel::invalid() || indigo != QLCChannel::invalid())
+        colorFound = true;
+
+    //qDebug() << "fixture" << fixture->name() << "head" << headIndex << "hasdimmer" << hasDimmer;
+
+    if (colorFound == false)
+        return Qt::white;
 
     return finalColor;
 }

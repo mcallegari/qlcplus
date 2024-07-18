@@ -18,7 +18,7 @@
   <Capability Min="44" Max="54" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="55" Max="65" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
   <Capability Min="66" Max="76" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
-  <Capability Min="77" Max="87" Preset="ColorMacro" Res1="#ff00ff">Purple</Capability>
+  <Capability Min="77" Max="87" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="88" Max="98" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="99" Max="109">Program &quot;Dream&quot;</Capability>
   <Capability Min="110" Max="120">Program &quot;Meteor&quot;</Capability>

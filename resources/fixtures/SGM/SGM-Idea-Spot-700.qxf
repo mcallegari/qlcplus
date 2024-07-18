@@ -146,7 +146,7 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="31">Quick</Capability>
   <Capability Min="32" Max="63">Smooth</Capability>
-  <Capability Min="64" Max="255">No Function</Capability>
+  <Capability Min="64" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Color Wheel Fine" Preset="ColorWheelFine"/>
  <Channel Name="Cyan Color" Preset="IntensityCyan"/>
@@ -404,7 +404,7 @@
  <Physical>
   <Bulb Type="MSR 700W" Lumens="0" ColourTemperature="7200"/>
   <Dimensions Weight="38.5" Width="500" Height="390" Depth="500"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Lens Name="Other" DegreesMin="14" DegreesMax="30"/>
   <Focus Type="Fixed" PanMax="630" TiltMax="265"/>
   <Technical PowerConsumption="780" DmxConnector="5-pin"/>
  </Physical>

@@ -23,10 +23,10 @@
 #include <QQuickView>
 
 #include "physicaledit.h"
+#include "qlcchannel.h"
 
 class QLCFixtureDef;
 class ChannelEdit;
-class QLCChannel;
 class ListModel;
 class ModeEdit;
 
@@ -53,7 +53,11 @@ public:
     EditorView(QQuickView *view, int id, QLCFixtureDef *fixtureDef, QObject *parent = nullptr);
     ~EditorView();
 
+    /** Get the unique ID of this editor */
     int id() const;
+
+    /** Get the fixture definition reference being edited */
+    QLCFixtureDef *fixtureDefinition();
 
     /** Get if the definition is user or system */
     bool isUser() const;
@@ -99,6 +103,14 @@ private:
      * Channels
      ************************************************************************/
 public:
+    enum CompositeChannelTypes
+    {
+        RGBChannel = QLCChannel::Nothing + 100,
+        RGBWChannel,
+        RGBAWChannel
+    };
+    Q_ENUM(CompositeChannelTypes)
+
     /** Get a list of all the available channels in the definition */
     QVariant channels() const;
 
@@ -106,8 +118,12 @@ public:
      *  If $name is empty, a new channel is added */
     Q_INVOKABLE ChannelEdit *requestChannelEditor(QString name);
 
+    Q_INVOKABLE void addPresetChannel(QString name, int group);
+
     /** Delete the given $channel from the definition */
     Q_INVOKABLE bool deleteChannel(QLCChannel *channel);
+
+    Q_INVOKABLE bool deleteChannels(QVariantList channels);
 
 private:
     void updateChannelList();
@@ -153,14 +169,17 @@ signals:
      * Load & Save
      *********************************************************************/
 public:
-    Q_INVOKABLE bool save();
-    Q_INVOKABLE bool saveAs(QString path);
+    Q_INVOKABLE QString save();
+    Q_INVOKABLE QString saveAs(QString path);
 
     QString fileName();
     void setFilenameFromModel();
 
     /** Get the definition modification flag */
     bool isModified() const;
+
+private:
+    QString checkFixture();
 
 protected slots:
     void setModified(bool modified = true);

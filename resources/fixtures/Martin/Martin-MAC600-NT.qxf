@@ -23,7 +23,7 @@
   <Capability Min="188" Max="207" Preset="ShutterClose">Shutter closed</Capability>
   <Capability Min="208" Max="217" Preset="ResetAll">Reset fixture</Capability>
   <Capability Min="218" Max="227" Preset="ShutterClose">Shutter closed</Capability>
-  <Capability Min="228" Max="237" Preset="ColorMacro">Lamp power on</Capability>
+  <Capability Min="228" Max="237" Preset="LampOn">Lamp power on</Capability>
   <Capability Min="238" Max="247" Preset="ShutterClose">Shutter closed</Capability>
   <Capability Min="248" Max="255" Preset="LampOff">Lamp power off Note: T ≥ 5 seconds</Capability>
  </Channel>

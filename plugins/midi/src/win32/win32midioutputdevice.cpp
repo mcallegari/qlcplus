@@ -170,7 +170,7 @@ void Win32MidiOutputDevice::sendData(BYTE command, BYTE channel, BYTE value)
 
 void Win32MidiOutputDevice::writeSysEx(QByteArray message)
 {
-    if(message.isEmpty())
+    if (message.isEmpty())
         return;
 
     if (isOpen() == false)
@@ -182,7 +182,7 @@ void Win32MidiOutputDevice::writeSysEx(QByteArray message)
     midiHdr.lpData = (LPSTR)message.data();
 
     /* Store its size in the MIDIHDR */
-    midiHdr.dwBufferLength = message.count();
+    midiHdr.dwBufferLength = message.length();
 
     /* Flags must be set to 0 */
     midiHdr.dwFlags = 0;

@@ -55,6 +55,7 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="95">Shutter Closed -&gt; Open</Capability>
   <Capability Min="96" Max="127" Preset="StrobeSlowToFast">Strobe</Capability>
+  <Capability Min="128" Max="159">No function</Capability>
   <Capability Min="160" Max="191">Pulse fast -&gt; Slow -&gt; Fast</Capability>
   <Capability Min="192" Max="223">Strobe Patterns</Capability>
   <Capability Min="224" Max="255" Preset="ShutterOpen">Full</Capability>

@@ -11,7 +11,7 @@
  <Type>Flower</Type>
  <Channel Name="Program Mode">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="0">No Function</Capability>
+  <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="5">Auto 1</Capability>
   <Capability Min="6" Max="11">Auto 2</Capability>
   <Capability Min="12" Max="17">Auto 3</Capability>

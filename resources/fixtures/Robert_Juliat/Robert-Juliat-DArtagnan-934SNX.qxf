@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.6 GIT</Version>
+  <Author>Giacomo Gorini</Author>
+ </Creator>
+ <Manufacturer>Robert Juliat</Manufacturer>
+ <Model>D'Artagnan 934SNX</Model>
+ <Type>Dimmer</Type>
+ <Channel Name="Lamp">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">Lamp On</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Mode Name="3 (default 2channels)">
+  <Channel Number="0">Lamp</Channel>
+  <Channel Number="1">Dimmer</Channel>
+ </Mode>
+ <Mode Name="1 (1 channel)">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Mode Name="2 (2 channels)">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="4 (3 channels)">
+  <Channel Number="0">Lamp</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Master dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="HMI 2500" Lumens="240000" ColourTemperature="6000"/>
+  <Dimensions Weight="30" Width="415" Height="690" Depth="870"/>
+  <Lens Name="Other" DegreesMin="16" DegreesMax="39"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="3100" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

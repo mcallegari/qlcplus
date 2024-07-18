@@ -257,6 +257,21 @@ Rectangle
                     currentIndex: widgetRef ? widgetRef.controlledAttribute : 0
                     onCurrentIndexChanged: if (widgetRef) widgetRef.controlledAttribute = currentIndex
                 }
+
+                CustomCheckBox
+                {
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    checked: widgetRef ? widgetRef.adjustFlashEnabled : false
+                    onClicked: if (widgetRef) widgetRef.adjustFlashEnabled = checked
+                }
+
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    Layout.fillWidth: true
+                    label: qsTr("Show flash button")
+                }
               } // GridLayout
         } // SectionBox Function control
 
@@ -299,16 +314,17 @@ Rectangle
                           {
                               if (checked)
                               {
-                                  rightSidePanel.width += UISettings.sidePanelWidth
-                                  sideLoader.width = UISettings.sidePanelWidth
+                                  if (!sideLoader.visible)
+                                      rightSidePanel.width += UISettings.sidePanelWidth
+                                  sideLoader.visible = true
                                   sideLoader.modelProvider = widgetRef
                                   sideLoader.source = "qrc:/FixtureGroupManager.qml"
                               }
                               else
                               {
-                                  rightSidePanel.width = rightSidePanel.width - sideLoader.width
+                                  rightSidePanel.width -= sideLoader.width
                                   sideLoader.source = ""
-                                  sideLoader.width = 0
+                                  sideLoader.visible = false
                               }
                           }
                       }

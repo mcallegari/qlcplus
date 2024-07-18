@@ -55,21 +55,21 @@
  </Channel>
  <Channel Name="Strobing">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="0">No Function</Capability>
+  <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="95">Strobing Slow - Fast</Capability>
-  <Capability Min="96" Max="127">No Function</Capability>
+  <Capability Min="96" Max="127">No function</Capability>
   <Capability Min="128" Max="159">Pulse Effect in Sequences</Capability>
-  <Capability Min="160" Max="191">No Function</Capability>
+  <Capability Min="160" Max="191">No function</Capability>
   <Capability Min="192" Max="223">Random Strobing Slow - Fast</Capability>
-  <Capability Min="224" Max="255">No Function</Capability>
+  <Capability Min="224" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Reset &amp; Internal Programs">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="19">Normal Color Change</Capability>
-  <Capability Min="20" Max="79">No Function</Capability>
+  <Capability Min="20" Max="79">No function</Capability>
   <Capability Min="80" Max="84">All Motor Reset</Capability>
   <Capability Min="85" Max="87">Scanner Motor Reset</Capability>
-  <Capability Min="88" Max="99">No Function</Capability>
+  <Capability Min="88" Max="99">No function</Capability>
   <Capability Min="100" Max="119">Internal Program 1</Capability>
   <Capability Min="120" Max="139">Internal Program 2</Capability>
   <Capability Min="140" Max="159">Internal Program 3</Capability>

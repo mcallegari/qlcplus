@@ -130,13 +130,17 @@ bool FixtureEditor::loadDefinition(QString fileName)
     return true;
 }
 
-void FixtureEditor::editDefinition(QString manufacturer, QString model)
+bool FixtureEditor::editDefinition(QString manufacturer, QString model)
 {
     QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef(manufacturer, model);
+
+    if (def == nullptr)
+        return false;
 
     m_editors[m_lastId] = new EditorView(m_view, m_lastId, def);
     m_lastId++;
     emit editorsListChanged();
+    return true;
 }
 
 QVariantList FixtureEditor::editorsList() const
@@ -165,6 +169,12 @@ void FixtureEditor::deleteEditor(int id)
     }
 
     EditorView *editor = m_editors.take(id);
+
+    // reload fixture definition from disk
+    QLCFixtureDef *def = editor->fixtureDefinition();
+    if (def != nullptr)
+        m_doc->fixtureDefCache()->reloadFixtureDef(def);
+
     delete editor;
     emit editorsListChanged();
 }

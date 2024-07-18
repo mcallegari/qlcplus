@@ -47,11 +47,15 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
 
     m_fadeInEdit->setText(Function::speedToString(audio->fadeInSpeed()));
     m_fadeOutEdit->setText(Function::speedToString(audio->fadeOutSpeed()));
+    m_volumeSpin->setValue(m_audio->volume() * 100);
 
     connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotNameEdited(const QString&)));
     connect(m_fileButton, SIGNAL(clicked()),
             this, SLOT(slotSourceFileClicked()));
+
+    connect(m_volumeSpin, SIGNAL(valueChanged(int)),
+            this, SLOT(slotVolumeChanged(int)));
 
     connect(m_speedDialButton, SIGNAL(toggled(bool)),
             this, SLOT(slotSpeedDialToggle(bool)));
@@ -124,7 +128,8 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
 
 AudioEditor::~AudioEditor()
 {
-    m_audio->stop(functionParent());
+    if (m_previewButton->isChecked())
+        m_audio->stop(functionParent());
 }
 
 void AudioEditor::slotNameEdited(const QString& text)
@@ -184,6 +189,11 @@ void AudioEditor::slotSourceFileClicked()
         m_channelsLabel->setText(QString("%1").arg(ap.channels()));
         m_bitrateLabel->setText(QString("%1 kb/s").arg(adec->bitrate()));
     }
+}
+
+void AudioEditor::slotVolumeChanged(int value)
+{
+    m_audio->setVolume(qreal(value) / 100.0);
 }
 
 void AudioEditor::slotFadeInEdited()

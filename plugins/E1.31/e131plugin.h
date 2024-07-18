@@ -30,20 +30,23 @@
 #include "qlcioplugin.h"
 #include "e131controller.h"
 
-typedef struct
+typedef struct _eio
 {
-    QNetworkInterface interface;
+    QNetworkInterface iface;
     QNetworkAddressEntry address;
     E131Controller* controller;
 } E131IO;
 
 #define E131_MULTICAST "multicast"
 #define E131_MCASTIP "mcastIP"
+#define E131_MCASTFULLIP "mcastFullIP"
 #define E131_UCASTIP "ucastIP"
 #define E131_UCASTPORT "ucastPort"
 #define E131_UNIVERSE "universe"
 #define E131_TRANSMITMODE "transmitMode"
 #define E131_PRIORITY "priority"
+
+#define SETTINGS_IFACE_WAIT_TIME "E131Plugin/ifacewait"
 
 class E131Plugin : public QLCIOPlugin
 {
@@ -72,7 +75,7 @@ public:
 
 
 private:
-    bool requestLine(quint32 line, int retries);
+    bool requestLine(quint32 line);
 
     /*********************************************************************
      * Outputs
@@ -91,7 +94,7 @@ public:
     QString outputInfo(quint32 output);
 
     /** @reimp */
-    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
 
     /*************************************************************************
      * Inputs
@@ -128,6 +131,9 @@ public:
 private:
     /** Map of the E131 plugin Input/Output lines */
     QList<E131IO> m_IOmapping;
+
+    /** Time to wait (in seconds) for interfaces to be ready */
+    int m_ifaceWaitTime;
 };
 
 #endif

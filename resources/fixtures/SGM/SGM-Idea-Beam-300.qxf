@@ -136,7 +136,7 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="31">Quick</Capability>
   <Capability Min="32" Max="63">Smooth</Capability>
-  <Capability Min="64" Max="255">No Function</Capability>
+  <Capability Min="64" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Color Wheel Fine" Preset="ColorWheelFine"/>
  <Channel Name="Cyan Color" Preset="IntensityCyan"/>

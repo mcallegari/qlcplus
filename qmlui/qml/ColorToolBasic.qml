@@ -31,6 +31,7 @@ Rectangle
 
     property int colorsMask: 0
     property color currentRGB
+    property color currentWAUV
     property int cellSize: width / 9
 
     signal colorChanged(real r, real g, real b, real w, real a, real uv)
@@ -77,14 +78,14 @@ Rectangle
                         width: cellSize
                         height: cellSize
                         border.width: 1
-                        border.color: "#222"
-                        color:  getHTMLColor(index * 36, index * 36, index * 36)
+                        border.color: UISettings.borderColorDark
+                        color:  getHTMLColor(Math.round(index * 36.4285), Math.round(index * 36.4285), Math.round(index * 36.4285))
                         MouseArea
                         {
                             anchors.fill: parent
                             onClicked:
                             {
-                                rootBox.colorChanged(color.r, color.g, color.b, 0, 0, 0)
+                                rootBox.colorChanged(color.r, color.g, color.b, currentWAUV.r, currentWAUV.g, currentWAUV.b)
                                 rootBox.released()
                             }
                         }
@@ -111,7 +112,7 @@ Rectangle
                         width: cellSize
                         height: cellSize
                         border.width: 1
-                        border.color: "#222"
+                        border.color: UISettings.borderColorDark
                         color: getBaseHTMLColor(index)
 
                         MouseArea
@@ -119,7 +120,7 @@ Rectangle
                             anchors.fill: parent
                             onClicked:
                             {
-                                rootBox.colorChanged(color.r, color.g, color.b, 0, 0, 0)
+                                rootBox.colorChanged(color.r, color.g, color.b, currentWAUV.r, currentWAUV.g, currentWAUV.b)
                                 rootBox.released()
                             }
                         }
@@ -155,7 +156,7 @@ Rectangle
                                     width: cellSize
                                     height: cellSize
                                     border.width: 1
-                                    border.color: "#222"
+                                    border.color: UISettings.borderColorDark
                                     color: getShadedColor(colIndex, index)
 
                                     MouseArea
@@ -163,7 +164,7 @@ Rectangle
                                         anchors.fill: parent
                                         onClicked:
                                         {
-                                            rootBox.colorChanged(color.r, color.g, color.b, 0, 0, 0)
+                                            rootBox.colorChanged(color.r, color.g, color.b, currentWAUV.r, currentWAUV.g, currentWAUV.b)
                                             rootBox.released()
                                         }
                                     }
@@ -186,11 +187,12 @@ Rectangle
             height: UISettings.listItemHeight
             label: qsTr("Selected color")
         }
-        Rectangle
+        MultiColorBox
         {
             width: UISettings.mediumItemHeight
             height: UISettings.listItemHeight
-            color: currentRGB
+            primary: currentRGB
+            secondary: currentWAUV
         }
     }
 

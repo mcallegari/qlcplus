@@ -48,3 +48,7 @@ coverage/
 
 # Development IDEs
 .vscode/
+
+# CMake build
+CMakeLists.txt.user
+build*

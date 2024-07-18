@@ -31,7 +31,7 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
   <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe [Slow - Fast]</Capability>
  </Channel>
  <Channel Name="Preset Colours [6C]">

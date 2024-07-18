@@ -166,7 +166,7 @@ QString WebAccessConfiguration::getAudioConfigHTML(Doc *doc)
     if (var.isValid() == true)
         outputName = var.toString();
 
-    foreach( AudioDeviceInfo info, devList)
+    foreach (AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_INPUT)
             audioInSelect += "<option value=\"" + info.privateName + "\" " +
@@ -303,11 +303,10 @@ QString WebAccessConfiguration::getHTML(Doc *doc, WebAccessAuth *auth)
 
     QString m_CSScode =
                  "<style type=\"text/css\" media=\"screen\">\n"
-                 "html { height: 100%; background-color: #111; }\n"
+                 "html { height: 100%; background-color: #222; }\n"
                  "body {\n"
                  " margin: 0px;\n"
-                 " background-image: linear-gradient(to bottom, #45484d 0%, #111 100%);\n"
-                 " background-image: -webkit-linear-gradient(top, #45484d 0%, #111 100%);\n"
+                 " background: #222;\n"
                  "}\n\n"
                  "form {\n"
                  "position: absolute;\n"

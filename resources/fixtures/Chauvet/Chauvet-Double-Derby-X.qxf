@@ -11,7 +11,7 @@
  <Type>Flower</Type>
  <Channel Name="Control/Operating Mode">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="14">No Function</Capability>
+  <Capability Min="0" Max="14">No function</Capability>
   <Capability Min="15" Max="100">LEDs on</Capability>
   <Capability Min="101" Max="255">Auto</Capability>
  </Channel>

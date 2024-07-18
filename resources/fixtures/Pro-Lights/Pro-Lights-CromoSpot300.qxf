@@ -58,7 +58,7 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="60">360° indexing</Capability>
   <Capability Min="61" Max="150">Clockwise rotate from slow to fast</Capability>
-  <Capability Min="151" Max="165">No Function</Capability>
+  <Capability Min="151" Max="165">No function</Capability>
   <Capability Min="166" Max="255">Anti-clockwise rotate from slow to fast</Capability>
  </Channel>
  <Channel Name="Prism &amp; Prism Rotation">
@@ -139,8 +139,8 @@
  </Mode>
  <Mode Name="Person1">
   <Channel Number="0">Pan</Channel>
-  <Channel Number="1">Tilt</Channel>
-  <Channel Number="2">Pan Fine</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
   <Channel Number="3">Tilt Fine</Channel>
   <Channel Number="4">Pan/Tilt Speed</Channel>
   <Channel Number="5">Color</Channel>

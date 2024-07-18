@@ -21,10 +21,12 @@
 #define SIMPLEDESK_H
 
 #include "previewcontext.h"
+#include "scenevalue.h"
 #include "dmxsource.h"
 
 #include <QMutex>
 
+class FunctionManager;
 class GenericFader;
 class KeyPadParser;
 class FadeChannel;
@@ -36,11 +38,14 @@ class SimpleDesk : public PreviewContext, public DMXSource
 
     Q_PROPERTY(QVariant universesListModel READ universesListModel NOTIFY universesListModelChanged)
     Q_PROPERTY(QVariant channelList READ channelList NOTIFY channelListChanged)
+    Q_PROPERTY(int dumpValuesCount READ dumpValuesCount NOTIFY dumpValuesCountChanged)
+    Q_PROPERTY(quint32 dumpChannelMask READ dumpChannelMask NOTIFY dumpChannelMaskChanged)
     Q_PROPERTY(QVariantList fixtureList READ fixtureList NOTIFY fixtureListChanged)
     Q_PROPERTY(QStringList commandHistory READ commandHistory NOTIFY commandHistoryChanged)
 
 public:
-    SimpleDesk(QQuickView *view, Doc *doc, QObject *parent = 0);
+    SimpleDesk(QQuickView *view, Doc *doc,
+               FunctionManager *funcMgr, QObject *parent = 0);
     ~SimpleDesk();
 
     QVariant universesListModel() const;
@@ -65,6 +70,9 @@ signals:
     void fixtureListChanged();
 
 private:
+    /** Reference to the Function Manager */
+    FunctionManager *m_functionManager;
+
     /** QML ready model to hold channel values and changes */
     ListModel *m_channelList;
 
@@ -120,6 +128,36 @@ private:
     /** A list of commands to be executed on writeDMX.
      *  This is used to sync reset requests with mastertimer ticks */
     QList< QPair<int,quint32> > m_commandQueue;
+
+    /*********************************************************************
+     * DMX channels dump
+     *********************************************************************/
+public:
+    /** Store a channel value for Scene dumping */
+    Q_INVOKABLE void setDumpValue(quint32 fxID, quint32 channel, uchar value);
+
+    /** Remove a channel from the Scene dumping list */
+    Q_INVOKABLE void unsetDumpValue(quint32 fxID, quint32 channel);
+
+    /** Return the number of DMX channels currently available for dumping */
+    int dumpValuesCount() const;
+
+    /** Return the current DMX dump channel type mask */
+    int dumpChannelMask() const;
+
+    Q_INVOKABLE void dumpDmxChannels(QString name, quint32 mask);
+
+signals:
+    void dumpValuesCountChanged();
+    void dumpChannelMaskChanged();
+
+private:
+    /** List of the values available for dumping to a Scene */
+    QList <SceneValue> m_dumpValues;
+
+    /** Bitmask representing the available channel types for
+     *  the DMX channels ready for dumping */
+    quint32 m_dumpChannelMask;
 
     /************************************************************************
      * Keypad

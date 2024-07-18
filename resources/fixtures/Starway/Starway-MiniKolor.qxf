@@ -62,7 +62,7 @@
   <Capability Min="191" Max="200">Custom 8</Capability>
   <Capability Min="201" Max="210">Custom 9</Capability>
   <Capability Min="211" Max="220">Custom 10</Capability>
-  <Capability Min="221" Max="255">No Function</Capability>
+  <Capability Min="221" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Auto Speed">
   <Group Byte="0">Speed</Group>

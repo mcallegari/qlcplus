@@ -45,7 +45,7 @@
   <Capability Color2="#ffff00" Min="104" Max="117" Color="#55ff00">MIX Yellow</Capability>
   <Capability Color2="#55aaff" Min="118" Max="129" Color="#ffff00">MIX Aqua</Capability>
   <Capability Color2="#ffffff" Min="130" Max="143" Color="#55aaff">MIX White</Capability>
-  <Capability Min="144" Max="151" Color="#000000">No Function</Capability>
+  <Capability Min="144" Max="151" Color="#000000">No function</Capability>
   <Capability Min="152" Max="159" Color="#55aaff">Aqua</Capability>
   <Capability Min="160" Max="167" Color="#ffff00">Yellow</Capability>
   <Capability Min="168" Max="175" Color="#55ff00">Light Green</Capability>

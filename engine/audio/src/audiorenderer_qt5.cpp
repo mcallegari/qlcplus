@@ -22,11 +22,10 @@
 #include <QDebug>
 
 #include "doc.h"
-#include "audiodecoder.h"
 #include "audiorenderer_qt5.h"
 #include "audioplugincache.h"
 
-AudioRendererQt5::AudioRendererQt5(QString device, QObject * parent)
+AudioRendererQt5::AudioRendererQt5(QString device, Doc *doc, QObject *parent)
     : AudioRenderer(parent)
     , m_audioOutput(NULL)
     , m_output(NULL)
@@ -34,7 +33,6 @@ AudioRendererQt5::AudioRendererQt5(QString device, QObject * parent)
 {
     QSettings settings;
     QString devName = "";
-    Doc *doc = qobject_cast<Doc*>(parent);
 
     QVariant var;
     if (m_device.isEmpty())
@@ -94,7 +92,6 @@ bool AudioRendererQt5::initialize(quint32 freq, int chan, AudioFormat format)
     {
         m_format = m_deviceInfo.nearestFormat(m_format);
         qWarning() << "Default format not supported - trying to use nearest" << m_format.sampleRate();
-
     }
 
     return true;
@@ -108,7 +105,6 @@ qint64 AudioRendererQt5::latency()
 QList<AudioDeviceInfo> AudioRendererQt5::getDevicesInfo()
 {
     QList<AudioDeviceInfo> devList;
-    int i = 0;
     QStringList outDevs, inDevs;
 
     // create a preliminary list of input devices only
@@ -121,7 +117,7 @@ QList<AudioDeviceInfo> AudioRendererQt5::getDevicesInfo()
         outDevs.append(deviceInfo.deviceName());
         AudioDeviceInfo info;
         info.deviceName = deviceInfo.deviceName();
-        info.privateName = deviceInfo.deviceName(); //QString::number(i);
+        info.privateName = deviceInfo.deviceName();
         info.capabilities = 0;
         info.capabilities |= AUDIO_CAP_OUTPUT;
         if (inDevs.contains(deviceInfo.deviceName()))
@@ -130,19 +126,17 @@ QList<AudioDeviceInfo> AudioRendererQt5::getDevicesInfo()
             inDevs.removeOne(deviceInfo.deviceName());
         }
         devList.append(info);
-        i++;
     }
 
     // add the devices left in the input list. These don't have output capabilities
-    foreach(QString dev, inDevs)
+    foreach (QString dev, inDevs)
     {
         AudioDeviceInfo info;
         info.deviceName = dev;
-        info.privateName = dev; //QString::number(i);
+        info.privateName = dev;
         info.capabilities = 0;
         info.capabilities |= AUDIO_CAP_INPUT;
         devList.append(info);
-        i++;
     }
 
     return devList;
@@ -188,7 +182,7 @@ void AudioRendererQt5::run()
     {
         m_audioOutput = new QAudioOutput(m_deviceInfo, m_format);
 
-        if(m_audioOutput == NULL)
+        if (m_audioOutput == NULL)
         {
             qWarning() << "Cannot open audio output stream from device" << m_deviceInfo.deviceName();
             return;
@@ -197,7 +191,7 @@ void AudioRendererQt5::run()
         m_audioOutput->setBufferSize(8192 * 8);
         m_output = m_audioOutput->start();
 
-        if(m_audioOutput->error() != QAudio::NoError)
+        if (m_audioOutput->error() != QAudio::NoError)
         {
             qWarning() << "Cannot start audio output stream. Error:" << m_audioOutput->error();
             return;

@@ -40,20 +40,13 @@
 
 #include "vcsliderproperties.h"
 #include "vcpropertieseditor.h"
-#include "qlcinputchannel.h"
-#include "virtualconsole.h"
-#include "qlcinputsource.h"
+#include "genericfader.h"
+#include "fadechannel.h"
 #include "mastertimer.h"
-#include "collection.h"
-#include "inputpatch.h"
 #include "qlcmacros.h"
 #include "universe.h"
 #include "vcslider.h"
-#include "qlcfile.h"
 #include "apputil.h"
-#include "chaser.h"
-#include "scene.h"
-#include "efx.h"
 #include "doc.h"
 
 /** Number of DMXSource cycles to wait to consider a
@@ -66,6 +59,7 @@
 
 const quint8 VCSlider::sliderInputSourceId = 0;
 const quint8 VCSlider::overrideResetInputSourceId = 1;
+const quint8 VCSlider::flashButtonInputSourceId = 2;
 
 const QSize VCSlider::defaultSize(QSize(60, 200));
 
@@ -101,6 +95,8 @@ VCSlider::VCSlider(QWidget *parent, Doc *doc)
     , m_playbackFunction(Function::invalidId())
     , m_playbackValue(0)
     , m_playbackChangeCounter(0)
+    , m_playbackFlashEnable(false)
+    , m_playbackIsFlashing(false)
     , m_externalMovement(false)
     , m_widgetMode(WSlider)
     , m_cngType(ClickAndGoWidget::None)
@@ -181,6 +177,7 @@ VCSlider::VCSlider(QWidget *parent, Doc *doc)
             this, SLOT(slotMonitorDMXValueChanged(int)));
 
     m_resetButton = NULL;
+    m_flashButton = NULL;
 
     /* Bottom label */
     m_bottomLabel = new QLabel(this);
@@ -285,6 +282,9 @@ bool VCSlider::copyFrom(const VCWidget* widget)
     /* Copy monitor mode */
     setChannelsMonitorEnabled(slider->channelsMonitorEnabled());
 
+    /* Copy flash enabling */
+    setPlaybackFlashEnable(slider->playbackFlashEnable());
+
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
 }
@@ -310,6 +310,8 @@ void VCSlider::enableWidgetUI(bool enable)
     m_cngButton->setEnabled(enable);
     if (m_resetButton)
         m_resetButton->setEnabled(enable);
+    if (m_flashButton)
+        m_flashButton->setEnabled(enable);
     if (enable == false)
         m_lastInputValue = -1;
 }
@@ -531,6 +533,7 @@ void VCSlider::setSliderMode(SliderMode mode)
     else if (mode == Submaster)
     {
         m_monitorEnabled = false;
+        setPlaybackFunction(Function::invalidId());
 
         if (m_slider)
         {
@@ -578,6 +581,8 @@ QList <VCSlider::LevelChannel> VCSlider::levelChannels()
 void VCSlider::setLevelLowLimit(uchar value)
 {
     m_levelLowLimit = value;
+    if (m_cngWidget != NULL)
+        m_cngWidget->setLevelLowLimit(value);
 }
 
 uchar VCSlider::levelLowLimit() const
@@ -588,6 +593,8 @@ uchar VCSlider::levelLowLimit() const
 void VCSlider::setLevelHighLimit(uchar value)
 {
     m_levelHighLimit = value;
+    if (m_cngWidget != NULL)
+        m_cngWidget->setLevelHighLimit(value);
 }
 
 uchar VCSlider::levelHighLimit() const
@@ -702,7 +709,7 @@ void VCSlider::slotUniverseWritten(quint32 idx, const QByteArray &universeData)
             continue;
 
         if (lch.channel >= fxi->channels() ||
-            fxi->address() + lch.channel >= (quint32)universeData.count())
+            fxi->address() + lch.channel >= (quint32)universeData.length())
             continue;
 
         quint32 dmx_ch = fxi->address() + lch.channel;
@@ -768,6 +775,8 @@ void VCSlider::setupClickAndGoWidget()
             {
                 const QLCChannel *chan = fxi->channel(lChan.channel);
                 m_cngWidget->setType(m_cngType, chan);
+                m_cngWidget->setLevelLowLimit(this->levelLowLimit());
+                m_cngWidget->setLevelHighLimit(this->levelHighLimit());
             }
         }
         else
@@ -810,7 +819,7 @@ void VCSlider::setClickAndGoWidgetFromLevel(uchar level)
 
 void VCSlider::slotClickAndGoLevelChanged(uchar level)
 {
-    setSliderValue(level);
+    setSliderValue(level, false, false);
     updateFeedback();
 
     QColor col = m_cngWidget->getColorAt(level);
@@ -838,7 +847,7 @@ void VCSlider::slotClickAndGoColorChanged(QRgb color)
 
 void VCSlider::slotClickAndGoLevelAndPresetChanged(uchar level, QImage img)
 {
-    setSliderValue(level);
+    setSliderValue(level, false, false);
     updateFeedback();
 
     QPixmap px = QPixmap::fromImage(img);
@@ -883,6 +892,51 @@ void VCSlider::slotKeyPressed(const QKeySequence &keySequence)
 
     if (m_overrideResetKeySequence == keySequence)
         slotResetButtonClicked();
+    else if (m_playbackFlashKeySequence == keySequence)
+        flashPlayback(true);
+}
+
+void VCSlider::slotKeyReleased(const QKeySequence &keySequence)
+{
+    if (m_playbackFlashKeySequence == keySequence && m_playbackIsFlashing)
+        flashPlayback(false);
+}
+
+/*********************************************************************
+ * Flash button
+ *********************************************************************/
+
+QKeySequence VCSlider::playbackFlashKeySequence() const
+{
+    return m_playbackFlashKeySequence;
+}
+
+void VCSlider::setPlaybackFlashKeySequence(const QKeySequence &keySequence)
+{
+    m_playbackFlashKeySequence = QKeySequence(keySequence);
+}
+
+void VCSlider::mousePressEvent(QMouseEvent *e)
+{
+    VCWidget::mousePressEvent(e);
+
+    if (mode() != Doc::Design && e->button() == Qt::LeftButton &&
+        m_flashButton && m_flashButton->isDown())
+    {
+        flashPlayback(true);
+    }
+}
+
+void VCSlider::mouseReleaseEvent(QMouseEvent *e)
+{
+    if (mode() == Doc::Design)
+    {
+        VCWidget::mouseReleaseEvent(e);
+    }
+    else if (m_playbackIsFlashing)
+    {
+        flashPlayback(false);
+    }
 }
 
 /*****************************************************************************
@@ -981,6 +1035,43 @@ void VCSlider::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
             }
         }
     }
+}
+
+bool VCSlider::playbackFlashEnable() const
+{
+    return m_playbackFlashEnable;
+}
+
+void VCSlider::setPlaybackFlashEnable(bool enable)
+{
+    m_playbackFlashEnable = enable;
+
+    if (enable == false && m_flashButton != NULL)
+    {
+        delete m_flashButton;
+        m_flashButton = NULL;
+    }
+    else if (enable == true && m_flashButton == NULL)
+    {
+        m_flashButton = new FlashButton(this);
+        m_flashButton->setIconSize(QSize(32, 32));
+        m_flashButton->setStyle(AppUtil::saneStyle());
+        m_flashButton->setIcon(QIcon(":/flash.png"));
+        m_flashButton->setToolTip(tr("Flash Function"));
+        layout()->addWidget(m_flashButton);
+        layout()->setAlignment(m_flashButton, Qt::AlignHCenter);
+
+        m_flashButton->show();
+    }
+}
+
+void VCSlider::flashPlayback(bool on)
+{
+    if (on)
+        m_playbackFlashPreviousValue = m_playbackValue;
+    m_playbackIsFlashing = on;
+
+    setPlaybackValue(on ? UCHAR_MAX : m_playbackFlashPreviousValue);
 }
 
 void VCSlider::slotPlaybackFunctionRunning(quint32 fid)
@@ -1140,7 +1231,7 @@ void VCSlider::writeDMXLevel(MasterTimer *timer, QList<Universe *> universes)
 
             // request to autoremove LTP channels when set
             if (qlcch->group() != QLCChannel::Intensity)
-                fc->addFlag(FadeChannel::Autoremove);
+                fc->addFlag(FadeChannel::AutoRemove);
 
             if (chType & FadeChannel::Intensity)
             {
@@ -1228,7 +1319,7 @@ void VCSlider::setTopLabelText(int value)
 
     if (valueDisplayStyle() == ExactValue)
     {
-        m_topLabel->setText(text.asprintf("%.3d", value));
+        text = text.asprintf("%.3d", value);
     }
     else
     {
@@ -1237,9 +1328,9 @@ void VCSlider::setTopLabelText(int value)
         if (m_slider)
             f = SCALE(float(value), float(m_slider->minimum()),
                       float(m_slider->maximum()), float(0), float(100));
-        m_topLabel->setText(text.asprintf("%.3d%%", static_cast<int> (f)));
+        text = text.asprintf("%.3d%%", static_cast<int> (f));
     }
-
+    m_topLabel->setText(text);
     emit valueChanged(text);
 }
 
@@ -1497,6 +1588,10 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
         if (value > 0)
             slotResetButtonClicked();
     }
+    else if (checkInputSource(universe, pagedCh, value, sender(), flashButtonInputSourceId))
+    {
+        flashPlayback(value ? true : false);
+    }
 }
 
 void VCSlider::adjustIntensity(qreal val)
@@ -1703,6 +1798,13 @@ bool VCSlider::loadXMLPlayback(QXmlStreamReader &pb_root)
             /* Function */
             setPlaybackFunction(pb_root.readElementText().toUInt());
         }
+        else if (pb_root.name() == KXMLQLCVCSliderPlaybackFlash)
+        {
+            setPlaybackFlashEnable(true);
+            QString str = loadXMLSources(pb_root, flashButtonInputSourceId);
+            if (str.isEmpty() == false)
+                m_playbackFlashKeySequence = stripKeySequence(QKeySequence(str));
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown slider playback tag:" << pb_root.name().toString();
@@ -1804,6 +1906,16 @@ bool VCSlider::saveXML(QXmlStreamWriter *doc)
     doc->writeStartElement(KXMLQLCVCSliderPlayback);
     /* Playback function */
     doc->writeTextElement(KXMLQLCVCSliderPlaybackFunction, QString::number(playbackFunction()));
+
+    if (sliderMode() == Playback && playbackFlashEnable() == true)
+    {
+        doc->writeStartElement(KXMLQLCVCSliderPlaybackFlash);
+        if (m_playbackFlashKeySequence.toString().isEmpty() == false)
+            doc->writeTextElement(KXMLQLCVCWidgetKey, m_playbackFlashKeySequence.toString());
+        saveXMLInput(doc, inputSource(flashButtonInputSourceId));
+        doc->writeEndElement();
+    }
+
     /* End the <Playback> tag */
     doc->writeEndElement();
 
@@ -1865,4 +1977,20 @@ void VCSlider::LevelChannel::saveXML(QXmlStreamWriter *doc) const
 
     doc->writeCharacters(QString::number(this->channel));
     doc->writeEndElement();
+}
+
+void VCSlider::FlashButton::mousePressEvent(QMouseEvent *e)
+{
+    QToolButton::mousePressEvent(e);
+    // ignore event so that it can be
+    // forwarded to parent widget
+    e->ignore();
+}
+
+void VCSlider::FlashButton::mouseReleaseEvent(QMouseEvent *e)
+{
+    QToolButton::mouseReleaseEvent(e);
+    // ignore event so that it can be
+    // forwarded to parent widget
+    e->ignore();
 }

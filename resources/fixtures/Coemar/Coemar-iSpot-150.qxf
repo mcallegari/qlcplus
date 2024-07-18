@@ -57,13 +57,13 @@
  <Channel Name="Colours">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="5" Preset="ColorMacro" Res1="#ffffff">Open/white</Capability>
-  <Capability Min="6" Max="13" Preset="ColorMacro">Colour 1</Capability>
-  <Capability Min="14" Max="20" Preset="ColorMacro">Colour 2</Capability>
-  <Capability Min="21" Max="27" Preset="ColorMacro">Colour 3</Capability>
-  <Capability Min="28" Max="34" Preset="ColorMacro">Colour 4</Capability>
-  <Capability Min="35" Max="41" Preset="ColorMacro">Colour 5</Capability>
-  <Capability Min="42" Max="48" Preset="ColorMacro">Colour 6</Capability>
-  <Capability Min="49" Max="59" Preset="ColorMacro">Colour 7</Capability>
+  <Capability Min="6" Max="13">Colour 1</Capability>
+  <Capability Min="14" Max="20">Colour 2</Capability>
+  <Capability Min="21" Max="27">Colour 3</Capability>
+  <Capability Min="28" Max="34">Colour 4</Capability>
+  <Capability Min="35" Max="41">Colour 5</Capability>
+  <Capability Min="42" Max="48">Colour 6</Capability>
+  <Capability Min="49" Max="59">Colour 7</Capability>
   <Capability Min="60" Max="127" Preset="RotationIndexed">From white to colour 7, 360° color positioning</Capability>
   <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Forwards rainbow effect from fast to slow</Capability>
   <Capability Min="191" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backwards rainbow effect from slow to fast</Capability>

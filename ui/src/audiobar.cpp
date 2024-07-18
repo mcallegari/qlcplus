@@ -112,7 +112,7 @@ void AudioBar::attachDmxChannels(Doc *doc, QList<SceneValue> list)
     m_dmxChannels.clear();
     m_dmxChannels = list;
     m_absDmxChannels.clear();
-    foreach(SceneValue scv, m_dmxChannels)
+    foreach (SceneValue scv, m_dmxChannels)
     {
         Fixture *fx = doc->fixture(scv.fxi);
         if (fx != NULL)
@@ -191,7 +191,7 @@ void AudioBar::checkWidgetFunctionality()
     else if (m_widget->type() == VCWidget::SliderWidget)
     {
         VCSlider *slider = (VCSlider *)m_widget;
-        slider->setSliderValue(m_value);
+        slider->setSliderValue(m_value, true, true);
     }
     else if (m_widget->type() == VCWidget::SpeedDialWidget)
     {
@@ -270,7 +270,16 @@ bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
             break;
             case AudioBar::DMXBar:
             {
-                root.readNextStartElement();
+                QXmlStreamReader::TokenType tType = root.readNext();
+
+                if (tType == QXmlStreamReader::EndElement)
+                {
+                    root.readNext();
+                    return true;
+                }
+
+                if (tType == QXmlStreamReader::Characters)
+                    root.readNext();
 
                 if (root.name() == KXMLQLCAudioBarDMXChannels)
                 {

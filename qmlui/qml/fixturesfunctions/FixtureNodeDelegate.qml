@@ -127,62 +127,15 @@ Column
                 text: FontAwesome.fa_link
             }
 
-            TextInput
+            CustomTextInput
             {
-                property string originalText
-
                 id: nodeLabel
                 Layout.fillWidth: true
-                z: 0
-                //width: nodeBgRect.width - x - 1
-                height: UISettings.listItemHeight
-                readOnly: true
                 text: textLabel
-                verticalAlignment: TextInput.AlignVCenter
-                color: UISettings.fgMain
-                font.family: UISettings.robotoFontName
-                font.pixelSize: UISettings.textSizeDefault
-                echoMode: TextInput.Normal
-                selectByMouse: true
-                selectionColor: "#4DB8FF"
-                selectedTextColor: "#111"
+                originalText: text
 
-                function disableEditing()
+                onTextConfirmed:
                 {
-                    z = 0
-                    select(0, 0)
-                    readOnly = true
-                    cursorVisible = false
-                }
-
-                Keys.onPressed:
-                {
-                    switch(event.key)
-                    {
-                        case Qt.Key_F2:
-                            originalText = textLabel
-                            z = 5
-                            readOnly = false
-                            cursorPosition = text.length
-                            cursorVisible = true
-                        break;
-                        case Qt.Key_Escape:
-                            disableEditing()
-                            nodeLabel.text = originalText
-                        break;
-                        default:
-                            event.accepted = false
-                            return
-                    }
-
-                    event.accepted = true
-                }
-
-                onEditingFinished:
-                {
-                    if (readOnly)
-                        return
-                    disableEditing()
                     nodeContainer.pathChanged(nodePath, text)
                     fixtureManager.renameFixture(itemID, text)
                 }
@@ -195,6 +148,49 @@ Column
                 implicitWidth: width
                 implicitHeight: UISettings.listItemHeight
                 label: cRef ? "" + (cRef.address + 1) + "-" + (cRef.address + cRef.channels) : ""
+            }
+
+            // divider
+            Rectangle
+            {
+                visible: showFlags
+                width: 1
+                height: parent.height
+            }
+
+            // fixture modes
+            Rectangle
+            {
+                id: fxModes
+                visible: showFlags
+                width: UISettings.chPropsModesWidth
+                height: parent.height
+                color: "transparent"
+                z: 1
+
+                CustomComboBox
+                {
+                    visible: showFlags
+                    implicitWidth: parent.width
+                    height: UISettings.listItemHeight
+                    textRole: ""
+                    model: showFlags ? fixtureManager.fixtureModes(itemID) : null
+                    currentIndex: showFlags ? fixtureManager.fixtureModeIndex(itemID) : -1
+
+                    onActivated:
+                    {
+                        if (!visible)
+                            return
+
+                        if (fixtureManager.setFixtureModeIndex(itemID, index) === false)
+                        {
+                            // show error popup on failure
+                            fmGenericPopup.message = qsTr("Mode <" + currentText + "> overlaps with another fixture!")
+                            fmGenericPopup.open()
+                            currentIndex = fixtureManager.fixtureModeIndex(itemID)
+                        }
+                    }
+                }
             }
 
             // divider
@@ -231,6 +227,7 @@ Column
                         checkedColor: "transparent"
                         checkable: true
                         checked: itemFlags & MonitorProperties.HiddenFlag ? false : true
+                        tooltip: qsTr("Show/Hide this fixture")
                         onToggled:
                         {
                             if (itemFlags & MonitorProperties.HiddenFlag)
@@ -251,6 +248,7 @@ Column
                         checkedColor: "transparent"
                         checkable: true
                         checked: itemFlags & MonitorProperties.InvertedPanFlag ? true : false
+                        tooltip: qsTr("Invert Pan")
                         onToggled:
                         {
                             if (itemFlags & MonitorProperties.InvertedPanFlag)
@@ -272,6 +270,7 @@ Column
                         checkedColor: "transparent"
                         checkable: true
                         checked: itemFlags & MonitorProperties.InvertedTiltFlag ? true : false
+                        tooltip: qsTr("Invert Tilt")
                         onToggled:
                         {
                             if (itemFlags & MonitorProperties.InvertedTiltFlag)
@@ -293,7 +292,7 @@ Column
 
         MouseArea
         {
-            width: showFlags ? fxFlags.x : parent.width
+            width: showFlags ? fxModes.x : parent.width
             height: parent.height
 
             property bool dragActive: drag.active
@@ -376,13 +375,13 @@ Column
                     Connections
                     {
                         target: item
-                        onMouseEvent:
+                        function onMouseEvent(type, iID, iType, qItem, mouseMods)
                         {
                             console.log("Got fixture tree node child mouse event")
                             switch (type)
                             {
                                 case App.Clicked:
-                                    if (qItem == item)
+                                    if (qItem === item)
                                     {
                                         model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
                                         if (model.hasChildren)
@@ -390,14 +389,14 @@ Column
                                     }
                                 break;
                                 case App.Checked:
-                                    if (qItem == item)
+                                    if (qItem === item)
                                     {
                                         console.log("Channel " + index + " got checked")
                                         model.isChecked = iType
                                     }
                                 break;
                                 case App.DragStarted:
-                                    if (qItem == item && !model.isSelected)
+                                    if (qItem === item && !model.isSelected)
                                     {
                                         model.isSelected = 1
                                         // invalidate the modifiers to force a single selection
@@ -414,7 +413,10 @@ Column
                     {
                         ignoreUnknownSignals: true
                         target: item
-                        onPathChanged: nodeContainer.pathChanged(oldPath, newPath)
+                        function onPathChanged(oldPath, newPath)
+                        {
+                            nodeContainer.pathChanged(oldPath, newPath)
+                        }
                     }
                 }
         }

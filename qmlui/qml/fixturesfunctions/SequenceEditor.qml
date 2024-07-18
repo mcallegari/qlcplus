@@ -66,7 +66,17 @@ Rectangle
                 height: UISettings.iconSizeMedium - 2
                 imgSource: "qrc:/remove.svg"
                 tooltip: stepsView.checked ? qsTr("Remove the selected steps") : qsTr("Remove the selected fixtures")
-                onClicked: {   }
+                onClicked:
+                {
+                    if (stepsView.checked)
+                    {
+                        chaserEditorLoader.item.deleteSelectedItems()
+                    }
+                    else
+                    {
+                        sceneEditorLoader.item.deleteSelectedItems()
+                    }
+                }
             }
         }
 
@@ -135,7 +145,7 @@ Rectangle
 
             onLoaded:
             {
-                item.showToolBar = false
+                item.boundToSequence = true
             }
         }
     }

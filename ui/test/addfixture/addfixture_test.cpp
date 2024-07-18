@@ -51,7 +51,7 @@ void AddFixture_Test::initTestCase()
 void AddFixture_Test::cleanupTestCase()
 {
     QSettings settings;
-    if(m_expanded.isValid())
+    if (m_expanded.isValid())
     {
         settings.setValue(SETTINGS_EXPANDED, m_expanded);
     }

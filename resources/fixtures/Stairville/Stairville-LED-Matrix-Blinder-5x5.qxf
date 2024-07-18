@@ -37,7 +37,7 @@
   <Capability Min="210" Max="219">Preprogrammed automatic show no. 19</Capability>
   <Capability Min="220" Max="229">Preprogrammed automatic show no. 20</Capability>
   <Capability Min="230" Max="239">Preprogrammed automatic show no. 21</Capability>
-  <Capability Min="253" Max="255">Sound-controlled show</Capability>
+  <Capability Min="240" Max="255">Sound-controlled show</Capability>
  </Channel>
  <Channel Name="Letter/Number/Speed Adjustment (Increasing Speed 0..255)">
   <Group Byte="0">Effect</Group>
@@ -107,6 +107,7 @@
  <Channel Name="Dimmer for LED No. 25" Preset="IntensityDimmer"/>
  <Channel Name="Operating Mode (4-Channel Mode)">
   <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
   <Capability Min="1" Max="11">Preprogrammed automatic show no. 1</Capability>
   <Capability Min="12" Max="23">Preprogrammed automatic show no. 2</Capability>
   <Capability Min="24" Max="35">Preprogrammed automatic show no. 3</Capability>

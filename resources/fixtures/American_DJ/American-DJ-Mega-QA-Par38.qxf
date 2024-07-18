@@ -48,7 +48,7 @@
  <Channel Name="Dimming/Static Color/Color Change/Color Fade Select">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="51">Dimmer mode</Capability>
-  <Capability Min="52" Max="102" Preset="ColorMacro">Color macro mode</Capability>
+  <Capability Min="52" Max="102">Color macro mode</Capability>
   <Capability Min="103" Max="153">Color change mode</Capability>
   <Capability Min="154" Max="204">Color fade mode</Capability>
   <Capability Min="205" Max="255">Sound active mode</Capability>

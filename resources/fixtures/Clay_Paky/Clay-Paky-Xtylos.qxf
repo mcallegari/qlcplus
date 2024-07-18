@@ -143,6 +143,7 @@
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="20">Prisms/Frost indexing: 0° to 90° range</Capability>
   <Capability Min="21" Max="42">Prisms/Frost indexing: 90° to 180° range</Capability>
+  <Capability Min="43" Max="62">Prisms/Frost indexing: 180° to 270° range</Capability>
   <Capability Min="63" Max="83">Prisms/Frost indexing: 270° to 360° range</Capability>
   <Capability Min="84" Max="104">Prisms/Frost indexing: 360° to 450° range</Capability>
   <Capability Min="105" Max="127">Prisms/Frost indexing: 450° to 540° range</Capability>
@@ -219,6 +220,7 @@
   <Capability Min="15" Max="15">Base frequency = 8600Hz</Capability>
   <Capability Min="16" Max="16">Base frequency = 10000Hz</Capability>
   <Capability Min="17" Max="17">Base frequency = 12000Hz</Capability>
+  <Capability Min="18" Max="18">Base frequency = 15000Hz</Capability>
   <Capability Min="19" Max="19">Base frequency = 17578Hz</Capability>
   <Capability Min="20" Max="20">Base frequency = 20000Hz</Capability>
   <Capability Min="21" Max="21">Base frequency = 22000Hz</Capability>

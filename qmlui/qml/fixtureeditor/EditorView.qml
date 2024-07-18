@@ -55,29 +55,32 @@ Rectangle
             return
         }
 
+        var errors = ""
+
         if (path)
-            editorView.saveAs(path)
+            errors = editorView.saveAs(path)
         else
-            editorView.save()
+            errors = editorView.save()
+
+        if (errors != "")
+        {
+            messagePopup.message = qsTr("The following errors have been detected:") + "<br><ul>" + errors + "</ul>"
+            messagePopup.open()
+        }
     }
 
     CustomPopupDialog
     {
         id: messagePopup
+        width: mainView.width / 2
         standardButtons: Dialog.Ok
         title: qsTr("!! Warning !!")
         onAccepted: close()
     }
 
-    ModelSelector
-    {
-        id: chanSelector
-    }
-
     SplitView
     {
         anchors.fill: parent
-        orientation: Qt.Horizontal
 
         // left view: definition sections
         Flickable
@@ -118,6 +121,7 @@ Rectangle
                                 Layout.fillWidth: true
                                 text: editorView ? editorView.manufacturer : ""
                                 onTextChanged: if (editorView) editorView.manufacturer = text
+                                KeyNavigation.tab: modelEdit
                             }
 
                             // row 1
@@ -135,28 +139,28 @@ Rectangle
                                     ListModel
                                     {
                                         id: typeModel
-                                        ListElement { mLabel: "Color Changer"; mIcon: "qrc:/fixture.svg" }
-                                        ListElement { mLabel: "Dimmer"; mIcon: "qrc:/dimmer.svg" }
-                                        ListElement { mLabel: "Effect"; mIcon: "qrc:/effect.svg" }
-                                        ListElement { mLabel: "Fan"; mIcon: "qrc:/fan.svg" }
-                                        ListElement { mLabel: "Flower"; mIcon: "qrc:/flower.svg" }
-                                        ListElement { mLabel: "Hazer"; mIcon: "qrc:/hazer.svg" }
-                                        ListElement { mLabel: "Laser"; mIcon: "qrc:/laser.svg" }
-                                        ListElement { mLabel: "LED Bar (Beams)"; mIcon: "qrc:/ledbar_beams.svg" }
-                                        ListElement { mLabel: "LED Bar (Pixels)"; mIcon: "qrc:/ledbar_pixels.svg" }
-                                        ListElement { mLabel: "Moving Head"; mIcon: "qrc:/movinghead.svg" }
-                                        ListElement { mLabel: "Other"; mIcon: "qrc:/other.svg" }
-                                        ListElement { mLabel: "Scanner"; mIcon: "qrc:/scanner.svg" }
-                                        ListElement { mLabel: "Smoke"; mIcon: "qrc:/smoke.svg" }
-                                        ListElement { mLabel: "Strobe"; mIcon: "qrc:/strobe.svg" }
+                                        ListElement { mLabel: "Color Changer"; mIcon: "qrc:/fixture.svg"; mValue: 0 }
+                                        ListElement { mLabel: "Dimmer"; mIcon: "qrc:/dimmer.svg"; mValue: 1 }
+                                        ListElement { mLabel: "Effect"; mIcon: "qrc:/effect.svg"; mValue: 2 }
+                                        ListElement { mLabel: "Fan"; mIcon: "qrc:/fan.svg"; mValue: 3 }
+                                        ListElement { mLabel: "Flower"; mIcon: "qrc:/flower.svg"; mValue: 4 }
+                                        ListElement { mLabel: "Hazer"; mIcon: "qrc:/hazer.svg"; mValue: 5 }
+                                        ListElement { mLabel: "Laser"; mIcon: "qrc:/laser.svg"; mValue: 6 }
+                                        ListElement { mLabel: "LED Bar (Beams)"; mIcon: "qrc:/ledbar_beams.svg"; mValue: 7 }
+                                        ListElement { mLabel: "LED Bar (Pixels)"; mIcon: "qrc:/ledbar_pixels.svg"; mValue: 8 }
+                                        ListElement { mLabel: "Moving Head"; mIcon: "qrc:/movinghead.svg"; mValue: 9 }
+                                        ListElement { mLabel: "Other"; mIcon: "qrc:/other.svg"; mValue: 10 }
+                                        ListElement { mLabel: "Scanner"; mIcon: "qrc:/scanner.svg"; mValue: 11 }
+                                        ListElement { mLabel: "Smoke"; mIcon: "qrc:/smoke.svg"; mValue: 12 }
+                                        ListElement { mLabel: "Strobe"; mIcon: "qrc:/strobe.svg"; mValue: 13 }
                                     }
 
                                     implicitHeight: UISettings.bigItemHeight
                                     delegateHeight: UISettings.listItemHeight
                                     width: UISettings.bigItemHeight
                                     model: typeModel
-                                    currentIndex: editorView ? editorView.productType : 0
-                                    onCurrentIndexChanged: if (editorView) editorView.productType = currentIndex
+                                    currValue: editorView ? editorView.productType : 0
+                                    onValueChanged: if (editorView) editorView.productType = value
                                 }
                             }
 
@@ -168,12 +172,14 @@ Rectangle
                                 Layout.fillWidth: true
                                 text: editorView ? editorView.model : ""
                                 onTextChanged: if (editorView) editorView.model = text
+                                KeyNavigation.tab: authorEdit
                             }
 
                             // row 4
                             RobotoText { label: qsTr("Author") }
                             CustomTextEdit
                             {
+                                id: authorEdit
                                 Layout.fillWidth: true
                                 text: editorView ? editorView.author : ""
                                 onTextChanged: if (editorView) editorView.author = text
@@ -244,9 +250,15 @@ Rectangle
                                         enabled: chanSelector.itemsCount
                                         onClicked:
                                         {
-                                            for (var i = 0; i < cDragItem.itemsList.length; i++)
-                                                editorView.deleteChannel(cDragItem.itemsList[i].cRef)
+                                            // retrieve selected indices from model selector and
+                                            // channel references from the ListView items
+                                            var refsArray = []
+                                            var selItems = chanSelector.itemsList()
 
+                                            for (var i = 0; i < selItems.length; i++)
+                                                refsArray.push(channelList.itemAtIndex(selItems[i]).cRef)
+
+                                            editorView.deleteChannels(refsArray)
                                             cDragItem.itemsList = []
                                         }
                                     }
@@ -255,6 +267,20 @@ Rectangle
                                     {
                                         Layout.fillWidth: true
                                         color: "transparent"
+                                    }
+
+                                    IconButton
+                                    {
+                                        id: chWizButton
+                                        imgSource: "qrc:/wizard.svg"
+                                        tooltip: qsTr("Channel wizard")
+                                        onClicked: wizardPopup.open()
+
+                                        PopupChannelWizard
+                                        {
+                                            id: wizardPopup
+                                            editorView: editorRoot.editorView
+                                        }
                                     }
                                 }
                             } // Rectangle - toolbar
@@ -273,8 +299,12 @@ Rectangle
                                 delegate:
                                     Item
                                     {
+                                        id: itemRoot
                                         width: channelList.width
                                         height: UISettings.listItemHeight
+
+                                        property QLCChannel cRef: model.cRef
+                                        property alias chanDelegate: delegateRoot.channelDelegate
 
                                         MouseArea
                                         {
@@ -283,8 +313,8 @@ Rectangle
                                             height: parent.height
                                             propagateComposedEvents: true
 
-                                            property QLCChannel cRef: model.cRef
                                             property bool dragActive: drag.active
+                                            property Item channelDelegate: cDelegate
 
                                             drag.target: cDragItem
                                             drag.threshold: height / 2
@@ -296,22 +326,17 @@ Rectangle
                                                 cDragItem.x = posnInWindow.x - (cDragItem.width / 4)
                                                 cDragItem.y = posnInWindow.y - (cDragItem.height / 4)
                                                 cDragItem.z = 10
+                                            }
 
-                                                if (model.isSelected)
-                                                    return
-
-                                                chanSelector.selectItem(index, channelList.model, mouse.modifiers & Qt.ControlModifier)
-
-                                                if ((mouse.modifiers & Qt.ControlModifier) == 0)
-                                                    cDragItem.itemsList = []
-
-                                                cDragItem.itemsList.push(cDelegate)
+                                            onClicked:
+                                            {
+                                                chanSelector.selectItem(index, channelList.model, mouse.modifiers)
                                             }
 
                                             onDoubleClicked:
                                             {
                                                 sideEditor.active = false
-                                                sideEditor.itemName = delegateRoot.cRef.name
+                                                sideEditor.itemName = itemRoot.cRef.name
                                                 sideEditor.source = "qrc:/ChannelEditor.qml"
                                                 sideEditor.active = true
                                             }
@@ -342,7 +367,7 @@ Rectangle
                                                 color: "transparent"
 
                                                 //property int itemType: App.ChannelDragItem
-                                                property QLCChannel cRef: delegateRoot.cRef
+                                                property QLCChannel cRef: itemRoot.cRef
 
                                                 Rectangle
                                                 {
@@ -371,6 +396,22 @@ Rectangle
                                             }
                                         }
                                     }
+
+                                ModelSelector
+                                {
+                                    id: chanSelector
+                                    onItemsCountChanged:
+                                    {
+                                        cDragItem.itemsList = []
+                                        var selItems = itemsList()
+
+                                        for (var i = 0; i < selItems.length; i++)
+                                        {
+                                            var item = channelList.itemAtIndex(selItems[i])
+                                            cDragItem.itemsList.push(item.chanDelegate)
+                                        }
+                                    }
+                                }
 
                                 GenericMultiDragItem
                                 {

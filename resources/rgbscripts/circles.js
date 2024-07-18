@@ -46,13 +46,12 @@ var testAlgo;
 
     var circles = new Array();
 
-    class Circle {
-      constructor(x, y, step, rgb) {
-        this.xCenter = x;
-        this.yCenter = y;
-        this.step = step;
-        this.rgb = rgb;
-      }
+    function Circle(x, y, step, rgb)
+    {
+      this.xCenter = x;
+      this.yCenter = y;
+      this.step = step;
+      this.rgb = rgb;
     }
 
     algo.setAmount = function(_amount)
@@ -123,7 +122,7 @@ var testAlgo;
       util.initialized = true;
     };
 
-    util.getColor = function(step, rgb)
+    util.getStepColor = function(step, rgb)
     {
       if (algo.fadeMode === 0)
       {
@@ -134,7 +133,6 @@ var testAlgo;
         var r = (rgb >> 16) & 0x00FF;
         var g = (rgb >> 8) & 0x00FF;
         var b = rgb & 0x00FF;
-
 
         var stepCount = Math.floor(util.circlesMaxSize / 2);
         var fadeStep = step;
@@ -185,7 +183,8 @@ var testAlgo;
 
     util.getNextStep = function(width, height, rgb)
     {
-      let x, y;
+      var x = 0;
+      var y = 0;
       // create an empty, black pixelMap
       util.pixelMap = new Array(height);
       for (y = 0; y < height; y++)
@@ -196,17 +195,17 @@ var testAlgo;
         }
       }
 
-      for (let i = 0; i < algo.circlesAmount; i++)
+      for (var i = 0; i < algo.circlesAmount; i++)
       {
         if (circles[i].xCenter === -1)
         {
           circles[i].rgb = rgb;
         }
-        let color = util.getColor(circles[i].step, circles[i].rgb);
+        var color = util.getStepColor(circles[i].step, circles[i].rgb);
         //alert("Circle " + i + " xCenter: " + circles[i].xCenter + " color: " + color.toString(16));
         if (circles[i].xCenter === -1)
         {
-          let seed = Math.floor(Math.random()*100);
+          var seed = Math.floor(Math.random()*100);
           if (seed > 50) { continue; }
           circles[i].xCenter = Math.floor(Math.random() * width);
           circles[i].yCenter = Math.floor(Math.random() * height);
@@ -214,8 +213,8 @@ var testAlgo;
         }
         else
         {
-          let l = circles[i].step * Math.cos(Math.PI / 4);
-          let radius2 = circles[i].step * circles[i].step;
+          var l = circles[i].step * Math.cos(Math.PI / 4);
+          var radius2 = circles[i].step * circles[i].step;
           l = l.toFixed(0);
 
           if ( algo.fillCircles == 0 ) {

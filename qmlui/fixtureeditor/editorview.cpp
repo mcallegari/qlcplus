@@ -17,9 +17,11 @@
   limitations under the License.
 */
 
+#include <QQmlEngine>
+
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
-#include "qlcchannel.h"
+#include "qlccapability.h"
 
 #include "channeledit.h"
 #include "editorview.h"
@@ -72,6 +74,11 @@ EditorView::~EditorView()
 int EditorView::id() const
 {
     return m_id;
+}
+
+QLCFixtureDef *EditorView::fixtureDefinition()
+{
+    return m_fixtureDef;
 }
 
 bool EditorView::isUser() const
@@ -181,9 +188,11 @@ ChannelEdit *EditorView::requestChannelEditor(QString name)
     if (ch == nullptr)
     {
         ch = new QLCChannel();
+        QQmlEngine::setObjectOwnership(ch, QQmlEngine::CppOwnership);
         ch->setName(tr("New channel %1").arg(m_fixtureDef->channels().count() + 1));
         m_fixtureDef->addChannel(ch);
         updateChannelList();
+        setModified(true);
     }
     m_channelEdit = new ChannelEdit(ch);
     connect(m_channelEdit, SIGNAL(channelChanged()), this, SLOT(setModified()));
@@ -191,12 +200,98 @@ ChannelEdit *EditorView::requestChannelEditor(QString name)
     return m_channelEdit;
 }
 
+void EditorView::addPresetChannel(QString name, int group)
+{
+    QLCChannel *channel = new QLCChannel();
+    channel->setName(name);
+    if (group > QLCChannel::Nothing)
+    {
+        channel->setGroup(QLCChannel::Intensity);
+        channel->setColour(QLCChannel::PrimaryColour(group));
+
+        switch (QLCChannel::PrimaryColour(group))
+        {
+            case QLCChannel::Red:
+                channel->setPreset(QLCChannel::IntensityRed);
+            break;
+            case QLCChannel::Green:
+                channel->setPreset(QLCChannel::IntensityGreen);
+            break;
+            case QLCChannel::Blue:
+                channel->setPreset(QLCChannel::IntensityBlue);
+            break;
+            case QLCChannel::White:
+                channel->setPreset(QLCChannel::IntensityWhite);
+            break;
+            case QLCChannel::Amber:
+                channel->setPreset(QLCChannel::IntensityAmber);
+            break;
+            case QLCChannel::UV:
+                channel->setPreset(QLCChannel::IntensityUV);
+            break;
+            default:
+            break;
+        }
+    }
+    else
+    {
+        channel->setGroup(QLCChannel::Group(group));
+
+        switch (QLCChannel::Group(group))
+        {
+            case QLCChannel::Intensity:
+                channel->setPreset(QLCChannel::IntensityDimmer);
+            break;
+            case QLCChannel::Pan:
+                channel->setPreset(QLCChannel::PositionPan);
+            break;
+            case QLCChannel::Tilt:
+                channel->setPreset(QLCChannel::PositionTilt);
+            break;
+            case QLCChannel::Colour:
+                channel->setPreset(QLCChannel::ColorMacro);
+            break;
+            case QLCChannel::Shutter:
+                channel->setPreset(QLCChannel::ShutterStrobeSlowFast);
+            break;
+            case QLCChannel::Beam:
+                channel->setPreset(QLCChannel::NoFunction);
+            break;
+            case QLCChannel::Effect:
+                channel->setPreset(QLCChannel::NoFunction);
+            break;
+            default:
+            break;
+        }
+    }
+    channel->addPresetCapability();
+    m_fixtureDef->addChannel(channel);
+    updateChannelList();
+    setModified(true);
+}
+
 bool EditorView::deleteChannel(QLCChannel *channel)
 {
     // TODO: Tardis
     bool res = m_fixtureDef->removeChannel(channel);
-    updateChannelList();
+    setModified(true);
     return res;
+}
+
+bool EditorView::deleteChannels(QVariantList channels)
+{
+    bool res;
+    for (int i = 0; i < channels.count(); i++)
+    {
+        QLCChannel *channel = channels.at(i).value<QLCChannel*>();
+        res = deleteChannel(channel);
+        if (res == false)
+            return false;
+    }
+    if (channels.count())
+        updateChannelList();
+
+    return true;
 }
 
 /************************************************************************
@@ -250,7 +345,7 @@ void EditorView::updateModeList()
 
 void EditorView::modeNameChanged()
 {
-    setModified();
+    setModified(true);
     updateModeList();
 }
 
@@ -258,30 +353,85 @@ void EditorView::modeNameChanged()
  * Load & Save
  *********************************************************************/
 
-bool EditorView::save()
+QString EditorView::checkFixture()
 {
+    QString errors;
+
+    if (m_fixtureDef->channels().count() == 0)
+    {
+        errors.append(tr("<li>No channels provided</li>"));
+    }
+    else
+    {
+        for (QLCChannel *channel : m_fixtureDef->channels())
+        {
+            if (channel->capabilities().isEmpty())
+                errors.append(tr("<li>No capability provided in channel '%1'</li>").arg(channel->name()));
+
+            for (QLCCapability *cap : channel->capabilities())
+            {
+                if (cap->name().isEmpty())
+                    errors.append(tr("<li>Empty capability description provided in channel '%1'</li>").arg(channel->name()));
+            }
+        }
+
+        for (QLCFixtureMode *mode : m_fixtureDef->modes())
+        {
+            if (mode->name().isEmpty())
+                errors.append(tr("<li>Empty mode name provided</li>"));
+
+            if (mode->channels().count() == 0)
+                errors.append(tr("<li>Mode '%1' has no channels defined</li>").arg(mode->name()));
+
+            quint32 chIndex = 0;
+            for (QLCChannel *channel : mode->channels())
+            {
+
+                if (mode->channelActsOn(chIndex) == chIndex)
+                    errors.append(tr("<li>In mode '%1', channel '%2' cannot act on itself</li>").arg(mode->name(), channel->name()));
+                chIndex++;
+            }
+        }
+    }
+
+    if (m_fixtureDef->modes().count() == 0)
+        errors.append(tr("<li>No modes provided. Without modes, this fixture will not appear in the list!</li>"));
+
+    return errors;
+}
+
+QString EditorView::save()
+{
+    QString errors;
+
     if (m_fileName.isEmpty())
         setFilenameFromModel();
 
-    //m_fixtureDef->setPhysical(m_phyEdit->physical());
+    m_fixtureDef->setPhysical(m_globalPhy->physical());
+
+    errors.append(checkFixture());
+
     QFile::FileError error = m_fixtureDef->saveXML(m_fileName);
     if (error != QFile::NoError)
-        return false;
+        return tr("Could not save file! (%1)").arg(QLCFile::errorString(error));
 
     setModified(false);
-    return true;
+    return errors;
 }
 
-bool EditorView::saveAs(QString path)
+QString EditorView::saveAs(QString path)
 {
     QString localFilename = path;
     if (localFilename.startsWith("file:"))
         localFilename = QUrl(path).toLocalFile();
 
+    /* Always use the fixture suffix */
+    if (localFilename.right(4) != KExtFixture)
+        localFilename += KExtFixture;
+
     m_fileName = localFilename;
 
-    save();
-    return true;
+    return save();
 }
 
 QString EditorView::fileName()

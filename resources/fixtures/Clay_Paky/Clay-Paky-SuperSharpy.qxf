@@ -144,7 +144,7 @@
  <Channel Name="Prism Insertion">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="127" Preset="PrismEffectOff">Prism out</Capability>
-  <Capability Min="128" Max="132" Preset="PrismEffectOn" Res1="8">Prism 8-facet into the light beam</Capability>
+  <Capability Min="128" Max="255" Preset="PrismEffectOn" Res1="8">Prism 8-facet into the light beam</Capability>
  </Channel>
  <Channel Name="Prism Rotation">
   <Group Byte="0">Prism</Group>
@@ -303,7 +303,7 @@
  <Physical>
   <Bulb Type="MSD Platinum 20R" Lumens="24000" ColourTemperature="7800"/>
   <Dimensions Weight="30" Width="404" Height="628" Depth="420"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="4"/>
+  <Lens Name="Other" DegreesMin="4" DegreesMax="50"/>
   <Focus Type="Head" PanMax="540" TiltMax="244"/>
   <Technical PowerConsumption="700" DmxConnector="3-pin and 5-pin"/>
  </Physical>

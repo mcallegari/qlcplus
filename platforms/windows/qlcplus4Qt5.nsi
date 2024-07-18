@@ -4,7 +4,7 @@
 
 ;--------------------------------
 ;Defines
-!define QLCPLUS_HOME "c:\Qt\qlcplus"
+!define QLCPLUS_HOME "c:\projects\qlcplus"
 !define MUI_ICON "${QLCPLUS_HOME}\resources\icons\qlcplus.ico"
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\nsis3-uninstall.ico"
 !define MUI_HEADERIMAGE
@@ -15,7 +15,7 @@
 ;--------------------------------
 ;General
 Name "Q Light Controller Plus"
-OutFile "QLC+_4.12.5.exe"
+OutFile "QLC+_4.13.2.exe"
 InstallDir C:\QLC+
 InstallDirRegKey HKCU "Software\qlcplus" "Install_Dir"
 RequestExecutionLevel user
@@ -91,7 +91,6 @@ Section
 	File /r styles
 	File Sample.qxw
 	File *.qm
-	File /r Documents
 	File /r Fixtures
 	File /r Gobos
 	File /r InputProfiles
@@ -107,9 +106,9 @@ Section
 	WriteRegStr HKCR "QLightControllerPlus.Document\shell\open\command" "" '"$INSTDIR\qlcplus.exe" --open "%1"'
 
 	WriteRegStr HKCR ".qxf" "" "QLightControllerPlusFixture.Document"
-	WriteRegStr HKCR "QLightControllerFixturePlus.Document" "" "Q Light Controller Plus Fixture"
-	WriteRegStr HKCR "QLightControllerFixturePlus.Document\DefaultIcon" "" "$INSTDIR\qlcplus-fixtureeditor.exe,0"
-	WriteRegStr HKCR "QLightControllerFixturePlus.Document\shell\open\command" "" '"$INSTDIR\qlcplus-fixtureeditor.exe" --open "%1"'
+	WriteRegStr HKCR "QLightControllerPlusFixture.Document" "" "Q Light Controller Plus Fixture"
+	WriteRegStr HKCR "QLightControllerPlusFixture.Document\DefaultIcon" "" "$INSTDIR\qlcplus-fixtureeditor.exe,0"
+	WriteRegStr HKCR "QLightControllerPlusFixture.Document\shell\open\command" "" '"$INSTDIR\qlcplus-fixtureeditor.exe" --open "%1"'
 
 	WriteRegStr HKCU "SOFTWARE\qlcplus" "Install_Dir" "$INSTDIR"
 
@@ -133,7 +132,6 @@ Section "Uninstall"
 	RMDir /r $INSTDIR\styles
 	Delete $INSTDIR\Sample.qxw
 	Delete $INSTDIR\*.qm
-	RMDir /r $INSTDIR\Documents
 	RMDir /r $INSTDIR\Fixtures
 	RMDir /r $INSTDIR\Gobos
 	RMDir /r $INSTDIR\InputProfiles

@@ -4,7 +4,7 @@
 
 ;--------------------------------
 ;Defines
-!define QLCPLUS_HOME "c:\Qt\qlcplus"
+!define QLCPLUS_HOME "c:\projects\qlcplus"
 !define MUI_ICON "${QLCPLUS_HOME}\resources\icons\qlcplus.ico"
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\nsis3-uninstall.ico"
 !define MUI_HEADERIMAGE
@@ -15,7 +15,7 @@
 ;--------------------------------
 ;General
 Name "Q Light Controller Plus"
-OutFile "QLC+_5.0.0_beta1.exe"
+OutFile "QLC+_5.0.0_beta4.exe"
 InstallDir C:\QLC+5
 InstallDirRegKey HKCU "Software\qlcplus" "Install_Dir"
 RequestExecutionLevel user
@@ -110,6 +110,11 @@ Section
 ;	WriteRegStr HKCR "QLightControllerPlus.Document" "" "Q Light Controller Plus Workspace"
 ;	WriteRegStr HKCR "QLightControllerPlus.Document\DefaultIcon" "" "$INSTDIR\qlcplus-qml.exe,0"
 ;	WriteRegStr HKCR "QLightControllerPlus.Document\shell\open\command" "" '"$INSTDIR\qlcplus-qml.exe" --open "%1"'
+
+;	WriteRegStr HKCR ".qxf" "" "QLightControllerPlusFixture.Document"
+;	WriteRegStr HKCR "QLightControllerPlusFixture.Document" "" "Q Light Controller Plus Fixture"
+;	WriteRegStr HKCR "QLightControllerPlusFixture.Document\DefaultIcon" "" "$INSTDIR\qlcplus-qml.exe,0"
+;	WriteRegStr HKCR "QLightControllerPlusFixture.Document\shell\open\command" "" '"$INSTDIR\qlcplus-qml.exe" --open "%1"'
 
 	WriteRegStr HKCU "SOFTWARE\qlcplus" "Install_Dir" "$INSTDIR"
 

@@ -48,6 +48,7 @@ ComboBox
     property int currValue
     property int delegateHeight: UISettings.listItemHeight
     property bool isUpdating: false
+    property int contentsMaxWidth: 0
 
     signal valueChanged(int value)
 
@@ -145,6 +146,13 @@ ComboBox
                         label: text
                         height: delegateHeight
                         fontSize: UISettings.textSizeDefault
+
+                        onWidthChanged:
+                        {
+                            var w = width + (itemIcon ? delegateHeight : 0) + 15
+                            if (w > contentsMaxWidth)
+                                contentsMaxWidth = w
+                        }
                     }
                 }
 
@@ -184,7 +192,8 @@ ComboBox
         Row
         {
             spacing: 2
-            leftPadding: 3
+            leftPadding: 6
+            clip: true
 
             Image
             {
@@ -222,7 +231,7 @@ ComboBox
         Popup
         {
             y: control.height
-            width: control.width
+            width: Math.min(UISettings.bigItemHeight * 3, Math.max(control.width, contentsMaxWidth))
             height: Math.min(contentItem.implicitHeight, control.Window.height - topMargin - bottomMargin)
             topMargin: 0
             bottomMargin: 0

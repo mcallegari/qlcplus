@@ -158,7 +158,6 @@ SidePanel
                 imgSource: "qrc:/edit-paste.svg"
                 tooltip: qsTr("Paste widgets from clipboard")
                 counter: virtualConsole.clipboardItemsCount
-
                 onClicked: virtualConsole.pasteFromClipboard()
 
                 Rectangle

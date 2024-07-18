@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 2</Version>
+  <Author>Samuel Mueller</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>TSL-150</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Color wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ffaa00" Res2="#add8e6">Orange + light blue</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#add8e6" Res2="#ff00ff">Light blue + magenta</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ffff00">Magenta + yellow</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#0000ff">Yellow + blue</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ff00">Blue + green</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff0000">Green + red</Capability>
+  <Capability Min="140" Max="255" Preset="GenericPicture" Res1="Others/rainbow.png">Rainbow effect with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Static gobo wheel, gobo shake">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="8" Max="15" Preset="GoboMacro" Res1="Robe/gobo00025.svg">Gobo 1</Capability>
+  <Capability Min="16" Max="23" Preset="GoboMacro" Res1="Others/gobo00108.svg">Gobo 2</Capability>
+  <Capability Min="24" Max="31" Preset="GoboMacro" Res1="ClayPaky/gobo00003.svg">Gobo 3</Capability>
+  <Capability Min="32" Max="39" Preset="GoboMacro" Res1="Others/gobo00016.svg">Gobo 4</Capability>
+  <Capability Min="40" Max="47" Preset="GoboMacro" Res1="Others/gobo00008.svg">Gobo 5</Capability>
+  <Capability Min="48" Max="55" Preset="GoboMacro" Res1="Robe/gobo00045.svg">Gobo 6</Capability>
+  <Capability Min="56" Max="63" Preset="GoboMacro" Res1="Robe/gobo00009.svg">Gobo 7</Capability>
+  <Capability Min="64" Max="71">Open</Capability>
+  <Capability Min="72" Max="79" Preset="GoboShakeMacro" Res1="Robe/gobo00025.svg">Gobo 1 shake</Capability>
+  <Capability Min="80" Max="87" Preset="GoboShakeMacro" Res1="Others/gobo00108.svg">Gobo 2 shake</Capability>
+  <Capability Min="88" Max="95" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00003.svg">Gobo 3 shake</Capability>
+  <Capability Min="96" Max="103" Preset="GoboShakeMacro" Res1="Others/gobo00016.svg">Gobo 4 shake</Capability>
+  <Capability Min="104" Max="111" Preset="GoboShakeMacro" Res1="Others/gobo00008.svg">Gobo 5 shake</Capability>
+  <Capability Min="112" Max="119" Preset="GoboShakeMacro" Res1="Robe/gobo00045.svg">Gobo 6 shake</Capability>
+  <Capability Min="120" Max="127" Preset="GoboShakeMacro" Res1="Robe/gobo00009.svg">Gobo 7 shake</Capability>
+  <Capability Min="128" Max="255" Preset="RotationClockwiseSlowToFast">Gobo wheel rotation with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Shutter, Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="249" Preset="StrobeSlowToFast">Strobe-effect with increasing speed</Capability>
+  <Capability Min="250" Max="255" Preset="ShutterOpen">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Internal programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="59">No function</Capability>
+  <Capability Min="60" Max="84">Internal program 1</Capability>
+  <Capability Min="85" Max="109">Internal program 2</Capability>
+  <Capability Min="110" Max="159">Internal program 3</Capability>
+  <Capability Min="160" Max="184">Sound controlled program 1</Capability>
+  <Capability Min="185" Max="209">Sound controlled program 2</Capability>
+  <Capability Min="210" Max="255">Sound controlled program 3</Capability>
+ </Channel>
+ <Channel Name="PAN/TILT movement/Reset">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="20">No function</Capability>
+  <Capability Min="21" Max="100">PAN-sway; Prior setting of the TILT value via CH 2 (then deflection for PAN-sway via CH 1, speed via CH 7)</Capability>
+  <Capability Min="101" Max="200">TILT-sway; Prior setting of the PAN value via CH 1 (then deflection for TILT-sway via CH 2, speed via CH 7)</Capability>
+  <Capability Min="201" Max="249">PAN / TILT movement (deflection via CH 1 and CH 2, Speed via CH 7)</Capability>
+  <Capability Min="250" Max="255" Preset="ResetPanTilt">Reset PAN/TILT</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Color wheel</Channel>
+  <Channel Number="3">Static gobo wheel, gobo shake</Channel>
+  <Channel Number="4">Shutter, Strobe</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Pan/Tilt speed</Channel>
+  <Channel Number="7">Internal programs</Channel>
+  <Channel Number="8">PAN/TILT movement/Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="330" Height="195" Depth="165"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

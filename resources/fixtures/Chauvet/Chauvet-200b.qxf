@@ -12,9 +12,14 @@
  <Channel Name="Function">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="29">RGB</Capability>
-  <Capability Min="30" Max="199" Preset="PulseFrequency">Pulse</Capability>
+  <Capability Min="30" Max="59">Pulse Strobe 0-100%</Capability>
+  <Capability Min="60" Max="89">Pulse Strobe 100-0%</Capability>
+  <Capability Min="90" Max="119">Pulse Strobe 100-0%-100%</Capability>
+  <Capability Min="120" Max="149">Color Macro</Capability>
+  <Capability Min="150" Max="179">RGB Chase</Capability>
+  <Capability Min="180" Max="209">Colour change</Capability>
   <Capability Min="210" Max="239">Colour change with fade</Capability>
-  <Capability Min="240" Max="255">Sound</Capability>
+  <Capability Min="240" Max="255">Sound activated</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>

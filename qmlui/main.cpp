@@ -99,6 +99,7 @@ int main(int argc, char *argv[])
 
     parser.process(app);
 
+#if !defined Q_OS_ANDROID
     if (!parser.isSet(threedSupportOption))
     {
         QSurfaceFormat format;
@@ -107,7 +108,7 @@ int main(int argc, char *argv[])
         format.setProfile(QSurfaceFormat::CoreProfile);
         QSurfaceFormat::setDefaultFormat(format);
     }
-
+#endif
     if (parser.isSet(debugOption))
         qInstallMessageHandler(debugMessageHandler);
 

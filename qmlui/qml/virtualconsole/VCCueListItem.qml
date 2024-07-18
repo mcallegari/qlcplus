@@ -19,6 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
+import QtQuick.Controls 2.14
 
 import org.qlcplus.classes 1.0
 
@@ -26,9 +27,14 @@ VCWidgetItem
 {
     id: cueListRoot
     property VCCueList cueListObj: null
+    property int contentWidth: width - (sideFaderLayout.visible ? sideFaderLayout.width : 0)
     property int buttonsLayout: cueListObj ? cueListObj.playbackLayout : VCCueList.PlayPauseStop
     property int playbackStatus: cueListObj ? cueListObj.playbackStatus : VCCueList.Stopped
     property int sideFaderMode: cueListObj ? cueListObj.sideFaderMode : VCCueList.None
+
+    property int progressStatus: VCCueList.ProgressIdle
+    property real progressValue: 0
+    property string progressText: ""
 
     clip: true
 
@@ -174,7 +180,7 @@ VCWidgetItem
 
     ColumnLayout
     {
-        width: parent.width - (sideFaderLayout.visible ? sideFaderLayout.width : 0)
+        width: contentWidth
         height: parent.height
         x: sideFaderLayout.visible ? sideFaderLayout.width : 0
         spacing: 2
@@ -193,7 +199,9 @@ VCWidgetItem
 
             onIndexChanged: if (cueListObj) cueListObj.playbackIndex = index
             //onStepValueChanged: chaserEditor.setStepSpeed(index, value, type)
+            onNoteTextChanged: if (cueListObj) cueListObj.setStepNote(index, text)
             onAddFunctions: if (cueListObj) cueListObj.addFunctions(list, index)
+            onEnterPressed: if (cueListObj) cueListObj.playCurrentStep()
 
             states: [
                 State
@@ -208,6 +216,40 @@ VCWidgetItem
             ]
         }
 
+        ProgressBar
+        {
+            id: progressBar
+            value: progressValue
+            //padding: 2
+
+            background: Rectangle {
+                implicitWidth: contentWidth
+                implicitHeight: UISettings.iconSizeMedium / 2
+                color: UISettings.bgControl
+                radius: 3
+            }
+
+            contentItem: Item {
+                implicitWidth: contentWidth
+                implicitHeight: UISettings.iconSizeMedium / 2
+
+                Rectangle {
+                    width: progressBar.visualPosition * parent.width
+                    height: parent.height
+                    radius: 2
+                    color: progressStatus == VCCueList.ProgressIdle ? "transparent" :
+                           progressStatus == VCCueList.ProgressFadeIn ? "#477f07" : "#0f76c5";
+                }
+
+                RobotoText
+                {
+                    anchors.centerIn: parent
+                    fontSize: UISettings.textSizeDefault * 0.6
+                    label: progressText
+                }
+            }
+        }
+
         Row
         {
             id: controlsRow
@@ -216,8 +258,9 @@ VCWidgetItem
             IconButton
             {
                 id: playbackBtn
-                width: cueListRoot.width / 4
+                width: contentWidth / 4
                 height: UISettings.iconSizeMedium
+                enabled: visible && !cueListObj.isDisabled
                 imgSource: (cueListObj && cueListObj.playbackLayout == VCCueList.PlayPauseStop) ?
                                (cueListRoot.playbackStatus === VCCueList.Stopped ||
                                 cueListRoot.playbackStatus === VCCueList.Paused ? "qrc:/play.svg" : "qrc:/pause.svg") :
@@ -228,8 +271,9 @@ VCWidgetItem
             IconButton
             {
                 id: stopBtn
-                width: cueListRoot.width / 4
+                width: contentWidth / 4
                 height: UISettings.iconSizeMedium
+                enabled: visible && !cueListObj.isDisabled
                 imgSource: (cueListObj && cueListObj.playbackLayout == VCCueList.PlayStopPause) ? "qrc:/pause.svg" : "qrc:/stop.svg"
                 tooltip: (cueListObj && cueListObj.playbackLayout == VCCueList.PlayStopPause) ? qsTr("Pause") : qsTr("Stop")
                 onClicked: if (cueListObj) cueListObj.stopClicked()
@@ -237,8 +281,9 @@ VCWidgetItem
             IconButton
             {
                 id: previousBtn
-                width: cueListRoot.width / 4
+                width: contentWidth / 4
                 height: UISettings.iconSizeMedium
+                enabled: visible && !cueListObj.isDisabled
                 imgSource: "qrc:/back.svg"
                 tooltip: qsTr("Previous cue")
                 onClicked: if (cueListObj) cueListObj.previousClicked()
@@ -246,8 +291,9 @@ VCWidgetItem
             IconButton
             {
                 id: nextBtn
-                width: cueListRoot.width / 4
+                width: contentWidth / 4
                 height: UISettings.iconSizeMedium
+                enabled: visible && !cueListObj.isDisabled
                 imgSource: "qrc:/forward.svg"
                 tooltip: qsTr("Next cue")
                 onClicked: if (cueListObj) cueListObj.nextClicked()

@@ -90,11 +90,11 @@
  </Channel>
  <Channel Name="LampSwitch">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="47">No Function</Capability>
+  <Capability Min="0" Max="47">No function</Capability>
   <Capability Min="48" Max="95">Switch On After 3 Seconds</Capability>
-  <Capability Min="96" Max="159">No Function</Capability>
+  <Capability Min="96" Max="159">No function</Capability>
   <Capability Min="160" Max="207">Switch Off After 3 Seconds</Capability>
-  <Capability Min="208" Max="255">No Function</Capability>
+  <Capability Min="208" Max="255">No function</Capability>
  </Channel>
  <Mode Name="XP575 Wash">
   <Channel Number="0">Dimmer</Channel>
@@ -114,7 +114,7 @@
  <Physical>
   <Bulb Type="HTI 575W" Lumens="0" ColourTemperature="5600"/>
   <Dimensions Weight="28.5" Width="405" Height="550" Depth="395"/>
-  <Lens Name="Fresnel" DegreesMin="0" DegreesMax="0"/>
+  <Lens Name="Fresnel" DegreesMin="10" DegreesMax="30"/>
   <Focus Type="Head" PanMax="570" TiltMax="270"/>
   <Technical PowerConsumption="800" DmxConnector="3-pin"/>
  </Physical>

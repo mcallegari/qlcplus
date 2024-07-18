@@ -47,7 +47,7 @@
   <Capability Min="128" Max="137">Open</Capability>
   <Capability Min="138" Max="139">Closed</Capability>
   <Capability Min="140" Max="243">Strobe speed 1-11/sec</Capability>
-  <Capability Min="255" Max="255">Open</Capability>
+  <Capability Min="244" Max="255">Open</Capability>
  </Channel>
  <Channel Name="Iris" Preset="ShutterIrisMaxToMin"/>
  <Channel Name="Gobo rotation">
@@ -101,8 +101,12 @@
   <Capability Min="0" Max="64">Iris with gobo 1</Capability>
   <Capability Min="65" Max="65">Gobo 2</Capability>
   <Capability Min="66" Max="66">Gobo 3</Capability>
+  <Capability Min="67" Max="67">Gobo at 0 degrees</Capability>
+  <Capability Min="68" Max="105">Gobo 1 - 179 degrees</Capability>
   <Capability Min="106" Max="106">Gobo at 180 degrees</Capability>
+  <Capability Min="107" Max="147">Gobo 181 - 359 degrees</Capability>
   <Capability Min="148" Max="148">Gobo at 360 degrees</Capability>
+  <Capability Min="149" Max="190">Gobo 361 - 539 degrees</Capability>
   <Capability Min="191" Max="191">Gobo at 540 degrees</Capability>
   <Capability Min="192" Max="222">Gobo CCW rotation fast to slow</Capability>
   <Capability Min="223" Max="224">No gobo rotation</Capability>

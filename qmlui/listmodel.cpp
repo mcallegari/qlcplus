@@ -126,6 +126,17 @@ void ListModel::addDataMap(QVariantMap data)
     endInsertRows();
 }
 
+void ListModel::setDataMap(const QModelIndex &index, QVariantMap data)
+{
+    int itemRow = index.row();
+    if (itemRow >= m_data.count())
+        return;
+
+    m_data[itemRow] = data;
+
+    emit dataChanged(index, index);
+}
+
 QHash<int, QByteArray> ListModel::roleNames() const
 {
     QHash<int, QByteArray> roles;

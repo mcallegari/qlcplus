@@ -27,7 +27,7 @@
   <Capability Min="197" Max="199" Preset="StrobeRandom">Random closing pulse, fast</Capability>
   <Capability Min="200" Max="202" Preset="StrobeRandom">Random closing pulse, slow</Capability>
   <Capability Min="203" Max="207" Preset="ShutterOpen">Shutter open</Capability>
-  <Capability Min="208" Max="217" Preset="ColorDoubleMacro">Reset fixture, see note</Capability>
+  <Capability Min="208" Max="217" Preset="ResetAll">Reset fixture, see note</Capability>
   <Capability Min="218" Max="227" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="228" Max="237" Preset="LampOn">Lamp power on</Capability>
   <Capability Min="238" Max="247" Preset="ShutterOpen">Shutter open</Capability>

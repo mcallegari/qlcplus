@@ -135,6 +135,7 @@ private:
 
 signals:
     void dataProcessed(double *spectrumBands, int size, double maxMagnitude, quint32 power);
+    void volumeChanged(int volume);
 
 protected:
     /*!

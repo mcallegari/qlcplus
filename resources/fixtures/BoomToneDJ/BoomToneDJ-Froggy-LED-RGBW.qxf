@@ -20,11 +20,13 @@
  <Channel Name="Speed - Pan/Tilt" Preset="SpeedPanTiltSlowFast"/>
  <Channel Name="Mode">
   <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">RGB</Capability>
   <Capability Min="1" Max="249">Auto</Capability>
   <Capability Min="250" Max="255">Sound</Capability>
  </Channel>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="254">No function</Capability>
   <Capability Min="255" Max="255">Reset</Capability>
  </Channel>
  <Mode Name="6 Ch Mode">

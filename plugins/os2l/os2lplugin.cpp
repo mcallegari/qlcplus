@@ -48,7 +48,7 @@ QString OS2LPlugin::name()
 
 int OS2LPlugin::capabilities() const
 {
-    return QLCIOPlugin::Input | QLCIOPlugin::Feedback;
+    return QLCIOPlugin::Input | QLCIOPlugin::Feedback | QLCIOPlugin::Beats;
 }
 
 QString OS2LPlugin::pluginInfo()
@@ -125,23 +125,6 @@ QString OS2LPlugin::inputInfo(quint32 input)
     str += QString("</HTML>");
 
     return str;
-}
-
-void OS2LPlugin::sendFeedBack(quint32 universe, quint32 output, quint32 channel, uchar value, const QString &key)
-{
-    Q_UNUSED(universe)
-    Q_UNUSED(output)
-    Q_UNUSED(channel)
-    Q_UNUSED(value)
-    Q_UNUSED(key)
-
-    /**
-     * If the device support this feature, this is the method to send data back for
-     * visual feedback.
-     * To implement such method, the plugin must have an input line corresponding
-     * to the specified output line.
-     * Basically feedback data must return to the same line where it came from
-     */
 }
 
 quint32 OS2LPlugin::universe() const

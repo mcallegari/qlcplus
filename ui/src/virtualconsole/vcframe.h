@@ -120,6 +120,9 @@ public:
 
     QSize originalSize() const;
 
+signals:
+    void disableStateChanged(bool disable);
+
 protected slots:
     void slotCollapseButtonToggled(bool toggle);
 

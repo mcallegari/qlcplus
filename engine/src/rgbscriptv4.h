@@ -71,6 +71,9 @@ private:
     /** Init engine, engine mutex, and scripts map */
     static void initEngine();
 
+    /** Handle an error after evaluate() or call() of a script */
+    static void displayError(QJSValue e, const QString& fileName);
+
 private:
     static QJSEngine* s_engine;      //! The engine that runs all scripts
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)

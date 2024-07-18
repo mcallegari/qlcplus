@@ -106,7 +106,8 @@ void VCXYPadArea_Test::mouseEvents()
     VCXYPadArea area(NULL);
     area.resize(QSize(256, 256));
 
-    QMouseEvent e(QEvent::MouseButtonPress, QPoint(20, 30), Qt::LeftButton, Qt::NoButton, Qt::NoModifier);
+    QMouseEvent e(QEvent::MouseButtonPress, QPoint(20, 30), QPoint(0, 0), QPoint(0, 0),
+                  Qt::LeftButton, Qt::NoButton, Qt::NoModifier);
     area.mousePressEvent(&e);
     QCOMPARE(area.m_dmxPos, QPointF(0, 0));
     QVERIFY(area.cursor().shape() != Qt::CrossCursor);
@@ -116,7 +117,8 @@ void VCXYPadArea_Test::mouseEvents()
     QCOMPARE(area.m_dmxPos, QPointF(20, 30));
     QCOMPARE(area.cursor().shape(), Qt::CrossCursor);
 
-    QMouseEvent e2(QEvent::MouseButtonPress, QPoint(320, 330), Qt::LeftButton, Qt::NoButton, Qt::NoModifier);
+    QMouseEvent e2(QEvent::MouseButtonPress, QPoint(320, 330), QPoint(0, 0), QPoint(0, 0),
+                   Qt::LeftButton, Qt::NoButton, Qt::NoModifier);
     area.mouseMoveEvent(&e2);
     QCOMPARE(area.m_dmxPos, QPointF(255.0 + 255.0/256, 255.0 + 255.0/256));
     QCOMPARE(area.cursor().shape(), Qt::CrossCursor);

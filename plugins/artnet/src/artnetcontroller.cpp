@@ -24,16 +24,20 @@
 #include <QStringList>
 #include <QDebug>
 
-#define TRANSMIT_FULL    "Full"
-#define TRANSMIT_PARTIAL "Partial"
+#define POLL_INTERVAL_MS   3000
+#define SEND_INTERVAL_MS   2000
+
+#define TRANSMIT_STANDARD  "Standard"
+#define TRANSMIT_FULL      "Full"
+#define TRANSMIT_PARTIAL   "Partial"
 
 #define _DEBUG_RECEIVED_PACKETS 0
 
-ArtNetController::ArtNetController(QNetworkInterface const& interface, QNetworkAddressEntry const& address,
+ArtNetController::ArtNetController(QNetworkInterface const& iface, QNetworkAddressEntry const& address,
                                    QSharedPointer<QUdpSocket> const& udpSocket,
                                    quint32 line, QObject *parent)
     : QObject(parent)
-    , m_interface(interface)
+    , m_interface(iface)
     , m_address(address)
     , m_ipAddr(address.ip())
     , m_packetSent(0)
@@ -51,7 +55,7 @@ ArtNetController::ArtNetController(QNetworkInterface const& interface, QNetworkA
     else
     {
         m_broadcastAddr = address.broadcast();
-        m_MACAddress = interface.hardwareAddress();
+        m_MACAddress = iface.hardwareAddress();
     }
 
     qDebug() << "[ArtNetController] IP Address:" << m_ipAddr.toString() << " Broadcast address:" << m_broadcastAddr.toString() << "(MAC:" << m_MACAddress << ")";
@@ -60,13 +64,12 @@ ArtNetController::ArtNetController(QNetworkInterface const& interface, QNetworkA
 ArtNetController::~ArtNetController()
 {
     qDebug() << Q_FUNC_INFO;
-    qDeleteAll(m_dmxValuesMap);
 }
 
 ArtNetController::Type ArtNetController::type()
 {
     int type = Unknown;
-    foreach(UniverseInfo info, m_universeMap.values())
+    foreach (UniverseInfo info, m_universeMap.values())
     {
         type |= info.type;
     }
@@ -117,21 +120,29 @@ void ArtNetController::addUniverse(quint32 universe, ArtNetController::Type type
         info.inputUniverse = universe;
         info.outputAddress = m_broadcastAddr;
         info.outputUniverse = universe;
-        info.outputTransmissionMode = Full;
+        info.outputTransmissionMode = Standard;
         info.type = type;
         m_universeMap[universe] = info;
     }
 
-    // send Polls if we open an Output
-    if (type == Output && m_pollTimer == NULL)
+    if (type == Output)
     {
-        slotSendPoll();
+        // activate ArtPoll if we open an Output
+        if (m_pollTimer.isActive() == false)
+        {
+            m_pollTimer.setInterval(POLL_INTERVAL_MS);
+            connect(&m_pollTimer, SIGNAL(timeout()), this, SLOT(slotSendPoll()));
+            m_pollTimer.start();
 
-        m_pollTimer = new QTimer(this);
-        m_pollTimer->setInterval(5000);
-        connect(m_pollTimer, SIGNAL(timeout()),
-                this, SLOT(slotSendPoll()));
-        m_pollTimer->start();
+            slotSendPoll();
+        }
+        if (m_sendTimer.isActive() == false &&
+            m_universeMap[universe].outputTransmissionMode == Standard)
+        {
+            m_sendTimer.setInterval(SEND_INTERVAL_MS);
+            connect(&m_sendTimer, SIGNAL(timeout()), this, SLOT(slotSendAllUniverses()));
+            m_sendTimer.start();
+        }
     }
 }
 
@@ -146,10 +157,9 @@ void ArtNetController::removeUniverse(quint32 universe, ArtNetController::Type t
 
         if (type == Output && ((this->type() & Output) == 0))
         {
-            disconnect(m_pollTimer, SIGNAL(timeout()),
+            m_pollTimer.stop();
+            disconnect(&m_pollTimer, SIGNAL(timeout()),
                        this, SLOT(slotSendPoll()));
-            delete m_pollTimer;
-            m_pollTimer = NULL;
         }
     }
 }
@@ -219,7 +229,7 @@ bool ArtNetController::setTransmissionMode(quint32 universe, ArtNetController::T
     QMutexLocker locker(&m_dataMutex);
     m_universeMap[universe].outputTransmissionMode = int(mode);
 
-    return mode == ArtNetController::Full;
+    return mode == ArtNetController::Standard;
 }
 
 QString ArtNetController::transmissionModeToString(ArtNetController::TransmissionMode mode)
@@ -227,6 +237,9 @@ QString ArtNetController::transmissionModeToString(ArtNetController::Transmissio
     switch (mode)
     {
         default:
+        case Standard:
+            return QString(TRANSMIT_STANDARD);
+        break;
         case Full:
             return QString(TRANSMIT_FULL);
         break;
@@ -238,10 +251,12 @@ QString ArtNetController::transmissionModeToString(ArtNetController::Transmissio
 
 ArtNetController::TransmissionMode ArtNetController::stringToTransmissionMode(const QString &mode)
 {
-    if (mode == QString(TRANSMIT_PARTIAL))
+    if (mode == QString(TRANSMIT_FULL))
+        return Full;
+    else if (mode == QString(TRANSMIT_PARTIAL))
         return Partial;
     else
-        return Full;
+        return Standard;
 }
 
 QList<quint32> ArtNetController::universesList()
@@ -257,27 +272,67 @@ UniverseInfo *ArtNetController::getUniverseInfo(quint32 universe)
     return NULL;
 }
 
-void ArtNetController::sendDmx(const quint32 universe, const QByteArray &data)
+void ArtNetController::slotSendAllUniverses()
+{
+    QMutexLocker locker(&m_dataMutex);
+    for (QMap<quint32, UniverseInfo>::iterator it = m_universeMap.begin(); it != m_universeMap.end(); ++it)
+    {
+        UniverseInfo &info = it.value();
+
+        if ((info.type & Output) && info.outputTransmissionMode == Standard)
+        {
+            QByteArray dmxPacket;
+            if (info.outputData.size() == 0)
+                info.outputData.fill(0, 512);
+
+            m_packetizer->setupArtNetDmx(dmxPacket, info.outputUniverse, info.outputData);
+
+            qint64 sent = m_udpSocket->writeDatagram(dmxPacket, info.outputAddress, ARTNET_PORT);
+            if (sent < 0)
+            {
+                qWarning() << "sendDmx failed";
+                qWarning() << "Errno: " << m_udpSocket->error();
+                qWarning() << "Errmgs: " << m_udpSocket->errorString();
+            }
+            else
+            {
+                m_packetSent++;
+            }
+        }
+    }
+}
+
+void ArtNetController::sendDmx(const quint32 universe, const QByteArray &data, bool dataChanged)
 {
     QMutexLocker locker(&m_dataMutex);
     QByteArray dmxPacket;
     QHostAddress outAddress = m_broadcastAddr;
     quint32 outUniverse = universe;
-    TransmissionMode transmitMode = Full;
+    TransmissionMode transmitMode = Standard;
+    UniverseInfo *info = getUniverseInfo(universe);
 
-    if (m_universeMap.contains(universe))
+    if (info == NULL)
     {
-        UniverseInfo info = m_universeMap[universe];
-        outAddress = info.outputAddress;
-        outUniverse = info.outputUniverse;
-        transmitMode = TransmissionMode(info.outputTransmissionMode);
+        qWarning() << "sendDmx: universe" << universe << "not registered as output!";
+        return;
     }
 
-    if (transmitMode == Full)
+    outAddress = info->outputAddress;
+    outUniverse = info->outputUniverse;
+    transmitMode = TransmissionMode(info->outputTransmissionMode);
+
+    // if data has not changed since previous tick don't do anything.
+    // A timer will refresh all universes every N seconds
+    if (transmitMode == Standard && !dataChanged)
+        return;
+
+    if (transmitMode == Full || (transmitMode == Standard && dataChanged))
     {
-        QByteArray wholeuniverse(512, 0);
-        wholeuniverse.replace(0, data.length(), data);
-        m_packetizer->setupArtNetDmx(dmxPacket, outUniverse, wholeuniverse);
+        if (info->outputData.size() == 0)
+            info->outputData.fill(0, 512);
+
+        info->outputData.replace(0, data.length(), data);
+        m_packetizer->setupArtNetDmx(dmxPacket, outUniverse, info->outputData);
     }
     else
     {
@@ -374,9 +429,16 @@ bool ArtNetController::handleArtNetPoll(QByteArray const& datagram, QHostAddress
     qDebug() << "[ArtNet] ArtPoll received";
 #endif
     QByteArray pollReplyPacket;
-    m_packetizer->setupArtNetPollReply(pollReplyPacket, m_ipAddr, m_MACAddress);
-    m_udpSocket->writeDatagram(pollReplyPacket, senderAddress, ARTNET_PORT);
-    ++m_packetSent;
+    for (QMap<quint32, UniverseInfo>::iterator it = m_universeMap.begin(); it != m_universeMap.end(); ++it)
+    {
+        quint32 universe = it.key();
+        UniverseInfo &info = it.value();
+        bool isInput = (info.type & Input) ? true : false;
+
+        m_packetizer->setupArtNetPollReply(pollReplyPacket, m_ipAddr, m_MACAddress, universe, isInput);
+        m_udpSocket->writeDatagram(pollReplyPacket, senderAddress, ARTNET_PORT);
+        ++m_packetSent;
+    }
     ++m_packetReceived;
     return true;
 }
@@ -396,20 +458,18 @@ bool ArtNetController::handleArtNetDmx(QByteArray const& datagram, QHostAddress 
 #if _DEBUG_RECEIVED_PACKETS
     qDebug() << "[ArtNet] DMX data received. Universe:" << artnetUniverse << ", Data size:" << dmxData.size()
         << ", data[0]=" << (int)dmxData[0]
-        << ", from=" << senderAddress.toString();
+        << ", from=" << QHostAddress(senderAddress.toIPv4Address()).toString();
 #endif
 
     for (QMap<quint32, UniverseInfo>::iterator it = m_universeMap.begin(); it != m_universeMap.end(); ++it)
     {
         quint32 universe = it.key();
-        UniverseInfo const& info = it.value();
+        UniverseInfo &info = it.value();
 
         if ((info.type & Input) && info.inputUniverse == artnetUniverse)
         {
-            QByteArray *dmxValues;
-            if (m_dmxValuesMap.contains(universe) == false)
-                m_dmxValuesMap[universe] = new QByteArray(512, 0);
-            dmxValues = m_dmxValuesMap[universe];
+            if (info.inputData.size() == 0)
+                info.inputData.fill(0, 512);
 
 #if _DEBUG_RECEIVED_PACKETS
             qDebug() << "[ArtNet] -> universe" << (universe + 1);
@@ -417,12 +477,12 @@ bool ArtNetController::handleArtNetDmx(QByteArray const& datagram, QHostAddress 
 
             for (int i = 0; i < dmxData.length(); i++)
             {
-                if (dmxValues->at(i) != dmxData.at(i))
+                if (info.inputData.at(i) != dmxData.at(i))
                 {
 #if _DEBUG_RECEIVED_PACKETS
                     qDebug() << "[ArtNet] a value differs";
 #endif
-                    dmxValues->replace(i, 1, (const char *)(dmxData.data() + i), 1);
+                    info.inputData.replace(i, 1, (const char *)(dmxData.data() + i), 1);
                     emit valueChanged(universe, m_line, i, (uchar)dmxData.at(i));
                 }
             }
@@ -467,11 +527,11 @@ bool ArtNetController::handleArtNetRDM(const QByteArray &datagram, const QHostAd
 
 bool ArtNetController::handlePacket(QByteArray const& datagram, QHostAddress const& senderAddress)
 {
-    if (senderAddress.toIPv4Address() == m_ipAddr.toIPv4Address())
-        return false;
+    //if (senderAddress.toIPv4Address() == m_ipAddr.toIPv4Address())
+    //    return false;
 
 #if _DEBUG_RECEIVED_PACKETS
-    qDebug() << "Received packet with size: " << datagram.size() << ", host: " << senderAddress.toString();
+    qDebug() << "Received packet with size: " << datagram.size() << ", host: " << QHostAddress(senderAddress.toIPv4Address()).toString();
 #endif
     quint16 opCode = -1;
 
@@ -506,7 +566,7 @@ void ArtNetController::slotSendPoll()
     QList<QHostAddress>addressList;
 
     /* first, retrieve a list of unique output addresses */
-    foreach(quint32 universe, universesList())
+    foreach (quint32 universe, universesList())
     {
         UniverseInfo info = m_universeMap[universe];
         if (addressList.contains(info.outputAddress) == false)

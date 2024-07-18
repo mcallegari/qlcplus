@@ -20,7 +20,7 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Color Macros">
   <Group Byte="0">Colour</Group>
-  <Capability Min="1" Max="10">Not functional</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="20" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="21" Max="30" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="31" Max="40" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
@@ -104,7 +104,7 @@
  <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
   <Dimensions Weight="5.8" Width="175" Height="355" Depth="255"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Lens Name="Other" DegreesMin="4" DegreesMax="60"/>
   <Focus Type="Head" PanMax="540" TiltMax="270"/>
   <Technical PowerConsumption="135" DmxConnector="3-pin"/>
  </Physical>

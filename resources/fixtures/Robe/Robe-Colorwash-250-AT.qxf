@@ -58,12 +58,19 @@
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">Open/white</Capability>
+  <Capability Min="1" Max="17" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#aa0000">White/Dark red</Capability>
   <Capability Min="18" Max="18" Preset="ColorMacro" Res1="#aa0000">Dark red</Capability>
+  <Capability Min="19" Max="35" Preset="ColorDoubleMacro" Res1="#aa0000" Res2="#00007f">Dark red/Dark blue</Capability>
   <Capability Min="36" Max="36" Preset="ColorMacro" Res1="#00007f">Dark blue</Capability>
+  <Capability Min="37" Max="53" Preset="ColorDoubleMacro" Res1="#00007f" Res2="#00ff00">Dark blue/Green</Capability>
   <Capability Min="54" Max="54" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="55" Max="71" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#eede6d">Green/3200K</Capability>
   <Capability Min="72" Max="72" Preset="ColorMacro" Res1="#eede6d">CTF 3200K</Capability>
+  <Capability Min="73" Max="89" Preset="ColorDoubleMacro" Res1="#eede6d" Res2="#eaf1ff">3200K/6000K</Capability>
   <Capability Min="90" Max="90" Preset="ColorMacro" Res1="#eaf1ff">CTF 6000K</Capability>
+  <Capability Min="91" Max="107" Preset="ColorDoubleMacro" Res1="#eaf1ff" Res2="#aa55ff">6000K/UV</Capability>
   <Capability Min="108" Max="108" Preset="ColorMacro" Res1="#aa55ff">UV filter</Capability>
+  <Capability Min="109" Max="127" Preset="ColorDoubleMacro" Res1="#aa55ff" Res2="#ffffff">UV/White</Capability>
   <Capability Min="128" Max="129" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="130" Max="139" Preset="ColorMacro" Res1="#aa0000">Dark red</Capability>
   <Capability Min="140" Max="149" Preset="ColorMacro" Res1="#00007f">Dark blue</Capability>

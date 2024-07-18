@@ -18,7 +18,7 @@
   <Capability Min="50" Max="74" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="75" Max="99" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="100" Max="124" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
-  <Capability Min="125" Max="149" Preset="ColorMacro" Res1="#ff00ff">Purple</Capability>
+  <Capability Min="125" Max="149" Preset="ColorMacro" Res1="#a020f0">Purple</Capability>
   <Capability Min="150" Max="174" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
   <Capability Min="175" Max="199" Preset="ColorMacro" Res1="#ffc0ff">Pink</Capability>
   <Capability Min="200" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow Effect</Capability>
@@ -35,7 +35,7 @@
   <Capability Min="119" Max="135" Preset="GoboMacro" Res1="Others/gobo00029.svg">Gobo 6</Capability>
   <Capability Min="136" Max="152" Preset="GoboMacro" Res1="Others/gobo00030.svg">Gobo 7</Capability>
   <Capability Min="153" Max="169" Preset="GoboMacro" Res1="Others/gobo00031.svg">Gobo 8</Capability>
-  <Capability Min="170" Max="186" Preset="GoboMacro" Res1="Others/gobo00032.svg">Gobo 9</Capability>
+  <Capability Min="170" Max="186" Preset="GoboMacro" Res1="Others/gobo00044.svg">Gobo 9</Capability>
   <Capability Min="187" Max="199" Preset="GoboMacro" Res1="Others/gobo00033.svg">Gobo 10</Capability>
   <Capability Min="200" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow Effect</Capability>
  </Channel>

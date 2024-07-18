@@ -20,6 +20,8 @@
 #ifndef VCCUELIST_H
 #define VCCUELIST_H
 
+#include <QTimer>
+
 #include "vcwidget.h"
 
 #define KXMLQLCVCCueList                    QString("CueList")
@@ -180,6 +182,14 @@ public:
 
     Q_INVOKABLE void addFunctions(QVariantList idsList, int insertIndex = -1);
 
+    Q_INVOKABLE void setStepNote(int index, QString text);
+
+private slots:
+    void slotFunctionRemoved(quint32 fid);
+    void slotFunctionNameChanged(quint32 fid);
+    void slotStepChanged(int index);
+    void slotStepsListChanged(quint32 fid);
+
 private:
     FunctionParent functionParent() const;
 
@@ -209,6 +219,15 @@ public:
     };
     Q_ENUM(PlaybackStatus)
 
+    enum ProgressStatus
+    {
+        ProgressIdle,
+        ProgressFadeIn,
+        ProgressHold,
+        ProgressInfinite
+    };
+    Q_ENUM(ProgressStatus)
+
     int playbackIndex() const;
     void setPlaybackIndex(int playbackIndex);
 
@@ -218,6 +237,7 @@ public:
     Q_INVOKABLE void stopClicked();
     Q_INVOKABLE void previousClicked();
     Q_INVOKABLE void nextClicked();
+    Q_INVOKABLE void playCurrentStep();
 
 signals:
     void playbackStatusChanged();
@@ -232,6 +252,9 @@ private slots:
 
     /** Called when m_runner skips to another step */
     void slotCurrentStepChanged(int stepNumber);
+
+    /** Method to update the playback progress status */
+    void slotProgressTimeout();
 
 private:
     /** Get the index of the next item, based on the chaser direction */
@@ -256,9 +279,15 @@ private:
     /** Index of the current step being played. -1 when stopped */
     int m_playbackIndex;
 
+    QTimer *m_timer;
+
     /*********************************************************************
      * External input
      *********************************************************************/
+public:
+    /** @reimp */
+    void updateFeedback();
+
 public slots:
     /** @reimp */
     void slotInputValueChanged(quint8 id, uchar value);

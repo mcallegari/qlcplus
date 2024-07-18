@@ -20,8 +20,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.1
-import QtQuick.Controls 1.2 as QC1
-import QtQuick.Controls 2.1
+import QtQuick.Controls 2.13
 
 import org.qlcplus.classes 1.0
 import "."
@@ -43,9 +42,10 @@ Rectangle
         wPropsLoader.active = false
         wPropsLoader.source = wObj ? wObj.propertiesResource : ""
         wPropsLoader.active = true
-        rightSidePanel.width = rightSidePanel.width - sideLoader.width
+        if (sideLoader.visible)
+            rightSidePanel.width -= sideLoader.width
         sideLoader.source = ""
-        sideLoader.width = 0
+        sideLoader.visible = false
     }
 
     onSelectedWidgetsCountChanged:
@@ -73,6 +73,7 @@ Rectangle
             else
                 virtualConsole.setWidgetsBackgroundColor(Qt.rgba(r, g, b, 1.0))
         }
+        onClose: visible = false
     }
 
     ColorTool
@@ -92,16 +93,19 @@ Rectangle
             else
                 virtualConsole.setWidgetsForegroundColor(Qt.rgba(r, g, b, 1.0))
         }
+        onClose: visible = false
     }
 
-    QC1.SplitView
+    SplitView
     {
         anchors.fill: parent
+
         Loader
         {
             id: sideLoader
-            visible: width
-            width: 0
+            width: UISettings.sidePanelWidth
+            SplitView.preferredWidth: UISettings.sidePanelWidth
+            visible: false
             height: wPropsRoot.height
             source: ""
 
@@ -125,7 +129,7 @@ Rectangle
 
         Rectangle
         {
-            Layout.fillWidth: true
+            SplitView.fillWidth: true
             height: wPropsRoot.height
             color: "transparent"
 

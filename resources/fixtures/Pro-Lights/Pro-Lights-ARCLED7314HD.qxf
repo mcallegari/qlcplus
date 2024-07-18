@@ -63,6 +63,7 @@
   <Capability Min="141" Max="150">Custom 03</Capability>
   <Capability Min="151" Max="160">Custom 04</Capability>
   <Capability Min="161" Max="170">Custom 05</Capability>
+  <Capability Min="171" Max="180">No function</Capability>
   <Capability Min="181" Max="190">Custom 06</Capability>
   <Capability Min="191" Max="200">Custom 07</Capability>
   <Capability Min="201" Max="210">Custom 08</Capability>

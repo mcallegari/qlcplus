@@ -45,7 +45,7 @@
   <Capability Min="80" Max="89" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
-  <Capability Min="110" Max="119" Preset="ColorMacro" Res1="#ff00ff">Purple</Capability>
+  <Capability Min="110" Max="119" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="120" Max="129" Preset="ColorMacro" Res1="#ffffff">All White</Capability>
   <Capability Min="130" Max="139">Empty</Capability>
   <Capability Min="140" Max="149">Programme 1</Capability>

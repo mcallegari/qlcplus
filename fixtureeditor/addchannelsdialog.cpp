@@ -17,9 +17,13 @@
   limitations under the License.
 */
 
+#include <QSettings>
+
 #include "qlcchannel.h"
 #include "addchannelsdialog.h"
 #include "ui_addchannelsdialog.h"
+
+#define SETTINGS_GEOMETRY "addchannelsdialog/geometry"
 
 AddChannelsDialog::AddChannelsDialog(QList<QLCChannel *> allList, QVector<QLCChannel *> modeList, QWidget *parent) :
     QDialog(parent)
@@ -37,6 +41,11 @@ AddChannelsDialog::AddChannelsDialog(QList<QLCChannel *> allList, QVector<QLCCha
     m_modeTree->setDropIndicatorShown(true);
     m_modeTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
+
     connect(m_addChannel, SIGNAL(clicked()),
             this, SLOT(slotAddChannel()));
     connect(m_removeChannel, SIGNAL(clicked()),
@@ -47,7 +56,8 @@ AddChannelsDialog::AddChannelsDialog(QList<QLCChannel *> allList, QVector<QLCCha
 
 AddChannelsDialog::~AddChannelsDialog()
 {
-
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 QList<QLCChannel *> AddChannelsDialog::getModeChannelsList()
@@ -98,7 +108,7 @@ void AddChannelsDialog::slotAddChannel()
     if (selection.count() == 0)
         return;
 
-    foreach(QTreeWidgetItem *item, selection)
+    foreach (QTreeWidgetItem *item, selection)
     {
         QTreeWidgetItem *newItem = item->clone();
         m_modeTree->addTopLevelItem(newItem);
@@ -112,7 +122,7 @@ void AddChannelsDialog::slotRemoveChannel()
     if (selection.count() == 0)
         return;
 
-    foreach(QTreeWidgetItem *item, selection)
+    foreach (QTreeWidgetItem *item, selection)
     {
         QTreeWidgetItem *newItem = item->clone();
         m_allTree->addTopLevelItem(newItem);

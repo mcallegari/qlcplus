@@ -199,7 +199,7 @@
  <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
  <Channel Name="Functions">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="14">Blackout during Pan/Tilt movement</Capability>
   <Capability Min="15" Max="19">Reserver</Capability>
   <Capability Min="20" Max="24">Reserved</Capability>
@@ -233,7 +233,7 @@
  </Channel>
  <Channel Name="Built-in Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="23">Built-in Program 1</Capability>
   <Capability Min="24" Max="39">Built-in Program 2</Capability>
   <Capability Min="40" Max="55">Built-in Program 3</Capability>

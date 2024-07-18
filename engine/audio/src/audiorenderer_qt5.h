@@ -21,10 +21,11 @@
 #define AUDIORENDERER_QT5_H
 
 #include "audiorenderer.h"
-#include "audiodecoder.h"
 
 #include <QAudioOutput>
 #include <QIODevice>
+
+class Doc;
 
 /** @addtogroup engine_audio Audio
  * @{
@@ -34,7 +35,7 @@ class AudioRendererQt5 : public AudioRenderer
 {
     Q_OBJECT
 public:
-    AudioRendererQt5(QString device, QObject * parent = 0);
+    AudioRendererQt5(QString device, Doc *doc, QObject *parent = 0);
     ~AudioRendererQt5();
 
     /** @reimpl */

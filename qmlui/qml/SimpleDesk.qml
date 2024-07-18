@@ -34,10 +34,19 @@ Rectangle
     property bool dmxValues: true
     property real maxValue: 255
 
+    ChannelToolLoader
+    {
+        id: channelToolLoader
+        z: 2
+
+        onValueChanged: simpleDesk.setValue(fixtureID, channelIndex, value)
+    }
+
     SplitView
     {
         anchors.fill: parent
         orientation: Qt.Vertical
+        z: 1
 
         // Top view (faders)
         Rectangle
@@ -88,7 +97,6 @@ Rectangle
                         tooltip: qsTr("Reset the whole universe")
                         onClicked:
                         {
-                            contextManager.resetDumpValues()
                             simpleDesk.resetUniverse(viewUniverseCombo.currentIndex)
                         }
                     }
@@ -102,7 +110,7 @@ Rectangle
                         z: 2
                         imgSource: "qrc:/dmxdump.svg"
                         tooltip: qsTr("Dump on a new Scene")
-                        counter: contextManager ? contextManager.dumpValuesCount && (qlcplus.accessMask & App.AC_FunctionEditing) : 0
+                        counter: simpleDesk ? simpleDesk.dumpValuesCount && (qlcplus.accessMask & App.AC_FunctionEditing) : 0
 
                         onClicked:
                         {
@@ -129,7 +137,7 @@ Rectangle
                             {
                                 anchors.centerIn: parent
                                 height: parent.height * 0.7
-                                label: contextManager ? contextManager.dumpValuesCount : ""
+                                label: simpleDesk ? simpleDesk.dumpValuesCount : ""
                                 fontSize: height
                             }
                         }
@@ -138,8 +146,9 @@ Rectangle
                         {
                             id: dmxDumpDialog
                             implicitWidth: Math.min(UISettings.bigItemHeight * 4, mainView.width / 3)
+                            channelsMask: simpleDesk ? simpleDesk.dumpChannelMask : 0
 
-                            onAccepted: contextManager.dumpDmxChannels(sceneName, getChannelsMask())
+                            onAccepted: simpleDesk.dumpDmxChannels(sceneName, getChannelsMask())
                         }
                     }
 
@@ -190,10 +199,12 @@ Rectangle
                     {
                         id: chRoot
                         implicitWidth: UISettings.iconSizeDefault
-                        height: parent.height - sbar.height
+                        height: channelView.height - sbar.height
                         color: {
                             if (isOverride)
-                                return "red";
+                            {
+                                return "red"
+                            }
                             else
                             {
                                 switch(chDisplay)
@@ -229,6 +240,8 @@ Rectangle
 
                                 onClicked:
                                 {
+                                    if (fixtureObj)
+                                        channelToolLoader.loadChannelTool(this, fixtureObj.id, model.chIndex, model.chValue)
                                 }
                             }
 
@@ -242,10 +255,11 @@ Rectangle
                                 from: 0
                                 to: 255
                                 value: model.chValue
-                                onMoved: {
+                                onMoved:
+                                {
                                     model.isOverride = true
                                     model.chValue = valueAt(position)
-                                    simpleDesk.setValue(fixtureObj ? fixtureObj.id : -1, index, model.chValue)
+                                    simpleDesk.setValue(fixtureObj ? fixtureObj.id : -1, fixtureObj ? model.chIndex : index, model.chValue)
                                 }
                             }
 
@@ -262,10 +276,11 @@ Rectangle
                                 padding: 0
                                 horizontalAlignment: Qt.AlignHCenter
                                 value: dmxValues ? model.chValue : (model.chValue / 255.0) * 100.0
-                                onValueModified: {
+                                onValueModified:
+                                {
                                     model.isOverride = true
                                     model.chValue = value * (dmxValues ? 1.0 : 2.55)
-                                    simpleDesk.setValue(fixtureObj ? fixtureObj.id : -1, index, model.chValue)
+                                    simpleDesk.setValue(fixtureObj ? fixtureObj.id : -1, fixtureObj ? model.chIndex : index, model.chValue)
                                 }
                             }
 
@@ -289,7 +304,7 @@ Rectangle
                                 onClicked:
                                 {
                                     var channel = index - (fixtureObj ? fixtureObj.address : 0)
-                                    contextManager.unsetDumpValue(fixtureObj ? fixtureObj.id : -1, channel)
+                                    simpleDesk.unsetDumpValue(fixtureObj ? fixtureObj.id : -1, channel)
                                     simpleDesk.resetChannel(index)
                                 }
                             }
@@ -366,7 +381,7 @@ Rectangle
                                 x: parent.width - width
                                 height: UISettings.listItemHeight
                                 rightMargin: 5
-                                label: (fixtureObj.address + 1) + " - " + (fixtureObj.address + fixtureObj.channels + 1)
+                                label: (fixtureObj.address + 1) + " - " + (fixtureObj.address + fixtureObj.channels)
                             }
                         }
                 }

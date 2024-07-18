@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5</Version>
+  <Author>Hans-Jürgen Tappe</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>F2 T PO</Model>
+ <Type>Dimmer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Multifunctional Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterClose">Strobe closed</Capability>
+  <Capability Min="11" Max="33" Preset="PulseSlowToFast">Pulse Random, slow -&gt; fast</Capability>
+  <Capability Min="34" Max="56" Preset="RampUpSlowToFast">Ramp up Random, slow -&gt; fast</Capability>
+  <Capability Min="57" Max="79" Preset="RampDownSlowToFast">Ramp down Random, slow -&gt; fast</Capability>
+  <Capability Min="80" Max="102" Preset="StrobeRandomSlowToFast">Random Strobe Effect, slow -&gt; fast</Capability>
+  <Capability Min="103" Max="127">Strobe Break Effect, 5s.....1s (Short burst with break)</Capability>
+  <Capability Min="128" Max="250" Preset="StrobeFreqRange" Res1="1" Res2="20">Strobe slow -&gt; fast (1Hz - 20Hz)</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Strobe open</Capability>
+ </Channel>
+ <Channel Name="Device Settings">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="127">Dimmer Response LED (hold 5s)</Capability>
+  <Capability Min="128" Max="191">Dimmer Response Halogen (hold 5s)</Capability>
+  <Capability Min="192" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Set dimmer curve">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="63">Linear Dimmer Curve</Capability>
+  <Capability Min="64" Max="127">Exponential Dimmer Curve</Capability>
+  <Capability Min="128" Max="191">Logarithmic Dimmer Curve</Capability>
+  <Capability Min="192" Max="255">S-Curve Dimmer Curve</Capability>
+ </Channel>
+ <Channel Name="Device Settings (5s pulse only)">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="127">Dimmer Response LED (hold 5s)</Capability>
+  <Capability Min="128" Max="191">Dimmer Response Halogen (hold 5s)</Capability>
+  <Capability Min="192" Max="200">Fan Auto (hold 5s)</Capability>
+  <Capability Min="201" Max="209">Fan Max (hold 5s)</Capability>
+  <Capability Min="210" Max="218">Fan Silent (hold 5s)</Capability>
+  <Capability Min="219" Max="223">LED PWM Frequency 800Hz (hold 5s)</Capability>
+  <Capability Min="224" Max="228">LED PWM Frequency 1200Hz (hold 5s)</Capability>
+  <Capability Min="229" Max="233">LED PWM Frequency 2000Hz (hold 5s)</Capability>
+  <Capability Min="234" Max="238">LED PWM Frequency 3600Hz (hold 5s)</Capability>
+  <Capability Min="239" Max="243">LED PWM Frequency 12kHz (hold 5s)</Capability>
+  <Capability Min="244" Max="248">LED PWM Frequency 25kHz (hold 5s)</Capability>
+  <Capability Min="249" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+ </Mode>
+ <Mode Name="2 Channel 2">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Multifunctional Strobe</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Multifunctional Strobe</Channel>
+  <Channel Number="2">Device Settings</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Multifunctional Strobe</Channel>
+  <Channel Number="2">Set dimmer curve</Channel>
+  <Channel Number="3">Device Settings (5s pulse only)</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Multifunctional Strobe</Channel>
+  <Channel Number="3">Set dimmer curve</Channel>
+  <Channel Number="4">Device Settings (5s pulse only)</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="12500" ColourTemperature="3200"/>
+  <Dimensions Weight="11.6" Width="357" Height="573" Depth="322"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="210" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

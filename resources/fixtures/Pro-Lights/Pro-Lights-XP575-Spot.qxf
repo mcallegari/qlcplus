@@ -81,8 +81,10 @@
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="1">Open</Capability>
-  <Capability Min="2" Max="7">Triple Prism Static</Capability>
-  <Capability Min="8" Max="132">Forward Rotation From Fast To Slow</Capability>
+  <Capability Min="2" Max="7">Static</Capability>
+  <Capability Min="8" Max="132" Preset="RotationClockwiseFastToSlow">Forward Rotation, fast to slow</Capability>
+  <Capability Min="133" Max="253" Preset="RotationCounterClockwiseSlowToFast">Backward Rotation, slow to fast</Capability>
+  <Capability Min="254" Max="255">Static</Capability>
  </Channel>
  <Channel Name="Iris">
   <Group Byte="0">Beam</Group>

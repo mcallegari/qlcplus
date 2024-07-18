@@ -17,17 +17,17 @@
   limitations under the License.
 */
 
+#include <climits>
+
+#include "grandmaster.h"
+#include "qlcmacros.h"
+
 #define KXMLQLCGMValueModeLimit "Limit"
 #define KXMLQLCGMValueModeReduce "Reduce"
 #define KXMLQLCGMChannelModeAllChannels "All"
 #define KXMLQLCGMChannelModeIntensity "Intensity"
 #define KXMLQLCGMSliderModeNormal "Normal"
 #define KXMLQLCGMSliderModeInverted "Inverted"
-
-#include <climits>
-
-#include "grandmaster.h"
-#include "qlcmacros.h"
 
 GrandMaster::GrandMaster(QObject *parent)
     : QObject(parent)

@@ -76,7 +76,7 @@ Rectangle
                 z: 2
                 width: height
                 height: topBar.height - 2
-                bgColor: UISettings.bgMain
+                bgColor: UISettings.bgMedium
                 faColor: checked ? "white" : "gray"
                 faSource: FontAwesome.fa_search
                 checkable: true
@@ -135,10 +135,13 @@ Rectangle
                 visible: allowEditing
                 imgSource: "qrc:/remove.svg"
                 tooltip: qsTr("Delete the selected palette(s)")
-                //counter: paletteManager.positionCount
+                enabled: pDragItem.itemsList.length
                 onClicked:
                 {
-                    var selNames = paletteManager.selectedItemNames(pmSelector.itemsList())
+                    var selNames = []
+                    for (var i = 0; i < pDragItem.itemsList.length; i++)
+                        selNames.push(pDragItem.itemsList[i].cRef.name)
+
                     //console.log(selNames)
                     deleteItemsPopup.message = qsTr("Are you sure you want to delete the following items?") + "\n" + selNames
                     deleteItemsPopup.open()
@@ -148,7 +151,15 @@ Rectangle
                 {
                     id: deleteItemsPopup
                     title: qsTr("Delete items")
-                    onAccepted: paletteManager.deletePalettes(pmSelector.itemsList())
+                    onAccepted:
+                    {
+                        var idList = []
+                        for (var i = 0; i < pDragItem.itemsList.length; i++)
+                            idList.push(pDragItem.itemsList[i].cRef.id)
+
+                        paletteManager.deletePalettes(idList)
+                        pDragItem.itemsList = []
+                    }
                 }
             }
         } // RowLayout
@@ -161,10 +172,10 @@ Rectangle
           width: pmContainer.width
           height: UISettings.iconSizeMedium
           z: 5
-          color: UISettings.bgMain
+          color: UISettings.bgMedium
           radius: 5
           border.width: 2
-          border.color: "#111"
+          border.color: UISettings.borderColorDark
 
           TextInput
           {
@@ -192,6 +203,8 @@ Rectangle
           boundsBehavior: Flickable.StopAtBounds
 
           property bool dragActive: false
+
+          Component.onDestruction: pmSelector.resetSelection(pListView.model)
 
           model: paletteManager.paletteList
           delegate:
@@ -222,12 +235,15 @@ Rectangle
                           pDragItem.y = posnInWindow.y - (pDragItem.height / 4)
                           pDragItem.z = 10
 
-                          pmSelector.selectItem(index, pListView.model, mouse.modifiers & Qt.ControlModifier)
+                          pmSelector.selectItem(index, pListView.model, mouse.modifiers)
 
                           if ((mouse.modifiers & Qt.ControlModifier) == 0)
                               pDragItem.itemsList = []
 
-                          pDragItem.itemsList.push(pDelegate)
+                          // workaround array length notification
+                          var arr = pDragItem.itemsList
+                          arr.push(pDelegate)
+                          pDragItem.itemsList = arr
                       }
                       onDoubleClicked:
                       {

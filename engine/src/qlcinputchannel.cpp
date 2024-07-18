@@ -24,7 +24,6 @@
 #include <QIcon>
 
 #include "qlcinputchannel.h"
-#include "qlcinputprofile.h"
 
 /****************************************************************************
  * Initialization
@@ -35,8 +34,9 @@ QLCInputChannel::QLCInputChannel()
     , m_movementType(Absolute)
     , m_movementSensitivity(20)
     , m_sendExtraPress(false)
-    , m_lower(0)
-    , m_upper(UCHAR_MAX)
+    , m_lowerValue(0)
+    , m_upperValue(UCHAR_MAX)
+    , m_lowerChannel(-1)
 {
 }
 
@@ -48,6 +48,7 @@ QLCInputChannel *QLCInputChannel::createCopy()
     copy->setMovementType(this->movementType());
     copy->setMovementSensitivity(this->movementSensitivity());
     copy->setSendExtraPress(this->sendExtraPress());
+    copy->setLowerChannel(this->lowerChannel());
     copy->setRange(this->lowerValue(), this->upperValue());
 
     return copy;
@@ -63,11 +64,16 @@ QLCInputChannel::~QLCInputChannel()
 
 void QLCInputChannel::setType(Type type)
 {
+    if (type == m_type)
+        return;
+
     m_type = type;
     if (type == Encoder)
         m_movementSensitivity = 1;
     else
         m_movementSensitivity = 20;
+
+    emit typeChanged();
 }
 
 QLCInputChannel::Type QLCInputChannel::type() const
@@ -95,7 +101,12 @@ QString QLCInputChannel::typeToString(Type type)
             return KXMLQLCInputChannelPageSet;
         default:
             return KXMLQLCInputChannelNone;
-    }
+        }
+}
+
+QString QLCInputChannel::typeString()
+{
+    return typeToString(type());
 }
 
 QLCInputChannel::Type QLCInputChannel::stringToType(const QString& type)
@@ -133,22 +144,32 @@ QStringList QLCInputChannel::types()
 
 QIcon QLCInputChannel::typeToIcon(Type type)
 {
-    switch (type)
-    {
-        case Button: return QIcon(":/button.png");
-        case Knob: return QIcon(":/knob.png");
-        case Encoder: return QIcon(":/knob.png");
-        case Slider: return QIcon(":/slider.png");
-        case PrevPage: return QIcon(":/forward.png");
-        case NextPage: return QIcon(":/back.png");
-        case PageSet: return QIcon(":/star.png");
-        default: return QIcon();
-    }
+    return QIcon(iconResource(type));
 }
 
 QIcon QLCInputChannel::stringToIcon(const QString& str)
 {
     return typeToIcon(stringToType(str));
+}
+
+QString QLCInputChannel::iconResource(Type type, bool svg)
+{
+    QString prefix = svg ? "qrc" : "";
+    QString ext = svg ? "svg" : "png";
+
+    switch(type)
+    {
+        case Button: return QString("%1:/button.%2").arg(prefix, ext);
+        case Knob: return QString("%1:/knob.%2").arg(prefix, ext);
+        case Encoder: return QString("%1:/knob.%2").arg(prefix, ext);
+        case Slider: return QString("%1:/slider.%2").arg(prefix, ext);
+        case PrevPage: return QString("%1:/forward.%2").arg(prefix, ext);
+        case NextPage: return QString("%1:/back.%2").arg(prefix, ext);
+        case PageSet: return QString("%1:/star.%2").arg(prefix, ext);
+        default: return QString();
+    }
+
+    return QString("%1:/other.%2").arg(prefix, ext);
 }
 
 QIcon QLCInputChannel::icon() const
@@ -162,7 +183,12 @@ QIcon QLCInputChannel::icon() const
 
 void QLCInputChannel::setName(const QString& name)
 {
+    if (name == m_name)
+        return;
+
     m_name = name;
+
+    emit nameChanged();
 }
 
 QString QLCInputChannel::name() const
@@ -200,7 +226,11 @@ void QLCInputChannel::setMovementSensitivity(int value)
 
 void QLCInputChannel::setSendExtraPress(bool enable)
 {
+    if (enable == m_sendExtraPress)
+        return;
+
     m_sendExtraPress = enable;
+    emit sendExtraPressChanged();
 }
 
 bool QLCInputChannel::sendExtraPress() const
@@ -210,18 +240,50 @@ bool QLCInputChannel::sendExtraPress() const
 
 void QLCInputChannel::setRange(uchar lower, uchar upper)
 {
-    m_lower = lower;
-    m_upper = upper;
+    setLowerValue(lower);
+    setUpperValue(upper);
 }
 
 uchar QLCInputChannel::lowerValue() const
 {
-    return m_lower;
+    return m_lowerValue;
+}
+
+void QLCInputChannel::setLowerValue(const uchar value)
+{
+    if (value == m_lowerValue)
+        return;
+    
+    m_lowerValue = value;
+    emit lowerValueChanged();
 }
 
 uchar QLCInputChannel::upperValue() const
 {
-    return m_upper;
+    return m_upperValue;
+}
+
+void QLCInputChannel::setUpperValue(const uchar value)
+{
+    if (value == m_upperValue)
+        return;
+    
+    m_upperValue = value;
+    emit upperValueChanged();
+}
+
+int QLCInputChannel::lowerChannel() const
+{
+    return m_lowerChannel;
+}
+
+void QLCInputChannel::setLowerChannel(const int channel)
+{
+    if (channel == m_lowerChannel)
+        return;
+    
+    m_lowerChannel = channel;
+    emit midiChannelChanged();
 }
 
 /****************************************************************************
@@ -259,16 +321,21 @@ bool QLCInputChannel::loadXML(QXmlStreamReader &root)
             if (root.readElementText() == KXMLQLCInputChannelRelative)
                 setMovementType(Relative);
         }
-        else if (root.name() == KXMLQLCInputChannelFeedbacks)
+        else if (root.name() == KXMLQLCInputChannelFeedback)
         {
+            QXmlStreamAttributes attrs = root.attributes();
             uchar min = 0, max = UCHAR_MAX;
+            int fbChannel = -1;
 
-            if (root.attributes().hasAttribute(KXMLQLCInputChannelLowerValue))
-                min = uchar(root.attributes().value(KXMLQLCInputChannelLowerValue).toString().toUInt());
-            if (root.attributes().hasAttribute(KXMLQLCInputChannelUpperValue))
-                max = uchar(root.attributes().value(KXMLQLCInputChannelUpperValue).toString().toUInt());
+            if (attrs.hasAttribute(KXMLQLCInputChannelLowerValue))
+                min = uchar(attrs.value(KXMLQLCInputChannelLowerValue).toString().toUInt());
+            if (attrs.hasAttribute(KXMLQLCInputChannelUpperValue))
+                max = uchar(attrs.value(KXMLQLCInputChannelUpperValue).toString().toUInt());
+            if (attrs.hasAttribute(KXMLQLCInputChannelMidiChannel))
+                fbChannel = attrs.value(KXMLQLCInputChannelMidiChannel).toInt();
 
             setRange(min, max);
+            setLowerChannel(fbChannel);
             root.skipCurrentElement();
         }
         else
@@ -311,11 +378,13 @@ bool QLCInputChannel::saveXML(QXmlStreamWriter *doc, quint32 channelNumber) cons
     }
     else if (type() == Button && (lowerValue() != 0 || upperValue() != UCHAR_MAX))
     {
-        doc->writeStartElement(KXMLQLCInputChannelFeedbacks);
+        doc->writeStartElement(KXMLQLCInputChannelFeedback);
         if (lowerValue() != 0)
             doc->writeAttribute(KXMLQLCInputChannelLowerValue, QString::number(lowerValue()));
         if (upperValue() != UCHAR_MAX)
             doc->writeAttribute(KXMLQLCInputChannelUpperValue, QString::number(upperValue()));
+        if (lowerChannel() != -1)
+            doc->writeAttribute(KXMLQLCInputChannelMidiChannel, QString::number(lowerChannel()));
         doc->writeEndElement();
     }
 

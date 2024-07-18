@@ -770,7 +770,7 @@
     </widget>
    </item>
    <item row="7" column="2">
-    <widget class="Line" name="line">
+    <widget class="Line" name="line_3">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -796,7 +796,6 @@
   </layout>
  </widget>
  <resources>
-  <include location="qlcui.qrc"/>
   <include location="qlcui.qrc"/>
  </resources>
  <connections/>

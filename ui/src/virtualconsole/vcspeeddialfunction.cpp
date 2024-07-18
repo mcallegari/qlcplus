@@ -23,7 +23,6 @@
 
 #include "vcspeeddialfunction.h"
 #include "function.h"
-#include "doc.h"
 
 #define KXMLQLCSequenceSceneValues "Values"
 #define KXMLQLCStepNote "Note"
@@ -82,7 +81,7 @@ bool VCSpeedDialFunction::saveXML(QXmlStreamWriter *doc) const
     /* Multipliers */
     doc->writeAttribute(KXMLQLCFunctionSpeedFadeIn, QString::number(fadeInMultiplier));
     doc->writeAttribute(KXMLQLCFunctionSpeedFadeOut, QString::number(fadeOutMultiplier));
-    doc->writeAttribute(KXMLQLCFunctionSpeedDuration,QString::number( durationMultiplier));
+    doc->writeAttribute(KXMLQLCFunctionSpeedDuration, QString::number(durationMultiplier));
 
     /* Function ID */
     doc->writeCharacters(QString::number(functionId));

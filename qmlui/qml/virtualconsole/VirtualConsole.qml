@@ -38,6 +38,7 @@ Rectangle
     onDocLoadedChanged:
     {
         // force a reload of the selected page
+        virtualConsole.selectedPage = 0
         pageLoader.active = false
         pageLoader.active = true
     }
@@ -158,8 +159,10 @@ Rectangle
                                     else
                                     {
                                         pinErrorPopup.open()
+                                        // invalidate page selection so nothing
+                                        // is displayed on screen
+                                        virtualConsole.selectedPage = -1
                                     }
-
                                 }
                             }
 
@@ -195,8 +198,8 @@ Rectangle
                     onZoomInClicked: { virtualConsole.setPageScale(0.1) }
                 }
             }
-        }
 
+        }
         Loader
         {
             id: pageLoader
@@ -213,6 +216,7 @@ Rectangle
             }
         }
     }
+
 
     CustomPopupDialog
     {

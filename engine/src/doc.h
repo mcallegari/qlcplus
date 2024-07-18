@@ -501,6 +501,13 @@ public:
     QList <Function*> functionsByType(Function::Type type) const;
 
     /**
+     * Get a pointer to a Function with the given name
+     * @param name lookup Function name
+     * @return pointer to Function or null if not found
+     */
+    Function *functionByName(QString name);
+
+    /**
      * Delete the given function
      *
      * @param id The ID of the function to delete
@@ -605,9 +612,10 @@ public:
      * Load contents from the given XML document
      *
      * @param root The Engine XML root node to load from
+     * @param loadIO Parse the InputOutputMap tag too
      * @return true if successful, otherwise false
      */
-    bool loadXML(QXmlStreamReader &doc);
+    bool loadXML(QXmlStreamReader &doc, bool loadIO = true);
 
     /**
      * Save contents to the given XML file.

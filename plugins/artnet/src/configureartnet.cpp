@@ -20,6 +20,7 @@
 #include <QTreeWidgetItem>
 #include <QMessageBox>
 #include <QSpacerItem>
+#include <QSettings>
 #include <QComboBox>
 #include <QLineEdit>
 #include <QSpinBox>
@@ -45,6 +46,7 @@
 
 // ArtNet universe is a 15bit value
 #define ARTNET_UNIVERSE_MAX 0x7fff
+#define SETTINGS_GEOMETRY "configureartnet/geometry"
 
 /*****************************************************************************
  * Initialization
@@ -61,6 +63,14 @@ ConfigureArtNet::ConfigureArtNet(ArtNetPlugin* plugin, QWidget* parent)
 
     fillNodesTree();
     fillMappingTree();
+
+    QSettings settings;
+    QVariant value = settings.value(SETTINGS_IFACE_WAIT_TIME);
+    if (value.isValid() == true)
+        m_waitReadySpin->setValue(value.toInt());
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 }
 
 
@@ -85,7 +95,7 @@ void ConfigureArtNet::fillNodesTree()
                 it.next();
                 QTreeWidgetItem* nitem = new QTreeWidgetItem(pitem);
                 ArtNetNodeInfo nInfo = it.value();
-                nitem->setText(KNodesColumnIP, it.key().toString());
+                nitem->setText(KNodesColumnIP, QHostAddress(it.key().toIPv4Address()).toString());
                 nitem->setText(KNodesColumnShortName, nInfo.shortName);
                 nitem->setText(KNodesColumnLongName, nInfo.longName);
             }
@@ -102,7 +112,7 @@ void ConfigureArtNet::fillMappingTree()
     QTreeWidgetItem* outputItem = NULL;
 
     QList<ArtNetIO> IOmap = m_plugin->getIOMapping();
-    foreach(ArtNetIO io, IOmap)
+    foreach (ArtNetIO io, IOmap)
     {
         if (io.controller == NULL)
             continue;
@@ -124,7 +134,7 @@ void ConfigureArtNet::fillMappingTree()
             outputItem->setText(KMapColumnInterface, tr("Outputs"));
             outputItem->setExpanded(true);
         }
-        foreach(quint32 universe, controller->universesList())
+        foreach (quint32 universe, controller->universesList())
         {
             UniverseInfo *info = controller->getUniverseInfo(universe);
 
@@ -172,10 +182,13 @@ void ConfigureArtNet::fillMappingTree()
                 m_uniMapTree->setItemWidget(item, KMapColumnArtNetUni, spin);
 
                 QComboBox *combo = new QComboBox(this);
+                combo->addItem(tr("Standard"));
                 combo->addItem(tr("Full"));
                 combo->addItem(tr("Partial"));
-                if (info->outputTransmissionMode == ArtNetController::Partial)
+                if (info->outputTransmissionMode == ArtNetController::Full)
                     combo->setCurrentIndex(1);
+                if (info->outputTransmissionMode == ArtNetController::Partial)
+                    combo->setCurrentIndex(2);
                 m_uniMapTree->setItemWidget(item, KMapColumnTransmitMode, combo);
             }
         }
@@ -191,6 +204,8 @@ void ConfigureArtNet::showIPAlert(QString ip)
 
 ConfigureArtNet::~ConfigureArtNet()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 /*****************************************************************************
@@ -199,10 +214,10 @@ ConfigureArtNet::~ConfigureArtNet()
 
 void ConfigureArtNet::accept()
 {
-    for(int i = 0; i < m_uniMapTree->topLevelItemCount(); i++)
+    for (int i = 0; i < m_uniMapTree->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *topItem = m_uniMapTree->topLevelItem(i);
-        for(int c = 0; c < topItem->childCount(); c++)
+        for (int c = 0; c < topItem->childCount(); c++)
         {
             QTreeWidgetItem *item = topItem->child(c);
             if (item->data(KMapColumnInterface, PROP_UNIVERSE).isValid() == false)
@@ -240,6 +255,8 @@ void ConfigureArtNet::accept()
             {
                 ArtNetController::TransmissionMode transmissionMode;
                 if (combo->currentIndex() == 0)
+                    transmissionMode = ArtNetController::Standard;
+                else if (combo->currentIndex() == 1)
                     transmissionMode = ArtNetController::Full;
                 else
                     transmissionMode = ArtNetController::Partial;
@@ -249,6 +266,13 @@ void ConfigureArtNet::accept()
             }
         }
     }
+
+    QSettings settings;
+    int waitTime = m_waitReadySpin->value();
+    if (waitTime == 0)
+        settings.remove(SETTINGS_IFACE_WAIT_TIME);
+    else
+        settings.setValue(SETTINGS_IFACE_WAIT_TIME, waitTime);
 
     QDialog::accept();
 }

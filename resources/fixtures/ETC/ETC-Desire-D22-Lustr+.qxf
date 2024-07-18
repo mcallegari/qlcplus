@@ -34,10 +34,7 @@
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="255">Tint</Capability>
  </Channel>
- <Channel Name="Not Used (RGB Mode)">
-  <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="0">Not Used (RGB Mode)</Capability>
- </Channel>
+ <Channel Name="Not Used (RGB Mode)" Preset="NoFunction"/>
  <Mode Name="Direct">
   <Channel Number="0">Red</Channel>
   <Channel Number="1">White</Channel>

@@ -32,8 +32,9 @@
   <Capability Min="0" Max="39">Yellow</Capability>
   <Capability Min="40" Max="79">Red</Capability>
   <Capability Min="80" Max="119">Green</Capability>
-  <Capability Min="120" Max="159">Original Pattern</Capability>
-  <Capability Min="160" Max="199">Pattern Colours are Changed</Capability>
+  <Capability Min="120" Max="159">Original pattern</Capability>
+  <Capability Min="160" Max="199">Colour change</Capability>
+  <Capability Min="200" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
@@ -60,7 +61,7 @@
  <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
   <Dimensions Weight="3.8" Width="265" Height="125" Depth="192"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="50"/>
   <Focus Type="Fixed" PanMax="40" TiltMax="40"/>
   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
  </Physical>

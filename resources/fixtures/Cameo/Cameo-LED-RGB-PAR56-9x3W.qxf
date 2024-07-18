@@ -16,7 +16,7 @@
  <Channel Name="BLUE" Preset="IntensityBlue"/>
  <Channel Name="Color Change">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="4">No Function</Capability>
+  <Capability Min="0" Max="4">No function</Capability>
   <Capability Min="5" Max="84">Color micro</Capability>
   <Capability Min="85" Max="169">Color jump</Capability>
   <Capability Min="170" Max="255">Color fade</Capability>

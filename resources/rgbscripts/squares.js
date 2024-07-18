@@ -42,13 +42,11 @@ var testAlgo;
 
     var squares = new Array();
 
-    class Square {
-      constructor(x, y, step) {
-        this.xCenter = x;
-        this.yCenter = y;
-        this.step = step;
-        this.color = 0;
-      }
+    function Square (x, y, step) {
+      this.xCenter = x;
+      this.yCenter = y;
+      this.step = step;
+      this.color = 0;
     }
 
     algo.setAmount = function(_amount)
@@ -102,7 +100,7 @@ var testAlgo;
       util.initialized = true;
     };
 
-    util.getColor = function(step, rgb)
+    util.getStepColor = function(step, rgb)
     {
       if (algo.fadeMode === 0)
       {
@@ -119,9 +117,9 @@ var testAlgo;
         if (algo.fadeMode === 2) {
           fadeStep = stepCount - step;
         }
-        var newR = (r / stepCount) * fadeStep;
-        var newG = (g / stepCount) * fadeStep;
-        var newB = (b / stepCount) * fadeStep;
+        var newR = Math.round((r / stepCount) * fadeStep);
+        var newG = Math.round((g / stepCount) * fadeStep);
+        var newB = Math.round((b / stepCount) * fadeStep);
         var newRGB = (newR << 16) + (newG << 8) + newB;
         return newRGB;
       }
@@ -134,18 +132,18 @@ var testAlgo;
       } else if (rgb2 === 0) {
         return rgb1;
       }
-      // split rgb in to components
-      let r1 = (rgb1 >> 16) & 0x00FF;
-      let g1 = (rgb1 >> 8) & 0x00FF;
-      let b1 = rgb1 & 0x00FF;
+      // split rgb into components
+      var r1 = (rgb1 >> 16) & 0x00FF;
+      var g1 = (rgb1 >> 8) & 0x00FF;
+      var b1 = rgb1 & 0x00FF;
 
-      let r2 = (rgb2 >> 16) & 0x00FF;
-      let g2 = (rgb2 >> 8) & 0x00FF;
-      let b2 = rgb2 & 0x00FF;
+      var r2 = (rgb2 >> 16) & 0x00FF;
+      var g2 = (rgb2 >> 8) & 0x00FF;
+      var b2 = rgb2 & 0x00FF;
       
-      let r = Math.max(r1, r2);
-      let g = Math.max(g1, g2);
-      let b = Math.max(b1, b2);
+      var r = Math.max(r1, r2);
+      var g = Math.max(g1, g2);
+      var b = Math.max(b1, b2);
       
       return ((r << 16) + (g << 8) + b);
     }
@@ -179,7 +177,7 @@ var testAlgo;
         }
         else
         {
-          var color = util.getColor(squares[i].step, squares[i].color);
+          var color = util.getStepColor(squares[i].step, squares[i].color);
           var firstY = squares[i].yCenter - squares[i].step;
           var side = (squares[i].step * 2) + 1;
           for (var sy = firstY; sy <= (firstY + side); sy++)

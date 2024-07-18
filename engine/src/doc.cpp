@@ -32,7 +32,6 @@
 
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
-#include "qlcfile.h"
 
 #include "monitorproperties.h"
 #include "audioplugincache.h"
@@ -45,9 +44,7 @@
 #include "sequence.h"
 #include "fixture.h"
 #include "chaser.h"
-#include "scene.h"
 #include "show.h"
-#include "efx.h"
 #include "doc.h"
 #include "bus.h"
 
@@ -538,7 +535,7 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
     m_latestFixtureId = 0;
     m_addresses.clear();
 
-    foreach(Fixture *fixture, newFixturesList)
+    foreach (Fixture *fixture, newFixturesList)
     {
         quint32 id = fixture->id();
         // create a copy of the original cause remapping will
@@ -579,6 +576,9 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
         }
 
         newFixture->setExcludeFadeChannels(fixture->excludeFadeChannels());
+        newFixture->setForcedHTPChannels(fixture->forcedHTPChannels());
+        newFixture->setForcedLTPChannels(fixture->forcedLTPChannels());
+
         m_fixtures.insert(id, newFixture);
         m_fixturesListCacheUpToDate = false;
 
@@ -1046,12 +1046,22 @@ QList <Function*> Doc::functions() const
 QList<Function *> Doc::functionsByType(Function::Type type) const
 {
     QList <Function*> list;
-    foreach(Function *f, m_functions)
+    foreach (Function *f, m_functions)
     {
         if (f != NULL && f->type() == type)
             list.append(f);
     }
     return list;
+}
+
+Function *Doc::functionByName(QString name)
+{
+    foreach (Function *f, m_functions)
+    {
+        if (f != NULL && f->name() == name)
+            return f;
+    }
+    return NULL;
 }
 
 bool Doc::deleteFunction(quint32 id)
@@ -1177,7 +1187,7 @@ QList<quint32> Doc::getUsage(quint32 fid)
                 Show *s = qobject_cast<Show *>(f);
                 foreach (Track *t, s->tracks())
                 {
-                    foreach(ShowFunction *sf, t->showFunctions())
+                    foreach (ShowFunction *sf, t->showFunctions())
                     {
                         if (sf->functionID() == fid)
                         {
@@ -1224,7 +1234,7 @@ MonitorProperties *Doc::monitorProperties()
  * Load & Save
  *****************************************************************************/
 
-bool Doc::loadXML(QXmlStreamReader &doc)
+bool Doc::loadXML(QXmlStreamReader &doc, bool loadIO)
 {
     clearErrorLog();
 
@@ -1274,7 +1284,7 @@ bool Doc::loadXML(QXmlStreamReader &doc)
             /* LEGACY */
             Bus::instance()->loadXML(doc);
         }
-        else if (doc.name() == KXMLIOMap)
+        else if (doc.name() == KXMLIOMap && loadIO)
         {
             m_ioMap->loadXML(doc);
         }

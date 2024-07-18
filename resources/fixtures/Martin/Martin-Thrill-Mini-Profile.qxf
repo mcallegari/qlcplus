@@ -31,9 +31,9 @@
   <Capability Min="10" Max="14" Preset="ResetAll">Reset entire fixture</Capability>
   <Capability Min="15" Max="19">No function</Capability>
   <Capability Min="20" Max="24" Preset="ResetColor">Reset Color</Capability>
-  <Capability Min="25" Max="29">No Function</Capability>
+  <Capability Min="25" Max="29">No function</Capability>
   <Capability Min="30" Max="34" Preset="ResetPanTilt">Reset Pan and Tilt</Capability>
-  <Capability Min="35" Max="54">No Function</Capability>
+  <Capability Min="35" Max="54">No function</Capability>
   <Capability Min="55" Max="59">Enable Calibration</Capability>
   <Capability Min="60" Max="64">Linear Dimmer Curve</Capability>
   <Capability Min="65" Max="69">Square Law Dimmer Curve</Capability>
@@ -44,19 +44,19 @@
   <Capability Min="90" Max="94">Pan Tilt Speed (Slow)</Capability>
   <Capability Min="95" Max="99">Parameter Shortcuts (On - Default)</Capability>
   <Capability Min="100" Max="104">Parameter Shortcuts (Off)</Capability>
-  <Capability Min="105" Max="144">No Function</Capability>
+  <Capability Min="105" Max="144">No function</Capability>
   <Capability Min="145" Max="149">Auto-Blackout (On)</Capability>
   <Capability Min="150" Max="154">Auto-Blackout (Off - Default)</Capability>
   <Capability Min="155" Max="159">Illuminate Display</Capability>
   <Capability Min="160" Max="164">Turn Off Display</Capability>
   <Capability Min="165" Max="169">Store Pan Tilt Calibration</Capability>
-  <Capability Min="170" Max="209">No Function</Capability>
+  <Capability Min="170" Max="209">No function</Capability>
   <Capability Min="210" Max="214">Store Gobo Wheel Calibration</Capability>
-  <Capability Min="215" Max="234">No Function</Capability>
+  <Capability Min="215" Max="234">No function</Capability>
   <Capability Min="235" Max="239">Store Pan Calibration</Capability>
   <Capability Min="240" Max="244">Store Tilt Calibration</Capability>
   <Capability Min="245" Max="249">Reset All Calibrations to Factory Default</Capability>
-  <Capability Min="250" Max="255">No Function</Capability>
+  <Capability Min="250" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Color Wheel Effect">
   <Group Byte="0">Colour</Group>

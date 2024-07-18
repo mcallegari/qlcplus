@@ -108,7 +108,7 @@ void SceneEditor::setPreviewEnabled(bool enable)
 
     if (enable == true)
     {
-        foreach(SceneValue sv, m_scene->values())
+        foreach (SceneValue sv, m_scene->values())
             m_source->set(sv.fxi, sv.channel, sv.value);
     }
     else
@@ -147,7 +147,7 @@ void SceneEditor::registerFixtureConsole(int index, QQuickItem *item)
     QVariantList dmxValues;
     QByteArray values = m_channelsCache[fixtureID];
 
-    for (int i = 0; i < values.count(); i++)
+    for (int i = 0; i < values.length(); i++)
         dmxValues.append(QString::number((uchar)values.at(i)));
 
     item->setProperty("values", QVariant::fromValue(dmxValues));
@@ -194,17 +194,22 @@ void SceneEditor::slotSceneValueChanged(SceneValue scv)
     {
         connect(fixture, SIGNAL(aliasChanged()), this, SLOT(slotAliasChanged()));
 
+        // Add the fixture to the side panel list
         QVariantMap fxMap;
         fxMap.insert("cRef", QVariant::fromValue(fixture));
         fxMap.insert("isSelected", false);
         m_fixtureList->addDataMap(fxMap);
         m_fixtureIDs.append(scv.fxi);
+
+        // update the fixture list for the UI
         updateLists();
     }
 
+    // update the channel values cache
+    setCacheChannelValue(scv);
+
     if (m_sceneConsole)
     {
-
         if (m_fxConsoleMap.contains(fxIndex))
         {
             QMetaObject::invokeMethod(m_fxConsoleMap[fxIndex], "setChannelValue",
@@ -266,20 +271,21 @@ void SceneEditor::addComponent(int type, quint32 id)
     switch(type)
     {
         case App::UniverseDragItem:
-        {
-            // TODO
-        }
         break;
         case App::FixtureGroupDragItem:
+            Tardis::instance()->enqueueAction(Tardis::SceneAddFixtureGroup, m_scene->id(), QVariant(), id);
             m_scene->addFixtureGroup(id);
+            m_doc->setModified();
         break;
         case App::FixtureDragItem:
+            Tardis::instance()->enqueueAction(Tardis::SceneAddFixture, m_scene->id(), QVariant(), id);
             m_scene->addFixture(id);
+            m_doc->setModified();
         break;
         case App::PaletteDragItem:
-        {
+            Tardis::instance()->enqueueAction(Tardis::SceneAddPalette, m_scene->id(), QVariant(), id);
             m_scene->addPalette(id);
-        }
+            m_doc->setModified();
         break;
         default:
         break;
@@ -290,10 +296,10 @@ void SceneEditor::addComponent(int type, quint32 id)
 
 void SceneEditor::deleteItems(QVariantList list)
 {
-    if (m_scene == nullptr)
+    if (m_scene == nullptr || list.isEmpty())
         return;
 
-    for (QVariant vIdx : list)
+    for (QVariant &vIdx : list)
     {
         int index = vIdx.toInt();
         QVariantMap dataMap = m_componentList->itemAt(index).toMap();
@@ -304,16 +310,28 @@ void SceneEditor::deleteItems(QVariantList list)
             case App::FixtureDragItem:
             {
                 Fixture *fixture = dataMap["cRef"].value<Fixture *>();
-                qDebug() << "removing fixture with ID" << fixture->id();
-                // TODO: tardis
-                m_scene->removeFixture(fixture->id());
+                quint32 fixtureID = fixture->id();
+                qDebug() << "removing fixture with ID" << fixtureID;
+
+                for (SceneValue &scv : m_scene->values())
+                {
+                    if (scv.fxi == fixtureID)
+                    {
+                        QVariant currentVal;
+                        currentVal.setValue(scv);
+                        Tardis::instance()->enqueueAction(Tardis::SceneUnsetChannelValue, m_scene->id(), currentVal, QVariant());
+                        m_scene->unsetValue(fixtureID, scv.channel);
+                    }
+                }
+                Tardis::instance()->enqueueAction(Tardis::SceneRemoveFixture, m_scene->id(), fixtureID, QVariant());
+                m_scene->removeFixture(fixtureID);
             }
             break;
             case App::FixtureGroupDragItem:
             {
                 FixtureGroup *group = dataMap["cRef"].value<FixtureGroup *>();
                 qDebug() << "removing fixture group with ID" << group->id();
-                // TODO: tardis
+                Tardis::instance()->enqueueAction(Tardis::SceneRemoveFixtureGroup, m_scene->id(), group->id(), QVariant());
                 m_scene->removeFixtureGroup(group->id());
             }
             break;
@@ -321,12 +339,14 @@ void SceneEditor::deleteItems(QVariantList list)
             {
                 QLCPalette *palette = dataMap["cRef"].value<QLCPalette *>();
                 qDebug() << "removing palette with ID" << palette->id();
-                // TODO: tardis
+                Tardis::instance()->enqueueAction(Tardis::SceneRemovePalette, m_scene->id(), palette->id(), QVariant());
                 m_scene->removePalette(palette->id());
             }
             break;
         }
     }
+
+    m_doc->setModified();
 
     updateLists();
 }

@@ -33,12 +33,13 @@ Rectangle
     border.width: 2
 
     property real maxDegrees: 360
-    property int currentValue: 0 // in DMX values
+    property int currentValue: 0 // as DMX value
     property int currentDegrees: Math.round((currentValue * maxDegrees) / 255.0)
     property bool closeOnSelect: false
     property bool showPalette: false
 
     signal valueChanged(int value)
+    signal close()
 
     GridLayout
     {
@@ -59,6 +60,11 @@ Rectangle
             {
                 currentValue = Math.round((valueAt(position) * 255.0) / maxDegrees)
                 boxRoot.valueChanged(currentValue)
+            }
+            onPressedChanged:
+            {
+                if (!pressed && closeOnSelect)
+                    boxRoot.close()
             }
         }
 

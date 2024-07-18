@@ -23,11 +23,10 @@
 #include <QDebug>
 
 #include "doc.h"
-#include "audiodecoder.h"
 #include "audiorenderer_qt6.h"
 #include "audioplugincache.h"
 
-AudioRendererQt6::AudioRendererQt6(QString device, QObject * parent)
+AudioRendererQt6::AudioRendererQt6(QString device, Doc *doc, QObject *parent)
     : AudioRenderer(parent)
     , m_audioSink(NULL)
     , m_output(NULL)
@@ -35,7 +34,6 @@ AudioRendererQt6::AudioRendererQt6(QString device, QObject * parent)
 {
     QSettings settings;
     QString devName = "";
-    Doc *doc = qobject_cast<Doc*>(parent);
 
     QVariant var;
     if (m_device.isEmpty())
@@ -99,7 +97,6 @@ qint64 AudioRendererQt6::latency()
 QList<AudioDeviceInfo> AudioRendererQt6::getDevicesInfo()
 {
     QList<AudioDeviceInfo> devList;
-    int i = 0;
     QStringList outDevs, inDevs;
 
     // create a preliminary list of input devices only
@@ -121,11 +118,10 @@ QList<AudioDeviceInfo> AudioRendererQt6::getDevicesInfo()
             inDevs.removeOne(deviceInfo.description());
         }
         devList.append(info);
-        i++;
     }
 
     // add the devices left in the input list. These don't have output capabilities
-    foreach(QString dev, inDevs)
+    foreach (QString dev, inDevs)
     {
         AudioDeviceInfo info;
         info.deviceName = dev;
@@ -133,7 +129,6 @@ QList<AudioDeviceInfo> AudioRendererQt6::getDevicesInfo()
         info.capabilities = 0;
         info.capabilities |= AUDIO_CAP_INPUT;
         devList.append(info);
-        i++;
     }
 
     return devList;
@@ -141,16 +136,25 @@ QList<AudioDeviceInfo> AudioRendererQt6::getDevicesInfo()
 
 qint64 AudioRendererQt6::writeAudio(unsigned char *data, qint64 maxSize)
 {
-    if (m_audioSink == NULL || m_audioSink->bytesFree() < maxSize)
+    qsizetype bFree = m_audioSink->bytesFree();
+
+    if (m_audioSink == NULL || bFree < maxSize)
         return 0;
 
-    //qDebug() << "writeAudio called !! - " << maxSize;
-    qint64 written = m_output->write((const char *)data, maxSize);
+    //qDebug() << "writeAudio called !! - " << maxSize << m_outputBuffer.length() << bFree;
 
-    if (written != maxSize)
-        qDebug() << "[writeAudio] expexcted to write" << maxSize << "but wrote" << written;
+    m_outputBuffer.append((char *)data, maxSize);
 
-    return written;
+    if (m_outputBuffer.length() >= bFree)
+    {
+       qint64 written = m_output->write(m_outputBuffer.data(), bFree);
+
+        if (written != bFree)
+            qDebug() << "[writeAudio] expexcted to write" << bFree << "but wrote" << written;
+
+        m_outputBuffer.remove(0, written);
+    }
+    return maxSize;
 }
 
 void AudioRendererQt6::drain()
@@ -177,6 +181,8 @@ void AudioRendererQt6::run()
 {
     if (m_audioSink == NULL)
     {
+        qDebug() << "Creating audio sink on" << m_deviceInfo.description();
+
         m_audioSink = new QAudioSink(m_deviceInfo, m_format);
 
         if (m_audioSink == NULL)
@@ -188,7 +194,7 @@ void AudioRendererQt6::run()
         m_audioSink->setBufferSize(8192 * 8);
         m_output = m_audioSink->start();
 
-        if(m_audioSink->error() != QAudio::NoError)
+        if (m_audioSink->error() != QAudio::NoError)
         {
             qWarning() << "Cannot start audio output stream. Error:" << m_audioSink->error();
             return;

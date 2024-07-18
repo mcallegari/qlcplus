@@ -54,16 +54,19 @@
 #define KXMLQLCWindowStateWidth     QString("Width")
 #define KXMLQLCWindowStateHeight    QString("Height")
 
-#define KXMLQLCVCWidgetKey              QString("Key")
-#define KXMLQLCVCWidgetInput            QString("Input")
-#define KXMLQLCVCWidgetInputUniverse    QString("Universe")
-#define KXMLQLCVCWidgetInputChannel     QString("Channel")
-#define KXMLQLCVCWidgetInputLowerValue  QString("LowerValue")
-#define KXMLQLCVCWidgetInputUpperValue  QString("UpperValue")
+#define KXMLQLCVCWidgetKey                  QString("Key")
+#define KXMLQLCVCWidgetInput                QString("Input")
+#define KXMLQLCVCWidgetInputUniverse        QString("Universe")
+#define KXMLQLCVCWidgetInputChannel         QString("Channel")
+#define KXMLQLCVCWidgetInputLowerValue      QString("LowerValue")
+#define KXMLQLCVCWidgetInputUpperValue      QString("UpperValue")
+#define KXMLQLCVCWidgetInputMonitorValue    QString("MonitorValue")
+#define KXMLQLCVCWidgetInputLowerParams     QString("LowerParams")
+#define KXMLQLCVCWidgetInputUpperParams     QString("UpperParams")
+#define KXMLQLCVCWidgetInputMonitorParams   QString("MonitorParams")
 
 typedef struct
 {
-    quint8 id;
     QString name;
     bool allowKeyboard;
 } ExternalControlInfo;
@@ -460,20 +463,28 @@ public:
      */
     void registerExternalControl(quint8 id, QString name, bool allowKeyboard);
 
+    /** Unregister an existing external control
+     *
+     *  @param id a unique id identifying the external control
+     *  @return true if a match was found
+     */
+    bool unregisterExternalControl(quint8 id);
+
     /** Returns the number of external controls registered by this widget */
     int externalControlsCount() const;
 
     /** Returns a list of the registered external controls suitable for the UI */
     QVariant externalControlsList() const;
 
-    /** Returns the index of a control with the given $id */
-    int controlIndex(quint8 id);
+protected:
+    /** A list of the external controls known by this widget */
+    QMap <quint8, ExternalControlInfo> m_externalControlList;
 
     /*********************************************************************
      * Input sources
      *********************************************************************/
 public:
-    enum SourceValueType { ExactValue, LowerValue, UpperValue };
+    enum SourceValueType { ExactValue, LowerValue, UpperValue, MonitorValue };
     Q_ENUM(SourceValueType)
 
     /**
@@ -513,6 +524,12 @@ public:
      */
     void sendFeedback(int value, quint8 id = 0, SourceValueType type = ExactValue);
 
+    /**
+     * Send the feedback data again, e.g. after page change
+     * Pure virtual method. Must be implemented in every subclass
+     */
+    virtual void updateFeedback();
+
     /*********************************************************************
      * Key sequences
      *********************************************************************/
@@ -529,17 +546,21 @@ public:
     /** Update the control ID of an existing key sequence */
     void updateKeySequenceControlID(QKeySequence sequence, quint32 id);
 
+    /** Retrieve the whole key sequences map of this widget */
+    QMap <QKeySequence, quint32> keySequenceMap() const;
+
 public slots:
     /** Virtual slot called when an input value changed */
     virtual void slotInputValueChanged(quint8 id, uchar value);
+
+    /** Slot connected directly to input sources with specific needs
+     *  (e.g. extra press) */
+    void slotInputSourceValueChanged(quint32 universe, quint32 channel, uchar value);
 
 signals:
     void inputSourcesListChanged();
 
 protected:
-    /** A list of the external controls known by this widget */
-    QList <ExternalControlInfo> m_externalControlList;
-
     /** The list of input sources that can control this widget */
     QList <QSharedPointer<QLCInputSource> > m_inputSources;
 

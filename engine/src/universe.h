@@ -74,7 +74,7 @@ class Universe: public QThread
     Q_PROPERTY(bool passthrough READ passthrough WRITE setPassthrough NOTIFY passthroughChanged)
     Q_PROPERTY(InputPatch *inputPatch READ inputPatch NOTIFY inputPatchChanged)
     Q_PROPERTY(int outputPatchesCount READ outputPatchesCount NOTIFY outputPatchesCountChanged)
-    Q_PROPERTY(bool hasFeedbacks READ hasFeedbacks NOTIFY hasFeedbacksChanged)
+    Q_PROPERTY(bool hasFeedback READ hasFeedback NOTIFY hasFeedbackChanged)
 
 public:
     /** Construct a new Universe */
@@ -171,7 +171,6 @@ protected:
      */
     uchar applyGM(int channel, uchar value);
 
-    uchar applyRelative(int channel, uchar value);
     uchar applyModifiers(int channel, uchar value);
     void updatePostGMValue(int channel);
 
@@ -210,7 +209,7 @@ public:
     bool setFeedbackPatch(QLCIOPlugin *plugin, quint32 output);
 
     /** Flag that indicates if this Universe has a patched feedback line */
-    bool hasFeedbacks() const;
+    bool hasFeedback() const;
 
     /**
      * Get the reference to the input plugin associated to this universe.
@@ -222,7 +221,7 @@ public:
      * Get the reference to the output plugin associated to this universe.
      * If not present NULL is returned.
      */
-    Q_INVOKABLE OutputPatch *outputPatch(int index = 0) const;
+    Q_INVOKABLE OutputPatch *outputPatch(int index) const;
 
     /** Return the number of output patches associated to this Universe */
     int outputPatchesCount() const;
@@ -235,19 +234,9 @@ public:
 
     /**
      * This is the actual function that writes data to an output patch
+     * A flag indicates if data has changed since previous iteration
      */
-    void dumpOutput(const QByteArray& data);
-
-    /**
-     * @brief dumpBlackout
-     */
-    void dumpBlackout();
-
-    /**
-     * @brief blackoutData
-     * @return
-     */
-    const QByteArray& blackoutData();
+    void dumpOutput(const QByteArray& data, bool dataChanged);
 
     void flushInput();
 
@@ -269,7 +258,7 @@ signals:
     void outputPatchesCountChanged();
 
     /** Notify the listeners that a feedback line has been patched/unpatched */
-    void hasFeedbacksChanged();
+    void hasFeedbackChanged();
 
 private:
     /** Reference to the input patch associated to this universe. */
@@ -342,6 +331,7 @@ public:
     {
         Auto = 0,
         Override,
+        Flashing, /** Priority to override slider values and running chasers by flash scene */
         SimpleDesk
     };
 
@@ -446,9 +436,6 @@ public:
     /** Return a list with intensity channels and their values */
     QHash <int, uchar> intensityChannels();
 
-    /** Set all channel relative values to zero */
-    void zeroRelativeValues();
-
 protected:
     void applyPassthroughValues(int address, int range);
 
@@ -491,11 +478,11 @@ protected:
     QScopedPointer<QByteArray> m_postGMValues;
     /** Array of the last preGM values written before the zeroIntensityChannels call  */
     QScopedPointer<QByteArray> m_lastPostGMValues;
+    /** Array of non-intensity only values */
+    QScopedPointer<QByteArray> m_blackoutValues;
 
     /** Array of values from input line, when passtrhough is enabled */
     QScopedPointer<QByteArray> m_passthroughValues;
-
-    QVector<short> m_relativeValues;
 
     /* impl speedup */
     void updateIntensityChannelsRanges();
@@ -525,36 +512,48 @@ public:
      * Write a value to a DMX channel, taking Grand Master and HTP into
      * account, if applicable.
      *
-     * @param channel The channel number to write to
+     * @param address The DMX start address to write to
      * @param value The value to write
      *
      * @return true if successful, otherwise false
      */
-    bool write(int channel, uchar value, bool forceLTP = false);
+    bool write(int address, uchar value, bool forceLTP = false);
+
+    /**
+     * Write a value representing one or multiple channels
+     *
+     * @param address The DMX start address to write to
+     * @param value the DMX value(s) to set
+     * @param channelCount number of channels that value represents
+     * @return always true
+     */
+    bool writeMultiple(int address, quint32 value, int channelCount);
 
     /**
      * Write a relative value to a DMX channel, taking Grand Master and HTP into
      * account, if applicable.
      *
-     * @param channel The channel number to write to
+     * @param address The DMX start address to write to
      * @param value The value to write
+     * @param channelCount number of channels that value represents
      *
      * @return true if successful, otherwise false
      */
-    bool writeRelative(int channel, uchar value);
+    bool writeRelative(int address, quint32 value, int channelCount);
 
     /**
      * Write DMX values with the given blend mode.
      * If blend == NormalBlend the generic write method is called
      * and all the HTP/LTP checks are performed
      *
-     * @param channel The channel number to write to
+     * @param address The DMX start address to write to
      * @param value The value to write
+     * @param channelCount The number of channels that value represents
      * @param blend The blend mode to be used on $value
      *
      * @return true if successful, otherwise false
      */
-    bool writeBlended(int channel, uchar value, BlendMode blend = NormalBlend);
+    bool writeBlended(int address, quint32 value, int channelCount, BlendMode blend);
 
     /*********************************************************************
      * Load & Save
@@ -567,6 +566,8 @@ public:
      * Load a universe contents from the given XML node.
      *
      * @param root An XML subtree containing the universe contents
+     * @param index The QLC+ Universe index
+     * @param ioMap Reference to the QLC+ Input/Output map class
      * @return true if the Universe was loaded successfully, otherwise false
      */
     bool loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap);
@@ -574,10 +575,11 @@ public:
     /**
      * Load an optional tag defining the plugin specific parameters
      * @param root An XML subtree containing the plugin parameters contents
-     * @param currentTag the type of Patch where the parameters should be set
+     * @param currentTag The type of Patch where the parameters should be set
+     * @param patchIndex Index of the patch to configure (ATM used only for output)
      * @return true if the parameters were loaded successfully, otherwise false
      */
-    bool loadXMLPluginParameters(QXmlStreamReader &root, PatchTagType currentTag);
+    bool loadXMLPluginParameters(QXmlStreamReader &root, PatchTagType currentTag, int patchIndex);
 
     /**
      * Save the universe instance into an XML document, under the given

@@ -31,7 +31,7 @@ void QLCPalette_Test::initialization()
     QVERIFY(p.type() == QLCPalette::Undefined);
     QVERIFY(p.id() == QLCPalette::invalidId());
     QVERIFY(p.fanningType() == QLCPalette::Flat);
-    QVERIFY(p.fanningLayout() == QLCPalette::LeftToRight);
+    QVERIFY(p.fanningLayout() == QLCPalette::XAscending);
     QVERIFY(p.fanningAmount() == 100);
     QVERIFY(p.fanningValue() == QVariant());
 
@@ -128,18 +128,26 @@ void QLCPalette_Test::fanning()
     QVERIFY(QLCPalette::stringToFanningType("Square") == QLCPalette::Square);
     QVERIFY(QLCPalette::stringToFanningType("Saw") == QLCPalette::Saw);
 
-    QVERIFY(QLCPalette::fanningLayoutToString(QLCPalette::LeftToRight) == "LeftToRight");
-    QVERIFY(QLCPalette::fanningLayoutToString(QLCPalette::RightToLeft) == "RightToLeft");
-    QVERIFY(QLCPalette::fanningLayoutToString(QLCPalette::TopToBottom) == "TopToBottom");
-    QVERIFY(QLCPalette::fanningLayoutToString(QLCPalette::BottomToTop) == "BottomToTop");
-    QVERIFY(QLCPalette::fanningLayoutToString(QLCPalette::Centered) == "Centered");
+    QVERIFY(QLCPalette::fanningLayoutToString(QLCPalette::XAscending) == "XAscending");
+    QVERIFY(QLCPalette::fanningLayoutToString(QLCPalette::XDescending) == "XDescending");
+    QVERIFY(QLCPalette::fanningLayoutToString(QLCPalette::XCentered) == "XCentered");
+    QVERIFY(QLCPalette::fanningLayoutToString(QLCPalette::YAscending) == "YAscending");
+    QVERIFY(QLCPalette::fanningLayoutToString(QLCPalette::YDescending) == "YDescending");
+    QVERIFY(QLCPalette::fanningLayoutToString(QLCPalette::YCentered) == "YCentered");
+    QVERIFY(QLCPalette::fanningLayoutToString(QLCPalette::ZAscending) == "ZAscending");
+    QVERIFY(QLCPalette::fanningLayoutToString(QLCPalette::ZDescending) == "ZDescending");
+    QVERIFY(QLCPalette::fanningLayoutToString(QLCPalette::ZCentered) == "ZCentered");
 
-    QVERIFY(QLCPalette::stringToFanningLayout("Foo") == QLCPalette::LeftToRight);
-    QVERIFY(QLCPalette::stringToFanningLayout("LeftToRight") == QLCPalette::LeftToRight);
-    QVERIFY(QLCPalette::stringToFanningLayout("RightToLeft") == QLCPalette::RightToLeft);
-    QVERIFY(QLCPalette::stringToFanningLayout("TopToBottom") == QLCPalette::TopToBottom);
-    QVERIFY(QLCPalette::stringToFanningLayout("BottomToTop") == QLCPalette::BottomToTop);
-    QVERIFY(QLCPalette::stringToFanningLayout("Centered") == QLCPalette::Centered);
+    QVERIFY(QLCPalette::stringToFanningLayout("Foo") == QLCPalette::XAscending);
+    QVERIFY(QLCPalette::stringToFanningLayout("XAscending") == QLCPalette::XAscending);
+    QVERIFY(QLCPalette::stringToFanningLayout("XDescending") == QLCPalette::XDescending);
+    QVERIFY(QLCPalette::stringToFanningLayout("XCentered") == QLCPalette::XCentered);
+    QVERIFY(QLCPalette::stringToFanningLayout("YAscending") == QLCPalette::YAscending);
+    QVERIFY(QLCPalette::stringToFanningLayout("YDescending") == QLCPalette::YDescending);
+    QVERIFY(QLCPalette::stringToFanningLayout("YCentered") == QLCPalette::YCentered);
+    QVERIFY(QLCPalette::stringToFanningLayout("ZAscending") == QLCPalette::ZAscending);
+    QVERIFY(QLCPalette::stringToFanningLayout("ZDescending") == QLCPalette::ZDescending);
+    QVERIFY(QLCPalette::stringToFanningLayout("ZCentered") == QLCPalette::ZCentered);
 
     QLCPalette p(QLCPalette::Dimmer);
     p.setFanningAmount(75);
@@ -199,7 +207,7 @@ void QLCPalette_Test::load()
     QVERIFY(p.name() == "Lavender");
     QVERIFY(p.value().toString() == "#AABBCCDDEEFF");
     QVERIFY(p.fanningType() == QLCPalette::Linear);
-    QVERIFY(p.fanningLayout() == QLCPalette::LeftToRight);
+    QVERIFY(p.fanningLayout() == QLCPalette::XAscending);
     QVERIFY(p.fanningAmount() == 42);
     QVERIFY(p.fanningValue().toString() == "#00ff00");
 }

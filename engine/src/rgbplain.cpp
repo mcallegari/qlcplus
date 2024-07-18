@@ -22,7 +22,6 @@
 #include <QDebug>
 
 #include "rgbplain.h"
-#include "audiocapture.h"
 #include "doc.h"
 
 RGBPlain::RGBPlain(Doc * doc)

@@ -23,6 +23,8 @@
 #include "spiconfiguration.h"
 #include "spiplugin.h"
 
+#define SETTINGS_GEOMETRY "spiconfiguration/geometry"
+
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
@@ -37,7 +39,7 @@ SPIConfiguration::SPIConfiguration(SPIPlugin* plugin, QWidget* parent)
     setupUi(this);
 
     QSettings settings;
-    QVariant value = settings.value("SPIPlugin/frequency");
+    QVariant value = settings.value(SETTINGS_OUTPUT_FREQUENCY);
     if (value.isValid() == true)
     {
         int speed = value.toUInt();
@@ -48,10 +50,15 @@ SPIConfiguration::SPIConfiguration(SPIPlugin* plugin, QWidget* parent)
             case 8000000: m_freqCombo->setCurrentIndex(3); break;
         }
     }
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 }
 
 SPIConfiguration::~SPIConfiguration()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 /*****************************************************************************

@@ -277,10 +277,10 @@ public:
 
     /** Return a list of DMX values based on the given position degrees
      *  and the provided type (Pan or Tilt) */
-    QList<SceneValue> positionToValues(int type, int degrees) const;
+    QList<SceneValue> positionToValues(int type, int degrees, bool isRelative = false);
 
     /** Return a list of DMX values based on the given zoom degrees */
-    QList<SceneValue> zoomToValues(float degrees) const;
+    QList<SceneValue> zoomToValues(float degrees, bool isRelative);
 
     /** Set a list of channel indices to exclude from fade transitions */
     void setExcludeFadeChannels(QList<int> indices);

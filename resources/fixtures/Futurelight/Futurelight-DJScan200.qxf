@@ -45,7 +45,7 @@
   <Capability Min="96" Max="103">Gobo 11</Capability>
   <Capability Min="104" Max="111">Gobo 12</Capability>
   <Capability Min="112" Max="119">Gobo 13</Capability>
-  <Capability Min="120" Max="127">Gobo 14</Capability>
+  <Capability Min="120" Max="132">Gobo 14</Capability>
   <Capability Min="133" Max="137">Reset after 3-5 seconds</Capability>
   <Capability Min="138" Max="159">Forward Gobo Change Speed</Capability>
   <Capability Min="160" Max="200">Strobe Speed</Capability>

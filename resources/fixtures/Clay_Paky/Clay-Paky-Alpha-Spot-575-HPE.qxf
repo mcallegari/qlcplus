@@ -281,7 +281,7 @@
  <Physical>
   <Bulb Type="HMI 575W" Lumens="49000" ColourTemperature="6000"/>
   <Dimensions Weight="33" Width="432" Height="710" Depth="427"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Lens Name="Other" DegreesMin="10" DegreesMax="40"/>
   <Focus Type="Head" PanMax="450" TiltMax="252"/>
   <Technical PowerConsumption="950" DmxConnector="3-pin and 5-pin"/>
  </Physical>

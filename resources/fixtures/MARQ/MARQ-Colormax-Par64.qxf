@@ -28,7 +28,7 @@
   <Capability Min="96" Max="115" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="116" Max="135" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
   <Capability Min="136" Max="155" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
-  <Capability Min="156" Max="175" Preset="ColorMacro" Res1="#ff00ff">Purple</Capability>
+  <Capability Min="156" Max="175" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="176" Max="195" Preset="ColorMacro" Res1="#00007f">Dark Blue</Capability>
   <Capability Min="196" Max="215" Preset="ColorMacro" Res1="#aaffff">Light Cyan</Capability>
   <Capability Min="216" Max="235" Preset="ColorMacro" Res1="#ffffff">White</Capability>

@@ -16,7 +16,7 @@
  <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="30">R:100%/G:100%/B:0%</Capability>
   <Capability Min="31" Max="50">R:0-100%/G:100%/B:0%</Capability>
   <Capability Min="51" Max="70">R:0%/G:100%/B:0-100%</Capability>
@@ -40,12 +40,12 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
   <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="20">1~20hz</Capability>
  </Channel>
  <Channel Name="Auto Program">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="51">No Function</Capability>
+  <Capability Min="0" Max="51">No function</Capability>
   <Capability Min="52" Max="101">Auto Program 1</Capability>
   <Capability Min="102" Max="152">Auto Program 2</Capability>
   <Capability Min="153" Max="203">Auto Program 3</Capability>

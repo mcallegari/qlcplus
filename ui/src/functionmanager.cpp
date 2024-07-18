@@ -50,13 +50,11 @@
 #include "audioeditor.h"
 #include "videoeditor.h"
 #include "showeditor.h"
-#include "chaserstep.h"
 #include "collection.h"
 #include "efxeditor.h"
 #include "rgbmatrix.h"
 #include "function.h"
 #include "sequence.h"
-#include "apputil.h"
 #include "chaser.h"
 #include "script.h"
 #include "scene.h"
@@ -597,7 +595,7 @@ void FunctionManager::slotDelete()
         if (item->childCount() > 0)
         {
             msg.append("\n" + tr("(This will also DELETE: "));
-            for(int i = 0; i < item->childCount(); i++)
+            for (int i = 0; i < item->childCount(); i++)
             {
                 QTreeWidgetItem *child = item->child(i);
                 if (i > 0) msg.append(", ");

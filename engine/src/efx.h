@@ -64,6 +64,7 @@ class Fixture;
 #define KXMLQLCEFXDiamondAlgorithmName      QString("Diamond")
 #define KXMLQLCEFXSquareAlgorithmName       QString("Square")
 #define KXMLQLCEFXSquareChoppyAlgorithmName QString("SquareChoppy")
+#define KXMLQLCEFXSquareTrueAlgorithmName   QString("SquareTrue")
 #define KXMLQLCEFXLeafAlgorithmName         QString("Leaf")
 #define KXMLQLCEFXLissajousAlgorithmName    QString("Lissajous")
 
@@ -116,6 +117,8 @@ public:
     /** Set the duration in milliseconds */
     virtual void setDuration(uint ms);
 
+    uint loopDuration() const;
+
 signals:
     void durationChanged(uint ms);
 
@@ -132,6 +135,7 @@ public:
         Diamond,
         Square,
         SquareChoppy,
+		SquareTrue,
         Leaf,
         Lissajous
     };
@@ -179,7 +183,7 @@ public:
      * @param x Used to store the calculated X coordinate (output)
      * @param y Used to store the calculated Y coordinate (output)
      */
-    void calculatePoint(Function::Direction direction, int startOffset, float iterator, float* x, float* y) const;
+    void calculatePoint(Function::Direction direction, int startOffset, float iterator, float *x, float *y) const;
 
 private:
 
@@ -477,6 +481,9 @@ public:
     /** Add a new fixture to this EFX */
     bool addFixture(EFXFixture *ef);
 
+    /** Add the provided fixture id and head to this EFX */
+    bool addFixture(quint32 fxi, int head = 0);
+
     /** Remove the designated fixture from this EFX but don't delete it */
     bool removeFixture(EFXFixture *ef);
 
@@ -514,9 +521,9 @@ private:
 public:
     enum PropagationMode
     {
-        Parallel, /**< All fixtures move in unison (el-cheapo) */
-        Serial, /**< Pattern propagates to the next fixture after a delay */
-        Asymmetric /**< All fixtures move with an offset */
+        Parallel,   /**< All fixtures move in unison (el-cheapo) */
+        Serial,     /**< Pattern propagates to the next fixture after a delay */
+        Asymmetric  /**< All fixtures move with an offset */
     };
 
     /** Set the EFX's fixture propagation mode (see the enum above) */

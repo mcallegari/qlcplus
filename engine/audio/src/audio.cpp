@@ -46,6 +46,7 @@
 
 #define KXMLQLCAudioSource QString("Source")
 #define KXMLQLCAudioDevice QString("Device")
+#define KXMLQLCAudioVolume QString("Volume")
 
 /*****************************************************************************
  * Initialization
@@ -59,6 +60,7 @@ Audio::Audio(Doc* doc)
   , m_audioDevice(QString())
   , m_sourceFileName("")
   , m_audioDuration(0)
+  , m_volume(1.0)
 {
     setName(tr("New Audio"));
     setRunOrder(Audio::SingleShot);
@@ -173,6 +175,7 @@ bool Audio::setSourceFileName(QString filename)
     if (m_decoder == NULL)
         return false;
 
+    setDuration(m_decoder->totalTime());
     setTotalDuration(m_decoder->totalTime());
 
     emit changed(id());
@@ -195,6 +198,16 @@ void Audio::setAudioDevice(QString dev)
     m_audioDevice = dev;
 }
 
+qreal Audio::volume() const
+{
+    return m_volume;
+}
+
+void Audio::setVolume(qreal volume)
+{
+    m_volume = volume;
+}
+
 QString Audio::audioDevice()
 {
     return m_audioDevice;
@@ -205,7 +218,7 @@ int Audio::adjustAttribute(qreal fraction, int attributeId)
     int attrIndex = Function::adjustAttribute(fraction, attributeId);
 
     if (m_audio_out != NULL && attrIndex == Intensity)
-        m_audio_out->adjustIntensity(getAttributeValue(Function::Intensity));
+        m_audio_out->adjustIntensity(m_volume * getAttributeValue(Function::Intensity));
 
     return attrIndex;
 }
@@ -253,6 +266,9 @@ bool Audio::saveXML(QXmlStreamWriter *doc)
     if (m_audioDevice.isEmpty() == false)
         doc->writeAttribute(KXMLQLCAudioDevice, m_audioDevice);
 
+    if (m_volume != 1.0)
+        doc->writeAttribute(KXMLQLCAudioVolume, QString::number(m_volume));
+
     doc->writeCharacters(m_doc->normalizeComponentPath(m_sourceFileName));
 
     doc->writeEndElement();
@@ -288,6 +304,8 @@ bool Audio::loadXML(QXmlStreamReader &root)
 
             if (attrs.hasAttribute(KXMLQLCAudioDevice))
                 setAudioDevice(attrs.value(KXMLQLCAudioDevice).toString());
+            if (attrs.hasAttribute(KXMLQLCAudioVolume))
+                setVolume(attrs.value(KXMLQLCAudioVolume).toString().toDouble());
 
             setSourceFileName(m_doc->denormalizeComponentPath(root.readElementText()));
         }
@@ -322,6 +340,15 @@ void Audio::preRun(MasterTimer* timer)
 {
     if (m_decoder != NULL)
     {
+        uint fadeIn = overrideFadeInSpeed() == defaultSpeed() ? fadeInSpeed() : overrideFadeInSpeed();
+
+        if (m_audio_out != NULL && m_audio_out->isRunning())
+        {
+            m_audio_out->stop();
+            m_audio_out->deleteLater();
+            m_audio_out = NULL;
+        }
+
         m_decoder->seek(elapsed());
         AudioParameters ap = m_decoder->audioParameters();
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
@@ -341,8 +368,8 @@ void Audio::preRun(MasterTimer* timer)
 #endif
         m_audio_out->setDecoder(m_decoder);
         m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
-        m_audio_out->adjustIntensity(getAttributeValue(Intensity));
-        m_audio_out->setFadeIn(fadeInSpeed());
+        m_audio_out->adjustIntensity(m_volume * getAttributeValue(Intensity));
+        m_audio_out->setFadeIn(elapsed() ? 0 : fadeIn);
         m_audio_out->setLooped(runOrder() == Audio::Loop);
         m_audio_out->start();
         connect(m_audio_out, SIGNAL(endOfStreamReached()),
@@ -378,10 +405,15 @@ void Audio::write(MasterTimer* timer, QList<Universe *> universes)
 
     incrementElapsed();
 
-    if (overrideFadeOutSpeed() == defaultSpeed())
+    if (m_audio_out && !m_audio_out->isLooped())
     {
-        if (m_audio_out != NULL && totalDuration() - elapsed() <= fadeOutSpeed())
-            m_audio_out->setFadeOut(fadeOutSpeed());
+        uint fadeout = overrideFadeOutSpeed() == defaultSpeed() ? fadeOutSpeed() : overrideFadeOutSpeed();
+
+        if (fadeout)
+        {
+            if (m_audio_out != NULL && totalDuration() - elapsed() <= fadeOutSpeed())
+                m_audio_out->setFadeOut(fadeOutSpeed());
+        }
     }
 }
 
@@ -389,14 +421,16 @@ void Audio::postRun(MasterTimer* timer, QList<Universe*> universes)
 {
     // Check whether a fade out is needed "outside" of the natural playback
     // This is the case of a Chaser step
-    if (overrideFadeOutSpeed() == defaultSpeed())
+    uint fadeout = overrideFadeOutSpeed() == defaultSpeed() ? fadeOutSpeed() : overrideFadeOutSpeed();
+
+    if (fadeout == 0)
     {
         slotEndOfStream();
     }
     else
     {
         if (m_audio_out != NULL)
-            m_audio_out->setFadeOut(overrideFadeOutSpeed());
+            m_audio_out->setFadeOut(fadeout);
     }
 
     Function::postRun(timer, universes);

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.7 GIT</Version>
+  <Author>Anton Luka Šijanec</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>Studio PAR 64 Q 8W (CLPST64Q8W)</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Colour (2CH)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="16" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="17" Max="33" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="34" Max="50" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="51" Max="67" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="119" Max="135" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="136" Max="152" Preset="ColorMacro" Res1="#8ff0a4">Bright Green</Capability>
+  <Capability Min="153" Max="169" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="170" Max="186" Preset="ColorMacro" Res1="#ff73ea">Pale Pink</Capability>
+  <Capability Min="187" Max="203" Preset="ColorMacro" Res1="#c64600">Amber</Capability>
+  <Capability Min="204" Max="220" Preset="ColorMacro" Res1="#ff00d4">Bright Magenta</Capability>
+  <Capability Min="221" Max="237" Preset="ColorMacro" Res1="#87fffa">Pale Cyan</Capability>
+  <Capability Min="238" Max="255" Preset="ColorMacro" Res1="#fff1d5">Warm White</Capability>
+ </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Colour-Macro (3CH/7CH)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="5" Max="10" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="11" Max="15" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="16" Max="20">Blue</Capability>
+  <Capability Min="21" Max="25" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="26" Max="30" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="31" Max="35" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="36" Max="40" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="41" Max="45" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="46" Max="50" Preset="ColorMacro" Res1="#8ff0a4">Bright Green</Capability>
+  <Capability Min="51" Max="55" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="56" Max="60" Preset="ColorMacro" Res1="#ffa2f3">Pale Pink</Capability>
+  <Capability Min="61" Max="65" Preset="ColorMacro" Res1="#c64600">Amber</Capability>
+  <Capability Min="66" Max="70" Preset="ColorMacro" Res1="#ff00c7">Bright Magenta</Capability>
+  <Capability Min="71" Max="75" Preset="ColorMacro" Res1="#87fffa">Pale Cyan</Capability>
+  <Capability Min="76" Max="80" Preset="ColorMacro" Res1="#fff1d5">Warm White</Capability>
+  <Capability Min="81" Max="150">Colour Jumping Speed: from slowest to fastest</Capability>
+  <Capability Min="151" Max="220">Colour Fading Speed: from slowest to fastest</Capability>
+  <Capability Min="221" Max="255">Sound Control (Mic Sensitivity)</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Colour (2CH)</Channel>
+ </Mode>
+ <Mode Name="3 Channel 1">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Colour-Macro (3CH/7CH)</Channel>
+ </Mode>
+ <Mode Name="3 Channel 2">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">Colour-Macro (3CH/7CH)</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="3307" ColourTemperature="0"/>
+  <Dimensions Weight="4.9" Width="230" Height="220" Depth="225"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="170" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

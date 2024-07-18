@@ -20,7 +20,7 @@
  <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="19">No Function</Capability>
+  <Capability Min="0" Max="19">No function</Capability>
   <Capability Min="20" Max="39">Pan/Tilt Black Active</Capability>
   <Capability Min="40" Max="59">Pan/Tilt Black Desactive</Capability>
   <Capability Min="60" Max="79">Fan Auto</Capability>
@@ -33,7 +33,7 @@
   <Capability Min="170" Max="179">Custom</Capability>
   <Capability Min="180" Max="199">Sound1</Capability>
   <Capability Min="200" Max="219" Preset="ResetAll">Reset</Capability>
-  <Capability Min="220" Max="235">No Function</Capability>
+  <Capability Min="220" Max="235">No function</Capability>
   <Capability Min="236" Max="239">Dim 1</Capability>
   <Capability Min="240" Max="243">Dim 2</Capability>
   <Capability Min="244" Max="247">Dim 3</Capability>
@@ -42,7 +42,7 @@
  </Channel>
  <Channel Name="Macro Color">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="0" Max="5">No function</Capability>
   <Capability Min="6" Max="10">RGBW 100%</Capability>
   <Capability Min="11" Max="30">Macro RGB 1</Capability>
   <Capability Min="31" Max="50">Macro RGB 2</Capability>
@@ -52,7 +52,7 @@
   <Capability Min="111" Max="130">Macro RGB 6</Capability>
   <Capability Min="131" Max="150">Macro RGB 7</Capability>
   <Capability Min="151" Max="170">Macro RGB 8</Capability>
-  <Capability Min="171" Max="200">No Function</Capability>
+  <Capability Min="171" Max="200">No function</Capability>
   <Capability Min="201" Max="205">White 1</Capability>
   <Capability Min="206" Max="210">White 2</Capability>
   <Capability Min="211" Max="215">White 3</Capability>
@@ -80,6 +80,7 @@
   <Capability Min="70" Max="109">Non Linear 2</Capability>
   <Capability Min="110" Max="149">Non Linear 3</Capability>
   <Capability Min="150" Max="189">Non Linear 4</Capability>
+  <Capability Min="190" Max="255">No function</Capability>
  </Channel>
  <Mode Name="Advanced">
   <Channel Number="0">Pan</Channel>

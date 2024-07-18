@@ -75,6 +75,9 @@ private:
     /** Calculate sequence width for paint() and boundingRect() */
     void calculateWidth();
 
+    /** Start a thread to elapse a waveform preview over the item */
+    void updateWaveformPreview();
+
 public:
     /** Reference to the actual Audio Function */
     Audio *m_audio;

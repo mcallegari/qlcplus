@@ -72,10 +72,22 @@ E131Packetizer::E131Packetizer(QString MACaddr)
     m_commonHeader.append((char)0x19);
 
     QStringList MAC = MACaddr.split(":");
-    foreach (QString couple, MAC)
+    if (MAC.length() == 6)
     {
-        bool ok;
-        m_commonHeader.append((char)couple.toInt(&ok, 16));
+        foreach (QString couple, MAC)
+        {
+            bool ok;
+            m_commonHeader.append((char)couple.toInt(&ok, 16));
+        }
+    }
+    else
+    {
+        m_commonHeader.append((char)0x31);
+        m_commonHeader.append((char)0x7A);
+        m_commonHeader.append((char)0x07);
+        m_commonHeader.append((char)0xC1);
+        m_commonHeader.append((char)0x00);
+        m_commonHeader.append((char)0x52);
     }
 
     // empty flags & PDU length (bytes 38-39)
@@ -157,10 +169,10 @@ void E131Packetizer::setupE131Dmx(QByteArray& data, const int &universe, const i
 
     data.append(values);
 
-    int rootLayerSize = data.count() - 16;
-    int e131LayerSize = data.count() - 38;
-    int dmpLayerSize = data.count() - 115;
-    int valCountPlusOne = values.count() + 1;
+    int rootLayerSize = data.length() - 16;
+    int e131LayerSize = data.length() - 38;
+    int dmpLayerSize = data.length() - 115;
+    int valCountPlusOne = values.length() + 1;
 
     data[16] = 0x70 | (char)(rootLayerSize >> 8);
     data[17] = (char)(rootLayerSize & 0x00FF);

@@ -82,7 +82,7 @@
  </Channel>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="15">Dimmer Reset</Capability>
   <Capability Min="16" Max="23">Red shift on</Capability>
   <Capability Min="24" Max="31">Red shift off</Capability>

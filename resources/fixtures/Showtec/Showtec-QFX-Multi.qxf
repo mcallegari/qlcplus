@@ -62,10 +62,7 @@
   <Capability Min="128" Max="133">Stop</Capability>
   <Capability Min="134" Max="255">Rotate counterclockwise (slow to fast)</Capability>
  </Channel>
- <Channel Name="Reserved">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="0">Nothing</Capability>
- </Channel>
+ <Channel Name="Reserved" Preset="NoFunction"/>
  <Channel Name="LED Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="4" Preset="ShutterClose">Closed</Capability>
@@ -177,14 +174,8 @@
   <Capability Min="0" Max="9" Preset="ShutterClose">Blackout</Capability>
   <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
  </Channel>
- <Channel Name="PAR 1 Reserved">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="0">Nothing</Capability>
- </Channel>
- <Channel Name="PAR 2 Reserved">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="0">Nothing</Capability>
- </Channel>
+ <Channel Name="PAR 1 Reserved" Preset="NoFunction"/>
+ <Channel Name="PAR 2 Reserved" Preset="NoFunction"/>
  <Channel Name="Derby 1 Motor rotating speed">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="4">Stop</Capability>

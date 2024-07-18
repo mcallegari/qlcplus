@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.7 GIT</Version>
   <Author>Mark van Kemenade</Author>
  </Creator>
  <Manufacturer>Fun-Generation</Manufacturer>
@@ -15,8 +15,12 @@
  <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe effect" Preset="ShutterStrobeSlowFast"/>
- <Channel Name="Program">
+ <Channel Name="Run mode">
   <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Blackout</Capability>
+  <Capability Min="1" Max="16" Preset="Alias">Activate colour macro for channel 7
+   <Alias Mode="8 channel" Channel="Program settings" With="Colour macro"/>
+  </Capability>
   <Capability Min="17" Max="33">Program 1</Capability>
   <Capability Min="34" Max="50">Program 2</Capability>
   <Capability Min="51" Max="67">Program 3</Capability>
@@ -30,7 +34,7 @@
   <Capability Min="187" Max="203">Program 11</Capability>
   <Capability Min="204" Max="220">Program 12</Capability>
   <Capability Min="221" Max="237">Program 13</Capability>
-  <Capability Min="238" Max="255">Sound control</Capability>
+  <Capability Min="238" Max="255" Preset="Alias">Sound control</Capability>
  </Channel>
  <Channel Name="Colour macro">
   <Group Byte="0">Colour</Group>
@@ -76,10 +80,9 @@
   <Channel Number="2">Green</Channel>
   <Channel Number="3">Blue</Channel>
   <Channel Number="4">White</Channel>
-  <Channel Number="5">Program</Channel>
-  <Channel Number="6">Colour macro</Channel>
-  <Channel Number="7">Program settings</Channel>
-  <Channel Number="8">Strobe effect</Channel>
+  <Channel Number="5">Run mode</Channel>
+  <Channel Number="6">Program settings</Channel>
+  <Channel Number="7">Strobe effect</Channel>
  </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="5520" ColourTemperature="8300"/>

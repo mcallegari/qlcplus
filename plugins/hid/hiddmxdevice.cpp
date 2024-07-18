@@ -75,6 +75,20 @@ void HIDDMXDevice::init()
  * File operations
  *****************************************************************************/
 
+bool HIDDMXDevice::isMergerModeEnabled()
+{
+    return (m_mode & DMX_MODE_MERGER);
+}
+
+void HIDDMXDevice::enableMergerMode(bool mergerModeEnabled)
+{
+    if (mergerModeEnabled)
+        m_mode |= DMX_MODE_MERGER;
+    else
+        m_mode &= ~DMX_MODE_MERGER;
+    updateMode();
+}
+
 bool HIDDMXDevice::openInput()
 {
     m_mode |= DMX_MODE_INPUT;
@@ -116,7 +130,7 @@ QString HIDDMXDevice::infoText()
 {
     QString info;
 
-    info += QString("<B>%1</B><P>").arg(m_name);
+    info += QString("<H3>%1</H3><P>").arg(m_name);
 
     return info;
 }
@@ -134,7 +148,7 @@ void HIDDMXDevice::feedBack(quint32 channel, uchar value)
 
 void HIDDMXDevice::run()
 {
-    while(m_running == true)
+    while (m_running == true)
     {
         unsigned char buffer[35];
         int size;
@@ -147,9 +161,9 @@ void HIDDMXDevice::run()
         *            from, the nth chunk starts at address n * 32
         * [1]-[32] = channel values, where the nth value is the offset + n
         */
-        while(size > 0)
+        while (size > 0)
         {
-            if(size == 33)
+            if (size == 33)
             {
                 unsigned short startOff = buffer[0] * 32;
                 if (buffer[0] < 16)
@@ -183,10 +197,12 @@ void HIDDMXDevice::outputDMX(const QByteArray &universe, bool forceWrite)
         int startOff = i * 32;
         if (startOff >= universe.size())
             return;
+
         QByteArray chunk = universe.mid(startOff, 32);
         if (chunk.size() < 32)
             chunk.append(QByteArray(32 - chunk.size(), (char)0x0));
-        if(forceWrite == true || chunk != m_dmx_cmp.mid(startOff, 32))
+
+        if (forceWrite == true || chunk != m_dmx_cmp.mid(startOff, 32))
         {
             /** Save different data to m_dmx_cmp */
             m_dmx_cmp.replace(startOff, 32, chunk);
@@ -214,6 +230,8 @@ void HIDDMXDevice::updateMode()
         driver_mode += 2;
     if (m_mode & DMX_MODE_INPUT)
         driver_mode += 4;
+    if (m_mode & DMX_MODE_MERGER)
+        driver_mode += 1;
 
     unsigned char buffer[34];
 

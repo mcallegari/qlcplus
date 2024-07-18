@@ -59,7 +59,7 @@
   <Capability Min="81" Max="100">3 color fade</Capability>
   <Capability Min="101" Max="120">Sound active color fade</Capability>
   <Capability Min="121" Max="140">Sound active color change</Capability>
-  <Capability Min="141" Max="244">Nothing</Capability>
+  <Capability Min="141" Max="255">Nothing</Capability>
  </Channel>
  <Channel Name="Program Speed/Sound Sense">
   <Group Byte="0">Speed</Group>

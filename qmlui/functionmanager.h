@@ -69,6 +69,8 @@ class FunctionManager : public QObject
     Q_PROPERTY(QStringList pictureExtensions READ pictureExtensions CONSTANT)
     Q_PROPERTY(QStringList videoExtensions READ videoExtensions CONSTANT)
 
+    Q_PROPERTY(bool previewEnabled READ previewEnabled WRITE setPreviewEnabled NOTIFY previewEnabledChanged)
+
 public:
     FunctionManager(QQuickView *view, Doc *doc, QObject *parent = 0);
     ~FunctionManager();
@@ -103,8 +105,16 @@ public:
     QString searchFilter() const;
     void setSearchFilter(QString searchFilter);
 
-    /** Create a new Function with the specified $type */
-    Q_INVOKABLE quint32 createFunction(int type, QStringList fileList = QStringList());
+    /** Create a new Function with the specified $type
+      * If the optional fixturesList is provided, fixture IDs
+      * will be added to the Function where possible.
+      */
+    Q_INVOKABLE quint32 createFunction(int type, QVariantList fixturesList = QVariantList());
+
+    /** Create a new Audio/Video Function for each
+     *  file path provided in fileList.
+     */
+    Q_INVOKABLE quint32 createAudioVideoFunction(int type, QStringList fileList = QStringList());
 
     /** Return a reference to a Function with the specified $id */
     Q_INVOKABLE Function *getFunction(quint32 id);
@@ -115,7 +125,8 @@ public:
     Q_INVOKABLE QString functionPath(quint32 id);
 
     /** Enable/disable the Function preview feature */
-    Q_INVOKABLE void setPreview(bool enable);
+    bool previewEnabled() const;
+    void setPreviewEnabled(bool enable);
 
     /** Add $fID to the list of the currently selected Function IDs,
      *  considering $multiSelection as an append/replace action */
@@ -149,6 +160,10 @@ public:
      *  such as Functions, Fixtures, etc. as long as they have an ID.
      *  This happens AFTER a popup confirmation */
     Q_INVOKABLE void deleteEditorItems(QVariantList list);
+
+    /** Specific method to delete fixtures from the currently edited Sequence.
+     *  This happens AFTER a popup confirmation */
+    Q_INVOKABLE void deleteSequenceFixtures(QVariantList list);
 
     /** Rename the currently selected items (functions and/or folders)
      *  with the provided $newName.
@@ -198,6 +213,7 @@ signals:
     void audioCountChanged();
     void videoCountChanged();
     void selectedFunctionCountChanged(int count);
+    void previewEnabledChanged();
     void isEditingChanged(bool editing);
     void viewPositionChanged(int viewPosition);
 
@@ -217,6 +233,7 @@ private:
 
     /** Flag that hold if Functions preview is enabled or not */
     bool m_previewEnabled;
+
     /** List of the Function IDs currently selected
      *  and previewed, if preview is enabled */
     QVariantList m_selectedIDList;

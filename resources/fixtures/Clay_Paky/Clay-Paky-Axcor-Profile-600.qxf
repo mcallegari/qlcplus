@@ -16,17 +16,17 @@
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#ffffff">Empty position</Capability>
-  <Capability Min="11" Max="20" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#bf0000">Empty + Dark red</Capability>
-  <Capability Min="21" Max="31" Preset="ColorMacro" Res1="#ffffff">Dark red</Capability>
-  <Capability Min="32" Max="41">Dark red + Green</Capability>
-  <Capability Min="42" Max="52" Preset="ColorMacro" Res1="#00d800">Green</Capability>
-  <Capability Min="53" Max="62">Grenn + CRI</Capability>
+  <Capability Min="11" Max="20" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#8b0000">Empty + Dark red</Capability>
+  <Capability Min="21" Max="31" Preset="ColorMacro" Res1="#8b0000">Dark red</Capability>
+  <Capability Min="32" Max="41" Preset="ColorDoubleMacro" Res1="#8b0000" Res2="#00ff00">Dark red + Green</Capability>
+  <Capability Min="42" Max="52" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="53" Max="62">Green + CRI</Capability>
   <Capability Min="63" Max="73">CRI</Capability>
   <Capability Min="74" Max="83">CRI + Gold amber</Capability>
-  <Capability Min="84" Max="94">Gold amber</Capability>
-  <Capability Min="95" Max="105">Gold amber - Navy blue</Capability>
-  <Capability Min="106" Max="117">Navy blue</Capability>
-  <Capability Min="118" Max="127">Navy blue + Empty position</Capability>
+  <Capability Min="84" Max="94" Preset="ColorMacro" Res1="#ffd700">Gold amber</Capability>
+  <Capability Min="95" Max="105" Preset="ColorDoubleMacro" Res1="#ffd700" Res2="#000080">Gold amber - Navy blue</Capability>
+  <Capability Min="106" Max="117" Preset="ColorMacro" Res1="#000080">Navy blue</Capability>
+  <Capability Min="118" Max="127" Preset="ColorDoubleMacro" Res1="#000080" Res2="#ffffff">Navy blue + Empty position</Capability>
   <Capability Min="128" Max="255" Preset="ColorMacro" Res1="#af1f11">Continuous CCW Colour Wheel rotation (slow to fast)</Capability>
  </Channel>
  <Channel Name="Strobe">
@@ -53,7 +53,7 @@
  </Channel>
  <Channel Name="Animation Disc/Static Gobo Insertion">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="0">Animation Disc / Static Gobo out</Capability>
+  <Capability Min="0" Max="1">Animation Disc / Static Gobo out</Capability>
   <Capability Min="2" Max="255">Animation Disc / Static Gobo linear insertion</Capability>
  </Channel>
  <Channel Name="Animation Disc Rotation">

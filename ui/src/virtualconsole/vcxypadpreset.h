@@ -77,7 +77,6 @@ public:
     bool operator<(VCXYPadPreset const& right) const;
     static bool compare(VCXYPadPreset const* left, VCXYPadPreset const* right);
 
-protected:
     static QString typeToString(PresetType type);
     static PresetType stringToType(QString str);
 
