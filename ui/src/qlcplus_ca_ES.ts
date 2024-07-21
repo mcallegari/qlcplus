@@ -2288,13 +2288,13 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
         <location filename="fixturemanager.cpp" line="913"/>
         <source>Move channel group up...</source>
         <oldsource>Move group up...</oldsource>
-        <translation type="unfinished">Moure grup cap amunt...</translation>
+        <translation>Moure grup de canals cap amunt...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="919"/>
         <source>Move channel group down...</source>
         <oldsource>Move group down...</oldsource>
-        <translation type="unfinished">Moure grup cap avall...</translation>
+        <translation>Moure grup de canals cap avall...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="925"/>
@@ -6845,7 +6845,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcslider.cpp" line="1060"/>
         <source>Flash Function</source>
-        <translation type="unfinished"></translation>
+        <translation>Funció Flash</translation>
     </message>
 </context>
 <context>
@@ -7094,7 +7094,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="527"/>
         <source>Flash Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Botó Flash</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="550"/>
