@@ -497,12 +497,12 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
         else if (cmdList.at(1) == "REBOOT")
         {
             QProcess *rebootProcess = new QProcess();
-            rebootProcess->start("sudo", QStringList() << "shitdown" << "-r" << "now");
+            rebootProcess->start("sudo", QStringList() << "shutdown" << "-r" << "now");
         }
         else if (cmdList.at(1) == "HALT")
         {
             QProcess *haltProcess = new QProcess();
-            haltProcess->start("sudo", QStringList() << "shitdown" << "-h" << "now");
+            haltProcess->start("sudo", QStringList() << "shutdown" << "-h" << "now");
         }
     }
 #endif
