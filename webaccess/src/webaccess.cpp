@@ -769,7 +769,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
     {
         uchar value = cmdList[1].toInt();
         m_doc->inputOutputMap()->setGrandMasterValue(value);
-
+        return;
     }
     else if (cmdList[0] == "POLL")
         return;
