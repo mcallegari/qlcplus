@@ -184,7 +184,7 @@ bool RGBScript::evaluate()
         m_apiVersion = m_script.property("apiVersion").toInteger();
         if (m_apiVersion > 0)
         {
-            if (m_apiVersion == 2)
+            if (m_apiVersion >= 2)
                 return loadProperties();
             return true;
         }
@@ -249,7 +249,7 @@ int RGBScript::rgbMapStepCount(const QSize& size)
     }
 }
 
-void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
+void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, QVector<uint> &rawColors)
 {
     QMutexLocker engineLocker(s_engineMutex);
 
@@ -257,7 +257,18 @@ void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
         return;
 
     QScriptValueList args;
-    args << size.width() << size.height() << rgb << step;
+    if (m_apiVersion <= 2) {
+        args << size.width() << size.height() << rgb << step;
+    } else {
+        int accColors = acceptColors();
+        int rawColorCount = rawColors.count();
+        QScriptValue jsRawColors = s_engine->newArray(accColors);
+        for (int i = 0; i < rawColorCount && i < accColors; i++) {
+            jsRawColors.setProperty(i, QScriptValue(rawColors.at(i)));
+        }
+
+        args << size.width() << size.height() << rgb << step << jsRawColors;
+    }
     QScriptValue yarray = m_rgbMap.call(QScriptValue(), args);
 
     if (yarray.isError())

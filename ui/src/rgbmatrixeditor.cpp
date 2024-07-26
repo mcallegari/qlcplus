@@ -174,14 +174,32 @@ void RGBMatrixEditor::init()
     fillImageAnimationCombo();
 
     QPixmap pm(50, 26);
-    pm.fill(m_matrix->startColor());
-    m_startColorButton->setIcon(QIcon(pm));
+    pm.fill(m_matrix->getColor(0));
+    m_mtxColor1Button->setIcon(QIcon(pm));
 
-    if (m_matrix->endColor().isValid())
-        pm.fill(m_matrix->endColor());
+    if (m_matrix->getColor(1).isValid())
+        pm.fill(m_matrix->getColor(1));
     else
         pm.fill(Qt::transparent);
-    m_endColorButton->setIcon(QIcon(pm));
+    m_mtxColor2Button->setIcon(QIcon(pm));
+
+    if (m_matrix->getColor(2).isValid())
+        pm.fill(m_matrix->getColor(2));
+    else
+        pm.fill(Qt::transparent);
+    m_mtxColor3Button->setIcon(QIcon(pm));
+
+    if (m_matrix->getColor(3).isValid())
+        pm.fill(m_matrix->getColor(3));
+    else
+        pm.fill(Qt::transparent);
+    m_mtxColor4Button->setIcon(QIcon(pm));
+
+    if (m_matrix->getColor(4).isValid())
+        pm.fill(m_matrix->getColor(4));
+    else
+        pm.fill(Qt::transparent);
+    m_mtxColor5Button->setIcon(QIcon(pm));
 
     updateExtraOptions();
     updateSpeedDials();
@@ -202,12 +220,24 @@ void RGBMatrixEditor::init()
             this, SLOT(slotBlendModeChanged(int)));
     connect(m_controlModeCombo, SIGNAL(activated(int)),
             this, SLOT(slotControlModeChanged(int)));
-    connect(m_startColorButton, SIGNAL(clicked()),
-            this, SLOT(slotStartColorButtonClicked()));
-    connect(m_endColorButton, SIGNAL(clicked()),
-            this, SLOT(slotEndColorButtonClicked()));
-    connect(m_resetEndColorButton, SIGNAL(clicked()),
-            this, SLOT(slotResetEndColorButtonClicked()));
+    connect(m_mtxColor1Button, SIGNAL(clicked()),
+            this, SLOT(slotMtxColor1ButtonClicked()));
+    connect(m_mtxColor2Button, SIGNAL(clicked()),
+            this, SLOT(slotMtxColor2ButtonClicked()));
+    connect(m_resetMtxColor2Button, SIGNAL(clicked()),
+            this, SLOT(slotResetMtxColor2ButtonClicked()));
+    connect(m_mtxColor3Button, SIGNAL(clicked()),
+            this, SLOT(slotMtxColor3ButtonClicked()));
+    connect(m_resetMtxColor3Button, SIGNAL(clicked()),
+            this, SLOT(slotResetMtxColor3ButtonClicked()));
+    connect(m_mtxColor4Button, SIGNAL(clicked()),
+            this, SLOT(slotMtxColor4ButtonClicked()));
+    connect(m_resetMtxColor4Button, SIGNAL(clicked()),
+            this, SLOT(slotResetMtxColor4ButtonClicked()));
+    connect(m_mtxColor5Button, SIGNAL(clicked()),
+            this, SLOT(slotMtxColor5ButtonClicked()));
+    connect(m_resetMtxColor5Button, SIGNAL(clicked()),
+            this, SLOT(slotResetMtxColor5ButtonClicked()));
     connect(m_textEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotTextEdited(const QString&)));
     connect(m_fontButton, SIGNAL(clicked()),
@@ -369,25 +399,76 @@ void RGBMatrixEditor::updateExtraOptions()
         int accColors = m_matrix->algorithm()->acceptColors();
         if (accColors == 0)
         {
-            m_startColorButton->hide();
-            m_endColorButton->hide();
-            m_resetEndColorButton->hide();
+            m_mtxColor1Button->hide();
+            m_mtxColor2Button->hide();
+            m_resetMtxColor2Button->hide();
+            m_mtxColor3Button->hide();
+            m_resetMtxColor3Button->hide();
+            m_mtxColor4Button->hide();
+            m_resetMtxColor4Button->hide();
+            m_mtxColor5Button->hide();
+            m_resetMtxColor5Button->hide();
             m_blendModeLabel->hide();
             m_blendModeCombo->hide();
         }
         else
         {
-            m_startColorButton->show();
+            m_mtxColor1Button->show();
 
             if (accColors == 1 || m_blendModeCombo->currentIndex() == Universe::MaskBlend)
             {
-                m_endColorButton->hide();
-                m_resetEndColorButton->hide();
+                m_mtxColor2Button->hide();
+                m_resetMtxColor2Button->hide();
+                m_mtxColor3Button->hide();
+                m_resetMtxColor3Button->hide();
+                m_mtxColor4Button->hide();
+                m_resetMtxColor4Button->hide();
+                m_mtxColor5Button->hide();
+                m_resetMtxColor5Button->hide();
             }
-            else // accColors > 1
+            else if (accColors == 2)
             {
-                m_endColorButton->show();
-                m_resetEndColorButton->show();
+                m_mtxColor2Button->show();
+                m_resetMtxColor2Button->show();
+                m_mtxColor3Button->hide();
+                m_resetMtxColor3Button->hide();
+                m_mtxColor4Button->hide();
+                m_resetMtxColor4Button->hide();
+                m_mtxColor5Button->hide();
+                m_resetMtxColor5Button->hide();
+            }
+            else if (accColors == 3)
+            {
+                m_mtxColor2Button->show();
+                m_resetMtxColor2Button->show();
+                m_mtxColor3Button->show();
+                m_resetMtxColor3Button->show();
+                m_mtxColor4Button->hide();
+                m_resetMtxColor4Button->hide();
+                m_mtxColor5Button->hide();
+                m_resetMtxColor5Button->hide();
+            }
+            else if (accColors == 4)
+            {
+                m_mtxColor2Button->show();
+                m_resetMtxColor2Button->show();
+                m_mtxColor3Button->show();
+                m_resetMtxColor3Button->show();
+                m_mtxColor4Button->show();
+                m_resetMtxColor4Button->show();
+                m_mtxColor5Button->hide();
+                m_resetMtxColor5Button->hide();
+            }
+            else
+            {
+                m_mtxColor2Button->show();
+                m_resetMtxColor2Button->show();
+                m_mtxColor3Button->show();
+                m_resetMtxColor3Button->show();
+                m_mtxColor4Button->show();
+                m_resetMtxColor4Button->show();
+                m_mtxColor5Button->show();
+                m_resetMtxColor5Button->show();
             }
             m_blendModeLabel->show();
             m_blendModeCombo->show();
@@ -404,56 +485,133 @@ void RGBMatrixEditor::updateColors()
         {
             if (m_matrix->blendMode() == Universe::MaskBlend)
             {
-                m_matrix->setStartColor(Qt::white);
-                m_matrix->setEndColor(QColor());
+                m_matrix->setColor(0, Qt::white);
+                // Overwrite more colors only if applied.
+                if (accColors <= 2)
+                    m_matrix->setColor(1, QColor());
+                if (accColors <= 3)
+                    m_matrix->setColor(2, QColor());
+                if (accColors <= 4)
+                    m_matrix->setColor(3, QColor());
+                if (accColors <= 5)
+                    m_matrix->setColor(4, QColor());
 
-                m_previewHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
+                m_previewHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1),
+                        m_matrix->algorithm());
 
                 QPixmap pm(50, 26);
                 pm.fill(Qt::white);
-                m_startColorButton->setIcon(QIcon(pm));
+                m_mtxColor1Button->setIcon(QIcon(pm));
+
+                pm.fill(Qt::transparent);
+                m_mtxColor2Button->setIcon(QIcon(pm));
+                m_mtxColor3Button->setIcon(QIcon(pm));
+                m_mtxColor4Button->setIcon(QIcon(pm));
+                m_mtxColor5Button->setIcon(QIcon(pm));
             }
             else if (m_controlModeCombo->currentIndex() != RGBMatrix::ControlModeRgb)
             {
-                // Convert startColor to grayscale for single color modes
-                uchar gray = qGray(m_matrix->startColor().rgb());
+                // Convert color 1 to grayscale for single color modes
+                uchar gray = qGray(m_matrix->getColor(0).rgb());
+                m_matrix->setColor(0, QColor(gray, gray, gray));
                 QPixmap pm(50, 26);
                 pm.fill(QColor(gray, gray, gray));
-                m_startColorButton->setIcon(QIcon(pm));
-                m_matrix->setStartColor(QColor(gray, gray, gray));
+                m_mtxColor1Button->setIcon(QIcon(pm));
 
-                if (accColors > 1)
+                // Convert color 2 and following to grayscale for single color modes
+                if (accColors < 2)
+                    m_matrix->setColor(1, QColor());
+                if (m_matrix->getColor(1) == QColor())
                 {
-                    // Convert endColor to grayscale for single color modes
-                    gray = qGray(m_matrix->endColor().rgb());
-                    m_matrix->setEndColor(QColor(gray, gray, gray));
-
-                    if (m_matrix->endColor() == QColor())
-                        pm.fill(Qt::transparent);
-                    else
-                        pm.fill(QColor(gray, gray, gray));
-
-                    m_endColorButton->setIcon(QIcon(pm));
+                    pm.fill(Qt::transparent);
                 }
-                m_previewHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
+                else
+                {
+                    gray = qGray(m_matrix->getColor(1).rgb());
+                    m_matrix->setColor(1, QColor(gray, gray, gray));
+                    pm.fill(QColor(gray, gray, gray));
+                }
+                m_mtxColor2Button->setIcon(QIcon(pm));
+
+                if (accColors < 3)
+                    m_matrix->setColor(2, QColor());
+                if (m_matrix->getColor(2) == QColor())
+                {
+                    pm.fill(Qt::transparent);
+                }
+                else
+                {
+                    gray = qGray(m_matrix->getColor(2).rgb());
+                    m_matrix->setColor(2, QColor(gray, gray, gray));
+                    pm.fill(QColor(gray, gray, gray));
+                }
+                m_mtxColor3Button->setIcon(QIcon(pm));
+
+                if (accColors < 4)
+                    m_matrix->setColor(3, QColor());
+                if (m_matrix->getColor(3) == QColor())
+                {
+                    pm.fill(Qt::transparent);
+                }
+                else
+                {
+                    gray = qGray(m_matrix->getColor(3).rgb());
+                    m_matrix->setColor(3, QColor(gray, gray, gray));
+                    pm.fill(QColor(gray, gray, gray));
+                }
+                m_mtxColor4Button->setIcon(QIcon(pm));
+
+                if (accColors < 5)
+                    m_matrix->setColor(4, QColor());
+                if (m_matrix->getColor(4) == QColor())
+                {
+                    pm.fill(Qt::transparent);
+                }
+                else
+                {
+                    gray = qGray(m_matrix->getColor(4).rgb());
+                    m_matrix->setColor(4, QColor(gray, gray, gray));
+                    pm.fill(QColor(gray, gray, gray));
+                }
+                m_mtxColor5Button->setIcon(QIcon(pm));
+
+                m_previewHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1),
+                        m_matrix->algorithm());
             }
             else 
             {
                 QPixmap pm(50, 26);
-                pm.fill(m_matrix->startColor());
-                m_startColorButton->setIcon(QIcon(pm));
+                pm.fill(m_matrix->getColor(0));
+                m_mtxColor1Button->setIcon(QIcon(pm));
 
-                if (accColors > 1)
-                {
-                    m_previewHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
+                // Preserve the colors (do not set them to QColor().
+                // RGBMatrixStep::calculateColorDelta will ensure correct color application
+                if (m_matrix->getColor(1) == QColor())
+                    pm.fill(Qt::transparent);
+                else
+                    pm.fill(m_matrix->getColor(1));
+                m_mtxColor2Button->setIcon(QIcon(pm));
 
-                    if (m_matrix->endColor() == QColor())
-                        pm.fill(Qt::transparent);
-                    else
-                        pm.fill(m_matrix->endColor());
+                if (m_matrix->getColor(2) == QColor())
+                    pm.fill(Qt::transparent);
+                else
+                    pm.fill(m_matrix->getColor(2));
+                m_mtxColor3Button->setIcon(QIcon(pm));
 
-                    m_endColorButton->setIcon(QIcon(pm));
-                }
+                if (m_matrix->getColor(3) == QColor())
+                    pm.fill(Qt::transparent);
+                else
+                    pm.fill(m_matrix->getColor(3));
+                m_mtxColor4Button->setIcon(QIcon(pm));
+
+                if (m_matrix->getColor(4) == QColor())
+                    pm.fill(Qt::transparent);
+                else
+                    pm.fill(m_matrix->getColor(4));
+                m_mtxColor5Button->setIcon(QIcon(pm));
+
+                m_previewHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1),
+                        m_matrix->algorithm());
             }
         }
     }
@@ -612,8 +770,9 @@ bool RGBMatrixEditor::createPreviewItems()
         return false;
     }
 
-    m_previewHandler->initializeDirection(m_matrix->direction(), m_matrix->startColor(),
-                                          m_matrix->endColor(), m_matrix->stepsCount());
+    m_previewHandler->initializeDirection(m_matrix->direction(), m_matrix->getColor(0),
+                                      m_matrix->getColor(1), m_matrix->stepsCount(),
+                                      m_matrix->algorithm());
 
     m_matrix->previewMap(m_previewHandler->currentStepIndex(), m_previewHandler);
 
@@ -669,8 +828,8 @@ void RGBMatrixEditor::slotPreviewTimeout()
     uint elapsed = 0;
     while (m_previewIterator >= MAX(m_matrix->duration(), MasterTimer::tick()))
     {
-        m_previewHandler->checkNextStep(m_matrix->runOrder(), m_matrix->startColor(),
-                                        m_matrix->endColor(), m_matrix->stepsCount());
+        m_previewHandler->checkNextStep(m_matrix->runOrder(), m_matrix->getColor(0),
+                                        m_matrix->getColor(1), m_matrix->stepsCount());
 
         m_matrix->previewMap(m_previewHandler->currentStepIndex(), m_previewHandler);
 
@@ -725,10 +884,23 @@ void RGBMatrixEditor::slotPatternActivated(int patternIndex)
 {
     QString algoName = m_patternCombo->itemText(patternIndex);
     RGBAlgorithm *algo = RGBAlgorithm::algorithm(m_doc, algoName);
-    if (algo != NULL)
-        algo->setColors(m_matrix->startColor(), m_matrix->endColor());
     m_matrix->setAlgorithm(algo);
-    m_previewHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
+    if (algo != NULL) {
+        updateColors();
+#if (5 != RGBAlgorithmColorDisplayCount)
+#error "Further colors need to be displayed."
+#endif
+        QVector<QColor> colors = {
+                m_matrix->getColor(0),
+                m_matrix->getColor(1),
+                m_matrix->getColor(2),
+                m_matrix->getColor(3),
+                m_matrix->getColor(4)
+        };
+        algo->setColors(colors);
+        m_previewHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1),
+                m_matrix->algorithm());
+    }
     updateExtraOptions();
 
     slotRestartTest();
@@ -756,11 +928,11 @@ void RGBMatrixEditor::slotBlendModeChanged(int index)
 
     if (index == Universe::MaskBlend)
     {
-        m_startColorButton->setEnabled(false);
+        m_mtxColor1Button->setEnabled(false);
     }
     else
     {
-        m_startColorButton->setEnabled(true);
+        m_mtxColor1Button->setEnabled(true);
     }
     updateExtraOptions();
     updateColors();
@@ -775,32 +947,85 @@ void RGBMatrixEditor::slotControlModeChanged(int index)
     slotRestartTest();
 }
 
-void RGBMatrixEditor::slotStartColorButtonClicked()
+void RGBMatrixEditor::slotMtxColor1ButtonClicked()
 {
-    QColor col = QColorDialog::getColor(m_matrix->startColor());
+    QColor col = QColorDialog::getColor(m_matrix->getColor(0));
     if (col.isValid() == true)
     {
-        m_matrix->setStartColor(col);
+        m_matrix->setColor(0, col);
         updateColors();
         slotRestartTest();
     }
 }
 
-void RGBMatrixEditor::slotEndColorButtonClicked()
+void RGBMatrixEditor::slotMtxColor2ButtonClicked()
 {
-    QColor col = QColorDialog::getColor(m_matrix->endColor());
+    QColor col = QColorDialog::getColor(m_matrix->getColor(1));
     if (col.isValid() == true)
     {
-        m_matrix->setEndColor(col);
+        m_matrix->setColor(1, col);
         updateColors();
         slotRestartTest();
     }
 }
 
-void RGBMatrixEditor::slotResetEndColorButtonClicked()
+void RGBMatrixEditor::slotResetMtxColor2ButtonClicked()
 {
-    m_matrix->setEndColor(QColor());
-    m_previewHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
+    m_matrix->setColor(1, QColor());
+    updateColors();
+    slotRestartTest();
+}
+
+void RGBMatrixEditor::slotMtxColor3ButtonClicked()
+{
+    QColor col = QColorDialog::getColor(m_matrix->getColor(2));
+    if (col.isValid() == true)
+    {
+        m_matrix->setColor(2, col);
+        updateColors();
+        slotRestartTest();
+    }
+}
+
+void RGBMatrixEditor::slotResetMtxColor3ButtonClicked()
+{
+    m_matrix->setColor(2, QColor());
+    updateColors();
+    slotRestartTest();
+}
+
+void RGBMatrixEditor::slotMtxColor4ButtonClicked()
+{
+    QColor col = QColorDialog::getColor(m_matrix->getColor(3));
+    if (col.isValid() == true)
+    {
+        m_matrix->setColor(3, col);
+        updateColors();
+        slotRestartTest();
+    }
+}
+
+void RGBMatrixEditor::slotResetMtxColor4ButtonClicked()
+{
+    m_matrix->setColor(3, QColor());
+    updateColors();
+    slotRestartTest();
+}
+
+void RGBMatrixEditor::slotMtxColor5ButtonClicked()
+{
+    QColor col = QColorDialog::getColor(m_matrix->getColor(4));
+    if (col.isValid() == true)
+    {
+        m_matrix->setColor(4, col);
+        updateColors();
+        slotRestartTest();
+    }
+}
+
+void RGBMatrixEditor::slotResetMtxColor5ButtonClicked()
+{
+    m_matrix->setColor(4, QColor());
     updateColors();
     slotRestartTest();
 }
@@ -937,35 +1162,40 @@ void RGBMatrixEditor::slotOffsetSpinChanged()
 void RGBMatrixEditor::slotLoopClicked()
 {
     m_matrix->setRunOrder(Function::Loop);
-    m_previewHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
+    m_previewHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1),
+            m_matrix->algorithm());
     slotRestartTest();
 }
 
 void RGBMatrixEditor::slotPingPongClicked()
 {
     m_matrix->setRunOrder(Function::PingPong);
-    m_previewHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
+    m_previewHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1),
+            m_matrix->algorithm());
     slotRestartTest();
 }
 
 void RGBMatrixEditor::slotSingleShotClicked()
 {
     m_matrix->setRunOrder(Function::SingleShot);
-    m_previewHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
+    m_previewHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1),
+            m_matrix->algorithm());
     slotRestartTest();
 }
 
 void RGBMatrixEditor::slotForwardClicked()
 {
     m_matrix->setDirection(Function::Forward);
-    m_previewHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
+    m_previewHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1),
+            m_matrix->algorithm());
     slotRestartTest();
 }
 
 void RGBMatrixEditor::slotBackwardClicked()
 {
     m_matrix->setDirection(Function::Backward);
-    m_previewHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
+    m_previewHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1),
+            m_matrix->algorithm());
     slotRestartTest();
 }
 
@@ -1150,16 +1380,17 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
         int totalSteps = m_matrix->stepsCount();
         int increment = 1;
         int currentStep = 0;
-        m_previewHandler->setStepColor(m_matrix->startColor());
+        m_previewHandler->setStepColor(m_matrix->getColor(0));
 
         if (m_matrix->direction() == Function::Backward)
         {
             currentStep = totalSteps - 1;
             increment = -1;
-            if (m_matrix->endColor().isValid())
-                m_previewHandler->setStepColor(m_matrix->endColor());
+            if (m_matrix->getColor(1).isValid())
+                m_previewHandler->setStepColor(m_matrix->getColor(1));
         }
-        m_previewHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
+        m_previewHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1),
+                m_matrix->algorithm());
 
         if (m_matrix->runOrder() == RGBMatrix::PingPong)
             totalSteps = (totalSteps * 2) - 1;
@@ -1266,7 +1497,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
                 currentStep = totalSteps - 2;
                 increment = -1;
             }
-            m_previewHandler->updateStepColor(currentStep, m_matrix->startColor(), m_matrix->stepsCount());
+            m_previewHandler->updateStepColor(currentStep, m_matrix->getColor(0), m_matrix->stepsCount());
         }
 
         m_doc->addFunction(sequence);
