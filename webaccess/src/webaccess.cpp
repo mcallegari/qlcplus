@@ -913,6 +913,17 @@ void WebAccess::slotFunctionStopped(quint32 fid)
 bool WebAccess::sendFile(QHttpResponse *response, QString filename, QString contentType)
 {
     QFile resFile(filename);
+#if defined(WIN32) || defined(Q_OS_WIN)
+    // If coming from a Windows hack, restore a path like
+    // /c//tmp/pic.jpg back to C:\tmp\pic.jpg
+    if (resFile.exists() == false)
+    {
+        filename.remove(0, 1);
+        filename.replace("//", ":\\");
+        filename.replace('/', '\\');
+        resFile.setFileName(filename);
+    }
+#endif
     if (resFile.open(QIODevice::ReadOnly))
     {
         QByteArray resContent = resFile.readAll();
@@ -943,10 +954,20 @@ QString WebAccess::getWidgetBackgroundImage(VCWidget *widget)
     if (widget == NULL || widget->backgroundImage().isEmpty())
         return QString();
 
-    QString str = QString("background-image: url(%1); ").arg(widget->backgroundImage());
+    QString imgPath = widget->backgroundImage();
+#if defined(WIN32) || defined(Q_OS_WIN)
+    // Hack for Windows to cheat the browser
+    // Turn a path like C:\tmp\pic.jpg to /c//tmp/pic.jpg
+    if (imgPath.contains(':'))
+    {
+        imgPath.prepend('/');
+        imgPath.replace(':', '/');
+    }
+#endif
+    QString str = QString("background-image: url(%1); ").arg(imgPath);
     str += "background-position: center; ";
     str += "background-repeat: no-repeat; ";
-    //str += "background-size: cover; ";
+    str += "background-size: cover; "; // or contain
 
     return str;
 }
