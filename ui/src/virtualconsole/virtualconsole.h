@@ -26,6 +26,7 @@
 #include <QFrame>
 #include <QList>
 
+#include "vcscrollarea.h"
 #include "vcproperties.h"
 #include "doc.h"
 
@@ -34,7 +35,7 @@ class QXmlStreamWriter;
 class VirtualConsole;
 class QActionGroup;
 class QVBoxLayout;
-class QScrollArea;
+class VCScrollArea;
 class VCDockArea;
 class QKeyEvent;
 class QToolBar;
@@ -336,7 +337,7 @@ protected:
 
 protected:
     QVBoxLayout* m_contentsLayout;
-    QScrollArea* m_scrollArea;
+    VCScrollArea* m_scrollArea;
     VCFrame* m_contents;
     QHash <quint32, VCWidget *> m_widgetsMap;
 
@@ -363,6 +364,7 @@ signals:
      *********************************************************************/
 private:
     bool m_liveEdit;
+    bool m_keyboardScroll;
 
 public:
     /** Toggle Virtual Console live editting */
