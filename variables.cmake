@@ -13,6 +13,8 @@ add_definitions(-DUNICODE)
 set(APPNAME "Q Light Controller Plus")
 set(FXEDNAME "Fixture Definition Editor")
 
+option(qmlui "build QLC+5" OFF)
+
 if(ANDROID OR IOS)
     set(qmlui ON)
 endif()
@@ -482,7 +484,9 @@ if (UNIX AND NOT APPLE)
 
     if (${inUsr} EQUAL 0)
         set(QTLIBSDIR "${QT_INSTALL_LIBS}")
+        string(REPLACE "\n" "" QTLIBSDIR "${QTLIBSDIR}")
         set(QTPLUGINSDIR "${QT_INSTALL_PLUGINS}")
+        string(REPLACE "\n" "" QTPLUGINSDIR "${QTPLUGINSDIR}")
         string(REPLACE "/usr/" "" LIBSDIR "${QTLIBSDIR}")
         string(REPLACE "/usr/" "" PLUGINDIR "${QTPLUGINSDIR}/qlcplus")
         set(AUDIOPLUGINDIR "${PLUGINDIR}/audio")
@@ -508,4 +512,3 @@ elseif(NOT APPLE AND NOT IOS)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 endif()
-

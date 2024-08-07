@@ -39,7 +39,9 @@ Rectangle
         id: channelToolLoader
         z: 2
 
-        onValueChanged: simpleDesk.setValue(fixtureID, channelIndex, value)
+        onValueChanged: (fixtureID, channelIndex, value) => {
+            simpleDesk.setValue(fixtureID, channelIndex, value)
+        }
     }
 
     SplitView
@@ -86,7 +88,9 @@ Rectangle
                         padding: 0
                         model: simpleDesk.universesListModel
                         currValue: simpleDesk.universeFilter
-                        onValueChanged: simpleDesk.universeFilter = value
+                        onValueChanged: (value) => {
+                            simpleDesk.universeFilter = value
+                        }
                     }
 
                     // universe reset button
