@@ -36,15 +36,18 @@
 #include <QIcon>
 #include <QMenu>
 #include <QtGui>
+#include <QList>
 
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
 #include "qlcchannel.h"
+#include "qlccapability.h"
 #include "qlcfile.h"
 
 #include "createfixturegroup.h"
 #include "fixturegroupeditor.h"
 #include "fixturetreewidget.h"
+#include "genericdmxsource.h"
 #include "channelsselection.h"
 #include "addchannelsgroup.h"
 #include "fixturemanager.h"
@@ -72,9 +75,11 @@ FixtureManager* FixtureManager::s_instance = NULL;
  * Initialization
  *****************************************************************************/
 
-FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
+FixtureManager::FixtureManager(QTabWidget* parent, Doc* doc)
     : QWidget(parent)
+    , m_parent(parent)
     , m_doc(doc)
+    , m_highlightFixturesEnabled(false)
     , m_splitter(NULL)
     , m_fixtures_tree(NULL)
     , m_channel_groups_tree(NULL)
@@ -116,6 +121,9 @@ FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
     if (grpItem != NULL)
         grpItem->setExpanded(true);
 
+    connect(m_parent, SIGNAL(currentChanged(int)),
+            this, SLOT(slotParentTabChanged()));
+
     /* Connect fixture list change signals from the new document object */
     connect(m_doc, SIGNAL(fixtureRemoved(quint32)),
             this, SLOT(slotFixtureRemoved(quint32)));
@@ -151,6 +159,11 @@ FixtureManager::~FixtureManager()
     settings.setValue(SETTINGS_SPLITTER, m_splitter->saveState());
     FixtureManager::s_instance = NULL;
 
+    QHash<quint32, GenericDMXSource*>::iterator it;
+    for (it = m_fixtureToSourceMap.begin(); it != m_fixtureToSourceMap.end(); ++it) {
+        delete it.value();
+    }
+
     s_instance = NULL;
 }
 
@@ -160,8 +173,13 @@ FixtureManager* FixtureManager::instance()
 }
 
 /*****************************************************************************
- * Doc signal handlers
+ * Signal handlers
  *****************************************************************************/
+
+void FixtureManager::slotParentTabChanged()
+{
+    runHighlightFixtures();
+}
 
 void FixtureManager::slotFixtureRemoved(quint32 id)
 {
@@ -269,6 +287,8 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
             m_fadeConfigAction->setEnabled(true);
         else
             m_fadeConfigAction->setEnabled(false);
+
+        m_highlightFixturesAction->setEnabled(true);
     }
     else
     {
@@ -279,7 +299,10 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
         m_fadeConfigAction->setEnabled(false);
         m_groupAction->setEnabled(false);
         m_unGroupAction->setEnabled(false);
+        m_highlightFixturesAction->setEnabled(false);
     }
+
+    runHighlightFixtures();
 }
 
 void FixtureManager::slotFixtureGroupRemoved(quint32 id)
@@ -494,6 +517,128 @@ void FixtureManager::updateRDMView()
     m_remapAction->setEnabled(false);
 }
 
+void FixtureManager::runHighlightFixtures()
+{
+    QList<QTreeWidgetItem*> selectedFixtures = m_fixtures_tree->selectedItems();
+    QSet<quint32> selectedFixtureIds;
+    foreach (QTreeWidgetItem* item , selectedFixtures)
+    {
+        selectedFixtureIds.insert(item->data(KColumnName, PROP_ID).toUInt());
+    }
+
+    QSet<quint32> newlySelectedFixtureIds = selectedFixtureIds.subtract(m_lastSelectedFixtureIds);
+    QSet<quint32> deselectedFixtureIds = m_lastSelectedFixtureIds.subtract(selectedFixtureIds);
+
+    if (m_doc->mode() == Doc::Design && m_highlightFixturesEnabled && m_parent->currentIndex() == 0)
+    {
+        // Turn on all selected fixtures
+        QSet<quint32>::const_iterator it;
+        for (it = newlySelectedFixtureIds.constBegin(); it != newlySelectedFixtureIds.constEnd(); ++it)
+        {
+            highlightFixture(*it);
+        }
+
+        // Turn all deselected fixtures off
+        for (it = deselectedFixtureIds.constBegin(); it != deselectedFixtureIds.constEnd(); ++it)
+        {
+            unHighlightFixture(*it);
+        }
+    }
+    else
+    {
+        // Turn all fixtures off
+        QHash<quint32, GenericDMXSource*>::iterator it;
+        foreach(const quint32 &fixtureId, m_fixtureToSourceMap.keys())
+        {
+            unHighlightFixture(fixtureId);
+        }
+    }
+
+    m_lastSelectedFixtureIds = selectedFixtureIds;
+}
+
+void FixtureManager::highlightFixture(quint32 id)
+{
+    Fixture* fxi = m_doc->fixture(id);
+    if (fxi == NULL)
+        return;
+
+    GenericDMXSource* source = new GenericDMXSource(m_doc);
+    m_fixtureToSourceMap.insert(id, source);
+
+    // Set the color of every Fixture to white, pan en tilt to 127, shutter to open and intensity to 255
+    for (int i = 0; i < fxi->heads(); i++)
+    {
+        QLCFixtureHead head = fxi->head(i);
+
+        quint32 whiteChannel = head.channelNumber(QLCChannel::White, QLCChannel::MSB);
+        quint32 redChannel = head.channelNumber(QLCChannel::Red, QLCChannel::MSB);
+        quint32 greenChannel = head.channelNumber(QLCChannel::Green, QLCChannel::MSB);
+        quint32 blueChannel = head.channelNumber(QLCChannel::Blue, QLCChannel::MSB);
+
+        if (whiteChannel != QLCChannel::invalid())
+        {
+            source->set(fxi->id(), whiteChannel, 255);
+        }
+        else if (redChannel != QLCChannel::invalid() && greenChannel != QLCChannel::invalid() && blueChannel != QLCChannel::invalid())
+        {
+            source->set(fxi->id(), redChannel, 255);
+            source->set(fxi->id(), greenChannel, 255);
+            source->set(fxi->id(), blueChannel, 255);
+        }
+
+        quint32 panChannel = head.channelNumber(QLCChannel::Pan, QLCChannel::MSB);
+        if (panChannel != QLCChannel::invalid())
+        {
+            source->set(fxi->id(), panChannel, 127);
+        }
+
+        quint32 tiltChannel = head.channelNumber(QLCChannel::Tilt, QLCChannel::MSB);
+        if (tiltChannel != QLCChannel::invalid())
+        {
+            source->set(fxi->id(), tiltChannel, 127);
+        }
+
+        QLCFixtureMode* mode = fxi->fixtureMode();
+        foreach (quint32 shutter, head.shutterChannels())
+        {
+            QLCChannel *ch = mode->channel(shutter);
+            if (ch == NULL)
+                continue;
+
+            foreach (QLCCapability *cap, ch->capabilities())
+            {
+                if (cap->preset() == QLCCapability::ShutterOpen ||
+                    cap->preset() == QLCCapability::LampOn)
+                {
+                    source->set(fxi->id(), i, cap->middle());
+                    goto setIntensity;
+                }
+
+            }
+        }
+
+    setIntensity:
+        quint32 intensityChannel = head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
+        source->set(fxi->id(), intensityChannel, 255);
+    }
+
+    source->setOutputEnabled(true);
+}
+
+void FixtureManager::unHighlightFixture(quint32 id)
+{
+    Fixture* fxi = m_doc->fixture(id);
+    if (fxi == NULL)
+        return;
+
+    if  (!m_fixtureToSourceMap.contains(id))
+        return;
+
+    delete m_fixtureToSourceMap.value(id);
+    m_fixtureToSourceMap.remove(id);
+}
+
 void FixtureManager::fixtureSelected(quint32 id)
 {
     Fixture* fxi = m_doc->fixture(id);
@@ -504,11 +649,8 @@ void FixtureManager::fixtureSelected(quint32 id)
         createInfo();
 
     m_info->setText(QString("%1<BODY>%2</BODY></HTML>")
-                    .arg(fixtureInfoStyleSheetHeader())
-                    .arg(fxi->status()));
-
-    // Enable/disable actions
-    slotModeChanged(m_doc->mode());
+                        .arg(fixtureInfoStyleSheetHeader())
+                        .arg(fxi->status()));
 }
 
 void FixtureManager::fixtureGroupSelected(FixtureGroup* grp)
@@ -936,6 +1078,11 @@ void FixtureManager::initActions()
                                tr("Remap fixtures..."), this);
     connect(m_remapAction, SIGNAL(triggered(bool)),
             this, SLOT(slotRemap()));
+
+    m_highlightFixturesAction = new QAction(QIcon(":/lightning.png"),
+                                tr("Enable highlight fixtures..."), this);
+    connect(m_highlightFixturesAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotHighlightFixtures()));
 }
 
 void FixtureManager::updateGroupMenu()
@@ -985,6 +1132,7 @@ void FixtureManager::initToolBar()
     toolbar->addAction(m_importAction);
     toolbar->addAction(m_exportAction);
     toolbar->addAction(m_remapAction);
+    toolbar->addAction(m_highlightFixturesAction);
 
     QToolButton* btn = qobject_cast<QToolButton*> (toolbar->widgetForAction(m_groupAction));
     Q_ASSERT(btn != NULL);
@@ -1513,6 +1661,25 @@ void FixtureManager::slotRemap()
         return; // User pressed cancel
 
     updateView();
+}
+
+void FixtureManager::slotHighlightFixtures()
+{
+    if (m_highlightFixturesEnabled)
+    {
+        m_highlightFixturesAction->setIcon(QIcon(":/lightning.png"));
+        m_highlightFixturesAction->setIconText(tr("Enable highlight fixtures"));
+        m_highlightFixturesAction->setToolTip(tr("Enable highlight fixtures"));
+    }
+    else
+    {
+        m_highlightFixturesAction->setIcon(QIcon(":/lightning_off.png"));
+        m_highlightFixturesAction->setIconText(tr("Disable highlight fixtures"));
+        m_highlightFixturesAction->setToolTip(tr("Disable highlight fixtures"));
+    }
+
+    m_highlightFixturesEnabled = !m_highlightFixturesEnabled;
+    slotModeChanged(m_doc->mode());
 }
 
 void FixtureManager::slotUnGroup()

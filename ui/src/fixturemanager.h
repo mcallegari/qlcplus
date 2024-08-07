@@ -25,6 +25,7 @@
 #include "function.h"
 #include "fixture.h"
 #include "doc.h"
+#include "genericdmxsource.h"
 
 class QLCFixtureDefCache;
 class FixtureGroupEditor;
@@ -54,7 +55,7 @@ class FixtureManager : public QWidget
      * Initialization
      ********************************************************************/
 public:
-    FixtureManager(QWidget* parent, Doc* doc);
+    FixtureManager(QTabWidget* parent, Doc* doc);
     ~FixtureManager();
 
     /** Get the singleton instance */
@@ -65,9 +66,12 @@ private:
     static FixtureManager* s_instance;
 
     /********************************************************************
-     * Doc signal handlers
+     * Signal handlers
      ********************************************************************/
 public slots:
+    /** Callback for QTabWidget::currentChanged() signals */
+    void slotParentTabChanged();
+
     /** Callback for Doc::fixtureRemoved() signals */
     void slotFixtureRemoved(quint32 id);
 
@@ -87,7 +91,11 @@ public slots:
     void slotDocLoaded();
 
 private:
+    QTabWidget* m_parent;
     Doc* m_doc;
+    bool m_highlightFixturesEnabled;
+    QSet<quint32> m_lastSelectedFixtureIds;
+    QHash<quint32, GenericDMXSource*> m_fixtureToSourceMap;
 
     /********************************************************************
      * Data view
@@ -117,6 +125,15 @@ private:
 
     /** Construct the list view and data view */
     void initDataView();
+
+    /** Checks if any fixtures have to be highlighted */
+    void runHighlightFixtures();
+
+    /** Creates a GenericDmxSource and turns the fixture on */
+    void highlightFixture(quint32 id);
+
+    /** Turns the fixture off and removes the related GenericDmxSource */
+    void unHighlightFixture(quint32 id);
 
     /** Handle single fixture selection */
     void fixtureSelected(quint32 id);
@@ -199,6 +216,7 @@ private slots:
     void slotProperties();
     void slotFadeConfig();
     void slotRemap();
+    void slotHighlightFixtures();
     void slotUnGroup();
     void slotGroupSelected(QAction* action);
     void slotMoveGroupUp();
@@ -216,6 +234,7 @@ private:
     QAction* m_propertiesAction;
     QAction* m_fadeConfigAction;
     QAction* m_remapAction;
+    QAction* m_highlightFixturesAction;
     QAction* m_groupAction;
     QAction* m_unGroupAction;
     QAction* m_newGroupAction;
