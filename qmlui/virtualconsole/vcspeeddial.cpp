@@ -343,19 +343,21 @@ void VCSpeedDial::setFunctionSpeed(quint32 fid, int speedType, SpeedMultiplier a
 
 void VCSpeedDial::applyFunctionsTime()
 {
+    float factoredTime = m_currentTime * (m_multiplierCache[m_currentFactor] / 1000.0);
+
     for (const VCSpeedDialFunction &func : m_functions)
     {
         Function *function = m_doc->function(func.m_fId);
         if (function != NULL)
         {
             if (func.m_fadeInFactor != VCSpeedDial::None)
-                function->setFadeInSpeed(m_currentTime * (m_multiplierCache[func.m_fadeInFactor] / 1000.0));
+                function->setFadeInSpeed(factoredTime * (m_multiplierCache[func.m_fadeInFactor] / 1000.0));
 
             if (func.m_fadeOutFactor != VCSpeedDial::None)
-                function->setFadeOutSpeed(m_currentTime * (m_multiplierCache[func.m_fadeOutFactor] / 1000.0));
+                function->setFadeOutSpeed(factoredTime * (m_multiplierCache[func.m_fadeOutFactor] / 1000.0));
 
             if (func.m_durationFactor != VCSpeedDial::None)
-                function->setDuration(m_currentTime * (m_multiplierCache[func.m_durationFactor] / 1000.0));
+                function->setDuration(factoredTime * (m_multiplierCache[func.m_durationFactor] / 1000.0));
         }
     }
 }
