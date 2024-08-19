@@ -12,8 +12,24 @@
  <Channel Name="Function" Default="255">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="15">Off</Capability>
-  <Capability Min="16" Max="60">Auto mode (5 values/mode)</Capability>
-  <Capability Min="61" Max="240">Sound mode (20 values/mode)</Capability>
+  <Capability Min="16" Max="20">Auto 01 (Color transition without white)</Capability>
+  <Capability Min="21" Max="25">Auto 02 (7 color fransition)</Capability>
+  <Capability Min="26" Max="30">Auto 03 (White)</Capability>
+  <Capability Min="31" Max="35">Auto 04 (Red)</Capability>
+  <Capability Min="36" Max="40">Auto 05 (Yellow)</Capability>
+  <Capability Min="41" Max="45">Auto 06 (Green)</Capability>
+  <Capability Min="46" Max="50">Auto 07 (Teal)</Capability>
+  <Capability Min="51" Max="55">Auto 08 (Blue)</Capability>
+  <Capability Min="56" Max="60">Auto 09 (Pink)</Capability>
+  <Capability Min="61" Max="80">Sound 01 (Color transition without white)</Capability>
+  <Capability Min="81" Max="100">Sound 02 (7 color transition)</Capability>
+  <Capability Min="101" Max="120">Sound 03 (White)</Capability>
+  <Capability Min="121" Max="140">Sound 04 (Red)</Capability>
+  <Capability Min="141" Max="160">Sound 05 (Yellow)</Capability>
+  <Capability Min="161" Max="180">Sound 06 (Green)</Capability>
+  <Capability Min="181" Max="200">Sound 07 (Teal)</Capability>
+  <Capability Min="201" Max="220">Sound 08 (Blue)</Capability>
+  <Capability Min="221" Max="240">Sound 09 (Pink)</Capability>
   <Capability Min="241" Max="255">Manual mode</Capability>
  </Channel>
  <Channel Name="Red laser">
@@ -55,7 +71,7 @@
   <Channel Number="6">Strobe</Channel>
  </Mode>
  <Physical>
-  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Bulb Type="RGB Laser" Lumens="0" ColourTemperature="0"/>
   <Dimensions Weight="3.04" Width="175" Height="140" Depth="270"/>
   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
