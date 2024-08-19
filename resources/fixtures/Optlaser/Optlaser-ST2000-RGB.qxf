@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.1</Version>
+  <Author>markp</Author>
+ </Creator>
+ <Manufacturer>Optlaser</Manufacturer>
+ <Model>ST2000-RGB</Model>
+ <Type>Laser</Type>
+ <Channel Name="Function" Default="255">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="15">Off</Capability>
+  <Capability Min="16" Max="60">Auto mode (5 values/mode)</Capability>
+  <Capability Min="61" Max="240">Sound mode (20 values/mode)</Capability>
+  <Capability Min="241" Max="255">Manual mode</Capability>
+ </Channel>
+ <Channel Name="Red laser">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red Colour Intensity</Capability>
+ </Channel>
+ <Channel Name="Green laser">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green Colour Intensity</Capability>
+ </Channel>
+ <Channel Name="Blue laser">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue Colour Intensity</Capability>
+ </Channel>
+ <Channel Name="Brightness">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer 0-100%</Capability>
+ </Channel>
+ <Channel Name="Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Clockwise (0 - fast)</Capability>
+  <Capability Min="128" Max="255">Anti-clockwise (0 - fast)</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10">Static</Capability>
+  <Capability Min="11" Max="255">Strobe (slow to fast)</Capability>
+ </Channel>
+ <Mode Name="7 channel">
+  <Channel Number="0">Function</Channel>
+  <Channel Number="1">Red laser</Channel>
+  <Channel Number="2">Green laser</Channel>
+  <Channel Number="3">Blue laser</Channel>
+  <Channel Number="4">Brightness</Channel>
+  <Channel Number="5">Rotation</Channel>
+  <Channel Number="6">Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.04" Width="175" Height="140" Depth="270"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="20" DmxConnector="3-pin IP65"/>
+ </Physical>
+</FixtureDefinition>
