@@ -49,6 +49,7 @@ class VCSpeedDial : public VCWidget
     Q_PROPERTY(uint timeMinimumValue READ timeMinimumValue WRITE setTimeMinimumValue NOTIFY timeMinimumValueChanged FINAL)
     Q_PROPERTY(uint timeMaximumValue READ timeMaximumValue WRITE setTimeMaximumValue NOTIFY timeMaximumValueChanged FINAL)
     Q_PROPERTY(uint currentTime READ currentTime WRITE setCurrentTime NOTIFY currentTimeChanged FINAL)
+    Q_PROPERTY(bool resetOnDialChange READ resetOnDialChange WRITE setResetOnDialChange NOTIFY resetOnDialChangeChanged FINAL)
     Q_PROPERTY(SpeedMultiplier currentFactor READ currentFactor WRITE setCurrentFactor NOTIFY currentFactorChanged FINAL)
 
     Q_PROPERTY(QVariant functionsList READ functionsList NOTIFY functionsListChanged)
@@ -156,15 +157,21 @@ public:
     uint currentTime() const;
     void setCurrentTime(uint newCurrentTime);
 
+    /* Get/Set a flag to reset multipliers on dial change */
+    bool resetOnDialChange() const;
+    void setResetOnDialChange(bool newResetOnDialChange);
+
 signals:
     void timeMinimumValueChanged();
     void timeMaximumValueChanged();
     void currentTimeChanged();
+    void resetOnDialChangeChanged();
 
 private:
     uint m_timeMinimumValue;
     uint m_timeMaximumValue;
     uint m_currentTime;
+    bool m_resetOnDialChange;
 
     /*********************************************************************
      * Speed factor
@@ -221,6 +228,7 @@ private:
     /*********************************************************************
      * External input
      *********************************************************************/
+
 public:
     /** @reimp */
     void updateFeedback();

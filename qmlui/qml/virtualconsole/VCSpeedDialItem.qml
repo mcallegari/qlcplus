@@ -39,11 +39,31 @@ VCWidgetItem
     property color activeColor: "green"
     property var speedLabels: [ "", "", "1/16", "1/8", "1/4", "1/2", "1", "2", "4", "8", "16" ]
 
+    property int currTime: speedObj ? speedObj.currentTime : 0
+
     clip: true
 
     onSpeedObjChanged:
     {
         setCommonProperties(speedObj)
+    }
+
+    onCurrTimeChanged:
+    {
+        var value = currTime
+        var h = Math.floor(value / 3600000);
+        value -= (h * 3600000);
+
+        var m = Math.floor(value / 60000);
+        value -= (m * 60000);
+
+        var s = Math.floor(value / 1000);
+        value -= (s * 1000);
+
+        hoursSpin.value = h
+        minutesSpin.value = m
+        secondsSpin.value = s
+        msSpin.value = value
     }
 
     function tap()
@@ -98,13 +118,35 @@ VCWidgetItem
         // row 1
         QLCPlusKnob
         {
-            Layout.columnSpan: 2
+            property int lastValue: 0
+
+            Layout.columnSpan: tapButton.visible ? 4 : 6
             Layout.rowSpan: 2
             Layout.fillWidth: true
             Layout.fillHeight: true
             visible: speedObj ? speedObj.visibilityMask & VCSpeedDial.Dial : false
             drawOuterLevel: false
+            from: 0
+            to: 1000
             wrap: true
+            
+            onMoved: 
+            {
+                if (speedObj)
+                {
+                    var diff = value - lastValue
+                    var THRESHOLD = 50
+
+                    // handle wrapping
+                    if (diff > THRESHOLD)
+                        diff = -stepSize;
+                    else if (diff < (-THRESHOLD))
+                        diff = stepSize;
+
+                    lastValue = value
+                    speedObj.currentTime += diff
+                }
+            }
         }
 
         GenericButton
@@ -188,6 +230,43 @@ VCWidgetItem
                     speedRoot.tap()
                 }
             }
+        }
+
+        CustomSpinBox
+        {
+            id: hoursSpin
+            Layout.fillWidth: true
+            visible: speedObj ? speedObj.visibilityMask & VCSpeedDial.Hours : false
+            from: 0
+            to: 999
+            suffix: "h"
+        }
+        CustomSpinBox
+        {
+            id: minutesSpin
+            Layout.fillWidth: true
+            visible: speedObj ? speedObj.visibilityMask & VCSpeedDial.Minutes : false
+            from: 0
+            to: 59
+            suffix: "m"
+        }
+        CustomSpinBox
+        {
+            id: secondsSpin
+            Layout.fillWidth: true
+            visible: speedObj ? speedObj.visibilityMask & VCSpeedDial.Seconds : false
+            from: 0
+            to: 59
+            suffix: "s"
+        }
+        CustomSpinBox
+        {
+            id: msSpin
+            Layout.fillWidth: true
+            visible: speedObj ? speedObj.visibilityMask & VCSpeedDial.Milliseconds : false
+            from: 0
+            to: 999
+            suffix: "ms"
         }
 
         // row 2

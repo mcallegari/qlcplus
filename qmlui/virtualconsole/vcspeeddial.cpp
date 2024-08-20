@@ -44,6 +44,8 @@ VCSpeedDial::VCSpeedDial(Doc *doc, QObject *parent)
     , m_visibilityMask(Tap | Beats | Multipliers)
     , m_timeMinimumValue(0)
     , m_timeMaximumValue(1000 * 10)
+    , m_currentTime(0)
+    , m_resetOnDialChange(false)
     , m_currentFactor(One)
 {
     setType(VCWidget::SpeedWidget);
@@ -225,9 +227,23 @@ void VCSpeedDial::setCurrentTime(uint newCurrentTime)
     emit currentTimeChanged();
 }
 
+bool VCSpeedDial::resetOnDialChange() const
+{
+    return m_resetOnDialChange;
+}
+
+void VCSpeedDial::setResetOnDialChange(bool newResetOnDialChange)
+{
+    if (m_resetOnDialChange == newResetOnDialChange)
+        return;
+
+    m_resetOnDialChange = newResetOnDialChange;
+    emit resetOnDialChangeChanged();
+}
+
 /*********************************************************************
-     * Speed factor
-     *********************************************************************/
+ * Speed factor
+ *********************************************************************/
 
 VCSpeedDial::SpeedMultiplier VCSpeedDial::currentFactor()
 {
@@ -482,6 +498,10 @@ bool VCSpeedDial::loadXML(QXmlStreamReader &root)
         {
             setCurrentTime(root.readElementText().toUInt());
         }
+        else if (root.name() == KXMLQLCVCSpeedDialResetFactorOnDialChange)
+        {
+            setResetOnDialChange(root.readElementText() == KXMLQLCTrue);
+        }
         else if (root.name() == KXMLQLCVCSpeedDialFunction)
         {
             QXmlStreamAttributes attrs = root.attributes();
@@ -541,6 +561,10 @@ bool VCSpeedDial::saveXML(QXmlStreamWriter *doc)
 
     /* Save time */
     doc->writeTextElement(KXMLQLCVCSpeedDialTime, QString::number(currentTime()));
+
+    /* Reset factor on dial change */
+    if (resetOnDialChange())
+        doc->writeTextElement(KXMLQLCVCSpeedDialResetFactorOnDialChange, KXMLQLCTrue);
 
     /* Absolute input */
     doc->writeStartElement(KXMLQLCVCSpeedDialAbsoluteValue);
