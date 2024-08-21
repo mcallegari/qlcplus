@@ -490,7 +490,7 @@ jobs:
           path: ${{matrix.task}}-${{env.OUTFILE}}
 
   build-macos:
-    runs-on: macos-13
+    runs-on: macos-12
     name: QLCplus macOS ${{matrix.task}}
     strategy:
       fail-fast: false
@@ -568,7 +568,7 @@ jobs:
         run: |-
           ${{ env.QTDIR }}/bin/macdeployqt ~/QLC+.app
   
-      - name: Fix mode deps
+      - name: Fix more deps
         shell: bash
         run: |-
           install_name_tool -change /usr/local/opt/fftw/lib/libfftw3.3.dylib @executable_path/../Frameworks/libfftw3.3.dylib ~/QLC+.app/Contents/MacOS/qlcplus
