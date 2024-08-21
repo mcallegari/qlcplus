@@ -533,7 +533,8 @@ jobs:
 
       - name: Dependencies
         run: | 
-          brew upgrade
+          brew update
+          brew link --overwrite python@3.12
           brew install fftw libftdi
     
       - name: Install Qt
