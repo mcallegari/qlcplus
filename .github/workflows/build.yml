@@ -535,7 +535,7 @@ jobs:
         run: | 
           brew update
           brew link --overwrite python@3.12
-          brew install fftw mad libftdi
+          brew install fftw mad libsndfile libftdi
     
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
