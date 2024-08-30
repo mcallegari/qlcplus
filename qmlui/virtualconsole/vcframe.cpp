@@ -300,7 +300,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             m_vc->addWidgetToMap(animation);
             Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
                                               Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, animation->id()));
-            animation->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
+            animation->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 60, m_vc->pixelDensity() * 45));
             setupWidget(animation, currentPage());
             animation->render(m_vc->view(), parent);
         }

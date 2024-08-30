@@ -22,6 +22,7 @@
 #include <QQmlEngine>
 
 #include "doc.h"
+#include "qlcmacros.h"
 #include "vcspeeddial.h"
 
 #define INPUT_DIAL_ID       0
@@ -404,6 +405,12 @@ void VCSpeedDial::slotInputValueChanged(quint8 id, uchar value)
     switch (id)
     {
         case INPUT_DIAL_ID:
+        {
+            int ms = static_cast<int> (SCALE(qreal(value), qreal(0), qreal(255),
+                                        qreal(timeMinimumValue()),
+                                        qreal(timeMaximumValue())));
+            setCurrentTime(ms);
+        }
         break;
         case INPUT_TAP_ID:
             if (m_item)
