@@ -48,6 +48,7 @@ FixtureSelection::FixtureSelection(QWidget* parent, Doc* doc)
                   FixtureTreeWidget::HeadsNumber |
                   FixtureTreeWidget::Manufacturer |
                   FixtureTreeWidget::Model |
+                  FixtureTreeWidget::AddressRange |
                   FixtureTreeWidget::ShowGroups;
 
     m_tree = new FixtureTreeWidget(m_doc, m_treeFlags, this);
