@@ -194,6 +194,24 @@ VCWidgetItem
             onClicked: if (sliderObj) sliderObj.isOverriding = false
         }
 
+        IconButton
+        {
+            visible: sliderObj ? sliderObj.adjustFlashEnabled : false
+            Layout.alignment: Qt.AlignHCenter
+            imgSource: "qrc:/flash.svg"
+            tooltip: qsTr("Flash the controlled Function")
+            onPressed:
+            {
+                if (sliderObj)
+                    sliderObj.flashFunction(true)
+            }
+            onReleased:
+            {
+                if (sliderObj)
+                    sliderObj.flashFunction(false)
+            }
+        }
+
         // Click & Go button
         IconButton
         {

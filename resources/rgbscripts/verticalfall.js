@@ -34,9 +34,10 @@ var testAlgo;
         util.width = 0;
         util.height = 0;
         util.color = 0xFF0000;
-        util.fallObject = new Array();
-        util.objYPos = new Array();
-        util.objmap = new Array();
+
+        var fallObject = new Array();
+        var objYPos = new Array();
+        var objmap = new Array();
 
         util.initialize = function(rgb, width, height)
         {

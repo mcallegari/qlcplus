@@ -148,12 +148,40 @@ void RDMManager::slotReadPID()
     }
 
     m_pidResult->clear();
+    QString args = m_pidArgsEdit->text().toLower();
+    bool ok;
 
-    if (m_pidArgsEdit->text().length())
+    if (args.length())
     {
-        QStringList argList = m_pidArgsEdit->text().split(",");
-        for (int i = 0; i < argList.count(); i++)
-            params.append(argList.at(i));
+        switch(m_dataTypeCombo->currentIndex())
+        {
+            case ByteArg:
+                params.append(uchar(1));
+                if (args.startsWith("0x"))
+                    params.append(uchar(args.mid(2).toUShort(&ok, 16)));
+                else
+                    params.append(uchar(args.toUShort()));
+            break;
+            case ShortArg:
+                params.append(uchar(2));
+                if (args.startsWith("0x"))
+                    params.append(args.mid(2).toUShort(&ok, 16));
+                else
+                    params.append(args.toShort());
+            break;
+            case LongArg:
+                params.append(uchar(4));
+                if (args.startsWith("0x"))
+                    params.append(quint32(args.mid(2).toULong(&ok, 16)));
+                else
+                    params.append(quint32(args.toULong()));
+            break;
+            case ArrayArg:
+                params.append(uchar(99));
+                foreach (QString arg, args.split(","))
+                    params.append(uchar(arg.toUShort(&ok, 16)));
+            break;
+        }
     }
 
     RDMWorker *wt = new RDMWorker(m_doc);
@@ -525,7 +553,7 @@ void RDMWorker::run()
                 args << UID;
                 args << info.dmxAddress; // actually the PID to read
                 for (QVariantMap::const_iterator it = info.params.begin(); it != info.params.end(); ++it)
-                    args << it.value().toUInt(); // add parameters
+                    args << it.value(); // add parameters
 
                 uchar command = info.dmxAddress < 0x04 ? DISCOVERY_COMMAND : GET_COMMAND;
                 bool result = m_plugin->sendRDMCommand(m_universe, m_line, command, args);
@@ -816,7 +844,7 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
             {
                 quint16 idx = m_requestList.takeFirst();
                 m_plugin->sendRDMCommand(m_universe, m_line, GET_COMMAND,
-                                       QVariantList() << UID << PID_DMX_PERSONALITY_DESCRIPTION << idx);
+                                         QVariantList() << UID << PID_DMX_PERSONALITY_DESCRIPTION << 1 << idx);
             }
             else
             {
@@ -830,7 +858,7 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
             {
                 quint16 slotId = m_requestList.takeFirst();
                 m_plugin->sendRDMCommand(m_universe, m_line, GET_COMMAND,
-                                         QVariantList() << UID << PID_SLOT_DESCRIPTION << slotId);
+                                         QVariantList() << UID << PID_SLOT_DESCRIPTION << 2 << slotId);
             }
             else
             {
@@ -846,7 +874,7 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
 
                 if (pid >= 0x8000)
                     m_plugin->sendRDMCommand(m_universe, m_line, GET_COMMAND,
-                                             QVariantList() << UID << PID_PARAMETER_DESCRIPTION << pid);
+                                             QVariantList() << UID << PID_PARAMETER_DESCRIPTION << 2 << pid);
                 else
                     m_plugin->sendRDMCommand(m_universe, m_line, GET_COMMAND,
                                              QVariantList() << UID << pid);

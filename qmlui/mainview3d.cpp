@@ -170,7 +170,8 @@ void MainView3D::resetItems()
         delete e->m_goboTexture;
         delete e->m_selectionBox;
         // delete e->m_rootItem; // TODO: with this -> segfault
-        e->m_rootItem->setProperty("enabled", false); // workaround for the above
+        if (e->m_rootItem)
+            e->m_rootItem->setProperty("enabled", false); // workaround for the above
         delete e;
     }
 
@@ -522,6 +523,7 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     if (fixture == nullptr)
         return;
 
+    QLCFixtureMode *fxMode = fixture->fixtureMode();
     QString meshPath = meshDirectory() + "fixtures" + QDir::separator();
     QString openGobo = goboDirectory() + QDir::separator() + "Others/open.svg";
     quint32 itemID = FixtureUtils::fixtureItemID(fxID, headIndex, linkedIndex);
@@ -550,6 +552,13 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
             return;
         }
         newItem->setProperty("headsNumber", fixture->heads());
+
+        if (fxMode != nullptr)
+        {
+            QLCPhysical phy = fxMode->physical();
+            if (phy.layoutSize() != QSize(1, 1))
+                newItem->setProperty("headsLayout", phy.layoutSize());
+        }
     }
     else if (fixture->type() == QLCFixtureDef::LEDBarPixels)
     {
@@ -566,6 +575,13 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
             return;
         }
         newItem->setProperty("headsNumber", fixture->heads());
+
+        if (fxMode != nullptr)
+        {
+            QLCPhysical phy = fxMode->physical();
+            if (phy.layoutSize() != QSize(1, 1))
+                newItem->setProperty("headsLayout", phy.layoutSize());
+        }
     }
     else
     {
@@ -1161,7 +1177,8 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
     }
 
     quint32 masterDimmerChannel = fixture->masterIntensityChannel();
-    qreal masterDimmerValue = qreal(fixture->channelValueAt(int(masterDimmerChannel))) / 255.0;
+    qreal masterDimmerValue = masterDimmerChannel != QLCChannel::invalid() ?
+                              qreal(fixture->channelValueAt(int(masterDimmerChannel))) / 255.0 : 1.0;
 
     for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
     {
@@ -1170,8 +1187,13 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
             headDimmerChannel = masterDimmerChannel;
 
         qreal intensityValue = 1.0;
+        bool hasDimmer = false;
+
         if (headDimmerChannel != QLCChannel::invalid())
+        {
             intensityValue = qreal(fixture->channelValueAt(int(headDimmerChannel))) / 255.0;
+            hasDimmer = true;
+        }
 
         if (headDimmerChannel != masterDimmerChannel)
             intensityValue *= masterDimmerValue;
@@ -1182,7 +1204,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                 Q_ARG(QVariant, headIdx),
                 Q_ARG(QVariant, intensityValue));
 
-        color = FixtureUtils::headColor(fixture, headIdx);
+        color = FixtureUtils::headColor(fixture, hasDimmer, headIdx);
 
         QMetaObject::invokeMethod(fixtureItem, "setHeadRGBColor",
                                   Q_ARG(QVariant, headIdx),

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.2 GIT</Version>
+  <Author>Devsider</Author>
+ </Creator>
+ <Manufacturer>Shehds</Manufacturer>
+ <Model>2 Eyes 200W LED COB Cool Warm White</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Total Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="#1 Cool Light Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="#2 Cool Light Dimmer " Preset="IntensityDimmer"/>
+ <Channel Name="#1 Warm Light COB Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="#2 Warm Light COB Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Color macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="50">No function</Capability>
+  <Capability Min="51" Max="100">Color selection mode</Capability>
+  <Capability Min="101" Max="150">Jump mode</Capability>
+  <Capability Min="151" Max="200">Gradient mode</Capability>
+  <Capability Min="201" Max="250">Self-propelled mode</Capability>
+  <Capability Min="251" Max="255">Voice control mode</Capability>
+ </Channel>
+ <Channel Name="Effect Speed Slow =&gt; Fast">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Effect Speed Slow =&gt; Fast</Capability>
+ </Channel>
+ <Mode Name="4 Channel (d001)">
+  <Channel Number="0">#1 Cool Light Dimmer</Channel>
+  <Channel Number="1">#2 Cool Light Dimmer </Channel>
+  <Channel Number="2">#1 Warm Light COB Dimmer</Channel>
+  <Channel Number="3">#2 Warm Light COB Dimmer</Channel>
+ </Mode>
+ <Mode Name="8 Channel (a001)">
+  <Channel Number="0">Total Dimmer</Channel>
+  <Channel Number="1">#1 Cool Light Dimmer</Channel>
+  <Channel Number="2">#2 Cool Light Dimmer </Channel>
+  <Channel Number="3">#1 Warm Light COB Dimmer</Channel>
+  <Channel Number="4">#2 Warm Light COB Dimmer</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Color macro</Channel>
+  <Channel Number="7">Effect Speed Slow =&gt; Fast</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.4" Width="360" Height="260" Depth="240"/>
+  <Lens Name="Other" DegreesMin="60" DegreesMax="75"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="2" Height="1"/>
+  <Technical PowerConsumption="200" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

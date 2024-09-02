@@ -229,6 +229,7 @@ public:
     void addCustomControl(VCMatrixControl const& control);
     void resetCustomControls();
     QList<VCMatrixControl *> customControls() const;
+    QMap<quint32,QString> customControlsMap() const;
     QWidget *getWidget(VCMatrixControl* control) const;
 
 protected slots:

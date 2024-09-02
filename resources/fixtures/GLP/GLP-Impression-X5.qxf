@@ -1,0 +1,1611 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>Masatoshi Fujino</Author>
+ </Creator>
+ <Manufacturer>GLP</Manufacturer>
+ <Model>Impression X5</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan coarse" Default="128" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt coarse" Default="128" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Color (fixed)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">Colors adjustable via RGBW</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#ff0000">Color 01 - Red</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffaa00">Color 02 - Amber</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#ffde63">Color 03 - Warm Yellow</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#ffff00">Color 04 - Yellow</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#00ff00">Color 05 - Green</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#42eadd">Color 06 - Turquoise</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#55ffff">Color 07 - Cyan</Capability>
+  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#0000ff">Color 08 - Blue</Capability>
+  <Capability Min="72" Max="79" Preset="ColorMacro" Res1="#aaaaff">Color 09 - Lavender</Capability>
+  <Capability Min="80" Max="87" Preset="ColorMacro" Res1="#9f7694">Color 10 - Malve (Mauve)</Capability>
+  <Capability Min="88" Max="95" Preset="ColorMacro" Res1="#ff00ff">Color 11 - Magenta</Capability>
+  <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#ffaaff">Color 12 - Pink</Capability>
+  <Capability Min="104" Max="111" Preset="ColorMacro" Res1="#fffaf2">White - CTO 3200K</Capability>
+  <Capability Min="112" Max="119" Preset="ColorMacro" Res1="#ffffff">White 5600K</Capability>
+  <Capability Min="120" Max="127" Preset="ColorMacro" Res1="#f3fbff">White - CTB 7200K</Capability>
+  <Capability Min="128" Max="128" Preset="RotationStop">Rainbow Effect Stop</Capability>
+  <Capability Min="129" Max="223" Preset="RotationClockwiseSlowToFast">Rainbow Effect slow - fast</Capability>
+  <Capability Min="224" Max="255">Random colors slow - fast</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterClose">closed</Capability>
+  <Capability Min="5" Max="9" Preset="PulseSlowToFast">Single flash if value changed within the range 005 → 009</Capability>
+  <Capability Min="10" Max="39" Preset="PulseSlowToFast">Pulse slow → fast</Capability>
+  <Capability Min="40" Max="69" Preset="RampUpSlowToFast">Pulse opening slow → fast</Capability>
+  <Capability Min="70" Max="99" Preset="RampDownSlowToFast">Pulse closing slow → fast</Capability>
+  <Capability Min="100" Max="129" Preset="StrobeSlowToFast">Double flash slow → fast</Capability>
+  <Capability Min="130" Max="159" Preset="StrobeRandomSlowToFast">Strobe random pixel slow → fast</Capability>
+  <Capability Min="160" Max="199" Preset="StrobeRandomSlowToFast">Strobe random all slow → fast</Capability>
+  <Capability Min="200" Max="250" Preset="ShutterOpen">Strobe sync all pixels slow → fast</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="CTO">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">No CTO</Capability>
+  <Capability Min="8" Max="255">Continuous color temperature correction (ALL colors)</Capability>
+ </Channel>
+ <Channel Name="Special">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="3">Pattern Block 1 -&gt; channel 17</Capability>
+  <Capability Min="4" Max="7">Pattern Block 2 -&gt; channel 17</Capability>
+  <Capability Min="8" Max="99">No function</Capability>
+  <Capability Min="100" Max="149" Preset="ResetAll">PWM lower 582 Hz &gt; 600 Hz</Capability>
+  <Capability Min="150" Max="150">PWM (default) 600 Hz</Capability>
+  <Capability Min="151" Max="200">PWM higher 600 Hz &gt; 618 Hz</Capability>
+  <Capability Min="201" Max="249">No function</Capability>
+  <Capability Min="250" Max="255">RESET</Capability>
+ </Channel>
+ <Channel Name="Speed Pan / Tilt">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="1">Pan / Tilt movement speed from controller</Capability>
+  <Capability Min="2" Max="255">Pan / Tilt (slow - fast)</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Movement macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No macros</Capability>
+  <Capability Min="1" Max="1">PAN Size=1 Phase=0</Capability>
+  <Capability Min="2" Max="3">PAN Size=1 Phase=90</Capability>
+  <Capability Min="4" Max="5">PAN Size=1 Phase=180</Capability>
+  <Capability Min="6" Max="7">PAN Size=1 Phase=270</Capability>
+  <Capability Min="8" Max="9">PAN Size=2 Phase=0</Capability>
+  <Capability Min="10" Max="11">PAN Size=2 Phase=90</Capability>
+  <Capability Min="12" Max="13">PAN Size=2 Phase=180</Capability>
+  <Capability Min="14" Max="15">PAN Size=2 Phase=270</Capability>
+  <Capability Min="16" Max="17">PAN Size=3 Phase=0</Capability>
+  <Capability Min="18" Max="19">PAN Size=3 Phase=90</Capability>
+  <Capability Min="20" Max="21">PAN Size=3 Phase=180</Capability>
+  <Capability Min="22" Max="23">PAN Size=3 Phase=270</Capability>
+  <Capability Min="24" Max="25">PAN Size=4 Phase=0</Capability>
+  <Capability Min="26" Max="27">PAN Size=4 Phase=90</Capability>
+  <Capability Min="28" Max="29">PAN Size=4 Phase=180</Capability>
+  <Capability Min="30" Max="31">PAN Size=4 Phase=270</Capability>
+  <Capability Min="32" Max="33">TILT Size=1 Phase=0</Capability>
+  <Capability Min="34" Max="35">TILT Size=1 Phase=90</Capability>
+  <Capability Min="36" Max="37">TILT Size=1 Phase=180</Capability>
+  <Capability Min="38" Max="39">TILT Size=1 Phase=270</Capability>
+  <Capability Min="40" Max="41">TILT Size=2 Phase=0</Capability>
+  <Capability Min="42" Max="43">TILT Size=2 Phase=90</Capability>
+  <Capability Min="44" Max="45">TILT Size=2 Phase=180</Capability>
+  <Capability Min="46" Max="47">TILT Size=2 Phase=270</Capability>
+  <Capability Min="48" Max="49">TILT Size=3 Phase=0</Capability>
+  <Capability Min="50" Max="51">TILT Size=3 Phase=90</Capability>
+  <Capability Min="52" Max="53">TILT Size=3 Phase=180</Capability>
+  <Capability Min="54" Max="55">TILT Size=3 Phase=270</Capability>
+  <Capability Min="56" Max="57">TILT Size=4 Phase=0</Capability>
+  <Capability Min="58" Max="59">TILT Size=4 Phase=90</Capability>
+  <Capability Min="60" Max="61">TILT Size=4 Phase=180</Capability>
+  <Capability Min="62" Max="63">TILT Size=4 Phase=270</Capability>
+  <Capability Min="64" Max="65">PAN/TILT Size=1 Phase=0</Capability>
+  <Capability Min="66" Max="67">PAN/TILT Size=1 Phase=90</Capability>
+  <Capability Min="68" Max="69">PAN/TILT Size=1 Phase=180</Capability>
+  <Capability Min="70" Max="71">PAN/TILT Size=1 Phase=270</Capability>
+  <Capability Min="72" Max="73">PAN/TILT Size=2 Phase=0</Capability>
+  <Capability Min="74" Max="75">PAN/TILT Size=2 Phase=90</Capability>
+  <Capability Min="76" Max="77">PAN/TILT Size=2 Phase=180</Capability>
+  <Capability Min="78" Max="79">PAN/TILT Size=2 Phase=270</Capability>
+  <Capability Min="80" Max="81">PAN/TILT Size=3 Phase=0</Capability>
+  <Capability Min="82" Max="83">PAN/TILT Size=3 Phase=90</Capability>
+  <Capability Min="84" Max="85">PAN/TILT Size=3 Phase=180</Capability>
+  <Capability Min="86" Max="87">PAN/TILT Size=3 Phase=270</Capability>
+  <Capability Min="88" Max="89">PAN/TILT Size=4 Phase=0</Capability>
+  <Capability Min="90" Max="91">PAN/TILT Size=4 Phase=90</Capability>
+  <Capability Min="92" Max="93">PAN/TILT Size=4 Phase=180</Capability>
+  <Capability Min="94" Max="95">PAN/TILT Size=4 Phase=270</Capability>
+  <Capability Min="96" Max="97">PAN/TILT inverse Size=1 Phase=0</Capability>
+  <Capability Min="98" Max="99">PAN/TILT inverse Size=1 Phase=90</Capability>
+  <Capability Min="100" Max="101">PAN/TILT inverse Size=1 Phase=180</Capability>
+  <Capability Min="102" Max="103">PAN/TILT inverse Size=1 Phase=270</Capability>
+  <Capability Min="104" Max="105">PAN/TILT inverse Size=2 Phase=0</Capability>
+  <Capability Min="106" Max="107">PAN/TILT inverse Size=2 Phase=90</Capability>
+  <Capability Min="108" Max="109">PAN/TILT inverse Size=2 Phase=180</Capability>
+  <Capability Min="110" Max="111">PAN/TILT inverse Size=2 Phase=270</Capability>
+  <Capability Min="112" Max="113">PAN/TILT inverse Size=3 Phase=0</Capability>
+  <Capability Min="114" Max="115">PAN/TILT inverse Size=3 Phase=90</Capability>
+  <Capability Min="116" Max="117">PAN/TILT inverse Size=3 Phase=180</Capability>
+  <Capability Min="118" Max="119">PAN/TILT inverse Size=3 Phase=270</Capability>
+  <Capability Min="120" Max="121">PAN/TILT inverse Size=4 Phase=0</Capability>
+  <Capability Min="122" Max="123">PAN/TILT inverse Size=4 Phase=90</Capability>
+  <Capability Min="124" Max="125">PAN/TILT inverse Size=4 Phase=180</Capability>
+  <Capability Min="126" Max="127">PAN/TILT inverse Size=4 Phase=270</Capability>
+  <Capability Min="128" Max="129">CIRCLE Size=1 Phase=0</Capability>
+  <Capability Min="130" Max="131">CIRCLE Size=1 Phase=90</Capability>
+  <Capability Min="132" Max="133">CIRCLE Size=1 Phase=180</Capability>
+  <Capability Min="134" Max="135">CIRCLE Size=1 Phase=270</Capability>
+  <Capability Min="136" Max="137">CIRCLE Size=2 Phase=0</Capability>
+  <Capability Min="138" Max="139">CIRCLE Size=2 Phase=90</Capability>
+  <Capability Min="140" Max="141">CIRCLE Size=2 Phase=180</Capability>
+  <Capability Min="142" Max="143">CIRCLE Size=2 Phase=270</Capability>
+  <Capability Min="144" Max="145">CIRCLE Size=3 Phase=0</Capability>
+  <Capability Min="146" Max="147">CIRCLE Size=3 Phase=90</Capability>
+  <Capability Min="148" Max="149">CIRCLE Size=3 Phase=180</Capability>
+  <Capability Min="150" Max="151">CIRCLE Size=3 Phase=270</Capability>
+  <Capability Min="152" Max="153">CIRCLE Size=4 Phase=0</Capability>
+  <Capability Min="154" Max="155">CIRCLE Size=4 Phase=90</Capability>
+  <Capability Min="156" Max="157">CIRCLE Size=4 Phase=180</Capability>
+  <Capability Min="158" Max="159">CIRCLE Size=4 Phase=270</Capability>
+  <Capability Min="160" Max="161">CIRCLE inverse Size=1 Phase=0</Capability>
+  <Capability Min="162" Max="163">CIRCLE inverse Size=1 Phase=90</Capability>
+  <Capability Min="164" Max="165">CIRCLE inverse Size=1 Phase=180</Capability>
+  <Capability Min="166" Max="167">CIRCLE inverse Size=1 Phase=270</Capability>
+  <Capability Min="168" Max="169">CIRCLE inverse Size=2 Phase=0</Capability>
+  <Capability Min="170" Max="171">CIRCLE inverse Size=2 Phase=90</Capability>
+  <Capability Min="172" Max="173">CIRCLE inverse Size=2 Phase=180</Capability>
+  <Capability Min="174" Max="175">CIRCLE inverse Size=2 Phase=270</Capability>
+  <Capability Min="176" Max="177">CIRCLE inverse Size=3 Phase=0</Capability>
+  <Capability Min="178" Max="179">CIRCLE inverse Size=3 Phase=90</Capability>
+  <Capability Min="180" Max="181">CIRCLE inverse Size=3 Phase=180</Capability>
+  <Capability Min="182" Max="183">CIRCLE inverse Size=3 Phase=270</Capability>
+  <Capability Min="184" Max="185">CIRCLE inverse Size=4 Phase=0</Capability>
+  <Capability Min="186" Max="187">CIRCLE inverse Size=4 Phase=90</Capability>
+  <Capability Min="188" Max="189">CIRCLE inverse Size=4 Phase=180</Capability>
+  <Capability Min="190" Max="191">CIRCLE inverse Size=4 Phase=270</Capability>
+  <Capability Min="192" Max="193">LYING EIGHT Size=1 Phase=0</Capability>
+  <Capability Min="194" Max="195">LYING EIGHT Size=1 Phase=90</Capability>
+  <Capability Min="196" Max="197">LYING EIGHT Size=1 Phase=180</Capability>
+  <Capability Min="198" Max="199">LYING EIGHT Size=1 Phase=270</Capability>
+  <Capability Min="200" Max="201">LYING EIGHT Size=2 Phase=0</Capability>
+  <Capability Min="202" Max="203">LYING EIGHT Size=2 Phase=90</Capability>
+  <Capability Min="204" Max="205">LYING EIGHT Size=2 Phase=180</Capability>
+  <Capability Min="206" Max="207">LYING EIGHT Size=2 Phase=270</Capability>
+  <Capability Min="208" Max="209">LYING EIGHT Size=3 Phase=0</Capability>
+  <Capability Min="210" Max="211">LYING EIGHT Size=3 Phase=90</Capability>
+  <Capability Min="212" Max="213">LYING EIGHT Size=3 Phase=180</Capability>
+  <Capability Min="214" Max="215">LYING EIGHT Size=3 Phase=270</Capability>
+  <Capability Min="216" Max="217">LYING EIGHT Size=4 Phase=0</Capability>
+  <Capability Min="218" Max="219">LYING EIGHT Size=4 Phase=90</Capability>
+  <Capability Min="220" Max="221">LYING EIGHT Size=4 Phase=180</Capability>
+  <Capability Min="222" Max="223">LYING EIGHT Size=4 Phase=270</Capability>
+  <Capability Min="224" Max="225">RANDOM Size=1 Phase=0</Capability>
+  <Capability Min="226" Max="227">RANDOM Size=1 Phase=90</Capability>
+  <Capability Min="228" Max="229">RANDOM Size=1 Phase=180</Capability>
+  <Capability Min="230" Max="231">RANDOM Size=1 Phase=270</Capability>
+  <Capability Min="232" Max="233">RANDOM Size=2 Phase=0</Capability>
+  <Capability Min="234" Max="235">RANDOM Size=2 Phase=90</Capability>
+  <Capability Min="236" Max="237">RANDOM Size=2 Phase=180</Capability>
+  <Capability Min="238" Max="239">RANDOM Size=2 Phase=270</Capability>
+  <Capability Min="240" Max="241">RANDOM Size=3 Phase=0</Capability>
+  <Capability Min="242" Max="243">RANDOM Size=3 Phase=90</Capability>
+  <Capability Min="244" Max="245">RANDOM Size=3 Phase=180</Capability>
+  <Capability Min="246" Max="247">RANDOM Size=3 Phase=270</Capability>
+  <Capability Min="248" Max="249">RANDOM Size=4 Phase=0</Capability>
+  <Capability Min="250" Max="251">RANDOM Size=4 Phase=90</Capability>
+  <Capability Min="252" Max="253">RANDOM Size=4 Phase=180</Capability>
+  <Capability Min="254" Max="255">RANDOM Size=4 Phase=270</Capability>
+ </Channel>
+ <Channel Name="Pattern">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="2">No pattern</Capability>
+  <Capability Min="3" Max="253">250 pre-defined patterns</Capability>
+  <Capability Min="254" Max="255">Activate direct access to LED pattern</Capability>
+ </Channel>
+ <Channel Name="Pattern Byte 1">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Direct Access to Pattern of LED 1..8</Capability>
+ </Channel>
+ <Channel Name="Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="White fine" Preset="IntensityWhiteFine"/>
+ <Channel Name="Pattern (Compress-Mode)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="2">No pattern</Capability>
+  <Capability Min="3" Max="253">Pre-defined patterns</Capability>
+  <Capability Min="254" Max="255">Direct pattern access</Capability>
+ </Channel>
+ <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Zoom (Extended Mode)" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Pattern Byte 2">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Direct access to Pattern of LED 9..16</Capability>
+ </Channel>
+ <Channel Name="Pattern Byte 3">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Direct access to Pattern of LED 17..19</Capability>
+ </Channel>
+ <Channel Name="Control/Settings">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="11">idle</Capability>
+  <Capability Min="12" Max="13">iQ.Service connect</Capability>
+  <Capability Min="14" Max="19">No function</Capability>
+  <Capability Min="20" Max="21">Dimming curve: Soft (square) (3 sec.)</Capability>
+  <Capability Min="22" Max="23">Dimming curve: Linear (3 sec.)</Capability>
+  <Capability Min="24" Max="25">Dimming curve: S-curve (3 sec.)</Capability>
+  <Capability Min="26" Max="29">No function</Capability>
+  <Capability Min="30" Max="31">Display mode: Off (3 sec.)</Capability>
+  <Capability Min="32" Max="33">Display mode: Auto (3 sec.)</Capability>
+  <Capability Min="34" Max="35">Display mode: On (3 sec.)</Capability>
+  <Capability Min="36" Max="37">No function</Capability>
+  <Capability Min="38" Max="39">Display orientation: Auto (3 sec.)</Capability>
+  <Capability Min="40" Max="41">Display orientation: Normal (3 sec.)</Capability>
+  <Capability Min="42" Max="43">Display orientation: Inverted (3 sec.)</Capability>
+  <Capability Min="44" Max="45">No function</Capability>
+  <Capability Min="46" Max="47">No signal: Blackout (3 sec.)</Capability>
+  <Capability Min="48" Max="49">No signal: Hold (3 sec.)</Capability>
+  <Capability Min="50" Max="51">No signal: Play captured scene (3 sec.)</Capability>
+  <Capability Min="52" Max="53">No signal: Capture current scene (3 sec.)</Capability>
+  <Capability Min="54" Max="55">No function</Capability>
+  <Capability Min="56" Max="57">Fan mode: Minimum (3 sec.)</Capability>
+  <Capability Min="58" Max="59">Fan mode: Regulated (3 sec.)</Capability>
+  <Capability Min="60" Max="61">Fan mode: High (3 sec.)</Capability>
+  <Capability Min="62" Max="63">Fan mode: Medium (3 sec.)62</Capability>
+  <Capability Min="64" Max="65">Fan mode: Low (3 sec.)</Capability>
+  <Capability Min="66" Max="69">No function</Capability>
+  <Capability Min="70" Max="71">Pixel mirror: Off (3 sec.)</Capability>
+  <Capability Min="72" Max="73">Pixel mirror: x-mirror (3 sec.)</Capability>
+  <Capability Min="74" Max="75">Pixel mirror: y-mirror (3 sec.)</Capability>
+  <Capability Min="76" Max="77">Pixel mirror: x-y-mirror (3 sec.)</Capability>
+  <Capability Min="78" Max="79">Pixel rotation: Off (3 sec.)</Capability>
+  <Capability Min="80" Max="81">Pixel rotation: 60° (3 sec.)</Capability>
+  <Capability Min="82" Max="83">Pixel rotation 120° (3 sec.)</Capability>
+  <Capability Min="84" Max="85">Pixel rotation 180° (3 sec.)</Capability>
+  <Capability Min="86" Max="87">Pixel rotation 240° (3 sec.)</Capability>
+  <Capability Min="88" Max="89">Pixel rotation 300° (3 sec.)</Capability>
+  <Capability Min="90" Max="91">No function</Capability>
+  <Capability Min="92" Max="93">Position feedback: Off (3 sec.)</Capability>
+  <Capability Min="94" Max="95">Position feedback: On (3 sec.)</Capability>
+  <Capability Min="96" Max="97">No function</Capability>
+  <Capability Min="98" Max="99">Tilt inversion: Off (3 sec.)98</Capability>
+  <Capability Min="100" Max="101">Tilt inversion: On (3 sec.)</Capability>
+  <Capability Min="102" Max="103">Pan inversion: Off (3 sec.)</Capability>
+  <Capability Min="104" Max="105">Pan inversion: On (3 sec.)</Capability>
+  <Capability Min="106" Max="107">Tilt disable: Off (3 sec.)</Capability>
+  <Capability Min="108" Max="109">No function</Capability>
+  <Capability Min="110" Max="111">Tilt motor current disabled (3 sec.)</Capability>
+  <Capability Min="112" Max="113">Pan disable: Off (3 sec.)</Capability>
+  <Capability Min="114" Max="115">No function</Capability>
+  <Capability Min="116" Max="117">Pan motor current disabled (3 sec.)</Capability>
+  <Capability Min="118" Max="129">No function</Capability>
+  <Capability Min="130" Max="131">Performance: Fast (3 sec.)</Capability>
+  <Capability Min="132" Max="133">Performance: Normal (3 sec.)</Capability>
+  <Capability Min="134" Max="135">Performance: Smooth (3 sec.)</Capability>
+  <Capability Min="136" Max="137">No function</Capability>
+  <Capability Min="138" Max="139">White Point: 8000K (3 sec.)</Capability>
+  <Capability Min="140" Max="141">White Point: 6500K (3 sec.)</Capability>
+  <Capability Min="142" Max="143">White Point: 5600K (3 sec.)</Capability>
+  <Capability Min="144" Max="145">White Point: 4200K (3 sec.)</Capability>
+  <Capability Min="146" Max="147">White Point: 3200K (3 sec.)</Capability>
+  <Capability Min="148" Max="149">No function</Capability>
+  <Capability Min="150" Max="151">Sub module mode: Normal (3 sec.)</Capability>
+  <Capability Min="152" Max="153">Sub module mode: Independent (3 sec.)</Capability>
+  <Capability Min="154" Max="165">No function</Capability>
+  <Capability Min="166" Max="167">Color mode: RGB [1] (3 sec.)</Capability>
+  <Capability Min="168" Max="169">Color mode: RGBL [2] (3 sec.)</Capability>
+  <Capability Min="170" Max="171">Color mode: x;y [3] (3 sec.)</Capability>
+  <Capability Min="172" Max="181">No function</Capability>
+  <Capability Min="182" Max="183">iQ.Gamut: Full (3 sec.)</Capability>
+  <Capability Min="184" Max="185">iQ.Gamut: Rec. 2020 (3 sec.)</Capability>
+  <Capability Min="186" Max="187">iQ.Gamut: Rec. 706 (3 sec.)</Capability>
+  <Capability Min="188" Max="191">No function</Capability>
+  <Capability Min="192" Max="192">Hibernation Off (3 sec., fixture will reset)</Capability>
+  <Capability Min="193" Max="193">Hibernation On (3 sec.)</Capability>
+  <Capability Min="194" Max="195">No function</Capability>
+  <Capability Min="196" Max="197">Pan range: Normal (3 sec.)</Capability>
+  <Capability Min="198" Max="199">Pan range : Extended (3 sec.)</Capability>
+  <Capability Min="200" Max="201">No function</Capability>
+  <Capability Min="202" Max="203">Accessory: None</Capability>
+  <Capability Min="204" Max="205">Accessory: Egg crate</Capability>
+  <Capability Min="206" Max="207">Accessory: Snoot</Capability>
+  <Capability Min="208" Max="215">No function</Capability>
+  <Capability Min="216" Max="217">PWM Optimal (3 sec.)</Capability>
+  <Capability Min="218" Max="219">PWM High 1 (3 sec.)</Capability>
+  <Capability Min="220" Max="221">PWM High 2 (3 sec.)</Capability>
+  <Capability Min="222" Max="223">PWM Max. (3 sec.)</Capability>
+  <Capability Min="224" Max="229">No function</Capability>
+  <Capability Min="230" Max="232">Save as User Settings Preset 1 (3 sec.)</Capability>
+  <Capability Min="233" Max="235">Save as User Settings Preset 2 (3 sec.)</Capability>
+  <Capability Min="236" Max="237">Save as User Settings Preset 3 (3 sec.)</Capability>
+  <Capability Min="238" Max="239">Load User Settings Preset 1 (3 sec.)</Capability>
+  <Capability Min="240" Max="241">Load User Settings Preset 2 (3 sec.)</Capability>
+  <Capability Min="242" Max="243">Load User Settings Preset 3 (3 sec.)</Capability>
+  <Capability Min="244" Max="245">Load Settings Default</Capability>
+  <Capability Min="246" Max="249">No function</Capability>
+  <Capability Min="250" Max="251">Reset pan and tilt (3 sec.)</Capability>
+  <Capability Min="252" Max="253">Reset head (3 sec.)</Capability>
+  <Capability Min="254" Max="255">Reset ALL (3 sec.)</Capability>
+ </Channel>
+ <Channel Name="Accessory 1">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">Effect parameter 1</Capability>
+ </Channel>
+ <Channel Name="Accessory 2">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">Effect parameter 2</Capability>
+ </Channel>
+ <Channel Name="Lime" Preset="IntensityLime"/>
+ <Channel Name="Lime fine" Preset="IntensityLime"/>
+ <Channel Name="Color Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">open</Capability>
+  <Capability Min="10" Max="12" Preset="ColorMacro" Res1="#ffc8b4">Filter 004, Medium Bastard Amber</Capability>
+  <Capability Min="13" Max="15" Preset="ColorMacro" Res1="#ff4600">Filter 019, Fire</Capability>
+  <Capability Min="16" Max="18" Preset="ColorMacro" Res1="#ff6e46">Filter 025, Sunset Red</Capability>
+  <Capability Min="19" Max="21" Preset="ColorMacro" Res1="#e6003c">Filter 026, Bright Red</Capability>
+  <Capability Min="22" Max="24" Preset="ColorMacro" Res1="#ffa0b9">Filter 036, Medium Pink</Capability>
+  <Capability Min="25" Max="27" Preset="ColorMacro" Res1="#be0091">Filter 049, Medium Purple</Capability>
+  <Capability Min="28" Max="30" Preset="ColorMacro" Res1="#b46ef0">Filter 058, Lavender</Capability>
+  <Capability Min="31" Max="33" Preset="ColorMacro" Res1="#46b4f0">Filter 068, Sky Blue</Capability>
+  <Capability Min="34" Max="36" Preset="ColorMacro" Res1="#dcff64">Filter 088, Lime Green</Capability>
+  <Capability Min="37" Max="39" Preset="ColorMacro" Res1="#5adc5a">Filter 089, Moss Green</Capability>
+  <Capability Min="40" Max="42" Preset="ColorMacro" Res1="#00be00">Filter 090, Dark Yellow Green</Capability>
+  <Capability Min="43" Max="45" Preset="ColorMacro" Res1="#ffdc5f">Filter 102, Light Amber</Capability>
+  <Capability Min="46" Max="48" Preset="ColorMacro" Res1="#fceacc">Filter 103, Straw</Capability>
+  <Capability Min="49" Max="51" Preset="ColorMacro" Res1="#f00032">Filter 106, Primary Red</Capability>
+  <Capability Min="52" Max="54" Preset="ColorMacro" Res1="#ff8cbe">Filter 111, Dark Pink</Capability>
+  <Capability Min="55" Max="57" Preset="ColorMacro" Res1="#00ebc8">Filter 115, Peacock Blue</Capability>
+  <Capability Min="58" Max="60" Preset="ColorMacro" Res1="#b4faf5">Filter 117, Steel Blue</Capability>
+  <Capability Min="61" Max="63" Preset="ColorMacro" Res1="#00e1eb">Filter 118, Light Blue</Capability>
+  <Capability Min="64" Max="66" Preset="ColorMacro" Res1="#b4ff64">Filter 121, Filter Green</Capability>
+  <Capability Min="67" Max="69" Preset="ColorMacro" Res1="#78fa6e">Filter 122, Fern Green</Capability>
+  <Capability Min="70" Max="72" Preset="ColorMacro" Res1="#00dc78">Filter 124, Dark Green</Capability>
+  <Capability Min="73" Max="75" Preset="ColorMacro" Res1="#be009b">Filter 126, Mauve</Capability>
+  <Capability Min="76" Max="78" Preset="ColorMacro" Res1="#ff50b4">Filter 128, Bright Pink</Capability>
+  <Capability Min="79" Max="81" Preset="ColorMacro" Res1="#64fad2">Filter 131, Marine Blue</Capability>
+  <Capability Min="82" Max="84" Preset="ColorMacro" Res1="#00a0dc">Filter 132, Medium Blue</Capability>
+  <Capability Min="85" Max="87" Preset="ColorMacro" Res1="#faa873">Filter 134, Golden Amber</Capability>
+  <Capability Min="88" Max="90" Preset="ColorMacro" Res1="#ff5f00">Filter 135, Deep Golden Amber</Capability>
+  <Capability Min="91" Max="93" Preset="ColorMacro" Res1="#f0bee6">Filter 136, Pale Lavender</Capability>
+  <Capability Min="94" Max="96" Preset="ColorMacro" Res1="#c8b4e6">Filter 137, Special Lavender</Capability>
+  <Capability Min="97" Max="99" Preset="ColorMacro" Res1="#dcffa0">Filter 138, Pale Green</Capability>
+  <Capability Min="100" Max="102" Preset="ColorMacro" Res1="#87f0eb">Filter 140, Summer Blue</Capability>
+  <Capability Min="103" Max="105" Preset="ColorMacro" Res1="#00d2e6">Filter 141, Bright Blue</Capability>
+  <Capability Min="106" Max="108" Preset="ColorMacro" Res1="#64bed2">Filter 143, Pale Navy Blue</Capability>
+  <Capability Min="109" Max="111" Preset="ColorMacro" Res1="#fcb98c">Filter 147, Apricot</Capability>
+  <Capability Min="112" Max="114" Preset="ColorMacro" Res1="#ff507d">Filter 148, Bright Rose</Capability>
+  <Capability Min="115" Max="117" Preset="ColorMacro" Res1="#ffd2c1">Filter 152, Pale Gold</Capability>
+  <Capability Min="118" Max="120" Preset="ColorMacro" Res1="#ffd5cf">Filter 154, Pale Rose</Capability>
+  <Capability Min="121" Max="123" Preset="ColorMacro" Res1="#ff92a3">Filter 157, Pink</Capability>
+  <Capability Min="124" Max="126" Preset="ColorMacro" Res1="#fcded8">Filter 162, Bastard Amber</Capability>
+  <Capability Min="127" Max="129" Preset="ColorMacro" Res1="#ff3200">Filter 164, Flame Red</Capability>
+  <Capability Min="130" Max="132" Preset="ColorMacro" Res1="#5ac8eb">Filter 165, Daylight Blue</Capability>
+  <Capability Min="133" Max="135" Preset="ColorMacro" Res1="#fadcf0">Filter 169, Lilac Tint</Capability>
+  <Capability Min="136" Max="138" Preset="ColorMacro" Res1="#e6aadc">Filter 170, Deep Lavender</Capability>
+  <Capability Min="139" Max="141" Preset="ColorMacro" Res1="#00dcdc">Filter 172, Lagoon Blue</Capability>
+  <Capability Min="142" Max="144" Preset="ColorMacro" Res1="#a064e6">Filter 180, Dark Lavender</Capability>
+  <Capability Min="145" Max="147" Preset="ColorMacro" Res1="#f50000">Filter 182, Light Red</Capability>
+  <Capability Min="148" Max="150" Preset="ColorMacro" Res1="#be8cf0">Filter 194, Surprise Pink</Capability>
+  <Capability Min="151" Max="153" Preset="ColorMacro" Res1="#82aae6">Filter 197, Alice Blue</Capability>
+  <Capability Min="154" Max="156" Preset="ColorMacro" Res1="#c3e1fa">Filter 201, Full C.T. Blue</Capability>
+  <Capability Min="157" Max="159" Preset="ColorMacro" Res1="#d7f0ff">Filter 202, Half C.T. Blue</Capability>
+  <Capability Min="160" Max="162" Preset="ColorMacro" Res1="#ebfcff">lter 203, Quarter C.T. Blue</Capability>
+  <Capability Min="163" Max="165" Preset="ColorMacro" Res1="#fac387">Filter 204, Full C.T. Orange</Capability>
+  <Capability Min="166" Max="168" Preset="ColorMacro" Res1="#fcead6">Filter 206, Quartet C.T. Orange</Capability>
+  <Capability Min="169" Max="171" Preset="ColorMacro" Res1="#9bdcaf">Filter 219, Fluorescent Green</Capability>
+  <Capability Min="172" Max="174" Preset="ColorMacro" Res1="#fac3d7">Filter 247, Filter Minus Green</Capability>
+  <Capability Min="175" Max="177" Preset="ColorMacro" Res1="#ffe2e4">Filter 248, Half Minus Green</Capability>
+  <Capability Min="178" Max="180" Preset="ColorMacro" Res1="#cde6fa">Filter 281, Three Quarter C.T. Blue</Capability>
+  <Capability Min="181" Max="183" Preset="ColorMacro" Res1="#fccd94">Filter 285, Three Quarter C.T. Orange</Capability>
+  <Capability Min="184" Max="186" Preset="ColorMacro" Res1="#5ac8e1">Filter 352, Glacier Blue</Capability>
+  <Capability Min="187" Max="189" Preset="ColorMacro" Res1="#61e8e3">Filter 353, Lighter Blue</Capability>
+  <Capability Min="190" Max="192" Preset="ColorMacro" Res1="#ffdace">Filter 506, Madge</Capability>
+  <Capability Min="193" Max="195" Preset="ColorMacro" Res1="#ff7600">Filter 778, Millennium Gold</Capability>
+  <Capability Min="196" Max="198" Preset="ColorMacro" Res1="#ff3ca0">Filter 793, Vanity Fair</Capability>
+  <Capability Min="199" Max="201" Preset="ColorMacro" Res1="#a000be">Filter 798, Chrysalis Pink</Capability>
+  <Capability Min="202" Max="204">HSI scroll, stop at first color</Capability>
+  <Capability Min="205" Max="252">HSI scroll slow → fast</Capability>
+  <Capability Min="253" Max="255" Preset="ColorWheelIndex">HSI scroll, stop at current color</Capability>
+ </Channel>
+ <Channel Name="Color Temperature Control">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Open</Capability>
+  <Capability Min="10" Max="255">Fade through color temperatures of 10 000 K to 2 500 K stepless (interpolation)</Capability>
+ </Channel>
+ <Channel Name="CQC (Color Quality Control) / Saturation">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">HQ (high quality), saturated color</Capability>
+  <Capability Min="10" Max="117">Crossfade, saturated to unsaturated</Capability>
+  <Capability Min="118" Max="127">HQ (high quality), unsaturated color</Capability>
+  <Capability Min="128" Max="137">HO (high output), unsaturated color</Capability>
+  <Capability Min="138" Max="245">Crossfade, unsaturated to saturated</Capability>
+  <Capability Min="246" Max="255">HO (high output), saturated color</Capability>
+ </Channel>
+ <Channel Name="M/G shift">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Off (no correction)</Capability>
+  <Capability Min="10" Max="10">Full plus magenta +100%</Capability>
+  <Capability Min="11" Max="124">Plus magenta +99% → +1%</Capability>
+  <Capability Min="125" Max="140">Neutral / no correction</Capability>
+  <Capability Min="141" Max="254">Plus green +1% → +99%</Capability>
+  <Capability Min="255" Max="255">Full plus green +100%</Capability>
+ </Channel>
+ <Channel Name="Tungsten simulation">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Off</Capability>
+  <Capability Min="10" Max="19">Tungsten ACL 250W/28V</Capability>
+  <Capability Min="20" Max="29">Tungsten Blinder 650W/120V</Capability>
+  <Capability Min="30" Max="39">Tungsten 750W/80V</Capability>
+  <Capability Min="40" Max="49">Tungsten 1000W/240V</Capability>
+  <Capability Min="50" Max="59">Tungsten 1200W/240V</Capability>
+  <Capability Min="60" Max="69">Tungsten 2000W/230V</Capability>
+  <Capability Min="70" Max="79">Tungsten 2500W/230V</Capability>
+  <Capability Min="80" Max="89">Tungsten 5000W/230V</Capability>
+  <Capability Min="90" Max="120">No function (off)</Capability>
+  <Capability Min="121" Max="139">Off</Capability>
+  <Capability Min="140" Max="149">FX Tungsten ACL 250W/28V</Capability>
+  <Capability Min="150" Max="159">FX Tungsten Blinder 650W/120V</Capability>
+  <Capability Min="160" Max="169">FX Tungsten 750W/80V</Capability>
+  <Capability Min="170" Max="179">FX Tungsten 1000W/240V</Capability>
+  <Capability Min="180" Max="189">FX Tungsten 1200W/240V</Capability>
+  <Capability Min="190" Max="199">FX Tungsten 2000W/230V</Capability>
+  <Capability Min="200" Max="209">FX Tungsten 2500W/230V</Capability>
+  <Capability Min="210" Max="219">FX Tungsten 5000W/230V</Capability>
+  <Capability Min="220" Max="255">No function (off)</Capability>
+ </Channel>
+ <Channel Name="Mix priority">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">Main Module and Sub Module HTP(highest value takes priority)</Capability>
+  <Capability Min="10" Max="19">Main only (Main Module color takespriority)</Capability>
+  <Capability Min="20" Max="29">Sub only (Sub Module color takespriority)</Capability>
+  <Capability Min="30" Max="39">Main and Sub additive(Sub Module color value added toMain Module color value)</Capability>
+  <Capability Min="40" Max="49">Main minus Sub Module subtractive(Sub Module color value subtractedfrom Main)</Capability>
+  <Capability Min="50" Max="59">Sub Module minus main subtractive(Main Module color valuesubtracted from Sub Module)</Capability>
+  <Capability Min="60" Max="69">TrueColor 1: Main over Sub – snap</Capability>
+  <Capability Min="70" Max="79">TrueColor 2: Sub over Main – snap</Capability>
+  <Capability Min="80" Max="89">TrueColor 3: Main over Sub –crossfade</Capability>
+  <Capability Min="90" Max="99">TrueColor 4: Sub over Main –crossfade</Capability>
+  <Capability Min="100" Max="127">No function</Capability>
+  <Capability Min="128" Max="130">Main Module only</Capability>
+  <Capability Min="131" Max="190">Crossfading Main → HTP</Capability>
+  <Capability Min="191" Max="192">Main and Sub Modules (HTP)</Capability>
+  <Capability Min="193" Max="252">Crossfading HTP → Sub</Capability>
+  <Capability Min="253" Max="255">Sub Module only</Capability>
+ </Channel>
+ <Channel Name="Sub Intensity coarse" Preset="IntensityDimmer"/>
+ <Channel Name="Sub Intensity fine" Preset="IntensityDimmer"/>
+ <Channel Name="Sub Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterClose">closed</Capability>
+  <Capability Min="5" Max="9" Preset="PulseSlowToFast">Single flash if value changed within the range 005 → 009</Capability>
+  <Capability Min="10" Max="39" Preset="StrobeRandom">Pulse slow → fast</Capability>
+  <Capability Min="40" Max="69" Preset="StrobeRandom">Pulse opening slow → fast</Capability>
+  <Capability Min="70" Max="99" Preset="StrobeRandom">Pulse closing slow → fast</Capability>
+  <Capability Min="100" Max="129">Double flash slow → fast</Capability>
+  <Capability Min="130" Max="159" Preset="StrobeSlowToFast">Strobe random pixel slow → fast</Capability>
+  <Capability Min="160" Max="199" Preset="StrobeFreqRange" Res1="1" Res2="10">Strobe random all slow → fast</Capability>
+  <Capability Min="200" Max="250" Preset="ShutterOpen">Strobe sync all pixels slow → fast</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">open</Capability>
+ </Channel>
+ <Channel Name="Color macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Off (all pixels active)</Capability>
+  <Capability Min="10" Max="11">Static Pattern 01</Capability>
+  <Capability Min="12" Max="13">Static Pattern 02</Capability>
+  <Capability Min="14" Max="15">Static Pattern 03</Capability>
+  <Capability Min="16" Max="17">Static Pattern 04</Capability>
+  <Capability Min="18" Max="19">Static Pattern 05</Capability>
+  <Capability Min="20" Max="21">Static Pattern 06</Capability>
+  <Capability Min="22" Max="23">Static Pattern 07</Capability>
+  <Capability Min="24" Max="25">Static Pattern 08</Capability>
+  <Capability Min="26" Max="27">Static Pattern 09</Capability>
+  <Capability Min="28" Max="29">Static Pattern 10</Capability>
+  <Capability Min="30" Max="31">Static Pattern 11</Capability>
+  <Capability Min="32" Max="33">Static Pattern 12</Capability>
+  <Capability Min="34" Max="35">Static Pattern 13</Capability>
+  <Capability Min="36" Max="37">Static Pattern 14</Capability>
+  <Capability Min="38" Max="39">Static Pattern 15</Capability>
+  <Capability Min="40" Max="41">Static Pattern 16</Capability>
+  <Capability Min="42" Max="43">Static Pattern 17</Capability>
+  <Capability Min="44" Max="45">Static Pattern 18</Capability>
+  <Capability Min="46" Max="47">Static Pattern 19</Capability>
+  <Capability Min="48" Max="49">Static Pattern 20</Capability>
+  <Capability Min="50" Max="51">Static Pattern 21</Capability>
+  <Capability Min="52" Max="53">Static Pattern 22</Capability>
+  <Capability Min="54" Max="55">Static Pattern 23</Capability>
+  <Capability Min="56" Max="57">Static Pattern 24</Capability>
+  <Capability Min="58" Max="59">Static Pattern 25</Capability>
+  <Capability Min="60" Max="61">Static Pattern 26</Capability>
+  <Capability Min="62" Max="63">Static Pattern 27</Capability>
+  <Capability Min="64" Max="65">Static Pattern 28</Capability>
+  <Capability Min="66" Max="67">Static Pattern 29</Capability>
+  <Capability Min="68" Max="69">Static Pattern 30</Capability>
+  <Capability Min="70" Max="71">Static Pattern 31</Capability>
+  <Capability Min="72" Max="73">Static Pattern 32</Capability>
+  <Capability Min="74" Max="75">Static Pattern 33</Capability>
+  <Capability Min="76" Max="77">Static Pattern 34</Capability>
+  <Capability Min="78" Max="79">Static Pattern 35</Capability>
+  <Capability Min="80" Max="81">Static Pattern 36</Capability>
+  <Capability Min="82" Max="83">Static Pattern 37</Capability>
+  <Capability Min="84" Max="85">Static Pattern 38</Capability>
+  <Capability Min="86" Max="87">Static Pattern 39</Capability>
+  <Capability Min="88" Max="89">Static Pattern 40</Capability>
+  <Capability Min="90" Max="91">Static Pattern 41</Capability>
+  <Capability Min="92" Max="93">Static Pattern 42</Capability>
+  <Capability Min="94" Max="95">Static Pattern 43</Capability>
+  <Capability Min="96" Max="97">Static Pattern 44</Capability>
+  <Capability Min="98" Max="99">Static Pattern 45</Capability>
+  <Capability Min="100" Max="101">Static Pattern 46</Capability>
+  <Capability Min="102" Max="103">Static Pattern 47</Capability>
+  <Capability Min="104" Max="105">Static Pattern 48</Capability>
+  <Capability Min="106" Max="107">Static Pattern 49</Capability>
+  <Capability Min="108" Max="109">Static Pattern 50</Capability>
+  <Capability Min="110" Max="111">Static Pattern 51</Capability>
+  <Capability Min="112" Max="113">Static Pattern 52</Capability>
+  <Capability Min="114" Max="115">Static Pattern 53</Capability>
+  <Capability Min="116" Max="117">Static Pattern 54</Capability>
+  <Capability Min="118" Max="119">Static Pattern 55</Capability>
+  <Capability Min="120" Max="121">Static Pattern 56</Capability>
+  <Capability Min="122" Max="123">Static Pattern 57</Capability>
+  <Capability Min="124" Max="125">Static Pattern 58</Capability>
+  <Capability Min="126" Max="127">Static Pattern 59</Capability>
+  <Capability Min="128" Max="129">Dynamic Pattern 01</Capability>
+  <Capability Min="130" Max="131">Dynamic Pattern 02</Capability>
+  <Capability Min="132" Max="133">Dynamic Pattern 03</Capability>
+  <Capability Min="134" Max="135">Dynamic Pattern 04</Capability>
+  <Capability Min="136" Max="137">Dynamic Pattern 05</Capability>
+  <Capability Min="138" Max="139">Dynamic Pattern 06</Capability>
+  <Capability Min="140" Max="141">Dynamic Pattern 07</Capability>
+  <Capability Min="142" Max="143">Dynamic Pattern 08</Capability>
+  <Capability Min="144" Max="145">Dynamic Pattern 09</Capability>
+  <Capability Min="146" Max="147">Dynamic Pattern 10</Capability>
+  <Capability Min="148" Max="149">Dynamic Pattern 11</Capability>
+  <Capability Min="150" Max="151">Dynamic Pattern 12</Capability>
+  <Capability Min="152" Max="153">Dynamic Pattern 13</Capability>
+  <Capability Min="154" Max="155">Dynamic Pattern 14</Capability>
+  <Capability Min="156" Max="157">Dynamic Pattern 15</Capability>
+  <Capability Min="158" Max="159">Dynamic Pattern 16</Capability>
+  <Capability Min="160" Max="161">Dynamic Pattern 17</Capability>
+  <Capability Min="162" Max="163">Dynamic Pattern 18</Capability>
+  <Capability Min="164" Max="165">Dynamic Pattern 19</Capability>
+  <Capability Min="166" Max="167">Dynamic Pattern 20</Capability>
+  <Capability Min="168" Max="169">Dynamic Pattern 21</Capability>
+  <Capability Min="170" Max="171">Dynamic Pattern 22</Capability>
+  <Capability Min="172" Max="173">Dynamic Pattern 23</Capability>
+  <Capability Min="174" Max="175">Dynamic Pattern 24</Capability>
+  <Capability Min="176" Max="177">Dynamic Pattern 25</Capability>
+  <Capability Min="178" Max="179">Dynamic Pattern 26</Capability>
+  <Capability Min="180" Max="181">Dynamic Pattern 27</Capability>
+  <Capability Min="182" Max="183">Dynamic Pattern 28</Capability>
+  <Capability Min="184" Max="185">Dynamic Pattern 29</Capability>
+  <Capability Min="186" Max="187">Dynamic Pattern 30</Capability>
+  <Capability Min="188" Max="189">Dynamic Pattern 31</Capability>
+  <Capability Min="190" Max="191">Dynamic Pattern 32</Capability>
+  <Capability Min="192" Max="193">Dynamic Pattern 33</Capability>
+  <Capability Min="194" Max="195">Dynamic Pattern 34</Capability>
+  <Capability Min="196" Max="197">Dynamic Pattern 35</Capability>
+  <Capability Min="198" Max="199">Dynamic Pattern 36</Capability>
+  <Capability Min="200" Max="201">Dynamic Pattern 37</Capability>
+  <Capability Min="202" Max="203">Dynamic Pattern 38</Capability>
+  <Capability Min="204" Max="205">Dynamic Pattern 39</Capability>
+  <Capability Min="206" Max="207">Dynamic Pattern 40</Capability>
+  <Capability Min="208" Max="209">Dynamic Pattern 41</Capability>
+  <Capability Min="210" Max="211">Dynamic Pattern 42</Capability>
+  <Capability Min="212" Max="213">Dynamic Pattern 43</Capability>
+  <Capability Min="214" Max="215">Dynamic Pattern 44</Capability>
+  <Capability Min="216" Max="217">Dynamic Pattern 45</Capability>
+  <Capability Min="218" Max="219">Dynamic Pattern 46</Capability>
+  <Capability Min="220" Max="221">Dynamic Pattern 47</Capability>
+  <Capability Min="222" Max="223">Dynamic Pattern 48</Capability>
+  <Capability Min="224" Max="225">Dynamic Pattern 49</Capability>
+  <Capability Min="226" Max="227">Dynamic Pattern 50</Capability>
+  <Capability Min="228" Max="229">Special Pattern 01</Capability>
+  <Capability Min="230" Max="231">Special Pattern 02</Capability>
+  <Capability Min="232" Max="233">Special Pattern 03</Capability>
+  <Capability Min="234" Max="235">Special Pattern 04</Capability>
+  <Capability Min="236" Max="237">Special Pattern 05</Capability>
+  <Capability Min="238" Max="239">Special Pattern 06</Capability>
+  <Capability Min="240" Max="241">Special Pattern 07</Capability>
+  <Capability Min="242" Max="243">Special Pattern 08</Capability>
+  <Capability Min="244" Max="245">Special Pattern 09</Capability>
+  <Capability Min="246" Max="247">Special Pattern 10</Capability>
+  <Capability Min="248" Max="249">Special Pattern 11</Capability>
+  <Capability Min="250" Max="255">Random Pixel</Capability>
+ </Channel>
+ <Channel Name="Pattern step crossfading (from one step to next)">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">Off (no crossfading, Snap)</Capability>
+  <Capability Min="10" Max="127">Crossfading:Snap → min. Xfade → max. Xfade(fade in and fade out times areidentical)</Capability>
+  <Capability Min="128" Max="137">Off (no crossfading, Snap)</Capability>
+  <Capability Min="138" Max="255">Crossfading with tail:Snap → min. Xfade with tail → max.Xfade with tail(fade in time is shorter than fade outtime)</Capability>
+ </Channel>
+ <Channel Name="Pattern transition (from one pattern to next)">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">Off (snap from one pattern to next)</Capability>
+  <Capability Min="10" Max="63">Normal transition (snap → fade 5s)</Capability>
+  <Capability Min="64" Max="73">Off (snap from one pattern to next)</Capability>
+  <Capability Min="74" Max="127">FOB (Fade Over Blackout) transition(snap → fade 5s)</Capability>
+  <Capability Min="128" Max="137">Off (snap from one pattern to next)</Capability>
+  <Capability Min="138" Max="191">FOF (Fade Over Full) transition(snap → fade 5s)</Capability>
+  <Capability Min="192" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Red, pixel 0 1" Preset="IntensityRed"/>
+ <Channel Name="Red, pixel 0 2" Preset="IntensityRed"/>
+ <Channel Name="Red, pixel 0 3" Preset="IntensityRed"/>
+ <Channel Name="Red, pixel 0 4" Preset="IntensityRed"/>
+ <Channel Name="Red, pixel 0 5" Preset="IntensityRed"/>
+ <Channel Name="Red, pixel 0 6" Preset="IntensityRed"/>
+ <Channel Name="Red, pixel 0 7" Preset="IntensityRed"/>
+ <Channel Name="Red, pixel 0 8" Preset="IntensityRed"/>
+ <Channel Name="Red, pixel 0 9" Preset="IntensityRed"/>
+ <Channel Name="Red, pixel 0 10" Preset="IntensityRed"/>
+ <Channel Name="Red, pixel 0 11" Preset="IntensityRed"/>
+ <Channel Name="Red, pixel 0 12" Preset="IntensityRed"/>
+ <Channel Name="Red, pixel 0 13" Preset="IntensityRed"/>
+ <Channel Name="Red, pixel 0 14" Preset="IntensityRed"/>
+ <Channel Name="Red, pixel 0 15" Preset="IntensityRed"/>
+ <Channel Name="Red, pixel 0 16" Preset="IntensityRed"/>
+ <Channel Name="Red, pixel 0 17" Preset="IntensityRed"/>
+ <Channel Name="Red, pixel 0 18" Preset="IntensityRed"/>
+ <Channel Name="Red, pixel 0 19" Preset="IntensityRed"/>
+ <Channel Name="Green, pixel 0 1" Preset="IntensityGreen"/>
+ <Channel Name="Green, pixel 0 2" Preset="IntensityGreen"/>
+ <Channel Name="Green, pixel 0 3" Preset="IntensityGreen"/>
+ <Channel Name="Green, pixel 0 4" Preset="IntensityGreen"/>
+ <Channel Name="Green, pixel 0 5" Preset="IntensityGreen"/>
+ <Channel Name="Green, pixel 0 6" Preset="IntensityGreen"/>
+ <Channel Name="Green, pixel 0 7" Preset="IntensityGreen"/>
+ <Channel Name="Green, pixel 0 8" Preset="IntensityGreen"/>
+ <Channel Name="Green, pixel 0 9" Preset="IntensityGreen"/>
+ <Channel Name="Green, pixel 0 10" Preset="IntensityGreen"/>
+ <Channel Name="Green, pixel 0 11" Preset="IntensityGreen"/>
+ <Channel Name="Green, pixel 0 12" Preset="IntensityGreen"/>
+ <Channel Name="Green, pixel 0 13" Preset="IntensityGreen"/>
+ <Channel Name="Green, pixel 0 14" Preset="IntensityGreen"/>
+ <Channel Name="Green, pixel 0 15" Preset="IntensityGreen"/>
+ <Channel Name="Green, pixel 0 16" Preset="IntensityGreen"/>
+ <Channel Name="Green, pixel 0 17" Preset="IntensityGreen"/>
+ <Channel Name="Green, pixel 0 18" Preset="IntensityGreen"/>
+ <Channel Name="Green, pixel 0 19" Preset="IntensityGreen"/>
+ <Channel Name="Blue, pixel 0 1" Preset="IntensityBlue"/>
+ <Channel Name="Blue, pixel 0 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue, pixel 0 3" Preset="IntensityBlue"/>
+ <Channel Name="Blue, pixel 0 4" Preset="IntensityBlue"/>
+ <Channel Name="Blue, pixel 0 5" Preset="IntensityBlue"/>
+ <Channel Name="Blue, pixel 0 6" Preset="IntensityBlue"/>
+ <Channel Name="Blue, pixel 0 7" Preset="IntensityBlue"/>
+ <Channel Name="Blue, pixel 0 8" Preset="IntensityBlue"/>
+ <Channel Name="Blue, pixel 0 9" Preset="IntensityBlue"/>
+ <Channel Name="Blue, pixel 0 10" Preset="IntensityBlue"/>
+ <Channel Name="Blue, pixel 0 11" Preset="IntensityBlue"/>
+ <Channel Name="Blue, pixel 0 12" Preset="IntensityBlue"/>
+ <Channel Name="Blue, pixel 0 13" Preset="IntensityBlue"/>
+ <Channel Name="Blue, pixel 0 14" Preset="IntensityBlue"/>
+ <Channel Name="Blue, pixel 0 15" Preset="IntensityBlue"/>
+ <Channel Name="Blue, pixel 0 16" Preset="IntensityBlue"/>
+ <Channel Name="Blue, pixel 0 17" Preset="IntensityBlue"/>
+ <Channel Name="Blue, pixel 0 18" Preset="IntensityBlue"/>
+ <Channel Name="Blue, pixel 0 19" Preset="IntensityBlue"/>
+ <Channel Name="Lime, pixel 0 1" Preset="IntensityLime"/>
+ <Channel Name="Lime, pixel 0 2" Preset="IntensityLime"/>
+ <Channel Name="Lime, pixel 0 3" Preset="IntensityLime"/>
+ <Channel Name="Lime, pixel 0 4" Preset="IntensityLime"/>
+ <Channel Name="Lime, pixel 0 5" Preset="IntensityLime"/>
+ <Channel Name="Lime, pixel 0 6" Preset="IntensityLime"/>
+ <Channel Name="Lime, pixel 0 7" Preset="IntensityLime"/>
+ <Channel Name="Lime, pixel 0 8" Preset="IntensityLime"/>
+ <Channel Name="Lime, pixel 0 9" Preset="IntensityLime"/>
+ <Channel Name="Lime, pixel 0 10" Preset="IntensityLime"/>
+ <Channel Name="Lime, pixel 0 11" Preset="IntensityLime"/>
+ <Channel Name="Lime, pixel 0 12" Preset="IntensityLime"/>
+ <Channel Name="Lime, pixel 0 13" Preset="IntensityLime"/>
+ <Channel Name="Lime, pixel 0 14" Preset="IntensityLime"/>
+ <Channel Name="Lime, pixel 0 15" Preset="IntensityLime"/>
+ <Channel Name="Lime, pixel 0 16" Preset="IntensityLime"/>
+ <Channel Name="Lime, pixel 0 17" Preset="IntensityLime"/>
+ <Channel Name="Lime, pixel 0 18" Preset="IntensityLime"/>
+ <Channel Name="Lime, pixel 0 19" Preset="IntensityLime"/>
+ <Channel Name="Red, pixel 02-07" Preset="IntensityRed"/>
+ <Channel Name="Red, pixel 08-019" Preset="IntensityRed"/>
+ <Channel Name="Green pixel 02-07" Preset="IntensityGreen"/>
+ <Channel Name="Green, pixel 08-019" Preset="IntensityGreen"/>
+ <Channel Name="Blue pixel 02-07" Preset="IntensityBlue"/>
+ <Channel Name="Blue, pixel 08-019" Preset="IntensityBlue"/>
+ <Channel Name="Red, pixel 01-19" Preset="IntensityRed"/>
+ <Channel Name="Green, pixel 01-19" Preset="IntensityGreen"/>
+ <Channel Name="Blue, pixel 01-19" Preset="IntensityBlue"/>
+ <Channel Name="Pattern selection">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Off (all pixels active)</Capability>
+  <Capability Min="10" Max="11">Static Pattern 01</Capability>
+  <Capability Min="12" Max="13">Static Pattern 02</Capability>
+  <Capability Min="14" Max="15">Static Pattern 03</Capability>
+  <Capability Min="16" Max="17">Static Pattern 04</Capability>
+  <Capability Min="18" Max="19">Static Pattern 05</Capability>
+  <Capability Min="20" Max="21">Static Pattern 06</Capability>
+  <Capability Min="22" Max="23">Static Pattern 07</Capability>
+  <Capability Min="24" Max="25">Static Pattern 08</Capability>
+  <Capability Min="26" Max="27">Static Pattern 09</Capability>
+  <Capability Min="28" Max="29">Static Pattern 10</Capability>
+  <Capability Min="30" Max="31">Static Pattern 11</Capability>
+  <Capability Min="32" Max="33">Static Pattern 12</Capability>
+  <Capability Min="34" Max="35">Static Pattern 13</Capability>
+  <Capability Min="36" Max="37">Static Pattern 14</Capability>
+  <Capability Min="38" Max="39">Static Pattern 15</Capability>
+  <Capability Min="40" Max="41">Static Pattern 16</Capability>
+  <Capability Min="42" Max="43">Static Pattern 17</Capability>
+  <Capability Min="44" Max="45">Static Pattern 18</Capability>
+  <Capability Min="46" Max="47">Static Pattern 19</Capability>
+  <Capability Min="48" Max="49">Static Pattern 20</Capability>
+  <Capability Min="50" Max="51">Static Pattern 21</Capability>
+  <Capability Min="52" Max="53">Static Pattern 22</Capability>
+  <Capability Min="54" Max="55">Static Pattern 23</Capability>
+  <Capability Min="56" Max="57">Static Pattern 24</Capability>
+  <Capability Min="58" Max="59">Static Pattern 25</Capability>
+  <Capability Min="60" Max="61">Static Pattern 26</Capability>
+  <Capability Min="62" Max="63">Static Pattern 27</Capability>
+  <Capability Min="64" Max="65">Static Pattern 28</Capability>
+  <Capability Min="66" Max="67">Static Pattern 29</Capability>
+  <Capability Min="68" Max="69">Static Pattern 30</Capability>
+  <Capability Min="70" Max="71">Static Pattern 31</Capability>
+  <Capability Min="72" Max="73">Static Pattern 32</Capability>
+  <Capability Min="74" Max="75">Static Pattern 33</Capability>
+  <Capability Min="76" Max="77">Static Pattern 34</Capability>
+  <Capability Min="78" Max="79">Static Pattern 35</Capability>
+  <Capability Min="80" Max="81">Static Pattern 36</Capability>
+  <Capability Min="82" Max="83">Static Pattern 37</Capability>
+  <Capability Min="84" Max="85">Static Pattern 38</Capability>
+  <Capability Min="86" Max="87">Static Pattern 39</Capability>
+  <Capability Min="88" Max="89">Static Pattern 40</Capability>
+  <Capability Min="90" Max="91">Static Pattern 41</Capability>
+  <Capability Min="92" Max="93">Static Pattern 42</Capability>
+  <Capability Min="94" Max="95">Static Pattern 43</Capability>
+  <Capability Min="96" Max="97">Static Pattern 44</Capability>
+  <Capability Min="98" Max="99">Static Pattern 45</Capability>
+  <Capability Min="100" Max="101">Static Pattern 46</Capability>
+  <Capability Min="102" Max="103">Static Pattern 47</Capability>
+  <Capability Min="104" Max="105">Static Pattern 48</Capability>
+  <Capability Min="106" Max="107">Static Pattern 49</Capability>
+  <Capability Min="108" Max="109">Static Pattern 50</Capability>
+  <Capability Min="110" Max="111">Static Pattern 51</Capability>
+  <Capability Min="112" Max="113">Static Pattern 52</Capability>
+  <Capability Min="114" Max="115">Static Pattern 53</Capability>
+  <Capability Min="116" Max="117">Static Pattern 54</Capability>
+  <Capability Min="118" Max="119">Static Pattern 55</Capability>
+  <Capability Min="120" Max="121">Static Pattern 56</Capability>
+  <Capability Min="122" Max="123">Static Pattern 57</Capability>
+  <Capability Min="124" Max="125">Static Pattern 58</Capability>
+  <Capability Min="126" Max="127">Static Pattern 59</Capability>
+  <Capability Min="128" Max="129">Dynamic Pattern 01</Capability>
+  <Capability Min="130" Max="131">Dynamic Pattern 02</Capability>
+  <Capability Min="132" Max="133">Dynamic Pattern 03</Capability>
+  <Capability Min="134" Max="135">Dynamic Pattern 04</Capability>
+  <Capability Min="136" Max="137">Dynamic Pattern 05</Capability>
+  <Capability Min="138" Max="139">Dynamic Pattern 06</Capability>
+  <Capability Min="140" Max="141">Dynamic Pattern 07</Capability>
+  <Capability Min="142" Max="143">Dynamic Pattern 08</Capability>
+  <Capability Min="144" Max="145">Dynamic Pattern 09</Capability>
+  <Capability Min="146" Max="147">Dynamic Pattern 10</Capability>
+  <Capability Min="148" Max="149">Dynamic Pattern 11</Capability>
+  <Capability Min="150" Max="151">Dynamic Pattern 12</Capability>
+  <Capability Min="152" Max="153">Dynamic Pattern 13</Capability>
+  <Capability Min="154" Max="155">Dynamic Pattern 14</Capability>
+  <Capability Min="156" Max="157">Dynamic Pattern 15</Capability>
+  <Capability Min="158" Max="159">Dynamic Pattern 16</Capability>
+  <Capability Min="160" Max="161">Dynamic Pattern 17</Capability>
+  <Capability Min="162" Max="163">Dynamic Pattern 18</Capability>
+  <Capability Min="164" Max="165">Dynamic Pattern 19</Capability>
+  <Capability Min="166" Max="167">Dynamic Pattern 20</Capability>
+  <Capability Min="168" Max="169">Dynamic Pattern 21</Capability>
+  <Capability Min="170" Max="171">Dynamic Pattern 22</Capability>
+  <Capability Min="172" Max="173">Dynamic Pattern 23</Capability>
+  <Capability Min="174" Max="175">Dynamic Pattern 24</Capability>
+  <Capability Min="176" Max="177">Dynamic Pattern 25</Capability>
+  <Capability Min="178" Max="179">Dynamic Pattern 26</Capability>
+  <Capability Min="180" Max="181">Dynamic Pattern 27</Capability>
+  <Capability Min="182" Max="183">Dynamic Pattern 28</Capability>
+  <Capability Min="184" Max="185">Dynamic Pattern 29</Capability>
+  <Capability Min="186" Max="187">Dynamic Pattern 30</Capability>
+  <Capability Min="188" Max="189">Dynamic Pattern 31</Capability>
+  <Capability Min="190" Max="191">Dynamic Pattern 32</Capability>
+  <Capability Min="192" Max="193">Dynamic Pattern 33</Capability>
+  <Capability Min="194" Max="195">Dynamic Pattern 34</Capability>
+  <Capability Min="196" Max="197">Dynamic Pattern 35</Capability>
+  <Capability Min="198" Max="199">Dynamic Pattern 36</Capability>
+  <Capability Min="200" Max="201">Dynamic Pattern 37</Capability>
+  <Capability Min="202" Max="203">Dynamic Pattern 38</Capability>
+  <Capability Min="204" Max="205">Dynamic Pattern 39</Capability>
+  <Capability Min="206" Max="207">Dynamic Pattern 40</Capability>
+  <Capability Min="208" Max="209">Dynamic Pattern 41</Capability>
+  <Capability Min="210" Max="211">Dynamic Pattern 42</Capability>
+  <Capability Min="212" Max="213">Dynamic Pattern 43</Capability>
+  <Capability Min="214" Max="215">Dynamic Pattern 44</Capability>
+  <Capability Min="216" Max="217">Dynamic Pattern 45</Capability>
+  <Capability Min="218" Max="219">Dynamic Pattern 46</Capability>
+  <Capability Min="220" Max="221">Dynamic Pattern 47</Capability>
+  <Capability Min="222" Max="223">Dynamic Pattern 48</Capability>
+  <Capability Min="224" Max="225">Dynamic Pattern 49</Capability>
+  <Capability Min="226" Max="227">Dynamic Pattern 50</Capability>
+  <Capability Min="228" Max="229">Special Pattern 01</Capability>
+  <Capability Min="230" Max="231">Special Pattern 02</Capability>
+  <Capability Min="232" Max="233">Special Pattern 03</Capability>
+  <Capability Min="234" Max="235">Special Pattern 04</Capability>
+  <Capability Min="236" Max="237">Special Pattern 05</Capability>
+  <Capability Min="238" Max="239">Special Pattern 06</Capability>
+  <Capability Min="240" Max="241">Special Pattern 07</Capability>
+  <Capability Min="242" Max="243">Special Pattern 08</Capability>
+  <Capability Min="244" Max="245">Special Pattern 09</Capability>
+  <Capability Min="246" Max="247">Special Pattern 10</Capability>
+  <Capability Min="248" Max="249">Special Pattern 11</Capability>
+  <Capability Min="250" Max="255">Random Pixel</Capability>
+ </Channel>
+ <Channel Name="Pattern step / speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="2">Stop (first pattern step)</Capability>
+  <Capability Min="3" Max="63">CW fast → slow</Capability>
+  <Capability Min="64" Max="66">Stop at current position</Capability>
+  <Capability Min="67" Max="127">CCW slow → fast</Capability>
+  <Capability Min="128" Max="129">Pattern Step1</Capability>
+  <Capability Min="130" Max="131">Pattern Step2</Capability>
+  <Capability Min="132" Max="133">Pattern Step3</Capability>
+  <Capability Min="134" Max="135">Pattern Step4</Capability>
+  <Capability Min="136" Max="137">Pattern Step5</Capability>
+  <Capability Min="138" Max="139">Pattern Step6</Capability>
+  <Capability Min="140" Max="141">Pattern Step7</Capability>
+  <Capability Min="142" Max="143">Pattern Step8</Capability>
+  <Capability Min="144" Max="145">Pattern Step9</Capability>
+  <Capability Min="146" Max="147">Pattern Step10</Capability>
+  <Capability Min="148" Max="149">Pattern Step11</Capability>
+  <Capability Min="150" Max="151">Pattern Step12</Capability>
+  <Capability Min="152" Max="153">Pattern Step13</Capability>
+  <Capability Min="154" Max="155">Pattern Step14</Capability>
+  <Capability Min="156" Max="157">Pattern Step15</Capability>
+  <Capability Min="158" Max="159">Pattern Step16</Capability>
+  <Capability Min="160" Max="161">Pattern Step17</Capability>
+  <Capability Min="162" Max="163">Pattern Step18</Capability>
+  <Capability Min="164" Max="165">Pattern Step19</Capability>
+  <Capability Min="166" Max="167">Pattern Step20</Capability>
+  <Capability Min="168" Max="169">Pattern Step21</Capability>
+  <Capability Min="170" Max="171">Pattern Step22</Capability>
+  <Capability Min="172" Max="173">Pattern Step23</Capability>
+  <Capability Min="174" Max="175">Pattern Step24</Capability>
+  <Capability Min="176" Max="177">Pattern Step25</Capability>
+  <Capability Min="178" Max="179">Pattern Step26</Capability>
+  <Capability Min="180" Max="181">Pattern Step27</Capability>
+  <Capability Min="182" Max="183">Pattern Step28</Capability>
+  <Capability Min="184" Max="185">Pattern Step29</Capability>
+  <Capability Min="186" Max="187">Pattern Step30</Capability>
+  <Capability Min="188" Max="189">Pattern Step31</Capability>
+  <Capability Min="190" Max="191">Pattern Step32</Capability>
+  <Capability Min="192" Max="193">Pattern Step33</Capability>
+  <Capability Min="194" Max="195">Pattern Step34</Capability>
+  <Capability Min="196" Max="197">Pattern Step35</Capability>
+  <Capability Min="198" Max="199">Pattern Step36</Capability>
+  <Capability Min="200" Max="201">Pattern Step37</Capability>
+  <Capability Min="202" Max="203">Pattern Step38</Capability>
+  <Capability Min="204" Max="205">Pattern Step39</Capability>
+  <Capability Min="206" Max="207">Pattern Step40</Capability>
+  <Capability Min="208" Max="209">Pattern Step41</Capability>
+  <Capability Min="210" Max="211">Pattern Step42</Capability>
+  <Capability Min="212" Max="213">Pattern Step43</Capability>
+  <Capability Min="214" Max="215">Pattern Step44</Capability>
+  <Capability Min="216" Max="217">Pattern Step45</Capability>
+  <Capability Min="218" Max="219">Pattern Step46</Capability>
+  <Capability Min="220" Max="221">Pattern Step47</Capability>
+  <Capability Min="222" Max="223">Pattern Step48</Capability>
+  <Capability Min="224" Max="225">Pattern Step49</Capability>
+  <Capability Min="226" Max="227">Pattern Step50</Capability>
+  <Capability Min="228" Max="229">Pattern Step51</Capability>
+  <Capability Min="230" Max="231">Pattern Step52</Capability>
+  <Capability Min="232" Max="233">Pattern Step53</Capability>
+  <Capability Min="234" Max="235">Pattern Step54</Capability>
+  <Capability Min="236" Max="237">Pattern Step55</Capability>
+  <Capability Min="238" Max="239">Pattern Step56</Capability>
+  <Capability Min="240" Max="241">Pattern Step57</Capability>
+  <Capability Min="242" Max="243">Pattern Step58</Capability>
+  <Capability Min="244" Max="245">Pattern Step59</Capability>
+  <Capability Min="246" Max="247">Pattern Step60</Capability>
+  <Capability Min="248" Max="249">Pattern Step61</Capability>
+  <Capability Min="250" Max="251">Pattern Step62</Capability>
+  <Capability Min="252" Max="253">Pattern Step63</Capability>
+  <Capability Min="254" Max="255">Pattern Step64</Capability>
+ </Channel>
+ <Mode Name="M1 Basic">
+  <Channel Number="0">Pan coarse</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt coarse</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Dimmer fine</Channel>
+  <Channel Number="6">Shutter</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Control/Settings</Channel>
+  <Channel Number="9">Accessory 1</Channel>
+  <Channel Number="10">Accessory 2</Channel>
+  <Channel Number="11">Red</Channel>
+  <Channel Number="12">Red fine</Channel>
+  <Channel Number="13">Green</Channel>
+  <Channel Number="14">Green fine</Channel>
+  <Channel Number="15">Blue</Channel>
+  <Channel Number="16">Blue fine</Channel>
+  <Channel Number="17">Lime</Channel>
+  <Channel Number="18">Lime fine</Channel>
+  <Channel Number="19">Color Wheel</Channel>
+  <Channel Number="20">Color Temperature Control</Channel>
+  <Channel Number="21">CQC (Color Quality Control) / Saturation</Channel>
+  <Channel Number="22">M/G shift</Channel>
+  <Channel Number="23">Tungsten simulation</Channel>
+ </Mode>
+ <Mode Name="M2 Normal">
+  <Channel Number="0">Pan coarse</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt coarse</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Dimmer fine</Channel>
+  <Channel Number="6">Shutter</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Control/Settings</Channel>
+  <Channel Number="9">Accessory 1</Channel>
+  <Channel Number="10">Accessory 2</Channel>
+  <Channel Number="11">Red</Channel>
+  <Channel Number="12">Red fine</Channel>
+  <Channel Number="13">Green</Channel>
+  <Channel Number="14">Green fine</Channel>
+  <Channel Number="15">Blue</Channel>
+  <Channel Number="16">Blue fine</Channel>
+  <Channel Number="17">Lime</Channel>
+  <Channel Number="18">Lime fine</Channel>
+  <Channel Number="19">Color Wheel</Channel>
+  <Channel Number="20">Color Temperature Control</Channel>
+  <Channel Number="21">CQC (Color Quality Control) / Saturation</Channel>
+  <Channel Number="22">M/G shift</Channel>
+  <Channel Number="23">Tungsten simulation</Channel>
+  <Channel Number="24">Mix priority</Channel>
+  <Channel Number="25">Sub Intensity coarse</Channel>
+  <Channel Number="26">Sub Intensity fine</Channel>
+  <Channel Number="27">Sub Shutter</Channel>
+  <Channel Number="28">Pattern selection</Channel>
+  <Channel Number="29">Pattern step / speed</Channel>
+  <Channel Number="30">Pattern step crossfading (from one step to next)</Channel>
+  <Channel Number="31">Pattern transition (from one pattern to next)</Channel>
+  <Channel Number="32">Red, pixel 01-19</Channel>
+  <Channel Number="33">Green, pixel 01-19</Channel>
+  <Channel Number="34">Blue, pixel 01-19</Channel>
+ </Mode>
+ <Mode Name="M3 Segments">
+  <Channel Number="0">Pan coarse</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt coarse</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Dimmer fine</Channel>
+  <Channel Number="6">Shutter</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Control/Settings</Channel>
+  <Channel Number="9">Accessory 1</Channel>
+  <Channel Number="10">Accessory 2</Channel>
+  <Channel Number="11">Red</Channel>
+  <Channel Number="12">Red fine</Channel>
+  <Channel Number="13">Green</Channel>
+  <Channel Number="14">Green fine</Channel>
+  <Channel Number="15">Blue</Channel>
+  <Channel Number="16">Blue fine</Channel>
+  <Channel Number="17">Lime</Channel>
+  <Channel Number="18">Lime fine</Channel>
+  <Channel Number="19">Color Wheel</Channel>
+  <Channel Number="20">Color Temperature Control</Channel>
+  <Channel Number="21">CQC (Color Quality Control) / Saturation</Channel>
+  <Channel Number="22">M/G shift</Channel>
+  <Channel Number="23">Tungsten simulation</Channel>
+  <Channel Number="24">Mix priority</Channel>
+  <Channel Number="25">Sub Intensity coarse</Channel>
+  <Channel Number="26">Sub Intensity fine</Channel>
+  <Channel Number="27">Sub Shutter</Channel>
+  <Channel Number="28">Pattern selection</Channel>
+  <Channel Number="29">Pattern step / speed</Channel>
+  <Channel Number="30">Pattern step crossfading (from one step to next)</Channel>
+  <Channel Number="31">Pattern transition (from one pattern to next)</Channel>
+  <Channel Number="32">Red, pixel 0 1</Channel>
+  <Channel Number="33">Green, pixel 0 1</Channel>
+  <Channel Number="34">Blue, pixel 0 1</Channel>
+  <Channel Number="35">Red, pixel 02-07</Channel>
+  <Channel Number="36">Green pixel 02-07</Channel>
+  <Channel Number="37">Blue pixel 02-07</Channel>
+  <Channel Number="38">Red, pixel 08-019</Channel>
+  <Channel Number="39">Green, pixel 08-019</Channel>
+  <Channel Number="40">Blue, pixel 08-019</Channel>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+  </Head>
+  <Head>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="M4 Multipix Advanced">
+  <Channel Number="0">Pan coarse</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt coarse</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Dimmer fine</Channel>
+  <Channel Number="6">Shutter</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Control/Settings</Channel>
+  <Channel Number="9">Accessory 1</Channel>
+  <Channel Number="10">Accessory 2</Channel>
+  <Channel Number="11">Red</Channel>
+  <Channel Number="12">Red fine</Channel>
+  <Channel Number="13">Green</Channel>
+  <Channel Number="14">Green fine</Channel>
+  <Channel Number="15">Blue</Channel>
+  <Channel Number="16">Blue fine</Channel>
+  <Channel Number="17">Lime</Channel>
+  <Channel Number="18">Lime fine</Channel>
+  <Channel Number="19">Color Wheel</Channel>
+  <Channel Number="20">Color Temperature Control</Channel>
+  <Channel Number="21">CQC (Color Quality Control) / Saturation</Channel>
+  <Channel Number="22">M/G shift</Channel>
+  <Channel Number="23">Tungsten simulation</Channel>
+  <Channel Number="24">Mix priority</Channel>
+  <Channel Number="25">Sub Intensity coarse</Channel>
+  <Channel Number="26">Sub Intensity fine</Channel>
+  <Channel Number="27">Sub Shutter</Channel>
+  <Channel Number="28">Pattern selection</Channel>
+  <Channel Number="29">Pattern step / speed</Channel>
+  <Channel Number="30">Pattern step crossfading (from one step to next)</Channel>
+  <Channel Number="31">Pattern transition (from one pattern to next)</Channel>
+  <Channel Number="32">Red, pixel 0 1</Channel>
+  <Channel Number="33">Green, pixel 0 1</Channel>
+  <Channel Number="34">Blue, pixel 0 1</Channel>
+  <Channel Number="35">Red, pixel 0 2</Channel>
+  <Channel Number="36">Green, pixel 0 2</Channel>
+  <Channel Number="37">Blue, pixel 0 2</Channel>
+  <Channel Number="38">Red, pixel 0 3</Channel>
+  <Channel Number="39">Green, pixel 0 3</Channel>
+  <Channel Number="40">Blue, pixel 0 3</Channel>
+  <Channel Number="41">Red, pixel 0 4</Channel>
+  <Channel Number="42">Green, pixel 0 4</Channel>
+  <Channel Number="43">Blue, pixel 0 4</Channel>
+  <Channel Number="44">Red, pixel 0 5</Channel>
+  <Channel Number="45">Green, pixel 0 5</Channel>
+  <Channel Number="46">Blue, pixel 0 5</Channel>
+  <Channel Number="47">Red, pixel 0 6</Channel>
+  <Channel Number="48">Green, pixel 0 6</Channel>
+  <Channel Number="49">Blue, pixel 0 6</Channel>
+  <Channel Number="50">Red, pixel 0 7</Channel>
+  <Channel Number="51">Green, pixel 0 7</Channel>
+  <Channel Number="52">Blue, pixel 0 7</Channel>
+  <Channel Number="53">Red, pixel 0 8</Channel>
+  <Channel Number="54">Green, pixel 0 8</Channel>
+  <Channel Number="55">Blue, pixel 0 8</Channel>
+  <Channel Number="56">Red, pixel 0 9</Channel>
+  <Channel Number="57">Green, pixel 0 9</Channel>
+  <Channel Number="58">Blue, pixel 0 9</Channel>
+  <Channel Number="59">Red, pixel 0 10</Channel>
+  <Channel Number="60">Green, pixel 0 10</Channel>
+  <Channel Number="61">Blue, pixel 0 10</Channel>
+  <Channel Number="62">Red, pixel 0 11</Channel>
+  <Channel Number="63">Green, pixel 0 11</Channel>
+  <Channel Number="64">Blue, pixel 0 11</Channel>
+  <Channel Number="65">Red, pixel 0 12</Channel>
+  <Channel Number="66">Green, pixel 0 12</Channel>
+  <Channel Number="67">Blue, pixel 0 12</Channel>
+  <Channel Number="68">Red, pixel 0 13</Channel>
+  <Channel Number="69">Green, pixel 0 13</Channel>
+  <Channel Number="70">Blue, pixel 0 13</Channel>
+  <Channel Number="71">Red, pixel 0 14</Channel>
+  <Channel Number="72">Green, pixel 0 14</Channel>
+  <Channel Number="73">Blue, pixel 0 14</Channel>
+  <Channel Number="74">Red, pixel 0 15</Channel>
+  <Channel Number="75">Green, pixel 0 15</Channel>
+  <Channel Number="76">Blue, pixel 0 15</Channel>
+  <Channel Number="77">Red, pixel 0 16</Channel>
+  <Channel Number="78">Green, pixel 0 16</Channel>
+  <Channel Number="79">Blue, pixel 0 16</Channel>
+  <Channel Number="80">Red, pixel 0 17</Channel>
+  <Channel Number="81">Green, pixel 0 17</Channel>
+  <Channel Number="82">Blue, pixel 0 17</Channel>
+  <Channel Number="83">Red, pixel 0 18</Channel>
+  <Channel Number="84">Green, pixel 0 18</Channel>
+  <Channel Number="85">Blue, pixel 0 18</Channel>
+  <Channel Number="86">Red, pixel 0 19</Channel>
+  <Channel Number="87">Green, pixel 0 19</Channel>
+  <Channel Number="88">Blue, pixel 0 19</Channel>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+  </Head>
+  <Head>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+  </Head>
+  <Head>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+  </Head>
+  <Head>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+  </Head>
+  <Head>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+  </Head>
+  <Head>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+  </Head>
+  <Head>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+  </Head>
+  <Head>
+   <Channel>59</Channel>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+  </Head>
+  <Head>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+   <Channel>64</Channel>
+  </Head>
+  <Head>
+   <Channel>65</Channel>
+   <Channel>66</Channel>
+   <Channel>67</Channel>
+  </Head>
+  <Head>
+   <Channel>68</Channel>
+   <Channel>69</Channel>
+   <Channel>70</Channel>
+  </Head>
+  <Head>
+   <Channel>71</Channel>
+   <Channel>72</Channel>
+   <Channel>73</Channel>
+  </Head>
+  <Head>
+   <Channel>74</Channel>
+   <Channel>75</Channel>
+   <Channel>76</Channel>
+  </Head>
+  <Head>
+   <Channel>77</Channel>
+   <Channel>78</Channel>
+   <Channel>79</Channel>
+  </Head>
+  <Head>
+   <Channel>80</Channel>
+   <Channel>81</Channel>
+   <Channel>82</Channel>
+  </Head>
+  <Head>
+   <Channel>83</Channel>
+   <Channel>84</Channel>
+   <Channel>85</Channel>
+  </Head>
+  <Head>
+   <Channel>86</Channel>
+   <Channel>87</Channel>
+   <Channel>88</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="M5 Multipix Compressed RGB">
+  <Channel Number="0">Pan coarse</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt coarse</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Dimmer fine</Channel>
+  <Channel Number="6">Shutter</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Control/Settings</Channel>
+  <Channel Number="9">Accessory 1</Channel>
+  <Channel Number="10">Accessory 2</Channel>
+  <Channel Number="11">Color Temperature Control</Channel>
+  <Channel Number="12">CQC (Color Quality Control) / Saturation</Channel>
+  <Channel Number="13">Red, pixel 0 1</Channel>
+  <Channel Number="14">Green, pixel 0 1</Channel>
+  <Channel Number="15">Blue, pixel 0 1</Channel>
+  <Channel Number="16">Red, pixel 0 2</Channel>
+  <Channel Number="17">Green, pixel 0 2</Channel>
+  <Channel Number="18">Blue, pixel 0 2</Channel>
+  <Channel Number="19">Red, pixel 0 3</Channel>
+  <Channel Number="20">Green, pixel 0 3</Channel>
+  <Channel Number="21">Blue, pixel 0 3</Channel>
+  <Channel Number="22">Red, pixel 0 4</Channel>
+  <Channel Number="23">Green, pixel 0 4</Channel>
+  <Channel Number="24">Blue, pixel 0 4</Channel>
+  <Channel Number="25">Red, pixel 0 5</Channel>
+  <Channel Number="26">Green, pixel 0 5</Channel>
+  <Channel Number="27">Blue, pixel 0 5</Channel>
+  <Channel Number="28">Red, pixel 0 6</Channel>
+  <Channel Number="29">Green, pixel 0 6</Channel>
+  <Channel Number="30">Blue, pixel 0 6</Channel>
+  <Channel Number="31">Red, pixel 0 7</Channel>
+  <Channel Number="32">Green, pixel 0 7</Channel>
+  <Channel Number="33">Blue, pixel 0 7</Channel>
+  <Channel Number="34">Red, pixel 0 8</Channel>
+  <Channel Number="35">Green, pixel 0 8</Channel>
+  <Channel Number="36">Blue, pixel 0 8</Channel>
+  <Channel Number="37">Red, pixel 0 9</Channel>
+  <Channel Number="38">Green, pixel 0 9</Channel>
+  <Channel Number="39">Blue, pixel 0 9</Channel>
+  <Channel Number="40">Red, pixel 0 10</Channel>
+  <Channel Number="41">Green, pixel 0 10</Channel>
+  <Channel Number="42">Blue, pixel 0 10</Channel>
+  <Channel Number="43">Red, pixel 0 11</Channel>
+  <Channel Number="44">Green, pixel 0 11</Channel>
+  <Channel Number="45">Blue, pixel 0 11</Channel>
+  <Channel Number="46">Red, pixel 0 12</Channel>
+  <Channel Number="47">Green, pixel 0 12</Channel>
+  <Channel Number="48">Blue, pixel 0 12</Channel>
+  <Channel Number="49">Red, pixel 0 13</Channel>
+  <Channel Number="50">Green, pixel 0 13</Channel>
+  <Channel Number="51">Blue, pixel 0 13</Channel>
+  <Channel Number="52">Red, pixel 0 14</Channel>
+  <Channel Number="53">Green, pixel 0 14</Channel>
+  <Channel Number="54">Blue, pixel 0 14</Channel>
+  <Channel Number="55">Red, pixel 0 15</Channel>
+  <Channel Number="56">Green, pixel 0 15</Channel>
+  <Channel Number="57">Blue, pixel 0 15</Channel>
+  <Channel Number="58">Red, pixel 0 16</Channel>
+  <Channel Number="59">Green, pixel 0 16</Channel>
+  <Channel Number="60">Blue, pixel 0 16</Channel>
+  <Channel Number="61">Red, pixel 0 17</Channel>
+  <Channel Number="62">Green, pixel 0 17</Channel>
+  <Channel Number="63">Blue, pixel 0 17</Channel>
+  <Channel Number="64">Red, pixel 0 18</Channel>
+  <Channel Number="65">Green, pixel 0 18</Channel>
+  <Channel Number="66">Blue, pixel 0 18</Channel>
+  <Channel Number="67">Red, pixel 0 19</Channel>
+  <Channel Number="68">Green, pixel 0 19</Channel>
+  <Channel Number="69">Blue, pixel 0 19</Channel>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+  </Head>
+  <Head>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+  </Head>
+  <Head>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+  </Head>
+  <Head>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+  </Head>
+  <Head>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+  </Head>
+  <Head>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+  </Head>
+  <Head>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+  </Head>
+  <Head>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+  </Head>
+  <Head>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+  </Head>
+  <Head>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+  </Head>
+  <Head>
+   <Channel>55</Channel>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+  </Head>
+  <Head>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+   <Channel>60</Channel>
+  </Head>
+  <Head>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+  </Head>
+  <Head>
+   <Channel>64</Channel>
+   <Channel>65</Channel>
+   <Channel>66</Channel>
+  </Head>
+  <Head>
+   <Channel>67</Channel>
+   <Channel>68</Channel>
+   <Channel>69</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="M6 Multipix Compressed RGBL">
+  <Channel Number="0">Pan coarse</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt coarse</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Dimmer fine</Channel>
+  <Channel Number="6">Shutter</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Control/Settings</Channel>
+  <Channel Number="9">Accessory 1</Channel>
+  <Channel Number="10">Accessory 2</Channel>
+  <Channel Number="11">Color Temperature Control</Channel>
+  <Channel Number="12">CQC (Color Quality Control) / Saturation</Channel>
+  <Channel Number="13">Red, pixel 0 1</Channel>
+  <Channel Number="14">Green, pixel 0 1</Channel>
+  <Channel Number="15">Blue, pixel 0 1</Channel>
+  <Channel Number="16">Lime, pixel 0 1</Channel>
+  <Channel Number="17">Red, pixel 0 2</Channel>
+  <Channel Number="18">Green, pixel 0 2</Channel>
+  <Channel Number="19">Blue, pixel 0 2</Channel>
+  <Channel Number="20">Lime, pixel 0 2</Channel>
+  <Channel Number="21">Red, pixel 0 3</Channel>
+  <Channel Number="22">Green, pixel 0 3</Channel>
+  <Channel Number="23">Blue, pixel 0 3</Channel>
+  <Channel Number="24">Lime, pixel 0 3</Channel>
+  <Channel Number="25">Red, pixel 0 4</Channel>
+  <Channel Number="26">Green, pixel 0 4</Channel>
+  <Channel Number="27">Blue, pixel 0 4</Channel>
+  <Channel Number="28">Lime, pixel 0 4</Channel>
+  <Channel Number="29">Red, pixel 0 5</Channel>
+  <Channel Number="30">Green, pixel 0 5</Channel>
+  <Channel Number="31">Blue, pixel 0 5</Channel>
+  <Channel Number="32">Lime, pixel 0 5</Channel>
+  <Channel Number="33">Red, pixel 0 6</Channel>
+  <Channel Number="34">Green, pixel 0 6</Channel>
+  <Channel Number="35">Blue, pixel 0 6</Channel>
+  <Channel Number="36">Lime, pixel 0 6</Channel>
+  <Channel Number="37">Red, pixel 0 7</Channel>
+  <Channel Number="38">Green, pixel 0 7</Channel>
+  <Channel Number="39">Blue, pixel 0 7</Channel>
+  <Channel Number="40">Lime, pixel 0 7</Channel>
+  <Channel Number="41">Red, pixel 0 8</Channel>
+  <Channel Number="42">Green, pixel 0 8</Channel>
+  <Channel Number="43">Blue, pixel 0 8</Channel>
+  <Channel Number="44">Lime, pixel 0 8</Channel>
+  <Channel Number="45">Red, pixel 0 9</Channel>
+  <Channel Number="46">Green, pixel 0 9</Channel>
+  <Channel Number="47">Blue, pixel 0 9</Channel>
+  <Channel Number="48">Lime, pixel 0 9</Channel>
+  <Channel Number="49">Red, pixel 0 10</Channel>
+  <Channel Number="50">Green, pixel 0 10</Channel>
+  <Channel Number="51">Blue, pixel 0 10</Channel>
+  <Channel Number="52">Lime, pixel 0 10</Channel>
+  <Channel Number="53">Red, pixel 0 11</Channel>
+  <Channel Number="54">Green, pixel 0 11</Channel>
+  <Channel Number="55">Blue, pixel 0 11</Channel>
+  <Channel Number="56">Lime, pixel 0 11</Channel>
+  <Channel Number="57">Red, pixel 0 12</Channel>
+  <Channel Number="58">Green, pixel 0 12</Channel>
+  <Channel Number="59">Blue, pixel 0 12</Channel>
+  <Channel Number="60">Lime, pixel 0 12</Channel>
+  <Channel Number="61">Red, pixel 0 13</Channel>
+  <Channel Number="62">Green, pixel 0 13</Channel>
+  <Channel Number="63">Blue, pixel 0 13</Channel>
+  <Channel Number="64">Lime, pixel 0 13</Channel>
+  <Channel Number="65">Red, pixel 0 14</Channel>
+  <Channel Number="66">Green, pixel 0 14</Channel>
+  <Channel Number="67">Blue, pixel 0 14</Channel>
+  <Channel Number="68">Lime, pixel 0 14</Channel>
+  <Channel Number="69">Red, pixel 0 15</Channel>
+  <Channel Number="70">Green, pixel 0 15</Channel>
+  <Channel Number="71">Blue, pixel 0 15</Channel>
+  <Channel Number="72">Lime, pixel 0 15</Channel>
+  <Channel Number="73">Red, pixel 0 16</Channel>
+  <Channel Number="74">Green, pixel 0 16</Channel>
+  <Channel Number="75">Blue, pixel 0 16</Channel>
+  <Channel Number="76">Lime, pixel 0 16</Channel>
+  <Channel Number="77">Red, pixel 0 17</Channel>
+  <Channel Number="78">Green, pixel 0 17</Channel>
+  <Channel Number="79">Blue, pixel 0 17</Channel>
+  <Channel Number="80">Lime, pixel 0 17</Channel>
+  <Channel Number="81">Red, pixel 0 18</Channel>
+  <Channel Number="82">Green, pixel 0 18</Channel>
+  <Channel Number="83">Blue, pixel 0 18</Channel>
+  <Channel Number="84">Lime, pixel 0 18</Channel>
+  <Channel Number="85">Red, pixel 0 19</Channel>
+  <Channel Number="86">Green, pixel 0 19</Channel>
+  <Channel Number="87">Blue, pixel 0 19</Channel>
+  <Channel Number="88">Lime, pixel 0 19</Channel>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+  </Head>
+  <Head>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+  </Head>
+  <Head>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+  </Head>
+  <Head>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+  </Head>
+  <Head>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+  </Head>
+  <Head>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+  </Head>
+  <Head>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+  </Head>
+  <Head>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+   <Channel>56</Channel>
+  </Head>
+  <Head>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+   <Channel>60</Channel>
+  </Head>
+  <Head>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+   <Channel>64</Channel>
+  </Head>
+  <Head>
+   <Channel>65</Channel>
+   <Channel>66</Channel>
+   <Channel>67</Channel>
+   <Channel>68</Channel>
+  </Head>
+  <Head>
+   <Channel>69</Channel>
+   <Channel>70</Channel>
+   <Channel>71</Channel>
+   <Channel>72</Channel>
+  </Head>
+  <Head>
+   <Channel>73</Channel>
+   <Channel>74</Channel>
+   <Channel>75</Channel>
+   <Channel>76</Channel>
+  </Head>
+  <Head>
+   <Channel>77</Channel>
+   <Channel>78</Channel>
+   <Channel>79</Channel>
+   <Channel>80</Channel>
+  </Head>
+  <Head>
+   <Channel>81</Channel>
+   <Channel>82</Channel>
+   <Channel>83</Channel>
+   <Channel>84</Channel>
+  </Head>
+  <Head>
+   <Channel>85</Channel>
+   <Channel>86</Channel>
+   <Channel>87</Channel>
+   <Channel>88</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="12500" ColourTemperature="10000"/>
+  <Dimensions Weight="13.3" Width="415" Height="402" Depth="290"/>
+  <Lens Name="Other" DegreesMin="3.5" DegreesMax="63"/>
+  <Focus Type="Head" PanMax="540" TiltMax="240"/>
+  <Technical PowerConsumption="710" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

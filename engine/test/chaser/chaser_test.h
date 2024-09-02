@@ -51,7 +51,8 @@ private slots:
 
     void tap();
     void preRun();
-    void write();
+    void writeHTP();
+    void writeLTP();
     void postRun();
     void adjustIntensity();
 

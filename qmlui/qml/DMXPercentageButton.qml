@@ -28,7 +28,7 @@ Rectangle
     border.width: 2
     border.color: "white"
     radius: 5
-    color: "#1E476E"
+    color: UISettings.sectionHeader
 
     property bool dmxMode: true
     signal clicked

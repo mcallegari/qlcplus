@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.1 GIT</Version>
+  <Author>Clément Delabroye</Author>
+ </Creator>
+ <Manufacturer>Electroconcept</Manufacturer>
+ <Model>Club Scan 30</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#a020f0">Purple</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#00ffff">Orange + Cyan</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#a020f0">Cyan + Purple</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#a020f0" Res2="#ffff00">Purple + Yellow</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#0000ff">Yellow + Blue</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#55ff00">Blue + Green</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#55ff00" Res2="#ff0000">Green + Red</Capability>
+  <Capability Min="140" Max="255" Preset="RotationClockwiseSlowToFast">Rotation (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7">Open</Capability>
+  <Capability Min="8" Max="15">Gobo 1</Capability>
+  <Capability Min="16" Max="23">Gobo 2</Capability>
+  <Capability Min="24" Max="31">Gobo 3</Capability>
+  <Capability Min="32" Max="39">Gobo 4</Capability>
+  <Capability Min="40" Max="47">Gobo 5</Capability>
+  <Capability Min="48" Max="55">Gobo 6</Capability>
+  <Capability Min="56" Max="63">Gobo 7</Capability>
+  <Capability Min="64" Max="71">Open</Capability>
+  <Capability Min="72" Max="79">Gobo 1 Shake</Capability>
+  <Capability Min="80" Max="87">Gobo 2 Shake</Capability>
+  <Capability Min="88" Max="95">Gobo 3 Shake</Capability>
+  <Capability Min="96" Max="103">Gobo 4 Shake</Capability>
+  <Capability Min="104" Max="111">Gobo 5 Shake</Capability>
+  <Capability Min="112" Max="119">Gobo 6 Shake</Capability>
+  <Capability Min="120" Max="127">Gobo 7 Shake</Capability>
+  <Capability Min="128" Max="255" Preset="SlowToFast">Rotation ( Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="10" Max="249" Preset="StrobeSlowToFast">Strobe ( Slow to Fast)</Capability>
+  <Capability Min="250" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Show modes">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="59">No function</Capability>
+  <Capability Min="60" Max="159">Program</Capability>
+  <Capability Min="160" Max="255">Auto + sound</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="20">No function</Capability>
+  <Capability Min="21" Max="100" Preset="ResetPan">Reset Pan</Capability>
+  <Capability Min="101" Max="200" Preset="ResetTilt">Reset Tilt</Capability>
+  <Capability Min="201" Max="249" Preset="ResetPanTilt">Reset Pan/Tilt</Capability>
+  <Capability Min="250" Max="255" Preset="ResetAll">Reset All</Capability>
+ </Channel>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Color</Channel>
+  <Channel Number="3">Gobo</Channel>
+  <Channel Number="4">Shutter</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Pan/Tilt speed</Channel>
+  <Channel Number="7">Show modes</Channel>
+  <Channel Number="8">Reset</Channel>
+ </Mode>
+ <Mode Name="11 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Color</Channel>
+  <Channel Number="5">Gobo</Channel>
+  <Channel Number="6">Shutter</Channel>
+  <Channel Number="7">Dimmer</Channel>
+  <Channel Number="8">Pan/Tilt speed</Channel>
+  <Channel Number="9">Show modes</Channel>
+  <Channel Number="10">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.55" Width="165" Height="330" Depth="130"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="13.6"/>
+  <Focus Type="Mirror" PanMax="165" TiltMax="70"/>
+  <Technical PowerConsumption="50" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

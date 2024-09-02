@@ -39,10 +39,36 @@ supports 2 axes and 4 buttons, they will appear in the input mapping dialogs lik
 </ul>
 </P>
 
+<H2>Nodle USB DMX interface</H2>
+<P>
+The Nodle USB DMX interface is available in two versions: For self-construction it is called
+<EM>Nodle U1</EM> or ready made it is called <EM>Nodle R4S</EM> (ready for show).
+</P>
+
+<P>
+It can output and input DMX data and it has a built-in merger mode. When activated via the configuration
+dialog, the device merges any DMX data coming from QLC+ (if selected as output) with all
+DMX data coming from the device's input in an HTP (Highest Takes Precedence) manner.
+</P>
+
+<P>
+If set, the merger mode persists even when QLC+ is closed as long as the device is powered.
+This way the device is transparent to incoming DMX data and just forwards them.
+</P>
+
+<P>
+The device buffers incoming DMX data. So when the connection at the DMX input is interrupted the last
+DMX data is repeated until the connection is reestablished or the device is reset.
+</P>
+
+<P>
+Check the product manual for further information, connection, and peculiar issues.
+</P>
+
 <H2>FX5 USB DMX</H2>
 <P>
-The <A HREF="https://fx5.de/">FX5 USB DMX</A> adapter is supported either for output and input
-DMX data. Check the product manual for the connection and peculiar issues.
+Although not available anymore. The FX5 USB DMX adapter is still supported either for output and input
+DMX data. It offers the same features as the Nodle USB DMX. Check the product manual for the connection and peculiar issues.
 </P>
 
 </BODY>

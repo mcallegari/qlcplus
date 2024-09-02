@@ -928,7 +928,10 @@ if args.validate is not None:
         files += get_validation_files(path)
 
     for file in files:
-        #print("Processing file " + filepath)
+        #print("Processing file " + file)
+        if (' ' in file) == True:
+            print("Error - space in filename: " + file)
+            sys.exit(1)
         errorCount += validate_fixture(file, colorRgb)
 
     print(str(len(files)) + " definitions processed. " + str(errorCount) + " errors detected")

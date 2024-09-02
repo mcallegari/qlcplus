@@ -820,6 +820,16 @@ QList<VCMatrixControl *> VCMatrix::customControls() const
     return controls;
 }
 
+QMap<quint32,QString> VCMatrix::customControlsMap() const
+{
+    QMap<quint32,QString> map;
+
+    foreach (VCMatrixControl *control, m_controls.values())
+        map.insert(control->m_id, VCMatrixControl::typeToString(control->m_type));
+
+    return map;
+}
+
 QWidget *VCMatrix::getWidget(VCMatrixControl* control) const
 {
     return m_widgets[control];

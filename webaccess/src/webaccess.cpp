@@ -30,6 +30,7 @@
 #include "webaccessnetwork.h"
 #include "vcaudiotriggers.h"
 #include "virtualconsole.h"
+#include "rgbalgorithm.h"
 #include "commonjscss.h"
 #include "vcsoloframe.h"
 #include "outputpatch.h"
@@ -41,11 +42,11 @@
 #include "vcbutton.h"
 #include "vcslider.h"
 #include "function.h"
+#include "vcmatrix.h"
 #include "vclabel.h"
 #include "vcframe.h"
 #include "vcclock.h"
-#include "vcmatrix.h"
-#include "rgbalgorithm.h"
+#include "vcxypad.h"
 #include "qlcfile.h"
 #include "chaser.h"
 #include "doc.h"
@@ -496,12 +497,12 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
         else if (cmdList.at(1) == "REBOOT")
         {
             QProcess *rebootProcess = new QProcess();
-            rebootProcess->start("reboot", QStringList());
+            rebootProcess->start("sudo", QStringList() << "shutdown" << "-r" << "now");
         }
         else if (cmdList.at(1) == "HALT")
         {
             QProcess *haltProcess = new QProcess();
-            haltProcess->start("halt", QStringList());
+            haltProcess->start("sudo", QStringList() << "shutdown" << "-h" << "now");
         }
     }
 #endif
@@ -650,7 +651,57 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                             wsAPIMessage.append("STOP");
                     }
                     break;
+                    case VCWidget::AnimationWidget:
+                    {
+                        VCMatrix *animation = qobject_cast<VCMatrix*>(widget);
+                        wsAPIMessage.append(QString::number(animation->sliderValue()));
+                    }
+                    break;
+                    default:
+                    {
+                        wsAPIMessage.append("0");
+                    }
+                    break;
                 }
+            }
+        }
+        else if (apiCmd == "getWidgetSubIdList")
+        {
+            if (cmdList.count() < 3)
+                return;
+
+            quint32 wID = cmdList[2].toUInt();
+            VCWidget *widget = m_vc->widget(wID);
+            switch(widget->type())
+            {
+                case VCWidget::AnimationWidget:
+                {
+                    VCMatrix *animation = qobject_cast<VCMatrix*>(widget);
+
+                    QMapIterator <quint32,QString> it(animation->customControlsMap());
+                    while (it.hasNext() == true)
+                    {
+                        it.next();
+                        wsAPIMessage.append(QString("%1|%2|").arg(it.key()).arg(it.value()));
+                    }
+                    // remove trailing separator
+                    wsAPIMessage.truncate(wsAPIMessage.length() - 1);
+                }
+                break;
+                case VCWidget::XYPadWidget:
+                {
+                    VCXYPad *xypad = qobject_cast<VCXYPad*>(widget);
+
+                    QMapIterator <quint32,QString> it(xypad->presetsMap());
+                    while (it.hasNext() == true)
+                    {
+                        it.next();
+                        wsAPIMessage.append(QString("%1|%2|").arg(it.key()).arg(it.value()));
+                    }
+                    // remove trailing separator
+                    wsAPIMessage.truncate(wsAPIMessage.length() - 1);
+                }
+                break;
             }
         }
         else if (apiCmd == "getChannelsValues")
@@ -718,7 +769,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
     {
         uchar value = cmdList[1].toInt();
         m_doc->inputOutputMap()->setGrandMasterValue(value);
-
+        return;
     }
     else if (cmdList[0] == "POLL")
         return;
@@ -862,6 +913,17 @@ void WebAccess::slotFunctionStopped(quint32 fid)
 bool WebAccess::sendFile(QHttpResponse *response, QString filename, QString contentType)
 {
     QFile resFile(filename);
+#if defined(WIN32) || defined(Q_OS_WIN)
+    // If coming from a Windows hack, restore a path like
+    // /c//tmp/pic.jpg back to C:\tmp\pic.jpg
+    if (resFile.exists() == false)
+    {
+        filename.remove(0, 1);
+        filename.replace("//", ":\\");
+        filename.replace('/', '\\');
+        resFile.setFileName(filename);
+    }
+#endif
     if (resFile.open(QIODevice::ReadOnly))
     {
         QByteArray resContent = resFile.readAll();
@@ -892,10 +954,20 @@ QString WebAccess::getWidgetBackgroundImage(VCWidget *widget)
     if (widget == NULL || widget->backgroundImage().isEmpty())
         return QString();
 
-    QString str = QString("background-image: url(%1); ").arg(widget->backgroundImage());
+    QString imgPath = widget->backgroundImage();
+#if defined(WIN32) || defined(Q_OS_WIN)
+    // Hack for Windows to cheat the browser
+    // Turn a path like C:\tmp\pic.jpg to /c//tmp/pic.jpg
+    if (imgPath.contains(':'))
+    {
+        imgPath.prepend('/');
+        imgPath.replace(':', '/');
+    }
+#endif
+    QString str = QString("background-image: url(%1); ").arg(imgPath);
     str += "background-position: center; ";
     str += "background-repeat: no-repeat; ";
-    //str += "background-size: cover; ";
+    str += "background-size: cover; "; // or contain
 
     return str;
 }

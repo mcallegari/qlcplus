@@ -59,7 +59,7 @@ EnttecDMXUSBOpen::EnttecDMXUSBOpen(DMXInterface *iface,
 
 // on macOS, QtSerialPort cannot handle an OpenDMX device
 // so, unfortunately, we need to switch back to libftdi
-#if defined(Q_OS_OSX) && defined(QTSERIAL) && (defined(LIBFTDI1) || defined(LIBFTDI))
+#if defined(Q_OS_MACOS) && defined(QTSERIAL) && (defined(LIBFTDI1) || defined(LIBFTDI))
     if (iface->type() == DMXInterface::QtSerial)
         forceInterfaceDriver(DMXInterface::libFTDI);
 #endif

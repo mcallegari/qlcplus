@@ -35,7 +35,8 @@ Entity
 
     property int itemID: fixtureManager.invalidFixture()
     property bool isSelected: false
-    property int headsNumber: 0
+    property int headsNumber: 1
+    property size headsLayout: Qt.size(1, 1)
     property vector3d phySize: Qt.vector3d(1, 0.1, 0.1)
 
     onItemIDChanged:

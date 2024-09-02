@@ -1,6 +1,6 @@
 set(module_name "qlcplus")
 
-add_executable(${module_name} WIN32 MACOSX_BUNDLE
+add_executable(${module_name} WIN32
     main.cpp
 )
 

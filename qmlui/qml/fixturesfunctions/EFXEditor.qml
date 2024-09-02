@@ -435,7 +435,7 @@ Rectangle
                                 {
                                     id: newFixtureBox
                                     Layout.fillWidth: true
-                                    Layout.columnSpan: 4
+                                    Layout.columnSpan: 5
                                     height: UISettings.bigItemHeight * 0.6
                                     color: "transparent"
                                     radius: 10

@@ -99,7 +99,10 @@ SidePanel
                 onToggled:
                 {
                     if (checked == true)
+                    {
                         loaderSource = "qrc:/FixtureGroupManager.qml"
+                        fixtureManager.searchFilter = ""
+                    }
                     animatePanel(checked)
                 }
             }

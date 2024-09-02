@@ -252,13 +252,12 @@ jobs:
           path: qlcplus-${{env.TASK}}-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.AppImage
 
   build-windows:
-    #if: false
     runs-on: windows-latest
     name: QLCplus Windows ${{matrix.task}}
     strategy:
       fail-fast: false
       matrix:
-        task: [compile-qt5, compile-qt5qml]
+        task: [compile-qt5, compile-qt5-32bit, compile-qt5qml]
     env:
       CI_REPO_SLUG: ${{ github.repository }}
       CI_BRANCH: ${{ github.head_ref }}
@@ -266,8 +265,6 @@ jobs:
       QMAKESPEC: win32-g++
       QT_MODULES:
         qtscript
-      CC: /mingw64/bin/x86_64-w64-mingw32-gcc.exe
-      CXX: /mingw64/bin/x86_64-w64-mingw32-g++.exe
 
     steps:
       - name: Checkout
@@ -284,15 +281,13 @@ jobs:
           echo "NPROC=$(nproc)" >> $GITHUB_ENV
           echo "TASK=$(echo '${{matrix.task}}' | cut -d '-' -f 2)" >> $GITHUB_ENV
           echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)}" >> $GITHUB_ENV
-          echo "QT_VERSION=5.15.8" >> $GITHUB_ENV
-          echo "QT_MODULES_INSTALL=$(echo ${QT_MODULES})" >> $GITHUB_ENV
           echo "INSTALL_ROOT=/c/" >> $GITHUB_ENV
           echo "BUILD_DATE=`date -u '+%Y%m%d'`" >> $GITHUB_ENV
           echo "GIT_REV=`git rev-parse --short HEAD`" >> $GITHUB_ENV
 
       - name: Set v4 ENV variables
         shell: bash
-        if: ${{ matrix.task == 'compile-qt5' }}
+        if: ${{ matrix.task == 'compile-qt5' || matrix.task == 'compile-qt5-32bit' }}
         run: |
           echo "OUTFILE=`grep 'OutFile' platforms/windows/qlcplus4Qt5.nsi | cut -d'"' -f 2`" >> $GITHUB_ENV
           echo "APPVERSION=`grep '^!qmlui' variables.pri | grep APPVERSION | sed 's/^.*= *//' | cut -d ' ' -f 1`" >> $GITHUB_ENV
@@ -318,8 +313,9 @@ jobs:
           echo "QT: ${QT}"
           echo "NPROC: ${NPROC}"
 
-      - name: Update and install MSYS2
+      - name: Update and install MSYS2 (64bit)
         uses: msys2/setup-msys2@v2
+        if: ${{ matrix.task == 'compile-qt5' || matrix.task == 'compile-qt5qml' }}
         with:
           msystem: mingw64
           release: true
@@ -351,10 +347,46 @@ jobs:
             mingw-w64-x86_64-qt5-quick3d
             mingw-w64-x86_64-nsis
 
-      - name: D2XX SDK
+      - name: Update and install MSYS2 (32 bit)
+        uses: msys2/setup-msys2@v2
+        if: ${{ matrix.task == 'compile-qt5-32bit' }}
+        with:
+          msystem: mingw32
+          release: true
+          update: false
+          path-type: inherit
+          install: >-
+            wget
+            unzip
+            mingw-w64-i686-gcc
+            mingw-w64-i686-gcc-libs
+            mingw-w64-i686-cmake
+            mingw-w64-i686-libmad
+            mingw-w64-i686-libsndfile
+            mingw-w64-i686-flac
+            mingw-w64-i686-fftw
+            mingw-w64-i686-python-lxml
+            mingw-w64-i686-qt5-base
+            mingw-w64-i686-qt5-multimedia
+            mingw-w64-i686-qt5-serialport
+            mingw-w64-i686-qt5-script
+            mingw-w64-i686-qt5-tools
+            mingw-w64-i686-qt5-imageformats
+            mingw-w64-i686-qt5-svg
+            mingw-w64-i686-qt5-declarative
+            mingw-w64-i686-nsis
+
+      - name: Install legacy libusb (32 bit)
         shell: msys2 {0}
+        if: ${{ matrix.task == 'compile-qt5-32bit' }}
         run: |
-          set MSYSTEM=MINGW64
+          wget https://www.qlcplus.org/misc/mingw-w64-i686-libusb-1.0.26-1-any.pkg.tar.zst
+          pacman --noconfirm --needed -U mingw-w64-i686-libusb-1.0.26-1-any.pkg.tar.zst
+
+      - name: D2XX SDK (64 bit)
+        shell: msys2 {0}
+        if: ${{ matrix.task == 'compile-qt5' || matrix.task == 'compile-qt5qml' }}
+        run: |
           mkdir -p /c/projects/D2XXSDK
           wget https://ftdichip.com/wp-content/uploads/2023/09/CDM-v2.12.36.4-WHQL-Certified.zip -O /c/projects/D2XXSDK/cdm.zip
           cd /c/projects/D2XXSDK
@@ -363,10 +395,21 @@ jobs:
           gendef.exe - ftd2xx64.dll > ftd2xx.def
           dlltool -k --input-def ftd2xx.def --dllname ftd2xx64.dll --output-lib libftd2xx.a
 
+      - name: D2XX SDK (32 bit)
+        shell: msys2 {0}
+        if: ${{ matrix.task == 'compile-qt5-32bit' }}
+        run: |
+          mkdir -p /c/projects/D2XXSDK
+          wget https://ftdichip.com/wp-content/uploads/2023/09/CDM-v2.12.36.4-WHQL-Certified.zip -O /c/projects/D2XXSDK/cdm.zip
+          cd /c/projects/D2XXSDK
+          unzip cdm.zip
+          cd i386
+          gendef.exe - ftd2xx.dll > ftd2xx.def
+          dlltool -k --input-def ftd2xx.def --dllname ftd2xx.dll --output-lib libftd2xx.a
+
       - name: Print program versions
         shell: msys2 {0}
         run: |
-          set MSYSTEM=MINGW64
           echo "pwd:"
           pwd
           echo "CXX:"
@@ -378,10 +421,8 @@ jobs:
           pkg-config --modversion libusb-1.0
 
       - name: Fix build
-        #if: false
         shell: msys2 {0}
         run: |
-          set MSYSTEM=MINGW64
           # force a release build
           sed -i -e 's/Debug/Release/g' CMakeLists.txt
           # disable Velleman plugin
@@ -391,11 +432,22 @@ jobs:
           # fix project path in NSIS script
           sed -i -e 's/c\:\\projects/d:\\a\\qlcplus/g' platforms/windows/${{env.NSIS_SCRIPT}}
 
+      - name: Fix 32 bit build
+        if: ${{ matrix.task == 'compile-qt5-32bit' }}
+        shell: msys2 {0}
+        run: |
+          # fix system libs path
+          sed -i -e 's/mingw64/mingw32/g' platforms/windows/CMakeLists.txt
+          # fix gcc lib
+          sed -i -e 's/libgcc_s_seh/libgcc_s_dw2/g' platforms/windows/CMakeLists.txt
+          # fix DMX USB path
+          sed -i -e 's/amd64/i386/g' plugins/dmxusb/src/CMakeLists.txt
+          sed -i -e 's/ftd2xx64.dll/ftd2xx.dll/g' plugins/dmxusb/src/CMakeLists.txt
+
       - name: Configure v4 build for Windows
         shell: msys2 {0}
-        if: ${{ matrix.task == 'compile-qt5' }}
+        if: ${{ matrix.task == 'compile-qt5' || matrix.task == 'compile-qt5-32bit' }}
         run: |
-          set MSYSTEM=MINGW64
           mkdir build
           cd build
           cmake -G "Unix Makefiles" ..
@@ -404,7 +456,6 @@ jobs:
         shell: msys2 {0}
         if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
-          set MSYSTEM=MINGW64
           mkdir build
           cd build
           cmake -G "Unix Makefiles" -Dqmlui=ON ..
@@ -412,15 +463,12 @@ jobs:
       - name: Build for Windows
         shell: msys2 {0}
         run: |
-          set MSYSTEM=MINGW64
           cd build
           make -j${NPROC}
 
       - name: Install on Windows
         shell: msys2 {0}
         run: |
-          set MSYSTEM=MINGW64
-          #echo 'Silently installing QLC+...'
           cd build
           make install/fast
           cd ..
@@ -429,14 +477,120 @@ jobs:
       - name: Build installation package
         shell: msys2 {0}
         run: |
-          set MSYSTEM=MINGW64
           cd /c/qlcplus
           echo 'Creating package...'
           makensis -X'SetCompressor /FINAL lzma' ${{env.NSIS_SCRIPT}}
-          mv /c/qlcplus/${{env.OUTFILE}} /d/a/qlcplus/qlcplus
+          mv /c/qlcplus/${{env.OUTFILE}} /d/a/qlcplus/qlcplus/${{matrix.task}}-${{env.OUTFILE}}
 
       - name: Store executable artifact
         uses: actions/upload-artifact@v4
         with:
-          name: QLC+-${{env.TASK}}-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.exe
-          path: ${{env.OUTFILE}}
+          name: QLC+-${{matrix.task}}-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.exe
+          path: ${{matrix.task}}-${{env.OUTFILE}}
+
+  build-macos:
+    runs-on: macos-12
+    name: QLCplus macOS ${{matrix.task}}
+    strategy:
+      fail-fast: false
+      matrix:
+        task: [ compile-qt5 ]
+    env:
+      CI_REPO_SLUG: ${{ github.repository }}
+      CI_BRANCH: ${{ github.head_ref }}
+      CI_PULL_REQUEST: ${{ github.event.number }}
+      QT_VERSION: "5.15.2"
+      QT_MODULES:
+        qtscript
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: false
+
+      - name: Add more ENV variables
+        shell: bash
+        run: |
+          echo "APPVERSION=`grep '^!qmlui' variables.pri | grep APPVERSION | sed 's/^.*= *//;s/ /_/g'`" >> $GITHUB_ENV
+          echo "BUILD_DATE=`date -u '+%Y%m%d'`" >> $GITHUB_ENV
+          echo "GIT_REV=`git rev-parse --short HEAD`" >> $GITHUB_ENV
+          echo "QTDIR=${{ github.workspace }}/qt/Qt/${{ env.QT_VERSION }}/clang_64" >> $GITHUB_ENV
+          echo "NPROC=`sysctl -n hw.ncpu`" >> $GITHUB_ENV
+
+      - name: Print ENV vars
+        shell: bash
+        run: |
+          echo "CI_BRANCH: ${CI_BRANCH}"
+          echo "CI_PULL_REQUEST: ${CI_PULL_REQUEST}"
+          echo "CI_REPO_SLUG: ${CI_REPO_SLUG}"
+          echo "CI_EVENT_TYPE: ${CI_EVENT_TYPE}"
+          echo "CI_SECURE_ENV_VARS: ${CI_SECURE_ENV_VARS}"
+          echo "TASK: ${TASK}"
+          echo "QTDIR: ${QTDIR}"
+          echo "NPROC: ${NPROC}"
+
+      - name: Dependencies
+        run: | 
+          brew update
+          brew install fftw mad libsndfile libftdi
+          brew link --overwrite python@3.12
+    
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: ${{ env.QT_VERSION }}
+          dir: "${{ github.workspace }}/qt/"
+          modules: ${{ env.QT_MODULES }}
+
+      - name: Configure build
+        shell: bash
+        run: |-
+          mkdir build
+          cd build
+          cmake -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" ..
+
+      - name: Build
+        shell: bash
+        run: |-
+          cd build
+          make -j${{ env.NPROC }}
+
+      - name: Install
+        shell: bash
+        run: |-
+          cd build
+          make install/fast
+
+      - name: Run macosdeploy
+        shell: bash
+        run: |-
+          ${{ env.QTDIR }}/bin/macdeployqt ~/QLC+.app
+  
+      - name: Fix more deps
+        shell: bash
+        run: |-
+          install_name_tool -change /usr/local/opt/fftw/lib/libfftw3.3.dylib @executable_path/../Frameworks/libfftw3.3.dylib ~/QLC+.app/Contents/MacOS/qlcplus
+          install_name_tool -change /usr/local/opt/fftw/lib/libfftw3.3.dylib @executable_path/../Frameworks/libfftw3.3.dylib ~/QLC+.app/Contents/MacOS/qlcplus-fixtureeditor 
+
+      - name: create DMG
+        shell: bash
+        run: |-
+          OUTDIR=$PWD
+          cd platforms/macos/dmg
+          ./create-dmg --volname "Q Light Controller Plus ${{env.APPVERSION}}" \
+          --volicon $OUTDIR/resources/icons/qlcplus.icns \
+          --background background.png \
+          --window-size 400 300 \
+          --window-pos 200 100 \
+          --icon-size 64 \
+          --icon "QLC+" 0 150 \
+          --app-drop-link 200 150 \
+          $OUTDIR/QLC+_${{ matrix.task }}.dmg \
+          ~/QLC+.app
+
+      - name: Store DMG artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: QLC+-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.dmg
+          path: QLC+_${{ matrix.task }}.dmg
