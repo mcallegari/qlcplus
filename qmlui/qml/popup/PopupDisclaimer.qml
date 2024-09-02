@@ -62,6 +62,8 @@ CustomPopupDialog
                       "Reports of what is marked as 'Work in progress' or 'Missing'<br>" +
                       " will be ignored. You've been warned."
                 onLinkActivated: Qt.openUrlExternally(link)
+                Layout.fillWidth: true
+                wrapMode: Text.WordWrap
 
                 MouseArea
                 {
