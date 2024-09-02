@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.9
-import QtQuick.Window 2.3
-import QtQuick.Controls 2.14
+import QtQuick
+import QtQuick.Window
+import QtQuick.Controls
 import "."
 
 ComboBox
