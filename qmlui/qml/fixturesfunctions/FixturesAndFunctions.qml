@@ -213,7 +213,7 @@ Rectangle
                     height: viewToolbar.height - 4
                     anchors.margins: 1
                     model: ioManager.universesListModel
-                    currValue: contextManager.universeFilter
+                    currValue: contextManager?.universeFilter
 
                     onValueChanged:
                     {

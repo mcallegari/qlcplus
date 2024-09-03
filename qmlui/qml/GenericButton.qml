@@ -94,7 +94,7 @@ Rectangle
         anchors.fill: parent
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton | Qt.RightButton
-        onClicked: btnRoot.clicked(mouse.button)
+        onClicked: (mouse) => btnRoot.clicked(mouse.button)
         onPressAndHold:
         {
             if (repetition == true)

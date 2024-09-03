@@ -82,10 +82,11 @@ Entity
     readonly property Layer spotlightScatteringLayer: Layer { }
 
     property real coneBottomRadius: distCutoff * Math.tan(cutoffAngle) + coneTopRadius
-    property real coneTopRadius: (0.24023 / 2) * transform.scale3D.x * 0.7 // (diameter / 2) * scale * magic number
+    property real coneTopRadius: !transform ? 0.0 : (0.24023 / 2) * transform.scale3D.x * 0.7 // (diameter / 2) * scale * magic number
 
     property real headLength:
     {
+		if(!transform) return 0.0;
         switch(meshType)
         {
             case MainView3D.NoMeshType: return 0;
@@ -232,14 +233,14 @@ Entity
     {
         id: panAnim
         running: false
-        easing.type: Easing.Linear
+        easing.type: QQ2.Easing.Linear
     }
 
     QQ2.NumberAnimation on tiltRotation
     {
         id: tiltAnim
         running: false
-        easing.type: Easing.Linear
+        easing.type: QQ2.Easing.Linear
     }
 
     property Texture2D depthTex:
@@ -292,7 +293,7 @@ Entity
         id: goboAnim
         running: false
         duration: 0
-        easing.type: Easing.Linear
+        easing.type: QQ2.Easing.Linear
         from: 0
         to: 360
         loops: QQ2.Animation.Infinite
@@ -323,7 +324,7 @@ Entity
     {
         id: eSceneLoader
 
-        onStatusChanged:
+        onStatusChanged: (status) =>
         {
             if (status === SceneLoader.Ready)
                 View3D.initializeFixture(itemID, fixtureEntity, eSceneLoader)
@@ -341,7 +342,7 @@ Entity
 
         property var lastPos
 
-        onClicked:
+        onClicked: (pick) =>
         {
             console.log("3D item clicked")
             isSelected = !isSelected

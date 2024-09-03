@@ -39,7 +39,7 @@ Rectangle
         id: channelToolLoader
         z: 2
 
-        onValueChanged: simpleDesk.setValue(fixtureID, channelIndex, value)
+        onValueChanged: (fixtureID, channelIndex, value) => simpleDesk.setValue(fixtureID, channelIndex, value)
     }
 
     SplitView
