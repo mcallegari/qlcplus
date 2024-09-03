@@ -381,7 +381,7 @@ void SceneEditor::updateLists()
     if (m_scene == nullptr)
         return;
 
-    for (quint32 fxID : m_fixtureIDs)
+    for (quint32 &fxID : m_fixtureIDs)
     {
         Fixture *fixture = m_doc->fixture(fxID);
         if (fixture == nullptr)
@@ -405,7 +405,7 @@ void SceneEditor::updateLists()
      */
 
     // fixture groups
-    for (quint32 grpId : m_scene->fixtureGroups())
+    for (quint32 &grpId : m_scene->fixtureGroups())
     {
         FixtureGroup *grp = m_doc->fixtureGroup(grpId);
         if (grp == nullptr)
@@ -417,7 +417,7 @@ void SceneEditor::updateLists()
         grpMap.insert("isSelected", false);
         m_componentList->addDataMap(grpMap);
 
-        for (quint32 fxId : grp->fixtureList())
+        for (quint32 &fxId : grp->fixtureList())
         {
             if (m_fixtureIDs.contains(fxId) == false)
             {
@@ -436,7 +436,7 @@ void SceneEditor::updateLists()
     }
 
     // palettes
-    for (quint32 pId : m_scene->palettes())
+    for (quint32 &pId : m_scene->palettes())
     {
         QLCPalette *palette = m_doc->palette(pId);
         if (palette == nullptr)
@@ -450,11 +450,11 @@ void SceneEditor::updateLists()
     }
 
     // fixtures (there might be fixtures with no values set)
-    for (quint32 fId : m_scene->fixtures())
+    for (quint32 &fId : m_scene->fixtures())
         addFixtureToList(fId);
 
     // scene values
-    for (SceneValue sv : m_scene->values())
+    for (SceneValue &sv : m_scene->values())
         addFixtureToList(sv.fxi);
 
     emit componentListChanged();
@@ -485,20 +485,20 @@ void SceneEditor::cacheChannelValues()
 {
     m_channelsCache.clear();
 
-    for (quint32 pId : m_scene->palettes())
+    for (quint32 &pId : m_scene->palettes())
     {
         QLCPalette *palette = m_doc->palette(pId);
         if (palette == nullptr)
             continue;
 
-        for (SceneValue scv : palette->valuesFromFixtureGroups(m_doc, m_scene->fixtureGroups()))
+        for (SceneValue &scv : palette->valuesFromFixtureGroups(m_doc, m_scene->fixtureGroups()))
             setCacheChannelValue(scv);
 
-        for (SceneValue scv : palette->valuesFromFixtures(m_doc, m_scene->fixtures()))
+        for (SceneValue &scv : palette->valuesFromFixtures(m_doc, m_scene->fixtures()))
             setCacheChannelValue(scv);
     }
 
-    for (SceneValue scv : m_scene->values())
+    for (SceneValue &scv : m_scene->values())
         setCacheChannelValue(scv);
 }
 

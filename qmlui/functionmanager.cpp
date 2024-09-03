@@ -149,14 +149,14 @@ QStringList FunctionManager::selectedItemNames()
 {
     QStringList names;
 
-    for (QVariant fID : m_selectedIDList)
+    for (QVariant &fID : m_selectedIDList)
     {
         Function *f = m_doc->function(fID.toInt());
         if (f == nullptr)
             continue;
         names.append(f->name());
     }
-    for (QString path : m_selectedFolderList)
+    for (QString &path : m_selectedFolderList)
     {
         QStringList tokens = path.split(TreeModel::separator());
         names.append(tokens.last());
@@ -250,7 +250,7 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
             if (fixturesList.count())
             {
                 Scene *scene = qobject_cast<Scene *>(f);
-                for (QVariant fixtureID : fixturesList)
+                for (QVariant &fixtureID : fixturesList)
                     scene->addFixture(fixtureID.toUInt());
             }
             m_sceneCount++;
@@ -306,7 +306,7 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
             if (fixturesList.count())
             {
                 EFX *efx = qobject_cast<EFX *>(f);
-                for (QVariant fixtureID : fixturesList)
+                for (QVariant &fixtureID : fixturesList)
                 {
                     Fixture *fixture = m_doc->fixture(fixtureID.toUInt());
                     if (fixture == nullptr)
@@ -327,7 +327,7 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
             if (m_selectedIDList.count())
             {
                 Collection *collection = qobject_cast<Collection *>(f);
-                for (QVariant fID : m_selectedIDList)
+                for (QVariant &fID : m_selectedIDList)
                     collection->addFunction(fID.toUInt());
             }
 
@@ -496,7 +496,7 @@ void FunctionManager::setPreviewEnabled(bool enable)
     }
     else
     {
-        for (QVariant fID : m_selectedIDList)
+        for (QVariant &fID : m_selectedIDList)
         {
             Function *f = m_doc->function(fID.toUInt());
             if (f != nullptr)
@@ -522,11 +522,12 @@ void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
 
     if (multiSelection == false)
     {
-        for (QVariant fID : m_selectedIDList)
+        // stop selected Function(s) that are running
+        for (QVariant &funcID : m_selectedIDList)
         {
             if (m_previewEnabled == true)
             {
-                Function *f = m_doc->function(fID.toUInt());
+                Function *f = m_doc->function(funcID.toUInt());
                 if (f != nullptr)
                     f->stop(FunctionParent::master());
             }
@@ -536,6 +537,7 @@ void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
         emit selectedFolderCountChanged(0);
     }
 
+    // if preview is requested, start this Function here
     if (m_previewEnabled == true)
     {
         Function *f = m_doc->function(fID);
@@ -724,7 +726,7 @@ void FunctionManager::deleteFunction(quint32 fid)
 
 void FunctionManager::deleteFunctions(QVariantList IDList)
 {
-    for (QVariant fID : IDList)
+    for (QVariant &fID : IDList)
     {
         Function *f = m_doc->function(fID.toInt());
         if (f == nullptr)
@@ -786,7 +788,7 @@ void FunctionManager::moveFunctions(QString newPath)
         wasEmptyNode = true;
     }
 
-    for (QVariant fID : m_selectedIDList)
+    for (QVariant &fID : m_selectedIDList)
         moveFunction(fID.toUInt(), newPath);
 
     if (wasEmptyNode)
@@ -799,7 +801,7 @@ void FunctionManager::moveFunctions(QString newPath)
 
     if (m_selectedFolderList.count())
     {
-        for (QString path : m_selectedFolderList)
+        for (QString &path : m_selectedFolderList)
         {
             QStringList tokens = path.split(TreeModel::separator());
             QString newAbsPath;
@@ -816,7 +818,7 @@ void FunctionManager::moveFunctions(QString newPath)
 
 void FunctionManager::cloneFunctions()
 {
-    for (QVariant fidVar : m_selectedIDList)
+    for (QVariant &fidVar : m_selectedIDList)
     {
         Function *func = m_doc->function(fidVar.toUInt());
         if (func == nullptr)
@@ -872,10 +874,10 @@ void FunctionManager::renameSelectedItems(QString newName, bool numbering, int s
     int currNumber = startNumber;
 
     // rename folders first
-    for (QString path : m_selectedFolderList)
+    for (QString &path : m_selectedFolderList)
         setFolderPath(path, newName, true);
 
-    for (QVariant id : m_selectedIDList) // C++11
+    for (QVariant &id : m_selectedIDList) // C++11
     {
         Function *f = m_doc->function(id.toUInt());
         if (f == nullptr)
@@ -1069,7 +1071,7 @@ void FunctionManager::createFolder()
 
 void FunctionManager::deleteSelectedFolders()
 {
-    for (QString path : m_selectedFolderList)
+    for (QString &path : m_selectedFolderList)
     {
         if (m_emptyFolderList.contains(path))
         {
@@ -1133,7 +1135,7 @@ void FunctionManager::dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32
 
     Scene *newScene = new Scene(m_doc);
 
-    for (SceneValue sv : dumpValues)
+    for (SceneValue &sv : dumpValues)
     {
         if (selectedFixtures.count() && selectedFixtures.contains(sv.fxi) == false)
             continue;
@@ -1170,7 +1172,7 @@ void FunctionManager::dumpOnScene(QList<SceneValue> dumpValues, QList<quint32> s
     if (scene == nullptr)
         return;
 
-    for (SceneValue sv : dumpValues)
+    for (SceneValue &sv : dumpValues)
     {
         if (selectedFixtures.count() && selectedFixtures.contains(sv.fxi) == false)
             continue;
@@ -1295,13 +1297,13 @@ void FunctionManager::updateFunctionsTree()
     folderParams.append(QVariant()); // classRef
     folderParams.append(App::FolderDragItem); // type
 
-    for (QString path : pathsList)
+    for (QString &path : pathsList)
     {
         QString treePath = path.replace("/", TreeModel::separator());
         m_functionTree->setPathData(treePath, folderParams);
     }
 
-    for (QString folderPath : m_emptyFolderList)
+    for (QString &folderPath : m_emptyFolderList)
     {
         QStringList tokens = folderPath.split(TreeModel::separator());
         QString fName = tokens.last();
