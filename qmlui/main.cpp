@@ -62,6 +62,11 @@ void printVersion()
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+// Since Qt6, the default rendering backend is Rhi. QLC doesn't support it yet so OpenGL have to be forced.
+    QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGLRhi);
+    qputenv("QT3D_RENDERER", "opengl");
+#endif
 
     QApplication::setOrganizationName("qlcplus");
     QApplication::setOrganizationDomain("org");
