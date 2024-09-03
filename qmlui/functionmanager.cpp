@@ -579,7 +579,7 @@ void FunctionManager::setEditorFunction(quint32 fID, bool requestUI, bool back)
     // reset all the editor functions
     if (m_currentEditor != nullptr)
     {
-        if (m_currentEditor->functionID() == fID)
+        if (m_currentEditor->functionID() == fID && !back)
             return;
 
         if (!back)
@@ -590,7 +590,7 @@ void FunctionManager::setEditorFunction(quint32 fID, bool requestUI, bool back)
     }
     if (m_sceneEditor != nullptr)
     {
-        if (m_sceneEditor->functionID() == fID)
+        if (m_sceneEditor->functionID() == fID && !back)
             return;
 
         delete m_sceneEditor;
@@ -1231,7 +1231,10 @@ void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value
             if (currentVal != newVal || value != currDmxValue)
             {
                 Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(), currentVal, newVal);
-                scene->setValue(fxID, channel, value);
+                if (scene->isRunning())
+                    scene->setValue(scv, false, false);
+                else
+                    scene->setValue(fxID, channel, value);
             }
         }
     }
