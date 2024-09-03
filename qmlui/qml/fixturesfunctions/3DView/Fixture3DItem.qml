@@ -232,14 +232,14 @@ Entity
     {
         id: panAnim
         running: false
-        easing.type: Easing.Linear
+        easing.type: QQ2.Easing.Linear
     }
 
     QQ2.NumberAnimation on tiltRotation
     {
         id: tiltAnim
         running: false
-        easing.type: Easing.Linear
+        easing.type: QQ2.Easing.Linear
     }
 
     property Texture2D depthTex:
@@ -292,7 +292,7 @@ Entity
         id: goboAnim
         running: false
         duration: 0
-        easing.type: Easing.Linear
+        easing.type: QQ2.Easing.Linear
         from: 0
         to: 360
         loops: QQ2.Animation.Infinite
@@ -323,7 +323,7 @@ Entity
     {
         id: eSceneLoader
 
-        onStatusChanged:
+        onStatusChanged: (status) =>
         {
             if (status === SceneLoader.Ready)
                 View3D.initializeFixture(itemID, fixtureEntity, eSceneLoader)

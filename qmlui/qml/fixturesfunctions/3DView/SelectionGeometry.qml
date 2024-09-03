@@ -70,14 +70,12 @@ GeometryRenderer
     Buffer
     {
         id: vertexBuffer
-        type: Buffer.VertexBuffer
         data: vertexBufferData()
     }
 
     Buffer
     {
         id: indexBuffer
-        type: Buffer.IndexBuffer
         data: indexBufferData()
     }
 
