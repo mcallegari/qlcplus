@@ -23,8 +23,9 @@
 #include "gpioconfiguration.h"
 #include "gpioplugin.h"
 
-#define KColumnGPIONumber       0
-#define KColumnGPIOUsage        1
+#define KColumnGPIONumber           0
+#define KColumnGPIOUsage            1
+#define KColumnGPIOChannelNumber    2
 
 #define SETTINGS_GEOMETRY "gpioconfiguration/geometry"
 
@@ -57,18 +58,19 @@ GPIOConfiguration::~GPIOConfiguration()
 
 void GPIOConfiguration::fillTree()
 {
-    foreach (GPIOPinInfo* gpio, m_plugin->gpioList())
+    foreach (GPIOLineInfo* gpio, m_plugin->gpioList())
     {
         QTreeWidgetItem* item = new QTreeWidgetItem(m_treeWidget);
-        item->setText(KColumnGPIONumber, QString::number(gpio->m_number));
+        item->setText(KColumnGPIONumber, gpio->m_name);
+        item->setText(KColumnGPIOChannelNumber, QString::number(gpio->m_line + 1));
 
         QComboBox *combo = new QComboBox(this);
-        combo->addItem(tr("Not used"), GPIOPlugin::NoUsage);
-        combo->addItem(tr("Input"), GPIOPlugin::InputUsage);
-        combo->addItem(tr("Output"), GPIOPlugin::OutputUsage);
-        if (gpio->m_usage == GPIOPlugin::InputUsage)
+        combo->addItem(tr("Not used"), GPIOPlugin::NoDirection);
+        combo->addItem(tr("Input"), GPIOPlugin::InputDirection);
+        combo->addItem(tr("Output"), GPIOPlugin::OutputDirection);
+        if (gpio->m_direction == GPIOPlugin::InputDirection)
             combo->setCurrentIndex(1);
-        else if (gpio->m_usage == GPIOPlugin::OutputUsage)
+        else if (gpio->m_direction == GPIOPlugin::OutputDirection)
             combo->setCurrentIndex(2);
         m_treeWidget->setItemWidget(item, KColumnGPIOUsage, combo);
     }
@@ -80,35 +82,42 @@ void GPIOConfiguration::fillTree()
 
 void GPIOConfiguration::accept()
 {
-    QList<GPIOPinInfo *> gpioList = m_plugin->gpioList();
+    QList<GPIOLineInfo *> gpioList = m_plugin->gpioList();
 
     for (int i = 0; i < m_treeWidget->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = m_treeWidget->topLevelItem(i);
 
-        QString parName = QString("%1-%2").arg(GPIO_PARAM_USAGE).arg(i);
+
 
         QComboBox *combo = qobject_cast<QComboBox*>(m_treeWidget->itemWidget(item, KColumnGPIOUsage));
         if (combo != NULL)
         {
-            GPIOPlugin::PinUsage usage = GPIOPlugin::PinUsage(combo->currentData().toInt());
-            if (usage == GPIOPlugin::InputUsage)
+            GPIOPlugin::LineDirection usage = GPIOPlugin::LineDirection(combo->currentData().toInt());
+
+            // not interested in not-changed directions
+            if (usage == gpioList.at(i)->m_direction)
+                continue;
+
+            QString parName = QString("%1-%2").arg(GPIO_PARAM_USAGE).arg(i);
+
+            if (usage == GPIOPlugin::InputDirection)
                 m_plugin->setParameter(0, 0, QLCIOPlugin::Input, parName,
-                                       m_plugin->pinUsageToString(usage));
-            else if (usage == GPIOPlugin::OutputUsage)
+                                       m_plugin->lineDirectionToString(usage));
+            else if (usage == GPIOPlugin::OutputDirection)
                 m_plugin->setParameter(0, 0, QLCIOPlugin::Output, parName,
-                                       m_plugin->pinUsageToString(usage));
+                                       m_plugin->lineDirectionToString(usage));
             else // GPIOPlugin::NoUsage
             {
                 // we use the setParameter method here cause we need to perform
                 // actual operations on the GPIO files
                 // then setParameter will call unSetParameter
-                if (gpioList.at(i)->m_usage == GPIOPlugin::InputUsage)
+                if (gpioList.at(i)->m_direction == GPIOPlugin::InputDirection)
                     m_plugin->setParameter(0, 0, QLCIOPlugin::Input, parName,
-                                           m_plugin->pinUsageToString(usage));
+                                           m_plugin->lineDirectionToString(usage));
                 else
                     m_plugin->setParameter(0, 0, QLCIOPlugin::Output, parName,
-                                           m_plugin->pinUsageToString(usage));
+                                           m_plugin->lineDirectionToString(usage));
             }
         }
     }

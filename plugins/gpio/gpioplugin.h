@@ -28,13 +28,13 @@
 
 typedef struct
 {
-    int m_number;
+    int m_line;
     bool m_enabled;
-    int m_usage;
-    QFile *m_file;
+    int m_direction;
     uchar m_value;
     uchar m_count;
-} GPIOPinInfo;
+    QString m_name;
+} GPIOLineInfo;
 
 class ReadThread;
 
@@ -63,31 +63,34 @@ public:
     /** @reimp */
     QString pluginInfo();
 
-    QList<GPIOPinInfo *> gpioList() const;
+    std::string devicePath() const;
+
+    QList<GPIOLineInfo *> gpioList() const;
 
 protected:
-    QList<GPIOPinInfo *> m_gpioList;
+    std::string m_chipPath;
+    QList<GPIOLineInfo *> m_gpioList;
     ReadThread *m_readerThread;
     quint32 m_inputUniverse, m_outputUniverse;
 
     /*********************************************************************
-     * GPIO PIN methods
+     * GPIO line methods
      *********************************************************************/
 public:
-    enum PinUsage
+    enum LineDirection
     {
-        NoUsage     = 1 << 0,
-        OutputUsage = 1 << 1,
-        InputUsage  = 1 << 2
+        NoDirection     = 1 << 0,
+        OutputDirection = 1 << 1,
+        InputDirection  = 1 << 2
     };
 
-    QString pinUsageToString(PinUsage usage);
-    PinUsage stringToPinUsage(QString usage);
+    QString lineDirectionToString(LineDirection usage);
+    LineDirection stringToLineDirection(QString usage);
 
 private:
-    void setPinStatus(int gpioNumber, bool enable);
-    void setPinUsage(int gpioNumber, PinUsage usage);
-    void setPinValue(int gpioNumber, uchar value);
+    void setLineStatus(int lineNumber, bool enable);
+    void setLineDirection(int lineNumber, LineDirection direction);
+    void setLineValue(int lineNumber, uchar value);
 
     /*********************************************************************
      * Outputs
