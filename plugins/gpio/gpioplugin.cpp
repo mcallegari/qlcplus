@@ -18,6 +18,7 @@
 */
 
 #include <QStringList>
+#include <QSettings>
 #include <QDebug>
 
 #include <gpiod.hpp>
@@ -26,47 +27,46 @@
 #include "gpioreaderthread.h"
 #include "gpioconfiguration.h"
 
+#define SETTINGS_CHIP_NAME "GPIOPlugin/chipname"
+
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
 
 GPIOPlugin::~GPIOPlugin()
 {
+    int linesNum = m_gpioList.count();
+    for (int i = 0; i < linesNum; i++)
+    {
+        GPIOLineInfo *gpio = m_gpioList.takeLast();
+        delete gpio;
+    }
 }
 
 void GPIOPlugin::init()
 {
-    m_chipPath = "/dev/gpiochip4";
     m_readerThread = NULL;
     m_inputUniverse = UINT_MAX;
     m_outputUniverse = UINT_MAX;
 
-    ::gpiod::chip gChip(m_chipPath);
-
-    for (unsigned int i = 0; i < gChip.num_lines(); i++)
+    QSettings settings;
+    QVariant value = settings.value(SETTINGS_CHIP_NAME);
+    if (value.isValid() == true)
     {
-        auto line = gChip.get_line(i);
-
-        GPIOLineInfo *gpio = new GPIOLineInfo;
-        gpio->m_line = i;
-        gpio->m_name = QString::fromStdString(line.name());
-        gpio->m_enabled = false;
-        gpio->m_value = 1;
-        gpio->m_count = 0;
-
-        /*
-        int direction = line.direction();
-
-        if (direction == ::gpiod::line::DIRECTION_INPUT)
-            gpio->m_direction = InputDirection;
-        else if (direction == ::gpiod::line::DIRECTION_OUTPUT)
-            gpio->m_direction = OutputDirection;
-        else
-        */
-        gpio->m_direction = NoDirection;
-
-        m_gpioList.append(gpio);
+        m_chipName = value.toString().toStdString();
     }
+    else
+    {
+        // autodetect chips and use first
+        for (auto& it: ::gpiod::make_chip_iter())
+        {
+            qDebug() << "GPIO chip found" << QString::fromStdString(it.name());
+            if (m_chipName.empty())
+                m_chipName = it.name();
+        }
+    }
+
+    updateLinesList();
 }
 
 QString GPIOPlugin::name()
@@ -100,9 +100,61 @@ QString GPIOPlugin::pluginInfo()
     return str;
 }
 
-std::string GPIOPlugin::devicePath() const
+std::string GPIOPlugin::chipName() const
 {
-    return m_chipPath;
+    return m_chipName;
+}
+
+void GPIOPlugin::setChipName(QString name)
+{
+    if (name == QString::fromStdString(m_chipName))
+        return;
+
+    m_chipName = name.toStdString();
+
+    QSettings settings;
+    settings.setValue(SETTINGS_CHIP_NAME, name);
+
+    updateLinesList();
+}
+
+void GPIOPlugin::updateLinesList()
+{
+    ::gpiod::chip gChip(m_chipName);
+    if (!gChip)
+        return;
+
+    int linesNum = m_gpioList.count();
+    for (int i = 0; i < linesNum; i++)
+    {
+        GPIOLineInfo *gpio = m_gpioList.takeLast();
+        delete gpio;
+    }
+
+    for (unsigned int i = 0; i < gChip.num_lines(); i++)
+    {
+        auto line = gChip.get_line(i);
+
+        GPIOLineInfo *gpio = new GPIOLineInfo;
+        gpio->m_line = i;
+        gpio->m_name = QString::fromStdString(line.name());
+        gpio->m_enabled = false;
+        gpio->m_value = 1;
+        gpio->m_count = 0;
+
+        /*
+        int direction = line.direction();
+
+        if (direction == ::gpiod::line::DIRECTION_INPUT)
+            gpio->m_direction = InputDirection;
+        else if (direction == ::gpiod::line::DIRECTION_OUTPUT)
+            gpio->m_direction = OutputDirection;
+        else
+        */
+        gpio->m_direction = NoDirection;
+
+        m_gpioList.append(gpio);
+    }
 }
 
 /*****************************************************************************
@@ -265,7 +317,7 @@ void GPIOPlugin::setLineValue(int lineNumber, uchar value)
 
     qDebug() << "[GPIO] writing line" << lineNumber << "with value" << value;
 
-    ::gpiod::chip gChip(devicePath());
+    ::gpiod::chip gChip(chipName());
     ::gpiod::line gLine = gChip.get_line(lineNumber);
     gLine.request({"set_value", gpiod::line_request::DIRECTION_OUTPUT, 0}, value);
     gLine.release();

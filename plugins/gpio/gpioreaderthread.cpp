@@ -62,7 +62,7 @@ void ReadThread::run()
     qDebug() << "[GPIO] Reader thread created";
     m_running = true;
 
-    ::gpiod::chip gChip(m_plugin->devicePath());
+    ::gpiod::chip gChip(m_plugin->chipName());
 
     while (m_running == true)
     {

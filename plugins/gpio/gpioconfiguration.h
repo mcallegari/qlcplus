@@ -38,6 +38,9 @@ public:
     /** @reimp */
     void accept();
 
+protected slots:
+    void slotChipChanged(int index);
+
 protected:
     void fillTree();
 

@@ -20,6 +20,8 @@
 #include <QComboBox>
 #include <QSettings>
 
+#include <gpiod.hpp>
+
 #include "gpioconfiguration.h"
 #include "gpioplugin.h"
 
@@ -47,6 +49,13 @@ GPIOConfiguration::GPIOConfiguration(GPIOPlugin* plugin, QWidget* parent)
     if (geometrySettings.isValid() == true)
         restoreGeometry(geometrySettings.toByteArray());
 
+    for (auto& it: ::gpiod::make_chip_iter())
+        m_chipCombo->addItem(QString::fromStdString(it.name()));
+    m_chipCombo->setCurrentText(QString::fromStdString(m_plugin->chipName()));
+
+    connect(m_chipCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(slotChipChanged(int)));
+
     fillTree();
 }
 
@@ -58,6 +67,8 @@ GPIOConfiguration::~GPIOConfiguration()
 
 void GPIOConfiguration::fillTree()
 {
+    m_treeWidget->clear();
+
     foreach (GPIOLineInfo* gpio, m_plugin->gpioList())
     {
         QTreeWidgetItem* item = new QTreeWidgetItem(m_treeWidget);
@@ -74,6 +85,8 @@ void GPIOConfiguration::fillTree()
             combo->setCurrentIndex(2);
         m_treeWidget->setItemWidget(item, KColumnGPIOUsage, combo);
     }
+
+    m_treeWidget->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 /*****************************************************************************
@@ -87,8 +100,6 @@ void GPIOConfiguration::accept()
     for (int i = 0; i < m_treeWidget->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = m_treeWidget->topLevelItem(i);
-
-
 
         QComboBox *combo = qobject_cast<QComboBox*>(m_treeWidget->itemWidget(item, KColumnGPIOUsage));
         if (combo != NULL)
@@ -123,6 +134,13 @@ void GPIOConfiguration::accept()
     }
 
     QDialog::accept();
+}
+
+void GPIOConfiguration::slotChipChanged(int index)
+{
+    m_plugin->setChipName(m_chipCombo->itemText(index));
+
+    fillTree();
 }
 
 int GPIOConfiguration::exec()

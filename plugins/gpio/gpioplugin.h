@@ -63,12 +63,15 @@ public:
     /** @reimp */
     QString pluginInfo();
 
-    std::string devicePath() const;
+    std::string chipName() const;
+    void setChipName(QString name);
+
+    void updateLinesList();
 
     QList<GPIOLineInfo *> gpioList() const;
 
 protected:
-    std::string m_chipPath;
+    std::string m_chipName;
     QList<GPIOLineInfo *> m_gpioList;
     ReadThread *m_readerThread;
     quint32 m_inputUniverse, m_outputUniverse;
