@@ -410,9 +410,12 @@ VCWidgetItem
 
         onDropped:
         {
-            // attach function here
+            // attach functions here
             if (drag.source.hasOwnProperty("fromFunctionManager"))
-                speedObj.addFunction(drag.source.itemsList[0])
+            {
+                for (var i = 0; i < drag.source.itemsList.length; i++)
+                    speedObj.addFunction(drag.source.itemsList[i])
+            }
         }
 
         states: [
