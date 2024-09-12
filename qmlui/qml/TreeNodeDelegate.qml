@@ -126,9 +126,9 @@ Column
 
             drag.target: dragItem
 
-            onPressed: nodeContainer.mouseEvent(App.Pressed, cRef ? cRef.id : -1, nodeContainer.itemType,
+            onPressed: (mouse) => nodeContainer.mouseEvent(App.Pressed, cRef ? cRef.id : -1, nodeContainer.itemType,
                                                 nodeContainer, mouse.modifiers)
-            onClicked:
+            onClicked: (mouse) =>
             {
                 nodeLabel.forceActiveFocus()
                 nodeContainer.mouseEvent(App.Clicked, cRef ? cRef.id : -1, nodeContainer.itemType,
