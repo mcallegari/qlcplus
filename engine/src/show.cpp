@@ -229,7 +229,7 @@ bool Show::addTrack(Track *track, quint32 id)
      track->setShowId(this->id());
      m_tracks[id] = track;
 
-     registerAttribute(track->name());
+     registerAttribute(QString("%1-%2").arg(track->name()).arg(track->id()));
 
      return true;
 }
