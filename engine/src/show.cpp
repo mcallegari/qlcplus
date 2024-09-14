@@ -238,13 +238,13 @@ bool Show::removeTrack(quint32 id)
 {
     if (m_tracks.contains(id) == true)
     {
-        Track* trk = m_tracks.take(id);
-        Q_ASSERT(trk != NULL);
+        Track* track = m_tracks.take(id);
+        Q_ASSERT(track != NULL);
 
-        unregisterAttribute(trk->name());
+        unregisterAttribute(QString("%1-%2").arg(track->name()).arg(track->id()));
 
         //emit trackRemoved(id);
-        delete trk;
+        delete track;
 
         return true;
     }
