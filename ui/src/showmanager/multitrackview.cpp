@@ -192,7 +192,7 @@ void MultiTrackView::addTrack(Track *track)
 
 void MultiTrackView::setItemCommonProperties(ShowItem *item, ShowFunction *func, int trackNum)
 {
-    qDebug() << "Start time:" << func->startTime() << "Duration:" << func->duration();
+    qDebug() << "[" << func->functionID() << "] Start time:" << func->startTime() << "Duration:" << func->duration();
 
     item->setTrackIndex(trackNum);
 

@@ -117,7 +117,7 @@ quint32 RGBMatrix::totalDuration()
     if (grp == NULL)
         return 0;
 
-    qDebug () << "Algorithm steps:" << m_algorithm->rgbMapStepCount(grp->size());
+    //qDebug () << "Algorithm steps:" << m_algorithm->rgbMapStepCount(grp->size());
     return m_algorithm->rgbMapStepCount(grp->size()) * duration();
 }
 
