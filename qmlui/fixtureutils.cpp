@@ -423,7 +423,8 @@ bool FixtureUtils::goboTiming(const QLCCapability *cap, uchar value, int &speed)
         return true;
     }
 
-    value = SCALE(value, cap->min(), cap->max(), 1, 255);
+    if (cap->preset() != QLCCapability::RotationStop)
+        value = SCALE(value, cap->min(), cap->max(), 1, 255);
 
     switch (cap->preset())
     {
