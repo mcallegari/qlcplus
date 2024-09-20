@@ -109,6 +109,7 @@ Popup
     CustomPopupDialog
     {
         id: saveFirstPopup
+        width: menuRoot.width  // Set width to avoid binding loops on implicit sizes
         title: qsTr("Your project has changes")
         message: qsTr("Do you wish to save the current project first?\nChanges will be lost if you don't save them.")
         standardButtons: Dialog.Yes | Dialog.No | Dialog.Cancel
@@ -581,6 +582,7 @@ Popup
             PopupAbout
             {
                 id: infoPopup
+                width: menuRoot.width	// Set width to avoid binding loops on implicit sizes
             }
         }
     }

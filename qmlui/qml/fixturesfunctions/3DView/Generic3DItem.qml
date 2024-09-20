@@ -55,7 +55,7 @@ Entity
         id: eObjectPicker
         dragEnabled: true
 
-        onClicked:
+        onClicked: (pick) =>
         {
             console.log("3D item clicked")
             isSelected = !isSelected

@@ -330,7 +330,7 @@ Rectangle
 
                 projectionType: CameraLens.PerspectiveProjection
                 fieldOfView: 45
-                aspectRatio: viewSize.width / viewSize.height
+                aspectRatio: viewCamera.width / viewCamera.height
                 nearPlane: 1.0
                 farPlane: 1000.0
                 position: View3D.cameraPosition
@@ -360,7 +360,7 @@ Rectangle
                 property int selGenericCount: View3D.genericSelectedCount
 
                 sourceDevice: mDevice
-                onPressed:
+                onPressed: (mouse) =>
                 {
                     directionCounter = 0
                     dx = 0
@@ -368,7 +368,7 @@ Rectangle
                     startPoint = Qt.point(mouse.x, mouse.y)
                 }
 
-                onPositionChanged:
+                onPositionChanged: (mouse) =>
                 {
                     if (directionCounter < 3)
                     {
@@ -444,7 +444,7 @@ Rectangle
                         if (!mouse.modifiers || (mouse.modifiers & Qt.ShiftModifier && direction == Qt.Horizontal))
                             viewCamera.panAboutViewCenter(-xDelta, Qt.vector3d(0, 1, 0))
                         if (!mouse.modifiers || (mouse.modifiers & Qt.ShiftModifier && direction == Qt.Vertical))
-                            viewCamera.tiltAboutViewCenter(yDelta, Qt.vector3d(1, 0, 0))
+                            viewCamera.tiltAboutViewCenter(yDelta)
 
                         View3D.cameraPosition = viewCamera.position
                         View3D.cameraUpVector = viewCamera.upVector
@@ -464,7 +464,7 @@ Rectangle
                     startPoint = Qt.point(mouse.x, mouse.y)
                 }
 
-                onWheel:
+                onWheel: (wheel) =>
                 {
                     if (wheel.angleDelta.y > 0)
                         viewCamera.setZoom(-1)

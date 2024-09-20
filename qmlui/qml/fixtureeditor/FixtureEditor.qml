@@ -49,7 +49,8 @@ Rectangle
         id: openDialog
         visible: false
         title: qsTr("Open a fixture definition")
-        currentFolder: "file://" + fixtureEditor.workingPath
+        // fixtureEditor may be null on exit
+        currentFolder: "file://" + fixtureEditor?.workingPath
         nameFilters: [ qsTr("Fixture definition files") + " (*.qxf)", qsTr("All files") + " (*)" ]
 
         onAccepted:
@@ -70,7 +71,8 @@ Rectangle
         id: saveDialog
         visible: false
         title: qsTr("Save definition as...")
-        currentFolder: "file://" + fixtureEditor.workingPath
+        // fixtureEditor may be null on exit
+        currentFolder: "file://" + fixtureEditor?.workingPath
         fileMode: FileDialog.SaveFile
         nameFilters: [ qsTr("Fixture definition files") + " (*.qxf)", qsTr("All files") + " (*)" ]
         defaultSuffix: "qxf"
@@ -266,7 +268,7 @@ Rectangle
                 id: editorsRepeater
                 model: fixtureEditor ? fixtureEditor.editorsList : null
 
-                onItemAdded: item.clicked()
+                onItemAdded: (index,item) => item.clicked()
 
                 delegate:
                     MenuBarEntry

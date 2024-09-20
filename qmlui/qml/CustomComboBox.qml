@@ -113,7 +113,7 @@ ComboBox
     delegate:
         ItemDelegate
         {
-            width: parent.width
+            width: parent?.width
             implicitHeight: delegateHeight
             highlighted: control.highlightedIndex === index
             hoverEnabled: control.hoverEnabled

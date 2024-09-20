@@ -39,7 +39,7 @@ LayerFilter
                 RenderPassFilter
                 {
                     id: geometryPass
-                    matchAny: FilterKey { name: "pass"; value: { return fixtureItem.lightIntensity ? "shadows" : "invalid" } }
+                    matchAny: FilterKey { name: "pass"; value: { return fixtureItem && fixtureItem.lightIntensity ? "shadows" : "invalid" } }
 
                     parameters: [
                         Parameter { name: "lightViewMatrix"; value: fixtureItem ? fixtureItem.lightViewMatrix : Qt.matrix4x4() },

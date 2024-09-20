@@ -224,7 +224,7 @@ Rectangle
                       drag.target: pDragItem
                       drag.threshold: height / 2
 
-                      onPressed:
+                      onPressed: (mouse) =>
                       {
                           if (model.isSelected)
                               return

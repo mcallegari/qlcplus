@@ -42,8 +42,8 @@ Entity
         property Entity fxItem: null
 
         parameters: [
-            Parameter { name: "diffuse"; value: "blue" },
-            Parameter { name: "specular"; value: "black" },
+            Parameter { name: "diffuse"; value: Qt.color("blue") },
+            Parameter { name: "specular"; value: Qt.color("black") },
             Parameter { name: "shininess"; value: 1.0 },
             Parameter { name: "bloom"; value: 0 },
 

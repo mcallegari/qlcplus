@@ -126,9 +126,9 @@ Column
 
             drag.target: dragItem
 
-            onPressed: nodeContainer.mouseEvent(App.Pressed, cRef ? cRef.id : -1, nodeContainer.itemType,
+            onPressed: (mouse) => nodeContainer.mouseEvent(App.Pressed, cRef ? cRef.id : -1, nodeContainer.itemType,
                                                 nodeContainer, mouse.modifiers)
-            onClicked:
+            onClicked: (mouse) =>
             {
                 nodeLabel.forceActiveFocus()
                 nodeContainer.mouseEvent(App.Clicked, cRef ? cRef.id : -1, nodeContainer.itemType,
@@ -143,7 +143,7 @@ Column
             anchors.fill: parent
             keys: [ nodeContainer.dropKeys ]
 
-            onDropped:
+            onDropped: (drop) =>
             {
                 console.log("Item dropped here. x: " + drop.x + " y: " + drop.y + ", items: " + drop.source.itemsList.length)
                 nodeContainer.itemsDropped(nodePath)
