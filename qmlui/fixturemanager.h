@@ -488,6 +488,8 @@ private:
     int m_maxPanDegrees;
     int m_maxTiltDegrees;
 
+    /** Variables to hold the beam properties discovered
+     *  when enabling the beam capability for the selected Fixtures */
     double m_minBeamDegrees;
     double m_maxBeamDegrees;
     bool m_invertedZoom;

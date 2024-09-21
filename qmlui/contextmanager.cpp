@@ -1144,9 +1144,14 @@ qreal ContextManager::getCurrentValue(int type, bool degrees)
                     chValue = (qreal(phy.focusTiltMax()) / divider) * chValue;
                 break;
                 case QLCChannel::Beam:
-                    chValue = qreal((phy.lensDegreesMax() - phy.lensDegreesMin()) / divider) * chValue;
-                    if (ch->controlByte() == QLCChannel::MSB)
-                        chValue += phy.lensDegreesMin();
+                        chValue = qreal((phy.lensDegreesMax() - phy.lensDegreesMin()) / divider) * chValue;
+
+                        if (ch->preset() == QLCChannel::BeamZoomBigSmall)
+                            chValue = phy.lensDegreesMax() - chValue;
+                        else if (ch->controlByte() == QLCChannel::MSB)
+                            chValue += phy.lensDegreesMin();
+
+                        qDebug() << "Current degrees:" << chValue;
                 break;
             }
         }
