@@ -133,7 +133,7 @@ public slots:
     void slotSetEndColor(QColor color);
     void slotEndColorChanged(QRgb color);
     void slotSetAnimationValue(QString name);
-    void slotAnimationChanged(QString name);
+    void slotAnimationChanged(int index);
     void slotMatrixControlKnobValueChanged(int controlID, int value);
     void slotMatrixControlPushButtonClicked(int controlID);
 
