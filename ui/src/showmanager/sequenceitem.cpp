@@ -83,6 +83,8 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
         uint stepFadeIn = step.fadeIn;
         uint stepFadeOut = step.fadeOut;
         uint stepDuration = step.duration;
+        QString stepNotes = step.note;
+
         if (m_chaser->fadeInMode() == Chaser::Common)
             stepFadeIn = m_chaser->fadeInSpeed();
         if (m_chaser->fadeOutMode() == Chaser::Common)
@@ -113,6 +115,11 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
             painter->setBrush(QBrush(Qt::NoBrush));
             painter->drawRect(xpos, 0, stepWidth, TRACK_HEIGHT - 3);
         }
+
+        QRect textRect = QRect(xpos, 0, stepWidth, TRACK_HEIGHT-3);
+        QRect boundingRect = textRect;
+        painter->drawText(textRect, Qt::AlignBottom, stepNotes, &boundingRect);
+
         xpos += stepWidth;
 
         // draw step vertical delimiter
