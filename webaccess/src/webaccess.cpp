@@ -740,7 +740,11 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             if (m_auth && user && user->level < SIMPLE_DESK_AND_VC_LEVEL)
                 return;
 
-            m_sd->resetUniverse();
+            if (cmdList.count() < 3)
+                return;
+
+            quint32 universeIndex = cmdList[2].toUInt() - 1;
+            m_sd->resetUniverse(universeIndex);
             wsAPIMessage = "QLC+API|getChannelsValues|";
             wsAPIMessage.append(WebAccessSimpleDesk::getChannelsMessage(
                                 m_doc, m_sd, m_sd->getCurrentUniverseIndex(),
