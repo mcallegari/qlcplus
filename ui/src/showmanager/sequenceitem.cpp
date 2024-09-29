@@ -83,7 +83,6 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
         uint stepFadeIn = step.fadeIn;
         uint stepFadeOut = step.fadeOut;
         uint stepDuration = step.duration;
-        QString stepNotes = step.note;
 
         if (m_chaser->fadeInMode() == Chaser::Common)
             stepFadeIn = m_chaser->fadeInSpeed();
@@ -116,9 +115,8 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
             painter->drawRect(xpos, 0, stepWidth, TRACK_HEIGHT - 3);
         }
 
-        QRect textRect = QRect(xpos, 0, stepWidth, TRACK_HEIGHT-3);
-        QRect boundingRect = textRect;
-        painter->drawText(textRect, Qt::AlignBottom, stepNotes, &boundingRect);
+        QRect textRect = QRect(xpos, 0, stepWidth, TRACK_HEIGHT - 3);
+        painter->drawText(textRect, Qt::AlignBottom, step.note);
 
         xpos += stepWidth;
 
