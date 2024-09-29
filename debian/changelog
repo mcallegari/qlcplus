@@ -1,6 +1,7 @@
 qlcplus (4.13.2) stable; urgency=low
 
   * engine: add stopOnExit, waitFunctionStart and waitFunctionStop commands to Script - see documentation (thanks to ldebs)
+  * UI/Show Manager: show step notes on the timeline (thanks to anarchid)
   * Web Access: fix grand master stopping running functions
   * Web Access: fix simple desk not resetting the current universe
   * RGB scripts: fix Vertical Fall not allowing different colors when cloned
@@ -11,7 +12,7 @@ qlcplus (4.13.2) stable; urgency=low
   * New fixture: GLP JDC1 (thanks to Flo Edelmann)
   * New fixture: Shehds 2 Eyes 200W LED COB Cool Warm White (thanks to Devsider)
 
-  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Sep 2024 18:19:20 +0200
+  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 24 Nov 2024 18:19:20 +0200
 
 qlcplus (4.13.1) stable; urgency=low
 
