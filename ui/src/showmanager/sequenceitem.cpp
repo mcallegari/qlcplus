@@ -115,7 +115,7 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
             painter->drawRect(xpos, 0, stepWidth, TRACK_HEIGHT - 3);
         }
 
-        QRect textRect = QRect(xpos, 0, stepWidth, TRACK_HEIGHT - 3);
+        QRect textRect = QRect(xpos + 1, 0, stepWidth - 1, TRACK_HEIGHT - 3);
         painter->drawText(textRect, Qt::AlignBottom, step.note);
 
         xpos += stepWidth;
