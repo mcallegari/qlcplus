@@ -1,5 +1,6 @@
 qlcplus (4.13.2) stable; urgency=low
 
+  * engine: fix flashing fade out
   * engine: add stopOnExit, waitFunctionStart and waitFunctionStop commands to Script - see documentation (thanks to ldebs)
   * UI/Show Manager: show step notes on the timeline (thanks to anarchid)
   * Web Access: fix grand master stopping running functions

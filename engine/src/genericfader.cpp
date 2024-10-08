@@ -340,16 +340,16 @@ void GenericFader::setFadeOut(bool enable, uint fadeTime)
     {
         FadeChannel& fc(it.next().value());
 
-        // non-intensity channels (eg LTP) should fade
-        // to the current universe value
-        if ((fc.flags() & FadeChannel::Intensity) == 0)
-            fc.addFlag(FadeChannel::SetTarget);
-
         fc.setStart(fc.current());
+        // all channels should fade to the current universe value
+        fc.addFlag(FadeChannel::SetTarget);
         fc.setTarget(0);
         fc.setElapsed(0);
         fc.setReady(false);
         fc.setFadeTime(fc.canFade() ? fadeTime : 0);
+        // if flashing, remove the flag and treat
+        // it like a regular fade out to target
+        fc.removeFlag(FadeChannel::Flashing);
     }
 }
 
