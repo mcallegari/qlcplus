@@ -56,14 +56,23 @@ public:
 
     enum ControlType
     {
-        StartColor = 0,
-        EndColor,
+        Color1 = 0,
+        Color1Knob,
+        Color2,
+        Color2Knob,
+        Color2Reset,
+        Color3,
+        Color3Knob,
+        Color3Reset,
+        Color4,
+        Color4Knob,
+        Color4Reset,
+        Color5,
+        Color5Knob,
+        Color5Reset,
         Animation,
         Image,
-        Text,
-        ResetEndColor,
-        StartColorKnob,
-        EndColorKnob
+        Text
     };
 
     enum WidgetType

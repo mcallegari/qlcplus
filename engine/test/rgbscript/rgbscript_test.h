@@ -40,6 +40,7 @@ private slots:
     void evaluateNoRgbMapStepCountFunction();
     void evaluateInvalidApiVersion();
     void rgbMapStepCount();
+    void rgbMapColorArray();
     void rgbMap();
     void runScripts();
 

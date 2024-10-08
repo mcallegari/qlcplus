@@ -40,6 +40,8 @@ typedef QVector<QVector<uint> > RGBMap;
 #define KXMLQLCRGBAlgorithm     QString("Algorithm")
 #define KXMLQLCRGBAlgorithmType QString("Type")
 
+#define RGBAlgorithmColorDisplayCount 5
+
 class RGBAlgorithm
 {
 public:
@@ -73,7 +75,8 @@ public:
     virtual int rgbMapStepCount(const QSize& size) = 0;
 
     /** Load a RGBMap for the given step. */
-    virtual void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map) = 0;
+    virtual void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map,
+            QVector<uint> &rawColors) = 0;
 
     /** Release resources that may have been acquired in rgbMap() */
     virtual void postRun() {}
@@ -101,15 +104,14 @@ public:
      * RGB Colors
      ************************************************************************/
 public:
-    /** Set the start/end color the algorithm can use */
-    virtual void setColors(QColor start, QColor end);
+    /** Set the colors the algorithm can use */
+    virtual void setColors(QVector<QColor>);
 
-    QColor startColor() { return m_startColor; }
-
-    QColor endColor() { return m_endColor; }
+    /** Get the color which is set for the algorithm */
+    virtual QColor getColor(uint i) const;
 
 private:
-    QColor m_startColor, m_endColor;
+    QVector<QColor> m_colors;
 
     /************************************************************************
      * Available algorithms

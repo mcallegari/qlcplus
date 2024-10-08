@@ -39,9 +39,15 @@ class RGBMatrixEditor : public FunctionEditor
     Q_PROPERTY(QStringList algorithms READ algorithms CONSTANT)
     Q_PROPERTY(int algorithmIndex READ algorithmIndex WRITE setAlgorithmIndex NOTIFY algorithmIndexChanged)
     Q_PROPERTY(int algoColors READ algoColors NOTIFY algoColorsChanged)
-    Q_PROPERTY(QColor startColor READ startColor WRITE setStartColor NOTIFY startColorChanged)
-    Q_PROPERTY(QColor endColor READ endColor WRITE setEndColor NOTIFY endColorChanged)
-    Q_PROPERTY(bool hasEndColor READ hasEndColor WRITE setHasEndColor NOTIFY hasEndColorChanged)
+    Q_PROPERTY(QColor color1 READ color1 WRITE setColor1 NOTIFY color1Changed)
+    Q_PROPERTY(QColor color2 READ color2 WRITE setColor2 NOTIFY color2Changed)
+    Q_PROPERTY(bool hasColor2 READ hasColor2 WRITE setHasColor2 NOTIFY hasColor2Changed)
+    Q_PROPERTY(QColor color3 READ color3 WRITE setColor3 NOTIFY color3Changed)
+    Q_PROPERTY(bool hasColor3 READ hasColor3 WRITE setHasColor3 NOTIFY hasColor3Changed)
+    Q_PROPERTY(QColor color4 READ color4 WRITE setColor4 NOTIFY color4Changed)
+    Q_PROPERTY(bool hasColor4 READ hasColor4 WRITE setHasColor4 NOTIFY hasColor4Changed)
+    Q_PROPERTY(QColor color5 READ color5 WRITE setColor5 NOTIFY color5Changed)
+    Q_PROPERTY(bool hasColor5 READ hasColor5 WRITE setHasColor5 NOTIFY hasColor5Changed)
 
     Q_PROPERTY(int blendMode READ blendMode WRITE setBlendMode NOTIFY blendModeChanged)
     Q_PROPERTY(int controlMode READ controlMode WRITE setControlMode NOTIFY controlModeChanged)
@@ -87,16 +93,37 @@ public:
     /** Return the accepted colors of the current algorithm */
     int algoColors();
 
-    /** Get/set the start color of the current algorithm */
-    QColor startColor() const;
-    void setStartColor(QColor startColor);
+    /** Get/set the color 1 of the current algorithm */
+    QColor color1() const;
+    void setColor1(QColor algoColor);
 
-    /** Get/set the end color of the current algorithm */
-    QColor endColor() const;
-    void setEndColor(QColor algoEndColor);
+    /** Get/set the color 2 of the current algorithm */
+    QColor color2() const;
+    void setColor2(QColor algoColor);
 
-    bool hasEndColor() const;
-    void setHasEndColor(bool hasEndCol);
+    bool hasColor2() const;
+    void setHasColor2(bool hasColor);
+
+    /** Get/set the color 2 of the current algorithm */
+    QColor color3() const;
+    void setColor3(QColor algoColor);
+
+    bool hasColor3() const;
+    void setHasColor3(bool hasColor);
+
+    /** Get/set the color 2 of the current algorithm */
+    QColor color4() const;
+    void setColor4(QColor algoColor);
+
+    bool hasColor4() const;
+    void setHasColor4(bool hasColor);
+
+    /** Get/set the color 2 of the current algorithm */
+    QColor color5() const;
+    void setColor5(QColor algoColor);
+
+    bool hasColor5() const;
+    void setHasColor5(bool hasColor);
 
     QString algoText() const;
     void setAlgoText(QString text);
@@ -130,9 +157,15 @@ public:
 signals:
     void algorithmIndexChanged();
     void algoColorsChanged();
-    void startColorChanged(QColor startColor);
-    void endColorChanged(QColor endColor);
-    void hasEndColorChanged(bool hasEndColor);
+    void color1Changed(QColor color);
+    void color2Changed(QColor color);
+    void hasColor2Changed(bool hasColor);
+    void color3Changed(QColor color);
+    void hasColor3Changed(bool hasColor);
+    void color4Changed(QColor color);
+    void hasColor4Changed(bool hasColor);
+    void color5Changed(QColor color);
+    void hasColor5Changed(bool hasColor);
 
     void algoTextChanged(QString text);
     void algoTextFontChanged(QFont algoTextFont);
