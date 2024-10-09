@@ -41,11 +41,11 @@ CustomSpinBox
         top:  Math.max(controlRoot.from, controlRoot.to)
     }
 
-    textFromValue: function(value, locale) {
+    textFromValue: (value, locale) => {
         return Number(value / Math.pow(10, decimals)).toLocaleString(locale, 'f', decimals) + suffix
     }
 
-    valueFromText: function(text, locale) {
+    valueFromText: (text, locale) => {
         return Number.fromLocaleString(locale, text.replace(suffix, "")) * Math.pow(10, decimals)
     }
 

@@ -48,8 +48,7 @@ class InputProfileEditor : public QObject
      * Initialization
      ************************************************************************/
 public:
-    InputProfileEditor(QObject *parent = nullptr);
-    InputProfileEditor(QLCInputProfile *profile, Doc *doc, QObject *parent = nullptr);
+    explicit InputProfileEditor(QLCInputProfile *profile, Doc *doc, QObject *parent = nullptr);
     ~InputProfileEditor();
 
     /* Get/Set the profile modified state */
