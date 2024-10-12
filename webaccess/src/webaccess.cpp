@@ -83,21 +83,22 @@ WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstanc
 
     m_httpServer = new QHttpServer(this);
     connect(m_httpServer, SIGNAL(newRequest(QHttpRequest*, QHttpResponse*)),
-            this, SLOT(slotHandleRequest(QHttpRequest*, QHttpResponse*)));
+            this, SLOT(slotHandleHTTPRequest(QHttpRequest*, QHttpResponse*)));
     connect(m_httpServer, SIGNAL(webSocketDataReady(QHttpConnection*,QString)),
             this, SLOT(slotHandleWebSocketRequest(QHttpConnection*,QString)));
     connect(m_httpServer, SIGNAL(webSocketConnectionClose(QHttpConnection*)),
             this, SLOT(slotHandleWebSocketClose(QHttpConnection*)));
-    connect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)),
-            this, SLOT(slotFunctionStarted(quint32)));
-    connect(m_doc->masterTimer(), SIGNAL(functionStopped(quint32)),
-            this, SLOT(slotFunctionStopped(quint32)));
 
     m_httpServer->listen(QHostAddress::Any, portNumber ? portNumber : DEFAULT_PORT_NUMBER);
 
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     m_netConfig = new WebAccessNetwork();
 #endif
+
+    connect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)),
+            this, SLOT(slotFunctionStarted(quint32)));
+    connect(m_doc->masterTimer(), SIGNAL(functionStopped(quint32)),
+            this, SLOT(slotFunctionStopped(quint32)));
 
     connect(m_vc, SIGNAL(loaded()),
             this, SLOT(slotVCLoaded()));
@@ -115,7 +116,7 @@ WebAccess::~WebAccess()
         delete m_auth;
 }
 
-void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
+void WebAccess::slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp)
 {
     WebAccessUser user;
 
@@ -137,22 +138,13 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
 
     if (reqUrl == "/qlcplusWS")
     {
-        resp->setHeader("Upgrade", "websocket");
-        resp->setHeader("Connection", "Upgrade");
-        QByteArray hash = resp->getWebSocketHandshake(req->header("sec-websocket-key"));
-        //QByteArray hash = resp->getWebSocketHandshake("zTvHabaaTOEORzqK+d1yxw==");
-        qDebug() << "Websocket handshake:" << hash;
-        resp->setHeader("Sec-WebSocket-Accept", hash);
-        QHttpConnection *conn = resp->enableWebSocket(true);
+        QHttpConnection *conn = resp->enableWebSocket();
         if (conn != NULL)
         {
             // Allocate user for WS on heap so it doesn't go out of scope
             conn->userData = new WebAccessUser(user);
             m_webSocketsList.append(conn);
         }
-
-        resp->writeHead(101);
-        resp->end(QByteArray());
 
         return;
     }
@@ -316,7 +308,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
     if (conn == NULL)
         return;
 
-    WebAccessUser* user = static_cast<WebAccessUser*>(conn->userData);
+    WebAccessUser *user = static_cast<WebAccessUser*>(conn->userData);
 
     qDebug() << "[websocketDataHandler]" << data;
 
@@ -414,13 +406,13 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             if (username.isEmpty() || password.isEmpty())
             {
                 QString wsMessage = QString("ALERT|" + tr("Username and password are required fields."));
-                conn->webSocketWrite(QHttpConnection::TextFrame, wsMessage.toUtf8());
+                conn->webSocketWrite(wsMessage);
                 return;
             }
             if (level <= 0)
             {
                 QString wsMessage = QString("ALERT|" + tr("User level has to be a positive integer."));
-                conn->webSocketWrite(QHttpConnection::TextFrame, wsMessage.toUtf8());
+                conn->webSocketWrite(wsMessage);
                 return;
             }
 
@@ -439,13 +431,13 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             if (username.isEmpty())
             {
                 QString wsMessage = QString("ALERT|" + tr("Username is required."));
-                conn->webSocketWrite(QHttpConnection::TextFrame, wsMessage.toUtf8());
+                conn->webSocketWrite(wsMessage);
                 return;
             }
             if (level <= 0)
             {
                 QString wsMessage = QString("ALERT|" + tr("User level has to be a positive integer."));
-                conn->webSocketWrite(QHttpConnection::TextFrame, wsMessage.toUtf8());
+                conn->webSocketWrite(wsMessage);
                 return;
             }
 
@@ -457,7 +449,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
         if (! m_auth->savePasswordsFile())
         {
             QString wsMessage = QString("ALERT|" + tr("Error while saving passwords file."));
-            conn->webSocketWrite(QHttpConnection::TextFrame, wsMessage.toUtf8());
+            conn->webSocketWrite(wsMessage);
             return;
         }
     }
@@ -472,7 +464,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             if (m_netConfig->updateNetworkSettings(cmdList) == true)
             {
                 QString wsMessage = QString("ALERT|" + tr("Network configuration changed. Reboot to apply the changes."));
-                conn->webSocketWrite(QHttpConnection::TextFrame, wsMessage.toUtf8());
+                conn->webSocketWrite(wsMessage);
                 return;
             }
             else
@@ -491,7 +483,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             else
                 emit storeAutostartProject(asName);
             QString wsMessage = QString("ALERT|" + tr("Autostart configuration changed"));
-            conn->webSocketWrite(QHttpConnection::TextFrame, wsMessage.toUtf8());
+            conn->webSocketWrite(wsMessage);
             return;
         }
         else if (cmdList.at(1) == "REBOOT")
@@ -752,7 +744,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
         }
         //qDebug() << "Simple desk channels:" << wsAPIMessage;
 
-        conn->webSocketWrite(QHttpConnection::TextFrame, wsAPIMessage.toUtf8());
+        conn->webSocketWrite(wsAPIMessage);
         return;
     }
     else if (cmdList[0] == "CH")
@@ -890,12 +882,14 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 
 void WebAccess::slotHandleWebSocketClose(QHttpConnection *conn)
 {
+    qDebug() << "Websocket Connection closed";
     if (conn->userData)
     {
         WebAccessUser* user = static_cast<WebAccessUser*>(conn->userData);
         delete user;
         conn->userData = 0;
     }
+    conn->deleteLater();
 
     m_webSocketsList.removeOne(conn);
 }
@@ -947,10 +941,10 @@ bool WebAccess::sendFile(QHttpResponse *response, QString filename, QString cont
     return false;
 }
 
-void WebAccess::sendWebSocketMessage(QByteArray message)
+void WebAccess::sendWebSocketMessage(const QString &message)
 {
     foreach (QHttpConnection *conn, m_webSocketsList)
-        conn->webSocketWrite(QHttpConnection::TextFrame, message);
+        conn->webSocketWrite(message);
 }
 
 QString WebAccess::getWidgetBackgroundImage(VCWidget *widget)
@@ -998,9 +992,7 @@ void WebAccess::slotFramePageChanged(int pageNum)
         return;
 
     QString wsMessage = QString("%1|FRAME|%2").arg(frame->id()).arg(pageNum);
-    QByteArray ba = wsMessage.toUtf8();
-
-    sendWebSocketMessage(ba);
+    sendWebSocketMessage(wsMessage);
 }
 
 void WebAccess::slotFrameDisableStateChanged(bool disable)
@@ -1010,11 +1002,8 @@ void WebAccess::slotFrameDisableStateChanged(bool disable)
         return;
 
     QString wsMessage = QString("%1|FRAME_DISABLE|%2").arg(frame->id()).arg(disable);
-    QByteArray ba = wsMessage.toUtf8();
-
-    sendWebSocketMessage(ba);
+    sendWebSocketMessage(wsMessage);
 }
-
 
 QString WebAccess::getFrameHTML(VCFrame *frame)
 {
@@ -1212,7 +1201,7 @@ void WebAccess::slotButtonStateChanged(int state)
     else
         wsMessage.append("|BUTTON|0");
 
-    sendWebSocketMessage(wsMessage.toUtf8());
+    sendWebSocketMessage(wsMessage);
 }
 
 void WebAccess::slotButtonDisableStateChanged(bool disable)
@@ -1222,9 +1211,7 @@ void WebAccess::slotButtonDisableStateChanged(bool disable)
         return;
 
     QString wsMessage = QString("%1|BUTTON_DISABLE|%2").arg(btn->id()).arg(disable);
-    QByteArray ba = wsMessage.toUtf8();
-
-    sendWebSocketMessage(ba);
+    sendWebSocketMessage(wsMessage);
 }
 
 QString WebAccess::getButtonHTML(VCButton *btn)
@@ -1268,8 +1255,7 @@ void WebAccess::slotSliderValueChanged(QString val)
 
     // <ID>|SLIDER|<SLIDER VALUE>|<DISPLAY VALUE>
     QString wsMessage = QString("%1|SLIDER|%2|%3").arg(slider->id()).arg(slider->sliderValue()).arg(val);
-
-    sendWebSocketMessage(wsMessage.toUtf8());
+    sendWebSocketMessage(wsMessage);
 }
 
 void WebAccess::slotSliderDisableStateChanged(bool disable)
@@ -1279,9 +1265,7 @@ void WebAccess::slotSliderDisableStateChanged(bool disable)
         return;
 
     QString wsMessage = QString("%1|SLIDER_DISABLE|%2").arg(slider->id()).arg(disable);
-    QByteArray ba = wsMessage.toUtf8();
-
-    sendWebSocketMessage(ba);
+    sendWebSocketMessage(wsMessage);
 }
 
 QString WebAccess::getSliderHTML(VCSlider *slider)
@@ -1368,9 +1352,7 @@ void WebAccess::slotLabelDisableStateChanged(bool disable)
         return;
 
     QString wsMessage = QString("%1|LABEL_DISABLE|%2").arg(label->id()).arg(disable);
-    QByteArray ba = wsMessage.toUtf8();
-
-    sendWebSocketMessage(ba);
+    sendWebSocketMessage(wsMessage);
 }
 
 QString WebAccess::getLabelHTML(VCLabel *label)
@@ -1404,8 +1386,7 @@ void WebAccess::slotAudioTriggersToggled(bool toggle)
     qDebug() << "AudioTriggers state changed " << toggle;
 
     QString wsMessage = QString("%1|AUDIOTRIGGERS|%2").arg(triggers->id()).arg(toggle ? 255 : 0);
-
-    sendWebSocketMessage(wsMessage.toUtf8());
+    sendWebSocketMessage(wsMessage);
 }
 
 QString WebAccess::getAudioTriggersHTML(VCAudioTriggers *triggers)
@@ -1442,8 +1423,7 @@ void WebAccess::slotCueIndexChanged(int idx)
         return;
 
     QString wsMessage = QString("%1|CUE|%2").arg(cue->id()).arg(idx);
-
-    sendWebSocketMessage(wsMessage.toUtf8());
+    sendWebSocketMessage(wsMessage);
 }
 
 void WebAccess::slotCueStepNoteChanged(int idx, QString note)
@@ -1453,8 +1433,7 @@ void WebAccess::slotCueStepNoteChanged(int idx, QString note)
         return;
 
     QString wsMessage = QString("%1|CUE_STEP_NOTE|%2|%3").arg(cue->id()).arg(idx).arg(note);
-
-    sendWebSocketMessage(wsMessage.toUtf8());
+    sendWebSocketMessage(wsMessage);
 }
 
 void WebAccess::slotCueProgressStateChanged()
@@ -1464,8 +1443,7 @@ void WebAccess::slotCueProgressStateChanged()
         return;
 
     QString wsMessage = QString("%1|CUE_PROGRESS|%2|%3").arg(cue->id()).arg(cue->progressPercent()).arg(cue->progressText());
-
-    sendWebSocketMessage(wsMessage.toUtf8());
+    sendWebSocketMessage(wsMessage);
 }
 
 void WebAccess::slotCueShowSideFaderPanel()
@@ -1474,9 +1452,8 @@ void WebAccess::slotCueShowSideFaderPanel()
     if (cue == NULL)
         return;
 
-    QString wsMessage = QString("%1|CUE_SHOWPANEL|%2").arg(cue->id()).arg(cue->sideFaderButtonChecked());
-
-    sendWebSocketMessage(wsMessage.toUtf8());
+    QString wsMessage = QString("%1|CUE_SHOWPANEL|%2").arg(cue->id()).arg(cue->sideFaderButtonIsChecked());
+    sendWebSocketMessage(wsMessage);
 }
 
 void WebAccess::slotCueSideFaderValueChanged()
@@ -1495,7 +1472,7 @@ void WebAccess::slotCueSideFaderValueChanged()
                             .arg(cue->sideFaderValue())
                             .arg(cue->sideFaderMode() == VCCueList::FaderMode::Steps);
 
-    sendWebSocketMessage(wsMessage.toUtf8());
+    sendWebSocketMessage(wsMessage);
 }
 
 void WebAccess::slotCuePlaybackStateChanged()
@@ -1537,7 +1514,7 @@ void WebAccess::slotCuePlaybackStateChanged()
                             .arg(stopButtonImage)
                             .arg(QString::number(stopButtonPaused));
 
-    sendWebSocketMessage(wsMessage.toUtf8());
+    sendWebSocketMessage(wsMessage);
 }
 
 void WebAccess::slotCueDisableStateChanged(bool disable)
@@ -1547,9 +1524,7 @@ void WebAccess::slotCueDisableStateChanged(bool disable)
         return;
 
     QString wsMessage = QString("%1|CUE_DISABLE|%2").arg(cue->id()).arg(disable);
-    QByteArray ba = wsMessage.toUtf8();
-
-    sendWebSocketMessage(ba);
+    sendWebSocketMessage(wsMessage);
 }
 
 QString WebAccess::getCueListHTML(VCCueList *cue)
@@ -1628,7 +1603,7 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
             str += "</div>";
         }
         str += "</div>";
-        m_JScode += "showPanel[" + QString::number(cue->id()) + "] = " + QString::number(cue->sideFaderButtonChecked()) + ";\n";
+        m_JScode += "showPanel[" + QString::number(cue->id()) + "] = " + QString::number(cue->sideFaderButtonIsChecked()) + ";\n";
     }
 
     str += "<div style=\"width: 100%;\"><div style=\"width: 100%; height: " + QString::number(cue->height() - 54) + "px; overflow: scroll;\" >\n";
@@ -1845,7 +1820,7 @@ void WebAccess::slotClockTimeChanged(quint32 time)
         return;
 
     QString wsMessage = QString("%1|CLOCK|%2").arg(clock->id()).arg(time);
-    sendWebSocketMessage(wsMessage.toUtf8());
+    sendWebSocketMessage(wsMessage);
 }
 
 void WebAccess::slotClockDisableStateChanged(bool disable)
@@ -1855,9 +1830,7 @@ void WebAccess::slotClockDisableStateChanged(bool disable)
         return;
 
     QString wsMessage = QString("%1|CLOCK_DISABLE|%2").arg(clock->id()).arg(disable);
-    QByteArray ba = wsMessage.toUtf8();
-
-    sendWebSocketMessage(ba);
+    sendWebSocketMessage(wsMessage);
 }
 
 QString WebAccess::getClockHTML(VCClock *clock)
@@ -1921,7 +1894,7 @@ void WebAccess::slotMatrixSliderValueChanged(int value)
         return;
 
     QString wsMessage = QString("%1|MATRIX_SLIDER|%2").arg(matrix->id()).arg(value);
-    sendWebSocketMessage(wsMessage.toUtf8());
+    sendWebSocketMessage(wsMessage);
 }
 
 void WebAccess::slotMatrixStartColorChanged()
@@ -1931,7 +1904,7 @@ void WebAccess::slotMatrixStartColorChanged()
         return;
 
     QString wsMessage = QString("%1|MATRIX_START_COLOR|%2").arg(matrix->id()).arg(matrix->startColor().name());
-    sendWebSocketMessage(wsMessage.toUtf8());
+    sendWebSocketMessage(wsMessage);
 }
 
 void WebAccess::slotMatrixEndColorChanged()
@@ -1941,7 +1914,7 @@ void WebAccess::slotMatrixEndColorChanged()
         return;
 
     QString wsMessage = QString("%1|MATRIX_END_COLOR|%2").arg(matrix->id()).arg(matrix->endColor().name());
-    sendWebSocketMessage(wsMessage.toUtf8());
+    sendWebSocketMessage(wsMessage);
 }
 
 void WebAccess::slotMatrixAnimationValueChanged(QString name)
@@ -1951,7 +1924,7 @@ void WebAccess::slotMatrixAnimationValueChanged(QString name)
         return;
 
     QString wsMessage = QString("%1|MATRIX_COMBO|%2").arg(matrix->id()).arg(name);
-    sendWebSocketMessage(wsMessage.toUtf8());
+    sendWebSocketMessage(wsMessage);
 }
 
 void WebAccess::slotMatrixControlKnobValueChanged(int controlID, int value)
@@ -1961,7 +1934,7 @@ void WebAccess::slotMatrixControlKnobValueChanged(int controlID, int value)
         return;
 
     QString wsMessage = QString("%1|MATRIX_KNOB|%2|%3").arg(matrix->id()).arg(controlID).arg(value);
-    sendWebSocketMessage(wsMessage.toUtf8());
+    sendWebSocketMessage(wsMessage);
 }
 
 QString WebAccess::getMatrixHTML(VCMatrix *matrix)
@@ -2198,7 +2171,7 @@ void WebAccess::slotGrandMasterValueChanged(uchar value)
         gmDisplayValue = QString("%1%").arg(p, 2, 10, QChar('0'));
     }
     QString wsMessage = QString("GM_VALUE|%1|%2").arg(value).arg(gmDisplayValue);
-    sendWebSocketMessage(wsMessage.toUtf8());
+    sendWebSocketMessage(wsMessage);
 }
 
 QString WebAccess::getGrandMasterSliderHTML()

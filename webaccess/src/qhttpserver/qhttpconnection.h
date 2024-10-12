@@ -31,6 +31,8 @@
 /// @cond nodoc
 
 class QTimer;
+class QWebSocket;
+class QWebSocketServer;
 
 class QHttpConnection : public QObject
 {
@@ -88,35 +90,27 @@ private:
      * WebSocket methods
      *************************************************************************/
 public:
-    /// WebSockets RFC 6455 OpCodes
-    enum WebSocketOpCode {
-        ContinuationFrame = 0x00,
-        TextFrame = 0x01,
-        BinaryFrame = 0x02,
-        ConnectionClose = 0x08,
-        Ping = 0x09,
-        Pong = 0x0A
-    };
-
-    QHttpConnection *enableWebSocket(bool enable);
-    void webSocketWrite(WebSocketOpCode opCode, QByteArray data);
+    QHttpConnection *enableWebSocket();
+    void webSocketWrite(const QString &message);
 
 Q_SIGNALS:
     void webSocketDataReady(QHttpConnection *conn, QString data);
     void webSocketConnectionClose(QHttpConnection *conn);
 
 private Q_SLOTS:
+    void slotWebSocketNewConnection();
+    void slotWebSocketDisconnected();
+    void slotWebSocketTextMessage(const QString &message);
     void slotWebSocketPollTimeout();
 
 private:
-    void webSocketRead(QByteArray data);
-
-private:
+    QWebSocketServer *m_websocketServer;
+    QWebSocket *m_webSocket;
     bool m_isWebSocket;
     QTimer *m_pollTimer;
 
 public:
-    void* userData;
+    void *userData;
 };
 
 /// @endcond
