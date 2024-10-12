@@ -31,6 +31,7 @@ set(QT_FRAMEWORK_NAMES
     "QtSerialPort"
     "QtSvg"
     "QtWidgets"
+    "QtWebSockets"
 )
 # Loop through each framework and copy it to installation
 foreach(FW_NAME IN LISTS QT_FRAMEWORK_NAMES)

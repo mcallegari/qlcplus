@@ -67,7 +67,8 @@ appimage: {
                     $$QT_LIBS_PATH/libQt5MultimediaWidgets.so.5 \
                     $$QT_LIBS_PATH/libQt5SerialPort.so.5 \
                     $$QT_LIBS_PATH/libQt5XcbQpa.so.5 \
-                    $$QT_LIBS_PATH/libQt5DBus.so.5
+                    $$QT_LIBS_PATH/libQt5DBus.so.5 \
+                    $$QT_LIBS_PATH/libQt5WebSockets.so.5
 qmlui: {
     qtlibs.files += $$QT_LIBS_PATH/libQt5MultimediaQuick.so.5 \
                     $$QT_LIBS_PATH/libQt5MultimediaGstTools.so.5 \
