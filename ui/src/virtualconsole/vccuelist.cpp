@@ -1206,6 +1206,7 @@ bool VCCueList::primaryTop()
 void VCCueList::slotSideFaderButtonChecked(bool enable)
 {
     m_crossfadeButton->setChecked(enable);
+    emit sideFaderButtonChecked();
 }
 
 bool VCCueList::isSideFaderVisible()
@@ -1213,7 +1214,7 @@ bool VCCueList::isSideFaderVisible()
     return m_sideFader->isVisible();
 }
 
-bool VCCueList::sideFaderButtonChecked()
+bool VCCueList::sideFaderButtonIsChecked()
 {
     return m_crossfadeButton->isChecked();
 }
