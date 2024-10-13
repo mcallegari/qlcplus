@@ -37,8 +37,6 @@ var testAlgo;
     algo.frequency = 100;
     algo.properties.push("name:frequency|type:range|display:Frequency|values:1,400|write:setFrequency|read:getFrequency");
 
-    algo.currentStep = 0;
-
     algo.setOrientation = function(_orientation)
     {
       if (_orientation === "Vertical") { algo.orientation = 1; }
@@ -89,7 +87,7 @@ var testAlgo;
 
       for (var cStep = 0; cStep < stepsWidth; cStep++)
       {
-        var sineStep = algo.currentStep + cStep;
+        var sineStep = step + cStep;
         if (sineStep >= stepsWidth)
           sineStep -= stepsWidth;
         var sinPos = Math.sin((sineStep * 2 * Math.PI) / stepsTotal) * ampFactor;
@@ -125,7 +123,6 @@ var testAlgo;
 
         lastPos = sinPos;
       }
-      algo.currentStep++;
 
       return map;
     };
