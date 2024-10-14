@@ -919,6 +919,7 @@ QLCFixtureMode *Fixture::genericRGBPanelMode(QLCFixtureDef *def, Components comp
     Q_ASSERT(def != NULL);
     QLCFixtureMode *mode = new QLCFixtureMode(def);
     int compNum = 3;
+
     if (components == BGR)
         mode->setName("BGR");
     else if (components == BRG)
@@ -957,6 +958,7 @@ QLCFixtureMode *Fixture::genericRGBPanelMode(QLCFixtureDef *def, Components comp
     physical.setWidth(width);
     physical.setHeight(height);
     physical.setDepth(height);
+    physical.setLayoutSize(QSize(mode->heads().count(), 1));
 
     mode->setPhysical(physical);
     def->addMode(mode);

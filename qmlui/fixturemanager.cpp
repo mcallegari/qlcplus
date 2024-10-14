@@ -1293,7 +1293,7 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
                 m_doc->inputOutputMap()->addUniverse();
                 m_doc->inputOutputMap()->startUniverses();
             }
-            address = 0;
+            address = 1;
         }
 
         fxi->setUniverse(m_doc->inputOutputMap()->getUniverseID(uniIndex));
