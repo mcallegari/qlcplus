@@ -35,7 +35,7 @@ Entity
 
     property int itemID: fixtureManager.invalidFixture()
     property bool isSelected: false
-    property int headsNumber: 1
+    property int headsNumber: 0
     property size headsLayout: Qt.size(1, 1)
     property vector3d phySize: Qt.vector3d(1, 0.1, 0.1)
     property bool useScattering: false
@@ -135,11 +135,9 @@ Entity
                         translation: {
                             var row = Math.floor(index / headsLayout.width)
                             var column = index % headsLayout.width
-                            const xPos = column * headWidth;
-                            const zPos = row * headHeight;
+                            var xPos = (column * headWidth) + (headWidth / 2)
+                            var zPos = (row * headHeight) + (headHeight / 2)
 
-                            //return Qt.vector3d(-(phySize.x / 2) + (headWidth * index) + (headWidth / 2),
-                            //                     (phySize.y / 2) + 0.001, 0)
                             return Qt.vector3d(-(phySize.x / 2) + xPos, (phySize.y / 2) + 0.001, -(phySize.z / 2) + zPos)
                         }
                     }
