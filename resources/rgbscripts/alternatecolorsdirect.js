@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  alternate2colors.js
+  alternatecolorsdirect.js
 
   Copyright (c) Hans-Jürgen Tappe
 
@@ -104,25 +104,40 @@ var testAlgo;
     return algo.offset;
   };
 
-  algo.getRawColor = function (rawColors, idx) {
-    if (Array.isArray(rawColors) && rawColors.length > idx && ! isNaN(rawColors[idx])) {
-      return rawColors[idx];
-    } else {
-      return 0;
+  var util = new Object;
+  util.colorArray = new Array(algo.acceptColors);
+
+  util.getRawColor = function (idx) {
+    var color = 0;
+    if (Array.isArray(util.colorArray) && util.colorArray.length > idx && ! isNaN(util.colorArray[idx])) {
+      color = util.colorArray[idx];
+    }
+    return color;
+  }
+
+  algo.rgbMapSetColors = function(rawColors)
+  {
+    if (! Array.isArray(rawColors))
+      return;
+    for (var i = 0; i < algo.acceptColors; i++) {
+      if (i < rawColors.length)
+      {
+        util.colorArray[i] = rawColors[i];
+      } else {
+        util.colorArray[i] = 0;
+      }
     }
   }
 
-  algo.rgbMap = function(width, height, rgb, step, rawColors) {
+  algo.rgbMap = function(width, height, rgb, step) {
     var map = new Array(height);
     var colorSelectOne = (step === 1) ? false : true;
     var rowColorOne = colorSelectOne;
     var realBlockSize = algo.blockSize;
 
+    // Setup the rgb map
     for (y = 0; y < height; y++) {
-      map[parseInt(y, 10)] = new Array(width);
-      for (x = 0; x < width; x++) {
-        map[parseInt(y, 10)][parseInt(x, 10)] = 0;
-      }
+      map[y] = new Array(width);
     }
 
     var xMax = width;
@@ -212,9 +227,9 @@ var testAlgo;
           }
         }
         if (colorSelectOne) {
-          map[parseInt(y, 10)][parseInt(x, 10)] = algo.getRawColor(rawColors, 0);
+          map[y][x] = util.getRawColor(0);
         } else {
-          map[parseInt(y, 10)][parseInt(x, 10)] = algo.getRawColor(rawColors, 1);
+          map[y][x] = util.getRawColor(1);
         }
       }
     }
@@ -223,21 +238,21 @@ var testAlgo;
       if (algo.orientation === 0) {
         for (y = 0; y < yMax; y++) {
           for (x = 0; x < xMax; x++) {
-            map[parseInt(y, 10)][parseInt(width - x - 1, 10)] = map[parseInt(y, 10)][parseInt(x, 10)];
+            map[y][width - x - 1] = map[y][x];
           }
         }
       } else if (algo.orientation === 1) {
         for (y = 0; y < yMax; y++) {
           for (x = 0; x < xMax; x++) {
-            map[parseInt(height - y - 1, 10)][parseInt(x, 10)] = map[parseInt(y, 10)][parseInt(x, 10)];
+            map[height - y - 1][x] = map[y][x];
           }
         }
       } else if (algo.orientation === 2) {
         for (y = 0; y < yMax; y++) {
           for (x = 0; x < xMax; x++) {
-            map[parseInt(height - y - 1, 10)][parseInt(x, 10)] = map[parseInt(y, 10)][parseInt(x, 10)];
-            map[parseInt(y, 10)][parseInt(width - x - 1, 10)] = map[parseInt(y, 10)][parseInt(x, 10)];
-            map[parseInt(height - y - 1, 10)][parseInt(width - x - 1, 10)] = map[parseInt(y, 10)][parseInt(x, 10)];
+            map[height - y - 1][x] = map[y][x];
+            map[y][width - x - 1] = map[y][x];
+            map[height - y - 1][width - x - 1] = map[y][x];
           }
         }
       }

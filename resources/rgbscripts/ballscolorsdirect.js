@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  balls5colors.js
+  ballscolorsdirect.js
 
   Copyright (c) Rob Nieuwenhuizen
 
@@ -36,13 +36,10 @@ var testAlgo;
     algo.properties.push("name:presetCollision|type:list|display:Self Collision|values:No,Yes|write:setCollision|read:getCollision");
     algo.presetSize = 5;
 
-    algo.colorIndex = new Array(
-      algo.color3Index,
-      algo.color4Index,
-      algo.color5Index);
-
-    var util = new Object;
     algo.initialized = false;
+    
+    var util = new Object;
+    util.colorArray = new Array(algo.acceptColors);
 
     algo.setSize = function (_size) {
       algo.presetSize = _size;
@@ -67,18 +64,31 @@ var testAlgo;
       else if (algo.presetCollision === 1) { return "No"; }
     };
 
-    algo.getRawColor = function (rawColors, idx) {
-      if (Array.isArray(rawColors) && rawColors.length > idx && ! isNaN(rawColors[idx])) {
-        return rawColors[idx];
-      } else {
-        return 0;
+    util.getRawColor = function (idx) {
+      var color = 0;
+      if (Array.isArray(util.colorArray) && util.colorArray.length > idx && ! isNaN(util.colorArray[idx])) {
+        color = util.colorArray[idx];
+      }
+      return color;
+    }
+  
+    algo.rgbMapSetColors = function(rawColors)
+    {
+      if (! Array.isArray(rawColors))
+        return;
+      for (var i = 0; i < algo.acceptColors; i++) {
+        if (i < rawColors.length)
+        {
+          util.colorArray[i] = rawColors[i];
+        } else {
+          util.colorArray[i] = 0;
+        }
       }
     }
 
     util.initialize = function (width, height) {
       algo.ball = new Array(algo.presetNumber);
       algo.direction = new Array(algo.presetNumber);
-      algo.colour = new Array(algo.presetNumber);
 
       for (var i = 0; i < algo.presetNumber; i++) {
         var x = Math.random() * (width - 1); // set random start
@@ -92,12 +102,9 @@ var testAlgo;
       return;
     };
 
-    algo.rgbMap = function (width, height, rgb, progstep, rawColors) {
+    algo.rgbMap = function (width, height, rgb, progstep) {
       if (algo.initialized === false) {
         util.initialize(width, height);
-      }
-      for (var i = 0; i < algo.presetNumber; i++) {
-        algo.colour[i] = algo.getRawColor(rawColors, i % algo.acceptColors);
       }
 
       var map = new Array(height); // Clear map data
@@ -110,7 +117,7 @@ var testAlgo;
       }
 
       for (var i = 0; i < algo.presetNumber; i++) {  // for each ball displayed
-        rgb = algo.colour[i];  // use RGB for ball random colour
+        rgb = util.getRawColor(i % algo.acceptColors);  // use RGB for ball random colour
         var r = (rgb >> 16) & 0x00FF;  // split colour in to
         var g = (rgb >> 8) & 0x00FF;   // separate parts
         var b = rgb & 0x00FF;

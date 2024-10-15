@@ -59,7 +59,7 @@ var testAlgo;
   colorPalette.makeSubArray = function(_index) {
     var _array = new Array();
     for (var i = 0; i < colorPalette.collection.length; i++) {
-      _array.push(colorPalette.collection[parseInt(i, 10)][parseInt(_index, 10)]);
+      _array.push(colorPalette.collection[i][_index]);
     }
     return _array;
   };
@@ -210,9 +210,9 @@ var testAlgo;
     var realBlockSize = algo.blockSize;
 
     for (y = 0; y < height; y++) {
-      map[parseInt(y, 10)] = new Array(width);
+      map[y] = new Array(width);
       for (x = 0; x < width; x++) {
-        map[parseInt(y, 10)][parseInt(x, 10)] = 0;
+        map[y][x] = 0;
       }
     }
 
@@ -303,9 +303,9 @@ var testAlgo;
           }
         }
         if (colorSelectOne) {
-          map[parseInt(y, 10)][parseInt(x, 10)] = algo.getColor1Value();
+          map[y][x] = algo.getColor1Value();
         } else {
-          map[parseInt(y, 10)][parseInt(x, 10)] = algo.getColor2Value();
+          map[y][x] = algo.getColor2Value();
         }
       }
     }
@@ -314,21 +314,21 @@ var testAlgo;
       if (algo.orientation === 0) {
         for (y = 0; y < yMax; y++) {
           for (x = 0; x < xMax; x++) {
-            map[parseInt(y, 10)][parseInt(width - x - 1, 10)] = map[parseInt(y, 10)][parseInt(x, 10)];
+            map[y][width - x - 1] = map[y][x];
           }
         }
       } else if (algo.orientation === 1) {
         for (y = 0; y < yMax; y++) {
           for (x = 0; x < xMax; x++) {
-            map[parseInt(height - y - 1, 10)][parseInt(x, 10)] = map[parseInt(y, 10)][parseInt(x, 10)];
+            map[height - y - 1][x] = map[y][x];
           }
         }
       } else if (algo.orientation === 2) {
         for (y = 0; y < yMax; y++) {
           for (x = 0; x < xMax; x++) {
-            map[parseInt(height - y - 1, 10)][parseInt(x, 10)] = map[parseInt(y, 10)][parseInt(x, 10)];
-            map[parseInt(y, 10)][parseInt(width - x - 1, 10)] = map[parseInt(y, 10)][parseInt(x, 10)];
-            map[parseInt(height - y - 1, 10)][parseInt(width - x - 1, 10)] = map[parseInt(y, 10)][parseInt(x, 10)];
+            map[height - y - 1][x] = map[y][x];
+            map[y][width - x - 1] = map[y][x];
+            map[height - y - 1][width - x - 1] = map[y][x];
           }
         }
       }

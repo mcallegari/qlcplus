@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  plasma5colors.js
+  plasmacolorsdirect.js
 
   Copyright (c) Nathan Durnan
 
@@ -48,15 +48,7 @@ var testAlgo;
     var util = new Object;
     util.initialized = false;
     util.gradientData = new Array();
-    util.colorArray = new Array();
-
-    algo.getRawColor = function (rawColors, idx) {
-      if (Array.isArray(rawColors) && rawColors.length > idx && ! isNaN(rawColors[idx])) {
-        return rawColors[idx];
-      } else {
-        return 0;
-      }
-    }
+    util.colorArray = new Array(algo.acceptColors);
 
     algo.setSize = function(_size)
     {
@@ -91,13 +83,32 @@ var testAlgo;
       return algo.stepsize;
     };
 
-    util.initialize = function(rawColors)
-    {
-      // Get the colors from the external preset.
-      for (var i = 0; i < algo.acceptColors; i++) {
-        util.colorArray[i] = algo.getRawColor(rawColors, i);
+    util.getRawColor = function (idx) {
+      var color = 0;
+      if (Array.isArray(util.colorArray) && util.colorArray.length > idx && ! isNaN(util.colorArray[idx])) {
+        color = util.colorArray[idx];
       }
+      return color;
+    }
+  
+    algo.rgbMapSetColors = function(rawColors)
+    {
+      if (! Array.isArray(rawColors))
+        return;
+      for (var i = 0; i < algo.acceptColors; i++) {
+        if (i < rawColors.length)
+        {
+          util.colorArray[i] = rawColors[i];
+        } else {
+          util.colorArray[i] = 0;
+        }
+      }
+      util.initialized = false;
+    }
 
+
+    util.initialize = function()
+    {
       // calculate the gradient for the selected preset
       // with the given width
       var gradIdx = 0;
@@ -228,21 +239,11 @@ var testAlgo;
       return scaled;
     }
 
-    algo.rgbMap = function(width, height, rgb, step, rawColors)
+    algo.rgbMap = function(width, height, rgb, step)
     {
-      if (util.colorArray.length === 0) {
-        util.initialized = false;
-      } else if (util.colorArray.length >= algo.acceptColors - 1 && Array.isArray(rawColors)) {
-        // Check if the externally provided color has changed.
-        for (var i = 0; i < Math.min(algo.acceptColors, rawColors.length); i++) {
-          if (util.colorArray[i] !== rawColors[i]) {
-            util.initialized = false;
-          }
-        }
-      }
       if (util.initialized === false)
       {
-        util.initialize(rawColors);
+        util.initialize();
       }
 
       // set a scaling value

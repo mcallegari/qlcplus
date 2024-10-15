@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  marquee2colors.js
+  marqueecolorsdirect.js
 
   Copyright (c) Branson Matheson
 
@@ -46,6 +46,7 @@ var testAlgo;
   util.height = 0;
   util.featureColor = 0;
   util.step = algo.marqueeCount;
+  util.colorArray = new Array(algo.acceptColors);
 
   util.lights = new Array();
   util.feature = new Array();
@@ -93,9 +94,32 @@ var testAlgo;
     return algo.marqueeCount;
   };
 
-  util.initialize = function (width, height, rawColors) {
+  util.getRawColor = function (idx) {
+    var color = 0;
+    if (Array.isArray(util.colorArray) && util.colorArray.length > idx && ! isNaN(util.colorArray[idx])) {
+      color = util.colorArray[idx];
+    }
+    return color;
+  }
+
+  algo.rgbMapSetColors = function(rawColors)
+  {
+    if (! Array.isArray(rawColors))
+      return;
+    for (var i = 0; i < algo.acceptColors; i++) {
+      if (i < rawColors.length)
+      {
+        util.colorArray[i] = rawColors[i];
+      } else {
+        util.colorArray[i] = 0;
+      }
+    }
+  }
+
+
+  util.initialize = function (width, height) {
     // initialize feature
-    util.featureColor = algo.getRawColor(rawColors, 0);
+    util.featureColor = util.getRawColor(0);
     util.feature = new Array();
     var maxDistance = Math.min(width, height) / 2;
     for (var y = 0; y < height; y++) {
@@ -157,7 +181,7 @@ var testAlgo;
     return newRGB;
   };
 
-  util.getNextStep = function (width, height, rawColors) {
+  util.getNextStep = function (width, height) {
     var map = new Array(height);
     for (var y = 0; y <= height - 1; y++) {
       map[y] = new Array(width);
@@ -177,7 +201,7 @@ var testAlgo;
     }
 
     // create light map add lights, go around the outside
-    var marqueeColor = algo.getRawColor(rawColors, 1);
+    var marqueeColor = util.getRawColor(1);
     var p = 0;
     // left
     for (var y = 0; y < height; y++) {
@@ -214,25 +238,17 @@ var testAlgo;
     return map;
   };
 
-  algo.getRawColor = function (rawColors, idx) {
-    if (Array.isArray(rawColors) && rawColors.length > idx && ! isNaN(rawColors[idx])) {
-      return rawColors[idx];
-    } else {
-      return 0;
-    }
-  }
-
-  algo.rgbMap = function(width, height, rgb, step, rawColors) {
+  algo.rgbMap = function(width, height, rgb, step) {
     if (
       util.initialized === false ||
-      util.featureColor != algo.getRawColor(rawColors, 0) ||
+      util.featureColor != util.getRawColor(0) ||
       util.width !== width ||
       util.height !== height
     ) {
-      util.initialize(width, height, rawColors);
+      util.initialize(width, height);
     }
 
-    var map = util.getNextStep(width, height, rawColors);
+    var map = util.getNextStep(width, height);
     return map;
   };
 
