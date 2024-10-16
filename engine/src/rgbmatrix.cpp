@@ -291,17 +291,8 @@ void RGBMatrix::previewMap(int step, RGBMatrixStep *handler)
         m_group = doc()->fixtureGroup(fixtureGroup());
 
     if (m_group != NULL) {
-        int accColors = m_algorithm->acceptColors();
-        QVector<uint> rawColors;
-        rawColors.resize(accColors);
-        QVectorIterator<QColor> it(m_rgbColors);
-        int count = 0;
-        while (it.hasNext() && count < accColors) {
-            QColor color = it.next();
-            rawColors.replace(count, color.isValid() ? color.rgb() : 0);
-            count ++;
-        };
-        m_algorithm->rgbMap(m_group->size(), handler->stepColor().rgb(), step, handler->m_map, rawColors);
+
+        m_algorithm->rgbMap(m_group->size(), handler->stepColor().rgb(), step, handler->m_map);
     }
 }
 
@@ -322,6 +313,7 @@ void RGBMatrix::setColor(int i, QColor c)
             updateColorDelta();
         }
     }
+    setMapColors();
     emit changed(id());
 }
 
@@ -340,6 +332,33 @@ QVector<QColor> RGBMatrix::getColors() const
 void RGBMatrix::updateColorDelta()
 {
     m_stepHandler->calculateColorDelta(m_rgbColors[0], m_rgbColors[1], m_algorithm);
+}
+
+void RGBMatrix::setMapColors()
+{
+    QMutexLocker algorithmLocker(&m_algorithmMutex);
+    if (m_algorithm == NULL)
+        return;
+
+    if (m_algorithm->apiVersion() < 3)
+        return;
+
+    if (m_group == NULL)
+        m_group = doc()->fixtureGroup(fixtureGroup());
+
+    if (m_group != NULL) {
+        QVector<unsigned int> rawColors;
+        int accColors = m_algorithm->acceptColors();
+        rawColors.resize(accColors);
+        QVectorIterator<QColor> it(m_rgbColors);
+        int count = 0;
+        while (it.hasNext() && count < accColors) {
+            QColor color = it.next();
+            rawColors.replace(count, color.isValid() ? color.rgb() : 0);
+            count ++;
+        };
+        m_algorithm->rgbMapSetColors(rawColors);
+    };
 }
 
 /************************************************************************
@@ -601,19 +620,9 @@ void RGBMatrix::write(MasterTimer *timer, QList<Universe *> universes)
                 if (tempoType() == Beats)
                     m_stepBeatDuration = beatsToTime(duration(), timer->beatTimeDuration());
 
-                int accColors = m_algorithm->acceptColors();
-                QVector<uint> rawColors;
-                rawColors.resize(accColors);
-                QVectorIterator<QColor> it(m_rgbColors);
-                int count = 0;
-                while (it.hasNext() && count < accColors) {
-                    QColor color = it.next();
-                    rawColors.replace(count, color.isValid() ? color.rgb() : 0);
-                    count ++;
-                };
                 //qDebug() << "RGBMatrix step" << m_stepHandler->currentStepIndex() << ", color:" << QString::number(m_stepHandler->stepColor().rgb(), 16);
                 m_algorithm->rgbMap(m_group->size(), m_stepHandler->stepColor().rgb(),
-                                    m_stepHandler->currentStepIndex(), m_stepHandler->m_map, rawColors);
+                                    m_stepHandler->currentStepIndex(), m_stepHandler->m_map);
                 updateMapChannels(m_stepHandler->m_map, m_group, universes);
             }
         }

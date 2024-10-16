@@ -324,35 +324,28 @@ void RGBText_Test::staticLetters()
 
     QRgb color(0xFFFFFFFF);
     RGBMap map;
-    QVector<uint> rawRgbColors = {
-        QColor(Qt::red).rgb()
-        ,QColor(Qt::green).rgb()
-        ,0
-        ,0
-        ,0
-    };
 
     // Since fonts and their rendering differs from installation to installation,
     // these tests are here only to check that nothing crashes. The end result is
     // more or less OS, platform, HW and SW dependent and testing individual pixels
     // would thus be rather pointless.
-    text.rgbMap(QSize(10, 10), color, 0, map, rawRgbColors);
+    text.rgbMap(QSize(10, 10), color, 0, map);
     QCOMPARE(map.size(), 10);
     for (int i = 0; i < 10; i++)
         QCOMPARE(map[i].size(), 10);
 
-    text.rgbMap(QSize(10, 10), color, 1, map, rawRgbColors);
+    text.rgbMap(QSize(10, 10), color, 1, map);
     QCOMPARE(map.size(), 10);
     for (int i = 0; i < 10; i++)
         QCOMPARE(map[i].size(), 10);
 
-    text.rgbMap(QSize(10, 10), color, 2, map, rawRgbColors);
+    text.rgbMap(QSize(10, 10), color, 2, map);
     QCOMPARE(map.size(), 10);
     for (int i = 0; i < 10; i++)
         QCOMPARE(map[i].size(), 10);
 
     // Invalid step
-    text.rgbMap(QSize(10, 10), color, 3, map, rawRgbColors);
+    text.rgbMap(QSize(10, 10), color, 3, map);
     QCOMPARE(map.size(), 10);
     for (int i = 0; i < 10; i++)
     {
@@ -369,13 +362,6 @@ void RGBText_Test::horizontalScroll()
     RGBText text(m_doc);
     text.setText("QLC");
     text.setAnimationStyle(RGBText::Horizontal);
-    QVector<uint> rawRgbColors = {
-        QColor(Qt::red).rgb()
-        ,QColor(Qt::green).rgb()
-        ,0
-        ,0
-        ,0
-    };
 
     QFontMetrics fm(text.font());
 #if (QT_VERSION < QT_VERSION_CHECK(5, 11, 0))
@@ -395,7 +381,7 @@ void RGBText_Test::horizontalScroll()
 #endif
     {
         RGBMap map;
-        text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), i, map, rawRgbColors);
+        text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), i, map);
         QCOMPARE(map.size(), 10);
         for (int y = 0; y < 10; y++)
             QCOMPARE(map[y].size(), 10);
@@ -406,7 +392,7 @@ void RGBText_Test::horizontalScroll()
 #if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
     text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), fm.width("QLC"), map, rawRgbColors);
 #else
-    text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), fm.horizontalAdvance("QLC"), map, rawRgbColors);
+    text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), fm.horizontalAdvance("QLC"), map);
 #endif
     QCOMPARE(map.size(), 10);
     for (int i = 0; i < 10; i++)
@@ -424,13 +410,6 @@ void RGBText_Test::verticalScroll()
     RGBText text(m_doc);
     text.setText("QLC");
     text.setAnimationStyle(RGBText::Vertical);
-    QVector<uint> rawRgbColors = {
-        QColor(Qt::red).rgb()
-        ,QColor(Qt::green).rgb()
-        ,0
-        ,0
-        ,0
-    };
 
     QFontMetrics fm(text.font());
     QCOMPARE(text.rgbMapStepCount(QSize()), fm.ascent() * 3); // Q, L, C
@@ -442,7 +421,7 @@ void RGBText_Test::verticalScroll()
     for (int i = 0; i < fm.ascent() * 3; i++)
     {
         RGBMap map;
-        text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), i, map, rawRgbColors);
+        text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), i, map);
         QCOMPARE(map.size(), 10);
         for (int y = 0; y < 10; y++)
             QCOMPARE(map[y].size(), 10);
@@ -450,7 +429,7 @@ void RGBText_Test::verticalScroll()
 
     // Invalid step
     RGBMap map;
-    text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), fm.ascent() * 4, map, rawRgbColors);
+    text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), fm.ascent() * 4, map);
     QCOMPARE(map.size(), 10);
     for (int i = 0; i < 10; i++)
     {

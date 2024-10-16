@@ -123,10 +123,14 @@ int RGBAudio::rgbMapStepCount(const QSize& size)
     return 1;
 }
 
-void RGBAudio::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map, QVector<uint> &rawColors)
+void RGBAudio::rgbMapSetColors(QVector<uint> &colors)
+{
+    Q_UNUSED(colors);
+}
+
+void RGBAudio::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 {
     Q_UNUSED(step);
-    Q_UNUSED(rawColors);
 
     QMutexLocker locker(&m_mutex);
 

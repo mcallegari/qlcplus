@@ -194,6 +194,9 @@ public:
 
     void updateColorDelta();
 
+    /** Set the colors of the current algorithm */
+    void setMapColors();
+
 private:
     QVector<QColor> m_rgbColors;
     RGBMatrixStep *m_stepHandler;
