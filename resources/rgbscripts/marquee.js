@@ -221,10 +221,12 @@ var testAlgo;
   };
 
   util.getNextStep = function (width, height) {
+    var x = 0;
+    var y = 0;
     var map = new Array(height);
-    for (var y = 0; y <= height - 1; y++) {
+    for (y = 0; y <= height - 1; y++) {
       map[y] = new Array(width);
-      for (var x = 0; x <= width - 1; x++) {
+      for (x = 0; x <= width - 1; x++) {
         map[y][x] = util.feature[y][x];
       }
     }
@@ -243,32 +245,32 @@ var testAlgo;
     var marqueeColor = colorPalette.collection[algo.marqueeColorIndex][1];
     var p = 0;
     // left
-    for (var y = 0; y < height; y++) {
-      var x = 0;
+    for (y = 0; y < height; y++) {
+      x = 0;
       if (util.lights[p] === 1) {
         map[y][x] = marqueeColor;
       }
       p += 1;
     }
     // bottom
-    for (var x = 1; x < width; x++) {
-      var y = height - 1;
+    for (x = 1; x < width; x++) {
+      y = height - 1;
       if (util.lights[p] === 1) {
         map[y][x] = marqueeColor;
       }
       p += 1;
     }
     // right
-    for (var y = height - 2; y >= 0; y--) {
-      var x = width - 1;
+    for (y = height - 2; y >= 0; y--) {
+      x = width - 1;
       if (util.lights[p] === 1) {
         map[y][x] = marqueeColor;
       }
       p += 1;
     }
     // top
-    for (var x = width - 2; x >= 0; x--) {
-      var y = 0;
+    for (x = width - 2; x >= 0; x--) {
+      y = 0;
       if (util.lights[p] === 1) {
         map[y][x] = marqueeColor;
       }

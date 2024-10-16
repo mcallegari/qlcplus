@@ -287,7 +287,7 @@ var testAlgo;
           lowRest = effectiveStep - realBlockCount * realBlockSize;
           highRest = (realBlockCount + 1) * realBlockSize - effectiveStep;
           rest = Math.min(lowRest, highRest);
-          if (rest < 0.5 || lowRest == 0.5) {
+          if (rest < 0.5 || lowRest === 0.5) {
             colorSelectOne = !colorSelectOne;
           }
         } else if (algo.orientation === 2) {

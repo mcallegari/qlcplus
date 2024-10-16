@@ -203,14 +203,14 @@ devtool.initPixelColors = function()
         var row = colorTable.insertRow();
         row.id = "color" + colorId + "Chooser";
         var titleCell = row.insertCell();
-        if (colorId == 1)
+        if (colorId === 1)
             titleCell.textContent = "Color " + colorId + " (rrggbb)";
         else
             titleCell.textContent = "Color " + colorId + " (rrggbb, leave empty to disable)";
         var colorInput = document.createElement("input");
         colorInput.setAttribute("type", "text");
         colorInput.setAttribute("id", "color" + colorId + "Text");
-        if (colorId == 1)
+        if (colorId === 1)
             colorInput.value = "FF0000";
         else
             colorInput.value = "";
@@ -223,7 +223,7 @@ devtool.initPixelColors = function()
         var colorPicker = document.createElement("input");
         colorPicker.setAttribute("type", "color");
         colorPicker.setAttribute("id", "color" + colorId + "Picker");
-        if (colorId == 1)
+        if (colorId === 1)
             colorPicker.value = "#FF0000";
         else
             colorPicker.value = "#000000";
@@ -262,7 +262,7 @@ devtool.initColorValues = function()
         var idx = i + 1;
         var color = localStorage.getItem("devtool.color" + idx);
         if (color === null || Number.isNaN(parseInt("0x" + color, 16))) {
-            if (idx == 1)
+            if (idx === 1)
                 color = "ff0000";
             else
                 color = "000000";
