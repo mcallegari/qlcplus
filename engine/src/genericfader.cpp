@@ -227,7 +227,10 @@ void GenericFader::write(Universe *universe)
             if ((flags & FadeChannel::CrossFade) && fc.fadeTime() == 0)
             {
                 // morph start <-> target depending on intensities
-                value = quint32(((qreal(fc.target() - fc.start()) * intensity()) + fc.start()) * parentIntensity());
+                bool rampUp = fc.target() > fc.start() ? true : false;
+                value = rampUp ? fc.target() - fc.start() : fc.start() - fc.target();
+                value = qreal(value) * intensity();
+                value = qreal(rampUp ? fc.start() + value : fc.start() - value) * parentIntensity();
             }
             else if (flags & FadeChannel::Intensity)
             {
@@ -235,7 +238,7 @@ void GenericFader::write(Universe *universe)
             }
         }
 
-        //qDebug() << "[GenericFader] >>> uni:" << universe->id() << ", address:" << (address + i) << ", value:" << value << "int:" << compIntensity;
+        //qDebug() << "[GenericFader] >>> uni:" << universe->id() << ", address:" << address << ", value:" << value << "int:" << compIntensity;
         if (flags & FadeChannel::Override)
         {
             universe->write(address, value, true);
@@ -337,16 +340,16 @@ void GenericFader::setFadeOut(bool enable, uint fadeTime)
     {
         FadeChannel& fc(it.next().value());
 
-        // non-intensity channels (eg LTP) should fade
-        // to the current universe value
-        if ((fc.flags() & FadeChannel::Intensity) == 0)
-            fc.addFlag(FadeChannel::SetTarget);
-
         fc.setStart(fc.current());
+        // all channels should fade to the current universe value
+        fc.addFlag(FadeChannel::SetTarget);
         fc.setTarget(0);
         fc.setElapsed(0);
         fc.setReady(false);
         fc.setFadeTime(fc.canFade() ? fadeTime : 0);
+        // if flashing, remove the flag and treat
+        // it like a regular fade out to target
+        fc.removeFlag(FadeChannel::Flashing);
     }
 }
 

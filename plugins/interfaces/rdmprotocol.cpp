@@ -109,19 +109,22 @@ bool RDMProtocol::packetizeCommand(ushort command, QVariantList params, bool sta
             quint16 pid = params.at(1).toUInt();
             buffer.append(shortToByteArray(pid));
 
-            if (params.length() > 2)
+            if (params.length() > 3)
             {
-                switch(pid)
+                uchar size = params.at(2).toUInt();
+                buffer.append(size); // add PDL
+                switch (size)
                 {
-                    case PID_DMX_PERSONALITY_DESCRIPTION:
-                    default:
-                        buffer.append(char(1)); // append PDL
-                        buffer.append(char(params.at(2).toUInt()));
+                case 1:
+                    buffer.append(uchar(params.at(3).toUInt()));
                     break;
-                    case PID_PARAMETER_DESCRIPTION:
-                    case PID_SLOT_DESCRIPTION:
-                        buffer.append(char(2)); // append PDL
-                        buffer.append(shortToByteArray(params.at(2).toUInt()));
+                case 2:
+                    buffer.append(shortToByteArray(params.at(3).toUInt()));
+                    break;
+                case 4:
+                    buffer.append(longToByteArray(params.at(3).toUInt()));
+                    break;
+                default:
                     break;
                 }
             }

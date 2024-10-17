@@ -22,7 +22,6 @@
 #include <QSettings>
 
 #include "addrgbpanel.h"
-#include "ui_addrgbpanel.h"
 #include "doc.h"
 
 #define SETTINGS_GEOMETRY "addrgbpanel/geometry"
@@ -53,6 +52,8 @@ AddRGBPanel::AddRGBPanel(QWidget *parent, const Doc *doc)
 
     connect(m_uniCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotUniverseChanged()));
+    connect(m_compCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(slotComponentsChanged(int)));
     connect(m_addressSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotAddressChanged()));
     connect(m_columnSpin, SIGNAL(valueChanged(int)),
@@ -93,6 +94,14 @@ bool AddRGBPanel::checkAddressAvailability()
 void AddRGBPanel::slotUniverseChanged()
 {
     checkAddressAvailability();
+}
+
+void AddRGBPanel::slotComponentsChanged(int index)
+{
+    if (index == 6) // RGBW
+        m_columnSpin->setMaximum(128);
+    else
+        m_columnSpin->setMaximum(170);
 }
 
 void AddRGBPanel::slotAddressChanged()

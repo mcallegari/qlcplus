@@ -21,6 +21,7 @@
 #define ADDRGBPANEL_H
 
 #include <QDialog>
+
 #include "ui_addrgbpanel.h"
 #include "fixture.h"
 
@@ -77,6 +78,7 @@ private:
 
 protected slots:
     void slotUniverseChanged();
+    void slotComponentsChanged(int index);
     void slotAddressChanged();
     void slotSizeChanged(int val);
 

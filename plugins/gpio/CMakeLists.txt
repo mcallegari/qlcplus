@@ -23,6 +23,17 @@ project(${module_name})
 
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui Widgets)
 
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(LIBGPIOD IMPORTED_TARGET libgpiodcxx)
+
+if (LIBGPIOD_FOUND)
+    include_directories(${module_name} PRIVATE ${LIBGPIOD_INCLUDE_DIRS})
+    link_directories(${LIBGPIOD_LIBRARY_DIRS})
+    link_libraries(${LIBGPIOD_LIBRARIES})
+else()
+    message("ERROR: libgpiod not found!")
+endif()
+
 add_library(${module_name} SHARED
     ${QM_FILES}
 )

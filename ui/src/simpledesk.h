@@ -112,6 +112,7 @@ public:
     void setAbsoluteChannelValue(uint address, uchar value);
     void resetChannel(quint32 address);
     void resetUniverse();
+    void resetUniverse(int index);
 
 private:
     void initUniversesCombo();

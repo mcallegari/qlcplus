@@ -42,6 +42,7 @@ private slots:
     void slotTimeout();
     void slotItemClicked();
     void slotWebsiteClicked();
+    void slotAboutQt();
 
 private:
     QTimer* m_timer;

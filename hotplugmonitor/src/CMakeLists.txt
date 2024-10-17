@@ -1,4 +1,5 @@
 add_library(hotplugmonitor
+    STATIC
     hotplugmonitor.cpp hotplugmonitor.h
 )
 set_property(TARGET hotplugmonitor PROPERTY POSITION_INDEPENDENT_CODE ON)

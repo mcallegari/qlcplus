@@ -124,7 +124,7 @@ quint32 RGBMatrix::totalDuration()
     if (grp == NULL)
         return 0;
 
-    qDebug () << "Algorithm steps:" << m_algorithm->rgbMapStepCount(grp->size());
+    //qDebug () << "Algorithm steps:" << m_algorithm->rgbMapStepCount(grp->size());
     return m_algorithm->rgbMapStepCount(grp->size()) * duration();
 }
 
@@ -290,8 +290,9 @@ void RGBMatrix::previewMap(int step, RGBMatrixStep *handler)
     if (m_group == NULL)
         m_group = doc()->fixtureGroup(fixtureGroup());
 
-    if (m_group != NULL) {
-
+    if (m_group != NULL)
+    {
+        setMapColors();
         m_algorithm->rgbMap(m_group->size(), handler->stepColor().rgb(), step, handler->m_map);
     }
 }

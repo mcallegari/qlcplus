@@ -1597,7 +1597,7 @@ void VirtualConsole::initContents()
 
 void VirtualConsole::keyPressEvent(QKeyEvent* event)
 {
-    if (event->isAutoRepeat() == true)
+    if (event->isAutoRepeat() == true || event->key() == 0)
     {
         event->ignore();
         return;
@@ -1611,7 +1611,7 @@ void VirtualConsole::keyPressEvent(QKeyEvent* event)
 
 void VirtualConsole::keyReleaseEvent(QKeyEvent* event)
 {
-    if (event->isAutoRepeat() == true)
+    if (event->isAutoRepeat() == true || event->key() == 0)
     {
         event->ignore();
         return;

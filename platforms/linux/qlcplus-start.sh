@@ -28,7 +28,11 @@ QLCPLUS_OPTS="-platform $QTPLATFORM --nowm --web --web-auth --operate --overscan
 
 if [ ! -f $HOME/.qlcplus/eglfs.json ]; then
     mkdir -p $HOME/.qlcplus
-    echo '{ "device": "/dev/dri/card1" }' > $HOME/.qlcplus/eglfs.json
+    if [ -f /dev/dri/card1 ]; then
+        echo '{ "device": "/dev/dri/card1" }' > $HOME/.qlcplus/eglfs.json
+    else
+        echo '{ "device": "/dev/dri/card0" }' > $HOME/.qlcplus/eglfs.json
+    fi
 fi
 
 if [ -f $HOME/.qlcplus/autostart.qxw ]; then

@@ -9,6 +9,7 @@
     <F n="Acme-Dotline180" m="Dotline180"/>
     <F n="Acme-Dotline360" m="Dotline360"/>
     <F n="Acme-Oxygen" m="Oxygen"/>
+    <F n="Acme-Pixel-Line-IP" m="Pixel Line IP"/>
     <F n="Acme-Super-Dotline" m="Super Dotline"/>
   </M>
   <M n="ADB">
@@ -211,6 +212,7 @@
     <F n="Ayra-ALO-Micro-Scan" m="ALO Micro Scan"/>
     <F n="Ayra-ComPar-10" m="ComPar 10"/>
     <F n="Ayra-Compar-Kit-1" m="Compar Kit 1"/>
+    <F n="Ayra-Compar-Kit-3" m="Compar Kit 3"/>
     <F n="Ayra-ComPar20" m="ComPar 20"/>
     <F n="Ayra-ERO-075" m="ERO 075"/>
     <F n="Ayra-ERO-406" m="ERO 406"/>
@@ -223,11 +225,13 @@
   </M>
   <M n="Ayrton">
     <F n="Ayrton-Arcaline-100-RGB" m="Arcaline 100 RGB"/>
+    <F n="Ayrton-Domino-LT" m="Domino LT"/>
     <F n="Ayrton-MagicBlade-R" m="MagicBlade R"/>
     <F n="Ayrton-MagicPanel-602" m="MagicPanel 602"/>
     <F n="Ayrton-MiniPanel-FX" m="MiniPanel FX"/>
     <F n="Ayrton-Mistral" m="Mistral"/>
     <F n="Ayrton-NandoBeam-S3" m="NandoBeam S3"/>
+    <F n="Ayrton-Rivale-Profile" m="Rivale Profile"/>
   </M>
   <M n="beamZ">
     <F n="beamZ-BAC302" m="BAC302"/>
@@ -791,6 +795,7 @@
     <F n="Eurolite-LED-KLS-401" m="LED KLS-401"/>
     <F n="Eurolite-LED-KLS-Laser-Bar-FX-Light-Set" m="LED KLS Laser Bar FX Light Set"/>
     <F n="Eurolite-LED-KLS-Scan-Pro-Next-FX-Light" m="LED KLS Scan Pro Next FX Light"/>
+    <F n="Eurolite-LED-Mini-Strobe-Cluster-SMD48" m="LED Mini Strobe Cluster SMD 48"/>
     <F n="Eurolite-LED-ML-56-QCL-RGBW-RGBA-18x8W" m="LED ML-56 QCL RGBW-RGBA 18x8W"/>
     <F n="Eurolite-LED-Multi-FX-Laser-Bar" m="LED Multi FX Laser Bar"/>
     <F n="Eurolite-LED-PAR-56-RGB-DMX" m="LED PAR 56 RGB DMX"/>
@@ -978,9 +983,11 @@
     <F n="GLP-Impression-X4-Bar-10" m="Impression X4 Bar 10"/>
     <F n="GLP-Impression-X4-S" m="Impression X4 S"/>
     <F n="GLP-Impression-X4" m="Impression X4"/>
+    <F n="GLP-Impression-X5" m="Impression X5"/>
     <F n="GLP-Impression" m="Impression"/>
     <F n="GLP-ImpressionWA" m="Impression WA"/>
     <F n="GLP-ImpressionXL" m="Impression XL"/>
+    <F n="GLP-JDC1" m="JDC1"/>
     <F n="GLP-Junior-Scan-1" m="Junior-Scan 1"/>
     <F n="GLP-Junior-Scan-2" m="Junior-Scan 2"/>
     <F n="GLP-PocketScan" m="PocketScan"/>
@@ -1511,6 +1518,7 @@
     <F n="SGM-Victory-II-Pro150" m="Victory II Pro150"/>
   </M>
   <M n="Shehds">
+    <F n="Shehds-2-Eyes-200W-LED-COB-Cool-Warm-White" m="2 Eyes 200W LED COB Cool Warm White"/>
     <F n="Shehds-230W-LED-Beam-Moving-Head" m="LED 230W Beam Moving Head"/>
     <F n="Shehds-Big-Bee-Eyes-LED-Wash-19x40W-RGBW" m="Big Bee Eyes LED Wash 19x40W RGBW"/>
     <F n="Shehds-GalaxyJet-Waterproof-IP65-380W-19R-Beam-Moving-Head" m="GalaxyJet Waterproof IP65 380W 19R Beam Moving Head"/>

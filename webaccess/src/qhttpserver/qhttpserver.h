@@ -31,10 +31,27 @@
 #include "qhttpserverfwd.h"
 
 #include <QObject>
+#include <QTcpServer>
 #include <QHostAddress>
 
 /// Maps status codes to string reason phrases
 extern QHash<int, QString> STATUS_CODES;
+
+class CustomTcpServer : public QTcpServer
+{
+    Q_OBJECT
+
+public:
+    CustomTcpServer(QObject *parent);
+
+protected:
+    void incomingConnection(qintptr handle);
+
+Q_SIGNALS:
+    void newRequest(QHttpRequest *request, QHttpResponse *response);
+    void webSocketDataReady(QHttpConnection *conn, QString data);
+    void webSocketConnectionClose(QHttpConnection *conn);
+};
 
 /// The QHttpServer class forms the basis of the %QHttpServer
 /// project. It is a fast, non-blocking HTTP server.
@@ -91,9 +108,6 @@ Q_SIGNALS:
 
     void webSocketDataReady(QHttpConnection *conn, QString data);
     void webSocketConnectionClose(QHttpConnection *conn);
-
-private Q_SLOTS:
-    void newConnection();
 
 private:
     QTcpServer *m_tcpServer;

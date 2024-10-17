@@ -182,8 +182,8 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     m_presetCombo = new QComboBox(this);
     //m_presetCombo->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     m_presetCombo->addItems(RGBAlgorithm::algorithms(m_doc));
-    connect(m_presetCombo, SIGNAL(currentIndexChanged(QString)),
-            this, SLOT(slotAnimationChanged(QString)));
+    connect(m_presetCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(slotAnimationChanged(int)));
     vbox->addWidget(m_presetCombo);
 
     hBox->addLayout(vbox);
@@ -495,21 +495,30 @@ void VCMatrix::slotColor5Changed(QRgb color)
 
 void VCMatrix::slotSetAnimationValue(QString name)
 {
-    m_presetCombo->setCurrentText(name);
-    slotAnimationChanged(name);
+    for (int i = 0; i < m_presetCombo->count(); i++)
+    {
+        if (name == m_presetCombo->itemText(i))
+        {
+            m_presetCombo->setCurrentIndex(i);
+            slotAnimationChanged(i);
+            return;
+        }
+    }
 }
 
-void VCMatrix::slotAnimationChanged(QString name)
+void VCMatrix::slotAnimationChanged(int index)
 {
-    emit animationValueChanged(name);
     RGBMatrix* matrix = qobject_cast<RGBMatrix*>(m_doc->function(m_matrixID));
     if (matrix == NULL || mode() == Doc::Design)
         return;
 
-    RGBAlgorithm* algo = RGBAlgorithm::algorithm(m_doc, name);
+    QString pValue = m_presetCombo->itemText(index);
+    RGBAlgorithm* algo = RGBAlgorithm::algorithm(m_doc, pValue);
     matrix->setAlgorithm(algo);
     if (instantChanges() == true)
         matrix->updateColorDelta();
+
+    emit animationValueChanged(pValue);
 }
 
 QString VCMatrix::animationValue()

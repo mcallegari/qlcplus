@@ -187,7 +187,7 @@ function timeToQlcString(value, type)
     }
     var timeString = "";
 
-    if (type === 0 /*Function.Time */)
+    if (type === 0 /* QLCFunction.Time */)
     {
         var h = Math.floor(value / 3600000);
         value -= (h * 3600000);
@@ -229,7 +229,7 @@ function timeToQlcString(value, type)
             }
         }
     }
-    else if (type === 1 /* Function.Beats */)
+    else if (type === 1 /* QLCFunction.Beats */)
     {
         if (value < 125)
         {
@@ -331,17 +331,17 @@ function calculateBPMByTapIntervals(tapHistory)
 {
     var tapHistorySorted = []
 
-    //reduce size to only 16 taps
+    // reduce size to only 16 taps
     while (tapHistory.length > 16) tapHistory.splice(0,1)
 
-    //copy tap history to sort it
+    // copy tap history to sort it
     tapHistorySorted = tapHistory.slice()
     tapHistorySorted.sort()
 
     // Find the median time between taps, assume that the tempo is +-40% of this
     var tapHistoryMedian = tapHistorySorted[Math.floor(tapHistorySorted.length/2)]
     
-    //init needed variables
+    // init needed variables
     var n = 1, tapx = 0, tapy = 0, sum_x = 0, sum_y = 0, sum_xx = 0, sum_xy = 0
     
     for (var i = 0; i < tapHistory.length; i++)

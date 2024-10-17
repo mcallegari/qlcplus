@@ -6,7 +6,7 @@
   <Version>4.13.0 GIT</Version>
   <Author>Christian Prison</Author>
  </Creator>
- <Manufacturer>Fun Generation</Manufacturer>
+ <Manufacturer>Fun-Generation</Manufacturer>
  <Model>LED Pot 12x1W QCL RGB WW</Model>
  <Type>Color Changer</Type>
  <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>

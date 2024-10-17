@@ -653,8 +653,8 @@ void RGBMatrixEditor::displayProperties(RGBScript *script)
                 QComboBox *propCombo = new QComboBox(this);
                 propCombo->addItems(prop.m_listValues);
                 propCombo->setProperty("pName", prop.m_name);
-                connect(propCombo, SIGNAL(currentIndexChanged(QString)),
-                        this, SLOT(slotPropertyComboChanged(QString)));
+                connect(propCombo, SIGNAL(currentIndexChanged(int)),
+                        this, SLOT(slotPropertyComboChanged(int)));
                 m_propertiesLayout->addWidget(propCombo, gridRowIdx, 1);
                 if (m_matrix != NULL)
                 {
@@ -1514,15 +1514,16 @@ void RGBMatrixEditor::slotShapeToggle(bool)
     createPreviewItems();
 }
 
-void RGBMatrixEditor::slotPropertyComboChanged(QString value)
+void RGBMatrixEditor::slotPropertyComboChanged(int index)
 {
-    qDebug() << "Property combo changed to" << value;
     if (m_matrix->algorithm() == NULL ||
         m_matrix->algorithm()->type() == RGBAlgorithm::Script)
     {
         QComboBox *combo = qobject_cast<QComboBox *>(sender());
         QString pName = combo->property("pName").toString();
-        m_matrix->setProperty(pName, value);
+        QString pValue = combo->itemText(index);
+        qDebug() << "Property combo changed to" << pValue;
+        m_matrix->setProperty(pName, pValue);
     }
 }
 

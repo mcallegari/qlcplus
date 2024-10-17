@@ -121,7 +121,7 @@ private slots:
     void slotSaveToSequenceClicked();
     void slotShapeToggle(bool);
 
-    void slotPropertyComboChanged(QString value);
+    void slotPropertyComboChanged(int index);
     void slotPropertySpinChanged(int value);
     void slotPropertyDoubleSpinChanged(double value);
     void slotPropertyEditChanged(QString text);

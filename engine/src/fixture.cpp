@@ -415,8 +415,8 @@ QList<SceneValue> Fixture::zoomToValues(float degrees, bool isRelative)
 
     float deltaDegrees = phy.lensDegreesMax() - phy.lensDegreesMin();
     // delta : 0xFFFF = deg : x
-    quint16 degToDmx = ((degrees - (isRelative ? 0 : float(phy.lensDegreesMin()))) * 65535.0) / deltaDegrees;
-    //qDebug() << "Degrees" << degrees << "DMX" << QString::number(degToDmx, 16);
+    quint16 degToDmx = ((qAbs(degrees) - (isRelative ? 0 : float(phy.lensDegreesMin()))) * 65535.0) / deltaDegrees;
+    qDebug() << "Degrees" << degrees << "DMX" << QString::number(degToDmx, 16);
 
     for (quint32 i = 0; i < quint32(m_fixtureMode->channels().size()); i++)
     {
@@ -435,12 +435,16 @@ QList<SceneValue> Fixture::zoomToValues(float degrees, bool isRelative)
             // degrees is a relative value upon the current value.
             // Recalculate absolute degrees here
             qreal divider = ch->controlByte() == QLCChannel::MSB ? 256.0 : 65536.0;
-            float chDegrees = float((phy.lensDegreesMax() - phy.lensDegreesMin()) / divider) * float(channelValueAt(i));
+            uchar currDmxValue = ch->preset() == QLCChannel::BeamZoomBigSmall ? UCHAR_MAX - channelValueAt(i) : channelValueAt(i);
+            float chDegrees = float((phy.lensDegreesMax() - phy.lensDegreesMin()) / divider) * float(currDmxValue);
 
-            //qDebug() << "Relative channel degrees:" << chDegrees << "MSB?" << ch->controlByte();
+            qDebug() << "Relative channel degrees:" << chDegrees << "MSB?" << ch->controlByte();
 
             quint16 currDmxVal = (chDegrees * 65535.0) / deltaDegrees;
-            degToDmx += currDmxVal;
+            if (degrees > 0)
+                degToDmx = qBound(0, currDmxVal + degToDmx, 65535);
+            else
+                degToDmx = qBound(0, currDmxVal - degToDmx, 65535);
         }
 
         if (ch->controlByte() == QLCChannel::MSB)
@@ -915,6 +919,7 @@ QLCFixtureMode *Fixture::genericRGBPanelMode(QLCFixtureDef *def, Components comp
     Q_ASSERT(def != NULL);
     QLCFixtureMode *mode = new QLCFixtureMode(def);
     int compNum = 3;
+
     if (components == BGR)
         mode->setName("BGR");
     else if (components == BRG)
@@ -953,6 +958,7 @@ QLCFixtureMode *Fixture::genericRGBPanelMode(QLCFixtureDef *def, Components comp
     physical.setWidth(width);
     physical.setHeight(height);
     physical.setDepth(height);
+    physical.setLayoutSize(QSize(mode->heads().count(), 1));
 
     mode->setPhysical(physical);
     def->addMode(mode);

@@ -787,7 +787,7 @@ QString VirtualConsole::widgetIcon(int type)
         case VCWidget::XYPadWidget: return "qrc:/xypad.svg";
         case VCWidget::FrameWidget: return "qrc:/frame.svg";
         case VCWidget::SoloFrameWidget: return "qrc:/soloframe.svg";
-        case VCWidget::SpeedDialWidget: return "qrc:/speed.svg";
+        case VCWidget::SpeedWidget: return "qrc:/speed.svg";
         case VCWidget::CueListWidget: return "qrc:/cuelist.svg";
         case VCWidget::LabelWidget: return "qrc:/label.svg";
         case VCWidget::AudioTriggersWidget: return "qrc:/audiotriggers.svg";

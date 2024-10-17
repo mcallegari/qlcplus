@@ -117,6 +117,7 @@ INSTALLS += QTMENU
 INSTALLS += $$qt5LibTargetID(LIBQTGUI, QtGui)
 INSTALLS += $$qt5LibTarget(LIBQTNETWORK, QtNetwork) $$qt5LibTargetID(LIBQTNETWORK, QtNetwork)
 !qmlui: INSTALLS += $$qt5LibTarget(LIBQTSCRIPT, QtScript) $$qt5LibTargetID(LIBQTSCRIPT, QtScript)
+!qmlui: INSTALLS += $$qt5LibTarget(LIBQTWEBSOCKETS, QtWebSockets) $$qt5LibTargetID(LIBQTWEBSOCKETS, QtWebSockets)
 
 INSTALLS += $$qt5LibTarget(LIBQTWIDGETS, QtWidgets) $$qt5LibTargetID(LIBQTWIDGETS, QtWidgets)
 INSTALLS += $$qt5LibTarget(LIBQTSVG, QtSvg) $$qt5LibTargetID(LIBQTSVG, QtSvg)
