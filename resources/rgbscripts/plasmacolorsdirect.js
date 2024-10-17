@@ -1,8 +1,8 @@
 /*
   Q Light Controller Plus
-  plasma.js
+  plasmacolorsdirect.js
 
-  Copyright (c) Tim Cullingworth
+  Copyright (c) Nathan Durnan
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -24,24 +24,19 @@ var testAlgo;
   function()
   {
     var algo = new Object;
-    algo.apiVersion = 2;
-    algo.name = "Plasma";
-    algo.author = "Tim Cullingworth";
-    algo.acceptColors = 0;
+    algo.apiVersion = 3;
+    algo.name = "Plasma (5 Colors)";
+    algo.author = "Nathan Durnan";
+    algo.acceptColors = 5;
     algo.properties = new Array();
     algo.rstepcount = 0;
     algo.gstepcount = 50;
     algo.bstepcount = 100;
-    algo.presetIndex = 0;
-    algo.properties.push(
-      "name:presetIndex|type:list|display:Preset|" +
-      "values:Rainbow,Fire,Abstract,Ocean|" +
-      "write:setPreset|read:getPreset");
     algo.presetSize = 5;
     algo.properties.push(
       "name:presetSize|type:range|display:Size|" +
       "values:1,20|write:setSize|read:getSize");
-    algo.ramp = 20;
+    algo.ramp = 15;
     algo.properties.push(
       "name:ramp|type:range|display:Ramp|" +
       "values:10,30|write:setRamp|read:getRamp");
@@ -53,30 +48,7 @@ var testAlgo;
     var util = new Object;
     util.initialized = false;
     util.gradientData = new Array();
-    util.presets = new Array();
-    util.presets.push(new Array(0xFF0000, 0x00FF00, 0x0000FF));
-    util.presets.push(new Array(0xFFFF00, 0xFF0000, 0x000040, 0xFF0000));
-    util.presets.push(new Array(0x5571FF, 0x00FFFF, 0xFF00FF, 0xFFFF00));
-    util.presets.push(new Array(0x003AB9, 0x02EAFF));
-
-    algo.setPreset = function(_preset)
-    {
-      if (_preset === "Rainbow") { algo.presetIndex = 0; }
-      else if (_preset === "Fire") { algo.presetIndex = 1; }
-      else if (_preset === "Abstract") { algo.presetIndex = 2; }
-      else if (_preset === "Ocean") { algo.presetIndex = 3; }
-      else { algo.presetIndex = 0; }
-      util.initialized = false;
-    };
-
-    algo.getPreset = function()
-    {
-      if (algo.presetIndex === 0) { return "Rainbow"; }
-      else if (algo.presetIndex === 1) { return "Fire"; }
-      else if (algo.presetIndex === 2) { return "Abstract"; }
-      else if (algo.presetIndex === 3) { return "Ocean"; }
-      else { return "Rainbow"; }
-    };
+    util.colorArray = new Array(algo.acceptColors);
 
     algo.setSize = function(_size)
     {
@@ -111,18 +83,42 @@ var testAlgo;
       return algo.stepsize;
     };
 
+    util.getRawColor = function (idx) {
+      var color = 0;
+      if (Array.isArray(util.colorArray) && util.colorArray.length > idx && ! isNaN(util.colorArray[idx])) {
+        color = util.colorArray[idx];
+      }
+      return color;
+    }
+  
+    algo.rgbMapSetColors = function(rawColors)
+    {
+      if (! Array.isArray(rawColors))
+        return;
+      for (var i = 0; i < algo.acceptColors; i++) {
+        if (i < rawColors.length)
+        {
+          util.colorArray[i] = rawColors[i];
+        } else {
+          util.colorArray[i] = 0;
+        }
+      }
+      util.initialized = false;
+    }
+
+
     util.initialize = function()
     {
       // calculate the gradient for the selected preset
       // with the given width
       var gradIdx = 0;
       util.gradientData = new Array();
-      for (var i = 0; i < util.presets[algo.presetIndex].length; i++)
+      for (var i = 0; i < util.colorArray.length; i++)
       {
-        var sColor = util.presets[algo.presetIndex][i];
-        var eColor = util.presets[algo.presetIndex][0];
-        if (i < util.presets.length - 1) {
-          eColor = util.presets[algo.presetIndex][i + 1];
+        var sColor = util.colorArray[i];
+        var eColor = util.colorArray[0];
+        if (i < util.colorArray.length - 1) {
+          eColor = util.colorArray[i + 1];
         }
         util.gradientData[gradIdx++] = sColor;
         var sr = (sColor >> 16) & 0x00FF;
