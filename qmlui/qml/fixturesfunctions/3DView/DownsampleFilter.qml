@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import Qt3D.Core 2.0
-import Qt3D.Render 2.0
-import QtQuick 2.0
+import Qt3D.Core 2.15
+import Qt3D.Render 2.15
+import QtQuick 2.15
 
 TechniqueFilter
 {
@@ -30,7 +30,7 @@ TechniqueFilter
 
     parameters: [
         Parameter { name: "tex"; value: inTex },
-        Parameter { name: "pixelSize"; value: pixelSize }        
+        Parameter { name: "pixelSize"; value: pixelSize }
     ]
 
     RenderStateSet

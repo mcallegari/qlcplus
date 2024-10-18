@@ -20,6 +20,7 @@
 #include <QMutexLocker>
 #include <QXmlStreamReader>
 #include <QtCore/qbuffer.h>
+typedef QBuffer QIODeviceBuffer;
 
 #include "tardis.h"
 
@@ -319,7 +320,7 @@ void Tardis::run()
 
 QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
 {
-    QBuffer buffer;
+    QIODeviceBuffer buffer;
     buffer.open(QIODevice::WriteOnly | QIODevice::Text);
     QXmlStreamWriter xmlWriter(&buffer);
 
@@ -421,7 +422,7 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
         return false;
     }
 
-    QBuffer buffer;
+    QIODeviceBuffer buffer;
     buffer.setData(value.toByteArray());
     buffer.open(QIODevice::ReadOnly | QIODevice::Text);
     QXmlStreamReader xmlReader(&buffer);

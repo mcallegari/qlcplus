@@ -41,8 +41,7 @@ Entity
     {
         id: eSceneLoader
 
-        onStatusChanged:
-        {
+        onStatusChanged: (status) => {
             if (status === SceneLoader.Ready)
                 View3D.initializeItem(itemID, genericEntity, eSceneLoader)
         }
@@ -55,8 +54,7 @@ Entity
         id: eObjectPicker
         dragEnabled: true
 
-        onClicked:
-        {
+        onClicked: (pick) => {
             console.log("3D item clicked")
             isSelected = !isSelected
             View3D.setItemSelection(itemID, isSelected, pick.modifiers)
