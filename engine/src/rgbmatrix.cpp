@@ -36,6 +36,8 @@
 
 #define KXMLQLCRGBMatrixStartColor      QString("MonoColor")
 #define KXMLQLCRGBMatrixEndColor        QString("EndColor")
+#define KXMLQLCRGBMatrixColorBase       QString("Color")
+
 #define KXMLQLCRGBMatrixFixtureGroup    QString("FixtureGroup")
 #define KXMLQLCRGBMatrixDimmerControl   QString("DimmerControl")
 
@@ -64,8 +66,13 @@ RGBMatrix::RGBMatrix(Doc* doc)
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     , m_algorithmMutex(QMutex::Recursive)
 #endif
-    , m_startColor(Qt::red)
-    , m_endColor(QColor())
+    , m_rgbColors{
+        Qt::red,
+        QColor(),
+        QColor(),
+        QColor(),
+        QColor()
+    }
     , m_stepHandler(new RGBMatrixStep())
     , m_roundTime(new QElapsedTimer())
     , m_stepsCount(0)
@@ -166,8 +173,15 @@ bool RGBMatrix::copyFrom(const Function* function)
         setAlgorithm(mtx->algorithm()->clone());
     else
         setAlgorithm(NULL);
-    setStartColor(mtx->startColor());
-    setEndColor(mtx->endColor());
+
+    QVectorIterator<QColor> it(mtx->getColors());
+    uint count = 0;
+    while (it.hasNext()) {
+        QColor color = it.next();
+        setColor(count, color);
+        count ++;
+    }
+
     setControlMode(mtx->controlMode());
 
     return Function::copyFrom(function);
@@ -277,54 +291,75 @@ void RGBMatrix::previewMap(int step, RGBMatrixStep *handler)
         m_group = doc()->fixtureGroup(fixtureGroup());
 
     if (m_group != NULL)
+    {
+        setMapColors();
         m_algorithm->rgbMap(m_group->size(), handler->stepColor().rgb(), step, handler->m_map);
+    }
 }
 
 /****************************************************************************
  * Color
  ****************************************************************************/
 
-void RGBMatrix::setStartColor(const QColor& c)
+void RGBMatrix::setColor(int i, QColor c)
 {
-    m_startColor = c;
+    if (i >= m_rgbColors.count())
+        m_rgbColors.resize(i + 1);
+    m_rgbColors.replace(i, c);
     {
         QMutexLocker algorithmLocker(&m_algorithmMutex);
         if (m_algorithm != NULL)
         {
-            m_algorithm->setColors(m_startColor, m_endColor);
+            m_algorithm->setColors(m_rgbColors);
             updateColorDelta();
         }
     }
+    setMapColors();
     emit changed(id());
 }
 
-QColor RGBMatrix::startColor() const
+QColor RGBMatrix::getColor(int i) const
 {
-    return m_startColor;
+    if (i >= m_rgbColors.count())
+        return QColor();
+    return m_rgbColors.at(i);
 }
 
-void RGBMatrix::setEndColor(const QColor &c)
+QVector<QColor> RGBMatrix::getColors() const
 {
-    m_endColor = c;
-    {
-        QMutexLocker algorithmLocker(&m_algorithmMutex);
-        if (m_algorithm != NULL)
-        {
-            m_algorithm->setColors(m_startColor, m_endColor);
-            updateColorDelta();
-        }
-    }
-    emit changed(id());
-}
-
-QColor RGBMatrix::endColor() const
-{
-    return m_endColor;
+    return m_rgbColors;
 }
 
 void RGBMatrix::updateColorDelta()
 {
-    m_stepHandler->calculateColorDelta(m_startColor, m_endColor);
+    m_stepHandler->calculateColorDelta(m_rgbColors[0], m_rgbColors[1], m_algorithm);
+}
+
+void RGBMatrix::setMapColors()
+{
+    QMutexLocker algorithmLocker(&m_algorithmMutex);
+    if (m_algorithm == NULL)
+        return;
+
+    if (m_algorithm->apiVersion() < 3)
+        return;
+
+    if (m_group == NULL)
+        m_group = doc()->fixtureGroup(fixtureGroup());
+
+    if (m_group != NULL) {
+        QVector<unsigned int> rawColors;
+        int accColors = m_algorithm->acceptColors();
+        rawColors.resize(accColors);
+        QVectorIterator<QColor> it(m_rgbColors);
+        int count = 0;
+        while (it.hasNext() && count < accColors) {
+            QColor color = it.next();
+            rawColors.replace(count, color.isValid() ? color.rgb() : 0);
+            count ++;
+        };
+        m_algorithm->rgbMapSetColors(rawColors);
+    };
 }
 
 /************************************************************************
@@ -402,13 +437,21 @@ bool RGBMatrix::loadXML(QXmlStreamReader &root)
         {
             loadXMLRunOrder(root);
         }
+        // Legacy support
         else if (root.name() == KXMLQLCRGBMatrixStartColor)
         {
-            setStartColor(QColor::fromRgb(QRgb(root.readElementText().toUInt())));
+            setColor(0, QColor::fromRgb(QRgb(root.readElementText().toUInt())));
         }
         else if (root.name() == KXMLQLCRGBMatrixEndColor)
         {
-            setEndColor(QColor::fromRgb(QRgb(root.readElementText().toUInt())));
+            setColor(1, QColor::fromRgb(QRgb(root.readElementText().toUInt())));
+        }
+        else if (root.name().startsWith(KXMLQLCRGBMatrixColorBase, Qt::CaseSensitive))
+        {
+            QString colorNumText = root.name().string()->right(
+                    root.name().length() - KXMLQLCRGBMatrixColorBase.length());
+            uint colorIdx = colorNumText.toUInt() - 1;
+            setColor(colorIdx, QColor::fromRgb(QRgb(root.readElementText().toUInt())));
         }
         else if (root.name() == KXMLQLCRGBMatrixControlMode)
         {
@@ -462,12 +505,15 @@ bool RGBMatrix::saveXML(QXmlStreamWriter *doc)
     if (dimmerControl())
         doc->writeTextElement(KXMLQLCRGBMatrixDimmerControl, QString::number(dimmerControl()));
 
-    /* Start Color */
-    doc->writeTextElement(KXMLQLCRGBMatrixStartColor, QString::number(startColor().rgb()));
-
-    /* End Color */
-    if (endColor().isValid())
-        doc->writeTextElement(KXMLQLCRGBMatrixEndColor, QString::number(endColor().rgb()));
+    /* Colors */
+    QVectorIterator<QColor> colorIt(m_rgbColors);
+    uint count = 0;
+    while (colorIt.hasNext()) {
+        QColor color = colorIt.next();
+        QString elementName = KXMLQLCRGBMatrixColorBase.append(QString::number(count + 1));
+        doc->writeTextElement(elementName, QString::number(color.rgb()));
+        count ++;
+    }
 
     /* Control Mode */
     doc->writeTextElement(KXMLQLCRGBMatrixControlMode, RGBMatrix::controlModeToString(m_controlMode));
@@ -526,7 +572,7 @@ void RGBMatrix::preRun(MasterTimer *timer)
         if (m_algorithm != NULL)
         {
             // Copy direction from parent class direction
-            m_stepHandler->initializeDirection(direction(), m_startColor, m_endColor, m_stepsCount);
+            m_stepHandler->initializeDirection(direction(), m_rgbColors[0], m_rgbColors[1], m_stepsCount, m_algorithm);
 
             if (m_algorithm->type() == RGBAlgorithm::Script)
             {
@@ -664,7 +710,7 @@ void RGBMatrix::roundCheck()
     if (m_algorithm == NULL)
         return;
 
-    if (m_stepHandler->checkNextStep(runOrder(), m_startColor, m_endColor, m_stepsCount) == false)
+    if (m_stepHandler->checkNextStep(runOrder(), m_rgbColors[0], m_rgbColors[1], m_stepsCount) == false)
         stop(FunctionParent::master());
 
     m_roundTime->restart();
@@ -980,13 +1026,13 @@ int RGBMatrixStep::currentStepIndex() const
     return m_currentStepIndex;
 }
 
-void RGBMatrixStep::calculateColorDelta(QColor startColor, QColor endColor)
+void RGBMatrixStep::calculateColorDelta(QColor startColor, QColor endColor, RGBAlgorithm *algorithm)
 {
     m_crDelta = 0;
     m_cgDelta = 0;
     m_cbDelta = 0;
 
-    if (endColor.isValid())
+    if (endColor.isValid() && algorithm != NULL && algorithm->acceptColors() > 1)
     {
         m_crDelta = endColor.red() - startColor.red();
         m_cgDelta = endColor.green() - startColor.green();
@@ -1025,7 +1071,7 @@ void RGBMatrixStep::updateStepColor(int stepIndex, QColor startColor, int stepsC
     //qDebug() << "RGBMatrix step" << stepIndex << ", color:" << QString::number(m_stepColor.rgb(), 16);
 }
 
-void RGBMatrixStep::initializeDirection(Function::Direction direction, QColor startColor, QColor endColor, int stepsCount)
+void RGBMatrixStep::initializeDirection(Function::Direction direction, QColor startColor, QColor endColor, int stepsCount, RGBAlgorithm *algorithm)
 {
     m_direction = direction;
 
@@ -1044,7 +1090,7 @@ void RGBMatrixStep::initializeDirection(Function::Direction direction, QColor st
             setStepColor(startColor);
     }
 
-    calculateColorDelta(startColor, endColor);
+    calculateColorDelta(startColor, endColor, algorithm);
 }
 
 bool RGBMatrixStep::checkNextStep(Function::RunOrder order,

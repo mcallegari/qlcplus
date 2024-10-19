@@ -77,9 +77,15 @@ private slots:
     void slotFixtureGroupActivated(int index);
     void slotBlendModeChanged(int index);
     void slotControlModeChanged(int index);
-    void slotStartColorButtonClicked();
-    void slotEndColorButtonClicked();
-    void slotResetEndColorButtonClicked();
+    void slotMtxColor1ButtonClicked();
+    void slotMtxColor2ButtonClicked();
+    void slotResetMtxColor2ButtonClicked();
+    void slotMtxColor3ButtonClicked();
+    void slotResetMtxColor3ButtonClicked();
+    void slotMtxColor4ButtonClicked();
+    void slotResetMtxColor4ButtonClicked();
+    void slotMtxColor5ButtonClicked();
+    void slotResetMtxColor5ButtonClicked();
 
     void slotTextEdited(const QString& text);
     void slotFontButtonClicked();

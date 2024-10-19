@@ -864,10 +864,16 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                     matrix->slotSetSliderValue(cmdList[2].toInt());
                 if (cmdList[1] == "MATRIX_COMBO_CHANGE")
                     matrix->slotSetAnimationValue(cmdList[2]);
-                if (cmdList[1] == "MATRIX_COLOR_CHANGE" && cmdList[2] == "START")
-                    matrix->slotStartColorChanged(cmdList[3].toInt());
-                if (cmdList[1] == "MATRIX_COLOR_CHANGE" && cmdList[2] == "END")
-                    matrix->slotEndColorChanged(cmdList[3].toInt());
+                if (cmdList[1] == "MATRIX_COLOR_CHANGE" && cmdList[2] == "COLOR_1")
+                    matrix->slotColor1Changed(cmdList[3].toInt());
+                if (cmdList[1] == "MATRIX_COLOR_CHANGE" && cmdList[2] == "COLOR_2")
+                    matrix->slotColor2Changed(cmdList[3].toInt());
+                if (cmdList[1] == "MATRIX_COLOR_CHANGE" && cmdList[2] == "COLOR_3")
+                    matrix->slotColor3Changed(cmdList[3].toInt());
+                if (cmdList[1] == "MATRIX_COLOR_CHANGE" && cmdList[2] == "COLOR_4")
+                    matrix->slotColor4Changed(cmdList[3].toInt());
+                if (cmdList[1] == "MATRIX_COLOR_CHANGE" && cmdList[2] == "COLOR_5")
+                    matrix->slotColor5Changed(cmdList[3].toInt());
                 if (cmdList[1] == "MATRIX_KNOB")
                     matrix->slotMatrixControlKnobValueChanged(cmdList[2].toInt(), cmdList[3].toInt());
                 if (cmdList[1] == "MATRIX_PUSHBUTTON")
@@ -1897,24 +1903,54 @@ void WebAccess::slotMatrixSliderValueChanged(int value)
     sendWebSocketMessage(wsMessage);
 }
 
-void WebAccess::slotMatrixStartColorChanged()
+void WebAccess::slotMatrixColor1Changed()
 {
     VCMatrix *matrix = qobject_cast<VCMatrix *>(sender());
     if (matrix == NULL)
         return;
 
-    QString wsMessage = QString("%1|MATRIX_START_COLOR|%2").arg(matrix->id()).arg(matrix->startColor().name());
-    sendWebSocketMessage(wsMessage);
+    QString wsMessage = QString("%1|MATRIX_COLOR_1|%2").arg(matrix->id()).arg(matrix->mtxColor(0).name());
+    sendWebSocketMessage(wsMessage.toUtf8());
 }
 
-void WebAccess::slotMatrixEndColorChanged()
+void WebAccess::slotMatrixColor2Changed()
 {
     VCMatrix *matrix = qobject_cast<VCMatrix *>(sender());
     if (matrix == NULL)
         return;
 
-    QString wsMessage = QString("%1|MATRIX_END_COLOR|%2").arg(matrix->id()).arg(matrix->endColor().name());
-    sendWebSocketMessage(wsMessage);
+    QString wsMessage = QString("%1|MATRIX_COLOR_2|%2").arg(matrix->id()).arg(matrix->mtxColor(1).name());
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
+void WebAccess::slotMatrixColor3Changed()
+{
+    VCMatrix *matrix = qobject_cast<VCMatrix *>(sender());
+    if (matrix == NULL)
+        return;
+
+    QString wsMessage = QString("%1|MATRIX_COLOR_3|%2").arg(matrix->id()).arg(matrix->mtxColor(2).name());
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
+void WebAccess::slotMatrixColor4Changed()
+{
+    VCMatrix *matrix = qobject_cast<VCMatrix *>(sender());
+    if (matrix == NULL)
+        return;
+
+    QString wsMessage = QString("%1|MATRIX_COLOR_4|%2").arg(matrix->id()).arg(matrix->mtxColor(3).name());
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
+void WebAccess::slotMatrixColor5Changed()
+{
+    VCMatrix *matrix = qobject_cast<VCMatrix *>(sender());
+    if (matrix == NULL)
+        return;
+
+    QString wsMessage = QString("%1|MATRIX_COLOR_5|%2").arg(matrix->id()).arg(matrix->mtxColor(4).name());
+    sendWebSocketMessage(wsMessage.toUtf8());
 }
 
 void WebAccess::slotMatrixAnimationValueChanged(QString name)
@@ -1962,15 +1998,29 @@ QString WebAccess::getMatrixHTML(VCMatrix *matrix)
         str += "<div style=\"text-align: center; width: 100%; margin-top: 4px; margin-bottom: 4px; \">"+matrix->caption()+"</div>";
     }
     str += "<div style=\"display: flex; flex-direction: row; align-items: center; justify-content: space-around; width: 100%; margin-top: 4px; margin-bottom: 4px; \">";
-    if (matrix->visibilityMask() & VCMatrix::Visibility::ShowStartColorButton) {
-
-        str += "<input type=\"color\" id=\"msc"+QString::number(matrix->id())+"\" class=\"vMatrix\" value=\""+(matrix->startColor().name())+"\" "
-               "oninput=\"matrixStartColorChange(" + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixStartColorChange(" + QString::number(matrix->id()) + ");\" "
+    if (matrix->visibilityMask() & VCMatrix::Visibility::ShowColor1Button) {
+        str += "<input type=\"color\" id=\"mc1i"+QString::number(matrix->id())+"\" class=\"vMatrix\" value=\""+(matrix->mtxColor(0).name())+"\" "
+               "oninput=\"matrixColor1Change(" + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColor1Change(" + QString::number(matrix->id()) + ");\" "
                " />";
     }
-    if (matrix->visibilityMask() & VCMatrix::Visibility::ShowEndColorButton) {
-        str += "<input type=\"color\" id=\"mec"+QString::number(matrix->id())+"\" class=\"vMatrix\" value=\""+(matrix->endColor().name())+"\" "
-               "oninput=\"matrixEndColorChange(" + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixEndColorChange(" + QString::number(matrix->id()) + ");\" "
+    if (matrix->visibilityMask() & VCMatrix::Visibility::ShowColor2Button) {
+        str += "<input type=\"color\" id=\"mc2i"+QString::number(matrix->id())+"\" class=\"vMatrix\" value=\""+(matrix->mtxColor(1).name())+"\" "
+               "oninput=\"matrixColor2Change(" + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColor2Change(" + QString::number(matrix->id()) + ");\" "
+               " />";
+    }
+    if (matrix->visibilityMask() & VCMatrix::Visibility::ShowColor3Button) {
+        str += "<input type=\"color\" id=\"mc3i"+QString::number(matrix->id())+"\" class=\"vMatrix\" value=\""+(matrix->mtxColor(2).name())+"\" "
+               "oninput=\"matrixColor3Change(" + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColor3Change(" + QString::number(matrix->id()) + ");\" "
+               " />";
+    }
+    if (matrix->visibilityMask() & VCMatrix::Visibility::ShowColor4Button) {
+        str += "<input type=\"color\" id=\"mc4i"+QString::number(matrix->id())+"\" class=\"vMatrix\" value=\""+(matrix->mtxColor(3).name())+"\" "
+               "oninput=\"matrixColor4Change(" + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColor4Change(" + QString::number(matrix->id()) + ");\" "
+               " />";
+    }
+    if (matrix->visibilityMask() & VCMatrix::Visibility::ShowColor5Button) {
+        str += "<input type=\"color\" id=\"mc5i"+QString::number(matrix->id())+"\" class=\"vMatrix\" value=\""+(matrix->mtxColor(4).name())+"\" "
+               "oninput=\"matrixColor5Change(" + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColor5Change(" + QString::number(matrix->id()) + ");\" "
                " />";
     }
     str += "</div>";
@@ -1989,18 +2039,45 @@ QString WebAccess::getMatrixHTML(VCMatrix *matrix)
         str += "<div style=\"display: flex; flex-direction: row; flex-wrap: wrap; align-content: flex-start; width: 100%; height: 100%; margin-top: 4px; margin-bottom: 4px; \">";
         for (int i = 0; i < customControls.length(); i++) {
             VCMatrixControl *control = customControls[i];
-            if (control->m_type == VCMatrixControl::StartColor) {
+            if (control->m_type == VCMatrixControl::Color1) {
                 str += "<div class=\"pushButton\" style=\"width: 32px; height: 32px; "
                        "background-color: "+(control->m_color.name())+"; margin-right: 4px; margin-bottom: 4px; \" "
-                       "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">S</div>";
-            } else if (control->m_type == VCMatrixControl::EndColor) {
+                       "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">1</div>";
+            } else if (control->m_type == VCMatrixControl::Color2) {
                 str += "<div class=\"pushButton\" style=\"width: 32px; height: 32px; "
                        "background-color: "+(control->m_color.name())+"; margin-right: 4px; margin-bottom: 4px; \" "
-                       "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">E</div>";
-            } else if (control->m_type == VCMatrixControl::ResetEndColor) {
-                QString btnLabel = tr("End Color Reset");
+                       "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">2</div>";
+            } else if (control->m_type == VCMatrixControl::Color2Reset) {
+                QString btnLabel = tr("Color 2 Reset");
                 str += "<div class=\"pushButton\" style=\"width: 66px; justify-content: flex-start!important; height: 32px; "
-                       "background-color: #BBBBBB; margin-right: 4px; margin-bottom: 4px; \" "
+                       "background-color: #bbbbbb; margin-right: 4px; margin-bottom: 4px; \" "
+                       "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">"+btnLabel+"</div>";
+            } else if (control->m_type == VCMatrixControl::Color3) {
+                str += "<div class=\"pushButton\" style=\"width: 32px; height: 32px; "
+                       "background-color: "+(control->m_color.name())+"; margin-right: 4px; margin-bottom: 4px; \" "
+                       "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">3</div>";
+            } else if (control->m_type == VCMatrixControl::Color3Reset) {
+                QString btnLabel = tr("Color 3 Reset");
+                str += "<div class=\"pushButton\" style=\"width: 66px; justify-content: flex-start!important; height: 32px; "
+                       "background-color: #bbbbbb; margin-right: 4px; margin-bottom: 4px; \" "
+                       "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">"+btnLabel+"</div>";
+            } else if (control->m_type == VCMatrixControl::Color4) {
+                str += "<div class=\"pushButton\" style=\"width: 32px; height: 32px; "
+                       "background-color: "+(control->m_color.name())+"; margin-right: 4px; margin-bottom: 4px; \" "
+                       "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">4</div>";
+            } else if (control->m_type == VCMatrixControl::Color4Reset) {
+                QString btnLabel = tr("Color 4 Reset");
+                str += "<div class=\"pushButton\" style=\"width: 66px; justify-content: flex-start!important; height: 32px; "
+                       "background-color: #bbbbbb; margin-right: 4px; margin-bottom: 4px; \" "
+                       "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">"+btnLabel+"</div>";
+            } else if (control->m_type == VCMatrixControl::Color5) {
+                str += "<div class=\"pushButton\" style=\"width: 32px; height: 32px; "
+                       "background-color: "+(control->m_color.name())+"; margin-right: 4px; margin-bottom: 4px; \" "
+                       "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">5</div>";
+            } else if (control->m_type == VCMatrixControl::Color5Reset) {
+                QString btnLabel = tr("Color 5 Reset");
+                str += "<div class=\"pushButton\" style=\"width: 66px; justify-content: flex-start!important; height: 32px; "
+                       "background-color: #bbbbbb; margin-right: 4px; margin-bottom: 4px; \" "
                        "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">"+btnLabel+"</div>";
             } else if (control->m_type == VCMatrixControl::Animation || control->m_type == VCMatrixControl::Text) {
                 QString btnLabel = control->m_resource;
@@ -2020,10 +2097,14 @@ QString WebAccess::getMatrixHTML(VCMatrix *matrix)
                 str += "<div class=\"pushButton\" style=\"max-width: 66px; justify-content: flex-start!important; height: 32px; "
                        "background-color: #BBBBBB; margin-right: 4px; margin-bottom: 4px; \" "
                        "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">"+btnLabel+"</div>";
-            } else if (control->m_type == VCMatrixControl::StartColorKnob || control->m_type == VCMatrixControl::EndColorKnob) {
+            } else if (control->m_type == VCMatrixControl::Color1Knob
+                    || control->m_type == VCMatrixControl::Color2Knob
+                    || control->m_type == VCMatrixControl::Color3Knob
+                    || control->m_type == VCMatrixControl::Color4Knob
+                    || control->m_type == VCMatrixControl::Color5Knob) {
                 KnobWidget *knob = qobject_cast<KnobWidget*>(matrix->getWidget(control));
                 QString slID = QString::number(control->m_id);
-                QColor color = control->m_type == VCMatrixControl::StartColorKnob ? control->m_color : control->m_color.darker(250);
+                QColor color = control->m_type == VCMatrixControl::Color1Knob ? control->m_color : control->m_color.darker(250);
 
                 str += "<div class=\"mpieWrapper\" data=\"" + slID + "\" style=\"margin-right: 4px; margin-bottom: 4px; \">";
                 str += "<div class=\"mpie\" id=\"mpie" + slID + "\" style=\"--degValue:0; \">";

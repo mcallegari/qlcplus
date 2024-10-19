@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  alternate.js
+  alternatecolorsdirect.js
 
   Copyright (c) Hans-Jürgen Tappe
 
@@ -21,116 +21,17 @@
 var testAlgo;
 
 (function() {
-  var colorPalette = new Object;
-  colorPalette.collection = new Array(
-    ["White", 0xFFFFFF], // 0
-    ["Cream", 0xFFFF7F], // 1
-    ["Pink", 0xFF7F7F], // 2
-    ["Rose", 0x7F3F3F], // 3
-    ["Coral", 0x7F3F1F], // 4
-    ["Dim Red", 0x7F0000], // 5
-    ["Red", 0xFF0000], // 6
-    ["Orange", 0xFF3F00], // 7
-    ["Dim Orange", 0x7F1F00], // 8
-    ["Goldenrod", 0x7F3F00], // 9
-    ["Gold", 0xFF7F00], // 10
-    ["Yellow", 0xFFFF00], // 11
-    ["Dim Yellow", 0x7F7F00], // 12
-    ["Lime", 0x7FFF00], // 13
-    ["Pale Green", 0x3F7F00], // 14
-    ["Dim Green", 0x007F00], // 15
-    ["Green", 0x00FF00], // 16
-    ["Seafoam", 0x00FF3F], // 17
-    ["Turquoise", 0x007F3F], // 18
-    ["Teal", 0x007F7F], // 19
-    ["Cyan", 0x00FFFF], // 20
-    ["Electric Blue", 0x007FFF], // 21
-    ["Blue", 0x0000FF], // 22
-    ["Dim Blue", 0x00007F], // 23
-    ["Pale Blue", 0x1F1F7F], // 24
-    ["Indigo", 0x1F00BF], // 25
-    ["Purple", 0x3F00BF], // 26
-    ["Violet", 0x7F007F], // 27
-    ["Magenta", 0xFF00FF], // 28
-    ["Hot Pink", 0xFF003F], // 29
-    ["Deep Pink", 0x7F001F], // 30
-    ["OFF", 0x000000]); // 31
-
-  colorPalette.makeSubArray = function(_index) {
-    var _array = new Array();
-    for (var i = 0; i < colorPalette.collection.length; i++) {
-      _array.push(colorPalette.collection[i][_index]);
-    }
-    return _array;
-  };
-  colorPalette.names = colorPalette.makeSubArray(0);
 
   var algo = new Object;
-  algo.apiVersion = 2;
-  algo.name = "Alternate";
+  algo.apiVersion = 3;
+  algo.name = "Alternate (2 Colors)";
   algo.author = "Hans-Jürgen Tappe";
 
   var x = 0;
   var y = 0;
 
-  algo.acceptColors = 0;
+  algo.acceptColors = 2;
   algo.properties = new Array();
-
-  algo.getColorIndex = function(_name) {
-    var idx = colorPalette.names.indexOf(_name);
-    if (idx === -1) {
-      idx = (colorPalette.collection.length - 1);
-    }
-    return idx;
-  };
-
-  algo.color1Index = algo.getColorIndex("Red");
-  algo.properties.push("name:color1Index|type:list|display:Color 1|" +
-    "values:" + colorPalette.names.toString() + "|" +
-    "write:setColor1Index|read:getColor1Name");
-  algo.color2Index = algo.getColorIndex("Green");
-  algo.properties.push("name:color2Index|type:list|display:Color 2|" +
-    "values:" + colorPalette.names.toString() + "|" +
-    "write:setColor2Index|read:getColor2Name");
-
-  algo.getColorName = function(_index) {
-    if (_index < 0) {
-      _index = 0;
-    }
-    if (_index >= colorPalette.collection.length) {
-      _index = (colorPalette.collection.length - 1);
-    }
-    return colorPalette.collection[parseInt(_index, 10)][0];
-  };
-  algo.getColorValue = function(_index) {
-    if (_index < 0) {
-      _index = 0;
-    }
-    else if (_index >= colorPalette.collection.length) {
-      _index = (colorPalette.collection.length - 1);
-    }
-    return colorPalette.collection[parseInt(_index, 10)][1];
-  };
-
-  algo.setColor1Index = function(_name) {
-    algo.color1Index = algo.getColorIndex(_name);
-  };
-  algo.getColor1Name = function() {
-    return algo.getColorName(algo.color1Index);
-  };
-  algo.getColor1Value = function() {
-    return algo.getColorValue(algo.color1Index);
-  };
-
-  algo.setColor2Index = function(_name) {
-    algo.color2Index = algo.getColorIndex(_name);
-  };
-  algo.getColor2Name = function() {
-    return algo.getColorName(algo.color2Index);
-  };
-  algo.getColor2Value = function() {
-    return algo.getColorValue(algo.color2Index);
-  };
 
   algo.align = 0;
   algo.properties.push("name:align|type:list|" +
@@ -203,17 +104,40 @@ var testAlgo;
     return algo.offset;
   };
 
+  var util = new Object;
+  util.colorArray = new Array(algo.acceptColors);
+
+  util.getRawColor = function (idx) {
+    var color = 0;
+    if (Array.isArray(util.colorArray) && util.colorArray.length > idx && ! isNaN(util.colorArray[idx])) {
+      color = util.colorArray[idx];
+    }
+    return color;
+  }
+
+  algo.rgbMapSetColors = function(rawColors)
+  {
+    if (! Array.isArray(rawColors))
+      return;
+    for (var i = 0; i < algo.acceptColors; i++) {
+      if (i < rawColors.length)
+      {
+        util.colorArray[i] = rawColors[i];
+      } else {
+        util.colorArray[i] = 0;
+      }
+    }
+  }
+
   algo.rgbMap = function(width, height, rgb, step) {
     var map = new Array(height);
     var colorSelectOne = (step === 1) ? false : true;
     var rowColorOne = colorSelectOne;
     var realBlockSize = algo.blockSize;
 
+    // Setup the rgb map
     for (y = 0; y < height; y++) {
       map[y] = new Array(width);
-      for (x = 0; x < width; x++) {
-        map[y][x] = 0;
-      }
     }
 
     var xMax = width;
@@ -303,9 +227,9 @@ var testAlgo;
           }
         }
         if (colorSelectOne) {
-          map[y][x] = algo.getColor1Value();
+          map[y][x] = util.getRawColor(0);
         } else {
-          map[y][x] = algo.getColor2Value();
+          map[y][x] = util.getRawColor(1);
         }
       }
     }

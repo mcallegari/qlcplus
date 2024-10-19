@@ -86,19 +86,21 @@ void RGBAudio::calculateColors(int barsHeight)
 {
     if (barsHeight > 0)
     {
+        QColor startColor = getColor(0);
+        QColor endColor = getColor(1);
         m_barColors.clear();
-        if (endColor() == QColor()
+        if (endColor == QColor()
             || barsHeight == 1) // to avoid division by 0 below
         {
             for (int i = 0; i < barsHeight; i++)
-                m_barColors.append(startColor().rgb());
+                m_barColors.append(startColor.rgb());
         }
         else
         {
-            int crDelta = (endColor().red() - startColor().red()) / (barsHeight - 1);
-            int cgDelta = (endColor().green() - startColor().green()) / (barsHeight - 1);
-            int cbDelta = (endColor().blue() - startColor().blue()) / (barsHeight - 1);
-            QColor pixelColor = startColor();
+            int crDelta = (endColor.red() - startColor.red()) / (barsHeight - 1);
+            int cgDelta = (endColor.green() - startColor.green()) / (barsHeight - 1);
+            int cbDelta = (endColor.blue() - startColor.blue()) / (barsHeight - 1);
+            QColor pixelColor = startColor;
 
             for (int i = 0; i < barsHeight; i++)
             {
@@ -119,6 +121,11 @@ int RGBAudio::rgbMapStepCount(const QSize& size)
 {
     Q_UNUSED(size);
     return 1;
+}
+
+void RGBAudio::rgbMapSetColors(QVector<uint> &colors)
+{
+    Q_UNUSED(colors);
 }
 
 void RGBAudio::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
@@ -203,9 +210,9 @@ int RGBAudio::apiVersion() const
     return 1;
 }
 
-void RGBAudio::setColors(QColor start, QColor end)
+void RGBAudio::setColors(QVector<QColor> colors)
 {
-    RGBAlgorithm::setColors(start, end);
+    RGBAlgorithm::setColors(colors);
 
     // invalidate bars colors so the next time a rendering is
     // required, it will be filled with the right values

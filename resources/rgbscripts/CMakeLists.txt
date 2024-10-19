@@ -2,8 +2,10 @@ project(scripts)
 
 set(SCRIPT_FILES
     alternate.js
+    alternatecolorsdirect.js
     balls.js
     ballscolors.js
+    ballscolorsdirect.js
     blinder.js
     circles.js
     circular.js
@@ -18,11 +20,13 @@ set(SCRIPT_FILES
     gradient.js
     lines.js
     marquee.js
+    marqueecolorsdirect.js
     noise.js
     onebyone.js
     opposite.js
     plasma.js
     plasmacolors.js
+    plasmacolorsdirect.js
     randomcolumn.js
     randomfillcolumn.js
     randomfillrow.js

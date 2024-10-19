@@ -390,7 +390,7 @@ void RGBText_Test::horizontalScroll()
     RGBMap map;
     // Invalid step
 #if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
-    text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), fm.width("QLC"), map);
+    text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), fm.width("QLC"), map, rawRgbColors);
 #else
     text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), fm.horizontalAdvance("QLC"), map);
 #endif
