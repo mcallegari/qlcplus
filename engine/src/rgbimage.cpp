@@ -240,6 +240,11 @@ void RGBImage::rgbMapSetColors(QVector<uint> &colors)
     Q_UNUSED(colors);
 }
 
+QVector<uint> RGBImage::rgbMapGetColors()
+{
+    return QVector<uint>();
+}
+
 void RGBImage::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 {
     Q_UNUSED(rgb);

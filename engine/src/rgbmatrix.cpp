@@ -36,7 +36,8 @@
 
 #define KXMLQLCRGBMatrixStartColor      QString("MonoColor")
 #define KXMLQLCRGBMatrixEndColor        QString("EndColor")
-#define KXMLQLCRGBMatrixColorBase       QString("Color")
+#define KXMLQLCRGBMatrixColor           QString("Color")
+#define KXMLQLCRGBMatrixColorIndex      QString("Index")
 
 #define KXMLQLCRGBMatrixFixtureGroup    QString("FixtureGroup")
 #define KXMLQLCRGBMatrixDimmerControl   QString("DimmerControl")
@@ -66,13 +67,6 @@ RGBMatrix::RGBMatrix(Doc* doc)
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     , m_algorithmMutex(QMutex::Recursive)
 #endif
-    , m_rgbColors{
-        Qt::red,
-        QColor(),
-        QColor(),
-        QColor(),
-        QColor()
-    }
     , m_stepHandler(new RGBMatrixStep())
     , m_roundTime(new QElapsedTimer())
     , m_stepsCount(0)
@@ -81,6 +75,9 @@ RGBMatrix::RGBMatrix(Doc* doc)
 {
     setName(tr("New RGB Matrix"));
     setDuration(500);
+
+    m_rgbColors.fill(QColor(), RGBAlgorithmColorDisplayCount);
+    setColor(0, Qt::red);
 
     RGBScript scr = doc->rgbScriptsCache()->script("Stripes");
     setAlgorithm(scr.clone());
@@ -169,18 +166,13 @@ bool RGBMatrix::copyFrom(const Function* function)
 
     setDimmerControl(mtx->dimmerControl());
     setFixtureGroup(mtx->fixtureGroup());
+    foreach (QColor col, mtx->getColors())
+        m_rgbColors.append(col);
+
     if (mtx->algorithm() != NULL)
         setAlgorithm(mtx->algorithm()->clone());
     else
         setAlgorithm(NULL);
-
-    QVectorIterator<QColor> it(mtx->getColors());
-    uint count = 0;
-    while (it.hasNext()) {
-        QColor color = it.next();
-        setColor(count, color);
-        count ++;
-    }
 
     setControlMode(mtx->controlMode());
 
@@ -303,8 +295,12 @@ void RGBMatrix::previewMap(int step, RGBMatrixStep *handler)
 
 void RGBMatrix::setColor(int i, QColor c)
 {
+    if (i < 0)
+        return;
+
     if (i >= m_rgbColors.count())
         m_rgbColors.resize(i + 1);
+
     m_rgbColors.replace(i, c);
     {
         QMutexLocker algorithmLocker(&m_algorithmMutex);
@@ -320,8 +316,9 @@ void RGBMatrix::setColor(int i, QColor c)
 
 QColor RGBMatrix::getColor(int i) const
 {
-    if (i >= m_rgbColors.count())
+    if (i < 0 || i >= m_rgbColors.count())
         return QColor();
+
     return m_rgbColors.at(i);
 }
 
@@ -347,19 +344,17 @@ void RGBMatrix::setMapColors()
     if (m_group == NULL)
         m_group = doc()->fixtureGroup(fixtureGroup());
 
-    if (m_group != NULL) {
+    if (m_group != NULL)
+    {
         QVector<unsigned int> rawColors;
-        int accColors = m_algorithm->acceptColors();
-        rawColors.resize(accColors);
-        QVectorIterator<QColor> it(m_rgbColors);
-        int count = 0;
-        while (it.hasNext() && count < accColors) {
-            QColor color = it.next();
-            rawColors.replace(count, color.isValid() ? color.rgb() : 0);
-            count ++;
-        };
+        for (int i = 0; i < m_algorithm->acceptColors(); i++)
+        {
+            QColor col = m_rgbColors.at(i);
+            rawColors.append(col.isValid() ? col.rgb() : 0);
+        }
+
         m_algorithm->rgbMapSetColors(rawColors);
-    };
+    }
 }
 
 /************************************************************************
@@ -374,6 +369,10 @@ void RGBMatrix::setProperty(QString propName, QString value)
     {
         RGBScript *script = static_cast<RGBScript*> (m_algorithm);
         script->setProperty(propName, value);
+
+        QVector<uint> colors = script->rgbMapGetColors();
+        for (int i = 0; i < colors.count(); i++)
+            setColor(i, QColor::fromRgb(colors.at(i)));
     }
     m_stepsCount = stepsCount();
 }
@@ -446,11 +445,9 @@ bool RGBMatrix::loadXML(QXmlStreamReader &root)
         {
             setColor(1, QColor::fromRgb(QRgb(root.readElementText().toUInt())));
         }
-        else if (root.name().startsWith(KXMLQLCRGBMatrixColorBase, Qt::CaseSensitive))
+        else if (root.name() == KXMLQLCRGBMatrixColor)
         {
-            QString colorNumText = root.name().string()->right(
-                    root.name().length() - KXMLQLCRGBMatrixColorBase.length());
-            uint colorIdx = colorNumText.toUInt() - 1;
+            int colorIdx = root.attributes().value(KXMLQLCRGBMatrixColorIndex).toInt();
             setColor(colorIdx, QColor::fromRgb(QRgb(root.readElementText().toUInt())));
         }
         else if (root.name() == KXMLQLCRGBMatrixControlMode)
@@ -506,13 +503,12 @@ bool RGBMatrix::saveXML(QXmlStreamWriter *doc)
         doc->writeTextElement(KXMLQLCRGBMatrixDimmerControl, QString::number(dimmerControl()));
 
     /* Colors */
-    QVectorIterator<QColor> colorIt(m_rgbColors);
-    uint count = 0;
-    while (colorIt.hasNext()) {
-        QColor color = colorIt.next();
-        QString elementName = KXMLQLCRGBMatrixColorBase.append(QString::number(count + 1));
-        doc->writeTextElement(elementName, QString::number(color.rgb()));
-        count ++;
+    for (int i = 0; i < m_rgbColors.count(); i++)
+    {
+        doc->writeStartElement(KXMLQLCRGBMatrixColor);
+        doc->writeAttribute(KXMLQLCRGBMatrixColorIndex, QString::number(i));
+        doc->writeCharacters(QString::number(m_rgbColors.at(i).rgb()));
+        doc->writeEndElement();
     }
 
     /* Control Mode */

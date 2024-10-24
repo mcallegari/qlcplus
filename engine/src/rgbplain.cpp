@@ -60,6 +60,11 @@ void RGBPlain::rgbMapSetColors(QVector<uint> &colors)
     Q_UNUSED(colors);
 }
 
+QVector<uint> RGBPlain::rgbMapGetColors()
+{
+    return QVector<uint>();
+}
+
 void RGBPlain::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 {
     Q_UNUSED(step);

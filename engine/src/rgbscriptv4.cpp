@@ -268,6 +268,25 @@ void RGBScript::rgbMapSetColors(QVector<uint> &colors)
         displayError(value, m_fileName);
 }
 
+QVector<uint> RGBScript::rgbMapGetColors()
+{
+    QMutexLocker engineLocker(s_engineMutex);
+    QVector<uint> colArray;
+
+    if (m_rgbMap.isUndefined() == true)
+        return colArray;
+
+    QJSValue colors = m_rgbMapGetColors.call();
+    if (colors.isValid() && colors.isArray())
+    {
+        QVariantList arr = colors.toVariant().toList();
+        foreach (QVariant color, arr)
+            colArray.append(color.toUInt());
+    }
+
+    return colArray;
+}
+
 void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 {
     QMutexLocker engineLocker(s_engineMutex);

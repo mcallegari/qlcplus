@@ -77,6 +77,9 @@ public:
     /** Set the colors for the RGBmap */
     virtual void rgbMapSetColors(QVector<uint> &colors) = 0;
 
+    /** Get the colors from the RGB script */
+    virtual QVector<uint> rgbMapGetColors() = 0;
+
     /** Load a RGBMap for the given step. */
     virtual void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map) = 0;
 

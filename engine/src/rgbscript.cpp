@@ -194,6 +194,11 @@ bool RGBScript::evaluate()
                     qWarning() << m_fileName << "is missing the rgbMapSetColors() function!";
                     return false;
                 }
+
+                // retrieve the non-mandatory get color function
+                m_rgbMapGetColors = m_script.property("rgbMapGetColors");
+                if (m_rgbMapGetColors.isFunction() == false)
+                    qWarning() << m_fileName << "is missing the rgbMapGetColors() function!";
             }
             if (m_apiVersion >= 2)
                 return loadProperties();
@@ -265,6 +270,7 @@ void RGBScript::rgbMapSetColors(QVector<uint> &colors)
     QMutexLocker engineLocker(s_engineMutex);
     if (m_apiVersion <= 2)
         return;
+
     if (m_rgbMapSetColors.isValid() == false)
         return;
 
@@ -280,6 +286,28 @@ void RGBScript::rgbMapSetColors(QVector<uint> &colors)
     QScriptValue value = m_rgbMapSetColors.call(QScriptValue(), args);
     if (value.isError())
         displayError(value, m_fileName);
+}
+
+QVector<uint> RGBScript::rgbMapGetColors()
+{
+    QMutexLocker engineLocker(s_engineMutex);
+    QVector<uint> colArray;
+
+    if (m_apiVersion <= 2)
+        return colArray;
+
+    if (m_rgbMapGetColors.isValid() == false)
+        return colArray;
+
+    QScriptValue colors = m_rgbMapGetColors.call();
+    if (colors.isValid() && colors.isArray())
+    {
+        QVariantList arr = colors.toVariant().toList();
+        foreach (QVariant color, arr)
+            colArray.append(color.toUInt());
+    }
+
+    return colArray;
 }
 
 void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)

@@ -128,6 +128,11 @@ void RGBAudio::rgbMapSetColors(QVector<uint> &colors)
     Q_UNUSED(colors);
 }
 
+QVector<uint> RGBAudio::rgbMapGetColors()
+{
+    return QVector<uint>();
+}
+
 void RGBAudio::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 {
     Q_UNUSED(step);

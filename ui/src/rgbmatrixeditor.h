@@ -63,6 +63,7 @@ private:
     void fillAnimationCombo();
     void fillImageAnimationCombo();
     void updateExtraOptions();
+    void updateColorOptions();
     void updateColors();
     void resetProperties(QLayoutItem *item);
     void displayProperties(RGBScript *script);

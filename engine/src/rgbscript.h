@@ -94,6 +94,9 @@ public:
     void rgbMapSetColors(QVector<uint> &colors);
 
     /** @reimp */
+    QVector<uint> rgbMapGetColors();
+
+    /** @reimp */
     void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);
 
     /** @reimp */
@@ -123,6 +126,7 @@ private:
     QScriptValue m_rgbMap;          //! rgbMap() function
     QScriptValue m_rgbMapStepCount; //! rgbMapStepCount() function
     QScriptValue m_rgbMapSetColors; //! rgbMapSetColors() function
+    QScriptValue m_rgbMapGetColors; //! rgbMapSetColors() function
 
     /************************************************************************
      * Properties

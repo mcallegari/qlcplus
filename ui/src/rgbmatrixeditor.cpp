@@ -394,85 +394,27 @@ void RGBMatrixEditor::updateExtraOptions()
         m_yOffsetSpin->setValue(text->yOffset());
     }
 
+    updateColorOptions();
+}
+
+void RGBMatrixEditor::updateColorOptions()
+{
     if (m_matrix->algorithm() != NULL)
     {
         int accColors = m_matrix->algorithm()->acceptColors();
-        if (accColors == 0)
-        {
-            m_mtxColor1Button->hide();
-            m_mtxColor2Button->hide();
-            m_resetMtxColor2Button->hide();
-            m_mtxColor3Button->hide();
-            m_resetMtxColor3Button->hide();
-            m_mtxColor4Button->hide();
-            m_resetMtxColor4Button->hide();
-            m_mtxColor5Button->hide();
-            m_resetMtxColor5Button->hide();
-            m_blendModeLabel->hide();
-            m_blendModeCombo->hide();
-        }
-        else
-        {
-            m_mtxColor1Button->show();
 
-            if (accColors == 1 || m_blendModeCombo->currentIndex() == Universe::MaskBlend)
-            {
-                m_mtxColor2Button->hide();
-                m_resetMtxColor2Button->hide();
-                m_mtxColor3Button->hide();
-                m_resetMtxColor3Button->hide();
-                m_mtxColor4Button->hide();
-                m_resetMtxColor4Button->hide();
-                m_mtxColor5Button->hide();
-                m_resetMtxColor5Button->hide();
-            }
-            else if (accColors == 2)
-            {
-                m_mtxColor2Button->show();
-                m_resetMtxColor2Button->show();
-                m_mtxColor3Button->hide();
-                m_resetMtxColor3Button->hide();
-                m_mtxColor4Button->hide();
-                m_resetMtxColor4Button->hide();
-                m_mtxColor5Button->hide();
-                m_resetMtxColor5Button->hide();
-            }
-            else if (accColors == 3)
-            {
-                m_mtxColor2Button->show();
-                m_resetMtxColor2Button->show();
-                m_mtxColor3Button->show();
-                m_resetMtxColor3Button->show();
-                m_mtxColor4Button->hide();
-                m_resetMtxColor4Button->hide();
-                m_mtxColor5Button->hide();
-                m_resetMtxColor5Button->hide();
-            }
-            else if (accColors == 4)
-            {
-                m_mtxColor2Button->show();
-                m_resetMtxColor2Button->show();
-                m_mtxColor3Button->show();
-                m_resetMtxColor3Button->show();
-                m_mtxColor4Button->show();
-                m_resetMtxColor4Button->show();
-                m_mtxColor5Button->hide();
-                m_resetMtxColor5Button->hide();
-            }
-            else
-            {
-                m_mtxColor2Button->show();
-                m_resetMtxColor2Button->show();
-                m_mtxColor3Button->show();
-                m_resetMtxColor3Button->show();
-                m_mtxColor4Button->show();
-                m_resetMtxColor4Button->show();
-                m_mtxColor5Button->show();
-                m_resetMtxColor5Button->show();
-            }
-            m_blendModeLabel->show();
-            m_blendModeCombo->show();
-        }
+        m_mtxColor1Button->setVisible(accColors == 0 ? false : true);
+        m_mtxColor2Button->setVisible(accColors > 1 ? true : false);
+        m_resetMtxColor2Button->setVisible(accColors > 1 ? true : false);
+        m_mtxColor3Button->setVisible(accColors > 2 ? true : false);
+        m_resetMtxColor3Button->setVisible(accColors > 2 ? true : false);
+        m_mtxColor4Button->setVisible(accColors > 3 ? true : false);
+        m_resetMtxColor4Button->setVisible(accColors > 3 ? true : false);
+        m_mtxColor5Button->setVisible(accColors > 4 ? true : false);
+        m_resetMtxColor5Button->setVisible(accColors > 4 ? true : false);
+
+        m_blendModeLabel->setVisible(accColors == 0 ? false : true);
+        m_blendModeCombo->setVisible(accColors == 0 ? false : true);
     }
 }
 
@@ -1524,6 +1466,9 @@ void RGBMatrixEditor::slotPropertyComboChanged(int index)
         QString pValue = combo->itemText(index);
         qDebug() << "Property combo changed to" << pValue;
         m_matrix->setProperty(pName, pValue);
+
+        updateColorOptions();
+        updateColors();
     }
 }
 
