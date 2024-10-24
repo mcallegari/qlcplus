@@ -277,7 +277,7 @@ QVector<uint> RGBScript::rgbMapGetColors()
         return colArray;
 
     QJSValue colors = m_rgbMapGetColors.call();
-    if (colors.isValid() && colors.isArray())
+    if (!colors.isError() && colors.isArray())
     {
         QVariantList arr = colors.toVariant().toList();
         foreach (QVariant color, arr)
