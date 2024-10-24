@@ -166,6 +166,8 @@ bool RGBMatrix::copyFrom(const Function* function)
 
     setDimmerControl(mtx->dimmerControl());
     setFixtureGroup(mtx->fixtureGroup());
+
+    m_rgbColors.clear();
     foreach (QColor col, mtx->getColors())
         m_rgbColors.append(col);
 
