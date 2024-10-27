@@ -143,6 +143,15 @@ SidePanel
         }
     }
 
+    CustomPopupDialog
+    {
+        id: fmGenericPopup
+        visible: false
+        title: qsTr("Error")
+        message: ""
+        onAccepted: {}
+    }
+
     Rectangle
     {
         width: collapseWidth
@@ -257,7 +266,12 @@ SidePanel
                     title: qsTr("Rename items")
                     onAccepted:
                     {
-                        functionManager.renameSelectedItems(editText, numberingEnabled, startNumber, digits)
+                        if (functionManager.renameSelectedItems(editText, numberingEnabled, startNumber, digits) === false)
+                        {
+                            fmGenericPopup.message = qsTr("An item with the same name already exists.\nPlease provide a different name.")
+                            fmGenericPopup.open()
+                        }
+
                     }
                 }
             }

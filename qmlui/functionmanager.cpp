@@ -866,10 +866,10 @@ void FunctionManager::deleteSequenceFixtures(QVariantList list)
     m_sceneEditor->deleteItems(list);
 }
 
-void FunctionManager::renameSelectedItems(QString newName, bool numbering, int startNumber, int digits)
+bool FunctionManager::renameSelectedItems(QString newName, bool numbering, int startNumber, int digits)
 {
     if (m_selectedIDList.isEmpty() && m_selectedFolderList.isEmpty())
-        return;
+        return false;
 
     int currNumber = startNumber;
 
@@ -883,19 +883,22 @@ void FunctionManager::renameSelectedItems(QString newName, bool numbering, int s
         if (f == nullptr)
             continue;
 
+        QString fName = newName.simplified();
+
         if (numbering)
         {
-            QString fName = QString("%1 %2").arg(newName.simplified()).arg(currNumber, digits, 10, QChar('0'));
-            Tardis::instance()->enqueueAction(Tardis::FunctionSetName, f->id(), f->name(), fName);
-            f->setName(fName);
+            fName = QString("%1 %2").arg(fName).arg(currNumber, digits, 10, QChar('0'));
             currNumber++;
         }
-        else
-        {
-            Tardis::instance()->enqueueAction(Tardis::FunctionSetName, f->id(), f->name(), newName.simplified());
-            f->setName(newName.simplified());
-        }
+
+        if (m_doc->functionByName(fName) != nullptr)
+            return false;
+
+        Tardis::instance()->enqueueAction(Tardis::FunctionSetName, f->id(), f->name(), fName);
+        f->setName(fName);
     }
+
+    return true;
 }
 
 int FunctionManager::selectedFunctionCount() const

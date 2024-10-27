@@ -169,7 +169,7 @@ public:
      *  with the provided $newName.
      *  If $numbering is true, then $startNumber and $digits will compose
      *  a progress number following $newName */
-    Q_INVOKABLE void renameSelectedItems(QString newName, bool numbering, int startNumber, int digits);
+    Q_INVOKABLE bool renameSelectedItems(QString newName, bool numbering, int startNumber, int digits);
 
     /** Returns the number of the currently selected Functions */
     int selectedFunctionCount() const;

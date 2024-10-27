@@ -1088,7 +1088,7 @@ void FixtureManager::addFixturesToNewGroup(QList<quint32> fxList)
     int headsCount = 0;
     for (quint32 id : fxList)
     {
-        Fixture* fxi = m_doc->fixture(id);
+        Fixture *fxi = m_doc->fixture(id);
         if (fxi != nullptr)
             headsCount += fxi->heads();
     }
@@ -1235,10 +1235,23 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
 
     FixtureGroup *grp = new FixtureGroup(m_doc);
     Q_ASSERT(grp != nullptr);
-    grp->setName(name);
+
     QSize panelSize(columns, rows);
     grp->setSize(panelSize);
     m_doc->addFixtureGroup(grp);
+
+    // make sure the name is unique
+    QList<FixtureGroup*> groupList = m_doc->fixtureGroups();
+    for (FixtureGroup *docGroup : groupList)
+    {
+        if (docGroup->name() == name)
+        {
+            name = QString ("%1 [%2]").arg(name).arg(grp->id());
+            break;
+        }
+    }
+
+    grp->setName(name);
 
     int transpose = 0;
     if (direction == Vertical)
@@ -1402,6 +1415,7 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
 
     m_fixtureList.clear();
     m_fixtureList = m_doc->fixtures();
+    updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter);
     emit fixturesCountChanged();
     emit fixturesMapChanged();
 
@@ -1790,7 +1804,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
 
     for (quint32 ch : channelIndices)
     {
-        const QLCChannel* channel(fixture->channel(ch));
+        const QLCChannel *channel(fixture->channel(ch));
         if (channel == nullptr)
             continue;
 
