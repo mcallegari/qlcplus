@@ -234,7 +234,9 @@ Rectangle
                         title: qsTr("Rename items")
                         onAccepted:
                         {
-                            var item;
+                            var item
+                            var ret
+
                             if (numberingEnabled)
                             {
                                 var currNum = startNumber
@@ -251,10 +253,12 @@ Rectangle
                                     currNum++
 
                                     if (item.itemType === App.FixtureDragItem)
-                                        fixtureManager.renameFixture(item.itemID, finalName)
+                                        ret = fixtureManager.renameFixture(item.itemID, finalName)
                                     else if (item.itemType === App.FixtureGroupDragItem)
-                                        fixtureManager.renameFixtureGroup(item.itemID, finalName)
+                                        ret = fixtureManager.renameFixtureGroup(item.itemID, finalName)
 
+                                    if (ret === false)
+                                        break
                                 }
                             }
                             else
@@ -262,9 +266,15 @@ Rectangle
                                 item = gfhcDragItem.itemsList[0];
 
                                 if (item.itemType === App.FixtureDragItem)
-                                    fixtureManager.renameFixture(item.itemID, editText)
+                                    ret = fixtureManager.renameFixture(item.itemID, editText)
                                 else if (item.itemType === App.FixtureGroupDragItem)
-                                    fixtureManager.renameFixtureGroup(item.itemID, editText)
+                                    ret = fixtureManager.renameFixtureGroup(item.itemID, editText)
+                            }
+
+                            if (ret === false)
+                            {
+                                fmGenericPopup.message = qsTr("An item with the same name already exists.\nPlease provide a different name.")
+                                fmGenericPopup.open()
                             }
                         }
                     }

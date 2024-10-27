@@ -285,12 +285,6 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
             fxAddress = 0;
         }
 
-        /* If we're adding more than one fixture,
-           append a number to the end of the name */
-        if (quantity > 1)
-            fxi->setName(QString("%1 #%2").arg(name).arg(i + 1));
-        else
-            fxi->setName(name);
         fxi->setAddress(fxAddress);
         fxi->setUniverse(uniIdx);
         if (fxiDef == nullptr && fxiMode == nullptr)
@@ -311,6 +305,7 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
 
         if (m_doc->addFixture(fxi) == true)
         {
+            fxi->setName(QString("%1 [%2]").arg(name).arg(fxi->id() + 1));
             Tardis::instance()->enqueueAction(Tardis::FixtureCreate, fxi->id(), QVariant(),
                                               Tardis::instance()->actionToByteArray(Tardis::FixtureCreate, fxi->id()));
             slotFixtureAdded(fxi->id(), QVector3D(xPos, yPos, 0));
@@ -393,7 +388,7 @@ bool FixtureManager::deleteFixtureInGroup(quint32 groupID, quint32 itemID, QStri
     return true;
 }
 
-void FixtureManager::renameFixture(quint32 itemID, QString newName)
+bool FixtureManager::renameFixture(quint32 itemID, QString newName)
 {
     quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
     //quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
@@ -401,12 +396,21 @@ void FixtureManager::renameFixture(quint32 itemID, QString newName)
 
     Fixture *fixture = m_doc->fixture(fixtureID);
     if (fixture == nullptr)
-        return;
+        return false;
+
+    QList<Fixture*> fixtureList = m_doc->fixtures();
+    for (Fixture *docFixture : fixtureList)
+    {
+        if (docFixture->name() == newName)
+            return false;
+    }
 
     Tardis::instance()->enqueueAction(Tardis::FixtureSetName, itemID, fixture->name(), newName);
 
     setItemRoleData(itemID, -1, "label", newName);
     fixture->setName(newName);
+
+    return true;
 }
 
 int FixtureManager::fixturesCount()
@@ -1156,16 +1160,28 @@ void FixtureManager::updateFixtureGroup(quint32 groupID, quint32 itemID, int hea
     //m_fixtureTree->printTree(); // enable for debug purposes
 }
 
-void FixtureManager::renameFixtureGroup(quint32 groupID, QString newName)
+bool FixtureManager::renameFixtureGroup(quint32 groupID, QString newName)
 {
     FixtureGroup *group = m_doc->fixtureGroup(groupID);
     if (group == nullptr)
-        return;
+        return false;
+
+    // check for same name among existing groups
+    QList<FixtureGroup*> groupList = m_doc->fixtureGroups();
+    for (FixtureGroup *docGroup : groupList)
+        if (docGroup->name() == newName)
+            return false;
+
+    // check also among universe names since they are represented as groups
+    for (QString &uniName : m_doc->inputOutputMap()->universeNames())
+        if (uniName == newName)
+            return false;
 
     group->setName(newName);
 
     updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter);
     emit groupsTreeModelChanged();
+    return true;
 }
 
 bool FixtureManager::deleteFixtureGroups(QVariantList IDList)

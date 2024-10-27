@@ -136,8 +136,16 @@ Column
 
                 onTextConfirmed:
                 {
-                    nodeContainer.pathChanged(nodePath, text)
-                    fixtureManager.renameFixture(itemID, text)
+                    if (fixtureManager.renameFixture(itemID, text) === false)
+                    {
+                        fmGenericPopup.message = qsTr("An item with the same name already exists.\nPlease provide a different name.")
+                        fmGenericPopup.open()
+                        nodeLabel.text = textLabel
+                    }
+                    else
+                    {
+                        nodeContainer.pathChanged(nodePath, text)
+                    }
                 }
             }
 

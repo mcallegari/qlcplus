@@ -171,7 +171,7 @@ public:
     Q_INVOKABLE bool deleteFixtureInGroup(quint32 groupID, quint32 itemID, QString path);
 
     /** Rename the Fixture with the provided $itemID to $newName */
-    Q_INVOKABLE void renameFixture(quint32 itemID, QString newName);
+    Q_INVOKABLE bool renameFixture(quint32 itemID, QString newName);
 
     /** Returns the number of fixtures currently loaded in the project */
     int fixturesCount();
@@ -275,7 +275,7 @@ public:
 
     Q_INVOKABLE void updateFixtureGroup(quint32 groupID, quint32 itemID, int headIdx);
 
-    Q_INVOKABLE void renameFixtureGroup(quint32 groupID, QString newName);
+    Q_INVOKABLE bool renameFixtureGroup(quint32 groupID, QString newName);
 
     /** Delete some existing Fixture Groups with IDs provided by $IDList */
     Q_INVOKABLE bool deleteFixtureGroups(QVariantList IDList);
