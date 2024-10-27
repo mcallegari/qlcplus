@@ -207,7 +207,7 @@ var testAlgo;
         var yDirection = (Math.random() * 2) - 1; // and random directions
         var xDirection = (Math.random() * 2) - 1;
         algo.direction[i] = [yDirection, xDirection];
-        algo.colour[i] = colorPalette.collection[algo.colorIndex[i]][1];
+        algo.colour[i] = colorPalette.collection[algo.colorIndex[i % algo.colorIndex.length]][1];
       }
       algo.initialized = true;
       return;
