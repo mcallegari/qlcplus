@@ -96,7 +96,7 @@ var testAlgo;
 
   util.getRawColor = function (idx) {
     var color = 0;
-    if (Array.isArray(util.colorArray) && util.colorArray.length > idx && ! isNaN(util.colorArray[idx])) {
+    if (Array.isArray(util.colorArray) && util.colorArray.length > idx && util.colorArray[idx]) {
       color = util.colorArray[idx];
     }
     return color;
