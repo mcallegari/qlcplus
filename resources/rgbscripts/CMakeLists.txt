@@ -21,7 +21,6 @@ set(SCRIPT_FILES
     onebyone.js
     opposite.js
     plasma.js
-    plasmacolors.js
     randomcolumn.js
     randomfillcolumn.js
     randomfillrow.js
