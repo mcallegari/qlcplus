@@ -492,7 +492,7 @@ jobs:
           path: ${{matrix.task}}-${{env.OUTFILE}}
 
   build-macos:
-    runs-on: macos-12
+    runs-on: macos-13
     name: QLCplus macOS ${{matrix.task}}
     strategy:
       fail-fast: false
