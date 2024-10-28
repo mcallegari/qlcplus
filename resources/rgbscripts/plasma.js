@@ -140,10 +140,10 @@ var testAlgo;
       for (var i = 0; i < util.colorArray.length; i++)
       {
         var sColor = util.colorArray[i];
-        if (Number.isNaN(sColor))
-          sColor = 0;
         var eColor = util.colorArray[(i + 1) % util.colorArray.length];
-        if (Number.isNaN(eColor))
+        if (! sColor)
+          sColor = 0;
+        if (! eColor)
           eColor = 0;
 
         util.gradientData[gradIdx++] = sColor;
