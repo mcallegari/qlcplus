@@ -5,8 +5,6 @@ TARGET   = scripts
 
 scripts.files += alternate.js
 scripts.files += balls.js
-scripts.files += ballscolors.js
-scripts.files += ballscolorsdirect.js
 scripts.files += blinder.js
 scripts.files += circles.js
 scripts.files += circular.js
