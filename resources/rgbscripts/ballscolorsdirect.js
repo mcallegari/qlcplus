@@ -65,10 +65,8 @@ var testAlgo;
     };
 
     util.getRawColor = function (idx) {
-      var color = 0;
-      if (Array.isArray(util.colorArray) && util.colorArray.length > idx && util.colorArray[idx]) {
-        color = util.colorArray[idx];
-      }
+      idx = idx % util.colorArray.length;
+      var color = util.colorArray[idx];
       return color;
     }
   
@@ -76,12 +74,13 @@ var testAlgo;
     {
       if (! Array.isArray(rawColors))
         return;
+      util.colorArray = Array();
       for (var i = 0; i < algo.acceptColors; i++) {
-        if (i < rawColors.length)
+        var isNumber = (rawColors[i] === rawColors[i]);
+        var color = rawColors[i];
+        if (i < rawColors.length && isNumber)
         {
-          util.colorArray[i] = rawColors[i];
-        } else {
-          util.colorArray[i] = 0;
+          util.colorArray.push(color);
         }
       }
     }
@@ -117,7 +116,7 @@ var testAlgo;
       }
 
       for (var i = 0; i < algo.presetNumber; i++) {  // for each ball displayed
-        rgb = util.getRawColor(i % algo.acceptColors);  // use RGB for ball random colour
+        rgb = util.getRawColor(i);  // use RGB for ball random colour
         var r = (rgb >> 16) & 0x00FF;  // split colour in to
         var g = (rgb >> 8) & 0x00FF;   // separate parts
         var b = rgb & 0x00FF;
