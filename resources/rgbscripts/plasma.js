@@ -140,7 +140,12 @@ var testAlgo;
       for (var i = 0; i < util.colorArray.length; i++)
       {
         var sColor = util.colorArray[i];
-        var eColor = util.colorArray[0];
+        if (Number.isNaN(sColor))
+          sColor = 0;
+        var eColor = util.colorArray[(i + 1) % util.colorArray.length];
+        if (Number.isNaN(eColor))
+          eColor = 0;
+
         util.gradientData[gradIdx++] = sColor;
         var sr = (sColor >> 16) & 0x00FF;
         var sg = (sColor >> 8) & 0x00FF;
@@ -244,6 +249,7 @@ var testAlgo;
     {
       return a + t * (b - a);
     }
+
     // https://en.wikipedia.org/wiki/Gradient
     function grad(hash, x, y, z)
     {
