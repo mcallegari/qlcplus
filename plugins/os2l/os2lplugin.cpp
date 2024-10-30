@@ -207,39 +207,55 @@ void OS2LPlugin::slotProcessTCPPackets()
     if (socket == NULL)
         return;
 
-    QHostAddress senderAddress = socket->peerAddress();
-    QByteArray message = socket->readAll();
-    QJsonDocument json = QJsonDocument::fromJson(message);
+    QHostAddress senderAddress = QHostAddress(socket->peerAddress().toIPv4Address());
 
-    qDebug() << "[TCP] Received" << message.length() << "bytes from" << senderAddress.toString();
-    QJsonObject jsonObj = json.object();
-    QJsonValue jEvent = jsonObj.value("evt");
-    if (jEvent.isUndefined())
-        return;
+    while (1)
+    {
+        m_packetLeftOver.append(socket->readAll());
 
-    QString event = jEvent.toString();
+        int endIndex = m_packetLeftOver.indexOf("}");
+        if (endIndex == -1)
+        {
+            if (socket->bytesAvailable())
+                continue;
+            else
+                break;
+        }
 
-    if (event == "btn")
-    {
-        QJsonValue jName = jsonObj.value("name");
-        QJsonValue jState = jsonObj.value("state");
-        qDebug() << "Got button event with name" << jName.toString() << "and state" << jState.toString();
-        uchar value = jState.toString() == "off" ? 0 : 255;
-        emit valueChanged(m_inputUniverse, 0, getHash(jName.toString()), value, jName.toString());
-    }
-    else if (event == "cmd")
-    {
-        QJsonValue jId = jsonObj.value("id");
-        QJsonValue jParam = jsonObj.value("param");
-        qDebug() << "Got CMD message" << jId.toInt() << "with param" << jParam.toDouble();
-        quint32 channel = quint32(jId.toInt());
-        QString cmd = QString("cmd%1").arg(channel);
-        emit valueChanged(m_inputUniverse, 0, quint32(jId.toInt()), uchar(jParam.toDouble()), cmd);
-    }
-    else if (event == "beat")
-    {
-       qDebug() << "Got beat message" << message;
-       emit valueChanged(m_inputUniverse, 0, 8341, 255, "beat");
+        QByteArray message = m_packetLeftOver.left(endIndex + 1);
+        m_packetLeftOver.remove(0, endIndex + 1);
+        QJsonDocument json = QJsonDocument::fromJson(message);
+
+        qDebug() << "[TCP] Received" << message.length() << "bytes from" << senderAddress.toString();
+        QJsonObject jsonObj = json.object();
+        QJsonValue jEvent = jsonObj.value("evt");
+        if (jEvent.isUndefined())
+            return;
+
+        QString event = jEvent.toString();
+
+        if (event == "btn")
+        {
+            QJsonValue jName = jsonObj.value("name");
+            QJsonValue jState = jsonObj.value("state");
+            qDebug() << "Got button event with name" << jName.toString() << "and state" << jState.toString();
+            uchar value = jState.toString() == "off" ? 0 : 255;
+            emit valueChanged(m_inputUniverse, 0, getHash(jName.toString()), value, jName.toString());
+        }
+        else if (event == "cmd")
+        {
+            QJsonValue jId = jsonObj.value("id");
+            QJsonValue jParam = jsonObj.value("param");
+            qDebug() << "Got CMD message" << jId.toInt() << "with param" << jParam.toDouble();
+            quint32 channel = quint32(jId.toInt());
+            QString cmd = QString("cmd%1").arg(channel);
+            emit valueChanged(m_inputUniverse, 0, quint32(jId.toInt()), uchar(jParam.toDouble()), cmd);
+        }
+        else if (event == "beat")
+        {
+           qDebug() << "Got beat message" << message;
+           emit valueChanged(m_inputUniverse, 0, 8341, 255, "beat");
+        }
     }
 }
 
