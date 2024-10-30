@@ -30,6 +30,7 @@ typedef struct
     QString connUUID;
     bool isStatic;
     bool isWireless;
+    bool isHotspot;
     QString address;
     QString netmask;
     QString gateway;
@@ -52,14 +53,15 @@ public:
     QString getHTML();
 
     bool updateNetworkSettings(QStringList cmdList);
+    bool createWiFiHotspot(QString SSID, QString password);
+    bool deleteWiFiHotspot();
 
 protected:
     QStringList getNmcliOutput(QStringList args, bool verbose = false);
     void refreshConnectionsList();
 
 protected:
-    QList<InterfaceInfo>m_interfaces;
-    QStringList m_dhcpcdConfCache;
+    QList<InterfaceInfo> m_interfaces;
 };
 
 #endif // WEBACCESSNETWORK_H

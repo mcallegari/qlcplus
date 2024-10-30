@@ -33,6 +33,7 @@
 #define IFACES_SYSTEM_FILE "/etc/network/interfaces"
 #define DHCPCD_CONF_FILE "/etc/dhcpcd.conf"
 #define WPA_SUPP_CONF_FILE "/etc/wpa_supplicant/wpa_supplicant.conf"
+#define HOTSPOT_CON_NAME QString("QLCHOTSPOT")
 
 WebAccessNetwork::WebAccessNetwork(QObject *parent) :
     QObject(parent)
@@ -46,6 +47,7 @@ void WebAccessNetwork::resetInterface(InterfaceInfo *iface)
     iface->connUUID = "";
     iface->isStatic = false;
     iface->isWireless = false;
+    iface->isHotspot = false;
     iface->address = "";
     iface->netmask  = "";
     iface->gateway = "";
@@ -68,6 +70,7 @@ void WebAccessNetwork::appendInterface(InterfaceInfo iface)
         {
             m_interfaces[i].isStatic = iface.isStatic;
             m_interfaces[i].isWireless = iface.isWireless;
+            m_interfaces[i].isHotspot = iface.isHotspot;
             m_interfaces[i].enabled = iface.enabled;
 
             if (!iface.address.isEmpty())
@@ -103,33 +106,59 @@ QString WebAccessNetwork::getInterfaceHTML(InterfaceInfo *iface)
     html += "<div style=\"font-family: verdana,arial,sans-serif; padding: 5px 7px; font-size:20px; "
             "color:#CCCCCC; background:#222; border-radius: 7px;\">";
 
-    html += tr("Network interface: ") + iface->devName + "<br>\n";
+    html += "<table><tr>";
 
-    html += "<form style=\"margin: 5px 15px; color:#FFF;\">\n";
-    if (iface->isWireless)
+    if (iface->isHotspot)
     {
-        html += tr("Access point name (SSID): ") + "<input type=\"text\" id=\"" +
-                iface->devName + "SSID\" size=\"15\" value=\"" + iface->ssid + "\"><br>\n";
-        html += tr("WPA-PSK Password: ") + "<input type=\"text\" id=\"" +
-                iface->devName + "WPAPSK\" size=\"15\" value=\"" + iface->wpaPass + "\"><br>\n";
-    }
-    /** IP mode radio buttons */
-    html += "<input type=\"radio\" name=" + iface->devName + "NetGroup onclick=\"showStatic('" +
-            iface->devName + "', false);\" value=\"dhcp\" " + dhcpChk + ">" + tr("Dynamic (DHCP)") + "<br>\n";
-    html += "<input type=\"radio\" name=" + iface->devName + "NetGroup onclick=\"showStatic('" +
-            iface->devName + "', true);\" value=\"static\" " + staticChk + ">" + tr("Static") + "<br>\n";
+        html += "<td style=\"padding: 0 37px; text-align: center; background: #333;\">";
+        html += tr("Wi-Fi Hotspot") + "</td>\n";
 
-    /** Static IP fields */
-    html += "<div id=\"" + iface->devName + "StaticFields\" style=\"padding: 5px 30px;\">\n";
-    html += tr("IP Address: ") + "<input type=\"text\" id=\"" +
-            iface->devName + "IPaddr\" size=\"15\" value=\"" + iface->address + "\" " + editable + "><br>\n";
-    html += tr("Netmask: ") + "<input type=\"text\" id=\"" +
-            iface->devName + "Netmask\" size=\"15\" value=\"" + iface->netmask + "\" " + editable + "><br>\n";
-    html += tr("Gateway: ") + "<input type=\"text\" size=\"15\" id=\"" +
-            iface->devName + "Gateway\" value=\"" + iface->gateway + "\" " + editable + "><br>\n";
-    html += "</div>\n";
-    html += "<input type=\"button\" value=\"" + tr("Apply changes") + "\" onclick=\"applyParams('" + iface->devName + "');\" >\n";
-    html += "</form></div></div>";
+        html += "<td><form style=\"margin: 5px 15px; color:#FFF;\">\n";
+        html += "<table><tr>";
+        html += "<td>" + tr("Access point name (SSID): ") + "</td><td><input type=\"text\" id=\"" +
+                "hotspotSSID\" size=\"15\" value=\"" + iface->ssid + "\"></td></tr>\n";
+        html += "<td>" + tr("WPA-PSK Password: ") + "</td><td><input type=\"text\" id=\"" +
+                "hotspotWPAPSK\" size=\"15\" value=\"\"></td></tr>\n";
+        html += "</tr></table>";
+
+        html += "<input type=\"button\" value=\"" + tr("Enable") + "\" onclick=\"enableHotspot(1);\" >\n";
+        html += "<input type=\"button\" value=\"" + tr("Disable") + "\" onclick=\"enableHotspot(0);\" >\n";
+    }
+    else
+    {
+        html += "<td style=\"padding: 0 20px; text-align: center; background: #333;\">";
+        html += tr("Network interface") + "<br>" + iface->devName + "</td>\n";
+
+        html += "<td><form style=\"margin: 5px 15px; color:#FFF;\">\n";
+        if (iface->isWireless)
+        {
+            html += "<table><tr>";
+            html += "<td>" + tr("Access point name (SSID): ") + "</td><td><input type=\"text\" id=\"" +
+                    iface->devName + "SSID\" size=\"15\" value=\"" + iface->ssid + "\"></td></tr>\n";
+            html += "<td>" + tr("WPA-PSK Password: ") + "</td><td><input type=\"text\" id=\"" +
+                    iface->devName + "WPAPSK\" size=\"15\" value=\"" + iface->wpaPass + "\"></td></tr>\n";
+            html += "</tr></table>";
+        }
+        /** IP mode radio buttons */
+        html += "<input type=\"radio\" name=" + iface->devName + "NetGroup onclick=\"showStatic('" +
+                iface->devName + "', false);\" value=\"dhcp\" " + dhcpChk + ">" + tr("Dynamic (DHCP)") + "<br>\n";
+        html += "<input type=\"radio\" name=" + iface->devName + "NetGroup onclick=\"showStatic('" +
+                iface->devName + "', true);\" value=\"static\" " + staticChk + ">" + tr("Static") + "<br>\n";
+
+        /** Static IP fields */
+        html += "<div id=\"" + iface->devName + "StaticFields\" style=\"padding: 5px 30px;\">\n";
+        html += "<table><tr>";
+        html += "<td>" + tr("IP Address: ") + "</td><td><input type=\"text\" id=\"" +
+                iface->devName + "IPaddr\" size=\"15\" value=\"" + iface->address + "\" " + editable + "></td></tr>\n";
+        html += "<td>" + tr("Netmask: ") + "</td><td><input type=\"text\" id=\"" +
+                iface->devName + "Netmask\" size=\"15\" value=\"" + iface->netmask + "\" " + editable + "></td></tr>\n";
+        html += "<td>" + tr("Gateway: ") + "</td><td><input type=\"text\" size=\"15\" id=\"" +
+                iface->devName + "Gateway\" value=\"" + iface->gateway + "\" " + editable + "></td></tr>\n";
+        html += "</table></div>\n";
+        html += "<input type=\"button\" value=\"" + tr("Apply changes") + "\" onclick=\"applyParams('" + iface->devName + "');\" >\n";
+    }
+
+    html += "</form></td></tr></table></div></div>";
 
     return html;
 }
@@ -139,8 +168,9 @@ QStringList WebAccessNetwork::getNmcliOutput(QStringList args, bool verbose)
     QStringList outputLines;
     QProcess process;
 
-    qDebug() << "Executing command line: nmcli" << args.join(' ');
-    process.start("nmcli", args);
+    args.prepend("nmcli");
+    qDebug() << "Executing command line: " << args.join(' ');
+    process.start("sudo", args);
 
     if (process.waitForFinished())
     {
@@ -191,6 +221,9 @@ void WebAccessNetwork::refreshConnectionsList()
         if (currInterface.connName.isEmpty())
             continue;
 
+        if (devTokens.at(3) == HOTSPOT_CON_NAME)
+            currInterface.isHotspot = true;
+
         // run "nmcli -t con show CONN_NAME" to retrieve everything about a connection
         QStringList conShowOuput = getNmcliOutput(QStringList() << "-t" << "con" << "show" << currInterface.connName);
         foreach (QString cLine, conShowOuput)
@@ -239,6 +272,7 @@ void WebAccessNetwork::refreshConnectionsList()
 QString WebAccessNetwork::getNetworkHTML()
 {
     QString html = "";
+    bool hotspotFound = false;
 
     refreshConnectionsList();
 
@@ -248,6 +282,16 @@ QString WebAccessNetwork::getNetworkHTML()
             html += getInterfaceHTML(&info);
         qDebug() << "Interface:" << info.devName << "isStatic:" << info.isStatic << "address:" << info.address
                  << "netmask:" << info.netmask << "gateway:" << info.gateway;
+        if (info.isHotspot)
+            hotspotFound = true;
+    }
+
+    // add the possibility to activate a Wi-Fi hotspot
+    if (hotspotFound == false)
+    {
+        InterfaceInfo hs;
+        hs.isHotspot = true;
+        html += getInterfaceHTML(&hs);
     }
 
     return html;
@@ -265,6 +309,17 @@ QString WebAccessNetwork::getHTML()
                  " margin: 0px;\n"
                  " background: #222;\n"
                  "}\n"
+                 "input[type=button] {\n"
+                 "background-color: #364e5e;\n"
+                 "border: none;\n"
+                 "border-radius: .2em;\n"
+                 "color: white;\n"
+                 "font: 20px/1.0em 'Trebuchet MS',Arial, Helvetica;\n"
+                 "padding: 10px 16px;\n"
+                 "text-decoration: none;\n"
+                 "margin: 4px 2px;\n"
+                 "cursor: pointer;\n"
+                 "}\n"
                  "</style>\n";
 
     QString bodyHTML = "<div class=\"controlBar\">\n"
@@ -273,12 +328,12 @@ QString WebAccessNetwork::getHTML()
                        "</div>\n";
 
     bodyHTML += "<div style=\"margin: 15px 7% 0px 7%; width: 86%; font-family: verdana,arial,sans-serif;"
-                "font-size:20px; text-align:center; color:#CCCCCC;\">";
+                "font-size: 20px; text-align: center; color: #CCCCCC; background: #333; padding: 7px;\">";
     bodyHTML += tr("Network configuration") + "</div>\n";
     bodyHTML += getNetworkHTML();
 
     bodyHTML += "<div style=\"margin: 15px 7% 0px 7%; width: 86%; font-family: verdana,arial,sans-serif;"
-                "font-size:20px; text-align:center; color:#CCCCCC;\">";
+                "font-size: 20px; text-align: center; color: #CCCCCC; background: #333; padding: 7px;\">";
     bodyHTML += tr("Project autostart") + "</div>\n";
     bodyHTML += "<div style=\"margin: 15px 7% 0px 7%; width: 86%; font-family: verdana,arial,sans-serif;"
                 "font-size:18px; padding: 5px 0px; color:#CCCCCC; background:#222; border-radius: 7px;\">";
@@ -289,8 +344,8 @@ QString WebAccessNetwork::getHTML()
     bodyHTML += "</form></div>\n";
 
     bodyHTML += "<div style=\"margin:5px 7%;\">\n";
-    bodyHTML += "<a class=\"button button-blue\" href=\"\" onclick=\"javascript:websocket.send('QLC+SYS|REBOOT');\"><span>" + tr("Reboot") + "</span></a>\n";
-    bodyHTML += "<a class=\"button button-blue\" href=\"\" onclick=\"javascript:websocket.send('QLC+SYS|HALT');\"><span>" + tr("Shutdown") + "</span></a>\n";
+    bodyHTML += "<input type=\"button\" value=\"" + tr("Reboot") + "\" onclick=\"javascript:websocket.send('QLC+SYS|REBOOT');\">\n";
+    bodyHTML += "<input type=\"button\" value=\"" + tr("Shutdown") + "\" onclick=\"javascript:websocket.send('QLC+SYS|HALT');\">";
     bodyHTML += "</div>\n";
 
     QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
@@ -373,4 +428,44 @@ bool WebAccessNetwork::updateNetworkSettings(QStringList cmdList)
         }
     }
     return false;
+}
+
+bool WebAccessNetwork::createWiFiHotspot(QString SSID, QString password)
+{
+    // first off, delete the current connection profile
+    getNmcliOutput(QStringList() << "con" << "del" << HOTSPOT_CON_NAME);
+
+    // create the connection
+    QString args = "con add type wifi ifname wlan0 mode ap con-name " + HOTSPOT_CON_NAME + " autoconnect no ssid \"" + SSID + "\"";
+    getNmcliOutput(args.split(" "));
+
+    // modify with proper parameters
+    args = "con modify " + HOTSPOT_CON_NAME + " 802-11-wireless.ssid " + SSID;
+    getNmcliOutput(args.split(" "));
+    args = "con modify " + HOTSPOT_CON_NAME + " 802-11-wireless.band bg";
+    getNmcliOutput(args.split(" "));
+    args = "con modify " + HOTSPOT_CON_NAME + " 802-11-wireless-security.key-mgmt wpa-psk";
+    getNmcliOutput(args.split(" "));
+    args = "con modify " + HOTSPOT_CON_NAME + " 802-11-wireless-security.proto rsn";
+    getNmcliOutput(args.split(" "));
+    args = "con modify " + HOTSPOT_CON_NAME + " 802-11-wireless-security.group ccmp";
+    getNmcliOutput(args.split(" "));
+    args = "con modify " + HOTSPOT_CON_NAME + " 802-11-wireless-security.pairwise ccmp";
+    getNmcliOutput(args.split(" "));
+    args = "con modify " + HOTSPOT_CON_NAME + " 802-11-wireless-security.psk " + password;
+    getNmcliOutput(args.split(" "));
+    args = "con modify " + HOTSPOT_CON_NAME + " ipv4.method shared";
+    getNmcliOutput(args.split(" "));
+
+    // activate the connection
+    args = "con up " + HOTSPOT_CON_NAME;
+    getNmcliOutput(args.split(" "));
+
+    return true;
+}
+
+bool WebAccessNetwork::deleteWiFiHotspot()
+{
+    getNmcliOutput(QStringList() << "con" << "del" << HOTSPOT_CON_NAME);
+    return true;
 }
