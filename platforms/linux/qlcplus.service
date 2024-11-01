@@ -1,7 +1,8 @@
 [Unit]
 Description=Q Light Controller Plus
 Documentation=man:qlcplus(1)
-After=basic.target
+After=graphical.target
+DefaultDependencies=no
 
 [Service]
 Type=simple

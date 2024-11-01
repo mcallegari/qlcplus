@@ -17,22 +17,27 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+QLCPLUS_OPTS="-platform $QTPLATFORM --nowm --web --web-auth --operate --overscan"
+
+if [ ! -f $HOME/.qlcplus/eglfs.json ]; then
+    mkdir -p $HOME/.qlcplus
+    for i in {1..5}
+    do
+        GPUDEV=`find /dev/dri/by-path -name *gpu-card*`
+        if [ ! -z "$GPUDEV" ]; then
+            GPUDEV=`readlink -f $GPUDEV`
+            echo '{ "device": "'$GPUDEV'" }' > $HOME/.qlcplus/eglfs.json
+        else
+            sleep 2
+        fi
+    done
+fi
+
 # detect HDMI plug state
 QTPLATFORM="eglfs"
 kmsprint -m | grep connected > /dev/null
 if [ $? -eq 1 ]; then
     QTPLATFORM="offscreen"
-fi
-
-QLCPLUS_OPTS="-platform $QTPLATFORM --nowm --web --web-auth --operate --overscan"
-
-if [ ! -f $HOME/.qlcplus/eglfs.json ]; then
-    mkdir -p $HOME/.qlcplus
-    if [ -f /dev/dri/card1 ]; then
-        echo '{ "device": "/dev/dri/card1" }' > $HOME/.qlcplus/eglfs.json
-    else
-        echo '{ "device": "/dev/dri/card0" }' > $HOME/.qlcplus/eglfs.json
-    fi
 fi
 
 if [ -f $HOME/.qlcplus/autostart.qxw ]; then
