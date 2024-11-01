@@ -165,21 +165,20 @@ target_link_libraries(${module_name} PUBLIC
     qlcplusengine
 )
 
-# Resources:
+# Add resources and RGB Script deps
 if(QT_VERSION_MAJOR GREATER 5)
     target_link_libraries(${module_name} PUBLIC
         Qt${QT_MAJOR_VERSION}::Qml)
 
-    qt_add_resources(${module_name} "qlcui"
-        PREFIX "/" FILES  ${qlcui_resource_files})
+    qt_add_resources(qlcplusui_resource_files "qlcui.qrc")
 else()
     target_link_libraries(${module_name} PUBLIC
         Qt${QT_MAJOR_VERSION}::Script)
 
     qt5_add_resources(qlcplusui_resource_files "qlcui.qrc")
-    target_sources(${module_name} PRIVATE
-        ${qlcplusui_resource_files})
 endif()
+target_sources(${module_name} PRIVATE
+    ${qlcplusui_resource_files})
 
 if(WIN32)
     target_include_directories(${module_name} PUBLIC
