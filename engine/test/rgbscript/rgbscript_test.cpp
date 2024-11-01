@@ -207,7 +207,7 @@ void RGBScript_Test::rgbMapStepCount()
 void RGBScript_Test::rgbMapColorArray()
 {
     RGBMap map;
-    RGBScript s = m_doc->rgbScriptsCache()->script("Alternate (2 Colors)");
+    RGBScript s = m_doc->rgbScriptsCache()->script("Alternate");
     QCOMPARE(s.evaluate(), true);
     QVector<uint> rawRgbColors = {
             QColor(Qt::red).rgb() & 0x00ffffff,

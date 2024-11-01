@@ -21,59 +21,11 @@
 var testAlgo;
 
 (function () {
-  var colorPalette = new Object();
-  colorPalette.collection = new Array(
-    ["White"        , 0xFFFFFF],
-    ["LightGrey"    , 0xAAAAAA],
-    ["MediumGrey"   , 0x999999],
-    ["DarkGrey"     , 0x666666],
-    ["Cream"        , 0xFFFF7F],
-    ["Pink"         , 0xFF7F7F],
-    ["Rose"         , 0x7F3F3F],
-    ["Coral"        , 0x7F3F1F],
-    ["Dim Red"      , 0x7F0000],
-    ["Red"          , 0xFF0000],
-    ["Orange"       , 0xFF3F00],
-    ["Dim Orange"   , 0x7F1F00],
-    ["Goldenrod"    , 0x7F3F00],
-    ["Gold"         , 0xFF7F00],
-    ["Yellow"       , 0xFFFF00],
-    ["Dim Yellow"   , 0x7F7F00],
-    ["Lime"         , 0x7FFF00],
-    ["Pale Green"   , 0x3F7F00],
-    ["Dim Green"    , 0x007F00],
-    ["Green"        , 0x00FF00],
-    ["Seafoam"      , 0x00FF3F],
-    ["Turquoise"    , 0x007F3F],
-    ["Teal"         , 0x007F7F],
-    ["Cyan"         , 0x00FFFF],
-    ["Electric Blue", 0x007FFF],
-    ["Blue"         , 0x0000FF],
-    ["Dim Blue"     , 0x00007F],
-    ["Pale Blue"    , 0x1F1F7F],
-    ["Indigo"       , 0x1F00BF],
-    ["Purple"       , 0x3F00BF],
-    ["Violet"       , 0x7F007F],
-    ["Magenta"      , 0xFF00FF],
-    ["Hot Pink"     , 0xFF003F],
-    ["Deep Pink"    , 0x7F001F],
-    ["Black"        , 0x000000]
-  );
-
-  colorPalette.makeSubArray = function (_index) {
-    var _array = new Array();
-    for (var i = 0; i < colorPalette.collection.length; i++) {
-      _array.push(colorPalette.collection[i][_index]);
-    }
-    return _array;
-  };
-  colorPalette.names = colorPalette.makeSubArray(0);
-
   var algo = new Object();
-  algo.apiVersion = 2;
+  algo.apiVersion = 3;
   algo.name = "Marquee";
   algo.author = "Branson Matheson";
-  algo.acceptColors = 1;
+  algo.acceptColors = 2;
   algo.properties = new Array();
   algo.edgeDepth = 2;
   algo.properties.push(
@@ -87,14 +39,6 @@ var testAlgo;
   algo.properties.push(
     "name:marqueeCount|type:range|display:Marquee Spaces|values:1,100|write:setMarqueeCount|read:getMarqueeCount"
   );
-  algo.marqueeColorIndex = 0;
-  algo.properties.push(
-    "name:marqueColor|type:list|display:Marquee Light Color|" +
-      "values:" +
-      colorPalette.names.toString() +
-      "|" +
-      "write:setMarqueeColorIndex|read:getMarqueeColorIndex"
-  );
 
   var util = new Object();
   util.initialized = false;
@@ -102,6 +46,7 @@ var testAlgo;
   util.height = 0;
   util.featureColor = 0;
   util.step = algo.marqueeCount;
+  util.colorArray = new Array(algo.acceptColors);
 
   util.lights = new Array();
   util.feature = new Array();
@@ -149,18 +94,32 @@ var testAlgo;
     return algo.marqueeCount;
   };
 
-  algo.setMarqueeColorIndex = function (_preset) {
-    algo.marqueeColorIndex = colorPalette.names.indexOf(_preset);
-    util.initialized = false;
-  };
+  util.getRawColor = function (idx) {
+    var color = 0;
+    if (Array.isArray(util.colorArray) && util.colorArray.length > idx && util.colorArray[idx]) {
+      color = util.colorArray[idx];
+    }
+    return color;
+  }
 
-  algo.getMarqueeColorIndex = function () {
-    return colorPalette.collection[algo.marqueeColorIndex][0];
-  };
+  algo.rgbMapSetColors = function(rawColors)
+  {
+    if (! Array.isArray(rawColors))
+      return;
+    for (var i = 0; i < algo.acceptColors; i++) {
+      if (i < rawColors.length)
+      {
+        util.colorArray[i] = rawColors[i];
+      } else {
+        util.colorArray[i] = 0;
+      }
+    }
+  }
 
-  util.initialize = function (width, height, rgb) {
+
+  util.initialize = function (width, height) {
     // initialize feature
-    util.featureColor = rgb;
+    util.featureColor = util.getRawColor(0);
     util.feature = new Array();
     var maxDistance = Math.min(width, height) / 2;
     for (var y = 0; y < height; y++) {
@@ -184,6 +143,8 @@ var testAlgo;
         if (distance <= algo.edgeDepth && distance <= maxDistance) {
           var percent = ((algo.edgeDepth - distance) / algo.edgeDepth) * 100;
           util.feature[y][x] = util.fadeColor(util.featureColor, percent);
+        } else {
+          util.feature[y][x] = 0;
         }
       }
     }
@@ -242,7 +203,7 @@ var testAlgo;
     }
 
     // create light map add lights, go around the outside
-    var marqueeColor = colorPalette.collection[algo.marqueeColorIndex][1];
+    var marqueeColor = util.getRawColor(1);
     var p = 0;
     // left
     for (y = 0; y < height; y++) {
@@ -279,14 +240,14 @@ var testAlgo;
     return map;
   };
 
-  algo.rgbMap = function (width, height, rgb, step) {
+  algo.rgbMap = function(width, height, rgb, step) {
     if (
       util.initialized === false ||
-      util.featureColor != rgb ||
+      util.featureColor != util.getRawColor(0) ||
       util.width !== width ||
       util.height !== height
     ) {
-      util.initialize(width, height, rgb);
+      util.initialize(width, height);
     }
 
     var map = util.getNextStep(width, height);

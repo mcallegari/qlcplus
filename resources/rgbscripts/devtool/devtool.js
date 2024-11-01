@@ -526,6 +526,8 @@ devtool.writeFunction = function(functionName, propertyName, value)
 {
     window.testAlgo[functionName](value);
     localStorage.setItem(propertyName, value);
+    devtool.initPixelColors();
+    devtool.initColorValues();
     devtool.updateStepCount();
 }
 
