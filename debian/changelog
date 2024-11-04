@@ -4,6 +4,7 @@ qlcplus (4.13.2) stable; urgency=low
   * engine: add stopOnExit, waitFunctionStart and waitFunctionStop commands to Script - see documentation (thanks to ldebs)
   * UI/Fixture Manager: limit the number of RGB panel columns for RGBW to avoid crash
   * UI/Show Manager: show step notes on the timeline (thanks to anarchid)
+  * UI/Show Manager: handle CTRL+mouse wheel to zoom in/out
   * Plugins/OS2L: fix receiving multiple messages at once
   * Web Access: fix grand master stopping running functions
   * Web Access: fix simple desk not resetting the current universe
