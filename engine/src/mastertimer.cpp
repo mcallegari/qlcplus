@@ -207,13 +207,8 @@ void MasterTimer::fadeAndStopAll(int timeout)
 
         QList<Universe *> universes = doc->inputOutputMap()->claimUniverses();
         foreach (Universe *universe, universes)
-        {
-            foreach (QSharedPointer<GenericFader> fader, universe->faders())
-            {
-                if (!fader.isNull() && fader->parentFunctionID() != Function::invalidId())
-                    fader->setFadeOut(true, uint(timeout));
-            }
-        }
+            universe->setFaderFadeOut(timeout);
+
         doc->inputOutputMap()->releaseUniverses();
     }
 

@@ -197,15 +197,20 @@ void GenericFader::write(Universe *universe)
 
     //qDebug() << "[GenericFader] writing channels: " << this << m_channels.count();
 
+    // iterate through all the channels handled by this fader
     QMutableHashIterator <quint32,FadeChannel> it(m_channels);
     while (it.hasNext() == true)
     {
         FadeChannel& fc(it.next().value());
         int flags = fc.flags();
-        int address = int(fc.addressInUniverse());
+        quint32 address = fc.addressInUniverse();
         int channelCount = fc.channelCount();
 
-        // iterate through all the channels handled by this fader
+        if (address == QLCChannel::invalid())
+        {
+            qWarning() << "Invalid channel found";
+            continue;
+        }
 
         if (flags & FadeChannel::SetTarget)
         {

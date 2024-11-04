@@ -32,6 +32,7 @@
 #include "inputpatch.h"
 #include "qlcmacros.h"
 #include "universe.h"
+#include "function.h"
 #include "qlcfile.h"
 #include "utils.h"
 
@@ -53,6 +54,10 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     , m_fbPatch(NULL)
     , m_channelsMask(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_modifiedZeroValues(new QByteArray(UNIVERSE_SIZE, char(0)))
+    , m_running(false)
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+    , m_fadersMutex(QMutex::Recursive)
+#endif
     , m_usedChannels(0)
     , m_totalChannels(0)
     , m_totalChannelsChanged(false)
@@ -209,33 +214,36 @@ QSharedPointer<GenericFader> Universe::requestFader(Universe::FaderPriority prio
     QSharedPointer<GenericFader> fader = QSharedPointer<GenericFader>(new GenericFader());
     fader->setPriority(priority);
 
-    if (m_faders.isEmpty())
     {
-        m_faders.append(fader);
-    }
-    else
-    {
-        for (int i = m_faders.count() - 1; i >= 0; i--)
+        QMutexLocker fadersLocker(&m_fadersMutex);
+        if (m_faders.isEmpty())
         {
-            QSharedPointer<GenericFader> f = m_faders.at(i);
-            if (!f.isNull() && f->priority() <= fader->priority())
+            m_faders.append(fader);
+        }
+        else
+        {
+            for (int i = m_faders.count() - 1; i >= 0; i--)
             {
-                insertPos = i + 1;
-                break;
+                QSharedPointer<GenericFader> f = m_faders.at(i);
+                if (!f.isNull() && f->priority() <= fader->priority())
+                {
+                    insertPos = i + 1;
+                    break;
+                }
             }
+
+            m_faders.insert(insertPos, fader);
         }
 
-        m_faders.insert(insertPos, fader);
+        qDebug() << "[Universe]" << id() << ": Generic fader with priority" << fader->priority()
+                 << "registered at pos" << insertPos << ", count" << m_faders.count();
     }
-
-    qDebug() << "[Universe]" << id() << ": Generic fader with priority" << fader->priority()
-             << "registered at pos" << insertPos << ", count" << m_faders.count();
-
     return fader;
 }
 
 void Universe::dismissFader(QSharedPointer<GenericFader> fader)
 {
+    QMutexLocker fadersLocker(&m_fadersMutex);
     int index = m_faders.indexOf(fader);
     if (index >= 0)
     {
@@ -246,6 +254,7 @@ void Universe::dismissFader(QSharedPointer<GenericFader> fader)
 
 void Universe::requestFaderPriority(QSharedPointer<GenericFader> fader, Universe::FaderPriority priority)
 {
+    QMutexLocker fadersLocker(&m_fadersMutex);
     if (m_faders.contains(fader) == false)
         return;
 
@@ -278,6 +287,7 @@ QList<QSharedPointer<GenericFader> > Universe::faders()
 
 void Universe::setFaderPause(quint32 functionID, bool enable)
 {
+    QMutexLocker fadersLocker(&m_fadersMutex);
     QMutableListIterator<QSharedPointer<GenericFader> > it(m_faders);
     while (it.hasNext())
     {
@@ -286,6 +296,16 @@ void Universe::setFaderPause(quint32 functionID, bool enable)
             continue;
 
         fader->setPaused(enable);
+    }
+}
+
+void Universe::setFaderFadeOut(int fadeTime)
+{
+    QMutexLocker fadersLocker(&m_fadersMutex);
+    foreach (QSharedPointer<GenericFader> fader, m_faders)
+    {
+        if (!fader.isNull() && fader->parentFunctionID() != Function::invalidId())
+            fader->setFadeOut(true, uint(fadeTime));
     }
 }
 
@@ -299,28 +319,31 @@ void Universe::processFaders()
     flushInput();
     zeroIntensityChannels();
 
-    QMutableListIterator<QSharedPointer<GenericFader> > it(m_faders);
-    while (it.hasNext())
     {
-        QSharedPointer<GenericFader> fader = it.next();
-        if (fader.isNull())
-            continue;
-
-        // destroy a fader if it's been requested
-        // and it's not fading out
-        if (fader->deleteRequested() && !fader->isFadingOut())
+        QMutexLocker fadersLocker(&m_fadersMutex);
+        QMutableListIterator<QSharedPointer<GenericFader> > it(m_faders);
+        while (it.hasNext())
         {
-            fader->removeAll();
-            it.remove();
-            fader.clear();
-            continue;
+            QSharedPointer<GenericFader> fader = it.next(); //m_faders.at(i);
+            if (fader.isNull())
+                continue;
+
+            // destroy a fader if it's been requested
+            // and it's not fading out
+            if (fader->deleteRequested() && !fader->isFadingOut())
+            {
+                fader->removeAll();
+                it.remove();
+                fader.clear();
+                continue;
+            }
+
+            if (fader->isEnabled() == false)
+                continue;
+
+            //qDebug() << "Processing fader" << fader->name() << fader->channelsCount();
+            fader->write(this);
         }
-
-        if (fader->isEnabled() == false)
-            continue;
-
-        //qDebug() << "Processing fader" << fader->name() << fader->channelsCount();
-        fader->write(this);
     }
 
     bool dataChanged = hasChanged();
