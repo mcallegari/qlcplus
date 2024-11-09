@@ -302,14 +302,11 @@ public:
     /** Return the current DMX dump channel type mask */
     int dumpChannelMask() const;
 
-    Q_INVOKABLE void dumpDmxChannels(QString name, quint32 mask);
-
-    Q_INVOKABLE void dumpDmxChannels(quint32 sceneID, quint32 mask);
+    Q_INVOKABLE void dumpDmxChannels(quint32 channelMask, QString sceneName, int sceneID,
+                                     bool allChannels, bool nonZeroOnly);
 
     /** Resets the current values used for dumping or preview */
     Q_INVOKABLE void resetDumpValues();
-
-    GenericDMXSource *dmxSource() const;
 
     /** Return a list only of the fixture IDs from the selected preview items */
     QList<quint32> selectedFixtureIDList() const;

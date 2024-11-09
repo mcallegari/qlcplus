@@ -658,6 +658,11 @@ QList<Fixture*> const& Doc::fixtures() const
     return m_fixturesListCache;
 }
 
+int Doc::fixturesCount() const
+{
+    return m_fixtures.count();
+}
+
 Fixture* Doc::fixture(quint32 id) const
 {
     return m_fixtures.value(id, NULL);

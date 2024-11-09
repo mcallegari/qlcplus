@@ -57,6 +57,7 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_maxBeamDegrees(0)
     , m_invertedZoom(false)
     , m_colorsMask(0)
+    , m_capabilityMask(0)
     , m_selectedChannelModifier(nullptr)
 {
     Q_ASSERT(m_doc != nullptr);
@@ -415,7 +416,7 @@ bool FixtureManager::renameFixture(quint32 itemID, QString newName)
 
 int FixtureManager::fixturesCount()
 {
-    return m_doc->fixtures().count();
+    return m_doc->fixturesCount();
 }
 
 QVariant FixtureManager::groupsTreeModel()
@@ -1776,6 +1777,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
     bool hasShutter = false, hasColorWheel = false, hasGobos = false;
     bool hasBeam = false;
     int origColorsMask = m_colorsMask;
+    quint32 origCapabilityMask = m_capabilityMask;
     QLCPhysical phy;
 
     QList<quint32> channelIndices;
@@ -1809,6 +1811,18 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
             continue;
 
         int chType = channel->group();
+
+        if (chType == QLCChannel::Intensity)
+        {
+            if (channel->colour() == QLCChannel::NoColour)
+                m_capabilityMask |= App::DimmerType;
+            else
+                m_capabilityMask |= App::ColorType;
+        }
+        else
+        {
+            m_capabilityMask |= (1 << chType);
+        }
 
         switch (channel->group())
         {
@@ -1955,6 +1969,9 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
     if (origColorsMask != m_colorsMask)
         emit colorsMaskChanged(m_colorsMask);
 
+    if (origCapabilityMask != m_capabilityMask)
+        emit capabilityMaskChanged();
+
     updateCapabilityCounter(hasDimmer, "capIntensity", capDelta);
     updateCapabilityCounter(hasColor, "capColor", capDelta);
     updateCapabilityCounter(hasPosition, "capPosition", capDelta);
@@ -1973,6 +1990,7 @@ void FixtureManager::resetCapabilities()
     m_minBeamDegrees = 15.0;
     m_maxBeamDegrees = 0;
     m_colorsMask = 0;
+    m_capabilityMask = 0;
 }
 
 QList<SceneValue> FixtureManager::getFixturePosition(quint32 fxID, int type, int degrees)
@@ -2134,6 +2152,11 @@ QVariantList FixtureManager::presetChannel(quint32 fixtureID, int chIndex)
     prList.append(prMap);
 
     return prList;
+}
+
+quint32 FixtureManager::capabilityMask() const
+{
+    return m_capabilityMask;
 }
 
 int FixtureManager::colorsMask() const

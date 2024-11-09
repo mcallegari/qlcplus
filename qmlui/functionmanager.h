@@ -88,6 +88,8 @@ public:
     /** Read only property to expose the function tree to the QML UI */
     QVariant functionsList();
 
+    Q_INVOKABLE quint32 nextFunctionId() const;
+
     /** Get a list of Functions that use $fid */
     Q_INVOKABLE QVariantList usageList(quint32 fid);
 
@@ -288,6 +290,9 @@ public:
 
     /** Reset the currently set channel values */
     void resetDumpValues();
+
+    void dumpDmxValues(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures,
+                       quint32 channelMask, QString sceneName, quint32 sceneID, bool nonZeroOnly);
 
     /** Dump DMX values provided by $dumpValues, filtered by the provided $selectedFixtures
      *  and the provided $channelMask.

@@ -114,11 +114,8 @@ Rectangle
 
                         onClicked:
                         {
-                            if (dmxDumpDialog.show)
-                            {
-                                dmxDumpDialog.open()
-                                dmxDumpDialog.focusEditItem()
-                            }
+                            dmxDumpDialog.open()
+                            dmxDumpDialog.focusEditItem()
                         }
 
                         Rectangle
@@ -146,7 +143,8 @@ Rectangle
                         {
                             id: dmxDumpDialog
                             implicitWidth: Math.min(UISettings.bigItemHeight * 4, mainView.width / 3)
-                            channelsMask: simpleDesk ? simpleDesk.dumpChannelMask : 0
+                            capabilityMask: simpleDesk ? simpleDesk.dumpChannelMask : 0
+                            channelSetMask: simpleDesk ? simpleDesk.dumpChannelMask : 0
 
                             onAccepted: simpleDesk.dumpDmxChannels(sceneName, getChannelsMask())
                         }

@@ -1740,14 +1740,10 @@ int ContextManager::dumpChannelMask() const
     return m_dumpChannelMask;
 }
 
-void ContextManager::dumpDmxChannels(QString name, quint32 mask)
+void ContextManager::dumpDmxChannels(quint32 channelMask, QString sceneName, int sceneID, bool allChannels, bool nonZeroOnly)
 {
-    m_functionManager->dumpOnNewScene(m_dumpValues, selectedFixtureIDList(), mask, name);
-}
-
-void ContextManager::dumpDmxChannels(quint32 sceneID, quint32 mask)
-{
-    m_functionManager->dumpOnScene(m_dumpValues, selectedFixtureIDList(), mask, sceneID);
+    m_functionManager->dumpDmxValues(m_dumpValues, allChannels ? QList<quint32>() : selectedFixtureIDList(), channelMask,
+                                     sceneName, sceneID == -1 ? Function::invalidId() : sceneID, nonZeroOnly);
 }
 
 void ContextManager::resetDumpValues()
@@ -1762,10 +1758,5 @@ void ContextManager::resetDumpValues()
 
     m_dumpChannelMask = 0;
     emit dumpChannelMaskChanged();
-}
-
-GenericDMXSource *ContextManager::dmxSource() const
-{
-    return m_source;
 }
 

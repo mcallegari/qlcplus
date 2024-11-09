@@ -79,6 +79,7 @@ public:
 
     Q_INVOKABLE void addUniverse();
     Q_INVOKABLE void removeLastUniverse();
+    Q_INVOKABLE int  universesCount();
 
     /** Get/Set the global output blackout state */
     bool blackout() const;

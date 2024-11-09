@@ -54,6 +54,7 @@ class FixtureManager : public QObject
     Q_PROPERTY(QVariantList colorWheelChannels READ colorWheelChannels NOTIFY colorWheelChannelsChanged)
     Q_PROPERTY(QVariantList shutterChannels READ shutterChannels NOTIFY shutterChannelsChanged)
     Q_PROPERTY(int colorsMask READ colorsMask NOTIFY colorsMaskChanged)
+    Q_PROPERTY(quint32 capabilityMask READ capabilityMask NOTIFY capabilityMaskChanged)
 
     Q_PROPERTY(QStringList colorFiltersFileList READ colorFiltersFileList NOTIFY colorFiltersFileListChanged)
     Q_PROPERTY(int colorFilterFileIndex READ colorFilterFileIndex WRITE setColorFilterFileIndex NOTIFY colorFilterFileIndexChanged)
@@ -437,6 +438,9 @@ public:
     /** Returns a preset channel usable by the QML PresetTool */
     Q_INVOKABLE QVariantList presetChannel(quint32 fixtureID, int chIndex);
 
+    /** Return the current capability type mask */
+    quint32 capabilityMask() const;
+
     /** Returns the currently available colors as a bitmask */
     int colorsMask() const;
 
@@ -469,6 +473,9 @@ signals:
     /** Notify the listeners that the available colors changed */
     void colorsMaskChanged(int colorsMask);
 
+    /** Notify the listeners that the available capabilities changed */
+    void capabilityMaskChanged();
+
 private:
     /** Generic method that returns the names of the cached channels for
      *  the required $group */
@@ -496,6 +503,10 @@ private:
 
     /** Bitmask holding the colors supported by the currently selected fixtures */
     int m_colorsMask;
+
+    /** Bitmask holding the capability supported by the currently selected fixtures */
+    quint32 m_capabilityMask;
+
     /** A map of the currently available colors and their counters */
     QMap<int, int> m_colorCounters;
 
