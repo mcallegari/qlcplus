@@ -103,53 +103,6 @@ Rectangle
 
                     Rectangle { Layout.fillWidth: true; color: "transparent" }
 
-                    // Scene dump button
-                    IconButton
-                    {
-                        id: sceneDump
-                        z: 2
-                        imgSource: "qrc:/dmxdump.svg"
-                        tooltip: qsTr("Dump on a new Scene")
-                        counter: simpleDesk ? simpleDesk.dumpValuesCount && (qlcplus.accessMask & App.AC_FunctionEditing) : 0
-
-                        onClicked:
-                        {
-                            dmxDumpDialog.open()
-                            dmxDumpDialog.focusEditItem()
-                        }
-
-                        Rectangle
-                        {
-                            x: -3
-                            //y: -3
-                            width: sceneDump.width * 0.4
-                            height: width
-                            color: "red"
-                            border.width: 1
-                            border.color: UISettings.fgMain
-                            radius: 3
-                            clip: true
-
-                            RobotoText
-                            {
-                                anchors.centerIn: parent
-                                height: parent.height * 0.7
-                                label: simpleDesk ? simpleDesk.dumpValuesCount : ""
-                                fontSize: height
-                            }
-                        }
-
-                        PopupDMXDump
-                        {
-                            id: dmxDumpDialog
-                            implicitWidth: Math.min(UISettings.bigItemHeight * 4, mainView.width / 3)
-                            capabilityMask: simpleDesk ? simpleDesk.dumpChannelMask : 0
-                            channelSetMask: simpleDesk ? simpleDesk.dumpChannelMask : 0
-
-                            onAccepted: simpleDesk.dumpDmxChannels(sceneName, getChannelsMask())
-                        }
-                    }
-
                     // DMX/Percentage button
                     DMXPercentageButton
                     {

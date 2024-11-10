@@ -275,65 +275,6 @@ Rectangle
                 color: "transparent"
             }
 
-            // ################## BEATS ##################
-            RobotoText
-            {
-                label: "BPM: " + (ioManager.bpmNumber > 0 ? ioManager.bpmNumber : qsTr("Off"))
-                color: gsMouseArea.containsMouse ? UISettings.bgLight : "transparent"
-                fontSize: UISettings.textSizeDefault
-                Layout.alignment: Qt.AlignTop
-                implicitWidth: width
-                implicitHeight: parent.height
-
-                MouseArea
-                {
-                    id: gsMouseArea
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    onClicked: beatSelectionPanel.visible = !beatSelectionPanel.visible
-                }
-                BeatGeneratorsPanel
-                {
-                    id: beatSelectionPanel
-                    parent: mainView
-                    y: mainToolbar.height
-                    x: beatIndicator.x - width
-                    z: 51
-                    visible: false
-                }
-            }
-            Rectangle
-            {
-                id: beatIndicator
-                implicitWidth: height
-                implicitHeight: parent.height * 0.5
-                Layout.alignment: Qt.AlignVCenter
-                radius: height / 2
-                border.width: 2
-                border.color: "#333"
-                color: UISettings.fgMedium
-
-                ColorAnimation on color
-                {
-                    id: cAnim
-                    from: "#00FF00"
-                    to: UISettings.fgMedium
-                    // half the duration of the current BPM
-                    duration: ioManager.bpmNumber ? 30000 / ioManager.bpmNumber : 200
-                    running: false
-                }
-
-                Connections
-                {
-                    id: beatSignal
-                    target: ioManager
-                    function onBeat()
-                    {
-                        cAnim.restart()
-                    }
-                }
-            }
-
             // ################## DMX DUMP ##################
             IconButton
             {
@@ -345,11 +286,33 @@ Rectangle
                 bgColor: "transparent"
                 imgSource: "qrc:/dmxdump.svg"
                 imgMargins: 10
-                tooltip: qsTr("Dump on a new Scene")
+                tooltip: qsTr("Dump DMX values on a Scene")
                 counter: (qlcplus.accessMask & App.AC_FunctionEditing)
+
+                property string bubbleLabel: {
+                    if (currentContext === sdEntry.ctxName)
+                        return simpleDesk ? simpleDesk.dumpValuesCount : ""
+                    else
+                        return contextManager ? contextManager.dumpValuesCount : ""
+                }
+
+                function updateDumpVariables()
+                {
+                    if (currentContext === sdEntry.ctxName)
+                    {
+                        dmxDumpDialog.capabilityMask = simpleDesk ? simpleDesk.dumpChannelMask : 0
+                        dmxDumpDialog.channelSetMask = simpleDesk ? simpleDesk.dumpChannelMask : 0
+                    }
+                    else
+                    {
+                        dmxDumpDialog.capabilityMask = fixtureManager ? fixtureManager.capabilityMask : 0
+                        dmxDumpDialog.channelSetMask = contextManager ? contextManager.dumpChannelMask : 0
+                    }
+                }
 
                 onClicked:
                 {
+                    updateDumpVariables()
                     dmxDumpDialog.open()
                     dmxDumpDialog.focusEditItem()
                 }
@@ -366,13 +329,13 @@ Rectangle
                     border.color: UISettings.fgMain
                     radius: 3
                     clip: true
-                    visible: contextManager && contextManager.dumpValuesCount ? true : false
+                    visible: sceneDump.bubbleLabel !== "0" ? true : false
 
                     RobotoText
                     {
                         anchors.centerIn: parent
                         height: parent.height * 0.7
-                        label: contextManager ? contextManager.dumpValuesCount : ""
+                        label: sceneDump.bubbleLabel
                         fontSize: height
                     }
                 }
@@ -435,7 +398,7 @@ Rectangle
                         RobotoText
                         {
                             anchors.centerIn: parent
-                            label: contextManager ? contextManager.dumpValuesCount : ""
+                            label: sceneDump.bubbleLabel
                         }
                     }
                 }
@@ -444,15 +407,93 @@ Rectangle
                 {
                     id: dmxDumpDialog
                     implicitWidth: Math.min(UISettings.bigItemHeight * 4, mainView.width / 3)
-                    capabilityMask: fixtureManager ? fixtureManager.capabilityMask : 0
-                    channelSetMask: contextManager ? contextManager.dumpChannelMask : 0
 
                     onAccepted:
                     {
-                        contextManager.dumpDmxChannels(getChannelsMask(), sceneName, existingScene && func ? func.id : -1,
+                        if (currentContext === sdEntry.ctxName)
+                        {
+                            simpleDesk.dumpDmxChannels(sceneName, getChannelsMask())
+                        }
+                        else
+                        {
+                            contextManager.dumpDmxChannels(getChannelsMask(), sceneName, existingScene && func ? func.id : -1,
                                         allChannels, nonZeroOnly);
+                        }
                     }
                 }
+            }
+
+            // spacer
+            Rectangle
+            {
+                width: UISettings.iconSizeDefault / 2
+                color: "transparent"
+            }
+
+            // ################## BEATS ##################
+            RobotoText
+            {
+                label: "BPM: " + (ioManager.bpmNumber > 0 ? ioManager.bpmNumber : qsTr("Off"))
+                color: gsMouseArea.containsMouse ? UISettings.bgLight : "transparent"
+                fontSize: UISettings.textSizeDefault
+                Layout.alignment: Qt.AlignTop
+                implicitWidth: width
+                implicitHeight: parent.height
+
+                MouseArea
+                {
+                    id: gsMouseArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onClicked: beatSelectionPanel.visible = !beatSelectionPanel.visible
+                }
+                BeatGeneratorsPanel
+                {
+                    id: beatSelectionPanel
+                    parent: mainView
+                    y: mainToolbar.height
+                    x: beatIndicator.x - width
+                    z: 51
+                    visible: false
+                }
+            }
+            Rectangle
+            {
+                id: beatIndicator
+                implicitWidth: height
+                implicitHeight: parent.height * 0.5
+                Layout.alignment: Qt.AlignVCenter
+                radius: height / 2
+                border.width: 2
+                border.color: "#333"
+                color: UISettings.fgMedium
+
+                ColorAnimation on color
+                {
+                    id: cAnim
+                    from: "#00FF00"
+                    to: UISettings.fgMedium
+                    // half the duration of the current BPM
+                    duration: ioManager.bpmNumber ? 30000 / ioManager.bpmNumber : 200
+                    running: false
+                }
+
+                Connections
+                {
+                    id: beatSignal
+                    target: ioManager
+                    function onBeat()
+                    {
+                        cAnim.restart()
+                    }
+                }
+            }
+
+            // spacer
+            Rectangle
+            {
+                width: UISettings.iconSizeDefault / 2
+                color: "transparent"
             }
 
             // ################## STOP ALL FUNCTIONS ##################

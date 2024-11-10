@@ -52,6 +52,9 @@ CustomPopupDialog
         selectedFunctionsCount = funcList.length
         if (funcList.length > 0)
             func = functionManager.getFunction(funcList[0])
+
+        if (capabilityMask == 0 && activeChannelsCheck.checked)
+            allChannels = true
     }
 
     function getChannelsMask()
@@ -249,11 +252,13 @@ CustomPopupDialog
                             id: activeChannelsCheck
                             implicitHeight: UISettings.listItemHeight
                             implicitWidth: implicitHeight
+                            enabled: capabilityMask !== 0 ? true : false
                             checked: true
                             ButtonGroup.group: dumpTypeGroup
                         }
                         RobotoText
                         {
+                            enabled: capabilityMask !== 0 ? true : false
                             implicitHeight: UISettings.listItemHeight
                             label: qsTr("Dump the selected fixture channels")
                         }
@@ -263,6 +268,7 @@ CustomPopupDialog
                     RobotoText
                     {
                         Layout.columnSpan: 4
+                        visible: capabilityMask !== 0 ? true : false
                         label: qsTr("Detected channel types")
                     }
 
