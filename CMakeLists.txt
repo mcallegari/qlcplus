@@ -219,3 +219,12 @@ INCLUDE(CPack)
 
 # Leave this on the last row of this file
 add_subdirectory(platforms)
+
+# HELPER: PRINT ALL VARIABLES KNOWN BY CMAKE
+
+#message("QTDIR: ${QT_DIR}")
+#get_cmake_property(_variableNames VARIABLES)
+#list (SORT _variableNames)
+#foreach (_variableName ${_variableNames})
+#    message(STATUS "${_variableName}=${${_variableName}}")
+#endforeach()
