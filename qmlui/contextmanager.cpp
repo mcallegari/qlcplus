@@ -1478,7 +1478,7 @@ void ContextManager::setChannelValueByType(int type, int value, bool isRelative,
     }
 }
 
-void ContextManager::setPositionValue(int type, int degrees, bool isRelative)
+void ContextManager::setPositionValue(int type, float degrees, bool isRelative)
 {
     // list to keep track of the already processed Fixture IDs
     QList<quint32>fxIDs;

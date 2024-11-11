@@ -36,11 +36,11 @@ Rectangle
     property int panMaxDegrees: 360
     property int tiltMaxDegrees: 270
 
-    property alias panDegrees: panSpinBox.value
+    property alias panDegrees: panSpinBox.realValue
     property int previousPanDegrees: 0
     property bool relativePanValue: false
 
-    property alias tiltDegrees: tiltSpinBox.value
+    property alias tiltDegrees: tiltSpinBox.realValue
     property int previousTiltDegrees: 0
     property bool relativeTiltValue: false
 
@@ -63,7 +63,7 @@ Rectangle
         else
         {
             relativePanValue = false
-            panDegrees = Math.round(pan)
+            panDegrees = pan * Math.pow(10, panSpinBox.decimals)
         }
 
         var tilt = contextManager.getCurrentValue(QLCChannel.Tilt, true)
@@ -75,7 +75,7 @@ Rectangle
         else
         {
             relativeTiltValue = false
-            tiltDegrees = Math.round(tilt)
+            tiltDegrees = tilt * Math.pow(10, tiltSpinBox.decimals)
         }
     }
 
@@ -361,12 +361,13 @@ Rectangle
             label: "Pan"
         }
 
-        CustomSpinBox
+        CustomDoubleSpinBox
         {
             id: panSpinBox
             Layout.fillWidth: true
-            from: relativePanValue ? -panMaxDegrees : 0
-            to: panMaxDegrees
+            realFrom: relativePanValue ? -panMaxDegrees : 0
+            realTo: panMaxDegrees
+            realStep: 0.1
             value: 0
             suffix: "°"
 
@@ -381,9 +382,10 @@ Rectangle
             tooltip: qsTr("Snap to the previous value")
             onClicked:
             {
-                var prev = (parseInt(panSpinBox.value / 45) * 45) - 45
+                var prev = (parseInt(panSpinBox.realValue / 45) * 45) - 45
+                console.log("---- PREV PAN " + prev)
                 if (prev >= 0)
-                    panSpinBox.value = prev
+                    panSpinBox.setValue(prev * 100)
             }
         }
         IconButton
@@ -394,9 +396,10 @@ Rectangle
             tooltip: qsTr("Snap to the next value")
             onClicked:
             {
-                var next = (parseInt(panSpinBox.value / 45) * 45) + 45
+                var next = (parseInt(panSpinBox.realValue / 45) * 45) + 45
+                console.log("---- NEXT PAN " + next)
                 if (next <= panMaxDegrees)
-                    panSpinBox.value = next
+                    panSpinBox.setValue(next * 100)
             }
         }
 
@@ -407,12 +410,13 @@ Rectangle
             label: "Tilt"
         }
 
-        CustomSpinBox
+        CustomDoubleSpinBox
         {
             id: tiltSpinBox
             Layout.fillWidth: true
-            from: relativeTiltValue ? -tiltMaxDegrees : 0
-            to: tiltMaxDegrees
+            realFrom: relativeTiltValue ? -tiltMaxDegrees : 0
+            realTo: tiltMaxDegrees
+            realStep: 0.1
             value: 0
             suffix: "°"
 
@@ -430,9 +434,9 @@ Rectangle
                 var fixedPos = tiltPositionsArray()
                 for (var i = fixedPos.length - 1; i >= 0; i--)
                 {
-                    if (parseInt(fixedPos[i]) < tiltSpinBox.value)
+                    if (parseInt(fixedPos[i]) < tiltDegrees)
                     {
-                        tiltSpinBox.value = parseInt(fixedPos[i])
+                        tiltSpinBox.setValue(parseInt(fixedPos[i]) * 100)
                         break;
                     }
                 }
@@ -449,9 +453,9 @@ Rectangle
                 var fixedPos = tiltPositionsArray()
                 for (var i = 0; i < fixedPos.length; i++)
                 {
-                    if (tiltSpinBox.value < parseInt(fixedPos[i]))
+                    if (tiltDegrees < parseInt(fixedPos[i]))
                     {
-                        tiltSpinBox.value = parseInt(fixedPos[i])
+                        tiltSpinBox.setValue(parseInt(fixedPos[i]) * 100)
                         break;
                     }
                 }

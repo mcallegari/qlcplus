@@ -50,4 +50,10 @@ CustomSpinBox
     }
 
     onValueModified: realValue = value / Math.pow(10, decimals)
+
+    function setValue(newValue)
+    {
+        value = newValue
+        realValue = newValue / Math.pow(10, decimals)
+    }
 }

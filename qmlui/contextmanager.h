@@ -238,7 +238,7 @@ public:
     Q_INVOKABLE void setColorValue(QColor col, QColor wauv);
 
     /** Set a Pan/Tilt position in degrees */
-    Q_INVOKABLE void setPositionValue(int type, int degrees, bool isRelative);
+    Q_INVOKABLE void setPositionValue(int type, float degrees, bool isRelative);
 
     /** Set Pan/Tilt values at half position */
     Q_INVOKABLE void setPositionCenter();

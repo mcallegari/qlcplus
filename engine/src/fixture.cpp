@@ -310,7 +310,7 @@ QVector <quint32> Fixture::cmyChannels(int head) const
     return m_fixtureMode->heads().at(head).cmyChannels();
 }
 
-QList<SceneValue> Fixture::positionToValues(int type, int degrees, bool isRelative)
+QList<SceneValue> Fixture::positionToValues(int type, float degrees, bool isRelative)
 {
     QList<SceneValue> posList;
     // cache a list of channels processed, to avoid duplicates
