@@ -500,7 +500,6 @@ Rectangle
                                             contextManager.setFixtureSelection(iID, -1, true)
                                         break;
                                         case App.HeadDragItem:
-                                            console.log("Head clicked. ItemID: " + qItem.itemID + ", head: " + iID)
                                             itemID = qItem.itemID
                                             contextManager.setFixtureSelection(qItem.itemID, iID, true);
                                         break;

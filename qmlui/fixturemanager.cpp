@@ -621,9 +621,7 @@ void FixtureManager::addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fix
             {
                 for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
                 {
-                    quint32 iID = itemID;
-                    if (fixture->type() == QLCFixtureDef::Dimmer)
-                        iID = FixtureUtils::fixtureItemID(fixture->id(), headIdx, linkedIndex);
+                    quint32 iID = FixtureUtils::fixtureItemID(fixture->id(), headIdx, linkedIndex);
 
                     QVariantList headParams;
                     headParams.append(QVariant::fromValue(fixture)); // classRef

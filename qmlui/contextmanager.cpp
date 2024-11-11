@@ -553,6 +553,9 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
     int linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
     int headIdx = FixtureUtils::itemHeadIndex(itemID);
 
+    if (enable)
+        qDebug() << "Selected itemID" << itemID << ", fixture ID" << fixtureID << ", head" << headIdx;
+
     if (m_selectedFixtures.contains(itemID))
     {
         if (enable == false)
