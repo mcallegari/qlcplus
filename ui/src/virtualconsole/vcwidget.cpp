@@ -780,7 +780,8 @@ QKeySequence VCWidget::stripKeySequence(const QKeySequence& seq)
             keys[i] = seq[i];
     }
 #else
-    QKeyCombination keys[4] = { Qt::Key_unknown, Qt::Key_unknown, Qt::Key_unknown, Qt::Key_unknown};
+    QKeyCombination keys[4] = { Qt::Key_unknown, QKeyCombination::fromCombined(0),
+                               QKeyCombination::fromCombined(0), QKeyCombination::fromCombined(0)};
     for (int i = 0; i < (int)seq.count() && i < 4; i++)
     {
         if ((seq[i].toCombined() & Qt::ControlModifier) != 0)
