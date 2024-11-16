@@ -31,6 +31,11 @@ Column
       * an input sources list */
     property var objRef: null
 
+    PopupCustomFeedback
+    {
+        id: cfbPopup
+    }
+
     Rectangle
     {
         color: UISettings.bgMedium
@@ -134,11 +139,12 @@ Column
         delegate:
             Loader
             {
+                id: extSrcListLoader
                 width: sourcesListView.width
                 source: modelData.type === VCWidget.Controller ? "qrc:/ExternalControlDelegate.qml" : "qrc:/KeyboardSequenceDelegate.qml"
                 onLoaded:
                 {
-                    item.dObjRef = objRef
+                    item.widgetObjRef = objRef
                     item.inputModel = objRef.externalControlsList
                     item.controlID = modelData.id
 
@@ -152,12 +158,22 @@ Column
                         item.uniName = modelData.uniString
                         item.chName = modelData.chString
                         item.customFeedback = modelData.customFeedback
-                        item.lowerFb = modelData.lower
-                        item.upperFb = modelData.upper
                     }
                     else if (modelData.type === VCWidget.Keyboard)
                     {
                         item.sequence = modelData.keySequence
+                    }
+                }
+
+                Connections
+                {
+                    target: extSrcListLoader.item
+                    function onRequestCustomFeedbackPopup()
+                    {
+                        cfbPopup.widgetObjRef = item.widgetObjRef
+                        cfbPopup.universe = item.universe
+                        cfbPopup.channel = item.channel
+                        cfbPopup.open()
                     }
                 }
             }

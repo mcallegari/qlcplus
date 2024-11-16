@@ -21,6 +21,7 @@ IconButton 0.1 ../IconButton.qml
 IconPopupButton 0.1 ../IconPopupButton.qml
 IconTextEntry 0.1 ../IconTextEntry.qml
 MenuBarEntry 0.1 ../MenuBarEntry.qml
+PopupCustomFeedback 0.1 ../popup/PopupCustomFeedback.qml
 QLCPlusFader 0.1 ../QLCPlusFader.qml
 QLCPlusKnob 0.1 ../QLCPlusKnob.qml
 RobotoText 0.1 ../RobotoText.qml

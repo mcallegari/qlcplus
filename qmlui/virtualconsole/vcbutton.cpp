@@ -511,9 +511,6 @@ void VCButton::setStartupIntensity(qreal fraction)
 
 void VCButton::updateFeedback()
 {
-    if (m_state == Monitoring)
-        return;
-
     if (m_state == Inactive)
         sendFeedback(0, INPUT_PRESSURE_ID, VCWidget::LowerValue);
     else if (m_state == Monitoring)
