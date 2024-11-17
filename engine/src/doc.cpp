@@ -401,7 +401,7 @@ quint32 Doc::createFixtureId()
     return m_latestFixtureId;
 }
 
-bool Doc::addFixture(Fixture* fixture, quint32 id)
+bool Doc::addFixture(Fixture* fixture, quint32 id, bool crossUniverse)
 {
     Q_ASSERT(fixture != NULL);
 
@@ -461,21 +461,28 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
     for (i = 0; i < fixture->channels(); i++)
     {
         const QLCChannel *channel(fixture->channel(i));
+        quint32 addr = fxAddress + i;
+
+        if (crossUniverse)
+        {
+            uni = floor((fixture->universeAddress() + i) / 512);
+            addr = (fixture->universeAddress() + i) - (uni * 512);
+        }
 
         // Inform Universe of any HTP/LTP forcing
         if (forcedHTP.contains(int(i)))
-            universes.at(uni)->setChannelCapability(fxAddress + i, channel->group(), Universe::HTP);
+            universes.at(uni)->setChannelCapability(addr, channel->group(), Universe::HTP);
         else if (forcedLTP.contains(int(i)))
-            universes.at(uni)->setChannelCapability(fxAddress + i, channel->group(), Universe::LTP);
+            universes.at(uni)->setChannelCapability(addr, channel->group(), Universe::LTP);
         else
-            universes.at(uni)->setChannelCapability(fxAddress + i, channel->group());
+            universes.at(uni)->setChannelCapability(addr, channel->group());
 
         // Apply the default value BEFORE modifiers
-        universes.at(uni)->setChannelDefaultValue(fxAddress + i, channel->defaultValue());
+        universes.at(uni)->setChannelDefaultValue(addr, channel->defaultValue());
 
         // Apply a channel modifier, if defined
         ChannelModifier *mod = fixture->channelModifier(i);
-        universes.at(uni)->setChannelModifier(fxAddress + i, mod);
+        universes.at(uni)->setChannelModifier(addr, mod);
     }
     inputOutputMap()->releaseUniverses(true);
 

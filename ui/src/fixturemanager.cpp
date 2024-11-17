@@ -1201,19 +1201,28 @@ void FixtureManager::slotAddRGBPanel()
             // Check universe span
             if (address + fxi->channels() > 512)
             {
-                uniIndex++;
+                if (!rgb.crossUniverse())
+                    uniIndex++;
+
                 if (m_doc->inputOutputMap()->getUniverseID(uniIndex) == m_doc->inputOutputMap()->invalidUniverse())
                 {
                     m_doc->inputOutputMap()->addUniverse();
                     m_doc->inputOutputMap()->startUniverses();
                 }
-                address = 0;
+                if (!rgb.crossUniverse())
+                    address = 0;
             }
 
             fxi->setUniverse(m_doc->inputOutputMap()->getUniverseID(uniIndex));
             fxi->setAddress(address);
+            m_doc->addFixture(fxi, Fixture::invalidId(), rgb.crossUniverse());
+
             address += fxi->channels();
-            m_doc->addFixture(fxi);
+            if (address > 512 && rgb.crossUniverse())
+            {
+                address -= 512;
+                uniIndex++;
+            }
 
             if (rgb.type() == AddRGBPanel::ZigZag)
             {

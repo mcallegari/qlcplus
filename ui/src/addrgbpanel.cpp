@@ -196,6 +196,11 @@ Fixture::Components AddRGBPanel::components()
     return Fixture::RGB;
 }
 
+bool AddRGBPanel::crossUniverse()
+{
+    return m_crossUniverseCheck->isChecked();
+}
+
 void AddRGBPanel::slotSizeChanged(int)
 {
     checkAddressAvailability();
