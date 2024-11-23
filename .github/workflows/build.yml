@@ -154,7 +154,7 @@ jobs:
           sed -i -e 's/Debug/Release/g' CMakeLists.txt
           mkdir build
           cd build
-          cmake -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dappimage=ON -DINSTALL_ROOT=$TARGET_DIR ..
+          cmake -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dappimage=ON -DINSTALL_ROOT=${INSTALL_ROOT} ..
 
       - name: Configure for QT5QML build
         if: ${{ matrix.task == 'compile-qt5qml' }}
@@ -163,7 +163,7 @@ jobs:
           sed -i -e 's/Debug/Release/g' CMakeLists.txt
           mkdir build
           cd build
-          cmake -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dqmlui=ON -Dappimage=ON -DINSTALL_ROOT=$TARGET_DIR ..
+          cmake -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dqmlui=ON -Dappimage=ON -DINSTALL_ROOT=${INSTALL_ROOT} ..
 
       - name: Configure for QT5 coverage build
         if: ${{ matrix.task == 'coverage-qt5' }}
