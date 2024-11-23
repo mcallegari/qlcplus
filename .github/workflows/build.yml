@@ -180,7 +180,7 @@ jobs:
 
       - name: Test
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
-        run: make check
+        run: cd build && make check
 
       - name: Test with Coverage
         if: ${{ startsWith( matrix.task, 'coverage') }}
