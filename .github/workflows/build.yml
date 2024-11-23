@@ -199,8 +199,8 @@ jobs:
         run: |
           cd build
           make INSTALL_ROOT=${INSTALL_ROOT} install
-          cp -v resources/icons/svg/qlcplus.svg ${INSTALL_ROOT}
-          cp -v platforms/linux/qlcplus.desktop ${INSTALL_ROOT}
+          cp -v ../resources/icons/svg/qlcplus.svg ${INSTALL_ROOT}
+          cp -v ../platforms/linux/qlcplus.desktop ${INSTALL_ROOT}
 
       - name: Adapt qlcplus for AppImage (qt5)
         if: ${{ matrix.task == 'compile-qt5' }}
