@@ -171,7 +171,12 @@ jobs:
           $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" CONFIG+=coverage
 
       - name: Build
+        if: ${{ ! startsWith( matrix.task, 'coverage') }}
         run: cd build && make -j $NPROC
+
+      - name: Build Coverage
+        if: ${{ startsWith( matrix.task, 'coverage') }}
+        run: make -j $NPROC
 
       - name: Test
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
