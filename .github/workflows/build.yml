@@ -150,18 +150,25 @@ jobs:
       - name: Configure for QT5 build
         if: ${{ matrix.task == 'compile-qt5' }}
         run: |
-          ${QMAKE} QMAKE_CXX="${CXX}" QMAKE_CC="${CC}" QMAKE_LINK="${CXX}" QMAKE_LINK_SHLIB="${CXX}" CONFIG+=appimage FORCECONFIG=release
+          # force a release build
+          sed -i -e 's/Debug/Release/g' CMakeLists.txt
+          mkdir build
+          cd build
+          cmake -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dappimage=ON -DINSTALL_ROOT=$TARGET_DIR ..
 
       - name: Configure for QT5QML build
         if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
-          $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" CONFIG+=appimage CONFIG+=qmlui FORCECONFIG=release
+          # force a release build
+          sed -i -e 's/Debug/Release/g' CMakeLists.txt
+          mkdir build
+          cd build
+          cmake -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dqmlui=ON -Dappimage=ON -DINSTALL_ROOT=$TARGET_DIR ..
 
       - name: Configure for QT5 coverage build
         if: ${{ matrix.task == 'coverage-qt5' }}
         run: |
           $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" CONFIG+=coverage
-          #QMAKE_CXXFLAGS+="-fno-sized-deallocation"
 
       - name: Build
         run: make -j $NPROC
