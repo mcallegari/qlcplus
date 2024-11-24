@@ -56,6 +56,7 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
     /* General page */
     m_sizeXSpin->setValue(properties.size().width());
     m_sizeYSpin->setValue(properties.size().height());
+    m_enableKeyboardScroll->setChecked(properties.keyboardScroll());
 
     /* Widgets page */
     QSettings settings;
@@ -317,6 +318,11 @@ void VCPropertiesEditor::slotSizeYChanged(int value)
     QSize sz(m_properties.size());
     sz.setHeight(value);
     m_properties.setSize(sz);
+}
+
+void VCPropertiesEditor::slotKeyboardScrollToggled(bool checked)
+{
+    m_properties.setKeyboardScroll(checked);
 }
 
 void VCPropertiesEditor::slotSpeedDialConfirmed()
