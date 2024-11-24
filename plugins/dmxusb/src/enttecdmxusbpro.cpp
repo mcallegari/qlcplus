@@ -243,11 +243,10 @@ bool EnttecDMXUSBPro::close(quint32 line, bool input)
 
 int readData(DMXInterface *iface, QByteArray &payload, bool &isMIDI, bool needRDM)
 {
-    bool ok = false;
     uchar byte = 0;
 
     // Skip bytes until we find the start of the next message
-    if ((byte = iface->readByte(&ok)) != ENTTEC_PRO_START_OF_MSG)
+    if ((iface->readByte()) != ENTTEC_PRO_START_OF_MSG)
         return 0;
 
     // Check the message type
