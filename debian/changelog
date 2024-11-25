@@ -10,14 +10,19 @@ qlcplus (4.13.2) stable; urgency=low
   * Web Access: fix simple desk not resetting the current universe
   * RGB scripts: added 'Sine Wave' script
   * RGB scripts: fix Vertical Fall not allowing changing color when cloned
-  * New fixtures: GLP Impression X5, Ayrton Rivale Profile (thanks to Masatoshi Fujino)
+  * New fixtures: GLP Impression X5, Ayrton Rivale Profile, Ayrton Kyalami (thanks to Masatoshi Fujino)
   * New fixture: Eurolite LED Mini Strobe Cluster SMD 48 (thanks to Oliver)
   * New fixture: Ayra Compar Kit 3 (thanks to Robert)
   * New fixtures: Acme Pixel Line IP, Ayrton Domino LT (thanks to Yestalgia)
   * New fixture: GLP JDC1 (thanks to Flo Edelmann)
   * New fixture: Shehds 2 Eyes 200W LED COB Cool Warm White (thanks to Devsider)
+  * New fixture: Ayra ERO Micro Beam FX (thanks to Gianni)
+  * New fixture: Shehds LED Wall Wash 18x18W RGBWA+UV (thanks to Fede79)
+  * New fixture: Shehds LED Beam 12x12W RGBW (thanks to Lukas Hanisch)
+  * New fixture: Chauvet EVE P-160 RGBW (thanks to Max Wheatley)
+  * New fixture: Stairville Wild Wash 132 LED CW (thanks to e-shock)
 
-  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 24 Nov 2024 18:19:20 +0200
+  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 29 Dec 2024 18:19:20 +0200
 
 qlcplus (4.13.1) stable; urgency=low
 

@@ -217,6 +217,7 @@
     <F n="Ayra-ERO-075" m="ERO 075"/>
     <F n="Ayra-ERO-406" m="ERO 406"/>
     <F n="Ayra-ERO-506" m="ERO 506"/>
+    <F n="Ayra-ERO-Micro-Beam-FX" m="ERO Micro Beam FX"/>
     <F n="Ayra-ERO-Microspot" m="ERO Micro Spot"/>
     <F n="Ayra-IntenZ-CB-150" m="IntenZ CB-150 "/>
     <F n="Ayra-TDC-Agaricus" m="TDC Agaricus"/>
@@ -226,6 +227,7 @@
   <M n="Ayrton">
     <F n="Ayrton-Arcaline-100-RGB" m="Arcaline 100 RGB"/>
     <F n="Ayrton-Domino-LT" m="Domino LT"/>
+    <F n="Ayrton-Kyalami" m="Kyalami"/>
     <F n="Ayrton-MagicBlade-R" m="MagicBlade R"/>
     <F n="Ayrton-MagicPanel-602" m="MagicPanel 602"/>
     <F n="Ayrton-MiniPanel-FX" m="MiniPanel FX"/>
@@ -450,6 +452,7 @@
     <F n="Chauvet-DMX-Mega-Strobe-III" m="DMX Mega Strobe III"/>
     <F n="Chauvet-Double-Derby-X" m="Double Derby X"/>
     <F n="Chauvet-Eclipse-RGB" m="Eclipse RGB"/>
+    <F n="Chauvet-EVE-P-160-RGBW" m="EVE P-160 RGBW"/>
     <F n="Chauvet-EZPAR-64-RGBA" m="EZPar 64 RGBA"/>
     <F n="Chauvet-Followspot-120ST" m="Followspot 120ST"/>
     <F n="Chauvet-Freedom-H1" m="Freedom H1"/>
@@ -1524,8 +1527,10 @@
     <F n="Shehds-GalaxyJet-Waterproof-IP65-380W-19R-Beam-Moving-Head" m="GalaxyJet Waterproof IP65 380W 19R Beam Moving Head"/>
     <F n="Shehds-JMS-WEBB-LED-Wash-BigBeeEye-19X40W" m="JMS WEBB LED Wash Big Bee Eye 19X40W"/>
     <F n="Shehds-LED-Beam+Wash-19x15W-RGBW-Zoom" m="LED Beam+Wash 19x15W RGBW Zoom Lighting"/>
+    <F n="Shehds-LED-Beam-12x12W-RGBW" m="LED Beam 12x12W RGBW"/>
     <F n="Shehds-LED-Flat-Par-18x18W-RGBWA+UV" m="LED Flat Par 18x18W RGBWA+UV"/>
     <F n="Shehds-LED-Flat-Par-7x18W-RGBWA+UV" m="LED Flat Par 7x18W RGBWA+UV"/>
+    <F n="Shehds-LED-Wall-Wash-18x18W-RGBWA+UV" m="LED Wall Wash 18x18W RGBWA+UV"/>
     <F n="Shehds-Wash-Zoom-36x18W" m="Wash Zoom LED 36x18W RGBWA+UV"/>
   </M>
   <M n="Showlite">
@@ -1706,6 +1711,7 @@
     <F n="Stairville-Tri-Flat-PAR-Profile-5x3W-RGB" m="Tri Flat PAR Profile 5x3W RGB"/>
     <F n="Stairville-TRI-LED-Bundle-Complete" m="Stage TRI LED Bundle Complete"/>
     <F n="Stairville-WGF-2000" m="WGF 2000"/>
+    <F n="Stairville-Wild-Wash-132-LED-CW" m="Wild Wash 132 LED CW"/>
     <F n="Stairville-Wild-Wash-132-RGB-LED" m="Wild Wash 132 RGB LED"/>
     <F n="Stairville-Wild-Wash-9x3W-LED-UV" m="Wild Wash 9x3W LED UV"/>
     <F n="Stairville-xBrick-Full-Colour-16X3W" m="xBrick Full-Colour 16X3W"/>
