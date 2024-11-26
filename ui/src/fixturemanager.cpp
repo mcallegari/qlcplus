@@ -1214,6 +1214,8 @@ void FixtureManager::slotAddRGBPanel()
             }
 
             fxi->setUniverse(m_doc->inputOutputMap()->getUniverseID(uniIndex));
+            if (address + fxi->channels() > 512)
+                fxi->setCrossUniverse(rgb.crossUniverse());
             fxi->setAddress(address);
             m_doc->addFixture(fxi, Fixture::invalidId(), rgb.crossUniverse());
 
