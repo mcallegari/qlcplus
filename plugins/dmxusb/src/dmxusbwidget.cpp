@@ -24,6 +24,7 @@
 #include "dmxusbwidget.h"
 #include "enttecdmxusbpro.h"
 #include "enttecdmxusbopen.h"
+#include "dmxkingmax.h"
 #include "dmxusbopenrx.h"
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
   #include "nanodmx.h"
@@ -141,6 +142,14 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
                     widgetList << ultra;
                 }
                 break;
+                case DMXUSBWidget::DMXKingMax:
+                {
+                    DMXKingMAX *eDmxMax = new DMXKingMAX(iface, output_id);
+                    output_id += eDmxMax->outputsNumber();
+                    input_id += eDmxMax->inputsNumber();
+                    widgetList << eDmxMax;
+                }
+                break;
                 case DMXUSBWidget::DMX4ALL:
                     widgetList << new Stageprofi(iface, output_id++);
                 break;
@@ -169,6 +178,7 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
         }
         else if (iface->vendorID() == DMXInterface::NXPVID && iface->productID() == DMXInterface::DMXKINGMAXPID)
         {
+#if 0
             int ESTAID = 0, DEVID = 0, outNumber;
             QString manName, devName;
             bool isDmxKing = detectDMXKingDevice(iface, manName, devName, ESTAID, DEVID);
@@ -185,6 +195,12 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
                 output_id += outNumber;
                 widgetList << ultra;
             }
+#else
+            DMXKingMAX *eDmxMax = new DMXKingMAX(iface, output_id);
+            output_id += eDmxMax->outputsNumber();
+            input_id += eDmxMax->inputsNumber();
+            widgetList << eDmxMax;
+#endif
         }
         else if (productName.contains("DMX USB PRO") || productName.contains("ULTRADMX"))
         {

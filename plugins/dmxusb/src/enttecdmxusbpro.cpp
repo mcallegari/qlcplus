@@ -351,25 +351,23 @@ bool EnttecDMXUSBPro::extractSerial()
     if (iface()->write(request) == true)
     {
         msleep(50);
-        QByteArray reply;
-        bool notUsed;
-        int bytesRead = readData(iface(), reply, notUsed, false);
+        QByteArray reply = iface()->read(9);
 
-        if (bytesRead != 4)
+        if (reply.length() != 9)
         {
-            qWarning() << Q_FUNC_INFO << name() << "gave malformed serial reply - length:" << bytesRead;
+            qWarning() << Q_FUNC_INFO << name() << "gave malformed serial reply - length:" << reply.length();
             return result;
         }
 
         /* Reply message is:
            { 0x7E 0x0A 0x04 0x00 0xNN, 0xNN, 0xNN, 0xNN 0xE7 }
            Where 0xNN represent widget's unique serial number in BCD */
-        if (bytesRead == 4)
+        if (reply.at(2) == 4)
         {
-            m_proSerial = m_proSerial.asprintf("%x%.2x%.2x%.2x", uchar(reply[3]),
-                                                                 uchar(reply[2]),
-                                                                 uchar(reply[1]),
-                                                                 uchar(reply[0]));
+            m_proSerial = m_proSerial.asprintf("%x%.2x%.2x%.2x", uchar(reply[7]),
+                                                                 uchar(reply[6]),
+                                                                 uchar(reply[5]),
+                                                                 uchar(reply[4]));
             qDebug() << Q_FUNC_INFO << "Serial number OK: " << m_proSerial;
             result = true;
         }

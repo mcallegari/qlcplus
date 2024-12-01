@@ -71,7 +71,8 @@ public:
         OpenTX,     //! Enttec Open widget (only TX)
         OpenRX,     //! FTDI DMX widget with RX capabilities (only RX, use OpenTX for TX)
         ProMk2,     //! Enttec Pro Mk2 widget using 2 TX, 1 RX, 1 MIDI TX and 1 MIDI RX ports
-        UltraPro,   //! DMXKing Ultra Pro widget using 2 TX and 1RX ports
+        UltraPro,   //! DMXKing Ultra Pro widget using 2 TX and 1 RX ports
+        DMXKingMax, //! DMXKing MAX widget using N TX/RX ports
         DMX4ALL,    //! DMX4ALL widget (only TX)
         VinceTX,    //! Vince USB-DMX512 widget using the TX side of the dongle
         Eurolite    //! Eurolite USB DMX512 Pro widget

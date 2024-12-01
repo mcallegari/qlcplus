@@ -48,15 +48,6 @@ if(UNIX)
         # Link your executable against the libftdi1 library
         target_link_libraries(${module_name} PRIVATE ${LIBFTDI1_LINK_LIBRARIES})
 
-        if (APPLE)
-            #include(../../../platforms/macos/nametool.pri)
-            #add_custom_command(TARGET ${module_name}
-            #    COMMAND ${PKG_CONFIG_NAMETOOL} libusb-1.0 libusb-1.0.0.dylib
-            #    COMMAND ${PKG_CONFIG_NAMETOOL} libftdi1 libftdi1.2.dylib
-            #    COMMENT "Creating symlinks for libusb-1.0.0.dylib and libftdi1.2.dylib"
-            #)
-        endif()
-
         message("Building with libFTDI1 support. Version: ${LIBFTDI1_VERSION}")
         set(WITH_LIBFTDI TRUE)
 
@@ -75,14 +66,6 @@ if(UNIX)
         target_compile_definitions(${module_name} PRIVATE LIBFTDI)
         target_link_libraries(${module_name} PRIVATE ${LIBFTDI_LIBRARIES})
 
-        if (APPLE)
-            #include(../../../platforms/macos/nametool.pri)
-            #add_custom_command(TARGET ${module_name}
-            #    COMMAND ${PKG_CONFIG_NAMETOOL} libftdi libftdi.1.dylib
-            #    COMMENT "Creating symlink for libftdi.1.dylib"
-            #)
-        endif()
-
         message("Building with libFTDI support.")
         set(WITH_LIBFTDI TRUE)
 
@@ -96,6 +79,7 @@ target_sources(${module_name} PRIVATE
     ../../interfaces/qlcioplugin.cpp ../../interfaces/qlcioplugin.h
     ../../interfaces/rdmprotocol.cpp ../../interfaces/rdmprotocol.h
     ../../midi/src/common/midiprotocol.cpp ../../midi/src/common/midiprotocol.h
+    ../../artnet/src/artnetpacketizer.cpp ../../artnet/src/artnetpacketizer.h
     dmxinterface.cpp dmxinterface.h
     ${module_name}.cpp ${module_name}.h
     dmxusbconfig.cpp dmxusbconfig.h
@@ -103,6 +87,7 @@ target_sources(${module_name} PRIVATE
     dmxusbwidget.cpp dmxusbwidget.h
     enttecdmxusbopen.cpp enttecdmxusbopen.h
     enttecdmxusbpro.cpp enttecdmxusbpro.h
+    dmxkingmax.cpp dmxkingmax.h
     stageprofi.cpp stageprofi.h
     vinceusbdmx512.cpp vinceusbdmx512.h
 )
@@ -110,12 +95,14 @@ target_sources(${module_name} PRIVATE
 target_include_directories(${module_name} PRIVATE
     ../../interfaces
     ../../midi/src/common
+    ../../artnet/src
 )
 
 target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::Core
     Qt${QT_MAJOR_VERSION}::Gui
     Qt${QT_MAJOR_VERSION}::Widgets
+    Qt${QT_MAJOR_VERSION}::Network
 )
 
 if(UNIX)
