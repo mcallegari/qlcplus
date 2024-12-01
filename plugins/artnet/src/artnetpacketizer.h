@@ -66,6 +66,10 @@ typedef struct
 {
     QString shortName;
     QString longName;
+    int portsNumber;
+    bool isInput;
+    bool isOutput;
+    ushort universe;
     // ... can be extended with more info to be added by fillArtPollReplyInfo
 } ArtNetNodeInfo;
 

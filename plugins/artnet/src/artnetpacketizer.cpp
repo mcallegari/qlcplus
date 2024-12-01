@@ -79,8 +79,8 @@ void ArtNetPacketizer::setupArtNetPollReply(QByteArray &data, QHostAddress ipAdd
     data.append((char)0x19);     // Port MSB
     data.append((char)0x04);     // Version MSB
     data.append((char)0x20);     // Version LSB
-    data.append((char)0x00);     // Sub Switch MSB
-    data.append((char)0x00);     // Sub Switch LSB
+    data.append((char)((universe >> 8) & 0xFF)); // NetSwitch (universe bits 14-8)
+    data.append((char)((universe >> 4) & 0x0F)); // SubSwitch (universe bits 7-4)
     data.append((char)0xFF);     // OEM Value MSB
     data.append((char)0xFF);     // OEM Value LSB
     data.append((char)0x00);     // UBEA version
@@ -114,7 +114,7 @@ void ArtNetPacketizer::setupArtNetPollReply(QByteArray &data, QHostAddress ipAdd
     data.append((char)0x00);     // GoodOutputA[0] - output status port 3
     data.append((char)0x00);     // GoodOutputA[0] - output status port 4
 
-    data.append(isInput ? (char)universe : (char)0x00); // SwIn[0] - port 1
+    data.append(isInput ? char(universe & 0x0F) : (char)0x00); // SwIn[0] - port 1 - (universe bits 3-0)
     data.append((char)0x00);     // SwIn[1] - port 2
     data.append((char)0x00);     // SwIn[2] - port 3
     data.append((char)0x00);     // SwIn[3] - port 4
@@ -234,12 +234,22 @@ bool ArtNetPacketizer::fillArtPollReplyInfo(QByteArray const& data, ArtNetNodeIn
 
     QByteArray shortName = data.mid(26, 18);
     QByteArray longName = data.mid(44, 64);
-    info.shortName = QString(shortName.data()).simplified();
-    info.longName = QString(longName.data()).simplified();
+    QByteArray nodeReport = data.mid(108, 64);
+    uchar inputStatus = uchar(data.at(178));
 
-    qDebug() << "getArtPollReplyInfo shortName: " << info.shortName;
-    qDebug() << "getArtPollReplyInfo longName: " << info.longName;
+    info.shortName = QString(shortName).simplified();
+    info.longName = QString(longName).simplified();
+    info.portsNumber = (uchar(data.at(172)) << 8) + uchar(data.at(173));
+    info.isInput = (inputStatus & 0x04) == 0 ? true : false;
+    info.isOutput = (inputStatus & 0x04) ? true : false;
+    info.universe = (ushort(data.at(18)) << 8) + (ushort(data.at(19)) << 4) + ushort(data.at(186));
 
+#if 0
+    qDebug() << "getArtPollReplyInfo shortName:" << info.shortName;
+    qDebug() << "getArtPollReplyInfo longName:" << info.longName;
+    qDebug() << "getArtPollReplyInfo nodeReport:" << QString(nodeReport).simplified();
+    qDebug() << "getArtPollReplyInfo universe:" << QString::number(info.universe);
+#endif
     return true;
 }
 
