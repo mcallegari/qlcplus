@@ -46,9 +46,15 @@ const quint8 VCSpeedDial::multDivResetInputSourceId = 4;
 const quint8 VCSpeedDial::applyInputSourceId = 5;
 const QSize VCSpeedDial::defaultSize(QSize(200, 175));
 
-static const QString presetBtnSS = "QPushButton { background-color: %1; height: 32px; border: 2px solid #6A6A6A; border-radius: 5px; }"
-                                   "QPushButton:pressed { border: 2px solid #0000FF; }"
-                                   "QPushButton:disabled { border: 2px solid #BBBBBB; color: #8f8f8f }";
+static const QString presetBtnSS =
+    "QPushButton { background-color: %1; height: 32px; border: 2px solid #6A6A6A; border-radius: 5px; }"
+    "QPushButton:pressed { border: 2px solid #0000FF; }"
+    "QPushButton:disabled { border: 2px solid #BBBBBB; color: #8f8f8f }";
+
+static const QString dialSS =
+    "QGroupBox { background-color: %1; border: 2px solid gray; border-radius: 5px; margin-top: 1ex; font-size: %2pt; }"
+    "QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top left; padding: 5px 5px;"
+    "                   background-color: transparent; color: %3; }";
 
 /****************************************************************************
  * Initialization
@@ -160,6 +166,11 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
             this, SLOT(slotUpdate()));
     m_updateTimer->setSingleShot(true);
 
+    m_foregroundColor = palette().color(QPalette::WindowText);
+    m_dial->setStyleSheet(dialSS.arg(palette().color(QPalette::Window).name())
+                              .arg(font().pointSize())
+                              .arg(m_foregroundColor.name()));
+
     slotModeChanged(m_doc->mode());
     setLiveEdit(m_liveEdit);
 }
@@ -236,6 +247,42 @@ bool VCSpeedDial::copyFrom(const VCWidget* widget)
 
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
+}
+
+void VCSpeedDial::setFont(const QFont &font)
+{
+    VCWidget::setFont(font);
+    m_dial->setStyleSheet(dialSS.arg(palette().color(QPalette::Window).name())
+                              .arg(font.pointSize())
+                              .arg(m_foregroundColor.name()));
+}
+
+/*********************************************************************
+ * Background/Foreground color
+ *********************************************************************/
+
+void VCSpeedDial::setBackgroundColor(const QColor &color)
+{
+    VCWidget::setBackgroundColor(color);
+    m_dial->setStyleSheet(dialSS.arg(palette().color(QPalette::Window).name())
+                              .arg(font().pointSize())
+                              .arg(m_foregroundColor.name()));
+}
+
+void VCSpeedDial::setForegroundColor(const QColor &color)
+{
+    m_foregroundColor = color;
+    m_hasCustomForegroundColor = true;
+
+    m_dial->setStyleSheet(dialSS.arg(palette().color(QPalette::Window).name())
+                              .arg(font().pointSize())
+                              .arg(color.name()));
+    m_doc->setModified();
+}
+
+QColor VCSpeedDial::foregroundColor() const
+{
+    return m_foregroundColor;
 }
 
 /*****************************************************************************
