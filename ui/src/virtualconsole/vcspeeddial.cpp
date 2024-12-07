@@ -52,8 +52,8 @@ static const QString presetBtnSS =
     "QPushButton:disabled { border: 2px solid #BBBBBB; color: #8f8f8f }";
 
 static const QString dialSS =
-    "QGroupBox { background-color: %1; border: 2px solid gray; border-radius: 5px; margin-top: 1ex; font-size: %2pt; }"
-    "QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top left; padding: 5px 5px;"
+    "QGroupBox { background-color: %1; border: 1px solid gray; border-radius: 5px; margin-top: 0; font-size: %2pt; }"
+    "QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top left; padding: 0px 5px;"
     "                   background-color: transparent; color: %3; }";
 
 /****************************************************************************
@@ -277,7 +277,7 @@ void VCSpeedDial::setForegroundColor(const QColor &color)
     m_dial->setStyleSheet(dialSS.arg(palette().color(QPalette::Window).name())
                               .arg(font().pointSize())
                               .arg(color.name()));
-    m_doc->setModified();
+    VCWidget::setForegroundColor(color);
 }
 
 QColor VCSpeedDial::foregroundColor() const
