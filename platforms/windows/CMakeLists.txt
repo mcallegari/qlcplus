@@ -9,11 +9,11 @@ else()
 endif()
 
 # Set debug mode
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(QT_D "d")
-else()
-    set(QT_D "")
-endif()
+#if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+#    set(QT_D "d")
+#else()
+#    set(QT_D "")
+#endif()
 
 # Set paths
 # message("${QT_LIBRARY_DIR}")
