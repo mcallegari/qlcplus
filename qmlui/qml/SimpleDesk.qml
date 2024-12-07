@@ -161,8 +161,8 @@ Rectangle
                                 switch(chDisplay)
                                 {
                                     case SimpleDesk.None: return "transparent"
-                                    case SimpleDesk.Odd: return "#414b41"
-                                    case SimpleDesk.Even: return "#42444b"
+                                    case SimpleDesk.Odd: return UISettings.bgFixtureOdd
+                                    case SimpleDesk.Even: return UISettings.bgFixtureEven
                                 }
                             }
                         }

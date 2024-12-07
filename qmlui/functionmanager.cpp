@@ -105,6 +105,8 @@ void FunctionManager::setStartupFunctionID(quint32 fid)
     else
         m_doc->setStartupFunction(fid);
 
+    m_doc->setModified();
+
     emit startupFunctionIDChanged();
 }
 
