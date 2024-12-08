@@ -166,6 +166,10 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
             this, SLOT(slotUpdate()));
     m_updateTimer->setSingleShot(true);
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    // Background color has been moved to Base
+    setBackgroundColor(palette().color(QPalette::Base));
+#endif
     m_foregroundColor = palette().color(QPalette::WindowText);
     m_dial->setStyleSheet(dialSS.arg(palette().color(QPalette::Window).name())
                               .arg(font().pointSize())
