@@ -436,7 +436,7 @@ bool WebAccessNetwork::createWiFiHotspot(QString SSID, QString password)
     getNmcliOutput(QStringList() << "con" << "del" << HOTSPOT_CON_NAME);
 
     // create the connection
-    QString args = "con add type wifi ifname wlan0 mode ap con-name " + HOTSPOT_CON_NAME + " autoconnect no ssid \"" + SSID + "\"";
+    QString args = "con add type wifi ifname wlan0 mode ap con-name " + HOTSPOT_CON_NAME + " autoconnect yes ssid \"" + SSID + "\"";
     getNmcliOutput(args.split(" "));
 
     // modify with proper parameters
