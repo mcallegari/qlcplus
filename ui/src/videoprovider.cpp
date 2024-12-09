@@ -315,6 +315,8 @@ void VideoWidget::slotBrightnessAdjust(int value)
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     if (m_videoWidget != NULL)
         m_videoWidget->setBrightness(value);
+    if (m_videoPlayer)
+        m_videoPlayer->setVolume(value + 100);
 #else
     Q_UNUSED(value)
 #endif
