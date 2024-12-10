@@ -997,7 +997,7 @@ bool Universe::writeRelative(int address, quint32 value, int channelCount)
         for (int i = 0; i < channelCount; i++)
             currentValue = (currentValue << 8) + uchar(m_preGMValues->at(address + i));
 
-        currentValue += (value - RELATIVE_ZERO_16BIT);
+        currentValue = qint32(CLAMP((qint32)currentValue + (qint32)value - RELATIVE_ZERO_16BIT, 0, 0xFFFF));
 
         for (int i = 0; i < channelCount; i++)
         {
