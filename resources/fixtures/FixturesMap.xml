@@ -979,6 +979,7 @@
   </M>
   <M n="Ghost">
     <F n="Ghost-Green-30" m="Green 30"/>
+    <F n="Ghost-Lumy" m="Lumy"/>
     <F n="Ghost-Venum-12W-RGBW" m="Venum 12W RGBW"/>
   </M>
   <M n="GLP">
@@ -1576,6 +1577,7 @@
     <F n="Showtec-LED-Pixel-Track-Pro" m="LED Pixel Track Pro"/>
     <F n="Showtec-LED-Powerline-16-Bar" m="LED Powerline 16 Bar"/>
     <F n="Showtec-Lightbrick" m="Lightbrick"/>
+    <F n="Showtec-Luna-Par-120-Q4" m="Luna Par 120 Q4"/>
     <F n="Showtec-Mini-Max-LED-RGB" m="Mini Max LED RGB"/>
     <F n="Showtec-MiniMax-250" m="MiniMax 250"/>
     <F n="Showtec-MultiDim-MK-III-DMX" m="MultiDim MK III DMX"/>
@@ -1583,6 +1585,7 @@
     <F n="Showtec-Par-64-100W-COB-UV" m="Par 64 100W COB UV"/>
     <F n="Showtec-Performer-2000-RGBAL" m="Performer 2000 RGBAL"/>
     <F n="Showtec-Phantom-130-LED-Spot" m="Phantom 130 LED Spot"/>
+    <F n="Showtec-Phantom-180-Wash" m="Phantom 180 Wash"/>
     <F n="Showtec-Phantom-20-LED-Beam" m="Phantom 20 LED Beam"/>
     <F n="Showtec-Phantom-250-Wash" m="Phantom 250 Wash"/>
     <F n="Showtec-Phantom-250" m="Phantom 250"/>
@@ -1660,6 +1663,7 @@
     <F n="Stairville-FS-x75-Follow-Spot" m="FS-x75 Follow Spot"/>
     <F n="Stairville-HL-x9-Quad-Color-Flood-9x8W" m="HL-x9 Quad Color Flood 9x8W"/>
     <F n="Stairville-Hz-200-DMX" m="Hz-200 DMX"/>
+    <F n="Stairville-Infinite-Pixel-250" m="Infinite Pixel 250"/>
     <F n="Stairville-JunoScan-MKII" m="JunoScan MKII"/>
     <F n="Stairville-LED-BAR-240-8-RGB" m="LED Bar 240/8 RGB"/>
     <F n="Stairville-LED-BAR-RGB-252" m="LED BAR 252 RGB (no. 234564)"/>

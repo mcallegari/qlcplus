@@ -2,10 +2,14 @@ qlcplus (4.13.2) stable; urgency=low
 
   * engine: fix flashing fade out
   * engine: add stopOnExit, waitFunctionStart and waitFunctionStop commands to Script - see documentation (thanks to ldebs)
+  * UI: adjust audio volume on video intensity change
   * UI/Fixture Manager: limit the number of RGB panel columns for RGBW to avoid crash
   * UI/Show Manager: show step notes on the timeline (thanks to anarchid)
   * UI/Show Manager: handle CTRL+mouse wheel to zoom in/out
+  * Virtual Console/Slider: send feedback on override button press
+  * Virtual Console/Sped Dial: fix foreground color setting on Windows
   * Plugins/OS2L: fix receiving multiple messages at once
+  * Web Access: reworked websocket implementation
   * Web Access: fix grand master stopping running functions
   * Web Access: fix simple desk not resetting the current universe
   * RGB scripts: added 'Sine Wave' script
@@ -21,6 +25,8 @@ qlcplus (4.13.2) stable; urgency=low
   * New fixture: Shehds LED Beam 12x12W RGBW (thanks to Lukas Hanisch)
   * New fixture: Chauvet EVE P-160 RGBW (thanks to Max Wheatley)
   * New fixture: Stairville Wild Wash 132 LED CW (thanks to e-shock)
+  * New fixture: Showtec Luna Par 120 Q4, Showtec Phantom 180 Wash, Stairville Infinite Pixel 250
+  * New fixture: Ghost Lumy (thanks to Manu)
 
   -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 29 Dec 2024 18:19:20 +0200
 
