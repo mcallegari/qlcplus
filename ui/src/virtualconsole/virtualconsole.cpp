@@ -133,6 +133,7 @@ VirtualConsole::VirtualConsole(QWidget* parent, Doc* doc)
     , m_contents(NULL)
 
     , m_liveEdit(false)
+    , m_keyboardScroll(true)
 {
     Q_ASSERT(s_instance == NULL);
     s_instance = this;
@@ -1583,7 +1584,7 @@ void VirtualConsole::initContents()
 {
     Q_ASSERT(layout() != NULL);
 
-    m_scrollArea = new QScrollArea(this);
+    m_scrollArea = new VCScrollArea(this);
     m_contentsLayout->addWidget(m_scrollArea);
     m_scrollArea->setAlignment(Qt::AlignCenter);
     m_scrollArea->setWidgetResizable(false);
@@ -1707,6 +1708,9 @@ void VirtualConsole::enableEdit()
     m_stackingRaiseAction->setShortcut(QKeySequence("SHIFT+UP"));
     m_stackingLowerAction->setShortcut(QKeySequence("SHIFT+DOWN"));
 
+    // disable key passthru
+    m_scrollArea->setKeyPassthruEnabled(false);
+
     // Show toolbar
     m_toolbar->show();
 }
@@ -1758,6 +1762,10 @@ void VirtualConsole::disableEdit()
 
     m_stackingRaiseAction->setShortcut(QKeySequence());
     m_stackingLowerAction->setShortcut(QKeySequence());
+
+
+    // manage key passthru
+    m_scrollArea->setKeyPassthruEnabled(!m_keyboardScroll);
 
     // Hide toolbar; there's nothing usable there in operate mode
     m_toolbar->hide();
@@ -1821,6 +1829,7 @@ bool VirtualConsole::loadXML(QXmlStreamReader &root)
             QSize size(m_properties.size());
             contents()->resize(size);
             contents()->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+            m_keyboardScroll = m_properties.keyboardScroll();
         }
         else if (root.name() == KXMLQLCVCFrame)
         {
