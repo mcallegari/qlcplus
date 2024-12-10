@@ -163,7 +163,7 @@ private:
      * Keypad
      ************************************************************************/
 public:
-    Q_INVOKABLE void sendKeypadCommand(QString command);
+    Q_INVOKABLE bool sendKeypadCommand(QString command);
 
     /** Return a list of the last N commands
      *  entered on the keypad */

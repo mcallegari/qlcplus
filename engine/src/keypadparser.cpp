@@ -18,6 +18,7 @@
 */
 
 #include <cmath>
+#include <QDebug>
 
 #include "keypadparser.h"
 #include "qlcmacros.h"
@@ -32,7 +33,7 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command,
                                              QByteArray &uniData)
 {
     QList<SceneValue> values;
-    if (doc == NULL)
+    if (doc == NULL || command.isEmpty())
         return values;
 
     QStringList tokens = command.split(" ");
@@ -61,16 +62,12 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command,
         }
         else if (token == "FULL")
         {
-            if (lastCommand == CommandAT)
-                toValue = 255;
-
+            toValue = 255;
             lastCommand = CommandFULL;
         }
         else if (token == "ZERO")
         {
-            if (lastCommand == CommandAT)
-                toValue = 0;
-
+            toValue = 0;
             lastCommand = CommandZERO;
         }
         else if (token == "BY")
@@ -89,7 +86,6 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command,
         {
             lastCommand = CommandPlusPercent;
         }
-
         else if (token == "-%")
         {
             lastCommand = CommandMinusPercent;
@@ -114,11 +110,13 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command,
             {
                 case CommandNone:
                     // no command: this is a channel number
-                    if (number <= 0)
+                    if (number <= 1)
                         break;
 
                     fromChannel = number;
                     toChannel = fromChannel;
+                    fromValue = uchar(uniData.at(number - 1));
+                    toValue = fromValue;
                     channelSet = true;
                 break;
                 case CommandAT:
