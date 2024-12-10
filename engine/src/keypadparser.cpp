@@ -18,7 +18,6 @@
 */
 
 #include <cmath>
-#include <QDebug>
 
 #include "keypadparser.h"
 #include "qlcmacros.h"
@@ -110,7 +109,7 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command,
             {
                 case CommandNone:
                     // no command: this is a channel number
-                    if (number <= 1)
+                    if (number <= 0)
                         break;
 
                     fromChannel = number;
