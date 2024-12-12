@@ -128,6 +128,6 @@
   <Dimensions Weight="8.82" Width="250" Height="330" Depth="180"/>
   <Lens Name="Other" DegreesMin="60" DegreesMax="60"/>
   <Focus Type="Barrel" PanMax="90" TiltMax="75"/>
-  <Technical PowerConsumption="250" DmxConnector="3-pin RJ45 IP65"/>
+  <Technical PowerConsumption="250" DmxConnector="3-pin IP65"/>
  </Physical>
 </FixtureDefinition>

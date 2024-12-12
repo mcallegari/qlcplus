@@ -147,6 +147,6 @@
   <Dimensions Weight="12.52" Width="300" Height="210" Depth="560"/>
   <Lens Name="Other" DegreesMin="3.5" DegreesMax="38"/>
   <Focus Type="Head" PanMax="450" TiltMax="270"/>
-  <Technical PowerConsumption="300" DmxConnector="3-pin and 5-pin IP20"/>
+  <Technical PowerConsumption="300" DmxConnector="3-pin and 5-pin"/>
  </Physical>
 </FixtureDefinition>

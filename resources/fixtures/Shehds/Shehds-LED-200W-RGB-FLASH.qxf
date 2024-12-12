@@ -139,6 +139,6 @@
   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
   <Layout Width="8" Height="1"/>
-  <Technical PowerConsumption="216" DmxConnector="3-pin IP20"/>
+  <Technical PowerConsumption="216" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>
