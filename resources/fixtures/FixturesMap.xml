@@ -921,6 +921,7 @@
     <F n="Fun-Generation-PicoBeam-60" m="PicoBeam 60"/>
     <F n="Fun-Generation-PicoSpot-20" m="PicoSpot 20"/>
     <F n="Fun-Generation-PicoWash-40-Pixel-Quad-LED" m="PicoWash 40 Pixel Quad LED"/>
+    <F n="Fun-Generation-PicoWash-40Z-Pixel-Quad-LED" m="PicoWash 40Z Pixel Quad LED"/>
     <F n="Fun-Generation-SePar-Hex-LED-RGBAW-UV-IR" m="SePar Hex LED RGBAW UV IR"/>
     <F n="Fun-Generation-SePar-Quad-UV" m="SePar Quad UV"/>
   </M>
@@ -1038,6 +1039,7 @@
     <F n="Ibiza-PAR-LED-710" m="PAR LED 710"/>
     <F n="Ibiza-PAR-LED-712IR" m="PAR LED 712IR"/>
     <F n="Ibiza-PAR-LED50-COB" m="PAR LED50-COB"/>
+    <F n="Ibiza-Star-Beam" m="Star Beam"/>
   </M>
   <M n="IMG_Stageline">
     <F n="IMG-Stageline-BEAM-40-WS-RGBW" m="BEAM-40 WS/RGBW"/>
@@ -1254,6 +1256,7 @@
     <F n="Martin-MAC-101" m="MAC 101"/>
     <F n="Martin-MAC-2000-Performance-II" m="MAC 2000 Performance II"/>
     <F n="Martin-MAC-2000-Profile-II" m="MAC 2000 Profile II"/>
+    <F n="Martin-MAC-2000-Wash" m="MAC 2000 Wash"/>
     <F n="Martin-MAC-250-Wash" m="MAC 250 Wash"/>
     <F n="Martin-MAC-301-Wash" m="MAC 301 Wash"/>
     <F n="Martin-Mac-350-Entour" m="MAC 350 Entour"/>
@@ -1547,6 +1550,7 @@
     <F n="Showtec-ACT-PC-60-RGBW" m="ACT PC 60 RGBW"/>
     <F n="Showtec-Atmos-F-350" m="Atmos F-350"/>
     <F n="Showtec-Blade-Runner" m="Blade Runner"/>
+    <F n="Showtec-Club-Par-12-4-RGBW" m="Club Par 12-4 RGBW"/>
     <F n="Showtec-Club-Par-12x6-RGBWAUV" m="Club Par 12-6 RGBWAUV"/>
     <F n="Showtec-Compact-Par-18-MKII" m="Compact Par 18 MKII"/>
     <F n="Showtec-Compact-Par-18-Tri-MKII" m="Compact Par 18 Tri MKII"/>
@@ -1776,6 +1780,7 @@
     <F n="TSSS-XL35" m="XL35"/>
   </M>
   <M n="UKing">
+    <F n="UKing-36W-UV-PAR" m="36W PAR UV ZQ01087"/>
     <F n="UKing-4-Head-Beam-RGBW" m="4 Head Beam RGBW"/>
     <F n="UKing-7x10W-Mini-Moving-Head" m="7x10W Mini Moving Head"/>
     <F n="UKing-B55-Par-Can-12-LED-RGBW-12W" m="B55 Par Can 12 LED RGBW 12W"/>

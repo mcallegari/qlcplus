@@ -48,7 +48,7 @@ qlcplus (4.13.1) stable; urgency=low
   * New fixtures: beamZ BAC500 and BAC506 (thanks to Olivier Michel)
   * New fixtures: American DJ Par Z4, beamZ SB400, OXO ColorBeam 7 FCW IR, Pro-Lights Pixie Spot (thanks to Dmitry Kolesnikov)
   * New fixtures: BoomToneDJ LED PAR 7X10W 5in1, BoomToneDJ Maxi Spot 60, Mac Mah FLAT PAR 7x12W 6in1, Eurolite LED PIX-16 QCL Bar (thanks to Cédric Monféfoul)
-  * New fixture: Showtec ACT PC 60 RGBW (thanks to Michel Sliepenbeek)
+  * New fixtures: Showtec ACT PC 60 RGBW, Ibiza Star Beam (thanks to Michel Sliepenbeek)
   * New fixtures: Robe LEDBeam 350, Robe LEDBeam 350 RGBA, Briteq COB Blinder 2x100W, Ayrton MiniPanel FX (thanks to Giacomo Gorini)
   * New fixture: Elation ELED B48 (thanks to Xoneoo)
   * New fixture: beamZ PS10W (thanks to Jesper Korsen)
@@ -56,9 +56,12 @@ qlcplus (4.13.1) stable; urgency=low
   * New fixtures: Mac Mah Moving-FX Bar, Varytec LED Pad Bar Compact ST RGB, Laserworld EL-400RGB MK2 (thanks to Clément Delabroye)
   * New fixtures: Electroconcept Club Scan 30, Club Scan 120, LED Blinder, Profile 120 Spot LED, Micro Spot 60 LED (thanks to Clément Delabroye)
   * New fixture: Ayrton Mistral (thanks to Masatoshi Fujino)
-  * New fixture: Chauvet COLORtube 3.0 EQ Controller (thanks to Fede79)
+  * New fixtures: Chauvet COLORtube 3.0 EQ Controller, Martin MAC 2000 Wash (thanks to Fede79)
   * New fixture: Shehds Big Bee Eyes LED Wash 19x40W RGBW (thanks to István Király)
   * New fixture: Fun-Generation Mr. Beam 120 W (thanks to Mariano)
+  * New fixture: UKing 36W PAR UV ZQ01087 (thanks to Lance Moore)
+  * New fixture: Showtec Club Par 12-4 RGBW (thanks to Simon Dovicovic)
+  * New fixture: Fun-Generation PicoWash 40Z Pixel Quad LED (thanks to Kristers)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Thu, 30 May 2024 18:19:20 +0200
 
