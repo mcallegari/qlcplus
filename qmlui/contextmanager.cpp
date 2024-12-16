@@ -554,7 +554,7 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
     int headIdx = FixtureUtils::itemHeadIndex(itemID);
 
     if (enable)
-        qDebug() << "Selected itemID" << itemID << ", fixture ID" << fixtureID << ", head" << headIdx;
+        qDebug() << "Selected itemID" << itemID << ", fixture ID" << fixtureID << ", head from item" << headIdx << "head passed" << headIndex;
 
     if (m_selectedFixtures.contains(itemID))
     {
@@ -585,35 +585,40 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
     if (fixture == nullptr)
         return;
 
-    m_fixtureManager->setItemRoleData(itemID, enable ? 2 : 0, TreeModel::IsSelectedRole);
+    if (headIndex == -1)
+        m_fixtureManager->setItemRoleData(itemID, enable ? 2 : 0, TreeModel::IsSelectedRole);
 
     if (m_DMXView->isEnabled())
         m_DMXView->updateFixtureSelection(fixtureID, enable);
 
-    if (headIndex == -1 && fixture->type() == QLCFixtureDef::Dimmer)
+    // update fixture selection only if whole fixture is selected (not a specific head)
+    if (headIndex == -1)
     {
-        for (quint32 &subID : m_monProps->fixtureIDList(fixtureID))
+        if (fixture->type() == QLCFixtureDef::Dimmer)
         {
-            quint16 hIndex = m_monProps->fixtureHeadIndex(subID);
-            quint16 lIndex = m_monProps->fixtureLinkedIndex(subID);
+            for (quint32 &subID : m_monProps->fixtureIDList(fixtureID))
+            {
+                quint16 hIndex = m_monProps->fixtureHeadIndex(subID);
+                quint16 lIndex = m_monProps->fixtureLinkedIndex(subID);
 
-            if (lIndex != linkedIndex)
-                continue;
+                if (lIndex != linkedIndex)
+                    continue;
 
-            quint32 id = FixtureUtils::fixtureItemID(fixtureID, hIndex, linkedIndex);
+                quint32 id = FixtureUtils::fixtureItemID(fixtureID, hIndex, linkedIndex);
 
-            if (m_2DView->isEnabled())
-                m_2DView->updateFixtureSelection(id, enable);
-            if (m_3DView->isEnabled())
-                m_3DView->updateFixtureSelection(id, enable);
+                if (m_2DView->isEnabled())
+                    m_2DView->updateFixtureSelection(id, enable);
+                if (m_3DView->isEnabled())
+                    m_3DView->updateFixtureSelection(id, enable);
+            }
         }
-    }
-    else
-    {
-        if (m_2DView->isEnabled())
-            m_2DView->updateFixtureSelection(itemID, enable);
-        if (m_3DView->isEnabled())
-            m_3DView->updateFixtureSelection(itemID, enable);
+        else
+        {
+            if (m_2DView->isEnabled())
+                m_2DView->updateFixtureSelection(itemID, enable);
+            if (m_3DView->isEnabled())
+                m_3DView->updateFixtureSelection(itemID, enable);
+        }
     }
 
     QMultiHash<int, SceneValue> channels = m_fixtureManager->getFixtureCapabilities(itemID, headIndex, enable);
@@ -662,6 +667,7 @@ void ContextManager::setFixtureIDSelection(quint32 fixtureID, bool enable)
 
 void ContextManager::resetFixtureSelection()
 {
+/*
     for (Fixture *fixture : m_doc->fixtures()) // C++11
     {
         if (fixture == nullptr)
@@ -675,6 +681,12 @@ void ContextManager::resetFixtureSelection()
             setFixtureSelection(itemID, -1, false);
         }
     }
+*/
+    for (quint32 itemID : m_selectedFixtures)
+        setFixtureSelection(itemID, -1, false);
+
+    m_selectedFixtures.clear();
+    m_channelsMap.clear();
 }
 
 void ContextManager::toggleFixturesSelection()
