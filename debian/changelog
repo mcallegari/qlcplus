@@ -62,6 +62,8 @@ qlcplus (4.13.1) stable; urgency=low
   * New fixture: UKing 36W PAR UV ZQ01087 (thanks to Lance Moore)
   * New fixture: Showtec Club Par 12-4 RGBW (thanks to Simon Dovicovic)
   * New fixture: Fun-Generation PicoWash 40Z Pixel Quad LED (thanks to Kristers)
+  * New fixture: Chauvet Ovation H-605FC (thanks to Ken Coughlin)
+  * New fixture: Martin smartMAC (thanks to Mads Vejrup)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Thu, 30 May 2024 18:19:20 +0200
 

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.13.0 GIT</Version>
+  <Version>5.0.0 Beta 3</Version>
   <Author>Michael Tosatto</Author>
  </Creator>
  <Manufacturer>Acme</Manufacturer>
@@ -2153,6 +2153,18 @@
   <Channel Number="158">LINE_RGB Green 24</Channel>
   <Channel Number="159">LINE_RGB Blue 24</Channel>
   <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
    <Channel>8</Channel>
    <Channel>9</Channel>
    <Channel>10</Channel>
@@ -2203,12 +2215,16 @@
   <Head>
    <Channel>40</Channel>
    <Channel>41</Channel>
+  </Head>
+  <Head>
    <Channel>42</Channel>
    <Channel>43</Channel>
   </Head>
   <Head>
    <Channel>44</Channel>
    <Channel>45</Channel>
+  </Head>
+  <Head>
    <Channel>46</Channel>
    <Channel>47</Channel>
   </Head>
@@ -2295,138 +2311,122 @@
   <Head>
    <Channel>88</Channel>
    <Channel>89</Channel>
-  </Head>
-  <Head>
    <Channel>90</Channel>
-   <Channel>91</Channel>
   </Head>
   <Head>
+   <Channel>91</Channel>
    <Channel>92</Channel>
    <Channel>93</Channel>
   </Head>
   <Head>
    <Channel>94</Channel>
    <Channel>95</Channel>
+   <Channel>96</Channel>
   </Head>
   <Head>
-   <Channel>96</Channel>
    <Channel>97</Channel>
    <Channel>98</Channel>
+   <Channel>99</Channel>
   </Head>
   <Head>
-   <Channel>99</Channel>
    <Channel>100</Channel>
    <Channel>101</Channel>
+   <Channel>102</Channel>
   </Head>
   <Head>
-   <Channel>102</Channel>
    <Channel>103</Channel>
    <Channel>104</Channel>
+   <Channel>105</Channel>
   </Head>
   <Head>
-   <Channel>105</Channel>
    <Channel>106</Channel>
    <Channel>107</Channel>
+   <Channel>108</Channel>
   </Head>
   <Head>
-   <Channel>108</Channel>
    <Channel>109</Channel>
    <Channel>110</Channel>
+   <Channel>111</Channel>
   </Head>
   <Head>
-   <Channel>111</Channel>
    <Channel>112</Channel>
    <Channel>113</Channel>
+   <Channel>114</Channel>
   </Head>
   <Head>
-   <Channel>114</Channel>
    <Channel>115</Channel>
    <Channel>116</Channel>
+   <Channel>117</Channel>
   </Head>
   <Head>
-   <Channel>117</Channel>
    <Channel>118</Channel>
    <Channel>119</Channel>
+   <Channel>120</Channel>
   </Head>
   <Head>
-   <Channel>120</Channel>
    <Channel>121</Channel>
    <Channel>122</Channel>
+   <Channel>123</Channel>
   </Head>
   <Head>
-   <Channel>123</Channel>
    <Channel>124</Channel>
    <Channel>125</Channel>
+   <Channel>126</Channel>
   </Head>
   <Head>
-   <Channel>126</Channel>
    <Channel>127</Channel>
    <Channel>128</Channel>
+   <Channel>129</Channel>
   </Head>
   <Head>
-   <Channel>129</Channel>
    <Channel>130</Channel>
    <Channel>131</Channel>
+   <Channel>132</Channel>
   </Head>
   <Head>
-   <Channel>132</Channel>
    <Channel>133</Channel>
    <Channel>134</Channel>
+   <Channel>135</Channel>
   </Head>
   <Head>
-   <Channel>135</Channel>
    <Channel>136</Channel>
    <Channel>137</Channel>
+   <Channel>138</Channel>
   </Head>
   <Head>
-   <Channel>138</Channel>
    <Channel>139</Channel>
    <Channel>140</Channel>
+   <Channel>141</Channel>
   </Head>
   <Head>
-   <Channel>141</Channel>
    <Channel>142</Channel>
    <Channel>143</Channel>
+   <Channel>144</Channel>
   </Head>
   <Head>
-   <Channel>144</Channel>
    <Channel>145</Channel>
    <Channel>146</Channel>
+   <Channel>147</Channel>
   </Head>
   <Head>
-   <Channel>147</Channel>
    <Channel>148</Channel>
    <Channel>149</Channel>
+   <Channel>150</Channel>
   </Head>
   <Head>
-   <Channel>150</Channel>
    <Channel>151</Channel>
    <Channel>152</Channel>
+   <Channel>153</Channel>
   </Head>
   <Head>
-   <Channel>153</Channel>
    <Channel>154</Channel>
    <Channel>155</Channel>
+   <Channel>156</Channel>
   </Head>
   <Head>
-   <Channel>156</Channel>
    <Channel>157</Channel>
    <Channel>158</Channel>
-  </Head>
-  <Head>
    <Channel>159</Channel>
-   <Channel>160</Channel>
-   <Channel>161</Channel>
-  </Head>
-  <Head>
-   <Channel>162</Channel>
-   <Channel>163</Channel>
-   <Channel>164</Channel>
-  </Head>
-  <Head>
-   <Channel>165</Channel>
-   <Channel>166</Channel>
-   <Channel>167</Channel>
   </Head>
  </Mode>
  <Mode Name="21 Channel">

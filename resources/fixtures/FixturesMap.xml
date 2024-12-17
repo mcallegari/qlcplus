@@ -522,6 +522,7 @@
     <F n="Chauvet-Ovation-F-415FC" m="Ovation F-415FC"/>
     <F n="Chauvet-Ovation-F-915FC" m="Ovation F-915FC"/>
     <F n="Chauvet-Ovation-FD-165WW" m="Ovation FD-165WW"/>
+    <F n="Chauvet-Ovation-H-605FC" m="Ovation H-605FC"/>
     <F n="Chauvet-Ovation-P-56FC" m="Ovation P-56FC"/>
     <F n="Chauvet-Q-Beam-260-LED" m="Q-Beam 260-LED"/>
     <F n="Chauvet-Q-Spot-250" m="Q-Spot 250"/>
@@ -1302,6 +1303,7 @@
     <F n="Martin-SCX-600" m="SCX-600"/>
     <F n="Martin-SCX-700" m="SCX-700"/>
     <F n="Martin-SCX-800" m="SCX-800"/>
+    <F n="Martin-smartMAC" m="smartMAC"/>
     <F n="Martin-Thrill-Mini-Profile" m="Thrill Mini Profile"/>
     <F n="Martin-Viper-AirFX" m="Mac Viper AirFX"/>
   </M>
