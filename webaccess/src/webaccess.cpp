@@ -622,9 +622,9 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             quint32 wID = cmdList[2].toUInt();
             VCWidget *widget = m_vc->widget(wID);
             if (widget != NULL)
-                wsAPIMessage.append(widget->typeToString(widget->type()));
+                wsAPIMessage.append(QString("%1|%2").arg(widget->id()).arg(widget->typeToString(widget->type())));
             else
-                wsAPIMessage.append(widget->typeToString(VCWidget::UnknownWidget));
+                wsAPIMessage.append(QString("%1|%2").arg(widget->id()).arg(widget->typeToString(VCWidget::UnknownWidget)));
         }
         else if (apiCmd == "getWidgetStatus")
         {
@@ -635,6 +635,9 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             VCWidget *widget = m_vc->widget(wID);
             if (widget != NULL)
             {
+                // add widget ID to the response
+                wsAPIMessage.append(QString("%1|").arg(widget->id()));
+
                 switch(widget->type())
                 {
                     case VCWidget::ButtonWidget:

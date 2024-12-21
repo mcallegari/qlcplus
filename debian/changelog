@@ -12,6 +12,7 @@ qlcplus (4.13.2) stable; urgency=low
   * Web Access: reworked websocket implementation
   * Web Access: fix grand master stopping running functions
   * Web Access: fix simple desk not resetting the current universe
+  * Web Access: add widget ID to getWidgetType and getWidgetStatus response
   * RGB scripts: added 'Sine Wave' script
   * RGB scripts: fix Vertical Fall not allowing changing color when cloned
   * New fixtures: GLP Impression X5, Ayrton Rivale Profile, Ayrton Kyalami (thanks to Masatoshi Fujino)
@@ -28,6 +29,8 @@ qlcplus (4.13.2) stable; urgency=low
   * New fixture: Showtec Luna Par 120 Q4, Showtec Phantom 180 Wash, Stairville Infinite Pixel 250
   * New fixture: Ghost Lumy (thanks to Manu)
   * New fixture: Shehds LED 200W RGB FLASH, GalaxyJet LED Beam 300W Beam&Spot&Wash, Constellaser 12W Waterproof Scan Laser (thanks to Tóth János)
+  * New fixture: Chauvet Ovation H-605FC (thanks to Ken Coughlin)
+  * New fixture: Martin smartMAC (thanks to Mads Vejrup)
 
   -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 29 Dec 2024 18:19:20 +0200
 
@@ -62,8 +65,6 @@ qlcplus (4.13.1) stable; urgency=low
   * New fixture: UKing 36W PAR UV ZQ01087 (thanks to Lance Moore)
   * New fixture: Showtec Club Par 12-4 RGBW (thanks to Simon Dovicovic)
   * New fixture: Fun-Generation PicoWash 40Z Pixel Quad LED (thanks to Kristers)
-  * New fixture: Chauvet Ovation H-605FC (thanks to Ken Coughlin)
-  * New fixture: Martin smartMAC (thanks to Mads Vejrup)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Thu, 30 May 2024 18:19:20 +0200
 
