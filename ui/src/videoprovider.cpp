@@ -318,7 +318,8 @@ void VideoWidget::slotBrightnessAdjust(int value)
     if (m_videoPlayer)
         m_videoPlayer->setVolume(value + 100);
 #else
-    Q_UNUSED(value)
+    if (m_audioOutput)
+        m_audioOutput->setVolume(value + 100);
 #endif
 }
 
