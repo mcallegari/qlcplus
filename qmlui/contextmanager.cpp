@@ -420,10 +420,13 @@ void ContextManager::resetContexts()
 {
     m_channelsMap.clear();
     resetDumpValues();
+
     for (quint32 &itemID : m_selectedFixtures)
         setFixtureSelection(itemID, -1, false);
-
     m_selectedFixtures.clear();
+
+    m_functionManager->setEditorFunction(-1, true, false);
+    m_functionManager->selectFunctionID(-1, false);
     m_editingEnabled = false;
 
     emit environmentSizeChanged();

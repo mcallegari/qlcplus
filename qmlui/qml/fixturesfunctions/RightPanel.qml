@@ -86,7 +86,7 @@ SidePanel
             loaderSource = fEditor
             animatePanel(true)
             addFunction.checked = false
-            funcEditor.checked = true
+            funcManagerButton.checked = true
         }
     }
 
@@ -98,8 +98,17 @@ SidePanel
         // reset the currently loaded item first
         loaderSource = ""
         itemID = funcID
-        loaderSource = functionManager.getEditorResource(funcID)
-        animatePanel(true)
+
+        if (funcID === -1)
+        {
+            animatePanel(false)
+            funcManagerButton.checked = false
+        }
+        else
+        {
+            loaderSource = functionManager.getEditorResource(funcID)
+            animatePanel(true)
+        }
     }
 
     onContentLoaded:
@@ -139,7 +148,7 @@ SidePanel
 
             animatePanel(true)
             addFunction.checked = false
-            funcEditor.checked = true
+            funcManagerButton.checked = true
         }
     }
 
@@ -168,7 +177,7 @@ SidePanel
 
             IconButton
             {
-                id: funcEditor
+                id: funcManagerButton
                 z: 2
                 width: iconSize
                 height: iconSize

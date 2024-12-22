@@ -607,6 +607,13 @@ void FunctionManager::setEditorFunction(quint32 fID, bool requestUI, bool back)
     if ((int)fID == -1)
     {
         emit isEditingChanged(false);
+
+        if (requestUI == true)
+        {
+            QQuickItem *rightPanel = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("funcRightPanel"));
+            if (rightPanel != nullptr)
+                QMetaObject::invokeMethod(rightPanel, "requestEditor", Q_ARG(QVariant, -1), Q_ARG(QVariant, 0));
+        }
         return;
     }
 
