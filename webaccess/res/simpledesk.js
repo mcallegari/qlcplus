@@ -151,7 +151,7 @@ function resetUniverse() {
  currentPage = 1;
  var pgObj = document.getElementById("pageDiv");
  pgObj.innerHTML = currentPage;
- var wsMsg = "QLC+API|sdResetUniverse";
+ var wsMsg = "QLC+API|sdResetUniverse|" + currentUniverse;
  websocket.send(wsMsg);
  getPage(currentUniverse, currentPage);
 }

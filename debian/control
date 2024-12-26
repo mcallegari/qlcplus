@@ -12,6 +12,7 @@ Build-Depends:
  libsndfile1-dev,
  qtbase5-dev, qtscript5-dev,
  qtmultimedia5-dev, libqt5serialport5-dev,
+ libqt5websockets5-dev,
  libstdc++-dev,
  libudev-dev,
  libusb-1.0-0-dev (>= 2:0.1.12),

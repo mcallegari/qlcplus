@@ -288,7 +288,7 @@ public:
     FaderMode stringToFaderMode(QString modeStr);
     QString faderModeToString(FaderMode mode);
     bool isSideFaderVisible();
-    bool sideFaderButtonChecked();
+    bool sideFaderButtonIsChecked();
     QString topPercentageValue();
     QString bottomPercentageValue();
     QString topStepValue();
@@ -299,6 +299,7 @@ public:
 signals:
     void sideFaderButtonToggled();
     void sideFaderValueChanged();
+    void sideFaderButtonChecked();
 
 public slots:
     void slotSideFaderButtonChecked(bool enable);

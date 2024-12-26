@@ -35,7 +35,8 @@ Entity
 
     property int itemID: fixtureManager.invalidFixture()
     property bool isSelected: false
-    property int headsNumber: 1
+    property int headsNumber: 0
+    property size headsLayout: Qt.size(1, 1)
     property vector3d phySize: Qt.vector3d(1, 0.1, 0.1)
     property bool useScattering: false
     property bool useShadows: false
@@ -114,7 +115,8 @@ Entity
                 id: headDelegate
                 property real dimmerValue: 0
                 property real lightIntensity: dimmerValue * shutterValue
-                property real headWidth: phySize.x / fixtureEntity.headsNumber
+                property real headWidth: phySize.x / headsLayout.width
+                property real headHeight: phySize.z / headsLayout.height
                 property color lightColor: Qt.rgba(0, 0, 0, 1)
 
                 enabled: lightIntensity === 0 || lightColor === Qt.rgba(0, 0, 0, 1) ? false : true
@@ -123,15 +125,21 @@ Entity
                 {
                     id: headMesh
                     width: headWidth
-                    height: phySize.z
+                    height: headHeight
                     meshResolution: Qt.size(2, 2)
                 }
 
                 property Transform headTransform:
                     Transform
                     {
-                        translation: Qt.vector3d(-(phySize.x / 2) + (headWidth * index) + (headWidth / 2),
-                                                 (phySize.y / 2) + 0.001, 0)
+                        translation: {
+                            var row = Math.floor(index / headsLayout.width)
+                            var column = index % headsLayout.width
+                            var xPos = (column * headWidth) + (headWidth / 2)
+                            var zPos = (row * headHeight) + (headHeight / 2)
+
+                            return Qt.vector3d(-(phySize.x / 2) + xPos, (phySize.y / 2) + 0.001, -(phySize.z / 2) + zPos)
+                        }
                     }
 
                 property Material headMaterial:

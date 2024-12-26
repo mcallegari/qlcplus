@@ -395,7 +395,7 @@ public:
     virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
 
     /** Get/Set the status of the flash button enablement */
-    bool playbackFlashEnable();
+    bool playbackFlashEnable() const;
     void setPlaybackFlashEnable(bool enable);
 
 protected:
@@ -493,6 +493,8 @@ public:
     SliderWidgetStyle stringToWidgetStyle(QString style);
 
     void updateFeedback();
+
+    void updateOverrideFeedback(bool on);
 
 signals:
     void requestSliderUpdate(int value);

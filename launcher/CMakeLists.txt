@@ -19,7 +19,7 @@ else()
     qt5_add_translation(QM_FILES ${TS_FILES})
 endif()
 
-add_executable(${module_name} MACOSX_BUNDLE
+add_executable(${module_name}
     launcher.cpp launcher.h
     main.cpp
     ${QM_FILES}

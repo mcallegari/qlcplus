@@ -910,13 +910,13 @@ void FixtureManager::initActions()
     m_newGroupAction = new QAction(tr("New Group..."), this);
 
     m_moveUpAction = new QAction(QIcon(":/up.png"),
-                                 tr("Move group up..."), this);
+                                 tr("Move channel group up..."), this);
     m_moveUpAction->setEnabled(false);
     connect(m_moveUpAction, SIGNAL(triggered(bool)),
             this, SLOT(slotMoveGroupUp()));
 
     m_moveDownAction = new QAction(QIcon(":/down.png"),
-                                 tr("Move group down..."), this);
+                                 tr("Move channel group down..."), this);
     m_moveDownAction->setEnabled(false);
     connect(m_moveDownAction, SIGNAL(triggered(bool)),
             this, SLOT(slotMoveGroupDown()));

@@ -420,10 +420,13 @@ void ContextManager::resetContexts()
 {
     m_channelsMap.clear();
     resetDumpValues();
+
     for (quint32 &itemID : m_selectedFixtures)
         setFixtureSelection(itemID, -1, false);
-
     m_selectedFixtures.clear();
+
+    m_functionManager->setEditorFunction(-1, true, false);
+    m_functionManager->selectFunctionID(-1, false);
     m_editingEnabled = false;
 
     emit environmentSizeChanged();
@@ -474,7 +477,6 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
             break;
         }
     }
-
 
     for (PreviewContext *context : m_contextsMap.values()) // C++11
         context->handleKeyEvent(e, true);
@@ -554,6 +556,9 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
     int linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
     int headIdx = FixtureUtils::itemHeadIndex(itemID);
 
+    if (enable)
+        qDebug() << "Selected itemID" << itemID << ", fixture ID" << fixtureID << ", head from item" << headIdx << "head passed" << headIndex;
+
     if (m_selectedFixtures.contains(itemID))
     {
         if (enable == false)
@@ -583,35 +588,40 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
     if (fixture == nullptr)
         return;
 
-    m_fixtureManager->setItemRoleData(itemID, enable ? 2 : 0, TreeModel::IsSelectedRole);
+    if (headIndex == -1)
+        m_fixtureManager->setItemRoleData(itemID, enable ? 2 : 0, TreeModel::IsSelectedRole);
 
     if (m_DMXView->isEnabled())
         m_DMXView->updateFixtureSelection(fixtureID, enable);
 
-    if (headIndex == -1 && fixture->type() == QLCFixtureDef::Dimmer)
+    // update fixture selection only if whole fixture is selected (not a specific head)
+    if (headIndex == -1)
     {
-        for (quint32 &subID : m_monProps->fixtureIDList(fixtureID))
+        if (fixture->type() == QLCFixtureDef::Dimmer)
         {
-            quint16 hIndex = m_monProps->fixtureHeadIndex(subID);
-            quint16 lIndex = m_monProps->fixtureLinkedIndex(subID);
+            for (quint32 &subID : m_monProps->fixtureIDList(fixtureID))
+            {
+                quint16 hIndex = m_monProps->fixtureHeadIndex(subID);
+                quint16 lIndex = m_monProps->fixtureLinkedIndex(subID);
 
-            if (lIndex != linkedIndex)
-                continue;
+                if (lIndex != linkedIndex)
+                    continue;
 
-            quint32 id = FixtureUtils::fixtureItemID(fixtureID, hIndex, linkedIndex);
+                quint32 id = FixtureUtils::fixtureItemID(fixtureID, hIndex, linkedIndex);
 
-            if (m_2DView->isEnabled())
-                m_2DView->updateFixtureSelection(id, enable);
-            if (m_3DView->isEnabled())
-                m_3DView->updateFixtureSelection(id, enable);
+                if (m_2DView->isEnabled())
+                    m_2DView->updateFixtureSelection(id, enable);
+                if (m_3DView->isEnabled())
+                    m_3DView->updateFixtureSelection(id, enable);
+            }
         }
-    }
-    else
-    {
-        if (m_2DView->isEnabled())
-            m_2DView->updateFixtureSelection(itemID, enable);
-        if (m_3DView->isEnabled())
-            m_3DView->updateFixtureSelection(itemID, enable);
+        else
+        {
+            if (m_2DView->isEnabled())
+                m_2DView->updateFixtureSelection(itemID, enable);
+            if (m_3DView->isEnabled())
+                m_3DView->updateFixtureSelection(itemID, enable);
+        }
     }
 
     QMultiHash<int, SceneValue> channels = m_fixtureManager->getFixtureCapabilities(itemID, headIndex, enable);
@@ -660,6 +670,7 @@ void ContextManager::setFixtureIDSelection(quint32 fixtureID, bool enable)
 
 void ContextManager::resetFixtureSelection()
 {
+/*
     for (Fixture *fixture : m_doc->fixtures()) // C++11
     {
         if (fixture == nullptr)
@@ -673,6 +684,12 @@ void ContextManager::resetFixtureSelection()
             setFixtureSelection(itemID, -1, false);
         }
     }
+*/
+    for (quint32 itemID : m_selectedFixtures)
+        setFixtureSelection(itemID, -1, false);
+
+    m_selectedFixtures.clear();
+    m_channelsMap.clear();
 }
 
 void ContextManager::toggleFixturesSelection()
@@ -1145,9 +1162,14 @@ qreal ContextManager::getCurrentValue(int type, bool degrees)
                     chValue = (qreal(phy.focusTiltMax()) / divider) * chValue;
                 break;
                 case QLCChannel::Beam:
-                    chValue = qreal((phy.lensDegreesMax() - phy.lensDegreesMin()) / divider) * chValue;
-                    if (ch->controlByte() == QLCChannel::MSB)
-                        chValue += phy.lensDegreesMin();
+                        chValue = qreal((phy.lensDegreesMax() - phy.lensDegreesMin()) / divider) * chValue;
+
+                        if (ch->preset() == QLCChannel::BeamZoomBigSmall)
+                            chValue = phy.lensDegreesMax() - chValue;
+                        else if (ch->controlByte() == QLCChannel::MSB)
+                            chValue += phy.lensDegreesMin();
+
+                        qDebug() << "Current degrees:" << chValue;
                 break;
             }
         }
@@ -1471,7 +1493,7 @@ void ContextManager::setChannelValueByType(int type, int value, bool isRelative,
     }
 }
 
-void ContextManager::setPositionValue(int type, int degrees, bool isRelative)
+void ContextManager::setPositionValue(int type, float degrees, bool isRelative)
 {
     // list to keep track of the already processed Fixture IDs
     QList<quint32>fxIDs;
@@ -1736,14 +1758,10 @@ int ContextManager::dumpChannelMask() const
     return m_dumpChannelMask;
 }
 
-void ContextManager::dumpDmxChannels(QString name, quint32 mask)
+void ContextManager::dumpDmxChannels(quint32 channelMask, QString sceneName, int sceneID, bool allChannels, bool nonZeroOnly)
 {
-    m_functionManager->dumpOnNewScene(m_dumpValues, selectedFixtureIDList(), mask, name);
-}
-
-void ContextManager::dumpDmxChannels(quint32 sceneID, quint32 mask)
-{
-    m_functionManager->dumpOnScene(m_dumpValues, selectedFixtureIDList(), mask, sceneID);
+    m_functionManager->dumpDmxValues(m_dumpValues, allChannels ? QList<quint32>() : selectedFixtureIDList(), channelMask,
+                                     sceneName, sceneID == -1 ? Function::invalidId() : sceneID, nonZeroOnly);
 }
 
 void ContextManager::resetDumpValues()
@@ -1758,10 +1776,5 @@ void ContextManager::resetDumpValues()
 
     m_dumpChannelMask = 0;
     emit dumpChannelMaskChanged();
-}
-
-GenericDMXSource *ContextManager::dmxSource() const
-{
-    return m_source;
 }
 

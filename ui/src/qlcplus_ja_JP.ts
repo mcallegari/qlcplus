@@ -10,12 +10,12 @@
         <translation>QLC+ について</translation>
     </message>
     <message>
-        <location filename="aboutbox.ui" line="88"/>
+        <location filename="aboutbox.ui" line="87"/>
         <source>Contributors</source>
         <translation>手伝ってくれた方々</translation>
     </message>
     <message>
-        <location filename="aboutbox.ui" line="135"/>
+        <location filename="aboutbox.ui" line="132"/>
         <source>This application is licensed under the terms of the Apache 2.0 license.</source>
         <oldsource>This application is licensed under the terms of GNU GPL version 2.</oldsource>
         <translation>This application is licensed under the terms of the Apache 2.0 license.</translation>
@@ -194,7 +194,7 @@
         <translation>Fixtures found: %1</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="624"/>
+        <location filename="addfixture.cpp" line="627"/>
         <source>Dimmers</source>
         <translation>ディマー</translation>
     </message>
@@ -2145,12 +2145,12 @@ The selected file has been moved or deleted.</source>
         <translation>作成したEFXのプレビュー</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="731"/>
+        <location filename="efxeditor.cpp" line="733"/>
         <source>Remove fixtures</source>
         <translation>機器の削除</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="732"/>
+        <location filename="efxeditor.cpp" line="734"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>選択した機器を削除しますか？</translation>
     </message>
@@ -2294,13 +2294,15 @@ The selected file has been moved or deleted.</source>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="913"/>
-        <source>Move group up...</source>
-        <translation>グループを上へ</translation>
+        <source>Move channel group up...</source>
+        <oldsource>Move group up...</oldsource>
+        <translation type="unfinished">グループを上へ</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="919"/>
-        <source>Move group down...</source>
-        <translation>グループを下へ</translation>
+        <source>Move channel group down...</source>
+        <oldsource>Move group down...</oldsource>
+        <translation type="unfinished">グループを下へ</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="925"/>
@@ -3877,121 +3879,121 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 <context>
     <name>Monitor</name>
     <message>
-        <location filename="monitor/monitor.cpp" line="336"/>
+        <location filename="monitor/monitor.cpp" line="337"/>
         <source>Fixture Monitor</source>
         <translation>モニタ</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="377"/>
+        <location filename="monitor/monitor.cpp" line="378"/>
         <source>2D View</source>
         <translation>2Dビュー</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="384"/>
+        <location filename="monitor/monitor.cpp" line="385"/>
         <source>Font</source>
         <translation>フォント</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="393"/>
+        <location filename="monitor/monitor.cpp" line="394"/>
         <source>DMX Channels</source>
         <translation>DMXチャンネル番号</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="394"/>
+        <location filename="monitor/monitor.cpp" line="395"/>
         <source>Show absolute DMX channel numbers</source>
         <translation>DMXチャンネル番号を表示</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="404"/>
+        <location filename="monitor/monitor.cpp" line="405"/>
         <source>Relative Channels</source>
         <translation>機器ごと</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="405"/>
+        <location filename="monitor/monitor.cpp" line="406"/>
         <source>Show channel numbers relative to fixture</source>
         <translation>機器ごとのチャンネル番号を表示</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="421"/>
+        <location filename="monitor/monitor.cpp" line="422"/>
         <source>DMX Values</source>
         <translation>DMX値</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="422"/>
+        <location filename="monitor/monitor.cpp" line="423"/>
         <source>Show DMX values 0-255</source>
         <translation>DMX値(0-255)で表示</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="433"/>
+        <location filename="monitor/monitor.cpp" line="434"/>
         <source>Percent Values</source>
         <translation>パーセント</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="434"/>
+        <location filename="monitor/monitor.cpp" line="435"/>
         <source>Show percentage values 0-100%</source>
         <translation>パーセント表示 (0-100%)</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="447"/>
+        <location filename="monitor/monitor.cpp" line="448"/>
         <source>Universe</source>
         <oldsource>Universe:</oldsource>
         <translation>Universe</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="452"/>
+        <location filename="monitor/monitor.cpp" line="453"/>
         <source>All universes</source>
         <translation>すべてのUniverse</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="468"/>
-        <location filename="monitor/monitor.cpp" line="549"/>
+        <location filename="monitor/monitor.cpp" line="469"/>
+        <location filename="monitor/monitor.cpp" line="550"/>
         <source>Close</source>
         <translation>閉じる</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="469"/>
-        <location filename="monitor/monitor.cpp" line="550"/>
+        <location filename="monitor/monitor.cpp" line="470"/>
+        <location filename="monitor/monitor.cpp" line="551"/>
         <source>Close this window</source>
         <translation>ウィンドウを閉じる</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="488"/>
+        <location filename="monitor/monitor.cpp" line="489"/>
         <source>DMX View</source>
         <translation>DMX View</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="494"/>
+        <location filename="monitor/monitor.cpp" line="495"/>
         <source>Size</source>
         <oldsource>Size:</oldsource>
         <translation>サイズ</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="518"/>
+        <location filename="monitor/monitor.cpp" line="519"/>
         <source>Meters</source>
         <translation>メートル</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="519"/>
+        <location filename="monitor/monitor.cpp" line="520"/>
         <source>Feet</source>
         <translation>フィート</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="528"/>
+        <location filename="monitor/monitor.cpp" line="529"/>
         <source>Add fixture</source>
         <translation>機器の追加</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="530"/>
+        <location filename="monitor/monitor.cpp" line="531"/>
         <source>Remove fixture</source>
         <translation>機器の削除</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="535"/>
+        <location filename="monitor/monitor.cpp" line="536"/>
         <source>Set a background picture</source>
         <translation>背景に画像を設定</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="538"/>
+        <location filename="monitor/monitor.cpp" line="539"/>
         <source>Show/hide labels</source>
         <translation>ラベルの表示/非表示</translation>
     </message>
@@ -4794,17 +4796,17 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <translation>操作する機器グループがありません</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="878"/>
+        <location filename="rgbmatrixeditor.cpp" line="880"/>
         <source>Select image</source>
         <translation>画像を選択</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="880"/>
+        <location filename="rgbmatrixeditor.cpp" line="882"/>
         <source>Images</source>
         <translation>画像</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="1165"/>
+        <location filename="rgbmatrixeditor.cpp" line="1168"/>
         <source>Sequence</source>
         <translation>シーケンス</translation>
     </message>
@@ -5266,211 +5268,211 @@ Duration: %3
 <context>
     <name>ShowManager</name>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="198"/>
+        <location filename="showmanager/showmanager.cpp" line="199"/>
         <source>New s&amp;how</source>
         <translation>新しいタイムライン</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="210"/>
+        <location filename="showmanager/showmanager.cpp" line="211"/>
         <source>New s&amp;equence</source>
         <translation>新しいシーケンス</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="216"/>
+        <location filename="showmanager/showmanager.cpp" line="217"/>
         <source>New &amp;audio</source>
         <translation>新しいオーディオ</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="222"/>
+        <location filename="showmanager/showmanager.cpp" line="223"/>
         <source>New vi&amp;deo</source>
         <translation>新しいビデオ</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="229"/>
+        <location filename="showmanager/showmanager.cpp" line="230"/>
         <source>&amp;Copy</source>
         <translation>コピー</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="236"/>
+        <location filename="showmanager/showmanager.cpp" line="237"/>
         <source>&amp;Paste</source>
         <translation>ペースト</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="243"/>
+        <location filename="showmanager/showmanager.cpp" line="244"/>
         <source>&amp;Delete</source>
         <translation>削除</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="250"/>
+        <location filename="showmanager/showmanager.cpp" line="251"/>
         <source>Change Co&amp;lor</source>
         <translation>色の変更</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="271"/>
+        <location filename="showmanager/showmanager.cpp" line="272"/>
         <source>Snap to &amp;Grid</source>
         <translation>グリッドの表示</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="278"/>
+        <location filename="showmanager/showmanager.cpp" line="279"/>
         <source>St&amp;op</source>
         <translation>停止</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="284"/>
+        <location filename="showmanager/showmanager.cpp" line="285"/>
         <source>&amp;Play</source>
         <translation>再生</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="343"/>
+        <location filename="showmanager/showmanager.cpp" line="344"/>
         <source>Time division:</source>
         <translation>横軸:</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="348"/>
+        <location filename="showmanager/showmanager.cpp" line="349"/>
         <source>Time</source>
         <translation>時間</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="560"/>
+        <location filename="showmanager/showmanager.cpp" line="561"/>
         <source>New Show</source>
         <translation>新しいタイムライン</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="561"/>
+        <location filename="showmanager/showmanager.cpp" line="562"/>
         <source>Show name setup</source>
         <translation>タイムライン名</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="562"/>
+        <location filename="showmanager/showmanager.cpp" line="563"/>
         <source>Show name:</source>
         <translation>タイムライン名 :</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="204"/>
+        <location filename="showmanager/showmanager.cpp" line="205"/>
         <source>Add a &amp;track or an existing function</source>
         <translation>ファンクションを新しいトラックに追加</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="257"/>
+        <location filename="showmanager/showmanager.cpp" line="258"/>
         <source>Lock item</source>
         <translation>ロック</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="264"/>
+        <location filename="showmanager/showmanager.cpp" line="265"/>
         <source>Item start time and duration</source>
         <translation>再生開始時間と再生継続時間</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="686"/>
-        <location filename="showmanager/showmanager.cpp" line="802"/>
+        <location filename="showmanager/showmanager.cpp" line="687"/>
+        <location filename="showmanager/showmanager.cpp" line="803"/>
         <source> (Copy)</source>
         <translation> (コピー)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="755"/>
+        <location filename="showmanager/showmanager.cpp" line="756"/>
         <source>Track %1</source>
         <translation>トラック %1</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="784"/>
-        <location filename="showmanager/showmanager.cpp" line="870"/>
+        <location filename="showmanager/showmanager.cpp" line="785"/>
+        <location filename="showmanager/showmanager.cpp" line="871"/>
         <source>New Sequence</source>
         <translation>新しいシーケンス</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="848"/>
-        <location filename="showmanager/showmanager.cpp" line="925"/>
-        <location filename="showmanager/showmanager.cpp" line="983"/>
+        <location filename="showmanager/showmanager.cpp" line="849"/>
+        <location filename="showmanager/showmanager.cpp" line="926"/>
+        <location filename="showmanager/showmanager.cpp" line="984"/>
         <source>Overlapping error</source>
         <translation>オーバーラップはできません</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="848"/>
-        <location filename="showmanager/showmanager.cpp" line="925"/>
-        <location filename="showmanager/showmanager.cpp" line="983"/>
+        <location filename="showmanager/showmanager.cpp" line="849"/>
+        <location filename="showmanager/showmanager.cpp" line="926"/>
+        <location filename="showmanager/showmanager.cpp" line="984"/>
         <source>Overlapping not allowed. Operation canceled.</source>
         <translation>オーバーラップはできません。新しいトラックを追加してください。</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="858"/>
+        <location filename="showmanager/showmanager.cpp" line="859"/>
         <source>Scene for %1 - Track %2</source>
         <translation>シーン: %1 - トラック: %2</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="883"/>
+        <location filename="showmanager/showmanager.cpp" line="884"/>
         <source>Open Audio File</source>
         <translation>オーディオファイルを開く</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="892"/>
+        <location filename="showmanager/showmanager.cpp" line="893"/>
         <source>Audio Files (%1)</source>
         <translation>オーディオファイル (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="894"/>
-        <location filename="showmanager/showmanager.cpp" line="952"/>
+        <location filename="showmanager/showmanager.cpp" line="895"/>
+        <location filename="showmanager/showmanager.cpp" line="953"/>
         <source>All Files (*.*)</source>
         <translation>すべてのファイル (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="896"/>
-        <location filename="showmanager/showmanager.cpp" line="954"/>
+        <location filename="showmanager/showmanager.cpp" line="897"/>
+        <location filename="showmanager/showmanager.cpp" line="955"/>
         <source>All Files (*)</source>
         <translation>すべてのファイル (*)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="918"/>
+        <location filename="showmanager/showmanager.cpp" line="919"/>
         <source>Unsupported audio file</source>
         <translation>サポートしていないファイル</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="918"/>
+        <location filename="showmanager/showmanager.cpp" line="919"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>そのオーディオファイルはQLC+では再生できません。</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="941"/>
+        <location filename="showmanager/showmanager.cpp" line="942"/>
         <source>Open Video File</source>
         <translation>ビデオファイルを開く</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="950"/>
+        <location filename="showmanager/showmanager.cpp" line="951"/>
         <source>Video Files (%1)</source>
         <translation>ビデオファイル (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="976"/>
+        <location filename="showmanager/showmanager.cpp" line="977"/>
         <source>Unsupported video file</source>
         <translation>サポートしていないファイル</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="976"/>
+        <location filename="showmanager/showmanager.cpp" line="977"/>
         <source>This video file cannot be played with QLC+. Sorry.</source>
         <translation>そのビデオファイルはQLC+では再生できません。</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1018"/>
-        <location filename="showmanager/showmanager.cpp" line="1072"/>
+        <location filename="showmanager/showmanager.cpp" line="1019"/>
+        <location filename="showmanager/showmanager.cpp" line="1073"/>
         <source>Paste error</source>
         <translation>貼り付けエラー</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1018"/>
+        <location filename="showmanager/showmanager.cpp" line="1019"/>
         <source>Overlapping paste not allowed. Operation canceled.</source>
         <translation>オーバーラップする貼り付けはできません。</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1072"/>
+        <location filename="showmanager/showmanager.cpp" line="1073"/>
         <source>Trying to paste on an incompatible Scene. Operation canceled.</source>
         <translation>そのシーンには貼り付けできません。</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1393"/>
+        <location filename="showmanager/showmanager.cpp" line="1408"/>
         <source>Track name setup</source>
         <translation>トラック名の編集</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1394"/>
+        <location filename="showmanager/showmanager.cpp" line="1409"/>
         <source>Track name:</source>
         <translation>トラック名</translation>
     </message>
@@ -6837,14 +6839,19 @@ Duration: %3
 <context>
     <name>VCSlider</name>
     <message>
-        <location filename="virtualconsole/vcslider.cpp" line="229"/>
+        <location filename="virtualconsole/vcslider.cpp" line="233"/>
         <source>Slider %1</source>
         <translation>フェーダー %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcslider.cpp" line="611"/>
+        <location filename="virtualconsole/vcslider.cpp" line="624"/>
         <source>Reset channels override</source>
         <translation>強制的にリセット</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcslider.cpp" line="1060"/>
+        <source>Flash Function</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6961,12 +6968,17 @@ Duration: %3
         <translation>解放</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="540"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="527"/>
+        <source>Flash Button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="550"/>
         <source>Make the slider control a function</source>
         <translation>ファンクションフェダーの作成</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="543"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="553"/>
         <source>Switch to Playback Mode</source>
         <translation>プレイバックモードにする</translation>
     </message>
@@ -7102,42 +7114,42 @@ Duration: %3
         <translation>チャンネルフェーダーにする</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="551"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="561"/>
         <source>Submaster</source>
         <translation>フレームのマスター</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="557"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="567"/>
         <source>Slider submaster mode is active</source>
         <translation>フレームのマスターとして動作中</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="580"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="590"/>
         <source>Make the slider act as a submaster</source>
         <translation>フレームのマスターにする</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="583"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="593"/>
         <source>Switch to Submaster Mode</source>
         <translation>フレームのマスターにする</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="178"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="165"/>
         <source>Override reset control</source>
         <translation>強制的にリセット</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="640"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="656"/>
         <source>Select channels by group</source>
         <translation>チャンネルグループから選択</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="641"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="657"/>
         <source>Select a channel group</source>
         <translation>チャンネルグループを選択</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="703"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="724"/>
         <source>No function</source>
         <translation>無し</translation>
     </message>

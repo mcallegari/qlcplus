@@ -48,6 +48,17 @@ function applyParams(iface) {
  }
 }
 
+function enableHotspot(enable) {
+ var ssidObj = document.getElementById("hotspotSSID");
+ var ssidVal = "";
+ if (ssidObj != null) { ssidVal = ssidObj.value; }
+ var wpapskObj = document.getElementById("hotspotWPAPSK");
+ var wpapskVal = "";
+ if (wpapskObj != null) { wpapskVal = wpapskObj.value; }
+ systemCmd("HOTSPOT", enable ? "1" : "0", ssidVal, wpapskVal);
+}
+
+
 function setAutostart() {
  var radios = document.getElementsByName("autostart");
  if (radios[0].checked) {

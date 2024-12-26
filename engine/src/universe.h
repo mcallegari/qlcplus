@@ -265,7 +265,7 @@ private:
     InputPatch *m_inputPatch;
 
     /** List of references to the output patches associated to this universe. */
-    QList<OutputPatch*>m_outputPatchList;
+    QList<OutputPatch*> m_outputPatchList;
 
     /** Reference to the feedback patch associated to this universe. */
     OutputPatch *m_fbPatch;
@@ -355,6 +355,10 @@ public:
      *  to the requested pause state */
     void setFaderPause(quint32 functionID, bool enable);
 
+    /** Set a fade out time to every fader of this universe.
+     *  This is used from the fadeAndStopAll functionality */
+    void setFaderFadeOut(int fadeTime);
+
 public slots:
     void tick();
 
@@ -375,7 +379,14 @@ protected:
 
     /** IMPORTANT: this is the list of faders that will compose
      *  the Universe values. The order is very important ! */
-    QList<QSharedPointer<GenericFader> > m_faders;
+    QList<QSharedPointer<GenericFader>> m_faders;
+
+    /** Mutex used to protect the access to the m_faders array */
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+    QMutex m_fadersMutex;
+#else
+    QRecursiveMutex m_fadersMutex;
+#endif
 
     /************************************************************************
      * Values

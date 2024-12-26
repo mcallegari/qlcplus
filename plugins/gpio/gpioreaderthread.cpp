@@ -19,6 +19,8 @@
 
 #include <QDebug>
 
+#include <gpiod.hpp>
+
 #include "gpioreaderthread.h"
 #include "gpioplugin.h"
 
@@ -30,7 +32,6 @@ ReadThread::ReadThread(GPIOPlugin *plugin, QObject *parent)
     , m_running(false)
     , m_paused(false)
 {
-    updateReadPINs();
     start();
 }
 
@@ -56,39 +57,13 @@ void ReadThread::pause(bool paused)
     m_paused = paused;
 }
 
-void ReadThread::updateReadPINs()
-{
-    qDebug() << Q_FUNC_INFO;
-    QMutexLocker locker(&m_mutex);
-
-    QList<GPIOPinInfo *> gpioList = m_plugin->gpioList();
-
-    m_readList.clear();
-    foreach (GPIOPinInfo *gpio, gpioList)
-    {
-        if (gpio->m_usage == GPIOPlugin::InputUsage)
-        {
-            if (gpio->m_file != NULL)
-            {
-                if (gpio->m_file->isOpen() == false)
-                {
-                    if (!gpio->m_file->open(QIODevice::ReadOnly))
-                    {
-                        qDebug() << "[GPIO] Error opening GPIO for reading";
-                        continue;
-                    }
-                }
-
-                m_readList.append(gpio);
-            }
-        }
-    }
-}
-
 void ReadThread::run()
 {
     qDebug() << "[GPIO] Reader thread created";
     m_running = true;
+
+    ::gpiod::chip gChip(m_plugin->chipName());
+
     while (m_running == true)
     {
         if (m_paused == true)
@@ -99,26 +74,25 @@ void ReadThread::run()
 
         QMutexLocker locker(&m_mutex);
 
-        foreach (GPIOPinInfo *gpio, m_readList)
+        foreach (GPIOLineInfo *gpio, m_plugin->gpioList())
         {
-            if (gpio->m_file == NULL || gpio->m_file->isOpen() == false)
+            if (gpio->m_direction != GPIOPlugin::InputDirection)
                 continue;
 
-            //qDebug() << "Reading file:" << gpio->m_file->fileName();
-            gpio->m_file->reset();
-            QByteArray dataRead = gpio->m_file->readAll().simplified();
-            if (dataRead.isEmpty())
-                continue;
-            uchar newVal = dataRead.toUInt();
+            ::gpiod::line gLine = gChip.get_line(gpio->m_line);
+            gLine.request({"get_value", gpiod::line_request::DIRECTION_INPUT, 0}, 0);
+            int newVal = gLine.get_value();
+            gLine.release();
+
             if (newVal != gpio->m_value)
             {
                 gpio->m_count++;
                 if (gpio->m_count > HYSTERESIS_THRESHOLD)
                 {
-                    qDebug() << "Value read: GPIO:" << gpio->m_number << "val:" <<  newVal;
-                    gpio->m_value = newVal;
+                    qDebug() << "Value read: GPIO:" << gpio->m_line << "val:" <<  newVal;
+                    gpio->m_value = newVal ? UCHAR_MAX : 0;
                     gpio->m_count = 0;
-                    emit valueChanged(gpio->m_number, gpio->m_value);
+                    emit valueChanged(gpio->m_line, gpio->m_value);
                 }
             }
             else

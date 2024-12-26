@@ -56,6 +56,7 @@
 
 #define KXMLQLCVCWidgetKey                  QString("Key")
 #define KXMLQLCVCWidgetInput                QString("Input")
+#define KXMLQLCVCWidgetInputId              QString("ID")
 #define KXMLQLCVCWidgetInputUniverse        QString("Universe")
 #define KXMLQLCVCWidgetInputChannel         QString("Channel")
 #define KXMLQLCVCWidgetInputLowerValue      QString("LowerValue")
@@ -64,6 +65,8 @@
 #define KXMLQLCVCWidgetInputLowerParams     QString("LowerParams")
 #define KXMLQLCVCWidgetInputUpperParams     QString("UpperParams")
 #define KXMLQLCVCWidgetInputMonitorParams   QString("MonitorParams")
+
+#define VCWIDGET_AUTODETECT_INPUT_ID     0xFF
 
 typedef struct
 {
@@ -163,7 +166,7 @@ public:
         XYPadWidget,
         FrameWidget,
         SoloFrameWidget,
-        SpeedDialWidget,
+        SpeedWidget,
         CueListWidget,
         LabelWidget,
         AudioTriggersWidget,
@@ -483,9 +486,19 @@ protected:
     /*********************************************************************
      * Input sources
      *********************************************************************/
+private:
+    /** Returns an input source from the provided universe and channel.
+     *  Returns nullptr if not found */
+    QSharedPointer<QLCInputSource> inputSource(quint32 universe, quint32 channel);
+
 public:
     enum SourceValueType { ExactValue, LowerValue, UpperValue, MonitorValue };
     Q_ENUM(SourceValueType)
+
+    /** Return a input source reference that matches the specified $id, $universe and $channel */
+    QSharedPointer<QLCInputSource> inputSource(quint32 id, quint32 universe, quint32 channel) const;
+
+    Q_INVOKABLE QVariant inputSourceFullInfo(quint32 universe, quint32 channel);
 
     /**
      * Add an external input $source to the sources known by thie widget.
@@ -500,9 +513,13 @@ public:
     /** Update the control ID of an existing input source bound to $universe and $channel */
     Q_INVOKABLE bool updateInputSourceControlID(quint32 universe, quint32 channel, quint32 id);
 
-    /** Update the lower/upper values of an existing input source bound to $universe and $channel */
-    Q_INVOKABLE bool updateInputSourceRange(quint32 universe, quint32 channel, quint8 lower, quint8 upper);
+    /** Update the feedback values of an existing input source bound to $universe and $channel */
+    Q_INVOKABLE bool updateInputSourceFeedbackValues(quint32 universe, quint32 channel,
+                                                     quint8 lower, quint8 upper, quint8 monitor);
 
+    /** Update the feedback extra parameters of an existing input source bound to $universe and $channel */
+    Q_INVOKABLE bool updateInputSourceExtraParams(quint32 universe, quint32 channel,
+                                                  int lower, int upper, int monitor);
     /** Delete an existing input source from this widget */
     void deleteInputSurce(quint32 id, quint32 universe, quint32 channel);
 
@@ -512,9 +529,6 @@ public:
 
     /** Return a list of input sources to be used by the UI */
     QVariantList inputSourcesList();
-
-    /** Return a input source reference that matches the specified $id, $universe and $channel */
-    QSharedPointer<QLCInputSource> inputSource(quint32 id, quint32 universe, quint32 channel) const;
 
     /**
      * Send a feedback to an external controller.
@@ -624,7 +638,7 @@ protected:
 
     /** Save all the input sources and key combination with the given $controlId
      *  in a tag with the given $tagName */
-    bool saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QString tagName = QString());
+    bool saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, bool unified = true, QString tagName = QString());
 };
 
 #endif

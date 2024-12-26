@@ -31,14 +31,12 @@ class ReadThread : public QThread
 
 public:
     ReadThread(GPIOPlugin *plugin, QObject *parent = 0);
+
     /** Destructor */
     virtual ~ReadThread();
 
     void stop();
-
     void pause(bool paused);
-
-    void updateReadPINs();
 
 protected:
     void run();
@@ -51,7 +49,6 @@ private:
     bool m_running;
     bool m_paused;
     QMutex m_mutex;
-    QList<GPIOPinInfo *> m_readList;
 };
 
 #endif

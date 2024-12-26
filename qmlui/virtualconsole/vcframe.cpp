@@ -300,7 +300,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             m_vc->addWidgetToMap(animation);
             Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
                                               Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, animation->id()));
-            animation->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
+            animation->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 60, m_vc->pixelDensity() * 45));
             setupWidget(animation, currentPage());
             animation->render(m_vc->view(), parent);
         }
@@ -329,16 +329,16 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             xyPad->render(m_vc->view(), parent);
         }
         break;
-        case SpeedDialWidget:
+        case SpeedWidget:
         {
-            VCSpeedDial *speedDial = new VCSpeedDial(m_doc, this);
-            QQmlEngine::setObjectOwnership(speedDial, QQmlEngine::CppOwnership);
-            m_vc->addWidgetToMap(speedDial);
+            VCSpeedDial *speed = new VCSpeedDial(m_doc, this);
+            QQmlEngine::setObjectOwnership(speed, QQmlEngine::CppOwnership);
+            m_vc->addWidgetToMap(speed);
             Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
-                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, speedDial->id()));
-            speedDial->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
-            setupWidget(speedDial, currentPage());
-            speedDial->render(m_vc->view(), parent);
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, speed->id()));
+            speed->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 80, m_vc->pixelDensity() * 50));
+            setupWidget(speed, currentPage());
+            speed->render(m_vc->view(), parent);
         }
         break;
         case ClockWidget:
@@ -1365,7 +1365,7 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
     }
 
     /* Enable control */
-    saveXMLInputControl(doc, INPUT_ENABLE_ID, KXMLQLCVCFrameEnableSource);
+    saveXMLInputControl(doc, INPUT_ENABLE_ID, false, KXMLQLCVCFrameEnableSource);
 
     /* Multipage mode */
     if (multiPageMode() == true)
@@ -1377,8 +1377,8 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
             doc->writeAttribute(KXMLQLCVCFramePagesLoop, KXMLQLCTrue);
         doc->writeEndElement();
 
-        saveXMLInputControl(doc, INPUT_NEXT_PAGE_ID, KXMLQLCVCFrameNext);
-        saveXMLInputControl(doc, INPUT_PREVIOUS_PAGE_ID, KXMLQLCVCFramePrevious);
+        saveXMLInputControl(doc, INPUT_NEXT_PAGE_ID, false, KXMLQLCVCFrameNext);
+        saveXMLInputControl(doc, INPUT_PREVIOUS_PAGE_ID, false, KXMLQLCVCFramePrevious);
 
         /* Write shortcuts, if any */
         QMapIterator <int, QString> it(m_pageLabels);

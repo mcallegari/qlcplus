@@ -36,6 +36,8 @@ Dial
     stepSize: 1.0
     wheelEnabled: true
 
+    property bool drawOuterLevel: true
+
     onPositionChanged: kCanvas.requestPaint()
     onHeightChanged: kCanvas.requestPaint()
 
@@ -75,14 +77,17 @@ Dial
             context.fill()
             context.closePath()
 
-            context.beginPath()
-            context.strokeStyle = "#00FF00"
-            context.lineWidth = arcWidth
-            context.arc(width / 2, height / 2, (width / 2) - (arcWidth / 2),
-                        DrawFuncs.degToRad(startAngle),
-                        DrawFuncs.degToRad(startAngle + (control.position * 280)))
-            context.stroke()
-            context.closePath()
+            if (drawOuterLevel)
+            {
+                context.beginPath()
+                context.strokeStyle = "#00FF00"
+                context.lineWidth = arcWidth
+                context.arc(width / 2, height / 2, (width / 2) - (arcWidth / 2),
+                            DrawFuncs.degToRad(startAngle),
+                            DrawFuncs.degToRad(startAngle + (control.position * 280)))
+                context.stroke()
+                context.closePath()
+            }
         }
     }
 

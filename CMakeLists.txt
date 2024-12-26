@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(qlcplus VERSION 4.13.0 LANGUAGES C CXX)
+project(qlcplus VERSION 4.13.1 LANGUAGES C CXX)
 
 # Set Release build type by default
 if(NOT CMAKE_BUILD_TYPE)
@@ -219,3 +219,12 @@ INCLUDE(CPack)
 
 # Leave this on the last row of this file
 add_subdirectory(platforms)
+
+# HELPER: PRINT ALL VARIABLES KNOWN BY CMAKE
+
+#message("QTDIR: ${QT_DIR}")
+#get_cmake_property(_variableNames VARIABLES)
+#list (SORT _variableNames)
+#foreach (_variableName ${_variableNames})
+#    message(STATUS "${_variableName}=${${_variableName}}")
+#endforeach()

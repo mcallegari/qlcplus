@@ -53,6 +53,8 @@ Rectangle
         {
             previousDegrees = 0
             var val = contextManager.getCurrentValue(QLCChannel.Beam, true)
+            isUpdating = true
+
             if (val === -1)
             {
                 relativeValue = true
@@ -63,6 +65,9 @@ Rectangle
                 relativeValue = false
                 currentDegrees = val
             }
+            beamSpinBox.value = currentDegrees * Math.pow(10, beamSpinBox.decimals)
+            calculateProjection()
+            isUpdating = false
         }
     }
 
@@ -90,6 +95,7 @@ Rectangle
         minDegrees = min
         invertedZoom = inverted
         currentDegrees = inverted ? maxDegrees : minDegrees
+        beamSpinBox.value = currentDegrees * Math.pow(10, beamSpinBox.decimals)
         isUpdating = false
     }
 
@@ -236,7 +242,7 @@ Rectangle
 
         RobotoText
         {
-            label: Number(toolRoot.projectedDiameter).toFixed(2) + "m"
+            label: relativeValue ? qsTr("N/A") : Number(toolRoot.projectedDiameter).toFixed(2) + "m"
             fontBold: true
             //labelColor: UISettings.highlight
         }

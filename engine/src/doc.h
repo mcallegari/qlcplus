@@ -297,6 +297,13 @@ public:
     QList<Fixture*> const& fixtures() const;
 
     /**
+     * Get the number of fixtures currently added to the project
+     *
+     * @return The number of fixtures
+     */
+    int fixturesCount() const;
+
+    /**
      * Get the fixture that occupies the given DMX address. If multiple fixtures
      * occupy the same address, the one that has been last modified is returned.
      *

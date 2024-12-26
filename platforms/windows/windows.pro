@@ -30,7 +30,8 @@ qtlibs.files = $$QT_LIBS_PATH/$${QT_V}Core$${QT_D}.dll \
                $$QT_LIBS_PATH/$${QT_V}OpenGL$${QT_D}.dll \
                $$QT_LIBS_PATH/$${QT_V}Multimedia$${QT_D}.dll \
                $$QT_LIBS_PATH/$${QT_V}MultimediaWidgets$${QT_D}.dll \
-			   $$QT_LIBS_PATH/$${QT_V}SerialPort$${QT_D}.dll
+               $$QT_LIBS_PATH/$${QT_V}SerialPort$${QT_D}.dll \
+               $$QT_LIBS_PATH/$${QT_V}WebSockets$${QT_D}.dll
 greaterThan(QT_MAJOR_VERSION, 5) {
 qtlibs.files += $$QT_LIBS_PATH/$${QT_V}Qml$${QT_D}.dll
 }

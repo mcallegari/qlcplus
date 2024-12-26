@@ -421,6 +421,12 @@ void SimpleDesk::resetUniverse()
     m_universeResetButton->click();
 }
 
+void SimpleDesk::resetUniverse(int index)
+{
+    m_universesCombo->setCurrentIndex(index);
+    resetUniverse();
+}
+
 /****************************************************************************
  * Universe controls
  ****************************************************************************/

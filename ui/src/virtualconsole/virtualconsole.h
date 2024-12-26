@@ -347,7 +347,7 @@ protected:
      *********************************************************************/
 
 protected:
-    /** Handler for keyboard key presse events */
+    /** Handler for keyboard key press events */
     void keyPressEvent(QKeyEvent* event);
 
     /** Handler for keyboard key release events */
