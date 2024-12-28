@@ -30,6 +30,7 @@
 #include "fixturegroup.h"
 #include "chaserstep.h"
 #include "rgbmatrix.h"
+#include "efx.h"
 #include "fixture.h"
 #include "chaser.h"
 #include "scene.h"
@@ -60,6 +61,7 @@ PaletteGenerator::~PaletteGenerator()
     m_scenes.clear();
     m_chasers.clear();
     m_matrices.clear();
+    m_effects.clear();
 }
 
 void PaletteGenerator::setName(QString name)
@@ -102,6 +104,7 @@ QString PaletteGenerator::typetoString(PaletteGenerator::PaletteType type)
         case Gobos: return tr("Gobo macros");
         case ColourMacro: return tr("Colour macros");
         case Animation: return tr("Animations");
+        case Effect: return tr("Effects");
         case Undefined:
         default:
             return tr("Unknown");
@@ -194,6 +197,11 @@ QList<RGBMatrix *> PaletteGenerator::matrices()
     return m_matrices;
 }
 
+QList<EFX *> PaletteGenerator::effects()
+{
+    return m_effects;
+}
+
 void PaletteGenerator::addToDoc()
 {
     foreach (Scene *scene, m_scenes)
@@ -216,6 +224,10 @@ void PaletteGenerator::addToDoc()
     {
         matrix->setFixtureGroup(m_fixtureGroup->id());
         m_doc->addFunction(matrix);
+    }
+    foreach (EFX *effect, m_effects)
+    {
+        m_doc->addFunction(effect);
     }
 }
 
@@ -453,6 +465,65 @@ void PaletteGenerator::createRGBMatrices(QList<SceneValue> rgbMap)
     }
 }
 
+EFX *PaletteGenerator::createEffect(QList<Fixture *> fixtures, bool staggered, EFXFixture::Mode mode)
+{
+    EFX *efx = new EFX(m_doc);
+
+    QString modeString = (new QString[]{KXMLQLCEFXFixtureModePanTilt, KXMLQLCEFXFixtureModeDimmer, KXMLQLCEFXFixtureModeRGB})[mode];
+
+    efx->setName(tr("Effect %1 %2 - ").arg(modeString).arg(staggered ? " Staggered " : "") + m_model);
+
+    if (mode == EFXFixture::Mode::RGB)
+    {
+        efx->setAlgorithm(EFX::Algorithm::Line2);
+        efx->setHeight(0);
+    }
+    else if (mode == EFXFixture::Mode::PanTilt)
+    {
+    }
+    else if (mode == EFXFixture::Mode::Dimmer)
+    {
+    }
+
+    for (int i = 0; i < fixtures.count(); i++)
+    {
+        Fixture *fixture = fixtures[i];
+        for (int h = 0; h < fixture->heads(); h++)
+        {
+            qDebug() << "fx" << fixture->channelAddress(0) << " " << h;
+
+            EFXFixture *ef = new EFXFixture(efx);
+            ef->setHead(GroupHead(fixture->id(), h));
+            ef->setMode(mode);
+            ef->setStartOffset(staggered ? (i * (360 / fixtures.count())) : 0);
+            efx->addFixture(ef);
+        }
+    }
+
+    qDebug() << "efx: " << efx << efx->fixtures().count();
+
+    return efx;
+}
+
+void PaletteGenerator::createEffects(QList<Fixture *> fixtures)
+{
+    qDebug() << "createEffects";
+
+    m_effects.append(createEffect(fixtures, false, EFXFixture::Mode::Dimmer));
+    m_effects.append(createEffect(fixtures, true, EFXFixture::Mode::Dimmer));
+
+    if (PaletteGenerator::getCapabilities(fixtures[0]).contains(KQLCChannelRGB))
+    {
+        m_effects.append(createEffect(fixtures, false, EFXFixture::Mode::RGB));
+        m_effects.append(createEffect(fixtures, true, EFXFixture::Mode::RGB));
+    }
+    if (PaletteGenerator::getCapabilities(fixtures[0]).contains(KQLCChannelMovement))
+    {
+        m_effects.append(createEffect(fixtures, false, EFXFixture::Mode::PanTilt));
+        m_effects.append(createEffect(fixtures, true, EFXFixture::Mode::PanTilt));
+    }
+}
+
 void PaletteGenerator::createChaser(QString name)
 {
     if (m_scenes.count() == 0)
@@ -560,6 +631,15 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type,
         {
             if (m_redList.size() > 1 && m_greenList.size() == m_redList.size() && m_blueList.size() ==  m_redList.size())
                 createRGBMatrices(m_redList);
+        }
+    break;
+    case Effect:
+    {
+        if ((m_redList.size() > 1 &&
+             m_greenList.size() == m_redList.size() &&
+             m_blueList.size() == m_redList.size()) ||
+            m_panList.size() > 1)
+            createEffects(m_fixtures);
         }
         break;
         case Gobos:
