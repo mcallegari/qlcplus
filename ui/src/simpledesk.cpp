@@ -405,6 +405,28 @@ uchar SimpleDesk::getAbsoluteChannelValue(uint address)
 void SimpleDesk::setAbsoluteChannelValue(uint address, uchar value)
 {
     m_engine->setValue(address, value);
+
+    if (m_viewModeButton->isChecked() == true)
+    {
+        quint32 fxID = m_doc->fixtureForAddress(address);
+        if (fxID == Fixture::invalidId())
+            return;
+
+        Fixture* fixture = m_doc->fixture(fxID);
+        if (fixture == NULL)
+            return;
+
+        if (!m_consoleList.contains(fxID))
+            return;
+
+        FixtureConsole* fc = m_consoleList[fxID];
+        if (fc == NULL)
+            return;
+
+        quint32 channel = address - fixture->address();
+        fc->setValue(channel, value, true);
+        fc->setChannelStylesheet(channel, ssOverride);
+    }
 }
 
 void SimpleDesk::resetChannel(quint32 address)
@@ -429,6 +451,29 @@ void SimpleDesk::resetChannel(quint32 address)
             else
                 cc->setChannelStyleSheet(ssOdd);
         }
+    }
+    else if (m_viewModeButton->isChecked() == true)
+    {
+        quint32 fxID = m_doc->fixtureForAddress(address);
+        if (fxID == Fixture::invalidId())
+            return;
+
+        Fixture* fixture = m_doc->fixture(fxID);
+        if (fixture == NULL)
+            return;
+
+        if (!m_consoleList.contains(fxID))
+            return;
+
+        FixtureConsole* fc = m_consoleList[fxID];
+        if (fc == NULL)
+            return;
+
+        quint32 channel = address - fixture->address();
+        if (fxID % 2 == 0)
+            fc->setChannelStylesheet(channel, ssOdd);
+        else
+            fc->setChannelStylesheet(channel, ssEven);
     }
 }
 
