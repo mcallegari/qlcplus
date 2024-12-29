@@ -410,6 +410,7 @@ void SimpleDesk::setAbsoluteChannelValue(uint address, uchar value)
 void SimpleDesk::resetChannel(quint32 address)
 {
     m_engine->resetChannel(address);
+    slotUniversePageChanged(m_universePageSpin->value());
 }
 
 void SimpleDesk::resetUniverse()
