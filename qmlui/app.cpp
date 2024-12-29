@@ -602,6 +602,8 @@ bool App::newWorkspace()
 
 bool App::loadWorkspace(const QString &fileName)
 {
+    m_contextManager->resetContexts();
+
     /* Clear existing document data */
     clearDocument();
     m_docLoaded = false;
@@ -618,9 +620,9 @@ bool App::loadWorkspace(const QString &fileName)
         m_docLoaded = true;
         updateRecentFilesList(localFilename);
         emit docLoadedChanged();
-        m_contextManager->resetContexts();
         m_doc->resetModified();
         m_videoProvider = new VideoProvider(this, m_doc);
+        m_contextManager->resetContexts();
 
         // autostart Function if set
         if (m_doc->startupFunction() != Function::invalidId())

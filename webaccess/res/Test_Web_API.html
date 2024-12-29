@@ -213,11 +213,11 @@ function connectToWebSocket(host) {
       }
       else if (msgParams[1] === "getWidgetType")
       {
-        document.getElementById('getWidgetTypeBox').innerHTML = msgParams[2];
+        document.getElementById('getWidgetTypeBox').innerHTML = msgParams[3];
       }
       else if (msgParams[1] === "getWidgetStatus")
       {
-        var status = msgParams[2];
+        var status = msgParams[3];
         if (msgParams[2] === "PLAY")
             status = msgParams[2] + "(Step: " + msgParams[3] + ")";
         document.getElementById('getWidgetStatusBox').innerHTML = status;

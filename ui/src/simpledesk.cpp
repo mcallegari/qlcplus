@@ -410,6 +410,26 @@ void SimpleDesk::setAbsoluteChannelValue(uint address, uchar value)
 void SimpleDesk::resetChannel(quint32 address)
 {
     m_engine->resetChannel(address);
+
+    quint32 start = (m_universePageSpin->value() - 1) * m_channelsPerPage;
+
+    if (m_viewModeButton->isChecked() == false &&
+        address >= start && address < start + m_channelsPerPage)
+    {
+        Fixture *fxi = m_doc->fixture(m_doc->fixtureForAddress(address));
+        ConsoleChannel *cc = m_universeSliders[address - start];
+        if (fxi == NULL)
+        {
+            cc->setChannelStyleSheet(ssNone);
+        }
+        else
+        {
+            if (fxi->id() % 2)
+                cc->setChannelStyleSheet(ssEven);
+            else
+                cc->setChannelStyleSheet(ssOdd);
+        }
+    }
 }
 
 void SimpleDesk::resetUniverse()

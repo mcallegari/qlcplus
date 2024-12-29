@@ -328,6 +328,9 @@ void VirtualConsole::deletePage(int index)
     if (index < 0 || index >= m_pages.count())
         return;
 
+    if (m_pages.count() == 1)
+        return;
+
     m_pages.at(index)->deleteChildren();
     VCPage *page = m_pages.takeAt(index);
     m_contextManager->unregisterContext(page->previewContext()->name());

@@ -282,15 +282,20 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
             case Dimmer:
             {
                 int dValue = value().toInt();
-                quint32 intCh = fixture->type() == QLCFixtureDef::Dimmer ?
+                quint32 masterIntensityChannel = fixture->type() == QLCFixtureDef::Dimmer ?
                             0 : fixture->masterIntensityChannel();
 
-                if (intCh != QLCChannel::invalid())
-                {
-                    if (fType != Flat)
-                        dValue = int((qreal(intFanValue - dValue) * factor) + dValue);
+                if (fType != Flat)
+                    dValue = int((qreal(intFanValue - dValue) * factor) + dValue);
 
-                    list << SceneValue(id, intCh, uchar(dValue));
+                if (masterIntensityChannel != QLCChannel::invalid())
+                    list << SceneValue(id, masterIntensityChannel, uchar(dValue));
+
+                for (int i = 0; i < fixture->heads(); i++)
+                {
+                    quint32 headDimmerChannel = fixture->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, i);
+                    if (headDimmerChannel != QLCChannel::invalid())
+                        list << SceneValue(id, headDimmerChannel, uchar(dValue));
                 }
             }
             break;

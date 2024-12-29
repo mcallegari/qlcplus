@@ -494,6 +494,23 @@ void MultiTrackView::mouseReleaseEvent(QMouseEvent * e)
     //qDebug() << Q_FUNC_INFO << "View clicked at pos: " << e->pos().x() << e->pos().y();
 }
 
+void MultiTrackView::wheelEvent(QWheelEvent *event)
+{
+    if (event->modifiers() & Qt::ControlModifier)
+    {
+        int zoomValue = m_timeSlider->value();
+        if (event->pixelDelta().y() > 0)
+            zoomValue++;
+        else
+            zoomValue--;
+
+        if (zoomValue >= m_timeSlider->minimum() && zoomValue <= m_timeSlider->maximum())
+            m_timeSlider->setValue(zoomValue);
+        return;
+    }
+    QGraphicsView::wheelEvent(event);
+}
+
 void MultiTrackView::slotHeaderClicked(QGraphicsSceneMouseEvent *event)
 {
     m_cursor->setPos(TRACK_WIDTH + event->pos().toPoint().x(), 0);

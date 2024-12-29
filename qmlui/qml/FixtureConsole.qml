@@ -48,6 +48,7 @@ Rectangle
     property bool showEnablers: false
     property bool sceneConsole: false
     property bool externalChange: false
+    property bool multipleSelection: false
 
     signal doubleClicked
     signal clicked
@@ -144,7 +145,7 @@ Rectangle
                     Rectangle
                     {
                         id: chDelegate
-                        color: "transparent"
+                        color: isSelected ? UISettings.selection : "transparent"
                         border.width: 1
                         border.color: UISettings.borderColorDark
                         width: UISettings.iconSizeDefault
@@ -152,6 +153,7 @@ Rectangle
 
                         property real dmxValue
                         property bool isEnabled: showEnablers ? false : true
+                        property bool isSelected: false
 
                         function updateChannel()
                         {
@@ -210,7 +212,7 @@ Rectangle
                                 height: UISettings.iconSizeMedium / 2
                                 radius: 2
                                 visible: showEnablers
-                                color: isEnabled ? UISettings.highlight : UISettings.bgLight
+                                color: isEnabled ? (chDelegate.isSelected ? UISettings.selection : UISettings.highlight) : UISettings.bgLight
                                 border.width: 1
                                 border.color: isEnabled ? "white" : UISettings.bgLighter
                                 //Layout.alignment: Qt.AlignCenter
@@ -220,6 +222,13 @@ Rectangle
                                     anchors.fill: parent
                                     onClicked:
                                     {
+                                        if (isEnabled && ((mouse.modifiers & Qt.ControlModifier) || multipleSelection))
+                                        {
+                                            chDelegate.isSelected = !chDelegate.isSelected
+                                            sceneEditor.setChannelSelection(fixtureObj.id, index, chDelegate.isSelected);
+                                            return
+                                        }
+
                                         isEnabled = !isEnabled
                                         if (sceneConsole == true)
                                         {

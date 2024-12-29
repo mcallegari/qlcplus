@@ -277,7 +277,7 @@ public:
 
     /** Return a list of DMX values based on the given position degrees
      *  and the provided type (Pan or Tilt) */
-    QList<SceneValue> positionToValues(int type, int degrees, bool isRelative = false);
+    QList<SceneValue> positionToValues(int type, float degrees, bool isRelative = false);
 
     /** Return a list of DMX values based on the given zoom degrees */
     QList<SceneValue> zoomToValues(float degrees, bool isRelative);

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>Kristers D</Author>
+ </Creator>
+ <Manufacturer>Fun-Generation</Manufacturer>
+ <Model>PicoWash 40Z Pixel Quad LED</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan (fine)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt (fine)" Preset="PositionTiltFine"/>
+ <Channel Name="Motor speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function (open)</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="25">Strobe, slow to fast (1 Hz - 25 Hz)</Capability>
+ </Channel>
+ <Channel Name="LED 1 Red" Preset="IntensityRed"/>
+ <Channel Name="LED 1 Green" Preset="IntensityGreen"/>
+ <Channel Name="LED 1 Blue" Preset="IntensityBlue"/>
+ <Channel Name="LED 1 White" Preset="IntensityWhite"/>
+ <Channel Name="LED 2 Red" Preset="IntensityRed"/>
+ <Channel Name="LED 2 Green" Preset="IntensityGreen"/>
+ <Channel Name="LED 2 Blue" Preset="IntensityBlue"/>
+ <Channel Name="LED 2 White" Preset="IntensityWhite"/>
+ <Channel Name="LED 3 Red" Preset="IntensityRed"/>
+ <Channel Name="LED 3 Green" Preset="IntensityGreen"/>
+ <Channel Name="LED 3 Blue" Preset="IntensityBlue"/>
+ <Channel Name="LED 3 White" Preset="IntensityWhite"/>
+ <Channel Name="LED 4 Red" Preset="IntensityRed"/>
+ <Channel Name="LED 4 Green" Preset="IntensityGreen"/>
+ <Channel Name="LED 4 Blue" Preset="IntensityBlue"/>
+ <Channel Name="LED 4 White" Preset="IntensityWhite"/>
+ <Channel Name="Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="49">No function</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="80" Max="89" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="110" Max="119" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="120" Max="129" Preset="ColorMacro" Res1="#ffffff">All White</Capability>
+  <Capability Min="130" Max="139">Empty</Capability>
+  <Capability Min="140" Max="149">Programme 1</Capability>
+  <Capability Min="150" Max="159">Programme 2</Capability>
+  <Capability Min="160" Max="169">Programme 3</Capability>
+  <Capability Min="170" Max="179">Programme 4</Capability>
+  <Capability Min="180" Max="189">Programme 5</Capability>
+  <Capability Min="190" Max="199">Programme 6</Capability>
+  <Capability Min="200" Max="209">Programme 7</Capability>
+  <Capability Min="210" Max="219">Programme 8</Capability>
+  <Capability Min="220" Max="229">Programme 9</Capability>
+  <Capability Min="230" Max="233">Empty</Capability>
+  <Capability Min="234" Max="236">Reset</Capability>
+  <Capability Min="237" Max="249">Empty</Capability>
+  <Capability Min="250" Max="255">Sound-controlled mode</Capability>
+ </Channel>
+ <Channel Name="Speed / Sensitivity">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed / Sensitivity</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Zoom</Capability>
+ </Channel>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Zoom</Channel>
+  <Channel Number="3">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan (fine)</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt (fine)</Channel>
+  <Channel Number="4">Motor speed</Channel>
+  <Channel Number="5">Zoom</Channel>
+  <Channel Number="6">Master dimmer</Channel>
+  <Channel Number="7">Function</Channel>
+  <Channel Number="8">Speed / Sensitivity</Channel>
+ </Mode>
+ <Mode Name="14 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan (fine)</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt (fine)</Channel>
+  <Channel Number="4">Motor speed</Channel>
+  <Channel Number="5">Zoom</Channel>
+  <Channel Number="6">Master dimmer</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Red</Channel>
+  <Channel Number="9">Green</Channel>
+  <Channel Number="10">Blue</Channel>
+  <Channel Number="11">White</Channel>
+  <Channel Number="12">Function</Channel>
+  <Channel Number="13">Speed / Sensitivity</Channel>
+ </Mode>
+ <Mode Name="26 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan (fine)</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt (fine)</Channel>
+  <Channel Number="4">Motor speed</Channel>
+  <Channel Number="5">Zoom</Channel>
+  <Channel Number="6">Master dimmer</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">LED 1 Red</Channel>
+  <Channel Number="9">LED 1 Green</Channel>
+  <Channel Number="10">LED 1 Blue</Channel>
+  <Channel Number="11">LED 1 White</Channel>
+  <Channel Number="12">LED 2 Red</Channel>
+  <Channel Number="13">LED 2 Green</Channel>
+  <Channel Number="14">LED 2 Blue</Channel>
+  <Channel Number="15">LED 2 White</Channel>
+  <Channel Number="16">LED 3 Red</Channel>
+  <Channel Number="17">LED 3 Green</Channel>
+  <Channel Number="18">LED 3 Blue</Channel>
+  <Channel Number="19">LED 3 White</Channel>
+  <Channel Number="20">LED 4 Red</Channel>
+  <Channel Number="21">LED 4 Green</Channel>
+  <Channel Number="22">LED 4 Blue</Channel>
+  <Channel Number="23">LED 4 White</Channel>
+  <Channel Number="24">Function</Channel>
+  <Channel Number="25">Speed / Sensitivity</Channel>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.2" Width="174" Height="247" Depth="147"/>
+  <Lens Name="Other" DegreesMin="10" DegreesMax="60"/>
+  <Focus Type="Head" PanMax="540" TiltMax="180"/>
+  <Layout Width="2" Height="2"/>
+  <Technical PowerConsumption="67" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

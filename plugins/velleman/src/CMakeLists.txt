@@ -61,7 +61,10 @@ else()
     )
 endif()
 
-install(TARGETS ${module_name}
-    LIBRARY DESTINATION ${INSTALLROOT}/${PLUGINDIR}
-    RUNTIME DESTINATION ${INSTALLROOT}/${PLUGINDIR}
-)
+# Installation only on Windows; Unix targets are built only for unit testing.
+if(WIN32)
+    install(TARGETS ${module_name}
+        LIBRARY DESTINATION ${INSTALLROOT}/${PLUGINDIR}
+        RUNTIME DESTINATION ${INSTALLROOT}/${PLUGINDIR}
+    )
+endif()

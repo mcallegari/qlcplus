@@ -52,7 +52,7 @@
  </Mode>
  <Physical>
   <Bulb Type="7×10 RGBW LED" Lumens="10000" ColourTemperature="0"/>
-  <Dimensions Weight="1.2" Width="25" Height="26" Depth="9"/>
+  <Dimensions Weight="1.2" Width="250" Height="260" Depth="90"/>
   <Lens Name="PC" DegreesMin="25" DegreesMax="25"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
   <Technical PowerConsumption="70" DmxConnector="3-pin"/>

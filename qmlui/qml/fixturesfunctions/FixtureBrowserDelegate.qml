@@ -125,10 +125,14 @@ Item
             }
         }
         onPositionChanged:
+        {
             if (fxDraggableItem.isManufacturer == false && drag.active == true)
                 FxDragJS.handleDrag(mouse)
+        }
         onReleased:
+        {
             if (fxDraggableItem.isManufacturer == false && drag.active == true)
                 FxDragJS.endDrag(mouse)
+        }
     }
 }

@@ -105,12 +105,19 @@ void FunctionManager::setStartupFunctionID(quint32 fid)
     else
         m_doc->setStartupFunction(fid);
 
+    m_doc->setModified();
+
     emit startupFunctionIDChanged();
 }
 
 QVariant FunctionManager::functionsList()
 {
     return QVariant::fromValue(m_functionTree);
+}
+
+quint32 FunctionManager::nextFunctionId() const
+{
+    return m_doc->nextFunctionID();
 }
 
 QVariantList FunctionManager::usageList(quint32 fid)
@@ -600,6 +607,13 @@ void FunctionManager::setEditorFunction(quint32 fID, bool requestUI, bool back)
     if ((int)fID == -1)
     {
         emit isEditingChanged(false);
+
+        if (requestUI == true)
+        {
+            QQuickItem *rightPanel = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("funcRightPanel"));
+            if (rightPanel != nullptr)
+                QMetaObject::invokeMethod(rightPanel, "requestEditor", Q_ARG(QVariant, -1), Q_ARG(QVariant, 0));
+        }
         return;
     }
 
@@ -866,10 +880,10 @@ void FunctionManager::deleteSequenceFixtures(QVariantList list)
     m_sceneEditor->deleteItems(list);
 }
 
-void FunctionManager::renameSelectedItems(QString newName, bool numbering, int startNumber, int digits)
+bool FunctionManager::renameSelectedItems(QString newName, bool numbering, int startNumber, int digits)
 {
     if (m_selectedIDList.isEmpty() && m_selectedFolderList.isEmpty())
-        return;
+        return false;
 
     int currNumber = startNumber;
 
@@ -883,19 +897,22 @@ void FunctionManager::renameSelectedItems(QString newName, bool numbering, int s
         if (f == nullptr)
             continue;
 
+        QString fName = newName.simplified();
+
         if (numbering)
         {
-            QString fName = QString("%1 %2").arg(newName.simplified()).arg(currNumber, digits, 10, QChar('0'));
-            Tardis::instance()->enqueueAction(Tardis::FunctionSetName, f->id(), f->name(), fName);
-            f->setName(fName);
+            fName = QString("%1 %2").arg(fName).arg(currNumber, digits, 10, QChar('0'));
             currNumber++;
         }
-        else
-        {
-            Tardis::instance()->enqueueAction(Tardis::FunctionSetName, f->id(), f->name(), newName.simplified());
-            f->setName(newName.simplified());
-        }
+
+        if (m_doc->functionByName(fName) != nullptr)
+            return false;
+
+        Tardis::instance()->enqueueAction(Tardis::FunctionSetName, f->id(), f->name(), fName);
+        f->setName(fName);
     }
+
+    return true;
 }
 
 int FunctionManager::selectedFunctionCount() const
@@ -1099,6 +1116,134 @@ void FunctionManager::deleteSelectedFolders()
 /*********************************************************************
  * DMX values (dumping and Scene editor)
  *********************************************************************/
+
+void FunctionManager::dumpDmxValues(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures,
+                                    quint32 channelMask, QString sceneName, quint32 sceneID, bool nonZeroOnly)
+{
+    qDebug() << "[DUMP] # of values:" << dumpValues.count();
+    qDebug() << "[DUMP] Selected fixture IDs:" << selectedFixtures;
+    qDebug() << "[DUMP] Channel mask:" << channelMask;
+    qDebug() << "[DUMP] Scene name/ID:" << sceneName << sceneID;
+    qDebug() << "[DUMP] Only non-zero?" << nonZeroOnly;
+
+    QList<Universe*> ua = m_doc->inputOutputMap()->claimUniverses();
+
+    // 1- load current pre-GM values from all the universes
+    QByteArray preGMValues(ua.size() * UNIVERSE_SIZE, 0);
+
+    for (int i = 0; i < ua.count(); ++i)
+    {
+        const int offset = i * UNIVERSE_SIZE;
+        preGMValues.replace(offset, UNIVERSE_SIZE, ua.at(i)->preGMValues());
+        if (ua.at(i)->passthrough())
+        {
+            for (int j = 0; j < UNIVERSE_SIZE; ++j)
+            {
+                const int ofs = offset + j;
+                preGMValues[ofs] =
+                    static_cast<char>(ua.at(i)->applyPassthrough(j, static_cast<uchar>(preGMValues[ofs])));
+            }
+        }
+    }
+
+    m_doc->inputOutputMap()->releaseUniverses(false);
+
+    // 2- determine if we're dumping on a new or existing Scene
+    Scene *targetScene = nullptr;
+    if (sceneID != Function::invalidId())
+    {
+        targetScene = qobject_cast<Scene*>(m_doc->function(sceneID));
+    }
+    else
+    {
+        targetScene = new Scene(m_doc);
+        targetScene->setName(sceneName);
+    }
+
+    // 3- prepare the fixture list. If 'all channels' is required,
+    // selectedFixtures list will be empty
+
+    QList<Fixture *> fixtureList;
+    bool allChannels = false;
+    for (quint32 fixtureID : selectedFixtures)
+    {
+        Fixture *fixture = m_doc->fixture(fixtureID);
+        if (fixture != nullptr)
+            fixtureList.append(fixture);
+    }
+
+    if (fixtureList.isEmpty())
+    {
+        fixtureList.append(m_doc->fixtures());
+        allChannels = true;
+    }
+
+    // 4- iterate over all channels of all gathered fixtures
+    // and store values in the target Scene
+    for (Fixture *fixture : fixtureList)
+    {
+        quint32 baseAddress = fixture->universeAddress();
+
+        for (quint32 chIndex = 0; chIndex < fixture->channels(); chIndex++)
+        {
+            if (allChannels)
+            {
+                uchar value = preGMValues.at(baseAddress + chIndex);
+                if (!nonZeroOnly || (nonZeroOnly && value > 0))
+                {
+                    SceneValue scv = SceneValue(fixture->id(), chIndex, value);
+                    targetScene->setValue(scv);
+                }
+            }
+            else
+            {
+                const QLCChannel *channel = fixture->channel(chIndex);
+                quint32 chTypeBit = 0;
+
+                if (channel->group() == QLCChannel::Intensity)
+                {
+                    if (channel->colour() == QLCChannel::NoColour)
+                        chTypeBit |= App::DimmerType;
+                    else
+                        chTypeBit |= App::ColorType;
+                }
+                else
+                {
+                    chTypeBit |= (1 << channel->group());
+                }
+
+                if (channelMask & chTypeBit)
+                {
+                    uchar value = preGMValues.at(baseAddress + chIndex);
+                    SceneValue scv = SceneValue(fixture->id(), chIndex, value);
+                    int matchVal = dumpValues.indexOf(scv);
+                    if (matchVal != -1)
+                        scv.value = dumpValues.at(matchVal).value;
+
+                    targetScene->setValue(scv);
+                }
+            }
+        }
+    }
+
+    // 5- add Scene to the project, if needed
+    if (sceneID == Function::invalidId())
+    {
+        if (sceneName.isEmpty())
+            targetScene->setName(QString("%1 %2").arg(targetScene->name()).arg(m_doc->nextFunctionID() + 1));
+        else
+            targetScene->setName(sceneName);
+
+        if (m_doc->addFunction(targetScene) == true)
+        {
+            setPreviewEnabled(false);
+            Tardis::instance()->enqueueAction(Tardis::FunctionCreate, targetScene->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, targetScene->id()));
+        }
+        else
+            delete targetScene;
+    }
+}
 
 quint32 FunctionManager::getChannelTypeMask(quint32 fxID, quint32 channel)
 {

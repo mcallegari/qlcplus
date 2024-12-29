@@ -310,7 +310,7 @@ QVector <quint32> Fixture::cmyChannels(int head) const
     return m_fixtureMode->heads().at(head).cmyChannels();
 }
 
-QList<SceneValue> Fixture::positionToValues(int type, int degrees, bool isRelative)
+QList<SceneValue> Fixture::positionToValues(int type, float degrees, bool isRelative)
 {
     QList<SceneValue> posList;
     // cache a list of channels processed, to avoid duplicates
@@ -1041,7 +1041,7 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
         {
             modeName = xmlDoc.readElementText();
         }
-        else if (xmlDoc.name() == KXMLQLCPhysicalDimensionsWeight)
+        else if (xmlDoc.name() == KXMLQLCPhysicalDimensionsWidth)
         {
             width = xmlDoc.readElementText().toUInt();
         }
@@ -1260,7 +1260,7 @@ bool Fixture::saveXML(QXmlStreamWriter *doc) const
     /* RGB Panel physical dimensions */
     if (m_fixtureDef != NULL && m_fixtureDef->model() == KXMLFixtureRGBPanel && m_fixtureMode != NULL)
     {
-        doc->writeTextElement(KXMLQLCPhysicalDimensionsWeight,
+        doc->writeTextElement(KXMLQLCPhysicalDimensionsWidth,
                               QString::number(m_fixtureMode->physical().width()));
 
         doc->writeTextElement(KXMLQLCPhysicalDimensionsHeight,

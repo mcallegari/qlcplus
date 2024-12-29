@@ -57,6 +57,7 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_maxBeamDegrees(0)
     , m_invertedZoom(false)
     , m_colorsMask(0)
+    , m_capabilityMask(0)
     , m_selectedChannelModifier(nullptr)
 {
     Q_ASSERT(m_doc != nullptr);
@@ -285,12 +286,6 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
             fxAddress = 0;
         }
 
-        /* If we're adding more than one fixture,
-           append a number to the end of the name */
-        if (quantity > 1)
-            fxi->setName(QString("%1 #%2").arg(name).arg(i + 1));
-        else
-            fxi->setName(name);
         fxi->setAddress(fxAddress);
         fxi->setUniverse(uniIdx);
         if (fxiDef == nullptr && fxiMode == nullptr)
@@ -311,6 +306,7 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
 
         if (m_doc->addFixture(fxi) == true)
         {
+            fxi->setName(QString("%1 [%2]").arg(name).arg(fxi->id() + 1));
             Tardis::instance()->enqueueAction(Tardis::FixtureCreate, fxi->id(), QVariant(),
                                               Tardis::instance()->actionToByteArray(Tardis::FixtureCreate, fxi->id()));
             slotFixtureAdded(fxi->id(), QVector3D(xPos, yPos, 0));
@@ -393,7 +389,7 @@ bool FixtureManager::deleteFixtureInGroup(quint32 groupID, quint32 itemID, QStri
     return true;
 }
 
-void FixtureManager::renameFixture(quint32 itemID, QString newName)
+bool FixtureManager::renameFixture(quint32 itemID, QString newName)
 {
     quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
     //quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
@@ -401,17 +397,26 @@ void FixtureManager::renameFixture(quint32 itemID, QString newName)
 
     Fixture *fixture = m_doc->fixture(fixtureID);
     if (fixture == nullptr)
-        return;
+        return false;
+
+    QList<Fixture*> fixtureList = m_doc->fixtures();
+    for (Fixture *docFixture : fixtureList)
+    {
+        if (docFixture->name() == newName)
+            return false;
+    }
 
     Tardis::instance()->enqueueAction(Tardis::FixtureSetName, itemID, fixture->name(), newName);
 
     setItemRoleData(itemID, -1, "label", newName);
     fixture->setName(newName);
+
+    return true;
 }
 
 int FixtureManager::fixturesCount()
 {
-    return m_doc->fixtures().count();
+    return m_doc->fixturesCount();
 }
 
 QVariant FixtureManager::groupsTreeModel()
@@ -616,9 +621,7 @@ void FixtureManager::addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fix
             {
                 for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
                 {
-                    quint32 iID = itemID;
-                    if (fixture->type() == QLCFixtureDef::Dimmer)
-                        iID = FixtureUtils::fixtureItemID(fixture->id(), headIdx, linkedIndex);
+                    quint32 iID = FixtureUtils::fixtureItemID(fixture->id(), headIdx, linkedIndex);
 
                     QVariantList headParams;
                     headParams.append(QVariant::fromValue(fixture)); // classRef
@@ -1084,7 +1087,7 @@ void FixtureManager::addFixturesToNewGroup(QList<quint32> fxList)
     int headsCount = 0;
     for (quint32 id : fxList)
     {
-        Fixture* fxi = m_doc->fixture(id);
+        Fixture *fxi = m_doc->fixture(id);
         if (fxi != nullptr)
             headsCount += fxi->heads();
     }
@@ -1156,16 +1159,28 @@ void FixtureManager::updateFixtureGroup(quint32 groupID, quint32 itemID, int hea
     //m_fixtureTree->printTree(); // enable for debug purposes
 }
 
-void FixtureManager::renameFixtureGroup(quint32 groupID, QString newName)
+bool FixtureManager::renameFixtureGroup(quint32 groupID, QString newName)
 {
     FixtureGroup *group = m_doc->fixtureGroup(groupID);
     if (group == nullptr)
-        return;
+        return false;
+
+    // check for same name among existing groups
+    QList<FixtureGroup*> groupList = m_doc->fixtureGroups();
+    for (FixtureGroup *docGroup : groupList)
+        if (docGroup->name() == newName)
+            return false;
+
+    // check also among universe names since they are represented as groups
+    for (QString &uniName : m_doc->inputOutputMap()->universeNames())
+        if (uniName == newName)
+            return false;
 
     group->setName(newName);
 
     updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter);
     emit groupsTreeModelChanged();
+    return true;
 }
 
 bool FixtureManager::deleteFixtureGroups(QVariantList IDList)
@@ -1219,10 +1234,23 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
 
     FixtureGroup *grp = new FixtureGroup(m_doc);
     Q_ASSERT(grp != nullptr);
-    grp->setName(name);
+
     QSize panelSize(columns, rows);
     grp->setSize(panelSize);
     m_doc->addFixtureGroup(grp);
+
+    // make sure the name is unique
+    QList<FixtureGroup*> groupList = m_doc->fixtureGroups();
+    for (FixtureGroup *docGroup : groupList)
+    {
+        if (docGroup->name() == name)
+        {
+            name = QString ("%1 [%2]").arg(name).arg(grp->id());
+            break;
+        }
+    }
+
+    grp->setName(name);
 
     int transpose = 0;
     if (direction == Vertical)
@@ -1386,6 +1414,7 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
 
     m_fixtureList.clear();
     m_fixtureList = m_doc->fixtures();
+    updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter);
     emit fixturesCountChanged();
     emit fixturesMapChanged();
 
@@ -1746,6 +1775,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
     bool hasShutter = false, hasColorWheel = false, hasGobos = false;
     bool hasBeam = false;
     int origColorsMask = m_colorsMask;
+    quint32 origCapabilityMask = m_capabilityMask;
     QLCPhysical phy;
 
     QList<quint32> channelIndices;
@@ -1774,11 +1804,23 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
 
     for (quint32 ch : channelIndices)
     {
-        const QLCChannel* channel(fixture->channel(ch));
+        const QLCChannel *channel(fixture->channel(ch));
         if (channel == nullptr)
             continue;
 
         int chType = channel->group();
+
+        if (chType == QLCChannel::Intensity)
+        {
+            if (channel->colour() == QLCChannel::NoColour)
+                m_capabilityMask |= App::DimmerType;
+            else
+                m_capabilityMask |= App::ColorType;
+        }
+        else
+        {
+            m_capabilityMask |= (1 << chType);
+        }
 
         switch (channel->group())
         {
@@ -1925,6 +1967,9 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
     if (origColorsMask != m_colorsMask)
         emit colorsMaskChanged(m_colorsMask);
 
+    if (origCapabilityMask != m_capabilityMask)
+        emit capabilityMaskChanged();
+
     updateCapabilityCounter(hasDimmer, "capIntensity", capDelta);
     updateCapabilityCounter(hasColor, "capColor", capDelta);
     updateCapabilityCounter(hasPosition, "capPosition", capDelta);
@@ -1943,6 +1988,17 @@ void FixtureManager::resetCapabilities()
     m_minBeamDegrees = 15.0;
     m_maxBeamDegrees = 0;
     m_colorsMask = 0;
+    m_capabilityMask = 0;
+
+    emit capabilityMaskChanged();
+
+    setCapabilityCounter("capIntensity", 0);
+    setCapabilityCounter("capColor", 0);
+    setCapabilityCounter("capPosition", 0);
+    setCapabilityCounter("capColorWheel", 0);
+    setCapabilityCounter("capGobos", 0);
+    setCapabilityCounter("capShutter", 0);
+    setCapabilityCounter("capBeam", 0);
 }
 
 QList<SceneValue> FixtureManager::getFixturePosition(quint32 fxID, int type, int degrees)
@@ -2104,6 +2160,11 @@ QVariantList FixtureManager::presetChannel(quint32 fixtureID, int chIndex)
     prList.append(prMap);
 
     return prList;
+}
+
+quint32 FixtureManager::capabilityMask() const
+{
+    return m_capabilityMask;
 }
 
 int FixtureManager::colorsMask() const

@@ -213,6 +213,11 @@ void InputOutputManager::removeLastUniverse()
     emit universeNamesChanged();
 }
 
+int InputOutputManager::universesCount()
+{
+    return m_ioMap->universesCount();
+}
+
 bool InputOutputManager::blackout() const
 {
     return m_blackout;

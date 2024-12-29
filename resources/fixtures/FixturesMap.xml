@@ -217,6 +217,7 @@
     <F n="Ayra-ERO-075" m="ERO 075"/>
     <F n="Ayra-ERO-406" m="ERO 406"/>
     <F n="Ayra-ERO-506" m="ERO 506"/>
+    <F n="Ayra-ERO-Micro-Beam-FX" m="ERO Micro Beam FX"/>
     <F n="Ayra-ERO-Microspot" m="ERO Micro Spot"/>
     <F n="Ayra-IntenZ-CB-150" m="IntenZ CB-150 "/>
     <F n="Ayra-TDC-Agaricus" m="TDC Agaricus"/>
@@ -226,6 +227,7 @@
   <M n="Ayrton">
     <F n="Ayrton-Arcaline-100-RGB" m="Arcaline 100 RGB"/>
     <F n="Ayrton-Domino-LT" m="Domino LT"/>
+    <F n="Ayrton-Kyalami" m="Kyalami"/>
     <F n="Ayrton-MagicBlade-R" m="MagicBlade R"/>
     <F n="Ayrton-MagicPanel-602" m="MagicPanel 602"/>
     <F n="Ayrton-MiniPanel-FX" m="MiniPanel FX"/>
@@ -450,6 +452,7 @@
     <F n="Chauvet-DMX-Mega-Strobe-III" m="DMX Mega Strobe III"/>
     <F n="Chauvet-Double-Derby-X" m="Double Derby X"/>
     <F n="Chauvet-Eclipse-RGB" m="Eclipse RGB"/>
+    <F n="Chauvet-EVE-P-160-RGBW" m="EVE P-160 RGBW"/>
     <F n="Chauvet-EZPAR-64-RGBA" m="EZPar 64 RGBA"/>
     <F n="Chauvet-Followspot-120ST" m="Followspot 120ST"/>
     <F n="Chauvet-Freedom-H1" m="Freedom H1"/>
@@ -519,6 +522,7 @@
     <F n="Chauvet-Ovation-F-415FC" m="Ovation F-415FC"/>
     <F n="Chauvet-Ovation-F-915FC" m="Ovation F-915FC"/>
     <F n="Chauvet-Ovation-FD-165WW" m="Ovation FD-165WW"/>
+    <F n="Chauvet-Ovation-H-605FC" m="Ovation H-605FC"/>
     <F n="Chauvet-Ovation-P-56FC" m="Ovation P-56FC"/>
     <F n="Chauvet-Q-Beam-260-LED" m="Q-Beam 260-LED"/>
     <F n="Chauvet-Q-Spot-250" m="Q-Spot 250"/>
@@ -918,6 +922,7 @@
     <F n="Fun-Generation-PicoBeam-60" m="PicoBeam 60"/>
     <F n="Fun-Generation-PicoSpot-20" m="PicoSpot 20"/>
     <F n="Fun-Generation-PicoWash-40-Pixel-Quad-LED" m="PicoWash 40 Pixel Quad LED"/>
+    <F n="Fun-Generation-PicoWash-40Z-Pixel-Quad-LED" m="PicoWash 40Z Pixel Quad LED"/>
     <F n="Fun-Generation-SePar-Hex-LED-RGBAW-UV-IR" m="SePar Hex LED RGBAW UV IR"/>
     <F n="Fun-Generation-SePar-Quad-UV" m="SePar Quad UV"/>
   </M>
@@ -976,6 +981,7 @@
   </M>
   <M n="Ghost">
     <F n="Ghost-Green-30" m="Green 30"/>
+    <F n="Ghost-Lumy" m="Lumy"/>
     <F n="Ghost-Venum-12W-RGBW" m="Venum 12W RGBW"/>
   </M>
   <M n="GLP">
@@ -1034,6 +1040,7 @@
     <F n="Ibiza-PAR-LED-710" m="PAR LED 710"/>
     <F n="Ibiza-PAR-LED-712IR" m="PAR LED 712IR"/>
     <F n="Ibiza-PAR-LED50-COB" m="PAR LED50-COB"/>
+    <F n="Ibiza-Star-Beam" m="Star Beam"/>
   </M>
   <M n="IMG_Stageline">
     <F n="IMG-Stageline-BEAM-40-WS-RGBW" m="BEAM-40 WS/RGBW"/>
@@ -1250,6 +1257,7 @@
     <F n="Martin-MAC-101" m="MAC 101"/>
     <F n="Martin-MAC-2000-Performance-II" m="MAC 2000 Performance II"/>
     <F n="Martin-MAC-2000-Profile-II" m="MAC 2000 Profile II"/>
+    <F n="Martin-MAC-2000-Wash" m="MAC 2000 Wash"/>
     <F n="Martin-MAC-250-Wash" m="MAC 250 Wash"/>
     <F n="Martin-MAC-301-Wash" m="MAC 301 Wash"/>
     <F n="Martin-Mac-350-Entour" m="MAC 350 Entour"/>
@@ -1295,6 +1303,7 @@
     <F n="Martin-SCX-600" m="SCX-600"/>
     <F n="Martin-SCX-700" m="SCX-700"/>
     <F n="Martin-SCX-800" m="SCX-800"/>
+    <F n="Martin-smartMAC" m="smartMAC"/>
     <F n="Martin-Thrill-Mini-Profile" m="Thrill Mini Profile"/>
     <F n="Martin-Viper-AirFX" m="Mac Viper AirFX"/>
   </M>
@@ -1521,11 +1530,16 @@
     <F n="Shehds-2-Eyes-200W-LED-COB-Cool-Warm-White" m="2 Eyes 200W LED COB Cool Warm White"/>
     <F n="Shehds-230W-LED-Beam-Moving-Head" m="LED 230W Beam Moving Head"/>
     <F n="Shehds-Big-Bee-Eyes-LED-Wash-19x40W-RGBW" m="Big Bee Eyes LED Wash 19x40W RGBW"/>
+    <F n="Shehds-Constellaser-12W-Waterproof-Scan-Laser" m="Constellaser 12W Waterproof Scan Laser"/>
+    <F n="Shehds-GalaxyJet-LED-Beam-300W-Beam&amp;Spot&amp;Wash-3in1" m="GalaxyJet LED Beam 300W Beam&amp;Spot&amp;Wash 3in1"/>
     <F n="Shehds-GalaxyJet-Waterproof-IP65-380W-19R-Beam-Moving-Head" m="GalaxyJet Waterproof IP65 380W 19R Beam Moving Head"/>
     <F n="Shehds-JMS-WEBB-LED-Wash-BigBeeEye-19X40W" m="JMS WEBB LED Wash Big Bee Eye 19X40W"/>
+    <F n="Shehds-LED-200W-RGB-FLASH" m="LED 200W RGB FLASH"/>
     <F n="Shehds-LED-Beam+Wash-19x15W-RGBW-Zoom" m="LED Beam+Wash 19x15W RGBW Zoom Lighting"/>
+    <F n="Shehds-LED-Beam-12x12W-RGBW" m="LED Beam 12x12W RGBW"/>
     <F n="Shehds-LED-Flat-Par-18x18W-RGBWA+UV" m="LED Flat Par 18x18W RGBWA+UV"/>
     <F n="Shehds-LED-Flat-Par-7x18W-RGBWA+UV" m="LED Flat Par 7x18W RGBWA+UV"/>
+    <F n="Shehds-LED-Wall-Wash-18x18W-RGBWA+UV" m="LED Wall Wash 18x18W RGBWA+UV"/>
     <F n="Shehds-Wash-Zoom-36x18W" m="Wash Zoom LED 36x18W RGBWA+UV"/>
   </M>
   <M n="Showlite">
@@ -1538,6 +1552,7 @@
     <F n="Showtec-ACT-PC-60-RGBW" m="ACT PC 60 RGBW"/>
     <F n="Showtec-Atmos-F-350" m="Atmos F-350"/>
     <F n="Showtec-Blade-Runner" m="Blade Runner"/>
+    <F n="Showtec-Club-Par-12-4-RGBW" m="Club Par 12-4 RGBW"/>
     <F n="Showtec-Club-Par-12x6-RGBWAUV" m="Club Par 12-6 RGBWAUV"/>
     <F n="Showtec-Compact-Par-18-MKII" m="Compact Par 18 MKII"/>
     <F n="Showtec-Compact-Par-18-Tri-MKII" m="Compact Par 18 Tri MKII"/>
@@ -1571,6 +1586,7 @@
     <F n="Showtec-LED-Pixel-Track-Pro" m="LED Pixel Track Pro"/>
     <F n="Showtec-LED-Powerline-16-Bar" m="LED Powerline 16 Bar"/>
     <F n="Showtec-Lightbrick" m="Lightbrick"/>
+    <F n="Showtec-Luna-Par-120-Q4" m="Luna Par 120 Q4"/>
     <F n="Showtec-Mini-Max-LED-RGB" m="Mini Max LED RGB"/>
     <F n="Showtec-MiniMax-250" m="MiniMax 250"/>
     <F n="Showtec-MultiDim-MK-III-DMX" m="MultiDim MK III DMX"/>
@@ -1578,6 +1594,7 @@
     <F n="Showtec-Par-64-100W-COB-UV" m="Par 64 100W COB UV"/>
     <F n="Showtec-Performer-2000-RGBAL" m="Performer 2000 RGBAL"/>
     <F n="Showtec-Phantom-130-LED-Spot" m="Phantom 130 LED Spot"/>
+    <F n="Showtec-Phantom-180-Wash" m="Phantom 180 Wash"/>
     <F n="Showtec-Phantom-20-LED-Beam" m="Phantom 20 LED Beam"/>
     <F n="Showtec-Phantom-250-Wash" m="Phantom 250 Wash"/>
     <F n="Showtec-Phantom-250" m="Phantom 250"/>
@@ -1655,6 +1672,7 @@
     <F n="Stairville-FS-x75-Follow-Spot" m="FS-x75 Follow Spot"/>
     <F n="Stairville-HL-x9-Quad-Color-Flood-9x8W" m="HL-x9 Quad Color Flood 9x8W"/>
     <F n="Stairville-Hz-200-DMX" m="Hz-200 DMX"/>
+    <F n="Stairville-Infinite-Pixel-250" m="Infinite Pixel 250"/>
     <F n="Stairville-JunoScan-MKII" m="JunoScan MKII"/>
     <F n="Stairville-LED-BAR-240-8-RGB" m="LED Bar 240/8 RGB"/>
     <F n="Stairville-LED-BAR-RGB-252" m="LED BAR 252 RGB (no. 234564)"/>
@@ -1706,6 +1724,7 @@
     <F n="Stairville-Tri-Flat-PAR-Profile-5x3W-RGB" m="Tri Flat PAR Profile 5x3W RGB"/>
     <F n="Stairville-TRI-LED-Bundle-Complete" m="Stage TRI LED Bundle Complete"/>
     <F n="Stairville-WGF-2000" m="WGF 2000"/>
+    <F n="Stairville-Wild-Wash-132-LED-CW" m="Wild Wash 132 LED CW"/>
     <F n="Stairville-Wild-Wash-132-RGB-LED" m="Wild Wash 132 RGB LED"/>
     <F n="Stairville-Wild-Wash-9x3W-LED-UV" m="Wild Wash 9x3W LED UV"/>
     <F n="Stairville-xBrick-Full-Colour-16X3W" m="xBrick Full-Colour 16X3W"/>
@@ -1763,6 +1782,7 @@
     <F n="TSSS-XL35" m="XL35"/>
   </M>
   <M n="UKing">
+    <F n="UKing-36W-UV-PAR" m="36W PAR UV ZQ01087"/>
     <F n="UKing-4-Head-Beam-RGBW" m="4 Head Beam RGBW"/>
     <F n="UKing-7x10W-Mini-Moving-Head" m="7x10W Mini Moving Head"/>
     <F n="UKing-B55-Par-Can-12-LED-RGBW-12W" m="B55 Par Can 12 LED RGBW 12W"/>

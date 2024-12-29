@@ -150,25 +150,37 @@ jobs:
       - name: Configure for QT5 build
         if: ${{ matrix.task == 'compile-qt5' }}
         run: |
-          ${QMAKE} QMAKE_CXX="${CXX}" QMAKE_CC="${CC}" QMAKE_LINK="${CXX}" QMAKE_LINK_SHLIB="${CXX}" CONFIG+=appimage FORCECONFIG=release
+          # force a release build
+          sed -i -e 's/Debug/Release/g' CMakeLists.txt
+          mkdir build
+          cd build
+          cmake -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dappimage=ON -DINSTALL_ROOT=${INSTALL_ROOT} ..
 
       - name: Configure for QT5QML build
         if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
-          $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" CONFIG+=appimage CONFIG+=qmlui FORCECONFIG=release
+          # force a release build
+          sed -i -e 's/Debug/Release/g' CMakeLists.txt
+          mkdir build
+          cd build
+          cmake -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dqmlui=ON -Dappimage=ON -DINSTALL_ROOT=${INSTALL_ROOT} ..
 
       - name: Configure for QT5 coverage build
         if: ${{ matrix.task == 'coverage-qt5' }}
         run: |
           $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" CONFIG+=coverage
-          #QMAKE_CXXFLAGS+="-fno-sized-deallocation"
 
       - name: Build
+        if: ${{ ! startsWith( matrix.task, 'coverage') }}
+        run: cd build && make -j $NPROC
+
+      - name: Build Coverage
+        if: ${{ startsWith( matrix.task, 'coverage') }}
         run: make -j $NPROC
 
       - name: Test
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
-        run: make check
+        run: cd build && make check
 
       - name: Test with Coverage
         if: ${{ startsWith( matrix.task, 'coverage') }}
@@ -185,9 +197,10 @@ jobs:
       - name: Install
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
         run: |
+          cd build
           make INSTALL_ROOT=${INSTALL_ROOT} install
-          cp -v resources/icons/svg/qlcplus.svg ${INSTALL_ROOT}
-          cp -v platforms/linux/qlcplus.desktop ${INSTALL_ROOT}
+          cp -v ../resources/icons/svg/qlcplus.svg ${INSTALL_ROOT}
+          cp -v ../platforms/linux/qlcplus.desktop ${INSTALL_ROOT}
 
       - name: Adapt qlcplus for AppImage (qt5)
         if: ${{ matrix.task == 'compile-qt5' }}
@@ -258,7 +271,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        task: [compile-qt5, compile-qt5-32bit, compile-qt5qml]
+        task: [compile-qt5, compile-qt5qml]
     env:
       CI_REPO_SLUG: ${{ github.repository }}
       CI_BRANCH: ${{ github.head_ref }}
@@ -492,7 +505,7 @@ jobs:
           path: ${{matrix.task}}-${{env.OUTFILE}}
 
   build-macos:
-    runs-on: macos-12
+    runs-on: macos-13
     name: QLCplus macOS ${{matrix.task}}
     strategy:
       fail-fast: false

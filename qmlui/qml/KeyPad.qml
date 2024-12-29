@@ -230,11 +230,13 @@ Rectangle
         {
             Layout.fillWidth: true
             implicitHeight: itemHeight
-            label: "-"
+            label: showDMXcontrol ? "-%" : "-"
             repetition: true
             onClicked:
             {
-                if (showDMXcontrol == false)
+                if (showDMXcontrol)
+                    commandBox.appendText(" -% ")
+                else
                     commandBox.text = parseInt(commandBox.text) - 1
             }
         }
@@ -249,11 +251,13 @@ Rectangle
         {
             Layout.fillWidth: true
             implicitHeight: itemHeight
-            label: "+"
+            label: showDMXcontrol ? "+%" : "+"
             repetition: true
             onClicked:
             {
-                if (showDMXcontrol == false)
+                if (showDMXcontrol)
+                    commandBox.appendText(" +% ")
+                else
                     commandBox.text = parseInt(commandBox.text) + 1
             }
         }

@@ -274,6 +274,163 @@ Rectangle
                 implicitHeight: parent.height
                 color: "transparent"
             }
+
+            // ################## DMX DUMP ##################
+            IconButton
+            {
+                id: sceneDump
+                z: 2
+                implicitWidth: UISettings.iconSizeDefault
+                implicitHeight: UISettings.iconSizeDefault
+                Layout.alignment: Qt.AlignTop
+                bgColor: "transparent"
+                imgSource: "qrc:/dmxdump.svg"
+                imgMargins: 10
+                tooltip: qsTr("Dump DMX values on a Scene")
+                counter: (qlcplus.accessMask & App.AC_FunctionEditing)
+
+                property string bubbleLabel: {
+                    if (currentContext === sdEntry.ctxName)
+                        return simpleDesk ? simpleDesk.dumpValuesCount : ""
+                    else
+                        return contextManager ? contextManager.dumpValuesCount : ""
+                }
+
+                function updateDumpVariables()
+                {
+                    if (currentContext === sdEntry.ctxName)
+                    {
+                        dmxDumpDialog.capabilityMask = simpleDesk ? simpleDesk.dumpChannelMask : 0
+                        dmxDumpDialog.channelSetMask = simpleDesk ? simpleDesk.dumpChannelMask : 0
+                    }
+                    else
+                    {
+                        dmxDumpDialog.capabilityMask = fixtureManager ? fixtureManager.capabilityMask : 0
+                        dmxDumpDialog.channelSetMask = contextManager ? contextManager.dumpChannelMask : 0
+                    }
+                }
+
+                onClicked:
+                {
+                    updateDumpVariables()
+                    dmxDumpDialog.open()
+                    dmxDumpDialog.focusEditItem()
+                }
+
+                // channel count bubble
+                Rectangle
+                {
+                    x: -3
+                    y: parent.height - height + 3
+                    width: sceneDump.width * 0.4
+                    height: width
+                    color: "red"
+                    border.width: 1
+                    border.color: UISettings.fgMain
+                    radius: 3
+                    clip: true
+                    visible: sceneDump.bubbleLabel !== "0" ? true : false
+
+                    RobotoText
+                    {
+                        anchors.centerIn: parent
+                        height: parent.height * 0.7
+                        label: sceneDump.bubbleLabel
+                        fontSize: height
+                    }
+                }
+
+                MouseArea
+                {
+                    id: dumpDragArea
+                    anchors.fill: parent
+                    propagateComposedEvents: true
+                    drag.target: dumpDragItem
+                    drag.threshold: 10
+                    onClicked: mouse.accepted = false
+
+                    property bool dragActive: drag.active
+
+                    onDragActiveChanged:
+                    {
+                        console.log("Drag active changed: " + dragActive)
+                        if (dragActive == false)
+                        {
+                            dumpDragItem.Drag.drop()
+                            dumpDragItem.parent = sceneDump
+                            dumpDragItem.x = 0
+                            dumpDragItem.y = 0
+                        }
+                        else
+                        {
+                            dumpDragItem.parent = mainView
+                        }
+
+                        dumpDragItem.Drag.active = dragActive
+                    }
+                }
+
+                Item
+                {
+                    id: dumpDragItem
+                    z: 99
+                    visible: dumpDragArea.drag.active
+
+                    Drag.source: dumpDragItem
+                    Drag.keys: [ "dumpValues" ]
+
+                    function itemDropped(id, name)
+                    {
+                        console.log("Dump values dropped on " + id)
+                        dmxDumpDialog.sceneID = id
+                        dmxDumpDialog.sceneName = name
+                        dmxDumpDialog.open()
+                        dmxDumpDialog.focusEditItem()
+                    }
+
+                    Rectangle
+                    {
+                        width: UISettings.iconSizeMedium
+                        height: width
+                        radius: width / 4
+                        color: "red"
+
+                        RobotoText
+                        {
+                            anchors.centerIn: parent
+                            label: sceneDump.bubbleLabel
+                        }
+                    }
+                }
+
+                PopupDMXDump
+                {
+                    id: dmxDumpDialog
+                    implicitWidth: Math.min(UISettings.bigItemHeight * 4, mainView.width / 3)
+
+                    onAccepted:
+                    {
+                        if (currentContext === sdEntry.ctxName)
+                        {
+                            simpleDesk.dumpDmxChannels(sceneName, getChannelsMask())
+                        }
+                        else
+                        {
+                            contextManager.dumpDmxChannels(getChannelsMask(), sceneName, existingScene && func ? func.id : -1,
+                                        allChannels, nonZeroOnly);
+                        }
+                    }
+                }
+            }
+
+            // spacer
+            Rectangle
+            {
+                width: UISettings.iconSizeDefault / 2
+                color: "transparent"
+            }
+
+            // ################## BEATS ##################
             RobotoText
             {
                 label: "BPM: " + (ioManager.bpmNumber > 0 ? ioManager.bpmNumber : qsTr("Off"))
@@ -331,6 +488,15 @@ Rectangle
                     }
                 }
             }
+
+            // spacer
+            Rectangle
+            {
+                width: UISettings.iconSizeDefault / 2
+                color: "transparent"
+            }
+
+            // ################## STOP ALL FUNCTIONS ##################
             IconButton
             {
                 id: stopAllButton
@@ -413,5 +579,5 @@ Rectangle
         color: Qt.rgba(0, 0, 0, 0.5)
     }
 
-    PopupDisclaimer { }
+    //PopupDisclaimer { }
 }

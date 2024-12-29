@@ -18,7 +18,7 @@
 */
 
 import QtQuick 2.0
-import QtMultimedia 5.8
+import QtMultimedia 5.14
 
 import org.qlcplus.classes 1.0
 import "."
@@ -149,6 +149,13 @@ Rectangle
                 id: player
                 //source: "sourceURL"
                 autoPlay: true
+                volume: video.intensity
+                /* Qt 6.8
+                audioOutput:
+                    AudioOutput {
+                        volume: video.intensity
+                    }
+                */
 
                 onStopped:
                 {

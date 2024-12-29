@@ -494,6 +494,8 @@ public:
 
     void updateFeedback();
 
+    void updateOverrideFeedback(bool on);
+
 signals:
     void requestSliderUpdate(int value);
     void valueChanged(QString val);

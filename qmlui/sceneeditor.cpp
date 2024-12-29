@@ -70,6 +70,7 @@ void SceneEditor::setFunctionID(quint32 id)
         m_source->setOutputEnabled(false);
         m_fixtureList->clear();
         m_fixtureIDs.clear();
+        m_selectedChannels.clear();
         if (bottomPanel != nullptr)
             bottomPanel->setProperty("visible", false);
         return;
@@ -263,6 +264,28 @@ void SceneEditor::setFixtureSelection(quint32 fxID)
                               Q_ARG(QVariant, fxIndex));
 }
 
+void SceneEditor::setChannelSelection(quint32 fxID, quint32 channel, bool selected)
+{
+    SceneValue scv(fxID, channel);
+
+    if (selected)
+    {
+        if (m_selectedChannels.contains(scv) == false)
+            m_selectedChannels.append(scv);
+    }
+    else
+    {
+        m_selectedChannels.removeAll(scv);
+    }
+
+    emit selectedChannelCountChanged();
+}
+
+int SceneEditor::selectedChannelCount()
+{
+    return m_selectedChannels.count();
+}
+
 void SceneEditor::addComponent(int type, quint32 id)
 {
     if (m_scene == nullptr)
@@ -292,6 +315,33 @@ void SceneEditor::addComponent(int type, quint32 id)
     }
 
     updateLists();
+}
+
+void SceneEditor::pasteToAllFixtureSameType()
+{
+    for (SceneValue scv : m_selectedChannels)
+    {
+        Fixture *sourceFixture = m_doc->fixture(scv.fxi);
+        if (sourceFixture == nullptr)
+            continue;
+
+        uchar currentValue = m_scene->value(scv.fxi, scv.channel);
+
+        for (quint32 dstFxId : m_scene->fixtures())
+        {
+            Fixture *destFixture = m_doc->fixture(scv.fxi);
+            if (dstFxId == scv.fxi || destFixture == nullptr)
+                continue;
+
+            if (sourceFixture->fixtureDef() == destFixture->fixtureDef() &&
+                sourceFixture->fixtureMode() == destFixture->fixtureMode())
+            {
+                SceneValue dstScv(dstFxId, scv.channel, currentValue);
+                m_scene->setValue(dstScv);
+                slotSceneValueChanged(dstScv);
+            }
+        }
+    }
 }
 
 void SceneEditor::deleteItems(QVariantList list)

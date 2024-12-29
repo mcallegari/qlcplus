@@ -82,12 +82,3 @@ install(FILES ${SNDFILE_LIBDIR}/libsndfile.1.0.37.dylib DESTINATION ${INSTALLROO
 #install(FILES ${FFTW3_LIBDIR}/libpcre2-16.0.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
 # more deps: libzstd.1.dylib #libgthread-2.0.0.dylib #libglib-2.0.0.dylib #libintl.8.dylib
 #            libpng16.16.dylib #libqjpeg.dylib #libjpeg.8.dylib #libmp3lame.0.dylib
-
-# HELPER: PRINT ALL VARIABLES KNOWN BY CMAKE
-
-#message("QTDIR: ${QT_DIR}")
-#get_cmake_property(_variableNames VARIABLES)
-#list (SORT _variableNames)
-#foreach (_variableName ${_variableNames})
-#    message(STATUS "${_variableName}=${${_variableName}}")
-#endforeach()

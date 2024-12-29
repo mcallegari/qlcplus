@@ -41,6 +41,7 @@ Rectangle
 
     function animatePanel(checked)
     {
+        console.log("checked=" + checked + ", isOpen=" + isOpen)
         if (checked === isOpen)
             return
 

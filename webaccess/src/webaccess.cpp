@@ -446,7 +446,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
         else
             qDebug() << "[webaccess] Command" << cmdList[1] << "not supported!";
 
-        if (! m_auth->savePasswordsFile())
+        if (!m_auth->savePasswordsFile())
         {
             QString wsMessage = QString("ALERT|" + tr("Error while saving passwords file."));
             conn->webSocketWrite(wsMessage);
@@ -461,15 +461,37 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 
         if (cmdList.at(1) == "NETWORK")
         {
+            QString wsMessage;
             if (m_netConfig->updateNetworkSettings(cmdList) == true)
-            {
-                QString wsMessage = QString("ALERT|" + tr("Network configuration changed. Reboot to apply the changes."));
-                conn->webSocketWrite(wsMessage);
+                wsMessage = QString("ALERT|" + tr("Network configuration changed. Reboot to apply the changes."));
+            else
+                wsMessage = QString("ALERT|" + tr("An error occurred while updating the network configuration."));
+
+            conn->webSocketWrite(wsMessage);
+            return;
+        }
+        else if (cmdList.at(1) == "HOTSPOT")
+        {
+            QString wsMessage;
+            if (cmdList.count() < 5)
                 return;
+
+            bool enable = cmdList.at(2).toInt();
+
+            if (enable)
+            {
+                if (m_netConfig->createWiFiHotspot(cmdList.at(3), cmdList.at(4)) == true)
+                    wsMessage = QString("ALERT|" + tr("Wi-Fi hotspot successfully activated."));
+                else
+                    wsMessage = QString("ALERT|" + tr("An error occurred while creating a Wi-Fi hotspot."));
             }
             else
-                qDebug() << "[webaccess] Error writing network configuration file!";
+            {
+                m_netConfig->deleteWiFiHotspot();
+                wsMessage = QString("ALERT|" + tr("Wi-Fi hotspot successfully deactivated."));
+            }
 
+            conn->webSocketWrite(wsMessage);
             return;
         }
         else if (cmdList.at(1) == "AUTOSTART")
@@ -600,9 +622,9 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             quint32 wID = cmdList[2].toUInt();
             VCWidget *widget = m_vc->widget(wID);
             if (widget != NULL)
-                wsAPIMessage.append(widget->typeToString(widget->type()));
+                wsAPIMessage.append(QString("%1|%2").arg(wID).arg(widget->typeToString(widget->type())));
             else
-                wsAPIMessage.append(widget->typeToString(VCWidget::UnknownWidget));
+                wsAPIMessage.append(QString("%1|%2").arg(wID).arg(widget->typeToString(VCWidget::UnknownWidget)));
         }
         else if (apiCmd == "getWidgetStatus")
         {
@@ -613,6 +635,9 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             VCWidget *widget = m_vc->widget(wID);
             if (widget != NULL)
             {
+                // add widget ID to the response
+                wsAPIMessage.append(QString("%1|").arg(wID));
+
                 switch(widget->type())
                 {
                     case VCWidget::ButtonWidget:

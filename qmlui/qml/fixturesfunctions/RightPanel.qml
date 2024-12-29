@@ -86,7 +86,7 @@ SidePanel
             loaderSource = fEditor
             animatePanel(true)
             addFunction.checked = false
-            funcEditor.checked = true
+            funcManagerButton.checked = true
         }
     }
 
@@ -98,8 +98,17 @@ SidePanel
         // reset the currently loaded item first
         loaderSource = ""
         itemID = funcID
-        loaderSource = functionManager.getEditorResource(funcID)
-        animatePanel(true)
+
+        if (funcID === -1)
+        {
+            animatePanel(false)
+            funcManagerButton.checked = false
+        }
+        else
+        {
+            loaderSource = functionManager.getEditorResource(funcID)
+            animatePanel(true)
+        }
     }
 
     onContentLoaded:
@@ -139,8 +148,17 @@ SidePanel
 
             animatePanel(true)
             addFunction.checked = false
-            funcEditor.checked = true
+            funcManagerButton.checked = true
         }
+    }
+
+    CustomPopupDialog
+    {
+        id: fmGenericPopup
+        visible: false
+        title: qsTr("Error")
+        message: ""
+        onAccepted: {}
     }
 
     Rectangle
@@ -159,7 +177,7 @@ SidePanel
 
             IconButton
             {
-                id: funcEditor
+                id: funcManagerButton
                 z: 2
                 width: iconSize
                 height: iconSize
@@ -257,7 +275,12 @@ SidePanel
                     title: qsTr("Rename items")
                     onAccepted:
                     {
-                        functionManager.renameSelectedItems(editText, numberingEnabled, startNumber, digits)
+                        if (functionManager.renameSelectedItems(editText, numberingEnabled, startNumber, digits) === false)
+                        {
+                            fmGenericPopup.message = qsTr("An item with the same name already exists.\nPlease provide a different name.")
+                            fmGenericPopup.open()
+                        }
+
                     }
                 }
             }
@@ -304,138 +327,6 @@ SidePanel
                     if (idList.length === 0)
                         return
                     functionManager.startupFunctionID = idList[0]
-                }
-            }
-
-            IconButton
-            {
-                id: sceneDump
-                z: 2
-                width: iconSize
-                height: iconSize
-                imgSource: "qrc:/dmxdump.svg"
-                tooltip: qsTr("Dump on a new Scene")
-                counter: contextManager ? contextManager.dumpValuesCount && (qlcplus.accessMask & App.AC_FunctionEditing) : 0
-
-                onClicked:
-                {
-                    if (dmxDumpDialog.show)
-                    {
-                        dmxDumpDialog.sceneID = -1
-                        dmxDumpDialog.open()
-                        dmxDumpDialog.focusEditItem()
-                    }
-                    else
-                    {
-                        contextManager.dumpDmxChannels("")
-                        loaderSource = "qrc:/FunctionManager.qml"
-                        animatePanel(true)
-                        funcEditor.checked = true
-                    }
-                }
-
-                Rectangle
-                {
-                    x: -3
-                    y: -3
-                    width: sceneDump.width * 0.4
-                    height: width
-                    color: "red"
-                    border.width: 1
-                    border.color: UISettings.fgMain
-                    radius: 3
-                    clip: true
-
-                    RobotoText
-                    {
-                        anchors.centerIn: parent
-                        height: parent.height * 0.7
-                        label: contextManager ? contextManager.dumpValuesCount : ""
-                        fontSize: height
-                    }
-                }
-
-                MouseArea
-                {
-                    id: dumpDragArea
-                    anchors.fill: parent
-                    propagateComposedEvents: true
-                    drag.target: dumpDragItem
-                    drag.threshold: 10
-                    onClicked: mouse.accepted = false
-
-                    property bool dragActive: drag.active
-
-                    onDragActiveChanged:
-                    {
-                        console.log("Drag active changed: " + dragActive)
-                        if (dragActive == false)
-                        {
-                            dumpDragItem.Drag.drop()
-                            dumpDragItem.parent = sceneDump
-                            dumpDragItem.x = 0
-                            dumpDragItem.y = 0
-                        }
-                        else
-                        {
-                            dumpDragItem.parent = mainView
-                        }
-
-                        dumpDragItem.Drag.active = dragActive
-                    }
-                }
-
-                Item
-                {
-                    id: dumpDragItem
-                    z: 99
-                    visible: dumpDragArea.drag.active
-
-                    Drag.source: dumpDragItem
-                    Drag.keys: [ "dumpValues" ]
-
-                    function itemDropped(id, name)
-                    {
-                        console.log("Dump values dropped on " + id)
-                        dmxDumpDialog.sceneID = id
-                        dmxDumpDialog.sceneName = name
-                        dmxDumpDialog.open()
-                        dmxDumpDialog.focusEditItem()
-                    }
-
-                    Rectangle
-                    {
-                        width: UISettings.iconSizeMedium
-                        height: width
-                        radius: width / 4
-                        color: "red"
-
-                        RobotoText
-                        {
-                            anchors.centerIn: parent
-                            label: contextManager ? contextManager.dumpValuesCount : ""
-                        }
-                    }
-                }
-
-                PopupDMXDump
-                {
-                    id: dmxDumpDialog
-                    implicitWidth: Math.min(UISettings.bigItemHeight * 4, mainView.width / 3)
-                    channelsMask: contextManager ? contextManager.dumpChannelMask : 0
-
-                    property int sceneID: -1
-
-                    onAccepted:
-                    {
-                        if (sceneID == -1)
-                            contextManager.dumpDmxChannels(sceneName, getChannelsMask())
-                        else
-                            contextManager.dumpDmxChannels(sceneID, getChannelsMask())
-                        loaderSource = "qrc:/FunctionManager.qml"
-                        animatePanel(true)
-                        funcEditor.checked = true
-                    }
                 }
             }
 
