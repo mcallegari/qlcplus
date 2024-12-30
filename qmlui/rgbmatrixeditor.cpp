@@ -134,6 +134,7 @@ void RGBMatrixEditor::setAlgorithmIndex(int algoIndex)
         /** if we're setting the same algorithm, then there's nothing to do */
         if (m_matrix->algorithm() != nullptr && m_matrix->algorithm()->name() == algo->name())
             return;
+
         Q_ASSERT(5 == RGBAlgorithmColorDisplayCount);
         QVector<QColor> colors = {
                 m_matrix->getColor(0),
@@ -177,7 +178,18 @@ void RGBMatrixEditor::setColorAtIndex(int index, QColor color)
 
     Tardis::instance()->enqueueAction(Tardis::RGBMatrixSetColor1, m_matrix->id(), m_matrix->getColor(index), color);
     m_matrix->setColor(index, color);
-    m_previewStepHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1), m_matrix->algorithm());
+    if (index < 2)
+        m_previewStepHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1), m_matrix->algorithm());
+}
+
+void RGBMatrixEditor::resetColorAtIndex(int index)
+{
+    if (m_matrix == nullptr || m_matrix->getColor(index).isValid() == false)
+        return;
+
+    m_matrix->setColor(index, QColor());
+    if (index < 2)
+        m_previewStepHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1), m_matrix->algorithm());
 }
 
 bool RGBMatrixEditor::hasColorAtIndex(int index)

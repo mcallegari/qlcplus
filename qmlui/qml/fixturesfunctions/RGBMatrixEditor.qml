@@ -362,11 +362,14 @@ Rectangle
                     width: UISettings.listItemHeight
                     height: width
                     imgSource: "qrc:/cancel.svg"
+                    tooltip: qsTr("Reset color 2")
                     visible: rgbMatrixEditor.algoColors > 1 ? true : false
-                    onClicked: rgbMatrixEditor.hasColor2 = false
+                    onClicked:
+                    {
+                        color2Button.color = "transparent"
+                        rgbMatrixEditor.resetColorAtIndex(1)
+                    }
                 }
-                // filler
-                //Rectangle { Layout.fillWidth: true; height: parent.height; color: "transparent" }
             }
 
             // row 7
@@ -400,7 +403,7 @@ Rectangle
                     radius: 5
                     border.color: color3MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: rgbMatrixEditor.colorAtIndex(2)
+                    color: rgbMatrixEditor.hasColorAtIndex(2) ? rgbMatrixEditor.colorAtIndex(2) : "transparent"
                     visible: rgbMatrixEditor.algoColors > 2 ? true : false
 
                     MouseArea
@@ -422,8 +425,13 @@ Rectangle
                     width: UISettings.listItemHeight
                     height: width
                     imgSource: "qrc:/cancel.svg"
+                    tooltip: qsTr("Reset color 3")
                     visible: rgbMatrixEditor.algoColors > 2 ? true : false
-                    onClicked: rgbMatrixEditor.hasColor3 = false
+                    onClicked:
+                    {
+                        color3Button.color = "transparent"
+                        rgbMatrixEditor.resetColorAtIndex(2)
+                    }
                 }
 
                 Rectangle
@@ -434,7 +442,7 @@ Rectangle
                     radius: 5
                     border.color: color4MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: rgbMatrixEditor.colorAtIndex(3)
+                    color: rgbMatrixEditor.hasColorAtIndex(3) ? rgbMatrixEditor.colorAtIndex(3) : "transparent"
                     visible: rgbMatrixEditor.algoColors > 3 ? true : false
 
                     MouseArea
@@ -456,11 +464,14 @@ Rectangle
                     width: UISettings.listItemHeight
                     height: width
                     imgSource: "qrc:/cancel.svg"
+                    tooltip: qsTr("Reset color 4")
                     visible: rgbMatrixEditor.algoColors > 3 ? true : false
-                    onClicked: rgbMatrixEditor.hasColor4 = false
+                    onClicked:
+                    {
+                        color4Button.color = "transparent"
+                        rgbMatrixEditor.resetColorAtIndex(3)
+                    }
                 }
-                // filler
-                //Rectangle { Layout.fillWidth: true; height: parent.height; color: "transparent" }
             }
 
             // row 8
@@ -493,7 +504,7 @@ Rectangle
                     radius: 5
                     border.color: color5MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: rgbMatrixEditor.colorAtIndex(4)
+                    color: rgbMatrixEditor.hasColorAtIndex(4) ? rgbMatrixEditor.colorAtIndex(4) : "transparent"
                     visible: rgbMatrixEditor.algoColors > 4 ? true : false
 
                     MouseArea
@@ -515,11 +526,14 @@ Rectangle
                     width: UISettings.listItemHeight
                     height: width
                     imgSource: "qrc:/cancel.svg"
+                    tooltip: qsTr("Reset color 5")
                     visible: rgbMatrixEditor.algoColors > 4 ? true : false
-                    onClicked: rgbMatrixEditor.hasColor5 = false
+                    onClicked:
+                    {
+                        color5Button.color = "transparent"
+                        rgbMatrixEditor.resetColorAtIndex(4)
+                    }
                 }
-                // filler
-                //Rectangle { Layout.fillWidth: true; height: parent.height; color: "transparent" }
             }
 
             SectionBox

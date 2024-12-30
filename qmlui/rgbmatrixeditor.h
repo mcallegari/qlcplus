@@ -86,6 +86,7 @@ public:
 
     Q_INVOKABLE QColor colorAtIndex(int index);
     Q_INVOKABLE void setColorAtIndex(int index, QColor color);
+    Q_INVOKABLE void resetColorAtIndex(int index);
     Q_INVOKABLE bool hasColorAtIndex(int index);
 
     QString algoText() const;
