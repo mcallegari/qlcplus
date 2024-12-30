@@ -1,7 +1,8 @@
-qlcplus (4.13.2) stable; urgency=low
+qlcplus (4.14.0) stable; urgency=low
 
   * engine: fix flashing fade out
   * engine: add stopOnExit, waitFunctionStart and waitFunctionStop commands to Script - see documentation (thanks to ldebs)
+  * engine: introduce RGBScript v3 and allow up to 5 colors (thanks to Hans-Jürgen Tappe)
   * UI: adjust audio volume on video intensity change
   * UI/Fixture Manager: limit the number of RGB panel columns for RGBW to avoid crash
   * UI/Show Manager: show step notes on the timeline (thanks to anarchid)
@@ -32,7 +33,7 @@ qlcplus (4.13.2) stable; urgency=low
   * New fixture: Chauvet Ovation H-605FC (thanks to Ken Coughlin)
   * New fixture: Martin smartMAC (thanks to Mads Vejrup)
 
-  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 29 Dec 2024 18:19:20 +0200
+  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 5 Jan 2025 18:19:20 +0200
 
 qlcplus (4.13.1) stable; urgency=low
 
