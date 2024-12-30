@@ -388,7 +388,9 @@ int SimpleDesk::getCurrentPage()
 uchar SimpleDesk::getAbsoluteChannelValue(uint address)
 {
     if (m_engine->hasChannel(address))
+    {
         return m_engine->value(address);
+    }
     else
     {
         QList<Universe*> ua = m_doc->inputOutputMap()->claimUniverses();
@@ -404,6 +406,9 @@ uchar SimpleDesk::getAbsoluteChannelValue(uint address)
 
 void SimpleDesk::setAbsoluteChannelValue(uint address, uchar value)
 {
+    if (address >= ((uint)m_doc->inputOutputMap()->universesCount() * 512))
+        return;
+
     m_engine->setValue(address, value);
 }
 
@@ -411,13 +416,18 @@ void SimpleDesk::resetChannel(quint32 address)
 {
     m_engine->resetChannel(address);
 
-    quint32 start = (m_universePageSpin->value() - 1) * m_channelsPerPage;
+    quint32 start = (m_currentUniverse * 512) + (m_universePageSpin->value() - 1) * m_channelsPerPage;
 
-    if (m_viewModeButton->isChecked() == false &&
-        address >= start && address < start + m_channelsPerPage)
+    if (m_viewModeButton->isChecked() == false)
     {
+        if (address < start || address >= start + m_channelsPerPage)
+            return;
+
         Fixture *fxi = m_doc->fixture(m_doc->fixtureForAddress(address));
-        ConsoleChannel *cc = m_universeSliders[address - start];
+        ConsoleChannel *cc = m_universeSliders.value(address - start, NULL);
+        if (cc == NULL)
+            return;
+
         if (fxi == NULL)
         {
             cc->setChannelStyleSheet(ssNone);
@@ -429,6 +439,23 @@ void SimpleDesk::resetChannel(quint32 address)
             else
                 cc->setChannelStyleSheet(ssOdd);
         }
+    }
+    else
+    {
+        Fixture *fxi = m_doc->fixture(m_doc->fixtureForAddress(address));
+        if (fxi == NULL)
+            return;
+
+        FixtureConsole *fc = m_consoleList.value(fxi->id(), NULL);
+        if (fc == NULL)
+            return;
+
+        quint32 ch = address - fxi->universeAddress();
+
+        if (fxi->id() % 2 == 0)
+            fc->setChannelStylesheet(ch, ssOdd);
+        else
+            fc->setChannelStylesheet(ch, ssEven);
     }
 }
 
@@ -780,7 +807,9 @@ void SimpleDesk::slotUniverseResetClicked()
     m_engine->resetUniverse(m_currentUniverse);
     m_universePageSpin->setValue(1);
     if (m_viewModeButton->isChecked() == false)
+    {
         slotUniversePageChanged(1);
+    }
     else
     {
         QHashIterator <quint32,FixtureConsole*> it(m_consoleList);
@@ -997,7 +1026,11 @@ void SimpleDesk::slotUniverseWritten(quint32 idx, const QByteArray& universeData
                         break;
 
                     if (m_engine->hasChannel((startAddr + c) + (idx << 9)) == true)
+                    {
+                        fc->setValue(c, universeData.at(startAddr + c), false);
+                        fc->setChannelStylesheet(c, ssOverride);
                         continue;
+                    }
 
                     fc->blockSignals(true);
                     fc->setValue(c, universeData.at(startAddr + c), false);
