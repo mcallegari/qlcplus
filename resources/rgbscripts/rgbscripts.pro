@@ -5,7 +5,6 @@ TARGET   = scripts
 
 scripts.files += alternate.js
 scripts.files += balls.js
-scripts.files += ballscolors.js
 scripts.files += blinder.js
 scripts.files += circles.js
 scripts.files += circular.js
@@ -24,7 +23,6 @@ scripts.files += noise.js
 scripts.files += onebyone.js
 scripts.files += opposite.js
 scripts.files += plasma.js
-scripts.files += plasmacolors.js
 scripts.files += randomcolumn.js
 scripts.files += randomfillcolumn.js
 scripts.files += randomfillrow.js

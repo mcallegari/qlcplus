@@ -179,13 +179,59 @@ devtool.initProperties = function()
     properties.forEach(devtool.addPropertyTableEntry);
 }
 
+devtool.getAcceptColors = function()
+{
+  var acceptColors = 2 // Default
+  if (typeof testAlgo.acceptColors !== "undefined") {
+    acceptColors = parseInt(testAlgo.acceptColors, 10);
+  }
+
+  return acceptColors;
+}
+
 devtool.initPixelColors = function()
 {
-    var pixelColorChooser = document.getElementById("pixelColorChooser");
-    pixelColorChooser.hidden = testAlgo.acceptColors === 0;
+    var acceptColors = devtool.getAcceptColors();
 
-    var secondaryColorChooser = document.getElementById("secondaryColorChooser");
-    secondaryColorChooser.hidden = testAlgo.acceptColors === 1;
+    var colorTable = document.getElementById("colorChooserTable");
+    if (colorTable === null)
+        return;
+    while (colorTable.rows.length > acceptColors)
+        colorTable.deleteRow(-1);
+    while (colorTable.rows.length < acceptColors) {
+        var colorId = colorTable.rows.length + 1;
+        var row = colorTable.insertRow();
+        row.id = "color" + colorId + "Chooser";
+        var titleCell = row.insertCell();
+        if (colorId === 1)
+            titleCell.textContent = "Color " + colorId + " (rrggbb)";
+        else
+            titleCell.textContent = "Color " + colorId + " (rrggbb, leave empty to disable)";
+        var colorInput = document.createElement("input");
+        colorInput.setAttribute("type", "text");
+        colorInput.setAttribute("id", "color" + colorId + "Text");
+        if (colorId === 1)
+            colorInput.value = "FF0000";
+        else
+            colorInput.value = "";
+        colorInput.setAttribute("pattern", "[0-9A-Fa-f]{6}");
+        colorInput.setAttribute("size", "6");
+        colorInput.setAttribute("onInput", "devtool.onColorTextChange()");
+        colorInput.required = true;
+        var colorCell = row.insertCell();
+        colorCell.appendChild(colorInput);
+        var colorPicker = document.createElement("input");
+        colorPicker.setAttribute("type", "color");
+        colorPicker.setAttribute("id", "color" + colorId + "Picker");
+        if (colorId === 1)
+            colorPicker.value = "#FF0000";
+        else
+            colorPicker.value = "#000000";
+        colorPicker.setAttribute("onInput", "devtool.onColorPickerChange(" + colorId + ")");
+        colorPicker.required = true;
+        var pickerCell = row.insertCell();
+        pickerCell.appendChild(colorPicker);
+    }
 }
 
 devtool.initSpeedValue = function()
@@ -210,21 +256,24 @@ devtool.initAlternateValue = function()
 
 devtool.initColorValues = function()
 {
-    var primary = localStorage.getItem("devtool.primaryColor");
-    if (primary === null || Number.isNaN(parseInt("0x" + primary, 16))) {
-      primary = "ff0000";
+    var rawColors = [];
+    var acceptColors = devtool.getAcceptColors();
+    for (var i = 0; i < acceptColors; i++) {
+        var idx = i + 1;
+        var color = localStorage.getItem("devtool.color" + idx);
+        if (color === null || Number.isNaN(parseInt("0x" + color, 16))) {
+            if (idx === 1)
+                color = "ff0000";
+            else
+                color = "000000";
+        }
+        color = color.padStart(6,"0");
+        rawColors.push(parseInt("0x" + color, 16));
+        document.getElementById("color" + idx + "Text").value = color;
+        document.getElementById("color" + idx + "Picker").value = "#" + color;
     }
-    primary = primary.padStart(6,"0");
-    document.getElementById("primaryColorText").value = primary;
-    document.getElementById("primaryColorPicker").value = "#" + primary;
-    var secondary = localStorage.getItem("devtool.secondaryColor");
-    if (secondary === null || secondary === "" || Number.isNaN(parseInt("0x" + secondary, 16))) {
-      document.getElementById("secondaryColorText").value = "";
-      document.getElementById("secondaryColorPicker").value = "#000000";
-    } else {
-      secondary = secondary.padStart(6,"0");
-      document.getElementById("secondaryColorText").value = secondary;
-      document.getElementById("secondaryColorPicker").value =  "#" + secondary;
+    if (testAlgo.apiVersion >= 3) {
+      testAlgo.rgbMapSetColors(rawColors);
     }
 }
 
@@ -255,18 +304,25 @@ devtool.getRgbFromColorInt = function(color)
     return [red, green, blue];
 }
 
+devtool.getColorInt = function(index)
+{
+    var colorInput = document.getElementById("color" + index + "Text");
+    if (colorInput === null)
+        return 0;
+    return parseInt("0x" + colorInput.value, 16);
+}
+
 devtool.getCurrentColorInt = function()
 {
-    var primaryColorInput = document.getElementById("primaryColorText");
-    var primaryColor = parseInt(primaryColorInput.value, 16);
-    var secondaryColorInput = document.getElementById("secondaryColorText");
-    var secondaryColor = parseInt(secondaryColorInput.value, 16);
+    var primaryColor = devtool.getColorInt(1);
+    var secondaryColor = devtool.getColorInt(2);
+    var acceptColors = devtool.getAcceptColors();
 
-    if (testAlgo.acceptColors === 0 || Number.isNaN(primaryColor)) {
+    if (acceptColors === 0 || Number.isNaN(primaryColor)) {
         return null;
     }
 
-    if (testAlgo.acceptColors === 1 || Number.isNaN(secondaryColor) || devtool.stepCount() <= 1) {
+    if (acceptColors === 1 || Number.isNaN(secondaryColor) || devtool.stepCount() <= 1) {
         return primaryColor;
     }
 
@@ -285,12 +341,14 @@ devtool.getCurrentColorInt = function()
 
 devtool.writeCurrentStep = function()
 {
-    devtool.currentStep = parseInt(document.getElementById("currentStep").value); // currentStep may have been changed manually
+    // currentStep may have been changed manually
+    devtool.currentStep = parseInt(document.getElementById("currentStep").value, 10);
 
     var map = document.getElementById("map");
     for (var i = map.rows.length - 1; i >= 0; i--) {
         map.deleteRow(i);
     }
+
     var rgb = testAlgo.rgbMap(devtool.gridwidth, devtool.gridheight, devtool.getCurrentColorInt(), devtool.currentStep);
 
     for (var y = 0; y < devtool.gridheight; y++)
@@ -300,11 +358,7 @@ devtool.writeCurrentStep = function()
         for (var x = 0; x < devtool.gridwidth; x++)
         {
             var cell = row.insertCell(x);
-            var rgbStr = rgb[y][x].toString(16);
-            while (rgbStr.length !== 6) {
-                rgbStr = "0" + rgbStr;
-            }
-            rgbStr = "#" + rgbStr;
+            var rgbStr = "#" + rgb[y][x].toString(16).padStart(6,"0");
             cell.style.backgroundColor = rgbStr;
             cell.style.height = devtool.gridsize + "px";
             cell.style.width = devtool.gridsize + "px";
@@ -335,13 +389,13 @@ devtool.updateStepCount = function()
 
 devtool.onGridSizeUpdated = function()
 {
-    devtool.gridwidth = parseInt(document.getElementById("gridwidth").value);
+    devtool.gridwidth = parseInt(document.getElementById("gridwidth").value, 10);
     localStorage.setItem("devtool.gridwidth", devtool.gridwidth);
 
-    devtool.gridheight = parseInt(document.getElementById("gridheight").value);
+    devtool.gridheight = parseInt(document.getElementById("gridheight").value, 10);
     localStorage.setItem("devtool.gridheight", devtool.gridheight);
 
-    devtool.gridsize = parseInt(document.getElementById("gridsize").value);
+    devtool.gridsize = parseInt(document.getElementById("gridsize").value, 10);
     localStorage.setItem("devtool.gridsize", devtool.gridsize);
 
     devtool.updateStepCount();
@@ -351,35 +405,40 @@ devtool.onGridSizeUpdated = function()
 
 devtool.onColorTextChange = function()
 {
-    var primary = parseInt("0x" + document.getElementById("primaryColorText").value).toString(16);
-    localStorage.setItem("devtool.primaryColor", primary);
-    var secondary = parseInt("0x" + document.getElementById("secondaryColorText").value).toString(16);
-    if(primary === "NaN"){
-      document.getElementById("primaryColorPicker").value = "#000000";
-    } else {
-      document.getElementById("primaryColorPicker").value = "#" + primary.padStart(6,"0");;
+    var rawColors = [];
+    var acceptColors = devtool.getAcceptColors();
+    for (var i = 0; i < acceptColors; i++) {
+        var idx = i + 1;
+        var color = parseInt("0x" + document.getElementById("color" + idx + "Text").value, 16).toString(16);
+        if (color === "NaN" &&
+            document.getElementById("color" + idx + "Picker").value != "#000000"){
+          document.getElementById("color" + idx + "Picker").value = "#000000";
+        } else {
+          var pickerValue = "#" + color.padStart(6,"0");
+          if (document.getElementById("color" + idx + "Picker").value != pickerValue) {
+            document.getElementById("color" + idx + "Picker").value = pickerValue;
+          }
+        }
+        localStorage.setItem("devtool.color" + idx, color);
+        rawColors.push(devtool.getColorInt(idx));
     }
-    if (secondary === "NaN") { // Evaluation of the string.
-      document.getElementById("secondaryColorPicker").value = "#000000";
-      localStorage.setItem("devtool.secondaryColor", "");
-    } else {
-      document.getElementById("secondaryColorPicker").value = "#" + secondary.padStart(6,"0");;
-      localStorage.setItem("devtool.secondaryColor", secondary);
+    if (testAlgo.apiVersion >= 3) {
+      testAlgo.rgbMapSetColors(rawColors);
     }
-    
+
     devtool.writeCurrentStep();
 }
 
-devtool.onPrimaryColorPickerChange = function()
+devtool.onColorPickerChange = function(i)
 {
-    document.getElementById("primaryColorText").value = document.getElementById("primaryColorPicker").value.substring(1);
-    devtool.onColorTextChange();
-}
-
-devtool.onSecondaryColorPickerChange = function()
-{
-    document.getElementById("secondaryColorText").value = document.getElementById("secondaryColorPicker").value.substring(1);
-    devtool.onColorTextChange();
+    var textId = "color" + i + "Text";
+    var pickerId = "color" + i + "Picker";
+    var oldTextValue = document.getElementById(textId).value;
+    var newTextValue = document.getElementById(pickerId).value.substring(1);
+    if (oldTextValue != newTextValue) {
+      document.getElementById(textId).value = newTextValue;
+      devtool.onColorTextChange();
+    }
 }
 
 devtool.startTest = function(inc)
@@ -403,8 +462,8 @@ devtool.stopTest = function()
 devtool.initTestStatus = function()
 {
     let timerStatus = localStorage.getItem("devtool.timerRunning");
-    if (timerStatus === null || parseInt(timerStatus) !== 0) {
-        devtool.startTest(parseInt(timerStatus));
+    if (timerStatus === null || parseInt(timerStatus, 10) !== 0) {
+        devtool.startTest(parseInt(timerStatus, 10));
     }
 }
 
@@ -415,11 +474,11 @@ devtool.init = function()
     }
     devtool.initDefinitions();
     devtool.initGridSize();
-    devtool.setStep(0);
-    devtool.initSpeedValue();
-    devtool.initColorValues();
     devtool.initProperties();
     devtool.initPixelColors();
+    devtool.initColorValues();
+    devtool.setStep(0);
+    devtool.initSpeedValue();
     devtool.onGridSizeUpdated();
     devtool.writeCurrentStep();
     devtool.initTestStatus();
@@ -467,6 +526,8 @@ devtool.writeFunction = function(functionName, propertyName, value)
 {
     window.testAlgo[functionName](value);
     localStorage.setItem(propertyName, value);
+    devtool.initPixelColors();
+    devtool.initColorValues();
     devtool.updateStepCount();
 }
 

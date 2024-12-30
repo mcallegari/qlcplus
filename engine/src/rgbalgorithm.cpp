@@ -39,15 +39,27 @@
 
 RGBAlgorithm::RGBAlgorithm(Doc * doc)
     : m_doc(doc)
-    , m_startColor(QColor())
-    , m_endColor(QColor())
 {
 }
 
-void RGBAlgorithm::setColors(QColor start, QColor end)
+void RGBAlgorithm::setColors(QVector<QColor> colors)
 {
-    m_startColor = start;
-    m_endColor = end;
+    int nCols = acceptColors();
+    m_colors.clear();
+
+    for (int i = 0; i < nCols; i++)
+    {
+        if (i < colors.count())
+            m_colors.append(colors.at(i));
+    }
+}
+
+QColor RGBAlgorithm::getColor(uint i) const
+{
+    if (i >= (uint)m_colors.count())
+        return QColor();
+
+    return m_colors[i];
 }
 
 /****************************************************************************

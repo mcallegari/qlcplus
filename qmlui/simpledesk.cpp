@@ -424,8 +424,11 @@ void SimpleDesk::dumpDmxChannels(QString name, quint32 mask)
  * Keypad
  ************************************************************************/
 
-void SimpleDesk::sendKeypadCommand(QString command)
+bool SimpleDesk::sendKeypadCommand(QString command)
 {
+    if (command.isEmpty())
+        return false;
+
     QByteArray uniData = m_prevUniverseValues.value(m_universeFilter);
     QList<SceneValue> scvList = m_keyPadParser->parseCommand(m_doc, command, uniData);
 
@@ -446,6 +449,8 @@ void SimpleDesk::sendKeypadCommand(QString command)
         m_keypadCommandHistory.removeLast();
 
     emit commandHistoryChanged();
+
+    return true;
 }
 
 QStringList SimpleDesk::commandHistory() const

@@ -21,116 +21,17 @@
 var testAlgo;
 
 (function() {
-  var colorPalette = new Object;
-  colorPalette.collection = new Array(
-    ["White", 0xFFFFFF], // 0
-    ["Cream", 0xFFFF7F], // 1
-    ["Pink", 0xFF7F7F], // 2
-    ["Rose", 0x7F3F3F], // 3
-    ["Coral", 0x7F3F1F], // 4
-    ["Dim Red", 0x7F0000], // 5
-    ["Red", 0xFF0000], // 6
-    ["Orange", 0xFF3F00], // 7
-    ["Dim Orange", 0x7F1F00], // 8
-    ["Goldenrod", 0x7F3F00], // 9
-    ["Gold", 0xFF7F00], // 10
-    ["Yellow", 0xFFFF00], // 11
-    ["Dim Yellow", 0x7F7F00], // 12
-    ["Lime", 0x7FFF00], // 13
-    ["Pale Green", 0x3F7F00], // 14
-    ["Dim Green", 0x007F00], // 15
-    ["Green", 0x00FF00], // 16
-    ["Seafoam", 0x00FF3F], // 17
-    ["Turquoise", 0x007F3F], // 18
-    ["Teal", 0x007F7F], // 19
-    ["Cyan", 0x00FFFF], // 20
-    ["Electric Blue", 0x007FFF], // 21
-    ["Blue", 0x0000FF], // 22
-    ["Dim Blue", 0x00007F], // 23
-    ["Pale Blue", 0x1F1F7F], // 24
-    ["Indigo", 0x1F00BF], // 25
-    ["Purple", 0x3F00BF], // 26
-    ["Violet", 0x7F007F], // 27
-    ["Magenta", 0xFF00FF], // 28
-    ["Hot Pink", 0xFF003F], // 29
-    ["Deep Pink", 0x7F001F], // 30
-    ["OFF", 0x000000]); // 31
-
-  colorPalette.makeSubArray = function(_index) {
-    var _array = new Array();
-    for (var i = 0; i < colorPalette.collection.length; i++) {
-      _array.push(colorPalette.collection[parseInt(i, 10)][parseInt(_index, 10)]);
-    }
-    return _array;
-  };
-  colorPalette.names = colorPalette.makeSubArray(0);
 
   var algo = new Object;
-  algo.apiVersion = 2;
+  algo.apiVersion = 3;
   algo.name = "Alternate";
   algo.author = "Hans-Jürgen Tappe";
 
   var x = 0;
   var y = 0;
 
-  algo.acceptColors = 0;
+  algo.acceptColors = 2;
   algo.properties = new Array();
-
-  algo.getColorIndex = function(_name) {
-    var idx = colorPalette.names.indexOf(_name);
-    if (idx === -1) {
-      idx = (colorPalette.collection.length - 1);
-    }
-    return idx;
-  };
-
-  algo.color1Index = algo.getColorIndex("Red");
-  algo.properties.push("name:color1Index|type:list|display:Color 1|" +
-    "values:" + colorPalette.names.toString() + "|" +
-    "write:setColor1Index|read:getColor1Name");
-  algo.color2Index = algo.getColorIndex("Green");
-  algo.properties.push("name:color2Index|type:list|display:Color 2|" +
-    "values:" + colorPalette.names.toString() + "|" +
-    "write:setColor2Index|read:getColor2Name");
-
-  algo.getColorName = function(_index) {
-    if (_index < 0) {
-      _index = 0;
-    }
-    if (_index >= colorPalette.collection.length) {
-      _index = (colorPalette.collection.length - 1);
-    }
-    return colorPalette.collection[parseInt(_index, 10)][0];
-  };
-  algo.getColorValue = function(_index) {
-    if (_index < 0) {
-      _index = 0;
-    }
-    else if (_index >= colorPalette.collection.length) {
-      _index = (colorPalette.collection.length - 1);
-    }
-    return colorPalette.collection[parseInt(_index, 10)][1];
-  };
-
-  algo.setColor1Index = function(_name) {
-    algo.color1Index = algo.getColorIndex(_name);
-  };
-  algo.getColor1Name = function() {
-    return algo.getColorName(algo.color1Index);
-  };
-  algo.getColor1Value = function() {
-    return algo.getColorValue(algo.color1Index);
-  };
-
-  algo.setColor2Index = function(_name) {
-    algo.color2Index = algo.getColorIndex(_name);
-  };
-  algo.getColor2Name = function() {
-    return algo.getColorName(algo.color2Index);
-  };
-  algo.getColor2Value = function() {
-    return algo.getColorValue(algo.color2Index);
-  };
 
   algo.align = 0;
   algo.properties.push("name:align|type:list|" +
@@ -203,17 +104,40 @@ var testAlgo;
     return algo.offset;
   };
 
+  var util = new Object;
+  util.colorArray = new Array(algo.acceptColors);
+
+  util.getRawColor = function (idx) {
+    var color = 0;
+    if (Array.isArray(util.colorArray) && util.colorArray.length > idx && util.colorArray[idx]) {
+      color = util.colorArray[idx];
+    }
+    return color;
+  }
+
+  algo.rgbMapSetColors = function(rawColors)
+  {
+    if (! Array.isArray(rawColors))
+      return;
+    for (var i = 0; i < algo.acceptColors; i++) {
+      if (i < rawColors.length)
+      {
+        util.colorArray[i] = rawColors[i];
+      } else {
+        util.colorArray[i] = 0;
+      }
+    }
+  }
+
   algo.rgbMap = function(width, height, rgb, step) {
     var map = new Array(height);
     var colorSelectOne = (step === 1) ? false : true;
     var rowColorOne = colorSelectOne;
     var realBlockSize = algo.blockSize;
 
+    // Setup the rgb map
     for (y = 0; y < height; y++) {
-      map[parseInt(y, 10)] = new Array(width);
-      for (x = 0; x < width; x++) {
-        map[parseInt(y, 10)][parseInt(x, 10)] = 0;
-      }
+      map[y] = new Array(width);
     }
 
     var xMax = width;
@@ -287,7 +211,7 @@ var testAlgo;
           lowRest = effectiveStep - realBlockCount * realBlockSize;
           highRest = (realBlockCount + 1) * realBlockSize - effectiveStep;
           rest = Math.min(lowRest, highRest);
-          if (rest < 0.5 || lowRest == 0.5) {
+          if (rest < 0.5 || lowRest === 0.5) {
             colorSelectOne = !colorSelectOne;
           }
         } else if (algo.orientation === 2) {
@@ -303,9 +227,9 @@ var testAlgo;
           }
         }
         if (colorSelectOne) {
-          map[parseInt(y, 10)][parseInt(x, 10)] = algo.getColor1Value();
+          map[y][x] = util.getRawColor(0);
         } else {
-          map[parseInt(y, 10)][parseInt(x, 10)] = algo.getColor2Value();
+          map[y][x] = util.getRawColor(1);
         }
       }
     }
@@ -314,21 +238,21 @@ var testAlgo;
       if (algo.orientation === 0) {
         for (y = 0; y < yMax; y++) {
           for (x = 0; x < xMax; x++) {
-            map[parseInt(y, 10)][parseInt(width - x - 1, 10)] = map[parseInt(y, 10)][parseInt(x, 10)];
+            map[y][width - x - 1] = map[y][x];
           }
         }
       } else if (algo.orientation === 1) {
         for (y = 0; y < yMax; y++) {
           for (x = 0; x < xMax; x++) {
-            map[parseInt(height - y - 1, 10)][parseInt(x, 10)] = map[parseInt(y, 10)][parseInt(x, 10)];
+            map[height - y - 1][x] = map[y][x];
           }
         }
       } else if (algo.orientation === 2) {
         for (y = 0; y < yMax; y++) {
           for (x = 0; x < xMax; x++) {
-            map[parseInt(height - y - 1, 10)][parseInt(x, 10)] = map[parseInt(y, 10)][parseInt(x, 10)];
-            map[parseInt(y, 10)][parseInt(width - x - 1, 10)] = map[parseInt(y, 10)][parseInt(x, 10)];
-            map[parseInt(height - y - 1, 10)][parseInt(width - x - 1, 10)] = map[parseInt(y, 10)][parseInt(x, 10)];
+            map[height - y - 1][x] = map[y][x];
+            map[y][width - x - 1] = map[y][x];
+            map[height - y - 1][width - x - 1] = map[y][x];
           }
         }
       }

@@ -1989,6 +1989,16 @@ void FixtureManager::resetCapabilities()
     m_maxBeamDegrees = 0;
     m_colorsMask = 0;
     m_capabilityMask = 0;
+
+    emit capabilityMaskChanged();
+
+    setCapabilityCounter("capIntensity", 0);
+    setCapabilityCounter("capColor", 0);
+    setCapabilityCounter("capPosition", 0);
+    setCapabilityCounter("capColorWheel", 0);
+    setCapabilityCounter("capGobos", 0);
+    setCapabilityCounter("capShutter", 0);
+    setCapabilityCounter("capBeam", 0);
 }
 
 QList<SceneValue> FixtureManager::getFixturePosition(quint32 fxID, int type, int degrees)

@@ -17,7 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick 2.14
+import QtQuick.Layouts 1.14
+
 import "."
 
 Rectangle
@@ -93,29 +95,6 @@ Rectangle
             GradientStop { position: 1; color: "#141414" }
         }
 
-        IconButton
-        {
-            id: expandButton
-            x: parent.width - width - 4
-            z: 2
-            anchors.verticalCenter: parent.verticalCenter
-            width: height * 1.2
-            height: parent.height * 0.7
-            checkable: true
-            tooltip: qsTr("Expand/Collapse this panel")
-            onToggled: animatePanel(checked)
-
-            Image
-            {
-                anchors.centerIn: parent
-                source: "qrc:/arrow-down.svg"
-                width: parent.width * 0.8
-                height: parent.height * 0.5
-                rotation: expandButton.checked ? 0 : 180
-                sourceSize: Qt.size(width, height)
-            }
-        }
-
         MouseArea
         {
             id: rpClickArea
@@ -139,6 +118,62 @@ Rectangle
                 }
             }
             //onClicked: animatePanel()
+        }
+
+        RowLayout
+        {
+            anchors.fill: parent
+            z: 2
+
+            // filler
+            Rectangle
+            {
+                height: parent.height
+                Layout.fillWidth: true
+                color: "transparent"
+            }
+
+            IconButton
+            {
+                visible: isOpen && editorLoader.item && editorLoader.item.hasOwnProperty("isSceneEditor")
+                width: UISettings.iconSizeDefault
+                height: UISettings.iconSizeDefault
+                imgSource: "qrc:/edit-copy.svg"
+                tooltip: qsTr("Copy the selected channel values to all the fixtures of the same type")
+                enabled: sceneEditor.selectedChannelCount > 0 ? true : false
+                onClicked: sceneEditor.pasteToAllFixtureSameType()
+            }
+
+            IconButton
+            {
+                visible: isOpen && editorLoader.item && editorLoader.item.hasOwnProperty("isSceneEditor")
+                width: UISettings.iconSizeDefault
+                height: UISettings.iconSizeDefault
+                imgSource: "qrc:/multiple.svg"
+                tooltip: qsTr("Toggle multiple channel selection")
+                checkable: true
+                onToggled: editorLoader.item.multipleSelection = checked
+            }
+
+            IconButton
+            {
+                id: expandButton
+                width: height * 1.2
+                height: parent.height * 0.7
+                checkable: true
+                tooltip: qsTr("Expand/Collapse this panel")
+                onToggled: animatePanel(checked)
+
+                Image
+                {
+                    anchors.centerIn: parent
+                    source: "qrc:/arrow-down.svg"
+                    width: parent.width * 0.8
+                    height: parent.height * 0.5
+                    rotation: expandButton.checked ? 0 : 180
+                    sourceSize: Qt.size(width, height)
+                }
+            }
         }
     }
 

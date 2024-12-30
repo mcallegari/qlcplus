@@ -1,23 +1,39 @@
-qlcplus (4.13.2) stable; urgency=low
+qlcplus (4.14.0) stable; urgency=low
 
   * engine: fix flashing fade out
   * engine: add stopOnExit, waitFunctionStart and waitFunctionStop commands to Script - see documentation (thanks to ldebs)
+  * engine: introduce RGBScript v3 and allow up to 5 colors (thanks to Hans-Jürgen Tappe)
+  * UI: adjust audio volume on video intensity change
   * UI/Fixture Manager: limit the number of RGB panel columns for RGBW to avoid crash
   * UI/Show Manager: show step notes on the timeline (thanks to anarchid)
   * UI/Show Manager: handle CTRL+mouse wheel to zoom in/out
+  * Virtual Console/Slider: send feedback on override button press
+  * Virtual Console/Sped Dial: fix foreground color setting on Windows
   * Plugins/OS2L: fix receiving multiple messages at once
+  * Web Access: reworked websocket implementation
   * Web Access: fix grand master stopping running functions
   * Web Access: fix simple desk not resetting the current universe
+  * Web Access: add widget ID to getWidgetType and getWidgetStatus response
   * RGB scripts: added 'Sine Wave' script
   * RGB scripts: fix Vertical Fall not allowing changing color when cloned
-  * New fixtures: GLP Impression X5, Ayrton Rivale Profile (thanks to Masatoshi Fujino)
+  * New fixtures: GLP Impression X5, Ayrton Rivale Profile, Ayrton Kyalami (thanks to Masatoshi Fujino)
   * New fixture: Eurolite LED Mini Strobe Cluster SMD 48 (thanks to Oliver)
   * New fixture: Ayra Compar Kit 3 (thanks to Robert)
   * New fixtures: Acme Pixel Line IP, Ayrton Domino LT (thanks to Yestalgia)
   * New fixture: GLP JDC1 (thanks to Flo Edelmann)
   * New fixture: Shehds 2 Eyes 200W LED COB Cool Warm White (thanks to Devsider)
+  * New fixture: Ayra ERO Micro Beam FX (thanks to Gianni)
+  * New fixture: Shehds LED Wall Wash 18x18W RGBWA+UV (thanks to Fede79)
+  * New fixture: Shehds LED Beam 12x12W RGBW (thanks to Lukas Hanisch)
+  * New fixture: Chauvet EVE P-160 RGBW (thanks to Max Wheatley)
+  * New fixture: Stairville Wild Wash 132 LED CW (thanks to e-shock)
+  * New fixture: Showtec Luna Par 120 Q4, Showtec Phantom 180 Wash, Stairville Infinite Pixel 250
+  * New fixture: Ghost Lumy (thanks to Manu)
+  * New fixture: Shehds LED 200W RGB FLASH, GalaxyJet LED Beam 300W Beam&Spot&Wash, Constellaser 12W Waterproof Scan Laser (thanks to Tóth János)
+  * New fixture: Chauvet Ovation H-605FC (thanks to Ken Coughlin)
+  * New fixture: Martin smartMAC (thanks to Mads Vejrup)
 
-  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 24 Nov 2024 18:19:20 +0200
+  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 5 Jan 2025 18:19:20 +0200
 
 qlcplus (4.13.1) stable; urgency=low
 
@@ -36,7 +52,7 @@ qlcplus (4.13.1) stable; urgency=low
   * New fixtures: beamZ BAC500 and BAC506 (thanks to Olivier Michel)
   * New fixtures: American DJ Par Z4, beamZ SB400, OXO ColorBeam 7 FCW IR, Pro-Lights Pixie Spot (thanks to Dmitry Kolesnikov)
   * New fixtures: BoomToneDJ LED PAR 7X10W 5in1, BoomToneDJ Maxi Spot 60, Mac Mah FLAT PAR 7x12W 6in1, Eurolite LED PIX-16 QCL Bar (thanks to Cédric Monféfoul)
-  * New fixture: Showtec ACT PC 60 RGBW (thanks to Michel Sliepenbeek)
+  * New fixtures: Showtec ACT PC 60 RGBW, Ibiza Star Beam (thanks to Michel Sliepenbeek)
   * New fixtures: Robe LEDBeam 350, Robe LEDBeam 350 RGBA, Briteq COB Blinder 2x100W, Ayrton MiniPanel FX (thanks to Giacomo Gorini)
   * New fixture: Elation ELED B48 (thanks to Xoneoo)
   * New fixture: beamZ PS10W (thanks to Jesper Korsen)
@@ -44,9 +60,12 @@ qlcplus (4.13.1) stable; urgency=low
   * New fixtures: Mac Mah Moving-FX Bar, Varytec LED Pad Bar Compact ST RGB, Laserworld EL-400RGB MK2 (thanks to Clément Delabroye)
   * New fixtures: Electroconcept Club Scan 30, Club Scan 120, LED Blinder, Profile 120 Spot LED, Micro Spot 60 LED (thanks to Clément Delabroye)
   * New fixture: Ayrton Mistral (thanks to Masatoshi Fujino)
-  * New fixture: Chauvet COLORtube 3.0 EQ Controller (thanks to Fede79)
+  * New fixtures: Chauvet COLORtube 3.0 EQ Controller, Martin MAC 2000 Wash (thanks to Fede79)
   * New fixture: Shehds Big Bee Eyes LED Wash 19x40W RGBW (thanks to István Király)
   * New fixture: Fun-Generation Mr. Beam 120 W (thanks to Mariano)
+  * New fixture: UKing 36W PAR UV ZQ01087 (thanks to Lance Moore)
+  * New fixture: Showtec Club Par 12-4 RGBW (thanks to Simon Dovicovic)
+  * New fixture: Fun-Generation PicoWash 40Z Pixel Quad LED (thanks to Kristers)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Thu, 30 May 2024 18:19:20 +0200
 

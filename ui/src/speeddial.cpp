@@ -55,7 +55,6 @@ const QString tapTickSS = "QPushButton { background-color: #DDDDDD; border: 3px 
                           "QPushButton:pressed { background-color: #AAAAAA; }"
                           "QPushButton:disabled { border: 2px solid #BBBBBB; }";
 
-
 /****************************************************************************
  * FocusSpinBox
  ****************************************************************************/

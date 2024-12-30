@@ -169,16 +169,16 @@ Rectangle
                 {
                     implicitWidth: UISettings.iconSizeMedium
                     implicitHeight: implicitWidth
-                    checked: widgetRef ? widgetRef.visibilityMask & VCAnimation.StartColor : false
+                    checked: widgetRef ? widgetRef.visibilityMask & VCAnimation.Color1 : false
                     onClicked:
                     {
                         if (!widgetRef)
                             return
 
                         if (checked)
-                            widgetRef.visibilityMask |= VCAnimation.StartColor
+                            widgetRef.visibilityMask |= VCAnimation.Color1
                         else
-                            widgetRef.visibilityMask &= ~VCAnimation.StartColor
+                            widgetRef.visibilityMask &= ~VCAnimation.Color1
                     }
                 }
 
@@ -186,23 +186,23 @@ Rectangle
                 {
                     height: UISettings.listItemHeight
                     Layout.fillWidth: true
-                    label: qsTr("Start Color Button")
+                    label: qsTr("Color 1 Button")
                 }
 
                 CustomCheckBox
                 {
                     implicitWidth: UISettings.iconSizeMedium
                     implicitHeight: implicitWidth
-                    checked: widgetRef ? widgetRef.visibilityMask & VCAnimation.EndColor : false
+                    checked: widgetRef ? widgetRef.visibilityMask & VCAnimation.Color2 : false
                     onClicked:
                     {
                         if (!widgetRef)
                             return
 
                         if (checked)
-                            widgetRef.visibilityMask |= VCAnimation.EndColor
+                            widgetRef.visibilityMask |= VCAnimation.Color2
                         else
-                            widgetRef.visibilityMask &= ~VCAnimation.EndColor
+                            widgetRef.visibilityMask &= ~VCAnimation.Color2
                     }
                 }
 
@@ -210,7 +210,82 @@ Rectangle
                 {
                     height: UISettings.listItemHeight
                     Layout.fillWidth: true
-                    label: qsTr("End Color Button")
+                    label: qsTr("Color 2 Button")
+                }
+
+
+                CustomCheckBox
+                {
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    checked: widgetRef ? widgetRef.visibilityMask & VCAnimation.Color3 : false
+                    onClicked:
+                    {
+                        if (!widgetRef)
+                            return
+
+                        if (checked)
+                            widgetRef.visibilityMask |= VCAnimation.Color3
+                        else
+                            widgetRef.visibilityMask &= ~VCAnimation.Color3
+                    }
+                }
+
+                RobotoText
+                {
+                    height: UISettings.listItemHeight
+                    Layout.fillWidth: true
+                    label: qsTr("Color 3 Button")
+                }
+
+
+                CustomCheckBox
+                {
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    checked: widgetRef ? widgetRef.visibilityMask & VCAnimation.Color4 : false
+                    onClicked:
+                    {
+                        if (!widgetRef)
+                            return
+
+                        if (checked)
+                            widgetRef.visibilityMask |= VCAnimation.Color4
+                        else
+                            widgetRef.visibilityMask &= ~VCAnimation.Color4
+                    }
+                }
+
+                RobotoText
+                {
+                    height: UISettings.listItemHeight
+                    Layout.fillWidth: true
+                    label: qsTr("Color 4 Button")
+                }
+
+
+                CustomCheckBox
+                {
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    checked: widgetRef ? widgetRef.visibilityMask & VCAnimation.Color5 : false
+                    onClicked:
+                    {
+                        if (!widgetRef)
+                            return
+
+                        if (checked)
+                            widgetRef.visibilityMask |= VCAnimation.Color5
+                        else
+                            widgetRef.visibilityMask &= ~VCAnimation.Color5
+                    }
+                }
+
+                RobotoText
+                {
+                    height: UISettings.listItemHeight
+                    Layout.fillWidth: true
+                    label: qsTr("Color 5 Button")
                 }
 
                 // row 3

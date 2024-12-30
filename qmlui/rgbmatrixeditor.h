@@ -39,9 +39,6 @@ class RGBMatrixEditor : public FunctionEditor
     Q_PROPERTY(QStringList algorithms READ algorithms CONSTANT)
     Q_PROPERTY(int algorithmIndex READ algorithmIndex WRITE setAlgorithmIndex NOTIFY algorithmIndexChanged)
     Q_PROPERTY(int algoColors READ algoColors NOTIFY algoColorsChanged)
-    Q_PROPERTY(QColor startColor READ startColor WRITE setStartColor NOTIFY startColorChanged)
-    Q_PROPERTY(QColor endColor READ endColor WRITE setEndColor NOTIFY endColorChanged)
-    Q_PROPERTY(bool hasEndColor READ hasEndColor WRITE setHasEndColor NOTIFY hasEndColorChanged)
 
     Q_PROPERTY(int blendMode READ blendMode WRITE setBlendMode NOTIFY blendModeChanged)
     Q_PROPERTY(int controlMode READ controlMode WRITE setControlMode NOTIFY controlModeChanged)
@@ -87,16 +84,10 @@ public:
     /** Return the accepted colors of the current algorithm */
     int algoColors();
 
-    /** Get/set the start color of the current algorithm */
-    QColor startColor() const;
-    void setStartColor(QColor startColor);
-
-    /** Get/set the end color of the current algorithm */
-    QColor endColor() const;
-    void setEndColor(QColor algoEndColor);
-
-    bool hasEndColor() const;
-    void setHasEndColor(bool hasEndCol);
+    Q_INVOKABLE QColor colorAtIndex(int index);
+    Q_INVOKABLE void setColorAtIndex(int index, QColor color);
+    Q_INVOKABLE void resetColorAtIndex(int index);
+    Q_INVOKABLE bool hasColorAtIndex(int index);
 
     QString algoText() const;
     void setAlgoText(QString text);
@@ -130,9 +121,6 @@ public:
 signals:
     void algorithmIndexChanged();
     void algoColorsChanged();
-    void startColorChanged(QColor startColor);
-    void endColorChanged(QColor endColor);
-    void hasEndColorChanged(bool hasEndColor);
 
     void algoTextChanged(QString text);
     void algoTextFontChanged(QFont algoTextFont);

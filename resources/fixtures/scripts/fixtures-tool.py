@@ -286,9 +286,14 @@ def check_physical(absname, node, hasPan, hasTilt, hasZoom, errNum):
             errNum += 1
 
         if tech_tag is not None:
+            connectorsArray = [ "3-pin", "5-pin", "3-pin and 5-pin", "3-pin IP65", "5-pin IP65", "3.5 mm stereo jack", "Wireless", "Other" ]
             power = int(tech_tag.attrib.get('PowerConsumption', 0))
             if power == 0:
                 print(absname + ": Invalid power consumption")
+                errNum += 1
+            dmxConnector = tech_tag.attrib.get('DmxConnector', "")
+            if dmxConnector not in connectorsArray:
+                print(absname + ": Invalid DMX connector")
                 errNum += 1
 
     return errNum

@@ -109,6 +109,7 @@ bool RGBScript::load(const QDir& dir, const QString& fileName)
     m_script = QJSValue();
     m_rgbMap = QJSValue();
     m_rgbMapStepCount = QJSValue();
+    m_rgbMapSetColors = QJSValue();
     m_apiVersion = 0;
 
     m_fileName = fileName;
@@ -137,6 +138,7 @@ bool RGBScript::evaluate()
 
     m_rgbMap = QJSValue();
     m_rgbMapStepCount = QJSValue();
+    m_rgbMapSetColors = QJSValue();
     m_apiVersion = 0;
 
     if (m_fileName.isEmpty() || m_contents.isEmpty())
@@ -169,7 +171,16 @@ bool RGBScript::evaluate()
     m_apiVersion = m_script.property("apiVersion").toInt();
     if (m_apiVersion > 0)
     {
-        if (m_apiVersion == 2)
+        if (m_apiVersion >= 3)
+        {
+            m_rgbMapSetColors = m_script.property("rgbMapSetColors");
+            if (m_rgbMapSetColors.isCallable() == false)
+            {
+                qWarning() << m_fileName << "is missing the rgbMapSetColors() function!";
+                return false;
+            }
+        }
+        if (m_apiVersion >= 2)
             return loadProperties();
         return true;
     }
@@ -233,6 +244,49 @@ int RGBScript::rgbMapStepCount(const QSize& size)
     }
 }
 
+void RGBScript::rgbMapSetColors(QVector<uint> &colors)
+{
+    QMutexLocker engineLocker(s_engineMutex);
+    if (m_apiVersion <= 2)
+        return;
+    if (m_rgbMap.isUndefined() == true)
+        return;
+    if (m_rgbMapSetColors.isCallable() == false)
+        return;
+
+    int accColors = acceptColors();
+    int rawColorCount = colors.count();
+    QJSValue jsRawColors = s_engine->newArray(accColors);
+    for (int i = 0; i < rawColorCount && i < accColors; i++)
+        jsRawColors.setProperty(i, QJSValue(colors.at(i)));
+
+    QJSValueList args;
+    args << jsRawColors;
+
+    QJSValue value = m_rgbMapSetColors.call(args);
+    if (value.isError())
+        displayError(value, m_fileName);
+}
+
+QVector<uint> RGBScript::rgbMapGetColors()
+{
+    QMutexLocker engineLocker(s_engineMutex);
+    QVector<uint> colArray;
+
+    if (m_rgbMap.isUndefined() == true)
+        return colArray;
+
+    QJSValue colors = m_rgbMapGetColors.call();
+    if (!colors.isError() && colors.isArray())
+    {
+        QVariantList arr = colors.toVariant().toList();
+        foreach (QVariant color, arr)
+            colArray.append(color.toUInt());
+    }
+
+    return colArray;
+}
+
 void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 {
     QMutexLocker engineLocker(s_engineMutex);
@@ -240,12 +294,15 @@ void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
     if (m_rgbMap.isUndefined() == true)
         return;
 
+    // Call the rgbMap function
     QJSValueList args;
     args << size.width() << size.height() << rgb << step;
+
     QJSValue yarray(m_rgbMap.call(args));
     if (yarray.isError())
         displayError(yarray, m_fileName);
 
+    // Check the matrix to be a valid matrix
     if (yarray.isArray())
     {
         QVariantList yvArray = yarray.toVariant().toList();

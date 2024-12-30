@@ -105,6 +105,24 @@ protected:
     /** @reimp */
     bool copyFrom(const VCWidget* widget);
 
+    /*********************************************************************
+     * Background/Foreground color
+     *********************************************************************/
+public:
+    /** @reimp */
+    void setFont(const QFont& font);
+
+    /** @reimp */
+    void setBackgroundColor(const QColor& color);
+
+    /** @reimp */
+    void setForegroundColor(const QColor& color);
+
+    /** @reimp */
+    QColor foregroundColor() const;
+
+private:
+    QColor m_foregroundColor;
     /*************************************************************************
      * Caption
      *************************************************************************/
