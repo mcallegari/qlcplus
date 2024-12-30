@@ -214,7 +214,7 @@ void RGBScript_Test::rgbMapColorArray()
             QColor(Qt::green).rgb() & 0x00ffffff
     };
     QSize mapSize = QSize(5, 5);
-    qDebug() << "C1: " << Qt::hex << rawRgbColors[0] << " C2: " << Qt::hex << rawRgbColors[1];
+
     s.rgbMapSetColors(rawRgbColors);
     s.rgbMap(mapSize, 0, 0, map);
     QVERIFY(map.isEmpty() == false);
@@ -340,12 +340,6 @@ void RGBScript_Test::runScripts()
             {
                 for (int x = 0; x < mapSize.width(); x++)
                 {
-                    if (rgbMap[y][x] > 0x00ffffff) {
-                        uint pxr = (rgbMap[y][x] >> 16 & 0x000000ff);
-                        uint pxg = (rgbMap[y][x] >> 8 & 0x000000ff);
-                        uint pxb = (rgbMap[y][x] & 0x000000ff);
-                        qDebug() << "height:" << mapSize.height() << "width:" << mapSize.width() << "step:" << step << "y:" << y << "x:" << x << "C:" << Qt::hex << pxr << ":" << Qt::hex << pxg << ":" << Qt::hex << pxb << " (" << Qt::hex << rgbMap[y][x]<< ")";
-                    }
                     QVERIFY(rgbMap[y][x] <= 0xffffff);
                 }
             }
@@ -371,13 +365,6 @@ void RGBScript_Test::runScripts()
                     if (s.acceptColors() > 0)
                     {
                         // verify that the alpha channel is zero
-                        if (rgbMap[y][x] > 0x00ffffff)
-                        {
-                            uint pxr = (rgbMap[y][x] >> 16 & 0x000000ff);
-                            uint pxg = (rgbMap[y][x] >> 8 & 0x000000ff);
-                            uint pxb = (rgbMap[y][x] & 0x000000ff);
-                            qDebug() << "step:" << step << "x:" << x << "y:" << y << "C:" << Qt::hex << pxr << ":" << Qt::hex << pxg << ":" << Qt::hex << pxb << " (" << Qt::hex << rgbMap[y][x]<< ")";
-                        }
                         QVERIFY((rgbMap[y][x] & 0xff000000) == 0);
                         QVERIFY((rgbMap[y][x] >> 16) <= 0x0000ff);
                         if (!randomScript && 0 == step && 1 < s.acceptColors() && 2 < steps)
