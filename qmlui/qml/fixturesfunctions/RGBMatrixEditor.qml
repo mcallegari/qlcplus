@@ -58,6 +58,40 @@ Rectangle
         }
     }
 
+    ColorTool
+    {
+        id: colorTool
+        x: -width - (UISettings.iconSizeDefault * 1.25)
+        y: UISettings.bigItemHeight
+        visible: false
+        closeOnSelect: true
+
+        property int colorIndex: -1
+        property Item previewBtn
+
+        function showTool(index, button)
+        {
+            colorIndex = index
+            previewBtn = button
+            currentRGB = rgbMatrixEditor.colorAtIndex(colorIndex)
+            visible = true
+        }
+
+        function hide()
+        {
+            visible = false
+            colorIndex = -1
+            previewBtn = null
+        }
+
+        onColorChanged:
+        {
+            previewBtn.color = Qt.rgba(r, g, b, 1.0)
+            rgbMatrixEditor.setColorAtIndex(colorIndex, previewBtn.color)
+        }
+        onClose: visible = false
+    }
+
     EditorTopBar
     {
         id: topBar
@@ -273,7 +307,7 @@ Rectangle
                     radius: 5
                     border.color: color1MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: rgbMatrixEditor.color1
+                    color: rgbMatrixEditor.colorAtIndex(0)
                     visible: rgbMatrixEditor.algoColors > 0 ? true : false
 
                     MouseArea
@@ -281,27 +315,23 @@ Rectangle
                         id: color1MouseArea
                         anchors.fill: parent
                         hoverEnabled: true
-                        onClicked: color1Tool.visible = !color1Tool.visible
-                    }
-
-                    ColorTool
-                    {
-                        id: color1Tool
-                        parent: rgbmeContainer
-                        x: -width - (UISettings.iconSizeDefault * 1.25)
-                        y: UISettings.bigItemHeight
-                        visible: false
-                        closeOnSelect: true
-                        currentRGB: rgbMatrixEditor.color1
-
-                        onColorChanged:
+                        onClicked:
                         {
-                            color1Button.color = Qt.rgba(r, g, b, 1.0)
-                            rgbMatrixEditor.color1 = color1Button.color
+                            if (colorTool.visible)
+                                colorTool.hide()
+                            else
+                                colorTool.showTool(0, color1Button)
                         }
-                        onClose: visible = false
                     }
                 }
+                Rectangle
+                {
+                    width: UISettings.listItemHeight
+                    height: width
+                    color: "transparent"
+                    visible: rgbMatrixEditor.algoColors > 2 ? true : false
+                }
+
                 Rectangle
                 {
                     id: color2Button
@@ -310,7 +340,7 @@ Rectangle
                     radius: 5
                     border.color: color2MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: rgbMatrixEditor.hasColor2 ? rgbMatrixEditor.color2 : "transparent"
+                    color: rgbMatrixEditor.colorAtIndex(1)
                     visible: rgbMatrixEditor.algoColors > 1 ? true : false
 
                     MouseArea
@@ -318,21 +348,13 @@ Rectangle
                         id: color2MouseArea
                         anchors.fill: parent
                         hoverEnabled: true
-                        onClicked: color2Tool.visible = !color2Tool.visible
-                    }
-
-                    ColorTool
-                    {
-                        id: color2Tool
-                        parent: rgbmeContainer
-                        x: -width - (UISettings.iconSizeDefault * 1.25)
-                        y: UISettings.bigItemHeight
-                        visible: false
-                        closeOnSelect: true
-                        currentRGB: rgbMatrixEditor.color2
-
-                        onColorChanged: rgbMatrixEditor.color2 = Qt.rgba(r, g, b, 1.0)
-                        onClose: visible = false
+                        onClicked:
+                        {
+                            if (colorTool.visible)
+                                colorTool.hide()
+                            else
+                                colorTool.showTool(1, color2Button)
+                        }
                     }
                 }
                 IconButton
@@ -355,13 +377,14 @@ Rectangle
                 spacing: 4
                 visible: rgbMatrixEditor.algoColors > 4 ? true : false
 
-                //leftPadding: Qt.binding(function() { return editorColumn.firstColumnWidth })
                 Rectangle
                 {
                     id: colorRow1
                     height: editorColumn.itemsHeight
+                    width: editorColumn.firstColumnWidth
                     color: "transparent"
                     visible: rgbMatrixEditor.algoColors > 4 ? true : false
+
                     onWidthChanged:
                     {
                         editorColumn.checkLabelWidth(width)
@@ -377,7 +400,7 @@ Rectangle
                     radius: 5
                     border.color: color3MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: rgbMatrixEditor.hasColor3 ? rgbMatrixEditor.color3 : "transparent"
+                    color: rgbMatrixEditor.colorAtIndex(2)
                     visible: rgbMatrixEditor.algoColors > 2 ? true : false
 
                     MouseArea
@@ -385,21 +408,13 @@ Rectangle
                         id: color3MouseArea
                         anchors.fill: parent
                         hoverEnabled: true
-                        onClicked: color3Tool.visible = !color3Tool.visible
-                    }
-
-                    ColorTool
-                    {
-                        id: color3Tool
-                        parent: rgbmeContainer
-                        x: -width - (UISettings.iconSizeDefault * 1.25)
-                        y: UISettings.bigItemHeight
-                        visible: false
-                        closeOnSelect: true
-                        currentRGB: rgbMatrixEditor.color3
-
-                        onColorChanged: rgbMatrixEditor.color3 = Qt.rgba(r, g, b, 1.0)
-                        onClose: visible = false
+                        onClicked:
+                        {
+                            if (colorTool.visible)
+                                colorTool.hide()
+                            else
+                                colorTool.showTool(2, color3Button)
+                        }
                     }
                 }
                 IconButton
@@ -419,7 +434,7 @@ Rectangle
                     radius: 5
                     border.color: color4MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: rgbMatrixEditor.hasColor4 ? rgbMatrixEditor.color4 : "transparent"
+                    color: rgbMatrixEditor.colorAtIndex(3)
                     visible: rgbMatrixEditor.algoColors > 3 ? true : false
 
                     MouseArea
@@ -427,21 +442,13 @@ Rectangle
                         id: color4MouseArea
                         anchors.fill: parent
                         hoverEnabled: true
-                        onClicked: color4Tool.visible = !color4Tool.visible
-                    }
-
-                    ColorTool
-                    {
-                        id: color4Tool
-                        parent: rgbmeContainer
-                        x: -width - (UISettings.iconSizeDefault * 1.25)
-                        y: UISettings.bigItemHeight
-                        visible: false
-                        closeOnSelect: true
-                        currentRGB: rgbMatrixEditor.color4
-
-                        onColorChanged: rgbMatrixEditor.color4 = Qt.rgba(r, g, b, 1.0)
-                        onClose: visible = false
+                        onClicked:
+                        {
+                            if (colorTool.visible)
+                                colorTool.hide()
+                            else
+                                colorTool.showTool(3, color4Button)
+                        }
                     }
                 }
                 IconButton
@@ -464,11 +471,11 @@ Rectangle
                 spacing: 4
                 visible: rgbMatrixEditor.algoColors > 4 ? true : false
 
-                //leftPadding: Qt.binding(function() { return editorColumn.firstColumnWidth })
                 Rectangle
                 {
                     id: colorRow2
                     height: editorColumn.itemsHeight
+                    width: editorColumn.firstColumnWidth
                     color: "transparent"
                     visible: rgbMatrixEditor.algoColors > 4 ? true : false
                     onWidthChanged:
@@ -486,7 +493,7 @@ Rectangle
                     radius: 5
                     border.color: color5MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: rgbMatrixEditor.hasColor5 ? rgbMatrixEditor.color5 : "transparent"
+                    color: rgbMatrixEditor.colorAtIndex(4)
                     visible: rgbMatrixEditor.algoColors > 4 ? true : false
 
                     MouseArea
@@ -494,21 +501,13 @@ Rectangle
                         id: color5MouseArea
                         anchors.fill: parent
                         hoverEnabled: true
-                        onClicked: color5Tool.visible = !color5Tool.visible
-                    }
-
-                    ColorTool
-                    {
-                        id: color5Tool
-                        parent: rgbmeContainer
-                        x: -width - (UISettings.iconSizeDefault * 1.25)
-                        y: UISettings.bigItemHeight
-                        visible: false
-                        closeOnSelect: true
-                        currentRGB: rgbMatrixEditor.color5
-
-                        onColorChanged: rgbMatrixEditor.color5 = Qt.rgba(r, g, b, 1.0)
-                        onClose: visible = false
+                        onClicked:
+                        {
+                            if (colorTool.visible)
+                                colorTool.hide()
+                            else
+                                colorTool.showTool(4, color5Button)
+                        }
                     }
                 }
                 IconButton
