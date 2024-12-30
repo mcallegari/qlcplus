@@ -441,4 +441,12 @@ void RGBText_Test::verticalScroll()
     }
 }
 
+void RGBText_Test::unused()
+{
+    RGBText text(m_doc);
+    QVector<uint> colors;
+    text.rgbMapSetColors(colors);
+    QCOMPARE(text.rgbMapGetColors().isEmpty(), true);
+}
+
 QTEST_MAIN(RGBText_Test)

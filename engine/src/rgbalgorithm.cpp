@@ -44,19 +44,21 @@ RGBAlgorithm::RGBAlgorithm(Doc * doc)
 
 void RGBAlgorithm::setColors(QVector<QColor> colors)
 {
+    int nCols = acceptColors();
     m_colors.clear();
-    QVectorIterator<QColor> it(colors);
-    int count = 0;
-    while (it.hasNext()) {
-        QColor color = it.next();
-        if (acceptColors() < count)
-            m_colors.append(color);
-        count ++;
+
+    for (int i = 0; i < nCols; i++)
+    {
+        if (i < colors.count())
+            m_colors.append(colors.at(i));
     }
 }
 
 QColor RGBAlgorithm::getColor(uint i) const
 {
+    if (i >= (uint)m_colors.count())
+        return QColor();
+
     return m_colors[i];
 }
 
