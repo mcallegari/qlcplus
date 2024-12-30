@@ -468,7 +468,9 @@ void RGBMatrixEditor::setScriptStringProperty(QString paramName, QString value)
     StringStringPair oldValue(paramName, m_matrix->property(paramName));
     Tardis::instance()->enqueueAction(Tardis::RGBMatrixSetScriptStringValue, m_matrix->id(), QVariant::fromValue(oldValue),
                                       QVariant::fromValue(StringStringPair(paramName, value)));
+
     m_matrix->setProperty(paramName, value);
+    emit algoColorsChanged();
 }
 
 void RGBMatrixEditor::setScriptIntProperty(QString paramName, int value)
