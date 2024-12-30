@@ -82,8 +82,8 @@ void RGBMatrix_Test::initial()
     RGBMatrix mtx(m_doc);
     QCOMPARE(mtx.type(), Function::RGBMatrixType);
     QCOMPARE(mtx.fixtureGroup(), FixtureGroup::invalidId());
-    QCOMPARE(mtx.startColor(), QColor(Qt::red));
-    QCOMPARE(mtx.endColor(), QColor());
+    QCOMPARE(mtx.getColor(0), QColor(Qt::red));
+    QCOMPARE(mtx.getColor(1), QColor());
     QCOMPARE(mtx.m_fadersMap.count(), 0);
     QCOMPARE(mtx.m_stepHandler->currentStepIndex(), 0);
     QCOMPARE(mtx.name(), tr("New RGB Matrix"));
@@ -110,32 +110,32 @@ void RGBMatrix_Test::group()
 void RGBMatrix_Test::color()
 {
     RGBMatrix mtx(m_doc);
-    mtx.setStartColor(Qt::blue);
-    QCOMPARE(mtx.startColor(), QColor(Qt::blue));
+    mtx.setColor(0, Qt::blue);
+    QCOMPARE(mtx.getColor(0), QColor(Qt::blue));
 
-    mtx.setStartColor(QColor());
-    QCOMPARE(mtx.startColor(), QColor());
+    mtx.setColor(0, QColor());
+    QCOMPARE(mtx.getColor(0), QColor());
 
-    mtx.setEndColor(Qt::green);
-    QCOMPARE(mtx.endColor(), QColor(Qt::green));
+    mtx.setColor(1, Qt::green);
+    QCOMPARE(mtx.getColor(1), QColor(Qt::green));
 
-    mtx.setEndColor(QColor());
-    QCOMPARE(mtx.endColor(), QColor());
+    mtx.setColor(1, QColor());
+    QCOMPARE(mtx.getColor(1), QColor());
 }
 
 void RGBMatrix_Test::copy()
 {
     RGBMatrix mtx(m_doc);
-    mtx.setStartColor(Qt::magenta);
-    mtx.setEndColor(Qt::yellow);
+    mtx.setColor(0, Qt::magenta);
+    mtx.setColor(1, Qt::yellow);
     mtx.setFixtureGroup(0);
     mtx.setAlgorithm(RGBAlgorithm::algorithm(m_doc, "Stripes"));
     QVERIFY(mtx.algorithm() != NULL);
 
     RGBMatrix* copyMtx = qobject_cast<RGBMatrix*> (mtx.createCopy(m_doc));
     QVERIFY(copyMtx != NULL);
-    QCOMPARE(copyMtx->startColor(), QColor(Qt::magenta));
-    QCOMPARE(copyMtx->endColor(), QColor(Qt::yellow));
+    QCOMPARE(copyMtx->getColor(0), QColor(Qt::magenta));
+    QCOMPARE(copyMtx->getColor(1), QColor(Qt::yellow));
     QCOMPARE(copyMtx->fixtureGroup(), uint(0));
     QVERIFY(copyMtx->algorithm() != NULL);
     QVERIFY(copyMtx->algorithm() != mtx.algorithm()); // Different object pointer!
@@ -203,8 +203,11 @@ void RGBMatrix_Test::property()
 void RGBMatrix_Test::loadSave()
 {
     RGBMatrix* mtx = new RGBMatrix(m_doc);
-    mtx->setStartColor(Qt::magenta);
-    mtx->setEndColor(Qt::blue);
+    mtx->setColor(0, Qt::magenta);
+    mtx->setColor(1, Qt::blue);
+    mtx->setColor(2, Qt::green);
+    mtx->setColor(3, Qt::red);
+    mtx->setColor(4, Qt::yellow);
     mtx->setControlMode(RGBMatrix::ControlModeRgb);
     mtx->setFixtureGroup(42);
     mtx->setAlgorithm(RGBAlgorithm::algorithm(m_doc, "Stripes"));
@@ -237,7 +240,7 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(xmlReader.attributes().value("ID").toString(), QString::number(mtx->id()));
     QCOMPARE(xmlReader.attributes().value("Name").toString(), QString("Xyzzy"));
 
-    int speed = 0, dir = 0, run = 0, algo = 0, monocolor = 0, endcolor = 0, grp = 0, colormode = 0;
+    int speed = 0, dir = 0, run = 0, algo = 0, grp = 0, color1 = 0, color2 = 0, color3 = 0, color4 = 0, color5 = 0, colormode = 0;
 
     while (xmlReader.readNextStartElement())
     {
@@ -265,15 +268,39 @@ void RGBMatrix_Test::loadSave()
             algo++;
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name().toString() == "MonoColor")
+        else if (xmlReader.name().toString() == "Color")
         {
-            QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::magenta).rgb());
-            monocolor++;
-        }
-        else if (xmlReader.name().toString() == "EndColor")
-        {
-            QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::blue).rgb());
-            endcolor++;
+            bool ok = false;
+            int colorNum = xmlReader.attributes().value("Index").toInt(&ok);
+            QVERIFY(ok);
+
+            switch (colorNum)
+            {
+                case 0:
+                    QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::magenta).rgb());
+                    color1++;
+                break;
+                case 1:
+                    QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::blue).rgb());
+                    color2++;
+                break;
+                case 2:
+                    QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::green).rgb());
+                    color3++;
+                break;
+                case 3:
+                    QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::red).rgb());
+                    color4++;
+                break;
+                case 4:
+                    QCOMPARE(xmlReader.readElementText().toUInt(), QColor(Qt::yellow).rgb());
+                    color5++;
+                break;
+                default:
+                    // The color number can be between 1 and MAXINT, but here we expect only 5.
+                    QVERIFY(colorNum > 0 && colorNum <= 5);
+                break;
+            }
         }
         else if (xmlReader.name().toString() == "FixtureGroup")
         {
@@ -295,8 +322,11 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(dir, 1);
     QCOMPARE(run, 1);
     QCOMPARE(algo, 1);
-    QCOMPARE(monocolor, 1);
-    QCOMPARE(endcolor, 1);
+    QCOMPARE(color1, 1);
+    QCOMPARE(color2, 1);
+    QCOMPARE(color3, 1);
+    QCOMPARE(color4, 1);
+    QCOMPARE(color5, 1);
     QCOMPARE(grp, 1);
     QCOMPARE(colormode, 1);
 
@@ -309,8 +339,8 @@ void RGBMatrix_Test::loadSave()
     QVERIFY(mtx2.loadXML(xmlReader) == true);
     QCOMPARE(mtx2.direction(), Function::Backward);
     QCOMPARE(mtx2.runOrder(), Function::PingPong);
-    QCOMPARE(mtx2.startColor(), QColor(Qt::magenta));
-    QCOMPARE(mtx2.endColor(), QColor(Qt::blue));
+    QCOMPARE(mtx2.getColor(0), QColor(Qt::magenta));
+    QCOMPARE(mtx2.getColor(1), QColor(Qt::blue));
     QCOMPARE(mtx2.controlMode(), RGBMatrix::ControlModeRgb);
     QCOMPARE(mtx2.fixtureGroup(), uint(42));
     QVERIFY(mtx2.algorithm() != NULL);

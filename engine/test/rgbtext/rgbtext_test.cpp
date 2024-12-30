@@ -390,7 +390,7 @@ void RGBText_Test::horizontalScroll()
     RGBMap map;
     // Invalid step
 #if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
-    text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), fm.width("QLC"), map);
+    text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), fm.width("QLC"), map, rawRgbColors);
 #else
     text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), fm.horizontalAdvance("QLC"), map);
 #endif
@@ -439,6 +439,14 @@ void RGBText_Test::verticalScroll()
             QCOMPARE(map[i][j], QRgb(0));
         }
     }
+}
+
+void RGBText_Test::unused()
+{
+    RGBText text(m_doc);
+    QVector<uint> colors;
+    text.rgbMapSetColors(colors);
+    QCOMPARE(text.rgbMapGetColors().isEmpty(), true);
 }
 
 QTEST_MAIN(RGBText_Test)

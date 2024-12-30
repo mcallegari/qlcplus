@@ -41,8 +41,11 @@ class VCAnimation : public VCWidget
     Q_PROPERTY(int faderLevel READ faderLevel WRITE setFaderLevel NOTIFY faderLevelChanged FINAL)
     Q_PROPERTY(bool instantChanges READ instantChanges WRITE setInstantChanges NOTIFY instantChangesChanged FINAL)
 
-    Q_PROPERTY(QColor startColor READ startColor WRITE setStartColor NOTIFY startColorChanged)
-    Q_PROPERTY(QColor endColor READ endColor WRITE setEndColor NOTIFY endColorChanged)
+    Q_PROPERTY(QColor color1 READ getColor1 WRITE setColor1 NOTIFY color1Changed)
+    Q_PROPERTY(QColor color2 READ getColor2 WRITE setColor2 NOTIFY color2Changed)
+    Q_PROPERTY(QColor color2 READ getColor3 WRITE setColor3 NOTIFY color3Changed)
+    Q_PROPERTY(QColor color2 READ getColor4 WRITE setColor4 NOTIFY color4Changed)
+    Q_PROPERTY(QColor color2 READ getColor5 WRITE setColor5 NOTIFY color5Changed)
     Q_PROPERTY(QStringList algorithms READ algorithms CONSTANT)
     Q_PROPERTY(int algorithmIndex READ algorithmIndex WRITE setAlgorithmIndex NOTIFY algorithmIndexChanged FINAL)
 
@@ -133,13 +136,25 @@ private:
      * Colors and presets
      *********************************************************************/
 public:
-    /** Get/set the start color of the current algorithm */
-    QColor startColor() const;
-    void setStartColor(QColor color);
+    /** Get/set color 1 of the current algorithm */
+    QColor getColor1() const;
+    void setColor1(QColor color);
 
-    /** Get/set the end color of the current algorithm */
-    QColor endColor() const;
-    void setEndColor(QColor color);
+    /** Get/set color 2 of the current algorithm */
+    QColor getColor2() const;
+    void setColor2(QColor color);
+
+    /** Get/set color 1 of the current algorithm */
+    QColor getColor3() const;
+    void setColor3(QColor color);
+
+    /** Get/set color 2 of the current algorithm */
+    QColor getColor4() const;
+    void setColor4(QColor color);
+
+    /** Get/set color 2 of the current algorithm */
+    QColor getColor5() const;
+    void setColor5(QColor color);
 
     /** Returns the list of available algorithms */
     QStringList algorithms() const;
@@ -149,8 +164,11 @@ public:
     void setAlgorithmIndex(int index);
 
 signals:
-    void startColorChanged();
-    void endColorChanged();
+    void color1Changed();
+    void color2Changed();
+    void color3Changed();
+    void color4Changed();
+    void color5Changed();
     void algorithmIndexChanged();
 
     /*********************************************************************

@@ -170,8 +170,8 @@ void VCAnimation::setFunctionID(quint32 newFunctionID)
     m_functionID = newFunctionID;
 
     emit functionIDChanged();
-    emit startColorChanged();
-    emit endColorChanged();
+    emit color1Changed();
+    emit color2Changed();
     emit algorithmIndexChanged();
 }
 
@@ -230,47 +230,107 @@ void VCAnimation::setInstantChanges(bool newInstantChanges)
  * Colors and presets
  *********************************************************************/
 
-QColor VCAnimation::startColor() const
+QColor VCAnimation::getColor1() const
 {
     if (m_matrix == NULL)
         return QColor();
 
-    return m_matrix->startColor();
+    return m_matrix->getColor(0);
 }
 
-void VCAnimation::setStartColor(QColor color)
+void VCAnimation::setColor1(QColor color)
 {
     if (m_matrix == NULL)
         return;
 
-    if (m_matrix->startColor() != color)
+    if (m_matrix->getColor(0) != color)
     {
-        m_matrix->setStartColor(color);
+        m_matrix->setColor(0, color);
         if (instantChanges())
             m_matrix->updateColorDelta();
-        emit startColorChanged();
+        emit color1Changed();
     }
 }
 
-QColor VCAnimation::endColor() const
+QColor VCAnimation::getColor2() const
 {
     if (m_matrix == NULL)
         return QColor();
 
-    return m_matrix->endColor();
+    return m_matrix->getColor(1);
 }
 
-void VCAnimation::setEndColor(QColor color)
+void VCAnimation::setColor2(QColor color)
 {
     if (m_matrix == NULL)
         return;
 
-    if (m_matrix->endColor() != color)
+    if (m_matrix->getColor(1) != color)
     {
-        m_matrix->setEndColor(color);
+        m_matrix->setColor(1, color);
         if (instantChanges())
             m_matrix->updateColorDelta();
-        emit endColorChanged();
+        emit color2Changed();
+    }
+}
+
+QColor VCAnimation::getColor3() const
+{
+    if (m_matrix == NULL)
+        return QColor();
+
+    return m_matrix->getColor(2);
+}
+
+void VCAnimation::setColor3(QColor color)
+{
+    if (m_matrix == NULL)
+        return;
+
+    if (m_matrix->getColor(2) != color)
+    {
+        m_matrix->setColor(2, color);
+        emit color3Changed();
+    }
+}
+
+QColor VCAnimation::getColor4() const
+{
+    if (m_matrix == NULL)
+        return QColor();
+
+    return m_matrix->getColor(3);
+}
+
+void VCAnimation::setColor4(QColor color)
+{
+    if (m_matrix == NULL)
+        return;
+
+    if (m_matrix->getColor(3) != color)
+    {
+        m_matrix->setColor(3, color);
+        emit color4Changed();
+    }
+}
+
+QColor VCAnimation::getColor5() const
+{
+    if (m_matrix == NULL)
+        return QColor();
+
+    return m_matrix->getColor(4);
+}
+
+void VCAnimation::setColor5(QColor color)
+{
+    if (m_matrix == NULL)
+        return;
+
+    if (m_matrix->getColor(4) != color)
+    {
+        m_matrix->setColor(4, color);
+        emit color5Changed();
     }
 }
 
@@ -303,7 +363,7 @@ void VCAnimation::setAlgorithmIndex(int index)
         /** if we're setting the same algorithm, then there's nothing to do */
         if (m_matrix->algorithm() != nullptr && m_matrix->algorithm()->name() == algo->name())
             return;
-        algo->setColors(m_matrix->startColor(), m_matrix->endColor());
+        algo->setColors(m_matrix->getColors());
     }
 
     m_matrix->setAlgorithm(algo);

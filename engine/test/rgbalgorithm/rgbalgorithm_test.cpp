@@ -85,12 +85,23 @@ void RGBAlgorithm_Test::algorithm()
     QVERIFY(algo != NULL);
     QCOMPARE(algo->type(), RGBAlgorithm::Script);
     QCOMPARE(algo->name(), QString("Stripes"));
-    printf("%s\n", algo->name().toStdString().c_str());
-    printf("%s\n", algo->name().toStdString().c_str());
-    printf("%s\n", algo->name().toStdString().c_str());
-    printf("%s\n", algo->name().toStdString().c_str());
-    printf("%s\n", algo->name().toStdString().c_str());
-    printf("%s\n", algo->name().toStdString().c_str());
+    delete algo;
+
+    algo = RGBAlgorithm::algorithm(m_doc, "Balls");
+    QVERIFY(algo != NULL);
+    QCOMPARE(algo->type(), RGBAlgorithm::Script);
+    QCOMPARE(algo->name(), QString("Balls"));
+    QCOMPARE(algo->apiVersion(), 3);
+    QCOMPARE(algo->acceptColors(), 5);
+    QVector<QColor> colors;
+    colors << Qt::red;
+    colors << Qt::green;
+    colors << Qt::blue;
+    algo->setColors(colors);
+
+    QCOMPARE(algo->getColor(0), Qt::red);
+    QCOMPARE(algo->getColor(1), Qt::green);
+    QCOMPARE(algo->getColor(2), Qt::blue);
     delete algo;
 }
 
