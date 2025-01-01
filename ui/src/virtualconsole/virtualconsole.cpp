@@ -56,6 +56,7 @@
 #include "vclabel.h"
 #include "vcxypad.h"
 #include "vcclock.h"
+#include "functionwizard.h"
 #include "doc.h"
 
 #define SETTINGS_VC_SIZE "virtualconsole/size"
@@ -98,6 +99,7 @@ VirtualConsole::VirtualConsole(QWidget* parent, Doc* doc)
     , m_addAnimationAction(NULL)
 
     , m_toolsSettingsAction(NULL)
+    , m_functionWizardAction(NULL)
 
     , m_editCutAction(NULL)
     , m_editCopyAction(NULL)
@@ -365,6 +367,9 @@ void VirtualConsole::initActions()
     // and crashing the app after VC window is closed.
     m_toolsSettingsAction->setMenuRole(QAction::NoRole);
 
+    m_functionWizardAction = new QAction(QIcon(":/wizard.png"), tr("VC Fixture Widget Wizard"), this);
+    connect(m_functionWizardAction, SIGNAL(triggered(bool)), this, SLOT(slotWizard()));
+
     /* Edit menu actions */
     m_editCutAction = new QAction(QIcon(":/editcut.png"), tr("Cut"), this);
     connect(m_editCutAction, SIGNAL(triggered(bool)), this, SLOT(slotEditCut()));
@@ -583,6 +588,7 @@ void VirtualConsole::initMenuBar()
     m_toolbar->addAction(m_fgColorAction);
     m_toolbar->addAction(m_fontAction);
     m_toolbar->addSeparator();
+    m_toolbar->addAction(m_functionWizardAction);
     m_toolbar->addAction(m_toolsSettingsAction);
 }
 
@@ -1019,6 +1025,14 @@ void VirtualConsole::slotToolsSettings()
         settings.setValue(SETTINGS_AUDIOTRIGGERS_SIZE, vcpe.audioTriggersSize());
         settings.setValue(SETTINGS_RGBMATRIX_SIZE, vcpe.rgbMatrixSize());
 
+        m_doc->setModified();
+    }
+}
+
+void VirtualConsole::slotWizard()
+{
+    FunctionWizard fw(this, m_doc);
+    if (fw.exec() == QDialog::Accepted){
         m_doc->setModified();
     }
 }
@@ -1670,6 +1684,7 @@ void VirtualConsole::enableEdit()
     m_fontActionGroup->setEnabled(true);
     m_frameActionGroup->setEnabled(true);
     m_stackingActionGroup->setEnabled(true);
+    m_functionWizardAction->setEnabled(true);
 
     // Set action shortcuts for design mode
     m_addButtonAction->setShortcut(QKeySequence("CTRL+SHIFT+B"));
@@ -1722,6 +1737,7 @@ void VirtualConsole::disableEdit()
     m_fontActionGroup->setEnabled(false);
     m_frameActionGroup->setEnabled(false);
     m_stackingActionGroup->setEnabled(false);
+    m_functionWizardAction->setEnabled(false);
 
     // Disable action shortcuts in operate mode
     m_addButtonAction->setShortcut(QKeySequence());
