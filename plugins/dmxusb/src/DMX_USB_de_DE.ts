@@ -129,12 +129,12 @@
     <message>
         <location filename="dmxusbopenrx.cpp" line="158"/>
         <source>Patch this widget to a universe to find out.</source>
-        <translation>Dieses Geräte mit einem Universum verbinden um es herauszufinden.</translation>
+        <translation>Dieses Gerät mit einem Universum verbinden, um es herauszufinden.</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="160"/>
         <source>System Timer Accuracy</source>
-        <translation>System-Timer Genauigkeit</translation>
+        <translation>System-Timer-Genauigkeit</translation>
     </message>
 </context>
 <context>
@@ -172,7 +172,7 @@
     <message>
         <location filename="enttecdmxusbopen.cpp" line="134"/>
         <source>System Timer Accuracy</source>
-        <translation>System-Timer Genauigkeit</translation>
+        <translation>System-Timer-Genauigkeit</translation>
     </message>
 </context>
 <context>

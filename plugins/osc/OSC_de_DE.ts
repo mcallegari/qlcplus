@@ -87,7 +87,7 @@ Bitte vor Bestätigung korrigieren.</translation>
     <message>
         <location filename="oscplugin.cpp" line="96"/>
         <source>This plugin provides input for devices supporting the OSC transmission protocol.</source>
-        <translation>Dieses Plugin bietet Eingabunterstützung für Geräte mit dem OSC-Protokoll.</translation>
+        <translation>Dieses Plugin bietet Eingabeunterstützung für Geräte mit dem OSC-Protokoll.</translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="147"/>

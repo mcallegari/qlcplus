@@ -11,7 +11,7 @@
     <message>
         <location filename="gpioconfiguration.ui" line="28"/>
         <source>GPIO Number</source>
-        <translation>GPIO-Numm</translation>
+        <translation>GPIO-Nummer</translation>
     </message>
     <message>
         <location filename="gpioconfiguration.ui" line="33"/>

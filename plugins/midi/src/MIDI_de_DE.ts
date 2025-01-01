@@ -34,17 +34,17 @@
         <translation>Aktualisieren</translation>
     </message>
     <message>
-        <location filename="common/configuremidiplugin.cpp" line="127"/>
+        <location filename="common/configuremidiplugin.cpp" line="137"/>
         <source>Outputs</source>
         <translation>Ausgänge</translation>
     </message>
     <message>
-        <location filename="common/configuremidiplugin.cpp" line="150"/>
+        <location filename="common/configuremidiplugin.cpp" line="160"/>
         <source>Inputs</source>
         <translation>Eingänge</translation>
     </message>
     <message>
-        <location filename="common/configuremidiplugin.cpp" line="214"/>
+        <location filename="common/configuremidiplugin.cpp" line="224"/>
         <source>None</source>
         <translation>Nichts</translation>
     </message>
@@ -54,12 +54,12 @@
     <message>
         <location filename="common/midiplugin.cpp" line="138"/>
         <source>This plugin provides input/output support for MIDI devices.</source>
-        <translation>Dieses Plugin bietet Eingabe/Ausgabe Unterstützung für MIDI-Geräte.</translation>
+        <translation>Dieses Plugin bietet Eingabe/Ausgabe-Unterstützung für MIDI-Geräte.</translation>
     </message>
     <message>
         <location filename="common/midiplugin.cpp" line="152"/>
         <source>No output support available.</source>
-        <translation>Keine Ausgabe Unterstützung verfügbar.</translation>
+        <translation>Keine Ausgabeunterstützung verfügbar.</translation>
     </message>
     <message>
         <location filename="common/midiplugin.cpp" line="160"/>
@@ -92,7 +92,7 @@
     <message>
         <location filename="common/midiplugin.cpp" line="259"/>
         <source>No input support available.</source>
-        <translation>Keine Eingangs Untestützung verfügbar.</translation>
+        <translation>Keine Eingabeunterstützung verfügbar.</translation>
     </message>
     <message>
         <location filename="common/midiplugin.cpp" line="267"/>
