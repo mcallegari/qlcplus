@@ -21,7 +21,7 @@
     <message>
         <location filename="../ui/src/aboutbox.ui" line="341"/>
         <source>PushButton</source>
-        <translation type="unfinished"></translation>
+        <translation>Druckknopf</translation>
     </message>
     <message>
         <location filename="../ui/src/aboutbox.cpp" line="43"/>

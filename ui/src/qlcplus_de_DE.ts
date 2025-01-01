@@ -23,7 +23,7 @@
     <message>
         <location filename="aboutbox.ui" line="341"/>
         <source>PushButton</source>
-        <translation type="unfinished"></translation>
+        <translation>DruckKnopf</translation>
     </message>
     <message>
         <location filename="aboutbox.cpp" line="43"/>
@@ -4574,27 +4574,27 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="rgbmatrixeditor.ui" line="363"/>
         <source>Matrix color 3</source>
-        <translation type="unfinished"></translation>
+        <translation>Matrix Farbe 3</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="376"/>
         <source>Matrix color 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Matrix Farbe 1</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="420"/>
         <source>Matrix color 5</source>
-        <translation type="unfinished"></translation>
+        <translation>Matrix Farbe 5</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="433"/>
         <source>Reset color 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 2 zurücksetzen</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="451"/>
         <source>Reset color 3</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 3 zurücksetzen</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="496"/>
@@ -4604,22 +4604,22 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="rgbmatrixeditor.ui" line="503"/>
         <source>Matrix color 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Matrix Farbe 2</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="519"/>
         <source>Matrix color 4</source>
-        <translation type="unfinished"></translation>
+        <translation>Matrix Farbe 4</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="535"/>
         <source>Reset color 4</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 4 zurücksetzen</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="546"/>
         <source>Reset color 5</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 5 zurücksetzen</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="581"/>
@@ -6366,97 +6366,97 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="954"/>
         <source>Color 2 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 2 zurücksetzen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="966"/>
         <source>Color 3 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 3 zurücksetzen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="978"/>
         <source>Color 4 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 4 zurücksetzen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="990"/>
         <source>Color 5 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 5 zurücksetzen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1029"/>
         <source>Color 1 Red component</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 1 Rotanteil</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1031"/>
         <source>Color 1 Green component</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 1 Grünanteil</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1033"/>
         <source>Color 1 Blue component</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 1 Blauanteil</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1045"/>
         <source>Color 2 Red component</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 2 Rotanteil</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1047"/>
         <source>Color 2 Green component</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 2 Grünanteil</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1049"/>
         <source>Color 2 Blue component</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 2 Blauanteil</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1061"/>
         <source>Color 3 Red component</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 3 Rotanteil</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1063"/>
         <source>Color 3 Green component</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 3 Grünanteil</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1065"/>
         <source>Color 3 Blue component</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 3 Blauanteil</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1077"/>
         <source>Color 4 Red component</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 4 Rotanteil</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1079"/>
         <source>Color 4 Green component</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 4 Grünanteil</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1081"/>
         <source>Color 4 Blue component</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 4 Blauanteil</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1093"/>
         <source>Color 5 Red component</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 5 Rotanteil</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1095"/>
         <source>Color 5 Green component</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 5 Grünanteil</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrix.cpp" line="1097"/>
         <source>Color 5 Blue component</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 5 Blauanteil</translation>
     </message>
     <message>
         <source>End Color Reset</source>
@@ -6572,28 +6572,28 @@ Dauer: %3
         <location filename="virtualconsole/vcmatrixproperties.ui" line="157"/>
         <source>Show Color 1 Button</source>
         <oldsource>Show Start Color Button</oldsource>
-        <translation type="unfinished">Schalter für Anfangsfarbe anzeigen</translation>
+        <translation>Schalter für Farbe 1 anzeigen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="164"/>
         <source>Show Color 2 Button</source>
         <oldsource>Show End Color Button</oldsource>
-        <translation type="unfinished">Schalter für Endfarbe anzeigen</translation>
+        <translation>Schalter für Farbe 2 anzeigen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="171"/>
         <source>Show Color 3 Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Schalter für Farbe 3 anzeigen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="178"/>
         <source>Show Color 4 Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Schalter für Farbe 4 anzeigen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="185"/>
         <source>Show Color 5 Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Schalter für Farbe 5 anzeigen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="192"/>
@@ -6654,72 +6654,72 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="322"/>
         <source> Add color 1 </source>
-        <translation type="unfinished"></translation>
+        <translation> Farbe 1 hinzufügen </translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="333"/>
         <source> Add color 1 knobs</source>
-        <translation type="unfinished"></translation>
+        <translation> Knöpfe für Farbe 1 hinzufügen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="344"/>
         <source> Add color 2</source>
-        <translation type="unfinished"></translation>
+        <translation> Farbe 2 hinzufügen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="355"/>
         <source> Add color 2 knobs</source>
-        <translation type="unfinished"></translation>
+        <translation> Knöpfe für Farbe 2 hinzufügen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="366"/>
         <source> Add color 2 reset</source>
-        <translation type="unfinished"></translation>
+        <translation> Farbe 2 Zurücksetzung hinzufügen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="377"/>
         <source> Add color 3</source>
-        <translation type="unfinished"></translation>
+        <translation> Farbe 3 hinzufügen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="388"/>
         <source> Add color 3 knobs</source>
-        <translation type="unfinished"></translation>
+        <translation> Knöpfe für Farbe 3 hinzufügen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="399"/>
         <source> Add color 3 reset</source>
-        <translation type="unfinished"></translation>
+        <translation> Farbe 3 Zurücksetzung hinzufügen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="410"/>
         <source> Add color 4</source>
-        <translation type="unfinished"></translation>
+        <translation> Farbe 4 hinzufügen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="421"/>
         <source> Add color 4 knobs</source>
-        <translation type="unfinished"></translation>
+        <translation> Knöpfe für Farbe 4 hinzufügen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="432"/>
         <source> Add color 4 reset</source>
-        <translation type="unfinished"></translation>
+        <translation> Farbe 4 Zurücksetzung hinzufügen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="443"/>
         <source> Add color 5</source>
-        <translation type="unfinished"></translation>
+        <translation> Farbe 5 hinzufügen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="454"/>
         <source> Add color 5 knobs</source>
-        <translation type="unfinished"></translation>
+        <translation> Knöpfe für Farbe 5 hinzufügen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="465"/>
         <source> Add color 5 reset</source>
-        <translation type="unfinished"></translation>
+        <translation> Farbe 5 Zurücksetzung hinzufügen</translation>
     </message>
     <message>
         <source> Add start color knobs</source>
@@ -6794,72 +6794,72 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="250"/>
         <source>Color 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 1</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="256"/>
         <source>Color 1 Knob</source>
-        <translation type="unfinished"></translation>
+        <translation>Knopf für Farbe 1</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="262"/>
         <source>Color 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 2</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="268"/>
         <source>Color 2 Knob</source>
-        <translation type="unfinished"></translation>
+        <translation>Knopf für Farbe 2</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="274"/>
         <source>Color 2 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 2 zurücksetzen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="278"/>
         <source>Color 3</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 3</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="284"/>
         <source>Color 3 Knob</source>
-        <translation type="unfinished"></translation>
+        <translation>Knopf für Farbe 3</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="290"/>
         <source>Color 3 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 3 zurücksetzen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="294"/>
         <source>Color 4</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 4</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="300"/>
         <source>Color 4 Knob</source>
-        <translation type="unfinished"></translation>
+        <translation>Knopf für Farbe 4</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="306"/>
         <source>Color 4 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 4 zurücksetzen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="310"/>
         <source>Color 5</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 5</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="316"/>
         <source>Color 5 Knob</source>
-        <translation type="unfinished"></translation>
+        <translation>Knopf für Farbe 5</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="322"/>
         <source>Color 5 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 5 zurücksetzen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.cpp" line="327"/>
