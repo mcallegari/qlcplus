@@ -60,22 +60,22 @@
         <translation>Kanal-Nummer</translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="88"/>
+        <location filename="configureosc.cpp" line="96"/>
         <source>Inputs</source>
         <translation>Eingänge</translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="94"/>
+        <location filename="configureosc.cpp" line="102"/>
         <source>Outputs</source>
         <translation>Ausgänge</translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="176"/>
+        <location filename="configureosc.cpp" line="184"/>
         <source>Invalid IP</source>
         <translation>Ungültige IP</translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="176"/>
+        <location filename="configureosc.cpp" line="184"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
         <translation>%1 ist keine gültige IP.
