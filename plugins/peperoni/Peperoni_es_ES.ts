@@ -14,8 +14,8 @@
         <translation>La librería compartida usbdmx.dll no puede ser encontrada o es muy antigua para ser usada con QLC+.</translation>
     </message>
     <message>
-        <location filename="win32/peperoni.cpp" line="221"/>
         <location filename="unix/peperoni.cpp" line="212"/>
+        <location filename="win32/peperoni.cpp" line="221"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation>¿Desea volver a escanear su hardware?</translation>
     </message>
@@ -28,8 +28,8 @@
 <context>
     <name>PeperoniDevice</name>
     <message>
-        <location filename="win32/peperonidevice.cpp" line="70"/>
         <location filename="unix/peperonidevice.cpp" line="172"/>
+        <location filename="win32/peperonidevice.cpp" line="70"/>
         <source>Device is working correctly.</source>
         <translation>El dispositivo funciona correctamente.</translation>
     </message>
@@ -44,8 +44,8 @@
         <translation>Nada</translation>
     </message>
     <message>
-        <location filename="win32/peperonidevice.cpp" line="111"/>
         <location filename="unix/peperonidevice.cpp" line="140"/>
+        <location filename="win32/peperonidevice.cpp" line="111"/>
         <source>Unknown</source>
         <translation>Desconocido</translation>
     </message>

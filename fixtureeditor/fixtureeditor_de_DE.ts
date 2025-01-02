@@ -2,39 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="de_DE">
 <context>
-    <name>AboutBox</name>
-    <message>
-        <location filename="../ui/src/aboutbox.ui" line="33"/>
-        <source>About Q Light Controller Plus</source>
-        <translation>Über Q Light Controller Plus</translation>
-    </message>
-    <message>
-        <location filename="../ui/src/aboutbox.ui" line="275"/>
-        <source>Contributors</source>
-        <translation>Mitwirkende</translation>
-    </message>
-    <message>
-        <location filename="../ui/src/aboutbox.ui" line="309"/>
-        <source>This application is licensed under the terms of the Apache 2.0 license.</source>
-        <translation>Dieses Programm ist unter Apache 2.0 Bedingungen lizensiert.</translation>
-    </message>
-    <message>
-        <location filename="../ui/src/aboutbox.ui" line="341"/>
-        <source>PushButton</source>
-        <translation>Druckknopf</translation>
-    </message>
-    <message>
-        <location filename="../ui/src/aboutbox.cpp" line="43"/>
-        <source>and contributors:</source>
-        <translation>und Mitwirkende:</translation>
-    </message>
-    <message>
-        <location filename="../ui/src/aboutbox.cpp" line="44"/>
-        <source>Website: %1</source>
-        <translation>Webseite: %1</translation>
-    </message>
-</context>
-<context>
     <name>AddChannelsDialog</name>
     <message>
         <location filename="addchannelsdialog.ui" line="33"/>
@@ -235,39 +202,6 @@
         <location filename="capabilitywizard.ui" line="133"/>
         <source>A list of capabilities that would be created with these settings</source>
         <translation>Liste der Funktionen, die mit diesen Einstellungen erstellt würden</translation>
-    </message>
-</context>
-<context>
-    <name>DocBrowser</name>
-    <message>
-        <location filename="../ui/src/docbrowser.cpp" line="106"/>
-        <source>%1 - Document Browser</source>
-        <translation>%1 - Handbuch</translation>
-    </message>
-    <message>
-        <location filename="../ui/src/docbrowser.cpp" line="128"/>
-        <source>Backward</source>
-        <translation>Zurück</translation>
-    </message>
-    <message>
-        <location filename="../ui/src/docbrowser.cpp" line="129"/>
-        <source>Forward</source>
-        <translation>Vorwärts</translation>
-    </message>
-    <message>
-        <location filename="../ui/src/docbrowser.cpp" line="130"/>
-        <source>Index</source>
-        <translation>Inhaltsverzeichnis</translation>
-    </message>
-    <message>
-        <location filename="../ui/src/docbrowser.cpp" line="131"/>
-        <source>About Qt</source>
-        <translation>Über Qt</translation>
-    </message>
-    <message>
-        <location filename="../ui/src/docbrowser.cpp" line="132"/>
-        <source>Close this window</source>
-        <translation>Dieses Fenster schließen</translation>
     </message>
 </context>
 <context>

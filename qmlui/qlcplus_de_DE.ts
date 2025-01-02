@@ -4,10 +4,6 @@
 <context>
     <name>ActionsMenu</name>
     <message>
-        <source>Open a project</source>
-        <translation type="vanished">Ein Projekt öffnen</translation>
-    </message>
-    <message>
         <location filename="qml/ActionsMenu.qml" line="81"/>
         <location filename="qml/ActionsMenu.qml" line="99"/>
         <source>Project files</source>
@@ -58,10 +54,6 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
         <location filename="qml/ActionsMenu.qml" line="175"/>
         <source>New project</source>
         <translation>Neues Projekt</translation>
-    </message>
-    <message>
-        <source>Open project</source>
-        <translation type="vanished">Projekt öffnen</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="195"/>
@@ -1007,10 +999,6 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
         <translation>Einblenden</translation>
     </message>
     <message>
-        <source>Hold</source>
-        <translation type="vanished">Halten</translation>
-    </message>
-    <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="809"/>
         <source>Fade out</source>
         <translation>Ausblenden</translation>
@@ -1235,18 +1223,6 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
         <location filename="qml/ExternalControlDelegate.qml" line="128"/>
         <source>Remove this input source</source>
         <translation>Eingangsquelle entfernen</translation>
-    </message>
-    <message>
-        <source>Custom feedbacks</source>
-        <translation type="vanished">Eigene Rückmeldungen</translation>
-    </message>
-    <message>
-        <source>Lower</source>
-        <translation type="vanished">Unterer Wert</translation>
-    </message>
-    <message>
-        <source>Upper</source>
-        <translation type="vanished">Oberer Wert</translation>
     </message>
 </context>
 <context>
@@ -2347,10 +2323,6 @@ Ungespeicherte Änderungen gehen verloren.</translation>
         <translation>Ausgewählte Sender löschen</translation>
     </message>
     <message>
-        <source>Heads</source>
-        <translation type="vanished">Köpfe</translation>
-    </message>
-    <message>
         <location filename="qml/fixtureeditor/ModeEditor.qml" line="533"/>
         <source>Physical</source>
         <translation>Physische Daten</translation>
@@ -2405,26 +2377,6 @@ Ungespeicherte Änderungen gehen verloren.</translation>
         <location filename="qml/PaletteFanningBox.qml" line="198"/>
         <source>Sine</source>
         <translation>Sinus</translation>
-    </message>
-    <message>
-        <source>Left to right</source>
-        <translation type="vanished">Von link nach rechts</translation>
-    </message>
-    <message>
-        <source>Right to left</source>
-        <translation type="vanished">Von rechts nach links</translation>
-    </message>
-    <message>
-        <source>Top to bottom</source>
-        <translation type="vanished">Von oben nach unten</translation>
-    </message>
-    <message>
-        <source>Bottom to top</source>
-        <translation type="vanished">Von unten nach oben</translation>
-    </message>
-    <message>
-        <source>Centered</source>
-        <translation type="vanished">Zentriert</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="144"/>
@@ -2965,25 +2917,9 @@ Ungespeicherte Änderungen gehen verloren.</translation>
 <context>
     <name>PopupDMXDump</name>
     <message>
-        <source>Enter a name for the scene</source>
-        <translation type="vanished">Namen für die Szene eingeben</translation>
-    </message>
-    <message>
-        <source>Scene name</source>
-        <translation type="vanished">Szenenname</translation>
-    </message>
-    <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="139"/>
         <source>New Scene</source>
         <translation>Neue Szene</translation>
-    </message>
-    <message>
-        <source>Don&apos;t ask again</source>
-        <translation type="vanished">Nicht erneut fragen</translation>
-    </message>
-    <message>
-        <source>Available channel types</source>
-        <translation type="vanished">Verfügbare Kanaltypen</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="31"/>
@@ -3504,10 +3440,6 @@ Zugriffsstufe:</translation>
         <translation>Position</translation>
     </message>
     <message>
-        <source>Rotate 90° clockwise</source>
-        <translation type="vanished">Um 90° nach rechts drehen</translation>
-    </message>
-    <message>
         <location filename="qml/fixturesfunctions/PositionTool.qml" line="241"/>
         <source>Rotate preview 90° clockwise</source>
         <translation>Vorschau um 90° im Uhrzeigersinn drehen</translation>
@@ -4004,10 +3936,6 @@ Bitte einen anderen Namen angeben.</translation>
         <translation>Autostart-Funktion setzen/löschen</translation>
     </message>
     <message>
-        <source>Dump on a new Scene</source>
-        <translation type="vanished">In eine neue Szene speichern</translation>
-    </message>
-    <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="339"/>
         <source>Function Preview</source>
         <translation>Funktionsvorschau</translation>
@@ -4389,10 +4317,6 @@ Bitte einen anderen Namen angeben.</translation>
         <translation>Markierte Elemente normalisieren</translation>
     </message>
     <message>
-        <source>Actions</source>
-        <translation type="vanished">Aktionen</translation>
-    </message>
-    <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="661"/>
         <source>Add a new item to the scene</source>
         <translation>Ein neues Element zur Szene hinzufügen</translation>
@@ -4597,10 +4521,6 @@ eine Funktion auf die Zeitleiste ziehen</translation>
         <translation>Gesamtes Universum zurücksetzen</translation>
     </message>
     <message>
-        <source>Dump on a new Scene</source>
-        <translation type="vanished">In eine neue Szene speichern</translation>
-    </message>
-    <message>
         <location filename="qml/SimpleDesk.qml" line="254"/>
         <source>Reset the channel</source>
         <translation>Kanal zurücksetzen</translation>
@@ -4800,12 +4720,6 @@ eine Funktion auf die Zeitleiste ziehen</translation>
         <translation>Fehler</translation>
     </message>
     <message>
-        <source>Unable to perform the operation.
-There is either not enough space or the target universe in invalid</source>
-        <translation type="vanished">Die Operation kann nicht ausgehführt werden.
-Entweder ist nicht genug Platz vorhanden oder das Ziel-Universum ist ungültig</translation>
-    </message>
-    <message>
         <location filename="qml/fixturesfunctions/UniverseGridView.qml" line="48"/>
         <source>Unable to perform the operation.
 There is either not enough space or the target universe is invalid</source>
@@ -4825,10 +4739,6 @@ Entweder ist nicht genug Platz vorhanden oder das Ziel-Universum ist ungültig</
 </context>
 <context>
     <name>UniverseIOItem</name>
-    <message>
-        <source>Passthrough</source>
-        <translation type="vanished">Durchreichen</translation>
-    </message>
     <message>
         <location filename="qml/inputoutput/UniverseIOItem.qml" line="253"/>
         <source>Enable/Disable passthrough</source>
@@ -5246,14 +5156,6 @@ Entweder ist nicht genug Platz vorhanden oder das Ziel-Universum ist ungültig</
         <translation>Abspielen/Stop/Pause</translation>
     </message>
     <message>
-        <source>Left Crossfade</source>
-        <translation type="vanished">Linke Überblendung</translation>
-    </message>
-    <message>
-        <source>Right Crossfade</source>
-        <translation type="vanished">Rechte Überblendung</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vccuelist.cpp" line="56"/>
         <source>Stop/Pause</source>
         <translation>Stop/Pause</translation>
@@ -5438,10 +5340,6 @@ Entweder ist nicht genug Platz vorhanden oder das Ziel-Universum ist ungültig</
         <translation>Vorherige Seite</translation>
     </message>
     <message>
-        <source>Page</source>
-        <translation type="vanished">Seite</translation>
-    </message>
-    <message>
         <location filename="qml/virtualconsole/VCFrameItem.qml" line="164"/>
         <source>Next page</source>
         <translation>Nächste Seite</translation>
@@ -5611,10 +5509,6 @@ Entweder ist nicht genug Platz vorhanden oder das Ziel-Universum ist ungültig</
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="135"/>
         <source>Delete selected widgets</source>
         <translation>Ausgewählte Widgets löschen</translation>
-    </message>
-    <message>
-        <source>Delete functions</source>
-        <translation type="vanished">Funktionen löschen</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="147"/>
@@ -6101,10 +5995,6 @@ fallen lassen um die Liste zu füllen</translation>
         <location filename="virtualconsole/vcwidget.cpp" line="192"/>
         <source>Solo Frame</source>
         <translation>Solo-Rahmen</translation>
-    </message>
-    <message>
-        <source>Speed Dial</source>
-        <translation type="vanished">Zeitauswahl</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="193"/>

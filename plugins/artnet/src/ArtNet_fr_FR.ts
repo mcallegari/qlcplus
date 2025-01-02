@@ -145,42 +145,42 @@
         <translation>Nom long</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="86"/>
+        <location filename="configureartnet.cpp" line="90"/>
         <source>%1 nodes</source>
         <translation>Nœuds de %1</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="124"/>
+        <location filename="configureartnet.cpp" line="128"/>
         <source>Inputs</source>
         <translation>Entrées</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="130"/>
+        <location filename="configureartnet.cpp" line="134"/>
         <source>Outputs</source>
         <translation>Sorties</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="181"/>
+        <location filename="configureartnet.cpp" line="185"/>
         <source>Standard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="182"/>
+        <location filename="configureartnet.cpp" line="186"/>
         <source>Full</source>
         <translation>Entière</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="183"/>
+        <location filename="configureartnet.cpp" line="187"/>
         <source>Partial</source>
         <translation>Partielle</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="198"/>
+        <location filename="configureartnet.cpp" line="202"/>
         <source>Invalid IP</source>
         <translation>IP invalide</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="198"/>
+        <location filename="configureartnet.cpp" line="202"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
         <translation>%1 n&apos;est pas une IP valide.

@@ -4,99 +4,133 @@
 <context>
     <name>WebAccess</name>
     <message>
-        <location filename="webaccess.cpp" line="171"/>
+        <location filename="webaccess.cpp" line="172"/>
         <source>Loading project...</source>
         <translation>Cargando proyecto...</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="207"/>
+        <location filename="webaccess.cpp" line="208"/>
         <source>Fixture stored and loaded</source>
         <translation>Fixture guardado y cargado</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="407"/>
+        <location filename="webaccess.cpp" line="408"/>
         <source>Username and password are required fields.</source>
         <translation>Nombre de usuario y contraseña son campos obligatorios.</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="413"/>
-        <location filename="webaccess.cpp" line="438"/>
+        <location filename="webaccess.cpp" line="414"/>
+        <location filename="webaccess.cpp" line="439"/>
         <source>User level has to be a positive integer.</source>
         <translation>El nivel de usuario tiene que ser un entero positivo.</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="432"/>
+        <location filename="webaccess.cpp" line="433"/>
         <source>Username is required.</source>
         <translation>Nombre de usuario es obligatorio.</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="450"/>
+        <location filename="webaccess.cpp" line="451"/>
         <source>Error while saving passwords file.</source>
         <translation>Error al guardar el archivo de contraseña.</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="465"/>
+        <location filename="webaccess.cpp" line="466"/>
         <source>Network configuration changed. Reboot to apply the changes.</source>
         <translation>La configuración de red ha cambiado. Reiniciar para aplicar los cambios.</translation>
     </message>
     <message>
+        <location filename="webaccess.cpp" line="468"/>
+        <source>An error occurred while updating the network configuration.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="webaccess.cpp" line="484"/>
+        <source>Wi-Fi hotspot successfully activated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="486"/>
+        <source>An error occurred while creating a Wi-Fi hotspot.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="491"/>
+        <source>Wi-Fi hotspot successfully deactivated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="507"/>
         <source>Autostart configuration changed</source>
         <translation>La configuración de inicio automático ha cambiado</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="860"/>
+        <location filename="webaccess.cpp" line="1014"/>
         <source>Widget not supported (yet) for web access</source>
         <translation>Widget no soportado (todavía) para acceso web</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="912"/>
-        <location filename="webaccess.cpp" line="965"/>
-        <source>Page</source>
-        <translation>Página</translation>
-    </message>
-    <message>
-        <location filename="webaccess.cpp" line="1131"/>
+        <location filename="webaccess.cpp" line="1440"/>
         <source>Enable</source>
         <translation>Activar</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1163"/>
+        <location filename="webaccess.cpp" line="1643"/>
         <source>Name</source>
         <translation>Nombre</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1164"/>
+        <location filename="webaccess.cpp" line="1644"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1165"/>
+        <location filename="webaccess.cpp" line="1645"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1166"/>
+        <location filename="webaccess.cpp" line="1646"/>
         <source>Duration</source>
         <translation>Duración</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1167"/>
+        <location filename="webaccess.cpp" line="1647"/>
         <source>Notes</source>
         <translation>Notas</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1463"/>
+        <location filename="webaccess.cpp" line="2076"/>
+        <source>Color 2 Reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="2085"/>
+        <source>Color 3 Reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="2094"/>
+        <source>Color 4 Reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="2103"/>
+        <source>Color 5 Reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="2345"/>
         <source>Load project</source>
         <translation>Cargar proyecto</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1465"/>
+        <location filename="webaccess.cpp" line="2347"/>
         <source>Simple Desk</source>
         <translation>Mesa Simple</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1467"/>
+        <location filename="webaccess.cpp" line="2349"/>
         <source>Configuration</source>
         <translation>Configuración</translation>
     </message>
@@ -195,32 +229,32 @@
         <translation>Nota: si no hay al menos un usuario con nivel de acceso &quot;Todo&quot; en la lista de autorización, se desactivará.</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="323"/>
+        <location filename="webaccessconfiguration.cpp" line="322"/>
         <source>System</source>
         <translation>Sistema</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="332"/>
+        <location filename="webaccessconfiguration.cpp" line="331"/>
         <source>Back</source>
         <translation>Atrás</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="340"/>
+        <location filename="webaccessconfiguration.cpp" line="339"/>
         <source>Universes configuration</source>
         <translation>Configuración de universos</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="347"/>
+        <location filename="webaccessconfiguration.cpp" line="346"/>
         <source>Audio configuration</source>
         <translation>Configuración de audio</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="355"/>
+        <location filename="webaccessconfiguration.cpp" line="354"/>
         <source>User loaded fixtures</source>
         <translation>Fixtures cargados por el usuario</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="364"/>
+        <location filename="webaccessconfiguration.cpp" line="363"/>
         <source>Authorized users</source>
         <translation>Usuarios autorizados</translation>
     </message>
@@ -228,83 +262,100 @@
 <context>
     <name>WebAccessNetwork</name>
     <message>
-        <location filename="webaccessnetwork.cpp" line="101"/>
-        <source>Network interface: </source>
-        <translation>Interfaz de red:</translation>
+        <location filename="webaccessnetwork.cpp" line="114"/>
+        <source>Wi-Fi Hotspot</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="106"/>
+        <location filename="webaccessnetwork.cpp" line="118"/>
+        <location filename="webaccessnetwork.cpp" line="136"/>
         <source>Access point name (SSID): </source>
         <translation>Nombre de punto de acceso (SSID): </translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="108"/>
+        <location filename="webaccessnetwork.cpp" line="120"/>
+        <location filename="webaccessnetwork.cpp" line="138"/>
         <source>WPA-PSK Password: </source>
         <translation>Contraseña WPA-PSK: </translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="113"/>
+        <location filename="webaccessnetwork.cpp" line="124"/>
+        <source>Enable</source>
+        <translation type="unfinished">Activar</translation>
+    </message>
+    <message>
+        <location filename="webaccessnetwork.cpp" line="125"/>
+        <source>Disable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessnetwork.cpp" line="130"/>
+        <source>Network interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessnetwork.cpp" line="144"/>
         <source>Dynamic (DHCP)</source>
         <translation>Dinámico (DHCP)</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="115"/>
+        <location filename="webaccessnetwork.cpp" line="146"/>
         <source>Static</source>
         <translation>Estático</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="119"/>
+        <location filename="webaccessnetwork.cpp" line="151"/>
         <source>IP Address: </source>
         <translation>Dirección IP:</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="121"/>
+        <location filename="webaccessnetwork.cpp" line="153"/>
         <source>Netmask: </source>
         <translation>Máscara de red:</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="123"/>
+        <location filename="webaccessnetwork.cpp" line="155"/>
         <source>Gateway: </source>
         <translation>Puerta de enlace:</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="126"/>
-        <location filename="webaccessnetwork.cpp" line="344"/>
+        <location filename="webaccessnetwork.cpp" line="158"/>
+        <location filename="webaccessnetwork.cpp" line="343"/>
         <source>Apply changes</source>
         <translation>Aplicar cambios</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="327"/>
+        <location filename="webaccessnetwork.cpp" line="326"/>
         <source>Back</source>
         <translation>Atrás</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="333"/>
+        <location filename="webaccessnetwork.cpp" line="332"/>
         <source>Network configuration</source>
         <translation>Configuración de red</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="338"/>
+        <location filename="webaccessnetwork.cpp" line="337"/>
         <source>Project autostart</source>
         <translation>Inicio automático de proyecto</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="342"/>
+        <location filename="webaccessnetwork.cpp" line="341"/>
         <source>No project</source>
         <translation>Ningún proyecto</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="343"/>
+        <location filename="webaccessnetwork.cpp" line="342"/>
         <source>Use current project</source>
         <translation>Usar el proyecto actual</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="348"/>
+        <location filename="webaccessnetwork.cpp" line="347"/>
         <source>Reboot</source>
         <translation>Reiniciar</translation>
     </message>
     <message>
-        <location filename="webaccessnetwork.cpp" line="349"/>
+        <location filename="webaccessnetwork.cpp" line="348"/>
         <source>Shutdown</source>
         <translation>Apagar</translation>
     </message>

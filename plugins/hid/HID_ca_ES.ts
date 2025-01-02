@@ -45,12 +45,12 @@
 <context>
     <name>HIDJsDevice</name>
     <message>
-        <location filename="hidjsdevice.cpp" line="88"/>
+        <location filename="hidjsdevice.cpp" line="116"/>
         <source>Axes: %1</source>
         <translation>Eixos: %1</translation>
     </message>
     <message>
-        <location filename="hidjsdevice.cpp" line="90"/>
+        <location filename="hidjsdevice.cpp" line="118"/>
         <source>Buttons: %1</source>
         <translation>Botons: %1</translation>
     </message>

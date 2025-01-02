@@ -4,32 +4,42 @@
 <context>
     <name>GPIOConfiguration</name>
     <message>
-        <location filename="gpioconfiguration.ui" line="14"/>
+        <location filename="gpioconfiguration.ui" line="33"/>
         <source>Configure GPIO Plugin</source>
         <translation>Configureer GPIO Plugin</translation>
     </message>
     <message>
-        <location filename="gpioconfiguration.ui" line="28"/>
+        <location filename="gpioconfiguration.ui" line="46"/>
+        <source>Selected chip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="gpioconfiguration.ui" line="57"/>
         <source>GPIO Number</source>
         <translation>GPIO Nummer</translation>
     </message>
     <message>
-        <location filename="gpioconfiguration.ui" line="33"/>
+        <location filename="gpioconfiguration.ui" line="62"/>
         <source>Usage</source>
         <translation>Gebruik</translation>
     </message>
     <message>
-        <location filename="gpioconfiguration.cpp" line="57"/>
+        <location filename="gpioconfiguration.ui" line="67"/>
+        <source>Channel number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="gpioconfiguration.cpp" line="79"/>
         <source>Not used</source>
         <translation>Niet in gebruik</translation>
     </message>
     <message>
-        <location filename="gpioconfiguration.cpp" line="58"/>
+        <location filename="gpioconfiguration.cpp" line="80"/>
         <source>Input</source>
         <translation>Input</translation>
     </message>
     <message>
-        <location filename="gpioconfiguration.cpp" line="59"/>
+        <location filename="gpioconfiguration.cpp" line="81"/>
         <source>Output</source>
         <translation>Output</translation>
     </message>
@@ -37,7 +47,7 @@
 <context>
     <name>GPIOPlugin</name>
     <message>
-        <location filename="gpioplugin.cpp" line="84"/>
+        <location filename="gpioplugin.cpp" line="97"/>
         <source>This plugin provides input/output on GPIO PINs.</source>
         <translation>Deze plugin verzorgt input/output op GPIO PINs.</translation>
     </message>

@@ -70,10 +70,6 @@
         <translation>Assistent wird (zurzeit) für Webzugriff nicht unterstützt</translation>
     </message>
     <message>
-        <source>Page</source>
-        <translation type="vanished">Seite</translation>
-    </message>
-    <message>
         <location filename="webaccess.cpp" line="1440"/>
         <source>Enable</source>
         <translation>Aktivieren</translation>
@@ -265,10 +261,6 @@
 </context>
 <context>
     <name>WebAccessNetwork</name>
-    <message>
-        <source>Network interface: </source>
-        <translation type="vanished">Netzwerk Schnittstelle: </translation>
-    </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="114"/>
         <source>Wi-Fi Hotspot</source>

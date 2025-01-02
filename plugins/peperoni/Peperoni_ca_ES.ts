@@ -14,8 +14,8 @@
         <translation>La llibrería compartida usbdmc.dll no spha trobat o es massa vell per ser emprat amb QLC+.</translation>
     </message>
     <message>
-        <location filename="win32/peperoni.cpp" line="221"/>
         <location filename="unix/peperoni.cpp" line="212"/>
+        <location filename="win32/peperoni.cpp" line="221"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation>Vol tornar a escanejar el seu maquinari?</translation>
     </message>
@@ -28,8 +28,8 @@
 <context>
     <name>PeperoniDevice</name>
     <message>
-        <location filename="win32/peperonidevice.cpp" line="70"/>
         <location filename="unix/peperonidevice.cpp" line="172"/>
+        <location filename="win32/peperonidevice.cpp" line="70"/>
         <source>Device is working correctly.</source>
         <translation>El dispositiu està treballant correctament.</translation>
     </message>
@@ -44,8 +44,8 @@
         <translation>Res</translation>
     </message>
     <message>
-        <location filename="win32/peperonidevice.cpp" line="111"/>
         <location filename="unix/peperonidevice.cpp" line="140"/>
+        <location filename="win32/peperonidevice.cpp" line="111"/>
         <source>Unknown</source>
         <translation>Desconegut</translation>
     </message>
