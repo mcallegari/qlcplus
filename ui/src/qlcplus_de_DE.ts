@@ -10,23 +10,28 @@
         <translation>Über Q Light Controller Plus</translation>
     </message>
     <message>
-        <location filename="aboutbox.ui" line="87"/>
+        <location filename="aboutbox.ui" line="275"/>
         <source>Contributors</source>
         <translation>Mitwirkende</translation>
     </message>
     <message>
-        <location filename="aboutbox.ui" line="132"/>
+        <location filename="aboutbox.ui" line="309"/>
         <source>This application is licensed under the terms of the Apache 2.0 license.</source>
         <oldsource>This application is licensed under the terms of GNU GPL version 2.</oldsource>
         <translation>Dieses Programm ist unter den Bedingungen der Apache-Version 2.0 lizensiert.</translation>
     </message>
     <message>
-        <location filename="aboutbox.cpp" line="42"/>
+        <location filename="aboutbox.ui" line="341"/>
+        <source>PushButton</source>
+        <translation>DruckKnopf</translation>
+    </message>
+    <message>
+        <location filename="aboutbox.cpp" line="43"/>
         <source>and contributors:</source>
         <translation>und Mitwirkende:</translation>
     </message>
     <message>
-        <location filename="aboutbox.cpp" line="43"/>
+        <location filename="aboutbox.cpp" line="44"/>
         <source>Website: %1</source>
         <translation>Webseite: %1</translation>
     </message>
@@ -1725,76 +1730,76 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="customfeedbackdialog.ui" line="14"/>
         <source>Custom Feedback Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigene Feedback-Konfiguration</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="21"/>
         <source>Value</source>
-        <translation type="unfinished">Wert</translation>
+        <translation>Wert</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="26"/>
         <source>Label</source>
-        <translation type="unfinished">Beschriftung</translation>
+        <translation>Beschriftung</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="31"/>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="45"/>
         <source>Values</source>
-        <translation type="unfinished">Werte</translation>
+        <translation>Werte</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="56"/>
         <source>Lower Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Unterer Wert</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="82"/>
         <source>Monitor Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Monitor Wert</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="94"/>
         <source>Upper Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Oberer Wert</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="114"/>
         <location filename="customfeedbackdialog.ui" line="124"/>
         <location filename="customfeedbackdialog.ui" line="134"/>
         <source>Color Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Farb-Auswahl</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="170"/>
         <source>MIDI Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>MIDI Kanal</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="176"/>
         <source>Upper Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Oberer Kanal</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="189"/>
         <source>Lower Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Unterer Kanal</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="209"/>
         <source>Monitor Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Monitor Kanal</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.cpp" line="90"/>
         <location filename="customfeedbackdialog.cpp" line="91"/>
         <location filename="customfeedbackdialog.cpp" line="92"/>
         <source>From plugin settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Von Plugin-Einstellungen</translation>
     </message>
 </context>
 <context>
@@ -2294,13 +2299,13 @@ Changes will be lost if you don&apos;t save them.</source>
         <location filename="fixturemanager.cpp" line="913"/>
         <source>Move channel group up...</source>
         <oldsource>Move group up...</oldsource>
-        <translation type="unfinished">Gruppe aufwärts verschieben...</translation>
+        <translation>Gruppe aufwärts verschieben...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="919"/>
         <source>Move channel group down...</source>
         <oldsource>Move group down...</oldsource>
-        <translation type="unfinished">Gruppe abwärts verschieben...</translation>
+        <translation>Gruppe abwärts verschieben...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="925"/>
@@ -2593,12 +2598,12 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>Gerät auswählen</translation>
     </message>
     <message>
-        <location filename="fixtureselection.cpp" line="80"/>
+        <location filename="fixtureselection.cpp" line="81"/>
         <source>No fixtures available</source>
         <translation>Keine Geräte verfügbar</translation>
     </message>
     <message>
-        <location filename="fixtureselection.cpp" line="82"/>
+        <location filename="fixtureselection.cpp" line="83"/>
         <source>Go to the Fixture Manager and add some fixtures first.</source>
         <translation>Gehe zum Gerätemanager um Geräte hinzuzufügen.</translation>
     </message>
@@ -3588,7 +3593,7 @@ Bitte in der Plugindokumentation nachlesen um den Fehler zu beheben.</translatio
     <message>
         <location filename="inputprofileeditor.ui" line="134"/>
         <source>Input Mapping</source>
-        <translation type="unfinished"></translation>
+        <translation>Eingangs-Mapping</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="140"/>
@@ -3629,52 +3634,52 @@ Bitte in der Plugindokumentation nachlesen um den Fehler zu beheben.</translatio
         <location filename="inputprofileeditor.ui" line="398"/>
         <location filename="inputprofileeditor.cpp" line="692"/>
         <source>MIDI channel</source>
-        <translation type="unfinished"></translation>
+        <translation>MIDI Kanal</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="412"/>
         <source>Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Farben</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="418"/>
         <source>Remove the selected color</source>
-        <translation type="unfinished"></translation>
+        <translation>Markierte Farbe löschen</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="438"/>
         <source>Add a new color</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Farbe hinzufügen</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="472"/>
         <source>Value</source>
-        <translation type="unfinished">Wert</translation>
+        <translation>Wert</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="477"/>
         <source>Label</source>
-        <translation type="unfinished">Beschriftung</translation>
+        <translation>Beschriftung</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="482"/>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="491"/>
         <source>MIDI Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>MIDI Kanäle</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="497"/>
         <source>Add a new MIDI channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuen MIDI Kanal hinzufügen</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="517"/>
         <source>Remove the selected MIDI channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Markierten MIDI Kanal löschen</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="371"/>
@@ -3719,7 +3724,7 @@ Bitte in der Plugindokumentation nachlesen um den Fehler zu beheben.</translatio
     <message>
         <location filename="inputprofileeditor.cpp" line="226"/>
         <source>From plugin settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Von Plugin-Einstellungen</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="338"/>
@@ -3770,28 +3775,28 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <location filename="inputprofileeditor.cpp" line="666"/>
         <location filename="inputprofileeditor.cpp" line="692"/>
         <source>Enter value</source>
-        <translation type="unfinished"></translation>
+        <translation>Wert eingeben</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="666"/>
         <source>Feedback value</source>
-        <translation type="unfinished"></translation>
+        <translation>Rückmeldungs Wert</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="672"/>
         <location filename="inputprofileeditor.cpp" line="696"/>
         <source>Enter label</source>
-        <translation type="unfinished"></translation>
+        <translation>Beschriftung eingeben</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="672"/>
         <source>Color label</source>
-        <translation type="unfinished"></translation>
+        <translation>Farb Beschriftung</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="696"/>
         <source>MIDI channel label</source>
-        <translation type="unfinished"></translation>
+        <translation>MIDI Kanal Beschriftung</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="738"/>
@@ -4463,63 +4468,63 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
 <context>
     <name>RDMWorker</name>
     <message>
-        <location filename="rdmmanager.cpp" line="373"/>
+        <location filename="rdmmanager.cpp" line="401"/>
         <source>Manufacturer</source>
         <translation>Hersteller</translation>
     </message>
     <message>
-        <location filename="rdmmanager.cpp" line="374"/>
+        <location filename="rdmmanager.cpp" line="402"/>
         <source>Model</source>
         <translation>Modell</translation>
     </message>
     <message>
-        <location filename="rdmmanager.cpp" line="376"/>
+        <location filename="rdmmanager.cpp" line="404"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="rdmmanager.cpp" line="379"/>
+        <location filename="rdmmanager.cpp" line="407"/>
         <source>Universe</source>
         <translation>Universum</translation>
     </message>
     <message>
-        <location filename="rdmmanager.cpp" line="383"/>
+        <location filename="rdmmanager.cpp" line="411"/>
         <source>Address Range</source>
         <translation>Adressbereich</translation>
     </message>
     <message>
-        <location filename="rdmmanager.cpp" line="386"/>
-        <location filename="rdmmanager.cpp" line="723"/>
+        <location filename="rdmmanager.cpp" line="414"/>
+        <location filename="rdmmanager.cpp" line="751"/>
         <source>Channels</source>
         <translation>Kanäle</translation>
     </message>
     <message>
-        <location filename="rdmmanager.cpp" line="389"/>
+        <location filename="rdmmanager.cpp" line="417"/>
         <source>Personalities</source>
         <translation>Persönlichkeit</translation>
     </message>
     <message>
-        <location filename="rdmmanager.cpp" line="720"/>
+        <location filename="rdmmanager.cpp" line="748"/>
         <source>Personality</source>
         <translation>Persönlichkeiten</translation>
     </message>
     <message>
-        <location filename="rdmmanager.cpp" line="721"/>
+        <location filename="rdmmanager.cpp" line="749"/>
         <source>(Selected)</source>
         <translation>(Ausgewählt)</translation>
     </message>
     <message>
-        <location filename="rdmmanager.cpp" line="731"/>
+        <location filename="rdmmanager.cpp" line="759"/>
         <source>Channel list</source>
         <translation>Kanalliste</translation>
     </message>
     <message>
-        <location filename="rdmmanager.cpp" line="755"/>
+        <location filename="rdmmanager.cpp" line="783"/>
         <source>Channel</source>
         <translation>Kanal</translation>
     </message>
     <message>
-        <location filename="rdmmanager.cpp" line="770"/>
+        <location filename="rdmmanager.cpp" line="798"/>
         <source>Supported PIDs</source>
         <translation>Unterstützte PIDs</translation>
     </message>
@@ -4532,282 +4537,324 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <translation>RGB Matrix Editor</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="435"/>
+        <location filename="rgbmatrixeditor.ui" line="90"/>
         <source>RGB matrix name</source>
         <translation>RGB-Matrix-Name</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="448"/>
+        <location filename="rgbmatrixeditor.ui" line="103"/>
         <source>The name of this RGB matrix function</source>
         <translation>Name dieser RGB-Matrix-Funktion</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="479"/>
+        <location filename="rgbmatrixeditor.ui" line="134"/>
         <source>Save this matrix to a sequence</source>
         <translation>Diese Matrix als Sequenz speichern</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="499"/>
+        <location filename="rgbmatrixeditor.ui" line="154"/>
         <source>Toggle between circle and square preview</source>
         <translation>Zwischen Kreis- und Viereckvorschau umschalten</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="545"/>
+        <location filename="rgbmatrixeditor.ui" line="200"/>
         <source>Fixture group</source>
         <translation>Gerätegruppe</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="558"/>
+        <location filename="rgbmatrixeditor.ui" line="213"/>
         <source>The fixture group to use as the pixel matrix</source>
         <translation>Diese Gerätegruppe als Pixel-Matrix verwenden</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="59"/>
+        <location filename="rgbmatrixeditor.ui" line="348"/>
         <source>Pattern</source>
         <translation>Figur/Muster</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="103"/>
+        <location filename="rgbmatrixeditor.ui" line="363"/>
+        <source>Matrix color 3</source>
+        <translation>Matrix Farbe 3</translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="376"/>
+        <source>Matrix color 1</source>
+        <translation>Matrix Farbe 1</translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="420"/>
+        <source>Matrix color 5</source>
+        <translation>Matrix Farbe 5</translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="433"/>
+        <source>Reset color 2</source>
+        <translation>Farbe 2 zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="451"/>
+        <source>Reset color 3</source>
+        <translation>Farbe 3 zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="496"/>
         <source>The RGB matrix pattern</source>
         <translation>Die RGB-Matrix-Figur</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="217"/>
+        <location filename="rgbmatrixeditor.ui" line="503"/>
+        <source>Matrix color 2</source>
+        <translation>Matrix Farbe 2</translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="519"/>
+        <source>Matrix color 4</source>
+        <translation>Matrix Farbe 4</translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="535"/>
+        <source>Reset color 4</source>
+        <translation>Farbe 4 zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="546"/>
+        <source>Reset color 5</source>
+        <translation>Farbe 5 zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="581"/>
         <source>Animated Text</source>
         <translation>Animierter Text</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="238"/>
+        <location filename="rgbmatrixeditor.ui" line="602"/>
         <source>Text to display</source>
         <translation>Anzuzeigender Text</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="245"/>
+        <location filename="rgbmatrixeditor.ui" line="609"/>
         <source>Choose the font</source>
         <translation>Schriftart auswählen</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="196"/>
+        <location filename="rgbmatrixeditor.ui" line="560"/>
         <source>Properties</source>
         <translation>Eigenschaften</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="265"/>
+        <location filename="rgbmatrixeditor.ui" line="629"/>
         <source>Animation style</source>
         <translation>Animationsstil</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="275"/>
+        <location filename="rgbmatrixeditor.ui" line="639"/>
         <source>Image</source>
         <translation>Bild</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="323"/>
+        <location filename="rgbmatrixeditor.ui" line="687"/>
         <source>Offset</source>
         <translation>Abstand</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="335"/>
+        <location filename="rgbmatrixeditor.ui" line="699"/>
         <source>X</source>
         <translation>X</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="342"/>
+        <location filename="rgbmatrixeditor.ui" line="706"/>
         <source>Shift the pattern X pixels horizontally</source>
         <translation>Muster X Pixel horizontal verschieben</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="355"/>
+        <location filename="rgbmatrixeditor.ui" line="719"/>
         <source>Y</source>
         <translation>Y</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="362"/>
+        <location filename="rgbmatrixeditor.ui" line="726"/>
         <source>Shift the pattern Y pixels vertically</source>
         <translation>Muster Y Pixel vertikal verschieben</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="417"/>
+        <location filename="rgbmatrixeditor.ui" line="72"/>
         <source>Dimmer control</source>
         <translation>Dimmersteuerung</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="414"/>
+        <location filename="rgbmatrixeditor.ui" line="69"/>
         <source>Set the dimmer channel of fixtures to 100%</source>
         <translation>Setzt den Dimmer-Kanal der Geräte auf 100%</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="87"/>
         <source>Matrix end color</source>
-        <translation>Matrix Endfarbe</translation>
+        <translation type="vanished">Matrix Endfarbe</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="110"/>
         <source>Reset the end color</source>
-        <translation>Endfarbe zurücksetzen</translation>
+        <translation type="vanished">Endfarbe zurücksetzen</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="74"/>
         <source>Matrix start color</source>
-        <translation>Matrix Startfarbe</translation>
+        <translation type="vanished">Matrix Startfarbe</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="145"/>
+        <location filename="rgbmatrixeditor.ui" line="444"/>
         <source>Blend mode</source>
         <translation>Übergangsmodus</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="122"/>
+        <location filename="rgbmatrixeditor.ui" line="390"/>
         <source>Default (HTP)</source>
         <translation>Standard (HTP)</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="127"/>
+        <location filename="rgbmatrixeditor.ui" line="395"/>
         <source>Mask</source>
         <translation>Maske</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="132"/>
+        <location filename="rgbmatrixeditor.ui" line="400"/>
         <source>Additive</source>
         <translation>Additiv</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="137"/>
+        <location filename="rgbmatrixeditor.ui" line="405"/>
         <source>Subtractive</source>
         <translation>Subtraktiv</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="152"/>
+        <location filename="rgbmatrixeditor.ui" line="413"/>
         <source>Control mode</source>
         <translation>Steuermodus</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="160"/>
+        <location filename="rgbmatrixeditor.ui" line="463"/>
         <source>Default (RGB)</source>
         <translation>Standard (RGB)</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="165"/>
+        <location filename="rgbmatrixeditor.ui" line="468"/>
         <source>White</source>
         <translation>Weiß</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="170"/>
+        <location filename="rgbmatrixeditor.ui" line="473"/>
         <source>Amber</source>
         <translation>Amber</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="175"/>
+        <location filename="rgbmatrixeditor.ui" line="478"/>
         <source>UV</source>
         <translation>UV</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="180"/>
+        <location filename="rgbmatrixeditor.ui" line="483"/>
         <source>Dimmer</source>
         <translation>Dimmer</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="185"/>
+        <location filename="rgbmatrixeditor.ui" line="488"/>
         <source>Shutter</source>
         <translation>Shutter</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="402"/>
+        <location filename="rgbmatrixeditor.ui" line="57"/>
         <source>Other Controls</source>
         <translation>Andere Steuerungen</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="575"/>
+        <location filename="rgbmatrixeditor.ui" line="230"/>
         <source>Run Order</source>
         <translation>Laufrichtung</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="587"/>
+        <location filename="rgbmatrixeditor.ui" line="242"/>
         <source>Run through over and over again</source>
         <translation>Läuft immer weiter durch</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="590"/>
+        <location filename="rgbmatrixeditor.ui" line="245"/>
         <source>Loop</source>
         <translation>Wiederholen</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="600"/>
+        <location filename="rgbmatrixeditor.ui" line="255"/>
         <source>Run through once and stop</source>
         <translation>Läuft nur einmal durch und stoppt dann</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="603"/>
+        <location filename="rgbmatrixeditor.ui" line="258"/>
         <source>Single Shot</source>
         <translation>Einmal</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="610"/>
+        <location filename="rgbmatrixeditor.ui" line="265"/>
         <source>First run forwards, then backwards, again forwards, etc.</source>
         <translation>Läuft erst vorwärts, dann rückwärts, dann wieder vorwärts, etc.</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="613"/>
+        <location filename="rgbmatrixeditor.ui" line="268"/>
         <source>Ping Pong</source>
         <translation>Hin und Her</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="629"/>
+        <location filename="rgbmatrixeditor.ui" line="284"/>
         <source>Direction</source>
         <translation>Richtung</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="641"/>
+        <location filename="rgbmatrixeditor.ui" line="296"/>
         <source>Start from the first step</source>
         <translation>Vom ersten Punkt starten</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="644"/>
+        <location filename="rgbmatrixeditor.ui" line="299"/>
         <source>Forward</source>
         <translation>Vorwärts</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="654"/>
+        <location filename="rgbmatrixeditor.ui" line="309"/>
         <source>Start from the last step</source>
         <translation>Vom letzten Punkt starten</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="657"/>
+        <location filename="rgbmatrixeditor.ui" line="312"/>
         <source>Backward</source>
         <translation>Rückwärts</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="459"/>
+        <location filename="rgbmatrixeditor.ui" line="114"/>
         <source>Show/Hide speed dial window</source>
         <translation>Anzeigen/Ausblenden des Schnellwahlfensters</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="519"/>
+        <location filename="rgbmatrixeditor.ui" line="174"/>
         <source>See what the RGB Matrix does when it is run</source>
         <translation>Vorschau der RGB-Matrix</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="283"/>
+        <location filename="rgbmatrixeditor.cpp" line="313"/>
         <source>None</source>
         <translation>Nichts</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="609"/>
+        <location filename="rgbmatrixeditor.cpp" line="709"/>
         <source>No fixture group to control</source>
         <translation>Keine Gerätegruppe zu steuern</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="880"/>
+        <location filename="rgbmatrixeditor.cpp" line="1047"/>
         <source>Select image</source>
         <translation>Bildauswahl</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="882"/>
+        <location filename="rgbmatrixeditor.cpp" line="1049"/>
         <source>Images</source>
         <translation>Bilder</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="1168"/>
+        <location filename="rgbmatrixeditor.cpp" line="1341"/>
         <source>Sequence</source>
         <translation>Sequenz</translation>
     </message>
@@ -5555,47 +5602,47 @@ Dauer: %3
         <translation>Cue aufzeichnen</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="574"/>
+        <location filename="simpledesk.cpp" line="627"/>
         <source>Channel groups</source>
         <translation>Kanalgruppen</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1059"/>
+        <location filename="simpledesk.cpp" line="1118"/>
         <source>Cue Stack - Playback %1</source>
         <translation>Cue Stapel - Wiedergabe %1</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1247"/>
+        <location filename="simpledesk.cpp" line="1306"/>
         <source>No selection</source>
         <translation>Keine Auswahl</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1270"/>
+        <location filename="simpledesk.cpp" line="1329"/>
         <source>Cue name</source>
         <translation>Cue-Name</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1277"/>
+        <location filename="simpledesk.cpp" line="1336"/>
         <source>Multiple Cues</source>
         <translation>Mehrere Cues</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1374"/>
+        <location filename="simpledesk.cpp" line="1433"/>
         <source>Delete cue</source>
         <translation>Cue löschen</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1428"/>
+        <location filename="simpledesk.cpp" line="1487"/>
         <source>Clone Cue Stack</source>
         <translation>Cue-Stapel kopieren</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1428"/>
+        <location filename="simpledesk.cpp" line="1487"/>
         <source>Clone To Playback#</source>
         <translation>Zur Wiedergabe kopieren#</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1494"/>
+        <location filename="simpledesk.cpp" line="1553"/>
         <source>Cue %1</source>
         <translation>Cue %1</translation>
     </message>
@@ -5603,32 +5650,32 @@ Dauer: %3
 <context>
     <name>SpeedDial</name>
     <message>
-        <location filename="speeddial.cpp" line="143"/>
+        <location filename="speeddial.cpp" line="142"/>
         <source>Hours</source>
         <translation>Stunden</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="152"/>
+        <location filename="speeddial.cpp" line="151"/>
         <source>Minutes</source>
         <translation>Minuten</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="161"/>
+        <location filename="speeddial.cpp" line="160"/>
         <source>Seconds</source>
         <translation>Sekunden</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="170"/>
+        <location filename="speeddial.cpp" line="169"/>
         <source>Milliseconds</source>
         <translation>Millisekunden</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="176"/>
+        <location filename="speeddial.cpp" line="175"/>
         <source>Infinite</source>
         <translation>Unendlich</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="128"/>
+        <location filename="speeddial.cpp" line="127"/>
         <source>Tap</source>
         <translation>Tap</translation>
     </message>
@@ -5846,12 +5893,12 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="83"/>
         <source>Override priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Priorität überschreiben</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="90"/>
         <source>Force LTP</source>
-        <translation type="unfinished"></translation>
+        <translation>LTP erzwingen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="99"/>
@@ -6017,22 +6064,22 @@ Dauer: %3
         <translation>Cue-Liste pausieren</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1509"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1510"/>
         <source>Fade In</source>
         <translation>Einblenden</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1509"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1510"/>
         <source>Fade Out</source>
         <translation>Ausblenden</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1509"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1510"/>
         <source>Duration</source>
         <translation>Dauer</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1509"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1510"/>
         <source>Notes</source>
         <translation>Notizen</translation>
     </message>
@@ -6312,44 +6359,132 @@ Dauer: %3
 <context>
     <name>VCMatrix</name>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="172"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="228"/>
         <source>Animation %1</source>
         <translation>Animation %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="704"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="954"/>
+        <source>Color 2 Reset</source>
+        <translation>Farbe 2 zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrix.cpp" line="966"/>
+        <source>Color 3 Reset</source>
+        <translation>Farbe 3 zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrix.cpp" line="978"/>
+        <source>Color 4 Reset</source>
+        <translation>Farbe 4 zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrix.cpp" line="990"/>
+        <source>Color 5 Reset</source>
+        <translation>Farbe 5 zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1029"/>
+        <source>Color 1 Red component</source>
+        <translation>Farbe 1 Rotanteil</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1031"/>
+        <source>Color 1 Green component</source>
+        <translation>Farbe 1 Grünanteil</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1033"/>
+        <source>Color 1 Blue component</source>
+        <translation>Farbe 1 Blauanteil</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1045"/>
+        <source>Color 2 Red component</source>
+        <translation>Farbe 2 Rotanteil</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1047"/>
+        <source>Color 2 Green component</source>
+        <translation>Farbe 2 Grünanteil</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1049"/>
+        <source>Color 2 Blue component</source>
+        <translation>Farbe 2 Blauanteil</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1061"/>
+        <source>Color 3 Red component</source>
+        <translation>Farbe 3 Rotanteil</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1063"/>
+        <source>Color 3 Green component</source>
+        <translation>Farbe 3 Grünanteil</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1065"/>
+        <source>Color 3 Blue component</source>
+        <translation>Farbe 3 Blauanteil</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1077"/>
+        <source>Color 4 Red component</source>
+        <translation>Farbe 4 Rotanteil</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1079"/>
+        <source>Color 4 Green component</source>
+        <translation>Farbe 4 Grünanteil</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1081"/>
+        <source>Color 4 Blue component</source>
+        <translation>Farbe 4 Blauanteil</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1093"/>
+        <source>Color 5 Red component</source>
+        <translation>Farbe 5 Rotanteil</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1095"/>
+        <source>Color 5 Green component</source>
+        <translation>Farbe 5 Grünanteil</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1097"/>
+        <source>Color 5 Blue component</source>
+        <translation>Farbe 5 Blauanteil</translation>
+    </message>
+    <message>
         <source>End Color Reset</source>
-        <translation>Endfarbenreset</translation>
+        <translation type="vanished">Endfarbenreset</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="743"/>
         <source>Start color Red component</source>
-        <translation>Anfangsfarbe Rotanteil</translation>
+        <translation type="vanished">Anfangsfarbe Rotanteil</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="745"/>
         <source>Start color Green component</source>
-        <translation>Anfangsfarbe Grünanteil</translation>
+        <translation type="vanished">Anfangsfarbe Grünanteil</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="747"/>
         <source>Start color Blue component</source>
-        <translation>Anfangsfarbe Blauanteil</translation>
+        <translation type="vanished">Anfangsfarbe Blauanteil</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="759"/>
         <source>End color Red component</source>
-        <translation>Endfarbe Rotanteil</translation>
+        <translation type="vanished">Endfarbe Rotanteil</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="761"/>
         <source>End color Green component</source>
-        <translation>Endfarbe Grünanteil</translation>
+        <translation type="vanished">Endfarbe Grünanteil</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="763"/>
         <source>End color Blue component</source>
-        <translation>Endfarbe Blauanteil</translation>
+        <translation type="vanished">Endfarbe Blauanteil</translation>
     </message>
 </context>
 <context>
@@ -6435,163 +6570,310 @@ Dauer: %3
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="157"/>
-        <source>Show Start Color Button</source>
-        <translation>Schalter für Anfangsfarbe anzeigen</translation>
+        <source>Show Color 1 Button</source>
+        <oldsource>Show Start Color Button</oldsource>
+        <translation>Schalter für Farbe 1 anzeigen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="164"/>
-        <source>Show End Color Button</source>
-        <translation>Schalter für Endfarbe anzeigen</translation>
+        <source>Show Color 2 Button</source>
+        <oldsource>Show End Color Button</oldsource>
+        <translation>Schalter für Farbe 2 anzeigen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="171"/>
+        <source>Show Color 3 Button</source>
+        <translation>Schalter für Farbe 3 anzeigen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="178"/>
+        <source>Show Color 4 Button</source>
+        <translation>Schalter für Farbe 4 anzeigen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="185"/>
+        <source>Show Color 5 Button</source>
+        <translation>Schalter für Farbe 5 anzeigen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="192"/>
         <source>Show Preset Combo</source>
         <translation>Auswahlliste für Voreinstellungen anzeigen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="180"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="201"/>
         <source>Slider External Input</source>
         <translation>Externer Eingang des Schiebereglers</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="186"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="207"/>
         <source>Input universe</source>
         <translation>Eingangsuniversum</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="193"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="214"/>
         <source>The input universe that sends data to this widget</source>
         <translation>Das Eingangsuniversum, welches Daten zu diesem Assistenten sendet</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="203"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="224"/>
         <source>Input channel</source>
         <translation>Eingangskanal</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="210"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="231"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
         <translation>Der bestimmte Eingangskanal im Eingangsuniversum der Daten zu diesem Assistenten sendet</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="233"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="254"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to</source>
         <translation>Wähle ein externes Universum &amp; einen Kanal auf den dieser Schieberegler hören soll</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="236"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="257"/>
         <source>Choose...</source>
         <translation>Auswählen ...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="243"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="264"/>
         <source>When toggled, you can move an external slider/knob to assign it to the animation widget slider.</source>
         <oldsource>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</oldsource>
         <translation>Wenn betätigt kann ein externer Regler/Schalter betätigt werden um diesen der Animationsschaltfläche zuzuweisen.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="246"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="267"/>
         <source>Auto Detect</source>
         <translation>Automatische Erkennung</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="273"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="294"/>
         <source>Custom Controls</source>
         <translation>Eigene Steuerelemente</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="370"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="322"/>
+        <source> Add color 1 </source>
+        <translation> Farbe 1 hinzufügen </translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="333"/>
+        <source> Add color 1 knobs</source>
+        <translation> Knöpfe für Farbe 1 hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="344"/>
+        <source> Add color 2</source>
+        <translation> Farbe 2 hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="355"/>
+        <source> Add color 2 knobs</source>
+        <translation> Knöpfe für Farbe 2 hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="366"/>
+        <source> Add color 2 reset</source>
+        <translation> Farbe 2 Zurücksetzung hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="377"/>
+        <source> Add color 3</source>
+        <translation> Farbe 3 hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="388"/>
+        <source> Add color 3 knobs</source>
+        <translation> Knöpfe für Farbe 3 hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="399"/>
+        <source> Add color 3 reset</source>
+        <translation> Farbe 3 Zurücksetzung hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="410"/>
+        <source> Add color 4</source>
+        <translation> Farbe 4 hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="421"/>
+        <source> Add color 4 knobs</source>
+        <translation> Knöpfe für Farbe 4 hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="432"/>
+        <source> Add color 4 reset</source>
+        <translation> Farbe 4 Zurücksetzung hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="443"/>
+        <source> Add color 5</source>
+        <translation> Farbe 5 hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="454"/>
+        <source> Add color 5 knobs</source>
+        <translation> Knöpfe für Farbe 5 hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="465"/>
+        <source> Add color 5 reset</source>
+        <translation> Farbe 5 Zurücksetzung hinzufügen</translation>
+    </message>
+    <message>
         <source> Add start color knobs</source>
-        <translation> Schalter für Anfangsfarbe hinzufügen</translation>
+        <translation type="vanished"> Schalter für Anfangsfarbe hinzufügen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="281"/>
         <source> Add end color knobs</source>
-        <translation> Schalter für Endfarbe hinzufügen</translation>
+        <translation type="vanished"> Schalter für Endfarbe hinzufügen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="348"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="498"/>
         <source> Remove</source>
         <translation> Entfernen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="312"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="476"/>
         <source> Add preset</source>
         <translation> Einstellung hinzufügen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="299"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="309"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="304"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="314"/>
         <source>Value</source>
         <translation>Wert</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="359"/>
         <source> Add start color</source>
-        <translation> Anfangsfarbe hinzufügen</translation>
+        <translation type="vanished"> Anfangsfarbe hinzufügen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="381"/>
         <source> Add end color</source>
-        <translation> Endfarbe hinzufügen</translation>
+        <translation type="vanished"> Endfarbe hinzufügen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="323"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="487"/>
         <source> Add text</source>
         <translation> Text hinzufügen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="337"/>
         <source> Add end color reset</source>
-        <translation> Endfarbenreset hinzufügen</translation>
+        <translation type="vanished"> Endfarbenreset hinzufügen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="153"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="174"/>
         <source>No function</source>
         <translation>Keine Funktion</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="229"/>
         <source>Start Color</source>
-        <translation>Anfangsfarbe</translation>
+        <translation type="vanished">Anfangsfarbe</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="235"/>
         <source>Start Color Knob</source>
-        <translation>Schalter für Anfangsfarbe</translation>
+        <translation type="vanished">Schalter für Anfangsfarbe</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="241"/>
         <source>End Color</source>
-        <translation>Endfarbe</translation>
+        <translation type="vanished">Endfarbe</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="247"/>
         <source>End Color Knob</source>
-        <translation>Schalter für Endfarbe</translation>
+        <translation type="vanished">Schalter für Endfarbe</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="253"/>
         <source>End Color Reset</source>
-        <translation>Endfarbenreset</translation>
+        <translation type="vanished">Endfarbenreset</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="258"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="250"/>
+        <source>Color 1</source>
+        <translation>Farbe 1</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="256"/>
+        <source>Color 1 Knob</source>
+        <translation>Knopf für Farbe 1</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="262"/>
+        <source>Color 2</source>
+        <translation>Farbe 2</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="268"/>
+        <source>Color 2 Knob</source>
+        <translation>Knopf für Farbe 2</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="274"/>
+        <source>Color 2 Reset</source>
+        <translation>Farbe 2 zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="278"/>
+        <source>Color 3</source>
+        <translation>Farbe 3</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="284"/>
+        <source>Color 3 Knob</source>
+        <translation>Knopf für Farbe 3</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="290"/>
+        <source>Color 3 Reset</source>
+        <translation>Farbe 3 zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="294"/>
+        <source>Color 4</source>
+        <translation>Farbe 4</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="300"/>
+        <source>Color 4 Knob</source>
+        <translation>Knopf für Farbe 4</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="306"/>
+        <source>Color 4 Reset</source>
+        <translation>Farbe 4 zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="310"/>
+        <source>Color 5</source>
+        <translation>Farbe 5</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="316"/>
+        <source>Color 5 Knob</source>
+        <translation>Knopf für Farbe 5</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="322"/>
+        <source>Color 5 Reset</source>
+        <translation>Farbe 5 zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="327"/>
         <source>Animation</source>
         <translation>Animation</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="280"/>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="412"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="349"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="580"/>
         <source>Text</source>
         <translation>Text</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="411"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="579"/>
         <source>Enter a text</source>
         <translation>Einen Text eingeben</translation>
     </message>
@@ -6853,9 +7135,9 @@ Dauer: %3
         <translation>Überschreiben zurücksetzen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcslider.cpp" line="1060"/>
+        <location filename="virtualconsole/vcslider.cpp" line="1061"/>
         <source>Flash Function</source>
-        <translation type="unfinished"></translation>
+        <translation>Funktion flashen</translation>
     </message>
 </context>
 <context>
@@ -7106,7 +7388,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="527"/>
         <source>Flash Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Flash Knopf</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="550"/>
@@ -7175,32 +7457,32 @@ Dauer: %3
 <context>
     <name>VCSpeedDial</name>
     <message>
-        <location filename="virtualconsole/vcspeeddial.cpp" line="81"/>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="87"/>
         <source>Duration</source>
         <translation>Dauer</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddial.cpp" line="100"/>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="106"/>
         <source>Divide the current time by 2</source>
         <translation>Halbiere die aktuelle Zeit</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddial.cpp" line="123"/>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="129"/>
         <source>Multiply the current time by 2</source>
         <translation>Verdoppele die aktuelle Zeit</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddial.cpp" line="131"/>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="137"/>
         <source>Reset the current factor to 1x</source>
         <translation>Faktor zurücksetzen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddial.cpp" line="144"/>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="150"/>
         <source>Apply</source>
         <translation>Anwenden</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddial.cpp" line="145"/>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="151"/>
         <source>Send the current value to the function now</source>
         <translation>Aktuellen Wert jetzt an die Funktion übergeben</translation>
     </message>

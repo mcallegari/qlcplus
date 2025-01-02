@@ -49,12 +49,12 @@
     <message>
         <location filename="udmxdevice.cpp" line="153"/>
         <source>Patch this device to a universe to find out.</source>
-        <translation>Patche dieses Gerät zu einem herauszufindendem Universum.</translation>
+        <translation>Patche dieses Gerät zu einem herauszufindenden Universum.</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="154"/>
         <source>System Timer Accuracy</source>
-        <translation>System-Timer Genauigkeit</translation>
+        <translation>System-Timer-Genauigkeit</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="159"/>

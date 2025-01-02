@@ -117,12 +117,12 @@
     <message>
         <location filename="configureartnet.ui" line="77"/>
         <source>Transmission Mode</source>
-        <translation>Übertragungmodus</translation>
+        <translation>Übertragungsmodus</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="87"/>
         <source>Seconds to wait for an interface to be ready</source>
-        <translation>Sekunden um auf die Bereitschaft des Interfaces zu warten</translation>
+        <translation>Sekunden, um auf die Bereitschaft des Interfaces zu warten</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="120"/>
@@ -145,42 +145,42 @@
         <translation>Kompletter Name</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="86"/>
+        <location filename="configureartnet.cpp" line="90"/>
         <source>%1 nodes</source>
         <translation>%1 Knoten</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="124"/>
+        <location filename="configureartnet.cpp" line="128"/>
         <source>Inputs</source>
         <translation>Eingänge</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="130"/>
+        <location filename="configureartnet.cpp" line="134"/>
         <source>Outputs</source>
         <translation>Ausgänge</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="181"/>
+        <location filename="configureartnet.cpp" line="185"/>
         <source>Standard</source>
         <translation>Standard</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="182"/>
+        <location filename="configureartnet.cpp" line="186"/>
         <source>Full</source>
         <translation>Vollständig</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="183"/>
+        <location filename="configureartnet.cpp" line="187"/>
         <source>Partial</source>
         <translation>Teilweise</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="198"/>
+        <location filename="configureartnet.cpp" line="202"/>
         <source>Invalid IP</source>
         <translation>Ungültige IP</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="198"/>
+        <location filename="configureartnet.cpp" line="202"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
         <translation>%1 ist keine gültige IP.
