@@ -104,6 +104,7 @@ VCMatrixControl::WidgetType VCMatrixControl::widgetType() const
         case Animation:
         case Image:
         case Text:
+        case Color1Reset:
         case Color2Reset:
         case Color3Reset:
         case Color4Reset:
@@ -131,6 +132,7 @@ QString VCMatrixControl::typeToString(VCMatrixControl::ControlType type)
         case Color3: return "Color3"; break;
         case Color4: return "Color4"; break;
         case Color5: return "Color5"; break;
+        case Color1Reset: return "ResetColor1"; break;
         case Color2Reset: return "ResetColor2"; break;
         case Color3Reset: return "ResetColor3"; break;
         case Color4Reset: return "ResetColor4"; break;

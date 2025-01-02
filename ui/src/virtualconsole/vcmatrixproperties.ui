@@ -26,7 +26,7 @@
     <x>0</x>
     <y>0</y>
     <width>516</width>
-    <height>489</height>
+    <height>631</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -296,7 +296,127 @@
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <layout class="QGridLayout" name="gridLayout_5">
-         <item row="0" column="1" rowspan="18">
+         <item row="2" column="2">
+          <widget class="QPushButton" name="m_addTextButton">
+           <property name="text">
+            <string> Add text</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../qlcui.qrc">
+             <normaloff>:/fonts.png</normaloff>:/fonts.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QPushButton" name="m_addPresetButton">
+           <property name="text">
+            <string> Add preset</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../qlcui.qrc">
+             <normaloff>:/script.png</normaloff>:/script.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QGroupBox" name="groupBox">
+           <property name="title">
+            <string>Colors</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QComboBox" name="m_colorsCombo">
+              <item>
+               <property name="text">
+                <string>Color 1</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Color 2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Color 3</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Color 4</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Color 5</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="m_addColorButton">
+              <property name="text">
+               <string> Add color</string>
+              </property>
+              <property name="icon">
+               <iconset resource="../qlcui.qrc">
+                <normaloff>:/color.png</normaloff>:/color.png</iconset>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="m_addColorKnobsButton">
+              <property name="text">
+               <string> Add color knobs</string>
+              </property>
+              <property name="icon">
+               <iconset resource="../qlcui.qrc">
+                <normaloff>:/knob.png</normaloff>:/knob.png</iconset>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="m_addColorResetButton">
+              <property name="text">
+               <string> Add color reset</string>
+              </property>
+              <property name="icon">
+               <iconset resource="../qlcui.qrc">
+                <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="7" column="1" colspan="2">
+          <layout class="QVBoxLayout" name="m_presetInputLayout"/>
+         </item>
+         <item row="3" column="2">
+          <widget class="QPushButton" name="m_removeButton">
+           <property name="text">
+            <string> Remove</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../qlcui.qrc">
+             <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="2">
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="0" column="1" rowspan="7">
           <widget class="QTreeWidget" name="m_controlsTree">
            <property name="rootIsDecorated">
             <bool>false</bool>
@@ -315,196 +435,6 @@
             </property>
            </column>
           </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QPushButton" name="m_addMtxColor1Button">
-           <property name="text">
-            <string> Add color 1 </string>
-           </property>
-           <property name="icon">
-            <iconset resource="../qlcui.qrc">
-             <normaloff>:/color.png</normaloff>:/color.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QPushButton" name="m_addMtxColor1KnobsButton">
-           <property name="text">
-            <string> Add color 1 knobs</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../qlcui.qrc">
-             <normaloff>:/knob.png</normaloff>:/knob.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="2">
-          <widget class="QPushButton" name="m_addMtxColor2Button">
-           <property name="text">
-            <string> Add color 2</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../qlcui.qrc">
-             <normaloff>:/color.png</normaloff>:/color.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="2">
-          <widget class="QPushButton" name="m_addMtxColor2KnobsButton">
-           <property name="text">
-            <string> Add color 2 knobs</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../qlcui.qrc">
-             <normaloff>:/knob.png</normaloff>:/knob.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="2">
-          <widget class="QPushButton" name="m_addMtxColor2ResetButton">
-           <property name="text">
-            <string> Add color 2 reset</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../qlcui.qrc">
-             <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="2">
-          <widget class="QPushButton" name="m_addMtxColor3Button">
-           <property name="text">
-            <string> Add color 3</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../qlcui.qrc">
-             <normaloff>:/color.png</normaloff>:/color.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="2">
-          <widget class="QPushButton" name="m_addMtxColor3KnobsButton">
-           <property name="text">
-            <string> Add color 3 knobs</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../qlcui.qrc">
-             <normaloff>:/knob.png</normaloff>:/knob.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="2">
-          <widget class="QPushButton" name="m_addMtxColor3ResetButton">
-           <property name="text">
-            <string> Add color 3 reset</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../qlcui.qrc">
-             <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="8" column="2">
-          <widget class="QPushButton" name="m_addMtxColor4Button">
-           <property name="text">
-            <string> Add color 4</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../qlcui.qrc">
-             <normaloff>:/color.png</normaloff>:/color.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="9" column="2">
-          <widget class="QPushButton" name="m_addMtxColor4KnobsButton">
-           <property name="text">
-            <string> Add color 4 knobs</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../qlcui.qrc">
-             <normaloff>:/knob.png</normaloff>:/knob.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="10" column="2">
-          <widget class="QPushButton" name="m_addMtxColor4ResetButton">
-           <property name="text">
-            <string> Add color 4 reset</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../qlcui.qrc">
-             <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="11" column="2">
-          <widget class="QPushButton" name="m_addMtxColor5Button">
-           <property name="text">
-            <string> Add color 5</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../qlcui.qrc">
-             <normaloff>:/color.png</normaloff>:/color.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="12" column="2">
-          <widget class="QPushButton" name="m_addMtxColor5KnobsButton">
-           <property name="text">
-            <string> Add color 5 knobs</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../qlcui.qrc">
-             <normaloff>:/knob.png</normaloff>:/knob.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="13" column="2">
-          <widget class="QPushButton" name="m_addMtxColor5ResetButton">
-           <property name="text">
-            <string> Add color 5 reset</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../qlcui.qrc">
-             <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="14" column="2">
-          <widget class="QPushButton" name="m_addPresetButton">
-           <property name="text">
-            <string> Add preset</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../qlcui.qrc">
-             <normaloff>:/script.png</normaloff>:/script.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="15" column="2">
-          <widget class="QPushButton" name="m_addTextButton">
-           <property name="text">
-            <string> Add text</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../qlcui.qrc">
-             <normaloff>:/fonts.png</normaloff>:/fonts.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="16" column="2">
-          <widget class="QPushButton" name="m_removeButton">
-           <property name="text">
-            <string> Remove</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../qlcui.qrc">
-             <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="18" column="1" colspan="2">
-          <layout class="QVBoxLayout" name="m_presetInputLayout"/>
          </item>
         </layout>
        </item>
