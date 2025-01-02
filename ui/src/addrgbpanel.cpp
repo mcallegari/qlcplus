@@ -196,6 +196,11 @@ Fixture::Components AddRGBPanel::components()
     return Fixture::RGB;
 }
 
+bool AddRGBPanel::is16Bit()
+{
+    return m_16bitCheck->isChecked();
+}
+
 bool AddRGBPanel::crossUniverse()
 {
     return m_crossUniverseCheck->isChecked();

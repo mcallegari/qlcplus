@@ -1193,9 +1193,9 @@ void FixtureManager::slotAddRGBPanel()
             Q_ASSERT(fxi != NULL);
             fxi->setName(tr("%1 - Row %2").arg(rgb.name()).arg(i + 1));
             if (rowDef == NULL)
-                rowDef = fxi->genericRGBPanelDef(columns, components);
+                rowDef = fxi->genericRGBPanelDef(columns, components, rgb.is16Bit());
             if (rowMode == NULL)
-                rowMode = fxi->genericRGBPanelMode(rowDef, components, phyWidth, phyHeight);
+                rowMode = fxi->genericRGBPanelMode(rowDef, components, rgb.is16Bit(), phyWidth, phyHeight);
             fxi->setFixtureDefinition(rowDef, rowMode);
 
             // Check universe span

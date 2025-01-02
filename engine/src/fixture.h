@@ -379,6 +379,7 @@ signals:
 protected:
     /** Runtime array to store DMX values and check for changes */
     QByteArray m_values;
+
     /** Runtime array to check for alias changes */
     QVector<ChannelAlias> m_aliasInfo;
     QMutex m_channelsInfoMutex;
@@ -467,16 +468,19 @@ public:
         RGBW,
         RBG
     };
-#if QT_VERSION >= 0x050500
     Q_ENUM(Components)
-#endif
+
+protected:
+    QString componentsToString(Components comp, bool is16bit);
+    Components stringToComponents(QString str, bool &is16bit);
 
 public:
     /** Creates and returns a definition for a generic RGB panel row */
-    QLCFixtureDef *genericRGBPanelDef(int columns, Components components);
+    QLCFixtureDef *genericRGBPanelDef(int columns, Components components, bool is16bit);
 
     /** Creates and returns a fixture mode for a generic RGB panel row */
-    QLCFixtureMode *genericRGBPanelMode(QLCFixtureDef *def, Components components, quint32 width, quint32 height);
+    QLCFixtureMode *genericRGBPanelMode(QLCFixtureDef *def, Components components, bool is16bit,
+                                        quint32 width, quint32 height);
 
     /*********************************************************************
      * Load & Save

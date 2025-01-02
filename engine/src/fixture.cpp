@@ -848,123 +848,226 @@ QLCFixtureMode *Fixture::genericDimmerMode(QLCFixtureDef *def, int channels)
  * Generic RGB panel
  *********************************************************************/
 
-QLCFixtureDef *Fixture::genericRGBPanelDef(int columns, Components components)
+QString Fixture::componentsToString(Components comp, bool is16bit)
+{
+    QString compStr;
+
+    switch (comp)
+    {
+        case BGR:
+            compStr = "BGR";
+        break;
+        case BRG:
+            compStr = "BRG";
+        break;
+        case GBR:
+            compStr = "GBR";
+        break;
+        case GRB:
+            compStr = "GRB";
+        break;
+        case RBG:
+            compStr = "RBG";
+        break;
+        case RGBW:
+            compStr = "RGBW";
+        break;
+        default:
+            compStr = "RGB";
+        break;
+    }
+
+    if (is16bit)
+        compStr += " 16bit";
+
+    return compStr;
+}
+
+Fixture::Components Fixture::stringToComponents(QString str, bool &is16bit)
+{
+    QStringList strToken = str.split(' ');
+    is16bit = false;
+
+    if (strToken.count() == 2)
+    {
+        if (strToken.at(1) == "16bit")
+            is16bit = true;
+    }
+
+    if (strToken.at(0) == "BGR") return BGR;
+    else if (strToken.at(0) == "BRG") return BRG;
+    else if (strToken.at(0) == "GBR") return GBR;
+    else if (strToken.at(0) == "GRB") return GRB;
+    else if (strToken.at(0) == "RBG") return RBG;
+    else if (strToken.at(0) == "RGBW") return RGBW;
+    else return RGB;
+}
+
+QLCFixtureDef *Fixture::genericRGBPanelDef(int columns, Components components, bool is16bit)
 {
     QLCFixtureDef *def = new QLCFixtureDef();
     def->setManufacturer(KXMLFixtureGeneric);
     def->setModel(KXMLFixtureRGBPanel);
     def->setType(QLCFixtureDef::LEDBarPixels);
     def->setAuthor("QLC+");
+
     for (int i = 0; i < columns; i++)
     {
-        QLCChannel* red = new QLCChannel();
+        QLCChannel *red = new QLCChannel();
         red->setName(QString("Red %1").arg(i + 1));
         red->setGroup(QLCChannel::Intensity);
         red->setColour(QLCChannel::Red);
 
-        QLCChannel* green = new QLCChannel();
+        QLCChannel *green = new QLCChannel();
         green->setName(QString("Green %1").arg(i + 1));
         green->setGroup(QLCChannel::Intensity);
         green->setColour(QLCChannel::Green);
 
-        QLCChannel* blue = new QLCChannel();
+        QLCChannel *blue = new QLCChannel();
         blue->setName(QString("Blue %1").arg(i + 1));
         blue->setGroup(QLCChannel::Intensity);
         blue->setColour(QLCChannel::Blue);
 
+        QLCChannel *redFine = NULL;
+        QLCChannel *greenFine = NULL;
+        QLCChannel *blueFine = NULL;
+
+        if (is16bit)
+        {
+            redFine = new QLCChannel();
+            redFine->setName(QString("Red Fine %1").arg(i + 1));
+            redFine->setGroup(QLCChannel::Intensity);
+            redFine->setColour(QLCChannel::Red);
+            redFine->setControlByte(QLCChannel::LSB);
+
+            greenFine = new QLCChannel();
+            greenFine->setName(QString("Green Fine %1").arg(i + 1));
+            greenFine->setGroup(QLCChannel::Intensity);
+            greenFine->setColour(QLCChannel::Green);
+            greenFine->setControlByte(QLCChannel::LSB);
+
+            blueFine = new QLCChannel();
+            blueFine->setName(QString("Blue Fine %1").arg(i + 1));
+            blueFine->setGroup(QLCChannel::Intensity);
+            blueFine->setColour(QLCChannel::Blue);
+            blueFine->setControlByte(QLCChannel::LSB);
+        }
+
         if (components == BGR)
         {
             def->addChannel(blue);
+            if (is16bit) def->addChannel(blueFine);
             def->addChannel(green);
+            if (is16bit) def->addChannel(greenFine);
             def->addChannel(red);
+            if (is16bit) def->addChannel(redFine);
         }
         else if (components == BRG)
         {
             def->addChannel(blue);
+            if (is16bit) def->addChannel(blueFine);
             def->addChannel(red);
+            if (is16bit) def->addChannel(redFine);
             def->addChannel(green);
+            if (is16bit) def->addChannel(greenFine);
         }
         else if (components == GBR)
         {
             def->addChannel(green);
+            if (is16bit) def->addChannel(greenFine);
             def->addChannel(blue);
+            if (is16bit) def->addChannel(blueFine);
             def->addChannel(red);
+            if (is16bit) def->addChannel(redFine);
         }
         else if (components == GRB)
         {
             def->addChannel(green);
+            if (is16bit) def->addChannel(greenFine);
             def->addChannel(red);
+            if (is16bit) def->addChannel(redFine);
             def->addChannel(blue);
+            if (is16bit) def->addChannel(blueFine);
         }
         else if (components == RBG)
         {
             def->addChannel(red);
+            if (is16bit) def->addChannel(redFine);
             def->addChannel(blue);
+            if (is16bit) def->addChannel(blueFine);
             def->addChannel(green);
+            if (is16bit) def->addChannel(greenFine);
         }
         else if (components == RGBW)
         {
-            QLCChannel* white = new QLCChannel();
+            QLCChannel *white = new QLCChannel();
             white->setName(QString("White %1").arg(i + 1));
             white->setGroup(QLCChannel::Intensity);
             white->setColour(QLCChannel::White);
 
             def->addChannel(red);
+            if (is16bit) def->addChannel(redFine);
             def->addChannel(green);
+            if (is16bit) def->addChannel(greenFine);
             def->addChannel(blue);
+            if (is16bit) def->addChannel(blueFine);
             def->addChannel(white);
+
+            if (is16bit)
+            {
+                QLCChannel *whiteFine = new QLCChannel();
+                whiteFine->setName(QString("White Fine %1").arg(i + 1));
+                whiteFine->setGroup(QLCChannel::Intensity);
+                whiteFine->setColour(QLCChannel::White);
+                whiteFine->setControlByte(QLCChannel::LSB);
+                def->addChannel(whiteFine);
+            }
         }
         else
         {
             def->addChannel(red);
+            if (is16bit) def->addChannel(redFine);
             def->addChannel(green);
+            if (is16bit) def->addChannel(greenFine);
             def->addChannel(blue);
+            if (is16bit) def->addChannel(blueFine);
         }
     }
 
     return def;
 }
 
-QLCFixtureMode *Fixture::genericRGBPanelMode(QLCFixtureDef *def, Components components, quint32 width, quint32 height)
+QLCFixtureMode *Fixture::genericRGBPanelMode(QLCFixtureDef *def, Components components, bool is16bit,
+                                             quint32 width, quint32 height)
 {
     Q_ASSERT(def != NULL);
-    QLCFixtureMode *mode = new QLCFixtureMode(def);
-    int compNum = 3;
 
-    if (components == BGR)
-        mode->setName("BGR");
-    else if (components == BRG)
-        mode->setName("BRG");
-    else if (components == GBR)
-        mode->setName("GBR");
-    else if (components == GRB)
-        mode->setName("GRB");
-    else if (components == RBG)
-        mode->setName("RBG");
-    else if (components == RGBW)
-    {
-        mode->setName("RGBW");
-        compNum = 4;
-    }
-    else
-        mode->setName("RGB");
+    QLCFixtureMode *mode = new QLCFixtureMode(def);
+    QString modeName = componentsToString(components, is16bit);
+    mode->setName(modeName);
+
+    int compNum = components == RGBW ? 4 : 3;
+    if (is16bit)
+        compNum *= 2;
 
     QList<QLCChannel *>channels = def->channels();
-    for (int i = 0; i < channels.count(); i++)
+    int i = 0;
+
+    // add channels and heads
+    for (int h = 0; h < channels.count() / compNum; h++)
     {
-        QLCChannel *ch = channels.at(i);
-        mode->insertChannel(ch, i);
-        if (i%compNum == 0)
+        QLCFixtureHead head;
+
+        for (int c = 0; c < compNum; c++, i++)
         {
-            QLCFixtureHead head;
+            QLCChannel *ch = channels.at(i);
+            mode->insertChannel(ch, i);
             head.addChannel(i);
-            head.addChannel(i+1);
-            head.addChannel(i+2);
-            if (components == RGBW)
-                head.addChannel(i+3);
-            mode->insertHead(-1, head);
         }
+
+        mode->insertHead(-1, head);
     }
+
     QLCPhysical physical;
     physical.setWidth(width);
     physical.setHeight(height);
@@ -1207,21 +1310,12 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
     }
     else if (model == KXMLFixtureRGBPanel)
     {
-        Components components = RGB;
-        int compNum = 3;
-        if (modeName == "BGR") components = BGR;
-        else if (modeName == "BRG") components = BRG;
-        else if (modeName == "GBR") components = GBR;
-        else if (modeName == "GRB") components = GRB;
-        else if (modeName == "RBG") components = RBG;
-        else if (modeName == "RGBW")
-        {
-            components = RGBW;
-            compNum = 4;
-        }
+        bool is16bit = false;
+        Components components = stringToComponents(modeName, is16bit);
+        int compNum = components == RGBW ? 4 : 3;
 
-        fixtureDef = genericRGBPanelDef(channels / compNum, components);
-        fixtureMode = genericRGBPanelMode(fixtureDef, components, width, height);
+        fixtureDef = genericRGBPanelDef(channels / compNum, components, is16bit);
+        fixtureMode = genericRGBPanelMode(fixtureDef, components, is16bit, width, height);
     }
 
     if (fixtureDef != NULL && fixtureMode != NULL)
