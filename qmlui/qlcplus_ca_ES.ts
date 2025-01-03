@@ -186,7 +186,7 @@ Es perdran els canvis si no els guarda.</translation>
     <message>
         <location filename="qml/fixturesfunctions/AddFunctionMenu.qml" line="57"/>
         <source>New Scene</source>
-        <translation>Nva escena</translation>
+        <translation>Nova escena</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AddFunctionMenu.qml" line="63"/>
@@ -340,7 +340,7 @@ Es perdran els canvis si no els guarda.</translation>
     <message>
         <location filename="qml/fixturesfunctions/BeamTool.qml" line="245"/>
         <source>N/A</source>
-        <translation type="unfinished"></translation>
+        <translation>N/A</translation>
     </message>
 </context>
 <context>
@@ -348,12 +348,12 @@ Es perdran els canvis si no els guarda.</translation>
     <message>
         <location filename="qml/fixturesfunctions/BottomPanel.qml" line="142"/>
         <source>Copy the selected channel values to all the fixtures of the same type</source>
-        <translation type="unfinished"></translation>
+        <translation>Copia els valors del canal seleccionat a tots els fixtures del mateix tipus</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/BottomPanel.qml" line="153"/>
         <source>Toggle multiple channel selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Commuta la selecció de canals múltiples</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/BottomPanel.qml" line="164"/>
@@ -1061,7 +1061,7 @@ Es perdran els canvis si no els guarda.</translation>
     <message>
         <location filename="qml/fixtureeditor/EditorView.qml" line="67"/>
         <source>The following errors have been detected:</source>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;han detectat els següents errors:</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/EditorView.qml" line="77"/>
@@ -1151,42 +1151,42 @@ Es perdran els canvis si no els guarda.</translation>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="362"/>
         <source>&lt;li&gt;No channels provided&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;li&gt;No s&apos;ha proporcionat cap canal&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="369"/>
         <source>&lt;li&gt;No capability provided in channel &apos;%1&apos;&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;li&gt;No s&apos;ha proporcionat cap capacitat al canal &apos;%1&apos;&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="374"/>
         <source>&lt;li&gt;Empty capability description provided in channel &apos;%1&apos;&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;li&gt;Descripció buida de la capacitat proporcionada al canal &apos;%1&apos;&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="381"/>
         <source>&lt;li&gt;Empty mode name provided&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;li&gt;Nom del mode buit proporcionat&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="384"/>
         <source>&lt;li&gt;Mode &apos;%1&apos; has no channels defined&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;li&gt;El mode &apos;%1&apos; no té canals definits&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="391"/>
         <source>&lt;li&gt;In mode &apos;%1&apos;, channel &apos;%2&apos; cannot act on itself&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;li&gt;En el mode &apos;%1&apos;, el canal &apos;%2&apos; no pot actuar sobre si mateix&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="398"/>
         <source>&lt;li&gt;No modes provided. Without modes, this fixture will not appear in the list!&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;li&gt;No s&apos;ha proporcionat cap mode. Sense modes, aquest fixture no apareixerà a la llista!&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="416"/>
         <source>Could not save file! (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>No s&apos;ha pogut desar el fitxer! (%1)</translation>
     </message>
 </context>
 <context>
@@ -1204,7 +1204,7 @@ Es perdran els canvis si no els guarda.</translation>
     <message>
         <location filename="qml/ExternalControlDelegate.qml" line="163"/>
         <source>Custom feedback selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecció personalitzada de retroalimentació</translation>
     </message>
     <message>
         <location filename="qml/ExternalControlDelegate.qml" line="77"/>
@@ -1427,7 +1427,8 @@ Es perdran els canvis si no els guarda.</translation>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="276"/>
         <source>An item with the same name already exists.
 Please provide a different name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ja existeix un element amb el mateix nom.
+Si us plau, proporcioneu un nom diferent.</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="291"/>
@@ -1506,7 +1507,8 @@ Please provide a different name.</source>
         <location filename="qml/fixturesfunctions/FixtureNodeDelegate.qml" line="141"/>
         <source>An item with the same name already exists.
 Please provide a different name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ja existeix un element amb el mateix nom.
+Si us plau, proporcioneu un nom diferent.</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureNodeDelegate.qml" line="238"/>
@@ -2164,7 +2166,7 @@ Els canvis es perdran si no els deseu.</translation>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="341"/>
         <source>Highlight</source>
-        <translation type="unfinished"></translation>
+        <translation>Ressalta</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="358"/>
@@ -2217,7 +2219,7 @@ Els canvis es perdran si no els deseu.</translation>
     <message>
         <location filename="qml/MainView.qml" line="289"/>
         <source>Dump DMX values on a Scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Bolca els valors DMX en una escena</translation>
     </message>
     <message>
         <location filename="qml/MainView.qml" line="436"/>
@@ -2851,62 +2853,62 @@ Els canvis es perdran si no els deseu.</translation>
     <message>
         <location filename="qml/popup/PopupCustomFeedback.qml" line="31"/>
         <source>Custom Feedback</source>
-        <translation type="unfinished">Feedback Personalitzat</translation>
+        <translation>Feedback Personalitzat</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCustomFeedback.qml" line="139"/>
         <source>Values</source>
-        <translation type="unfinished"></translation>
+        <translation>Valors</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCustomFeedback.qml" line="154"/>
         <source>Lower Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor Inferior</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCustomFeedback.qml" line="190"/>
         <source>Upper Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor Superior</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCustomFeedback.qml" line="226"/>
         <source>Monitor Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor del Monitor</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCustomFeedback.qml" line="263"/>
         <source>MIDI Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal MIDI</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCustomFeedback.qml" line="278"/>
         <source>Lower Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal Inferior</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCustomFeedback.qml" line="293"/>
         <source>Upper Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal Superior</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCustomFeedback.qml" line="308"/>
         <source>Monitor Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal del Monitor</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCustomFeedback.qml" line="344"/>
         <source>Value</source>
-        <translation type="unfinished">Valor</translation>
+        <translation>ValorValor</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCustomFeedback.qml" line="353"/>
         <source>Label</source>
-        <translation type="unfinished">Etiqueta</translation>
+        <translation>EtiquetaEtiqueta</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCustomFeedback.qml" line="362"/>
         <source>Color</source>
-        <translation type="unfinished">Color</translation>
+        <translation>ColorColor</translation>
     </message>
 </context>
 <context>
@@ -2919,62 +2921,62 @@ Els canvis es perdran si no els deseu.</translation>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="31"/>
         <source>DMX Channel Dump</source>
-        <translation type="unfinished"></translation>
+        <translation>Bolcat del Canal DMX</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="108"/>
         <source>Target Scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Escena Destí</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="132"/>
         <source>Dump to a new Scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Bolcar a una nova Escena</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="155"/>
         <source>Dump to existing Scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Bolcar a una Escena existent</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="161"/>
         <source>(None selected)</source>
-        <translation type="unfinished"></translation>
+        <translation>(Res seleccionat)</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="180"/>
         <source>Channels to dump</source>
-        <translation type="unfinished"></translation>
+        <translation>Canals a Bolcar</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="209"/>
         <source>Dump all the available channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Bolcar tots els canals disponibles</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="209"/>
         <source>Universes</source>
-        <translation type="unfinished"></translation>
+        <translation>Universos</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="210"/>
         <source>Fixtures</source>
-        <translation type="unfinished">Fixtures</translation>
+        <translation>FixturesFixtures</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="239"/>
         <source>Dump only non-zero values</source>
-        <translation type="unfinished"></translation>
+        <translation>Bolca només valors que no siguin zero</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="263"/>
         <source>Dump the selected fixture channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Bolca els canals de fixture seleccionats</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="272"/>
         <source>Detected channel types</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipus de canals detectats</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="291"/>
@@ -3437,12 +3439,12 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/fixturesfunctions/PositionTool.qml" line="241"/>
         <source>Rotate preview 90° clockwise</source>
-        <translation type="unfinished"></translation>
+        <translation>Gira la vista prèvia 90º en sentit horari</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/PositionTool.qml" line="265"/>
         <source>Center Pan/Tilt halfway</source>
-        <translation type="unfinished"></translation>
+        <translation>Centra la panoràmica/inclinació a mig camí</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/PositionTool.qml" line="382"/>
@@ -3585,22 +3587,22 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="365"/>
         <source>Reset color 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Restableix el color 2</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="428"/>
         <source>Reset color 3</source>
-        <translation type="unfinished"></translation>
+        <translation>Restableix el color 3</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="467"/>
         <source>Reset color 4</source>
-        <translation type="unfinished"></translation>
+        <translation>Restableix el color 4</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="529"/>
         <source>Reset color 5</source>
-        <translation type="unfinished"></translation>
+        <translation>Restableix el color 5</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="545"/>
@@ -3869,7 +3871,7 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="159"/>
         <source>Error</source>
-        <translation type="unfinished">Error</translation>
+        <translation>Error</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="185"/>
@@ -3910,7 +3912,8 @@ Nivell d&apos;accés:</translation>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="280"/>
         <source>An item with the same name already exists.
 Please provide a different name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ja existeix un element amb el mateix nom.
+Si us plau, proporcioneu un nom diferent.</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="294"/>
@@ -4433,27 +4436,27 @@ Please provide a different name.</source>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="298"/>
         <source>Markers</source>
-        <translation type="unfinished"></translation>
+        <translation>Marcadors</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="306"/>
         <source>Time</source>
-        <translation type="unfinished">Temps</translation>
+        <translation>Temps</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="307"/>
         <source>BPM 4/4</source>
-        <translation type="unfinished"></translation>
+        <translation>BPM 4/4</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="308"/>
         <source>BPM 3/4</source>
-        <translation type="unfinished"></translation>
+        <translation>BPM 3/4</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="309"/>
         <source>BPM 2/4</source>
-        <translation type="unfinished"></translation>
+        <translation>BPM 2/4</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="381"/>
@@ -4474,7 +4477,8 @@ Please provide a different name.</source>
         <location filename="qml/showmanager/ShowManager.qml" line="698"/>
         <source>Create/Edit a Show function or
 drag a function on the timeline</source>
-        <translation type="unfinished"></translation>
+        <translation>Crea/edita una funció Show o
+arrossega una funció a la línia de temps</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="47"/>
@@ -4713,7 +4717,8 @@ drag a function on the timeline</source>
         <location filename="qml/fixturesfunctions/UniverseGridView.qml" line="48"/>
         <source>Unable to perform the operation.
 There is either not enough space or the target universe is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>No s&apos;ha pogut realitzar l&apos;operació.
+No hi ha prou espai o l&apos;univers de destinació no és vàlid</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/UniverseGridView.qml" line="81"/>
@@ -4737,7 +4742,7 @@ There is either not enough space or the target universe is invalid</source>
         <location filename="qml/inputoutput/UniverseIOItem.qml" line="270"/>
         <source>Enable/Disable feedback</source>
         <oldsource>Enable/Disable feedbacks</oldsource>
-        <translation type="unfinished">Habilita/Deshabilita feedback</translation>
+        <translation>Habilita/Deshabilita feedback</translation>
     </message>
 </context>
 <context>
@@ -4841,12 +4846,12 @@ There is either not enough space or the target universe is invalid</source>
     <message>
         <location filename="virtualconsole/vcanimation.cpp" line="38"/>
         <source>Intensity</source>
-        <translation type="unfinished">Intensitat</translation>
+        <translation>Intensitat</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcanimation.cpp" line="54"/>
         <source>Animation %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Animació %1</translation>
     </message>
 </context>
 <context>
@@ -4854,62 +4859,62 @@ There is either not enough space or the target universe is invalid</source>
     <message>
         <location filename="qml/virtualconsole/VCAnimationProperties.qml" line="50"/>
         <source>Attached Function</source>
-        <translation type="unfinished">Funció associada</translation>
+        <translation>Funció Associada</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationProperties.qml" line="78"/>
         <source>Detach the current function</source>
-        <translation type="unfinished">Separa la funció actual</translation>
+        <translation>Separa la funció actual</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationProperties.qml" line="101"/>
         <source>Apply color and preset changes immediately</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplica els canvis de color i predefinits immediatament</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationProperties.qml" line="108"/>
         <source>Appearance</source>
-        <translation type="unfinished"></translation>
+        <translation>Aparença</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationProperties.qml" line="140"/>
         <source>Level Fader</source>
-        <translation type="unfinished"></translation>
+        <translation>Fader de Nivell</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationProperties.qml" line="164"/>
         <source>Label</source>
-        <translation type="unfinished">Etiqueta</translation>
+        <translation>Etiqueta</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationProperties.qml" line="189"/>
         <source>Color 1 Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Botó Color 1</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationProperties.qml" line="213"/>
         <source>Color 2 Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Botó Color 2</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationProperties.qml" line="238"/>
         <source>Color 3 Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Botó Color 3</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationProperties.qml" line="263"/>
         <source>Color 4 Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Botó Color 4</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationProperties.qml" line="288"/>
         <source>Color 5 Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Botó Color 5</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationProperties.qml" line="313"/>
         <source>Preset List</source>
-        <translation type="unfinished"></translation>
+        <translation>Llista de valors predefinits</translation>
     </message>
 </context>
 <context>
@@ -4917,7 +4922,7 @@ There is either not enough space or the target universe is invalid</source>
     <message>
         <location filename="virtualconsole/vcaudiotrigger.cpp" line="41"/>
         <source>Audio Trigger %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Activador d&apos;Àudio %1</translation>
     </message>
 </context>
 <context>
@@ -4925,7 +4930,7 @@ There is either not enough space or the target universe is invalid</source>
     <message>
         <location filename="qml/virtualconsole/VCAudioTriggerProperties.qml" line="46"/>
         <source>Audio Trigger Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propietats de l&apos;activador d&apos;àudio</translation>
     </message>
 </context>
 <context>
@@ -4992,17 +4997,17 @@ There is either not enough space or the target universe is invalid</source>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="282"/>
         <source>Flash properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propietats del flaix</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="294"/>
         <source>Override priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Anul·la la Prioritat</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="310"/>
         <source>Force LTP</source>
-        <translation type="unfinished"></translation>
+        <translation>Força LTP</translation>
     </message>
 </context>
 <context>
@@ -5524,7 +5529,7 @@ There is either not enough space or the target universe is invalid</source>
     <message>
         <location filename="virtualconsole/vcslider.cpp" line="75"/>
         <source>Flash Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Control de Flaix</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcslider.cpp" line="95"/>
@@ -5542,7 +5547,7 @@ There is either not enough space or the target universe is invalid</source>
     <message>
         <location filename="qml/virtualconsole/VCSliderItem.qml" line="202"/>
         <source>Flash the controlled Function</source>
-        <translation type="unfinished"></translation>
+        <translation>Flaix la funció controlada</translation>
     </message>
 </context>
 <context>
@@ -5615,7 +5620,7 @@ There is either not enough space or the target universe is invalid</source>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="273"/>
         <source>Show flash button</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra el botó flaix</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="281"/>
@@ -5711,77 +5716,77 @@ There is either not enough space or the target universe is invalid</source>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="56"/>
         <source>Time wheel</source>
-        <translation type="unfinished"></translation>
+        <translation>Roda de Temps</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="57"/>
         <source>Tap Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Botó de Toc</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="58"/>
         <source>Multiply Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Botó de Multiplicació</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="59"/>
         <source>Divide Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Botó de Divisió</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="60"/>
         <source>Reset Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Botó de Reinici</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="61"/>
         <source>Apply Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Botó Aplicar</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="62"/>
         <source>1/16x Speed Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Botó de Velocitat 1/16x</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="63"/>
         <source>1/8x Speed Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Botó de Velocitat 1/8x</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="64"/>
         <source>1/4x Speed Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Botó de Velocitat 1/4x</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="65"/>
         <source>1/2x Speed Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Botó de Velocitat 1/2x</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="66"/>
         <source>2x Speed Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Botó de Velocitat 2x</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="67"/>
         <source>4x Speed Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Botó de Velocitat 4x</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="68"/>
         <source>8x Speed Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Botó de Velocitat 8x</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="69"/>
         <source>16x Speed Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Botó de Velocitat 16x</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="80"/>
         <source>Speed %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Velocitat %1</translation>
     </message>
 </context>
 <context>
@@ -5789,7 +5794,7 @@ There is either not enough space or the target universe is invalid</source>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialItem.qml" line="394"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplica</translation>
     </message>
 </context>
 <context>
@@ -5797,168 +5802,169 @@ There is either not enough space or the target universe is invalid</source>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="45"/>
         <source>Functions</source>
-        <translation type="unfinished">Funcions</translation>
+        <translation>Funcions</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="69"/>
         <source>(Not sent)</source>
-        <translation type="unfinished"></translation>
+        <translation>(No enviat)</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="70"/>
         <source>0</source>
-        <translation type="unfinished"></translation>
+        <translation>0</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="71"/>
         <source>1/16</source>
-        <translation type="unfinished"></translation>
+        <translation>1/16</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="72"/>
         <source>1/8</source>
-        <translation type="unfinished"></translation>
+        <translation>1/8</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="73"/>
         <source>1/4</source>
-        <translation type="unfinished"></translation>
+        <translation>1/4</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="74"/>
         <source>1/2</source>
-        <translation type="unfinished"></translation>
+        <translation>1/2</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="75"/>
         <source>1</source>
-        <translation type="unfinished"></translation>
+        <translation>1</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="76"/>
         <source>2</source>
-        <translation type="unfinished"></translation>
+        <translation>2</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="77"/>
         <source>4</source>
-        <translation type="unfinished"></translation>
+        <translation>4</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="78"/>
         <source>8</source>
-        <translation type="unfinished"></translation>
+        <translation>8</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="79"/>
         <source>16</source>
-        <translation type="unfinished"></translation>
+        <translation>16</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="95"/>
         <source>Function</source>
-        <translation type="unfinished">Funció</translation>
+        <translation>Funció</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="104"/>
         <source>Fade In Factor</source>
-        <translation type="unfinished"></translation>
+        <translation>Factor Fade In</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="113"/>
         <source>Fade Out Factor</source>
-        <translation type="unfinished"></translation>
+        <translation>Factor Fade Out</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="122"/>
         <source>Duration Factor (+tap)</source>
-        <translation type="unfinished"></translation>
+        <translation>Factor Durada (+toc)</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="185"/>
         <source>Remove this function</source>
-        <translation type="unfinished"></translation>
+        <translation>Elimina aquesta funció</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="207"/>
         <source>Drag &amp; Drop Functions over
 the widget to populate this list</source>
-        <translation type="unfinished"></translation>
+        <translation>Funcions d&apos;arrossegar i deixar anar
+el giny per a omplir aquesta llista</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="215"/>
         <source>Dial Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propietats del Dial</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="238"/>
         <source>Reset multiplier factor when the dial value changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Restableix el factor multiplicador quan canviï el valor del dial</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="245"/>
         <source>Dial time range</source>
-        <translation type="unfinished"></translation>
+        <translation>Dial Interval de Temps</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="265"/>
         <source>to</source>
-        <translation type="unfinished"></translation>
+        <translation>a</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="315"/>
         <source>Appearance</source>
-        <translation type="unfinished"></translation>
+        <translation>Aparença</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="347"/>
         <source>+/- Buttons</source>
-        <translation type="unfinished"></translation>
+        <translation>Botons +/-</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="371"/>
         <source>Dial</source>
-        <translation type="unfinished"></translation>
+        <translation>Dial</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="396"/>
         <source>Tap</source>
-        <translation type="unfinished">Tap</translation>
+        <translation>TocTap</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="420"/>
         <source>Multipliers</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiplicadors</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="445"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplica</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="469"/>
         <source>Beats</source>
-        <translation type="unfinished">Beats</translation>
+        <translation>Batecs</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="494"/>
         <source>Hours</source>
-        <translation type="unfinished"></translation>
+        <translation>Hores</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="518"/>
         <source>Minutes</source>
-        <translation type="unfinished"></translation>
+        <translation>Minuts</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="543"/>
         <source>Seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>Segons</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="567"/>
         <source>Milliseconds</source>
-        <translation type="unfinished"></translation>
+        <translation>Milisegons</translation>
     </message>
 </context>
 <context>
@@ -5986,7 +5992,7 @@ the widget to populate this list</source>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="193"/>
         <source>Speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Velocitat</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="194"/>
@@ -6027,7 +6033,7 @@ the widget to populate this list</source>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="720"/>
         <source>From plugin settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Des de la configuració del connector</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="923"/>
@@ -6129,7 +6135,7 @@ the widget to populate this list</source>
     <message>
         <location filename="virtualconsole/vcxypad.cpp" line="41"/>
         <source>XY Pad %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Pad XY %1</translation>
     </message>
 </context>
 <context>
@@ -6137,7 +6143,7 @@ the widget to populate this list</source>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="46"/>
         <source>XY Pad Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propietats Pad XY</translation>
     </message>
 </context>
 <context>
@@ -6407,7 +6413,7 @@ the widget to populate this list</source>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="42"/>
         <source>Speed</source>
         <oldsource>Speed Dial</oldsource>
-        <translation type="unfinished">Selector de velocitat</translation>
+        <translation>Velocitat</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="43"/>

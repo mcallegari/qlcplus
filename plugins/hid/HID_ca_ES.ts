@@ -21,7 +21,7 @@
     <message>
         <location filename="configurehid.ui" line="62"/>
         <source>Merger Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode Fusió</translation>
     </message>
     <message>
         <location filename="configurehid.ui" line="70"/>
