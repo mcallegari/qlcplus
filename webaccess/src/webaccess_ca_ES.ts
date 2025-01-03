@@ -42,22 +42,22 @@
     <message>
         <location filename="webaccess.cpp" line="468"/>
         <source>An error occurred while updating the network configuration.</source>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;ha produït un error en actualitzar la configuració de la xarxa.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="484"/>
         <source>Wi-Fi hotspot successfully activated.</source>
-        <translation type="unfinished"></translation>
+        <translation>El punt d&apos;accés Wi-Fi s&apos;ha activat correctament.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="486"/>
         <source>An error occurred while creating a Wi-Fi hotspot.</source>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;ha produït un error en crear un punt d&apos;accés Wi-Fi.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="491"/>
         <source>Wi-Fi hotspot successfully deactivated.</source>
-        <translation type="unfinished"></translation>
+        <translation>El punt d&apos;accés Wi-Fi s&apos;ha desactivat correctament.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="507"/>
@@ -102,22 +102,22 @@
     <message>
         <location filename="webaccess.cpp" line="2076"/>
         <source>Color 2 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Restableix Color 2</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="2085"/>
         <source>Color 3 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Restableix Color 3</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="2094"/>
         <source>Color 4 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Restableix Color 4</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="2103"/>
         <source>Color 5 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Restableix Color 5</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="2345"/>
@@ -264,34 +264,34 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="114"/>
         <source>Wi-Fi Hotspot</source>
-        <translation type="unfinished"></translation>
+        <translation>Punt d&apos;accés Wi-Fi</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="118"/>
         <location filename="webaccessnetwork.cpp" line="136"/>
         <source>Access point name (SSID): </source>
-        <translation>Nom del punt d&apos;accés (SSID):</translation>
+        <translation>Nom del punt d&apos;accés (SSID): </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="120"/>
         <location filename="webaccessnetwork.cpp" line="138"/>
         <source>WPA-PSK Password: </source>
-        <translation>Contrasenya WPA-PSK:</translation>
+        <translation>Contrasenya WPA-PSK: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="124"/>
         <source>Enable</source>
-        <translation type="unfinished">Activar</translation>
+        <translation>Activar</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="125"/>
         <source>Disable</source>
-        <translation type="unfinished"></translation>
+        <translation>Desactivar</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="130"/>
         <source>Network interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Interfície de xarxa</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="144"/>
@@ -306,17 +306,17 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="151"/>
         <source>IP Address: </source>
-        <translation>Direcció IP:</translation>
+        <translation>Adreça IP: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="153"/>
         <source>Netmask: </source>
-        <translation>Màscara de xarxa:</translation>
+        <translation>Màscara de xarxa: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="155"/>
         <source>Gateway: </source>
-        <translation>Porta d&apos;enllaç:</translation>
+        <translation>Porta d&apos;enllaç: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="158"/>
