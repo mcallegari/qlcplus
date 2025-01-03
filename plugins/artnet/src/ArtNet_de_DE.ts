@@ -92,7 +92,7 @@
     <message>
         <location filename="configureartnet.ui" line="49"/>
         <source>Configuration of the patched universes</source>
-        <translation>Konfiguration der gepatchen Universen</translation>
+        <translation>Konfiguration der gepatchten Universen</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="57"/>

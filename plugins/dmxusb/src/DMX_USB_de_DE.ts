@@ -11,7 +11,7 @@
     <message>
         <location filename="dmxusb.cpp" line="156"/>
         <source>and compatible devices.</source>
-        <translation>Keine Geräte verfügbar.</translation>
+        <translation>und kompatible Geräte.</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="170"/>
@@ -109,7 +109,7 @@
     <message>
         <location filename="dmxusbopenrx.cpp" line="143"/>
         <source>Received DMX Channels</source>
-        <translation>Empfangene DMX Kanäle</translation>
+        <translation>Empfangene DMX-Kanäle</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="148"/>
@@ -147,7 +147,7 @@
     <message>
         <location filename="enttecdmxusbopen.cpp" line="121"/>
         <source>DMX Channels</source>
-        <translation>DMX Kanäle</translation>
+        <translation>DMX-Kanäle</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="124"/>
@@ -167,7 +167,7 @@
     <message>
         <location filename="enttecdmxusbopen.cpp" line="132"/>
         <source>Patch this widget to a universe to find out.</source>
-        <translation>Dieses Geräte mit einem Universum verbinden um es herauszufinden.</translation>
+        <translation>Dieses Gerät mit einem Universum verbinden, um es herauszufinden.</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="133"/>
@@ -232,22 +232,22 @@
     <message>
         <location filename="enttecdmxusbpro.cpp" line="325"/>
         <source>MIDI Input</source>
-        <translation>MIDI Eingang</translation>
+        <translation>MIDI-Eingang</translation>
     </message>
     <message>
         <location filename="enttecdmxusbpro.cpp" line="327"/>
         <source>DMX Input</source>
-        <translation>DMX Eingang</translation>
+        <translation>DMX-Eingang</translation>
     </message>
     <message>
         <location filename="enttecdmxusbpro.cpp" line="332"/>
         <source>MIDI Output</source>
-        <translation>MIDI Ausgang</translation>
+        <translation>MIDI-Ausgang</translation>
     </message>
     <message>
         <location filename="enttecdmxusbpro.cpp" line="334"/>
         <source>DMX Output</source>
-        <translation>DMX Ausgang</translation>
+        <translation>DMX-Ausgang</translation>
     </message>
 </context>
 </TS>
