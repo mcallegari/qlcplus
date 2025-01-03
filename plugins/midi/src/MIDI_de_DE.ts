@@ -6,7 +6,7 @@
     <message>
         <location filename="common/configuremidiplugin.ui" line="33"/>
         <source>Configure MIDI Plugin</source>
-        <translation>MIDI Plugin konfigurieren</translation>
+        <translation>MIDI-Plugin konfigurieren</translation>
     </message>
     <message>
         <location filename="common/configuremidiplugin.ui" line="66"/>

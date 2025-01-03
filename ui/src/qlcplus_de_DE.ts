@@ -85,7 +85,7 @@
     <message>
         <location filename="addfixture.ui" line="180"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;Fehler: Addresse wird bereits verwendet!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;Fehler: Adresse wird bereits verwendet!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="205"/>
@@ -111,7 +111,7 @@
     <message>
         <location filename="addfixture.ui" line="58"/>
         <source>A friendly name for the new fixture</source>
-        <translation>Eine Bezeichung für das neue Gerät</translation>
+        <translation>Eine Bezeichnung für das neue Gerät</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="65"/>
@@ -126,7 +126,7 @@
     <message>
         <location filename="addfixture.ui" line="93"/>
         <source>Add fixture to this universe</source>
-        <translation>Gerät diesesm Universum hinzufügen</translation>
+        <translation>Gerät diesem Universum hinzufügen</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="100"/>
@@ -237,7 +237,7 @@
     <message>
         <location filename="addrgbpanel.ui" line="98"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;Fehler: Addresse wird bereits verwendet!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;Fehler: Adresse wird bereits verwendet!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="198"/>
@@ -391,12 +391,12 @@
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="132"/>
         <source>Button size</source>
-        <translation>Schaltergrösse</translation>
+        <translation>Schaltergröße</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="139"/>
         <source>Created buttons&apos; size</source>
-        <translation>Die Grösse der erstellen Schalter</translation>
+        <translation>Die Größe der erstellten Schalter</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="142"/>
@@ -411,7 +411,7 @@
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="162"/>
         <source>Number of buttons per vertical column</source>
-        <translation>Anzahl der Schalter pro verikaler Spalte</translation>
+        <translation>Anzahl der Schalter pro vertikaler Spalte</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="172"/>
@@ -786,7 +786,7 @@ Die ausgewählte Datei wurde verschoben oder gelöscht.</translation>
     <message>
         <location filename="app.cpp" line="652"/>
         <source>Live edit a function</source>
-        <translation>Livebaearbeitung einer Funktion</translation>
+        <translation>Livebearbeitung einer Funktion</translation>
     </message>
     <message>
         <location filename="app.cpp" line="661"/>
@@ -1359,7 +1359,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="chasereditor.ui" line="117"/>
         <source>Remove the selected step</source>
-        <translation>Ausgwählten Schritt entfernen</translation>
+        <translation>Ausgewählten Schritt entfernen</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="758"/>
@@ -1772,7 +1772,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="customfeedbackdialog.ui" line="170"/>
         <source>MIDI Channel</source>
-        <translation>MIDI Kanal</translation>
+        <translation>MIDI-Kanal</translation>
     </message>
     <message>
         <location filename="customfeedbackdialog.ui" line="176"/>
@@ -1802,7 +1802,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="debugbox.ui" line="39"/>
         <source>QLC+ debug window</source>
-        <translation type="unfinished"></translation>
+        <translation>QLC+-Debug-Fenster</translation>
     </message>
 </context>
 <context>
@@ -1880,32 +1880,32 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="docbrowser.cpp" line="106"/>
         <source>%1 - Document Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 - Handbuch</translation>
     </message>
     <message>
         <location filename="docbrowser.cpp" line="128"/>
         <source>Backward</source>
-        <translation type="unfinished">Rückwärts</translation>
+        <translation>Zurück</translation>
     </message>
     <message>
         <location filename="docbrowser.cpp" line="129"/>
         <source>Forward</source>
-        <translation type="unfinished">Vorwärts</translation>
+        <translation>Vorwärts</translation>
     </message>
     <message>
         <location filename="docbrowser.cpp" line="130"/>
         <source>Index</source>
-        <translation type="unfinished"></translation>
+        <translation>Inhaltsverzeichnis</translation>
     </message>
     <message>
         <location filename="docbrowser.cpp" line="131"/>
         <source>About Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Über Qt</translation>
     </message>
     <message>
         <location filename="docbrowser.cpp" line="132"/>
         <source>Close this window</source>
-        <translation type="unfinished">Dieses Fenster schließen</translation>
+        <translation>Dieses Fenster schließen</translation>
     </message>
 </context>
 <context>
@@ -2277,12 +2277,12 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="fixturemanager.cpp" line="722"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple groups selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected groups.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Mehrere Gruppen ausgewähtl&lt;/H1&gt;&lt;P&gt;Klick &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; zum Entfernen der ausgewählten Gruppe.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
+        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Mehrere Gruppen ausgewählt&lt;/H1&gt;&lt;P&gt;Klick &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; zum Entfernen der ausgewählten Gruppe.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="730"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a channel group from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add a new channels group.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Keine Auswahl&lt;/H1&gt;&lt;P&gt;Kanlgruppe aus der Liste wählen oder Klick &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; um Kanalgruppe hinzuzufügen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
+        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Keine Auswahl&lt;/H1&gt;&lt;P&gt;Kanalgruppe aus der Liste wählen oder Klick &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; um Kanalgruppe hinzuzufügen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="755"/>
@@ -2698,7 +2698,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="functionliveeditdialog.cpp" line="45"/>
         <source>Function Live Edit</source>
-        <translation>Funktionslivebaerbeitung</translation>
+        <translation>Funktionslivebearbeitung</translation>
     </message>
 </context>
 <context>
@@ -2766,7 +2766,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="functionmanager.cpp" line="249"/>
         <source>New vid&amp;eo</source>
-        <translation>Neues vid&amp;eo</translation>
+        <translation>Neues Vid&amp;eo</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="255"/>
@@ -2863,7 +2863,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="functionmanager.cpp" line="510"/>
         <source>This video file cannot be played with QLC+. Sorry.</source>
-        <translation>Dieses Videodatei kann leider nicht mit QLC+ wiedergegeben werden.</translation>
+        <translation>Diese Videodatei kann leider nicht mit QLC+ wiedergegeben werden.</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="583"/>
@@ -3022,7 +3022,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="functionwizard.ui" line="33"/>
         <source>Function Wizard</source>
-        <translation>Funktions Assistent</translation>
+        <translation>Funktionsassistent</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="57"/>
@@ -3307,7 +3307,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputchanneleditor.ui" line="159"/>
         <source>Beat Clock: Start/Stop/Continue</source>
-        <translation>Beat Clock: Start/Stop/Weiter</translation>
+        <translation>Beat Clock: Start/Stopp/Weiter</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="164"/>
@@ -3335,7 +3335,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputmanager.cpp" line="84"/>
         <source>Add U&amp;niverse</source>
-        <translation>U&amp;niversum hinzufüegen</translation>
+        <translation>U&amp;niversum hinzufügen</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="90"/>
@@ -3369,7 +3369,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputmanager.cpp" line="362"/>
         <source>The universe you are trying to delete is patched. Are you sure you want to delete it?</source>
-        <translation>Das Universum, welchs gelöscht werden soll ist gepatched, soll es wirklich gelöscht werden?</translation>
+        <translation>Das Universum, welches gelöscht werden soll, ist gepatched. Soll es wirklich gelöscht werden?</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="381"/>
@@ -3670,7 +3670,7 @@ Bitte in der Plugindokumentation nachlesen um den Fehler zu beheben.</translatio
         <location filename="inputprofileeditor.ui" line="398"/>
         <location filename="inputprofileeditor.cpp" line="692"/>
         <source>MIDI channel</source>
-        <translation>MIDI Kanal</translation>
+        <translation>MIDI-Kanal</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="412"/>
@@ -3705,17 +3705,17 @@ Bitte in der Plugindokumentation nachlesen um den Fehler zu beheben.</translatio
     <message>
         <location filename="inputprofileeditor.ui" line="491"/>
         <source>MIDI Channels</source>
-        <translation>MIDI Kanäle</translation>
+        <translation>MIDI-Kanäle</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="497"/>
         <source>Add a new MIDI channel</source>
-        <translation>Neuen MIDI Kanal hinzufügen</translation>
+        <translation>Neuen MIDI-Kanal hinzufügen</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="517"/>
         <source>Remove the selected MIDI channel</source>
-        <translation>Markierten MIDI Kanal löschen</translation>
+        <translation>Markierten MIDI-Kanal löschen</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="371"/>
@@ -3745,7 +3745,7 @@ Bitte in der Plugindokumentation nachlesen um den Fehler zu beheben.</translatio
     <message>
         <location filename="inputprofileeditor.ui" line="242"/>
         <source>Automatically add channels to the list when you wiggle the device&apos;s controls</source>
-        <translation>Kanäle automatisch hinzufügen wenn die externen Bedienelemente betätigt werden</translation>
+        <translation>Kanäle automatisch hinzufügen, wenn die externen Bedienelemente betätigt werden</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="123"/>
@@ -3816,7 +3816,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="inputprofileeditor.cpp" line="666"/>
         <source>Feedback value</source>
-        <translation>Rückmeldungs Wert</translation>
+        <translation>Rückmeldungswert</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="672"/>
@@ -3827,12 +3827,12 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="inputprofileeditor.cpp" line="672"/>
         <source>Color label</source>
-        <translation>Farb Beschriftung</translation>
+        <translation>Farb-Beschriftung</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="696"/>
         <source>MIDI channel label</source>
-        <translation>MIDI Kanal Beschriftung</translation>
+        <translation>MIDI-Kanal-Beschriftung</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="738"/>
@@ -3910,7 +3910,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="inputselectionwidget.ui" line="206"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to.</source>
-        <translation>Wähle ein externes Universum &amp; einen Kanal auf den dieser Schalter hören soll.</translation>
+        <translation>Wähle ein externes Universum &amp; einen Kanal, auf den dieser Schalter hören soll.</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="209"/>
@@ -4158,7 +4158,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="showmanager/multitrackview.cpp" line="340"/>
         <source>Do you want to DELETE track:</source>
-        <translation>Soll der track GELÖSCHT werden:</translation>
+        <translation>Soll der Track GELÖSCHT werden:</translation>
     </message>
     <message>
         <location filename="showmanager/multitrackview.cpp" line="343"/>
@@ -4385,7 +4385,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="positiontool.ui" line="33"/>
         <source>PositonTool</source>
-        <translation>PositionsWerkzeug</translation>
+        <translation>Positionswerkzeug</translation>
     </message>
 </context>
 <context>
@@ -4970,12 +4970,12 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="sceneeditor.cpp" line="196"/>
         <source>Position tool for moving heads/scanners</source>
-        <translation>Positionswerkzeug für movingheads/scanner</translation>
+        <translation>Positionswerkzeug für Moving Heads/Scanner</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="198"/>
         <source>Switch between tab view and all channels view</source>
-        <translation>Zwischen Tab-Ansischt und allen Kanälen</translation>
+        <translation>Zwischen Tab-Ansicht und allen Kanälen</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="200"/>
@@ -5359,7 +5359,7 @@ Dauer: %3
     <message>
         <location filename="showmanager/showmanager.cpp" line="223"/>
         <source>New vi&amp;deo</source>
-        <translation>Neues vid&amp;eo</translation>
+        <translation>Neues Vid&amp;eo</translation>
     </message>
     <message>
         <location filename="showmanager/showmanager.cpp" line="230"/>
@@ -5389,7 +5389,7 @@ Dauer: %3
     <message>
         <location filename="showmanager/showmanager.cpp" line="279"/>
         <source>St&amp;op</source>
-        <translation>St&amp;op</translation>
+        <translation>St&amp;opp</translation>
     </message>
     <message>
         <location filename="showmanager/showmanager.cpp" line="285"/>
@@ -5523,7 +5523,7 @@ Dauer: %3
     <message>
         <location filename="showmanager/showmanager.cpp" line="977"/>
         <source>This video file cannot be played with QLC+. Sorry.</source>
-        <translation>Dieses Videodatei kann leider nicht mit QLC+ wiedergegeben werden.</translation>
+        <translation>Diese Videodatei kann leider nicht mit QLC+ wiedergegeben werden.</translation>
     </message>
     <message>
         <location filename="showmanager/showmanager.cpp" line="1019"/>
@@ -5577,7 +5577,7 @@ Dauer: %3
     <message>
         <location filename="simpledesk.cpp" line="225"/>
         <source>View mode</source>
-        <translation>Ansischtsmodus</translation>
+        <translation>Ansichtsmodus</translation>
     </message>
     <message>
         <location filename="simpledesk.cpp" line="258"/>
@@ -5867,7 +5867,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="263"/>
         <source>Text to display on the button</source>
-        <translation>Text, der auf dem schalter erscheint&apos;</translation>
+        <translation>Text, der auf dem Schalter erscheint</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="270"/>
@@ -5942,7 +5942,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="176"/>
         <source>Adjust function intensity when it is running</source>
-        <translation>Funktionsintensität anpassen wenn es läuft</translation>
+        <translation>Funktionsintensität anpassen, wenn es läuft</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="179"/>
@@ -5952,7 +5952,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="194"/>
         <source>Function&apos;s adjusted intensity percentage when run</source>
-        <translation>Die angepasste Funktionsintensität in Prozent wenn es läuft</translation>
+        <translation>Die angepasste Funktionsintensität in Prozent, wenn die Funktion läuft</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.cpp" line="131"/>
@@ -5980,7 +5980,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcclockproperties.ui" line="59"/>
         <source>Stopwatch</source>
-        <translation>Stopuhr</translation>
+        <translation>Stoppuhr</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcclockproperties.ui" line="66"/>
@@ -6048,13 +6048,13 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="201"/>
         <source>Show/Hide crossfade sliders</source>
-        <translation>Anzeigen/Ausblenden Crossfaderegler</translation>
+        <translation>Crossfaderegler anzeigen/ausblenden</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="212"/>
         <location filename="virtualconsole/vccuelist.cpp" line="1078"/>
         <source>Play/Pause Cue list</source>
-        <translation>Cue-Liste Abspielen/Pausieren</translation>
+        <translation>Cue-Liste abspielen/pausieren</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="221"/>
@@ -6080,7 +6080,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="1072"/>
         <source>Play/Stop Cue list</source>
-        <translation>Cue-Liste Abspielen/Stoppen</translation>
+        <translation>Cue-Liste abspielen/stoppen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="1073"/>
@@ -6161,7 +6161,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="141"/>
         <source>Run chaser from first/last step (default)</source>
-        <translation>Chaser vom ersten/letzen Schritt starten (Standard)</translation>
+        <translation>Chaser vom ersten/letzten Schritt starten (Standard)</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="146"/>
@@ -6186,12 +6186,12 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="183"/>
         <source>Play/Pause + Stop</source>
-        <translation>Play/Pause + Stop</translation>
+        <translation>Play/Pause + Stopp</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="193"/>
         <source>Play/Stop + Pause</source>
-        <translation>Play/Stop + Pause</translation>
+        <translation>Play/Stopp + Pause</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="282"/>
@@ -6304,7 +6304,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="88"/>
         <source>Allow resizing</source>
-        <translation>Grössenänderung zulassen</translation>
+        <translation>Größenänderung zulassen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="101"/>
@@ -6624,7 +6624,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="254"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to</source>
-        <translation>Wähle ein externes Universum &amp; einen Kanal auf den dieser Schieberegler hören soll</translation>
+        <translation>Wähle ein externes Universum &amp; einen Kanal, auf den dieser Schieberegler hören soll</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="257"/>
@@ -6660,22 +6660,22 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="324"/>
         <source>Colors</source>
-        <translation type="unfinished">Farben</translation>
+        <translation>Farben</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="359"/>
         <source> Add color</source>
-        <translation type="unfinished"></translation>
+        <translation> Farbe hinzufügen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="370"/>
         <source> Add color knobs</source>
-        <translation type="unfinished"></translation>
+        <translation> Knöpfe für Farbe hinzufügen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="381"/>
         <source> Add color reset</source>
-        <translation type="unfinished"></translation>
+        <translation> Reset für Farbe hinzufügen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="429"/>
@@ -6806,7 +6806,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="761"/>
         <source>Choose...</source>
-        <translation>Auswählen  ...</translation>
+        <translation>Auswählen ...</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="43"/>
@@ -6842,13 +6842,13 @@ Dauer: %3
         <location filename="virtualconsole/vcproperties.ui" line="512"/>
         <source>Button size</source>
         <oldsource>Button size:</oldsource>
-        <translation>Schaltergrösse</translation>
+        <translation>Schaltergröße</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="243"/>
         <source>Solo frame size</source>
         <oldsource>Solo frame size:</oldsource>
-        <translation>Größe des Einzelrahmen</translation>
+        <translation>Größe des Einzelrahmens</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="222"/>
@@ -6960,7 +6960,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="666"/>
         <source>Make Grand Master reduce levels by a percentage.</source>
-        <translation>Der Hauptregler reduziert die Werte prozentualisch.</translation>
+        <translation>Der Hauptregler reduziert die Werte prozentual.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="669"/>
@@ -7005,7 +7005,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="742"/>
         <source>When toggled, you can move an external slider/knob to assign it to the Grand Master slider.</source>
-        <translation>Wenn betätigt kann ein externer Regler/Schalter betätigt werden um diesen dem Hauptregler zuzuweisen.</translation>
+        <translation>Wenn betätigt, kann ein externer Regler/Schalter betätigt werden, um diesen dem Hauptregler zuzuweisen.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="745"/>
@@ -7015,7 +7015,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="758"/>
         <source>Choose an external input universe &amp; channel that the Grand Master slider should listen to.</source>
-        <translation>Wähle ein externes Universum &amp; einen Kanal auf den dieser Hauptregler hören soll.</translation>
+        <translation>Wähle ein externes Universum &amp; einen Kanal, auf den dieser Hauptregler hören soll.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="784"/>
@@ -7264,7 +7264,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="451"/>
         <source>Make the slider control the level of a set of channels</source>
-        <translation>Schieberegler den Level mehrer Kanäle kontrollieren lassen</translation>
+        <translation>Schieberegler den Level mehrerer Kanäle kontrollieren lassen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="454"/>
@@ -7299,12 +7299,12 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="527"/>
         <source>Flash Button</source>
-        <translation>Flash Knopf</translation>
+        <translation>Flash-Knopf</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="550"/>
         <source>Make the slider control a function</source>
-        <translation>Schieberegler eine Funktiion kontrollieren lassen</translation>
+        <translation>Schieberegler eine Funktion kontrollieren lassen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="553"/>
@@ -7357,7 +7357,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcsoloframeproperties.cpp" line="40"/>
         <source>Solo Frame properties</source>
-        <translation>Einzelrahmen-Eingenschaften</translation>
+        <translation>Einzelrahmen-Eigenschaften</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsoloframeproperties.cpp" line="43"/>
@@ -7434,7 +7434,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="190"/>
         <source>Multiplier applied before time is sent as Fade In Time to the function.</source>
-        <translation>Multiplikator wird angewandt bevor die Zeit der Funktion als Einblendzeit übergeben wird.</translation>
+        <translation>Multiplikator wird angewandt, bevor die Zeit der Funktion als Einblendzeit übergeben wird.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="195"/>
@@ -7445,7 +7445,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="198"/>
         <source>Multiplier applied before time is sent as Fade Out Time to the function.</source>
-        <translation>Multiplikator wird angewandt bevor die Zeit der Funktion als Ausblendzeit übergeben wird.</translation>
+        <translation>Multiplikator wird angewandt, bevor die Zeit der Funktion als Ausblendzeit übergeben wird.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="203"/>
@@ -7456,7 +7456,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="206"/>
         <source>Multiplier applied before time is sent as Duration to the function.</source>
-        <translation>Multiplikator wird angewandt bevor die Zeit der Funktion als Dauer übergeben wird.</translation>
+        <translation>Multiplikator wird angewandt, bevor die Zeit der Funktion als Dauer übergeben wird.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="67"/>
@@ -7511,7 +7511,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="378"/>
         <source>Reset multiplier factor when the dial value changes</source>
-        <translation>Multiplikationsfaktor zurücksetzen wenn der Wert geändert wird</translation>
+        <translation>Multiplikationsfaktor zurücksetzen, wenn der Wert geändert wird</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="408"/>
@@ -7693,7 +7693,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcwidgetselection.ui" line="33"/>
         <source>Virtual Console widget selection</source>
-        <translation>Virtuelle Konsole Assistentauswahl</translation>
+        <translation>Virtuelle Konsole Assistentenauswahl</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidgetselection.ui" line="42"/>
@@ -8005,7 +8005,7 @@ Please select one with such channels.</source>
     <message>
         <location filename="videoeditor.ui" line="103"/>
         <source>Set an arbitrary URL for this Video</source>
-        <translation>Eine beliebiege URL für dieses Video angeben</translation>
+        <translation>Eine beliebige URL für dieses Video angeben</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="133"/>
@@ -8234,7 +8234,7 @@ Please select one with such channels.</source>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="385"/>
         <source>Rename Widget</source>
-        <translation>Schaltfläche umbennen</translation>
+        <translation>Schaltfläche umbenennen</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="399"/>
