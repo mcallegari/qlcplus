@@ -104,7 +104,7 @@ QString PaletteGenerator::typetoString(PaletteGenerator::PaletteType type)
         case Gobos: return tr("Gobo macros");
         case ColourMacro: return tr("Colour macros");
         case Animation: return tr("Animations");
-        case Effect: return tr("Effects");
+        case Effect: return tr("EFXs");
         case Undefined:
         default:
             return tr("Unknown");
@@ -469,7 +469,7 @@ EFX *PaletteGenerator::createEffect(QList<Fixture *> fixtures, bool staggered, E
 {
     EFX *efx = new EFX(m_doc);
 
-    efx->setName(tr("Effect %1 %2 - ").arg(EFXFixture::modeToString(mode)).arg(staggered ? " Staggered " : "") + m_model);
+    efx->setName(tr("EFX %1 %2 - ").arg(EFXFixture::modeToString(mode)).arg(staggered ? " Staggered " : "") + m_model);
 
     if (mode == EFXFixture::Mode::RGB)
     {
