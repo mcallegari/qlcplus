@@ -470,41 +470,41 @@ void FunctionWizard::addWidgetItem(QTreeWidgetItem *grpItem, QString name, int t
     
 }
 
-void FunctionWizard::checkPanTilt(QTreeWidgetItem *grpItem, 
-                            QTreeWidgetItem *fxGrpItem, qint32* channels){
-        
+void FunctionWizard::checkPanTilt(QTreeWidgetItem *grpItem,
+                            QTreeWidgetItem *fxGrpItem, qint32* channels)
+{
     //Check if all required Channels are set
-    if(channels[0] < 0) return;
-    if(channels[2] < 0) return;
-    if(channels[1] > 0 && channels[3] < 0) return;
+    if (channels[0] < 0) return;
+    if (channels[2] < 0) return;
+    if (channels[1] > 0 && channels[3] < 0) return;
     
-    quint32 PanTilt[4] = {};
-    for (size_t i = 0; i < 4; i++) PanTilt[i] = channels[i];    
+    quint32 panTiltChannels[4] = {};
+    for (size_t i = 0; i < 4; i++)
+        panTiltChannels[i] = channels[i];
 
-    addWidgetItem(grpItem, "XY PAD", VCWidget::XYPadWidget, fxGrpItem, PanTilt);
+    addWidgetItem(grpItem, "XY PAD", VCWidget::XYPadWidget, fxGrpItem, panTiltChannels);
 
     channels[0] = -1;
     channels[1] = -1;
     channels[2] = -1;
     channels[3] = -1;
-
 }
 
 void FunctionWizard::checkRGB(QTreeWidgetItem *grpItem, 
-                            QTreeWidgetItem *fxGrpItem, qint32* channels){
-    
-    //Check if all required Channels are set
+                            QTreeWidgetItem *fxGrpItem, qint32* channels)
+{
+    // Check if all required Channels are set
     for (size_t i = 0; i < 3; i++) if(channels[i] < 0) return;
 
     quint32 RGB[3] = {};
-    for (size_t i = 0; i < 3; i++) RGB[i] = channels[i];
+    for (size_t i = 0; i < 3; i++)
+        RGB[i] = channels[i];
 
     addWidgetItem(grpItem, "RGB - Click & Go", VCWidget::SliderWidget, fxGrpItem, RGB);
 
     RGB[0] = -1;
     RGB[1] = -1;
     RGB[2] = -1;
-
 }
 
 void FunctionWizard::addChannelsToTree(QTreeWidgetItem *frame, QTreeWidgetItem *fxGrpItem, QList<quint32> channels)
@@ -727,7 +727,7 @@ void FunctionWizard::updateWidgetsTree()
         quint8 fixtureCount = fxGrpItem->childCount();
         quint8 headCount = fxi->heads();
 
-        QList<quint32> HeadChannels = fxi->head(0).channels();
+        QList<quint32> headChannels = fxi->head(0).channels();
         QList<quint32> noHeadChannels;
         for (size_t i = 0; i < fxi->channels(); i++)
         {
@@ -741,12 +741,12 @@ void FunctionWizard::updateWidgetsTree()
             }
         }
 
-        QList<quint32> allChannels = HeadChannels;
+        QList<quint32> allChannels = headChannels;
         allChannels.append(noHeadChannels);
 
         quint16 pageCount = 0;
-
         QString pageName = "%1 Pages - ";
+
         if (m_checkBoxFixtures->checkState())
         {
             pageName.append("[F]");
@@ -799,7 +799,7 @@ void FunctionWizard::updateWidgetsTree()
         page->setExpanded(true);
 
         addChannelsToTree(page, fxGrpItem,
-                          (headCount > 1 && m_checkBoxHeads->checkState() == 2) ? HeadChannels
+                          (headCount > 1 && m_checkBoxHeads->checkState() == 2) ? headChannels
                                                                                 : allChannels);
     }
 }
@@ -910,10 +910,11 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
                     }
                 }
                 
-                if(isRGB){
+                if (isRGB)
+                {
                     slider->setClickAndGoType(ClickAndGoWidget::RGB);
                 }
-                else if(channel->group() == QLCChannel::Intensity)
+                else if (channel->group() == QLCChannel::Intensity)
                 {
                     slider->setClickAndGoType(ClickAndGoWidget::None);
                 }
@@ -922,7 +923,7 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
                     slider->setClickAndGoType(ClickAndGoWidget::Preset);
                 }
                 
-                if(channel->group()==QLCChannel::Speed)
+                if (channel->group() == QLCChannel::Speed)
                     slider->setWidgetStyle(VCSlider::WKnob);
 
                 if ((fixtureNr >= 0 || headId >= 0) && m_checkBoxAll->checkState() == Qt::Checked)
@@ -1026,13 +1027,15 @@ QSize FunctionWizard::recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *par
             Function *func = NULL;
             QTreeWidgetItem *fxGrpItem  = NULL;
             quint32 channel = 0;
-            if(type)
+
+            if (type)
+            {
                 func = (Function *) childItem->data(KWidgetName, Qt::UserRole + 1).value<void *>();
+            }
             else
             {
                 fxGrpItem = (QTreeWidgetItem *) childItem->data(KWidgetName, Qt::UserRole + 1).value<void *>();
                 channel = childItem->data(KWidgetName, Qt::UserRole + 2).toUInt();
-
             }
 
             if (childItem->text(KWidgetName).contains("Page"))
@@ -1044,12 +1047,12 @@ QSize FunctionWizard::recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *par
                 {
                     if (childItem->text(KWidgetName).contains("All"))
                     {
-                        //         v page v
+                        // v page v
                         childItem->setData(KWidgetName, Qt::UserRole + 1, -1); // all fixtures
                         childItem->setData(KWidgetName, Qt::UserRole + 2, -1); // all heads
                         
                         groupSize = recursiveCreateWidget(childItem, parent, type);                         
-                        //                   v frame v
+                        // v frame v
                         childItem->parent()->setData(KWidgetName, Qt::UserRole + 3, groupSize);
                         frame->shortcuts().at(frame->currentPage())->setName("All");
                         frame->setTotalPagesNumber(frame->totalPagesNumber() + 1);
@@ -1103,33 +1106,29 @@ QSize FunctionWizard::recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *par
 
             qint32 fxNr = -1;
             qint32 headId = -1;
-            if(childItem->parent()->text(KWidgetName).contains("Page")){
+            if (childItem->parent()->text(KWidgetName).contains("Page"))
+            {
                 fxNr = childItem->parent()->data(KWidgetName, Qt::UserRole + 1).toInt();
                 headId = childItem->parent()->data(KWidgetName, Qt::UserRole + 2).toInt();
             }
-
 
             VCWidget *childWidget = createWidget(cType, parent, subX, subY, func, type, fxGrpItem,
                                                  channel, fxNr, headId);
             if (childWidget != NULL)
             {
-                if(childWidget->type()==VCWidget::SliderWidget)
+                if (childWidget->type() == VCWidget::SliderWidget)
                     childWidget->setCaption(childItem->text(KWidgetName).split(" - ")[0]);
                 else
                     childWidget->setCaption(childItem->text(KWidgetName));
 
-                QTextStream cout(stdout, QIODevice::WriteOnly);
-                cout << childItem->text(KWidgetName) << Qt::endl;
-                //cout << "p:"<<parent->type() << " spin:" << m_lineCntSpin->value() << " per:" <<wPerLine << Qt::endl;
+                //qDebug() << childItem->text(KWidgetName);
+                //qDebug << "p:"<<parent->type() << " spin:" << m_lineCntSpin->value() << " per:" <<wPerLine << Qt::endl;
 
                 if (childItem->childCount() > 0)
                 {
                     childWidget->resize(QSize(2000, 1000));
-
                     QSize size = recursiveCreateWidget(childItem, childWidget, type);
-
                     childWidget->resize(size);
-
                 }
 
                 if (subX + childWidget->width() > groupSize.width())
@@ -1137,7 +1136,7 @@ QSize FunctionWizard::recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *par
                 if (subY + childWidget->height() > groupSize.height())
                     groupSize.setHeight(subY + childWidget->height() + 10);
 
-                int wPerLine = parent->type()==VCWidget::SoloFrameWidget ? 4 : m_lineCntSpin->value();
+                int wPerLine = parent->type() == VCWidget::SoloFrameWidget ? 4 : m_lineCntSpin->value();
                 if (c > 0 && (c + 1)%wPerLine == 0)
                 {
                     subX = 10;
@@ -1151,8 +1150,6 @@ QSize FunctionWizard::recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *par
 
     return groupSize;
 }
-
-
 
 void FunctionWizard::addWidgetsToVirtualConsole()
 {
@@ -1178,7 +1175,7 @@ void FunctionWizard::addWidgetsToVirtualConsole()
             widget->resize(QSize(2000, 1000));
 
             int pType = 0;
-            if(!wItem->text(KWidgetName).contains("Channels"))
+            if (!wItem->text(KWidgetName).contains("Channels"))
             {
                 PaletteGenerator *pal = (PaletteGenerator *) wItem->data(KWidgetName, Qt::UserRole + 1).value<void *>();
                 pType = pal->type();
