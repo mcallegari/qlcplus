@@ -42,22 +42,22 @@
     <message>
         <location filename="webaccess.cpp" line="468"/>
         <source>An error occurred while updating the network configuration.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se produjo un error al actualizar la configuración de la red.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="484"/>
         <source>Wi-Fi hotspot successfully activated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Punto de acceso Wi-Fi activado exitosamente.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="486"/>
         <source>An error occurred while creating a Wi-Fi hotspot.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se produjo un error al crear un punto de acceso Wi-Fi.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="491"/>
         <source>Wi-Fi hotspot successfully deactivated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Punto de acceso Wi-Fi desactivado exitosamente.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="507"/>
@@ -102,22 +102,22 @@
     <message>
         <location filename="webaccess.cpp" line="2076"/>
         <source>Color 2 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Color Reset 2</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="2085"/>
         <source>Color 3 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Color Reset 3</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="2094"/>
         <source>Color 4 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Color Reset 4</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="2103"/>
         <source>Color 5 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Color Reset 5</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="2345"/>
@@ -264,7 +264,7 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="114"/>
         <source>Wi-Fi Hotspot</source>
-        <translation type="unfinished"></translation>
+        <translation>Punto de acceso WiFi</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="118"/>
@@ -281,17 +281,17 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="124"/>
         <source>Enable</source>
-        <translation type="unfinished">Activar</translation>
+        <translation>Activar</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="125"/>
         <source>Disable</source>
-        <translation type="unfinished"></translation>
+        <translation>Desactivar</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="130"/>
         <source>Network interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Interfaz de red</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="144"/>
@@ -306,17 +306,17 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="151"/>
         <source>IP Address: </source>
-        <translation>Dirección IP:</translation>
+        <translation>Dirección IP: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="153"/>
         <source>Netmask: </source>
-        <translation>Máscara de red:</translation>
+        <translation>Máscara de red: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="155"/>
         <source>Gateway: </source>
-        <translation>Puerta de enlace:</translation>
+        <translation>Puerta de enlace: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="158"/>
