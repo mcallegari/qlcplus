@@ -444,6 +444,9 @@ bool Doc::addFixture(Fixture* fixture, quint32 id, bool crossUniverse)
         m_addresses[i] = id;
     }
 
+    if (crossUniverse)
+        uni = floor((fixture->universeAddress() + fixture->channels()) / 512);
+
     if (uni >= inputOutputMap()->universesCount())
     {
         for (i = inputOutputMap()->universesCount(); i <= uni; i++)
