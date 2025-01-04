@@ -469,9 +469,7 @@ EFX *PaletteGenerator::createEffect(QList<Fixture *> fixtures, bool staggered, E
 {
     EFX *efx = new EFX(m_doc);
 
-    QString modeString = (new QString[]{KXMLQLCEFXFixtureModePanTilt, KXMLQLCEFXFixtureModeDimmer, KXMLQLCEFXFixtureModeRGB})[mode];
-
-    efx->setName(tr("Effect %1 %2 - ").arg(modeString).arg(staggered ? " Staggered " : "") + m_model);
+    efx->setName(tr("Effect %1 %2 - ").arg(EFXFixture::modeToString(mode)).arg(staggered ? " Staggered " : "") + m_model);
 
     if (mode == EFXFixture::Mode::RGB)
     {
