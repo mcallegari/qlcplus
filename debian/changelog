@@ -5,10 +5,12 @@ qlcplus (4.14.0) stable; urgency=low
   * engine: introduce RGBScript v3 and allow up to 5 colors (thanks to Hans-Jürgen Tappe)
   * UI: adjust audio volume on video intensity change
   * UI/Fixture Manager: limit the number of RGB panel columns for RGBW to avoid crash
+  * UI/Function Wizard: improved with more VC widget creation (thanks to 8-Lambda-8)
   * UI/Show Manager: show step notes on the timeline (thanks to anarchid)
   * UI/Show Manager: handle CTRL+mouse wheel to zoom in/out
   * Virtual Console/Slider: send feedback on override button press
   * Virtual Console/Sped Dial: fix foreground color setting on Windows
+  * Virtual Console/Frame: fix widget page initialization on Operate mode
   * Plugins/OS2L: fix receiving multiple messages at once
   * Web Access: reworked websocket implementation
   * Web Access: fix grand master stopping running functions
@@ -33,7 +35,7 @@ qlcplus (4.14.0) stable; urgency=low
   * New fixture: Chauvet Ovation H-605FC (thanks to Ken Coughlin)
   * New fixture: Martin smartMAC (thanks to Mads Vejrup)
 
-  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 5 Jan 2025 18:19:20 +0200
+  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 12 Jan 2025 18:19:20 +0200
 
 qlcplus (4.13.1) stable; urgency=low
 
