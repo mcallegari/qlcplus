@@ -630,7 +630,7 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type,
             if (m_redList.size() > 1 && m_greenList.size() == m_redList.size() && m_blueList.size() ==  m_redList.size())
                 createRGBMatrices(m_redList);
         }
-    break;
+        break;
     case Effect:
     {
         if ((m_redList.size() > 1 &&
