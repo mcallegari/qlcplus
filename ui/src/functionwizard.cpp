@@ -88,6 +88,15 @@ FunctionWizard::FunctionWizard(QWidget* parent, Doc* doc)
     connect(m_tabWidget, SIGNAL(currentChanged(int)),
             this, SLOT(slotTabClicked()));
 
+    connect(m_checkBoxAll, SIGNAL(clicked()),
+            this, SLOT(slotPageCheckboxChanged()));
+
+    connect(m_checkBoxHeads, SIGNAL(clicked()),
+            this, SLOT(slotPageCheckboxChanged()));
+
+    connect(m_checkBoxFixtures, SIGNAL(clicked()),
+            this, SLOT(slotPageCheckboxChanged()));
+
     checkTabsAndButtons();
 }
 
