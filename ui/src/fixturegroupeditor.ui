@@ -52,7 +52,7 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="6">
+   <item row="5" column="6">
     <widget class="QToolButton" name="m_removeButton">
      <property name="toolTip">
       <string>Remove selected fixture/head</string>
@@ -138,7 +138,7 @@
    <item row="1" column="6">
     <widget class="QToolButton" name="m_rightButton">
      <property name="toolTip">
-      <string>Add/replace fixtures to current row, starting from selected cell</string>
+      <string>Add/replace fixtures to current row, going right starting from selected cell</string>
      </property>
      <property name="icon">
       <iconset resource="qlcui.qrc">
@@ -153,13 +153,47 @@
     </widget>
    </item>
    <item row="2" column="6">
+    <widget class="QToolButton" name="m_leftbutton">
+     <property name="toolTip">
+      <string>Add/replace fixtures to current row, going backwards starting from selected cell</string>
+     </property>
+     <property name="icon">
+      <iconset resource="qlcui.qrc">
+       <normaloff>:/back.png</normaloff>:/back.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="6">
     <widget class="QToolButton" name="m_downButton">
      <property name="toolTip">
-      <string>Add/replace fixtures to current column, starting from selected cell</string>
+      <string>Add/replace fixtures to current column, going down starting from selected cell</string>
      </property>
      <property name="icon">
       <iconset resource="qlcui.qrc">
        <normaloff>:/down.png</normaloff>:/down.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="6">
+    <widget class="QToolButton" name="m_upButton">
+     <property name="toolTip">
+      <string>Add/replace fixtures to current column, going up starting from selected cell</string>
+     </property>
+     <property name="icon">
+      <iconset resource="qlcui.qrc">
+       <normaloff>:/up.png</normaloff>:/up.png</iconset>
      </property>
      <property name="iconSize">
       <size>
