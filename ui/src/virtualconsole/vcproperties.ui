@@ -105,6 +105,35 @@
         </widget>
        </item>
        <item row="1" column="0">
+        <widget class="QGroupBox" name="m_scrollGroup">
+         <property name="title">
+          <string>Scrolling</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_1">
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="m_enableKeyboardScroll">
+            <property name="text">
+             <string>Use arrow and PgUp/PgDown keys to scroll</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="m_keyboardScrollWarning">
+            <property name="text">
+             <string>Note: enabling keyboard scroll prevents using arrow and PgUp/PgDown keys in Key combinations for console controls.</string>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0">
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -820,6 +849,7 @@
  <tabstops>
   <tabstop>m_sizeXSpin</tabstop>
   <tabstop>m_sizeYSpin</tabstop>
+  <tabstop>m_enableKeyboardScroll</tabstop>
   <tabstop>m_buttonWspin</tabstop>
   <tabstop>m_buttonHspin</tabstop>
   <tabstop>m_sliderWspin</tabstop>
@@ -991,6 +1021,22 @@
     <hint type="destinationlabel">
      <x>149</x>
      <y>838</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_enableKeyboardScroll</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>VCPropertiesEditor</receiver>
+   <slot>slotKeyboardScrollToggled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>190</x>
+     <y>198</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>190</x>
+     <y>245</y>
     </hint>
    </hints>
   </connection>
