@@ -162,10 +162,21 @@ void FixtureGroupEditor::slotRightClicked()
     addFixtureHeads(Qt::RightArrow);
 }
 
+void FixtureGroupEditor::slotLeftClicked()
+{
+    addFixtureHeads(Qt::LeftArrow);
+}
+
 void FixtureGroupEditor::slotDownClicked()
 {
     addFixtureHeads(Qt::DownArrow);
 }
+
+void FixtureGroupEditor::slotUpClicked()
+{
+    addFixtureHeads(Qt::UpArrow);
+}
+
 
 void FixtureGroupEditor::slotRemoveFixtureClicked()
 {
@@ -267,8 +278,12 @@ void FixtureGroupEditor::addFixtureHeads(Qt::ArrowType direction)
             m_grp->assignHead(QLCPoint(col, row), gh);
             if (direction == Qt::RightArrow)
                 col++;
-            else
+            else if (direction == Qt::DownArrow)
                 row++;
+            else if (direction == Qt::LeftArrow)
+                col--;
+            else if (direction == Qt::UpArrow)
+                row--;
         }
 
         updateTable();
