@@ -58,8 +58,12 @@ FixtureGroupEditor::FixtureGroupEditor(FixtureGroup* grp, Doc* doc, QWidget* par
 
     connect(m_rightButton, SIGNAL(clicked()),
             this, SLOT(slotRightClicked()));
+    connect(m_leftButton, SIGNAL(clicked()),
+            this, SLOT(slotLeftClicked()));
     connect(m_downButton, SIGNAL(clicked()),
             this, SLOT(slotDownClicked()));
+    connect(m_upButton, SIGNAL(clicked()),
+            this, SLOT(slotUpClicked())),
     connect(m_removeButton, SIGNAL(clicked()),
             this, SLOT(slotRemoveFixtureClicked()));
 
