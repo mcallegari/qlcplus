@@ -1313,6 +1313,8 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
         bool is16bit = false;
         Components components = stringToComponents(modeName, is16bit);
         int compNum = components == RGBW ? 4 : 3;
+        if (is16bit)
+            compNum *= 2;
 
         fixtureDef = genericRGBPanelDef(channels / compNum, components, is16bit);
         fixtureMode = genericRGBPanelMode(fixtureDef, components, is16bit, width, height);
