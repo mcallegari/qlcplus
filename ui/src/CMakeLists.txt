@@ -1,5 +1,7 @@
 set(module_name "qlcplusui")
 
+include(../../variables.cmake)
+
 set(TS_FILES
     qlcplus_fi_FI.ts
     qlcplus_fr_FR.ts

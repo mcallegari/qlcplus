@@ -1,5 +1,7 @@
 set(module_name "qlcplusengine")
 
+include(../../variables.cmake)
+
 add_library(${module_name} SHARED
     ../../plugins/interfaces/qlcioplugin.cpp ../../plugins/interfaces/qlcioplugin.h
     avolitesd4parser.cpp avolitesd4parser.h
