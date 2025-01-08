@@ -44,18 +44,19 @@ class Doc;
  * @{
  */
 
-#define KXMLFixture             QString("Fixture")
-#define KXMLFixtureName         QString("Name")
-#define KXMLFixtureUniverse     QString("Universe")
-#define KXMLFixtureAddress      QString("Address")
-#define KXMLFixtureID           QString("ID")
-#define KXMLFixtureGeneric      QString("Generic")
-#define KXMLFixtureRGBPanel     QString("RGBPanel")
-#define KXMLFixtureChannels     QString("Channels")
-#define KXMLFixtureDimmer       QString("Dimmer")
-#define KXMLFixtureExcludeFade  QString("ExcludeFade")
-#define KXMLFixtureForcedHTP    QString("ForcedHTP")
-#define KXMLFixtureForcedLTP    QString("ForcedLTP")
+#define KXMLFixture                 QString("Fixture")
+#define KXMLFixtureName             QString("Name")
+#define KXMLFixtureUniverse         QString("Universe")
+#define KXMLFixtureCrossUniverse    QString("CrossUniverse")
+#define KXMLFixtureAddress          QString("Address")
+#define KXMLFixtureID               QString("ID")
+#define KXMLFixtureGeneric          QString("Generic")
+#define KXMLFixtureRGBPanel         QString("RGBPanel")
+#define KXMLFixtureChannels         QString("Channels")
+#define KXMLFixtureDimmer           QString("Dimmer")
+#define KXMLFixtureExcludeFade      QString("ExcludeFade")
+#define KXMLFixtureForcedHTP        QString("ForcedHTP")
+#define KXMLFixtureForcedLTP        QString("ForcedLTP")
 
 #define KXMLFixtureChannelModifier  QString("Modifier")
 #define KXMLFixtureChannelIndex     QString("Channel")
@@ -179,6 +180,19 @@ public:
      * @return A zero-based DMX address (i.e. 0-511; not 1-512)
      */
     quint32 universe() const;
+
+    /** Set if this Fixture crosses a DMX universe
+     *
+     *  @param cross-universe enable flag
+     */
+    void setCrossUniverse(bool enable);
+
+    /**
+     * Get the fixture cross universe flag
+     *
+     * @return true if this Fixture crosses a universe
+     */
+    bool crossUniverse() const;
 
     /*********************************************************************
      * Address
@@ -321,6 +335,9 @@ protected:
     /** DMX address & universe */
     quint32 m_address;
 
+    /** Flag that indicates if this fixture crosses a DMX Universe */
+    bool m_crossUniverse;
+
     /** Number of channels (ONLY for dimmer fixtures!) */
     quint32 m_channels;
 
@@ -362,6 +379,7 @@ signals:
 protected:
     /** Runtime array to store DMX values and check for changes */
     QByteArray m_values;
+
     /** Runtime array to check for alias changes */
     QVector<ChannelAlias> m_aliasInfo;
     QMutex m_channelsInfoMutex;
@@ -450,16 +468,19 @@ public:
         RGBW,
         RBG
     };
-#if QT_VERSION >= 0x050500
     Q_ENUM(Components)
-#endif
+
+protected:
+    QString componentsToString(Components comp, bool is16bit);
+    Components stringToComponents(QString str, bool &is16bit);
 
 public:
     /** Creates and returns a definition for a generic RGB panel row */
-    QLCFixtureDef *genericRGBPanelDef(int columns, Components components);
+    QLCFixtureDef *genericRGBPanelDef(int columns, Components components, bool is16bit);
 
     /** Creates and returns a fixture mode for a generic RGB panel row */
-    QLCFixtureMode *genericRGBPanelMode(QLCFixtureDef *def, Components components, quint32 width, quint32 height);
+    QLCFixtureMode *genericRGBPanelMode(QLCFixtureDef *def, Components components, bool is16bit,
+                                        quint32 width, quint32 height);
 
     /*********************************************************************
      * Load & Save

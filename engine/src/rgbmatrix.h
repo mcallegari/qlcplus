@@ -245,7 +245,7 @@ private:
     /** Check what should be done when elapsed() >= duration() */
     void roundCheck();
 
-    FadeChannel *getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel);
+    FadeChannel *getFader(Universe *universe, quint32 fixtureID, quint32 channel);
     void updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime);
 
     /** Update FadeChannels when $map has changed since last time */

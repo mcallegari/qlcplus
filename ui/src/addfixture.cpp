@@ -408,7 +408,13 @@ quint32 AddFixture::findAddress(quint32 universe, quint32 numChannels,
             continue;
 
         for (quint32 ch = 0; ch < fxi->channels(); ch++)
-            map[(fxi->universeAddress() & 0x01FF) + ch] = 1;
+        {
+            quint32 addr = (fxi->universeAddress() & 0x01FF) + ch;
+            if (addr > 511)
+                continue;
+
+            map[addr] = 1;
+        }
     }
 
     /* Try to find the next contiguous free address space */

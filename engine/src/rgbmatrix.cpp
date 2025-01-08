@@ -719,21 +719,24 @@ void RGBMatrix::roundCheck()
         roundElapsed(duration());
 }
 
-FadeChannel *RGBMatrix::getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel)
+FadeChannel *RGBMatrix::getFader(Universe *universe, quint32 fixtureID, quint32 channel)
 {
     // get the universe Fader first. If doesn't exist, create it
-    QSharedPointer<GenericFader> fader = m_fadersMap.value(universeID, QSharedPointer<GenericFader>());
+    if (universe == NULL)
+        return NULL;
+
+    QSharedPointer<GenericFader> fader = m_fadersMap.value(universe->id(), QSharedPointer<GenericFader>());
     if (fader.isNull())
     {
-        fader = universes[universeID]->requestFader();
+        fader = universe->requestFader();
         fader->adjustIntensity(getAttributeValue(Intensity));
         fader->setBlendMode(blendMode());
         fader->setName(name());
         fader->setParentFunctionID(id());
-        m_fadersMap[universeID] = fader;
+        m_fadersMap[universe->id()] = fader;
     }
 
-    return fader->getChannelFader(doc(), universes[universeID], fixtureID, channel);
+    return fader->getChannelFader(doc(), universe, fixtureID, channel);
 }
 
 void RGBMatrix::updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime)
@@ -770,86 +773,46 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QL
             continue;
 
         uint col = map[pt.y()][pt.x()];
+        QVector<quint32> channelList;
+        QVector<uchar> valueList;
 
         if (m_controlMode == ControlModeRgb)
         {
-            QVector <quint32> rgb = head.rgbChannels();
-            QVector <quint32> cmy = head.cmyChannels();
+            channelList = head.rgbChannels();
 
-            if (rgb.size() == 3)
+            if (channelList.size() == 3)
             {
-                // RGB color mixing
-                FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, rgb.at(0));
-                updateFaderValues(fc, qRed(col), fadeTime);
-
-                fc = getFader(universes, fxi->universe(), grpHead.fxi, rgb.at(1));
-                updateFaderValues(fc, qGreen(col), fadeTime);
-
-                fc = getFader(universes, fxi->universe(), grpHead.fxi, rgb.at(2));
-                updateFaderValues(fc, qBlue(col), fadeTime);
+                valueList.append(qRed(col));
+                valueList.append(qGreen(col));
+                valueList.append(qBlue(col));
             }
-            else if (cmy.size() == 3)
+            else
             {
-                // CMY color mixing
-                QColor cmyCol(col);
+                channelList = head.cmyChannels();
 
-                FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, cmy.at(0));
-                updateFaderValues(fc, cmyCol.cyan(), fadeTime);
-
-                fc = getFader(universes, fxi->universe(), grpHead.fxi, cmy.at(1));
-                updateFaderValues(fc, cmyCol.magenta(), fadeTime);
-
-                fc = getFader(universes, fxi->universe(), grpHead.fxi, cmy.at(2));
-                updateFaderValues(fc, cmyCol.yellow(), fadeTime);
-            }
-        }
-        else if (m_controlMode == ControlModeWhite)
-        {
-            quint32 white = head.channelNumber(QLCChannel::White, QLCChannel::MSB);
-
-            if (white != QLCChannel::invalid())
-            {
-                FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, white);
-                updateFaderValues(fc, rgbToGrey(col), fadeTime);
-            }
-        }
-        else if (m_controlMode == ControlModeAmber)
-        {
-            quint32 amber = head.channelNumber(QLCChannel::Amber, QLCChannel::MSB);
-
-            if (amber != QLCChannel::invalid())
-            {
-                FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, amber);
-                updateFaderValues(fc, rgbToGrey(col), fadeTime);
-            }
-        }
-        else if (m_controlMode == ControlModeUV)
-        {
-            quint32 uv = head.channelNumber(QLCChannel::UV, QLCChannel::MSB);
-
-            if (uv != QLCChannel::invalid())
-            {
-                FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, uv);
-                updateFaderValues(fc, rgbToGrey(col), fadeTime);
+                if (channelList.size() == 3)
+                {
+                    // CMY color mixing
+                    QColor cmyCol(col);
+                    valueList.append(cmyCol.cyan());
+                    valueList.append(cmyCol.magenta());
+                    valueList.append(cmyCol.yellow());
+                }
             }
         }
         else if (m_controlMode == ControlModeShutter)
         {
-            QVector <quint32> shutters = head.shutterChannels();
+            channelList = head.shutterChannels();
 
-            if (shutters.size())
+            if (channelList.size())
             {
-                FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, shutters.first());
-                updateFaderValues(fc, rgbToGrey(col), fadeTime);
+                // make sure only one channel is in the list
+                channelList.resize(1);
+                valueList.append(rgbToGrey(col));
             }
         }
-
-        if (m_controlMode == ControlModeDimmer || m_dimmerControl)
+        else if (m_controlMode == ControlModeDimmer || m_dimmerControl)
         {
-            quint32 masterDim = fxi->masterIntensityChannel();
-            quint32 headDim = head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
-            QVector <quint32> dimmers;
-
             // Collect all dimmers that affect current head:
             // They are the master dimmer (affects whole fixture)
             // and per-head dimmer.
@@ -867,26 +830,44 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QL
             // *least important - per head dimmer if present,
             // otherwise per fixture dimmer if present
 
+            quint32 masterDim = fxi->masterIntensityChannel();
+            quint32 headDim = head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
+
             if (masterDim != QLCChannel::invalid())
-                dimmers << masterDim;
+            {
+                channelList.append(masterDim);
+                valueList.append(rgbToGrey(col));
+            }
 
             if (headDim != QLCChannel::invalid() && headDim != masterDim)
-                dimmers << headDim;
-
-            if (dimmers.size())
             {
-                // Set dimmer to value of the color (e.g. for PARs)
-                FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, dimmers.last());
-                updateFaderValues(fc, rgbToGrey(col), fadeTime);
-                dimmers.pop_back();
+                channelList.append(headDim);
+                valueList.append(col == 0 ? 0 : 255);
             }
+        }
+        else
+        {
+            if (m_controlMode == ControlModeWhite)
+                channelList.append(head.channelNumber(QLCChannel::White, QLCChannel::MSB));
+            else if (m_controlMode == ControlModeAmber)
+                channelList.append(head.channelNumber(QLCChannel::Amber, QLCChannel::MSB));
+            else if (m_controlMode == ControlModeUV)
+                channelList.append(head.channelNumber(QLCChannel::UV, QLCChannel::MSB));
 
-            // Set the rest of the dimmer channels to full on
-            foreach (quint32 ch, dimmers)
-            {
-                FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, ch);
-                updateFaderValues(fc, col == 0 ? 0 : 255, fadeTime);
-            }
+            valueList.append(rgbToGrey(col));
+        }
+
+        quint32 absAddress = fxi->universeAddress();
+
+        for (int i = 0; i < channelList.count(); i++)
+        {
+            if (channelList.at(i) == QLCChannel::invalid())
+                continue;
+
+            quint32 universeIndex = floor((absAddress + channelList.at(i)) / 512);
+
+            FadeChannel *fc = getFader(universes.at(universeIndex), grpHead.fxi, channelList.at(i));
+            updateFaderValues(fc, valueList.at(i), fadeTime);
         }
     }
 }

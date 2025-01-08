@@ -21,6 +21,7 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QDebug>
+#include <cmath>
 #include <QList>
 #include <QFile>
 
@@ -711,24 +712,26 @@ void Scene::processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, S
     if (fixture == NULL)
         return;
 
-    quint32 universe = fixture->universe();
-    if (universe == Universe::invalid())
+    int universeIndex = floor((fixture->universeAddress() + scv.channel) / 512);
+    if (universeIndex >= ua.count())
         return;
 
-    QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+    Universe *universe = ua.at(universeIndex);
+
+    QSharedPointer<GenericFader> fader = m_fadersMap.value(universe->id(), QSharedPointer<GenericFader>());
     if (fader.isNull())
     {
-        fader = ua[universe]->requestFader();
+        fader = universe->requestFader();
         fader->adjustIntensity(getAttributeValue(Intensity));
         fader->setBlendMode(blendMode());
         fader->setName(name());
         fader->setParentFunctionID(id());
         fader->setParentIntensity(getAttributeValue(ParentIntensity));
         fader->setHandleSecondary(true);
-        m_fadersMap[universe] = fader;
+        m_fadersMap[universe->id()] = fader;
     }
 
-    FadeChannel *fc = fader->getChannelFader(doc(), ua[universe], scv.fxi, scv.channel);
+    FadeChannel *fc = fader->getChannelFader(doc(), universe, scv.fxi, scv.channel);
     int chIndex = fc->channelIndex(scv.channel);
 
     /** If a blend Function has been set, check if this channel needs to

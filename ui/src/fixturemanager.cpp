@@ -1193,27 +1193,38 @@ void FixtureManager::slotAddRGBPanel()
             Q_ASSERT(fxi != NULL);
             fxi->setName(tr("%1 - Row %2").arg(rgb.name()).arg(i + 1));
             if (rowDef == NULL)
-                rowDef = fxi->genericRGBPanelDef(columns, components);
+                rowDef = fxi->genericRGBPanelDef(columns, components, rgb.is16Bit());
             if (rowMode == NULL)
-                rowMode = fxi->genericRGBPanelMode(rowDef, components, phyWidth, phyHeight);
+                rowMode = fxi->genericRGBPanelMode(rowDef, components, rgb.is16Bit(), phyWidth, phyHeight);
             fxi->setFixtureDefinition(rowDef, rowMode);
 
             // Check universe span
             if (address + fxi->channels() > 512)
             {
-                uniIndex++;
-                if (m_doc->inputOutputMap()->getUniverseID(uniIndex) == m_doc->inputOutputMap()->invalidUniverse())
+                if (!rgb.crossUniverse())
                 {
-                    m_doc->inputOutputMap()->addUniverse();
-                    m_doc->inputOutputMap()->startUniverses();
+                    uniIndex++;
+                    address = 0;
                 }
-                address = 0;
+            }
+            if (m_doc->inputOutputMap()->getUniverseID(uniIndex) == m_doc->inputOutputMap()->invalidUniverse())
+            {
+                m_doc->inputOutputMap()->addUniverse();
+                m_doc->inputOutputMap()->startUniverses();
             }
 
             fxi->setUniverse(m_doc->inputOutputMap()->getUniverseID(uniIndex));
+            if (address + fxi->channels() > 512)
+                fxi->setCrossUniverse(rgb.crossUniverse());
             fxi->setAddress(address);
+            m_doc->addFixture(fxi, Fixture::invalidId(), rgb.crossUniverse());
+
             address += fxi->channels();
-            m_doc->addFixture(fxi);
+            if (address >= 512 && rgb.crossUniverse())
+            {
+                address -= 512;
+                uniIndex++;
+            }
 
             if (rgb.type() == AddRGBPanel::ZigZag)
             {
