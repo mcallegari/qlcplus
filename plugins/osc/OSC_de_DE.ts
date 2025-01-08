@@ -7,7 +7,7 @@
         <location filename="configureosc.ui" line="33"/>
         <source>OSC Plugin Configuration</source>
         <oldsource>Configure OSC Plugin</oldsource>
-        <translation>OSC Plugin konfigurieren</translation>
+        <translation>OSC-Plugin konfigurieren</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="47"/>
@@ -42,7 +42,7 @@
     <message>
         <location filename="configureosc.ui" line="90"/>
         <source>Seconds to wait for an interface to be ready</source>
-        <translation>Sekunden um auf die Bereitschaft eines Interfaces zu warten</translation>
+        <translation>Sekunden, um auf die Bereitschaft eines Interfaces zu warten</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="122"/>

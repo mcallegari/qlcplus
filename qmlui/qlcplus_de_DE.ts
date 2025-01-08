@@ -103,7 +103,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/ActionsMenu.qml" line="428"/>
         <source>UI Settings</source>
-        <translation>UI Einstellungen</translation>
+        <translation>UI-Einstellungen</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="441"/>
@@ -336,7 +336,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/BeamTool.qml" line="241"/>
         <source>Projected diameter</source>
-        <translation>Projezierter Durchmesser</translation>
+        <translation>Projizierter Durchmesser</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/BeamTool.qml" line="245"/>
@@ -349,7 +349,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/BottomPanel.qml" line="142"/>
         <source>Copy the selected channel values to all the fixtures of the same type</source>
-        <translation>Selektierte Kanal-Werte zu allen Geräten des selben Typs kopieren</translation>
+        <translation>Selektierte Kanal-Werte zu allen Geräten desselben Typs kopieren</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/BottomPanel.qml" line="153"/>
@@ -381,7 +381,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="85"/>
         <source>Gobo pictures</source>
-        <translation>Gobo Bilder</translation>
+        <translation>Gobo-Bilder</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="85"/>
@@ -442,7 +442,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="278"/>
         <source>Overlapping with another capability</source>
-        <translation>Überschneiderung mit anderer Fähigkeit</translation>
+        <translation>Überschneidung mit anderer Fähigkeit</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="293"/>
@@ -515,12 +515,12 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="104"/>
         <source>Preview the previous step</source>
-        <translation>Voransicht des vorherigen Schritts</translation>
+        <translation>Vorschau des vorherigen Schritts</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="114"/>
         <source>Preview the next step</source>
-        <translation>Voransicht des folgenden Schritts</translation>
+        <translation>Vorschau des folgenden Schritts</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="152"/>
@@ -1164,7 +1164,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="374"/>
         <source>&lt;li&gt;Empty capability description provided in channel &apos;%1&apos;&lt;/li&gt;</source>
-        <translation>&lt;li&gt;Leere Fähigkeits-Beschreibung für Kanal &apos;%1&apos; angegeben&lt;/li&gt;</translation>
+        <translation>&lt;li&gt;Leere Fähigkeitsbeschreibung für Kanal &apos;%1&apos; angegeben&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="381"/>
@@ -1446,7 +1446,7 @@ Bitte einen anderen Namen angeben.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="342"/>
         <source>Add/Remove a linked fixture</source>
-        <translation>Verknüftes Gerät hinzufügen/entfernen</translation>
+        <translation>Verknüpftes Gerät hinzufügen/entfernen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="361"/>
@@ -1978,7 +1978,7 @@ Bitte einen anderen Namen angeben.</translation>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="47"/>
         <source>You have enabled the input channel wizard. After clicking OK, wiggle your mapped input profile&apos;s controls. They should appear into the list. Click the wizard button again to stop channel auto-detection.&lt;br&gt;&lt;br&gt;Note that the wizard cannot tell the difference between a knob and a slider so you will have to do the change manually.</source>
-        <translation>Der Eingangs-Kanal-Wizard wurde aktiviert. Nach dem Klick auf OK, die Regler des gemappten Input-Profils bewegen. Sie sollten nun in der Liste erschreinen. Den Wizard-Knopf noch einmal drücken, um die automatische Erkennung zu beenden.&lt;br&gt;&lt;br&gt;Bitte beachten, dass der Wizard nicht zwischen einem Dreh- und einem Schieberegler unterscheiden kann, was also nachträglich angepasst werden muss.</translation>
+        <translation>Der Eingangs-Kanal-Wizard wurde aktiviert. Nach dem Klick auf OK, die Regler des gemappten Input-Profils bewegen. Sie sollten nun in der Liste erscheinen. Den Wizard-Knopf noch einmal drücken, um die automatische Erkennung zu beenden.&lt;br&gt;&lt;br&gt;Bitte beachten, dass der Wizard nicht zwischen einem Dreh- und einem Schieberegler unterscheiden kann, was also nachträglich angepasst werden muss.</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="60"/>
@@ -2617,7 +2617,7 @@ Ungespeicherte Änderungen gehen verloren.</translation>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="31"/>
         <source>Channel Modifiers Editor</source>
-        <translation>Kanal-Modifikatoren Editor</translation>
+        <translation>Kanal-Modifikatoren-Editor</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="60"/>
@@ -2660,7 +2660,7 @@ Ungespeicherte Änderungen gehen verloren.</translation>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="31"/>
         <source>Fixture Editor Wizard</source>
-        <translation>Geräte-Editor Wizard</translation>
+        <translation>Geräte-Editor-Wizard</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="120"/>
@@ -3073,12 +3073,12 @@ Ungespeicherte Änderungen gehen verloren.</translation>
     <message>
         <location filename="qml/popup/PopupInputChannelEditor.qml" line="31"/>
         <source>Input Channel Editor</source>
-        <translation>Eingangs-Kanal Editor</translation>
+        <translation>Eingangskanal-Editor</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupInputChannelEditor.qml" line="154"/>
         <source>Input Channel</source>
-        <translation>Eingangs-Kanal</translation>
+        <translation>Eingangskanal</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupInputChannelEditor.qml" line="164"/>
@@ -4876,7 +4876,7 @@ Entweder ist nicht genug Platz vorhanden oder das Ziel-Universum ist ungültig</
     <message>
         <location filename="qml/virtualconsole/VCAnimationProperties.qml" line="101"/>
         <source>Apply color and preset changes immediately</source>
-        <translation>Farb- und Voreinstellungs-Änderungen sofort anwenden</translation>
+        <translation>Farb- und Voreinstellungsänderungen sofort anwenden</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationProperties.qml" line="108"/>
@@ -4921,7 +4921,7 @@ Entweder ist nicht genug Platz vorhanden oder das Ziel-Universum ist ungültig</
     <message>
         <location filename="qml/virtualconsole/VCAnimationProperties.qml" line="313"/>
         <source>Preset List</source>
-        <translation>Voreinstellungs-Liste</translation>
+        <translation>Voreinstellungsliste</translation>
     </message>
 </context>
 <context>
@@ -4937,7 +4937,7 @@ Entweder ist nicht genug Platz vorhanden oder das Ziel-Universum ist ungültig</
     <message>
         <location filename="qml/virtualconsole/VCAudioTriggerProperties.qml" line="46"/>
         <source>Audio Trigger Properties</source>
-        <translation>Audio Trigger Eigenschaften</translation>
+        <translation>Audio-Trigger-Eigenschaften</translation>
     </message>
 </context>
 <context>
@@ -5078,12 +5078,12 @@ Entweder ist nicht genug Platz vorhanden oder das Ziel-Universum ist ungültig</
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="238"/>
         <source>Stop time</source>
-        <translation>Stopzeit</translation>
+        <translation>Stoppzeit</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="268"/>
         <source>Enable the stop time</source>
-        <translation>Stopzeit aktivieren</translation>
+        <translation>Stoppzeit aktivieren</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="279"/>
@@ -5153,12 +5153,12 @@ Entweder ist nicht genug Platz vorhanden oder das Ziel-Universum ist ungültig</
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="55"/>
         <source>Play/Stop/Pause</source>
-        <translation>Abspielen/Stop/Pause</translation>
+        <translation>Abspielen/Stopp/Pause</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="56"/>
         <source>Stop/Pause</source>
-        <translation>Stop/Pause</translation>
+        <translation>Stopp/Pause</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="57"/>
@@ -5181,7 +5181,7 @@ Entweder ist nicht genug Platz vorhanden oder das Ziel-Universum ist ungültig</
     <message>
         <location filename="qml/virtualconsole/VCCueListItem.qml" line="268"/>
         <source>Play/Stop</source>
-        <translation>Start/Stop</translation>
+        <translation>Start/Stopp</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListItem.qml" line="278"/>
@@ -5191,7 +5191,7 @@ Entweder ist nicht genug Platz vorhanden oder das Ziel-Universum ist ungültig</
     <message>
         <location filename="qml/virtualconsole/VCCueListItem.qml" line="278"/>
         <source>Stop</source>
-        <translation>Stop</translation>
+        <translation>Stopp</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListItem.qml" line="288"/>
@@ -5224,17 +5224,17 @@ Entweder ist nicht genug Platz vorhanden oder das Ziel-Universum ist ungültig</
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="100"/>
         <source>Play/Stop layout</source>
-        <translation>Anordnung von Abspielen/Stop</translation>
+        <translation>Anordnung von Abspielen/Stopp</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="108"/>
         <source>Play/Pause + Stop</source>
-        <translation>Abspielen/Pause + Stop</translation>
+        <translation>Abspielen/Pause + Stopp</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="109"/>
         <source>Play/Stop + Pause</source>
-        <translation>Abspielen/Stop + Pause</translation>
+        <translation>Abspielen/Stopp + Pause</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="125"/>
@@ -5748,7 +5748,7 @@ Entweder ist nicht genug Platz vorhanden oder das Ziel-Universum ist ungültig</
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="61"/>
         <source>Apply Button</source>
-        <translation>Anwende-Knopf</translation>
+        <translation>Anwenden-Knopf</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddial.cpp" line="62"/>
@@ -6099,7 +6099,7 @@ fallen lassen um die Liste zu füllen</translation>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="341"/>
         <source>Background image</source>
-        <translation>Hintergrundsbild</translation>
+        <translation>Hintergrundbild</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="372"/>
@@ -6150,7 +6150,7 @@ fallen lassen um die Liste zu füllen</translation>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="46"/>
         <source>XY Pad Properties</source>
-        <translation>XY-Feld Einstellungen</translation>
+        <translation>XY-Feld-Einstellungen</translation>
     </message>
 </context>
 <context>
