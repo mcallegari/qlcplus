@@ -57,6 +57,8 @@ const quint8 VCXYPad::panInputSourceId = 0;
 const quint8 VCXYPad::tiltInputSourceId = 1;
 const quint8 VCXYPad::widthInputSourceId = 2;
 const quint8 VCXYPad::heightInputSourceId = 3;
+const quint8 VCXYPad::panFineInputSourceId = 4;
+const quint8 VCXYPad::tiltFineInputSourceId = 5;
 
 const qreal MAX_VALUE = 256.0;
 const qreal MAX_DMX_VALUE = MAX_VALUE - 1.0/256;
@@ -950,6 +952,39 @@ void VCXYPad::updateFeedback()
 */
 }
 
+void VCXYPad::updatePosition()
+{
+    QPointF pt = m_area->position(false);
+    qreal xOffset = 0;
+    qreal yOffset = 0;
+    qreal areaWidth = MAX_VALUE;
+    qreal areaHeight = MAX_VALUE;
+
+    QRectF rangeWindow = m_area->rangeWindow();
+    if (rangeWindow.isValid())
+    {
+        xOffset = rangeWindow.x();
+        yOffset = rangeWindow.y();
+        areaWidth = rangeWindow.width();
+        areaHeight = rangeWindow.height();
+    }
+
+    pt.setX(xOffset + SCALE((qreal(m_lastPos.x()) * 256.0) + qreal(m_lastPos.width()), qreal(0), qreal(65535),
+                            qreal(0), areaWidth));
+
+    if (invertedAppearance() == false)
+        pt.setY(yOffset + SCALE((qreal(m_lastPos.y()) * 256.0) + qreal(m_lastPos.height()), qreal(0), qreal(65535),
+                                qreal(0), areaHeight));
+    else
+        pt.setY(yOffset + SCALE((qreal(m_lastPos.y()) * 256.0) + qreal(m_lastPos.height()), qreal(65535), qreal(0),
+                                qreal(0), areaHeight));
+
+    m_inputValueChanged = true;
+
+    m_area->setPosition(pt);
+    m_area->update();
+}
+
 void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
                                      uchar value)
 {
@@ -957,59 +992,55 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
     if (acceptsInput() == false)
         return;
 
-    QPointF pt = m_area->position(false);
     quint32 pagedCh = (page() << 16) | channel;
 
     if (checkInputSource(universe, pagedCh, value, sender(), panInputSourceId))
     {
         if (m_efx == NULL)
         {
-            qreal areaWidth = MAX_VALUE;
-            qreal xOffset = 0;
-            QRectF rangeWindow = m_area->rangeWindow();
-            if (rangeWindow.isValid())
-            {
-                areaWidth = rangeWindow.width();
-                xOffset = rangeWindow.x();
-            }
-            pt.setX(xOffset + SCALE(qreal(value), qreal(0), qreal(255),
-                          qreal(0), areaWidth));
+            m_lastPos.setX(value);
+            updatePosition();
         }
         else
         {
             if (m_efx->isRunning() == false)
                 return;
+
             m_hRangeSlider->setMinimumValue(value);
             slotRangeValueChanged();
             return;
+        }
+    }
+    else if (checkInputSource(universe, pagedCh, value, sender(), panFineInputSourceId))
+    {
+        if (m_efx == NULL)
+        {
+            m_lastPos.setWidth(value);
+            updatePosition();
         }
     }
     else if (checkInputSource(universe, pagedCh, value, sender(), tiltInputSourceId))
     {
         if (m_efx == NULL)
         {
-            qreal yOffset = 0;
-            qreal areaHeight = MAX_VALUE;
-            QRectF rangeWindow = m_area->rangeWindow();
-            if (rangeWindow.isValid())
-            {
-                areaHeight = rangeWindow.height();
-                yOffset = rangeWindow.y();
-            }
-            if (invertedAppearance() == false)
-                pt.setY(yOffset + SCALE(qreal(value), qreal(0), qreal(255),
-                              qreal(0), areaHeight));
-            else
-                pt.setY(yOffset + SCALE(qreal(value), qreal(255), qreal(0),
-                              qreal(0), areaHeight));
+            m_lastPos.setY(value);
+            updatePosition();
         }
         else
         {
             if (m_efx->isRunning() == false)
                 return;
+
             m_vRangeSlider->setMinimumValue(value);
             slotRangeValueChanged();
-            return;
+        }
+    }
+    else if (checkInputSource(universe, pagedCh, value, sender(), tiltFineInputSourceId))
+    {
+        if (m_efx == NULL)
+        {
+            m_lastPos.setHeight(value);
+            updatePosition();
         }
     }
     else if (checkInputSource(universe, pagedCh, value, sender(), widthInputSourceId))
@@ -1019,7 +1050,6 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
             m_hRangeSlider->setMaximumValue(value);
             slotRangeValueChanged();
         }
-        return;
     }
     else if (checkInputSource(universe, pagedCh, value, sender(), heightInputSourceId))
     {
@@ -1028,7 +1058,6 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
             m_vRangeSlider->setMaximumValue(value);
             slotRangeValueChanged();
         }
-        return;
     }
     else
     {
@@ -1048,11 +1077,6 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
             }
         }
     }
-
-    m_inputValueChanged = true;
-
-    m_area->setPosition(pt);
-    m_area->update();
 }
 
 void VCXYPad::slotKeyPressed(const QKeySequence &keySequence)

@@ -11,6 +11,7 @@ qlcplus (4.14.0) stable; urgency=low
   * Virtual Console/Slider: send feedback on override button press
   * Virtual Console/Sped Dial: fix foreground color setting on Windows
   * Virtual Console/Frame: fix widget page initialization on Operate mode
+  * Virtual Console/XY Pad: added Pan/Tilt fine external controls
   * Plugins/OS2L: fix receiving multiple messages at once
   * Web Access: reworked websocket implementation
   * Web Access: fix grand master stopping running functions
