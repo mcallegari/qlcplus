@@ -60,7 +60,7 @@ install(FILES ${VORBIS_LIBDIR}/${VORBIS_LIBNAME} DESTINATION ${INSTALLROOT}/${LI
 install(FILES ${VORBISENC_LIBDIR}/${VORBISENC_LIBNAME} DESTINATION ${INSTALLROOT}/${LIBSDIR})
 # this is ugly, thanks to lame developers
 if($ENV{USER} STREQUAL "runner")
-    install(FILES /usr/local/homebrew/Cellar/lame/3.100/lib/libmp3lame.0.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
+    install(FILES /usr/local/Cellar/lame/3.100/lib/libmp3lame.0.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
 else()
     install(FILES /opt/homebrew/Cellar/lame/3.100/lib/libmp3lame.0.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
 endif()
