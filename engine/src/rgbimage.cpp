@@ -108,6 +108,12 @@ bool RGBImage::animatedSource() const
     return m_animatedSource;
 }
 
+void RGBImage::rewindAnimation()
+{
+    if (m_animatedSource)
+        m_animatedPlayer.jumpToFrame(0);
+}
+
 void RGBImage::reloadImage()
 {
     m_animatedSource = false;

@@ -59,10 +59,13 @@ public:
     void setImageData(int width, int height, const QByteArray& pixelData);
 
     bool animatedSource() const;
+    void rewindAnimation();
 
 private:
-
     void reloadImage();
+
+protected slots:
+    void frameChanged(int num);
 
 private:
     QString m_filename;

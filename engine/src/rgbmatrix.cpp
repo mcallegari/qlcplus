@@ -32,6 +32,7 @@
 #include "genericfader.h"
 #include "fadechannel.h"
 #include "rgbmatrix.h"
+#include "rgbimage.h"
 #include "doc.h"
 
 #define KXMLQLCRGBMatrixStartColor      QString("MonoColor")
@@ -581,6 +582,12 @@ void RGBMatrix::preRun(MasterTimer *timer)
                     it.next();
                     script->setProperty(it.key(), it.value());
                 }
+            }
+            else if (m_algorithm->type() == RGBAlgorithm::Image)
+            {
+                RGBImage *image = static_cast<RGBImage*> (m_algorithm);
+                if (image->animatedSource())
+                    image->rewindAnimation();
             }
         }
     }

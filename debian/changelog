@@ -3,6 +3,7 @@ qlcplus (4.14.0) stable; urgency=low
   * engine: fix flashing fade out
   * engine: add stopOnExit, waitFunctionStart and waitFunctionStop commands to Script - see documentation (thanks to ldebs)
   * engine: introduce RGBScript v3 and allow up to 5 colors (thanks to Hans-Jürgen Tappe)
+  * engine/RGBMatrix: rewind animated GIFs on startup
   * UI: adjust audio volume on video intensity change
   * UI/Fixture Manager: limit the number of RGB panel columns for RGBW to avoid crash
   * UI/Function Wizard: improved with more VC widget creation (thanks to 8-Lambda-8)
