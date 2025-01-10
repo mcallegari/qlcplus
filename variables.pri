@@ -216,7 +216,7 @@ macx:USERRGBSCRIPTDIR       = $$USERDATADIR/RGBScripts
 android:USERRGBSCRIPTDIR    = $$USERDATADIR/rgbscripts
 ios:USERRGBSCRIPTDIR        = $$USERDATADIR/RGBScripts
 
-# RGB Scripts
+# Web Files
 win32:WEBFILESDIR      = Web
 unix:!macx:WEBFILESDIR = $$DATADIR/web
 macx:WEBFILESDIR       = $$DATADIR/Web
