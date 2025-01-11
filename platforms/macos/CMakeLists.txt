@@ -28,7 +28,7 @@ set(APPLE_CODESIGN_ENTITLEMENTS "qlcplus.entitlements")
 
 # install Qt library frameworks
 #set(QT_FRAMEWORKS_DIR ${_qt5_root_dir}/../../Frameworks) # homebrew
-set(QT_FRAMEWORKS_DIR ${_qt5_root_dir}/..)
+set(QT_FRAMEWORKS_DIR $ENV{QTDIR}/lib)
 set(QT_FRAMEWORK_NAMES
     "QtCore"
     "QtDBus"
@@ -38,28 +38,40 @@ set(QT_FRAMEWORK_NAMES
     "QtNetwork"
     "QtOpenGL"
     "QtPrintSupport"
-    "QtScript"
     "QtSerialPort"
     "QtSvg"
     "QtWidgets"
     "QtWebSockets"
 )
+if(QT_MAJOR_VERSION GREATER 5)
+    set(QT_FW_V "A")
+    list(APPEND QT_FRAMEWORK_NAMES "QtQml")
+else()
+    set(QT_FW_V "5")
+    list(APPEND QT_FRAMEWORK_NAMES "QtScript")
+endif()
+
 # Loop through each framework and copy it to installation
 foreach(FW_NAME IN LISTS QT_FRAMEWORK_NAMES)
     # install each framework Version file
-    install(FILES ${QT_FRAMEWORKS_DIR}/${FW_NAME}.framework/Versions/5/${FW_NAME}
-            DESTINATION ${INSTALLROOT}/${LIBSDIR}/${FW_NAME}.framework/Versions/5)
+    install(FILES ${QT_FRAMEWORKS_DIR}/${FW_NAME}.framework/Versions/${QT_FW_V}/${FW_NAME}
+            DESTINATION ${INSTALLROOT}/${LIBSDIR}/${FW_NAME}.framework/Versions/${QT_FW_V})
 endforeach()
 
 # install Qt plugins
-set(QT_PLUGINS_DIR ${_qt5_root_dir}/../../plugins)
+set(QT_PLUGINS_DIR $ENV{QTDIR}/plugins)
 # imageformats
 install(FILES ${QT_PLUGINS_DIR}/imageformats/libqgif.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/imageformats)
 install(FILES ${QT_PLUGINS_DIR}/imageformats/libqjpeg.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/imageformats)
 install(FILES ${QT_PLUGINS_DIR}/imageformats/libqsvg.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/imageformats)
 # multimedia
-install(FILES ${QT_PLUGINS_DIR}/mediaservice/libqavfmediaplayer.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/mediaservice)
-install(FILES ${QT_PLUGINS_DIR}/mediaservice/libqtmedia_audioengine.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/mediaservice)
+if(QT_MAJOR_VERSION GREATER 5)
+    install(FILES ${QT_PLUGINS_DIR}/multimedia/libffmpegmediaplugin.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/multimedia)
+    install(FILES ${QT_PLUGINS_DIR}/multimedia/libffmpegmediaplugin.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/multimedia)
+else()
+    install(FILES ${QT_PLUGINS_DIR}/mediaservice/libqavfmediaplayer.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/mediaservice)
+    install(FILES ${QT_PLUGINS_DIR}/mediaservice/libqtmedia_audioengine.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/mediaservice)
+endif()
 # platforms
 install(FILES ${QT_PLUGINS_DIR}/platforms/libqcocoa.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/platforms)
 # styles
@@ -83,62 +95,3 @@ install(FILES ${MAD_LIBDIR}/libmad.0.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR}
 install(FILES ${SNDFILE_LIBDIR}/libsndfile.1.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
 install(FILES ${SNDFILE_LIBDIR}/libsndfile.1.0.37.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
 
-# pkg_check_modules(FLAC IMPORTED_TARGET flac)
-# pkg_check_modules(OGG IMPORTED_TARGET ogg)
-# pkg_check_modules(OPUS IMPORTED_TARGET opus)
-# pkg_check_modules(MPG123 IMPORTED_TARGET libmpg123)
-# #pkg_check_modules(LAME IMPORTED_TARGET lame) # lame doesn't have a pkg-config file...well done
-# pkg_check_modules(VORBIS IMPORTED_TARGET vorbis)
-# pkg_check_modules(VORBISENC IMPORTED_TARGET vorbisenc)
-
-# install(FILES ${OGG_LIBDIR}/${OGG_LIBNAME} DESTINATION ${INSTALLROOT}/${LIBSDIR})
-# install(FILES ${FLAC_LIBDIR}/${FLAC_LIBNAME} DESTINATION ${INSTALLROOT}/${LIBSDIR})
-# install(FILES ${OPUS_LIBDIR}/${OPUS_LIBNAME} DESTINATION ${INSTALLROOT}/${LIBSDIR})
-# install(FILES ${MPG123_LIBDIR}/${MPG123_LIBNAME} DESTINATION ${INSTALLROOT}/${LIBSDIR})
-# install(FILES ${VORBIS_LIBDIR}/${VORBIS_LIBNAME} DESTINATION ${INSTALLROOT}/${LIBSDIR})
-# install(FILES ${VORBISENC_LIBDIR}/${VORBISENC_LIBNAME} DESTINATION ${INSTALLROOT}/${LIBSDIR})
-# # this is ugly, thanks to lame developers
-# if($ENV{USER} STREQUAL "runner")
-#     install(FILES /usr/local/Cellar/lame/3.100/lib/libmp3lame.0.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
-# else()
-#     install(FILES /opt/homebrew/Cellar/lame/3.100/lib/libmp3lame.0.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
-# endif()
-
-# # fix dylib lookup paths
-# install(CODE "execute_process(COMMAND install_name_tool -change 
-#         /opt/homebrew/opt/fftw/lib/${FFTW_LIBNAME}
-#         @executable_path/../Frameworks/${FFTW_LIBNAME} 
-#         ${INSTALLROOT}/${BINDIR}/qlcplus)")
-# install(CODE "execute_process(COMMAND install_name_tool -change 
-#         /opt/homebrew/opt/fftw/lib/${FFTW_LIBNAME}
-#         @executable_path/../Frameworks/${FFTW_LIBNAME} 
-#         ${INSTALLROOT}/${BINDIR}/qlcplus-fixtureeditor)")
-
-# install(CODE "execute_process(COMMAND install_name_tool -change 
-#         @loader_path/../../../../opt/libogg/lib/${OGG_LIBNAME}
-#         @executable_path/../Frameworks/${OGG_LIBNAME} 
-#         ${INSTALLROOT}/${LIBSDIR}/libsndfile.1.dylib)")
-# install(CODE "execute_process(COMMAND install_name_tool -change 
-#         @loader_path/../../../../opt/libvorbis/lib/${VORBISENC_LIBNAME}
-#         @executable_path/../Frameworks/${VORBISENC_LIBNAME} 
-#         ${INSTALLROOT}/${LIBSDIR}/libsndfile.1.dylib)")
-# install(CODE "execute_process(COMMAND install_name_tool -change 
-#         @loader_path/../../../../opt/flac/lib/${FLAC_LIBNAME}
-#         @executable_path/../Frameworks/${FLAC_LIBNAME} 
-#         ${INSTALLROOT}/${LIBSDIR}/libsndfile.1.dylib)")
-# install(CODE "execute_process(COMMAND install_name_tool -change 
-#         @loader_path/../../../../opt/opus/lib/${OPUS_LIBNAME}
-#         @executable_path/../Frameworks/${OPUS_LIBNAME} 
-#         ${INSTALLROOT}/${LIBSDIR}/libsndfile.1.dylib)")
-# install(CODE "execute_process(COMMAND install_name_tool -change 
-#         @loader_path/../../../../opt/mpg123/lib/${MPG123_LIBNAME}
-#         @executable_path/../Frameworks/${MPG123_LIBNAME} 
-#         ${INSTALLROOT}/${LIBSDIR}/libsndfile.1.dylib)")
-# install(CODE "execute_process(COMMAND install_name_tool -change 
-#         @loader_path/../../../../opt/lame/lib/${LAME_LIBNAME}
-#         @executable_path/../Frameworks/${LAME_LIBNAME} 
-#         ${INSTALLROOT}/${LIBSDIR}/libsndfile.1.dylib)")
-# install(CODE "execute_process(COMMAND install_name_tool -change 
-#         @loader_path/../../../../opt/libvorbis/lib/${VORBIS_LIBNAME}
-#         @executable_path/../Frameworks/${VORBIS_LIBNAME} 
-#         ${INSTALLROOT}/${LIBSDIR}/libsndfile.1.dylib)")
