@@ -585,7 +585,7 @@ jobs:
             echo "Processing $1..." \
             for dep in `otool -L $1 | grep opt | cut -d ' ' -f 1` \
             do \
-              if [[ "$dep" == *${{ env.HOMEBREW_PREFIX }}* ]]; then \
+              if [[ "$dep" == *$HOMEBREW_PREFIX* ]]; then \
                 subst=${dep##*/} \
                 echo "Regular lib: $dep ($subst)" \
                 # check missing dependency \
