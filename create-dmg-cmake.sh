@@ -35,12 +35,34 @@ fi
 
 cd ..
 
+echo "Fix non-Qt dependencies..."
+
+fix_dep () {
+    echo "Processing $1..."
+    for dep in `otool -L $1 | grep opt | cut -d ' ' -f 1`
+    do
+        if [[ "$dep" == *$HOMEBREW_PREFIX* ]]; then
+            subst=${dep##*/}
+            echo "Regular lib: $dep ($subst)"
+            # check missing dependency
+            if [ ! -f ~/QLC+.app/Contents/Frameworks/$subst ]; then
+                echo "Dependency missing: $subst. Adding it to target..."
+                cp $dep ~/QLC+.app/Contents/Frameworks/
+            fi
+            #install_name_tool -id @executable_path/../Frameworks/$subst $1
+            install_name_tool -change $dep @executable_path/../Frameworks/$subst $1
+        fi
+    done
+}
+
+fix_dep ~/QLC+.app/Contents/Frameworks/libsndfile.1.dylib
+
 echo "Run macdeployqt..."
 $QTDIR/bin/macdeployqt ~/QLC+.app
 
-echo "Fix some more dependencies..."
-install_name_tool -change /usr/local/opt/fftw/lib/libfftw3.3.dylib @executable_path/../Frameworks/libfftw3.3.dylib ~/QLC+.app/Contents/MacOS/qlcplus
-install_name_tool -change /usr/local/opt/fftw/lib/libfftw3.3.dylib @executable_path/../Frameworks/libfftw3.3.dylib ~/QLC+.app/Contents/MacOS/qlcplus-fixtureeditor 
+#echo "Fix some more dependencies..."
+#install_name_tool -change /usr/local/opt/fftw/lib/libfftw3.3.dylib @executable_path/../Frameworks/libfftw3.3.dylib ~/QLC+.app/Contents/MacOS/qlcplus
+#install_name_tool -change /usr/local/opt/fftw/lib/libfftw3.3.dylib @executable_path/../Frameworks/libfftw3.3.dylib ~/QLC+.app/Contents/MacOS/qlcplus-fixtureeditor 
 
 # Create Apple Disk iMaGe from ~/QLC+.app/
 OUTDIR=$PWD
