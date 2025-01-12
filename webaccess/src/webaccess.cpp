@@ -45,6 +45,7 @@
 #include "vcmatrix.h"
 #include "vclabel.h"
 #include "vcframe.h"
+#include "vcframepageshortcut.h"
 #include "vcclock.h"
 #include "vcxypad.h"
 #include "qlcfile.h"
@@ -1050,15 +1051,6 @@ QString WebAccess::getFrameHTML(VCFrame *frame)
     int cw = 36;
     // header width
     int hw = w - pw - ew - cw;
-    // header caption
-    QString caption = "";
-    if (frame->multipageMode()) {
-        caption = QString(frame->caption()) != ""
-                      ? QString("%1 - Page: %2").arg(frame->caption()).arg(frame->currentPage() + 1)
-                      : QString("Page: %1").arg(frame->currentPage() + 1);
-    } else {
-        caption = QString(frame->caption());
-    }
 
     QString str = "<div class=\"vcframe\" id=\"fr" + QString::number(frame->id()) + "\" "
                   "style=\"left: " + QString::number(frame->x()) +
@@ -1071,20 +1063,48 @@ QString WebAccess::getFrameHTML(VCFrame *frame)
 
     if (frame->isHeaderVisible())
     {
+        // header caption
+        QString caption = QString(frame->caption());
+        QString currentPageName = "";
+
+        if (frame->multipageMode())
+        {
+            m_JScode += "framesPageNames[" + QString::number(frame->id()) + "] = new Array();\n";
+
+            const QList<VCFramePageShortcut*> shortcuts = frame->shortcuts();
+            int index = 0;
+            for (const VCFramePageShortcut* shortcut : shortcuts)
+            {
+                m_JScode += "framesPageNames[" + QString::number(frame->id()) + "][" + QString::number(index) + "] = \"" +
+                            QString(shortcut->name()).replace("\\", "\\\\").replace("\"", "\\\"") + "\";\n";
+                index++;
+            }
+            currentPageName = QString(shortcuts[frame->currentPage()]->name());
+
+            if (caption != "")
+                caption += " - ";
+
+            if (currentPageName == "")
+                currentPageName = tr("Page: %1").arg(frame->currentPage() + 1);
+
+            caption += currentPageName;
+        }
+
         str += "<div style=\"position: absolute; display: flex; align-items: center; justify-content: center; flex-direction: row; width: 100%;\">";
         str += "<a class=\"vcframeButton\" href=\"javascript:frameToggleCollapse(" +
                QString::number(frame->id()) + ");\"><img src=\"expand.png\" width=\"27\"></a>\n";
 
         str += "<div class=\"vcframeHeader\" id=\"vcframeHeader" + QString::number(frame->id()) + "\" style=\"color:" +
                frame->foregroundColor().name() + "; width: "+ QString::number(hw) +"px \">";
-        str += "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Caption\">" +(caption) + "</div>\n";
+        str += "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Caption\">" + caption + "</div>\n";
         str += "</div>\n";
 
-        m_JScode += "frameCaption[" + QString::number(frame->id()) + "] = \"" + QString(frame->caption()) + "\";\n";
+        m_JScode += "frameCaption[" + QString::number(frame->id()) + "] = \"" +
+                    QString(frame->caption()).replace("\\", "\\\\").replace("\"", "\\\"") + "\";\n";
 
         if (frame->isEnableButtonVisible()) {
-            str += "<a class=\"vcframeButton\" id=\"frEnBtn"+ QString::number(frame->id()) +"\" " +
-                   "style=\" background-color: " + QString((frame->isDisabled() ? "#E0DFDF" : "#D7DE75" )) + "; \" " +
+            str += "<a class=\"vcframeButton\" id=\"frEnBtn" + QString::number(frame->id()) + "\" " +
+                   "style=\" background-color: " + QString((frame->isDisabled() ? "#E0DFDF" : "#D7DE75")) + "; \" " +
                    "href=\"javascript:frameDisableStateChange(" + QString::number(frame->id()) + ");\">" +
                    "<img src=\"check.png\" width=\"27\"></a>\n";
 
@@ -1103,21 +1123,21 @@ QString WebAccess::getFrameHTML(VCFrame *frame)
                    QString::number(frame->id()) + ");\" style=\"display: " + QString(!frame->isCollapsed() ? "block" : "none") + "\">" +
                    "<img src=\"back.png\" width=\"27\"></a>";
 
-            str += "<div class=\"vcframePageLabel\" id=\"frPglbl" + QString::number(frame->id()) + "\" style=\"width: "+QString::number(frame->isCollapsed() ? 60 : 100)+"px; \" >"+
-                   "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Page\">" +
-                   QString("Page: %1").arg(frame->currentPage() + 1) + "</div></div>\n";
+            str += "<div class=\"vcframePageLabel\" id=\"frPglbl" + QString::number(frame->id()) + "\" style=\"width: " + QString::number(frame->isCollapsed() ? 60 : 100)+"px; \" >" +
+                   "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Page\">" + currentPageName + "</div></div>\n";
 
             str += "<a class=\"vcframeButton\" id=\"frMpHdrNext" + QString::number(frame->id()) + "\" href=\"javascript:frameNextPage(" +
                    QString::number(frame->id()) + ");\" style=\"display: " + QString(!frame->isCollapsed() ? "block" : "none") + "\">" +
                    "<img src=\"forward.png\" width=\"27\"></a>\n";
 
-
             str += "</div>\n";
 
             m_JScode += "framesCurrentPage[" + QString::number(frame->id()) + "] = " + QString::number(frame->currentPage()) + ";\n";
-            m_JScode += "framesTotalPages[" + QString::number(frame->id()) + "] = " + QString::number(frame->totalPagesNumber()) + ";\n\n";
+            m_JScode += "framesTotalPages[" + QString::number(frame->id()) + "] = " + QString::number(frame->totalPagesNumber()) + ";\n";
+
             connect(frame, SIGNAL(pageChanged(int)), this, SLOT(slotFramePageChanged(int)));
         }
+        m_JScode += "\n";
         str += "</div>\n";
     }
 
@@ -1140,15 +1160,6 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
     int cw = 36;
     // header width
     int hw = w - pw - ew - cw;
-    // header caption
-    QString caption = "";
-    if (frame->multipageMode()) {
-        caption = QString(frame->caption()) != ""
-                      ? QString("%1 - Page: %2").arg(frame->caption()).arg(frame->currentPage() + 1)
-                      : QString("Page: %1").arg(frame->currentPage() + 1);
-    } else {
-        caption = QString(frame->caption());
-    }
 
     QString str = "<div class=\"vcframe\" id=\"fr" + QString::number(frame->id()) + "\" "
                   "style=\"left: " + QString::number(frame->x()) +
@@ -1161,19 +1172,47 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
 
     if (frame->isHeaderVisible())
     {
+        // header caption
+        QString caption = QString(frame->caption());
+        QString currentPageName = "";
+
+        if (frame->multipageMode())
+        {
+            m_JScode += "framesPageNames[" + QString::number(frame->id()) + "] = new Array();\n";
+
+            const QList<VCFramePageShortcut*> shortcuts = frame->shortcuts();
+            int index = 0;
+            for (const VCFramePageShortcut* shortcut : shortcuts)
+            {
+                m_JScode += "framesPageNames[" + QString::number(frame->id()) + "][" + QString::number(index) + "] = \"" +
+                            QString(shortcut->name()).replace("\\", "\\\\").replace("\"", "\\\"") + "\";\n";
+                index++;
+            }
+            currentPageName = QString(shortcuts[frame->currentPage()]->name());
+
+            if (caption != "")
+                caption += " - ";
+
+            if (currentPageName == "")
+                currentPageName = tr("Page: %1").arg(frame->currentPage() + 1);
+
+            caption += currentPageName;
+        }
+
         str += "<div style=\"position: absolute; display: flex; align-items: center; justify-content: center; flex-direction: row; width: 100%;\">";
         str += "<a class=\"vcframeButton\" href=\"javascript:frameToggleCollapse(" +
                QString::number(frame->id()) + ");\"><img src=\"expand.png\" width=\"27\"></a>\n";
 
         str += "<div class=\"vcsoloframeHeader\" id=\"vcframeHeader" + QString::number(frame->id()) + "\" style=\"color:" +
                frame->foregroundColor().name() + "; width: "+ QString::number(hw) +"px \">";
-        str += "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Caption\">" +(caption) + "</div>\n";
+        str += "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Caption\">" + caption + "</div>\n";
         str += "</div>\n";
 
-        m_JScode += "frameCaption[" + QString::number(frame->id()) + "] = \"" + QString(frame->caption()) + "\";\n";
+        m_JScode += "frameCaption[" + QString::number(frame->id()) + "] = \"" +
+                    QString(frame->caption()).replace("\\", "\\\\").replace("\"", "\\\"") + "\";\n";
 
         if (frame->isEnableButtonVisible()) {
-            str += "<a class=\"vcframeButton\" id=\"frEnBtn"+ QString::number(frame->id()) +"\" " +
+            str += "<a class=\"vcframeButton\" id=\"frEnBtn" + QString::number(frame->id()) + "\" " +
                    "style=\" background-color: " + QString((frame->isDisabled() ? "#E0DFDF" : "#D7DE75")) + "; \" " +
                    "href=\"javascript:frameDisableStateChange(" + QString::number(frame->id()) + ");\">" +
                    "<img src=\"check.png\" width=\"27\"></a>\n";
@@ -1193,9 +1232,8 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
                    QString::number(frame->id()) + ");\" style=\"display: " + QString(!frame->isCollapsed() ? "block" : "none") + "\">" +
                    "<img src=\"back.png\" width=\"27\"></a>";
 
-            str += "<div class=\"vcframePageLabel\" id=\"frPglbl" + QString::number(frame->id()) + "\" style=\"width: "+QString::number(frame->isCollapsed() ? 60 : 100)+"px; \" >"+
-                   "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Page\">" +
-                   QString("Page: %1").arg(frame->currentPage() + 1) + "</div></div>\n";
+            str += "<div class=\"vcframePageLabel\" id=\"frPglbl" + QString::number(frame->id()) + "\" style=\"width: " + QString::number(frame->isCollapsed() ? 60 : 100) + "px; \" >" +
+                   "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Page\">" + currentPageName + "</div></div>\n";
 
             str += "<a class=\"vcframeButton\" id=\"frMpHdrNext" + QString::number(frame->id()) + "\" href=\"javascript:frameNextPage(" +
                    QString::number(frame->id()) + ");\" style=\"display: " + QString(!frame->isCollapsed() ? "block" : "none") + "\">" +
@@ -1205,9 +1243,10 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
             str += "</div>\n";
 
             m_JScode += "framesCurrentPage[" + QString::number(frame->id()) + "] = " + QString::number(frame->currentPage()) + ";\n";
-            m_JScode += "framesTotalPages[" + QString::number(frame->id()) + "] = " + QString::number(frame->totalPagesNumber()) + ";\n\n";
+            m_JScode += "framesTotalPages[" + QString::number(frame->id()) + "] = " + QString::number(frame->totalPagesNumber()) + ";\n";
             connect(frame, SIGNAL(pageChanged(int)), this, SLOT(slotFramePageChanged(int)));
         }
+        m_JScode += "\n";
         str += "</div>\n";
     }
 

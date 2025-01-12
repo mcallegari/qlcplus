@@ -259,10 +259,11 @@ var framesTotalPages = new Array();
 var framesCurrentPage = new Array();
 var frameDisableState = new Array();
 var frameCaption = new Array();
+var framesPageNames = new Array();
 
 function updateFrameLabel(id) {
   var framePageObj = document.getElementById("fr" + id + "Page");
-  var newLabel = "Page " + (framesCurrentPage[id] + 1);
+  var newLabel = framesPageNames[id][framesCurrentPage[id]];
   framePageObj.innerHTML = newLabel;
 
   var frameCaptionObj = document.getElementById("fr" + id + "Caption");
