@@ -533,7 +533,6 @@ jobs:
           echo "GIT_REV=`git rev-parse --short HEAD`" >> $GITHUB_ENV
           echo "QTDIR=${{ github.workspace }}/qt/Qt/${{ env.QT_VERSION }}/clang_64" >> $GITHUB_ENV
           echo "NPROC=`sysctl -n hw.ncpu`" >> $GITHUB_ENV
-          echo "HOMEBREW_PREFIX=${HOMEBREW_PREFIX}" >> $GITHUB_ENV
 
       - name: Print ENV vars
         shell: bash
@@ -582,6 +581,8 @@ jobs:
       - name: Fix non-Qt dependencies
         shell: bash
         run: |-
+          export
+          echo "HB prefix: ${HOMEBREW_PREFIX} --OR-- ${{ env.HOMEBREW_PREFIX }}"
           echo "Dependencies BEFORE"
           otool -L ~/QLC+.app/Contents/Frameworks/libsndfile.1.dylib
           platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/Frameworks/libsndfile.1.dylib
