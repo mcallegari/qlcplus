@@ -150,20 +150,12 @@ jobs:
       - name: Configure for QT5 build
         if: ${{ matrix.task == 'compile-qt5' }}
         run: |
-          # force a release build
-          sed -i -e 's/Debug/Release/g' CMakeLists.txt
-          mkdir build
-          cd build
-          cmake -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dappimage=ON -DINSTALL_ROOT=${INSTALL_ROOT} ..
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dappimage=ON -DINSTALL_ROOT=${INSTALL_ROOT}
 
       - name: Configure for QT5QML build
         if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
-          # force a release build
-          sed -i -e 's/Debug/Release/g' CMakeLists.txt
-          mkdir build
-          cd build
-          cmake -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dqmlui=ON -Dappimage=ON -DINSTALL_ROOT=${INSTALL_ROOT} ..
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dqmlui=ON -Dappimage=ON -DINSTALL_ROOT=${INSTALL_ROOT}
 
       - name: Configure for QT5 coverage build
         if: ${{ matrix.task == 'coverage-qt5' }}
@@ -464,17 +456,13 @@ jobs:
         shell: msys2 {0}
         if: ${{ matrix.task == 'compile-qt5' || matrix.task == 'compile-qt5-32bit' }}
         run: |
-          mkdir build
-          cd build
-          cmake -G "Unix Makefiles" ..
+          cmake -S . -B build -G "Unix Makefiles"
 
       - name: Configure v5 build for Windows
         shell: msys2 {0}
         if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
-          mkdir build
-          cd build
-          cmake -G "Unix Makefiles" -Dqmlui=ON ..
+          cmake -S . -B build -G "Unix Makefiles" -Dqmlui=ON
 
       - name: Build for Windows
         shell: msys2 {0}
@@ -563,9 +551,7 @@ jobs:
       - name: Configure build
         shell: bash
         run: |-
-          mkdir build
-          cd build
-          cmake -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" ..
+          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake"
 
       - name: Build
         shell: bash
