@@ -581,8 +581,6 @@ jobs:
       - name: Fix non-Qt dependencies
         shell: bash
         run: |-
-          export
-          echo "HB prefix: ${HOMEBREW_PREFIX} --OR-- ${{ env.HOMEBREW_PREFIX }}"
           echo "Dependencies BEFORE"
           otool -L ~/QLC+.app/Contents/Frameworks/libsndfile.1.dylib
           platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/Frameworks/libsndfile.1.dylib

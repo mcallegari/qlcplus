@@ -5,11 +5,7 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-if [ -z "$HOMEBREW_PREFIX" ]; then
-    echo "HOMEBREW_PREFIX is not set. Please set it to the Homebrew installation path."
-    exit 1
-fi
-
+HOMEBREW_PREFIX=`brew --prefix`
 SRC_DYLIB="$1"
 FRAMEWORKS_DIR=~/QLC+.app/Contents/Frameworks
 
