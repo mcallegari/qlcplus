@@ -533,7 +533,7 @@ jobs:
           echo "GIT_REV=`git rev-parse --short HEAD`" >> $GITHUB_ENV
           echo "QTDIR=${{ github.workspace }}/qt/Qt/${{ env.QT_VERSION }}/clang_64" >> $GITHUB_ENV
           echo "NPROC=`sysctl -n hw.ncpu`" >> $GITHUB_ENV
-          echo "HOMEBREW_PREFIX=${{ env.HOMEBREW_PREFIX }}" >> $GITHUB_ENV
+          echo "HOMEBREW_PREFIX=${HOMEBREW_PREFIX}" >> $GITHUB_ENV
 
       - name: Print ENV vars
         shell: bash
