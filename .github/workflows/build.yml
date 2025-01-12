@@ -581,11 +581,7 @@ jobs:
       - name: Fix non-Qt dependencies
         shell: bash
         run: |-
-          echo "Dependencies BEFORE"
-          otool -L ~/QLC+.app/Contents/Frameworks/libsndfile.1.dylib
           platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/Frameworks/libsndfile.1.dylib
-          echo "Dependencies AFTER"
-          otool -L ~/QLC+.app/Contents/Frameworks/libsndfile.1.dylib
 
       - name: Run macosdeploy
         shell: bash

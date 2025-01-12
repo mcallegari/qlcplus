@@ -33,7 +33,7 @@
   #include "hidlinuxjoystick.h"
 #elif defined(WIN32) || defined (Q_OS_WIN)
   #include "win32/hidwindowsjoystick.h"
-#elif defined (__APPLE__) || defined(Q_OS_MACX)
+#elif defined (__APPLE__) || defined(Q_OS_MACOS)
   #include "hidosxjoystick.h"
 #endif
 
@@ -290,7 +290,7 @@ void HIDPlugin::rescanDevices()
         else if (HIDWindowsJoystick::isJoystick(cur_dev->vendor_id, cur_dev->product_id) == true)
         {
             dev = new HIDWindowsJoystick(this, line++, cur_dev);
-#elif defined (__APPLE__) || defined(Q_OS_MACX)
+#elif defined (__APPLE__) || defined(Q_OS_MACOS)
         else if (HIDOSXJoystick::isJoystick(cur_dev->usage) == true)
         {
             dev = new HIDOSXJoystick(this, line++, cur_dev);
