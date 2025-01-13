@@ -20,6 +20,7 @@
 
 #include <QStringList>
 #include <QDebug>
+#include <QSettings>
 
 #include "dmxusbwidget.h"
 #include "enttecdmxusbpro.h"
@@ -31,6 +32,15 @@
 #endif
 #include "stageprofi.h"
 #include "vinceusbdmx512.h"
+
+#if defined(WIN32) || defined(Q_OS_WIN)
+#include <Windows.h>
+#define DMXUSB_WINDOWSTIMERRESOLUTION "dmxusb/windowstimerresolution"
+#endif
+
+#if defined(WIN32) || defined(Q_OS_WIN)
+uint DMXUSBWidget::s_windowsTimerResolution = 1; // Default to 1 millisecond.
+#endif
 
 DMXUSBWidget::DMXUSBWidget(DMXInterface *iface, quint32 outputLine, int frequency)
     : m_interface(iface)
@@ -47,11 +57,24 @@ DMXUSBWidget::DMXUSBWidget(DMXInterface *iface, quint32 outputLine, int frequenc
 
     setOutputsNumber(1);
     setInputsNumber(0);
+
+#if defined(WIN32) || defined(Q_OS_WIN)
+    QSettings settings;
+    QVariant var = settings.value(DMXUSB_WINDOWSTIMERRESOLUTION);
+    if(var.isValid())
+        s_windowsTimerResolution = var.toUInt();
+    
+    setWindowsTimerResolution(s_windowsTimerResolution);
+#endif
 }
 
 DMXUSBWidget::~DMXUSBWidget()
 {
     delete m_interface;
+
+#if defined(WIN32) || defined(Q_OS_WIN)
+    clearWindowsTimerResolution(s_windowsTimerResolution);
+#endif
 }
 
 DMXInterface *DMXUSBWidget::iface() const
@@ -287,6 +310,55 @@ bool DMXUSBWidget::forceInterfaceDriver(DMXInterface::Type type)
 
     return false;
 }
+
+#if defined(WIN32) || defined(Q_OS_WIN)
+bool DMXUSBWidget::setWindowsTimerResolution(uint resolution)
+{
+    TIMECAPS ptc;
+    MMRESULT result;
+    
+    /* Find out the minimum and maximum possible timer resolution, in milliseconds */
+    result = timeGetDevCaps(&ptc, sizeof(TIMECAPS));
+    if(result != TIMERR_NOERROR) {
+        qWarning() << Q_FUNC_INFO << "timeGetDevCaps() returned with error" << result;
+        return false;
+    }
+    
+    qDebug() << Q_FUNC_INFO << "timeGetDevCaps(): wPeriodMin =" << ptc.wPeriodMin << "wPeriodMax =" << ptc.wPeriodMax;
+    
+    /* Is given resolution within allowed range? */
+    if(resolution < ptc.wPeriodMin || resolution > ptc.wPeriodMax) {
+        qWarning() << Q_FUNC_INFO << "Period of" << resolution << "ms out of range";
+        return false;
+    }
+    
+    /* Request system timer resolution of the given number of milliseconds */
+    result = timeBeginPeriod(resolution);
+    if(result != TIMERR_NOERROR) {
+        qWarning() << Q_FUNC_INFO << "timeBeginPeriod() returned with error" << result;
+        return false;
+    }
+    
+    qDebug() << Q_FUNC_INFO << "timeBeginPeriod() of" << resolution << "ms";
+    
+    return true;
+}
+
+bool DMXUSBWidget::clearWindowsTimerResolution(uint resolution)
+{
+    MMRESULT result;
+    
+    result = timeEndPeriod(resolution);
+    if(result != TIMERR_NOERROR) {
+        qWarning() << Q_FUNC_INFO << "timeEndPeriod() returned with error" << result;
+        return false;
+    }
+    
+    qDebug() << Q_FUNC_INFO << "timeEndPeriod() of" << resolution << "ms";
+    
+    return true;
+}
+#endif
 
 /****************************************************************************
  * Open & Close
