@@ -241,8 +241,10 @@
     <F n="beamZ-BAC500" m="BAC500"/>
     <F n="beamZ-BAC503" m="BAC503"/>
     <F n="beamZ-BAC506" m="BAC506"/>
+    <F n="beamZ-BBP96-Uplight-PAR" m="BBP96 Uplight PAR"/>
     <F n="beamZ-BT270-LED-FlatPAR" m="BT270 LED FlatPAR"/>
     <F n="beamZ-BT310-LED-FlatPAR" m="BT310 LED FlatPAR 12x8W 4-1 DMX IR"/>
+    <F n="beamZ-Cobra-720" m="Cobra 720"/>
     <F n="beamZ-Fuze-75B-Beam" m="Fuze 75B Beam"/>
     <F n="beamZ-Illusion-II" m="Illusion II"/>
     <F n="beamZ-LCB-252" m="LCB-252"/>
@@ -250,9 +252,11 @@
     <F n="beamZ-LED-FlatPAR-154" m="LED FlatPAR-154"/>
     <F n="beamZ-LS-3DRG" m="LS-3DRG"/>
     <F n="beamZ-Lucid-1.2" m="Lucid 1.2"/>
+    <F n="beamZ-MHL-74-Wash-7x10W-4in1-RGBW" m="MHL-74 Wash 7x10W 4in1 RGBW"/>
     <F n="beamZ-MHL108-Wash-MKII" m="MHL108 Wash MKII"/>
     <F n="beamZ-MHL90-Wash-5x18W-RGBAW-UV" m="MHL90 Wash 5x18W RGBAW-UV"/>
     <F n="beamz-Panther-25-LED-Spot" m="Panther 25 LED Spot"/>
+    <F n="beamZ-Panther-60-LED-Beam-RGBW" m="Panther 60 LED Beam RGBW"/>
     <F n="beamZ-PS10W" m="PS10W"/>
     <F n="beamZ-Radical-II" m="Radical II"/>
     <F n="beamZ-SB200-Stage-Blinder-2x50w" m="SB200 Stage Blinder 2x50W"/>
@@ -362,6 +366,7 @@
     <F n="Cameo-Hydrabeam-1000-RGBW" m="Hydrabeam 1000 RGBW"/>
     <F n="Cameo-Hydrabeam-400-Series" m="Hydrabeam 400 Series"/>
     <F n="Cameo-HydraBeam-4000" m="HydraBeam 4000"/>
+    <F n="Cameo-LED-Gobo-Scanner-80" m="LED Gobo Scanner 80"/>
     <F n="Cameo-LED-Mini-PAR-CAN-RGB-7x3W" m="LED Mini PAR CAN RGB 7x3W"/>
     <F n="Cameo-LED-Mini-PAR-CAN-RGBW-7x8W" m="LED Mini PAR CAN RGBW 7x8W"/>
     <F n="Cameo-LED-Mini-PAR-CAN-White-7x4W" m="LED Mini PAR CAN White 7x4W"/>
@@ -397,6 +402,8 @@
     <F n="Cameo-Thunderwash-600-RGBW" m="Thunderwash 600 RGBW"/>
     <F n="Cameo-Thunderwash-600-UV" m="Thunderwash 600 UV"/>
     <F n="Cameo-Tribar-200-IR" m="Tribar 200 IR"/>
+    <F n="Cameo-TS-100-WW" m="TS 100 WW"/>
+    <F n="Cameo-TS-200-WW" m="TS 200 WW"/>
     <F n="Cameo-TS-40-WW" m="TS 40 WW"/>
     <F n="Cameo-TS-60-RGBW" m="TS 60 RGBW"/>
     <F n="Cameo-Twinscan-20" m="Twinscan 20"/>
@@ -1175,6 +1182,7 @@
     <F n="lightmaXX-Platinum-CLS-1" m="Platinum CLS-1"/>
     <F n="lightmaXX-Platinum-CLS-2" m="Platinum CLS-2"/>
     <F n="lightmaXX-Platinum-CLS-3-MKII" m="Platinum CLS-3 MKII"/>
+    <F n="lightmaXX-Platinum-CLS-3-Quad-LED-(19-CH),-RGBW" m="Platinum CLS-3 Quad-LED"/>
     <F n="lightmaXX-Platinum-Line-Flat-PAR-COB" m="Platinum Line Flat PAR COB"/>
     <F n="lightmaXX-Platinum-Line-Mini-PAR-QUAD-7x8W" m="Platinum Line Mini PAR QUAD 7x8W"/>
     <F n="lightmaXX-Platinum-Line-Mini-TRI-PAR-7x3-W" m="Platinum Line Mini TRI-PAR 7x3 Watt"/>
@@ -1666,10 +1674,12 @@
     <F n="Stairville-DDS-405" m="DDS 405"/>
     <F n="Stairville-DJ-Lase-150-RGY-MkII" m="DJ Lase 150-RGY MkII"/>
     <F n="Stairville-DJ-Lase-25+25-G-MK-II" m="DJ Lase 25+25-G MK-II"/>
+    <F n="Stairville-DJ-Lase-40-G-MK-III" m="DJ Lase 40-G MK-III"/>
     <F n="Stairville-DJ-Lase-BlueStar-MK-II-LED" m="DJ Lase BlueStar MK-II LED"/>
     <F n="Stairville-DJ-Lase-GR-140-RGY-MKII" m="DJ Lase GR-140 RGY MKII"/>
     <F n="Stairville-DJ-Lase-Polar-200" m="DJ Lase Polar 200"/>
     <F n="Stairville-FS-x75-Follow-Spot" m="FS-x75 Follow Spot"/>
+    <F n="Stairville-HL-x9-18-DCL-CW-WWFlood-9-18x6W" m="HL-x9-18 DCL CW-WWFlood 9-18x6W"/>
     <F n="Stairville-HL-x9-Quad-Color-Flood-9x8W" m="HL-x9 Quad Color Flood 9x8W"/>
     <F n="Stairville-Hz-200-DMX" m="Hz-200 DMX"/>
     <F n="Stairville-Infinite-Pixel-250" m="Infinite Pixel 250"/>
@@ -1785,17 +1795,20 @@
     <F n="UKing-36W-UV-PAR" m="36W PAR UV ZQ01087"/>
     <F n="UKing-4-Head-Beam-RGBW" m="4 Head Beam RGBW"/>
     <F n="UKing-7x10W-Mini-Moving-Head" m="7x10W Mini Moving Head"/>
-    <F n="UKing-B55-Par-Can-12-LED-RGBW-12W" m="B55 Par Can 12 LED RGBW 12W"/>
     <F n="UKing-LED-Spot-Moving-Head-100W" m="LED Spot Moving Head 100W"/>
     <F n="UKing-Mini-Double-Sided-Moving-Head" m="Mini Double Sided Moving Head"/>
     <F n="UKing-Mini-RGBW-Moving-Head" m="Mini RGBW Moving Head"/>
     <F n="UKing-Par-36" m="Par 36"/>
     <F n="UKing-Wall-Washer-24x3W" m="Wall Washer 24x3W"/>
-    <F n="UKing-ZQ-02319" m="ZQ-02319"/>
-    <F n="UKing-ZQ-B117-Par-Can-4in1-RGBW" m="ZQ-B117 Par Can 4in1 RGBW"/>
-    <F n="UKing-ZQ-B243" m="ZQ-B243"/>
-    <F n="UKing-ZQ-B370-Laser" m="ZQ-B370"/>
-    <F n="UKing-ZQ-B93-Pinspot-RGBW" m="ZQ-B93 Pinspot RGBW"/>
+    <F n="UKing-ZQ01495-200W-Three-in-one-Four-eye-COB-Lamp" m="ZQ01495 200W Three-in-one Four-eye COB Lamp"/>
+    <F n="UKing-ZQ01513-100WCOB-Cast-Aluminum-Park-Light" m="ZQ01513 100WCOB Cast Aluminum Park Light"/>
+    <F n="UKing-ZQ02319-Mini-40W-Beam-Moving-Head" m="ZQ-02319"/>
+    <F n="UKing-ZQ06122-9-Eye-COB-Matrix" m="ZQ06122 9-Eye COB Matrix"/>
+    <F n="UKing-ZQB117-Par-Can-4in1-RGBW" m="ZQ-B117 Par Can 4in1 RGBW"/>
+    <F n="UKing-ZQB243-50W-Moving-Head-With-LED-Belt" m="ZQ-B243"/>
+    <F n="UKing-ZQB370-Laser" m="ZQ-B370"/>
+    <F n="UKing-ZQB55-Par-Can-12-LED-RGBW-12W" m="B55 Par Can 12 LED RGBW 12W"/>
+    <F n="UKing-ZQB93-Pinspot-RGBW" m="ZQ-B93 Pinspot RGBW"/>
   </M>
   <M n="Vari-Lite">
     <F n="Vari-Lite-VL2500-Wash" m="VL2500 Wash"/>
@@ -1805,6 +1818,7 @@
     <F n="Vari-Lite-VL4000-Spot" m="VL4000 Spot"/>
   </M>
   <M n="Varytec">
+    <F n="Varytec-ARC-One" m="ARC One"/>
     <F n="Varytec-BAT.BAR-8-RGBW" m="BAT.BAR 8 RGBW"/>
     <F n="Varytec-BAT.PAR-6-RGBUV" m="BAT.PAR 6 RGBUV"/>
     <F n="Varytec-BAT.PAR-6-RGBWA" m="BAT.PAR 6 RGBWA"/>
@@ -1814,6 +1828,7 @@
     <F n="Varytec-Easy-Scan-XT-Mini" m="Easy Scan XT Mini"/>
     <F n="Varytec-Giga-Bar-HEX-3" m="Giga Bar HEX 3"/>
     <F n="Varytec-Giga-Bar-Pix-8-RGB" m="Giga Bar Pix 8 RGB"/>
+    <F n="Varytec-Giga-Bar-Pix-8-UV" m="Giga Bar Pix 8 UV"/>
     <F n="Varytec-Gigabar-II" m="Gigabar II"/>
     <F n="Varytec-Hero-Beam-100" m="Hero Beam 100"/>
     <F n="Varytec-Hero-Spot-230" m="Hero Spot 230"/>
