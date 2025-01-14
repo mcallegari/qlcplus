@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.0 GIT</Version>
+  <Author>Jan Fries</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>HL-x9-18 DCL CW-WWFlood 9-18x6W</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="ColdWhite" Preset="IntensityWhite"/>
+ <Channel Name="WarmWhite" Preset="IntensityWhite"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Macro off</Capability>
+  <Capability Min="16" Max="255">Macro-function (0% to 100% in steps of 31)</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Mode Name="5 Channel">
+  <Channel Number="0">ColdWhite</Channel>
+  <Channel Number="1">WarmWhite</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Macro</Channel>
+  <Channel Number="4">Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="1032" ColourTemperature="0"/>
+  <Dimensions Weight="4" Width="300" Height="125" Depth="165"/>
+  <Lens Name="Other" DegreesMin="35" DegreesMax="35"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="56" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -7,6 +7,7 @@ qlcplus (4.14.0) stable; urgency=low
   * UI: adjust audio volume on video intensity change
   * UI/Fixture Manager: limit the number of RGB panel columns for RGBW to avoid crash
   * UI/Function Wizard: improved with more VC widget creation (thanks to 8-Lambda-8)
+  * UI/Fixture Group Editor: allow to add fixtures top to bottom and left to right (thanks to Yestalgia)
   * UI/Show Manager: show step notes on the timeline (thanks to anarchid)
   * UI/Show Manager: handle CTRL+mouse wheel to zoom in/out
   * Virtual Console/Slider: send feedback on override button press
@@ -17,7 +18,9 @@ qlcplus (4.14.0) stable; urgency=low
   * Web Access: reworked websocket implementation
   * Web Access: fix grand master stopping running functions
   * Web Access: fix simple desk not resetting the current universe
+  * Web Access: improve value synchornization with simple desk
   * Web Access: add widget ID to getWidgetType and getWidgetStatus response
+  * Web Access: show multipage frame names (thanks to jpue)
   * RGB scripts: added 'Sine Wave' script
   * RGB scripts: fix Vertical Fall not allowing changing color when cloned
   * New fixtures: GLP Impression X5, Ayrton Rivale Profile, Ayrton Kyalami (thanks to Masatoshi Fujino)
@@ -36,8 +39,15 @@ qlcplus (4.14.0) stable; urgency=low
   * New fixture: Shehds LED 200W RGB FLASH, GalaxyJet LED Beam 300W Beam&Spot&Wash, Constellaser 12W Waterproof Scan Laser (thanks to Tóth János)
   * New fixture: Chauvet Ovation H-605FC (thanks to Ken Coughlin)
   * New fixture: Martin smartMAC (thanks to Mads Vejrup)
+  * New fixtures: UKing ZQ01513 100WCOB Cast Aluminum Park Light, ZQ01495 200W Three-in-one Four-eye COB Lamp, ZQ06122 9-Eye COB Matrix (thanks to Mario Rempfer)
+  * New fixture: lightmaXX Platinum CLS-3 Quad-LED (thanks to Martin Bender)
+  * New fixture: Varytec Giga Bar Pix 8 UV (thanks to susnux)
+  * New fixture: beamZ Cobra 720 (thanks to Paul Wilton)
+  * New fixtures: Cameo TS 100 WW, TS 200 WW (thanks to Sven Koch)
+  * New fixtures: Varytec ARC One, Cameo LED Gobo Scanner 80, Stairville DJ Lase 40-G MK-III, Stairville HL-x9-18 DCL CW-WWFlood 9-18x6W (thanks to Jan Fries)
+  * New fixtures: beamZ Panther 60 LED Beam RGBW, MHL-74 Wash 7x10W 4in1 RGBW, BBP96 Uplight PAR (thanks to Jan Fries)
 
-  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 12 Jan 2025 18:19:20 +0200
+  -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 14 Jan 2025 18:19:20 +0200
 
 qlcplus (4.13.1) stable; urgency=low
 
