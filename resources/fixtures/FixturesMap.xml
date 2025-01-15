@@ -812,6 +812,7 @@
     <F n="Eurolite-LED-PAR-56-RGB-DMX" m="LED PAR 56 RGB DMX"/>
     <F n="Eurolite-LED-PAR-64-RGBW+UV" m="LED PAR-64 RGBW+UV"/>
     <F n="Eurolite-LED-PAR56" m="LED PAR56"/>
+    <F n="Eurolite-LED-PAR64-QCL-12x8W" m="LED PAR-64 QCL12x8W"/>
     <F n="Eurolite-LED-PAR64-RGB" m="LED PAR64 RGB"/>
     <F n="Eurolite-LED-PAR64-RGBA" m="LED PAR64 RGBA"/>
     <F n="Eurolite-LED-PAR64-White" m="LED PAR64 White"/>
@@ -819,6 +820,7 @@
     <F n="Eurolite-LED-Party-Panel-RGB+UV" m="LED Party Panel RGB+UV"/>
     <F n="Eurolite-LED-PARty-RGBW" m="LED PARty RGBW"/>
     <F n="Eurolite-LED-PARty-TCL-spot" m="LED PARty TCL spot"/>
+    <F n="Eurolite-LED-PIX-12-HCL-Bar" m="LED PIX-12 HCL Bar"/>
     <F n="Eurolite-LED-PIX-16-QCL-Bar" m="LED PIX-16 QCL Bar"/>
     <F n="Eurolite-LED-PLL-480-CW-WW" m="LED PLL-480 CW/WW"/>
     <F n="Eurolite-LED-PMB-4-COB-RGB-30W-Bar" m="LED PMB-4 COB RGB 30W Bar"/>
@@ -1314,6 +1316,9 @@
     <F n="Martin-smartMAC" m="smartMAC"/>
     <F n="Martin-Thrill-Mini-Profile" m="Thrill Mini Profile"/>
     <F n="Martin-Viper-AirFX" m="Mac Viper AirFX"/>
+  </M>
+  <M n="MEGA-Lite">
+    <F n="MegaLite-M-Sphere" m="M-Sphere"/>
   </M>
   <M n="MFL">
     <F n="MFL-Spot-G60" m="Spot G60"/>
@@ -1823,6 +1828,7 @@
     <F n="Varytec-BAT.PAR-6-RGBUV" m="BAT.PAR 6 RGBUV"/>
     <F n="Varytec-BAT.PAR-6-RGBWA" m="BAT.PAR 6 RGBWA"/>
     <F n="Varytec-Blitz-Bar-240" m="Blitz Bar 240"/>
+    <F n="Varytec-Colors-NerveStrobe-HP" m="Colors NerveStrobe HP"/>
     <F n="Varytec-Easy-Move-LED-XS-Spot" m="Easy Move LED XS Spot"/>
     <F n="Varytec-Easy-Move-LED-XS-Wash" m="Easy Move LED XS Wash"/>
     <F n="Varytec-Easy-Scan-XT-Mini" m="Easy Scan XT Mini"/>

@@ -46,8 +46,11 @@ qlcplus (4.14.0) stable; urgency=low
   * New fixtures: Cameo TS 100 WW, TS 200 WW (thanks to Sven Koch)
   * New fixtures: Varytec ARC One, Cameo LED Gobo Scanner 80, Stairville DJ Lase 40-G MK-III, Stairville HL-x9-18 DCL CW-WWFlood 9-18x6W (thanks to Jan Fries)
   * New fixtures: beamZ Panther 60 LED Beam RGBW, MHL-74 Wash 7x10W 4in1 RGBW, BBP96 Uplight PAR (thanks to Jan Fries)
+  * New fixture: MEGA-Lite M-Sphere (thanks to George Qualley IV)
+  * New fixtures: Eurolite LED PIX-12 HCL Bar, LED PAR-64 QCL12x8W (thanks to Martin Winkler)
+  * New fixture: Varytec Colors NerveStrobe HP (thanks to Giacomo & Michel)
 
-  -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 14 Jan 2025 18:19:20 +0200
+  -- Massimo Callegari <massimocallegari@yahoo.it>  Wed, 15 Jan 2025 18:19:20 +0200
 
 qlcplus (4.13.1) stable; urgency=low
 
