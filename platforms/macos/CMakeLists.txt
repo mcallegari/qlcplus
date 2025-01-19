@@ -15,7 +15,6 @@ else()
 endif()
 install(CODE "execute_process(COMMAND sed -i -e \"s/__QLC_VERSION__/${APPVERSION}/g\" ${INSTALLROOT}/Info.plist)")
 
-
 set(APPLE_CODESIGN_ENTITLEMENTS "qlcplus.entitlements")
 
 # Starting with arm64 macOS Apple will require ad-hoc code signatures,
@@ -44,18 +43,17 @@ set(QT_FRAMEWORK_NAMES
     "QtWebSockets"
 )
 if(QT_MAJOR_VERSION GREATER 5)
-    set(QT_FW_V "A")
     list(APPEND QT_FRAMEWORK_NAMES "QtQml")
 else()
-    set(QT_FW_V "5")
     list(APPEND QT_FRAMEWORK_NAMES "QtScript")
 endif()
 
 # Loop through each framework and copy it to installation
 foreach(FW_NAME IN LISTS QT_FRAMEWORK_NAMES)
     # install each framework Version file
-    install(FILES ${QT_FRAMEWORKS_DIR}/${FW_NAME}.framework/Versions/${QT_FW_V}/${FW_NAME}
-            DESTINATION ${INSTALLROOT}/${LIBSDIR}/${FW_NAME}.framework/Versions/${QT_FW_V})
+    install(DIRECTORY ${QT_FRAMEWORKS_DIR}/${FW_NAME}.framework
+            DESTINATION ${INSTALLROOT}/${LIBSDIR}
+            PATTERN "Headers" EXCLUDE)
 endforeach()
 
 # install Qt plugins
