@@ -148,6 +148,8 @@ void VideoEditor::slotSourceFileClicked()
     m_video->stopAndWait();
 
     m_video->setSourceUrl(fn);
+    m_nameEdit->setText(m_video->name());
+    m_nameEdit->setSelection(0, m_nameEdit->text().length());
     m_filenameLabel->setText(m_video->sourceUrl());
     m_durationLabel->setText(Function::speedToString(m_video->totalDuration()));
 }
@@ -162,6 +164,8 @@ void VideoEditor::slotSourceUrlClicked()
     if (ok == true)
     {
         m_video->setSourceUrl(videoURL);
+        m_nameEdit->setText(m_video->name());
+        m_nameEdit->setSelection(0, m_nameEdit->text().length());
         m_filenameLabel->setText(m_video->sourceUrl());
     }
 }

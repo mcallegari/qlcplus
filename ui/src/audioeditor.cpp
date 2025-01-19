@@ -178,6 +178,8 @@ void AudioEditor::slotSourceFileClicked()
         m_audio->stopAndWait();
 
     m_audio->setSourceFileName(fn);
+    m_nameEdit->setText(m_audio->name());
+    m_nameEdit->setSelection(0, m_nameEdit->text().length());
     m_filenameLabel->setText(m_audio->getSourceFileName());
 
     AudioDecoder *adec = m_audio->getAudioDecoder();
