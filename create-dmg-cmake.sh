@@ -6,7 +6,7 @@ rm -rf build
 mkdir build
 cd build
 
-if [ -n "$SIGNATURE" ]; then
+if [ ! -n "$SIGNATURE" ]; then
     echo "This build WILL NOT be signed. Please export SIGNATURE to sign it."
 fi
 
@@ -41,6 +41,8 @@ cd ..
 
 echo "Fix non-Qt dependencies..."
 platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/Frameworks/libsndfile.1.dylib
+platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/MacOS/qlcplus
+platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/MacOS/qlcplus-fixtureeditor
 
 echo "Run macdeployqt..."
 $QTDIR/bin/macdeployqt ~/QLC+.app
