@@ -59,7 +59,7 @@ if [ -n "$SIGNATURE" ]; then
     done
 
     find ~/QLC+.app/Contents/MacOS -type f | while read file; do
-        codesign --force --sign "$SIGNATURE" --timestamp "$file"
+        codesign --force --sign "$SIGNATURE" --timestamp --options runtime "$file"
     done
 
     codesign --sign "$SIGNATURE" \
@@ -70,12 +70,8 @@ if [ -n "$SIGNATURE" ]; then
             ~/QLC+.app
 
     # workaround first time sign failure 
-    codesign --force --sign "$SIGNATURE" --timestamp  ~/QLC+.app/Contents/MacOS/qlcplus-launcher
+    codesign --force --sign "$SIGNATURE" --timestamp --options runtime ~/QLC+.app/Contents/MacOS/qlcplus-launcher
 fi
-
-#echo "Fix some more dependencies..."
-#install_name_tool -change /usr/local/opt/fftw/lib/libfftw3.3.dylib @executable_path/../Frameworks/libfftw3.3.dylib ~/QLC+.app/Contents/MacOS/qlcplus
-#install_name_tool -change /usr/local/opt/fftw/lib/libfftw3.3.dylib @executable_path/../Frameworks/libfftw3.3.dylib ~/QLC+.app/Contents/MacOS/qlcplus-fixtureeditor 
 
 # Create Apple Disk iMaGe from ~/QLC+.app/
 OUTDIR=$PWD
