@@ -101,7 +101,7 @@ jobs:
           echo "NPROC: ${NPROC}"
 
       - name: Download, cache and install packages
-        uses: awalsh128/cache-apt-pkgs-action@latest
+        uses: awalsh128/cache-apt-pkgs-action@v1.4.3
         with:
           packages: ${{env.PACKAGES_ALL}}
           version: ${{runner.os}}-apt
