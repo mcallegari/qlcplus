@@ -1,3 +1,9 @@
+qlcplus (4.14.1) stable; urgency=low
+
+  * New fixture: beamZ MHL75 Hybrid Moving Head (thanks to Mikko Wuokko)
+
+  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Mar 2025 18:19:20 +0200
+
 qlcplus (4.14.0) stable; urgency=low
 
   * engine: fix flashing fade out
