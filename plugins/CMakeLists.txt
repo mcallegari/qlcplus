@@ -24,7 +24,7 @@ if(UNIX AND NOT APPLE)
 endif()
 if(NOT WIN32)
     add_subdirectory(velleman)
-endif
+endif()
 if(NOT WIN32 AND NOT APPLE)
     add_subdirectory(spi)
 endif()
