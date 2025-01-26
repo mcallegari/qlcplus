@@ -19,21 +19,21 @@
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="4" Preset="ColorMacro" Res1="#ffffff">White (open)</Capability>
-  <Capability Min="5" Max="12" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#fffb00">White / Yellow</Capability>
-  <Capability Min="13" Max="20" Preset="ColorMacro" Res1="#fffb00">Yellow</Capability>
-  <Capability Min="21" Max="28" Preset="ColorDoubleMacro" Res1="#fffb00" Res2="#ff40ff">Yellow / Pink</Capability>
-  <Capability Min="29" Max="36" Preset="ColorMacro" Res1="#ff40ff">Pink</Capability>
-  <Capability Min="37" Max="44" Preset="ColorDoubleMacro" Res1="#ff40ff" Res2="#008f00">Pink / Kelly-green</Capability>
+  <Capability Min="5" Max="12" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffff00">White / Yellow</Capability>
+  <Capability Min="13" Max="20" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="21" Max="28" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff00ff">Yellow / Magenta</Capability>
+  <Capability Min="29" Max="36" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="37" Max="44" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#008f00">Magenta / Kelly-green</Capability>
   <Capability Min="45" Max="52" Preset="ColorMacro" Res1="#008f00">Kelly-green</Capability>
-  <Capability Min="53" Max="60" Preset="ColorDoubleMacro" Res1="#008f00" Res2="#ff2600">Kelly-green / Red</Capability>
-  <Capability Min="61" Max="68" Preset="ColorMacro" Res1="#ff2600">Red</Capability>
-  <Capability Min="69" Max="76" Preset="ColorDoubleMacro" Res1="#ff2600" Res2="#00fdff">Red / Blue</Capability>
-  <Capability Min="77" Max="84" Preset="ColorMacro" Res1="#00fdff">Blue</Capability>
-  <Capability Min="85" Max="92" Preset="ColorDoubleMacro" Res1="#00fdff" Res2="#00f900">Blue / Green</Capability>
-  <Capability Min="93" Max="100" Preset="ColorMacro" Res1="#00f900">Green</Capability>
-  <Capability Min="101" Max="108" Preset="ColorDoubleMacro" Res1="#00f900" Res2="#ff9300">Green / Orange</Capability>
+  <Capability Min="53" Max="60" Preset="ColorDoubleMacro" Res1="#008f00" Res2="#ff0000">Kelly-green / Red</Capability>
+  <Capability Min="61" Max="68" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="69" Max="76" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red / Blue</Capability>
+  <Capability Min="77" Max="84" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="85" Max="92" Preset="ColorDoubleMacro" Res1="#00fdff" Res2="#00ff00">Blue / Green</Capability>
+  <Capability Min="93" Max="100" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="101" Max="108" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffa500">Green / Orange</Capability>
   <Capability Min="109" Max="116" Preset="ColorMacro" Res1="#ff9300">Orange</Capability>
-  <Capability Min="117" Max="124" Preset="ColorDoubleMacro" Res1="#ff9300" Res2="#0433ff">Orange / Dark blue</Capability>
+  <Capability Min="117" Max="124" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#0433ff">Orange / Dark blue</Capability>
   <Capability Min="125" Max="132" Preset="ColorMacro" Res1="#0433ff">Dark blue</Capability>
   <Capability Min="133" Max="139" Preset="ColorMacro" Res1="#ffffff">White (open)</Capability>
   <Capability Min="140" Max="195" Preset="GoboMacro" Res1="Others/rainbow.png">Forward rainbow effect with decreasing speed</Capability>
@@ -83,6 +83,8 @@
   <Capability Min="71" Max="80">Auto 5</Capability>
   <Capability Min="81" Max="100">Auto 6</Capability>
   <Capability Min="101" Max="110">Auto 7</Capability>
+  <Capability Min="111" Max="130">Auto 8</Capability>
+  <Capability Min="131" Max="150">Auto 9</Capability>
   <Capability Min="151" Max="160">Auto 10</Capability>
   <Capability Min="161" Max="170">Auto 11</Capability>
   <Capability Min="171" Max="180">Auto 12</Capability>
@@ -103,6 +105,7 @@
   <Capability Min="111" Max="120">X/Y Auto 10</Capability>
   <Capability Min="121" Max="130">X/Y Auto 11</Capability>
   <Capability Min="131" Max="140">X/Y Auto 12</Capability>
+  <Capability Min="141" Max="255">music-controlled</Capability>
  </Channel>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
