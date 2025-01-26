@@ -112,7 +112,7 @@
   <Capability Min="0" Max="249">No function</Capability>
   <Capability Min="250" Max="255">Reset (6S)</Capability>
  </Channel>
- <Mode Name="10 Ch">
+ <Mode Name="10 Channel">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Dimmer</Channel>
@@ -124,7 +124,7 @@
   <Channel Number="8">3-facet Prism</Channel>
   <Channel Number="9">Reset</Channel>
  </Mode>
- <Mode Name="15 Ch">
+ <Mode Name="15 Channel">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt</Channel>
