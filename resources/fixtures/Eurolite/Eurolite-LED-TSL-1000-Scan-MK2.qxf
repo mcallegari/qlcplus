@@ -36,27 +36,27 @@
   <Capability Min="117" Max="124" Preset="ColorDoubleMacro" Res1="#ff9300" Res2="#0433ff">Orange / Dark blue</Capability>
   <Capability Min="125" Max="132" Preset="ColorMacro" Res1="#0433ff">Dark blue</Capability>
   <Capability Min="133" Max="139" Preset="ColorMacro" Res1="#ffffff">White (open)</Capability>
-  <Capability Min="140" Max="195" Preset="GoboMacro" Res1="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/rainbow.png">Forward rainbow effect with decreasing speed</Capability>
-  <Capability Min="196" Max="199" Preset="GoboMacro" Res1="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/rainbow.png">Stop</Capability>
-  <Capability Min="200" Max="255" Preset="GoboMacro" Res1="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/rainbow.png">Backward rainbow effict with increasing speed</Capability>
+  <Capability Min="140" Max="195" Preset="GoboMacro" Res1="Others/rainbow.png">Forward rainbow effect with decreasing speed</Capability>
+  <Capability Min="196" Max="199" Preset="GoboMacro" Res1="Others/rainbow.png">Stop</Capability>
+  <Capability Min="200" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Backward rainbow effict with increasing speed</Capability>
  </Channel>
  <Channel Name="Rotating gobo-wheel, gobo shake">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">White (open)</Capability>
-  <Capability Min="8" Max="19" Preset="GoboMacro" Res1="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/ClayPaky/gobo00109.svg">Gobo 1</Capability>
-  <Capability Min="20" Max="31" Preset="GoboMacro" Res1="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Chauvet/gobo00042.svg">Gobo 2</Capability>
-  <Capability Min="32" Max="43" Preset="GoboMacro" Res1="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/ClayPaky/gobo00097.svg">Gobo 3</Capability>
-  <Capability Min="44" Max="55" Preset="GoboMacro" Res1="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Chauvet/gobo00040.svg">Gobo 4</Capability>
-  <Capability Min="56" Max="67" Preset="GoboMacro" Res1="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/ClayPaky/gobo00023.svg">Gobo 5</Capability>
-  <Capability Min="68" Max="71" Preset="GoboMacro" Res1="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/ClayPaky/gobo00093.svg">Gobo 6</Capability>
-  <Capability Min="72" Max="79" Preset="GoboMacro" Res1="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/gobo00013.svg">Gobo 7</Capability>
-  <Capability Min="80" Max="88" Preset="GoboShakeMacro" Res1="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/ClayPaky/gobo00109.svg">Gobo 1 shake with increasing speed</Capability>
-  <Capability Min="89" Max="97" Preset="GoboShakeMacro" Res1="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Chauvet/gobo00042.svg">Gobo 2 shake with increasing speed</Capability>
-  <Capability Min="98" Max="106" Preset="GoboShakeMacro" Res1="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/ClayPaky/gobo00097.svg">Gobo 3 shake with increasing speed</Capability>
-  <Capability Min="107" Max="115" Preset="GoboShakeMacro" Res1="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Chauvet/gobo00040.svg">Gobo 4 shake with increasing speed</Capability>
-  <Capability Min="116" Max="124" Preset="GoboShakeMacro" Res1="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/ClayPaky/gobo00023.svg">Gobo 5 shake with increasing speed</Capability>
-  <Capability Min="125" Max="129" Preset="GoboShakeMacro" Res1="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/ClayPaky/gobo00093.svg">Gobo 6 shake with increasing speed</Capability>
-  <Capability Min="130" Max="133" Preset="GoboShakeMacro" Res1="/Applications/QLC+.app/Contents/MacOS/../Resources/Gobos/Others/gobo00013.svg">Gobo 7 shake with increasing speed</Capability>
+  <Capability Min="8" Max="19" Preset="GoboMacro" Res1="ClayPaky/gobo00109.svg">Gobo 1</Capability>
+  <Capability Min="20" Max="31" Preset="GoboMacro" Res1="Chauvet/gobo00042.svg">Gobo 2</Capability>
+  <Capability Min="32" Max="43" Preset="GoboMacro" Res1="ClayPaky/gobo00097.svg">Gobo 3</Capability>
+  <Capability Min="44" Max="55" Preset="GoboMacro" Res1="Chauvet/gobo00040.svg">Gobo 4</Capability>
+  <Capability Min="56" Max="67" Preset="GoboMacro" Res1="ClayPaky/gobo00023.svg">Gobo 5</Capability>
+  <Capability Min="68" Max="71" Preset="GoboMacro" Res1="ClayPaky/gobo00093.svg">Gobo 6</Capability>
+  <Capability Min="72" Max="79" Preset="GoboMacro" Res1="Others/gobo00013.svg">Gobo 7</Capability>
+  <Capability Min="80" Max="88" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00109.svg">Gobo 1 shake with increasing speed</Capability>
+  <Capability Min="89" Max="97" Preset="GoboShakeMacro" Res1="Chauvet/gobo00042.svg">Gobo 2 shake with increasing speed</Capability>
+  <Capability Min="98" Max="106" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00097.svg">Gobo 3 shake with increasing speed</Capability>
+  <Capability Min="107" Max="115" Preset="GoboShakeMacro" Res1="Chauvet/gobo00040.svg">Gobo 4 shake with increasing speed</Capability>
+  <Capability Min="116" Max="124" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00023.svg">Gobo 5 shake with increasing speed</Capability>
+  <Capability Min="125" Max="129" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00093.svg">Gobo 6 shake with increasing speed</Capability>
+  <Capability Min="130" Max="133" Preset="GoboShakeMacro" Res1="Others/gobo00013.svg">Gobo 7 shake with increasing speed</Capability>
   <Capability Min="134" Max="194">Forwards gobo rotation with decreasing speed</Capability>
   <Capability Min="195" Max="255">Backwards gobo rotation with increasing speed</Capability>
  </Channel>
