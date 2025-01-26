@@ -11,10 +11,10 @@
  <Type>Color Changer</Type>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
- <Mode Name="Channel 1">
+ <Mode Name="1 Channel">
   <Channel Number="0">Dimmer</Channel>
  </Mode>
- <Mode Name="Channel 2">
+ <Mode Name="2 Channel">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
  </Mode>
