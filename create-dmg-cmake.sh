@@ -50,6 +50,8 @@ $QTDIR/bin/macdeployqt ~/QLC+.app
 if [ -n "$SIGNATURE" ]; then
     # sign package with codesign (macdeployqt fails in that too)
     echo "Signing binaries..."
+    ENTITLEMENTS="platforms/macos/qlcplus.entitlements"
+
     find ~/QLC+.app/Contents/Frameworks -type f | while read file; do
         codesign --force --sign "$SIGNATURE" --timestamp "$file"
     done
@@ -59,15 +61,10 @@ if [ -n "$SIGNATURE" ]; then
     done
 
     find ~/QLC+.app/Contents/MacOS -type f | while read file; do
-        codesign --force --sign "$SIGNATURE" --timestamp --options runtime "$file"
+        codesign --force --sign "$SIGNATURE" --timestamp --entitlements $ENTITLEMENTS --options runtime "$file"
     done
 
-    codesign --sign "$SIGNATURE" \
-            --entitlements platforms/macos/qlcplus.entitlements \
-            --timestamp \
-            --deep \
-            --options runtime \
-            ~/QLC+.app
+    codesign --sign "$SIGNATURE" --timestamp --deep --options runtime ~/QLC+.app
 
     # workaround first time sign failure 
     codesign --force --sign "$SIGNATURE" --timestamp --options runtime ~/QLC+.app/Contents/MacOS/qlcplus-launcher
@@ -89,8 +86,5 @@ cd platforms/macos/dmg
 cd -
 
 if [ -n "$SIGNATURE" ]; then
-    codesign --sign "$SIGNATURE" \
-             --entitlements platforms/macos/qlcplus.entitlements \
-             --timestamp \
-             $OUTDIR/QLC+_$VERSION.dmg
+    codesign --sign "$SIGNATURE" --timestamp $OUTDIR/QLC+_$VERSION.dmg
 fi
