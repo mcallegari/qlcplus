@@ -1,6 +1,7 @@
 qlcplus (4.14.1) stable; urgency=low
 
   * New fixture: beamZ MHL75 Hybrid Moving Head (thanks to Mikko Wuokko)
+  * New fixtures: Eurolite LED TSL-1000 Scan MK2, Varytec LED Theater Spot 100 (thanks to Christoph Wieser)
 
   -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Mar 2025 18:19:20 +0200
 

@@ -856,6 +856,7 @@
     <F n="Eurolite-LED-TMH-X10" m="LED TMH-X10"/>
     <F n="Eurolite-LED-TMH-X4" m="LED TMH-X4"/>
     <F n="Eurolite-LED-TMH-X5" m="LED TMH-X5"/>
+    <F n="Eurolite-LED-TSL-1000-Scan-MK2" m="LED TSL-1000 Scan MK2"/>
     <F n="Eurolite-LED-Z-200-TCL" m="LED Z-200 TCL"/>
     <F n="Eurolite-NH-30-MK2" m="NH-30 MK2"/>
     <F n="Eurolite-Party-TCL-Spot-RGB" m="Party TCL Spot RGB"/>
@@ -1858,6 +1859,7 @@
     <F n="Varytec-LED-PAR-14x8W" m="LED PAR 14x8W"/>
     <F n="Varytec-LED-PAR-64-Floor-5in1" m="LED Par 64 Floor 5in1 7x10W RGBWA"/>
     <F n="Varytec-LED-PAR56" m="LED PAR56"/>
+    <F n="Varytec-LED-Theater-Spot-100" m="LED Theater Spot 100"/>
     <F n="Varytec-LED-Typhoon-PAR-Outdoor-12x10" m="LED Typhoon PAR Outdoor (12x10)"/>
     <F n="Varytec-RGB-LED-Spot-38" m="RGB LED Spot 38"/>
     <F n="Varytec-Street-Bar" m="Street Bar"/>

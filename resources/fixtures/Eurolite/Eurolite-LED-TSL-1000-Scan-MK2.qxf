@@ -31,9 +31,9 @@
   <Capability Min="77" Max="84" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="85" Max="92" Preset="ColorDoubleMacro" Res1="#00fdff" Res2="#00ff00">Blue / Green</Capability>
   <Capability Min="93" Max="100" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
-  <Capability Min="101" Max="108" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff9300">Green / Orange</Capability>
-  <Capability Min="109" Max="116" Preset="ColorMacro" Res1="#ff9300">Orange</Capability>
-  <Capability Min="117" Max="124" Preset="ColorDoubleMacro" Res1="#ff9300" Res2="#00008b">Orange / Dark blue</Capability>
+  <Capability Min="101" Max="108" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffa500">Green / Orange</Capability>
+  <Capability Min="109" Max="116" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="117" Max="124" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#00008b">Orange / Dark blue</Capability>
   <Capability Min="125" Max="132" Preset="ColorMacro" Res1="#00008b">Dark blue</Capability>
   <Capability Min="133" Max="139" Preset="ColorMacro" Res1="#ffffff">White (open)</Capability>
   <Capability Min="140" Max="195" Preset="GoboMacro" Res1="Others/rainbow.png">Forward rainbow effect with decreasing speed</Capability>
