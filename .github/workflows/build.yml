@@ -32,6 +32,7 @@ jobs:
         libxml2-utils
         xvfb
         ccache
+        clang-format-14
         wget
       PACKAGES_QML_BASE:
         libpulse-dev
@@ -99,6 +100,13 @@ jobs:
           echo "TASK: ${TASK}"
           echo "QT: ${QT}"
           echo "NPROC: ${NPROC}"
+
+      - name: Register clang-format apt repository
+        uses: myci-actions/add-deb-repo@11
+        with:
+          repo: deb http://apt.llvm.org/focal/ llvm-toolchain-focal-14 main
+          repo-name: apt.llvm.org
+          keys-asc: https://apt.llvm.org/llvm-snapshot.gpg.key
 
       - name: Download, cache and install packages
         uses: awalsh128/cache-apt-pkgs-action@v1.4.3
