@@ -1,6 +1,7 @@
 qlcplus (4.14.1) stable; urgency=low
 
   * Show Manager: fix hanging with an infinite duration EFX
+  * Simple Desk: fix crash when resetting a channel with no fixture associated
   * New fixture: beamZ MHL75 Hybrid Moving Head (thanks to Mikko Wuokko)
   * New fixtures: Eurolite LED TSL-1000 Scan MK2, Varytec LED Theater Spot 100 (thanks to Christoph Wieser)
 

@@ -351,10 +351,11 @@ void SimpleDeskEngine::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                     quint32 chIndex = fc.channel();
                     fader->remove(&fc);
 
-                    if (fixture->crossUniverse() && channel > 511)
+                    if (fixture != NULL && fixture->crossUniverse() && channel > 511)
                         channel -= 512;
 
                     ua[universe]->reset(channel & 0x01FF, 1);
+
                     if (fixture != NULL)
                     {
                         const QLCChannel *ch = fixture->channel(chIndex);
