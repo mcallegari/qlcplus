@@ -238,17 +238,17 @@ QString WebAccessConfiguration::getPasswordsConfigHTML(WebAccessAuth *auth)
 
             html += "<option value=\"" + QString::number(VC_ONLY_LEVEL) + "\"";
             if (level >= VC_ONLY_LEVEL && level < SIMPLE_DESK_AND_VC_LEVEL)
-                html += "selected";
+                html += " selected";
             html += ">" + tr("Only Virtual Console") + "</option>";
 
             html += "<option value=\"" + QString::number(SIMPLE_DESK_AND_VC_LEVEL) + "\"";
             if (level >= SIMPLE_DESK_AND_VC_LEVEL && level < SUPER_ADMIN_LEVEL)
-                html += "selected";
+                html += " selected";
             html += ">" + tr("Virtual Console and Simple Desk") + "</option>";
 
             html += "<option value=\"" + QString::number(SUPER_ADMIN_LEVEL) + "\"";
             if (level >= SUPER_ADMIN_LEVEL)
-                html += "selected";
+                html += " selected";
             html += ">" + tr("Everything") + "</option>";
 
             html += "</select>";
