@@ -28,6 +28,7 @@ class WebAccessAuth;
 
 class WebAccessConfiguration : public QObject
 {
+    Q_OBJECT
 public:
     WebAccessConfiguration();
 
