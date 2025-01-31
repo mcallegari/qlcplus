@@ -68,7 +68,7 @@ QString WebAccessConfiguration::getIOConfigHTML(Doc *doc)
     profiles.prepend("None");
 
     html += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
-    html += "<tr><th>Universe</th><th>Input</th><th>Output</th><th>Feedback</th><th>Profile</th></tr>\n";
+    html += "<tr><th>" + tr("Universe") + "</th><th>" + tr("Input") + "</th><th>" + tr("Output") + "</th><th>" + tr("Feedback") + "</th><th>" + tr("Profile") + "</th></tr>\n";
 
     for (quint32 i = 0; i < ioMap->universesCount(); i++)
     {
@@ -148,13 +148,13 @@ QString WebAccessConfiguration::getAudioConfigHTML(Doc *doc)
     QList<AudioDeviceInfo> devList = doc->audioPluginCache()->audioDevicesList();
 
     html += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
-    html += "<tr><th>Input</th><th>Output</th></tr>\n";
+    html += "<tr><th>" + tr("Input") + "</th><th>" + tr("Output") + "</th></tr>\n";
     html += "<tr align=center>";
 
     QString audioInSelect = "<td><select onchange=\"ioChanged('AUDIOIN', this.value);\">\n"
-                            "<option value=\"__qlcplusdefault__\">Default device</option>\n";
+                            "<option value=\"__qlcplusdefault__\">" + tr("Default device") + "</option>\n";
     QString audioOutSelect = "<td><select onchange=\"ioChanged('AUDIOOUT', this.value);\">\n"
-                             "<option value=\"__qlcplusdefault__\">Default device</option>\n";
+                             "<option value=\"__qlcplusdefault__\">" + tr("Default device") + "</option>\n";
 
     QString inputName, outputName;
     QSettings settings;
@@ -193,7 +193,7 @@ QString WebAccessConfiguration::getUserFixturesConfigHTML()
         return "";
 
     html += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
-    html += "<tr><th>File name</th></tr>\n";
+    html += "<tr><th>" + tr("File name") + "</th></tr>\n";
 
     /* Attempt to read all specified files from the given directory */
     QStringListIterator it(userFx.entryList());
