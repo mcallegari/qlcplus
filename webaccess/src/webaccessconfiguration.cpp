@@ -254,9 +254,9 @@ QString WebAccessConfiguration::getPasswordsConfigHTML(WebAccessAuth *auth)
             html += "</select>";
         html += "</td>";
         html += "<td>";
-            html += "<button role=\"button\" onclick=\"authChangeUser('" + username + "')\">"
+            html += "<button onclick=\"authChangeUser('" + username + "')\">"
                  + tr("Change") + "</button>";
-            html += "<button role=\"button\" onclick=\"authDeleteUser('" + username + "')\">"
+            html += "<button onclick=\"authDeleteUser('" + username + "')\">"
                  + tr("Delete user") + "</button>";
         html += "</td>";
         html += "</tr>";
@@ -279,7 +279,7 @@ QString WebAccessConfiguration::getPasswordsConfigHTML(WebAccessAuth *auth)
     html += "</td>";
     html += "<td>";
         // Script will dynamically add rows with users so it needs to know translations
-        html += "<button role=\"button\" onclick=\"authAddUser("
+        html += "<button onclick=\"authAddUser("
                 "'" + tr("Change") + "','" + tr("Delete user") + "'"
                 ",'" + tr("Username and password are required fields.") + "'"
                 ",'" + tr("New password...") + "'"
