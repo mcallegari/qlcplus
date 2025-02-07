@@ -167,15 +167,7 @@ var testAlgo;
           util.gradientData[gradIdx++] = gradRGB;
         }
       }
-      util.initialized = true;
-    };
-
-    // This is a port of Ken Perlin's Java code. The
-    // original Java code is at http://cs.nyu.edu/%7Eperlin/noise/.
-    // Note that in this version, a number from 0 to 1 is returned.
-    util.noise = function(x, y, z)
-    {
-      var p = new Array(512);
+      util.permArray = new Array(512);
       var permutation = [ // 256 members
         151, 160, 137, 91, 90, 15, 131, 13, 201, 95, 96, 53, 194, 233, 7, 225,
         140, 36, 103, 30, 69, 142, 8, 99, 37, 240, 21, 10, 23, 190, 6, 148, 247,
@@ -198,9 +190,17 @@ var testAlgo;
 
       // initialize symmetrical permutation array(512)
       for (var i = 0; i < 256; i++) {
-        p[i] = permutation[i];
-        p[256 + i] = permutation[i];
+        util.permArray[i] = permutation[i];
+        util.permArray[256 + i] = permutation[i];
       }
+      util.initialized = true;
+    };
+
+    // This is a port of Ken Perlin's Java code. The
+    // original Java code is at http://cs.nyu.edu/%7Eperlin/noise/.
+    // Note that in this version, a number from 0 to 1 is returned.
+    util.noise = function(x, y, z)
+    {
       // Find unit cube that contains point.
       var X = Math.floor(x) & 255;
       var Y = Math.floor(y) & 255;
@@ -214,23 +214,23 @@ var testAlgo;
       var v = fade(y);
       var w = fade(z);
       // Hash coordinates of the 8 cube corners,
-      var A  = p[X] + Y;
-      var AA = p[A] + Z;
-      var AB = p[A + 1] + Z;
-      var B  = p[X + 1] + Y;
-      var BA = p[B] + Z;
-      var BB = p[B + 1] + Z;
+      var A  = util.permArray[X] + Y;
+      var AA = util.permArray[A] + Z;
+      var AB = util.permArray[A + 1] + Z;
+      var B  = util.permArray[X + 1] + Y;
+      var BA = util.permArray[B] + Z;
+      var BB = util.permArray[B + 1] + Z;
 
       // And add blended results from8 corners of cube
       var rawNoise = lerp(w,
-        lerp(v, lerp(u, grad(p[AA    ], x  , y    , z    ),
-                        grad(p[BA    ], x-1, y    , z    )),
-                lerp(u, grad(p[AB    ], x  , y - 1, z    ),
-                        grad(p[BB    ], x-1, y - 1, z    ))),
-        lerp(v, lerp(u, grad(p[AA + 1], x  , y    , z - 1),
-                        grad(p[BA + 1], x-1, y    , z - 1)),
-                lerp(u, grad(p[AB + 1], x  , y - 1, z - 1),
-                        grad(p[BB + 1], x-1, y - 1, z - 1)))
+        lerp(v, lerp(u, grad(util.permArray[AA    ], x  , y    , z    ),
+                        grad(util.permArray[BA    ], x-1, y    , z    )),
+                lerp(u, grad(util.permArray[AB    ], x  , y - 1, z    ),
+                        grad(util.permArray[BB    ], x-1, y - 1, z    ))),
+        lerp(v, lerp(u, grad(util.permArray[AA + 1], x  , y    , z - 1),
+                        grad(util.permArray[BA + 1], x-1, y    , z - 1)),
+                lerp(u, grad(util.permArray[AB + 1], x  , y - 1, z - 1),
+                        grad(util.permArray[BB + 1], x-1, y - 1, z - 1)))
       );
       // Scale to range between 0 and 1
       var noise = scale(rawNoise);
