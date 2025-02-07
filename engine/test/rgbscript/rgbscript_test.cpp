@@ -47,7 +47,11 @@ void RGBScript_Test::cleanupTestCase()
 void RGBScript_Test::initial()
 {
     RGBScript script(m_doc);
+#ifdef QT_QML_LIB
+    QVERIFY(script.m_engine == NULL);
+#else
     QVERIFY(script.s_engine == NULL);
+#endif
     QCOMPARE(script.m_apiVersion, 0);
     QCOMPARE(script.m_fileName, QString());
     QCOMPARE(script.m_contents, QString());
@@ -96,7 +100,8 @@ void RGBScript_Test::scripts()
     // Catch syntax / JS engine errors explicitly in the test.
     foreach (QString file, dir.entryList()) {
         RGBScript* script = new RGBScript(m_doc);
-        QVERIFY(script->load(dir, file));
+        QFile absFile(dir.absoluteFilePath(file));
+        QVERIFY(script->load(absFile.fileName()));
 
         qDebug() << "Searching 'scripts.files += " + file + "' in rgbscripts.pro";
 

@@ -106,7 +106,7 @@ RGBAlgorithm* RGBScript::clone() const
  * Load & Evaluation
  ****************************************************************************/
 
-bool RGBScript::load(const QDir& dir, const QString& fileName)
+bool RGBScript::load(const QString& fileName)
 {
     // Create the script engine when it's first needed
     initEngine();
@@ -121,10 +121,10 @@ bool RGBScript::load(const QDir& dir, const QString& fileName)
     m_apiVersion = 0;
 
     m_fileName = fileName;
-    QFile file(dir.absoluteFilePath(m_fileName));
+    QFile file(m_fileName);
     if (file.open(QIODevice::ReadOnly) == false)
     {
-        qWarning() << "Unable to load RGB script" << m_fileName << "from" << dir.absolutePath();
+        qWarning() << "Unable to load RGB script" << m_fileName;
         return false;
     }
 

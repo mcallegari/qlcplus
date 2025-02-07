@@ -20,6 +20,7 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QJSEngine>
+#include <QThread>
 #include <QDebug>
 #include <QFile>
 
@@ -29,19 +30,14 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-QJSEngine* RGBScript::s_engine = NULL;
-#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-  QMutex* RGBScript::s_engineMutex = NULL;
-#else
-  QRecursiveMutex* RGBScript::s_engineMutex = NULL;
-#endif
-
 /****************************************************************************
  * Initialization
  ****************************************************************************/
 
-RGBScript::RGBScript(Doc * doc)
+RGBScript::RGBScript(Doc *doc)
     : RGBAlgorithm(doc)
+    , m_engine(NULL)
+    , m_engineMutex(NULL)
     , m_apiVersion(0)
 {
 }
@@ -50,6 +46,8 @@ RGBScript::RGBScript(const RGBScript& s)
     : RGBAlgorithm(s.doc())
     , m_fileName(s.m_fileName)
     , m_contents(s.m_contents)
+    , m_engine(NULL)
+    , m_engineMutex(NULL)
     , m_apiVersion(0)
 {
     evaluate();
@@ -61,6 +59,11 @@ RGBScript::RGBScript(const RGBScript& s)
 
 RGBScript::~RGBScript()
 {
+    if (m_engine != NULL)
+    {
+        m_engine->collectGarbage();
+        delete m_engine;
+    }
 }
 
 RGBScript &RGBScript::operator=(const RGBScript &s)
@@ -90,7 +93,7 @@ bool RGBScript::operator==(const RGBScript& s) const
 
 RGBAlgorithm* RGBScript::clone() const
 {
-    RGBScript* script = new RGBScript(*this);
+    RGBScript *script = new RGBScript(*this);
     return static_cast<RGBAlgorithm*> (script);
 }
 
@@ -98,12 +101,12 @@ RGBAlgorithm* RGBScript::clone() const
  * Load & Evaluation
  ****************************************************************************/
 
-bool RGBScript::load(const QDir& dir, const QString& fileName)
+bool RGBScript::load(const QString& fileName)
 {
     // Create the script engine when it's first needed
     initEngine();
 
-    QMutexLocker engineLocker(s_engineMutex);
+    QMutexLocker engineLocker(m_engineMutex);
 
     m_contents.clear();
     m_script = QJSValue();
@@ -113,10 +116,10 @@ bool RGBScript::load(const QDir& dir, const QString& fileName)
     m_apiVersion = 0;
 
     m_fileName = fileName;
-    QFile file(dir.absoluteFilePath(m_fileName));
+    QFile file(m_fileName);
     if (file.open(QIODevice::ReadOnly) == false)
     {
-        qWarning() << "Unable to load RGB script" << m_fileName << "from" << dir.absolutePath();
+        qWarning() << "Unable to load RGB script" << m_fileName;
         return false;
     }
 
@@ -132,10 +135,25 @@ QString RGBScript::fileName() const
     return m_fileName;
 }
 
+void RGBScript::initEngine()
+{
+    if (m_engineMutex == NULL)
+    {
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+        m_engineMutex = new QMutex(QMutex::Recursive);
+#else
+        m_engineMutex = new QRecursiveMutex();
+#endif
+        m_engine = new QJSEngine();
+        m_threadId = QThread::currentThreadId();
+        qDebug() << "ENGINE CREATED" << QThread::currentThreadId();
+    }
+    Q_ASSERT(m_engineMutex != NULL);
+    Q_ASSERT(m_engine != NULL);
+}
+
 bool RGBScript::evaluate()
 {
-    QMutexLocker engineLocker(s_engineMutex);
-
     m_rgbMap = QJSValue();
     m_rgbMapStepCount = QJSValue();
     m_rgbMapSetColors = QJSValue();
@@ -147,7 +165,10 @@ bool RGBScript::evaluate()
         return false;
     }
 
-    m_script = s_engine->evaluate(m_contents, m_fileName);
+    if (m_engine == NULL)
+        initEngine();
+
+    m_script = m_engine->evaluate(m_contents, m_fileName);
     if (m_script.isError())
     {
         displayError(m_script, m_fileName);
@@ -191,21 +212,6 @@ bool RGBScript::evaluate()
     }
 }
 
-void RGBScript::initEngine()
-{
-    if (s_engineMutex == NULL)
-    {
-#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-        s_engineMutex = new QMutex(QMutex::Recursive);
-#else
-        s_engineMutex = new QRecursiveMutex();
-#endif
-        s_engine = new QJSEngine();
-    }
-    Q_ASSERT(s_engineMutex != NULL);
-    Q_ASSERT(s_engine != NULL);
-}
-
 void RGBScript::displayError(QJSValue e, const QString& fileName)
 {
     if (e.isError())
@@ -224,7 +230,7 @@ void RGBScript::displayError(QJSValue e, const QString& fileName)
 
 int RGBScript::rgbMapStepCount(const QSize& size)
 {
-    QMutexLocker engineLocker(s_engineMutex);
+    QMutexLocker engineLocker(m_engineMutex);
 
     if (m_rgbMapStepCount.isCallable() == false)
         return -1;
@@ -246,17 +252,20 @@ int RGBScript::rgbMapStepCount(const QSize& size)
 
 void RGBScript::rgbMapSetColors(QVector<uint> &colors)
 {
-    QMutexLocker engineLocker(s_engineMutex);
+    QMutexLocker engineLocker(m_engineMutex);
+
     if (m_apiVersion <= 2)
         return;
+
     if (m_rgbMap.isUndefined() == true)
         return;
+
     if (m_rgbMapSetColors.isCallable() == false)
         return;
 
     int accColors = acceptColors();
     int rawColorCount = colors.count();
-    QJSValue jsRawColors = s_engine->newArray(accColors);
+    QJSValue jsRawColors = m_engine->newArray(accColors);
     for (int i = 0; i < rawColorCount && i < accColors; i++)
         jsRawColors.setProperty(i, QJSValue(colors.at(i)));
 
@@ -270,7 +279,7 @@ void RGBScript::rgbMapSetColors(QVector<uint> &colors)
 
 QVector<uint> RGBScript::rgbMapGetColors()
 {
-    QMutexLocker engineLocker(s_engineMutex);
+    QMutexLocker engineLocker(m_engineMutex);
     QVector<uint> colArray;
 
     if (m_rgbMap.isUndefined() == true)
@@ -289,7 +298,7 @@ QVector<uint> RGBScript::rgbMapGetColors()
 
 void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 {
-    QMutexLocker engineLocker(s_engineMutex);
+    QMutexLocker engineLocker(m_engineMutex);
 
     if (m_rgbMap.isUndefined() == true)
         return;
@@ -327,7 +336,7 @@ void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 
 QString RGBScript::name() const
 {
-    QMutexLocker engineLocker(s_engineMutex);
+    QMutexLocker engineLocker(m_engineMutex);
 
     QJSValue name = m_script.property("name");
     QString ret = name.isUndefined() ? QString() : name.toString();
@@ -336,7 +345,7 @@ QString RGBScript::name() const
 
 QString RGBScript::author() const
 {
-    QMutexLocker engineLocker(s_engineMutex);
+    QMutexLocker engineLocker(m_engineMutex);
 
     QJSValue author = m_script.property("author");
     QString ret = author.isUndefined() ? QString() : author.toString();
@@ -355,7 +364,7 @@ RGBAlgorithm::Type RGBScript::type() const
 
 int RGBScript::acceptColors() const
 {
-    QMutexLocker engineLocker(s_engineMutex);
+    QMutexLocker engineLocker(m_engineMutex);
 
     QJSValue accColors = m_script.property("acceptColors");
     if (!accColors.isUndefined())
@@ -401,7 +410,7 @@ QList<RGBScriptProperty> RGBScript::properties()
 
 QHash<QString, QString> RGBScript::propertiesAsStrings()
 {
-    QMutexLocker engineLocker(s_engineMutex);
+    QMutexLocker engineLocker(m_engineMutex);
 
     QHash<QString, QString> properties;
     foreach (RGBScriptProperty cap, m_properties)
@@ -422,7 +431,7 @@ QHash<QString, QString> RGBScript::propertiesAsStrings()
 
 bool RGBScript::setProperty(QString propertyName, QString value)
 {
-    QMutexLocker engineLocker(s_engineMutex);
+    QMutexLocker engineLocker(m_engineMutex);
 
     foreach (RGBScriptProperty cap, m_properties)
     {
@@ -453,7 +462,7 @@ bool RGBScript::setProperty(QString propertyName, QString value)
 
 QString RGBScript::property(QString propertyName) const
 {
-    QMutexLocker engineLocker(s_engineMutex);
+    QMutexLocker engineLocker(m_engineMutex);
 
     foreach (RGBScriptProperty cap, m_properties)
     {
@@ -487,7 +496,7 @@ QString RGBScript::property(QString propertyName) const
 
 bool RGBScript::loadProperties()
 {
-    QMutexLocker engineLocker(s_engineMutex);
+    QMutexLocker engineLocker(m_engineMutex);
 
     QJSValue svCaps = m_script.property("properties");
     if (svCaps.isArray() == false)

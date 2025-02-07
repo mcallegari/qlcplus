@@ -74,9 +74,8 @@ public:
     static QDir userScriptsDirectory();
 
 private:
-    Doc* m_doc;
-    QMap<QString, RGBScript*> m_scriptsMap; //! One instance of each script, filename-based map
-    RGBScript* m_dummyScript; //! Dummy empty script
+    Doc *m_doc;
+    QMap<QString, QString> m_scriptsMap; //! Map of filenames/name of available RGB scripts
 };
 
 /** @} */
