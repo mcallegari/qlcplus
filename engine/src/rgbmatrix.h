@@ -177,6 +177,11 @@ public:
     void previewMap(int step, RGBMatrixStep *handler);
 
 private:
+    int algorithmStepsCount();
+
+private:
+    bool m_requestEngineCreation;
+    RGBAlgorithm *m_previewAlgorithm;
     RGBAlgorithm *m_algorithm;
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     QMutex m_algorithmMutex;
@@ -195,7 +200,7 @@ public:
     void updateColorDelta();
 
     /** Set the colors of the current algorithm */
-    void setMapColors();
+    void setMapColors(RGBAlgorithm *algorithm);
 
 private:
     QVector<QColor> m_rgbColors;
