@@ -60,10 +60,11 @@ RGBScript::RGBScript(const RGBScript& s)
     , m_contents(s.m_contents)
     , m_apiVersion(0)
 {
-    evaluate();
-    foreach (RGBScriptProperty cap, s.m_properties)
+    if (!m_fileName.isEmpty())
     {
-        setProperty(cap.m_name, s.property(cap.m_name));
+        evaluate();
+        foreach (RGBScriptProperty cap, s.m_properties)
+            setProperty(cap.m_name, s.property(cap.m_name));
     }
 }
 

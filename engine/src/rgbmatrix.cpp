@@ -87,9 +87,9 @@ RGBMatrix::RGBMatrix(Doc *doc)
 
 RGBMatrix::~RGBMatrix()
 {
+    //if (m_previewAlgorithm != NULL)
+    //    delete m_previewAlgorithm;
     delete m_algorithm;
-    if (m_previewAlgorithm != NULL)
-        delete m_previewAlgorithm;
     delete m_roundTime;
     delete m_stepHandler;
 }

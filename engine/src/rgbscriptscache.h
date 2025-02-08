@@ -75,7 +75,7 @@ public:
 
 private:
     Doc *m_doc;
-    QMap<QString, QString> m_scriptsMap; //! Map of filenames/name of available RGB scripts
+    QMap<QString, QString> m_scriptsMap; //! Map of name/filename of the available RGB scripts
 };
 
 /** @} */
