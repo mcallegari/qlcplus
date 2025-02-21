@@ -589,6 +589,8 @@ void RGBMatrix::preRun(MasterTimer *timer)
                 m_runAlgorithm = m_algorithm->clone();
                 m_requestEngineCreation = false;
             }
+#else
+            m_runAlgorithm = m_algorithm;
 #endif
 
             // Copy direction from parent class direction
@@ -635,8 +637,8 @@ void RGBMatrix::write(MasterTimer *timer, QList<Universe *> universes)
         if (duration() == 0)
             return;
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         if (m_algorithm != NULL && m_requestEngineCreation)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)        
         {
             // And here's the hack: Qt6 JS engine is not thread safe. Nice job!
             // It's not possible to use the instance created in the main thread
@@ -644,6 +646,8 @@ void RGBMatrix::write(MasterTimer *timer, QList<Universe *> universes)
             m_runAlgorithm = m_algorithm->clone();
             m_requestEngineCreation = false;
         }
+#else
+            m_runAlgorithm = m_algorithm;
 #endif
 
         // Invalid/nonexistent script
