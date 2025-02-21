@@ -65,7 +65,7 @@ RGBMatrix::RGBMatrix(Doc *doc)
     , m_fixtureGroupID(FixtureGroup::invalidId())
     , m_group(NULL)
     , m_requestEngineCreation(true)
-    , m_previewAlgorithm(NULL)
+    , m_runAlgorithm(NULL)
     , m_algorithm(NULL)
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     , m_algorithmMutex(QMutex::Recursive)
@@ -87,8 +87,8 @@ RGBMatrix::RGBMatrix(Doc *doc)
 
 RGBMatrix::~RGBMatrix()
 {
-    //if (m_previewAlgorithm != NULL)
-    //    delete m_previewAlgorithm;
+    //if (m_runAlgorithm != NULL)
+    //    delete m_runAlgorithm;
     delete m_algorithm;
     delete m_roundTime;
     delete m_stepHandler;
@@ -121,7 +121,7 @@ quint32 RGBMatrix::totalDuration()
     if (m_algorithm == NULL)
         return 0;
 
-    FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
+    FixtureGroup *grp = doc()->fixtureGroup(fixtureGroup());
     if (grp == NULL)
         return 0;
 
@@ -223,9 +223,6 @@ void RGBMatrix::setAlgorithm(RGBAlgorithm *algo)
         delete m_algorithm;
         m_algorithm = algo;
 
-        if (m_previewAlgorithm != NULL)
-            m_previewAlgorithm = algo;
-
         m_requestEngineCreation = true;
 
         /** If there's been a change of Script algorithm "on the fly",
@@ -300,11 +297,8 @@ void RGBMatrix::previewMap(int step, RGBMatrixStep *handler)
 
     if (m_group != NULL)
     {
-        if (m_previewAlgorithm == NULL)
-            m_previewAlgorithm = m_algorithm;
-
-        setMapColors(m_previewAlgorithm);
-        m_previewAlgorithm->rgbMap(m_group->size(), handler->stepColor().rgb(), step, handler->m_map);
+        setMapColors(m_algorithm);
+        m_algorithm->rgbMap(m_group->size(), handler->stepColor().rgb(), step, handler->m_map);
     }
 }
 
@@ -561,7 +555,7 @@ void RGBMatrix::tap()
 {
     if (stopped() == false)
     {
-        FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
+        FixtureGroup *grp = doc()->fixtureGroup(fixtureGroup());
         // Filter out taps that are too close to each other
         if (grp != NULL && uint(m_roundTime->elapsed()) >= (duration() / 4))
         {
@@ -592,19 +586,17 @@ void RGBMatrix::preRun(MasterTimer *timer)
                 // And here's the hack: Qt6 JS engine is not thread safe. Nice job!
                 // It's not possible to use the instance created in the main thread
                 // so we need to create a clone on the fly from the MasterTimer thread :vomiting_face:
-                RGBAlgorithm *algo = m_algorithm->clone();
-                delete m_algorithm;
-                m_algorithm = algo;
+                m_runAlgorithm = m_algorithm->clone();
                 m_requestEngineCreation = false;
             }
 #endif
 
             // Copy direction from parent class direction
-            m_stepHandler->initializeDirection(direction(), m_rgbColors[0], m_rgbColors[1], m_stepsCount, m_algorithm);
+            m_stepHandler->initializeDirection(direction(), m_rgbColors[0], m_rgbColors[1], m_stepsCount, m_runAlgorithm);
 
-            if (m_algorithm->type() == RGBAlgorithm::Script)
+            if (m_runAlgorithm->type() == RGBAlgorithm::Script)
             {
-                RGBScript *script = static_cast<RGBScript*> (m_algorithm);
+                RGBScript *script = static_cast<RGBScript*> (m_runAlgorithm);
                 QHashIterator<QString, QString> it(m_properties);
                 while (it.hasNext())
                 {
@@ -612,9 +604,9 @@ void RGBMatrix::preRun(MasterTimer *timer)
                     script->setProperty(it.key(), it.value());
                 }
             }
-            else if (m_algorithm->type() == RGBAlgorithm::Image)
+            else if (m_runAlgorithm->type() == RGBAlgorithm::Image)
             {
-                RGBImage *image = static_cast<RGBImage*> (m_algorithm);
+                RGBImage *image = static_cast<RGBImage*> (m_runAlgorithm);
                 if (image->animatedSource())
                     image->rewindAnimation();
             }
@@ -649,15 +641,13 @@ void RGBMatrix::write(MasterTimer *timer, QList<Universe *> universes)
             // And here's the hack: Qt6 JS engine is not thread safe. Nice job!
             // It's not possible to use the instance created in the main thread
             // so we need to create a clone on the fly from the MasterTimer thread :vomiting_face:
-            RGBAlgorithm *algo = m_algorithm->clone();
-            delete m_algorithm;
-            m_algorithm = algo;
+            m_runAlgorithm = m_algorithm->clone();
             m_requestEngineCreation = false;
         }
 #endif
 
         // Invalid/nonexistent script
-        if (m_algorithm == NULL || m_algorithm->apiVersion() == 0)
+        if (m_runAlgorithm == NULL || m_runAlgorithm->apiVersion() == 0)
             return;
 
         if (isPaused() == false)
@@ -669,8 +659,8 @@ void RGBMatrix::write(MasterTimer *timer, QList<Universe *> universes)
                     m_stepBeatDuration = beatsToTime(duration(), timer->beatTimeDuration());
 
                 //qDebug() << "RGBMatrix step" << m_stepHandler->currentStepIndex() << ", color:" << QString::number(m_stepHandler->stepColor().rgb(), 16);
-                m_algorithm->rgbMap(m_group->size(), m_stepHandler->stepColor().rgb(),
-                                    m_stepHandler->currentStepIndex(), m_stepHandler->m_map);
+                m_runAlgorithm->rgbMap(m_group->size(), m_stepHandler->stepColor().rgb(),
+                                       m_stepHandler->currentStepIndex(), m_stepHandler->m_map);
                 updateMapChannels(m_stepHandler->m_map, m_group, universes);
             }
         }
@@ -744,8 +734,8 @@ void RGBMatrix::postRun(MasterTimer *timer, QList<Universe *> universes)
 
     {
         QMutexLocker algorithmLocker(&m_algorithmMutex);
-        if (m_algorithm != NULL)
-            m_algorithm->postRun();
+        if (m_runAlgorithm != NULL)
+            m_runAlgorithm->postRun();
     }
 
     Function::postRun(timer, universes);

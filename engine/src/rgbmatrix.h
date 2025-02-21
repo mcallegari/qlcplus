@@ -181,7 +181,7 @@ private:
 
 private:
     bool m_requestEngineCreation;
-    RGBAlgorithm *m_previewAlgorithm;
+    RGBAlgorithm *m_runAlgorithm;
     RGBAlgorithm *m_algorithm;
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     QMutex m_algorithmMutex;
