@@ -174,32 +174,32 @@ if(qmlui)
     install(CODE "execute_process(COMMAND ${qmlpostinstall_commands})")
 endif()
 
-# MSYS2 libraries
-set(msys_path "${INSTALLROOT}/${LIBSDIR}")
-set(msys_files "${SYS_LIBS_PATH}/libstdc++-6.dll"
-                "${SYS_LIBS_PATH}/libwinpthread-1.dll"
-                "${SYS_LIBS_PATH}/libicuin75.dll"
-                "${SYS_LIBS_PATH}/libicuuc75.dll"
-                "${SYS_LIBS_PATH}/libicudt75.dll"
-                "${SYS_LIBS_PATH}/libmd4c.dll"
-                "${SYS_LIBS_PATH}/libusb-1.0.dll")
-
-if ($ENV{MSYSTEM_CARCH} STREQUAL "i686")
-    list(APPEND msys_files "${SYS_LIBS_PATH}/libgcc_s_dw2-1.dll")
-else()
-    list(APPEND msys_files "${SYS_LIBS_PATH}/libgcc_s_seh-1.dll")
-endif()
-
-install(FILES ${msys_files} DESTINATION ${msys_path})
-
 function(copy_system_library target libname)
 	if(EXISTS ${SYS_LIBS_PATH}/${libname})
-		list(APPEND mmedia_files ${SYS_LIBS_PATH}/${libname})
+		list(APPEND ${target} ${SYS_LIBS_PATH}/${libname})
 		set(${target} "${${target}}" PARENT_SCOPE)
     else()
         message(FATAL_ERROR "ERROR: missing DLL detected: ${libname}")
 	endif()
 endfunction()
+
+# MSYS2 libraries
+set(msys_path "${INSTALLROOT}/${LIBSDIR}")
+copy_system_library(msys_files "libstdc++-6.dll")
+copy_system_library(msys_files "libwinpthread-1.dll")
+copy_system_library(msys_files "libicuin75.dll")
+copy_system_library(msys_files "libicuuc75.dll")
+copy_system_library(msys_files "libicudt75.dll")
+copy_system_library(msys_files "libmd4c.dll")
+copy_system_library(msys_files "libusb-1.0.dll")
+
+if ($ENV{MSYSTEM_CARCH} STREQUAL "i686")
+    copy_system_library(msys_files "libgcc_s_dw2-1.dll")
+else()
+    copy_system_library(msys_files "libgcc_s_seh-1.dll")
+endif()
+
+install(FILES ${msys_files} DESTINATION ${msys_path})
 
 # audio libraries
 set(mmedia_path "${INSTALLROOT}/${LIBSDIR}")
@@ -243,7 +243,7 @@ if(QT_MAJOR_VERSION GREATER 5)
 	copy_system_library(mmedia_files "libopencore-amrnb-0.dll")
 	copy_system_library(mmedia_files "libopencore-amrwb-0.dll")
 	copy_system_library(mmedia_files "libopenjp2-7.dll")
-	copy_system_library(mmedia_files "rav1e.dll")
+	copy_system_library(mmedia_files "librav1e.dll")
 	copy_system_library(mmedia_files "librsvg-2-2.dll")
 	copy_system_library(mmedia_files "libtheoradec-1.dll")
 	copy_system_library(mmedia_files "libSvtAv1Enc-2.dll")
