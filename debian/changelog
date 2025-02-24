@@ -6,6 +6,7 @@ qlcplus (4.14.1) stable; urgency=low
   * Input Profiles: update Launchpad Mini profiles with color table (thanks to Jan Fries)
   * New fixture: beamZ MHL75 Hybrid Moving Head (thanks to Mikko Wuokko)
   * New fixtures: Eurolite LED TSL-1000 Scan MK2, Varytec LED Theater Spot 100 (thanks to Christoph Wieser)
+  * New fixtures: Briteq BT Theatre 250EZ + Mk2 + Mk3 (thanks to Christoph Müllner)
 
   -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Mar 2025 18:19:20 +0200
 
