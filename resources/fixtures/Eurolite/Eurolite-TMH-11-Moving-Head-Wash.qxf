@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.1 GIT</Version>
+  <Author>Simeon08 &amp; ReComplexed</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>TMH-11 Moving-Head Wash</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Color macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="40">Neutral</Capability>
+  <Capability Min="41" Max="80" Preset="ColorMacro" Res1="#ff0000">Macro 1</Capability>
+  <Capability Min="81" Max="120" Preset="ColorMacro" Res1="#ff00ff">Macro 2</Capability>
+  <Capability Min="121" Max="140" Preset="ColorMacro" Res1="#0000ff">Macro 3</Capability>
+  <Capability Min="141" Max="160" Preset="ColorMacro" Res1="#00ffff">Macro 4</Capability>
+  <Capability Min="161" Max="200" Preset="ColorMacro" Res1="#00ff00">Macro 5</Capability>
+  <Capability Min="201" Max="240" Preset="ColorMacro" Res1="#ffff00">Macro 6</Capability>
+  <Capability Min="241" Max="255">Neutral</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterClose">LED OFF</Capability>
+  <Capability Min="11" Max="20" Preset="ShutterOpen">NEUTRAL</Capability>
+  <Capability Min="21" Max="30">Reset</Capability>
+  <Capability Min="31" Max="200" Preset="StrobeSlowToFast">Strobe-effect with increasing speed</Capability>
+  <Capability Min="201" Max="251" Preset="StrobeRandomSlowToFast">Random strobe-effect with increasing speed</Capability>
+  <Capability Min="252" Max="255" Preset="ShutterOpen">NEUTRAL</Capability>
+ </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Mode Name="Standard">
+  <Channel Number="0" ActsOn="11">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt speed</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">Color macro</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Master dimmer</Channel>
+  <Channel Number="9">Zoom</Channel>
+  <Channel Number="10">Pan fine</Channel>
+  <Channel Number="11">Tilt fine</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6" Width="260" Height="330" Depth="280"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="38"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="75" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

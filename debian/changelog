@@ -7,6 +7,11 @@ qlcplus (4.14.1) stable; urgency=low
   * New fixture: beamZ MHL75 Hybrid Moving Head (thanks to Mikko Wuokko)
   * New fixtures: Eurolite LED TSL-1000 Scan MK2, Varytec LED Theater Spot 100 (thanks to Christoph Wieser)
   * New fixtures: Briteq BT Theatre 250EZ + Mk2 + Mk3 (thanks to Christoph Müllner)
+  * New fixture: Showtec Spectral M800 IPX (thanks to Bram Janssen)
+  * New fixture: Briteq LED UV-Gun (thanks to Freddy Hoogstoel)
+  * New fixture: Eurolite LED Twin Scan Bar (thanks to Mitsch)
+  * New fixture: Eurolite TMH-11 Moving-Head Wash (thanks to Simeon08 & ReComplexed)
+  * New fixture: Chauvet Ovation H-105WW (thanks to Matthew Valeri)
 
   -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Mar 2025 18:19:20 +0200
 

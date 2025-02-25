@@ -321,8 +321,8 @@
     <F n="Briteq-BT-ORBIT" m="BT-ORBIT"/>
     <F n="Briteq-BT-Smartzoom" m="BT Smartzoom"/>
     <F n="Briteq-BT-Theatre-100EC" m="BT Theatre 100EC"/>
-    <F n="Briteq-BT-Theatre-250EZ" m="BT Theatre 250EZ (and Mk2)"/>
     <F n="Briteq-BT-Theatre-250EZ-Mk3" m="BT Theatre 250EZ Mk3"/>
+    <F n="Briteq-BT-Theatre-250EZ" m="BT Theatre 250EZ (and 250EZ Mk2)"/>
     <F n="Briteq-BT-Theatre-50WW" m="BT-Theatre 50WW"/>
     <F n="Briteq-BT-Theatre-HD1" m="BT Theatre HD1"/>
     <F n="Briteq-BT-Theatre-HD2" m="BT Theatre HD2"/>
@@ -339,6 +339,7 @@
     <F n="Briteq-LDP-COBWASH-60TC" m="LDP-COBWASH 60TC"/>
     <F n="Briteq-LDP-Powerbar-12TC" m="LDP Powerbar 12TC"/>
     <F n="Briteq-LDP-Powerbar-6TC" m="LDP Powerbar 6TC"/>
+    <F n="Briteq-LED-UV-Gun" m="LED UV-Gun"/>
     <F n="Briteq-Pro-Beamer-Zoom" m="Pro Beamer Zoom"/>
     <F n="Briteq-Spectra-3D-Laser" m="Spectra 3D Laser"/>
     <F n="Briteq-Stagepainter-12" m="Stagepainter 12"/>
@@ -416,6 +417,7 @@
     <F n="Cameo-Zenit-Z120-G2" m="Zenit Z120 G2"/>
   </M>
   <M n="Chauvet">
+    <F n="Chauvert-Ovation-H-105WW" m="Ovation H-105WW"/>
     <F n="Chauvet-200b" m="200b"/>
     <F n="Chauvet-4Bar-Tri" m="4Bar Tri"/>
     <F n="Chauvet-4Bar" m="4Bar"/>
@@ -859,6 +861,7 @@
     <F n="Eurolite-LED-TMH-X4" m="LED TMH-X4"/>
     <F n="Eurolite-LED-TMH-X5" m="LED TMH-X5"/>
     <F n="Eurolite-LED-TSL-1000-Scan-MK2" m="LED TSL-1000 Scan MK2"/>
+    <F n="Eurolite-LED-Twin-Scan-Bar" m="LED Twin Scan Bar"/>
     <F n="Eurolite-LED-Z-200-TCL" m="LED Z-200 TCL"/>
     <F n="Eurolite-NH-30-MK2" m="NH-30 MK2"/>
     <F n="Eurolite-Party-TCL-Spot-RGB" m="Party TCL Spot RGB"/>
@@ -874,6 +877,7 @@
     <F n="Eurolite-TG-5" m="TG-5"/>
     <F n="Eurolite-THA-100F-COB" m="THA-100F COB"/>
     <F n="Eurolite-TMH-10" m="TMH-10"/>
+    <F n="Eurolite-TMH-11-Moving-Head-Wash" m="TMH-11 Moving-Head Wash"/>
     <F n="Eurolite-TMH-14" m="TMH-14"/>
     <F n="Eurolite-TMH-15" m="TMH-15"/>
     <F n="Eurolite-TMH-155" m="TMH-155"/>
@@ -1631,6 +1635,7 @@
     <F n="Showtec-Spectral-850-RGBA-Tour" m="Spectral 850 RGBA Tour LED Spot"/>
     <F n="Showtec-Spectral-CYC650" m="Spectral CYC650"/>
     <F n="Showtec-Spectral-M1000-Tour-Q4-MKII" m="Spectral M1000 Tour Q4 MKII"/>
+    <F n="Showtec-Spectral-M800-IPX" m="Spectral M800 IPX"/>
     <F n="Showtec-Spectral-ZP-5" m="Spectral ZP-5"/>
     <F n="Showtec-Stage-Blinder-Series" m="Stage Blinder Series"/>
     <F n="Showtec-Star-Dream-144-LED-White" m="Star Dream 144 LED White"/>
