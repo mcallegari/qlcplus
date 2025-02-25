@@ -5,8 +5,11 @@ TESTPREFIX=""
 SLEEPCMD=""
 RUN_UI_TESTS="0"
 THISCMD=`basename "$0"`
+THISDIR=`dirname "$0"`
 
 TARGET=${1:-}
+
+cd "$THISDIR"
 
 if [ "$TARGET" != "ui" ] && [ "$TARGET" != "qmlui" ]; then
   echo >&2 "Usage: $THISCMD ui|qmlui"
@@ -44,6 +47,13 @@ else
     fi
   fi
 fi
+
+#############################################################################
+# Indentation check
+#############################################################################
+
+# TODO: Enable (globally or for selected directories) after applied indentation
+#./indentation.sh --check --target "$TARGET" || exit $?
 
 #############################################################################
 # Fixture definitions check with xmllint
