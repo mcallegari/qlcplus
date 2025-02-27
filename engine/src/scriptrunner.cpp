@@ -35,7 +35,7 @@
 ScriptRunner::ScriptRunner(Doc *doc, QString &content, QObject *parent)
     : QThread(parent)
     , m_doc(doc)
-    , m_content(content)
+    , m_content(content + "\n")
     , m_running(false)
     , m_engine(NULL)
     , m_stopOnExit(true)
