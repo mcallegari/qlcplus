@@ -108,6 +108,12 @@ if(UNIX AND NOT ANDROID AND NOT IOS AND NOT APPLE)
     )
 endif()
 
+if(UNIX)
+    target_sources(${module_name} PRIVATE
+        mastertimer-unix.cpp mastertimer-unix.h
+    )
+endif()
+
 if(WIN32)
     target_sources(${module_name} PRIVATE
         mastertimer-win32.cpp mastertimer-win32.h
@@ -141,22 +147,17 @@ if(APPLE)
     )
 endif()
 
-if(qmlui OR (QT_VERSION_MAJOR GREATER 5))
+if(QT_VERSION_MAJOR GREATER 5)
     target_sources(${module_name} PRIVATE
         rgbscriptv4.cpp rgbscriptv4.h
-        scriptrunner.cpp scriptrunner.h
-        scriptv4.cpp scriptv4.h
     )
 
     target_link_libraries(${module_name} PUBLIC
         Qt${QT_MAJOR_VERSION}::Qml
     )
-endif()
-
-if(NOT (qmlui OR (QT_VERSION_MAJOR GREATER 5)))
+else()
     target_sources(${module_name} PRIVATE
         rgbscript.cpp rgbscript.h
-        script.cpp script.h
     )
 
     target_link_libraries(${module_name} PUBLIC
@@ -164,9 +165,14 @@ if(NOT (qmlui OR (QT_VERSION_MAJOR GREATER 5)))
     )
 endif()
 
-if(UNIX)
+if(qmlui)
     target_sources(${module_name} PRIVATE
-        mastertimer-unix.cpp mastertimer-unix.h
+        scriptrunner.cpp scriptrunner.h
+        scriptv4.cpp scriptv4.h
+    )
+else()
+    target_sources(${module_name} PRIVATE
+        script.cpp script.h
     )
 endif()
 

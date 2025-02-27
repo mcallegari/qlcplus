@@ -1,6 +1,7 @@
 qlcplus (4.14.1) stable; urgency=low
 
   * engine: fix crash when using multiple RGBMtrix
+  * engine: fix crash when using a Script function
   * Show Manager: fix hanging with an infinite duration EFX
   * Simple Desk: fix crash when resetting a channel with no fixture associated
   * Input Profiles: update Launchpad Mini profiles with color table (thanks to Jan Fries)

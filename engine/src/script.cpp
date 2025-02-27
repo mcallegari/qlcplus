@@ -28,7 +28,10 @@
 #if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
 #include <QRandomGenerator>
 #endif
- 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <QRegularExpression>
+#endif
+
 #include "genericfader.h"
 #include "fadechannel.h"
 #include "mastertimer.h"
@@ -146,7 +149,11 @@ bool Script::setData(const QString& str)
     if (m_data.isEmpty() == false)
     {
         int i = 1;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        QStringList lines = m_data.split(QRegularExpression("(\\r\\n|\\n\\r|\\r|\\n)"));
+#else
         QStringList lines = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"));
+#endif
         foreach (QString line, lines)
         {
             bool ok = false;
@@ -196,7 +203,11 @@ QString Script::data() const
 
 QStringList Script::dataLines() const
 {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    QStringList result = m_data.split(QRegularExpression("(\\r\\n|\\n\\r|\\r|\\n)"));
+#else
     QStringList result = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"));
+#endif
     while (result.count() && result.last().isEmpty())
         result.takeLast();
 
@@ -948,7 +959,11 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
             else
             {
                 // No quotes. Find the next whitespace.
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+                right = line.indexOf(QRegularExpression("\\s"), left);
+#else
                 right = line.indexOf(QRegExp("\\s"), left);
+#endif
                 if (right == -1)
                 {
                     qDebug() << "Syntax error:" << line.mid(left);
