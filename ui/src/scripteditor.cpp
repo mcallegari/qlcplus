@@ -35,7 +35,7 @@
 #include "scripteditor.h"
 #include "mastertimer.h"
 #include "speeddial.h"
-#include "script.h"
+#include "scriptwrapper.h"
 #include "doc.h"
 
 ScriptEditor::ScriptEditor(QWidget* parent, Script* script, Doc* doc)
@@ -468,18 +468,28 @@ void ScriptEditor::slotCheckSyntax()
     QString errResult;
     QString scriptText = m_document->toPlainText();
     m_script->setData(scriptText);
+
+#ifdef QT_QML_LIB
+    QStringList errLines = m_script->syntaxErrorsLines();
+#else
     QList<int> errLines = m_script->syntaxErrorsLines();
+#endif
+
     if (errLines.isEmpty())
     {
         errResult.append(tr("No syntax errors found in the script"));
     }
     else
     {
+    #ifdef QT_QML_LIB
+        errResult.append(errLines.join("\n"));
+    #else
         QStringList lines = scriptText.split(QRegularExpression("(\\r\\n|\\n\\r|\\r|\\n)"));
         foreach (int line, errLines)
         {
             errResult.append(tr("Syntax error at line %1:\n%2\n\n").arg(line).arg(lines.at(line - 1)));
         }
+    #endif
     }
     QMessageBox::information(this, tr("Script check results"), errResult);
 }
