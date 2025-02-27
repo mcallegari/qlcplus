@@ -147,7 +147,7 @@ if(APPLE)
     )
 endif()
 
-if(QT_VERSION_MAJOR GREATER 5)
+if(qmlui OR (QT_VERSION_MAJOR GREATER 5))
     target_sources(${module_name} PRIVATE
         rgbscriptv4.cpp rgbscriptv4.h
     )
