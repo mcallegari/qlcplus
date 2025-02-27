@@ -233,9 +233,15 @@ void ScriptEditor::slotAddStartFunction()
         {
             Function* function = m_doc->function(id);
             Q_ASSERT(function != NULL);
-            QString cmd = QString("%1:%2 // %3\n").arg(Script::startFunctionCmd)
-                                                   .arg(id)
-                                                   .arg(function->name());
+            QString cmd =
+                #ifdef QT_QML_LIB
+                    QString("%1(%2); // %3\n")
+                #else
+                    QString("%1:%2 // %3\n")
+                #endif
+                .arg(Script::startFunctionCmd)
+                .arg(id)
+                .arg(function->name());
             cursor.insertText(cmd);
             m_editor->moveCursor(QTextCursor::Down);
         }
@@ -255,9 +261,15 @@ void ScriptEditor::slotAddStopFunction()
         {
             Function* function = m_doc->function(id);
             Q_ASSERT(function != NULL);
-            QString cmd = QString("%1:%2 // %3\n").arg(Script::stopFunctionCmd)
-                                                  .arg(id)
-                                                  .arg(function->name());
+            QString cmd =
+                #ifdef QT_QML_LIB
+                    QString("%1(%2); // %3\n")
+                #else
+                    QString("%1:%2 // %3\n")
+                #endif
+                .arg(Script::stopFunctionCmd)
+                .arg(id)
+                .arg(function->name());
             cursor.insertText(cmd);
             m_editor->moveCursor(QTextCursor::Down);
         }
@@ -285,9 +297,15 @@ void ScriptEditor::slotAddBlackout()
     if (dialog.exec() == QDialog::Accepted)
     {
         m_editor->moveCursor(QTextCursor::StartOfLine);
-        m_editor->textCursor().insertText(QString("%1:%2\n")
-                              .arg(Script::blackoutCmd)
-                              .arg(cb->isChecked() ? Script::blackoutOn : Script::blackoutOff));
+        m_editor->textCursor().insertText(
+            #ifdef QT_QML_LIB
+                QString("%1(%2);\n").arg(Script::blackoutCmd)
+                                    .arg(cb->isChecked() ? "true" : "false")
+            #else
+                QString("%1:%2\n").arg(Script::blackoutCmd)
+                                  .arg(cb->isChecked() ? Script::blackoutOn : Script::blackoutOff)
+            #endif
+        );
     }
 }
 
@@ -317,8 +335,14 @@ void ScriptEditor::slotAddWait()
     if (dialog.exec() == QDialog::Accepted)
     {
         m_editor->moveCursor(QTextCursor::StartOfLine);
-        m_editor->textCursor().insertText(QString("%1:%2\n")
-                              .arg(Script::waitCmd).arg(Function::speedToString(sd->value())));
+        m_editor->textCursor().insertText(
+            #ifdef QT_QML_LIB
+                QString("%1(\"%2\");\n")
+            #else
+                QString("%1:%2\n")
+            #endif
+                .arg(Script::waitCmd)
+                .arg(Function::speedToString(sd->value())));
     }
 }
 
@@ -362,10 +386,15 @@ void ScriptEditor::slotAddSetFixture()
         {
             const QLCChannel* channel = fxi->channel(sv.channel);
             m_editor->moveCursor(QTextCursor::StartOfLine);
-            m_editor->textCursor().insertText(QString("%1:%2 ch:%3 val:0 // %4, %5\n")
-                                                .arg(Script::setFixtureCmd)
-                                                .arg(fxi->id()).arg(sv.channel)
-                                                .arg(fxi->name()).arg(channel->name()));
+            m_editor->textCursor().insertText(
+            #ifdef QT_QML_LIB
+                QString("%1(%2,%3,0); // %4, %5\n")
+            #else
+                QString("%1:%2 ch:%3 val:0 // %4, %5\n")
+            #endif
+                .arg(Script::setFixtureCmd)
+                .arg(fxi->id()).arg(sv.channel)
+                .arg(fxi->name()).arg(channel->name()));
             m_editor->moveCursor(QTextCursor::Down);
         }
     }
@@ -394,13 +423,26 @@ void ScriptEditor::slotAddSystemCommand()
     QString formattedArgs;
     foreach (QString arg, argsList)
     {
-        formattedArgs.append(QString("arg:%1 ").arg(arg));
+        formattedArgs.append(
+            #ifdef QT_QML_LIB
+                QString("%1 ")
+            #else
+                QString("arg:%1 ")
+            #endif
+        .arg(arg));
     }
+    if (formattedArgs.endsWith(' '))
+        formattedArgs = formattedArgs.left(formattedArgs.length()-1);
 
     m_editor->moveCursor(QTextCursor::StartOfLine);
-    m_editor->textCursor().insertText(QString("%1:%2 %3\n")
-                                        .arg(Script::systemCmd)
-                                        .arg(fn).arg(formattedArgs));
+    m_editor->textCursor().insertText(
+        #ifdef QT_QML_LIB
+            QString("%1(\"%2 %3\");\n")
+        #else
+            QString("%1:%2 %3\n")
+        #endif
+            .arg(Script::systemCmd)
+            .arg(fn).arg(formattedArgs));
     m_editor->moveCursor(QTextCursor::Down);
 }
 
@@ -444,8 +486,13 @@ void ScriptEditor::slotAddRandom()
     if (dialog.exec() == QDialog::Accepted)
     {
         m_editor->moveCursor(QTextCursor::StartOfLine);
-        m_editor->textCursor().insertText(QString("random(%1,%2)")
-                              .arg(minSB->value()).arg(maxSB->value()));
+        m_editor->textCursor().insertText(
+            #ifdef QT_QML_LIB
+                QString("Engine.random(%1,%2)")
+            #else
+                QString("random(%1,%2)")
+            #endif
+                .arg(minSB->value()).arg(maxSB->value()));
         m_editor->moveCursor(QTextCursor::EndOfLine);
     }
 }
