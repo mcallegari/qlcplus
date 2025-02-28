@@ -61,6 +61,20 @@
 extern void qt_set_sequence_auto_mnemonic(bool b);
 #endif
 
+#if defined(WIN32) || defined(Q_OS_WIN)
+// Defined in Windows 11 headers but not in earlier versions.
+#ifndef PROCESS_POWER_THROTTLING_IGNORE_TIMER_RESOLUTION
+#define PROCESS_POWER_THROTTLING_IGNORE_TIMER_RESOLUTION 0x4
+#endif
+
+typedef BOOL (WINAPI *SetProcessInformationType)(
+    HANDLE hProcess,
+    PROCESS_INFORMATION_CLASS ProcessInformationClass,
+    LPVOID ProcessInformation,
+    DWORD ProcessInformationSize
+);
+#endif
+
 //#define DEBUG_SPEED
 
 #ifdef DEBUG_SPEED
@@ -302,6 +316,10 @@ void App::init()
 
 #if defined(WIN32) || defined(Q_OS_WIN)
     HotPlugMonitor::setWinId(winId());
+    
+    // When on Windows 11, disable system timer resolution throttling when
+    // app is minimised, occluded, etc.
+    disableTimerResolutionThrottling();
 #endif
 
     this->setStyleSheet(AppUtil::getStyleSheet("MAIN"));
@@ -332,6 +350,43 @@ bool App::nativeEvent(const QByteArray &eventType, void *message, long *result)
     //qDebug() << Q_FUNC_INFO << eventType;
     return HotPlugMonitor::parseWinEvent(message, result);
 }
+
+// No idea why other code doesn't throw warnings for GetProcAddress casts. Ignore the warning.
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-function-type"
+void App::disableTimerResolutionThrottling()
+{
+    // On Windows 11, we want it to always honour system timer resolution requests,
+    // because otherwise by default when an application is minimised, or otherwise
+    // non-visible or non-audible to the end-user, Windows may ignore timer
+    // resolution requests and not give a higher resolution than the default system
+    // timer resolution (typically 15.625 ms).
+    
+    // Note: we must resolve the SetProcessInformation API function at run-time
+    // because it does not exist prior to Windows 8. On supported Windows versions
+    // earlier than 11, the call to SetProcessInformation will just fail, which we
+    // can ignore.
+    
+    HMODULE hKernel32 = LoadLibrary(L"kernel32.dll");
+    Q_ASSERT(hKernel32 != NULL); // Shouldn't ever fail because kernel32 already loaded into every process
+    
+    SetProcessInformationType pfnSetProcessInformation = (SetProcessInformationType)GetProcAddress(hKernel32, "SetProcessInformation");
+
+    if(pfnSetProcessInformation != NULL) {
+        PROCESS_POWER_THROTTLING_STATE pwrState = {
+            .Version = PROCESS_POWER_THROTTLING_CURRENT_VERSION,
+            .ControlMask = PROCESS_POWER_THROTTLING_IGNORE_TIMER_RESOLUTION,
+            .StateMask = 0 // Disables timer resolution throttling
+        };
+
+        if(!pfnSetProcessInformation(GetCurrentProcess(), ProcessPowerThrottling, &pwrState, sizeof(pwrState))) {
+            qWarning() << Q_FUNC_INFO << "SetProcessInformation() failed with error" << GetLastError() << "(ignore if Windows version < 11)";
+        }
+    } else {
+        qDebug() << Q_FUNC_INFO << "SetProcessInformation() API does not exist on this version of Windows";
+    }
+}
+#pragma GCC diagnostic pop
 #endif
 
 void App::closeEvent(QCloseEvent* e)
