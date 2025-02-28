@@ -417,7 +417,6 @@
     <F n="Cameo-Zenit-Z120-G2" m="Zenit Z120 G2"/>
   </M>
   <M n="Chauvet">
-    <F n="Chauvert-Ovation-H-105WW" m="Ovation H-105WW"/>
     <F n="Chauvet-200b" m="200b"/>
     <F n="Chauvet-4Bar-Tri" m="4Bar Tri"/>
     <F n="Chauvet-4Bar" m="4Bar"/>
@@ -534,6 +533,7 @@
     <F n="Chauvet-Ovation-F-415FC" m="Ovation F-415FC"/>
     <F n="Chauvet-Ovation-F-915FC" m="Ovation F-915FC"/>
     <F n="Chauvet-Ovation-FD-165WW" m="Ovation FD-165WW"/>
+    <F n="Chauvet-Ovation-H-105WW" m="Ovation H-105WW"/>
     <F n="Chauvet-Ovation-H-605FC" m="Ovation H-605FC"/>
     <F n="Chauvet-Ovation-P-56FC" m="Ovation P-56FC"/>
     <F n="Chauvet-Q-Beam-260-LED" m="Q-Beam 260-LED"/>
@@ -1467,6 +1467,7 @@
     <F n="Robe-ClubWash-300CT" m="ClubWash 300 CT"/>
     <F n="Robe-ClubWash-500-CT" m="ClubWash 500 CT"/>
     <F n="Robe-ClubWash-600-CT" m="ClubWash 600 CT"/>
+    <F n="Robe-ColorMix-240-AT" m="ColorMix 240 AT"/>
     <F n="Robe-ColorSpot-170-AT" m="ColorSpot 170 AT"/>
     <F n="Robe-ColorSpot-250-AT" m="ColorSpot 250 AT"/>
     <F n="Robe-ColorSpot-250-XT" m="ColorSpot 250 XT"/>
@@ -1500,7 +1501,6 @@
     <F n="Robe-Spot-160-XT" m="Spot 160 XT"/>
     <F n="Robe-Spot-575-XT" m="Spot 575 XT"/>
     <F n="Robe-Wash-575-XT" m="Wash 575 XT"/>
-    <F n="Robe_ColorMix_240_AT" m="ColorMix 240 AT"/>
   </M>
   <M n="Robert_Juliat">
     <F n="Robert-Juliat-DArtagnan-934SNX" m="D'Artagnan 934SNX"/>
