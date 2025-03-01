@@ -577,20 +577,27 @@ jobs:
           ${{ env.QTDIR }}/bin/macdeployqt ~/QLC+.app
 
       - name: create DMG
-        shell: bash
-        run: |-
-          OUTDIR=$PWD
-          cd platforms/macos/dmg
-          ./create-dmg --volname "Q Light Controller Plus ${{env.APPVERSION}}" \
-          --volicon $OUTDIR/resources/icons/qlcplus.icns \
-          --background background.png \
-          --window-size 400 300 \
-          --window-pos 200 100 \
-          --icon-size 64 \
-          --icon "QLC+" 0 150 \
-          --app-drop-link 200 150 \
-          $OUTDIR/QLC+_${{ matrix.task }}.dmg \
-          ~/QLC+.app
+        # Use retry loop to work around a race condition on macOS causing
+        # 'Resource busy' errors with 'hdiutil'. See
+        # https://github.com/actions/runner-images/issues/7522
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 30
+          max_attempts: 12
+          retry_wait_seconds: 1
+          command: |
+            OUTDIR=$PWD
+            cd platforms/macos/dmg
+            ./create-dmg --volname "Q Light Controller Plus ${{env.APPVERSION}}" \
+            --volicon $OUTDIR/resources/icons/qlcplus.icns \
+            --background background.png \
+            --window-size 400 300 \
+            --window-pos 200 100 \
+            --icon-size 64 \
+            --icon "QLC+" 0 150 \
+            --app-drop-link 200 150 \
+            $OUTDIR/QLC+_${{ matrix.task }}.dmg \
+            ~/QLC+.app
 
       - name: Store DMG artifact
         uses: actions/upload-artifact@v4
