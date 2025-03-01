@@ -10,9 +10,10 @@ qlcplus (4.14.1) stable; urgency=low
   * New fixtures: Briteq BT Theatre 250EZ + Mk2 + Mk3 (thanks to Christoph Müllner)
   * New fixture: Showtec Spectral M800 IPX (thanks to Bram Janssen)
   * New fixture: Briteq LED UV-Gun (thanks to Freddy Hoogstoel)
-  * New fixture: Eurolite LED Twin Scan Bar (thanks to Mitsch)
-  * New fixture: Eurolite TMH-11 Moving-Head Wash (thanks to Simeon08 & ReComplexed)
+  * New fixtures: Eurolite LED Twin Scan Bar, Vari-Lite VL2402 Wash, Vari-Lite VL2202 Spot (thanks to Mitsch)
+  * New fixture: Eurolite TMH-11 Moving-Head Wash, SonicPulse LED Bar 05 and 10 (thanks to Simeon08 & ReComplexed)
   * New fixture: Chauvet Ovation H-105WW (thanks to Matthew Valeri)
+  * New fixture: Varytec Hero Wash 300 FC (thanks to NostaKhan)
 
   -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Mar 2025 18:19:20 +0200
 

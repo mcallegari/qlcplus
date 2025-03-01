@@ -1744,6 +1744,8 @@
     <F n="Stairville-SC-X50-MKII" m="SC-X50 MKII"/>
     <F n="Stairville-SC250H" m="SC250H"/>
     <F n="Stairville-SF-1500" m="SF-1500"/>
+    <F n="Stairville-SonicPulse-LED-Bar-05" m="SonicPulse LED Bar 05"/>
+    <F n="Stairville-SonicPulse-LED-Bar-10" m="SonicPulse LED Bar 05"/>
     <F n="Stairville-Stage-PAR-CX-2-RGBAW" m="Stage PAR CX-2 RGBAW"/>
     <F n="Stairville-Tri-Flat-PAR-Profile-5x3W-RGB" m="Tri Flat PAR Profile 5x3W RGB"/>
     <F n="Stairville-TRI-LED-Bundle-Complete" m="Stage TRI LED Bundle Complete"/>
@@ -1825,6 +1827,8 @@
     <F n="UKing-ZQB93-Pinspot-RGBW" m="ZQ-B93 Pinspot RGBW"/>
   </M>
   <M n="Vari-Lite">
+    <F n="Vari-Lite-VL2202-Spot" m="VL2202 Wash"/>
+    <F n="Vari-Lite-VL2402-Wash" m="VL2402 Spot"/>
     <F n="Vari-Lite-VL2500-Wash" m="VL2500 Wash"/>
     <F n="Vari-Lite-VL3000-Spot" m="VL3000 Spot"/>
     <F n="Vari-Lite-VL3000-Wash" m="VL3000 Wash"/>
@@ -1851,6 +1855,7 @@
     <F n="Varytec-Hero-Spot-90" m="Hero Spot 90"/>
     <F n="Varytec-Hero-Spot-Wash-140-2in1-RGBW+W" m="Hero Spot Wash 140 2in1 RGBW+W"/>
     <F n="Varytec-Hero-Spot-Wash-80-2in1-RGBW+W" m="Hero Spot Wash 80 2in1 RGBW+W"/>
+    <F n="Varytec-Hero-Wash-300-FC" m="Hero Wash 300 FC"/>
     <F n="Varytec-Hero-Wash-340FX-RGBW-Zoom" m="Hero Wash 340FX RGBW Zoom"/>
     <F n="Varytec-Hero-Wash-640FX" m="Hero Wash 640FX"/>
     <F n="Varytec-Hero-Wash-712-Z-RGBW-Zoom" m="Hero Wash 712 Z RGBW Zoom"/>
