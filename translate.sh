@@ -7,19 +7,27 @@ else
     languages="de_DE es_ES fr_FR it_IT nl_NL cz_CZ pt_BR ca_ES ja_JP"
 fi
 
+# Check for lrelease, lrelease-qt5, or lrelease-qt6
 LRELEASE_BIN=$(which lrelease 2> /dev/null)
 
-# if QTDIR has been defined, use those tools right away
+# If QTDIR is defined, use the tools from that directory
 if [ -n "$QTDIR" ]; then
-    LRELEASE_BIN=$QTDIR/bin/lrelease
+    LRELEASE_BIN="$QTDIR/bin/lrelease"
 else
-    # if lrelease is not available, try with lrelease-qt5
+    # Fallback to lrelease-qt5 if lrelease is not found
     if [ -z "$LRELEASE_BIN" ]; then
-        LRELEASE_BIN=$(which lrelease-qt5)
-        if [ -z "$LRELEASE_BIN" ]; then
-            echo "lrelease and lrelease-qt5 are not present in this system! Aborting."
-            exit
-        fi
+        LRELEASE_BIN=$(which lrelease-qt5 2> /dev/null)
+    fi
+    
+    # Fallback to lrelease-qt6 if lrelease-qt5 is not found
+    if [ -z "$LRELEASE_BIN" ]; then
+        LRELEASE_BIN=$(which lrelease-qt6 2> /dev/null)
+    fi
+
+    # Abort if none are found
+    if [ -z "$LRELEASE_BIN" ]; then
+        echo "lrelease, lrelease-qt5, and lrelease-qt6 are not present in this system! Aborting."
+        exit
     fi
 fi
 

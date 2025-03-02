@@ -155,9 +155,6 @@ else ()
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 endif()
 
-## Add the generated qm files to the list
-file(GLOB translations_qm_files "${CMAKE_CURRENT_SOURCE_DIR}/*.qm")
-
 ## Install the qm files
 if (appimage)
   set(translations_install_path "${TARGET_DIR}/${INSTALLROOT}/${TRANSLATIONDIR}")
@@ -165,7 +162,11 @@ else ()
   set(translations_install_path "${INSTALLROOT}/${TRANSLATIONDIR}")
 endif()
 
-install(FILES ${translations_qm_files} DESTINATION ${translations_install_path})
+install(
+  DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
+  DESTINATION ${translations_install_path}
+  FILES_MATCHING PATTERN "*.qm"
+)
 
 ## Clean the generated files
 set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${CMAKE_CURRENT_BINARY_DIR}/*.qm")
