@@ -565,6 +565,22 @@ void RGBMatrix::tap()
     }
 }
 
+void RGBMatrix::checkEngineCreation()
+{
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    if (m_requestEngineCreation)
+    {
+        // And here's the hack: Qt6 JS engine is not thread safe. Nice job!
+        // It's not possible to use the instance created in the main thread
+        // so we need to create a clone on the fly from the MasterTimer thread :vomiting_face:
+        m_runAlgorithm = m_algorithm->clone();
+    }
+#else
+    m_runAlgorithm = m_algorithm;
+#endif
+    m_requestEngineCreation = false;
+}
+
 void RGBMatrix::preRun(MasterTimer *timer)
 {
     {
@@ -580,18 +596,7 @@ void RGBMatrix::preRun(MasterTimer *timer)
 
         if (m_algorithm != NULL)
         {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-            if (m_requestEngineCreation)
-            {
-                // And here's the hack: Qt6 JS engine is not thread safe. Nice job!
-                // It's not possible to use the instance created in the main thread
-                // so we need to create a clone on the fly from the MasterTimer thread :vomiting_face:
-                m_runAlgorithm = m_algorithm->clone();
-                m_requestEngineCreation = false;
-            }
-#else
-            m_runAlgorithm = m_algorithm;
-#endif
+            checkEngineCreation();
 
             // Copy direction from parent class direction
             m_stepHandler->initializeDirection(direction(), m_rgbColors[0], m_rgbColors[1], m_stepsCount, m_runAlgorithm);
@@ -638,17 +643,7 @@ void RGBMatrix::write(MasterTimer *timer, QList<Universe *> universes)
             return;
 
         if (m_algorithm != NULL && m_requestEngineCreation)
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)        
-        {
-            // And here's the hack: Qt6 JS engine is not thread safe. Nice job!
-            // It's not possible to use the instance created in the main thread
-            // so we need to create a clone on the fly from the MasterTimer thread :vomiting_face:
-            m_runAlgorithm = m_algorithm->clone();
-            m_requestEngineCreation = false;
-        }
-#else
-            m_runAlgorithm = m_algorithm;
-#endif
+            checkEngineCreation();
 
         // Invalid/nonexistent script
         if (m_runAlgorithm == NULL || m_runAlgorithm->apiVersion() == 0)
@@ -738,6 +733,7 @@ void RGBMatrix::postRun(MasterTimer *timer, QList<Universe *> universes)
 
     {
         QMutexLocker algorithmLocker(&m_algorithmMutex);
+        checkEngineCreation();
         if (m_runAlgorithm != NULL)
             m_runAlgorithm->postRun();
     }
