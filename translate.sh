@@ -12,7 +12,7 @@ LRELEASE_BIN=$(which lrelease 2> /dev/null)
 
 # If QTDIR is defined, use the tools from that directory
 if [ -n "$QTDIR" ]; then
-    LRELEASE_BIN="$QTDIR/bin/lrelease"
+    LRELEASE_BIN=$QTDIR/bin/lrelease
 else
     # Fallback to lrelease-qt5 if lrelease is not found
     if [ -z "$LRELEASE_BIN" ]; then
