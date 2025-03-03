@@ -33,6 +33,7 @@ jobs:
         xvfb
         ccache
         chrpath
+        libfuse2
         wget
       PACKAGES_QML_BASE:
         libpulse-dev
