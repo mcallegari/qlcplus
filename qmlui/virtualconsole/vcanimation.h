@@ -43,9 +43,9 @@ class VCAnimation : public VCWidget
 
     Q_PROPERTY(QColor color1 READ getColor1 WRITE setColor1 NOTIFY color1Changed)
     Q_PROPERTY(QColor color2 READ getColor2 WRITE setColor2 NOTIFY color2Changed)
-    Q_PROPERTY(QColor color2 READ getColor3 WRITE setColor3 NOTIFY color3Changed)
-    Q_PROPERTY(QColor color2 READ getColor4 WRITE setColor4 NOTIFY color4Changed)
-    Q_PROPERTY(QColor color2 READ getColor5 WRITE setColor5 NOTIFY color5Changed)
+    Q_PROPERTY(QColor color3 READ getColor3 WRITE setColor3 NOTIFY color3Changed)
+    Q_PROPERTY(QColor color4 READ getColor4 WRITE setColor4 NOTIFY color4Changed)
+    Q_PROPERTY(QColor color5 READ getColor5 WRITE setColor5 NOTIFY color5Changed)
     Q_PROPERTY(QStringList algorithms READ algorithms CONSTANT)
     Q_PROPERTY(int algorithmIndex READ algorithmIndex WRITE setAlgorithmIndex NOTIFY algorithmIndexChanged FINAL)
 
