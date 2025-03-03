@@ -250,6 +250,9 @@ private:
     /** Check what should be done when elapsed() >= duration() */
     void roundCheck();
 
+    /** Check if the engine needs to be re-created */
+    void checkEngineCreation();
+
     FadeChannel *getFader(Universe *universe, quint32 fixtureID, quint32 channel);
     void updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime);
 

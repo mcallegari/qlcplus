@@ -5,7 +5,7 @@ on: ["push", "pull_request"]
 jobs:
   build-linux:
     #if: false
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     name: QLCplus Linux ${{matrix.task}}
     strategy:
       #fail-fast: false
@@ -32,6 +32,8 @@ jobs:
         libxml2-utils
         xvfb
         ccache
+        chrpath
+        libfuse2
         wget
       PACKAGES_QML_BASE:
         libpulse-dev
