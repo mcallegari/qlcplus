@@ -32,6 +32,7 @@ jobs:
         libxml2-utils
         xvfb
         ccache
+        chrpath
         wget
       PACKAGES_QML_BASE:
         libpulse-dev
