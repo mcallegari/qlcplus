@@ -1,4 +1,4 @@
-qlcplus (4.14.1) stable; urgency=low
+qlcplus (4.14.1) stable; urgency=high
 
   * engine: fix crash when using multiple RGBMtrix
   * engine: fix crash when using a Script function
@@ -15,7 +15,7 @@ qlcplus (4.14.1) stable; urgency=low
   * New fixture: Chauvet Ovation H-105WW (thanks to Matthew Valeri)
   * New fixture: Varytec Hero Wash 300 FC (thanks to NostaKhan)
 
-  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Mar 2025 18:19:20 +0200
+  -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 5 Mar 2025 18:19:20 +0200
 
 qlcplus (4.14.0) stable; urgency=low
 
