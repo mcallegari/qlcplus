@@ -54,7 +54,9 @@ class Doc;
 
 #define KXMLQLCVCXYPad              QString("XYPad")
 #define KXMLQLCVCXYPadPan           QString("Pan")
+#define KXMLQLCVCXYPadPanFine       QString("PanFine")
 #define KXMLQLCVCXYPadTilt          QString("Tilt")
+#define KXMLQLCVCXYPadTiltFine      QString("TiltFine")
 #define KXMLQLCVCXYPadWidth         QString("Width")
 #define KXMLQLCVCXYPadHeight        QString("Height")
 #define KXMLQLCVCXYPadPosition      QString("Position")

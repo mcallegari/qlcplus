@@ -1172,6 +1172,14 @@ bool VCXYPad::loadXML(QXmlStreamReader &root)
             ypos = root.attributes().value(KXMLQLCVCXYPadPosition).toString().toInt();
             loadXMLSources(root, tiltInputSourceId);
         }
+        else if (root.name() == KXMLQLCVCXYPadPanFine)
+        {
+            loadXMLSources(root, panFineInputSourceId);
+        }
+        else if (root.name() == KXMLQLCVCXYPadTiltFine)
+        {
+            loadXMLSources(root, tiltFineInputSourceId);
+        }
         else if (root.name() == KXMLQLCVCXYPadWidth)
         {
             loadXMLSources(root, widthInputSourceId);
@@ -1279,6 +1287,24 @@ bool VCXYPad::saveXML(QXmlStreamWriter *doc)
     doc->writeAttribute(KXMLQLCVCXYPadPosition, QString::number(int(pt.y())));
     saveXMLInput(doc, inputSource(tiltInputSourceId));
     doc->writeEndElement();
+
+    /* Pan Fine */
+    QSharedPointer<QLCInputSource> pfSrc = inputSource(panFineInputSourceId);
+    if (!pfSrc.isNull() && pfSrc->isValid())
+    {
+        doc->writeStartElement(KXMLQLCVCXYPadPanFine);
+        saveXMLInput(doc, pfSrc);
+        doc->writeEndElement();
+    }
+
+    /* Tilt Fine */
+    QSharedPointer<QLCInputSource> tfSrc = inputSource(tiltFineInputSourceId);
+    if (!tfSrc.isNull() && tfSrc->isValid())
+    {
+        doc->writeStartElement(KXMLQLCVCXYPadTiltFine);
+        saveXMLInput(doc, tfSrc);
+        doc->writeEndElement();
+    }
 
     /* Width */
     QSharedPointer<QLCInputSource> wSrc = inputSource(widthInputSourceId);
