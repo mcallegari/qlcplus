@@ -374,6 +374,7 @@ void VCXYPad_Test::saveXML()
         else if (xmlReader.name().toString() == "PanFine")
         {
             panFine++;
+            xmlReader.readNextStartElement();
             QCOMPARE(xmlReader.name().toString(), QString("Input"));
             QCOMPARE(xmlReader.attributes().value("Universe").toString(), QString("4"));
             QCOMPARE(xmlReader.attributes().value("Channel").toString(), QString("5"));
@@ -383,6 +384,7 @@ void VCXYPad_Test::saveXML()
         else if (xmlReader.name().toString() == "TiltFine")
         {
             tiltFine++;
+            xmlReader.readNextStartElement();
             QCOMPARE(xmlReader.name().toString(), QString("Input"));
             QCOMPARE(xmlReader.attributes().value("Universe").toString(), QString("6"));
             QCOMPARE(xmlReader.attributes().value("Channel").toString(), QString("7"));
