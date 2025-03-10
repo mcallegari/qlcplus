@@ -4,7 +4,8 @@ qlcplus (4.14.1) stable; urgency=high
   * engine: fix crash when using a Script function
   * Show Manager: fix hanging with an infinite duration EFX
   * Simple Desk: fix crash when resetting a channel with no fixture associated
-  * Virtual Console/XY Pad: fix Pan/Tilt fine controls not being saved
+  * Virtual Console/XY Pad: fix Pan/Tilt fine controls not getting saved
+  * UI: fix incomplete or missing translations (thanks to Itay Lifshitz)
   * Input Profiles: update Launchpad Mini profiles with color table (thanks to Jan Fries)
   * New fixture: beamZ MHL75 Hybrid Moving Head (thanks to Mikko Wuokko)
   * New fixtures: Eurolite LED TSL-1000 Scan MK2, Varytec LED Theater Spot 100 (thanks to Christoph Wieser)
@@ -16,7 +17,7 @@ qlcplus (4.14.1) stable; urgency=high
   * New fixture: Chauvet Ovation H-105WW (thanks to Matthew Valeri)
   * New fixture: Varytec Hero Wash 300 FC (thanks to NostaKhan)
 
-  -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 5 Mar 2025 18:19:20 +0200
+  -- Massimo Callegari <massimocallegari@yahoo.it>  Mon, 10 Mar 2025 18:19:20 +0200
 
 qlcplus (4.14.0) stable; urgency=low
 
