@@ -1,3 +1,9 @@
+qlcplus (4.14.2) stable; urgency=low
+
+  * engine: fix audio end of stream causing a crash on Qt 6 builds
+
+  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 24 May 2025 18:19:20 +0200
+
 qlcplus (4.14.1) stable; urgency=high
 
   * engine: fix crash when using multiple RGBMatrix

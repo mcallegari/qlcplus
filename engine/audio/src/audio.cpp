@@ -225,13 +225,6 @@ int Audio::adjustAttribute(qreal fraction, int attributeId)
 
 void Audio::slotEndOfStream()
 {
-    if (m_audio_out != NULL)
-    {
-        m_audio_out->stop();
-        m_audio_out->deleteLater();
-        m_audio_out = NULL;
-        m_decoder->seek(0);
-    }
     if (!stopped())
         stop(FunctionParent::master());
 }
@@ -426,6 +419,14 @@ void Audio::postRun(MasterTimer* timer, QList<Universe*> universes)
     if (fadeout == 0)
     {
         slotEndOfStream();
+
+        if (m_audio_out != NULL)
+        {
+            m_audio_out->stop();
+            delete m_audio_out;
+            m_audio_out = NULL;
+            m_decoder->seek(0);
+        }
     }
     else
     {
