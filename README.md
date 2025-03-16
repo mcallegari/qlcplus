@@ -78,7 +78,7 @@ Please refer to the online wiki pages: https://github.com/mcallegari/qlcplus/wik
 ### Linux
 
 *   Qt >= 5.0 development libraries & tools
-*   libudev-dev, libmad0-dev, libsndfile1-dev, libfftw3-dev
+*   libudev-dev, libsndfile1-dev, libfftw3-dev
 *   DMX USB plugin: libftdi-dev, pkg-config
 *   MIDI plugin: libasound, libasound-dev, pkg-config
 *   OLA plugin: libola, ola-dev, pkg-config (see libs/olaout/README)

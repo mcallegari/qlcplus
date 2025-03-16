@@ -203,7 +203,7 @@ install(FILES ${msys_files} DESTINATION ${msys_path})
 
 # audio libraries
 set(mmedia_path "${INSTALLROOT}/${LIBSDIR}")
-copy_system_library(mmedia_files "libmad-0.dll")
+#copy_system_library(mmedia_files "libmad-0.dll")
 copy_system_library(mmedia_files "libogg-0.dll")
 copy_system_library(mmedia_files "libopus-0.dll")
 copy_system_library(mmedia_files "libmp3lame-0.dll")
