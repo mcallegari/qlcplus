@@ -511,7 +511,10 @@ void FunctionWizard::updateWidgetsTree()
     {
         QTreeWidgetItem *frame = new QTreeWidgetItem(m_widgetsTree);
         frame->setText(KWidgetName, palette->fullName());
-        if (palette->type() == PaletteGenerator::Animation)
+        if (palette->type() == PaletteGenerator::Animation ||
+            palette->type() == PaletteGenerator::EfxDimmer ||
+            palette->type() == PaletteGenerator::EfxPosition ||
+            palette->type() == PaletteGenerator::EfxRGB)
         {
             frame->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::SoloFrameWidget));
             frame->setData(KWidgetName, Qt::UserRole, VCWidget::SoloFrameWidget);
@@ -577,11 +580,7 @@ void FunctionWizard::updateWidgetsTree()
         }
         foreach (EFX *efx, palette->efxs())
         {
-            QTreeWidgetItem *item = NULL;
-            if (soloFrameItem != NULL)
-                item = new QTreeWidgetItem(soloFrameItem);
-            else
-                item = new QTreeWidgetItem(frame);
+            QTreeWidgetItem *item = new QTreeWidgetItem(frame);
             QString toRemove = " - " + palette->model();
             item->setText(KWidgetName, efx->name().remove(toRemove));
             item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::ButtonWidget));
