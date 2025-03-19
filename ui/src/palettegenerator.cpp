@@ -119,6 +119,7 @@ QStringList PaletteGenerator::getCapabilities(const Fixture *fixture)
     bool hasRed = false, hasGreen = false, hasBlue = false;
     bool hasCyan = false, hasMagenta = false, hasYellow = false;
     bool hasWhite = false;
+    bool hasDimmer = false;
 
     Q_ASSERT(fixture != NULL);
     for (quint32 ch = 0; ch < fixture->channels(); ch++)
@@ -160,6 +161,9 @@ QStringList PaletteGenerator::getCapabilities(const Fixture *fixture)
                     case QLCChannel::White: hasWhite = true; break;
                     default: break;
                 }
+                if (channel->preset() == QLCChannel::IntensityDimmer ||
+                    channel->preset() == QLCChannel::IntensityMasterDimmer)
+                    hasDimmer = true;
             }
             break;
             default:
@@ -178,6 +182,9 @@ QStringList PaletteGenerator::getCapabilities(const Fixture *fixture)
 
     if (hasWhite)
         caps.append(KQLCChannelWhite);
+
+    if (hasDimmer)
+        caps.append(KQLCChannelDimmer);
 
     return caps;
 }
@@ -507,9 +514,11 @@ void PaletteGenerator::createEfxs(QList<Fixture *> fixtures)
 {
     qDebug() << "createEfxs";
 
-    m_efxs.append(createEfx(fixtures, false, EFXFixture::Mode::Dimmer));
-    m_efxs.append(createEfx(fixtures, true, EFXFixture::Mode::Dimmer));
-
+    if (PaletteGenerator::getCapabilities(fixtures[0]).contains(KQLCChannelDimmer))
+    {
+        m_efxs.append(createEfx(fixtures, false, EFXFixture::Mode::Dimmer));
+        m_efxs.append(createEfx(fixtures, true, EFXFixture::Mode::Dimmer));
+    }
     if (PaletteGenerator::getCapabilities(fixtures[0]).contains(KQLCChannelRGB))
     {
         m_efxs.append(createEfx(fixtures, false, EFXFixture::Mode::RGB));

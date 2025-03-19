@@ -351,6 +351,10 @@ void FunctionWizard::updateAvailableFunctionsTree()
                 addFunctionsGroup(fxGrpItem, grpItem,
                                   PaletteGenerator::typetoString(PaletteGenerator::ColourMacro),
                                   PaletteGenerator::ColourMacro);
+            else if (cap == KQLCChannelDimmer)
+                addFunctionsGroup(fxGrpItem, grpItem,
+                    PaletteGenerator::typetoString(PaletteGenerator::Efx),
+                    PaletteGenerator::Efx);
         }
     }
 
