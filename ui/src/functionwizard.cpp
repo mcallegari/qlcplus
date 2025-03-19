@@ -286,6 +286,7 @@ void FunctionWizard::addFunctionsGroup(QTreeWidgetItem *fxGrpItem, QTreeWidgetIt
             item->setText(KFunctionName, "EFXs");
             item->setCheckState(KFunctionName, Qt::Unchecked);
             item->setFlags(item->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
+            item->setExpanded(true);
             efxItem = item;
         }
         grpItem = efxItem;
