@@ -59,7 +59,9 @@ public:
         Shutter,
         Gobos,
         ColourMacro,
-        Efx
+        EfxDimmer,
+        EfxRGB,
+        EfxPosition,
         Animation
     };
 
@@ -133,7 +135,7 @@ private:
     void createRGBMatrices(QList<SceneValue> rgbMap);
 
     EFX* createEfx(QList <Fixture*> fixtures, bool staggered, EFXFixture::Mode mode);
-    void createEfxs(QList<Fixture*> fixtures);
+    void createEfxs(QList<Fixture*> fixtures, EFXFixture::Mode mode);
 
     void createChaser(QString name);
 

@@ -269,11 +269,27 @@ QList <quint32> FunctionWizard::fixtureIds() const
  * Functions
  ********************************************************************/
 
+QTreeWidgetItem *efxItem = NULL;
+
 void FunctionWizard::addFunctionsGroup(QTreeWidgetItem *fxGrpItem, QTreeWidgetItem *grpItem,
                                        QString name, PaletteGenerator::PaletteType type)
 {
     if (grpItem == NULL)
         return;
+
+    if ((type == PaletteGenerator::EfxDimmer ||
+        type == PaletteGenerator::EfxRGB ||
+        type == PaletteGenerator::EfxPosition))
+    {   
+        if (efxItem == NULL){
+            QTreeWidgetItem *item = new QTreeWidgetItem(grpItem);
+            item->setText(KFunctionName, "EFXs");
+            item->setCheckState(KFunctionName, Qt::Unchecked);
+            item->setFlags(item->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
+            efxItem = item;
+        }
+        grpItem = efxItem;
+    }
 
     QTreeWidgetItem *item = new QTreeWidgetItem(grpItem);
     item->setText(KFunctionName, name);
@@ -330,14 +346,8 @@ void FunctionWizard::updateAvailableFunctionsTree()
                                   PaletteGenerator::typetoString(PaletteGenerator::Animation),
                                   PaletteGenerator::Animation);
                 addFunctionsGroup(fxGrpItem, grpItem,
-                                  PaletteGenerator::typetoString(PaletteGenerator::Efx),
-                                  PaletteGenerator::Efx);
-            }
-            else if (cap == QLCChannel::groupToString(QLCChannel::Pan))
-            {
-                addFunctionsGroup(fxGrpItem, grpItem,
-                                  PaletteGenerator::typetoString(PaletteGenerator::Efx),
-                                  PaletteGenerator::Efx);
+                                  PaletteGenerator::typetoString(PaletteGenerator::EfxRGB),
+                                  PaletteGenerator::EfxRGB);
             }
             else if (cap == QLCChannel::groupToString(QLCChannel::Gobo))
                 addFunctionsGroup(fxGrpItem, grpItem,
@@ -353,9 +363,14 @@ void FunctionWizard::updateAvailableFunctionsTree()
                                   PaletteGenerator::ColourMacro);
             else if (cap == KQLCChannelDimmer)
                 addFunctionsGroup(fxGrpItem, grpItem,
-                    PaletteGenerator::typetoString(PaletteGenerator::Efx),
-                    PaletteGenerator::Efx);
+                                  PaletteGenerator::typetoString(PaletteGenerator::EfxDimmer),
+                                  PaletteGenerator::EfxDimmer);
+            else if (cap == KQLCChannelMovement)
+                addFunctionsGroup(fxGrpItem, grpItem,
+                                  PaletteGenerator::typetoString(PaletteGenerator::EfxPosition),
+                                  PaletteGenerator::EfxPosition);
         }
+        efxItem = NULL;
     }
 
     m_allFuncsTree->resizeColumnToContents(KFunctionName);
@@ -441,6 +456,25 @@ void FunctionWizard::updateResultFunctionsTree()
                     item->setText(KFunctionName, matrix->name());
                     item->setIcon(KFunctionName, matrix->getIcon());
                 }
+            }
+
+            for (int c = 0; c < funcItem->childCount(); c++)
+            {
+                
+                QTreeWidgetItem *subFuncItem = funcItem->child(c);
+                if (subFuncItem->checkState(KFunctionName) != Qt::Checked)
+                    continue;
+
+                int type = subFuncItem->data(KFunctionName, Qt::UserRole).toInt();
+                int subType = PaletteGenerator::All;
+                if (funcItem->checkState(KFunctionOddEven) == Qt::Checked)
+                    subType = PaletteGenerator::OddEven;
+
+                PaletteGenerator *palette = new PaletteGenerator(m_doc, fxList,
+                                                                (PaletteGenerator::PaletteType)type,
+                                                                (PaletteGenerator::PaletteSubType)subType);
+                m_paletteList.append(palette);
+
                 foreach (EFX *efx, palette->efxs())
                 {
                     QTreeWidgetItem *item = new QTreeWidgetItem(getFunctionGroupItem(efx));

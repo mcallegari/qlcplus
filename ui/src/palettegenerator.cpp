@@ -104,7 +104,9 @@ QString PaletteGenerator::typetoString(PaletteGenerator::PaletteType type)
         case Gobos: return tr("Gobo macros");
         case ColourMacro: return tr("Colour macros");
         case Animation: return tr("Animations");
-        case Efx: return tr("EFXs");
+        case EfxDimmer: return tr("Dimmer EFXs");
+        case EfxPosition: return tr("Position EFXs");
+        case EfxRGB: return tr("RGB EFXs");
         case Undefined:
         default:
             return tr("Unknown");
@@ -510,25 +512,12 @@ EFX *PaletteGenerator::createEfx(QList<Fixture *> fixtures, bool staggered, EFXF
     return efx;
 }
 
-void PaletteGenerator::createEfxs(QList<Fixture *> fixtures)
+void PaletteGenerator::createEfxs(QList<Fixture *> fixtures, EFXFixture::Mode mode)
 {
     qDebug() << "createEfxs";
 
-    if (PaletteGenerator::getCapabilities(fixtures[0]).contains(KQLCChannelDimmer))
-    {
-        m_efxs.append(createEfx(fixtures, false, EFXFixture::Mode::Dimmer));
-        m_efxs.append(createEfx(fixtures, true, EFXFixture::Mode::Dimmer));
-    }
-    if (PaletteGenerator::getCapabilities(fixtures[0]).contains(KQLCChannelRGB))
-    {
-        m_efxs.append(createEfx(fixtures, false, EFXFixture::Mode::RGB));
-        m_efxs.append(createEfx(fixtures, true, EFXFixture::Mode::RGB));
-    }
-    if (PaletteGenerator::getCapabilities(fixtures[0]).contains(KQLCChannelMovement))
-    {
-        m_efxs.append(createEfx(fixtures, false, EFXFixture::Mode::PanTilt));
-        m_efxs.append(createEfx(fixtures, true, EFXFixture::Mode::PanTilt));
-    }
+    m_efxs.append(createEfx(fixtures, false, mode));
+    m_efxs.append(createEfx(fixtures, true, mode));
 }
 
 void PaletteGenerator::createChaser(QString name)
@@ -640,14 +629,14 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type,
                 createRGBMatrices(m_redList);
         }
         break;
-        case Efx:
-        {
-        if ((m_redList.size() > 1 &&
-             m_greenList.size() == m_redList.size() &&
-             m_blueList.size() == m_redList.size()) ||
-            m_panList.size() > 1)
-            createEfxs(m_fixtures);
-        }
+        case EfxDimmer:
+            createEfxs(m_fixtures, EFXFixture::Mode::Dimmer);
+        break;
+        case EfxRGB:
+            createEfxs(m_fixtures, EFXFixture::Mode::RGB);
+        break;
+        case EfxPosition:
+            createEfxs(m_fixtures, EFXFixture::Mode::PanTilt);
         break;
         case Gobos:
         {
