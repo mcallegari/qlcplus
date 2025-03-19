@@ -61,7 +61,7 @@ PaletteGenerator::~PaletteGenerator()
     m_scenes.clear();
     m_chasers.clear();
     m_matrices.clear();
-    m_effects.clear();
+    m_efxs.clear();
 }
 
 void PaletteGenerator::setName(QString name)
@@ -104,7 +104,7 @@ QString PaletteGenerator::typetoString(PaletteGenerator::PaletteType type)
         case Gobos: return tr("Gobo macros");
         case ColourMacro: return tr("Colour macros");
         case Animation: return tr("Animations");
-        case Effect: return tr("EFXs");
+        case Efx: return tr("EFXs");
         case Undefined:
         default:
             return tr("Unknown");
@@ -197,9 +197,9 @@ QList<RGBMatrix *> PaletteGenerator::matrices()
     return m_matrices;
 }
 
-QList<EFX *> PaletteGenerator::effects()
+QList<EFX *> PaletteGenerator::efxs()
 {
-    return m_effects;
+    return m_efxs;
 }
 
 void PaletteGenerator::addToDoc()
@@ -225,9 +225,9 @@ void PaletteGenerator::addToDoc()
         matrix->setFixtureGroup(m_fixtureGroup->id());
         m_doc->addFunction(matrix);
     }
-    foreach (EFX *effect, m_effects)
+    foreach (EFX *efx, m_efxs)
     {
-        m_doc->addFunction(effect);
+        m_doc->addFunction(efx);
     }
 }
 
@@ -465,7 +465,7 @@ void PaletteGenerator::createRGBMatrices(QList<SceneValue> rgbMap)
     }
 }
 
-EFX *PaletteGenerator::createEffect(QList<Fixture *> fixtures, bool staggered, EFXFixture::Mode mode)
+EFX *PaletteGenerator::createEfx(QList<Fixture *> fixtures, bool staggered, EFXFixture::Mode mode)
 {
     EFX *efx = new EFX(m_doc);
 
@@ -503,22 +503,22 @@ EFX *PaletteGenerator::createEffect(QList<Fixture *> fixtures, bool staggered, E
     return efx;
 }
 
-void PaletteGenerator::createEffects(QList<Fixture *> fixtures)
+void PaletteGenerator::createEfxs(QList<Fixture *> fixtures)
 {
-    qDebug() << "createEffects";
+    qDebug() << "createEfxs";
 
-    m_effects.append(createEffect(fixtures, false, EFXFixture::Mode::Dimmer));
-    m_effects.append(createEffect(fixtures, true, EFXFixture::Mode::Dimmer));
+    m_efxs.append(createEfx(fixtures, false, EFXFixture::Mode::Dimmer));
+    m_efxs.append(createEfx(fixtures, true, EFXFixture::Mode::Dimmer));
 
     if (PaletteGenerator::getCapabilities(fixtures[0]).contains(KQLCChannelRGB))
     {
-        m_effects.append(createEffect(fixtures, false, EFXFixture::Mode::RGB));
-        m_effects.append(createEffect(fixtures, true, EFXFixture::Mode::RGB));
+        m_efxs.append(createEfx(fixtures, false, EFXFixture::Mode::RGB));
+        m_efxs.append(createEfx(fixtures, true, EFXFixture::Mode::RGB));
     }
     if (PaletteGenerator::getCapabilities(fixtures[0]).contains(KQLCChannelMovement))
     {
-        m_effects.append(createEffect(fixtures, false, EFXFixture::Mode::PanTilt));
-        m_effects.append(createEffect(fixtures, true, EFXFixture::Mode::PanTilt));
+        m_efxs.append(createEfx(fixtures, false, EFXFixture::Mode::PanTilt));
+        m_efxs.append(createEfx(fixtures, true, EFXFixture::Mode::PanTilt));
     }
 }
 
@@ -631,13 +631,13 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type,
                 createRGBMatrices(m_redList);
         }
         break;
-    case Effect:
-    {
+        case Efx:
+        {
         if ((m_redList.size() > 1 &&
              m_greenList.size() == m_redList.size() &&
              m_blueList.size() == m_redList.size()) ||
             m_panList.size() > 1)
-            createEffects(m_fixtures);
+            createEfxs(m_fixtures);
         }
         break;
         case Gobos:

@@ -59,7 +59,7 @@ public:
         Shutter,
         Gobos,
         ColourMacro,
-        Effect,
+        Efx
         Animation
     };
 
@@ -116,7 +116,7 @@ public:
     QList<Scene *> scenes();
     QList<Chaser *> chasers();
     QList<RGBMatrix *> matrices();
-    QList<EFX *> effects();
+    QList<EFX *> efxs();
 
     void addToDoc();
 
@@ -132,8 +132,8 @@ private:
 
     void createRGBMatrices(QList<SceneValue> rgbMap);
 
-    EFX* createEffect(QList <Fixture*> fixtures, bool staggered, EFXFixture::Mode mode);
-    void createEffects(QList<Fixture*> fixtures);
+    EFX* createEfx(QList <Fixture*> fixtures, bool staggered, EFXFixture::Mode mode);
+    void createEfxs(QList<Fixture*> fixtures);
 
     void createChaser(QString name);
 
@@ -160,7 +160,7 @@ private:
     QList <Scene*> m_scenes;
     QList <Chaser*> m_chasers;
     QList <RGBMatrix*> m_matrices;
-    QList <EFX*> m_effects;
+    QList <EFX*> m_efxs;
 };
 
 /** @} */
