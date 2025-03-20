@@ -277,6 +277,21 @@ p, li { white-space: pre-wrap; }
        </item>
        <item row="1" column="0">
         <widget class="QTreeWidget" name="m_allFuncsTree">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <attribute name="headerVisible">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="headerCascadingSectionResizes">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="headerDefaultSectionSize">
+          <number>60</number>
+         </attribute>
+         <attribute name="headerStretchLastSection">
+          <bool>true</bool>
+         </attribute>
          <column>
           <property name="text">
            <string>Available</string>
@@ -285,6 +300,21 @@ p, li { white-space: pre-wrap; }
          <column>
           <property name="text">
            <string>Odd/Even</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Staggered</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Asymetric</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Split Reverse</string>
           </property>
          </column>
         </widget>

@@ -52,6 +52,9 @@
 
 #define KFunctionName               0
 #define KFunctionOddEven            1
+#define KFunctionStaggered          2
+#define KFunctionAsymetric          3
+#define KFunctionSplitReverse       4
 
 #define KWidgetName                 0
 
@@ -280,7 +283,7 @@ void FunctionWizard::addFunctionsGroup(QTreeWidgetItem *fxGrpItem, QTreeWidgetIt
     if ((type == PaletteGenerator::EfxDimmer ||
         type == PaletteGenerator::EfxRGB ||
         type == PaletteGenerator::EfxPosition))
-    {   
+    {
         if (efxItem == NULL){
             QTreeWidgetItem *item = new QTreeWidgetItem(grpItem);
             item->setText(KFunctionName, "EFXs");
@@ -300,6 +303,15 @@ void FunctionWizard::addFunctionsGroup(QTreeWidgetItem *fxGrpItem, QTreeWidgetIt
     if (fxGrpItem != NULL && fxGrpItem->childCount() > 1)
     {
         item->setCheckState(KFunctionOddEven, Qt::Unchecked);
+        
+        if ((type == PaletteGenerator::EfxDimmer ||
+            type == PaletteGenerator::EfxRGB ||
+            type == PaletteGenerator::EfxPosition))
+        {
+            item->setCheckState(KFunctionStaggered, Qt::Unchecked);
+            item->setCheckState(KFunctionAsymetric, Qt::Unchecked);
+            item->setCheckState(KFunctionSplitReverse, Qt::Unchecked);
+        }
     }
 }
 
