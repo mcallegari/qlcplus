@@ -222,7 +222,7 @@ Rectangle
                 property int initialXPos
                 property int initialYPos
 
-                onPressed:
+                onPressed: (mouse) =>
                 {
                     console.log("button: " + mouse.button + ", mods: " + mouse.modifiers)
                     var itemID = View2D.itemIDAtPos(Qt.point(mouse.x, mouse.y))
@@ -256,7 +256,7 @@ Rectangle
                     }
                 }
 
-                onPositionChanged:
+                onPositionChanged: (mouse) =>
                 {
                     if (selectionRect.visible == true)
                     {
@@ -294,7 +294,7 @@ Rectangle
                     }
                 }
 
-                onReleased:
+                onReleased: (mouse) =>
                 {
                     if (selectionRect.visible === true && selectionRect.width && selectionRect.height)
                     {
@@ -317,7 +317,7 @@ Rectangle
                     }
                 }
 
-                onWheel:
+                onWheel: (wheel)=>
                 {
                     //console.log("Wheel delta: " + wheel.angleDelta.y)
                     if (wheel.angleDelta.y > 0)

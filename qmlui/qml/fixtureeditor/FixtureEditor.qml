@@ -266,7 +266,7 @@ Rectangle
                 id: editorsRepeater
                 model: fixtureEditor ? fixtureEditor.editorsList : null
 
-                onItemAdded: item.clicked()
+                onItemAdded: (index,item) => item.clicked()
 
                 delegate:
                     MenuBarEntry

@@ -82,8 +82,8 @@ Entity
             effect: sceneEffect
 
             parameters: [
-                Parameter { name: "diffuse"; value: "gray" },
-                Parameter { name: "specular"; value: "black" },
+                Parameter { name: "diffuse"; value: Qt.color("gray") },
+                Parameter { name: "specular"; value: Qt.color("black") },
                 Parameter { name: "shininess"; value: 1.0 },
                 Parameter { name: "bloom"; value: 0 }
             ]
@@ -152,7 +152,7 @@ Entity
                                 name: "diffuse"
                                 value: Qt.rgba(lightColor.r * lightIntensity, lightColor.g * lightIntensity, lightColor.b * lightIntensity, 1)
                             },
-                            Parameter { name: "specular"; value: "black" },
+                            Parameter { name: "specular"; value: Qt.color("black") },
                             Parameter { name: "shininess"; value: 1.0 },
                             Parameter { name: "bloom"; value: 1 }
                         ]
@@ -175,7 +175,7 @@ Entity
 
         property var lastPos
 
-        onClicked:
+        onClicked: (pick) =>
         {
             console.log("3D item clicked")
             isSelected = !isSelected

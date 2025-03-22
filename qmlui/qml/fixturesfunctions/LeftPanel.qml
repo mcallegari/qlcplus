@@ -31,7 +31,7 @@ SidePanel
     anchors.leftMargin: 0
     panelAlignment: Qt.AlignLeft
 
-    onContentLoaded:
+    onContentLoaded: (item, ID) =>
     {
         item.width = Qt.binding(function() { return leftSidePanel.width - collapseWidth })
         item.height = Qt.binding(function() { return leftSidePanel.height })
