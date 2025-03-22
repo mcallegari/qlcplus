@@ -49,44 +49,60 @@ if(appimage)
     )
 
     # Qt Libraries
-    set(qtlibs_FILES
-        ${QT_LIBS_PATH}/libQt5Core.so.5
-        ${QT_LIBS_PATH}/libQt5Script.so.5
-        ${QT_LIBS_PATH}/libQt5Network.so.5
-        ${QT_LIBS_PATH}/libQt5Gui.so.5
-        ${QT_LIBS_PATH}/libQt5Svg.so.5
-        ${QT_LIBS_PATH}/libQt5Widgets.so.5
-        ${QT_LIBS_PATH}/libQt5OpenGL.so.5
-        ${QT_LIBS_PATH}/libQt5Multimedia.so.5
-        ${QT_LIBS_PATH}/libQt5MultimediaWidgets.so.5
-        ${QT_LIBS_PATH}/libQt5SerialPort.so.5
-        ${QT_LIBS_PATH}/libQt5XcbQpa.so.5
-        ${QT_LIBS_PATH}/libQt5DBus.so.5
-        ${QT_LIBS_PATH}/libQt5WebSockets.so.5
-    )
+    if (QT_VERSION_MAJOR GREATER 5)
+        set(qtlibs_FILES
+            ${QT_LIBS_PATH}/libQt6Core.so
+            ${QT_LIBS_PATH}/libQt6Network.so
+            ${QT_LIBS_PATH}/libQt6Gui.so
+            ${QT_LIBS_PATH}/libQt6Qml.so
+            ${QT_LIBS_PATH}/libQt6Svg.so
+            ${QT_LIBS_PATH}/libQt6Widgets.so
+            ${QT_LIBS_PATH}/libQt6OpenGL.so
+            ${QT_LIBS_PATH}/libQt6Multimedia.so
+            ${QT_LIBS_PATH}/libQt6MultimediaWidgets.so
+            ${QT_LIBS_PATH}/libQt6SerialPort.so
+            ${QT_LIBS_PATH}/libQt6XcbQpa.so
+            ${QT_LIBS_PATH}/libQt6DBus.so
+            ${QT_LIBS_PATH}/libQt5WebSockets.so.6)
+    else()
+        set(qtlibs_FILES
+            ${QT_LIBS_PATH}/libQt5Core.so.5
+            ${QT_LIBS_PATH}/libQt5Script.so.5
+            ${QT_LIBS_PATH}/libQt5Network.so.5
+            ${QT_LIBS_PATH}/libQt5Gui.so.5
+            ${QT_LIBS_PATH}/libQt5Svg.so.5
+            ${QT_LIBS_PATH}/libQt5Widgets.so.5
+            ${QT_LIBS_PATH}/libQt5OpenGL.so.5
+            ${QT_LIBS_PATH}/libQt5Multimedia.so.5
+            ${QT_LIBS_PATH}/libQt5MultimediaWidgets.so.5
+            ${QT_LIBS_PATH}/libQt5SerialPort.so.5
+            ${QT_LIBS_PATH}/libQt5XcbQpa.so.5
+            ${QT_LIBS_PATH}/libQt5DBus.so.5
+            ${QT_LIBS_PATH}/libQt5WebSockets.so.5)
+    endif()
+
     if(qmlui)
         list(APPEND qtlibs_FILES
-            ${QT_LIBS_PATH}/libQt5MultimediaQuick.so.5
-            ${QT_LIBS_PATH}/libQt5MultimediaGstTools.so.5
-            ${QT_LIBS_PATH}/libQt5Qml.so.5
-            ${QT_LIBS_PATH}/libQt5QmlModels.so.5
-            ${QT_LIBS_PATH}/libQt5QmlWorkerScript.so.5
-            ${QT_LIBS_PATH}/libQt5Quick.so.5
-            ${QT_LIBS_PATH}/libQt5QuickControls2.so.5
-            ${QT_LIBS_PATH}/libQt5QuickTemplates2.so.5
-            ${QT_LIBS_PATH}/libQt53DCore.so.5
-            ${QT_LIBS_PATH}/libQt53DExtras.so.5
-            ${QT_LIBS_PATH}/libQt53DInput.so.5
-            ${QT_LIBS_PATH}/libQt53DLogic.so.5
-            ${QT_LIBS_PATH}/libQt53DAnimation.so.5
-            ${QT_LIBS_PATH}/libQt53DQuick.so.5
-            ${QT_LIBS_PATH}/libQt53DQuickExtras.so.5
-            ${QT_LIBS_PATH}/libQt53DQuickInput.so.5
-            ${QT_LIBS_PATH}/libQt53DQuickRender.so.5
-            ${QT_LIBS_PATH}/libQt53DRender.so.5
-            ${QT_LIBS_PATH}/libQt5Concurrent.so.5
-            ${QT_LIBS_PATH}/libQt5Gamepad.so.5
-            ${QT_LIBS_PATH}/libQt5PrintSupport.so.5)
+            ${QT_LIBS_PATH}/libQt6MultimediaQuick.so
+            ${QT_LIBS_PATH}/libQt6MultimediaGstTools.so
+            ${QT_LIBS_PATH}/libQt6QmlModels.so
+            ${QT_LIBS_PATH}/libQt6QmlWorkerScript.so
+            ${QT_LIBS_PATH}/libQt6Quick.so
+            ${QT_LIBS_PATH}/libQt6QuickControls2.so
+            ${QT_LIBS_PATH}/libQt6QuickTemplates2.so
+            ${QT_LIBS_PATH}/libQt63DCore.so
+            ${QT_LIBS_PATH}/libQt63DExtras.so
+            ${QT_LIBS_PATH}/libQt63DInput.so
+            ${QT_LIBS_PATH}/libQt63DLogic.so
+            ${QT_LIBS_PATH}/libQt63DAnimation.so
+            ${QT_LIBS_PATH}/libQt63DQuick.so
+            ${QT_LIBS_PATH}/libQt63DQuickExtras.so
+            ${QT_LIBS_PATH}/libQt63DQuickInput.so
+            ${QT_LIBS_PATH}/libQt63DQuickRender.so
+            ${QT_LIBS_PATH}/libQt63DRender.so
+            ${QT_LIBS_PATH}/libQt6Concurrent.so
+            ${QT_LIBS_PATH}/libQt6Gamepad.so
+            ${QT_LIBS_PATH}/libQt6PrintSupport.so)
     endif()
     
     set(_resolved_qtlibs_FILES "")
@@ -98,68 +114,82 @@ if(appimage)
     install(FILES ${_resolved_qtlibs_FILES} DESTINATION ${INSTALLROOT}/${LIBSDIR})
 
     # Qt plugins
+    if (QT_VERSION_MAJOR GREATER 5)
+        set(QT_V "qt6")
+    else()
+        set(QT_V "qt5")
+    endif()
+
     install(
         FILES 
             ${QT_PLUGINS_PATH}/platforms/libqlinuxfb.so
             ${QT_PLUGINS_PATH}/platforms/libqxcb.so
             ${QT_PLUGINS_PATH}/platforms/libqminimal.so
-        DESTINATION ${INSTALLROOT}/${LIBSDIR}/qt5/plugins/platforms
+        DESTINATION ${INSTALLROOT}/${LIBSDIR}/${QT_V}/plugins/platforms
     )
 
     install(
         FILES
             ${QT_PLUGINS_PATH}/xcbglintegrations/libqxcb-glx-integration.so
-        DESTINATION ${INSTALLROOT}/${LIBSDIR}/qt5/plugins/xcbglintegrations
+        DESTINATION ${INSTALLROOT}/${LIBSDIR}/${QT_V}/plugins/xcbglintegrations
     )
 
-    install(
-        FILES
-            ${QT_PLUGINS_PATH}/audio/libqtaudio_alsa.so
-            ${QT_PLUGINS_PATH}/audio/libqtmedia_pulse.so
-        DESTINATION ${INSTALLROOT}/${LIBSDIR}/qt5/plugins/audio
-    )
+    if (QT_VERSION_MAJOR GREATER 5)
+        install(
+            FILES
+                ${QT_PLUGINS_PATH}/multimedia/libffmpegmediaplugin.so
+                ${QT_PLUGINS_PATH}/multimedia/libgstreamermediaplugin.so
+            DESTINATION ${INSTALLROOT}/${LIBSDIR}/${QT_V}/plugins/multimedia
+        )
+    else()
+        install(
+            FILES
+                ${QT_PLUGINS_PATH}/audio/libqtaudio_alsa.so
+                ${QT_PLUGINS_PATH}/audio/libqtmedia_pulse.so
+            DESTINATION ${INSTALLROOT}/${LIBSDIR}/${QT_V}/plugins/audio
+        )
 
-    install(
-        FILES
-            ${QT_PLUGINS_PATH}/mediaservice/libgstaudiodecoder.so
-            ${QT_PLUGINS_PATH}/mediaservice/libgstmediaplayer.so
-        DESTINATION ${INSTALLROOT}/${LIBSDIR}/qt5/plugins/mediaservice
-    )
+        install(
+            FILES
+                ${QT_PLUGINS_PATH}/mediaservice/libgstaudiodecoder.so
+                ${QT_PLUGINS_PATH}/mediaservice/libgstmediaplayer.so
+            DESTINATION ${INSTALLROOT}/${LIBSDIR}/${QT_V}/plugins/mediaservice
+        )
+    endif()
 
     install(
         FILES
             ${QT_PLUGINS_PATH}/imageformats/libqsvg.so
-        DESTINATION ${INSTALLROOT}/${LIBSDIR}/qt5/plugins/imageformats
+        DESTINATION ${INSTALLROOT}/${LIBSDIR}/${QT_V}/plugins/imageformats
     )
 
     if(qmlui)
         install(
             FILES
                 ${QT_PLUGINS_PATH}/printsupport/libcupsprintersupport.so
-            DESTINATION ${INSTALLROOT}/${LIBSDIR}/qt5/plugins/printsupport
+            DESTINATION ${INSTALLROOT}/${LIBSDIR}/${QT_V}/plugins/printsupport
         )
 
         install(
             FILES
                 ${QT_PLUGINS_PATH}/sceneparsers/libassimpsceneimport.so
-            OPTIONAL DESTINATION ${INSTALLROOT}/${LIBSDIR}/qt5/plugins/sceneparsers
+            OPTIONAL DESTINATION ${INSTALLROOT}/${LIBSDIR}/${QT_V}/plugins/sceneparsers
         )
 
         install(
             FILES
                 ${QT_PLUGINS_PATH}/geometryloaders/libdefaultgeometryloader.so
-            DESTINATION ${INSTALLROOT}/${LIBSDIR}/qt5/plugins/geometryloaders
+            DESTINATION ${INSTALLROOT}/${LIBSDIR}/${QT_V}/plugins/geometryloaders
         )
     endif()
 
     if(QT_VERSION VERSION_GREATER_EQUAL 5.15.0)
-        install(FILES ${QT_PLUGINS_PATH}/renderers/libopenglrenderer.so DESTINATION ${INSTALLROOT}/${LIBSDIR}/qt5/plugins/renderers)
+        install(FILES ${QT_PLUGINS_PATH}/renderers/libopenglrenderer.so DESTINATION ${INSTALLROOT}/${LIBSDIR}/${QT_V}/plugins/renderers)
     endif()
 
     set(qmldeps_files
         ${QT_QML_PATH}/QtQml
         ${QT_QML_PATH}/QtQuick
-        ${QT_QML_PATH}/QtQuick.2
         ${QT_QML_PATH}/Qt3D
         ${QT_QML_PATH}/QtMultimedia
     )
