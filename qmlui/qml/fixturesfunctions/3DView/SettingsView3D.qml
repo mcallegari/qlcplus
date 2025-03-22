@@ -17,10 +17,10 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.3
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Dialogs
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -626,7 +626,7 @@ Rectangle
                     id: meshDialog
                     visible: false
                     title: qsTr("Select a mesh file")
-                    folder: View3D.meshDirectory
+                    currentFolder: View3D.meshDirectory
                     nameFilters: [ qsTr("3D files") + " (*.obj *.dae *.3ds *.py *.stl *.blend)", qsTr("All files") + " (*)" ]
 
                     onAccepted: View3D.createGenericItem(fileUrl, -1)

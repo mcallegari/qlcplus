@@ -17,10 +17,11 @@
   limitations under the License.
 */
 
-import QtQuick 2.2
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.1
-import QtQuick.Dialogs 1.3
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtQuick.Dialogs
+
 import org.qlcplus.classes 1.0
 import "."
 
@@ -48,6 +49,7 @@ Rectangle
         id: openDialog
         visible: false
         title: qsTr("Open a fixture definition")
+        currentFolder: "file://" + fixtureEditor.workingPath
         nameFilters: [ qsTr("Fixture definition files") + " (*.qxf)", qsTr("All files") + " (*)" ]
 
         onAccepted:
@@ -68,10 +70,10 @@ Rectangle
         id: saveDialog
         visible: false
         title: qsTr("Save definition as...")
-        selectExisting: false
+        currentFolder: "file://" + fixtureEditor.workingPath
+        fileMode: FileDialog.SaveFile
         nameFilters: [ qsTr("Fixture definition files") + " (*.qxf)", qsTr("All files") + " (*)" ]
         defaultSuffix: "qxf"
-        //fileMode: FileDialog.SaveFile
 
         onAccepted:
         {

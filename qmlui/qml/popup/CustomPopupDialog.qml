@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.6
-import QtQuick.Layouts 1.0
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import "."
 
@@ -95,7 +95,7 @@ Dialog
 
             contentItem.implicitHeight: UISettings.iconSizeDefault
 
-            onClicked:
+            onClicked: function(button)
             {
                 if (button === standardButton(Dialog.Yes))
                     control.clicked(Dialog.Yes)
@@ -123,7 +123,7 @@ Dialog
                 Button
                 {
                     id: buttonControl
-                    width: buttonBoxControl.count === 1 ? UISettings.bigItemHeight * 2 : undefined
+                    implicitWidth: UISettings.bigItemHeight * 2
                     //implicitWidth: width
 
                     hoverEnabled: true

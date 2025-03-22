@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.14
-import QtQuick.Layouts 1.14
+import QtQuick
+import QtQuick.Layouts
 
 import "."
 
@@ -38,7 +38,7 @@ Rectangle
 
     onVisibleChanged:
     {
-        if(visible == false)
+        if (visible === false)
             editorLoader.source = ""
         else
             editorLoader.source = editorSource
@@ -109,7 +109,7 @@ Rectangle
 
             onPositionChanged:
             {
-                if (drag.active == true)
+                if (drag.active === true)
                 {
                     var newHeight = bottomSidePanel.parent.height - bottomSidePanel.y
                     if (newHeight < collapseHeight)

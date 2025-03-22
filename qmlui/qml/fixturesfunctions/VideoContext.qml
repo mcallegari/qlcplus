@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtMultimedia 5.14
+import QtQuick
+import QtMultimedia
 
 import org.qlcplus.classes 1.0
 import "."

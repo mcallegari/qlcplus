@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.0
-import QtQuick.Dialogs 1.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Dialogs
 
 import org.qlcplus.classes 1.0
 import "."
@@ -111,7 +111,7 @@ SidePanel
         }
     }
 
-    onContentLoaded:
+    function onContentLoaded(item)
     {
         if (item.hasOwnProperty("functionID"))
             item.functionID = itemID
@@ -121,7 +121,7 @@ SidePanel
     {
         id: openFileDialog
         visible: false
-        selectMultiple: true
+        fileMode: FileDialog.OpenFiles
 
         property int fType
 

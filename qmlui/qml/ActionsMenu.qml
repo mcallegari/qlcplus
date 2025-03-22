@@ -17,10 +17,10 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Controls 2.1
-import QtQuick.Dialogs 1.2
-import QtQuick.Layouts 1.0
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Dialogs
+import QtQuick.Layouts
 
 import "."
 
@@ -57,9 +57,8 @@ Popup
     FileDialog
     {
         id: openDialog
-        visible: false
         title: qsTr("Open a file")
-        folder: "file://" + qlcplus.workingPath
+        currentFolder: "file://" + qlcplus.workingPath
         nameFilters: [ qsTr("QLC+ files") + " (*.qxw *.qxf)", qsTr("All files") + " (*)" ]
 
         onAccepted:
@@ -75,9 +74,8 @@ Popup
     FileDialog
     {
         id: importDialog
-        visible: false
         title: qsTr("Import from project")
-        folder: "file://" + qlcplus.workingPath
+        currentFolder: "file://" + qlcplus.workingPath
         nameFilters: [ qsTr("Project files") + " (*.qxw)", qsTr("All files") + " (*)" ]
 
         onAccepted:
@@ -93,9 +91,9 @@ Popup
     FileDialog
     {
         id: saveDialog
-        visible: false
         title: qsTr("Save project as...")
-        selectExisting: false
+        currentFolder: "file://" + qlcplus.workingPath
+        fileMode: FileDialog.SaveFile
         nameFilters: [ qsTr("Project files") + " (*.qxw)", qsTr("All files") + " (*)" ]
 
         onAccepted:
@@ -117,7 +115,7 @@ Popup
 
         property string action: ""
 
-        onClicked:
+        function onClicked(role)
         {
             if (role === Dialog.Yes)
             {
