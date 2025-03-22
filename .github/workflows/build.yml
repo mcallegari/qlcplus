@@ -39,12 +39,6 @@ jobs:
         libpulse-dev
       PACKAGES_COVERAGE_BASE:
         lcov
-      QT_MODULES:
-        #qtscript
-        qtmultimedia
-        qtserialport
-        qt3d
-        qtquickcontrols
 
     defaults:
       run:
@@ -117,7 +111,7 @@ jobs:
           version: ${{ env.QT_VERSION }}
           cache: true
           dir: ${{ env.QT_INSTALL_DIR }}
-          modules: 'qtmultimedia qtserialport qt3d'
+          modules: 'qtmultimedia qtserialport qt3d qtwebsockets'
 
       - name: Install python-lxml for fixtures-tool # with the now-registered aqt python
         run: pip install lxml
@@ -268,8 +262,6 @@ jobs:
       CI_BRANCH: ${{ github.head_ref }}
       CI_PULL_REQUEST: ${{ github.event.number }}
       QMAKESPEC: win32-g++
-      QT_MODULES:
-        qtscript
 
     steps:
       - name: Checkout
@@ -503,8 +495,6 @@ jobs:
       CI_BRANCH: ${{ github.head_ref }}
       CI_PULL_REQUEST: ${{ github.event.number }}
       QT_VERSION: "5.15.2"
-      QT_MODULES:
-        qtscript
 
     steps:
       - name: Checkout
@@ -544,7 +534,7 @@ jobs:
         with:
           version: ${{ env.QT_VERSION }}
           dir: "${{ github.workspace }}/qt/"
-          modules: ${{ env.QT_MODULES }}
+          modules: 'qtscript'
 
       - name: Configure build
         shell: bash
