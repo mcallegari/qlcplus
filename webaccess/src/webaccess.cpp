@@ -251,13 +251,23 @@ void WebAccess::slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp)
         QString clUri = QString(":%1").arg(reqUrl);
         QFile resFile(clUri);
         if (!resFile.exists())
-            clUri = reqUrl;
+        {
+            clUri = QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
+                .arg(QDir::separator()).arg(reqUrl.mid(1));
+        }
         if (sendFile(resp, clUri, "image/png") == true)
             return;
     }
     else if (reqUrl.endsWith(".jpg"))
     {
         if (sendFile(resp, reqUrl, "image/jpg") == true)
+            return;
+    }
+    else if (reqUrl.endsWith(".ico"))
+    {
+        QString clUri = reqUrl.mid(1);
+        if (sendFile(resp, QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
+                     .arg(QDir::separator()).arg(clUri), "image/x-icon") == true)
             return;
     }
     else if (reqUrl.endsWith(".css"))
