@@ -63,7 +63,7 @@ if(appimage)
             ${QT_LIBS_PATH}/libQt6SerialPort.so
             ${QT_LIBS_PATH}/libQt6XcbQpa.so
             ${QT_LIBS_PATH}/libQt6DBus.so
-            ${QT_LIBS_PATH}/libQt5WebSockets.so.6)
+            ${QT_LIBS_PATH}/libQt5WebSockets.so)
     else()
         set(qtlibs_FILES
             ${QT_LIBS_PATH}/libQt5Core.so.5
@@ -138,7 +138,6 @@ if(appimage)
         install(
             FILES
                 ${QT_PLUGINS_PATH}/multimedia/libffmpegmediaplugin.so
-                ${QT_PLUGINS_PATH}/multimedia/libgstreamermediaplugin.so
             DESTINATION ${INSTALLROOT}/${LIBSDIR}/${QT_V}/plugins/multimedia
         )
     else()
