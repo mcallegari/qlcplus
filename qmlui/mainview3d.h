@@ -33,7 +33,6 @@
 #include <Qt3DRender/QMaterial>
 #include <Qt3DRender/QSceneLoader>
 #include <Qt3DRender/QRenderTarget>
-#include <Qt3DRender/QGeometryRenderer>
 #include <Qt3DRender/QPaintedTextureImage>
 
 #include "previewcontext.h"
@@ -261,7 +260,7 @@ protected:
     void initialize3DProperties();
 
     /** Bounding box volume calculation methods */
-    void getMeshCorners(QGeometryRenderer *mesh, QVector3D &minCorner, QVector3D &maxCorner);
+    //void getMeshCorners(QGeometryRenderer *mesh, QVector3D &minCorner, QVector3D &maxCorner);
     void addVolumes(SceneItem *meshRef, QVector3D minCorner, QVector3D maxCorner);
 
     /** Recursive method to get/set all the information of a scene */

@@ -746,7 +746,7 @@ void VCMatrix::slotUpdate()
 
     // Custom Buttons
     for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();
-            it != m_controls.end(); ++it)
+         it != m_controls.end(); ++it)
     {
         QWidget *widget = it.key();
         VCMatrixControl *control = it.value();
@@ -844,7 +844,7 @@ void VCMatrix::slotUpdate()
             {
                 on = true;
                 for (QHash<QString, QString>::const_iterator it = control->m_properties.begin();
-                        it != control->m_properties.end(); ++it)
+                     it != control->m_properties.end(); ++it)
                 {
                     if (algorithmProperties.value(it.key(), QString()) != it.value())
                         on = false;

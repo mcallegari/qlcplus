@@ -1460,8 +1460,8 @@ QVariantList FixtureManager::fixturesMap()
      * Fixture ID | DMX address | isOdd | channel type (a lookup for icons)
      */
 
-    m_fixturesMap.clear();
-    m_fixtureNamesMap.clear();
+    QVariantList fixturesMap;
+    QVariantList fixtureNamesMap;
 
     QList<Fixture*> origList = m_doc->fixtures();
     // sort the fixture list by address and not by ID
@@ -1478,32 +1478,47 @@ QVariantList FixtureManager::fixturesMap()
         quint32 startAddress = fx->address();
         for (quint32 cn = 0; cn < fx->channels(); cn++)
         {
-            m_fixturesMap.append(fx->id());
-            m_fixturesMap.append(startAddress + cn);
+            fixturesMap.append(fx->id());
+            fixturesMap.append(startAddress + cn);
 
             if (odd)
-                m_fixturesMap.append(1);
+                fixturesMap.append(1);
             else
-                m_fixturesMap.append(0);
+                fixturesMap.append(0);
 
             QLCChannel::Group group = fx->channel(cn)->group();
             if (group == QLCChannel::Intensity)
-                m_fixturesMap.append(fx->channel(cn)->colour());
+                fixturesMap.append(fx->channel(cn)->colour());
             else
-                m_fixturesMap.append(group);
+                fixturesMap.append(group);
         }
         odd = !odd;
 
-        m_fixtureNamesMap.append(fx->id());
-        m_fixtureNamesMap.append(fx->address());
-        m_fixtureNamesMap.append(fx->channels());
-        m_fixtureNamesMap.append(fx->name());
+        fixtureNamesMap.append(fx->id());
+        fixtureNamesMap.append(fx->address());
+        fixtureNamesMap.append(fx->channels());
+        fixtureNamesMap.append(fx->name());
     }
+    setFixturesMap(fixturesMap);
+    setFixtureNamesMap(fixtureNamesMap);
 
+    return fixturesMap;
+}
+
+void FixtureManager::setFixturesMap(QVariantList fixturesMap)
+{
+    if (fixturesMap == m_fixturesMap)
+        return;
+    m_fixturesMap = fixturesMap;
     emit fixturesMapChanged();
-    emit fixtureNamesMapChanged();
+}
 
-    return m_fixturesMap;
+void FixtureManager::setFixtureNamesMap(QVariantList fixtureNamesMap)
+{
+    if (fixtureNamesMap == m_fixtureNamesMap)
+        return;
+    m_fixtureNamesMap = fixtureNamesMap;
+    emit fixtureNamesMapChanged();
 }
 
 int FixtureManager::pasteFromClipboard(QVariantList fixtureIDs)

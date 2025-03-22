@@ -37,6 +37,7 @@
 #endif
 #include <Qt3DRender/QParameter>
 #include <Qt3DExtras/QPhongMaterial>
+#include <Qt3DRender/QGeometryRenderer>
 
 #include "doc.h"
 #include "tardis.h"
@@ -704,7 +705,7 @@ QMatrix4x4 MainView3D::lightMatrix(quint32 itemID)
     return meshRef->m_rootItem->property("lightMatrix").value<QMatrix4x4>();
 }
 
-void MainView3D::getMeshCorners(QGeometryRenderer *mesh,
+void getMeshCorners(QGeometryRenderer *mesh,
                                 QVector3D &minCorner,
                                 QVector3D &maxCorner)
 {
