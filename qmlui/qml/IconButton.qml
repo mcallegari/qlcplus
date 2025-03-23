@@ -136,7 +136,7 @@ Button
                 },
                 State
                 {
-                    when: ctrlMouseArea.pressed
+                    when: control.pressed
                     PropertyChanges
                     {
                         target: contentBody
@@ -153,23 +153,6 @@ Button
                     }
                 }
             ]
-
-            MouseArea
-            {
-                id: ctrlMouseArea
-                anchors.fill: parent
-                onClicked:
-                {
-                    if (checkable)
-                    {
-                        control.toggle()
-                        control.toggled()
-                    }
-                    else
-                        control.clicked()
-                }
-            }
         }
-
 }
 

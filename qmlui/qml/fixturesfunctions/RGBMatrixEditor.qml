@@ -806,13 +806,13 @@ Rectangle
                     {
                         id: fontDialog
                         title: qsTr("Please choose a font")
-                        font: rgbMatrixEditor.algoTextFont
+                        selectedFont: rgbMatrixEditor.algoTextFont
                         visible: false
 
                         onAccepted:
                         {
-                            console.log("Selected font: " + fontDialog.font)
-                            rgbMatrixEditor.algoTextFont = font
+                            console.log("Selected font: " + selectedFont)
+                            rgbMatrixEditor.algoTextFont = selectedFont
                         }
                     }
                 }
@@ -958,7 +958,7 @@ Rectangle
                         title: qsTr("Select an image")
                         nameFilters: [ "Image files (*.png *.bmp *.jpg *.jpeg *.gif)", "All files (*)" ]
 
-                        onAccepted: rgbMatrixEditor.algoImagePath = fileDialog.fileUrl
+                        onAccepted: rgbMatrixEditor.algoImagePath = fileDialog.selectedFile
                     }
                 }
             }

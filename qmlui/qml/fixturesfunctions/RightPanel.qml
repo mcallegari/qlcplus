@@ -129,8 +129,8 @@ SidePanel
         {
 
             var strArray = []
-            for (var i = 0; i < fileUrls.length; i++)
-                strArray.push("" + fileUrls[i])
+            for (var i = 0; i < selectedFiles.length; i++)
+                strArray.push("" + selectedFiles[i])
 
             console.log("File list: " + strArray)
 

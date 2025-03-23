@@ -444,7 +444,7 @@ Rectangle
                         if (!mouse.modifiers || (mouse.modifiers & Qt.ShiftModifier && direction == Qt.Horizontal))
                             viewCamera.panAboutViewCenter(-xDelta, Qt.vector3d(0, 1, 0))
                         if (!mouse.modifiers || (mouse.modifiers & Qt.ShiftModifier && direction == Qt.Vertical))
-                            viewCamera.tiltAboutViewCenter(yDelta, Qt.vector3d(1, 0, 0))
+                            viewCamera.tiltAboutViewCenter(yDelta)
 
                         View3D.cameraPosition = viewCamera.position
                         View3D.cameraUpVector = viewCamera.upVector

@@ -66,7 +66,7 @@ Rectangle
 
         onAccepted:
         {
-            videoEditor.sourceFileName = openVideoDialog.fileUrl
+            videoEditor.sourceFileName = openVideoDialog.selectedFile
         }
     }
 

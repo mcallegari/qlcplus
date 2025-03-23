@@ -97,15 +97,16 @@ Dialog
 
             onClicked: function(button)
             {
-                if (button === standardButton(Dialog.Yes))
+                var role = button.DialogButtonBox.buttonRole
+                if (role === DialogButtonBox.YesRole)
                     control.clicked(Dialog.Yes)
-                else if (button === standardButton(Dialog.No))
+                else if (role === DialogButtonBox.NoRole)
                     control.clicked(Dialog.No)
-                else if (button === standardButton(Dialog.Ok))
+                else if (role === DialogButtonBox.AcceptRole)
                     control.clicked(Dialog.Ok)
-                else if (button === standardButton(Dialog.Apply))
+                else if (role === DialogButtonBox.ApplyRole)
                     control.clicked(Dialog.Apply)
-                else if (button === standardButton(Dialog.Cancel))
+                else if (role === DialogButtonBox.RejectRole)
                     control.clicked(Dialog.Cancel)
             }
 

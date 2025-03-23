@@ -86,7 +86,7 @@ GridLayout
 
         onAccepted:
         {
-            var str = fileUrl.toString().slice(7)
+            var str = selectedFile.toString().slice(7)
             editor.setCapabilityValueAt(editItem.indexInList, 0, str)
             updatePresetBox(editItem.indexInList)
         }

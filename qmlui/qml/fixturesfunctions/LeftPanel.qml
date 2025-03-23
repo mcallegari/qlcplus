@@ -64,13 +64,14 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/fixture.svg"
-                checkable: true
+                //checkable: true
                 tooltip: qsTr("Add Fixtures")
                 ButtonGroup.group: fxManagerGroup
                 autoExclusive: false
-                onToggled:
+                onClicked:
                 {
-                    if (checked == true)
+                    checked = !checked
+                    if (checked === true)
                         loaderSource = "qrc:/FixtureBrowser.qml"
                     animatePanel(checked)
                 }
@@ -92,13 +93,14 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/group.svg"
-                checkable: true
+                //checkable: true
                 tooltip: qsTr("Fixture Groups")
                 ButtonGroup.group: fxManagerGroup
                 autoExclusive: false
-                onToggled:
+                onClicked:
                 {
-                    if (checked == true)
+                    checked = !checked
+                    if (checked === true)
                     {
                         loaderSource = "qrc:/FixtureGroupManager.qml"
                         fixtureManager.searchFilter = ""
@@ -117,9 +119,10 @@ SidePanel
                 tooltip: qsTr("Palettes")
                 ButtonGroup.group: fxManagerGroup
                 autoExclusive: false
-                onToggled:
+                onClicked:
                 {
-                    if (checked == true)
+                    checked = !checked
+                    if (checked === true)
                         loaderSource = "qrc:/PaletteManager.qml"
                     animatePanel(checked)
                 }

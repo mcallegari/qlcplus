@@ -231,7 +231,7 @@ Rectangle
 
                             onAccepted:
                             {
-                                View2D.backgroundImage = fileDialog.fileUrl
+                                View2D.backgroundImage = fileDialog.selectedFile
                             }
                         }
                     }

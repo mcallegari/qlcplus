@@ -629,7 +629,7 @@ Rectangle
                     currentFolder: View3D.meshDirectory
                     nameFilters: [ qsTr("3D files") + " (*.obj *.dae *.3ds *.py *.stl *.blend)", qsTr("All files") + " (*)" ]
 
-                    onAccepted: View3D.createGenericItem(fileUrl, -1)
+                    onAccepted: View3D.createGenericItem(selectedFile, -1)
                 }
 
                 sectionContents:

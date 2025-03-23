@@ -285,7 +285,7 @@ Rectangle
         onAccepted:
         {
             // strip "file://" and add single quotes
-            var str = "'" + fileUrl.toString().slice(7) + "'"
+            var str = "'" + selectedFile.toString().slice(7) + "'"
             scriptEdit.insert(scriptEdit.cursorPosition, str)
             addMethodMenu.close()
         }

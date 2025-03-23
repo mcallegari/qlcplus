@@ -55,7 +55,7 @@ Rectangle
         onAccepted:
         {
             fixtureEditor.workingPath = folder.toString()
-            if (fixtureEditor.loadDefinition(fileUrl) === false)
+            if (fixtureEditor.loadDefinition(selectedFile) === false)
             {
                 editor.visible = false
                 messagePopup.message = qsTr("An error occurred while loading the selected file.<br>" +
@@ -77,8 +77,8 @@ Rectangle
 
         onAccepted:
         {
-            console.log("You chose: " + fileUrl)
-            editor.save(fileUrl)
+            console.log("File to save: " + selectedFile)
+            editor.save(selectedFile)
         }
     }
 

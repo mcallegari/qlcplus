@@ -63,10 +63,10 @@ Popup
 
         onAccepted:
         {
-            if (fileUrl.toString().endsWith("qxf") || fileUrl.toString().endsWith("d4"))
-                qlcplus.loadFixture(fileUrl)
+            if (selectedFile.toString().endsWith("qxf") || selectedFile.toString().endsWith("d4"))
+                qlcplus.loadFixture(selectedFile)
             else
-                qlcplus.loadWorkspace(fileUrl)
+                qlcplus.loadWorkspace(selectedFile)
             qlcplus.workingPath = folder.toString()
         }
     }
@@ -80,7 +80,7 @@ Popup
 
         onAccepted:
         {
-            if (qlcplus.loadImportWorkspace(fileUrl) === true)
+            if (qlcplus.loadImportWorkspace(selectedFile) === true)
             {
                 importLoader.source = ""
                 importLoader.source = "qrc:/PopupImportProject.qml"
@@ -98,8 +98,8 @@ Popup
 
         onAccepted:
         {
-            console.log("You chose: " + fileUrl)
-            qlcplus.saveWorkspace(fileUrl)
+            console.log("You chose: " + selectedFile)
+            qlcplus.saveWorkspace(selectedFile)
 
             if (saveFirstPopup.action == "#EXIT")
                 qlcplus.exit()
@@ -109,26 +109,30 @@ Popup
     CustomPopupDialog
     {
         id: saveFirstPopup
-        width: menuRoot.width
+        width: mainView.width / 2
+        height: mainView.height / 3
         title: qsTr("Your project has changes")
         message: qsTr("Do you wish to save the current project first?\nChanges will be lost if you don't save them.")
         standardButtons: Dialog.Yes | Dialog.No | Dialog.Cancel
 
         property string action: ""
 
-        function onClicked(role)
+        onClicked: function(role)
         {
             if (role === Dialog.Yes)
             {
                 if (qlcplus.fileName())
                 {
+                    console.log("YES clicked 1")
                     qlcplus.saveWorkspace(qlcplus.fileName())
                     if (action == "#EXIT")
                         qlcplus.exit()
                 }
                 else
                 {
-                    saveDialog.open()
+                    console.log("YES clicked 2")
+                    //saveDialog.open()
+                    handleSaveAction()
                     if (action == "#EXIT")
                         return
                 }

@@ -319,16 +319,16 @@ Rectangle
                                 {
                                     id: fontDialog
                                     title: qsTr("Please choose a font")
-                                    font: wObj ? wObj.font : ""
+                                    selectedFont: wObj ? wObj.font : ""
                                     visible: false
 
                                     onAccepted:
                                     {
-                                        console.log("Selected font: " + fontDialog.font)
+                                        console.log("Selected font: " + fontDialog.selectedFont)
                                         if(wObj && selectedWidgetsCount < 2)
-                                            wObj.font = fontDialog.font
+                                            wObj.font = fontDialog.selectedFont
                                         else
-                                            virtualConsole.setWidgetsFont(fontDialog.font)
+                                            virtualConsole.setWidgetsFont(fontDialog.selectedFont)
                                     }
                                 }
                             }
@@ -375,9 +375,9 @@ Rectangle
                                     onAccepted:
                                     {
                                         if(wObj && selectedWidgetsCount < 2)
-                                            wObj.backgroundImage = fileDialog.fileUrl
+                                            wObj.backgroundImage = fileDialog.selectedFile
                                         else
-                                            virtualConsole.setWidgetsBackgroundImage(fileDialog.fileUrl)
+                                            virtualConsole.setWidgetsBackgroundImage(fileDialog.selectedFile)
                                     }
                                 }
                             }

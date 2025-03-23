@@ -75,8 +75,7 @@ Rectangle
 
         onAccepted:
         {
-            //console.log("You chose: " + openAudioDialog.fileUrl)
-            audioEditor.sourceFileName = openAudioDialog.fileUrl
+            audioEditor.sourceFileName = selectedFile
         }
     }
 
