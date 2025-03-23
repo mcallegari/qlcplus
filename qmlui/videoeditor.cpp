@@ -19,6 +19,10 @@
 
 #include <QGuiApplication>
 #include <QScreen>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <QMediaMetaData>
+#include <QAudioOutput>
+#endif
 
 #include "videoeditor.h"
 #include "tardis.h"
@@ -36,10 +40,15 @@ VideoEditor::VideoEditor(QQuickView *view, Doc *doc, QObject *parent)
     m_mediaPlayer = new QMediaPlayer(this);
 #endif
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     connect(m_mediaPlayer, SIGNAL(metaDataChanged(QString,QVariant)),
             this, SLOT(slotMetaDataChanged(QString,QVariant)));
+#else
+    connect(m_mediaPlayer, SIGNAL(metaDataChanged()),
+            this, SLOT(slotMetaDataChanged()));
+#endif
     connect(m_mediaPlayer, SIGNAL(durationChanged(qint64)),
-                this, SLOT(slotDurationChanged(qint64)));
+            this, SLOT(slotDurationChanged(qint64)));
 }
 
 VideoEditor::~VideoEditor()
@@ -99,8 +108,9 @@ void VideoEditor::setSourceFileName(QString sourceFileName)
         {
             m_video->setResolution(img.size());
             m_video->setTotalDuration(1000);
-            slotMetaDataChanged("Resolution", QVariant(img.size()));
-            slotMetaDataChanged("Duration", 1000);
+            infoMap.insert("Resolution", QVariant(img.size()));
+            infoMap.insert("Duration", 1000);
+            emit mediaInfoChanged();
         }
     }
     else
@@ -146,12 +156,48 @@ void VideoEditor::slotDurationChanged(qint64 duration)
     emit mediaInfoChanged();
 }
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 void VideoEditor::slotMetaDataChanged(QString key, QVariant data)
 {
     qDebug() << "Got meta data:" << key;
     infoMap.insert(key, data);
     emit mediaInfoChanged();
 }
+#else
+void VideoEditor::slotMetaDataChanged()
+{
+    if (m_video == NULL)
+        return;
+
+    QMediaMetaData md = m_mediaPlayer->metaData();
+    foreach (QMediaMetaData::Key k, md.keys())
+    {
+        QString mdKeyName = md.metaDataKeyToString(k);
+        QVariant mdValue = md.stringValue(k);
+        qDebug() << "[Metadata]" << mdKeyName << ":" << mdValue;
+
+        switch (k)
+        {
+            case QMediaMetaData::Resolution:
+                m_video->setResolution(md.value(k).toSize());
+                mdValue = md.value(k).toSize();
+            break;
+            case QMediaMetaData::VideoCodec:
+                m_video->setVideoCodec(md.stringValue(k));
+                mdKeyName = "VideoCodec";
+            break;
+            case QMediaMetaData::AudioCodec:
+                m_video->setAudioCodec(md.stringValue(k));
+                mdKeyName = "AudioCodec";
+            break;
+            default:
+            break;
+        }
+        infoMap.insert(mdKeyName, mdValue);
+    }
+    emit mediaInfoChanged();
+}
+#endif
 
 QStringList VideoEditor::screenList() const
 {
