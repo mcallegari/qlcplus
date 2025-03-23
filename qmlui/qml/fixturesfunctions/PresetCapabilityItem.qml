@@ -143,7 +143,7 @@ Rectangle
         hoverEnabled: true
         preventStealing: false
 
-        onPositionChanged: capBar.width = mouse.x
+        onPositionChanged: (mouse) => { capBar.width = mouse.x }
         onExited: capBar.width = 0
         onClicked:
         {

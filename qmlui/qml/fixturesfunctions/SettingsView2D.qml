@@ -85,7 +85,7 @@ Rectangle
         y: UISettings.bigItemHeight
         visible: false
 
-        onColorChanged: contextManager.setFixturesGelColor(Qt.rgba(r, g, b, 1.0))
+        onToolColorChanged: contextManager.setFixturesGelColor(Qt.rgba(r, g, b, 1.0))
         onClose: visible = false
     }
 

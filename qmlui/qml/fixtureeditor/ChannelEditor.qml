@@ -549,7 +549,8 @@ GridLayout
                             closeOnSelect: true
                             showPalette: false
 
-                            onColorChanged: {
+                            onToolColorChanged:
+                            {
                                 editor.setCapabilityValueAt(editItem.indexInList, 0, Qt.rgba(r, g, b, 1.0))
                                 updatePresetBox(editItem.indexInList)
                             }
@@ -611,7 +612,8 @@ GridLayout
                             closeOnSelect: true
                             showPalette: false
 
-                            onColorChanged: {
+                            onToolColorChanged:
+                            {
                                 editor.setCapabilityValueAt(editItem.indexInList, 1, Qt.rgba(r, g, b, 1.0))
                                 updatePresetBox(editItem.indexInList)
                             }

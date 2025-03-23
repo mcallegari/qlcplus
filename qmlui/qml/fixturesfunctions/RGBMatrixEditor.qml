@@ -84,7 +84,7 @@ Rectangle
             previewBtn = null
         }
 
-        onColorChanged:
+        onToolColorChanged:
         {
             previewBtn.color = Qt.rgba(r, g, b, 1.0)
             rgbMatrixEditor.setColorAtIndex(colorIndex, previewBtn.color)

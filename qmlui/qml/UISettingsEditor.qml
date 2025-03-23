@@ -55,7 +55,7 @@ Rectangle
         property Item rectItem
         property Item selectedItem
 
-        onColorChanged:
+        onToolColorChanged:
         {
             rectItem.color = Qt.rgba(r, g, b, 1.0)
             selectedItem.updateColor(Qt.rgba(r, g, b, 1.0))

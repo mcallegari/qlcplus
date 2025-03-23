@@ -98,7 +98,7 @@ VCWidgetItem
                 closeOnSelect: true
                 currentRGB: animationObj ? animationObj.color1 : "black"
 
-                onColorChanged:
+                onToolColorChanged:
                 {
                     col1Button.color = Qt.rgba(r, g, b, 1.0)
                     animationObj.color1 = col1Button.color
@@ -135,7 +135,7 @@ VCWidgetItem
                 closeOnSelect: true
                 currentRGB: animationObj ? animationObj.color2 : "black"
 
-                onColorChanged: animationObj.color2 = Qt.rgba(r, g, b, 1.0)
+                onToolColorChanged: animationObj.color2 = Qt.rgba(r, g, b, 1.0)
                 onClose: visible = false
             }
         }
@@ -168,7 +168,7 @@ VCWidgetItem
                 closeOnSelect: true
                 currentRGB: animationObj ? animationObj.color3 : "black"
 
-                onColorChanged: animationObj.color3 = Qt.rgba(r, g, b, 1.0)
+                onToolColorChanged: animationObj.color3 = Qt.rgba(r, g, b, 1.0)
                 onClose: visible = false
             }
         }
@@ -201,7 +201,7 @@ VCWidgetItem
                 closeOnSelect: true
                 currentRGB: animationObj ? animationObj.color4 : "black"
 
-                onColorChanged: animationObj.color4 = Qt.rgba(r, g, b, 1.0)
+                onToolColorChanged: animationObj.color4 = Qt.rgba(r, g, b, 1.0)
                 onClose: visible = false
             }
         }
@@ -234,7 +234,7 @@ VCWidgetItem
                 closeOnSelect: true
                 currentRGB: animationObj ? animationObj.color5 : "black"
 
-                onColorChanged: animationObj.color5 = Qt.rgba(r, g, b, 1.0)
+                onToolColorChanged: animationObj.color5 = Qt.rgba(r, g, b, 1.0)
                 onClose: visible = false
             }
         }

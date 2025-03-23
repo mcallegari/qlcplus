@@ -66,7 +66,7 @@ Rectangle
         currentRGB: wObj ? wObj.backgroundColor : "black"
         showPalette: false
 
-        onColorChanged:
+        onToolColorChanged:
         {
             if(wObj && selectedWidgetsCount < 2)
                 wObj.backgroundColor = Qt.rgba(r, g, b, 1.0)
@@ -86,7 +86,7 @@ Rectangle
         currentRGB: wObj ? wObj.foregroundColor : "black"
         showPalette: false
 
-        onColorChanged:
+        onToolColorChanged:
         {
             if(wObj && selectedWidgetsCount < 2)
                 wObj.foregroundColor = Qt.rgba(r, g, b, 1.0)

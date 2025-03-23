@@ -113,7 +113,7 @@ Rectangle
                     z: 15
                     visible: false
 
-                    onColorChanged: showManager.itemsColor = Qt.rgba(r, g, b, 1.0)
+                    onToolColorChanged: showManager.itemsColor = Qt.rgba(r, g, b, 1.0)
                     onClose: colPickButton.toggle()
                 }
             }

@@ -40,7 +40,7 @@ Rectangle
     property string colorToolQML: "qrc:/ColorToolBasic.qml"
     property alias showPalette: paletteBox.visible
 
-    signal colorChanged(real r, real g, real b, real w, real a, real uv)
+    signal toolColorChanged(real r, real g, real b, real w, real a, real uv)
     signal close()
 
     onVisibleChanged:
@@ -202,7 +202,7 @@ Rectangle
                 target: toolLoader.item
                 ignoreUnknownSignals: true
 
-                function onColorChanged(r, g, b, w, a, uv)
+                function onToolColorChanged(r, g, b, w, a, uv)
                 {
                     paletteBox.updateValue(currentRGB)
 
@@ -217,7 +217,7 @@ Rectangle
                         //console.log("MAIN w:"+w+" a:"+a+" uv:"+uv)
                         currentRGB = Qt.rgba(r, g, b, 1.0)
                         currentWAUV = Qt.rgba(w, a, uv, 1.0)
-                        colorToolBox.colorChanged(r, g, b, w, a, uv)
+                        colorToolBox.toolColorChanged(r, g, b, w, a, uv)
                     }
 
                     if (paletteBox.isEditing || paletteBox.checked)

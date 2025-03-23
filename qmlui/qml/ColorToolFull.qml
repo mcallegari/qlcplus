@@ -40,7 +40,7 @@ Rectangle
 
     property int slHandleSize: UISettings.listItemHeight * 0.8
 
-    signal colorChanged(real r, real g, real b, real w, real a, real uv)
+    signal toolColorChanged(real r, real g, real b, real w, real a, real uv)
     signal released()
 
     onCurrentRGBChanged:
@@ -125,7 +125,7 @@ Rectangle
                 bSpin.value = b*/
 
                 currentRGB = Qt.rgba(r / 255, g / 255, b / 255, 1.0)
-                colorChanged(currentRGB.r, currentRGB.g, currentRGB.b, currentWAUV.r, currentWAUV.g, currentWAUV.b)
+                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b, currentWAUV.r, currentWAUV.g, currentWAUV.b)
             }
 
             onPressed: setPickedColor(mouse)
@@ -156,7 +156,7 @@ Rectangle
             from: 0
             to: 255
             value: currentRGB.r * 255
-            onValueModified: colorChanged(value / 255, currentRGB.g, currentRGB.b,
+            onValueModified: toolColorChanged(value / 255, currentRGB.g, currentRGB.b,
                                           currentWAUV.r, currentWAUV.g, currentWAUV.b)
         }
 
@@ -174,7 +174,7 @@ Rectangle
             from: 0
             to: 255
             value: currentRGB.g * 255
-            onValueModified: colorChanged(currentRGB.r, value / 255, currentRGB.b,
+            onValueModified: toolColorChanged(currentRGB.r, value / 255, currentRGB.b,
                                           currentWAUV.r, currentWAUV.g, currentWAUV.b)
         }
 
@@ -192,7 +192,7 @@ Rectangle
             from: 0
             to: 255
             value: currentRGB.b * 255
-            onValueModified: colorChanged(currentRGB.r, currentRGB.g, value / 255,
+            onValueModified: toolColorChanged(currentRGB.r, currentRGB.g, value / 255,
                                           currentWAUV.r, currentWAUV.g, currentWAUV.b)
         }
 
@@ -233,7 +233,7 @@ Rectangle
             from: 0
             to: 255
             value: currentWAUV.r * 255
-            onMoved: colorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+            onMoved: toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
                                   valueAt(position) / 255, currentWAUV.g, currentWAUV.b)
         }
 
@@ -246,7 +246,7 @@ Rectangle
             from: 0
             to: 255
             value: currentWAUV.r * 255
-            onValueModified: colorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+            onValueModified: toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
                                           value / 255, currentWAUV.g, currentWAUV.b)
         }
 
@@ -265,7 +265,7 @@ Rectangle
             from: 0
             to: 255
             value: currentWAUV.g * 255
-            onMoved: colorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+            onMoved: toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
                                   currentWAUV.r, valueAt(position) / 255, currentWAUV.b)
         }
 
@@ -278,7 +278,7 @@ Rectangle
             from: 0
             to: 255
             value: currentWAUV.g * 255
-            onValueModified: colorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+            onValueModified: toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
                                           currentWAUV.r, value / 255, currentWAUV.b)
         }
 
@@ -297,7 +297,7 @@ Rectangle
             from: 0
             to: 255
             value: currentWAUV.b * 255
-            onMoved: colorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+            onMoved: toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
                                   currentWAUV.r, currentWAUV.g, valueAt(position) / 255)
         }
 
@@ -310,7 +310,7 @@ Rectangle
             from: 0
             to: 255
             value: currentWAUV.b * 255
-            onValueModified: colorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+            onValueModified: toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
                                           currentWAUV.r, currentWAUV.g, value / 255)
         }
     }
