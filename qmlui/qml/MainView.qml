@@ -347,7 +347,7 @@ Rectangle
                     propagateComposedEvents: true
                     drag.target: dumpDragItem
                     drag.threshold: 10
-                    onClicked: mouse.accepted = false
+                    onClicked: (mouse) => mouse.accepted = false
 
                     property bool dragActive: drag.active
 

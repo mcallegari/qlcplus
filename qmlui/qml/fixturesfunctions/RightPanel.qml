@@ -209,11 +209,10 @@ SidePanel
 
                 AddFunctionMenu
                 {
-                    id: addFunctionMenu
                     visible: addFunction.checked
                     x: -width
 
-                    onEntryClicked:
+                    onEntryClicked: function(fType)
                     {
                         close()
                         createFunctionAndEditor(fType)

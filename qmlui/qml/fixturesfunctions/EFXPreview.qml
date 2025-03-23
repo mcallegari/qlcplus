@@ -64,7 +64,7 @@ Rectangle
       * Therefore there are 3 Canvas layers here, to avoid wasting an awful amount of CPU:
       * 1- Background (bgLayer): in 2D it is a white rectangle, in 3D it's a wireframe sphere
       * 2- EFX path (patternLayer): the plain or projected path of the selected EFX pattern
-      * 3- Heads (headsLayer): numbered circles moving across the EFX path
+      * 3- Heads (headsLayer): numbered circles moving along the EFX path
       */
     Canvas
     {
