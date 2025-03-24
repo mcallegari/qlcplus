@@ -89,11 +89,12 @@ void PaletteGenerator_Test::capabilities()
     fxi->setFixtureDefinition(fixtureDef, fixtureMode);
 
     QStringList caps2 = PaletteGenerator::getCapabilities(fxi);
-    QCOMPARE(caps2.count(), 4);
+    QCOMPARE(caps2.count(), 5);
     QCOMPARE(caps2.at(0), QLCChannel::groupToString(QLCChannel::Shutter));
     QCOMPARE(caps2.at(1), QLCChannel::groupToString(QLCChannel::Colour));
     QCOMPARE(caps2.at(2), KQLCChannelMovement);
     QCOMPARE(caps2.at(3), KQLCChannelCMY);
+    QCOMPARE(caps2.at(4), KQLCChannelDimmer);
 }
 
 void PaletteGenerator_Test::createColours()
