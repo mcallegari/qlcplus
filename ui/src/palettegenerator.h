@@ -69,7 +69,10 @@ public:
     {
         None = 0,
         All,
-        OddEven
+        OddEven,
+        Parallel  = 0b00000100,
+        Serial    = 0b00001000,
+        Asymetric = 0b00010000,
     };
 
     /**
@@ -134,8 +137,8 @@ private:
 
     void createRGBMatrices(QList<SceneValue> rgbMap);
 
-    EFX* createEfx(QList <Fixture*> fixtures, bool staggered, EFXFixture::Mode mode);
-    void createEfxs(QList<Fixture*> fixtures, EFXFixture::Mode mode);
+    EFX* createEfx(QList <Fixture*> fixtures, EFXFixture::Mode mode, EFX::PropagationMode propMode);
+    void createEfxs(QList<Fixture*> fixtures, EFXFixture::Mode mode, PaletteSubType subType);
 
     void createChaser(QString name);
 

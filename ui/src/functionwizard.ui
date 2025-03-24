@@ -304,17 +304,17 @@ p, li { white-space: pre-wrap; }
          </column>
          <column>
           <property name="text">
-           <string>Staggered</string>
+           <string>Parallel</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Serial</string>
           </property>
          </column>
          <column>
           <property name="text">
            <string>Asymetric</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Split Reverse</string>
           </property>
          </column>
         </widget>

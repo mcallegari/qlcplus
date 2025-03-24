@@ -52,9 +52,9 @@
 
 #define KFunctionName               0
 #define KFunctionOddEven            1
-#define KFunctionStaggered          2
-#define KFunctionAsymetric          3
-#define KFunctionSplitReverse       4
+#define KFunctionParallel           2
+#define KFunctionSerial             3
+#define KFunctionAsymetric          4
 
 #define KWidgetName                 0
 
@@ -303,14 +303,14 @@ void FunctionWizard::addFunctionsGroup(QTreeWidgetItem *fxGrpItem, QTreeWidgetIt
     if (fxGrpItem != NULL && fxGrpItem->childCount() > 1)
     {
         item->setCheckState(KFunctionOddEven, Qt::Unchecked);
-        
+
         if ((type == PaletteGenerator::EfxDimmer ||
             type == PaletteGenerator::EfxRGB ||
             type == PaletteGenerator::EfxPosition))
         {
-            item->setCheckState(KFunctionStaggered, Qt::Unchecked);
+            item->setCheckState(KFunctionParallel, Qt::Checked);
+            item->setCheckState(KFunctionSerial, Qt::Unchecked);
             item->setCheckState(KFunctionAsymetric, Qt::Unchecked);
-            item->setCheckState(KFunctionSplitReverse, Qt::Unchecked);
         }
     }
 }
@@ -471,17 +471,24 @@ void FunctionWizard::updateResultFunctionsTree()
                 }
             }
 
+            //child items of EFXs
             for (int c = 0; c < funcItem->childCount(); c++)
             {
-                
                 QTreeWidgetItem *subFuncItem = funcItem->child(c);
                 if (subFuncItem->checkState(KFunctionName) != Qt::Checked)
                     continue;
 
                 int type = subFuncItem->data(KFunctionName, Qt::UserRole).toInt();
                 int subType = PaletteGenerator::All;
-                if (funcItem->checkState(KFunctionOddEven) == Qt::Checked)
-                    subType = PaletteGenerator::OddEven;
+                if (subFuncItem->checkState(KFunctionOddEven) == Qt::Checked)
+                    subType += PaletteGenerator::OddEven;
+
+                if (subFuncItem->checkState(KFunctionParallel) == Qt::Checked)
+                    subType += PaletteGenerator::Parallel;
+                if (subFuncItem->checkState(KFunctionSerial) == Qt::Checked)
+                    subType += PaletteGenerator::Serial;
+                if (subFuncItem->checkState(KFunctionAsymetric) == Qt::Checked)
+                    subType += PaletteGenerator::Asymetric;
 
                 PaletteGenerator *palette = new PaletteGenerator(m_doc, fxList,
                                                                 (PaletteGenerator::PaletteType)type,

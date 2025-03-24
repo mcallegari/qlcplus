@@ -474,11 +474,11 @@ void PaletteGenerator::createRGBMatrices(QList<SceneValue> rgbMap)
     }
 }
 
-EFX *PaletteGenerator::createEfx(QList<Fixture *> fixtures, bool staggered, EFXFixture::Mode mode)
+EFX *PaletteGenerator::createEfx(QList<Fixture *> fixtures, EFXFixture::Mode mode, EFX::PropagationMode propMode)
 {
     EFX *efx = new EFX(m_doc);
 
-    efx->setName(tr("EFX %1 %2 - ").arg(EFXFixture::modeToString(mode)).arg(staggered ? " Staggered " : "") + m_model);
+    efx->setName(tr("EFX %1 %2 - ").arg(EFXFixture::modeToString(mode)).arg(EFX::propagationModeToString(propMode)) + m_model);
 
     if (mode == EFXFixture::Mode::RGB)
     {
@@ -492,6 +492,8 @@ EFX *PaletteGenerator::createEfx(QList<Fixture *> fixtures, bool staggered, EFXF
     {
     }
 
+    efx->setPropagationMode(propMode);
+
     for (int i = 0; i < fixtures.count(); i++)
     {
         Fixture *fixture = fixtures[i];
@@ -502,7 +504,6 @@ EFX *PaletteGenerator::createEfx(QList<Fixture *> fixtures, bool staggered, EFXF
             EFXFixture *ef = new EFXFixture(efx);
             ef->setHead(GroupHead(fixture->id(), h));
             ef->setMode(mode);
-            ef->setStartOffset(staggered ? (i * (360 / fixtures.count())) : 0);
             efx->addFixture(ef);
         }
     }
@@ -512,12 +513,17 @@ EFX *PaletteGenerator::createEfx(QList<Fixture *> fixtures, bool staggered, EFXF
     return efx;
 }
 
-void PaletteGenerator::createEfxs(QList<Fixture *> fixtures, EFXFixture::Mode mode)
+void PaletteGenerator::createEfxs(QList<Fixture *> fixtures, EFXFixture::Mode mode,
+                                  PaletteSubType subType)
 {
     qDebug() << "createEfxs";
 
-    m_efxs.append(createEfx(fixtures, false, mode));
-    m_efxs.append(createEfx(fixtures, true, mode));
+    if ((subType & PaletteSubType::Parallel) == PaletteSubType::Parallel)
+        m_efxs.append(createEfx(fixtures, mode, EFX::PropagationMode::Parallel));
+    if ((subType & PaletteSubType::Serial) == PaletteSubType::Serial)
+        m_efxs.append(createEfx(fixtures, mode, EFX::PropagationMode::Serial));
+    if ((subType & PaletteSubType::Asymetric) == PaletteSubType::Asymetric)
+        m_efxs.append(createEfx(fixtures, mode, EFX::PropagationMode::Asymmetric));
 }
 
 void PaletteGenerator::createChaser(QString name)
@@ -630,13 +636,13 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type,
         }
         break;
         case EfxDimmer:
-            createEfxs(m_fixtures, EFXFixture::Mode::Dimmer);
+            createEfxs(m_fixtures, EFXFixture::Mode::Dimmer, subType);
         break;
         case EfxRGB:
-            createEfxs(m_fixtures, EFXFixture::Mode::RGB);
+            createEfxs(m_fixtures, EFXFixture::Mode::RGB, subType);
         break;
         case EfxPosition:
-            createEfxs(m_fixtures, EFXFixture::Mode::PanTilt);
+            createEfxs(m_fixtures, EFXFixture::Mode::PanTilt, subType);
         break;
         case Gobos:
         {
