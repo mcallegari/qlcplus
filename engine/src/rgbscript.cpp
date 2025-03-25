@@ -223,6 +223,9 @@ void RGBScript::initEngine()
         s_engineMutex = new QRecursiveMutex();
 #endif
         s_engine = new QScriptEngine(QCoreApplication::instance());
+
+        QScriptValue logWarnFunction = s_engine->newFunction(logWarn);
+        s_engine->globalObject().setProperty("logWarn", logWarnFunction);
     }
     Q_ASSERT(s_engineMutex != NULL);
     Q_ASSERT(s_engine != NULL);
@@ -264,6 +267,17 @@ int RGBScript::rgbMapStepCount(const QSize& size)
         int ret = value.isNumber() ? value.toInteger() : -1;
         return ret;
     }
+}
+
+QScriptValue RGBScript::logWarn(QScriptContext *context, __attribute__((unused)) QScriptEngine *engine)
+{
+    QScriptValue logLine = context->argument(0);
+    if (logLine.isValid())
+        qWarning() << "[SCRIPT] " << logLine.toString();
+    else
+        qCritical() << "[SCRIPT] calls logWarn(String) without first parameter";
+
+    return QScriptValue();
 }
 
 void RGBScript::rgbMapSetColors(QVector<uint> &colors)

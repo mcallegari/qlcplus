@@ -21,6 +21,7 @@
 #define RGBSCRIPT_H
 
 #include <QScriptValue>
+#include <QScriptContext>
 #include <QMutex>
 #include "rgbalgorithm.h"
 #include "rgbscriptproperty.h"
@@ -79,6 +80,9 @@ private:
 private:
     /** Init engine, engine mutex, and scripts map */
     static void initEngine();
+
+    /** Callback function to log a warning from script */
+    static QScriptValue logWarn(QScriptContext *context, __attribute__((unused)) QScriptEngine *engine);
 
     /** Handle an error after evaluate() or call() of a script */
     static void displayError(QScriptValue e, const QString& fileName);
