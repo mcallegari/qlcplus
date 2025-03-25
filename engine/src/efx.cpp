@@ -260,7 +260,7 @@ void EFX::previewFixtures(QVector <QPolygonF>& polygons) const
 
 void EFX::preview(QPolygonF &polygon, Function::Direction direction, int startOffset) const
 {
-    float stepCount = 128.0;
+    float stepCount = 512.0;
     int step = 0;
     float stepSize = 1.0 / (stepCount / (M_PI * 2.0));
 
