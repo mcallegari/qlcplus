@@ -132,7 +132,10 @@ void EFXPreviewArea::paintEvent(QPaintEvent* e)
 
     /* Plain points with text color */
     color = palette().color(QPalette::Text);
-    pen.setColor(color);
+    if (m_gradientBg)
+        pen.setColor(color);
+    else
+        pen.setColor(Qt::black);
     painter.setPen(pen);
     painter.drawPolygon(m_scaled);
 
