@@ -37,6 +37,11 @@
   input[type=button]:hover {
     background-color: #8db8dd;
   }
+  table:not(#map), table input[type=text], table input[type=number], table input[type=color], table select {
+    width: 100%;
+    min-width: 75px;
+    box-sizing: border-box;
+  }
 </style>
 <script type="text/javascript" src="devtool/devtool.js"></script>
 </head>
@@ -109,15 +114,15 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
 <table>
  <tr>
   <td>Width</td>
-  <td><input type="number" min="1" id="gridwidth" value="15" size="4" style="width: 8em;" required onChange="devtool.onGridSizeUpdated()"/></td>
+  <td><input type="number" min="1" id="gridwidth" value="15" size="4" required onChange="devtool.onGridSizeUpdated()"/></td>
  </tr>
  <tr>
   <td>Height</td>
-  <td><input type="number" min="1" id="gridheight" value="15" size="4" style="width: 8em;" required onChange="devtool.onGridSizeUpdated()"/></td>
+  <td><input type="number" min="1" id="gridheight" value="15" size="4" required onChange="devtool.onGridSizeUpdated()"/></td>
  </tr>
  <tr>
   <td>Size</td>
-  <td><input type="number" min="1" max="20" id="gridsize" value="20" size="4" style="width: 8em;" required onChange="devtool.onGridSizeUpdated()"/></td>
+  <td><input type="number" min="1" max="20" id="gridsize" value="20" size="4" required onChange="devtool.onGridSizeUpdated()"/></td>
  </tr>
 </table>
 </form>
@@ -144,37 +149,31 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
   <td>rgbMapStepCount(width, height)</td>
   <td><input TYPE="text" readonly="readonly" class="readonly" size="3" id="stepCount"/></td>
  </tr>
-</table>
-</form>
-
-<form>
-<table>
  <tr>
-  <td>rgbMap(width, height, rgb, <b>step</b>)
+  <td>rgbMap(width, height, rgb, <b>step</b>)</td>
+  <td>
    <input type="number" min="0" id="currentStep" onChange="devtool.writeCurrentStep()"/>
   </td>
  </tr>
  <tr>
-  <td>
-   <span>
+  <td colspan="2">
     <input type="button" value="Previous" onClick="devtool.previousStep()"/>
     <input type="button" value="Next" onClick="devtool.nextStep()"/>
-   </span>
-   <span>
     <input type="button" value="Start test" onClick="devtool.startTest(1)"/>
     <input type="button" value="Stop test" onClick="devtool.stopTest()"/>
     <input type="button" value="Start reversed" onClick="devtool.startTest(-1)"/>
-   </span>
   </td>
  </tr>
  <tr>
+  <td>Alternate:</td>
   <td>
-   Alternate: <input type="checkbox" id="alternate" onChange="devtool.onAlternateChanged()"/>
+   <input type="checkbox" id="alternate" onChange="devtool.onAlternateChanged()"/>
   </td>
  </tr>
  <tr>
+  <td>Speed (ms):</td>
   <td>
-   Speed (ms): <input type="number" min="1" id="speed" value="500" size="4" style="width: 8em;" onChange="devtool.onSpeedChanged()"/>
+   <input type="number" min="1" id="speed" value="500" size="4" onChange="devtool.onSpeedChanged()"/>
   </td>
  </tr>
 </table>
