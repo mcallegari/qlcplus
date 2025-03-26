@@ -11,6 +11,8 @@ set(WEBFILES
     virtualconsole.js
     configuration.js
     websocket.js
+    favicon.ico
+    favicon-192x192.png
 )
 
 # Set the path for the webfiles target

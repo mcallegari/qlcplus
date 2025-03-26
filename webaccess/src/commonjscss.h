@@ -21,9 +21,13 @@
 #define COMMONJSCSS_H
 
 #define HTML_HEADER \
-	"<!DOCTYPE html>\n" \
-    "<head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" >\n" \
-	"<title>QLC+ Webaccess</title>\n"
+    "<!DOCTYPE html>\n" \
+    "<head>\n" \
+    "<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n" \
+    "<link rel=\"shortcut icon\" href=\"/favicon.ico\"/>\n" \
+    "<link rel=\"apple-touch-icon\" type=\"image/png\" sizes=\"192x192\" href=\"/favicon-192x192.png\">\n" \
+    "<link rel=\"icon\" type=\"image/png\" sizes=\"192x192\" href=\"/favicon-192x192.png\">\n" \
+    "<title>QLC+ Webaccess</title>\n"
 
 #define PROJECT_LOADED_JS \
     "var websocket;\n" \
