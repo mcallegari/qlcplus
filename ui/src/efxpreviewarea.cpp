@@ -130,9 +130,16 @@ void EFXPreviewArea::paintEvent(QPaintEvent* e)
     painter.drawLine(width() >> 1, 0, width() >> 1, height());
     painter.drawLine(0, height() >> 1, width(), height() >> 1);
 
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setRenderHint(QPainter::TextAntialiasing);
+
     /* Plain points with text color */
     color = palette().color(QPalette::Text);
-    pen.setColor(color);
+    if (m_gradientBg)
+        pen.setColor(Qt::black);
+    else
+        pen.setColor(color);
+    pen.setWidth(2);
     painter.setPen(pen);
     painter.drawPolygon(m_scaled);
 
@@ -141,14 +148,22 @@ void EFXPreviewArea::paintEvent(QPaintEvent* e)
     {
         painter.setBrush(Qt::white);
         pen.setColor(Qt::black);
+        painter.setPen(pen);
 
         // drawing fixture positions from the end,
         // so that lower numbers are on top
+        double textSize = 16;
+        QFont font = painter.font();
+        font.setPixelSize(textSize);
+        font.setWeight(QFont::Bold);
+        painter.setFont(font);
         for (int i = m_fixturePoints.size() - 1; i >= 0; --i)
         {
             point = m_fixturePoints.at(i).at(m_iter);
-            painter.drawEllipse(point, 8, 8);
-            painter.drawText(point.x() - 4, point.y() + 5, QString::number(i+1));
+            painter.drawEllipse(point, 10, 10);
+            painter.drawText(QRectF(point.x() - textSize / 2, point.y() - textSize / 2,
+                                    textSize, textSize),
+                             Qt::AlignCenter, QString::number(i + 1));
         }
     }
     else

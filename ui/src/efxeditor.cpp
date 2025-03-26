@@ -830,21 +830,32 @@ void EFXEditor::slotParallelRadioToggled(bool state)
 {
     Q_ASSERT(m_efx != NULL);
     if (state == true)
+    {
         m_efx->setPropagationMode(EFX::Parallel);
+        redrawPreview();
+    }
 }
 
 void EFXEditor::slotSerialRadioToggled(bool state)
 {
     Q_ASSERT(m_efx != NULL);
     if (state == true)
+    {
+
         m_efx->setPropagationMode(EFX::Serial);
+        redrawPreview();
+    }
 }
 
 void EFXEditor::slotAsymmetricRadioToggled(bool state)
 {
     Q_ASSERT(m_efx != NULL);
     if (state == true)
+    {
+
         m_efx->setPropagationMode(EFX::Asymmetric);
+        redrawPreview();
+    }
 }
 
 void EFXEditor::slotFadeInChanged(int ms)
