@@ -82,23 +82,23 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
 <form>
 <table id="definitions">
  <tr>
-  <td>filename</td>
+  <td><label for="filename">filename</label></td>
   <td><input type="text" size="12" id="filename" value="Enter filename here." onChange="devtool.onFilenameUpdated(this.value)"/></td>
  </tr>
  <tr>
-  <td>apiVersion</td>
+  <td><label for="apiversion">apiVersion</label></td>
   <td><input type="text" readonly="readonly" class="readonly" size="3" id="apiversion"/></td>
  </tr>
  <tr>
-  <td>name</td>
+  <td><label for="name">name</label></td>
   <td><input type="text" readonly="readonly" class="readonly" id="name"/></td>
  </tr>
  <tr>
-  <td>author</td>
+  <td><label for="author">author</label></td>
   <td><input type="text" readonly="readonly" class="readonly" id="author"/></td>
  </tr>
  <tr>
-  <td>acceptColors</td>
+  <td><label for="acceptColors">acceptColors</label></td>
   <td><input type="text" readonly="readonly" class="readonly" id="acceptColors"/></td>
  </tr>
  <tr>
@@ -113,15 +113,15 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
 <form>
 <table>
  <tr>
-  <td>Width</td>
+  <td><label for="gridwidth">Width</label></td>
   <td><input type="number" min="1" id="gridwidth" value="15" size="4" required onChange="devtool.onGridSizeUpdated()"/></td>
  </tr>
  <tr>
-  <td>Height</td>
+  <td><label for="gridheight">Height</label></td>
   <td><input type="number" min="1" id="gridheight" value="15" size="4" required onChange="devtool.onGridSizeUpdated()"/></td>
  </tr>
  <tr>
-  <td>Size</td>
+  <td><label for="gridsize">Size</label></td>
   <td><input type="number" min="1" max="20" id="gridsize" value="20" size="4" required onChange="devtool.onGridSizeUpdated()"/></td>
  </tr>
 </table>
@@ -146,11 +146,11 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
 <form>
 <table>
  <tr>
-  <td>rgbMapStepCount(width, height)</td>
-  <td><input TYPE="text" readonly="readonly" class="readonly" size="3" id="stepCount"/></td>
+  <td><label for="stepCount">rgbMapStepCount(width, height)</label></td>
+  <td><input type="text" readonly="readonly" class="readonly" size="3" id="stepCount"/></td>
  </tr>
  <tr>
-  <td>rgbMap(width, height, rgb, <b>step</b>)</td>
+  <td><label for="currentStep">rgbMap(width, height, rgb, <b>step</b>)</label></td>
   <td>
    <input type="number" min="0" id="currentStep" onChange="devtool.writeCurrentStep()"/>
   </td>
@@ -165,13 +165,13 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
   </td>
  </tr>
  <tr>
-  <td>Alternate:</td>
+  <td><label for="alternate">Alternate:</label></td>
   <td>
    <input type="checkbox" id="alternate" onChange="devtool.onAlternateChanged()"/>
   </td>
  </tr>
  <tr>
-  <td>Speed (ms):</td>
+  <td><label for="speed">Speed (ms):</label></td>
   <td>
    <input type="number" min="1" id="speed" value="500" size="4" onChange="devtool.onSpeedChanged()"/>
   </td>
