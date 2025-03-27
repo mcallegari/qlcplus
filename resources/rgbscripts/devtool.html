@@ -21,8 +21,14 @@
   .box {
     padding: 10px;
     display: inline-block;
-    vertical-align:top;
+    vertical-align: top;
     min-width: 200px;
+  }
+  :nth-child(1 of .box) {
+    padding-left: 0;
+  }
+  :nth-last-child(1 of .box) {
+    padding-right: 0;
   }
   input[type=button] {
     background-color: #7497b6;
@@ -36,6 +42,11 @@
   }
   input[type=button]:hover {
     background-color: #8db8dd;
+  }
+  table:not(#map), table input[type=text], table input[type=number], table input[type=color], table select {
+    width: 100%;
+    min-width: 75px;
+    box-sizing: border-box;
   }
 </style>
 <script type="text/javascript" src="devtool/devtool.js"></script>
@@ -73,51 +84,51 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
 </div>
 
 <div class="box">
-<h2>Algorithm Specification</h2>
+<h2>Algorithm specification</h2>
 <form>
 <table id="definitions">
  <tr>
-  <td>filename</td>
+  <td><label for="filename">filename</label></td>
   <td><input type="text" size="12" id="filename" value="Enter filename here." onChange="devtool.onFilenameUpdated(this.value)"/></td>
  </tr>
  <tr>
-  <td>apiVersion</td>
+  <td><label for="apiversion">apiVersion</label></td>
   <td><input type="text" readonly="readonly" class="readonly" size="3" id="apiversion"/></td>
  </tr>
  <tr>
-  <td>name</td>
+  <td><label for="name">name</label></td>
   <td><input type="text" readonly="readonly" class="readonly" id="name"/></td>
  </tr>
  <tr>
-  <td>author</td>
+  <td><label for="author">author</label></td>
   <td><input type="text" readonly="readonly" class="readonly" id="author"/></td>
  </tr>
  <tr>
-  <td>acceptColors</td>
+  <td><label for="acceptColors">acceptColors</label></td>
   <td><input type="text" readonly="readonly" class="readonly" id="acceptColors"/></td>
  </tr>
  <tr>
   <td colspan="2">
-   <input type="button" value="Reload" onClick="location.reload()"/>
+   <input type="button" value="&#x21BB;&#xFE0E; Reload" onClick="location.reload()"/>
   </td>
  </tr>
 </table>
 </form>
 
-<h2>Grid Size</h2>
+<h2>Grid size</h2>
 <form>
 <table>
  <tr>
-  <td>Width</td>
-  <td><input type="number" min="1" id="gridwidth" value="15" size="4" style="width: 8em;" required onChange="devtool.onGridSizeUpdated()"/></td>
+  <td><label for="gridwidth">Width</label></td>
+  <td><input type="number" min="1" id="gridwidth" value="15" size="4" required onChange="devtool.onGridSizeUpdated()"/></td>
  </tr>
  <tr>
-  <td>Height</td>
-  <td><input type="number" min="1" id="gridheight" value="15" size="4" style="width: 8em;" required onChange="devtool.onGridSizeUpdated()"/></td>
+  <td><label for="gridheight">Height</label></td>
+  <td><input type="number" min="1" id="gridheight" value="15" size="4" required onChange="devtool.onGridSizeUpdated()"/></td>
  </tr>
  <tr>
-  <td>Size</td>
-  <td><input type="number" min="1" max="20" id="gridsize" value="20" size="4" style="width: 8em;" required onChange="devtool.onGridSizeUpdated()"/></td>
+  <td><label for="gridsize">Size</label></td>
+  <td><input type="number" min="1" max="20" id="gridsize" value="20" size="4" required onChange="devtool.onGridSizeUpdated()"/></td>
  </tr>
 </table>
 </form>
@@ -131,50 +142,44 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
 </table>
 </form>
 
-<h2>Algorithm Properties</h2>
+<h2>Algorithm properties</h2>
 <form>
 <table id="properties">
 </table>
 </form>
 
-<h2>Algorithm Functions</h2>
+<h2>Algorithm functions</h2>
 <form>
 <table>
  <tr>
-  <td>rgbMapStepCount(width, height)</td>
-  <td><input TYPE="text" readonly="readonly" class="readonly" size="3" id="stepCount"/></td>
+  <td><label for="stepCount">rgbMapStepCount(width, height)</label></td>
+  <td><input type="text" readonly="readonly" class="readonly" size="3" id="stepCount"/></td>
  </tr>
-</table>
-</form>
-
-<form>
-<table>
  <tr>
-  <td>rgbMap(width, height, rgb, <b>step</b>)
+  <td><label for="currentStep">rgbMap(width, height, rgb, <b>step</b>)</label></td>
+  <td>
    <input type="number" min="0" id="currentStep" onChange="devtool.writeCurrentStep()"/>
   </td>
  </tr>
  <tr>
-  <td>
-   <span>
-    <input type="button" value="Previous" onClick="devtool.previousStep()"/>
-    <input type="button" value="Next" onClick="devtool.nextStep()"/>
-   </span>
-   <span>
-    <input type="button" value="Start test" onClick="devtool.startTest(1)"/>
-    <input type="button" value="Stop test" onClick="devtool.stopTest()"/>
-    <input type="button" value="Start reversed" onClick="devtool.startTest(-1)"/>
-   </span>
+  <td colspan="2">
+    <input type="button" value="&#x23EA;&#xFE0E; Previous" onClick="devtool.previousStep()"/>
+    <input type="button" value="&#x23E9;&#xFE0E; Next" onClick="devtool.nextStep()"/>
+    <input type="button" value="&#x23F5;&#xFE0E; Start" onClick="devtool.startTest(1)"/>
+    <input type="button" value="&#x23F9;&#xFE0E; Stop" onClick="devtool.stopTest()"/>
+    <input type="button" value="&#x23F4;&#xFE0E; Start reversed" onClick="devtool.startTest(-1)"/>
   </td>
  </tr>
  <tr>
+  <td><label for="alternate">Alternate</label></td>
   <td>
-   Alternate: <input type="checkbox" id="alternate" onChange="devtool.onAlternateChanged()"/>
+   <input type="checkbox" id="alternate" onChange="devtool.onAlternateChanged()"/>
   </td>
  </tr>
  <tr>
+  <td><label for="speed">Speed (ms)</label></td>
   <td>
-   Speed (ms): <input type="number" min="1" id="speed" value="500" size="4" style="width: 8em;" onChange="devtool.onSpeedChanged()"/>
+   <input type="number" min="1" id="speed" value="500" size="4" onChange="devtool.onSpeedChanged()"/>
   </td>
  </tr>
 </table>
