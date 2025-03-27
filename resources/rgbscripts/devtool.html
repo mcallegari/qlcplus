@@ -21,8 +21,14 @@
   .box {
     padding: 10px;
     display: inline-block;
-    vertical-align:top;
+    vertical-align: top;
     min-width: 200px;
+  }
+  :nth-child(1 of .box) {
+    padding-left: 0;
+  }
+  :nth-last-child(1 of .box) {
+    padding-right: 0;
   }
   input[type=button] {
     background-color: #7497b6;
