@@ -25,6 +25,42 @@ devtool.currentStep = 0;
 devtool.testTimer = null;
 devtool.alternate = false;
 
+devtool.onLoad = function()
+{
+    devtool.loadAlgoFile();
+
+    // Initialize drag-and-drop support
+    const onDragStart = function(e) {
+        const dt = e.dataTransfer;
+        if (dt.types && (dt.types.indexOf ? dt.types.indexOf('Files') != -1 : dt.types.contains('Files'))) {
+            e.preventDefault(); e.stopPropagation();
+            document.dragAndDropTarget = e.target;
+            document.getElementById('dropContainer').className = 'dragging';
+        }
+    };
+    const onDragEnd = function(e) {
+        const dt = e.dataTransfer;
+        if (dt.types && (dt.types.indexOf ? dt.types.indexOf('Files') != -1 : dt.types.contains('Files')) && document.dragAndDropTarget == e.target) {
+            e.preventDefault(); e.stopPropagation();
+            document.getElementById('dropContainer').className = '';
+        }
+    };
+    const onDragDrop = function(e) {
+        const dt = e.dataTransfer;
+        if (dt.types && (dt.types.indexOf ? dt.types.indexOf('Files') != -1 : dt.types.contains('Files'))) {
+            e.preventDefault(); e.stopPropagation();
+            document.getElementById('dropContainer').className = '';
+            devtool.onFileDropped(e.dataTransfer.files[0]);
+        }
+    }
+    document.body.addEventListener('dragstart', onDragStart);
+    document.body.addEventListener('dragover',  onDragStart);
+    document.body.addEventListener('dragenter', onDragStart);
+    document.body.addEventListener('dragend',   onDragEnd);
+    document.body.addEventListener('dragleave', onDragEnd);
+    document.body.addEventListener('drop',      onDragDrop);
+}
+
 devtool.initDefinitions = function()
 {
     document.getElementById("apiversion").value = testAlgo.apiVersion;
@@ -502,29 +538,73 @@ devtool.onFilenameUpdated = function(filename)
 
     localStorage.setItem("devtool.filename", filename);
 
-    var script = document.getElementById("algoScript");
-    if (script === null) {
-        script = document.createElement("script");
-        script.id = "algoScript";
-        script.addEventListener("load", () => devtool.init(), false);
-        script.addEventListener("error", () => devtool.handleLoadError(), false);
-        script.type = "text/javascript";
-        script.src = filename;
-        document.head.appendChild(script);
-    } else {
-        script.src = filename;
-    }
+    devtool.refreshAlgoFile(filename, null);
+    document.getElementById("filebrowse").value = "";
+
     // devtool.init(); // is called onload.
+}
+
+devtool.onFileBrowsed = function(event) {
+    const file = event.target.files[0];
+    if (!file) {
+        return;
+    }
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        const content = event.target.result;
+        localStorage.removeItem("devtool.filename");
+        document.getElementById("filename").value = "";
+
+        devtool.refreshAlgoFile(null, content);
+
+        devtool.init();
+    };
+    reader.readAsText(file);
+}
+
+devtool.onFileDropped = function(file) {
+    const reader = new FileReader();
+    reader.onload = function (event) {
+        const content = event.target.result;
+        localStorage.removeItem("devtool.filename");
+        document.getElementById("filename").value = "";
+        document.getElementById("filebrowse").value = "";
+
+        devtool.refreshAlgoFile(null, content);
+
+        devtool.init();
+    };
+    reader.readAsText(file);
+}
+
+devtool.refreshAlgoFile = function(src = null, content = null)
+{
+    var script = document.getElementById("algoScript");
+    if (script !== null) {
+        script.remove();
+    }
+
+    script = document.createElement("script");
+    script.id = "algoScript";
+    script.addEventListener("load", () => devtool.init(), false);
+    script.addEventListener("error", () => devtool.handleLoadError(), false);
+    script.type = "text/javascript";
+    if (src !== null) {
+        script.src = src;
+    } else if (content !== null) {
+        script.text = content;
+    }
+    script.text = content;
+    document.head.appendChild(script);
 }
 
 devtool.loadAlgoFile = function()
 {
     var storedValue = localStorage.getItem("devtool.filename");
-    if (storedValue === null) {
-        storedValue = "evenodd.js";
+    if (storedValue != null) {
+        document.getElementById("filename").value = storedValue;
+        devtool.onFilenameUpdated(storedValue);
     }
-    document.getElementById("filename").value = storedValue;
-    devtool.onFilenameUpdated(storedValue);
 }
 
 devtool.writeFunction = function(functionName, propertyName, value)

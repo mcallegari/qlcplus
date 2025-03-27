@@ -12,6 +12,9 @@
     background: #373737;
     color: #f9f8f0;
     font-family: Arial;
+    min-height: calc(100vh - 16px); /* Subtract padding to prevent vertical scrollbar */
+    padding: 8px;
+    margin: 0;
   }
   h2 {
     background: #aaa;
@@ -48,10 +51,32 @@
     min-width: 75px;
     box-sizing: border-box;
   }
+  #dropContainer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    color: #000;
+    background: none;
+    font-size: 2em;
+    pointer-events: none;
+    justify-content: center;
+    align-items: center;
+  }
+  #dropContainer.dragging {
+    display: flex;
+    background-color: rgba(255,255,255,0.7);
+  }
 </style>
 <script type="text/javascript" src="devtool/devtool.js"></script>
 </head>
-<body onLoad="devtool.loadAlgoFile()">
+<body onLoad="devtool.onLoad()">
+
+<div id="dropContainer">
+   &#8609;&#xFE0E; Drop your RGB script here to load it &#8609;&#xFE0E;
+</div>
 
 <h1>Q Light Controller Plus - RGB Script Development Tool</h1>
 
@@ -59,7 +84,11 @@
 <h2>Instructions</h2>
 <p>
 To use this tool, you must first set the filename of the script you intend to test/debug
-(including the .js extension) in the 'filename' field. Then hit 'Reload' to load it.
+(including the .js extension) in the 'filename' field. Then hit 'enter' to load it.
+Alternatively, you can use the 'browse' button to select the file from your local file system.
+A third option is to drag and drop the file directly into this page.
+</p>
+<p>
 To make your algorithm object accessible to this tool, you must create a global variable
 within your algorithm file called <b>testAlgo</b>, which then actually contains your algorithm
 object i.e. the object that provides rgbMap() and rgbMapStepCount() functions. Now you're ready to load
@@ -84,13 +113,23 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
 </div>
 
 <div class="box">
-<h2>Algorithm specification</h2>
+<h2>Load script</h2>
 <form>
 <table id="definitions">
  <tr>
-  <td><label for="filename">filename</label></td>
-  <td><input type="text" size="12" id="filename" value="Enter filename here." onChange="devtool.onFilenameUpdated(this.value)"/></td>
+  <td><label for="filename">Enter a filename</label></td>
+  <td><input type="text" size="12" id="filename" placeholder="Enter filename here." onChange="devtool.onFilenameUpdated(this.value)"/></td>
  </tr>
+ <tr>
+  <td><label for="filebrowse">Or browse</label></td>
+  <td><input type="file" size="12" id="filebrowse" onChange="devtool.onFileBrowsed(event)"/></td>
+ </tr>
+</table>
+</form>
+
+<h2>Algorithm specification</h2>
+<form>
+<table id="definitions">
  <tr>
   <td><label for="apiversion">apiVersion</label></td>
   <td><input type="text" readonly="readonly" class="readonly" size="3" id="apiversion"/></td>
@@ -106,11 +145,6 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
  <tr>
   <td><label for="acceptColors">acceptColors</label></td>
   <td><input type="text" readonly="readonly" class="readonly" id="acceptColors"/></td>
- </tr>
- <tr>
-  <td colspan="2">
-   <input type="button" value="&#x21BB;&#xFE0E; Reload" onClick="location.reload()"/>
-  </td>
  </tr>
 </table>
 </form>
