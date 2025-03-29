@@ -1,19 +1,53 @@
-<a href="https://www.qlcplus.org/">
-    <img src="resources/icons/png/qlcplus.png" alt="QLC Logo" title="qlcplus.png" align="right" height="60" />
-</a>
+<p align="center">
+  <a href="https://www.qlcplus.org/">
+    <img src="resources/icons/png/qlcplus.png" alt="QLC+ Logo" height="60" />
+  </a>
+</p>
 
-# Q Light Controller Plus
-[![GitHub release](https://img.shields.io/github/v/release/mcallegari/qlcplus)
-![GitHub Release Date - Published_At](https://img.shields.io/github/release-date/mcallegari/qlcplus)](https://github.com/mcallegari/qlcplus/releases/latest)
+<h1 align="center">Q Light Controller+</h1>
+<p align="center"><em>(Often abbreviated as "QLC+")</em></p>
+<p align="center">
+  <strong>Open-source lighting control for DMX, Artnet, s.ACN and more.</strong><br/>
+  Designed for live shows, theatre, architectual installations, and venues.
+</p>
 
-https://www.qlcplus.org/download
+<p align="center">
+  <a href="https://github.com/mcallegari/qlcplus/releases/latest">
+    <img src="https://img.shields.io/github/v/release/mcallegari/qlcplus" />
+    <img src="https://img.shields.io/github/release-date/mcallegari/qlcplus" />
+  </a>
+  <a href="https://github.com/mcallegari/qlcplus/actions">
+    <img src="https://github.com/mcallegari/qlcplus/actions/workflows/build.yml/badge.svg" />
+  </a>
+  <a href="https://coveralls.io/github/mcallegari/qlcplus?branch=master">
+    <img src="https://coveralls.io/repos/github/mcallegari/qlcplus/badge.svg?branch=master" />
+  </a>
+</p>
+
+
+
+
+---
 
 ## Introduction
-QLC+ is powerful and user-friendly software designed to control lighting. Whether you're an experienced lighting professional or just getting started, QLC+ empowers you to take control of your lighting fixtures with ease. The primary goal of this project is to bring QLC+ to the level of available commercial software. 
-QLC+ runs on Linux, Windows (7+), macOS (10.12+) and the Raspberry Pi.
 
-Copyright © Heikki Junnila, Massimo Callegari
-### Supported Protocols
+**QLC+** is powerful and user-friendly software to control lighting. It supports industry-standard protocols like DMX, MIDI, OSC, ArtNet and more. QLC+ runs on Linux, Windows (7+), macOS (10.12+), and Raspberry Pi.Whether you're an experienced lighting professional or just getting started, QLC+ empowers you to take control of your lighting fixtures with ease. The primary goal of this project is to bring QLC+ to the level of available commercial software. QLC+ runs on Linux, Windows (10+), macOS (10.12+) and the Raspberry Pi (4+).
+
+<p align="center">
+<a href="https://www.qlcplus.org/download" alt="offline-pdf">
+        <img src="https://custom-icon-badges.demolab.com/badge/-Download_QLC+-blue?style=for-the-badge&logo=download&logoColor=white" />
+</a>
+<a href="https://qlcplus.org/discover/raspberry-pi" alt="offline-pdf">
+        <img src="https://custom-icon-badges.demolab.com/badge/-Raspberry_Pi-red?style=for-the-badge&logo=cpu&logoColor=white" />
+</a>
+<a href="https://qlcplus.org/discover/raspberry-pi" alt="offline-pdf">
+        <img src="https://custom-icon-badges.demolab.com/badge/-Store-green?style=for-the-badge&logo=home&logoColor=white" />
+</a>
+</p>
+
+
+### Supported protocols
+
 [![MIDI](https://img.shields.io/badge/MIDI-%23323330.svg?style=for-the-badge&logo=midi&logoColor=%23F7DF1E)](https://docs.qlcplus.org/v4/plugins/midi)
 [![OSC](https://img.shields.io/badge/OSC-%23323330.svg?style=for-the-badge&logo=aiohttp&logoColor=%23F7DF1E)](https://docs.qlcplus.org/v4/plugins/osc)
 [![HID](https://img.shields.io/badge/HID-%23323330.svg?style=for-the-badge&logo=applearcade&logoColor=%23F7DF1E)](https://docs.qlcplus.org/v4/plugins/hid)
@@ -22,104 +56,60 @@ Copyright © Heikki Junnila, Massimo Callegari
 [![E1.31/S.ACN](https://img.shields.io/badge/E1.31%20S.ACN-%23323330.svg?style=for-the-badge&logo=aiohttp&logoColor=%23F7DF1E)](https://docs.qlcplus.org/v4/plugins/e1-31-sacn)
 [![OS2L](https://img.shields.io/badge/OS2L-%23323330.svg?style=for-the-badge&logo=aiohttp&logoColor=%23F7DF1E)](https://docs.qlcplus.org/v4/plugins/os2l)
 
-### Key Resources
-<table>
-<thead>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:right">Home Page</td>
-<td style="text-align:left"><a href="https://qlcplus.org"><img src="https://img.shields.io/badge/qlcplus.org-blue?logo=grav" alt="Static Badge"></a></td>
-</tr>
-<tr>
-<td style="text-align:right">Documentation</td>
-<td style="text-align:left"><a href="https://docs.qlcplus.org"><img src="https://img.shields.io/badge/docs.qlcplus.org-blue?logo=grav" alt="Static Badge"></a></td>
-</tr>
-<tr>
-<td style="text-align:right">Official Forum</td>
-<td style="text-align:left"><a href="https://qlcplus.org/forum/"><img src="https://img.shields.io/badge/qlcplus.org/forum-grey?logo=php" alt="Static Badge"></a></td>
-</tr>
-<tr>
-<td style="text-align:right">GitHub Sponsorship</td>
-<td style="text-align:left"><img src="https://img.shields.io/github/sponsors/mcallegari" alt="GitHub Sponsors"> <a href="https://github.com/sponsors/mcallegari"><img src="https://img.shields.io/badge/sponsor-30363D?logo=GitHub-Sponsors&logoColor=#white" /></a></td>
-</tr>
-<tr>
-<td style="text-align:right">Official Merch</td>
-<td style="text-align:left"><a href="https://merch.qlcplus.org"><img src="https://img.shields.io/badge/merch.qlcplus.org-Official_Merchandice-green?logo=shopify" alt="Static Badge"></a></td>
-</tr>
-</tbody>
-</table>
+### QLC+ on social media
 
-### QLC+ Social Media
+<a href="https://www.instagram.com/qlcplus/" alt="Instagram">
+    <img src="https://img.shields.io/badge/Instagram-%23E4405F.svg?style=flat&logo=Instagram&logoColor=white" /></a>
+<a href="https://www.youtube.com/watch?v=I9bccwcYQpM&" alt="YouTube">
+    <img src="https://img.shields.io/badge/YouTube-%23FF0000.svg?style=flat&logo=YouTube&logoColor=white" /></a>
+<a href="https://www.facebook.com/qlcplus" alt="Facebook">
+    <img src="https://img.shields.io/badge/Facebook-%231877F2.svg?style=flat&logo=Facebook&logoColor=white" /></a>
 
-[![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white)](https://www.instagram.com/qlcplus/) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://www.youtube.com/watch?v=I9bccwcYQpM&list=PLHT-wIriuitDiW4A9oKSDr__Z_jcmMVdi) [![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?style=for-the-badge&logo=Facebook&logoColor=white)](https://www.facebook.com/qlcplus)
+## Support & bug reports
 
-## Contributing
-We welcome contributions from the community to help make QLC+ even better. Before diving into coding, we encourage you to start a discussion in our [Software Development](https://www.qlcplus.org/forum/viewforum.php?f=12) forum if you're considering adding a new feature or making significant changes. This provides an opportunity for feedback, collaboration, and ensuring alignment with the project's goals.
+We have a dedicated page to help you find support. You can find it here: [SUPPORT.md](SUPPORT.md)
 
-Further guidelines are available in the [CONTRIBUTING.md](CONTRIBUTING.md) document.
+To learn about a specific feature of QLC+, take a look at the [Official Documentation](https://www.qlcplus.org/docs/).
+
+To give feedback, ideas and new fixtures, go to the [forum](https://www.qlcplus.org/forum/index.php)
 
 ### Help wanted
 Click the badge below to see the currently confirmed issues with QLC+. Perhaps you can find a solution?
 
-[![GitHub issues by-label](https://img.shields.io/github/issues/mcallegari/qlcplus/issue%20confirmed?logo=github&color=red)](https://github.com/mcallegari/qlcplus/issues?q=is%3Aopen+is%3Aissue+label%3A%22issue+confirmed%22)
+[![Help Wanted](https://img.shields.io/github/issues/mcallegari/qlcplus/issue%20confirmed?logo=github&color=red)](https://github.com/mcallegari/qlcplus/issues?q=is%3Aopen+is%3Aissue+label%3A%22issue+confirmed%22)
 
-### 🚧 Developers at work 🚧
+---
 
-If you're regularly updating QLC+ sources with git pull, you may encounter compiler warnings, errors, or unresolved symbols. This is because the source package is still in development. We strive to keep the GIT master branch free of critical errors; However, dependencies between objects can sometimes cause issues, requiring a full package recompilation rather than just updating recent changes.
+## Building QLC+
 
-[![QLC+ Github Actions CI Build](https://github.com/mcallegari/qlcplus/actions/workflows/build.yml/badge.svg)](https://github.com/mcallegari/qlcplus/actions) [![Coverage Status](https://coveralls.io/repos/github/mcallegari/qlcplus/badge.svg?branch=master)](https://coveralls.io/github/mcallegari/qlcplus?branch=master)
-[![GitHub commits since latest release (by SemVer including pre-releases)](https://img.shields.io/github/commits-since/mcallegari/qlcplus/latest/master)](https://github.com/mcallegari/qlcplus/commits/master/) ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/mcallegari/qlcplus) 
+Compilation guides and platform-specific instructions are available in our [GitHub Wiki](https://github.com/mcallegari/qlcplus/wiki).
 
-## Compiling and installation
+---
 
-Please refer to the online wiki pages: https://github.com/mcallegari/qlcplus/wiki
-## Requirements
-### Linux
 
-*   Qt >= 5.0 development libraries & tools
-*   libudev-dev, libsndfile1-dev, libfftw3-dev
-*   DMX USB plugin: libftdi-dev, pkg-config
-*   MIDI plugin: libasound, libasound-dev, pkg-config
-*   OLA plugin: libola, ola-dev, pkg-config (see libs/olaout/README)
-*   uDMX plugin: libusb, libusb-dev, pkg-config
-*   Peperoni plugin: libusb, libusb-dev, pkg-config
-*   Velleman plugin: **Not available**
+## Contributing
+### Software development
+We welcome contributions from the community to help make QLC+ even better. If you're working on something major, start a thread in the [Development Forum](https://www.qlcplus.org/forum/viewforum.php?f=12) first. Make sure you read the [CONTRIBUTING.md](CONTRIBUTING.md) document for more.
 
-### Windows
+### Financially
 
-*   MSYS2 environment (https://msys2.github.io/)
-*   DMX USB plugin: D2XX driver & development package (http://www.ftdichip.com/Drivers/D2XX.htm)
-*   ENTTEC Wing plugin: D2XX driver & development package (http://www.ftdichip.com/Drivers/D2XX.htm)
-*   OLA plugin: **Not available**
-*   Velleman plugin: K8062 SDK from www.velleman.eu
+If you're reading this we already appreciate you. If you're just getting started with lighting you have absolutely no obligation to give us money. When QLC+ opens up revenue opportunities for you, we'd be very thankful for your support. GitHub sponsors is the prefered option.
 
-### macOS
+<img src="https://img.shields.io/github/sponsors/mcallegari" alt="GitHub Sponsors"> <a href="https://github.com/sponsors/mcallegari"><img src="https://img.shields.io/badge/sponsor-30363D?logo=GitHub-Sponsors&logoColor=#white" /></a>
 
-*   XCode (https://developer.apple.com/xcode/)
-*   Qt >= 5.15.x (https://www.qt.io/download-open-source)
-*   homebrew (https://brew.sh/)
-*   DMX USB plugin: libftdi, pkg-config
-*   OLA plugin: ola, pkg-config (see libs/olaout/README)
-*   uDMX plugin: libusb, pkg-config
-*   Peperoni plugin: libusb, pkg-config
-*   Velleman plugin: **Not available**
+If you're interested, QLC+ also has an [official store](merch.qlcplus.org) where you can purchase [clothing](https://qlcplus-merch.myshopify.com/collections/clothing), [themes](https://qlcplus-merch.myshopify.com/collections/themes), the [Raspberry Pi image](https://qlcplus-merch.myshopify.com/products/qlc-raspberry-pi-image) or [one-on-one consultation](https://qlcplus-merch.myshopify.com/collections/training-and-support) with an expert. 
 
-## Support & Bug Reports
 
-For discussions, feedbacks, ideas and new fixtures, go to:
-https://www.qlcplus.org/forum/index.php
 
-For developers wiki and code patches, go to:
-https://github.com/mcallegari/qlcplus
+## Thank you!
 
-## Contributors
-
-QLC+ owes its success to the dedication and expertise of numerous individuals who have generously contributed their time and skills. The following list recognizes those whose remarkable contributions have played a pivotal role in shaping QLC+ into what it is today.
+QLC+ owes its success to the dedication and expertise of numerous individuals who have generously contributed their time and skills. The following list recognizes those whose remarkable contributions have played a pivotal role in building QLC+.
 
 ![GitHub contributors](https://img.shields.io/github/contributors/mcallegari/qlcplus)
-### QLC+ 5
 
+<details>
+<summary>QLC+ 5</summary>
+    
 *   Eric Arnebäck (3D preview features)
 *   Santiago Benejam Torres (Catalan translation)
 *   Luis García Tornel (Spanish translation)
@@ -132,7 +122,10 @@ QLC+ owes its success to the dedication and expertise of numerous individuals wh
 *   Vadim Syniuhin (Ukrainian translation)
 *   Mateusz Kędzierski (Polish translation)
 
-### QLC+ 4
+</details>
+
+<details>
+<summary>QLC+ 4</summary>
 
 *   Jano Svitok (bugfix, new features and improvements)
 *   David Garyga (bugfix, new features and improvements)
@@ -158,8 +151,10 @@ QLC+ owes its success to the dedication and expertise of numerous individuals wh
 *   Nuno Almeida, Carlos Eduardo Porto de Oliveira (Portuguese translation)
 *   Santiago Benejam Torres (Catalan translation)
 *   Koichiro Saito, Dai Suetake (Japanese translation)
+</details>
 
-### Q Light Controller
+<details>
+<summary>Q Light Controller</summary>
 
 *   Stefan Krumm (Bugfixes, new features)
 *   Christian Suehs (Bugfixes, new features)
@@ -168,16 +163,33 @@ QLC+ owes its success to the dedication and expertise of numerous individuals wh
 *   Lutz Hillebrand (uDMX plugin)
 *   Matthew Jaggard (Velleman plugin)
 *   Ptit Vachon (French translation)
-
+</details>
 <a href="https://github.com/mcallegari/qlcplus/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=mcallegari/qlcplus" />
 </a>
 
-## Apache 2.0
-![GitHub License](https://img.shields.io/github/license/mcallegari/qlcplus)
 
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+## License
+<p align="center">
+  <img src="https://img.shields.io/github/license/mcallegari/qlcplus" />
+</p>
+Licensed under the **Apache 2.0** License.  
+See [LICENSE](LICENSE) for details.
 
-----
-![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white) ![Qt](https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white) ![CMake](https://img.shields.io/badge/CMake-%23008FBA.svg?style=for-the-badge&logo=cmake&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+
+
+
+
+---
+
+<p align="center">
+  <img src="https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white" />
+  <img src="https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white" />
+  <img src="https://img.shields.io/badge/CMake-%23008FBA.svg?style=for-the-badge&logo=cmake&logoColor=white" />
+  <img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" />
+</p>
+
+---
+
+Copyright © Heikki Junnila, Massimo Callegari
+
