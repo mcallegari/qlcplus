@@ -42,7 +42,7 @@
 <a href="https://qlcplus.org/discover/raspberry-pi" alt="offline-pdf">
         <img src="https://custom-icon-badges.demolab.com/badge/-Raspberry_Pi-red?style=for-the-badge&logo=cpu&logoColor=white" />
 </a>
-<a href="https://qlcplus.org/discover/raspberry-pi" alt="offline-pdf">
+<a href="https://merch.qlcplus.org" alt="offline-pdf">
         <img src="https://custom-icon-badges.demolab.com/badge/-Store-green?style=for-the-badge&logo=home&logoColor=white" />
 </a>
 </p>
@@ -74,7 +74,7 @@
 
 ## Support & bug reports
 
-We have a dedicated page to help you find support, please checkout [SUPPORT.md](SUPPORT.md). To learn about a specific feature of QLC+, take a look at the [official documentation](https://www.qlcplus.org/docs/). To give feedback, submit new fixtures and get new ideas, go to the [forum](https://www.qlcplus.org/forum/index.php)
+We have a dedicated page to help you find support, please checkout [SUPPORT.md](SUPPORT.md). To learn about a specific feature of QLC+, take a look at the [official documentation](https://docs.qlcplus.org/). To give feedback, submit new fixtures and get new ideas, go to the [forum](https://www.qlcplus.org/forum/index.php)
 
 ### Help wanted
 Click the badge below to see the currently confirmed issues with QLC+. Perhaps you can find a solution?
@@ -88,7 +88,7 @@ Compilation guides and platform-specific instructions are available in our [GitH
 
 #### Developers at work
 
-If you're regularly updating QLC+ sources with git pull, you may encounter compiler warnings, errors, or unresolved symbols. We strive to keep the Git `master` branch free of critical errors; however, dependencies between objects can sometimes cause issues, requiring a full package recompilation rather than just updating recent changes.
+If you're regularly updating QLC+ sources with git pull, you may encounter compiler warnings, errors, or unresolved symbols. We strive to keep the `master` branch free of critical errors; however, dependencies between objects can sometimes cause issues, requiring a full package recompilation rather than just updating recent changes.
 
 ## Contributing
 ### Software development
