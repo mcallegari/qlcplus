@@ -16,22 +16,24 @@
     <img src="https://img.shields.io/github/v/release/mcallegari/qlcplus" />
     <img src="https://img.shields.io/github/release-date/mcallegari/qlcplus" />
   </a>
+    <a href="https://github.com/mcallegari/qlcplus/commits/master/">
+    <img src="https://img.shields.io/github/commits-since/mcallegari/qlcplus/latest/master" />
+  </a>
+  <a href="https://github.com/mcallegari/qlcplus/commits/master/">
+    <img src="https://img.shields.io/github/commit-activity/w/mcallegari/qlcplus" />
+  </a>
   <a href="https://github.com/mcallegari/qlcplus/actions">
     <img src="https://github.com/mcallegari/qlcplus/actions/workflows/build.yml/badge.svg" />
   </a>
   <a href="https://coveralls.io/github/mcallegari/qlcplus?branch=master">
     <img src="https://coveralls.io/repos/github/mcallegari/qlcplus/badge.svg?branch=master" />
   </a>
+
 </p>
-
-
 
 
 ---
 
-## Introduction
-
-**QLC+** is powerful and user-friendly software to control lighting. QLC+ supports a [huge amount of hardware,](https://qlcplus.org/discover/compatibility) runs on Linux, Windows (10+), macOS (10.12+), and Raspberry Pi. Whether you're an experienced lighting professional or just getting started, QLC+ empowers you to take control of your lighting fixtures with ease. The primary goal of this project is to bring QLC+ to the level of available commercial software.
 
 <p align="center">
 <a href="https://www.qlcplus.org/download" alt="offline-pdf">
@@ -44,6 +46,11 @@
         <img src="https://custom-icon-badges.demolab.com/badge/-Store-green?style=for-the-badge&logo=home&logoColor=white" />
 </a>
 </p>
+
+
+## Introduction
+
+**QLC+** is powerful and user-friendly software to control lighting. QLC+ supports a [huge amount of hardware,](https://qlcplus.org/discover/compatibility) runs on Linux, Windows (10+), macOS (10.12+), and Raspberry Pi. Whether you're an experienced lighting professional or just getting started, QLC+ empowers you to take control of your lighting fixtures with ease. The primary goal of this project is to bring QLC+ to the level of available commercial software.
 
 
 ### Supported protocols
@@ -81,6 +88,7 @@ Compilation guides and platform-specific instructions are available in our [GitH
 
 ## Contributing
 ### Software development
+
 We welcome contributions from the community to help make QLC+ even better. If you're working on something major, start a thread in the [Development Forum](https://www.qlcplus.org/forum/viewforum.php?f=12) first. Make sure you read the [CONTRIBUTING.md](CONTRIBUTING.md) document for more.
 
 ### Financially
