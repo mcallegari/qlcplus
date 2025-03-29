@@ -174,7 +174,7 @@ QLC+ owes its success to the dedication and expertise of numerous individuals wh
   <img src="https://img.shields.io/github/license/mcallegari/qlcplus" />
 </p>
 Licensed under the **Apache 2.0** License.  
-See [LICENSE](LICENSE) for details.
+See [COPYING](COPYING) for details.
 
 
 
