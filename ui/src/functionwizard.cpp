@@ -440,7 +440,7 @@ void FunctionWizard::updateResultFunctionsTree()
         for (int c = 0; c < funcGrpItem->childCount(); c++)
         {
             QTreeWidgetItem *funcItem = funcGrpItem->child(c);
-            if (funcItem->checkState(KFunctionName) == Qt::Checked)
+            if (funcItem->checkState(KFunctionName) == Qt::Checked && funcItem->childCount() == 0)
             {
                 int type = funcItem->data(KFunctionName, Qt::UserRole).toInt();
                 int subType = PaletteGenerator::All;
