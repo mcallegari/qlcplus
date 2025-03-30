@@ -13,45 +13,40 @@
 
 <p align="center">
   <a href="https://github.com/mcallegari/qlcplus/releases/latest">
-    <img src="https://img.shields.io/github/v/release/mcallegari/qlcplus" />
-    <img src="https://img.shields.io/github/release-date/mcallegari/qlcplus" />
-  </a>
-    <a href="https://github.com/mcallegari/qlcplus/commits/master/">
-    <img src="https://img.shields.io/github/commits-since/mcallegari/qlcplus/latest/master" />
+    <img src="https://img.shields.io/github/v/release/mcallegari/qlcplus" alt="Latest release version badge" />
+    <img src="https://img.shields.io/github/release-date/mcallegari/qlcplus" alt="Release date badge" />
   </a>
   <a href="https://github.com/mcallegari/qlcplus/commits/master/">
-    <img src="https://img.shields.io/github/commit-activity/w/mcallegari/qlcplus" />
+    <img src="https://img.shields.io/github/commits-since/mcallegari/qlcplus/latest/master" alt="Commits since latest release badge" />
+  </a>
+  <a href="https://github.com/mcallegari/qlcplus/commits/master/">
+    <img src="https://img.shields.io/github/commit-activity/w/mcallegari/qlcplus" alt="Weekly commit activity badge" />
   </a>
   <a href="https://github.com/mcallegari/qlcplus/actions">
-    <img src="https://github.com/mcallegari/qlcplus/actions/workflows/build.yml/badge.svg" />
+    <img src="https://github.com/mcallegari/qlcplus/actions/workflows/build.yml/badge.svg" alt="Build status badge" />
   </a>
   <a href="https://coveralls.io/github/mcallegari/qlcplus?branch=master">
-    <img src="https://coveralls.io/repos/github/mcallegari/qlcplus/badge.svg?branch=master" />
+    <img src="https://coveralls.io/repos/github/mcallegari/qlcplus/badge.svg?branch=master" alt="Test coverage badge" />
   </a>
-
 </p>
-
 
 ---
 
-
 <p align="center">
-<a href="https://www.qlcplus.org/download" alt="offline-pdf">
-        <img src="https://custom-icon-badges.demolab.com/badge/-Download_QLC+-blue?style=for-the-badge&logo=download&logoColor=white" />
-</a>
-<a href="https://qlcplus.org/discover/raspberry-pi" alt="offline-pdf">
-        <img src="https://custom-icon-badges.demolab.com/badge/-Raspberry_Pi-red?style=for-the-badge&logo=cpu&logoColor=white" />
-</a>
-<a href="https://merch.qlcplus.org" alt="offline-pdf">
-        <img src="https://custom-icon-badges.demolab.com/badge/-Store-green?style=for-the-badge&logo=home&logoColor=white" />
-</a>
+  <a href="https://www.qlcplus.org/download">
+    <img src="https://custom-icon-badges.demolab.com/badge/-Download_QLC+-blue?style=for-the-badge&logo=download&logoColor=white" alt="Download QLC+ badge" />
+  </a>
+  <a href="https://qlcplus.org/discover/raspberry-pi">
+    <img src="https://custom-icon-badges.demolab.com/badge/-Raspberry_Pi-red?style=for-the-badge&logo=cpu&logoColor=white" alt="Raspberry Pi badge" />
+  </a>
+  <a href="https://merch.qlcplus.org">
+    <img src="https://custom-icon-badges.demolab.com/badge/-Store-green?style=for-the-badge&logo=home&logoColor=white" alt="Official store badge" />
+  </a>
 </p>
-
 
 ## Introduction
 
 **QLC+** is powerful and user-friendly software to control lighting. QLC+ supports a [huge amount of hardware,](https://qlcplus.org/discover/compatibility) runs on Linux, Windows (10+), macOS (10.12+), and Raspberry Pi. Whether you're an experienced lighting professional or just getting started, QLC+ empowers you to take control of your lighting fixtures with ease. The primary goal of this project is to bring QLC+ to the level of available commercial software.
-
 
 ### Supported protocols
 
@@ -65,12 +60,15 @@
 
 ### QLC+ on social media
 
-<a href="https://www.instagram.com/qlcplus/" alt="Instagram">
-    <img src="https://img.shields.io/badge/Instagram-%23E4405F.svg?style=flat&logo=Instagram&logoColor=white" /></a>
-<a href="https://www.youtube.com/watch?v=I9bccwcYQpM&" alt="YouTube">
-    <img src="https://img.shields.io/badge/YouTube-%23FF0000.svg?style=flat&logo=YouTube&logoColor=white" /></a>
-<a href="https://www.facebook.com/qlcplus" alt="Facebook">
-    <img src="https://img.shields.io/badge/Facebook-%231877F2.svg?style=flat&logo=Facebook&logoColor=white" /></a>
+<a href="https://www.instagram.com/qlcplus/">
+  <img src="https://img.shields.io/badge/Instagram-%23E4405F.svg?style=flat&logo=Instagram&logoColor=white" alt="Instagram badge" />
+</a>
+<a href="https://www.youtube.com/watch?v=I9bccwcYQpM&">
+  <img src="https://img.shields.io/badge/YouTube-%23FF0000.svg?style=flat&logo=YouTube&logoColor=white" alt="YouTube badge" />
+</a>
+<a href="https://www.facebook.com/qlcplus">
+  <img src="https://img.shields.io/badge/Facebook-%231877F2.svg?style=flat&logo=Facebook&logoColor=white" alt="Facebook badge" />
+</a>
 
 ## Support & bug reports
 
@@ -179,17 +177,19 @@ QLC+ owes its success to the dedication and expertise of numerous individuals wh
 
 ---
 
-## License
-<img alt="GitHub License" src="https://img.shields.io/github/license/mcallegari/qlcplus?style=flat-square&link=https%3A%2F%2Fgithub.com%2Fmcallegari%2Fqlcplus%2Fblob%2Fmaster%2FCOPYING">
 
+## License
+<a href="https://github.com/mcallegari/qlcplus/blob/master/COPYING">
+  <img alt="GitHub License badge" src="https://img.shields.io/github/license/mcallegari/qlcplus?style=flat-square" />
+</a>
 
 Licensed under the **Apache 2.0** License.  See [COPYING](COPYING) for details.
 
 ---
 <p align="center">Copyright © Heikki Junnila, Massimo Callegari</p>
 <p align="center">
-  <img src="https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white" />
-  <img src="https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white" />
-  <img src="https://img.shields.io/badge/CMake-%23008FBA.svg?style=for-the-badge&logo=cmake&logoColor=white" />
-  <img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" />
+  <img src="https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white" alt="C++ badge" />
+  <img src="https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white" alt="Qt badge" />
+  <img src="https://img.shields.io/badge/CMake-%23008FBA.svg?style=for-the-badge&logo=cmake&logoColor=white" alt="CMake badge" />
+  <img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" alt="JavaScript badge" />
 </p>
