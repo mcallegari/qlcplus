@@ -31,6 +31,7 @@
 #include "vcsoloframe.h"
 #include "vccuelist.h"
 #include "rgbmatrix.h"
+#include "efx.h"
 #include "vcwidget.h"
 #include "vcbutton.h"
 #include "vcslider.h"
@@ -54,6 +55,9 @@
 
 #define KFunctionName               0
 #define KFunctionOddEven            1
+#define KFunctionStaggered          2
+#define KFunctionAsymetric          3
+#define KFunctionSplitReverse       4
 
 #define KWidgetName                 0
 
@@ -283,11 +287,28 @@ QList <quint32> FunctionWizard::fixtureIds() const
  * Functions
  ********************************************************************/
 
+QTreeWidgetItem *efxItem = NULL;
+
 void FunctionWizard::addFunctionsGroup(QTreeWidgetItem *fxGrpItem, QTreeWidgetItem *grpItem,
                                        QString name, PaletteGenerator::PaletteType type)
 {
     if (grpItem == NULL)
         return;
+
+    if ((type == PaletteGenerator::EfxDimmer ||
+        type == PaletteGenerator::EfxRGB ||
+        type == PaletteGenerator::EfxPosition))
+    {
+        if (efxItem == NULL){
+            QTreeWidgetItem *item = new QTreeWidgetItem(grpItem);
+            item->setText(KFunctionName, "EFXs");
+            item->setCheckState(KFunctionName, Qt::Unchecked);
+            item->setFlags(item->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
+            item->setExpanded(true);
+            efxItem = item;
+        }
+        grpItem = efxItem;
+    }
 
     QTreeWidgetItem *item = new QTreeWidgetItem(grpItem);
     item->setText(KFunctionName, name);
@@ -297,6 +318,15 @@ void FunctionWizard::addFunctionsGroup(QTreeWidgetItem *fxGrpItem, QTreeWidgetIt
     if (fxGrpItem != NULL && fxGrpItem->childCount() > 1)
     {
         item->setCheckState(KFunctionOddEven, Qt::Unchecked);
+        
+        if ((type == PaletteGenerator::EfxDimmer ||
+            type == PaletteGenerator::EfxRGB ||
+            type == PaletteGenerator::EfxPosition))
+        {
+            item->setCheckState(KFunctionStaggered, Qt::Unchecked);
+            item->setCheckState(KFunctionAsymetric, Qt::Unchecked);
+            item->setCheckState(KFunctionSplitReverse, Qt::Unchecked);
+        }
     }
 }
 
@@ -343,6 +373,9 @@ void FunctionWizard::updateAvailableFunctionsTree()
                 addFunctionsGroup(fxGrpItem, grpItem,
                                   PaletteGenerator::typetoString(PaletteGenerator::Animation),
                                   PaletteGenerator::Animation);
+                addFunctionsGroup(fxGrpItem, grpItem,
+                                  PaletteGenerator::typetoString(PaletteGenerator::EfxRGB),
+                                  PaletteGenerator::EfxRGB);
             }
             else if (cap == QLCChannel::groupToString(QLCChannel::Gobo))
                 addFunctionsGroup(fxGrpItem, grpItem,
@@ -356,7 +389,16 @@ void FunctionWizard::updateAvailableFunctionsTree()
                 addFunctionsGroup(fxGrpItem, grpItem,
                                   PaletteGenerator::typetoString(PaletteGenerator::ColourMacro),
                                   PaletteGenerator::ColourMacro);
+            else if (cap == KQLCChannelDimmer)
+                addFunctionsGroup(fxGrpItem, grpItem,
+                                  PaletteGenerator::typetoString(PaletteGenerator::EfxDimmer),
+                                  PaletteGenerator::EfxDimmer);
+            else if (cap == KQLCChannelMovement)
+                addFunctionsGroup(fxGrpItem, grpItem,
+                                  PaletteGenerator::typetoString(PaletteGenerator::EfxPosition),
+                                  PaletteGenerator::EfxPosition);
         }
+        efxItem = NULL;
     }
 
     m_allFuncsTree->resizeColumnToContents(KFunctionName);
@@ -441,6 +483,31 @@ void FunctionWizard::updateResultFunctionsTree()
                     QTreeWidgetItem *item = new QTreeWidgetItem(getFunctionGroupItem(matrix));
                     item->setText(KFunctionName, matrix->name());
                     item->setIcon(KFunctionName, matrix->getIcon());
+                }
+            }
+
+            for (int c = 0; c < funcItem->childCount(); c++)
+            {
+                
+                QTreeWidgetItem *subFuncItem = funcItem->child(c);
+                if (subFuncItem->checkState(KFunctionName) != Qt::Checked)
+                    continue;
+
+                int type = subFuncItem->data(KFunctionName, Qt::UserRole).toInt();
+                int subType = PaletteGenerator::All;
+                if (funcItem->checkState(KFunctionOddEven) == Qt::Checked)
+                    subType = PaletteGenerator::OddEven;
+
+                PaletteGenerator *palette = new PaletteGenerator(m_doc, fxList,
+                                                                (PaletteGenerator::PaletteType)type,
+                                                                (PaletteGenerator::PaletteSubType)subType);
+                m_paletteList.append(palette);
+
+                foreach (EFX *efx, palette->efxs())
+                {
+                    QTreeWidgetItem *item = new QTreeWidgetItem(getFunctionGroupItem(efx));
+                    item->setText(KFunctionName, efx->name());
+                    item->setIcon(KFunctionName, efx->getIcon());
                 }
             }
         }
@@ -617,7 +684,10 @@ void FunctionWizard::updateWidgetsTree()
     {
         QTreeWidgetItem *frame = new QTreeWidgetItem(m_widgetsTree);
         frame->setText(KWidgetName, palette->fullName());
-        if (palette->type() == PaletteGenerator::Animation)
+        if (palette->type() == PaletteGenerator::Animation ||
+            palette->type() == PaletteGenerator::EfxDimmer ||
+            palette->type() == PaletteGenerator::EfxPosition ||
+            palette->type() == PaletteGenerator::EfxRGB)
         {
             frame->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::SoloFrameWidget));
             frame->setData(KWidgetName, Qt::UserRole, VCWidget::SoloFrameWidget);
@@ -680,6 +750,16 @@ void FunctionWizard::updateWidgetsTree()
             item->setCheckState(KWidgetName, Qt::Unchecked);
             item->setData(KWidgetName, Qt::UserRole, VCWidget::ButtonWidget);
             item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)matrix));
+        }
+        foreach (EFX *efx, palette->efxs())
+        {
+            QTreeWidgetItem *item = new QTreeWidgetItem(frame);
+            QString toRemove = " - " + palette->model();
+            item->setText(KWidgetName, efx->name().remove(toRemove));
+            item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::ButtonWidget));
+            item->setCheckState(KWidgetName, Qt::Unchecked);
+            item->setData(KWidgetName, Qt::UserRole, VCWidget::ButtonWidget);
+            item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)efx));
         }
 
         if (palette->scenes().count() > 0)
