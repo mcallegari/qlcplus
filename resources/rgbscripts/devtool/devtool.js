@@ -91,8 +91,10 @@ devtool.addPropertyTableEntry = function(property)
     var readFunction = property[keys.indexOf("read")][1];
 
     var nameCell = row.insertCell(-1);
-    var t = document.createTextNode(displayName);
-    nameCell.appendChild(t);
+    var label = document.createElement('label');
+    label.textContent = displayName;
+    label.htmlFor = name;
+    nameCell.appendChild(label);
 
     var currentValue = window.testAlgo[readFunction]();
 
@@ -203,10 +205,13 @@ devtool.initPixelColors = function()
         var row = colorTable.insertRow();
         row.id = "color" + colorId + "Chooser";
         var titleCell = row.insertCell();
+        var label = document.createElement('label');
+        label.htmlFor = "color" + colorId + "Picker";
         if (colorId === 1)
-            titleCell.textContent = "Color " + colorId + " (rrggbb)";
+            label.textContent = "Color " + colorId + " (rrggbb)";
         else
-            titleCell.textContent = "Color " + colorId + " (rrggbb, leave empty to disable)";
+            label.textContent = "Color " + colorId + " (rrggbb, leave empty to disable)";
+        titleCell.appendChild(label);
         var colorInput = document.createElement("input");
         colorInput.setAttribute("type", "text");
         colorInput.setAttribute("id", "color" + colorId + "Text");
