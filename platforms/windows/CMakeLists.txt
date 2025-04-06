@@ -69,6 +69,7 @@ set(qtlibs_files
 )
 if(QT_MAJOR_VERSION GREATER 5)
     list(APPEND qtlibs_files "${QT_LIBS_PATH}/${QT_V}Qml.dll")
+	list(APPEND qtlibs_files "${QT_LIBS_PATH}/${QT_V}QmlMeta.dll")
 else()
     list(APPEND qtlibs_files "${QT_LIBS_PATH}/${QT_V}Script.dll")
 endif()
@@ -93,7 +94,7 @@ if(qmlui)
         "${QT_LIBS_PATH}/${QT_V}3DQuickRender.dll"
         "${QT_LIBS_PATH}/${QT_V}3DRender.dll"
         "${QT_LIBS_PATH}/${QT_V}Concurrent.dll"
-        "${QT_LIBS_PATH}/${QT_V}Gamepad.dll"
+        #"${QT_LIBS_PATH}/${QT_V}Gamepad.dll"
         "${QT_LIBS_PATH}/${QT_V}PrintSupport.dll"
         "${QT_LIBS_PATH}/${QT_V}MultimediaQuick.dll"
     )
@@ -136,9 +137,9 @@ set(qtimageformats_files "${QT_PLUGINS_PATH}/imageformats/qgif.dll"
 install(FILES ${qtimageformats_files} DESTINATION ${qtimageformats_path})
 
 if(qmlui)
-    set(qtprintsupport_path "${INSTALLROOT}/${LIBSDIR}/printsupport")
-    set(qtprintsupport_files "${QT_PLUGINS_PATH}/printsupport/windowsprintersupport.dll")
-    install(FILES ${qtprintsupport_files} DESTINATION ${qtprintsupport_path})
+    #set(qtprintsupport_path "${INSTALLROOT}/${LIBSDIR}/printsupport")
+    #set(qtprintsupport_files "${QT_PLUGINS_PATH}/printsupport/windowsprintersupport.dll")
+    #install(FILES ${qtprintsupport_files} DESTINATION ${qtprintsupport_path})
 
     set(geometryloaders_path "${INSTALLROOT}/${LIBSDIR}/geometryloaders")
     set(geometryloaders_files "${QT_PLUGINS_PATH}/geometryloaders/defaultgeometryloader.dll")
@@ -156,7 +157,7 @@ if(qmlui)
     set(qmldeps_files "${QT_QML_PATH}/Qt"
                        "${QT_QML_PATH}/QtQml"
                        "${QT_QML_PATH}/QtQuick"
-                       "${QT_QML_PATH}/QtQuick.2"
+                       #"${QT_QML_PATH}/QtQuick.2"
                        "${QT_QML_PATH}/Qt3D"
                        "${QT_QML_PATH}/QtMultimedia")
     install(DIRECTORY ${qmldeps_files} DESTINATION ${qmldeps_path})
@@ -246,7 +247,7 @@ if(QT_MAJOR_VERSION GREATER 5)
 	copy_system_library(mmedia_files "librav1e.dll")
 	copy_system_library(mmedia_files "librsvg-2-2.dll")
 	copy_system_library(mmedia_files "libtheoradec-1.dll")
-	copy_system_library(mmedia_files "libSvtAv1Enc-2.dll")
+	copy_system_library(mmedia_files "libSvtAv1Enc-3.dll")
 	copy_system_library(mmedia_files "libtheoraenc-1.dll")
 	copy_system_library(mmedia_files "libvpx-1.dll")
 	copy_system_library(mmedia_files "libwebp-7.dll")
