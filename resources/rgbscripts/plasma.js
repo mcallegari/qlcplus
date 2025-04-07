@@ -281,11 +281,6 @@ var testAlgo;
       util.initialized = false;
     }
 
-    algo.rgbMapGetColors = function()
-    {
-      return util.colorArray;
-    }
-
     algo.rgbMap = function(width, height, rgb, step)
     {
       if (util.initialized === false)
