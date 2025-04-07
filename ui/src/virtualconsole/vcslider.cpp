@@ -217,7 +217,7 @@ VCSlider::~VCSlider()
     m_doc->masterTimer()->unregisterDMXSource(this);
 
     // request to delete all the active faders
-    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
     {
         if (!fader.isNull())
             fader->requestDelete();
@@ -361,7 +361,7 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
         {
             m_doc->masterTimer()->unregisterDMXSource(this);
             // request to delete all the active faders
-            foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+            foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
             {
                 if (!fader.isNull())
                     fader->requestDelete();
@@ -876,7 +876,7 @@ void VCSlider::slotResetButtonClicked()
                                  .arg(m_slider->palette().window().color().name()));
 
     // request to delete all the active fader channels
-    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
     {
         if (!fader.isNull())
             fader->removeAll();
@@ -1619,7 +1619,7 @@ void VCSlider::adjustIntensity(qreal val)
     }
     else if (sliderMode() == Level)
     {
-        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
         {
             if (!fader.isNull())
                 fader->adjustIntensity(val);

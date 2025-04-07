@@ -93,16 +93,12 @@ void Cue::setValue(uint channel, uchar value)
 
 void Cue::unsetValue(uint channel)
 {
-    if (m_values.contains(channel) == true)
-        m_values.remove(channel);
+    m_values.remove(channel);
 }
 
 uchar Cue::value(uint channel) const
 {
-    if (m_values.contains(channel) == true)
-        return m_values[channel];
-    else
-        return 0;
+    return m_values.value(channel, 0);
 }
 
 QMap <uint,uchar> Cue::values() const

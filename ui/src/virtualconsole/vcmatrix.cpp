@@ -1158,7 +1158,7 @@ QMap<quint32,QString> VCMatrix::customControlsMap() const
 {
     QMap<quint32,QString> map;
 
-    foreach (VCMatrixControl *control, m_controls.values())
+    foreach (VCMatrixControl *control, m_controls)
         map.insert(control->m_id, VCMatrixControl::typeToString(control->m_type));
 
     return map;

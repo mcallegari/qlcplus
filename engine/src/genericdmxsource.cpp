@@ -38,7 +38,7 @@ GenericDMXSource::GenericDMXSource(Doc* doc)
 
 GenericDMXSource::~GenericDMXSource()
 {
-    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
     {
         if (!fader.isNull())
             fader->requestDelete();

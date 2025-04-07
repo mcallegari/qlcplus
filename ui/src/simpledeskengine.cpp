@@ -60,14 +60,14 @@ void SimpleDeskEngine::clearContents()
     qDebug() << Q_FUNC_INFO;
 
     // Stop all cuestacks and wait for each of them to stop
-    foreach (CueStack* cs, m_cueStacks.values())
+    foreach (CueStack* cs, m_cueStacks)
     {
         cs->stop();
         while (cs->isStarted() == true) { /* NOP */ }
     }
 
     QMutexLocker locker(&m_mutex);
-    foreach (CueStack* cs, m_cueStacks.values())
+    foreach (CueStack* cs, m_cueStacks)
         delete cs;
     m_cueStacks.clear();
     m_values.clear();

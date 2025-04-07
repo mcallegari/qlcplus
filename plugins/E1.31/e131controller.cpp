@@ -315,7 +315,7 @@ UniverseInfo *E131Controller::getUniverseInfo(quint32 universe)
 E131Controller::Type E131Controller::type()
 {
     int type = Unknown;
-    foreach (UniverseInfo info, m_universeMap.values())
+    foreach (UniverseInfo info, m_universeMap)
     {
         type |= info.type;
     }
