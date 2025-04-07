@@ -181,10 +181,13 @@ bool FixtureGroup::assignHead(const QLCPoint& pt, const GroupHead& head)
 
 void FixtureGroup::resignFixture(quint32 id)
 {
-    foreach (QLCPoint pt, m_heads.keys())
+    QMap <QLCPoint,GroupHead>::iterator it = m_heads.begin();
+    while(it != m_heads.end())
     {
-        if (m_heads[pt].fxi == id)
-            m_heads.remove(pt);
+        if (it.value().fxi == id)
+            it = m_heads.erase(it);
+        else
+            it++;
     }
 
     emit changed(this->id());
@@ -377,11 +380,11 @@ bool FixtureGroup::saveXML(QXmlStreamWriter *doc)
     doc->writeEndElement();
 
     /* Fixture heads */
-    QList<QLCPoint> pointsList = m_heads.keys();
-
-    foreach (QLCPoint pt, pointsList)
+    QMap <QLCPoint,GroupHead>::iterator it = m_heads.begin();
+    for(; it != m_heads.end(); it++)
     {
-        GroupHead head = m_heads[pt];
+        QLCPoint pt = it.key();
+        GroupHead head = it.value();
         doc->writeStartElement(KXMLQLCFixtureGroupHead);
         doc->writeAttribute("X", QString::number(pt.x()));
         doc->writeAttribute("Y", QString::number(pt.y()));

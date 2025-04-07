@@ -108,8 +108,9 @@ void VCFrame::render(QQuickView *view, QQuickItem *parent)
         QString chName = QString("frameDropArea%1").arg(id());
         QQuickItem *childrenArea = qobject_cast<QQuickItem*>(m_item->findChild<QObject *>(chName));
 
-        foreach (VCWidget *child, m_pagesMap.keys())
-            child->render(view, childrenArea);
+        QMap <VCWidget *, int>::iterator it = m_pagesMap.begin();
+        for(; it != m_pagesMap.end(); it++)
+            it.key()->render(view, childrenArea);
     }
 }
 

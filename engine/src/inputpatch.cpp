@@ -140,10 +140,11 @@ bool InputPatch::reconnect()
         bool ret = m_plugin->openInput(m_pluginLine, m_universe);
         if (ret == true)
         {
-            foreach (QString par, m_parametersCache.keys())
+            QMap<QString, QVariant>::iterator it = m_parametersCache.begin();
+            for(; it != m_parametersCache.end(); it++)
             {
-                qDebug() << "[InputPatch] restoring parameter:" << par << m_parametersCache[par];
-                m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Input, par, m_parametersCache[par]);
+                qDebug() << "[InputPatch] restoring parameter:" << it.key() << it.value();
+                m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Input, it.key(), it.value());
             }
         }
         return ret;

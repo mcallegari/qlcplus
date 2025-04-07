@@ -353,11 +353,13 @@ void MidiPlugin::configure()
 
     // walk the universe map to update/add the
     // plugin custom parameters
-    foreach (quint32 universe, m_universesMap.keys())
+    QMap<quint32, PluginUniverseDescriptor>::iterator it = m_universesMap.begin();
+    for(; it != m_universesMap.end(); it++)
     {
-        m_universesMap[universe].inputParameters.clear();
+        const quint32 universe = it.key();
+        it.value().inputParameters.clear();
 
-        quint32 inLine = m_universesMap[universe].inputLine;
+        quint32 inLine = it.value().inputLine;
 
         if (inLine != UINT_MAX)
         {
@@ -386,9 +388,9 @@ void MidiPlugin::configure()
                 qDebug() << "[MIDI] coudln't find device for line:" << inLine;
         }
 
-        m_universesMap[universe].outputParameters.clear();
+        it.value().outputParameters.clear();
 
-        quint32 outLine = m_universesMap[universe].outputLine;
+        quint32 outLine = it.value().outputLine;
 
         if (outLine != UINT_MAX)
         {

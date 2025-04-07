@@ -207,8 +207,10 @@ QList<quint32> Scene::components()
 {
     QList<quint32> ids;
 
-    foreach (SceneValue scv, m_values.keys())
+    QMap <SceneValue, uchar>::iterator it = m_values.begin();
+    for(; it != m_values.end(); it++)
     {
+        const SceneValue& scv = it.key();
         if (ids.contains(scv.fxi) == false)
             ids.append(scv.fxi);
     }
@@ -223,8 +225,11 @@ QColor Scene::colorValue(quint32 fxi)
     bool found = false;
     QColor CMYcol;
 
-    foreach (SceneValue scv, m_values.keys())
+    QMap <SceneValue, uchar>::iterator it = m_values.begin();
+    for(; it != m_values.end(); it++)
     {
+        const SceneValue& scv = it.key();
+
         if (fxi != Fixture::invalidId() && fxi != scv.fxi)
             continue;
 
@@ -667,8 +672,11 @@ void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
         {
             // Keep HTP and LTP channels up. Flash is more or less a forceful intervention
             // so enforce all values that the user has chosen to flash.
-            foreach (const SceneValue& sv, m_values.keys())
+            QMap <SceneValue, uchar>::iterator it = m_values.begin();
+            for(; it != m_values.end(); it++)
             {
+                const SceneValue& sv = it.key();
+
                 FadeChannel fc(doc(), sv.fxi, sv.channel);
                 quint32 universe = fc.universe();
                 if (universe == Universe::invalid())

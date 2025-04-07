@@ -556,11 +556,12 @@ void VirtualConsole::resetWidgetSelection()
 QStringList VirtualConsole::selectedWidgetNames()
 {
     QStringList names;
-    if (m_itemsMap.isEmpty() == false)
+
     {
-        foreach (quint32 wID, m_itemsMap.keys())
+        QMap<quint32, QQuickItem*>::iterator it = m_itemsMap.begin();
+        for(; it != m_itemsMap.end(); it++)
         {
-            VCWidget *vcWidget = m_widgetsMap[wID];
+            VCWidget *vcWidget = m_widgetsMap[it.key()];
             if (vcWidget != nullptr)
             {
                 if (vcWidget->caption().isEmpty())
@@ -582,10 +583,11 @@ int VirtualConsole::selectedWidgetsCount() const
 QVariantList VirtualConsole::selectedWidgetIDs()
 {
     QVariantList ids;
-    if (m_itemsMap.isEmpty() == false)
+
+    QMap<quint32, QQuickItem*>::iterator it = m_itemsMap.begin();
+    for(; it != m_itemsMap.end(); it++)
     {
-        foreach (quint32 wID, m_itemsMap.keys())
-            ids << wID;
+        ids << it.key();
     }
 
     return ids;

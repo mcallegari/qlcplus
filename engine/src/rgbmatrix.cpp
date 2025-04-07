@@ -395,8 +395,9 @@ QString RGBMatrix::property(QString propName)
     QMutexLocker algoLocker(&m_algorithmMutex);
 
     /** If the property is cached, then return it right away */
-    if (m_properties.contains(propName))
-        return m_properties[propName];
+    QMap<QString, QString>::iterator it = m_properties.find(propName);
+    if (it != m_properties.end())
+        return it.value();
 
     /** Otherwise, let's retrieve it from the Script */
     if (m_algorithm != NULL && m_algorithm->type() == RGBAlgorithm::Script)
