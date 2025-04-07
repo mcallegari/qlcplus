@@ -207,8 +207,10 @@ QList<quint32> Scene::components()
 {
     QList<quint32> ids;
 
-    foreach (SceneValue scv, m_values.keys())
+    QMap <SceneValue, uchar>::iterator it = m_values.begin();
+    for(; it != m_values.end(); it++)
     {
+        const SceneValue& scv = it.key();
         if (ids.contains(scv.fxi) == false)
             ids.append(scv.fxi);
     }
@@ -223,8 +225,11 @@ QColor Scene::colorValue(quint32 fxi)
     bool found = false;
     QColor CMYcol;
 
-    foreach (SceneValue scv, m_values.keys())
+    QMap <SceneValue, uchar>::iterator it = m_values.begin();
+    for(; it != m_values.end(); it++)
     {
+        const SceneValue& scv = it.key();
+
         if (fxi != Fixture::invalidId() && fxi != scv.fxi)
             continue;
 
@@ -667,8 +672,11 @@ void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
         {
             // Keep HTP and LTP channels up. Flash is more or less a forceful intervention
             // so enforce all values that the user has chosen to flash.
-            foreach (const SceneValue& sv, m_values.keys())
+            QMap <SceneValue, uchar>::iterator it = m_values.begin();
+            for(; it != m_values.end(); it++)
             {
+                const SceneValue& sv = it.key();
+
                 FadeChannel fc(doc(), sv.fxi, sv.channel);
                 quint32 universe = fc.universe();
                 if (universe == Universe::invalid())
@@ -795,8 +803,11 @@ void Scene::handleFadersEnd(MasterTimer *timer)
         if (tempoType() == Beats)
             fadeout = beatsToTime(fadeout, timer->beatTimeDuration());
 
-        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        QMap<quint32, QSharedPointer <GenericFader> >::iterator it = m_fadersMap.begin();
+        for(; it != m_fadersMap.end(); it++)
         {
+            const QSharedPointer<GenericFader>& fader = it.value();
+
             if (!fader.isNull())
                 fader->setFadeOut(true, fadeout);
         }
@@ -864,8 +875,11 @@ void Scene::setPause(bool enable)
     if (!isRunning())
         return;
 
-    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    QMap<quint32, QSharedPointer <GenericFader> >::iterator it = m_fadersMap.begin();
+    for(; it != m_fadersMap.end(); it++)
     {
+        const QSharedPointer<GenericFader>& fader = it.value();
+
         if (!fader.isNull())
             fader->setPaused(enable);
     }
@@ -882,16 +896,22 @@ int Scene::adjustAttribute(qreal fraction, int attributeId)
 
     if (attrIndex == Intensity)
     {
-        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        QMap<quint32, QSharedPointer <GenericFader> >::iterator it = m_fadersMap.begin();
+        for(; it != m_fadersMap.end(); it++)
         {
+            const QSharedPointer<GenericFader>& fader = it.value();
+
             if (!fader.isNull())
                 fader->adjustIntensity(getAttributeValue(Function::Intensity));
         }
     }
     else if (attrIndex == ParentIntensity)
     {
-        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        QMap<quint32, QSharedPointer <GenericFader> >::iterator it = m_fadersMap.begin();
+        for(; it != m_fadersMap.end(); it++)
         {
+            const QSharedPointer<GenericFader>& fader = it.value();
+
             if (!fader.isNull())
                 fader->setParentIntensity(getAttributeValue(ParentIntensity));
         }
@@ -911,8 +931,11 @@ void Scene::setBlendMode(Universe::BlendMode mode)
 
     qDebug() << "Scene" << name() << "blend mode set to" << Universe::blendModeToString(mode);
 
-    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    QMap<quint32, QSharedPointer <GenericFader> >::iterator it = m_fadersMap.begin();
+    for(; it != m_fadersMap.end(); it++)
     {
+        const QSharedPointer<GenericFader>& fader = it.value();
+
         if (!fader.isNull())
             fader->setBlendMode(mode);
     }
@@ -930,8 +953,11 @@ void Scene::setBlendFunctionID(quint32 fid)
     m_blendFunctionID = fid;
     if (isRunning() && fid == Function::invalidId())
     {
-        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        QMap<quint32, QSharedPointer <GenericFader> >::iterator it = m_fadersMap.begin();
+        for(; it != m_fadersMap.end(); it++)
         {
+            const QSharedPointer<GenericFader>& fader = it.value();
+
             if (!fader.isNull())
                 fader->resetCrossfade();
         }

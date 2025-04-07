@@ -216,24 +216,17 @@ QSharedPointer<GenericFader> Universe::requestFader(Universe::FaderPriority prio
 
     {
         QMutexLocker fadersLocker(&m_fadersMutex);
-        if (m_faders.isEmpty())
+        for (int i = m_faders.count() - 1; i >= 0; i--)
         {
-            m_faders.append(fader);
-        }
-        else
-        {
-            for (int i = m_faders.count() - 1; i >= 0; i--)
+            const QSharedPointer<GenericFader>& f = m_faders.at(i);
+            if (!f.isNull() && f->priority() <= fader->priority())
             {
-                QSharedPointer<GenericFader> f = m_faders.at(i);
-                if (!f.isNull() && f->priority() <= fader->priority())
-                {
-                    insertPos = i + 1;
-                    break;
-                }
+                insertPos = i + 1;
+                break;
             }
-
-            m_faders.insert(insertPos, fader);
         }
+
+        m_faders.insert(insertPos, fader);
 
         qDebug() << "[Universe]" << id() << ": Generic fader with priority" << fader->priority()
                  << "registered at pos" << insertPos << ", count" << m_faders.count();
