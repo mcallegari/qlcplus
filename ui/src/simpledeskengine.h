@@ -42,7 +42,7 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCSimpleDeskEngine QString("Engine")
+#define KXMLQLCSimpleDeskEngine QStringLiteral("Engine")
 
 class SimpleDeskEngine : public QObject, public DMXSource
 {

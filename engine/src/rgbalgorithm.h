@@ -37,8 +37,8 @@ class Doc;
 
 typedef QVector<QVector<uint> > RGBMap;
 
-#define KXMLQLCRGBAlgorithm     QString("Algorithm")
-#define KXMLQLCRGBAlgorithmType QString("Type")
+#define KXMLQLCRGBAlgorithm     QStringLiteral("Algorithm")
+#define KXMLQLCRGBAlgorithmType QStringLiteral("Type")
 
 #define RGBAlgorithmColorDisplayCount 5
 

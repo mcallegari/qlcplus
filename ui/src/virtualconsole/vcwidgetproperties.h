@@ -31,13 +31,13 @@ class QWidget;
  * @{
  */
 
-#define KXMLQLCWidgetProperties QString("WidgetProperties")
-#define KXMLQLCWidgetX          QString("X")
-#define KXMLQLCWidgetY          QString("Y")
-#define KXMLQLCWidgetWidth      QString("Width")
-#define KXMLQLCWidgetHeight     QString("Height")
-#define KXMLQLCWidgetState      QString("State")
-#define KXMLQLCWidgetVisible    QString("Visible")
+#define KXMLQLCWidgetProperties QStringLiteral("WidgetProperties")
+#define KXMLQLCWidgetX          QStringLiteral("X")
+#define KXMLQLCWidgetY          QStringLiteral("Y")
+#define KXMLQLCWidgetWidth      QStringLiteral("Width")
+#define KXMLQLCWidgetHeight     QStringLiteral("Height")
+#define KXMLQLCWidgetState      QStringLiteral("State")
+#define KXMLQLCWidgetVisible    QStringLiteral("Visible")
 
 /** Simple class to store a widget's visibility, state and dimensions */
 class VCWidgetProperties

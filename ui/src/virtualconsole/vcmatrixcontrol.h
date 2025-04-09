@@ -34,13 +34,13 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCVCMatrixControl              QString("Control")
-#define KXMLQLCVCMatrixControlID            QString("ID")
-#define KXMLQLCVCMatrixControlType          QString("Type")
-#define KXMLQLCVCMatrixControlColor         QString("Color")
-#define KXMLQLCVCMatrixControlResource      QString("Resource")
-#define KXMLQLCVCMatrixControlProperty      QString("Property")
-#define KXMLQLCVCMatrixControlPropertyName  QString("Name")
+#define KXMLQLCVCMatrixControl              QStringLiteral("Control")
+#define KXMLQLCVCMatrixControlID            QStringLiteral("ID")
+#define KXMLQLCVCMatrixControlType          QStringLiteral("Type")
+#define KXMLQLCVCMatrixControlColor         QStringLiteral("Color")
+#define KXMLQLCVCMatrixControlResource      QStringLiteral("Resource")
+#define KXMLQLCVCMatrixControlProperty      QStringLiteral("Property")
+#define KXMLQLCVCMatrixControlPropertyName  QStringLiteral("Name")
 
 class VCMatrixControl
 {

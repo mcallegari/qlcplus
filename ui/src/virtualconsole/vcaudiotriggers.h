@@ -39,7 +39,7 @@ class AudioBar;
  * @{
  */
 
-#define KXMLQLCVCAudioTriggers QString("AudioTriggers")
+#define KXMLQLCVCAudioTriggers QStringLiteral("AudioTriggers")
 
 class VCAudioTriggers : public VCWidget, public DMXSource
 {

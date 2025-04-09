@@ -37,17 +37,17 @@ class QImage;
  * @{
  */
 
-#define KXMLQLCEFXFixture               QString("Fixture")
-#define KXMLQLCEFXFixtureID             QString("ID")
-#define KXMLQLCEFXFixtureHead           QString("Head")
-#define KXMLQLCEFXFixtureMode           QString("Mode")
-#define KXMLQLCEFXFixtureDirection      QString("Direction")
-#define KXMLQLCEFXFixtureStartOffset    QString("StartOffset")
-#define KXMLQLCEFXFixtureIntensity      QString("Intensity")
+#define KXMLQLCEFXFixture               QStringLiteral("Fixture")
+#define KXMLQLCEFXFixtureID             QStringLiteral("ID")
+#define KXMLQLCEFXFixtureHead           QStringLiteral("Head")
+#define KXMLQLCEFXFixtureMode           QStringLiteral("Mode")
+#define KXMLQLCEFXFixtureDirection      QStringLiteral("Direction")
+#define KXMLQLCEFXFixtureStartOffset    QStringLiteral("StartOffset")
+#define KXMLQLCEFXFixtureIntensity      QStringLiteral("Intensity")
 
-#define KXMLQLCEFXFixtureModePanTilt    QString("Position")
-#define KXMLQLCEFXFixtureModeDimmer     QString("Dimmer")
-#define KXMLQLCEFXFixtureModeRGB        QString("RGB")
+#define KXMLQLCEFXFixtureModePanTilt    QStringLiteral("Position")
+#define KXMLQLCEFXFixtureModeDimmer     QStringLiteral("Dimmer")
+#define KXMLQLCEFXFixtureModeRGB        QStringLiteral("RGB")
 
 class EFXFixture
 {

@@ -44,23 +44,23 @@ class Doc;
  * @{
  */
 
-#define KXMLFixture                 QString("Fixture")
-#define KXMLFixtureName             QString("Name")
-#define KXMLFixtureUniverse         QString("Universe")
-#define KXMLFixtureCrossUniverse    QString("CrossUniverse")
-#define KXMLFixtureAddress          QString("Address")
-#define KXMLFixtureID               QString("ID")
-#define KXMLFixtureGeneric          QString("Generic")
-#define KXMLFixtureRGBPanel         QString("RGBPanel")
-#define KXMLFixtureChannels         QString("Channels")
-#define KXMLFixtureDimmer           QString("Dimmer")
-#define KXMLFixtureExcludeFade      QString("ExcludeFade")
-#define KXMLFixtureForcedHTP        QString("ForcedHTP")
-#define KXMLFixtureForcedLTP        QString("ForcedLTP")
+#define KXMLFixture                 QStringLiteral("Fixture")
+#define KXMLFixtureName             QStringLiteral("Name")
+#define KXMLFixtureUniverse         QStringLiteral("Universe")
+#define KXMLFixtureCrossUniverse    QStringLiteral("CrossUniverse")
+#define KXMLFixtureAddress          QStringLiteral("Address")
+#define KXMLFixtureID               QStringLiteral("ID")
+#define KXMLFixtureGeneric          QStringLiteral("Generic")
+#define KXMLFixtureRGBPanel         QStringLiteral("RGBPanel")
+#define KXMLFixtureChannels         QStringLiteral("Channels")
+#define KXMLFixtureDimmer           QStringLiteral("Dimmer")
+#define KXMLFixtureExcludeFade      QStringLiteral("ExcludeFade")
+#define KXMLFixtureForcedHTP        QStringLiteral("ForcedHTP")
+#define KXMLFixtureForcedLTP        QStringLiteral("ForcedLTP")
 
-#define KXMLFixtureChannelModifier  QString("Modifier")
-#define KXMLFixtureChannelIndex     QString("Channel")
-#define KXMLFixtureModifierName     QString("Name")
+#define KXMLFixtureChannelModifier  QStringLiteral("Modifier")
+#define KXMLFixtureChannelIndex     QStringLiteral("Channel")
+#define KXMLFixtureModifierName     QStringLiteral("Name")
 
 typedef struct
 {

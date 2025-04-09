@@ -22,7 +22,7 @@
 
 #include "vcwidget.h"
 
-#define KXMLQLCVCClock QString("Clock")
+#define KXMLQLCVCClock QStringLiteral("Clock")
 
 class QTimer;
 

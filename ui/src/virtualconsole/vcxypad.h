@@ -52,19 +52,19 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCXYPad              QString("XYPad")
-#define KXMLQLCVCXYPadPan           QString("Pan")
-#define KXMLQLCVCXYPadPanFine       QString("PanFine")
-#define KXMLQLCVCXYPadTilt          QString("Tilt")
-#define KXMLQLCVCXYPadTiltFine      QString("TiltFine")
-#define KXMLQLCVCXYPadWidth         QString("Width")
-#define KXMLQLCVCXYPadHeight        QString("Height")
-#define KXMLQLCVCXYPadPosition      QString("Position")
-#define KXMLQLCVCXYPadRangeWindow   QString("Window")
-#define KXMLQLCVCXYPadRangeHorizMin QString("hMin")
-#define KXMLQLCVCXYPadRangeHorizMax QString("hMax")
-#define KXMLQLCVCXYPadRangeVertMin  QString("vMin")
-#define KXMLQLCVCXYPadRangeVertMax  QString("vMax")
+#define KXMLQLCVCXYPad              QStringLiteral("XYPad")
+#define KXMLQLCVCXYPadPan           QStringLiteral("Pan")
+#define KXMLQLCVCXYPadPanFine       QStringLiteral("PanFine")
+#define KXMLQLCVCXYPadTilt          QStringLiteral("Tilt")
+#define KXMLQLCVCXYPadTiltFine      QStringLiteral("TiltFine")
+#define KXMLQLCVCXYPadWidth         QStringLiteral("Width")
+#define KXMLQLCVCXYPadHeight        QStringLiteral("Height")
+#define KXMLQLCVCXYPadPosition      QStringLiteral("Position")
+#define KXMLQLCVCXYPadRangeWindow   QStringLiteral("Window")
+#define KXMLQLCVCXYPadRangeHorizMin QStringLiteral("hMin")
+#define KXMLQLCVCXYPadRangeHorizMax QStringLiteral("hMax")
+#define KXMLQLCVCXYPadRangeVertMin  QStringLiteral("vMin")
+#define KXMLQLCVCXYPadRangeVertMax  QStringLiteral("vMax")
 
 #define KXMLQLCVCXYPadPositionX "X" // Legacy
 #define KXMLQLCVCXYPadPositionY "Y" // Legacy
