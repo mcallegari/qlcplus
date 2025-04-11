@@ -33,6 +33,7 @@ class QLCModifiersCache
 {
 public:
     QLCModifiersCache();
+    ~QLCModifiersCache();
 
     /**
      * Add a channel modifier to the modifiers map.

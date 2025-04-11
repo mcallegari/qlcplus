@@ -116,6 +116,9 @@ Doc::~Doc()
 
     delete m_fixtureDefCache;
     m_fixtureDefCache = NULL;
+
+    delete m_rgbScriptsCache;
+    m_rgbScriptsCache = NULL;
 }
 
 void Doc::clearContents()
