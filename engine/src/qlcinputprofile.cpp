@@ -298,7 +298,7 @@ bool QLCInputProfile::remapChannel(QLCInputChannel* ich, quint32 number)
     quint32 old = channelNumber(ich);
     if (old != QLCChannel::invalid() && m_channels.contains(number) == false)
     {
-        m_channels.take(old);
+        m_channels.remove(old);
         insertChannel(number, ich);
         return true;
     }
@@ -310,10 +310,7 @@ bool QLCInputProfile::remapChannel(QLCInputChannel* ich, quint32 number)
 
 QLCInputChannel* QLCInputProfile::channel(quint32 channel) const
 {
-    if (m_channels.contains(channel) == true)
-        return m_channels[channel];
-    else
-        return NULL;
+    return m_channels.value(channel, NULL);
 }
 
 quint32 QLCInputProfile::channelNumber(const QLCInputChannel* channel) const

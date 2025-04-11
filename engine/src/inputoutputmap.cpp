@@ -62,6 +62,7 @@ InputOutputMap::~InputOutputMap()
     removeAllUniverses();
     delete m_grandMaster;
     delete m_beatTime;
+    qDeleteAll(m_profiles);
 }
 
 Doc* InputOutputMap::doc() const
