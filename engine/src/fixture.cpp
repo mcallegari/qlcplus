@@ -557,10 +557,7 @@ void Fixture::setChannelModifier(quint32 idx, ChannelModifier *mod)
 
 ChannelModifier *Fixture::channelModifier(quint32 idx)
 {
-    if (m_channelModifiers.contains(idx))
-        return m_channelModifiers[idx];
-
-    return NULL;
+    return m_channelModifiers.value(idx, NULL);
 }
 
 /*********************************************************************
@@ -1428,7 +1425,6 @@ bool Fixture::saveXML(QXmlStreamWriter *doc) const
         doc->writeTextElement(KXMLFixtureForcedLTP, list);
     }
 
-    if (m_channelModifiers.isEmpty() == false)
     {
         QHashIterator<quint32, ChannelModifier *> it(m_channelModifiers);
         while (it.hasNext())
