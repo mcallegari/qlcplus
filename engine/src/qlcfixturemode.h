@@ -42,11 +42,11 @@ class QLCChannel;
  * @{
  */
 
-#define KXMLQLCFixtureMode              QString("Mode")
-#define KXMLQLCFixtureModeName          QString("Name")
-#define KXMLQLCFixtureModeChannel       QString("Channel")
-#define KXMLQLCFixtureModeChannelNumber QString("Number")
-#define KXMLQLCFixtureModeChannelActsOn QString("ActsOn")
+#define KXMLQLCFixtureMode              QStringLiteral("Mode")
+#define KXMLQLCFixtureModeName          QStringLiteral("Name")
+#define KXMLQLCFixtureModeChannel       QStringLiteral("Channel")
+#define KXMLQLCFixtureModeChannelNumber QStringLiteral("Number")
+#define KXMLQLCFixtureModeChannelActsOn QStringLiteral("ActsOn")
 
 /**
  * QLCFixtureMode is essentially a collection of QLCChannels, arranged in such

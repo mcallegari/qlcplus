@@ -28,16 +28,16 @@
 #include "qlcchannel.h"
 #include "qlcfile.h"
 
-#define KXMLQLCInputProfileTypeMidi "MIDI"
-#define KXMLQLCInputProfileTypeOs2l "OS2L"
-#define KXMLQLCInputProfileTypeOsc "OSC"
-#define KXMLQLCInputProfileTypeHid "HID"
-#define KXMLQLCInputProfileTypeDmx "DMX"
-#define KXMLQLCInputProfileTypeEnttec "Enttec"
+#define KXMLQLCInputProfileTypeMidi QStringLiteral("MIDI")
+#define KXMLQLCInputProfileTypeOs2l QStringLiteral("OS2L")
+#define KXMLQLCInputProfileTypeOsc QStringLiteral("OSC")
+#define KXMLQLCInputProfileTypeHid QStringLiteral("HID")
+#define KXMLQLCInputProfileTypeDmx QStringLiteral("DMX")
+#define KXMLQLCInputProfileTypeEnttec QStringLiteral("Enttec")
 
-#define KXMLQLCInputProfileValue "Value"
-#define KXMLQLCInputProfileLabel "Label"
-#define KXMLQLCInputProfileColorRGB "RGB"
+#define KXMLQLCInputProfileValue QStringLiteral("Value")
+#define KXMLQLCInputProfileLabel QStringLiteral("Label")
+#define KXMLQLCInputProfileColorRGB QStringLiteral("RGB")
 
 /****************************************************************************
  * Initialization
@@ -529,10 +529,7 @@ bool QLCInputProfile::loadXML(QXmlStreamReader& doc)
             }
             else if (doc.name() == KXMLQLCInputProfileMidiSendNoteOff)
             {
-                if (doc.readElementText() == KXMLQLCFalse)
-                    setMidiSendNoteOff(false);
-                else
-                    setMidiSendNoteOff(true);
+                setMidiSendNoteOff(doc.readElementText() != KXMLQLCFalse);
             }
             else if (doc.name() == KXMLQLCInputChannel)
             {
