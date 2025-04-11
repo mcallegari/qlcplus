@@ -46,7 +46,6 @@ InputOutputMap::InputOutputMap(Doc *doc, quint32 universes)
   , m_blackout(false)
   , m_universeChanged(false)
   , m_currentBPM(0)
-  , m_beatTime(new QElapsedTimer())
 {
     m_grandMaster = new GrandMaster(this);
     for (quint32 i = 0; i < universes; i++)
@@ -61,7 +60,7 @@ InputOutputMap::~InputOutputMap()
 {
     removeAllUniverses();
     delete m_grandMaster;
-    delete m_beatTime;
+    qDeleteAll(m_profiles);
 }
 
 Doc* InputOutputMap::doc() const
@@ -1003,13 +1002,13 @@ void InputOutputMap::setBeatGeneratorType(InputOutputMap::BeatGeneratorType type
             doc()->masterTimer()->setBeatSourceType(MasterTimer::External);
             // reset the current BPM number and detect it from the MIDI beats
             setBpmNumber(0);
-            m_beatTime->restart();
+            m_beatTime.restart();
         break;
         case Audio:
             doc()->masterTimer()->setBeatSourceType(MasterTimer::External);
             // reset the current BPM number and detect it from the audio input
             setBpmNumber(0);
-            m_beatTime->restart();
+            m_beatTime.restart();
         break;
         case Disabled:
         default:
@@ -1087,12 +1086,12 @@ void InputOutputMap::slotPluginBeat(quint32 universe, quint32 channel, uchar val
     if (m_beatGeneratorType != Plugin || value == 0 || key != "beat")
         return;
 
-    qDebug() << "Plugin beat:" << channel << m_beatTime->elapsed();
+    qDebug() << "Plugin beat:" << channel << m_beatTime.elapsed();
 
     // process the timer as first thing, to avoid wasting time
     // with the operations below
-    int elapsed = m_beatTime->elapsed();
-    m_beatTime->restart();
+    int elapsed = m_beatTime.elapsed();
+    m_beatTime.restart();
 
     int bpm = qRound(60000.0 / (float)elapsed);
     float currBpmTime = 60000.0 / (float)m_currentBPM;

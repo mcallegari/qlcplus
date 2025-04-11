@@ -609,7 +609,7 @@ signals:
 private:
     BeatGeneratorType m_beatGeneratorType;
     int m_currentBPM;
-    QElapsedTimer *m_beatTime;
+    QElapsedTimer m_beatTime;
 
     /*********************************************************************
      * Defaults
