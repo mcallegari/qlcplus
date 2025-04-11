@@ -53,6 +53,7 @@ class QXmlStreamWriter;
 #define KQLCChannelRGB       QString("RGB")
 #define KQLCChannelCMY       QString("CMY")
 #define KQLCChannelWhite     QString("White")
+#define KQLCChannelDimmer     QString("Dimmer")
 
 /**
  * QLCChannel represents one DMX channel with one or more DMX value ranges,
