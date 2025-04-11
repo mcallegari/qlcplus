@@ -1010,7 +1010,7 @@ void VirtualConsole::slotToolsSettings()
         m_doc->inputOutputMap()->setGrandMasterChannelMode(m_properties.grandMasterChannelMode());
         m_doc->inputOutputMap()->setGrandMasterValueMode(m_properties.grandMasterValueMode());
         if (m_dockArea != NULL)
-            m_dockArea->setGrandMasterInvertedAppearance(m_properties.grandMasterSlideMode());
+            m_dockArea->setGrandMasterInvertedAppearance(m_properties.grandMasterSliderMode());
 
         QSettings settings;
         settings.setValue(SETTINGS_BUTTON_SIZE, vcpe.buttonSize());

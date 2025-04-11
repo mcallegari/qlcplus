@@ -113,7 +113,7 @@ void VCProperties::setGrandMasterSliderMode(GrandMaster::SliderMode mode)
     m_gmSliderMode = mode;
 }
 
-GrandMaster::SliderMode VCProperties::grandMasterSlideMode() const
+GrandMaster::SliderMode VCProperties::grandMasterSliderMode() const
 {
     return m_gmSliderMode;
 }
