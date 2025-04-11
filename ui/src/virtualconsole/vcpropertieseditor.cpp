@@ -218,7 +218,7 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
         break;
     }
 
-    switch (properties.grandMasterSlideMode())
+    switch (properties.grandMasterSliderMode())
     {
     default:
     case GrandMaster::Normal:

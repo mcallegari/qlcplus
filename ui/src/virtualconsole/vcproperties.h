@@ -89,7 +89,7 @@ public:
     GrandMaster::ValueMode grandMasterValueMode() const;
 
     void setGrandMasterSliderMode(GrandMaster::SliderMode mode);
-    GrandMaster::SliderMode grandMasterSlideMode() const;
+    GrandMaster::SliderMode grandMasterSliderMode() const;
 
     void setGrandMasterInputSource(quint32 universe, quint32 channel);
     quint32 grandMasterInputUniverse() const;
