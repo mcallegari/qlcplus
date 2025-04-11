@@ -1537,9 +1537,12 @@ void VirtualConsole::resetContents()
     updateActions();
 
     /* Reset all properties but size */
+    m_properties.setGrandMasterSliderMode(GrandMaster::Normal);
     m_properties.setGrandMasterChannelMode(GrandMaster::Intensity);
     m_properties.setGrandMasterValueMode(GrandMaster::Reduce);
     m_properties.setGrandMasterInputSource(InputOutputMap::invalidUniverse(), QLCChannel::invalid());
+
+    m_dockArea->setGrandMasterInvertedAppearance(m_properties.grandMasterSliderMode());
 }
 
 void VirtualConsole::addWidgetInMap(VCWidget* widget)
@@ -1924,6 +1927,8 @@ void VirtualConsole::postLoad()
     }
     foreach (VCWidget *widget, invalidWidgetsList)
         addWidgetInMap(widget);
+
+    m_dockArea->setGrandMasterInvertedAppearance(m_properties.grandMasterSliderMode());
 
     m_contents->setFocus();
 
