@@ -702,7 +702,8 @@ QMatrix4x4 MainView3D::lightMatrix(quint32 itemID)
     if (meshRef == nullptr)
         return QMatrix4x4();
 
-    return meshRef->m_rootItem->property("lightMatrix").value<QMatrix4x4>();
+    QVariant lmtx = meshRef->m_rootItem->property("lightMatrix");
+    return lmtx.value<QMatrix4x4>();
 }
 
 void getMeshCorners(QGeometryRenderer *mesh,

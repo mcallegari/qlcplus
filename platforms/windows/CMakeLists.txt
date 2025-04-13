@@ -94,10 +94,14 @@ if(qmlui)
         "${QT_LIBS_PATH}/${QT_V}3DQuickRender.dll"
         "${QT_LIBS_PATH}/${QT_V}3DRender.dll"
         "${QT_LIBS_PATH}/${QT_V}Concurrent.dll"
-        #"${QT_LIBS_PATH}/${QT_V}Gamepad.dll"
         "${QT_LIBS_PATH}/${QT_V}PrintSupport.dll"
         "${QT_LIBS_PATH}/${QT_V}MultimediaQuick.dll"
     )
+if(QT_MAJOR_VERSION LESS 6)
+    list(APPEND qtlibs_files
+        "${QT_LIBS_PATH}/${QT_V}Gamepad.dll"
+    )
+endif()
 endif()
 install(FILES ${qtlibs_files} DESTINATION ${qtlibs_path})
 
@@ -137,10 +141,11 @@ set(qtimageformats_files "${QT_PLUGINS_PATH}/imageformats/qgif.dll"
 install(FILES ${qtimageformats_files} DESTINATION ${qtimageformats_path})
 
 if(qmlui)
-    #set(qtprintsupport_path "${INSTALLROOT}/${LIBSDIR}/printsupport")
-    #set(qtprintsupport_files "${QT_PLUGINS_PATH}/printsupport/windowsprintersupport.dll")
-    #install(FILES ${qtprintsupport_files} DESTINATION ${qtprintsupport_path})
-
+if(QT_MAJOR_VERSION LESS 6)
+    set(qtprintsupport_path "${INSTALLROOT}/${LIBSDIR}/printsupport")
+    set(qtprintsupport_files "${QT_PLUGINS_PATH}/printsupport/windowsprintersupport.dll")
+    install(FILES ${qtprintsupport_files} DESTINATION ${qtprintsupport_path})
+endif()
     set(geometryloaders_path "${INSTALLROOT}/${LIBSDIR}/geometryloaders")
     set(geometryloaders_files "${QT_PLUGINS_PATH}/geometryloaders/defaultgeometryloader.dll")
     install(FILES ${geometryloaders_files} DESTINATION ${geometryloaders_path})

@@ -437,10 +437,10 @@ void FixtureGroupEditor::transformSelection(int transformation)
             trImage = matrix.transformed(transform);
         break;
         case HorizontalFlip:
-            trImage = matrix.mirrored(true, false);
+            trImage = matrix.flipped(Qt::Horizontal);
         break;
         case VerticalFlip:
-            trImage = matrix.mirrored(false, true);
+            trImage = matrix.flipped(Qt::Vertical);
         break;
     }
 
