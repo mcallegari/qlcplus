@@ -46,7 +46,7 @@ class VideoProvider;
 class FixtureEditor;
 class Tardis;
 
-#define KXMLQLCWorkspace QString("Workspace")
+#define KXMLQLCWorkspace QStringLiteral("Workspace")
 
 class App : public QQuickView
 {

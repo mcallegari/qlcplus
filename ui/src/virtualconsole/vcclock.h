@@ -35,7 +35,7 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCClock QString("Clock")
+#define KXMLQLCVCClock QStringLiteral("Clock")
 
 class VCClockSchedule
 {

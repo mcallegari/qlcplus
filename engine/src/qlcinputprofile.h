@@ -35,15 +35,15 @@ class QXmlStreamReader;
  * @{
  */
 
-#define KXMLQLCInputProfile                 QString("InputProfile")
-#define KXMLQLCInputProfileManufacturer     QString("Manufacturer")
-#define KXMLQLCInputProfileModel            QString("Model")
-#define KXMLQLCInputProfileType             QString("Type")
-#define KXMLQLCInputProfileMidiSendNoteOff  QString("MIDISendNoteOff")
-#define KXMLQLCInputProfileColorTable       QString("ColorTable")
-#define KXMLQLCInputProfileColor            QString("Color")
-#define KXMLQLCInputProfileMidiChannelTable QString("MidiChannelTable")
-#define KXMLQLCInputProfileMidiChannel      QString("Channel")
+#define KXMLQLCInputProfile                 QStringLiteral("InputProfile")
+#define KXMLQLCInputProfileManufacturer     QStringLiteral("Manufacturer")
+#define KXMLQLCInputProfileModel            QStringLiteral("Model")
+#define KXMLQLCInputProfileType             QStringLiteral("Type")
+#define KXMLQLCInputProfileMidiSendNoteOff  QStringLiteral("MIDISendNoteOff")
+#define KXMLQLCInputProfileColorTable       QStringLiteral("ColorTable")
+#define KXMLQLCInputProfileColor            QStringLiteral("Color")
+#define KXMLQLCInputProfileMidiChannelTable QStringLiteral("MidiChannelTable")
+#define KXMLQLCInputProfileMidiChannel      QStringLiteral("Channel")
 
 class QLCInputProfile : public QObject
 {

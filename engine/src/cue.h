@@ -33,15 +33,15 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCCue              QString("Cue")
-#define KXMLQLCCueName          QString("Name")
-#define KXMLQLCCueValue         QString("Value")
-#define KXMLQLCCueValueChannel  QString("Channel")
+#define KXMLQLCCue              QStringLiteral("Cue")
+#define KXMLQLCCueName          QStringLiteral("Name")
+#define KXMLQLCCueValue         QStringLiteral("Value")
+#define KXMLQLCCueValueChannel  QStringLiteral("Channel")
 
-#define KXMLQLCCueSpeed         QString("Speed")
-#define KXMLQLCCueSpeedFadeIn   QString("FadeIn")
-#define KXMLQLCCueSpeedFadeOut  QString("FadeOut")
-#define KXMLQLCCueSpeedDuration QString("Duration")
+#define KXMLQLCCueSpeed         QStringLiteral("Speed")
+#define KXMLQLCCueSpeedFadeIn   QStringLiteral("FadeIn")
+#define KXMLQLCCueSpeedFadeOut  QStringLiteral("FadeOut")
+#define KXMLQLCCueSpeedDuration QStringLiteral("Duration")
 
 class Cue
 {

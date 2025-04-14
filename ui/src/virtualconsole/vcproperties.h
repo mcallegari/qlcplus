@@ -35,22 +35,22 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVirtualConsole           QString("VirtualConsole")
+#define KXMLQLCVirtualConsole           QStringLiteral("VirtualConsole")
 
-#define KXMLQLCVCProperties             QString("Properties")
-#define KXMLQLCVCPropertiesSize         QString("Size")
-#define KXMLQLCVCPropertiesSizeWidth    QString("Width")
-#define KXMLQLCVCPropertiesSizeHeight   QString("Height")
+#define KXMLQLCVCProperties             QStringLiteral("Properties")
+#define KXMLQLCVCPropertiesSize         QStringLiteral("Size")
+#define KXMLQLCVCPropertiesSizeWidth    QStringLiteral("Width")
+#define KXMLQLCVCPropertiesSizeHeight   QStringLiteral("Height")
 
-#define KXMLQLCVCPropertiesGrandMaster              QString("GrandMaster")
-#define KXMLQLCVCPropertiesGrandMasterVisible       QString("Visible")
-#define KXMLQLCVCPropertiesGrandMasterChannelMode   QString("ChannelMode")
-#define KXMLQLCVCPropertiesGrandMasterValueMode     QString("ValueMode")
-#define KXMLQLCVCPropertiesGrandMasterSliderMode    QString("SliderMode")
+#define KXMLQLCVCPropertiesGrandMaster              QStringLiteral("GrandMaster")
+#define KXMLQLCVCPropertiesGrandMasterVisible       QStringLiteral("Visible")
+#define KXMLQLCVCPropertiesGrandMasterChannelMode   QStringLiteral("ChannelMode")
+#define KXMLQLCVCPropertiesGrandMasterValueMode     QStringLiteral("ValueMode")
+#define KXMLQLCVCPropertiesGrandMasterSliderMode    QStringLiteral("SliderMode")
 
-#define KXMLQLCVCPropertiesInput         QString("Input")
-#define KXMLQLCVCPropertiesInputUniverse QString("Universe")
-#define KXMLQLCVCPropertiesInputChannel  QString("Channel")
+#define KXMLQLCVCPropertiesInput         QStringLiteral("Input")
+#define KXMLQLCVCPropertiesInputUniverse QStringLiteral("Universe")
+#define KXMLQLCVCPropertiesInputChannel  QStringLiteral("Channel")
 
 /*****************************************************************************
  * Properties

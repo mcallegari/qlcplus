@@ -37,11 +37,11 @@ class QXmlStreamReader;
  * @{
  */
 
-#define KXMLQLCFixtureValues QString("FixtureVal")
-#define KXMLQLCSceneChannelGroupsValues QString("ChannelGroupsVal")
+#define KXMLQLCFixtureValues QStringLiteral("FixtureVal")
+#define KXMLQLCSceneChannelGroupsValues QStringLiteral("ChannelGroupsVal")
 
 // Legacy: these do not contain ChannelGroups values
-#define KXMLQLCSceneChannelGroups QString("ChannelGroups")
+#define KXMLQLCSceneChannelGroups QStringLiteral("ChannelGroups")
 
 /**
  * Scene encapsulates the values of selected channels from one or more fixture

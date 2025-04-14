@@ -28,10 +28,10 @@
 class MidiTemplate;
 class QXmlStreamReader;
 
-#define KXMLMidiTemplate            QString("MidiTemplate")
-#define KXMLMidiTemplateName        QString("Name")
-#define KXMLMidiTemplateDescription QString("Description")
-#define KXMLMidiTemplateInitMessage QString("InitMessage")
+#define KXMLMidiTemplate            QStringLiteral("MidiTemplate")
+#define KXMLMidiTemplateName        QStringLiteral("Name")
+#define KXMLMidiTemplateDescription QStringLiteral("Description")
+#define KXMLMidiTemplateInitMessage QStringLiteral("InitMessage")
 
 
 class MidiTemplate
