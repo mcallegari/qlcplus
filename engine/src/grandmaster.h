@@ -97,6 +97,18 @@ public:
     ValueMode valueMode() const;
 
     /**
+     * Sets if the Grand Master should be visible on the virtual
+     * console and the web console.
+     */
+    void setVisible(bool visible);
+
+    /**
+     * Returns if the Grand Master should be visible on the virtual
+     * console and the web console.
+     */
+    bool visible();
+
+    /**
      * Set the way how Grand Master should treat channels. @See enum
      * GrandMasterChannelMode for more info on the modes.
      *

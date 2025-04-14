@@ -82,6 +82,9 @@ private:
      * Grand Master
      *************************************************************************/
 public:
+    void setGrandMasterVisible(bool visible);
+    bool grandMasterVisible() const;
+
     void setGrandMasterChannelMode(GrandMaster::ChannelMode mode);
     GrandMaster::ChannelMode grandMasterChannelMode() const;
 
@@ -96,6 +99,7 @@ public:
     quint32 grandMasterInputChannel() const;
 
 private:
+    bool m_gmVisible;
     GrandMaster::ChannelMode m_gmChannelMode;
     GrandMaster::ValueMode m_gmValueMode;
     GrandMaster::SliderMode m_gmSliderMode;

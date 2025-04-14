@@ -2331,6 +2331,9 @@ void WebAccess::slotGrandMasterValueChanged(uchar value)
 
 QString WebAccess::getGrandMasterSliderHTML()
 {
+    if (!m_vc->properties().grandMasterVisible())
+        return "";
+
     GrandMaster::ValueMode gmValueMode = m_vc->properties().grandMasterValueMode();
     GrandMaster::SliderMode gmSliderMode = m_vc->properties().grandMasterSliderMode();
     uchar gmValue = m_doc->inputOutputMap()->grandMasterValue();
