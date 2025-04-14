@@ -2389,7 +2389,7 @@ QString WebAccess::getVCHTML()
 				"<input id=\"submitTrigger\" type=\"submit\"/>\n"
             "</form>\n"
 
-            "<div class=\"controlBar\" style=\"position: fixed; top: 0; left: 0; z-index: 1;\">\n"
+            "<div class=\"controlBar\">\n"
             "<a class=\"button button-blue\" href=\"javascript:document.getElementById('loadTrigger').click();\">\n"
             "<span>" + tr("Load project") + "</span></a>\n"
 
