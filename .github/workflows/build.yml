@@ -120,6 +120,8 @@ jobs:
 
       - name: Setup ccache
         uses: hendrikmuhs/ccache-action@v1.2
+        with:
+            append-timestamp: false
 
       - name: Setup ruby cache
         uses: ruby/setup-ruby@v1
@@ -275,6 +277,8 @@ jobs:
 
       - name: Setup ccache
         uses: hendrikmuhs/ccache-action@v1.2
+        with:
+            append-timestamp: false
 
       - name: Set ENV variables
         shell: bash
@@ -547,6 +551,8 @@ jobs:
 
       - name: Setup ccache
         uses: hendrikmuhs/ccache-action@v1.2
+        with:
+            append-timestamp: false
 
       - name: Configure build
         shell: bash
