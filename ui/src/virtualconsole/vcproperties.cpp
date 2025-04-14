@@ -33,6 +33,7 @@
 
 VCProperties::VCProperties()
     : m_size(QSize(1920, 1080))
+    , m_keyboardScroll(true)
     , m_gmChannelMode(GrandMaster::Intensity)
     , m_gmValueMode(GrandMaster::Reduce)
     , m_gmSliderMode(GrandMaster::Normal)
@@ -43,6 +44,7 @@ VCProperties::VCProperties()
 
 VCProperties::VCProperties(const VCProperties& properties)
     : m_size(properties.m_size)
+    , m_keyboardScroll(properties.m_keyboardScroll)
     , m_gmChannelMode(properties.m_gmChannelMode)
     , m_gmValueMode(properties.m_gmValueMode)
     , m_gmSliderMode(properties.m_gmSliderMode)
@@ -60,6 +62,7 @@ VCProperties &VCProperties::operator=(const VCProperties &props)
     if (this != &props)
     {
         m_size = props.m_size;
+        m_keyboardScroll = props.m_keyboardScroll;
         m_gmChannelMode = props.m_gmChannelMode;
         m_gmValueMode = props.m_gmValueMode;
         m_gmSliderMode = props.m_gmSliderMode;
@@ -82,6 +85,20 @@ void VCProperties::setSize(const QSize& size)
 QSize VCProperties::size() const
 {
     return m_size;
+}
+
+/*****************************************************************************
+ * Keyboard scrolling
+ *****************************************************************************/
+
+void VCProperties::setKeyboardScroll(const bool enable)
+{
+    m_keyboardScroll = enable;
+}
+
+bool VCProperties::keyboardScroll() const
+{
+    return m_keyboardScroll;
 }
 
 /*****************************************************************************
@@ -166,6 +183,15 @@ bool VCProperties::loadXML(QXmlStreamReader &root)
             /* Set size if both are valid */
             if (sz.isValid() == true)
                 setSize(sz);
+\
+            bool keyboardScroll = true;
+
+            /* Keyboard scrolling */
+            str = root.attributes().value(KXMLQLCVCPropertiesKeyboardScroll).toString();
+            if (str.isEmpty() == false)
+                keyboardScroll = QVariant(str).toBool();
+            setKeyboardScroll(keyboardScroll);
+
             root.skipCurrentElement();
         }
         else if (root.name() == KXMLQLCVCPropertiesGrandMaster)
@@ -224,6 +250,7 @@ bool VCProperties::saveXML(QXmlStreamWriter *doc) const
     doc->writeStartElement(KXMLQLCVCPropertiesSize);
     doc->writeAttribute(KXMLQLCVCPropertiesSizeWidth, QString::number(size().width()));
     doc->writeAttribute(KXMLQLCVCPropertiesSizeHeight, QString::number(size().height()));
+    doc->writeAttribute(KXMLQLCVCPropertiesKeyboardScroll, QVariant(keyboardScroll()).toString());
     doc->writeEndElement();
 
     /***********************

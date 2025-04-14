@@ -37,10 +37,11 @@ class Doc;
 
 #define KXMLQLCVirtualConsole           QString("VirtualConsole")
 
-#define KXMLQLCVCProperties             QString("Properties")
-#define KXMLQLCVCPropertiesSize         QString("Size")
-#define KXMLQLCVCPropertiesSizeWidth    QString("Width")
-#define KXMLQLCVCPropertiesSizeHeight   QString("Height")
+#define KXMLQLCVCProperties               QString("Properties")
+#define KXMLQLCVCPropertiesSize           QString("Size")
+#define KXMLQLCVCPropertiesSizeWidth      QString("Width")
+#define KXMLQLCVCPropertiesSizeHeight     QString("Height")
+#define KXMLQLCVCPropertiesKeyboardScroll QString("KeyboardScroll")
 
 #define KXMLQLCVCPropertiesGrandMaster              QString("GrandMaster")
 #define KXMLQLCVCPropertiesGrandMasterVisible       QString("Visible")
@@ -77,6 +78,19 @@ public:
 
 private:
     QSize m_size;
+
+    /*********************************************************************
+     * Keyboard scrolling
+     *********************************************************************/
+public:
+    /** Set Virtual Console keyboard scrolling */
+    void setKeyboardScroll(const bool enable);
+
+    /** Get Virtual Console keyboard scrolling */
+    bool keyboardScroll() const;
+
+private:
+    bool m_keyboardScroll;
 
     /*************************************************************************
      * Grand Master
