@@ -82,20 +82,15 @@ Section
 	File *.dll
 	File *.qm
 	File Sample.qxw
-	File /r audio
+	
 	File /r geometryloaders
+	File /r iconengines
 	File /r imageformats
-	File /r mediaservice
+	File /r multimedia
 	File /r platforms
-	File /r printsupport
+	File /r qml
 	File /r renderers
 	File /r sceneparsers
-	File /r Qt
-	File /r Qt3D
-	File /r QtMultimedia
-	File /r QtQml
-	File /r QtQuick
-	File /r QtQuick.2
 	File /r ColorFilters
 	File /r Fixtures
 	File /r Gobos
@@ -130,19 +125,14 @@ Section "Uninstall"
 	Delete $INSTDIR\uninstall.exe
 	Delete $INSTDIR\qlcplus-qml.exe
 	Delete $INSTDIR\*.dll
-	RMDir /r $INSTDIR\audio
 	RMDir /r $INSTDIR\geometryloaders
+	RMDir /r $INSTDIR\iconengines
 	RMDir /r $INSTDIR\imageformats
-	RMDir /r $INSTDIR\mediaservice
+	RMDir /r $INSTDIR\multimedia
 	RMDir /r $INSTDIR\platforms
-	RMDir /r $INSTDIR\printsupport
+	RMDir /r $INSTDIR\renderers
 	RMDir /r $INSTDIR\sceneparsers
-	RMDir /r $INSTDIR\Qt
-	RMDir /r $INSTDIR\Qt3D
-	RMDir /r $INSTDIR\QtMultimedia
-	RMDir /r $INSTDIR\QtQml
-	RMDir /r $INSTDIR\QtQuick
-	RMDir /r $INSTDIR\QtQuick.2
+	RMDir /r $INSTDIR\qml
 	Delete $INSTDIR\Sample.qxw
 	RMDir /r $INSTDIR\ColorFilters
 	RMDir /r $INSTDIR\Fixtures
