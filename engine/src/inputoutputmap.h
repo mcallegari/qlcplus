@@ -30,8 +30,8 @@
 
 class QXmlStreamReader;
 class QXmlStreamWriter;
-class QLCInputSource;
 class QElapsedTimer;
+class QLCInputSource;
 class QLCIOPlugin;
 class OutputPatch;
 class InputPatch;
