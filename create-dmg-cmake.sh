@@ -18,7 +18,9 @@ fi
 
 # Build
 if [ -n "$QTDIR" ]; then
-    cmake -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake" ..
+    CMAKE_OSX_DEPLOYMENT_TARGET=12.0
+    [ -d "$QTDIR/lib/cmake/Qt5Core" ] && CMAKE_OSX_DEPLOYMENT_TARGET=10.13
+    cmake -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake" -DCMAKE_OSX_DEPLOYMENT_TARGET=$CMAKE_OSX_DEPLOYMENT_TARGET ..
 else
     echo "QTDIR not set. Aborting."
     exit 1

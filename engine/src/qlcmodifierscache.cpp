@@ -28,6 +28,11 @@ QLCModifiersCache::QLCModifiersCache()
 {
 }
 
+QLCModifiersCache::~QLCModifiersCache()
+{
+    qDeleteAll(m_modifiers);
+}
+
 bool QLCModifiersCache::addModifier(ChannelModifier *modifier)
 {
     if (m_modifiers.contains(modifier->name()))
@@ -45,10 +50,7 @@ QList<QString> QLCModifiersCache::templateNames()
 
 ChannelModifier *QLCModifiersCache::modifier(QString name)
 {
-    if (m_modifiers.contains(name))
-        return m_modifiers[name];
-
-    return NULL;
+    return m_modifiers.value(name, NULL);
 }
 
 QDir QLCModifiersCache::systemTemplateDirectory()
