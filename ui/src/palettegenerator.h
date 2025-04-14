@@ -26,9 +26,12 @@
 #include <QHash>
 
 #include "scenevalue.h"
+#include "efx.h"
 
 class FixtureGroup;
 class RGBMatrix;
+class EFX;
+class EFXFixture;
 class Fixture;
 class Chaser;
 class Scene;
@@ -56,6 +59,9 @@ public:
         Shutter,
         Gobos,
         ColourMacro,
+        EfxDimmer,
+        EfxRGB,
+        EfxPosition,
         Animation
     };
 
@@ -112,6 +118,7 @@ public:
     QList<Scene *> scenes();
     QList<Chaser *> chasers();
     QList<RGBMatrix *> matrices();
+    QList<EFX *> efxs();
 
     void addToDoc();
 
@@ -126,6 +133,9 @@ private:
     void createCapabilityScene(QHash<quint32, quint32> chMap, PaletteSubType subType);
 
     void createRGBMatrices(QList<SceneValue> rgbMap);
+
+    EFX* createEfx(QList <Fixture*> fixtures, bool staggered, EFXFixture::Mode mode);
+    void createEfxs(QList<Fixture*> fixtures, EFXFixture::Mode mode);
 
     void createChaser(QString name);
 
@@ -152,6 +162,7 @@ private:
     QList <Scene*> m_scenes;
     QList <Chaser*> m_chasers;
     QList <RGBMatrix*> m_matrices;
+    QList <EFX*> m_efxs;
 };
 
 /** @} */
