@@ -2409,7 +2409,7 @@ QString WebAccess::getVCHTML()
 
     m_JScode += "\n</script>\n";
 
-    QString str = HTML_HEADER + m_CSScode + "</head>\n<body>\n" + widgetsHTML + "</div>\n</body>\n" + m_JScode + "</html>";
+    QString str = HTML_HEADER + m_CSScode + "</head>\n<body>\n" + widgetsHTML + "</div>\n" + m_JScode + "\n</body></html>";
     return str;
 }
 
