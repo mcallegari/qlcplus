@@ -26,10 +26,11 @@ import "."
 SidePanel
 {
     onContentLoaded:
-    {
-        if (item.functionID)
-            item.functionID = itemID
-    }
+        function (itemID)
+        {
+            if (item.functionID)
+                item.functionID = itemID
+        }
 
     Rectangle
     {

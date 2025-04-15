@@ -192,10 +192,11 @@ SidePanel
                     y: UISettings.bigItemHeight
                     visible: shutterToolButton.checked
                     onVisibleChanged: if (visible) updatePresets(fixtureManager.shutterChannels)
-                    onPresetSelected: function(cap, fxID, chIdx, value)
-                    {
-                        fixtureManager.setPresetValue(fxID, chIdx, value)
-                    }
+                    onPresetSelected:
+                        function(cap, fxID, chIdx, value)
+                        {
+                            fixtureManager.setPresetValue(fxID, chIdx, value)
+                        }
                 }
             }
 
@@ -290,7 +291,11 @@ SidePanel
                     y: UISettings.bigItemHeight
                     visible: cWheelToolButton.checked
                     onVisibleChanged: if (visible) updatePresets(fixtureManager.colorWheelChannels)
-                    onPresetSelected: fixtureManager.setPresetValue(fxID, chIdx, value)
+                    onPresetSelected:
+                        function(cap, fxID, chIdx, value)
+                        {
+                            fixtureManager.setPresetValue(fxID, chIdx, value)
+                        }
                 }
             }
 
@@ -317,7 +322,11 @@ SidePanel
                     y: UISettings.bigItemHeight
                     visible: goboToolButton.checked
                     onVisibleChanged: if (visible) updatePresets(fixtureManager.goboChannels)
-                    onPresetSelected: fixtureManager.setPresetValue(fxID, chIdx, value)
+                    onPresetSelected:
+                        function(cap, fxID, chIdx, value)
+                        {
+                            fixtureManager.setPresetValue(fxID, chIdx, value)
+                        }
                 }
             }
 
