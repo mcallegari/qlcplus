@@ -58,30 +58,30 @@
   <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#ffffff">W</Capability>
   <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#ffff00">RG</Capability>
   <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ff00ff">RB</Capability>
-  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#ff6000">RA</Capability>
-  <Capability Min="72" Max="79" Preset="ColorMacro" Res1="#ff8080">RW</Capability>
+  <Capability Min="64" Max="71">RA</Capability>
+  <Capability Min="72" Max="79">RW</Capability>
   <Capability Min="80" Max="87" Preset="ColorMacro" Res1="#00ffff">GB</Capability>
-  <Capability Min="88" Max="95" Preset="ColorMacro" Res1="#b0ff00">GA</Capability>
-  <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#80ff80">GW</Capability>
-  <Capability Min="104" Max="111" Preset="ColorMacro" Res1="#d196ff">BA</Capability>
-  <Capability Min="112" Max="119" Preset="ColorMacro" Res1="#8080ff">BW</Capability>
-  <Capability Min="120" Max="127" Preset="ColorMacro" Res1="#ffe0c0">AW</Capability>
-  <Capability Min="128" Max="135" Preset="ColorMacro">RGB</Capability>
-  <Capability Min="136" Max="143" Preset="ColorMacro" Res1="#ffa348">RGA</Capability>
-  <Capability Min="144" Max="151" Preset="ColorMacro" Res1="#f8e45c">RGW</Capability>
-  <Capability Min="152" Max="159" Preset="ColorMacro" Res1="#ed333b">RBA</Capability>
-  <Capability Min="160" Max="167" Preset="ColorMacro" Res1="#c061cb">RBW</Capability>
-  <Capability Min="168" Max="175" Preset="ColorMacro" Res1="#ffbe6f">RAW</Capability>
-  <Capability Min="176" Max="183" Preset="ColorMacro" Res1="#ffffff">GBA</Capability>
-  <Capability Min="184" Max="191" Preset="ColorMacro" Res1="#99c1f1">GBW</Capability>
-  <Capability Min="192" Max="199" Preset="ColorMacro" Res1="#dc8add">BAW</Capability>
-  <Capability Min="200" Max="207" Preset="ColorMacro" Res1="#8ff0a4">GAW</Capability>
-  <Capability Min="208" Max="215" Preset="ColorMacro">RGBA</Capability>
-  <Capability Min="216" Max="223" Preset="ColorMacro">RGBW</Capability>
-  <Capability Min="224" Max="231" Preset="ColorMacro">RGAW</Capability>
-  <Capability Min="232" Max="239" Preset="ColorMacro">RBAW</Capability>
-  <Capability Min="240" Max="247" Preset="ColorMacro">GBAW</Capability>
-  <Capability Min="248" Max="255" Preset="ColorMacro">RGBAW</Capability>
+  <Capability Min="88" Max="95">GA</Capability>
+  <Capability Min="96" Max="103">GW</Capability>
+  <Capability Min="104" Max="111">BA</Capability>
+  <Capability Min="112" Max="119">BW</Capability>
+  <Capability Min="120" Max="127">AW</Capability>
+  <Capability Min="128" Max="135" Preset="ColorMacro" Res1="#ffffff">RGB</Capability>
+  <Capability Min="136" Max="143">RGA</Capability>
+  <Capability Min="144" Max="151">RGW</Capability>
+  <Capability Min="152" Max="159">RBA</Capability>
+  <Capability Min="160" Max="167">RBW</Capability>
+  <Capability Min="168" Max="175">RAW</Capability>
+  <Capability Min="176" Max="183">GBA</Capability>
+  <Capability Min="184" Max="191">GBW</Capability>
+  <Capability Min="192" Max="199">BAW</Capability>
+  <Capability Min="200" Max="207">GAW</Capability>
+  <Capability Min="208" Max="215">RGBA</Capability>
+  <Capability Min="216" Max="223">RGBW</Capability>
+  <Capability Min="224" Max="231">RGAW</Capability>
+  <Capability Min="232" Max="239">RBAW</Capability>
+  <Capability Min="240" Max="247">GBAW</Capability>
+  <Capability Min="248" Max="255">RGBAW</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
@@ -249,6 +249,15 @@
   <Colour>Green</Colour>
   <Capability Min="0" Max="255">Green 0 - 100 % / slow → fast</Capability>
  </Channel>
+ <Channel Name="Microphone Sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">off</Capability>
+  <Capability Min="11" Max="255">low -&gt; high</Capability>
+ </Channel>
+ <Channel Name="Fade Time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Slow -&gt; Fast</Capability>
+ </Channel>
  <Channel Name="Spot 2">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#000000">Off</Capability>
@@ -259,30 +268,30 @@
   <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#ffffff">W</Capability>
   <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#ffff00">RG</Capability>
   <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ff00ff">RB</Capability>
-  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#ff6000">RA</Capability>
-  <Capability Min="72" Max="79" Preset="ColorMacro" Res1="#ff8080">RW</Capability>
+  <Capability Min="64" Max="71">RA</Capability>
+  <Capability Min="72" Max="79">RW</Capability>
   <Capability Min="80" Max="87" Preset="ColorMacro" Res1="#00ffff">GB</Capability>
-  <Capability Min="88" Max="95" Preset="ColorMacro" Res1="#b0ff00">GA</Capability>
-  <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#80ff80">GW</Capability>
-  <Capability Min="104" Max="111" Preset="ColorMacro" Res1="#d196ff">BA</Capability>
-  <Capability Min="112" Max="119" Preset="ColorMacro" Res1="#8080ff">BW</Capability>
-  <Capability Min="120" Max="127" Preset="ColorMacro" Res1="#ffe0c0">AW</Capability>
-  <Capability Min="128" Max="135" Preset="ColorMacro">RGB</Capability>
-  <Capability Min="136" Max="143" Preset="ColorMacro" Res1="#ffa348">RGA</Capability>
-  <Capability Min="144" Max="151" Preset="ColorMacro" Res1="#f8e45c">RGW</Capability>
-  <Capability Min="152" Max="159" Preset="ColorMacro" Res1="#ed333b">RBA</Capability>
-  <Capability Min="160" Max="167" Preset="ColorMacro" Res1="#c061cb">RBW</Capability>
-  <Capability Min="168" Max="175" Preset="ColorMacro" Res1="#ffbe6f">RAW</Capability>
-  <Capability Min="176" Max="183" Preset="ColorMacro" Res1="#ffffff">GBA</Capability>
-  <Capability Min="184" Max="191" Preset="ColorMacro" Res1="#99c1f1">GBW</Capability>
-  <Capability Min="192" Max="199" Preset="ColorMacro" Res1="#dc8add">BAW</Capability>
-  <Capability Min="200" Max="207" Preset="ColorMacro" Res1="#8ff0a4">GAW</Capability>
-  <Capability Min="208" Max="215" Preset="ColorMacro">RGBA</Capability>
-  <Capability Min="216" Max="223" Preset="ColorMacro">RGBW</Capability>
-  <Capability Min="224" Max="231" Preset="ColorMacro">RGAW</Capability>
-  <Capability Min="232" Max="239" Preset="ColorMacro">RBAW</Capability>
-  <Capability Min="240" Max="247" Preset="ColorMacro">GBAW</Capability>
-  <Capability Min="248" Max="255" Preset="ColorMacro">RGBAW</Capability>
+  <Capability Min="88" Max="95">GA</Capability>
+  <Capability Min="96" Max="103">GW</Capability>
+  <Capability Min="104" Max="111">BA</Capability>
+  <Capability Min="112" Max="119">BW</Capability>
+  <Capability Min="120" Max="127">AW</Capability>
+  <Capability Min="128" Max="135" Preset="ColorMacro" Res1="#ffffff">RGB</Capability>
+  <Capability Min="136" Max="143">RGA</Capability>
+  <Capability Min="144" Max="151">RGW</Capability>
+  <Capability Min="152" Max="159">RBA</Capability>
+  <Capability Min="160" Max="167">RBW</Capability>
+  <Capability Min="168" Max="175">RAW</Capability>
+  <Capability Min="176" Max="183">GBA</Capability>
+  <Capability Min="184" Max="191">GBW</Capability>
+  <Capability Min="192" Max="199">BAW</Capability>
+  <Capability Min="200" Max="207">GAW</Capability>
+  <Capability Min="208" Max="215">RGBA</Capability>
+  <Capability Min="216" Max="223">RGBW</Capability>
+  <Capability Min="224" Max="231">RGAW</Capability>
+  <Capability Min="232" Max="239">RBAW</Capability>
+  <Capability Min="240" Max="247">GBAW</Capability>
+  <Capability Min="248" Max="255">RGBAW</Capability>
  </Channel>
  <Channel Name="Spot 3">
   <Group Byte="0">Colour</Group>
@@ -294,30 +303,30 @@
   <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#ffffff">W</Capability>
   <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#ffff00">RG</Capability>
   <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ff00ff">RB</Capability>
-  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#ff6000">RA</Capability>
-  <Capability Min="72" Max="79" Preset="ColorMacro" Res1="#ff8080">RW</Capability>
+  <Capability Min="64" Max="71">RA</Capability>
+  <Capability Min="72" Max="79">RW</Capability>
   <Capability Min="80" Max="87" Preset="ColorMacro" Res1="#00ffff">GB</Capability>
-  <Capability Min="88" Max="95" Preset="ColorMacro" Res1="#b0ff00">GA</Capability>
-  <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#80ff80">GW</Capability>
-  <Capability Min="104" Max="111" Preset="ColorMacro" Res1="#d196ff">BA</Capability>
-  <Capability Min="112" Max="119" Preset="ColorMacro" Res1="#8080ff">BW</Capability>
-  <Capability Min="120" Max="127" Preset="ColorMacro" Res1="#ffe0c0">AW</Capability>
-  <Capability Min="128" Max="135" Preset="ColorMacro">RGB</Capability>
-  <Capability Min="136" Max="143" Preset="ColorMacro" Res1="#ffa348">RGA</Capability>
-  <Capability Min="144" Max="151" Preset="ColorMacro" Res1="#f8e45c">RGW</Capability>
-  <Capability Min="152" Max="159" Preset="ColorMacro" Res1="#ed333b">RBA</Capability>
-  <Capability Min="160" Max="167" Preset="ColorMacro" Res1="#c061cb">RBW</Capability>
-  <Capability Min="168" Max="175" Preset="ColorMacro" Res1="#ffbe6f">RAW</Capability>
-  <Capability Min="176" Max="183" Preset="ColorMacro" Res1="#ffffff">GBA</Capability>
-  <Capability Min="184" Max="191" Preset="ColorMacro" Res1="#99c1f1">GBW</Capability>
-  <Capability Min="192" Max="199" Preset="ColorMacro" Res1="#dc8add">BAW</Capability>
-  <Capability Min="200" Max="207" Preset="ColorMacro" Res1="#8ff0a4">GAW</Capability>
-  <Capability Min="208" Max="215" Preset="ColorMacro">RGBA</Capability>
-  <Capability Min="216" Max="223" Preset="ColorMacro">RGBW</Capability>
-  <Capability Min="224" Max="231" Preset="ColorMacro">RGAW</Capability>
-  <Capability Min="232" Max="239" Preset="ColorMacro">RBAW</Capability>
-  <Capability Min="240" Max="247" Preset="ColorMacro">GBAW</Capability>
-  <Capability Min="248" Max="255" Preset="ColorMacro">RGBAW</Capability>
+  <Capability Min="88" Max="95">GA</Capability>
+  <Capability Min="96" Max="103">GW</Capability>
+  <Capability Min="104" Max="111">BA</Capability>
+  <Capability Min="112" Max="119">BW</Capability>
+  <Capability Min="120" Max="127">AW</Capability>
+  <Capability Min="128" Max="135" Preset="ColorMacro" Res1="#ffffff">RGB</Capability>
+  <Capability Min="136" Max="143">RGA</Capability>
+  <Capability Min="144" Max="151">RGW</Capability>
+  <Capability Min="152" Max="159">RBA</Capability>
+  <Capability Min="160" Max="167">RBW</Capability>
+  <Capability Min="168" Max="175">RAW</Capability>
+  <Capability Min="176" Max="183">GBA</Capability>
+  <Capability Min="184" Max="191">GBW</Capability>
+  <Capability Min="192" Max="199">BAW</Capability>
+  <Capability Min="200" Max="207">GAW</Capability>
+  <Capability Min="208" Max="215">RGBA</Capability>
+  <Capability Min="216" Max="223">RGBW</Capability>
+  <Capability Min="224" Max="231">RGAW</Capability>
+  <Capability Min="232" Max="239">RBAW</Capability>
+  <Capability Min="240" Max="247">GBAW</Capability>
+  <Capability Min="248" Max="255">RGBAW</Capability>
  </Channel>
  <Channel Name="Spot 4">
   <Group Byte="0">Colour</Group>
@@ -329,39 +338,30 @@
   <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#ffffff">W</Capability>
   <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#ffff00">RG</Capability>
   <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ff00ff">RB</Capability>
-  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#ff6000">RA</Capability>
-  <Capability Min="72" Max="79" Preset="ColorMacro" Res1="#ff8080">RW</Capability>
+  <Capability Min="64" Max="71">RA</Capability>
+  <Capability Min="72" Max="79">RW</Capability>
   <Capability Min="80" Max="87" Preset="ColorMacro" Res1="#00ffff">GB</Capability>
-  <Capability Min="88" Max="95" Preset="ColorMacro" Res1="#b0ff00">GA</Capability>
-  <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#80ff80">GW</Capability>
-  <Capability Min="104" Max="111" Preset="ColorMacro" Res1="#d196ff">BA</Capability>
-  <Capability Min="112" Max="119" Preset="ColorMacro" Res1="#8080ff">BW</Capability>
-  <Capability Min="120" Max="127" Preset="ColorMacro" Res1="#ffe0c0">AW</Capability>
-  <Capability Min="128" Max="135" Preset="ColorMacro">RGB</Capability>
-  <Capability Min="136" Max="143" Preset="ColorMacro" Res1="#ffa348">RGA</Capability>
-  <Capability Min="144" Max="151" Preset="ColorMacro" Res1="#f8e45c">RGW</Capability>
-  <Capability Min="152" Max="159" Preset="ColorMacro" Res1="#ed333b">RBA</Capability>
-  <Capability Min="160" Max="167" Preset="ColorMacro" Res1="#c061cb">RBW</Capability>
-  <Capability Min="168" Max="175" Preset="ColorMacro" Res1="#ffbe6f">RAW</Capability>
-  <Capability Min="176" Max="183" Preset="ColorMacro" Res1="#ffffff">GBA</Capability>
-  <Capability Min="184" Max="191" Preset="ColorMacro" Res1="#99c1f1">GBW</Capability>
-  <Capability Min="192" Max="199" Preset="ColorMacro" Res1="#dc8add">BAW</Capability>
-  <Capability Min="200" Max="207" Preset="ColorMacro" Res1="#8ff0a4">GAW</Capability>
-  <Capability Min="208" Max="215" Preset="ColorMacro">RGBA</Capability>
-  <Capability Min="216" Max="223" Preset="ColorMacro">RGBW</Capability>
-  <Capability Min="224" Max="231" Preset="ColorMacro">RGAW</Capability>
-  <Capability Min="232" Max="239" Preset="ColorMacro">RBAW</Capability>
-  <Capability Min="240" Max="247" Preset="ColorMacro">GBAW</Capability>
-  <Capability Min="248" Max="255" Preset="ColorMacro">RGBAW</Capability>
- </Channel>
- <Channel Name="Microphone Sensitivity">
-  <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="10">off</Capability>
-  <Capability Min="11" Max="255">low -&gt; high</Capability>
- </Channel>
- <Channel Name="Fade Time">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255" Preset="SlowToFast">Slow -&gt; Fast</Capability>
+  <Capability Min="88" Max="95">GA</Capability>
+  <Capability Min="96" Max="103">GW</Capability>
+  <Capability Min="104" Max="111">BA</Capability>
+  <Capability Min="112" Max="119">BW</Capability>
+  <Capability Min="120" Max="127">AW</Capability>
+  <Capability Min="128" Max="135" Preset="ColorMacro" Res1="#ffffff">RGB</Capability>
+  <Capability Min="136" Max="143">RGA</Capability>
+  <Capability Min="144" Max="151">RGW</Capability>
+  <Capability Min="152" Max="159">RBA</Capability>
+  <Capability Min="160" Max="167">RBW</Capability>
+  <Capability Min="168" Max="175">RAW</Capability>
+  <Capability Min="176" Max="183">GBA</Capability>
+  <Capability Min="184" Max="191">GBW</Capability>
+  <Capability Min="192" Max="199">BAW</Capability>
+  <Capability Min="200" Max="207">GAW</Capability>
+  <Capability Min="208" Max="215">RGBA</Capability>
+  <Capability Min="216" Max="223">RGBW</Capability>
+  <Capability Min="224" Max="231">RGAW</Capability>
+  <Capability Min="232" Max="239">RBAW</Capability>
+  <Capability Min="240" Max="247">GBAW</Capability>
+  <Capability Min="248" Max="255">RGBAW</Capability>
  </Channel>
  <Mode Name="2-Channel">
   <Physical>
