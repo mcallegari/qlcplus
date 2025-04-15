@@ -44,6 +44,8 @@ cd $APP_DIR
 if [ "$1" == "qmlui" ]; then
   $QTDIR/bin/windeployqt --qmldir $ROOT_DIR/qmlui/qml qlcplus-qml.exe
 else
+  $QTDIR/bin/windeployqt qlcplusengine.dll
+  $QTDIR/bin/windeployqt qlcpluswebaccess.dll
   $QTDIR/bin/windeployqt qlcplus.exe
 fi
 

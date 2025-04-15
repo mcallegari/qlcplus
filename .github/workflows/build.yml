@@ -256,12 +256,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        task: [compile-qt5, compile-qt5qml]
+        task: [compile-v4, compile-qt5qml]
     env:
       CI_REPO_SLUG: ${{ github.repository }}
       CI_BRANCH: ${{ github.head_ref }}
       CI_PULL_REQUEST: ${{ github.event.number }}
-      QMAKESPEC: win32-g++
+      QT_VERSION: "6.8.1"
 
     steps:
       - name: Checkout
@@ -278,17 +278,18 @@ jobs:
           echo "NPROC=$(nproc)" >> $GITHUB_ENV
           echo "TASK=$(echo '${{matrix.task}}' | cut -d '-' -f 2)" >> $GITHUB_ENV
           echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)}" >> $GITHUB_ENV
+          echo "QTDIR=${{ github.workspace }}/qt/Qt/${{ env.QT_VERSION }}/clang_64" >> $GITHUB_ENV
           echo "INSTALL_ROOT=/c/" >> $GITHUB_ENV
           echo "BUILD_DATE=`date -u '+%Y%m%d'`" >> $GITHUB_ENV
           echo "GIT_REV=`git rev-parse --short HEAD`" >> $GITHUB_ENV
 
       - name: Set v4 ENV variables
         shell: bash
-        if: ${{ matrix.task == 'compile-qt5' || matrix.task == 'compile-qt5-32bit' }}
+        if: ${{ matrix.task == 'compile-v4' }}
         run: |
           echo "OUTFILE=`grep 'OutFile' platforms/windows/qlcplus4Qt5.nsi | cut -d'"' -f 2`" >> $GITHUB_ENV
           echo "APPVERSION=`grep '^!qmlui' variables.pri | grep APPVERSION | sed 's/^.*= *//' | cut -d ' ' -f 1`" >> $GITHUB_ENV
-          echo "NSIS_SCRIPT=qlcplus4Qt5.nsi" >> $GITHUB_ENV
+          echo "NSIS_SCRIPT=qlcplus4Qt6.nsi" >> $GITHUB_ENV
 
       - name: Set v5 ENV variables
         shell: bash
@@ -296,7 +297,7 @@ jobs:
         run: |
           echo "OUTFILE=`grep 'OutFile' platforms/windows/qlcplus5Qt5.nsi | cut -d'"' -f 2`" >> $GITHUB_ENV
           echo "APPVERSION=`grep '^qmlui' variables.pri | grep APPVERSION | sed 's/^.*= *//' | cut -d ' ' -f 1`" >> $GITHUB_ENV
-          echo "NSIS_SCRIPT=qlcplus5Qt5.nsi" >> $GITHUB_ENV
+          echo "NSIS_SCRIPT=qlcplus5Qt6.nsi" >> $GITHUB_ENV
 
       - name: Print ENV vars
         shell: bash
@@ -310,9 +311,19 @@ jobs:
           echo "QT: ${QT}"
           echo "NPROC: ${NPROC}"
 
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: 'windows'
+          target: 'desktop'
+          arch: 'win64_mingw'
+          dir: "${{ github.workspace }}/qt/"
+          modules: 'qt3d qtimageformats qtmultimedia qtserialport qtwebsockets'
+
       - name: Update and install MSYS2 (64bit)
         uses: msys2/setup-msys2@v2
-        if: ${{ matrix.task == 'compile-qt5' || matrix.task == 'compile-qt5qml' }}
+        if: ${{ matrix.task == 'compile-v4' || matrix.task == 'compile-v5' }}
         with:
           msystem: mingw64
           release: true
@@ -330,61 +341,11 @@ jobs:
             mingw-w64-x86_64-fftw
             mingw-w64-x86_64-libusb
             mingw-w64-x86_64-python-lxml
-            mingw-w64-x86_64-qt5-base
-            mingw-w64-x86_64-qt5-multimedia
-            mingw-w64-x86_64-qt5-serialport
-            mingw-w64-x86_64-qt5-websockets
-            mingw-w64-x86_64-qt5-script
-            mingw-w64-x86_64-qt5-tools
-            mingw-w64-x86_64-qt5-imageformats
-            mingw-w64-x86_64-qt5-svg
-            mingw-w64-x86_64-qt5-declarative
-            mingw-w64-x86_64-qt5-quickcontrols
-            mingw-w64-x86_64-qt5-quickcontrols2
-            mingw-w64-x86_64-qt5-3d
-            mingw-w64-x86_64-qt5-quick3d
             mingw-w64-x86_64-nsis
-
-      - name: Update and install MSYS2 (32 bit)
-        uses: msys2/setup-msys2@v2
-        if: ${{ matrix.task == 'compile-qt5-32bit' }}
-        with:
-          msystem: mingw32
-          release: true
-          update: false
-          path-type: inherit
-          install: >-
-            wget
-            unzip
-            mingw-w64-i686-gcc
-            mingw-w64-i686-gcc-libs
-            mingw-w64-i686-cmake
-            mingw-w64-i686-libmad
-            mingw-w64-i686-libsndfile
-            mingw-w64-i686-flac
-            mingw-w64-i686-fftw
-            mingw-w64-i686-python-lxml
-            mingw-w64-i686-qt5-base
-            mingw-w64-i686-qt5-multimedia
-            mingw-w64-i686-qt5-serialport
-            mingw-w64-i686-qt5-websockets
-            mingw-w64-i686-qt5-script
-            mingw-w64-i686-qt5-tools
-            mingw-w64-i686-qt5-imageformats
-            mingw-w64-i686-qt5-svg
-            mingw-w64-i686-qt5-declarative
-            mingw-w64-i686-nsis
-
-      - name: Install legacy libusb (32 bit)
-        shell: msys2 {0}
-        if: ${{ matrix.task == 'compile-qt5-32bit' }}
-        run: |
-          wget https://www.qlcplus.org/misc/mingw-w64-i686-libusb-1.0.26-1-any.pkg.tar.zst
-          pacman --noconfirm --needed -U mingw-w64-i686-libusb-1.0.26-1-any.pkg.tar.zst
 
       - name: D2XX SDK (64 bit)
         shell: msys2 {0}
-        if: ${{ matrix.task == 'compile-qt5' || matrix.task == 'compile-qt5qml' }}
+        if: ${{ matrix.task == 'compile-v4' || matrix.task == 'compile-v5' }}
         run: |
           mkdir -p /c/projects/D2XXSDK
           wget https://ftdichip.com/wp-content/uploads/2023/09/CDM-v2.12.36.4-WHQL-Certified.zip -O /c/projects/D2XXSDK/cdm.zip
@@ -393,18 +354,6 @@ jobs:
           cd amd64
           gendef.exe - ftd2xx64.dll > ftd2xx.def
           dlltool -k --input-def ftd2xx.def --dllname ftd2xx64.dll --output-lib libftd2xx.a
-
-      - name: D2XX SDK (32 bit)
-        shell: msys2 {0}
-        if: ${{ matrix.task == 'compile-qt5-32bit' }}
-        run: |
-          mkdir -p /c/projects/D2XXSDK
-          wget https://ftdichip.com/wp-content/uploads/2023/09/CDM-v2.12.36.4-WHQL-Certified.zip -O /c/projects/D2XXSDK/cdm.zip
-          cd /c/projects/D2XXSDK
-          unzip cdm.zip
-          cd i386
-          gendef.exe - ftd2xx.dll > ftd2xx.def
-          dlltool -k --input-def ftd2xx.def --dllname ftd2xx.dll --output-lib libftd2xx.a
 
       - name: Print program versions
         shell: msys2 {0}
@@ -431,43 +380,44 @@ jobs:
           # fix project path in NSIS script
           sed -i -e 's/c\:\\projects/d:\\a\\qlcplus/g' platforms/windows/${{env.NSIS_SCRIPT}}
 
-      - name: Fix 32 bit build
-        if: ${{ matrix.task == 'compile-qt5-32bit' }}
-        shell: msys2 {0}
-        run: |
-          # fix system libs path
-          sed -i -e 's/mingw64/mingw32/g' platforms/windows/CMakeLists.txt
-          # fix gcc lib
-          sed -i -e 's/libgcc_s_seh/libgcc_s_dw2/g' platforms/windows/CMakeLists.txt
-          # fix DMX USB path
-          sed -i -e 's/amd64/i386/g' plugins/dmxusb/src/CMakeLists.txt
-          sed -i -e 's/ftd2xx64.dll/ftd2xx.dll/g' plugins/dmxusb/src/CMakeLists.txt
-
       - name: Configure v4 build for Windows
         shell: msys2 {0}
-        if: ${{ matrix.task == 'compile-qt5' || matrix.task == 'compile-qt5-32bit' }}
+        if: ${{ matrix.task == 'compile-v4' }}
         run: |
-          cmake -S . -B build -G "Unix Makefiles"
+          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake"
 
       - name: Configure v5 build for Windows
         shell: msys2 {0}
-        if: ${{ matrix.task == 'compile-qt5qml' }}
+        if: ${{ matrix.task == 'compile-v5' }}
         run: |
-          cmake -S . -B build -G "Unix Makefiles" -Dqmlui=ON
+          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -Dqmlui=ON
 
       - name: Build for Windows
         shell: msys2 {0}
         run: |
           cd build
-          make -j${NPROC}
+          ninja
 
       - name: Install on Windows
         shell: msys2 {0}
         run: |
           cd build
-          make install/fast
-          cd ..
-          cp *.qm /c/qlcplus
+          ninja install
+
+      - name: Run windeployqt for v4
+        shell: msys2 {0}
+        if: ${{ matrix.task == 'compile-v5' }}
+        run: |-
+          cd /c/qlcplus
+          ${{ env.QTDIR }}/bin/windeployqt /c/qlcplus
+
+      - name: Run windeployqt for v5
+        shell: msys2 {0}
+        if: ${{ matrix.task == 'compile-v5' }}
+        run: |-
+          SRC_DIR=$PWD
+          cd /c/qlcplus
+          ${{ env.QTDIR }}/bin/windeployqt --qmldir $SRC_DIR/qmlui/qml /c/qlcplus
 
       - name: Build installation package
         shell: msys2 {0}
