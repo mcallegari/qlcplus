@@ -40,16 +40,15 @@
  * Initialization
  *****************************************************************************/
 
-Fixture::Fixture(QObject* parent) : QObject(parent)
+Fixture::Fixture(QObject *parent)
+    : QObject(parent)
+    , m_id(Fixture::invalidId())
+    , m_crossUniverse(NoCrossing)
+    , m_address(0)
+    , m_channels(0)
+    , m_fixtureDef(NULL)
+    , m_fixtureMode(NULL)
 {
-    m_id = Fixture::invalidId();
-
-    m_address = 0;
-    m_channels = 0;
-    m_crossUniverse = false;
-
-    m_fixtureDef = NULL;
-    m_fixtureMode = NULL;
 }
 
 Fixture::~Fixture()
@@ -137,12 +136,12 @@ quint32 Fixture::universe() const
     return (m_address >> 9);
 }
 
-void Fixture::setCrossUniverse(bool enable)
+void Fixture::setCrossUniverse(int mode)
 {
-    m_crossUniverse = enable;
+    m_crossUniverse = mode;
 }
 
-bool Fixture::crossUniverse() const
+int Fixture::crossUniverse() const
 {
     return m_crossUniverse;
 }
@@ -1288,7 +1287,8 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
     }
 
     /* Make sure that address is something sensible */
-    if (!crossUniverse() && (address > 511 || address + (channels - 1) > 511))
+    if (crossUniverse() == Fixture::NoCrossing &&
+        (address > 511 || address + (channels - 1) > 511))
     {
         doc->appendToErrorLog(QString("Fixture address range %1-%2 is out of DMX bounds")
                               .arg(QString::number(address))
@@ -1385,8 +1385,8 @@ bool Fixture::saveXML(QXmlStreamWriter *doc) const
     doc->writeTextElement(KXMLFixtureName, m_name);
     /* Universe */
     doc->writeTextElement(KXMLFixtureUniverse, QString::number(universe()));
-    if (crossUniverse())
-        doc->writeTextElement(KXMLFixtureCrossUniverse, KXMLQLCTrue);
+    if (crossUniverse() != Fixture::NoCrossing)
+        doc->writeTextElement(KXMLFixtureCrossUniverse, QString::number(crossUniverse()));
     /* Address */
     doc->writeTextElement(KXMLFixtureAddress, QString::number(address()));
     /* Channel count */

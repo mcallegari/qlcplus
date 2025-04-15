@@ -401,7 +401,7 @@ quint32 Doc::createFixtureId()
     return m_latestFixtureId;
 }
 
-bool Doc::addFixture(Fixture* fixture, quint32 id, bool crossUniverse)
+bool Doc::addFixture(Fixture *fixture, quint32 id, int crossUniverse, int componentSize)
 {
     Q_ASSERT(fixture != NULL);
 

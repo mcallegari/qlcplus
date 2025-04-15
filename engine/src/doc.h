@@ -253,10 +253,12 @@ public:
      *
      * @param fixture The fixture to add
      * @param id The requested ID for the fixture
+     * @param crossUniverse Request the fixture to cross the starting universe
      * @return true if the fixture was successfully added to doc,
      *         otherwise false.
      */
-    bool addFixture(Fixture* fixture, quint32 id = Fixture::invalidId(), bool crossUniverse = false);
+    bool addFixture(Fixture *fixture, quint32 id = Fixture::invalidId(),
+                    int crossUniverse = Fixture::NoCrossing, int componentSize = 0);
 
     /**
      * Delete the given fixture instance from Doc

@@ -167,6 +167,13 @@ public:
      * Universe
      *********************************************************************/
 public:
+    enum CrossUniverseMode {
+        NoCrossing = 0,
+        CrossUniverseSplit,
+        CrossUniversePreserve
+    };
+    Q_ENUM(CrossUniverseMode)
+
     /**
      * Set the fixture instance's DMX universe
      *
@@ -185,14 +192,18 @@ public:
      *
      *  @param cross-universe enable flag
      */
-    void setCrossUniverse(bool enable);
+    void setCrossUniverse(int mode);
 
     /**
      * Get the fixture cross universe flag
      *
      * @return true if this Fixture crosses a universe
      */
-    bool crossUniverse() const;
+    int crossUniverse() const;
+
+protected:
+    /** Flag that indicates if this fixture crosses a DMX Universe */
+    int m_crossUniverse;
 
     /*********************************************************************
      * Address
@@ -334,9 +345,6 @@ protected:
 protected:
     /** DMX address & universe */
     quint32 m_address;
-
-    /** Flag that indicates if this fixture crosses a DMX Universe */
-    bool m_crossUniverse;
 
     /** Number of channels (ONLY for dimmer fixtures!) */
     quint32 m_channels;

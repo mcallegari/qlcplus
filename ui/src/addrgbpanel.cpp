@@ -206,6 +206,11 @@ bool AddRGBPanel::crossUniverse()
     return m_crossUniverseCheck->isChecked();
 }
 
+bool AddRGBPanel::preserveIntegrity()
+{
+    return m_preserveIntegrity->isChecked();
+}
+
 void AddRGBPanel::slotSizeChanged(int)
 {
     checkAddressAvailability();

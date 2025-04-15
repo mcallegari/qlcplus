@@ -58,7 +58,9 @@ public:
 		Vertical
     };
 
+    /** Return the RGB panel display name */
     QString name();
+    /** Return the RGB panel start universe */
     int universeIndex();
     int address();
     int columns();
@@ -71,6 +73,7 @@ public:
     Fixture::Components components();
     bool is16Bit();
     bool crossUniverse();
+    bool preserveIntegrity();
 
 private:
     /** Check if an address is available for contiguous channels.

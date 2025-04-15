@@ -33,7 +33,7 @@
    <string>Add RGB Panel</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="qlcui.qrc">
+   <iconset resource="../../build/Desktop_Qt_6_8_2-Debug/fixtureeditor/.qt/rcc/qlcui.qrc">
     <normaloff>:/rgbpanel.png</normaloff>:/rgbpanel.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_4">
@@ -51,10 +51,17 @@
       </property>
       <item>
        <layout class="QGridLayout" name="gridLayout">
-        <item row="5" column="0">
-         <widget class="QLabel" name="label_11">
+        <item row="6" column="2">
+         <widget class="QCheckBox" name="m_16bitCheck">
           <property name="text">
-           <string>Components</string>
+           <string notr="true">16bit</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" colspan="2">
+         <widget class="QLineEdit" name="m_nameEdit">
+          <property name="text">
+           <string>RGB Panel</string>
           </property>
          </widget>
         </item>
@@ -65,13 +72,10 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="1">
-         <widget class="QComboBox" name="m_compCombo">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>Address</string>
           </property>
          </widget>
         </item>
@@ -82,31 +86,10 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_6">
+        <item row="6" column="0">
+         <widget class="QLabel" name="label_11">
           <property name="text">
-           <string>Address</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="2">
-         <widget class="QCheckBox" name="m_16bitCheck">
-          <property name="text">
-           <string notr="true">16bit</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1" colspan="2">
-         <widget class="QLabel" name="m_addrErrorLabel">
-          <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1" colspan="2">
-         <widget class="QCheckBox" name="m_crossUniverseCheck">
-          <property name="text">
-           <string>Allow cross-universe addressing [EXPERIMENTAL]</string>
+           <string>Components</string>
           </property>
          </widget>
         </item>
@@ -120,13 +103,37 @@
           </property>
          </widget>
         </item>
+        <item row="5" column="1" colspan="2">
+         <widget class="QLabel" name="m_addrErrorLabel">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QComboBox" name="m_compCombo">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1" colspan="2">
+         <widget class="QCheckBox" name="m_crossUniverseCheck">
+          <property name="text">
+           <string>Allow cross-universe addressing [EXPERIMENTAL]</string>
+          </property>
+         </widget>
+        </item>
         <item row="1" column="1" colspan="2">
          <widget class="QComboBox" name="m_uniCombo"/>
         </item>
-        <item row="0" column="1" colspan="2">
-         <widget class="QLineEdit" name="m_nameEdit">
+        <item row="4" column="1" colspan="2">
+         <widget class="QCheckBox" name="m_preserveIntegrity">
           <property name="text">
-           <string>RGB Panel</string>
+           <string>Preserve components integrity (EXPERIMENTAL)</string>
           </property>
          </widget>
         </item>
@@ -206,10 +213,10 @@
    <item row="4" column="0" colspan="2">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
      </property>
     </widget>
    </item>
@@ -385,7 +392,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="qlcui.qrc"/>
+  <include location="../../build/Desktop_Qt_6_8_2-Debug/fixtureeditor/.qt/rcc/qlcui.qrc"/>
  </resources>
  <connections>
   <connection>
