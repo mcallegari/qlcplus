@@ -20,6 +20,7 @@
 #include <QDebug>
 #include <QProcess>
 #include <QSettings>
+#include <QMap>
 #include <qmath.h>
 
 #include "webaccess.h"
@@ -2158,7 +2159,7 @@ QString WebAccess::getMatrixHTML(VCMatrix *matrix)
                 if (!control->m_properties.isEmpty())
                 {
                         btnLabel += " (";
-                        QHashIterator<QString, QString> it(control->m_properties);
+                        QMapIterator<QString, QString> it(control->m_properties);
                         while (it.hasNext())
                         {
                             it.next();

@@ -1430,7 +1430,7 @@ bool Fixture::saveXML(QXmlStreamWriter *doc) const
 
     if (m_channelModifiers.isEmpty() == false)
     {
-        QHashIterator<quint32, ChannelModifier *> it(m_channelModifiers);
+        QMapIterator<quint32, ChannelModifier *> it(m_channelModifiers);
         while (it.hasNext())
         {
             it.next();

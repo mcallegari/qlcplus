@@ -122,7 +122,7 @@ void SimpleDeskEngine::resetUniverse(int universe)
 
     // remove values previously set on universe
     QMutexLocker locker(&m_mutex);
-    QHashIterator <uint,uchar> it(m_values);
+    QMapIterator <uint,uchar> it(m_values);
     while (it.hasNext() == true)
     {
         it.next();
@@ -374,7 +374,7 @@ void SimpleDeskEngine::writeDMX(MasterTimer *timer, QList<Universe *> ua)
 
     if (hasChanged())
     {
-        QHashIterator <uint,uchar> it(m_values);
+        QMapIterator <uint,uchar> it(m_values);
         while (it.hasNext() == true)
         {
             it.next();

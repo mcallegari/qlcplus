@@ -26,7 +26,6 @@
 #include <QList>
 #include <QSize>
 #include <QPair>
-#include <QHash>
 #include <QMap>
 #include <QMutex>
 
@@ -218,7 +217,7 @@ public:
 
 private:
     /** A map of the custom properties for this matrix */
-    QHash<QString, QString>m_properties;
+    QMap<QString, QString>m_properties;
 
     /************************************************************************
      * Load & Save

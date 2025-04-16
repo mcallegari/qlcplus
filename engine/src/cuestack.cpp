@@ -22,7 +22,6 @@
 #include <QXmlStreamWriter>
 #include <qmath.h>
 #include <QDebug>
-#include <QHash>
 
 #include "genericfader.h"
 #include "fadechannel.h"
@@ -445,7 +444,7 @@ void CueStack::writeDMX(MasterTimer *timer, QList<Universe*> ua)
     {
         if (m_fadersMap.isEmpty())
         {
-            QHashIterator <uint,uchar> it(m_cues.first().values());
+            QMapIterator <uint,uchar> it(m_cues.first().values());
             while (it.hasNext() == true)
             {
                 it.next();
@@ -649,7 +648,7 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
     }
 
     // Fade out the HTP channels of the previous cue
-    QHashIterator <uint,uchar> oldit(oldCue.values());
+    QMapIterator <uint,uchar> oldit(oldCue.values());
     while (oldit.hasNext() == true)
     {
         oldit.next();
@@ -662,7 +661,7 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
     }
 
     // Fade in all channels of the new cue
-    QHashIterator <uint,uchar> newit(newCue.values());
+    QMapIterator <uint,uchar> newit(newCue.values());
     while (newit.hasNext() == true)
     {
         newit.next();

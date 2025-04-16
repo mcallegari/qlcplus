@@ -23,7 +23,7 @@
 #include <QSharedPointer>
 #include <QKeySequence>
 #include <QColor>
-#include <QHash>
+#include <QMap>
 
 #include "qlcinputsource.h"
 
@@ -131,7 +131,7 @@ public:
     QString m_resource;
 
     /** A map holding the requested script properties */
-    QHash<QString, QString> m_properties;
+    QMap<QString, QString> m_properties;
 
     QSharedPointer<QLCInputSource> m_inputSource;
     QKeySequence m_keySequence;
