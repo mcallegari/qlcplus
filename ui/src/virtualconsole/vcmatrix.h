@@ -24,7 +24,7 @@
 #include <QToolButton>
 #include <QComboBox>
 #include <QLabel>
-#include <QHash>
+#include <QMap>
 
 #include "vcwidget.h"
 #include "vcmatrixcontrol.h"

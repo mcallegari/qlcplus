@@ -22,7 +22,7 @@
 #define CUE_H
 
 #include <QString>
-#include <QHash>
+#include <QMap>
 
 #include "scenevalue.h"
 
@@ -47,7 +47,7 @@ class Cue
 {
 public:
     Cue(const QString& name = QString());
-    Cue(const QHash <uint,uchar> values);
+    Cue(const QMap <uint,uchar> values);
     Cue(const Cue& cue);
     ~Cue();
 
@@ -71,10 +71,10 @@ public:
     void unsetValue(uint channel);
     uchar value(uint channel) const;
 
-    QHash <uint,uchar> values() const;
+    QMap <uint,uchar> values() const;
 
 private:
-    QHash <uint,uchar> m_values;
+    QMap <uint,uchar> m_values;
 
     /************************************************************************
      * Speed

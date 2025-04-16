@@ -230,7 +230,7 @@ void RGBMatrix::setAlgorithm(RGBAlgorithm *algo)
         if (m_algorithm != NULL && m_algorithm->type() == RGBAlgorithm::Script)
         {
             RGBScript *script = static_cast<RGBScript*> (m_algorithm);
-            QHashIterator<QString, QString> it(m_properties);
+            QMapIterator<QString, QString> it(m_properties);
             while (it.hasNext())
             {
                 it.next();
@@ -531,7 +531,7 @@ bool RGBMatrix::saveXML(QXmlStreamWriter *doc)
     doc->writeTextElement(KXMLQLCRGBMatrixFixtureGroup, QString::number(fixtureGroup()));
 
     /* Properties */
-    QHashIterator<QString, QString> it(m_properties);
+    QMapIterator<QString, QString> it(m_properties);
     while (it.hasNext())
     {
         it.next();
@@ -604,7 +604,7 @@ void RGBMatrix::preRun(MasterTimer *timer)
             if (m_runAlgorithm->type() == RGBAlgorithm::Script)
             {
                 RGBScript *script = static_cast<RGBScript*> (m_runAlgorithm);
-                QHashIterator<QString, QString> it(m_properties);
+                QMapIterator<QString, QString> it(m_properties);
                 while (it.hasNext())
                 {
                     it.next();

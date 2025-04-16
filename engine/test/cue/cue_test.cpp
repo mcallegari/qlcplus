@@ -38,7 +38,7 @@ void Cue_Test::initial()
     QCOMPARE(cue.name(), QString("Foo"));
     QCOMPARE(cue.values().size(), 0);
 
-    QHash <uint,uchar> values;
+    QMap <uint,uchar> values;
     values[0] = 14;
     values[932] = 5;
     values[5] = 255;

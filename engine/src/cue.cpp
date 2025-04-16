@@ -32,7 +32,7 @@ Cue::Cue(const QString& name)
 {
 }
 
-Cue::Cue(const QHash <uint,uchar> values)
+Cue::Cue(const QMap <uint,uchar> values)
     : m_name(QString())
     , m_values(values)
     , m_fadeInSpeed(0)
@@ -105,7 +105,7 @@ uchar Cue::value(uint channel) const
         return 0;
 }
 
-QHash <uint,uchar> Cue::values() const
+QMap <uint,uchar> Cue::values() const
 {
     return m_values;
 }
@@ -191,7 +191,7 @@ bool Cue::saveXML(QXmlStreamWriter *doc) const
     doc->writeStartElement(KXMLQLCCue);
     doc->writeAttribute(KXMLQLCCueName, name());
 
-    QHashIterator <uint,uchar> it(values());
+    QMapIterator <uint,uchar> it(values());
     while (it.hasNext() == true)
     {
         it.next();

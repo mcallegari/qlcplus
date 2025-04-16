@@ -20,6 +20,7 @@
 #include <QColorDialog>
 #include <QInputDialog>
 #include <QTreeWidget>
+#include <QMap>
 
 #include "vcmatrixpresetselection.h"
 #include "inputselectionwidget.h"
@@ -313,7 +314,7 @@ void VCMatrixProperties::updateTree()
                 if (!control->m_properties.isEmpty())
                 {
                     presetName += " (";
-                    QHashIterator<QString, QString> it(control->m_properties);
+                    QMapIterator<QString, QString> it(control->m_properties);
                     while (it.hasNext())
                     {
                         it.next();

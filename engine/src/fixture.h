@@ -25,7 +25,7 @@
 #include <QMutex>
 #include <QList>
 #include <QIcon>
-#include <QHash>
+#include <QMap>
 
 #include "qlcchannel.h"
 #include "qlcfixturedef.h"
@@ -353,7 +353,7 @@ protected:
     /** Hash holding the pair <channel index, modifier pointer>
      *  This is basically the place to store them to be saved/loaded
      *  on the project XML file */
-    QHash<quint32, ChannelModifier*> m_channelModifiers;
+    QMap<quint32, ChannelModifier*> m_channelModifiers;
 
     /*********************************************************************
      * Channel info
