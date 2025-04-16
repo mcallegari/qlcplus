@@ -807,7 +807,7 @@
           <string>Show Grand Master slider on the virtual console and the web interface</string>
          </property>
          <property name="text">
-          <string>Show on virtual console and web interface</string>
+          <string>Visible</string>
          </property>
         </widget>
        </item>
