@@ -382,10 +382,6 @@ void RGBMatrix::setProperty(QString propName, QString value)
     {
         RGBScript *script = static_cast<RGBScript*> (m_algorithm);
         script->setProperty(propName, value);
-
-        QVector<uint> colors = script->rgbMapGetColors();
-        for (int i = 0; i < colors.count(); i++)
-            setColor(i, QColor::fromRgb(colors.at(i)));
     }
     m_stepsCount = algorithmStepsCount();
 }
