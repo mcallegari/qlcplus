@@ -1009,7 +1009,8 @@ void VirtualConsole::slotToolsSettings()
         contents()->resize(m_properties.size());
         m_doc->inputOutputMap()->setGrandMasterChannelMode(m_properties.grandMasterChannelMode());
         m_doc->inputOutputMap()->setGrandMasterValueMode(m_properties.grandMasterValueMode());
-        if (m_dockArea != NULL) {
+        if (m_dockArea != NULL)
+        {
             m_dockArea->setGrandMasterVisible(m_properties.grandMasterVisible());
             m_dockArea->setGrandMasterInvertedAppearance(m_properties.grandMasterSliderMode());
         }

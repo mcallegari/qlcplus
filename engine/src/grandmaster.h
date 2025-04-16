@@ -98,13 +98,13 @@ public:
 
     /**
      * Sets if the Grand Master should be visible on the virtual
-     * console and the web console.
+     * console and the web interface.
      */
     void setVisible(bool visible);
 
     /**
      * Returns if the Grand Master should be visible on the virtual
-     * console and the web console.
+     * console and the web interface.
      */
     bool visible();
 
