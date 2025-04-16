@@ -45,7 +45,7 @@ Rectangle
 
     property int currentFilterIndex: -1
 
-    signal colorChanged(real r, real g, real b, real w, real a, real uv)
+    signal toolColorChanged(real r, real g, real b, real w, real a, real uv)
 
     onFilterRGBChanged:
     {
@@ -67,7 +67,7 @@ Rectangle
     {
         if (isUpdating)
             return
-        colorChanged(filterRGB.r, filterRGB.g, filterRGB.b, filterWAUV.r, filterWAUV.g, filterWAUV.b)
+        toolColorChanged(filterRGB.r, filterRGB.g, filterRGB.b, filterWAUV.r, filterWAUV.g, filterWAUV.b)
     }
 
     function updateFilter()

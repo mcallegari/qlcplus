@@ -216,10 +216,11 @@ Rectangle
                     currValue: contextManager.universeFilter
 
                     onValueChanged:
-                    {
-                        contextManager.universeFilter = value
-                        fixtureManager.universeFilter = value
-                    }
+                        function(value)
+                        {
+                            contextManager.universeFilter = value
+                            fixtureManager.universeFilter = value
+                        }
                 }
 
                 Rectangle { Layout.fillWidth: true; color: "transparent" }

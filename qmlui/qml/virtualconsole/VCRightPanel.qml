@@ -55,12 +55,14 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/add.svg"
-                checkable: true
+                //checkable: true
                 ButtonGroup.group: vcButtonsGroup
+                autoExclusive: false
                 tooltip: qsTr("Add a new widget to the console")
-                onToggled:
+                onClicked:
                 {
-                    if (checked == true)
+                    checked = !checked
+                    if (checked === true)
                         loaderSource = "qrc:/WidgetsList.qml"
                     animatePanel(checked)
                 }
@@ -73,15 +75,17 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/edit.svg"
-                checkable: true
+                //checkable: true
                 checked: virtualConsole.editMode
                 ButtonGroup.group: vcButtonsGroup
+                autoExclusive: false
                 tooltip: qsTr("Enable/Disable the widgets edit mode")
 
-                onCheckedChanged:
+                onClicked:
                 {
+                    checked = !checked
                     virtualConsole.editMode = checked
-                    if (checked == true)
+                    if (checked === true)
                         loaderSource = "qrc:/VCWidgetProperties.qml"
                     else
                         border.color = "#1D1D1D"
@@ -104,10 +108,12 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/functions.svg"
                 tooltip: qsTr("Function Manager")
-                checkable: true
+                //checkable: true
                 ButtonGroup.group: vcButtonsGroup
-                onToggled:
+                autoExclusive: false
+                onClicked:
                 {
+                    checked = !checked
                     if (checked == true)
                         loaderSource = "qrc:/FunctionManager.qml"
                     animatePanel(checked)
