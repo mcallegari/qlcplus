@@ -2332,6 +2332,9 @@ void WebAccess::slotGrandMasterValueChanged(uchar value)
 
 QString WebAccess::getGrandMasterSliderHTML()
 {
+    if (!m_vc->properties().grandMasterVisible())
+        return "";
+
     GrandMaster::ValueMode gmValueMode = m_vc->properties().grandMasterValueMode();
     GrandMaster::SliderMode gmSliderMode = m_vc->properties().grandMasterSliderMode();
     uchar gmValue = m_doc->inputOutputMap()->grandMasterValue();
@@ -2347,8 +2350,7 @@ QString WebAccess::getGrandMasterSliderHTML()
         gmDisplayValue = QString("%1%").arg(p, 2, 10, QChar('0'));
     }
 
-    QString str = "<div class=\"vcslider\" style=\"width: 100%; height: 100%;\">\n";
-    str += "<div style=\"height: 100%; display: flex; flex-direction: column; justify-content: space-between; \">";
+    QString str = "<div id=\"vcGM\">";
     str += "<div class=\"vcslLabel\" id=\"vcGMSliderLabel\">"+gmDisplayValue+"</div>\n";
 
     int rotate = gmSliderMode == GrandMaster::SliderMode::Inverted ? 90 : 270;
@@ -2364,7 +2366,6 @@ QString WebAccess::getGrandMasterSliderHTML()
                 "min=\""+QString::number(min)+"\" max=\""+QString::number(max)+"\" "
                 "step=\"1\" value=\"" + QString::number(gmValue) + "\">\n";
     str += "<div class=\"vcslLabel\">GM</div>";
-    str += "</div>\n";
     str += "</div>\n";
 
     connect(m_doc->inputOutputMap(), SIGNAL(grandMasterValueChanged(uchar)),
@@ -2390,7 +2391,7 @@ QString WebAccess::getVCHTML()
 				"<input id=\"submitTrigger\" type=\"submit\"/>\n"
             "</form>\n"
 
-            "<div class=\"controlBar\" style=\"position: fixed; top: 0; left: 0; z-index: 1;\">\n"
+            "<div class=\"controlBar\">\n"
             "<a class=\"button button-blue\" href=\"javascript:document.getElementById('loadTrigger').click();\">\n"
             "<span>" + tr("Load project") + "</span></a>\n"
 
@@ -2400,17 +2401,22 @@ QString WebAccess::getVCHTML()
 
             "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
             "</div>\n";
-    widgetsHTML += "<div style=\"height: calc(100vh - 60px); position: fixed; top: 40px; left: 0; width: 40px; background-color: #ccc; z-index: 1;\">"+getGrandMasterSliderHTML()+"</div>";
+
+    widgetsHTML += "<div id=\"vc\">\n";
+    widgetsHTML += getGrandMasterSliderHTML();
+    widgetsHTML += "<div id=\"vcScrollContainer\">\n";
     widgetsHTML += "<div style=\"position: relative; "
             "width: " + QString::number(mfSize.width()) +
             "px; height: " + QString::number(mfSize.height()) + "px; "
-            "background-color: " + mainFrame->backgroundColor().name() + "; top: 40px; left: 40px;\">\n";
+            "background-color: " + mainFrame->backgroundColor().name() + ";\">\n";
 
     widgetsHTML += getChildrenHTML(mainFrame, 0, 0);
 
+    widgetsHTML += "</div>\n";
+    widgetsHTML += "</div>\n";
     m_JScode += "\n</script>\n";
 
-    QString str = HTML_HEADER + m_CSScode + "</head>\n<body>\n" + widgetsHTML + "</div>\n</body>\n" + m_JScode + "</html>";
+    QString str = HTML_HEADER + m_CSScode + "</head>\n<body>\n" + widgetsHTML + "</div>\n" + m_JScode + "\n</body></html>";
     return str;
 }
 

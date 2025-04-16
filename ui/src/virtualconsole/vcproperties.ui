@@ -36,7 +36,7 @@
    <item>
     <widget class="QTabWidget" name="m_tab">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="Layout">
       <attribute name="title">
@@ -625,7 +625,7 @@
        <string>Grand Master</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_6">
-       <item row="0" column="0">
+       <item row="1" column="0">
         <widget class="QGroupBox" name="m_gmChannelsGroup">
          <property name="title">
           <string>Channels</string>
@@ -654,7 +654,7 @@
          </layout>
         </widget>
        </item>
-       <item row="0" column="1">
+       <item row="1" column="1">
         <widget class="QGroupBox" name="m_gmValuesGroup">
          <property name="title">
           <string>Values</string>
@@ -683,7 +683,20 @@
          </layout>
         </widget>
        </item>
-       <item row="2" column="0" colspan="2">
+       <item row="4" column="0" colspan="2">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="3" column="0" colspan="2">
         <widget class="QGroupBox" name="groupBox">
          <property name="title">
           <string>External Input</string>
@@ -765,20 +778,7 @@
          </layout>
         </widget>
        </item>
-       <item row="3" column="0" colspan="2">
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="1" column="0" colspan="2">
+       <item row="2" column="0" colspan="2">
         <widget class="QGroupBox" name="groupBox_2">
          <property name="title">
           <string>Slider movement</string>
@@ -799,6 +799,16 @@
            </widget>
           </item>
          </layout>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="2">
+        <widget class="QCheckBox" name="m_gmVisible">
+         <property name="toolTip">
+          <string>Show Grand Master slider on the virtual console and the web interface</string>
+         </property>
+         <property name="text">
+          <string>Visible</string>
+         </property>
         </widget>
        </item>
       </layout>
@@ -994,6 +1004,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>m_gmVisible</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>VCPropertiesEditor</receiver>
+   <slot>slotGrandMasterVisibleToggled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>185</x>
+     <y>58</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>185</x>
+     <y>245</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>slotGridXChanged(int)</slot>
@@ -1007,5 +1033,6 @@
   <slot>slotSizeXChanged(int)</slot>
   <slot>slotSizeYChanged(int)</slot>
   <slot>slotGrandMasterSliderNormalToggled(bool)</slot>
+  <slot>slotGrandMasterVisibleToggled(bool)</slot>
  </slots>
 </ui>
