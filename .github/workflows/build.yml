@@ -256,7 +256,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        task: [compile-v4, compile-qt5qml]
+        task: [compile-v4, compile-v5]
     env:
       CI_REPO_SLUG: ${{ github.repository }}
       CI_BRANCH: ${{ github.head_ref }}
@@ -293,7 +293,7 @@ jobs:
 
       - name: Set v5 ENV variables
         shell: bash
-        if: ${{ matrix.task == 'compile-qt5qml' }}
+        if: ${{ matrix.task == 'compile-v5' }}
         run: |
           echo "OUTFILE=`grep 'OutFile' platforms/windows/qlcplus5Qt5.nsi | cut -d'"' -f 2`" >> $GITHUB_ENV
           echo "APPVERSION=`grep '^qmlui' variables.pri | grep APPVERSION | sed 's/^.*= *//' | cut -d ' ' -f 1`" >> $GITHUB_ENV
