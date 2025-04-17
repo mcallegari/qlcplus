@@ -405,10 +405,12 @@ jobs:
         run: |
           cd build
           ninja install
+          cd ..
+          cp *.qm /c/qlcplus
 
       - name: Run windeployqt for v4
         shell: msys2 {0}
-        if: ${{ matrix.task == 'compile-v5' }}
+        if: ${{ matrix.task == 'compile-v4' }}
         run: |-
           cd /c/qlcplus
           ${{ env.QTDIR }}/bin/windeployqt /c/qlcplus
