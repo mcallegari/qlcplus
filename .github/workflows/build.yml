@@ -278,7 +278,7 @@ jobs:
           echo "NPROC=$(nproc)" >> $GITHUB_ENV
           echo "TASK=$(echo '${{matrix.task}}' | cut -d '-' -f 2)" >> $GITHUB_ENV
           echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)}" >> $GITHUB_ENV
-          echo "QTDIR=/d/a/qlcplus/qt/Qt/${{ env.QT_VERSION }}/mingw_64" >> $GITHUB_ENV
+          echo "QTDIR=/d/a/qlcplus/qlcplus/qt/Qt/${{ env.QT_VERSION }}/mingw_64" >> $GITHUB_ENV
           echo "BUILD_DATE=`date -u '+%Y%m%d'`" >> $GITHUB_ENV
           echo "GIT_REV=`git rev-parse --short HEAD`" >> $GITHUB_ENV
 
@@ -366,7 +366,6 @@ jobs:
           which cmake || true
           cmake --version || true
           pkg-config --modversion libusb-1.0
-          ls ${{ env.QTDIR }}/bin/
 
       - name: Fix build
         shell: msys2 {0}
@@ -384,13 +383,13 @@ jobs:
         shell: msys2 {0}
         if: ${{ matrix.task == 'compile-v4' }}
         run: |
-          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake"
+          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
       - name: Configure v5 build for Windows
         shell: msys2 {0}
         if: ${{ matrix.task == 'compile-v5' }}
         run: |
-          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -Dqmlui=ON
+          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -Dqmlui=ON
 
       - name: Build for Windows
         shell: msys2 {0}
