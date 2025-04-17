@@ -65,17 +65,17 @@ jobs:
           echo "BUILD_DATE=`date -u '+%Y%m%d'`" >> $GITHUB_ENV
           echo "GIT_REV=`git rev-parse --short HEAD`" >> $GITHUB_ENV
 
-      - name: Set QT ENV variables (qt5)
+      - name: Set Qt ENV variables (qt5)
         if: ${{ endsWith( matrix.task, 'qt5') }}
         run: |
           echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)}" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
-          echo "QT_VERSION=6.8.2" >> $GITHUB_ENV
+          echo "QT_VERSION=6.8.1" >> $GITHUB_ENV
           echo "APPVERSION=`grep '^!qmlui' variables.pri | grep APPVERSION | sed 's/^.*= *//;s/ /_/g'`" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
 
-      - name: Set QT ENV variables (qt5qml)
+      - name: Set Qt ENV variables (qt5qml)
         if: ${{ endsWith( matrix.task, 'qt5qml') }}
         run: |
           echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)}" >> $GITHUB_ENV
@@ -146,17 +146,17 @@ jobs:
           echo "WHOAMI:"
           whoami
 
-      - name: Configure for QT5 build
+      - name: Configure for v4 build
         if: ${{ matrix.task == 'compile-qt5' }}
         run: |
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dappimage=ON -DINSTALL_ROOT=${INSTALL_ROOT}
 
-      - name: Configure for QT5QML build
+      - name: Configure for v5 build
         if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dqmlui=ON -Dappimage=ON -DINSTALL_ROOT=${INSTALL_ROOT}
 
-      - name: Configure for QT5 coverage build
+      - name: Configure for coverage build
         if: ${{ matrix.task == 'coverage-qt5' }}
         run: |
           cmake -DCMAKE_PREFIX_PATH="/opt/Qt/$QT_VERSION/gcc_64/lib/cmake" -Dcoverage=ON -DINSTALL_ROOT=${INSTALL_ROOT} -B build
@@ -366,6 +366,7 @@ jobs:
           which cmake || true
           cmake --version || true
           pkg-config --modversion libusb-1.0
+          ls ${{ env.QTDIR }}/bin/
 
       - name: Fix build
         shell: msys2 {0}
