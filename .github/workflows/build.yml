@@ -331,6 +331,7 @@ jobs:
           install: >-
             wget
             unzip
+            ccache
             mingw-w64-x86_64-gcc
             mingw-w64-x86_64-gcc-libs
             mingw-w64-x86_64-cmake
@@ -366,6 +367,8 @@ jobs:
           which cmake || true
           cmake --version || true
           pkg-config --modversion libusb-1.0
+          echo "ccache:"
+          ccache --version || true
 
       - name: Fix build
         shell: msys2 {0}
