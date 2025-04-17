@@ -413,7 +413,7 @@ jobs:
           ./translate.sh ui
           cp *.qm /c/qlcplus
           cd /c/qlcplus
-          ${{ env.QTDIR }}/bin/windeployqt /c/qlcplus
+          ${{ env.QTDIR }}/bin/windeployqt qlcplus.exe qlcplusengine.dll qlcplusui.dll qlcpluswebaccess.dll plugins/dmxusb.dll
 
       - name: Run windeployqt for v5
         shell: msys2 {0}
@@ -423,7 +423,7 @@ jobs:
           ./translate.sh qmlui
           cp *.qm /c/qlcplus
           cd /c/qlcplus
-          ${{ env.QTDIR }}/bin/windeployqt --qmldir $SRC_DIR/qmlui/qml /c/qlcplus
+          ${{ env.QTDIR }}/bin/windeployqt --qmldir $SRC_DIR/qmlui/qml qlcplus-qml.exe qlcplusengine.dll plugins/dmxusb.dll
 
       - name: Build installation package
         shell: msys2 {0}
