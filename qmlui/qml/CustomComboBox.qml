@@ -114,12 +114,16 @@ ComboBox
     delegate:
         ItemDelegate
         {
-            width: parent.width
+            width: ListView.view.width
             implicitHeight: delegateHeight
             highlighted: control.highlightedIndex === index
             hoverEnabled: control.hoverEnabled
             padding: 0
             leftPadding: 3
+
+            required property var model
+            required property var modelData
+            required property int index
 
             property int currentIdx: control.currentIndex
             text: control.textRole ? (Array.isArray(control.model) ? modelData[control.textRole] : model[control.textRole]) : modelData

@@ -310,13 +310,6 @@ Rectangle
                     }
                 }
 
-                onClicked:
-                {
-                    updateDumpVariables()
-                    dmxDumpDialog.open()
-                    dmxDumpDialog.focusEditItem()
-                }
-
                 // channel count bubble
                 Rectangle
                 {
@@ -344,10 +337,15 @@ Rectangle
                 {
                     id: dumpDragArea
                     anchors.fill: parent
-                    propagateComposedEvents: true
                     drag.target: dumpDragItem
                     drag.threshold: 10
-                    onClicked: (mouse) => mouse.accepted = false
+
+                    onClicked: (mouse) =>
+                    {
+                        sceneDump.updateDumpVariables()
+                        dmxDumpDialog.open()
+                        dmxDumpDialog.focusEditItem()
+                    }
 
                     property bool dragActive: drag.active
 
