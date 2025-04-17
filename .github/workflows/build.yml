@@ -386,13 +386,13 @@ jobs:
         shell: msys2 {0}
         if: ${{ matrix.task == 'compile-v4' }}
         run: |
-          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
+          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake"
 
       - name: Configure v5 build for Windows
         shell: msys2 {0}
         if: ${{ matrix.task == 'compile-v5' }}
         run: |
-          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -Dqmlui=ON
+          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -Dqmlui=ON
 
       - name: Build for Windows
         shell: msys2 {0}
