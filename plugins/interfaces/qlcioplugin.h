@@ -366,7 +366,7 @@ protected:
 
     /**
      * Remove a line from the universe map. If a universe has no lines at all
-     * it is removed completely from the map (thus loosing the custom parameters
+     * it is removed completely from the map (thus losing the custom parameters
      * as well)
      *
      * @param universe The QLC+ universe index of the patched $line
