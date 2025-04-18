@@ -67,12 +67,13 @@ Rectangle
         showPalette: false
 
         onToolColorChanged:
-        {
-            if(wObj && selectedWidgetsCount < 2)
-                wObj.backgroundColor = Qt.rgba(r, g, b, 1.0)
-            else
-                virtualConsole.setWidgetsBackgroundColor(Qt.rgba(r, g, b, 1.0))
-        }
+            function(r, g, b, w, a, uv)
+            {
+                if(wObj && selectedWidgetsCount < 2)
+                    wObj.backgroundColor = Qt.rgba(r, g, b, 1.0)
+                else
+                    virtualConsole.setWidgetsBackgroundColor(Qt.rgba(r, g, b, 1.0))
+            }
         onClose: visible = false
     }
 
@@ -87,12 +88,13 @@ Rectangle
         showPalette: false
 
         onToolColorChanged:
-        {
-            if(wObj && selectedWidgetsCount < 2)
-                wObj.foregroundColor = Qt.rgba(r, g, b, 1.0)
-            else
-                virtualConsole.setWidgetsForegroundColor(Qt.rgba(r, g, b, 1.0))
-        }
+            function(r, g, b, w, a, uv)
+            {
+                if(wObj && selectedWidgetsCount < 2)
+                    wObj.foregroundColor = Qt.rgba(r, g, b, 1.0)
+                else
+                    virtualConsole.setWidgetsForegroundColor(Qt.rgba(r, g, b, 1.0))
+            }
         onClose: visible = false
     }
 

@@ -81,7 +81,7 @@ GridLayout
         id: openDialog
         visible: false
         title: qsTr("Open a picture file")
-        folder: "file://" + qlcplus.goboSystemPath()
+        currentFolder: "file://" + qlcplus.goboSystemPath()
         nameFilters: [ qsTr("Gobo pictures") + " (*.jpg *.jpeg *.png *.bmp *.svg)", qsTr("All files") + " (*)" ]
 
         onAccepted:
@@ -380,7 +380,7 @@ GridLayout
                     MouseArea
                     {
                         anchors.fill: parent
-                        onClicked:
+                        onClicked: (mouse) =>
                         {
                             var compIdx = 0
                             var item = delegateRow.childAt(mouse.x, mouse.y)
@@ -509,10 +509,11 @@ GridLayout
                 Layout.fillWidth: true
                 model: editor ? editor.capabilityPresetList : null
                 onValueChanged:
-                {
-                    editor.setCapabilityPresetAtIndex(editItem.indexInList, value)
-                    updatePresetBox(editItem.indexInList)
-                }
+                    function (value)
+                    {
+                        editor.setCapabilityPresetAtIndex(editItem.indexInList, value)
+                        updatePresetBox(editItem.indexInList)
+                    }
             }
 
             GroupBox
@@ -550,10 +551,11 @@ GridLayout
                             showPalette: false
 
                             onToolColorChanged:
-                            {
-                                editor.setCapabilityValueAt(editItem.indexInList, 0, Qt.rgba(r, g, b, 1.0))
-                                updatePresetBox(editItem.indexInList)
-                            }
+                                function(r, g, b, w, a, uv)
+                                {
+                                    editor.setCapabilityValueAt(editItem.indexInList, 0, Qt.rgba(r, g, b, 1.0))
+                                    updatePresetBox(editItem.indexInList)
+                                }
                         }
                     }
 
@@ -613,10 +615,11 @@ GridLayout
                             showPalette: false
 
                             onToolColorChanged:
-                            {
-                                editor.setCapabilityValueAt(editItem.indexInList, 1, Qt.rgba(r, g, b, 1.0))
-                                updatePresetBox(editItem.indexInList)
-                            }
+                                function(r, g, b, w, a, uv)
+                                {
+                                    editor.setCapabilityValueAt(editItem.indexInList, 1, Qt.rgba(r, g, b, 1.0))
+                                    updatePresetBox(editItem.indexInList)
+                                }
                         }
                     }
                 }

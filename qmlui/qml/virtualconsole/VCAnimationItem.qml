@@ -99,10 +99,11 @@ VCWidgetItem
                 currentRGB: animationObj ? animationObj.color1 : "black"
 
                 onToolColorChanged:
-                {
-                    col1Button.color = Qt.rgba(r, g, b, 1.0)
-                    animationObj.color1 = col1Button.color
-                }
+                    function(r, g, b, w, a, uv)
+                    {
+                        col1Button.color = Qt.rgba(r, g, b, 1.0)
+                        animationObj.color1 = col1Button.color
+                    }
                 onClose: visible = false
             }
         }
@@ -135,7 +136,11 @@ VCWidgetItem
                 closeOnSelect: true
                 currentRGB: animationObj ? animationObj.color2 : "black"
 
-                onToolColorChanged: animationObj.color2 = Qt.rgba(r, g, b, 1.0)
+                onToolColorChanged:
+                    function(r, g, b, w, a, uv)
+                    {
+                        animationObj.color2 = Qt.rgba(r, g, b, 1.0)
+                    }
                 onClose: visible = false
             }
         }
@@ -168,7 +173,11 @@ VCWidgetItem
                 closeOnSelect: true
                 currentRGB: animationObj ? animationObj.color3 : "black"
 
-                onToolColorChanged: animationObj.color3 = Qt.rgba(r, g, b, 1.0)
+                onToolColorChanged:
+                    function(r, g, b, w, a, uv)
+                    {
+                        animationObj.color3 = Qt.rgba(r, g, b, 1.0)
+                    }
                 onClose: visible = false
             }
         }
@@ -201,7 +210,11 @@ VCWidgetItem
                 closeOnSelect: true
                 currentRGB: animationObj ? animationObj.color4 : "black"
 
-                onToolColorChanged: animationObj.color4 = Qt.rgba(r, g, b, 1.0)
+                onToolColorChanged:
+                    function(r, g, b, w, a, uv)
+                    {
+                        animationObj.color4 = Qt.rgba(r, g, b, 1.0)
+                    }
                 onClose: visible = false
             }
         }
@@ -234,7 +247,11 @@ VCWidgetItem
                 closeOnSelect: true
                 currentRGB: animationObj ? animationObj.color5 : "black"
 
-                onToolColorChanged: animationObj.color5 = Qt.rgba(r, g, b, 1.0)
+                onToolColorChanged:
+                    function(r, g, b, w, a, uv)
+                    {
+                        animationObj.color5 = Qt.rgba(r, g, b, 1.0)
+                    }
                 onClose: visible = false
             }
         }

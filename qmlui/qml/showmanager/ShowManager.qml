@@ -104,6 +104,7 @@ Rectangle
                 enabled: showManager.isEditing
                 tooltip: qsTr("Show items color")
                 onCheckedChanged: colTool.visible = !colTool.visible
+
                 ColorTool
                 {
                     id: colTool
@@ -113,7 +114,11 @@ Rectangle
                     z: 15
                     visible: false
 
-                    onToolColorChanged: showManager.itemsColor = Qt.rgba(r, g, b, 1.0)
+                    onToolColorChanged:
+                        function(r, g, b, w, a, uv)
+                        {
+                            showManager.itemsColor = Qt.rgba(r, g, b, 1.0)
+                        }
                     onClose: colPickButton.toggle()
                 }
             }

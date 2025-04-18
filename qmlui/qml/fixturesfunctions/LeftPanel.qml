@@ -263,7 +263,11 @@ SidePanel
                     visible: false
                     colorsMask: fixtureManager.colorsMask
 
-                    onToolColorChanged: contextManager.setColorValue(Qt.rgba(r, g, b, 1.0), Qt.rgba(w, a, uv, 1.0))
+                    onToolColorChanged:
+                        function(r, g, b, w, a, uv)
+                        {
+                            contextManager.setColorValue(Qt.rgba(r, g, b, 1.0), Qt.rgba(w, a, uv, 1.0))
+                        }
                     onClose: colorToolButton.checked = false
                 }
             }

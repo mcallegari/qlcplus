@@ -328,7 +328,7 @@ Rectangle
                                                 cDragItem.z = 10
                                             }
 
-                                            onClicked:
+                                            onClicked: (mouse) =>
                                             {
                                                 chanSelector.selectItem(index, channelList.model, mouse.modifiers)
                                             }

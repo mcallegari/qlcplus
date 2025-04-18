@@ -56,10 +56,11 @@ Rectangle
         property Item selectedItem
 
         onToolColorChanged:
-        {
-            rectItem.color = Qt.rgba(r, g, b, 1.0)
-            selectedItem.updateColor(Qt.rgba(r, g, b, 1.0))
-        }
+            function(r, g, b, w, a, uv)
+            {
+                rectItem.color = Qt.rgba(r, g, b, 1.0)
+                selectedItem.updateColor(Qt.rgba(r, g, b, 1.0))
+            }
         onClose: visible = false
     }
 

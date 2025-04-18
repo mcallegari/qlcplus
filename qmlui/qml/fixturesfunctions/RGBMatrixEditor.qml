@@ -85,10 +85,11 @@ Rectangle
         }
 
         onToolColorChanged:
-        {
-            previewBtn.color = Qt.rgba(r, g, b, 1.0)
-            rgbMatrixEditor.setColorAtIndex(colorIndex, previewBtn.color)
-        }
+            function(r, g, b, w, a, uv)
+            {
+                previewBtn.color = Qt.rgba(r, g, b, 1.0)
+                rgbMatrixEditor.setColorAtIndex(colorIndex, previewBtn.color)
+            }
         onClose: visible = false
     }
 
