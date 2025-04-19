@@ -45,13 +45,10 @@ GridLayout
             columns: 2
 
             RobotoText { label: qsTr("Type") }
-            ComboBox
+            CustomComboBox
             {
                 Layout.fillWidth: true
-                palette.base: UISettings.bgControl
-                palette.window: UISettings.bgControl
-                palette.text: UISettings.fgMain
-                palette.highlightedText: UISettings.bgMedium
+                textRole: ""
 
                 model: ["LED", "CDM 70W", "CDM 150W", "CP29 5000W", "CP41 2000W", "CP60 1000W",
                         "CP61 1000W", "CP62 1000W", "CP86 500W", "CP87 500W", "CP88 500W",
@@ -114,14 +111,11 @@ GridLayout
             columns: 2
 
             RobotoText { label: qsTr("Type") }
-            ComboBox
+            CustomComboBox
             {
                 Layout.fillWidth: true
                 enabled: controlRoot.enabled
-                palette.base: UISettings.bgControl
-                palette.window: UISettings.bgControl
-                palette.text: UISettings.fgMain
-                palette.highlightedText: UISettings.bgMedium
+                textRole: ""
                 model: ["Other", "PC", "Fresnel"]
                 editable: true
 
@@ -177,14 +171,11 @@ GridLayout
             columns: 2
 
             RobotoText { label: qsTr("Type") }
-            ComboBox
+            CustomComboBox
             {
                 Layout.fillWidth: true
                 enabled: controlRoot.enabled
-                palette.base: UISettings.bgControl
-                palette.window: UISettings.bgControl
-                palette.text: UISettings.fgMain
-                palette.highlightedText: UISettings.bgMedium
+                textRole: ""
                 model: ["Fixed", "Head", "Mirror", "Barrel"]
                 editable: true
 
@@ -347,14 +338,11 @@ GridLayout
             }
 
             RobotoText { label: qsTr("DMX Connector") }
-            ComboBox
+            CustomComboBox
             {
                 Layout.fillWidth: true
                 enabled: controlRoot.enabled
-                palette.base: UISettings.bgControl
-                palette.window: UISettings.bgControl
-                palette.text: UISettings.fgMain
-                palette.highlightedText: UISettings.bgMedium
+                textRole: ""
                 model: ["3-pin", "5-pin", "3-pin and 5-pin", "3.5 mm stereo jack", "Other"]
                 editable: true
 

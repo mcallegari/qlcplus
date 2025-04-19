@@ -102,32 +102,33 @@ Rectangle
         property var editRef
 
         onClicked:
-        {
-            if (role === Dialog.Yes)
+            function (role)
             {
-                if (editRef.fileName === "")
+                if (role === Dialog.Yes)
                 {
-                    saveDialog.folder = fixtureEditor.workingPath
-                    //saveDialog.currentFile = "file:///" + editor.editorView.fileName
-                    saveDialog.open()
+                    if (editRef.fileName === "")
+                    {
+                        saveDialog.folder = fixtureEditor.workingPath
+                        //saveDialog.currentFile = "file:///" + editor.editorView.fileName
+                        saveDialog.open()
+                    }
+                    else
+                    {
+                        editRef.save("")
+                    }
                 }
-                else
+                else if (role === Dialog.No)
                 {
-                    editRef.save("")
+                    fixtureEditor.deleteEditor(editRef.id)
                 }
-            }
-            else if (role === Dialog.No)
-            {
-                fixtureEditor.deleteEditor(editRef.id)
-            }
-            else if (role === Dialog.Cancel)
-            {
-                return
-            }
+                else if (role === Dialog.Cancel)
+                {
+                    return
+                }
 
-            close()
-            checkBeforeExit()
-        }
+                close()
+                checkBeforeExit()
+            }
     }
 
     function checkBeforeExit()
