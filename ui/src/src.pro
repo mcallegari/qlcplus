@@ -155,6 +155,7 @@ HEADERS += virtualconsole/addvcbuttonmatrix.h \
            virtualconsole/vcmatrixproperties.h \
            virtualconsole/vcproperties.h \
            virtualconsole/vcpropertieseditor.h \
+           virtualconsole/vcscrollarea.h \
            virtualconsole/vcslider.h \
            virtualconsole/vcsliderproperties.h \
            virtualconsole/vcsoloframe.h \
@@ -337,6 +338,7 @@ SOURCES += virtualconsole/addvcbuttonmatrix.cpp \
            virtualconsole/vcmatrixproperties.cpp \
            virtualconsole/vcproperties.cpp \
            virtualconsole/vcpropertieseditor.cpp \
+           virtualconsole/vcscrollarea.cpp \
            virtualconsole/vcslider.cpp \
            virtualconsole/vcsliderproperties.cpp \
            virtualconsole/vcsoloframe.cpp \
