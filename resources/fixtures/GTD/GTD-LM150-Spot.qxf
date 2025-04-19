@@ -63,9 +63,9 @@
  <Channel Name="Prism Rotation">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="127" Preset="RotationIndexed">Prism Indexed</Capability>
-  <Capability Min="128" Max="187" Preset="RotationClockwiseFastToSlow">Prism continous rotation CW from slow to fast</Capability>
+  <Capability Min="128" Max="187" Preset="RotationClockwiseFastToSlow">Prism continuous rotation CW from slow to fast</Capability>
   <Capability Min="188" Max="195" Preset="RotationStop">Stop</Capability>
-  <Capability Min="196" Max="255" Preset="RotationCounterClockwiseSlowToFast">Prism continous rotation CCW from slow to fast</Capability>
+  <Capability Min="196" Max="255" Preset="RotationCounterClockwiseSlowToFast">Prism continuous rotation CCW from slow to fast</Capability>
  </Channel>
  <Channel Name="Pan" Preset="PositionPan"/>
  <Channel Name="Tilt" Preset="PositionTilt"/>

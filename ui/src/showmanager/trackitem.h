@@ -61,7 +61,7 @@ public:
     /** Set the track name */
     void setName(QString name);
 
-    /** Enable/disable active state which higlight the left bar */
+    /** Enable/disable active state which highlights the left bar */
     void setActive(bool flag);
 
     /** Return if this track is active or not */

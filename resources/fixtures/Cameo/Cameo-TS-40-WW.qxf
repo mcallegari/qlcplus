@@ -21,7 +21,7 @@
   <Capability Min="0" Max="5">No function</Capability>
   <Capability Min="6" Max="63">Linear dimmer curve</Capability>
   <Capability Min="64" Max="127">Exponential dimmer curve</Capability>
-  <Capability Min="128" Max="191">Logarythmic dimmer curve</Capability>
+  <Capability Min="128" Max="191">Logarithmic dimmer curve</Capability>
   <Capability Min="192" Max="255">S-curve dimmer curve</Capability>
  </Channel>
  <Channel Name="Device Settings">

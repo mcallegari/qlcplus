@@ -568,7 +568,7 @@ void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
         /** universe number: Rodins only support index 0, DMX21 supports 0 and 1 */
         m_bulkBuffer.append(char(line - m_baseLine));
 
-        m_bulkBuffer.append(char(0x07)); /** lenght of data stage (512 + 7 bytes), LSB */
+        m_bulkBuffer.append(char(0x07)); /** length of data stage (512 + 7 bytes), LSB */
         m_bulkBuffer.append(char(0x02)); /** length of data state (512 + 7 bytes), MSB */
         m_bulkBuffer.append(char(PEPERONI_NEW_BULK_CONFIG_BLOCK      /** transmitter configuration: block while transmitter is busy */
                                | PEPERONI_NEW_BULK_CONFIG_FORCETX)); /** transmitter configuration: force transmission */

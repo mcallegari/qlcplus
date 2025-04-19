@@ -93,7 +93,7 @@ void MasterTimerPrivate::run()
     int nsTickTime = 1000000000L / mt->frequency();
 
     /* Allocate this from stack here so that GCC doesn't have
-       to do it everytime implicitly when gettimeofday() is called */
+       to do it every time implicitly when gettimeofday() is called */
     int ret = 0;
 
     /* Allocate all the memory at the start so we don't waste any time */

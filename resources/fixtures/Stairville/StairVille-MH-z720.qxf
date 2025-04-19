@@ -71,7 +71,7 @@
  <Channel Name="Special Settings">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="9">Without function</Capability>
-  <Capability Min="10" Max="14">Blackout during Pan or Tilt movment</Capability>
+  <Capability Min="10" Max="14">Blackout during Pan or Tilt movement</Capability>
   <Capability Min="15" Max="49">Without function</Capability>
   <Capability Min="50" Max="54">Rotation position reset</Capability>
   <Capability Min="55" Max="59">Inclination position reset</Capability>
@@ -173,7 +173,7 @@
   <Capability Min="208" Max="229">Gradual colour change in descending order, fash to slow</Capability>
   <Capability Min="230" Max="234">Dark</Capability>
   <Capability Min="235" Max="249">Stepped colour change in ascending order, fast to slow</Capability>
-  <Capability Min="250" Max="255">Sound controled colour changing</Capability>
+  <Capability Min="250" Max="255">Sound controlled colour changing</Capability>
  </Channel>
  <Mode Name="14 Channel">
   <Channel Number="0">Rotation</Channel>

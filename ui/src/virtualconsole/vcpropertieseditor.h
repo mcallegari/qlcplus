@@ -95,7 +95,7 @@ protected slots:
      * Grand Master page
      *************************************************************************/
 private slots:
-    void slotGrandMasterVisibleToggled(bool checkeck);
+    void slotGrandMasterVisibleToggled(bool checked);
     void slotGrandMasterIntensityToggled(bool checked);
     void slotGrandMasterReduceToggled(bool checked);
     void slotGrandMasterSliderNormalToggled(bool checked);

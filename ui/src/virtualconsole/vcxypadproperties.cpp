@@ -884,7 +884,7 @@ void VCXYPadProperties::slotMoveUpPresetClicked()
     quint8 newID = moveUpPreset(ctlID);
     updatePresetsTree();
 
-    //select item on new position. User can make multiple move up/down without need to select item everytime.
+    //select item on new position. User can make multiple move up/down without need to select item every time.
     selectItemOnPresetsTree(newID);
 }
 
@@ -897,7 +897,7 @@ void VCXYPadProperties::slotMoveDownPresetClicked()
     quint8 newID =moveDownPreset(ctlID);
     updatePresetsTree();
 
-    //select item on new position. User can make multiple move up/down without need to select item everytime.
+    //select item on new position. User can make multiple move up/down without need to select item every time.
     selectItemOnPresetsTree(newID);
 }
 

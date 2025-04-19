@@ -108,7 +108,7 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="225">Max to min speed</Capability>
   <Capability Min="226" Max="235">Blackout with pan and tilt movement</Capability>
-  <Capability Min="236" Max="245">Blackout whith all wheel movement</Capability>
+  <Capability Min="236" Max="245">Blackout with all wheel movement</Capability>
   <Capability Min="246" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Special Functions">

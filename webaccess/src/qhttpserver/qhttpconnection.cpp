@@ -403,7 +403,7 @@ void QHttpConnection::slotWebSocketPollTimeout()
 
 void QHttpConnection::webSocketWrite(const QString &message)
 {
-    qDebug() << "[webSocketWrite] message lenght:" << message.size() << "message:" << message;
+    qDebug() << "[webSocketWrite] message length:" << message.size() << "message:" << message;
 
     if (m_webSocket)
         m_webSocket->sendTextMessage(message);

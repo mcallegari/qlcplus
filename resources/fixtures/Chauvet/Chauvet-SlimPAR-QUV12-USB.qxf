@@ -15,7 +15,7 @@
  <Channel Name="UV" Preset="IntensityUV"/>
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="15">No funtion</Capability>
+  <Capability Min="0" Max="15">No function</Capability>
   <Capability Min="16" Max="255">Color macros</Capability>
  </Channel>
  <Channel Name="Strobe/Speed/Sensitivity">

@@ -124,7 +124,7 @@
  <Channel Name="Color mix control" Default="255">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="9">virtual color weel has priority</Capability>
-  <Capability Min="10" Max="19">MAX mode higest value has priority</Capability>
+  <Capability Min="10" Max="19">MAX mode highest value has priority</Capability>
   <Capability Min="20" Max="29">LOW mode lowest value has priority</Capability>
   <Capability Min="30" Max="39">multiply mode</Capability>
   <Capability Min="40" Max="49">addition mode</Capability>

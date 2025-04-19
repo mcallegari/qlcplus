@@ -172,7 +172,7 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
             fc->setReady(false);
         }
     }
-    // if we don't have to wait and there are some funtions in the queue
+    // if we don't have to wait and there are some functions in the queue
     if (m_waitFunctionId == Function::invalidId() && m_functionQueue.count())
     {
         while (!m_functionQueue.isEmpty())

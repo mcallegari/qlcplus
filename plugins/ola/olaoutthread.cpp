@@ -52,7 +52,7 @@ OlaOutThread::~OlaOutThread()
 /*
  * Start the OLA thread
  *
- * @return true if sucessfull, false otherwise
+ * @return true if successful, false otherwise
  */
 bool OlaOutThread::start(Priority priority)
 {

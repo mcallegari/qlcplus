@@ -139,7 +139,7 @@ void DummyPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArr
      * data transmission. It is called at the rate of the QLC+ MasterTimer clock
      * and it should never block for more than 20ms.
      * If this plugin cannot predict the duration of a universe transmission,
-     * it is then safer to exchange data with a thread, running indipendently
+     * it is then safer to exchange data with a thread, running independently
      * and not risking to hang QLC+
      */
 }

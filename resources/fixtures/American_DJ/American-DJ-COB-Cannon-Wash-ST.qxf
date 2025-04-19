@@ -108,7 +108,7 @@
   <Capability Min="101" Max="120">Stage 2</Capability>
   <Capability Min="121" Max="255">Default to unit setting</Capability>
  </Channel>
- <Channel Name="Program Selction Mode">
+ <Channel Name="Program Selection Mode">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="51">Standard Dim</Capability>
   <Capability Min="52" Max="102">Color Macro</Capability>
@@ -196,7 +196,7 @@
   <Channel Number="4">Shutter / Strobe</Channel>
   <Channel Number="5">Master dimmer</Channel>
   <Channel Number="6">Master dimmer fine</Channel>
-  <Channel Number="7">Program Selction Mode</Channel>
+  <Channel Number="7">Program Selection Mode</Channel>
   <Channel Number="8">Color Jump/Color Dream/Sound Active</Channel>
   <Channel Number="9">Speed / Sensitivity</Channel>
  </Mode>
@@ -208,7 +208,7 @@
   <Channel Number="4">Shutter / Strobe</Channel>
   <Channel Number="5">Master dimmer</Channel>
   <Channel Number="6">Master dimmer fine</Channel>
-  <Channel Number="7">Program Selction Mode</Channel>
+  <Channel Number="7">Program Selection Mode</Channel>
   <Channel Number="8">Color Jump/Color Dream/Sound Active</Channel>
   <Channel Number="9">Speed / Sensitivity</Channel>
   <Channel Number="10">Dimming Modes</Channel>

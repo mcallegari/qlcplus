@@ -23,11 +23,11 @@
 LICENSECHECK_BIN="$(which licensecheck 2> /dev/null)"
 #regex for ignore
 FILE_REGEX=""
-#array with file extentions to check
+#array with file extensions to check
 FILE_EXT[0]=""
 
 ##config
-#file extentions
+#file extensions
 FILE_EXT[0]="cpp"
 FILE_EXT[1]="c"
 FILE_EXT[2]="h"
@@ -37,7 +37,7 @@ FILE_EXT[5]="ui"
 #FILE_EXT[6]="xml"
 
 ##Functions
-#Join file extentions to group
+#Join file extensions to group
 function generate_regex {
  TMP_IFS="$IFS"
  local IFS="|"

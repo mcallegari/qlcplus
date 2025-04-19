@@ -75,7 +75,7 @@ typedef struct
 {
     /** Reference to the fixture root item, for hierarchy walk and function calls */
     QEntity *m_rootItem;
-    /** Reference to the root item tranform component, to perform translations/rotations */
+    /** Reference to the root item transform component, to perform translations/rotations */
     Qt3DCore::QTransform *m_rootTransform;
     /** Reference to the arm entity used by moving heads */
     QEntity *m_armItem;

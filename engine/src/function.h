@@ -821,7 +821,7 @@ public:
      * actually stopped. To prevent deadlocks the function only waits for 2s.
      *
      * @return true if the function was stopped. false if the function did not
-     *              stop withing two seconds
+     *              stop within two seconds
      */
     bool stopAndWait();
 

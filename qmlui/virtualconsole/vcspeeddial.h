@@ -145,7 +145,7 @@ private:
      * Dial absolute time
      *********************************************************************/
 public:
-    /* Get/Set the time range minumum value */
+    /* Get/Set the time range minimum value */
     uint timeMinimumValue() const;
     void setTimeMinimumValue(uint newTimeMinimumValue);
 

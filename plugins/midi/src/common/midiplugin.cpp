@@ -383,7 +383,7 @@ void MidiPlugin::configure()
                     QLCIOPlugin::unSetParameter(universe, inLine, Input, MIDI_INITMESSAGE);
             }
             else
-                qDebug() << "[MIDI] coudln't find device for line:" << inLine;
+                qDebug() << "[MIDI] couldn't find device for line:" << inLine;
         }
 
         m_universesMap[universe].outputParameters.clear();
@@ -406,7 +406,7 @@ void MidiPlugin::configure()
                                               MIDI_INITMESSAGE, dev->midiTemplateName());
             }
             else
-                qDebug() << "[MIDI] coudln't find device for line:" << outLine;
+                qDebug() << "[MIDI] couldn't find device for line:" << outLine;
         }
     }
 }

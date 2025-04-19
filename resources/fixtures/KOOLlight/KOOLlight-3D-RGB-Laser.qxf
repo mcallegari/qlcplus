@@ -203,10 +203,10 @@
   <Capability Min="0" Max="10">Without change</Capability>
   <Capability Min="11" Max="74">Manual adjust rotation</Capability>
   <Capability Min="75" Max="104">Auto drawing (add)</Capability>
-  <Capability Min="105" Max="144">Auto drawing (substract)</Capability>
+  <Capability Min="105" Max="144">Auto drawing (subtract)</Capability>
   <Capability Min="145" Max="184">Auto drawing (cycle)</Capability>
   <Capability Min="185" Max="224">Auto end to end drawing (add)</Capability>
-  <Capability Min="225" Max="255">Auto end to end drawing (substract)</Capability>
+  <Capability Min="225" Max="255">Auto end to end drawing (subtract)</Capability>
  </Channel>
  <Channel Name="Waving">
   <Group Byte="0">Effect</Group>
