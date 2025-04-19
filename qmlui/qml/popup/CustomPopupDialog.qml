@@ -74,6 +74,16 @@ Dialog
             color: UISettings.bgMedium
             border.color: UISettings.bgLight
             border.width: 2
+
+            focus: true
+            Keys.onPressed:
+            {
+                if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter)
+                {
+                    control.accept()
+                    event.accepted = true
+                }
+            }
         }
 
     contentItem:
