@@ -103,6 +103,17 @@ public:
 
 private:
     DMXInterface *m_interface;
+	
+#if defined(WIN32) || defined(Q_OS_WIN)
+    /** Resolution (in ms) that Windows system timer will be set to */
+    static uint s_windowsTimerResolution;
+    
+    /** Request a minimum resolution (in ms) for Windows system timer */
+    bool setWindowsTimerResolution(uint resolution);
+    
+    /** Clear a previously set minimum Windows system timer resolution */
+    bool clearWindowsTimerResolution(uint resolution);
+#endif
 
     /********************************************************************
      * Open & close

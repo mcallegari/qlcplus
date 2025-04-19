@@ -27,6 +27,7 @@ add_library(${module_name}
 )
 
 if(WIN32)
+    target_link_libraries(${module_name} PUBLIC winmm)
     set(FTD2XXDIR "C:/projects/D2XXSDK")
     if ($ENV{MSYSTEM_CARCH} STREQUAL "i686")
         target_link_libraries(${module_name} PRIVATE ${FTD2XXDIR}/i386/libftd2xx.a)
