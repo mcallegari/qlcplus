@@ -182,7 +182,7 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 VCXYPad::~VCXYPad()
 {
     m_doc->masterTimer()->unregisterDMXSource(this);
-    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
     {
         if (!fader.isNull())
             fader->requestDelete();
@@ -593,7 +593,7 @@ void VCXYPad::slotUniverseWritten(quint32 idx, const QByteArray &universeData)
             fxMap[sc.m_fixture] = QPointF(x, y);
         }
 
-        foreach (QPointF pt, fxMap.values())
+        foreach (QPointF pt, fxMap)
         {
             if (invertedAppearance())
                 pt.setY(256 - pt.y());
@@ -696,7 +696,7 @@ QMap<quint32,QString> VCXYPad::presetsMap() const
 {
     QMap<quint32,QString> map;
 
-    foreach (VCXYPadPreset *control, m_presets.values())
+    foreach (VCXYPadPreset *control, m_presets)
         map.insert(control->m_id, VCXYPadPreset::typeToString(control->m_type));
 
     return map;
@@ -730,7 +730,7 @@ void VCXYPad::slotPresetClicked(bool checked)
     {
         m_scene->stop(functionParent());
         m_scene = NULL;
-        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
         {
             if (!fader.isNull())
                 fader->requestDelete();

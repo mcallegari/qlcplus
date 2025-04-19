@@ -80,8 +80,7 @@ QStringList Peperoni::outputs()
     QStringList list;
     int i = 0;
 
-    QList <PeperoniDevice*> devList = m_devices.values();
-    foreach (PeperoniDevice* dev, devList)
+    foreach (PeperoniDevice* dev, m_devices)
         list << dev->name(i++);
 
     return list;
@@ -174,8 +173,7 @@ QStringList Peperoni::inputs()
     QStringList list;
     int i = 0;
 
-    QList <PeperoniDevice*> devList = m_devices.values();
-    foreach (PeperoniDevice* dev, devList)
+    foreach (PeperoniDevice* dev, m_devices)
         list << dev->name(i++);
 
     return list;
@@ -288,7 +286,7 @@ void Peperoni::rescanDevices()
 
 bool Peperoni::device(struct libusb_device* usbdev)
 {
-    foreach (PeperoniDevice* dev, m_devices.values())
+    foreach (PeperoniDevice* dev, m_devices)
     {
         if (dev->device() == usbdev)
             return true;

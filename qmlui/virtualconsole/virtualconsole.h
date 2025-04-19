@@ -37,7 +37,7 @@ class VCFrame;
 class VCPage;
 class Doc;
 
-#define KXMLQLCVirtualConsole QString("VirtualConsole")
+#define KXMLQLCVirtualConsole QStringLiteral("VirtualConsole")
 
 class VirtualConsole : public PreviewContext
 {

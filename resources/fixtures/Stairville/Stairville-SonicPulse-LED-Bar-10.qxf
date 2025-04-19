@@ -7,7 +7,7 @@
   <Author>Simeon08 &amp; ReComplexed</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
- <Model>SonicPulse LED Bar 05</Model>
+ <Model>SonicPulse LED Bar 10</Model>
  <Type>LED Bar (Beams)</Type>
  <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe">

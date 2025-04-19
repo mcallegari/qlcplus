@@ -224,7 +224,7 @@ QString VCMatrixPresetSelection::selectedPreset()
     return m_presetCombo->currentText();
 }
 
-QHash<QString, QString> VCMatrixPresetSelection::customizedProperties()
+QMap<QString, QString> VCMatrixPresetSelection::customizedProperties()
 {
     return m_properties;
 }

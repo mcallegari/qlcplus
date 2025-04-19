@@ -843,8 +843,8 @@ void VCMatrix::slotUpdate()
                 algorithmName == control->m_resource)
             {
                 on = true;
-                for (QHash<QString, QString>::const_iterator it = control->m_properties.begin();
-                     it != control->m_properties.end(); ++it)
+                for (QMap<QString, QString>::const_iterator it = control->m_properties.begin();
+                        it != control->m_properties.end(); ++it)
                 {
                     if (algorithmProperties.value(it.key(), QString()) != it.value())
                         on = false;
@@ -1004,7 +1004,7 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
         if (!control.m_properties.isEmpty())
         {
             btnLabel += " (";
-            QHashIterator<QString, QString> it(control.m_properties);
+            QMapIterator<QString, QString> it(control.m_properties);
             while (it.hasNext())
             {
                 it.next();
@@ -1158,7 +1158,7 @@ QMap<quint32,QString> VCMatrix::customControlsMap() const
 {
     QMap<quint32,QString> map;
 
-    foreach (VCMatrixControl *control, m_controls.values())
+    foreach (VCMatrixControl *control, m_controls)
         map.insert(control->m_id, VCMatrixControl::typeToString(control->m_type));
 
     return map;
@@ -1241,7 +1241,7 @@ void VCMatrix::slotCustomControlClicked()
             if (!control->m_properties.isEmpty())
             {
                 RGBScript *script = static_cast<RGBScript*> (algo);
-                QHashIterator<QString, QString> it(control->m_properties);
+                QMapIterator<QString, QString> it(control->m_properties);
                 while (it.hasNext())
                 {
                     it.next();

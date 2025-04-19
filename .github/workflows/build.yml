@@ -31,7 +31,6 @@ jobs:
         libgl1-mesa-dev
         libxml2-utils
         xvfb
-        ccache
         chrpath
         libfuse2
         wget
@@ -117,13 +116,7 @@ jobs:
         run: pip install lxml
 
       - name: Setup ccache
-        uses: Chocobo1/setup-ccache-action@v1
-        with:
-          update_packager_index: false
-          install_ccache: false
-          ccache_options: |
-            max_size=5G
-            compression=false
+        uses: hendrikmuhs/ccache-action@v1.2
 
       - name: Setup ruby cache
         uses: ruby/setup-ruby@v1
@@ -149,12 +142,12 @@ jobs:
       - name: Configure for v4 build
         if: ${{ matrix.task == 'compile-qt5' }}
         run: |
-          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dappimage=ON -DINSTALL_ROOT=${INSTALL_ROOT}
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dappimage=ON -DINSTALL_ROOT=${INSTALL_ROOT} -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
       - name: Configure for v5 build
         if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
-          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dqmlui=ON -Dappimage=ON -DINSTALL_ROOT=${INSTALL_ROOT}
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dqmlui=ON -Dappimage=ON -DINSTALL_ROOT=${INSTALL_ROOT} -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
       - name: Configure for coverage build
         if: ${{ matrix.task == 'coverage-qt5' }}
@@ -268,6 +261,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: false
+
+      - name: Setup ccache
+        uses: hendrikmuhs/ccache-action@v1.2
 
       - name: Set ENV variables
         shell: bash
@@ -492,10 +488,13 @@ jobs:
           dir: "${{ github.workspace }}/qt/"
           modules: 'qtscript'
 
+      - name: Setup ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+
       - name: Configure build
         shell: bash
         run: |-
-          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake"
+          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13 -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
       - name: Build
         shell: bash
@@ -509,19 +508,15 @@ jobs:
           cd build
           make install/fast
 
-      - name: Fix non-Qt dependencies
+      - name: Fix dylib dependencies
         shell: bash
         run: |-
           platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/Frameworks/libsndfile.1.dylib
           platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/MacOS/qlcplus
           platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/MacOS/qlcplus-fixtureeditor
-
-      - name: Run macosdeploy
-        shell: bash
-        run: |-
           ${{ env.QTDIR }}/bin/macdeployqt ~/QLC+.app
 
-      - name: create DMG
+      - name: Create DMG
         # Use retry loop to work around a race condition on macOS causing
         # 'Resource busy' errors with 'hdiutil'. See
         # https://github.com/actions/runner-images/issues/7522

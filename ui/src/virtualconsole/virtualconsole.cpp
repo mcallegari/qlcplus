@@ -1010,7 +1010,10 @@ void VirtualConsole::slotToolsSettings()
         m_doc->inputOutputMap()->setGrandMasterChannelMode(m_properties.grandMasterChannelMode());
         m_doc->inputOutputMap()->setGrandMasterValueMode(m_properties.grandMasterValueMode());
         if (m_dockArea != NULL)
-            m_dockArea->setGrandMasterInvertedAppearance(m_properties.grandMasterSlideMode());
+        {
+            m_dockArea->setGrandMasterVisible(m_properties.grandMasterVisible());
+            m_dockArea->setGrandMasterInvertedAppearance(m_properties.grandMasterSliderMode());
+        }
 
         QSettings settings;
         settings.setValue(SETTINGS_BUTTON_SIZE, vcpe.buttonSize());
@@ -1537,9 +1540,14 @@ void VirtualConsole::resetContents()
     updateActions();
 
     /* Reset all properties but size */
+    m_properties.setGrandMasterVisible(true);
+    m_properties.setGrandMasterSliderMode(GrandMaster::Normal);
     m_properties.setGrandMasterChannelMode(GrandMaster::Intensity);
     m_properties.setGrandMasterValueMode(GrandMaster::Reduce);
     m_properties.setGrandMasterInputSource(InputOutputMap::invalidUniverse(), QLCChannel::invalid());
+
+    m_dockArea->setGrandMasterVisible(m_properties.grandMasterVisible());
+    m_dockArea->setGrandMasterInvertedAppearance(m_properties.grandMasterSliderMode());
 }
 
 void VirtualConsole::addWidgetInMap(VCWidget* widget)
@@ -1924,6 +1932,9 @@ void VirtualConsole::postLoad()
     }
     foreach (VCWidget *widget, invalidWidgetsList)
         addWidgetInMap(widget);
+
+    m_dockArea->setGrandMasterVisible(m_properties.grandMasterVisible());
+    m_dockArea->setGrandMasterInvertedAppearance(m_properties.grandMasterSliderMode());
 
     m_contents->setFocus();
 

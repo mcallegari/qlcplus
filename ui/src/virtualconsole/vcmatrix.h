@@ -24,7 +24,7 @@
 #include <QToolButton>
 #include <QComboBox>
 #include <QLabel>
-#include <QHash>
+#include <QMap>
 
 #include "vcwidget.h"
 #include "vcmatrixcontrol.h"
@@ -40,20 +40,20 @@ class RGBMatrix;
  * @{
  */
 
-#define KXMLQLCVCMatrix             QString("Matrix")
+#define KXMLQLCVCMatrix             QStringLiteral("Matrix")
 
-#define KXMLQLCVCMatrixFunction     QString("Function")
-#define KXMLQLCVCMatrixFunctionID   QString("ID")
+#define KXMLQLCVCMatrixFunction     QStringLiteral("Function")
+#define KXMLQLCVCMatrixFunctionID   QStringLiteral("ID")
 
-#define KXMLQLCVCMatrixInstantApply QString("InstantApply")
+#define KXMLQLCVCMatrixInstantApply QStringLiteral("InstantApply")
 
-#define KXMLQLCVCMatrixColor1       QString("Color 1")
-#define KXMLQLCVCMatrixColor2       QString("Color 2")
-#define KXMLQLCVCMatrixColor3       QString("Color 3")
-#define KXMLQLCVCMatrixColor4       QString("Color 4")
-#define KXMLQLCVCMatrixColor5       QString("Color 5")
+#define KXMLQLCVCMatrixColor1       QStringLiteral("Color 1")
+#define KXMLQLCVCMatrixColor2       QStringLiteral("Color 2")
+#define KXMLQLCVCMatrixColor3       QStringLiteral("Color 3")
+#define KXMLQLCVCMatrixColor4       QStringLiteral("Color 4")
+#define KXMLQLCVCMatrixColor5       QStringLiteral("Color 5")
 
-#define KXMLQLCVCMatrixVisibilityMask QString("Visibility")
+#define KXMLQLCVCMatrixVisibilityMask QStringLiteral("Visibility")
 
 class VCMatrix : public VCWidget
 {

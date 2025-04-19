@@ -545,7 +545,7 @@ void VirtualConsole::setWidgetSelection(quint32 wID, QQuickItem *item, bool enab
 
 void VirtualConsole::resetWidgetSelection()
 {
-    foreach (QQuickItem *widget, m_itemsMap.values())
+    foreach (QQuickItem *widget, m_itemsMap)
         widget->setProperty("isSelected", false);
     m_itemsMap.clear();
 
@@ -576,7 +576,7 @@ QStringList VirtualConsole::selectedWidgetNames()
 
 int VirtualConsole::selectedWidgetsCount() const
 {
-    return m_itemsMap.keys().count();
+    return m_itemsMap.count();
 }
 
 QVariantList VirtualConsole::selectedWidgetIDs()

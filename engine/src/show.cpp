@@ -65,7 +65,7 @@ quint32 Show::totalDuration()
 {
     quint32 totalDuration = 0;
 
-    foreach (Track *track, tracks())
+    foreach (Track *track, m_tracks)
     {
         foreach (ShowFunction *sf, track->showFunctions())
         {
@@ -257,10 +257,7 @@ bool Show::removeTrack(quint32 id)
 
 Track* Show::track(quint32 id) const
 {
-    if (m_tracks.contains(id) == true)
-        return m_tracks[id];
-    else
-        return NULL;
+    return m_tracks.value(id, NULL);
 }
 
 Track* Show::getTrackFromSceneID(quint32 id)
@@ -478,7 +475,7 @@ void Show::preRun(MasterTimer* timer)
 
     m_runner = new ShowRunner(doc(), this->id(), elapsed());
     int i = 0;
-    foreach (Track *track, m_tracks.values())
+    foreach (Track *track, m_tracks)
         m_runner->adjustIntensity(getAttributeValue(i++), track);
 
     connect(m_runner, SIGNAL(timeChanged(quint32)), this, SIGNAL(timeChanged(quint32)));

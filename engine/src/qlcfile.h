@@ -55,13 +55,13 @@ class QString;
 #endif
 
 // Generic XML tags common for all documents
-#define KXMLQLCCreator          QString("Creator")
-#define KXMLQLCCreatorName      QString("Name")
-#define KXMLQLCCreatorVersion   QString("Version")
-#define KXMLQLCCreatorAuthor    QString("Author")
+#define KXMLQLCCreator          QStringLiteral("Creator")
+#define KXMLQLCCreatorName      QStringLiteral("Name")
+#define KXMLQLCCreatorVersion   QStringLiteral("Version")
+#define KXMLQLCCreatorAuthor    QStringLiteral("Author")
 
 // share fixture list tag
-#define KXMLQLCFixturesList QString("FixtureList")
+#define KXMLQLCFixturesList QStringLiteral("FixtureList")
 
 // True and false
 #define KXMLQLCTrue "True"

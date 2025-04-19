@@ -230,7 +230,7 @@ void RGBMatrix::setAlgorithm(RGBAlgorithm *algo)
         if (m_algorithm != NULL && m_algorithm->type() == RGBAlgorithm::Script)
         {
             RGBScript *script = static_cast<RGBScript*> (m_algorithm);
-            QHashIterator<QString, QString> it(m_properties);
+            QMapIterator<QString, QString> it(m_properties);
             while (it.hasNext())
             {
                 it.next();
@@ -531,7 +531,7 @@ bool RGBMatrix::saveXML(QXmlStreamWriter *doc)
     doc->writeTextElement(KXMLQLCRGBMatrixFixtureGroup, QString::number(fixtureGroup()));
 
     /* Properties */
-    QHashIterator<QString, QString> it(m_properties);
+    QMapIterator<QString, QString> it(m_properties);
     while (it.hasNext())
     {
         it.next();
@@ -604,7 +604,7 @@ void RGBMatrix::preRun(MasterTimer *timer)
             if (m_runAlgorithm->type() == RGBAlgorithm::Script)
             {
                 RGBScript *script = static_cast<RGBScript*> (m_runAlgorithm);
-                QHashIterator<QString, QString> it(m_properties);
+                QMapIterator<QString, QString> it(m_properties);
                 while (it.hasNext())
                 {
                     it.next();
@@ -722,7 +722,7 @@ void RGBMatrix::postRun(MasterTimer *timer, QList<Universe *> universes)
         if (tempoType() == Beats)
             fadeout = beatsToTime(fadeout, timer->beatTimeDuration());
 
-        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
         {
             if (!fader.isNull())
                 fader->setFadeOut(true, fadeout);
@@ -928,7 +928,7 @@ int RGBMatrix::adjustAttribute(qreal fraction, int attributeId)
 
     if (attrIndex == Intensity)
     {
-        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
         {
             if (!fader.isNull())
                 fader->adjustIntensity(getAttributeValue(Function::Intensity));
@@ -947,7 +947,7 @@ void RGBMatrix::setBlendMode(Universe::BlendMode mode)
     if (mode == blendMode())
         return;
 
-    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
     {
         if (!fader.isNull())
             fader->setBlendMode(mode);

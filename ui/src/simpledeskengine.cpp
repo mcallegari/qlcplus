@@ -60,14 +60,14 @@ void SimpleDeskEngine::clearContents()
     qDebug() << Q_FUNC_INFO;
 
     // Stop all cuestacks and wait for each of them to stop
-    foreach (CueStack* cs, m_cueStacks.values())
+    foreach (CueStack* cs, m_cueStacks)
     {
         cs->stop();
         while (cs->isStarted() == true) { /* NOP */ }
     }
 
     QMutexLocker locker(&m_mutex);
-    foreach (CueStack* cs, m_cueStacks.values())
+    foreach (CueStack* cs, m_cueStacks)
         delete cs;
     m_cueStacks.clear();
     m_values.clear();
@@ -122,7 +122,7 @@ void SimpleDeskEngine::resetUniverse(int universe)
 
     // remove values previously set on universe
     QMutexLocker locker(&m_mutex);
-    QHashIterator <uint,uchar> it(m_values);
+    QMapIterator <uint,uchar> it(m_values);
     while (it.hasNext() == true)
     {
         it.next();
@@ -374,7 +374,7 @@ void SimpleDeskEngine::writeDMX(MasterTimer *timer, QList<Universe *> ua)
 
     if (hasChanged())
     {
-        QHashIterator <uint,uchar> it(m_values);
+        QMapIterator <uint,uchar> it(m_values);
         while (it.hasNext() == true)
         {
             it.next();

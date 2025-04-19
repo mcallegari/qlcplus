@@ -247,12 +247,20 @@ void EFX::previewFixtures(QVector <QPolygonF>& polygons) const
 {
     polygons.resize(m_fixtures.size());
     for (int i = 0; i < m_fixtures.size(); ++i)
-        preview(polygons[i], m_fixtures[i]->m_direction, m_fixtures[i]->m_startOffset);
+    {
+        int propagationOffset =
+            (m_propagationMode == EFX::Asymmetric || m_propagationMode == EFX::Serial)
+                ? 360 / m_fixtures.size() * i
+                : 0;
+
+        preview(polygons[i], m_fixtures[i]->m_direction,
+                m_fixtures[i]->m_startOffset + propagationOffset);
+    }
 }
 
 void EFX::preview(QPolygonF &polygon, Function::Direction direction, int startOffset) const
 {
-    float stepCount = 128.0;
+    float stepCount = 512.0;
     int step = 0;
     float stepSize = 1.0 / (stepCount / (M_PI * 2.0));
 
@@ -1165,7 +1173,7 @@ int EFX::adjustAttribute(qreal fraction, int attributeId)
     {
         case Intensity:
         {
-            foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+            foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
             {
                 if (!fader.isNull())
                     fader->adjustIntensity(getAttributeValue(Function::Intensity));
@@ -1194,7 +1202,7 @@ void EFX::setBlendMode(Universe::BlendMode mode)
     if (mode == blendMode())
         return;
 
-    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
     {
         if (!fader.isNull())
             fader->setBlendMode(mode);

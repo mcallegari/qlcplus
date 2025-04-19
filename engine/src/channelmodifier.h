@@ -29,13 +29,13 @@
  */
 
 // Channel modifier document type
-#define KXMLQLCChannelModifierDocument QString("ChannelModifier")
+#define KXMLQLCChannelModifierDocument QStringLiteral("ChannelModifier")
 
 // Channel modifier tags and attributes
-#define KXMLQLCChannelModName           QString("Name")
-#define KXMLQLCChannelModHandler        QString("Handler")
-#define KXMLQLCChannelModOriginalDMX    QString("Original")
-#define KXMLQLCChannelModModifiedDMX    QString("Modified")
+#define KXMLQLCChannelModName           QStringLiteral("Name")
+#define KXMLQLCChannelModHandler        QStringLiteral("Handler")
+#define KXMLQLCChannelModOriginalDMX    QStringLiteral("Original")
+#define KXMLQLCChannelModModifiedDMX    QStringLiteral("Modified")
 
 class ChannelModifier
 {

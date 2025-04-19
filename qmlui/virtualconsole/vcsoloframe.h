@@ -22,7 +22,7 @@
 
 #include "vcframe.h"
 
-#define KXMLQLCVCSoloFrame QString("SoloFrame")
+#define KXMLQLCVCSoloFrame QStringLiteral("SoloFrame")
 
 class VCSoloFrame : public VCFrame
 {

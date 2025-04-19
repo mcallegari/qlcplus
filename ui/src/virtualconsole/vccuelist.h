@@ -47,21 +47,21 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCCueList                QString("CueList")
-#define KXMLQLCVCCueListFunction        QString("Function") // Legacy
-#define KXMLQLCVCCueListChaser          QString("Chaser")
-#define KXMLQLCVCCueListPlaybackLayout  QString("PlaybackLayout")
-#define KXMLQLCVCCueListNextPrevBehavior QString("NextPrevBehavior")
-#define KXMLQLCVCCueListCrossfade       QString("Crossfade")
-#define KXMLQLCVCCueListBlend           QString("Blend")
-#define KXMLQLCVCCueListLinked          QString("Linked")
-#define KXMLQLCVCCueListNext            QString("Next")
-#define KXMLQLCVCCueListPrevious        QString("Previous")
-#define KXMLQLCVCCueListPlayback        QString("Playback")
-#define KXMLQLCVCCueListStop            QString("Stop")
-#define KXMLQLCVCCueListCrossfadeLeft   QString("CrossLeft")
-#define KXMLQLCVCCueListCrossfadeRight  QString("CrossRight")
-#define KXMLQLCVCCueListSlidersMode     QString("SlidersMode")
+#define KXMLQLCVCCueList                QStringLiteral("CueList")
+#define KXMLQLCVCCueListFunction        QStringLiteral("Function") // Legacy
+#define KXMLQLCVCCueListChaser          QStringLiteral("Chaser")
+#define KXMLQLCVCCueListPlaybackLayout  QStringLiteral("PlaybackLayout")
+#define KXMLQLCVCCueListNextPrevBehavior QStringLiteral("NextPrevBehavior")
+#define KXMLQLCVCCueListCrossfade       QStringLiteral("Crossfade")
+#define KXMLQLCVCCueListBlend           QStringLiteral("Blend")
+#define KXMLQLCVCCueListLinked          QStringLiteral("Linked")
+#define KXMLQLCVCCueListNext            QStringLiteral("Next")
+#define KXMLQLCVCCueListPrevious        QStringLiteral("Previous")
+#define KXMLQLCVCCueListPlayback        QStringLiteral("Playback")
+#define KXMLQLCVCCueListStop            QStringLiteral("Stop")
+#define KXMLQLCVCCueListCrossfadeLeft   QStringLiteral("CrossLeft")
+#define KXMLQLCVCCueListCrossfadeRight  QStringLiteral("CrossRight")
+#define KXMLQLCVCCueListSlidersMode     QStringLiteral("SlidersMode")
 
 /**
  * VCCueList provides a \ref VirtualConsole widget to control cue lists.

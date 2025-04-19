@@ -1010,7 +1010,7 @@ void SimpleDesk::slotUniverseWritten(quint32 idx, const QByteArray& universeData
     }
     else
     {
-        foreach (FixtureConsole *fc, m_consoleList.values())
+        foreach (FixtureConsole *fc, m_consoleList)
         {
             if (fc == NULL)
                 continue;

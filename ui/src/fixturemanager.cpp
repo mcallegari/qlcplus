@@ -64,8 +64,6 @@
 #define KColumnChannels 1
 #define KColumnAddress  2
 
-#define KXMLQLCFixturesList QString("FixtureList")
-
 FixtureManager* FixtureManager::s_instance = NULL;
 
 /*****************************************************************************
