@@ -192,16 +192,11 @@ void FixtureGroup::resignFixture(quint32 id)
 
 bool FixtureGroup::resignHead(const QLCPoint& pt)
 {
-    if (m_heads.contains(pt) == true)
-    {
-        m_heads.remove(pt);
+    const int removed = m_heads.remove(pt);
+    if (removed)
         emit changed(this->id());
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+
+    return removed;
 }
 
 void FixtureGroup::swap(const QLCPoint& a, const QLCPoint& b)
@@ -246,7 +241,8 @@ QMap<QLCPoint, GroupHead> FixtureGroup::headsMap() const
 QList <quint32> FixtureGroup::fixtureList() const
 {
     QList <quint32> list;
-    foreach (GroupHead head, headList())
+
+    foreach (GroupHead head, m_heads)
     {
         if (list.contains(head.fxi) == false)
             list << head.fxi;

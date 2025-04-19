@@ -320,7 +320,6 @@ public:
 
     /** Save a mode to an XML document */
     bool saveXML(QXmlStreamWriter *doc);
-    QHash<QLCChannel *, QLCChannel *> actsOnChannelsList() const;
 };
 
 /** @} */

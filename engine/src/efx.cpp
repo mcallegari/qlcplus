@@ -1173,7 +1173,7 @@ int EFX::adjustAttribute(qreal fraction, int attributeId)
     {
         case Intensity:
         {
-            foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+            foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
             {
                 if (!fader.isNull())
                     fader->adjustIntensity(getAttributeValue(Function::Intensity));
@@ -1202,7 +1202,7 @@ void EFX::setBlendMode(Universe::BlendMode mode)
     if (mode == blendMode())
         return;
 
-    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
     {
         if (!fader.isNull())
             fader->setBlendMode(mode);

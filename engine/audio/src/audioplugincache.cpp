@@ -103,7 +103,7 @@ void AudioPluginCache::load(const QDir &dir)
 QStringList AudioPluginCache::getSupportedFormats()
 {
     QStringList caps;
-    foreach (QString path, m_pluginsMap.values())
+    foreach (QString path, m_pluginsMap)
     {
         QPluginLoader loader(path, this);
         AudioDecoder* ptr = qobject_cast<AudioDecoder*> (loader.instance());
@@ -124,7 +124,7 @@ AudioDecoder *AudioPluginCache::getDecoderForFile(const QString &filename)
     if (fn.exists() == false)
         return NULL;
 
-    foreach (QString path, m_pluginsMap.values())
+    foreach (QString path, m_pluginsMap)
     {
         QPluginLoader loader(path, this);
         AudioDecoder* ptr = qobject_cast<AudioDecoder*> (loader.instance());

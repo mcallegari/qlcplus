@@ -803,10 +803,7 @@ bool Doc::deleteFixtureGroup(quint32 id)
 
 FixtureGroup* Doc::fixtureGroup(quint32 id) const
 {
-    if (m_fixtureGroups.contains(id) == true)
-        return m_fixtureGroups[id];
-    else
-        return NULL;
+    return m_fixtureGroups.value(id, NULL);
 }
 
 QList <FixtureGroup*> Doc::fixtureGroups() const
@@ -901,10 +898,7 @@ bool Doc::moveChannelGroup(quint32 id, int direction)
 
 ChannelsGroup* Doc::channelsGroup(quint32 id) const
 {
-    if (m_channelsGroups.contains(id) == true)
-        return m_channelsGroups[id];
-    else
-        return NULL;
+    return m_channelsGroups.value(id, NULL);
 }
 
 QList <ChannelsGroup*> Doc::channelsGroups() const
@@ -980,10 +974,7 @@ bool Doc::deletePalette(quint32 id)
 
 QLCPalette *Doc::palette(quint32 id) const
 {
-    if (m_palettes.contains(id) == true)
-        return m_palettes[id];
-    else
-        return NULL;
+    return m_palettes.value(id, NULL);
 }
 
 QList<QLCPalette *> Doc::palettes() const
@@ -1107,10 +1098,7 @@ bool Doc::deleteFunction(quint32 id)
 
 Function* Doc::function(quint32 id) const
 {
-    if (m_functions.contains(id) == true)
-        return m_functions[id];
-    else
-        return NULL;
+    return m_functions.value(id, NULL);
 }
 
 quint32 Doc::nextFunctionID()

@@ -264,11 +264,10 @@ quint32 QLCFixtureMode::channelActsOn(quint32 chIndex)
 
 void QLCFixtureMode::setChannelActsOn(quint32 chIndex, quint32 actsOnIndex)
 {
-    if (m_actsOnMap.contains(chIndex))
-        m_actsOnMap.remove(chIndex);
-
     if (actsOnIndex != QLCChannel::invalid())
         m_actsOnMap[chIndex] = actsOnIndex;
+    else
+        m_actsOnMap.remove(chIndex);
 }
 
 /*****************************************************************************

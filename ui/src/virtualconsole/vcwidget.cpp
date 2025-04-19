@@ -734,7 +734,7 @@ void VCWidget::slotInputProfileChanged(quint32 universe, const QString &profileN
 
     QLCInputProfile *profile = m_doc->inputOutputMap()->profile(profileName);
 
-    foreach (QSharedPointer<QLCInputSource> const& source, m_inputs.values())
+    foreach (QSharedPointer<QLCInputSource> const& source, m_inputs)
     {
         if (!source.isNull() && source->universe() == universe)
         {

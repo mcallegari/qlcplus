@@ -97,7 +97,7 @@ void MonitorGraphicsView::setFixtureRotation(quint32 id, ushort degrees)
 
 void MonitorGraphicsView::showFixturesLabels(bool visible)
 {
-    foreach (MonitorFixtureItem *item, m_fixtures.values())
+    foreach (MonitorFixtureItem *item, m_fixtures)
         item->showLabel(visible);
 }
 
@@ -220,7 +220,7 @@ bool MonitorGraphicsView::removeFixture(quint32 id)
 
 void MonitorGraphicsView::clearFixtures()
 {
-    foreach (MonitorFixtureItem *item, m_fixtures.values())
+    foreach (MonitorFixtureItem *item, m_fixtures)
         delete item;
     m_fixtures.clear();
 }
