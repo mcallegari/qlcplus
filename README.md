@@ -13,23 +13,17 @@
 
 <p align="center">
   <a href="https://github.com/mcallegari/qlcplus/releases/latest">
-    <img src="https://img.shields.io/github/v/release/mcallegari/qlcplus" alt="Latest release version badge" />
-  </a>
+    <img src="https://img.shields.io/github/v/release/mcallegari/qlcplus" alt="Latest release version badge" /></a>
   <a href="https://github.com/mcallegari/qlcplus/releases/latest">
-    <img src="https://img.shields.io/github/release-date/mcallegari/qlcplus" alt="Release date badge" />
-  </a>
+    <img src="https://img.shields.io/github/release-date/mcallegari/qlcplus" alt="Release date badge" /></a>
   <a href="https://github.com/mcallegari/qlcplus/commits/master/">
-    <img src="https://img.shields.io/github/commits-since/mcallegari/qlcplus/latest/master" alt="Commits since latest release badge" />
-  </a>
+    <img src="https://img.shields.io/github/commits-since/mcallegari/qlcplus/latest/master" alt="Commits since latest release badge" /></a>
   <a href="https://github.com/mcallegari/qlcplus/commits/master/">
-    <img src="https://img.shields.io/github/commit-activity/w/mcallegari/qlcplus" alt="Weekly commit activity badge" />
-  </a>
+    <img src="https://img.shields.io/github/commit-activity/w/mcallegari/qlcplus" alt="Weekly commit activity badge" /></a>
   <a href="https://github.com/mcallegari/qlcplus/actions">
-    <img src="https://github.com/mcallegari/qlcplus/actions/workflows/build.yml/badge.svg" alt="Build status badge" />
-  </a>
+    <img src="https://github.com/mcallegari/qlcplus/actions/workflows/build.yml/badge.svg" alt="Build status badge" /></a>
   <a href="https://coveralls.io/github/mcallegari/qlcplus?branch=master">
-    <img src="https://coveralls.io/repos/github/mcallegari/qlcplus/badge.svg?branch=master" alt="Test coverage badge" />
-  </a>
+    <img src="https://coveralls.io/repos/github/mcallegari/qlcplus/badge.svg?branch=master" alt="Test coverage badge" /></a>
 </p>
 
 ---
