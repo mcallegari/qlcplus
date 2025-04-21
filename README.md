@@ -14,6 +14,8 @@
 <p align="center">
   <a href="https://github.com/mcallegari/qlcplus/releases/latest">
     <img src="https://img.shields.io/github/v/release/mcallegari/qlcplus" alt="Latest release version badge" />
+  </a>
+  <a href="https://github.com/mcallegari/qlcplus/releases/latest">
     <img src="https://img.shields.io/github/release-date/mcallegari/qlcplus" alt="Release date badge" />
   </a>
   <a href="https://github.com/mcallegari/qlcplus/commits/master/">
