@@ -39,28 +39,28 @@ class QLabel;
  * @{
  */
 
-#define KXMLQLCVCSpeedDial                  QString("SpeedDial")
-#define KXMLQLCVCSpeedDialSpeedTypes        QString("SpeedTypes")
-#define KXMLQLCVCSpeedDialAbsoluteValue     QString("AbsoluteValue")
-#define KXMLQLCVCSpeedDialAbsoluteValueMin  QString("Minimum")
-#define KXMLQLCVCSpeedDialAbsoluteValueMax  QString("Maximum")
-#define KXMLQLCVCSpeedDialTap               QString("Tap")
-#define KXMLQLCVCSpeedDialMult              QString("Mult")
-#define KXMLQLCVCSpeedDialDiv               QString("Div")
-#define KXMLQLCVCSpeedDialMultDivReset      QString("MultDivReset")
-#define KXMLQLCVCSpeedDialApply             QString("Apply")
-#define KXMLQLCVCSpeedDialTapKey            QString("Key")
-#define KXMLQLCVCSpeedDialMultKey           QString("MultKey")
-#define KXMLQLCVCSpeedDialDivKey            QString("DivKey")
-#define KXMLQLCVCSpeedDialMultDivResetKey   QString("MultDivResetKey")
-#define KXMLQLCVCSpeedDialApplyKey          QString("ApplyKey")
-#define KXMLQLCVCSpeedDialResetFactorOnDialChange QString("ResetFactorOnDialChange")
-#define KXMLQLCVCSpeedDialVisibilityMask    QString("Visibility")
-#define KXMLQLCVCSpeedDialTime              QString("Time")
+#define KXMLQLCVCSpeedDial                  QStringLiteral("SpeedDial")
+#define KXMLQLCVCSpeedDialSpeedTypes        QStringLiteral("SpeedTypes")
+#define KXMLQLCVCSpeedDialAbsoluteValue     QStringLiteral("AbsoluteValue")
+#define KXMLQLCVCSpeedDialAbsoluteValueMin  QStringLiteral("Minimum")
+#define KXMLQLCVCSpeedDialAbsoluteValueMax  QStringLiteral("Maximum")
+#define KXMLQLCVCSpeedDialTap               QStringLiteral("Tap")
+#define KXMLQLCVCSpeedDialMult              QStringLiteral("Mult")
+#define KXMLQLCVCSpeedDialDiv               QStringLiteral("Div")
+#define KXMLQLCVCSpeedDialMultDivReset      QStringLiteral("MultDivReset")
+#define KXMLQLCVCSpeedDialApply             QStringLiteral("Apply")
+#define KXMLQLCVCSpeedDialTapKey            QStringLiteral("Key")
+#define KXMLQLCVCSpeedDialMultKey           QStringLiteral("MultKey")
+#define KXMLQLCVCSpeedDialDivKey            QStringLiteral("DivKey")
+#define KXMLQLCVCSpeedDialMultDivResetKey   QStringLiteral("MultDivResetKey")
+#define KXMLQLCVCSpeedDialApplyKey          QStringLiteral("ApplyKey")
+#define KXMLQLCVCSpeedDialResetFactorOnDialChange QStringLiteral("ResetFactorOnDialChange")
+#define KXMLQLCVCSpeedDialVisibilityMask    QStringLiteral("Visibility")
+#define KXMLQLCVCSpeedDialTime              QStringLiteral("Time")
 
 // Legacy: infinite checkbox
-#define KXMLQLCVCSpeedDialInfinite      QString("Infinite")
-#define KXMLQLCVCSpeedDialInfiniteKey   QString("InfiniteKey")
+#define KXMLQLCVCSpeedDialInfinite      QStringLiteral("Infinite")
+#define KXMLQLCVCSpeedDialInfiniteKey   QStringLiteral("InfiniteKey")
 
 class VCSpeedDial : public VCWidget
 {

@@ -26,7 +26,6 @@
 #include <QList>
 #include <QSize>
 #include <QPair>
-#include <QHash>
 #include <QMap>
 #include <QMutex>
 
@@ -177,6 +176,11 @@ public:
     void previewMap(int step, RGBMatrixStep *handler);
 
 private:
+    int algorithmStepsCount();
+
+private:
+    bool m_requestEngineCreation;
+    RGBAlgorithm *m_runAlgorithm;
     RGBAlgorithm *m_algorithm;
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     QMutex m_algorithmMutex;
@@ -195,7 +199,7 @@ public:
     void updateColorDelta();
 
     /** Set the colors of the current algorithm */
-    void setMapColors();
+    void setMapColors(RGBAlgorithm *algorithm);
 
 private:
     QVector<QColor> m_rgbColors;
@@ -213,7 +217,7 @@ public:
 
 private:
     /** A map of the custom properties for this matrix */
-    QHash<QString, QString>m_properties;
+    QMap<QString, QString>m_properties;
 
     /************************************************************************
      * Load & Save
@@ -244,6 +248,9 @@ public:
 private:
     /** Check what should be done when elapsed() >= duration() */
     void roundCheck();
+
+    /** Check if the engine needs to be re-created */
+    void checkEngineCreation();
 
     FadeChannel *getFader(Universe *universe, quint32 fixtureID, quint32 channel);
     void updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime);

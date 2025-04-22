@@ -5,7 +5,7 @@ on: ["push", "pull_request"]
 jobs:
   build-linux:
     #if: false
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     name: QLCplus Linux ${{matrix.task}}
     strategy:
       #fail-fast: false
@@ -31,7 +31,8 @@ jobs:
         libgl1-mesa-dev
         libxml2-utils
         xvfb
-        ccache
+        chrpath
+        libfuse2
         wget
       PACKAGES_QML_BASE:
         libpulse-dev
@@ -101,13 +102,13 @@ jobs:
           echo "NPROC: ${NPROC}"
 
       - name: Download, cache and install packages
-        uses: awalsh128/cache-apt-pkgs-action@latest
+        uses: awalsh128/cache-apt-pkgs-action@v1.4.3
         with:
           packages: ${{env.PACKAGES_ALL}}
           version: ${{runner.os}}-apt
 
       - name: Install Qt through aqt (and python)
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
           cache: true
@@ -118,13 +119,7 @@ jobs:
         run: pip install lxml
 
       - name: Setup ccache
-        uses: Chocobo1/setup-ccache-action@v1
-        with:
-          update_packager_index: false
-          install_ccache: false
-          ccache_options: |
-            max_size=5G
-            compression=false
+        uses: hendrikmuhs/ccache-action@v1.2
 
       - name: Setup ruby cache
         uses: ruby/setup-ruby@v1
@@ -147,17 +142,17 @@ jobs:
           echo "WHOAMI:"
           whoami
 
-      - name: Configure for QT5 build
+      - name: Configure for Qt5 build
         if: ${{ matrix.task == 'compile-qt5' }}
         run: |
-          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dappimage=ON -DINSTALL_ROOT=${INSTALL_ROOT}
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dappimage=ON -DINSTALL_ROOT=${INSTALL_ROOT} -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
       - name: Configure for QT5QML build
         if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
-          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dqmlui=ON -Dappimage=ON -DINSTALL_ROOT=${INSTALL_ROOT}
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dqmlui=ON -Dappimage=ON -DINSTALL_ROOT=${INSTALL_ROOT} -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
-      - name: Configure for QT5 coverage build
+      - name: Configure for Qt5 coverage build
         if: ${{ matrix.task == 'coverage-qt5' }}
         run: |
           $QMAKE QMAKE_CXX="$CXX" QMAKE_CC="$CC" QMAKE_LINK="$CXX" QMAKE_LINK_SHLIB="$CXX" CONFIG+=coverage
@@ -243,7 +238,7 @@ jobs:
           wget -c https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O ./appimagetool-x86_64.AppImage
           chmod a+x ./appimagetool-x86_64.AppImage
           ./appimagetool-x86_64.AppImage -v ${INSTALL_ROOT}
-          mv -v Q_Light_Controller_Plus-x86_64.AppImage qlcplus-${{env.TASK}}-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.AppImage
+          mv -v Q_Light_Controller_Plus_-_QLC+-x86_64.AppImage qlcplus-${{env.TASK}}-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.AppImage
 
       - name: Test Load AppImage
         if: ${{ matrix.task == 'compile-qt5qml' }}
@@ -277,6 +272,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: false
+
+      - name: Setup ccache
+        uses: hendrikmuhs/ccache-action@v1.2
 
       - name: Set ENV variables
         shell: bash
@@ -456,13 +454,13 @@ jobs:
         shell: msys2 {0}
         if: ${{ matrix.task == 'compile-qt5' || matrix.task == 'compile-qt5-32bit' }}
         run: |
-          cmake -S . -B build -G "Unix Makefiles"
+          cmake -S . -B build -G "Unix Makefiles" -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
       - name: Configure v5 build for Windows
         shell: msys2 {0}
         if: ${{ matrix.task == 'compile-qt5qml' }}
         run: |
-          cmake -S . -B build -G "Unix Makefiles" -Dqmlui=ON
+          cmake -S . -B build -G "Unix Makefiles" -Dqmlui=ON -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
       - name: Build for Windows
         shell: msys2 {0}
@@ -541,16 +539,19 @@ jobs:
           brew link --overwrite python@3.12
     
       - name: Install Qt
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
           dir: "${{ github.workspace }}/qt/"
           modules: ${{ env.QT_MODULES }}
 
+      - name: Setup ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+
       - name: Configure build
         shell: bash
         run: |-
-          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake"
+          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13 -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
       - name: Build
         shell: bash
@@ -564,37 +565,36 @@ jobs:
           cd build
           make install/fast
 
-      - name: Fix non-Qt dependencies
+      - name: Fix dylib dependencies
         shell: bash
         run: |-
           platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/Frameworks/libsndfile.1.dylib
-
-      - name: Run macosdeploy
-        shell: bash
-        run: |-
+          platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/MacOS/qlcplus
+          platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/MacOS/qlcplus-fixtureeditor
           ${{ env.QTDIR }}/bin/macdeployqt ~/QLC+.app
-  
-      - name: Fix more deps
-        shell: bash
-        run: |-
-          install_name_tool -change /usr/local/opt/fftw/lib/libfftw3.3.dylib @executable_path/../Frameworks/libfftw3.3.dylib ~/QLC+.app/Contents/MacOS/qlcplus
-          install_name_tool -change /usr/local/opt/fftw/lib/libfftw3.3.dylib @executable_path/../Frameworks/libfftw3.3.dylib ~/QLC+.app/Contents/MacOS/qlcplus-fixtureeditor 
 
-      - name: create DMG
-        shell: bash
-        run: |-
-          OUTDIR=$PWD
-          cd platforms/macos/dmg
-          ./create-dmg --volname "Q Light Controller Plus ${{env.APPVERSION}}" \
-          --volicon $OUTDIR/resources/icons/qlcplus.icns \
-          --background background.png \
-          --window-size 400 300 \
-          --window-pos 200 100 \
-          --icon-size 64 \
-          --icon "QLC+" 0 150 \
-          --app-drop-link 200 150 \
-          $OUTDIR/QLC+_${{ matrix.task }}.dmg \
-          ~/QLC+.app
+      - name: Create DMG
+        # Use retry loop to work around a race condition on macOS causing
+        # 'Resource busy' errors with 'hdiutil'. See
+        # https://github.com/actions/runner-images/issues/7522
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 30
+          max_attempts: 12
+          retry_wait_seconds: 1
+          command: |
+            OUTDIR=$PWD
+            cd platforms/macos/dmg
+            ./create-dmg --volname "Q Light Controller Plus ${{env.APPVERSION}}" \
+            --volicon $OUTDIR/resources/icons/qlcplus.icns \
+            --background background.png \
+            --window-size 400 300 \
+            --window-pos 200 100 \
+            --icon-size 64 \
+            --icon "QLC+" 0 150 \
+            --app-drop-link 200 150 \
+            $OUTDIR/QLC+_${{ matrix.task }}.dmg \
+            ~/QLC+.app
 
       - name: Store DMG artifact
         uses: actions/upload-artifact@v4

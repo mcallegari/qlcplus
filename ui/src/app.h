@@ -47,7 +47,7 @@ class App;
  * @{
  */
 
-#define KXMLQLCWorkspace QString("Workspace")
+#define KXMLQLCWorkspace QStringLiteral("Workspace")
 
 class DetachedContext : public QMainWindow
 {

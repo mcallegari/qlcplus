@@ -187,18 +187,17 @@ QList<WebAccessUser> WebAccessAuth::getUsers() const
 
 void WebAccessAuth::sendUnauthorizedResponse(QHttpResponse* res) const
 {
-    //TODO: Allow for localization of this
     const static QByteArray text = QString(
-        "<html>"
-            "<head>"
-                "<meta charset=\"utf-8\">"
-                "<title>Unauthorized</title>"
-            "</head>"
-            "<body>"
-                "<h1>401 Unauthorized</h1>"
-                "<p>Access to this resource requires proper authorization"
-                " and you have failed to authenticate.</p>"
-            "</body>"
+        "<!DOCTYPE html>\n"
+        "<html>\n"
+        "    <head>\n"
+        "        <meta charset=\"utf-8\">\n"
+        "        <title>" + QObject::tr("Unauthorized") + "</title>\n"
+        "    </head>\n"
+        "    <body>\n"
+        "        <h1>" + QObject::tr("401 Unauthorized") + "</h1>\n"
+        "        <p>" + QObject::tr("Access to this resource requires proper authorization and you have failed to authenticate.") + "</p>\n"
+        "    </body>\n"
         "</html>"
     ).toUtf8();
 

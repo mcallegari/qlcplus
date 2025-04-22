@@ -55,6 +55,7 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     m_ovrResetSelWidget = NULL;
 
     setupUi(this);
+    m_levelList->sortByColumn(0, Qt::AscendingOrder);
 
     QAction* action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));

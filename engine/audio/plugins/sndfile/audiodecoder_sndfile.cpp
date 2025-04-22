@@ -145,6 +145,8 @@ QStringList AudioDecoderSndFile::supportedFormats()
             caps << "*.oga" << "*.ogg";
         else if (ext == "wav" && !caps.contains("*.wav"))
             caps << "*.wav";
+        else if (ext == "mp3" && !caps.contains("*.mp3"))
+            caps << "*.mp3";
     }
 
     return caps;

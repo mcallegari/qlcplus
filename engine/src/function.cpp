@@ -1410,7 +1410,7 @@ void Function::calculateOverrideValue(int attributeIndex)
     if (origAttr.m_flags & Multiply)
         finalValue = origAttr.m_value;
 
-    foreach (AttributeOverride attr, m_overrideMap.values())
+    foreach (AttributeOverride attr, m_overrideMap)
     {
         if (attr.m_attrIndex != attributeIndex)
             continue;

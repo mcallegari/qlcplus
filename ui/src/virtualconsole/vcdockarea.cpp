@@ -42,6 +42,15 @@ VCDockArea::~VCDockArea()
 {
 }
 
+void VCDockArea::setGrandMasterVisible(bool visible)
+{
+    Q_ASSERT(m_gm != NULL);
+    if (visible)
+        m_gm->show();
+    else
+        m_gm->hide();
+}
+
 void VCDockArea::setGrandMasterInvertedAppearance(GrandMaster::SliderMode mode)
 {
     Q_ASSERT(m_gm != NULL);

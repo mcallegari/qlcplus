@@ -60,10 +60,11 @@ RGBScript::RGBScript(const RGBScript& s)
     , m_contents(s.m_contents)
     , m_apiVersion(0)
 {
-    evaluate();
-    foreach (RGBScriptProperty cap, s.m_properties)
+    if (!m_fileName.isEmpty())
     {
-        setProperty(cap.m_name, s.property(cap.m_name));
+        evaluate();
+        foreach (RGBScriptProperty cap, s.m_properties)
+            setProperty(cap.m_name, s.property(cap.m_name));
     }
 }
 
@@ -106,7 +107,7 @@ RGBAlgorithm* RGBScript::clone() const
  * Load & Evaluation
  ****************************************************************************/
 
-bool RGBScript::load(const QDir& dir, const QString& fileName)
+bool RGBScript::load(const QString& fileName)
 {
     // Create the script engine when it's first needed
     initEngine();
@@ -121,10 +122,10 @@ bool RGBScript::load(const QDir& dir, const QString& fileName)
     m_apiVersion = 0;
 
     m_fileName = fileName;
-    QFile file(dir.absoluteFilePath(m_fileName));
+    QFile file(m_fileName);
     if (file.open(QIODevice::ReadOnly) == false)
     {
-        qWarning() << "Unable to load RGB script" << m_fileName << "from" << dir.absolutePath();
+        qWarning() << "Unable to load RGB script" << m_fileName;
         return false;
     }
 

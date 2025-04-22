@@ -46,14 +46,24 @@ void EFXItem::calculateWidth()
 {
     int newWidth = 0;
     qint64 efxDuration = getDuration();
+    float timeUnit = 50.0 / float(getTimeScale());
 
-    if (efxDuration != 0)
-        newWidth = ((50.0 / float(getTimeScale())) * float(efxDuration)) / 1000.0;
-    else
+    if (efxDuration == 0)
+    {
         newWidth = 100;
+    }
+    else if (efxDuration == Function::infiniteSpeed())
+    {
+        newWidth = timeUnit * 10000;
+    }
+    else
+    {
+        newWidth = (timeUnit * float(efxDuration)) / 1000.0;
+    }
 
-    if (newWidth < (50 / m_timeScale))
-        newWidth = 50 / m_timeScale;
+    if (newWidth < timeUnit)
+        newWidth = timeUnit;
+
     setWidth(newWidth);
 }
 
@@ -63,14 +73,19 @@ void EFXItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     Q_UNUSED(widget);
 
     float xpos = 0;
-    float timeScale = 50 / float(m_timeScale);
+    float timeUnit = 50.0 / float(getTimeScale());
 
     ShowItem::paint(painter, option, widget);
 
-    int loopCount = m_function->duration() ? qFloor(m_function->duration() / m_efx->duration()) : 0;
+    int loopCount = 0;
+    if (getDuration() == Function::infiniteSpeed())
+        loopCount = 10000 / m_efx->duration();
+    else if (getDuration() > 0)
+        loopCount = qFloor(getDuration() / m_efx->duration());
+
     for (int i = 0; i < loopCount; i++)
     {
-        xpos += ((timeScale * float(m_efx->duration())) / 1000);
+        xpos += ((timeUnit * float(m_efx->duration())) / 1000);
         // draw loop vertical delimiter
         painter->setPen(QPen(Qt::white, 1));
         painter->drawLine(int(xpos), 1, int(xpos), TRACK_HEIGHT - 5);

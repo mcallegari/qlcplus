@@ -1,0 +1,1037 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.0 GIT</Version>
+  <Author>Martin Winkler</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED PIX-12 HCL Bar</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="White 1" Preset="IntensityWhite"/>
+ <Channel Name="Amber 1" Preset="IntensityAmber"/>
+ <Channel Name="UV 1" Preset="IntensityUV"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="White 2" Preset="IntensityWhite"/>
+ <Channel Name="Amber 2" Preset="IntensityAmber"/>
+ <Channel Name="UV 2" Preset="IntensityUV"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="White 3" Preset="IntensityWhite"/>
+ <Channel Name="Amber 3" Preset="IntensityAmber"/>
+ <Channel Name="UV 3" Preset="IntensityUV"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="White 4" Preset="IntensityWhite"/>
+ <Channel Name="Amber 4" Preset="IntensityAmber"/>
+ <Channel Name="UV 4" Preset="IntensityUV"/>
+ <Channel Name="Red 5" Preset="IntensityRed"/>
+ <Channel Name="Green 5" Preset="IntensityGreen"/>
+ <Channel Name="Blue 5" Preset="IntensityBlue"/>
+ <Channel Name="White 5" Preset="IntensityWhite"/>
+ <Channel Name="Amber 5" Preset="IntensityAmber"/>
+ <Channel Name="UV 5" Preset="IntensityUV"/>
+ <Channel Name="Red 6" Preset="IntensityRed"/>
+ <Channel Name="Green 6" Preset="IntensityGreen"/>
+ <Channel Name="Blue 6" Preset="IntensityBlue"/>
+ <Channel Name="White 6" Preset="IntensityWhite"/>
+ <Channel Name="Amber 6" Preset="IntensityAmber"/>
+ <Channel Name="UV 6" Preset="IntensityUV"/>
+ <Channel Name="Red 7" Preset="IntensityRed"/>
+ <Channel Name="Green 7" Preset="IntensityGreen"/>
+ <Channel Name="Blue 7" Preset="IntensityBlue"/>
+ <Channel Name="White 7" Preset="IntensityWhite"/>
+ <Channel Name="Amber 7" Preset="IntensityAmber"/>
+ <Channel Name="UV 7" Preset="IntensityUV"/>
+ <Channel Name="Red 8" Preset="IntensityRed"/>
+ <Channel Name="Green 8" Preset="IntensityGreen"/>
+ <Channel Name="Blue 8" Preset="IntensityBlue"/>
+ <Channel Name="White 8" Preset="IntensityWhite"/>
+ <Channel Name="Amber 8" Preset="IntensityAmber"/>
+ <Channel Name="UV 8" Preset="IntensityUV"/>
+ <Channel Name="Red 9" Preset="IntensityRed"/>
+ <Channel Name="Green 9" Preset="IntensityGreen"/>
+ <Channel Name="Blue 9" Preset="IntensityBlue"/>
+ <Channel Name="White 9" Preset="IntensityWhite"/>
+ <Channel Name="Amber 9" Preset="IntensityAmber"/>
+ <Channel Name="UV 9" Preset="IntensityUV"/>
+ <Channel Name="Red 10" Preset="IntensityRed"/>
+ <Channel Name="Green 10" Preset="IntensityGreen"/>
+ <Channel Name="Blue 10" Preset="IntensityBlue"/>
+ <Channel Name="White 10" Preset="IntensityWhite"/>
+ <Channel Name="Amber 10" Preset="IntensityAmber"/>
+ <Channel Name="UV 10" Preset="IntensityUV"/>
+ <Channel Name="Red 11" Preset="IntensityRed"/>
+ <Channel Name="Green 11" Preset="IntensityGreen"/>
+ <Channel Name="Blue 11" Preset="IntensityBlue"/>
+ <Channel Name="White 11" Preset="IntensityWhite"/>
+ <Channel Name="Amber 11" Preset="IntensityAmber"/>
+ <Channel Name="UV 11" Preset="IntensityUV"/>
+ <Channel Name="Red 12" Preset="IntensityRed"/>
+ <Channel Name="Green 12" Preset="IntensityGreen"/>
+ <Channel Name="Blue 12" Preset="IntensityBlue"/>
+ <Channel Name="White 12" Preset="IntensityWhite"/>
+ <Channel Name="Amber 12" Preset="IntensityAmber"/>
+ <Channel Name="UV 12" Preset="IntensityUV"/>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Color presets">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#aa00ff">UV</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffaa00">Red+Amber</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#aa00ff">Red+UV</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="140" Max="149" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffaa00">Green+Amber</Capability>
+  <Capability Min="150" Max="159" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#aa00ff">Green+UV</Capability>
+  <Capability Min="160" Max="169">Red+Green+Blue</Capability>
+  <Capability Min="170" Max="179">Green+Blue+White</Capability>
+  <Capability Min="180" Max="189">Blue+White+Amber</Capability>
+  <Capability Min="190" Max="199">White+Amber+UV</Capability>
+  <Capability Min="200" Max="209">Amber+UV+Red</Capability>
+  <Capability Min="210" Max="219">Red+Blue+White+UV</Capability>
+  <Capability Min="220" Max="229">Red+Green+White+UV</Capability>
+  <Capability Min="230" Max="239">Red+Green+White+Amber</Capability>
+  <Capability Min="240" Max="249">Green+Blue+Amber+UV</Capability>
+  <Capability Min="250" Max="255">Red+Green+Blue+White+Amber+UV</Capability>
+ </Channel>
+ <Channel Name="Color presets Pixel 1">
+  <Group Byte="1">Colour</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#aa00ff">UV</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffaa00">Red+Amber</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#aa00ff">Red+UV</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="140" Max="149" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffaa00">Green+Amber</Capability>
+  <Capability Min="150" Max="159" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#aa00ff">Green+UV</Capability>
+  <Capability Min="160" Max="169">Red+Green+Blue</Capability>
+  <Capability Min="170" Max="179">Green+Blue+White</Capability>
+  <Capability Min="180" Max="189">Blue+White+Amber</Capability>
+  <Capability Min="190" Max="199">White+Amber+UV</Capability>
+  <Capability Min="200" Max="209">Amber+UV+Red</Capability>
+  <Capability Min="210" Max="219">Red+Blue+White+UV</Capability>
+  <Capability Min="220" Max="229">Red+Green+White+UV</Capability>
+  <Capability Min="230" Max="239">Red+Green+White+Amber</Capability>
+  <Capability Min="240" Max="249">Green+Blue+Amber+UV</Capability>
+  <Capability Min="250" Max="255">Red+Green+Blue+White+Amber+UV</Capability>
+ </Channel>
+ <Channel Name="Color presets Pixel 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#aa00ff">UV</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffaa00">Red+Amber</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#aa00ff">Red+UV</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="140" Max="149" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffaa00">Green+Amber</Capability>
+  <Capability Min="150" Max="159" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#aa00ff">Green+UV</Capability>
+  <Capability Min="160" Max="169">Red+Green+Blue</Capability>
+  <Capability Min="170" Max="179">Green+Blue+White</Capability>
+  <Capability Min="180" Max="189">Blue+White+Amber</Capability>
+  <Capability Min="190" Max="199">White+Amber+UV</Capability>
+  <Capability Min="200" Max="209">Amber+UV+Red</Capability>
+  <Capability Min="210" Max="219">Red+Blue+White+UV</Capability>
+  <Capability Min="220" Max="229">Red+Green+White+UV</Capability>
+  <Capability Min="230" Max="239">Red+Green+White+Amber</Capability>
+  <Capability Min="240" Max="249">Green+Blue+Amber+UV</Capability>
+  <Capability Min="250" Max="255">Red+Green+Blue+White+Amber+UV</Capability>
+ </Channel>
+ <Channel Name="Color presets Pixel 3">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#aa00ff">UV</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffaa00">Red+Amber</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#aa00ff">Red+UV</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="140" Max="149" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffaa00">Green+Amber</Capability>
+  <Capability Min="150" Max="159" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#aa00ff">Green+UV</Capability>
+  <Capability Min="160" Max="169">Red+Green+Blue</Capability>
+  <Capability Min="170" Max="179">Green+Blue+White</Capability>
+  <Capability Min="180" Max="189">Blue+White+Amber</Capability>
+  <Capability Min="190" Max="199">White+Amber+UV</Capability>
+  <Capability Min="200" Max="209">Amber+UV+Red</Capability>
+  <Capability Min="210" Max="219">Red+Blue+White+UV</Capability>
+  <Capability Min="220" Max="229">Red+Green+White+UV</Capability>
+  <Capability Min="230" Max="239">Red+Green+White+Amber</Capability>
+  <Capability Min="240" Max="249">Green+Blue+Amber+UV</Capability>
+  <Capability Min="250" Max="255">Red+Green+Blue+White+Amber+UV</Capability>
+ </Channel>
+ <Channel Name="Color presets Pixel 4">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#aa00ff">UV</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffaa00">Red+Amber</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#aa00ff">Red+UV</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="140" Max="149" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffaa00">Green+Amber</Capability>
+  <Capability Min="150" Max="159" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#aa00ff">Green+UV</Capability>
+  <Capability Min="160" Max="169">Red+Green+Blue</Capability>
+  <Capability Min="170" Max="179">Green+Blue+White</Capability>
+  <Capability Min="180" Max="189">Blue+White+Amber</Capability>
+  <Capability Min="190" Max="199">White+Amber+UV</Capability>
+  <Capability Min="200" Max="209">Amber+UV+Red</Capability>
+  <Capability Min="210" Max="219">Red+Blue+White+UV</Capability>
+  <Capability Min="220" Max="229">Red+Green+White+UV</Capability>
+  <Capability Min="230" Max="239">Red+Green+White+Amber</Capability>
+  <Capability Min="240" Max="249">Green+Blue+Amber+UV</Capability>
+  <Capability Min="250" Max="255">Red+Green+Blue+White+Amber+UV</Capability>
+ </Channel>
+ <Channel Name="Color presets Pixel 5">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#aa00ff">UV</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffaa00">Red+Amber</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#aa00ff">Red+UV</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="140" Max="149" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffaa00">Green+Amber</Capability>
+  <Capability Min="150" Max="159" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#aa00ff">Green+UV</Capability>
+  <Capability Min="160" Max="169">Red+Green+Blue</Capability>
+  <Capability Min="170" Max="179">Green+Blue+White</Capability>
+  <Capability Min="180" Max="189">Blue+White+Amber</Capability>
+  <Capability Min="190" Max="199">White+Amber+UV</Capability>
+  <Capability Min="200" Max="209">Amber+UV+Red</Capability>
+  <Capability Min="210" Max="219">Red+Blue+White+UV</Capability>
+  <Capability Min="220" Max="229">Red+Green+White+UV</Capability>
+  <Capability Min="230" Max="239">Red+Green+White+Amber</Capability>
+  <Capability Min="240" Max="249">Green+Blue+Amber+UV</Capability>
+  <Capability Min="250" Max="255">Red+Green+Blue+White+Amber+UV</Capability>
+ </Channel>
+ <Channel Name="Color presets Pixel 6">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#aa00ff">UV</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffaa00">Red+Amber</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#aa00ff">Red+UV</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="140" Max="149" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffaa00">Green+Amber</Capability>
+  <Capability Min="150" Max="159" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#aa00ff">Green+UV</Capability>
+  <Capability Min="160" Max="169">Red+Green+Blue</Capability>
+  <Capability Min="170" Max="179">Green+Blue+White</Capability>
+  <Capability Min="180" Max="189">Blue+White+Amber</Capability>
+  <Capability Min="190" Max="199">White+Amber+UV</Capability>
+  <Capability Min="200" Max="209">Amber+UV+Red</Capability>
+  <Capability Min="210" Max="219">Red+Blue+White+UV</Capability>
+  <Capability Min="220" Max="229">Red+Green+White+UV</Capability>
+  <Capability Min="230" Max="239">Red+Green+White+Amber</Capability>
+  <Capability Min="240" Max="249">Green+Blue+Amber+UV</Capability>
+  <Capability Min="250" Max="255">Red+Green+Blue+White+Amber+UV</Capability>
+ </Channel>
+ <Channel Name="Color presets Pixel 7">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#aa00ff">UV</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffaa00">Red+Amber</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#aa00ff">Red+UV</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="140" Max="149" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffaa00">Green+Amber</Capability>
+  <Capability Min="150" Max="159" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#aa00ff">Green+UV</Capability>
+  <Capability Min="160" Max="169">Red+Green+Blue</Capability>
+  <Capability Min="170" Max="179">Green+Blue+White</Capability>
+  <Capability Min="180" Max="189">Blue+White+Amber</Capability>
+  <Capability Min="190" Max="199">White+Amber+UV</Capability>
+  <Capability Min="200" Max="209">Amber+UV+Red</Capability>
+  <Capability Min="210" Max="219">Red+Blue+White+UV</Capability>
+  <Capability Min="220" Max="229">Red+Green+White+UV</Capability>
+  <Capability Min="230" Max="239">Red+Green+White+Amber</Capability>
+  <Capability Min="240" Max="249">Green+Blue+Amber+UV</Capability>
+  <Capability Min="250" Max="255">Red+Green+Blue+White+Amber+UV</Capability>
+ </Channel>
+ <Channel Name="Color presets Pixel 8">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#aa00ff">UV</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffaa00">Red+Amber</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#aa00ff">Red+UV</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="140" Max="149" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffaa00">Green+Amber</Capability>
+  <Capability Min="150" Max="159" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#aa00ff">Green+UV</Capability>
+  <Capability Min="160" Max="169">Red+Green+Blue</Capability>
+  <Capability Min="170" Max="179">Green+Blue+White</Capability>
+  <Capability Min="180" Max="189">Blue+White+Amber</Capability>
+  <Capability Min="190" Max="199">White+Amber+UV</Capability>
+  <Capability Min="200" Max="209">Amber+UV+Red</Capability>
+  <Capability Min="210" Max="219">Red+Blue+White+UV</Capability>
+  <Capability Min="220" Max="229">Red+Green+White+UV</Capability>
+  <Capability Min="230" Max="239">Red+Green+White+Amber</Capability>
+  <Capability Min="240" Max="249">Green+Blue+Amber+UV</Capability>
+  <Capability Min="250" Max="255">Red+Green+Blue+White+Amber+UV</Capability>
+ </Channel>
+ <Channel Name="Color presets Pixel 9">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#aa00ff">UV</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffaa00">Red+Amber</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#aa00ff">Red+UV</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="140" Max="149" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffaa00">Green+Amber</Capability>
+  <Capability Min="150" Max="159" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#aa00ff">Green+UV</Capability>
+  <Capability Min="160" Max="169">Red+Green+Blue</Capability>
+  <Capability Min="170" Max="179">Green+Blue+White</Capability>
+  <Capability Min="180" Max="189">Blue+White+Amber</Capability>
+  <Capability Min="190" Max="199">White+Amber+UV</Capability>
+  <Capability Min="200" Max="209">Amber+UV+Red</Capability>
+  <Capability Min="210" Max="219">Red+Blue+White+UV</Capability>
+  <Capability Min="220" Max="229">Red+Green+White+UV</Capability>
+  <Capability Min="230" Max="239">Red+Green+White+Amber</Capability>
+  <Capability Min="240" Max="249">Green+Blue+Amber+UV</Capability>
+  <Capability Min="250" Max="255">Red+Green+Blue+White+Amber+UV</Capability>
+ </Channel>
+ <Channel Name="Color presets Pixel 10">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#aa00ff">UV</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffaa00">Red+Amber</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#aa00ff">Red+UV</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="140" Max="149" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffaa00">Green+Amber</Capability>
+  <Capability Min="150" Max="159" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#aa00ff">Green+UV</Capability>
+  <Capability Min="160" Max="169">Red+Green+Blue</Capability>
+  <Capability Min="170" Max="179">Green+Blue+White</Capability>
+  <Capability Min="180" Max="189">Blue+White+Amber</Capability>
+  <Capability Min="190" Max="199">White+Amber+UV</Capability>
+  <Capability Min="200" Max="209">Amber+UV+Red</Capability>
+  <Capability Min="210" Max="219">Red+Blue+White+UV</Capability>
+  <Capability Min="220" Max="229">Red+Green+White+UV</Capability>
+  <Capability Min="230" Max="239">Red+Green+White+Amber</Capability>
+  <Capability Min="240" Max="249">Green+Blue+Amber+UV</Capability>
+  <Capability Min="250" Max="255">Red+Green+Blue+White+Amber+UV</Capability>
+ </Channel>
+ <Channel Name="Color presets Pixel 11">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#aa00ff">UV</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffaa00">Red+Amber</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#aa00ff">Red+UV</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="140" Max="149" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffaa00">Green+Amber</Capability>
+  <Capability Min="150" Max="159" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#aa00ff">Green+UV</Capability>
+  <Capability Min="160" Max="169">Red+Green+Blue</Capability>
+  <Capability Min="170" Max="179">Green+Blue+White</Capability>
+  <Capability Min="180" Max="189">Blue+White+Amber</Capability>
+  <Capability Min="190" Max="199">White+Amber+UV</Capability>
+  <Capability Min="200" Max="209">Amber+UV+Red</Capability>
+  <Capability Min="210" Max="219">Red+Blue+White+UV</Capability>
+  <Capability Min="220" Max="229">Red+Green+White+UV</Capability>
+  <Capability Min="230" Max="239">Red+Green+White+Amber</Capability>
+  <Capability Min="240" Max="249">Green+Blue+Amber+UV</Capability>
+  <Capability Min="250" Max="255">Red+Green+Blue+White+Amber+UV</Capability>
+ </Channel>
+ <Channel Name="Color presets Pixel 12">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#aa00ff">UV</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffaa00">Red+Amber</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#aa00ff">Red+UV</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="140" Max="149" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffaa00">Green+Amber</Capability>
+  <Capability Min="150" Max="159" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#aa00ff">Green+UV</Capability>
+  <Capability Min="160" Max="169">Red+Green+Blue</Capability>
+  <Capability Min="170" Max="179">Green+Blue+White</Capability>
+  <Capability Min="180" Max="189">Blue+White+Amber</Capability>
+  <Capability Min="190" Max="199">White+Amber+UV</Capability>
+  <Capability Min="200" Max="209">Amber+UV+Red</Capability>
+  <Capability Min="210" Max="219">Red+Blue+White+UV</Capability>
+  <Capability Min="220" Max="229">Red+Green+White+UV</Capability>
+  <Capability Min="230" Max="239">Red+Green+White+Amber</Capability>
+  <Capability Min="240" Max="249">Green+Blue+Amber+UV</Capability>
+  <Capability Min="250" Max="255">Red+Green+Blue+White+Amber+UV</Capability>
+ </Channel>
+ <Channel Name="Individual pixel control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#aa00ff">UV</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffaa00">Red+Amber</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#aa00ff">Red+UV</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="140" Max="149" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffaa00">Green+Amber</Capability>
+  <Capability Min="150" Max="159" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#aa00ff">Green+UV</Capability>
+  <Capability Min="160" Max="169">Red+Green+Blue</Capability>
+  <Capability Min="170" Max="179">Green+Blue+White</Capability>
+  <Capability Min="180" Max="189">Blue+White+Amber</Capability>
+  <Capability Min="190" Max="199">White+Amber+UV</Capability>
+  <Capability Min="200" Max="209">Amber+UV+Red</Capability>
+  <Capability Min="210" Max="219">Red+Blue+White+UV</Capability>
+  <Capability Min="220" Max="229">Red+Green+White+UV</Capability>
+  <Capability Min="230" Max="239">Red+Green+White+Amber</Capability>
+  <Capability Min="240" Max="249">Green+Blue+Amber+UV</Capability>
+  <Capability Min="250" Max="255">Red+Green+Blue+White+Amber+UV</Capability>
+ </Channel>
+ <Channel Name="Red Pixel 1+2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red 1</Capability>
+ </Channel>
+ <Channel Name="Red Pixel 3+4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red 3</Capability>
+ </Channel>
+ <Channel Name="Red Pixel 5+6">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red 5</Capability>
+ </Channel>
+ <Channel Name="Red Pixel 7+8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red 7</Capability>
+ </Channel>
+ <Channel Name="Red Pixel 9+10">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red 9</Capability>
+ </Channel>
+ <Channel Name="Red Pixel 11+12">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red 11</Capability>
+ </Channel>
+ <Channel Name="Green Pixel 1+2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green 1</Capability>
+ </Channel>
+ <Channel Name="Green Pixel 3+4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green 3</Capability>
+ </Channel>
+ <Channel Name="Green Pixel 5+6">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green 5</Capability>
+ </Channel>
+ <Channel Name="Green Pixel 7+8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green 7</Capability>
+ </Channel>
+ <Channel Name="Green Pixel 9+10">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green 9</Capability>
+ </Channel>
+ <Channel Name="Green Pixel 11+12">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green 11</Capability>
+ </Channel>
+ <Channel Name="Blue Pixel 1+2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue 1</Capability>
+ </Channel>
+ <Channel Name="Blue Pixel 3+4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue 3</Capability>
+ </Channel>
+ <Channel Name="Blue Pixel 5+6">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue 5</Capability>
+ </Channel>
+ <Channel Name="Blue Pixel 7+8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue 7</Capability>
+ </Channel>
+ <Channel Name="Blue Pixel 9+10">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue 9</Capability>
+ </Channel>
+ <Channel Name="Blue Pixel 11+12">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue 11</Capability>
+ </Channel>
+ <Channel Name="White Pixel 1+2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White 1</Capability>
+ </Channel>
+ <Channel Name="White Pixel 3+4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White 3</Capability>
+ </Channel>
+ <Channel Name="White Pixel 5+6">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White 5</Capability>
+ </Channel>
+ <Channel Name="White Pixel 7+8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White 7</Capability>
+ </Channel>
+ <Channel Name="White Pixel 9+10">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White 9</Capability>
+ </Channel>
+ <Channel Name="White Pixel 11+12">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White 11</Capability>
+ </Channel>
+ <Channel Name="Amber Pixel 1+2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Amber</Colour>
+  <Capability Min="0" Max="255">Amber 1</Capability>
+ </Channel>
+ <Channel Name="Amber Pixel 3+4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Amber</Colour>
+  <Capability Min="0" Max="255">Amber 3</Capability>
+ </Channel>
+ <Channel Name="Amber Pixel 5+6">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Amber</Colour>
+  <Capability Min="0" Max="255">Amber 5</Capability>
+ </Channel>
+ <Channel Name="Amber Pixel 7+8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Amber</Colour>
+  <Capability Min="0" Max="255">Amber 7</Capability>
+ </Channel>
+ <Channel Name="Amber Pixel 9+10">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Amber</Colour>
+  <Capability Min="0" Max="255">Amber 9</Capability>
+ </Channel>
+ <Channel Name="Amber Pixel 11+12">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Amber</Colour>
+  <Capability Min="0" Max="255">Amber 11</Capability>
+ </Channel>
+ <Channel Name="UV Pixel 1+2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>UV</Colour>
+  <Capability Min="0" Max="255">UV 1</Capability>
+ </Channel>
+ <Channel Name="UV Pixel 3+4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>UV</Colour>
+  <Capability Min="0" Max="255">UV 3</Capability>
+ </Channel>
+ <Channel Name="UV Pixel 5+6">
+  <Group Byte="0">Intensity</Group>
+  <Colour>UV</Colour>
+  <Capability Min="0" Max="255">UV 5</Capability>
+ </Channel>
+ <Channel Name="UV Pixel 7+8">
+  <Group Byte="0">Intensity</Group>
+  <Colour>UV</Colour>
+  <Capability Min="0" Max="255">UV 7</Capability>
+ </Channel>
+ <Channel Name="UV Pixel 9+10">
+  <Group Byte="0">Intensity</Group>
+  <Colour>UV</Colour>
+  <Capability Min="0" Max="255">UV 9</Capability>
+ </Channel>
+ <Channel Name="UV Pixel 11+12">
+  <Group Byte="0">Intensity</Group>
+  <Colour>UV</Colour>
+  <Capability Min="0" Max="255">UV 11</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="119">Auto Mode</Capability>
+  <Capability Min="120" Max="255">Music control</Capability>
+ </Channel>
+ <Channel Name="Pixel combine">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="15">Pixel1+2+3</Capability>
+  <Capability Min="16" Max="21">Pixel2+3+4</Capability>
+  <Capability Min="22" Max="27">Pixel3+4+5</Capability>
+  <Capability Min="28" Max="33">Pixel4+5+6</Capability>
+  <Capability Min="34" Max="39">Pixel5+6+7</Capability>
+  <Capability Min="40" Max="45">Pixel6+7+8</Capability>
+  <Capability Min="46" Max="51">Pixel7+8+9</Capability>
+  <Capability Min="52" Max="57">Pixel8+9+10</Capability>
+  <Capability Min="58" Max="63">Pixel9+10+11</Capability>
+  <Capability Min="64" Max="69">Pixel10+11+12</Capability>
+  <Capability Min="70" Max="75">Pixel1+11+12</Capability>
+  <Capability Min="76" Max="81">Pixel1+2+12</Capability>
+  <Capability Min="82" Max="87">Pixel1</Capability>
+  <Capability Min="88" Max="93">Pixel1+2</Capability>
+  <Capability Min="94" Max="99">Pixel1+2+3</Capability>
+  <Capability Min="100" Max="105">Pixel1+2+3+4</Capability>
+  <Capability Min="106" Max="111">Pixel1+2+3+4+5</Capability>
+  <Capability Min="112" Max="117">Pixel1+2+3+4+5+6</Capability>
+  <Capability Min="118" Max="123">Pixel1+2+3+4+5+6+7</Capability>
+  <Capability Min="124" Max="129">Pixel1+2+3+4+5+6+7+8</Capability>
+  <Capability Min="130" Max="135">Pixel1+2+3+4+5+6+7+8+9</Capability>
+  <Capability Min="136" Max="141">Pixel1+2+3+4+5+6+7+8+9+10</Capability>
+  <Capability Min="142" Max="147">Pixel1+2+3+4+5+6+7+8+9+10+11</Capability>
+  <Capability Min="148" Max="153">Pixel1+2+3+4+5+6+7+8+9+10+11+12</Capability>
+  <Capability Min="154" Max="159">Pixel12</Capability>
+  <Capability Min="160" Max="165">Pixel11+12</Capability>
+  <Capability Min="166" Max="171">Pixel10+11+12</Capability>
+  <Capability Min="172" Max="177">Pixel9+10+11+12</Capability>
+  <Capability Min="178" Max="183">Pixel8+9+10+11+12</Capability>
+  <Capability Min="184" Max="189">Pixel7+8+9+10+11+12</Capability>
+  <Capability Min="190" Max="195">Pixel6+7+8+9+10+11+12</Capability>
+  <Capability Min="196" Max="201">Pixel5+6+7+8+9+10+11+12</Capability>
+  <Capability Min="202" Max="207">Pixel4+5+6+7+8+9+10+11+12</Capability>
+  <Capability Min="208" Max="213">Pixel3+4+5+6+7+8+9+10+11+12</Capability>
+  <Capability Min="214" Max="219">Pixel2+3+4+5+6+7+8+9+10+11+12</Capability>
+  <Capability Min="220" Max="225">All Pixel ON</Capability>
+  <Capability Min="226" Max="231">Pixel1+3+5+7+90+12</Capability>
+  <Capability Min="232" Max="237">Pixel2+4+6+8+10+12</Capability>
+  <Capability Min="238" Max="255">All Pixel ON</Capability>
+ </Channel>
+ <Channel Name="Color temperature">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="29">2700K</Capability>
+  <Capability Min="30" Max="49">3200K</Capability>
+  <Capability Min="50" Max="69">3400K</Capability>
+  <Capability Min="70" Max="89">4200K</Capability>
+  <Capability Min="90" Max="109">4900K</Capability>
+  <Capability Min="110" Max="129">5600K</Capability>
+  <Capability Min="130" Max="149">6000K</Capability>
+  <Capability Min="150" Max="169">6500K</Capability>
+  <Capability Min="170" Max="189">7500K</Capability>
+  <Capability Min="190" Max="255">8000K</Capability>
+ </Channel>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Color presets</Channel>
+  <Channel Number="2">Pixel combine</Channel>
+  <Channel Number="3">Speed</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">White 1</Channel>
+  <Channel Number="4">Amber 1</Channel>
+  <Channel Number="5">UV 1</Channel>
+ </Mode>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Color presets Pixel 1</Channel>
+  <Channel Number="3">Color presets Pixel 2</Channel>
+  <Channel Number="4">Color presets Pixel 3</Channel>
+  <Channel Number="5">Color presets Pixel 4</Channel>
+  <Channel Number="6">Color presets Pixel 5</Channel>
+  <Channel Number="7">Color presets Pixel 6</Channel>
+  <Channel Number="8">Color presets Pixel 7</Channel>
+  <Channel Number="9">Color presets Pixel 8</Channel>
+  <Channel Number="10">Color presets Pixel 9</Channel>
+  <Channel Number="11">Color presets Pixel 10</Channel>
+  <Channel Number="12">Color presets Pixel 11</Channel>
+  <Channel Number="13">Color presets Pixel 12</Channel>
+  <Channel Number="14">Speed</Channel>
+  <Channel Number="15">Color temperature</Channel>
+ </Mode>
+ <Mode Name="36 Channel">
+  <Channel Number="0">Red Pixel 1+2</Channel>
+  <Channel Number="1">Green Pixel 1+2</Channel>
+  <Channel Number="2">Blue Pixel 1+2</Channel>
+  <Channel Number="3">White Pixel 1+2</Channel>
+  <Channel Number="4">Amber Pixel 1+2</Channel>
+  <Channel Number="5">UV Pixel 1+2</Channel>
+  <Channel Number="6">Red Pixel 3+4</Channel>
+  <Channel Number="7">Green Pixel 3+4</Channel>
+  <Channel Number="8">Blue Pixel 3+4</Channel>
+  <Channel Number="9">White Pixel 3+4</Channel>
+  <Channel Number="10">Amber Pixel 3+4</Channel>
+  <Channel Number="11">UV Pixel 3+4</Channel>
+  <Channel Number="12">Red Pixel 5+6</Channel>
+  <Channel Number="13">Green Pixel 5+6</Channel>
+  <Channel Number="14">Blue Pixel 5+6</Channel>
+  <Channel Number="15">White Pixel 5+6</Channel>
+  <Channel Number="16">Amber Pixel 5+6</Channel>
+  <Channel Number="17">UV Pixel 5+6</Channel>
+  <Channel Number="18">Red Pixel 7+8</Channel>
+  <Channel Number="19">Green Pixel 7+8</Channel>
+  <Channel Number="20">Blue Pixel 7+8</Channel>
+  <Channel Number="21">White Pixel 7+8</Channel>
+  <Channel Number="22">Amber Pixel 7+8</Channel>
+  <Channel Number="23">UV Pixel 7+8</Channel>
+  <Channel Number="24">Red Pixel 9+10</Channel>
+  <Channel Number="25">Green Pixel 9+10</Channel>
+  <Channel Number="26">Blue Pixel 9+10</Channel>
+  <Channel Number="27">White Pixel 9+10</Channel>
+  <Channel Number="28">Amber Pixel 9+10</Channel>
+  <Channel Number="29">UV Pixel 9+10</Channel>
+  <Channel Number="30">Red Pixel 11+12</Channel>
+  <Channel Number="31">Green Pixel 11+12</Channel>
+  <Channel Number="32">Blue Pixel 11+12</Channel>
+  <Channel Number="33">White Pixel 11+12</Channel>
+  <Channel Number="34">Amber Pixel 11+12</Channel>
+  <Channel Number="35">UV Pixel 11+12</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>3</Channel>
+   <Channel>2</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="74 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Red 1</Channel>
+  <Channel Number="3">Green 1</Channel>
+  <Channel Number="4">Blue 1</Channel>
+  <Channel Number="5">White 1</Channel>
+  <Channel Number="6">Amber 1</Channel>
+  <Channel Number="7">UV 1</Channel>
+  <Channel Number="8">Red 2</Channel>
+  <Channel Number="9">Green 2</Channel>
+  <Channel Number="10">Blue 2</Channel>
+  <Channel Number="11">White 2</Channel>
+  <Channel Number="12">Amber 2</Channel>
+  <Channel Number="13">UV 2</Channel>
+  <Channel Number="14">Red 3</Channel>
+  <Channel Number="15">Green 3</Channel>
+  <Channel Number="16">Blue 3</Channel>
+  <Channel Number="17">White 3</Channel>
+  <Channel Number="18">Amber 3</Channel>
+  <Channel Number="19">UV 3</Channel>
+  <Channel Number="20">Red 4</Channel>
+  <Channel Number="21">Green 4</Channel>
+  <Channel Number="22">Blue 4</Channel>
+  <Channel Number="23">White 4</Channel>
+  <Channel Number="24">Amber 4</Channel>
+  <Channel Number="25">UV 4</Channel>
+  <Channel Number="26">Red 5</Channel>
+  <Channel Number="27">Green 5</Channel>
+  <Channel Number="28">Blue 5</Channel>
+  <Channel Number="29">White 5</Channel>
+  <Channel Number="30">Amber 5</Channel>
+  <Channel Number="31">UV 5</Channel>
+  <Channel Number="32">Red 6</Channel>
+  <Channel Number="33">Green 6</Channel>
+  <Channel Number="34">Blue 6</Channel>
+  <Channel Number="35">White 6</Channel>
+  <Channel Number="36">Amber 6</Channel>
+  <Channel Number="37">UV 6</Channel>
+  <Channel Number="38">Red 7</Channel>
+  <Channel Number="39">Green 7</Channel>
+  <Channel Number="40">Blue 7</Channel>
+  <Channel Number="41">White 7</Channel>
+  <Channel Number="42">Amber 7</Channel>
+  <Channel Number="43">UV 7</Channel>
+  <Channel Number="44">Red 8</Channel>
+  <Channel Number="45">Green 8</Channel>
+  <Channel Number="46">Blue 8</Channel>
+  <Channel Number="47">White 8</Channel>
+  <Channel Number="48">Amber 8</Channel>
+  <Channel Number="49">UV 8</Channel>
+  <Channel Number="50">Red 9</Channel>
+  <Channel Number="51">Green 9</Channel>
+  <Channel Number="52">Blue 9</Channel>
+  <Channel Number="53">White 9</Channel>
+  <Channel Number="54">Amber 9</Channel>
+  <Channel Number="55">UV 9</Channel>
+  <Channel Number="56">Red 10</Channel>
+  <Channel Number="57">Green 10</Channel>
+  <Channel Number="58">Blue 10</Channel>
+  <Channel Number="59">White 10</Channel>
+  <Channel Number="60">Amber 10</Channel>
+  <Channel Number="61">UV 10</Channel>
+  <Channel Number="62">Red 11</Channel>
+  <Channel Number="63">Green 11</Channel>
+  <Channel Number="64">Blue 11</Channel>
+  <Channel Number="65">White 11</Channel>
+  <Channel Number="66">Amber 11</Channel>
+  <Channel Number="67">UV 11</Channel>
+  <Channel Number="68">Red 12</Channel>
+  <Channel Number="69">Green 12</Channel>
+  <Channel Number="70">Blue 12</Channel>
+  <Channel Number="71">White 12</Channel>
+  <Channel Number="72">Amber 12</Channel>
+  <Channel Number="73">UV 12</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+  </Head>
+  <Head>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+  </Head>
+  <Head>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+  </Head>
+  <Head>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+  </Head>
+  <Head>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+   <Channel>64</Channel>
+   <Channel>65</Channel>
+   <Channel>67</Channel>
+   <Channel>66</Channel>
+  </Head>
+  <Head>
+   <Channel>68</Channel>
+   <Channel>69</Channel>
+   <Channel>70</Channel>
+   <Channel>71</Channel>
+   <Channel>72</Channel>
+   <Channel>73</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="640" ColourTemperature="0"/>
+  <Dimensions Weight="5.2" Width="1000" Height="165" Depth="115"/>
+  <Lens Name="Other" DegreesMin="20" DegreesMax="41"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="12" Height="1"/>
+  <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

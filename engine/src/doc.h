@@ -47,8 +47,8 @@ class MonitorProperties;
  * @{
  */
 
-#define KXMLQLCEngine QString("Engine")
-#define KXMLQLCStartupFunction QString("Autostart")
+#define KXMLQLCEngine QStringLiteral("Engine")
+#define KXMLQLCStartupFunction QStringLiteral("Autostart")
 
 class Doc : public QObject
 {

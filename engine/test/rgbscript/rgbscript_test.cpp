@@ -47,7 +47,11 @@ void RGBScript_Test::cleanupTestCase()
 void RGBScript_Test::initial()
 {
     RGBScript script(m_doc);
+#ifdef QT_QML_LIB
+    QVERIFY(script.m_engine == NULL);
+#else
     QVERIFY(script.s_engine == NULL);
+#endif
     QCOMPARE(script.m_apiVersion, 0);
     QCOMPARE(script.m_fileName, QString());
     QCOMPARE(script.m_contents, QString());
@@ -96,7 +100,8 @@ void RGBScript_Test::scripts()
     // Catch syntax / JS engine errors explicitly in the test.
     foreach (QString file, dir.entryList()) {
         RGBScript* script = new RGBScript(m_doc);
-        QVERIFY(script->load(dir, file));
+        QFile absFile(dir.absoluteFilePath(file));
+        QVERIFY(script->load(absFile.fileName()));
 
         qDebug() << "Searching 'scripts.files += " + file + "' in rgbscripts.pro";
 
@@ -142,7 +147,7 @@ void RGBScript_Test::script()
     QVERIFY(s.m_rgbMapStepCount.isValid() == false);
 #endif
     s = m_doc->rgbScriptsCache()->script("Stripes");
-    QCOMPARE(s.fileName(), QString("stripes.js"));
+    QVERIFY(s.fileName().endsWith("stripes.js"));
     QVERIFY(s.m_contents.isEmpty() == false);
     QVERIFY(s.apiVersion() > 0);
     QCOMPARE(s.author(), QString("Massimo Callegari"));
@@ -283,14 +288,15 @@ void RGBScript_Test::runScripts()
         qDebug() << "Evaluating script" << name;
         RGBScript s = m_doc->rgbScriptsCache()->script(name);
         QString fileName = s.fileName();
+        QString scriptName = fileName.split(QDir::separator()).last();
 
         // Check naming conventions
         QVERIFY(fileName.endsWith(".js"));
         // Check that basename and extension are lowercase
-        QVERIFY(fileName.toLower() == s.fileName());
+        QVERIFY(scriptName.toLower() == scriptName);
         // Verify that the basename only uses lower case characters
-        QString baseName = fileName;
-        baseName.truncate(fileName.size() - 3);
+        QString baseName = scriptName;
+        baseName.truncate(scriptName.size() - 3);
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         QVERIFY(QRegExp("[a-z]*").exactMatch(baseName));
 #else

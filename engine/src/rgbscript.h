@@ -58,7 +58,7 @@ public:
      ************************************************************************/
 public:
     /** Load script contents from $file located in $dir */
-    bool load(const QDir& dir, const QString& fileName);
+    bool load(const QString& fileName);
 
     /** Get the filename for this script */
     QString fileName() const;

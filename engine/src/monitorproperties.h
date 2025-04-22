@@ -36,7 +36,7 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCMonitorProperties QString("Monitor")
+#define KXMLQLCMonitorProperties QStringLiteral("Monitor")
 
 typedef struct
 {

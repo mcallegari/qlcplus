@@ -42,7 +42,7 @@ class RGBScript : public RGBAlgorithm
      * Initialization
      ************************************************************************/
 public:
-    RGBScript(Doc * doc);
+    RGBScript(Doc *doc);
     RGBScript(const RGBScript& s);
     ~RGBScript();
 
@@ -58,8 +58,8 @@ public:
      * Load & Evaluation
      ************************************************************************/
 public:
-    /** Load script contents from $file located in $dir */
-    bool load(const QDir& dir, const QString& fileName);
+    /** Load script contents from $file */
+    bool load(const QString& fileName);
 
     /** Get the filename for this script */
     QString fileName() const;
@@ -69,20 +69,21 @@ public:
 
 private:
     /** Init engine, engine mutex, and scripts map */
-    static void initEngine();
+    void initEngine();
 
     /** Handle an error after evaluate() or call() of a script */
     static void displayError(QJSValue e, const QString& fileName);
 
 private:
-    static QJSEngine* s_engine;      //! The engine that runs all scripts
-#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-    static QMutex* s_engineMutex;   //! Protection
-#else
-    static QRecursiveMutex* s_engineMutex;
-#endif
     QString m_fileName;             //! The file name that contains this script
     QString m_contents;             //! The file's contents
+    QJSEngine *m_engine;            //! The JavaScript engine
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+    QMutex *m_engineMutex;          //! Concurrency protection
+#else
+    QRecursiveMutex *m_engineMutex; //! Concurrency protection
+#endif
+    Qt::HANDLE m_threadId;
 
     /************************************************************************
      * RGBAlgorithm API

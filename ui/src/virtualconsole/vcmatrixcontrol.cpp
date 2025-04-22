@@ -151,8 +151,8 @@ QString VCMatrixControl::typeToString(VCMatrixControl::ControlType type)
 
 VCMatrixControl::ControlType VCMatrixControl::stringToType(QString str)
 {
-    if (str == "Color1") return Color1;
-    else if (str == "Color2") return Color2;
+    if (str == "Color1" || str == "StartColor") return Color1;
+    else if (str == "Color2" || str == "EndColor") return Color2;
     else if (str == "Color3") return Color3;
     else if (str == "Color4") return Color4;
     else if (str == "Color5") return Color5;
@@ -163,8 +163,8 @@ VCMatrixControl::ControlType VCMatrixControl::stringToType(QString str)
     else if (str == "Animation") return Animation;
     else if (str == "Image") return Image;
     else if (str == "Text") return Text;
-    else if (str == "Color1Knob") return Color1Knob;
-    else if (str == "Color2Knob") return Color2Knob;
+    else if (str == "Color1Knob" || str == "StartColorKnob") return Color1Knob;
+    else if (str == "Color2Knob" || str == "EndColorKnob") return Color2Knob;
     else if (str == "Color3Knob") return Color3Knob;
     else if (str == "Color4Knob") return Color4Knob;
     else if (str == "Color5Knob") return Color5Knob;
@@ -270,7 +270,7 @@ bool VCMatrixControl::saveXML(QXmlStreamWriter *doc)
 
     if (!m_properties.isEmpty())
     {
-        QHashIterator<QString, QString> it(m_properties);
+        QMapIterator<QString, QString> it(m_properties);
         while (it.hasNext())
         {
             it.next();

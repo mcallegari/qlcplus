@@ -30,8 +30,8 @@
 
 class QXmlStreamReader;
 class QXmlStreamWriter;
-class QLCInputSource;
 class QElapsedTimer;
+class QLCInputSource;
 class QLCIOPlugin;
 class OutputPatch;
 class InputPatch;
@@ -42,10 +42,10 @@ class Doc;
  * @{
  */
 
-#define KXMLIOMap               QString("InputOutputMap")
-#define KXMLIOBeatGenerator     QString("BeatGenerator")
-#define KXMLIOBeatType          QString("BeatType")
-#define KXMLIOBeatsPerMinute    QString("BPM")
+#define KXMLIOMap               QStringLiteral("InputOutputMap")
+#define KXMLIOBeatGenerator     QStringLiteral("BeatGenerator")
+#define KXMLIOBeatType          QStringLiteral("BeatType")
+#define KXMLIOBeatsPerMinute    QStringLiteral("BPM")
 
 class InputOutputMap : public QObject
 {

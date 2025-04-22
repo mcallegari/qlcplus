@@ -1,3 +1,32 @@
+qlcplus (4.14.2) stable; urgency=low
+
+  * engine: fix audio end of stream causing a crash on Qt 6 builds
+  * Virtual Console: add an option to hide Grand Master (thanks to Jurrie Overgoor)
+  * Input profiles: added M-Wave SMC Mixer
+
+  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 24 May 2025 18:19:20 +0200
+
+qlcplus (4.14.1) stable; urgency=high
+
+  * engine: fix crash when using multiple RGBMatrix
+  * engine: fix crash when using a Script function
+  * Show Manager: fix hanging with an infinite duration EFX
+  * Simple Desk: fix crash when resetting a channel with no fixture associated
+  * Virtual Console/XY Pad: fix Pan/Tilt fine controls not getting saved
+  * UI: fix incomplete or missing translations (thanks to Itay Lifshitz)
+  * Input Profiles: update Launchpad Mini profiles with color table (thanks to Jan Fries)
+  * New fixture: beamZ MHL75 Hybrid Moving Head (thanks to Mikko Wuokko)
+  * New fixtures: Eurolite LED TSL-1000 Scan MK2, Varytec LED Theater Spot 100 (thanks to Christoph Wieser)
+  * New fixtures: Briteq BT Theatre 250EZ + Mk2 + Mk3 (thanks to Christoph Müllner)
+  * New fixture: Showtec Spectral M800 IPX (thanks to Bram Janssen)
+  * New fixture: Briteq LED UV-Gun (thanks to Freddy Hoogstoel)
+  * New fixtures: Eurolite LED Twin Scan Bar, Vari-Lite VL2402 Wash, Vari-Lite VL2202 Spot (thanks to Mitsch)
+  * New fixture: Eurolite TMH-11 Moving-Head Wash, SonicPulse LED Bar 05 and 10 (thanks to Simeon08 & ReComplexed)
+  * New fixture: Chauvet Ovation H-105WW (thanks to Matthew Valeri)
+  * New fixture: Varytec Hero Wash 300 FC (thanks to NostaKhan)
+
+  -- Massimo Callegari <massimocallegari@yahoo.it>  Mon, 10 Mar 2025 18:19:20 +0200
+
 qlcplus (4.14.0) stable; urgency=low
 
   * engine: fix flashing fade out
@@ -46,8 +75,11 @@ qlcplus (4.14.0) stable; urgency=low
   * New fixtures: Cameo TS 100 WW, TS 200 WW (thanks to Sven Koch)
   * New fixtures: Varytec ARC One, Cameo LED Gobo Scanner 80, Stairville DJ Lase 40-G MK-III, Stairville HL-x9-18 DCL CW-WWFlood 9-18x6W (thanks to Jan Fries)
   * New fixtures: beamZ Panther 60 LED Beam RGBW, MHL-74 Wash 7x10W 4in1 RGBW, BBP96 Uplight PAR (thanks to Jan Fries)
+  * New fixture: MEGA-Lite M-Sphere (thanks to George Qualley IV)
+  * New fixtures: Eurolite LED PIX-12 HCL Bar, LED PAR-64 QCL12x8W (thanks to Martin Winkler)
+  * New fixture: Varytec Colors NerveStrobe HP (thanks to Giacomo & Michel)
 
-  -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 14 Jan 2025 18:19:20 +0200
+  -- Massimo Callegari <massimocallegari@yahoo.it>  Wed, 15 Jan 2025 18:19:20 +0200
 
 qlcplus (4.13.1) stable; urgency=low
 

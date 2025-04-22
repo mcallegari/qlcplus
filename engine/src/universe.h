@@ -47,20 +47,20 @@ class Doc;
 
 #define UNIVERSE_SIZE 512
 
-#define KXMLQLCUniverse             QString("Universe")
-#define KXMLQLCUniverseName         QString("Name")
-#define KXMLQLCUniverseID           QString("ID")
-#define KXMLQLCUniversePassthrough  QString("Passthrough")
+#define KXMLQLCUniverse             QStringLiteral("Universe")
+#define KXMLQLCUniverseName         QStringLiteral("Name")
+#define KXMLQLCUniverseID           QStringLiteral("ID")
+#define KXMLQLCUniversePassthrough  QStringLiteral("Passthrough")
 
-#define KXMLQLCUniverseInputPatch    QString("Input")
-#define KXMLQLCUniverseOutputPatch   QString("Output")
-#define KXMLQLCUniverseFeedbackPatch QString("Feedback")
+#define KXMLQLCUniverseInputPatch    QStringLiteral("Input")
+#define KXMLQLCUniverseOutputPatch   QStringLiteral("Output")
+#define KXMLQLCUniverseFeedbackPatch QStringLiteral("Feedback")
 
-#define KXMLQLCUniversePlugin           QString("Plugin")
-#define KXMLQLCUniverseLine             QString("Line")
-#define KXMLQLCUniverseLineUID          QString("UID")
-#define KXMLQLCUniverseProfileName      QString("Profile")
-#define KXMLQLCUniversePluginParameters QString("PluginParameters")
+#define KXMLQLCUniversePlugin           QStringLiteral("Plugin")
+#define KXMLQLCUniverseLine             QStringLiteral("Line")
+#define KXMLQLCUniverseLineUID          QStringLiteral("UID")
+#define KXMLQLCUniverseProfileName      QStringLiteral("Profile")
+#define KXMLQLCUniversePluginParameters QStringLiteral("PluginParameters")
 
 /** Universe class contains input/output data for one DMX universe
  */

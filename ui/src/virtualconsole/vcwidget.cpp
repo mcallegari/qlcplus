@@ -734,7 +734,7 @@ void VCWidget::slotInputProfileChanged(quint32 universe, const QString &profileN
 
     QLCInputProfile *profile = m_doc->inputOutputMap()->profile(profileName);
 
-    foreach (QSharedPointer<QLCInputSource> const& source, m_inputs.values())
+    foreach (QSharedPointer<QLCInputSource> const& source, m_inputs)
     {
         if (!source.isNull() && source->universe() == universe)
         {
@@ -785,7 +785,7 @@ QKeySequence VCWidget::stripKeySequence(const QKeySequence& seq)
     for (int i = 0; i < (int)seq.count() && i < 4; i++)
     {
         if ((seq[i].toCombined() & Qt::ControlModifier) != 0)
-            keys[i].fromCombined(seq[i].toCombined() & (~Qt::ControlModifier));
+            keys[i] = keys[i].fromCombined(seq[i].toCombined() & (~Qt::ControlModifier));
         else
             keys[i] = seq[i];
     }

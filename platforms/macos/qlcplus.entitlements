@@ -2,13 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
-    <!-- APP SANDBOX ENTITLEMENTS
-
-         See https://developer.apple.com/documentation/security/app_sandbox for details.
-      -->
-    <!-- Enable the App Sandbox -->
-    <key>com.apple.security.app-sandbox</key>
-    <true/>
     <!-- Allow interacting with the microphone -->
     <key>com.apple.security.device.microphone</key>
     <true/>
@@ -18,9 +11,6 @@
     <!-- Allow opening outgoing network connections -->
     <key>com.apple.security.network.client</key>
     <true/>
-    <!-- Allow access to multicast networking (for E1.31) -->
-    <key>com.apple.developer.networking.multicast</key>
-	  <true/>
     <!-- Allow access to files selected with an Open/Save dialog -->
     <key>com.apple.security.files.user-selected.read-write</key>
     <true/>
@@ -29,7 +19,6 @@
     <true/>
 
     <!-- HARDENED RUNTIME ENTITLEMENTS
-
          See https://developer.apple.com/documentation/security/hardened_runtime for details.
       -->
     <!-- Allow interacting with the microphone -->

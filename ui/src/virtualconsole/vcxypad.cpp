@@ -182,7 +182,7 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 VCXYPad::~VCXYPad()
 {
     m_doc->masterTimer()->unregisterDMXSource(this);
-    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
     {
         if (!fader.isNull())
             fader->requestDelete();
@@ -593,7 +593,7 @@ void VCXYPad::slotUniverseWritten(quint32 idx, const QByteArray &universeData)
             fxMap[sc.m_fixture] = QPointF(x, y);
         }
 
-        foreach (QPointF pt, fxMap.values())
+        foreach (QPointF pt, fxMap)
         {
             if (invertedAppearance())
                 pt.setY(256 - pt.y());
@@ -696,7 +696,7 @@ QMap<quint32,QString> VCXYPad::presetsMap() const
 {
     QMap<quint32,QString> map;
 
-    foreach (VCXYPadPreset *control, m_presets.values())
+    foreach (VCXYPadPreset *control, m_presets)
         map.insert(control->m_id, VCXYPadPreset::typeToString(control->m_type));
 
     return map;
@@ -730,7 +730,7 @@ void VCXYPad::slotPresetClicked(bool checked)
     {
         m_scene->stop(functionParent());
         m_scene = NULL;
-        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
         {
             if (!fader.isNull())
                 fader->requestDelete();
@@ -1172,6 +1172,14 @@ bool VCXYPad::loadXML(QXmlStreamReader &root)
             ypos = root.attributes().value(KXMLQLCVCXYPadPosition).toString().toInt();
             loadXMLSources(root, tiltInputSourceId);
         }
+        else if (root.name() == KXMLQLCVCXYPadPanFine)
+        {
+            loadXMLSources(root, panFineInputSourceId);
+        }
+        else if (root.name() == KXMLQLCVCXYPadTiltFine)
+        {
+            loadXMLSources(root, tiltFineInputSourceId);
+        }
         else if (root.name() == KXMLQLCVCXYPadWidth)
         {
             loadXMLSources(root, widthInputSourceId);
@@ -1279,6 +1287,24 @@ bool VCXYPad::saveXML(QXmlStreamWriter *doc)
     doc->writeAttribute(KXMLQLCVCXYPadPosition, QString::number(int(pt.y())));
     saveXMLInput(doc, inputSource(tiltInputSourceId));
     doc->writeEndElement();
+
+    /* Pan Fine */
+    QSharedPointer<QLCInputSource> pfSrc = inputSource(panFineInputSourceId);
+    if (!pfSrc.isNull() && pfSrc->isValid())
+    {
+        doc->writeStartElement(KXMLQLCVCXYPadPanFine);
+        saveXMLInput(doc, pfSrc);
+        doc->writeEndElement();
+    }
+
+    /* Tilt Fine */
+    QSharedPointer<QLCInputSource> tfSrc = inputSource(tiltFineInputSourceId);
+    if (!tfSrc.isNull() && tfSrc->isValid())
+    {
+        doc->writeStartElement(KXMLQLCVCXYPadTiltFine);
+        saveXMLInput(doc, tfSrc);
+        doc->writeEndElement();
+    }
 
     /* Width */
     QSharedPointer<QLCInputSource> wSrc = inputSource(widthInputSourceId);
