@@ -148,7 +148,7 @@ void VCCueList::adjustIntensity(qreal val)
         adjustFunctionIntensity(ch, val);
 
         // Refresh intensity of current steps
-        if (!ch->stopped() && sideFaderMode() == Crossfade && m_sideFaderLevel != 100)
+        if (!ch->isStopped() && sideFaderMode() == Crossfade && m_sideFaderLevel != 100)
         {
                 ch->adjustStepIntensity(qreal(m_sideFaderLevel) / 100, m_primaryTop ? m_playbackIndex : m_nextStepIndex);
                 ch->adjustStepIntensity(qreal(100 - m_sideFaderLevel) / 100, m_primaryTop ? m_nextStepIndex : m_playbackIndex);
@@ -253,7 +253,7 @@ void VCCueList::setSideFaderLevel(int level)
         level = 255 - level;
 
         Chaser *ch = chaser();
-        if (ch == nullptr || ch->stopped())
+        if (ch == nullptr || ch->isStopped())
             return;
 
         int newStep = level; // by default we assume the Chaser has more than 256 steps
@@ -279,7 +279,7 @@ void VCCueList::setSideFaderLevel(int level)
     else
     {
         Chaser *ch = chaser();
-        if (!(ch == nullptr || ch->stopped()))
+        if (!(ch == nullptr || ch->isStopped()))
         {
             ch->adjustStepIntensity(qreal(level) / 100.0, m_primaryTop ? m_playbackIndex : m_nextStepIndex,
                                     Chaser::FadeControlMode(getFadeMode()));

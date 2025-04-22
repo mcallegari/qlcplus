@@ -1234,7 +1234,7 @@ void VCCueList::slotSideFaderValueChanged(int value)
         emit sideFaderValueChanged();
 
         Chaser *ch = chaser();
-        if (ch == NULL || ch->stopped())
+        if (ch == NULL || ch->isStopped())
             return;
 
         int newStep = value; // by default we assume the Chaser has more than 256 steps
@@ -1268,7 +1268,7 @@ void VCCueList::slotSideFaderValueChanged(int value)
         emit sideFaderValueChanged();
 
         Chaser *ch = chaser();
-        if (!(ch == NULL || ch->stopped()))
+        if (!(ch == NULL || ch->isStopped()))
         {
             ch->adjustStepIntensity(qreal(value) / 100.0, m_primaryTop ? m_primaryIndex : m_secondaryIndex,
                                     Chaser::FadeControlMode(getFadeMode()));
@@ -1491,7 +1491,7 @@ void VCCueList::adjustIntensity(qreal val)
         adjustFunctionIntensity(ch, val);
 /*
         // Refresh intensity of current steps
-        if (!ch->stopped() && sideFaderMode() == Crossfade && m_sideFader->value() != 100)
+        if (!ch->isStopped() && sideFaderMode() == Crossfade && m_sideFader->value() != 100)
         {
                 ch->adjustStepIntensity((qreal)m_sideFader->value() / 100, m_primaryTop ? m_primaryIndex : m_secondaryIndex);
                 ch->adjustStepIntensity((qreal)(100 - m_sideFader->value()) / 100, m_primaryTop ? m_secondaryIndex : m_primaryIndex);

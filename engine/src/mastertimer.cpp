@@ -243,7 +243,7 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
             if (function != NULL)
             {
                 /* Run the function unless it's supposed to be stopped */
-                if (function->stopped() == false && m_stopAllFunctions == false)
+                if (function->isStopped() == false && m_stopAllFunctions == false)
                 {
                     if (firstIteration)
                         function->write(this, universes);

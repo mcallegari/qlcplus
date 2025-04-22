@@ -1169,7 +1169,7 @@ void Function::stop(FunctionParent source, bool preserveAttributes)
     }
 }
 
-bool Function::stopped() const
+bool Function::isStopped() const
 {
     return m_stop;
 }

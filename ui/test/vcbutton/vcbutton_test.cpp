@@ -542,7 +542,7 @@ void VCButton_Test::toggle()
     QCOMPARE(sc->getAttributeValue(Function::Intensity), btn.startupIntensity());
     btn.slotKeyReleased(QKeySequence(keySequenceB));
     m_doc->masterTimer()->timerTick(); // Allow MasterTimer to take the function under execution
-    QCOMPARE(sc->stopped(), false);
+    QCOMPARE(sc->isStopped(), false);
     QCOMPARE(btn.state(), VCButton::Active);
 
     QMouseEvent ev3(QEvent::MouseButtonPress, QPoint(0, 0), QPoint(0, 0), QPoint(0, 0),

@@ -359,7 +359,7 @@ void Script::preRun(MasterTimer *timer)
 
 void Script::write(MasterTimer *timer, QList<Universe *> universes)
 {
-    if (stopped() || isPaused())
+    if (isStopped() || isPaused())
         return;
 
     incrementElapsed();
@@ -367,7 +367,7 @@ void Script::write(MasterTimer *timer, QList<Universe *> universes)
     if (waiting() == false)
     {
         // Not currently waiting for anything. Free to proceed to next command.
-        while (m_currentCommand < m_lines.size() && stopped() == false)
+        while (m_currentCommand < m_lines.size() && isStopped() == false)
         {
             bool continueLoop = executeCommand(m_currentCommand, timer, universes);
             m_currentCommand++;
@@ -710,7 +710,7 @@ QString Script::handleWaitFunction(const QList<QStringList> &tokens, bool start)
     }
     else
     {
-        if (!function->stopped())
+        if (!function->isStopped())
         {
             m_waitFunction = function;
             connect(m_waitFunction, SIGNAL(stopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
@@ -870,7 +870,7 @@ QString Script::handleJump(const QList<QStringList>& tokens)
         // cleanup m_startedFunctions to avoid infinite growth
         QList<Function*>::iterator it = m_startedFunctions.begin();
         while (it != m_startedFunctions.end()) {
-            if ((*it)->stopped())
+            if ((*it)->isStopped())
                 it = m_startedFunctions.erase(it);
             else
                 ++it;

@@ -225,7 +225,7 @@ int Audio::adjustAttribute(qreal fraction, int attributeId)
 
 void Audio::slotEndOfStream()
 {
-    if (!stopped())
+    if (!isStopped())
         stop(FunctionParent::master());
 }
 

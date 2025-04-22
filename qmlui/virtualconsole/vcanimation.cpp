@@ -192,7 +192,7 @@ void VCAnimation::setFaderLevel(int level)
     {
         // Make sure we ignore the fade out time
         adjustFunctionIntensity(m_matrix, 0);
-        if (m_matrix->stopped() == false)
+        if (m_matrix->isStopped() == false)
         {
             m_matrix->stop(functionParent());
             resetIntensityOverrideAttribute();
@@ -203,7 +203,7 @@ void VCAnimation::setFaderLevel(int level)
         qreal pIntensity = qreal(level) / qreal(UCHAR_MAX);
         emit functionStarting(this, m_functionID, pIntensity);
         adjustFunctionIntensity(m_matrix, pIntensity * intensity());
-        if (m_matrix->stopped() == true)
+        if (m_matrix->isStopped() == true)
             m_matrix->start(m_doc->masterTimer(), functionParent());
     }
 

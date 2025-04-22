@@ -689,7 +689,7 @@ public:
      *
      * MasterTimer calls this method for each function to get their DMX
      * data for the given array of universes. This method will be called
-     * for each running function until Function::stopped() returns true.
+     * for each running function until Function::isStopped() returns true.
      *
      * @param timer The MasterTimer that is running the function
      * @param universes The DMX universe buffer to write values into
@@ -814,7 +814,7 @@ public:
      *
      * @return true if the function should be stopped, otherwise false.
      */
-    bool stopped() const;
+    bool isStopped() const;
 
     /**
      * Mark the function to be stopped and block the calling thread until it is

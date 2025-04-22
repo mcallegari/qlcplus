@@ -211,7 +211,7 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
             }
             else if (operation == FunctionOperation::WAIT_STOP)
             {
-                if (!function->stopped())
+                if (!function->isStopped())
                 {
                     // the function has to start or is still running, so we wait and we stop dequeuing
                     m_waitFunctionId = fID;

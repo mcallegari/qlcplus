@@ -314,7 +314,7 @@ void VCMatrix::slotSliderMoved(int value)
     {
         // Make sure we ignore the fade out time
         adjustFunctionIntensity(function, 0);
-        if (function->stopped() == false)
+        if (function->isStopped() == false)
         {
             function->stop(functionParent());
             resetIntensityOverrideAttribute();
@@ -325,7 +325,7 @@ void VCMatrix::slotSliderMoved(int value)
         qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
         emit functionStarting(m_matrixID, pIntensity);
         adjustFunctionIntensity(function, pIntensity * intensity());
-        if (function->stopped() == true)
+        if (function->isStopped() == true)
         {
             // TODO once #758 is fixed: function started by a fader -> override fade in time
             function->start(m_doc->masterTimer(), functionParent());
@@ -652,7 +652,7 @@ void VCMatrix::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
         {
             qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
             adjustFunctionIntensity(function, pIntensity * intensity());
-            if (value == 0 && !function->stopped())
+            if (value == 0 && !function->isStopped())
             {
                 function->stop(functionParent());
                 resetIntensityOverrideAttribute();

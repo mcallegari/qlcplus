@@ -457,12 +457,12 @@ void Collection_Test::write()
 
     /* Collection starts all of its members immediately when it is started
        itself. */
-    QVERIFY(c->stopped() == true);
+    QVERIFY(c->isStopped() == true);
     c->start(mts, FunctionParent::master());
-    QVERIFY(c->stopped() == false);
+    QVERIFY(c->isStopped() == false);
 
     c->write(mts, ua);
-    QVERIFY(c->stopped() == false);
+    QVERIFY(c->isStopped() == false);
     QVERIFY(mts->m_functionList.size() == 3);
     QVERIFY(mts->m_functionList[0] == c);
     QVERIFY(mts->m_functionList[1] == s1);
@@ -471,14 +471,14 @@ void Collection_Test::write()
     /* All write calls to the collection "succeed" as long as there are
        members running. */
     c->write(mts, ua);
-    QVERIFY(c->stopped() == false);
+    QVERIFY(c->isStopped() == false);
     QVERIFY(mts->m_functionList.size() == 3);
     QVERIFY(mts->m_functionList[0] == c);
     QVERIFY(mts->m_functionList[1] == s1);
     QVERIFY(mts->m_functionList[2] == s2);
 
     c->write(mts, ua);
-    QVERIFY(c->stopped() == false);
+    QVERIFY(c->isStopped() == false);
     QVERIFY(mts->m_functionList.size() == 3);
     QVERIFY(mts->m_functionList[0] == c);
     QVERIFY(mts->m_functionList[1] == s1);
@@ -489,7 +489,7 @@ void Collection_Test::write()
     QVERIFY(c->isPaused() == true);
     c->setPause(false);
 
-    QVERIFY(c->stopped() == false);
+    QVERIFY(c->isStopped() == false);
     QVERIFY(mts->m_functionList.size() == 3);
     QVERIFY(mts->m_functionList[0] == c);
     QVERIFY(mts->m_functionList[1] == s1);
@@ -508,10 +508,10 @@ void Collection_Test::write()
 
     /* S2 is still running after this so the collection is also running */
     mts->stopFunction(s1);
-    QVERIFY(s1->stopped() == true);
+    QVERIFY(s1->isStopped() == true);
 
     c->write(mts, ua);
-    QVERIFY(c->stopped() == false);
+    QVERIFY(c->isStopped() == false);
     QVERIFY(mts->m_functionList.size() == 2);
     QVERIFY(mts->m_functionList[0] == c);
     QVERIFY(mts->m_functionList[1] == s2);
@@ -519,8 +519,8 @@ void Collection_Test::write()
     /* Now the collection must also tell it's ready to be stopped */
     mts->stopFunction(s2);
     c->write(mts, ua);
-    QVERIFY(s2->stopped() == true);
-    QVERIFY(c->stopped() == true);
+    QVERIFY(s2->isStopped() == true);
+    QVERIFY(c->isStopped() == true);
     c->stop(FunctionParent::master());
 
     delete mts;
@@ -561,15 +561,15 @@ void Collection_Test::stopNotOwnChildren()
 
     QVERIFY(c->m_runningChildren.isEmpty() == true);
 
-    QVERIFY(c->stopped() == true);
+    QVERIFY(c->isStopped() == true);
     c->start(mts, FunctionParent::master());
-    QVERIFY(c->stopped() == false);
+    QVERIFY(c->isStopped() == false);
 
     c->write(mts, ua);
     QVERIFY(c->m_runningChildren.isEmpty() == false);
 
-    QVERIFY(s1->stopped() == false);
-    QVERIFY(s2->stopped() == false);
+    QVERIFY(s1->isStopped() == false);
+    QVERIFY(s2->isStopped() == false);
 
     // Collection controls s1 & s2
     QVERIFY(c->m_runningChildren.contains(s1->id()) == true);
@@ -579,7 +579,7 @@ void Collection_Test::stopNotOwnChildren()
     c->write(mts, ua);
     mts->stopFunction(s1);
     s1->start(mts, FunctionParent::master());
-    QVERIFY(s1->stopped() == false);
+    QVERIFY(s1->isStopped() == false);
 
     // Collection should no longer be controlling s1
     QVERIFY(c->m_runningChildren.contains(s1->id()) == false);
@@ -589,9 +589,9 @@ void Collection_Test::stopNotOwnChildren()
     c->write(mts, ua);
     c->postRun(mts, ua);
 
-    QVERIFY(c->stopped() == true);
-    QVERIFY(s1->stopped() == false); // No longer controlled by collection
-    QVERIFY(s2->stopped() == true);
+    QVERIFY(c->isStopped() == true);
+    QVERIFY(s1->isStopped() == false); // No longer controlled by collection
+    QVERIFY(s2->isStopped() == true);
 }
 
 QTEST_APPLESS_MAIN(Collection_Test)

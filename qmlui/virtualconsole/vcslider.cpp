@@ -1226,7 +1226,7 @@ void VCSlider::writeDMXAdjust(MasterTimer* timer, QList<Universe *> ua)
     {
         if (m_value == 0)
         {
-            if (function->stopped() == false)
+            if (function->isStopped() == false)
             {
                 function->stop(functionParent());
                 m_controlledAttributeId = Function::invalidAttributeId();
@@ -1236,7 +1236,7 @@ void VCSlider::writeDMXAdjust(MasterTimer* timer, QList<Universe *> ua)
         }
         else
         {
-            if (function->stopped() == true)
+            if (function->isStopped() == true)
             {
 #if 0 // temporarily revert #699 until a better solution is found
                 // Since this function is started by a fader, its fade in time

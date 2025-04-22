@@ -908,7 +908,7 @@ void Chaser_Test::writeHTP()
     MasterTimer timer(m_doc);
 
     QVERIFY(c->isRunning() == false);
-    QVERIFY(c->stopped() == true);
+    QVERIFY(c->isStopped() == true);
     c->start(&timer, FunctionParent::master());
 
     timer.timerTick();
@@ -918,7 +918,7 @@ void Chaser_Test::writeHTP()
     {
         timer.timerTick();
         QVERIFY(c->isRunning() == true);
-        QVERIFY(c->stopped() == false);
+        QVERIFY(c->isStopped() == false);
         QVERIFY(s1->isRunning() == true);
         QVERIFY(s2->isRunning() == false);
     }
@@ -928,7 +928,7 @@ void Chaser_Test::writeHTP()
     {
         timer.timerTick();
         QVERIFY(c->isRunning() == true);
-        QVERIFY(c->stopped() == false);
+        QVERIFY(c->isStopped() == false);
         QVERIFY(s1->isRunning() == false);
         QVERIFY(s2->isRunning() == true);
     }
@@ -966,7 +966,7 @@ void Chaser_Test::writeLTP()
     ua.append(new Universe(0, new GrandMaster()));
 
     QVERIFY(c->isRunning() == false);
-    QVERIFY(c->stopped() == true);
+    QVERIFY(c->isStopped() == true);
     c->start(&timer, FunctionParent::master());
 
     timer.timerTick();
@@ -976,7 +976,7 @@ void Chaser_Test::writeLTP()
     {
         timer.timerTick();
         QVERIFY(c->isRunning() == true);
-        QVERIFY(c->stopped() == false);
+        QVERIFY(c->isStopped() == false);
         QVERIFY(s1->isRunning() == true);
         QVERIFY(s2->isRunning() == false);
         ua = m_doc->inputOutputMap()->claimUniverses();
@@ -990,7 +990,7 @@ void Chaser_Test::writeLTP()
     {
         timer.timerTick();
         QVERIFY(c->isRunning() == true);
-        QVERIFY(c->stopped() == false);
+        QVERIFY(c->isStopped() == false);
         QVERIFY(s1->isRunning() == false);
         QVERIFY(s2->isRunning() == true);
         ua = m_doc->inputOutputMap()->claimUniverses();
@@ -1004,7 +1004,7 @@ void Chaser_Test::writeLTP()
     {
         timer.timerTick();
         QVERIFY(c->isRunning() == true);
-        QVERIFY(c->stopped() == false);
+        QVERIFY(c->isStopped() == false);
         QVERIFY(s1->isRunning() == true);
         QVERIFY(s2->isRunning() == false);
         ua = m_doc->inputOutputMap()->claimUniverses();
@@ -1081,7 +1081,7 @@ void Chaser_Test::quickChaser()
     MasterTimer timer(m_doc);
 
     QVERIFY(c->isRunning() == false);
-    QVERIFY(c->stopped() == true);
+    QVERIFY(c->isStopped() == true);
     c->start(&timer, FunctionParent::master());
 
     timer.timerTick();
@@ -1089,10 +1089,10 @@ void Chaser_Test::quickChaser()
     {
         timer.timerTick();
         QVERIFY(c->isRunning() == true);
-        QVERIFY(c->stopped() == false);
+        QVERIFY(c->isStopped() == false);
         // always one function running while the other is not
         QVERIFY(s1->isRunning() == true || s2->isRunning() == true);
-        QVERIFY(s1->stopped() == true || s2->stopped() == true);
+        QVERIFY(s1->isStopped() == true || s2->isStopped() == true);
     }
 
     c->stop(FunctionParent::master());
@@ -1100,11 +1100,11 @@ void Chaser_Test::quickChaser()
     timer.timerTick();
 
     QVERIFY(c->isRunning() == false);
-    QVERIFY(c->stopped() == true);
+    QVERIFY(c->isStopped() == true);
     QVERIFY(s1->isRunning() == false);
-    QVERIFY(s1->stopped() == true);
+    QVERIFY(s1->isStopped() == true);
     QVERIFY(s2->isRunning() == false);
-    QVERIFY(s2->stopped() == true);
+    QVERIFY(s2->isStopped() == true);
 }
 
 QTEST_MAIN(Chaser_Test)

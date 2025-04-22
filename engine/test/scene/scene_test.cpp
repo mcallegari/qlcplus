@@ -625,7 +625,7 @@ void Scene_Test::flashUnflash()
 
     s1->flash(&timer, false, false);
     QVERIFY(timer.m_dmxSourceList.size() == 1);
-    QVERIFY(s1->stopped() == true);
+    QVERIFY(s1->isStopped() == true);
     QVERIFY(s1->flashing() == true);
 
     ua = doc->inputOutputMap()->claimUniverses();
@@ -638,7 +638,7 @@ void Scene_Test::flashUnflash()
 
     s1->flash(&timer, false, false);
     QVERIFY(timer.m_dmxSourceList.size() == 1);
-    QVERIFY(s1->stopped() == true);
+    QVERIFY(s1->isStopped() == true);
     QVERIFY(s1->flashing() == true);
 
     ua = doc->inputOutputMap()->claimUniverses();
@@ -651,7 +651,7 @@ void Scene_Test::flashUnflash()
 
     s1->unFlash(&timer);
     QVERIFY(timer.m_dmxSourceList.size() == 1);
-    QVERIFY(s1->stopped() == true);
+    QVERIFY(s1->isStopped() == true);
     QVERIFY(s1->flashing() == false);
 
     ua = doc->inputOutputMap()->claimUniverses();
@@ -693,11 +693,11 @@ void Scene_Test::writeHTPZeroTicks()
     QVERIFY(ua[0]->preGMValues()[0] == (char) 255);
     QVERIFY(ua[0]->preGMValues()[1] == (char) 127);
     QVERIFY(ua[0]->preGMValues()[2] == (char) 0);
-    QVERIFY(s1->stopped() == false);
+    QVERIFY(s1->isStopped() == false);
     doc->inputOutputMap()->releaseUniverses(false);
 
     s1->stop(FunctionParent::master());
-    QVERIFY(s1->stopped() == true);
+    QVERIFY(s1->isStopped() == true);
     QVERIFY(s1->isRunning() == true); // postRun has not been run yet, but..
     timer.timerTick();                // ..now it has.
     QVERIFY(s1->isRunning() == false);
@@ -742,11 +742,11 @@ void Scene_Test::writeHTPTwoTicks()
     QVERIFY(ua[0]->preGMValues()[0] == (char) 0);
     doc->inputOutputMap()->releaseUniverses(false);
 
-    QVERIFY(s1->stopped() == true);
+    QVERIFY(s1->isStopped() == true);
     s1->start(&timer, FunctionParent::master());
     timer.timerTick();
 
-    QVERIFY(s1->stopped() == false);
+    QVERIFY(s1->isStopped() == false);
     QVERIFY(s1->isRunning() == true);
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
@@ -759,7 +759,7 @@ void Scene_Test::writeHTPTwoTicks()
     ua[0]->processFaders();
     QVERIFY(ua[0]->preGMValues()[5] == (char) 250);
     QVERIFY(ua[0]->preGMValues()[0] == (char) 100);
-    QVERIFY(s1->stopped() == false);
+    QVERIFY(s1->isStopped() == false);
     doc->inputOutputMap()->releaseUniverses(false);
 
     // Values stay up
@@ -768,7 +768,7 @@ void Scene_Test::writeHTPTwoTicks()
     ua[0]->processFaders();
     QVERIFY(ua[0]->preGMValues()[5] == (char) 250);
     QVERIFY(ua[0]->preGMValues()[0] == (char) 100);
-    QVERIFY(s1->stopped() == false);
+    QVERIFY(s1->isStopped() == false);
     ua[0]->write(5, 255); // Overridden in the next round
     ua[0]->write(0, 42);  // Not overridden in the next round
     doc->inputOutputMap()->releaseUniverses(false);
@@ -779,7 +779,7 @@ void Scene_Test::writeHTPTwoTicks()
     ua[0]->processFaders();
     QVERIFY(ua[0]->preGMValues()[5] == (char) 250);
     QVERIFY(ua[0]->preGMValues()[0] == (char) 100);
-    QVERIFY(s1->stopped() == false);
+    QVERIFY(s1->isStopped() == false);
     doc->inputOutputMap()->releaseUniverses(false);
 
     // Write a value when running (with HTP check)
@@ -801,12 +801,12 @@ void Scene_Test::writeHTPTwoTicks()
     doc->inputOutputMap()->releaseUniverses(false);
 
     s1->stop(FunctionParent::master());
-    QVERIFY(s1->stopped() == true);
+    QVERIFY(s1->isStopped() == true);
     QVERIFY(s1->isRunning() == true);
 
     timer.timerTick();
     QVERIFY(s1->isRunning() == false);
-    QVERIFY(s1->stopped() == true);
+    QVERIFY(s1->isStopped() == true);
     // Now, the channels are inside MasterTimer's GenericFader to be zeroed out
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
@@ -858,11 +858,11 @@ void Scene_Test::writeHTPTwoTicksIntensity()
 
     s1->adjustAttribute(0.5, Function::Intensity);
 
-    QVERIFY(s1->stopped() == true);
+    QVERIFY(s1->isStopped() == true);
     s1->start(&timer, FunctionParent::master());
     timer.timerTick();
 
-    QVERIFY(s1->stopped() == false);
+    QVERIFY(s1->isStopped() == false);
     QVERIFY(s1->isRunning() == true);
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
@@ -877,7 +877,7 @@ void Scene_Test::writeHTPTwoTicksIntensity()
     ua[0]->processFaders();
     QVERIFY(ua[0]->preGMValues()[5] == (char) 250);
     QVERIFY(ua[0]->preGMValues()[0] == (char) 100);
-    QVERIFY(s1->stopped() == false);
+    QVERIFY(s1->isStopped() == false);
     doc->inputOutputMap()->releaseUniverses(false);
 
     s1->adjustAttribute(0.2, Function::Intensity);
@@ -888,7 +888,7 @@ void Scene_Test::writeHTPTwoTicksIntensity()
     ua[0]->processFaders();
     QVERIFY(ua[0]->preGMValues()[5] == (char) floor((qreal(250) * qreal(0.2)) + 0.5));
     QVERIFY(ua[0]->preGMValues()[0] == (char) 100);
-    QVERIFY(s1->stopped() == false);
+    QVERIFY(s1->isStopped() == false);
     ua[0]->write(5, 255); // Overridden in the next round
     ua[0]->write(0, 42);  // Not overridden in the next round
     doc->inputOutputMap()->releaseUniverses(false);
@@ -899,16 +899,16 @@ void Scene_Test::writeHTPTwoTicksIntensity()
     ua[0]->processFaders();
     QVERIFY(ua[0]->preGMValues()[5] == (char) floor((qreal(250) * qreal(0.2)) + 0.5));
     QVERIFY(ua[0]->preGMValues()[0] == (char) 100);
-    QVERIFY(s1->stopped() == false);
+    QVERIFY(s1->isStopped() == false);
     doc->inputOutputMap()->releaseUniverses(false);
 
     s1->stop(FunctionParent::master());
-    QVERIFY(s1->stopped() == true);
+    QVERIFY(s1->isStopped() == true);
     QVERIFY(s1->isRunning() == true);
 
     timer.timerTick();
     QVERIFY(s1->isRunning() == false);
-    QVERIFY(s1->stopped() == true);
+    QVERIFY(s1->isStopped() == true);
     // Now, the channels are inside MasterTimer's GenericFader to be zeroed out
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
@@ -953,7 +953,7 @@ void Scene_Test::writeLTPReady()
     s1->setValue(fxi->id(), 2, 100); // LTP
     doc->addFunction(s1);
 
-    QVERIFY(s1->stopped() == true);
+    QVERIFY(s1->isStopped() == true);
     QVERIFY(s1->isRunning() == false);
     s1->start(&timer, FunctionParent::master());
 
@@ -973,7 +973,7 @@ void Scene_Test::writeLTPReady()
     QVERIFY(ua[0]->preGMValues()[2] == (char) 100);
     doc->inputOutputMap()->releaseUniverses(false);
 
-    QVERIFY(s1->stopped() == false);
+    QVERIFY(s1->isStopped() == false);
     QVERIFY(s1->isRunning() == true);
 
     // LTP values stay on
@@ -985,7 +985,7 @@ void Scene_Test::writeLTPReady()
     QVERIFY(ua[0]->preGMValues()[2] == (char) 100);
     doc->inputOutputMap()->releaseUniverses(false);
 
-    QVERIFY(s1->stopped() == false);
+    QVERIFY(s1->isStopped() == false);
     QVERIFY(s1->isRunning() == true);
 }
 

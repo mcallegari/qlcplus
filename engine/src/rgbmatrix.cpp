@@ -553,7 +553,7 @@ bool RGBMatrix::saveXML(QXmlStreamWriter *doc)
 
 void RGBMatrix::tap()
 {
-    if (stopped() == false)
+    if (isStopped() == false)
     {
         FixtureGroup *grp = doc()->fixtureGroup(fixtureGroup());
         // Filter out taps that are too close to each other

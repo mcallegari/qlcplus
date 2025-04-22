@@ -1103,7 +1103,7 @@ int ChaserEditor::getCurrentIndex()
 
 void ChaserEditor::slotRestartTest()
 {
-    if (m_chaser->stopped() == false)
+    if (m_chaser->isStopped() == false)
     {
         // Toggle off, toggle on. Derp.
         m_testStopButton->click();

@@ -1031,7 +1031,7 @@ void VCSlider::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
             {
                 qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
                 adjustFunctionIntensity(function, pIntensity * intensity());
-                if (value == 0 && !function->stopped())
+                if (value == 0 && !function->isStopped())
                     function->stop(functionParent());
             }
         }
@@ -1286,7 +1286,7 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
     if (value == 0)
     {
         // Make sure we ignore the fade out time
-        if (function->stopped() == false)
+        if (function->isStopped() == false)
         {
             function->stop(functionParent());
             resetIntensityOverrideAttribute();
@@ -1294,7 +1294,7 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
     }
     else
     {
-        if (function->stopped() == true)
+        if (function->isStopped() == true)
         {
 #if 0 // temporarily revert #699 until a better solution is found
             // Since this function is started by a fader, its fade in time

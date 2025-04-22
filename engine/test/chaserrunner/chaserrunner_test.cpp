@@ -728,7 +728,7 @@ void ChaserRunner_Test::writeForwardSingleShotZero()
     QVERIFY(cr.write(&timer, QList<Universe*>()) == false);
     cr.postRun(&timer, QList<Universe*>());
     timer.timerTick();
-    QVERIFY(m_scene3->stopped() == true);
+    QVERIFY(m_scene3->isStopped() == true);
     QCOMPARE(timer.m_functionList.size(), 0);
 }
 
@@ -758,7 +758,7 @@ void ChaserRunner_Test::writeBackwardSingleShotZero()
     QVERIFY(cr.write(&timer, QList<Universe*>()) == false);
     cr.postRun(&timer, QList<Universe*>());
     timer.timerTick();
-    QVERIFY(m_scene1->stopped() == true);
+    QVERIFY(m_scene1->isStopped() == true);
     QCOMPARE(timer.m_functionList.size(), 0);
 }
 
@@ -787,7 +787,7 @@ void ChaserRunner_Test::writeForwardPingPongZero()
 
     QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
     timer.timerTick();
-    QVERIFY(m_scene1->stopped() == true);
+    QVERIFY(m_scene1->isStopped() == true);
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene2);
 
@@ -798,7 +798,7 @@ void ChaserRunner_Test::writeForwardPingPongZero()
 
     QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
     timer.timerTick();
-    QVERIFY(m_scene1->stopped() == true);
+    QVERIFY(m_scene1->isStopped() == true);
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene2);
 
