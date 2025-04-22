@@ -62,8 +62,7 @@ void RGBAudio::setAudioCapture(AudioCapture* cap)
     qDebug() << Q_FUNC_INFO << "Audio capture set";
 
     m_audioInput = cap;
-    connect(m_audioInput, SIGNAL(dataProcessed(double*,int,double,quint32)),
-            this, SLOT(slotAudioBarsChanged(double*,int,double,quint32)));
+    connect(m_audioInput, &AudioCapture::dataProcessed, this, &RGBAudio::slotAudioBarsChanged);
     m_bandsNumber = -1;
 }
 
@@ -191,8 +190,7 @@ void RGBAudio::postRun()
     QSharedPointer<AudioCapture> capture = doc()->audioInputCapture();
     if (capture.data() == m_audioInput)
     {
-        disconnect(m_audioInput, SIGNAL(dataProcessed(double*,int,double,quint32)),
-                   this, SLOT(slotAudioBarsChanged(double*,int,double,quint32)));
+        disconnect(m_audioInput, &AudioCapture::dataProcessed, this, &RGBAudio::slotAudioBarsChanged);
         if (m_bandsNumber > 0)
             m_audioInput->unregisterBandsNumber(m_bandsNumber);
     }

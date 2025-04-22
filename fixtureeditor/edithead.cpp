@@ -38,7 +38,7 @@ EditHead::EditHead(QWidget* parent, const QLCFixtureHead& head, const QLCFixture
 
     QAction* action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
-    connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
+    connect(action, &QAction::triggered, this, &EditHead::reject);
     addAction(action);
 
     fillChannelTree(mode);
@@ -48,8 +48,7 @@ EditHead::EditHead(QWidget* parent, const QLCFixtureHead& head, const QLCFixture
     if (geometrySettings.isValid() == true)
         restoreGeometry(geometrySettings.toByteArray());
 
-    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
-            this, SLOT(slotItemChanged(QTreeWidgetItem*,int)));
+    connect(m_tree, &QTreeWidget::itemChanged, this, &EditHead::slotItemChanged);
 }
 
 EditHead::~EditHead()

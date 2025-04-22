@@ -75,7 +75,7 @@ ChaserRunner::ChaserRunner(const Doc *doc, const Chaser *chaser, quint32 startTi
     }
 
     m_direction = m_chaser->direction();
-    connect(chaser, SIGNAL(changed(quint32)), this, SLOT(slotChaserChanged()));
+    connect(chaser, &Chaser::changed, this, &ChaserRunner::slotChaserChanged);
     m_roundTime->restart();
 
     fillOrder();

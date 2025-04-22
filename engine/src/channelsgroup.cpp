@@ -64,8 +64,7 @@ ChannelsGroup::~ChannelsGroup()
 
 void ChannelsGroup::init()
 {
-    connect(m_doc, SIGNAL(fixtureRemoved(quint32)),
-            this, SLOT(slotFixtureRemoved(quint32)));
+    connect(m_doc, &Doc::fixtureRemoved, this, &ChannelsGroup::slotFixtureRemoved);
 }
 
 void ChannelsGroup::slotFixtureRemoved(quint32 fixtureId)
@@ -199,15 +198,13 @@ QString ChannelsGroup::status(Doc *doc) const
 void ChannelsGroup::setInputSource(QSharedPointer<QLCInputSource> const& source)
 {
     if (!m_input.isNull() && m_input->isValid())
-        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
+        disconnect(m_doc->inputOutputMap(), &InputOutputMap::inputValueChanged, this, &ChannelsGroup::slotInputValueChanged);
 
     m_input = source;
 
     // Connect when the first valid input source is set
     if (!source.isNull() && source->isValid())
-        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
+        connect(m_doc->inputOutputMap(), &InputOutputMap::inputValueChanged, this, &ChannelsGroup::slotInputValueChanged);
 }
 
 QSharedPointer<QLCInputSource> const& ChannelsGroup::inputSource() const

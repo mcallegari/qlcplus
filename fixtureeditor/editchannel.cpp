@@ -61,7 +61,7 @@ EditChannel::EditChannel(QWidget *parent, QLCChannel *channel)
 
     QAction *action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
-    connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
+    connect(action, &QAction::triggered, this, &EditChannel::reject);
     addAction(action);
 
     QSettings settings;
@@ -96,8 +96,7 @@ void EditChannel::init()
     /* Set name edit */
     m_nameEdit->setText(m_channel->name());
     m_nameEdit->setValidator(CAPS_VALIDATOR(this));
-    connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
-            this, SLOT(slotNameChanged(const QString&)));
+    connect(m_nameEdit, &QLineEdit::textEdited, this, &EditChannel::slotNameChanged);
 
     /* Get available presets and insert them into the groups combo */
     m_presetCombo->addItem(QIcon(":/edit.png"), "Custom");
@@ -117,8 +116,7 @@ void EditChannel::init()
         m_presetCombo->setCurrentIndex(m_channel->preset());
     }
 
-    connect(m_presetCombo, SIGNAL(activated(int)),
-            this, SLOT(slotPresetActivated(int)));
+    connect(m_presetCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this, &EditChannel::slotPresetActivated);
 
     /* Get available groups/colors and insert them into the groups combo */
     QString selectedType = QLCChannel::groupToString(m_channel->group());
@@ -162,27 +160,26 @@ void EditChannel::init()
         m_capPresetCombo->addItem(cap.presetToString(QLCCapability::Preset(i)));
     }
 
-    connect(m_typeCombo, SIGNAL(activated(int)), this, SLOT(slotGroupActivated(int)));
-    connect(m_defaultValSpin, SIGNAL(valueChanged(int)), this, SLOT(slotDefaultValueChanged(int)));
-    connect(m_msbRadio, SIGNAL(toggled(bool)), this, SLOT(slotMsbRadioToggled(bool)));
-    connect(m_lsbRadio, SIGNAL(toggled(bool)), this, SLOT(slotLsbRadioToggled(bool)));
+    connect(m_typeCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this, &EditChannel::slotGroupActivated);
+    connect(m_defaultValSpin, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &EditChannel::slotDefaultValueChanged);
+    connect(m_lsbRadio, &QRadioButton::toggled, this, &EditChannel::slotMsbRadioToggled);
+    connect(m_lsbRadio, &QRadioButton::toggled, this, &EditChannel::slotLsbRadioToggled);
 
-    connect(m_removeCapabilityButton, SIGNAL(clicked()), this, SLOT(slotRemoveCapabilityClicked()));
-    connect(m_wizardButton, SIGNAL(clicked()), this, SLOT(slotWizardClicked()));
+    connect(m_removeCapabilityButton, &QToolButton::clicked, this, &EditChannel::slotRemoveCapabilityClicked);
+    connect(m_wizardButton, &QToolButton::clicked, this, &EditChannel::slotWizardClicked);
 
     refreshCapabilities();
 
     /* Capability list connections */
-    connect(m_capabilityList, SIGNAL(cellChanged(int,int)), this, SLOT(slotCapabilityCellChanged(int,int)));
-    connect(m_capabilityList, SIGNAL(currentCellChanged(int,int,int,int)),
-            this, SLOT(slotCapabilityCellSelected(int,int,int,int)));
+    connect(m_capabilityList, &QTableWidget::cellChanged, this, &EditChannel::slotCapabilityCellChanged);
+    connect(m_capabilityList, &QTableWidget::currentCellChanged, this, &EditChannel::slotCapabilityCellSelected);
 
-    connect(m_capPresetCombo, SIGNAL(activated(int)), this, SLOT(slotCapabilityPresetActivated(int)));
-    connect(m_pictureButton, SIGNAL(pressed()), this, SLOT(slotPictureButtonPressed()));
-    connect(m_color1Button, SIGNAL(pressed()), this, SLOT(slotColor1ButtonPressed()));
-    connect(m_color2Button, SIGNAL(pressed()), this, SLOT(slotColor2ButtonPressed()));
-    connect(m_val1Spin, SIGNAL(valueChanged(double)), this, SLOT(slotValue1SpinChanged(double)));
-    connect(m_val2Spin, SIGNAL(valueChanged(double)), this, SLOT(slotValue2SpinChanged(double)));
+    connect(m_capPresetCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this, &EditChannel::slotCapabilityPresetActivated);
+    connect(m_pictureButton, &QToolButton::pressed, this, &EditChannel::slotPictureButtonPressed);
+    connect(m_color1Button, &QToolButton::pressed, this, &EditChannel::slotColor1ButtonPressed);
+    connect(m_color2Button, &QToolButton::pressed, this, &EditChannel::slotColor2ButtonPressed);
+    connect(m_val1Spin, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, &EditChannel::slotValue1SpinChanged);
+    connect(m_val2Spin, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, &EditChannel::slotValue2SpinChanged);
 
     updateCapabilityPresetGroup(false);
 

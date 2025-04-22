@@ -478,8 +478,8 @@ void Show::preRun(MasterTimer* timer)
     foreach (Track *track, m_tracks)
         m_runner->adjustIntensity(getAttributeValue(i++), track);
 
-    connect(m_runner, SIGNAL(timeChanged(quint32)), this, SIGNAL(timeChanged(quint32)));
-    connect(m_runner, SIGNAL(showFinished()), this, SIGNAL(showFinished()));
+    connect(m_runner, &ShowRunner::timeChanged, this, &Show::timeChanged);  // TODO: This was connecting SIGNAL to SIGNAL - is that even correct?
+    connect(m_runner, &ShowRunner::showFinished, this, &Show::showFinished);  // TODO: This was connecting SIGNAL to SIGNAL - is that even correct?
     m_runner->start();
 }
 

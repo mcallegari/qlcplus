@@ -244,49 +244,41 @@ void App::initActions()
     m_fileNewAction = new QAction(QIcon(":/filenew.png"),
                                   tr("&New"), this);
     m_fileNewAction->setShortcut(QKeySequence(tr("CTRL+N", "File|New")));
-    connect(m_fileNewAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotFileNew()));
+    connect(m_fileNewAction, &QAction::triggered, this, &App::slotFileNew);
 
     m_fileOpenAction = new QAction(QIcon(":/fileopen.png"),
                                    tr("&Open"), this);
     m_fileOpenAction->setShortcut(QKeySequence(tr("CTRL+O", "File|Open")));
-    connect(m_fileOpenAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotFileOpen()));
+    connect(m_fileOpenAction, &QAction::triggered, this, &App::slotFileOpen);
 
     m_fileSaveAction = new QAction(QIcon(":/filesave.png"),
                                    tr("&Save"), this);
     m_fileSaveAction->setShortcut(QKeySequence(tr("CTRL+S", "File|Save")));
-    connect(m_fileSaveAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotFileSave()));
+    connect(m_fileSaveAction, &QAction::triggered, this, &App::slotFileSave);
 
     m_fileSaveAsAction = new QAction(QIcon(":/filesaveas.png"),
                                      tr("Save &As..."), this);
     m_fileSaveAsAction->setShortcut(QKeySequence(tr("CTRL+SHIFT+S", "File|Save As...")));
-    connect(m_fileSaveAsAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotFileSaveAs()));
+    connect(m_fileSaveAsAction, &QAction::triggered, this, &App::slotFileSaveAs);
 
     m_fileQuitAction = new QAction(QIcon(":/exit.png"),
                                    tr("&Quit"), this);
     m_fileQuitAction->setShortcut(QKeySequence(tr("CTRL+Q", "File|Quit")));
-    connect(m_fileQuitAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotFileQuit()));
+    connect(m_fileQuitAction, &QAction::triggered, this, &App::slotFileQuit);
 
     /* Help actions */
     m_helpIndexAction = new QAction(QIcon(":/help.png"),
                                     tr("Index"), this);
     m_helpIndexAction->setShortcut(QKeySequence(tr("SHIFT+F1", "Help|Index")));
-    connect(m_helpIndexAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotHelpIndex()));
+    connect(m_helpIndexAction, &QAction::triggered, this, &App::slotHelpIndex);
 
     m_helpAboutAction = new QAction(QIcon(":/qlcplus.png"),
                                     tr("About Fixture Definition Editor..."), this);
-    connect(m_helpAboutAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotHelpAbout()));
+    connect(m_helpAboutAction, &QAction::triggered, this, &App::slotHelpAbout);
 
     m_helpAboutQtAction = new QAction(QIcon(":/qt.png"),
                                       tr("About Qt..."), this);
-    connect(m_helpAboutQtAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotHelpAboutQt()));
+    connect(m_helpAboutQtAction, &QAction::triggered, this, &App::slotHelpAboutQt);
 }
 
 void App::initToolBar()

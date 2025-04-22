@@ -131,7 +131,7 @@ void ArtNetController::addUniverse(quint32 universe, ArtNetController::Type type
         if (m_pollTimer.isActive() == false)
         {
             m_pollTimer.setInterval(POLL_INTERVAL_MS);
-            connect(&m_pollTimer, SIGNAL(timeout()), this, SLOT(slotSendPoll()));
+            connect(&m_pollTimer, &QTimer::timeout, this, &ArtNetController::slotSendPoll);
             m_pollTimer.start();
 
             slotSendPoll();
@@ -140,7 +140,7 @@ void ArtNetController::addUniverse(quint32 universe, ArtNetController::Type type
             m_universeMap[universe].outputTransmissionMode == Standard)
         {
             m_sendTimer.setInterval(SEND_INTERVAL_MS);
-            connect(&m_sendTimer, SIGNAL(timeout()), this, SLOT(slotSendAllUniverses()));
+            connect(&m_sendTimer, &QTimer::timeout, this, &ArtNetController::slotSendAllUniverses);
             m_sendTimer.start();
         }
     }
@@ -158,8 +158,7 @@ void ArtNetController::removeUniverse(quint32 universe, ArtNetController::Type t
         if (type == Output && ((this->type() & Output) == 0))
         {
             m_pollTimer.stop();
-            disconnect(&m_pollTimer, SIGNAL(timeout()),
-                       this, SLOT(slotSendPoll()));
+            connect(&m_pollTimer, &QTimer::timeout, this, &ArtNetController::slotSendPoll);
         }
     }
 }

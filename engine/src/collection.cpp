@@ -44,8 +44,7 @@ Collection::Collection(Doc* doc)
     setName(tr("New Collection"));
 
     // Listen to member Function removals
-    connect(doc, SIGNAL(functionRemoved(quint32)),
-            this, SLOT(slotFunctionRemoved(quint32)));
+    connect(doc, &Doc::functionRemoved, this, &Collection::slotFunctionRemoved);
 }
 
 Collection::~Collection()
@@ -303,13 +302,11 @@ void Collection::preRun(MasterTimer *timer)
 
             // Listen to the children's stopped signals so that this Collection
             // can give up its rights to stop the function later.
-            connect(function, SIGNAL(stopped(quint32)),
-                    this, SLOT(slotChildStopped(quint32)));
+            connect(function, &Function::stopped, this, &Collection::slotChildStopped);
 
             // Listen to the children's stopped signals so that this collection
             // can give up its rights to stop the function later.
-            connect(function, SIGNAL(running(quint32)),
-                    this, SLOT(slotChildStarted(quint32)));
+            connect(function, &Function::running, this, &Collection::slotChildStopped);
 
             //function->adjustAttribute(getAttributeValue(Function::Intensity), Function::Intensity);
             function->start(timer, functionParent(), 0, overrideFadeInSpeed(), overrideFadeOutSpeed(), overrideDuration());
@@ -357,8 +354,7 @@ void Collection::write(MasterTimer *timer, QList<Universe *> universes)
 
             // First tick may correspond to this collection starting the function
             // Now that first tick is over, stop listening to running signal
-            disconnect(function, SIGNAL(running(quint32)),
-                    this, SLOT(slotChildStarted(quint32)));
+            disconnect(function, &Function::running, this, &Collection::slotChildStarted);
         }
     }
 
@@ -397,12 +393,10 @@ void Collection::postRun(MasterTimer* timer, QList<Universe *> universes)
             Function* function = doc->function(m_functions.at(i));
             Q_ASSERT(function != NULL);
 
-            disconnect(function, SIGNAL(stopped(quint32)),
-                    this, SLOT(slotChildStopped(quint32)));
+            disconnect(function, &Function::stopped, this, &Collection::slotChildStopped);
             if (m_tick == 2)
             {
-                disconnect(function, SIGNAL(running(quint32)),
-                        this, SLOT(slotChildStarted(quint32)));
+                disconnect(function, &Function::running, this, &Collection::slotChildStarted);
             }
         }
 

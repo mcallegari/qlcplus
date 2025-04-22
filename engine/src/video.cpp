@@ -68,8 +68,7 @@ Video::Video(Doc* doc)
     registerAttribute(tr("Height scale"), Function::LastWins, 0, 1000.0, 100.0);
 
     // Listen to member Function removals
-    connect(doc, SIGNAL(functionRemoved(quint32)),
-            this, SLOT(slotFunctionRemoved(quint32)));
+    connect(doc, &Doc::functionRemoved, this, &Video::slotFixtureRemoved);
 }
 
 Video::~Video()

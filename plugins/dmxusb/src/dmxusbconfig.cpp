@@ -65,8 +65,8 @@ DMXUSBConfig::DMXUSBConfig(DMXUSB* plugin, QWidget* parent)
     hbox->addWidget(m_closeButton);
     vbox->addLayout(hbox);
 
-    connect(m_refreshButton, SIGNAL(clicked()), this, SLOT(slotRefresh()));
-    connect(m_closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+    connect(m_refreshButton, &QPushButton::clicked, this, &DMXUSBConfig::slotRefresh);
+    connect(m_closeButton, &QPushButton::clicked, this, &DMXUSBConfig::accept);
 
     QSettings settings;
     QVariant var = settings.value(SETTINGS_GEOMETRY);
@@ -154,7 +154,7 @@ QComboBox *DMXUSBConfig::createTypeCombo(DMXUSBWidget *widget)
     int index = combo->findData(widget->type());
     combo->setCurrentIndex(index);
 
-    connect(combo, SIGNAL(activated(int)), this, SLOT(slotTypeComboActivated(int)));
+    connect(combo, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this, &DMXUSBConfig::slotTypeComboActivated);
 
     return combo;
 }
@@ -169,7 +169,7 @@ QSpinBox *DMXUSBConfig::createFrequencySpin(DMXUSBWidget *widget)
     spin->setValue(widget->outputFrequency());
     spin->setSuffix("Hz");
 
-    connect(spin, SIGNAL(valueChanged(int)), this, SLOT(slotFrequencyValueChanged(int)));
+    connect(spin, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &DMXUSBConfig::slotFrequencyValueChanged);
 
     return spin;
 }

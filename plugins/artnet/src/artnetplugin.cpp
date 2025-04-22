@@ -186,10 +186,8 @@ bool ArtNetPlugin::openOutput(quint32 output, quint32 universe)
                                                             m_IOmapping.at(output).address,
                                                             getUdpSocket(),
                                                             output, this);
-        connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
-                this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
-        connect(controller, SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)),
-                this , SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)));
+        connect(controller, &ArtNetController::valueChanged, this, [this](quint32 _t1, quint32 _t2, quint32 _t3, uchar _t4){ valueChanged(_t1, _t2, _t3, _t4); });
+        connect(controller, &ArtNetController::rdmValueChanged, this, &ArtNetPlugin::rdmValueChanged);
         m_IOmapping[output].controller = controller;
     }
 
@@ -255,8 +253,7 @@ bool ArtNetPlugin::openInput(quint32 input, quint32 universe)
                                                             m_IOmapping.at(input).address,
                                                             getUdpSocket(),
                                                             input, this);
-        connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
-                this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
+        connect(controller, &ArtNetController::valueChanged, this, [this](quint32 _t1, quint32 _t2, quint32 _t3, uchar _t4){ valueChanged(_t1, _t2, _t3, _t4); });
         m_IOmapping[input].controller = controller;
     }
 
@@ -414,8 +411,7 @@ QSharedPointer<QUdpSocket> ArtNetPlugin::getUdpSocket()
 
     if (udpSocket->bind(ARTNET_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint))
     {
-        connect(udpSocket.data(), SIGNAL(readyRead()),
-                this, SLOT(slotReadyRead()));
+        connect(udpSocket.data(), &QUdpSocket::readyRead, this, &ArtNetPlugin::slotReadyRead);
     }
     else
     {

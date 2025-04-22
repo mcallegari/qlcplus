@@ -52,7 +52,7 @@ ConfigureMidiPlugin::ConfigureMidiPlugin(MidiPlugin* plugin, QWidget* parent)
     if (geometrySettings.isValid() == true)
         restoreGeometry(geometrySettings.toByteArray());
 
-    connect(plugin, SIGNAL(configurationChanged()), this, SLOT(slotUpdateTree()));
+    connect(plugin, &MidiPlugin::configurationChanged, this, &ConfigureMidiPlugin::slotUpdateTree);
     slotUpdateTree();
 }
 
@@ -195,7 +195,7 @@ QWidget* ConfigureMidiPlugin::createMidiChannelWidget(int select)
         spin->setValue(0);
     else
         spin->setValue(select + 1);
-    connect(spin, SIGNAL(valueChanged(int)), this, SLOT(slotMidiChannelValueChanged(int)));
+    connect(spin, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &ConfigureMidiPlugin::slotMidiChannelValueChanged);
     return spin;
 }
 
@@ -213,7 +213,7 @@ QWidget* ConfigureMidiPlugin::createModeWidget(MidiDevice::Mode mode)
     else
         combo->setCurrentIndex(0);
 
-    connect(combo, SIGNAL(activated(int)), this, SLOT(slotModeActivated(int)));
+    connect(combo, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this, &ConfigureMidiPlugin::slotModeActivated);
 
     return combo;
 }
@@ -240,8 +240,8 @@ QWidget* ConfigureMidiPlugin::createInitMessageWidget(QString midiTemplateName)
     //combo->setEditable(true);
     qDebug() << "[MIDI] Selected template: " << midiTemplateName;
 
-    connect(combo, SIGNAL(activated(int)), this, SLOT(slotInitMessageActivated(int)));
-    connect(combo, SIGNAL(editTextChanged(QString)), this, SLOT(slotInitMessageChanged(QString)));
+    connect(combo, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this, &ConfigureMidiPlugin::slotInitMessageActivated);
+    connect(combo, &QComboBox::editTextChanged, this, &ConfigureMidiPlugin::slotInitMessageChanged);
 
     return combo;
 }

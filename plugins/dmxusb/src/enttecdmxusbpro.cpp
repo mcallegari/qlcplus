@@ -212,7 +212,7 @@ bool EnttecDMXUSBPro::open(quint32 line, bool input)
     {
         // create (therefore start) the input thread
         m_inputThread = new EnttecDMXUSBProInput(iface());
-        connect(m_inputThread, SIGNAL(dataReady(QByteArray,bool)), this, SLOT(slotDataReceived(QByteArray,bool)));
+        connect(m_inputThread, &EnttecDMXUSBProInput::dataReady, this, &EnttecDMXUSBPro::slotDataReceived);
     }
 
     return true;
@@ -224,7 +224,7 @@ bool EnttecDMXUSBPro::close(quint32 line, bool input)
     {
         if (m_inputThread)
         {
-            disconnect(m_inputThread, SIGNAL(dataReady(QByteArray,bool)), this, SLOT(slotDataReceived(QByteArray,bool)));
+            disconnect(m_inputThread, &EnttecDMXUSBProInput::dataReady, this, &EnttecDMXUSBPro::slotDataReceived);
             delete m_inputThread;
             m_inputThread = NULL;
         }

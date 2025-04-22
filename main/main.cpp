@@ -362,12 +362,9 @@ int main(int argc, char** argv)
         WebAccess *webAccess = new WebAccess(app.doc(), VirtualConsole::instance(), SimpleDesk::instance(),
                                              QLCArgs::webAccessPort, QLCArgs::enableWebAuth, QLCArgs::webAccessPasswordFile);
 
-        QObject::connect(webAccess, SIGNAL(toggleDocMode()),
-                &app, SLOT(slotModeToggle()));
-        QObject::connect(webAccess, SIGNAL(loadProject(QString)),
-                &app, SLOT(slotLoadDocFromMemory(QString)));
-        QObject::connect(webAccess, SIGNAL(storeAutostartProject(QString)),
-                &app, SLOT(slotSaveAutostart(QString)));
+        QObject::connect(webAccess, &WebAccess::toggleDocMode, &app, &App::slotModeToggle);
+        QObject::connect(webAccess, &WebAccess::loadProject, &app, &App::slotLoadDocFromMemory);
+        QObject::connect(webAccess, &WebAccess::storeAutostartProject, &app, &App::slotSaveAutostart);
     }
 
     return qapp.exec();

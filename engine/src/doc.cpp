@@ -437,8 +437,7 @@ bool Doc::addFixture(Fixture* fixture, quint32 id, bool crossUniverse)
     m_fixturesListCacheUpToDate = false;
 
     /* Patch fixture change signals thru Doc */
-    connect(fixture, SIGNAL(changed(quint32)),
-            this, SLOT(slotFixtureChanged(quint32)));
+    connect(fixture, &Fixture::changed, this, &Doc::slotFixtureChanged);
 
     /* Keep track of fixture addresses */
     for (i = fixture->universeAddress();
@@ -540,8 +539,7 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
     while (fxit.hasNext() == true)
     {
         Fixture* fxi = m_fixtures.take(fxit.next());
-        disconnect(fxi, SIGNAL(changed(quint32)),
-                   this, SLOT(slotFixtureChanged(quint32)));
+        disconnect(fxi, &Fixture::changed, this, &Doc::slotFixtureChanged);
         delete fxi;
         m_fixturesListCacheUpToDate = false;
     }
@@ -596,8 +594,7 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
         m_fixturesListCacheUpToDate = false;
 
         /* Patch fixture change signals thru Doc */
-        connect(newFixture, SIGNAL(changed(quint32)),
-                this, SLOT(slotFixtureChanged(quint32)));
+        connect(newFixture, &Fixture::changed, this, &Doc::slotFixtureChanged);
 
         /* Keep track of fixture addresses */
         for (uint i = newFixture->universeAddress();
@@ -771,8 +768,7 @@ bool Doc::addFixtureGroup(FixtureGroup* grp, quint32 id)
         m_fixtureGroups[id] = grp;
 
         /* Patch fixture group change signals thru Doc */
-        connect(grp, SIGNAL(changed(quint32)),
-                this, SLOT(slotFixtureGroupChanged(quint32)));
+        connect(grp, &FixtureGroup::changed, this, &Doc::slotFixtureGroupChanged);
 
         emit fixtureGroupAdded(id);
         setModified();
@@ -1026,16 +1022,13 @@ bool Doc::addFunction(Function* func, quint32 id)
     else
     {
         // Listen to function changes
-        connect(func, SIGNAL(changed(quint32)),
-                this, SLOT(slotFunctionChanged(quint32)));
+        connect(func, &Function::changed, this, &Doc::slotFunctionChanged);
 
         // Listen to function name changes
-        connect(func, SIGNAL(nameChanged(quint32)),
-                this, SLOT(slotFunctionNameChanged(quint32)));
+        connect(func, &Function::nameChanged, this, &Doc::slotFunctionNameChanged);
 
         // Make the function listen to fixture removals
-        connect(this, SIGNAL(fixtureRemoved(quint32)),
-                func, SLOT(slotFixtureRemoved(quint32)));
+        connect(this, &Doc::fixtureRemoved, func, &Function::slotFixtureRemoved);
 
         // Place the function in the map and assign it the new ID
         m_functions[id] = func;

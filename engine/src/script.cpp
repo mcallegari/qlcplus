@@ -705,7 +705,7 @@ QString Script::handleWaitFunction(const QList<QStringList> &tokens, bool start)
         if (!function->isRunning())
         {
             m_waitFunction = function;
-            connect(m_waitFunction, SIGNAL(running(quint32)), this, SLOT(slotWaitFunctionStarted(quint32)));
+            connect(m_waitFunction, &Function::running, this, &Script::slotWaitFunctionStarted);
         }
     }
     else
@@ -713,7 +713,7 @@ QString Script::handleWaitFunction(const QList<QStringList> &tokens, bool start)
         if (!function->isStopped())
         {
             m_waitFunction = function;
-            connect(m_waitFunction, SIGNAL(stopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
+            connect(m_waitFunction, &Function::stopped, this, &Script::slotWaitFunctionStopped);
         }
     }
 
@@ -723,7 +723,7 @@ QString Script::handleWaitFunction(const QList<QStringList> &tokens, bool start)
 void Script::slotWaitFunctionStarted(quint32 fid)
 {
     if (m_waitFunction != NULL && m_waitFunction->id() == fid) {
-        disconnect(m_waitFunction, SIGNAL(running(quint32)), this, SLOT(slotWaitFunctionStarted(quint32)));
+        disconnect(m_waitFunction, &Function::running, this, &Script::slotWaitFunctionStarted);
         m_waitFunction = NULL;
     }
 }
@@ -731,7 +731,7 @@ void Script::slotWaitFunctionStarted(quint32 fid)
 void Script::slotWaitFunctionStopped(quint32 fid)
 {
     if (m_waitFunction != NULL && m_waitFunction->id() == fid) {
-        disconnect(m_waitFunction, SIGNAL(stopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
+        disconnect(m_waitFunction, &Function::stopped, this, &Script::slotWaitFunctionStopped);
         m_startedFunctions.removeAll(m_waitFunction);
         m_waitFunction = NULL;
     }

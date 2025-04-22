@@ -40,7 +40,7 @@ CapabilityWizard::CapabilityWizard(QWidget* parent, const QLCChannel* channel)
 
     QAction* action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
-    connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
+    connect(action, &QAction::triggered, this, &CapabilityWizard::reject);
     addAction(action);
 
     m_nameEdit->setValidator(CAPS_VALIDATOR(this));

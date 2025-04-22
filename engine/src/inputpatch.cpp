@@ -81,8 +81,7 @@ bool InputPatch::set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profil
 
     if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine())
     {
-        disconnect(m_plugin, SIGNAL(valueChanged(quint32,quint32,quint32,uchar,QString)),
-                   this, SLOT(slotValueChanged(quint32,quint32,quint32,uchar,QString)));
+        disconnect(m_plugin, &QLCIOPlugin::valueChanged, this, &InputPatch::slotValueChanged);
         m_plugin->closeInput(m_pluginLine, m_universe);
     }
 
@@ -102,8 +101,7 @@ bool InputPatch::set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profil
     /* Open the assigned plugin input */
     if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine())
     {
-        connect(m_plugin, SIGNAL(valueChanged(quint32,quint32,quint32,uchar,QString)),
-                this, SLOT(slotValueChanged(quint32,quint32,quint32,uchar,QString)));
+        connect(m_plugin, &QLCIOPlugin::valueChanged, this, &InputPatch::slotValueChanged);
         result = m_plugin->openInput(m_pluginLine, m_universe);
 
         if (m_profile != NULL)

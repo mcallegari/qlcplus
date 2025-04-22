@@ -51,12 +51,12 @@ Launcher::Launcher(QWidget* parent) : QWidget(parent)
 
     QPushButton* fxed = new QPushButton(FXEDNAME, this);
     fxed->setToolTip(tr("Launch %1").arg(FXEDNAME));
-    connect(fxed, SIGNAL(clicked()), this, SLOT(slotFXEDClicked()));
+    connect(fxed, &QPushButton::clicked, this, &Launcher::slotFXEDClicked);
     lay->addWidget(fxed, 1, 1, 1, 1);
 
     QPushButton* qlc = new QPushButton(APPNAME, this);
     qlc->setToolTip(tr("Launch the main %1 application").arg(APPNAME));
-    connect(qlc, SIGNAL(clicked()), this, SLOT(slotQLCClicked()));
+    connect(qlc, &QPushButton::clicked, this, &Launcher::slotQLCClicked);
     lay->addWidget(qlc, 1, 2, 1, 1);
 }
 

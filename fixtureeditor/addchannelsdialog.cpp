@@ -46,10 +46,8 @@ AddChannelsDialog::AddChannelsDialog(QList<QLCChannel *> allList, QVector<QLCCha
     if (geometrySettings.isValid() == true)
         restoreGeometry(geometrySettings.toByteArray());
 
-    connect(m_addChannel, SIGNAL(clicked()),
-            this, SLOT(slotAddChannel()));
-    connect(m_removeChannel, SIGNAL(clicked()),
-            this, SLOT(slotRemoveChannel()));
+    connect(m_addChannel, &QToolButton::clicked, this, &AddChannelsDialog::slotAddChannel);
+    connect(m_removeChannel, &QToolButton::clicked, this, &AddChannelsDialog::slotRemoveChannel);
 
     fillChannelsTrees(m_channelsList, modeList);
 }

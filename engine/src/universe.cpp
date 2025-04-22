@@ -72,8 +72,7 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
 
     m_name = QString("Universe %1").arg(id + 1);
 
-    connect(m_grandMaster, SIGNAL(valueChanged(uchar)),
-            this, SLOT(slotGMValueChanged()));
+    connect(m_grandMaster, &GrandMaster::valueChanged, this, &Universe::slotGMValueChanged);
 }
 
 Universe::~Universe()
@@ -759,11 +758,9 @@ void Universe::connectInputPatch()
         return;
 
     if (!m_passthrough)
-        connect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                this, SIGNAL(inputValueChanged(quint32,quint32,uchar,QString)));
+        connect(m_inputPatch, &InputPatch::inputValueChanged, this, &Universe::inputValueChanged); // TODO: This was connecting SIGNAL to SIGNAL - is that even correct?
     else
-        connect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                this, SLOT(slotInputValueChanged(quint32,quint32,uchar,const QString&)));
+        connect(m_inputPatch, &InputPatch::inputValueChanged, this, &Universe::slotInputValueChanged);
 }
 
 void Universe::disconnectInputPatch()
@@ -772,11 +769,9 @@ void Universe::disconnectInputPatch()
         return;
 
     if (!m_passthrough)
-        disconnect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                this, SIGNAL(inputValueChanged(quint32,quint32,uchar,QString)));
+        disconnect(m_inputPatch, &InputPatch::inputValueChanged, this, &Universe::inputValueChanged); // TODO: This was connecting SIGNAL to SIGNAL - is that even correct?
     else
-        disconnect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                this, SLOT(slotInputValueChanged(quint32,quint32,uchar,const QString&)));
+        disconnect(m_inputPatch, &InputPatch::inputValueChanged, this, &Universe::slotInputValueChanged);
 }
 
 /************************************************************************

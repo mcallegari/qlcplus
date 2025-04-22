@@ -330,7 +330,7 @@ bool Script::saveXML(QXmlStreamWriter *doc)
 void Script::preRun(MasterTimer* timer)
 {
     m_runner = new ScriptRunner(doc(), m_data);
-    connect(m_runner, SIGNAL(finished()), this, SLOT(slotRunnerFinished()));
+    connect(m_runner, &ScriptRunner::finished, this, &Script::slotRunnerFinished);
     m_runner->execute();
 
     Function::preRun(timer);

@@ -503,8 +503,7 @@ void Function::setTempoType(const Function::TempoType &type)
             setFadeInSpeed(beatsToTime(fadeInSpeed(), beatTime));
             setDuration(beatsToTime(duration(), beatTime));
             setFadeOutSpeed(beatsToTime(fadeOutSpeed(), beatTime));
-            disconnect(doc()->masterTimer(), SIGNAL(bpmNumberChanged(int)),
-                       this, SLOT(slotBPMChanged(int)));
+            disconnect(doc()->masterTimer(), &MasterTimer::bpmNumberChanged, this, &Function::slotBPMChanged);
         break;
 
         /* Time -> Beats */
@@ -512,8 +511,7 @@ void Function::setTempoType(const Function::TempoType &type)
             setFadeInSpeed(timeToBeats(fadeInSpeed(), beatTime));
             setDuration(timeToBeats(duration(), beatTime));
             setFadeOutSpeed(timeToBeats(fadeOutSpeed(), beatTime));
-            connect(doc()->masterTimer(), SIGNAL(bpmNumberChanged(int)),
-                    this, SLOT(slotBPMChanged(int)));
+            connect(doc()->masterTimer(), &MasterTimer::bpmNumberChanged, this, &Function::slotBPMChanged);
         break;
         default:
             qDebug() << "Error. Unhandled tempo type" << type;

@@ -53,8 +53,7 @@ GPIOConfiguration::GPIOConfiguration(GPIOPlugin* plugin, QWidget* parent)
         m_chipCombo->addItem(QString::fromStdString(it.name()));
     m_chipCombo->setCurrentText(QString::fromStdString(m_plugin->chipName()));
 
-    connect(m_chipCombo, SIGNAL(currentIndexChanged(int)),
-            this, SLOT(slotChipChanged(int)));
+    connect(m_chipCombo, &QComboBox::currentIndexChanged, this, &GPIOConfiguration::slotChipChanged);
 
     fillTree();
 }

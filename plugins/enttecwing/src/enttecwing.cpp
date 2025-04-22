@@ -37,7 +37,7 @@ void EnttecWing::init()
        any local address. */
     m_socket = new QUdpSocket(this);
     reBindSocket();
-    connect(m_socket, SIGNAL(readyRead()), this, SLOT(slotReadSocket()));
+    connect(m_socket, &QUdpSocket::readyRead, this, &EnttecWing::slotReadSocket);
 }
 
 EnttecWing::~EnttecWing()
@@ -256,8 +256,7 @@ void EnttecWing::addDevice(Wing* device)
 {
     Q_ASSERT(device != NULL);
 
-    connect(device, SIGNAL(valueChanged(quint32,uchar)),
-            this, SLOT(slotValueChanged(quint32,uchar)));
+    connect(device, &Wing::valueChanged, this, &EnttecWing::slotValueChanged);
 
     m_devices.append(device);
 

@@ -42,8 +42,7 @@ FixtureGroup::FixtureGroup(Doc* parent)
     Q_ASSERT(parent != NULL);
 
     // Listen to fixture removals
-    connect(parent, SIGNAL(fixtureRemoved(quint32)),
-            this, SLOT(slotFixtureRemoved(quint32)));
+    connect(parent, &Doc::fixtureRemoved, this, &FixtureGroup::slotFixtureRemoved);
 }
 
 FixtureGroup::~FixtureGroup()

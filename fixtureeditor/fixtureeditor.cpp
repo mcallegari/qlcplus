@@ -84,7 +84,7 @@ QLCFixtureEditor::QLCFixtureEditor(QWidget *parent, QLCFixtureDef *fixtureDef,
     setModified(false);
 
     /* Connect to be able to enable/disable clipboard actions */
-    connect(_app, SIGNAL(clipboardChanged()), this, SLOT(slotClipboardChanged()));
+    connect(_app, &App::clipboardChanged, this, &QLCFixtureEditor::slotClipboardChanged);
 
     /* Initial update to clipboard actions */
     slotClipboardChanged();
@@ -109,17 +109,14 @@ void QLCFixtureEditor::init()
     /* General page */
     m_manufacturerEdit->setText(m_fixtureDef->manufacturer());
     m_manufacturerEdit->setValidator(CAPS_VALIDATOR(this));
-    connect(m_manufacturerEdit, SIGNAL(textEdited(const QString&)),
-            this, SLOT(slotManufacturerTextEdited(const QString&)));
+    connect(m_manufacturerEdit, &QLineEdit::textEdited, this, &QLCFixtureEditor::slotManufacturerTextEdited);
 
     m_modelEdit->setText(m_fixtureDef->model());
     m_modelEdit->setValidator(CAPS_VALIDATOR(this));
-    connect(m_modelEdit, SIGNAL(textEdited(const QString&)),
-            this, SLOT(slotModelTextEdited(const QString&)));
+    connect(m_modelEdit, &QLineEdit::textEdited, this, &QLCFixtureEditor::slotModelTextEdited);
 
     m_typeCombo->setCurrentIndex(m_typeCombo->findText(m_fixtureDef->typeToString(m_fixtureDef->type())));
-    connect(m_typeCombo, SIGNAL(activated(int)),
-            this, SLOT(slotTypeActivated(int)));
+    connect(m_typeCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this, &QLCFixtureEditor::slotTypeActivated);
 
     // Display author name or suggest current user name if there isn't one.
     // When the def already has an author, disable the field to prevent modification.
@@ -133,70 +130,59 @@ void QLCFixtureEditor::init()
     {
         m_authorEdit->setText(QLCFile::currentUserName());
     }
-    connect(m_authorEdit, SIGNAL(textEdited(const QString&)),
-            this, SLOT(slotAuthorTextEdited(const QString&)));
+    connect(m_authorEdit, &QLineEdit::textEdited, this, &QLCFixtureEditor::slotAuthorTextEdited);
 
     /* Channel page */
-    connect(m_addChannelButton, SIGNAL(clicked()), this, SLOT(slotAddChannel()));
-    connect(m_removeChannelButton, SIGNAL(clicked()), this, SLOT(slotRemoveChannel()));
-    connect(m_editChannelButton, SIGNAL(clicked()), this, SLOT(slotEditChannel()));
-    connect(m_copyChannelButton, SIGNAL(clicked()), this, SLOT(slotCopyChannel()));
-    connect(m_pasteChannelButton, SIGNAL(clicked()), this, SLOT(slotPasteChannel()));
-    connect(m_expandChannelsButton, SIGNAL(clicked()), this, SLOT(slotExpandChannels()));
+    connect(m_addChannelButton, &QToolButton::clicked, this, &QLCFixtureEditor::slotAddChannel);
+    connect(m_removeChannelButton, &QToolButton::clicked, this, &QLCFixtureEditor::slotRemoveChannel);
+    connect(m_editChannelButton, &QToolButton::clicked, this, &QLCFixtureEditor::slotEditChannel);
+    connect(m_copyChannelButton, &QToolButton::clicked, this, &QLCFixtureEditor::slotCopyChannel);
+    connect(m_pasteChannelButton, &QToolButton::clicked, this, &QLCFixtureEditor::slotPasteChannel);
+    connect(m_expandChannelsButton, &QToolButton::clicked, this, &QLCFixtureEditor::slotExpandChannels);
 
-    connect(m_channelList, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)),
-            this, SLOT(slotChannelListSelectionChanged(QTreeWidgetItem*)));
-    connect(m_channelList, SIGNAL(customContextMenuRequested(const QPoint&)),
-            this, SLOT(slotChannelListContextMenuRequested()));
-    connect(m_channelList, SIGNAL(itemActivated(QTreeWidgetItem*,int)),
-            this, SLOT(slotEditChannel()));
-    connect(m_channelList, SIGNAL(expanded(QModelIndex)),
-            this, SLOT(slotChannelItemExpanded()));
+    connect(m_channelList, &QTreeWidget::currentItemChanged, this, &QLCFixtureEditor::slotChannelListSelectionChanged);
+    connect(m_channelList, &QTreeWidget::customContextMenuRequested, this, &QLCFixtureEditor::slotChannelListContextMenuRequested);
+    connect(m_channelList, &QTreeWidget::itemActivated, this, &QLCFixtureEditor::slotEditChannel);
+    connect(m_channelList, &QTreeWidget::expanded, this, &QLCFixtureEditor::slotChannelItemExpanded);
 
     m_channelList->setContextMenuPolicy(Qt::CustomContextMenu);
     m_channelList->setIconSize(QSize(24, 24));
     refreshChannelList();
 
     /* Mode page */
-    connect(m_addModeButton, SIGNAL(clicked()), this, SLOT(slotAddMode()));
-    connect(m_removeModeButton, SIGNAL(clicked()), this, SLOT(slotRemoveMode()));
-    connect(m_editModeButton, SIGNAL(clicked()), this, SLOT(slotEditMode()));
-    connect(m_cloneModeButton, SIGNAL(clicked()), this, SLOT(slotCloneMode()));
-    connect(m_expandModesButton, SIGNAL(clicked()), this, SLOT(slotExpandModes()));
+    connect(m_addModeButton, &QToolButton::clicked, this, &QLCFixtureEditor::slotAddMode);
+    connect(m_removeModeButton, &QToolButton::clicked, this, &QLCFixtureEditor::slotRemoveMode);
+    connect(m_editModeButton, &QToolButton::clicked, this, &QLCFixtureEditor::slotEditMode);
+    connect(m_cloneModeButton, &QToolButton::clicked, this, &QLCFixtureEditor::slotCloneMode);
+    connect(m_expandModesButton, &QToolButton::clicked, this, &QLCFixtureEditor::slotExpandModes);
 
-    connect(m_modeList, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)),
-            this, SLOT(slotModeListSelectionChanged(QTreeWidgetItem*)));
-    connect(m_modeList, SIGNAL(customContextMenuRequested(const QPoint&)),
-            this, SLOT(slotModeListContextMenuRequested()));
-    connect(m_modeList, SIGNAL(itemActivated(QTreeWidgetItem*,int)),
-            this, SLOT(slotEditMode()));
-    connect(m_modeList, SIGNAL(expanded(QModelIndex)),
-            this, SLOT(slotModeItemExpanded()));
+    connect(m_modeList, &QTreeWidget::currentItemChanged, this, &QLCFixtureEditor::slotModeListSelectionChanged);
+    connect(m_modeList, &QTreeWidget::customContextMenuRequested, this, &QLCFixtureEditor::slotModeListContextMenuRequested);
+    connect(m_modeList, &QTreeWidget::itemActivated, this, &QLCFixtureEditor::slotEditMode);
+    connect(m_modeList, &QTreeWidget::expanded, this, &QLCFixtureEditor::slotModeItemExpanded);
 
     m_modeList->setContextMenuPolicy(Qt::CustomContextMenu);
     refreshModeList();
 
     /* Aliases page */
-    connect(m_addAliasButton, SIGNAL(clicked()), this, SLOT(slotAddAliasClicked()));
-    connect(m_removeAliasButton, SIGNAL(clicked()), this, SLOT(slotRemoveAliasClicked()));
+    connect(m_addAliasButton, &QToolButton::clicked, this, &QLCFixtureEditor::slotAddAliasClicked);
+    connect(m_removeAliasButton, &QToolButton::clicked, this, &QLCFixtureEditor::slotRemoveAliasClicked);
     refreshAliasList();
     refreshAliasModes();
     refreshAliasModeChannels();
     refreshAliasAllChannels();
     refreshAliasTree();
 
-    connect(m_aliasCapCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(refreshAliasModes()));
-    connect(m_modesCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(refreshAliasModeChannels()));
+    connect(m_aliasCapCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &QLCFixtureEditor::refreshAliasModes);
+    connect(m_modesCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &QLCFixtureEditor::refreshAliasModeChannels);
 
     /* Physical page */
     m_phyEdit = new EditPhysical(m_fixtureDef->physical(), this);
     m_phyEdit->show();
     physicalLayout->addWidget(m_phyEdit);
 
-    connect(m_phyEdit, SIGNAL(copyToClipboard(QLCPhysical)),
-            this, SLOT(slotCopyPhysicalClipboard(QLCPhysical)));
-    connect(m_phyEdit, SIGNAL(requestPasteFromClipboard()),
-            this, SLOT(slotPastePhysicalInfo()));
+    connect(m_phyEdit, &EditPhysical::copyToClipboard, this, &QLCFixtureEditor::slotCopyPhysicalClipboard);
+    connect(m_phyEdit, &EditPhysical::requestPasteFromClipboard, this, &QLCFixtureEditor::slotPastePhysicalInfo);
 }
 
 void QLCFixtureEditor::closeEvent(QCloseEvent *e)
@@ -763,8 +749,7 @@ void QLCFixtureEditor::slotModeListSelectionChanged(QTreeWidgetItem *item)
 void QLCFixtureEditor::slotAddMode()
 {
     EditMode em(_app, m_fixtureDef);
-    connect(&em, SIGNAL(copyToClipboard(QLCPhysical)),
-            this, SLOT(slotCopyPhysicalClipboard(QLCPhysical)));
+    connect(&em, &EditMode::copyToClipboard, this, &QLCFixtureEditor::slotCopyPhysicalClipboard);
 
     bool ok = false;
     while (ok == false)
@@ -812,8 +797,7 @@ void QLCFixtureEditor::slotAddMode()
             ok = true;
         }
     }
-    disconnect(&em, SIGNAL(copyToClipboard(QLCPhysical)),
-               this, SLOT(slotCopyPhysicalClipboard(QLCPhysical)));
+    disconnect(&em, &EditMode::copyToClipboard, this, &QLCFixtureEditor::slotCopyPhysicalClipboard);
 }
 
 void QLCFixtureEditor::slotRemoveMode()
@@ -842,8 +826,7 @@ void QLCFixtureEditor::slotEditMode()
     QString origName = mode->name();
 
     EditMode em(this, mode);
-    connect(&em, SIGNAL(copyToClipboard(QLCPhysical)),
-            this, SLOT(slotCopyPhysicalClipboard(QLCPhysical)));
+    connect(&em, &EditMode::copyToClipboard, this, &QLCFixtureEditor::slotCopyPhysicalClipboard);
     if (em.exec() == QDialog::Accepted)
     {
         *mode = *(em.mode());
@@ -864,8 +847,7 @@ void QLCFixtureEditor::slotEditMode()
         setModified();
         m_modeList->header()->resizeSections(QHeaderView::ResizeToContents);
     }
-    disconnect(&em, SIGNAL(copyToClipboard(QLCPhysical)),
-               this, SLOT(slotCopyPhysicalClipboard(QLCPhysical)));
+    disconnect(&em, &EditMode::copyToClipboard, this, &QLCFixtureEditor::slotCopyPhysicalClipboard);
 }
 
 void QLCFixtureEditor::slotCloneMode()
@@ -935,14 +917,11 @@ void QLCFixtureEditor::slotExpandModes()
 void QLCFixtureEditor::slotModeListContextMenuRequested()
 {
     QAction editAction(QIcon(":/edit.png"), tr("Edit"), this);
-    connect(&editAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotEditMode()));
+    connect(&editAction, &QAction::triggered, this, &QLCFixtureEditor::slotEditMode);
     QAction cloneAction(QIcon(":/editcopy.png"), tr("Clone"), this);
-    connect(&cloneAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotCloneMode()));
+    connect(&cloneAction, &QAction::triggered, this, &QLCFixtureEditor::slotCloneMode);
     QAction removeAction(QIcon(":/editdelete.png"), tr("Remove"), this);
-    connect(&removeAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotRemoveMode()));
+    connect(&removeAction, &QAction::triggered, this, &QLCFixtureEditor::slotRemoveMode);
 
     QMenu menu;
     menu.setTitle(tr("Modes"));

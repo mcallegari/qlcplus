@@ -56,12 +56,10 @@ void HotPlugMonitor::connectListener(QObject* listener)
     QByteArray removed = QMetaObject::normalizedSignature("slotDeviceRemoved(uint,uint)");
 
     if (listener->metaObject()->indexOfMethod(added.constData()) != -1)
-        connect(instance(), SIGNAL(deviceAdded(uint,uint)),
-                listener, SLOT(slotDeviceAdded(uint,uint)));
+        connect(instance(), SIGNAL(deviceAdded(uint,uint)), listener, SLOT(slotDeviceAdded(uint,uint))); // TODO: Is there a type-safe way to connect() this? The type of `listener` is not known at compile time... Maybe introduce an interface 'IHotplugListener'?
 
     if (listener->metaObject()->indexOfMethod(removed.constData()) != -1)
-        connect(instance(), SIGNAL(deviceRemoved(uint,uint)),
-                listener, SLOT(slotDeviceRemoved(uint,uint)));
+        connect(instance(), SIGNAL(deviceRemoved(uint,uint)), listener, SLOT(slotDeviceRemoved(uint,uint))); // TODO: Is there a type-safe way to connect() this? The type of `listener` is not known at compile time... Maybe introduce an interface 'IHotplugListener'?
 }
 
 #if defined(WIN32) || defined(Q_OS_WIN)

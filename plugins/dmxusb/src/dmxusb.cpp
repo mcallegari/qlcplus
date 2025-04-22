@@ -98,8 +98,7 @@ bool DMXUSB::openOutput(quint32 output, quint32 universe)
         if (widget->supportRDM())
         {
             EnttecDMXUSBPro *pro = static_cast<EnttecDMXUSBPro*>(widget);
-            connect(pro, SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)),
-                    this , SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)));
+            connect(pro, &EnttecDMXUSBPro::rdmValueChanged, this, &DMXUSB::rdmValueChanged);
         }
         addToMap(universe, output, Output);
         return m_outputs.at(output)->open(output, false);
@@ -115,8 +114,7 @@ void DMXUSB::closeOutput(quint32 output, quint32 universe)
         if (widget->supportRDM())
         {
             EnttecDMXUSBPro *pro = static_cast<EnttecDMXUSBPro*>(widget);
-            disconnect(pro, SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)),
-                       this , SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)));
+            disconnect(pro, &EnttecDMXUSBPro::rdmValueChanged, this, &DMXUSB::rdmValueChanged);
         }
         removeFromMap(output, universe, Output);
         m_outputs.at(output)->close(output, false);
@@ -214,8 +212,7 @@ bool DMXUSB::openInput(quint32 input, quint32 universe)
             widget->type() == DMXUSBWidget::UltraPro)
         {
             EnttecDMXUSBPro *pro = static_cast<EnttecDMXUSBPro*>(widget);
-            connect(pro, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
-                    this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
+            connect(pro, &EnttecDMXUSBPro::valueChanged, this, [this](quint32 _t1, quint32 _t2, quint32 _t3, uchar _t4){ valueChanged(_t1, _t2, _t3, _t4); });
         }
         addToMap(universe, input, Input);
         return widget->open(input, true);
@@ -235,8 +232,7 @@ void DMXUSB::closeInput(quint32 input, quint32 universe)
             widget->type() == DMXUSBWidget::UltraPro)
         {
             EnttecDMXUSBPro* pro = (EnttecDMXUSBPro*) widget;
-            disconnect(pro, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
-                       this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
+            connect(pro, &EnttecDMXUSBPro::valueChanged, this, [this](quint32 _t1, quint32 _t2, quint32 _t3, uchar _t4){ valueChanged(_t1, _t2, _t3, _t4); });
         }
     }
 }

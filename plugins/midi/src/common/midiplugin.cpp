@@ -43,8 +43,7 @@ void MidiPlugin::init()
     qDebug() << Q_FUNC_INFO;
 
     m_enumerator = new MidiEnumerator(this);
-    connect(m_enumerator, SIGNAL(configurationChanged()),
-            this, SIGNAL(configurationChanged()));
+    connect(m_enumerator, &MidiEnumerator::configurationChanged, this, &MidiPlugin::configurationChanged);
     m_enumerator->rescan();
 
     loadMidiTemplates(userMidiTemplateDirectory());
@@ -207,8 +206,7 @@ bool MidiPlugin::openInput(quint32 input, quint32 universe)
     MidiInputDevice* dev = inputDevice(input);
     if (dev != NULL && dev->isOpen() == false)
     {
-        connect(dev, SIGNAL(valueChanged(QVariant,ushort,uchar)),
-                this, SLOT(slotValueChanged(QVariant,ushort,uchar)));
+        connect(dev, &MidiInputDevice::valueChanged, this, &MidiPlugin::slotValueChanged);
         addToMap(universe, input, Input);
         return dev->open();
     }
@@ -224,8 +222,7 @@ void MidiPlugin::closeInput(quint32 input, quint32 universe)
     {
         removeFromMap(input, universe, Input);
         dev->close();
-        disconnect(dev, SIGNAL(valueChanged(QVariant,ushort,uchar)),
-                   this, SLOT(slotValueChanged(QVariant,ushort,uchar)));
+        disconnect(dev, &MidiInputDevice::valueChanged, this, &MidiPlugin::slotValueChanged);
     }
 }
 

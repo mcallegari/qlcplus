@@ -235,7 +235,7 @@ MidiEnumerator::MidiEnumerator(QObject* parent)
     , d_ptr(new MidiEnumeratorPrivate(this))
 {
     qDebug() << Q_FUNC_INFO;
-    connect(d_ptr, SIGNAL(configurationChanged()), this, SIGNAL(configurationChanged()));
+    connect(d_ptr, &MidiEnumeratorPrivate::configurationChanged, this, &MidiEnumerator::configurationChanged);
 }
 
 MidiEnumerator::~MidiEnumerator()

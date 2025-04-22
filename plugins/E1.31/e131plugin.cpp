@@ -173,8 +173,7 @@ bool E131Plugin::openOutput(quint32 output, quint32 universe)
         E131Controller *controller = new E131Controller(m_IOmapping.at(output).iface,
                                                         m_IOmapping.at(output).address,
                                                         output, this);
-        connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
-                this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
+        connect(controller, &E131Controller::valueChanged, this, [this](quint32 _t1, quint32 _t2, quint32 _t3, uchar _t4){ valueChanged(_t1, _t2, _t3, _t4); });
         m_IOmapping[output].controller = controller;
     }
 
@@ -242,8 +241,7 @@ bool E131Plugin::openInput(quint32 input, quint32 universe)
         E131Controller *controller = new E131Controller(m_IOmapping.at(input).iface,
                                                         m_IOmapping.at(input).address,
                                                         input, this);
-        connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
-                this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
+        connect(controller, &E131Controller::valueChanged, this, [this](quint32 _t1, quint32 _t2, quint32 _t3, uchar _t4){ valueChanged(_t1, _t2, _t3, _t4); });
         m_IOmapping[input].controller = controller;
     }
 

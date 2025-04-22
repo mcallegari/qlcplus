@@ -152,8 +152,7 @@ QSharedPointer<QUdpSocket> E131Controller::getInputSocket(bool multicast, QHostA
         inputSocket->bind(m_ipAddr, port, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
     }
 
-    connect(inputSocket.data(), SIGNAL(readyRead()),
-            this, SLOT(processPendingPackets()));
+    connect(inputSocket.data(), &QUdpSocket::readyRead, this, &E131Controller::processPendingPackets);
 
     return inputSocket;
 }

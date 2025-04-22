@@ -51,10 +51,8 @@ EditPhysical::EditPhysical(QLCPhysical physical, QWidget *parent)
     m_powerConsumptionSpin->setValue(m_physical.powerConsumption());
     m_dmxConnectorCombo->setEditText(m_physical.dmxConnector());
 
-    connect(copyClipboardButton, SIGNAL(clicked()),
-            this, SLOT(slotCopyToClipboard()));
-    connect(pasteClipboardButton, SIGNAL(clicked()),
-            this, SLOT(slotPasteFromClipboard()));
+    connect(copyClipboardButton, &QToolButton::clicked, this, &EditPhysical::slotCopyToClipboard);
+    connect(pasteClipboardButton, &QToolButton::clicked, this, &EditPhysical::slotPasteFromClipboard);
 }
 
 EditPhysical::~EditPhysical()

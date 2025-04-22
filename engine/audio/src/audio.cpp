@@ -66,8 +66,7 @@ Audio::Audio(Doc* doc)
     setRunOrder(Audio::SingleShot);
 
     // Listen to member Function removals
-    connect(doc, SIGNAL(functionRemoved(quint32)),
-            this, SLOT(slotFunctionRemoved(quint32)));
+    connect(doc, &Doc::functionRemoved, this, &Audio::slotFunctionRemoved);
 }
 
 Audio::~Audio()
@@ -365,8 +364,7 @@ void Audio::preRun(MasterTimer* timer)
         m_audio_out->setFadeIn(elapsed() ? 0 : fadeIn);
         m_audio_out->setLooped(runOrder() == Audio::Loop);
         m_audio_out->start();
-        connect(m_audio_out, SIGNAL(endOfStreamReached()),
-                this, SLOT(slotEndOfStream()));
+        connect(m_audio_out, &AudioRenderer::endOfStreamReached, this, &Audio::slotEndOfStream);
     }
 
     Function::preRun(timer);

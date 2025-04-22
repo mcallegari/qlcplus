@@ -312,8 +312,7 @@ void GPIOPlugin::setLineDirection(int lineNumber, GPIOPlugin::LineDirection dire
         if (direction == InputDirection)
         {
             m_readerThread = new ReadThread(this);
-            connect(m_readerThread, SIGNAL(valueChanged(quint32,uchar)),
-                    this, SLOT(slotValueChanged(quint32,uchar)));
+            connect(m_readerThread, &ReadThread::valueChanged, this, &GPIOPlugin::slotValueChanged);
         }
     }
 }

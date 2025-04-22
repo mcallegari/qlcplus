@@ -80,21 +80,21 @@ EditMode::~EditMode()
 void EditMode::init()
 {
     /* Channels page */
-    connect(m_addChannelButton, SIGNAL(clicked()), this, SLOT(slotAddChannelClicked()));
-    connect(m_removeChannelButton, SIGNAL(clicked()), this, SLOT(slotRemoveChannelClicked()));
-    connect(m_raiseChannelButton, SIGNAL(clicked()), this, SLOT(slotRaiseChannelClicked()));
-    connect(m_lowerChannelButton, SIGNAL(clicked()), this, SLOT(slotLowerChannelClicked()));
+    connect(m_addChannelButton, &QToolButton::clicked, this, &EditMode::slotAddChannelClicked);
+    connect(m_removeChannelButton, &QToolButton::clicked, this, &EditMode::slotRemoveChannelClicked);
+    connect(m_raiseChannelButton, &QToolButton::clicked, this, &EditMode::slotRaiseChannelClicked);
+    connect(m_lowerChannelButton, &QToolButton::clicked, this, &EditMode::slotLowerChannelClicked);
 
     m_modeNameEdit->setText(m_mode->name());
     m_modeNameEdit->setValidator(CAPS_VALIDATOR(this));
     refreshChannelList();
 
     /* Heads page */
-    connect(m_addHeadButton, SIGNAL(clicked()), this, SLOT(slotAddHeadClicked()));
-    connect(m_removeHeadButton, SIGNAL(clicked()), this, SLOT(slotRemoveHeadClicked()));
-    connect(m_editHeadButton, SIGNAL(clicked()), this, SLOT(slotEditHeadClicked()));
-    connect(m_raiseHeadButton, SIGNAL(clicked()), this, SLOT(slotRaiseHeadClicked()));
-    connect(m_lowerHeadButton, SIGNAL(clicked()), this, SLOT(slotLowerHeadClicked()));
+    connect(m_addHeadButton, &QToolButton::clicked, this, &EditMode::slotAddHeadClicked);
+    connect(m_removeHeadButton, &QToolButton::clicked, this, &EditMode::slotRemoveHeadClicked);
+    connect(m_editHeadButton, &QToolButton::clicked, this, &EditMode::slotEditHeadClicked);
+    connect(m_raiseHeadButton, &QToolButton::clicked, this, &EditMode::slotRaiseHeadClicked);
+    connect(m_lowerHeadButton, &QToolButton::clicked, this, &EditMode::slotLowerHeadClicked);
 
     refreshHeadList();
 
@@ -107,16 +107,16 @@ void EditMode::init()
         m_overridePhyCheck->setChecked(true);
     slotPhysicalModeChanged();
 
-    connect(m_globalPhyCheck, SIGNAL(clicked(bool)), this, SLOT(slotPhysicalModeChanged()));
-    connect(m_overridePhyCheck, SIGNAL(clicked(bool)), this, SLOT(slotPhysicalModeChanged()));
+    connect(m_globalPhyCheck, &QRadioButton::clicked, this, &EditMode::slotPhysicalModeChanged);
+    connect(m_overridePhyCheck, &QRadioButton::clicked, this, &EditMode::slotPhysicalModeChanged);
     /* Forward copy/paste requests up to reach the main FixtureEditor clipboard */
-    connect(m_phyEdit, SIGNAL(copyToClipboard(QLCPhysical)), this, SIGNAL(copyToClipboard(QLCPhysical)));
-    connect(m_phyEdit, SIGNAL(requestPasteFromClipboard()), this, SIGNAL(requestPasteFromClipboard()));
+    connect(m_phyEdit, &EditPhysical::copyToClipboard, this, &EditMode::copyToClipboard);
+    connect(m_phyEdit, &EditPhysical::requestPasteFromClipboard, this, &EditMode::requestPasteFromClipboard);
 
     // Close shortcut
     QAction *action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
-    connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
+    connect(action, &QAction::triggered, this, &EditMode::reject);
     addAction(action);
 
     // Geometry
@@ -261,7 +261,7 @@ void EditMode::refreshChannelList()
 
         m_channelList->setItemWidget(item, COL_ACTS_ON, comboBox);
 
-        connect(comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(setActsOnChannel(int)));
+        connect(comboBox, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &EditMode::setActsOnChannel);
     }
     m_channelList->header()->resizeSections(QHeaderView::ResizeToContents);
 }

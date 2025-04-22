@@ -138,7 +138,7 @@ void ConfigureE131::fillMappingTree()
                     portSpin->setValue(info->inputUcastPort);
                     m_uniMapTree->setItemWidget(item, KMapColumnPort, portSpin);
                 }
-                connect(multicastCb, SIGNAL(clicked()), this, SLOT(slotMulticastCheckboxClicked()));
+                connect(multicastCb, &QCheckBox::clicked, this, &ConfigureE131::slotMulticastCheckboxClicked);
                 m_uniMapTree->setItemWidget(item, KMapColumnMulticast, multicastCb);
 
                 QSpinBox *universeSpin = new QSpinBox(this);
@@ -177,7 +177,7 @@ void ConfigureE131::fillMappingTree()
                     portSpin->setValue(info->outputUcastPort);
                     m_uniMapTree->setItemWidget(item, KMapColumnPort, portSpin);
                 }
-                connect(multicastCb, SIGNAL(clicked()), this, SLOT(slotMulticastCheckboxClicked()));
+                connect(multicastCb, &QCheckBox::clicked, this, &ConfigureE131::slotMulticastCheckboxClicked);
                 m_uniMapTree->setItemWidget(item, KMapColumnMulticast, multicastCb);
 
                 QSpinBox *universeSpin = new QSpinBox(this);

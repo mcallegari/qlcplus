@@ -56,14 +56,11 @@ ConfigureHID::ConfigureHID(QWidget* parent, HIDPlugin* plugin)
     if (geometrySettings.isValid() == true)
         restoreGeometry(geometrySettings.toByteArray());
 
-    connect(m_refreshButton, SIGNAL(clicked()),
-            this, SLOT(slotRefreshClicked()));
+    connect(m_refreshButton, &QPushButton::clicked, this, &ConfigureHID::slotRefreshClicked);
 
     /* Listen to device additions/removals */
-    connect(plugin, SIGNAL(deviceRemoved(HIDDevice*)),
-            this, SLOT(slotDeviceRemoved(HIDDevice*)));
-    connect(plugin, SIGNAL(deviceAdded(HIDDevice*)),
-            this, SLOT(slotDeviceAdded(HIDDevice*)));
+    connect(plugin, &HIDPlugin::deviceRemoved, this, &ConfigureHID::slotDeviceRemoved);
+    connect(plugin, &HIDPlugin::deviceAdded, this, &ConfigureHID::slotDeviceAdded);
 
     refreshList();
 }
@@ -144,7 +141,7 @@ QWidget* ConfigureHID::createMergerModeWidget(bool mergerModeEnabled)
     else
         checkbox->setCheckState(Qt::Unchecked);
 
-    connect(checkbox, SIGNAL(stateChanged(int)), this, SLOT(slotMergerModeChanged(int)));
+    connect(checkbox, &QCheckBox::stateChanged, this, &ConfigureHID::slotMergerModeChanged);
 
     return checkbox;
 }

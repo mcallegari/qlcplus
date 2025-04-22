@@ -205,7 +205,7 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
                 {
                     // the function is not running, so we we wait and we stop dequeuing
                     m_waitFunctionId = fID;
-                    connect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)), SLOT(slotWaitFunctionStarted(quint32)));
+                    connect(m_doc->masterTimer(), &MasterTimer::functionStarted, this, &ScriptRunner::slotWaitFunctionStarted);
                     break;
                 }
             }
@@ -215,7 +215,7 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
                 {
                     // the function has to start or is still running, so we wait and we stop dequeuing
                     m_waitFunctionId = fID;
-                    connect(m_doc->masterTimer(), SIGNAL(functionStopped(quint32)), SLOT(slotWaitFunctionStopped(quint32)));
+                    connect(m_doc->masterTimer(), &MasterTimer::functionStopped, this, &ScriptRunner::slotWaitFunctionStopped);
                     break;
                 }
             }
@@ -236,7 +236,7 @@ void ScriptRunner::slotWaitFunctionStarted(quint32 fid)
 {
     if (m_waitFunctionId == fid)
     {
-        disconnect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)), this, SLOT(slotWaitFunctionStarted(quint32)));
+        disconnect(m_doc->masterTimer(), &MasterTimer::functionStarted, this, &ScriptRunner::slotWaitFunctionStarted);
         m_waitFunctionId = Function::invalidId();
     }
 }
@@ -245,7 +245,7 @@ void ScriptRunner::slotWaitFunctionStopped(quint32 fid)
 {
     if (m_waitFunctionId == fid)
     {
-        disconnect(m_doc->masterTimer(), SIGNAL(functionStopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
+        disconnect(m_doc->masterTimer(), &MasterTimer::functionStopped, this, &ScriptRunner::slotWaitFunctionStopped);
         m_startedFunctions.removeAll(fid);
         m_waitFunctionId = Function::invalidId();
     }

@@ -52,9 +52,8 @@ InputOutputMap::InputOutputMap(Doc *doc, quint32 universes)
     for (quint32 i = 0; i < universes; i++)
         addUniverse();
 
-    connect(doc->ioPluginCache(), SIGNAL(pluginConfigurationChanged(QLCIOPlugin*)),
-            this, SLOT(slotPluginConfigurationChanged(QLCIOPlugin*)));
-    connect(doc->masterTimer(), SIGNAL(beat()), this, SLOT(slotMasterTimerBeat()));
+    connect(doc->ioPluginCache(), &IOPluginCache::pluginConfigurationChanged, this, &InputOutputMap::slotPluginConfigurationChanged);
+    connect(doc->masterTimer(), &MasterTimer::beat, this, &InputOutputMap::slotMasterTimerBeat);
 }
 
 InputOutputMap::~InputOutputMap()
@@ -157,15 +156,15 @@ bool InputOutputMap::addUniverse(quint32 id)
             while (id > universesCount())
             {
                 uni = new Universe(universesCount(), m_grandMaster);
-                connect(doc()->masterTimer(), SIGNAL(tickReady()), uni, SLOT(tick()), Qt::QueuedConnection);
-                connect(uni, SIGNAL(universeWritten(quint32,QByteArray)), this, SIGNAL(universeWritten(quint32,QByteArray)));
+                connect(doc()->masterTimer(), &MasterTimer::tickReady, uni, &Universe::tick, Qt::QueuedConnection);
+                connect(uni, &Universe::universeWritten, this, &InputOutputMap::universeWritten);
                 m_universeArray.append(uni);
             }
         }
 
         uni = new Universe(id, m_grandMaster);
-        connect(doc()->masterTimer(), SIGNAL(tickReady()), uni, SLOT(tick()), Qt::QueuedConnection);
-        connect(uni, SIGNAL(universeWritten(quint32,QByteArray)), this, SIGNAL(universeWritten(quint32,QByteArray)));
+        connect(doc()->masterTimer(), &MasterTimer::tickReady, uni, &Universe::tick, Qt::QueuedConnection);
+        connect(uni, &Universe::universeWritten, this, &InputOutputMap::universeWritten);
         m_universeArray.append(uni);
     }
 
@@ -409,12 +408,10 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
     if (currInPatch != NULL)
     {
         currProfile = currInPatch->profile();
-        disconnect(currInPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
+        disconnect(currInPatch, &InputPatch::inputValueChanged, this, &InputOutputMap::inputValueChanged);
         if (currInPatch->plugin()->capabilities() & QLCIOPlugin::Beats)
         {
-            disconnect(currInPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                       this, SLOT(slotPluginBeat(quint32,quint32,uchar,const QString&)));
+            disconnect(currInPatch, &InputPatch::inputValueChanged, this, &InputOutputMap::inputValueChanged);
         }
     }
     InputPatch *ip = NULL;
@@ -442,12 +439,10 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
         ip = m_universeArray.at(universe)->inputPatch();
         if (ip != NULL)
         {
-            connect(ip, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                    this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
+            connect(ip, &InputPatch::inputValueChanged, this, &InputOutputMap::inputValueChanged);
             if (ip->plugin()->capabilities() & QLCIOPlugin::Beats)
             {
-                connect(ip, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                        this, SLOT(slotPluginBeat(quint32,quint32,uchar,const QString&)));
+                connect(ip, &InputPatch::inputValueChanged, this, &InputOutputMap::inputValueChanged);
             }
         }
     }

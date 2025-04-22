@@ -57,8 +57,7 @@ Chaser::Chaser(Doc *doc)
     setName(tr("New Chaser"));
 
     // Listen to member Function removals
-    connect(doc, SIGNAL(functionRemoved(quint32)),
-            this, SLOT(slotFunctionRemoved(quint32)));
+    connect(doc, &Doc::functionRemoved, this, &Chaser::slotFunctionRemoved);
 
     m_startupAction.m_action = ChaserNoAction;
     m_startupAction.m_masterIntensity = 1.0;
@@ -627,7 +626,7 @@ void Chaser::preRun(MasterTimer* timer)
     {
         QMutexLocker runnerLocker(&m_runnerMutex);
         createRunner(elapsed());
-        connect(m_runner, SIGNAL(currentStepChanged(int)), this, SIGNAL(currentStepChanged(int)));
+        connect(m_runner, &ChaserRunner::currentStepChanged, this, &Chaser::currentStepChanged); // TODO: This was connecting SIGNAL to SIGNAL - is that even correct?
     }
 
     Function::preRun(timer);
