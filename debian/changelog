@@ -4,6 +4,7 @@ qlcplus (4.14.2) stable; urgency=low
   * Virtual Console: add an option to hide Grand Master (thanks to Jurrie Overgoor)
   * Input profiles: added M-Wave SMC Mixer
   * New fixtures: Eurolite LED TMH-40, Stairville HF-900 Haze Fogger (thanks to thegasta)
+  * New fixtures: Sagitter Prince, Sagitter Lite Beam 5R, Sagitter ARS 1500FC (thanks to Alessandro Caseti)
 
   -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 24 May 2025 18:19:20 +0200
 
