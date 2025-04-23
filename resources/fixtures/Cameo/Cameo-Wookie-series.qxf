@@ -107,8 +107,8 @@
  <Channel Name="X axis moving">
   <Group Byte="0">Pan</Group>
   <Capability Min="0" Max="127">Manual position</Capability>
-  <Capability Min="128" Max="191" Preset="SlowToFast">Horizontal DX moving speed</Capability>
-  <Capability Min="192" Max="255" Preset="SlowToFast">Horizontal SX moving speed</Capability>
+  <Capability Min="128" Max="191" Preset="SlowToFast">Horizontal right moving speed</Capability>
+  <Capability Min="192" Max="255" Preset="SlowToFast">Horizontal left moving speed</Capability>
  </Channel>
  <Channel Name="Y axis moving">
   <Group Byte="0">Tilt</Group>
