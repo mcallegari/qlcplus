@@ -351,9 +351,6 @@ bool App::nativeEvent(const QByteArray &eventType, void *message, long *result)
     return HotPlugMonitor::parseWinEvent(message, result);
 }
 
-// No idea why other code doesn't throw warnings for GetProcAddress casts. Ignore the warning.
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wcast-function-type"
 void App::disableTimerResolutionThrottling()
 {
     // On Windows 11, we want it to always honour system timer resolution requests,
@@ -369,24 +366,28 @@ void App::disableTimerResolutionThrottling()
     
     HMODULE hKernel32 = LoadLibrary(L"kernel32.dll");
     Q_ASSERT(hKernel32 != NULL); // Shouldn't ever fail because kernel32 already loaded into every process
-    
-    SetProcessInformationType pfnSetProcessInformation = (SetProcessInformationType)GetProcAddress(hKernel32, "SetProcessInformation");
 
-    if(pfnSetProcessInformation != NULL) {
+    // Extra void* cast to avoid -Wcast-function-type warning.
+    SetProcessInformationType pfnSetProcessInformation = (SetProcessInformationType)(void *)GetProcAddress(hKernel32, "SetProcessInformation");
+
+    if (pfnSetProcessInformation != NULL)
+    {
         PROCESS_POWER_THROTTLING_STATE pwrState = {
-            .Version = PROCESS_POWER_THROTTLING_CURRENT_VERSION,
-            .ControlMask = PROCESS_POWER_THROTTLING_IGNORE_TIMER_RESOLUTION,
-            .StateMask = 0 // Disables timer resolution throttling
+                .Version = PROCESS_POWER_THROTTLING_CURRENT_VERSION,
+                .ControlMask = PROCESS_POWER_THROTTLING_IGNORE_TIMER_RESOLUTION,
+                .StateMask = 0 // Disables timer resolution throttling
         };
 
-        if(!pfnSetProcessInformation(GetCurrentProcess(), ProcessPowerThrottling, &pwrState, sizeof(pwrState))) {
+        if (!pfnSetProcessInformation(GetCurrentProcess(), ProcessPowerThrottling, &pwrState, sizeof(pwrState)))
+        {
             qWarning() << Q_FUNC_INFO << "SetProcessInformation() failed with error" << GetLastError() << "(ignore if Windows version < 11)";
         }
-    } else {
+    }
+    else
+    {
         qDebug() << Q_FUNC_INFO << "SetProcessInformation() API does not exist on this version of Windows";
     }
 }
-#pragma GCC diagnostic pop
 #endif
 
 void App::closeEvent(QCloseEvent* e)
