@@ -97,9 +97,9 @@
  </Channel>
  <Channel Name="Laser pattern and rotation">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="4" Preset="RotationStop">No movment</Capability>
+  <Capability Min="0" Max="4" Preset="RotationStop">No movement</Capability>
   <Capability Min="5" Max="127" Preset="RotationClockwiseFastToSlow">Rotation forward fast-slow</Capability>
-  <Capability Min="128" Max="133" Preset="RotationStop">No movment</Capability>
+  <Capability Min="128" Max="133" Preset="RotationStop">No movement</Capability>
   <Capability Min="134" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotation reverse slow-fast</Capability>
  </Channel>
  <Channel Name="Auto Mode">

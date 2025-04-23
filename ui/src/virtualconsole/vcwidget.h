@@ -547,7 +547,7 @@ protected:
      *
      * @param doc A QXmlStreamReader to save the tag to
      *
-     * @return true if succesful, otherwise false
+     * @return true if successful, otherwise false
      */
     bool saveXMLWindowState(QXmlStreamWriter *doc);
 
@@ -561,7 +561,7 @@ protected:
      * @param h Loaded h position
      * @param visible Loaded visible status
      *
-     * @return true if succesful, otherwise false
+     * @return true if successful, otherwise false
      */
     bool loadXMLWindowState(QXmlStreamReader &tag, int* x, int* y,
                             int* w, int* h, bool* visible);

@@ -17,7 +17,7 @@
  <Channel Name="Macro">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="0">Manual mode</Capability>
-  <Capability Min="1" Max="24">Constant color controled by Ch. 7</Capability>
+  <Capability Min="1" Max="24">Constant color controlled by Ch. 7</Capability>
   <Capability Min="25" Max="49">Automatic show 1</Capability>
   <Capability Min="50" Max="74">Automatic show 2</Capability>
   <Capability Min="75" Max="99">Automatic show 3</Capability>

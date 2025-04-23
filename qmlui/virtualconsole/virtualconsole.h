@@ -145,7 +145,7 @@ public:
     Q_INVOKABLE void setPageScale(qreal factor);
 
 signals:
-    /** Notify the listeners that the currenly selected VC page has changed */
+    /** Notify the listeners that the currently selected VC page has changed */
     void selectedPageChanged(int selectedPage);
 
     /** Notify the listener that some page names have changed */
@@ -209,7 +209,7 @@ public:
     Q_INVOKABLE QString widgetIcon(int type);
 
 signals:
-    /** Notify the listeners that the currenly selected VC widget has changed */
+    /** Notify the listeners that the currently selected VC widget has changed */
     void selectedWidgetChanged();
 
     void selectedWidgetsCountChanged();
