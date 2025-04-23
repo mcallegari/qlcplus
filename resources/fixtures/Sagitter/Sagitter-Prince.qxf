@@ -15,15 +15,15 @@
   <Capability Min="7" Max="10" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White + Red</Capability>
   <Capability Min="11" Max="15" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="16" Max="19" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ff991c">Red + Orange</Capability>
-  <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#ff991c">Orange</Capability>
+  <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
   <Capability Min="25" Max="28" Preset="ColorDoubleMacro" Res1="#ff991c" Res2="#00ffff">Orange + Cyan</Capability>
   <Capability Min="29" Max="33" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
   <Capability Min="34" Max="37" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#00aa00">Cyan + Green</Capability>
-  <Capability Min="38" Max="42" Preset="ColorMacro" Res1="#00aa00">Green</Capability>
+  <Capability Min="38" Max="42" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="43" Max="46" Preset="ColorDoubleMacro" Res1="#00aa00" Res2="#00ff00">Green + Light Green</Capability>
-  <Capability Min="47" Max="51" Preset="ColorMacro" Res1="#00ff00">Light Green</Capability>
+  <Capability Min="47" Max="51" Preset="ColorMacro" Res1="#90ee90">Light Green</Capability>
   <Capability Min="52" Max="55" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffaaff">Light Green + Pink</Capability>
-  <Capability Min="56" Max="60" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="56" Max="60" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
   <Capability Min="61" Max="64" Preset="ColorDoubleMacro" Res1="#ffaaff" Res2="#ffff00">Pink + Yellow</Capability>
   <Capability Min="65" Max="69" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="70" Max="73" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff00ff">Yellow + Magenta</Capability>
@@ -31,7 +31,7 @@
   <Capability Min="79" Max="82" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#0000ff">Magenta + Blue</Capability>
   <Capability Min="83" Max="87" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="88" Max="91" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffc765">Blue + Gold</Capability>
-  <Capability Min="92" Max="96" Preset="ColorMacro" Res1="#ffc765">Gold</Capability>
+  <Capability Min="92" Max="96" Preset="ColorMacro" Res1="#ffd700">Gold</Capability>
   <Capability Min="97" Max="100" Preset="ColorDoubleMacro" Res1="#ffc765" Res2="#ffefb5">Gold + CTO</Capability>
   <Capability Min="101" Max="105" Preset="ColorMacro" Res1="#ffefb5">CTO</Capability>
   <Capability Min="106" Max="109" Preset="ColorDoubleMacro" Res1="#ffefb5" Res2="#c5e4ff">CTO + CTB</Capability>

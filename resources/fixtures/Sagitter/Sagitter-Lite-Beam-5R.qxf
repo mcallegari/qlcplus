@@ -21,9 +21,9 @@
   <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
-  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#55ffff">Light Blue</Capability>
-  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
-  <Capability Min="80" Max="89" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="80" Max="89" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
   <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#ffe5a7">CTO</Capability>
   <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#cdefff">CTB</Capability>
   <Capability Min="110" Max="127" Preset="ColorMacro" Res1="#55007f">UV</Capability>
