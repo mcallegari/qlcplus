@@ -268,7 +268,7 @@ public:
     /**
      * Replace the whole fixtures list with a new one.
      * This is done by remapping. Note that no signal is emitted to
-     * avoid loosing scenes and all the stuff connected to fixtures.
+     * avoid losing scenes and all the stuff connected to fixtures.
      * The caller must be aware on this and reassign all the QLC+ project
      * data previously created.
      *
@@ -537,7 +537,7 @@ public:
     quint32 nextFunctionID();
 
     /**
-     * Set the ID of a function to start everytime QLC+ goes
+     * Set the ID of a function to start every time QLC+ goes
      * in operate mode
      *
      * @param fid The ID of the function

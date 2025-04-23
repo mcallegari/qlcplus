@@ -4,7 +4,7 @@
 # Run it every time some fixtures are added to this folder.
 # The packages 'ruby' and 'ruby-libxml' are required to run this
 
-# When invoked with addtional parameter (filename), it will create
+# When invoked with additional parameter (filename), it will create
 # HTML overview of the fixtures e.g. ./update-fixtures-map.rb index.html
 
 # rubocop: disable Style/Documentation, Metrics/MethodLength

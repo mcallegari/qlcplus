@@ -194,7 +194,7 @@ void EFXFixture::durationChanged()
             float(0), float(m_parent->loopDuration()));
 
     // Serial or Asymmetric propagation mode:
-    // we must substract the offset from the current position
+    // we must subtract the offset from the current position
     if (timeOffset())
     {
         if (m_elapsed < timeOffset())

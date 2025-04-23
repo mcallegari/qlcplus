@@ -3,6 +3,7 @@ qlcplus (4.14.2) stable; urgency=low
   * engine: fix audio end of stream causing a crash on Qt 6 builds
   * Virtual Console: add an option to hide Grand Master (thanks to Jurrie Overgoor)
   * Input profiles: added M-Wave SMC Mixer
+  * New fixtures: Eurolite LED TMH-40, Stairville HF-900 Haze Fogger (thanks to thegasta)
 
   -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 24 May 2025 18:19:20 +0200
 

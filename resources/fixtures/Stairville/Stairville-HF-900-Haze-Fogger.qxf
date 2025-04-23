@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.1-2</Version>
+  <Author>Gasta</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>HF-900 Haze Fogger</Model>
+ <Type>Hazer</Type>
+ <Channel Name="Volume" Preset="IntensityValue"/>
+ <Channel Name="Fan speed" Preset="IntensityValue"/>
+ <Channel Name="Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127" Preset="Alias">Haze</Capability>
+  <Capability Min="128" Max="255" Preset="Alias">Smoke
+   <Alias Mode="3 Channel" Channel="Fan speed" With="No function"/>
+  </Capability>
+ </Channel>
+ <Channel Name="No function" Preset="NoFunction"/>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Volume</Channel>
+  <Channel Number="1">Fan speed</Channel>
+  <Channel Number="2">Mode</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="10" Width="253" Height="280" Depth="461"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="800" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

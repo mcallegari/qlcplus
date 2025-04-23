@@ -165,7 +165,7 @@ public:
     /**
      * Set the widget in "low latency mode". Some DMX controllers send DMX
      * frames at a much higher rate than the specified value. USB widget may
-     * have difficulties to read independant frames in this case and need
+     * have difficulties to read independent frames in this case and need
      * some configuration.
      *
      * @param lowLatency true for low latency, false otherwise

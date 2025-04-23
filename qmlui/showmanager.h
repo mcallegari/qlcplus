@@ -307,7 +307,7 @@ private:
     /** Holds the currently selected Show items */
     QList<SelectedShowItem> m_selectedItems;
 
-    /** Holds the item currenly ready for pasting */
+    /** Holds the item currently ready for pasting */
     QList<SelectedShowItem> m_clipboard;
 };
 

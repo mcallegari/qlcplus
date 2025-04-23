@@ -452,7 +452,7 @@ void ArtNetPlugin::handlePacket(QByteArray const& datagram, QHostAddress const& 
             return;
         }
     }
-    // Packet comming from another subnet. This is an unusual case.
+    // Packet coming from another subnet. This is an unusual case.
     // We stop at the first controller that handles this packet.
     foreach (ArtNetIO io, m_IOmapping)
     {
