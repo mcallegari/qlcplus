@@ -1521,7 +1521,10 @@
     <F n="RVE-Twinled-EVO2" m="Twinled EVO2"/>
   </M>
   <M n="Sagitter">
+    <F n="Sagitter-ARS1500FC" m="ARS 1500FC"/>
+    <F n="Sagitter-Lite-Beam-5R" m="Lite Beam 5R"/>
     <F n="Sagitter-Miniscan-2001" m="Miniscan 2001"/>
+    <F n="Sagitter-Prince" m="Prince"/>
     <F n="Sagitter-Slimpar-12DL" m="Slimpar 12DL"/>
     <F n="Sagitter-Slimpar-18-RGB" m="Slimpar 18 RGB"/>
     <F n="Sagitter-Slimpar-7DL" m="Slimpar 7DL"/>
