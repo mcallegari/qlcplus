@@ -81,8 +81,8 @@ public:
      * @param doc The Doc object that takes all generated functions
      * @param fxiList List of fixtures to create functions for
      */
-    PaletteGenerator(Doc* doc, const QList <Fixture*>& fxList,
-                     PaletteType type = Undefined, PaletteSubType subType = None);
+    PaletteGenerator(Doc* doc, const QList <Fixture*>& fxList, PaletteType type = Undefined,
+                     PaletteSubType subType = None, EFX::Algorithm algo = EFX::Algorithm::Circle);
 
     /** Destructor */
     ~PaletteGenerator();
@@ -159,6 +159,7 @@ private:
     QString m_name;
     PaletteType m_type;
     PaletteSubType m_subType;
+    EFX::Algorithm m_efxAlgo;
     QList <Fixture*> m_fixtures;
     FixtureGroup *m_fixtureGroup;
     QString m_model;

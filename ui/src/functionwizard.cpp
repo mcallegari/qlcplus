@@ -323,9 +323,24 @@ void FunctionWizard::addFunctionsGroup(QTreeWidgetItem *fxGrpItem, QTreeWidgetIt
             type == PaletteGenerator::EfxRGB ||
             type == PaletteGenerator::EfxPosition))
         {
+            item->setFlags(item->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate);
             item->setCheckState(KFunctionParallel, Qt::Checked);
             item->setCheckState(KFunctionSerial, Qt::Unchecked);
             item->setCheckState(KFunctionAsymetric, Qt::Unchecked);
+
+            // add Algorythm sub items
+            for (auto &&algo : EFX::algorithmList())
+            {
+                QTreeWidgetItem *algoItem = new QTreeWidgetItem(item);
+                algoItem->setText(KFunctionName, algo);
+                algoItem->setCheckState(KFunctionName, Qt::Unchecked);
+                algoItem->setData(KFunctionName, Qt::UserRole, type);
+                algoItem->setData(KFunctionName + 1, Qt::UserRole, algo);
+
+                algoItem->setCheckState(KFunctionParallel, Qt::Checked);
+                algoItem->setCheckState(KFunctionSerial, Qt::Unchecked);
+                algoItem->setCheckState(KFunctionAsymetric, Qt::Unchecked);
+            }
         }
     }
 }
@@ -489,32 +504,38 @@ void FunctionWizard::updateResultFunctionsTree()
             //child items of EFXs
             for (int c = 0; c < funcItem->childCount(); c++)
             {
-                QTreeWidgetItem *subFuncItem = funcItem->child(c);
-                if (subFuncItem->checkState(KFunctionName) != Qt::Checked)
-                    continue;
-
-                int type = subFuncItem->data(KFunctionName, Qt::UserRole).toInt();
-                int subType = PaletteGenerator::All;
-                if (subFuncItem->checkState(KFunctionOddEven) == Qt::Checked)
-                    subType += PaletteGenerator::OddEven;
-
-                if (subFuncItem->checkState(KFunctionParallel) == Qt::Checked)
-                    subType += PaletteGenerator::Parallel;
-                if (subFuncItem->checkState(KFunctionSerial) == Qt::Checked)
-                    subType += PaletteGenerator::Serial;
-                if (subFuncItem->checkState(KFunctionAsymetric) == Qt::Checked)
-                    subType += PaletteGenerator::Asymetric;
-
-                PaletteGenerator *palette = new PaletteGenerator(m_doc, fxList,
-                                                                (PaletteGenerator::PaletteType)type,
-                                                                (PaletteGenerator::PaletteSubType)subType);
-                m_paletteList.append(palette);
-
-                foreach (EFX *efx, palette->efxs())
+                for (int ca = 0; ca < funcItem->child(c)->childCount(); ca++)
                 {
-                    QTreeWidgetItem *item = new QTreeWidgetItem(getFunctionGroupItem(efx));
-                    item->setText(KFunctionName, efx->name());
-                    item->setIcon(KFunctionName, efx->getIcon());
+                    QTreeWidgetItem *subFuncItem = funcItem->child(c)->child(ca);
+                    if (subFuncItem->checkState(KFunctionName) != Qt::Checked)
+                        continue;
+
+                    int type = subFuncItem->data(KFunctionName, Qt::UserRole).toInt();
+                    EFX::Algorithm algo = EFX::stringToAlgorithm(
+                        subFuncItem->data(KFunctionName + 1, Qt::UserRole).toString());
+
+                    int subType = PaletteGenerator::All;
+                    if (subFuncItem->checkState(KFunctionOddEven) == Qt::Checked)
+                        subType += PaletteGenerator::OddEven;
+
+                    if (subFuncItem->checkState(KFunctionParallel) == Qt::Checked)
+                        subType += PaletteGenerator::Parallel;
+                    if (subFuncItem->checkState(KFunctionSerial) == Qt::Checked)
+                        subType += PaletteGenerator::Serial;
+                    if (subFuncItem->checkState(KFunctionAsymetric) == Qt::Checked)
+                        subType += PaletteGenerator::Asymetric;
+
+                    PaletteGenerator *palette =
+                        new PaletteGenerator(m_doc, fxList, (PaletteGenerator::PaletteType)type,
+                                             (PaletteGenerator::PaletteSubType)subType, algo);
+                    m_paletteList.append(palette);
+
+                    foreach (EFX *efx, palette->efxs())
+                    {
+                        QTreeWidgetItem *item = new QTreeWidgetItem(getFunctionGroupItem(efx));
+                        item->setText(KFunctionName, efx->name());
+                        item->setIcon(KFunctionName, efx->getIcon());
+                    }
                 }
             }
         }

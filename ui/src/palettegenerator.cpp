@@ -37,11 +37,12 @@
 #include "doc.h"
 
 PaletteGenerator::PaletteGenerator(Doc* doc, const QList <Fixture*>& fxList,
-                                   PaletteType type, PaletteSubType subType)
+                                   PaletteType type, PaletteSubType subType, EFX::Algorithm efxAlgo)
     : m_doc(doc)
     , m_name(QString())
     , m_type(type)
     , m_subType(subType)
+    , m_efxAlgo(efxAlgo)
     , m_fixtures(fxList)
     , m_fixtureGroup(NULL)
 {
@@ -478,19 +479,12 @@ EFX *PaletteGenerator::createEfx(QList<Fixture *> fixtures, EFXFixture::Mode mod
 {
     EFX *efx = new EFX(m_doc);
 
-    efx->setName(tr("EFX %1 %2 - ").arg(EFXFixture::modeToString(mode)).arg(EFX::propagationModeToString(propMode)) + m_model);
+    efx->setName(tr("EFX %1 %2 %3 - ")
+        .arg(EFXFixture::modeToString(mode))
+        .arg(EFX::algorithmToString(m_efxAlgo))
+        .arg(EFX::propagationModeToString(propMode)) + m_model);
 
-    if (mode == EFXFixture::Mode::RGB)
-    {
-        efx->setAlgorithm(EFX::Algorithm::Line2);
-        efx->setHeight(0);
-    }
-    else if (mode == EFXFixture::Mode::PanTilt)
-    {
-    }
-    else if (mode == EFXFixture::Mode::Dimmer)
-    {
-    }
+    efx->setAlgorithm(m_efxAlgo);
 
     efx->setPropagationMode(propMode);
 
