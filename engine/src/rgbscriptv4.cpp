@@ -85,10 +85,7 @@ RGBScript &RGBScript::operator=(const RGBScript &s)
 
 bool RGBScript::operator==(const RGBScript& s) const
 {
-    if (this->fileName().isEmpty() == false && this->fileName() == s.fileName())
-        return true;
-    else
-        return false;
+    return this->fileName().isEmpty() == false && this->fileName() == s.fileName();
 }
 
 RGBAlgorithm* RGBScript::clone() const
