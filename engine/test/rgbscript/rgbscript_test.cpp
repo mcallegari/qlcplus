@@ -48,7 +48,7 @@ void RGBScript_Test::initial()
 {
     RGBScript script(m_doc);
 #ifdef QT_QML_LIB
-    QVERIFY(script.m_engine == NULL);
+    QVERIFY(script.s_jsThread == NULL);
 #else
     QVERIFY(script.s_engine == NULL);
 #endif

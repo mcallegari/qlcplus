@@ -241,7 +241,7 @@ int RGBImage::rgbMapStepCount(const QSize& size)
     }
 }
 
-void RGBImage::rgbMapSetColors(QVector<uint> &colors)
+void RGBImage::rgbMapSetColors(const QVector<uint> &colors)
 {
     Q_UNUSED(colors);
 }

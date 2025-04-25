@@ -568,17 +568,7 @@ void RGBMatrix::tap()
 
 void RGBMatrix::checkEngineCreation()
 {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-    if (m_requestEngineCreation)
-    {
-        // And here's the hack: Qt6 JS engine is not thread safe. Nice job!
-        // It's not possible to use the instance created in the main thread
-        // so we need to create a clone on the fly from the MasterTimer thread :vomiting_face:
-        m_runAlgorithm = m_algorithm->clone();
-    }
-#else
     m_runAlgorithm = m_algorithm;
-#endif
     m_requestEngineCreation = false;
 }
 
