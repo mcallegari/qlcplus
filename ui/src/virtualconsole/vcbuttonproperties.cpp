@@ -72,10 +72,18 @@ VCButtonProperties::VCButtonProperties(VCButton* button, Doc* doc)
         m_blackout->setChecked(true);
     else if (button->action() == VCButton::StopAll)
         m_stopAll->setChecked(true);
+    else if (button->action() == VCButton::KioskMode)
+        m_kioskMode->setChecked(true);
     else
         m_toggle->setChecked(true);
     m_fadeOutTime = m_button->stopAllFadeTime();
     m_fadeOutEdit->setText(Function::speedToString(m_fadeOutTime));
+    m_kioskPinEdit->setText(m_button->kioskModePin());
+    
+    // Set PIN field to display in cleartext
+    m_kioskPinEdit->setEchoMode(QLineEdit::Normal);
+    m_kioskPinEdit->setInputMask("999999;_");
+    
     slotActionToggled();
 
     m_forceLTP->setChecked(m_button->flashForceLTP());
@@ -96,6 +104,7 @@ VCButtonProperties::VCButtonProperties(VCButton* button, Doc* doc)
     connect(m_blackout, SIGNAL(toggled(bool)), this, SLOT(slotActionToggled()));
     connect(m_stopAll, SIGNAL(toggled(bool)), this, SLOT(slotActionToggled()));
     connect(m_flash, SIGNAL(toggled(bool)), this, SLOT(slotActionToggled()));
+    connect(m_kioskMode, SIGNAL(toggled(bool)), this, SLOT(slotActionToggled()));
 
     connect(m_speedDialButton, SIGNAL(toggled(bool)),
             this, SLOT(slotSpeedDialToggle(bool)));
@@ -151,12 +160,29 @@ void VCButtonProperties::slotActionToggled()
         m_intensityGroup->setEnabled(true);
     }
 
+    // Special handling for Kiosk Mode - enable the label but disable the function selection
+    if (m_kioskMode->isChecked() == true)
+    {
+        m_attachFunction->setEnabled(false);
+        m_detachFunction->setEnabled(false);
+        m_functionEdit->setEnabled(false);
+    }
+    else
+    {
+        m_attachFunction->setEnabled(true);
+        m_detachFunction->setEnabled(true);
+        m_functionEdit->setEnabled(true);
+    }
+
     m_fadeOutEdit->setEnabled(m_stopAll->isChecked());
     m_safFadeLabel->setEnabled(m_stopAll->isChecked());
     m_speedDialButton->setEnabled(m_stopAll->isChecked());
 
     m_forceLTP->setEnabled(m_flash->isChecked());
     m_overridePriority->setEnabled(m_flash->isChecked());
+    
+    m_kioskPinLabel->setEnabled(m_kioskMode->isChecked());
+    m_kioskPinEdit->setEnabled(m_kioskMode->isChecked());
 }
 
 void VCButtonProperties::slotSpeedDialToggle(bool state)
@@ -229,6 +255,11 @@ void VCButtonProperties::accept()
         m_button->setAction(VCButton::StopAll);
         m_button->setStopAllFadeOutTime(m_fadeOutTime);
     }
+    else if (m_kioskMode->isChecked() == true)
+    {
+        m_button->setAction(VCButton::KioskMode);
+        m_button->setKioskModePin(m_kioskPinEdit->text());
+    }
     else
     {
         m_button->setAction(VCButton::Flash);
@@ -236,9 +267,7 @@ void VCButtonProperties::accept()
         m_button->setFlashForceLTP(m_forceLTP->isChecked());
     }
 
-
     m_button->updateState();
 
     QDialog::accept();
 }
-

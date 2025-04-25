@@ -24,6 +24,7 @@
 #include <QKeySequence>
 #include <QWidget>
 #include <QIcon>
+#include <QMainWindow>
 
 #include "vcwidget.h"
 #include "function.h"
@@ -52,6 +53,7 @@ class QEvent;
 #define KXMLQLCVCButtonActionToggle     QStringLiteral("Toggle")
 #define KXMLQLCVCButtonActionBlackout   QStringLiteral("Blackout")
 #define KXMLQLCVCButtonActionStopAll    QStringLiteral("StopAll")
+#define KXMLQLCVCButtonActionKioskMode  QStringLiteral("KioskMode")
 
 #define KXMLQLCVCButtonFlashOverride    QStringLiteral("Override")
 #define KXMLQLCVCButtonFlashForceLTP    QStringLiteral("ForceLTP")
@@ -62,6 +64,8 @@ class QEvent;
 
 #define KXMLQLCVCButtonIntensity        QStringLiteral("Intensity")
 #define KXMLQLCVCButtonIntensityAdjust  QStringLiteral("Adjust")
+
+#define KXMLQLCVCButtonKioskModePin     QStringLiteral("KioskModePin")
 
 class VCButton : public VCWidget
 {
@@ -189,10 +193,10 @@ public:
      */
     quint32 function() const;
 
-    /** @reimp */
+    /** @reimpl */
     void adjustFunctionIntensity(Function *f, qreal value);
 
-    /** @reimp */
+    /** @reimpl */
     virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
 
 protected slots:
@@ -258,8 +262,9 @@ public:
      * Flash: Keep the function running as long as the button is kept down.
      * Blackout: Toggle blackout on/off.
      * StopAll: Stop all functions (panic button).
+     * KioskMode: Toggle kiosk mode on/off with PIN protection.
      */
-    enum Action { Toggle, Flash, Blackout, StopAll };
+    enum Action { Toggle, Flash, Blackout, StopAll, KioskMode };
 
     /** Set this button's action */
     void setAction(Action action);
@@ -273,9 +278,26 @@ public:
     void setStopAllFadeOutTime(int ms);
     int stopAllFadeTime() const;
 
+    /*********************************************************************
+     * Kiosk Mode PIN
+     *********************************************************************/
+public:
+    /**
+     * Set the PIN code for the Kiosk Mode toggle action
+     * @param pin A 4-6 digit PIN code
+     */
+    void setKioskModePin(const QString& pin);
+
+    /**
+     * Get the PIN code for the Kiosk Mode toggle action
+     * @return The PIN code
+     */
+    QString kioskModePin() const;
+
 protected:
     Action m_action;
     int m_blackoutFadeOutTime;
+    QString m_kioskModePin;
 
     /*********************************************************************
      * Startup intensity adjustment
@@ -364,6 +386,9 @@ protected:
     /** Check if the button's parent is a VCSoloFrame */
     bool isChildOfSoloFrame() const;
 
+    /** Helper method to find the main application window */
+    QMainWindow* mainWindow();
+
     /*********************************************************************
     * Custom menu
     *********************************************************************/
@@ -375,7 +400,7 @@ public:
      * Intensity
      *********************************************************************/
 public:
-    /** @reimp */
+    /** @reimpl */
     void adjustIntensity(qreal val);
 
     /*********************************************************************
