@@ -172,14 +172,14 @@ bool RGBScript::evaluate()
         return false;
     }
 
-    m_rgbMap = m_script.property("rgbMap");
+    m_rgbMap = m_script.property(QStringLiteral("rgbMap"));
     if (m_rgbMap.isCallable() == false)
     {
         qWarning() << m_fileName << "is missing the rgbMap() function!";
         return false;
     }
 
-    m_rgbMapStepCount = m_script.property("rgbMapStepCount");
+    m_rgbMapStepCount = m_script.property(QStringLiteral("rgbMapStepCount"));
     if (m_rgbMapStepCount.isCallable() == false)
     {
         qWarning() << m_fileName << "is missing the rgbMapStepCount() function!";
@@ -191,7 +191,7 @@ bool RGBScript::evaluate()
     {
         if (m_apiVersion >= 3)
         {
-            m_rgbMapSetColors = m_script.property("rgbMapSetColors");
+            m_rgbMapSetColors = m_script.property(QStringLiteral("rgbMapSetColors"));
             if (m_rgbMapSetColors.isCallable() == false)
             {
                 qWarning() << m_fileName << "is missing the rgbMapSetColors() function!";
@@ -335,7 +335,7 @@ QString RGBScript::name() const
 {
     QMutexLocker engineLocker(m_engineMutex);
 
-    QJSValue name = m_script.property("name");
+    QJSValue name = m_script.property(QStringLiteral("name"));
     QString ret = name.isUndefined() ? QString() : name.toString();
     return ret;
 }
@@ -344,7 +344,7 @@ QString RGBScript::author() const
 {
     QMutexLocker engineLocker(m_engineMutex);
 
-    QJSValue author = m_script.property("author");
+    QJSValue author = m_script.property(QStringLiteral("author"));
     QString ret = author.isUndefined() ? QString() : author.toString();
     return ret;
 }
@@ -363,7 +363,7 @@ int RGBScript::acceptColors() const
 {
     QMutexLocker engineLocker(m_engineMutex);
 
-    QJSValue accColors = m_script.property("acceptColors");
+    QJSValue accColors = m_script.property(QStringLiteral("acceptColors"));
     if (!accColors.isUndefined())
         return accColors.toInt();
     // if no property is provided, let's assume the script
@@ -495,7 +495,7 @@ bool RGBScript::loadProperties()
 {
     QMutexLocker engineLocker(m_engineMutex);
 
-    QJSValue svCaps = m_script.property("properties");
+    QJSValue svCaps = m_script.property(QStringLiteral("properties"));
     if (svCaps.isArray() == false)
     {
         qWarning() << m_fileName << "properties is not an array!";
@@ -515,10 +515,10 @@ bool RGBScript::loadProperties()
     {
         RGBScriptProperty newCap;
 
-        QStringList propsList = cap.split("|");
+        QStringList propsList = cap.split('|');
         foreach (QString prop, propsList)
         {
-            QStringList keyValue = prop.split(":");
+            QStringList keyValue = prop.split(':');
             if (keyValue.length() < 2)
             {
                 qWarning() << prop << ": malformed property. Please fix it.";
@@ -526,22 +526,22 @@ bool RGBScript::loadProperties()
             }
             QString key = keyValue.at(0).simplified();
             QString value = keyValue.at(1);
-            if (key == "name")
+            if (key == QStringLiteral("name"))
             {
                 newCap.m_name = value;
             }
-            else if (key == "type")
+            else if (key == QStringLiteral("type"))
             {
                 if (value == "list") newCap.m_type = RGBScriptProperty::List;
                 else if (value == "float") newCap.m_type = RGBScriptProperty::Float;
                 else if (value == "range") newCap.m_type = RGBScriptProperty::Range;
                 else if (value == "string") newCap.m_type = RGBScriptProperty::String;
             }
-            else if (key == "display")
+            else if (key == QStringLiteral("display"))
             {
                 newCap.m_displayName = value.simplified();
             }
-            else if (key == "values")
+            else if (key == QStringLiteral("values"))
             {
                 QStringList values = value.split(",");
                 switch(newCap.m_type)
@@ -567,11 +567,11 @@ bool RGBScript::loadProperties()
                     break;
                 }
             }
-            else if (key == "write")
+            else if (key == QStringLiteral("write"))
             {
                 newCap.m_writeMethod = value.simplified();
             }
-            else if (key == "read")
+            else if (key == QStringLiteral("read"))
             {
                 newCap.m_readMethod = value.simplified();
             }
