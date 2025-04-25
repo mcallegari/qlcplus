@@ -14,8 +14,8 @@
         <translation>La libreria dinamica usbdmx.dll non è stata trovata o è troppo vecchia per essere usata da QLC+.</translation>
     </message>
     <message>
-        <location filename="win32/peperoni.cpp" line="221"/>
         <location filename="unix/peperoni.cpp" line="212"/>
+        <location filename="win32/peperoni.cpp" line="221"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation>Vuoi rifare la scansione delle tue interfacce?</translation>
     </message>
@@ -28,8 +28,8 @@
 <context>
     <name>PeperoniDevice</name>
     <message>
-        <location filename="win32/peperonidevice.cpp" line="70"/>
         <location filename="unix/peperonidevice.cpp" line="172"/>
+        <location filename="win32/peperonidevice.cpp" line="70"/>
         <source>Device is working correctly.</source>
         <translation>L&apos;interfaccia funziona correttamente.</translation>
     </message>
@@ -44,8 +44,8 @@
         <translation>Nessuno</translation>
     </message>
     <message>
-        <location filename="win32/peperonidevice.cpp" line="111"/>
         <location filename="unix/peperonidevice.cpp" line="140"/>
+        <location filename="win32/peperonidevice.cpp" line="111"/>
         <source>Unknown</source>
         <translation>Sconosciuto</translation>
     </message>

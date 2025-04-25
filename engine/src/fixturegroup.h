@@ -37,8 +37,8 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCFixtureGroup     QString("FixtureGroup")
-#define KXMLQLCFixtureGroupID   QString("ID")
+#define KXMLQLCFixtureGroup     QStringLiteral("FixtureGroup")
+#define KXMLQLCFixtureGroupID   QStringLiteral("ID")
 
 class FixtureGroup : public QObject
 {

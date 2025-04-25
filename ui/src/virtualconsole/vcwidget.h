@@ -38,44 +38,44 @@ class QFile;
  * @{
  */
 
-#define KXMLQLCVCCaption    QString("Caption")
-#define KXMLQLCVCFrameStyle QString("FrameStyle")
+#define KXMLQLCVCCaption    QStringLiteral("Caption")
+#define KXMLQLCVCFrameStyle QStringLiteral("FrameStyle")
 
-#define KXMLQLCVCWidgetID           QString("ID")
-#define KXMLQLCVCWidgetPage         QString("Page")
-#define KXMLQLCVCWidgetAppearance   QString("Appearance")
+#define KXMLQLCVCWidgetID           QStringLiteral("ID")
+#define KXMLQLCVCWidgetPage         QStringLiteral("Page")
+#define KXMLQLCVCWidgetAppearance   QStringLiteral("Appearance")
 
-#define KXMLQLCVCWidgetForegroundColor  QString("ForegroundColor")
-#define KXMLQLCVCWidgetBackgroundColor  QString("BackgroundColor")
-#define KXMLQLCVCWidgetColorDefault     QString("Default")
+#define KXMLQLCVCWidgetForegroundColor  QStringLiteral("ForegroundColor")
+#define KXMLQLCVCWidgetBackgroundColor  QStringLiteral("BackgroundColor")
+#define KXMLQLCVCWidgetColorDefault     QStringLiteral("Default")
 
-#define KXMLQLCVCWidgetFont         QString("Font")
-#define KXMLQLCVCWidgetFontDefault  QString("Default")
+#define KXMLQLCVCWidgetFont         QStringLiteral("Font")
+#define KXMLQLCVCWidgetFontDefault  QStringLiteral("Default")
 
-#define KXMLQLCVCWidgetBackgroundImage      QString("BackgroundImage")
-#define KXMLQLCVCWidgetBackgroundImageNone  QString("None")
+#define KXMLQLCVCWidgetBackgroundImage      QStringLiteral("BackgroundImage")
+#define KXMLQLCVCWidgetBackgroundImageNone  QStringLiteral("None")
 
 #define KVCFrameStyleSunken (QFrame::Panel | QFrame::Sunken)
 #define KVCFrameStyleRaised (QFrame::Panel | QFrame::Raised)
 #define KVCFrameStyleNone   (QFrame::NoFrame)
 
-#define KXMLQLCVCWidgetKey                  QString("Key")
-#define KXMLQLCVCWidgetInput                QString("Input")
-#define KXMLQLCVCWidgetInputUniverse        QString("Universe")
-#define KXMLQLCVCWidgetInputChannel         QString("Channel")
-#define KXMLQLCVCWidgetInputLowerValue      QString("LowerValue")
-#define KXMLQLCVCWidgetInputUpperValue      QString("UpperValue")
-#define KXMLQLCVCWidgetInputMonitorValue    QString("MonitorValue")
-#define KXMLQLCVCWidgetInputLowerParams     QString("LowerParams")
-#define KXMLQLCVCWidgetInputUpperParams     QString("UpperParams")
-#define KXMLQLCVCWidgetInputMonitorParams   QString("MonitorParams")
+#define KXMLQLCVCWidgetKey                  QStringLiteral("Key")
+#define KXMLQLCVCWidgetInput                QStringLiteral("Input")
+#define KXMLQLCVCWidgetInputUniverse        QStringLiteral("Universe")
+#define KXMLQLCVCWidgetInputChannel         QStringLiteral("Channel")
+#define KXMLQLCVCWidgetInputLowerValue      QStringLiteral("LowerValue")
+#define KXMLQLCVCWidgetInputUpperValue      QStringLiteral("UpperValue")
+#define KXMLQLCVCWidgetInputMonitorValue    QStringLiteral("MonitorValue")
+#define KXMLQLCVCWidgetInputLowerParams     QStringLiteral("LowerParams")
+#define KXMLQLCVCWidgetInputUpperParams     QStringLiteral("UpperParams")
+#define KXMLQLCVCWidgetInputMonitorParams   QStringLiteral("MonitorParams")
 
-#define KXMLQLCWindowState          QString("WindowState")
-#define KXMLQLCWindowStateVisible   QString("Visible")
-#define KXMLQLCWindowStateX         QString("X")
-#define KXMLQLCWindowStateY         QString("Y")
-#define KXMLQLCWindowStateWidth     QString("Width")
-#define KXMLQLCWindowStateHeight    QString("Height")
+#define KXMLQLCWindowState          QStringLiteral("WindowState")
+#define KXMLQLCWindowStateVisible   QStringLiteral("Visible")
+#define KXMLQLCWindowStateX         QStringLiteral("X")
+#define KXMLQLCWindowStateY         QStringLiteral("Y")
+#define KXMLQLCWindowStateWidth     QStringLiteral("Width")
+#define KXMLQLCWindowStateHeight    QStringLiteral("Height")
 
 class VCWidget : public QWidget
 {
@@ -547,7 +547,7 @@ protected:
      *
      * @param doc A QXmlStreamReader to save the tag to
      *
-     * @return true if succesful, otherwise false
+     * @return true if successful, otherwise false
      */
     bool saveXMLWindowState(QXmlStreamWriter *doc);
 
@@ -561,7 +561,7 @@ protected:
      * @param h Loaded h position
      * @param visible Loaded visible status
      *
-     * @return true if succesful, otherwise false
+     * @return true if successful, otherwise false
      */
     bool loadXMLWindowState(QXmlStreamReader &tag, int* x, int* y,
                             int* w, int* h, bool* visible);

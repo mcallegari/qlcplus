@@ -58,15 +58,23 @@ void GPIOPlugin::init()
     else
     {
         // autodetect chips and use first
-        for (auto& it: ::gpiod::make_chip_iter())
+        try
         {
-            qDebug() << "GPIO chip found" << QString::fromStdString(it.name());
-            if (m_chipName.empty())
-                m_chipName = it.name();
+            for (auto& it: ::gpiod::make_chip_iter())
+            {
+                qDebug() << "GPIO chip found: " << QString::fromStdString(it.name());
+                if (m_chipName.empty())
+                    m_chipName = it.name();
+                else
+                	qWarning() << "Multiple GPIO chips found, skipping chip: " << QString::fromStdString(it.name());
+            }
+        } catch (const std::system_error& e) {
+            qWarning() << "Error while scanning GPIO chips: " << e.what() << " - GPIO plugin not initialized.";
         }
     }
 
-    updateLinesList();
+    if (!m_chipName.empty())
+        updateLinesList();
 }
 
 QString GPIOPlugin::name()

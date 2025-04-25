@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(qlcplus VERSION 4.13.1 LANGUAGES C CXX)
+project(qlcplus VERSION 4.14.1 LANGUAGES C CXX)
 
 # Set Release build type by default
 if(NOT CMAKE_BUILD_TYPE)
@@ -155,9 +155,6 @@ else ()
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 endif()
 
-## Add the generated qm files to the list
-file(GLOB translations_qm_files "${CMAKE_CURRENT_SOURCE_DIR}/*.qm")
-
 ## Install the qm files
 if (appimage)
   set(translations_install_path "${TARGET_DIR}/${INSTALLROOT}/${TRANSLATIONDIR}")
@@ -165,7 +162,16 @@ else ()
   set(translations_install_path "${INSTALLROOT}/${TRANSLATIONDIR}")
 endif()
 
-install(FILES ${translations_qm_files} DESTINATION ${translations_install_path})
+# Define the pattern for the .qm files
+set(translations_qm_pattern "${CMAKE_CURRENT_SOURCE_DIR}/qlcplus_*.qm")
+
+# Install command using a custom script
+install(CODE "
+  file(GLOB qm_files \"${translations_qm_pattern}\")
+  foreach(file IN LISTS qm_files)
+    file(INSTALL DESTINATION \"${translations_install_path}\" TYPE FILE FILES \"\${file}\")
+  endforeach()
+" COMPONENT translations)
 
 ## Clean the generated files
 set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${CMAKE_CURRENT_BINARY_DIR}/*.qm")

@@ -4,8 +4,8 @@
 
 APPNAME    = Q Light Controller Plus
 FXEDNAME   = Fixture Definition Editor
-!qmlui: APPVERSION = 4.13.2 GIT
-qmlui:  APPVERSION = 5.0.0 Beta 3
+!qmlui: APPVERSION = 4.14.2 GIT
+qmlui:  APPVERSION = 5.0.0 GIT
 
 # Disable these if you don't want to see GIT short hash in the About Box
 #unix:REVISION = $$system(git log --pretty=format:'%h' -n 1)
@@ -216,7 +216,7 @@ macx:USERRGBSCRIPTDIR       = $$USERDATADIR/RGBScripts
 android:USERRGBSCRIPTDIR    = $$USERDATADIR/rgbscripts
 ios:USERRGBSCRIPTDIR        = $$USERDATADIR/RGBScripts
 
-# RGB Scripts
+# Web Files
 win32:WEBFILESDIR      = Web
 unix:!macx:WEBFILESDIR = $$DATADIR/web
 macx:WEBFILESDIR       = $$DATADIR/Web

@@ -1307,9 +1307,9 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
         Q_ASSERT(fxi != nullptr);
         fxi->setName(tr("%1 - Row %2").arg(name).arg(i + 1));
         if (rowDef == nullptr)
-            rowDef = fxi->genericRGBPanelDef(columns, components);
+            rowDef = fxi->genericRGBPanelDef(columns, components, false);
         if (rowMode == nullptr)
-            rowMode = fxi->genericRGBPanelMode(rowDef, components, phyWidth, phyHeight);
+            rowMode = fxi->genericRGBPanelMode(rowDef, components, false, phyWidth, phyHeight);
         fxi->setFixtureDefinition(rowDef, rowMode);
 
         // Check universe span

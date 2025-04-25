@@ -145,42 +145,42 @@
         <translation>Nome completo</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="86"/>
+        <location filename="configureartnet.cpp" line="90"/>
         <source>%1 nodes</source>
         <translation type="unfinished">Nós</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="124"/>
+        <location filename="configureartnet.cpp" line="128"/>
         <source>Inputs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="130"/>
+        <location filename="configureartnet.cpp" line="134"/>
         <source>Outputs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="181"/>
+        <location filename="configureartnet.cpp" line="185"/>
         <source>Standard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="182"/>
+        <location filename="configureartnet.cpp" line="186"/>
         <source>Full</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="183"/>
+        <location filename="configureartnet.cpp" line="187"/>
         <source>Partial</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="198"/>
+        <location filename="configureartnet.cpp" line="202"/>
         <source>Invalid IP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="198"/>
+        <location filename="configureartnet.cpp" line="202"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
         <translation type="unfinished"></translation>

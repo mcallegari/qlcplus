@@ -169,7 +169,7 @@ void PaletteManager::deletePalettes(QVariantList list)
 
 void PaletteManager::addPaletteToNewScene(quint32 id, QString sceneName)
 {
-    // check for palette existance
+    // check for palette existence
     if (m_doc->palette(id) == nullptr)
         return;
 

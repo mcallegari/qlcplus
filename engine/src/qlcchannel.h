@@ -38,13 +38,13 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCChannel          QString("Channel")
-#define KXMLQLCChannelName      QString("Name")
-#define KXMLQLCChannelPreset    QString("Preset")
-#define KXMLQLCChannelGroup     QString("Group")
-#define KXMLQLCChannelDefault   QString("Default")
-#define KXMLQLCChannelGroupByte QString("Byte")
-#define KXMLQLCChannelColour    QString("Colour")
+#define KXMLQLCChannel          QStringLiteral("Channel")
+#define KXMLQLCChannelName      QStringLiteral("Name")
+#define KXMLQLCChannelPreset    QStringLiteral("Preset")
+#define KXMLQLCChannelGroup     QStringLiteral("Group")
+#define KXMLQLCChannelDefault   QStringLiteral("Default")
+#define KXMLQLCChannelGroupByte QStringLiteral("Byte")
+#define KXMLQLCChannelColour    QStringLiteral("Colour")
 
 /* Compound strings used by PaletteGenerator to identify
  * special fixture modes

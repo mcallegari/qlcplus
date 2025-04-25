@@ -33,8 +33,8 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCPalette   QString("Palette")
-#define KXMLQLCPaletteID QString("ID")
+#define KXMLQLCPalette   QStringLiteral("Palette")
+#define KXMLQLCPaletteID QStringLiteral("ID")
 
 /**
  * QLCPalette represents a QLC+ Palette, which is the definition

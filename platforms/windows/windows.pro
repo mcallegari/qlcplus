@@ -178,9 +178,9 @@ INSTALLS += msys
 
 # audio libraries
 audio.path = $$INSTALLROOT/$$LIBSDIR
-exists($$SYS_LIBS_PATH/libmad-0.dll) {
-    audio.files += $$SYS_LIBS_PATH/libmad-0.dll
-}
+#exists($$SYS_LIBS_PATH/libmad-0.dll) {
+#    audio.files += $$SYS_LIBS_PATH/libmad-0.dll
+#}
 exists($$SYS_LIBS_PATH/libogg-0.dll) {
     audio.files += $$SYS_LIBS_PATH/libogg-0.dll
 }

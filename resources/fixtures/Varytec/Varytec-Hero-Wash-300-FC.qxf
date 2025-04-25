@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.1 GIT</Version>
+  <Author>NostaKhan</Author>
+ </Creator>
+ <Manufacturer>Varytec</Manufacturer>
+ <Model>Hero Wash 300 FC</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Rotation Pan" Preset="PositionPan"/>
+ <Channel Name="Inclination Tilt" Preset="PositionTilt"/>
+ <Channel Name="Rotation Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Zoom" Preset="BeamFocusNearFar"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Stroboscope">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterClose">LEDs OFF</Capability>
+  <Capability Min="11" Max="80" Preset="RampUpSlowToFast">Constantly increasing brightness, increasing speed (dimmed bright, quickly dark)</Capability>
+  <Capability Min="81" Max="140" Preset="RampDownSlowToFast">Constantly decreasing brightness, increasing speed (quickly bright, dimmed dark)</Capability>
+  <Capability Min="141" Max="200" Preset="PulseSlowToFast">Impulse effect, increasing speed (dimmed light and dark)</Capability>
+  <Capability Min="201" Max="250" Preset="StrobeFreqRange" Res1="0.5" Res2="20">Strobe effect, constant (0.5 … 20 Hz)</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">LEDs On</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Color Temperature">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="255">Colour temperature white, 2800 K … 6800 K</Capability>
+ </Channel>
+ <Channel Name="Segment Pattern">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="15">Static Pattern 1</Capability>
+  <Capability Min="16" Max="25">Static Pattern 2</Capability>
+  <Capability Min="26" Max="35">Static Pattern 3</Capability>
+  <Capability Min="36" Max="45">Static Pattern 4</Capability>
+  <Capability Min="46" Max="55">Static Pattern 5</Capability>
+  <Capability Min="56" Max="65">Static Pattern 6</Capability>
+  <Capability Min="66" Max="75">No Function</Capability>
+  <Capability Min="76" Max="90">Dynamic Pattern 7</Capability>
+  <Capability Min="91" Max="105">Dynamic Pattern 8</Capability>
+  <Capability Min="106" Max="120">Dynamic Pattern 9</Capability>
+  <Capability Min="121" Max="135">Dynamic Pattern 10</Capability>
+  <Capability Min="136" Max="150">Dynamic Pattern 11</Capability>
+  <Capability Min="151" Max="165">Dynamic Pattern 12</Capability>
+  <Capability Min="166" Max="180">Dynamic Pattern 13</Capability>
+  <Capability Min="181" Max="195">Dynamic Pattern 14</Capability>
+  <Capability Min="196" Max="210">Dynamic Pattern 15</Capability>
+  <Capability Min="211" Max="225">Dynamic Pattern 16</Capability>
+  <Capability Min="226" Max="240">Dynamic Pattern 17</Capability>
+  <Capability Min="241" Max="255">Dynamic Pattern 18</Capability>
+ </Channel>
+ <Channel Name="Pattern Transition">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Transition without fading of the dynamic patterns (channel 12), increasing speed</Capability>
+  <Capability Min="128" Max="255">Transition with fading of the dynamic patterns (channel 12), increasing speed</Capability>
+ </Channel>
+ <Channel Name="Zoom automatic programme with decreasing speed, 1 (fast)…8 (slow)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="39">Zoom automatic programme 1</Capability>
+  <Capability Min="40" Max="69">Zoom automatic programme 2</Capability>
+  <Capability Min="70" Max="99">Zoom automatic programme 3</Capability>
+  <Capability Min="100" Max="129">Zoom automatic programme 4</Capability>
+  <Capability Min="130" Max="159">Zoom automatic programme 5</Capability>
+  <Capability Min="160" Max="189">Zoom automatic programme 6</Capability>
+  <Capability Min="190" Max="219">Zoom automatic programme 7</Capability>
+  <Capability Min="220" Max="255">Zoom automatic programme 8</Capability>
+ </Channel>
+ <Channel Name="Pan-Tilt Auto Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="20">Pan-Tilt auto programme 1</Capability>
+  <Capability Min="21" Max="30">Pan-Tilt auto programme 2</Capability>
+  <Capability Min="31" Max="40">Pan-Tilt auto programme 3</Capability>
+  <Capability Min="41" Max="50">Pan-Tilt auto programme 4</Capability>
+  <Capability Min="51" Max="60">Pan-Tilt auto programme 5</Capability>
+  <Capability Min="61" Max="70">Pan-Tilt auto programme 6</Capability>
+  <Capability Min="71" Max="80">Pan-Tilt auto programme 7</Capability>
+  <Capability Min="81" Max="90">Pan-Tilt auto programme 8</Capability>
+  <Capability Min="91" Max="230">Sound control Pan and Tilt</Capability>
+  <Capability Min="231" Max="240">Reset, if the value is transmitted for at least 3 seconds</Capability>
+  <Capability Min="241" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Fine adjustment rotation (pan)" Preset="PositionPanFine"/>
+ <Channel Name="Fine adjustment inclination (tilt)" Preset="PositionTiltFine"/>
+ <Channel Name="Intensity red segment 1, 0 % to 100%" Preset="IntensityRed"/>
+ <Channel Name="Intensity green segment 1, 0 % to 100%" Preset="IntensityGreen"/>
+ <Channel Name="Intensity blue segment 1, 0 % to 100%" Preset="IntensityBlue"/>
+ <Channel Name="Intensity white segment 1, 0 % to 100%" Preset="IntensityWhite"/>
+ <Channel Name="Intensity red segment 2, 0 % to 100%" Preset="IntensityRed"/>
+ <Channel Name="Intensity green segment 2, 0 % to 100%" Preset="IntensityGreen"/>
+ <Channel Name="Intensity blue segment 2, 0 % to 100%" Preset="IntensityBlue"/>
+ <Channel Name="Intensity white segment 2, 0 % to 100%" Preset="IntensityWhite"/>
+ <Channel Name="Intensity red segment 3, 0 % to 100%" Preset="IntensityRed"/>
+ <Channel Name="Intensity green segment 3, 0 % to 100%" Preset="IntensityGreen"/>
+ <Channel Name="Intensity blue segment 3, 0 % to 100%" Preset="IntensityBlue"/>
+ <Channel Name="Intensity white segment 3, 0 % to 100%" Preset="IntensityWhite"/>
+ <Channel Name="Colour Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="14">Colour macro 1</Capability>
+  <Capability Min="15" Max="18">Colour macro 2</Capability>
+  <Capability Min="19" Max="22">Colour macro 3</Capability>
+  <Capability Min="23" Max="26">Colour macro 4</Capability>
+  <Capability Min="27" Max="30">Colour macro 5</Capability>
+  <Capability Min="31" Max="34">Colour macro 6</Capability>
+  <Capability Min="35" Max="38">Colour macro 7</Capability>
+  <Capability Min="39" Max="42">Colour macro 8</Capability>
+  <Capability Min="43" Max="46">Colour macro 9</Capability>
+  <Capability Min="47" Max="50">Colour macro 10</Capability>
+  <Capability Min="51" Max="54">Colour macro 11</Capability>
+  <Capability Min="55" Max="58">Colour macro 12</Capability>
+  <Capability Min="59" Max="62">Colour macro 13</Capability>
+  <Capability Min="63" Max="66">Colour macro 14</Capability>
+  <Capability Min="67" Max="70">Colour macro 15</Capability>
+  <Capability Min="71" Max="74">Colour macro 16</Capability>
+  <Capability Min="75" Max="78">Colour macro 17</Capability>
+  <Capability Min="79" Max="82">Colour macro 18</Capability>
+  <Capability Min="83" Max="86">Colour macro 19</Capability>
+  <Capability Min="87" Max="90">Colour macro 20</Capability>
+  <Capability Min="91" Max="94">Colour macro 21</Capability>
+  <Capability Min="95" Max="98">Colour macro 22</Capability>
+  <Capability Min="99" Max="102">Colour macro 23</Capability>
+  <Capability Min="103" Max="106">Colour macro 24</Capability>
+  <Capability Min="107" Max="110">Colour macro 25</Capability>
+  <Capability Min="111" Max="114">Colour macro 26</Capability>
+  <Capability Min="115" Max="118">Colour macro 27</Capability>
+  <Capability Min="119" Max="122">Colour macro 28</Capability>
+  <Capability Min="123" Max="126">Colour macro 29</Capability>
+  <Capability Min="127" Max="130">Colour macro 30</Capability>
+  <Capability Min="131" Max="134">Colour macro 31</Capability>
+  <Capability Min="135" Max="138">Colour macro 32</Capability>
+  <Capability Min="139" Max="142">Colour macro 33</Capability>
+  <Capability Min="143" Max="146">Colour macro 34</Capability>
+  <Capability Min="147" Max="150">Colour macro 35</Capability>
+  <Capability Min="151" Max="154">Colour macro 36</Capability>
+  <Capability Min="155" Max="158">Colour macro 37</Capability>
+  <Capability Min="159" Max="162">Colour macro 38</Capability>
+  <Capability Min="163" Max="166">Colour macro 39</Capability>
+  <Capability Min="167" Max="170">Colour macro 40</Capability>
+  <Capability Min="171" Max="174">Colour macro 41</Capability>
+  <Capability Min="175" Max="178">Colour macro 42</Capability>
+  <Capability Min="179" Max="182">Colour macro 43</Capability>
+  <Capability Min="183" Max="186">Colour macro 44</Capability>
+  <Capability Min="187" Max="190">Colour macro 45</Capability>
+  <Capability Min="191" Max="194">Colour macro 46</Capability>
+  <Capability Min="195" Max="215">Macro colour jump, slow to fast</Capability>
+  <Capability Min="216" Max="238">Macro colour fade, slow to fast</Capability>
+  <Capability Min="239" Max="255">Sound control automatic programme</Capability>
+ </Channel>
+ <Channel Name="Segment pattern 1 to 18 (1 to 6 static, 7 to 18 dynamic)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="15">Static segment pattern 1</Capability>
+  <Capability Min="16" Max="25">Static segment pattern 2</Capability>
+  <Capability Min="26" Max="35">Static segment pattern 3</Capability>
+  <Capability Min="36" Max="45">Static segment pattern 4</Capability>
+  <Capability Min="46" Max="55">Static segment pattern 5</Capability>
+  <Capability Min="56" Max="65">Static segment pattern 6</Capability>
+  <Capability Min="66" Max="75">No function</Capability>
+  <Capability Min="76" Max="90">Dynamic segment pattern 7</Capability>
+  <Capability Min="91" Max="105">Dynamic segment pattern 8</Capability>
+  <Capability Min="106" Max="120">Dynamic segment pattern 9</Capability>
+  <Capability Min="121" Max="135">Dynamic segment pattern 10</Capability>
+  <Capability Min="136" Max="150">Dynamic segment pattern 11</Capability>
+  <Capability Min="151" Max="165">Dynamic segment pattern 12</Capability>
+  <Capability Min="166" Max="180">Dynamic segment pattern 13</Capability>
+  <Capability Min="181" Max="195">Dynamic segment pattern 14</Capability>
+  <Capability Min="196" Max="210">Dynamic segment pattern 15</Capability>
+  <Capability Min="211" Max="225">Dynamic segment pattern 16</Capability>
+  <Capability Min="226" Max="240">Dynamic segment pattern 17</Capability>
+  <Capability Min="241" Max="255">Dynamic segment pattern 18</Capability>
+ </Channel>
+ <Channel Name="Transitions of dynamic pattern">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Transition without fading of the dynamic patterns (channel 23), increasing speed</Capability>
+  <Capability Min="128" Max="255">Transition with fading of the dynamic patterns (channel 23), increasing speed</Capability>
+ </Channel>
+ <Mode Name="15 Channel">
+  <Channel Number="0">Rotation Pan</Channel>
+  <Channel Number="1">Inclination Tilt</Channel>
+  <Channel Number="2">Rotation Speed</Channel>
+  <Channel Number="3">Zoom</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Stroboscope</Channel>
+  <Channel Number="6">Red</Channel>
+  <Channel Number="7">Green</Channel>
+  <Channel Number="8">Blue</Channel>
+  <Channel Number="9">White</Channel>
+  <Channel Number="10">Color Temperature</Channel>
+  <Channel Number="11">Segment Pattern</Channel>
+  <Channel Number="12">Pattern Transition</Channel>
+  <Channel Number="13">Zoom automatic programme with decreasing speed, 1 (fast)…8 (slow)</Channel>
+  <Channel Number="14">Pan-Tilt Auto Program</Channel>
+ </Mode>
+ <Mode Name="26 Channel">
+  <Channel Number="0">Rotation Pan</Channel>
+  <Channel Number="1">Fine adjustment rotation (pan)</Channel>
+  <Channel Number="2">Inclination Tilt</Channel>
+  <Channel Number="3">Fine adjustment inclination (tilt)</Channel>
+  <Channel Number="4">Rotation Speed</Channel>
+  <Channel Number="5">Zoom</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Stroboscope</Channel>
+  <Channel Number="8">Intensity red segment 1, 0 % to 100%</Channel>
+  <Channel Number="9">Intensity green segment 1, 0 % to 100%</Channel>
+  <Channel Number="10">Intensity blue segment 1, 0 % to 100%</Channel>
+  <Channel Number="11">Intensity white segment 1, 0 % to 100%</Channel>
+  <Channel Number="12">Intensity red segment 2, 0 % to 100%</Channel>
+  <Channel Number="13">Intensity green segment 2, 0 % to 100%</Channel>
+  <Channel Number="14">Intensity blue segment 2, 0 % to 100%</Channel>
+  <Channel Number="15">Intensity white segment 2, 0 % to 100%</Channel>
+  <Channel Number="16">Intensity red segment 3, 0 % to 100%</Channel>
+  <Channel Number="17">Intensity green segment 3, 0 % to 100%</Channel>
+  <Channel Number="18">Intensity blue segment 3, 0 % to 100%</Channel>
+  <Channel Number="19">Intensity white segment 3, 0 % to 100%</Channel>
+  <Channel Number="20">Color Temperature</Channel>
+  <Channel Number="21">Colour Macros</Channel>
+  <Channel Number="22">Segment pattern 1 to 18 (1 to 6 static, 7 to 18 dynamic)</Channel>
+  <Channel Number="23">Transitions of dynamic pattern</Channel>
+  <Channel Number="24">Zoom automatic programme with decreasing speed, 1 (fast)…8 (slow)</Channel>
+  <Channel Number="25">Pan-Tilt Auto Program</Channel>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="7000" ColourTemperature="0"/>
+  <Dimensions Weight="10.1" Width="310" Height="390" Depth="208"/>
+  <Lens Name="Other" DegreesMin="6" DegreesMax="50"/>
+  <Focus Type="Head" PanMax="540" TiltMax="240"/>
+  <Technical PowerConsumption="260" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

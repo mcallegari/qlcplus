@@ -59,37 +59,37 @@
         <translation>Universe</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="92"/>
+        <location filename="configuree131.cpp" line="99"/>
         <source>Inputs</source>
         <translation>Inputs</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="98"/>
+        <location filename="configuree131.cpp" line="105"/>
         <source>Outputs</source>
         <translation>Outputs</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="182"/>
+        <location filename="configuree131.cpp" line="189"/>
         <source>Full</source>
         <translation>Volledig</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="183"/>
+        <location filename="configuree131.cpp" line="190"/>
         <source>Partial</source>
         <translation>Gedeeltelijk</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="191"/>
+        <location filename="configuree131.cpp" line="198"/>
         <source>%1 - min, %2 - default, %3 - max</source>
         <translation>%1 - min, %2 - standaard - %3 max</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="238"/>
+        <location filename="configuree131.cpp" line="245"/>
         <source>Invalid IP</source>
         <translation>Ongeldig IP</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="238"/>
+        <location filename="configuree131.cpp" line="245"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
         <translation>%1 is geen gelding IP.

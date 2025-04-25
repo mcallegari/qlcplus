@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.0 GIT</Version>
+  <Author>Paul Wilton</Author>
+ </Creator>
+ <Manufacturer>beamZ</Manufacturer>
+ <Model>Cobra 720</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionPanFine"/>
+ <Channel Name="P/T Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
+ <Channel Name="Color Auto Running">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="20">Color gradual change effect</Capability>
+  <Capability Min="21" Max="189">Color macro function</Capability>
+  <Capability Min="190" Max="240">Color auto running</Capability>
+  <Capability Min="241" Max="255">Color sound control</Capability>
+ </Channel>
+ <Channel Name="Motor Auto Running">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="16" Max="128">Auto running effect 0-3</Capability>
+  <Capability Min="129" Max="255">Sound control effect 0-3</Capability>
+ </Channel>
+ <Channel Name="Auto/Sound">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Auto running speed / sound sensitive</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="255">Reset after 5 seconds</Capability>
+ </Channel>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">P/T Speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Red</Channel>
+  <Channel Number="8">Green</Channel>
+  <Channel Number="9">Blue</Channel>
+  <Channel Number="10">White</Channel>
+  <Channel Number="11">Zoom</Channel>
+  <Channel Number="12">Color Auto Running</Channel>
+  <Channel Number="13">Motor Auto Running</Channel>
+  <Channel Number="14">Auto/Sound</Channel>
+  <Channel Number="15">Reset</Channel>
+ </Mode>
+ <Mode Name="14 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">P/T Speed</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Red</Channel>
+  <Channel Number="6">Green</Channel>
+  <Channel Number="7">Blue</Channel>
+  <Channel Number="8">White</Channel>
+  <Channel Number="9">Zoom</Channel>
+  <Channel Number="10">Color Auto Running</Channel>
+  <Channel Number="11">Motor Auto Running</Channel>
+  <Channel Number="12">Auto/Sound</Channel>
+  <Channel Number="13">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.5" Width="145" Height="298" Depth="240"/>
+  <Lens Name="Other" DegreesMin="8" DegreesMax="50"/>
+  <Focus Type="Head" PanMax="540" TiltMax="190"/>
+  <Technical PowerConsumption="245" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

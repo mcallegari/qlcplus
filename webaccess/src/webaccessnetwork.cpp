@@ -195,7 +195,7 @@ void WebAccessNetwork::refreshConnectionsList()
     m_interfaces.clear();
     resetInterface(&currInterface);
 
-    // execute "nmcli -t device status" to list all avilable devices
+    // execute "nmcli -t device status" to list all available devices
     QStringList devStatusOutput = getNmcliOutput(QStringList() << "-t" << "device" << "status");
 
     foreach (QString dLine, devStatusOutput)

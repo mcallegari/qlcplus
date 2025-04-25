@@ -108,6 +108,12 @@ bool RGBImage::animatedSource() const
     return m_animatedSource;
 }
 
+void RGBImage::rewindAnimation()
+{
+    if (m_animatedSource)
+        m_animatedPlayer.jumpToFrame(0);
+}
+
 void RGBImage::reloadImage()
 {
     m_animatedSource = false;
@@ -233,6 +239,16 @@ int RGBImage::rgbMapStepCount(const QSize& size)
             qDebug() << m_image.width() << " " << size.width() << " " << (m_image.width() / size.width());
             return MAX(1, m_image.width() / size.width());
     }
+}
+
+void RGBImage::rgbMapSetColors(QVector<uint> &colors)
+{
+    Q_UNUSED(colors);
+}
+
+QVector<uint> RGBImage::rgbMapGetColors()
+{
+    return QVector<uint>();
 }
 
 void RGBImage::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)

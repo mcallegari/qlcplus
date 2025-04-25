@@ -456,7 +456,7 @@ void SceneEditor::slotEnableCurrent()
     }
     else
     {
-        foreach (FixtureConsole *fc, m_consoleList.values())
+        foreach (FixtureConsole *fc, m_consoleList)
         {
             if (fc == NULL)
                 continue;
@@ -476,7 +476,7 @@ void SceneEditor::slotDisableCurrent()
     }
     else
     {
-        foreach (FixtureConsole *fc, m_consoleList.values())
+        foreach (FixtureConsole *fc, m_consoleList)
         {
             if (fc == NULL)
                 continue;
@@ -497,10 +497,7 @@ void SceneEditor::slotCopy()
         if (fc != NULL)
         {
             copyList = fc->values();
-            if (fc->hasSelections())
-                m_copyFromSelection = true;
-            else
-                m_copyFromSelection = false;
+            m_copyFromSelection = fc->hasSelections();
             clipboard->copyContent(m_scene->id(), copyList);
         }
     }
@@ -508,7 +505,7 @@ void SceneEditor::slotCopy()
     {
         bool oneHasSelection = false;
         QList <SceneValue> selectedOnlyList;
-        foreach (FixtureConsole *fc, m_consoleList.values())
+        foreach (FixtureConsole *fc, m_consoleList)
         {
             if (fc == NULL)
                 continue;
@@ -544,7 +541,7 @@ void SceneEditor::slotPaste()
     }
     else
     {
-        foreach (FixtureConsole *fc, m_consoleList.values())
+        foreach (FixtureConsole *fc, m_consoleList)
         {
             if (fc == NULL)
                 continue;
@@ -1330,7 +1327,7 @@ void SceneEditor::slotRemoveFixtureClicked()
 
 void SceneEditor::slotEnableAll()
 {
-    foreach (FixtureConsole* fc, m_consoleList.values())
+    foreach (FixtureConsole* fc, m_consoleList)
     {
         if (fc != NULL)
             fc->setChecked(true);
@@ -1339,7 +1336,7 @@ void SceneEditor::slotEnableAll()
 
 void SceneEditor::slotDisableAll()
 {
-    foreach (FixtureConsole* fc, m_consoleList.values())
+    foreach (FixtureConsole* fc, m_consoleList)
     {
         if (fc != NULL)
             fc->setChecked(false);

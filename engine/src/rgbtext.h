@@ -99,6 +99,12 @@ public:
     int rgbMapStepCount(const QSize& size);
 
     /** @reimp */
+    void rgbMapSetColors(QVector<uint> &colors);
+
+    /** @reimp */
+    QVector<uint> rgbMapGetColors();
+
+    /** @reimp */
     void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);
 
     /** @reimp */

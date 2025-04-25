@@ -10,6 +10,7 @@
 *.so*
 *.dll
 *.dylib
+*.dmg
 .DS_Store
 
 # Qt-es

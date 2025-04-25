@@ -43,6 +43,7 @@ typedef struct
 
 class WebAccessNetwork: public QObject
 {
+    Q_OBJECT
 public:
     WebAccessNetwork(QObject *parent = 0);
 

@@ -26,6 +26,7 @@
 #include <math.h>
 
 #include "qlcmacros.h"
+#include "qlcfile.h"
 
 #include "scriptwrapper.h"
 #include "mastertimer.h"
@@ -334,7 +335,7 @@ bool Function::saveXMLCommon(QXmlStreamWriter *doc) const
     doc->writeAttribute(KXMLQLCFunctionType, Function::typeToString(type()));
     doc->writeAttribute(KXMLQLCFunctionName, name());
     if (isVisible() == false)
-        doc->writeAttribute(KXMLQLCFunctionHidden, "True");
+        doc->writeAttribute(KXMLQLCFunctionHidden, KXMLQLCTrue);
     if (path(true).isEmpty() == false)
         doc->writeAttribute(KXMLQLCFunctionPath, path(true));
     if (blendMode() != Universe::NormalBlend)
@@ -1409,7 +1410,7 @@ void Function::calculateOverrideValue(int attributeIndex)
     if (origAttr.m_flags & Multiply)
         finalValue = origAttr.m_value;
 
-    foreach (AttributeOverride attr, m_overrideMap.values())
+    foreach (AttributeOverride attr, m_overrideMap)
     {
         if (attr.m_attrIndex != attributeIndex)
             continue;

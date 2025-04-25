@@ -1,5 +1,7 @@
 set(module_name "qlcpluswebaccess")
 
+include(../../variables.cmake)
+
 set(TS_FILES
     webaccess_fi_FI.ts
     webaccess_de_DE.ts

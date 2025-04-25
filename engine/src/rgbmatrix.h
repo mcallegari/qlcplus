@@ -26,7 +26,6 @@
 #include <QList>
 #include <QSize>
 #include <QPair>
-#include <QHash>
 #include <QMap>
 #include <QMutex>
 
@@ -59,7 +58,7 @@ public:
     int currentStepIndex() const;
 
     /** Calculate the RGB components delta between $startColor and $endColor */
-    void calculateColorDelta(QColor startColor, QColor endColor);
+    void calculateColorDelta(QColor startColor, QColor endColor, RGBAlgorithm *algorithm);
 
     /** Set/Get the final color of the next step to be reproduced */
     void setStepColor(QColor color);
@@ -71,7 +70,7 @@ public:
 
     /** Initialize the playback direction and set the initial step index and
       * color based on $startColor and $endColor */
-    void initializeDirection(Function::Direction direction, QColor startColor, QColor endColor, int stepsCount);
+    void initializeDirection(Function::Direction direction, QColor startColor, QColor endColor, int stepsCount, RGBAlgorithm *algorithm);
 
     /** Check the steps progression based on $order and the internal m_direction.
      *  This method returns true if the RGBMatrix can continue to run, otherwise
@@ -177,6 +176,11 @@ public:
     void previewMap(int step, RGBMatrixStep *handler);
 
 private:
+    int algorithmStepsCount();
+
+private:
+    bool m_requestEngineCreation;
+    RGBAlgorithm *m_runAlgorithm;
     RGBAlgorithm *m_algorithm;
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     QMutex m_algorithmMutex;
@@ -188,17 +192,17 @@ private:
      * Color
      ************************************************************************/
 public:
-    void setStartColor(const QColor& c);
-    QColor startColor() const;
-
-    void setEndColor(const QColor& c);
-    QColor endColor() const;
+    void setColor(int i, QColor c);
+    QColor getColor(int i) const;
+    QVector <QColor> getColors() const;
 
     void updateColorDelta();
 
+    /** Set the colors of the current algorithm */
+    void setMapColors(RGBAlgorithm *algorithm);
+
 private:
-    QColor m_startColor;
-    QColor m_endColor;
+    QVector<QColor> m_rgbColors;
     RGBMatrixStep *m_stepHandler;
 
     /************************************************************************
@@ -213,7 +217,7 @@ public:
 
 private:
     /** A map of the custom properties for this matrix */
-    QHash<QString, QString>m_properties;
+    QMap<QString, QString>m_properties;
 
     /************************************************************************
      * Load & Save
@@ -245,7 +249,10 @@ private:
     /** Check what should be done when elapsed() >= duration() */
     void roundCheck();
 
-    FadeChannel *getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel);
+    /** Check if the engine needs to be re-created */
+    void checkEngineCreation();
+
+    FadeChannel *getFader(Universe *universe, quint32 fixtureID, quint32 channel);
     void updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime);
 
     /** Update FadeChannels when $map has changed since last time */

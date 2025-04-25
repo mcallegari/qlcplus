@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.0 GIT</Version>
+  <Author>Jan Fries</Author>
+ </Creator>
+ <Manufacturer>beamZ</Manufacturer>
+ <Model>Panther 60 LED Beam RGBW</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan / Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Color Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="43" Preset="ColorMacro" Res1="#ff8000">Red full bright, Green gradually bright</Capability>
+  <Capability Min="44" Max="85" Preset="ColorMacro" Res1="#c8ff00">Red gradually dark, Green full bright</Capability>
+  <Capability Min="86" Max="127" Preset="ColorMacro" Res1="#0082d9">Green gradually dark, Blue gradually bright</Capability>
+  <Capability Min="128" Max="169" Preset="ColorMacro" Res1="#6600ff">Red gradually bright, Blue full bright</Capability>
+  <Capability Min="170" Max="211" Preset="ColorMacro" Res1="#ffaaff">Red full bright, Green gradually bright, Blue full bright</Capability>
+  <Capability Min="212" Max="253" Preset="ColorMacro" Res1="#f5f5f5">Red / Green / Blue full bright, White gradually bright</Capability>
+  <Capability Min="254" Max="255" Preset="ColorMacro" Res1="#ffffff">All full bright</Capability>
+ </Channel>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="40">Auto 1: Pan/Tilt auto run + color chasing + strobe</Capability>
+  <Capability Min="41" Max="70">Auto 2: Pan/Tilt auto run + color chasing, slow speed</Capability>
+  <Capability Min="71" Max="100">Auto 3: Pan/Tilt auto run + color chasing, fast speed</Capability>
+  <Capability Min="101" Max="130">Auto 4: Pan/Tilt auto run + color fading, slow speed</Capability>
+  <Capability Min="131" Max="160">Auto 5: Pan/Tilt auto run + color fading, fast speed</Capability>
+  <Capability Min="161" Max="190">Auto 6: Color chasing</Capability>
+  <Capability Min="191" Max="220">Auto 7: Color fading</Capability>
+  <Capability Min="221" Max="240">Sound mode 1, slow speed</Capability>
+  <Capability Min="241" Max="255">Sound mode 2, fast speed</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="254" Preset="ResetAll">No function</Capability>
+  <Capability Min="255" Max="255" Preset="ResetAll">Reset after 3 seconds</Capability>
+ </Channel>
+ <Mode Name="14 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan Fine</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan / Tilt Speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Red</Channel>
+  <Channel Number="7">Green</Channel>
+  <Channel Number="8">Blue</Channel>
+  <Channel Number="9">White</Channel>
+  <Channel Number="10">Strobe</Channel>
+  <Channel Number="11">Color Macro</Channel>
+  <Channel Number="12">Mode</Channel>
+  <Channel Number="13">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.2" Width="205" Height="190" Depth="290"/>
+  <Lens Name="Other" DegreesMin="4" DegreesMax="4"/>
+  <Focus Type="Head" PanMax="540" TiltMax="220"/>
+  <Technical PowerConsumption="85" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

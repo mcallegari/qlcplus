@@ -22,8 +22,10 @@
 
 #if defined(ANDROID)
 #include <QScopedPointer>
-#include <QSharedPointer>
 #endif
+#include <QByteArray>
+#include <QMap>
+#include <QSharedPointer>
 #include <QNetworkInterface>
 #include <QHostAddress>
 #include <QUdpSocket>

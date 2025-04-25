@@ -633,6 +633,7 @@ void VCFrame::slotModeChanged(Doc::Mode mode)
     {
         if (isDisabled())
             slotEnableButtonClicked(false);
+        slotSetPage(currentPage());
         updateSubmasterValue();
         updateFeedback();
     }

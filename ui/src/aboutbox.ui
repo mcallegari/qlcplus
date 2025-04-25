@@ -33,7 +33,7 @@
    <string>About Q Light Controller Plus</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../build/Desktop_Qt_6_7_2-Debug/fixtureeditor/.qt/rcc/qlcui.qrc">
+   <iconset resource="qlcui.qrc">
     <normaloff>:/qlcplus.png</normaloff>:/qlcplus.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
@@ -242,24 +242,24 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <string/>
      </property>
      <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
      </property>
     </widget>
    </item>
    <item row="2" column="2">
     <widget class="QLabel" name="m_copyrightLabel">
      <property name="textFormat">
-      <enum>Qt::TextFormat::RichText</enum>
+      <enum>Qt::RichText</enum>
      </property>
     </widget>
    </item>
    <item row="6" column="1" colspan="3">
     <widget class="QDialogButtonBox" name="m_buttonBox">
      <property name="orientation">
-      <enum>Qt::Orientation::Horizontal</enum>
+      <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::StandardButton::Ok</set>
+      <set>QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
@@ -288,7 +288,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <string/>
      </property>
      <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignBottom|Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft</set>
+      <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
      </property>
     </widget>
    </item>
@@ -309,7 +309,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <string>This application is licensed under the terms of the Apache 2.0 license.</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
@@ -325,23 +325,23 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../../build/Desktop_Qt_6_7_2-Debug/fixtureeditor/.qt/rcc/qlcui.qrc">:/qlcplus.png</pixmap>
+      <pixmap resource="qlcui.qrc">:/qlcplus.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>false</bool>
      </property>
      <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
      </property>
     </widget>
    </item>
    <item row="6" column="0">
     <widget class="QToolButton" name="m_qtButton">
      <property name="text">
-      <string>PushButton</string>
+      <string notr="true">PushButton</string>
      </property>
      <property name="icon">
-      <iconset resource="../../build/Desktop_Qt_6_7_2-Debug/fixtureeditor/.qt/rcc/qlcui.qrc">
+      <iconset resource="qlcui.qrc">
        <normaloff>:/qt.png</normaloff>:/qt.png</iconset>
      </property>
      <property name="iconSize">
@@ -355,7 +355,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
   </layout>
  </widget>
  <resources>
-  <include location="../../build/Desktop_Qt_6_7_2-Debug/fixtureeditor/.qt/rcc/qlcui.qrc"/>
+  <include location="qlcui.qrc"/>
+  <include location="qlcui.qrc"/>
  </resources>
  <connections>
   <connection>

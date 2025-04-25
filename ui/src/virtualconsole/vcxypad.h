@@ -52,17 +52,19 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCXYPad              QString("XYPad")
-#define KXMLQLCVCXYPadPan           QString("Pan")
-#define KXMLQLCVCXYPadTilt          QString("Tilt")
-#define KXMLQLCVCXYPadWidth         QString("Width")
-#define KXMLQLCVCXYPadHeight        QString("Height")
-#define KXMLQLCVCXYPadPosition      QString("Position")
-#define KXMLQLCVCXYPadRangeWindow   QString("Window")
-#define KXMLQLCVCXYPadRangeHorizMin QString("hMin")
-#define KXMLQLCVCXYPadRangeHorizMax QString("hMax")
-#define KXMLQLCVCXYPadRangeVertMin  QString("vMin")
-#define KXMLQLCVCXYPadRangeVertMax  QString("vMax")
+#define KXMLQLCVCXYPad              QStringLiteral("XYPad")
+#define KXMLQLCVCXYPadPan           QStringLiteral("Pan")
+#define KXMLQLCVCXYPadPanFine       QStringLiteral("PanFine")
+#define KXMLQLCVCXYPadTilt          QStringLiteral("Tilt")
+#define KXMLQLCVCXYPadTiltFine      QStringLiteral("TiltFine")
+#define KXMLQLCVCXYPadWidth         QStringLiteral("Width")
+#define KXMLQLCVCXYPadHeight        QStringLiteral("Height")
+#define KXMLQLCVCXYPadPosition      QStringLiteral("Position")
+#define KXMLQLCVCXYPadRangeWindow   QStringLiteral("Window")
+#define KXMLQLCVCXYPadRangeHorizMin QStringLiteral("hMin")
+#define KXMLQLCVCXYPadRangeHorizMax QStringLiteral("hMax")
+#define KXMLQLCVCXYPadRangeVertMin  QStringLiteral("vMin")
+#define KXMLQLCVCXYPadRangeVertMax  QStringLiteral("vMax")
 
 #define KXMLQLCVCXYPadPositionX "X" // Legacy
 #define KXMLQLCVCXYPadPositionY "Y" // Legacy
@@ -88,6 +90,8 @@ public:
     static const quint8 tiltInputSourceId;
     static const quint8 widthInputSourceId;
     static const quint8 heightInputSourceId;
+    static const quint8 panFineInputSourceId;
+    static const quint8 tiltFineInputSourceId;
 
     /*************************************************************************
      * Initialization
@@ -100,16 +104,16 @@ public:
     void enableWidgetUI(bool enable);
 
 private:
-    QVBoxLayout* m_mainVbox;  // main vertical layout
-    QHBoxLayout* m_padBox; // box containing sliders and XYPad
-    QVBoxLayout* m_lvbox; // left vertical box (vertical ctkSlider)
-    QVBoxLayout* m_cvbox; // center vertical box (horizontal ctkSlider + XYPad + horizontal slider)
-    QVBoxLayout* m_rvbox; // right vertical box (vertical slider)
-    QSlider* m_vSlider; // tilt slider
-    QSlider* m_hSlider; // pan slider
+    QVBoxLayout *m_mainVbox;  // main vertical layout
+    QHBoxLayout *m_padBox; // box containing sliders and XYPad
+    QVBoxLayout *m_lvbox; // left vertical box (vertical ctkSlider)
+    QVBoxLayout *m_cvbox; // center vertical box (horizontal ctkSlider + XYPad + horizontal slider)
+    QVBoxLayout *m_rvbox; // right vertical box (vertical slider)
+    QSlider *m_vSlider; // tilt slider
+    QSlider *m_hSlider; // pan slider
     ctkRangeSlider *m_vRangeSlider; // range window height control
     ctkRangeSlider *m_hRangeSlider; // range window width control
-    VCXYPadArea* m_area;
+    VCXYPadArea *m_area;
     FlowLayout *m_presetsLayout;
 
     /*************************************************************************
@@ -242,10 +246,16 @@ protected:
 public:
     void updateFeedback();
 
+protected:
+    void updatePosition();
+
 protected slots:
     /** Called when an external input device produces input data */
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
     void slotKeyPressed(const QKeySequence& keySequence);
+
+private:
+    QRect m_lastPos;
 
     /*************************************************************************
      * QLC+ mode

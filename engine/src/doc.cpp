@@ -116,6 +116,9 @@ Doc::~Doc()
 
     delete m_fixtureDefCache;
     m_fixtureDefCache = NULL;
+
+    delete m_rgbScriptsCache;
+    m_rgbScriptsCache = NULL;
 }
 
 void Doc::clearContents()
@@ -401,7 +404,7 @@ quint32 Doc::createFixtureId()
     return m_latestFixtureId;
 }
 
-bool Doc::addFixture(Fixture* fixture, quint32 id)
+bool Doc::addFixture(Fixture* fixture, quint32 id, bool crossUniverse)
 {
     Q_ASSERT(fixture != NULL);
 
@@ -444,6 +447,9 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
         m_addresses[i] = id;
     }
 
+    if (crossUniverse)
+        uni = floor((fixture->universeAddress() + fixture->channels()) / 512);
+
     if (uni >= inputOutputMap()->universesCount())
     {
         for (i = inputOutputMap()->universesCount(); i <= uni; i++)
@@ -461,21 +467,28 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
     for (i = 0; i < fixture->channels(); i++)
     {
         const QLCChannel *channel(fixture->channel(i));
+        quint32 addr = fxAddress + i;
+
+        if (crossUniverse)
+        {
+            uni = floor((fixture->universeAddress() + i) / 512);
+            addr = (fixture->universeAddress() + i) - (uni * 512);
+        }
 
         // Inform Universe of any HTP/LTP forcing
         if (forcedHTP.contains(int(i)))
-            universes.at(uni)->setChannelCapability(fxAddress + i, channel->group(), Universe::HTP);
+            universes.at(uni)->setChannelCapability(addr, channel->group(), Universe::HTP);
         else if (forcedLTP.contains(int(i)))
-            universes.at(uni)->setChannelCapability(fxAddress + i, channel->group(), Universe::LTP);
+            universes.at(uni)->setChannelCapability(addr, channel->group(), Universe::LTP);
         else
-            universes.at(uni)->setChannelCapability(fxAddress + i, channel->group());
+            universes.at(uni)->setChannelCapability(addr, channel->group());
 
         // Apply the default value BEFORE modifiers
-        universes.at(uni)->setChannelDefaultValue(fxAddress + i, channel->defaultValue());
+        universes.at(uni)->setChannelDefaultValue(addr, channel->defaultValue());
 
         // Apply a channel modifier, if defined
         ChannelModifier *mod = fixture->channelModifier(i);
-        universes.at(uni)->setChannelModifier(fxAddress + i, mod);
+        universes.at(uni)->setChannelModifier(addr, mod);
     }
     inputOutputMap()->releaseUniverses(true);
 
@@ -790,10 +803,7 @@ bool Doc::deleteFixtureGroup(quint32 id)
 
 FixtureGroup* Doc::fixtureGroup(quint32 id) const
 {
-    if (m_fixtureGroups.contains(id) == true)
-        return m_fixtureGroups[id];
-    else
-        return NULL;
+    return m_fixtureGroups.value(id, NULL);
 }
 
 QList <FixtureGroup*> Doc::fixtureGroups() const
@@ -888,10 +898,7 @@ bool Doc::moveChannelGroup(quint32 id, int direction)
 
 ChannelsGroup* Doc::channelsGroup(quint32 id) const
 {
-    if (m_channelsGroups.contains(id) == true)
-        return m_channelsGroups[id];
-    else
-        return NULL;
+    return m_channelsGroups.value(id, NULL);
 }
 
 QList <ChannelsGroup*> Doc::channelsGroups() const
@@ -967,10 +974,7 @@ bool Doc::deletePalette(quint32 id)
 
 QLCPalette *Doc::palette(quint32 id) const
 {
-    if (m_palettes.contains(id) == true)
-        return m_palettes[id];
-    else
-        return NULL;
+    return m_palettes.value(id, NULL);
 }
 
 QList<QLCPalette *> Doc::palettes() const
@@ -1094,10 +1098,7 @@ bool Doc::deleteFunction(quint32 id)
 
 Function* Doc::function(quint32 id) const
 {
-    if (m_functions.contains(id) == true)
-        return m_functions[id];
-    else
-        return NULL;
+    return m_functions.value(id, NULL);
 }
 
 quint32 Doc::nextFunctionID()

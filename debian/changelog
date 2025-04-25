@@ -1,18 +1,57 @@
-qlcplus (4.13.2) stable; urgency=low
+qlcplus (4.14.2) stable; urgency=low
+
+  * engine: fix audio end of stream causing a crash on Qt 6 builds
+  * Virtual Console: add an option to hide Grand Master (thanks to Jurrie Overgoor)
+  * Input profiles: added M-Wave SMC Mixer
+  * New fixtures: Eurolite LED TMH-40, Stairville HF-900 Haze Fogger (thanks to thegasta)
+  * New fixtures: Sagitter Prince, Sagitter Lite Beam 5R, Sagitter ARS 1500FC (thanks to Alessandro Caseti)
+
+  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 24 May 2025 18:19:20 +0200
+
+qlcplus (4.14.1) stable; urgency=high
+
+  * engine: fix crash when using multiple RGBMatrix
+  * engine: fix crash when using a Script function
+  * Show Manager: fix hanging with an infinite duration EFX
+  * Simple Desk: fix crash when resetting a channel with no fixture associated
+  * Virtual Console/XY Pad: fix Pan/Tilt fine controls not getting saved
+  * UI: fix incomplete or missing translations (thanks to Itay Lifshitz)
+  * Input Profiles: update Launchpad Mini profiles with color table (thanks to Jan Fries)
+  * New fixture: beamZ MHL75 Hybrid Moving Head (thanks to Mikko Wuokko)
+  * New fixtures: Eurolite LED TSL-1000 Scan MK2, Varytec LED Theater Spot 100 (thanks to Christoph Wieser)
+  * New fixtures: Briteq BT Theatre 250EZ + Mk2 + Mk3 (thanks to Christoph Müllner)
+  * New fixture: Showtec Spectral M800 IPX (thanks to Bram Janssen)
+  * New fixture: Briteq LED UV-Gun (thanks to Freddy Hoogstoel)
+  * New fixtures: Eurolite LED Twin Scan Bar, Vari-Lite VL2402 Wash, Vari-Lite VL2202 Spot (thanks to Mitsch)
+  * New fixture: Eurolite TMH-11 Moving-Head Wash, SonicPulse LED Bar 05 and 10 (thanks to Simeon08 & ReComplexed)
+  * New fixture: Chauvet Ovation H-105WW (thanks to Matthew Valeri)
+  * New fixture: Varytec Hero Wash 300 FC (thanks to NostaKhan)
+
+  -- Massimo Callegari <massimocallegari@yahoo.it>  Mon, 10 Mar 2025 18:19:20 +0200
+
+qlcplus (4.14.0) stable; urgency=low
 
   * engine: fix flashing fade out
   * engine: add stopOnExit, waitFunctionStart and waitFunctionStop commands to Script - see documentation (thanks to ldebs)
+  * engine: introduce RGBScript v3 and allow up to 5 colors (thanks to Hans-Jürgen Tappe)
+  * engine/RGBMatrix: rewind animated GIFs on startup
   * UI: adjust audio volume on video intensity change
   * UI/Fixture Manager: limit the number of RGB panel columns for RGBW to avoid crash
+  * UI/Function Wizard: improved with more VC widget creation (thanks to 8-Lambda-8)
+  * UI/Fixture Group Editor: allow to add fixtures top to bottom and left to right (thanks to Yestalgia)
   * UI/Show Manager: show step notes on the timeline (thanks to anarchid)
   * UI/Show Manager: handle CTRL+mouse wheel to zoom in/out
   * Virtual Console/Slider: send feedback on override button press
   * Virtual Console/Sped Dial: fix foreground color setting on Windows
+  * Virtual Console/Frame: fix widget page initialization on Operate mode
+  * Virtual Console/XY Pad: added Pan/Tilt fine external controls
   * Plugins/OS2L: fix receiving multiple messages at once
   * Web Access: reworked websocket implementation
   * Web Access: fix grand master stopping running functions
   * Web Access: fix simple desk not resetting the current universe
+  * Web Access: improve value synchornization with simple desk
   * Web Access: add widget ID to getWidgetType and getWidgetStatus response
+  * Web Access: show multipage frame names (thanks to jpue)
   * RGB scripts: added 'Sine Wave' script
   * RGB scripts: fix Vertical Fall not allowing changing color when cloned
   * New fixtures: GLP Impression X5, Ayrton Rivale Profile, Ayrton Kyalami (thanks to Masatoshi Fujino)
@@ -31,8 +70,18 @@ qlcplus (4.13.2) stable; urgency=low
   * New fixture: Shehds LED 200W RGB FLASH, GalaxyJet LED Beam 300W Beam&Spot&Wash, Constellaser 12W Waterproof Scan Laser (thanks to Tóth János)
   * New fixture: Chauvet Ovation H-605FC (thanks to Ken Coughlin)
   * New fixture: Martin smartMAC (thanks to Mads Vejrup)
+  * New fixtures: UKing ZQ01513 100WCOB Cast Aluminum Park Light, ZQ01495 200W Three-in-one Four-eye COB Lamp, ZQ06122 9-Eye COB Matrix (thanks to Mario Rempfer)
+  * New fixture: lightmaXX Platinum CLS-3 Quad-LED (thanks to Martin Bender)
+  * New fixture: Varytec Giga Bar Pix 8 UV (thanks to susnux)
+  * New fixture: beamZ Cobra 720 (thanks to Paul Wilton)
+  * New fixtures: Cameo TS 100 WW, TS 200 WW (thanks to Sven Koch)
+  * New fixtures: Varytec ARC One, Cameo LED Gobo Scanner 80, Stairville DJ Lase 40-G MK-III, Stairville HL-x9-18 DCL CW-WWFlood 9-18x6W (thanks to Jan Fries)
+  * New fixtures: beamZ Panther 60 LED Beam RGBW, MHL-74 Wash 7x10W 4in1 RGBW, BBP96 Uplight PAR (thanks to Jan Fries)
+  * New fixture: MEGA-Lite M-Sphere (thanks to George Qualley IV)
+  * New fixtures: Eurolite LED PIX-12 HCL Bar, LED PAR-64 QCL12x8W (thanks to Martin Winkler)
+  * New fixture: Varytec Colors NerveStrobe HP (thanks to Giacomo & Michel)
 
-  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 29 Dec 2024 18:19:20 +0200
+  -- Massimo Callegari <massimocallegari@yahoo.it>  Wed, 15 Jan 2025 18:19:20 +0200
 
 qlcplus (4.13.1) stable; urgency=low
 

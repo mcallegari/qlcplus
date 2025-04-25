@@ -24,7 +24,7 @@
 #include <QToolButton>
 #include <QComboBox>
 #include <QLabel>
-#include <QHash>
+#include <QMap>
 
 #include "vcwidget.h"
 #include "vcmatrixcontrol.h"
@@ -40,17 +40,20 @@ class RGBMatrix;
  * @{
  */
 
-#define KXMLQLCVCMatrix             QString("Matrix")
+#define KXMLQLCVCMatrix             QStringLiteral("Matrix")
 
-#define KXMLQLCVCMatrixFunction     QString("Function")
-#define KXMLQLCVCMatrixFunctionID   QString("ID")
+#define KXMLQLCVCMatrixFunction     QStringLiteral("Function")
+#define KXMLQLCVCMatrixFunctionID   QStringLiteral("ID")
 
-#define KXMLQLCVCMatrixInstantApply QString("InstantApply")
+#define KXMLQLCVCMatrixInstantApply QStringLiteral("InstantApply")
 
-#define KXMLQLCVCMatrixStartColor   QString("StartColor")
-#define KXMLQLCVCMatrixEndColor     QString("EndColor")
+#define KXMLQLCVCMatrixColor1       QStringLiteral("Color 1")
+#define KXMLQLCVCMatrixColor2       QStringLiteral("Color 2")
+#define KXMLQLCVCMatrixColor3       QStringLiteral("Color 3")
+#define KXMLQLCVCMatrixColor4       QStringLiteral("Color 4")
+#define KXMLQLCVCMatrixColor5       QStringLiteral("Color 5")
 
-#define KXMLQLCVCMatrixVisibilityMask QString("Visibility")
+#define KXMLQLCVCMatrixVisibilityMask QStringLiteral("Visibility")
 
 class VCMatrix : public VCWidget
 {
@@ -63,9 +66,12 @@ public:
         None                 = 0,
         ShowSlider           = 1 << 0,
         ShowLabel            = 1 << 1,
-        ShowStartColorButton = 1 << 2,
-        ShowEndColorButton   = 1 << 3,
-        ShowPresetCombo      = 1 << 4,
+        ShowPresetCombo      = 1 << 2,
+        ShowColor1Button     = 1 << 3,
+        ShowColor2Button     = 1 << 4,
+        ShowColor3Button     = 1 << 5,
+        ShowColor4Button     = 1 << 6,
+        ShowColor5Button     = 1 << 7
     };
 
 public:
@@ -86,10 +92,16 @@ private:
     ClickAndGoSlider *m_slider;
     bool m_sliderExternalMovement;
     QLabel *m_label;
-    QToolButton *m_startColorButton;
-    ClickAndGoWidget *m_scCnGWidget;
-    QToolButton *m_endColorButton;
-    ClickAndGoWidget *m_ecCnGWidget;
+    QToolButton *m_mtxColor1Button;
+    ClickAndGoWidget *m_mtxColor1CnGWidget;
+    QToolButton *m_mtxColor2Button;
+    ClickAndGoWidget *m_mtxColor2CnGWidget;
+    QToolButton *m_mtxColor3Button;
+    ClickAndGoWidget *m_mtxColor3CnGWidget;
+    QToolButton *m_mtxColor4Button;
+    ClickAndGoWidget *m_mtxColor4CnGWidget;
+    QToolButton *m_mtxColor5Button;
+    ClickAndGoWidget *m_mtxColor5CnGWidget;
     QComboBox *m_presetCombo;
     FlowLayout *m_controlsLayout;
 
@@ -115,23 +127,31 @@ public:
     /** @reimp */
     int sliderValue();
     QString animationValue();
-    QColor startColor();
-    QColor endColor();
+    QColor mtxColor(int id);
 
 signals:
     void sliderValueChanged(int value);
-    void startColorChanged();
-    void endColorChanged();
+    void mtxColor1Changed();
+    void mtxColor2Changed();
+    void mtxColor3Changed();
+    void mtxColor4Changed();
+    void mtxColor5Changed();
     void animationValueChanged(QString name);
     void matrixControlKnobValueChanged(int controlID, int value);
 
 public slots:
     void slotSetSliderValue(int value);
     void slotSliderMoved(int value);
-    void slotSetStartColor(QColor color);
-    void slotStartColorChanged(QRgb color);
-    void slotSetEndColor(QColor color);
-    void slotEndColorChanged(QRgb color);
+    void slotSetColor1(QColor color);
+    void slotColor1Changed(QRgb color);
+    void slotSetColor2(QColor color);
+    void slotColor2Changed(QRgb color);
+    void slotSetColor3(QColor color);
+    void slotColor3Changed(QRgb color);
+    void slotSetColor4(QColor color);
+    void slotColor4Changed(QRgb color);
+    void slotSetColor5(QColor color);
+    void slotColor5Changed(QRgb color);
     void slotSetAnimationValue(QString name);
     void slotAnimationChanged(int index);
     void slotMatrixControlKnobValueChanged(int controlID, int value);

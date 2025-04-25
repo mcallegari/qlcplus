@@ -69,6 +69,8 @@ public:
     Type type();
     Direction direction();
     Fixture::Components components();
+    bool is16Bit();
+    bool crossUniverse();
 
 private:
     /** Check if an address is available for contiguous channels.

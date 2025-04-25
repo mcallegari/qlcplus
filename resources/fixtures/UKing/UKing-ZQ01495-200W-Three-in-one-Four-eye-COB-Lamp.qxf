@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.0 GIT</Version>
+  <Author>Mario Rempfer</Author>
+ </Creator>
+ <Manufacturer>UKing</Manufacturer>
+ <Model>ZQ01495 200W Three-in-one Four-eye COB Lamp</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red1" Preset="IntensityRed"/>
+ <Channel Name="Green1" Preset="IntensityGreen"/>
+ <Channel Name="Blue1" Preset="IntensityBlue"/>
+ <Channel Name="Red2" Preset="IntensityRed"/>
+ <Channel Name="Green2" Preset="IntensityGreen"/>
+ <Channel Name="Blue2" Preset="IntensityBlue"/>
+ <Channel Name="Red3" Preset="IntensityRed"/>
+ <Channel Name="Green3" Preset="IntensityGreen"/>
+ <Channel Name="Blue3" Preset="IntensityBlue"/>
+ <Channel Name="Red4" Preset="IntensityRed"/>
+ <Channel Name="Green4" Preset="IntensityGreen"/>
+ <Channel Name="Blue4" Preset="IntensityBlue"/>
+ <Channel Name="Macro Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">RGB CH6-8 static dimming</Capability>
+  <Capability Min="10" Max="19">Color Macro CH4</Capability>
+  <Capability Min="20" Max="29">Breathing effect, CH5 Select color</Capability>
+  <Capability Min="30" Max="39">Jump change effect</Capability>
+  <Capability Min="40" Max="49">Gradient change effect</Capability>
+  <Capability Min="50" Max="59">Pulse change effect, CH5 Select color</Capability>
+  <Capability Min="60" Max="65">Autorun1, CH5 Color</Capability>
+  <Capability Min="66" Max="71">Autorun2, CH5 Color</Capability>
+  <Capability Min="72" Max="77">Autorun3, CH5 Color</Capability>
+  <Capability Min="78" Max="83">Autorun4, CH5 Color</Capability>
+  <Capability Min="84" Max="89">Autorun5, CH5 Color</Capability>
+  <Capability Min="90" Max="95">Autorun6, CH5 Color</Capability>
+  <Capability Min="96" Max="101">Autorun7, CH5 Color</Capability>
+  <Capability Min="102" Max="107">Autorun8, CH5 Color</Capability>
+  <Capability Min="108" Max="113">Autorun9, CH5 Color</Capability>
+  <Capability Min="114" Max="119">Autorun10, CH5 Color</Capability>
+  <Capability Min="120" Max="125">Autorun11, CH5 Color</Capability>
+  <Capability Min="126" Max="131">Autorun12, CH5 Color</Capability>
+  <Capability Min="132" Max="137">Autorun13, CH5 Color</Capability>
+  <Capability Min="138" Max="143">Autorun14, CH5 Color</Capability>
+  <Capability Min="144" Max="149">Autorun15, CH5 Color</Capability>
+  <Capability Min="150" Max="155">Autorun16, CH5 Color</Capability>
+  <Capability Min="156" Max="161">Autorun17, CH5 Color</Capability>
+  <Capability Min="162" Max="167">Autorun18, CH5 Color</Capability>
+  <Capability Min="168" Max="173">Autorun19, CH5 Color</Capability>
+  <Capability Min="174" Max="179">Autorun20, CH5 Color</Capability>
+  <Capability Min="180" Max="185">Autorun21, CH5 Color</Capability>
+  <Capability Min="186" Max="191">Autorun22, CH5 Color</Capability>
+  <Capability Min="192" Max="197">Autorun23, CH5 Color</Capability>
+  <Capability Min="198" Max="203">Autorun24, CH5 Color</Capability>
+  <Capability Min="204" Max="209">Autorun25, CH5 Color</Capability>
+  <Capability Min="210" Max="229">Autorun26, CH5 Color</Capability>
+  <Capability Min="230" Max="235">Sound Mode1, CH5 Color</Capability>
+  <Capability Min="236" Max="241">Sound Mode2, CH5 Color</Capability>
+  <Capability Min="242" Max="247">Sound Mode3, CH5 Color</Capability>
+  <Capability Min="248" Max="255">Sound Mode4, CH5 Color</Capability>
+ </Channel>
+ <Channel Name="Multi-function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Multi-function (see Manual)</Capability>
+ </Channel>
+ <Channel Name="Color macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="31">Default Color</Capability>
+  <Capability Min="32" Max="63" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="64" Max="95" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="96" Max="127" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="128" Max="159" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="160" Max="191" Preset="ColorMacro" Res1="#a020f0">Purple</Capability>
+  <Capability Min="192" Max="223" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="224" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+ </Channel>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red1</Channel>
+  <Channel Number="1">Green1</Channel>
+  <Channel Number="2">Blue1</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Red1</Channel>
+  <Channel Number="3">Green1</Channel>
+  <Channel Number="4">Blue1</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Macro Function</Channel>
+  <Channel Number="3">Multi-function</Channel>
+  <Channel Number="4">Color macro</Channel>
+  <Channel Number="5">Red1</Channel>
+  <Channel Number="6">Green1</Channel>
+  <Channel Number="7">Blue1</Channel>
+ </Mode>
+ <Mode Name="12 Channel">
+  <Channel Number="0">Red1</Channel>
+  <Channel Number="1">Green1</Channel>
+  <Channel Number="2">Blue1</Channel>
+  <Channel Number="3">Red2</Channel>
+  <Channel Number="4">Green2</Channel>
+  <Channel Number="5">Blue2</Channel>
+  <Channel Number="6">Red3</Channel>
+  <Channel Number="7">Green3</Channel>
+  <Channel Number="8">Blue3</Channel>
+  <Channel Number="9">Red4</Channel>
+  <Channel Number="10">Green4</Channel>
+  <Channel Number="11">Blue4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="14 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Red1</Channel>
+  <Channel Number="3">Green1</Channel>
+  <Channel Number="4">Blue1</Channel>
+  <Channel Number="5">Red2</Channel>
+  <Channel Number="6">Green2</Channel>
+  <Channel Number="7">Blue2</Channel>
+  <Channel Number="8">Red3</Channel>
+  <Channel Number="9">Green3</Channel>
+  <Channel Number="10">Blue3</Channel>
+  <Channel Number="11">Red4</Channel>
+  <Channel Number="12">Green4</Channel>
+  <Channel Number="13">Blue4</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>5</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="300" Height="240" Depth="150"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="2" Height="2"/>
+  <Technical PowerConsumption="150" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>
