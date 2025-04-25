@@ -188,6 +188,8 @@ VCXYPad::~VCXYPad()
             fader->requestDelete();
     }
     m_fadersMap.clear();
+
+    resetPresets();
 }
 
 void VCXYPad::enableWidgetUI(bool enable)

@@ -99,6 +99,8 @@ RGBMatrixEditor::~RGBMatrixEditor()
         m_matrix->stopAndWait();
 
     delete m_previewHandler;
+
+    qDeleteAll(m_previewHash);
 }
 
 void RGBMatrixEditor::stopTest()
@@ -700,6 +702,7 @@ void RGBMatrixEditor::displayProperties(RGBScript *script)
 
 bool RGBMatrixEditor::createPreviewItems()
 {
+    qDeleteAll(m_previewHash);
     m_previewHash.clear();
     m_scene->clear();
 
@@ -783,9 +786,9 @@ void RGBMatrixEditor::slotPreviewTimeout()
         for (int x = 0; x < m_previewHandler->m_map[y].size(); x++)
         {
             QLCPoint pt(x, y);
-            if (m_previewHash.contains(pt) == true)
+            RGBItem* shape = m_previewHash.value(pt, NULL);
+            if (shape)
             {
-                RGBItem* shape = m_previewHash[pt];
                 if (shape->color() != QColor(m_previewHandler->m_map[y][x]).rgb())
                     shape->setColor(m_previewHandler->m_map[y][x]);
 
