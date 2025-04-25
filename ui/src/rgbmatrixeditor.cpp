@@ -1434,10 +1434,17 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
 
             sequence->addStep(step);
             currentStep += increment;
-            if (currentStep == totalSteps && m_matrix->runOrder() == RGBMatrix::PingPong)
+            if (currentStep == totalSteps)
             {
-                currentStep = totalSteps - 2;
-                increment = -1;
+                if (m_matrix->runOrder() == RGBMatrix::PingPong)
+                {
+                    currentStep = totalSteps - 2;
+                    increment = -1;
+                }
+                else
+                {
+                    currentStep = 0;
+                }
             }
             m_previewHandler->updateStepColor(currentStep, m_matrix->getColor(0), m_matrix->stepsCount());
         }
