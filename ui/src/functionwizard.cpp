@@ -335,7 +335,7 @@ void FunctionWizard::addFunctionsGroup(QTreeWidgetItem *fxGrpItem, QTreeWidgetIt
                 algoItem->setText(KFunctionName, algo);
                 algoItem->setCheckState(KFunctionName, Qt::Unchecked);
                 algoItem->setData(KFunctionName, Qt::UserRole, type);
-                algoItem->setData(KFunctionName + 1, Qt::UserRole, algo);
+                algoItem->setData(KFunctionName, Qt::UserRole + 1, algo);
 
                 algoItem->setCheckState(KFunctionParallel, Qt::Checked);
                 algoItem->setCheckState(KFunctionSerial, Qt::Unchecked);
@@ -512,7 +512,7 @@ void FunctionWizard::updateResultFunctionsTree()
 
                     int type = subFuncItem->data(KFunctionName, Qt::UserRole).toInt();
                     EFX::Algorithm algo = EFX::stringToAlgorithm(
-                        subFuncItem->data(KFunctionName + 1, Qt::UserRole).toString());
+                        subFuncItem->data(KFunctionName, Qt::UserRole + 1).toString());
 
                     int subType = PaletteGenerator::All;
                     if (subFuncItem->checkState(KFunctionOddEven) == Qt::Checked)
