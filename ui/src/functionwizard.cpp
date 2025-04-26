@@ -710,8 +710,23 @@ void FunctionWizard::updateWidgetsTree()
     // Populate palette Widgets
     foreach (PaletteGenerator *palette, m_paletteList)
     {
-        QTreeWidgetItem *frame = new QTreeWidgetItem(m_widgetsTree);
-        frame->setText(KWidgetName, palette->fullName());
+        QTreeWidgetItem *frame = NULL;
+
+        // Reuse existing frame for EFX
+        if (m_widgetsTree->topLevelItemCount() > 0)
+        {
+            frame = (QTreeWidgetItem *)m_widgetsTree->topLevelItem(
+                m_widgetsTree->topLevelItemCount() - 1);
+            if (frame->text(KWidgetName) != palette->fullName())
+                frame = NULL;
+        }
+
+        if (frame == NULL)
+        {
+            frame = new QTreeWidgetItem(m_widgetsTree);
+            frame->setText(KWidgetName, palette->fullName());
+        }
+
         if (palette->type() == PaletteGenerator::Animation ||
             palette->type() == PaletteGenerator::EfxDimmer ||
             palette->type() == PaletteGenerator::EfxPosition ||
