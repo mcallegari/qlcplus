@@ -28,7 +28,7 @@ add_library(${module_name}
 
 if(WIN32)
     set(FTD2XXDIR "C:/projects/D2XXSDK")
-    if ($ENV{MSYSTEM_CARCH} STREQUAL "i686")
+    if (DEFINED $ENV{MSYSTEM_CARCH} AND $ENV{MSYSTEM_CARCH} STREQUAL "i686")
         target_link_libraries(${module_name} PRIVATE ${FTD2XXDIR}/i386/libftd2xx.a)
     else()
         target_link_libraries(${module_name} PRIVATE ${FTD2XXDIR}/amd64/libftd2xx.a)
@@ -166,7 +166,7 @@ if (UNIX AND NOT APPLE)
    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/org.qlcplus.QLCPlus.dmxusb.metainfo.xml"
            DESTINATION ${METAINFODIR})
 elseif (WITH_D2XX)
-    if ($ENV{MSYSTEM_CARCH} STREQUAL "x86_64")
+    if (DEFINED $ENV{MSYSTEM_CARCH} AND $ENV{MSYSTEM_CARCH} STREQUAL "x86_64")
         install(FILES ${FTD2XXDIR}/amd64/ftd2xx64.dll DESTINATION  ${INSTALLROOT}/${LIBSDIR})
     endif()
 endif()
