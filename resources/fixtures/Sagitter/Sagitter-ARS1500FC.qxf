@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.1-1</Version>
+  <Author>Alessandro Caseti</Author>
+ </Creator>
+ <Manufacturer>Sagitter</Manufacturer>
+ <Model>ARS1500FC</Model>
+ <Type>Smoke</Type>
+ <Channel Name="Smoke">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No funcion</Capability>
+  <Capability Min="10" Max="255">Smoke output</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Color macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="20">No function</Capability>
+  <Capability Min="21" Max="127">Fixed color selection</Capability>
+  <Capability Min="128" Max="255" Preset="GenericPicture" Res1="Others/rainbow.png">Color change from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Smoke</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Color macro</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="8.5" Width="415" Height="225" Depth="358"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="1600" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

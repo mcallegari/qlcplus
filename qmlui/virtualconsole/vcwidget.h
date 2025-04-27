@@ -610,7 +610,7 @@ protected:
      * @param h Loaded h position
      * @param visible Loaded visible status
      *
-     * @return true if succesful, otherwise false
+     * @return true if successful, otherwise false
      */
     bool loadXMLWindowState(QXmlStreamReader &root, int* x, int* y,
                             int* w, int* h, bool* visible);

@@ -108,7 +108,7 @@ signals:
 protected:
     /** Reference to the current view window.
      *  If the context is not detached, this is equal to $m_mainView,
-     *  otherwise this is an indipendent view */
+     *  otherwise this is an independent view */
     QQuickView *m_view;
 
     /** Reference to the root QML view */

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.1-2</Version>
+  <Author>thegasta</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED TMH-40</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="PanTilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Red (all)" Preset="IntensityRed"/>
+ <Channel Name="Green (all)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (all)" Preset="IntensityBlue"/>
+ <Channel Name="Color Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">Neutral</Capability>
+  <Capability Min="11" Max="20">Red out</Capability>
+  <Capability Min="21" Max="30">Green center</Capability>
+  <Capability Min="31" Max="40">Blue in</Capability>
+  <Capability Min="41" Max="50">Verde out</Capability>
+  <Capability Min="51" Max="60">Blue center</Capability>
+  <Capability Min="61" Max="70">Red in</Capability>
+  <Capability Min="71" Max="80">Blue out</Capability>
+  <Capability Min="81" Max="90">Red center</Capability>
+  <Capability Min="91" Max="100">Green in</Capability>
+  <Capability Min="101" Max="110">Yellow out</Capability>
+  <Capability Min="111" Max="120">Cyan center</Capability>
+  <Capability Min="121" Max="130">Magenta in</Capability>
+  <Capability Min="131" Max="140">Cyan out</Capability>
+  <Capability Min="141" Max="150">Magenta center</Capability>
+  <Capability Min="151" Max="160">Yellow in</Capability>
+  <Capability Min="161" Max="170">Magenta out</Capability>
+  <Capability Min="171" Max="180">Yellow center</Capability>
+  <Capability Min="181" Max="190">Cyan in</Capability>
+  <Capability Min="191" Max="200">Red</Capability>
+  <Capability Min="201" Max="210">Green</Capability>
+  <Capability Min="211" Max="220">Blue</Capability>
+  <Capability Min="221" Max="230">Yellow</Capability>
+  <Capability Min="231" Max="240">Cyan</Capability>
+  <Capability Min="241" Max="250">Magenta</Capability>
+  <Capability Min="251" Max="255">Auto sequence</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="20">Neutral</Capability>
+  <Capability Min="21" Max="30" Preset="ResetAll">Reset</Capability>
+  <Capability Min="31" Max="250" Preset="StrobeSlowToFast">Strobe</Capability>
+  <Capability Min="251" Max="255">Neutral</Capability>
+ </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Red (outer)" Preset="IntensityRed"/>
+ <Channel Name="Green (outer)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (outer)" Preset="IntensityBlue"/>
+ <Channel Name="Red (middle)" Preset="IntensityRed"/>
+ <Channel Name="Green (middle)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (middle)" Preset="IntensityBlue"/>
+ <Channel Name="Red (inner)" Preset="IntensityRed"/>
+ <Channel Name="Green (inner)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (inner)" Preset="IntensityBlue"/>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">PanTilt Speed</Channel>
+  <Channel Number="3">Red (all)</Channel>
+  <Channel Number="4">Green (all)</Channel>
+  <Channel Number="5">Blue (all)</Channel>
+  <Channel Number="6">Color Macro</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="11 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan fine</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">PanTilt Speed</Channel>
+  <Channel Number="5">Red (all)</Channel>
+  <Channel Number="6">Green (all)</Channel>
+  <Channel Number="7">Blue (all)</Channel>
+  <Channel Number="8">Color Macro</Channel>
+  <Channel Number="9">Strobe</Channel>
+  <Channel Number="10">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="18 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">PanTilt Speed</Channel>
+  <Channel Number="3">Red (all)</Channel>
+  <Channel Number="4">Green (all)</Channel>
+  <Channel Number="5">Blue (all)</Channel>
+  <Channel Number="6">Red (outer)</Channel>
+  <Channel Number="7">Green (outer)</Channel>
+  <Channel Number="8">Blue (outer)</Channel>
+  <Channel Number="9">Red (middle)</Channel>
+  <Channel Number="10">Green (middle)</Channel>
+  <Channel Number="11">Blue (middle)</Channel>
+  <Channel Number="12">Red (inner)</Channel>
+  <Channel Number="13">Green (inner)</Channel>
+  <Channel Number="14">Blue (inner)</Channel>
+  <Channel Number="15">Color Macro</Channel>
+  <Channel Number="16">Strobe</Channel>
+  <Channel Number="17">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="20 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan fine</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">PanTilt Speed</Channel>
+  <Channel Number="5">Red (all)</Channel>
+  <Channel Number="6">Green (all)</Channel>
+  <Channel Number="7">Blue (all)</Channel>
+  <Channel Number="8">Red (outer)</Channel>
+  <Channel Number="9">Green (outer)</Channel>
+  <Channel Number="10">Blue (outer)</Channel>
+  <Channel Number="11">Red (middle)</Channel>
+  <Channel Number="12">Green (middle)</Channel>
+  <Channel Number="13">Blue (middle)</Channel>
+  <Channel Number="14">Red (inner)</Channel>
+  <Channel Number="15">Green (inner)</Channel>
+  <Channel Number="16">Blue (inner)</Channel>
+  <Channel Number="17">Color Macro</Channel>
+  <Channel Number="18">Strobe</Channel>
+  <Channel Number="19">Master dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6" Width="245" Height="310" Depth="245"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+  <Layout Width="12" Height="3"/>
+  <Technical PowerConsumption="140" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

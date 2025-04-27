@@ -64,13 +64,7 @@ QLCFixtureMode& QLCFixtureMode::operator=(const QLCFixtureMode& mode)
         m_heads = mode.m_heads;
         m_masterIntensityChannel = QLCChannel::invalid();
 
-        m_actsOnMap.clear();
-        QMapIterator<quint32, quint32> ait(mode.m_actsOnMap);
-        while (ait.hasNext())
-        {
-            ait.next();
-            m_actsOnMap.insert(ait.key(), ait.value());
-        }
+        m_actsOnMap = mode.m_actsOnMap;
 
         /* Clear the existing list of channels */
         m_channels.clear();

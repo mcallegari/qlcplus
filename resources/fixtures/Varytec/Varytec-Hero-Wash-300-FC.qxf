@@ -156,14 +156,14 @@
  </Channel>
  <Channel Name="Segment pattern 1 to 18 (1 to 6 static, 7 to 18 dynamic)">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="5">No fucntion</Capability>
+  <Capability Min="0" Max="5">No function</Capability>
   <Capability Min="6" Max="15">Static segment pattern 1</Capability>
   <Capability Min="16" Max="25">Static segment pattern 2</Capability>
   <Capability Min="26" Max="35">Static segment pattern 3</Capability>
   <Capability Min="36" Max="45">Static segment pattern 4</Capability>
   <Capability Min="46" Max="55">Static segment pattern 5</Capability>
   <Capability Min="56" Max="65">Static segment pattern 6</Capability>
-  <Capability Min="66" Max="75">No Fucntion</Capability>
+  <Capability Min="66" Max="75">No function</Capability>
   <Capability Min="76" Max="90">Dynamic segment pattern 7</Capability>
   <Capability Min="91" Max="105">Dynamic segment pattern 8</Capability>
   <Capability Min="106" Max="120">Dynamic segment pattern 9</Capability>
