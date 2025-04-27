@@ -354,7 +354,7 @@ void MidiPlugin::configure()
     // walk the universe map to update/add the
     // plugin custom parameters
     QMap<quint32, PluginUniverseDescriptor>::iterator it = m_universesMap.begin();
-    for(; it != m_universesMap.end(); it++)
+    for (; it != m_universesMap.end(); it++)
     {
         const quint32 universe = it.key();
         it.value().inputParameters.clear();

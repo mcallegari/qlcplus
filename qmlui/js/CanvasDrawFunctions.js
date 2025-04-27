@@ -34,7 +34,7 @@ function drawEllipse (ctx, eX, eY, eWidth, eHeight)
     }
 
     ctx.beginPath();
-    for(var theta = 0; theta < 2*Math.PI; theta+=step)
+    for (var theta = 0; theta < 2*Math.PI; theta+=step)
     {
        var x = eX + xFactor * r * Math.cos(theta);
        var y = eY - yFactor * r * Math.sin(theta);

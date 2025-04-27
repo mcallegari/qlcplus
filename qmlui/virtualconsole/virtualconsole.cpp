@@ -559,7 +559,7 @@ QStringList VirtualConsole::selectedWidgetNames()
 
     {
         QMap<quint32, QQuickItem*>::iterator it = m_itemsMap.begin();
-        for(; it != m_itemsMap.end(); it++)
+        for (; it != m_itemsMap.end(); it++)
         {
             VCWidget *vcWidget = m_widgetsMap[it.key()];
             if (vcWidget != nullptr)
@@ -585,7 +585,7 @@ QVariantList VirtualConsole::selectedWidgetIDs()
     QVariantList ids;
 
     QMap<quint32, QQuickItem*>::iterator it = m_itemsMap.begin();
-    for(; it != m_itemsMap.end(); it++)
+    for (; it != m_itemsMap.end(); it++)
     {
         ids << it.key();
     }

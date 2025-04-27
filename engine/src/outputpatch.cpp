@@ -98,7 +98,7 @@ bool OutputPatch::reconnect()
         if (ret == true)
         {
             QMap<QString, QVariant>::iterator it = m_parametersCache.begin();
-            for(; it != m_parametersCache.end(); it++)
+            for (; it != m_parametersCache.end(); it++)
                 m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Output, it.key(), it.value());
         }
         return ret;

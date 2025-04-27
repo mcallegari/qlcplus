@@ -109,7 +109,7 @@ void VCFrame::render(QQuickView *view, QQuickItem *parent)
         QQuickItem *childrenArea = qobject_cast<QQuickItem*>(m_item->findChild<QObject *>(chName));
 
         QMap <VCWidget *, int>::iterator it = m_pagesMap.begin();
-        for(; it != m_pagesMap.end(); it++)
+        for (; it != m_pagesMap.end(); it++)
             it.key()->render(view, childrenArea);
     }
 }

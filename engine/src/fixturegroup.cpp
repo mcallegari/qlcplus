@@ -377,7 +377,7 @@ bool FixtureGroup::saveXML(QXmlStreamWriter *doc)
 
     /* Fixture heads */
     QMap <QLCPoint,GroupHead>::iterator it = m_heads.begin();
-    for(; it != m_heads.end(); it++)
+    for (; it != m_heads.end(); it++)
     {
         QLCPoint pt = it.key();
         GroupHead head = it.value();

@@ -78,7 +78,7 @@ void QHttpResponse::writeHeaders()
         return;
 
     HeaderHash::iterator it = m_headers.begin();
-    for(; it != m_headers.end(); it++)
+    for (; it != m_headers.end(); it++)
     {
         QString name = it.key();
         QString value = it.value();

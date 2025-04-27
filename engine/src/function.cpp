@@ -1254,7 +1254,7 @@ int Function::requestAttributeOverride(int attributeIndex, qreal value)
     if (m_attributes.at(attributeIndex).m_flags & Single)
     {
         QMap <int, AttributeOverride>::iterator it = m_overrideMap.begin();
-        for(; it != m_overrideMap.end(); it++)
+        for (; it != m_overrideMap.end(); it++)
         {
             if (it.value().m_attrIndex == attributeIndex)
             {

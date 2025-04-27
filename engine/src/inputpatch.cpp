@@ -141,7 +141,7 @@ bool InputPatch::reconnect()
         if (ret == true)
         {
             QMap<QString, QVariant>::iterator it = m_parametersCache.begin();
-            for(; it != m_parametersCache.end(); it++)
+            for (; it != m_parametersCache.end(); it++)
             {
                 qDebug() << "[InputPatch] restoring parameter:" << it.key() << it.value();
                 m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Input, it.key(), it.value());

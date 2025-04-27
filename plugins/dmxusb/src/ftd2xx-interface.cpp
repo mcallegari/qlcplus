@@ -71,7 +71,8 @@ static FT_STATUS get_interface_info(DWORD deviceIndex,
 
         int length = ((val & 0xFF) / 2) - 1;
         offset++;
-        for (int i = 0; i < length; ++i) {
+        for (int i = 0; i < length; ++i)
+        {
             if (readWord(offset++, val) != FT_OK)
                 return false;
             out.append(char(val & 0xFF));
