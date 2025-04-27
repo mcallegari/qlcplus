@@ -44,7 +44,7 @@ SidePanel
         }
     }
 
-    onContentLoaded:
+    onContentLoaded: (item, ID) =>
     {
         item.universeIndex = universeIndex
         item.loadSources(true)

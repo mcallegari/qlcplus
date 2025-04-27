@@ -158,7 +158,7 @@ Rectangle
                             }
                             else
                             {
-                                switch(chDisplay)
+                                switch (chDisplay)
                                 {
                                     case SimpleDesk.None: return "transparent"
                                     case SimpleDesk.Odd: return UISettings.bgFixtureOdd

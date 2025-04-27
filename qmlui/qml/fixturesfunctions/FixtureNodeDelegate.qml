@@ -313,13 +313,16 @@ Column
 
             drag.target: dragItem
 
-            onPressed: nodeContainer.mouseEvent(App.Pressed, cRef ? cRef.id : -1, -1, nodeContainer, mouse.modifiers)
-            onClicked:
+            onPressed: (mouse) =>
+            {
+                nodeContainer.mouseEvent(App.Pressed, cRef ? cRef.id : -1, -1, nodeContainer, mouse.modifiers)
+            }
+            onClicked: (mouse) =>
             {
                 nodeLabel.forceActiveFocus()
                 nodeContainer.mouseEvent(App.Clicked, itemID, -1, nodeContainer, mouse.modifiers)
             }
-            onDoubleClicked:
+            onDoubleClicked: (mouse) =>
             {
                 nodeContainer.mouseEvent(App.DoubleClicked, itemID, -1, nodeContainer, mouse.modifiers)
                 isExpanded = !isExpanded
