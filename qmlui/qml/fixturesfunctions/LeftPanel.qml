@@ -182,7 +182,7 @@ SidePanel
                 ButtonGroup.group: capabilitiesGroup
 
                 onClicked: checked = !checked
-                onCounterChanged: if (counter == 0) cShutterTool.visible = false
+                onCounterChanged: if (counter == 0) shutterToolButton.checked = false
 
                 PresetsTool
                 {
@@ -285,7 +285,7 @@ SidePanel
                 ButtonGroup.group: capabilitiesGroup
 
                 onClicked: checked = !checked
-                onCounterChanged: if (counter == 0) cWheelTool.visible = false
+                onCounterChanged: if (counter == 0) cWheelToolButton.checked = false
 
                 PresetsTool
                 {
@@ -316,7 +316,7 @@ SidePanel
                 ButtonGroup.group: capabilitiesGroup
 
                 onClicked: checked = !checked
-                onCounterChanged: if (counter == 0) gobosTool.visible = false
+                onCounterChanged: if (counter == 0) goboToolButton.checked = false
 
                 PresetsTool
                 {
