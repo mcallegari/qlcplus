@@ -333,38 +333,7 @@ Entity
     /* Main transform of the whole fixture item */
     property Transform transform: Transform { }
 
-    ObjectPicker
-    {
-        id: eObjectPicker
-        //hoverEnabled: true
-        dragEnabled: true
-
-        property var lastPos
-
-        onClicked: (pick) =>
-        {
-            console.log("3D item clicked")
-            isSelected = !isSelected
-            contextManager.setItemSelection(itemID, isSelected, pick.modifiers)
-        }
-        //onPressed: lastPos = pick.worldIntersection
-        //onReleased: console.log("Item release")
-        //onEntered: console.log("Item entered")
-        //onExited: console.log("Item exited")
-/*
-        onMoved:
-        {
-            //console.log("Pick pos: " + pick.worldIntersection)
-            //var x = pick.worldIntersection.x - lastPos
-            contextManager.setFixturePosition("3D", itemID,
-                                              pick.worldIntersection.x * 1000.0,
-                                              pick.worldIntersection.y * 1000.0,
-                                              pick.worldIntersection.z * 1000.0)
-        }
-*/
-    }
-
-    components: [ eSceneLoader, transform, eObjectPicker ]
+    components: [ eSceneLoader, transform ]
 }
 
 

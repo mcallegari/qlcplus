@@ -354,7 +354,7 @@ private:
     QList<int> m_genericSelectedItems;
 
     /** Map of the generic items in the scene */
-    QMap<int, SceneItem*> m_genericMap;
+    QMap<quint32, SceneItem*> m_genericMap;
 
     /*********************************************************************
      * Environment
@@ -400,8 +400,16 @@ public:
     float smokeAmount() const;
     void setSmokeAmount(float smokeAmount);
 
+    Q_INVOKABLE void pickEntity(const float &aspect, const QVector2D &ndcMousePos, int modifiers);
+
 protected:
     void createStage();
+    QVector3D unprojectToWorld(const float &aspect, const QVector2D &ndcMousePos);
+    bool rayIntersectsAABB(const QVector3D &rayOrigin, const QVector3D &rayDir,
+                           const QVector3D &center, const QVector3D &extents, float &hitDistance);
+
+    quint32 itemIntersection(QVector3D &rayOrigin, QVector3D &rayDir, int &modifiers,
+                             QMap<quint32, SceneItem *> &map, bool generic);
 
 signals:
     void renderQualityChanged(RenderQuality renderQuality);

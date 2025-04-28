@@ -50,19 +50,5 @@ Entity
 
     property Transform transform: Transform { }
 
-    ObjectPicker
-    {
-        id: eObjectPicker
-        dragEnabled: true
-
-        onClicked: (pick) =>
-        {
-            console.log("3D item clicked")
-            isSelected = !isSelected
-            View3D.setItemSelection(itemID, isSelected, pick.modifiers)
-            contextManager.setPositionPickPoint(pick.worldIntersection)
-        }
-    }
-
-    components: [ eSceneLoader, transform, eObjectPicker ]
+    components: [ eSceneLoader, transform ]
 }

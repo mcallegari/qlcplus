@@ -318,6 +318,19 @@ Rectangle
             });
         }
 
+        function selectFixtureItem(itemID, select, modifiers)
+        {
+            console.log("Select item: " + itemID + ", select: " + select)
+            contextManager.setItemSelection(itemID, select, modifiers)
+        }
+
+        function selectGenericItem(itemID, select, modifiers, worldIntersection)
+        {
+            console.log("Select item: " + itemID + ", select: " + select)
+            View3D.setItemSelection(itemID, select, modifiers)
+            contextManager.setPositionPickPoint(worldIntersection)
+        }
+
         Entity
         {
             objectName: "scene3DEntity"
@@ -340,6 +353,7 @@ Rectangle
                 function setZoom(amount)
                 {
                     translate(Qt.vector3d(0, 0, -amount), Camera.DontTranslateViewCenter)
+                    View3D.cameraPosition = viewCamera.position
                 }
             }
 
@@ -366,6 +380,19 @@ Rectangle
                     dx = 0
                     dy = 0
                     startPoint = Qt.point(mouse.x, mouse.y)
+                }
+
+                onClicked: (mouse) =>
+                {
+                    // calculate normalized coordinates
+                    // (x, y) screen coords → [-1, 1] range
+                    var ndcX = ((2.0 * mouse.x) / scene3d.width) - 1.0
+                    var ndcY = 1.0 - ((2.0 * mouse.y) / scene3d.height);
+
+                    //console.log("Mouse x: " + mouse.x + ", y: " + mouse.y)
+                    //console.log("NDC x: " + ndcX + ", y: " + ndcY)
+
+                    View3D.pickEntity(viewCamera.aspectRatio, Qt.vector2d(ndcX, ndcY), mouse.modifiers)
                 }
 
                 onPositionChanged: (mouse) =>
