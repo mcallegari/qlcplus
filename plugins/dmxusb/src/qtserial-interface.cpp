@@ -129,18 +129,19 @@ QList<DMXInterface *> QtSerialInterface::interfaces(QList<DMXInterface *> discov
 
     foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts())
     {
-        QString serial(info.serialNumber());
-        QString name(info.description());
-        QString vendor(info.manufacturer());
-
-        qDebug() << "[QtSerialInterface] Serial: " << serial << "name:" << name << "vendor:" << vendor;
-
         // Skip non wanted devices
         if (validInterface(info.vendorIdentifier(), info.productIdentifier()) == false)
             continue;
 
         if (info.vendorIdentifier() == DMXInterface::FTDIVID)
             continue;
+
+        QString serial(info.serialNumber());
+        QString name(info.description());
+        QString vendor(info.manufacturer());
+
+        qDebug() << "[QtSerialInterface] Serial: " << serial << "name:" << name << "vendor:" << vendor
+                 << "VID:" << info.vendorIdentifier() << "PID:" << info.productIdentifier();
 
 #if defined(Q_OS_MACOS)
         /* Qt 5.6+ reports the same device as "cu" and "tty". Only the first will be considered */

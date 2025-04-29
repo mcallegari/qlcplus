@@ -107,9 +107,7 @@ bool LibFTDIInterface::readLabel(uchar label, int &intParam, QString &strParam)
         }
 
         intParam = (array[5] << 8) | array[4];
-        array.remove(0, 6); // 4 bytes of Enttec protocol + 2 of ESTA ID
-        array.replace(ENTTEC_PRO_END_OF_MSG, '\0'); // replace Enttec termination with string termination
-        strParam = QString(array);
+        strParam = QString(array.mid(6, dataLen - 2));
 
         ftdi_usb_close(&m_handle);
 
