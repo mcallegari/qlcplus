@@ -2117,7 +2117,7 @@ quint32 MainView3D::itemIntersection(QVector3D &rayOrigin, QVector3D &rayDir, in
     float closestDistance = std::numeric_limits<float>::max();
     SceneItem *sItem = nullptr;
 
-    // Step 2: iterate through the scene fixture items and find the closest hit
+    // Step 2: iterate through the selected scene items and find the closest hit
     QMapIterator<quint32, SceneItem*> it(map);
     while (it.hasNext())
     {
@@ -2130,7 +2130,8 @@ quint32 MainView3D::itemIntersection(QVector3D &rayOrigin, QVector3D &rayDir, in
 
         QMatrix4x4 worldMatrix = sceneItem->m_rootTransform->matrix();
         QVector3D boxCenter = worldMatrix.map(sceneItem->m_volume.m_center);
-        QVector3D boxExtents = sceneItem->m_volume.m_extents;
+        QVector3D boxExtents = generic ? sceneItem->m_volume.m_extents * sceneItem->m_rootTransform->scale3D() :
+                                         sceneItem->m_volume.m_extents;
 
         float hitDistance;
         if (rayIntersectsAABB(rayOrigin, rayDir, boxCenter, boxExtents, hitDistance))
