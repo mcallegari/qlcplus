@@ -522,27 +522,3 @@ input[type="color"].vMatrix {
  cursor: pointer;
  border: solid 1px;
 }
-
-#vc {
- display: flex;
- flex-direction: row;
- width: 100%;
- height: calc(100vh - 40px); /* Minus controlBar height */
-}
-
-#vcScrollContainer {
- overflow: auto;
-}
-
-#vcGM {
- height: calc(100vh - 40px);
- width: 40px;
- background-color: #ccc;
- display: flex;
- flex-direction: column;
- justify-content: space-between;
-}
-
-#vcGM .vcslLabel {
- height: auto;
-}
