@@ -266,7 +266,7 @@ int RGBScript::rgbMapStepCount(const QSize& size)
     }
 }
 
-void RGBScript::rgbMapSetColors(QVector<uint> &colors)
+void RGBScript::rgbMapSetColors(const QVector<uint> &colors)
 {
     QMutexLocker engineLocker(s_engineMutex);
     if (m_apiVersion <= 2)

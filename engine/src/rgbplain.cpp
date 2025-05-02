@@ -55,7 +55,7 @@ int RGBPlain::rgbMapStepCount(const QSize& size)
     return 1;
 }
 
-void RGBPlain::rgbMapSetColors(QVector<uint> &colors)
+void RGBPlain::rgbMapSetColors(const QVector<uint> &colors)
 {
     Q_UNUSED(colors);
 }
