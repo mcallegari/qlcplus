@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Controls 2.0
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "GenericHelpers.js" as Helpers
@@ -45,7 +45,7 @@ Rectangle
 
     property int currentFilterIndex: -1
 
-    signal colorChanged(real r, real g, real b, real w, real a, real uv)
+    signal toolColorChanged(real r, real g, real b, real w, real a, real uv)
 
     onFilterRGBChanged:
     {
@@ -67,7 +67,7 @@ Rectangle
     {
         if (isUpdating)
             return
-        colorChanged(filterRGB.r, filterRGB.g, filterRGB.b, filterWAUV.r, filterWAUV.g, filterWAUV.b)
+        toolColorChanged(filterRGB.r, filterRGB.g, filterRGB.b, filterWAUV.r, filterWAUV.g, filterWAUV.b)
     }
 
     function updateFilter()

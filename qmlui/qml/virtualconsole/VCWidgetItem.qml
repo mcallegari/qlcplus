@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick
 
 import org.qlcplus.classes 1.0
 import "."
@@ -122,7 +122,7 @@ Rectangle
 
             property bool dragRemapped: false
 
-            onPressed:
+            onPressed: (mouse) =>
             {
                 if (virtualConsole.editMode)
                 {
@@ -136,7 +136,7 @@ Rectangle
                 dragRemapped = false
             }
 
-            onPositionChanged:
+            onPositionChanged: (mouse) =>
             {
                 if (drag.target !== null && dragRemapped == false)
                 {
@@ -152,7 +152,7 @@ Rectangle
                 }
             }
 
-            onReleased:
+            onReleased: (mouse) =>
             {
                 if (drag.target !== null)
                 {

@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.2
+import QtQuick
+import QtQuick.Layouts
 
 import "."
 

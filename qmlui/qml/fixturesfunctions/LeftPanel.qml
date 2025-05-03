@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.0
-import QtQuick.Controls 2.2
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -31,7 +31,7 @@ SidePanel
     anchors.leftMargin: 0
     panelAlignment: Qt.AlignLeft
 
-    onContentLoaded:
+    onContentLoaded: (item, ID) =>
     {
         item.width = Qt.binding(function() { return leftSidePanel.width - collapseWidth })
         item.height = Qt.binding(function() { return leftSidePanel.height })
@@ -64,13 +64,14 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/fixture.svg"
-                checkable: true
+                //checkable: true
                 tooltip: qsTr("Add Fixtures")
                 ButtonGroup.group: fxManagerGroup
                 autoExclusive: false
-                onToggled:
+                onClicked:
                 {
-                    if (checked == true)
+                    checked = !checked
+                    if (checked === true)
                         loaderSource = "qrc:/FixtureBrowser.qml"
                     animatePanel(checked)
                 }
@@ -92,13 +93,14 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/group.svg"
-                checkable: true
+                //checkable: true
                 tooltip: qsTr("Fixture Groups")
                 ButtonGroup.group: fxManagerGroup
                 autoExclusive: false
-                onToggled:
+                onClicked:
                 {
-                    if (checked == true)
+                    checked = !checked
+                    if (checked === true)
                     {
                         loaderSource = "qrc:/FixtureGroupManager.qml"
                         fixtureManager.searchFilter = ""
@@ -113,13 +115,14 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/palette.svg"
-                checkable: true
+                //checkable: true
                 tooltip: qsTr("Palettes")
                 ButtonGroup.group: fxManagerGroup
                 autoExclusive: false
-                onToggled:
+                onClicked:
                 {
-                    if (checked == true)
+                    checked = !checked
+                    if (checked === true)
                         loaderSource = "qrc:/PaletteManager.qml"
                     animatePanel(checked)
                 }
@@ -132,12 +135,13 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/intensity.svg"
-                checkable: true
+                //checkable: true
                 tooltip: qsTr("Intensity")
                 counter: 0
                 ButtonGroup.group: capabilitiesGroup
-                onCheckedChanged:
+                onClicked:
                 {
+                    checked = !checked
                     if (checked)
                     {
                         var val = contextManager.getCurrentValue(QLCChannel.Intensity, false)
@@ -147,6 +151,7 @@ SidePanel
                         intTool.visible = false
                 }
                 onCounterChanged: if (counter == 0) intTool.visible = false
+                onCheckedChanged: if (!checked) intTool.visible = false
 
                 IntensityTool
                 {
@@ -156,24 +161,28 @@ SidePanel
                     y: UISettings.bigItemHeight
                     visible: false
 
-                    onValueChanged: contextManager.setChannelValueByType(QLCChannel.Intensity, value, relativeValue)
-                    onClose: intToolButton.toggle()
+                    onValueChanged: function(value)
+                    {
+                        contextManager.setChannelValueByType(QLCChannel.Intensity, value, relativeValue)
+                    }
+                    onClose: intToolButton.checked = false
                 }
             }
 
             IconButton
             {
+                id: shutterToolButton
                 objectName: "capShutter"
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/shutter.svg"
-                checkable: true
+                //checkable: true
                 tooltip: qsTr("Shutter")
                 counter: 0
                 ButtonGroup.group: capabilitiesGroup
 
-                onCheckedChanged: cShutterTool.visible = !cShutterTool.visible
-                onCounterChanged: if (counter == 0) cShutterTool.visible = false
+                onClicked: checked = !checked
+                onCounterChanged: if (counter == 0) shutterToolButton.checked = false
 
                 PresetsTool
                 {
@@ -181,9 +190,13 @@ SidePanel
                     parent: mainView
                     x: leftSidePanel.width
                     y: UISettings.bigItemHeight
-                    visible: false
+                    visible: shutterToolButton.checked
                     onVisibleChanged: if (visible) updatePresets(fixtureManager.shutterChannels)
-                    onPresetSelected: fixtureManager.setPresetValue(fxID, chIdx, value)
+                    onPresetSelected:
+                        function(cap, fxID, chIdx, value)
+                        {
+                            fixtureManager.setPresetValue(fxID, chIdx, value)
+                        }
                 }
             }
 
@@ -194,12 +207,18 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/position.svg"
-                checkable: true
+                //checkable: true
                 tooltip: qsTr("Position")
                 counter: 0
                 ButtonGroup.group: capabilitiesGroup
-                onCheckedChanged: posTool.visible = !posTool.visible
+
+                onClicked:
+                {
+                    checked = !checked
+                    posTool.visible = !posTool.visible
+                }
                 onCounterChanged: if (counter == 0) posTool.visible = false
+                onCheckedChanged: if (!checked) posTool.visible = false
 
                 property alias panDegrees: posTool.panMaxDegrees
                 property alias tiltDegrees: posTool.tiltMaxDegrees
@@ -211,7 +230,7 @@ SidePanel
                     x: leftSidePanel.width
                     y: UISettings.bigItemHeight
                     visible: false
-                    onClose: posToolButton.toggle()
+                    onClose: posToolButton.checked = false
                 }
             }
 
@@ -222,12 +241,18 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/color.svg"
-                checkable: true
+                //checkable: true
                 tooltip: qsTr("Color")
                 counter: 0
                 ButtonGroup.group: capabilitiesGroup
-                onCheckedChanged: colTool.visible = !colTool.visible
+
+                onClicked:
+                {
+                    checked = !checked
+                    colTool.visible = !colTool.visible
+                }
                 onCounterChanged: if (counter == 0) colTool.visible = false
+                onCheckedChanged: if (!checked) colTool.visible = false
 
                 ColorTool
                 {
@@ -238,24 +263,29 @@ SidePanel
                     visible: false
                     colorsMask: fixtureManager.colorsMask
 
-                    onColorChanged: contextManager.setColorValue(Qt.rgba(r, g, b, 1.0), Qt.rgba(w, a, uv, 1.0))
-                    onClose: colorToolButton.toggle()
+                    onToolColorChanged:
+                        function(r, g, b, w, a, uv)
+                        {
+                            contextManager.setColorValue(Qt.rgba(r, g, b, 1.0), Qt.rgba(w, a, uv, 1.0))
+                        }
+                    onClose: colorToolButton.checked = false
                 }
             }
 
             IconButton
             {
+                id: cWheelToolButton
                 objectName: "capColorWheel"
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/colorwheel.svg"
-                checkable: true
+                //checkable: true
                 tooltip: qsTr("Color Wheel")
                 counter: 0
                 ButtonGroup.group: capabilitiesGroup
 
-                onCheckedChanged: cWheelTool.visible = !cWheelTool.visible
-                onCounterChanged: if (counter == 0) cWheelTool.visible = false
+                onClicked: checked = !checked
+                onCounterChanged: if (counter == 0) cWheelToolButton.checked = false
 
                 PresetsTool
                 {
@@ -263,25 +293,30 @@ SidePanel
                     parent: mainView
                     x: leftSidePanel.width
                     y: UISettings.bigItemHeight
-                    visible: false
+                    visible: cWheelToolButton.checked
                     onVisibleChanged: if (visible) updatePresets(fixtureManager.colorWheelChannels)
-                    onPresetSelected: fixtureManager.setPresetValue(fxID, chIdx, value)
+                    onPresetSelected:
+                        function(cap, fxID, chIdx, value)
+                        {
+                            fixtureManager.setPresetValue(fxID, chIdx, value)
+                        }
                 }
             }
 
             IconButton
             {
+                id: goboToolButton
                 objectName: "capGobos"
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/gobo.svg"
-                checkable: true
+                //checkable: true
                 tooltip: qsTr("Gobos")
                 counter: 0
                 ButtonGroup.group: capabilitiesGroup
 
-                onCheckedChanged: gobosTool.visible = !gobosTool.visible
-                onCounterChanged: if (counter == 0) gobosTool.visible = false
+                onClicked: checked = !checked
+                onCounterChanged: if (counter == 0) goboToolButton.checked = false
 
                 PresetsTool
                 {
@@ -289,9 +324,13 @@ SidePanel
                     parent: mainView
                     x: leftSidePanel.width
                     y: UISettings.bigItemHeight
-                    visible: false
+                    visible: goboToolButton.checked
                     onVisibleChanged: if (visible) updatePresets(fixtureManager.goboChannels)
-                    onPresetSelected: fixtureManager.setPresetValue(fxID, chIdx, value)
+                    onPresetSelected:
+                        function(cap, fxID, chIdx, value)
+                        {
+                            fixtureManager.setPresetValue(fxID, chIdx, value)
+                        }
                 }
             }
 
@@ -302,12 +341,18 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/beam.svg"
-                checkable: true
+                //checkable: true
                 tooltip: qsTr("Beam")
                 counter: 0
                 ButtonGroup.group: capabilitiesGroup
-                onCheckedChanged: beamTool.visible = !beamTool.visible
+
+                onClicked:
+                {
+                    checked = !checked
+                    beamTool.visible = !beamTool.visible
+                }
                 onCounterChanged: if (counter == 0) beamTool.visible = false
+                onCheckedChanged: if (!checked) beamTool.visible = false
 
                 function setZoomRange(min, max, inverted)
                 {
@@ -321,7 +366,7 @@ SidePanel
                     x: leftSidePanel.width
                     y: UISettings.bigItemHeight
                     visible: false
-                    onClose: beamToolButton.toggle()
+                    onClose: beamToolButton.checked = false
                 }
             }
 

@@ -833,15 +833,15 @@ void RGBMatrixEditor::slotPatternActivated(int patternIndex)
 #error "Further colors need to be displayed."
 #endif
         QVector<QColor> colors = {
-                m_matrix->getColor(0),
-                m_matrix->getColor(1),
-                m_matrix->getColor(2),
-                m_matrix->getColor(3),
-                m_matrix->getColor(4)
+            m_matrix->getColor(0),
+            m_matrix->getColor(1),
+            m_matrix->getColor(2),
+            m_matrix->getColor(3),
+            m_matrix->getColor(4)
         };
         algo->setColors(colors);
         m_previewHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1),
-                m_matrix->algorithm());
+                                              m_matrix->algorithm());
     }
     updateExtraOptions();
 

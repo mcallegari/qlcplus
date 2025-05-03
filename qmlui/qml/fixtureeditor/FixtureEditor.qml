@@ -17,10 +17,11 @@
   limitations under the License.
 */
 
-import QtQuick 2.2
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.1
-import QtQuick.Dialogs 1.3
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtQuick.Dialogs
+
 import org.qlcplus.classes 1.0
 import "."
 
@@ -48,12 +49,13 @@ Rectangle
         id: openDialog
         visible: false
         title: qsTr("Open a fixture definition")
+        currentFolder: "file://" + fixtureEditor.workingPath
         nameFilters: [ qsTr("Fixture definition files") + " (*.qxf)", qsTr("All files") + " (*)" ]
 
         onAccepted:
         {
             fixtureEditor.workingPath = folder.toString()
-            if (fixtureEditor.loadDefinition(fileUrl) === false)
+            if (fixtureEditor.loadDefinition(selectedFile) === false)
             {
                 editor.visible = false
                 messagePopup.message = qsTr("An error occurred while loading the selected file.<br>" +
@@ -68,15 +70,15 @@ Rectangle
         id: saveDialog
         visible: false
         title: qsTr("Save definition as...")
-        selectExisting: false
+        currentFolder: "file://" + fixtureEditor.workingPath
+        fileMode: FileDialog.SaveFile
         nameFilters: [ qsTr("Fixture definition files") + " (*.qxf)", qsTr("All files") + " (*)" ]
         defaultSuffix: "qxf"
-        //fileMode: FileDialog.SaveFile
 
         onAccepted:
         {
-            console.log("You chose: " + fileUrl)
-            editor.save(fileUrl)
+            console.log("File to save: " + selectedFile)
+            editor.save(selectedFile)
         }
     }
 
@@ -100,32 +102,33 @@ Rectangle
         property var editRef
 
         onClicked:
-        {
-            if (role === Dialog.Yes)
+            function (role)
             {
-                if (editRef.fileName === "")
+                if (role === Dialog.Yes)
                 {
-                    saveDialog.folder = fixtureEditor.workingPath
-                    //saveDialog.currentFile = "file:///" + editor.editorView.fileName
-                    saveDialog.open()
+                    if (editRef.fileName === "")
+                    {
+                        saveDialog.folder = fixtureEditor.workingPath
+                        //saveDialog.currentFile = "file:///" + editor.editorView.fileName
+                        saveDialog.open()
+                    }
+                    else
+                    {
+                        editRef.save("")
+                    }
                 }
-                else
+                else if (role === Dialog.No)
                 {
-                    editRef.save("")
+                    fixtureEditor.deleteEditor(editRef.id)
                 }
-            }
-            else if (role === Dialog.No)
-            {
-                fixtureEditor.deleteEditor(editRef.id)
-            }
-            else if (role === Dialog.Cancel)
-            {
-                return
-            }
+                else if (role === Dialog.Cancel)
+                {
+                    return
+                }
 
-            close()
-            checkBeforeExit()
-        }
+                close()
+                checkBeforeExit()
+            }
     }
 
     function checkBeforeExit()
@@ -264,7 +267,7 @@ Rectangle
                 id: editorsRepeater
                 model: fixtureEditor ? fixtureEditor.editorsList : null
 
-                onItemAdded: item.clicked()
+                onItemAdded: (index,item) => item.clicked()
 
                 delegate:
                     MenuBarEntry

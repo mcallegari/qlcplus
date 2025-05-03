@@ -18,11 +18,11 @@
   limitations under the License.
 */
 
-import QtQuick 2.7 as QQ2
+import QtQuick as QQ2
 
-import Qt3D.Core 2.0
-import Qt3D.Render 2.0
-import Qt3D.Extras 2.0
+import Qt3D.Core
+import Qt3D.Render
+import Qt3D.Extras
 
 import org.qlcplus.classes 1.0
 import "Math3DView.js" as Math3D
@@ -82,7 +82,7 @@ Entity
     readonly property Layer spotlightScatteringLayer: Layer { }
 
     property real coneBottomRadius: distCutoff * Math.tan(cutoffAngle) + coneTopRadius
-    property real coneTopRadius: (0.24023 / 2) * transform.scale3D.x * 0.7 // (diameter / 2) * scale * magic number
+    property real coneTopRadius: transform ? (0.24023 / 2) * transform.scale3D.x * 0.7 : 0.0 // (diameter / 2) * scale * magic number
 
     property real headLength:
     {
@@ -232,14 +232,14 @@ Entity
     {
         id: panAnim
         running: false
-        easing.type: Easing.Linear
+        easing.type: QQ2.Easing.Linear
     }
 
     QQ2.NumberAnimation on tiltRotation
     {
         id: tiltAnim
         running: false
-        easing.type: Easing.Linear
+        easing.type: QQ2.Easing.Linear
     }
 
     property Texture2D depthTex:
@@ -292,7 +292,7 @@ Entity
         id: goboAnim
         running: false
         duration: 0
-        easing.type: Easing.Linear
+        easing.type: QQ2.Easing.Linear
         from: 0
         to: 360
         loops: QQ2.Animation.Infinite
@@ -323,7 +323,7 @@ Entity
     {
         id: eSceneLoader
 
-        onStatusChanged:
+        onStatusChanged: (status) =>
         {
             if (status === SceneLoader.Ready)
                 View3D.initializeFixture(itemID, fixtureEntity, eSceneLoader)
@@ -333,38 +333,7 @@ Entity
     /* Main transform of the whole fixture item */
     property Transform transform: Transform { }
 
-    ObjectPicker
-    {
-        id: eObjectPicker
-        //hoverEnabled: true
-        dragEnabled: true
-
-        property var lastPos
-
-        onClicked:
-        {
-            console.log("3D item clicked")
-            isSelected = !isSelected
-            contextManager.setItemSelection(itemID, isSelected, pick.modifiers)
-        }
-        //onPressed: lastPos = pick.worldIntersection
-        //onReleased: console.log("Item release")
-        //onEntered: console.log("Item entered")
-        //onExited: console.log("Item exited")
-/*
-        onMoved:
-        {
-            //console.log("Pick pos: " + pick.worldIntersection)
-            //var x = pick.worldIntersection.x - lastPos
-            contextManager.setFixturePosition("3D", itemID,
-                                              pick.worldIntersection.x * 1000.0,
-                                              pick.worldIntersection.y * 1000.0,
-                                              pick.worldIntersection.z * 1000.0)
-        }
-*/
-    }
-
-    components: [ eSceneLoader, transform, eObjectPicker ]
+    components: [ eSceneLoader, transform ]
 }
 
 

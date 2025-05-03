@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.2
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -310,13 +310,6 @@ Rectangle
                     }
                 }
 
-                onClicked:
-                {
-                    updateDumpVariables()
-                    dmxDumpDialog.open()
-                    dmxDumpDialog.focusEditItem()
-                }
-
                 // channel count bubble
                 Rectangle
                 {
@@ -344,10 +337,15 @@ Rectangle
                 {
                     id: dumpDragArea
                     anchors.fill: parent
-                    propagateComposedEvents: true
                     drag.target: dumpDragItem
                     drag.threshold: 10
-                    onClicked: mouse.accepted = false
+
+                    onClicked: (mouse) =>
+                    {
+                        sceneDump.updateDumpVariables()
+                        dmxDumpDialog.open()
+                        dmxDumpDialog.focusEditItem()
+                    }
 
                     property bool dragActive: drag.active
 

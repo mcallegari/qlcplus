@@ -17,10 +17,10 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.2
-import QtQuick.Dialogs 1.1
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtQuick.Dialogs
 
 import org.qlcplus.classes 1.0
 
@@ -84,11 +84,12 @@ Rectangle
             previewBtn = null
         }
 
-        onColorChanged:
-        {
-            previewBtn.color = Qt.rgba(r, g, b, 1.0)
-            rgbMatrixEditor.setColorAtIndex(colorIndex, previewBtn.color)
-        }
+        onToolColorChanged:
+            function(r, g, b, w, a, uv)
+            {
+                previewBtn.color = Qt.rgba(r, g, b, 1.0)
+                rgbMatrixEditor.setColorAtIndex(colorIndex, previewBtn.color)
+            }
         onClose: visible = false
     }
 
@@ -806,13 +807,13 @@ Rectangle
                     {
                         id: fontDialog
                         title: qsTr("Please choose a font")
-                        font: rgbMatrixEditor.algoTextFont
+                        selectedFont: rgbMatrixEditor.algoTextFont
                         visible: false
 
                         onAccepted:
                         {
-                            console.log("Selected font: " + fontDialog.font)
-                            rgbMatrixEditor.algoTextFont = font
+                            console.log("Selected font: " + selectedFont)
+                            rgbMatrixEditor.algoTextFont = selectedFont
                         }
                     }
                 }
@@ -958,7 +959,7 @@ Rectangle
                         title: qsTr("Select an image")
                         nameFilters: [ "Image files (*.png *.bmp *.jpg *.jpeg *.gif)", "All files (*)" ]
 
-                        onAccepted: rgbMatrixEditor.algoImagePath = fileDialog.fileUrl
+                        onAccepted: rgbMatrixEditor.algoImagePath = fileDialog.selectedFile
                     }
                 }
             }

@@ -258,8 +258,8 @@ int RGBScript::rgbMapStepCount(const QSize& size)
     {
         displayError(value, m_fileName);
         return -1;
-    } 
-    else 
+    }
+    else
     {
         int ret = value.isNumber() ? value.toInteger() : -1;
         return ret;

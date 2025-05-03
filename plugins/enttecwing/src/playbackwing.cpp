@@ -239,6 +239,8 @@ void PlaybackWing::parseData(const QByteArray& data)
             // store value diffs to sync qlcplus widgets and wing slider
             if (!m_feedbackDiffs.contains(page()))
                 m_feedbackDiffs.insert(page(), QVector<int>(WING_PLAYBACK_SLIDER_SIZE, 0));
+            if (!m_feedbackValues.contains(page()))
+                m_feedbackValues.insert(page(), QByteArray(WING_PLAYBACK_SLIDER_SIZE, 0));
 
             m_feedbackDiffs[page()][slider] = quint8(m_feedbackValues[page()][slider]) - quint8(cacheValue(slider));
         }
