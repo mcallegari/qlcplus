@@ -10,7 +10,7 @@ jobs:
     strategy:
       #fail-fast: false
       matrix:
-        task: [build-v4, build-v5, build-coverage-v4]
+        task: [build-v4, build-v5, coverage-build-v4]
     env:
       CI_REPO_SLUG: ${{ github.repository }}
       CI_BRANCH: ${{ github.head_ref }}
