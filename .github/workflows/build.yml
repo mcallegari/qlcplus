@@ -10,7 +10,7 @@ jobs:
     strategy:
       #fail-fast: false
       matrix:
-        task: [build-v4, build-v5, build-coverage]
+        task: [build-v4, build-v5, build-coverage-v4]
     env:
       CI_REPO_SLUG: ${{ github.repository }}
       CI_BRANCH: ${{ github.head_ref }}
@@ -34,7 +34,7 @@ jobs:
         chrpath
         libfuse2
         wget
-      PACKAGES_QML_BASE:
+      PACKAGES_V5_BASE:
         libpulse-dev
       PACKAGES_COVERAGE_BASE:
         lcov
@@ -51,10 +51,10 @@ jobs:
 
       - name: Set General ENV variables
         run: |
-          echo "PACKAGES_QT5=$(echo ${PACKAGES_BASE})" >> $GITHUB_ENV
-          echo "PACKAGES_QML=$(echo ${PACKAGES_BASE} ${PACKAGES_QML_BASE})" >> $GITHUB_ENV
-          echo "PACKAGES_COVERAGE=$(echo ${PACKAGES_BASE} ${PACKAGES_QT5_BASE} ${PACKAGES_COVERAGE_BASE})" >> $GITHUB_ENV
-          echo "PACKAGES_ALL=$(echo ${PACKAGES_BASE} ${PACKAGES_QML_BASE} ${PACKAGES_COVERAGE_BASE})" >> $GITHUB_ENV
+          echo "PACKAGES_V4=$(echo ${PACKAGES_BASE})" >> $GITHUB_ENV
+          echo "PACKAGES_V5=$(echo ${PACKAGES_BASE} ${PACKAGES_V5_BASE})" >> $GITHUB_ENV
+          echo "PACKAGES_COVERAGE=$(echo ${PACKAGES_BASE} ${PACKAGES_V4_BASE} ${PACKAGES_COVERAGE_BASE})" >> $GITHUB_ENV
+          echo "PACKAGES_ALL=$(echo ${PACKAGES_BASE} ${PACKAGES_V5_BASE} ${PACKAGES_COVERAGE_BASE})" >> $GITHUB_ENV
           echo "CI_BRANCH=$(echo $GITHUB_REF | cut -d '/' -f 3)" >> $GITHUB_ENV
           echo "CI_SECURE_ENV_VARS=$(if [ -z '${{ secrets.something }}' ]; then echo 'false'; else echo 'true'; fi)" >> $GITHUB_ENV
           echo "CI_EVENT_TYPE=$(if [ 'schedule' == '${{ github.event_name }}' ]; then echo 'cron'; else echo '${{ github.event_name }}'; fi)" >> $GITHUB_ENV
@@ -64,8 +64,8 @@ jobs:
           echo "BUILD_DATE=`date -u '+%Y%m%d'`" >> $GITHUB_ENV
           echo "GIT_REV=`git rev-parse --short HEAD`" >> $GITHUB_ENV
 
-      - name: Set Qt ENV variables (qt5)
-        if: ${{ endsWith( matrix.task, 'qt5') }}
+      - name: Set Qt ENV variables (v4)
+        if: ${{ endsWith( matrix.task, 'v4') }}
         run: |
           echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)}" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
@@ -74,8 +74,8 @@ jobs:
           source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
 
-      - name: Set Qt ENV variables (qt5qml)
-        if: ${{ endsWith( matrix.task, 'qt5qml') }}
+      - name: Set Qt ENV variables (v5)
+        if: ${{ endsWith( matrix.task, 'v5') }}
         run: |
           echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)}" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
@@ -91,8 +91,8 @@ jobs:
           echo "CI_REPO_SLUG: ${CI_REPO_SLUG}"
           echo "CI_EVENT_TYPE: ${CI_EVENT_TYPE}"
           echo "CI_SECURE_ENV_VARS: ${CI_SECURE_ENV_VARS}"
-          echo "PACKAGES_QT5: ${PACKAGES_QT5}"
-          echo "PACKAGES_QML: ${PACKAGES_QML}"
+          echo "PACKAGES_V4: ${PACKAGES_V4}"
+          echo "PACKAGES_V5: ${PACKAGES_V5}"
           echo "PACKAGES_COVERAGE: ${PACKAGES_COVERAGE}"
           echo "TASK: ${TASK}"
           echo "QT: ${QT}"
@@ -110,7 +110,7 @@ jobs:
           version: ${{ env.QT_VERSION }}
           cache: true
           dir: ${{ env.QT_INSTALL_DIR }}
-          modules: 'qtmultimedia qtserialport qt3d qtwebsockets'
+          modules: 'qt3d qtimageformats qtmultimedia qtserialport qtwebsockets'
 
       - name: Install python-lxml for fixtures-tool # with the now-registered aqt python
         run: pip install lxml
@@ -311,7 +311,7 @@ jobs:
           echo "NPROC: ${NPROC}"
 
       - name: Install Qt
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
           host: 'windows'
@@ -322,7 +322,6 @@ jobs:
 
       - name: Update and install MSYS2 (64bit)
         uses: msys2/setup-msys2@v2
-        if: ${{ matrix.task == 'build-v4' || matrix.task == 'build-v5' }}
         with:
           msystem: mingw64
           release: true
@@ -344,7 +343,6 @@ jobs:
 
       - name: D2XX SDK (64 bit)
         shell: msys2 {0}
-        if: ${{ matrix.task == 'build-v4' || matrix.task == 'build-v5' }}
         run: |
           mkdir -p /c/projects/D2XXSDK
           wget https://ftdichip.com/wp-content/uploads/2023/09/CDM-v2.12.36.4-WHQL-Certified.zip -O /c/projects/D2XXSDK/cdm.zip
