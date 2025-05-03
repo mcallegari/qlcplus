@@ -152,7 +152,7 @@ jobs:
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" -Dqmlui=ON -Dappimage=ON -DINSTALL_ROOT=${INSTALL_ROOT} -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
       - name: Configure for coverage build
-        if: ${{ matrix.task == 'build-coverage-v4' }}
+        if: ${{ matrix.task == 'coverage-build-v4' }}
         run: |
           cmake -DCMAKE_PREFIX_PATH="/opt/Qt/$QT_VERSION/gcc_64/lib/cmake" -Dcoverage=ON -DINSTALL_ROOT=${INSTALL_ROOT} -B build
 
