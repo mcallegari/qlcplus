@@ -12,6 +12,12 @@ set -e
 TARGET_DIR=$HOME/qlcplus.AppDir
 CMAKE_OPTS=""
 
+if ! command -v chrpath 2>&1 >/dev/null
+then
+    echo "chrpath could not be found. Install it before running this script"
+    exit 1
+fi
+
 if [ "$1" == "qmlui" ]; then
     ./translate.sh "qmlui"
     CMAKE_OPTS="-Dqmlui=ON"
@@ -45,6 +51,9 @@ if [ ! -d "$TARGET_DIR" ]; then
 fi
 make install
 
+cp -v ../resources/icons/svg/qlcplus.svg $TARGET_DIR
+cp -v ../platforms/linux/qlcplus.desktop $TARGET_DIR
+
 find $TARGET_DIR/usr/lib/ -name 'libqlcplusengine.so*' -exec strip -v {} \;
 
 if [ "$1" == "qmlui" ]; then
@@ -66,9 +75,6 @@ else
     chrpath -r "../lib" $TARGET_DIR/usr/bin/qlcplus || true
     sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus/g' $TARGET_DIR/qlcplus.desktop
 fi
-
-cp -v ../resources/icons/svg/qlcplus.svg $TARGET_DIR
-cp -v ../platforms/linux/qlcplus.desktop $TARGET_DIR
 
 # There might be a new version of the tool available.
 wget -c https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64 -O $TARGET_DIR/AppRun

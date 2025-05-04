@@ -33,6 +33,10 @@ if(appimage)
         set(QT_LIBS_PATH "/usr/lib/x86_64-linux-gnu")
         set(QT_PLUGINS_PATH "/usr/lib/x86_64-linux-gnu/qt5/plugins")
         set(QT_QML_PATH "/usr/lib/x86_64-linux-gnu/qt5/qml")
+    elseif(QT_DIR STREQUAL "/usr/lib/x86_64-linux-gnu/cmake/Qt6")
+        set(QT_LIBS_PATH "/usr/lib/x86_64-linux-gnu")
+        set(QT_PLUGINS_PATH "/usr/lib/x86_64-linux-gnu/qt6/plugins")
+        set(QT_QML_PATH "/usr/lib/x86_64-linux-gnu/qt6/qml")
     else()
         get_filename_component(QT_LIBS_PATH ${QT_DIR}/../../../lib ABSOLUTE)
         get_filename_component(QT_PLUGINS_PATH ${QT_LIBS_PATH}/../plugins ABSOLUTE)
@@ -86,10 +90,20 @@ if(appimage)
             ${QT_LIBS_PATH}/libQt6MultimediaQuick.so
             ${QT_LIBS_PATH}/libQt6MultimediaGstTools.so
             ${QT_LIBS_PATH}/libQt6QmlModels.so
+            ${QT_LIBS_PATH}/libQt6QmlMeta.so
             ${QT_LIBS_PATH}/libQt6QmlWorkerScript.so
             ${QT_LIBS_PATH}/libQt6Quick.so
+            ${QT_LIBS_PATH}/libQt6QuickLayouts.so
             ${QT_LIBS_PATH}/libQt6QuickControls2.so
+            ${QT_LIBS_PATH}/libQt6QuickControls2Impl.so
+            ${QT_LIBS_PATH}/libQt6QuickControls2Basic.so
+            ${QT_LIBS_PATH}/libQt6QuickControls2BasicStyleImpl.so
+            ${QT_LIBS_PATH}/libQt6QuickControls2Fusion.so
+            ${QT_LIBS_PATH}/libQt6QuickControls2FusionStyleImpl.so
             ${QT_LIBS_PATH}/libQt6QuickTemplates2.so
+            ${QT_LIBS_PATH}/libQt6QuickDialogs2.so
+            ${QT_LIBS_PATH}/libQt6QuickDialogs2QuickImpl.so
+            ${QT_LIBS_PATH}/libQt6QuickDialogs2Utils.so
             ${QT_LIBS_PATH}/libQt63DCore.so
             ${QT_LIBS_PATH}/libQt63DExtras.so
             ${QT_LIBS_PATH}/libQt63DInput.so
@@ -99,6 +113,7 @@ if(appimage)
             ${QT_LIBS_PATH}/libQt63DQuickExtras.so
             ${QT_LIBS_PATH}/libQt63DQuickInput.so
             ${QT_LIBS_PATH}/libQt63DQuickRender.so
+            ${QT_LIBS_PATH}/libQt63DQuickScene3D.so
             ${QT_LIBS_PATH}/libQt63DRender.so
             ${QT_LIBS_PATH}/libQt6Concurrent.so
             ${QT_LIBS_PATH}/libQt6Gamepad.so
@@ -115,9 +130,9 @@ if(appimage)
 
     # Qt plugins
     if (QT_VERSION_MAJOR GREATER 5)
-        set(QT_V "qt6")
+        set(PLUGINS_DESTINATION ${INSTALLROOT}/plugins)
     else()
-        set(QT_V "qt5")
+        set(PLUGINS_DESTINATION ${INSTALLROOT}/${LIBSDIR}/qt5/plugins)
     endif()
 
     install(
@@ -125,73 +140,80 @@ if(appimage)
             ${QT_PLUGINS_PATH}/platforms/libqlinuxfb.so
             ${QT_PLUGINS_PATH}/platforms/libqxcb.so
             ${QT_PLUGINS_PATH}/platforms/libqminimal.so
-        DESTINATION ${INSTALLROOT}/${LIBSDIR}/${QT_V}/plugins/platforms
+        DESTINATION ${PLUGINS_DESTINATION}/platforms
     )
 
     install(
-        FILES
-            ${QT_PLUGINS_PATH}/xcbglintegrations/libqxcb-glx-integration.so
-        DESTINATION ${INSTALLROOT}/${LIBSDIR}/${QT_V}/plugins/xcbglintegrations
+        FILES ${QT_PLUGINS_PATH}/xcbglintegrations/libqxcb-glx-integration.so
+        DESTINATION ${PLUGINS_DESTINATION}/xcbglintegrations
     )
 
     if (QT_VERSION_MAJOR GREATER 5)
         install(
+            FILES ${QT_PLUGINS_PATH}/multimedia/libffmpegmediaplugin.so
+            DESTINATION ${PLUGINS_DESTINATION}/multimedia
+        )
+        get_filename_component(LIBAVFORMAT_REAL "${QT_LIBS_PATH}/libavformat.so" REALPATH)
+        install(
             FILES
-                ${QT_PLUGINS_PATH}/multimedia/libffmpegmediaplugin.so
-            DESTINATION ${INSTALLROOT}/${LIBSDIR}/${QT_V}/plugins/multimedia
+                ${QT_LIBS_PATH}/libavformat.so
+                ${QT_LIBS_PATH}/libavformat.so.61
+                ${LIBAVFORMAT_REAL}
+            DESTINATION ${INSTALLROOT}/${LIBSDIR}
         )
     else()
         install(
             FILES
                 ${QT_PLUGINS_PATH}/audio/libqtaudio_alsa.so
                 ${QT_PLUGINS_PATH}/audio/libqtmedia_pulse.so
-            DESTINATION ${INSTALLROOT}/${LIBSDIR}/${QT_V}/plugins/audio
+            DESTINATION ${PLUGINS_DESTINATION}/audio
         )
 
         install(
             FILES
                 ${QT_PLUGINS_PATH}/mediaservice/libgstaudiodecoder.so
                 ${QT_PLUGINS_PATH}/mediaservice/libgstmediaplayer.so
-            DESTINATION ${INSTALLROOT}/${LIBSDIR}/${QT_V}/plugins/mediaservice
+            DESTINATION ${PLUGINS_DESTINATION}/mediaservice
         )
     endif()
 
     install(
         FILES
             ${QT_PLUGINS_PATH}/imageformats/libqsvg.so
-        DESTINATION ${INSTALLROOT}/${LIBSDIR}/${QT_V}/plugins/imageformats
+        DESTINATION ${PLUGINS_DESTINATION}/imageformats
     )
 
     if(qmlui)
         install(
             FILES
                 ${QT_PLUGINS_PATH}/printsupport/libcupsprintersupport.so
-            DESTINATION ${INSTALLROOT}/${LIBSDIR}/${QT_V}/plugins/printsupport
+            DESTINATION ${PLUGINS_DESTINATION}/printsupport
         )
 
         install(
             FILES
                 ${QT_PLUGINS_PATH}/sceneparsers/libassimpsceneimport.so
-            OPTIONAL DESTINATION ${INSTALLROOT}/${LIBSDIR}/${QT_V}/plugins/sceneparsers
+            OPTIONAL DESTINATION ${PLUGINS_DESTINATION}/sceneparsers
         )
 
         install(
             FILES
                 ${QT_PLUGINS_PATH}/geometryloaders/libdefaultgeometryloader.so
-            DESTINATION ${INSTALLROOT}/${LIBSDIR}/${QT_V}/plugins/geometryloaders
+            DESTINATION ${PLUGINS_DESTINATION}/geometryloaders
         )
-    endif()
 
-    if(QT_VERSION VERSION_GREATER_EQUAL 5.15.0)
-        install(FILES ${QT_PLUGINS_PATH}/renderers/libopenglrenderer.so DESTINATION ${INSTALLROOT}/${LIBSDIR}/${QT_V}/plugins/renderers)
-    endif()
+        if(QT_VERSION VERSION_GREATER_EQUAL 5.15.0)
+            install(FILES ${QT_PLUGINS_PATH}/renderers/libopenglrenderer.so DESTINATION ${PLUGINS_DESTINATION}/renderers)
+        endif()
 
-    set(qmldeps_files
-        ${QT_QML_PATH}/QtQml
-        ${QT_QML_PATH}/QtQuick
-        ${QT_QML_PATH}/Qt3D
-        ${QT_QML_PATH}/QtMultimedia
-    )
-    install(DIRECTORY ${qmldeps_files} DESTINATION ${INSTALLROOT}/bin)
+        set(qmldeps_files
+            ${QT_QML_PATH}/QtQml
+            ${QT_QML_PATH}/QtQuick
+            ${QT_QML_PATH}/Qt3D
+            ${QT_QML_PATH}/QtMultimedia
+        )
+        install(DIRECTORY ${qmldeps_files} DESTINATION ${INSTALLROOT}/bin)
+
+    endif()
 
 endif()
