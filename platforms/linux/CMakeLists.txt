@@ -63,7 +63,7 @@ if(appimage)
             ${QT_LIBS_PATH}/libQt6SerialPort.so
             ${QT_LIBS_PATH}/libQt6XcbQpa.so
             ${QT_LIBS_PATH}/libQt6DBus.so
-            ${QT_LIBS_PATH}/libQt5WebSockets.so)
+            ${QT_LIBS_PATH}/libQt6WebSockets.so)
     else()
         set(qtlibs_FILES
             ${QT_LIBS_PATH}/libQt5Core.so.5
