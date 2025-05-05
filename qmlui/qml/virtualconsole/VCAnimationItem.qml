@@ -113,14 +113,14 @@ VCWidgetItem
             width: UISettings.iconSizeDefault * 1.5
             height: width
             radius: 5
-            border.color: ecMouseArea.containsMouse ? "white" : UISettings.bgLight
+            border.color: ec2MouseArea.containsMouse ? "white" : UISettings.bgLight
             border.width: 2
             color: animationObj ? animationObj.color2 : "transparent"
             visible: animationObj ? animationObj.visibilityMask & VCAnimation.Color2 : true
 
             MouseArea
             {
-                id: ecMouseArea
+                id: ec2MouseArea
                 anchors.fill: parent
                 hoverEnabled: true
                 onClicked: col2Tool.visible = !col2Tool.visible
@@ -150,14 +150,14 @@ VCWidgetItem
             width: UISettings.iconSizeDefault * 1.5
             height: width
             radius: 5
-            border.color: ecMouseArea.containsMouse ? "white" : UISettings.bgLight
+            border.color: ec3MouseArea.containsMouse ? "white" : UISettings.bgLight
             border.width: 2
             color: animationObj ? animationObj.color3 : "transparent"
             visible: animationObj ? animationObj.visibilityMask & VCAnimation.Color3 : true
 
             MouseArea
             {
-                id: ecMouseArea
+                id: ec3MouseArea
                 anchors.fill: parent
                 hoverEnabled: true
                 onClicked: col3Tool.visible = !col3Tool.visible
@@ -187,14 +187,14 @@ VCWidgetItem
             width: UISettings.iconSizeDefault * 1.5
             height: width
             radius: 5
-            border.color: ecMouseArea.containsMouse ? "white" : UISettings.bgLight
+            border.color: ec4MouseArea.containsMouse ? "white" : UISettings.bgLight
             border.width: 2
             color: animationObj ? animationObj.color4 : "transparent"
             visible: animationObj ? animationObj.visibilityMask & VCAnimation.Color4 : true
 
             MouseArea
             {
-                id: ecMouseArea
+                id: ec4MouseArea
                 anchors.fill: parent
                 hoverEnabled: true
                 onClicked: col4Tool.visible = !col4Tool.visible
@@ -224,14 +224,14 @@ VCWidgetItem
             width: UISettings.iconSizeDefault * 1.5
             height: width
             radius: 5
-            border.color: ecMouseArea.containsMouse ? "white" : UISettings.bgLight
+            border.color: ec5MouseArea.containsMouse ? "white" : UISettings.bgLight
             border.width: 2
             color: animationObj ? animationObj.color5 : "transparent"
             visible: animationObj ? animationObj.visibilityMask & VCAnimation.Color5 : true
 
             MouseArea
             {
-                id: ecMouseArea
+                id: ec5MouseArea
                 anchors.fill: parent
                 hoverEnabled: true
                 onClicked: col5Tool.visible = !col5Tool.visible
