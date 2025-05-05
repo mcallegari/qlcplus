@@ -21,6 +21,7 @@
 #ifndef RGBMATRIX_H
 #define RGBMATRIX_H
 
+#include <QElapsedTimer>
 #include <QVector>
 #include <QColor>
 #include <QList>
@@ -36,7 +37,6 @@
 #endif
 #include "function.h"
 
-class QElapsedTimer;
 class FixtureGroup;
 class GenericFader;
 class FadeChannel;
@@ -264,7 +264,7 @@ public:
 
 private:
     /** Reference to a timer counting the time in ms between steps */
-    QElapsedTimer *m_roundTime;
+    QElapsedTimer m_roundTime;
 
     /** The number of steps returned by the currently loaded algorithm */
     int m_stepsCount;

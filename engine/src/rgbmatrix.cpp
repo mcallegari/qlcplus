@@ -35,25 +35,25 @@
 #include "rgbimage.h"
 #include "doc.h"
 
-#define KXMLQLCRGBMatrixStartColor      QString("MonoColor")
-#define KXMLQLCRGBMatrixEndColor        QString("EndColor")
-#define KXMLQLCRGBMatrixColor           QString("Color")
-#define KXMLQLCRGBMatrixColorIndex      QString("Index")
+#define KXMLQLCRGBMatrixStartColor      QStringLiteral("MonoColor")
+#define KXMLQLCRGBMatrixEndColor        QStringLiteral("EndColor")
+#define KXMLQLCRGBMatrixColor           QStringLiteral("Color")
+#define KXMLQLCRGBMatrixColorIndex      QStringLiteral("Index")
 
-#define KXMLQLCRGBMatrixFixtureGroup    QString("FixtureGroup")
-#define KXMLQLCRGBMatrixDimmerControl   QString("DimmerControl")
+#define KXMLQLCRGBMatrixFixtureGroup    QStringLiteral("FixtureGroup")
+#define KXMLQLCRGBMatrixDimmerControl   QStringLiteral("DimmerControl")
 
-#define KXMLQLCRGBMatrixProperty        QString("Property")
-#define KXMLQLCRGBMatrixPropertyName    QString("Name")
-#define KXMLQLCRGBMatrixPropertyValue   QString("Value")
+#define KXMLQLCRGBMatrixProperty        QStringLiteral("Property")
+#define KXMLQLCRGBMatrixPropertyName    QStringLiteral("Name")
+#define KXMLQLCRGBMatrixPropertyValue   QStringLiteral("Value")
 
-#define KXMLQLCRGBMatrixControlMode         QString("ControlMode")
-#define KXMLQLCRGBMatrixControlModeRgb      QString("RGB")
-#define KXMLQLCRGBMatrixControlModeAmber    QString("Amber")
-#define KXMLQLCRGBMatrixControlModeWhite    QString("White")
-#define KXMLQLCRGBMatrixControlModeUV       QString("UV")
-#define KXMLQLCRGBMatrixControlModeDimmer   QString("Dimmer")
-#define KXMLQLCRGBMatrixControlModeShutter  QString("Shutter")
+#define KXMLQLCRGBMatrixControlMode         QStringLiteral("ControlMode")
+#define KXMLQLCRGBMatrixControlModeRgb      QStringLiteral("RGB")
+#define KXMLQLCRGBMatrixControlModeAmber    QStringLiteral("Amber")
+#define KXMLQLCRGBMatrixControlModeWhite    QStringLiteral("White")
+#define KXMLQLCRGBMatrixControlModeUV       QStringLiteral("UV")
+#define KXMLQLCRGBMatrixControlModeDimmer   QStringLiteral("Dimmer")
+#define KXMLQLCRGBMatrixControlModeShutter  QStringLiteral("Shutter")
 
 /****************************************************************************
  * Initialization
@@ -71,7 +71,6 @@ RGBMatrix::RGBMatrix(Doc *doc)
     , m_algorithmMutex(QMutex::Recursive)
 #endif
     , m_stepHandler(new RGBMatrixStep())
-    , m_roundTime(new QElapsedTimer())
     , m_stepsCount(0)
     , m_stepBeatDuration(0)
     , m_controlMode(RGBMatrix::ControlModeRgb)
@@ -90,7 +89,6 @@ RGBMatrix::~RGBMatrix()
     //if (m_runAlgorithm != NULL)
     //    delete m_runAlgorithm;
     delete m_algorithm;
-    delete m_roundTime;
     delete m_stepHandler;
 }
 
@@ -558,7 +556,7 @@ void RGBMatrix::tap()
     {
         FixtureGroup *grp = doc()->fixtureGroup(fixtureGroup());
         // Filter out taps that are too close to each other
-        if (grp != NULL && uint(m_roundTime->elapsed()) >= (duration() / 4))
+        if (grp != NULL && uint(m_roundTime.elapsed()) >= (duration() / 4))
         {
             roundCheck();
             resetElapsed();
@@ -611,7 +609,7 @@ void RGBMatrix::preRun(MasterTimer *timer)
         }
     }
 
-    m_roundTime->restart();
+    m_roundTime.restart();
 
     Function::preRun(timer);
 }
@@ -741,7 +739,7 @@ void RGBMatrix::roundCheck()
     if (m_stepHandler->checkNextStep(runOrder(), m_rgbColors[0], m_rgbColors[1], m_stepsCount) == false)
         stop(FunctionParent::master());
 
-    m_roundTime->restart();
+    m_roundTime.restart();
 
     if (tempoType() == Beats)
         roundElapsed(m_stepBeatDuration);

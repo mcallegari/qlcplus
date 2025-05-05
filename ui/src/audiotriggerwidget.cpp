@@ -33,11 +33,15 @@ AudioTriggerWidget::AudioTriggerWidget(QWidget *parent) :
 {
 }
 
+AudioTriggerWidget::~AudioTriggerWidget()
+{
+    delete[] m_spectrumBands;
+}
+
 void AudioTriggerWidget::setBarsNumber(int num)
 {
     m_barsNumber = num;
-    if (m_spectrumBands)
-        delete[] m_spectrumBands;
+    delete[] m_spectrumBands;
     m_spectrumBands = new double[m_barsNumber];
     for (int i = 0; i < m_barsNumber; i++)
         m_spectrumBands[i] = 0;

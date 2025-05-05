@@ -107,6 +107,7 @@ VCAudioTriggers::VCAudioTriggers(QWidget* parent, Doc* doc)
     // create the  AudioBar items to hold the spectrum data.
     // To be loaded from the project
     m_volumeBar = new AudioBar(AudioBar::None, 0, id());
+    m_spectrumBars.reserve(m_inputCapture->defaultBarsNumber());
     for (int i = 0; i < m_inputCapture->defaultBarsNumber(); i++)
     {
         AudioBar *asb = new AudioBar(AudioBar::None, 0, id());
@@ -151,6 +152,9 @@ VCAudioTriggers::~VCAudioTriggers()
 
     if (m_inputCapture == capture.data())
         m_inputCapture->unregisterBandsNumber(m_spectrum->barsNumber());
+
+    qDeleteAll(m_spectrumBars);
+    delete m_volumeBar;
 }
 
 void VCAudioTriggers::enableWidgetUI(bool enable)
@@ -507,6 +511,7 @@ AudioBar *VCAudioTriggers::getSpectrumBar(int index)
 QList<AudioBar *> VCAudioTriggers::getAudioBars()
 {
     QList <AudioBar *> list;
+    list.reserve(1 + m_spectrumBars.size());
     list.append(m_volumeBar);
     list.append(m_spectrumBars);
 
@@ -528,7 +533,7 @@ void VCAudioTriggers::setSpectrumBarsNumber(int num)
     {
         int barsToRemove = m_spectrumBars.count() - num;
         for (int i = 0 ; i < barsToRemove; i++)
-            m_spectrumBars.removeLast();
+            delete m_spectrumBars.takeLast();
     }
 
     if (m_spectrum != NULL)
@@ -564,6 +569,7 @@ void VCAudioTriggers::editProperties()
         // restore the previous bars backup
         delete m_volumeBar;
         m_volumeBar = tmpVolume;
+        qDeleteAll(m_spectrumBars);
         m_spectrumBars.clear();
         foreach (AudioBar *bar, tmpSpectrumBars)
             m_spectrumBars.append(bar);
