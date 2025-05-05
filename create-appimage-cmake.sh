@@ -64,7 +64,7 @@ if [ "$1" == "qmlui" ]; then
     pushd $TARGET_DIR/usr/bin
     find . -name plugins.qmltypes -type f -delete
     find . -name *.qmlc -type f -delete
-    rm -rf QtQuick/Extras QtQuick/Particles.2 QtQuick/XmlListModel
+    rm -rf Qt/test QtQuick/Extras QtQuick/Particles.2 QtQuick/XmlListModel
     rm -rf QtQuick/Controls.2/designer QtQuick/Controls.2/Material
     rm -rf QtQuick/Controls.2/Universal QtQuick/Controls.2/Fusion
     rm -rf QtQuick/Controls.2/Imagine QtQuick/Controls.2/Scene2D

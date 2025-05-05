@@ -87,6 +87,7 @@ if(appimage)
 
     if(qmlui)
         list(APPEND qtlibs_FILES
+            ${QT_LIBS_PATH}/libQt6LabsFolderListModel.so
             ${QT_LIBS_PATH}/libQt6MultimediaQuick.so
             ${QT_LIBS_PATH}/libQt6MultimediaGstTools.so
             ${QT_LIBS_PATH}/libQt6QmlModels.so
@@ -207,6 +208,7 @@ if(appimage)
         endif()
 
         set(qmldeps_files
+            ${QT_QML_PATH}/Qt
             ${QT_QML_PATH}/QtQml
             ${QT_QML_PATH}/QtQuick
             ${QT_QML_PATH}/Qt3D
