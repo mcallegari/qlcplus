@@ -92,6 +92,7 @@ private:
 #if defined(WIN32) || defined(Q_OS_WIN)
 protected:
     bool nativeEvent(const QByteArray & eventType, void * message, long * result);
+    void disableTimerResolutionThrottling();
 #endif
 
 private:
