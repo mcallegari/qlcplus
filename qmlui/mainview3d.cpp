@@ -1587,7 +1587,7 @@ void MainView3D::createGenericItem(QString filename, int itemID)
                 }
                 else
                 {
-                    filename = QLCFile::fileUrlPrefix() + m_doc->getWorkspacePath() + QDir::separator() + filename;
+                    filename = QLCFile::fileUrlPrefix() + m_doc->workspacePath() + QDir::separator() + filename;
                 }
             }
             else

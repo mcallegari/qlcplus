@@ -81,7 +81,7 @@ public:
     void setWorkspacePath(QString path);
 
     /** Retrieve the current workspace absolute path */
-    QString getWorkspacePath() const;
+    QString workspacePath() const;
 
     /** If filePath is in the workspace directory or in one of its subdirectories,
      *  return path relative to the workspace directory.
@@ -100,7 +100,7 @@ public:
     QString denormalizeComponentPath(const QString& filePath) const;
 
 private:
-    QString m_wsPath;
+    QString m_workspacePath;
 
 signals:
     /** Emitted when clearContents() is called, before actually doing anything. */

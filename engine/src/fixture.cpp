@@ -1243,7 +1243,7 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
             QString man(manufacturer);
             QString mod(model);
             QString path = QString("%1%2%3-%4%5")
-                    .arg(doc->getWorkspacePath()).arg(QDir::separator())
+                    .arg(doc->workspacePath()).arg(QDir::separator())
                     .arg(man.replace(" ", "-")).arg(mod.replace(" ", "-")).arg(KExtFixture);
 
             qDebug() << "Fixture not found. Fallback to:" << path;
