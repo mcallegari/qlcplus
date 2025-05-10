@@ -27,15 +27,15 @@ var testAlgo;
     algo.apiVersion = 3;
     algo.name = "Plasma";
     algo.author = "Tim Cullingworth, Massimo Callegari";
-    algo.acceptColors = 0;
+    algo.acceptColors = 5;
     algo.properties = new Array();
     algo.rstepcount = 0;
     algo.gstepcount = 50;
     algo.bstepcount = 100;
-    algo.presetIndex = 0;
+    algo.presetIndex = 4;
     algo.properties.push(
       "name:presetIndex|type:list|display:Preset|" +
-      "values:Rainbow,Fire,Abstract,Ocean,User Defined|" +
+      "values:User Defined,Rainbow,Fire,Abstract,Ocean|" +
       "write:setPreset|read:getPreset");
     algo.presetSize = 5;
     algo.properties.push(
@@ -61,30 +61,25 @@ var testAlgo;
       if (_preset === "Rainbow")
       {
         algo.presetIndex = 0;
-        util.colorArray = [ 0xFF0000, 0x00FF00, 0x0000FF ];
       }
       else if (_preset === "Fire")
       {
         algo.presetIndex = 1;
-        util.colorArray = [ 0xFFFF00, 0xFF0000, 0x000040, 0xFF0000 ];
       }
       else if (_preset === "Abstract")
       {
         algo.presetIndex = 2;
-        util.colorArray = [ 0x5571FF, 0x00FFFF, 0xFF00FF, 0xFFFF00 ];
       }
       else if (_preset === "Ocean")
       {
         algo.presetIndex = 3;
-        util.colorArray = [ 0x003AB9, 0x02EAFF ];
       }
       else if (_preset === "User Defined")
       {
         algo.presetIndex = 4;
         algo.acceptColors = 5;
-        util.colorArray = [ 0x00FF00, 0xFFAA00, 0x0000FF, 0xFFFF00, 0xFFFFFF ];
       }
-      else { algo.presetIndex = 0; }
+      else { algo.presetIndex = 4; }
       util.initialized = false;
     };
 
@@ -95,7 +90,7 @@ var testAlgo;
       else if (algo.presetIndex === 2) { return "Abstract"; }
       else if (algo.presetIndex === 3) { return "Ocean"; }
       else if (algo.presetIndex === 4) { return "User Defined"; }
-      else { return "Rainbow"; }
+      else { return "User Defined"; }
     };
 
     algo.setSize = function(_size)
@@ -137,10 +132,11 @@ var testAlgo;
       // with the given width
       var gradIdx = 0;
       util.gradientData = new Array();
-      for (var i = 0; i < util.colorArray.length; i++)
+      var colorArray = algo.rgbMapGetColors();
+      for (var i = 0; i < colorArray.length; i++)
       {
-        var sColor = util.colorArray[i];
-        var eColor = util.colorArray[(i + 1) % util.colorArray.length];
+        var sColor = colorArray[i];
+        var eColor = colorArray[(i + 1) % colorArray.length];
         if (! sColor)
           sColor = 0;
         if (! eColor)
@@ -270,7 +266,9 @@ var testAlgo;
     {
       if (! Array.isArray(rawColors))
         return;
-      for (var i = 0; i < algo.acceptColors; i++) {
+
+      util.colorArray = new Array(rawColors.length);
+      for (var i = 0; i < util.colorArray.length; i++) {
         if (i < rawColors.length)
         {
           util.colorArray[i] = rawColors[i];
@@ -283,7 +281,32 @@ var testAlgo;
 
     algo.rgbMapGetColors = function()
     {
-      return util.colorArray;
+      if (algo.presetIndex === 1)
+      {
+        return [ 0xFFFF00, 0xFF0000, 0x000040, 0xFF0000 ];
+      }
+      else if (algo.presetIndex === 2)
+      {
+        return [ 0x5571FF, 0x00FFFF, 0xFF00FF, 0xFFFF00 ];
+      }
+      else if (algo.presetIndex === 3)
+      {
+        return [ 0x003AB9, 0x02EAFF ];
+      }
+      else if (algo.presetIndex === 4)
+      {
+        if (util.colorArray.length <= 0)
+        {
+          // No user defined colors set, return default
+          return [ 0x00FF00, 0xFFAA00, 0x0000FF, 0xFFFF00, 0xFFFFFF ];
+        }
+        return util.colorArray;
+      }
+      else
+      {
+        // Either presetIndex === 0 or an invalid presetIndex
+        return [ 0xFF0000, 0x00FF00, 0x0000FF ];
+      }
     }
 
     algo.rgbMap = function(width, height, rgb, step)

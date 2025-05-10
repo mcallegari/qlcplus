@@ -132,6 +132,11 @@ var testAlgo;
       }
     }
 
+    algo.rgbMapGetColors = function()
+    {
+      return util.colorArray;
+    }
+
     util.initialize = function (width, height) {
       algo.ball = new Array(algo.presetNumber);
       algo.direction = new Array(algo.presetNumber);
