@@ -525,6 +525,7 @@ public:
      *
      * @param address The DMX start address to write to
      * @param value The value to write
+     * @param forceLTP Force to skip the HTP check
      *
      * @return true if successful, otherwise false
      */
@@ -536,6 +537,7 @@ public:
      * @param address The DMX start address to write to
      * @param value the DMX value(s) to set
      * @param channelCount number of channels that value represents
+     *
      * @return always true
      */
     bool writeMultiple(int address, quint32 value, int channelCount);
