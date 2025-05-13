@@ -323,15 +323,13 @@ input[type="range"]:disabled::-webkit-slider-thumb {
  position: absolute;
  border: 1px solid #777777;
  border-radius: 3px;
- font-family: arial, verdana, sans-serif;
- font-size: 18px/1.0em;
+ font: 18px/1.0em arial, verdana, sans-serif;
 }
 
 .vcmatrix {
  position: absolute;
  border: 1px solid #777777;
- font-family: arial, verdana, sans-serif;
- font-size: 18px/1.0em;
+ font: 18px/1.0em arial, verdana, sans-serif;
 }
 
 input[type="color"].vMatrix {
