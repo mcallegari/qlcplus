@@ -29,8 +29,6 @@
 
 .button:hover {
  box-shadow: 0 0 .1em rgba(0,0,0,0.4);
- -moz-box-shadow: 0 0 .1em rgba(0,0,0,0.4);
- -webkit-box-shadow: 0 0 .1em rgba(0,0,0,0.4);
 }
 
 .button:active {
