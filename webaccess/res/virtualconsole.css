@@ -43,11 +43,6 @@ input:focus-visible {
  display: inline-block;
  vertical-align: top;
  background: linear-gradient(to bottom, #f6f6f6 0%, #dfdddc 100%);
- background: -ms-linear-gradient(top, #f6f6f6 0%, #dfdddc 100%);
- background: -moz-linear-gradient(top, #f6f6f6 0%, #dfdddc 100%);
- background: -o-linear-gradient(top, #f6f6f6 0%, #dfdddc 100%);
- background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f6f6f6), color-stop(1, #dfdddc));
- background: -webkit-linear-gradient(top, #f6f6f6 0%, #dfdddc 100%);
  border-radius: 3px;
  border: 1px solid #808080;
  margin: 2px 2px 0 0;
@@ -152,11 +147,6 @@ table.hovertable td {
 
 .vcframeHeader {
  background: linear-gradient(to bottom, #666666 0%, #000000 100%);
- background: -ms-linear-gradient(top, #666666 0%, #000000 100%);
- background: -moz-linear-gradient(top, #666666 0%, #000000 100%);
- background: -o-linear-gradient(top, #666666 0%, #000000 100%);
- background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666666), color-stop(1, #000000));
- background: -webkit-linear-gradient(top, #666666 0%, #000000 100%);
  border-radius: 3px;
  margin: 2px 0 0 2px;
  padding: 0 0 0 3px;
@@ -213,11 +203,6 @@ table.hovertable td {
 
 .vcsoloframeHeader {
  background: linear-gradient(to bottom, #bc0a0a 0%, #370303 100%);
- background: -ms-linear-gradient(top, #bc0a0a 0%, #370303 100%);
- background: -moz-linear-gradient(top, #bc0a0a 0%, #370303 100%);
- background: -o-linear-gradient(top, #bc0a0a 0%, #370303 100%);
- background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #bc0a0a), color-stop(1, #370303));
- background: -webkit-linear-gradient(top, #bc0a0a 0%, #370303 100%);
  border-radius: 3px;
  margin: 2px 2px 0 2px;
  padding: 0 0 0 3px;
@@ -319,11 +304,6 @@ input[type="range"]:disabled::-webkit-slider-thumb {
 
 .vcaudioHeader {
  background: linear-gradient(to bottom, #345d27 0%, #0e1a0a 100%);
- background: -ms-linear-gradient(top, #345d27 0%, #0e1a0a 100%);
- background: -moz-linear-gradient(top, #345d27 0%, #0e1a0a 100%);
- background: -o-linear-gradient(top, #345d27 0%, #0e1a0a 100%);
- background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #345d27), color-stop(1, #0e1a0a));
- background: -webkit-linear-gradient(top, #345d27 0%, #0e1a0a 100%);
  border-radius: 3px;
  height: 32px;
  margin: 2px;

@@ -23,11 +23,6 @@ body {
  display: inline-block;
  vertical-align: top;
  background: linear-gradient(to bottom, #f6f6f6 0%, #aaaaaa 100%);
- background: -ms-linear-gradient(top, #f6f6f6 0%, #aaaaaa 100%);
- background: -moz-linear-gradient(top, #f6f6f6 0%, #aaaaaa 100%);
- background: -o-linear-gradient(top, #f6f6f6 0%, #aaaaaa 100%);
- background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f6f6f6), color-stop(1, #aaaaaa));
- background: -webkit-linear-gradient(top, #f6f6f6 0%, #aaaaaa 100%);
  border-radius: 3px;
  border: 1px solid #808080;
  padding: 1px;
