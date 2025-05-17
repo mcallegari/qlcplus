@@ -240,6 +240,10 @@ void RGBMatrix::setAlgorithm(RGBAlgorithm *algo)
                     m_properties.take(it.key());
                 }
             }
+
+            QVector<uint> colors = script->rgbMapGetColors();
+            for (int i = 0; i < colors.count(); i++)
+                m_rgbColors.replace(i, QColor::fromRgb(colors.at(i)));
         }
     }
     m_stepsCount = algorithmStepsCount();
@@ -340,7 +344,8 @@ QVector<QColor> RGBMatrix::getColors() const
 
 void RGBMatrix::updateColorDelta()
 {
-    m_stepHandler->calculateColorDelta(m_rgbColors[0], m_rgbColors[1], m_algorithm);
+    if (m_rgbColors.count() > 1)
+        m_stepHandler->calculateColorDelta(m_rgbColors[0], m_rgbColors[1], m_algorithm);
 }
 
 void RGBMatrix::setMapColors(RGBAlgorithm *algorithm)
@@ -355,17 +360,23 @@ void RGBMatrix::setMapColors(RGBAlgorithm *algorithm)
     if (m_group == NULL)
         m_group = doc()->fixtureGroup(fixtureGroup());
 
-    if (m_group != NULL)
+    QVector<unsigned int> rawColors;
+    const int acceptColors = algorithm->acceptColors();
+    rawColors.reserve(acceptColors);
+    for (int i = 0; i < acceptColors; i++)
     {
-        QVector<unsigned int> rawColors;
-        for (int i = 0; i < algorithm->acceptColors(); i++)
+        if (m_rgbColors.count() > i)
         {
             QColor col = m_rgbColors.at(i);
             rawColors.append(col.isValid() ? col.rgb() : 0);
         }
-
-        algorithm->rgbMapSetColors(rawColors);
+        else
+        {
+            rawColors.append(0);
+        }
     }
+
+    algorithm->rgbMapSetColors(rawColors);
 }
 
 /************************************************************************
