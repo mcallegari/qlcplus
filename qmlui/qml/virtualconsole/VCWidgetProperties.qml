@@ -220,7 +220,7 @@ Rectangle
                         {
                             Layout.fillWidth: true
                             height: UISettings.listItemHeight
-                            color: UISettings.bgMedium
+                            //color: UISettings.bgMedium
                             text: wObj ? wObj.caption : ""
 
                             onTextChanged:

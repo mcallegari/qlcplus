@@ -120,7 +120,7 @@ Button
         anchors.fill: parent
         acceptedButtons: Qt.RightButton
 
-        onClicked:
+        onClicked: (mouse) =>
         {
             if (mouse.button === Qt.RightButton)
                 control.rightClicked()
