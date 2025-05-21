@@ -881,7 +881,7 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QL
             if (headDim != QLCChannel::invalid() && headDim != masterDim)
             {
                 channelList.append(headDim);
-                valueList.append(col == 0 ? 0 : 255);
+                valueList.append(rgbToGrey(col) == 0 ? 0 : 255);
             }
         }
         else

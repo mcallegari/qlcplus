@@ -5,6 +5,7 @@ qlcplus (4.14.2) stable; urgency=low
   * engine: fix crash when changing EFX timing after "Stop all functions" (thanks to Jurrie Overgoor)
   * engine: input profiles are now loaded from project folder too
   * engine: fix RGB Matrix color lost while editing (thanks to Jurrie Overgoor)
+  * engine: fix RGB Matrix dimmer control mode on generic dimmers
   * Virtual Console: add an option to hide Grand Master (thanks to Jurrie Overgoor)
   * Plugins/DMX USB: fix crash with some FTDI adapters
   * Plugins/DMX USB: improve Open DMX timer accuracy (thanks to Basil Hussain)
