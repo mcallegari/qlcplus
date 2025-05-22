@@ -633,6 +633,15 @@ QVariantList EFXEditor::fixturesData()
     return m_fixturesData;
 }
 
+void EFXEditor::setFixturesData(const QVariantList &data)
+{
+    if (m_fixturesData != data)
+    {
+        m_fixturesData = data;
+        emit fixturesDataChanged();
+    }
+}
+
 void EFXEditor::updateAlgorithmData()
 {
     if (m_efx == nullptr)

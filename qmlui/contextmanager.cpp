@@ -670,22 +670,9 @@ void ContextManager::setFixtureIDSelection(quint32 fixtureID, bool enable)
 
 void ContextManager::resetFixtureSelection()
 {
-/*
-    for (Fixture *fixture : m_doc->fixtures()) // C++11
-    {
-        if (fixture == nullptr)
-            continue;
+    QList<quint32> tmpList = m_selectedFixtures;
 
-        for (quint32 &subID : m_monProps->fixtureIDList(fixture->id()))
-        {
-            quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
-            quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
-            quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
-            setFixtureSelection(itemID, -1, false);
-        }
-    }
-*/
-    for (quint32 itemID : m_selectedFixtures)
+    for (quint32 &itemID : tmpList)
         setFixtureSelection(itemID, -1, false);
 
     m_selectedFixtures.clear();

@@ -518,7 +518,7 @@ Rectangle
                             height: UISettings.listItemHeight
                             Layout.fillWidth: true
                             from: 1
-                            to: 1000
+                            to: 10000
                             suffix: "%"
                             value: currentScale.x
                             onValueModified:
@@ -575,7 +575,7 @@ Rectangle
                             height: UISettings.listItemHeight
                             Layout.fillWidth: true
                             from: 1
-                            to: 1000
+                            to: 10000
                             suffix: "%"
                             value: currentScale.y
                             onValueModified:
@@ -601,7 +601,7 @@ Rectangle
                             height: UISettings.listItemHeight
                             Layout.fillWidth: true
                             from: 1
-                            to: 1000
+                            to: 10000
                             suffix: "%"
                             value: currentScale.z
                             onValueModified:

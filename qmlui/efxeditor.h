@@ -54,7 +54,7 @@ class EFXEditor : public FunctionEditor
     Q_PROPERTY(qreal maxTiltDegrees READ maxTiltDegrees NOTIFY maxTiltDegreesChanged)
 
     Q_PROPERTY(QVariantList algorithmData READ algorithmData NOTIFY algorithmDataChanged)
-    Q_PROPERTY(QVariantList fixturesData READ fixturesData NOTIFY fixturesDataChanged)
+    Q_PROPERTY(QVariantList fixturesData READ fixturesData WRITE setFixturesData NOTIFY fixturesDataChanged)
 
 public:
     EFXEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -193,6 +193,7 @@ private:
 public:
     QVariantList algorithmData();
     QVariantList fixturesData();
+    void setFixturesData(const QVariantList &data);
 
 private:
     void updateAlgorithmData();
