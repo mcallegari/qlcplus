@@ -592,6 +592,13 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
         newFixture->setForcedHTPChannels(fixture->forcedHTPChannels());
         newFixture->setForcedLTPChannels(fixture->forcedLTPChannels());
 
+        for (quint32 s = 0; s < fixture->channels(); s++)
+        {
+            ChannelModifier *chMod = fixture->channelModifier(s);
+            if (chMod != NULL)
+                newFixture->setChannelModifier(s, chMod);
+        }
+
         m_fixtures.insert(id, newFixture);
         m_fixturesListCacheUpToDate = false;
 
