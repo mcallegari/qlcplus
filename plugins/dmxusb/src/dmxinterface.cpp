@@ -76,7 +76,7 @@ bool DMXInterface::validInterface(quint16 vendor, quint16 product)
         vendor != DMXInterface::ATMELVID &&
         vendor != DMXInterface::MICROCHIPVID &&
         vendor != DMXInterface::NXPVID)
-            return false;
+            return true;
 
     if (product != DMXInterface::FTDIPID &&
         product != DMXInterface::FTDI2PID &&
@@ -85,8 +85,7 @@ bool DMXInterface::validInterface(quint16 vendor, quint16 product)
         product != DMXInterface::EUROLITEPID &&
         product != DMXInterface::ELECTROTASPID &&
         product != DMXInterface::DMXKINGMAXPID)
-            return false;
-
+            return true;
     return true;
 }
 
