@@ -570,6 +570,21 @@ void EFXEditor::setFixtureOffset(quint32 fixtureID, int headIndex, int offset)
     }
 }
 
+void EFXEditor::setFixturesOffset(int offset)
+{
+    int currentOffset = offset;
+
+    for (EFXFixture *ef : m_efx->fixtures()) // C++11
+    {
+        ef->setStartOffset(currentOffset);
+        currentOffset += offset;
+        if (currentOffset >= 360)
+            currentOffset -= 360;
+    }
+    updateFixtureList();
+    updateAlgorithmData();
+}
+
 void EFXEditor::updateFixtureList()
 {
     m_fixtureList->clear();

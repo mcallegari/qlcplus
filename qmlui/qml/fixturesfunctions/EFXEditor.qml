@@ -62,6 +62,18 @@ Rectangle
         }
     }
 
+    PopupInputNumber
+    {
+        id: popupNumber
+        from: 0
+        to: 360
+        title: qsTr("EFX increasing offset")
+        label: qsTr("Offset in degrees")
+        suffix: "°"
+
+        onAccepted: efxEditor.setFixturesOffset(popupNumber.value)
+    }
+
     SplitView
     {
         anchors.fill: parent
@@ -179,6 +191,17 @@ Rectangle
                                     Layout.columnSpan: 5
                                     color: UISettings.bgMedium
                                     height: UISettings.listItemHeight
+
+                                    IconButton
+                                    {
+                                        id: addOffsetButton
+                                        width: height
+                                        height: parent.height
+                                        faSource: FontAwesome.fa_sort_amount_asc
+                                        faColor: "white"
+                                        tooltip: qsTr("Add an increasing offset to all fixtures")
+                                        onClicked: popupNumber.open()
+                                    }
 
                                     IconButton
                                     {

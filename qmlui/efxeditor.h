@@ -151,19 +151,29 @@ public:
     qreal maxPanDegrees() const;
     qreal maxTiltDegrees() const;
 
+    /** Add a Fixture Group or a Universe to this EFX */
     Q_INVOKABLE void addGroup(QVariant reference);
 
+    /** Add all the heads of a single Fixture to this EFX */
     Q_INVOKABLE void addFixture(QVariant reference);
 
+    /** Add a single head to this EFX */
     Q_INVOKABLE void addHead(int fixtureID, int headIndex);
 
+    /** Remove a head from this EFX */
     Q_INVOKABLE void removeHeads(QVariantList heads);
 
+    /** Set the working mode for the provided Fixture */
     Q_INVOKABLE void setFixtureMode(quint32 fixtureID, int headIndex, int modeIndex);
 
+    /** Reverse the provided Fixture */
     Q_INVOKABLE void setFixtureReversed(quint32 fixtureID, int headIndex, bool reversed);
 
+    /** Set an offset in degrees to the provided fixture and head */
     Q_INVOKABLE void setFixtureOffset(quint32 fixtureID, int headIndex, int offset);
+
+    /** Set an increasing $offset in degrees on all the EFX fixtures */
+    Q_INVOKABLE void setFixturesOffset(int offset);
 
 protected:
     void updateFixtureList();
