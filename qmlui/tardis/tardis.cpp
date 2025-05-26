@@ -889,6 +889,12 @@ int Tardis::processAction(TardisAction &action, bool undo)
             processBufferedAction(undo ? EFXAddFixture : EFXRemoveFixture, action.m_objID, action.m_oldValue);
             return undo ? EFXAddFixture : EFXRemoveFixture;
 
+        case EFXFixturePropagation:
+        {
+            auto member = std::mem_fn(&EFX::setPropagationMode);
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), EFX::PropagationMode(value->toInt()));
+        }
+        break;
         case EFXSetAlgorithmIndex:
         {
             auto member = std::mem_fn(&EFX::setAlgorithm);

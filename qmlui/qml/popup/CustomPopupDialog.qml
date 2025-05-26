@@ -76,7 +76,7 @@ Dialog
             border.width: 2
 
             focus: true
-            Keys.onPressed:
+            Keys.onPressed: (event) =>
             {
                 if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter)
                 {

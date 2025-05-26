@@ -48,6 +48,8 @@ class EFXEditor : public FunctionEditor
     Q_PROPERTY(int algorithmXPhase READ algorithmXPhase WRITE setAlgorithmXPhase NOTIFY algorithmXPhaseChanged)
     Q_PROPERTY(int algorithmYPhase READ algorithmYPhase WRITE setAlgorithmYPhase NOTIFY algorithmYPhaseChanged)
 
+    Q_PROPERTY(int propagation READ propagation WRITE setPropagation NOTIFY propagationChanged)
+
     Q_PROPERTY(QVariant fixtureList READ fixtureList NOTIFY fixtureListChanged)
     Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
     Q_PROPERTY(qreal maxPanDegrees READ maxPanDegrees NOTIFY maxPanDegreesChanged)
@@ -142,6 +144,11 @@ signals:
      * Fixtures
      ************************************************************************/
 public:
+    /** Get/Set the EFX propagation mode */
+    int propagation() const;
+    void setPropagation(int newPropagation);
+
+    /** Get the EFX fixture list for the UI */
     QVariant fixtureList() const;
 
     /** Returns the data model to display a tree of FixtureGroups/Fixtures */
@@ -179,6 +186,9 @@ protected:
     void updateFixtureList();
 
 signals:
+    /** Notify the listeners that the fixture propagation mode has changed */
+    void propagationChanged();
+
     /** Notify the listeners that the fixture list model has changed */
     void fixtureListChanged();
 

@@ -525,6 +525,9 @@ public:
         Serial,     /**< Pattern propagates to the next fixture after a delay */
         Asymmetric  /**< All fixtures move with an offset */
     };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(PropagationMode)
+#endif
 
     /** Set the EFX's fixture propagation mode (see the enum above) */
     void setPropagationMode(PropagationMode mode);

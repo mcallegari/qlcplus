@@ -337,6 +337,25 @@ void EFXEditor::setAlgorithmYPhase(int algorithmYPhase)
  * Fixtures
  ************************************************************************/
 
+int EFXEditor::propagation() const
+{
+    if (m_efx == nullptr)
+        return 0;
+
+    return m_efx->propagationMode();
+}
+
+void EFXEditor::setPropagation(int newPropagation)
+{
+    if (m_efx == nullptr || newPropagation == m_efx->propagationMode())
+        return;
+
+    Tardis::instance()->enqueueAction(Tardis::EFXFixturePropagation, m_efx->id(), m_efx->propagationMode(), newPropagation);
+    m_efx->setPropagationMode(EFX::PropagationMode(newPropagation));
+    emit propagationChanged();
+    updateAlgorithmData();
+}
+
 QVariant EFXEditor::fixtureList() const
 {
     return QVariant::fromValue(m_fixtureList);
@@ -728,5 +747,3 @@ void EFXEditor::updateAlgorithmData()
     emit algorithmDataChanged();
     emit fixturesDataChanged();
 }
-
-

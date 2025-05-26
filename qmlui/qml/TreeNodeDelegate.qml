@@ -182,7 +182,7 @@ Column
                         if (model.classRef !== undefined && item.hasOwnProperty('cRef'))
                             item.cRef = classRef
 
-                        if (item.hasOwnProperty('itemID') && model.classRef !== undefined)
+                        if (model.classRef !== undefined && item.hasOwnProperty('itemID'))
                             item.itemID = id
 
                         if (item.hasOwnProperty('inGroup'))

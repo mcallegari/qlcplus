@@ -468,7 +468,7 @@ Rectangle
         property int lastXPos
         property int lastYPos
 
-        onPressed:
+        onPressed: (mouse) =>
         {
             if (sphereView == false)
                 return
@@ -477,7 +477,7 @@ Rectangle
             lastXPos = mouse.x
             lastYPos = mouse.y
         }
-        onPositionChanged:
+        onPositionChanged: (mouse) =>
         {
             if (sphereView == false)
                 return

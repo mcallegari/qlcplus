@@ -51,7 +51,7 @@ Rectangle
         visible: false
         tempoType: efxEditor.tempoType
 
-        onValueChanged:
+        onValueChanged: (val) =>
         {
             if (speedType == QLCFunction.FadeIn)
                 efxEditor.fadeInSpeed = val
@@ -884,7 +884,11 @@ Rectangle
                                     model: runOrderModel
 
                                     currValue: efxEditor.runOrder
-                                    onValueChanged: efxEditor.runOrder = value
+                                    onValueChanged:
+                                        function (value)
+                                        {
+                                            efxEditor.runOrder = value
+                                        }
                                 }
                                 RobotoText
                                 {
@@ -892,6 +896,7 @@ Rectangle
                                     Layout.fillWidth: true
                                 }
 
+                                // Row 2
                                 IconPopupButton
                                 {
                                     ListModel
@@ -903,11 +908,40 @@ Rectangle
                                     model: directionModel
 
                                     currValue: efxEditor.direction
-                                    onValueChanged: efxEditor.direction = value
+                                    onValueChanged:
+                                        function (value)
+                                        {
+                                            efxEditor.direction = value
+                                        }
                                 }
                                 RobotoText
                                 {
                                     label: qsTr("Direction")
+                                    Layout.fillWidth: true
+                                }
+
+                                // Row 3
+                                IconPopupButton
+                                {
+                                    ListModel
+                                    {
+                                        id: fxOrderModel
+                                        ListElement { mLabel: qsTr("Parallel"); mTextIcon: "P"; mValue: EFX.Parallel }
+                                        ListElement { mLabel: qsTr("Serial"); mTextIcon: "S"; mValue: EFX.Serial }
+                                        ListElement { mLabel: qsTr("Asymmetric"); mTextIcon: "A"; mValue: EFX.Asymmetric }
+                                    }
+                                    model: fxOrderModel
+
+                                    currValue: efxEditor.propagation
+                                    onValueChanged:
+                                        function (value)
+                                        {
+                                            efxEditor.propagation = value
+                                        }
+                                }
+                                RobotoText
+                                {
+                                    label: qsTr("Fixture Order")
                                     Layout.fillWidth: true
                                 }
                             }

@@ -35,7 +35,7 @@ CustomPopupDialog
 
     onOpened:
     {
-        numberSpin.selectAndFocus()
+        numberSpin.focus = true
     }
 
     contentItem:
