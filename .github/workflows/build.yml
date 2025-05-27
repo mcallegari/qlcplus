@@ -496,7 +496,7 @@ jobs:
       - name: Configure build
         shell: bash
         run: |-
-          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13 -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
+          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13
 
       - name: Build
         shell: bash
