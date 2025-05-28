@@ -7,7 +7,7 @@
   <Author>Mitsch</Author>
  </Creator>
  <Manufacturer>Vari-Lite</Manufacturer>
- <Model>VL2202 Wash</Model>
+ <Model>VL2202 Spot</Model>
  <Type>Moving Head</Type>
  <Channel Name="Intensity" Preset="IntensityMasterDimmer"/>
  <Channel Name="Pan" Preset="PositionPan"/>
@@ -470,51 +470,51 @@
   <Capability Min="188" Max="196" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#aa00ff">Orange / UV</Capability>
   <Capability Min="197" Max="205" Preset="ColorMacro" Res1="#aa00ff">UV</Capability>
   <Capability Min="206" Max="215" Preset="ColorDoubleMacro" Res1="#aa00ff" Res2="#ffffff">UV / Open</Capability>
-  <Capability Min="216" Max="224">Spin F CCW</Capability>
-  <Capability Min="225" Max="232">Spn M CCW</Capability>
-  <Capability Min="233" Max="233">Spin S CCW</Capability>
+  <Capability Min="216" Max="224" Preset="RotationCounterClockwiseFastToSlow">Spin F CCW</Capability>
+  <Capability Min="225" Max="232" Preset="RotationCounterClockwiseFastToSlow">Spn M CCW</Capability>
+  <Capability Min="233" Max="233" Preset="RotationCounterClockwiseFastToSlow">Spin S CCW</Capability>
   <Capability Min="234" Max="234">Stop</Capability>
   <Capability Min="235" Max="235">Stop</Capability>
   <Capability Min="236" Max="236">Stop</Capability>
-  <Capability Min="237" Max="245">Spin S CW</Capability>
-  <Capability Min="246" Max="254">Spin M CW</Capability>
-  <Capability Min="255" Max="255">Spin F CW</Capability>
+  <Capability Min="237" Max="245" Preset="RotationClockwiseSlowToFast">Spin S CW</Capability>
+  <Capability Min="246" Max="254" Preset="RotationClockwiseSlowToFast">Spin M CW</Capability>
+  <Capability Min="255" Max="255" Preset="RotationClockwiseSlowToFast">Spin F CW</Capability>
  </Channel>
  <Channel Name="Fixed Gobo">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="8">Open</Capability>
   <Capability Min="9" Max="16">Open / Pebbles</Capability>
-  <Capability Min="17" Max="25">Pebbles</Capability>
+  <Capability Min="17" Max="25" Preset="GoboMacro" Res1="Chauvet/gobo00086.svg">Pebbles</Capability>
   <Capability Min="26" Max="34">Pebbles / Dust Breakup</Capability>
-  <Capability Min="35" Max="43">Dust Breakup</Capability>
+  <Capability Min="35" Max="43" Preset="GoboMacro" Res1="Others/gobo00114.svg">Dust Breakup</Capability>
   <Capability Min="44" Max="52">Dust Breakup / Medium Circles</Capability>
-  <Capability Min="53" Max="61">Medium Circles</Capability>
+  <Capability Min="53" Max="61" Preset="GoboMacro" Res1="ClayPaky/gobo00022.svg">Medium Circles</Capability>
   <Capability Min="62" Max="70">Medium Circles / Night Sky</Capability>
-  <Capability Min="71" Max="79">Night Sky</Capability>
+  <Capability Min="71" Max="79" Preset="GoboMacro" Res1="Others/gobo00111.svg">Night Sky</Capability>
   <Capability Min="80" Max="88">Night Sky / Leaves</Capability>
-  <Capability Min="89" Max="97">Leaves</Capability>
+  <Capability Min="89" Max="97" Preset="GoboMacro" Res1="SGM/gobo00081.svg">Leaves</Capability>
   <Capability Min="98" Max="106">Leaves / Vertical Bars</Capability>
-  <Capability Min="107" Max="115">Vertical Bars</Capability>
+  <Capability Min="107" Max="115" Preset="GoboMacro" Res1="GLP/gobo00024.svg">Vertical Bars</Capability>
   <Capability Min="116" Max="124">Vertical Bars / Wave</Capability>
-  <Capability Min="125" Max="133">Wave</Capability>
+  <Capability Min="125" Max="133" Preset="GoboMacro" Res1="Chauvet/gobo00003.svg">Wave</Capability>
   <Capability Min="134" Max="142">Wave / Block Breakup</Capability>
-  <Capability Min="143" Max="151">Block Breakup</Capability>
+  <Capability Min="143" Max="151" Preset="GoboMacro" Res1="Others/gobo00112.svg">Block Breakup</Capability>
   <Capability Min="152" Max="160">Block Breakup / Tribal Breakup</Capability>
-  <Capability Min="161" Max="169">Tribal Breakup</Capability>
+  <Capability Min="161" Max="169" Preset="GoboMacro" Res1="Chauvet/gobo00054.svg">Tribal Breakup</Capability>
   <Capability Min="170" Max="178">Tribal Breakup / Liquid Breakup</Capability>
-  <Capability Min="179" Max="187">Liquid Breakup</Capability>
+  <Capability Min="179" Max="187" Preset="GoboMacro" Res1="ClayPaky/gobo00048.png">Liquid Breakup</Capability>
   <Capability Min="188" Max="196">Liquid Breakup / Alpha Rays</Capability>
-  <Capability Min="197" Max="205">Alpha Rays</Capability>
+  <Capability Min="197" Max="205" Preset="GoboMacro" Res1="Chauvet/gobo00092.svg">Alpha Rays</Capability>
   <Capability Min="206" Max="215">Alpha Rays / Open</Capability>
-  <Capability Min="216" Max="224">Spin F CCW</Capability>
-  <Capability Min="225" Max="232">Spn M CCW</Capability>
-  <Capability Min="233" Max="233">Spin S CCW</Capability>
-  <Capability Min="234" Max="234">Stop</Capability>
-  <Capability Min="235" Max="235">Stop</Capability>
-  <Capability Min="236" Max="236">Stop</Capability>
-  <Capability Min="237" Max="245">Spin S CW</Capability>
-  <Capability Min="246" Max="254">Spin M CW</Capability>
-  <Capability Min="255" Max="255">Spin F CW</Capability>
+  <Capability Min="216" Max="224" Preset="RotationCounterClockwiseFastToSlow">Spin F CCW</Capability>
+  <Capability Min="225" Max="232" Preset="RotationCounterClockwiseFastToSlow">Spn M CCW</Capability>
+  <Capability Min="233" Max="233" Preset="RotationCounterClockwiseFastToSlow">Spin S CCW</Capability>
+  <Capability Min="234" Max="234" Preset="RotationStop">Stop</Capability>
+  <Capability Min="235" Max="235" Preset="RotationStop">Stop</Capability>
+  <Capability Min="236" Max="236" Preset="RotationStop">Stop</Capability>
+  <Capability Min="237" Max="245" Preset="RotationClockwiseSlowToFast">Spin S CW</Capability>
+  <Capability Min="246" Max="254" Preset="RotationClockwiseSlowToFast">Spin M CW</Capability>
+  <Capability Min="255" Max="255" Preset="RotationClockwiseSlowToFast">Spin F CW</Capability>
  </Channel>
  <Channel Name="Gobo Index">
   <Group Byte="1">Gobo</Group>
@@ -525,19 +525,19 @@
  </Channel>
  <Channel Name="Rot Wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="50">Position 1 (Open)</Capability>
-  <Capability Min="51" Max="101">Position 2</Capability>
-  <Capability Min="102" Max="152">Position 3</Capability>
-  <Capability Min="153" Max="203">Position 4</Capability>
-  <Capability Min="204" Max="254">Position 5</Capability>
-  <Capability Min="255" Max="255">Position 6</Capability>
+  <Capability Min="0" Max="50" Preset="GoboMacro" Res1="Others/open.svg">Position 1 (Open)</Capability>
+  <Capability Min="51" Max="101" Preset="PrismEffectOn" Res1="0">Position 2</Capability>
+  <Capability Min="102" Max="152" Preset="GoboMacro" Res1="Others/gobo00123.svg">Position 3</Capability>
+  <Capability Min="153" Max="203" Preset="GoboMacro" Res1="SGM/gobo00030.svg">Position 4</Capability>
+  <Capability Min="204" Max="254" Preset="GoboMacro" Res1="SGM/gobo00003.svg">Position 5</Capability>
+  <Capability Min="255" Max="255" Preset="GoboMacro" Res1="SGM/gobo00028.png">Position 6</Capability>
  </Channel>
  <Channel Name="Iris">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="255">Iris (Closed to Open)</Capability>
  </Channel>
  <Channel Name="Edge">
-  <Group Byte="0">Shutter</Group>
+  <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">Edge (Blooms in to out)</Capability>
  </Channel>
  <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>

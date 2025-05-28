@@ -15,8 +15,11 @@ qlcplus (4.14.2) stable; urgency=low
   * Input profiles: added M-Wave SMC Mixer
   * New fixtures: Eurolite LED TMH-40, Stairville HF-900 Haze Fogger (thanks to thegasta)
   * New fixtures: Sagitter Prince, Sagitter Lite Beam 5R, Sagitter ARS 1500FC (thanks to Alessandro Caseti)
+  * New fixtures: Stairville BEL6 IP Bar HEX, BSW-350 LED (thanks to Theodor Hein)
+  * New fixtures: American DJ Encore FR50z, Encore FR150z (thanks to Bram Janssen)
+  * New fixture: Showtec LED Par 64 36x3W (thanks to Bostjan Vodnik)
 
-  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 24 May 2025 18:19:20 +0200
+  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 14 Jun 2025 18:19:20 +0200
 
 qlcplus (4.14.1) stable; urgency=high
 

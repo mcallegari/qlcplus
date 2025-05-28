@@ -3,12 +3,12 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.14.1</Version>
+  <Version>4.14.2 GIT</Version>
   <Author>theowl</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
  <Model>BEL6 IP Bar HEX</Model>
- <Type>LED Bar (Pixels)</Type>
+ <Type>LED Bar (Beams)</Type>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
@@ -25,7 +25,7 @@
   <Capability Min="151" Max="220">Color transition effect</Capability>
   <Capability Min="221" Max="255">Automatic sound controlled show</Capability>
  </Channel>
- <Channel Name="Speed of Auto">
+ <Channel Name="Automatic Show Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255" Preset="SlowToFast">Running speed of automatic show, increasing when channel 9 = 81...220</Capability>
  </Channel>
@@ -47,7 +47,7 @@
   <Channel Number="6">Amber</Channel>
   <Channel Number="7">UV</Channel>
   <Channel Number="8">Function selection</Channel>
-  <Channel Number="9">Speed of Auto</Channel>
+  <Channel Number="9">Automatic Show Speed</Channel>
  </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
