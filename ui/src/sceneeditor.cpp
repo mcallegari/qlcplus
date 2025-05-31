@@ -1288,11 +1288,14 @@ void SceneEditor::slotAddFixtureClicked()
             Fixture *fixture = m_doc->fixture(it.next());
             Q_ASSERT(fixture != NULL);
 
-            addFixtureItem(fixture);
-            addFixtureTab(fixture);
+            if (!m_scene->fixtures().contains(fixture->id()))
+            {
+                addFixtureItem(fixture);
+                addFixtureTab(fixture);
 
-            // Add fixture in scene
-            m_scene->addFixture(fixture->id());
+                // Add fixture in scene
+                m_scene->addFixture(fixture->id());
+            }
         }
     }
 }
