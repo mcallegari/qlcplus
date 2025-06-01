@@ -126,7 +126,7 @@
  </Channel>
  <Channel Name="ID Address">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255">ID Address</Capability>
  </Channel>
  <Channel Name="Red 3" Preset="IntensityRed"/>
  <Channel Name="Green 3" Preset="IntensityGreen"/>
@@ -152,25 +152,25 @@
  <Channel Name="White 6" Preset="IntensityWhite"/>
  <Channel Name="White 7" Preset="IntensityWhite"/>
  <Channel Name="White 8" Preset="IntensityWhite"/>
- <Mode Name="3CH mode (RGB)">
+ <Mode Name="3 Channel (RGB)">
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
  </Mode>
- <Mode Name="4CH mode (RGBW)">
+ <Mode Name="4 Channel (RGBW)">
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">White</Channel>
  </Mode>
- <Mode Name="5CH Mode (Dim RGBW)">
+ <Mode Name="5 Channel (Dim RGBW)">
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
   <Channel Number="3">Blue</Channel>
   <Channel Number="4">White</Channel>
  </Mode>
- <Mode Name="10CH mode (effects)">
+ <Mode Name="10 Channel (effects)">
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -182,7 +182,7 @@
   <Channel Number="8">Virtual Color wheel</Channel>
   <Channel Number="9">Dimmer Mode</Channel>
  </Mode>
- <Mode Name="16CH Mode (effects, 2 colors RGBW)">
+ <Mode Name="16 Channel (effects, 2 colors RGBW)">
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Red 1</Channel>
   <Channel Number="2">Green 1</Channel>
@@ -200,7 +200,7 @@
   <Channel Number="14">ID Function</Channel>
   <Channel Number="15">ID Address</Channel>
  </Mode>
- <Mode Name="24CH-1 Mode (4 colors RGBW)">
+ <Mode Name="24 Channel (4 colors RGBW)">
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Red 1</Channel>
   <Channel Number="2">Green 1</Channel>
@@ -226,7 +226,7 @@
   <Channel Number="22">ID Function</Channel>
   <Channel Number="23">ID Address</Channel>
  </Mode>
- <Mode Name="24CH-2 Mode (8 colors RGB)">
+ <Mode Name="24 Channel (8 colors RGB)">
   <Channel Number="0">Red 1</Channel>
   <Channel Number="1">Green 1</Channel>
   <Channel Number="2">Blue 1</Channel>
@@ -252,7 +252,7 @@
   <Channel Number="22">Green 8</Channel>
   <Channel Number="23">Blue 8</Channel>
  </Mode>
- <Mode Name="32CH Mode (8 color RGBW)">
+ <Mode Name="32 Channel (8 color RGBW)">
   <Channel Number="0">Red 1</Channel>
   <Channel Number="1">Green 1</Channel>
   <Channel Number="2">Blue 1</Channel>
@@ -286,7 +286,7 @@
   <Channel Number="30">Blue 8</Channel>
   <Channel Number="31">White 8</Channel>
  </Mode>
- <Mode Name="40CH Mode (effects, 8 colors RGBW)">
+ <Mode Name="40 Channel (effects, 8 colors RGBW)">
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Red 1</Channel>
   <Channel Number="2">Green 1</Channel>
