@@ -22,7 +22,6 @@ Please ensure your code changes adhere to the project's standards and guidelines
   - [ ] Linux
   - [ ] Windows
   - [ ] macOS
-- [ ] I have run `make check` and all tests pass.
 - [ ] I have added or [updated documentation](https://docs.qlcplus.org/) as necessary.
 
 ## Testing
