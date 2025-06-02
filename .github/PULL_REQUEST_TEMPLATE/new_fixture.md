@@ -36,4 +36,4 @@ Please make sure you've tested the fixture file thoroughly. This template will h
 
 ---
 
-✅ Thank you again for improving the QLC+ fixture library!  
+Thank you for improving the QLC+ fixture library.
