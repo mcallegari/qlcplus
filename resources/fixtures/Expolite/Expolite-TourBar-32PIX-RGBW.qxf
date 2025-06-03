@@ -4,11 +4,11 @@
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.14.1</Version>
-  <Author>wim07101993</Author>
+  <Author>Wim Van Laer</Author>
  </Creator>
  <Manufacturer>Expolite</Manufacturer>
- <Model>Tourbar 34PIX RGBW</Model>
- <Type>LED Bar (Pixels)</Type>
+ <Model>TourBar 32PIX RGBW</Model>
+ <Type>LED Bar (Beams)</Type>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
@@ -16,13 +16,13 @@
  <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="5">No Strobe</Capability>
-  <Capability Min="6" Max="20">Not Synchronous Strobe (Slow to fast)</Capability>
-  <Capability Min="21" Max="60">Synchronouse Strobe (Slow to fast)</Capability>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">No Strobe</Capability>
+  <Capability Min="6" Max="20" Preset="StrobeSlowToFast">Asynchronous Strobe (Slow to fast)</Capability>
+  <Capability Min="21" Max="60" Preset="StrobeSlowToFast">Synchronous Strobe (Slow to fast)</Capability>
   <Capability Min="61" Max="100">Electronic Sine Wave (Slow to fast)</Capability>
-  <Capability Min="101" Max="140">Random Strobe (Slow to fast)</Capability>
-  <Capability Min="141" Max="180">Opening Pulse (Slow to fast)</Capability>
-  <Capability Min="181" Max="220">Closing PUlse (Slow to fast)</Capability>
+  <Capability Min="101" Max="140" Preset="StrobeRandomSlowToFast">Random Strobe (Slow to fast)</Capability>
+  <Capability Min="141" Max="180" Preset="RampUpSlowToFast">Opening Pulse (Slow to fast)</Capability>
+  <Capability Min="181" Max="220" Preset="RampDownSlowToFast">Closing Pulse (Slow to fast)</Capability>
   <Capability Min="221" Max="255">Electronic Square Wave (Slow to fast)</Capability>
  </Channel>
  <Channel Name="Effect">
@@ -83,19 +83,19 @@
  <Channel Name="Virtual Color wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">No Function</Capability>
-  <Capability Min="11" Max="11">Blue</Capability>
-  <Capability Min="12" Max="50">Blue 100% + Green Up</Capability>
-  <Capability Min="51" Max="51">Cyan</Capability>
-  <Capability Min="52" Max="90">Green 100% + Blue Down</Capability>
-  <Capability Min="91" Max="91">Green</Capability>
-  <Capability Min="92" Max="130">Green 100% + Red Up</Capability>
-  <Capability Min="131" Max="131">Yellow</Capability>
-  <Capability Min="132" Max="170">Red 100% + Green Down</Capability>
-  <Capability Min="171" Max="171">Red</Capability>
-  <Capability Min="172" Max="210">Red 100% + Blue Up</Capability>
-  <Capability Min="211" Max="211">Magenta</Capability>
-  <Capability Min="212" Max="250">Blue 100% + Red Down</Capability>
-  <Capability Min="251" Max="255">Blue</Capability>
+  <Capability Min="11" Max="11" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="12" Max="50" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ff00">Blue 100% + Green Up</Capability>
+  <Capability Min="51" Max="51" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="52" Max="90" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green 100% + Blue Down</Capability>
+  <Capability Min="91" Max="91" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="92" Max="130" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff0000">Green 100% + Red Up</Capability>
+  <Capability Min="131" Max="131" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="132" Max="170" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red 100% + Green Down</Capability>
+  <Capability Min="171" Max="171" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="172" Max="210" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red 100% + Blue Up</Capability>
+  <Capability Min="211" Max="211" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="212" Max="250" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff0000">Blue 100% + Red Down</Capability>
+  <Capability Min="251" Max="255" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
  </Channel>
  <Channel Name="Dimmer Mode">
   <Group Byte="0">Effect</Group>
@@ -170,7 +170,7 @@
   <Channel Number="3">Blue</Channel>
   <Channel Number="4">White</Channel>
  </Mode>
- <Mode Name="10 Channel (effects)">
+ <Mode Name="10 Channel">
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -182,7 +182,7 @@
   <Channel Number="8">Virtual Color wheel</Channel>
   <Channel Number="9">Dimmer Mode</Channel>
  </Mode>
- <Mode Name="16 Channel (effects, 2 colors RGBW)">
+ <Mode Name="16 Channel">
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Red 1</Channel>
   <Channel Number="2">Green 1</Channel>
@@ -200,7 +200,7 @@
   <Channel Number="14">ID Function</Channel>
   <Channel Number="15">ID Address</Channel>
  </Mode>
- <Mode Name="24 Channel (4 colors RGBW)">
+ <Mode Name="24 Channel">
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Red 1</Channel>
   <Channel Number="2">Green 1</Channel>
@@ -225,8 +225,32 @@
   <Channel Number="21">Dimmer Mode</Channel>
   <Channel Number="22">ID Function</Channel>
   <Channel Number="23">ID Address</Channel>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
  </Mode>
- <Mode Name="24 Channel (8 colors RGB)">
+ <Mode Name="24 Channel RGB">
   <Channel Number="0">Red 1</Channel>
   <Channel Number="1">Green 1</Channel>
   <Channel Number="2">Blue 1</Channel>
@@ -251,8 +275,48 @@
   <Channel Number="21">Red 8</Channel>
   <Channel Number="22">Green 8</Channel>
   <Channel Number="23">Blue 8</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
  </Mode>
- <Mode Name="32 Channel (8 color RGBW)">
+ <Mode Name="32 Channel">
   <Channel Number="0">Red 1</Channel>
   <Channel Number="1">Green 1</Channel>
   <Channel Number="2">Blue 1</Channel>
@@ -285,8 +349,56 @@
   <Channel Number="29">Green 8</Channel>
   <Channel Number="30">Blue 8</Channel>
   <Channel Number="31">White 8</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
  </Mode>
- <Mode Name="40 Channel (effects, 8 colors RGBW)">
+ <Mode Name="40 Channel">
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Red 1</Channel>
   <Channel Number="2">Green 1</Channel>
@@ -327,11 +439,59 @@
   <Channel Number="37">Dimmer Mode</Channel>
   <Channel Number="38">ID Function</Channel>
   <Channel Number="39">ID Address</Channel>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+  </Head>
+  <Head>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+  </Head>
  </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
   <Dimensions Weight="4.2" Width="524" Height="184" Depth="108"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
   <Layout Width="8" Height="1"/>
   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
