@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.14.1</Version>
+  <Version>4.14.2 GIT</Version>
   <Author>Wim Van Laer</Author>
  </Creator>
  <Manufacturer>Expolite</Manufacturer>
@@ -120,9 +120,7 @@
  <Channel Name="White 2" Preset="IntensityWhite"/>
  <Channel Name="ID Function">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="10">ID Disabled</Capability>
-  <Capability Min="11" Max="20">ID Enable</Capability>
-  <Capability Min="21" Max="30">ID Address Channel devided by 10 and Enable</Capability>
+  <Capability Min="0" Max="255">ID Function</Capability>
  </Channel>
  <Channel Name="ID Address">
   <Group Byte="0">Maintenance</Group>

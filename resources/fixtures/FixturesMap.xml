@@ -916,6 +916,7 @@
   </M>
   <M n="Expolite">
     <F n="Expolite-AkkuLED-Power-Compact" m="AkkuLED Power Compact"/>
+    <F n="Expolite-TourBar-32PIX-RGBW" m="TourBar 32PIX RGBW"/>
     <F n="Expolite-TourLed-42" m="TourLed 42"/>
     <F n="Expolite-TourLED-MC180" m="TourLED MC180"/>
     <F n="Expolite-TourSpot-50-Mini" m="TourSpot 50 Mini"/>
@@ -1606,6 +1607,7 @@
     <F n="Showtec-Kanjo-Spot-60" m="Kanjo Spot 60"/>
     <F n="Showtec-Kanjo-Wash-RGB" m="Kanjo Wash RGB"/>
     <F n="Showtec-Led-Air-Cone-Pro" m="Led Air Cone Pro"/>
+    <F n="Showtec-LED-Blinder-2-COB" m="LED Blinder 2 COB"/>
     <F n="Showtec-LED-Light-Bar-8" m="LED Light Bar 8"/>
     <F n="Showtec-LED-Light-Bar-RGB-V3" m="LED Light Bar RGB V3"/>
     <F n="Showtec-LED-Par-56" m="LED Par 56"/>
