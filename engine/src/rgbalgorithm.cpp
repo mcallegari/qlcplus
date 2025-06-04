@@ -96,7 +96,7 @@ RGBAlgorithm* RGBAlgorithm::algorithm(Doc * doc, const QString& name)
     else if (name == plain.name())
         return plain.clone();
     else
-        return doc->rgbScriptsCache()->script(name).clone();
+        return doc->rgbScriptsCache()->script(name);
 }
 
 /****************************************************************************
@@ -134,9 +134,11 @@ RGBAlgorithm* RGBAlgorithm::loader(Doc * doc, QXmlStreamReader &root)
     }
     else if (type == KXMLQLCRGBScript)
     {
-        RGBScript const& scr = doc->rgbScriptsCache()->script(root.readElementText());
-        if (scr.apiVersion() > 0 && scr.name().isEmpty() == false)
-            algo = scr.clone();
+        RGBScript* scr = doc->rgbScriptsCache()->script(root.readElementText());
+        if (scr->apiVersion() > 0 && scr->name().isEmpty() == false)
+            algo = scr;
+        else
+            delete scr;
     }
     else if (type == KXMLQLCRGBPlain)
     {

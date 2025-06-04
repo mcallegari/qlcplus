@@ -659,6 +659,7 @@ void FixtureRemap::connectFixtures(QTreeWidgetItem *sourceItem, QTreeWidgetItem 
 
         if (oneToOneRemap == true)
         {
+            // copy forced LTP/HTP channels right away
             tgtFxi->setForcedHTPChannels(srcFxi->forcedHTPChannels());
             tgtFxi->setForcedLTPChannels(srcFxi->forcedLTPChannels());
         }
@@ -676,15 +677,20 @@ void FixtureRemap::connectFixtures(QTreeWidgetItem *sourceItem, QTreeWidgetItem 
 
                     if (srcFxi->channelCanFade(s) == false)
                         tgtFxi->setChannelCanFade(s, false);
+
+                    // copy channel modifiers
+                    ChannelModifier *chMod = srcFxi->channelModifier(s);
+                    if (chMod != NULL)
+                        tgtFxi->setChannelModifier(s, chMod);
                 }
             }
             else
             {
-                const QLCChannel* srcCh = srcFxi->channel(s);
+                const QLCChannel *srcCh = srcFxi->channel(s);
 
                 for (quint32 t = 0; t < tgtFxi->channels(); t++)
                 {
-                    const QLCChannel* tgtCh = tgtFxi->channel(t);
+                    const QLCChannel *tgtCh = tgtFxi->channel(t);
 
                     if ((tgtCh->group() == srcCh->group()) &&
                         (tgtCh->controlByte() == srcCh->controlByte()))
@@ -692,6 +698,7 @@ void FixtureRemap::connectFixtures(QTreeWidgetItem *sourceItem, QTreeWidgetItem 
                         if (tgtCh->group() == QLCChannel::Intensity &&
                             tgtCh->colour() != srcCh->colour())
                                 continue;
+
                         RemapInfo matchInfo;
                         matchInfo.source = newRemap.source->child(s);
                         matchInfo.target = newRemap.target->child(t);

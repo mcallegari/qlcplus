@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.3
-import org.qlcplus.classes 1.0
+import QtQuick
 
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -155,7 +155,7 @@ Rectangle
                     capability: modelData
                     capIndex: index + 1
                     visible: (capability.min <= toolRoot.rangeHighLimit || capability.max <= toolRoot.rangeLowLimit)
-                    onValueChanged:
+                    onValueChanged: function(value)
                     {
                         var val = Math.min(Math.max(value, rangeLowLimit), rangeHighLimit)
                         toolRoot.currentValue = val

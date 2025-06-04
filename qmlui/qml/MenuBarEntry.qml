@@ -17,8 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.2
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls.Basic
 
 import "."
 
@@ -119,7 +120,7 @@ Button
         anchors.fill: parent
         acceptedButtons: Qt.RightButton
 
-        onClicked:
+        onClicked: (mouse) =>
         {
             if (mouse.button === Qt.RightButton)
                 control.rightClicked()

@@ -80,7 +80,7 @@ private:
 
 protected slots:
     void slotUniverseChanged();
-    void slotComponentsChanged(int index);
+    void slotComponentsChanged();
     void slotAddressChanged();
     void slotSizeChanged(int val);
 

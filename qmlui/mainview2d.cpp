@@ -294,7 +294,7 @@ int MainView2D::itemIDAtPos(QPointF pos)
         qreal itemHeight = fxItem->property("height").toReal();
         QRectF itemRect(itemXPos, itemYPos, itemWidth, itemHeight);
 
-        qDebug() << "Point:" << pos << "itemRect:" << itemRect;
+        //qDebug() << "Point:" << pos << "itemRect:" << itemRect;
 
         if (itemRect.contains(pos))
             return i.key();

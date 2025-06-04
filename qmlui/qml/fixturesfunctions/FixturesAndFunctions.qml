@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.8
-import QtQuick.Controls 2.1
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 
 import "."
 
@@ -216,10 +216,11 @@ Rectangle
                     currValue: contextManager.universeFilter
 
                     onValueChanged:
-                    {
-                        contextManager.universeFilter = value
-                        fixtureManager.universeFilter = value
-                    }
+                        function(value)
+                        {
+                            contextManager.universeFilter = value
+                            fixtureManager.universeFilter = value
+                        }
                 }
 
                 Rectangle { Layout.fillWidth: true; color: "transparent" }

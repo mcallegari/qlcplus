@@ -161,7 +161,7 @@ void SimpleDesk::updateChannelList()
         chMap.insert("cRef", QVariant::fromValue(fixture));
         chMap.insert("chIndex", chIndex);
         chMap.insert("chValue", chValue);
-        chMap.insert("chDisplay", status);
+        chMap.insert("chDisplay", fixture == nullptr ? None : status);
         chMap.insert("isOverride", isOverriding);
 
         m_channelList->addDataMap(chMap);

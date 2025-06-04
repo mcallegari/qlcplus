@@ -337,6 +337,25 @@ void EFXEditor::setAlgorithmYPhase(int algorithmYPhase)
  * Fixtures
  ************************************************************************/
 
+int EFXEditor::propagation() const
+{
+    if (m_efx == nullptr)
+        return 0;
+
+    return m_efx->propagationMode();
+}
+
+void EFXEditor::setPropagation(int newPropagation)
+{
+    if (m_efx == nullptr || newPropagation == m_efx->propagationMode())
+        return;
+
+    Tardis::instance()->enqueueAction(Tardis::EFXFixturePropagation, m_efx->id(), m_efx->propagationMode(), newPropagation);
+    m_efx->setPropagationMode(EFX::PropagationMode(newPropagation));
+    emit propagationChanged();
+    updateAlgorithmData();
+}
+
 QVariant EFXEditor::fixtureList() const
 {
     return QVariant::fromValue(m_fixtureList);
@@ -570,6 +589,21 @@ void EFXEditor::setFixtureOffset(quint32 fixtureID, int headIndex, int offset)
     }
 }
 
+void EFXEditor::setFixturesOffset(int offset)
+{
+    int currentOffset = offset;
+
+    for (EFXFixture *ef : m_efx->fixtures()) // C++11
+    {
+        ef->setStartOffset(currentOffset);
+        currentOffset += offset;
+        if (currentOffset >= 360)
+            currentOffset -= 360;
+    }
+    updateFixtureList();
+    updateAlgorithmData();
+}
+
 void EFXEditor::updateFixtureList()
 {
     m_fixtureList->clear();
@@ -631,6 +665,15 @@ QVariantList EFXEditor::algorithmData()
 QVariantList EFXEditor::fixturesData()
 {
     return m_fixturesData;
+}
+
+void EFXEditor::setFixturesData(const QVariantList &data)
+{
+    if (m_fixturesData != data)
+    {
+        m_fixturesData = data;
+        emit fixturesDataChanged();
+    }
 }
 
 void EFXEditor::updateAlgorithmData()
@@ -704,5 +747,3 @@ void EFXEditor::updateAlgorithmData()
     emit algorithmDataChanged();
     emit fixturesDataChanged();
 }
-
-

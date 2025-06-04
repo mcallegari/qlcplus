@@ -18,11 +18,11 @@
   limitations under the License.
 */
 
-import QtQuick 2.7
+import QtQuick
 
-import Qt3D.Core 2.0
-import Qt3D.Render 2.0
-import Qt3D.Extras 2.0
+import Qt3D.Core
+import Qt3D.Render
+import Qt3D.Extras
 
 import org.qlcplus.classes 1.0
 import "Math3DView.js" as Math3D
@@ -74,7 +74,7 @@ Entity
 
     /* **************** Spotlight cone properties **************** */
     property real coneBottomRadius: distCutoff * Math.tan(cutoffAngle) + coneTopRadius
-    property real coneTopRadius: (0.24023 / 2) * transform.scale3D.x * 0.7 // (diameter / 2) * scale * magic number
+    property real coneTopRadius: transform ? (0.24023 / 2) * transform.scale3D.x * 0.7 : 0.0 // (diameter / 2) * scale * magic number
 
     property real headLength: 0.5 * transform.scale3D.x
 
@@ -223,8 +223,8 @@ Entity
             effect: sceneEffect
 
             parameters: [
-                Parameter { name: "diffuse"; value: "gray" },
-                Parameter { name: "specular"; value: "black" },
+                Parameter { name: "diffuse"; value: Qt.color("gray") },
+                Parameter { name: "specular"; value: Qt.color("black") },
                 Parameter { name: "shininess"; value: 1.0 },
                 Parameter { name: "bloom"; value: 0 }
             ]
@@ -275,7 +275,7 @@ Entity
 
         property var lastPos
 
-        onClicked:
+        onClicked: (pick) =>
         {
             console.log("3D item clicked")
             isSelected = !isSelected

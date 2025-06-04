@@ -121,6 +121,7 @@ public:
 
         EFXAddFixture,
         EFXRemoveFixture,
+        EFXFixturePropagation,
         EFXSetAlgorithmIndex,
         EFXSetRelative,
         EFXSetWidth,

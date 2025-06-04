@@ -258,15 +258,15 @@ int RGBScript::rgbMapStepCount(const QSize& size)
     {
         displayError(value, m_fileName);
         return -1;
-    } 
-    else 
+    }
+    else
     {
         int ret = value.isNumber() ? value.toInteger() : -1;
         return ret;
     }
 }
 
-void RGBScript::rgbMapSetColors(QVector<uint> &colors)
+void RGBScript::rgbMapSetColors(const QVector<uint> &colors)
 {
     QMutexLocker engineLocker(s_engineMutex);
     if (m_apiVersion <= 2)

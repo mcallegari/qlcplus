@@ -62,6 +62,8 @@
     <F n="American-DJ-Double-Phase" m="Double Phase"/>
     <F n="American-DJ-ECO-UV-BAR-DMX" m="ECO UV BAR DMX"/>
     <F n="American-DJ-Emerald-Scan" m="Emerald Scan"/>
+    <F n="American-DJ-Encore-FR150z" m="Encore FR150z"/>
+    <F n="American-DJ-Encore-FR50z" m="Encore FR50z"/>
     <F n="American-DJ-Entour-Faze" m="Entour Faze"/>
     <F n="American-DJ-Entour-Venue" m="Entour Venue"/>
     <F n="American-DJ-Entourage" m="Entourage"/>
@@ -914,6 +916,7 @@
   </M>
   <M n="Expolite">
     <F n="Expolite-AkkuLED-Power-Compact" m="AkkuLED Power Compact"/>
+    <F n="Expolite-TourBar-32PIX-RGBW" m="TourBar 32PIX RGBW"/>
     <F n="Expolite-TourLed-42" m="TourLed 42"/>
     <F n="Expolite-TourLED-MC180" m="TourLED MC180"/>
     <F n="Expolite-TourSpot-50-Mini" m="TourSpot 50 Mini"/>
@@ -1604,9 +1607,11 @@
     <F n="Showtec-Kanjo-Spot-60" m="Kanjo Spot 60"/>
     <F n="Showtec-Kanjo-Wash-RGB" m="Kanjo Wash RGB"/>
     <F n="Showtec-Led-Air-Cone-Pro" m="Led Air Cone Pro"/>
+    <F n="Showtec-LED-Blinder-2-COB" m="LED Blinder 2 COB"/>
     <F n="Showtec-LED-Light-Bar-8" m="LED Light Bar 8"/>
     <F n="Showtec-LED-Light-Bar-RGB-V3" m="LED Light Bar RGB V3"/>
     <F n="Showtec-LED-Par-56" m="LED Par 56"/>
+    <F n="Showtec-LED-Par-64-36x3W" m="LED Par 64 36x3W"/>
     <F n="Showtec-LED-Par-64-Short-V2" m="LED Par 64 Short V2"/>
     <F n="Showtec-LED-Pixel-Track-Pro" m="LED Pixel Track Pro"/>
     <F n="Showtec-LED-Powerline-16-Bar" m="LED Powerline 16 Bar"/>
@@ -1681,8 +1686,10 @@
     <F n="Stairville-All-FX-Bar" m="All FX Bar"/>
     <F n="Stairville-Beam-Moving-Head-B5R" m="Beam Moving Head B5R"/>
     <F n="Stairville-BEL4-Battery-Event-Light-4x15W" m="BEL4 - Battery Event Light 4x15W"/>
+    <F n="Stairville-BEL6-IP-Bar-HEX" m="BEL6 IP Bar HEX"/>
     <F n="Stairville-Blade-Sting-8-RGBW-Beam-Mover" m="Blade Sting 8 RGBW Beam Mover"/>
     <F n="Stairville-BS-280-R10-BeamSpot" m="BS-280 R10 BeamSpot"/>
+    <F n="Stairville-BSW-350-LED" m="BSW-350 LED"/>
     <F n="Stairville-CLB2.4-CompactLED" m="CLB2.4 Compact LED PAR System"/>
     <F n="Stairville-CLB4-RGB-Compact-LED-Bar-4" m="CLB4 RGB Compact LED Bar 4"/>
     <F n="Stairville-CLB5-Compact-LED-Bar-RGBW-RGBWW" m="CLB5 Compact LED Bar RGBW / RGBWW"/>
@@ -1734,7 +1741,7 @@
     <F n="Stairville-MH-X50" m="MH-X50+"/>
     <F n="Stairville-MH-X60th-LED-Spot" m="MH-X60th LED Spot"/>
     <F n="Stairville-MH-z1915" m="MH-z1915 Quad LED Wash Zoom"/>
-    <F n="StairVille-MH-z720" m="MH-z720"/>
+    <F n="Stairville-MH-z720" m="MH-z720"/>
     <F n="Stairville-Mini-Stage-Par-RGBW" m="Mini Stage Par RGBW"/>
     <F n="Stairville-Mobile-Color" m="Mobile Color"/>
     <F n="Stairville-novaWash-Quad-LED" m="novaWash Quad LED"/>
@@ -1832,7 +1839,7 @@
     <F n="UKing-ZQB93-Pinspot-RGBW" m="ZQ-B93 Pinspot RGBW"/>
   </M>
   <M n="Vari-Lite">
-    <F n="Vari-Lite-VL2202-Spot" m="VL2202 Wash"/>
+    <F n="Vari-Lite-VL2202-Spot" m="VL2202 Spot"/>
     <F n="Vari-Lite-VL2402-Wash" m="VL2402 Spot"/>
     <F n="Vari-Lite-VL2500-Wash" m="VL2500 Wash"/>
     <F n="Vari-Lite-VL3000-Spot" m="VL3000 Spot"/>

@@ -182,8 +182,9 @@ void VCMatrixPresetSelection::displayProperties(RGBScript *script)
 void VCMatrixPresetSelection::slotUpdatePresetProperties()
 {
     resetProperties(m_propertiesLayout->layout());
-    RGBScript selScript = m_doc->rgbScriptsCache()->script(m_presetCombo->currentText());
-    displayProperties(&selScript);
+    RGBScript* selScript = m_doc->rgbScriptsCache()->script(m_presetCombo->currentText());
+    displayProperties(selScript);
+    delete selScript;
 }
 
 void VCMatrixPresetSelection::slotPropertyComboChanged(int index)

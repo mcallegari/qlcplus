@@ -17,10 +17,10 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Controls 2.1
-import QtQuick.Dialogs 1.2
-import QtQuick.Layouts 1.0
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Dialogs
+import QtQuick.Layouts
 
 import "."
 
@@ -57,17 +57,16 @@ Popup
     FileDialog
     {
         id: openDialog
-        visible: false
         title: qsTr("Open a file")
-        folder: "file://" + qlcplus.workingPath
+        currentFolder: "file://" + qlcplus.workingPath
         nameFilters: [ qsTr("QLC+ files") + " (*.qxw *.qxf)", qsTr("All files") + " (*)" ]
 
         onAccepted:
         {
-            if (fileUrl.toString().endsWith("qxf") || fileUrl.toString().endsWith("d4"))
-                qlcplus.loadFixture(fileUrl)
+            if (selectedFile.toString().endsWith("qxf") || selectedFile.toString().endsWith("d4"))
+                qlcplus.loadFixture(selectedFile)
             else
-                qlcplus.loadWorkspace(fileUrl)
+                qlcplus.loadWorkspace(selectedFile)
             qlcplus.workingPath = folder.toString()
         }
     }
@@ -75,14 +74,13 @@ Popup
     FileDialog
     {
         id: importDialog
-        visible: false
         title: qsTr("Import from project")
-        folder: "file://" + qlcplus.workingPath
+        currentFolder: "file://" + qlcplus.workingPath
         nameFilters: [ qsTr("Project files") + " (*.qxw)", qsTr("All files") + " (*)" ]
 
         onAccepted:
         {
-            if (qlcplus.loadImportWorkspace(fileUrl) === true)
+            if (qlcplus.loadImportWorkspace(selectedFile) === true)
             {
                 importLoader.source = ""
                 importLoader.source = "qrc:/PopupImportProject.qml"
@@ -93,15 +91,15 @@ Popup
     FileDialog
     {
         id: saveDialog
-        visible: false
         title: qsTr("Save project as...")
-        selectExisting: false
+        currentFolder: "file://" + qlcplus.workingPath
+        fileMode: FileDialog.SaveFile
         nameFilters: [ qsTr("Project files") + " (*.qxw)", qsTr("All files") + " (*)" ]
 
         onAccepted:
         {
-            console.log("You chose: " + fileUrl)
-            qlcplus.saveWorkspace(fileUrl)
+            console.log("You chose: " + selectedFile)
+            qlcplus.saveWorkspace(selectedFile)
 
             if (saveFirstPopup.action == "#EXIT")
                 qlcplus.exit()
@@ -111,25 +109,30 @@ Popup
     CustomPopupDialog
     {
         id: saveFirstPopup
+        width: mainView.width / 2
+        height: mainView.height / 3
         title: qsTr("Your project has changes")
         message: qsTr("Do you wish to save the current project first?\nChanges will be lost if you don't save them.")
         standardButtons: Dialog.Yes | Dialog.No | Dialog.Cancel
 
         property string action: ""
 
-        onClicked:
+        onClicked: function(role)
         {
             if (role === Dialog.Yes)
             {
                 if (qlcplus.fileName())
                 {
+                    console.log("YES clicked 1")
                     qlcplus.saveWorkspace(qlcplus.fileName())
                     if (action == "#EXIT")
                         qlcplus.exit()
                 }
                 else
                 {
-                    saveDialog.open()
+                    console.log("YES clicked 2")
+                    //saveDialog.open()
+                    handleSaveAction()
                     if (action == "#EXIT")
                         return
                 }
@@ -583,6 +586,7 @@ Popup
             PopupAbout
             {
                 id: infoPopup
+                width: mainView.width / 2
             }
         }
     }

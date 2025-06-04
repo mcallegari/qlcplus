@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.0
+import QtQuick
+import QtQuick.Layouts
 
 import "."
 
@@ -40,7 +40,7 @@ SidePanel
         }
     }
 
-    onContentLoaded:
+    onContentLoaded: (item, ID) =>
     {
         item.universeIndex = universeIndex
         item.loadSources(false)

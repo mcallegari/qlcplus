@@ -574,15 +574,22 @@ void VCFrame::removeWidgetFromPageMap(VCWidget *widget)
 
 void VCFrame::slotPreviousPage()
 {
+    if (!m_pagesLoop && m_currentPage == 0)
+        return;
+
     if (m_pagesLoop && m_currentPage == 0)
         slotSetPage(m_totalPagesNumber - 1);
     else
         slotSetPage(m_currentPage - 1);
+
     sendFeedback(m_currentPage, previousPageInputSourceId);
 }
 
 void VCFrame::slotNextPage()
 {
+    if (!m_pagesLoop && m_currentPage == m_totalPagesNumber - 1)
+        return;
+
     if (m_pagesLoop && m_currentPage == m_totalPagesNumber - 1)
         slotSetPage(0);
     else

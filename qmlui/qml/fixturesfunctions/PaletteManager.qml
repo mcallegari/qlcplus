@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.2
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -224,7 +224,7 @@ Rectangle
                       drag.target: pDragItem
                       drag.threshold: height / 2
 
-                      onPressed:
+                      onPressed: (mouse) =>
                       {
                           if (model.isSelected)
                               return

@@ -64,7 +64,7 @@
 
 Doc::Doc(QObject* parent, int universes)
     : QObject(parent)
-    , m_wsPath("")
+    , m_workspacePath("")
     , m_fixtureDefCache(new QLCFixtureDefCache)
     , m_modifiersCache(new QLCModifiersCache)
     , m_rgbScriptsCache(new RGBScriptsCache(this))
@@ -197,12 +197,12 @@ void Doc::clearContents()
 
 void Doc::setWorkspacePath(QString path)
 {
-    m_wsPath = path;
+    m_workspacePath = path;
 }
 
-QString Doc::getWorkspacePath() const
+QString Doc::workspacePath() const
 {
-    return m_wsPath;
+    return m_workspacePath;
 }
 
 QString Doc::normalizeComponentPath(const QString& filePath) const
@@ -212,9 +212,9 @@ QString Doc::normalizeComponentPath(const QString& filePath) const
 
     QFileInfo f(filePath);
 
-    if (f.absolutePath().startsWith(getWorkspacePath()))
+    if (f.absolutePath().startsWith(workspacePath()))
     {
-        return QDir(getWorkspacePath()).relativeFilePath(f.absoluteFilePath());
+        return QDir(workspacePath()).relativeFilePath(f.absoluteFilePath());
     }
     else
     {
@@ -227,7 +227,7 @@ QString Doc::denormalizeComponentPath(const QString& filePath) const
     if (filePath.isEmpty())
         return filePath;
 
-    return QFileInfo(QDir(getWorkspacePath()), filePath).absoluteFilePath();
+    return QFileInfo(QDir(workspacePath()), filePath).absoluteFilePath();
 }
 
 /*****************************************************************************
@@ -591,6 +591,13 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
         newFixture->setExcludeFadeChannels(fixture->excludeFadeChannels());
         newFixture->setForcedHTPChannels(fixture->forcedHTPChannels());
         newFixture->setForcedLTPChannels(fixture->forcedLTPChannels());
+
+        for (quint32 s = 0; s < fixture->channels(); s++)
+        {
+            ChannelModifier *chMod = fixture->channelModifier(s);
+            if (chMod != NULL)
+                newFixture->setChannelModifier(s, chMod);
+        }
 
         m_fixtures.insert(id, newFixture);
         m_fixturesListCacheUpToDate = false;

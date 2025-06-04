@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.14
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "."
@@ -314,7 +314,7 @@ VCWidgetItem
                 {
                     ignoreUnknownSignals: true
                     target: colorToolLoader.item
-                    function onColorChanged(r, g, b, w, a, uv)
+                    function onToolColorChanged(r, g, b, w, a, uv)
                     {
                         if (sliderObj)
                             sliderObj.setClickAndGoColors(Qt.rgba(r, g, b, 1.0), Qt.rgba(w, a, uv, 1.0))

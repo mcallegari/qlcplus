@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 
@@ -104,6 +104,7 @@ Rectangle
                 enabled: showManager.isEditing
                 tooltip: qsTr("Show items color")
                 onCheckedChanged: colTool.visible = !colTool.visible
+
                 ColorTool
                 {
                     id: colTool
@@ -113,7 +114,11 @@ Rectangle
                     z: 15
                     visible: false
 
-                    onColorChanged: showManager.itemsColor = Qt.rgba(r, g, b, 1.0)
+                    onToolColorChanged:
+                        function(r, g, b, w, a, uv)
+                        {
+                            showManager.itemsColor = Qt.rgba(r, g, b, 1.0)
+                        }
                     onClose: colPickButton.toggle()
                 }
             }
@@ -448,7 +453,7 @@ Rectangle
             cursorHeight: showMgrContainer.height - topBar.height - (bottomPanel.visible ? bottomPanel.height : 0)
             duration: showManager.showDuration
 
-            onClicked:
+            onClicked: (mouseX, mouseY) =>
             {
                 if (timeDivision === Show.Time)
                     showManager.currentTime = TimeUtils.posToMs(mouseX, timeScale, tickSize)
@@ -543,7 +548,7 @@ Rectangle
             MouseArea
             {
                 anchors.fill: parent
-                onClicked:
+                onClicked: (mouse) =>
                 {
                     showManager.currentTime = TimeUtils.posToMs(mouse.x, timeScale, tickSize)
                     showManager.resetItemsSelection()

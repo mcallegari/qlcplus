@@ -123,7 +123,7 @@ int RGBAudio::rgbMapStepCount(const QSize& size)
     return 1;
 }
 
-void RGBAudio::rgbMapSetColors(QVector<uint> &colors)
+void RGBAudio::rgbMapSetColors(const QVector<uint> &colors)
 {
     Q_UNUSED(colors);
 }
