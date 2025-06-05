@@ -49,10 +49,11 @@ class QXmlStreamWriter;
 /* Compound strings used by PaletteGenerator to identify
  * special fixture modes
  */
-#define KQLCChannelMovement  QStringLiteral("Movement")
-#define KQLCChannelRGB       QStringLiteral("RGB")
-#define KQLCChannelCMY       QStringLiteral("CMY")
-#define KQLCChannelWhite     QStringLiteral("White")
+#define KQLCChannelMovement  QString("Movement")
+#define KQLCChannelRGB       QString("RGB")
+#define KQLCChannelCMY       QString("CMY")
+#define KQLCChannelWhite     QString("White")
+#define KQLCChannelDimmer     QString("Dimmer")
 
 /**
  * QLCChannel represents one DMX channel with one or more DMX value ranges,
