@@ -1,7 +1,7 @@
 #include "vcscrollarea.h"
 #include "qevent.h"
 
-VCScrollArea::VCScrollArea(QWidget *parent) : QScrollArea(parent) {
+VCScrollArea::VCScrollArea(QWidget *parent) : QScrollArea(parent), m_keyPassthru(false) {
     // nothing more right now
 }
 
