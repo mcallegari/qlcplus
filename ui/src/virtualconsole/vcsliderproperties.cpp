@@ -39,11 +39,7 @@
 #include "vcslider.h"
 #include "fixture.h"
 #include "doc.h"
-
-#define KColumnName  0
-#define KColumnType  1
-#define KColumnRange 2
-#define KColumnID    3
+#include "treewidgetitem.h"
 
 VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     : QDialog(slider)
@@ -55,7 +51,7 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     m_ovrResetSelWidget = NULL;
 
     setupUi(this);
-    m_levelList->sortByColumn(0, Qt::AscendingOrder);
+    m_levelList->sortByColumn(KColumnName, Qt::AscendingOrder);
 
     QAction* action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
@@ -424,7 +420,7 @@ void VCSliderProperties::levelUpdateChannelNode(QTreeWidgetItem* parent,
     QTreeWidgetItem* item = levelChannelNode(parent, ch);
     if (item == NULL)
     {
-        item = new QTreeWidgetItem(parent);
+        item = new TreeWidgetItem(parent);
         item->setText(KColumnID, QString::number(ch));
         item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
         item->setCheckState(KColumnName, Qt::Unchecked);
