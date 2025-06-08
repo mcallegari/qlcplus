@@ -367,6 +367,7 @@ signals:
 private:
     bool m_liveEdit;
     bool m_keyboardScroll;
+    bool m_forceKeyboardScroll;
 
 public:
     /** Toggle Virtual Console live editting */
