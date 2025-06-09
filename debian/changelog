@@ -19,6 +19,7 @@ qlcplus (4.14.2) stable; urgency=low
   * New fixtures: American DJ Encore FR50z, Encore FR150z, Showtec LED Blinder 2 COB (thanks to Bram Janssen)
   * New fixture: Showtec LED Par 64 36x3W (thanks to Bostjan Vodnik)
   * New fixture: Expolite TourBar 32PIX RGBW (thanks to Wim Van Laer)
+  * New fixture: Clay Paky Mini-B Spot
 
   -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 14 Jun 2025 18:19:20 +0200
 
