@@ -63,6 +63,7 @@ GridLayout
 
                 editText: phy ? phy.bulbType : ""
                 onEditTextChanged: if (phy) phy.bulbType = editText
+                onValueChanged: if (phy) phy.bulbType = currentText
 
                 Rectangle
                 {
@@ -121,6 +122,8 @@ GridLayout
 
                 editText: phy ? phy.lensType : ""
                 onEditTextChanged: if (phy) phy.lensType = editText
+                onValueChanged: if (phy) phy.lensType = currentText
+
 
                 Rectangle
                 {
@@ -181,6 +184,8 @@ GridLayout
 
                 editText: phy ? phy.focusType : ""
                 onEditTextChanged: if (phy) phy.focusType = editText
+                onValueChanged: if (phy) phy.focusType = currentText
+
 
                 Rectangle
                 {
@@ -348,6 +353,7 @@ GridLayout
 
                 editText: phy ? phy.dmxConnector : ""
                 onEditTextChanged: if (phy) phy.dmxConnector = editText
+                onValueChanged: if (phy) phy.dmxConnector = currentText
 
                 Rectangle
                 {
