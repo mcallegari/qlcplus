@@ -89,9 +89,6 @@ public:
                                     int &ESTA_ID, int &DEV_ID,
                                     QByteArray &portDirection);
 
-    /** Set the number of MIDI I/O lines supported by this widget */
-    void setMidiPortsNumber(int inputs, int outputs);
-
     /** Set a special flag to use DMXKing specific commands */
     void setDMXKingMode();
 

@@ -24,7 +24,6 @@
 #include <QTime>
 
 #include "dmxusbopenrx.h"
-#include "qlcmacros.h"
 
 #define DEFAULT_OPEN_DMX_FREQUENCY    30  // crap
 #define RX_BUFFER_SIZE              1024
@@ -48,11 +47,12 @@ DMXUSBOpenRx::DMXUSBOpenRx(DMXInterface *iface,
     qDebug() << "Open RX constructor, line" << inputLine;
 
     m_inputBaseLine = inputLine;
-    setOutputsNumber(0);
-    setInputsNumber(1);
+    QList<LineFlags> ports;
+    ports << LineFlags(DMXUSBWidget::DMX | DMXUSBWidget::Input);
+    setPortsMapping(ports);
 
-    m_inputLines[0].m_universeData = QByteArray();
-    m_inputLines[0].m_compareData = QByteArray();
+    m_portsInfo[0].m_universeData = QByteArray();
+    m_portsInfo[0].m_compareData = QByteArray();
 
 // on macOS, QtSerialPort cannot handle an OpenDMX device
 // so, unfortunately, we need to switch back to libftdi
@@ -141,7 +141,7 @@ QString DMXUSBOpenRx::additionalInfo() const
     if (m_reader_state == Receiving)
     {
         info += QString("<B>%1:</B> %2").arg(tr("Received DMX Channels"))
-                                        .arg(m_inputLines[0].m_compareData.length() - 2);
+                                        .arg(m_portsInfo[0].m_compareData.length() - 2);
 
         info += QString("<BR>");
         if (m_frameTimeUs > 0)
@@ -253,8 +253,8 @@ void DMXUSBOpenRx::run()
     m_running = true;
 
     QByteArray payload;
-    QByteArray& last_payload = m_inputLines[0].m_compareData;
-    QByteArray& current_payload = m_inputLines[0].m_universeData;
+    QByteArray& last_payload = m_portsInfo[0].m_compareData;
+    QByteArray& current_payload = m_portsInfo[0].m_universeData;
 
     quint32 missed_frames = 0;
     quint32 erroneous_frames = 0;

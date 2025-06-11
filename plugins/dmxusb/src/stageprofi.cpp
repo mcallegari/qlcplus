@@ -164,14 +164,14 @@ bool Stageprofi::writeUniverse(quint32 universe, quint32 output, const QByteArra
     if (isOpen() == false)
         return false;
 
-    if (m_outputLines[0].m_universeData.size() == 0)
+    if (m_portsInfo[0].m_universeData.size() == 0)
     {
-        m_outputLines[0].m_universeData.append(data);
-        m_outputLines[0].m_universeData.append(DMX_CHANNELS - data.size(), 0);
+        m_portsInfo[0].m_universeData.append(data);
+        m_portsInfo[0].m_universeData.append(DMX_CHANNELS - data.size(), 0);
     }
 
     if (dataChanged)
-        m_outputLines[0].m_universeData.replace(0, data.size(), data);
+        m_portsInfo[0].m_universeData.replace(0, data.size(), data);
 
     return true;
 }
@@ -193,8 +193,8 @@ void Stageprofi::run()
 
     m_running = true;
 
-    if (m_outputLines[0].m_compareData.size() == 0)
-        m_outputLines[0].m_compareData.fill(0, 512);
+    if (m_portsInfo[0].m_compareData.size() == 0)
+        m_portsInfo[0].m_compareData.fill(0, 512);
 
     // Wait for device to settle in case the device was opened just recently
     usleep(1000);
@@ -203,11 +203,11 @@ void Stageprofi::run()
     {
         timer.restart();
 
-        for (int i = 0; i < m_outputLines[0].m_universeData.length(); i++)
+        for (int i = 0; i < m_portsInfo[0].m_universeData.length(); i++)
         {
-            char val = m_outputLines[0].m_universeData[i];
+            char val = m_portsInfo[0].m_universeData[i];
 
-            if (val == m_outputLines[0].m_compareData[i])
+            if (val == m_portsInfo[0].m_compareData[i])
                 continue;
 
             QByteArray fastTrans;
@@ -231,7 +231,7 @@ void Stageprofi::run()
             }
             else
             {
-                m_outputLines[0].m_compareData[i] = val;
+                m_portsInfo[0].m_compareData[i] = val;
                 if (checkReply() == false)
                     iface()->purgeBuffers();
             }

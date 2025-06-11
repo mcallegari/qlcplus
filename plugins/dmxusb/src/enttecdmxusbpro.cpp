@@ -76,7 +76,9 @@ EnttecDMXUSBPro::EnttecDMXUSBPro(DMXInterface *iface, quint32 outputLine, quint3
 {
     m_inputBaseLine = inputLine;
 
-    setInputsNumber(1);
+    QList<LineFlags> ports;
+    ports << LineFlags(DMXUSBWidget::DMX | DMXUSBWidget::Output | DMXUSBWidget::Input);
+    setPortsMapping(ports);
 
     // by default, set the serial number
     // provided by FTDI
@@ -299,31 +301,6 @@ DMXUSBWidget::Type EnttecDMXUSBPro::type() const
         return ProRXTX;
 }
 
-void EnttecDMXUSBPro::setMidiPortsNumber(int inputs, int outputs)
-{
-    // place MIDI I/O after the DMX I/O
-    // and create a local midi map
-    if (inputs)
-    {
-        m_inputLines.resize(m_inputLines.count() + inputs);
-        for (int i = m_inputLines.count() - inputs; i < m_inputLines.count(); i++)
-        {
-            m_inputLines[i].m_isOpen = false;
-            m_inputLines[i].m_lineType = MIDI;
-        }
-    }
-
-    if (outputs)
-    {
-        m_outputLines.resize(m_outputLines.count() + outputs);
-        for (int o = m_outputLines.count() - outputs; o < m_outputLines.count(); o++)
-        {
-            m_outputLines[o].m_isOpen = false;
-            m_outputLines[o].m_lineType = MIDI;
-        }
-    }
-}
-
 void EnttecDMXUSBPro::setDMXKingMode()
 {
     m_dmxKingMode = true;
@@ -425,8 +402,7 @@ bool EnttecDMXUSBPro::close(quint32 line, bool input)
 
     // if this is the last line to close,
     // stop the input/output thread
-    if ((input == false && openOutputLines() == 1) ||
-        (input == true && openInputLines() == 1))
+    if (openPortsCount() == 1)
         stopThread();
 
     return DMXUSBWidget::close(line, input);
@@ -518,14 +494,14 @@ QString EnttecDMXUSBPro::uniqueName(ushort line, bool input) const
 
     if (input)
     {
-        if (m_inputLines[line].m_lineType == MIDI)
+        if (m_portsInfo[line].m_lineFlags & DMXUSBWidget::MIDI)
             return QString("%1 - %2 - (S/N: %3)").arg(devName, QObject::tr("MIDI Input"), m_proSerial);
         else
             return QString("%1 - %2 - (S/N: %3)").arg(devName, QObject::tr("DMX Input"), m_proSerial);
     }
     else
     {
-        if (m_outputLines[line].m_lineType == MIDI)
+        if (m_portsInfo[line].m_lineFlags & DMXUSBWidget::MIDI)
             return QString("%1 - %2 - (S/N: %3)").arg(devName, QObject::tr("MIDI Output"), m_proSerial);
         else
             return QString("%1 - %2 %3 - (S/N: %4)").arg(devName, QObject::tr("DMX Output"), QString::number(line + 1), m_proSerial);
@@ -602,14 +578,14 @@ bool EnttecDMXUSBPro::writeUniverse(quint32 universe, quint32 output, const QByt
     if (devLine >= (quint32)outputsNumber())
         return false;
 
-    if (m_outputLines[devLine].m_universeData.size() == 0)
+    if (m_portsInfo[devLine].m_universeData.size() == 0)
     {
-        m_outputLines[devLine].m_universeData.append(data);
-        m_outputLines[devLine].m_universeData.append(DMX_CHANNELS - data.size(), 0);
+        m_portsInfo[devLine].m_universeData.append(data);
+        m_portsInfo[devLine].m_universeData.append(DMX_CHANNELS - data.size(), 0);
     }
 
     if (dataChanged)
-        m_outputLines[devLine].m_universeData.replace(0, data.size(), data);
+        m_portsInfo[devLine].m_universeData.replace(0, data.size(), data);
 
     return true;
 }
@@ -667,7 +643,7 @@ void EnttecDMXUSBPro::run()
                         if (input == false)
                         {
                             quint32 devLine = line - m_outputBaseLine;
-                            if (m_outputLines[devLine].m_lineType == MIDI)
+                            if (m_portsInfo[devLine].m_lineFlags & DMXUSBWidget::MIDI)
                                 configureLine(devLine, true);
                             else
                                 configureLine(devLine, false);
@@ -675,7 +651,7 @@ void EnttecDMXUSBPro::run()
                         else
                         {
                             quint32 devLine = line - m_inputBaseLine;
-                            if (m_inputLines[devLine].m_lineType == MIDI)
+                            if (m_portsInfo[devLine].m_lineFlags & DMXUSBWidget::MIDI)
                                 configureLine(devLine, true);
                         }
                     }
@@ -690,7 +666,13 @@ void EnttecDMXUSBPro::run()
                     bool input = cmd.param2.toBool();
 
                     // disable input if no longer needed
-                    if (input == true && openInputLines() == 1)
+                    int count = 0;
+                    for (int i = 0; i < m_portsInfo.count(); i++)
+                    {
+                        if (m_portsInfo.at(i).m_openDirection == DMXUSBWidget::Input)
+                            count++;
+                    }
+                    if (input == true && count == 0)
                         readInput = false;
                 }
                 break;
@@ -700,34 +682,38 @@ void EnttecDMXUSBPro::run()
         }
 
         // no open output lines: do nothing
-        if (openOutputLines() == 0 && openInputLines() == 0)
+        if (openPortsCount() == 0)
             goto framesleep;
 
         /* **************************************************************
          *                  SEND DMX DATA TO OUTPUT PORTS
          * ************************************************************ */
-        for (int i = 0; i < m_outputLines.count(); i++)
+        for (int i = 0; i < m_portsInfo.count(); i++)
         {
-            int dataLen = m_outputLines[i].m_universeData.length();
+            // consider only output ports
+            if (m_portsInfo[i].m_lineFlags & DMXUSBWidget::Input)
+                continue;
+
+            int dataLen = m_portsInfo[i].m_universeData.length();
             if (dataLen == 0)
                 continue;
 
-            if (m_outputLines[i].m_lineType == MIDI)
+            if (m_portsInfo[i].m_lineFlags & DMXUSBWidget::MIDI)
             {
                 QByteArray request;
 
-                if (m_outputLines[i].m_compareData.size() == 0)
-                    m_outputLines[i].m_compareData.fill(0, 512);
+                if (m_portsInfo[i].m_compareData.size() == 0)
+                    m_portsInfo[i].m_compareData.fill(0, 512);
 
                 // send only values that changed
-                for (int j = 0; j < m_outputLines[i].m_universeData.length(); j++)
+                for (int j = 0; j < m_portsInfo[i].m_universeData.length(); j++)
                 {
-                    char val = m_outputLines[i].m_universeData[j];
+                    char val = m_portsInfo[i].m_universeData[j];
 
-                    if (val == m_outputLines[i].m_compareData[j])
+                    if (val == m_portsInfo[i].m_compareData[j])
                         continue;
 
-                    m_outputLines[i].m_compareData[j] = val;
+                    m_portsInfo[i].m_compareData[j] = val;
 
                     request.clear();
                     request.prepend(ENTTEC_PRO_START_OF_MSG); // Start byte
@@ -773,7 +759,7 @@ void EnttecDMXUSBPro::run()
                 request.append((dataLen + 1) & 0xff); // Data length LSB
                 request.append(((dataLen + 1) >> 8) & 0xff); // Data length MSB
                 request.append(char(ENTTEC_PRO_DMX_ZERO)); // DMX start code (Which constitutes the + 1 below)
-                request.append(m_outputLines[i].m_universeData);
+                request.append(m_portsInfo[i].m_universeData);
                 request.append(ENTTEC_PRO_END_OF_MSG); // Stop byte
 
                 //qDebug() << "OUTPUT" << request.length() << "bytes on line" << i;
@@ -808,7 +794,7 @@ void EnttecDMXUSBPro::run()
                 uchar midiData1 = 0;
                 uchar midiData2 = 0;
 
-                int devLine = isMIDI ? m_inputLines.count() - 1 : 0;
+                int devLine = isMIDI ? m_portsInfo.count() - 1 : 0;
                 int emitLine = m_inputBaseLine + devLine;
 
                 for (int i = 0; i < payload.length(); i++)
@@ -817,14 +803,14 @@ void EnttecDMXUSBPro::run()
 
                     if (isMIDI == false)
                     {
-                        if (m_inputLines[devLine].m_universeData.size() == 0)
-                            m_inputLines[devLine].m_universeData.fill(0, 512);
+                        if (m_portsInfo[devLine].m_universeData.size() == 0)
+                            m_portsInfo[devLine].m_universeData.fill(0, 512);
 
-                        if (i < 512 && byte != (uchar) m_inputLines[devLine].m_universeData[i])
+                        if (i < 512 && byte != (uchar) m_portsInfo[devLine].m_universeData[i])
                         {
                             qDebug() << "Value at" << i << "changed to" << QString::number(byte);
                             // Store and emit changed values
-                            m_inputLines[devLine].m_universeData[i] = byte;
+                            m_portsInfo[devLine].m_universeData[i] = byte;
                             emit valueChanged(UINT_MAX, emitLine, i, byte);
                         }
                     }

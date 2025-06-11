@@ -38,6 +38,7 @@
 
 /**
  * This is the base interface class for all the USB DMX widgets.
+ * It represents a DMX USB widget, with all its specific input/output lines
  */
 class DMXUSBWidget
 {
@@ -65,21 +66,28 @@ public:
         Eurolite    //! Eurolite USB DMX512 Pro widget
     };
 
-    enum LineType
+    /** The possible features of a line */
+    enum LineFlags
     {
-        Unknown,
-        DMX,
-        MIDI
+        None   = 0,
+        DMX    = 1 << 0,
+        MIDI   = 1 << 1,
+        Input  = 1 << 2,
+        Output = 1 << 3,
+        ArtNet_sACN_Forward = 1 << 4
     };
 
     typedef struct
     {
-        /** The device line type (DMX, MIDI, etc) */
-        LineType m_lineType;
-        /** Line open true/false flag */
-        bool m_isOpen;
+        /** The device line flags (DMX, MIDI, etc) */
+        LineFlags m_lineFlags;
+
+        /** When open, this is the port directon */
+        LineFlags m_openDirection;
+
         /** Data for input/output */
         QByteArray m_universeData;
+
         /** Data for comparison with m_universeData */
         QByteArray m_compareData;
     } DMXUSBLineInfo;
@@ -137,20 +145,40 @@ public:
     virtual bool isOpen();
 
     /********************************************************************
+     * Widget Ports
+     ********************************************************************/
+public:
+    virtual void setPortsMapping(QList<LineFlags> ports);
+
+    virtual int portFlagsCount(LineFlags flags);
+
+    virtual int openPortsCount();
+
+protected:
+    /** The QLC+ output line number where this widget outputs start */
+    quint32 m_outputBaseLine;
+
+    /** The QLC+ input line number where this widget inputs start */
+    quint32 m_inputBaseLine;
+
+    QVector<DMXUSBLineInfo> m_portsInfo;
+
+    /********************************************************************
      * Outputs
      ********************************************************************/
 public:
+#if 0
     /**
      * Set the number of output lines this widget supports
      * @param num the output lines number
      */
     virtual void setOutputsNumber(int num);
 
-    /** Return the number of output lines supported by this widget */
-    virtual int outputsNumber();
-
     /** Return the number of open output lines */
     virtual int openOutputLines();
+#endif
+    /** Return the number of output lines supported by this widget */
+    virtual int outputsNumber();
 
     /** Return a list of the output line names */
     virtual QStringList outputNames();
@@ -160,43 +188,31 @@ public:
     virtual void setOutputFrequency(int frequency);
 
 protected:
-    /** The QLC+ output line number where this widget outputs start */
-    quint32 m_outputBaseLine;
-
     /** The output frequency in Hertz */
     int m_frequency;
 
     /** The DMX frame time duration in microseconds */
     int m_frameTimeUs;
 
-    /** Array of output lines supported by the device. This is resized on setOutputsNumber */
-    QVector<DMXUSBLineInfo> m_outputLines;
-
     /********************************************************************
      * Inputs
      ********************************************************************/
 public:
+#if 0
     /**
      * Set the number of input lines this widget supports
      * @param num the input lines number
      */
     virtual void setInputsNumber(int num);
 
+    /** Return the number of open intput lines */
+    virtual int openInputLines();
+#endif
     /** Return the number of input lines supported by this widget */
     virtual int inputsNumber();
 
     /** Return a list of the input line names */
     virtual QStringList inputNames();
-
-    /** Return the number of open intput lines */
-    virtual int openInputLines();
-
-protected:
-    /** The QLC+ input line number where this widget inputs start */
-    quint32 m_inputBaseLine;
-
-    /** Array of input lines supported by the device. This is resized on setInputsNumber */
-    QVector<DMXUSBLineInfo> m_inputLines;
 
     /********************************************************************
      * Serial & name
