@@ -36,18 +36,6 @@
 #define DMX_CHANNELS                512
 #define DEFAULT_OUTPUT_FREQUENCY    44  // 44 Hertz, according to the DMX specs
 
-typedef struct
-{
-    /** The device line type (DMX, MIDI, etc) */
-    int m_lineType;
-    /** Line open true/false flag */
-    bool m_isOpen;
-    /** Data for input/output */
-    QByteArray m_universeData;
-    /** Data for comparison with m_universeData */
-    QByteArray m_compareData;
-} DMXUSBLineInfo;
-
 /**
  * This is the base interface class for all the USB DMX widgets.
  */
@@ -84,6 +72,18 @@ public:
         MIDI
     };
 
+    typedef struct
+    {
+        /** The device line type (DMX, MIDI, etc) */
+        LineType m_lineType;
+        /** Line open true/false flag */
+        bool m_isOpen;
+        /** Data for input/output */
+        QByteArray m_universeData;
+        /** Data for comparison with m_universeData */
+        QByteArray m_compareData;
+    } DMXUSBLineInfo;
+
     /** Get the type of the widget */
     virtual Type type() const = 0;
 
@@ -92,10 +92,6 @@ public:
 
     /** Get the DMXInterface driver in use as a string */
     QString interfaceTypeString() const;
-
-    static bool detectDMXKingDevice(DMXInterface *iface,
-                                    QString &manufName, QString &deviceName,
-                                    int &ESTA_ID, int &DEV_ID);
 
     static QList<DMXUSBWidget *> widgets();
 

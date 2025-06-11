@@ -36,9 +36,6 @@ public:
 
     static QList<DMXInterface *> interfaces(QList<DMXInterface *> discoveredList);
 
-    /** @reimpl */
-    bool readLabel(uchar label, int &intParam, QString &strParam);
-
     /************************************************************************
      * DMX/Serial Interface Methods
      ************************************************************************/

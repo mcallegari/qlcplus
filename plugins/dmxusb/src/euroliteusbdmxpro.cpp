@@ -17,10 +17,10 @@
   limitations under the License.
 */
 
-#include "euroliteusbdmxpro.h"
-
 #include <QDebug>
 #include <QDir>
+
+#include "euroliteusbdmxpro.h"
 
 EuroliteUSBDMXPro::EuroliteUSBDMXPro(DMXInterface *iface, quint32 outputLine)
     : DMXUSBWidget(iface, outputLine, DEFAULT_OUTPUT_FREQUENCY)

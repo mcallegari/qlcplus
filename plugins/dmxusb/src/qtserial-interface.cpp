@@ -24,7 +24,6 @@
 #include <QMap>
 
 #include "qtserial-interface.h"
-#include "enttecdmxusbpro.h"
 
 QT_USE_NAMESPACE
 
@@ -40,76 +39,6 @@ QtSerialInterface::~QtSerialInterface()
 {
     if (isOpen() == true)
         close();
-}
-
-bool QtSerialInterface::readLabel(uchar label, int &intParam, QString &strParam)
-{
-    QSerialPort serial;
-    serial.setPort(m_info);
-
-    if (serial.open(QIODevice::ReadWrite) == false)
-        return false;
-
-    serial.setReadBufferSize(1024);
-
-    serial.setDataBits(QSerialPort::Data8);
-    serial.setStopBits(QSerialPort::TwoStop);
-    serial.setParity(QSerialPort::NoParity);
-    serial.setFlowControl(QSerialPort::NoFlowControl);
-    serial.setBaudRate(250000);
-
-    QByteArray request;
-    request.append(ENTTEC_PRO_START_OF_MSG);
-    request.append(label);
-    request.append(ENTTEC_PRO_DMX_ZERO); // data length LSB
-    request.append(ENTTEC_PRO_DMX_ZERO); // data length MSB
-    request.append(ENTTEC_PRO_END_OF_MSG);
-
-    if (serial.write(request) < 0)
-    {
-        qDebug() << Q_FUNC_INFO << "Cannot write data to device";
-        return false;
-    }
-    serial.waitForBytesWritten(20);
-
-    char buffer[40];
-    Q_ASSERT(buffer != NULL);
-
-    QByteArray array;
-    // wait 100ms maximum for the device to respond
-    serial.waitForReadyRead(100);
-    int read = serial.read(buffer, 40);
-    //qDebug() << Q_FUNC_INFO << "Data read: " << read;
-    array = QByteArray::fromRawData((char*) buffer, read);
-
-    if (array.size() == 0)
-        return false;
-
-    if (array[0] != ENTTEC_PRO_START_OF_MSG)
-    {
-        qDebug() << Q_FUNC_INFO << "Reply message wrong start code: " << QString::number(array[0], 16);
-        return false;
-    }
-
-    // start | label | data length
-    if (array.size() < 4)
-        return false;
-
-    int dataLen = (array[3] << 8) | array[2];
-    if (dataLen == 1)
-    {
-        intParam = array[4];
-        return true;
-    }
-
-    intParam = (array[5] << 8) | array[4];
-    strParam = QString(array.mid(6, dataLen - 2));
-
-    //for (int i = 0; i < array.size(); i++)
-    //    qDebug() << "-Data: " << array[i];
-    serial.close();
-
-    return true;
 }
 
 DMXInterface::Type QtSerialInterface::type()
@@ -399,19 +328,27 @@ QByteArray QtSerialInterface::read(int size, uchar *userBuffer)
 
     if (m_handle == NULL)
         return QByteArray();
-
+#if 1
     if (m_readBuffer.length() < size)
     {
         if (m_handle->waitForReadyRead(10) == true)
         {
             m_readBuffer.append(m_handle->read(1024));
             //qDebug() << "[QtSerial] read buffer payload:" << m_readBuffer.toHex(',');
+            //qDebug() << "[QtSerial] read buffer length" << m_readBuffer.length();
         }
     }
     QByteArray ret = m_readBuffer.mid(0, qMin(size, m_readBuffer.length()));
     m_readBuffer.remove(0, qMin(size, m_readBuffer.length()));
 
     return ret;
+#else
+    if (m_handle->waitForReadyRead(10) == true)
+    {
+        return m_handle->read(size);
+    }
+    return QByteArray();
+#endif
 }
 
 uchar QtSerialInterface::readByte(bool *ok)
@@ -422,7 +359,7 @@ uchar QtSerialInterface::readByte(bool *ok)
         return 0;
 
     //qDebug() << Q_FUNC_INFO;
-
+#if 1
     if (m_readBuffer.length() < 1)
     {
         if (m_handle->waitForReadyRead(10) == true)
@@ -436,9 +373,20 @@ uchar QtSerialInterface::readByte(bool *ok)
     {
         if (ok) *ok = true;
         uchar retByte = uchar(m_readBuffer.at(0));
-        m_readBuffer.remove(0, 1);
+        m_readBuffer.removeFirst();
         return retByte;
     }
-
+#else
+    if (m_handle->waitForReadyRead(10) == true)
+    {
+        QByteArray array = m_handle->read(1);
+        if (array.size() > 0)
+        {
+            if (ok) *ok = true;
+            return (uchar)array.at(0);
+        }
+    }
+#endif
     return 0;
+
 }

@@ -29,7 +29,6 @@
 #endif
 
 #include "libftdi-interface.h"
-#include "enttecdmxusbpro.h"
 
 LibFTDIInterface::LibFTDIInterface(const QString& serial, const QString& name, const QString& vendor,
                                    quint16 VID, quint16 PID, quint32 id)
@@ -47,79 +46,6 @@ LibFTDIInterface::~LibFTDIInterface()
     if (isOpen() == true)
         close();
     ftdi_deinit(&m_handle);
-}
-
-bool LibFTDIInterface::readLabel(uchar label, int &intParam, QString &strParam)
-{
-    if (ftdi_usb_open_desc(&m_handle, DMXInterface::FTDIVID, DMXInterface::FTDIPID,
-                           name().toLatin1().data(), serial().toLatin1().data()) < 0)
-
-        return false;
-
-    if (ftdi_usb_reset(&m_handle) < 0)
-        return false;
-
-    if (ftdi_set_baudrate(&m_handle, 250000) < 0)
-        return false;
-
-    if (ftdi_set_line_property(&m_handle, BITS_8, STOP_BIT_2, NONE) < 0)
-        return false;
-
-    if (ftdi_setflowctrl(&m_handle, SIO_DISABLE_FLOW_CTRL) < 0)
-        return false;
-
-    QByteArray request;
-    request.append(ENTTEC_PRO_START_OF_MSG);
-    request.append(label);
-    request.append(ENTTEC_PRO_DMX_ZERO); // data length LSB
-    request.append(ENTTEC_PRO_DMX_ZERO); // data length MSB
-    request.append(ENTTEC_PRO_END_OF_MSG);
-
-    if (ftdi_write_data(&m_handle, (uchar*) request.data(), request.size()) < 0)
-    {
-        qDebug() << Q_FUNC_INFO << "Cannot write data to device";
-        return false;
-    }
-
-    uchar buffer[40];
-
-    for (int i = 0; i < 3; i++)
-    {
-        QByteArray array = read(40, buffer);
-        if (array.size() == 0)
-            return false;
-
-        if (array[0] != ENTTEC_PRO_START_OF_MSG)
-        {
-            qDebug() << Q_FUNC_INFO << "Reply message wrong start code: " << QString::number(array[0], 16);
-            return false;
-        }
-
-        // start | label | data length
-        if (array.size() < 4)
-            return false;
-
-        int dataLen = (array[3] << 8) | array[2];
-        if (dataLen == 1)
-        {
-            intParam = array[4];
-            return true;
-        }
-
-        intParam = (array[5] << 8) | array[4];
-        strParam = QString(array.mid(6, dataLen - 2));
-
-        ftdi_usb_close(&m_handle);
-
-        return true;
-
-        // retry in case no data is read immediately
-        usleep(100000);
-    }
-
-    ftdi_usb_close(&m_handle);
-
-    return false;
 }
 
 void LibFTDIInterface::setBusLocation(quint8 location)

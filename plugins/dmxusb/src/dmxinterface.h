@@ -21,7 +21,8 @@
 #ifndef DMXINTERFACE_H
 #define DMXINTERFACE_H
 
-#include <QtCore>
+#include <QThread>
+#include <QString>
 
 #define SETTINGS_TYPE_MAP "qlcftdi/typemap"
 #define SETTINGS_FREQ_MAP "qlcftdi/freqmap"
@@ -47,8 +48,6 @@ public:
 
     /** Destructor */
     virtual ~DMXInterface();
-
-    virtual bool readLabel(uchar label, int &ESTA_code, QString &strParam) = 0;
 
     /** Get the widget's USB serial number */
     QString serial() const;

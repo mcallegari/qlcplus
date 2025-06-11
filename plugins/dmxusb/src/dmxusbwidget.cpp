@@ -90,26 +90,6 @@ QString DMXUSBWidget::interfaceTypeString() const
     return m_interface->typeString();
 }
 
-bool DMXUSBWidget::detectDMXKingDevice(DMXInterface *iface,
-                                       QString &manufName, QString &deviceName,
-                                       int &ESTA_ID, int &DEV_ID)
-{
-    if (iface->readLabel(DMXKING_USB_DEVICE_MANUFACTURER, ESTA_ID, manufName) == false)
-        return false;
-
-    qDebug() << "--------> Device Manufacturer: " << manufName;
-    if (iface->readLabel(DMXKING_USB_DEVICE_NAME, DEV_ID, deviceName) == false)
-        return false;
-
-    qDebug() << "--------> Device Name: " << deviceName;
-    qDebug() << "--------> ESTA Code: " << QString::number(ESTA_ID, 16) << ", Device ID: " << QString::number(DEV_ID, 16);
-
-    if (ESTA_ID == DMXKING_ESTA_ID)
-        return true;
-
-    return false;
-}
-
 QList<DMXUSBWidget *> DMXUSBWidget::widgets()
 {
     QList<DMXUSBWidget *> widgetList;
@@ -192,28 +172,40 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
         }
         else if (iface->vendorID() == DMXInterface::NXPVID && iface->productID() == DMXInterface::DMXKINGMAXPID)
         {
-            int ESTAID = 0, DEVID = 0, outNumber;
+            int ESTAID = 0, DEVID = 0;
+            QByteArray portsConfig;
             QString manName, devName;
-            bool isDmxKing = detectDMXKingDevice(iface, manName, devName, ESTAID, DEVID);
+            bool isDmxKing = EnttecDMXUSBPro::detectDMXKingDevice(iface, manName, devName, ESTAID, DEVID, portsConfig);
 
-            // read also ports count
-            if (isDmxKing && iface->readLabel(DMXKING_DMX_PORT_COUNT, outNumber, manName))
+            if (isDmxKing)
             {
-                qDebug() << "Number of outputs detected:" << outNumber;
+                qDebug() << "Number of ports detected:" << portsConfig.length();
+                int inPortsNum = 0;
+                int outPortsNum = 0;
+                for (int p = 0; p < portsConfig.length(); p++)
+                {
+                    if (portsConfig[p] & EnttecDMXUSBPro::Input)
+                        inPortsNum++;
+                    if (portsConfig[p] & EnttecDMXUSBPro::Output)
+                        outPortsNum++;
+                }
 
-                EnttecDMXUSBPro *ultra = new EnttecDMXUSBPro(iface, output_id, input_id++);
-                ultra->setOutputsNumber(outNumber);
+                EnttecDMXUSBPro *ultra = new EnttecDMXUSBPro(iface, output_id, input_id);
+                ultra->setOutputsNumber(outPortsNum);
+                ultra->setInputsNumber(inPortsNum);
                 ultra->setDMXKingMode();
                 ultra->setRealName(devName);
-                output_id += outNumber;
+                output_id += outPortsNum;
+                input_id += inPortsNum;
                 widgetList << ultra;
             }
         }
         else if (productName.contains("DMX USB PRO") || productName.contains("ULTRADMX"))
         {
             int ESTAID = 0, DEVID = 0;
+            QByteArray dummy;
             QString manName, devName;
-            bool isDmxKing = detectDMXKingDevice(iface, manName, devName, ESTAID, DEVID);
+            bool isDmxKing = EnttecDMXUSBPro::detectDMXKingDevice(iface, manName, devName, ESTAID, DEVID, dummy);
 
             if (isDmxKing)
             {
@@ -394,7 +386,7 @@ bool DMXUSBWidget::open(quint32 line, bool input)
     qDebug() << Q_FUNC_INFO << "Line:" << line << ", open inputs:" << openInputLines() << ", open outputs:" << openOutputLines();
 
     if (isOpen() == true)
-        return true; //close();
+        return true;
 
     if (this->type() == DMXUSBWidget::DMX4ALL)
     {
