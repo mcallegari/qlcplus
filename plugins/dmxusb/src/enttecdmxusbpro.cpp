@@ -76,8 +76,8 @@ EnttecDMXUSBPro::EnttecDMXUSBPro(DMXInterface *iface, quint32 outputLine, quint3
 {
     m_inputBaseLine = inputLine;
 
-    QList<LineFlags> ports;
-    ports << LineFlags(DMXUSBWidget::DMX | DMXUSBWidget::Output | DMXUSBWidget::Input);
+    QList<int> ports;
+    ports << (DMXUSBWidget::DMX | DMXUSBWidget::Output | DMXUSBWidget::Input);
     setPortsMapping(ports);
 
     // by default, set the serial number
@@ -494,14 +494,14 @@ QString EnttecDMXUSBPro::uniqueName(ushort line, bool input) const
 
     if (input)
     {
-        if (m_portsInfo[line].m_lineFlags & DMXUSBWidget::MIDI)
+        if (m_portsInfo[line].m_portFlags & DMXUSBWidget::MIDI)
             return QString("%1 - %2 - (S/N: %3)").arg(devName, QObject::tr("MIDI Input"), m_proSerial);
         else
             return QString("%1 - %2 - (S/N: %3)").arg(devName, QObject::tr("DMX Input"), m_proSerial);
     }
     else
     {
-        if (m_portsInfo[line].m_lineFlags & DMXUSBWidget::MIDI)
+        if (m_portsInfo[line].m_portFlags & DMXUSBWidget::MIDI)
             return QString("%1 - %2 - (S/N: %3)").arg(devName, QObject::tr("MIDI Output"), m_proSerial);
         else
             return QString("%1 - %2 %3 - (S/N: %4)").arg(devName, QObject::tr("DMX Output"), QString::number(line + 1), m_proSerial);
@@ -643,7 +643,7 @@ void EnttecDMXUSBPro::run()
                         if (input == false)
                         {
                             quint32 devLine = line - m_outputBaseLine;
-                            if (m_portsInfo[devLine].m_lineFlags & DMXUSBWidget::MIDI)
+                            if (m_portsInfo[devLine].m_portFlags & DMXUSBWidget::MIDI)
                                 configureLine(devLine, true);
                             else
                                 configureLine(devLine, false);
@@ -651,7 +651,7 @@ void EnttecDMXUSBPro::run()
                         else
                         {
                             quint32 devLine = line - m_inputBaseLine;
-                            if (m_portsInfo[devLine].m_lineFlags & DMXUSBWidget::MIDI)
+                            if (m_portsInfo[devLine].m_portFlags & DMXUSBWidget::MIDI)
                                 configureLine(devLine, true);
                         }
                     }
@@ -691,14 +691,14 @@ void EnttecDMXUSBPro::run()
         for (int i = 0; i < m_portsInfo.count(); i++)
         {
             // consider only output ports
-            if (m_portsInfo[i].m_lineFlags & DMXUSBWidget::Input)
+            if ((m_portsInfo[i].m_portFlags & DMXUSBWidget::Output) == 0)
                 continue;
 
             int dataLen = m_portsInfo[i].m_universeData.length();
             if (dataLen == 0)
                 continue;
 
-            if (m_portsInfo[i].m_lineFlags & DMXUSBWidget::MIDI)
+            if (m_portsInfo[i].m_portFlags & DMXUSBWidget::MIDI)
             {
                 QByteArray request;
 
@@ -860,7 +860,7 @@ framesleep:
             usleep(timetoSleep);
     }
 
-    qDebug() << "OUTPUT thread terminated";
+    qDebug() << "INPUT/OUTPUT thread terminated";
 }
 
 void EnttecDMXUSBPro::stopThread()

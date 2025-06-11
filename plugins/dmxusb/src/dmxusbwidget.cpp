@@ -55,8 +55,8 @@ DMXUSBWidget::DMXUSBWidget(DMXInterface *iface, quint32 outputLine, int frequenc
     else
         setOutputFrequency(frequency);
 
-    QList<LineFlags> ports;
-    ports << LineFlags(DMXUSBWidget::DMX | DMXUSBWidget::Output);
+    QList<int> ports;
+    ports << (DMXUSBWidget::DMX | DMXUSBWidget::Output);
     setPortsMapping(ports);
 
 #if defined(WIN32) || defined(Q_OS_WIN)
@@ -131,15 +131,13 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
                     EnttecDMXUSBPro *promkii = new EnttecDMXUSBPro(iface, output_id, input_id);
 
                     // 2 DMX outputs, 1 DMX input, 1 MIDI input, 1 MIDI output
-                    QList<LineFlags> ports;
-                    ports << LineFlags(DMXUSBWidget::DMX | DMXUSBWidget::Output | DMXUSBWidget::Input);
-                    ports << LineFlags(DMXUSBWidget::DMX | DMXUSBWidget::Output);
-                    ports << LineFlags(DMXUSBWidget::MIDI | DMXUSBWidget::Input);
-                    ports << LineFlags(DMXUSBWidget::MIDI | DMXUSBWidget::Output);
+                    QList<int> ports;
+                    ports << (DMXUSBWidget::DMX | DMXUSBWidget::Output | DMXUSBWidget::Input);
+                    ports << (DMXUSBWidget::DMX | DMXUSBWidget::Output);
+                    ports << (DMXUSBWidget::MIDI | DMXUSBWidget::Input);
+                    ports << (DMXUSBWidget::MIDI | DMXUSBWidget::Output);
                     promkii->setPortsMapping(ports);
 
-                    //promkii->setOutputsNumber(2);
-                    //promkii->setMidiPortsNumber(1, 1);
                     output_id += 3;
                     input_id += 2;
                     widgetList << promkii;
@@ -148,12 +146,11 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
                 case DMXUSBWidget::UltraPro:
                 {
                     EnttecDMXUSBPro *ultra = new EnttecDMXUSBPro(iface, output_id, input_id++);
-                    QList<LineFlags> ports;
-                    ports << LineFlags(DMXUSBWidget::DMX | DMXUSBWidget::Output | DMXUSBWidget::Input);
-                    ports << LineFlags(DMXUSBWidget::DMX | DMXUSBWidget::Output);
+                    QList<int> ports;
+                    ports << (DMXUSBWidget::DMX | DMXUSBWidget::Output | DMXUSBWidget::Input);
+                    ports << (DMXUSBWidget::DMX | DMXUSBWidget::Output);
                     ultra->setPortsMapping(ports);
 
-                    //ultra->setOutputsNumber(2);
                     ultra->setDMXKingMode();
                     output_id += 2;
                     widgetList << ultra;
@@ -181,15 +178,13 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
             EnttecDMXUSBPro *promkii = new EnttecDMXUSBPro(iface, output_id, input_id);
 
             // 2 DMX outputs, 1 DMX input, 1 MIDI input, 1 MIDI output
-            QList<LineFlags> ports;
-            ports << LineFlags(DMXUSBWidget::DMX | DMXUSBWidget::Output | DMXUSBWidget::Input);
-            ports << LineFlags(DMXUSBWidget::DMX | DMXUSBWidget::Output);
-            ports << LineFlags(DMXUSBWidget::MIDI | DMXUSBWidget::Input);
-            ports << LineFlags(DMXUSBWidget::MIDI | DMXUSBWidget::Output);
+            QList<int> ports;
+            ports << (DMXUSBWidget::DMX | DMXUSBWidget::Output | DMXUSBWidget::Input);
+            ports << (DMXUSBWidget::DMX | DMXUSBWidget::Output);
+            ports << (DMXUSBWidget::MIDI | DMXUSBWidget::Input);
+            ports << (DMXUSBWidget::MIDI | DMXUSBWidget::Output);
             promkii->setPortsMapping(ports);
 
-            //promkii->setOutputsNumber(2);
-            //promkii->setMidiPortsNumber(1, 1);
             output_id += 3;
             input_id += 2;
             widgetList << promkii;
@@ -204,20 +199,18 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
             if (isDmxKing)
             {
                 qDebug() << "Number of ports detected:" << portsConfig.length();
-                QList<LineFlags> ports;
+                QList<int> ports;
 
                 for (int p = 0; p < portsConfig.length(); p++)
                 {
                     if (portsConfig[p] & EnttecDMXUSBPro::Input)
-                        ports << LineFlags(DMXUSBWidget::DMX | DMXUSBWidget::Input);
+                        ports << (DMXUSBWidget::DMX | DMXUSBWidget::Input);
                     if (portsConfig[p] & EnttecDMXUSBPro::Output)
-                        ports << LineFlags(DMXUSBWidget::DMX | DMXUSBWidget::Output);
+                        ports << (DMXUSBWidget::DMX | DMXUSBWidget::Output);
                 }
 
                 EnttecDMXUSBPro *ultra = new EnttecDMXUSBPro(iface, output_id, input_id);
                 ultra->setPortsMapping(ports);
-                //ultra->setOutputsNumber(outPortsNum);
-                //ultra->setInputsNumber(inPortsNum);
                 ultra->setDMXKingMode();
                 ultra->setRealName(devName);
                 output_id += ultra->portFlagsCount(DMXUSBWidget::Output);
@@ -237,11 +230,10 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
                 if (DEVID == ULTRADMX_PRO_DEV_ID)
                 {
                     EnttecDMXUSBPro *ultra = new EnttecDMXUSBPro(iface, output_id, input_id++);
-                    QList<LineFlags> ports;
-                    ports << LineFlags(DMXUSBWidget::DMX | DMXUSBWidget::Output | DMXUSBWidget::Input);
-                    ports << LineFlags(DMXUSBWidget::DMX | DMXUSBWidget::Output);
+                    QList<int> ports;
+                    ports << (DMXUSBWidget::DMX | DMXUSBWidget::Output | DMXUSBWidget::Input);
+                    ports << (DMXUSBWidget::DMX | DMXUSBWidget::Output);
                     ultra->setPortsMapping(ports);
-                    //ultra->setOutputsNumber(2);
                     ultra->setDMXKingMode();
                     ultra->setRealName(devName);
                     output_id += 2;
@@ -250,10 +242,9 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
                 else
                 {
                     EnttecDMXUSBPro *pro = new EnttecDMXUSBPro(iface, output_id++);
-                    QList<LineFlags> ports;
-                    ports << LineFlags(DMXUSBWidget::DMX | DMXUSBWidget::Output);
+                    QList<int> ports;
+                    ports << (DMXUSBWidget::DMX | DMXUSBWidget::Output);
                     pro->setPortsMapping(ports);
-                    //pro->setInputsNumber(0);
                     pro->setRealName(devName);
                     widgetList << pro;
                 }
@@ -269,10 +260,9 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
         else if (productName.contains("DMXIS"))
         {
             EnttecDMXUSBPro *pro = new EnttecDMXUSBPro(iface, output_id++);
-            QList<LineFlags> ports;
-            ports << LineFlags(DMXUSBWidget::DMX | DMXUSBWidget::Output);
+            QList<int> ports;
+            ports << (DMXUSBWidget::DMX | DMXUSBWidget::Output);
             pro->setPortsMapping(ports);
-            //pro->setInputsNumber(0);
             widgetList << pro;
         }
         else if (productName.contains("USB-DMX512 CONVERTER") == true)
@@ -500,14 +490,14 @@ bool DMXUSBWidget::isOpen()
     return m_interface->isOpen();
 }
 
-void DMXUSBWidget::setPortsMapping(QList<LineFlags> ports)
+void DMXUSBWidget::setPortsMapping(QList<int> ports)
 {
     m_portsInfo.clear();
 
     for (int i = 0; i < ports.count(); i++)
     {
         DMXUSBLineInfo port;
-        port.m_lineFlags = ports.at(i);
+        port.m_portFlags = ports.at(i);
         port.m_openDirection = DMXUSBWidget::None;
         m_portsInfo.append(port);
     }
@@ -518,7 +508,7 @@ int DMXUSBWidget::portFlagsCount(LineFlags flags)
     int count = 0;
     for (int i = 0; i < m_portsInfo.count(); i++)
     {
-        if (m_portsInfo.at(i).m_lineFlags & flags)
+        if (m_portsInfo.at(i).m_portFlags & flags)
             count++;
     }
     return count;
@@ -538,25 +528,6 @@ int DMXUSBWidget::openPortsCount()
 /********************************************************************
  * Outputs
  ********************************************************************/
-#if 0
-void DMXUSBWidget::setOutputsNumber(int num)
-{
-    m_outputLines.clear();
-    m_outputLines.resize(num);
-    for (ushort i = 0; i < num; i++)
-    {
-        m_outputLines[i].m_isOpen = false;
-        m_outputLines[i].m_lineType = DMX;
-    }
-
-    qDebug() << "[setOutputsNumber] base line:" << m_outputBaseLine << "m_outputLines:" << m_outputLines.count();
-}
-
-int DMXUSBWidget::openOutputLines()
-{
-    return portFlagsCount(LineFlags(DMXUSBWidget::Output | DMXUSBWidget::IsOpen));
-}
-#endif
 
 int DMXUSBWidget::outputsNumber()
 {
@@ -568,7 +539,7 @@ QStringList DMXUSBWidget::outputNames()
     QStringList names;
     for (ushort i = 0; i < m_portsInfo.count(); i++)
     {
-        if (m_portsInfo.at(i).m_lineFlags & DMXUSBWidget::Output)
+        if (m_portsInfo.at(i).m_portFlags & DMXUSBWidget::Output)
             names << uniqueName(i, false);
     }
     return names;
@@ -589,23 +560,6 @@ void DMXUSBWidget::setOutputFrequency(int frequency)
 /********************************************************************
  * Inputs
  ********************************************************************/
-#if 0
-void DMXUSBWidget::setInputsNumber(int num)
-{
-    m_inputLines.clear();
-    m_inputLines.resize(num);
-    for (ushort i = 0; i < num; i++)
-    {
-        m_inputLines[i].m_isOpen = false;
-        m_inputLines[i].m_lineType = DMX;
-    }
-}
-
-int DMXUSBWidget::openInputLines()
-{
-    return portFlagsCount(LineFlags(DMXUSBWidget::Input | DMXUSBWidget::IsOpen));
-}
-#endif
 
 int DMXUSBWidget::inputsNumber()
 {
@@ -617,7 +571,7 @@ QStringList DMXUSBWidget::inputNames()
     QStringList names;
     for (ushort i = 0; i < m_portsInfo.count(); i++)
     {
-        if (m_portsInfo.at(i).m_lineFlags & DMXUSBWidget::Input)
+        if (m_portsInfo.at(i).m_portFlags & DMXUSBWidget::Input)
             names << uniqueName(i, true);
     }
     return names;

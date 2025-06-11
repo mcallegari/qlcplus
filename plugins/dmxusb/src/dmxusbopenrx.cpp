@@ -47,8 +47,8 @@ DMXUSBOpenRx::DMXUSBOpenRx(DMXInterface *iface,
     qDebug() << "Open RX constructor, line" << inputLine;
 
     m_inputBaseLine = inputLine;
-    QList<LineFlags> ports;
-    ports << LineFlags(DMXUSBWidget::DMX | DMXUSBWidget::Input);
+    QList<int> ports;
+    ports << (DMXUSBWidget::DMX | DMXUSBWidget::Input);
     setPortsMapping(ports);
 
     m_portsInfo[0].m_universeData = QByteArray();

@@ -80,10 +80,10 @@ public:
     typedef struct
     {
         /** The device line flags (DMX, MIDI, etc) */
-        LineFlags m_lineFlags;
+        int m_portFlags;
 
         /** When open, this is the port directon */
-        LineFlags m_openDirection;
+        int m_openDirection;
 
         /** Data for input/output */
         QByteArray m_universeData;
@@ -148,7 +148,7 @@ public:
      * Widget Ports
      ********************************************************************/
 public:
-    virtual void setPortsMapping(QList<LineFlags> ports);
+    virtual void setPortsMapping(QList<int> ports);
 
     virtual int portFlagsCount(LineFlags flags);
 
@@ -167,16 +167,6 @@ protected:
      * Outputs
      ********************************************************************/
 public:
-#if 0
-    /**
-     * Set the number of output lines this widget supports
-     * @param num the output lines number
-     */
-    virtual void setOutputsNumber(int num);
-
-    /** Return the number of open output lines */
-    virtual int openOutputLines();
-#endif
     /** Return the number of output lines supported by this widget */
     virtual int outputsNumber();
 
@@ -198,16 +188,6 @@ protected:
      * Inputs
      ********************************************************************/
 public:
-#if 0
-    /**
-     * Set the number of input lines this widget supports
-     * @param num the input lines number
-     */
-    virtual void setInputsNumber(int num);
-
-    /** Return the number of open intput lines */
-    virtual int openInputLines();
-#endif
     /** Return the number of input lines supported by this widget */
     virtual int inputsNumber();
 
