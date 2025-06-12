@@ -299,7 +299,8 @@ void FunctionWizard::addFunctionsGroup(QTreeWidgetItem *fxGrpItem, QTreeWidgetIt
         type == PaletteGenerator::EfxRGB ||
         type == PaletteGenerator::EfxPosition))
     {
-        if (efxItem == NULL){
+        if (efxItem == NULL)
+        {
             QTreeWidgetItem *item = new QTreeWidgetItem(grpItem);
             item->setText(KFunctionName, "EFXs");
             item->setCheckState(KFunctionName, Qt::Unchecked);
