@@ -57,6 +57,8 @@
 
 #define RDM_MAX_RETRY   5
 
+//#define DEBUG_RDM
+
 /****************************************************************************
  * Initialization
  ****************************************************************************/
@@ -66,16 +68,12 @@ EnttecDMXUSBPro::EnttecDMXUSBPro(DMXInterface *iface, quint32 outputLine, quint3
     , DMXUSBWidget(iface, outputLine, DEFAULT_OUTPUT_FREQUENCY)
     , m_dmxKingMode(false)
     , m_isThreadRunning(false)
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-    , m_outputMutex()
-#else
-    , m_outputMutex(QMutex::Recursive)
-#endif
     , m_rdm(NULL)
     , m_universe(UINT_MAX)
 {
     m_inputBaseLine = inputLine;
 
+    // configure one input/output port
     QList<int> ports;
     ports << (DMXUSBWidget::DMX | DMXUSBWidget::Output | DMXUSBWidget::Input);
     setPortsMapping(ports);
@@ -416,10 +414,15 @@ int EnttecDMXUSBPro::readData(QByteArray &payload, bool &isMIDI, bool needRDM)
 {
     uchar byte = 0;
     DMXInterface *interface = iface();
+    int waitStart = needRDM ? 10 : 1;
 
-    // Skip bytes until we find the start of the next message
-    if ((interface->readByte()) != ENTTEC_PRO_START_OF_MSG)
-        return 0;
+    while (waitStart)
+    {
+        // Skip bytes until we find the start of the next message
+        if ((interface->readByte()) == ENTTEC_PRO_START_OF_MSG)
+            break;
+        waitStart--;
+    }
 
     // Check the message type
     byte = interface->readByte();
@@ -574,18 +577,18 @@ bool EnttecDMXUSBPro::writeUniverse(quint32 universe, quint32 output, const QByt
         return false;
     }
 
-    quint32 devLine = output - m_outputBaseLine;
-    if (devLine >= (quint32)outputsNumber())
+    quint32 portIndex = lineToPortIndex(output, DMXUSBWidget::Output);
+    if (portIndex >= (quint32)outputsNumber())
         return false;
 
-    if (m_portsInfo[devLine].m_universeData.size() == 0)
+    if (m_portsInfo[portIndex].m_universeData.size() == 0)
     {
-        m_portsInfo[devLine].m_universeData.append(data);
-        m_portsInfo[devLine].m_universeData.append(DMX_CHANNELS - data.size(), 0);
+        m_portsInfo[portIndex].m_universeData.append(data);
+        m_portsInfo[portIndex].m_universeData.append(DMX_CHANNELS - data.size(), 0);
     }
 
     if (dataChanged)
-        m_portsInfo[devLine].m_universeData.replace(0, data.size(), data);
+        m_portsInfo[portIndex].m_universeData.replace(0, data.size(), data);
 
     return true;
 }
@@ -640,19 +643,18 @@ void EnttecDMXUSBPro::run()
                     // specific port configuration are needed only by ENTTEC
                     if (m_dmxKingMode == false)
                     {
+                        quint32 portIndex = lineToPortIndex(line, input ? DMXUSBWidget::Input : DMXUSBWidget::Output);
                         if (input == false)
                         {
-                            quint32 devLine = line - m_outputBaseLine;
-                            if (m_portsInfo[devLine].m_portFlags & DMXUSBWidget::MIDI)
-                                configureLine(devLine, true);
+                            if (m_portsInfo[portIndex].m_portFlags & DMXUSBWidget::MIDI)
+                                configureLine(portIndex, true);
                             else
-                                configureLine(devLine, false);
+                                configureLine(portIndex, false);
                         }
                         else
                         {
-                            quint32 devLine = line - m_inputBaseLine;
-                            if (m_portsInfo[devLine].m_portFlags & DMXUSBWidget::MIDI)
-                                configureLine(devLine, true);
+                            if (m_portsInfo[portIndex].m_portFlags & DMXUSBWidget::MIDI)
+                                configureLine(portIndex, true);
                         }
                     }
 
@@ -677,6 +679,76 @@ void EnttecDMXUSBPro::run()
                 }
                 break;
                 case RDMCommand:
+                {
+                    quint32 line = cmd.param1.toUInt();
+                    uchar command = cmd.param2.toUInt();
+                    quint32 portIndex = lineToPortIndex(line, DMXUSBWidget::Output);
+
+                    if (m_rdm == NULL)
+                        m_rdm = new RDMProtocol();
+
+                    QByteArray ba;
+                    int len;
+                    bool ok;
+
+                    QString sn = m_proSerial.isEmpty() ? serial() : m_proSerial;
+                    quint32 devID = sn.toUInt(&ok, 16);
+
+                    m_rdm->setEstaID(0x454E);
+                    m_rdm->setDeviceId(portIndex == 1 ? devID + 1 : devID);
+
+                    m_rdm->packetizeCommand(command, cmd.param3, true, ba);
+                    len = ba.length();
+
+                    ba.prepend(len >> 8);
+                    ba.prepend(len & 0xFF);
+
+                    if (command == DISCOVERY_COMMAND)
+                    {
+                        ba.prepend(portIndex == 1 ? ENTTEC_PRO_RDM_DISCOVERY_REQ2 : ENTTEC_PRO_RDM_DISCOVERY_REQ);
+                    }
+                    else if (cmd.param3.length() >= 2)
+                    {
+                        ba.prepend(portIndex == 1 ? ENTTEC_PRO_RDM_SEND2 : ENTTEC_PRO_RDM_SEND);
+                    }
+                    ba.prepend(ENTTEC_PRO_START_OF_MSG);
+
+                    ba.append(ENTTEC_PRO_END_OF_MSG);
+#ifdef DEBUG_RDM
+                    qDebug().nospace().noquote() << "[RDM] Sending RDM command 0x" << QString::number(command, 16) << " with params: " << cmd.param3;
+                    qDebug() << "[RDM] Sending RDM command" << m_universe << portIndex << ba.toHex(',');
+#endif
+                    if (iface()->write(ba) == false)
+                    {
+                        qWarning() << Q_FUNC_INFO << name() << "will not accept RDM data";
+                    }
+                    else
+                    {
+                        // give some time to reply
+                        msleep(100);
+                        QByteArray reply;
+                        bool isMIDI = false;
+                        int bytesRead = readData(reply, isMIDI, true);
+
+                        if (bytesRead)
+                        {
+                            QVariantMap values;
+                            bool result = false;
+
+                            if (command == DISCOVERY_COMMAND)
+                                result = m_rdm->parseDiscoveryReply(reply, values);
+                            else
+                                result = m_rdm->parsePacket(reply, values);
+
+                            if (result == true)
+                                emit rdmValueChanged(m_universe, line, values);
+                        }
+                        else
+                        {
+                            qDebug() << "No RDM reply received";
+                        }
+                    }
+                }
                 break;
             }
         }
@@ -686,12 +758,12 @@ void EnttecDMXUSBPro::run()
             goto framesleep;
 
         /* **************************************************************
-         *                  SEND DMX DATA TO OUTPUT PORTS
+         *               SEND DMX OR MIDI DATA TO OUTPUT PORTS
          * ************************************************************ */
         for (int i = 0; i < m_portsInfo.count(); i++)
         {
-            // consider only output ports
-            if ((m_portsInfo[i].m_portFlags & DMXUSBWidget::Output) == 0)
+            // consider only open output ports
+            if (m_portsInfo[i].m_openDirection != DMXUSBWidget::Output)
                 continue;
 
             int dataLen = m_portsInfo[i].m_universeData.length();
@@ -734,14 +806,12 @@ void EnttecDMXUSBPro::run()
                         request.append(data1);
                         request.append(data2);
                         request.append(ENTTEC_PRO_END_OF_MSG); // Stop byte
-                        m_outputMutex.lock();
+
                         if (iface()->write(request) == false)
                         {
                             qWarning() << Q_FUNC_INFO << name() << "will not accept MIDI data";
-                            m_outputMutex.unlock();
                             continue;
                         }
-                        m_outputMutex.unlock();
                     }
                 }
             }
@@ -766,19 +836,16 @@ void EnttecDMXUSBPro::run()
                 //qDebug() << "DATA" << QString::number(request.at(5)) << QString::number(request.at(6)) << QString::number(request.at(7));
 
                 /* Write "Output Only Send DMX Packet Request" message */
-                m_outputMutex.lock();
                 if (iface()->write(request) == false)
                 {
                     qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
-                    m_outputMutex.unlock();
                     continue;
                 }
-                m_outputMutex.unlock();
             }
         }
 
         /* **************************************************************
-         *                  READ INPUT DATA (DMX/MIDI/RDM)
+         *                  READ DMX OR MIDI INPUT DATA
          * ************************************************************ */
         if (readInput)
         {
@@ -885,104 +952,14 @@ bool EnttecDMXUSBPro::supportRDM()
 
 bool EnttecDMXUSBPro::sendRDMCommand(quint32 universe, quint32 line, uchar command, QVariantList params)
 {
-    QByteArray ba;
-    quint32 devLine = line - m_outputBaseLine;
-    int i, len;
-    bool ok;
-    int discoveryFailureCount = 0;
-    int discoveryNoReplyCount = 0;
+    m_universe = universe;
 
-    if (m_rdm == NULL)
-        m_rdm = new RDMProtocol();
-
-    QString sn = m_proSerial.isEmpty() ? serial() : m_proSerial;
-    quint32 devID = sn.toUInt(&ok, 16);
-
-    m_rdm->setEstaID(0x454E);
-    m_rdm->setDeviceId(devLine == 1 ? devID + 1 : devID);
-
-    m_rdm->packetizeCommand(command, params, true, ba);
-    len = ba.length();
-
-    ba.prepend(len >> 8);
-    ba.prepend(len & 0xFF);
-
-    if (command == DISCOVERY_COMMAND)
-    {
-        ba.prepend(devLine == 1 ? ENTTEC_PRO_RDM_DISCOVERY_REQ2 : ENTTEC_PRO_RDM_DISCOVERY_REQ);
-    }
-    else if (params.length() >= 2)
-    {
-        ba.prepend(devLine == 1 ? ENTTEC_PRO_RDM_SEND2 : ENTTEC_PRO_RDM_SEND);
-    }
-    ba.prepend(ENTTEC_PRO_START_OF_MSG);
-
-    ba.append(ENTTEC_PRO_END_OF_MSG);
-#ifdef DEBUG_RDM
-    qDebug().nospace().noquote() << "[RDM] Sending RDM command 0x" << QString::number(command, 16) << " with params: " << params;
-    qDebug() << "[RDM] Sending RDM command" << universe << line << ba.toHex(',');
-#endif
-
-    QMutexLocker locker(&m_outputMutex);
-    if (iface()->write(ba) == false)
-    {
-        qWarning() << Q_FUNC_INFO << name() << "will not accept RDM data";
-        return false;
-    }
-
-    for (i = 0; i < RDM_MAX_RETRY; i++)
-    {
-        QByteArray reply;
-        bool isMIDI = false;
-        int bytesRead = readData(reply, isMIDI, true);
-
-        if (bytesRead)
-        {
-            QVariantMap values;
-            bool result = false;
-
-            if (command == DISCOVERY_COMMAND)
-                result = m_rdm->parseDiscoveryReply(reply, values);
-            else
-                result = m_rdm->parsePacket(reply, values);
-
-            if (result == true)
-            {
-                discoveryFailureCount = 0;
-                discoveryNoReplyCount = 0;
-                emit rdmValueChanged(universe, line, values);
-                break;
-            }
-            else
-            {
-                discoveryFailureCount++;
-            }
-        }
-
-        // no reply to discovery at all
-        if (command == DISCOVERY_COMMAND && bytesRead == 0 && discoveryFailureCount == 0)
-            discoveryNoReplyCount++;
-
-        // nothing read. Sleep a bit and retry
-        QThread::msleep(50);
-        //qDebug() << "RETRY TO READ" << i;
-    }
-
-    if (discoveryFailureCount)
-    {
-        QVariantMap values;
-        values.insert("DISCOVERY_ERRORS", discoveryFailureCount);
-        emit rdmValueChanged(universe, line, values);
-    }
-    else if (discoveryNoReplyCount)
-    {
-        QVariantMap values;
-        values.insert("DISCOVERY_NO_REPLY", 1);
-        emit rdmValueChanged(universe, line, values);
-    }
-
-    if (command != DISCOVERY_COMMAND && i == RDM_MAX_RETRY)
-        return false;
+    InterfaceAction cmd;
+    cmd.action = RDMCommand;
+    cmd.param1 = line;
+    cmd.param2 = command;
+    cmd.param3 = params;
+    m_actionsQueue.append(cmd);
 
     return true;
 }

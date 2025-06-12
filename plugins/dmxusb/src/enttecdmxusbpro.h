@@ -76,6 +76,7 @@ public:
         ActionType action;
         QVariant param1;
         QVariant param2;
+        QVariantList param3;
     } InterfaceAction;
 
     static bool writeLabelRequest(DMXInterface *iface, int label);
@@ -159,12 +160,6 @@ private:
      *  the input/output thread to perform synchronous
      *  operations and guarantee thread safety */
     QList<InterfaceAction> m_actionsQueue;
-
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-    QRecursiveMutex m_outputMutex;
-#else
-    QMutex m_outputMutex;
-#endif
 
     /********************************************************************
      * RDM

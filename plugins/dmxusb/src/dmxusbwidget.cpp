@@ -387,28 +387,18 @@ bool DMXUSBWidget::clearWindowsTimerResolution(uint resolution)
 
 bool DMXUSBWidget::open(quint32 line, bool input)
 {
-    quint32 devLine = 0;
+    int type = input ? DMXUSBWidget::Input : DMXUSBWidget::Output;
+    quint32 portIdx = lineToPortIndex(line, type);
 
-    if (input)
+    qDebug() << "LINE TO OPEN" << line << "port number:" << portIdx;
+
+    if (portIdx == UINT_MAX)
     {
-        devLine = line - m_inputBaseLine;
-        if (devLine >= (quint32)inputsNumber())
-        {
-            qWarning() << "Trying to open an out of bounds input line !" << devLine << inputsNumber();
-            return false;
-        }
-        m_portsInfo[devLine].m_openDirection = DMXUSBWidget::Input;
+        qWarning() << "Trying to open an out of bounds line!" << portIdx << m_portsInfo.count();
+        return false;
     }
-    else
-    {
-        devLine = line - m_outputBaseLine;
-        if (devLine >= (quint32)outputsNumber())
-        {
-            qWarning() << "Trying to open an out of bounds output line !" << devLine << outputsNumber();
-            return false;
-        }
-        m_portsInfo[devLine].m_openDirection = DMXUSBWidget::Output;
-    }
+
+    m_portsInfo[portIdx].m_openDirection = type;
 
     qDebug() << Q_FUNC_INFO << "Line:" << line << ", open ports:" << openPortsCount();
 
@@ -448,28 +438,16 @@ bool DMXUSBWidget::open(quint32 line, bool input)
 
 bool DMXUSBWidget::close(quint32 line, bool input)
 {
-    quint32 devLine = 0;
+    int type = input ? DMXUSBWidget::Input : DMXUSBWidget::Output;
+    quint32 portIdx = lineToPortIndex(line, type);
 
-    if (input)
+    if (portIdx == UINT_MAX)
     {
-        devLine = line - m_inputBaseLine;
-        if (devLine >= (quint32)inputsNumber())
-        {
-            qWarning() << "Trying to close an out of bounds input line !" << devLine << inputsNumber();
-            return false;
-        }
-    }
-    else
-    {
-        devLine = line - m_outputBaseLine;
-        if (devLine >= (quint32)outputsNumber())
-        {
-            qWarning() << "Trying to close an out of bounds output line !" << devLine << outputsNumber();
-            return false;
-        }
+        qWarning() << "Trying to open an out of bounds line!" << portIdx << m_portsInfo.count();
+        return false;
     }
 
-    m_portsInfo[devLine].m_openDirection = DMXUSBWidget::None;
+    m_portsInfo[portIdx].m_openDirection = DMXUSBWidget::None;
 
     qDebug() << Q_FUNC_INFO << "Line:" << line << ", open ports:" << openPortsCount();
 
@@ -523,6 +501,24 @@ int DMXUSBWidget::openPortsCount()
             count++;
     }
     return count;
+}
+
+quint32 DMXUSBWidget::lineToPortIndex(quint32 line, int type)
+{
+    quint32 portIdx = 0;
+    quint32 baseLine = type == DMXUSBWidget::Output ? m_outputBaseLine : m_inputBaseLine;
+
+    for (int i = 0; i < m_portsInfo.count(); i++)
+    {
+        if (m_portsInfo[i].m_portFlags & type)
+        {
+            if (portIdx == line - baseLine)
+                return i;
+            portIdx++;
+        }
+    }
+
+    return UINT_MAX;
 }
 
 /********************************************************************

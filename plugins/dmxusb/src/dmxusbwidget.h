@@ -154,6 +154,8 @@ public:
 
     virtual int openPortsCount();
 
+    virtual quint32 lineToPortIndex(quint32 line, int type);
+
 protected:
     /** The QLC+ output line number where this widget outputs start */
     quint32 m_outputBaseLine;
