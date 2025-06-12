@@ -23,6 +23,10 @@
 
 #include <ftd2xx.h>
 
+#define EEPROM_VID_OFFSET       1
+#define EEPROM_PID_OFFSET       2
+#define EEPROM_VENDOR_OFFSET    13
+
 /**
  * Get some interesting strings from the device.
  *
@@ -33,44 +37,77 @@
  * @return FT_OK if strings were extracted successfully
  */
 static FT_STATUS get_interface_info(DWORD deviceIndex,
-                                     QString& vendor, QString& description,
-                                     QString& serial, quint16 &VID, quint16 &PID)
+                                    QString& vendor, QString& description,
+                                    QString& serial, quint16 &VID, quint16 &PID)
 {
-    char cVendor[256];
-    char cVendorId[256];
-    char cDescription[256];
-    char cSerial[256];
-
     FT_HANDLE handle;
+    if (FT_Open(deviceIndex, &handle) != FT_OK)
+        return FT_DEVICE_NOT_OPENED;
 
-    FT_STATUS status = FT_Open(deviceIndex, &handle);
-    if (status != FT_OK)
-        return status;
+    FT_STATUS status = FT_OK;
+    WORD value;
 
-    FT_PROGRAM_DATA pData;
-    pData.Signature1 = 0;
-    pData.Signature2 = 0xFFFFFFFF;
-    pData.Version = 0x00000005;
-    pData.Manufacturer = cVendor;
-    pData.ManufacturerId = cVendorId;
-    pData.Description = cDescription;
-    pData.SerialNumber = cSerial;
-    status = FT_EE_Read(handle, &pData);
-    if (status == FT_OK)
+#if 0 // uncomment to dump eeprom content
+    QByteArray eepromData;
+    for (int i = 0; i < 64; i++)
     {
-        VID = pData.VendorId;
-        PID = pData.ProductId;
-
-        if (pData.ProductId == DMXInterface::DMX4ALLPID)
-            vendor = QString("DMX4ALL");
-        else
-            vendor = QString(cVendor);
-        description = QString(cDescription);
-        serial = QString(cSerial);
+        FT_STATUS ret = FT_ReadEE(handle, i, &value);
+        eepromData.append(value >> 8);
+        eepromData.append(value & 0xFF);
     }
+    qDebug() << "EEPROM DUMP:" << eepromData.toHex(',');
+#endif
+
+    auto readWord = [&](int offset, WORD &val) -> FT_STATUS
+    {
+        return FT_ReadEE(handle, offset, &val);
+    };
+
+    auto readStringDescriptor = [&](int &offset, QString &out) -> bool
+    {
+        WORD val;
+        if (readWord(offset, val) != FT_OK || (val >> 8) != 0x03)
+            return false;
+
+        int length = ((val & 0xFF) / 2) - 1;
+        offset++;
+        for (int i = 0; i < length; ++i)
+        {
+            if (readWord(offset++, val) != FT_OK)
+                return false;
+
+            // filter non-visible characters
+            if (val < 0x20)
+                continue;
+
+            out.append(char(val & 0xFF));
+        }
+        return true;
+    };
+
+    if (readWord(EEPROM_VID_OFFSET, value) == FT_OK)
+        VID = value;
+    else
+        status = FT_EEPROM_READ_FAILED;
+
+    if (status == FT_OK && readWord(EEPROM_PID_OFFSET, value) == FT_OK)
+        PID = value;
+    else if (status == FT_OK)
+        status = FT_EEPROM_READ_FAILED;
+
+    int offset = EEPROM_VENDOR_OFFSET;
+
+    if (status == FT_OK && !readStringDescriptor(offset, vendor))
+        status = FT_EEPROM_READ_FAILED;
+    if (status == FT_OK && !readStringDescriptor(offset, description))
+        status = FT_EEPROM_READ_FAILED;
+    if (status == FT_OK && !readStringDescriptor(offset, serial))
+        status = FT_EEPROM_READ_FAILED;
+
+    if (status == FT_OK && PID == DMXInterface::DMX4ALLPID)
+        vendor = QString("DMX4ALL");
 
     FT_Close(handle);
-
     return status;
 }
 
@@ -165,9 +202,7 @@ bool FTD2XXInterface::readLabel(uchar label, int &intParam, QString &strParam)
     }
 
     intParam = (array[5] << 8) | array[4];
-    array.remove(0, 6); // 4 bytes of Enttec protocol + 2 of ESTA ID
-    array.replace(ENTTEC_PRO_END_OF_MSG, '\0'); // replace Enttec termination with string termination
-    strParam = QString(array);
+    strParam = QString(array.mid(6, dataLen - 2));
 
     FT_Close(ftdi);
     return true;

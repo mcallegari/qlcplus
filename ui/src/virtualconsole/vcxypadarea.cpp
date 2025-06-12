@@ -401,9 +401,9 @@ void VCXYPadArea::keyPressEvent(QKeyEvent *e)
     if (m_mode == Doc::Operate)
     {
         qreal step = 1;
-        if (e->modifiers().testFlag(Qt::ControlModifier))
+        if (e->modifiers() & Qt::ControlModifier)
             step *= 10;
-        if (e->modifiers().testFlag(Qt::ShiftModifier))
+        if (e->modifiers() & Qt::ShiftModifier)
             step /= 256;
 
         if (e->key() == Qt::Key_Left)

@@ -20,6 +20,9 @@
 #include <QGuiApplication>
 #include <QQmlContext>
 #include <QScreen>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <QMediaMetaData>
+#endif
 
 #include "videoprovider.h"
 #include "doc.h"
@@ -231,8 +234,13 @@ void VideoContent::slotDetectResolution()
 
     m_mediaPlayer = new QMediaPlayer();
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     connect(m_mediaPlayer, SIGNAL(metaDataChanged(QString,QVariant)),
                 this, SLOT(slotMetaDataChanged(QString,QVariant)));
+#else
+    connect(m_mediaPlayer, SIGNAL(metaDataChanged()),
+            this, SLOT(slotMetaDataChanged()));
+#endif
 
     QString sourceURL = m_video->sourceUrl();
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -337,6 +345,7 @@ void VideoContent::slotAttributeChanged(int attrIndex, qreal value)
     }
 }
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 void VideoContent::slotMetaDataChanged(const QString &key, const QVariant &value)
 {
     if (key == "Resolution")
@@ -349,6 +358,24 @@ void VideoContent::slotMetaDataChanged(const QString &key, const QVariant &value
         m_mediaPlayer = nullptr;
     }
 }
+#else
+void VideoContent::slotMetaDataChanged()
+{
+    QMediaMetaData md = m_mediaPlayer->metaData();
+    foreach (QMediaMetaData::Key k, md.keys())
+    {
+        if (k == QMediaMetaData::Resolution)
+        {
+            m_geometry.setSize(md.value(k).toSize());
+
+            disconnect(m_mediaPlayer, SIGNAL(metaDataChanged()),
+                       this, SLOT(slotMetaDataChanged()));
+            m_mediaPlayer->deleteLater();
+            m_mediaPlayer = nullptr;
+        }
+    }
+}
+#endif
 
 void VideoContent::slotWindowClosing()
 {

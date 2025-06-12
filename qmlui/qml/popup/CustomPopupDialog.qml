@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.6
-import QtQuick.Layouts 1.0
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls.Basic
 
 import "."
 
@@ -74,6 +74,16 @@ Dialog
             color: UISettings.bgMedium
             border.color: UISettings.bgLight
             border.width: 2
+
+            focus: true
+            Keys.onPressed: (event) =>
+            {
+                if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter)
+                {
+                    control.accept()
+                    event.accepted = true
+                }
+            }
         }
 
     contentItem:
@@ -95,17 +105,18 @@ Dialog
 
             contentItem.implicitHeight: UISettings.iconSizeDefault
 
-            onClicked:
+            onClicked: function(button)
             {
-                if (button === standardButton(Dialog.Yes))
+                var role = button.DialogButtonBox.buttonRole
+                if (role === DialogButtonBox.YesRole)
                     control.clicked(Dialog.Yes)
-                else if (button === standardButton(Dialog.No))
+                else if (role === DialogButtonBox.NoRole)
                     control.clicked(Dialog.No)
-                else if (button === standardButton(Dialog.Ok))
+                else if (role === DialogButtonBox.AcceptRole)
                     control.clicked(Dialog.Ok)
-                else if (button === standardButton(Dialog.Apply))
+                else if (role === DialogButtonBox.ApplyRole)
                     control.clicked(Dialog.Apply)
-                else if (button === standardButton(Dialog.Cancel))
+                else if (role === DialogButtonBox.RejectRole)
                     control.clicked(Dialog.Cancel)
             }
 
@@ -123,7 +134,7 @@ Dialog
                 Button
                 {
                     id: buttonControl
-                    width: buttonBoxControl.count === 1 ? UISettings.bigItemHeight * 2 : undefined
+                    implicitWidth: UISettings.bigItemHeight * 2
                     //implicitWidth: width
 
                     hoverEnabled: true

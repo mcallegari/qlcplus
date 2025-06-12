@@ -35,25 +35,25 @@
 #include "rgbimage.h"
 #include "doc.h"
 
-#define KXMLQLCRGBMatrixStartColor      QString("MonoColor")
-#define KXMLQLCRGBMatrixEndColor        QString("EndColor")
-#define KXMLQLCRGBMatrixColor           QString("Color")
-#define KXMLQLCRGBMatrixColorIndex      QString("Index")
+#define KXMLQLCRGBMatrixStartColor      QStringLiteral("MonoColor")
+#define KXMLQLCRGBMatrixEndColor        QStringLiteral("EndColor")
+#define KXMLQLCRGBMatrixColor           QStringLiteral("Color")
+#define KXMLQLCRGBMatrixColorIndex      QStringLiteral("Index")
 
-#define KXMLQLCRGBMatrixFixtureGroup    QString("FixtureGroup")
-#define KXMLQLCRGBMatrixDimmerControl   QString("DimmerControl")
+#define KXMLQLCRGBMatrixFixtureGroup    QStringLiteral("FixtureGroup")
+#define KXMLQLCRGBMatrixDimmerControl   QStringLiteral("DimmerControl")
 
-#define KXMLQLCRGBMatrixProperty        QString("Property")
-#define KXMLQLCRGBMatrixPropertyName    QString("Name")
-#define KXMLQLCRGBMatrixPropertyValue   QString("Value")
+#define KXMLQLCRGBMatrixProperty        QStringLiteral("Property")
+#define KXMLQLCRGBMatrixPropertyName    QStringLiteral("Name")
+#define KXMLQLCRGBMatrixPropertyValue   QStringLiteral("Value")
 
-#define KXMLQLCRGBMatrixControlMode         QString("ControlMode")
-#define KXMLQLCRGBMatrixControlModeRgb      QString("RGB")
-#define KXMLQLCRGBMatrixControlModeAmber    QString("Amber")
-#define KXMLQLCRGBMatrixControlModeWhite    QString("White")
-#define KXMLQLCRGBMatrixControlModeUV       QString("UV")
-#define KXMLQLCRGBMatrixControlModeDimmer   QString("Dimmer")
-#define KXMLQLCRGBMatrixControlModeShutter  QString("Shutter")
+#define KXMLQLCRGBMatrixControlMode         QStringLiteral("ControlMode")
+#define KXMLQLCRGBMatrixControlModeRgb      QStringLiteral("RGB")
+#define KXMLQLCRGBMatrixControlModeAmber    QStringLiteral("Amber")
+#define KXMLQLCRGBMatrixControlModeWhite    QStringLiteral("White")
+#define KXMLQLCRGBMatrixControlModeUV       QStringLiteral("UV")
+#define KXMLQLCRGBMatrixControlModeDimmer   QStringLiteral("Dimmer")
+#define KXMLQLCRGBMatrixControlModeShutter  QStringLiteral("Shutter")
 
 /****************************************************************************
  * Initialization
@@ -71,7 +71,6 @@ RGBMatrix::RGBMatrix(Doc *doc)
     , m_algorithmMutex(QMutex::Recursive)
 #endif
     , m_stepHandler(new RGBMatrixStep())
-    , m_roundTime(new QElapsedTimer())
     , m_stepsCount(0)
     , m_stepBeatDuration(0)
     , m_controlMode(RGBMatrix::ControlModeRgb)
@@ -90,7 +89,6 @@ RGBMatrix::~RGBMatrix()
     //if (m_runAlgorithm != NULL)
     //    delete m_runAlgorithm;
     delete m_algorithm;
-    delete m_roundTime;
     delete m_stepHandler;
 }
 
@@ -242,6 +240,10 @@ void RGBMatrix::setAlgorithm(RGBAlgorithm *algo)
                     m_properties.take(it.key());
                 }
             }
+
+            QVector<uint> colors = script->rgbMapGetColors();
+            for (int i = 0; i < colors.count(); i++)
+                m_rgbColors.replace(i, QColor::fromRgb(colors.at(i)));
         }
     }
     m_stepsCount = algorithmStepsCount();
@@ -342,7 +344,8 @@ QVector<QColor> RGBMatrix::getColors() const
 
 void RGBMatrix::updateColorDelta()
 {
-    m_stepHandler->calculateColorDelta(m_rgbColors[0], m_rgbColors[1], m_algorithm);
+    if (m_rgbColors.count() > 1)
+        m_stepHandler->calculateColorDelta(m_rgbColors[0], m_rgbColors[1], m_algorithm);
 }
 
 void RGBMatrix::setMapColors(RGBAlgorithm *algorithm)
@@ -357,17 +360,23 @@ void RGBMatrix::setMapColors(RGBAlgorithm *algorithm)
     if (m_group == NULL)
         m_group = doc()->fixtureGroup(fixtureGroup());
 
-    if (m_group != NULL)
+    QVector<unsigned int> rawColors;
+    const int acceptColors = algorithm->acceptColors();
+    rawColors.reserve(acceptColors);
+    for (int i = 0; i < acceptColors; i++)
     {
-        QVector<unsigned int> rawColors;
-        for (int i = 0; i < algorithm->acceptColors(); i++)
+        if (m_rgbColors.count() > i)
         {
             QColor col = m_rgbColors.at(i);
             rawColors.append(col.isValid() ? col.rgb() : 0);
         }
-
-        algorithm->rgbMapSetColors(rawColors);
+        else
+        {
+            rawColors.append(0);
+        }
     }
+
+    algorithm->rgbMapSetColors(rawColors);
 }
 
 /************************************************************************
@@ -395,8 +404,9 @@ QString RGBMatrix::property(QString propName)
     QMutexLocker algoLocker(&m_algorithmMutex);
 
     /** If the property is cached, then return it right away */
-    if (m_properties.contains(propName))
-        return m_properties[propName];
+    QMap<QString, QString>::iterator it = m_properties.find(propName);
+    if (it != m_properties.end())
+        return it.value();
 
     /** Otherwise, let's retrieve it from the Script */
     if (m_algorithm != NULL && m_algorithm->type() == RGBAlgorithm::Script)
@@ -557,7 +567,7 @@ void RGBMatrix::tap()
     {
         FixtureGroup *grp = doc()->fixtureGroup(fixtureGroup());
         // Filter out taps that are too close to each other
-        if (grp != NULL && uint(m_roundTime->elapsed()) >= (duration() / 4))
+        if (grp != NULL && uint(m_roundTime.elapsed()) >= (duration() / 4))
         {
             roundCheck();
             resetElapsed();
@@ -567,17 +577,7 @@ void RGBMatrix::tap()
 
 void RGBMatrix::checkEngineCreation()
 {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-    if (m_requestEngineCreation)
-    {
-        // And here's the hack: Qt6 JS engine is not thread safe. Nice job!
-        // It's not possible to use the instance created in the main thread
-        // so we need to create a clone on the fly from the MasterTimer thread :vomiting_face:
-        m_runAlgorithm = m_algorithm->clone();
-    }
-#else
     m_runAlgorithm = m_algorithm;
-#endif
     m_requestEngineCreation = false;
 }
 
@@ -620,7 +620,7 @@ void RGBMatrix::preRun(MasterTimer *timer)
         }
     }
 
-    m_roundTime->restart();
+    m_roundTime.restart();
 
     Function::preRun(timer);
 }
@@ -750,7 +750,7 @@ void RGBMatrix::roundCheck()
     if (m_stepHandler->checkNextStep(runOrder(), m_rgbColors[0], m_rgbColors[1], m_stepsCount) == false)
         stop(FunctionParent::master());
 
-    m_roundTime->restart();
+    m_roundTime.restart();
 
     if (tempoType() == Beats)
         roundElapsed(m_stepBeatDuration);
@@ -881,7 +881,7 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QL
             if (headDim != QLCChannel::invalid() && headDim != masterDim)
             {
                 channelList.append(headDim);
-                valueList.append(col == 0 ? 0 : 255);
+                valueList.append(rgbToGrey(col) == 0 ? 0 : 255);
             }
         }
         else

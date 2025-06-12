@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.14
-import QtQuick.Layouts 1.14
+import QtQuick
+import QtQuick.Layouts
 
 import "."
 
@@ -38,7 +38,7 @@ Rectangle
 
     onVisibleChanged:
     {
-        if(visible == false)
+        if (visible === false)
             editorLoader.source = ""
         else
             editorLoader.source = editorSource
@@ -109,7 +109,7 @@ Rectangle
 
             onPositionChanged:
             {
-                if (drag.active == true)
+                if (drag.active === true)
                 {
                     var newHeight = bottomSidePanel.parent.height - bottomSidePanel.y
                     if (newHeight < collapseHeight)
@@ -141,7 +141,7 @@ Rectangle
                 imgSource: "qrc:/edit-copy.svg"
                 tooltip: qsTr("Copy the selected channel values to all the fixtures of the same type")
                 enabled: sceneEditor.selectedChannelCount > 0 ? true : false
-                onClicked: sceneEditor.pasteToAllFixtureSameType()
+                onClicked: if (sceneEditor) sceneEditor.pasteToAllFixtureSameType()
             }
 
             IconButton

@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.12
-import QtQuick.Controls 2.13
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -39,7 +39,7 @@ Rectangle
         id: channelToolLoader
         z: 2
 
-        onValueChanged: simpleDesk.setValue(fixtureID, channelIndex, value)
+        onValueChanged: (fixtureID, channelIndex, value) => simpleDesk.setValue(fixtureID, channelIndex, value)
     }
 
     SplitView
@@ -158,7 +158,7 @@ Rectangle
                             }
                             else
                             {
-                                switch(chDisplay)
+                                switch (chDisplay)
                                 {
                                     case SimpleDesk.None: return "transparent"
                                     case SimpleDesk.Odd: return UISettings.bgFixtureOdd

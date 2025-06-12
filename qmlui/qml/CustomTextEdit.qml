@@ -17,8 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.7
-import QtQuick.Controls 2.14
+import QtQuick
+import QtQuick.Controls.Basic
+
 import "."
 
 TextField
@@ -39,6 +40,7 @@ TextField
     selectByMouse: true
 
     property int radius: 3
+    property alias bgColor: controlBg.color
 
     function selectAndFocus()
     {
@@ -64,8 +66,9 @@ TextField
     background:
         Rectangle
         {
+            id: controlBg
             radius: controlRoot.radius
-            border.color: controlRoot.focus ? UISettings.highlight : UISettings.bgStrong
+            border.color: controlRoot.activeFocus ? UISettings.highlight : UISettings.bgStrong
             color: UISettings.bgControl
         }
 

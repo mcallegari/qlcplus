@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Controls
 
 import "."
 
@@ -82,20 +82,22 @@ Rectangle
                         universe: modelData.classRef
 
                         onSelected:
-                        {
-                            leftPanel.universeIndex = index
-                            leftPanel.showPluginsButton = true
-                            leftPanel.showAudioButton = false
-                            rightPanel.universeIndex = index
-                            rightPanel.showPluginsButton = true
-                            rightPanel.showAudioButton = false
+                            function (index)
+                            {
+                                leftPanel.universeIndex = index
+                                leftPanel.showPluginsButton = true
+                                leftPanel.showAudioButton = false
+                                rightPanel.universeIndex = index
+                                rightPanel.showPluginsButton = true
+                                rightPanel.showAudioButton = false
 
-                            audioItem.isSelected = false
-                        }
+                                audioItem.isSelected = false
+                            }
                         onPatchDragging:
-                        {
-                            removePatchBox.visible = status
-                        }
+                            function (status)
+                            {
+                                removePatchBox.visible = status
+                            }
                     }
             }
         }

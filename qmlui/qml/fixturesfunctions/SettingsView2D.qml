@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.3
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Dialogs
 
 import org.qlcplus.classes 1.0
 import "."
@@ -85,7 +85,11 @@ Rectangle
         y: UISettings.bigItemHeight
         visible: false
 
-        onColorChanged: contextManager.setFixturesGelColor(Qt.rgba(r, g, b, 1.0))
+        onToolColorChanged:
+            function(r, g, b, w, a, uv)
+            {
+                contextManager.setFixturesGelColor(Qt.rgba(r, g, b, 1.0))
+            }
         onClose: visible = false
     }
 
@@ -231,7 +235,7 @@ Rectangle
 
                             onAccepted:
                             {
-                                View2D.backgroundImage = fileDialog.fileUrl
+                                View2D.backgroundImage = fileDialog.selectedFile
                             }
                         }
                     }

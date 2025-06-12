@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.2
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -51,7 +51,7 @@ CustomPopupDialog
                 font.family: UISettings.robotoFontName
                 font.pixelSize: UISettings.textSizeDefault
                 text: "<h3>" + qlcplus.appName + "<br>" + qlcplus.appVersion + "</h3>\n" +
-                      "Copyright Ⓒ <b>Heikki Junnila, Massimo Callegari</b> " + qsTr("and contributors") + "<br>" +
+                      "Copyright Ⓒ <b>Massimo Callegari, Heikki Junnila</b> " + qsTr("and contributors") + "<br>" +
                       qsTr("Website") + ": <a href='https://www.qlcplus.org'>https://www.qlcplus.org</a><br><br>" +
                       qsTr("This application is licensed under the terms of the") +
                       " <a href='https://www.apache.org/licenses/LICENSE-2.0'>" +
@@ -66,6 +66,19 @@ CustomPopupDialog
                     acceptedButtons: Qt.NoButton
                     cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
                 }
+            }
+
+            IconButton
+            {
+                width: UISettings.iconSizeMedium
+                height: width
+                Layout.alignment: Qt.AlignTop
+                border.width: 0
+                bgColor: "transparent"
+                imgSource: "qrc:/qt.svg"
+                tooltip: qsTr("About the Qt framework...")
+
+                onClicked: qlcplus.aboutQt()
             }
         }
 }

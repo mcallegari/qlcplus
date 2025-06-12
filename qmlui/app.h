@@ -166,6 +166,8 @@ public:
 
     bool is3DSupported() const;
 
+    Q_INVOKABLE void aboutQt();
+
     Q_INVOKABLE void exit();
 
 public slots:

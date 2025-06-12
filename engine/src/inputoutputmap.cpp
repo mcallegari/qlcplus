@@ -41,12 +41,14 @@
 #include "qlcfile.h"
 #include "doc.h"
 
-InputOutputMap::InputOutputMap(Doc *doc, quint32 universes)
-  : QObject(doc)
-  , m_blackout(false)
-  , m_universeChanged(false)
-  , m_currentBPM(0)
-  , m_beatTime(new QElapsedTimer())
+InputOutputMap::InputOutputMap(const Doc *doc, quint32 universes)
+    : QObject(NULL)
+    , m_doc(doc)
+    , m_blackout(false)
+    , m_universeChanged(false)
+    , m_localProfilesLoaded(false)
+    , m_currentBPM(0)
+    , m_beatTime(new QElapsedTimer())
 {
     m_grandMaster = new GrandMaster(this);
     for (quint32 i = 0; i < universes; i++)
@@ -63,11 +65,6 @@ InputOutputMap::~InputOutputMap()
     delete m_grandMaster;
     delete m_beatTime;
     qDeleteAll(m_profiles);
-}
-
-Doc* InputOutputMap::doc() const
-{
-    return qobject_cast<Doc*> (parent());
 }
 
 /*****************************************************************************
@@ -157,14 +154,14 @@ bool InputOutputMap::addUniverse(quint32 id)
             while (id > universesCount())
             {
                 uni = new Universe(universesCount(), m_grandMaster);
-                connect(doc()->masterTimer(), SIGNAL(tickReady()), uni, SLOT(tick()), Qt::QueuedConnection);
+                connect(m_doc->masterTimer(), SIGNAL(tickReady()), uni, SLOT(tick()), Qt::QueuedConnection);
                 connect(uni, SIGNAL(universeWritten(quint32,QByteArray)), this, SIGNAL(universeWritten(quint32,QByteArray)));
                 m_universeArray.append(uni);
             }
         }
 
         uni = new Universe(id, m_grandMaster);
-        connect(doc()->masterTimer(), SIGNAL(tickReady()), uni, SLOT(tick()), Qt::QueuedConnection);
+        connect(m_doc->masterTimer(), SIGNAL(tickReady()), uni, SLOT(tick()), Qt::QueuedConnection);
         connect(uni, SIGNAL(universeWritten(quint32,QByteArray)), this, SIGNAL(universeWritten(quint32,QByteArray)));
         m_universeArray.append(uni);
     }
@@ -316,6 +313,8 @@ void InputOutputMap::resetUniverses()
     setGrandMasterValue(255);
     setGrandMasterValueMode(GrandMaster::Reduce);
     setGrandMasterChannelMode(GrandMaster::Intensity);
+
+    m_localProfilesLoaded = false;
 }
 
 /*********************************************************************
@@ -418,7 +417,7 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
         }
     }
     InputPatch *ip = NULL;
-    QLCIOPlugin *plugin = doc()->ioPluginCache()->plugin(pluginName);
+    QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
 
     if (!inputUID.isEmpty() && plugin != NULL)
     {
@@ -492,7 +491,7 @@ bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
     }
 
     QMutexLocker locker(&m_universeMutex);
-    QLCIOPlugin *plugin = doc()->ioPluginCache()->plugin(pluginName);
+    QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
 
     if (!outputUID.isEmpty() && plugin != NULL)
     {
@@ -605,7 +604,7 @@ QString InputOutputMap::pluginDescription(const QString &pluginName)
     QLCIOPlugin* plugin = NULL;
 
     if (pluginName.isEmpty() == false)
-        plugin = doc()->ioPluginCache()->plugin(pluginName);
+        plugin = m_doc->ioPluginCache()->plugin(pluginName);
 
     if (plugin != NULL)
     {
@@ -638,7 +637,7 @@ void InputOutputMap::removeDuplicates(QStringList &list)
 QStringList InputOutputMap::inputPluginNames()
 {
     QStringList list;
-    QListIterator <QLCIOPlugin*> it(doc()->ioPluginCache()->plugins());
+    QListIterator <QLCIOPlugin*> it(m_doc->ioPluginCache()->plugins());
     while (it.hasNext() == true)
     {
         QLCIOPlugin* plg(it.next());
@@ -651,7 +650,7 @@ QStringList InputOutputMap::inputPluginNames()
 QStringList InputOutputMap::outputPluginNames()
 {
     QStringList list;
-    QListIterator <QLCIOPlugin*> it(doc()->ioPluginCache()->plugins());
+    QListIterator <QLCIOPlugin*> it(m_doc->ioPluginCache()->plugins());
     while (it.hasNext() == true)
     {
         QLCIOPlugin* plg(it.next());
@@ -663,7 +662,7 @@ QStringList InputOutputMap::outputPluginNames()
 
 QStringList InputOutputMap::pluginInputs(const QString& pluginName)
 {
-    QLCIOPlugin* ip = doc()->ioPluginCache()->plugin(pluginName);
+    QLCIOPlugin* ip = m_doc->ioPluginCache()->plugin(pluginName);
     if (ip == NULL)
         return QStringList();
     else
@@ -676,7 +675,7 @@ QStringList InputOutputMap::pluginInputs(const QString& pluginName)
 
 QStringList InputOutputMap::pluginOutputs(const QString& pluginName)
 {
-    QLCIOPlugin* op = doc()->ioPluginCache()->plugin(pluginName);
+    QLCIOPlugin* op = m_doc->ioPluginCache()->plugin(pluginName);
     if (op == NULL)
         return QStringList();
     else
@@ -689,7 +688,7 @@ QStringList InputOutputMap::pluginOutputs(const QString& pluginName)
 
 bool InputOutputMap::pluginSupportsFeedback(const QString& pluginName)
 {
-    QLCIOPlugin* outputPlugin = doc()->ioPluginCache()->plugin(pluginName);
+    QLCIOPlugin* outputPlugin = m_doc->ioPluginCache()->plugin(pluginName);
     if (outputPlugin != NULL)
         return (outputPlugin->capabilities() & QLCIOPlugin::Feedback) > 0;
     else
@@ -698,14 +697,14 @@ bool InputOutputMap::pluginSupportsFeedback(const QString& pluginName)
 
 void InputOutputMap::configurePlugin(const QString& pluginName)
 {
-    QLCIOPlugin* outputPlugin = doc()->ioPluginCache()->plugin(pluginName);
+    QLCIOPlugin* outputPlugin = m_doc->ioPluginCache()->plugin(pluginName);
     if (outputPlugin != NULL)
         outputPlugin->configure();
 }
 
 bool InputOutputMap::canConfigurePlugin(const QString& pluginName)
 {
-    QLCIOPlugin* outputPlugin = doc()->ioPluginCache()->plugin(pluginName);
+    QLCIOPlugin* outputPlugin = m_doc->ioPluginCache()->plugin(pluginName);
     if (outputPlugin != NULL)
         return outputPlugin->canConfigure();
     else
@@ -718,7 +717,7 @@ QString InputOutputMap::inputPluginStatus(const QString& pluginName, quint32 inp
     QString info;
 
     if (pluginName.isEmpty() == false)
-        inputPlugin = doc()->ioPluginCache()->plugin(pluginName);
+        inputPlugin = m_doc->ioPluginCache()->plugin(pluginName);
 
     if (inputPlugin != NULL)
     {
@@ -737,7 +736,7 @@ QString InputOutputMap::inputPluginStatus(const QString& pluginName, quint32 inp
 
 QString InputOutputMap::outputPluginStatus(const QString& pluginName, quint32 output)
 {
-    QLCIOPlugin* outputPlugin = doc()->ioPluginCache()->plugin(pluginName);
+    QLCIOPlugin* outputPlugin = m_doc->ioPluginCache()->plugin(pluginName);
     if (outputPlugin != NULL)
     {
         return outputPlugin->outputInfo(output);
@@ -853,9 +852,33 @@ QLCInputProfile* InputOutputMap::profile(const QString& name)
     QListIterator <QLCInputProfile*> it(m_profiles);
     while (it.hasNext() == true)
     {
-        QLCInputProfile* profile = it.next();
+        QLCInputProfile *profile = it.next();
         if (profile->name() == name)
             return profile;
+    }
+
+    // Attempt to load input profile
+    // from the workspace folder
+    if (m_localProfilesLoaded == false)
+    {
+        if (m_doc->workspacePath().isEmpty())
+            return NULL;
+
+        m_localProfilesLoaded = true;
+
+        qDebug() << "Input profile" << name << "not found. Attempt to load it from" << m_doc->workspacePath();
+        QDir localDir(m_doc->workspacePath());
+        localDir.setFilter(QDir::Files);
+        localDir.setNameFilters(QStringList() << QString("*%1").arg(KExtInputProfile));
+        loadProfiles(localDir);
+
+        QListIterator <QLCInputProfile*> it(m_profiles);
+        while (it.hasNext() == true)
+        {
+            QLCInputProfile *profile = it.next();
+            if (profile->name() == name)
+                return profile;
+        }
     }
 
     return NULL;
@@ -997,24 +1020,24 @@ void InputOutputMap::setBeatGeneratorType(InputOutputMap::BeatGeneratorType type
     switch (m_beatGeneratorType)
     {
         case Internal:
-            doc()->masterTimer()->setBeatSourceType(MasterTimer::Internal);
-            setBpmNumber(doc()->masterTimer()->bpmNumber());
+            m_doc->masterTimer()->setBeatSourceType(MasterTimer::Internal);
+            setBpmNumber(m_doc->masterTimer()->bpmNumber());
         break;
         case Plugin:
-            doc()->masterTimer()->setBeatSourceType(MasterTimer::External);
+            m_doc->masterTimer()->setBeatSourceType(MasterTimer::External);
             // reset the current BPM number and detect it from the MIDI beats
             setBpmNumber(0);
             m_beatTime->restart();
         break;
         case Audio:
-            doc()->masterTimer()->setBeatSourceType(MasterTimer::External);
+            m_doc->masterTimer()->setBeatSourceType(MasterTimer::External);
             // reset the current BPM number and detect it from the audio input
             setBpmNumber(0);
             m_beatTime->restart();
         break;
         case Disabled:
         default:
-            doc()->masterTimer()->setBeatSourceType(MasterTimer::None);
+            m_doc->masterTimer()->setBeatSourceType(MasterTimer::None);
             setBpmNumber(0);
         break;
     }
@@ -1059,7 +1082,7 @@ void InputOutputMap::setBpmNumber(int bpm)
     m_currentBPM = bpm;
 
     if (bpm != 0)
-        doc()->masterTimer()->requestBpmNumber(bpm);
+        m_doc->masterTimer()->requestBpmNumber(bpm);
 
     emit bpmNumberChanged(m_currentBPM);
 }
@@ -1104,7 +1127,7 @@ void InputOutputMap::slotPluginBeat(quint32 universe, quint32 channel, uchar val
     if (qAbs((float)elapsed - currBpmTime) > 1)
         setBpmNumber(bpm);
 
-    doc()->masterTimer()->requestBeat();
+    m_doc->masterTimer()->requestBeat();
     emit beat();
 }
 

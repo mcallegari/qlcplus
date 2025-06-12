@@ -255,7 +255,9 @@ void GenericFader::write(Universe *universe)
         }
         else if (flags & FadeChannel::Flashing)
         {
-            universe->writeMultiple(address, value, channelCount);
+            for (int i = 0; i < channelCount; i++)
+                universe->write(address + i, ((uchar *)&value)[channelCount - 1 - i],
+                                flags & FadeChannel::ForceLTP ? true : false);
             continue;
         }
         else
@@ -347,7 +349,8 @@ void GenericFader::setFadeOut(bool enable, uint fadeTime)
 
         fc.setStart(fc.current());
         // all channels should fade to the current universe value
-        fc.addFlag(FadeChannel::SetTarget);
+        if ((fc.flags() & FadeChannel::Flashing) == 0)
+            fc.addFlag(FadeChannel::SetTarget);
         fc.setTarget(0);
         fc.setElapsed(0);
         fc.setReady(false);

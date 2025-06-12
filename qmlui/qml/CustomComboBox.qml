@@ -17,9 +17,10 @@
   limitations under the License.
 */
 
-import QtQuick 2.9
-import QtQuick.Window 2.3
-import QtQuick.Controls 2.14
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Window
+import QtQuick.Controls.Basic
 import "."
 
 ComboBox
@@ -113,12 +114,16 @@ ComboBox
     delegate:
         ItemDelegate
         {
-            width: parent.width
+            width: ListView.view.width
             implicitHeight: delegateHeight
             highlighted: control.highlightedIndex === index
             hoverEnabled: control.hoverEnabled
             padding: 0
             leftPadding: 3
+
+            required property var model
+            required property var modelData
+            required property int index
 
             property int currentIdx: control.currentIndex
             text: control.textRole ? (Array.isArray(control.model) ? modelData[control.textRole] : model[control.textRole]) : modelData
@@ -191,8 +196,8 @@ ComboBox
     contentItem:
         Row
         {
-            spacing: 2
-            leftPadding: 6
+            spacing: currentIcon ? 2 : 0
+            leftPadding: 3
             clip: true
 
             Image
@@ -206,12 +211,26 @@ ComboBox
                 opacity: control.enabled ? 1 : 0.3
             }
 
-            RobotoText
+            TextField
             {
-                label: control.displayText
                 height: control.height
-                fontSize: UISettings.textSizeDefault
+                width: control.width - control.indicator.width - parent.leftPadding
+                enabled: control.editable
                 opacity: control.enabled ? 1 : 0.3
+                font.family: UISettings.robotoFontName
+                font.pixelSize: UISettings.textSizeDefault
+                text: control.editable ? control.editText : control.displayText
+                color: UISettings.fgMain
+                selectedTextColor: UISettings.fgMain
+                selectionColor: UISettings.highlightPressed
+                selectByMouse: true
+
+                background: Rectangle {
+                    visible: control.enabled && control.editable && !control.flat
+                    border.width: parent && parent.activeFocus ? 2 : 1
+                    border.color: parent && parent.activeFocus ? UISettings.highlight : "transparent"
+                    color: "transparent"
+                }
             }
         }
 

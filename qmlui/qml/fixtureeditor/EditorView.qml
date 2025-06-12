@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.2
-import QtQuick.Layouts 1.12
-import QtQuick.Controls 2.13
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -160,7 +160,12 @@ Rectangle
                                     width: UISettings.bigItemHeight
                                     model: typeModel
                                     currValue: editorView ? editorView.productType : 0
-                                    onValueChanged: if (editorView) editorView.productType = value
+                                    onValueChanged:
+                                        function(value)
+                                        {
+                                            if (editorView)
+                                                editorView.productType = value
+                                        }
                                 }
                             }
 
@@ -328,7 +333,7 @@ Rectangle
                                                 cDragItem.z = 10
                                             }
 
-                                            onClicked:
+                                            onClicked: (mouse) =>
                                             {
                                                 chanSelector.selectItem(index, channelList.model, mouse.modifiers)
                                             }

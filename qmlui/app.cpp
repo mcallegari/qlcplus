@@ -260,6 +260,11 @@ bool App::is3DSupported() const
 #endif
 }
 
+void App::aboutQt()
+{
+    qApp->aboutQt();
+}
+
 void App::exit()
 {
     //destroy();

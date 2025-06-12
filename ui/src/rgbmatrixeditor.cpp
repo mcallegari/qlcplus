@@ -99,6 +99,8 @@ RGBMatrixEditor::~RGBMatrixEditor()
         m_matrix->stopAndWait();
 
     delete m_previewHandler;
+
+    qDeleteAll(m_previewHash);
 }
 
 void RGBMatrixEditor::stopTest()
@@ -700,6 +702,7 @@ void RGBMatrixEditor::displayProperties(RGBScript *script)
 
 bool RGBMatrixEditor::createPreviewItems()
 {
+    qDeleteAll(m_previewHash);
     m_previewHash.clear();
     m_scene->clear();
 
@@ -783,9 +786,9 @@ void RGBMatrixEditor::slotPreviewTimeout()
         for (int x = 0; x < m_previewHandler->m_map[y].size(); x++)
         {
             QLCPoint pt(x, y);
-            if (m_previewHash.contains(pt) == true)
+            RGBItem* shape = m_previewHash.value(pt, NULL);
+            if (shape)
             {
-                RGBItem* shape = m_previewHash[pt];
                 if (shape->color() != QColor(m_previewHandler->m_map[y][x]).rgb())
                     shape->setColor(m_previewHandler->m_map[y][x]);
 
@@ -833,15 +836,15 @@ void RGBMatrixEditor::slotPatternActivated(int patternIndex)
 #error "Further colors need to be displayed."
 #endif
         QVector<QColor> colors = {
-                m_matrix->getColor(0),
-                m_matrix->getColor(1),
-                m_matrix->getColor(2),
-                m_matrix->getColor(3),
-                m_matrix->getColor(4)
+            m_matrix->getColor(0),
+            m_matrix->getColor(1),
+            m_matrix->getColor(2),
+            m_matrix->getColor(3),
+            m_matrix->getColor(4)
         };
         algo->setColors(colors);
         m_previewHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1),
-                m_matrix->algorithm());
+                                              m_matrix->algorithm());
     }
     updateExtraOptions();
 
@@ -1434,10 +1437,17 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
 
             sequence->addStep(step);
             currentStep += increment;
-            if (currentStep == totalSteps && m_matrix->runOrder() == RGBMatrix::PingPong)
+            if (currentStep == totalSteps)
             {
-                currentStep = totalSteps - 2;
-                increment = -1;
+                if (m_matrix->runOrder() == RGBMatrix::PingPong)
+                {
+                    currentStep = totalSteps - 2;
+                    increment = -1;
+                }
+                else
+                {
+                    currentStep = 0;
+                }
             }
             m_previewHandler->updateStepColor(currentStep, m_matrix->getColor(0), m_matrix->stepsCount());
         }

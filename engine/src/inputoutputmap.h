@@ -65,7 +65,7 @@ public:
      * @param doc The QLC+ project reference
      * @param universes Number of universes
      */
-    InputOutputMap(Doc* doc, quint32 universesCount);
+    InputOutputMap(const Doc* doc, quint32 universesCount);
 
     /**
      * Destroy a InputOutputMap object
@@ -73,8 +73,7 @@ public:
     ~InputOutputMap();
 
 private:
-    /** Get the doc object */
-    Doc* doc() const;
+    const Doc *m_doc;
 
     /*********************************************************************
      * Blackout
@@ -574,6 +573,8 @@ public:
 private:
     /** List that contains all available profiles */
     QList <QLCInputProfile*> m_profiles;
+
+    bool m_localProfilesLoaded;
 
     /*********************************************************************
      * Beats

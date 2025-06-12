@@ -325,12 +325,14 @@ public:
 public:
     /** Returns a list of fixture names for representation in a GridEditor QML component */
     QVariantList fixtureNamesMap();
+    void setFixtureNamesMap(QVariantList fixtureNamesMap);
 
     /** Get a string to be displayed as tooltip for a fixture at $address */
     Q_INVOKABLE QString getTooltip(quint32 address);
 
     /** Returns data for representation in a GridEditor QML component */
     QVariantList fixturesMap();
+    void setFixturesMap(QVariantList fixturesMap);
 
     Q_INVOKABLE int pasteFromClipboard(QVariantList fixtureIDs);
 

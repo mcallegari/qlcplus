@@ -17,10 +17,10 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.1
-import QtQuick.Controls 2.13
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Dialogs
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "TimeUtils.js" as TimeUtils
@@ -285,7 +285,7 @@ Rectangle
         onAccepted:
         {
             // strip "file://" and add single quotes
-            var str = "'" + fileUrl.toString().slice(7) + "'"
+            var str = "'" + selectedFile.toString().slice(7) + "'"
             scriptEdit.insert(scriptEdit.cursorPosition, str)
             addMethodMenu.close()
         }

@@ -43,7 +43,7 @@ public:
     /**
      * Get a script instance by name
      */
-    RGBScript const& script(QString name) const;
+    RGBScript* script(QString name) const;
 
     /**
      * Load RGB scripts from the given path. Ignores duplicates.

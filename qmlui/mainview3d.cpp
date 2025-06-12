@@ -37,6 +37,7 @@
 #endif
 #include <Qt3DRender/QParameter>
 #include <Qt3DExtras/QPhongMaterial>
+#include <Qt3DRender/QGeometryRenderer>
 
 #include "doc.h"
 #include "tardis.h"
@@ -134,7 +135,7 @@ void MainView3D::slotRefreshView()
     {
         if (m_monProps->containsFixture(fixture->id()))
         {
-            for (quint32 subID : m_monProps->fixtureIDList(fixture->id()))
+            for (quint32 &subID : m_monProps->fixtureIDList(fixture->id()))
             {
                 quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
                 quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
@@ -148,7 +149,7 @@ void MainView3D::slotRefreshView()
         }
     }
 
-    for (quint32 itemID : m_monProps->genericItemsID())
+    for (quint32 &itemID : m_monProps->genericItemsID())
     {
         QString path = m_monProps->itemResource(itemID);
         createGenericItem(path, itemID);
@@ -179,7 +180,7 @@ void MainView3D::resetItems()
     //    delete it.value();
     m_entitiesMap.clear();
 
-    QMapIterator<int, SceneItem*> it2(m_genericMap);
+    QMapIterator<quint32, SceneItem*> it2(m_genericMap);
     while (it2.hasNext())
     {
         it2.next();
@@ -571,6 +572,7 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
         if (newItem == nullptr)
         {
             qDebug() << "Fixture 3D item creation failed !!";
+            delete mesh;
             return;
         }
         newItem->setProperty("headsNumber", fixture->heads());
@@ -590,6 +592,7 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
         if (newItem == nullptr)
         {
             qDebug() << "Fixture 3D item creation failed !!";
+            delete mesh;
             return;
         }
     }
@@ -701,10 +704,11 @@ QMatrix4x4 MainView3D::lightMatrix(quint32 itemID)
     if (meshRef == nullptr)
         return QMatrix4x4();
 
-    return meshRef->m_rootItem->property("lightMatrix").value<QMatrix4x4>();
+    QVariant lmtx = meshRef->m_rootItem->property("lightMatrix");
+    return lmtx.value<QMatrix4x4>();
 }
 
-void MainView3D::getMeshCorners(QGeometryRenderer *mesh,
+void getMeshCorners(QGeometryRenderer *mesh,
                                 QVector3D &minCorner,
                                 QVector3D &maxCorner)
 {
@@ -1129,7 +1133,7 @@ void MainView3D::updateFixture(Fixture *fixture, QByteArray &previous)
     if (m_enabled == false || fixture == nullptr)
         return;
 
-    for (quint32 subID : m_monProps->fixtureIDList(fixture->id()))
+    for (quint32 &subID : m_monProps->fixtureIDList(fixture->id()))
     {
         quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
         quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
@@ -1583,7 +1587,7 @@ void MainView3D::createGenericItem(QString filename, int itemID)
                 }
                 else
                 {
-                    filename = QLCFile::fileUrlPrefix() + m_doc->getWorkspacePath() + QDir::separator() + filename;
+                    filename = QLCFile::fileUrlPrefix() + m_doc->workspacePath() + QDir::separator() + filename;
                 }
             }
             else
@@ -2043,6 +2047,142 @@ void MainView3D::setSmokeAmount(float smokeAmount)
 
     m_smokeAmount = smokeAmount;
     emit smokeAmountChanged(m_smokeAmount);
+}
+
+bool MainView3D::rayIntersectsAABB(const QVector3D &rayOrigin, const QVector3D &rayDir,
+                                   const QVector3D &center, const QVector3D &extents, float &hitDistance)
+{
+    QVector3D minCorner = center - extents * 0.5f;
+    QVector3D maxCorner = center + extents * 0.5f;
+
+    float tmin = (minCorner.x() - rayOrigin.x()) / rayDir.x();
+    float tmax = (maxCorner.x() - rayOrigin.x()) / rayDir.x();
+    if (tmin > tmax) std::swap(tmin, tmax);
+
+    float tymin = (minCorner.y() - rayOrigin.y()) / rayDir.y();
+    float tymax = (maxCorner.y() - rayOrigin.y()) / rayDir.y();
+    if (tymin > tymax) std::swap(tymin, tymax);
+
+    if ((tmin > tymax) || (tymin > tmax))
+        return false;
+
+    if (tymin > tmin)
+        tmin = tymin;
+    if (tymax < tmax)
+        tmax = tymax;
+
+    float tzmin = (minCorner.z() - rayOrigin.z()) / rayDir.z();
+    float tzmax = (maxCorner.z() - rayOrigin.z()) / rayDir.z();
+    if (tzmin > tzmax) std::swap(tzmin, tzmax);
+
+    if ((tmin > tzmax) || (tzmin > tmax))
+        return false;
+
+    if (tzmin > tmin)
+        tmin = tzmin;
+    if (tzmax < tmax)
+        tmax = tzmax;
+
+    hitDistance = tmin;
+    return true;
+}
+
+QVector3D MainView3D::unprojectToWorld(const float &aspect, const QVector2D &ndcMousePos)
+{
+    QMatrix4x4 viewMatrix;
+    viewMatrix.lookAt(m_cameraPosition, m_cameraViewCenter, m_cameraUpVector);
+
+    QMatrix4x4 projMatrix;
+    projMatrix.perspective(45.0f, aspect, 1.0f, 1000.0f); // Must match the camera settings!
+
+    QMatrix4x4 invProjView = (projMatrix * viewMatrix).inverted();
+
+    QVector4D nearPoint(ndcMousePos.x(), ndcMousePos.y(), -1.0f, 1.0f);
+    QVector4D farPoint (ndcMousePos.x(), ndcMousePos.y(),  1.0f, 1.0f);
+
+    QVector4D nearWorld = invProjView * nearPoint;
+    QVector4D farWorld  = invProjView * farPoint;
+    nearWorld /= nearWorld.w();
+    farWorld  /= farWorld.w();
+
+    QVector3D rayDir = (farWorld.toVector3D() - nearWorld.toVector3D()).normalized();
+    return rayDir;
+}
+
+quint32 MainView3D::itemIntersection(QVector3D &rayOrigin, QVector3D &rayDir, int &modifiers,
+                                     QMap<quint32, SceneItem*> &map, bool generic)
+{
+    // Step 1: Unproject mouse click to world ray
+    quint32 pickedID = Fixture::invalidId();
+    float closestDistance = std::numeric_limits<float>::max();
+    SceneItem *sItem = nullptr;
+
+    // Step 2: iterate through the selected scene items and find the closest hit
+    QMapIterator<quint32, SceneItem*> it(map);
+    while (it.hasNext())
+    {
+        it.next();
+        quint32 itemID = it.key();
+        SceneItem *sceneItem = it.value();
+
+        if (!sceneItem || !sceneItem->m_rootItem)
+            continue;
+
+        QMatrix4x4 worldMatrix = sceneItem->m_rootTransform->matrix();
+        QVector3D boxCenter = worldMatrix.map(sceneItem->m_volume.m_center);
+        QVector3D boxExtents = generic ? sceneItem->m_volume.m_extents * sceneItem->m_rootTransform->scale3D() :
+                                         sceneItem->m_volume.m_extents;
+
+        float hitDistance;
+        if (rayIntersectsAABB(rayOrigin, rayDir, boxCenter, boxExtents, hitDistance))
+        {
+            //qDebug() << "Hit item" << itemID << "at distance" << hitDistance;
+
+            if (hitDistance < closestDistance)
+            {
+                closestDistance = hitDistance;
+                pickedID = itemID;
+                sItem = sceneItem;
+            }
+        }
+    }
+
+    if (pickedID != Fixture::invalidId())
+    {
+        bool isSelected = sItem->m_rootItem->property("isSelected").toBool();
+
+        if (generic)
+        {
+            QVector3D worldIntersection = rayOrigin + rayDir * closestDistance;
+
+            QMetaObject::invokeMethod(m_scene3D, "selectGenericItem",
+                                      Q_ARG(QVariant, pickedID),
+                                      Q_ARG(QVariant, !isSelected),
+                                      Q_ARG(QVariant, modifiers),
+                                      Q_ARG(QVariant, worldIntersection));
+        }
+        else
+        {
+            QMetaObject::invokeMethod(m_scene3D, "selectFixtureItem",
+                                      Q_ARG(QVariant, pickedID),
+                                      Q_ARG(QVariant, !isSelected),
+                                      Q_ARG(QVariant, modifiers));
+        }
+    }
+
+    return pickedID;
+}
+
+void MainView3D::pickEntity(const float &aspect, const QVector2D &ndcMousePos, int modifiers)
+{
+    // Step 1: Unproject mouse click to world ray
+    QVector3D rayOrigin = m_cameraPosition;
+    QVector3D rayDir = unprojectToWorld(aspect, ndcMousePos);
+
+    quint32 pickedID = itemIntersection(rayOrigin, rayDir, modifiers, m_entitiesMap, false);
+
+    if (pickedID == Fixture::invalidId())
+        itemIntersection(rayOrigin, rayDir, modifiers, m_genericMap, true);
 }
 
 /** *********************************************************************************

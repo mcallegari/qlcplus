@@ -497,13 +497,9 @@ endif()
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4701")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4101")
-
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4456")   # Suppress warning C4456: declaration of '_container_' hides previous local declaration in foreach
-
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX")
-
 elseif(NOT APPLE AND NOT IOS)
-
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")

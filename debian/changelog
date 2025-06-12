@@ -1,12 +1,27 @@
 qlcplus (4.14.2) stable; urgency=low
 
   * engine: fix audio end of stream causing a crash on Qt 6 builds
+  * engine: decrease memory usage of RGB Matrix (thanks to Nick Shaforostoff)
+  * engine: fix crash when changing EFX timing after "Stop all functions" (thanks to Jurrie Overgoor)
+  * engine: input profiles are now loaded from project folder too
+  * engine: fix RGB Matrix color lost while editing (thanks to Jurrie Overgoor)
+  * engine: fix RGB Matrix dimmer control mode on generic dimmers
+  * engine: fix EFX duration change when asymmetrical
+  * UI/Fixture Remap: include channel modifiers when fixture model and mode are the same
   * Virtual Console: add an option to hide Grand Master (thanks to Jurrie Overgoor)
+  * Plugins/DMX USB: fix crash with some FTDI adapters
+  * Plugins/DMX USB: improve Open DMX timer accuracy (thanks to Basil Hussain)
+  * Web Access: improved multiple connections handling (thank to Jurrie Overgoor)
   * Input profiles: added M-Wave SMC Mixer
   * New fixtures: Eurolite LED TMH-40, Stairville HF-900 Haze Fogger (thanks to thegasta)
   * New fixtures: Sagitter Prince, Sagitter Lite Beam 5R, Sagitter ARS 1500FC (thanks to Alessandro Caseti)
+  * New fixtures: Stairville BEL6 IP Bar HEX, BSW-350 LED (thanks to Theodor Hein)
+  * New fixtures: American DJ Encore FR50z, Encore FR150z, Showtec LED Blinder 2 COB (thanks to Bram Janssen)
+  * New fixture: Showtec LED Par 64 36x3W (thanks to Bostjan Vodnik)
+  * New fixture: Expolite TourBar 32PIX RGBW (thanks to Wim Van Laer)
+  * New fixture: Clay Paky Mini-B Spot
 
-  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 24 May 2025 18:19:20 +0200
+  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 14 Jun 2025 18:19:20 +0200
 
 qlcplus (4.14.1) stable; urgency=high
 

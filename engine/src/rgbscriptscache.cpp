@@ -39,18 +39,18 @@ QStringList RGBScriptsCache::names() const
     return m_scriptsMap.keys();
 }
 
-RGBScript const& RGBScriptsCache::script(QString name) const
+RGBScript* RGBScriptsCache::script(QString name) const
 {
     RGBScript *mScript = new RGBScript(m_doc);
     QString filename = m_scriptsMap.value(name);
     if (filename.isEmpty())
     {
-        return *mScript;
+        return mScript;
     }
     else
     {
         mScript->load(filename);
-        return *mScript;
+        return mScript;
     }
 }
 

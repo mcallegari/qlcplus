@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.0
-import QtQuick.Controls 2.2
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -98,11 +98,12 @@ VCWidgetItem
                 closeOnSelect: true
                 currentRGB: animationObj ? animationObj.color1 : "black"
 
-                onColorChanged:
-                {
-                    col1Button.color = Qt.rgba(r, g, b, 1.0)
-                    animationObj.color1 = col1Button.color
-                }
+                onToolColorChanged:
+                    function(r, g, b, w, a, uv)
+                    {
+                        col1Button.color = Qt.rgba(r, g, b, 1.0)
+                        animationObj.color1 = col1Button.color
+                    }
                 onClose: visible = false
             }
         }
@@ -112,14 +113,14 @@ VCWidgetItem
             width: UISettings.iconSizeDefault * 1.5
             height: width
             radius: 5
-            border.color: ecMouseArea.containsMouse ? "white" : UISettings.bgLight
+            border.color: ec2MouseArea.containsMouse ? "white" : UISettings.bgLight
             border.width: 2
             color: animationObj ? animationObj.color2 : "transparent"
             visible: animationObj ? animationObj.visibilityMask & VCAnimation.Color2 : true
 
             MouseArea
             {
-                id: ecMouseArea
+                id: ec2MouseArea
                 anchors.fill: parent
                 hoverEnabled: true
                 onClicked: col2Tool.visible = !col2Tool.visible
@@ -135,7 +136,11 @@ VCWidgetItem
                 closeOnSelect: true
                 currentRGB: animationObj ? animationObj.color2 : "black"
 
-                onColorChanged: animationObj.color2 = Qt.rgba(r, g, b, 1.0)
+                onToolColorChanged:
+                    function(r, g, b, w, a, uv)
+                    {
+                        animationObj.color2 = Qt.rgba(r, g, b, 1.0)
+                    }
                 onClose: visible = false
             }
         }
@@ -145,14 +150,14 @@ VCWidgetItem
             width: UISettings.iconSizeDefault * 1.5
             height: width
             radius: 5
-            border.color: ecMouseArea.containsMouse ? "white" : UISettings.bgLight
+            border.color: ec3MouseArea.containsMouse ? "white" : UISettings.bgLight
             border.width: 2
             color: animationObj ? animationObj.color3 : "transparent"
             visible: animationObj ? animationObj.visibilityMask & VCAnimation.Color3 : true
 
             MouseArea
             {
-                id: ecMouseArea
+                id: ec3MouseArea
                 anchors.fill: parent
                 hoverEnabled: true
                 onClicked: col3Tool.visible = !col3Tool.visible
@@ -168,7 +173,11 @@ VCWidgetItem
                 closeOnSelect: true
                 currentRGB: animationObj ? animationObj.color3 : "black"
 
-                onColorChanged: animationObj.color3 = Qt.rgba(r, g, b, 1.0)
+                onToolColorChanged:
+                    function(r, g, b, w, a, uv)
+                    {
+                        animationObj.color3 = Qt.rgba(r, g, b, 1.0)
+                    }
                 onClose: visible = false
             }
         }
@@ -178,14 +187,14 @@ VCWidgetItem
             width: UISettings.iconSizeDefault * 1.5
             height: width
             radius: 5
-            border.color: ecMouseArea.containsMouse ? "white" : UISettings.bgLight
+            border.color: ec4MouseArea.containsMouse ? "white" : UISettings.bgLight
             border.width: 2
             color: animationObj ? animationObj.color4 : "transparent"
             visible: animationObj ? animationObj.visibilityMask & VCAnimation.Color4 : true
 
             MouseArea
             {
-                id: ecMouseArea
+                id: ec4MouseArea
                 anchors.fill: parent
                 hoverEnabled: true
                 onClicked: col4Tool.visible = !col4Tool.visible
@@ -201,7 +210,11 @@ VCWidgetItem
                 closeOnSelect: true
                 currentRGB: animationObj ? animationObj.color4 : "black"
 
-                onColorChanged: animationObj.color4 = Qt.rgba(r, g, b, 1.0)
+                onToolColorChanged:
+                    function(r, g, b, w, a, uv)
+                    {
+                        animationObj.color4 = Qt.rgba(r, g, b, 1.0)
+                    }
                 onClose: visible = false
             }
         }
@@ -211,14 +224,14 @@ VCWidgetItem
             width: UISettings.iconSizeDefault * 1.5
             height: width
             radius: 5
-            border.color: ecMouseArea.containsMouse ? "white" : UISettings.bgLight
+            border.color: ec5MouseArea.containsMouse ? "white" : UISettings.bgLight
             border.width: 2
             color: animationObj ? animationObj.color5 : "transparent"
             visible: animationObj ? animationObj.visibilityMask & VCAnimation.Color5 : true
 
             MouseArea
             {
-                id: ecMouseArea
+                id: ec5MouseArea
                 anchors.fill: parent
                 hoverEnabled: true
                 onClicked: col5Tool.visible = !col5Tool.visible
@@ -234,7 +247,11 @@ VCWidgetItem
                 closeOnSelect: true
                 currentRGB: animationObj ? animationObj.color5 : "black"
 
-                onColorChanged: animationObj.color5 = Qt.rgba(r, g, b, 1.0)
+                onToolColorChanged:
+                    function(r, g, b, w, a, uv)
+                    {
+                        animationObj.color5 = Qt.rgba(r, g, b, 1.0)
+                    }
                 onClose: visible = false
             }
         }

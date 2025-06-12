@@ -266,7 +266,7 @@ int RGBText::rgbMapStepCount(const QSize& size)
         return scrollingTextStepCount();
 }
 
-void RGBText::rgbMapSetColors(QVector<uint> &colors)
+void RGBText::rgbMapSetColors(const QVector<uint> &colors)
 {
     Q_UNUSED(colors);
 }

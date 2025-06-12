@@ -141,6 +141,4 @@ void CustomTcpServer::incomingConnection(qintptr handle)
             this, SIGNAL(webSocketDataReady(QHttpConnection*,QString)));
     connect(connection, SIGNAL(webSocketConnectionClose(QHttpConnection*)),
             this, SIGNAL(webSocketConnectionClose(QHttpConnection*)));
-
-    addPendingConnection(socket);
 }

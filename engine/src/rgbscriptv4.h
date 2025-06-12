@@ -21,7 +21,6 @@
 #define RGBSCRIPTV4_H
 
 #include <QHash>
-#include <QMutex>
 #include <QJSValue>
 
 #include "rgbalgorithm.h"
@@ -29,6 +28,8 @@
 
 class QJSEngine;
 class QDir;
+
+class JSThread;
 
 /** @addtogroup engine_functions Functions
  * @{
@@ -68,8 +69,8 @@ public:
     bool evaluate();
 
 private:
-    /** Init engine, engine mutex, and scripts map */
-    void initEngine();
+    static void initEngine();
+    static void cleanupEngine();
 
     /** Handle an error after evaluate() or call() of a script */
     static void displayError(QJSValue e, const QString& fileName);
@@ -77,13 +78,7 @@ private:
 private:
     QString m_fileName;             //! The file name that contains this script
     QString m_contents;             //! The file's contents
-    QJSEngine *m_engine;            //! The JavaScript engine
-#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-    QMutex *m_engineMutex;          //! Concurrency protection
-#else
-    QRecursiveMutex *m_engineMutex; //! Concurrency protection
-#endif
-    Qt::HANDLE m_threadId;
+    static JSThread *s_jsThread;
 
     /************************************************************************
      * RGBAlgorithm API
@@ -93,7 +88,7 @@ public:
     int rgbMapStepCount(const QSize& size);
 
     /** @reimp */
-    void rgbMapSetColors(QVector<uint> &colors);
+    void rgbMapSetColors(const QVector<uint> &colors);
 
     /** @reimp */
     QVector<uint> rgbMapGetColors();
