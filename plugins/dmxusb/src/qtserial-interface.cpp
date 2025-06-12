@@ -373,7 +373,7 @@ uchar QtSerialInterface::readByte(bool *ok)
     {
         if (ok) *ok = true;
         uchar retByte = uchar(m_readBuffer.at(0));
-        m_readBuffer.removeFirst();
+        m_readBuffer.remove(0, 1);
         return retByte;
     }
 #else
