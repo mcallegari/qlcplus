@@ -103,6 +103,7 @@ add_library(${module_name}
     simpledeskengine.cpp simpledeskengine.h
     speeddial.cpp speeddial.h
     speeddialwidget.cpp speeddialwidget.h
+    treewidgetitem.cpp treewidgetitem.h
     universeitemwidget.cpp universeitemwidget.h
     videoeditor.cpp videoeditor.h videoeditor.ui
     videoprovider.cpp videoprovider.h
