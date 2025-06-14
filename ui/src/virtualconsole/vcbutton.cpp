@@ -40,6 +40,12 @@
 #include <QMenu>
 #include <QSize>
 #include <QPen>
+#include <QInputDialog>
+#include <QKeySequence>
+#include <QTabWidget>
+#include <QTabBar>
+#include <QToolBar>
+#include <algorithm>
 
 #if defined(WIN32) || defined(Q_OS_WIN)
  #include <QStyleFactory>
@@ -69,7 +75,17 @@ const QSize VCButton::defaultSize(QSize(50, 50));
 
 VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     , m_iconPath()
+    , m_icon()
+    , m_iconSize(QSize(26, 26))
+    , m_chooseIconAction(NULL)
+    , m_resetIconAction(NULL)
+    , m_function(Function::invalidId())
+    , m_state(Inactive)
+    , m_ledStyle(false)
+    , m_keySequence(QKeySequence())
+    , m_action(Toggle)
     , m_blackoutFadeOutTime(0)
+    , m_kioskModePin()
     , m_startupIntensityEnabled(false)
     , m_startupIntensity(1.0)
     , m_flashOverrides(false)
@@ -79,8 +95,6 @@ VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     setObjectName(VCButton::staticMetaObject.className());
 
     /* No function is initially attached to the button */
-    m_function = Function::invalidId();
-
     setType(VCWidget::ButtonWidget);
     setCaption(QString());
     setState(Inactive);
@@ -607,6 +621,8 @@ QString VCButton::actionToString(VCButton::Action action)
         return QString(KXMLQLCVCButtonActionBlackout);
     else if (action == StopAll)
         return QString(KXMLQLCVCButtonActionStopAll);
+    else if (action == KioskMode)
+        return QString(KXMLQLCVCButtonActionKioskMode);
     else
         return QString(KXMLQLCVCButtonActionToggle);
 }
@@ -619,6 +635,8 @@ VCButton::Action VCButton::stringToAction(const QString& str)
         return Blackout;
     else if (str == KXMLQLCVCButtonActionStopAll)
         return StopAll;
+    else if (str == KXMLQLCVCButtonActionKioskMode)
+        return KioskMode;
     else
         return Toggle;
 }
@@ -671,7 +689,15 @@ void VCButton::slotAttributeChanged(int value)
 #endif
 }
 
+void VCButton::setKioskModePin(const QString& pin)
+{
+    m_kioskModePin = pin;
+}
 
+QString VCButton::kioskModePin() const
+{
+    return m_kioskModePin;
+}
 
 /*****************************************************************************
  * Flash Properties
@@ -697,8 +723,6 @@ void VCButton::setFlashForceLTP(bool forceLTP)
     m_flashForceLTP = forceLTP;
 }
 
-
-
 /*****************************************************************************
  * Button press / release handlers
  *****************************************************************************/
@@ -710,7 +734,161 @@ void VCButton::pressFunction()
         return;
 
     Function* f = NULL;
-    if (m_action == Toggle)
+
+    if (m_action == KioskMode)
+    {
+        // Check if we're trying to enable or disable kiosk mode
+        if (m_doc->isKiosk() == false)
+        {
+            // Enable kiosk mode - verify PIN
+            bool ok;
+            QString pin = QInputDialog::getText(this, tr("Enable Kiosk Mode"),
+                                               tr("Enter PIN to enable Kiosk Mode:"), QLineEdit::Password,
+                                               "", &ok);
+            // If the user clicked cancel or entered wrong PIN, do nothing
+            if (ok && pin == m_kioskModePin && !m_kioskModePin.isEmpty())
+            {
+                m_doc->setKiosk(true);
+                
+                // Find the main app window to update the UI
+                QMainWindow* mainApp = mainWindow();
+                
+                if (mainApp != nullptr) 
+                {
+                    // Hide the tab bar
+                    QTabWidget* tabWidget = mainApp->findChild<QTabWidget*>();
+                    if (tabWidget != nullptr)
+                    {
+                        // Hide the tab bar to save some pixels
+                        tabWidget->tabBar()->hide();
+                        
+                        // Find Virtual Console tab index
+                        int vcIndex = -1;
+                        for (int i = 0; i < tabWidget->count(); i++)
+                        {
+                            if (tabWidget->tabText(i).contains("Virtual Console", Qt::CaseInsensitive))
+                            {
+                                vcIndex = i;
+                                break;
+                            }
+                        }
+                        
+                        // If we found Virtual Console tab, make it current and hide others
+                        if (vcIndex >= 0)
+                        {
+                            // Switch to the Virtual Console tab first
+                            tabWidget->setCurrentIndex(vcIndex);
+                            
+                            // Now hide (but don't remove) other tabs
+                            for (int i = 0; i < tabWidget->count(); i++)
+                            {
+                                if (i != vcIndex)
+                                {
+                                    tabWidget->setTabVisible(i, false);
+                                }
+                            }
+                        }
+                    }
+                    
+                    // Hide toolbar
+                    QToolBar* toolbar = mainApp->findChild<QToolBar*>();
+                    if (toolbar != nullptr)
+                    {
+                        toolbar->hide();
+                    }
+                    
+                    // Enable fullscreen mode
+                    mainApp->showFullScreen();
+                }
+                
+                emit stateChanged(Active);
+                setState(Active);
+            }
+            else if (ok)
+            {
+                // Wrong PIN entered
+                QMessageBox::warning(this, tr("Incorrect PIN"),
+                                   tr("The PIN you entered is incorrect. Kiosk Mode was not enabled."),
+                                   QMessageBox::Ok);
+            }
+        }
+        else
+        {
+            // Disable kiosk mode - verify PIN
+            bool ok;
+            QString pin = QInputDialog::getText(this, tr("Disable Kiosk Mode"),
+                                               tr("Enter PIN to disable Kiosk Mode:"), QLineEdit::Password,
+                                               "", &ok);
+            // If the user clicked cancel or entered wrong PIN, do nothing
+            if (ok && pin == m_kioskModePin && !m_kioskModePin.isEmpty())
+            {
+                m_doc->setKiosk(false);
+                
+                // Find the main app window to update the UI
+                QMainWindow* mainApp = mainWindow();
+                
+                if (mainApp != nullptr) 
+                {
+                    // Creating a list of tab names to be restored when disabling kiosk mode
+                    QList<QString> tabNames;
+                    tabNames << "Fixtures" << "Functions" << "Shows" << "Virtual Console" << "Simple Desk" << "Inputs/Outputs";
+                    
+                    // Creating a list of icons for the tabs
+                    QList<QString> tabIcons;
+                    tabIcons << ":/fixture.png" << ":/function.png" << ":/show.png" 
+                             << ":/virtualconsole.png" << ":/slidermatrix.png" << ":/input_output.png";
+                    
+                    QTabWidget* tabWidget = mainApp->findChild<QTabWidget*>();
+                    if (tabWidget != nullptr)
+                    {
+                        // First show the tab bar
+                        tabWidget->tabBar()->show();
+                        
+                        // Show all tabs that were hidden
+                        for (int i = 0; i < tabWidget->count(); i++)
+                        {
+                            tabWidget->setTabVisible(i, true);
+                        }
+                        
+                        // Make sure Virtual Console tab is still selected
+                        for (int i = 0; i < tabWidget->count(); i++)
+                        {
+                            if (tabWidget->tabText(i).contains("Virtual Console", Qt::CaseInsensitive))
+                            {
+                                tabWidget->setCurrentIndex(i);
+                                break;
+                            }
+                        }
+                    }
+                    
+                    // Show the toolbar
+                    QToolBar* toolbar = mainApp->findChild<QToolBar*>();
+                    if (toolbar != nullptr)
+                    {
+                        toolbar->show();
+                    }
+                    
+                    // Exit fullscreen mode
+                    if (mainApp->isFullScreen())
+                    {
+                        mainApp->showNormal();
+                    }
+                }
+                
+                emit stateChanged(Inactive);
+                setState(Inactive);
+            }
+            else if (ok)
+            {
+                // Wrong PIN entered
+                QMessageBox::warning(this, tr("Incorrect PIN"),
+                                   tr("The PIN you entered is incorrect. Kiosk Mode was not disabled."),
+                                   QMessageBox::Ok);
+            }
+        }
+        return;
+    }
+    else if (m_action == Toggle)
     {
         f = m_doc->function(m_function);
         if (f == NULL)
@@ -868,6 +1046,18 @@ bool VCButton::isChildOfSoloFrame() const
     return false;
 }
 
+QMainWindow* VCButton::mainWindow()
+{
+    QWidget* parent = this;
+    while (parent != nullptr)
+    {
+        parent = parent->parentWidget();
+        if (qobject_cast<QMainWindow*>(parent) != nullptr)
+            return qobject_cast<QMainWindow*>(parent);
+    }
+    return nullptr;
+}
+
 /*****************************************************************************
  * Custom menu
  *****************************************************************************/
@@ -953,6 +1143,9 @@ bool VCButton::loadXML(QXmlStreamReader &root)
 
             if (attrs.hasAttribute(KXMLQLCVCButtonFlashForceLTP))
                 setFlashForceLTP(attrs.value(KXMLQLCVCButtonFlashForceLTP).toInt());
+
+            if (attrs.hasAttribute(KXMLQLCVCButtonKioskModePin))
+                setKioskModePin(attrs.value(KXMLQLCVCButtonKioskModePin).toString());
         }
         else if (root.name() == KXMLQLCVCButtonKey)
         {
@@ -1006,16 +1199,21 @@ bool VCButton::saveXML(QXmlStreamWriter *doc)
 
     /* Action */
     doc->writeStartElement(KXMLQLCVCButtonAction);
-
-    if (action() == StopAll && stopAllFadeTime() != 0)
+    /* Stop action */
+    if (m_action == StopAll)
+        doc->writeAttribute(KXMLQLCVCButtonStopAllFadeTime, QString::number(m_blackoutFadeOutTime));
+    /* Flash modifiers */
+    if (m_action == Flash)
     {
-        doc->writeAttribute(KXMLQLCVCButtonStopAllFadeTime, QString::number(stopAllFadeTime()));
+        if (m_flashOverrides)
+            doc->writeAttribute(KXMLQLCVCButtonFlashOverride, "1");
+        if (m_flashForceLTP)
+            doc->writeAttribute(KXMLQLCVCButtonFlashForceLTP, "1");
     }
-    else if (action() == Flash)
-    {
-        doc->writeAttribute(KXMLQLCVCButtonFlashOverride, QString::number(flashOverrides()));
-        doc->writeAttribute(KXMLQLCVCButtonFlashForceLTP, QString::number(flashForceLTP()));
-    }
+    /* Kiosk mode PIN */
+    if (m_action == KioskMode && !m_kioskModePin.isEmpty())
+        doc->writeAttribute(KXMLQLCVCButtonKioskModePin, m_kioskModePin);
+    
     doc->writeCharacters(actionToString(action()));
     doc->writeEndElement();
 
@@ -1165,11 +1363,11 @@ void VCButton::paintEvent(QPaintEvent* e)
         }
     }
 
-    /* Stop painting here */
-    painter.end();
-
     /* Draw a selection frame if appropriate */
     VCWidget::paintEvent(e);
+
+    /* Stop painting here */
+    painter.end();
 }
 
 void VCButton::mousePressEvent(QMouseEvent* e)
