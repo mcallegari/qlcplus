@@ -385,7 +385,7 @@ bool FTD2XXInterface::write(const QByteArray& data)
     }
 }
 
-QByteArray FTD2XXInterface::read(int size, uchar* userBuffer)
+QByteArray FTD2XXInterface::read(int size)
 {
     if (m_handle == NULL)
         return QByteArray();
@@ -398,27 +398,15 @@ QByteArray FTD2XXInterface::read(int size, uchar* userBuffer)
 
     uchar* buffer = NULL;
 
-    if (userBuffer == NULL)
-        buffer = (uchar*) malloc(sizeof(uchar) * size);
-    else
-        buffer = userBuffer;
+    buffer = (uchar*) malloc(sizeof(uchar) * size);
     Q_ASSERT(buffer != NULL);
 
     int read = 0;
     QByteArray array;
     FT_Read(m_handle, buffer, size, (LPDWORD) &read);
-    if (userBuffer == NULL)
-    {
-        for (int i = 0; i < read; i++)
-            array.append((char) buffer[i]);
-    }
-    else
-    {
-        array = QByteArray((char*) buffer, read);
-    }
+    array = QByteArray((char*) buffer, read);
 
-    if (userBuffer == NULL)
-        free(buffer);
+    free(buffer);
 
     return array;
 }

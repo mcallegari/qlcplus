@@ -86,7 +86,7 @@ public:
     bool write(const QByteArray& data);
 
     /** @reimpl */
-    QByteArray read(int size, uchar* buffer = NULL);
+    QByteArray read(int size);
 
     /** @reimpl */
     uchar readByte(bool* ok = NULL);

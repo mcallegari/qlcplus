@@ -320,11 +320,9 @@ bool QtSerialInterface::write(const QByteArray& data)
     }
 }
 
-QByteArray QtSerialInterface::read(int size, uchar *userBuffer)
+QByteArray QtSerialInterface::read(int size)
 {
     //qDebug() << Q_FUNC_INFO;
-
-    Q_UNUSED(userBuffer)
 
     if (m_handle == NULL)
         return QByteArray();

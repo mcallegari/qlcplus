@@ -185,7 +185,7 @@ public:
     virtual bool write(const QByteArray& data) = 0;
 
     /** Read data from a previously-opened line. Optionally provide own data buffer. */
-    virtual QByteArray read(int size, uchar* buffer = NULL) = 0;
+    virtual QByteArray read(int size) = 0;
 
     /** Read exactly one byte. $ok tells if a byte was read or not. */
     virtual uchar readByte(bool* ok = NULL) = 0;

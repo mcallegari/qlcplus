@@ -374,22 +374,18 @@ bool LibFTDIInterface::write(const QByteArray& data)
     }
 }
 
-QByteArray LibFTDIInterface::read(int size, uchar* userBuffer)
+QByteArray LibFTDIInterface::read(int size)
 {
     uchar* buffer = NULL;
 
-    if (userBuffer == NULL)
-        buffer = (uchar*) malloc(sizeof(uchar) * size);
-    else
-        buffer = userBuffer;
+    buffer = (uchar*) malloc(sizeof(uchar) * size);
     Q_ASSERT(buffer != NULL);
 
     QByteArray array;
     int read = ftdi_read_data(&m_handle, buffer, size);
     array = QByteArray((char*)buffer, read);
 
-    if (userBuffer == NULL)
-        free(buffer);
+    free(buffer);
 
     return array;
 }
