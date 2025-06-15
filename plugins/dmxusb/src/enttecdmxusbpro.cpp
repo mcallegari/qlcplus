@@ -468,7 +468,39 @@ int EnttecDMXUSBPro::readData(QByteArray &payload, bool &isMIDI, bool needRDM)
             if (label == ENTTEC_PRO_MIDI_IN_MSG)
             {
                 isMIDI = true;
-                payload = packet.mid(4, dataLen);
+                payload.append(packet.mid(4, dataLen));
+
+                // Keep scanning next packets while they are MIDI
+                while (true)
+                {
+                    int nextStart = buffer.indexOf(ENTTEC_PRO_START_OF_MSG);
+                    if (nextStart == -1 || buffer.size() < nextStart + 5)
+                        break;
+
+                    char nextLabel = buffer[nextStart + 1];
+                    int lenLSB = static_cast<uchar>(buffer[nextStart + 2]);
+                    int lenMSB = static_cast<uchar>(buffer[nextStart + 3]);
+                    int nextLen = (lenMSB << 8) | lenLSB;
+                    int nextPacketLen = 4 + nextLen + 1;
+
+                    if (buffer.size() < nextStart + nextPacketLen)
+                        break; // Wait for more data
+
+                    if (buffer[nextStart + nextPacketLen - 1] != ENTTEC_PRO_END_OF_MSG)
+                    {
+                        qWarning() << Q_FUNC_INFO << "Malformed MIDI packet (missing END)";
+                        buffer.remove(0, nextStart + 1);
+                        continue;
+                    }
+
+                    if (nextLabel != ENTTEC_PRO_MIDI_IN_MSG)
+                        break; // Stop if label changes
+
+                    QByteArray midiPkt = buffer.mid(nextStart, nextPacketLen);
+                    payload.append(midiPkt.mid(4, nextLen));
+                    buffer.remove(0, nextStart + nextPacketLen);
+                }
+
                 return payload.size();
             }
 
@@ -515,7 +547,8 @@ int EnttecDMXUSBPro::readData(QByteArray &payload, bool &isMIDI, bool needRDM)
         attempt++;
     }
 
-    return 0; // No valid packet found after retries
+    // No valid packet found after retries
+    return 0;
 }
 
 /****************************************************************************
@@ -614,7 +647,7 @@ bool EnttecDMXUSBPro::writeUniverse(quint32 universe, quint32 output, const QByt
     }
 
     quint32 portIndex = lineToPortIndex(output, DMXUSBWidget::Output);
-    if (portIndex >= (quint32)outputsNumber())
+    if (portIndex >= m_portsInfo.count())
         return false;
 
     if (m_portsInfo[portIndex].m_universeData.size() == 0)
@@ -924,28 +957,32 @@ void EnttecDMXUSBPro::run()
                     const uchar *data = reinterpret_cast<const uchar *>(payload.constData());
                     int length = payload.length();
 
-                    for (int i = 0; i + 2 < length; ++i)
+                    for (int i = 0; i < length;)
                     {
-                        uchar byte = data[i];
-                        if (!MIDI_IS_CMD(byte))
+                        if (!MIDI_IS_CMD(data[i]))
+                        {
+                            i++;
                             continue;
+                        }
 
-                        uchar midiCmd = byte;
+                        uchar midiCmd = data[i];
                         uchar midiData1 = data[i + 1];
                         uchar midiData2 = data[i + 2];
+
+                        //qDebug() << "CMD" << midiCmd << "DATA1" << midiData1 << "DATA2" << midiData2;
 
                         uint channel = 0;
                         uchar value = 0;
                         if (QLCMIDIProtocol::midiToInput(midiCmd, midiData1, midiData2,
                                                          MAX_MIDI_CHANNELS, &channel, &value))
                         {
-                            emit valueChanged(UINT_MAX, emitLine, channel, value);
+                            emit valueChanged(UINT_MAX, 1, channel, value);
 
                             if (midiCmd >= MIDI_BEAT_CLOCK && midiCmd <= MIDI_BEAT_STOP)
                                 emit valueChanged(UINT_MAX, emitLine, channel, 0);
                         }
 
-                        i += 2; // Skip to next potential command
+                        i += 3;
                     }
                 }
             }
