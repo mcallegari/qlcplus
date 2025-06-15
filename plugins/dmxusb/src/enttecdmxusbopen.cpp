@@ -50,11 +50,11 @@ EnttecDMXUSBOpen::EnttecDMXUSBOpen(DMXInterface *iface,
             channels = DMX_CHANNELS;
         // channels + 1 Because the first byte is always zero
         // to break a full DMX universe transmission
-        m_outputLines[0].m_universeData = QByteArray(channels + 1, 0);
+        m_portsInfo[0].m_universeData = QByteArray(channels + 1, 0);
     }
     else
     {
-        m_outputLines[0].m_universeData = QByteArray(DMX_CHANNELS + 1, 0);
+        m_portsInfo[0].m_universeData = QByteArray(DMX_CHANNELS + 1, 0);
     }
 
 // on macOS, QtSerialPort cannot handle an OpenDMX device
@@ -119,7 +119,7 @@ QString EnttecDMXUSBOpen::additionalInfo() const
                                          .arg(vendor());
     info += QString("<BR>");
     info += QString("<B>%1:</B> %2").arg(tr("DMX Channels"))
-                                    .arg(m_outputLines[0].m_universeData.size()-1);
+                                    .arg(m_portsInfo[0].m_universeData.size() - 1);
     info += QString("<BR>");
     info += QString("<B>%1:</B> %2Hz").arg(tr("DMX Frame Frequency"))
                                       .arg(m_frequency);
@@ -146,8 +146,8 @@ bool EnttecDMXUSBOpen::writeUniverse(quint32 universe, quint32 output, const QBy
     Q_UNUSED(output)
 
     if (dataChanged)
-        m_outputLines[0].m_universeData.replace(1, MIN(data.size(), m_outputLines[0].m_universeData.size() - 1),
-                                                data.constData(), MIN(data.size(), m_outputLines[0].m_universeData.size() - 1));
+        m_portsInfo[0].m_universeData.replace(1, MIN(data.size(), m_portsInfo[0].m_universeData.size() - 1),
+                                                data.constData(), MIN(data.size(), m_portsInfo[0].m_universeData.size() - 1));
     return true;
 }
 
@@ -205,7 +205,7 @@ void EnttecDMXUSBOpen::run()
         if (m_granularity == Good)
             usleep(DMX_MAB);
 
-        if (iface()->write(m_outputLines[0].m_universeData) == false)
+        if (iface()->write(m_portsInfo[0].m_universeData) == false)
             goto framesleep;
 
 framesleep:

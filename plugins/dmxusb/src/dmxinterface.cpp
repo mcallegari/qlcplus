@@ -18,6 +18,8 @@
   limitations under the License.
 */
 
+#include <QSettings>
+
 #include "dmxinterface.h"
 
 DMXInterface::DMXInterface(const QString& serial, const QString& name, const QString &vendor,

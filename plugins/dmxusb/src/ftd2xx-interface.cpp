@@ -124,90 +124,6 @@ FTD2XXInterface::~FTD2XXInterface()
         close();
 }
 
-bool FTD2XXInterface::readLabel(uchar label, int &intParam, QString &strParam)
-{
-    FT_HANDLE ftdi = NULL;
-
-    if (FT_Open(id(), &ftdi) != FT_OK)
-        return false;
-
-    if (FT_ResetDevice(ftdi) != FT_OK)
-        return false;
-
-    if (FT_SetBaudRate(ftdi, 250000) != FT_OK)
-        return false;
-
-    if (FT_SetDataCharacteristics(ftdi, FT_BITS_8, FT_STOP_BITS_2, FT_PARITY_NONE) != FT_OK)
-        return false;
-
-    if (FT_SetFlowControl(ftdi, 0, 0, 0) != FT_OK)
-        return false;
-
-    QByteArray request;
-    request.append(ENTTEC_PRO_START_OF_MSG);
-    request.append(label);
-    request.append(ENTTEC_PRO_DMX_ZERO); // data length LSB
-    request.append(ENTTEC_PRO_DMX_ZERO); // data length MSB
-    request.append(ENTTEC_PRO_END_OF_MSG);
-
-    DWORD written = 0;
-    if (FT_Write(ftdi, (char*) request.data(), request.size(), &written) != FT_OK)
-    {
-        qDebug() << Q_FUNC_INFO << "Cannot write data to device" << id();
-        FT_Close(ftdi);
-        return false;
-    }
-
-    if (written == 0)
-    {
-        qDebug() << Q_FUNC_INFO << "Cannot write data to device" << id();
-        FT_Close(ftdi);
-        return false;
-    }
-
-    uchar buffer[40];
-    int read = 0;
-    QByteArray array;
-
-    FT_SetTimeouts(ftdi, 500,0);
-    FT_Read(ftdi, buffer, 40, (LPDWORD) &read);
-    array = QByteArray::fromRawData((char*) buffer, read);
-
-    if (array.size() == 0)
-    {
-        FT_Close(ftdi);
-        return false;
-    }
-
-    if (array[0] != ENTTEC_PRO_START_OF_MSG)
-    {
-        qDebug() << Q_FUNC_INFO << "Reply message wrong start code: " << QString::number(array[0], 16);
-        FT_Close(ftdi);
-        return false;
-    }
-
-    // start | label | data length
-    if (array.size() < 4)
-    {
-        FT_Close(ftdi);
-        return false;
-    }
-
-    int dataLen = (array[3] << 8) | array[2];
-    if (dataLen == 1)
-    {
-        intParam = array[4];
-        FT_Close(ftdi);
-        return true;
-    }
-
-    intParam = (array[5] << 8) | array[4];
-    strParam = QString(array.mid(6, dataLen - 2));
-
-    FT_Close(ftdi);
-    return true;
-}
-
 DMXInterface::Type FTD2XXInterface::type()
 {
     return DMXInterface::FTD2xx;
@@ -469,7 +385,7 @@ bool FTD2XXInterface::write(const QByteArray& data)
     }
 }
 
-QByteArray FTD2XXInterface::read(int size, uchar* userBuffer)
+QByteArray FTD2XXInterface::read(int size)
 {
     if (m_handle == NULL)
         return QByteArray();
@@ -482,27 +398,15 @@ QByteArray FTD2XXInterface::read(int size, uchar* userBuffer)
 
     uchar* buffer = NULL;
 
-    if (userBuffer == NULL)
-        buffer = (uchar*) malloc(sizeof(uchar) * size);
-    else
-        buffer = userBuffer;
+    buffer = (uchar*) malloc(sizeof(uchar) * size);
     Q_ASSERT(buffer != NULL);
 
     int read = 0;
     QByteArray array;
     FT_Read(m_handle, buffer, size, (LPDWORD) &read);
-    if (userBuffer == NULL)
-    {
-        for (int i = 0; i < read; i++)
-            array.append((char) buffer[i]);
-    }
-    else
-    {
-        array = QByteArray((char*) buffer, read);
-    }
+    array = QByteArray((char*) buffer, read);
 
-    if (userBuffer == NULL)
-        free(buffer);
+    free(buffer);
 
     return array;
 }
