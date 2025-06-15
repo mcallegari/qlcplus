@@ -23,11 +23,6 @@
 #include <QByteArray>
 #include <QVariant>
 #include <QThread>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-    #include <QRecursiveMutex>
-#else
-    #include <QMutex>
-#endif
 
 #include "dmxusbwidget.h"
 

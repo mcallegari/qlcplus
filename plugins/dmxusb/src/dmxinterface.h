@@ -26,6 +26,7 @@
 
 #define SETTINGS_TYPE_MAP "qlcftdi/typemap"
 #define SETTINGS_FREQ_MAP "qlcftdi/freqmap"
+#define READ_CHUNK_SIZE 512
 
 class DMXInterface
 {

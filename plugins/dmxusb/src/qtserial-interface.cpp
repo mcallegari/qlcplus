@@ -326,27 +326,11 @@ QByteArray QtSerialInterface::read(int size)
 
     if (m_handle == NULL)
         return QByteArray();
-#if 1
-    if (m_readBuffer.length() < size)
-    {
-        if (m_handle->waitForReadyRead(10) == true)
-        {
-            m_readBuffer.append(m_handle->read(1024));
-            //qDebug() << "[QtSerial] read buffer payload:" << m_readBuffer.toHex(',');
-            //qDebug() << "[QtSerial] read buffer length" << m_readBuffer.length();
-        }
-    }
-    QByteArray ret = m_readBuffer.mid(0, qMin(size, m_readBuffer.length()));
-    m_readBuffer.remove(0, qMin(size, m_readBuffer.length()));
 
-    return ret;
-#else
     if (m_handle->waitForReadyRead(10) == true)
-    {
         return m_handle->read(size);
-    }
+
     return QByteArray();
-#endif
 }
 
 uchar QtSerialInterface::readByte(bool *ok)
@@ -357,24 +341,6 @@ uchar QtSerialInterface::readByte(bool *ok)
         return 0;
 
     //qDebug() << Q_FUNC_INFO;
-#if 1
-    if (m_readBuffer.length() < 1)
-    {
-        if (m_handle->waitForReadyRead(10) == true)
-        {
-            m_readBuffer.append(m_handle->read(1024));
-            //qDebug() << "[QtSerial] read buffer payload:" << m_readBuffer.toHex(',');
-        }
-    }
-
-    if (m_readBuffer.size() > 0)
-    {
-        if (ok) *ok = true;
-        uchar retByte = uchar(m_readBuffer.at(0));
-        m_readBuffer.remove(0, 1);
-        return retByte;
-    }
-#else
     if (m_handle->waitForReadyRead(10) == true)
     {
         QByteArray array = m_handle->read(1);
@@ -384,7 +350,7 @@ uchar QtSerialInterface::readByte(bool *ok)
             return (uchar)array.at(0);
         }
     }
-#endif
+
     return 0;
 
 }

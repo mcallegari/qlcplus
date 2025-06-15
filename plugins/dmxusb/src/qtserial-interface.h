@@ -96,7 +96,6 @@ public:
 private:
     QSerialPort *m_handle;
     QSerialPortInfo m_info;
-    QByteArray m_readBuffer;
 };
 
 #endif
