@@ -923,7 +923,7 @@ void EnttecDMXUSBPro::run()
 
             if (readData(payload, isMIDI, false))
             {
-                int devLine = isMIDI ? m_portsInfo.count() - 1 : 0;
+                int devLine = isMIDI ? inputsNumber() - 1 : 0;
                 int emitLine = m_inputBaseLine + devLine;
 
                 if (!isMIDI)
@@ -976,7 +976,7 @@ void EnttecDMXUSBPro::run()
                         if (QLCMIDIProtocol::midiToInput(midiCmd, midiData1, midiData2,
                                                          MAX_MIDI_CHANNELS, &channel, &value))
                         {
-                            emit valueChanged(UINT_MAX, 1, channel, value);
+                            emit valueChanged(UINT_MAX, emitLine, channel, value);
 
                             if (midiCmd >= MIDI_BEAT_CLOCK && midiCmd <= MIDI_BEAT_STOP)
                                 emit valueChanged(UINT_MAX, emitLine, channel, 0);
