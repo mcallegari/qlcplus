@@ -19,8 +19,9 @@
 */
 
 #include <QStringList>
-#include <QDebug>
 #include <QSettings>
+#include <QDebug>
+#include <cmath>
 
 #include "dmxusbwidget.h"
 #include "enttecdmxusbpro.h"
