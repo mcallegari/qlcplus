@@ -142,6 +142,7 @@ bool QLCFixtureDefCache::storeFixtureDef(QString filename, QString data)
 
     file.write(data.toUtf8());
     file.close();
+    sync();
 
     // reload user definitions
     load(userDefinitionDirectory());

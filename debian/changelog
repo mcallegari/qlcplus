@@ -11,6 +11,7 @@ qlcplus (4.14.2) stable; urgency=low
   * Virtual Console: add an option to hide Grand Master (thanks to Jurrie Overgoor)
   * Plugins/DMX USB: fix crash with some FTDI adapters
   * Plugins/DMX USB: improve Open DMX timer accuracy (thanks to Basil Hussain)
+  * Plugins/DMX USB: reworked to support DMXKing MAX input and increase efficiency
   * Web Access: improved multiple connections handling (thank to Jurrie Overgoor)
   * Input profiles: added M-Wave SMC Mixer
   * New fixtures: Eurolite LED TMH-40, Stairville HF-900 Haze Fogger (thanks to thegasta)

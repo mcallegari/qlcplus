@@ -19,6 +19,7 @@
 
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <unistd.h>
 #include <QString>
 #include <QDebug>
 #include <QMap>
@@ -637,6 +638,7 @@ bool QLCInputProfile::saveXML(const QString& fileName)
     /* End the document and close all the open elements */
     doc.writeEndDocument();
     file.close();
+    sync();
 
     return true;
 }

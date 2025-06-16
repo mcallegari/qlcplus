@@ -20,8 +20,9 @@
 */
 
 #include <QToolButton>
-#include <QtCore>
 #include <QtWidgets>
+#include <unistd.h>
+#include <QtCore>
 
 #if defined(WIN32) || defined(Q_OS_WIN)
   #include <windows.h>
@@ -1509,6 +1510,7 @@ QFile::FileError App::saveXML(const QString& fileName)
     /* End the document and close all the open elements */
     doc.writeEndDocument();
     file.close();
+    sync();
 
     // Save to actual requested file name
     QFile currFile(fileName);
