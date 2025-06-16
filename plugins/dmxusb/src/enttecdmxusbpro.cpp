@@ -647,7 +647,7 @@ bool EnttecDMXUSBPro::writeUniverse(quint32 universe, quint32 output, const QByt
     }
 
     quint32 portIndex = lineToPortIndex(output, DMXUSBWidget::Output);
-    if (portIndex >= m_portsInfo.count())
+    if (portIndex >= quint32(m_portsInfo.count()))
         return false;
 
     if (m_portsInfo[portIndex].m_universeData.size() == 0)
