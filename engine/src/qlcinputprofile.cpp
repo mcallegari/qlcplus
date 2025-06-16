@@ -638,8 +638,9 @@ bool QLCInputProfile::saveXML(const QString& fileName)
     /* End the document and close all the open elements */
     doc.writeEndDocument();
     file.close();
+#ifdef Q_OS_UNIX
     sync();
-
+#endif
     return true;
 }
 

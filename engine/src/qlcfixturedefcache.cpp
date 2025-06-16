@@ -142,7 +142,9 @@ bool QLCFixtureDefCache::storeFixtureDef(QString filename, QString data)
 
     file.write(data.toUtf8());
     file.close();
+#ifdef Q_OS_UNIX
     sync();
+#endif
 
     // reload user definitions
     load(userDefinitionDirectory());
