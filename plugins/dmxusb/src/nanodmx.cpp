@@ -17,10 +17,10 @@
   limitations under the License.
 */
 
-#include "nanodmx.h"
-
 #include <QDebug>
 #include <QDir>
+
+#include "nanodmx.h"
 
 NanoDMX::NanoDMX(DMXInterface *interface, quint32 outputLine)
     : DMXUSBWidget(interface, outputLine, DEFAULT_OUTPUT_FREQUENCY)

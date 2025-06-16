@@ -77,7 +77,7 @@ public:
         ArtNet_sACN_Forward = 1 << 4
     };
 
-    typedef struct
+    struct DMXUSBLineInfo
     {
         /** The device line flags (DMX, MIDI, etc) */
         int m_portFlags;
@@ -90,7 +90,7 @@ public:
 
         /** Data for comparison with m_universeData */
         QByteArray m_compareData;
-    } DMXUSBLineInfo;
+    };
 
     /** Get the type of the widget */
     virtual Type type() const = 0;
