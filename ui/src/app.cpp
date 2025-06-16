@@ -901,10 +901,11 @@ void App::updateFileOpenMenu(QString addRecent)
     if (m_fileOpenMenu == NULL)
     {
         m_fileOpenMenu = new QMenu(this);
-        QString style = "QMenu { background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #B9D9E8, stop:1 #A4C0CE);"
+        QPalette p = palette();
+        QString style = QString("QMenu { background: %1;"
                         "border: 1px solid black; font:bold; }"
                         "QMenu::item { background-color: transparent; padding: 5px 10px 5px 10px; border: 1px solid black; }"
-                        "QMenu::item:selected { background-color: #2D8CFF; }";
+                        "QMenu::item:selected { background-color: #2D8CFF; }").arg(p.color(QPalette::Window).name());
         m_fileOpenMenu->setStyleSheet(style);
         connect(m_fileOpenMenu, SIGNAL(triggered(QAction*)),
                 this, SLOT(slotRecentFileClicked(QAction*)));
