@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.2 GIT</Version>
+  <Author>Patrick Kosubke</Author>
+ </Creator>
+ <Manufacturer>UKing</Manufacturer>
+ <Model>ZQ-B20 Mini Spider</Model>
+ <Type>Flower</Type>
+ <Channel Name="Tilt 1" Preset="PositionTilt"/>
+ <Channel Name="Tilt 2" Preset="PositionTilt"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No Strobe</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe Speed (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No Effect</Capability>
+  <Capability Min="8" Max="17">Effect 1</Capability>
+  <Capability Min="18" Max="27">Effect 2</Capability>
+  <Capability Min="28" Max="37">Effect 3</Capability>
+  <Capability Min="38" Max="47">Effect 4</Capability>
+  <Capability Min="48" Max="57">Effect 5</Capability>
+  <Capability Min="58" Max="67">Effect 6</Capability>
+  <Capability Min="68" Max="77">Effect 7</Capability>
+  <Capability Min="78" Max="87">Effect 8</Capability>
+  <Capability Min="88" Max="97">Effect 9</Capability>
+  <Capability Min="98" Max="107">Effect 10</Capability>
+  <Capability Min="108" Max="117">Effect 11</Capability>
+  <Capability Min="118" Max="127">Effect 12</Capability>
+  <Capability Min="128" Max="136">Effect 13</Capability>
+  <Capability Min="137" Max="146">Effect 14</Capability>
+  <Capability Min="147" Max="156">Effect 15</Capability>
+  <Capability Min="157" Max="166">Effect 16</Capability>
+  <Capability Min="167" Max="176">Effect 17</Capability>
+  <Capability Min="177" Max="186">Effect 18</Capability>
+  <Capability Min="187" Max="196">Effect 19</Capability>
+  <Capability Min="197" Max="206">Effect 20</Capability>
+  <Capability Min="207" Max="216">Effect 21</Capability>
+  <Capability Min="217" Max="226">Effect 22</Capability>
+  <Capability Min="227" Max="236">Effect 23</Capability>
+  <Capability Min="237" Max="246">Effect 24 MultiEffect</Capability>
+  <Capability Min="247" Max="255">Effect 25 Sound</Capability>
+ </Channel>
+ <Channel Name="Effect Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Effect (Fast to Slow)</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="240">No function</Capability>
+  <Capability Min="241" Max="250" Preset="ResetAll">5 seconds to reset</Capability>
+  <Capability Min="251" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="LED1" Preset="IntensityDimmer"/>
+ <Channel Name="LED2" Preset="IntensityDimmer"/>
+ <Channel Name="LED3" Preset="IntensityDimmer"/>
+ <Channel Name="LED4" Preset="IntensityDimmer"/>
+ <Channel Name="LED5" Preset="IntensityDimmer"/>
+ <Channel Name="LED6" Preset="IntensityDimmer"/>
+ <Channel Name="LED7" Preset="IntensityDimmer"/>
+ <Channel Name="LED8" Preset="IntensityDimmer"/>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Tilt 1</Channel>
+  <Channel Number="1">Tilt 2</Channel>
+  <Channel Number="2">Dimmer</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Effect</Channel>
+  <Channel Number="5">Effect Speed</Channel>
+  <Channel Number="6">Reset</Channel>
+ </Mode>
+ <Mode Name="15 Channel">
+  <Channel Number="0">Tilt 1</Channel>
+  <Channel Number="1">Tilt 2</Channel>
+  <Channel Number="2">Dimmer</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">LED1</Channel>
+  <Channel Number="5">LED2</Channel>
+  <Channel Number="6">LED3</Channel>
+  <Channel Number="7">LED4</Channel>
+  <Channel Number="8">LED5</Channel>
+  <Channel Number="9">LED6</Channel>
+  <Channel Number="10">LED7</Channel>
+  <Channel Number="11">LED8</Channel>
+  <Channel Number="12">Effect</Channel>
+  <Channel Number="13">Effect Speed</Channel>
+  <Channel Number="14">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.5" Width="278" Height="129" Depth="145"/>
+  <Lens Name="PC" DegreesMin="1" DegreesMax="2"/>
+  <Focus Type="Barrel" PanMax="0" TiltMax="120"/>
+  <Layout Width="1" Height="4"/>
+  <Technical PowerConsumption="48" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>
