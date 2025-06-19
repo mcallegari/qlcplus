@@ -62,6 +62,7 @@
     <F n="American-DJ-Double-Phase" m="Double Phase"/>
     <F n="American-DJ-ECO-UV-BAR-DMX" m="ECO UV BAR DMX"/>
     <F n="American-DJ-Emerald-Scan" m="Emerald Scan"/>
+    <F n="American-DJ-Encore-Burst-RGBW-IP" m="Encore Burst RGBW IP"/>
     <F n="American-DJ-Encore-FR150z" m="Encore FR150z"/>
     <F n="American-DJ-Encore-FR50z" m="Encore FR50z"/>
     <F n="American-DJ-Entour-Faze" m="Entour Faze"/>
@@ -74,6 +75,7 @@
     <F n="American-DJ-Flat-Par-Tri7X" m="Flat Par Tri7X"/>
     <F n="American-DJ-Flat-Par-TW12" m="Flat Par TW12"/>
     <F n="American-DJ-Focus-Spot-4Z" m="Focus Spot 4Z"/>
+    <F n="American-DJ-Focus-Spot-5Z" m="Focus Spot 5Z"/>
     <F n="American-DJ-Focus-Spot-Three-Z" m="Focus Spot Three Z"/>
     <F n="American-DJ-Fog-Fury-3000-WiFly" m="Fog Fury 3000 WiFly"/>
     <F n="American-DJ-Fog-Fury-Jett-Pro" m="Fog Fury Jett Pro"/>
@@ -271,10 +273,11 @@
     <F n="Betopper-LB230" m="LB230"/>
     <F n="Betopper-LM108" m="LM108 Wash Moving Head"/>
     <F n="Betopper-LM70" m="LM70"/>
-    <F n="Betopper-LPC004" m="LPC004"/>
-    <F n="Betopper-LPC006" m="LPC006"/>
-    <F n="Betopper-LPC007" m="LPC-007"/>
-    <F n="Betopper-LPC017" m="LPC-017"/>
+    <F n="Betopper-LPC-004" m="LPC004"/>
+    <F n="Betopper-LPC-006" m="LPC006"/>
+    <F n="Betopper-LPC-007" m="LPC-007"/>
+    <F n="Betopper-LPC-017" m="LPC-017"/>
+    <F n="Betopper-LPC-120" m="LPC-120"/>
   </M>
   <M n="Blizzard_Lighting">
     <F n="Blizzard-Lighting-Blade-RGBW" m="Blade RGBW"/>
@@ -643,6 +646,7 @@
     <F n="Clay-Paky-Xtylos" m="Xtylos"/>
   </M>
   <M n="CLF">
+    <F n="CLF-JUNO" m="JUNO"/>
     <F n="CLF-Tricolor-Mini-Par" m="Tricolor Mini Par"/>
   </M>
   <M n="Coemar">
@@ -1572,6 +1576,7 @@
     <F n="Shehds-LED-200W-RGB-FLASH" m="LED 200W RGB FLASH"/>
     <F n="Shehds-LED-Beam+Wash-19x15W-RGBW-Zoom" m="LED Beam+Wash 19x15W RGBW Zoom Lighting"/>
     <F n="Shehds-LED-Beam-12x12W-RGBW" m="LED Beam 12x12W RGBW"/>
+    <F n="Shehds-LED-Beam-8x12W-RGBW" m="LED Beam 8x12W RGBW"/>
     <F n="Shehds-LED-Flat-Par-18x18W-RGBWA+UV" m="LED Flat Par 18x18W RGBWA+UV"/>
     <F n="Shehds-LED-Flat-Par-7x18W-RGBWA+UV" m="LED Flat Par 7x18W RGBWA+UV"/>
     <F n="Shehds-LED-Wall-Wash-18x18W-RGBWA+UV" m="LED Wall Wash 18x18W RGBWA+UV"/>
@@ -1594,6 +1599,7 @@
     <F n="Showtec-Compact-Par-7-Q4" m="Compact Par 7 Q4"/>
     <F n="Showtec-Compact-Par-7-Tri" m="Compact Par 7 Tri"/>
     <F n="Showtec-Compact-Power-Lightset-COB" m="Compact Power Lightset COB"/>
+    <F n="Showtec-Cyclone-4" m="Cyclone 4"/>
     <F n="Showtec-Dominator" m="Dominator"/>
     <F n="Showtec-Dragon-F-350" m="Dragon F-350"/>
     <F n="Showtec-Dynamic-LED-v3" m="Dynamic LED v3"/>
@@ -1699,6 +1705,7 @@
     <F n="Stairville-BSW-350-LED" m="BSW-350 LED"/>
     <F n="Stairville-CLB2.4-CompactLED" m="CLB2.4 Compact LED PAR System"/>
     <F n="Stairville-CLB4-RGB-Compact-LED-Bar-4" m="CLB4 RGB Compact LED Bar 4"/>
+    <F n="Stairville-CLB5-6P-RGB-WW-Compact-LED-Bar" m="CLB5 6P RGB WW Compact LED Bar"/>
     <F n="Stairville-CLB5-Compact-LED-Bar-RGBW-RGBWW" m="CLB5 Compact LED Bar RGBW / RGBWW"/>
     <F n="Stairville-Compact-LED-Bar-CLB8" m="Compact LED-Bar CLB8"/>
     <F n="Stairville-Crown-FX-PAR77" m="Crown FX PAR77"/>
@@ -1765,6 +1772,7 @@
     <F n="Stairville-SF-1500" m="SF-1500"/>
     <F n="Stairville-SonicPulse-LED-Bar-05" m="SonicPulse LED Bar 05"/>
     <F n="Stairville-SonicPulse-LED-Bar-10" m="SonicPulse LED Bar 10"/>
+    <F n="Stairville-SonicPulse-MH-Wash-1208" m="SonicPulse MH Wash 1208"/>
     <F n="Stairville-Stage-PAR-CX-2-RGBAW" m="Stage PAR CX-2 RGBAW"/>
     <F n="Stairville-Tri-Flat-PAR-Profile-5x3W-RGB" m="Tri Flat PAR Profile 5x3W RGB"/>
     <F n="Stairville-TRI-LED-Bundle-Complete" m="Stage TRI LED Bundle Complete"/>
@@ -1772,11 +1780,13 @@
     <F n="Stairville-Wild-Wash-132-LED-CW" m="Wild Wash 132 LED CW"/>
     <F n="Stairville-Wild-Wash-132-RGB-LED" m="Wild Wash 132 RGB LED"/>
     <F n="Stairville-Wild-Wash-9x3W-LED-UV" m="Wild Wash 9x3W LED UV"/>
+    <F n="Stairville-WildWash-Pro-648-LED-RGB" m="Wild Wash Pro 648 LED RGB"/>
     <F n="Stairville-xBrick-Full-Colour-16X3W" m="xBrick Full-Colour 16X3W"/>
     <F n="Stairville-xBrick-Full-Colour" m="xBrick Full-Colour"/>
     <F n="Stairville-xBrick-Quad-16x8W-RGBW" m="xBrick Quad 16x8W RGBW"/>
     <F n="Stairville-Z100M" m="Z100M"/>
     <F n="Stairville-ZF-1500" m="ZF-1500"/>
+    <F n="Starville-Stage-Quad-LED-Bundle-RGB-WW" m="Stage Quad LED Bundle RGB WW"/>
   </M>
   <M n="Star-Lights">
     <F n="Star-Lights-mini-Wash-Moving-Head" m="LED 3W Mini Moving Head"/>
@@ -1837,6 +1847,7 @@
     <F n="UKing-Wall-Washer-24x3W" m="Wall Washer 24x3W"/>
     <F n="UKing-ZQ01495-200W-Three-in-one-Four-eye-COB-Lamp" m="ZQ01495 200W Three-in-one Four-eye COB Lamp"/>
     <F n="UKing-ZQ01513-100WCOB-Cast-Aluminum-Park-Light" m="ZQ01513 100WCOB Cast Aluminum Park Light"/>
+    <F n="UKing-ZQ02021-Beam-Pro" m="ZQ02021 Beam Pro"/>
     <F n="UKing-ZQ02319-Mini-40W-Beam-Moving-Head" m="ZQ-02319"/>
     <F n="UKing-ZQ06122-9-Eye-COB-Matrix" m="ZQ06122 9-Eye COB Matrix"/>
     <F n="UKing-ZQB117-Par-Can-4in1-RGBW" m="ZQ-B117 Par Can 4in1 RGBW"/>

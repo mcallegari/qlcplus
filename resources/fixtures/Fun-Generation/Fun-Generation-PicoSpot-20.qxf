@@ -3,8 +3,8 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
-  <Author>Timo Willemsen</Author>
+  <Version>4.13.0</Version>
+  <Author>Timo Willemsen/Klaus Muth</Author>
  </Creator>
  <Manufacturer>Fun-Generation</Manufacturer>
  <Model>PicoSpot 20</Model>
@@ -16,22 +16,42 @@
  <Channel Name="Motor speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10">White</Capability>
-  <Capability Min="11" Max="21">Red</Capability>
-  <Capability Min="22" Max="32">Orange</Capability>
-  <Capability Min="33" Max="43">Yellow</Capability>
-  <Capability Min="44" Max="54">Green</Capability>
-  <Capability Min="55" Max="65">Blue</Capability>
-  <Capability Min="66" Max="76">Cyan</Capability>
-  <Capability Min="77" Max="87">Purple</Capability>
-  <Capability Min="88" Max="175">Color selection 6+</Capability>
-  <Capability Min="176" Max="255">Color wheel rotation</Capability>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="11" Max="21" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="22" Max="32" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="33" Max="43" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="44" Max="54" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="55" Max="65" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="66" Max="76" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="77" Max="87" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="88" Max="100" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#00ffff">Magenta/Cyan</Capability>
+  <Capability Min="101" Max="112" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#0000ff">Cyan/Blue</Capability>
+  <Capability Min="113" Max="124" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ff00">Blue/Green</Capability>
+  <Capability Min="125" Max="136" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffff00">Green/Yellow</Capability>
+  <Capability Min="137" Max="148" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffa500">Yellow/Orange</Capability>
+  <Capability Min="149" Max="161" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#ff0000">Orange/Red</Capability>
+  <Capability Min="162" Max="175" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red/White</Capability>
+  <Capability Min="176" Max="255" Preset="ColorWheelIndex">Rotate</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="124">Gobo selection</Capability>
-  <Capability Min="125" Max="249">Gobo shake selection</Capability>
-  <Capability Min="250" Max="255">Gobo wheel selection</Capability>
+  <Capability Min="0" Max="15" Preset="ResetGobo">Reset</Capability>
+  <Capability Min="16" Max="31" Preset="GoboMacro" Res1="Others/gobo00064.svg">Ring</Capability>
+  <Capability Min="32" Max="46" Preset="GoboMacro" Res1="Others/gobo00108.svg">Discs</Capability>
+  <Capability Min="47" Max="62" Preset="GoboMacro" Res1="Others/gobo00108.svg">Lil Disks</Capability>
+  <Capability Min="63" Max="78" Preset="GoboMacro" Res1="Others/gobo00016.svg">Boxes</Capability>
+  <Capability Min="79" Max="93" Preset="GoboMacro" Res1="Others/gobo00008.svg">Circles</Capability>
+  <Capability Min="94" Max="109" Preset="GoboMacro" Res1="Others/gobo00125.svg">Hooks</Capability>
+  <Capability Min="110" Max="124" Preset="GoboMacro" Res1="Others/gobo00126.svg">Shards</Capability>
+  <Capability Min="125" Max="140" Preset="GoboShakeMacro" Res1="Others/gobo00126.svg">Shards Shake</Capability>
+  <Capability Min="141" Max="156" Preset="GoboShakeMacro" Res1="Others/gobo00125.svg">Hooks Shake</Capability>
+  <Capability Min="157" Max="171" Preset="GoboShakeMacro" Res1="Others/gobo00008.svg">Circles Shake</Capability>
+  <Capability Min="172" Max="187" Preset="GoboShakeMacro" Res1="Others/gobo00016.svg">Boxes Shake</Capability>
+  <Capability Min="188" Max="203" Preset="GoboShakeMacro" Res1="Others/gobo00108.svg">Lil Disks Shake</Capability>
+  <Capability Min="204" Max="218" Preset="GoboShakeMacro" Res1="Others/gobo00108.svg">Disks Shake</Capability>
+  <Capability Min="219" Max="234" Preset="GoboShakeMacro" Res1="Others/gobo00064.svg">Ring Shake</Capability>
+  <Capability Min="235" Max="249" Preset="ResetGobo">Reset</Capability>
+  <Capability Min="250" Max="255" Preset="ColorWheelIndex">Change Slow to Fast</Capability>
  </Channel>
  <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe">
@@ -40,7 +60,7 @@
   <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="25">Strobe effect (1Hz - 25Hz)</Capability>
  </Channel>
  <Channel Name="Programme/Sound to light">
-  <Group Byte="0">Maintenance</Group>
+  <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="49">No function</Capability>
   <Capability Min="50" Max="59">White</Capability>
   <Capability Min="60" Max="69">Scene 02 (empty)</Capability>
@@ -66,7 +86,7 @@
  </Channel>
  <Channel Name="Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Speed 0-100%</Capability>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Program Speed 0-100%</Capability>
  </Channel>
  <Mode Name="5 Channel">
   <Channel Number="0">Pan</Channel>
