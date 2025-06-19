@@ -225,6 +225,18 @@ void EditMode::slotLowerChannelClicked()
     selectChannel(ch->name());
 }
 
+void EditMode::SetComboBoxItemEnabled(QComboBox * comboBox, int index, bool enabled)
+{
+    auto * model = qobject_cast<QStandardItemModel*>(comboBox->model());
+    assert(model);
+    if(!model) return;
+
+    auto * item = model->item(index);
+    assert(item);
+    if(!item) return;
+    item->setEnabled(enabled);
+}
+
 void EditMode::refreshChannelList()
 {
     m_channelList->clear();
@@ -255,6 +267,8 @@ void EditMode::refreshChannelList()
 
         QComboBox *comboBox = new QComboBox(this);
         comboBox->addItems(comboList);
+
+        SetComboBoxItemEnabled(comboBox, i + 1, 0);
 
         if (actsOnChannelIndex != QLCChannel::invalid())
             comboBox->setCurrentIndex(actsOnChannelIndex + 1);
