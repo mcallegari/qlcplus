@@ -27,7 +27,6 @@ RESOURCES    += ../ui/src/qlcui.qrc
 win32:RC_FILE = fixtureeditor.rc
 
 HEADERS += ../ui/src/aboutbox.h \
-           ../ui/src/docbrowser.h \
            ../ui/src/apputil.h \
            addchannelsdialog.h \
            app.h \
@@ -49,7 +48,6 @@ FORMS += ../ui/src/aboutbox.ui \
          fixtureeditor.ui
 
 SOURCES += ../ui/src/aboutbox.cpp \
-           ../ui/src/docbrowser.cpp \
            ../ui/src/apputil.cpp \
            addchannelsdialog.cpp \
            app.cpp \
