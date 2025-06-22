@@ -190,7 +190,10 @@ void AudioRenderer::run()
                     usleep(15000);
                 }
                 if (m_currentIntensity <= 0)
+                {
+                    m_userStop = true;
                     emit endOfStreamReached();
+                }
             }
             else
             {
@@ -206,6 +209,8 @@ void AudioRenderer::run()
             usleep(15000);
         }
     }
+
+    qDebug() << "Audio renderer thread stopped";
 
     reset();
 }
