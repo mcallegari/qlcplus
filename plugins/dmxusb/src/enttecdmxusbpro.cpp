@@ -410,7 +410,7 @@ bool EnttecDMXUSBPro::close(quint32 line, bool input)
  * Input
  ************************************************************************/
 
-int EnttecDMXUSBPro::readData(QByteArray &payload, bool &isMIDI, bool needRDM)
+int EnttecDMXUSBPro::readData(QByteArray &payload, bool &isMIDI, int RDM)
 {
     static QByteArray buffer;
     int attempt = 0;
@@ -424,6 +424,15 @@ int EnttecDMXUSBPro::readData(QByteArray &payload, bool &isMIDI, bool needRDM)
 
         if (chunk.isEmpty())
         {
+            // among DMX data, the RDM request might be in a queue
+            // so give some time to the adapter to output the request
+            if (RDM == GetSetCommand)
+            {
+                msleep(100);
+                attempt++;
+                continue;
+            }
+
             if (attempt == 0)
                 return 0; // No data at all
         }
@@ -459,7 +468,7 @@ int EnttecDMXUSBPro::readData(QByteArray &payload, bool &isMIDI, bool needRDM)
             // Skip RDM timeout packets
             if (label == ENTTEC_PRO_RDM_RECV_TIMEOUT || label == ENTTEC_PRO_RDM_RECV_TIMEOUT2)
             {
-                qDebug() << "RDM timeout received, skipping packet";
+                //qDebug() << "RDM timeout received, skipping packet";
                 startIdx = buffer.indexOf(ENTTEC_PRO_START_OF_MSG);
                 continue;
             }
@@ -523,7 +532,7 @@ int EnttecDMXUSBPro::readData(QByteArray &payload, bool &isMIDI, bool needRDM)
                 if (status & 0x02)
                     qWarning() << Q_FUNC_INFO << "Widget receive overrun occurred";
 
-                if (!needRDM)
+                if (RDM == None)
                 {
                     uchar startCode = static_cast<uchar>(packet[offset++]);
                     if (startCode != 0)
@@ -598,7 +607,7 @@ bool EnttecDMXUSBPro::extractSerial()
         msleep(50);
         QByteArray reply;
         bool notUsed;
-        int bytesRead = readData(reply, notUsed, false);
+        int bytesRead = readData(reply, notUsed);
 
         if (bytesRead != 4)
         {
@@ -787,35 +796,57 @@ void EnttecDMXUSBPro::run()
                     qDebug().nospace().noquote() << "[RDM] Sending RDM command 0x" << QString::number(command, 16) << " with params: " << cmd.param3;
                     qDebug() << "[RDM] Sending RDM command" << m_universe << portIndex << ba.toHex(',');
 #endif
-                    if (iface()->write(ba) == false)
+                    int bytesRead = 0;
+                    QByteArray reply;
+
+                    for (int r = 0; r < MAX_READ_ATTEMPTS; r++)
                     {
-                        qWarning() << Q_FUNC_INFO << name() << "will not accept RDM data";
+                        if (iface()->write(ba) == false)
+                        {
+                            qWarning() << Q_FUNC_INFO << name() << "will not accept RDM data";
+                            break;
+                        }
+
+                        // give some time to reply
+                        msleep(10);
+                        bool isMIDI = false;
+                        bytesRead = readData(reply, isMIDI, command == DISCOVERY_COMMAND ? Discovery : GetSetCommand);
+#ifdef DEBUG_RDM
+                        qDebug() << "[RDM] Data received" << bytesRead << reply.toHex(',');
+#endif
+                        if (bytesRead || command == DISCOVERY_COMMAND)
+                            break;
+                        else
+                            msleep(100);
+                    }
+                    if (bytesRead)
+                    {
+                        QVariantMap values;
+                        bool result = false;
+
+                        if (command == DISCOVERY_COMMAND)
+                            result = m_rdm->parseDiscoveryReply(reply, values);
+                        else
+                            result = m_rdm->parsePacket(reply, values);
+
+                        if (result == true)
+                            emit rdmValueChanged(m_universe, line, values);
+                        else
+                        {
+                            values.insert("DISCOVERY_ERRORS", 1);
+                            emit rdmValueChanged(m_universe, line, values);
+                        }
                     }
                     else
                     {
-                        // give some time to reply
-                        msleep(10);
-                        QByteArray reply;
-                        bool isMIDI = false;
-                        int bytesRead = readData(reply, isMIDI, true);
-
-                        if (bytesRead)
+                        if (command == DISCOVERY_COMMAND)
                         {
                             QVariantMap values;
-                            bool result = false;
-
-                            if (command == DISCOVERY_COMMAND)
-                                result = m_rdm->parseDiscoveryReply(reply, values);
-                            else
-                                result = m_rdm->parsePacket(reply, values);
-
-                            if (result == true)
-                                emit rdmValueChanged(m_universe, line, values);
+                            values.insert("DISCOVERY_NO_REPLY", 1);
+                            emit rdmValueChanged(m_universe, line, values);
                         }
                         else
-                        {
                             qDebug() << "No RDM reply received";
-                        }
                     }
                 }
                 break;
@@ -921,7 +952,7 @@ void EnttecDMXUSBPro::run()
             QByteArray payload;
             bool isMIDI = false;
 
-            if (readData(payload, isMIDI, false))
+            if (readData(payload, isMIDI))
             {
                 int devLine = isMIDI ? inputsNumber() - 1 : 0;
                 int emitLine = m_inputBaseLine + devLine;
