@@ -230,6 +230,9 @@ void Audio::slotEndOfStream()
 
     if (m_audio_out != NULL)
     {
+#if defined(WIN32) || defined(Q_OS_WIN)
+        m_audio_out->stop();
+#endif
         m_audio_out->deleteLater();
         m_audio_out = NULL;
     }
