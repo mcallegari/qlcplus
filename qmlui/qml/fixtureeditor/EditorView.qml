@@ -160,7 +160,12 @@ Rectangle
                                     width: UISettings.bigItemHeight
                                     model: typeModel
                                     currValue: editorView ? editorView.productType : 0
-                                    onValueChanged: if (editorView) editorView.productType = value
+                                    onValueChanged:
+                                        function(value)
+                                        {
+                                            if (editorView)
+                                                editorView.productType = value
+                                        }
                                 }
                             }
 

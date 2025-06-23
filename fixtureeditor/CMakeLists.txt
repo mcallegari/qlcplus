@@ -22,7 +22,6 @@ endif()
 add_executable(${module_name} WIN32
     ../ui/src/aboutbox.cpp ../ui/src/aboutbox.h ../ui/src/aboutbox.ui
     ../ui/src/apputil.cpp ../ui/src/apputil.h
-    ../ui/src/docbrowser.cpp ../ui/src/docbrowser.h
     addchannelsdialog.cpp addchannelsdialog.h addchannelsdialog.ui
     app.cpp app.h
     capabilitywizard.cpp capabilitywizard.h capabilitywizard.ui

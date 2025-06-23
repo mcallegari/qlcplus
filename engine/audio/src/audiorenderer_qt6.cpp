@@ -49,6 +49,8 @@ AudioRendererQt6::AudioRendererQt6(QString device, Doc *doc, QObject *parent)
 
 AudioRendererQt6::~AudioRendererQt6()
 {
+    stop();
+
     if (m_audioSink == NULL)
         return;
 

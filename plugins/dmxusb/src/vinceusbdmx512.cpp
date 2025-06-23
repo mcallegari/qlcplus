@@ -154,14 +154,14 @@ bool VinceUSBDMX512::writeUniverse(quint32 universe, quint32 output, const QByte
     if (isOpen() == false)
         return false;
 
-    if (m_outputLines[0].m_universeData.size() == 0)
+    if (m_portsInfo[0].m_universeData.size() == 0)
     {
-        m_outputLines[0].m_universeData.append(data);
-        m_outputLines[0].m_universeData.append(DMX_CHANNELS - data.size(), 0);
+        m_portsInfo[0].m_universeData.append(data);
+        m_portsInfo[0].m_universeData.append(DMX_CHANNELS - data.size(), 0);
     }
 
     if (dataChanged)
-        m_outputLines[0].m_universeData.replace(0, data.size(), data);
+        m_portsInfo[0].m_universeData.replace(0, data.size(), data);
 
     return true;
 }
@@ -187,7 +187,7 @@ void VinceUSBDMX512::run()
     {
         timer.restart();
 
-        int dataLen = m_outputLines[0].m_universeData.length();
+        int dataLen = m_portsInfo[0].m_universeData.length();
 
         if (dataLen > 0)
         {
@@ -197,7 +197,7 @@ void VinceUSBDMX512::run()
             request.append(int((dataLen + 2) / 256));           // Data length
             request.append(int((dataLen + 2) % 256));
             request.append(QByteArray(2, 0x00));                // Gap with data
-            request.append(m_outputLines[0].m_universeData);
+            request.append(m_portsInfo[0].m_universeData);
             request.append(VINCE_END_OF_MSG);                   // Stop byte
 
             if (iface()->write(request) == false)

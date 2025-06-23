@@ -313,14 +313,12 @@ void ClickAndGoWidget::setupPresetPicker()
     int y = 0;
     m_image = QImage(m_width, m_height, QImage::Format_RGB32);
     QPainter painter(&m_image);
+    QPalette p = palette();
     painter.setRenderHint(QPainter::Antialiasing);
-    QLinearGradient presetGrad(QPointF(0,0), QPointF(0, m_height));
-    presetGrad.setColorAt(0, QApplication::palette().window().color());
-    presetGrad.setColorAt(1, QColor(173, 171, 179));
-    painter.fillRect(0, 0, m_width, m_height, presetGrad);
+    painter.fillRect(0, 0, m_width, m_height, p.color(QPalette::Window));
 
     // title
-    painter.setPen(Qt::black);
+    painter.setPen(p.color(QPalette::Text));
     painter.drawText(x + 3, y, m_width - 3, TITLE_H, Qt::AlignVCenter | Qt::TextSingleLine, m_title);
     y += TITLE_H;
 
@@ -329,7 +327,7 @@ void ClickAndGoWidget::setupPresetPicker()
         PresetResource res = m_resources.at(i);
         if (res.m_resLowLimit > m_levelHighLimit || res.m_resHighLimit < m_levelLowLimit)
             continue;
-        painter.setPen(Qt::black);
+        painter.setPen(p.color(QPalette::Text));
         painter.drawRect(x, y, m_cellWidth, CELL_H);
         painter.drawImage(x + 1, y + 4, res.m_thumbnail);
         painter.drawText(x + 43, y + 4, m_cellWidth - 42, CELL_H - 5, Qt::TextWordWrap|Qt::AlignVCenter, res.m_descr);

@@ -37,9 +37,6 @@ public:
 
     static QList<DMXInterface *> interfaces(QList<DMXInterface *> discoveredList);
 
-    /** @reimpl */
-    bool readLabel(uchar label, int &intParam, QString &strParam);
-
     void setBusLocation(quint8 location);
 
     /** @reimpl */
@@ -95,7 +92,7 @@ public:
     bool write(const QByteArray& data);
 
     /** @reimpl */
-    QByteArray read(int size, uchar* buffer = NULL);
+    QByteArray read(int size);
 
     /** @reimpl */
     uchar readByte(bool* ok = NULL);

@@ -227,6 +227,16 @@ void Audio::slotEndOfStream()
 {
     if (!stopped())
         stop(FunctionParent::master());
+
+    if (m_audio_out != NULL)
+    {
+#if defined(WIN32) || defined(Q_OS_WIN)
+        m_audio_out->stop();
+#endif
+        m_audio_out->deleteLater();
+        m_audio_out = NULL;
+    }
+    m_decoder->seek(0);
 }
 
 void Audio::slotFunctionRemoved(quint32 fid)
@@ -337,8 +347,7 @@ void Audio::preRun(MasterTimer* timer)
 
         if (m_audio_out != NULL && m_audio_out->isRunning())
         {
-            m_audio_out->stop();
-            m_audio_out->deleteLater();
+            delete m_audio_out;
             m_audio_out = NULL;
         }
 
@@ -419,14 +428,6 @@ void Audio::postRun(MasterTimer* timer, QList<Universe*> universes)
     if (fadeout == 0)
     {
         slotEndOfStream();
-
-        if (m_audio_out != NULL)
-        {
-            m_audio_out->stop();
-            delete m_audio_out;
-            m_audio_out = NULL;
-            m_decoder->seek(0);
-        }
     }
     else
     {

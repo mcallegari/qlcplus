@@ -108,7 +108,7 @@ Rectangle
                 {
                     if (editRef.fileName === "")
                     {
-                        saveDialog.folder = fixtureEditor.workingPath
+                        saveDialog.currentFolder = fixtureEditor.workingPath
                         //saveDialog.currentFile = "file:///" + editor.editorView.fileName
                         saveDialog.open()
                     }
@@ -195,7 +195,7 @@ Rectangle
                 entryText: qsTr("Open definition")
                 onClicked:
                 {
-                    openDialog.folder = fixtureEditor.workingPath
+                    openDialog.currentFolder = fixtureEditor.workingPath
                     openDialog.open()
                 }
                 autoExclusive: false
@@ -211,7 +211,7 @@ Rectangle
                 {
                     if (editor.editorView.fileName === "")
                     {
-                        saveDialog.folder = fixtureEditor.workingPath
+                        saveDialog.currentFolder = fixtureEditor.workingPath
                         //saveDialog.currentFile = "file:///" + editor.editorView.fileName
                         saveDialog.open()
                     }
@@ -229,7 +229,7 @@ Rectangle
                 checkable: false
                 onClicked:
                 {
-                    saveDialog.folder = fixtureEditor.workingPath + "/" + editor.editorView.fileName
+                    saveDialog.currentFolder = fixtureEditor.workingPath + "/" + editor.editorView.fileName
                     //saveDialog.currentFile = "file:///" + editor.editorView.fileName
                     saveDialog.open()
                 }

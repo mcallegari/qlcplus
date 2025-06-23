@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QDesktopServices>
 #include <QMdiSubWindow>
 #include <QApplication>
 #include <QCloseEvent>
@@ -45,7 +46,6 @@
 
 #include "app.h"
 #include "aboutbox.h"
-#include "docbrowser.h"
 #include "fixtureeditor.h"
 
 #define SETTINGS_GEOMETRY "workspace/geometry"
@@ -432,7 +432,7 @@ void App::slotFileQuit()
 
 void App::slotHelpIndex()
 {
-    DocBrowser::createAndShow(this);
+    QDesktopServices::openUrl(QUrl("https://docs.qlcplus.org/v4/fixture-definition-editor"));
 }
 
 void App::slotHelpAbout()

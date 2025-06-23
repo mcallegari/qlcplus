@@ -1,4 +1,8 @@
-qlcplus (4.14.2) stable; urgency=low
+qlcplus (4.14.3) stable; urgency=low
+
+  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 31 Aug 2025 18:19:20 +0200
+
+qlcplus (4.14.2) stable; urgency=high
 
   * engine: fix audio end of stream causing a crash on Qt 6 builds
   * engine: decrease memory usage of RGB Matrix (thanks to Nick Shaforostoff)
@@ -11,16 +15,33 @@ qlcplus (4.14.2) stable; urgency=low
   * Virtual Console: add an option to hide Grand Master (thanks to Jurrie Overgoor)
   * Plugins/DMX USB: fix crash with some FTDI adapters
   * Plugins/DMX USB: improve Open DMX timer accuracy (thanks to Basil Hussain)
+  * Plugins/DMX USB: reworked to support DMXKing MAX input and increase efficiency
   * Web Access: improved multiple connections handling (thank to Jurrie Overgoor)
   * Input profiles: added M-Wave SMC Mixer
   * New fixtures: Eurolite LED TMH-40, Stairville HF-900 Haze Fogger (thanks to thegasta)
   * New fixtures: Sagitter Prince, Sagitter Lite Beam 5R, Sagitter ARS 1500FC (thanks to Alessandro Caseti)
   * New fixtures: Stairville BEL6 IP Bar HEX, BSW-350 LED (thanks to Theodor Hein)
   * New fixtures: American DJ Encore FR50z, Encore FR150z, Showtec LED Blinder 2 COB (thanks to Bram Janssen)
+  * New fixtures: Shehds 3000mW RGB Laser, CLF JUNO (thanks to Bram Janssen)
   * New fixture: Showtec LED Par 64 36x3W (thanks to Bostjan Vodnik)
   * New fixture: Expolite TourBar 32PIX RGBW (thanks to Wim Van Laer)
+  * New fixture: Clay Paky Mini-B Spot
+  * New fixture: UKing ZQ-B20 Mini Spider (thanks to Patrick Kosubke)
+  * New fixture: Fun Generation LED Diamond Dome MK 2 (thanks to Peter Schmenger)
+  * New fixture: Lixada RGBW LED Mini Moving Head (thanks to David Thomas)
+  * New fixtures: Eurolite TMH-S90 Moving-Head Spot, Laserworld DS-1000RGB (thanks to Nils Hitschke)
+  * New fixtures: Stairville Stage Quad LED Bundle RGB WW, Stairville Wild Wash Pro 648 LED RGB (thanks to Nils Hitschke)
+  * New fixture: beamZ Panther 70 (thanks to Patrick)
+  * New fixture: Betopper LPC-120 (thanks to Loris Mercier)
+  * New fixture: Shehds LED Beam 8x12W RGBW (thanks to Maurizio)
+  * New fixture: American DJ Encore Burst RGBW IP (thanks to Andrew Hallmark)
+  * New fixture: Stairville SonicPulse MH Wash 1208 (thanks to Jakob Frank)
+  * New fixture: American DJ Focus Spot 5Z (thanks to Mark B.)
+  * New fixture: Showtec Cyclone 4 (thanks to Arnaud)
+  * New fixture: Stairville CLB5 6P RGB WW Compact LED Bar (thanks to Martin Scherer)
+  * New fixture: UKing ZQ02021 Beam Pro (thanks to Peter Schmenger)
 
-  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 14 Jun 2025 18:19:20 +0200
+  -- Massimo Callegari <massimocallegari@yahoo.it>  Thu, 19 Jun 2025 18:19:20 +0200
 
 qlcplus (4.14.1) stable; urgency=high
 
