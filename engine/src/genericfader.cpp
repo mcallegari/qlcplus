@@ -348,8 +348,11 @@ void GenericFader::setFadeOut(bool enable, uint fadeTime)
         FadeChannel& fc(it.next().value());
 
         fc.setStart(fc.current());
-        // all channels should fade to the current universe value
-        if ((fc.flags() & FadeChannel::Flashing) == 0)
+        // if not HTP and/or flashing, request channels
+        // to target the current universe value
+        // (qill be handled in the write method)
+        if (((fc.flags() & FadeChannel::Flashing) == 0) &&
+            ((fc.flags() & FadeChannel::Intensity) == 0))
             fc.addFlag(FadeChannel::SetTarget);
         fc.setTarget(0);
         fc.setElapsed(0);
