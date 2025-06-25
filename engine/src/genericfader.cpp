@@ -362,7 +362,7 @@ void GenericFader::setFadeOut(bool enable, uint fadeTime)
         fc.setStart(fc.current());
         // if not HTP and/or flashing, request channels
         // to target the current universe value
-        // (qill be handled in the write method)
+        // (will be handled in the write method)
         if (((fc.flags() & FadeChannel::Flashing) == 0) &&
             ((fc.flags() & FadeChannel::Intensity) == 0))
             fc.addFlag(FadeChannel::SetTarget);
