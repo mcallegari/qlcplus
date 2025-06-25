@@ -3,6 +3,7 @@ qlcplus (4.14.3) stable; urgency=high
   * engine: fix intensity channels getting stuck on fade out
   * engine: more fixes to RGB Matrix instability (thanks to Nick Shaforostoff)
   * engine: fix audio end of stream with fade out
+  * webaccess: fix PNG and other image formats not loaded
   * platforms/macos: add missing audio plugin to Intel bundle
 
 -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 5 Jul 2025 18:19:20 +0200

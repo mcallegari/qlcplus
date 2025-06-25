@@ -249,19 +249,37 @@ void WebAccess::slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp)
 #endif
     else if (reqUrl.endsWith(".png"))
     {
-        QString clUri = QString(":%1").arg(reqUrl);
-        QFile resFile(clUri);
+        // is this an internal resource?
+        QString localFilePath = QString(":%1").arg(reqUrl);
+        QFile resFile(localFilePath);
         if (!resFile.exists())
         {
-            clUri = QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
-                .arg(QDir::separator()).arg(reqUrl.mid(1));
+            // is this an absolute path?
+            localFilePath = reqUrl;
+            resFile.setFileName(localFilePath);
+            if (!resFile.exists())
+            {
+                // is this a webaccess file?
+                localFilePath = QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
+                    .arg(QDir::separator()).arg(reqUrl.mid(1));
+            }
         }
-        if (sendFile(resp, clUri, "image/png") == true)
+        if (sendFile(resp, localFilePath, "image/png") == true)
             return;
     }
-    else if (reqUrl.endsWith(".jpg"))
+    else if (reqUrl.endsWith(".jpg") || reqUrl.endsWith(".jpeg"))
     {
         if (sendFile(resp, reqUrl, "image/jpg") == true)
+            return;
+    }
+    else if (reqUrl.endsWith(".bmp"))
+    {
+        if (sendFile(resp, reqUrl, "image/bmp") == true)
+            return;
+    }
+    else if (reqUrl.endsWith(".svg"))
+    {
+        if (sendFile(resp, reqUrl, "image/svg+xml") == true)
             return;
     }
     else if (reqUrl.endsWith(".ico"))
