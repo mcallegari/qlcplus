@@ -28,12 +28,12 @@
  * @{
  */
 
-class AudioCaptureQt6 : public AudioCapture
+class AudioCaptureQt5 : public AudioCapture
 {
     Q_OBJECT
 public:
-    AudioCaptureQt6(QObject * parent = 0);
-    ~AudioCaptureQt6();
+    AudioCaptureQt5(QObject * parent = 0);
+    ~AudioCaptureQt5();
 
     /** @reimpl */
     qint64 latency();
