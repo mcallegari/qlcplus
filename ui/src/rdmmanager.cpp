@@ -503,7 +503,12 @@ void RDMWorker::run()
             case StateDiscoveryContinue:
             {
                 waitCount = 0;
-
+#if 0
+                for (int i = 0; i < m_discoveryList.count(); i++)
+                    qDebug() << "DISCOVERY QUEUE" <<
+                        QString::number(m_discoveryList.at(i).startUID, 16) <<
+                        QString::number(m_discoveryList.at(i).endUID, 16);
+#endif
                 if (m_discoveryList.isEmpty())
                 {
                     m_requestState = StateDiscoveryEnd;
@@ -635,6 +640,7 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
     // check the signal reason
     if (data.contains("DISCOVERY_COUNT"))
     {
+        m_discoveryList.removeFirst();
         int count = data.value("DISCOVERY_COUNT").toInt();
         for (int i = 0; i < count; i++)
         {
@@ -676,7 +682,7 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
         upperRange.startUID = midPosition + 1;
         upperRange.endUID = currentRange.endUID;
 
-        qDebug() << "Discovery errors detected" << data.value("DISCOVERY_ERRORS").toInt();
+        //qDebug() << "Discovery errors detected" << data.value("DISCOVERY_ERRORS").toInt();
         //qDebug() << "Add lower range" << QString::number(lowerRange.startUID, 16) << "-" << QString::number(lowerRange.endUID, 16);
         //qDebug() << "Add upper range" << QString::number(upperRange.startUID, 16) << "-" << QString::number(upperRange.endUID, 16);
         m_discoveryList.removeFirst();
@@ -686,9 +692,6 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
     }
     else if (data.contains("DISCOVERY_NO_REPLY"))
     {
-        if (m_discoveryList.isEmpty())
-            return;
-
         // No reply means a dead branch. Remove it and continue on other branches.
         qDebug() << "Discovery: no reply";
         m_discoveryList.removeFirst();

@@ -48,15 +48,7 @@
 #include "doc.h"
 #include "bus.h"
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
- #if defined(__APPLE__) || defined(Q_OS_MAC)
-  #include "audiocapture_portaudio.h"
- #elif defined(WIN32) || defined (Q_OS_WIN)
-  #include "audiocapture_wavein.h"
- #else
-  #include "audiocapture_alsa.h"
- #endif
-#elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
  #include "audiocapture_qt5.h"
 #else
  #include "audiocapture_qt6.h"
@@ -280,16 +272,8 @@ QSharedPointer<AudioCapture> Doc::audioInputCapture()
     {
         qDebug() << "Creating new audio capture";
         m_inputCapture = QSharedPointer<AudioCapture>(
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-#if defined(__APPLE__) || defined(Q_OS_MAC)
-            new AudioCapturePortAudio()
-#elif defined(WIN32) || defined (Q_OS_WIN)
-            new AudioCaptureWaveIn()
-#else
-            new AudioCaptureAlsa()
-#endif
-#elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-            new AudioCaptureQt6()
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+            new AudioCaptureQt5()
 #else
             new AudioCaptureQt6()
 #endif

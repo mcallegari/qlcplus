@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(qlcplus VERSION 4.14.1 LANGUAGES C CXX)
+project(qlcplus VERSION 4.14.2 LANGUAGES C CXX)
 
 option(qmlui "Build for QLC+ 5 QML UI" OFF)
 

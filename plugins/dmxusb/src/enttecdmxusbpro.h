@@ -66,6 +66,13 @@ public:
         RDMCommand
     };
 
+    enum RDMOperation
+    {
+        None = 0,
+        Discovery,
+        GetSetCommand
+    };
+
     typedef struct
     {
         ActionType action;
@@ -145,7 +152,7 @@ private:
     /** Stop input/output thread */
     void stopThread();
 
-    int readData(QByteArray &payload, bool &isMIDI, bool needRDM);
+    int readData(QByteArray &payload, bool &isMIDI, int RDM = None);
 
 private:
     /** Flag that indicates if the input/output thread is running */

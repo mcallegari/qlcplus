@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.2 GIT</Version>
+  <Author>Peter Schmenger</Author>
+ </Creator>
+ <Manufacturer>UKing</Manufacturer>
+ <Model>ZQ02021 Beam Pro</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="1" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="25">Strobe flow to fast (1hz to 25hz)</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">no function</Capability>
+  <Capability Min="16" Max="31" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="32" Max="47" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="48" Max="63" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="64" Max="79" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="80" Max="95" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="96" Max="111" Preset="ColorMacro" Res1="#a020f0">Purple</Capability>
+  <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
+  <Capability Min="128" Max="255">Automatic Change Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Pattern Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7">Pattern 1 normal, dot</Capability>
+  <Capability Min="8" Max="15">Pattern 2 small dot</Capability>
+  <Capability Min="16" Max="23">Pattern 3 s-form</Capability>
+  <Capability Min="24" Max="31">Pattern 4 cross</Capability>
+  <Capability Min="32" Max="39">Pattern 5 flower</Capability>
+  <Capability Min="40" Max="47">Pattern 6 torx</Capability>
+  <Capability Min="48" Max="55">Pattern 7 triangle</Capability>
+  <Capability Min="56" Max="63">Pattern 8 circle of dots</Capability>
+  <Capability Min="64" Max="71">Pattern 1, dithering</Capability>
+  <Capability Min="72" Max="79">Pattern 2, dithering</Capability>
+  <Capability Min="80" Max="87">Pattern 3, dithering</Capability>
+  <Capability Min="88" Max="95">Pattern 4, dithering</Capability>
+  <Capability Min="96" Max="103">Pattern 5, dithering</Capability>
+  <Capability Min="104" Max="111">Pattern 6, dithering</Capability>
+  <Capability Min="112" Max="119">Pattern 7, dithering</Capability>
+  <Capability Min="120" Max="127">Pattern 8, dithering</Capability>
+  <Capability Min="128" Max="255">Automatic pattern change, slow 2 fast</Capability>
+ </Channel>
+ <Channel Name="Prism">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="7" Preset="PrismEffectOff">no prism</Capability>
+  <Capability Min="8" Max="127" Preset="PrismEffectOn" Res1="3">open</Capability>
+  <Capability Min="128" Max="255">Prism rotation, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Automatic">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="49">no function (other modes active)</Capability>
+  <Capability Min="50" Max="100">fast automatic</Capability>
+  <Capability Min="101" Max="200">slow automatic</Capability>
+  <Capability Min="201" Max="255">audio mode</Capability>
+ </Channel>
+ <Channel Name="Maintenance">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="249">no function</Capability>
+  <Capability Min="250" Max="255">Reset in 5 seconds</Capability>
+ </Channel>
+ <Mode Name="12 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Color</Channel>
+  <Channel Number="8">Pattern Gobo</Channel>
+  <Channel Number="9">Prism</Channel>
+  <Channel Number="10">Automatic</Channel>
+  <Channel Number="11">Maintenance</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.73" Width="280" Height="310" Depth="210"/>
+  <Lens Name="PC" DegreesMin="3" DegreesMax="3"/>
+  <Focus Type="Head" PanMax="540" TiltMax="180"/>
+  <Technical PowerConsumption="120" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

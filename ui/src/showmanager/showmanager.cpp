@@ -1172,6 +1172,7 @@ void ShowManager::slotDelete()
                 hideRightEditor();
                 showSceneEditor(NULL);
                 m_currentTrack->removeShowFunction(selectedItem->showFunction());
+                m_doc->setModified();
             }
         }
         else

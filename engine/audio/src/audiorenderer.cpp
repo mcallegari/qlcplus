@@ -29,6 +29,7 @@ AudioRenderer::AudioRenderer (QObject* parent)
     , m_fadeStep(0.0)
     , m_userStop(true)
     , m_pause(false)
+    , m_isEos(false)
     , m_intensity(1.0)
     , m_currentIntensity(1.0)
     , m_adec(NULL)
@@ -55,6 +56,11 @@ bool AudioRenderer::isLooped()
 void AudioRenderer::setLooped(bool looped)
 {
     m_looped = looped;
+}
+
+bool AudioRenderer::isEos()
+{
+    return m_isEos;
 }
 
 /*********************************************************************
@@ -118,7 +124,7 @@ void AudioRenderer::run()
     {
         QMutexLocker locker(&m_mutex);
 
-        if (m_pause == false)
+        if (m_pause == false && m_isEos == false)
         {
             //qDebug() << "Pending audio bytes: " << pendingAudioBytes;
             if (pendingAudioBytes == 0)
@@ -133,8 +139,7 @@ void AudioRenderer::run()
                     }
                     else
                     {
-                        emit endOfStreamReached();
-                        return;
+                        m_isEos = true;
                     }
                 }
                 if (m_intensity != 1.0 || m_fadeStep != 0)
@@ -190,7 +195,7 @@ void AudioRenderer::run()
                     usleep(15000);
                 }
                 if (m_currentIntensity <= 0)
-                    emit endOfStreamReached();
+                    m_userStop = true;
             }
             else
             {
@@ -206,6 +211,8 @@ void AudioRenderer::run()
             usleep(15000);
         }
     }
+
+    qDebug() << "Audio renderer thread stopped";
 
     reset();
 }
