@@ -8,7 +8,7 @@
 <p align="center"><em>(Often abbreviated as "QLC+")</em></p>
 <p align="center">
   <strong>Open-source lighting control for DMX, Artnet, s.ACN and more.</strong><br/>
-  Designed for live shows, theatre, architectual installations, and venues.
+  Designed for live shows, theatre, architectural installations, and venues.
 </p>
 
 <p align="center">
@@ -59,7 +59,7 @@
 
 ## Support & bug reports
 
-We have a dedicated page to help you find support, please checkout [SUPPORT.md](SUPPORT.md). To learn about a specific feature of QLC+, take a look at the [official documentation](https://docs.qlcplus.org/). To give feedback, submit new fixtures and get new ideas, go to the [forum](https://www.qlcplus.org/forum/index.php)
+We have a dedicated page to help you find support, please check out [SUPPORT.md](SUPPORT.md). To learn about a specific feature of QLC+, take a look at the [official documentation](https://docs.qlcplus.org/). To give feedback, submit new fixtures and get new ideas, go to the [forum](https://www.qlcplus.org/forum/index.php)
 
 ### Help wanted
 Click the badge below to see the currently confirmed issues with QLC+. Perhaps you can find a solution?
@@ -82,7 +82,7 @@ We welcome contributions from the community to help make QLC+ even better. If yo
 
 ### Financially
 
-If you're reading this we already appreciate you. If you're just getting started with lighting you have absolutely no obligation to give us money. When QLC+ opens up revenue opportunities for you, we'd be very thankful for your support. GitHub sponsors is the prefered option.
+If you're reading this we already appreciate you. If you're just getting started with lighting you have absolutely no obligation to give us money. When QLC+ opens up revenue opportunities for you, we'd be very thankful for your support. GitHub sponsors is the preferred option.
 
 <img src="https://img.shields.io/github/sponsors/mcallegari" alt="GitHub Sponsors"> <a href="https://github.com/sponsors/mcallegari"><img src="https://img.shields.io/badge/sponsor-30363D?logo=GitHub-Sponsors&logoColor=#white" /></a>
 
