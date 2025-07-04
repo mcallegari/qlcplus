@@ -1,11 +1,14 @@
 TEMPLATE = subdirs
 SUBDIRS += bus
+SUBDIRS += channelsgroup
+SUBDIRS += channelmodifier
 SUBDIRS += chaser
 SUBDIRS += chaserrunner
 SUBDIRS += chaserstep
 SUBDIRS += collection
 SUBDIRS += cue
 SUBDIRS += cuestack
+SUBDIRS += dmxdumpfactoryproperties
 SUBDIRS += doc
 SUBDIRS += efx
 SUBDIRS += efxfixture
@@ -13,6 +16,7 @@ SUBDIRS += fadechannel
 SUBDIRS += fixture
 SUBDIRS += fixturegroup
 SUBDIRS += function
+SUBDIRS += genericdmxsource
 SUBDIRS += genericfader
 SUBDIRS += grandmaster
 SUBDIRS += inputoutputmap
@@ -46,6 +50,7 @@ SUBDIRS += show
 SUBDIRS += showfunction
 SUBDIRS += track
 SUBDIRS += universe
+SUBDIRS += video
 
 # Stubs
 SUBDIRS += iopluginstub
