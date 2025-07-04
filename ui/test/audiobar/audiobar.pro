@@ -11,7 +11,7 @@ qmlui|greaterThan(QT_MAJOR_VERSION, 5) {
   QT += script
 }
 
-INCLUDEPATH += ../../src
+INCLUDEPATH += ../../src ../../src/virtualconsole
 INCLUDEPATH += ../../../engine/src
 DEPENDPATH  += ../../src
 
