@@ -377,12 +377,18 @@ bool App::docModified() const
     return m_doc->isModified();
 }
 
+void App::slotDocAutosave()
+{
+    saveXML(autoSaveFileName(), true);
+}
+
 void App::initDoc()
 {
     Q_ASSERT(m_doc == nullptr);
     m_doc = new Doc(this);
 
     connect(m_doc, SIGNAL(modified(bool)), this, SIGNAL(docModifiedChanged()));
+    connect(m_doc, SIGNAL(needAutosave()), this, SLOT(slotDocAutosave()));
     connect(m_doc->masterTimer(), SIGNAL(functionListChanged()),
             this, SIGNAL(runningFunctionsCountChanged()));
 
@@ -547,6 +553,21 @@ QString App::fileName() const
     return m_fileName;
 }
 
+QString App::autoSaveFileName() const
+{
+    QString fName = m_fileName;
+
+    if (fName.isEmpty())
+        fName = "NewProject.autosave.qxw";
+    else
+    {
+        fName.remove(".qxw");
+        fName.append(".autosave.qxw");
+    }
+
+    return fName;
+}
+
 void App::updateRecentFilesList(QString filename)
 {
     QSettings settings;
@@ -693,6 +714,8 @@ void App::slotLoadDocFromMemory(QByteArray &xmlData)
 bool App::saveWorkspace(const QString &fileName)
 {
     QString localFilename = fileName;
+    QString asfName = autoSaveFileName();
+
     if (localFilename.startsWith("file:"))
         localFilename = QUrl(fileName).toLocalFile();
 
@@ -706,6 +729,11 @@ bool App::saveWorkspace(const QString &fileName)
 
     if (saveXML(localFilename) == QFile::NoError)
     {
+        /* remove autosave file if present */
+        QFile asFile(asfName);
+        if (asFile.exists())
+            asFile.remove();
+
         setTitle(QString("%1 - %2").arg(APPNAME).arg(localFilename));
         updateRecentFilesList(localFilename);
         return true;
@@ -833,7 +861,7 @@ bool App::loadXML(QXmlStreamReader &doc, bool goToConsole, bool fromMemory)
     return true;
 }
 
-QFile::FileError App::saveXML(const QString& fileName)
+QFile::FileError App::saveXML(const QString& fileName, bool autosave)
 {
     QString tempFileName(fileName);
     tempFileName += ".temp";
@@ -891,10 +919,13 @@ QFile::FileError App::saveXML(const QString& fileName)
         return file.error();
     }
 
-    /* Set the file name for the current Doc instance and
-       set it also in an unmodified state. */
-    setFileName(fileName);
-    m_doc->resetModified();
+    if (!autosave)
+    {
+        /* Set the file name for the current Doc instance and
+           set it also in an unmodified state. */
+        setFileName(fileName);
+        m_doc->resetModified();
+    }
 
     return QFile::NoError;
 }
