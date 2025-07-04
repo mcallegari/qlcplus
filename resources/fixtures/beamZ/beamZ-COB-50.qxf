@@ -6,7 +6,7 @@
   <Version>4.14.3</Version>
   <Author>Yestalgia</Author>
  </Creator>
- <Manufacturer>BeamZ</Manufacturer>
+ <Manufacturer>beamZ</Manufacturer>
  <Model>COB 50</Model>
  <Type>Color Changer</Type>
  <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
