@@ -456,7 +456,7 @@ bool AddFixture::checkAddressAvailability(int value, int channels)
 
 void AddFixture::slotModeActivated(int modeIndex)
 {
-    if (m_fixtureDef == NULL)
+    if (m_fixtureDef == NULL || m_fixtureDef->modes().isEmpty())
         return;
 
     m_mode = m_fixtureDef->modes().at(modeIndex);
