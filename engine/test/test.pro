@@ -43,7 +43,6 @@ SUBDIRS += qlcphysical
 SUBDIRS += qlcpoint
 SUBDIRS += rgbalgorithm
 SUBDIRS += rgbmatrix
-SUBDIRS += rgbimage
 SUBDIRS += rgbplain
 SUBDIRS += rgbscript
 SUBDIRS += rgbtext
