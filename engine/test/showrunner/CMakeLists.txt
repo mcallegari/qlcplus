@@ -7,9 +7,9 @@ target_include_directories(showrunner_test PRIVATE
 )
 
 target_link_libraries(showrunner_test PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Test
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Test
     qlcplusengine
 )
 

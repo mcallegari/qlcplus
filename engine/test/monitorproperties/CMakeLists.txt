@@ -7,9 +7,9 @@ target_include_directories(monitorproperties_test PRIVATE
 )
 
 target_link_libraries(monitorproperties_test PRIVATE
-    Qt::Core
-    Qt::Gui
-    Qt::Test
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Gui
+    Qt${QT_MAJOR_VERSION}::Test
     qlcplusengine
 )
 
