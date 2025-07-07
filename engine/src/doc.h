@@ -22,6 +22,7 @@
 #define DOC_H
 
 #include <QObject>
+#include <QTimer>
 #include <QList>
 #include <QFile>
 #include <QMap>
@@ -223,11 +224,13 @@ public:
 signals:
     /** Signal that this Doc has been modified (or unmodified) */
     void modified(bool state);
+    void needAutosave();
 
 protected:
     /** The current Doc load status */
     LoadStatus m_loadStatus;
     bool m_modified;
+    QTimer m_autosaveTimer;
 
     /*********************************************************************
      * Clipboard

@@ -1,6 +1,18 @@
-qlcplus (4.14.3) stable; urgency=low
+qlcplus (4.14.4) stable; urgency=low
 
-  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 31 Aug 2025 18:19:20 +0200
+  * Implemented autosave after 30 seconds of inactivity
+
+-- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 26 Oct 2025 18:19:20 +0200
+
+qlcplus (4.14.3) stable; urgency=high
+
+  * engine: fix intensity channels getting stuck on fade out
+  * engine: more fixes to RGB Matrix instability (thanks to Nick Shaforostoff)
+  * engine: fix audio end of stream with fade out
+  * webaccess: fix PNG and other image formats not loaded
+  * platforms/macos: add missing audio plugin to Intel bundle
+
+-- Massimo Callegari <massimocallegari@yahoo.it>  Thu, 3 Jul 2025 18:19:20 +0200
 
 qlcplus (4.14.2) stable; urgency=high
 
@@ -16,7 +28,7 @@ qlcplus (4.14.2) stable; urgency=high
   * Plugins/DMX USB: fix crash with some FTDI adapters
   * Plugins/DMX USB: improve Open DMX timer accuracy (thanks to Basil Hussain)
   * Plugins/DMX USB: reworked to support DMXKing MAX input and increase efficiency
-  * Web Access: improved multiple connections handling (thank to Jurrie Overgoor)
+  * Web Access: improved multiple connections handling (thanks to Jurrie Overgoor)
   * Input profiles: added M-Wave SMC Mixer
   * New fixtures: Eurolite LED TMH-40, Stairville HF-900 Haze Fogger (thanks to thegasta)
   * New fixtures: Sagitter Prince, Sagitter Lite Beam 5R, Sagitter ARS 1500FC (thanks to Alessandro Caseti)

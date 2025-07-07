@@ -48,19 +48,13 @@
 #include "doc.h"
 #include "bus.h"
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
- #if defined(__APPLE__) || defined(Q_OS_MAC)
-  #include "audiocapture_portaudio.h"
- #elif defined(WIN32) || defined (Q_OS_WIN)
-  #include "audiocapture_wavein.h"
- #else
-  #include "audiocapture_alsa.h"
- #endif
-#elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
  #include "audiocapture_qt5.h"
 #else
  #include "audiocapture_qt6.h"
 #endif
+
+#define AUTOSAVE_TIMEOUT    30 // seconds
 
 Doc::Doc(QObject* parent, int universes)
     : QObject(parent)
@@ -91,6 +85,10 @@ Doc::Doc(QObject* parent, int universes)
     qsrand(QTime::currentTime().msec());
 #endif
     
+    m_autosaveTimer.setInterval(AUTOSAVE_TIMEOUT * 1000);
+    m_autosaveTimer.setSingleShot(true);
+
+    connect(&m_autosaveTimer, SIGNAL(timeout()), this, SIGNAL(needAutosave()));
 }
 
 Doc::~Doc()
@@ -280,16 +278,8 @@ QSharedPointer<AudioCapture> Doc::audioInputCapture()
     {
         qDebug() << "Creating new audio capture";
         m_inputCapture = QSharedPointer<AudioCapture>(
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-#if defined(__APPLE__) || defined(Q_OS_MAC)
-            new AudioCapturePortAudio()
-#elif defined(WIN32) || defined (Q_OS_WIN)
-            new AudioCaptureWaveIn()
-#else
-            new AudioCaptureAlsa()
-#endif
-#elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-            new AudioCaptureQt6()
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+            new AudioCaptureQt5()
 #else
             new AudioCaptureQt6()
 #endif
@@ -323,12 +313,14 @@ bool Doc::isModified() const
 void Doc::setModified()
 {
     m_modified = true;
+    m_autosaveTimer.start();
     emit modified(true);
 }
 
 void Doc::resetModified()
 {
     m_modified = false;
+    m_autosaveTimer.stop();
     emit modified(false);
 }
 
@@ -341,7 +333,13 @@ void Doc::setMode(Doc::Mode mode)
     /* Don't do mode switching twice */
     if (m_mode == mode)
         return;
+
     m_mode = mode;
+
+    if (mode == Operate)
+        m_autosaveTimer.stop();
+    else if (m_modified)
+        m_autosaveTimer.start();
 
     // Run startup function
     if (m_mode == Operate && m_startupFunctionId != Function::invalidId())

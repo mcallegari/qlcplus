@@ -49,12 +49,12 @@ fi
 
 # if NTP hasn't done its job already, set the date to modern age...
 CURRDATE=`date +%Y`
-if [ "$CURRDATE" -lt "2024" ]; then
-    date +%Y%m%d -s "20241101"
+if [ "$CURRDATE" -lt "2025" ]; then
+    date +%Y%m%d -s "20250701"
 fi
 
-export QT_QPA_EGLFS_PHYSICAL_WIDTH=320
-export QT_QPA_EGLFS_PHYSICAL_HEIGHT=200
+export QT_QPA_EGLFS_PHYSICAL_WIDTH=400
+export QT_QPA_EGLFS_PHYSICAL_HEIGHT=300
 export QT_QPA_EGLFS_ALWAYS_SET_MODE=1
 export QT_QPA_EGLFS_KMS_CONFIG=$HOME/.qlcplus/eglfs.json
 

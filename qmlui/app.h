@@ -184,6 +184,7 @@ protected slots:
     void slotClosing();
     void slotClientAccessRequest(QString name);
     void slotAccessMaskChanged(int mask);
+    void slotDocAutosave();
 
 signals:
     void accessMaskChanged(int mask);
@@ -269,6 +270,12 @@ public:
     Q_INVOKABLE QString fileName() const;
     void setFileName(const QString& fileName);
 
+    /**
+     * Get the autosave version of the name
+     * of the current workspace file
+     */
+    QString autoSaveFileName() const;
+
     /** Return the list of the recently opened files */
     QStringList recentFiles() const;
 
@@ -307,7 +314,7 @@ public:
      * @param fileName The name of the file to save to.
      * @return QFile::NoError if successful.
      */
-    QFile::FileError saveXML(const QString& fileName);
+    QFile::FileError saveXML(const QString& fileName, bool autosave = false);
 
 private:
     /**

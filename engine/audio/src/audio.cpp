@@ -230,9 +230,7 @@ void Audio::slotEndOfStream()
 
     if (m_audio_out != NULL)
     {
-#if defined(WIN32) || defined(Q_OS_WIN)
         m_audio_out->stop();
-#endif
         m_audio_out->deleteLater();
         m_audio_out = NULL;
     }
@@ -374,8 +372,6 @@ void Audio::preRun(MasterTimer* timer)
         m_audio_out->setFadeIn(elapsed() ? 0 : fadeIn);
         m_audio_out->setLooped(runOrder() == Audio::Loop);
         m_audio_out->start();
-        connect(m_audio_out, SIGNAL(endOfStreamReached()),
-                this, SLOT(slotEndOfStream()));
     }
 
     Function::preRun(timer);
@@ -416,6 +412,8 @@ void Audio::write(MasterTimer* timer, QList<Universe *> universes)
             if (m_audio_out != NULL && totalDuration() - elapsed() <= fadeOutSpeed())
                 m_audio_out->setFadeOut(fadeOutSpeed());
         }
+        if (m_audio_out->isEos())
+            slotEndOfStream();
     }
 }
 

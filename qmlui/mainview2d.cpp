@@ -101,6 +101,8 @@ bool MainView2D::initialize2DProperties()
 {
     emit pointOfViewChanged(m_monProps->pointOfView());
     setGridSize(m_monProps->gridSize());
+    if (!m_monProps->commonBackgroundImage().isEmpty())
+        emit backgroundImageChanged();
 
     m_gridItem = qobject_cast<QQuickItem*>(contextItem()->findChild<QObject *>("twoDContents"));
 

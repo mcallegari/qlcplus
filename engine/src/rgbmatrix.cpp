@@ -528,6 +528,9 @@ bool RGBMatrix::saveXML(QXmlStreamWriter *doc)
     /* Colors */
     for (int i = 0; i < m_rgbColors.count(); i++)
     {
+        if (m_rgbColors.at(i).isValid() == false)
+            continue;
+
         doc->writeStartElement(KXMLQLCRGBMatrixColor);
         doc->writeAttribute(KXMLQLCRGBMatrixColorIndex, QString::number(i));
         doc->writeCharacters(QString::number(m_rgbColors.at(i).rgb()));
