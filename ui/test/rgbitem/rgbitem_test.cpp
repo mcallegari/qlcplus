@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus - Test Unit
-  simpledeskengine_test.h
+  rgbitem_test.cpp
 
   Copyright (c) Massimo Callegari
 
@@ -17,28 +17,31 @@
   limitations under the License.
 */
 
-#ifndef SIMPLEDESKENGINE_TEST_H
-#define SIMPLEDESKENGINE_TEST_H
+#include <QtTest>
+#include <QGraphicsRectItem>
 
-#include <QObject>
+#define protected public
+#define private public
+#include "rgbitem.h"
+#undef private
+#undef protected
 
-class Doc;
+#include "rgbitem_test.h"
 
-class SimpleDeskEngine_Test : public QObject
+void RGBItem_Test::basics()
 {
-    Q_OBJECT
+    RGBItem item(new QGraphicsRectItem());
+    item.setColor(QColor(Qt::red).rgb());
+    QCOMPARE(item.color(), QColor(Qt::red).rgb());
+}
 
-private slots:
-    void init();
-    void cleanup();
+void RGBItem_Test::draw()
+{
+    QGraphicsRectItem *gi = new QGraphicsRectItem();
+    RGBItem item(gi);
+    item.setColor(QColor(Qt::green).rgb());
+    item.draw(50, 0);
+    QCOMPARE(gi->brush().color(), QColor(Qt::green));
+}
 
-    void values();
-    void cueStack();
-    void resetUniverse();
-    void xml();
-
-private:
-    Doc* m_doc;
-};
-
-#endif
+QTEST_MAIN(RGBItem_Test)

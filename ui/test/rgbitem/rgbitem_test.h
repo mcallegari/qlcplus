@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus - Test Unit
-  simpledeskengine_test.h
+  rgbitem_test.h
 
   Copyright (c) Massimo Callegari
 
@@ -17,28 +17,18 @@
   limitations under the License.
 */
 
-#ifndef SIMPLEDESKENGINE_TEST_H
-#define SIMPLEDESKENGINE_TEST_H
+#ifndef RGBITEM_TEST_H
+#define RGBITEM_TEST_H
 
 #include <QObject>
 
-class Doc;
-
-class SimpleDeskEngine_Test : public QObject
+class RGBItem_Test : public QObject
 {
     Q_OBJECT
 
 private slots:
-    void init();
-    void cleanup();
-
-    void values();
-    void cueStack();
-    void resetUniverse();
-    void xml();
-
-private:
-    Doc* m_doc;
+    void basics();
+    void draw();
 };
 
 #endif

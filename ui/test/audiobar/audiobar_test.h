@@ -33,6 +33,11 @@ private slots:
 
     void defaults();
     void copy();
+    void setType();
+    void thresholdsDivisor();
+    void attachDmxChannels();
+    void attachFunction();
+    void xml();
 
 private:
     Doc* m_doc;
