@@ -23,7 +23,7 @@
   <Capability Min="101" Max="150">Gradual variable, The last two figure more big, the colour change</Capability>
   <Capability Min="151" Max="200">Pulse variable, The last two figure more big, the colour change</Capability>
   <Capability Min="201" Max="250">Auto mode, The last two figure more big, the colour change speed</Capability>
-  <Capability Min="251" Max="255">ound mode, The last two figure more big, the colour change</Capability>
+  <Capability Min="251" Max="255">Sound mode, The last two figure more big, the colour change</Capability>
  </Channel>
  <Channel Name="Speed">
   <Group Byte="0">Speed</Group>
