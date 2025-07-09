@@ -789,6 +789,11 @@ void VCXYPad::slotPresetClicked(bool checked)
         if (checked == false)
         {
             m_area->enableEFXPreview(false);
+			
+			if (preset->m_inputSource.isNull() == false)
+            sendFeedback(preset->m_inputSource->feedbackValue(QLCInputFeedback::LowerValue), preset->m_inputSource);
+		
+		
             return;
         }
 
@@ -827,8 +832,12 @@ void VCXYPad::slotPresetClicked(bool checked)
     else if (preset->m_type == VCXYPadPreset::Scene)
     {
         if (checked == false)
+		{
+			if (preset->m_inputSource.isNull() == false)
+            sendFeedback(preset->m_inputSource->feedbackValue(QLCInputFeedback::LowerValue), preset->m_inputSource);
+		
             return;
-
+		}
         Function *f = m_doc->function(preset->m_funcID);
         if (f == NULL || f->type() != Function::SceneType)
             return;
@@ -1073,7 +1082,8 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
             {
                 {
                     QPushButton *button = reinterpret_cast<QPushButton*>(it.key());
-                    button->click();
+                    if (value > 0) // only trigger on Note On
+						button->click();
                     return;
                 }
             }
