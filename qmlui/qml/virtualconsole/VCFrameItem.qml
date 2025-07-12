@@ -183,7 +183,7 @@ VCWidgetItem
 
         onEntered: frameRoot.dropActive = true
         onExited: frameRoot.dropActive = false
-        onDropped:
+        onDropped: (drop) =>
         {
             if (frameObj == null || frameRoot.dropActive === false)
                 return

@@ -20,6 +20,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Controls.Basic
 import QtQml.Models
 
 import org.qlcplus.classes 1.0
