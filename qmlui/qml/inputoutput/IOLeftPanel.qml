@@ -75,12 +75,12 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/audiocard.svg"
-                checkable: true
                 ButtonGroup.group: ioInputGroup
                 tooltip: qsTr("Show the audio input sources")
-                onToggled:
+                onClicked:
                 {
-                    if (checked == true)
+                    checked = !checked
+                    if (checked === true)
                         loaderSource = "qrc:/AudioCardsList.qml"
                     animatePanel(checked)
                 }
@@ -94,12 +94,12 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/inputoutput.svg"
-                checkable: true
                 ButtonGroup.group: ioInputGroup
                 tooltip: qsTr("Show the universe input sources")
-                onToggled:
+                onClicked:
                 {
-                    if (checked == true)
+                    checked = !checked
+                    if (checked === true)
                         loaderSource = "qrc:/PluginsList.qml"
                     animatePanel(checked)
                 }
@@ -113,12 +113,12 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: ""
-                checkable: true
                 ButtonGroup.group: ioInputGroup
                 tooltip: qsTr("Show the universe input profiles")
-                onToggled:
+                onClicked:
                 {
-                    if (checked == true)
+                    checked = !checked
+                    if (checked === true)
                         loaderSource = "qrc:/ProfilesList.qml"
                     animatePanel(checked)
                 }

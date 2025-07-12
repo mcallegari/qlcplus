@@ -76,7 +76,7 @@ Rectangle
                         drag.target: ipItem
                         drag.threshold: 30
 
-                        onClicked: mouse.accepted = false
+                        onClicked: (mouse) => mouse.accepted = false
                         onPositionChanged: if (ipMouseArea.drag.active) uniItem.patchDragging(true)
                         onReleased:
                         {
