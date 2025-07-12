@@ -121,6 +121,6 @@
   <Dimensions Weight="0" Width="0" Height="0" Depth="0"/>
   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-  <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+  <Technical PowerConsumption="0" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>
