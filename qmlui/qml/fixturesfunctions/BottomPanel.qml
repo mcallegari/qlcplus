@@ -140,7 +140,7 @@ Rectangle
                 height: UISettings.iconSizeDefault
                 imgSource: "qrc:/edit-copy.svg"
                 tooltip: qsTr("Copy the selected channel values to all the fixtures of the same type")
-                enabled: sceneEditor.selectedChannelCount > 0 ? true : false
+                enabled: isOpen && sceneEditor.selectedChannelCount > 0 ? true : false
                 onClicked: if (sceneEditor) sceneEditor.pasteToAllFixtureSameType()
             }
 

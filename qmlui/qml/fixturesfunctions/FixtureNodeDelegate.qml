@@ -298,6 +298,15 @@ Column
             Rectangle { visible: showFlags; width: UISettings.chPropsModifierWidth; height: parent.height; color: "transparent" } // stub
         } // RowLayout
 
+        // separator line
+        Rectangle
+        {
+            width: parent.width
+            height: 1
+            y: parent.height - 1
+            color: UISettings.bgLight
+        }
+
         MouseArea
         {
             width: showFlags ? fxModes.x : parent.width

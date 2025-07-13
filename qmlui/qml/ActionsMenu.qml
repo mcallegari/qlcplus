@@ -297,7 +297,10 @@ Popup
                 Connections
                 {
                     target: importLoader.item
-                    onClose: importLoader.source = ""
+                    function onClose()
+                    {
+                        importLoader.source = ""
+                    }
                 }
             }
         }
