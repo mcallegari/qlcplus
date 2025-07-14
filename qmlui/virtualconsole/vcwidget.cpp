@@ -394,7 +394,7 @@ bool VCWidget::hasCustomBackgroundColor() const
 void VCWidget::resetBackgroundColor()
 {
     m_hasCustomBackgroundColor = false;
-    m_backgroundColor = Qt::gray;
+    m_backgroundColor =QColor("#333");
     setDocModified();
     emit backgroundColorChanged(m_backgroundColor);
 }

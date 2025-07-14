@@ -35,6 +35,8 @@ public:
     VCPage(QQuickView *view = nullptr, Doc* doc = nullptr, VirtualConsole *vc = nullptr, int pageIndex = 0, QObject *parent = nullptr);
     ~VCPage();
 
+    void initializeProperties(int pageIndex);
+
     /** Return the Preview Context associated to this VC page */
     PreviewContext *previewContext() const;
 

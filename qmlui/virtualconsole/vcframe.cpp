@@ -74,6 +74,15 @@ VCFrame::~VCFrame()
         delete m_item;
 }
 
+void VCFrame::initializeProperties()
+{
+    resetBackgroundColor();
+    resetForegroundColor();
+    setPagesLoop(false);
+    m_PIN = 0;
+    m_validatedPIN = false;
+}
+
 QString VCFrame::defaultCaption()
 {
     return tr("Frame %1").arg(id() + 1);
