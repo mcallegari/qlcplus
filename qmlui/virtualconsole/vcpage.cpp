@@ -27,7 +27,7 @@ VCPage::VCPage(QQuickView *view, Doc *doc, VirtualConsole *vc, int pageIndex, QO
 {
     setAllowResize(false);
     setShowHeader(false);
-    initializeProperties(pageIndex);
+    resetProperties(pageIndex);
 
     m_pageContext = new PreviewContext(view, doc, QString("PAGE-%1").arg(pageIndex));
     m_pageContext->setContextResource("qrc:/VCPageArea.qml");
@@ -39,7 +39,7 @@ VCPage::~VCPage()
 {
 }
 
-void VCPage::initializeProperties(int pageIndex)
+void VCPage::resetProperties(int pageIndex)
 {
     setGeometry(QRect(0, 0, 1920, 1080));
     setFont(QFont("Roboto Condensed", 16));

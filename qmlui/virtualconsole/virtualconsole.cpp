@@ -127,7 +127,7 @@ void VirtualConsole::resetContents()
     {
         page->deleteChildren();
         page->resetInputSourcesMap();
-        page->initializeProperties(pageIndex++);
+        page->resetProperties(pageIndex++);
     }
 
     m_widgetsMap.clear();
