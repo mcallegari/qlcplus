@@ -71,6 +71,17 @@ Rectangle
         onAccepted: close()
     }
 
+    GenericButton
+    {
+        width: height
+        height: UISettings.iconSizeDefault
+        anchors.right: parent.right
+        border.color: UISettings.bgMedium
+        useFontawesome: true
+        label: FontAwesome.fa_times
+        onClicked: mainView.loadResource("qrc:/FixturesAndFunctions.qml")
+    }
+
     Component
     {
         id: colorSelector
