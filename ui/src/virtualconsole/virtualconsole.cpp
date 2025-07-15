@@ -135,6 +135,8 @@ VirtualConsole::VirtualConsole(QWidget* parent, Doc* doc)
     , m_contents(NULL)
 
     , m_liveEdit(false)
+    , m_keyboardScroll(true)
+    , m_forceKeyboardScroll(false)
 {
     Q_ASSERT(s_instance == NULL);
     s_instance = this;
@@ -1014,6 +1016,8 @@ void VirtualConsole::slotToolsSettings()
             m_dockArea->setGrandMasterVisible(m_properties.grandMasterVisible());
             m_dockArea->setGrandMasterInvertedAppearance(m_properties.grandMasterSliderMode());
         }
+        m_keyboardScroll = m_properties.keyboardScroll();
+        m_forceKeyboardScroll = false;
 
         QSettings settings;
         settings.setValue(SETTINGS_BUTTON_SIZE, vcpe.buttonSize());
@@ -1605,7 +1609,7 @@ void VirtualConsole::initContents()
 {
     Q_ASSERT(layout() != NULL);
 
-    m_scrollArea = new QScrollArea(this);
+    m_scrollArea = new VCScrollArea(this);
     m_contentsLayout->addWidget(m_scrollArea);
     m_scrollArea->setAlignment(Qt::AlignCenter);
     m_scrollArea->setWidgetResizable(false);
@@ -1625,8 +1629,13 @@ void VirtualConsole::keyPressEvent(QKeyEvent* event)
         return;
     }
 
-    QKeySequence seq(event->key() | (event->modifiers() & ~Qt::ControlModifier));
-    emit keyPressed(seq);
+    if (event->key() == Qt::Key_ScrollLock) {
+        m_forceKeyboardScroll = !m_forceKeyboardScroll;
+        m_scrollArea->setKeyPassthruEnabled(m_doc->mode() == Doc::Operate && !(m_keyboardScroll || m_forceKeyboardScroll));
+    } else {
+        QKeySequence seq(event->key() | (event->modifiers() & ~Qt::ControlModifier));
+        emit keyPressed(seq);
+    }
 
     event->accept();
 }
@@ -1636,6 +1645,12 @@ void VirtualConsole::keyReleaseEvent(QKeyEvent* event)
     if (event->isAutoRepeat() == true || event->key() == 0)
     {
         event->ignore();
+        return;
+    }
+
+    // consume key release for scroll lock, since we already consumed key press
+    if (event->key() == Qt::Key_ScrollLock) {
+        event->accept();
         return;
     }
 
@@ -1730,6 +1745,9 @@ void VirtualConsole::enableEdit()
     m_stackingRaiseAction->setShortcut(QKeySequence("SHIFT+UP"));
     m_stackingLowerAction->setShortcut(QKeySequence("SHIFT+DOWN"));
 
+    // disable key passthru
+    m_scrollArea->setKeyPassthruEnabled(false);
+
     // Show toolbar
     m_toolbar->show();
 }
@@ -1782,6 +1800,11 @@ void VirtualConsole::disableEdit()
 
     m_stackingRaiseAction->setShortcut(QKeySequence());
     m_stackingLowerAction->setShortcut(QKeySequence());
+
+
+    // manage key passthru
+    m_forceKeyboardScroll = false;
+    m_scrollArea->setKeyPassthruEnabled(m_doc->mode() == Doc::Operate && !(m_keyboardScroll || m_forceKeyboardScroll));
 
     // Hide toolbar; there's nothing usable there in operate mode
     m_toolbar->hide();
@@ -1845,6 +1868,8 @@ bool VirtualConsole::loadXML(QXmlStreamReader &root)
             QSize size(m_properties.size());
             contents()->resize(size);
             contents()->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+            m_keyboardScroll = m_properties.keyboardScroll();
+            m_forceKeyboardScroll = false;
         }
         else if (root.name() == KXMLQLCVCFrame)
         {
