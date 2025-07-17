@@ -20,6 +20,7 @@
 #include <QComboBox>
 #include <QLineEdit>
 #include <QSpinBox>
+#include <QCheckBox>
 #include <QLabel>
 #include <QDebug>
 #include <QSettings>
@@ -88,9 +89,16 @@ void VCMatrixPresetSelection::displayProperties(RGBScript *script)
         m_propertiesGroup->hide();
 
     m_properties.clear();
+    m_dynamicProperties.clear();
 
     foreach (RGBScriptProperty prop, properties)
     {
+        QCheckBox *propCheck = new QCheckBox(this);
+        propCheck->setProperty("pName", prop.m_name);
+        m_propertiesLayout->addWidget(propCheck, gridRowIdx, 2);
+        connect(propCheck, SIGNAL(toggled(bool)),
+                this, SLOT(slotPropertyCheckChanged(bool)));
+
         switch(prop.m_type)
         {
             case RGBScriptProperty::List:
@@ -230,3 +238,14 @@ QMap<QString, QString> VCMatrixPresetSelection::customizedProperties()
     return m_properties;
 }
 
+QMap<QString, bool> VCMatrixPresetSelection::dynamicProperties() const
+{
+    return m_dynamicProperties;
+}
+
+void VCMatrixPresetSelection::slotPropertyCheckChanged(bool checked)
+{
+    QCheckBox *check = qobject_cast<QCheckBox *>(sender());
+    QString pName = check->property("pName").toString();
+    m_dynamicProperties[pName] = checked;
+}

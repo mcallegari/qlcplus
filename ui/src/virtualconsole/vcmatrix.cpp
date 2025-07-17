@@ -811,6 +811,40 @@ void VCMatrix::slotUpdate()
                 knob->blockSignals(false);
             }
         }
+        else if (control->m_type == VCMatrixControl::AnimationKnob)
+        {
+            if (algorithmType == RGBAlgorithm::Script)
+            {
+                KnobWidget *knob = reinterpret_cast<KnobWidget*>(widget);
+                RGBScript *script = static_cast<RGBScript*>(matrix->algorithm());
+                QString propValue = script->property(control->m_resource);
+                int val = 0;
+
+                foreach (RGBScriptProperty prop, script->properties())
+                {
+                    if (prop.m_name == control->m_resource)
+                    {
+                        if (prop.m_type == RGBScriptProperty::List)
+                        {
+                            val = prop.m_listValues.indexOf(propValue);
+                        }
+                        else
+                        {
+                            val = propValue.toInt();
+                        }
+                        break;
+                    }
+                }
+
+                if (knob->value() != val)
+                {
+                    knob->blockSignals(true);
+                    knob->setValue(val);
+                    emit matrixControlKnobValueChanged(control->m_id, val);
+                    knob->blockSignals(false);
+                }
+            }
+        }
         else if (control->m_type == VCMatrixControl::Color1)
         {
             QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
@@ -1097,6 +1131,43 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
             knobLabel = tr("Color 5 Blue component");
         controlKnob->setToolTip(knobLabel);
     }
+    else if (control.m_type == VCMatrixControl::AnimationKnob)
+    {
+        KnobWidget *controlKnob = new KnobWidget(this);
+        controlWidget = controlKnob;
+        controlKnob->setColor(QColor(Qt::gray));
+        controlKnob->setFixedWidth(36);
+        controlKnob->setFixedHeight(36);
+        controlKnob->setToolTip(control.m_resource);
+
+        RGBMatrix* matrix = qobject_cast<RGBMatrix*>(m_doc->function(m_matrixID));
+        if (matrix && matrix->algorithm() && matrix->algorithm()->type() == RGBAlgorithm::Script)
+        {
+            RGBScript *script = static_cast<RGBScript*>(matrix->algorithm());
+            foreach (RGBScriptProperty prop, script->properties())
+            {
+                if (prop.m_name == control.m_resource)
+                {
+                    if (prop.m_type == RGBScriptProperty::List)
+                    {
+                        controlKnob->setRange(0, prop.m_listValues.count() - 1);
+                        controlKnob->setValue(prop.m_listValues.indexOf(script->property(prop.m_name)));
+                    }
+                    else if (prop.m_type == RGBScriptProperty::Range)
+                    {
+                        controlKnob->setRange(prop.m_rangeMinValue, prop.m_rangeMaxValue);
+                        controlKnob->setValue(script->property(prop.m_name).toInt());
+                    }
+                    else if (prop.m_type == RGBScriptProperty::Float)
+                    {
+                        controlKnob->setRange(0, 255);
+                        controlKnob->setValue(script->property(prop.m_name).toInt());
+                    }
+                    break;
+                }
+            }
+        }
+    }
 
     Q_ASSERT(controlWidget != NULL);
 
@@ -1326,6 +1397,27 @@ void VCMatrix::slotCustomControlValueChanged()
             matrix->setColor(4, color);
             emit mtxColor5Changed();
         }
+        else if (control->m_type == VCMatrixControl::AnimationKnob)
+        {
+            if (matrix->algorithm() && matrix->algorithm()->type() == RGBAlgorithm::Script)
+            {
+                RGBScript *script = static_cast<RGBScript*>(matrix->algorithm());
+                foreach (RGBScriptProperty prop, script->properties())
+                {
+                    if (prop.m_name == control->m_resource)
+                    {
+                        if (prop.m_type == RGBScriptProperty::List)
+                        {
+                            if (knob->value() < prop.m_listValues.count())
+                                script->setProperty(control->m_resource, prop.m_listValues.at(knob->value()));
+                        }
+                        else
+                            script->setProperty(control->m_resource, QString::number(knob->value()));
+                        break;
+                    }
+                }
+            }
+        }
         else
         {
             // We are not supposed to be here
@@ -1461,8 +1553,16 @@ void VCMatrix::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
                 QPushButton *button = reinterpret_cast<QPushButton*>(it.key());
                 button->click();
             }
+            return;
         }
     }
+
+    RGBMatrix* matrix = qobject_cast<RGBMatrix*>(m_doc->function(m_matrixID));
+    if (matrix == NULL || mode() == Doc::Design)
+        return;
+
+    // Check if the received signal is for a dynamic property of the current preset
+    // TODO: reimplement this
 }
 
 bool VCMatrix::loadXML(QXmlStreamReader &root)
