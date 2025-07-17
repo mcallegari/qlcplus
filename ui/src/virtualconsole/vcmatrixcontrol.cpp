@@ -45,6 +45,7 @@ VCMatrixControl &VCMatrixControl::operator=(const VCMatrixControl &vcmc)
         m_color = vcmc.m_color;
         m_resource = vcmc.m_resource;
         m_properties = vcmc.m_properties;
+        m_dynamicProperties = vcmc.m_dynamicProperties;
         m_keySequence = vcmc.m_keySequence;
 
         if (vcmc.m_inputSource != NULL)
@@ -115,6 +116,7 @@ VCMatrixControl::WidgetType VCMatrixControl::widgetType() const
         case Color3Knob:
         case Color4Knob:
         case Color5Knob:
+        case AnimationKnob:
             return Knob;
     }
 
@@ -138,6 +140,7 @@ QString VCMatrixControl::typeToString(VCMatrixControl::ControlType type)
         case Color4Reset: return "ResetColor4"; break;
         case Color5Reset: return "ResetColor5"; break;
         case Animation: return "Animation"; break;
+        case AnimationKnob: return "AnimationKnob"; break;
         case Image: return "Image"; break;
         case Text: return "Text"; break;
         case Color1Knob: return "Color1Knob"; break;
@@ -161,6 +164,7 @@ VCMatrixControl::ControlType VCMatrixControl::stringToType(QString str)
     else if (str == "ResetColor4") return Color4Reset;
     else if (str == "ResetColor5") return Color5Reset;
     else if (str == "Animation") return Animation;
+    else if (str == "AnimationKnob") return AnimationKnob;
     else if (str == "Image") return Image;
     else if (str == "Text") return Text;
     else if (str == "Color1Knob" || str == "StartColorKnob") return Color1Knob;
@@ -222,6 +226,15 @@ bool VCMatrixControl::loadXML(QXmlStreamReader &root)
                 m_properties[pName] = pValue;
             }
         }
+        else if (root.name() == KXMLQLCVCMatrixControlDynamicProperty)
+        {
+            if (root.attributes().hasAttribute(KXMLQLCVCMatrixControlPropertyName))
+            {
+                QString pName = root.attributes().value(KXMLQLCVCMatrixControlPropertyName).toString();
+                m_dynamicProperties[pName] = true;
+            }
+            root.skipCurrentElement();
+        }
         else if (root.name() == KXMLQLCVCWidgetInput)
         {
             m_inputSource = VCWidget::getXMLInput(root);
@@ -281,6 +294,21 @@ bool VCMatrixControl::saveXML(QXmlStreamWriter *doc)
         }
     }
 
+    if (!m_dynamicProperties.isEmpty())
+    {
+        QMapIterator<QString, bool> it(m_dynamicProperties);
+        while (it.hasNext())
+        {
+            it.next();
+            if (it.value() == true)
+            {
+                doc->writeStartElement(KXMLQLCVCMatrixControlDynamicProperty);
+                doc->writeAttribute(KXMLQLCVCMatrixControlPropertyName, it.key());
+                doc->writeEndElement();
+            }
+        }
+    }
+
     /* External input source */
     if (!m_inputSource.isNull() && m_inputSource->isValid())
         VCWidget::saveXMLInput(doc, m_inputSource);
@@ -294,4 +322,3 @@ bool VCMatrixControl::saveXML(QXmlStreamWriter *doc)
 
     return true;
 }
-

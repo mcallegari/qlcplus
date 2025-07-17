@@ -245,6 +245,9 @@ public:
     /** @reimp */
     void postRun(MasterTimer *timer, QList<Universe*> universes);
 
+    /** Set a script property to a specific value */
+    void setScriptProperty(QString propName, QString value);
+
 private:
     /** Check what should be done when elapsed() >= duration() */
     void roundCheck();
@@ -269,12 +272,12 @@ private:
     /** The number of steps returned by the currently loaded algorithm */
     int m_stepsCount;
 
-    /** The duration of a step based on the current BPM (Beats tempo only) */
-    uint m_stepBeatDuration;
-
-    /*********************************************************************
-     * Attributes
-     *********************************************************************/
+     /** The duration of a step based on the current BPM (Beats tempo only) */
+     uint m_stepBeatDuration;
+ 
+     /*********************************************************************
+      * Attributes
+      *********************************************************************/
 public:
     /** @reimp */
     int adjustAttribute(qreal fraction, int attributeId);

@@ -28,6 +28,11 @@
 
 #include "vcwidget.h"
 #include "vcmatrixcontrol.h"
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+ #include "rgbscript.h"
+#else
+ #include "rgbscriptv4.h"
+#endif
 
 class ClickAndGoSlider;
 class ClickAndGoWidget;
