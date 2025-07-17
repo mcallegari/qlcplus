@@ -41,6 +41,7 @@ class QXmlStreamWriter;
 #define KXMLQLCVCMatrixControlResource      QStringLiteral("Resource")
 #define KXMLQLCVCMatrixControlProperty      QStringLiteral("Property")
 #define KXMLQLCVCMatrixControlPropertyName  QStringLiteral("Name")
+#define KXMLQLCVCMatrixControlDynamicProperty      QStringLiteral("DynamicProperty")
 
 class VCMatrixControl
 {
@@ -72,6 +73,7 @@ public:
         Color4Reset,
         Color5Reset,
         Animation,
+        AnimationKnob,
         Image,
         Text
     };
@@ -132,6 +134,9 @@ public:
 
     /** A map holding the requested script properties */
     QMap<QString, QString> m_properties;
+
+    /** A map holding the properties that can be controlled externally */
+    QMap<QString, bool> m_dynamicProperties;
 
     QSharedPointer<QLCInputSource> m_inputSource;
     QKeySequence m_keySequence;

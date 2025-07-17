@@ -327,6 +327,11 @@ void VCMatrixProperties::updateTree()
                 item->setText(1, presetName);
             }
             break;
+            case VCMatrixControl::AnimationKnob:
+                item->setIcon(0, QIcon(":/knob.png"));
+                item->setText(0, tr("Animation Knob"));
+                item->setText(1, control->m_resource);
+            break;
             case VCMatrixControl::Image:
             break;
             case VCMatrixControl::Text:
@@ -425,11 +430,31 @@ void VCMatrixProperties::slotAddAnimationClicked()
 
     if (ps.exec() == QDialog::Accepted)
     {
-        VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
-        newControl->m_type = VCMatrixControl::Animation;
-        newControl->m_resource = ps.selectedPreset();
-        newControl->m_properties = ps.customizedProperties();
-        addControl(newControl);
+        QMap<QString, bool> dynProps = ps.dynamicProperties();
+        if (dynProps.isEmpty())
+        {
+            VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
+            newControl->m_type = VCMatrixControl::Animation;
+            newControl->m_resource = ps.selectedPreset();
+            newControl->m_properties = ps.customizedProperties();
+            newControl->m_dynamicProperties = ps.dynamicProperties();
+            addControl(newControl);
+        }
+        else
+        {
+            QMapIterator<QString, bool> it(dynProps);
+            while (it.hasNext())
+            {
+                it.next();
+                if (it.value() == true)
+                {
+                    VCMatrixControl *newControl = new VCMatrixControl(++m_lastAssignedID);
+                    newControl->m_type = VCMatrixControl::AnimationKnob;
+                    newControl->m_resource = it.key();
+                    addControl(newControl);
+                }
+            }
+        }
         updateTree();
     }
 }
