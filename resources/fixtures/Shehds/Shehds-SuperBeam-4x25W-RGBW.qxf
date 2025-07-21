@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.4 GIT</Version>
+  <Author>Lorys89</Author>
+ </Creator>
+ <Manufacturer>Shehds</Manufacturer>
+ <Model>Super Beam 4x25W RGBW</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer</Capability>
+ </Channel>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="P/T Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">P/T Speed</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Open</Capability>
+  <Capability Min="10" Max="19">Red</Capability>
+  <Capability Min="20" Max="29">Green</Capability>
+  <Capability Min="30" Max="39">Red</Capability>
+  <Capability Min="40" Max="127">Lineal Ori</Capability>
+  <Capability Min="128" Max="191">&gt;&gt;&gt; Slow to Fast</Capability>
+  <Capability Min="192" Max="255">&lt;&lt;&lt; Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Lens">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127">Lineal Ori</Capability>
+  <Capability Min="128" Max="191">&gt;&gt;&gt; Slow to Fast</Capability>
+  <Capability Min="192" Max="255">&lt;&lt;&lt; Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Lens Mov">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="255">Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="239">No Function</Capability>
+  <Capability Min="240" Max="249">Reset</Capability>
+  <Capability Min="250" Max="255">No Function 2</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Strobe Hz</Capability>
+ </Channel>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan Fine</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt Fine</Capability>
+ </Channel>
+ <Channel Name="Dimmer 1">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer</Capability>
+ </Channel>
+ <Channel Name="Dimmer 2">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer</Capability>
+ </Channel>
+ <Channel Name="Dimmer 3">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer</Capability>
+ </Channel>
+ <Channel Name="Dimmer 4">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer</Capability>
+ </Channel>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Shutter</Channel>
+  <Channel Number="2">Pan</Channel>
+  <Channel Number="3">Tilt</Channel>
+  <Channel Number="4">P/T Speed</Channel>
+  <Channel Number="5">Colour</Channel>
+  <Channel Number="6">Lens</Channel>
+  <Channel Number="7">Lens Mov</Channel>
+  <Channel Number="8">Reset</Channel>
+ </Mode>
+ <Mode Name="15 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer 1</Channel>
+  <Channel Number="2">Dimmer 2</Channel>
+  <Channel Number="3">Dimmer 3</Channel>
+  <Channel Number="4">Dimmer 4</Channel>
+  <Channel Number="5">Shutter</Channel>
+  <Channel Number="6">Pan</Channel>
+  <Channel Number="7">Pan Fine</Channel>
+  <Channel Number="8">Tilt</Channel>
+  <Channel Number="9">Tilt Fine</Channel>
+  <Channel Number="10">P/T Speed</Channel>
+  <Channel Number="11">Colour</Channel>
+  <Channel Number="12">Lens</Channel>
+  <Channel Number="13">Lens Mov</Channel>
+  <Channel Number="14">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="0" Width="0" Height="0" Depth="0"/>
+  <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="120" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

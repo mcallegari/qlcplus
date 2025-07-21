@@ -1447,6 +1447,7 @@
     <F n="Proel-Moving-Head-3Wx108-LED-RGBW" m="Moving Head 3Wx108 LED RGBW"/>
     <F n="Proel-PLLED64RGB" m="PLLED64RGB"/>
     <F n="Proel-PLLEDMLBG" m="PLLEDMLBG LED Moving Head"/>
+    <F n="Proel-PLFD150HY-Drago" m="PLFD150HY Drago"/>
     <F n="Proel-PLLEDSP" m="PLLEDSP"/>
     <F n="Proel-Tarkus-575-Spot" m="Tarkus 575 Spot"/>
   </M>
@@ -1575,6 +1576,8 @@
     <F n="Shehds-JMS-WEBB-LED-Wash-BigBeeEye-19X40W" m="JMS WEBB LED Wash Big Bee Eye 19X40W"/>
     <F n="Shehds-LED-200W-RGB-FLASH" m="LED 200W RGB FLASH"/>
     <F n="Shehds-LED-Beam+Wash-19x15W-RGBW-Zoom" m="LED Beam+Wash 19x15W RGBW Zoom Lighting"/>
+    <F n="Shehds-SuperBeam-4x25W-RGBW" m="Super Beam 4x25W RGBW"/>
+    <F n="Shehds-LED-Beam-Spot-Zoom-200W" m="LED Beam Spot Zoom Moving Head Light 200W"/>
     <F n="Shehds-LED-Beam-12x12W-RGBW" m="LED Beam 12x12W RGBW"/>
     <F n="Shehds-LED-Beam-8x12W-RGBW" m="LED Beam 8x12W RGBW"/>
     <F n="Shehds-LED-Flat-Par-18x18W-RGBWA+UV" m="LED Flat Par 18x18W RGBWA+UV"/>
