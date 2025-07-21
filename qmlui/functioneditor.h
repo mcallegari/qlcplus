@@ -144,4 +144,4 @@ signals:
     void directionChanged(int direction);
 };
 
-#endif // SCENEEDITOR_H
+#endif // FUNCTIONEDITOR_H

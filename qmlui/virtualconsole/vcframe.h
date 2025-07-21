@@ -66,6 +66,8 @@ public:
     VCFrame(Doc* doc = nullptr, VirtualConsole *vc = nullptr, QObject *parent = nullptr);
     virtual ~VCFrame();
 
+    virtual void initializeProperties();
+
     /** @reimp */
     virtual QString defaultCaption();
 

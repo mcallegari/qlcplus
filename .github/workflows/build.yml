@@ -228,7 +228,7 @@ jobs:
         run: |
           wget -c https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64 -O ${INSTALL_ROOT}/AppRun
           chmod a+x ${INSTALL_ROOT}/AppRun
-          wget -c https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O ./appimagetool-x86_64.AppImage
+          wget -c https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage -O ./appimagetool-x86_64.AppImage
           chmod a+x ./appimagetool-x86_64.AppImage
           ./appimagetool-x86_64.AppImage -v ${INSTALL_ROOT}
           mv -v Q_Light_Controller_Plus_-_QLC+-x86_64.AppImage qlcplus-${{env.TASK}}-${{env.APPVERSION}}-${{env.BUILD_DATE}}-${{env.GIT_REV}}.AppImage

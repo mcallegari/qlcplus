@@ -18,6 +18,7 @@
 */
 
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 
 import "."
@@ -60,6 +61,8 @@ SidePanel
             width: iconSize
             spacing: 3
 
+            ButtonGroup { id: iorButtonsGroup }
+
             IconButton
             {
                 id: audioOutputButton
@@ -67,12 +70,13 @@ SidePanel
                 visible: showAudioButton
                 width: iconSize
                 height: iconSize
+                ButtonGroup.group: iorButtonsGroup
                 imgSource: "qrc:/audiocard.svg"
-                checkable: true
                 tooltip: qsTr("Show the audio output sources")
-                onToggled:
+                onClicked:
                 {
-                    if (checked == true)
+                    checked = !checked
+                    if (checked === true)
                         loaderSource = "qrc:/AudioCardsList.qml"
                     animatePanel(checked)
                 }
@@ -85,12 +89,13 @@ SidePanel
                 visible: showPluginsButton
                 width: iconSize
                 height: iconSize
+                ButtonGroup.group: iorButtonsGroup
                 imgSource: "qrc:/inputoutput.svg"
-                checkable: true
                 tooltip: qsTr("Show the universe output sources")
-                onToggled:
+                onClicked:
                 {
-                    if (checked == true)
+                    checked = !checked
+                    if (checked === true)
                         loaderSource = "qrc:/PluginsList.qml"
                     animatePanel(checked)
                 }

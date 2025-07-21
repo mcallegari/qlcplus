@@ -9,7 +9,7 @@ install(FILES qt.conf DESTINATION ${INSTALLROOT}/${DATADIR})
 install(FILES ../../resources/icons/qlcplus.icns DESTINATION ${INSTALLROOT}/${DATADIR})
 
 if(qmlui)
-    install(FILES Info.plist.qmlui DESTINATION ${INSTALLROOT}/Info.plist)
+    install(FILES Info.plist.qmlui DESTINATION ${INSTALLROOT} RENAME Info.plist)
 else()
     install(FILES Info.plist DESTINATION ${INSTALLROOT})
 endif()
@@ -48,6 +48,40 @@ else()
     list(APPEND QT_FRAMEWORK_NAMES "QtScript")
 endif()
 
+if(qmlui)
+    list(APPEND QT_FRAMEWORK_NAMES
+    "QtLabsFolderListModel"
+    "QtMultimediaQuick"
+    "QtQmlModels"
+    "QtQmlMeta"
+    "QtQmlWorkerScript"
+    "QtQuick"
+    "QtQuickLayouts"
+    "QtQuickControls2"
+    "QtQuickControls2Impl"
+    "QtQuickControls2Basic"
+    "QtQuickControls2BasicStyleImpl"
+    "QtQuickControls2Fusion"
+    "QtQuickControls2FusionStyleImpl"
+    "QtQuickTemplates2"
+    "QtQuickDialogs2"
+    "QtQuickDialogs2QuickImpl"
+    "QtQuickDialogs2Utils"
+    "Qt3DCore"
+    "Qt3DExtras"
+    "Qt3DInput"
+    "Qt3DLogic"
+    "Qt3DAnimation"
+    "Qt3DQuick"
+    "Qt3DQuickExtras"
+    "Qt3DQuickInput"
+    "Qt3DQuickRender"
+    "Qt3DQuickScene3D"
+    "Qt3DRender"
+    "QtConcurrent"
+    )
+endif()
+
 # Loop through each framework and copy it to installation
 foreach(FW_NAME IN LISTS QT_FRAMEWORK_NAMES)
     # install each framework Version file
@@ -58,13 +92,15 @@ endforeach()
 
 # install Qt plugins
 set(QT_PLUGINS_DIR $ENV{QTDIR}/plugins)
+set(QT_QML_DIR $ENV{QTDIR}/qml)
+
 # imageformats
 install(FILES ${QT_PLUGINS_DIR}/imageformats/libqgif.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/imageformats)
 install(FILES ${QT_PLUGINS_DIR}/imageformats/libqjpeg.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/imageformats)
 install(FILES ${QT_PLUGINS_DIR}/imageformats/libqsvg.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/imageformats)
 # multimedia
 if(QT_MAJOR_VERSION GREATER 5)
-    install(FILES ${QT_PLUGINS_DIR}/multimedia/libffmpegmediaplugin.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/multimedia)
+    install(FILES ${QT_PLUGINS_DIR}/multimedia/libdarwinmediaplugin.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/multimedia)
     install(FILES ${QT_PLUGINS_DIR}/multimedia/libffmpegmediaplugin.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/multimedia)
 else()
     install(FILES ${QT_PLUGINS_DIR}/audio/libqtaudio_coreaudio.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/audio)
@@ -75,6 +111,12 @@ endif()
 install(FILES ${QT_PLUGINS_DIR}/platforms/libqcocoa.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/platforms)
 # styles
 install(FILES ${QT_PLUGINS_DIR}/styles/libqmacstyle.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/styles)
+
+if(qmlui)
+    install(FILES ${QT_PLUGINS_DIR}/geometryloaders/libdefaultgeometryloader.dylib  DESTINATION ${INSTALLROOT}/${PLUGINDIR}/geometryloaders)
+    install(FILES ${QT_PLUGINS_DIR}/renderers/libopenglrenderer.dylib  DESTINATION ${INSTALLROOT}/${PLUGINDIR}/renderers)
+    install(FILES ${QT_PLUGINS_DIR}/sceneparsers/libassimpsceneimport.dylib  DESTINATION ${INSTALLROOT}/${PLUGINDIR}/sceneparsers)
+endif()
 
 # install support libraries
 set(FFTW_LIBNAME "libfftw3.3.dylib")
@@ -94,3 +136,13 @@ install(FILES ${LIBUSB1_LIBDIR}/libusb-1.0.0.dylib DESTINATION ${INSTALLROOT}/${
 install(FILES ${SNDFILE_LIBDIR}/libsndfile.1.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
 install(FILES ${SNDFILE_LIBDIR}/libsndfile.1.0.37.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
 
+if(qmlui)
+    set(qmldeps_files
+        ${QT_QML_DIR}/Qt
+        ${QT_QML_DIR}/QtQml
+        ${QT_QML_DIR}/QtQuick
+        ${QT_QML_DIR}/Qt3D
+        ${QT_QML_DIR}/QtMultimedia
+    )
+    install(DIRECTORY ${qmldeps_files} DESTINATION ${INSTALLROOT}/${BINDIR})
+endif()
