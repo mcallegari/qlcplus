@@ -1,6 +1,7 @@
 qlcplus (4.14.4) stable; urgency=low
 
   * Implemented autosave after 30 seconds of inactivity
+  * New fixture: beamZ COB 50 (thanks to Yestalgia)
 
 -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 26 Oct 2025 18:19:20 +0200
 
