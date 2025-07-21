@@ -67,7 +67,7 @@ Popup
                 qlcplus.loadFixture(selectedFile)
             else
                 qlcplus.loadWorkspace(selectedFile)
-            qlcplus.workingPath = folder.toString()
+            qlcplus.workingPath = currentFolder.toString()
         }
     }
 
