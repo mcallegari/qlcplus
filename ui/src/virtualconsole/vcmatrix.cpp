@@ -1553,7 +1553,6 @@ void VCMatrix::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
                 QPushButton *button = reinterpret_cast<QPushButton*>(it.key());
                 button->click();
             }
-            return;
         }
     }
 

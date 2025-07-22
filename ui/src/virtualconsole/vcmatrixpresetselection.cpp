@@ -45,6 +45,10 @@ VCMatrixPresetSelection::VCMatrixPresetSelection(Doc *doc, QWidget *parent)
 
     setupUi(this);
 
+    QSizePolicy sp = scrollArea->widget()->sizePolicy();
+    sp.setHorizontalPolicy(QSizePolicy::Ignored);
+    scrollArea->widget()->setSizePolicy(sp);
+
     QSettings settings;
     QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
     if (geometrySettings.isValid() == true)
@@ -54,6 +58,8 @@ VCMatrixPresetSelection::VCMatrixPresetSelection(Doc *doc, QWidget *parent)
     slotUpdatePresetProperties();
     connect(m_presetCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotUpdatePresetProperties()));
+    connect(m_checkAll, SIGNAL(toggled(bool)),
+            this, SLOT(slotCheckAllToggled(bool)));
 }
 
 VCMatrixPresetSelection::~VCMatrixPresetSelection()
@@ -165,7 +171,7 @@ void VCMatrixPresetSelection::displayProperties(RGBScript *script)
                 QLabel *propLabel = new QLabel(prop.m_displayName);
                 m_propertiesLayout->addWidget(propLabel, gridRowIdx, 0);
                 QLineEdit *propEdit = new QLineEdit(this);
-                propEdit->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
+                propEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
                 propEdit->setProperty("pName", prop.m_name);
                 QString pValue = script->property(prop.m_name);
 
@@ -248,4 +254,19 @@ void VCMatrixPresetSelection::slotPropertyCheckChanged(bool checked)
     QCheckBox *check = qobject_cast<QCheckBox *>(sender());
     QString pName = check->property("pName").toString();
     m_dynamicProperties[pName] = checked;
+}
+
+void VCMatrixPresetSelection::slotCheckAllToggled(bool checked)
+{
+    QLayout *layout = m_propertiesLayout->layout();
+    for (int i = 0; i < layout->count(); ++i)
+    {
+        QWidget *widget = layout->itemAt(i)->widget();
+        if (widget)
+        {
+            QCheckBox *checkbox = qobject_cast<QCheckBox*>(widget);
+            if (checkbox)
+                checkbox->setChecked(checked);
+        }
+    }
 }

@@ -50,6 +50,7 @@ protected slots:
     void slotPropertySpinChanged(int value);
     void slotPropertyDoubleSpinChanged(double value);
     void slotPropertyEditChanged(QString text);
+    void slotCheckAllToggled(bool checked);
 
 private:
     void resetProperties(QLayoutItem *item);

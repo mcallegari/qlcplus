@@ -85,13 +85,21 @@ VCMatrixProperties::VCMatrixProperties(VCMatrix* matrix, Doc* doc)
             m_lastAssignedID = control->m_id;
     }
 
-    m_controlsTree->setSelectionMode(QAbstractItemView::SingleSelection);
+    m_controlsTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    m_controlsTree->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    QStringList labels;
+    labels << tr("Type") << tr("Value") << tr("Soft Patch");
+    m_controlsTree->setHeaderLabels(labels);
 
     updateTree();
     slotColorComboActivated();
 
     connect(m_controlsTree, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
             this, SLOT(slotTreeSelectionChanged()));
+    connect(m_controlsTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
+            this, SLOT(slotTreeItemChanged(QTreeWidgetItem*,int)));
+    connect(m_controlsTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
+            this, SLOT(slotTreeItemDoubleClicked(QTreeWidgetItem*,int)));
 
     connect(m_colorsCombo, SIGNAL(activated(int)),
             this, SLOT(slotColorComboActivated()));
@@ -340,6 +348,12 @@ void VCMatrixProperties::updateTree()
                 item->setText(1, control->m_resource);
             break;
         }
+
+        if (control->m_inputSource.isNull() == false && control->m_inputSource->isValid())
+        {
+            item->setText(KColumnSoftPatch, QString("%1.%2").arg(control->m_inputSource->universe() + 1).arg(control->m_inputSource->channel() + 1));
+        }
+        item->setFlags(item->flags() | Qt::ItemIsEditable);
     }
     m_controlsTree->resizeColumnToContents(0);
     m_controlsTree->blockSignals(false);
@@ -559,6 +573,74 @@ void VCMatrixProperties::slotTreeSelectionChanged()
         {
             m_presetInputWidget->setCustomFeedbackVisibility(false);
             m_presetInputWidget->setKeyInputVisibility(false);
+        }
+    }
+}
+
+void VCMatrixProperties::slotTreeItemDoubleClicked(QTreeWidgetItem *item, int column)
+{
+    if (column == KColumnSoftPatch)
+        m_controlsTree->editItem(item, column);
+}
+
+void VCMatrixProperties::slotTreeItemChanged(QTreeWidgetItem *item, int column)
+{
+    if (item == NULL || column != KColumnSoftPatch)
+        return;
+
+    QList<QTreeWidgetItem*> selection = m_controlsTree->selectedItems();
+    QString patch = item->text(KColumnSoftPatch);
+    QStringList list = patch.split(".");
+
+    if (list.length() != 2)
+        return;
+
+    quint32 universe = list.at(0).toUInt();
+    quint32 channel = list.at(1).toUInt();
+
+    if (selection.count() > 1)
+    {
+        m_controlsTree->blockSignals(true);
+        for (int i = 0; i < selection.count(); ++i)
+        {
+            QTreeWidgetItem *selItem = selection.at(i);
+            quint8 ctlID = selItem->data(0, Qt::UserRole).toUInt();
+            foreach (VCMatrixControl *control, m_controls)
+            {
+                if (control->m_id == ctlID)
+                {
+                    if (universe > 0 && channel > 0)
+                    {
+                        control->m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe - 1, (channel + i) - 1));
+                        selItem->setText(KColumnSoftPatch, QString("%1.%2").arg(universe).arg(channel + i));
+                    }
+                    else
+                    {
+                        control->m_inputSource.clear();
+                        selItem->setText(KColumnSoftPatch, "");
+                    }
+                    break;
+                }
+            }
+        }
+        m_controlsTree->blockSignals(false);
+    }
+    else
+    {
+        VCMatrixControl *control = getSelectedControl();
+        if (control == NULL)
+            return;
+
+        if (patch.isEmpty())
+        {
+            control->m_inputSource.clear();
+        }
+        else
+        {
+            if (universe > 0 && channel > 0)
+                control->m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe - 1, channel - 1));
+            else
+                control->m_inputSource.clear();
         }
     }
 }
