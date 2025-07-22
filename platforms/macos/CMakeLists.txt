@@ -27,7 +27,7 @@ set(APPLE_CODESIGN_ENTITLEMENTS "qlcplus.entitlements")
 
 # install Qt library frameworks
 #set(QT_FRAMEWORKS_DIR ${_qt5_root_dir}/../../Frameworks) # homebrew
-set(QT_FRAMEWORKS_DIR $ENV{QTDIR}/lib)
+set(QT_FRAMEWORKS_DIR "/Users/filipolszewski/Qt/6.9.1/macos/lib")
 set(QT_FRAMEWORK_NAMES
     "QtCore"
     "QtDBus"
@@ -91,8 +91,8 @@ foreach(FW_NAME IN LISTS QT_FRAMEWORK_NAMES)
 endforeach()
 
 # install Qt plugins
-set(QT_PLUGINS_DIR $ENV{QTDIR}/plugins)
-set(QT_QML_DIR $ENV{QTDIR}/qml)
+set(QT_PLUGINS_DIR "/Users/filipolszewski/Qt/6.9.1/macos/plugins")
+set(QT_QML_DIR "/Users/filipolszewski/Qt/6.9.1/macos/qml")
 
 # imageformats
 install(FILES ${QT_PLUGINS_DIR}/imageformats/libqgif.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/imageformats)

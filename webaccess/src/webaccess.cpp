@@ -2194,10 +2194,17 @@ QString WebAccess::getMatrixHTML(VCMatrix *matrix)
                     || control->m_type == VCMatrixControl::Color2Knob
                     || control->m_type == VCMatrixControl::Color3Knob
                     || control->m_type == VCMatrixControl::Color4Knob
-                    || control->m_type == VCMatrixControl::Color5Knob) {
+                    || control->m_type == VCMatrixControl::Color5Knob
+                    || control->m_type == VCMatrixControl::AnimationKnob) {
                 KnobWidget *knob = qobject_cast<KnobWidget*>(matrix->getWidget(control));
                 QString slID = QString::number(control->m_id);
-                QColor color = control->m_type == VCMatrixControl::Color1Knob ? control->m_color : control->m_color.darker(250);
+                QColor color;
+                if (control->m_type == VCMatrixControl::Color1Knob)
+                    color = control->m_color;
+                else if (control->m_type == VCMatrixControl::AnimationKnob)
+                    color = QColor(Qt::gray);
+                else
+                    color = control->m_color.darker(250);
 
                 str += "<div class=\"mpieWrapper\" data=\"" + slID + "\" style=\"margin-right: 4px; margin-bottom: 4px; \">";
                 str += "<div class=\"mpie\" id=\"mpie" + slID + "\" style=\"--degValue:0; \">";
