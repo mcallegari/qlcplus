@@ -91,7 +91,7 @@ App::App()
     updateRecentFilesList();
 
     QVariant dir = settings.value(SETTINGS_WORKINGPATH);
-    if (dir.isValid() == true)
+    if (dir.isValid())
         m_workingPath = dir.toString();
 
     setAccessMask(defaultMask());
@@ -217,6 +217,9 @@ void App::setLanguage(QString locale)
     m_translator = new QTranslator(QCoreApplication::instance());
     if (m_translator->load(file, translationPath) == true)
         QCoreApplication::installTranslator(m_translator);
+
+    QSettings settings;
+    settings.setValue(SETTINGS_LANGUAGE, locale);
 
     engine()->retranslate();
 }
@@ -586,7 +589,7 @@ void App::updateRecentFilesList(QString filename)
         for (int i = 0; i < MAX_RECENT_FILES; i++)
         {
             QVariant recent = settings.value(QString("%1%2").arg(SETTINGS_RECENTFILE).arg(i));
-            if (recent.isValid() == true)
+            if (recent.isValid())
                 m_recentFiles.append(recent.toString());
         }
     }

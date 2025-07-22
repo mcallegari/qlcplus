@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QSettings>
 #include <QApplication>
 #include <QSurfaceFormat>
 #include <QCommandLineParser>
@@ -120,6 +121,13 @@ int main(int argc, char *argv[])
     QString locale = parser.value(localeOption);
 
     App qlcplusApp;
+    if (locale.isEmpty())
+    {
+        QSettings settings;
+        QVariant language = settings.value(SETTINGS_LANGUAGE);
+        if (language.isValid())
+            locale = language.toString();
+    }
     qlcplusApp.setLanguage(locale);
 
     if (parser.isSet(kioskOption))
