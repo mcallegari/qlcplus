@@ -332,7 +332,6 @@ QList<SceneValue> Fixture::positionToValues(int type, float degrees, bool isRela
 
     QLCPhysical phy = fixtureMode()->physical();
     qreal headDegrees = degrees, maxDegrees;
-    float msbValue = 0, lsbValue = 0;
 
     if (type == QLCChannel::Pan)
     {
@@ -350,23 +349,23 @@ QList<SceneValue> Fixture::positionToValues(int type, float degrees, bool isRela
             {
                 // degrees is a relative value upon the current value.
                 // Recalculate absolute degrees here
-                float chDegrees = (qreal(phy.focusPanMax()) / 256.0) * channelValueAt(panMSB);
+                float chDegrees = (maxDegrees / 256.0) * channelValueAt(panMSB);
                 headDegrees = qBound(0.0, chDegrees + headDegrees, maxDegrees);
 
                 if (panLSB != QLCChannel::invalid())
                 {
-                    chDegrees = (qreal(phy.focusPanMax()) / 65536.0) * channelValueAt(panLSB);
+                    chDegrees = (maxDegrees / 65536.0) * channelValueAt(panLSB);
                     headDegrees = qBound(0.0, chDegrees + headDegrees, maxDegrees);
                 }
             }
 
-            quint16 degToDmx = (headDegrees * 65535.0) / qreal(phy.focusPanMax());
+            quint16 degToDmx = (headDegrees * 65535.0) / maxDegrees;
             posList.append(SceneValue(id(), panMSB, static_cast<uchar>(degToDmx >> 8)));
 
             if (panLSB != QLCChannel::invalid())
                 posList.append(SceneValue(id(), panLSB, static_cast<uchar>(degToDmx & 0x00FF)));
 
-            qDebug() << "[positionToValues] Pan MSB:" << msbValue << "LSB:" << lsbValue;
+            qDebug() << "[positionToValues] Pan MSB idx:" << panMSB << "LSB idx:" << panLSB << "value" << QString::number(degToDmx, 16);
 
             chDone.append(panMSB);
         }
@@ -387,23 +386,23 @@ QList<SceneValue> Fixture::positionToValues(int type, float degrees, bool isRela
             {
                 // degrees is a relative value upon the current value.
                 // Recalculate absolute degrees here
-                float chDegrees = (qreal(phy.focusTiltMax()) / 256.0) * channelValueAt(tiltMSB);
+                float chDegrees = (maxDegrees / 256.0) * channelValueAt(tiltMSB);
                 headDegrees = qBound(0.0, chDegrees + headDegrees, maxDegrees);
 
                 if (tiltLSB != QLCChannel::invalid())
                 {
-                    chDegrees = (qreal(phy.focusPanMax()) / 65536.0) * channelValueAt(tiltLSB);
+                    chDegrees = (maxDegrees / 65536.0) * channelValueAt(tiltLSB);
                     headDegrees = qBound(0.0, chDegrees + headDegrees, maxDegrees);
                 }
             }
 
-            quint16 degToDmx = (headDegrees * 65535.0) / qreal(phy.focusTiltMax());
+            quint16 degToDmx = (headDegrees * 65535.0) / maxDegrees;
             posList.append(SceneValue(id(), tiltMSB, static_cast<uchar>(degToDmx >> 8)));
 
             if (tiltLSB != QLCChannel::invalid())
                 posList.append(SceneValue(id(), tiltLSB, static_cast<uchar>(degToDmx & 0x00FF)));
 
-            qDebug() << "[positionToValues] Tilt MSB:" << msbValue << "LSB:" << lsbValue;
+            qDebug() << "[positionToValues] Tilt MSB idx:" << tiltMSB << "LSB idx:" << tiltLSB << "value" << QString::number(degToDmx, 16);
 
             chDone.append(tiltMSB);
         }
