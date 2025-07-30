@@ -30,7 +30,7 @@ Rectangle
     width: UISettings.bigItemHeight * 3
     height: (paletteToolbar.visible ? paletteToolbar.height : 0) +
             colorToolBar.height + toolLoader.height + paletteBox.height
-    color: UISettings.bgMedium
+    color: UISettings.bgStrong
 
     property bool closeOnSelect: false
     property var dragTarget: null

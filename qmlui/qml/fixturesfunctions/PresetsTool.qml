@@ -27,7 +27,7 @@ Rectangle
     id: toolRoot
     width: UISettings.bigItemHeight * 3
     height: UISettings.bigItemHeight * 3
-    color: UISettings.bgMedium
+    color: UISettings.bgStrong
     border.color: UISettings.bgLight
     border.width: 2
     clip: true

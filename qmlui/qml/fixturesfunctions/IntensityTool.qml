@@ -29,9 +29,7 @@ Rectangle
     id: intRoot
     width: UISettings.bigItemHeight * (paletteBox.checked ? 2 : 1.5)
     height: (UISettings.bigItemHeight * 3) + paletteBox.height
-    color: UISettings.bgMedium
-    //border.color: UISettings.bgLight
-    //border.width: 2
+    color: UISettings.bgStrong
 
     property bool dmxValues: true
     property bool closeOnSelect: false
@@ -44,6 +42,21 @@ Rectangle
 
     signal valueChanged(int value)
     signal close()
+
+    function setValue(value)
+    {
+        previousValue = 0
+        if (value === -1)
+        {
+            relativeValue = true
+            currentValue = 0
+        }
+        else
+        {
+            relativeValue = false
+            currentValue = dmxValues ? Math.round(value) : Math.round(value / 2.55)
+        }
+    }
 
     onCurrentValueChanged:
     {
@@ -68,22 +81,6 @@ Rectangle
     {
         if (!visible)
             paletteBox.checked = false
-    }
-
-    function show(value)
-    {
-        previousValue = 0
-        if (value === -1)
-        {
-            relativeValue = true
-            currentValue = 0
-        }
-        else
-        {
-            relativeValue = false
-            currentValue = dmxValues ? Math.round(value) : Math.round(value / 2.55)
-        }
-        visible = true
     }
 
     function loadPalette(pId)

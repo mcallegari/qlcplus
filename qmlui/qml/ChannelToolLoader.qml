@@ -96,7 +96,7 @@ Item
             }
             else if (channelType == QLCChannel.Intensity)
             {
-                item.show(itemRoot.channelValue)
+                item.setValue(itemRoot.channelValue)
             }
             else if (channelType == QLCChannel.Pan ||
                      channelType == QLCChannel.Tilt)
