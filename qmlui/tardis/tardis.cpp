@@ -284,7 +284,7 @@ void Tardis::run()
                     action.m_objID == m_history.at(i).m_objID &&
                     action.m_oldValue == m_history.at(i).m_newValue)
                 {
-                    qDebug() << "Found match at" << i << action.m_oldValue << m_history.at(i).m_newValue;
+                    //qDebug() << "Found match at" << i << action.m_oldValue << m_history.at(i).m_newValue;
                     action.m_oldValue = m_history.at(i).m_oldValue;
                     m_history.replace(i, action);
                     match = true;
@@ -310,7 +310,7 @@ void Tardis::run()
 
         m_historyIndex = m_history.count() - 1;
 
-        qDebug("Got action: 0x%02X, history length: %d (%d)", action.m_action, m_historyCount, int(m_history.count()));
+        //qDebug("Got action: 0x%02X, history length: %d (%d)", action.m_action, m_historyCount, int(m_history.count()));
 
         /* If there are active network connections, send the action there too */
         forwardActionToNetwork(action.m_action, action);
