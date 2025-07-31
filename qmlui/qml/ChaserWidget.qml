@@ -106,7 +106,7 @@ Column
     ModelSelector
     {
         id: ceSelector
-        onItemsCountChanged: console.log("Chaser Editor selected items: " + itemsCount)
+        onItemsCountChanged: (itemsCount) => console.log("Chaser Editor selected items: " + itemsCount)
     }
 
     TimeEditTool
@@ -454,7 +454,7 @@ Column
 
                     property bool dragActive: drag.active
 
-                    onPressed:
+                    onPressed: (mouse) =>
                     {
                         var posInList = delegateRoot.mapToItem(widgetRoot, mouse.x, mouse.y)
                         csDragItem.parent = widgetRoot
@@ -466,7 +466,7 @@ Column
                             return
 
                         ceSelector.selectItem(index, cStepsList.model, mouse.modifiers & Qt.ControlModifier)
-                        if (mouse.modifiers == 0)
+                        if (mouse.modifiers === 0)
                         {
                             widgetRoot.indexChanged(index)
                             csDragItem.itemsList = []
@@ -476,7 +476,7 @@ Column
                         itemRoot.forceActiveFocus()
                     }
 
-                    onDoubleClicked: csDelegate.handleDoubleClick(mouse.x, mouse.y)
+                    onDoubleClicked: (mouse) => csDelegate.handleDoubleClick(mouse.x, mouse.y)
 
                     onDragActiveChanged:
                     {
@@ -518,7 +518,7 @@ Column
                         highlightEditTime: editStepIndex === index ? editStepType : -1
                         nextIndex: widgetRoot.nextIndex
 
-                        onDoubleClicked:
+                        onDoubleClicked: (type) =>
                         {
                             console.log("Double clicked: " + indexInList + ", " + type)
                             if (type === QLCFunction.Name)
