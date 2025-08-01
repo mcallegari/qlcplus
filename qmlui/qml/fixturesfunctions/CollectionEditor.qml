@@ -231,7 +231,7 @@ Rectangle
 
                         cFunctionList.dragInsertIndex = -1
                     }
-                    onPositionChanged:
+                    onPositionChanged: (drag) =>
                     {
                         var idx = cFunctionList.indexAt(drag.x, drag.y)
                         //console.log("Item index:" + idx)

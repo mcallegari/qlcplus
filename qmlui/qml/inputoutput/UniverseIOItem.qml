@@ -325,7 +325,7 @@ Rectangle
                         drag.target: opItem
                         drag.threshold: 30
 
-                        onClicked: mouse.accepted = false
+                        onClicked: (mouse) => mouse.accepted = false
                         onPositionChanged: if (opMouseArea.drag.active) uniItem.patchDragging(true)
                         onReleased:
                         {

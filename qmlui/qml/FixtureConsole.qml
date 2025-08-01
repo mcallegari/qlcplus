@@ -220,7 +220,7 @@ Rectangle
                                 MouseArea
                                 {
                                     anchors.fill: parent
-                                    onClicked:
+                                    onClicked: (mouse) =>
                                     {
                                         if (isEnabled && ((mouse.modifiers & Qt.ControlModifier) || multipleSelection))
                                         {

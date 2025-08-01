@@ -170,7 +170,7 @@ Rectangle
             }
             onEscapePressed: beatChooserBox.visible = false
 
-            onTapTimeChanged: ioManager.bpmNumber = Math.min(parseInt(60000 / time), 300)
+            onTapTimeChanged: (time) => ioManager.bpmNumber = Math.min(parseInt(60000 / time), 300)
         }
     }
 }

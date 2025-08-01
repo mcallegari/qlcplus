@@ -69,7 +69,7 @@ Rectangle
                 width: parent.width - x
                 color: UISettings.fgMain
                 text: fixtureBrowser.searchFilter
-                font.family: "Roboto Condensed"
+                font.family: UISettings.robotoFontName
                 font.pixelSize: height - 6
                 selectionColor: UISettings.highlightPressed
                 selectByMouse: true

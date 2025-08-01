@@ -93,7 +93,7 @@ CustomPopupDialog
                     width: parent.width - x
                     color: UISettings.fgMain
                     text: importManager.fixtureSearchFilter
-                    font.family: "Roboto Condensed"
+                    font.family: UISettings.robotoFontName
                     font.pixelSize: height - 6
                     selectionColor: UISettings.highlightPressed
                     selectByMouse: true
@@ -133,7 +133,7 @@ CustomPopupDialog
                     width: parent.width - x
                     color: UISettings.fgMain
                     text: importManager.functionSearchFilter
-                    font.family: "Roboto Condensed"
+                    font.family: UISettings.robotoFontName
                     font.pixelSize: height - 6
                     selectionColor: UISettings.highlightPressed
                     selectByMouse: true
