@@ -120,6 +120,8 @@ SidePanel
                     checked = !checked
                     if (checked === true)
                         loaderSource = "qrc:/ProfilesList.qml"
+                    else
+                        ioManager.finishInputProfile()
                     animatePanel(checked)
                 }
 

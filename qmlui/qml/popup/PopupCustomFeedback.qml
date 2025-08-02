@@ -28,7 +28,7 @@ import "."
 CustomPopupDialog
 {
     id: popupRoot
-    width: mainView.width / (colorTableList.visible ? 2 : 3)
+    width: mainView.width / 2
     title: qsTr("Custom Feedback")
     standardButtons: Dialog.Cancel | Dialog.Ok
 
@@ -128,204 +128,140 @@ CustomPopupDialog
         GridLayout
         {
             width: popupRoot.width
-            columns: 2
+            columns: colorTableList.visible ? 2 : 1
 
-            ColumnLayout
+            GroupBox
             {
-                id: valuesColumn
+                title: qsTr("Values")
                 Layout.fillWidth: true
+                font.family: UISettings.robotoFontName
+                font.pixelSize: UISettings.textSizeDefault
+                palette.windowText: UISettings.fgMain
 
-                GroupBox
+                GridLayout
                 {
-                    title: qsTr("Values")
                     width: parent.width
-                    font.family: UISettings.robotoFontName
-                    font.pixelSize: UISettings.textSizeDefault
-                    palette.windowText: UISettings.fgMain
+                    columns: 3
 
-                    GridLayout
+                    // row 1
+                    RobotoText
                     {
-                        width: parent.width
-                        columns: 3
+                        height: UISettings.listItemHeight
+                        label: qsTr("Lower Value")
+                    }
 
-                        // row 1
-                        RobotoText
+                    CustomSpinBox
+                    {
+                        id: lowerValueSpin
+                        from: 0
+                        to: 255
+                    }
+
+                    Rectangle
+                    {
+                        id: lowerColorBox
+                        visible: popupRoot.hasColorTable
+                        height: UISettings.listItemHeight
+                        width: UISettings.bigItemHeight
+                        color: "black"
+
+                        border.width: 2
+                        border.color: popupRoot.selectedValue === 0 ? UISettings.selection : UISettings.fgMain
+
+                        MouseArea
                         {
-                            height: UISettings.listItemHeight
-                            label: qsTr("Lower Value")
-                        }
-
-                        CustomSpinBox
-                        {
-                            id: lowerValueSpin
-                            from: 0
-                            to: 255
-                        }
-
-                        Rectangle
-                        {
-                            id: lowerColorBox
-                            visible: popupRoot.hasColorTable
-                            height: UISettings.listItemHeight
-                            width: UISettings.bigItemHeight
-                            color: "black"
-
-                            border.width: 2
-                            border.color: popupRoot.selectedValue === 0 ? UISettings.selection : UISettings.fgMain
-
-                            MouseArea
+                            anchors.fill: parent
+                            onClicked:
                             {
-                                anchors.fill: parent
-                                onClicked:
-                                {
-                                    selectedValue = 0
-                                    colorTableList.visible = true
-                                }
-                            }
-                        }
-
-                        // row 2
-                        RobotoText
-                        {
-                            height: UISettings.listItemHeight
-                            label: qsTr("Upper Value")
-                        }
-
-                        CustomSpinBox
-                        {
-                            id: upperValueSpin
-                            from: 0
-                            to: 255
-                        }
-
-                        Rectangle
-                        {
-                            id: upperColorBox
-                            visible: popupRoot.hasColorTable
-                            height: UISettings.listItemHeight
-                            width: UISettings.bigItemHeight
-                            color: "black"
-
-                            border.width: 2
-                            border.color: popupRoot.selectedValue === 1 ? UISettings.selection : UISettings.fgMain
-
-                            MouseArea
-                            {
-                                anchors.fill: parent
-                                onClicked:
-                                {
-                                    selectedValue = 1
-                                    colorTableList.visible = true
-                                }
-                            }
-                        }
-
-                        // row 3
-                        RobotoText
-                        {
-                            height: UISettings.listItemHeight
-                            label: qsTr("Monitor Value")
-                        }
-
-                        CustomSpinBox
-                        {
-                            id: monitorValueSpin
-                            from: 0
-                            to: 255
-                        }
-
-                        Rectangle
-                        {
-                            id: monitorColorBox
-                            visible: popupRoot.hasColorTable
-                            height: UISettings.listItemHeight
-                            width: UISettings.bigItemHeight
-                            color: "black"
-
-                            border.width: 2
-                            border.color: popupRoot.selectedValue === 2 ? UISettings.selection : UISettings.fgMain
-
-                            MouseArea
-                            {
-                                anchors.fill: parent
-                                onClicked:
-                                {
-                                    selectedValue = 2
-                                    colorTableList.visible = true
-                                }
+                                selectedValue = 0
+                                colorTableList.visible = true
                             }
                         }
                     }
-                } // GroupBox
 
-                GroupBox
-                {
-                    visible: popupRoot.hasMidiChannelTable
-                    title: qsTr("MIDI Channel")
-                    width: parent.width
-                    font.family: UISettings.robotoFontName
-                    font.pixelSize: UISettings.textSizeDefault
-                    palette.windowText: UISettings.fgMain
-
-                    GridLayout
+                    // row 2
+                    RobotoText
                     {
-                        width: parent.width
-                        columns: 2
+                        height: UISettings.listItemHeight
+                        label: qsTr("Upper Value")
+                    }
 
-                        // row 1
-                        RobotoText
-                        {
-                            height: UISettings.listItemHeight
-                            label: qsTr("Lower Channel")
-                        }
+                    CustomSpinBox
+                    {
+                        id: upperValueSpin
+                        from: 0
+                        to: 255
+                    }
 
-                        CustomComboBox
-                        {
-                            id: lowerChannelCombo
-                            Layout.fillWidth: true
-                            height: UISettings.listItemHeight
-                            textRole: ""
-                        }
+                    Rectangle
+                    {
+                        id: upperColorBox
+                        visible: popupRoot.hasColorTable
+                        height: UISettings.listItemHeight
+                        width: UISettings.bigItemHeight
+                        color: "black"
 
-                        // row 2
-                        RobotoText
-                        {
-                            height: UISettings.listItemHeight
-                            label: qsTr("Upper Channel")
-                        }
+                        border.width: 2
+                        border.color: popupRoot.selectedValue === 1 ? UISettings.selection : UISettings.fgMain
 
-                        CustomComboBox
+                        MouseArea
                         {
-                            id: upperChannelCombo
-                            Layout.fillWidth: true
-                            height: UISettings.listItemHeight
-                            textRole: ""
-                        }
-
-                        // row 3
-                        RobotoText
-                        {
-                            height: UISettings.listItemHeight
-                            label: qsTr("Monitor Channel")
-                        }
-
-                        CustomComboBox
-                        {
-                            id: monitorChannelCombo
-                            Layout.fillWidth: true
-                            height: UISettings.listItemHeight
-                            textRole: ""
+                            anchors.fill: parent
+                            onClicked:
+                            {
+                                selectedValue = 1
+                                colorTableList.visible = true
+                            }
                         }
                     }
-                } // GroupBox
-            } // ColumnLayout
 
+                    // row 3
+                    RobotoText
+                    {
+                        height: UISettings.listItemHeight
+                        label: qsTr("Monitor Value")
+                    }
+
+                    CustomSpinBox
+                    {
+                        id: monitorValueSpin
+                        from: 0
+                        to: 255
+                    }
+
+                    Rectangle
+                    {
+                        id: monitorColorBox
+                        visible: popupRoot.hasColorTable
+                        height: UISettings.listItemHeight
+                        width: UISettings.bigItemHeight
+                        color: "black"
+
+                        border.width: 2
+                        border.color: popupRoot.selectedValue === 2 ? UISettings.selection : UISettings.fgMain
+
+                        MouseArea
+                        {
+                            anchors.fill: parent
+                            onClicked:
+                            {
+                                selectedValue = 2
+                                colorTableList.visible = true
+                            }
+                        }
+                    }
+                }
+            } // GroupBox
+
+            // Colors list
             ListView
             {
                 id: colorTableList
                 visible: false
-                Layout.fillWidth: true
-                height: valuesColumn.height
+                //Layout.fillWidth: true
+                width: popupRoot.width / 2
+                Layout.fillHeight: true
+                Layout.rowSpan: 2
 
                 clip: true
                 boundsBehavior: Flickable.StopAtBounds
@@ -399,6 +335,67 @@ CustomPopupDialog
                             }
                         }
                     }
-            }
-        }
+            } // ListView
+
+            GroupBox
+            {
+                visible: popupRoot.hasMidiChannelTable
+                title: qsTr("MIDI Channel")
+                Layout.fillWidth: true
+                font.family: UISettings.robotoFontName
+                font.pixelSize: UISettings.textSizeDefault
+                palette.windowText: UISettings.fgMain
+
+                GridLayout
+                {
+                    width: parent.width
+                    columns: 2
+
+                    // row 1
+                    RobotoText
+                    {
+                        height: UISettings.listItemHeight
+                        label: qsTr("Lower Channel")
+                    }
+
+                    CustomComboBox
+                    {
+                        id: lowerChannelCombo
+                        Layout.fillWidth: true
+                        height: UISettings.listItemHeight
+                        textRole: ""
+                    }
+
+                    // row 2
+                    RobotoText
+                    {
+                        height: UISettings.listItemHeight
+                        label: qsTr("Upper Channel")
+                    }
+
+                    CustomComboBox
+                    {
+                        id: upperChannelCombo
+                        Layout.fillWidth: true
+                        height: UISettings.listItemHeight
+                        textRole: ""
+                    }
+
+                    // row 3
+                    RobotoText
+                    {
+                        height: UISettings.listItemHeight
+                        label: qsTr("Monitor Channel")
+                    }
+
+                    CustomComboBox
+                    {
+                        id: monitorChannelCombo
+                        Layout.fillWidth: true
+                        height: UISettings.listItemHeight
+                        textRole: ""
+                    }
+                }
+            } // GroupBox
+        } // GridLayout
 }

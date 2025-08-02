@@ -130,7 +130,7 @@ ColumnLayout
         standardButtons: Dialog.Ok
         title: qsTr("!! Warning !!")
 
-        onClicked:
+        onClicked: (role) =>
         {
             if (role === Dialog.Yes)
             {
