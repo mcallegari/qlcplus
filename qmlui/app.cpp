@@ -600,6 +600,14 @@ QStringList App::recentFiles() const
     return m_recentFiles;
 }
 
+void App::loadLastWorkspace()
+{
+    if (m_recentFiles.isEmpty())
+        return;
+
+    loadWorkspace(m_recentFiles.first());
+}
+
 QString App::workingPath() const
 {
     return m_workingPath;

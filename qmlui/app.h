@@ -281,6 +281,9 @@ public:
     /** Return the list of the recently opened files */
     QStringList recentFiles() const;
 
+    /** Open the file from last session */
+    void loadLastWorkspace();
+
     /** Get/Set the path currently used by QLC+ to access projects and resources */
     QString workingPath() const;
     void setWorkingPath(QString workingPath);
