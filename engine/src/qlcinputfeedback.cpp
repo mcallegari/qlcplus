@@ -23,6 +23,7 @@
 QLCInputFeedback::QLCInputFeedback()
     : m_type(Undefinded)
     , m_value(0)
+    , m_extraParams(-1)
 {
 }
 
