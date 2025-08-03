@@ -46,12 +46,9 @@ Rectangle
 
     function updatePresets(presetModel)
     {
-        if (visible === true)
-        {
-            selectedFixture = -1
-            prList.model = null // force reload
-            prList.model = presetModel
-        }
+        selectedFixture = -1
+        prList.model = null // force reload
+        prList.model = presetModel
     }
 
     MouseArea
