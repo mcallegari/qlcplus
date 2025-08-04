@@ -126,6 +126,10 @@ void RGBMatrixEditor::slotFunctionManagerActive(bool active)
 
 void RGBMatrixEditor::init()
 {
+    QSizePolicy sp = scrollArea->widget()->sizePolicy();
+    sp.setHorizontalPolicy(QSizePolicy::Ignored);
+    scrollArea->widget()->setSizePolicy(sp);
+
     /* Name */
     m_nameEdit->setText(m_matrix->name());
     m_nameEdit->setSelection(0, m_matrix->name().length());
@@ -673,7 +677,7 @@ void RGBMatrixEditor::displayProperties(RGBScript *script)
                 QLabel *propLabel = new QLabel(prop.m_displayName);
                 m_propertiesLayout->addWidget(propLabel, gridRowIdx, 0);
                 QLineEdit *propEdit = new QLineEdit(this);
-                propEdit->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
+                propEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
                 propEdit->setProperty("pName", prop.m_name);
                 connect(propEdit, SIGNAL(textEdited(QString)),
                         this, SLOT(slotPropertyEditChanged(QString)));
