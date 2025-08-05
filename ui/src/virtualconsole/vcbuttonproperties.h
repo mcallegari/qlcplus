@@ -75,6 +75,7 @@ private slots:
 private:
     SpeedDialWidget *m_speedDials;
     int m_fadeOutTime;
+    bool syncStatus;
 
 };
 

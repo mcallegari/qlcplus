@@ -35,7 +35,7 @@ QLCInputChannel::QLCInputChannel()
     , m_movementSensitivity(20)
     , m_sendExtraPress(false)
     , m_lowerValue(0)
-    , m_upperValue(UCHAR_MAX)
+    , m_upperValue(0)
     , m_lowerChannel(-1)
 {
 }

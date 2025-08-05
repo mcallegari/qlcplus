@@ -217,6 +217,7 @@ protected:
 public:
     /** Set the widget's background color and invalidate background image */
     virtual void setBackgroundColor(const QColor& color);
+    virtual void setBackgroundColor(int value, QSharedPointer<QLCInputSource> src);
 
     /** Get the widget's background color. The color is invalid if the
         widget has a background image. */

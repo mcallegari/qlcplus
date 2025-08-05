@@ -43,6 +43,8 @@ public:
 
     void setMonitoringVisibility(bool visible);
 
+    void setSyncStatus(bool enable);
+
     /** @reimp */
     void accept();
 
@@ -57,6 +59,7 @@ private:
     QLCInputProfile *m_profile;
     QSharedPointer<QLCInputSource> m_inputSource;
     SelectedFeedback m_selectedFeedback;
+    bool m_syncStatus;
 };
 
 #endif // CUSTOMFEEDBACKDIALOG_H

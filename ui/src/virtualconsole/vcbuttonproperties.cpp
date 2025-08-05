@@ -53,6 +53,7 @@ VCButtonProperties::VCButtonProperties(VCButton* button, Doc* doc)
     m_inputSelWidget->setKeySequence(m_button->keySequence());
     m_inputSelWidget->setInputSource(m_button->inputSource());
     m_inputSelWidget->setWidgetPage(m_button->page());
+    m_inputSelWidget->setSyncStatus(m_button->syncStatus);
     m_inputSelWidget->show();
     m_extControlLayout->addWidget(m_inputSelWidget);
 
@@ -213,6 +214,7 @@ void VCButtonProperties::slotFadeOutTextEdited()
 
 void VCButtonProperties::accept()
 {
+    m_button->syncStatus = m_inputSelWidget->isSyncColor();
     m_button->setCaption(m_nameEdit->text());
     m_button->setFunction(m_function);
     m_button->setKeySequence(m_inputSelWidget->keySequence());
