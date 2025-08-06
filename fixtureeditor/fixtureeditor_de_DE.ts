@@ -2,6 +2,34 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="de_DE">
 <context>
+    <name>AboutBox</name>
+    <message>
+        <location filename="../ui/src/aboutbox.ui" line="33"/>
+        <source>About Q Light Controller Plus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/src/aboutbox.ui" line="275"/>
+        <source>Contributors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/src/aboutbox.ui" line="309"/>
+        <source>This application is licensed under the terms of the Apache 2.0 license.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/src/aboutbox.cpp" line="43"/>
+        <source>and contributors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/src/aboutbox.cpp" line="44"/>
+        <source>Website: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AddChannelsDialog</name>
     <message>
         <location filename="addchannelsdialog.ui" line="33"/>
