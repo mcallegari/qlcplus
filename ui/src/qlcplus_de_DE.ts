@@ -242,7 +242,7 @@
     <message>
         <location filename="addrgbpanel.ui" line="109"/>
         <source>Allow cross-universe addressing [EXPERIMENTAL]</source>
-        <translation type="unfinished"></translation>
+        <translation>Adressierung über Universumsgrenzen erlauben [EXPERIMENTEL]</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="219"/>
@@ -1803,13 +1803,6 @@ Changes will be lost if you don&apos;t save them.</source>
     </message>
 </context>
 <context>
-    <name>DebugBox</name>
-    <message>
-        <source>QLC+ debug window</source>
-        <translation type="vanished">QLC+-Debug-Fenster</translation>
-    </message>
-</context>
-<context>
     <name>DmxDumpFactory</name>
     <message>
         <location filename="dmxdumpfactory.ui" line="33"/>
@@ -1877,33 +1870,6 @@ Changes will be lost if you don&apos;t save them.</source>
         <location filename="dmxdumpfactory.cpp" line="80"/>
         <source>New Scene From Live %1</source>
         <translation>Neue Szene aus der Livewiedergabe %1</translation>
-    </message>
-</context>
-<context>
-    <name>DocBrowser</name>
-    <message>
-        <source>%1 - Document Browser</source>
-        <translation type="vanished">%1 - Handbuch</translation>
-    </message>
-    <message>
-        <source>Backward</source>
-        <translation type="vanished">Zurück</translation>
-    </message>
-    <message>
-        <source>Forward</source>
-        <translation type="vanished">Vorwärts</translation>
-    </message>
-    <message>
-        <source>Index</source>
-        <translation type="vanished">Inhaltsverzeichnis</translation>
-    </message>
-    <message>
-        <source>About Qt</source>
-        <translation type="vanished">Über Qt</translation>
-    </message>
-    <message>
-        <source>Close this window</source>
-        <translation type="vanished">Dieses Fenster schließen</translation>
     </message>
 </context>
 <context>
@@ -2206,12 +2172,12 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="fixturegroupeditor.ui" line="175"/>
         <source>Add/replace fixtures to current column, going down starting from selected cell</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte zur aktuellen Spalte hinzufügen/entfernen, von oben nach unten, beginnend beim ausgewählten Element</translation>
     </message>
     <message>
         <location filename="fixturegroupeditor.ui" line="192"/>
         <source>Add/replace fixtures to current column, going up starting from selected cell</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte zur aktuellen Spalte hinzufügen/entfernen, von unten nach oben, beginnend beim ausgewählten Element</translation>
     </message>
     <message>
         <location filename="fixturegroupeditor.ui" line="217"/>
@@ -2243,13 +2209,13 @@ Changes will be lost if you don&apos;t save them.</source>
         <location filename="fixturegroupeditor.ui" line="141"/>
         <source>Add/replace fixtures to current row, going right starting from selected cell</source>
         <oldsource>Add/replace fixtures to current row, starting from selected cell</oldsource>
-        <translation type="unfinished">Geräte zur aktuellen Zeile hinzufügen/entfernen, beginnend beim ausgewähltem Element</translation>
+        <translation>Geräte zur aktuellen Zeile hinzufügen/entfernen, von links nach rechts, beginnend beim ausgewählten Element</translation>
     </message>
     <message>
         <location filename="fixturegroupeditor.ui" line="158"/>
         <source>Add/replace fixtures to current row, going backwards starting from selected cell</source>
         <oldsource>Add/replace fixtures to current column, starting from selected cell</oldsource>
-        <translation type="unfinished">Geräte zur aktuellen Spalte hinzufügen/entfernen, beginnend beim ausgewähltem Element</translation>
+        <translation>Geräte zur aktuellen Zeile hinzufügen/entfernen, von rechts nach links, beginnend beim ausgewählten Element</translation>
     </message>
 </context>
 <context>
@@ -3052,7 +3018,22 @@ li.checked::marker { content: &quot;\2612&quot;; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3- add widgets to the Virtual Console&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To move from a step to another press the &amp;quot;Next&amp;quot; button&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Wilkommen beim QLC+ Assistenten!&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Diese geführte Einleitung hilft beim Start von QLC+ in ein paar Minuten.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Sie besteht aus 3 einachen Schritten:&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1- Geräte hinzufügen&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2- Auswahl der Möglichkeiten zur Funktionserstellung&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3- Hinzufügen von Assistenten zur Virtuellen Konsole&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Von Schritt zu Schritt die &amp;quot;Nächste&amp;quot; Taste verwenden&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="198"/>
@@ -3064,7 +3045,14 @@ li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Add the fixtures for which you want to create functions and widgets&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Hinzufügen der Geräte für die Erstellung von Funktionen und Assistenten &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="287"/>
@@ -3076,42 +3064,49 @@ li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Based on the functions you selected, I can create the following widgets on your Virtual Console. Just check which ones you need.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Basierend auf den ausgewählten Funktionen können folgende Assistenten zur virtuellen Konsole hinzugefügt werden. Bitte die benötigten Assistenten auswählen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="329"/>
         <source>Slider Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Reglerbreite</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="336"/>
         <source>Slider Height</source>
-        <translation type="unfinished"></translation>
+        <translation>Reglerhöhe</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="356"/>
         <source>Heads</source>
-        <translation type="unfinished">Heads</translation>
+        <translation>Heads</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="363"/>
         <source>All</source>
-        <translation type="unfinished">Alle</translation>
+        <translation>Alle</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="386"/>
         <source>Widgets/Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Assistenten/Zeile</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="403"/>
         <source>Channel Frame Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalrahmenseiten</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="410"/>
         <source>Channels Monitored</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanäle beobachten</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="450"/>
@@ -3132,34 +3127,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <location filename="functionwizard.ui" line="43"/>
         <source>Introduction</source>
         <translation>Einleitung</translation>
-    </message>
-    <message>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Welcome to the QLC+ wizard!&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;This is a guided procedure that will allow you to start using QLC+ in a few minutes.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;It basically consists in three simple steps:&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1- add fixtures&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2- select capabilities to create functions&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3- add widgets to the Virtual Console&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To move from a step to another press the &amp;quot;Next&amp;quot; button&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="vanished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Wilkommen beim QLC+ Assistenten!&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Diese geführte Einleitung hilft beim Start von QLC+ in ein paar Minuten.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Sie besteht aus 3 einachen Schritten:&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1- Geräte hinzufügen&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2- Auswahl der Möglichkeiten zur Funktionserstellung&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3- Hinzufügen von Assistenten zur Virtuellen Konsole&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Von Schritt zu Schritt die &amp;quot;Nächste&amp;quot; Taste verwenden&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="151"/>
@@ -3185,7 +3152,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Hinzufügen der Geräte für die Erstellung von Funktionen und Assistenten&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Basierend auf den hinzugefügten Geräten, kann ich die links gelisteten Funktionen erstellen. Benötigte auswählen, Anzeige erfolgt auf der rechten Seite!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="213"/>
@@ -3208,33 +3175,9 @@ p, li { white-space: pre-wrap; }
         <translation>Ungerade/Gerade</translation>
     </message>
     <message>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Based on the fixtures you added, I can create the functions listed on the left. Just select what you need and see the results on the right!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="vanished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Basierend auf den hinzugefügten Geräten, kann ich die links gelisteten Funktionen erstellen. Benötigte auswählen, Anzeige erfolgt auf der rechten Seite!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <location filename="functionwizard.ui" line="269"/>
         <source>Virtual Console</source>
         <translation>Virtuelle Konsole</translation>
-    </message>
-    <message>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Based on the functions you selected, I can create the following widgets on your Virtual Console. Just check which ones you need.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="vanished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Basierend auf den ausgewählten Funktionen können folgende Assistenten zur virtuellen Konsole hinzugefügt werden. Bitte die benötigten Assistenten auswählen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="420"/>
@@ -6404,7 +6347,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="101"/>
         <source>Show header</source>
-        <translation>Show-Überschrift</translation>
+        <translation>Überschrift anzeigen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="114"/>
@@ -7130,12 +7073,12 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="807"/>
         <source>Show Grand Master slider on the virtual console and the web interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Hauptregler in der Virtuellen Konsole und im Webinterface anzeigen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="810"/>
         <source>Visible</source>
-        <translation type="unfinished"></translation>
+        <translation>Sichtbar</translation>
     </message>
 </context>
 <context>
@@ -8003,7 +7946,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="97"/>
         <source>Pan Fine</source>
-        <translation type="unfinished"></translation>
+        <translation>Pan Fein</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="110"/>
@@ -8028,7 +7971,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="123"/>
         <source>Tilt Fine</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilt Fein</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="136"/>
@@ -8344,7 +8287,8 @@ Please select one with such channels.</source>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="370"/>
         <source>VC Fixture Widget Wizard</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Not sure about this since it opens the same menu as in the function tab</translatorcomment>
+        <translation>Funktionsassistent</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="387"/>

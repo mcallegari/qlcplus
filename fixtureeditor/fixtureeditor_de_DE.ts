@@ -6,27 +6,27 @@
     <message>
         <location filename="../ui/src/aboutbox.ui" line="33"/>
         <source>About Q Light Controller Plus</source>
-        <translation type="unfinished"></translation>
+        <translation>Über Q Light Controller Plus</translation>
     </message>
     <message>
         <location filename="../ui/src/aboutbox.ui" line="275"/>
         <source>Contributors</source>
-        <translation type="unfinished"></translation>
+        <translation>Mitwirkende</translation>
     </message>
     <message>
         <location filename="../ui/src/aboutbox.ui" line="309"/>
         <source>This application is licensed under the terms of the Apache 2.0 license.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Programm ist unter den Bedingungen der Apache-Version 2.0 lizensiert.</translation>
     </message>
     <message>
         <location filename="../ui/src/aboutbox.cpp" line="43"/>
         <source>and contributors:</source>
-        <translation type="unfinished"></translation>
+        <translation>und Mitwirkende:</translation>
     </message>
     <message>
         <location filename="../ui/src/aboutbox.cpp" line="44"/>
         <source>Website: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Webseite: %1</translation>
     </message>
 </context>
 <context>

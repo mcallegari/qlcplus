@@ -884,7 +884,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="202"/>
         <source>Add an increasing offset to all fixtures</source>
-        <translation type="unfinished"></translation>
+        <translation>Einen zunehmenden Versatz auf alle Geräte anwenden</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="216"/>
@@ -1016,22 +1016,22 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="929"/>
         <source>Parallel</source>
-        <translation type="unfinished"></translation>
+        <translation>Parallel</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="930"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Seriell</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="931"/>
         <source>Asymmetric</source>
-        <translation type="unfinished"></translation>
+        <translation>Asymmetrisch</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="944"/>
         <source>Fixture Order</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte-Reihenfolge</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="800"/>
@@ -1042,12 +1042,12 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="70"/>
         <source>EFX increasing offset</source>
-        <translation type="unfinished"></translation>
+        <translation>EFX Versatz Steigung</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="71"/>
         <source>Offset in degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>Versatz in Grad</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="881"/>
@@ -2649,7 +2649,7 @@ Ungespeicherte Änderungen gehen verloren.</translation>
     <message>
         <location filename="qml/popup/PopupAbout.qml" line="79"/>
         <source>About the Qt framework...</source>
-        <translation type="unfinished"></translation>
+        <translation>Über das QT-Framework...</translation>
     </message>
 </context>
 <context>
@@ -3161,7 +3161,7 @@ Ungespeicherte Änderungen gehen verloren.</translation>
     <message>
         <location filename="qml/popup/PopupInputNumber.qml" line="53"/>
         <source>Enter a number</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Zahl eingeben</translation>
     </message>
 </context>
 <context>
@@ -3495,7 +3495,7 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/fixturesfunctions/PositionTool.qml" line="267"/>
         <source>Center Pan &amp; Tilt</source>
-        <translation type="unfinished"></translation>
+        <translation>Pan &amp; Tilt zentrieren</translation>
     </message>
     <message>
         <source>Center Pan/Tilt halfway</source>
