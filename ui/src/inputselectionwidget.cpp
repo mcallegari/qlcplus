@@ -18,6 +18,7 @@
 */
 
 #include <QDebug>
+#include <qmath.h>
 
 #include "customfeedbackdialog.h"
 #include "inputselectionwidget.h"
