@@ -18,7 +18,7 @@
         <location filename="aboutbox.ui" line="309"/>
         <source>This application is licensed under the terms of the Apache 2.0 license.</source>
         <oldsource>This application is licensed under the terms of GNU GPL version 2.</oldsource>
-        <translation>Dieses Programm ist unter den Bedingungen der Apache-Version 2.0 lizensiert.</translation>
+        <translation>Dieses Programm ist unter den Bedingungen der Apache-Lizenz Version 2.0 lizensiert.</translation>
     </message>
     <message>
         <location filename="aboutbox.cpp" line="43"/>
@@ -3152,7 +3152,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Basierend auf den hinzugefügten Geräten, kann ich die links gelisteten Funktionen erstellen. Benötigte auswählen, Anzeige erfolgt auf der rechten Seite!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Basierend auf den hinzugefügten Geräten kann ich die links gelisteten Funktionen erstellen. Benötigte auswählen, Anzeige erfolgt auf der rechten Seite!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="213"/>
