@@ -106,7 +106,7 @@ Rectangle
         property real totalWeight: 0.0
         property int totalPower: 0
 
-        GridLayout
+        Grid
         {
             id: gridBox
             columns: 5 + (manufCheck.checked ? 1 : 0) + (modelCheck.checked ? 1 : 0) +
@@ -114,9 +114,8 @@ Rectangle
             columnSpacing: 5
             rowSpacing: 0
 
-
             RobotoText { label: "ID"; labelColor: flickView.textColor }
-            Rectangle  { width: UISettings.iconSizeDefault }
+            Rectangle  { width: UISettings.iconSizeDefault; height: width }
             RobotoText { label: qsTr("Name"); labelColor: flickView.textColor }
             RobotoText { visible: manufCheck.checked; label: qsTr("Manufacturer"); labelColor: flickView.textColor }
             RobotoText { visible: modelCheck.checked; label: qsTr("Model"); labelColor: flickView.textColor }
@@ -166,7 +165,7 @@ Rectangle
                             label: modelData.power + "W"
                             labelColor: flickView.textColor
                             rightMargin: 5
-                            Layout.fillWidth: true
+                            width: UISettings.bigItemHeight
 
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
                             Component.onCompleted: flickView.totalPower += modelData.power
@@ -180,7 +179,7 @@ Rectangle
                             label: modelData.weight + "Kg"
                             labelColor: flickView.textColor
                             rightMargin: 5
-                            Layout.fillWidth: true
+                            width: UISettings.bigItemHeight
 
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
                             Component.onCompleted: flickView.totalWeight += modelData.weight
@@ -193,7 +192,7 @@ Rectangle
                             label: cRef ? cRef.channels : 0
                             labelColor: flickView.textColor
                             rightMargin: 5
-                            Layout.fillWidth: true
+                            width: UISettings.bigItemHeight
 
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
 
@@ -207,7 +206,7 @@ Rectangle
                             label: cRef ? "" + (cRef.address + 1) + "-" + (cRef.address + cRef.channels + 1) : ""
                             labelColor: flickView.textColor
                             rightMargin: 5
-                            Layout.fillWidth: true
+                            width: UISettings.bigItemHeight
 
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
                         }
@@ -220,7 +219,6 @@ Rectangle
                             label: modelData.fmodel
                             labelColor: flickView.textColor
                             rightMargin: 5
-                            Layout.fillWidth: true
 
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
                         }
@@ -233,7 +231,6 @@ Rectangle
                             label: modelData.manuf
                             labelColor: flickView.textColor
                             rightMargin: 5
-                            Layout.fillWidth: true
 
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
                         }
@@ -245,7 +242,6 @@ Rectangle
                             label: cRef ? cRef.name : ""
                             labelColor: flickView.textColor
                             rightMargin: 5
-                            Layout.fillWidth: true
 
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
                         }
@@ -266,7 +262,7 @@ Rectangle
                             parent: gridBox
                             label: cRef ? cRef.id : ""
                             labelColor: flickView.textColor
-                            Layout.fillWidth: true
+                            width: UISettings.iconSizeDefault
 
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
                         }
@@ -333,7 +329,5 @@ Rectangle
                 labelColor: flickView.textColor
             }
         }
-
     } // Flickable
-
 }
