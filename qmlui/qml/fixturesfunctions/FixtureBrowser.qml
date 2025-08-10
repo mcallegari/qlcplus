@@ -169,17 +169,17 @@ Rectangle
             anchors.left: parent.left
             color: blMouseArea.pressed ? UISettings.bgLight : UISettings.bgMedium
 
-            Image
+            // left arrow
+            Text
             {
                 id: leftArrow
-                rotation: 180
                 anchors.left: parent.left
                 anchors.leftMargin: 5
                 anchors.verticalCenter: parent.verticalCenter
-                source: "qrc:/arrow-right.svg"
-                sourceSize: Qt.size(width, height)
-                height: parent.height
-                width: height * 0.8
+                color: UISettings.fgLight
+                font.family: "FontAwesome"
+                font.pixelSize: parent.height - 8
+                text: FontAwesome.fa_chevron_left
             }
 
             RobotoText
