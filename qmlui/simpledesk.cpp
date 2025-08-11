@@ -98,8 +98,15 @@ QVariant SimpleDesk::channelList() const
 QVariantList SimpleDesk::fixtureList() const
 {
     QVariantList list;
+    QList<Fixture*> fixtureList = m_doc->fixtures();
 
-    for (Fixture *fxi : m_doc->fixtures())
+    std::sort(fixtureList.begin(), fixtureList.end(),
+              [](Fixture *left, Fixture *right)
+    {
+        return *left < *right;
+    });
+
+    for (Fixture *fxi : fixtureList)
     {
         if (fxi->universe() != m_universeFilter)
             continue;

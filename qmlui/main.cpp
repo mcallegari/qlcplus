@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QSettings>
 #include <QApplication>
 #include <QSurfaceFormat>
 #include <QCommandLineParser>
@@ -89,6 +90,10 @@ int main(int argc, char *argv[])
                                       "filename", "");
     parser.addOption(openFileOption);
 
+    QCommandLineOption openLastOption(QStringList() << "9" << "openlast",
+                                      "Open the file from last session.");
+    parser.addOption(openLastOption);
+
     QCommandLineOption kioskOption(QStringList() << "k" << "kiosk",
                                       "Enable kiosk mode (only Virtual Console)");
     parser.addOption(kioskOption);
@@ -120,6 +125,13 @@ int main(int argc, char *argv[])
     QString locale = parser.value(localeOption);
 
     App qlcplusApp;
+    if (locale.isEmpty())
+    {
+        QSettings settings;
+        QVariant language = settings.value(SETTINGS_LANGUAGE);
+        if (language.isValid())
+            locale = language.toString();
+    }
     qlcplusApp.setLanguage(locale);
 
     if (parser.isSet(kioskOption))
@@ -136,6 +148,8 @@ int main(int argc, char *argv[])
         else
             qlcplusApp.loadWorkspace(filename);
     }
+    if (parser.isSet(openLastOption))
+        qlcplusApp.loadLastWorkspace();
 
     return app.exec();
 }

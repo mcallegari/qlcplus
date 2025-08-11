@@ -586,7 +586,7 @@ void FixtureManager::addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fix
     if (searchFilter.length() < SEARCH_MIN_CHARS || fixture->name().toLower().contains(searchFilter))
         matchMask |= FixtureMatch;
 
-    for (quint32 subID : monProps->fixtureIDList(fixture->id()))
+    for (quint32 &subID : monProps->fixtureIDList(fixture->id()))
     {
         quint16 headIndex = monProps->fixtureHeadIndex(subID);
         quint16 linkedIndex = monProps->fixtureLinkedIndex(subID);

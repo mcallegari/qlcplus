@@ -1,3 +1,10 @@
+qlcplus (4.14.4) stable; urgency=low
+
+  * Implemented autosave after 30 seconds of inactivity
+  * New fixture: beamZ COB 50 (thanks to Yestalgia)
+
+-- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 26 Oct 2025 18:19:20 +0200
+
 qlcplus (4.14.3) stable; urgency=high
 
   * engine: fix intensity channels getting stuck on fade out
@@ -6,7 +13,7 @@ qlcplus (4.14.3) stable; urgency=high
   * webaccess: fix PNG and other image formats not loaded
   * platforms/macos: add missing audio plugin to Intel bundle
 
--- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 5 Jul 2025 18:19:20 +0200
+-- Massimo Callegari <massimocallegari@yahoo.it>  Thu, 3 Jul 2025 18:19:20 +0200
 
 qlcplus (4.14.2) stable; urgency=high
 

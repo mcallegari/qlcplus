@@ -120,12 +120,14 @@ qreal VirtualConsole::pixelDensity() const
 
 void VirtualConsole::resetContents()
 {
+    int pageIndex = 0;
     resetWidgetSelection();
 
     foreach (VCPage *page, m_pages)
     {
         page->deleteChildren();
         page->resetInputSourcesMap();
+        page->resetProperties(pageIndex++);
     }
 
     m_widgetsMap.clear();
@@ -644,7 +646,7 @@ void VirtualConsole::setWidgetsAlignment(VCWidget *refWidget, int alignment)
             break;
             case Qt::AlignRight:
             {
-                // TODO: for now, let's do an ingnorant alignment, without considering
+                // TODO: for now, let's do an ignorant alignment, without considering
                 // that widgets can be nested into VC frames...
                 int right = refGeom.x() + refGeom.width();
                 widget->setGeometry(QRect(right - wGeom.width(), wGeom.y(), wGeom.width(), wGeom.height()));
@@ -652,7 +654,7 @@ void VirtualConsole::setWidgetsAlignment(VCWidget *refWidget, int alignment)
             break;
             case Qt::AlignBottom:
             {
-                // TODO: for now, let's do an ingnorant alignment, without considering
+                // TODO: for now, let's do an ignorant alignment, without considering
                 // that widgets can be nested into VC frames...
                 int bottom = refGeom.y() + refGeom.height();
                 widget->setGeometry(QRect(wGeom.x(), bottom - wGeom.height(), wGeom.width(), wGeom.height()));

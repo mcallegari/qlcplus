@@ -71,7 +71,7 @@ Rectangle
       Rectangle
       {
         id: topBar
-        width: fmContainer.width
+        Layout.fillWidth: true
         height: UISettings.iconSizeMedium
         z: 5
         gradient: Gradient
@@ -236,7 +236,7 @@ Rectangle
       {
           id: searchBox
           visible: searchFunc.checked
-          width: fmContainer.width
+          Layout.fillWidth: true
           height: UISettings.iconSizeMedium
           z: 5
           color: UISettings.bgMedium
@@ -252,7 +252,7 @@ Rectangle
               width: parent.width
               color: UISettings.fgMain
               text: functionManager.searchFilter
-              font.family: "Roboto Condensed"
+              font.family: UISettings.robotoFontName
               font.pixelSize: parent.height - 6
               selectionColor: UISettings.highlightPressed
               selectByMouse: true
@@ -264,9 +264,8 @@ Rectangle
       ListView
       {
           id: functionsListView
-          width: fmContainer.width
+          Layout.fillWidth: true
           height: fmContainer.height - topBar.height - (searchBox.visible ? searchBox.height : 0)
-          //anchors.fill: parent
           z: 4
           boundsBehavior: Flickable.StopAtBounds
           Layout.fillHeight: true

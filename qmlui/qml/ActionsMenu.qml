@@ -67,7 +67,7 @@ Popup
                 qlcplus.loadFixture(selectedFile)
             else
                 qlcplus.loadWorkspace(selectedFile)
-            qlcplus.workingPath = folder.toString()
+            qlcplus.workingPath = currentFolder.toString()
         }
     }
 
@@ -297,7 +297,10 @@ Popup
                 Connections
                 {
                     target: importLoader.item
-                    onClose: importLoader.source = ""
+                    function onClose()
+                    {
+                        importLoader.source = ""
+                    }
                 }
             }
         }

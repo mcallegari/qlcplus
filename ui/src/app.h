@@ -124,6 +124,7 @@ public:
 
 private slots:
     void slotDocModified(bool state);
+    void slotDocAutosave();
     void slotUniverseWritten(quint32 idx, const QByteArray& ua);
 
 private:
@@ -227,6 +228,12 @@ public:
     QString fileName() const;
 
     /**
+     * Get the autosave version of the name
+     * of the current workspace file
+     */
+    QString autoSaveFileName() const;
+
+    /**
      * Update the recent file drop down menu
      */
     void updateFileOpenMenu(QString addRecent);
@@ -253,7 +260,7 @@ public:
      * @param fileName The name of the file to save to.
      * @return QFile::NoError if successful.
      */
-    QFile::FileError saveXML(const QString& fileName);
+    QFile::FileError saveXML(const QString& fileName, bool autosave = false);
 
 public slots:
     void slotLoadDocFromMemory(QString xmlData);

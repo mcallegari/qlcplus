@@ -64,7 +64,7 @@ void SceneEditor::setFunctionID(quint32 id)
 
     if (id == Function::invalidId())
     {
-        disconnect(m_scene, &Scene::valueChanged, this, &SceneEditor::slotSceneValueChanged);
+        disconnect(m_scene, SIGNAL(valueChanged(SceneValue)), this, SLOT(slotSceneValueChanged(SceneValue)));
         m_scene = nullptr;
         m_source->unsetAll();
         m_source->setOutputEnabled(false);
@@ -77,7 +77,7 @@ void SceneEditor::setFunctionID(quint32 id)
     }
     m_scene = qobject_cast<Scene *>(m_doc->function(id));
 
-    connect(m_scene, &Scene::valueChanged, this, &SceneEditor::slotSceneValueChanged);
+    connect(m_scene, SIGNAL(valueChanged(SceneValue)), this, SLOT(slotSceneValueChanged(SceneValue)));
 
     updateLists();
     cacheChannelValues();
@@ -146,12 +146,23 @@ void SceneEditor::registerFixtureConsole(int index, QQuickItem *item)
 
     quint32 fixtureID = m_fixtureIDs[index];
     QVariantList dmxValues;
-    QByteArray values = m_channelsCache[fixtureID];
+    QByteArray values;
+
+    // initialize cache if fixture is not present
+    if (!m_channelsCache.contains(fixtureID))
+    {
+        Fixture *fixture = m_doc->fixture(fixtureID);
+        values.fill(0, fixture->channels());
+        m_channelsCache[fixtureID] = values;
+    }
+    else
+        values = m_channelsCache[fixtureID];
 
     for (int i = 0; i < values.length(); i++)
         dmxValues.append(QString::number((uchar)values.at(i)));
 
     item->setProperty("values", QVariant::fromValue(dmxValues));
+
 }
 
 void SceneEditor::unRegisterFixtureConsole(int index)

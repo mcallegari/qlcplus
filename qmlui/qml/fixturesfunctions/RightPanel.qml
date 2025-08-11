@@ -111,10 +111,10 @@ SidePanel
         }
     }
 
-    function onContentLoaded(item)
+    onContentLoaded: (item, ID) =>
     {
         if (item.hasOwnProperty("functionID"))
-            item.functionID = itemID
+            item.functionID = ID
     }
 
     FileDialog

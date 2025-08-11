@@ -169,7 +169,7 @@ void RGBScript::cleanupEngine()
 
 bool RGBScript::evaluate()
 {
-    if (QThread::currentThread() != s_jsThread)
+    if (s_jsThread != NULL && QThread::currentThread() != s_jsThread)
     {
         bool retVal;
         QMetaObject::invokeMethod(s_jsThread->engine, [this]{ return evaluate();}, Qt::BlockingQueuedConnection, &retVal);
@@ -251,7 +251,7 @@ void RGBScript::displayError(QJSValue e, const QString& fileName)
 
 int RGBScript::rgbMapStepCount(const QSize& size)
 {
-    if (QThread::currentThread() != s_jsThread)
+    if (s_jsThread != NULL && QThread::currentThread() != s_jsThread)
     {
         int retVal;
         QMetaObject::invokeMethod(s_jsThread->engine, [this, size]{ return rgbMapStepCount(size);}, Qt::BlockingQueuedConnection, &retVal);
@@ -278,7 +278,7 @@ int RGBScript::rgbMapStepCount(const QSize& size)
 
 void RGBScript::rgbMapSetColors(const QVector<uint> &colors)
 {
-    if (QThread::currentThread() != s_jsThread)
+    if (s_jsThread != NULL && QThread::currentThread() != s_jsThread)
     {
         QMetaObject::invokeMethod(s_jsThread->engine, [this, colors]{ return rgbMapSetColors(colors);}, Qt::QueuedConnection);
         return;
@@ -310,7 +310,7 @@ void RGBScript::rgbMapSetColors(const QVector<uint> &colors)
 
 QVector<uint> RGBScript::rgbMapGetColors()
 {
-    if (QThread::currentThread() != s_jsThread)
+    if (s_jsThread != NULL && QThread::currentThread() != s_jsThread)
     {
         QVector<uint> retVal;
         QMetaObject::invokeMethod(s_jsThread->engine, [this]{ return rgbMapGetColors();}, Qt::BlockingQueuedConnection, &retVal);
@@ -335,7 +335,7 @@ QVector<uint> RGBScript::rgbMapGetColors()
 
 void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 {
-    if (QThread::currentThread() != s_jsThread)
+    if (s_jsThread != NULL && QThread::currentThread() != s_jsThread)
     {
         QMetaObject::invokeMethod(s_jsThread->engine, [this, size, rgb, step, &map]{ rgbMap(size, rgb, step, map);}, Qt::BlockingQueuedConnection);
         return;
@@ -377,7 +377,7 @@ void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 
 QString RGBScript::name() const
 {
-    if (QThread::currentThread() != s_jsThread)
+    if (s_jsThread != NULL && QThread::currentThread() != s_jsThread)
     {
         QString retVal;
         QMetaObject::invokeMethod(s_jsThread->engine, [this]{ return name();}, Qt::BlockingQueuedConnection, &retVal);
@@ -391,7 +391,7 @@ QString RGBScript::name() const
 
 QString RGBScript::author() const
 {
-    if (QThread::currentThread() != s_jsThread)
+    if (s_jsThread != NULL && QThread::currentThread() != s_jsThread)
     {
         QString retVal;
         QMetaObject::invokeMethod(s_jsThread->engine, [this]{ return author();}, Qt::BlockingQueuedConnection, &retVal);
@@ -415,7 +415,7 @@ RGBAlgorithm::Type RGBScript::type() const
 
 int RGBScript::acceptColors() const
 {
-    if (QThread::currentThread() != s_jsThread)
+    if (s_jsThread != NULL && QThread::currentThread() != s_jsThread)
     {
         int retVal;
         QMetaObject::invokeMethod(s_jsThread->engine, [this]{ return acceptColors();}, Qt::BlockingQueuedConnection, &retVal);
@@ -466,7 +466,7 @@ QList<RGBScriptProperty> RGBScript::properties()
 
 QHash<QString, QString> RGBScript::propertiesAsStrings()
 {
-    if (QThread::currentThread() != s_jsThread)
+    if (s_jsThread != NULL && QThread::currentThread() != s_jsThread)
     {
         QHash<QString, QString> retVal;
         QMetaObject::invokeMethod(s_jsThread->engine, [this]{ return propertiesAsStrings();}, Qt::BlockingQueuedConnection, &retVal);
@@ -492,7 +492,7 @@ QHash<QString, QString> RGBScript::propertiesAsStrings()
 
 bool RGBScript::setProperty(QString propertyName, QString value)
 {
-    if (QThread::currentThread() != s_jsThread)
+    if (s_jsThread != NULL && QThread::currentThread() != s_jsThread)
     {
         bool retVal;
         QMetaObject::invokeMethod(s_jsThread->engine, [this, propertyName, value]{ return setProperty(propertyName, value);}, Qt::BlockingQueuedConnection, &retVal);
@@ -528,7 +528,7 @@ bool RGBScript::setProperty(QString propertyName, QString value)
 
 QString RGBScript::property(QString propertyName) const
 {
-    if (QThread::currentThread() != s_jsThread)
+    if (s_jsThread != NULL && QThread::currentThread() != s_jsThread)
     {
         QString retVal;
         QMetaObject::invokeMethod(s_jsThread->engine, [this, propertyName]{ return property(propertyName);}, Qt::BlockingQueuedConnection, &retVal);

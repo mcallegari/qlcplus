@@ -54,6 +54,8 @@
  #include "audiocapture_qt6.h"
 #endif
 
+#define AUTOSAVE_TIMEOUT    30 // seconds
+
 Doc::Doc(QObject* parent, int universes)
     : QObject(parent)
     , m_workspacePath("")
@@ -83,6 +85,10 @@ Doc::Doc(QObject* parent, int universes)
     qsrand(QTime::currentTime().msec());
 #endif
     
+    m_autosaveTimer.setInterval(AUTOSAVE_TIMEOUT * 1000);
+    m_autosaveTimer.setSingleShot(true);
+
+    connect(&m_autosaveTimer, SIGNAL(timeout()), this, SIGNAL(needAutosave()));
 }
 
 Doc::~Doc()
@@ -307,12 +313,14 @@ bool Doc::isModified() const
 void Doc::setModified()
 {
     m_modified = true;
+    m_autosaveTimer.start();
     emit modified(true);
 }
 
 void Doc::resetModified()
 {
     m_modified = false;
+    m_autosaveTimer.stop();
     emit modified(false);
 }
 
@@ -325,7 +333,13 @@ void Doc::setMode(Doc::Mode mode)
     /* Don't do mode switching twice */
     if (m_mode == mode)
         return;
+
     m_mode = mode;
+
+    if (mode == Operate)
+        m_autosaveTimer.stop();
+    else if (m_modified)
+        m_autosaveTimer.start();
 
     // Run startup function
     if (m_mode == Operate && m_startupFunctionId != Function::invalidId())

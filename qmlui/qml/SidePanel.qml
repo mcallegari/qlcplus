@@ -71,7 +71,7 @@ Rectangle
         // content to target an object to edit/view
         property int itemID: -1
 
-        onLoaded: contentLoaded(item, itemID)
+        onLoaded: sidePanelRoot.contentLoaded(item, itemID)
 
         Connections
         {

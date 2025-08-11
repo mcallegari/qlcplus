@@ -140,7 +140,7 @@ Rectangle
                 height: UISettings.iconSizeDefault
                 imgSource: "qrc:/edit-copy.svg"
                 tooltip: qsTr("Copy the selected channel values to all the fixtures of the same type")
-                enabled: sceneEditor.selectedChannelCount > 0 ? true : false
+                enabled: isOpen && sceneEditor.selectedChannelCount > 0 ? true : false
                 onClicked: if (sceneEditor) sceneEditor.pasteToAllFixtureSameType()
             }
 
@@ -164,14 +164,13 @@ Rectangle
                 tooltip: qsTr("Expand/Collapse this panel")
                 onToggled: animatePanel(checked)
 
-                Image
+                Text
                 {
-                    anchors.centerIn: parent
-                    source: "qrc:/arrow-down.svg"
-                    width: parent.width * 0.8
-                    height: parent.height * 0.5
-                    rotation: expandButton.checked ? 0 : 180
-                    sourceSize: Qt.size(width, height)
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: UISettings.fgLight
+                    font.family: "FontAwesome"
+                    font.pixelSize: parent.height - 8
+                    text: expandButton.checked ? FontAwesome.fa_chevron_down : FontAwesome.fa_chevron_up
                 }
             }
         }

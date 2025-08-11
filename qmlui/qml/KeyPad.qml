@@ -96,7 +96,7 @@ Rectangle
             implicitHeight: itemHeight
             label: qsTr("Tap")
 
-            onClicked:
+            onClicked: (mouseButton) =>
             {
                 /* right click resets the current TAP time */
                 if (mouseButton === Qt.RightButton)

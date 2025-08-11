@@ -78,8 +78,8 @@ Column
             y: 1
             width: visible ? parent.height - 2 : 0
             height: width
-            color: UISettings.bgLight
-            radius: height / 4
+            color: UISettings.bgControl
+            radius: height / 6
             border.width: 1
             border.color: UISettings.fgMedium
         }
@@ -116,6 +116,18 @@ Column
                 height: width
                 source: itemIcon
                 sourceSize: Qt.size(width, height)
+
+                // expand indicator
+                Text
+                {
+                    visible: nodeChildren !== undefined
+                    anchors.right: parent.right
+                    anchors.bottom: parent.bottom
+                    color: UISettings.fgMain
+                    font.family: "FontAwesome"
+                    font.pixelSize: parent.height / 3
+                    text: FontAwesome.fa_plus_square
+                }
             }
 
             Text
@@ -298,6 +310,15 @@ Column
             Rectangle { visible: showFlags; width: UISettings.chPropsModifierWidth; height: parent.height; color: "transparent" } // stub
         } // RowLayout
 
+        // separator line
+        Rectangle
+        {
+            width: parent.width
+            height: 1
+            y: parent.height - 1
+            color: UISettings.bgLight
+        }
+
         MouseArea
         {
             width: showFlags ? fxModes.x : parent.width
@@ -429,7 +450,7 @@ Column
                             nodeContainer.pathChanged(oldPath, newPath)
                         }
                     }
-                }
-        }
-    }
+                } // Loader
+        } // Component
+    } // Repeater
 }

@@ -237,8 +237,8 @@ bool ArtNetPacketizer::fillArtPollReplyInfo(QByteArray const& data, ArtNetNodeIn
     QByteArray nodeReport = data.mid(108, 64);
         uchar inputStatus = uchar(data.at(178));
 
-    info.shortName = QString(shortName).simplified();
-    info.longName = QString(longName).simplified();
+    info.shortName = QString(shortName.replace(0, 0x20)).simplified();
+    info.longName = QString(longName.replace(0, 0x20)).simplified();
     info.portsNumber = (uchar(data.at(172)) << 8) + uchar(data.at(173));
     info.isInput = (inputStatus & 0x04) == 0 ? true : false;
     info.isOutput = (inputStatus & 0x04) ? true : false;

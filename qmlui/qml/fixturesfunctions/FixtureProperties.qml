@@ -157,6 +157,7 @@ Rectangle
             CustomSpinBox
             {
                 id: fxModeChSpin
+                enabled: fixtureBrowser.modesList.length ? false : true
                 Layout.fillWidth: true
                 from: 1
                 to: 512
