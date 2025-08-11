@@ -18,8 +18,6 @@ apply plugin: 'com.android.application'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-    implementation 'androidx.core:core:1.13.1'
-    implementation "com.android.billingclient:billing:6.0.1"
 }
 
 android {
@@ -35,6 +33,7 @@ android {
      * updated by QtCreator and androiddeployqt tools.
      * Changing them manually might break the compilation!
      *******************************************************/
+    namespace "org.qlcplus"
 
     compileSdkVersion androidCompileSdkVersion.toInteger()
 
