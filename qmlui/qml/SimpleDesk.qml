@@ -39,7 +39,11 @@ Rectangle
         id: channelToolLoader
         z: 2
 
-        onValueChanged: (fixtureID, channelIndex, value) => simpleDesk.setValue(fixtureID, channelIndex, value)
+        onValueChanged:
+            function (fixtureID, channelIndex, value)
+            {
+                simpleDesk.setValue(fixtureID, channelIndex, value)
+            }
     }
 
     SplitView
@@ -86,7 +90,7 @@ Rectangle
                         padding: 0
                         model: simpleDesk.universesListModel
                         currValue: simpleDesk.universeFilter
-                        onValueChanged: simpleDesk.universeFilter = value
+                        onValueChanged: (value) => simpleDesk.universeFilter = value
                     }
 
                     // universe reset button
@@ -406,7 +410,7 @@ Rectangle
                 x: parent.width - width
                 height: parent.height
 
-                onExecuteCommand:
+                onExecuteCommand: (cmd) =>
                 {
                     simpleDesk.sendKeypadCommand(cmd)
                     keypad.commandString = ""
