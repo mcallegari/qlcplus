@@ -513,7 +513,7 @@ void SimpleDesk::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                         it.next();
                         FadeChannel fc = it.value();
                         Fixture *fixture = m_doc->fixture(fc.fixture());
-                        quint32 chIndex = fc.channel();
+                        quint32 chIndex = fc.channel() & 0x01FF;
                         if (fixture != NULL)
                         {
                             const QLCChannel *ch = fixture->channel(chIndex);
@@ -549,7 +549,7 @@ void SimpleDesk::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                 {
                     FadeChannel fc(m_doc, Fixture::invalidId(), channel);
                     Fixture *fixture = m_doc->fixture(fc.fixture());
-                    quint32 chIndex = fc.channel();
+                    quint32 chIndex = fc.channel() & 0x01FF;
                     fader->remove(&fc);
                     ua[universe]->reset(channel & 0x01FF, 1);
                     if (fixture != NULL)
@@ -559,7 +559,7 @@ void SimpleDesk::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                         {
                             qDebug() << "Restoring default value of fixture" << fixture->id()
                                      << "channel" << chIndex << "value" << ch->defaultValue();
-                            ua[universe]->setChannelDefaultValue(channel, ch->defaultValue());
+                            ua[universe]->setChannelDefaultValue(channel & 0x01FF, ch->defaultValue());
                         }
                     }
 
