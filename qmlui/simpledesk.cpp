@@ -581,7 +581,7 @@ void SimpleDesk::writeDMX(MasterTimer *timer, QList<Universe *> ua)
             int uni = it.key() >> 9;
             int address = it.key();
             uchar value = it.value();
-            quint32 fxID = m_doc->fixtureForAddress((m_universeFilter * 512) + address);
+            quint32 fxID = m_doc->fixtureForAddress(address);
             quint32 channel = address;
 
             if (fxID != Fixture::invalidId())
