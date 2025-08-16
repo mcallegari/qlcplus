@@ -1222,7 +1222,7 @@ void ContextManager::createFixtureGroup()
     if (m_selectedFixtures.isEmpty())
         return;
 
-    m_fixtureManager->addFixturesToNewGroup(selectedFixtureIDList());
+    m_fixtureManager->addItemsToNewGroup(m_selectedFixtures);
 }
 
 QVector3D ContextManager::fixturesRotation() const
