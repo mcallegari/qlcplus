@@ -157,6 +157,43 @@
         </item>
        </layout>
       </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="QRadioButton" name="m_kioskMode">
+          <property name="toolTip">
+           <string>Toggle kiosk mode on/off with PIN protection</string>
+          </property>
+          <property name="text">
+           <string>Toggle Kiosk Mode</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="m_kioskPinLabel">
+          <property name="text">
+           <string>PIN (4-6 digits):</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="m_kioskPinEdit">
+          <property name="inputMask">
+           <string>999999; </string>
+          </property>
+          <property name="maxLength">
+           <number>6</number>
+          </property>
+          <property name="echoMode">
+           <enum>QLineEdit::Password</enum>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
      </layout>
     </widget>
    </item>
