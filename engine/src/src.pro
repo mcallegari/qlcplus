@@ -34,7 +34,13 @@ INCLUDEPATH += ../../hotplugmonitor/src
 LIBS        += -L../../hotplugmonitor/src -lhotplugmonitor
 }
 
-LIBS        += -L../audio/src -lqlcplusaudio
+LIBS        += -L../audio/src
+
+android {
+  LIBS            += -lqlcplusaudio_$${QT_ARCH}
+} else {
+  LIBS            += -lqlcplusaudio
+}
 
 #############################################################################
 # Sources
