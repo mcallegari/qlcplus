@@ -37,9 +37,9 @@ LIBS        += -L../../hotplugmonitor/src -lhotplugmonitor
 LIBS        += -L../audio/src
 
 android {
-    LIBS            += -lqlcplusaudio_$${QT_ARCH}
+  LIBS            += -lqlcplusaudio_$${QT_ARCH}
 } else {
-    LIBS            += -lqlcplusaudio
+  LIBS            += -lqlcplusaudio
 }
 
 #############################################################################
