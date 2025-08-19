@@ -194,10 +194,10 @@ Rectangle
                 isRunning: chaserEditor.previewEnabled
 
                 onIndexChanged: (index) => chaserEditor.playbackIndex = index
-                onStepValueChanged: chaserEditor.setStepSpeed(index, value, type)
-                onNoteTextChanged: chaserEditor.setStepNote(index, text)
-                onAddFunctions: chaserEditor.addFunctions(list, index)
-                onMoveSteps: chaserEditor.moveSteps(list, index)
+                onStepValueChanged: (index, value, type) => chaserEditor.setStepSpeed(index, value, type)
+                onNoteTextChanged: (index, text) => chaserEditor.setStepNote(index, text)
+                onAddFunctions: (list) => chaserEditor.addFunctions(list, index)
+                onMoveSteps: (list, index) => chaserEditor.moveSteps(list, index)
                 onRequestEditor: (funcID) =>
                 {
                     functionManager.setEditorFunction(funcID, false, false)

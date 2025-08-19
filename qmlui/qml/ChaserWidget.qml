@@ -95,6 +95,8 @@ Column
             timeEditTool.allowFractions = QLCFunction.NoFractions
         }
 
+        //console.log("Item: " + stepItem + ", type: " + type + ", tvStr: " + timeValueString)
+
         timeEditTool.show(-1, stepItem.mapToItem(mainView, 0, 0).y, title, timeValueString, type)
     }
 
@@ -117,9 +119,9 @@ Column
         z: 99
         visible: false
 
-        onValueChanged: widgetRoot.stepValueChanged(indexInList, val, speedType)
+        onValueChanged: (val) => widgetRoot.stepValueChanged(indexInList, val, speedType)
         onClosed: editStepIndex = -1
-        onTabPressed:
+        onTabPressed: (forward) =>
         {
             var typeArray = [ QLCFunction.FadeIn, QLCFunction.Hold, QLCFunction.FadeOut, QLCFunction.Duration ]
             var currType = typeArray.indexOf(editStepType) + (forward ? 1 : -1)
@@ -416,7 +418,7 @@ Column
                 visible = false
             }
 
-            Keys.onPressed:
+            Keys.onPressed: (event) =>
             {
                 if (event.key === Qt.Key_Escape)
                 {
@@ -518,7 +520,7 @@ Column
                         highlightEditTime: editStepIndex === index ? editStepType : -1
                         nextIndex: widgetRoot.nextIndex
 
-                        onDoubleClicked: (type) =>
+                        onDoubleClicked: (ID, qItem, type) =>
                         {
                             console.log("Double clicked: " + indexInList + ", " + type)
                             if (type === QLCFunction.Name)
@@ -559,7 +561,7 @@ Column
                 widgetRoot.dragExited(widgetRoot)
             }
 
-            onDropped:
+            onDropped: (drag) =>
             {
                 console.log("Item dropped here. x: " + drag.x + " y: " + drag.y)
 
@@ -577,7 +579,7 @@ Column
                 cStepsList.dragInsertIndex = -1
                 cStepsList.dragActive = false
             }
-            onPositionChanged:
+            onPositionChanged: (drag) =>
             {
                 var idx = cStepsList.indexAt(drag.x, drag.y)
                 var item = cStepsList.itemAt(drag.x, drag.y)
