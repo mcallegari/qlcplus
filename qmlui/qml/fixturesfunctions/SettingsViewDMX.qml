@@ -29,7 +29,7 @@ Rectangle
     width: mainView.width / 5
     height: parent.height
 
-    color: UISettings.bgMedium
+    color: UISettings.bgStrong
     border.width: 1
     border.color: "#222"
 
@@ -38,7 +38,8 @@ Rectangle
 
     GridLayout
     {
-        width: settingsRoot.width
+        x: 5
+        width: settingsRoot.width - 10
         columns: 2
         columnSpacing: 5
         rowSpacing: 5

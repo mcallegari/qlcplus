@@ -271,8 +271,8 @@ private:
      * Fixture groups
      *********************************************************************/
 public:
-    /** Add a list of fixture IDs to a new fixture group */
-    void addFixturesToNewGroup(QList<quint32>fxList);
+    /** Add a list of fixture item IDs to a new fixture group */
+    void addItemsToNewGroup(QList<quint32> itemIds);
 
     Q_INVOKABLE void updateFixtureGroup(quint32 groupID, quint32 itemID, int headIdx);
 

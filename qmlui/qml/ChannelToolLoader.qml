@@ -117,9 +117,9 @@ Item
         {
             ignoreUnknownSignals: true
             target: toolLoader.item
-            function onValueChanged()
+            function onValueChanged(value)
             {
-                itemRoot.valueChanged(itemRoot.fixtureId, itemRoot.channelIndex, target.currentValue)
+                itemRoot.valueChanged(itemRoot.fixtureId, itemRoot.channelIndex, value)
             }
             function onClose()
             {

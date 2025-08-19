@@ -39,7 +39,11 @@ Rectangle
         id: channelToolLoader
         z: 2
 
-        onValueChanged: (fixtureID, channelIndex, value) => simpleDesk.setValue(fixtureID, channelIndex, value)
+        onValueChanged:
+            function (fixtureID, channelIndex, value)
+            {
+                simpleDesk.setValue(fixtureID, channelIndex, value)
+            }
     }
 
     SplitView
@@ -86,7 +90,7 @@ Rectangle
                         padding: 0
                         model: simpleDesk.universesListModel
                         currValue: simpleDesk.universeFilter
-                        onValueChanged: simpleDesk.universeFilter = value
+                        onValueChanged: (value) => simpleDesk.universeFilter = value
                     }
 
                     // universe reset button
@@ -188,6 +192,7 @@ Rectangle
                                 tooltip: fixtureObj ? fixtureManager.channelName(fixtureObj.id, model.chIndex) : ""
                                 imgSource: fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, model.chIndex) : ""
                                 visible: fixtureObj ? true : false
+                                focusPolicy: Qt.NoFocus
 
                                 onClicked:
                                 {
@@ -203,6 +208,7 @@ Rectangle
                                 width: parent.width * 0.95
                                 Layout.alignment: Qt.AlignHCenter
                                 Layout.fillHeight: true
+                                focusPolicy: Qt.NoFocus
                                 from: 0
                                 to: 255
                                 value: model.chValue
@@ -240,6 +246,7 @@ Rectangle
                             {
                                 Layout.alignment: Qt.AlignHCenter
                                 height: UISettings.listItemHeight * 0.75
+                                focusPolicy: Qt.NoFocus
                                 fontSize: UISettings.textSizeDefault
                                 labelColor: UISettings.fgMain
                                 fontBold: true
@@ -252,6 +259,7 @@ Rectangle
                                 faSource: FontAwesome.fa_remove
                                 faColor: UISettings.bgControl
                                 tooltip: qsTr("Reset the channel")
+                                focusPolicy: Qt.NoFocus
                                 onClicked:
                                 {
                                     var channel = index - (fixtureObj ? fixtureObj.address : 0)
@@ -406,7 +414,7 @@ Rectangle
                 x: parent.width - width
                 height: parent.height
 
-                onExecuteCommand:
+                onExecuteCommand: (cmd) =>
                 {
                     simpleDesk.sendKeypadCommand(cmd)
                     keypad.commandString = ""

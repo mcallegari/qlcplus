@@ -184,13 +184,15 @@ ComboBox
         }
 
     indicator:
-        Image
+        Text
         {
-            x: control.mirrored ? control.padding : control.width - width - control.padding
+            x: control.mirrored ? control.padding : control.width - width - control.padding - 5
             y: control.topPadding + (control.availableHeight - height) / 2
-            source: "qrc:/arrow-down.svg"
-            sourceSize: Qt.size(UISettings.iconSizeMedium * 0.7, UISettings.iconSizeMedium * 0.35)
+            color: UISettings.fgLight
             opacity: enabled ? 1 : 0.3
+            font.family: "FontAwesome"
+            font.pixelSize: UISettings.iconSizeMedium * 0.45
+            text: FontAwesome.fa_chevron_down
         }
 
     contentItem:

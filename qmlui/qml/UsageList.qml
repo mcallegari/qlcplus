@@ -58,9 +58,9 @@ Rectangle
                 {
                     width: UISettings.iconSizeMedium
                     height: width
-                    rotation: 180
                     bgColor: UISettings.bgMedium
-                    imgSource: "qrc:/arrow-right.svg"
+                    faColor: UISettings.fgLight
+                    faSource: FontAwesome.fa_chevron_left
                     tooltip: qsTr("Go back to the Function Manager")
                     onClicked: requestView(0, "qrc:/FunctionManager.qml")
                 }

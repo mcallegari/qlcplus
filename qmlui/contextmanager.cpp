@@ -547,7 +547,6 @@ void ContextManager::setItemSelection(quint32 itemID, bool enable, int keyModifi
     {
         setFixtureSelection(itemID, -1, enable);
     }
-    m_fixtureManager->setItemRoleData(itemID, enable ? 2 : 0, TreeModel::IsSelectedRole);
 }
 
 void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool enable)
@@ -593,47 +592,18 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
 
     if (m_DMXView->isEnabled())
         m_DMXView->updateFixtureSelection(fixtureID, enable);
-
-    // update fixture selection only if whole fixture is selected (not a specific head)
-    if (headIndex == -1)
-    {
-        if (fixture->type() == QLCFixtureDef::Dimmer)
-        {
-            for (quint32 &subID : m_monProps->fixtureIDList(fixtureID))
-            {
-                quint16 hIndex = m_monProps->fixtureHeadIndex(subID);
-                quint16 lIndex = m_monProps->fixtureLinkedIndex(subID);
-
-                if (lIndex != linkedIndex)
-                    continue;
-
-                quint32 id = FixtureUtils::fixtureItemID(fixtureID, hIndex, linkedIndex);
-
-                if (m_2DView->isEnabled())
-                    m_2DView->updateFixtureSelection(id, enable);
-                if (m_3DView->isEnabled())
-                    m_3DView->updateFixtureSelection(id, enable);
-            }
-        }
-        else
-        {
-            if (m_2DView->isEnabled())
-                m_2DView->updateFixtureSelection(itemID, enable);
-            if (m_3DView->isEnabled())
-                m_3DView->updateFixtureSelection(itemID, enable);
-        }
-    }
+    if (m_2DView->isEnabled())
+        m_2DView->updateFixtureSelection(itemID, enable);
+    if (m_3DView->isEnabled())
+        m_3DView->updateFixtureSelection(itemID, enable);
 
     QMultiHash<int, SceneValue> channels = m_fixtureManager->getFixtureCapabilities(itemID, headIndex, enable);
     if (channels.keys().isEmpty())
         return;
 
     qDebug() << "[ContextManager] found" << channels.keys().count() << "capabilities";
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    QHashIterator<int, SceneValue> it(channels);
-#else
+
     QMultiHashIterator<int, SceneValue> it(channels);
-#endif
     while (it.hasNext())
     {
         it.next();
@@ -1252,7 +1222,7 @@ void ContextManager::createFixtureGroup()
     if (m_selectedFixtures.isEmpty())
         return;
 
-    m_fixtureManager->addFixturesToNewGroup(selectedFixtureIDList());
+    m_fixtureManager->addItemsToNewGroup(m_selectedFixtures);
 }
 
 QVector3D ContextManager::fixturesRotation() const
