@@ -30,8 +30,6 @@
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
  #if defined(WIN32) || defined(Q_OS_WIN)
    #include "audiorenderer_waveout.h"
- #else
-   #include "audiorenderer_alsa.h"
  #endif
 #elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
  #include "audiorenderer_qt5.h"
@@ -352,8 +350,6 @@ void Audio::preRun(MasterTimer* timer)
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
  #if defined(WIN32) || defined(Q_OS_WIN)
         m_audio_out = new AudioRendererWaveOut(m_audioDevice);
- #else
-        m_audio_out = new AudioRendererAlsa(m_audioDevice);
  #endif
         m_audio_out->moveToThread(QCoreApplication::instance()->thread());
 #elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)

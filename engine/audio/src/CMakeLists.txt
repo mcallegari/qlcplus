@@ -33,13 +33,6 @@ if(WIN32)
     )
 endif()
 
-if(((QT_VERSION_MAJOR LESS 5)) AND (UNIX AND NOT APPLE))
-    target_sources(${module_name} PRIVATE
-        audiocapture_alsa.cpp audiocapture_alsa.h
-        audiorenderer_alsa.cpp audiorenderer_alsa.h
-    )
-endif()
-
 if(((QT_VERSION_MAJOR LESS 5)) AND (WIN32))
     target_sources(${module_name} PRIVATE
         audiocapture_wavein.cpp audiocapture_wavein.h

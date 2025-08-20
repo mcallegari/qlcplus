@@ -22,7 +22,6 @@ HEADERS += audio.h \
            audioplugincache.h
 
 lessThan(QT_MAJOR_VERSION, 5) {
-  unix:!macx:HEADERS += audiorenderer_alsa.h audiocapture_alsa.h
   win32:HEADERS += audiorenderer_waveout.h audiocapture_wavein.h
 }
 lessThan(QT_MAJOR_VERSION, 6) {
@@ -39,7 +38,6 @@ SOURCES += audio.cpp \
            audioplugincache.cpp
 
 lessThan(QT_MAJOR_VERSION, 5) {
-  unix:!macx:SOURCES += audiorenderer_alsa.cpp audiocapture_alsa.cpp
   win32:SOURCES += audiorenderer_waveout.cpp audiocapture_wavein.cpp
 }
 lessThan(QT_MAJOR_VERSION, 6) {

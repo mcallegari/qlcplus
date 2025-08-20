@@ -30,8 +30,6 @@
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
  #if defined(WIN32) || defined(Q_OS_WIN)
   #include "audiorenderer_waveout.h"
- #else
-  #include "audiorenderer_alsa.h"
  #endif
 #elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
  #include "audiorenderer_qt5.h"
@@ -55,8 +53,6 @@ void AudioPluginCache::load(const QDir &dir)
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 #if defined(WIN32) || defined(Q_OS_WIN)
     m_audioDevicesList = AudioRendererWaveOut::getDevicesInfo();
-#else
-    m_audioDevicesList = AudioRendererAlsa::getDevicesInfo();
 #endif
 #else
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
