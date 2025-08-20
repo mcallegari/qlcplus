@@ -33,15 +33,6 @@ INCLUDEPATH     += ../../webaccess
 # Resources
 RESOURCES    += qlcui.qrc
 
-lessThan(QT_MAJOR_VERSION, 5) {
-  macx {
-    CONFIG += link_pkgconfig
-    system(pkg-config --exists portaudio-2.0) {
-      PKGCONFIG += portaudio-2.0
-    }
-  }
-}
-
 HEADERS += ../../plugins/interfaces/rdmprotocol.h
 SOURCES += ../../plugins/interfaces/rdmprotocol.cpp
 

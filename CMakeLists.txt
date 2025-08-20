@@ -62,10 +62,6 @@ find_package(PkgConfig REQUIRED)
 include(./variables.cmake)
 include(./coverage.cmake)
 
-if((((QT_VERSION_MAJOR LESS 5)) AND (APPLE)))
-    pkg_check_modules(PORTAUDIO_2 IMPORTED_TARGET portaudio-2.0)
-endif()
-
 if(WIN32)
     # Prefix all shared libraries with ''.
     set(CMAKE_SHARED_LIBRARY_PREFIX "")

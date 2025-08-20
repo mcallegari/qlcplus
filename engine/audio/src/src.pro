@@ -41,15 +41,6 @@ SOURCES += audio.cpp \
 lessThan(QT_MAJOR_VERSION, 5) {
   unix:!macx:SOURCES += audiorenderer_alsa.cpp audiocapture_alsa.cpp
   win32:SOURCES += audiorenderer_waveout.cpp audiocapture_wavein.cpp
-
-  macx {
-    system(pkg-config --exists portaudio-2.0) {
-      DEFINES += HAS_PORTAUDIO
-      PKGCONFIG += portaudio-2.0
-      HEADERS += audiorenderer_portaudio.h audiocapture_portaudio.h
-      SOURCES += audiorenderer_portaudio.cpp audiocapture_portaudio.cpp
-    }
-  }
 }
 lessThan(QT_MAJOR_VERSION, 6) {
   SOURCES += audiorenderer_qt5.cpp audiocapture_qt5.cpp

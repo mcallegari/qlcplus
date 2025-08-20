@@ -22,15 +22,6 @@ DEPENDPATH      += ../../engine/src ../../ui/src
 QMAKE_LIBDIR    += ../../engine/src ../../ui/src
 DEFINES         += USE_WEBSOCKET NO_SSL
 
-lessThan(QT_MAJOR_VERSION, 5) {
-  macx {
-    CONFIG += link_pkgconfig
-    system(pkg-config --exists portaudio-2.0) {
-      PKGCONFIG += portaudio-2.0
-    }
-  }
-}
-
 LIBS += -lqlcplusengine -lqlcplusui
 
 win32:LIBS  += -lws2_32

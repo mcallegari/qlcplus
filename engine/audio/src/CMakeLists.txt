@@ -61,27 +61,6 @@ if(NOT ((QT_VERSION_MAJOR LESS 6)))
     )
 endif()
 
-if((((QT_VERSION_MAJOR LESS 5)) AND (APPLE)))
-    if (${PORTAUDIO_2_FOUND})
-        target_sources(${module_name} PRIVATE
-            audiocapture_portaudio.cpp audiocapture_portaudio.h
-            audiorenderer_portaudio.cpp audiorenderer_portaudio.h
-        )
-
-        target_compile_definitions(${module_name} PUBLIC
-            HAS_PORTAUDIO
-        )
-
-        target_include_directories(${module_name} PUBLIC
-            ${PORTAUDIO_2_INCLUDE_DIRS}
-        )
-
-        target_link_libraries(${module_name} PUBLIC
-            ${PORTAUDIO_2_LIBRARIES}
-        )
-    endif()
-endif()
-
 if((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND}))
     target_compile_definitions(${module_name} PUBLIC
         HAS_FFTW3
