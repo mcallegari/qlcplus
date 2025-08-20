@@ -27,11 +27,7 @@
 #include "audiodecoder.h"
 #include "qlcfile.h"
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
- #if defined(WIN32) || defined(Q_OS_WIN)
-  #include "audiorenderer_waveout.h"
- #endif
-#elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
  #include "audiorenderer_qt5.h"
 #else
  #include "audiorenderer_qt6.h"
@@ -50,18 +46,12 @@ void AudioPluginCache::load(const QDir &dir)
 {
     qDebug() << Q_FUNC_INFO << dir.path();
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-#if defined(WIN32) || defined(Q_OS_WIN)
-    m_audioDevicesList = AudioRendererWaveOut::getDevicesInfo();
-#endif
-#else
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     m_audioDevicesList = AudioRendererQt5::getDevicesInfo();
     m_outputDevicesList = QAudioDeviceInfo::availableDevices(QAudio::AudioOutput);
 #else
     m_audioDevicesList = AudioRendererQt6::getDevicesInfo();
     m_outputDevicesList = QMediaDevices::audioOutputs();
-#endif
 #endif
 
     /* Check that we can access the directory */

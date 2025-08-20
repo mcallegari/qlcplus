@@ -33,13 +33,6 @@ if(WIN32)
     )
 endif()
 
-if(((QT_VERSION_MAJOR LESS 5)) AND (WIN32))
-    target_sources(${module_name} PRIVATE
-        audiocapture_wavein.cpp audiocapture_wavein.h
-        audiorenderer_waveout.cpp audiorenderer_waveout.h
-    )
-endif()
-
 if((QT_VERSION_MAJOR LESS 6))
     target_sources(${module_name} PRIVATE
         audiocapture_qt5.cpp audiocapture_qt5.h

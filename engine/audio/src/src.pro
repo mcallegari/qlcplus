@@ -21,9 +21,6 @@ HEADERS += audio.h \
            audiocapture.h \
            audioplugincache.h
 
-lessThan(QT_MAJOR_VERSION, 5) {
-  win32:HEADERS += audiorenderer_waveout.h audiocapture_wavein.h
-}
 lessThan(QT_MAJOR_VERSION, 6) {
   HEADERS += audiorenderer_qt5.h audiocapture_qt5.h
 } else {
@@ -37,9 +34,6 @@ SOURCES += audio.cpp \
            audiocapture.cpp \
            audioplugincache.cpp
 
-lessThan(QT_MAJOR_VERSION, 5) {
-  win32:SOURCES += audiorenderer_waveout.cpp audiocapture_wavein.cpp
-}
 lessThan(QT_MAJOR_VERSION, 6) {
   SOURCES += audiorenderer_qt5.cpp audiocapture_qt5.cpp
 } else {

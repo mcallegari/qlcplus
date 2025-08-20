@@ -27,11 +27,7 @@
 #include "audiorenderer.h"
 #include "audioplugincache.h"
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
- #if defined(WIN32) || defined(Q_OS_WIN)
-   #include "audiorenderer_waveout.h"
- #endif
-#elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
  #include "audiorenderer_qt5.h"
 #else
  #include "audiorenderer_qt6.h"
@@ -347,12 +343,7 @@ void Audio::preRun(MasterTimer* timer)
 
         m_decoder->seek(elapsed());
         AudioParameters ap = m_decoder->audioParameters();
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
- #if defined(WIN32) || defined(Q_OS_WIN)
-        m_audio_out = new AudioRendererWaveOut(m_audioDevice);
- #endif
-        m_audio_out->moveToThread(QCoreApplication::instance()->thread());
-#elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         m_audio_out = new AudioRendererQt5(m_audioDevice, doc());
 #else
         m_audio_out = new AudioRendererQt6(m_audioDevice, doc());
