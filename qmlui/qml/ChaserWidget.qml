@@ -95,8 +95,6 @@ Column
             timeEditTool.allowFractions = QLCFunction.NoFractions
         }
 
-        //console.log("Item: " + stepItem + ", type: " + type + ", tvStr: " + timeValueString)
-
         timeEditTool.show(-1, stepItem.mapToItem(mainView, 0, 0).y, title, timeValueString, type)
     }
 
@@ -132,19 +130,19 @@ Column
                 if (cStepsList.currentIndex > 0)
                 {
                     cStepsList.currentIndex--
-                    editStepTime(cStepsList.currentIndex, cStepsList.currentItem, QLCFunction.Duration)
+                    editStepTime(cStepsList.currentIndex, cStepsList.currentItem.itemDelegate, QLCFunction.Duration)
                 }
             }
             else if (currType >= typeArray.length)
             {
                 // need to select the next step
                 cStepsList.currentIndex++
-                editStepTime(cStepsList.currentIndex, cStepsList.currentItem, QLCFunction.FadeIn)
+                editStepTime(cStepsList.currentIndex, cStepsList.currentItem.itemDelegate, QLCFunction.FadeIn)
             }
             else
             {
                 // same step, other field
-                editStepTime(editStepIndex, cStepsList.currentItem, typeArray[currType])
+                editStepTime(editStepIndex, cStepsList.currentItem.itemDelegate, typeArray[currType])
             }
         }
     }
@@ -434,6 +432,8 @@ Column
                 id: itemRoot
                 width: cStepsList.width
                 height: UISettings.listItemHeight
+
+                property alias itemDelegate: csDelegate
 
                 Keys.onPressed:
                 {

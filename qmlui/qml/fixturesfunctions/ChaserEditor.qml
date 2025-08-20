@@ -196,7 +196,7 @@ Rectangle
                 onIndexChanged: (index) => chaserEditor.playbackIndex = index
                 onStepValueChanged: (index, value, type) => chaserEditor.setStepSpeed(index, value, type)
                 onNoteTextChanged: (index, text) => chaserEditor.setStepNote(index, text)
-                onAddFunctions: (list) => chaserEditor.addFunctions(list, index)
+                onAddFunctions: (list, index) => chaserEditor.addFunctions(list, index)
                 onMoveSteps: (list, index) => chaserEditor.moveSteps(list, index)
                 onRequestEditor: (funcID) =>
                 {
