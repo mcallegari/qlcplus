@@ -35,7 +35,8 @@ android {
      *******************************************************/
     namespace "org.qlcplus"
 
-    compileSdkVersion androidCompileSdkVersion.toInteger()
+    // compileSdkVersion androidCompileSdkVersion.toInteger()
+    compileSdkVersion 33
 
     // buildToolsVersion '28.0.3'
 

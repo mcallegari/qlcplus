@@ -81,18 +81,24 @@ set(SRC_FILES
     virtualconsole/virtualconsole.cpp virtualconsole/virtualconsole.h
 )
 
-if(ANDROID)
-    add_library(${module_name} SHARED
+# --- Application target ---
+# Always build an executable (needed for Android packaging)
+if(WIN32)
+    qt_add_executable(${module_name} WIN32
         ${SRC_FILES}
         ${QM_FILES}
     )
-    set_target_properties(
-        ${module_name}
-        PROPERTIES LIBRARY_OUTPUT_NAME qlcplus)
 else()
-    add_executable(${module_name} WIN32
+    qt_add_executable(${module_name}
         ${SRC_FILES}
         ${QM_FILES}
+    )
+endif()
+
+# Android-specific settings
+if(ANDROID)
+    set_property(TARGET ${module_name} PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
+        ${CMAKE_SOURCE_DIR}/platforms/android
     )
 endif()
 
@@ -154,12 +160,16 @@ if(lupdate_only)
 endif()
 
 if(QT_VERSION_MAJOR EQUAL 5)
-    qt5_add_resources(qlcplusqmlui_resource_files qmlui.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc)
+    qt5_add_resources(qlcplusqmlui_resource_files
+        qmlui.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc
+    )
     target_sources(${module_name} PUBLIC
         ${qlcplusqmlui_resource_files}
     )
 else()
-    qt_add_resources(qlcplusqmlui_resource_files qmlui.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc)
+    qt_add_resources(qlcplusqmlui_resource_files
+        qmlui.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc
+    )
     target_sources(${module_name} PUBLIC
         ${qlcplusqmlui_resource_files}
     )

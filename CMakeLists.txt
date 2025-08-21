@@ -1,4 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
+if(POLICY CMP0177)
+  cmake_policy(SET CMP0177 NEW) # or OLD if you need legacy behavior
+endif()
 project(qlcplus VERSION 4.14.2 LANGUAGES C CXX)
 
 option(qmlui "Build for QLC+ 5 QML UI" OFF)
