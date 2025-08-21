@@ -34,7 +34,7 @@ Rectangle
 
     property int functionID: -1
 
-    signal requestView(int ID, string qmlSrc)
+    signal requestView(int ID, string qmlSrc, bool back)
     signal doubleClicked(int ID, int type)
 
     onFunctionIDChanged:
@@ -118,8 +118,7 @@ Rectangle
                     }
 
                     var prevID = scriptEditor.previousID
-                    functionManager.setEditorFunction(prevID, false, true)
-                    requestView(prevID, functionManager.getEditorResource(prevID))
+                    requestView(prevID, functionManager.getEditorResource(prevID), true)
                 }
 
                 IconButton

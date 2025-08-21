@@ -34,7 +34,7 @@ Rectangle
     property int functionID: -1
     property var mediaInfo: audioEditor ? audioEditor.mediaInfo : null
 
-    signal requestView(int ID, string qmlSrc)
+    signal requestView(int ID, string qmlSrc, bool back)
 
     TimeEditTool
     {
@@ -63,8 +63,7 @@ Rectangle
         onBackClicked:
         {
             var prevID = audioEditor.previousID
-            functionManager.setEditorFunction(prevID, false, true)
-            requestView(prevID, functionManager.getEditorResource(prevID))
+            requestView(prevID, functionManager.getEditorResource(prevID), true)
         }
     }
 

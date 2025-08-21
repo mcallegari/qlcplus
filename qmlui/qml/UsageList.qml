@@ -31,7 +31,7 @@ Rectangle
     property int functionID: -1
     property QLCFunction func: null
 
-    signal requestView(int ID, string qmlSrc)
+    signal requestView(int ID, string qmlSrc, bool back)
 
     onFunctionIDChanged:
     {
@@ -62,7 +62,7 @@ Rectangle
                     faColor: UISettings.fgLight
                     faSource: FontAwesome.fa_chevron_left
                     tooltip: qsTr("Go back to the Function Manager")
-                    onClicked: requestView(0, "qrc:/FunctionManager.qml")
+                    onClicked: requestView(0, "qrc:/FunctionManager.qml", false)
                 }
 
                 RobotoText
@@ -100,16 +100,23 @@ Rectangle
                                 textLabel: modelData.label
                                 isSelected: index == funcList.selectedIndex
 
-                                onMouseEvent:
+                                onMouseEvent: (type, iID, iType, qItem, mouseMods) =>
                                 {
-                                    if (type == App.Clicked)
+                                    if (type === App.Clicked)
                                     {
                                         funcList.selectedIndex = index
                                     }
-                                    else if (type == App.DoubleClicked)
+                                    else if (type === App.DoubleClicked)
                                     {
-                                        functionManager.setEditorFunction(cRef.id, false, false)
-                                        requestView(cRef.id, functionManager.getEditorResource(cRef.id))
+                                        var res = functionManager.getEditorResource(cRef.id)
+
+                                        if (cRef.type === QLCFunction.ShowType)
+                                        {
+                                            showManager.currentShowID = cRef.id
+                                            mainView.switchToContext("SHOWMGR", res)
+                                        }
+                                        else
+                                            requestView(cRef.id, res, false)
                                     }
                                 }
                             }

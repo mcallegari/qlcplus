@@ -33,7 +33,7 @@ Rectangle
 
     property bool allowEditing: true
 
-    signal requestView(int ID, string qmlSrc)
+    signal requestView(int ID, string qmlSrc, bool back)
     signal doubleClicked(int ID, int type)
 
     function loadFunctionEditor(funcID, funcType)
@@ -52,7 +52,7 @@ Rectangle
             mainView.switchToContext("SHOWMGR", editorRes)
         }
         else
-            fmContainer.requestView(funcID, editorRes)
+            fmContainer.requestView(funcID, editorRes, false)
     }
 
     function setFunctionFilter(fType, checked)

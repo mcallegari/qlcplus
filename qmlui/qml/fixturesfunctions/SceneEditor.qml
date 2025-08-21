@@ -34,7 +34,7 @@ Rectangle
     property int functionID
     property bool boundToSequence: false
 
-    signal requestView(int ID, string qmlSrc)
+    signal requestView(int ID, string qmlSrc, bool back)
 
     function deleteSelectedItems()
     {
@@ -141,8 +141,7 @@ Rectangle
                     }
 
                     var prevID = sceneEditor.previousID
-                    functionManager.setEditorFunction(prevID, false, true)
-                    requestView(prevID, functionManager.getEditorResource(prevID))
+                    requestView(prevID, functionManager.getEditorResource(prevID), true)
                 }
 
                 IconButton

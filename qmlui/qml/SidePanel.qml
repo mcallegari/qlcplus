@@ -77,9 +77,10 @@ Rectangle
         {
             ignoreUnknownSignals: true
             target: viewLoader.item
-            function onRequestView(ID, qmlSrc)
+            function onRequestView(ID, qmlSrc, back)
             {
                 console.log("SidePanel loader ID requested: " + ID)
+                functionManager.setEditorFunction(ID, false, back)
                 itemID = ID
                 loaderSource = qmlSrc
             }
