@@ -138,7 +138,6 @@ int main(int argc, char *argv[])
         qlcplusApp.enableKioskMode();
 
     qlcplusApp.startup();
-    qlcplusApp.show();
 
     QString filename = parser.value(openFileOption);
     if (filename.isEmpty() == false)

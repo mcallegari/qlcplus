@@ -61,6 +61,7 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
+#define SETTINGS_GEOMETRY "workspace/geometry"
 #define SETTINGS_WORKINGPATH "workspace/workingpath"
 #define SETTINGS_RECENTFILE "workspace/recent"
 #define KXMLQLCWorkspaceWindow "CurrentWindow"
@@ -103,6 +104,17 @@ App::App()
 
 App::~App()
 {
+    QSettings settings;
+
+    if (m_doc->isKiosk() == false && QLCFile::hasWindowManager())
+        settings.setValue(SETTINGS_GEOMETRY, geometry());
+    else
+        settings.setValue(SETTINGS_GEOMETRY, QVariant());
+
+    /* remove autosave file if present */
+    QFile asFile(autoSaveFileName());
+    if (asFile.exists())
+        asFile.remove();
 }
 
 QString App::appName() const
@@ -132,8 +144,6 @@ void App::startup()
         qWarning() << "Roboto mono cannot be loaded!";
 
     rootContext()->setContextProperty("qlcplus", this);
-
-    slotScreenChanged(screen());
 
     initDoc();
 
@@ -175,10 +185,32 @@ void App::startup()
     // Start up in non-modified state
     m_doc->resetModified();
 
+    QSettings settings;
+    QRect rect(0, 0, 800, 600);
+    QVariant var = settings.value(SETTINGS_GEOMETRY);
+    if (var.isValid())
+    {
+        //qDebug() << "Restoring window position" << var.toRect();
+        rect = var.toRect();
+        setGeometry(rect);
+        show();
+    }
+    else
+    {
+        QScreen *currScreen = screen();
+        rect.moveTopLeft(currScreen->geometry().topLeft());
+        setGeometry(rect);
+        showMaximized();
+    }
+
+    slotScreenChanged(screen());
     m_uiManager->initialize();
 
-    // and here we go !
+    // and here we go!
     setSource(QUrl("qrc:/MainView.qml"));
+
+    // set geometry once again
+    setGeometry(rect);
 }
 
 void App::toggleFullscreen()
@@ -229,15 +261,12 @@ QString App::goboSystemPath() const
     return QLCFile::systemDirectory(GOBODIR).absolutePath();
 }
 
+/*
 void App::show()
 {
-    QScreen *currScreen = screen();
-    QRect rect(0, 0, 800, 600);
-    rect.moveTopLeft(currScreen->geometry().topLeft());
-    setGeometry(rect);
-    showMaximized();
-}
 
+}
+*/
 qreal App::pixelDensity() const
 {
     return m_pixelDensity;
