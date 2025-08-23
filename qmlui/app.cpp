@@ -61,7 +61,7 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-#define SETTINGS_GEOMETRY "workspace/geometry"
+#define SETTINGS_GEOMETRY "workspace/windowrect"
 #define SETTINGS_WORKINGPATH "workspace/workingpath"
 #define SETTINGS_RECENTFILE "workspace/recent"
 #define KXMLQLCWorkspaceWindow "CurrentWindow"
