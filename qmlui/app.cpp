@@ -205,6 +205,7 @@ void App::startup()
 
     slotScreenChanged(screen());
     m_uiManager->initialize();
+    m_showManager->initialize();
 
     // and here we go!
     setSource(QUrl("qrc:/MainView.qml"));
@@ -261,12 +262,6 @@ QString App::goboSystemPath() const
     return QLCFile::systemDirectory(GOBODIR).absolutePath();
 }
 
-/*
-void App::show()
-{
-
-}
-*/
 qreal App::pixelDensity() const
 {
     return m_pixelDensity;

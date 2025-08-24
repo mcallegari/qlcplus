@@ -45,7 +45,10 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
 
     setContextResource("qrc:/ShowManager.qml");
     setContextTitle(tr("Show Manager"));
+}
 
+void ShowManager::initialize()
+{
     App *app = qobject_cast<App *>(m_view);
     m_tickSize = app->pixelDensity() * 18;
 
