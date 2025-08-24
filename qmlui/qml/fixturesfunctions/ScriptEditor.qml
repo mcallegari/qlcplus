@@ -196,7 +196,8 @@ Rectangle
                     id: removeFunc
                     width: height
                     height: UISettings.iconSizeMedium
-                    imgSource: "qrc:/apply.svg"
+                    faSource: FontAwesome.fa_spell_check
+                    faColor: UISettings.fgMain
                     tooltip: qsTr("Check the script syntax")
                     onClicked:
                     {

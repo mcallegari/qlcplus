@@ -89,7 +89,7 @@ Item
         anchors.rightMargin: 5
         anchors.verticalCenter: parent.verticalCenter
         color: UISettings.fgLight
-        font.family: "FontAwesome"
+        font.family: UISettings.fontAwesomeFontName
         font.pixelSize: parent.height - 8
         text: FontAwesome.fa_chevron_right
     }
@@ -102,7 +102,7 @@ Item
         anchors.rightMargin: 5
         anchors.verticalCenter: parent.verticalCenter
         color: UISettings.fgMain
-        font.family: "FontAwesome"
+        font.family: UISettings.fontAwesomeFontName
         font.pixelSize: parent.height - 5
         text: FontAwesome.fa_user
     }

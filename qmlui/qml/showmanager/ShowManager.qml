@@ -264,7 +264,8 @@ Rectangle
                 id: playbackBtn
                 width: parent.height - 6
                 height: width
-                imgSource: "qrc:/play.svg"
+                faSource: FontAwesome.fa_play
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Play or resume")
                 checkable: true
                 enabled: showManager.isEditing
@@ -281,7 +282,8 @@ Rectangle
                 id: stopBtn
                 width: parent.height - 6
                 height: width
-                imgSource: "qrc:/stop.svg"
+                faSource: FontAwesome.fa_stop
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Stop or rewind")
                 checkable: false
                 enabled: showManager.isEditing

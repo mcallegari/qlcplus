@@ -96,7 +96,7 @@ Rectangle
                     // universe reset button
                     IconButton
                     {
-                        faSource: FontAwesome.fa_remove
+                        faSource: FontAwesome.fa_xmark
                         faColor: UISettings.bgControl
                         tooltip: qsTr("Reset the whole universe")
                         onClicked:
@@ -256,7 +256,7 @@ Rectangle
                             // channel reset button
                             IconButton
                             {
-                                faSource: FontAwesome.fa_remove
+                                faSource: FontAwesome.fa_xmark
                                 faColor: UISettings.bgControl
                                 tooltip: qsTr("Reset the channel")
                                 focusPolicy: Qt.NoFocus

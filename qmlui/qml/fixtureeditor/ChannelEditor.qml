@@ -363,7 +363,7 @@ GridLayout
                             height: UISettings.listItemHeight
                             width: height
                             border.width: 0
-                            faSource: FontAwesome.fa_warning
+                            faSource: FontAwesome.fa_triangle_exclamation
                             faColor: "yellow"
                             tooltip: visible ? capsList.warningDescription(cap.warning) : ""
                         }
@@ -475,7 +475,7 @@ GridLayout
                         height: UISettings.listItemHeight
                         width: height
                         border.width: 0
-                        faSource: FontAwesome.fa_warning
+                        faSource: FontAwesome.fa_triangle_exclamation
                         faColor: "yellow"
                         tooltip: editItem.editCap ? capsList.warningDescription(editItem.editCap.warning) : ""
                     }

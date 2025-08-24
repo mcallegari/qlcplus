@@ -221,7 +221,7 @@ Rectangle
             anchors.right: parent.right
             border.color: UISettings.bgMedium
             useFontawesome: true
-            label: FontAwesome.fa_times
+            label: FontAwesome.fa_xmark
             onClicked: posToolRoot.close()
         }
     }
@@ -239,7 +239,7 @@ Rectangle
         x: parent.width - width - 2
         y: posToolBar.height
         z: 2
-        imgSource: "qrc:/rotate-right.svg"
+        faSource: FontAwesome.fa_rotate_right
         tooltip: qsTr("Rotate preview 90° clockwise")
         onClicked:
         {
@@ -380,7 +380,7 @@ Rectangle
         {
             width: UISettings.iconSizeMedium
             height: width
-            imgSource: "qrc:/back.svg"
+            faSource: FontAwesome.fa_angle_left
             tooltip: qsTr("Snap to the previous value")
             onClicked:
             {
@@ -393,7 +393,7 @@ Rectangle
         {
             width: UISettings.iconSizeMedium
             height: width
-            imgSource: "qrc:/forward.svg"
+            faSource: FontAwesome.fa_angle_right
             tooltip: qsTr("Snap to the next value")
             onClicked:
             {
@@ -427,7 +427,7 @@ Rectangle
         {
             width: UISettings.iconSizeMedium
             height: width
-            imgSource: "qrc:/back.svg"
+            faSource: FontAwesome.fa_angle_left
             tooltip: qsTr("Snap to the previous value")
             onClicked:
             {
@@ -446,7 +446,7 @@ Rectangle
         {
             width: UISettings.iconSizeMedium
             height: width
-            imgSource: "qrc:/forward.svg"
+            faSource: FontAwesome.fa_angle_right
             tooltip: qsTr("Snap to the next value")
             onClicked:
             {

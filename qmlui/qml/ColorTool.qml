@@ -173,7 +173,7 @@ Rectangle
                     height: parent.height
                     border.color: UISettings.bgMedium
                     useFontawesome: true
-                    label: FontAwesome.fa_times
+                    label: FontAwesome.fa_xmark
                     onClicked: colorToolBox.close()
                 }
             }

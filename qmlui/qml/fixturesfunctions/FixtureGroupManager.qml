@@ -54,7 +54,7 @@ Rectangle
 
         linkedButton.enabled = itemType === App.FixtureDragItem ? true : false
         var linkedIndex = fixtureManager.fixtureLinkedIndex(itemID)
-        linkedButton.faSource = linkedIndex ? FontAwesome.fa_unlink : FontAwesome.fa_link
+        linkedButton.faSource = linkedIndex ? FontAwesome.fa_link_slash : FontAwesome.fa_link
     }
 
     function updateInfoView()
@@ -199,7 +199,7 @@ Rectangle
                     height: topBar.height - 2
                     bgColor: UISettings.bgMedium
                     faColor: checked ? "white" : "gray"
-                    faSource: FontAwesome.fa_search
+                    faSource: FontAwesome.fa_magnifying_glass
                     checkable: true
                     tooltip: qsTr("Set a Group/Fixture/Channel search filter")
                     onToggled:

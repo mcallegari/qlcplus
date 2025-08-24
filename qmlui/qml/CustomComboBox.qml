@@ -190,7 +190,7 @@ ComboBox
             y: control.topPadding + (control.availableHeight - height) / 2
             color: UISettings.fgLight
             opacity: enabled ? 1 : 0.3
-            font.family: "FontAwesome"
+            font.family: UISettings.fontAwesomeFontName
             font.pixelSize: UISettings.iconSizeMedium * 0.45
             text: FontAwesome.fa_chevron_down
         }

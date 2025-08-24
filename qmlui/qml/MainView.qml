@@ -118,7 +118,7 @@ Rectangle
     // Load the "FontAwesome" font for the monochrome icons
     FontLoader
     {
-        source: "qrc:/FontAwesome.otf"
+        source: "qrc:/FontAwesome7-Free-Solid-900.otf"
     }
 
     Rectangle

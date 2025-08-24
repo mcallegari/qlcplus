@@ -168,7 +168,7 @@ Rectangle
                 {
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: UISettings.fgLight
-                    font.family: "FontAwesome"
+                    font.family: UISettings.fontAwesomeFontName
                     font.pixelSize: parent.height - 8
                     text: expandButton.checked ? FontAwesome.fa_chevron_down : FontAwesome.fa_chevron_up
                 }

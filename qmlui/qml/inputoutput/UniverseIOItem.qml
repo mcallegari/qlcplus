@@ -248,7 +248,7 @@ Rectangle
             checkedColor: UISettings.selection
             width: UISettings.iconSizeMedium * 0.8
             height: UISettings.iconSizeMedium * 0.8
-            faSource: FontAwesome.fa_long_arrow_right
+            faSource: FontAwesome.fa_arrow_right_long
             checkable: true
             tooltip: qsTr("Enable/Disable passthrough")
             checked: universe ? universe.passthrough : false

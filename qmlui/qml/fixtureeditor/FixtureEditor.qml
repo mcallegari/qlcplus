@@ -41,7 +41,7 @@ Rectangle
     // Load the "FontAwesome" font for the monochrome icons
     FontLoader
     {
-        source: "qrc:/FontAwesome.otf"
+        source: "qrc:/FontAwesome7-Free-Solid-900.otf"
     }
 
     FileDialog
@@ -173,9 +173,9 @@ Rectangle
 
             MenuBarEntry
             {
-                imgSource: "qrc:/arrow-right.svg"
+                faSource: FontAwesome.fa_chevron_left
+                faColor: UISettings.fgLight
                 entryText: qsTr("Back to QLC+")
-                iconRotation: 180
                 autoExclusive: false
                 checkable: false
                 onClicked: checkBeforeExit()

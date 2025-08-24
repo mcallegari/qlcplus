@@ -253,7 +253,7 @@ Rectangle
                         z: 2
                         width: UISettings.iconSizeMedium
                         height: width
-                        faSource: FontAwesome.fa_times
+                        faSource: FontAwesome.fa_xmark
                         tooltip: qsTr("Reset background")
                         onClicked: View2D.backgroundImage = ""
                     }

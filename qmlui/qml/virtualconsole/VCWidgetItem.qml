@@ -30,8 +30,8 @@ Rectangle
     width: wObj ? wObj.geometry.width : 100
     height: wObj ? wObj.geometry.height : 100
     color: wObj ? wObj.backgroundColor : "darkgray"
-    border.width: 1
-    border.color: "#111"
+    border.width: 2
+    border.color: UISettings.bgLight
     visible: wObj ? wObj.isVisible : true
 
     property VCWidget wObj: null
@@ -107,8 +107,8 @@ Rectangle
         id: resizeLayer
         anchors.fill: parent
         color: "transparent"
-        border.width: isSelected ? 2 : 1
-        border.color: isSelected ? "yellow" : "#111"
+        border.width: isSelected ? 3 : 2
+        border.color: isSelected ? "yellow" : UISettings.bgLight
         // this must be above the widget root but
         // underneath the widget children (if any)
         z: isSelected ? 99 : 1

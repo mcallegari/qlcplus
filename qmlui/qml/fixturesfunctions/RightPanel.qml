@@ -355,7 +355,7 @@ SidePanel
                 z: 2
                 width: iconSize
                 height: iconSize
-                faSource: FontAwesome.fa_times
+                faSource: FontAwesome.fa_xmark
                 tooltip: qsTr("Reset dump channels") + " (CTRL+R)"
                 onClicked: contextManager.resetDumpValues()
             }

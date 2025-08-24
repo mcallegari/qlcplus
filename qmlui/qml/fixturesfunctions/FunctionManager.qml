@@ -219,7 +219,7 @@ Rectangle
                 height: topBar.height - 2
                 bgColor: UISettings.bgMedium
                 faColor: checked ? "white" : "gray"
-                faSource: FontAwesome.fa_search
+                faSource: FontAwesome.fa_magnifying_glass
                 checkable: true
                 tooltip: qsTr("Set a Function search filter")
                 onToggled:

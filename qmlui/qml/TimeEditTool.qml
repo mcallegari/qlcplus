@@ -156,7 +156,7 @@ GridLayout
             border.color: UISettings.bgMedium
             //bgColor: buttonsBgColor
             useFontawesome: true
-            label: FontAwesome.fa_times
+            label: FontAwesome.fa_xmark
 
             onClicked:
             {

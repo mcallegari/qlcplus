@@ -54,7 +54,7 @@ Rectangle
             x: parent.width - width - 10
             height: UISettings.bigItemHeight * 0.25
             width: height
-            faSource: FontAwesome.fa_times
+            faSource: FontAwesome.fa_xmark
             faColor: "white"
             tooltip: qsTr("Remove this input profile")
             onClicked: ipRoot.removeProfile()

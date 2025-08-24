@@ -58,7 +58,8 @@ Rectangle
 
                 IconButton
                 {
-                    imgSource: checked ? "qrc:/pause.svg" : "qrc:/play.svg"
+                    faSource: checked ? FontAwesome.fa_pause : FontAwesome.fa_play
+                    faColor: UISettings.fgMain
                     bgColor: "green"
                     checkedColor: "red"
                     checkable: true

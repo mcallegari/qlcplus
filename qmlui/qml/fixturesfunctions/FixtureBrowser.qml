@@ -56,9 +56,9 @@ Rectangle
                 height: parent.height - 6
                 anchors.verticalCenter: parent.verticalCenter
                 color: "gray"
-                font.family: "FontAwesome"
+                font.family: UISettings.fontAwesomeFontName
                 font.pixelSize: height - 6
-                text: FontAwesome.fa_search
+                text: FontAwesome.fa_magnifying_glass
             }
 
             TextInput
@@ -177,7 +177,7 @@ Rectangle
                 anchors.leftMargin: 5
                 anchors.verticalCenter: parent.verticalCenter
                 color: UISettings.fgLight
-                font.family: "FontAwesome"
+                font.family: UISettings.fontAwesomeFontName
                 font.pixelSize: parent.height - 8
                 text: FontAwesome.fa_chevron_left
             }

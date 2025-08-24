@@ -24,6 +24,7 @@ import QtQuick
 QtObject
 {
     property string robotoFontName: "Roboto Condensed"
+    property string fontAwesomeFontName: "Font Awesome 7 Free"
 
     property real scalingFactor: 1.0
 

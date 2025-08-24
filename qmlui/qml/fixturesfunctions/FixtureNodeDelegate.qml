@@ -124,9 +124,9 @@ Column
                     anchors.right: parent.right
                     anchors.bottom: parent.bottom
                     color: UISettings.fgMain
-                    font.family: "FontAwesome"
+                    font.family: UISettings.fontAwesomeFontName
                     font.pixelSize: parent.height / 3
-                    text: FontAwesome.fa_plus_square
+                    text: FontAwesome.fa_square_plus
                 }
             }
 
@@ -134,7 +134,7 @@ Column
             {
                 visible: linkedIndex
                 color: UISettings.fgMain
-                font.family: "FontAwesome"
+                font.family: UISettings.fontAwesomeFontName
                 font.pixelSize: UISettings.listItemHeight - 6
                 text: FontAwesome.fa_link
             }
@@ -262,7 +262,7 @@ Column
                         height: parent.height - 2
                         width: height
                         border.width: 0
-                        faSource: FontAwesome.fa_arrows_h
+                        faSource: FontAwesome.fa_arrows_left_right
                         faColor: checked ? "#00FF00" : UISettings.fgMedium
                         bgColor: "transparent"
                         checkedColor: "transparent"
@@ -284,7 +284,7 @@ Column
                         height: parent.height - 2
                         width: height
                         border.width: 0
-                        faSource: FontAwesome.fa_arrows_v
+                        faSource: FontAwesome.fa_arrows_up_down
                         faColor: checked ? "#00FF00" : UISettings.fgMedium
                         bgColor: "transparent"
                         checkedColor: "transparent"

@@ -188,7 +188,7 @@ VCWidgetItem
         {
             visible: sliderObj ? sliderObj.monitorEnabled : false
             Layout.alignment: Qt.AlignHCenter
-            faSource: FontAwesome.fa_remove
+            faSource: FontAwesome.fa_xmark
             faColor: UISettings.bgControl
             bgColor: sliderObj && sliderObj.isOverriding ? "red" : UISettings.bgLight
             onClicked: if (sliderObj) sliderObj.isOverriding = false

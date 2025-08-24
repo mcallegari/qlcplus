@@ -80,9 +80,9 @@ CustomPopupDialog
                     height: parent.height - 6
                     anchors.verticalCenter: parent.verticalCenter
                     color: "gray"
-                    font.family: "FontAwesome"
+                    font.family: UISettings.fontAwesomeFontName
                     font.pixelSize: height - 6
-                    text: FontAwesome.fa_search
+                    text: FontAwesome.fa_magnifying_glass
                 }
 
                 TextInput
@@ -120,9 +120,9 @@ CustomPopupDialog
                     height: parent.height - 6
                     anchors.verticalCenter: parent.verticalCenter
                     color: "gray"
-                    font.family: "FontAwesome"
+                    font.family: UISettings.fontAwesomeFontName
                     font.pixelSize: height - 6
-                    text: FontAwesome.fa_search
+                    text: FontAwesome.fa_magnifying_glass
                 }
 
                 TextInput

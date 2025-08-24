@@ -196,7 +196,7 @@ Rectangle
                                         id: addOffsetButton
                                         width: height
                                         height: parent.height
-                                        faSource: FontAwesome.fa_sort_amount_asc
+                                        faSource: FontAwesome.fa_arrow_down_wide_short
                                         faColor: "white"
                                         tooltip: qsTr("Add an increasing offset to all fixtures")
                                         onClicked: popupNumber.open()

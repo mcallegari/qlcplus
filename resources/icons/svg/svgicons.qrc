@@ -14,10 +14,8 @@
     <file alias="align-top.svg">align-top.svg</file>
     <file alias="amber.svg">amber.svg</file>
     <file alias="animation.svg">animation.svg</file>
-    <file alias="apply.svg">apply.svg</file>
     <file alias="arrow-corner.svg">arrow-corner.svg</file>
     <file alias="arrow-end.svg">arrow-end.svg</file>
-    <file alias="arrow-right.svg">arrow-right.svg</file>
     <file alias="arrow-up.svg">arrow-up.svg</file>
     <file alias="artnetplugin.svg">artnetplugin.svg</file>
     <file alias="audio.svg">audio.svg</file>
@@ -139,7 +137,6 @@
     <file alias="reset.svg">reset.svg</file>
     <file alias="resize.svg">resize.svg</file>
     <file alias="rgbmatrix.svg">rgbmatrix.svg</file>
-    <file alias="rotate-right.svg">rotate-right.svg</file>
     <file alias="selectall.svg">selectall.svg</file>
     <file alias="sequence.svg">sequence.svg</file>
     <file alias="scanner.svg">scanner.svg</file>

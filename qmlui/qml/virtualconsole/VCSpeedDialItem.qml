@@ -379,7 +379,7 @@ VCWidgetItem
             Layout.columnSpan: 2
             Layout.fillWidth: true
             Layout.fillHeight: true
-            faSource: FontAwesome.fa_times
+            faSource: FontAwesome.fa_xmark
             visible: speedObj ? speedObj.visibilityMask & VCSpeedDial.Multipliers : false
             onClicked:
             {
