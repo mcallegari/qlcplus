@@ -77,9 +77,12 @@ public:
         Nothing = 0,
         Fader           = 1 << 0,
         Label           = 1 << 1,
-        StartColor      = 1 << 2,
-        EndColor        = 1 << 3,
-        PresetCombo     = 1 << 4
+        PresetCombo     = 1 << 2,
+        Color1          = 1 << 3,
+        Color2          = 1 << 4,
+        Color3          = 1 << 5,
+        Color4          = 1 << 6,
+        Color5          = 1 << 7,
     };
     Q_ENUM(Visibility)
 

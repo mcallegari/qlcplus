@@ -29,6 +29,7 @@
 
 VCAnimation::VCAnimation(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
+    , m_functionID(Function::invalidId())
     , m_matrix(nullptr)
     , m_faderLevel(0)
     , m_instantChanges(true)
@@ -126,7 +127,7 @@ FunctionParent VCAnimation::functionParent() const
 
 quint32 VCAnimation::defaultVisibilityMask()
 {
-    return Fader | Label | StartColor | EndColor | PresetCombo;
+    return Fader | Label | Color1 | Color2 | PresetCombo;
 }
 
 quint32 VCAnimation::visibilityMask() const
