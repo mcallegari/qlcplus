@@ -149,7 +149,8 @@ VCWidgetItem
             width: height
             checkable: true
             tooltip: qsTr("Enable/Disable this scheduler")
-            imgSource: "qrc:/apply.svg"
+            faSource: FontAwesome.fa_check
+            faColor: "lime"
             checked: clockObj ? clockObj.enableSchedule : false
             onToggled: if (clockObj) clockObj.enableSchedule = checked
         }
