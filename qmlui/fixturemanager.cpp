@@ -140,7 +140,7 @@ QVariantList FixtureManager::universeInfo(quint32 id)
     // unmask group type
     id = id & 0x0000FFFF;
 
-    quint32 universeFilter;
+    quint32 universeFilter = Universe::invalid();
     QList<quint32> fixtureList;
 
     if (type == App::UniverseDragItem)
@@ -154,7 +154,6 @@ QVariantList FixtureManager::universeInfo(quint32 id)
         if (group == nullptr)
             return m_universeInfo;
 
-        universeFilter = Universe::invalid();
         fixtureList = group->fixtureList();
     }
 
