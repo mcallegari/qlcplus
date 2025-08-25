@@ -136,9 +136,31 @@ QVariantList FixtureManager::universeInfo(quint32 id)
 {
     m_universeInfo.clear();
 
-    for (quint32 fixtureID : m_monProps->fixtureItemsID())
+    int type = id >> 16;
+    // unmask group type
+    id = id & 0x0000FFFF;
+
+    quint32 universeFilter;
+    QList<quint32> fixtureList;
+
+    if (type == App::UniverseDragItem)
     {
-        for (quint32 subID : m_monProps->fixtureIDList(fixtureID))
+        universeFilter = id;
+        fixtureList = m_monProps->fixtureItemsID();
+    }
+    else if (type == App::FixtureGroupDragItem)
+    {
+        FixtureGroup *group = m_doc->fixtureGroup(id);
+        if (group == nullptr)
+            return m_universeInfo;
+
+        universeFilter = Universe::invalid();
+        fixtureList = group->fixtureList();
+    }
+
+    for (quint32 &fixtureID : fixtureList)
+    {
+        for (quint32 &subID : m_monProps->fixtureIDList(fixtureID))
         {
             quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
             quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
@@ -147,7 +169,10 @@ QVariantList FixtureManager::universeInfo(quint32 id)
                 continue;
 
             Fixture *fixture = m_doc->fixture(fixtureID);
-            if (fixture == nullptr || fixture->universe() != id)
+            if (fixture == nullptr)
+                continue;
+
+            if (universeFilter != Universe::invalid() && universeFilter != id)
                 continue;
 
             QVariantMap fxMap;

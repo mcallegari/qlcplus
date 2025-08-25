@@ -42,11 +42,14 @@ Rectangle
         RowLayout
         {
             width: parent.width
+            anchors.verticalCenter: parent.verticalCenter
             spacing: 5
 
             CustomCheckBox
             {
                 id: manufCheck
+                implicitWidth: UISettings.iconSizeMedium
+                implicitHeight: implicitWidth
                 autoExclusive: false
             }
             RobotoText { label: qsTr("Manufacturer") }
@@ -54,6 +57,8 @@ Rectangle
             CustomCheckBox
             {
                 id: modelCheck
+                implicitWidth: UISettings.iconSizeMedium
+                implicitHeight: implicitWidth
                 autoExclusive: false
             }
             RobotoText { label: qsTr("Model") }
@@ -61,6 +66,8 @@ Rectangle
             CustomCheckBox
             {
                 id: weightCheck
+                implicitWidth: UISettings.iconSizeMedium
+                implicitHeight: implicitWidth
                 autoExclusive: false
             }
             RobotoText { label: qsTr("Weight") }
@@ -68,6 +75,8 @@ Rectangle
             CustomCheckBox
             {
                 id: powerCheck
+                implicitWidth: UISettings.iconSizeMedium
+                implicitHeight: implicitWidth
                 autoExclusive: false
             }
             RobotoText { label: qsTr("Consumption") }
@@ -75,16 +84,19 @@ Rectangle
             CustomCheckBox
             {
                 id: dipCheck
+                implicitWidth: UISettings.iconSizeMedium
+                implicitHeight: implicitWidth
                 autoExclusive: false
             }
             RobotoText { label: qsTr("DIP switch") }
 
             // filler
-            Rectangle { color: "transparent"; Layout.fillWidth: true; height: UISettings.iconSizeDefault }
+            Rectangle { color: "transparent"; Layout.fillWidth: true; height: UISettings.iconSizeMedium }
 
             IconButton
             {
                 width: UISettings.bigItemHeight
+                height: UISettings.iconSizeDefault * 0.9
                 imgSource: "qrc:/printer.svg"
                 tooltip: qsTr("Print the universe summary")
                 onClicked: qlcplus.printItem(flickView.contentItem)
@@ -95,6 +107,7 @@ Rectangle
     Flickable
     {
         id: flickView
+        x: 5
         y: selBar.height
         width: gridBox.width
         height: parent.height - y
@@ -130,6 +143,12 @@ Rectangle
             Repeater
             {
                 model: fixtureManager.universeInfo(fixtureManager.itemID)
+
+                onItemRemoved:
+                {
+                    flickView.totalWeight = 0
+                    flickView.totalPower = 0
+                }
 
                 delegate:
                     Item
@@ -311,7 +330,7 @@ Rectangle
             RobotoText
             {
                 height: UISettings.listItemHeight
-                label: " " + flickView.totalWeight + "Kg"
+                label: " " + flickView.totalWeight.toFixed(2) + "Kg"
                 labelColor: flickView.textColor
             }
 
