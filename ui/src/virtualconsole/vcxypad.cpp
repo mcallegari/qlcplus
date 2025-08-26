@@ -1000,7 +1000,7 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
     {
         if (m_efx == NULL)
         {
-            m_lastPos.setX(value);
+            m_lastPos.moveLeft(value);
             updatePosition();
         }
         else
@@ -1025,7 +1025,7 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
     {
         if (m_efx == NULL)
         {
-            m_lastPos.setY(value);
+            m_lastPos.moveTop(value);
             updatePosition();
         }
         else
