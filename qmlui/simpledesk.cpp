@@ -437,7 +437,7 @@ bool SimpleDesk::sendKeypadCommand(QString command)
         return false;
 
     QByteArray uniData = m_prevUniverseValues.value(m_universeFilter);
-    QList<SceneValue> scvList = m_keyPadParser->parseCommand(m_doc, command, uniData);
+    QList<SceneValue> scvList = m_keyPadParser->parseCommand(m_doc, command.toUpper(), uniData);
 
     for (SceneValue &scv : scvList)
     {
@@ -451,7 +451,7 @@ bool SimpleDesk::sendKeypadCommand(QString command)
         m_channelList->setData(mIndex, QVariant(scv.value), UserRoleChannelValue);
     }
 
-    m_keypadCommandHistory.prepend(command);
+    m_keypadCommandHistory.prepend(command.toUpper());
     if (m_keypadCommandHistory.count() > MAX_KEYPAD_HISTORY)
         m_keypadCommandHistory.removeLast();
 
