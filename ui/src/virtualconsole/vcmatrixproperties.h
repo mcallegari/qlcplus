@@ -30,6 +30,13 @@
 
 class InputSelectionWidget;
 
+enum
+{
+    KColumnType,
+    KColumnValue,
+    KColumnSoftPatch
+};
+
 /** @addtogroup ui_vc_props
  * @{
  */
@@ -61,9 +68,9 @@ protected:
      * Slider External input
      *********************************************************************/
 protected slots:
-    void slotAutoDetectSliderInputToggled(bool checked);
     void slotSliderInputValueChanged(quint32 universe, quint32 channel);
     void slotChooseSliderInputClicked();
+    void slotAutoDetectSliderInputToggled(bool checked);
 
 protected:
     void updateSliderInputSource();
@@ -84,6 +91,8 @@ private:
 
 protected slots:
     void slotTreeSelectionChanged();
+    void slotTreeItemChanged(QTreeWidgetItem *item, int column);
+    void slotTreeItemDoubleClicked(QTreeWidgetItem *item, int column);
     void slotColorComboActivated();
     void slotAddColorClicked();
     void slotAddColorKnobsClicked();
