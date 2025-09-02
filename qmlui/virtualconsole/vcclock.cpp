@@ -364,7 +364,7 @@ void VCClock::addSchedule(VCClockSchedule *schedule)
 
 void VCClock::addSchedules(QVariantList idsList)
 {
-    for (QVariant vID : idsList) // C++11
+    for (QVariant &vID : idsList) // C++11
     {
         quint32 funcID = vID.toUInt();
         if (m_doc->function(funcID) == nullptr)

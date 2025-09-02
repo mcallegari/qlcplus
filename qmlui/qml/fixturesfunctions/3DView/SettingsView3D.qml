@@ -31,7 +31,7 @@ Rectangle
     width: mainView.width / 5
     height: parent.height
 
-    color: UISettings.bgMedium
+    color: UISettings.bgStrong
     border.width: 1
     border.color: "#222"
 

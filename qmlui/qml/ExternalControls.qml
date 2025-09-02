@@ -103,7 +103,7 @@ Column
 
                 width: height * 2
                 height: parent.height
-                faSource: FontAwesome.fa_hand_o_up
+                faSource: FontAwesome.fa_hand_point_up
                 faColor: UISettings.fgMain
                 tooltip: qsTr("Manually select an input source")
 

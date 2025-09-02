@@ -55,9 +55,9 @@ Rectangle
             {
                 x: parent.width - UISettings.listItemHeight
                 anchors.verticalCenter: parent.verticalCenter
-                font.family: "FontAwesome"
+                font.family: UISettings.fontAwesomeFontName
                 font.pixelSize: UISettings.textSizeDefault * 1.2
-                text: boxRoot.isExpanded ? FontAwesome.fa_minus_square : FontAwesome.fa_plus_square
+                text: boxRoot.isExpanded ? FontAwesome.fa_square_minus : FontAwesome.fa_square_plus
                 color: "white"
             }
 

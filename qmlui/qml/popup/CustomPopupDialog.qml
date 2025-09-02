@@ -26,8 +26,7 @@ import "."
 Dialog
 {
     id: control
-    x: (mainView.width - width) / 2
-    y: (mainView.height - height) / 2
+    anchors.centerIn: parent
     width: mainView.width / 3
     parent: mainView
 
@@ -90,9 +89,12 @@ Dialog
         Text
         {
             visible: message
+            anchors.centerIn: parent
             font.family: UISettings.robotoFontName
             font.pixelSize: UISettings.textSizeDefault
             color: UISettings.fgMain
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
             wrapMode: Text.Wrap
             text: message
         }

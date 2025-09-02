@@ -34,7 +34,7 @@ Rectangle
     property int functionID: -1
     property bool isSequence: chaserEditor.isSequence
 
-    signal requestView(int ID, string qmlSrc)
+    signal requestView(int ID, string qmlSrc, bool back)
 
     function deleteSelectedItems()
     {
@@ -92,8 +92,7 @@ Rectangle
                     }
 
                     var prevID = chaserEditor.previousID
-                    functionManager.setEditorFunction(prevID, false, true)
-                    requestView(prevID, functionManager.getEditorResource(prevID))
+                    requestView(prevID, functionManager.getEditorResource(prevID), true)
                 }
 
                 IconButton
@@ -193,15 +192,14 @@ Rectangle
                 tempoType: chaserEditor.tempoType
                 isRunning: chaserEditor.previewEnabled
 
-                onIndexChanged: chaserEditor.playbackIndex = index
-                onStepValueChanged: chaserEditor.setStepSpeed(index, value, type)
-                onNoteTextChanged: chaserEditor.setStepNote(index, text)
-                onAddFunctions: chaserEditor.addFunctions(list, index)
-                onMoveSteps: chaserEditor.moveSteps(list, index)
-                onRequestEditor:
+                onIndexChanged: (index) => chaserEditor.playbackIndex = index
+                onStepValueChanged: (index, value, type) => chaserEditor.setStepSpeed(index, value, type)
+                onNoteTextChanged: (index, text) => chaserEditor.setStepNote(index, text)
+                onAddFunctions: (list, index) => chaserEditor.addFunctions(list, index)
+                onMoveSteps: (list, index) => chaserEditor.moveSteps(list, index)
+                onRequestEditor: (funcID) =>
                 {
-                    functionManager.setEditorFunction(funcID, false, false)
-                    requestView(funcID, functionManager.getEditorResource(funcID))
+                    requestView(funcID, functionManager.getEditorResource(funcID), false)
                 }
             }
 

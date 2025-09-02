@@ -40,9 +40,9 @@ CustomPopupDialog
             Text
             {
                 color: "red"
-                font.family: "FontAwesome"
+                font.family: UISettings.fontAwesomeFontName
                 font.pointSize: 50
-                text: FontAwesome.fa_warning
+                text: FontAwesome.fa_triangle_exclamation
             }
 
             Text
@@ -76,9 +76,9 @@ CustomPopupDialog
             Text
             {
                 color: "red"
-                font.family: "FontAwesome"
+                font.family: UISettings.fontAwesomeFontName
                 font.pointSize: 50
-                text: FontAwesome.fa_warning
+                text: FontAwesome.fa_triangle_exclamation
             }
         }
 }

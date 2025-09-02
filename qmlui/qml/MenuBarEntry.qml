@@ -36,6 +36,8 @@ Button
     bottomPadding: 0
 
     property string imgSource: ""
+    property string faSource: ""
+    property color faColor: UISettings.bgStrong
     property string entryText: ""
     property real mFontSize: UISettings.textSizeDefault * 0.70
     property int iconSize: imgSource ? height - 4 - topPadding - bottomPadding : 0
@@ -84,6 +86,17 @@ Button
                 rotation: iconRotation
                 source: control.imgSource
                 sourceSize: Qt.size(control.iconSize, control.iconSize)
+            }
+
+            Text
+            {
+                id: faIcon
+                visible: faSource ? true : false
+                anchors.verticalCenter: parent.verticalCenter
+                color: faColor
+                font.family: UISettings.fontAwesomeFontName
+                font.pixelSize: control.height * 0.80
+                text: faSource
             }
 
             RobotoText

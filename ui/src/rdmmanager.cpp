@@ -640,7 +640,9 @@ void RDMWorker::slotRDMDataReady(quint32 universe, quint32 line, QVariantMap dat
     // check the signal reason
     if (data.contains("DISCOVERY_COUNT"))
     {
-        m_discoveryList.removeFirst();
+        if (m_discoveryList.count())
+            m_discoveryList.removeFirst();
+
         int count = data.value("DISCOVERY_COUNT").toInt();
         for (int i = 0; i < count; i++)
         {

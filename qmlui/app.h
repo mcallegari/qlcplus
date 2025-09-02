@@ -46,6 +46,8 @@ class VideoProvider;
 class FixtureEditor;
 class Tardis;
 
+#define SETTINGS_LANGUAGE "ui/language"
+
 #define KXMLQLCWorkspace QStringLiteral("Workspace")
 
 class App : public QQuickView
@@ -154,8 +156,6 @@ public:
 
     void enableKioskMode();
     void createKioskCloseButton(const QRect& rect);
-
-    void show();
 
     /** Return the number of pixels in 1mm */
     qreal pixelDensity() const;
@@ -278,6 +278,9 @@ public:
 
     /** Return the list of the recently opened files */
     QStringList recentFiles() const;
+
+    /** Open the file from last session */
+    void loadLastWorkspace();
 
     /** Get/Set the path currently used by QLC+ to access projects and resources */
     QString workingPath() const;

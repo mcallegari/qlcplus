@@ -13,6 +13,8 @@ set(TS_FILES
     qlcplus_uk_UA.ts
 )
 
+set(QML_IMPORT_PATH ".")
+
 if(QT_VERSION_MAJOR GREATER 5)
     qt_add_translation(QM_FILES ${TS_FILES})
 else()

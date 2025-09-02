@@ -420,7 +420,7 @@ Item
                 IconButton
                 {
                     id: colorPicker
-                    faSource: FontAwesome.fa_eyedropper
+                    faSource: FontAwesome.fa_eye_dropper
                     faColor: "white"
                     imgMargins: UISettings.iconSizeDefault / 4
                     checkable: true

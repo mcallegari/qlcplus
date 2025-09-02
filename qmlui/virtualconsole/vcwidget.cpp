@@ -394,7 +394,7 @@ bool VCWidget::hasCustomBackgroundColor() const
 void VCWidget::resetBackgroundColor()
 {
     m_hasCustomBackgroundColor = false;
-    m_backgroundColor = Qt::gray;
+    m_backgroundColor =QColor("#333");
     setDocModified();
     emit backgroundColorChanged(m_backgroundColor);
 }
@@ -997,7 +997,7 @@ void VCWidget::sendFeedback(int value, quint8 id, SourceValueType type)
         if (source->id() != id)
             continue;
 
-        QVariant extraParam = source->feedbackExtraParams(QLCInputFeedback::UpperValue);
+        QVariant extraParam;
 
         if (type == LowerValue)
         {
@@ -1023,7 +1023,9 @@ void VCWidget::sendFeedback(int value, quint8 id, SourceValueType type)
         if (isDisabled()) // was acceptsInput()
             return;
 
-        m_doc->inputOutputMap()->sendFeedBack(source->universe(), source->channel(), value, extraParam);
+        m_doc->inputOutputMap()->sendFeedBack(
+            source->universe(), source->channel(), value,
+            extraParam.isValid() ? extraParam : source->feedbackExtraParams(QLCInputFeedback::UpperValue));
         return;
     }
 }

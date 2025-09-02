@@ -78,8 +78,8 @@ Column
             y: 1
             width: visible ? parent.height - 2 : 0
             height: width
-            color: UISettings.bgLight
-            radius: height / 4
+            color: UISettings.bgControl
+            radius: height / 6
             border.width: 1
             border.color: UISettings.fgMedium
         }
@@ -116,13 +116,25 @@ Column
                 height: width
                 source: itemIcon
                 sourceSize: Qt.size(width, height)
+
+                // expand indicator
+                Text
+                {
+                    visible: nodeChildren !== undefined
+                    anchors.right: parent.right
+                    anchors.bottom: parent.bottom
+                    color: UISettings.fgMain
+                    font.family: UISettings.fontAwesomeFontName
+                    font.pixelSize: parent.height / 3
+                    text: FontAwesome.fa_square_plus
+                }
             }
 
             Text
             {
                 visible: linkedIndex
                 color: UISettings.fgMain
-                font.family: "FontAwesome"
+                font.family: UISettings.fontAwesomeFontName
                 font.pixelSize: UISettings.listItemHeight - 6
                 text: FontAwesome.fa_link
             }
@@ -250,7 +262,7 @@ Column
                         height: parent.height - 2
                         width: height
                         border.width: 0
-                        faSource: FontAwesome.fa_arrows_h
+                        faSource: FontAwesome.fa_arrows_left_right
                         faColor: checked ? "#00FF00" : UISettings.fgMedium
                         bgColor: "transparent"
                         checkedColor: "transparent"
@@ -272,7 +284,7 @@ Column
                         height: parent.height - 2
                         width: height
                         border.width: 0
-                        faSource: FontAwesome.fa_arrows_v
+                        faSource: FontAwesome.fa_arrows_up_down
                         faColor: checked ? "#00FF00" : UISettings.fgMedium
                         bgColor: "transparent"
                         checkedColor: "transparent"
@@ -297,6 +309,15 @@ Column
             Rectangle { visible: showFlags; width: 1; height: parent.height } // divider
             Rectangle { visible: showFlags; width: UISettings.chPropsModifierWidth; height: parent.height; color: "transparent" } // stub
         } // RowLayout
+
+        // separator line
+        Rectangle
+        {
+            width: parent.width
+            height: 1
+            y: parent.height - 1
+            color: UISettings.bgLight
+        }
 
         MouseArea
         {
@@ -429,7 +450,7 @@ Column
                             nodeContainer.pathChanged(oldPath, newPath)
                         }
                     }
-                }
-        }
-    }
+                } // Loader
+        } // Component
+    } // Repeater
 }

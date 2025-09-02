@@ -48,7 +48,11 @@ Rectangle
         id: channelToolLoader
         z: 2
 
-        onValueChanged: functionManager.setChannelValue(fixtureID, channelIndex, value)
+        onValueChanged:
+            function (fixtureID, channelIndex, value)
+            {
+                functionManager.setChannelValue(fixtureID, channelIndex, value)
+            }
     }
 
     ListView
@@ -84,7 +88,11 @@ Rectangle
                     sceneConsole: true
                     multipleSelection: sfcContainer.multipleSelection
 
-                    onRequestTool: channelToolLoader.loadChannelTool(item, fixtureID, chIndex, value)
+                    onRequestTool:
+                        function (item, fixtureID, chIndex, value)
+                        {
+                            channelToolLoader.loadChannelTool(item, fixtureID, chIndex, value)
+                        }
                 }
                 // Fixture divider
                 Rectangle

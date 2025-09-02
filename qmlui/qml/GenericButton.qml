@@ -81,7 +81,7 @@ Rectangle
         id: btnText
         anchors.fill: parent
         color: fgColor
-        font.family: useFontawesome ? "FontAwesome" : UISettings.robotoFontName
+        font.family: useFontawesome ? UISettings.fontAwesomeFontName : UISettings.robotoFontName
         font.pixelSize: fontSize
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter

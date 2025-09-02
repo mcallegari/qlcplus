@@ -32,7 +32,7 @@ Rectangle
 
     property int functionID: -1
 
-    signal requestView(int ID, string qmlSrc)
+    signal requestView(int ID, string qmlSrc, bool back)
 
     Column
     {
@@ -46,8 +46,7 @@ Rectangle
             onBackClicked:
             {
                 var prevID = chaserEditor.previousID
-                functionManager.setEditorFunction(prevID, false, true)
-                requestView(prevID, functionManager.getEditorResource(prevID))
+                requestView(prevID, functionManager.getEditorResource(prevID), true)
             }
 
             IconButton

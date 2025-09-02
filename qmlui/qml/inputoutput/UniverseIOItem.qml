@@ -76,7 +76,7 @@ Rectangle
                         drag.target: ipItem
                         drag.threshold: 30
 
-                        onClicked: mouse.accepted = false
+                        onClicked: (mouse) => mouse.accepted = false
                         onPositionChanged: if (ipMouseArea.drag.active) uniItem.patchDragging(true)
                         onReleased:
                         {
@@ -248,7 +248,7 @@ Rectangle
             checkedColor: UISettings.selection
             width: UISettings.iconSizeMedium * 0.8
             height: UISettings.iconSizeMedium * 0.8
-            faSource: FontAwesome.fa_long_arrow_right
+            faSource: FontAwesome.fa_arrow_right_long
             checkable: true
             tooltip: qsTr("Enable/Disable passthrough")
             checked: universe ? universe.passthrough : false
@@ -325,7 +325,7 @@ Rectangle
                         drag.target: opItem
                         drag.threshold: 30
 
-                        onClicked: mouse.accepted = false
+                        onClicked: (mouse) => mouse.accepted = false
                         onPositionChanged: if (opMouseArea.drag.active) uniItem.patchDragging(true)
                         onReleased:
                         {

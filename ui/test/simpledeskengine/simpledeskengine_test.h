@@ -34,6 +34,8 @@ private slots:
 
     void values();
     void cueStack();
+    void resetUniverse();
+    void xml();
 
 private:
     Doc* m_doc;

@@ -61,6 +61,7 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
+#define SETTINGS_GEOMETRY "workspace/windowrect"
 #define SETTINGS_WORKINGPATH "workspace/workingpath"
 #define SETTINGS_RECENTFILE "workspace/recent"
 #define KXMLQLCWorkspaceWindow "CurrentWindow"
@@ -91,7 +92,7 @@ App::App()
     updateRecentFilesList();
 
     QVariant dir = settings.value(SETTINGS_WORKINGPATH);
-    if (dir.isValid() == true)
+    if (dir.isValid())
         m_workingPath = dir.toString();
 
     setAccessMask(defaultMask());
@@ -103,6 +104,17 @@ App::App()
 
 App::~App()
 {
+    QSettings settings;
+
+    if (m_doc->isKiosk() == false && QLCFile::hasWindowManager())
+        settings.setValue(SETTINGS_GEOMETRY, geometry());
+    else
+        settings.setValue(SETTINGS_GEOMETRY, QVariant());
+
+    /* remove autosave file if present */
+    QFile asFile(autoSaveFileName());
+    if (asFile.exists())
+        asFile.remove();
 }
 
 QString App::appName() const
@@ -132,8 +144,6 @@ void App::startup()
         qWarning() << "Roboto mono cannot be loaded!";
 
     rootContext()->setContextProperty("qlcplus", this);
-
-    slotScreenChanged(screen());
 
     initDoc();
 
@@ -175,10 +185,33 @@ void App::startup()
     // Start up in non-modified state
     m_doc->resetModified();
 
-    m_uiManager->initialize();
+    QSettings settings;
+    QRect rect(0, 0, 800, 600);
+    QVariant var = settings.value(SETTINGS_GEOMETRY);
+    if (var.isValid())
+    {
+        //qDebug() << "Restoring window position" << var.toRect();
+        rect = var.toRect();
+        setGeometry(rect);
+        show();
+    }
+    else
+    {
+        QScreen *currScreen = screen();
+        rect.moveTopLeft(currScreen->geometry().topLeft());
+        setGeometry(rect);
+        showMaximized();
+    }
 
-    // and here we go !
+    slotScreenChanged(screen());
+    m_uiManager->initialize();
+    m_showManager->initialize();
+
+    // and here we go!
     setSource(QUrl("qrc:/MainView.qml"));
+
+    // set geometry once again
+    setGeometry(rect);
 }
 
 void App::toggleFullscreen()
@@ -218,21 +251,15 @@ void App::setLanguage(QString locale)
     if (m_translator->load(file, translationPath) == true)
         QCoreApplication::installTranslator(m_translator);
 
+    QSettings settings;
+    settings.setValue(SETTINGS_LANGUAGE, locale);
+
     engine()->retranslate();
 }
 
 QString App::goboSystemPath() const
 {
     return QLCFile::systemDirectory(GOBODIR).absolutePath();
-}
-
-void App::show()
-{
-    QScreen *currScreen = screen();
-    QRect rect(0, 0, 800, 600);
-    rect.moveTopLeft(currScreen->geometry().topLeft());
-    setGeometry(rect);
-    showMaximized();
 }
 
 qreal App::pixelDensity() const
@@ -586,7 +613,7 @@ void App::updateRecentFilesList(QString filename)
         for (int i = 0; i < MAX_RECENT_FILES; i++)
         {
             QVariant recent = settings.value(QString("%1%2").arg(SETTINGS_RECENTFILE).arg(i));
-            if (recent.isValid() == true)
+            if (recent.isValid())
                 m_recentFiles.append(recent.toString());
         }
     }
@@ -595,6 +622,14 @@ void App::updateRecentFilesList(QString filename)
 QStringList App::recentFiles() const
 {
     return m_recentFiles;
+}
+
+void App::loadLastWorkspace()
+{
+    if (m_recentFiles.isEmpty())
+        return;
+
+    loadWorkspace(m_recentFiles.first());
 }
 
 QString App::workingPath() const

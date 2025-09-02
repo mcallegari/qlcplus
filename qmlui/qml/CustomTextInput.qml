@@ -64,7 +64,7 @@ TextInput
         }
     }
 
-    Keys.onPressed:
+    Keys.onPressed: (event) =>
     {
         switch(event.key)
         {

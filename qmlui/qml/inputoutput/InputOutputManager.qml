@@ -124,9 +124,9 @@ Rectangle
             anchors.horizontalCenter: parent.horizontalCenter
             y: 15
             color: "#aaa"
-            font.family: "FontAwesome"
+            font.family: UISettings.fontAwesomeFontName
             font.pixelSize: UISettings.textSizeDefault * 2.5
-            text: FontAwesome.fa_trash_o
+            text: FontAwesome.fa_trash_can
         }
 
         DropArea

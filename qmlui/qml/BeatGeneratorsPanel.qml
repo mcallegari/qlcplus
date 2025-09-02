@@ -72,7 +72,7 @@ Rectangle
             anchors.right: parent.right
             border.color: UISettings.bgMedium
             useFontawesome: true
-            label: FontAwesome.fa_times
+            label: FontAwesome.fa_xmark
             onClicked: beatChooserBox.visible = false
         }
     }
@@ -170,7 +170,7 @@ Rectangle
             }
             onEscapePressed: beatChooserBox.visible = false
 
-            onTapTimeChanged: ioManager.bpmNumber = Math.min(parseInt(60000 / time), 300)
+            onTapTimeChanged: (time) => ioManager.bpmNumber = Math.min(parseInt(60000 / time), 300)
         }
     }
 }

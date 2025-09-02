@@ -81,7 +81,7 @@ wget -c https://github.com/AppImage/AppImageKit/releases/download/continuous/App
 chmod a+x $TARGET_DIR/AppRun
 
 # There might be a new version of the tool available.
-wget -c https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O /tmp/appimagetool-x86_64.AppImage
+wget -c https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage -O /tmp/appimagetool-x86_64.AppImage
 chmod a+x /tmp/appimagetool-x86_64.AppImage
 
 pushd $TARGET_DIR/..

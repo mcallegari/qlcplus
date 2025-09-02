@@ -33,7 +33,7 @@ Rectangle
 
     property int functionID: -1
 
-    signal requestView(int ID, string qmlSrc)
+    signal requestView(int ID, string qmlSrc, bool back)
 
     ModelSelector
     {
@@ -125,8 +125,7 @@ Rectangle
                     }
 
                     var prevID = efxEditor.previousID
-                    functionManager.setEditorFunction(prevID, false, true)
-                    requestView(prevID, functionManager.getEditorResource(prevID))
+                    requestView(prevID, functionManager.getEditorResource(prevID), true)
                 }
             }
 
@@ -197,7 +196,7 @@ Rectangle
                                         id: addOffsetButton
                                         width: height
                                         height: parent.height
-                                        faSource: FontAwesome.fa_sort_amount_asc
+                                        faSource: FontAwesome.fa_arrow_down_wide_short
                                         faColor: "white"
                                         tooltip: qsTr("Add an increasing offset to all fixtures")
                                         onClicked: popupNumber.open()

@@ -36,7 +36,7 @@ Rectangle
         for (var i = 0; i < values.length; i++)
         {
             //console.log("Value " + i + " = " + values[i]);
-            if (fxColumn.visible == true)
+            if (fxColumn.visible === true)
                 channelsRpt.itemAt(i).dmxValue = values[i]
             else
                 consoleLoader.setValues(values)
@@ -45,14 +45,14 @@ Rectangle
 
     function updateChannels()
     {
-        if (fxColumn.visible == false)
+        if (fxColumn.visible === false)
             consoleLoader.item.updateChannels()
 
         for (var i = 0; i < channelsRpt.count; i++)
             channelsRpt.itemAt(i).updateChannel()
     }
 
-    width: channelsRow.width
+    width: fxColumn.visible ? channelsRow.width : consoleLoader.width
     height: fxColumn.height
     color: UISettings.bgLighter
     border.width: 1
@@ -68,9 +68,10 @@ Rectangle
         id: fxColumn
         anchors.margins: 1
 
+        // channels background
         Rectangle
         {
-            color: "#111"
+            color: UISettings.bgStrong
             width: parent.width
             height: UISettings.listItemHeight * 0.75
             clip: true
@@ -179,7 +180,7 @@ Rectangle
     Loader
     {
         id: consoleLoader
-        anchors.fill: parent
+        //anchors.fill: parent
 
         function setValues(values)
         {
@@ -195,39 +196,39 @@ Rectangle
         }
         Connections
         {
-             target: consoleLoader.item
-             function onClicked()
-             {
-                clickTimer.start()
-             }
-             function onDoubleClicked()
-             {
-                 clickTimer.stop()
-                 consoleLoader.source = ""
-                 dmxItemRoot.width = channelsRow.width
-                 dmxItemRoot.height = fxColumn.height
-                 fxColumn.visible = true
-             }
-             function onSizeChanged(w, h)
-             {
-                 if (w !== 0 && h !== 0)
-                 {
-                     dmxItemRoot.width = w
-                     dmxItemRoot.height = h
-                     //console.log("2- Item width: " + w + ", height: " + h)
-                 }
-             }
-             function onValueChanged(fixtureID, chIndex, value)
-             {
-                 //console.log("Channel " + chIndex + " value changed " + value)
-                 channelsRpt.itemAt(chIndex).dmxValue = value
-             }
+            target: consoleLoader.item
+            function onClicked()
+            {
+               clickTimer.start()
+            }
+            function onDoubleClicked()
+            {
+                clickTimer.stop()
+                consoleLoader.source = ""
+                dmxItemRoot.width = channelsRow.width
+                dmxItemRoot.height = fxColumn.height
+                fxColumn.visible = true
+            }
+            function onSizeChanged(w, h)
+            {
+                if (w !== 0 && h !== 0)
+                {
+                    dmxItemRoot.width = w
+                    dmxItemRoot.height = h
+                    //console.log("2- Item width: " + w + ", height: " + h)
+                }
+            }
+            function onValueChanged(fixtureID, chIndex, value)
+            {
+                //console.log("Channel " + chIndex + " value changed " + value)
+                channelsRpt.itemAt(chIndex).dmxValue = value
+            }
 
-             function onRequestTool(item, fixtureID, chIndex, value)
-             {
-                 //dmxItemRoot.requestTool(item, fixtureID, chIndex, value)
-                 dmxItemRoot.parent.loadTool(item, fixtureID, chIndex, value)
-             }
+            function onRequestTool(item, fixtureID, chIndex, value)
+            {
+                //dmxItemRoot.requestTool(item, fixtureID, chIndex, value)
+                dmxItemRoot.parent.loadTool(item, fixtureID, chIndex, value)
+            }
         }
     }
 

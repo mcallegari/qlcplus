@@ -30,7 +30,7 @@ Rectangle
     width: mainView.width / 5
     height: parent.height
 
-    color: UISettings.bgMedium
+    color: UISettings.bgStrong
     border.width: 1
     border.color: "#222"
 
@@ -96,7 +96,8 @@ Rectangle
     Column
     {
         id: settingsColumn
-        width: parent.width
+        x: 5
+        width: parent.width - 10
         spacing: 2
 
         SectionBox
@@ -252,7 +253,7 @@ Rectangle
                         z: 2
                         width: UISettings.iconSizeMedium
                         height: width
-                        faSource: FontAwesome.fa_times
+                        faSource: FontAwesome.fa_xmark
                         tooltip: qsTr("Reset background")
                         onClicked: View2D.backgroundImage = ""
                     }

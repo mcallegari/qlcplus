@@ -109,8 +109,8 @@ Button
                 visible: faSource ? true : false
                 anchors.centerIn: parent
                 color: faColor
-                font.family: "FontAwesome"
-                font.pixelSize: control.height - imgMargins - 2
+                font.family: UISettings.fontAwesomeFontName
+                font.pixelSize: control.height * 0.70
                 text: faSource
             }
         }

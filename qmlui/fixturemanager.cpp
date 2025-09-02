@@ -136,9 +136,30 @@ QVariantList FixtureManager::universeInfo(quint32 id)
 {
     m_universeInfo.clear();
 
-    for (quint32 fixtureID : m_monProps->fixtureItemsID())
+    int type = id >> 16;
+    // unmask group type
+    id = id & 0x0000FFFF;
+
+    quint32 universeFilter = Universe::invalid();
+    QList<quint32> fixtureList;
+
+    if (type == App::UniverseDragItem)
     {
-        for (quint32 subID : m_monProps->fixtureIDList(fixtureID))
+        universeFilter = id;
+        fixtureList = m_monProps->fixtureItemsID();
+    }
+    else if (type == App::FixtureGroupDragItem)
+    {
+        FixtureGroup *group = m_doc->fixtureGroup(id);
+        if (group == nullptr)
+            return m_universeInfo;
+
+        fixtureList = group->fixtureList();
+    }
+
+    for (quint32 &fixtureID : fixtureList)
+    {
+        for (quint32 &subID : m_monProps->fixtureIDList(fixtureID))
         {
             quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
             quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
@@ -147,7 +168,10 @@ QVariantList FixtureManager::universeInfo(quint32 id)
                 continue;
 
             Fixture *fixture = m_doc->fixture(fixtureID);
-            if (fixture == nullptr || fixture->universe() != id)
+            if (fixture == nullptr)
+                continue;
+
+            if (universeFilter != Universe::invalid() && universeFilter != id)
                 continue;
 
             QVariantMap fxMap;
@@ -586,7 +610,7 @@ void FixtureManager::addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fix
     if (searchFilter.length() < SEARCH_MIN_CHARS || fixture->name().toLower().contains(searchFilter))
         matchMask |= FixtureMatch;
 
-    for (quint32 subID : monProps->fixtureIDList(fixture->id()))
+    for (quint32 &subID : monProps->fixtureIDList(fixture->id()))
     {
         quint16 headIndex = monProps->fixtureHeadIndex(subID);
         quint16 linkedIndex = monProps->fixtureLinkedIndex(subID);
@@ -1074,35 +1098,214 @@ void FixtureManager::slotFixtureAdded(quint32 id, QVector3D pos)
  * Fixture groups
  *********************************************************************/
 
-void FixtureManager::addFixturesToNewGroup(QList<quint32> fxList)
+/**
+ * Compact grid from item IDs — rows by ½·height, columns by ½·width, heads-aware
+ * Two passes + place:
+ *  A) Build items, sort by X, assign rows (Y bands)
+ *  B) Build column bins (X bands), then per-row pack with rightward nudging
+ *  C) Place: dimmers as 1 cell, others as contiguous heads
+ *
+ * TODO: handle multi-head fixture rotation (e.g. vertical bar)
+*/
+void FixtureManager::addItemsToNewGroup(QList<quint32> itemIds)
 {
+    if (itemIds.isEmpty())
+        return;
+
+    struct Item {
+        quint32 fxId{0};
+        quint16 linked{0};
+        bool    isDimmer{false};
+        QVector<quint16> heads; // non-dimmer: all heads; dimmer: empty (1 cell)
+        QPointF pos;            // representative position
+        double  w{1.0};         // per-cell width
+        double  h{1.0};         // per-cell height
+        int     row{-1};
+        int     col{-1};
+    };
+
+    const MonitorProperties::PointOfView pov = m_monProps->pointOfView();
+
+    // ---------- A) Build items (aggregate non-dimmers, 1-per selected dimmer) ----------
+    QVector<Item> items;
+    items.reserve(itemIds.size());
+    QSet<quint32> aggregated;
+
+    for (quint32 itemId : itemIds)
+    {
+        const quint32 fxId      = FixtureUtils::itemFixtureID(itemId);
+        const quint16 headIndex = FixtureUtils::itemHeadIndex(itemId);
+        const quint16 linkedIdx = FixtureUtils::itemLinkedIndex(itemId);
+        Fixture *fx = m_doc->fixture(fxId);
+        if (!fx)
+            continue;
+
+        const QSizeF cell = FixtureUtils::item2DDimension(fx->fixtureMode(), pov);
+        const double w = qMax(1.0, cell.width());
+        const double h = qMax(1.0, cell.height());
+
+        if (fx->type() == QLCFixtureDef::Dimmer)
+        {
+            Item it { fxId, linkedIdx, true, {}, QPointF(), w, h };
+            it.pos = FixtureUtils::item2DPosition(m_monProps, pov, m_monProps->fixturePosition(fxId, headIndex, linkedIdx));
+            items.push_back(it);
+        }
+        else
+        {
+            if (aggregated.contains(fxId))
+                continue; // one per fixture
+            aggregated.insert(fxId);
+            const int H = qMax(0, fx->heads());
+            if (H == 0)
+                continue;
+            QPointF acc(0,0);
+            for (int hIdx = 0; hIdx < H; ++hIdx)
+                acc += FixtureUtils::item2DPosition(m_monProps, pov, m_monProps->fixturePosition(fxId, hIdx, linkedIdx));
+            Item it { fxId, linkedIdx, false, {}, acc / qMax(1, H), w, h };
+            it.heads.reserve(H);
+            for (int hIdx = 0; hIdx < H; ++hIdx)
+                it.heads.push_back(hIdx);
+            items.push_back(it);
+        }
+    }
+    if (items.isEmpty())
+        return;
+
+    // Sort by X (then Y for stability)
+    std::sort(items.begin(), items.end(), [](const Item &a, const Item &b) {
+        if (a.pos.x() != b.pos.x())
+            return a.pos.x() < b.pos.x();
+        return a.pos.y() < b.pos.y();
+    });
+
+    // ---------- A) Rows by Y bands (½·height rule) ----------
+    struct Row {
+        double refY;
+        double refH;
+        int n;
+    };
+    QVector<Row> rows;
+
+    for (Item &it : items)
+    {
+        int r = -1;
+        for (int i = 0; i < rows.size(); ++i)
+        {
+            const double thr = 0.5 * qMin(rows[i].refH, it.h);
+            if (qAbs(it.pos.y() - rows[i].refY) <= thr)
+            {
+                r = i;
+                break;
+            }
+        }
+        if (r == -1)
+        {
+            rows.push_back({it.pos.y(), it.h, 1});
+            r = rows.size() - 1;
+        }
+        else
+        {
+            Row &rb = rows[r];
+            rb.refY = (rb.refY * rb.n + it.pos.y()) / (rb.n + 1);
+            rb.refH = (rb.refH * rb.n + it.h) / (rb.n + 1);
+            ++rb.n;
+        }
+        it.row = r;
+    }
+    // Reindex rows top→bottom
+    QVector<int> perm(rows.size());
+    std::iota(perm.begin(), perm.end(), 0);
+    std::sort(perm.begin(), perm.end(), [&](int a,int b){
+        return rows[a].refY < rows[b].refY;
+    });
+    QHash<int,int> rowMap;
+    for (int i = 0; i < perm.size(); ++i)
+        rowMap[perm[i]] = i;
+
+    for (Item &it : items)
+        it.row = rowMap.value(it.row, it.row);
+
+    // ---------- B) Columns by X bins (½·width rule) + per-row packing ----------
+    struct Col {
+        double refX;
+        double refW;
+    };
+    QVector<Col> bins;
+
+    auto binIndex = [&](double x, double w) {
+        if (bins.isEmpty())
+        {
+            bins.push_back({x, w});
+            return 0;
+        }
+        Col &last = bins.back();
+        if (qAbs(x - last.refX) > 0.5 * qMin(last.refW, w))
+        {
+            bins.push_back({x, w});
+            return int(bins.size() - 1);
+        }
+        return (int)bins.size()-1;
+    };
+
+    for (Item &it : items)
+        it.col = binIndex(it.pos.x(), it.w);
+
+    const int R = rows.size();
+    int C = qMax(1, (int)bins.size());
+    QVector<QVector<bool>> occ(R, QVector<bool>(C, false));
+
+    auto ensureCols = [&](int need) {
+        if (need > C)
+        {
+            for (auto &row : occ)
+                row.resize(need);
+            C = need;
+        }
+    };
+    auto runFree = [&](int r,int c,int L) {
+        if (c < 0)
+            return false;
+        ensureCols(c + L);
+        for (int k = 0; k < L; ++k)
+            if (occ[r][c+k])
+                return false;
+        return true;
+    };
+
+    for (Item &it : items)
+    {
+        const int L = it.isDimmer ? 1 : qMax(1, it.heads.size());
+        int c = it.col;
+        while (!runFree(it.row, c, L))
+            ++c;
+        for (int k = 0; k < L; ++k)
+            occ[it.row][c+k] = true;
+        it.col = c;
+        ensureCols(c + L);
+    }
+
+    // ---------- C) Create group & place ----------
     FixtureGroup *group = new FixtureGroup(m_doc);
     m_doc->addFixtureGroup(group);
     group->setName(tr("New group %1").arg(group->id() + 1));
+    group->setSize(QSize(C, R));
 
-    // here we should build a "smart" grid based
-    // on the 2D position of the fixtures and their heads number.
-    // For now we use the "old" QLC+ mechanism of calculating an
-    // equilateral grid size
-    int headsCount = 0;
-    for (quint32 id : fxList)
+    for (const Item &it : items)
     {
-        Fixture *fxi = m_doc->fixture(id);
-        if (fxi != nullptr)
-            headsCount += fxi->heads();
+        if (it.isDimmer)
+        {
+            group->assignFixture(it.fxId, QLCPoint(it.col, it.row));
+        }
+        else
+        {
+            for (int i = 0; i < it.heads.size(); ++i)
+                group->assignHead(QLCPoint(it.col + i, it.row), GroupHead(it.fxId, it.heads[i]));
+        }
     }
 
-    qreal side = qSqrt(headsCount);
-    if (side != qFloor(side))
-        side += 1; // Fixture number doesn't provide a full square
-
-    group->setSize(QSize(side, side));
-    for (quint32 id : fxList)
-        group->assignFixture(id);
-
-    Tardis::instance()->enqueueAction(Tardis::FixtureGroupCreate, group->id(), QVariant(),
-                                      Tardis::instance()->actionToByteArray(Tardis::FixtureGroupCreate, group->id()));
-
+    Tardis::instance()->enqueueAction(
+        Tardis::FixtureGroupCreate, group->id(), QVariant(),
+        Tardis::instance()->actionToByteArray(Tardis::FixtureGroupCreate, group->id()));
     addFixtureGroupTreeNode(m_doc, m_fixtureTree, group, m_searchFilter);
 }
 

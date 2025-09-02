@@ -33,7 +33,7 @@ Rectangle
     property int functionID: -1
     property var mediaInfo: videoEditor.mediaInfo
 
-    signal requestView(int ID, string qmlSrc)
+    signal requestView(int ID, string qmlSrc, bool back)
 
     function updateCustomGeometry()
     {
@@ -54,8 +54,7 @@ Rectangle
         onBackClicked:
         {
             var prevID = videoEditor.previousID
-            functionManager.setEditorFunction(prevID, false, true)
-            requestView(prevID, functionManager.getEditorResource(prevID))
+            requestView(prevID, functionManager.getEditorResource(prevID), true)
         }
     }
 

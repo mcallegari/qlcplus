@@ -32,7 +32,7 @@ Rectangle
 
     property int functionID: -1
 
-    signal requestView(int ID, string qmlSrc)
+    signal requestView(int ID, string qmlSrc, bool back)
 
     ModelSelector
     {
@@ -86,8 +86,7 @@ Rectangle
                     }
 
                     var prevID = collectionEditor.previousID
-                    functionManager.setEditorFunction(prevID, false, true)
-                    requestView(prevID, functionManager.getEditorResource(prevID))
+                    requestView(prevID, functionManager.getEditorResource(prevID), true)
                 }
 
                 IconButton
@@ -161,11 +160,11 @@ Rectangle
                             drag.target: cfDelegate
                             drag.threshold: height / 2
 
-                            onPressed: ceSelector.selectItem(index, cFunctionList.model, mouse.modifiers)
+                            onPressed: (mouse) => ceSelector.selectItem(index, cFunctionList.model, mouse.modifiers)
                             onDoubleClicked:
                             {
-                                functionManager.setEditorFunction(model.funcID, false, false)
-                                requestView(model.funcID, functionManager.getEditorResource(model.funcID))
+                                var fId = cfDelegate.functionID
+                                requestView(fId, functionManager.getEditorResource(fId), false)
                             }
 
                             onReleased:
@@ -231,7 +230,7 @@ Rectangle
 
                         cFunctionList.dragInsertIndex = -1
                     }
-                    onPositionChanged:
+                    onPositionChanged: (drag) =>
                     {
                         var idx = cFunctionList.indexAt(drag.x, drag.y)
                         //console.log("Item index:" + idx)

@@ -98,8 +98,15 @@ QVariant SimpleDesk::channelList() const
 QVariantList SimpleDesk::fixtureList() const
 {
     QVariantList list;
+    QList<Fixture*> fixtureList = m_doc->fixtures();
 
-    for (Fixture *fxi : m_doc->fixtures())
+    std::sort(fixtureList.begin(), fixtureList.end(),
+              [](Fixture *left, Fixture *right)
+    {
+        return *left < *right;
+    });
+
+    for (Fixture *fxi : fixtureList)
     {
         if (fxi->universe() != m_universeFilter)
             continue;
@@ -430,7 +437,7 @@ bool SimpleDesk::sendKeypadCommand(QString command)
         return false;
 
     QByteArray uniData = m_prevUniverseValues.value(m_universeFilter);
-    QList<SceneValue> scvList = m_keyPadParser->parseCommand(m_doc, command, uniData);
+    QList<SceneValue> scvList = m_keyPadParser->parseCommand(m_doc, command.toUpper(), uniData);
 
     for (SceneValue &scv : scvList)
     {
@@ -444,7 +451,7 @@ bool SimpleDesk::sendKeypadCommand(QString command)
         m_channelList->setData(mIndex, QVariant(scv.value), UserRoleChannelValue);
     }
 
-    m_keypadCommandHistory.prepend(command);
+    m_keypadCommandHistory.prepend(command.toUpper());
     if (m_keypadCommandHistory.count() > MAX_KEYPAD_HISTORY)
         m_keypadCommandHistory.removeLast();
 
@@ -506,7 +513,7 @@ void SimpleDesk::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                         it.next();
                         FadeChannel fc = it.value();
                         Fixture *fixture = m_doc->fixture(fc.fixture());
-                        quint32 chIndex = fc.channel();
+                        quint32 chIndex = fc.channel() & 0x01FF;
                         if (fixture != NULL)
                         {
                             const QLCChannel *ch = fixture->channel(chIndex);
@@ -542,7 +549,7 @@ void SimpleDesk::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                 {
                     FadeChannel fc(m_doc, Fixture::invalidId(), channel);
                     Fixture *fixture = m_doc->fixture(fc.fixture());
-                    quint32 chIndex = fc.channel();
+                    quint32 chIndex = fc.channel() & 0x01FF;
                     fader->remove(&fc);
                     ua[universe]->reset(channel & 0x01FF, 1);
                     if (fixture != NULL)
@@ -552,7 +559,7 @@ void SimpleDesk::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                         {
                             qDebug() << "Restoring default value of fixture" << fixture->id()
                                      << "channel" << chIndex << "value" << ch->defaultValue();
-                            ua[universe]->setChannelDefaultValue(channel, ch->defaultValue());
+                            ua[universe]->setChannelDefaultValue(channel & 0x01FF, ch->defaultValue());
                         }
                     }
 
@@ -574,7 +581,7 @@ void SimpleDesk::writeDMX(MasterTimer *timer, QList<Universe *> ua)
             int uni = it.key() >> 9;
             int address = it.key();
             uchar value = it.value();
-            quint32 fxID = m_doc->fixtureForAddress((m_universeFilter * 512) + address);
+            quint32 fxID = m_doc->fixtureForAddress(address);
             quint32 channel = address;
 
             if (fxID != Fixture::invalidId())

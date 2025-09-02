@@ -81,19 +81,20 @@ Item
         color: UISettings.fgMedium
     }
 
-    Image
+    // right arrow
+    Text
     {
-        id: rightArrow
         visible: isManufacturer
-        x: parent.width - width - 5
-        height: parent.height
-        width: height * 0.8
+        anchors.right: parent.right
+        anchors.rightMargin: 5
         anchors.verticalCenter: parent.verticalCenter
-        source: "qrc:/arrow-right.svg"
-        sourceSize: Qt.size(width, height)
-
+        color: UISettings.fgLight
+        font.family: UISettings.fontAwesomeFontName
+        font.pixelSize: parent.height - 8
+        text: FontAwesome.fa_chevron_right
     }
 
+    // user fixture symbol
     Text
     {
         visible: !isManufacturer && fixtureBrowser.isUserDefinition(manufacturer, textLabel)
@@ -101,7 +102,7 @@ Item
         anchors.rightMargin: 5
         anchors.verticalCenter: parent.verticalCenter
         color: UISettings.fgMain
-        font.family: "FontAwesome"
+        font.family: UISettings.fontAwesomeFontName
         font.pixelSize: parent.height - 5
         text: FontAwesome.fa_user
     }

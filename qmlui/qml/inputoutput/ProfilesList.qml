@@ -193,7 +193,7 @@ Rectangle
                     visible: profEditor.isEditing
                     border.color: UISettings.bgMedium
                     useFontawesome: true
-                    label: FontAwesome.fa_times
+                    label: FontAwesome.fa_xmark
                     onClicked:
                     {
                         if (profileEditor.modified)
@@ -291,7 +291,7 @@ Rectangle
                                 anchors.rightMargin: 5
                                 anchors.verticalCenter: parent.verticalCenter
                                 color: UISettings.fgMain
-                                font.family: "FontAwesome"
+                                font.family: UISettings.fontAwesomeFontName
                                 font.pixelSize: parent.height / 2
                                 text: FontAwesome.fa_user
                             }

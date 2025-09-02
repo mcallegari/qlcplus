@@ -372,7 +372,7 @@ Item
 
             onPositionChanged:
             {
-                if (drag.active == true)
+                if (drag.active === true)
                 {
                     var hdlPos = mapToItem(itemRoot.parent, horLeftHandler.x, horLeftHandler.y)
                     itemRoot.width = itemRoot.width + (itemRoot.x - hdlPos.x + mouse.x)
@@ -385,7 +385,7 @@ Item
             }
             onReleased:
             {
-                if (drag.active == false)
+                if (drag.active === false)
                     return
 
                 if (sfRef)
@@ -460,11 +460,11 @@ Item
 
             onPressed: isDragging = true
 
-            onPositionChanged:
+            onPositionChanged: (mouse) =>
             {
                 //var mp = mapToItem(itemRoot, mouseX, mouseY)
                 //console.log("Mouse position: " + mp.x)
-                if (drag.active == true)
+                if (drag.active === true)
                 {
                     var obj = mapToItem(itemRoot, mouseX, mouseY)
                     //console.log("Mapped position: " + obj.x)
@@ -476,7 +476,7 @@ Item
             }
             onReleased:
             {
-                if (drag.active == false)
+                if (drag.active === false)
                     return
 
                 if (sfRef)

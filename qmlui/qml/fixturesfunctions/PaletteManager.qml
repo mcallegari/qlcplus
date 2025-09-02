@@ -53,7 +53,7 @@ Rectangle
       Rectangle
       {
         id: topBar
-        width: pmContainer.width
+        Layout.fillWidth: true
         height: UISettings.iconSizeMedium
         z: 5
         gradient: Gradient
@@ -78,7 +78,7 @@ Rectangle
                 height: topBar.height - 2
                 bgColor: UISettings.bgMedium
                 faColor: checked ? "white" : "gray"
-                faSource: FontAwesome.fa_search
+                faSource: FontAwesome.fa_magnifying_glass
                 checkable: true
                 tooltip: qsTr("Search a palette")
                 onToggled:
@@ -169,7 +169,7 @@ Rectangle
       {
           id: searchBox
           visible: searchFunc.checked
-          width: pmContainer.width
+          Layout.fillWidth: true
           height: UISettings.iconSizeMedium
           z: 5
           color: UISettings.bgMedium
@@ -185,7 +185,7 @@ Rectangle
               width: parent.width
               color: UISettings.fgMain
               text: paletteManager.searchFilter
-              font.family: "Roboto Condensed"
+              font.family: UISettings.robotoFontName
               font.pixelSize: parent.height - 6
               selectionColor: UISettings.highlightPressed
               selectByMouse: true
@@ -197,7 +197,7 @@ Rectangle
       ListView
       {
           id: pListView
-          width: pmContainer.width
+          Layout.fillWidth: true
           Layout.fillHeight: true
           z: 4
           boundsBehavior: Flickable.StopAtBounds

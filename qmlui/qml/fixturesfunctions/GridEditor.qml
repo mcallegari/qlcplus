@@ -330,7 +330,7 @@ Rectangle
         property bool movingSelection: false
         property int selectionOffset: 0
 
-        onPressed:
+        onPressed: (mouse) =>
         {
             startX = parseInt(mouse.x / cellSize)
             startY = parseInt(mouse.y / cellSize)
@@ -342,7 +342,7 @@ Rectangle
             gridRoot.pressed(startX, startY, mouse.modifiers)
         }
 
-        onReleased:
+        onReleased: (mouse) =>
         {
             if (selectionOffset != 0)
                 gridRoot.released(lastX, lastY, selectionOffset, mouse.modifiers)
@@ -355,7 +355,7 @@ Rectangle
             updateViewSelection(0)
         }
 
-        onPositionChanged:
+        onPositionChanged: (mouse) =>
         {
             ttText.visible = false
             ttTimer.restart()
@@ -398,7 +398,7 @@ Rectangle
         property bool movingSelection: false
         property int selectionOffset: 0
 
-        onEntered:
+        onEntered: (drag) =>
         {
             startX = parseInt(drag.x / cellSize)
             startY = parseInt(drag.y / cellSize)
@@ -408,7 +408,7 @@ Rectangle
             movingSelection = true
         }
 
-        onPositionChanged:
+        onPositionChanged: (drag) =>
         {
             if (movingSelection == false)
                 return

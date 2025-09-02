@@ -65,6 +65,8 @@ class ShowManager : public PreviewContext
 public:
     explicit ShowManager(QQuickView *view, Doc *doc, QObject *parent = 0);
 
+    void initialize();
+
     /** Return the ID of the Show Function being edited */
     int currentShowID() const;
 

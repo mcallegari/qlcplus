@@ -20,6 +20,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Controls.Basic
 
 import org.qlcplus.classes 1.0
 
@@ -45,28 +46,28 @@ VCWidgetItem
 
     onPlaybackStatusChanged:
     {
-        if (cueListObj.playbackLayout == VCCueList.PlayPauseStop)
+        if (cueListObj.playbackLayout === VCCueList.PlayPauseStop)
         {
-            if (playbackStatus == VCCueList.Playing)
+            if (playbackStatus === VCCueList.Playing)
                 playbackBtn.bgColor = "darkorange"
-            else if (playbackStatus == VCCueList.Paused)
+            else if (playbackStatus === VCCueList.Paused)
                 playbackBtn.bgColor = "green"
             else
                 playbackBtn.bgColor = UISettings.bgLight
 
-            if (playbackStatus == VCCueList.Stopped)
+            if (playbackStatus === VCCueList.Stopped)
                 stopBtn.bgColor = UISettings.bgLight
             else
                 stopBtn.bgColor = "red"
         }
         else
         {
-            if (playbackStatus == VCCueList.Stopped)
+            if (playbackStatus === VCCueList.Stopped)
                 playbackBtn.bgColor = UISettings.bgLight
             else
                 playbackBtn.bgColor = "red"
 
-            if (playbackStatus == VCCueList.Paused)
+            if (playbackStatus === VCCueList.Paused)
                 stopBtn.bgColor = "darkorange"
             else
                 stopBtn.bgColor = UISettings.bgLight
@@ -99,7 +100,7 @@ VCWidgetItem
             }
             else
             {
-                if (sideFaderMode == VCCueList.Steps)
+                if (sideFaderMode === VCCueList.Steps)
                 {
                     bottomLabelBox.color = UISettings.highlight
                     bottomLabel.label = "#" + (playbackIndex + 1)
@@ -237,8 +238,8 @@ VCWidgetItem
                     width: progressBar.visualPosition * parent.width
                     height: parent.height
                     radius: 2
-                    color: progressStatus == VCCueList.ProgressIdle ? "transparent" :
-                           progressStatus == VCCueList.ProgressFadeIn ? "#477f07" : "#0f76c5";
+                    color: progressStatus === VCCueList.ProgressIdle ? "transparent" :
+                           progressStatus === VCCueList.ProgressFadeIn ? "#477f07" : "#0f76c5";
                 }
 
                 RobotoText
@@ -261,11 +262,11 @@ VCWidgetItem
                 width: contentWidth / 4
                 height: UISettings.iconSizeMedium
                 enabled: visible && !cueListObj.isDisabled
-                imgSource: (cueListObj && cueListObj.playbackLayout == VCCueList.PlayPauseStop) ?
+                imgSource: (cueListObj && cueListObj.playbackLayout === VCCueList.PlayPauseStop) ?
                                (cueListRoot.playbackStatus === VCCueList.Stopped ||
                                 cueListRoot.playbackStatus === VCCueList.Paused ? "qrc:/play.svg" : "qrc:/pause.svg") :
                                (cueListRoot.playbackStatus === VCCueList.Stopped ? "qrc:/play.svg" : "qrc:/stop.svg")
-                tooltip: (cueListObj && cueListObj.playbackLayout == VCCueList.PlayPauseStop) ? qsTr("Play/Pause") : qsTr("Play/Stop")
+                tooltip: (cueListObj && cueListObj.playbackLayout === VCCueList.PlayPauseStop) ? qsTr("Play/Pause") : qsTr("Play/Stop")
                 onClicked: if (cueListObj) cueListObj.playClicked()
             }
             IconButton
@@ -274,8 +275,8 @@ VCWidgetItem
                 width: contentWidth / 4
                 height: UISettings.iconSizeMedium
                 enabled: visible && !cueListObj.isDisabled
-                imgSource: (cueListObj && cueListObj.playbackLayout == VCCueList.PlayStopPause) ? "qrc:/pause.svg" : "qrc:/stop.svg"
-                tooltip: (cueListObj && cueListObj.playbackLayout == VCCueList.PlayStopPause) ? qsTr("Pause") : qsTr("Stop")
+                imgSource: (cueListObj && cueListObj.playbackLayout === VCCueList.PlayStopPause) ? "qrc:/pause.svg" : "qrc:/stop.svg"
+                tooltip: (cueListObj && cueListObj.playbackLayout === VCCueList.PlayStopPause) ? qsTr("Pause") : qsTr("Stop")
                 onClicked: if (cueListObj) cueListObj.stopClicked()
             }
             IconButton

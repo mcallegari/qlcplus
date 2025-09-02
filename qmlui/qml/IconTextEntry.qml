@@ -58,7 +58,7 @@ Rectangle
             id: faIcon
             visible: faSource ? true : false
             color: faColor
-            font.family: "FontAwesome"
+            font.family: UISettings.fontAwesomeFontName
             font.pixelSize: iconSize
             text: faSource
         }
