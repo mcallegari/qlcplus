@@ -305,6 +305,9 @@ public:
     void dumpOnScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures,
                      quint32 channelMask, quint32 sceneID);
 
+    /** Check if the current editor accepts Scene values */
+    bool acceptsSceneValues();
+
     Q_INVOKABLE void setChannelValue(quint32 fxID, quint32 channel, uchar value);
 
 protected:
