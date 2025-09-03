@@ -32,11 +32,11 @@ ComboBox
         to provide icons and values (QVariant)
         In case of a QStringList, textRole should be set to ""
         A QML model with icons should look like this:
-        ListModel
-        {
-            ListElement { mLabel: qsTr("Foo"); mIcon:"qrc:/foo.svg"; mValue: 0 }
-            ListElement { mLabel: qsTr("Bar"); mIcon:"qrc:/bar.svg"; mValue: 1 }
-        }
+        [
+            { mLabel: qsTr("Foo"), mIcon: "qrc:/foo.svg", mValue: 0 },
+            { mLabel: qsTr("Bar"), mIcon: "qrc:/bar.svg", mValue: 1 },
+            { mLabel: qsTr("Joe"), faIcon: FontAwesome.fa_egg, mValue: 2 }
+        ]
      */
 
     textRole: "mLabel"
@@ -46,6 +46,8 @@ ComboBox
 
     property string currentIcon
     property string currentTextIcon
+    
+    property string currentFAIcon
     property int currValue
     property int delegateHeight: UISettings.listItemHeight
     property bool isUpdating: false
@@ -68,7 +70,11 @@ ComboBox
         if (item.mIcon)
             currentIcon = item.mIcon
         if (item.mTextIcon)
-            currentTextIcon = item.mTextIcon
+            currentTextIcon = item.mTextIcon;
+        if (item.faIcon)
+            currentFAIcon = item.faIcon
+        if (item.faIcon)
+            currentFAIcon = item.faIcon
 
         if (item.mValue !== undefined)
             control.valueChanged(item.mValue)
@@ -92,6 +98,8 @@ ComboBox
                 displayText = item.mLabel
                 if (item.mIcon)
                     currentIcon = item.mIcon
+                if (item.faIcon)
+                    currentFAIcon = item.faIcon
                 if (item.mTextIcon)
                     currentTextIcon = item.mTextIcon
                 currentIndex = i
@@ -128,6 +136,7 @@ ComboBox
             property int currentIdx: control.currentIndex
             text: control.textRole ? (Array.isArray(control.model) ? modelData[control.textRole] : model[control.textRole]) : modelData
             property string itemIcon: model.mIcon ? model.mIcon : (typeof modelData !== 'undefined' ? modelData.mIcon ? modelData.mIcon : "" : "")
+            property string itemFAIcon: model.faIcon ? model.faIcon : (typeof modelData !== 'undefined' ? (modelData.faIcon ? modelData.faIcon : "") : "")
             property int itemValue: (model.mValue !== undefined) ? model.mValue : ((modelData.mValue !== undefined) ? modelData.mValue : index)
 
             contentItem:
@@ -144,6 +153,18 @@ ComboBox
                         y: 2
                         source: itemIcon
                         sourceSize: Qt.size(width, height)
+                    }
+
+                    Text
+                    {
+                        visible: itemFAIcon ? true : false
+                        height: delegateHeight
+                        width: height
+                        verticalAlignment: Text.AlignVCenter
+                        font.family: UISettings.fontAwesomeFontName
+                        font.pixelSize: delegateHeight * 0.7
+                        color: UISettings.fgMain
+                        text: itemFAIcon
                     }
 
                     RobotoText
@@ -175,6 +196,7 @@ ComboBox
                 currentIndex = index
                 displayText = text
                 currentIcon = itemIcon
+                currentFAIcon = itemFAIcon
 
                 if (itemValue !== undefined)
                     control.valueChanged(itemValue)
@@ -211,6 +233,19 @@ ComboBox
                 source: currentIcon ? currentIcon : ""
                 sourceSize: Qt.size(width, height)
                 opacity: control.enabled ? 1 : 0.3
+            }
+
+            Text
+            {
+                visible: currentFAIcon ? true : false
+                height: control.height - 4
+                width: height
+                verticalAlignment: Text.AlignVCenter
+                font.family: UISettings.fontAwesomeFontName
+                font.pixelSize: control.height * 0.7
+                color: UISettings.fgMain
+                opacity: control.enabled ? 1 : 0.3
+                text: currentFAIcon
             }
 
             TextField

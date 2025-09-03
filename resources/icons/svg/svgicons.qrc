@@ -15,7 +15,6 @@
     <file alias="amber.svg">amber.svg</file>
     <file alias="animation.svg">animation.svg</file>
     <file alias="arrow-corner.svg">arrow-corner.svg</file>
-    <file alias="arrow-end.svg">arrow-end.svg</file>
     <file alias="arrow-up.svg">arrow-up.svg</file>
     <file alias="artnetplugin.svg">artnetplugin.svg</file>
     <file alias="audio.svg">audio.svg</file>
@@ -122,14 +121,12 @@
     <file alias="palette.svg">palette.svg</file>
     <file alias="pan.svg">pan.svg</file>
     <file alias="pause.svg">pause.svg</file>
-    <file alias="pingpong.svg">pingpong.svg</file>
     <file alias="play.svg">play.svg</file>
     <file alias="position.svg">position.svg</file>
     <file alias="printer.svg">printer.svg</file>
     <file alias="prism.svg">prism.svg</file>
     <file alias="qlcplus.svg">qlcplus.svg</file>
     <file alias="qt.svg">qt.svg</file>
-    <file alias="random.svg">random.svg</file>
     <file alias="red.svg">red.svg</file>
     <file alias="redo.svg">redo.svg</file>
     <file alias="remove.svg">remove.svg</file>

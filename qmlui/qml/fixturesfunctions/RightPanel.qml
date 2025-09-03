@@ -301,7 +301,7 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 faSource: FontAwesome.fa_sitemap
-                faColor: UISettings.fgMedium
+                faColor: UISettings.fgLight
                 tooltip: qsTr("Show function usage")
                 counter: functionManager.selectedFunctionCount
                 onClicked:
@@ -334,7 +334,8 @@ SidePanel
                 z: 2
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/play.svg"
+                faSource: FontAwesome.fa_play
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Function Preview")
                 checkable: true
                 checked: functionManager.previewEnabled

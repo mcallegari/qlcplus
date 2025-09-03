@@ -28,14 +28,17 @@ Rectangle
     implicitWidth: itemWidth
     height: iconHeight + 4
 
-    property int iconHeight: UISettings.iconSizeDefault
-    property int iconWidth: iconHeight
     property string imgSource: ""
     property string entryText: ""
+    property string faSource: ""
+    property color faColor: UISettings.fgMain
     property color bgColor: "transparent"
     property color hoverColor: UISettings.highlight
     property color pressColor: UISettings.highlightPressed
-    property int itemWidth: btnIcon.width + (textBox ? textBox.width : 100) + 15
+
+    property int iconHeight: UISettings.iconSizeDefault
+    property int iconWidth: iconHeight
+    property int itemWidth: entryRow.width + 20
 
     signal clicked
     signal entered
@@ -66,26 +69,39 @@ Rectangle
         }
     ]
 
-    Image
+    Row
     {
-        id: btnIcon
-        height: imgSource ? iconHeight : 0
-        width: imgSource ? iconWidth : 0
+        id: entryRow
         x: 5
-        y: 2
-        source: imgSource
-        sourceSize: Qt.size(width, height)
-    }
+        spacing: 5
 
-    RobotoText
-    {
-        id: textBox
-        x: btnIcon.x + btnIcon.width + 2
-        y: 0
-        label: entryText
-        height: baseMenuEntry.height
-        fontSize: UISettings.textSizeDefault
-        fontBold: true
+        Image
+        {
+            visible: imgSource ? true : false
+            anchors.verticalCenter: parent.verticalCenter
+            height: iconHeight
+            width: iconWidth
+            source: imgSource
+            sourceSize: Qt.size(width, height)
+        }
+
+        Text
+        {
+            visible: faSource ? true : false
+            color: faColor
+            anchors.verticalCenter: parent.verticalCenter
+            font.family: UISettings.fontAwesomeFontName
+            font.pixelSize: baseMenuEntry.height * 0.70
+            text: faSource
+        }
+
+        RobotoText
+        {
+            label: entryText
+            height: baseMenuEntry.height
+            fontSize: UISettings.textSizeDefault
+            fontBold: true
+        }
     }
 
     MouseArea

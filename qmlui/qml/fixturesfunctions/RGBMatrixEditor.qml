@@ -227,16 +227,12 @@ Rectangle
                 {
                     Layout.fillWidth: true
                     height: editorColumn.itemsHeight
-
-                    ListModel
-                    {
-                        id: blendModel
-                        ListElement { mLabel: qsTr("Default (HTP)"); }
-                        ListElement { mLabel: qsTr("Mask"); }
-                        ListElement { mLabel: qsTr("Additive"); }
-                        ListElement { mLabel: qsTr("Subtractive"); }
-                    }
-                    model: blendModel
+                    model: [
+                        { mLabel: qsTr("Default (HTP)") },
+                        { mLabel: qsTr("Mask") },
+                        { mLabel: qsTr("Additive") },
+                        { mLabel: qsTr("Subtractive") }
+                    ]
 
                     currentIndex: rgbMatrixEditor.blendMode
                     onCurrentIndexChanged: rgbMatrixEditor.blendMode = currentIndex
@@ -262,18 +258,14 @@ Rectangle
                 {
                     Layout.fillWidth: true
                     height: editorColumn.itemsHeight
-
-                    ListModel
-                    {
-                        id: controlModel
-                        ListElement { mLabel: qsTr("Default (RGB)"); }
-                        ListElement { mLabel: qsTr("White"); }
-                        ListElement { mLabel: qsTr("Amber"); }
-                        ListElement { mLabel: qsTr("UV"); }
-                        ListElement { mLabel: qsTr("Dimmer"); }
-                        ListElement { mLabel: qsTr("Shutter"); }
-                    }
-                    model: controlModel
+                    model: [
+                        { mLabel: qsTr("Default (RGB)") },
+                        { mLabel: qsTr("White") },
+                        { mLabel: qsTr("Amber") },
+                        { mLabel: qsTr("UV") },
+                        { mLabel: qsTr("Dimmer") },
+                        { mLabel: qsTr("Shutter") }
+                    ]
 
                     currentIndex: rgbMatrixEditor.controlMode
                     onCurrentIndexChanged: rgbMatrixEditor.controlMode = currentIndex
@@ -665,15 +657,12 @@ Rectangle
                         }
                         CustomComboBox
                         {
-                            ListModel
-                            {
-                                id: tempoModel
-                                ListElement { mLabel: qsTr("Time"); mValue: QLCFunction.Time }
-                                ListElement { mLabel: qsTr("Beats"); mValue: QLCFunction.Beats }
-                            }
                             Layout.fillWidth: true
                             height: UISettings.listItemHeight
-                            model: tempoModel
+                            model: [
+                                { mLabel: qsTr("Time"), mValue: QLCFunction.Time },
+                                { mLabel: qsTr("Beats"), mValue: QLCFunction.Beats }
+                            ]
 
                             currValue: rgbMatrixEditor.tempoType
                             onValueChanged: rgbMatrixEditor.tempoType = value
@@ -697,14 +686,11 @@ Rectangle
                         // Row 1
                         IconPopupButton
                         {
-                            ListModel
-                            {
-                                id: runOrderModel
-                                ListElement { mLabel: qsTr("Loop"); mIcon: "qrc:/loop.svg"; mValue: QLCFunction.Loop }
-                                ListElement { mLabel: qsTr("Single Shot"); mIcon: "qrc:/arrow-end.svg"; mValue: QLCFunction.SingleShot }
-                                ListElement { mLabel: qsTr("Ping Pong"); mIcon: "qrc:/pingpong.svg"; mValue: QLCFunction.PingPong }
-                            }
-                            model: runOrderModel
+                            model: [
+                                { mLabel: qsTr("Loop"), faIcon: FontAwesome.fa_retweet, mValue: QLCFunction.Loop },
+                                { mLabel: qsTr("Single Shot"), faIcon: FontAwesome.fa_right_long, mValue: QLCFunction.SingleShot },
+                                { mLabel: qsTr("Ping Pong"), faIcon: FontAwesome.fa_right_left, mValue: QLCFunction.PingPong }
+                            ]
 
                             currValue: rgbMatrixEditor.runOrder
                             onValueChanged: rgbMatrixEditor.runOrder = value
@@ -717,13 +703,10 @@ Rectangle
 
                         IconPopupButton
                         {
-                            ListModel
-                            {
-                                id: directionModel
-                                ListElement { mLabel: qsTr("Forward"); mIcon: "qrc:/forward.svg"; mValue: QLCFunction.Forward }
-                                ListElement { mLabel: qsTr("Backward"); mIcon: "qrc:/back.svg"; mValue: QLCFunction.Backward }
-                            }
-                            model: directionModel
+                            model: [
+                                { mLabel: qsTr("Forward"), faIcon: FontAwesome.fa_angles_right, mValue: QLCFunction.Forward },
+                                { mLabel: qsTr("Backward"), faIcon: FontAwesome.fa_angles_left, mValue: QLCFunction.Backward }
+                            ]
 
                             currValue: rgbMatrixEditor.direction
                             onValueChanged: rgbMatrixEditor.direction = value
@@ -828,15 +811,12 @@ Rectangle
             {
                 Layout.fillWidth: true
                 height: editorColumn.itemsHeight
+                model: [
+                    { mLabel: qsTr("Letters") },
+                    { mLabel: qsTr("Horizontal") },
+                    { mLabel: qsTr("Vertical") }
+                ]
 
-                ListModel
-                {
-                    id: textAnimModel
-                    ListElement { mLabel: qsTr("Letters"); }
-                    ListElement { mLabel: qsTr("Horizontal"); }
-                    ListElement { mLabel: qsTr("Vertical"); }
-                }
-                model: textAnimModel
                 currentIndex: rgbMatrixEditor.animationStyle
                 onCurrentIndexChanged: rgbMatrixEditor.animationStyle = currentIndex
             }
@@ -973,16 +953,13 @@ Rectangle
             {
                 Layout.fillWidth: true
                 height: editorColumn.itemsHeight
+                model: [
+                    { mLabel: qsTr("Static") },
+                    { mLabel: qsTr("Horizontal") },
+                    { mLabel: qsTr("Vertical") },
+                    { mLabel: qsTr("Animation") }
+                ]
 
-                ListModel
-                {
-                    id: imageAnimModel
-                    ListElement { mLabel: qsTr("Static"); }
-                    ListElement { mLabel: qsTr("Horizontal"); }
-                    ListElement { mLabel: qsTr("Vertical"); }
-                    ListElement { mLabel: qsTr("Animation"); }
-                }
-                model: imageAnimModel
                 currentIndex: rgbMatrixEditor.animationStyle
                 onCurrentIndexChanged: rgbMatrixEditor.animationStyle = currentIndex
             }

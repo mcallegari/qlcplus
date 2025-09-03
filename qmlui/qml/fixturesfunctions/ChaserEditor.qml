@@ -222,18 +222,15 @@ Rectangle
                     // Row 1
                     IconPopupButton
                     {
-                        ListModel
-                        {
-                            id: runOrderModel
-                            ListElement { mLabel: qsTr("Loop"); mIcon: "qrc:/loop.svg"; mValue: QLCFunction.Loop }
-                            ListElement { mLabel: qsTr("Single Shot"); mIcon: "qrc:/arrow-end.svg"; mValue: QLCFunction.SingleShot }
-                            ListElement { mLabel: qsTr("Ping Pong"); mIcon: "qrc:/pingpong.svg"; mValue: QLCFunction.PingPong }
-                            ListElement { mLabel: qsTr("Random"); mIcon: "qrc:/random.svg"; mValue: QLCFunction.Random }
-                        }
-                        model: runOrderModel
+                        model: [
+                            { mLabel: qsTr("Loop"), faIcon: FontAwesome.fa_retweet, mValue: QLCFunction.Loop },
+                            { mLabel: qsTr("Single Shot"), faIcon: FontAwesome.fa_right_long, mValue: QLCFunction.SingleShot },
+                            { mLabel: qsTr("Ping Pong"), faIcon: FontAwesome.fa_right_left, mValue: QLCFunction.PingPong },
+                            { mLabel: qsTr("Random"), faIcon: FontAwesome.fa_shuffle, mValue: QLCFunction.Random }
+                        ]
 
                         currValue: chaserEditor.runOrder
-                        onValueChanged: chaserEditor.runOrder = value
+                        onValueChanged: (value) => chaserEditor.runOrder = value
                     }
                     RobotoText
                     {
@@ -243,16 +240,13 @@ Rectangle
 
                     IconPopupButton
                     {
-                        ListModel
-                        {
-                            id: directionModel
-                            ListElement { mLabel: qsTr("Forward"); mIcon: "qrc:/forward.svg"; mValue: QLCFunction.Forward }
-                            ListElement { mLabel: qsTr("Backward"); mIcon: "qrc:/back.svg"; mValue: QLCFunction.Backward }
-                        }
-                        model: directionModel
+                        model: [
+                            { mLabel: qsTr("Forward"), faIcon: FontAwesome.fa_angles_right, mValue: QLCFunction.Forward },
+                            { mLabel: qsTr("Backward"), faIcon: FontAwesome.fa_angles_left, mValue: QLCFunction.Backward }
+                        ]
 
                         currValue: chaserEditor.direction
-                        onValueChanged: chaserEditor.direction = value
+                        onValueChanged: (value) => chaserEditor.direction = value
                     }
                     RobotoText
                     {
@@ -262,16 +256,13 @@ Rectangle
 
                     IconPopupButton
                     {
-                        ListModel
-                        {
-                            id: tempoModel
-                            ListElement { mLabel: qsTr("Time"); mTextIcon: "T"; mValue: QLCFunction.Time }
-                            ListElement { mLabel: qsTr("Beats"); mTextIcon: "B"; mValue: QLCFunction.Beats }
-                        }
-                        model: tempoModel
+                        model: [
+                            { mLabel: qsTr("Time"), mTextIcon: "T", mValue: QLCFunction.Time },
+                            { mLabel: qsTr("Beats"), mTextIcon: "B", mValue: QLCFunction.Beats }
+                        ]
 
                         currValue: chaserEditor.tempoType
-                        onValueChanged: chaserEditor.tempoType = value
+                        onValueChanged: (value) => chaserEditor.tempoType = value
                     }
                     RobotoText
                     {
@@ -282,17 +273,14 @@ Rectangle
                     // Row 2
                     IconPopupButton
                     {
-                        ListModel
-                        {
-                            id: fadeInModel
-                            ListElement { mLabel: qsTr("Default"); mTextIcon: "D"; mValue: Chaser.Default }
-                            ListElement { mLabel: qsTr("Common"); mTextIcon: "C"; mValue: Chaser.Common }
-                            ListElement { mLabel: qsTr("Per Step"); mTextIcon: "S"; mValue: Chaser.PerStep }
-                        }
-                        model: fadeInModel
+                        model: [
+                            { mLabel: qsTr("Default"), mTextIcon: "D", mValue: Chaser.Default },
+                            { mLabel: qsTr("Common"), mTextIcon: "C", mValue: Chaser.Common },
+                            { mLabel: qsTr("Per Step"), mTextIcon: "S", mValue: Chaser.PerStep }
+                        ]
 
                         currValue: chaserEditor.stepsFadeIn
-                        onValueChanged: chaserEditor.stepsFadeIn = value
+                        onValueChanged: (value) => chaserEditor.stepsFadeIn = value
                     }
                     RobotoText
                     {
@@ -302,17 +290,14 @@ Rectangle
 
                     IconPopupButton
                     {
-                        ListModel
-                        {
-                            id: fadeOutModel
-                            ListElement { mLabel: qsTr("Default"); mTextIcon: "D"; mValue: Chaser.Default }
-                            ListElement { mLabel: qsTr("Common"); mTextIcon: "C"; mValue: Chaser.Common }
-                            ListElement { mLabel: qsTr("Per Step"); mTextIcon: "S"; mValue: Chaser.PerStep }
-                        }
-                        model: fadeOutModel
+                        model: [
+                            { mLabel: qsTr("Default"), mTextIcon: "D", mValue: Chaser.Default },
+                            { mLabel: qsTr("Common"), mTextIcon: "C", mValue: Chaser.Common },
+                            { mLabel: qsTr("Per Step"), mTextIcon: "S", mValue: Chaser.PerStep }
+                        ]
 
                         currValue: chaserEditor.stepsFadeOut
-                        onValueChanged: chaserEditor.stepsFadeOut = value
+                        onValueChanged: (value) => chaserEditor.stepsFadeOut = value
                     }
                     RobotoText
                     {
@@ -322,16 +307,13 @@ Rectangle
 
                     IconPopupButton
                     {
-                        ListModel
-                        {
-                            id: durationModel
-                            ListElement { mLabel: qsTr("Common"); mTextIcon: "C"; mValue: Chaser.Common }
-                            ListElement { mLabel: qsTr("Per Step"); mTextIcon: "S"; mValue: Chaser.PerStep }
-                        }
-                        model: durationModel
+                        model: [
+                            { mLabel: qsTr("Common"), mTextIcon: "C", mValue: Chaser.Common },
+                            { mLabel: qsTr("Per Step"), mTextIcon: "S", mValue: Chaser.PerStep }
+                        ]
 
                         currValue: chaserEditor.stepsDuration
-                        onValueChanged: chaserEditor.stepsDuration = value
+                        onValueChanged: (value) => chaserEditor.stepsDuration = value
                     }
                     RobotoText
                     {

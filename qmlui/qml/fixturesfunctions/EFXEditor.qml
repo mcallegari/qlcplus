@@ -394,15 +394,11 @@ Rectangle
                                                 {
                                                     height: editorColumn.itemsHeight
                                                     width: modeCol.width
-
-                                                    ListModel
-                                                    {
-                                                        id: modeModel
-                                                        ListElement { mLabel: qsTr("Position"); }
-                                                        ListElement { mLabel: qsTr("Dimmer"); }
-                                                        ListElement { mLabel: qsTr("RGB"); }
-                                                    }
-                                                    model: modeModel
+                                                    model: [
+                                                        { mLabel: qsTr("Position") },
+                                                        { mLabel: qsTr("Dimmer") },
+                                                        { mLabel: qsTr("RGB") }
+                                                    ]
                                                     currentIndex: headMode
                                                     onCurrentIndexChanged: efxEditor.setFixtureMode(fxID, head, currentIndex)
 
@@ -873,21 +869,14 @@ Rectangle
                                 // Row 1
                                 IconPopupButton
                                 {
-                                    ListModel
-                                    {
-                                        id: runOrderModel
-                                        ListElement { mLabel: qsTr("Loop"); mIcon: "qrc:/loop.svg"; mValue: QLCFunction.Loop }
-                                        ListElement { mLabel: qsTr("Single Shot"); mIcon: "qrc:/arrow-end.svg"; mValue: QLCFunction.SingleShot }
-                                        ListElement { mLabel: qsTr("Ping Pong"); mIcon: "qrc:/pingpong.svg"; mValue: QLCFunction.PingPong }
-                                    }
-                                    model: runOrderModel
+                                    model: [
+                                        { mLabel: qsTr("Loop"), faIcon: FontAwesome.fa_retweet, mValue: QLCFunction.Loop },
+                                        { mLabel: qsTr("Single Shot"), faIcon: FontAwesome.fa_right_long, mValue: QLCFunction.SingleShot },
+                                        { mLabel: qsTr("Ping Pong"), faIcon: FontAwesome.fa_right_left, mValue: QLCFunction.PingPong }
+                                    ]
 
                                     currValue: efxEditor.runOrder
-                                    onValueChanged:
-                                        function (value)
-                                        {
-                                            efxEditor.runOrder = value
-                                        }
+                                    onValueChanged: (value) => efxEditor.runOrder = value
                                 }
                                 RobotoText
                                 {
@@ -898,20 +887,13 @@ Rectangle
                                 // Row 2
                                 IconPopupButton
                                 {
-                                    ListModel
-                                    {
-                                        id: directionModel
-                                        ListElement { mLabel: qsTr("Forward"); mIcon: "qrc:/forward.svg"; mValue: QLCFunction.Forward }
-                                        ListElement { mLabel: qsTr("Backward"); mIcon: "qrc:/back.svg"; mValue: QLCFunction.Backward }
-                                    }
-                                    model: directionModel
+                                    model: [
+                                        { mLabel: qsTr("Forward"), faIcon: FontAwesome.fa_angles_right, mValue: QLCFunction.Forward },
+                                        { mLabel: qsTr("Backward"), faIcon: FontAwesome.fa_angles_left, mValue: QLCFunction.Backward }
+                                    ]
 
                                     currValue: efxEditor.direction
-                                    onValueChanged:
-                                        function (value)
-                                        {
-                                            efxEditor.direction = value
-                                        }
+                                    onValueChanged: (value) => efxEditor.direction = value
                                 }
                                 RobotoText
                                 {
@@ -922,21 +904,14 @@ Rectangle
                                 // Row 3
                                 IconPopupButton
                                 {
-                                    ListModel
-                                    {
-                                        id: fxOrderModel
-                                        ListElement { mLabel: qsTr("Parallel"); mTextIcon: "P"; mValue: EFX.Parallel }
-                                        ListElement { mLabel: qsTr("Serial"); mTextIcon: "S"; mValue: EFX.Serial }
-                                        ListElement { mLabel: qsTr("Asymmetric"); mTextIcon: "A"; mValue: EFX.Asymmetric }
-                                    }
-                                    model: fxOrderModel
+                                    model: [
+                                        { mLabel: qsTr("Parallel"), mTextIcon: "P", mValue: EFX.Parallel },
+                                        { mLabel: qsTr("Serial"), mTextIcon: "S", mValue: EFX.Serial },
+                                        { mLabel: qsTr("Asymmetric"), mTextIcon: "A", mValue: EFX.Asymmetric }
+                                    ]
 
                                     currValue: efxEditor.propagation
-                                    onValueChanged:
-                                        function (value)
-                                        {
-                                            efxEditor.propagation = value
-                                        }
+                                    onValueChanged: (value) => efxEditor.propagation = value
                                 }
                                 RobotoText
                                 {
