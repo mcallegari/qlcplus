@@ -187,17 +187,13 @@ Item
                     id: typeButton
                     implicitWidth: UISettings.iconSizeMedium
                     implicitHeight: implicitWidth
-
-                    ListModel
-                    {
-                        id: typeModel
-                        ListElement { mLabel: qsTr("Flat"); mIcon: "qrc:/algo-flat.svg"; mValue: QLCPalette.Flat }
-                        ListElement { mLabel: qsTr("Linear"); mIcon: "qrc:/algo-linear.svg"; mValue: QLCPalette.Linear }
-                        ListElement { mLabel: qsTr("Square"); mIcon: "qrc:/algo-square.svg"; mValue: QLCPalette.Square }
-                        ListElement { mLabel: qsTr("Saw"); mIcon: "qrc:/algo-saw.svg"; mValue: QLCPalette.Saw }
-                        ListElement { mLabel: qsTr("Sine"); mIcon: "qrc:/algo-sine.svg"; mValue: QLCPalette.Sine }
-                    }
-                    model: typeModel
+                    model: [
+                        { mLabel: qsTr("Flat"), mIcon: "qrc:/algo-flat.svg", mValue: QLCPalette.Flat },
+                        { mLabel: qsTr("Linear"), mIcon: "qrc:/algo-linear.svg", mValue: QLCPalette.Linear },
+                        { mLabel: qsTr("Square"), mIcon: "qrc:/algo-square.svg", mValue: QLCPalette.Square },
+                        { mLabel: qsTr("Saw"), mIcon: "qrc:/algo-saw.svg", mValue: QLCPalette.Saw },
+                        { mLabel: qsTr("Sine"), mIcon: "qrc:/algo-sine.svg", mValue: QLCPalette.Sine }
+                    ]
 
                     currValue: boxRoot.palette ? boxRoot.palette.fanningType : QLCPalette.Flat
                     onValueChanged:
@@ -233,21 +229,17 @@ Item
                     id: layoutButton
                     implicitWidth: UISettings.iconSizeMedium
                     implicitHeight: implicitWidth
-
-                    ListModel
-                    {
-                        id: layoutModel
-                        ListElement { mLabel: qsTr("X Ascending"); mIcon: "qrc:/layout-ltr.svg"; mValue: QLCPalette.XAscending }
-                        ListElement { mLabel: qsTr("X Descending"); mIcon: "qrc:/layout-rtl.svg"; mValue: QLCPalette.XDescending }
-                        //ListElement { mLabel: qsTr("X Centered"); mIcon: "qrc:/layout-center.svg"; mValue: QLCPalette.XCentered }
-                        ListElement { mLabel: qsTr("Y Ascending"); mIcon: "qrc:/layout-btt.svg"; mValue: QLCPalette.YAscending }
-                        ListElement { mLabel: qsTr("Y Descending"); mIcon: "qrc:/layout-ttb.svg"; mValue: QLCPalette.YDescending }
-                        //ListElement { mLabel: qsTr("Y Centered"); mIcon: "qrc:/layout-center.svg"; mValue: QLCPalette.YCentered }
-                        ListElement { mLabel: qsTr("Z Ascending"); mIcon: "qrc:/layout-ftb.svg"; mValue: QLCPalette.ZAscending }
-                        ListElement { mLabel: qsTr("Z Descending"); mIcon: "qrc:/layout-btf.svg"; mValue: QLCPalette.ZDescending }
-                        //ListElement { mLabel: qsTr("Z Centered"); mIcon: "qrc:/layout-center.svg"; mValue: QLCPalette.ZCentered }
-                    }
-                    model: layoutModel
+                    model: [
+                        { mLabel: qsTr("X Ascending"), mIcon: "qrc:/layout-ltr.svg", mValue: QLCPalette.XAscending },
+                        { mLabel: qsTr("X Descending"), mIcon: "qrc:/layout-rtl.svg", mValue: QLCPalette.XDescending },
+                        // { mLabel: qsTr("X Centered"), mIcon: "qrc:/layout-center.svg", mValue: QLCPalette.XCentered },
+                        { mLabel: qsTr("Y Ascending"), mIcon: "qrc:/layout-btt.svg", mValue: QLCPalette.YAscending },
+                        { mLabel: qsTr("Y Descending"), mIcon: "qrc:/layout-ttb.svg", mValue: QLCPalette.YDescending },
+                        // { mLabel: qsTr("Y Centered"), mIcon: "qrc:/layout-center.svg", mValue: QLCPalette.YCentered },
+                        { mLabel: qsTr("Z Ascending"), mIcon: "qrc:/layout-ftb.svg", mValue: QLCPalette.ZAscending },
+                        { mLabel: qsTr("Z Descending"), mIcon: "qrc:/layout-btf.svg", mValue: QLCPalette.ZDescending },
+                        // { mLabel: qsTr("Z Centered"), mIcon: "qrc:/layout-center.svg"; mValue: QLCPalette.ZCentered }
+                    ]
 
                     currValue: boxRoot.palette ? boxRoot.palette.fanningLayout : QLCPalette.XAscending
                     onValueChanged:

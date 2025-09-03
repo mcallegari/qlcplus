@@ -307,16 +307,12 @@ Rectangle
 
             CustomComboBox
             {
-                ListModel
-                {
-                    id: divModel
-                    ListElement { mLabel: qsTr("Time"); mValue: Show.Time }
-                    ListElement { mLabel: qsTr("BPM 4/4"); mValue: Show.BPM_4_4 }
-                    ListElement { mLabel: qsTr("BPM 3/4"); mValue: Show.BPM_3_4 }
-                    ListElement { mLabel: qsTr("BPM 2/4"); mValue: Show.BPM_2_4 }
-                }
-
-                model: divModel
+                model: [
+                    { mLabel: qsTr("Time"), mValue: Show.Time },
+                    { mLabel: qsTr("BPM 4/4"), mValue: Show.BPM_4_4 },
+                    { mLabel: qsTr("BPM 3/4"), mValue: Show.BPM_3_4 },
+                    { mLabel: qsTr("BPM 2/4"), mValue: Show.BPM_2_4 }
+                ]
                 enabled: showManager.isEditing
                 currValue: showManager.timeDivision
                 onValueChanged: showManager.timeDivision = currentValue

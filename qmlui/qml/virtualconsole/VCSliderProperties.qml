@@ -339,16 +339,12 @@ Rectangle
 
                   CustomComboBox
                   {
-                      ListModel
-                      {
-                          id: cngModel
-                          ListElement { mLabel: qsTr("None"); mValue: VCSlider.CnGNone }
-                          ListElement { mLabel: qsTr("RGB/CMY"); mValue: VCSlider.CnGColors }
-                          ListElement { mLabel: qsTr("Gobo/Effect/Macro"); mValue: VCSlider.CnGPreset }
-                      }
-
                       Layout.fillWidth: true
-                      model: cngModel
+                      model: [
+                        { mLabel: qsTr("None"), mValue: VCSlider.CnGNone },
+                        { mLabel: qsTr("RGB/CMY"), mValue: VCSlider.CnGColors },
+                        { mLabel: qsTr("Gobo/Effect/Macro"), mValue: VCSlider.CnGPreset }
+                      ]
                       currentIndex: widgetRef ? widgetRef.clickAndGoType : 0
                       onCurrentIndexChanged: if (widgetRef) widgetRef.clickAndGoType = currentIndex
                   }

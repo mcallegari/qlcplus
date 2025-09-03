@@ -220,17 +220,12 @@ Rectangle
                         {
                             Layout.fillWidth: true
                             height: UISettings.listItemHeight
-
-                            ListModel
-                            {
-                                id: qualityModel
-                                ListElement { mLabel: qsTr("Low"); mValue: MainView3D.LowQuality }
-                                ListElement { mLabel: qsTr("Medium"); mValue: MainView3D.MediumQuality }
-                                ListElement { mLabel: qsTr("High"); mValue: MainView3D.HighQuality }
-                                ListElement { mLabel: qsTr("Ultra"); mValue: MainView3D.UltraQuality }
-                            }
-
-                            model: qualityModel
+                            model: [
+                                { mLabel: qsTr("Low"), mValue: MainView3D.LowQuality },
+                                { mLabel: qsTr("Medium"), mValue: MainView3D.MediumQuality },
+                                { mLabel: qsTr("High"), mValue: MainView3D.HighQuality },
+                                { mLabel: qsTr("Ultra"), mValue: MainView3D.UltraQuality }
+                            ]
                             currentIndex: View3D.renderQuality
                             onCurrentIndexChanged: View3D.renderQuality = currentIndex
                         }
