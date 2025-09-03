@@ -513,7 +513,8 @@ void CueStack::write(QList<Universe*> ua)
         int to = previous();
         switchCue(from, to, ua);
         m_previous = false;
-        emit currentCueChanged(m_currentIndex);
+        emit currentCueChanged(from);
+        emit currentCueChanged(to);
     }
     else if (m_next == true)
     {
@@ -523,7 +524,8 @@ void CueStack::write(QList<Universe*> ua)
         int to = next();
         switchCue(from, to, ua);
         m_next = false;
-        emit currentCueChanged(m_currentIndex);
+        emit currentCueChanged(from);
+        emit currentCueChanged(to);
     }
 /*
     else if (m_elapsed >= duration())
