@@ -28,21 +28,42 @@ import "."
 CustomPopupDialog
 {
     id: popupRoot
-    width: mainView.width / 2
+    width: fixtureEditorView.width / 2
     title: qsTr("Fixture Editor Wizard")
 
     property EditorRef editorView: null
     property ChannelEdit chEdit: null
     property bool capabilityWizard: false
     property var itemsList: []
+    property bool isUpdating: false
+
+    Timer
+    {
+        id: updateTimer
+        interval: 200
+        repeat: false
+        running: false
+
+        property int modifiers: 0
+
+        onTriggered: updateItemsList(false)
+    }
 
     function updateItemsList(create)
     {
-        pListModel.clear()
+        if (isUpdating)
+            return
 
-        for (var i = 0; i < amountSpin.value; i++)
+        isUpdating = true
+        previewList.model = null
+        itemsList = []
+        var i = 0
+        var j = 0
+
+        for (i = 0; i < amountSpin.value; i++)
         {
-            var nStr = nameInputBox.text.replace(/#/g, i + 1)
+            var txt = nameInputBox.text
+            var nStr = txt.replace(/#/g, i + 1)
 
             if (capabilityWizard)
             {
@@ -56,7 +77,7 @@ CustomPopupDialog
                 else
                 {
                     nStr = "[" + addrMin + " - " + addrMax + "] " + nStr
-                    pListModel.append({"name": nStr})
+                    itemsList.push({"name": nStr})
                 }
             }
             else
@@ -85,10 +106,12 @@ CustomPopupDialog
                     break
                 }
 
-                for (var j = 0; j < compNum; j++)
+                for (j = 0; j < compNum; j++)
                 {
                     var str = (compNum == 1) ? nStr : compNames[j] + " " + (i + 1)
                     var type = (compNum == 1) ? chType : compTypes[j]
+
+                    console.log("STRING " + str)
 
                     if (create)
                     {
@@ -96,19 +119,19 @@ CustomPopupDialog
                     }
                     else
                     {
-                        pListModel.append({"name": str})
+                        itemsList.push({"name": str})
                     }
                 }
             }
         }
+
+        previewList.model = itemsList
+        isUpdating = false
     }
 
-    onOpened: updateItemsList(false)
+    onOpened: updateTimer.restart()
 
-    onAccepted:
-    {
-        updateItemsList(true)
-    }
+    onAccepted: updateItemsList(true)
 
     contentItem:
         GridLayout
@@ -126,6 +149,8 @@ CustomPopupDialog
 
                 RowLayout
                 {
+                    height: UISettings.listItemHeight
+
                     RobotoText
                     {
                         height: UISettings.listItemHeight
@@ -139,7 +164,7 @@ CustomPopupDialog
                         visible: capabilityWizard
                         from: 0
                         to: 254
-                        onValueChanged: updateItemsList(false)
+                        onValueChanged: updateTimer.restart()
                     }
 
                     RobotoText
@@ -155,7 +180,7 @@ CustomPopupDialog
                         visible: capabilityWizard
                         from: 1
                         to: 255
-                        onValueChanged: updateItemsList(false)
+                        onValueChanged: updateTimer.restart()
                     }
 
                     RobotoText
@@ -169,7 +194,7 @@ CustomPopupDialog
                         id: amountSpin
                         from: 1
                         to: 1000
-                        onValueChanged: updateItemsList(false)
+                        onValueChanged: updateTimer.restart()
                     }
 
                     RobotoText
@@ -206,12 +231,8 @@ CustomPopupDialog
 
                         }
                         model: capabilityWizard ? null : chTypesModel
-                        currValue: capabilityWizard ? 0 : QLCChannel.Red
-                        onValueChanged:
-                        {
-                            currValue = value
-                            updateItemsList(false)
-                        }
+                        currentIndex: 0
+                        onCurrentIndexChanged: updateTimer.restart()
                     }
                 } // RowLayout
             }
@@ -230,7 +251,7 @@ CustomPopupDialog
                     Layout.fillWidth: true
                     text: capabilityWizard ? qsTr("Capability #") : qsTr("Channel #")
                     onAccepted: popupRoot.accept()
-                    onTextChanged: updateItemsList(false)
+                    onTextChanged: updateTimer.restart()
                 }
             }
 
@@ -249,14 +270,14 @@ CustomPopupDialog
                     implicitHeight: UISettings.bigItemHeight * 2
                     clip: true
                     boundsBehavior: Flickable.StopAtBounds
-                    model: ListModel { id: pListModel }
+                    //model: itemsList
 
                     delegate:
                         RobotoText
                         {
                             height: UISettings.listItemHeight
                             width: previewList.width
-                            label: modelData
+                            label: modelData.name
                         }
 
                     ScrollBar.vertical: CustomScrollBar { }

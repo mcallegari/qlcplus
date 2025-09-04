@@ -149,7 +149,6 @@
     <file alias="video.svg">video.svg</file>
     <file alias="virtualconsole.svg">virtualconsole.svg</file>
     <file alias="white.svg">white.svg</file>
-    <file alias="wizard.svg">wizard.svg</file>
     <file alias="xypad.svg">xypad.svg</file>
     <file alias="yellow.svg">yellow.svg</file>
   </qresource>

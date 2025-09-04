@@ -73,12 +73,13 @@ Column
             height: width
             checkable: true
             checked: invalid
-            imgSource: "qrc:/wizard.svg"
+            faSource: FontAwesome.fa_wand_magic_sparkles
+            faColor: "cyan"
             tooltip: qsTr("Activate auto detection")
 
             onToggled:
             {
-                if (checked == true)
+                if (checked === true)
                 {
                     if (invalid === false &&
                         virtualConsole.enableInputSourceAutoDetection(widgetObjRef, controlID, universe, channel) === true)

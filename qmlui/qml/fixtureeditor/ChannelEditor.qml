@@ -192,7 +192,8 @@ GridLayout
         IconButton
         {
             id: chWizButton
-            imgSource: "qrc:/wizard.svg"
+            faSource: FontAwesome.fa_wand_magic_sparkles
+            faColor: "cyan"
             tooltip: qsTr("Capability wizard")
             onClicked: wizardPopup.open()
 

@@ -18,6 +18,7 @@
 */
 
 import QtQuick
+import QtQuick.Dialogs
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Controls.Basic
@@ -73,10 +74,18 @@ Rectangle
     CustomPopupDialog
     {
         id: messagePopup
-        width: mainView.width / 2
+        parent: fixtureEditorView
+        width: fixtureEditorView.width / 2
         standardButtons: Dialog.Ok
         title: qsTr("!! Warning !!")
         onAccepted: close()
+    }
+
+    PopupChannelWizard
+    {
+        id: wizardPopup
+        parent: fixtureEditorView
+        editorView: editorRoot.editorView
     }
 
     SplitView
@@ -280,15 +289,10 @@ Rectangle
                                     IconButton
                                     {
                                         id: chWizButton
-                                        imgSource: "qrc:/wizard.svg"
+                                        faSource: FontAwesome.fa_wand_magic_sparkles
+                                        faColor: "cyan"
                                         tooltip: qsTr("Channel wizard")
                                         onClicked: wizardPopup.open()
-
-                                        PopupChannelWizard
-                                        {
-                                            id: wizardPopup
-                                            editorView: editorRoot.editorView
-                                        }
                                     }
                                 }
                             } // Rectangle - toolbar

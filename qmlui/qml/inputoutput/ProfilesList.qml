@@ -103,7 +103,8 @@ Rectangle
                     height: topBar.height - 2
                     visible: profEditor.isEditing
                     checkable: true
-                    imgSource: "qrc:/wizard.svg"
+                    faSource: FontAwesome.fa_wand_magic_sparkles
+                    faColor: "cyan"
                     tooltip: qsTr("Toggle the automatic detection procedure")
 
                     onToggled:
