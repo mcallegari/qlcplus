@@ -99,7 +99,8 @@ Rectangle
                 {
                     width: height
                     height: UISettings.iconSizeMedium - 2
-                    imgSource: "qrc:/back.svg"
+                    faSource: FontAwesome.fa_circle_left
+                    faColor: "lightcyan"
                     tooltip: qsTr("Preview the previous step")
                     visible: chaserEditor.previewEnabled
                     onClicked: chaserEditor.gotoPreviousStep()
@@ -109,7 +110,8 @@ Rectangle
                 {
                     width: height
                     height: UISettings.iconSizeMedium - 2
-                    imgSource: "qrc:/forward.svg"
+                    faSource: FontAwesome.fa_circle_right
+                    faColor: "lightcyan"
                     tooltip: qsTr("Preview the next step")
                     visible: chaserEditor.previewEnabled
                     onClicked: chaserEditor.gotoNextStep()
@@ -120,7 +122,8 @@ Rectangle
                     id: addFunc
                     width: height
                     height: UISettings.iconSizeMedium - 2
-                    imgSource: "qrc:/add.svg"
+                    faSource: FontAwesome.fa_plus
+                    faColor: "limegreen"
                     checkable: true
                     enabled: !chaserEditor.previewEnabled
                     tooltip: qsTr("Add a new step")
@@ -147,7 +150,8 @@ Rectangle
                 {
                     width: height
                     height: UISettings.iconSizeMedium - 2
-                    imgSource: "qrc:/edit-copy.svg"
+                    faSource: FontAwesome.fa_clone
+                    faColor: UISettings.fgMain
                     tooltip: qsTr("Duplicate the selected step(s)")
                     enabled: !chaserEditor.previewEnabled && chWidget.selector.itemsCount
                     onClicked: chaserEditor.duplicateSteps(chWidget.selector.itemsList())
@@ -155,10 +159,22 @@ Rectangle
 
                 IconButton
                 {
+                    width: height
+                    height: UISettings.iconSizeMedium - 2
+                    faSource: FontAwesome.fa_shuffle
+                    faColor: "gold"
+                    tooltip: qsTr("Randomize the selected step(s) order")
+                    enabled: !chaserEditor.previewEnabled
+                    onClicked: chaserEditor.shuffleSteps(chWidget.selector.itemsList())
+                }
+
+                IconButton
+                {
                     id: removeFunc
                     width: height
                     height: UISettings.iconSizeMedium - 2
-                    imgSource: "qrc:/remove.svg"
+                    faSource: FontAwesome.fa_minus
+                    faColor: "crimson"
                     tooltip: qsTr("Remove the selected steps")
                     enabled: !chaserEditor.previewEnabled && chWidget.selector.itemsCount
                     onClicked: deleteSelectedItems()
@@ -169,7 +185,9 @@ Rectangle
                     id: printButton
                     width: height
                     height: UISettings.iconSizeMedium - 2
-                    imgSource: "qrc:/printer.svg"
+                    //imgSource: "qrc:/printer.svg"
+                    faSource: FontAwesome.fa_print
+                    faColor: UISettings.fgMain
                     tooltip: qsTr("Print the Chaser steps")
                     onClicked:
                     {

@@ -180,7 +180,8 @@ Rectangle
                 id: stretchBtn
                 width: parent.height - 6
                 height: width
-                imgSource: "qrc:/stretch.svg"
+                faSource: FontAwesome.fa_arrows_left_right_to_line
+                faColor: "lightyellow"
                 tooltip: qsTr("Stretch the original function")
                 checkable: true
                 checked: showManager.stretchFunctions
@@ -193,7 +194,8 @@ Rectangle
                 z: 2
                 width: parent.height - 6
                 height: width
-                imgSource: "qrc:/remove.svg"
+                faSource: FontAwesome.fa_minus
+                faColor: "crimson"
                 tooltip: qsTr("Remove the selected items")
                 counter: showManager.selectedItemsCount
                 onClicked:
@@ -218,7 +220,8 @@ Rectangle
                 id: copyBtn
                 width: parent.height - 6
                 height: width
-                imgSource: "qrc:/edit-copy.svg"
+                faSource: FontAwesome.fa_copy
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Copy the selected items in the clipboard")
                 counter: showManager.selectedItemsCount
                 onClicked: showManager.copyToClipboard()
@@ -229,7 +232,8 @@ Rectangle
                 id: pasteBtn
                 width: parent.height - 6
                 height: width
-                imgSource: "qrc:/edit-paste.svg"
+                faSource: FontAwesome.fa_paste
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Paste items in the clipboard at cursor position")
                 counter: showManager.selectedItemsCount
                 onClicked: showManager.pasteFromClipboard()
@@ -380,7 +384,8 @@ Rectangle
                 visible: showManager.selectedTrackIndex > 0 ? true : false
                 height: parent.height - 2
                 width: height
-                imgSource: "qrc:/up.svg"
+                faSource: FontAwesome.fa_angle_up
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Move the selected track up")
                 onClicked:
                 {
@@ -395,7 +400,8 @@ Rectangle
                 visible: showManager.selectedTrackIndex < tracksBox.count - 1 ? true : false
                 height: parent.height - 2
                 width: height
-                imgSource: "qrc:/down.svg"
+                faSource: FontAwesome.fa_angle_down
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Move the selected track down")
                 onClicked:
                 {

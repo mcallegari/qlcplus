@@ -175,13 +175,13 @@ Rectangle
                                     implicitWidth: functionList.durColWidth
                                     currentIndex: modelData.duration
                                     onActivated: widgetRef.setFunctionSpeed(functionID, QLCFunction.Duration, currentIndex)
-
                                 }
                                 IconButton
                                 {
                                     width: height
                                     height: UISettings.listItemHeight
-                                    imgSource: "qrc:/remove.svg"
+                                    faSource: FontAwesome.fa_minus
+                                    faColor: "crimson"
                                     tooltip: qsTr("Remove this function")
                                     onClicked:
                                     {
@@ -198,7 +198,7 @@ Rectangle
                         height: UISettings.bigItemHeight * 0.6
                         color: UISettings.bgMedium
                         radius: 10
-                        visible: functionList.count == 0
+                        visible: functionList.count === 0
 
                         RobotoText
                         {

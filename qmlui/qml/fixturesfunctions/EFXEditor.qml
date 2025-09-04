@@ -210,7 +210,8 @@ Rectangle
 
                                         width: height
                                         height: parent.height
-                                        imgSource: "qrc:/add.svg"
+                                        faSource: FontAwesome.fa_plus
+                                        faColor: "limegreen"
                                         checkable: true
                                         tooltip: qsTr("Add a fixture/head")
                                         onCheckedChanged:
@@ -238,7 +239,8 @@ Rectangle
                                         anchors.right: parent.right
                                         width: height
                                         height: parent.height
-                                        imgSource: "qrc:/remove.svg"
+                                        faSource: FontAwesome.fa_minus
+                                        faColor: "crimson"
                                         tooltip: qsTr("Remove the selected fixture head(s)")
                                         onClicked: efxEditor.removeHeads(eeSelector.itemsList())
                                     }

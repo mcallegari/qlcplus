@@ -126,7 +126,8 @@ Rectangle
                     id: addButton
                     width: height
                     height: UISettings.iconSizeMedium
-                    imgSource: "qrc:/add.svg"
+                    faSource: FontAwesome.fa_plus
+                    faColor: "limegreen"
                     tooltip: qsTr("Add a method call at cursor position")
                     onClicked: addMethodMenu.open()
                 }

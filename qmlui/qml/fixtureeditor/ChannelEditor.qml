@@ -180,7 +180,8 @@ GridLayout
         IconButton
         {
             id: removeCapButton
-            imgSource: "qrc:/remove.svg"
+            faSource: FontAwesome.fa_minus
+            faColor: "crimson"
             tooltip: qsTr("Delete the selected capabilities")
             onClicked: {
                 editItem.visible = false

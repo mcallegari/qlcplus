@@ -138,7 +138,8 @@ SidePanel
                 z: 2
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/add.svg"
+                faSource: FontAwesome.fa_plus
+                faColor: "limegreen"
                 tooltip: qsTr("Add a new universe")
                 onClicked: ioManager.addUniverse()
             }
@@ -149,7 +150,8 @@ SidePanel
                 visible: ioManager.selectedIndex === ioManager.universeNames.length - 1
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/remove.svg"
+                faSource: FontAwesome.fa_minus
+                faColor: "crimson"
                 tooltip: qsTr("Remove the selected universe")
                 onClicked: ioManager.removeLastUniverse()
             }

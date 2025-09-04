@@ -463,7 +463,7 @@ Rectangle
                 Layout.alignment: Qt.AlignVCenter
                 radius: height / 2
                 border.width: 2
-                border.color: "#333"
+                border.color: UISettings.bgMedium
                 color: UISettings.fgMedium
 
                 ColorAnimation on color
@@ -503,13 +503,23 @@ Rectangle
                 Layout.alignment: Qt.AlignTop
                 enabled: runningCount ? true : false
                 bgColor: "transparent"
-                imgSource: "qrc:/stop.svg"
+                faSource: FontAwesome.fa_octagon
+                faColor: "red"
                 tooltip: qsTr("Stop all the running functions")
+
                 onClicked: qlcplus.stopAllFunctions()
 
                 property int runningCount: qlcplus.runningFunctionsCount
 
                 onRunningCountChanged: console.log("Functions running: " + runningCount)
+
+                RobotoText
+                {
+                    anchors.centerIn: parent
+                    height: parent.height * 0.2
+                    fontSize: height
+                    label: "STOP"
+                }
 
                 Rectangle
                 {

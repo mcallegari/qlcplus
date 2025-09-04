@@ -33,7 +33,7 @@ Rectangle
 
     color: UISettings.bgStrong
     border.width: 1
-    border.color: "#222"
+    border.color: UISettings.bgStrong
 
     property vector3d envSize: contextManager ? contextManager.environmentSize : Qt.vector3d(0, 0, 0)
 
@@ -652,7 +652,8 @@ Rectangle
                                 {
                                     height: UISettings.iconSizeMedium
                                     width: height
-                                    imgSource: "qrc:/add.svg"
+                                    faSource: FontAwesome.fa_plus
+                                    faColor: "limegreen"
                                     tooltip: qsTr("Add a new item to the scene")
                                     onClicked: meshDialog.open()
                                 }
@@ -661,7 +662,8 @@ Rectangle
                                     enabled: selGenericCount
                                     height: UISettings.iconSizeMedium
                                     width: height
-                                    imgSource: "qrc:/remove.svg"
+                                    faSource: FontAwesome.fa_minus
+                                    faColor: "crimson"
                                     tooltip: qsTr("Remove the selected items")
                                     onClicked: View3D.removeSelectedGenericItems()
                                 }

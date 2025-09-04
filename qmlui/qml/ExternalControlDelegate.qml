@@ -124,7 +124,8 @@ Column
         {
             width: UISettings.iconSizeMedium
             height: width
-            imgSource: "qrc:/remove.svg"
+            faSource: FontAwesome.fa_minus
+            faColor: "crimson"
             tooltip: qsTr("Remove this input source")
 
             onClicked: virtualConsole.deleteInputSource(widgetObjRef, controlID, universe, channel)

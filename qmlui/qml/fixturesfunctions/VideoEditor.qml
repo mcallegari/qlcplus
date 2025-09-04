@@ -125,7 +125,8 @@ Rectangle
 
             IconButton
             {
-                imgSource: "qrc:/global.svg"
+                faSource: FontAwesome.fa_globe
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Set a URL")
                 onClicked: getUrlDialog.visible = true
 

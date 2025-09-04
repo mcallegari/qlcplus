@@ -198,7 +198,8 @@ VCWidgetItem
         {
             visible: sliderObj ? sliderObj.adjustFlashEnabled : false
             Layout.alignment: Qt.AlignHCenter
-            imgSource: "qrc:/flash.svg"
+            faSource: FontAwesome.fa_star
+            faColor: "deepskyblue"
             tooltip: qsTr("Flash the controlled Function")
             onPressed:
             {

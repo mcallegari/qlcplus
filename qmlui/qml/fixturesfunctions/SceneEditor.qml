@@ -224,7 +224,8 @@ Rectangle
                     x: parent.width - UISettings.iconSizeMedium - 5
                     width: height
                     height: UISettings.iconSizeMedium
-                    imgSource: "qrc:/remove.svg"
+                    faSource: FontAwesome.fa_minus
+                    faColor: "crimson"
                     tooltip: qsTr("Remove the selected items")
                     onClicked: deleteSelectedItems()
                 }

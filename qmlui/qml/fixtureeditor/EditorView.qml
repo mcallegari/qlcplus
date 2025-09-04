@@ -237,7 +237,8 @@ Rectangle
                                     IconButton
                                     {
                                         id: newChButton
-                                        imgSource: "qrc:/add.svg"
+                                        faSource: FontAwesome.fa_plus
+                                        faColor: "limegreen"
                                         tooltip: qsTr("Add a new channel")
                                         onClicked:
                                         {
@@ -251,7 +252,8 @@ Rectangle
                                     IconButton
                                     {
                                         id: delChButton
-                                        imgSource: "qrc:/remove.svg"
+                                        faSource: FontAwesome.fa_minus
+                                        faColor: "crimson"
                                         tooltip: qsTr("Remove the selected channel(s)")
                                         enabled: chanSelector.itemsCount
                                         onClicked:
@@ -464,7 +466,8 @@ Rectangle
                                     IconButton
                                     {
                                         id: newModeButton
-                                        imgSource: "qrc:/add.svg"
+                                        faSource: FontAwesome.fa_plus
+                                        faColor: "limegreen"
                                         tooltip: qsTr("Add a new mode")
                                         onClicked:
                                         {
@@ -478,7 +481,8 @@ Rectangle
                                     IconButton
                                     {
                                         id: delModeButton
-                                        imgSource: "qrc:/remove.svg"
+                                        faSource: FontAwesome.fa_minus
+                                        faColor: "crimson"
                                         tooltip: qsTr("Remove the selected mode(s)")
                                         onClicked: { /* TODO */ }
                                     }
@@ -556,7 +560,7 @@ Rectangle
                     width: parent.width
                     sectionLabel: qsTr("Aliases")
 
-                    sectionContents: null
+                    sectionContents: null // TODO
                 } // SectionBox - Alias
 
             } // Column

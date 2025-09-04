@@ -141,7 +141,8 @@ Rectangle
 
                             width: height
                             height: parent.height
-                            imgSource: "qrc:/add.svg"
+                            faSource: FontAwesome.fa_plus
+                            faColor: "limegreen"
                             checkable: true
                             tooltip: qsTr("Add a function schedule")
                             onCheckedChanged:
@@ -204,7 +205,7 @@ Rectangle
                                         anchors.top: parent.top
                                         anchors.right: parent.right
                                         faSource: FontAwesome.fa_trash_can
-                                        faColor: "dark red"
+                                        faColor: "darkred"
                                         tooltip: qsTr("Remove this schedule")
                                         onClicked:
                                         {

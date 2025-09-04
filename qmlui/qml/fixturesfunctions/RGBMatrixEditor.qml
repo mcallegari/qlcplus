@@ -281,6 +281,7 @@ Rectangle
 
                 RobotoText
                 {
+                    id: colorLabel
                     label: qsTr("Colors")
                     visible: rgbMatrixEditor.algoColors > 0 ? true : false
                     height: editorColumn.itemsHeight
@@ -353,7 +354,8 @@ Rectangle
                 {
                     width: UISettings.listItemHeight
                     height: width
-                    imgSource: "qrc:/cancel.svg"
+                    faSource: FontAwesome.fa_xmark
+                    faColor: "darkred"
                     tooltip: qsTr("Reset color 2")
                     visible: rgbMatrixEditor.algoColors > 1 ? true : false
                     onClicked:
@@ -376,15 +378,9 @@ Rectangle
                 {
                     id: colorRow1
                     height: editorColumn.itemsHeight
-                    width: editorColumn.firstColumnWidth
+                    width: colorLabel.width
                     color: "transparent"
                     visible: rgbMatrixEditor.algoColors > 4 ? true : false
-
-                    onWidthChanged:
-                    {
-                        editorColumn.checkLabelWidth(width)
-                        width = Qt.binding(function() { return editorColumn.firstColumnWidth })
-                    }
                 }
 
                 Rectangle
@@ -416,7 +412,8 @@ Rectangle
                 {
                     width: UISettings.listItemHeight
                     height: width
-                    imgSource: "qrc:/cancel.svg"
+                    faSource: FontAwesome.fa_xmark
+                    faColor: "darkred"
                     tooltip: qsTr("Reset color 3")
                     visible: rgbMatrixEditor.algoColors > 2 ? true : false
                     onClicked:
@@ -455,7 +452,8 @@ Rectangle
                 {
                     width: UISettings.listItemHeight
                     height: width
-                    imgSource: "qrc:/cancel.svg"
+                    faSource: FontAwesome.fa_xmark
+                    faColor: "darkred"
                     tooltip: qsTr("Reset color 4")
                     visible: rgbMatrixEditor.algoColors > 3 ? true : false
                     onClicked:
@@ -478,14 +476,9 @@ Rectangle
                 {
                     id: colorRow2
                     height: editorColumn.itemsHeight
-                    width: editorColumn.firstColumnWidth
+                    width: colorLabel.width
                     color: "transparent"
                     visible: rgbMatrixEditor.algoColors > 4 ? true : false
-                    onWidthChanged:
-                    {
-                        editorColumn.checkLabelWidth(width)
-                        width = Qt.binding(function() { return editorColumn.firstColumnWidth })
-                    }
                 }
 
                 Rectangle
@@ -517,7 +510,8 @@ Rectangle
                 {
                     width: UISettings.listItemHeight
                     height: width
-                    imgSource: "qrc:/cancel.svg"
+                    faSource: FontAwesome.fa_xmark
+                    faColor: "darkred"
                     tooltip: qsTr("Reset color 5")
                     visible: rgbMatrixEditor.algoColors > 4 ? true : false
                     onClicked:
@@ -781,7 +775,8 @@ Rectangle
                     width: UISettings.iconSizeMedium
                     height: width
                     anchors.right: parent.right
-                    imgSource: "qrc:/font.svg"
+                    faSource: FontAwesome.fa_font
+                    faColor: "lightcyan"
 
                     onClicked: fontDialog.visible = true
 
@@ -905,7 +900,7 @@ Rectangle
                     width: parent.width - imgButton.width - 5
                     radius: 3
                     color: UISettings.bgMedium
-                    border.color: "#222"
+                    border.color: UISettings.bgStrong
                     clip: true
 
                     TextInput
@@ -927,7 +922,9 @@ Rectangle
                     width: UISettings.iconSizeMedium
                     height: width
                     anchors.right: parent.right
-                    imgSource: "qrc:/background.svg"
+                    faSource: FontAwesome.fa_image
+                    faColor: "lightyellow"
+                    tooltip: qsTr("Set a custom background")
 
                     onClicked: fileDialog.visible = true
 

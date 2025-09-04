@@ -53,7 +53,8 @@ SidePanel
                 z: 2
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/add.svg"
+                faSource: FontAwesome.fa_plus
+                faColor: "limegreen"
                 //checkable: true
                 ButtonGroup.group: vcButtonsGroup
                 autoExclusive: false
@@ -125,7 +126,8 @@ SidePanel
                 z: 2
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/remove.svg"
+                faSource: FontAwesome.fa_minus
+                faColor: "crimson"
                 tooltip: qsTr("Remove the selected widgets")
                 counter: virtualConsole.selectedWidgetsCount
                 onClicked:
@@ -149,7 +151,8 @@ SidePanel
                 z: 2
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/edit-copy.svg"
+                faSource: FontAwesome.fa_copy
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Copy the selected widgets to clipboard")
                 counter: virtualConsole.selectedWidgetsCount
                 onClicked: virtualConsole.copyToClipboard()
@@ -161,7 +164,8 @@ SidePanel
                 z: 2
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/edit-paste.svg"
+                faSource: FontAwesome.fa_paste
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Paste widgets from clipboard")
                 counter: virtualConsole.clipboardItemsCount
                 onClicked: virtualConsole.pasteFromClipboard()
@@ -194,7 +198,7 @@ SidePanel
                     propagateComposedEvents: true
                     drag.target: pasteDragItem
                     drag.threshold: 10
-                    onClicked: mouse.accepted = false
+                    onClicked: (mouse) => mouse.accepted = false
 
                     property bool dragActive: drag.active
 

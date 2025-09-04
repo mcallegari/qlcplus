@@ -91,7 +91,6 @@ Rectangle
                         anchors.top: parent.top
                         anchors.right: parent.right
                         faSource: FontAwesome.fa_xmark
-                        faColor: UISettings.bgControl
                         tooltip: qsTr("Detach the current function")
                         onClicked: widgetRef.functionID = -1
                     }

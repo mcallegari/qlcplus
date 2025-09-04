@@ -77,7 +77,8 @@ Flickable
         IconButton
         {
             id: cutBtn
-            imgSource: "qrc:/edit-cut.svg"
+            faSource: FontAwesome.fa_scissors
+            faColor: "lightpink"
             tooltip: qsTr("Cut the selected items into clipboard")
             onClicked: fixtureClipboard = contextManager.selectedFixtureIDVariantList()
         }
@@ -86,7 +87,8 @@ Flickable
         {
             id: pasteBtn
             enabled: fixtureClipboard && fixtureClipboard.length
-            imgSource: "qrc:/edit-paste.svg"
+            faSource: FontAwesome.fa_paste
+            faColor: "lightgreen"
             tooltip: qsTr("Paste items in the clipboard at the first available position")
             onClicked:
             {

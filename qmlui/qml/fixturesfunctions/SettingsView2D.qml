@@ -32,7 +32,7 @@ Rectangle
 
     color: UISettings.bgStrong
     border.width: 1
-    border.color: "#222"
+    border.color: UISettings.bgStrong
 
     property vector3d envSize: contextManager ? contextManager.environmentSize : Qt.vector3d(0, 0, 0)
     property int selFixturesCount: contextManager ? contextManager.selectedFixturesCount : 0
@@ -215,7 +215,9 @@ Rectangle
                         id: imgButton
                         width: UISettings.iconSizeMedium
                         height: width
-                        imgSource: "qrc:/background.svg"
+                        faSource: FontAwesome.fa_image
+                        faColor: "lightyellow"
+                        tooltip: qsTr("Set a custom background")
 
                         onClicked: fileDialog.open()
 

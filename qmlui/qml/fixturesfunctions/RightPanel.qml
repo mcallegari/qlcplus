@@ -203,7 +203,8 @@ SidePanel
                 z: 2
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/add.svg"
+                faSource: FontAwesome.fa_plus
+                faColor: "limegreen"
                 tooltip: qsTr("Add a new function")
                 checkable: true
 
@@ -226,7 +227,8 @@ SidePanel
                 z: 2
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/remove.svg"
+                faSource: FontAwesome.fa_minus
+                faColor: "crimson"
                 tooltip: qsTr("Delete the selected functions")
                 counter: selectedItemsCount && !functionManager.isEditing
                 onClicked:
@@ -289,7 +291,8 @@ SidePanel
                 z: 2
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/edit-copy.svg"
+                faSource: FontAwesome.fa_clone
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Clone the selected functions")
                 counter: functionManager.selectedFunctionCount && !functionManager.isEditing
                 onClicked: functionManager.cloneFunctions()

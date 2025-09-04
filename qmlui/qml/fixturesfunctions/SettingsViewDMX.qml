@@ -31,7 +31,7 @@ Rectangle
 
     color: UISettings.bgStrong
     border.width: 1
-    border.color: "#222"
+    border.color: UISettings.bgStrong
 
     property bool showAddresses: ViewDMX.showAddresses
     property bool relativeAddresses: ViewDMX.relativeAddresses

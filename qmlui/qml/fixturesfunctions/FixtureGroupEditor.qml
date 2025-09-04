@@ -120,7 +120,7 @@ Rectangle
             IconButton
             {
                 faSource: FontAwesome.fa_trash_can
-                faColor: "dark red"
+                faColor: "darkred"
                 tooltip: qsTr("Reset the entire group")
                 onClicked: fixtureGroupEditor.resetGroup()
             }

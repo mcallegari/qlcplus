@@ -26,7 +26,7 @@ Rectangle
     id: baseMenuEntry
     width: parent ? (parent.width > itemWidth) ? parent.width : itemWidth : 400
     implicitWidth: itemWidth
-    height: iconHeight + 4
+    height: iconHeight + 6
 
     property string imgSource: ""
     property string entryText: ""
@@ -88,10 +88,12 @@ Rectangle
         Text
         {
             visible: faSource ? true : false
+            width: iconHeight
             color: faColor
             anchors.verticalCenter: parent.verticalCenter
+            horizontalAlignment: Text.AlignHCenter
             font.family: UISettings.fontAwesomeFontName
-            font.pixelSize: baseMenuEntry.height * 0.70
+            font.pixelSize: baseMenuEntry.height * 0.80
             text: faSource
         }
 
