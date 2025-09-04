@@ -44,6 +44,10 @@ public:
     bool isAutoDetecting();
     void stopAutoDetection();
     void emitOddValues(bool enable);
+    bool isSyncColor();
+    void setSyncStatus(bool enable);
+    void updateFeedback();
+    int getColorDistance(const QColor &color1, const QColor &color2);
 
     void setKeySequence(const QKeySequence& keySequence);
     QKeySequence keySequence() const;
@@ -58,6 +62,7 @@ protected slots:
     void slotAutoDetectInputToggled(bool checked);
     void slotInputValueChanged(quint32 universe, quint32 channel);
     void slotChooseInputClicked();
+    void slotSyncStatusChanged();
 
     void slotCustomFeedbackClicked();
 
