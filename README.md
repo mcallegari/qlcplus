@@ -7,7 +7,7 @@
 <h1 align="center">Q Light Controller+</h1>
 <p align="center"><em>(Often abbreviated as "QLC+")</em></p>
 <p align="center">
-  <strong>Open-source lighting control for DMX, Artnet, s.ACN and more.</strong><br/>
+  <strong>Open-source lighting control for DMX, Art-Net, sACN and more.</strong><br/>
   Designed for live shows, theatre, architectural installations, and venues.
 </p>
 
