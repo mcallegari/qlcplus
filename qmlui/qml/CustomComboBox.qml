@@ -46,7 +46,7 @@ ComboBox
 
     property string currentIcon
     property string currentTextIcon
-    
+
     property string currentFAIcon
     property int currValue
     property int delegateHeight: UISettings.listItemHeight
@@ -57,6 +57,7 @@ ComboBox
 
     onCurrValueChanged: updateFromValue()
     onCurrentIndexChanged: updateFromIndex()
+    onModelChanged: if (model) updateFromIndex()
 
     function updateFromIndex()
     {
@@ -70,14 +71,17 @@ ComboBox
         if (item.mIcon)
             currentIcon = item.mIcon
         if (item.mTextIcon)
-            currentTextIcon = item.mTextIcon;
+            currentTextIcon = item.mTextIcon
         if (item.faIcon)
             currentFAIcon = item.faIcon
         if (item.faIcon)
             currentFAIcon = item.faIcon
 
         if (item.mValue !== undefined)
+        {
+            currValue = item.mValue
             control.valueChanged(item.mValue)
+        }
         isUpdating = false
     }
 
@@ -103,8 +107,7 @@ ComboBox
                 if (item.mTextIcon)
                     currentTextIcon = item.mTextIcon
                 currentIndex = i
-                isUpdating = false
-                return
+                break
             }
         }
         isUpdating = false
@@ -218,18 +221,21 @@ ComboBox
         }
 
     contentItem:
-        Row
+        Rectangle
         {
-            spacing: currentIcon ? 2 : 0
-            leftPadding: 3
-            clip: true
+            id: cRect
+            height: control.height
+            //width: tField.width + ((iconImg.visible || iconFa.visible) ? iconImg.width + 5 : 0)
+            color: "transparent"
 
             Image
             {
+                id: iconImg
                 visible: currentIcon ? true : false
+                x: 3
+                y: 2
                 height: control.height - 4
                 width: height
-                y: 2
                 source: currentIcon ? currentIcon : ""
                 sourceSize: Qt.size(width, height)
                 opacity: control.enabled ? 1 : 0.3
@@ -237,7 +243,9 @@ ComboBox
 
             Text
             {
+                id: iconFa
                 visible: currentFAIcon ? true : false
+                x: 3
                 height: control.height - 4
                 width: height
                 verticalAlignment: Text.AlignVCenter
@@ -250,8 +258,10 @@ ComboBox
 
             TextField
             {
+                id: tField
+                x: (iconImg.visible || iconFa.visible) ? iconImg.width + 5 : 0
                 height: control.height
-                width: control.width - control.indicator.width - parent.leftPadding
+                width: cRect.width //control ? (control.width - control.indicator.width - parent.leftPadding) : 100
                 enabled: control.editable
                 opacity: control.enabled ? 1 : 0.3
                 font.family: UISettings.robotoFontName

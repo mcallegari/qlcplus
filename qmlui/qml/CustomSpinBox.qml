@@ -85,6 +85,7 @@ SpinBox
         selectedTextColor: "white"
         horizontalAlignment: Qt.AlignRight
         verticalAlignment: Qt.AlignVCenter
+        rightPadding: 5
 
         readOnly: !control.editable
         validator: control.validator

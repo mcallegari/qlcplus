@@ -37,18 +37,6 @@ CustomPopupDialog
     property var itemsList: []
     property bool isUpdating: false
 
-    Timer
-    {
-        id: updateTimer
-        interval: 200
-        repeat: false
-        running: false
-
-        property int modifiers: 0
-
-        onTriggered: updateItemsList(false)
-    }
-
     function updateItemsList(create)
     {
         if (isUpdating)
@@ -111,16 +99,10 @@ CustomPopupDialog
                     var str = (compNum == 1) ? nStr : compNames[j] + " " + (i + 1)
                     var type = (compNum == 1) ? chType : compTypes[j]
 
-                    console.log("STRING " + str)
-
                     if (create)
-                    {
                         editorView.addPresetChannel(str, type)
-                    }
                     else
-                    {
                         itemsList.push({"name": str})
-                    }
                 }
             }
         }
@@ -129,8 +111,7 @@ CustomPopupDialog
         isUpdating = false
     }
 
-    onOpened: updateTimer.restart()
-
+    onOpened: updateItemsList(false)
     onAccepted: updateItemsList(true)
 
     contentItem:
@@ -164,7 +145,7 @@ CustomPopupDialog
                         visible: capabilityWizard
                         from: 0
                         to: 254
-                        onValueChanged: updateTimer.restart()
+                        onValueChanged: updateItemsList(false)
                     }
 
                     RobotoText
@@ -180,7 +161,7 @@ CustomPopupDialog
                         visible: capabilityWizard
                         from: 1
                         to: 255
-                        onValueChanged: updateTimer.restart()
+                        onValueChanged: updateItemsList(false)
                     }
 
                     RobotoText
@@ -194,7 +175,7 @@ CustomPopupDialog
                         id: amountSpin
                         from: 1
                         to: 1000
-                        onValueChanged: updateTimer.restart()
+                        onValueChanged: updateItemsList(false)
                     }
 
                     RobotoText
@@ -208,31 +189,28 @@ CustomPopupDialog
                     {
                         id: chTypesCombo
                         visible: !capabilityWizard
+                        implicitWidth: UISettings.bigItemHeight * 2
 
-                        ListModel
-                        {
-                            id: chTypesModel
-                            ListElement { mLabel: qsTr("Red"); mIcon: "qrc:/red.svg"; mValue: QLCChannel.Red }
-                            ListElement { mLabel: qsTr("Green"); mIcon: "qrc:/green.svg"; mValue: QLCChannel.Green }
-                            ListElement { mLabel: qsTr("Blue"); mIcon: "qrc:/blue.svg"; mValue: QLCChannel.Blue }
-                            ListElement { mLabel: qsTr("White"); mIcon: "qrc:/white.svg"; mValue: QLCChannel.White }
-                            ListElement { mLabel: qsTr("Amber"); mIcon: "qrc:/amber.svg"; mValue: QLCChannel.Amber }
-                            ListElement { mLabel: qsTr("UV"); mIcon: "qrc:/uv.svg"; mValue: QLCChannel.UV }
-                            ListElement { mLabel: qsTr("RGB"); mIcon: "qrc:/color.svg"; mValue: EditorRef.RGBChannel }
-                            ListElement { mLabel: qsTr("RGBW"); mIcon: "qrc:/color.svg"; mValue: EditorRef.RGBWChannel }
-                            ListElement { mLabel: qsTr("RGBAW"); mIcon: "qrc:/color.svg"; mValue: EditorRef.RGBAWChannel }
-                            ListElement { mLabel: qsTr("Dimmer"); mIcon: "qrc:/dimmer.svg"; mValue: QLCChannel.Intensity }
-                            ListElement { mLabel: qsTr("Pan"); mIcon: "qrc:/pan.svg"; mValue: QLCChannel.Pan }
-                            ListElement { mLabel: qsTr("Tilt"); mIcon: "qrc:/tilt.svg"; mValue: QLCChannel.Tilt }
-                            ListElement { mLabel: qsTr("Color Macro"); mIcon: "qrc:/colorwheel.svg"; mValue: QLCChannel.Colour }
-                            ListElement { mLabel: qsTr("Shutter"); mIcon: "qrc:/shutter.svg"; mValue: QLCChannel.Shutter }
-                            ListElement { mLabel: qsTr("Beam"); mIcon: "qrc:/beam.svg"; mValue: QLCChannel.Beam }
-                            ListElement { mLabel: qsTr("Effect"); mIcon: "qrc:/star.svg"; mValue: QLCChannel.Effect }
-
-                        }
-                        model: capabilityWizard ? null : chTypesModel
+                        model: capabilityWizard ? null : [
+                            { mLabel: qsTr("Red"), mIcon: "qrc:/red.svg", mValue: QLCChannel.Red },
+                            { mLabel: qsTr("Green"), mIcon: "qrc:/green.svg", mValue: QLCChannel.Green },
+                            { mLabel: qsTr("Blue"), mIcon: "qrc:/blue.svg", mValue: QLCChannel.Blue },
+                            { mLabel: qsTr("White"), mIcon: "qrc:/white.svg", mValue: QLCChannel.White },
+                            { mLabel: qsTr("Amber"), mIcon: "qrc:/amber.svg", mValue: QLCChannel.Amber },
+                            { mLabel: qsTr("UV"), mIcon: "qrc:/uv.svg", mValue: QLCChannel.UV },
+                            { mLabel: qsTr("RGB"), mIcon: "qrc:/color.svg", mValue: EditorRef.RGBChannel },
+                            { mLabel: qsTr("RGBW"), mIcon: "qrc:/color.svg", mValue: EditorRef.RGBWChannel },
+                            { mLabel: qsTr("RGBAW"), mIcon: "qrc:/color.svg", mValue: EditorRef.RGBAWChannel },
+                            { mLabel: qsTr("Dimmer"), mIcon: "qrc:/dimmer.svg", mValue: QLCChannel.Intensity },
+                            { mLabel: qsTr("Pan"), mIcon: "qrc:/pan.svg", mValue: QLCChannel.Pan },
+                            { mLabel: qsTr("Tilt"), mIcon: "qrc:/tilt.svg", mValue: QLCChannel.Tilt },
+                            { mLabel: qsTr("Color Macro"), mIcon: "qrc:/colorwheel.svg", mValue: QLCChannel.Colour },
+                            { mLabel: qsTr("Shutter"), mIcon: "qrc:/shutter.svg", mValue: QLCChannel.Shutter },
+                            { mLabel: qsTr("Beam"), mIcon: "qrc:/beam.svg", mValue: QLCChannel.Beam },
+                            { mLabel: qsTr("Effect"), mIcon: "qrc:/star.svg", mValue: QLCChannel.Effect }
+                        ]
                         currentIndex: 0
-                        onCurrentIndexChanged: updateTimer.restart()
+                        onValueChanged: updateItemsList(false)
                     }
                 } // RowLayout
             }
@@ -251,7 +229,7 @@ CustomPopupDialog
                     Layout.fillWidth: true
                     text: capabilityWizard ? qsTr("Capability #") : qsTr("Channel #")
                     onAccepted: popupRoot.accept()
-                    onTextChanged: updateTimer.restart()
+                    onTextChanged: updateItemsList(false)
                 }
             }
 
