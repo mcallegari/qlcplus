@@ -324,7 +324,7 @@ Rectangle
                         setZoom(0.5)
                     else
                     {
-                        if (View2D.gridScale > 1.0)
+                        if (View2D.gridScale > 0.2)
                             setZoom(-0.5)
                     }
                 }
