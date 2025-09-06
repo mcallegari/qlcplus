@@ -40,12 +40,12 @@ ChaserEditor::ChaserEditor(QQuickView *view, Doc *doc, QObject *parent)
 void ChaserEditor::setFunctionID(quint32 ID)
 {
     if (m_chaser)
-        disconnect(m_chaser, &Chaser::currentStepChanged, this, &ChaserEditor::slotStepIndexChanged);
+        disconnect(m_chaser, SIGNAL(currentStepChanged(int)), this, SLOT(slotStepIndexChanged(int)));
 
     m_chaser = qobject_cast<Chaser *>(m_doc->function(ID));
     FunctionEditor::setFunctionID(ID);
     if (m_chaser != nullptr)
-        connect(m_chaser, &Chaser::currentStepChanged, this, &ChaserEditor::slotStepIndexChanged);
+        connect(m_chaser, SIGNAL(currentStepChanged(int)), this, SLOT(slotStepIndexChanged(int)));
 
     updateStepsList(m_doc, m_chaser, m_stepsList);
     emit stepsListChanged();
