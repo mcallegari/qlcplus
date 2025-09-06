@@ -46,18 +46,36 @@ ComboBox
 
     property string currentIcon
     property string currentTextIcon
-
     property string currentFAIcon
-    property int currValue
+    property var currValue: undefined
+
     property int delegateHeight: UISettings.listItemHeight
     property bool isUpdating: false
     property int contentsMaxWidth: 0
 
     signal valueChanged(int value)
 
+    function initSelection()
+    {
+        if (!model)
+            return
+        if (typeof currValue !== 'undefined' && currValue !== null)
+            updateFromValue()
+        else
+            updateFromIndex()
+    }
+
+    Component.onCompleted: Qt.callLater(initSelection)
+    onModelChanged: Qt.callLater(initSelection)
     onCurrValueChanged: updateFromValue()
     onCurrentIndexChanged: updateFromIndex()
-    onModelChanged: if (model) updateFromIndex()
+
+    Connections {
+        target: (model && typeof model.count !== "undefined") ? model : null
+        function onCountChanged() {
+            Qt.callLater(initSelection)
+        }
+    }
 
     function updateFromIndex()
     {
@@ -66,24 +84,23 @@ ComboBox
 
         isUpdating = true
         var item = model.length === undefined ? model.get(currentIndex) : model[currentIndex]
-        displayText = item.mLabel ? item.mLabel : item
-        //console.log("Index changed: " + currentIndex + ", label: " + displayText)
-        if (item.mIcon)
+        displayText = item && item.mLabel ? item.mLabel : (item !== undefined ? item : "")
+        if (item && item.mIcon)
             currentIcon = item.mIcon
-        if (item.mTextIcon)
+        if (item && item.mTextIcon)
             currentTextIcon = item.mTextIcon
-        if (item.faIcon)
-            currentFAIcon = item.faIcon
-        if (item.faIcon)
+        if (item && item.faIcon)
             currentFAIcon = item.faIcon
 
-        if (item.mValue !== undefined)
+        var valueToEmit = (item && item.mValue !== undefined) ? item.mValue : currentIndex
+        if (valueToEmit !== currValue)
         {
-            currValue = item.mValue
-            control.valueChanged(item.mValue)
+            currValue = valueToEmit
+            control.valueChanged(valueToEmit)
         }
         isUpdating = false
     }
+
 
     function updateFromValue()
     {
@@ -92,25 +109,24 @@ ComboBox
 
         isUpdating = true
         var iCount = model.length === undefined ? model.count : model.length
-        //console.log("Value changed:" + currValue + ", model count: " + iCount)
-
-        for (var i = 0; i < iCount; i++)
-        {
+        for (var i = 0; i < iCount; i++) {
             var item = model.length === undefined ? model.get(i) : model[i]
-            if (item.mValue === currValue)
-            {
-                displayText = item.mLabel
-                if (item.mIcon)
+            var matches = (item && item.mValue !== undefined) ? (item.mValue === currValue) : (i === currValue)
+            if (matches) {
+                displayText = item && item.mLabel ? item.mLabel : (item !== undefined ? item : "")
+                if (item && item.mIcon)
                     currentIcon = item.mIcon
-                if (item.faIcon)
+                if (item && item.faIcon)
                     currentFAIcon = item.faIcon
-                if (item.mTextIcon)
+                if (item && item.mTextIcon)
                     currentTextIcon = item.mTextIcon
-                currentIndex = i
+                if (currentIndex !== i)
+                    currentIndex = i
                 break
             }
         }
         isUpdating = false
+        updateFromIndex()
     }
 
     Rectangle

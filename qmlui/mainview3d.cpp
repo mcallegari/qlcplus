@@ -2005,6 +2005,9 @@ void MainView3D::setStageIndex(int stageIndex)
 
 void MainView3D::createStage()
 {
+    if (m_sceneRootEntity == nullptr)
+        return;
+
     if (m_stageEntity)
         delete m_stageEntity;
 

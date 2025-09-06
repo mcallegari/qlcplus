@@ -138,8 +138,8 @@ Rectangle
 
                             textRole: ""
                             model: View3D.stagesList
-                            currentIndex: View3D.stageIndex
-                            onCurrentIndexChanged: View3D.stageIndex = currentIndex
+                            currValue: View3D.stageIndex
+                            onValueChanged: View3D.stageIndex = value
                         }
 
                         // row 2
