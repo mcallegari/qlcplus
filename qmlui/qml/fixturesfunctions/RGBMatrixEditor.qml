@@ -34,8 +34,19 @@ Rectangle
     color: "transparent"
 
     property int functionID: -1
+    property var algoColors: rgbMatrixEditor ? rgbMatrixEditor.algoColors : null
 
     signal requestView(int ID, string qmlSrc, bool back)
+
+    onAlgoColorsChanged:
+    {
+        var cCount = rgbMatrixEditor.algoColorsCount
+        color1Button.color = algoColors[0]
+        color2Button.color = cCount > 1 && rgbMatrixEditor.hasColorAtIndex(1) ? algoColors[1] : "transparent"
+        color3Button.color = cCount > 2 && rgbMatrixEditor.hasColorAtIndex(2) ? algoColors[2] : "transparent"
+        color4Button.color = cCount > 3 && rgbMatrixEditor.hasColorAtIndex(3) ? algoColors[3] : "transparent"
+        color5Button.color = cCount > 4 && rgbMatrixEditor.hasColorAtIndex(4) ? algoColors[4] : "transparent"
+    }
 
     TimeEditTool
     {
@@ -157,7 +168,7 @@ Rectangle
                     height: editorColumn.itemsHeight
                     model: fixtureGroupEditor.groupsListModel
                     currValue: rgbMatrixEditor.fixtureGroup
-                    onValueChanged: rgbMatrixEditor.fixtureGroup = value
+                    onValueChanged: (value) => rgbMatrixEditor.fixtureGroup = value
                 }
             }
 
@@ -198,9 +209,9 @@ Rectangle
                     {
                         rgbMatrixEditor.algorithmIndex = currentIndex
                         paramSection.sectionContents = null
-                        if (displayText == "Text")
+                        if (displayText === "Text")
                             paramSection.sectionContents = textAlgoComponent
-                        else if (displayText == "Image")
+                        else if (displayText === "Image")
                             paramSection.sectionContents = imageAlgoComponent
                         else
                             paramSection.sectionContents = scriptAlgoComponent
@@ -283,7 +294,7 @@ Rectangle
                 {
                     id: colorLabel
                     label: qsTr("Colors")
-                    visible: rgbMatrixEditor.algoColors > 0 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 0 ? true : false
                     height: editorColumn.itemsHeight
                     onWidthChanged:
                     {
@@ -300,8 +311,7 @@ Rectangle
                     radius: 5
                     border.color: color1MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: rgbMatrixEditor.colorAtIndex(0)
-                    visible: rgbMatrixEditor.algoColors > 0 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 0 ? true : false
 
                     MouseArea
                     {
@@ -322,7 +332,7 @@ Rectangle
                     width: UISettings.listItemHeight
                     height: width
                     color: "transparent"
-                    visible: rgbMatrixEditor.algoColors > 2 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 2 ? true : false
                 }
 
                 Rectangle
@@ -333,8 +343,7 @@ Rectangle
                     radius: 5
                     border.color: color2MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: rgbMatrixEditor.colorAtIndex(1)
-                    visible: rgbMatrixEditor.algoColors > 1 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 1 ? true : false
 
                     MouseArea
                     {
@@ -357,7 +366,7 @@ Rectangle
                     faSource: FontAwesome.fa_xmark
                     faColor: "darkred"
                     tooltip: qsTr("Reset color 2")
-                    visible: rgbMatrixEditor.algoColors > 1 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 1 ? true : false
                     onClicked:
                     {
                         color2Button.color = "transparent"
@@ -372,7 +381,7 @@ Rectangle
                 width: editorColumn.colWidth
                 height: editorColumn.itemsHeight
                 spacing: 4
-                visible: rgbMatrixEditor.algoColors > 4 ? true : false
+                visible: rgbMatrixEditor.algoColorsCount > 4 ? true : false
 
                 Rectangle
                 {
@@ -380,7 +389,7 @@ Rectangle
                     height: editorColumn.itemsHeight
                     width: colorLabel.width
                     color: "transparent"
-                    visible: rgbMatrixEditor.algoColors > 4 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 4 ? true : false
                 }
 
                 Rectangle
@@ -391,8 +400,7 @@ Rectangle
                     radius: 5
                     border.color: color3MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: rgbMatrixEditor.hasColorAtIndex(2) ? rgbMatrixEditor.colorAtIndex(2) : "transparent"
-                    visible: rgbMatrixEditor.algoColors > 2 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 2 ? true : false
 
                     MouseArea
                     {
@@ -415,7 +423,7 @@ Rectangle
                     faSource: FontAwesome.fa_xmark
                     faColor: "darkred"
                     tooltip: qsTr("Reset color 3")
-                    visible: rgbMatrixEditor.algoColors > 2 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 2 ? true : false
                     onClicked:
                     {
                         color3Button.color = "transparent"
@@ -431,8 +439,7 @@ Rectangle
                     radius: 5
                     border.color: color4MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: rgbMatrixEditor.hasColorAtIndex(3) ? rgbMatrixEditor.colorAtIndex(3) : "transparent"
-                    visible: rgbMatrixEditor.algoColors > 3 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 3 ? true : false
 
                     MouseArea
                     {
@@ -455,7 +462,7 @@ Rectangle
                     faSource: FontAwesome.fa_xmark
                     faColor: "darkred"
                     tooltip: qsTr("Reset color 4")
-                    visible: rgbMatrixEditor.algoColors > 3 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 3 ? true : false
                     onClicked:
                     {
                         color4Button.color = "transparent"
@@ -470,7 +477,7 @@ Rectangle
                 width: editorColumn.colWidth
                 height: editorColumn.itemsHeight
                 spacing: 4
-                visible: rgbMatrixEditor.algoColors > 4 ? true : false
+                visible: rgbMatrixEditor.algoColorsCount > 4 ? true : false
 
                 Rectangle
                 {
@@ -478,7 +485,7 @@ Rectangle
                     height: editorColumn.itemsHeight
                     width: colorLabel.width
                     color: "transparent"
-                    visible: rgbMatrixEditor.algoColors > 4 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 4 ? true : false
                 }
 
                 Rectangle
@@ -489,8 +496,7 @@ Rectangle
                     radius: 5
                     border.color: color5MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: rgbMatrixEditor.hasColorAtIndex(4) ? rgbMatrixEditor.colorAtIndex(4) : "transparent"
-                    visible: rgbMatrixEditor.algoColors > 4 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 4 ? true : false
 
                     MouseArea
                     {
@@ -513,7 +519,7 @@ Rectangle
                     faSource: FontAwesome.fa_xmark
                     faColor: "darkred"
                     tooltip: qsTr("Reset color 5")
-                    visible: rgbMatrixEditor.algoColors > 4 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 4 ? true : false
                     onClicked:
                     {
                         color5Button.color = "transparent"

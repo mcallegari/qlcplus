@@ -38,7 +38,8 @@ class RGBMatrixEditor : public FunctionEditor
 
     Q_PROPERTY(QStringList algorithms READ algorithms CONSTANT)
     Q_PROPERTY(int algorithmIndex READ algorithmIndex WRITE setAlgorithmIndex NOTIFY algorithmIndexChanged)
-    Q_PROPERTY(int algoColors READ algoColors NOTIFY algoColorsChanged)
+    Q_PROPERTY(int algoColorsCount READ algoColorsCount NOTIFY algoColorsCountChanged)
+    Q_PROPERTY(QVariantList algoColors READ algoColors NOTIFY algoColorsChanged)
 
     Q_PROPERTY(int blendMode READ blendMode WRITE setBlendMode NOTIFY blendModeChanged)
     Q_PROPERTY(int controlMode READ controlMode WRITE setControlMode NOTIFY controlModeChanged)
@@ -82,7 +83,9 @@ public:
     void setAlgorithmIndex(int algoIndex);
 
     /** Return the accepted colors of the current algorithm */
-    int algoColors();
+    int algoColorsCount();
+
+    QVariantList algoColors();
 
     Q_INVOKABLE QColor colorAtIndex(int index);
     Q_INVOKABLE void setColorAtIndex(int index, QColor color);
@@ -118,8 +121,12 @@ public:
     Q_INVOKABLE void setScriptIntProperty(QString paramName, int value);
     Q_INVOKABLE void setScriptFloatProperty(QString paramName, double value);
 
+private:
+    void updateColors();
+
 signals:
     void algorithmIndexChanged();
+    void algoColorsCountChanged();
     void algoColorsChanged();
 
     void algoTextChanged(QString text);
@@ -129,6 +136,9 @@ signals:
 
     void algoOffsetChanged(QSize algoOffset);
     void animationStyleChanged(int style);
+
+private:
+    QVariantList m_algoColors;
 
     /************************************************************************
      * Blend mode

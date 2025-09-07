@@ -135,6 +135,8 @@ void RGBMatrixEditor::setAlgorithmIndex(int algoIndex)
         if (m_matrix->algorithm() != nullptr && m_matrix->algorithm()->name() == algo->name())
             return;
 
+        updateColors();
+
         Q_ASSERT(5 == RGBAlgorithmColorDisplayCount);
         QVector<QColor> colors = {
                 m_matrix->getColor(0),
@@ -152,15 +154,33 @@ void RGBMatrixEditor::setAlgorithmIndex(int algoIndex)
     initPreviewData();
 
     emit algorithmIndexChanged();
+    emit algoColorsCountChanged();
     emit algoColorsChanged();
 }
 
-int RGBMatrixEditor::algoColors()
+int RGBMatrixEditor::algoColorsCount()
 {
     if (m_matrix == nullptr || m_matrix->algorithm() == nullptr)
         return 0;
 
     return m_matrix->algorithm()->acceptColors();
+}
+
+QVariantList RGBMatrixEditor::algoColors()
+{
+    m_algoColors.clear();
+
+    if (m_matrix == nullptr || m_matrix->algorithm() == nullptr)
+        return m_algoColors;
+
+    m_algoColors = QVariantList()
+        << m_matrix->getColor(0)
+        << m_matrix->getColor(1)
+        << m_matrix->getColor(2)
+        << m_matrix->getColor(3)
+        << m_matrix->getColor(4);
+
+    return m_algoColors;
 }
 
 QColor RGBMatrixEditor::colorAtIndex(int index)
@@ -176,10 +196,19 @@ void RGBMatrixEditor::setColorAtIndex(int index, QColor color)
     if (m_matrix == nullptr || m_matrix->getColor(index) == color)
         return;
 
-    Tardis::instance()->enqueueAction(Tardis::RGBMatrixSetColor1, m_matrix->id(), m_matrix->getColor(index), color);
+    if (m_matrix->controlMode() != RGBMatrix::ControlModeRgb)
+    {
+        // Convert color to grayscale for non-RGB control modes
+        uchar gray = qGray(color.rgb());
+        color = QColor(gray, gray, gray);
+    }
+
+    Tardis::instance()->enqueueAction(Tardis::RGBMatrixSetColor1 + index, m_matrix->id(), m_matrix->getColor(index), color);
     m_matrix->setColor(index, color);
     if (index < 2)
         m_previewStepHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1), m_matrix->algorithm());
+
+    emit algoColorsChanged();
 }
 
 void RGBMatrixEditor::resetColorAtIndex(int index)
@@ -187,6 +216,7 @@ void RGBMatrixEditor::resetColorAtIndex(int index)
     if (m_matrix == nullptr || m_matrix->getColor(index).isValid() == false)
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::RGBMatrixSetColor1 + index, m_matrix->id(), m_matrix->getColor(index), QColor());
     m_matrix->setColor(index, QColor());
     if (index < 2)
         m_previewStepHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1), m_matrix->algorithm());
@@ -198,6 +228,31 @@ bool RGBMatrixEditor::hasColorAtIndex(int index)
         return false;
 
     return true;
+}
+
+void RGBMatrixEditor::updateColors()
+{
+    if (m_matrix == nullptr || m_matrix->algorithm() == nullptr)
+        return;
+
+    int accColors = m_matrix->algorithm()->acceptColors();
+    if (accColors == 0)
+        return;
+
+    if (m_matrix->blendMode() == Universe::MaskBlend ||
+        m_matrix->controlMode() != RGBMatrix::ControlModeRgb)
+    {
+        m_matrix->setColor(0, Qt::white);
+        // Overwrite more colors only if applied.
+        if (accColors <= 2)
+            m_matrix->setColor(1, QColor());
+        if (accColors <= 3)
+            m_matrix->setColor(2, QColor());
+        if (accColors <= 4)
+            m_matrix->setColor(3, QColor());
+        if (accColors <= 5)
+            m_matrix->setColor(4, QColor());
+    }
 }
 
 QString RGBMatrixEditor::algoText() const
@@ -470,7 +525,7 @@ void RGBMatrixEditor::setScriptStringProperty(QString paramName, QString value)
                                       QVariant::fromValue(StringStringPair(paramName, value)));
 
     m_matrix->setProperty(paramName, value);
-    emit algoColorsChanged();
+    emit algoColorsCountChanged();
 }
 
 void RGBMatrixEditor::setScriptIntProperty(QString paramName, int value)
@@ -519,6 +574,8 @@ void RGBMatrixEditor::setBlendMode(int mode)
         return;
 
     m_matrix->setBlendMode(Universe::BlendMode(mode));
+    updateColors();
+    initPreviewData();
 
     emit blendModeChanged();
 }
@@ -541,8 +598,11 @@ void RGBMatrixEditor::setControlMode(int mode)
         return;
 
     m_matrix->setControlMode(RGBMatrix::ControlMode(mode));
+    updateColors();
+    initPreviewData();
 
     emit controlModeChanged();
+    emit algoColorsChanged();
 }
 
 /************************************************************************
