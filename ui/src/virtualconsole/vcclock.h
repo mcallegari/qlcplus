@@ -52,7 +52,7 @@ public:
 
     /** Load & Save */
     bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) const;
 
 private:
     quint32 m_id;
@@ -91,8 +91,8 @@ public:
     void setClockType(ClockType type);
     ClockType clockType() const;
 
-    QString typeToString(ClockType type);
-    ClockType stringToType(QString str);
+    QString typeToString(ClockType type) const;
+    ClockType stringToType(QString str) const;
 
 
     /*********************************************************************
@@ -102,7 +102,7 @@ public:
     void addSchedule(VCClockSchedule schedule);
     void removeSchedule(int index);
     void removeAllSchedule();
-    QList<VCClockSchedule> schedules();
+    QList<VCClockSchedule> schedules() const;
 
 private:
     ClockType m_clocktype;
@@ -120,10 +120,10 @@ public:
     void setCountdown(int h, int m, int s);
     void playPauseTimer();
     void resetTimer();
-    long currentTime() { return m_currentTime; }
-    int getHours() { return m_hh; }
-    int getMinutes() { return m_mm; }
-    int getSeconds() { return m_ss; }
+    long currentTime() const { return m_currentTime; }
+    int getHours() const { return m_hh; }
+    int getMinutes() const { return m_mm; }
+    int getSeconds() const { return m_ss; }
 
 signals:
     void timeChanged(quint32 time);
