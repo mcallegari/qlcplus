@@ -59,6 +59,7 @@ VCClockProperties::VCClockProperties(VCClock *clock, Doc *doc)
     {
         case VCClock::Stopwatch:
             m_stopWatchRadio->setChecked(true);
+            enableScheduleControls(false);
         break;
         case VCClock::Countdown:
         {
@@ -66,6 +67,7 @@ VCClockProperties::VCClockProperties(VCClock *clock, Doc *doc)
             m_hoursSpin->setValue(m_clock->getHours());
             m_minutesSpin->setValue(m_clock->getMinutes());
             m_secondsSpin->setValue(m_clock->getSeconds());
+            enableScheduleControls(false);
         }
         break;
         case VCClock::Clock:
@@ -168,12 +170,14 @@ void VCClockProperties::slotTypeSelectChanged()
         m_resetInputWidget->hide();
         m_playInputWidget->hide();
         m_noControlLabel->show();
+        enableScheduleControls(true);
     }
     else
     {
         m_resetInputWidget->show();
         m_playInputWidget->show();
         m_noControlLabel->hide();
+        enableScheduleControls(false);
     }
 }
 
@@ -204,4 +208,11 @@ void VCClockProperties::slotRemoveSchedule()
         int index = m_scheduleTree->indexOfTopLevelItem(it.next());
         m_scheduleTree->takeTopLevelItem(index);
     }
+}
+
+void VCClockProperties::enableScheduleControls(bool enable) const
+{
+    m_addScheduleBtn->setEnabled(enable);
+    m_removeScheduleBtn->setEnabled(enable);
+    m_scheduleTree->setEnabled(enable);
 }

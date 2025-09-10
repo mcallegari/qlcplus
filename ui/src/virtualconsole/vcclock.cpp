@@ -123,7 +123,7 @@ VCClock::ClockType VCClock::clockType() const
     return m_clocktype;
 }
 
-QString VCClock::typeToString(VCClock::ClockType type)
+QString VCClock::typeToString(VCClock::ClockType type) const
 {
     if (type == Stopwatch)
         return "Stopwatch";
@@ -133,7 +133,7 @@ QString VCClock::typeToString(VCClock::ClockType type)
         return "Clock";
 }
 
-VCClock::ClockType VCClock::stringToType(QString str)
+VCClock::ClockType VCClock::stringToType(QString str) const
 {
     if (str == "Stopwatch")
         return Stopwatch;
@@ -164,7 +164,7 @@ void VCClock::removeAllSchedule()
     m_scheduleList.clear();
 }
 
-QList<VCClockSchedule> VCClock::schedules()
+QList<VCClockSchedule> VCClock::schedules() const
 {
     return m_scheduleList;
 }
@@ -585,7 +585,7 @@ void VCClock::mousePressEvent(QMouseEvent *e)
  * VCClockSchedule Class methods
  *********************************************************************/
 
-bool VCClockSchedule::operator <(const VCClockSchedule &sch) const
+bool VCClockSchedule::operator<(const VCClockSchedule &sch) const
 {
     if (sch.time() < time())
         return false;
@@ -617,7 +617,7 @@ bool VCClockSchedule::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCClockSchedule::saveXML(QXmlStreamWriter *doc)
+bool VCClockSchedule::saveXML(QXmlStreamWriter *doc) const
 {
     /* Schedule tag */
     doc->writeStartElement(KXMLQLCVCClockSchedule);
