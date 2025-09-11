@@ -301,14 +301,20 @@ void ShowItem::postPaint(QPainter *painter)
     if (m_locked)
         painter->drawPixmap(3, TRACK_HEIGHT >> 1, 24, 24, QIcon(":/lock.png").pixmap(24, 24));
 
-    if (m_pressed)
-    {
-        quint32 s_time = 0;
-        if (x() > TRACK_WIDTH)
-            s_time = (double)(x() - TRACK_WIDTH - 2) * (m_timeScale * 500) /
-                     (double)(HALF_SECOND_WIDTH);
-        painter->drawText(3, TRACK_HEIGHT - 10, Function::speedToString(s_time));
-    }
+    // if (m_pressed)
+    // {
+    // }
+    quint32 s_time = 0;
+    if (x() > TRACK_WIDTH)
+        s_time = (double)(x() - TRACK_WIDTH - 2) * (m_timeScale * 500) /
+                 (double)(HALF_SECOND_WIDTH);
+    quint32 e_time = s_time + getDuration();
+    // painter->drawText(3, TRACK_HEIGHT - 10, Function::speedToString(s_time) + " - " + Function::speedToString(e_time));
+    painter->drawText(
+        QRect(3, TRACK_HEIGHT - 50, m_width - 5, 40),
+        Qt::AlignLeft | Qt::AlignBottom | Qt::TextWordWrap,
+        Function::speedToString(s_time) + " - " + Function::speedToString(e_time)
+    );
 }
 
 
