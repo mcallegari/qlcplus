@@ -1383,6 +1383,7 @@
   </M>
   <M n="OXO">
     <F n="OXO-ColorBeam-7-FCW-IR" m="ColorBeam 7 FCW IR"/>
+    <F n="OXO-ColorZoom-180" m="ColorZoom 180"/>
     <F n="OXO-LED-Funstrip-DMX" m="LED Funstrip DMX"/>
   </M>
   <M n="Philips_Selecon">
