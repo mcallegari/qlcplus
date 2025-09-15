@@ -23,6 +23,7 @@
 #include "inputselectionwidget.h"
 #include "selectinputchannel.h"
 #include "qlcinputchannel.h"
+#include "qlcinputsource.h"
 #include "assignhotkey.h"
 #include "inputpatch.h"
 #include "doc.h"
@@ -175,7 +176,37 @@ void InputSelectionWidget::slotChooseInputClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
+        uchar lowerValue = 0;
+        uchar upperValue = 0;
+        uchar monitorValue = 0;
+        QVariant extraLowerParams;
+        QVariant extraUpperParams;
+        QVariant extraMonitorParams;
+        if (!m_inputSource.isNull())
+        {
+            lowerValue = m_inputSource->feedbackValue(QLCInputFeedback::LowerValue);
+            upperValue = m_inputSource->feedbackValue(QLCInputFeedback::UpperValue);
+            monitorValue = m_inputSource->feedbackValue(QLCInputFeedback::MonitorValue);
+            extraLowerParams = m_inputSource->feedbackExtraParams(QLCInputFeedback::LowerValue);
+            extraUpperParams = m_inputSource->feedbackExtraParams(QLCInputFeedback::UpperValue);
+            extraMonitorParams = m_inputSource->feedbackExtraParams(QLCInputFeedback::MonitorValue);
+        }
         m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), (m_widgetPage << 16) | sic.channel()));
+        if (!m_inputSource.isNull())
+        {
+            if (lowerValue != m_inputSource->feedbackValue(QLCInputFeedback::LowerValue))
+                m_inputSource->setFeedbackValue(QLCInputFeedback::LowerValue, lowerValue);
+            if (upperValue != m_inputSource->feedbackValue(QLCInputFeedback::UpperValue))
+                m_inputSource->setFeedbackValue(QLCInputFeedback::UpperValue, upperValue);
+            if (monitorValue != m_inputSource->feedbackValue(QLCInputFeedback::MonitorValue))
+                m_inputSource->setFeedbackValue(QLCInputFeedback::MonitorValue, monitorValue);
+            if (extraLowerParams.isValid())
+                m_inputSource->setFeedbackExtraParams(QLCInputFeedback::LowerValue, extraLowerParams);
+            if (extraUpperParams.isValid())
+                m_inputSource->setFeedbackExtraParams(QLCInputFeedback::UpperValue, extraUpperParams);
+            if (extraMonitorParams.isValid())
+                m_inputSource->setFeedbackExtraParams(QLCInputFeedback::MonitorValue, extraMonitorParams);
+        }
         updateInputSource();
         emit inputValueChanged(sic.universe(), (m_widgetPage << 16) | sic.channel());
     }
