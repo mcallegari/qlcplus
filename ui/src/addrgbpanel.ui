@@ -384,6 +384,27 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>m_nameEdit</tabstop>
+  <tabstop>m_uniCombo</tabstop>
+  <tabstop>m_addressSpin</tabstop>
+  <tabstop>m_crossUniverseCheck</tabstop>
+  <tabstop>m_compCombo</tabstop>
+  <tabstop>m_16bitCheck</tabstop>
+  <tabstop>m_columnSpin</tabstop>
+  <tabstop>m_rowSpin</tabstop>
+  <tabstop>m_phyWidthSpin</tabstop>
+  <tabstop>m_phyHeightSpin</tabstop>
+  <tabstop>m_oriTopLeftRadio</tabstop>
+  <tabstop>m_oriTopRightRadio</tabstop>
+  <tabstop>m_oriBottomLeftRadio</tabstop>
+  <tabstop>m_oriBottomRightRadio</tabstop>
+  <tabstop>m_snakeRadio</tabstop>
+  <tabstop>m_zigzagRadio</tabstop>
+  <tabstop>m_horizontalRadio</tabstop>
+  <tabstop>m_verticalRadio</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
  <resources>
   <include location="qlcui.qrc"/>
  </resources>
