@@ -727,6 +727,38 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>m_speedDial</tabstop>
+  <tabstop>m_testButton</tabstop>
+  <tabstop>m_nameEdit</tabstop>
+  <tabstop>m_tab</tabstop>
+  <tabstop>m_addFixtureButton</tabstop>
+  <tabstop>m_removeFixtureButton</tabstop>
+  <tabstop>m_raiseFixtureButton</tabstop>
+  <tabstop>m_lowerFixtureButton</tabstop>
+  <tabstop>m_parallelRadio</tabstop>
+  <tabstop>m_serialRadio</tabstop>
+  <tabstop>m_asymmetricRadio</tabstop>
+  <tabstop>m_tree</tabstop>
+  <tabstop>m_algorithmCombo</tabstop>
+  <tabstop>m_widthSpin</tabstop>
+  <tabstop>m_heightSpin</tabstop>
+  <tabstop>m_xOffsetSpin</tabstop>
+  <tabstop>m_yOffsetSpin</tabstop>
+  <tabstop>m_rotationSpin</tabstop>
+  <tabstop>m_startOffsetSpin</tabstop>
+  <tabstop>m_isRelativeCheckbox</tabstop>
+  <tabstop>m_xFrequencySpin</tabstop>
+  <tabstop>m_yFrequencySpin</tabstop>
+  <tabstop>m_xPhaseSpin</tabstop>
+  <tabstop>m_yPhaseSpin</tabstop>
+  <tabstop>m_colorCheck</tabstop>
+  <tabstop>m_forward</tabstop>
+  <tabstop>m_backward</tabstop>
+  <tabstop>m_loop</tabstop>
+  <tabstop>m_pingPong</tabstop>
+  <tabstop>m_singleShot</tabstop>
+ </tabstops>
  <resources>
   <include location="qlcui.qrc"/>
  </resources>
