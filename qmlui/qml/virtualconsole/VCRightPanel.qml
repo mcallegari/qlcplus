@@ -55,14 +55,14 @@ SidePanel
                 height: iconSize
                 faSource: FontAwesome.fa_plus
                 faColor: "limegreen"
-                //checkable: true
                 ButtonGroup.group: vcButtonsGroup
                 autoExclusive: false
                 tooltip: qsTr("Add a new widget to the console")
                 onClicked:
                 {
                     checked = !checked
-                    if (checked === true)
+                    virtualConsole.editMode = false
+                    if (checked)
                         loaderSource = "qrc:/WidgetsList.qml"
                     animatePanel(checked)
                 }
@@ -75,7 +75,7 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/edit.svg"
-                //checkable: true
+                border.color: checked ? "red" : "#1D1D1D"
                 checked: virtualConsole.editMode
                 ButtonGroup.group: vcButtonsGroup
                 autoExclusive: false
@@ -85,10 +85,8 @@ SidePanel
                 {
                     checked = !checked
                     virtualConsole.editMode = checked
-                    if (checked === true)
+                    if (checked)
                         loaderSource = "qrc:/VCWidgetProperties.qml"
-                    else
-                        border.color = "#1D1D1D"
                     animatePanel(checked)
                 }
 
@@ -108,13 +106,13 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/functions.svg"
                 tooltip: qsTr("Function Manager")
-                //checkable: true
                 ButtonGroup.group: vcButtonsGroup
                 autoExclusive: false
                 onClicked:
                 {
                     checked = !checked
-                    if (checked == true)
+                    virtualConsole.editMode = false
+                    if (checked)
                         loaderSource = "qrc:/FunctionManager.qml"
                     animatePanel(checked)
                 }
