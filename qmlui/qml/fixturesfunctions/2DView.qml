@@ -46,7 +46,7 @@ Rectangle
         var currentScale = View2D.gridScale
         if (amount < 0)
         {
-            if (currentScale > 0.1)
+            if (currentScale > 0.2)
             {
                 if (currentScale <= 1)
                     View2D.gridScale -= 0.1
