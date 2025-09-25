@@ -283,8 +283,13 @@ public:
     QString searchFilter() const;
     void setSearchFilter(QString searchFilter);
 
+    Q_INVOKABLE void applyToSameType(bool enable);
+
 private:
     void removeActiveFaders();
+
+    /** Recursive method to check/uncheck channels for fixtures of the same type */
+    void checkFixtureTree(TreeModel *tree, Fixture *sourceFixture, quint32 channelIndex, bool checked);
 
 protected slots:
     void slotTreeDataChanged(TreeModelItem *item, int role, const QVariant &value);
@@ -312,6 +317,10 @@ protected:
     TreeModel *m_fixtureTree;
     /** A string to filter the displayed tree items */
     QString m_searchFilter;
+
+    /** Flag to apply a channel selection to all
+     *  the fixtures of the same type */
+    bool m_applyToSameType, m_isUpdating;
 
     /*********************************************************************
      * Click & Go

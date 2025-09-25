@@ -117,6 +117,8 @@ Rectangle
             {
                 if (modelProvider && item.hasOwnProperty('modelProvider'))
                     item.modelProvider = modelProvider
+                if (item.hasOwnProperty('allowEditing'))
+                    item.allowEditing = false
             }
 
             Rectangle

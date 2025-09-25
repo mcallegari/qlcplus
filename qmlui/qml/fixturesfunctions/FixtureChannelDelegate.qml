@@ -154,7 +154,7 @@ Rectangle
                 { mLabel: qsTr("Forced HTP"), mValue: FixtureManager.ForcedHTP },
                 { mLabel: qsTr("Forced LTP"), mValue: FixtureManager.ForcedLTP }
             ]
-            onValueChanged: fixtureManager.setItemRoleData(itemID, chIndex, "precedence", value)
+            onValueChanged: (value) => fixtureManager.setItemRoleData(itemID, chIndex, "precedence", value)
         }
 
         // divider

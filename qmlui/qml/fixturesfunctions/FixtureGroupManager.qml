@@ -260,7 +260,24 @@ Rectangle
                             fixtureManager.deleteFixtureGroups(fxGroupDeleteList)
                     }
                 }
+
+                IconButton
+                {
+                    visible: !allowEditing
+                    z: 2
+                    width: height
+                    height: topBar.height - 2
+                    faSource: FontAwesome.fa_check_double
+                    //faColor: UISettings.fgMain
+                    tooltip: qsTr("Apply changes to fixtures of the same type")
+                    checkable: true
+
+                    onToggled: modelProvider.applyToSameType(checked)
+                }
+
+                // Spacer
                 Rectangle { Layout.fillWidth: true }
+
                 IconButton
                 {
                     id: searchItem

@@ -56,6 +56,8 @@ VCSlider::VCSlider(Doc *doc, QObject *parent)
     , m_isOverriding(false)
     , m_fixtureTree(nullptr)
     , m_searchFilter(QString())
+    , m_applyToSameType(false)
+    , m_isUpdating(false)
     , m_clickAndGoType(CnGNone)
     , m_cngPrimaryColor(QColor())
     , m_cngSecondaryColor(QColor())
@@ -577,6 +579,11 @@ void VCSlider::setSearchFilter(QString searchFilter)
     emit searchFilterChanged();
 }
 
+void VCSlider::applyToSameType(bool enable)
+{
+    m_applyToSameType = enable;
+}
+
 void VCSlider::removeActiveFaders()
 {
     foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
@@ -587,8 +594,50 @@ void VCSlider::removeActiveFaders()
     m_fadersMap.clear();
 }
 
+void VCSlider::checkFixtureTree(TreeModel *tree, Fixture *sourceFixture, quint32 channelIndex, bool checked)
+{
+    if (tree == nullptr)
+        return;
+
+    for (TreeModelItem *item : tree->items())
+    {
+        QVariantList itemData = item->data();
+
+        // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx" << "inGroup";
+        if (itemData.count() == 6 && itemData.at(1).toInt() == App::ChannelDragItem)
+        {
+            quint32 itemID = itemData.at(2).toUInt();
+            quint32 chIndex = itemData.at(4).toUInt();
+            quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+            quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+            Fixture *destFixture = m_doc->fixture(fixtureID);
+
+            if (destFixture == nullptr)
+                continue;
+
+            if (sourceFixture->fixtureDef() == destFixture->fixtureDef() &&
+                sourceFixture->fixtureMode() == destFixture->fixtureMode() &&
+                chIndex == channelIndex && linkedIndex == 0)
+            {
+                tree->setItemRoleData(item, checked, TreeModel::IsCheckedRole);
+
+                if (checked)
+                    addLevelChannel(fixtureID, chIndex);
+                else
+                    removeLevelChannel(fixtureID, chIndex);
+            }
+        }
+
+        if (item->hasChildren())
+            checkFixtureTree(item->children(), sourceFixture, channelIndex, checked);
+    }
+}
+
 void VCSlider::slotTreeDataChanged(TreeModelItem *item, int role, const QVariant &value)
 {
+    if (m_isUpdating)
+        return;
+
     qDebug() << "Slider tree data changed" << value.toInt();
     qDebug() << "Item data:" << item->data();
 
@@ -605,15 +654,27 @@ void VCSlider::slotTreeDataChanged(TreeModelItem *item, int role, const QVariant
     quint32 chIndex = itemData.at(4).toUInt();
     quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
 
-    if (value.toInt() == 0)
+    Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == nullptr)
+        return;
+
+    bool checked = value.toInt() == 0 ? false : true;
+
+    if (m_applyToSameType)
     {
-        removeLevelChannel(fixtureID, chIndex);
+        m_isUpdating = true;
+        checkFixtureTree(m_fixtureTree, fixture, chIndex, checked);
+        m_isUpdating = false;
     }
     else
     {
-        addLevelChannel(fixtureID, chIndex);
-        std::sort(m_levelChannels.begin(), m_levelChannels.end());
-   }
+        if (checked)
+            addLevelChannel(fixtureID, chIndex);
+        else
+            removeLevelChannel(fixtureID, chIndex);
+    }
+
+    std::sort(m_levelChannels.begin(), m_levelChannels.end());
 
     if (clickAndGoType() == CnGPreset)
     {
