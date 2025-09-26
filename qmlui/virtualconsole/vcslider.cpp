@@ -42,7 +42,6 @@
 
 VCSlider::VCSlider(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
-    , m_channelsTree(nullptr)
     , m_widgetMode(WSlider)
     , m_valueDisplayStyle(DMXValue)
     , m_invertedAppearance(false)
@@ -178,11 +177,6 @@ bool VCSlider::copyFrom(const VCWidget *widget)
 
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
-}
-
-QVariant VCSlider::channelsList()
-{
-    return QVariant::fromValue(m_channelsTree);
 }
 
 /*****************************************************************************
@@ -553,6 +547,11 @@ QVariant VCSlider::groupsTreeModel()
     return QVariant::fromValue(m_fixtureTree);
 }
 
+int VCSlider::channelsCount() const
+{
+    return m_levelChannels.count();
+}
+
 QString VCSlider::searchFilter() const
 {
     return m_searchFilter;
@@ -675,6 +674,7 @@ void VCSlider::slotTreeDataChanged(TreeModelItem *item, int role, const QVariant
     }
 
     std::sort(m_levelChannels.begin(), m_levelChannels.end());
+    emit channelsCountChanged();
 
     if (clickAndGoType() == CnGPreset)
     {
