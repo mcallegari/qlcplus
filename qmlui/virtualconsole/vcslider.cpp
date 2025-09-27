@@ -236,20 +236,20 @@ void VCSlider::setSliderMode(SliderMode mode)
             m_doc->masterTimer()->registerDMXSource(this);
         break;
         case Submaster:
-            setValue(UCHAR_MAX);
-        break;
         case GrandMaster:
+            // disable all unneeded features
+            setAdjustFlashEnabled(false);
+            setMonitorEnabled(false);
+            setControlledFunction(Function::invalidId());
             setValueDisplayStyle(PercentageValue);
+
+            m_doc->masterTimer()->unregisterDMXSource(this);
+
+            // request to delete all the active faders
+            removeActiveFaders();
+
             setValue(UCHAR_MAX);
         break;
-    }
-
-    if (mode == Submaster || mode == GrandMaster)
-    {
-        m_doc->masterTimer()->unregisterDMXSource(this);
-
-        // request to delete all the active faders
-        removeActiveFaders();
     }
 }
 
