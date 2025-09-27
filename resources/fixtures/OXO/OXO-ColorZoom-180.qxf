@@ -94,7 +94,7 @@
  <Channel Name="Green fine" Preset="IntensityGreenFine"/>
  <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
  <Channel Name="White fine" Preset="IntensityWhiteFine"/>
- <Mode Name="6 Channels">
+ <Mode Name="6 Channel">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -102,7 +102,7 @@
   <Channel Number="4">White</Channel>
   <Channel Number="5">Zoom</Channel>
  </Mode>
- <Mode Name="9 Channels">
+ <Mode Name="9 Channel">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -113,7 +113,7 @@
   <Channel Number="7">Macro Speed</Channel>
   <Channel Number="8">Zoom</Channel>
  </Mode>
- <Mode Name="14 Channels">
+ <Mode Name="14 Channel">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Dimmer fine</Channel>
   <Channel Number="2">Red</Channel>
