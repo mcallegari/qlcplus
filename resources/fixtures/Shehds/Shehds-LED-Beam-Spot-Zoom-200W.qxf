@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.4 GIT</Version>
+  <Author>Lorys89</Author>
+ </Creator>
+ <Manufacturer>Shehds</Manufacturer>
+ <Model>LED Beam Spot Zoom Moving Head Light 200W</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan Fine</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt Fine</Capability>
+ </Channel>
+ <Channel Name="P/T Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10">No strobe</Capability>
+  <Capability Min="11" Max="255">From Slow to Fast Strobe</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4">WHITE</Capability>
+  <Capability Min="5" Max="9">WHITE + COLOR 1</Capability>
+  <Capability Min="10" Max="14">COLOR 1</Capability>
+  <Capability Min="15" Max="19">COLOR 1 + COLOR 2</Capability>
+  <Capability Min="20" Max="24">COLOR 2</Capability>
+  <Capability Min="25" Max="29">COLOR 2 + COLOR 3</Capability>
+  <Capability Min="30" Max="34">COLOR 3</Capability>
+  <Capability Min="35" Max="39">COLOR 3 + COLOR 4</Capability>
+  <Capability Min="40" Max="44">COLOR 4</Capability>
+  <Capability Min="45" Max="49">COLOR 4 + COLOR 5</Capability>
+  <Capability Min="50" Max="54">COLOR 5</Capability>
+  <Capability Min="55" Max="59">COLOR 5 + COLOR 6</Capability>
+  <Capability Min="60" Max="64">COLOR 6</Capability>
+  <Capability Min="65" Max="69">COLOR 6 + COLOR 7</Capability>
+  <Capability Min="70" Max="74">COLOR 7</Capability>
+  <Capability Min="75" Max="79">COLOR 7 + COLOR 8</Capability>
+  <Capability Min="80" Max="84">COLOR 8</Capability>
+  <Capability Min="85" Max="89">COLOR 8 + COLOR 9</Capability>
+  <Capability Min="90" Max="94">COLOR 9</Capability>
+  <Capability Min="95" Max="99">COLOR 9 + COLOR 10</Capability>
+  <Capability Min="100" Max="104">COLOR 10</Capability>
+  <Capability Min="105" Max="109">COLOR 10 + COLOR 11</Capability>
+  <Capability Min="110" Max="114">COLOR 11</Capability>
+  <Capability Min="115" Max="119">COLOR 11 + WHITE</Capability>
+  <Capability Min="120" Max="200">COLOR CLOCKWISE FAST TO SLOW</Capability>
+  <Capability Min="201" Max="255">COLOR CLOCKWISE SLOWLY TO FAST</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="5">WHITE</Capability>
+  <Capability Min="6" Max="10">GOBO 1</Capability>
+  <Capability Min="11" Max="15">GOBO 2</Capability>
+  <Capability Min="16" Max="20">GOBO 3</Capability>
+  <Capability Min="21" Max="25">GOBO 4</Capability>
+  <Capability Min="26" Max="30">GOBO 5</Capability>
+  <Capability Min="31" Max="35">GOBO 6</Capability>
+  <Capability Min="36" Max="40">GOBO 7</Capability>
+  <Capability Min="41" Max="45">GOBO 8</Capability>
+  <Capability Min="46" Max="50">GOBO 9</Capability>
+  <Capability Min="51" Max="55">GOBO 10</Capability>
+  <Capability Min="56" Max="60">GOBO 11</Capability>
+  <Capability Min="61" Max="65">GOBO 12</Capability>
+  <Capability Min="66" Max="74">GOBO 13</Capability>
+  <Capability Min="75" Max="80">GOBO 14</Capability>
+  <Capability Min="81" Max="150">GOBO SHAKE 1-14</Capability>
+  <Capability Min="151" Max="200">GOBO CLOCKWISE FAST TO SLOW</Capability>
+  <Capability Min="201" Max="255">GOBO CLOCKWISE SLOWLY TO FAST</Capability>
+ </Channel>
+ <Channel Name="Prism">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="127">OFF</Capability>
+  <Capability Min="128" Max="136">24 Prism</Capability>
+  <Capability Min="137" Max="255">Prism is Slow to Fast Rotate</Capability>
+ </Channel>
+ <Channel Name="Focus">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Focus</Capability>
+ </Channel>
+ <Channel Name="Magnification Lens &amp; 7 Color Wheel">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">OFF</Capability>
+  <Capability Min="128" Max="191">Magnification Lens</Capability>
+  <Capability Min="192" Max="255">7-Color Wheel</Capability>
+ </Channel>
+ <Channel Name="Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No Effect</Capability>
+  <Capability Min="6" Max="55">Auto 1</Capability>
+  <Capability Min="56" Max="105">Auto 2</Capability>
+  <Capability Min="106" Max="155">Auto 3</Capability>
+  <Capability Min="156" Max="205">Auto 4</Capability>
+  <Capability Min="206" Max="255">Random Mode</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="25">NO Effect</Capability>
+  <Capability Min="26" Max="76">Reset Motor</Capability>
+  <Capability Min="78" Max="127">XY Motor Reset</Capability>
+  <Capability Min="128" Max="255">Completely Reset</Capability>
+ </Channel>
+ <Mode Name="14 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Shutter</Channel>
+  <Channel Number="2">Pan</Channel>
+  <Channel Number="3">Pan Fine</Channel>
+  <Channel Number="4">Tilt</Channel>
+  <Channel Number="5">Tilt Fine</Channel>
+  <Channel Number="6">P/T Speed</Channel>
+  <Channel Number="7">Colour</Channel>
+  <Channel Number="8">Gobo</Channel>
+  <Channel Number="9">Focus</Channel>
+  <Channel Number="10">Magnification Lens &amp; 7 Color Wheel</Channel>
+  <Channel Number="11">Prism</Channel>
+  <Channel Number="12">Macro</Channel>
+  <Channel Number="13">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="0" Width="0" Height="0" Depth="0"/>
+  <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="210"/>
+  <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>
