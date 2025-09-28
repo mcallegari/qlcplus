@@ -26,6 +26,7 @@
 #include "ui_vcmatrixpresetselection.h"
 
 class RGBScript;
+class QCheckBox;
 class Doc;
 
 class VCMatrixPresetSelection : public QDialog, public Ui_VCMatrixPresetSelection
@@ -39,14 +40,17 @@ public:
     QString selectedPreset();
 
     QMap<QString, QString> customizedProperties();
+    QMap<QString, bool> dynamicProperties() const;
 
 protected slots:
     void slotUpdatePresetProperties();
 
+    void slotPropertyCheckChanged(bool checked);
     void slotPropertyComboChanged(int index);
     void slotPropertySpinChanged(int value);
     void slotPropertyDoubleSpinChanged(double value);
     void slotPropertyEditChanged(QString text);
+    void slotCheckAllToggled(bool checked);
 
 private:
     void resetProperties(QLayoutItem *item);
@@ -57,6 +61,8 @@ private:
 
     /** A map holding the customized script properties */
     QMap<QString, QString> m_properties;
+    /** A map holding the customized script properties */
+    QMap<QString, bool> m_dynamicProperties;
 };
 
 #endif // VCMATRIXPRESETSELECTION_H

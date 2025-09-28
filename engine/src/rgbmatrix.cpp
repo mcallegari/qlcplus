@@ -70,12 +70,12 @@ RGBMatrix::RGBMatrix(Doc *doc)
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     , m_algorithmMutex(QMutex::Recursive)
 #endif
-    , m_stepHandler(new RGBMatrixStep())
-    , m_stepsCount(0)
-    , m_stepBeatDuration(0)
-    , m_controlMode(RGBMatrix::ControlModeRgb)
-{
-    setName(tr("New RGB Matrix"));
+     , m_stepHandler(new RGBMatrixStep())
+     , m_stepsCount(0)
+     , m_stepBeatDuration(0)
+     , m_controlMode(RGBMatrix::ControlModeRgb)
+ {
+     setName(tr("New RGB Matrix"));
     setDuration(500);
 
     m_rgbColors.fill(QColor(), RGBAlgorithmColorDisplayCount);
@@ -180,7 +180,24 @@ bool RGBMatrix::copyFrom(const Function* function)
 
     setControlMode(mtx->controlMode());
 
+    QMapIterator<QString, QString> it(mtx->m_properties);
+    while (it.hasNext())
+    {
+        it.next();
+        setProperty(it.key(), it.value());
+    }
+
     return Function::copyFrom(function);
+}
+
+void RGBMatrix::setScriptProperty(QString propName, QString value)
+{
+    QMutexLocker algoLocker(&m_algorithmMutex);
+    if (m_runAlgorithm != NULL && m_runAlgorithm->type() == RGBAlgorithm::Script)
+    {
+        RGBScript *script = static_cast<RGBScript*> (m_runAlgorithm);
+        script->setProperty(propName, value);
+    }
 }
 
 /****************************************************************************
@@ -1200,4 +1217,3 @@ bool RGBMatrixStep::checkNextStep(Function::RunOrder order,
 
     return true;
 }
-
