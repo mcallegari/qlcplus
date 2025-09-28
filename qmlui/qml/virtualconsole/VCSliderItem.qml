@@ -32,10 +32,7 @@ VCWidgetItem
 
     radius: 2
 
-    onSliderObjChanged:
-    {
-        setCommonProperties(sliderObj)
-    }
+    onSliderObjChanged: setCommonProperties(sliderObj)
 
     Gradient
     {

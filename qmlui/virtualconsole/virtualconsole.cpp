@@ -122,6 +122,7 @@ void VirtualConsole::resetContents()
 {
     int pageIndex = 0;
     resetWidgetSelection();
+    setEditMode(false);
 
     foreach (VCPage *page, m_pages)
     {
@@ -135,6 +136,7 @@ void VirtualConsole::resetContents()
     m_selectedPage = 0;
     m_loadStatus = Cleared;
 }
+
 
 bool VirtualConsole::editMode() const
 {

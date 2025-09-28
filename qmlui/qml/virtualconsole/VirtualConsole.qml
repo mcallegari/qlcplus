@@ -35,6 +35,8 @@ Rectangle
     property int selectedPage: virtualConsole.selectedPage
     property bool docLoaded: qlcplus.docLoaded
 
+    Component.onCompleted: virtualConsole.editMode = false
+
     onDocLoadedChanged:
     {
         // force a reload of the selected page
@@ -54,6 +56,7 @@ Rectangle
     function enableContext(ctx, setChecked)
     {
         console.log("VC enable context " + ctx)
+
         for (var i = 0; i < pagesRepeater.count; i++)
         {
             console.log("Item " + i + " name: " + pagesRepeater.itemAt(i).contextName)

@@ -781,6 +781,9 @@ void VCSlider::setClickAndGoColors(QColor rgb, QColor wauv)
     m_cngPrimaryColor = rgb;
     m_cngSecondaryColor = wauv;
 
+    // invalidate value if not changed
+    m_value = 0;
+    // set mid-position value
     setValue(128, true, true);
 
     emit cngPrimaryColorChanged(rgb);
@@ -796,7 +799,7 @@ void VCSlider::updateClickAndGoResource()
 {
     /* Find the first valid channel and retrieve the capability
      * resource from the current slider value */
-    for (SceneValue scv : m_levelChannels)
+    for (SceneValue &scv : m_levelChannels)
     {
         Fixture *fixture = m_doc->fixture(scv.fxi);
         if (fixture == nullptr)
