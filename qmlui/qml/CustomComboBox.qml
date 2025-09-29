@@ -32,11 +32,11 @@ ComboBox
         to provide icons and values (QVariant)
         In case of a QStringList, textRole should be set to ""
         A QML model with icons should look like this:
-        ListModel
-        {
-            ListElement { mLabel: qsTr("Foo"); mIcon:"qrc:/foo.svg"; mValue: 0 }
-            ListElement { mLabel: qsTr("Bar"); mIcon:"qrc:/bar.svg"; mValue: 1 }
-        }
+        [
+            { mLabel: qsTr("Foo"), mIcon: "qrc:/foo.svg", mValue: 0 },
+            { mLabel: qsTr("Bar"), mIcon: "qrc:/bar.svg", mValue: 1 },
+            { mLabel: qsTr("Joe"), faIcon: FontAwesome.fa_egg, mValue: 2 }
+        ]
      */
 
     textRole: "mLabel"
@@ -46,15 +46,36 @@ ComboBox
 
     property string currentIcon
     property string currentTextIcon
-    property int currValue
+    property string currentFAIcon
+    property var currValue: undefined
+
     property int delegateHeight: UISettings.listItemHeight
     property bool isUpdating: false
     property int contentsMaxWidth: 0
 
     signal valueChanged(int value)
 
+    function initSelection()
+    {
+        if (!model)
+            return
+        if (typeof currValue !== 'undefined' && currValue !== null)
+            updateFromValue()
+        else
+            updateFromIndex()
+    }
+
+    Component.onCompleted: Qt.callLater(initSelection)
+    onModelChanged: Qt.callLater(initSelection)
     onCurrValueChanged: updateFromValue()
     onCurrentIndexChanged: updateFromIndex()
+
+    Connections {
+        target: (model && typeof model.count !== "undefined") ? model : null
+        function onCountChanged() {
+            Qt.callLater(initSelection)
+        }
+    }
 
     function updateFromIndex()
     {
@@ -63,17 +84,23 @@ ComboBox
 
         isUpdating = true
         var item = model.length === undefined ? model.get(currentIndex) : model[currentIndex]
-        displayText = item.mLabel ? item.mLabel : item
-        //console.log("Index changed: " + currentIndex + ", label: " + displayText)
-        if (item.mIcon)
+        displayText = item && item.mLabel ? item.mLabel : (item !== undefined ? item : "")
+        if (item && item.mIcon)
             currentIcon = item.mIcon
-        if (item.mTextIcon)
+        if (item && item.mTextIcon)
             currentTextIcon = item.mTextIcon
+        if (item && item.faIcon)
+            currentFAIcon = item.faIcon
 
-        if (item.mValue !== undefined)
-            control.valueChanged(item.mValue)
+        var valueToEmit = (item && item.mValue !== undefined) ? item.mValue : currentIndex
+        if (valueToEmit !== currValue)
+        {
+            currValue = valueToEmit
+            control.valueChanged(valueToEmit)
+        }
         isUpdating = false
     }
+
 
     function updateFromValue()
     {
@@ -82,24 +109,24 @@ ComboBox
 
         isUpdating = true
         var iCount = model.length === undefined ? model.count : model.length
-        //console.log("Value changed:" + currValue + ", model count: " + iCount)
-
-        for (var i = 0; i < iCount; i++)
-        {
+        for (var i = 0; i < iCount; i++) {
             var item = model.length === undefined ? model.get(i) : model[i]
-            if (item.mValue === currValue)
-            {
-                displayText = item.mLabel
-                if (item.mIcon)
+            var matches = (item && item.mValue !== undefined) ? (item.mValue === currValue) : (i === currValue)
+            if (matches) {
+                displayText = item && item.mLabel ? item.mLabel : (item !== undefined ? item : "")
+                if (item && item.mIcon)
                     currentIcon = item.mIcon
-                if (item.mTextIcon)
+                if (item && item.faIcon)
+                    currentFAIcon = item.faIcon
+                if (item && item.mTextIcon)
                     currentTextIcon = item.mTextIcon
-                currentIndex = i
-                isUpdating = false
-                return
+                if (currentIndex !== i)
+                    currentIndex = i
+                break
             }
         }
         isUpdating = false
+        updateFromIndex()
     }
 
     Rectangle
@@ -128,6 +155,7 @@ ComboBox
             property int currentIdx: control.currentIndex
             text: control.textRole ? (Array.isArray(control.model) ? modelData[control.textRole] : model[control.textRole]) : modelData
             property string itemIcon: model.mIcon ? model.mIcon : (typeof modelData !== 'undefined' ? modelData.mIcon ? modelData.mIcon : "" : "")
+            property string itemFAIcon: model.faIcon ? model.faIcon : (typeof modelData !== 'undefined' ? (modelData.faIcon ? modelData.faIcon : "") : "")
             property int itemValue: (model.mValue !== undefined) ? model.mValue : ((modelData.mValue !== undefined) ? modelData.mValue : index)
 
             contentItem:
@@ -144,6 +172,18 @@ ComboBox
                         y: 2
                         source: itemIcon
                         sourceSize: Qt.size(width, height)
+                    }
+
+                    Text
+                    {
+                        visible: itemFAIcon ? true : false
+                        height: delegateHeight
+                        width: height
+                        verticalAlignment: Text.AlignVCenter
+                        font.family: UISettings.fontAwesomeFontName
+                        font.pixelSize: delegateHeight * 0.7
+                        color: UISettings.fgMain
+                        text: itemFAIcon
                     }
 
                     RobotoText
@@ -175,6 +215,7 @@ ComboBox
                 currentIndex = index
                 displayText = text
                 currentIcon = itemIcon
+                currentFAIcon = itemFAIcon
 
                 if (itemValue !== undefined)
                     control.valueChanged(itemValue)
@@ -196,27 +237,47 @@ ComboBox
         }
 
     contentItem:
-        Row
+        Rectangle
         {
-            spacing: currentIcon ? 2 : 0
-            leftPadding: 3
-            clip: true
+            id: cRect
+            height: control.height
+            //width: tField.width + ((iconImg.visible || iconFa.visible) ? iconImg.width + 5 : 0)
+            color: "transparent"
 
             Image
             {
+                id: iconImg
                 visible: currentIcon ? true : false
+                x: 3
+                y: 2
                 height: control.height - 4
                 width: height
-                y: 2
                 source: currentIcon ? currentIcon : ""
                 sourceSize: Qt.size(width, height)
                 opacity: control.enabled ? 1 : 0.3
             }
 
+            Text
+            {
+                id: iconFa
+                visible: currentFAIcon ? true : false
+                x: 3
+                height: control.height - 4
+                width: height
+                verticalAlignment: Text.AlignVCenter
+                font.family: UISettings.fontAwesomeFontName
+                font.pixelSize: control.height * 0.7
+                color: UISettings.fgMain
+                opacity: control.enabled ? 1 : 0.3
+                text: currentFAIcon
+            }
+
             TextField
             {
+                id: tField
+                x: (iconImg.visible || iconFa.visible) ? iconImg.width + 5 : 0
                 height: control.height
-                width: control.width - control.indicator.width - parent.leftPadding
+                width: cRect.width //control ? (control.width - control.indicator.width - parent.leftPadding) : 100
                 enabled: control.editable
                 opacity: control.enabled ? 1 : 0.3
                 font.family: UISettings.robotoFontName

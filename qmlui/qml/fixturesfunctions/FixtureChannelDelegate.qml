@@ -148,17 +148,13 @@ Rectangle
             visible: showFlags
             implicitWidth: UISettings.chPropsPrecedenceWidth
             height: parent.height - 2
-
-            ListModel
-            {
-                id: precModel
-                ListElement { mLabel: qsTr("Auto (HTP)"); mValue: FixtureManager.AutoHTP }
-                ListElement { mLabel: qsTr("Auto (LTP)"); mValue: FixtureManager.AutoLTP }
-                ListElement { mLabel: qsTr("Forced HTP"); mValue: FixtureManager.ForcedHTP }
-                ListElement { mLabel: qsTr("Forced LTP"); mValue: FixtureManager.ForcedLTP }
-            }
-            model: precModel
-            onValueChanged: fixtureManager.setItemRoleData(itemID, chIndex, "precedence", value)
+            model: [
+                { mLabel: qsTr("Auto (HTP)"), mValue: FixtureManager.AutoHTP },
+                { mLabel: qsTr("Auto (LTP)"), mValue: FixtureManager.AutoLTP },
+                { mLabel: qsTr("Forced HTP"), mValue: FixtureManager.ForcedHTP },
+                { mLabel: qsTr("Forced LTP"), mValue: FixtureManager.ForcedLTP }
+            ]
+            onValueChanged: (value) => fixtureManager.setItemRoleData(itemID, chIndex, "precedence", value)
         }
 
         // divider

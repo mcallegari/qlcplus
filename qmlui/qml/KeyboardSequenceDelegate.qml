@@ -115,7 +115,8 @@ Column
         {
             width: UISettings.iconSizeMedium
             height: width
-            imgSource: "qrc:/remove.svg"
+            faSource: FontAwesome.fa_minus
+            faColor: "crimson"
             tooltip: qsTr("Remove this keyboard combination")
 
             onClicked: virtualConsole.deleteKeySequence(widgetObjRef, controlID, sequence)

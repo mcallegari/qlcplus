@@ -226,7 +226,7 @@ QVariant CueStackModel::data(const QModelIndex& index, int role) const
     return var;
 }
 
-QStringList CueStackModel::mimeTypes () const
+QStringList CueStackModel::mimeTypes() const
 {
     return QStringList() << QString("text/plain");
 }

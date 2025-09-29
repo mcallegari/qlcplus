@@ -27,11 +27,17 @@ import "."
 
 Rectangle
 {
+    id: fixtureEditorView
     visible: true
     width: 800
     height: 600
     anchors.fill: parent
     color: UISettings.bgMedium
+
+    function setDimScreen(enable)
+    {
+        dimScreen.visible = enable
+    }
 
     FontLoader
     {

@@ -94,7 +94,8 @@ Rectangle
                     id: addFunc
                     width: height
                     height: UISettings.iconSizeMedium
-                    imgSource: "qrc:/add.svg"
+                    faSource: FontAwesome.fa_plus
+                    faColor: "limegreen"
                     checkable: true
                     tooltip: qsTr("Add a function")
                     onCheckedChanged:
@@ -120,7 +121,8 @@ Rectangle
                     id: removeFunc
                     width: height
                     height: UISettings.iconSizeMedium
-                    imgSource: "qrc:/remove.svg"
+                    faSource: FontAwesome.fa_minus
+                    faColor: "crimson"
                     tooltip: qsTr("Remove the selected function")
                     onClicked: deleteItemsPopup.open()
 

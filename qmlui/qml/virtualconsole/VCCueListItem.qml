@@ -262,10 +262,11 @@ VCWidgetItem
                 width: contentWidth / 4
                 height: UISettings.iconSizeMedium
                 enabled: visible && !cueListObj.isDisabled
-                imgSource: (cueListObj && cueListObj.playbackLayout === VCCueList.PlayPauseStop) ?
-                               (cueListRoot.playbackStatus === VCCueList.Stopped ||
-                                cueListRoot.playbackStatus === VCCueList.Paused ? "qrc:/play.svg" : "qrc:/pause.svg") :
-                               (cueListRoot.playbackStatus === VCCueList.Stopped ? "qrc:/play.svg" : "qrc:/stop.svg")
+                faSource: (cueListObj && cueListObj.playbackLayout === VCCueList.PlayPauseStop) ?
+                           (cueListRoot.playbackStatus === VCCueList.Stopped ||
+                            cueListRoot.playbackStatus === VCCueList.Paused ? FontAwesome.fa_play : FontAwesome.fa_pause) :
+                           (cueListRoot.playbackStatus === VCCueList.Stopped ? FontAwesome.fa_play : FontAwesome.fa_stop)
+                faColor: UISettings.fgMain
                 tooltip: (cueListObj && cueListObj.playbackLayout === VCCueList.PlayPauseStop) ? qsTr("Play/Pause") : qsTr("Play/Stop")
                 onClicked: if (cueListObj) cueListObj.playClicked()
             }
@@ -275,7 +276,8 @@ VCWidgetItem
                 width: contentWidth / 4
                 height: UISettings.iconSizeMedium
                 enabled: visible && !cueListObj.isDisabled
-                imgSource: (cueListObj && cueListObj.playbackLayout === VCCueList.PlayStopPause) ? "qrc:/pause.svg" : "qrc:/stop.svg"
+                faSource: (cueListObj && cueListObj.playbackLayout === VCCueList.PlayStopPause) ? FontAwesome.fa_pause : FontAwesome.fa_stop
+                faColor: UISettings.fgMain
                 tooltip: (cueListObj && cueListObj.playbackLayout === VCCueList.PlayStopPause) ? qsTr("Pause") : qsTr("Stop")
                 onClicked: if (cueListObj) cueListObj.stopClicked()
             }
@@ -285,7 +287,8 @@ VCWidgetItem
                 width: contentWidth / 4
                 height: UISettings.iconSizeMedium
                 enabled: visible && !cueListObj.isDisabled
-                imgSource: "qrc:/back.svg"
+                faSource: FontAwesome.fa_circle_left
+                faColor: "lightcyan"
                 tooltip: qsTr("Previous cue")
                 onClicked: if (cueListObj) cueListObj.previousClicked()
             }
@@ -295,7 +298,8 @@ VCWidgetItem
                 width: contentWidth / 4
                 height: UISettings.iconSizeMedium
                 enabled: visible && !cueListObj.isDisabled
-                imgSource: "qrc:/forward.svg"
+                faSource: FontAwesome.fa_circle_right
+                faColor: "lightcyan"
                 tooltip: qsTr("Next cue")
                 onClicked: if (cueListObj) cueListObj.nextClicked()
             }

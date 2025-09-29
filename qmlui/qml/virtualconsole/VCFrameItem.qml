@@ -135,8 +135,8 @@ VCWidgetItem
                     radius: 0
                     border.width: 0
                     tooltip: qsTr("Previous page")
-                    imgSource: "qrc:/back.svg"
-                    imgMargins: 1
+                    faSource: FontAwesome.fa_angle_left
+                    faColor: UISettings.fgMain
                     onClicked: frameObj.gotoPreviousPage()
                 }
                 CustomComboBox
@@ -163,8 +163,8 @@ VCWidgetItem
                     radius: 0
                     border.width: 0
                     tooltip: qsTr("Next page")
-                    imgSource: "qrc:/forward.svg"
-                    imgMargins: 1
+                    faSource: FontAwesome.fa_angle_right
+                    faColor: UISettings.fgMain
                     onClicked: frameObj.gotoNextPage()
                 }
             }

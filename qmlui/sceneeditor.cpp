@@ -330,7 +330,7 @@ void SceneEditor::addComponent(int type, quint32 id)
 
 void SceneEditor::pasteToAllFixtureSameType()
 {
-    for (SceneValue scv : m_selectedChannels)
+    for (SceneValue &scv : m_selectedChannels)
     {
         Fixture *sourceFixture = m_doc->fixture(scv.fxi);
         if (sourceFixture == nullptr)
@@ -338,9 +338,9 @@ void SceneEditor::pasteToAllFixtureSameType()
 
         uchar currentValue = m_scene->value(scv.fxi, scv.channel);
 
-        for (quint32 dstFxId : m_scene->fixtures())
+        for (quint32 &dstFxId : m_scene->fixtures())
         {
-            Fixture *destFixture = m_doc->fixture(scv.fxi);
+            Fixture *destFixture = m_doc->fixture(dstFxId);
             if (dstFxId == scv.fxi || destFixture == nullptr)
                 continue;
 
@@ -527,12 +527,18 @@ void SceneEditor::setCacheChannelValue(SceneValue scv)
     if (m_channelsCache.contains(scv.fxi))
     {
         QByteArray values = m_channelsCache[scv.fxi];
+        if (values.length() < scv.channel)
+            return;
+
         values[scv.channel] = scv.value;
         m_channelsCache[scv.fxi] = values;
     }
     else
     {
         Fixture *fixture = m_doc->fixture(scv.fxi);
+        if (fixture == nullptr)
+            return;
+
         int chNumber = fixture->channels();
         QByteArray values;
 

@@ -137,7 +137,8 @@ Rectangle
                                 IconButton
                                 {
                                     id: delChButton
-                                    imgSource: "qrc:/remove.svg"
+                                    faSource: FontAwesome.fa_minus
+                                    faColor: "crimson"
                                     tooltip: qsTr("Remove the selected channel(s)")
                                     enabled: modeChanSelector.itemsCount
 
@@ -416,7 +417,8 @@ Rectangle
                                 IconButton
                                 {
                                     id: delHeadButton
-                                    imgSource: "qrc:/remove.svg"
+                                    faSource: FontAwesome.fa_minus
+                                    faColor: "crimson"
                                     tooltip: qsTr("Remove the selected emitter(s)")
                                     enabled: modeHeadSelector.itemsCount
 

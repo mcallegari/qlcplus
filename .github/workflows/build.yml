@@ -345,7 +345,7 @@ jobs:
         shell: msys2 {0}
         run: |
           mkdir -p /c/projects/D2XXSDK
-          wget https://ftdichip.com/wp-content/uploads/2023/09/CDM-v2.12.36.4-WHQL-Certified.zip -O /c/projects/D2XXSDK/cdm.zip
+          wget https://qlcplus.org/misc/CDM-v2.12.36.20-WHQL-Certified.zip -O /c/projects/D2XXSDK/cdm.zip
           cd /c/projects/D2XXSDK
           unzip cdm.zip
           cd amd64

@@ -127,6 +127,7 @@ public:
 
 private:
     void updateChannelList();
+    void dismissChannelEditor();
 
 private:
     /** Reference to a channel list usable in QML */
@@ -151,6 +152,7 @@ public:
 
 private:
     void updateModeList();
+    void dismissModeEditor();
 
 protected slots:
     void modeNameChanged();

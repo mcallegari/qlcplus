@@ -138,7 +138,8 @@ Rectangle
                 visible: isOpen && editorLoader.item && editorLoader.item.hasOwnProperty("isSceneEditor")
                 width: UISettings.iconSizeDefault
                 height: UISettings.iconSizeDefault
-                imgSource: "qrc:/edit-copy.svg"
+                faSource: FontAwesome.fa_copy
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Copy the selected channel values to all the fixtures of the same type")
                 enabled: isOpen && sceneEditor.selectedChannelCount > 0 ? true : false
                 onClicked: if (sceneEditor) sceneEditor.pasteToAllFixtureSameType()

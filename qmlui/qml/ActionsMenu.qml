@@ -343,6 +343,8 @@ Popup
         ContextMenuEntry
         {
             imgSource: "qrc:/network.svg"
+            //faSource: FontAwesome.fa_network_wired
+            //faColor: "darkseagreen"
             entryText: qsTr("Network")
             onEntered: submenuItem = networkMenu
 
@@ -443,7 +445,8 @@ Popup
         ContextMenuEntry
         {
             id: fullScreen
-            imgSource: "qrc:/fullscreen.svg"
+            faSource: FontAwesome.fa_maximize
+            faColor: UISettings.fgLight
             entryText: qsTr("Toggle fullscreen")
             onEntered: submenuItem = null
             onClicked:
@@ -455,7 +458,8 @@ Popup
 
         ContextMenuEntry
         {
-            imgSource: "qrc:/global.svg"
+            faSource: FontAwesome.fa_earth_europe
+            faColor: "deepskyblue"
             entryText: qsTr("Language")
             onEntered: submenuItem = languageMenu
 
@@ -577,7 +581,8 @@ Popup
         ContextMenuEntry
         {
             id: info
-            imgSource: "qrc:/info.svg"
+            faSource: FontAwesome.fa_circle_info
+            faColor: "skyblue"
             entryText: qsTr("About")
             onEntered: submenuItem = null
             onClicked:

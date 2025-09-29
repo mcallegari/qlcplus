@@ -46,7 +46,7 @@ Rectangle
         var currentScale = View2D.gridScale
         if (amount < 0)
         {
-            if (currentScale > 0.1)
+            if (currentScale > 0.2)
             {
                 if (currentScale <= 1)
                     View2D.gridScale -= 0.1
@@ -324,7 +324,7 @@ Rectangle
                         setZoom(0.5)
                     else
                     {
-                        if (View2D.gridScale > 1.0)
+                        if (View2D.gridScale > 0.2)
                             setZoom(-0.5)
                     }
                 }

@@ -207,19 +207,15 @@ ColumnLayout
             }
             CustomComboBox
             {
-                ListModel
-                {
-                    id: profTypeModel
-                    ListElement { mLabel: "MIDI"; mValue: 0 }
-                    ListElement { mLabel: "OS2L"; mValue: 1 }
-                    ListElement { mLabel: "OSC"; mValue: 2 }
-                    ListElement { mLabel: "HID"; mValue: 3 }
-                    ListElement { mLabel: "DMX"; mValue: 4 }
-                    ListElement { mLabel: "ENTTEC"; mValue: 5 }
-                }
-
                 Layout.fillWidth: true
-                model: profTypeModel
+                model: [
+                    { mLabel: "MIDI", mValue: 0 },
+                    { mLabel: "OS2L", mValue: 1 },
+                    { mLabel: "OSC", mValue: 2 },
+                    { mLabel: "HID", mValue: 3 },
+                    { mLabel: "DMX", mValue: 4 },
+                    { mLabel: "ENTTEC", mValue: 5 }
+                ]
                 currValue: peContainer.visible ? profileEditor.type : 0
                 onValueChanged: profileEditor.type = currentValue
             }
@@ -415,15 +411,11 @@ ColumnLayout
             CustomComboBox
             {
                 id: movementCombo
-                ListModel
-                {
-                    id: moveTypeModel
-                    ListElement { mLabel: "Absolute"; mValue: QLCInputChannel.Absolute }
-                    ListElement { mLabel: "Relative"; mValue: QLCInputChannel.Relative }
-                }
-
                 implicitHeight: UISettings.listItemHeight
-                model: moveTypeModel
+                model: [
+                    { mLabel: "Absolute", mValue: QLCInputChannel.Absolute },
+                    { mLabel: "Relative", mValue: QLCInputChannel.Relative }
+                ]
                 currentIndex: channelList.selectedChannel ? channelList.selectedChannel.movementType : QLCInputChannel.Absolute
                 onValueChanged: channelList.selectedChannel.movementType = currentValue
             }

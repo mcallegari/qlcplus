@@ -1339,6 +1339,18 @@ void FunctionManager::dumpOnScene(QList<SceneValue> dumpValues, QList<quint32> s
     }
 }
 
+bool FunctionManager::acceptsSceneValues()
+{
+    if (m_currentEditor == nullptr)
+        return false;
+
+    if (m_currentEditor->functionType() == Function::SceneType ||
+        m_currentEditor->functionType() == Function::SequenceType)
+        return true;
+
+    return false;
+}
+
 void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value)
 {
     FunctionEditor *editor = m_currentEditor;
@@ -1354,8 +1366,7 @@ void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value
         cEditor->setSequenceStepValue(scv);
         editor = m_sceneEditor;
     }
-
-    if (editor->functionType() == Function::SceneType)
+    else if (editor->functionType() == Function::SceneType)
     {
         Scene *scene = qobject_cast<Scene *>(m_doc->function(editor->functionID()));
         if (scene == nullptr)

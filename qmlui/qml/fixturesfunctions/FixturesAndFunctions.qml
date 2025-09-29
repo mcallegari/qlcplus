@@ -209,7 +209,7 @@ Rectangle
                 CustomComboBox
                 {
                     id: viewUniverseCombo
-                    width: UISettings.bigItemHeight * 1.5
+                    implicitWidth: UISettings.bigItemHeight * 2
                     height: viewToolbar.height - 4
                     anchors.margins: 1
                     model: ioManager.universesListModel

@@ -126,7 +126,8 @@ Rectangle
                     id: addButton
                     width: height
                     height: UISettings.iconSizeMedium
-                    imgSource: "qrc:/add.svg"
+                    faSource: FontAwesome.fa_plus
+                    faColor: "limegreen"
                     tooltip: qsTr("Add a method call at cursor position")
                     onClicked: addMethodMenu.open()
                 }
@@ -316,49 +317,57 @@ Rectangle
         {
             ContextMenuEntry
             {
-                imgSource: "qrc:/play.svg"
+                faSource: FontAwesome.fa_play
+                faColor: UISettings.fgLight
                 entryText: qsTr("Start function")
                 onClicked: addMethodMenu.insertMethod("Engine.startFunction();")
             }
             ContextMenuEntry
             {
-                imgSource: "qrc:/stop.svg"
+                faSource: FontAwesome.fa_stop
+                faColor: UISettings.fgLight
                 entryText: qsTr("Stop function")
                 onClicked: addMethodMenu.insertMethod("Engine.stopFunction();")
             }
             ContextMenuEntry
             {
-                imgSource: "qrc:/sliders.svg"
+                faSource: FontAwesome.fa_sliders
+                faColor: "lime"
                 entryText: qsTr("Set fixture channel")
                 onClicked: addMethodMenu.insertMethod("Engine.setFixture();")
             }
             ContextMenuEntry
             {
-                imgSource: "qrc:/clock.svg"
+                faSource: FontAwesome.fa_hourglass_end
+                faColor: "deepskyblue"
                 entryText: qsTr("Wait time")
                 onClicked: addMethodMenu.insertMethod("Engine.waitTime();")
             }
             ContextMenuEntry
             {
-                imgSource: "qrc:/random.svg"
+                faSource: FontAwesome.fa_dice
+                faColor: "coral"
                 entryText: qsTr("Random number")
                 onClicked: addMethodMenu.insertMethod("Engine.random();")
             }
             ContextMenuEntry
             {
-                imgSource: "qrc:/blackout.svg"
+                faSource: FontAwesome.fa_moon
+                faColor: "darkslateblue"
                 entryText: qsTr("Blackout")
                 onClicked: addMethodMenu.insertMethod("Engine.setBlackout();")
             }
             ContextMenuEntry
             {
-                imgSource: "qrc:/script.svg"
+                faSource: FontAwesome.fa_terminal
+                faColor: UISettings.fgLight
                 entryText: qsTr("System command")
                 onClicked: addMethodMenu.insertMethod("Engine.systemCommand();")
             }
             ContextMenuEntry
             {
-                imgSource: "qrc:/fileopen.svg"
+                faSource: FontAwesome.fa_folder_open
+                faColor: "gold"
                 entryText: qsTr("File path")
                 onClicked: selectFileDialog.open()
             }

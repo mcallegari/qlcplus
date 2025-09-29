@@ -133,7 +133,8 @@ Rectangle
                 width: height
                 height: topBar.height - 2
                 visible: allowEditing
-                imgSource: "qrc:/remove.svg"
+                faSource: FontAwesome.fa_minus
+                faColor: "crimson"
                 tooltip: qsTr("Delete the selected palette(s)")
                 enabled: pDragItem.itemsList.length
                 onClicked:

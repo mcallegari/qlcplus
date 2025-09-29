@@ -61,8 +61,6 @@ class VCSlider : public VCWidget, public DMXSource
 {
     Q_OBJECT
 
-    Q_PROPERTY(QVariant channelsList READ channelsList CONSTANT)
-
     Q_PROPERTY(SliderWidgetStyle widgetStyle READ widgetStyle WRITE setWidgetStyle NOTIFY widgetStyleChanged)
     Q_PROPERTY(ValueDisplayStyle valueDisplayStyle READ valueDisplayStyle WRITE setValueDisplayStyle NOTIFY valueDisplayStyleChanged)
     Q_PROPERTY(bool invertedAppearance READ invertedAppearance WRITE setInvertedAppearance NOTIFY invertedAppearanceChanged)
@@ -75,6 +73,8 @@ class VCSlider : public VCWidget, public DMXSource
     Q_PROPERTY(bool monitorEnabled READ monitorEnabled WRITE setMonitorEnabled NOTIFY monitorEnabledChanged)
     Q_PROPERTY(int monitorValue READ monitorValue NOTIFY monitorValueChanged)
     Q_PROPERTY(bool isOverriding READ isOverriding WRITE setIsOverriding NOTIFY isOverridingChanged)
+
+    Q_PROPERTY(int channelsCount READ channelsCount NOTIFY channelsCountChanged)
 
     Q_PROPERTY(bool adjustFlashEnabled READ adjustFlashEnabled WRITE setAdjustFlashEnabled NOTIFY adjustFlashEnabledChanged)
 
@@ -121,11 +121,6 @@ public:
 protected:
     /** @reimp */
     bool copyFrom(const VCWidget* widget);
-
-protected:
-    /** Reference to a tree model representing Groups/Fitures/Channels
-      * This is created only when the UI requests it to confgure the Level mode */
-    TreeModel *m_channelsTree;
 
     /*********************************************************************
      * Widget style
@@ -277,14 +272,21 @@ public:
     /** Returns the data model to display a tree of FixtureGroups/Fixtures */
     QVariant groupsTreeModel();
 
+    int channelsCount() const;
+
     QVariant channelsList();
 
     /** Get/Set a string to filter Group/Fixture/Channel names */
     QString searchFilter() const;
     void setSearchFilter(QString searchFilter);
 
+    Q_INVOKABLE void applyToSameType(bool enable);
+
 private:
     void removeActiveFaders();
+
+    /** Recursive method to check/uncheck channels for fixtures of the same type */
+    void checkFixtureTree(TreeModel *tree, Fixture *sourceFixture, quint32 channelIndex, bool checked);
 
 protected slots:
     void slotTreeDataChanged(TreeModelItem *item, int role, const QVariant &value);
@@ -297,6 +299,7 @@ signals:
     void groupsTreeModelChanged();
     /** Notify the listeners that the search filter has changed */
     void searchFilterChanged();
+    void channelsCountChanged();
 
 protected:
     QList <SceneValue> m_levelChannels;
@@ -312,6 +315,10 @@ protected:
     TreeModel *m_fixtureTree;
     /** A string to filter the displayed tree items */
     QString m_searchFilter;
+
+    /** Flag to apply a channel selection to all
+     *  the fixtures of the same type */
+    bool m_applyToSameType, m_isUpdating;
 
     /*********************************************************************
      * Click & Go

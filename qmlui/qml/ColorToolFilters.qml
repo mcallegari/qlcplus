@@ -420,7 +420,8 @@ Rectangle
             ContextMenuEntry
             {
                 height: UISettings.listItemHeight
-                imgSource: "qrc:/add.svg"
+                faSource: FontAwesome.fa_plus
+                faColor: "limegreen"
                 iconHeight: UISettings.listItemHeight
                 entryText: qsTr("Add a new filter")
                 enabled: cfRef && cfRef.isUser ? true : false
@@ -440,7 +441,8 @@ Rectangle
             ContextMenuEntry
             {
                 height: UISettings.listItemHeight
-                imgSource: "qrc:/remove.svg"
+                faSource: FontAwesome.fa_minus
+                faColor: "crimson"
                 iconHeight: UISettings.listItemHeight
                 entryText: qsTr("Delete the selected filter")
                 enabled: cfRef && cfRef.isUser ? true : false
@@ -457,7 +459,8 @@ Rectangle
             ContextMenuEntry
             {
                 height: UISettings.listItemHeight
-                imgSource: "qrc:/edit-paste.svg"
+                faSource: FontAwesome.fa_paste
+                faColor: UISettings.fgMain
                 iconHeight: UISettings.listItemHeight
                 entryText: qsTr("Paste the latest picked color as new filter")
                 enabled: cfRef && cfRef.isUser ? true : false

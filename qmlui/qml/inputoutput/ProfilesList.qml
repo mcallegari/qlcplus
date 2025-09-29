@@ -103,7 +103,8 @@ Rectangle
                     height: topBar.height - 2
                     visible: profEditor.isEditing
                     checkable: true
-                    imgSource: "qrc:/wizard.svg"
+                    faSource: FontAwesome.fa_wand_magic_sparkles
+                    faColor: "cyan"
                     tooltip: qsTr("Toggle the automatic detection procedure")
 
                     onToggled:
@@ -121,7 +122,8 @@ Rectangle
                 {
                     width: height
                     height: topBar.height - 2
-                    imgSource: "qrc:/add.svg"
+                    faSource: FontAwesome.fa_plus
+                    faColor: "limegreen"
                     tooltip: profEditor.isEditing ? qsTr("Add a new channel") : qsTr("Create a new input profile")
 
                     onClicked:
@@ -166,7 +168,8 @@ Rectangle
                 {
                     width: height
                     height: topBar.height - 2
-                    imgSource: "qrc:/remove.svg"
+                    faSource: FontAwesome.fa_minus
+                    faColor: "crimson"
                     tooltip: profEditor.isEditing ? qsTr("Delete the selected channel") : qsTr("Delete the selected input profile(s)")
                     enabled: profEditor.isEditing ? profEditor.selectedChannel() >= 0 : profListView.selectedIndex >= 0 && profListView.selectedIsUser
 

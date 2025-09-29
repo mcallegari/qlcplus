@@ -34,8 +34,19 @@ Rectangle
     color: "transparent"
 
     property int functionID: -1
+    property var algoColors: rgbMatrixEditor ? rgbMatrixEditor.algoColors : null
 
     signal requestView(int ID, string qmlSrc, bool back)
+
+    onAlgoColorsChanged:
+    {
+        var cCount = rgbMatrixEditor.algoColorsCount
+        color1Button.color = algoColors[0]
+        color2Button.color = cCount > 1 && rgbMatrixEditor.hasColorAtIndex(1) ? algoColors[1] : "transparent"
+        color3Button.color = cCount > 2 && rgbMatrixEditor.hasColorAtIndex(2) ? algoColors[2] : "transparent"
+        color4Button.color = cCount > 3 && rgbMatrixEditor.hasColorAtIndex(3) ? algoColors[3] : "transparent"
+        color5Button.color = cCount > 4 && rgbMatrixEditor.hasColorAtIndex(4) ? algoColors[4] : "transparent"
+    }
 
     TimeEditTool
     {
@@ -157,7 +168,7 @@ Rectangle
                     height: editorColumn.itemsHeight
                     model: fixtureGroupEditor.groupsListModel
                     currValue: rgbMatrixEditor.fixtureGroup
-                    onValueChanged: rgbMatrixEditor.fixtureGroup = value
+                    onValueChanged: (value) => rgbMatrixEditor.fixtureGroup = value
                 }
             }
 
@@ -198,9 +209,9 @@ Rectangle
                     {
                         rgbMatrixEditor.algorithmIndex = currentIndex
                         paramSection.sectionContents = null
-                        if (displayText == "Text")
+                        if (displayText === "Text")
                             paramSection.sectionContents = textAlgoComponent
-                        else if (displayText == "Image")
+                        else if (displayText === "Image")
                             paramSection.sectionContents = imageAlgoComponent
                         else
                             paramSection.sectionContents = scriptAlgoComponent
@@ -227,16 +238,12 @@ Rectangle
                 {
                     Layout.fillWidth: true
                     height: editorColumn.itemsHeight
-
-                    ListModel
-                    {
-                        id: blendModel
-                        ListElement { mLabel: qsTr("Default (HTP)"); }
-                        ListElement { mLabel: qsTr("Mask"); }
-                        ListElement { mLabel: qsTr("Additive"); }
-                        ListElement { mLabel: qsTr("Subtractive"); }
-                    }
-                    model: blendModel
+                    model: [
+                        { mLabel: qsTr("Default (HTP)") },
+                        { mLabel: qsTr("Mask") },
+                        { mLabel: qsTr("Additive") },
+                        { mLabel: qsTr("Subtractive") }
+                    ]
 
                     currentIndex: rgbMatrixEditor.blendMode
                     onCurrentIndexChanged: rgbMatrixEditor.blendMode = currentIndex
@@ -262,18 +269,14 @@ Rectangle
                 {
                     Layout.fillWidth: true
                     height: editorColumn.itemsHeight
-
-                    ListModel
-                    {
-                        id: controlModel
-                        ListElement { mLabel: qsTr("Default (RGB)"); }
-                        ListElement { mLabel: qsTr("White"); }
-                        ListElement { mLabel: qsTr("Amber"); }
-                        ListElement { mLabel: qsTr("UV"); }
-                        ListElement { mLabel: qsTr("Dimmer"); }
-                        ListElement { mLabel: qsTr("Shutter"); }
-                    }
-                    model: controlModel
+                    model: [
+                        { mLabel: qsTr("Default (RGB)") },
+                        { mLabel: qsTr("White") },
+                        { mLabel: qsTr("Amber") },
+                        { mLabel: qsTr("UV") },
+                        { mLabel: qsTr("Dimmer") },
+                        { mLabel: qsTr("Shutter") }
+                    ]
 
                     currentIndex: rgbMatrixEditor.controlMode
                     onCurrentIndexChanged: rgbMatrixEditor.controlMode = currentIndex
@@ -289,8 +292,9 @@ Rectangle
 
                 RobotoText
                 {
+                    id: colorLabel
                     label: qsTr("Colors")
-                    visible: rgbMatrixEditor.algoColors > 0 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 0 ? true : false
                     height: editorColumn.itemsHeight
                     onWidthChanged:
                     {
@@ -307,8 +311,7 @@ Rectangle
                     radius: 5
                     border.color: color1MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: rgbMatrixEditor.colorAtIndex(0)
-                    visible: rgbMatrixEditor.algoColors > 0 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 0 ? true : false
 
                     MouseArea
                     {
@@ -329,7 +332,7 @@ Rectangle
                     width: UISettings.listItemHeight
                     height: width
                     color: "transparent"
-                    visible: rgbMatrixEditor.algoColors > 2 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 2 ? true : false
                 }
 
                 Rectangle
@@ -340,8 +343,7 @@ Rectangle
                     radius: 5
                     border.color: color2MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: rgbMatrixEditor.colorAtIndex(1)
-                    visible: rgbMatrixEditor.algoColors > 1 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 1 ? true : false
 
                     MouseArea
                     {
@@ -361,9 +363,10 @@ Rectangle
                 {
                     width: UISettings.listItemHeight
                     height: width
-                    imgSource: "qrc:/cancel.svg"
+                    faSource: FontAwesome.fa_xmark
+                    faColor: "darkred"
                     tooltip: qsTr("Reset color 2")
-                    visible: rgbMatrixEditor.algoColors > 1 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 1 ? true : false
                     onClicked:
                     {
                         color2Button.color = "transparent"
@@ -378,21 +381,15 @@ Rectangle
                 width: editorColumn.colWidth
                 height: editorColumn.itemsHeight
                 spacing: 4
-                visible: rgbMatrixEditor.algoColors > 4 ? true : false
+                visible: rgbMatrixEditor.algoColorsCount > 4 ? true : false
 
                 Rectangle
                 {
                     id: colorRow1
                     height: editorColumn.itemsHeight
-                    width: editorColumn.firstColumnWidth
+                    width: colorLabel.width
                     color: "transparent"
-                    visible: rgbMatrixEditor.algoColors > 4 ? true : false
-
-                    onWidthChanged:
-                    {
-                        editorColumn.checkLabelWidth(width)
-                        width = Qt.binding(function() { return editorColumn.firstColumnWidth })
-                    }
+                    visible: rgbMatrixEditor.algoColorsCount > 4 ? true : false
                 }
 
                 Rectangle
@@ -403,8 +400,7 @@ Rectangle
                     radius: 5
                     border.color: color3MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: rgbMatrixEditor.hasColorAtIndex(2) ? rgbMatrixEditor.colorAtIndex(2) : "transparent"
-                    visible: rgbMatrixEditor.algoColors > 2 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 2 ? true : false
 
                     MouseArea
                     {
@@ -424,9 +420,10 @@ Rectangle
                 {
                     width: UISettings.listItemHeight
                     height: width
-                    imgSource: "qrc:/cancel.svg"
+                    faSource: FontAwesome.fa_xmark
+                    faColor: "darkred"
                     tooltip: qsTr("Reset color 3")
-                    visible: rgbMatrixEditor.algoColors > 2 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 2 ? true : false
                     onClicked:
                     {
                         color3Button.color = "transparent"
@@ -442,8 +439,7 @@ Rectangle
                     radius: 5
                     border.color: color4MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: rgbMatrixEditor.hasColorAtIndex(3) ? rgbMatrixEditor.colorAtIndex(3) : "transparent"
-                    visible: rgbMatrixEditor.algoColors > 3 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 3 ? true : false
 
                     MouseArea
                     {
@@ -463,9 +459,10 @@ Rectangle
                 {
                     width: UISettings.listItemHeight
                     height: width
-                    imgSource: "qrc:/cancel.svg"
+                    faSource: FontAwesome.fa_xmark
+                    faColor: "darkred"
                     tooltip: qsTr("Reset color 4")
-                    visible: rgbMatrixEditor.algoColors > 3 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 3 ? true : false
                     onClicked:
                     {
                         color4Button.color = "transparent"
@@ -480,20 +477,15 @@ Rectangle
                 width: editorColumn.colWidth
                 height: editorColumn.itemsHeight
                 spacing: 4
-                visible: rgbMatrixEditor.algoColors > 4 ? true : false
+                visible: rgbMatrixEditor.algoColorsCount > 4 ? true : false
 
                 Rectangle
                 {
                     id: colorRow2
                     height: editorColumn.itemsHeight
-                    width: editorColumn.firstColumnWidth
+                    width: colorLabel.width
                     color: "transparent"
-                    visible: rgbMatrixEditor.algoColors > 4 ? true : false
-                    onWidthChanged:
-                    {
-                        editorColumn.checkLabelWidth(width)
-                        width = Qt.binding(function() { return editorColumn.firstColumnWidth })
-                    }
+                    visible: rgbMatrixEditor.algoColorsCount > 4 ? true : false
                 }
 
                 Rectangle
@@ -504,8 +496,7 @@ Rectangle
                     radius: 5
                     border.color: color5MouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
-                    color: rgbMatrixEditor.hasColorAtIndex(4) ? rgbMatrixEditor.colorAtIndex(4) : "transparent"
-                    visible: rgbMatrixEditor.algoColors > 4 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 4 ? true : false
 
                     MouseArea
                     {
@@ -525,9 +516,10 @@ Rectangle
                 {
                     width: UISettings.listItemHeight
                     height: width
-                    imgSource: "qrc:/cancel.svg"
+                    faSource: FontAwesome.fa_xmark
+                    faColor: "darkred"
                     tooltip: qsTr("Reset color 5")
-                    visible: rgbMatrixEditor.algoColors > 4 ? true : false
+                    visible: rgbMatrixEditor.algoColorsCount > 4 ? true : false
                     onClicked:
                     {
                         color5Button.color = "transparent"
@@ -665,15 +657,12 @@ Rectangle
                         }
                         CustomComboBox
                         {
-                            ListModel
-                            {
-                                id: tempoModel
-                                ListElement { mLabel: qsTr("Time"); mValue: QLCFunction.Time }
-                                ListElement { mLabel: qsTr("Beats"); mValue: QLCFunction.Beats }
-                            }
                             Layout.fillWidth: true
                             height: UISettings.listItemHeight
-                            model: tempoModel
+                            model: [
+                                { mLabel: qsTr("Time"), mValue: QLCFunction.Time },
+                                { mLabel: qsTr("Beats"), mValue: QLCFunction.Beats }
+                            ]
 
                             currValue: rgbMatrixEditor.tempoType
                             onValueChanged: rgbMatrixEditor.tempoType = value
@@ -697,14 +686,11 @@ Rectangle
                         // Row 1
                         IconPopupButton
                         {
-                            ListModel
-                            {
-                                id: runOrderModel
-                                ListElement { mLabel: qsTr("Loop"); mIcon: "qrc:/loop.svg"; mValue: QLCFunction.Loop }
-                                ListElement { mLabel: qsTr("Single Shot"); mIcon: "qrc:/arrow-end.svg"; mValue: QLCFunction.SingleShot }
-                                ListElement { mLabel: qsTr("Ping Pong"); mIcon: "qrc:/pingpong.svg"; mValue: QLCFunction.PingPong }
-                            }
-                            model: runOrderModel
+                            model: [
+                                { mLabel: qsTr("Loop"), faIcon: FontAwesome.fa_retweet, mValue: QLCFunction.Loop },
+                                { mLabel: qsTr("Single Shot"), faIcon: FontAwesome.fa_right_long, mValue: QLCFunction.SingleShot },
+                                { mLabel: qsTr("Ping Pong"), faIcon: FontAwesome.fa_right_left, mValue: QLCFunction.PingPong }
+                            ]
 
                             currValue: rgbMatrixEditor.runOrder
                             onValueChanged: rgbMatrixEditor.runOrder = value
@@ -717,13 +703,10 @@ Rectangle
 
                         IconPopupButton
                         {
-                            ListModel
-                            {
-                                id: directionModel
-                                ListElement { mLabel: qsTr("Forward"); mIcon: "qrc:/forward.svg"; mValue: QLCFunction.Forward }
-                                ListElement { mLabel: qsTr("Backward"); mIcon: "qrc:/back.svg"; mValue: QLCFunction.Backward }
-                            }
-                            model: directionModel
+                            model: [
+                                { mLabel: qsTr("Forward"), faIcon: FontAwesome.fa_angles_right, mValue: QLCFunction.Forward },
+                                { mLabel: qsTr("Backward"), faIcon: FontAwesome.fa_angles_left, mValue: QLCFunction.Backward }
+                            ]
 
                             currValue: rgbMatrixEditor.direction
                             onValueChanged: rgbMatrixEditor.direction = value
@@ -798,7 +781,8 @@ Rectangle
                     width: UISettings.iconSizeMedium
                     height: width
                     anchors.right: parent.right
-                    imgSource: "qrc:/font.svg"
+                    faSource: FontAwesome.fa_font
+                    faColor: "lightcyan"
 
                     onClicked: fontDialog.visible = true
 
@@ -828,15 +812,12 @@ Rectangle
             {
                 Layout.fillWidth: true
                 height: editorColumn.itemsHeight
+                model: [
+                    { mLabel: qsTr("Letters") },
+                    { mLabel: qsTr("Horizontal") },
+                    { mLabel: qsTr("Vertical") }
+                ]
 
-                ListModel
-                {
-                    id: textAnimModel
-                    ListElement { mLabel: qsTr("Letters"); }
-                    ListElement { mLabel: qsTr("Horizontal"); }
-                    ListElement { mLabel: qsTr("Vertical"); }
-                }
-                model: textAnimModel
                 currentIndex: rgbMatrixEditor.animationStyle
                 onCurrentIndexChanged: rgbMatrixEditor.animationStyle = currentIndex
             }
@@ -925,7 +906,7 @@ Rectangle
                     width: parent.width - imgButton.width - 5
                     radius: 3
                     color: UISettings.bgMedium
-                    border.color: "#222"
+                    border.color: UISettings.bgStrong
                     clip: true
 
                     TextInput
@@ -947,7 +928,9 @@ Rectangle
                     width: UISettings.iconSizeMedium
                     height: width
                     anchors.right: parent.right
-                    imgSource: "qrc:/background.svg"
+                    faSource: FontAwesome.fa_image
+                    faColor: "lightyellow"
+                    tooltip: qsTr("Set a custom background")
 
                     onClicked: fileDialog.visible = true
 
@@ -973,16 +956,13 @@ Rectangle
             {
                 Layout.fillWidth: true
                 height: editorColumn.itemsHeight
+                model: [
+                    { mLabel: qsTr("Static") },
+                    { mLabel: qsTr("Horizontal") },
+                    { mLabel: qsTr("Vertical") },
+                    { mLabel: qsTr("Animation") }
+                ]
 
-                ListModel
-                {
-                    id: imageAnimModel
-                    ListElement { mLabel: qsTr("Static"); }
-                    ListElement { mLabel: qsTr("Horizontal"); }
-                    ListElement { mLabel: qsTr("Vertical"); }
-                    ListElement { mLabel: qsTr("Animation"); }
-                }
-                model: imageAnimModel
                 currentIndex: rgbMatrixEditor.animationStyle
                 onCurrentIndexChanged: rgbMatrixEditor.animationStyle = currentIndex
             }

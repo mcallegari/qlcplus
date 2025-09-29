@@ -371,7 +371,7 @@ void ContextManager::setPositionPickPoint(QVector3D point)
             QList<SceneValue> svList = fixture->positionToValues(QLCChannel::Pan, panDeg);
             for (SceneValue &posSv : svList)
             {
-                if (m_editingEnabled == false)
+                if (m_editingEnabled == false || m_functionManager->acceptsSceneValues() == false)
                     setDumpValue(posSv.fxi, posSv.channel, posSv.value);
                 else
                     m_functionManager->setChannelValue(posSv.fxi, posSv.channel, posSv.value);
@@ -405,7 +405,7 @@ void ContextManager::setPositionPickPoint(QVector3D point)
             QList<SceneValue> svList = fixture->positionToValues(QLCChannel::Tilt, tiltDeg);
             for (SceneValue &posSv : svList)
             {
-                if (m_editingEnabled == false)
+                if (m_editingEnabled == false || m_functionManager->acceptsSceneValues() == false)
                     setDumpValue(posSv.fxi, posSv.channel, posSv.value);
                 else
                     m_functionManager->setChannelValue(posSv.fxi, posSv.channel, posSv.value);
@@ -1397,7 +1397,7 @@ void ContextManager::slotFixtureFlagsChanged(quint32 itemID, quint32 flags)
 
 void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value)
 {
-    if (m_editingEnabled == false)
+    if (m_editingEnabled == false || m_functionManager->acceptsSceneValues() == false)
         setDumpValue(fxID, channel, uchar(value));
     else
         m_functionManager->setChannelValue(fxID, channel, uchar(value));
@@ -1442,7 +1442,7 @@ void ContextManager::setChannelValueByType(int type, int value, bool isRelative,
                 val = qBound(0, fixture->channelValueAt(sv.channel) + value, 255);
             }
 
-            if (m_editingEnabled == false)
+            if (m_editingEnabled == false || m_functionManager->acceptsSceneValues() == false)
                 setDumpValue(sv.fxi, sv.channel, val);
             else
                 m_functionManager->setChannelValue(sv.fxi, sv.channel, val);
@@ -1470,7 +1470,7 @@ void ContextManager::setPositionValue(int type, float degrees, bool isRelative)
         QList<SceneValue> svList = fixture->positionToValues(type, degrees, isRelative);
         for (SceneValue &posSv : svList)
         {
-            if (m_editingEnabled == false)
+            if (m_editingEnabled == false || m_functionManager->acceptsSceneValues() == false)
                 setDumpValue(posSv.fxi, posSv.channel, posSv.value);
             else
                 m_functionManager->setChannelValue(posSv.fxi, posSv.channel, posSv.value);
@@ -1504,7 +1504,7 @@ void ContextManager::setBeamDegrees(float degrees, bool isRelative)
         QList<SceneValue> svList = fixture->zoomToValues(degrees, isRelative);
         for (SceneValue &zSv : svList)
         {
-            if (m_editingEnabled == false)
+            if (m_editingEnabled == false || m_functionManager->acceptsSceneValues() == false)
                 setDumpValue(zSv.fxi, zSv.channel, zSv.value);
             else
                 m_functionManager->setChannelValue(zSv.fxi, zSv.channel, zSv.value);
@@ -1537,7 +1537,7 @@ void ContextManager::highlightFixtureSelection()
                 if (cap->preset() == QLCCapability::ShutterOpen ||
                     cap->preset() == QLCCapability::LampOn)
                 {
-                    if (m_editingEnabled == false)
+                    if (m_editingEnabled == false || m_functionManager->acceptsSceneValues() == false)
                         setDumpValue(fxID, i, cap->middle());
                     else
                         m_functionManager->setChannelValue(fxID, i, cap->middle());
@@ -1552,7 +1552,7 @@ void ContextManager::setChannelValues(QList<SceneValue> values)
 {
     for (SceneValue &sv : values)
     {
-        if (m_editingEnabled == false)
+        if (m_editingEnabled == false || m_functionManager->acceptsSceneValues() == false)
             setDumpValue(sv.fxi, sv.channel, sv.value);
         else
             m_functionManager->setChannelValue(sv.fxi, sv.channel, sv.value);

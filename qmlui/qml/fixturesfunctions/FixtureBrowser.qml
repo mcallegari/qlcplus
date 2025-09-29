@@ -82,7 +82,8 @@ Rectangle
         {
             width: height
             height: toolBar.height - 2
-            imgSource: "qrc:/add.svg"
+            faSource: FontAwesome.fa_plus
+            faColor: "limegreen"
             tooltip: qsTr("Create a new fixture definition")
             onClicked: qlcplus.createFixture()
         }

@@ -53,15 +53,16 @@ SidePanel
                 z: 2
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/add.svg"
-                //checkable: true
+                faSource: FontAwesome.fa_plus
+                faColor: "limegreen"
                 ButtonGroup.group: vcButtonsGroup
                 autoExclusive: false
                 tooltip: qsTr("Add a new widget to the console")
                 onClicked:
                 {
                     checked = !checked
-                    if (checked === true)
+                    virtualConsole.editMode = false
+                    if (checked)
                         loaderSource = "qrc:/WidgetsList.qml"
                     animatePanel(checked)
                 }
@@ -74,7 +75,7 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/edit.svg"
-                //checkable: true
+                border.color: checked ? "red" : "#1D1D1D"
                 checked: virtualConsole.editMode
                 ButtonGroup.group: vcButtonsGroup
                 autoExclusive: false
@@ -84,10 +85,8 @@ SidePanel
                 {
                     checked = !checked
                     virtualConsole.editMode = checked
-                    if (checked === true)
+                    if (checked)
                         loaderSource = "qrc:/VCWidgetProperties.qml"
-                    else
-                        border.color = "#1D1D1D"
                     animatePanel(checked)
                 }
 
@@ -107,13 +106,13 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/functions.svg"
                 tooltip: qsTr("Function Manager")
-                //checkable: true
                 ButtonGroup.group: vcButtonsGroup
                 autoExclusive: false
                 onClicked:
                 {
                     checked = !checked
-                    if (checked == true)
+                    virtualConsole.editMode = false
+                    if (checked)
                         loaderSource = "qrc:/FunctionManager.qml"
                     animatePanel(checked)
                 }
@@ -125,7 +124,8 @@ SidePanel
                 z: 2
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/remove.svg"
+                faSource: FontAwesome.fa_minus
+                faColor: "crimson"
                 tooltip: qsTr("Remove the selected widgets")
                 counter: virtualConsole.selectedWidgetsCount
                 onClicked:
@@ -149,7 +149,8 @@ SidePanel
                 z: 2
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/edit-copy.svg"
+                faSource: FontAwesome.fa_copy
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Copy the selected widgets to clipboard")
                 counter: virtualConsole.selectedWidgetsCount
                 onClicked: virtualConsole.copyToClipboard()
@@ -161,7 +162,8 @@ SidePanel
                 z: 2
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/edit-paste.svg"
+                faSource: FontAwesome.fa_paste
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Paste widgets from clipboard")
                 counter: virtualConsole.clipboardItemsCount
                 onClicked: virtualConsole.pasteFromClipboard()
@@ -194,7 +196,7 @@ SidePanel
                     propagateComposedEvents: true
                     drag.target: pasteDragItem
                     drag.threshold: 10
-                    onClicked: mouse.accepted = false
+                    onClicked: (mouse) => mouse.accepted = false
 
                     property bool dragActive: drag.active
 

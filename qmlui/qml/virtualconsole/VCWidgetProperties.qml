@@ -117,6 +117,8 @@ Rectangle
             {
                 if (modelProvider && item.hasOwnProperty('modelProvider'))
                     item.modelProvider = modelProvider
+                if (item.hasOwnProperty('allowEditing'))
+                    item.allowEditing = false
             }
 
             Rectangle
@@ -311,9 +313,8 @@ Rectangle
                                 width: UISettings.iconSizeMedium
                                 height: width
                                 anchors.right: parent.right
-                                imgSource: "qrc:/font.svg"
-                                //bgColor: "#aaa"
-                                //hoverColor: "#888"
+                                faSource: FontAwesome.fa_font
+                                faColor: "lightcyan"
 
                                 onClicked: fontDialog.visible = true
 
@@ -363,7 +364,9 @@ Rectangle
                                 width: UISettings.iconSizeMedium
                                 height: width
                                 anchors.right: parent.right
-                                imgSource: "qrc:/background.svg"
+                                faSource: FontAwesome.fa_image
+                                faColor: "lightyellow"
+                                tooltip: qsTr("Set a custom background")
 
                                 onClicked: fileDialog.visible = true
 

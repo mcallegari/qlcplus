@@ -215,7 +215,8 @@ Rectangle
                         id: fxModeInfo
                         width: propsGrid.itemsHeight
                         height: width
-                        imgSource: "qrc:/info.svg"
+                        faSource: FontAwesome.fa_circle_info
+                        faColor: "skyblue"
                         checkable: true
                     }
                 }

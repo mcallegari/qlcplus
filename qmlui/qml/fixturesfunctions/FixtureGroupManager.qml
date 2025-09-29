@@ -207,7 +207,8 @@ Rectangle
                     z: 2
                     width: height
                     height: topBar.height - 2
-                    imgSource: "qrc:/add.svg"
+                    faSource: FontAwesome.fa_plus
+                    faColor: "limegreen"
                     tooltip: qsTr("Add a new fixture group")
                     onClicked: contextManager.createFixtureGroup()
                 }
@@ -218,7 +219,8 @@ Rectangle
                     z: 2
                     width: height
                     height: topBar.height - 2
-                    imgSource: "qrc:/remove.svg"
+                    faSource: FontAwesome.fa_minus
+                    faColor: "crimson"
                     tooltip: qsTr("Remove the selected items")
                     onClicked:
                     {
@@ -258,7 +260,24 @@ Rectangle
                             fixtureManager.deleteFixtureGroups(fxGroupDeleteList)
                     }
                 }
+
+                IconButton
+                {
+                    visible: !allowEditing
+                    z: 2
+                    width: height
+                    height: topBar.height - 2
+                    faSource: FontAwesome.fa_check_double
+                    //faColor: UISettings.fgMain
+                    tooltip: qsTr("Apply changes to fixtures of the same type")
+                    checkable: true
+
+                    onToggled: modelProvider.applyToSameType(checked)
+                }
+
+                // Spacer
                 Rectangle { Layout.fillWidth: true }
+
                 IconButton
                 {
                     id: searchItem
@@ -355,7 +374,8 @@ Rectangle
                     z: 2
                     width: height
                     height: topBar.height - 2
-                    imgSource: "qrc:/info.svg"
+                    faSource: FontAwesome.fa_circle_info
+                    faColor: "skyblue"
                     tooltip: qsTr("Inspect the selected item")
                     enabled: false
                     checkable: true
