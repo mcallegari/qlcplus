@@ -61,10 +61,10 @@ sed -ie '/UDEVRULESDIR/s|/etc/udev/rules.d|/usr/lib/udev/rules.d|' variables.pri
 # qmake-qt5 will only include existing files in install_translations - create the .qm files first
 
 %if "%{ui}" == "qmlui"
-    ./translate.sh qmlui
+    ./translate.sh release qmlui
     qmake-qt5 CONFIG+=qmlui
 %else
-    ./translate.sh ui
+    ./translate.sh release ui
     qmake-qt5
 %endif
 make %{?_smp_mflags}

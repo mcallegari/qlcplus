@@ -11,7 +11,7 @@ set -e
 TARGET_DIR=~/qlcplus.AppDir
 
 # Compile translations
-./translate.sh "qmlui"
+./translate.sh release qmlui
 
 # Build
 if [ -n "$QTDIR" ]; then

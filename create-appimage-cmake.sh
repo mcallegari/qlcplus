@@ -19,10 +19,10 @@ then
 fi
 
 if [ "$1" == "qmlui" ]; then
-    ./translate.sh "qmlui"
+    ./translate.sh release qmlui
     CMAKE_OPTS="-Dqmlui=ON"
 else
-    ./translate.sh "ui"
+    ./translate.sh release ui
 fi
 
 # Build

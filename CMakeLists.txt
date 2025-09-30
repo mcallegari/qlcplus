@@ -147,12 +147,12 @@ add_custom_target(lcov
 # Translations
 if (qmlui)
   add_custom_target(translations ALL
-    COMMAND ./translate.sh "qmlui"
+    COMMAND ./translate.sh release qmlui
     COMMENT "Translating qmlui translations..."
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 else ()
   add_custom_target(translations ALL
-    COMMAND ./translate.sh "ui"
+    COMMAND ./translate.sh release ui
     COMMENT "Translating ui translations..."
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 endif()

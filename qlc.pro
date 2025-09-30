@@ -51,9 +51,9 @@ translations.target = translate
   QMAKE_EXTRA_TARGETS += translations
 }
 qmlui: {
-  translations.commands += ./translate.sh "qmlui"
+  translations.commands += ./translate.sh release qmlui
 } else {
-  translations.commands += ./translate.sh "ui"
+  translations.commands += ./translate.sh release ui
 }
 translations.files = *.qm
 appimage: {
