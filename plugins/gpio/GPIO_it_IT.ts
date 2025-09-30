@@ -11,7 +11,7 @@
     <message>
         <location filename="gpioconfiguration.ui" line="46"/>
         <source>Selected chip</source>
-        <translation type="unfinished"></translation>
+        <translation>Chip selezionato</translation>
     </message>
     <message>
         <location filename="gpioconfiguration.ui" line="57"/>
@@ -26,7 +26,7 @@
     <message>
         <location filename="gpioconfiguration.ui" line="67"/>
         <source>Channel number</source>
-        <translation type="unfinished"></translation>
+        <translation>Numero canale</translation>
     </message>
     <message>
         <location filename="gpioconfiguration.cpp" line="79"/>
@@ -47,7 +47,7 @@
 <context>
     <name>GPIOPlugin</name>
     <message>
-        <location filename="gpioplugin.cpp" line="97"/>
+        <location filename="gpioplugin.cpp" line="105"/>
         <source>This plugin provides input/output on GPIO PINs.</source>
         <translation>Questa plugin permette trasmissione/ricezione di dati su PIN GPIO.</translation>
     </message>

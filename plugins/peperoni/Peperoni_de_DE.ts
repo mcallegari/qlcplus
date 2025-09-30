@@ -14,13 +14,13 @@
         <translation>Die Bibliothek usbdmx.dll konnte nicht gefunden werden, oder ist zu alt um mit QLC verwendet zu werden.</translation>
     </message>
     <message>
-        <location filename="unix/peperoni.cpp" line="212"/>
+        <location filename="unix/peperoni.cpp" line="210"/>
         <location filename="win32/peperoni.cpp" line="221"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation>Nach neuer Hardware suchen?</translation>
     </message>
     <message>
-        <location filename="unix/peperoni.cpp" line="102"/>
+        <location filename="unix/peperoni.cpp" line="101"/>
         <source>This plugin provides DMX input and output support for Peperoni DMX devices.</source>
         <translation>Dieses Plugin bietet DMX Ein- und Ausgabe für Peperoni DMX-Geräte.</translation>
     </message>

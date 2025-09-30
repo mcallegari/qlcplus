@@ -178,18 +178,18 @@
 <context>
     <name>EnttecDMXUSBPro</name>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="115"/>
-        <location filename="enttecdmxusbpro.cpp" line="117"/>
+        <location filename="enttecdmxusbpro.cpp" line="314"/>
+        <location filename="enttecdmxusbpro.cpp" line="316"/>
         <source>Protocol</source>
         <translation>Protocol</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="120"/>
+        <location filename="enttecdmxusbpro.cpp" line="319"/>
         <source>Manufacturer</source>
         <translation>Fabricant</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="122"/>
+        <location filename="enttecdmxusbpro.cpp" line="321"/>
         <source>Serial number</source>
         <translation>Nombre de Sèrie</translation>
     </message>
@@ -230,22 +230,22 @@
         <translation>Nombre de Sèrie</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="325"/>
+        <location filename="enttecdmxusbpro.cpp" line="579"/>
         <source>MIDI Input</source>
         <translation>Entrada MIDI</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="327"/>
+        <location filename="enttecdmxusbpro.cpp" line="581"/>
         <source>DMX Input</source>
         <translation>Entrada DMX</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="332"/>
+        <location filename="enttecdmxusbpro.cpp" line="586"/>
         <source>MIDI Output</source>
         <translation>Sortida MIDI</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="334"/>
+        <location filename="enttecdmxusbpro.cpp" line="588"/>
         <source>DMX Output</source>
         <translation>Sortida DMX</translation>
     </message>

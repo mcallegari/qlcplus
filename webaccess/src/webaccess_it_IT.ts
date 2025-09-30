@@ -2,6 +2,21 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="it_IT">
 <context>
+    <name>QObject</name>
+    <message>
+        <source>Unauthorized</source>
+        <translation>Non autorizzato</translation>
+    </message>
+    <message>
+        <source>401 Unauthorized</source>
+        <translation>401 Non autorizzato</translation>
+    </message>
+    <message>
+        <source>Access to this resource requires proper authorization and you have failed to authenticate.</source>
+        <translation>L&apos;accesso a questa risorsa richiede l&apos;opportuna autorizzazione e l&apos;autenticazione è fallita.</translation>
+    </message>
+</context>
+<context>
     <name>WebAccess</name>
     <message>
         <source>Loading project...</source>
@@ -93,19 +108,23 @@
     </message>
     <message>
         <source>Color 2 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Reset colore 2</translation>
     </message>
     <message>
         <source>Color 3 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Reset colore 3</translation>
     </message>
     <message>
         <source>Color 4 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Reset colore 4</translation>
     </message>
     <message>
         <source>Color 5 Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Reset colore 5</translation>
+    </message>
+    <message>
+        <source>Page: %1</source>
+        <translation>Pagina %1</translation>
     </message>
 </context>
 <context>
@@ -202,16 +221,44 @@
         <source>Authorized users</source>
         <translation>Utenti autorizzati</translation>
     </message>
+    <message>
+        <source>Universe</source>
+        <translation>Universo</translation>
+    </message>
+    <message>
+        <source>Input</source>
+        <translation>Ingresso</translation>
+    </message>
+    <message>
+        <source>Output</source>
+        <translation>Uscita</translation>
+    </message>
+    <message>
+        <source>Feedback</source>
+        <translation>Feedback</translation>
+    </message>
+    <message>
+        <source>Profile</source>
+        <translation>Profilo</translation>
+    </message>
+    <message>
+        <source>Default device</source>
+        <translation>Dispositivo di default</translation>
+    </message>
+    <message>
+        <source>File name</source>
+        <translation>Nome del file</translation>
+    </message>
 </context>
 <context>
     <name>WebAccessNetwork</name>
     <message>
         <source>Access point name (SSID): </source>
-        <translation>Nome dell&apos;access point (SSID):</translation>
+        <translation>Nome dell&apos;access point (SSID): </translation>
     </message>
     <message>
         <source>WPA-PSK Password: </source>
-        <translation>Password WPA-PSK:</translation>
+        <translation>Password WPA-PSK: </translation>
     </message>
     <message>
         <source>Dynamic (DHCP)</source>
@@ -223,15 +270,15 @@
     </message>
     <message>
         <source>IP Address: </source>
-        <translation>Indirizzo IP:</translation>
+        <translation>Indirizzo IP: </translation>
     </message>
     <message>
         <source>Netmask: </source>
-        <translation>Maschera:</translation>
+        <translation>Maschera: </translation>
     </message>
     <message>
         <source>Gateway: </source>
-        <translation>Gateway:</translation>
+        <translation>Gateway: </translation>
     </message>
     <message>
         <source>Apply changes</source>
@@ -267,19 +314,19 @@
     </message>
     <message>
         <source>Wi-Fi Hotspot</source>
-        <translation type="unfinished"></translation>
+        <translation>Hotspot Wi-Fi</translation>
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished">Abilita</translation>
+        <translation>Abilita</translation>
     </message>
     <message>
         <source>Disable</source>
-        <translation type="unfinished"></translation>
+        <translation>Disabilita</translation>
     </message>
     <message>
         <source>Network interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Interfaccia di rete</translation>
     </message>
 </context>
 <context>

@@ -14,13 +14,13 @@
         <translation>Het bestand USBDMX.DLL kon niet worden gevonden of is te oud om met QLC+ te gebruiken.</translation>
     </message>
     <message>
-        <location filename="unix/peperoni.cpp" line="212"/>
+        <location filename="unix/peperoni.cpp" line="210"/>
         <location filename="win32/peperoni.cpp" line="221"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation>Hardware opnieuw scannen?</translation>
     </message>
     <message>
-        <location filename="unix/peperoni.cpp" line="102"/>
+        <location filename="unix/peperoni.cpp" line="101"/>
         <source>This plugin provides DMX input and output support for Peperoni DMX devices.</source>
         <translation>Deze plugin verzorgt DMX input en output voor Peperoni DMX apparaten.</translation>
     </message>

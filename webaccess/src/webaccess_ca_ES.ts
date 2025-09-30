@@ -2,135 +2,159 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="ca_ES">
 <context>
+    <name>QObject</name>
+    <message>
+        <location filename="webaccessauth.cpp" line="195"/>
+        <source>Unauthorized</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessauth.cpp" line="198"/>
+        <source>401 Unauthorized</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessauth.cpp" line="199"/>
+        <source>Access to this resource requires proper authorization and you have failed to authenticate.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>WebAccess</name>
     <message>
-        <location filename="webaccess.cpp" line="172"/>
+        <location filename="webaccess.cpp" line="174"/>
         <source>Loading project...</source>
         <translation>Carregant projecte...</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="208"/>
+        <location filename="webaccess.cpp" line="210"/>
         <source>Fixture stored and loaded</source>
         <translation>Fixture desat i carregat</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="408"/>
+        <location filename="webaccess.cpp" line="438"/>
         <source>Username and password are required fields.</source>
         <translation>El nom d&apos;usuari i la contrasenya són camps obligatoris.</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="414"/>
-        <location filename="webaccess.cpp" line="439"/>
+        <location filename="webaccess.cpp" line="444"/>
+        <location filename="webaccess.cpp" line="469"/>
         <source>User level has to be a positive integer.</source>
         <translation>El nivell d&apos;usuari ha de ser un enter positiu.</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="433"/>
+        <location filename="webaccess.cpp" line="463"/>
         <source>Username is required.</source>
         <translation>El nom d&apos;usuari es obligatori.</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="451"/>
+        <location filename="webaccess.cpp" line="481"/>
         <source>Error while saving passwords file.</source>
         <translation>S&apos;ha produït un error en desar el fitxer de contrasenyes.</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="466"/>
+        <location filename="webaccess.cpp" line="496"/>
         <source>Network configuration changed. Reboot to apply the changes.</source>
         <translation>La configuració de xarxa ha canviar. Reiniciar per aplicar els canvis.</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="468"/>
+        <location filename="webaccess.cpp" line="498"/>
         <source>An error occurred while updating the network configuration.</source>
         <translation>S&apos;ha produït un error en actualitzar la configuració de la xarxa.</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="484"/>
+        <location filename="webaccess.cpp" line="514"/>
         <source>Wi-Fi hotspot successfully activated.</source>
         <translation>El punt d&apos;accés Wi-Fi s&apos;ha activat correctament.</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="486"/>
+        <location filename="webaccess.cpp" line="516"/>
         <source>An error occurred while creating a Wi-Fi hotspot.</source>
         <translation>S&apos;ha produït un error en crear un punt d&apos;accés Wi-Fi.</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="491"/>
+        <location filename="webaccess.cpp" line="521"/>
         <source>Wi-Fi hotspot successfully deactivated.</source>
         <translation>El punt d&apos;accés Wi-Fi s&apos;ha desactivat correctament.</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="507"/>
+        <location filename="webaccess.cpp" line="537"/>
         <source>Autostart configuration changed</source>
         <translation>La configuració d&apos;inici automàtic ha canviat</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1014"/>
+        <location filename="webaccess.cpp" line="1044"/>
         <source>Widget not supported (yet) for web access</source>
         <translation>Widget no suportat (encara) per accés web</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1440"/>
+        <location filename="webaccess.cpp" line="1117"/>
+        <location filename="webaccess.cpp" line="1226"/>
+        <source>Page: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="1508"/>
         <source>Enable</source>
         <translation>Activar</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1643"/>
+        <location filename="webaccess.cpp" line="1711"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1644"/>
+        <location filename="webaccess.cpp" line="1712"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1645"/>
+        <location filename="webaccess.cpp" line="1713"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1646"/>
+        <location filename="webaccess.cpp" line="1714"/>
         <source>Duration</source>
         <translation>Duració</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1647"/>
+        <location filename="webaccess.cpp" line="1715"/>
         <source>Notes</source>
         <translation>Notes</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="2076"/>
+        <location filename="webaccess.cpp" line="2144"/>
         <source>Color 2 Reset</source>
         <translation>Restableix Color 2</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="2085"/>
+        <location filename="webaccess.cpp" line="2153"/>
         <source>Color 3 Reset</source>
         <translation>Restableix Color 3</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="2094"/>
+        <location filename="webaccess.cpp" line="2162"/>
         <source>Color 4 Reset</source>
         <translation>Restableix Color 4</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="2103"/>
+        <location filename="webaccess.cpp" line="2171"/>
         <source>Color 5 Reset</source>
         <translation>Restableix Color 5</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="2345"/>
+        <location filename="webaccess.cpp" line="2414"/>
         <source>Load project</source>
         <translation>Carregar projecte</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="2347"/>
+        <location filename="webaccess.cpp" line="2416"/>
         <source>Simple Desk</source>
         <translation>Taula Simple</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="2349"/>
+        <location filename="webaccess.cpp" line="2418"/>
         <source>Configuration</source>
         <translation>Configuració</translation>
     </message>
@@ -138,9 +162,47 @@
 <context>
     <name>WebAccessConfiguration</name>
     <message>
+        <location filename="webaccessconfiguration.cpp" line="71"/>
+        <source>Universe</source>
+        <translation type="unfinished">Univers</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="71"/>
+        <location filename="webaccessconfiguration.cpp" line="151"/>
+        <source>Input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="71"/>
+        <location filename="webaccessconfiguration.cpp" line="151"/>
+        <source>Output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="71"/>
+        <source>Feedback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="71"/>
+        <source>Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="webaccessconfiguration.cpp" line="136"/>
         <source>Passthrough</source>
         <translation>Passthrough</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="155"/>
+        <location filename="webaccessconfiguration.cpp" line="157"/>
+        <source>Default device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="196"/>
+        <source>File name</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="210"/>

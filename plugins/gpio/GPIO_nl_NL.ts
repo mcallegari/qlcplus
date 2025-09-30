@@ -47,7 +47,7 @@
 <context>
     <name>GPIOPlugin</name>
     <message>
-        <location filename="gpioplugin.cpp" line="97"/>
+        <location filename="gpioplugin.cpp" line="105"/>
         <source>This plugin provides input/output on GPIO PINs.</source>
         <translation>Deze plugin verzorgt input/output op GPIO PINs.</translation>
     </message>

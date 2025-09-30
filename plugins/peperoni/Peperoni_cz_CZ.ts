@@ -14,13 +14,13 @@
         <translation>Sdílená knihovna usbdmx.dll nebyla nalezena nebo je příliž zastaralá pro použití s QLC.</translation>
     </message>
     <message>
-        <location filename="unix/peperoni.cpp" line="212"/>
+        <location filename="unix/peperoni.cpp" line="210"/>
         <location filename="win32/peperoni.cpp" line="221"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation>Přejete si prohledat Váš hardware?</translation>
     </message>
     <message>
-        <location filename="unix/peperoni.cpp" line="102"/>
+        <location filename="unix/peperoni.cpp" line="101"/>
         <source>This plugin provides DMX input and output support for Peperoni DMX devices.</source>
         <translation>Tento plugin přidává podporu DMX vstupu avýstupu pro Peperoni DMX zařízení.</translation>
     </message>

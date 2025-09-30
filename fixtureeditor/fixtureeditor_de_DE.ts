@@ -4,29 +4,24 @@
 <context>
     <name>AboutBox</name>
     <message>
-        <location filename="../ui/src/aboutbox.ui" line="33"/>
         <source>About Q Light Controller Plus</source>
-        <translation>Über Q Light Controller Plus</translation>
+        <translation type="vanished">Über Q Light Controller Plus</translation>
     </message>
     <message>
-        <location filename="../ui/src/aboutbox.ui" line="275"/>
         <source>Contributors</source>
-        <translation>Mitwirkende</translation>
+        <translation type="vanished">Mitwirkende</translation>
     </message>
     <message>
-        <location filename="../ui/src/aboutbox.ui" line="309"/>
         <source>This application is licensed under the terms of the Apache 2.0 license.</source>
-        <translation>Dieses Programm ist unter den Bedingungen der Apache-Lizenz Version 2.0 lizensiert.</translation>
+        <translation type="vanished">Dieses Programm ist unter den Bedingungen der Apache-Lizenz Version 2.0 lizensiert.</translation>
     </message>
     <message>
-        <location filename="../ui/src/aboutbox.cpp" line="43"/>
         <source>and contributors:</source>
-        <translation>und Mitwirkende:</translation>
+        <translation type="vanished">und Mitwirkende:</translation>
     </message>
     <message>
-        <location filename="../ui/src/aboutbox.cpp" line="44"/>
         <source>Website: %1</source>
-        <translation>Webseite: %1</translation>
+        <translation type="vanished">Webseite: %1</translation>
     </message>
 </context>
 <context>
