@@ -5,13 +5,6 @@ set -euo pipefail
 #   ./translate.sh update
 #   ./translate.sh release [qmlui|ui]
 #   ./translate.sh create <ll_CC> [qmlui|ui]
-#
-# Notes:
-# - [qmlui|ui] applies ONLY to release and create.
-# - update: finds every dir with *.ts and runs:
-#           lupdate <that/dir> -ts <that/dir>/*.ts
-# - create: for each existing TS basename (e.g., qlcplus from qlcplus_it_IT.ts),
-#           runs: lupdate <dir> -ts <dir>/<basename>_<ll_CC>.ts
 
 which_qt() {
   local base="$1"
@@ -36,13 +29,16 @@ Usage:
 EOF
 }
 
-# Helper: detect cmake build dirs (by name or contents)
 is_cmake_build_dir() {
-  local d="$1"
-  [[ "$d" =~ (^|/)(build[^/]*)($|/) ]] || [[ -e "$d/CMakeCache.txt" ]] || [[ -d "$d/CMakeFiles" ]]
+  # $1 = dir
+  case "$1" in
+    *"/build" | *"/build/"* | *"/build-"* ) return 0 ;;
+  esac
+  [[ -e "$1/CMakeCache.txt" || -d "$1/CMakeFiles" ]]
 }
 
 find_ts_for_lang() {
+  # args: lang, flavor
   local lang="$1"; local flavor="$2"
   if [[ "$flavor" == "qmlui" ]]; then
     find . -type f -path "./qmlui/*" -name "*_${lang}.ts"
@@ -54,25 +50,27 @@ find_ts_for_lang() {
 case "$ACTION" in
   update)
     echo "Scanning for translation folders and updating .ts files..."
-    mapfile -t DIRS < <(
-      find . -type f -name "*.ts" -print0 \
-      | xargs -0 -n1 dirname \
-      | sort -u
-    )
-    if (( ${#DIRS[@]} == 0 )); then
-      echo "No .ts files found."; exit 0
-    fi
-    shopt -s nullglob
-    for d in "${DIRS[@]}"; do
-      if is_cmake_build_dir "$d"; then
-        echo "Skipping CMake build dir: $d"
-        continue
-      fi
-      ts_in_dir=("$d"/*.ts)
-      (( ${#ts_in_dir[@]} == 0 )) && continue
-      echo "Updating: $d"
-      "$LUPDATE" "$d" -ts "${ts_in_dir[@]}"
-    done
+    # Build a unique list of dirs that contain *.ts
+    find . -type f -name "*.ts" -print0 \
+    | while IFS= read -r -d '' f; do
+        dirname "$f"
+      done \
+    | sort -u \
+    | while IFS= read -r d; do
+        # skip CMake build dirs
+        if is_cmake_build_dir "$d"; then
+          echo "Skipping CMake build dir: $d"
+          continue
+        fi
+        # expand .ts in this dir (handle empty via test)
+        ts_found=0
+        for tsf in "$d"/*.ts; do
+          if [[ -e "$tsf" ]]; then ts_found=1; break; fi
+        done
+        [[ $ts_found -eq 0 ]] && continue
+        echo "Updating: $d"
+        "$LUPDATE" "$d" -ts "$d"/*.ts
+      done
     echo "Update complete."
     ;;
 
@@ -81,16 +79,25 @@ case "$ACTION" in
     [[ "$FLAVOR" == "ui" || "$FLAVOR" == "qmlui" ]] || die "Flavor must be 'ui' or 'qmlui'"
     LANGS="$UI_LANGS"; [[ "$FLAVOR" == "qmlui" ]] && LANGS="$QMLUI_LANGS"
 
-    for lang in $LANGS; do
+    echo "$LANGS" | tr ' ' '\n' | while IFS= read -r lang; do
       echo "Releasing $lang ($FLAVOR)"
-      mapfile -t FILES < <(find_ts_for_lang "$lang" "$FLAVOR")
-      if (( ${#FILES[@]} == 0 )); then
+      # Gather files
+      files_tmp="$(mktemp)"
+      if [[ "$FLAVOR" == "qmlui" ]]; then
+        find . -type f -path "./qmlui/*" -name "*_${lang}.ts" > "$files_tmp"
+      else
+        find . -type f -not -path "./qmlui/*" -name "*_${lang}.ts" > "$files_tmp"
+      fi
+      if ! [ -s "$files_tmp" ]; then
         echo "  No TS files for $lang, skipping."
+        rm -f "$files_tmp"
         continue
       fi
       out="qlcplus_${lang}.qm"
-      "$LRELEASE" -silent "${FILES[@]}" -qm "$out"
+      # shellcheck disable=SC2046
+      "$LRELEASE" -silent $(cat "$files_tmp") -qm "$out"
       echo "  -> $out"
+      rm -f "$files_tmp"
     done
     ;;
 
@@ -101,49 +108,49 @@ case "$ACTION" in
     [[ "$NEW_LANG" =~ ^[a-z]{2}_[A-Z]{2}$ ]] || die "Language code must be ll_CC (e.g., it_IT, pt_BR)"
 
     echo "Creating TS files for $NEW_LANG ($FLAVOR) ..."
-    # Collect all reference TS files for the selected flavor
+
+    # Collect reference TS files for the flavor
+    refs_tmp="$(mktemp)"
     if [[ "$FLAVOR" == "qmlui" ]]; then
-      mapfile -t REF_TS < <(find . -type f -path "./qmlui/*" -name "*_[a-z][a-z]_[A-Z][A-Z].ts")
+      find . -type f -path "./qmlui/*" -name "*_[a-z][a-z]_[A-Z][A-Z].ts" > "$refs_tmp"
     else
-      mapfile -t REF_TS < <(find . -type f -not -path "./qmlui/*" -name "*_[a-z][a-z]_[A-Z][A-Z].ts")
+      find . -type f -not -path "./qmlui/*" -name "*_[a-z][a-z]_[A-Z][A-Z].ts" > "$refs_tmp"
     fi
 
-    if (( ${#REF_TS[@]} == 0 )); then
+    if ! [ -s "$refs_tmp" ]; then
       echo "No reference .ts files found for flavor '$FLAVOR'."
-      echo "Creating a default file in current directory: ./qlcplus_${NEW_LANG}.ts"
+      echo "Creating default: ./qlcplus_${NEW_LANG}.ts"
       "$LUPDATE" . -ts "./qlcplus_${NEW_LANG}.ts"
       echo "Create complete."
+      rm -f "$refs_tmp"
       exit 0
     fi
 
-    # For each distinct (dir, basename), run lupdate <dir> -ts <dir>/<basename>_<NEW_LANG>.ts
-    declare -A DONE=()
-    created_any=0
-
-    for f in "${REF_TS[@]}"; do
+    # Build unique (dir|basename) pairs, stripping the _ll_CC suffix
+    pairs_tmp="$(mktemp)"
+    while IFS= read -r f; do
       d="$(dirname "$f")"
+      fname="$(basename "$f")"
+      base="$(printf '%s\n' "$fname" | sed -E 's/_([a-z]{2}_[A-Z]{2})\.ts$//')"
+      printf '%s|%s\n' "$d" "$base"
+    done < "$refs_tmp" | sort -u > "$pairs_tmp"
+
+    created_any=0
+    while IFS='|' read -r d base; do
+      # skip CMake build dirs
       if is_cmake_build_dir "$d"; then
         echo "Skipping CMake build dir: $d"
         continue
       fi
-      fname="$(basename "$f")"
-      # Strip the trailing _ll_CC.ts to get the basename, robust to underscores in the name
-      base="$(printf '%s\n' "$fname" | sed -E 's/_([a-z]{2}_[A-Z]{2})\.ts$//')"
-      key="$d|$base"
-      [[ -n "${DONE[$key]:-}" ]] && continue
-      DONE["$key"]=1
-
       new_ts="$d/${base}_${NEW_LANG}.ts"
       echo "Generating: $new_ts"
       "$LUPDATE" "$d" -ts "$new_ts"
       created_any=1
-    done
+    done < "$pairs_tmp"
 
-    if (( created_any == 0 )); then
-      echo "Nothing to create (no basenames discovered)."
-    else
-      echo "Create complete."
-    fi
+    [[ $created_any -eq 0 ]] && echo "Nothing to create (no basenames discovered)."
+    echo "Create complete."
+    rm -f "$refs_tmp" "$pairs_tmp"
     ;;
 
   ""|-h|--help)
