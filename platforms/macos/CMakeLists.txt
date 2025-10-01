@@ -136,13 +136,13 @@ install(FILES ${LIBUSB1_LIBDIR}/libusb-1.0.0.dylib DESTINATION ${INSTALLROOT}/${
 install(FILES ${SNDFILE_LIBDIR}/libsndfile.1.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
 install(FILES ${SNDFILE_LIBDIR}/libsndfile.1.0.37.dylib DESTINATION ${INSTALLROOT}/${LIBSDIR})
 
-if(qmlui)
-    set(qmldeps_files
-        ${QT_QML_DIR}/Qt
-        ${QT_QML_DIR}/QtQml
-        ${QT_QML_DIR}/QtQuick
-        ${QT_QML_DIR}/Qt3D
-        ${QT_QML_DIR}/QtMultimedia
-    )
-    install(DIRECTORY ${qmldeps_files} DESTINATION ${INSTALLROOT}/${BINDIR})
-endif()
+#if(qmlui)
+#    set(qmldeps_files
+#        ${QT_QML_DIR}/Qt
+#        ${QT_QML_DIR}/QtQml
+#        ${QT_QML_DIR}/QtQuick
+#        ${QT_QML_DIR}/Qt3D
+#        ${QT_QML_DIR}/QtMultimedia
+#    )
+#    install(DIRECTORY ${qmldeps_files} DESTINATION ${INSTALLROOT}/${DATADIR}/qml)
+#endif()

@@ -1,8 +1,9 @@
 #!/bin/bash
 #VERSION=$(head -1 debian/changelog | sed 's/.*(\(.*\)).*/\1/')
-VERSION=$(grep -m 1 APPVERSION variables.pri | cut -d '=' -f 2 | sed -e 's/^[[:space:]]*//' | tr ' ' _ | tr -d '\r\n')
+#VERSION=$(grep -m 1 APPVERSION variables.pri | cut -d '=' -f 2 | sed -e 's/^[[:space:]]*//' | tr ' ' _ | tr -d '\r\n')
 APP_DIR=~/QLC+.app
 BIN_DIR=$APP_DIR/Contents/MacOS
+QML_DIR=$APP_DIR/Contents/Resources/qml
 
 if [ "$1" == "qmlui" ]; then
     OPTS="-Dqmlui=on"
@@ -50,18 +51,10 @@ if [ ! $? -eq 0 ]; then
     exit $?
 fi
 
-# Remove uneeded QML stuff
-if [ "$1" == "qmlui" ]; then
-    rm -rf $BIN_DIR/QtQuick/Controls/FluentWinUI3
-    #rm -rf $BIN_DIR/QtQuick/Controls/Fusion
-    rm -rf $BIN_DIR/QtQuick/Controls/Imagine
-    rm -rf $BIN_DIR/QtQuick/Controls/iOS
-    rm -rf $BIN_DIR/QtQuick/Controls/Material
-    rm -rf $BIN_DIR/QtQuick/Controls/Universal
-    rm -rf $BIN_DIR/QtQuick/Particles
-fi
-
 cd ..
+
+# Extract VERSION from engine/src/qlcconfig.h
+VERSION=$(grep -E '^#define APPVERSION' engine/src/qlcconfig.h | sed -E 's/^#define APPVERSION[[:space:]]+"([^"]+)".*/\1/')
 
 echo "Fix non-Qt dependencies..."
 platforms/macos/fix_dylib_deps.sh $APP_DIR/Contents/Frameworks/libsndfile.1.dylib
@@ -73,7 +66,19 @@ else
 fi
 
 echo "Run macdeployqt..."
-$QTDIR/bin/macdeployqt $APP_DIR
+if [ "$1" == "qmlui" ]; then
+    $QTDIR/bin/macdeployqt $APP_DIR -qmldir=qmlui/qml
+
+    # Remove uneeded QML stuff
+    rm -rf $QML_DIR/QtQuick/Controls/FluentWinUI3
+    rm -rf $QML_DIR/QtQuick/Controls/Imagine
+    rm -rf $QML_DIR/QtQuick/Controls/iOS
+    rm -rf $QML_DIR/QtQuick/Controls/Material
+    rm -rf $QML_DIR/QtQuick/Controls/Universal
+    rm -rf $QML_DIR/QtQuick/Particles
+else
+    $QTDIR/bin/macdeployqt $APP_DIR
+fi
 
 if [ -n "$SIGNATURE" ]; then
     # sign package with codesign (macdeployqt fails in that too)
@@ -88,8 +93,8 @@ if [ -n "$SIGNATURE" ]; then
         codesign --force --sign "$SIGNATURE" --timestamp "$file"
     done
 
-    find $BIN_DIR -type f | while read file; do
-        codesign --force --sign "$SIGNATURE" --timestamp --entitlements $ENTITLEMENTS --options runtime "$file"
+    find $QML_DIR -type f -name "*.dylib" | while read file; do
+        codesign --force --sign "$SIGNATURE" --timestamp "$file"
     done
 
     codesign --sign "$SIGNATURE" --timestamp --deep --entitlements $ENTITLEMENTS --options runtime $APP_DIR
@@ -101,7 +106,6 @@ if [ -n "$SIGNATURE" ]; then
     else
         codesign --force --sign "$SIGNATURE" --timestamp --entitlements $ENTITLEMENTS --options runtime $BIN_DIR/qlcplus-qml
     fi
-
 fi
 
 # Create Apple Disk iMaGe from ~/QLC+.app/
