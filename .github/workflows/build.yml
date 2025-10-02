@@ -447,7 +447,7 @@ jobs:
       CI_REPO_SLUG: ${{ github.repository }}
       CI_BRANCH: ${{ github.head_ref }}
       CI_PULL_REQUEST: ${{ github.event.number }}
-      QT_VERSION: "6.8.1"
+      QT_VERSION: "6.9.2"
 
     steps:
       - name: Checkout
@@ -498,7 +498,7 @@ jobs:
       - name: Configure build
         shell: bash
         run: |-
-          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13
+          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.15
 
       - name: Build
         shell: bash
