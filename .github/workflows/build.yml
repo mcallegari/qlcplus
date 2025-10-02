@@ -447,7 +447,7 @@ jobs:
       CI_REPO_SLUG: ${{ github.repository }}
       CI_BRANCH: ${{ github.head_ref }}
       CI_PULL_REQUEST: ${{ github.event.number }}
-      QT_VERSION: "6.9.2"
+      QT_VERSION: "6.8.1"
 
     steps:
       - name: Checkout
