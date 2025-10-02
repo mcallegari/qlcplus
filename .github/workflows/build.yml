@@ -487,7 +487,9 @@ jobs:
         with:
           version: ${{ env.QT_VERSION }}
           dir: "${{ github.workspace }}/qt/"
-          modules: 'qtscript'
+          target: 'desktop'
+          arch: 'clang_64'
+          modules: 'qt3d qtimageformats qtmultimedia qtserialport qtwebsockets'
 
       - name: Setup ccache
         uses: hendrikmuhs/ccache-action@v1.2
