@@ -475,8 +475,6 @@ jobs:
           echo "TASK: ${TASK}"
           echo "QTDIR: ${QTDIR}"
           echo "NPROC: ${NPROC}"
-          ls -l ${QTDIR}
-          ls -l ${QTDIR}/lib
 
       - name: Dependencies
         run: | 
@@ -500,6 +498,8 @@ jobs:
       - name: Configure build
         shell: bash
         run: |-
+          ls -l ${{ env.QTDIR }}
+          ls -l ${{ env.QTDIR }}/lib
           cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.15
 
       - name: Build
