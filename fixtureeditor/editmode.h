@@ -117,7 +117,7 @@ private:
      * Accept
      *********************************************************************/
 protected slots:
-    void accept();
+    void accept() override;
 };
 
 /** @} */

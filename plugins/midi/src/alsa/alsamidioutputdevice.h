@@ -36,14 +36,14 @@ public:
                          snd_seq_addr_t* send_address, QObject* parent);
     virtual ~AlsaMidiOutputDevice();
 
-    bool open();
-    void close();
-    bool isOpen() const;
+    bool open() override;
+    void close() override;
+    bool isOpen() const override;
 
-    void writeChannel(ushort channel, uchar value);
-    void writeUniverse(const QByteArray& universe);
-    void writeFeedback(uchar cmd, uchar data1, uchar data2);
-    void writeSysEx(QByteArray message);
+    void writeChannel(ushort channel, uchar value) override;
+    void writeUniverse(const QByteArray& universe) override;
+    void writeFeedback(uchar cmd, uchar data1, uchar data2) override;
+    void writeSysEx(QByteArray message) override;
 
 private:
     snd_seq_t* m_alsa;

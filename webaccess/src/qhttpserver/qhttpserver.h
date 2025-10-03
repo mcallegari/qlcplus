@@ -45,7 +45,7 @@ public:
     CustomTcpServer(QObject *parent);
 
 protected:
-    void incomingConnection(qintptr handle);
+    void incomingConnection(qintptr handle) override;
 
 Q_SIGNALS:
     void newRequest(QHttpRequest *request, QHttpResponse *response);

@@ -57,14 +57,14 @@ public:
     ~ProgramWing();
 
     /** @reimp */
-    QString name() const;
+    QString name() const override;
 
     /********************************************************************
      * Input data
      ********************************************************************/
 public:
     /** @reimp */
-    void parseData(const QByteArray& data);
+    void parseData(const QByteArray& data) override;
 
 protected:
     QMap <int,int> m_channelMap;

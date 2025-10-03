@@ -51,32 +51,32 @@ public:
      * Clipboard
      *********************************************************************/
 public:
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget* createCopy(VCWidget* parent) override;
 
     /*********************************************************************
      * Properties
      *********************************************************************/
 public:
-    void editProperties();
+    void editProperties() override;
 
     /*****************************************************************************
      * External input
      *****************************************************************************/
     /** @reimp */
-    void updateFeedback() { }
+    void updateFeedback() override { }
 
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc);
+    bool loadXML(QXmlStreamReader &root) override;
+    bool saveXML(QXmlStreamWriter *doc) override;
 
     /*********************************************************************
      * Painting
      *********************************************************************/
 protected:
-    void paintEvent(QPaintEvent* e);
+    void paintEvent(QPaintEvent* e) override;
 };
 
 /** @} */

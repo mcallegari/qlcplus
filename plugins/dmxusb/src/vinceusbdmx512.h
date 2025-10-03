@@ -49,31 +49,31 @@ public:
     virtual ~VinceUSBDMX512();
 
     /** @reimp */
-    Type type() const;
+    Type type() const override;
 
     /****************************************************************************
      * Open & Close
      ****************************************************************************/
 public:
     /** @reimp */
-    bool open(quint32 line = 0, bool input = false);
+    bool open(quint32 line = 0, bool input = false) override;
 
     /** @reimp */
-    bool close(quint32 line = 0, bool input = false);
+    bool close(quint32 line = 0, bool input = false) override;
 
     /********************************************************************
      * Outputs
      ********************************************************************/
 public:
     /** @reimp */
-    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
+    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged) override;
 
 private:
     /** Stop the output thread */
     void stopOutputThread();
 
     /** Output thread worker method */
-    void run();
+    void run() override;
 
 private:
     bool m_running;
@@ -83,7 +83,7 @@ private:
      ****************************************************************************/
 public:
     /** @reimp */
-    QString additionalInfo() const;
+    QString additionalInfo() const override;
 };
 
 #endif

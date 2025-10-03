@@ -60,7 +60,7 @@ public:
     ~FunctionSelection();
 
 public slots:
-    int exec();
+    int exec() override;
 
 private:
     Doc* m_doc;

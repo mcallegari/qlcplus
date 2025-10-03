@@ -63,7 +63,7 @@ protected slots:
     void slotDumpNonZeroChanged(bool active);
 
     /** Callback for OK button clicks */
-    void accept();
+    void accept() override;
 
 };
 

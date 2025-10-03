@@ -144,7 +144,7 @@ public:
      ************************************************************************/
 public:
     /** @reimpl */
-    void writeDMX(MasterTimer* timer, QList<Universe*> ua);
+    void writeDMX(MasterTimer* timer, QList<Universe*> ua) override;
 
 private:
     FadeChannel *getFader(QList<Universe *> universes, quint32 universeID,

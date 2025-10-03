@@ -154,25 +154,25 @@ private:
      *************************************************************************/
 protected:
     /** @reimp */
-    void paintEvent(QPaintEvent* e);
+    void paintEvent(QPaintEvent* e) override;
 
     /** @reimp */
-    void resizeEvent(QResizeEvent *e);
+    void resizeEvent(QResizeEvent *e) override;
 
     /** @reimp */
-    void mousePressEvent(QMouseEvent* e);
+    void mousePressEvent(QMouseEvent* e) override;
 
     /** @reimp */
-    void mouseReleaseEvent(QMouseEvent* e);
+    void mouseReleaseEvent(QMouseEvent* e) override;
 
     /** @reimp */
-    void mouseMoveEvent(QMouseEvent* e);
+    void mouseMoveEvent(QMouseEvent* e) override;
 
     /** @reimp */
-    void keyPressEvent(QKeyEvent *e);
+    void keyPressEvent(QKeyEvent *e) override;
 
     /** @reimp */
-    void keyReleaseEvent (QKeyEvent * e);
+    void keyReleaseEvent (QKeyEvent * e) override;
 };
 
 /** @} */

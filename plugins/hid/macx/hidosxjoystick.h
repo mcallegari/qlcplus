@@ -42,10 +42,10 @@ public:
     static bool isJoystick(unsigned short usage);
 
     /** @reimp */
-    void init();
+    void init() override;
 
     /** @reimp */
-    bool readEvent();
+    bool readEvent() override;
 
 private:
     IOHIDManagerRef m_HIDManager;

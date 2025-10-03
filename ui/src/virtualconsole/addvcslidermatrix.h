@@ -40,7 +40,7 @@ public:
     int width() const;
 
 public slots:
-    void accept();
+    void accept() override;
 
 protected:
     int m_amount;

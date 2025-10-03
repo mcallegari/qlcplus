@@ -48,7 +48,7 @@ protected:
     QCheckBox* m_soloframeMixingCb;
 
 public slots:
-    void accept();
+    void accept() override;
 };
 
 /** @} */

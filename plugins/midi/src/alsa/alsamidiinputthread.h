@@ -73,7 +73,7 @@ public:
     void stop();
 
 private:
-    void run();
+    void run() override;
 
     void readEvent();
 

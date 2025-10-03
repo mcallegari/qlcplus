@@ -43,7 +43,7 @@ private:
     void addScheduleItem(VCClockSchedule schedule);
 
 public slots:
-    void accept();
+    void accept() override;
 
 protected slots:
     void slotTypeSelectChanged();

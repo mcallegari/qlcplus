@@ -62,8 +62,8 @@ private:
      * OK & Cancel
      ************************************************************************/
 public slots:
-    void reject();
-    void accept();
+    void reject() override;
+    void accept() override;
 
     /************************************************************************
      * Editing

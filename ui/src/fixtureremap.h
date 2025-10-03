@@ -78,7 +78,7 @@ protected slots:
     void slotSourceSelectionChanged();
 
     /** Callback for OK button clicks */
-    void accept();
+    void accept() override;
 
 };
 

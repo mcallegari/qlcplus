@@ -81,7 +81,7 @@ private:
     void stop();
 
     /** DMX writer thread worker method */
-    void run();
+    void run() override;
 
 private:
     bool m_running;

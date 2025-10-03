@@ -44,19 +44,19 @@ class EnttecWing : public QLCIOPlugin
      *************************************************************************/
 public:
     /** @reimp */
-    void init();
+    void init() override;
 
     /** @reimp */
     virtual ~EnttecWing();
 
     /** @reimp */
-    QString name();
+    QString name() override;
 
     /** @reimp */
-    int capabilities() const;
+    int capabilities() const override;
 
     /** @reimp */
-    QString pluginInfo();
+    QString pluginInfo() override;
 
     /** Attempt to bind the socket to listen to EWing::UDPPort */
     bool reBindSocket();
@@ -66,39 +66,38 @@ public:
      *************************************************************************/
 public:
     /** @reimp */
-    bool openInput(quint32 input, quint32 universe);
+    bool openInput(quint32 input, quint32 universe) override;
 
     /** @reimp */
-    void closeInput(quint32 input, quint32 universe);
+    void closeInput(quint32 input, quint32 universe) override;
 
     /** @reimp */
-    QStringList inputs();
+    QStringList inputs() override;
 
     /** @reimp */
-    QString inputInfo(quint32 input);
+    QString inputInfo(quint32 input) override;
 
     /** @reimp */
-    void sendFeedBack(quint32 universe, quint32 input, quint32 channel, uchar value, const QVariant &params);
+    void sendFeedBack(quint32 universe, quint32 input, quint32 channel, uchar value, const QVariant &params) override;
 
     /*************************************************************************
      * Outputs
      *************************************************************************/
 public:
     /** @reimp */
-    QStringList outputs();
+    QStringList outputs() override;
 
     /*************************************************************************
      * Configuration
      *************************************************************************/
 public:
     /** @reimp */
-    void configure();
+    void configure() override;
 
     /** @reimp */
-    bool canConfigure();
+    bool canConfigure() override;
 
 signals:
-    /** @reimp */
     void configurationChanged();
 
     /*************************************************************************

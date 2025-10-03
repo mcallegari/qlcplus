@@ -42,26 +42,26 @@ public:
     ~AudioRendererCoreAudio();
 
     /** @reimpl */
-    bool initialize(quint32, int, AudioFormat format);
+    bool initialize(quint32, int, AudioFormat format) override;
 
     /** @reimpl */
-    qint64 latency();
+    qint64 latency() override;
 
 protected:
     /** @reimpl */
-    qint64 writeAudio(unsigned char *data, qint64 maxSize);
+    qint64 writeAudio(unsigned char *data, qint64 maxSize) override;
 
     /** @reimpl */
-    void drain();
+    void drain() override;
 
     /** @reimpl */
-    void reset();
+    void reset() override;
 
     /** @reimpl */
-    void suspend();
+    void suspend() override;
 
     /** @reimpl */
-    void resume();
+    void resume() override;
 
 private:
     static void inCallback (void *inUserData, AudioQueueRef queue, AudioQueueBufferRef buf_ref);

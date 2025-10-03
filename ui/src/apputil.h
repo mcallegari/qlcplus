@@ -80,7 +80,7 @@ class NoEditDelegate: public QStyledItemDelegate
 {
 public:
     NoEditDelegate(QObject* parent=0): QStyledItemDelegate(parent) {}
-    virtual QWidget* createEditor(QWidget *, const QStyleOptionViewItem &, const QModelIndex &) const
+    virtual QWidget* createEditor(QWidget *, const QStyleOptionViewItem &, const QModelIndex &) const override
     {
         return 0;
     }
@@ -107,16 +107,16 @@ public:
 
     QWidget *createEditor(QWidget *parent,
             const QStyleOptionViewItem &option,
-            const QModelIndex &index) const;
+            const QModelIndex &index) const override;
 
     void setEditorData(QWidget *editor,
-            const QModelIndex &index) const;
+            const QModelIndex &index) const override;
 
     void setModelData(QWidget *editor, QAbstractItemModel *model,
-            const QModelIndex &index) const;
+            const QModelIndex &index) const override;
 
     void updateEditorGeometry(QWidget *editor,
-            const QStyleOptionViewItem &option, const QModelIndex &index) const;
+            const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 };
 
 /** @} */

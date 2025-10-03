@@ -53,28 +53,28 @@ public:
     virtual ~AudioDecoderMAD();
 
     /** @reimpl */
-    AudioDecoder *createCopy();
+    AudioDecoder *createCopy() override;
 
     /** @reimp */
-    int priority() const;
+    int priority() const override;
 
     /** @reimp */
-    bool initialize(const QString &path);
+    bool initialize(const QString &path) override;
 
     /** @reimp */
-    qint64 totalTime();
+    qint64 totalTime() override;
 
     /** @reimp */
-    int bitrate();
+    int bitrate() override;
 
     /** @reimp */
-    qint64 read(char *data, qint64 size);
+    qint64 read(char *data, qint64 size) override;
 
     /** @reimp */
-    void seek(qint64);
+    void seek(qint64) override;
 
     /** @reimp */
-    QStringList supportedFormats();
+    QStringList supportedFormats() override;
 
 private:
     // helper functions

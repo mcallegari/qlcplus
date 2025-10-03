@@ -101,7 +101,7 @@ private slots:
      ********************************************************************/
 public:
     /** @reimp */
-    void writeDMX(MasterTimer *timer, QList<Universe*> universes);
+    void writeDMX(MasterTimer *timer, QList<Universe*> universes) override;
 
 private:
     void updatePresetsTree();
@@ -144,7 +144,7 @@ private:
      * OK/Cancel
      ********************************************************************/
 public slots:
-    void accept();
+    void accept() override;
 };
 
 /** @} */

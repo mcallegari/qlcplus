@@ -59,13 +59,13 @@ protected:
     void init();
 
     /** @reimp */
-    bool hasInput() { return true; }
+    bool hasInput() override { return true; }
 
     /** @reimp */
-    bool hasOutput() { return true; }
+    bool hasOutput() override { return true; }
 
     /** @reimp */
-    bool hasMergerMode() { return true; /*DE, FX5, and Nodle have a merger mode*/ }
+    bool hasMergerMode() override { return true; /*DE, FX5, and Nodle have a merger mode*/ }
 
     /*********************************************************************
      * File operations
@@ -73,50 +73,50 @@ protected:
 public:
 
     /** @reimp */
-    bool isMergerModeEnabled();
+    bool isMergerModeEnabled() override;
 
     /** @reimp */
-    void enableMergerMode(bool mergerModeEnabled);
+    void enableMergerMode(bool mergerModeEnabled) override;
 
     /** @reimp */
-    bool openInput();
+    bool openInput() override;
 
     /** @reimp */
-    void closeInput();
+    void closeInput() override;
 
     /** @reimp */
-    bool openOutput();
+    bool openOutput() override;
 
     /** @reimp */
-    void closeOutput();
+    void closeOutput() override;
 
     /** @reimp */
-    bool readEvent();
+    bool readEvent() override;
 
     /*********************************************************************
      * Device info
      *********************************************************************/
 public:
     /** @reimp */
-    QString infoText();
+    QString infoText() override;
 
     /*********************************************************************
      * Input data
      *********************************************************************/
 public:
     /** @reimp */
-    void feedBack(quint32 channel, uchar value);
+    void feedBack(quint32 channel, uchar value) override;
 
 private:
     /** @reimp */
-    void run();
+    void run() override;
 
     /*********************************************************************
      * Output data
      *********************************************************************/
 public:
     /** @reimp */
-    void outputDMX(const QByteArray &data, bool forceWrite = false);
+    void outputDMX(const QByteArray &data, bool forceWrite = false) override;
 
      /*********************************************************************
      * FX5 - specific functions and device handle

@@ -43,35 +43,35 @@ public:
     virtual ~UDMX();
 
     /** @reimp */
-    void init();
+    void init() override;
 
     /** @reimp */
-    QString name();
+    QString name() override;
 
     /** @reimp */
-    int capabilities() const;
+    int capabilities() const override;
 
     /** @reimp */
-    QString pluginInfo();
+    QString pluginInfo() override;
 
     /*********************************************************************
      * Outputs
      *********************************************************************/
 public:
     /** @reimp */
-    bool openOutput(quint32 output, quint32 universe);
+    bool openOutput(quint32 output, quint32 universe) override;
 
     /** @reimp */
-    void closeOutput(quint32 output, quint32 universe);
+    void closeOutput(quint32 output, quint32 universe) override;
 
     /** @reimp */
-    QStringList outputs();
+    QStringList outputs() override;
 
     /** @reimp */
-    QString outputInfo(quint32 output);
+    QString outputInfo(quint32 output) override;
 
     /** @reimp */
-    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
+    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged) override;
 
 private:
     /** Attempt to find all uDMX devices */
@@ -91,10 +91,10 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    void configure();
+    void configure() override;
 
     /** @reimp */
-    bool canConfigure();
+    bool canConfigure() override;
 };
 
 #endif

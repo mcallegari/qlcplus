@@ -31,7 +31,7 @@ public:
     void stopThread();
     void setSpeed(int speed);
 
-    void run();
+    void run() override;
 
     void writeData(const QByteArray& data);
 

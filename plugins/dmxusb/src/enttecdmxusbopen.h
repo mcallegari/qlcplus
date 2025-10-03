@@ -50,31 +50,31 @@ public:
     virtual ~EnttecDMXUSBOpen();
 
     /** @reimp */
-    DMXUSBWidget::Type type() const;
+    DMXUSBWidget::Type type() const override;
 
     /************************************************************************
      * Open & Close
      ************************************************************************/
 public:
     /** @reimp */
-    bool open(quint32 line = 0, bool input = false);
+    bool open(quint32 line = 0, bool input = false) override;
 
     /** @reimp */
-    bool close(quint32 line = 0, bool input = false);
+    bool close(quint32 line = 0, bool input = false) override;
 
     /************************************************************************
      * Name & Serial
      ************************************************************************/
 public:
     /** @reimp */
-    QString additionalInfo() const;
+    QString additionalInfo() const override;
 
     /************************************************************************
      * Thread
      ************************************************************************/
 public:
     /** @reimp */
-    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
+    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged) override;
 
 protected:
     enum TimerGranularity { Unknown, Good, Bad };
@@ -83,7 +83,7 @@ protected:
     void stop();
 
     /** DMX writer thread worker method */
-    void run();
+    void run() override;
 
 protected:
     bool m_running;

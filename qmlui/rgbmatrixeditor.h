@@ -58,7 +58,7 @@ public:
     ~RGBMatrixEditor();
 
     /** Set the ID of the RGBMatrix to edit */
-    void setFunctionID(quint32 id);
+    void setFunctionID(quint32 id) override;
 
     int fixtureGroup() const;
     void setFixtureGroup(int fixtureGroup);

@@ -63,7 +63,7 @@ public:
     ~EFXEditor();
 
     /** Set the ID of the EFX to edit */
-    void setFunctionID(quint32 id);
+    void setFunctionID(quint32 id) override;
 
 protected slots:
     void slotAttributeChanged(int attrIndex, qreal fraction);

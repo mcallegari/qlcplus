@@ -34,10 +34,10 @@ public:
     static bool isJoystick(unsigned short vid, unsigned short pid);
 
     /** @reimp */
-    void init();
+    void init() override;
 
     /** @reimp */
-    bool readEvent();
+    bool readEvent() override;
 
 protected:
     JOYCAPS m_caps;

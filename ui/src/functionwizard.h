@@ -49,7 +49,7 @@ public:
 protected slots:
     void slotNextPageClicked();
     void slotTabClicked();
-    void accept();
+    void accept() override;
 
 private:
     void checkTabsAndButtons();

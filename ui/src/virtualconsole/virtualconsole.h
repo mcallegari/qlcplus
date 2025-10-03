@@ -348,10 +348,10 @@ protected:
 
 protected:
     /** Handler for keyboard key press events */
-    void keyPressEvent(QKeyEvent* event);
+    void keyPressEvent(QKeyEvent* event) override;
 
     /** Handler for keyboard key release events */
-    void keyReleaseEvent(QKeyEvent* event);
+    void keyReleaseEvent(QKeyEvent* event) override;
 
 signals:
     /** Signal telling that the keySequence was pressed down */

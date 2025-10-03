@@ -30,8 +30,8 @@ public:
     WingStub(QObject* parent, const QHostAddress& host, const QByteArray& ba);
     ~WingStub();
 
-    QString name() const;
-    void parseData(const QByteArray& ba);
+    QString name() const override;
+    void parseData(const QByteArray& ba) override;
 };
 
 class Wing_Test : public QObject

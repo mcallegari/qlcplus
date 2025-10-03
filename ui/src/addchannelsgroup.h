@@ -51,7 +51,7 @@ public:
     ~AddChannelsGroup();
 
     /** @reimp */
-    void accept();
+    void accept() override;
 
 private:
     Doc *m_doc;

@@ -82,10 +82,10 @@ public:
 
 protected:
     /** @reimp */
-    void resizeEvent(QResizeEvent* e);
+    void resizeEvent(QResizeEvent* e) override;
 
     /** @reimp */
-    void paintEvent(QPaintEvent* e);
+    void paintEvent(QPaintEvent* e) override;
 
 private slots:
     /** Animation timeout */

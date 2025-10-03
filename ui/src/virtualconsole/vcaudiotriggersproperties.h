@@ -42,7 +42,7 @@ public:
     ~AudioTriggersConfiguration();
 
     /** @reimp */
-    void accept();
+    void accept() override;
 
 private slots:
     void updateTreeItem(QTreeWidgetItem *item, int idx);

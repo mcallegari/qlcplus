@@ -36,7 +36,7 @@ public:
     virtual ~DummyConfiguration();
 
     /** @reimp */
-    void accept();
+    void accept() override;
 
 public slots:
     int exec();

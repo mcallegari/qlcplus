@@ -36,10 +36,10 @@ public:
     virtual ~ConfigureE131();
 
     /** @reimp */
-    void accept();
+    void accept() override;
 
 public slots:
-    int exec();
+    int exec() override;
 
 private:
     void fillMappingTree();
