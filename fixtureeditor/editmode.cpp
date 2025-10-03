@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QStandardItemModel>
 #include <QTreeWidgetItem>
 #include <QInputDialog>
 #include <QHeaderView>
@@ -225,6 +226,18 @@ void EditMode::slotLowerChannelClicked()
     selectChannel(ch->name());
 }
 
+void EditMode::disableComboItem(QComboBox *comboBox, int index)
+{
+    QStandardItemModel *model = qobject_cast<QStandardItemModel*>(comboBox->model());
+    if (!model)
+        return;
+
+    QStandardItem *item = model->item(index);
+    if (!item)
+        return;
+    item->setEnabled(false);
+}
+
 void EditMode::refreshChannelList()
 {
     m_channelList->clear();
@@ -255,6 +268,8 @@ void EditMode::refreshChannelList()
 
         QComboBox *comboBox = new QComboBox(this);
         comboBox->addItems(comboList);
+
+        disableComboItem(comboBox, i + 1);
 
         if (actsOnChannelIndex != QLCChannel::invalid())
             comboBox->setCurrentIndex(actsOnChannelIndex + 1);
