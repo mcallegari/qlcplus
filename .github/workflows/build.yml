@@ -475,6 +475,8 @@ jobs:
           echo "TASK: ${TASK}"
           echo "QTDIR: ${QTDIR}"
           echo "NPROC: ${NPROC}"
+          ls -l ${QTDIR}
+          ls -l ${QTDIR}/lib
 
       - name: Dependencies
         run: | 
