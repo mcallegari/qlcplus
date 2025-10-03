@@ -27,7 +27,7 @@
 namespace ola {
 
 // A LogDestination that uses the q{Debug,Warning,Critical} functions
-class QLCLogDestination : public LogDestination
+class QLCLogDestination final : public LogDestination
 {
 public:
     void Write(log_level level, const std::string &log_line);

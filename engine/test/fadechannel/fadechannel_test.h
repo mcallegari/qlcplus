@@ -22,7 +22,7 @@
 
 #include <QObject>
 
-class FadeChannel_Test : public QObject
+class FadeChannel_Test final : public QObject
 {
     Q_OBJECT
 

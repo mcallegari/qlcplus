@@ -66,7 +66,7 @@ class QXmlStreamWriter;
  * mode). These properties include weight, dimensions, light source, lens,
  * movement capabilities and beam width.
  */
-class QLCPhysical
+class QLCPhysical final
 {
     /************************************************************************
      * Initialization

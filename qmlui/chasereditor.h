@@ -27,7 +27,7 @@ class Chaser;
 class ListModel;
 class ChaserStep;
 
-class ChaserEditor : public FunctionEditor
+class ChaserEditor final : public FunctionEditor
 {
     Q_OBJECT
 

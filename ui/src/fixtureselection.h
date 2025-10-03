@@ -35,7 +35,7 @@ class Doc;
  * @{
  */
 
-class FixtureSelection : public QDialog, public Ui_FixtureSelection
+class FixtureSelection final : public QDialog, public Ui_FixtureSelection
 {
     Q_OBJECT
     Q_DISABLE_COPY(FixtureSelection)

@@ -35,7 +35,7 @@ class Doc;
 
 #define KXMLQLCVCLabel QStringLiteral("Label")
 
-class VCLabel : public VCWidget
+class VCLabel final : public VCWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCLabel)

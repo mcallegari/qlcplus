@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class MasterTimer_Test : public QObject
+class MasterTimer_Test final : public QObject
 {
     Q_OBJECT
 

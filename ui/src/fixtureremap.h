@@ -40,7 +40,7 @@ struct RemapInfo
     QTreeWidgetItem *target;
 };
 
-class FixtureRemap : public QDialog, public Ui_FixtureRemap
+class FixtureRemap final : public QDialog, public Ui_FixtureRemap
 {
     Q_OBJECT
     Q_DISABLE_COPY(FixtureRemap)

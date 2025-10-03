@@ -26,7 +26,7 @@
 
 #include "dmxinterface.h"
 
-class LibFTDIInterface : public DMXInterface
+class LibFTDIInterface final : public DMXInterface
 {
 public:
     LibFTDIInterface(const QString& serial, const QString& name, const QString& vendor,

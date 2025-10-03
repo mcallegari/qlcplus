@@ -37,7 +37,7 @@
  * Sequence Item. Clickable and draggable object identifying a chaser in sequence mode
  *
  */
-class SequenceItem : public ShowItem
+class SequenceItem final : public ShowItem
 {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)

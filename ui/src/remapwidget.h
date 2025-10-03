@@ -29,7 +29,7 @@ struct RemapInfo;
  * @{
  */
 
-class RemapWidget : public QWidget
+class RemapWidget final : public QWidget
 {
     Q_OBJECT
 public:

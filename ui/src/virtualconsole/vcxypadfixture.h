@@ -52,7 +52,7 @@ class Doc;
 #define KXMLQLCVCXYPadFixtureAxisReverse    QStringLiteral("Reverse")
 
 /** This class manages one fixture head in a VCXYPad */
-class VCXYPadFixture
+class VCXYPadFixture final
 {
     /********************************************************************
      * Initialization

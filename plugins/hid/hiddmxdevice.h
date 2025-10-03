@@ -46,7 +46,7 @@ class HIDPlugin;
  * HIDEventDevice
  *****************************************************************************/
 
-class HIDDMXDevice : public HIDDevice
+class HIDDMXDevice final : public HIDDevice
 {
     Q_OBJECT
 

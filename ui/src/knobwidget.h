@@ -26,7 +26,7 @@
  * @{
  */
 
-class KnobWidget : public QDial
+class KnobWidget final : public QDial
 {
     Q_OBJECT
 public:

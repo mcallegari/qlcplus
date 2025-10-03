@@ -31,7 +31,7 @@
  * ShortcutWing
  ****************************************************************************/
 
-class QLC_DECLSPEC ShortcutWing : public Wing
+class QLC_DECLSPEC ShortcutWing final : public Wing
 {
     Q_OBJECT
 

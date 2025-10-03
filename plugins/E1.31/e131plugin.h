@@ -48,7 +48,7 @@ typedef struct _eio
 
 #define SETTINGS_IFACE_WAIT_TIME "E131Plugin/ifacewait"
 
-class E131Plugin : public QLCIOPlugin
+class E131Plugin final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)

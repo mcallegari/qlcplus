@@ -31,7 +31,7 @@ extern "C"
  * @{
  */
 
-class AudioCaptureAlsa : public AudioCapture
+class AudioCaptureAlsa final : public AudioCapture
 {
     Q_OBJECT
 public:

@@ -38,7 +38,7 @@ class Doc;
  * @{
  */
 
-class FunctionWizard : public QDialog, public Ui_FunctionWizard
+class FunctionWizard final : public QDialog, public Ui_FunctionWizard
 {
     Q_OBJECT
 

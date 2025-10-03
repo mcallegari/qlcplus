@@ -37,7 +37,7 @@
  * EFX Item. Clickable and draggable object identifying a EFX object
  *
  */
-class EFXItem : public ShowItem
+class EFXItem final : public ShowItem
 {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)

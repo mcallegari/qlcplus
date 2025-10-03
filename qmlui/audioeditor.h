@@ -25,7 +25,7 @@
 class Audio;
 class ListModel;
 
-class AudioEditor : public FunctionEditor
+class AudioEditor final : public FunctionEditor
 {
     Q_OBJECT
 

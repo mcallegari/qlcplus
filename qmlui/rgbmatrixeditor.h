@@ -27,7 +27,7 @@ class RGBMatrix;
 class RGBMatrixStep;
 class FixtureGroup;
 
-class RGBMatrixEditor : public FunctionEditor
+class RGBMatrixEditor final : public FunctionEditor
 {
     Q_OBJECT
 

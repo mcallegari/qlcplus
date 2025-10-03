@@ -43,7 +43,7 @@ class Doc;
  * @{
  */
 
-class ConsoleChannel : public QGroupBox
+class ConsoleChannel final : public QGroupBox
 {
     Q_OBJECT
     Q_DISABLE_COPY(ConsoleChannel)

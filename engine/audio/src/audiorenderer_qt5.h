@@ -31,7 +31,7 @@ class Doc;
  * @{
  */
 
-class AudioRendererQt5 : public AudioRenderer
+class AudioRendererQt5 final : public AudioRenderer
 {
     Q_OBJECT
 public:

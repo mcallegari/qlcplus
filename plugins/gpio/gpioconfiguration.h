@@ -24,7 +24,7 @@
 
 class GPIOPlugin;
 
-class GPIOConfiguration : public QDialog, public Ui_GPIOConfiguration
+class GPIOConfiguration final : public QDialog, public Ui_GPIOConfiguration
 {
     Q_OBJECT
 

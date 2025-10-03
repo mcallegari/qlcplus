@@ -22,7 +22,7 @@
 
 #include "dmxusbwidget.h"
 
-class Stageprofi : public QThread, public DMXUSBWidget
+class Stageprofi final : public QThread, public DMXUSBWidget
 {
     /************************************************************************
      * Initialization

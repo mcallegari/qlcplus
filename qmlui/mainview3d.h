@@ -47,7 +47,7 @@ using namespace Qt3DCore;
 using namespace Qt3DRender;
 using namespace Qt3DLogic;
 
-class GoboTextureImage : public Qt3DRender::QPaintedTextureImage
+class GoboTextureImage final : public Qt3DRender::QPaintedTextureImage
 {
 public:
     GoboTextureImage(int w, int h, QString filename);
@@ -89,7 +89,7 @@ typedef struct
     GoboTextureImage *m_goboTexture;
 } SceneItem;
 
-class MainView3D : public PreviewContext
+class MainView3D final : public PreviewContext
 {
     Q_OBJECT
 

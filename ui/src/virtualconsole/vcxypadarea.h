@@ -35,7 +35,7 @@ class QMouseEvent;
  * @{
  */
 
-class VCXYPadArea : public QFrame
+class VCXYPadArea final : public QFrame
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCXYPadArea)

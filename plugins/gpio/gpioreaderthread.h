@@ -25,7 +25,7 @@
 
 #include "gpioplugin.h"
 
-class ReadThread : public QThread
+class ReadThread final : public QThread
 {
     Q_OBJECT
 

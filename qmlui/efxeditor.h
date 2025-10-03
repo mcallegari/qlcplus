@@ -28,7 +28,7 @@ class EFX;
 class ListModel;
 class FixtureGroup;
 
-class EFXEditor : public FunctionEditor
+class EFXEditor final : public FunctionEditor
 {
     Q_OBJECT
 

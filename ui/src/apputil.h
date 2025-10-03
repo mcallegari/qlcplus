@@ -76,7 +76,7 @@ namespace AppUtil
 /**
  * Set as Item Delegate to make sure that the item will never be editable.
  */
-class NoEditDelegate: public QStyledItemDelegate
+class NoEditDelegate final : public QStyledItemDelegate
 {
 public:
     NoEditDelegate(QObject* parent=0): QStyledItemDelegate(parent) {}
@@ -93,7 +93,7 @@ public:
  * Set as ItemDelegate to make the item editable by a combobox.
  * Value is the index of the selected string.
  */
-class ComboBoxDelegate : public QStyledItemDelegate
+class ComboBoxDelegate final : public QStyledItemDelegate
 {
 private:
     const QStringList m_strings;

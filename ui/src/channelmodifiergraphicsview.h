@@ -24,7 +24,7 @@
 #include <QGraphicsEllipseItem>
 #include <QObject>
 
-class HandlerGraphicsItem : public QObject, public QGraphicsEllipseItem
+class HandlerGraphicsItem final : public QObject, public QGraphicsEllipseItem
 {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)
@@ -58,7 +58,7 @@ typedef struct
     QPair <uchar, uchar> m_dmxMap;
 } HandlerItem;
 
-class ChannelModifierGraphicsView : public QGraphicsView
+class ChannelModifierGraphicsView final : public QGraphicsView
 {
     Q_OBJECT
 public:

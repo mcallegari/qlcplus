@@ -31,7 +31,7 @@ class QLCCapability;
 class QLCFixtureMode;
 class MonitorProperties;
 
-class FixtureUtils
+class FixtureUtils final
 {
 public:
     FixtureUtils();

@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class Sequence_Test : public QObject
+class Sequence_Test final : public QObject
 {
     Q_OBJECT
 

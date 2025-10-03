@@ -30,7 +30,7 @@ class QLCChannel;
  * @{
  */
 
-class AddChannelsDialog : public QDialog, public Ui_AddChannelsDialog
+class AddChannelsDialog final : public QDialog, public Ui_AddChannelsDialog
 {
     Q_OBJECT
 

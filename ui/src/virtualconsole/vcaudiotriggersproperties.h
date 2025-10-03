@@ -32,7 +32,7 @@ class VCAudioTriggers;
  * @{
  */
 
-class AudioTriggersConfiguration : public QDialog, public Ui_AudioTriggersConfiguration
+class AudioTriggersConfiguration final : public QDialog, public Ui_AudioTriggersConfiguration
 {
     Q_OBJECT
 

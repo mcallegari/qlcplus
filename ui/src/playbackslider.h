@@ -31,7 +31,7 @@ class QLabel;
  * @{
  */
 
-class PlaybackSlider : public QWidget
+class PlaybackSlider final : public QWidget
 {
     Q_OBJECT
 

@@ -22,7 +22,7 @@
 
 #include <QObject>
 
-class Velleman_Test : public QObject
+class Velleman_Test final : public QObject
 {
     Q_OBJECT
 

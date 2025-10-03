@@ -26,7 +26,7 @@
 
 class Video;
 
-class VideoEditor : public FunctionEditor
+class VideoEditor final : public FunctionEditor
 {
     Q_OBJECT
 

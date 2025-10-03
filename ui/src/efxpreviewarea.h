@@ -37,7 +37,7 @@ class QPaintEvent;
  * The area that is used to draw a preview of
  * the EFX function currently being edited.
  */
-class EFXPreviewArea : public QWidget
+class EFXPreviewArea final : public QWidget
 {
     Q_OBJECT
 

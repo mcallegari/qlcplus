@@ -25,7 +25,7 @@
 
 #define SEARCH_MIN_CHARS    3
 
-class ListModel : public QAbstractListModel
+class ListModel final : public QAbstractListModel
 {
     Q_OBJECT
     Q_DISABLE_COPY(ListModel)

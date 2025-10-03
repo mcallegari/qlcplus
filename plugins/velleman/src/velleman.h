@@ -26,7 +26,7 @@
 #include "qlcioplugin.h"
 #include "qlcmacros.h"
 
-class QLC_DECLSPEC Velleman : public QLCIOPlugin
+class QLC_DECLSPEC Velleman final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)

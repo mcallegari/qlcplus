@@ -51,7 +51,7 @@ class Doc;
  *  ------------------------------------------- --------------------------------
  */
 
-class FunctionsTreeWidget : public QTreeWidget
+class FunctionsTreeWidget final : public QTreeWidget
 {
     Q_OBJECT
 

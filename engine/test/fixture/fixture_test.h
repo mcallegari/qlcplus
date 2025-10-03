@@ -24,7 +24,7 @@
 
 class Doc;
 
-class Fixture_Test : public QObject
+class Fixture_Test final : public QObject
 {
     Q_OBJECT
 

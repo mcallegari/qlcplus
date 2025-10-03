@@ -60,7 +60,7 @@ Q_DECLARE_METATYPE(StringDoublePair)
 typedef QPair<QString, QString> StringStringPair;
 Q_DECLARE_METATYPE(StringStringPair)
 
-class Tardis : public QThread
+class Tardis final : public QThread
 {
     Q_OBJECT
 

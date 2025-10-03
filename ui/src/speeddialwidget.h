@@ -34,7 +34,7 @@ class QLineEdit;
     (Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::Window | Qt::WindowStaysOnTopHint | \
      Qt::WindowMinimizeButtonHint) & (~Qt::WindowCloseButtonHint))
 
-class SpeedDialWidget : public QWidget
+class SpeedDialWidget final : public QWidget
 {
     Q_OBJECT
 

@@ -72,7 +72,7 @@ class VCSliderProperties;
 #define KXMLQLCVCSliderPlaybackFunction QStringLiteral("Function")
 #define KXMLQLCVCSliderPlaybackFlash    QStringLiteral("Flash")
 
-class VCSlider : public VCWidget, public DMXSource
+class VCSlider final : public VCWidget, public DMXSource
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCSlider)

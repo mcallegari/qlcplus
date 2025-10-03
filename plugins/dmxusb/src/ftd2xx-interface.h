@@ -25,7 +25,7 @@
 typedef void *PVOID;
 typedef PVOID	FT_HANDLE;
 
-class FTD2XXInterface : public DMXInterface
+class FTD2XXInterface final : public DMXInterface
 {
 public:
     FTD2XXInterface(const QString& serial, const QString& name, const QString& vendor,

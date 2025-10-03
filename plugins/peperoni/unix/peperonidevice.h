@@ -33,7 +33,7 @@ class QString;
 class QByteArray;
 class Peperoni;
 
-class PeperoniDevice : public QThread
+class PeperoniDevice final : public QThread
 {
     Q_OBJECT
 

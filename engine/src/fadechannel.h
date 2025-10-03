@@ -34,7 +34,7 @@
  * is controlled by GenericFader, but the $current value is calculated each time
  * by FadeChannel.
  */
-class FadeChannel
+class FadeChannel final
 {
     /************************************************************************
      * Initialization

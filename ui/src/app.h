@@ -49,7 +49,7 @@ class App;
 
 #define KXMLQLCWorkspace QStringLiteral("Workspace")
 
-class DetachedContext : public QMainWindow
+class DetachedContext final : public QMainWindow
 {
     Q_OBJECT
 
@@ -69,7 +69,7 @@ signals:
     void closing();
 };
 
-class App : public QMainWindow
+class App final : public QMainWindow
 {
     Q_OBJECT
     Q_DISABLE_COPY(App)

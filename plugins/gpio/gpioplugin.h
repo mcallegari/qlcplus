@@ -38,7 +38,7 @@ typedef struct
 
 class ReadThread;
 
-class GPIOPlugin : public QLCIOPlugin
+class GPIOPlugin final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)

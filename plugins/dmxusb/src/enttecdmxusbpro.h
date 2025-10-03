@@ -33,7 +33,7 @@ class RDMProtocol;
 /**
  * This is the base interface class for ENTTEC USB DMX Pro widgets.
  */
-class EnttecDMXUSBPro : public QThread, public DMXUSBWidget
+class EnttecDMXUSBPro final : public QThread, public DMXUSBWidget
 {
     Q_OBJECT
 

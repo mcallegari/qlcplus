@@ -24,7 +24,7 @@
 
 class Doc;
 
-class RGBPlain_Test : public QObject
+class RGBPlain_Test final : public QObject
 {
     Q_OBJECT
 

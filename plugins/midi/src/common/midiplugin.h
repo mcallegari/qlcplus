@@ -40,7 +40,7 @@ class QString;
 #define MIDI_MODE "mode"
 #define MIDI_INITMESSAGE "initmessage"
 
-class MidiPlugin : public QLCIOPlugin
+class MidiPlugin final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)

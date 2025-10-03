@@ -26,7 +26,7 @@
  * @{
  */
 
-class GroupHead
+class GroupHead final
 {
 public:
     GroupHead(quint32 aFxi = Fixture::invalidId(), int aHead = -1);

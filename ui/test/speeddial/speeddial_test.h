@@ -22,7 +22,7 @@
 
 #include <QObject>
 
-class SpeedDial_Test : public QObject
+class SpeedDial_Test final : public QObject
 {
     Q_OBJECT
 

@@ -27,7 +27,7 @@
 
 struct usbdmx_functions;
 
-class Win32PeperoniDevice : public OutputDevice
+class Win32PeperoniDevice final : public OutputDevice
 {
     Q_OBJECT
 

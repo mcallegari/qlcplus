@@ -31,7 +31,7 @@ class InputSelectionWidget;
  * @{
  */
 
-class VCClockProperties : public QDialog, public Ui_VCClockProperties
+class VCClockProperties final : public QDialog, public Ui_VCClockProperties
 {
     Q_OBJECT
 

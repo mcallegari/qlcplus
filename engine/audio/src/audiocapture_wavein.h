@@ -30,7 +30,7 @@
 
 #define HEADERS_NUMBER   2
 
-class AudioCaptureWaveIn : public AudioCapture
+class AudioCaptureWaveIn final : public AudioCapture
 {
     Q_OBJECT
 public:

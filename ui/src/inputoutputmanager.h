@@ -42,7 +42,7 @@ class Doc;
  * @{
  */
 
-class InputOutputManager : public QWidget
+class InputOutputManager final : public QWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(InputOutputManager)

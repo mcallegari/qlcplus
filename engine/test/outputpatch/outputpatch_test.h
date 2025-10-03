@@ -24,7 +24,7 @@
 
 class Doc;
 
-class OutputPatch_Test : public QObject
+class OutputPatch_Test final : public QObject
 {
     Q_OBJECT
 

@@ -22,7 +22,7 @@
 
 #include <QObject>
 
-class ChaserStep_Test : public QObject
+class ChaserStep_Test final : public QObject
 {
     Q_OBJECT
 

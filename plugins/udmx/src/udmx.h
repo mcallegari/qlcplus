@@ -29,7 +29,7 @@
 struct libusb_device;
 class UDMXDevice;
 
-class UDMX : public QLCIOPlugin
+class UDMX final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)

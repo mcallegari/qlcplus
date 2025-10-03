@@ -22,7 +22,7 @@
 
 #include <QObject>
 
-class Function_Test : public QObject
+class Function_Test final : public QObject
 {
     Q_OBJECT
 

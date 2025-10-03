@@ -26,7 +26,7 @@
 
 class Doc;
 
-class ContextQuickView : public QQuickView
+class ContextQuickView final : public QQuickView
 {
     Q_OBJECT
 

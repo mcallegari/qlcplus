@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class EFXFixture_Test : public QObject
+class EFXFixture_Test final : public QObject
 {
     Q_OBJECT
 

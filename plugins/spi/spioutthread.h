@@ -22,7 +22,7 @@
 
 #include <QThread>
 
-class SPIOutThread : public QThread
+class SPIOutThread final : public QThread
 {
 public:
     SPIOutThread();

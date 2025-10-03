@@ -63,7 +63,7 @@ class QEvent;
 #define KXMLQLCVCButtonIntensity        QStringLiteral("Intensity")
 #define KXMLQLCVCButtonIntensityAdjust  QStringLiteral("Adjust")
 
-class VCButton : public VCWidget
+class VCButton final : public VCWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCButton)

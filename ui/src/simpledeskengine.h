@@ -44,7 +44,7 @@ class Doc;
 
 #define KXMLQLCSimpleDeskEngine QStringLiteral("Engine")
 
-class SimpleDeskEngine : public QObject, public DMXSource
+class SimpleDeskEngine final : public QObject, public DMXSource
 {
     Q_OBJECT
 

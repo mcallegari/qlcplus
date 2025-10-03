@@ -33,7 +33,7 @@ class QTimer;
  * @{
  */
 
-class InputProfileEditor : public QDialog, public Ui_InputProfileEditor
+class InputProfileEditor final : public QDialog, public Ui_InputProfileEditor
 {
     Q_OBJECT
     Q_DISABLE_COPY(InputProfileEditor)

@@ -33,7 +33,7 @@ class PeperoniDevice;
  * USBDMXOut
  *****************************************************************************/
 
-class Peperoni : public QLCIOPlugin
+class Peperoni final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)

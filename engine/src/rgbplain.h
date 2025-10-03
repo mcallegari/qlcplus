@@ -30,7 +30,7 @@
 
 #define KXMLQLCRGBPlain QStringLiteral("Plain")
 
-class RGBPlain : public QObject, public RGBAlgorithm
+class RGBPlain final : public QObject, public RGBAlgorithm
 {
     Q_OBJECT
 

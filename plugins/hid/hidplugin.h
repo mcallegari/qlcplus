@@ -32,7 +32,7 @@ class HIDDevice;
  * HIDPlugin
  *****************************************************************************/
 
-class HIDPlugin : public QLCIOPlugin
+class HIDPlugin final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)

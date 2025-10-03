@@ -35,7 +35,7 @@ class KeyBind;
  * @{
  */
 
-class VCButtonProperties : public QDialog, public Ui_VCButtonProperties
+class VCButtonProperties final : public QDialog, public Ui_VCButtonProperties
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCButtonProperties)

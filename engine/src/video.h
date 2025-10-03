@@ -33,7 +33,7 @@ class QXmlStreamReader;
  * @{
  */
 
-class Video : public Function
+class Video final : public Function
 {
     Q_OBJECT
     Q_DISABLE_COPY(Video)

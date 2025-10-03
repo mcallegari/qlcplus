@@ -43,7 +43,7 @@ typedef struct
 
 class SPIOutThread;
 
-class SPIPlugin : public QLCIOPlugin
+class SPIPlugin final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)

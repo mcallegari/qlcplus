@@ -40,7 +40,7 @@
  *
  */
 
-class ShowHeaderItem :  public QObject, public QGraphicsItem
+class ShowHeaderItem final : public QObject, public QGraphicsItem
 {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)
@@ -92,7 +92,7 @@ private:
  * Show Manager Cursor class. Cursor which marks the time position in a scene
  *
  */
-class ShowCursorItem : public QGraphicsItem
+class ShowCursorItem final : public QGraphicsItem
 {
 public:
     ShowCursorItem(int h);

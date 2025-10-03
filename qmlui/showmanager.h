@@ -38,7 +38,7 @@ typedef struct
     QQuickItem *m_item;
 } SelectedShowItem;
 
-class ShowManager : public PreviewContext
+class ShowManager final : public PreviewContext
 {
     Q_OBJECT
 

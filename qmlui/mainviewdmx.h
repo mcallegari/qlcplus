@@ -28,7 +28,7 @@
 class Doc;
 class Fixture;
 
-class MainViewDMX : public PreviewContext
+class MainViewDMX final : public PreviewContext
 {
     Q_OBJECT
 

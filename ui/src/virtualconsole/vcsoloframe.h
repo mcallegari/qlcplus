@@ -36,7 +36,7 @@ class Doc;
 #define KXMLQLCVCSoloFrame       QStringLiteral("SoloFrame")
 #define KXMLQLCVCSoloFrameMixing QStringLiteral("Mixing")
 
-class VCSoloFrame : public VCFrame
+class VCSoloFrame final : public VCFrame
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCSoloFrame)

@@ -27,7 +27,7 @@
 
 class TreeModelItem;
 
-class TreeModel : public QAbstractListModel
+class TreeModel final : public QAbstractListModel
 {
     Q_OBJECT
     Q_DISABLE_COPY(TreeModel)

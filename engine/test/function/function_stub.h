@@ -24,7 +24,7 @@
 
 class Doc;
 
-class Function_Stub : public Function
+class Function_Stub final : public Function
 {
     Q_OBJECT
 

@@ -29,7 +29,7 @@
  * MasterTimer Stub
  ****************************************************************************/
 
-class MasterTimerStub : public MasterTimer
+class MasterTimerStub final : public MasterTimer
 {
     Q_OBJECT
 

@@ -24,7 +24,7 @@
 
 class ArtNetPlugin;
 
-class ConfigureArtNet : public QDialog, public Ui_ConfigureArtNet
+class ConfigureArtNet final : public QDialog, public Ui_ConfigureArtNet
 {
     Q_OBJECT
 

@@ -33,7 +33,7 @@ class Doc;
  * @{
  */
 
-class MonitorGraphicsView : public QGraphicsView
+class MonitorGraphicsView final : public QGraphicsView
 {
     Q_OBJECT
 

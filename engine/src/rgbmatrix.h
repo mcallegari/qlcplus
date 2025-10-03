@@ -46,7 +46,7 @@ class QDir;
  * @{
  */
 
-class RGBMatrixStep
+class RGBMatrixStep final
 {
 public:
     RGBMatrixStep();
@@ -92,7 +92,7 @@ private:
     int m_crDelta, m_cgDelta, m_cbDelta;
 };
 
-class RGBMatrix : public Function
+class RGBMatrix final : public Function
 {
     Q_OBJECT
     Q_DISABLE_COPY(RGBMatrix)

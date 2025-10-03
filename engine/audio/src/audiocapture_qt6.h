@@ -29,7 +29,7 @@
  * @{
  */
 
-class AudioCaptureQt6 : public AudioCapture
+class AudioCaptureQt6 final : public AudioCapture
 {
     Q_OBJECT
 public:

@@ -31,7 +31,7 @@ class QKeyEvent;
  * @{
  */
 
-class AssignHotKey : public QDialog, public Ui_AssignHotKey
+class AssignHotKey final : public QDialog, public Ui_AssignHotKey
 {
     Q_OBJECT
     Q_DISABLE_COPY(AssignHotKey)

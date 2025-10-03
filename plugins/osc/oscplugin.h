@@ -44,7 +44,7 @@ typedef struct _oio
 
 #define SETTINGS_IFACE_WAIT_TIME "OSCPlugin/ifacewait"
 
-class OSCPlugin : public QLCIOPlugin
+class OSCPlugin final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)

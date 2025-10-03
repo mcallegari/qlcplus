@@ -31,7 +31,7 @@ typedef unsigned char snd_seq_event_type_t;
 
 class AlsaMidiInputThread;
 
-class AlsaMidiInputDevice : public MidiInputDevice
+class AlsaMidiInputDevice final : public MidiInputDevice
 {
 public:
     AlsaMidiInputDevice(const QVariant& uid, const QString& name,
