@@ -2,6 +2,7 @@ qlcplus (4.14.4) stable; urgency=low
 
   * Implemented autosave after 30 seconds of inactivity
   * engine: fix crash when loading fixture definitions without modes
+  * Virtual Console/Clock: countdown mode can now run a list of Functions
   * Fixture Editor: in mode editor, don't allow a channel to act on itself (thanks to Edgar Aichinger)
   * New fixture: beamZ COB 50 (thanks to Yestalgia)
   * New fixture: OXO ColorZoom 180 (thanks to David Garyga)

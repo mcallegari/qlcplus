@@ -117,7 +117,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox_2">
+        <widget class="QGroupBox" name="m_scheduleGroup">
          <property name="title">
           <string>Schedule</string>
          </property>
@@ -134,20 +134,6 @@
           <property name="bottomMargin">
            <number>5</number>
           </property>
-          <item row="0" column="1">
-           <widget class="QToolButton" name="m_addScheduleBtn">
-            <property name="icon">
-             <iconset resource="../qlcui.qrc">
-              <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>24</width>
-              <height>24</height>
-             </size>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="1">
            <widget class="QToolButton" name="m_removeScheduleBtn">
             <property name="icon">
@@ -161,19 +147,6 @@
              </size>
             </property>
            </widget>
-          </item>
-          <item row="2" column="1">
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
           </item>
           <item row="0" column="0" rowspan="3">
            <widget class="QTreeWidget" name="m_scheduleTree">
@@ -195,8 +168,48 @@
             </column>
            </widget>
           </item>
+          <item row="2" column="1">
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Orientation::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="1">
+           <widget class="QToolButton" name="m_addScheduleBtn">
+            <property name="icon">
+             <iconset resource="../../../build/fixtureeditor/.qt/rcc/qlcui.qrc">
+              <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>24</width>
+              <height>24</height>
+             </size>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Orientation::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>
