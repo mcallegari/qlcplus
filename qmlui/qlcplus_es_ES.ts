@@ -529,7 +529,7 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="166"/>
         <source>Randomize the selected step(s) order</source>
-        <translation type="unfinished"></translation>
+        <translation>Aleatoriza el orden de los pasos seleccionados</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="191"/>
@@ -886,7 +886,7 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="201"/>
         <source>Add an increasing offset to all fixtures</source>
-        <translation type="unfinished"></translation>
+        <translation>Añade un desplazamiento creciente a todas las fixturas</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="216"/>
@@ -1018,22 +1018,22 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="910"/>
         <source>Parallel</source>
-        <translation type="unfinished"></translation>
+        <translation>Paralelo</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="911"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Serie</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="912"/>
         <source>Asymmetric</source>
-        <translation type="unfinished"></translation>
+        <translation>Asimétrico</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="920"/>
         <source>Fixture Order</source>
-        <translation type="unfinished"></translation>
+        <translation>Orden del Fixture</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="797"/>
@@ -1044,12 +1044,12 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="70"/>
         <source>EFX increasing offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Desplazamiento del aumento EFX</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="71"/>
         <source>Offset in degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>Desplazamiento en grados</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="876"/>
@@ -1451,7 +1451,7 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="272"/>
         <source>Apply changes to fixtures of the same type</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplica los cambios a los fixtures del mismo tipo</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="291"/>
@@ -1483,7 +1483,7 @@ Indique un nombre diferente.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="393"/>
         <source>Toggle selected item editing</source>
-        <translation type="unfinished"></translation>
+        <translation>Conmuta la edición del elemento seleccionado</translation>
     </message>
     <message>
         <source>Toggle fixtures and channels properties</source>
@@ -2660,7 +2660,7 @@ Los cambios se perderán si no los guarda.</translation>
     <message>
         <location filename="qml/popup/PopupAbout.qml" line="79"/>
         <source>About the Qt framework...</source>
-        <translation type="unfinished"></translation>
+        <translation>Acerca del marco de las Qt</translation>
     </message>
 </context>
 <context>
@@ -3172,7 +3172,7 @@ Los cambios se perderán si no los guarda.</translation>
     <message>
         <location filename="qml/popup/PopupInputNumber.qml" line="53"/>
         <source>Enter a number</source>
-        <translation type="unfinished"></translation>
+        <translation>Introduzca un número</translation>
     </message>
 </context>
 <context>
@@ -3506,7 +3506,7 @@ Nivel de acceso:</translation>
     <message>
         <location filename="qml/fixturesfunctions/PositionTool.qml" line="267"/>
         <source>Center Pan &amp; Tilt</source>
-        <translation type="unfinished"></translation>
+        <translation>Centra Panorámica e Inclinación</translation>
     </message>
     <message>
         <source>Center Pan/Tilt halfway</source>
@@ -3810,7 +3810,7 @@ Nivel de acceso:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="933"/>
         <source>Set a custom background</source>
-        <translation type="unfinished"></translation>
+        <translation>Establece un fondo personalizado</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="941"/>
@@ -4227,7 +4227,7 @@ Indique un nombre diferente.</translation>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="220"/>
         <source>Set a custom background</source>
-        <translation type="unfinished"></translation>
+        <translation>Establece un fondo personalizado</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="228"/>
@@ -5157,7 +5157,7 @@ No hay suficiente espacio o el universo de destino no es válido</translation>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="273"/>
         <source>Days</source>
-        <translation type="unfinished"></translation>
+        <translation>Días</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="280"/>
@@ -5716,7 +5716,7 @@ No hay suficiente espacio o el universo de destino no es válido</translation>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="307"/>
         <source>selected</source>
-        <translation type="unfinished"></translation>
+        <translation>seleccionados</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="316"/>
@@ -6184,7 +6184,7 @@ el widget para completar esta lista</translation>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="369"/>
         <source>Set a custom background</source>
-        <translation type="unfinished"></translation>
+        <translation>Establece un fondo personalizado</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="377"/>

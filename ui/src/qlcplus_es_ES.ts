@@ -242,7 +242,7 @@
     <message>
         <location filename="addrgbpanel.ui" line="109"/>
         <source>Allow cross-universe addressing [EXPERIMENTAL]</source>
-        <translation type="unfinished"></translation>
+        <translation>Permitir direccionamiento entre universos [EXPERIMENTAL]</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="219"/>
@@ -2208,12 +2208,12 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="fixturegroupeditor.ui" line="175"/>
         <source>Add/replace fixtures to current column, going down starting from selected cell</source>
-        <translation type="unfinished"></translation>
+        <translation>Agregar/reemplazar fixtures en la columna actual, bajando empezando desde la celda seleccionada</translation>
     </message>
     <message>
         <location filename="fixturegroupeditor.ui" line="192"/>
         <source>Add/replace fixtures to current column, going up starting from selected cell</source>
-        <translation type="unfinished"></translation>
+        <translation>Agregar/reemplazar fijas en la columna actual, subiendo empezando desde la celda seleccionada</translation>
     </message>
     <message>
         <location filename="fixturegroupeditor.ui" line="217"/>
@@ -2245,13 +2245,13 @@ El archivo seleccionado ha sido movido o borrado.</translation>
         <location filename="fixturegroupeditor.ui" line="141"/>
         <source>Add/replace fixtures to current row, going right starting from selected cell</source>
         <oldsource>Add/replace fixtures to current row, starting from selected cell</oldsource>
-        <translation type="unfinished">Añadir/reemplazar fixtures a la fila actual, empezando de la celda seleccionada</translation>
+        <translation>Añadir/reemplazar fixtures a la fila actual, hacia la derecha empezando de la celda seleccionada</translation>
     </message>
     <message>
         <location filename="fixturegroupeditor.ui" line="158"/>
         <source>Add/replace fixtures to current row, going backwards starting from selected cell</source>
         <oldsource>Add/replace fixtures to current column, starting from selected cell</oldsource>
-        <translation type="unfinished">Añadir/reemplazar fixtures a la columna actual, empezando de la celda seleccionada</translation>
+        <translation>Añadir/reemplazar fixtures a la columna actual, hacia atrás empezando de la celda seleccionada</translation>
     </message>
 </context>
 <context>
@@ -3054,7 +3054,22 @@ li.checked::marker { content: &quot;\2612&quot;; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3- add widgets to the Virtual Console&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To move from a step to another press the &amp;quot;Next&amp;quot; button&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, le { white-space: pre-wrap; }
+h { altura: 1px; ancho del borde: 0; }
+li.unchecked::marker { contenido: &quot;\2610&quot;; }
+li.checked::marker { contenido: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; fuente-family:&apos;Sans Serif&apos;; fuente-size:9pt; fuente-weight:400; fuente-style:normal;&quot;&gt;
+&lt;p style=&quot;margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; fuente-weight:600;&quot;&gt;Bienvenido al asistente QLC
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot;margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Este es un procedimiento guiado que le permitirá empezar a utilizar QLC+ en unos minutos.&lt;/p&gt;
+&lt;p style=&quot;margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Básicamente consta de tres sencillos pasos:&lt;/p&gt;
+&lt;p style=&quot;margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1- añade fixturas&lt;/p&gt;
+&lt;p style=&quot;margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2- selecciona capacidades para crear funciones&lt;/p&gt;
+&lt;p style=&quot;margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3- añade widgets a la consola virtual&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot;margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Para pasar de un paso a otro pulse el botón &amp;quot;Next&amp;quot;&lt;/p&gt;&lt;/body&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="198"/>
@@ -3066,7 +3081,14 @@ li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Add the fixtures for which you want to create functions and widgets&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, le { white-space: pre-wrap; }
+h { altura: 1px; ancho del borde: 0; }
+li.unchecked::marker { contenido: &quot;\2610&quot;; }
+li.checked::marker { contenido: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; fuente-family:&apos;Sans Serif&apos;; fuente-size:9pt; fuente-weight:400; fuente-style:normal;&quot;&gt;
+&lt;p style=&quot;margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Agregar widgets&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="287"/>
@@ -3078,42 +3100,49 @@ li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Based on the functions you selected, I can create the following widgets on your Virtual Console. Just check which ones you need.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, le { white-space: pre-wrap; }
+h { altura: 1px; ancho del borde: 0; }
+li.unchecked::marker { contenido: &quot;\2610&quot;; }
+li.checked::marker { contenido: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; fuente-family:&apos;Sans Serif&apos;; fuente-size:9pt; fuente-weight:400; fuente-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; Consola Virtual. Basta con comprobar cuáles necesita.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="329"/>
         <source>Slider Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Ancho del Slider</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="336"/>
         <source>Slider Height</source>
-        <translation type="unfinished"></translation>
+        <translation>Alto del Slider</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="356"/>
         <source>Heads</source>
-        <translation type="unfinished">Cabezas</translation>
+        <translation>Cabezas</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="363"/>
         <source>All</source>
-        <translation type="unfinished">Todos</translation>
+        <translation>Todos</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="386"/>
         <source>Widgets/Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Widgets/Linea</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="403"/>
         <source>Channel Frame Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Páginas del marco actual</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="410"/>
         <source>Channels Monitored</source>
-        <translation type="unfinished"></translation>
+        <translation>Canales monitorizados</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="450"/>
@@ -3183,11 +3212,14 @@ li.checked::marker { content: &quot;\2612&quot;; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Add the fixtures for which you want to create functions and widgets&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</oldsource>
-        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { espacio en blanco: preajuste; }
+hr { altura: 1px; ancho del borde: 0; }
+li.unchecked::marker { contenido: &quot;\2610&quot;; }
+li.checked::marker { contenido: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Añada los fixtures para los cuales quiere crear funciones y widgets&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Con base en los elementos que agregó, puedo crear las funciones que se muestran a la izquierda. ¡Solo seleccione lo que necesita y vea los resultados a la derecha!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="213"/>
@@ -7132,12 +7164,12 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="807"/>
         <source>Show Grand Master slider on the virtual console and the web interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Muestra el control deslizante del Grand Master en la consola virtual y en la interfaz web</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="810"/>
         <source>Visible</source>
-        <translation type="unfinished"></translation>
+        <translation>Visible</translation>
     </message>
 </context>
 <context>
@@ -7994,7 +8026,7 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="97"/>
         <source>Pan Fine</source>
-        <translation type="unfinished"></translation>
+        <translation>Panoramica Fina</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="110"/>
@@ -8029,7 +8061,7 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="123"/>
         <source>Tilt Fine</source>
-        <translation type="unfinished"></translation>
+        <translation>Inclinación Fina</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="136"/>
@@ -8340,7 +8372,7 @@ Por favor elija una que tenga esos canales.</translation>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="370"/>
         <source>VC Fixture Widget Wizard</source>
-        <translation type="unfinished"></translation>
+        <translation>Asistente de widgetsVC Fixture</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="387"/>

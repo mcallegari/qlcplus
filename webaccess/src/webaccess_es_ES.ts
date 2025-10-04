@@ -6,17 +6,17 @@
     <message>
         <location filename="webaccessauth.cpp" line="195"/>
         <source>Unauthorized</source>
-        <translation type="unfinished"></translation>
+        <translation>No autorizado</translation>
     </message>
     <message>
         <location filename="webaccessauth.cpp" line="198"/>
         <source>401 Unauthorized</source>
-        <translation type="unfinished"></translation>
+        <translation>401 No autorizado</translation>
     </message>
     <message>
         <location filename="webaccessauth.cpp" line="199"/>
         <source>Access to this resource requires proper authorization and you have failed to authenticate.</source>
-        <translation type="unfinished"></translation>
+        <translation>El acceso a este recurso requiere una autorización adecuada y no se ha podido autenticar.</translation>
     </message>
 </context>
 <context>
@@ -91,7 +91,7 @@
         <location filename="webaccess.cpp" line="1117"/>
         <location filename="webaccess.cpp" line="1226"/>
         <source>Page: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Página: %1</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1508"/>
@@ -164,29 +164,29 @@
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
         <source>Universe</source>
-        <translation type="unfinished">Universo</translation>
+        <translation>Universo</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
         <location filename="webaccessconfiguration.cpp" line="151"/>
         <source>Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
         <location filename="webaccessconfiguration.cpp" line="151"/>
         <source>Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Salida</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
         <source>Feedback</source>
-        <translation type="unfinished"></translation>
+        <translation>Retroalimentación</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="71"/>
         <source>Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Perfil</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="136"/>
@@ -197,12 +197,12 @@
         <location filename="webaccessconfiguration.cpp" line="155"/>
         <location filename="webaccessconfiguration.cpp" line="157"/>
         <source>Default device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo por defecto</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="196"/>
         <source>File name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del archivo</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="210"/>
