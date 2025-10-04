@@ -1807,7 +1807,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="debugbox.ui" line="39"/>
         <source>QLC+ debug window</source>
-        <translation type="unfinished"></translation>
+        <translation>QLC+ Debug-Fenster</translation>
     </message>
 </context>
 <context>
