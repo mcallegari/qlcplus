@@ -530,7 +530,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="166"/>
         <source>Randomize the selected step(s) order</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählte Schritte zufällig anordnen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="191"/>
@@ -1454,7 +1454,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="272"/>
         <source>Apply changes to fixtures of the same type</source>
-        <translation type="unfinished"></translation>
+        <translation>Änderungen auf alle Geräte desselben Typs anwenden</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="291"/>
@@ -1486,7 +1486,7 @@ Bitte einen anderen Namen angeben.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="393"/>
         <source>Toggle selected item editing</source>
-        <translation type="unfinished"></translation>
+        <translation>Bearbeitung des ausgewählten Elements umschalten</translation>
     </message>
     <message>
         <source>Toggle fixtures and channels properties</source>
@@ -3814,7 +3814,7 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="933"/>
         <source>Set a custom background</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzerdefinierten Hintergrund hinzufügen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="941"/>
@@ -4227,12 +4227,12 @@ Bitte einen anderen Namen angeben.</translation>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="209"/>
         <source>Custom Background</source>
-        <translation>Eigener Hintergrund</translation>
+        <translation>Benutzerdefinierter Hintergrund</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="220"/>
         <source>Set a custom background</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzerdefinierten Hintergrund hinzufügen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="228"/>
@@ -5164,7 +5164,7 @@ Entweder ist nicht genug Platz vorhanden oder das Ziel-Universum ist ungültig</
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="273"/>
         <source>Days</source>
-        <translation type="unfinished"></translation>
+        <translation>Tage</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="280"/>
@@ -5723,7 +5723,7 @@ Entweder ist nicht genug Platz vorhanden oder das Ziel-Universum ist ungültig</
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="307"/>
         <source>selected</source>
-        <translation type="unfinished"></translation>
+        <translation>ausgewählt</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="316"/>
@@ -6191,7 +6191,7 @@ fallen lassen um die Liste zu füllen</translation>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="369"/>
         <source>Set a custom background</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzerdefinierten Hintergrund hinzufügen</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="377"/>
