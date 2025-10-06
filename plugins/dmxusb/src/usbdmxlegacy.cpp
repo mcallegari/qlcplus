@@ -27,8 +27,8 @@
 #define USBDMXLEGACY_CMD_SET_LAST_TX_HIGH_ADDRESS_BIT  0x4F
 
 
-UsbdmxLegacy::UsbdmxLegacy(DMXInterface *interface, quint32 outputLine)
-    : DMXUSBWidget(interface, outputLine, USBDMXLEGACY_DEFAULT_FREQUENCY)
+UsbdmxLegacy::UsbdmxLegacy(DMXInterface *iface, quint32 outputLine)
+    : DMXUSBWidget(iface, outputLine, USBDMXLEGACY_DEFAULT_FREQUENCY)
 {
     // configure one output port
     QList<int> ports;

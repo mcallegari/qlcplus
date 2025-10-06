@@ -32,7 +32,7 @@ class UsbdmxLegacy : public QThread, public DMXUSBWidget
      * Initialization
      ************************************************************************/
 public:
-    UsbdmxLegacy(DMXInterface *interface, quint32 outputLine);
+    UsbdmxLegacy(DMXInterface *iface, quint32 outputLine);
     virtual ~UsbdmxLegacy();
 
     /** @reimp */
