@@ -89,7 +89,7 @@ void ConfigureOSC::fillMappingTree()
         if (controller == NULL)
             continue;
 
-        qDebug() << "[ArtNet] controller IP" << controller->getNetworkIP().toString() << "type:" << controller->type();
+        qDebug() << "[OSC] controller IP" << controller->getNetworkIP().toString() << "type:" << controller->type();
         if ((controller->type() & OSCController::Input) && inputItem == NULL)
         {
             inputItem = new QTreeWidgetItem(m_uniMapTree);
