@@ -722,6 +722,27 @@ void VCWidget::sendFeedback(int value, QSharedPointer<QLCInputSource> src, QVari
         extraParams.isValid() ? extraParams : src->feedbackExtraParams(QLCInputFeedback::UpperValue));
 }
 
+void VCWidget::setBackgroundColor(int value, QSharedPointer<QLCInputSource> src)
+{
+    InputPatch *ip = m_doc->inputOutputMap()->inputPatch(src->universe());
+    if (ip != NULL && ip->profile() != NULL)
+    {
+        QLCInputProfile *m_profile = ip->profile();
+        if (m_profile->hasColorTable())
+        {
+            QMapIterator <uchar, QPair<QString, QColor>> it(m_profile->colorTable());
+            while (it.hasNext() == true)
+            {
+                it.next();
+                QPair<QString, QColor> lc = it.value();
+
+                if (it.key() == value)
+                    setBackgroundColor(lc.second);
+            }
+        }
+    }
+}
+
 void VCWidget::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
     Q_UNUSED(universe);

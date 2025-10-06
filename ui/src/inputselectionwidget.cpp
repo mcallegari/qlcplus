@@ -18,6 +18,7 @@
 */
 
 #include <QDebug>
+#include <qmath.h>
 
 #include "customfeedbackdialog.h"
 #include "inputselectionwidget.h"
@@ -52,6 +53,9 @@ InputSelectionWidget::InputSelectionWidget(Doc *doc, QWidget *parent)
 
     connect(m_customFbButton, SIGNAL(clicked(bool)),
             this, SLOT(slotCustomFeedbackClicked()));
+
+    connect(m_syncColour, SIGNAL(clicked(bool)),
+            this, SLOT(slotSyncStatusChanged()));
 }
 
 InputSelectionWidget::~InputSelectionWidget()
@@ -119,6 +123,90 @@ void InputSelectionWidget::setInputSource(const QSharedPointer<QLCInputSource> &
 QSharedPointer<QLCInputSource> InputSelectionWidget::inputSource() const
 {
     return m_inputSource;
+}
+
+void InputSelectionWidget::updateFeedback()
+{
+    if (m_inputSource.isNull())
+        return;
+
+    InputPatch *ip = m_doc->inputOutputMap()->inputPatch(m_inputSource->universe());
+    if (ip != NULL && ip->profile() != NULL)
+    {
+        QLCInputProfile *m_profile = ip->profile();
+
+        if (m_profile->hasColorTable())
+        {
+            QMapIterator <uchar, QPair<QString, QColor>> it(m_profile->colorTable());
+
+            int currentDistanceWithRed = 255 * 255 * 3;
+            int currentDistanceWithGreen = 255 * 255 * 3;
+            int currentDistanceWithYellow = 255 * 255 * 3;
+
+            uchar redValue = 0;
+            uchar greenValue = 0;
+            uchar yellowValue = 0;
+            while (it.hasNext() == true)
+            {
+                it.next();
+                QPair<QString, QColor> lc = it.value();
+                QColor colorValue = lc.second;
+                int distanceWithRed = getColorDistance(colorValue, QColor(Qt::red));
+                int distanceWithGreen = getColorDistance(colorValue, QColor(Qt::green));
+                int distanceWithYellow = getColorDistance(colorValue, QColor(Qt::yellow));
+                if (distanceWithRed < currentDistanceWithRed)
+                {
+                    currentDistanceWithRed = distanceWithRed;
+                    redValue = it.key();
+                }
+                if (distanceWithGreen < currentDistanceWithGreen)
+                {
+                    currentDistanceWithGreen = distanceWithGreen;
+                    greenValue = it.key();
+                }
+                if (distanceWithYellow < currentDistanceWithYellow)
+                {
+                    currentDistanceWithYellow = distanceWithYellow;
+                    yellowValue = it.key();
+                }
+            }
+            m_inputSource->setFeedbackValue(QLCInputFeedback::LowerValue, redValue);
+            m_inputSource->setFeedbackValue(QLCInputFeedback::UpperValue, greenValue);
+            m_inputSource->setFeedbackValue(QLCInputFeedback::MonitorValue, yellowValue);
+        }
+
+        QLCInputChannel *m_channel = m_profile->channel(m_inputSource->channel());
+        if (isSyncColor() && m_channel != NULL)
+        {
+            if (m_channel->lowerValue() > 0)
+            {
+                if (m_channel->lowerValue() == UCHAR_MAX)
+                    m_inputSource->setFeedbackValue(QLCInputFeedback::LowerValue, UCHAR_MAX);
+                else
+                    m_inputSource->setFeedbackValue(QLCInputFeedback::LowerValue, (m_channel->lowerValue() + 1) / 2 * 2);
+            }
+
+            if (m_channel->upperValue() > 0)
+            {
+                if (m_channel->upperValue() == UCHAR_MAX)
+                    m_inputSource->setFeedbackValue(QLCInputFeedback::UpperValue, UCHAR_MAX);
+                else
+                    m_inputSource->setFeedbackValue(QLCInputFeedback::UpperValue, (m_channel->upperValue() + 1) / 2 * 2);
+            }
+        }
+    }
+}
+
+int InputSelectionWidget::getColorDistance(const QColor &color1, const QColor &color2)
+{
+    return qSqrt(qPow(color1.red() - color2.red(), 2) +
+                 qPow(color1.green() - color2.green(), 2) +
+                 qPow(color1.blue() - color2.blue(), 2));
+}
+
+void InputSelectionWidget::slotSyncStatusChanged()
+{
+    updateFeedback();
 }
 
 void InputSelectionWidget::slotAttachKey()
@@ -216,6 +304,7 @@ void InputSelectionWidget::slotCustomFeedbackClicked()
 {
     CustomFeedbackDialog cfDialog(m_doc, m_inputSource, this);
     cfDialog.setMonitoringVisibility(m_supportMonitoring);
+    cfDialog.setSyncStatus(m_syncColour->isChecked());
     cfDialog.exec();
 }
 
@@ -232,4 +321,15 @@ void InputSelectionWidget::updateInputSource()
 
     m_inputUniverseEdit->setText(uniName);
     m_inputChannelEdit->setText(chName);
+    updateFeedback();
+}
+
+bool InputSelectionWidget::isSyncColor()
+{
+    return m_syncColour->isChecked();
+}
+
+void InputSelectionWidget::setSyncStatus(bool enable)
+{
+    m_syncColour->setChecked(enable);
 }
