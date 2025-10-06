@@ -119,6 +119,19 @@ if(appimage)
             ${QT_LIBS_PATH}/libQt6Concurrent.so
             ${QT_LIBS_PATH}/libQt6Gamepad.so
             ${QT_LIBS_PATH}/libQt6PrintSupport.so)
+
+        list(APPEND qtlibs_FILES
+            ${QT_LIBS_PATH}/libavcodec.so
+            ${QT_LIBS_PATH}/libavformat.so
+            ${QT_LIBS_PATH}/libavutil.so
+            ${QT_LIBS_PATH}/libswresample.so
+            ${QT_LIBS_PATH}/libswscale.so
+            ${QT_LIBS_PATH}/libQt6FFmpegStub-crypto.so.3
+            ${QT_LIBS_PATH}/libQt6FFmpegStub-ssl.so.3
+            ${QT_LIBS_PATH}/libQt6FFmpegStub-va-drm.so.2
+            ${QT_LIBS_PATH}/libQt6FFmpegStub-va-x11.so.2
+            ${QT_LIBS_PATH}/libQt6FFmpegStub-va.so.2)
+
     endif()
     
     set(_resolved_qtlibs_FILES "")
