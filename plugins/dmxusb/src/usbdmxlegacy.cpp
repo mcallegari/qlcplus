@@ -17,13 +17,20 @@
 */
 
 #include "usbdmxlegacy.h"
-#include "qlcmacros.h"
 
-#define DEFAULT_USBDMX_FREQUENCY 40
+#define USBDMXLEGACY_DEFAULT_FREQUENCY                 40
+#define USBDMXLEGACY_CMD_TX_ON                         0x44
+#define USBDMXLEGACY_CMD_TX_OFF                        0x46
+#define USBDMXLEGACY_CMD_SET_VALUE                     0x48
+#define USBDMXLEGACY_CMD_SET_VALUE_HIGH_ADDRESS_BIT    0x49
+#define USBDMXLEGACY_CMD_SET_LAST_TX                   0x4E
+#define USBDMXLEGACY_CMD_SET_LAST_TX_HIGH_ADDRESS_BIT  0x4F
 
-UsbdmxLegacy::UsbdmxLegacy(DMXInterface *iface, quint32 outputLine, QObject *parent)
-    : DMXUSBWidget(iface, outputLine, DEFAULT_USBDMX_FREQUENCY)
+
+UsbdmxLegacy::UsbdmxLegacy(DMXInterface *interface, quint32 outputLine)
+    : DMXUSBWidget(interface, outputLine, USBDMXLEGACY_DEFAULT_FREQUENCY)
 {
+    // configure one output port
     QList<int> ports;
     ports << (DMXUSBWidget::DMX | DMXUSBWidget::Output);
     setPortsMapping(ports);
@@ -36,7 +43,7 @@ UsbdmxLegacy::~UsbdmxLegacy()
 
 DMXUSBWidget::Type UsbdmxLegacy::type() const
 {
-    return DMXUSBWidget::UsbdmxLegacy;
+    return DMXUSBWidget::USBDMXLegacy;
 }
 
 /*************************************************************************
@@ -75,13 +82,14 @@ bool UsbdmxLegacy::writeUniverse(quint32 universe, quint32 output, const QByteAr
     Q_UNUSED(universe)
     Q_UNUSED(output)
 
-    if (isOpen() == false)
+    if (!isOpen())
         return false;
 
     // Initialize local cache once.
     if (m_portsInfo[0].m_universeData.size() == 0)
     {
         m_portsInfo[0].m_universeData = QByteArray(DMX_CHANNELS, 0);
+
         // Make sure the device does not waste time sending beyond our bounds
         cmdSetLastChannel(DMX_CHANNELS - 1);
         cmdTxOn();
@@ -90,20 +98,26 @@ bool UsbdmxLegacy::writeUniverse(quint32 universe, quint32 output, const QByteAr
     if (!dataChanged)
         return true;
 
+    bool result = true;
     // Update cache and send only diffs as SET VALUE commands, as per spec.
-    const int n = qMin(DMX_CHANNELS, data.size());
-    for (int i = 0; i < n; ++i)
+    for (int i = 0; i < qMin(DMX_CHANNELS, data.size()); i++)
     {
         const uchar newVal = static_cast<uchar>(data.at(i));
         uchar &oldVal = reinterpret_cast<uchar&>(m_portsInfo[0].m_universeData[i]);
-        if (newVal != oldVal)
+
+        if (newVal == oldVal)
+            continue;
+
+        if (!cmdSetChannelValue(i, newVal))
         {
-            if (cmdSetChannelValue(i, newVal) == false)
-                return false;
-            oldVal = newVal;
+            result = false;
+            continue;
         }
+
+        oldVal = newVal;
     }
-    return true;
+
+    return result;
 }
 
 /*************************************************************************
@@ -114,9 +128,8 @@ QString UsbdmxLegacy::additionalInfo() const
 {
     QString info;
     info += QString("<P>");
-    info += QString("<B>%1:</B> %2 (%3)").arg(QObject::tr("Protocol"))
-                                         .arg("usbdmx.com (legacy)")
-                                         .arg(QObject::tr("Output"));
+    info += QString("<B>%1:</B> usbdmx.com (legacy) (%3)").arg(QObject::tr("Protocol"))
+                                                          .arg(QObject::tr("Output"));
     info += QString("<BR>");
     info += QString("<B>%1:</B> %2").arg(QObject::tr("Serial number"))
                                     .arg(serial());
@@ -131,36 +144,39 @@ QString UsbdmxLegacy::additionalInfo() const
 bool UsbdmxLegacy::cmdTxOn()
 {
     QByteArray msg;
-    msg.append(char(0x44)); // TX ON
+    msg.append(char(USBDMXLEGACY_CMD_TX_ON));
     return iface()->write(msg);
 }
 
 bool UsbdmxLegacy::cmdTxOff()
 {
     QByteArray msg;
-    msg.append(char(0x46)); // TX OFF
+    msg.append(char(USBDMXLEGACY_CMD_TX_OFF));
     return iface()->write(msg);
 }
 
-bool UsbdmxLegacy::cmdSetLastChannel(int lastIdx)
+bool UsbdmxLegacy::cmdSetLastChannel(int lastIndex)
 {
-    if (lastIdx < 0) lastIdx = 0;
-    if (lastIdx > 511) lastIdx = 511;
+    if (lastIndex < 0)
+        lastIndex = 0;
+
+    if (lastIndex > 511)
+        lastIndex = 511;
 
     QByteArray msg;
-    const bool hib = hiBit(lastIdx);
-    msg.append(char(hib ? 0x4F : 0x4E));
-    msg.append(char(lo(lastIdx)));
+    msg.append(char(hiBit(lastIndex) ? USBDMXLEGACY_CMD_SET_LAST_TX_HIGH_ADDRESS_BIT : USBDMXLEGACY_CMD_SET_LAST_TX));
+    msg.append(char(lo(lastIndex)));
     return iface()->write(msg);
 }
 
-bool UsbdmxLegacy::cmdSetChannelValue(int idx, uchar val)
+bool UsbdmxLegacy::cmdSetChannelValue(int index, uchar value)
 {
-    if (idx < 0 || idx > 511) return false;
+    if (index < 0 || index > 511)
+        return false;
+
     QByteArray msg;
-    const bool hib = hiBit(idx);
-    msg.append(char(hib ? 0x49 : 0x48));   // SET VALUE with high address selector
-    msg.append(char(lo(idx)));             // <A7..A0>
-    msg.append(char(val));                 // <VAL>
+    msg.append(char(hiBit(index) ? USBDMXLEGACY_CMD_SET_VALUE_HIGH_ADDRESS_BIT : USBDMXLEGACY_CMD_SET_VALUE));
+    msg.append(char(lo(index)));
+    msg.append(char(value));
     return iface()->write(msg);
 }

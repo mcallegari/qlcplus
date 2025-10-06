@@ -24,11 +24,16 @@
  * The device is FTDI-based and maintains its own DMX timing once TX is ON.
  * We only push per-channel updates and set the "last TX channel" bound.
  */
-class UsbdmxLegacy : public DMXUSBWidget
+class UsbdmxLegacy : public QThread, public DMXUSBWidget
 {
+    Q_OBJECT
+
+    /************************************************************************
+     * Initialization
+     ************************************************************************/
 public:
-    UsbdmxLegacy(DMXInterface *iface, quint32 outputLine, QObject *parent = nullptr);
-    ~UsbdmxLegacy();
+    UsbdmxLegacy(DMXInterface *interface, quint32 outputLine);
+    virtual ~UsbdmxLegacy();
 
     /** @reimp */
     DMXUSBWidget::Type type() const override;
@@ -36,29 +41,33 @@ public:
     /*************************************************************************
      * Open & Close
      *************************************************************************/
-    bool open(quint32 line=0, bool input=false) override;
-    bool close(quint32 line=0, bool input=false) override;
+    /** @reimp */
+    bool open(quint32 line = 0, bool input = false) override;
+
+    /** @reimp */
+    bool close(quint32 line = 0, bool input = false) override;
 
     /*************************************************************************
      * Outputs
      *************************************************************************/
-    bool writeUniverse(quint32 universe, quint32 output,
-                       const QByteArray& data, bool dataChanged) override;
+    /** @reimp */
+    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged) override;
 
     /*************************************************************************
      * Info
      *************************************************************************/
+    /** @reimp */
     QString additionalInfo() const override;
 
 private:
     // usbdmx.com command helpers
     bool cmdTxOn();
     bool cmdTxOff();
-    bool cmdSetLastChannel(int lastIdx);        // argument in [0..511]
-    bool cmdSetChannelValue(int idx, uchar val);// idx in [0..511]
+    bool cmdSetLastChannel(int lastIndex);           // argument in [0..511]
+    bool cmdSetChannelValue(int index, uchar value); // index in [0..511]
 
-    inline uchar lo(int idx) const { return static_cast<uchar>(idx & 0xFF); }
-    inline bool hiBit(int idx) const { return (idx & 0x100) != 0; }
+    inline uchar lo(int index) const { return static_cast<uchar>(index & 0xFF); }
+    inline bool hiBit(int index) const { return (index & 0x100) != 0; }
 };
 
 #endif // USBDMXLEGACY_H

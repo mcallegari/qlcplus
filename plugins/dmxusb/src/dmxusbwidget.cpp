@@ -168,10 +168,10 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
                 case DMXUSBWidget::Eurolite:
                     widgetList << new EuroliteUSBDMXPro(iface, output_id++);
                 break;
-                case DMXUSBWidget::UsbdmxLegacy:
+#endif
+                case DMXUSBWidget::USBDMXLegacy:
                     widgetList << new UsbdmxLegacy(iface, output_id++);
                 break;
-#endif
                 default:
                 case DMXUSBWidget::ProRXTX:
                     widgetList << new EnttecDMXUSBPro(iface, output_id++, input_id++);
