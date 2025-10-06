@@ -33,6 +33,7 @@
 #endif
 #include "stageprofi.h"
 #include "vinceusbdmx512.h"
+#include "usbdmxlegacy.h"
 
 #if defined(WIN32) || defined(Q_OS_WIN)
 #include <Windows.h>
@@ -166,6 +167,9 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
                 case DMXUSBWidget::Eurolite:
                     widgetList << new EuroliteUSBDMXPro(iface, output_id++);
+                break;
+                case DMXUSBWidget::UsbdmxLegacy:
+                    widgetList << new UsbdmxLegacy(iface, output_id++);
                 break;
 #endif
                 default:

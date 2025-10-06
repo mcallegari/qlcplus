@@ -152,7 +152,7 @@ QString DMXUSB::pluginInfo()
     str += tr("This plugin provides DMX output support for");
     str += QString(" DMXKing ultraDMX range, Enttec DMX USB Pro, "
                    "Enttec Open DMX USB, FTDI USB COM485 Plus1, "
-                   "Vince USB-DMX512 ");
+                   "Vince USB-DMX512, usbdmx.com (legacy) ");
     str += tr("and compatible devices.");
     str += QString("</P>");
 
