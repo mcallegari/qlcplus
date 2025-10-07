@@ -91,6 +91,9 @@ public:
     int layer() const;
     void setLayer(int index);
 
+private:
+    void detectMedia();
+
 protected slots:
     void slotDurationChanged(qint64 duration);
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)

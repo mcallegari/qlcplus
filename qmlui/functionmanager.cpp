@@ -431,13 +431,12 @@ quint32 FunctionManager::createAudioVideoFunction(int type, QStringList fileList
                         filePath = QUrl(filePath).toLocalFile();
 
                     f = new Video(m_doc);
+                    Video *video = qobject_cast<Video *>(f);
+                    video->setSourceUrl(filePath);
+
                     lastFuncID = addFunctiontoDoc(f, name, fileList.count() == 1 ? true : false);
                     if (lastFuncID != Function::invalidId())
-                    {
-                        Video *video = qobject_cast<Video *>(f);
-                        video->setSourceUrl(filePath);
-                    }
-                    m_videoCount++;
+                        m_videoCount++;
                 }
                 emit videoCountChanged();
                 return lastFuncID;

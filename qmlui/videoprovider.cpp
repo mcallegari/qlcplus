@@ -72,7 +72,7 @@ void VideoProvider::slotFunctionAdded(quint32 id)
     m_videoMap[id] = new VideoContent(video, this);
 
     connect(video, SIGNAL(requestPlayback()), this, SLOT(slotRequestPlayback()));
-    connect(video,SIGNAL(requestPause(bool)), this, SLOT(slotRequestPause(bool)));
+    connect(video, SIGNAL(requestPause(bool)), this, SLOT(slotRequestPause(bool)));
     connect(video, SIGNAL(requestStop()), this, SLOT(slotRequestStop()));
 }
 
@@ -229,31 +229,43 @@ void VideoContent::stopContent()
 
 void VideoContent::slotDetectResolution()
 {
-    if (m_video->isPicture())
-        return;
-
-    m_mediaPlayer = new QMediaPlayer();
-
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    connect(m_mediaPlayer, SIGNAL(metaDataChanged(QString,QVariant)),
-                this, SLOT(slotMetaDataChanged(QString,QVariant)));
-#else
-    connect(m_mediaPlayer, SIGNAL(metaDataChanged()),
-            this, SLOT(slotMetaDataChanged()));
-#endif
-
     QString sourceURL = m_video->sourceUrl();
+
+    if (m_video->isPicture())
+    {
+        QPixmap img(sourceURL);
+        if (!img.isNull())
+        {
+            m_video->setResolution(img.size());
+            m_video->setDuration(3000);
+            m_video->setTotalDuration(3000);
+        }
+    }
+    else
+    {
+        m_mediaPlayer = new QMediaPlayer();
+
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    if (sourceURL.contains("://"))
-        m_mediaPlayer->setMedia(QUrl(sourceURL));
-    else
-        m_mediaPlayer->setMedia(QUrl::fromLocalFile(sourceURL));
+        connect(m_mediaPlayer, SIGNAL(metaDataChanged(QString,QVariant)),
+                    this, SLOT(slotMetaDataChanged(QString,QVariant)));
+
+        if (sourceURL.contains("://"))
+            m_mediaPlayer->setMedia(QUrl(sourceURL));
+        else
+            m_mediaPlayer->setMedia(QUrl::fromLocalFile(sourceURL));
 #else
-    if (sourceURL.contains("://"))
-        m_mediaPlayer->setSource(QUrl(sourceURL));
-    else
-        m_mediaPlayer->setSource(QUrl::fromLocalFile(sourceURL));
+        connect(m_mediaPlayer, SIGNAL(durationChanged(qint64)),
+                this, SLOT(slotDurationChanged(qint64)));
+
+        connect(m_mediaPlayer, SIGNAL(metaDataChanged()),
+                this, SLOT(slotMetaDataChanged()));
+
+        if (sourceURL.contains("://"))
+            m_mediaPlayer->setSource(QUrl(sourceURL));
+        else
+            m_mediaPlayer->setSource(QUrl::fromLocalFile(sourceURL));
 #endif
+    }
 }
 
 QVariant VideoContent::getAttribute(quint32 id, const char *propName)
@@ -359,6 +371,11 @@ void VideoContent::slotMetaDataChanged(const QString &key, const QVariant &value
     }
 }
 #else
+void VideoContent::slotDurationChanged(qint64 duration)
+{
+    m_video->setTotalDuration(duration);
+}
+
 void VideoContent::slotMetaDataChanged()
 {
     QMediaMetaData md = m_mediaPlayer->metaData();

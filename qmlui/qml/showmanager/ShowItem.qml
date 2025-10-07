@@ -370,7 +370,7 @@ Item
 
             onPressed: isDragging = true
 
-            onPositionChanged:
+            onPositionChanged: (mouse) =>
             {
                 if (drag.active === true)
                 {

@@ -117,14 +117,10 @@ public:
         RGBMatrixType  = 1 << 5,
         ShowType       = 1 << 6,
         SequenceType   = 1 << 7,
-        AudioType      = 1 << 8
-#if QT_VERSION >= 0x050000
-        , VideoType    = 1 << 9
-#endif
+        AudioType      = 1 << 8,
+        VideoType      = 1 << 9
     };
-#if QT_VERSION >= 0x050500
     Q_ENUM(Type)
-#endif
 
     /**
      * Common attributes
@@ -136,9 +132,7 @@ public:
 
 public:
     enum PropType { Name = 0, FadeIn, Hold, FadeOut, Duration, Notes };
-#if QT_VERSION >= 0x050500
     Q_ENUM(PropType)
-#endif
 
     /*********************************************************************
      * Initialization
