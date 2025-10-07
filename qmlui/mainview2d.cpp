@@ -565,7 +565,11 @@ void MainView2D::selectFixture(QQuickItem *fxItem, bool enable)
 
     if (enable)
     {
-        QQuickItem *dragArea = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("contentsDragArea"));
+        QQuickItem *rootObj = m_view->rootObject();
+        if (rootObj == nullptr)
+            return;
+
+        QQuickItem *dragArea = qobject_cast<QQuickItem*>(rootObj->findChild<QObject *>("contentsDragArea"));
         if (dragArea)
             fxItem->setParentItem(dragArea);
     }
