@@ -56,10 +56,13 @@ Rectangle
         }
         else
         {
-            if (currentScale < 1)
-                View2D.gridScale += 0.1
-            else
-                View2D.gridScale += amount
+            if (currentScale < 5)
+            {
+                if (currentScale < 1)
+                    View2D.gridScale += 0.1
+                else
+                    View2D.gridScale += amount
+            }
         }
 
         twoDView.calculateCellSize()
@@ -323,10 +326,7 @@ Rectangle
                     if (wheel.angleDelta.y > 0)
                         setZoom(0.5)
                     else
-                    {
-                        if (View2D.gridScale > 0.2)
-                            setZoom(-0.5)
-                    }
+                        setZoom(-0.5)
                 }
             }
 

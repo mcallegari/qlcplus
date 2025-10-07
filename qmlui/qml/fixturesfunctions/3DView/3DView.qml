@@ -352,6 +352,10 @@ Rectangle
 
                 function setZoom(amount)
                 {
+                    if ((amount < 0 && View3D.cameraPosition.z < 1) ||
+                        (amount > 0 && View3D.cameraPosition.z > 30))
+                        return
+
                     translate(Qt.vector3d(0, 0, -amount), Camera.DontTranslateViewCenter)
                     View3D.cameraPosition = viewCamera.position
                 }
