@@ -109,7 +109,7 @@ QLC+ owes its success to the dedication and expertise of numerous individuals wh
 *   Hannes Bossuyt (Dutch translation)
 *   Aleksandr Gusarov (Russian translation)
 *   Vadim Syniuhin (Ukrainian translation)
-*   Mateusz Kędzierski (Polish translation)
+*   Mateusz Kędzierski + smaks6 (Polish translation)
 
 </details>
 
