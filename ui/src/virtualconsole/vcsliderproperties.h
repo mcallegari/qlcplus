@@ -20,6 +20,11 @@
 #ifndef VCSLIDERPROPERTIES_H
 #define VCSLIDERPROPERTIES_H
 
+#define KColumnName  0
+#define KColumnType  1
+#define KColumnRange 2
+#define KColumnID    3
+
 #include <QDialog>
 
 #include "ui_vcsliderproperties.h"
