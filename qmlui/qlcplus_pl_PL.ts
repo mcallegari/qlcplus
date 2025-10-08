@@ -46,7 +46,7 @@
     <message>
         <location filename="qml/ActionsMenu.qml" line="115"></location>
         <source>Do you wish to save the current project first?
-Changes will be lost if you don't save them.</source>
+Changes will be lost if you don&apos;t save them.</source>
         <translation>Czy chcesz najpierw zapisać swój projekt?
 Jeśli go nie zapiszesz, dokonane zmiany przepadną.</translation>
     </message>
@@ -1194,13 +1194,13 @@ Jeśli go nie zapiszesz, dokonane zmiany przepadną.</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="383"></location>
-        <source>&lt;li&gt;No capability provided in channel '%1'&lt;/li&gt;</source>
-        <translation>&lt;li&gt;Kanał '%1' nie posiada żadnych opcji!&lt;/li&gt;</translation>
+        <source>&lt;li&gt;No capability provided in channel &apos;%1&apos;&lt;/li&gt;</source>
+        <translation>&lt;li&gt;Kanał &apos;%1&apos; nie posiada żadnych opcji!&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="388"></location>
-        <source>&lt;li&gt;Empty capability description provided in channel '%1'&lt;/li&gt;</source>
-        <translation>&lt;li&gt;Opis opcji na kanale '%1' nie może być pusty!&lt;/li&gt;</translation>
+        <source>&lt;li&gt;Empty capability description provided in channel &apos;%1&apos;&lt;/li&gt;</source>
+        <translation>&lt;li&gt;Opis opcji na kanale &apos;%1&apos; nie może być pusty!&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="395"></location>
@@ -1209,13 +1209,13 @@ Jeśli go nie zapiszesz, dokonane zmiany przepadną.</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="398"></location>
-        <source>&lt;li&gt;Mode '%1' has no channels defined&lt;/li&gt;</source>
-        <translation>&lt;li&gt;Tryb '%1' nie ma zdefiniowanych kanałów&lt;/li&gt;</translation>
+        <source>&lt;li&gt;Mode &apos;%1&apos; has no channels defined&lt;/li&gt;</source>
+        <translation>&lt;li&gt;Tryb &apos;%1&apos; nie ma zdefiniowanych kanałów&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="405"></location>
-        <source>&lt;li&gt;In mode '%1', channel '%2' cannot act on itself&lt;/li&gt;</source>
-        <translation>&lt;li&gt;W trybie '%1', kanał '%2' nie może zależeć od samego siebie&lt;/li&gt;</translation>
+        <source>&lt;li&gt;In mode &apos;%1&apos;, channel &apos;%2&apos; cannot act on itself&lt;/li&gt;</source>
+        <translation>&lt;li&gt;W trybie &apos;%1&apos;, kanał &apos;%2&apos; nie może zależeć od samego siebie&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="412"></location>
@@ -2020,7 +2020,7 @@ Please provide a different name.</source>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="48"></location>
-        <source>You have enabled the input channel wizard. After clicking OK, wiggle your mapped input profile's controls. They should appear into the list. Click the wizard button again to stop channel auto-detection.&lt;br&gt;&lt;br&gt;Note that the wizard cannot tell the difference between a knob and a slider so you will have to do the change manually.</source>
+        <source>You have enabled the input channel wizard. After clicking OK, wiggle your mapped input profile&apos;s controls. They should appear into the list. Click the wizard button again to stop channel auto-detection.&lt;br&gt;&lt;br&gt;Note that the wizard cannot tell the difference between a knob and a slider so you will have to do the change manually.</source>
         <translation>Włączyłeś/aś kreator kanałów wejściowych. Po kliknięciu OK, poruszaj elementami urządzenia wejściowego. Powinny pojawi się na liście. Kliknij przycisk kreatora ponownie by zatrzymać automatyczne wykrywanie kanałów.&lt;br&gt;&lt;br&gt;Pamiętaj że kreator nie rozróżnia pokręteł od suwaków, więc będziesz musiał ustawić ich typ tych wejść ręcznie.</translation>
     </message>
     <message>
@@ -2031,7 +2031,7 @@ Please provide a different name.</source>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="62"></location>
         <source>Do you wish to save the current profile first?
-Changes will be lost if you don't save them.</source>
+Changes will be lost if you don&apos;t save them.</source>
         <translation>Czy chcesz zapisać aktualny profil? Inaczej stracisz aktualny profil.</translation>
     </message>
     <message>
