@@ -380,8 +380,10 @@ Rectangle
                     function itemDropped(id, name)
                     {
                         console.log("Dump values dropped on " + id)
-                        dmxDumpDialog.sceneID = id
+                        functionManager.selectFunctionID(id, false)
+                        sceneDump.updateDumpVariables()
                         dmxDumpDialog.sceneName = name
+                        dmxDumpDialog.existingScene = true
                         dmxDumpDialog.open()
                         dmxDumpDialog.focusEditItem()
                     }
