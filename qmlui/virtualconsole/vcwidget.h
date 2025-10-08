@@ -30,36 +30,43 @@
 #include "qlcfile.h"
 #include "doc.h"
 
-#define KXMLQLCVCCaption    QString("Caption")
-#define KXMLQLCVCFrameStyle QString("FrameStyle")    // LEGACY
+#define KXMLQLCVCCaption    QStringLiteral("Caption")
+#define KXMLQLCVCFrameStyle QStringLiteral("FrameStyle")    // LEGACY
 
-#define KXMLQLCVCWidgetID           QString("ID")
-#define KXMLQLCVCWidgetPage         QString("Page")
-#define KXMLQLCVCWidgetAppearance   QString("Appearance")
+#define KXMLQLCVCWidgetID           QStringLiteral("ID")
+#define KXMLQLCVCWidgetPage         QStringLiteral("Page")
+#define KXMLQLCVCWidgetAppearance   QStringLiteral("Appearance")
 
-#define KXMLQLCVCWidgetForegroundColor  QString("ForegroundColor")
-#define KXMLQLCVCWidgetBackgroundColor  QString("BackgroundColor")
-#define KXMLQLCVCWidgetColorDefault     QString("Default")
+#define KXMLQLCVCWidgetForegroundColor  QStringLiteral("ForegroundColor")
+#define KXMLQLCVCWidgetBackgroundColor  QStringLiteral("BackgroundColor")
+#define KXMLQLCVCWidgetColorDefault     QStringLiteral("Default")
 
-#define KXMLQLCVCWidgetFont         QString("Font")
-#define KXMLQLCVCWidgetFontDefault  QString("Default")
+#define KXMLQLCVCWidgetFont         QStringLiteral("Font")
+#define KXMLQLCVCWidgetFontDefault  QStringLiteral("Default")
 
-#define KXMLQLCVCWidgetBackgroundImage      QString("BackgroundImage")
-#define KXMLQLCVCWidgetBackgroundImageNone  QString("None")
+#define KXMLQLCVCWidgetBackgroundImage      QStringLiteral("BackgroundImage")
+#define KXMLQLCVCWidgetBackgroundImageNone  QStringLiteral("None")
 
-#define KXMLQLCWindowState          QString("WindowState")
-#define KXMLQLCWindowStateVisible   QString("Visible")
-#define KXMLQLCWindowStateX         QString("X")
-#define KXMLQLCWindowStateY         QString("Y")
-#define KXMLQLCWindowStateWidth     QString("Width")
-#define KXMLQLCWindowStateHeight    QString("Height")
+#define KXMLQLCWindowState          QStringLiteral("WindowState")
+#define KXMLQLCWindowStateVisible   QStringLiteral("Visible")
+#define KXMLQLCWindowStateX         QStringLiteral("X")
+#define KXMLQLCWindowStateY         QStringLiteral("Y")
+#define KXMLQLCWindowStateWidth     QStringLiteral("Width")
+#define KXMLQLCWindowStateHeight    QStringLiteral("Height")
 
-#define KXMLQLCVCWidgetKey              QString("Key")
-#define KXMLQLCVCWidgetInput            QString("Input")
-#define KXMLQLCVCWidgetInputUniverse    QString("Universe")
-#define KXMLQLCVCWidgetInputChannel     QString("Channel")
-#define KXMLQLCVCWidgetInputLowerValue  QString("LowerValue")
-#define KXMLQLCVCWidgetInputUpperValue  QString("UpperValue")
+#define KXMLQLCVCWidgetKey                  QStringLiteral("Key")
+#define KXMLQLCVCWidgetInput                QStringLiteral("Input")
+#define KXMLQLCVCWidgetInputId              QStringLiteral("ID")
+#define KXMLQLCVCWidgetInputUniverse        QStringLiteral("Universe")
+#define KXMLQLCVCWidgetInputChannel         QStringLiteral("Channel")
+#define KXMLQLCVCWidgetInputLowerValue      QStringLiteral("LowerValue")
+#define KXMLQLCVCWidgetInputUpperValue      QStringLiteral("UpperValue")
+#define KXMLQLCVCWidgetInputMonitorValue    QStringLiteral("MonitorValue")
+#define KXMLQLCVCWidgetInputLowerParams     QStringLiteral("LowerParams")
+#define KXMLQLCVCWidgetInputUpperParams     QStringLiteral("UpperParams")
+#define KXMLQLCVCWidgetInputMonitorParams   QStringLiteral("MonitorParams")
+
+#define VCWIDGET_AUTODETECT_INPUT_ID     0xFF
 
 typedef struct
 {
@@ -159,7 +166,7 @@ public:
         XYPadWidget,
         FrameWidget,
         SoloFrameWidget,
-        SpeedDialWidget,
+        SpeedWidget,
         CueListWidget,
         LabelWidget,
         AudioTriggersWidget,
@@ -479,9 +486,19 @@ protected:
     /*********************************************************************
      * Input sources
      *********************************************************************/
+private:
+    /** Returns an input source from the provided universe and channel.
+     *  Returns nullptr if not found */
+    QSharedPointer<QLCInputSource> inputSource(quint32 universe, quint32 channel);
+
 public:
-    enum SourceValueType { ExactValue, LowerValue, UpperValue };
+    enum SourceValueType { ExactValue, LowerValue, UpperValue, MonitorValue };
     Q_ENUM(SourceValueType)
+
+    /** Return a input source reference that matches the specified $id, $universe and $channel */
+    QSharedPointer<QLCInputSource> inputSource(quint32 id, quint32 universe, quint32 channel) const;
+
+    Q_INVOKABLE QVariant inputSourceFullInfo(quint32 universe, quint32 channel);
 
     /**
      * Add an external input $source to the sources known by thie widget.
@@ -496,9 +513,13 @@ public:
     /** Update the control ID of an existing input source bound to $universe and $channel */
     Q_INVOKABLE bool updateInputSourceControlID(quint32 universe, quint32 channel, quint32 id);
 
-    /** Update the lower/upper values of an existing input source bound to $universe and $channel */
-    Q_INVOKABLE bool updateInputSourceRange(quint32 universe, quint32 channel, quint8 lower, quint8 upper);
+    /** Update the feedback values of an existing input source bound to $universe and $channel */
+    Q_INVOKABLE bool updateInputSourceFeedbackValues(quint32 universe, quint32 channel,
+                                                     quint8 lower, quint8 upper, quint8 monitor);
 
+    /** Update the feedback extra parameters of an existing input source bound to $universe and $channel */
+    Q_INVOKABLE bool updateInputSourceExtraParams(quint32 universe, quint32 channel,
+                                                  int lower, int upper, int monitor);
     /** Delete an existing input source from this widget */
     void deleteInputSurce(quint32 id, quint32 universe, quint32 channel);
 
@@ -508,9 +529,6 @@ public:
 
     /** Return a list of input sources to be used by the UI */
     QVariantList inputSourcesList();
-
-    /** Return a input source reference that matches the specified $id, $universe and $channel */
-    QSharedPointer<QLCInputSource> inputSource(quint32 id, quint32 universe, quint32 channel) const;
 
     /**
      * Send a feedback to an external controller.
@@ -592,7 +610,7 @@ protected:
      * @param h Loaded h position
      * @param visible Loaded visible status
      *
-     * @return true if succesful, otherwise false
+     * @return true if successful, otherwise false
      */
     bool loadXMLWindowState(QXmlStreamReader &root, int* x, int* y,
                             int* w, int* h, bool* visible);
@@ -620,7 +638,7 @@ protected:
 
     /** Save all the input sources and key combination with the given $controlId
      *  in a tag with the given $tagName */
-    bool saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QString tagName = QString());
+    bool saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, bool unified = true, QString tagName = QString());
 };
 
 #endif

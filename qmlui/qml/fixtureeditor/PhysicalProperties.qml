@@ -17,9 +17,10 @@
   limitations under the License.
 */
 
-import QtQuick 2.2
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.4
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtQuick.Controls.Basic
 
 import org.qlcplus.classes 1.0
 import "."
@@ -45,13 +46,10 @@ GridLayout
             columns: 2
 
             RobotoText { label: qsTr("Type") }
-            ComboBox
+            CustomComboBox
             {
                 Layout.fillWidth: true
-                palette.base: UISettings.bgControl
-                palette.window: UISettings.bgControl
-                palette.text: UISettings.fgMain
-                palette.highlightedText: UISettings.bgMedium
+                textRole: ""
 
                 model: ["LED", "CDM 70W", "CDM 150W", "CP29 5000W", "CP41 2000W", "CP60 1000W",
                         "CP61 1000W", "CP62 1000W", "CP86 500W", "CP87 500W", "CP88 500W",
@@ -66,6 +64,7 @@ GridLayout
 
                 editText: phy ? phy.bulbType : ""
                 onEditTextChanged: if (phy) phy.bulbType = editText
+                onValueChanged: if (phy) phy.bulbType = currentText
 
                 Rectangle
                 {
@@ -114,19 +113,18 @@ GridLayout
             columns: 2
 
             RobotoText { label: qsTr("Type") }
-            ComboBox
+            CustomComboBox
             {
                 Layout.fillWidth: true
                 enabled: controlRoot.enabled
-                palette.base: UISettings.bgControl
-                palette.window: UISettings.bgControl
-                palette.text: UISettings.fgMain
-                palette.highlightedText: UISettings.bgMedium
+                textRole: ""
                 model: ["Other", "PC", "Fresnel"]
                 editable: true
 
                 editText: phy ? phy.lensType : ""
                 onEditTextChanged: if (phy) phy.lensType = editText
+                onValueChanged: if (phy) phy.lensType = currentText
+
 
                 Rectangle
                 {
@@ -177,19 +175,18 @@ GridLayout
             columns: 2
 
             RobotoText { label: qsTr("Type") }
-            ComboBox
+            CustomComboBox
             {
                 Layout.fillWidth: true
                 enabled: controlRoot.enabled
-                palette.base: UISettings.bgControl
-                palette.window: UISettings.bgControl
-                palette.text: UISettings.fgMain
-                palette.highlightedText: UISettings.bgMedium
+                textRole: ""
                 model: ["Fixed", "Head", "Mirror", "Barrel"]
                 editable: true
 
                 editText: phy ? phy.focusType : ""
                 onEditTextChanged: if (phy) phy.focusType = editText
+                onValueChanged: if (phy) phy.focusType = currentText
+
 
                 Rectangle
                 {
@@ -347,19 +344,17 @@ GridLayout
             }
 
             RobotoText { label: qsTr("DMX Connector") }
-            ComboBox
+            CustomComboBox
             {
                 Layout.fillWidth: true
                 enabled: controlRoot.enabled
-                palette.base: UISettings.bgControl
-                palette.window: UISettings.bgControl
-                palette.text: UISettings.fgMain
-                palette.highlightedText: UISettings.bgMedium
+                textRole: ""
                 model: ["3-pin", "5-pin", "3-pin and 5-pin", "3.5 mm stereo jack", "Other"]
                 editable: true
 
                 editText: phy ? phy.dmxConnector : ""
                 onEditTextChanged: if (phy) phy.dmxConnector = editText
+                onValueChanged: if (phy) phy.dmxConnector = currentText
 
                 Rectangle
                 {

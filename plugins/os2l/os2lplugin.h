@@ -70,9 +70,6 @@ public:
     /** @reimp */
     QString inputInfo(quint32 input);
 
-    /** @reimp */
-    void sendFeedBack(quint32 universe, quint32 output, quint32 channel, uchar value, const QString& key);
-
     quint32 universe() const;
 
 protected:
@@ -104,6 +101,8 @@ protected:
       * to quickly retrieve a unique channel number
       */
     QHash<QString, quint16> m_hashMap;
+
+    QByteArray m_packetLeftOver;
 
     /*********************************************************************
      * Configuration

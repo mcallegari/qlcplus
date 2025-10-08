@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -32,7 +32,7 @@ Rectangle
 
     property int functionID: -1
 
-    signal requestView(int ID, string qmlSrc)
+    signal requestView(int ID, string qmlSrc, bool back)
 
     Column
     {
@@ -46,8 +46,7 @@ Rectangle
             onBackClicked:
             {
                 var prevID = chaserEditor.previousID
-                functionManager.setEditorFunction(prevID, false, true)
-                requestView(prevID, functionManager.getEditorResource(prevID))
+                requestView(prevID, functionManager.getEditorResource(prevID), true)
             }
 
             IconButton
@@ -55,7 +54,8 @@ Rectangle
                 visible: stepsView.checked
                 width: height
                 height: UISettings.iconSizeMedium - 2
-                imgSource: "qrc:/add.svg"
+                faSource: FontAwesome.fa_plus
+                faColor: "limegreen"
                 tooltip: qsTr("Add a new step")
                 onClicked: chaserEditor.addStep(chaserEditor.playbackIndex)
             }
@@ -64,7 +64,8 @@ Rectangle
             {
                 width: height
                 height: UISettings.iconSizeMedium - 2
-                imgSource: "qrc:/remove.svg"
+                faSource: FontAwesome.fa_minus
+                faColor: "crimson"
                 tooltip: stepsView.checked ? qsTr("Remove the selected steps") : qsTr("Remove the selected fixtures")
                 onClicked:
                 {

@@ -39,7 +39,7 @@ class AudioBar;
  * @{
  */
 
-#define KXMLQLCVCAudioTriggers QString("AudioTriggers")
+#define KXMLQLCVCAudioTriggers QStringLiteral("AudioTriggers")
 
 class VCAudioTriggers : public VCWidget, public DMXSource
 {
@@ -81,9 +81,8 @@ signals:
 
 protected slots:
     void slotDisplaySpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power);
-#if QT_VERSION >= 0x050000
     void slotVolumeChanged(int volume);
-#endif
+    void slotUpdateVolumeSlider(int volume);
 
 protected:
     QHBoxLayout *m_hbox;
@@ -124,7 +123,7 @@ protected:
      * External Input
      *************************************************************************/
 public:
-    void updateFeedback() { }
+    void updateFeedback();
 
 protected slots:
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);

@@ -65,6 +65,8 @@ class ShowManager : public PreviewContext
 public:
     explicit ShowManager(QQuickView *view, Doc *doc, QObject *parent = 0);
 
+    void initialize();
+
     /** Return the ID of the Show Function being edited */
     int currentShowID() const;
 
@@ -307,7 +309,7 @@ private:
     /** Holds the currently selected Show items */
     QList<SelectedShowItem> m_selectedItems;
 
-    /** Holds the item currenly ready for pasting */
+    /** Holds the item currently ready for pasting */
     QList<SelectedShowItem> m_clipboard;
 };
 

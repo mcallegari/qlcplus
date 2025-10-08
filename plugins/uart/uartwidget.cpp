@@ -18,7 +18,7 @@
 */
 
 #include <QDebug>
-#include <QTime>
+#include <QElapsedTimer>
 #include <math.h>
 
 #include <sys/ioctl.h>
@@ -70,7 +70,7 @@ bool UARTWidget::close(UARTWidget::WidgetMode mode)
 
 void UARTWidget::updateMode()
 {
-    if(m_mode != Closed && m_running == false)
+    if (m_mode != Closed && m_running == false)
         start();
     else if (m_mode == Closed && m_running == true)
         stop();
@@ -141,7 +141,7 @@ void UARTWidget::run()
     int frameTime = (int) floor(((double)1000 / 30) + (double)0.5);
     m_granularity = Bad;
 
-    QTime time;
+    QElapsedTimer time;
     time.start();
     usleep(1000);
     if (time.elapsed() <= 3)
@@ -155,10 +155,10 @@ void UARTWidget::run()
         if (m_mode & Output)
         {
             m_serialPort->setBreakEnabled(true);
-            if(m_granularity == Good)
+            if (m_granularity == Good)
                 usleep(DMX_BREAK);
             m_serialPort->setBreakEnabled(false);
-            if(m_granularity == Good)
+            if (m_granularity == Good)
                 usleep(DMX_MAB);
 
             if (m_serialPort->write(m_outputBuffer) == 0)

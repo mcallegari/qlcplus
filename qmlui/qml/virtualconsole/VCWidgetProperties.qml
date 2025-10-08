@@ -17,10 +17,10 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.1
-import QtQuick.Controls 2.13
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Dialogs
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -66,13 +66,14 @@ Rectangle
         currentRGB: wObj ? wObj.backgroundColor : "black"
         showPalette: false
 
-        onColorChanged:
-        {
-            if(wObj && selectedWidgetsCount < 2)
-                wObj.backgroundColor = Qt.rgba(r, g, b, 1.0)
-            else
-                virtualConsole.setWidgetsBackgroundColor(Qt.rgba(r, g, b, 1.0))
-        }
+        onToolColorChanged:
+            function(r, g, b, w, a, uv)
+            {
+                if(wObj && selectedWidgetsCount < 2)
+                    wObj.backgroundColor = Qt.rgba(r, g, b, 1.0)
+                else
+                    virtualConsole.setWidgetsBackgroundColor(Qt.rgba(r, g, b, 1.0))
+            }
         onClose: visible = false
     }
 
@@ -86,13 +87,14 @@ Rectangle
         currentRGB: wObj ? wObj.foregroundColor : "black"
         showPalette: false
 
-        onColorChanged:
-        {
-            if(wObj && selectedWidgetsCount < 2)
-                wObj.foregroundColor = Qt.rgba(r, g, b, 1.0)
-            else
-                virtualConsole.setWidgetsForegroundColor(Qt.rgba(r, g, b, 1.0))
-        }
+        onToolColorChanged:
+            function(r, g, b, w, a, uv)
+            {
+                if(wObj && selectedWidgetsCount < 2)
+                    wObj.foregroundColor = Qt.rgba(r, g, b, 1.0)
+                else
+                    virtualConsole.setWidgetsForegroundColor(Qt.rgba(r, g, b, 1.0))
+            }
         onClose: visible = false
     }
 
@@ -115,6 +117,8 @@ Rectangle
             {
                 if (modelProvider && item.hasOwnProperty('modelProvider'))
                     item.modelProvider = modelProvider
+                if (item.hasOwnProperty('allowEditing'))
+                    item.allowEditing = false
             }
 
             Rectangle
@@ -218,7 +222,7 @@ Rectangle
                         {
                             Layout.fillWidth: true
                             height: UISettings.listItemHeight
-                            color: UISettings.bgMedium
+                            //color: UISettings.bgMedium
                             text: wObj ? wObj.caption : ""
 
                             onTextChanged:
@@ -309,9 +313,8 @@ Rectangle
                                 width: UISettings.iconSizeMedium
                                 height: width
                                 anchors.right: parent.right
-                                imgSource: "qrc:/font.svg"
-                                //bgColor: "#aaa"
-                                //hoverColor: "#888"
+                                faSource: FontAwesome.fa_font
+                                faColor: "lightcyan"
 
                                 onClicked: fontDialog.visible = true
 
@@ -319,16 +322,16 @@ Rectangle
                                 {
                                     id: fontDialog
                                     title: qsTr("Please choose a font")
-                                    font: wObj ? wObj.font : ""
+                                    selectedFont: wObj ? wObj.font : ""
                                     visible: false
 
                                     onAccepted:
                                     {
-                                        console.log("Selected font: " + fontDialog.font)
+                                        console.log("Selected font: " + fontDialog.selectedFont)
                                         if(wObj && selectedWidgetsCount < 2)
-                                            wObj.font = fontDialog.font
+                                            wObj.font = fontDialog.selectedFont
                                         else
-                                            virtualConsole.setWidgetsFont(fontDialog.font)
+                                            virtualConsole.setWidgetsFont(fontDialog.selectedFont)
                                     }
                                 }
                             }
@@ -361,7 +364,9 @@ Rectangle
                                 width: UISettings.iconSizeMedium
                                 height: width
                                 anchors.right: parent.right
-                                imgSource: "qrc:/background.svg"
+                                faSource: FontAwesome.fa_image
+                                faColor: "lightyellow"
+                                tooltip: qsTr("Set a custom background")
 
                                 onClicked: fileDialog.visible = true
 
@@ -375,9 +380,9 @@ Rectangle
                                     onAccepted:
                                     {
                                         if(wObj && selectedWidgetsCount < 2)
-                                            wObj.backgroundImage = fileDialog.fileUrl
+                                            wObj.backgroundImage = fileDialog.selectedFile
                                         else
-                                            virtualConsole.setWidgetsBackgroundImage(fileDialog.fileUrl)
+                                            virtualConsole.setWidgetsBackgroundImage(fileDialog.selectedFile)
                                     }
                                 }
                             }

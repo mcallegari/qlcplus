@@ -32,8 +32,8 @@ class QXmlStreamReader;
  * @{
  */
 
-#define KXMLQLCTrack        QString("Track")
-#define KXMLQLCTrackID      QString("ID")
+#define KXMLQLCTrack        QStringLiteral("Track")
+#define KXMLQLCTrackID      QStringLiteral("ID")
 
 class Track : public QObject
 {

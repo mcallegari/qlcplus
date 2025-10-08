@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.2
+import QtQuick
 
 import org.qlcplus.classes 1.0
 import "."
@@ -103,6 +103,7 @@ Column
                 id: nodeLabel
                 width: nodeBgRect.width - x - 1
                 text: cRef ? cRef.name : textLabel
+                originalText: text
 
                 onTextConfirmed: nodeContainer.pathChanged(nodePath, text)
             }
@@ -125,9 +126,9 @@ Column
 
             drag.target: dragItem
 
-            onPressed: nodeContainer.mouseEvent(App.Pressed, cRef ? cRef.id : -1, nodeContainer.itemType,
+            onPressed: (mouse) => nodeContainer.mouseEvent(App.Pressed, cRef ? cRef.id : -1, nodeContainer.itemType,
                                                 nodeContainer, mouse.modifiers)
-            onClicked:
+            onClicked: (mouse) =>
             {
                 nodeLabel.forceActiveFocus()
                 nodeContainer.mouseEvent(App.Clicked, cRef ? cRef.id : -1, nodeContainer.itemType,
@@ -142,7 +143,7 @@ Column
             anchors.fill: parent
             keys: [ nodeContainer.dropKeys ]
 
-            onDropped:
+            onDropped: (drop) =>
             {
                 console.log("Item dropped here. x: " + drop.x + " y: " + drop.y + ", items: " + drop.source.itemsList.length)
                 nodeContainer.itemsDropped(nodePath)
@@ -181,7 +182,7 @@ Column
                         if (model.classRef !== undefined && item.hasOwnProperty('cRef'))
                             item.cRef = classRef
 
-                        if (item.hasOwnProperty('itemID') && model.classRef !== undefined)
+                        if (model.classRef !== undefined && item.hasOwnProperty('itemID'))
                             item.itemID = id
 
                         if (item.hasOwnProperty('inGroup'))

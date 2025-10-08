@@ -59,10 +59,13 @@ public:
     void setImageData(int width, int height, const QByteArray& pixelData);
 
     bool animatedSource() const;
+    void rewindAnimation();
 
 private:
-
     void reloadImage();
+
+protected slots:
+    void frameChanged(int num);
 
 private:
     QString m_filename;
@@ -101,6 +104,12 @@ private:
 public:
     /** @reimp */
     int rgbMapStepCount(const QSize& size);
+
+    /** @reimp */
+    void rgbMapSetColors(const QVector<uint> &colors);
+
+    /** @reimp */
+    QVector<uint> rgbMapGetColors();
 
     /** @reimp */
     void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);

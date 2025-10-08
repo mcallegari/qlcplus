@@ -20,6 +20,7 @@
 #include <QVersionNumber>
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
  #include <QMediaMetaData>
+ #include <QAudioOutput>
 #endif
 #include <QApplication>
 #include <QMediaPlayer>
@@ -52,7 +53,7 @@ void VideoProvider::slotFunctionAdded(quint32 id)
     if (func == NULL)
         return;
 
-    if(func->type() == Function::VideoType)
+    if (func->type() == Function::VideoType)
     {
         VideoWidget *vWidget = new VideoWidget(qobject_cast<Video *>(func));
         m_videoMap[id] = vWidget;
@@ -84,6 +85,8 @@ VideoWidget::VideoWidget(Video *video, QObject *parent)
     m_videoPlayer = new QMediaPlayer(this, QMediaPlayer::VideoSurface);
 #else
     m_videoPlayer = new QMediaPlayer(this);
+    m_audioOutput = new QAudioOutput(this);
+    m_videoPlayer->setAudioOutput(m_audioOutput);
 #endif
     m_videoPlayer->moveToThread(QCoreApplication::instance()->thread());
 
@@ -217,7 +220,7 @@ void VideoWidget::slotMetaDataChanged()
         return;
 
     QMediaMetaData md = m_videoPlayer->metaData();
-    foreach(QMediaMetaData::Key k, md.keys())
+    foreach (QMediaMetaData::Key k, md.keys())
     {
         qDebug() << "[Metadata]" << md.metaDataKeyToString(k) << ":" << md.stringValue(k);
         switch (k)
@@ -312,8 +315,11 @@ void VideoWidget::slotBrightnessAdjust(int value)
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     if (m_videoWidget != NULL)
         m_videoWidget->setBrightness(value);
+    if (m_videoPlayer)
+        m_videoPlayer->setVolume(value + 100);
 #else
-    Q_UNUSED(value)
+    if (m_audioOutput)
+        m_audioOutput->setVolume(value + 100);
 #endif
 }
 

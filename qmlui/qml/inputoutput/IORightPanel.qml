@@ -17,8 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.0
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 
 import "."
 
@@ -40,7 +41,7 @@ SidePanel
         }
     }
 
-    onContentLoaded:
+    onContentLoaded: (item, ID) =>
     {
         item.universeIndex = universeIndex
         item.loadSources(false)
@@ -60,6 +61,8 @@ SidePanel
             width: iconSize
             spacing: 3
 
+            ButtonGroup { id: iorButtonsGroup }
+
             IconButton
             {
                 id: audioOutputButton
@@ -67,12 +70,13 @@ SidePanel
                 visible: showAudioButton
                 width: iconSize
                 height: iconSize
+                ButtonGroup.group: iorButtonsGroup
                 imgSource: "qrc:/audiocard.svg"
-                checkable: true
                 tooltip: qsTr("Show the audio output sources")
-                onToggled:
+                onClicked:
                 {
-                    if (checked == true)
+                    checked = !checked
+                    if (checked === true)
                         loaderSource = "qrc:/AudioCardsList.qml"
                     animatePanel(checked)
                 }
@@ -85,12 +89,13 @@ SidePanel
                 visible: showPluginsButton
                 width: iconSize
                 height: iconSize
+                ButtonGroup.group: iorButtonsGroup
                 imgSource: "qrc:/inputoutput.svg"
-                checkable: true
                 tooltip: qsTr("Show the universe output sources")
-                onToggled:
+                onClicked:
                 {
-                    if (checked == true)
+                    checked = !checked
+                    if (checked === true)
                         loaderSource = "qrc:/PluginsList.qml"
                     animatePanel(checked)
                 }
@@ -133,7 +138,8 @@ SidePanel
                 z: 2
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/add.svg"
+                faSource: FontAwesome.fa_plus
+                faColor: "limegreen"
                 tooltip: qsTr("Add a new universe")
                 onClicked: ioManager.addUniverse()
             }
@@ -144,7 +150,8 @@ SidePanel
                 visible: ioManager.selectedIndex === ioManager.universeNames.length - 1
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/remove.svg"
+                faSource: FontAwesome.fa_minus
+                faColor: "crimson"
                 tooltip: qsTr("Remove the selected universe")
                 onClicked: ioManager.removeLastUniverse()
             }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>Lance Moore</Author>
+ </Creator>
+ <Manufacturer>UKing</Manufacturer>
+ <Model>36W PAR UV ZQ01087</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Brightness UV LED Bank1" Preset="IntensityUV"/>
+ <Channel Name="Brightness UV LED Bank 2" Preset="IntensityUV"/>
+ <Channel Name="Brightness UV LED Bank 3" Preset="IntensityUV"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Presets &amp; Sound (211-255 Sound)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">Manual Control (Ch1 - 5)</Capability>
+  <Capability Min="11" Max="60">Colors Selection (By Ch7)</Capability>
+  <Capability Min="61" Max="110">Colors Shade (By Ch7)</Capability>
+  <Capability Min="111" Max="160">Colors Pulse Transform (By Ch7)</Capability>
+  <Capability Min="161" Max="210">Colors Transition (By Ch7)</Capability>
+  <Capability Min="211" Max="255">Sound Active Mode</Capability>
+ </Channel>
+ <Channel Name="Effect Speed (Ch6)" Preset="SpeedPanSlowFast"/>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Brightness UV LED Bank1</Channel>
+  <Channel Number="2">Brightness UV LED Bank 2</Channel>
+  <Channel Number="3">Brightness UV LED Bank 3</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Presets &amp; Sound (211-255 Sound)</Channel>
+  <Channel Number="6">Effect Speed (Ch6)</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="0.56" Width="175" Height="175" Depth="100"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="72" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

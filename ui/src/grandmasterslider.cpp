@@ -130,7 +130,7 @@ void GrandMasterSlider::slotValueChanged(int value)
 
     // Avoid double calls triggered by slotGrandMasterValueChanged
     int curval = m_ioMap->grandMasterValue();
-    if(value != curval)
+    if (value != curval)
     {
         // Write new grand master value to universes
         m_ioMap->setGrandMasterValue(value);
@@ -188,6 +188,8 @@ void GrandMasterSlider::slotGrandMasterValueChanged(uchar value)
     m_slider->blockSignals(true);
     m_slider->setValue(value);
     m_slider->blockSignals(false);
+
+    updateDisplayValue();
 }
 
 void GrandMasterSlider::slotGrandMasterValueModeChanged(GrandMaster::ValueMode mode)

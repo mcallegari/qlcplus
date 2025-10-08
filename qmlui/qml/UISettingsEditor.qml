@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.2
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -30,13 +30,16 @@ Rectangle
     anchors.fill: parent
     color: "transparent"
 
-    property real origItemHeight: UISettings.listItemHeight
-    property real origIconMedium: UISettings.iconSizeMedium
+    property real origItemHeight: { origItemHeight = UISettings.listItemHeight }
+    property real origIconMedium: { origIconMedium = UISettings.iconSizeMedium }
+    property real origTextSizeDefault: { origTextSizeDefault = UISettings.textSizeDefault}
+    property real origIconDefault: {origIconDefault = UISettings.iconSizeDefault}
 
     onVisibleChanged:
     {
         origItemHeight = UISettings.listItemHeight
         origIconMedium = UISettings.iconSizeMedium
+        origTextSizeDefault = UISettings.textSizeDefault
         sfRestore.origScaleFactor = qlcplus.uiScaleFactor
     }
 
@@ -52,11 +55,12 @@ Rectangle
         property Item rectItem
         property Item selectedItem
 
-        onColorChanged:
-        {
-            rectItem.color = Qt.rgba(r, g, b, 1.0)
-            selectedItem.updateColor(Qt.rgba(r, g, b, 1.0))
-        }
+        onToolColorChanged:
+            function(r, g, b, w, a, uv)
+            {
+                rectItem.color = Qt.rgba(r, g, b, 1.0)
+                selectedItem.updateColor(Qt.rgba(r, g, b, 1.0))
+            }
         onClose: visible = false
     }
 
@@ -65,6 +69,17 @@ Rectangle
         id: messagePopup
         standardButtons: Dialog.Ok
         onAccepted: close()
+    }
+
+    GenericButton
+    {
+        width: height
+        height: UISettings.iconSizeDefault
+        anchors.right: parent.right
+        border.color: UISettings.bgMedium
+        useFontawesome: true
+        label: FontAwesome.fa_xmark
+        onClicked: mainView.loadResource("qrc:/FixturesAndFunctions.qml")
     }
 
     Component
@@ -135,6 +150,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Scaling factor")
         }
         RowLayout
@@ -153,6 +169,7 @@ Rectangle
             RobotoText
             {
                 height: origItemHeight
+                fontSize: origTextSizeDefault
                 label: sfSlider.value.toFixed(2) + "x"
             }
 
@@ -181,6 +198,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Background darker")
         }
         Loader
@@ -199,6 +217,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Background dark")
         }
         Loader
@@ -218,6 +237,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Background medium")
         }
         Loader
@@ -236,6 +256,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Background light")
         }
         Loader
@@ -255,6 +276,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Background lighter")
         }
         Loader
@@ -273,6 +295,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Controls background")
         }
         Loader
@@ -292,6 +315,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Foreground main")
         }
         Loader
@@ -310,6 +334,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Foreground medium")
         }
         Loader
@@ -329,6 +354,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Foreground light")
         }
         Loader
@@ -347,6 +373,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Toolbar gradient start")
         }
         Loader
@@ -366,6 +393,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Sub-toolbar gradient start")
         }
         Loader
@@ -384,6 +412,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Toolbar gradient end")
         }
         Loader
@@ -403,6 +432,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Toolbar hover gradient start")
         }
         Loader
@@ -422,6 +452,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Toolbar hover gradient end")
         }
         Loader
@@ -441,6 +472,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Toolbar selection")
         }
         Loader
@@ -460,6 +492,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Sub-toolbar selection")
         }
         Loader
@@ -479,6 +512,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Section header")
         }
         Loader
@@ -497,6 +531,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Section header divider")
         }
         Loader
@@ -516,6 +551,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Item highlight")
         }
         Loader
@@ -534,6 +570,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Item highlight pressed")
         }
         Loader
@@ -553,6 +590,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Item hover")
         }
         Loader
@@ -571,6 +609,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Item selection")
         }
         Loader
@@ -590,6 +629,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("VC Frame drop area")
         }
         Loader
@@ -608,6 +648,7 @@ Rectangle
         RobotoText
         {
             height: origItemHeight
+            fontSize: origTextSizeDefault
             label: qsTr("Item dark border")
         }
         Loader
@@ -628,6 +669,8 @@ Rectangle
             Layout.columnSpan: 4
             Layout.alignment: Qt.AlignHCenter
             width: origIconMedium * 10
+            height: origIconDefault
+            fontSize: origTextSizeDefault
             label: qsTr("Save to file")
             onClicked:
             {

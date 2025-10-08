@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "GenericHelpers.js" as Helpers
@@ -54,7 +54,7 @@ Rectangle
             x: parent.width - width - 10
             height: UISettings.bigItemHeight * 0.25
             width: height
-            faSource: FontAwesome.fa_times
+            faSource: FontAwesome.fa_xmark
             faColor: "white"
             tooltip: qsTr("Remove this input profile")
             onClicked: ipRoot.removeProfile()

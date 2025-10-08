@@ -19,9 +19,11 @@
 */
 
 // Let's assume we have at least W2K (http://msdn.microsoft.com/en-us/library/Aa383745)
-#define _WIN32_WINNT 0x05000000
-#define _WIN32_WINDOWS 0x05000000
-#define WINVER 0x05000000
+#ifndef _WIN32_WINNT
+  #define _WIN32_WINNT 0x05000000
+  #define _WIN32_WINDOWS 0x05000000
+  #define WINVER 0x05000000
+#endif
 
 #include <QDebug>
 

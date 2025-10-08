@@ -17,10 +17,10 @@
   limitations under the License.
 */
 
-#include "nanodmx.h"
-
 #include <QDebug>
 #include <QDir>
+
+#include "nanodmx.h"
 
 NanoDMX::NanoDMX(DMXInterface *interface, quint32 outputLine)
     : DMXUSBWidget(interface, outputLine, DEFAULT_OUTPUT_FREQUENCY)
@@ -120,7 +120,7 @@ QString NanoDMX::getDeviceName()
                             if (ttyDir.exists())
                             {
                                 QStringList ttyList = ttyDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-                                foreach(QString ttyName, ttyList)
+                                foreach (QString ttyName, ttyList)
                                 {
                                     qDebug() << "This NanoDMX adapter will use" << QString("/dev/" + ttyName);
                                     return QString("/dev/" + ttyName);
@@ -266,14 +266,14 @@ bool NanoDMX::writeUniverse(quint32 universe, quint32 output, const QByteArray& 
 
     //qDebug() << "Writing universe...";
 
-    if (m_outputLines[0].m_universeData.size() == 0)
+    if (m_portsInfo[0].m_universeData.size() == 0)
     {
-        m_outputLines[0].m_universeData.append(data);
-        m_outputLines[0].m_universeData.append(DMX_CHANNELS - data.size(), 0);
+        m_portsInfo[0].m_universeData.append(data);
+        m_portsInfo[0].m_universeData.append(DMX_CHANNELS - data.size(), 0);
     }
 
     if (dataChanged)
-        m_outputLines[0].m_universeData.replace(0, data.size(), data);
+        m_portsInfo[0].m_universeData.replace(0, data.size(), data);
 
     return true;
 }
@@ -295,8 +295,8 @@ void NanoDMX::run()
 
     m_running = true;
 
-    if (m_outputLines[0].m_compareData.size() == 0)
-        m_outputLines[0].m_compareData.fill(0, 512);
+    if (m_portsInfo[0].m_compareData.size() == 0)
+        m_portsInfo[0].m_compareData.fill(0, 512);
 
     // Wait for device to settle in case the device was opened just recently
     usleep(1000);
@@ -305,11 +305,11 @@ void NanoDMX::run()
     {
         timer.restart();
 
-        for (int i = 0; i < m_outputLines[0].m_universeData.length(); i++)
+        for (int i = 0; i < m_portsInfo[0].m_universeData.length(); i++)
         {
-            char val = m_outputLines[0].m_universeData[i];
+            char val = m_portsInfo[0].m_universeData[i];
 
-            if (val == m_outputLines[0].m_compareData[i])
+            if (val == m_portsInfo[0].m_compareData[i])
                 continue;
 
             //qDebug() << "Writing value at index" << i;
@@ -339,7 +339,7 @@ void NanoDMX::run()
             }
             else
             {
-                m_outputLines[0].m_compareData[i] = val;
+                m_portsInfo[0].m_compareData[i] = val;
 #ifdef QTSERIAL
                 if (checkReply() == false)
                     iface()->purgeBuffers();

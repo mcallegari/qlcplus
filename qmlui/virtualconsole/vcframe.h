@@ -22,26 +22,26 @@
 
 #include "vcwidget.h"
 
-#define KXMLQLCVCFrame              QString("Frame")
-#define KXMLQLCVCFrameAllowChildren QString("AllowChildren")  // LEGACY
-#define KXMLQLCVCFrameAllowResize   QString("AllowResize")
-#define KXMLQLCVCFrameShowHeader    QString("ShowHeader")
-#define KXMLQLCVCFrameIsCollapsed   QString("Collapsed")
-#define KXMLQLCVCFrameIsDisabled    QString("Disabled")
-#define KXMLQLCVCFrameEnableSource  QString("Enable")
-#define KXMLQLCVCFrameShowEnableButton QString("ShowEnableButton")
-#define KXMLQLCVCFramePIN           QString("PIN")
+#define KXMLQLCVCFrame              QStringLiteral("Frame")
+#define KXMLQLCVCFrameAllowChildren QStringLiteral("AllowChildren")  // LEGACY
+#define KXMLQLCVCFrameAllowResize   QStringLiteral("AllowResize")
+#define KXMLQLCVCFrameShowHeader    QStringLiteral("ShowHeader")
+#define KXMLQLCVCFrameIsCollapsed   QStringLiteral("Collapsed")
+#define KXMLQLCVCFrameIsDisabled    QStringLiteral("Disabled")
+#define KXMLQLCVCFrameEnableSource  QStringLiteral("Enable")
+#define KXMLQLCVCFrameShowEnableButton QStringLiteral("ShowEnableButton")
+#define KXMLQLCVCFramePIN           QStringLiteral("PIN")
 
-#define KXMLQLCVCFrameMultipage     QString("Multipage")
-#define KXMLQLCVCFramePagesNumber   QString("PagesNum")
-#define KXMLQLCVCFrameCurrentPage   QString("CurrentPage")
-#define KXMLQLCVCFrameKey           QString("Key")
-#define KXMLQLCVCFrameNext          QString("Next")
-#define KXMLQLCVCFramePrevious      QString("Previous")
-#define KXMLQLCVCFramePagesLoop     QString("PagesLoop")
-#define KXMLQLCVCFrameShortcut      QString("Shortcut")
-#define KXMLQLCVCFrameShortcutPage  QString("Page")
-#define KXMLQLCVCFrameShortcutName  QString("Name")
+#define KXMLQLCVCFrameMultipage     QStringLiteral("Multipage")
+#define KXMLQLCVCFramePagesNumber   QStringLiteral("PagesNum")
+#define KXMLQLCVCFrameCurrentPage   QStringLiteral("CurrentPage")
+#define KXMLQLCVCFrameKey           QStringLiteral("Key")
+#define KXMLQLCVCFrameNext          QStringLiteral("Next")
+#define KXMLQLCVCFramePrevious      QStringLiteral("Previous")
+#define KXMLQLCVCFramePagesLoop     QStringLiteral("PagesLoop")
+#define KXMLQLCVCFrameShortcut      QStringLiteral("Shortcut")
+#define KXMLQLCVCFrameShortcutPage  QStringLiteral("Page")
+#define KXMLQLCVCFrameShortcutName  QStringLiteral("Name")
 
 class VirtualConsole;
 
@@ -65,6 +65,8 @@ class VCFrame : public VCWidget
 public:
     VCFrame(Doc* doc = nullptr, VirtualConsole *vc = nullptr, QObject *parent = nullptr);
     virtual ~VCFrame();
+
+    virtual void initializeProperties();
 
     /** @reimp */
     virtual QString defaultCaption();

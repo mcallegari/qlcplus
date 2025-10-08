@@ -23,7 +23,7 @@
 #include <QSharedPointer>
 #include <QKeySequence>
 #include <QColor>
-#include <QHash>
+#include <QMap>
 
 #include "qlcinputsource.h"
 
@@ -34,13 +34,13 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCVCMatrixControl              QString("Control")
-#define KXMLQLCVCMatrixControlID            QString("ID")
-#define KXMLQLCVCMatrixControlType          QString("Type")
-#define KXMLQLCVCMatrixControlColor         QString("Color")
-#define KXMLQLCVCMatrixControlResource      QString("Resource")
-#define KXMLQLCVCMatrixControlProperty      QString("Property")
-#define KXMLQLCVCMatrixControlPropertyName  QString("Name")
+#define KXMLQLCVCMatrixControl              QStringLiteral("Control")
+#define KXMLQLCVCMatrixControlID            QStringLiteral("ID")
+#define KXMLQLCVCMatrixControlType          QStringLiteral("Type")
+#define KXMLQLCVCMatrixControlColor         QStringLiteral("Color")
+#define KXMLQLCVCMatrixControlResource      QStringLiteral("Resource")
+#define KXMLQLCVCMatrixControlProperty      QStringLiteral("Property")
+#define KXMLQLCVCMatrixControlPropertyName  QStringLiteral("Name")
 
 class VCMatrixControl
 {
@@ -56,14 +56,24 @@ public:
 
     enum ControlType
     {
-        StartColor = 0,
-        EndColor,
+        Color1 = 0,
+        Color2,
+        Color3,
+        Color4,
+        Color5,
+        Color1Knob,
+        Color2Knob,
+        Color3Knob,
+        Color4Knob,
+        Color5Knob,
+        Color1Reset,
+        Color2Reset,
+        Color3Reset,
+        Color4Reset,
+        Color5Reset,
         Animation,
         Image,
-        Text,
-        ResetEndColor,
-        StartColorKnob,
-        EndColorKnob
+        Text
     };
 
     enum WidgetType
@@ -83,7 +93,7 @@ public:
      *  get the rgb value for this value of the knob
      */
     QRgb valueToRgb(quint8 value) const;
-protected:
+
     static QString typeToString(ControlType type);
     static ControlType stringToType(QString str);
 
@@ -121,7 +131,7 @@ public:
     QString m_resource;
 
     /** A map holding the requested script properties */
-    QHash<QString, QString> m_properties;
+    QMap<QString, QString> m_properties;
 
     QSharedPointer<QLCInputSource> m_inputSource;
     QKeySequence m_keySequence;

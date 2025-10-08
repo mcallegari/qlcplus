@@ -437,7 +437,7 @@ void EFXFixture_Test::startOffset()
     ef.setHead(GroupHead(0,0));
 
     QCOMPARE(0, ef.startOffset());
-    for(int i = 0; i < 360; i += 90)
+    for (int i = 0; i < 360; i += 90)
     {
         ef.setStartOffset(i);
         QCOMPARE(i, ef.startOffset());
@@ -454,6 +454,7 @@ void EFXFixture_Test::setPoint8bit()
     Universe *universe = ua[0];
     QSharedPointer<GenericFader> fader = universe->requestFader();
 
+    ef.start(fader);
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE(fader->channels().count(), 2);
     universe->processFaders();
@@ -474,6 +475,7 @@ void EFXFixture_Test::setPoint16bit()
     Universe *universe = ua[0];
     QSharedPointer<GenericFader> fader = universe->requestFader();
 
+    ef.start(fader);
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE(fader->channels().count(), 4);
     universe->processFaders();
@@ -493,6 +495,7 @@ void EFXFixture_Test::setPointPanOnly()
     Universe *universe = ua[0];
     QSharedPointer<GenericFader> fader = universe->requestFader();
 
+    ef.start(fader);
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE(fader->channels().count(), 1);
     universe->processFaders();
@@ -512,6 +515,7 @@ void EFXFixture_Test::setPointLedBar()
     Universe *universe = ua[0];
     QSharedPointer<GenericFader> fader = universe->requestFader();
 
+    ef.start(fader);
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE(fader->channels().count(), 1);
     universe->processFaders();

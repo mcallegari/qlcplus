@@ -37,21 +37,21 @@
  * @{
  */
 
-#define KXMLQLCVCFrame                  QString("Frame")
-#define KXMLQLCVCFrameAllowChildren     QString("AllowChildren")
-#define KXMLQLCVCFrameAllowResize       QString("AllowResize")
-#define KXMLQLCVCFrameShowHeader        QString("ShowHeader")
-#define KXMLQLCVCFrameIsCollapsed       QString("Collapsed")
-#define KXMLQLCVCFrameIsDisabled        QString("Disabled")
-#define KXMLQLCVCFrameEnableSource      QString("Enable")
-#define KXMLQLCVCFrameShowEnableButton  QString("ShowEnableButton")
+#define KXMLQLCVCFrame                  QStringLiteral("Frame")
+#define KXMLQLCVCFrameAllowChildren     QStringLiteral("AllowChildren")
+#define KXMLQLCVCFrameAllowResize       QStringLiteral("AllowResize")
+#define KXMLQLCVCFrameShowHeader        QStringLiteral("ShowHeader")
+#define KXMLQLCVCFrameIsCollapsed       QStringLiteral("Collapsed")
+#define KXMLQLCVCFrameIsDisabled        QStringLiteral("Disabled")
+#define KXMLQLCVCFrameEnableSource      QStringLiteral("Enable")
+#define KXMLQLCVCFrameShowEnableButton  QStringLiteral("ShowEnableButton")
 
-#define KXMLQLCVCFrameMultipage   QString("Multipage")
-#define KXMLQLCVCFramePagesNumber QString("PagesNum")
-#define KXMLQLCVCFrameCurrentPage QString("CurrentPage")
-#define KXMLQLCVCFrameNext        QString("Next")
-#define KXMLQLCVCFramePrevious    QString("Previous")
-#define KXMLQLCVCFramePagesLoop   QString("PagesLoop")
+#define KXMLQLCVCFrameMultipage   QStringLiteral("Multipage")
+#define KXMLQLCVCFramePagesNumber QStringLiteral("PagesNum")
+#define KXMLQLCVCFrameCurrentPage QStringLiteral("CurrentPage")
+#define KXMLQLCVCFrameNext        QStringLiteral("Next")
+#define KXMLQLCVCFramePrevious    QStringLiteral("Previous")
+#define KXMLQLCVCFramePagesLoop   QStringLiteral("PagesLoop")
 
 class VCFrameProperties;
 class VCFramePageShortcut;
@@ -119,6 +119,9 @@ public:
     bool isCollapsed() const;
 
     QSize originalSize() const;
+
+signals:
+    void disableStateChanged(bool disable);
 
 protected slots:
     void slotCollapseButtonToggled(bool toggle);

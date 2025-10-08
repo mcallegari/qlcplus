@@ -51,7 +51,7 @@ class Cue;
  * @{
  */
 
-#define KXMLQLCSimpleDesk QString("SimpleDesk")
+#define KXMLQLCSimpleDesk QStringLiteral("SimpleDesk")
 
 class SimpleDesk : public QWidget
 {
@@ -112,6 +112,7 @@ public:
     void setAbsoluteChannelValue(uint address, uchar value);
     void resetChannel(quint32 address);
     void resetUniverse();
+    void resetUniverse(int index);
 
 private:
     void initUniversesCombo();

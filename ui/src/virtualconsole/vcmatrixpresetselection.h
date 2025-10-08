@@ -21,6 +21,7 @@
 #define VCMATRIXPRESETSELECTION_H
 
 #include <QDialog>
+#include <QMap>
 
 #include "ui_vcmatrixpresetselection.h"
 
@@ -37,13 +38,15 @@ public:
 
     QString selectedPreset();
 
-    QHash<QString, QString> customizedProperties();
+    QMap<QString, QString> customizedProperties();
 
 protected slots:
     void slotUpdatePresetProperties();
 
-    void slotPropertyComboChanged(QString value);
+    void slotPropertyComboChanged(int index);
     void slotPropertySpinChanged(int value);
+    void slotPropertyDoubleSpinChanged(double value);
+    void slotPropertyEditChanged(QString text);
 
 private:
     void resetProperties(QLayoutItem *item);
@@ -53,7 +56,7 @@ private:
     Doc *m_doc;
 
     /** A map holding the customized script properties */
-    QHash<QString, QString> m_properties;
+    QMap<QString, QString> m_properties;
 };
 
 #endif // VCMATRIXPRESETSELECTION_H

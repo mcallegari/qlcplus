@@ -46,9 +46,15 @@ const quint8 VCSpeedDial::multDivResetInputSourceId = 4;
 const quint8 VCSpeedDial::applyInputSourceId = 5;
 const QSize VCSpeedDial::defaultSize(QSize(200, 175));
 
-static const QString presetBtnSS = "QPushButton { background-color: %1; height: 32px; border: 2px solid #6A6A6A; border-radius: 5px; }"
-                                   "QPushButton:pressed { border: 2px solid #0000FF; }"
-                                   "QPushButton:disabled { border: 2px solid #BBBBBB; color: #8f8f8f }";
+static const QString presetBtnSS =
+    "QPushButton { background-color: %1; height: 32px; border: 2px solid #6A6A6A; border-radius: 5px; }"
+    "QPushButton:pressed { border: 2px solid #0000FF; }"
+    "QPushButton:disabled { border: 2px solid #BBBBBB; color: #8f8f8f }";
+
+static const QString dialSS =
+    "QGroupBox { background-color: %1; border: 1px solid gray; border-radius: 5px; margin-top: 0; font-size: %2pt; }"
+    "QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top left; padding: 0px 5px;"
+    "                   background-color: transparent; color: %3; }";
 
 /****************************************************************************
  * Initialization
@@ -160,13 +166,22 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
             this, SLOT(slotUpdate()));
     m_updateTimer->setSingleShot(true);
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    // Background color has been moved to Base
+    setBackgroundColor(palette().color(QPalette::Base));
+#endif
+    m_foregroundColor = palette().color(QPalette::WindowText);
+    m_dial->setStyleSheet(dialSS.arg(palette().color(QPalette::Window).name())
+                              .arg(font().pointSize())
+                              .arg(m_foregroundColor.name()));
+
     slotModeChanged(m_doc->mode());
     setLiveEdit(m_liveEdit);
 }
 
 VCSpeedDial::~VCSpeedDial()
 {
-    foreach(VCSpeedDialPreset* preset, m_presets)
+    foreach (VCSpeedDialPreset* preset, m_presets)
     {
         delete preset;
     }
@@ -236,6 +251,42 @@ bool VCSpeedDial::copyFrom(const VCWidget* widget)
 
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
+}
+
+void VCSpeedDial::setFont(const QFont &font)
+{
+    VCWidget::setFont(font);
+    m_dial->setStyleSheet(dialSS.arg(palette().color(QPalette::Window).name())
+                              .arg(font.pointSize())
+                              .arg(m_foregroundColor.name()));
+}
+
+/*********************************************************************
+ * Background/Foreground color
+ *********************************************************************/
+
+void VCSpeedDial::setBackgroundColor(const QColor &color)
+{
+    VCWidget::setBackgroundColor(color);
+    m_dial->setStyleSheet(dialSS.arg(palette().color(QPalette::Window).name())
+                              .arg(font().pointSize())
+                              .arg(m_foregroundColor.name()));
+}
+
+void VCSpeedDial::setForegroundColor(const QColor &color)
+{
+    m_foregroundColor = color;
+    m_hasCustomForegroundColor = true;
+
+    m_dial->setStyleSheet(dialSS.arg(palette().color(QPalette::Window).name())
+                              .arg(font().pointSize())
+                              .arg(color.name()));
+    VCWidget::setForegroundColor(color);
+}
+
+QColor VCSpeedDial::foregroundColor() const
+{
+    return m_foregroundColor;
 }
 
 /*****************************************************************************
@@ -571,8 +622,8 @@ void VCSpeedDial::updateFeedback()
             QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
             if (preset->m_inputSource.isNull() == false)
                 sendFeedback(button->isDown() ?
-                             preset->m_inputSource->upperValue() :
-                             preset->m_inputSource->lowerValue(),
+                             preset->m_inputSource->feedbackValue(QLCInputFeedback::UpperValue) :
+                             preset->m_inputSource->feedbackValue(QLCInputFeedback::LowerValue),
                              preset->m_inputSource);
         }
     }
@@ -917,7 +968,7 @@ bool VCSpeedDial::loadXML(QXmlStreamReader &root)
 
             infinitePreset->m_keySequence = stripKeySequence(QKeySequence(root.readElementText()));
         }
-        else if(root.name() == KXMLQLCVCSpeedDialPreset)
+        else if (root.name() == KXMLQLCVCSpeedDialPreset)
         {
             VCSpeedDialPreset preset(0xff);
             if (preset.loadXML(root))
@@ -1090,7 +1141,7 @@ bool VCSpeedDial::saveXML(QXmlStreamWriter *doc)
         speeddialfunction.saveXML(doc);
 
     // Presets
-    foreach(VCSpeedDialPreset *preset, presets())
+    foreach (VCSpeedDialPreset *preset, presets())
         preset->saveXML(doc);
 
     /* End the <SpeedDial> tag */

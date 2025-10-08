@@ -896,7 +896,7 @@ void InputOutputPatchEditor::initAudioTab()
     if (var.isValid() == true)
         outputName = var.toString();
 
-    foreach( AudioDeviceInfo info, devList)
+    foreach (AudioDeviceInfo info, devList)
     {
         QTreeWidgetItem* item = new QTreeWidgetItem(m_audioMapTree);
         item->setText(KAudioColumnDeviceName, info.deviceName);

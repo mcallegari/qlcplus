@@ -41,7 +41,7 @@ void OSCPlugin::init()
     else
         m_ifaceWaitTime = 0;
 
-    foreach(QNetworkInterface iface, QNetworkInterface::allInterfaces())
+    foreach (QNetworkInterface iface, QNetworkInterface::allInterfaces())
     {
         foreach (QNetworkAddressEntry entry, iface.addressEntries())
         {
@@ -53,7 +53,7 @@ void OSCPlugin::init()
                 tmpIO.controller = NULL;
 
                 bool alreadyInList = false;
-                for(int j = 0; j < m_IOmapping.count(); j++)
+                for (int j = 0; j < m_IOmapping.count(); j++)
                 {
                     if (m_IOmapping.at(j).IPAddress == tmpIO.IPAddress)
                     {
@@ -293,14 +293,14 @@ QString OSCPlugin::inputInfo(quint32 input)
 }
 
 void OSCPlugin::sendFeedBack(quint32 universe, quint32 input,
-                             quint32 channel, uchar value, const QString &key)
+                             quint32 channel, uchar value, const QVariant &params)
 {
     if (input >= (quint32)m_IOmapping.count())
         return;
 
     OSCController *controller = m_IOmapping[input].controller;
     if (controller != NULL)
-        controller->sendFeedback(universe, channel, value, key);
+        controller->sendFeedback(universe, channel, value, params.toString());
 }
 
 /*********************************************************************

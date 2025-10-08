@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.8
-import QtQuick.Controls 2.1
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 
 import "."
 
@@ -135,6 +135,8 @@ Rectangle
                     onCheckedChanged: loadContext(checked, "qrc:/UniverseGridView.qml", "UNIGRID")
                     onRightClicked:
                     {
+                        if (checked)
+                            dmxView.checked = true
                         uniView.visible = false
                         contextManager.detachContext("UNIGRID")
                     }
@@ -151,6 +153,8 @@ Rectangle
                     onCheckedChanged: loadContext(checked, "qrc:/DMXView.qml", "DMX")
                     onRightClicked:
                     {
+                        if (checked)
+                            uniView.checked = true
                         dmxView.visible = false
                         contextManager.detachContext("DMX")
                     }
@@ -168,6 +172,8 @@ Rectangle
                     onCheckedChanged: loadContext(checked, "qrc:/2DView.qml", "2D")
                     onRightClicked:
                     {
+                        if (checked)
+                            dmxView.checked = true
                         twodView.visible = false
                         contextManager.detachContext("2D")
                     }
@@ -193,6 +199,8 @@ Rectangle
                     }
                     onRightClicked:
                     {
+                        if (checked)
+                            twodView.checked = true
                         threedView.visible = false
                         contextManager.detachContext("3D")
                     }
@@ -201,17 +209,18 @@ Rectangle
                 CustomComboBox
                 {
                     id: viewUniverseCombo
-                    width: UISettings.bigItemHeight * 1.5
+                    implicitWidth: UISettings.bigItemHeight * 2
                     height: viewToolbar.height - 4
                     anchors.margins: 1
                     model: ioManager.universesListModel
                     currValue: contextManager.universeFilter
 
                     onValueChanged:
-                    {
-                        contextManager.universeFilter = value
-                        fixtureManager.universeFilter = value
-                    }
+                        function(value)
+                        {
+                            contextManager.universeFilter = value
+                            fixtureManager.universeFilter = value
+                        }
                 }
 
                 Rectangle { Layout.fillWidth: true; color: "transparent" }

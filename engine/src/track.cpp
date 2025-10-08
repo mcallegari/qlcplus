@@ -192,7 +192,7 @@ bool Track::saveXML(QXmlStreamWriter *doc)
     /* Save the list of Functions if any is present */
     if (m_functions.isEmpty() == false)
     {
-        foreach(ShowFunction *func, showFunctions())
+        foreach (ShowFunction *func, showFunctions())
             func->saveXML(doc);
     }
 

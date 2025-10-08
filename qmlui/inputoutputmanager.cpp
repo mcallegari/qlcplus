@@ -93,6 +93,20 @@ QStringList InputOutputManager::universeNames() const
     return m_ioMap->universeNames();
 }
 
+QString InputOutputManager::universeName(quint32 universeId)
+{
+    if (universeId == Universe::invalid())
+        return tr("All universes");
+    else
+    {
+        Universe *uni = m_ioMap->universe(universeId);
+        if (uni != nullptr)
+            return uni->name();
+    }
+
+    return QString();
+}
+
 QVariant InputOutputManager::universesListModel() const
 {
     QVariantList universesList;
@@ -199,6 +213,11 @@ void InputOutputManager::removeLastUniverse()
     emit universeNamesChanged();
 }
 
+int InputOutputManager::universesCount()
+{
+    return m_ioMap->universesCount();
+}
+
 bool InputOutputManager::blackout() const
 {
     return m_blackout;
@@ -236,7 +255,7 @@ QVariant InputOutputManager::audioInputDevice()
     }
 
     QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
-    foreach(AudioDeviceInfo info, devList)
+    foreach (AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_INPUT &&
             info.deviceName == devName)
@@ -268,7 +287,7 @@ QVariant InputOutputManager::audioOutputDevice()
     }
 
     QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
-    foreach(AudioDeviceInfo info, devList)
+    foreach (AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_OUTPUT &&
             info.deviceName == devName)
@@ -388,11 +407,11 @@ QVariant InputOutputManager::universeInputSources(int universe)
         currLine = ip->input();
     }
 
-    foreach(QString pluginName,  m_ioMap->inputPluginNames())
+    foreach (QString pluginName,  m_ioMap->inputPluginNames())
     {
         QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
         int i = 0;
-        foreach(QString pLine, m_ioMap->pluginInputs(pluginName))
+        foreach (QString pLine, m_ioMap->pluginInputs(pluginName))
         {
             if (pluginName == currPlugin && i == currLine)
             {
@@ -429,11 +448,11 @@ QVariant InputOutputManager::universeOutputSources(int universe)
         currLine = op->output();
     }
 
-    foreach(QString pluginName,  m_ioMap->outputPluginNames())
+    foreach (QString pluginName,  m_ioMap->outputPluginNames())
     {
         QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
         int i = 0;
-        foreach(QString pLine, m_ioMap->pluginOutputs(pluginName))
+        foreach (QString pLine, m_ioMap->pluginOutputs(pluginName))
         {
             if (pluginName == currPlugin && i == currLine)
             {
@@ -718,20 +737,20 @@ QVariant InputOutputManager::beatGeneratorsList()
     internalMap.insert("privateName", "");
     genList.append(internalMap);
 
-    // add the currently open MIDI input devices
-    foreach(Universe *uni, m_ioMap->universes())
+    // add the currently open input devices that support beats
+    foreach (Universe *uni, m_ioMap->universes())
     {
         InputPatch *ip = uni->inputPatch();
-        if (ip == nullptr || ip->pluginName() != "MIDI")
+        if (ip == nullptr || (ip->plugin()->capabilities() & QLCIOPlugin::Beats) == 0)
             continue;
 
-        QVariantMap midiInMap;
-        midiInMap.insert("type", "MIDI");
-        midiInMap.insert("name", ip->inputName());
-        midiInMap.insert("uni", uni->id());
-        midiInMap.insert("line", ip->input());
-        midiInMap.insert("privateName", "");
-        genList.append(midiInMap);
+        QVariantMap pluginMap;
+        pluginMap.insert("type", "PLUGIN");
+        pluginMap.insert("name", ip->inputName());
+        pluginMap.insert("uni", uni->id());
+        pluginMap.insert("line", ip->input());
+        pluginMap.insert("privateName", ip->pluginName());
+        genList.append(pluginMap);
     }
 
     // add the currently selected audio input device
@@ -754,7 +773,7 @@ QVariant InputOutputManager::beatGeneratorsList()
     else
     {
         QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
-        foreach(AudioDeviceInfo info, devList)
+        foreach (AudioDeviceInfo info, devList)
         {
             if (info.capabilities & AUDIO_CAP_INPUT &&
                 info.deviceName == devName)
@@ -789,8 +808,8 @@ void InputOutputManager::setBeatType(QString beatType)
 
     if (m_beatType == "INTERNAL")
         m_ioMap->setBeatGeneratorType(InputOutputMap::Internal);
-    else if (m_beatType == "MIDI")
-        m_ioMap->setBeatGeneratorType(InputOutputMap::MIDI);
+    else if (m_beatType == "PLUGIN")
+        m_ioMap->setBeatGeneratorType(InputOutputMap::Plugin);
     else if (m_beatType == "AUDIO")
         m_ioMap->setBeatGeneratorType(InputOutputMap::Audio);
     else
@@ -806,7 +825,7 @@ void InputOutputManager::slotBeatTypeChanged()
     switch(m_ioMap->beatGeneratorType())
     {
         case InputOutputMap::Internal: m_beatType = "INTERNAL"; break;
-        case InputOutputMap::MIDI: m_beatType = "MIDI"; break;
+        case InputOutputMap::Plugin: m_beatType = "PLUGIN"; break;
         case InputOutputMap::Audio: m_beatType = "AUDIO"; break;
         case InputOutputMap::Disabled:
         default:

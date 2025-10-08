@@ -17,9 +17,11 @@
   limitations under the License.
 */
 
-import QtQuick 2.6
-import QtQuick.Controls 2.1
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+
+import "GenericHelpers.js" as Helpers
 import "."
 
 Rectangle
@@ -70,7 +72,7 @@ Rectangle
             anchors.right: parent.right
             border.color: UISettings.bgMedium
             useFontawesome: true
-            label: FontAwesome.fa_times
+            label: FontAwesome.fa_xmark
             onClicked: beatChooserBox.visible = false
         }
     }
@@ -89,6 +91,7 @@ Rectangle
 
             width: parent.width
             height: UISettings.bigItemHeight * 2
+            clip: true
             boundsBehavior: Flickable.StopAtBounds
 
             delegate:
@@ -99,11 +102,11 @@ Rectangle
 
                     Component.onCompleted:
                     {
-                        if (modelData.type === "MIDI")
+                        if (modelData.type === "PLUGIN")
                         {
                             iconBox.color = "white"
                             iconBox.visible = true
-                            genIcon.source = "qrc:/midiplugin.svg"
+                            genIcon.source = Helpers.pluginIconFromName(modelData.privateName)
                         }
                         else if (modelData.type === "AUDIO")
                         {
@@ -151,6 +154,7 @@ Rectangle
         {
             id: keyPadBox
             width: parent.width
+            height: UISettings.iconSizeDefault * 6
             showDMXcontrol: false
             showTapButton: true
             visible: ioManager.beatType === "INTERNAL"
@@ -166,7 +170,7 @@ Rectangle
             }
             onEscapePressed: beatChooserBox.visible = false
 
-            onTapTimeChanged: ioManager.bpmNumber = Math.min(parseInt(60000 / time), 300)
+            onTapTimeChanged: (time) => ioManager.bpmNumber = Math.min(parseInt(60000 / time), 300)
         }
     }
 }

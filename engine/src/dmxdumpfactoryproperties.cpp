@@ -70,8 +70,7 @@ void DmxDumpFactoryProperties::addChaserID(quint32 id)
 
 void DmxDumpFactoryProperties::removeChaserID(quint32 id)
 {
-    if (m_selectedChaserIDs.contains(id) == true)
-        m_selectedChaserIDs.removeAll(id);
+    m_selectedChaserIDs.removeAll(id);
 }
 
 bool DmxDumpFactoryProperties::isChaserSelected(quint32 id)

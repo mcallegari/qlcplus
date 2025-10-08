@@ -33,6 +33,10 @@
 #include "vcslider.h"
 #include "vcframe.h"
 #include "vclabel.h"
+#include "vcanimation.h"
+#include "vcaudiotrigger.h"
+#include "vcxypad.h"
+#include "vcspeeddial.h"
 #include "vcclock.h"
 #include "vcpage.h"
 #include "tardis.h"
@@ -96,6 +100,10 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
     qmlRegisterType<VCButton>("org.qlcplus.classes", 1, 0, "VCButton");
     qmlRegisterType<VCLabel>("org.qlcplus.classes", 1, 0, "VCLabel");
     qmlRegisterType<VCSlider>("org.qlcplus.classes", 1, 0, "VCSlider");
+    qmlRegisterType<VCAnimation>("org.qlcplus.classes", 1, 0, "VCAnimation");
+    qmlRegisterType<VCAudioTrigger>("org.qlcplus.classes", 1, 0, "VCAudioTrigger");
+    qmlRegisterType<VCXYPad>("org.qlcplus.classes", 1, 0, "VCXYPad");
+    qmlRegisterType<VCSpeedDial>("org.qlcplus.classes", 1, 0, "VCSpeedDial");
     qmlRegisterType<VCClock>("org.qlcplus.classes", 1, 0, "VCClock");
     qmlRegisterType<VCClockSchedule>("org.qlcplus.classes", 1, 0, "VCClockSchedule");
     qmlRegisterType<VCCueList>("org.qlcplus.classes", 1, 0, "VCCueList");
@@ -107,17 +115,22 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
 qreal VirtualConsole::pixelDensity() const
 {
     App *app = qobject_cast<App *>(m_view);
+    if (app == nullptr)
+        return 0;
     return app->pixelDensity();
 }
 
 void VirtualConsole::resetContents()
 {
+    int pageIndex = 0;
     resetWidgetSelection();
+    setEditMode(false);
 
     foreach (VCPage *page, m_pages)
     {
         page->deleteChildren();
         page->resetInputSourcesMap();
+        page->resetProperties(pageIndex++);
     }
 
     m_widgetsMap.clear();
@@ -125,6 +138,7 @@ void VirtualConsole::resetContents()
     m_selectedPage = 0;
     m_loadStatus = Cleared;
 }
+
 
 bool VirtualConsole::editMode() const
 {
@@ -320,6 +334,9 @@ void VirtualConsole::deletePage(int index)
     if (index < 0 || index >= m_pages.count())
         return;
 
+    if (m_pages.count() == 1)
+        return;
+
     m_pages.at(index)->deleteChildren();
     VCPage *page = m_pages.takeAt(index);
     m_contextManager->unregisterContext(page->previewContext()->name());
@@ -495,7 +512,7 @@ void VirtualConsole::setWidgetSelection(quint32 wID, QQuickItem *item, bool enab
     {
         // disable any previously selected widget
         QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-        while(it.hasNext())
+        while (it.hasNext())
         {
             it.next();
             QQuickItem *uiWidget = it.value();
@@ -534,7 +551,7 @@ void VirtualConsole::setWidgetSelection(quint32 wID, QQuickItem *item, bool enab
 
 void VirtualConsole::resetWidgetSelection()
 {
-    foreach(QQuickItem *widget, m_itemsMap.values())
+    foreach (QQuickItem *widget, m_itemsMap)
         widget->setProperty("isSelected", false);
     m_itemsMap.clear();
 
@@ -545,11 +562,12 @@ void VirtualConsole::resetWidgetSelection()
 QStringList VirtualConsole::selectedWidgetNames()
 {
     QStringList names;
-    if (m_itemsMap.isEmpty() == false)
+
     {
-        foreach(quint32 wID, m_itemsMap.keys())
+        QMap<quint32, QQuickItem*>::iterator it = m_itemsMap.begin();
+        for (; it != m_itemsMap.end(); it++)
         {
-            VCWidget *vcWidget = m_widgetsMap[wID];
+            VCWidget *vcWidget = m_widgetsMap[it.key()];
             if (vcWidget != nullptr)
             {
                 if (vcWidget->caption().isEmpty())
@@ -565,16 +583,17 @@ QStringList VirtualConsole::selectedWidgetNames()
 
 int VirtualConsole::selectedWidgetsCount() const
 {
-    return m_itemsMap.keys().count();
+    return m_itemsMap.count();
 }
 
 QVariantList VirtualConsole::selectedWidgetIDs()
 {
     QVariantList ids;
-    if (m_itemsMap.isEmpty() == false)
+
+    QMap<quint32, QQuickItem*>::iterator it = m_itemsMap.begin();
+    for (; it != m_itemsMap.end(); it++)
     {
-        foreach(quint32 wID, m_itemsMap.keys())
-            ids << wID;
+        ids << it.key();
     }
 
     return ids;
@@ -614,7 +633,7 @@ void VirtualConsole::setWidgetsAlignment(VCWidget *refWidget, int alignment)
     QRectF refGeom = refWidget->geometry();
 
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
 
@@ -631,7 +650,7 @@ void VirtualConsole::setWidgetsAlignment(VCWidget *refWidget, int alignment)
             break;
             case Qt::AlignRight:
             {
-                // TODO: for now, let's do an ingnorant alignment, without considering
+                // TODO: for now, let's do an ignorant alignment, without considering
                 // that widgets can be nested into VC frames...
                 int right = refGeom.x() + refGeom.width();
                 widget->setGeometry(QRect(right - wGeom.width(), wGeom.y(), wGeom.width(), wGeom.height()));
@@ -639,7 +658,7 @@ void VirtualConsole::setWidgetsAlignment(VCWidget *refWidget, int alignment)
             break;
             case Qt::AlignBottom:
             {
-                // TODO: for now, let's do an ingnorant alignment, without considering
+                // TODO: for now, let's do an ignorant alignment, without considering
                 // that widgets can be nested into VC frames...
                 int bottom = refGeom.y() + refGeom.height();
                 widget->setGeometry(QRect(wGeom.x(), bottom - wGeom.height(), wGeom.width(), wGeom.height()));
@@ -652,7 +671,7 @@ void VirtualConsole::setWidgetsAlignment(VCWidget *refWidget, int alignment)
 void VirtualConsole::setWidgetsCaption(QString caption)
 {
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
 
@@ -664,7 +683,7 @@ void VirtualConsole::setWidgetsCaption(QString caption)
 void VirtualConsole::setWidgetsForegroundColor(QColor color)
 {
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
 
@@ -676,7 +695,7 @@ void VirtualConsole::setWidgetsForegroundColor(QColor color)
 void VirtualConsole::setWidgetsBackgroundColor(QColor color)
 {
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
 
@@ -688,7 +707,7 @@ void VirtualConsole::setWidgetsBackgroundColor(QColor color)
 void VirtualConsole::setWidgetsBackgroundImage(QString path)
 {
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
 
@@ -700,7 +719,7 @@ void VirtualConsole::setWidgetsBackgroundImage(QString path)
 void VirtualConsole::setWidgetsFont(QFont font)
 {
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
 
@@ -711,7 +730,7 @@ void VirtualConsole::setWidgetsFont(QFont font)
 
 void VirtualConsole::deleteVCWidgets(QVariantList IDList)
 {
-    foreach(QVariant id, IDList)
+    foreach (QVariant id, IDList)
     {
         quint32 wID = id.toUInt();
         VCWidget *w = widget(wID);
@@ -779,7 +798,7 @@ QString VirtualConsole::widgetIcon(int type)
         case VCWidget::XYPadWidget: return "qrc:/xypad.svg";
         case VCWidget::FrameWidget: return "qrc:/frame.svg";
         case VCWidget::SoloFrameWidget: return "qrc:/soloframe.svg";
-        case VCWidget::SpeedDialWidget: return "qrc:/speed.svg";
+        case VCWidget::SpeedWidget: return "qrc:/speed.svg";
         case VCWidget::CueListWidget: return "qrc:/cuelist.svg";
         case VCWidget::LabelWidget: return "qrc:/label.svg";
         case VCWidget::AudioTriggersWidget: return "qrc:/audiotriggers.svg";
@@ -814,7 +833,7 @@ void VirtualConsole::pasteFromClipboard()
     QPoint currPos(0, 0);
 
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
 
@@ -970,7 +989,7 @@ void VirtualConsole::updateKeySequenceControlID(VCWidget *widget, quint32 id, QS
     widget->updateKeySequenceControlID(seq, id);
 
     /** Update also the key sequence maps in VC pages */
-    for(VCPage *page : m_pages) // C++11
+    for (VCPage *page : m_pages) // C++11
         page->updateKeySequenceIDInMap(seq, id, widget, true);
 }
 
@@ -991,7 +1010,7 @@ void VirtualConsole::deleteInputSource(VCWidget *widget, quint32 id, quint32 uni
     /** In case an autodetection process is running, stop it */
     disableAutoDetection();
 
-    for(VCPage *page : m_pages) // C++11
+    for (VCPage *page : m_pages) // C++11
         page->unMapInputSource(id, universe, channel, widget, true);
 
     widget->deleteInputSurce(id, universe, channel);
@@ -1007,7 +1026,7 @@ void VirtualConsole::deleteKeySequence(VCWidget *widget, quint32 id, QString key
 
     QKeySequence seq(keyText);
 
-    for(VCPage *page : m_pages) // C++11
+    for (VCPage *page : m_pages) // C++11
         page->unMapKeySequence(seq, id, widget, true);
 
     widget->deleteKeySequence(seq);
@@ -1043,7 +1062,7 @@ void VirtualConsole::handleKeyEvent(QKeyEvent *e, bool pressed)
         qDebug() << "Got key sequence:" << seq.toString(QKeySequence::NativeText);
         m_autoDetectionWidget->updateKeySequence(m_autoDetectionKey, seq, m_autoDetectionKeyId);
 
-        for(VCPage *page : m_pages) // C++11
+        for (VCPage *page : m_pages) // C++11
             page->mapKeySequence(seq, m_autoDetectionKeyId, m_autoDetectionWidget, true);
 
         /** At last, disable the autodetection process */

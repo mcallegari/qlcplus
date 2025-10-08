@@ -20,8 +20,11 @@
 #ifndef QLCINPUTSOURCE_H
 #define QLCINPUTSOURCE_H
 
+#include <QVariant>
 #include <QThread>
 #include <QMutex>
+
+#include "qlcinputfeedback.h"
 
 /** @addtogroup engine Engine
  * @{
@@ -76,12 +79,20 @@ private:
      * Custom feedback
      *********************************************************************/
 public:
-    void setRange(uchar lower, uchar upper);
-    uchar lowerValue() const;
-    uchar upperValue() const;
+    uchar feedbackValue(QLCInputFeedback::FeedbackType type) const;
+    void setFeedbackValue(QLCInputFeedback::FeedbackType type, uchar value);
+
+    /** Get/set specific plugins params.
+     *  OSC: a string with the command path
+     *  MIDI: a channel modifier
+     */
+    QVariant feedbackExtraParams(QLCInputFeedback::FeedbackType type) const;
+    void setFeedbackExtraParams(QLCInputFeedback::FeedbackType type, QVariant params);
 
 protected:
-    uchar m_lower, m_upper;
+    QLCInputFeedback m_lower;
+    QLCInputFeedback m_upper;
+    QLCInputFeedback m_monitor;
 
     /*********************************************************************
      * Working mode

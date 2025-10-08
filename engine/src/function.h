@@ -45,32 +45,32 @@ class FunctionUiState;
  * @{
  */
 
-#define KXMLQLCFunction QString("Function")
-#define KXMLQLCFunctionName QString("Name")
-#define KXMLQLCFunctionID QString("ID")
-#define KXMLQLCFunctionType QString("Type")
-#define KXMLQLCFunctionData QString("Data")
-#define KXMLQLCFunctionPath QString("Path")
-#define KXMLQLCFunctionHidden QString("Hidden")
-#define KXMLQLCFunctionBlendMode QString("BlendMode")
+#define KXMLQLCFunction          QStringLiteral("Function")
+#define KXMLQLCFunctionName      QStringLiteral("Name")
+#define KXMLQLCFunctionID        QStringLiteral("ID")
+#define KXMLQLCFunctionType      QStringLiteral("Type")
+#define KXMLQLCFunctionData      QStringLiteral("Data")
+#define KXMLQLCFunctionPath      QStringLiteral("Path")
+#define KXMLQLCFunctionHidden    QStringLiteral("Hidden")
+#define KXMLQLCFunctionBlendMode QStringLiteral("BlendMode")
 
-#define KXMLQLCFunctionValue QString("Value")
-#define KXMLQLCFunctionValueType QString("Type")
-#define KXMLQLCFunctionChannel QString("Channel")
+#define KXMLQLCFunctionValue     QStringLiteral("Value")
+#define KXMLQLCFunctionValueType QStringLiteral("Type")
+#define KXMLQLCFunctionChannel   QStringLiteral("Channel")
 
-#define KXMLQLCFunctionStep QString("Step")
-#define KXMLQLCFunctionNumber QString("Number")
+#define KXMLQLCFunctionStep      QStringLiteral("Step")
+#define KXMLQLCFunctionNumber    QStringLiteral("Number")
 
-#define KXMLQLCFunctionDirection QString("Direction")
-#define KXMLQLCFunctionRunOrder QString("RunOrder")
+#define KXMLQLCFunctionDirection QStringLiteral("Direction")
+#define KXMLQLCFunctionRunOrder  QStringLiteral("RunOrder")
 
-#define KXMLQLCFunctionEnabled QString("Enabled")
+#define KXMLQLCFunctionEnabled   QStringLiteral("Enabled")
 
-#define KXMLQLCFunctionSpeed         QString("Speed")
-#define KXMLQLCFunctionSpeedFadeIn   QString("FadeIn")
-#define KXMLQLCFunctionSpeedHold     QString("Hold")
-#define KXMLQLCFunctionSpeedFadeOut  QString("FadeOut")
-#define KXMLQLCFunctionSpeedDuration QString("Duration")
+#define KXMLQLCFunctionSpeed         QStringLiteral("Speed")
+#define KXMLQLCFunctionSpeedFadeIn   QStringLiteral("FadeIn")
+#define KXMLQLCFunctionSpeedHold     QStringLiteral("Hold")
+#define KXMLQLCFunctionSpeedFadeOut  QStringLiteral("FadeOut")
+#define KXMLQLCFunctionSpeedDuration QStringLiteral("Duration")
 
 typedef struct
 {
@@ -117,14 +117,10 @@ public:
         RGBMatrixType  = 1 << 5,
         ShowType       = 1 << 6,
         SequenceType   = 1 << 7,
-        AudioType      = 1 << 8
-#if QT_VERSION >= 0x050000
-        , VideoType    = 1 << 9
-#endif
+        AudioType      = 1 << 8,
+        VideoType      = 1 << 9
     };
-#if QT_VERSION >= 0x050500
     Q_ENUM(Type)
-#endif
 
     /**
      * Common attributes
@@ -136,9 +132,7 @@ public:
 
 public:
     enum PropType { Name = 0, FadeIn, Hold, FadeOut, Duration, Notes };
-#if QT_VERSION >= 0x050500
     Q_ENUM(PropType)
-#endif
 
     /*********************************************************************
      * Initialization
@@ -821,7 +815,7 @@ public:
      * actually stopped. To prevent deadlocks the function only waits for 2s.
      *
      * @return true if the function was stopped. false if the function did not
-     *              stop withing two seconds
+     *              stop within two seconds
      */
     bool stopAndWait();
 

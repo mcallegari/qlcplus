@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.3
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -46,7 +46,7 @@ Rectangle
         var currentScale = View2D.gridScale
         if (amount < 0)
         {
-            if (currentScale > 0.1)
+            if (currentScale > 0.2)
             {
                 if (currentScale <= 1)
                     View2D.gridScale -= 0.1
@@ -56,10 +56,13 @@ Rectangle
         }
         else
         {
-            if (currentScale < 1)
-                View2D.gridScale += 0.1
-            else
-                View2D.gridScale += amount
+            if (currentScale < 5)
+            {
+                if (currentScale < 1)
+                    View2D.gridScale += 0.1
+                else
+                    View2D.gridScale += amount
+            }
         }
 
         twoDView.calculateCellSize()
@@ -222,7 +225,7 @@ Rectangle
                 property int initialXPos
                 property int initialYPos
 
-                onPressed:
+                onPressed: (mouse) =>
                 {
                     console.log("button: " + mouse.button + ", mods: " + mouse.modifiers)
                     var itemID = View2D.itemIDAtPos(Qt.point(mouse.x, mouse.y))
@@ -256,7 +259,7 @@ Rectangle
                     }
                 }
 
-                onPositionChanged:
+                onPositionChanged: (mouse) =>
                 {
                     if (selectionRect.visible == true)
                     {
@@ -294,7 +297,7 @@ Rectangle
                     }
                 }
 
-                onReleased:
+                onReleased: (mouse) =>
                 {
                     if (selectionRect.visible === true && selectionRect.width && selectionRect.height)
                     {
@@ -317,16 +320,13 @@ Rectangle
                     }
                 }
 
-                onWheel:
+                onWheel: (wheel)=>
                 {
                     //console.log("Wheel delta: " + wheel.angleDelta.y)
                     if (wheel.angleDelta.y > 0)
                         setZoom(0.5)
                     else
-                    {
-                        if (View2D.gridScale > 1.0)
-                            setZoom(-0.5)
-                    }
+                        setZoom(-0.5)
                 }
             }
 

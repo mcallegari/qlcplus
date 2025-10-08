@@ -114,8 +114,8 @@ bool VCButton::copyFrom(const VCWidget* widget)
     setActionType(button->actionType());
     setState(button->state());
 
-    m_flashForceLTP = button->flashForceLTP();
-    m_flashOverrides = button->flashOverrides();
+    setFlashForceLTP(button->flashForceLTP());
+    setFlashOverride(button->flashOverrides());
 
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
@@ -168,7 +168,7 @@ void VCButton::setFunctionID(quint32 fid)
         if ((isEditing() && caption().isEmpty()) || caption() == defaultCaption())
             setCaption(function->name());
 
-        if(running)
+        if (running)
         {
             function->start(m_doc->masterTimer(), functionParent());
             setState(Active);
@@ -299,6 +299,7 @@ void VCButton::setFlashOverride(bool shouldOverride)
 {
     if (m_flashOverrides == shouldOverride)
         return;
+
     m_flashOverrides = shouldOverride;
     emit flashOverrideChanged(shouldOverride);
 }
@@ -312,6 +313,7 @@ void VCButton::setFlashForceLTP(bool forceLTP)
 {
     if (m_flashForceLTP == forceLTP)
         return;
+
     m_flashForceLTP = forceLTP;
     emit flashForceLTPChanged(forceLTP);
 }
@@ -509,11 +511,10 @@ void VCButton::setStartupIntensity(qreal fraction)
 
 void VCButton::updateFeedback()
 {
-    if (m_state == Monitoring)
-        return;
-
     if (m_state == Inactive)
         sendFeedback(0, INPUT_PRESSURE_ID, VCWidget::LowerValue);
+    else if (m_state == Monitoring)
+        sendFeedback(0, INPUT_PRESSURE_ID, VCWidget::MonitorValue);
     else
         sendFeedback(UCHAR_MAX, INPUT_PRESSURE_ID, VCWidget::UpperValue);
 }
@@ -652,7 +653,7 @@ bool VCButton::saveXML(QXmlStreamWriter *doc)
     doc->writeEndElement();
 
     /* External control */
-    saveXMLInputControl(doc, INPUT_PRESSURE_ID);
+    saveXMLInputControl(doc, INPUT_PRESSURE_ID, false);
 
     /* Intensity adjustment */
     if (startupIntensityEnabled())

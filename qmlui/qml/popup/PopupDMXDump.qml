@@ -17,9 +17,10 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.2
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtQuick.Controls.Basic
 
 import org.qlcplus.classes 1.0
 import "."
@@ -28,11 +29,34 @@ CustomPopupDialog
 {
     id: popupRoot
     width: mainView.width / 2
-    title: qsTr("Enter a name for the scene")
+    title: qsTr("DMX Channel Dump")
 
-    property bool show: !dontAskCheck.checked
-    property int channelsMask: 0
+    property int capabilityMask: 0
+    property int channelSetMask: 0
     property alias sceneName: nameInputBox.text
+    property alias existingScene: existingSceneCheck.checked
+    property alias allChannels: allChannelsCheck.checked
+    property alias nonZeroOnly: nonZeroCheck.checked
+    property int universesCount: 0
+    property int nextFunctionId: 0
+
+    property QLCFunction func
+    property int selectedFunctionsCount: 0
+
+    onOpened:
+    {
+        universesCount = ioManager.universesCount()
+        nextFunctionId = functionManager.nextFunctionId()
+
+        // handle Function selection
+        var funcList = functionManager.selectedFunctionsID()
+        selectedFunctionsCount = funcList.length
+        if (funcList.length > 0)
+            func = functionManager.getFunction(funcList[0])
+
+        if (capabilityMask == 0 && activeChannelsCheck.checked)
+            allChannels = true
+    }
 
     function getChannelsMask()
     {
@@ -71,275 +95,395 @@ CustomPopupDialog
         nameInputBox.selectAndFocus()
     }
 
+    ButtonGroup { id: sceneTypeGroup }
+    ButtonGroup { id: dumpTypeGroup }
+
     contentItem:
         GridLayout
         {
-            columns: 4
-            columnSpacing: 5
+            width: parent.width
+            columns: 1
 
-            // row 1
-            RowLayout
+            GroupBox
             {
-                Layout.columnSpan: 4
+                title: qsTr("Target Scene")
+                Layout.fillWidth: true
+                font.family: UISettings.robotoFontName
+                font.pixelSize: UISettings.textSizeDefault
+                palette.windowText: UISettings.fgMain
 
-                RobotoText
+                GridLayout
                 {
-                    height: UISettings.listItemHeight
-                    label: qsTr("Scene name")
-                }
+                    width: parent.width
+                    columns: 3
 
-                CustomTextEdit
+                    // row 1
+                    CustomCheckBox
+                    {
+                        id: newSceneCheck
+                        implicitHeight: UISettings.listItemHeight
+                        implicitWidth: implicitHeight
+                        ButtonGroup.group: sceneTypeGroup
+                        checked: true
+                    }
+
+                    RobotoText
+                    {
+                        height: UISettings.listItemHeight
+                        label: qsTr("Dump to a new Scene")
+                    }
+
+                    CustomTextEdit
+                    {
+                        id: nameInputBox
+                        Layout.fillWidth: true
+                        text: qsTr("New Scene") + " " + nextFunctionId
+                        onAccepted: popupRoot.accept()
+                    }
+
+                    // row 2
+                    CustomCheckBox
+                    {
+                        id: existingSceneCheck
+                        implicitHeight: UISettings.listItemHeight
+                        implicitWidth: implicitHeight
+                        ButtonGroup.group: sceneTypeGroup
+                    }
+
+                    RobotoText
+                    {
+                        height: UISettings.listItemHeight
+                        label: qsTr("Dump to existing Scene")
+                    }
+
+                    RobotoText
+                    {
+                        visible: selectedFunctionsCount === 0
+                        label: qsTr("(None selected)")
+                    }
+
+                    IconTextEntry
+                    {
+                        id: funcBox
+                        visible: selectedFunctionsCount
+                        Layout.fillWidth: true
+
+                        tFontSize: UISettings.textSizeDefault
+
+                        tLabel: func ? func.name : ""
+                        functionType: func ? func.type : -1
+                    }
+                }
+            }
+
+            GroupBox
+            {
+                title: qsTr("Channels to dump")
+                Layout.fillWidth: true
+                font.family: UISettings.robotoFontName
+                font.pixelSize: UISettings.textSizeDefault
+                palette.windowText: UISettings.fgMain
+
+                GridLayout
                 {
-                    id: nameInputBox
-                    Layout.fillWidth: true
-                    text: qsTr("New Scene")
-                    onAccepted: popupRoot.accept()
-                }
-            }
+                    width: parent.width
+                    columns: 4
+                    columnSpacing: 5
 
-            // row 2
-            CustomCheckBox
-            {
-                id: dontAskCheck
-                implicitHeight: UISettings.listItemHeight
-                implicitWidth: implicitHeight
-                Layout.alignment: Qt.AlignRight
-                autoExclusive: false
-            }
-            RobotoText
-            {
-                Layout.columnSpan: 3
-                label: qsTr("Don't ask again")
-            }
+                    // row 1
+                    RowLayout
+                    {
+                        Layout.columnSpan: 4
+                        Layout.fillWidth: true
 
-            // row 3
-            RobotoText
-            {
-                Layout.columnSpan: 4
-                label: qsTr("Available channel types")
-            }
+                        CustomCheckBox
+                        {
+                            id: allChannelsCheck
+                            implicitHeight: UISettings.listItemHeight
+                            implicitWidth: implicitHeight
+                            ButtonGroup.group: dumpTypeGroup
+                        }
+                        RobotoText
+                        {
+                            implicitHeight: UISettings.listItemHeight
+                            Layout.fillWidth: true
+                            label: qsTr("Dump all the available channels") + " (" + universesCount + " " + qsTr("Universes") + ", " +
+                                   fixtureManager.fixturesCount + " " + qsTr("Fixtures") + ")"
+                        }
+                    }
 
-            // row 4
-            CustomCheckBox
-            {
-                id: intTypeCheck
-                visible: channelsMask & App.DimmerType
-                implicitHeight: UISettings.listItemHeight
-                implicitWidth: implicitHeight
-                Layout.alignment: Qt.AlignRight
-                autoExclusive: false
-                checked: channelsMask & App.DimmerType
+                    Rectangle
+                    {
+                        width: UISettings.bigItemHeight / 2
+                        height: UISettings.listItemHeight
+                        color: "transparent"
+                    }
 
-            }
-            IconTextEntry
-            {
-                visible: channelsMask & App.DimmerType
-                Layout.fillWidth: true
-                iSrc: "qrc:/intensity.svg"
-                tLabel: qsTr("Intensity")
-            }
+                    // row 2
+                    RowLayout
+                    {
+                        Layout.columnSpan: 3
+                        Layout.fillWidth: true
 
-            CustomCheckBox
-            {
-                id: colTypeCheck
-                visible: channelsMask & App.ColorType
-                implicitHeight: UISettings.listItemHeight
-                implicitWidth: implicitHeight
-                Layout.alignment: Qt.AlignRight
-                autoExclusive: false
-                checked: channelsMask & App.ColorType
-            }
-            IconTextEntry
-            {
-                visible: channelsMask & App.ColorType
-                Layout.fillWidth: true
-                iSrc: "qrc:/color.svg"
-                tLabel: qsTr("RGB/CMY/WAUV")
-            }
+                        CustomCheckBox
+                        {
+                            id: nonZeroCheck
+                            implicitHeight: UISettings.listItemHeight
+                            implicitWidth: implicitHeight
+                            checked: false
+                            enabled: allChannelsCheck.checked
+                        }
+                        RobotoText
+                        {
+                            implicitHeight: UISettings.listItemHeight
+                            Layout.fillWidth: true
+                            label: qsTr("Dump only non-zero values")
+                            enabled: allChannelsCheck.checked
+                        }
+                    }
 
-            // row 5
-            CustomCheckBox
-            {
-                id: colMacroTypeCheck
-                visible: channelsMask & App.ColorMacroType
-                implicitHeight: UISettings.listItemHeight
-                implicitWidth: implicitHeight
-                Layout.alignment: Qt.AlignRight
-                autoExclusive: false
-                checked: channelsMask & App.ColorMacroType
-            }
-            IconTextEntry
-            {
-                visible: channelsMask & App.ColorMacroType
-                Layout.fillWidth: true
-                iSrc: "qrc:/colorwheel.svg"
-                tLabel: qsTr("Color macros")
-            }
+                    // row 3
+                    RowLayout
+                    {
+                        Layout.columnSpan: 4
+                        Layout.fillWidth: true
 
-            CustomCheckBox
-            {
-                id: goboTypeCheck
-                visible: channelsMask & App.GoboType
-                implicitHeight: UISettings.listItemHeight
-                implicitWidth: implicitHeight
-                Layout.alignment: Qt.AlignRight
-                autoExclusive: false
-                checked: channelsMask & App.GoboType
-            }
-            IconTextEntry
-            {
-                visible: channelsMask & App.GoboType
-                Layout.fillWidth: true
-                iSrc: "qrc:/gobo.svg"
-                tLabel: qsTr("Gobo")
-            }
+                        CustomCheckBox
+                        {
+                            id: activeChannelsCheck
+                            implicitHeight: UISettings.listItemHeight
+                            implicitWidth: implicitHeight
+                            enabled: capabilityMask !== 0 ? true : false
+                            checked: true
+                            ButtonGroup.group: dumpTypeGroup
+                        }
+                        RobotoText
+                        {
+                            enabled: capabilityMask !== 0 ? true : false
+                            implicitHeight: UISettings.listItemHeight
+                            label: qsTr("Dump the selected fixture channels")
+                        }
+                    }
 
-            // row 6
-            CustomCheckBox
-            {
-                id: panTypeCheck
-                visible: channelsMask & App.PanType
-                implicitHeight: UISettings.listItemHeight
-                implicitWidth: implicitHeight
-                Layout.alignment: Qt.AlignRight
-                autoExclusive: false
-                checked: channelsMask & App.PanType
-            }
-            IconTextEntry
-            {
-                visible: channelsMask & App.PanType
-                Layout.fillWidth: true
-                iSrc: "qrc:/pan.svg"
-                tLabel: qsTr("Pan")
-            }
+                    // row 5
+                    RobotoText
+                    {
+                        Layout.columnSpan: 4
+                        visible: capabilityMask !== 0 ? true : false
+                        label: qsTr("Detected channel types")
+                    }
 
-            CustomCheckBox
-            {
-                id: tiltTypeCheck
-                visible: channelsMask & App.TiltType
-                implicitHeight: UISettings.listItemHeight
-                implicitWidth: implicitHeight
-                Layout.alignment: Qt.AlignRight
-                autoExclusive: false
-                checked: channelsMask & App.TiltType
-            }
-            IconTextEntry
-            {
-                visible: channelsMask & App.TiltType
-                Layout.fillWidth: true
-                iSrc: "qrc:/tilt.svg"
-                tLabel: qsTr("Tilt")
-            }
+                    // row 6
+                    CustomCheckBox
+                    {
+                        id: intTypeCheck
+                        visible: capabilityMask & App.DimmerType
+                        implicitHeight: UISettings.listItemHeight
+                        implicitWidth: implicitHeight
+                        Layout.alignment: Qt.AlignRight
+                        checked: channelSetMask & App.DimmerType
 
-            // row 7
-            CustomCheckBox
-            {
-                id: speedTypeCheck
-                visible: channelsMask & App.SpeedType
-                implicitHeight: UISettings.listItemHeight
-                implicitWidth: implicitHeight
-                Layout.alignment: Qt.AlignRight
-                autoExclusive: false
-                checked: channelsMask & App.SpeedType
-            }
-            IconTextEntry
-            {
-                visible: channelsMask & App.SpeedType
-                Layout.fillWidth: true
-                iSrc: "qrc:/speed.svg"
-                tLabel: qsTr("Speed")
-            }
+                    }
+                    IconTextEntry
+                    {
+                        visible: capabilityMask & App.DimmerType
+                        Layout.fillWidth: true
+                        iSrc: "qrc:/intensity.svg"
+                        tLabel: qsTr("Intensity")
+                    }
 
-            CustomCheckBox
-            {
-                id: shutterTypeCheck
-                visible: channelsMask & App.ShutterType
-                implicitHeight: UISettings.listItemHeight
-                implicitWidth: implicitHeight
-                Layout.alignment: Qt.AlignRight
-                autoExclusive: false
-                checked: channelsMask & App.ShutterType
-            }
-            IconTextEntry
-            {
-                visible: channelsMask & App.ShutterType
-                Layout.fillWidth: true
-                iSrc: "qrc:/shutter.svg"
-                tLabel: qsTr("Shutter/Strobe")
-            }
+                    CustomCheckBox
+                    {
+                        id: colTypeCheck
+                        visible: capabilityMask & App.ColorType
+                        implicitHeight: UISettings.listItemHeight
+                        implicitWidth: implicitHeight
+                        Layout.alignment: Qt.AlignRight
+                        checked: channelSetMask & App.ColorType
+                    }
+                    IconTextEntry
+                    {
+                        visible: capabilityMask & App.ColorType
+                        Layout.fillWidth: true
+                        iSrc: "qrc:/color.svg"
+                        tLabel: qsTr("RGB/CMY/WAUV")
+                    }
 
-            // row 8
-            CustomCheckBox
-            {
-                id: prismTypeCheck
-                visible: channelsMask & App.PrismType
-                implicitHeight: UISettings.listItemHeight
-                implicitWidth: implicitHeight
-                Layout.alignment: Qt.AlignRight
-                autoExclusive: false
-                checked: channelsMask & App.PrismType
-            }
-            IconTextEntry
-            {
-                visible: channelsMask & App.PrismType
-                Layout.fillWidth: true
-                iSrc: "qrc:/prism.svg"
-                tLabel: qsTr("Prism")
-            }
+                    // row 7
+                    CustomCheckBox
+                    {
+                        id: colMacroTypeCheck
+                        visible: capabilityMask & App.ColorMacroType
+                        implicitHeight: UISettings.listItemHeight
+                        implicitWidth: implicitHeight
+                        Layout.alignment: Qt.AlignRight
+                        checked: channelSetMask & App.ColorMacroType
+                    }
+                    IconTextEntry
+                    {
+                        visible: capabilityMask & App.ColorMacroType
+                        Layout.fillWidth: true
+                        iSrc: "qrc:/colorwheel.svg"
+                        tLabel: qsTr("Color macros")
+                    }
 
-            CustomCheckBox
-            {
-                id: beamTypeCheck
-                visible: channelsMask & App.BeamType
-                implicitHeight: UISettings.listItemHeight
-                implicitWidth: implicitHeight
-                Layout.alignment: Qt.AlignRight
-                autoExclusive: false
-                checked: channelsMask & App.BeamType
-            }
-            IconTextEntry
-            {
-                visible: channelsMask & App.BeamType
-                Layout.fillWidth: true
-                iSrc: "qrc:/beam.svg"
-                tLabel: qsTr("Beam")
-            }
+                    CustomCheckBox
+                    {
+                        id: goboTypeCheck
+                        visible: capabilityMask & App.GoboType
+                        implicitHeight: UISettings.listItemHeight
+                        implicitWidth: implicitHeight
+                        Layout.alignment: Qt.AlignRight
+                        checked: channelSetMask & App.GoboType
+                    }
+                    IconTextEntry
+                    {
+                        visible: capabilityMask & App.GoboType
+                        Layout.fillWidth: true
+                        iSrc: "qrc:/gobo.svg"
+                        tLabel: qsTr("Gobo")
+                    }
 
-            // row 9
-            CustomCheckBox
-            {
-                id: effectTypeCheck
-                visible: channelsMask & App.EffectType
-                implicitHeight: UISettings.listItemHeight
-                implicitWidth: implicitHeight
-                Layout.alignment: Qt.AlignRight
-                autoExclusive: false
-                checked: channelsMask & App.EffectType
-            }
-            IconTextEntry
-            {
-                visible: channelsMask & App.EffectType
-                Layout.fillWidth: true
-                iSrc: "qrc:/star.svg"
-                tLabel: qsTr("Effect")
-            }
+                    // row 8
+                    CustomCheckBox
+                    {
+                        id: panTypeCheck
+                        visible: capabilityMask & App.PanType
+                        implicitHeight: UISettings.listItemHeight
+                        implicitWidth: implicitHeight
+                        Layout.alignment: Qt.AlignRight
+                        checked: channelSetMask & App.PanType
+                    }
+                    IconTextEntry
+                    {
+                        visible: capabilityMask & App.PanType
+                        Layout.fillWidth: true
+                        iSrc: "qrc:/pan.svg"
+                        tLabel: qsTr("Pan")
+                    }
 
-            CustomCheckBox
-            {
-                id: maintTypeCheck
-                visible: channelsMask & App.MaintenanceType
-                implicitHeight: UISettings.listItemHeight
-                implicitWidth: implicitHeight
-                Layout.alignment: Qt.AlignRight
-                autoExclusive: false
-                checked: channelsMask & App.MaintenanceType
-            }
-            IconTextEntry
-            {
-                visible: channelsMask & App.MaintenanceType
-                Layout.fillWidth: true
-                iSrc: "qrc:/configure.svg"
-                tLabel: qsTr("Maintenance")
-            }
+                    CustomCheckBox
+                    {
+                        id: tiltTypeCheck
+                        visible: capabilityMask & App.TiltType
+                        implicitHeight: UISettings.listItemHeight
+                        implicitWidth: implicitHeight
+                        Layout.alignment: Qt.AlignRight
+                        checked: channelSetMask & App.TiltType
+                    }
+                    IconTextEntry
+                    {
+                        visible: capabilityMask & App.TiltType
+                        Layout.fillWidth: true
+                        iSrc: "qrc:/tilt.svg"
+                        tLabel: qsTr("Tilt")
+                    }
+
+                    // row 9
+                    CustomCheckBox
+                    {
+                        id: speedTypeCheck
+                        visible: capabilityMask & App.SpeedType
+                        implicitHeight: UISettings.listItemHeight
+                        implicitWidth: implicitHeight
+                        Layout.alignment: Qt.AlignRight
+                        checked: channelSetMask & App.SpeedType
+                    }
+                    IconTextEntry
+                    {
+                        visible: capabilityMask & App.SpeedType
+                        Layout.fillWidth: true
+                        iSrc: "qrc:/speed.svg"
+                        tLabel: qsTr("Speed")
+                    }
+
+                    CustomCheckBox
+                    {
+                        id: shutterTypeCheck
+                        visible: capabilityMask & App.ShutterType
+                        implicitHeight: UISettings.listItemHeight
+                        implicitWidth: implicitHeight
+                        Layout.alignment: Qt.AlignRight
+                        checked: channelSetMask & App.ShutterType
+                    }
+                    IconTextEntry
+                    {
+                        visible: capabilityMask & App.ShutterType
+                        Layout.fillWidth: true
+                        iSrc: "qrc:/shutter.svg"
+                        tLabel: qsTr("Shutter/Strobe")
+                    }
+
+                    // row 10
+                    CustomCheckBox
+                    {
+                        id: prismTypeCheck
+                        visible: capabilityMask & App.PrismType
+                        implicitHeight: UISettings.listItemHeight
+                        implicitWidth: implicitHeight
+                        Layout.alignment: Qt.AlignRight
+                        checked: channelSetMask & App.PrismType
+                    }
+                    IconTextEntry
+                    {
+                        visible: capabilityMask & App.PrismType
+                        Layout.fillWidth: true
+                        iSrc: "qrc:/prism.svg"
+                        tLabel: qsTr("Prism")
+                    }
+
+                    CustomCheckBox
+                    {
+                        id: beamTypeCheck
+                        visible: capabilityMask & App.BeamType
+                        implicitHeight: UISettings.listItemHeight
+                        implicitWidth: implicitHeight
+                        Layout.alignment: Qt.AlignRight
+                        checked: channelSetMask & App.BeamType
+                    }
+                    IconTextEntry
+                    {
+                        visible: capabilityMask & App.BeamType
+                        Layout.fillWidth: true
+                        iSrc: "qrc:/beam.svg"
+                        tLabel: qsTr("Beam")
+                    }
+
+                    // row 11
+                    CustomCheckBox
+                    {
+                        id: effectTypeCheck
+                        visible: capabilityMask & App.EffectType
+                        implicitHeight: UISettings.listItemHeight
+                        implicitWidth: implicitHeight
+                        Layout.alignment: Qt.AlignRight
+                        checked: channelSetMask & App.EffectType
+                    }
+                    IconTextEntry
+                    {
+                        visible: capabilityMask & App.EffectType
+                        Layout.fillWidth: true
+                        iSrc: "qrc:/star.svg"
+                        tLabel: qsTr("Effect")
+                    }
+
+                    CustomCheckBox
+                    {
+                        id: maintTypeCheck
+                        visible: capabilityMask & App.MaintenanceType
+                        implicitHeight: UISettings.listItemHeight
+                        implicitWidth: implicitHeight
+                        Layout.alignment: Qt.AlignRight
+                        checked: channelSetMask & App.MaintenanceType
+                    }
+                    IconTextEntry
+                    {
+                        visible: capabilityMask & App.MaintenanceType
+                        Layout.fillWidth: true
+                        iSrc: "qrc:/configure.svg"
+                        tLabel: qsTr("Maintenance")
+                    }
+                } // GridLayout
+            } // GroupBox
         } // GridLayout
 }

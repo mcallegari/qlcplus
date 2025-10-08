@@ -31,6 +31,7 @@ class AudioTriggerWidget : public QWidget
     Q_OBJECT
 public:
     explicit AudioTriggerWidget(QWidget *parent = 0);
+    ~AudioTriggerWidget();
 
     void setBarsNumber(int num);
     int barsNumber();

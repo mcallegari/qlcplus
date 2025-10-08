@@ -48,13 +48,15 @@ class EFXEditor : public FunctionEditor
     Q_PROPERTY(int algorithmXPhase READ algorithmXPhase WRITE setAlgorithmXPhase NOTIFY algorithmXPhaseChanged)
     Q_PROPERTY(int algorithmYPhase READ algorithmYPhase WRITE setAlgorithmYPhase NOTIFY algorithmYPhaseChanged)
 
+    Q_PROPERTY(int propagation READ propagation WRITE setPropagation NOTIFY propagationChanged)
+
     Q_PROPERTY(QVariant fixtureList READ fixtureList NOTIFY fixtureListChanged)
     Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
     Q_PROPERTY(qreal maxPanDegrees READ maxPanDegrees NOTIFY maxPanDegreesChanged)
     Q_PROPERTY(qreal maxTiltDegrees READ maxTiltDegrees NOTIFY maxTiltDegreesChanged)
 
     Q_PROPERTY(QVariantList algorithmData READ algorithmData NOTIFY algorithmDataChanged)
-    Q_PROPERTY(QVariantList fixturesData READ fixturesData NOTIFY fixturesDataChanged)
+    Q_PROPERTY(QVariantList fixturesData READ fixturesData WRITE setFixturesData NOTIFY fixturesDataChanged)
 
 public:
     EFXEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -142,6 +144,11 @@ signals:
      * Fixtures
      ************************************************************************/
 public:
+    /** Get/Set the EFX propagation mode */
+    int propagation() const;
+    void setPropagation(int newPropagation);
+
+    /** Get the EFX fixture list for the UI */
     QVariant fixtureList() const;
 
     /** Returns the data model to display a tree of FixtureGroups/Fixtures */
@@ -151,24 +158,37 @@ public:
     qreal maxPanDegrees() const;
     qreal maxTiltDegrees() const;
 
+    /** Add a Fixture Group or a Universe to this EFX */
     Q_INVOKABLE void addGroup(QVariant reference);
 
+    /** Add all the heads of a single Fixture to this EFX */
     Q_INVOKABLE void addFixture(QVariant reference);
 
+    /** Add a single head to this EFX */
     Q_INVOKABLE void addHead(int fixtureID, int headIndex);
 
+    /** Remove a head from this EFX */
     Q_INVOKABLE void removeHeads(QVariantList heads);
 
+    /** Set the working mode for the provided Fixture */
     Q_INVOKABLE void setFixtureMode(quint32 fixtureID, int headIndex, int modeIndex);
 
+    /** Reverse the provided Fixture */
     Q_INVOKABLE void setFixtureReversed(quint32 fixtureID, int headIndex, bool reversed);
 
+    /** Set an offset in degrees to the provided fixture and head */
     Q_INVOKABLE void setFixtureOffset(quint32 fixtureID, int headIndex, int offset);
+
+    /** Set an increasing $offset in degrees on all the EFX fixtures */
+    Q_INVOKABLE void setFixturesOffset(int offset);
 
 protected:
     void updateFixtureList();
 
 signals:
+    /** Notify the listeners that the fixture propagation mode has changed */
+    void propagationChanged();
+
     /** Notify the listeners that the fixture list model has changed */
     void fixtureListChanged();
 
@@ -193,6 +213,7 @@ private:
 public:
     QVariantList algorithmData();
     QVariantList fixturesData();
+    void setFixturesData(const QVariantList &data);
 
 private:
     void updateAlgorithmData();

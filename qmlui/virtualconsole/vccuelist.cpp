@@ -259,13 +259,14 @@ void VCCueList::setSideFaderLevel(int level)
         int newStep = level; // by default we assume the Chaser has more than 256 steps
         if (ch->stepsCount() < 256)
         {
-            float stepSize = 255 / float(ch->stepsCount());
-            if(level >= 255 - stepSize)
+            float stepSize = 256 / float(ch->stepsCount()); //divide up the full 0..255 range
+            stepSize = qFloor((stepSize * 100000.0) + 0.5) / 100000.0; //round to 5 decimals to fix corner cases
+            if (level >= 256.0 - stepSize)
                 newStep = ch->stepsCount() - 1;
             else
                 newStep = qFloor(qreal(level) / qreal(stepSize));
+            //qDebug() << "value:" << value << " new step:" << newStep << " stepSize:" << stepSize;
         }
-        //qDebug() << "value:" << value << "steps:" << ch->stepsCount() << "new step:" << newStep;
 
         ChaserAction action;
         action.m_action = ChaserSetStepIndex;
@@ -487,6 +488,8 @@ void VCCueList::setChaserID(quint32 fid)
                 this, SLOT(slotCurrentStepChanged(int)));
         connect(function, SIGNAL(stepChanged(int)),
                 this, SLOT(slotStepChanged(int)));
+        connect(function, SIGNAL(stepsListChanged(quint32)),
+                this, SLOT(slotStepsListChanged(quint32)));
 
         emit chaserIDChanged(fid);
     }
@@ -521,6 +524,15 @@ void VCCueList::slotStepChanged(int index)
 {
     ChaserStep *step = chaser()->stepAt(index);
     ChaserEditor::updateStepInListModel(m_doc, chaser(), m_stepsList, step, index);
+}
+
+void VCCueList::slotStepsListChanged(quint32 fid)
+{
+    if (fid == m_chaserID)
+    {
+        ChaserEditor::updateStepsList(m_doc, chaser(), m_stepsList);
+        emit stepsListChanged();
+    }
 }
 
 void VCCueList::slotFunctionNameChanged(quint32 fid)
@@ -1067,11 +1079,11 @@ bool VCCueList::saveXML(QXmlStreamWriter *doc)
         doc->writeTextElement(KXMLQLCVCCueListSlidersMode, faderModeToString(sideFaderMode()));
 
     /* Input controls */
-    saveXMLInputControl(doc, INPUT_NEXT_STEP_ID, KXMLQLCVCCueListNext);
-    saveXMLInputControl(doc, INPUT_PREVIOUS_STEP_ID, KXMLQLCVCCueListPrevious);
-    saveXMLInputControl(doc, INPUT_PLAY_PAUSE_ID, KXMLQLCVCCueListPlayback);
-    saveXMLInputControl(doc, INPUT_STOP_PAUSE_ID, KXMLQLCVCCueListStop);
-    saveXMLInputControl(doc, INPUT_SIDE_FADER_ID, KXMLQLCVCCueListCrossfadeLeft);
+    saveXMLInputControl(doc, INPUT_NEXT_STEP_ID, false, KXMLQLCVCCueListNext);
+    saveXMLInputControl(doc, INPUT_PREVIOUS_STEP_ID, false, KXMLQLCVCCueListPrevious);
+    saveXMLInputControl(doc, INPUT_PLAY_PAUSE_ID, false, KXMLQLCVCCueListPlayback);
+    saveXMLInputControl(doc, INPUT_STOP_PAUSE_ID, false, KXMLQLCVCCueListStop);
+    saveXMLInputControl(doc, INPUT_SIDE_FADER_ID, false, KXMLQLCVCCueListCrossfadeLeft);
 
     /* End the <CueList> tag */
     doc->writeEndElement();

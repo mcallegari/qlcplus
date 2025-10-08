@@ -135,7 +135,7 @@ private:
      * Movement page
      *********************************************************************/
 private slots:
-    void slotAlgorithmSelected(const QString &text);
+    void slotAlgorithmSelected(int algoIndex);
     void slotWidthSpinChanged(int value);
     void slotHeightSpinChanged(int value);
     void slotXOffsetSpinChanged(int value);

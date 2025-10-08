@@ -70,6 +70,7 @@ private:
 public:
     QVariant universes();
     QStringList universeNames() const;
+    Q_INVOKABLE QString universeName(quint32 universeId);
     QVariant universesListModel() const;
 
     /** Get/Set the currently selected universe index */
@@ -78,6 +79,7 @@ public:
 
     Q_INVOKABLE void addUniverse();
     Q_INVOKABLE void removeLastUniverse();
+    Q_INVOKABLE int  universesCount();
 
     /** Get/Set the global output blackout state */
     bool blackout() const;

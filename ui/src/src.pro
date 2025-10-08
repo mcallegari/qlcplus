@@ -68,7 +68,7 @@ HEADERS += aboutbox.h \
            createfixturegroup.h \
            ctkrangeslider.h \
            cuestackmodel.h \
-           docbrowser.h \
+           customfeedbackdialog.h \
            dmxdumpfactory.h \
            efxeditor.h \
            efxpreviewarea.h \
@@ -187,6 +187,7 @@ FORMS += aboutbox.ui \
          channelsselection.ui \
          collectioneditor.ui \
          createfixturegroup.ui \
+         customfeedbackdialog.ui \
          dmxdumpfactory.ui \
          efxeditor.ui \
          fixturegroupeditor.ui \
@@ -249,7 +250,7 @@ SOURCES += aboutbox.cpp \
            createfixturegroup.cpp \
            ctkrangeslider.cpp \
            cuestackmodel.cpp \
-           docbrowser.cpp \
+           customfeedbackdialog.cpp \
            dmxdumpfactory.cpp \
            efxeditor.cpp \
            efxpreviewarea.cpp \

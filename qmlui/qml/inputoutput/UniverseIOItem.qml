@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick
 
 import org.qlcplus.classes 1.0
 import "."
@@ -76,7 +76,7 @@ Rectangle
                         drag.target: ipItem
                         drag.threshold: 30
 
-                        onClicked: mouse.accepted = false
+                        onClicked: (mouse) => mouse.accepted = false
                         onPositionChanged: if (ipMouseArea.drag.active) uniItem.patchDragging(true)
                         onReleased:
                         {
@@ -151,7 +151,7 @@ Rectangle
         z: 10
 
         patchesNumber: inputPatchesNumber
-        showFeedback: universe ? universe.hasFeedbacks : false
+        showFeedback: universe ? universe.hasFeedback : false
     }
 
     // Input patch drop area
@@ -248,7 +248,7 @@ Rectangle
             checkedColor: UISettings.selection
             width: UISettings.iconSizeMedium * 0.8
             height: UISettings.iconSizeMedium * 0.8
-            faSource: FontAwesome.fa_long_arrow_right
+            faSource: FontAwesome.fa_arrow_right_long
             checkable: true
             tooltip: qsTr("Enable/Disable passthrough")
             checked: universe ? universe.passthrough : false
@@ -266,8 +266,8 @@ Rectangle
             checkedColor: "green"
             imgSource: ""
             checkable: true
-            checked: universe ? universe.hasFeedbacks : false
-            tooltip: qsTr("Enable/Disable feedbacks")
+            checked: universe ? universe.hasFeedback : false
+            tooltip: qsTr("Enable/Disable feedback")
             onToggled:
             {
                 if (universe)
@@ -325,7 +325,7 @@ Rectangle
                         drag.target: opItem
                         drag.threshold: 30
 
-                        onClicked: mouse.accepted = false
+                        onClicked: (mouse) => mouse.accepted = false
                         onPositionChanged: if (opMouseArea.drag.active) uniItem.patchDragging(true)
                         onReleased:
                         {

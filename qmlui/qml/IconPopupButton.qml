@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Controls
 
 import "."
 
@@ -54,6 +54,7 @@ CustomComboBox
             id: buttonBox
             anchors.fill: parent
             imgSource: currentIcon
+            faSource: currentFAIcon
 
             RobotoText
             {
@@ -62,6 +63,19 @@ CustomComboBox
                 label: currentTextIcon
                 fontSize: parent.height * 0.75
                 fontBold: true
+            }
+
+            Text
+            {
+                visible: currentFAIcon ? true : false
+                height: parent.height * 0.75
+                anchors.centerIn: parent
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                font.family: UISettings.fontAwesomeFontName
+                font.pixelSize: parent.height * 0.7
+                color: UISettings.fgMain
+                text: currentFAIcon
             }
 
             onClicked:

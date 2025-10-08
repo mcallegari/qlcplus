@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>Tóth János</Author>
+ </Creator>
+ <Manufacturer>Shehds</Manufacturer>
+ <Model>LED 200W RGB FLASH</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Color macro" Preset="ColorMacro"/>
+ <Channel Name="Color macro speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Color macro speed presets</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Background Color">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Background Color intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Background dimming" Preset="IntensityDimmer"/>
+ <Channel Name="Red dimmer" Preset="IntensityRed"/>
+ <Channel Name="Green dimmer" Preset="IntensityGreen"/>
+ <Channel Name="Blue dimmer" Preset="IntensityBlue"/>
+ <Channel Name="Red 24 1#" Preset="IntensityRed"/>
+ <Channel Name="Green 24 1#" Preset="IntensityGreen"/>
+ <Channel Name="Blue 24 1#" Preset="IntensityBlue"/>
+ <Channel Name="Red 24 2#" Preset="IntensityRed"/>
+ <Channel Name="Green 24 2#" Preset="IntensityGreen"/>
+ <Channel Name="Blue 24 2#" Preset="IntensityBlue"/>
+ <Channel Name="Red 24 3#" Preset="IntensityRed"/>
+ <Channel Name="Green 24 3#" Preset="IntensityGreen"/>
+ <Channel Name="Blue 24 3#" Preset="IntensityBlue"/>
+ <Channel Name="Red 24 4#" Preset="IntensityRed"/>
+ <Channel Name="Green 24 4#" Preset="IntensityGreen"/>
+ <Channel Name="Blue 24 4#" Preset="IntensityBlue"/>
+ <Channel Name="Red 24 5#" Preset="IntensityRed"/>
+ <Channel Name="Green 24 5#" Preset="IntensityGreen"/>
+ <Channel Name="Blue 24 5#" Preset="IntensityBlue"/>
+ <Channel Name="Red 24 6#" Preset="IntensityRed"/>
+ <Channel Name="Green 24 6#" Preset="IntensityGreen"/>
+ <Channel Name="Blue 24 6#" Preset="IntensityBlue"/>
+ <Channel Name="Red 24 7#" Preset="IntensityRed"/>
+ <Channel Name="Green 24 7#" Preset="IntensityGreen"/>
+ <Channel Name="Blue 24 7#" Preset="IntensityBlue"/>
+ <Channel Name="Red 24 8#" Preset="IntensityRed"/>
+ <Channel Name="Green 24 8#" Preset="IntensityGreen"/>
+ <Channel Name="Blue 24 8#" Preset="IntensityBlue"/>
+ <Mode Name="9 channels">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Color macro</Channel>
+  <Channel Number="3">Color macro speed</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">Background Color</Channel>
+  <Channel Number="8">Background dimming</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red dimmer</Channel>
+  <Channel Number="1">Green dimmer</Channel>
+  <Channel Number="2">Blue dimmer</Channel>
+ </Mode>
+ <Mode Name="24 Channel">
+  <Channel Number="0">Red 24 1#</Channel>
+  <Channel Number="1">Green 24 1#</Channel>
+  <Channel Number="2">Blue 24 1#</Channel>
+  <Channel Number="3">Red 24 2#</Channel>
+  <Channel Number="4">Green 24 2#</Channel>
+  <Channel Number="5">Blue 24 2#</Channel>
+  <Channel Number="6">Red 24 3#</Channel>
+  <Channel Number="7">Green 24 3#</Channel>
+  <Channel Number="8">Blue 24 3#</Channel>
+  <Channel Number="9">Red 24 4#</Channel>
+  <Channel Number="10">Green 24 4#</Channel>
+  <Channel Number="11">Blue 24 4#</Channel>
+  <Channel Number="12">Red 24 5#</Channel>
+  <Channel Number="13">Green 24 5#</Channel>
+  <Channel Number="14">Blue 24 5#</Channel>
+  <Channel Number="15">Red 24 6#</Channel>
+  <Channel Number="16">Green 24 6#</Channel>
+  <Channel Number="17">Blue 24 6#</Channel>
+  <Channel Number="18">Red 24 7#</Channel>
+  <Channel Number="19">Green 24 7#</Channel>
+  <Channel Number="20">Blue 24 7#</Channel>
+  <Channel Number="21">Red 24 8#</Channel>
+  <Channel Number="22">Green 24 8#</Channel>
+  <Channel Number="23">Blue 24 8#</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="25" ColourTemperature="0"/>
+  <Dimensions Weight="2.95" Width="401" Height="216" Depth="99"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="8" Height="1"/>
+  <Technical PowerConsumption="216" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -56,9 +56,9 @@ Rectangle
                 height: parent.height - 6
                 anchors.verticalCenter: parent.verticalCenter
                 color: "gray"
-                font.family: "FontAwesome"
+                font.family: UISettings.fontAwesomeFontName
                 font.pixelSize: height - 6
-                text: FontAwesome.fa_search
+                text: FontAwesome.fa_magnifying_glass
             }
 
             TextInput
@@ -69,7 +69,7 @@ Rectangle
                 width: parent.width - x
                 color: UISettings.fgMain
                 text: fixtureBrowser.searchFilter
-                font.family: "Roboto Condensed"
+                font.family: UISettings.robotoFontName
                 font.pixelSize: height - 6
                 selectionColor: UISettings.highlightPressed
                 selectByMouse: true
@@ -82,7 +82,8 @@ Rectangle
         {
             width: height
             height: toolBar.height - 2
-            imgSource: "qrc:/add.svg"
+            faSource: FontAwesome.fa_plus
+            faColor: "limegreen"
             tooltip: qsTr("Create a new fixture definition")
             onClicked: qlcplus.createFixture()
         }
@@ -132,9 +133,9 @@ Rectangle
                 width: modelsList.width - (manufScroll.visible ? manufScroll.width : 0)
                 isManufacturer: true
                 textLabel: modelData
-                onMouseEvent:
+                onMouseEvent: (type, iID, iType, qItem, mouseMods) =>
                 {
-                    if (type == App.Clicked)
+                    if (type === App.Clicked)
                     {
                         mfText.label = modelData
                         fixtureBrowser.manufacturerIndex = index
@@ -169,17 +170,17 @@ Rectangle
             anchors.left: parent.left
             color: blMouseArea.pressed ? UISettings.bgLight : UISettings.bgMedium
 
-            Image
+            // left arrow
+            Text
             {
                 id: leftArrow
-                rotation: 180
                 anchors.left: parent.left
                 anchors.leftMargin: 5
                 anchors.verticalCenter: parent.verticalCenter
-                source: "qrc:/arrow-right.svg"
-                sourceSize: Qt.size(width, height)
-                height: parent.height
-                width: height * 0.8
+                color: UISettings.fgLight
+                font.family: UISettings.fontAwesomeFontName
+                font.pixelSize: parent.height - 8
+                text: FontAwesome.fa_chevron_left
             }
 
             RobotoText
@@ -239,7 +240,7 @@ Rectangle
                     manufacturer: fixtureBrowser.selectedManufacturer
                     textLabel: modelData
 
-                    onMouseEvent:
+                    onMouseEvent: (type, iID, iType, qItem, mouseMods) =>
                     {
                         if (type == App.Clicked)
                         {

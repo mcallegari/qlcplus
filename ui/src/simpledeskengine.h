@@ -42,7 +42,7 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCSimpleDeskEngine QString("Engine")
+#define KXMLQLCSimpleDeskEngine QStringLiteral("Engine")
 
 class SimpleDeskEngine : public QObject, public DMXSource
 {
@@ -94,7 +94,7 @@ public:
 private:
     /** A map of channel absolute addresses and their values.
       * Note that only channels overridden by Simple Desk are here */
-    QHash <uint,uchar> m_values;
+    QMap <uint,uchar> m_values;
 
     /** A list of commands to be executed on writeDMX.
      *  This is used to sync reset requests with mastertimer ticks */

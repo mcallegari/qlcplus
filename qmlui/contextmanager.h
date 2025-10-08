@@ -238,10 +238,15 @@ public:
     Q_INVOKABLE void setColorValue(QColor col, QColor wauv);
 
     /** Set a Pan/Tilt position in degrees */
-    Q_INVOKABLE void setPositionValue(int type, int degrees, bool isRelative);
+    Q_INVOKABLE void setPositionValue(int type, float degrees, bool isRelative);
+
+    /** Set Pan/Tilt values at half position */
+    Q_INVOKABLE void setPositionCenter();
 
     /** Set a zoom channel in degrees */
     Q_INVOKABLE void setBeamDegrees(float degrees, bool isRelative);
+
+    Q_INVOKABLE void highlightFixtureSelection();
 
     void setChannelValues(QList<SceneValue> values);
 
@@ -297,14 +302,11 @@ public:
     /** Return the current DMX dump channel type mask */
     int dumpChannelMask() const;
 
-    Q_INVOKABLE void dumpDmxChannels(QString name, quint32 mask);
-
-    Q_INVOKABLE void dumpDmxChannels(quint32 sceneID, quint32 mask);
+    Q_INVOKABLE void dumpDmxChannels(quint32 channelMask, QString sceneName, int sceneID,
+                                     bool allChannels, bool nonZeroOnly);
 
     /** Resets the current values used for dumping or preview */
     Q_INVOKABLE void resetDumpValues();
-
-    GenericDMXSource *dmxSource() const;
 
     /** Return a list only of the fixture IDs from the selected preview items */
     QList<quint32> selectedFixtureIDList() const;

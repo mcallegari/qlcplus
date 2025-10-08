@@ -129,7 +129,8 @@ public:
         Input       = 1 << 1,
         Feedback    = 1 << 2,
         Infinite    = 1 << 3,
-        RDM         = 1 << 4
+        RDM         = 1 << 4,
+        Beats       = 1 << 5
     };
 
     /**
@@ -263,7 +264,7 @@ public:
      * @param key a string to identify a channel by name (ATM used only by OSC)
      */
     virtual void sendFeedBack(quint32 universe, quint32 inputLine,
-                              quint32 channel, uchar value, const QString& key = 0);
+                              quint32 channel, uchar value, const QVariant &params);
 
 signals:
     /**
@@ -365,7 +366,7 @@ protected:
 
     /**
      * Remove a line from the universe map. If a universe has no lines at all
-     * it is removed completely from the map (thus loosing the custom parameters
+     * it is removed completely from the map (thus losing the custom parameters
      * as well)
      *
      * @param universe The QLC+ universe index of the patched $line

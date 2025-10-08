@@ -46,62 +46,32 @@
        <string>General</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0" colspan="2">
-        <layout class="QHBoxLayout">
-         <item>
-          <widget class="QLabel" name="m_nameLabel">
-           <property name="text">
-            <string>Widget name</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="m_nameEdit">
-           <property name="toolTip">
-            <string>Name of the slider</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="3" column="1">
-        <widget class="QGroupBox" name="m_sliderMovementGroup">
-         <property name="title">
-          <string>Slider movement</string>
+       <item row="5" column="0" colspan="2">
+        <widget class="QFrame" name="frame">
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_14">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
           <item>
-           <widget class="QRadioButton" name="m_sliderMovementNormalRadio">
-            <property name="text">
-             <string>Normal</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="m_sliderMovementInvertedRadio">
-            <property name="text">
-             <string>Inverted</string>
-            </property>
-           </widget>
+           <layout class="QVBoxLayout" name="m_extControlLayout"/>
           </item>
          </layout>
         </widget>
-       </item>
-       <item row="6" column="0" colspan="2">
-        <spacer>
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
        </item>
        <item row="1" column="0" colspan="2">
         <widget class="QGroupBox" name="groupBox">
@@ -146,29 +116,53 @@
          </layout>
         </widget>
        </item>
-       <item row="5" column="0" colspan="2">
-        <widget class="QFrame" name="frame">
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
+       <item row="4" column="0" colspan="2">
+        <widget class="QCheckBox" name="m_catchValueCheck">
+         <property name="text">
+          <string>Catch up with the external controller input value</string>
          </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="2">
+        <layout class="QHBoxLayout">
+         <item>
+          <widget class="QLabel" name="m_nameLabel">
+           <property name="text">
+            <string>Widget name</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="m_nameEdit">
+           <property name="toolTip">
+            <string>Name of the slider</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="3" column="1">
+        <widget class="QGroupBox" name="m_sliderMovementGroup">
+         <property name="title">
+          <string>Slider movement</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_14">
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <layout class="QVBoxLayout" name="m_extControlLayout"/>
+           <widget class="QRadioButton" name="m_sliderMovementNormalRadio">
+            <property name="text">
+             <string>Normal</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_sliderMovementInvertedRadio">
+            <property name="text">
+             <string>Inverted</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -205,12 +199,18 @@
          </layout>
         </widget>
        </item>
-       <item row="4" column="0" colspan="2">
-        <widget class="QCheckBox" name="m_catchValueCheck">
-         <property name="text">
-          <string>Catch up with the external controller input value</string>
+       <item row="6" column="0" colspan="2">
+        <spacer>
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
          </property>
-        </widget>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>
@@ -304,6 +304,9 @@
          </property>
          <property name="selectionMode">
           <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
          </property>
          <property name="allColumnsShowFocus">
           <bool>true</bool>
@@ -520,6 +523,16 @@
           </item>
          </layout>
         </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="m_flashButtonCheck">
+         <property name="text">
+          <string>Flash Button</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="m_flashButtonLayout"/>
        </item>
        <item>
         <spacer name="m_playbackSpacer">

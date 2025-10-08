@@ -71,13 +71,13 @@
  <Channel Name="Rotating Gobo Change">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="18">Empty position</Capability>
-  <Capability Min="19" Max="37" Preset="GoboMacro" Res1="ClayPaky/gobo00040.png">Gobo 1 (small dots)</Capability>
+  <Capability Min="19" Max="37" Preset="GoboMacro" Res1="ClayPaky/gobo00040.svg">Gobo 1 (small dots)</Capability>
   <Capability Min="38" Max="55" Preset="GoboMacro" Res1="ClayPaky/gobo00084.svg">Gobo 2 (Plumens)</Capability>
   <Capability Min="56" Max="74" Preset="GoboMacro" Res1="ClayPaky/gobo00100.svg">Gobo 3 (Multiple moons)</Capability>
   <Capability Min="75" Max="92" Preset="GoboMacro" Res1="ClayPaky/gobo00092.svg">Gobo 4 (Half circle)</Capability>
   <Capability Min="93" Max="111" Preset="GoboMacro" Res1="ClayPaky/gobo00044.png">Gobo 5 (Oak tree)</Capability>
   <Capability Min="112" Max="129" Preset="GoboMacro" Res1="ClayPaky/gobo00021.svg">Gobo 6 (Dappled leaves)</Capability>
-  <Capability Min="130" Max="150" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00040.png">Gobo 1 shakes at variable speed from slow to fast</Capability>
+  <Capability Min="130" Max="150" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00040.svg">Gobo 1 shakes at variable speed from slow to fast</Capability>
   <Capability Min="151" Max="171" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00084.svg">Gobo 2 shakes at variable speed from slow to fast</Capability>
   <Capability Min="172" Max="192" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00100.svg">Gobo 3 shakes at variable speed from slow to fast</Capability>
   <Capability Min="193" Max="213" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00092.svg">Gobo 4 shakes at variable speed from slow to fast</Capability>

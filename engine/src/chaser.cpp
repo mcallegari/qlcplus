@@ -132,6 +132,7 @@ bool Chaser::addStep(const ChaserStep& step, int index)
         }
 
         emit changed(this->id());
+        emit stepsListChanged(this->id());
         return true;
     }
     else
@@ -150,6 +151,7 @@ bool Chaser::removeStep(int index)
         }
 
         emit changed(this->id());
+        emit stepsListChanged(this->id());
         return true;
     }
     else
@@ -232,7 +234,7 @@ void Chaser::setTotalDuration(quint32 msec)
         {
             uint origDuration = m_steps[i].duration;
             m_steps[i].duration = ((double)m_steps[i].duration * msec) / dtDuration;
-            if(m_steps[i].hold)
+            if (m_steps[i].hold)
                 m_steps[i].hold = ((double)m_steps[i].hold * (double)m_steps[i].duration) / (double)origDuration;
             m_steps[i].fadeIn = m_steps[i].duration - m_steps[i].hold;
             if (m_steps[i].fadeOut)
@@ -576,7 +578,7 @@ bool Chaser::contains(quint32 functionId)
     Doc *doc = this->doc();
     Q_ASSERT(doc != NULL);
 
-    foreach(ChaserStep step, m_steps)
+    foreach (ChaserStep step, m_steps)
     {
         Function *function = doc->function(step.fid);
         // contains() can be called during init, function may be NULL
@@ -596,7 +598,7 @@ QList<quint32> Chaser::components()
 {
     QList<quint32> ids;
 
-    foreach(ChaserStep step, m_steps)
+    foreach (ChaserStep step, m_steps)
         ids.append(step.fid);
 
     return ids;

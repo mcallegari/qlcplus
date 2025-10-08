@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.10
+import QtQuick
 
 import org.qlcplus.classes 1.0
 import "CanvasDrawFunctions.js" as DrawFuncs
@@ -301,7 +301,7 @@ Rectangle
         onEntered: fixtureLabel.visible = true
         onExited: showLabel ? fixtureLabel.visible = true : fixtureLabel.visible = false
 
-        onPressed:
+        onPressed: (mouse) =>
         {
             // do not accept this event to propagate it to the drag rectangle
             mouse.accepted = false

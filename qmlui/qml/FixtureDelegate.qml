@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.0
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "."
@@ -75,12 +75,13 @@ Rectangle
                 anchors.fill: parent
                 hoverEnabled: true
 
-                onClicked: fxDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, fxDelegate, mouse.modifiers)
+                onClicked: (mouse) => fxDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, fxDelegate, mouse.modifiers)
                 onDoubleClicked: fxDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, fxDelegate, -1)
             }
         }
     }
 
+    // separator line
     Rectangle
     {
         width: parent.width

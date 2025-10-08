@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "."
@@ -32,10 +32,7 @@ VCWidgetItem
 
     radius: 2
 
-    onSliderObjChanged:
-    {
-        setCommonProperties(sliderObj)
-    }
+    onSliderObjChanged: setCommonProperties(sliderObj)
 
     Gradient
     {
@@ -149,7 +146,7 @@ VCWidgetItem
             to: sliderObj ? sliderObj.rangeHighLimit : 255
             value: sliderValue
 
-            onMoved: if (sliderObj) sliderObj.value = value // position * 255
+            onValueChanged: if (sliderObj) sliderObj.value = value
         }
 
         // widget name text box
@@ -188,10 +185,29 @@ VCWidgetItem
         {
             visible: sliderObj ? sliderObj.monitorEnabled : false
             Layout.alignment: Qt.AlignHCenter
-            faSource: FontAwesome.fa_remove
+            faSource: FontAwesome.fa_xmark
             faColor: UISettings.bgControl
             bgColor: sliderObj && sliderObj.isOverriding ? "red" : UISettings.bgLight
             onClicked: if (sliderObj) sliderObj.isOverriding = false
+        }
+
+        IconButton
+        {
+            visible: sliderObj ? sliderObj.adjustFlashEnabled : false
+            Layout.alignment: Qt.AlignHCenter
+            faSource: FontAwesome.fa_star
+            faColor: "deepskyblue"
+            tooltip: qsTr("Flash the controlled Function")
+            onPressed:
+            {
+                if (sliderObj)
+                    sliderObj.flashFunction(true)
+            }
+            onReleased:
+            {
+                if (sliderObj)
+                    sliderObj.flashFunction(false)
+            }
         }
 
         // Click & Go button
@@ -230,7 +246,7 @@ VCWidgetItem
                 if (Qt.platform.os === "android")
                     presetImageBox.source = cngResource
                 else
-                    presetImageBox.source = "file:/" + cngResource
+                    presetImageBox.source = "file:" + cngResource
             }
 
             onClicked: colorToolLoader.toggleVisibility()
@@ -285,13 +301,18 @@ VCWidgetItem
                 {
                     item.visible = false
                     item.closeOnSelect = true
+                    if (sliderObj && clickAndGoButton.cngType == VCSlider.CnGPreset)
+                    {
+                        item.rangeLowLimit = sliderObj.rangeLowLimit
+                        item.rangeHighLimit = sliderObj.rangeHighLimit
+                    }
                 }
 
                 Connections
                 {
                     ignoreUnknownSignals: true
                     target: colorToolLoader.item
-                    function onColorChanged(r, g, b, w, a, uv)
+                    function onToolColorChanged(r, g, b, w, a, uv)
                     {
                         if (sliderObj)
                             sliderObj.setClickAndGoColors(Qt.rgba(r, g, b, 1.0), Qt.rgba(w, a, uv, 1.0))

@@ -17,9 +17,11 @@
   limitations under the License.
 */
 
-import QtQuick 2.2
-import QtQuick.Layouts 1.12
-import QtQuick.Controls 2.13
+import QtQuick
+import QtQuick.Dialogs
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtQuick.Controls.Basic
 
 import org.qlcplus.classes 1.0
 import "."
@@ -72,10 +74,18 @@ Rectangle
     CustomPopupDialog
     {
         id: messagePopup
-        width: mainView.width / 2
+        parent: fixtureEditorView
+        width: fixtureEditorView.width / 2
         standardButtons: Dialog.Ok
         title: qsTr("!! Warning !!")
         onAccepted: close()
+    }
+
+    PopupChannelWizard
+    {
+        id: wizardPopup
+        parent: fixtureEditorView
+        editorView: editorRoot.editorView
     }
 
     SplitView
@@ -160,7 +170,12 @@ Rectangle
                                     width: UISettings.bigItemHeight
                                     model: typeModel
                                     currValue: editorView ? editorView.productType : 0
-                                    onValueChanged: if (editorView) editorView.productType = value
+                                    onValueChanged:
+                                        function(value)
+                                        {
+                                            if (editorView)
+                                                editorView.productType = value
+                                        }
                                 }
                             }
 
@@ -231,7 +246,8 @@ Rectangle
                                     IconButton
                                     {
                                         id: newChButton
-                                        imgSource: "qrc:/add.svg"
+                                        faSource: FontAwesome.fa_plus
+                                        faColor: "limegreen"
                                         tooltip: qsTr("Add a new channel")
                                         onClicked:
                                         {
@@ -245,7 +261,8 @@ Rectangle
                                     IconButton
                                     {
                                         id: delChButton
-                                        imgSource: "qrc:/remove.svg"
+                                        faSource: FontAwesome.fa_minus
+                                        faColor: "crimson"
                                         tooltip: qsTr("Remove the selected channel(s)")
                                         enabled: chanSelector.itemsCount
                                         onClicked:
@@ -272,15 +289,10 @@ Rectangle
                                     IconButton
                                     {
                                         id: chWizButton
-                                        imgSource: "qrc:/wizard.svg"
+                                        faSource: FontAwesome.fa_wand_magic_sparkles
+                                        faColor: "cyan"
                                         tooltip: qsTr("Channel wizard")
                                         onClicked: wizardPopup.open()
-
-                                        PopupChannelWizard
-                                        {
-                                            id: wizardPopup
-                                            editorView: editorRoot.editorView
-                                        }
                                     }
                                 }
                             } // Rectangle - toolbar
@@ -328,7 +340,7 @@ Rectangle
                                                 cDragItem.z = 10
                                             }
 
-                                            onClicked:
+                                            onClicked: (mouse) =>
                                             {
                                                 chanSelector.selectItem(index, channelList.model, mouse.modifiers)
                                             }
@@ -458,7 +470,8 @@ Rectangle
                                     IconButton
                                     {
                                         id: newModeButton
-                                        imgSource: "qrc:/add.svg"
+                                        faSource: FontAwesome.fa_plus
+                                        faColor: "limegreen"
                                         tooltip: qsTr("Add a new mode")
                                         onClicked:
                                         {
@@ -472,7 +485,8 @@ Rectangle
                                     IconButton
                                     {
                                         id: delModeButton
-                                        imgSource: "qrc:/remove.svg"
+                                        faSource: FontAwesome.fa_minus
+                                        faColor: "crimson"
                                         tooltip: qsTr("Remove the selected mode(s)")
                                         onClicked: { /* TODO */ }
                                     }
@@ -550,7 +564,7 @@ Rectangle
                     width: parent.width
                     sectionLabel: qsTr("Aliases")
 
-                    sectionContents: null
+                    sectionContents: null // TODO
                 } // SectionBox - Alias
 
             } // Column

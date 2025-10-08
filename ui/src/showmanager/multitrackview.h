@@ -32,9 +32,7 @@
 #include "trackitem.h"
 #include "audioitem.h"
 #include "efxitem.h"
-#if QT_VERSION >= 0x050000
 #include "videoitem.h"
-#endif
 #include "chaser.h"
 #include "track.h"
 
@@ -152,7 +150,8 @@ private:
     bool m_snapToGrid;
 
 public slots:
-    void mouseReleaseEvent(QMouseEvent * e);
+    void mouseReleaseEvent(QMouseEvent *e);
+    void wheelEvent(QWheelEvent *event);
 
 protected slots:
     void slotHeaderClicked(QGraphicsSceneMouseEvent *event);

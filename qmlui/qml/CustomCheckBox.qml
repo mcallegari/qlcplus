@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Controls 2.14
+import QtQuick
+import QtQuick.Controls.Basic
 
 import "."
 
@@ -77,13 +77,13 @@ RadioButton
         }
 
     indicator:
-        Image
+        Text
         {
-            id: cbIcon
             visible: checked
-            anchors.fill: parent
-            anchors.margins: 3
-            source: "qrc:/apply.svg"
-            sourceSize: Qt.size(width, height)
+            anchors.centerIn: parent
+            color: "lime"
+            font.family: UISettings.fontAwesomeFontName
+            font.pixelSize: controlRoot.height * 0.80
+            text: FontAwesome.fa_check
         }
 }

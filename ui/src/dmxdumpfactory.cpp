@@ -20,6 +20,7 @@
 #include <QTreeWidgetItem>
 #include <QTreeWidget>
 #include <QDebug>
+#include <QSettings>
 
 #include "dmxdumpfactoryproperties.h"
 #include "fixturetreewidget.h"
@@ -41,6 +42,8 @@
 
 #define KColumnTargetName 0
 #define KColumnTargetID   1
+
+#define SETTINGS_GEOMETRY "dmxdumpfactory/geometry"
 
 DmxDumpFactory::DmxDumpFactory(Doc *doc, DmxDumpFactoryProperties *props, QWidget *parent)
     : QDialog(parent)
@@ -80,8 +83,13 @@ DmxDumpFactory::DmxDumpFactory(Doc *doc, DmxDumpFactoryProperties *props, QWidge
     else
         m_dumpSelectedRadio->setChecked(true);
 
-    if(m_properties->nonZeroValuesMode() == true)
+    if (m_properties->nonZeroValuesMode() == true)
         m_nonZeroCheck->setChecked(true);
+
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 
     connect(m_sceneButton, SIGNAL(clicked(bool)),
             this, SLOT(slotSelectSceneButtonClicked()));
@@ -89,12 +97,14 @@ DmxDumpFactory::DmxDumpFactory(Doc *doc, DmxDumpFactoryProperties *props, QWidge
 
 DmxDumpFactory::~DmxDumpFactory()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 void DmxDumpFactory::slotUpdateChasersTree()
 {
     m_addtoTree->clear();
-    foreach(Function *f, m_doc->functionsByType(Function::ChaserType))
+    foreach (Function *f, m_doc->functionsByType(Function::ChaserType))
     {
         Chaser *chaser = qobject_cast<Chaser*>(f);
         QTreeWidgetItem *item = new QTreeWidgetItem(m_addtoTree);
@@ -136,7 +146,7 @@ void DmxDumpFactory::slotSelectSceneButtonClicked()
         QByteArray chMask = m_properties->channelsMask();
         chMask.fill(0);
 
-        foreach(SceneValue scv, scene->values())
+        foreach (SceneValue scv, scene->values())
         {
             Fixture *fxi = m_doc->fixture(scv.fxi);
             if (fxi == NULL)

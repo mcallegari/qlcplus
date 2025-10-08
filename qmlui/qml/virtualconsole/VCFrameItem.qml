@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "."
@@ -72,7 +72,7 @@ VCWidgetItem
                 radius: 0
                 border.width: 0
                 tooltip: qsTr("Expand/Collapse this frame")
-                faSource: checked ? FontAwesome.fa_expand : FontAwesome.fa_compress
+                faSource: checked ? FontAwesome.fa_up_right_and_down_left_from_center : FontAwesome.fa_down_left_and_up_right_to_center
                 faColor: UISettings.fgMain
                 checkable: true
                 checked: isCollapsed
@@ -113,7 +113,8 @@ VCWidgetItem
                 border.width: 0
                 checkable: true
                 tooltip: qsTr("Enable/Disable this frame")
-                imgSource: "qrc:/apply.svg"
+                faSource: FontAwesome.fa_check
+                faColor: "lime"
                 imgMargins: 1
                 checked: frameObj ? !frameObj.isDisabled : true
                 visible: frameObj ? frameObj.showEnable : true
@@ -134,8 +135,8 @@ VCWidgetItem
                     radius: 0
                     border.width: 0
                     tooltip: qsTr("Previous page")
-                    imgSource: "qrc:/back.svg"
-                    imgMargins: 1
+                    faSource: FontAwesome.fa_angle_left
+                    faColor: UISettings.fgMain
                     onClicked: frameObj.gotoPreviousPage()
                 }
                 CustomComboBox
@@ -162,8 +163,8 @@ VCWidgetItem
                     radius: 0
                     border.width: 0
                     tooltip: qsTr("Next page")
-                    imgSource: "qrc:/forward.svg"
-                    imgMargins: 1
+                    faSource: FontAwesome.fa_angle_right
+                    faColor: UISettings.fgMain
                     onClicked: frameObj.gotoNextPage()
                 }
             }
@@ -183,7 +184,7 @@ VCWidgetItem
 
         onEntered: frameRoot.dropActive = true
         onExited: frameRoot.dropActive = false
-        onDropped:
+        onDropped: (drop) =>
         {
             if (frameObj == null || frameRoot.dropActive === false)
                 return

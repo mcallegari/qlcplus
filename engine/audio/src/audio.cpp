@@ -225,15 +225,16 @@ int Audio::adjustAttribute(qreal fraction, int attributeId)
 
 void Audio::slotEndOfStream()
 {
+    if (!stopped())
+        stop(FunctionParent::master());
+
     if (m_audio_out != NULL)
     {
         m_audio_out->stop();
         m_audio_out->deleteLater();
         m_audio_out = NULL;
-        m_decoder->seek(0);
     }
-    if (!stopped())
-        stop(FunctionParent::master());
+    m_decoder->seek(0);
 }
 
 void Audio::slotFunctionRemoved(quint32 fid)
@@ -344,8 +345,7 @@ void Audio::preRun(MasterTimer* timer)
 
         if (m_audio_out != NULL && m_audio_out->isRunning())
         {
-            m_audio_out->stop();
-            m_audio_out->deleteLater();
+            delete m_audio_out;
             m_audio_out = NULL;
         }
 
@@ -372,8 +372,6 @@ void Audio::preRun(MasterTimer* timer)
         m_audio_out->setFadeIn(elapsed() ? 0 : fadeIn);
         m_audio_out->setLooped(runOrder() == Audio::Loop);
         m_audio_out->start();
-        connect(m_audio_out, SIGNAL(endOfStreamReached()),
-                this, SLOT(slotEndOfStream()));
     }
 
     Function::preRun(timer);
@@ -414,6 +412,8 @@ void Audio::write(MasterTimer* timer, QList<Universe *> universes)
             if (m_audio_out != NULL && totalDuration() - elapsed() <= fadeOutSpeed())
                 m_audio_out->setFadeOut(fadeOutSpeed());
         }
+        if (m_audio_out->isEos())
+            slotEndOfStream();
     }
 }
 

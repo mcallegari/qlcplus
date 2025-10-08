@@ -39,8 +39,9 @@ function connect() {
     }, 1000);
    };
 
-   websocket.onerror = function() {
+   websocket.onerror = function(ev) {
     console.error("QLC+ connection encountered error. Closing socket");
+    console.error("Error: " + ev.data)
     ws.close();
    };
 
@@ -150,7 +151,7 @@ function resetUniverse() {
  currentPage = 1;
  var pgObj = document.getElementById("pageDiv");
  pgObj.innerHTML = currentPage;
- var wsMsg = "QLC+API|sdResetUniverse";
+ var wsMsg = "QLC+API|sdResetUniverse|" + currentUniverse;
  websocket.send(wsMsg);
  getPage(currentUniverse, currentPage);
 }

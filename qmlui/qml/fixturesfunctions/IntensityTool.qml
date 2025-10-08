@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.0
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls.Basic
 
 import org.qlcplus.classes 1.0
 import "."
@@ -29,12 +29,11 @@ Rectangle
     id: intRoot
     width: UISettings.bigItemHeight * (paletteBox.checked ? 2 : 1.5)
     height: (UISettings.bigItemHeight * 3) + paletteBox.height
-    color: UISettings.bgMedium
-    //border.color: UISettings.bgLight
-    //border.width: 2
+    color: UISettings.bgStrong
 
     property bool dmxValues: true
     property bool closeOnSelect: false
+    property var dragTarget: null
     property alias showPalette: paletteBox.visible
 
     property alias currentValue: spinBox.value
@@ -43,6 +42,21 @@ Rectangle
 
     signal valueChanged(int value)
     signal close()
+
+    function setValue(value)
+    {
+        previousValue = 0
+        if (value === -1)
+        {
+            relativeValue = true
+            currentValue = 0
+        }
+        else
+        {
+            relativeValue = false
+            currentValue = dmxValues ? Math.round(value) : Math.round(value / 2.55)
+        }
+    }
 
     onCurrentValueChanged:
     {
@@ -55,34 +69,18 @@ Rectangle
         else
         {
             var val = relativeValue ? currentValue - previousValue : currentValue
-            intRoot.valueChanged(dmxValues ? val : val * 2.55)
-            if (closeOnSelect)
-                intRoot.visible = false
+            if (intRoot.visible)
+                intRoot.valueChanged(dmxValues ? val : val * 2.55)
+            //if (closeOnSelect)
+            //    intRoot.close()
         }
         previousValue = currentValue
     }
 
     onVisibleChanged:
     {
-        if (visible)
-        {
-            previousValue = 0
-            var val = contextManager.getCurrentValue(QLCChannel.Intensity, false)
-            if (val === -1)
-            {
-                relativeValue = true
-                currentValue = 0
-            }
-            else
-            {
-                relativeValue = false
-                currentValue = dmxValues ? Math.round(val) : Math.round(val / 2.55)
-            }
-        }
-        else
-        {
+        if (!visible)
             paletteBox.checked = false
-        }
     }
 
     function loadPalette(pId)
@@ -137,7 +135,7 @@ Rectangle
             MouseArea
             {
                 anchors.fill: parent
-                drag.target: intRoot
+                drag.target: intRoot.dragTarget ? intRoot.dragTarget : intRoot
             }
 
             GenericButton
@@ -147,7 +145,7 @@ Rectangle
                 anchors.right: parent.right
                 border.color: UISettings.bgMedium
                 useFontawesome: true
-                label: FontAwesome.fa_times
+                label: FontAwesome.fa_xmark
                 onClicked: intRoot.close()
             }
         }
@@ -232,7 +230,7 @@ Rectangle
                 suffix: dmxValues ? "" : "%"
                 to: dmxValues ? 255 : 100
 
-                onValueChanged: currentValue = value
+                onValueModified: currentValue = value
             }
 
             DMXPercentageButton

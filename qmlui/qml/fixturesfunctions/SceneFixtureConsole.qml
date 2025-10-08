@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "."
@@ -33,6 +33,9 @@ Rectangle
     Component.onCompleted: sceneEditor.sceneConsoleLoaded(true)
     Component.onDestruction: sceneEditor.sceneConsoleLoaded(false)
 
+    property bool isSceneEditor: true
+    property bool multipleSelection: false
+
     function scrollToItem(fxIdx)
     {
         console.log("[scrollToItem] fxIdx: " + fxIdx)
@@ -45,7 +48,11 @@ Rectangle
         id: channelToolLoader
         z: 2
 
-        onValueChanged: functionManager.setChannelValue(fixtureID, channelIndex, value)
+        onValueChanged:
+            function (fixtureID, channelIndex, value)
+            {
+                functionManager.setChannelValue(fixtureID, channelIndex, value)
+            }
     }
 
     ListView
@@ -76,11 +83,16 @@ Rectangle
                     fixtureObj: model.cRef
                     isSelected: model.isSelected
                     height: parent.height
-                    color: index % 2 ? "#202020" : "#404040"
+                    color: index % 2 ? UISettings.bgFixtureEven : UISettings.bgFixtureOdd
                     showEnablers: true
                     sceneConsole: true
+                    multipleSelection: sfcContainer.multipleSelection
 
-                    onRequestTool: channelToolLoader.loadChannelTool(item, fixtureID, chIndex, value)
+                    onRequestTool:
+                        function (item, fixtureID, chIndex, value)
+                        {
+                            channelToolLoader.loadChannelTool(item, fixtureID, chIndex, value)
+                        }
                 }
                 // Fixture divider
                 Rectangle

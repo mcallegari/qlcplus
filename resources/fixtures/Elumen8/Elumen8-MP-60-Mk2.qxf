@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2</Version>
+  <Author>Keith Baker</Author>
+ </Creator>
+ <Manufacturer>Elumen8</Manufacturer>
+ <Model>MP 60 Mk2</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Mode Name="Standard">
+  <Channel Number="0">Master dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="2900" ColourTemperature="3000"/>
+  <Dimensions Weight="3.8" Width="210" Height="250" Depth="265"/>
+  <Lens Name="Fresnel" DegreesMin="10" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="70" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -73,6 +73,7 @@ protected:
 protected slots:
     void slotAddClicked();
     void slotRemoveClicked();
+    void slotPageCheckboxChanged();
 
     /********************************************************************
      * Functions
@@ -104,9 +105,15 @@ protected:
 
     /** Populate the widgets tree based on selected preset functions */
     void updateWidgetsTree();
+    void checkPanTilt(QTreeWidgetItem *grpItem, QTreeWidgetItem *fxGrpItem, qint32* channels);
+    void checkRGB(QTreeWidgetItem *grpItem, QTreeWidgetItem *fxGrpItem, qint32* channels);
+    void addChannelsToTree(QTreeWidgetItem *grpItem, QTreeWidgetItem *fxGrpItem, QList<quint32> channels );
+    void addWidgetItem(QTreeWidgetItem *grpItem, QString name, int type, 
+                       QTreeWidgetItem *fxGrpItem, quint32 *chan/* , QLCChannel* channel */);
 
     VCWidget *createWidget(int type, VCWidget *parent, int xpos, int ypos,
-                           Function *func = NULL, int pType = 0);
+                           Function *func = NULL, int pType = 0, QTreeWidgetItem* fxGrpItem = NULL,
+                           quint32 chan = 0, qint32 fixtureNr = -1, qint32 headId = -1);
 
     QSize recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *parent, int type);
 

@@ -25,6 +25,42 @@ devtool.currentStep = 0;
 devtool.testTimer = null;
 devtool.alternate = false;
 
+devtool.onLoad = function()
+{
+    devtool.loadAlgoFile();
+
+    // Initialize drag-and-drop support
+    const onDragStart = function(e) {
+        const dt = e.dataTransfer;
+        if (dt.types && (dt.types.indexOf ? dt.types.indexOf('Files') != -1 : dt.types.contains('Files'))) {
+            e.preventDefault(); e.stopPropagation();
+            document.dragAndDropTarget = e.target;
+            document.getElementById('dropContainer').className = 'dragging';
+        }
+    };
+    const onDragEnd = function(e) {
+        const dt = e.dataTransfer;
+        if (dt.types && (dt.types.indexOf ? dt.types.indexOf('Files') != -1 : dt.types.contains('Files')) && document.dragAndDropTarget == e.target) {
+            e.preventDefault(); e.stopPropagation();
+            document.getElementById('dropContainer').className = '';
+        }
+    };
+    const onDragDrop = function(e) {
+        const dt = e.dataTransfer;
+        if (dt.types && (dt.types.indexOf ? dt.types.indexOf('Files') != -1 : dt.types.contains('Files'))) {
+            e.preventDefault(); e.stopPropagation();
+            document.getElementById('dropContainer').className = '';
+            devtool.onFileDropped(e.dataTransfer.files[0]);
+        }
+    }
+    document.body.addEventListener('dragstart', onDragStart);
+    document.body.addEventListener('dragover',  onDragStart);
+    document.body.addEventListener('dragenter', onDragStart);
+    document.body.addEventListener('dragend',   onDragEnd);
+    document.body.addEventListener('dragleave', onDragEnd);
+    document.body.addEventListener('drop',      onDragDrop);
+}
+
 devtool.initDefinitions = function()
 {
     document.getElementById("apiversion").value = testAlgo.apiVersion;
@@ -91,8 +127,10 @@ devtool.addPropertyTableEntry = function(property)
     var readFunction = property[keys.indexOf("read")][1];
 
     var nameCell = row.insertCell(-1);
-    var t = document.createTextNode(displayName);
-    nameCell.appendChild(t);
+    var label = document.createElement('label');
+    label.textContent = displayName;
+    label.htmlFor = name;
+    nameCell.appendChild(label);
 
     var currentValue = window.testAlgo[readFunction]();
 
@@ -119,13 +157,16 @@ devtool.addPropertyTableEntry = function(property)
         input.max = values[1];
         input.setAttribute("onChange", "devtool.writeFunction('" + writeFunction + "', '" + name + "', this.value); devtool.setStep(0); devtool.writeCurrentStep()");
         formCell.appendChild(input);
-    } else if (typeProperty === "integer") {
+    } else if (typeProperty === "float") {
         input = document.createElement("input");
         input.type = "number";
         input.required = "required";
         input.name = name;
         input.setAttribute("value", currentValue);
         input.id = name;
+        input.min = -1000000;
+        input.max = 1000000;
+        input.step = 0.001;
         input.setAttribute("onChange", "devtool.writeFunction('" + writeFunction + "', '" + name + "', this.value); devtool.setStep(0); devtool.writeCurrentStep()");
         formCell.appendChild(input);
     } else { // string
@@ -176,13 +217,62 @@ devtool.initProperties = function()
     properties.forEach(devtool.addPropertyTableEntry);
 }
 
+devtool.getAcceptColors = function()
+{
+  var acceptColors = 2 // Default
+  if (typeof testAlgo.acceptColors !== "undefined") {
+    acceptColors = parseInt(testAlgo.acceptColors, 10);
+  }
+
+  return acceptColors;
+}
+
 devtool.initPixelColors = function()
 {
-    var pixelColorChooser = document.getElementById("pixelColorChooser");
-    pixelColorChooser.hidden = testAlgo.acceptColors === 0;
+    var acceptColors = devtool.getAcceptColors();
 
-    var secondaryColorChooser = document.getElementById("secondaryColorChooser");
-    secondaryColorChooser.hidden = testAlgo.acceptColors === 1;
+    var colorTable = document.getElementById("colorChooserTable");
+    if (colorTable === null)
+        return;
+    while (colorTable.rows.length > acceptColors)
+        colorTable.deleteRow(-1);
+    while (colorTable.rows.length < acceptColors) {
+        var colorId = colorTable.rows.length + 1;
+        var row = colorTable.insertRow();
+        row.id = "color" + colorId + "Chooser";
+        var titleCell = row.insertCell();
+        var label = document.createElement('label');
+        label.htmlFor = "color" + colorId + "Picker";
+        if (colorId === 1)
+            label.textContent = "Color " + colorId + " (rrggbb)";
+        else
+            label.textContent = "Color " + colorId + " (rrggbb, leave empty to disable)";
+        titleCell.appendChild(label);
+        var colorInput = document.createElement("input");
+        colorInput.setAttribute("type", "text");
+        colorInput.setAttribute("id", "color" + colorId + "Text");
+        if (colorId === 1)
+            colorInput.value = "FF0000";
+        else
+            colorInput.value = "";
+        colorInput.setAttribute("pattern", "[0-9A-Fa-f]{6}");
+        colorInput.setAttribute("size", "6");
+        colorInput.setAttribute("onInput", "devtool.onColorTextChange()");
+        colorInput.required = true;
+        var colorCell = row.insertCell();
+        colorCell.appendChild(colorInput);
+        var colorPicker = document.createElement("input");
+        colorPicker.setAttribute("type", "color");
+        colorPicker.setAttribute("id", "color" + colorId + "Picker");
+        if (colorId === 1)
+            colorPicker.value = "#FF0000";
+        else
+            colorPicker.value = "#000000";
+        colorPicker.setAttribute("onInput", "devtool.onColorPickerChange(" + colorId + ")");
+        colorPicker.required = true;
+        var pickerCell = row.insertCell();
+        pickerCell.appendChild(colorPicker);
+    }
 }
 
 devtool.initSpeedValue = function()
@@ -207,16 +297,24 @@ devtool.initAlternateValue = function()
 
 devtool.initColorValues = function()
 {
-    var primary = localStorage.getItem("devtool.primaryColor");
-    if (primary === null || Number.isNaN(parseInt("0x" + primary, 16))) {
-      primary = "ff0000";
+    var rawColors = [];
+    var acceptColors = devtool.getAcceptColors();
+    for (var i = 0; i < acceptColors; i++) {
+        var idx = i + 1;
+        var color = localStorage.getItem("devtool.color" + idx);
+        if (color === null || Number.isNaN(parseInt("0x" + color, 16))) {
+            if (idx === 1)
+                color = "ff0000";
+            else
+                color = "000000";
+        }
+        color = color.padStart(6,"0");
+        rawColors.push(parseInt("0x" + color, 16));
+        document.getElementById("color" + idx + "Text").value = color;
+        document.getElementById("color" + idx + "Picker").value = "#" + color;
     }
-    document.getElementById("primaryColor").value = primary;
-    var secondary = localStorage.getItem("devtool.secondaryColor");
-    if (secondary === null || secondary === "" || Number.isNaN(parseInt("0x" + secondary, 16))) {
-      document.getElementById("secondaryColor").value = "";
-    } else {
-      document.getElementById("secondaryColor").value = secondary;
+    if (testAlgo.apiVersion >= 3) {
+      testAlgo.rgbMapSetColors(rawColors);
     }
 }
 
@@ -247,18 +345,25 @@ devtool.getRgbFromColorInt = function(color)
     return [red, green, blue];
 }
 
+devtool.getColorInt = function(index)
+{
+    var colorInput = document.getElementById("color" + index + "Text");
+    if (colorInput === null)
+        return 0;
+    return parseInt("0x" + colorInput.value, 16);
+}
+
 devtool.getCurrentColorInt = function()
 {
-    var primaryColorInput = document.getElementById("primaryColor");
-    var primaryColor = parseInt(primaryColorInput.value, 16);
-    var secondaryColorInput = document.getElementById("secondaryColor");
-    var secondaryColor = parseInt(secondaryColorInput.value, 16);
+    var primaryColor = devtool.getColorInt(1);
+    var secondaryColor = devtool.getColorInt(2);
+    var acceptColors = devtool.getAcceptColors();
 
-    if (testAlgo.acceptColors === 0 || Number.isNaN(primaryColor)) {
+    if (acceptColors === 0 || Number.isNaN(primaryColor)) {
         return null;
     }
 
-    if (testAlgo.acceptColors === 1 || Number.isNaN(secondaryColor) || devtool.stepCount() <= 1) {
+    if (acceptColors === 1 || Number.isNaN(secondaryColor) || devtool.stepCount() <= 1) {
         return primaryColor;
     }
 
@@ -277,12 +382,14 @@ devtool.getCurrentColorInt = function()
 
 devtool.writeCurrentStep = function()
 {
-    devtool.currentStep = parseInt(document.getElementById("currentStep").value); // currentStep may have been changed manually
+    // currentStep may have been changed manually
+    devtool.currentStep = parseInt(document.getElementById("currentStep").value, 10);
 
     var map = document.getElementById("map");
     for (var i = map.rows.length - 1; i >= 0; i--) {
         map.deleteRow(i);
     }
+
     var rgb = testAlgo.rgbMap(devtool.gridwidth, devtool.gridheight, devtool.getCurrentColorInt(), devtool.currentStep);
 
     for (var y = 0; y < devtool.gridheight; y++)
@@ -292,11 +399,7 @@ devtool.writeCurrentStep = function()
         for (var x = 0; x < devtool.gridwidth; x++)
         {
             var cell = row.insertCell(x);
-            var rgbStr = rgb[y][x].toString(16);
-            while (rgbStr.length !== 6) {
-                rgbStr = "0" + rgbStr;
-            }
-            rgbStr = "#" + rgbStr;
+            var rgbStr = "#" + rgb[y][x].toString(16).padStart(6,"0");
             cell.style.backgroundColor = rgbStr;
             cell.style.height = devtool.gridsize + "px";
             cell.style.width = devtool.gridsize + "px";
@@ -327,13 +430,13 @@ devtool.updateStepCount = function()
 
 devtool.onGridSizeUpdated = function()
 {
-    devtool.gridwidth = parseInt(document.getElementById("gridwidth").value);
+    devtool.gridwidth = parseInt(document.getElementById("gridwidth").value, 10);
     localStorage.setItem("devtool.gridwidth", devtool.gridwidth);
 
-    devtool.gridheight = parseInt(document.getElementById("gridheight").value);
+    devtool.gridheight = parseInt(document.getElementById("gridheight").value, 10);
     localStorage.setItem("devtool.gridheight", devtool.gridheight);
 
-    devtool.gridsize = parseInt(document.getElementById("gridsize").value);
+    devtool.gridsize = parseInt(document.getElementById("gridsize").value, 10);
     localStorage.setItem("devtool.gridsize", devtool.gridsize);
 
     devtool.updateStepCount();
@@ -341,17 +444,42 @@ devtool.onGridSizeUpdated = function()
     devtool.writeCurrentStep();
 }
 
-devtool.onColorChange = function()
+devtool.onColorTextChange = function()
 {
-    var primary = parseInt("0x" + document.getElementById("primaryColor").value).toString(16);
-    localStorage.setItem("devtool.primaryColor", primary);
-    var secondary = parseInt("0x" + document.getElementById("secondaryColor").value).toString(16);
-    if (secondary === "NaN") { // Evaluation of the string.
-      localStorage.setItem("devtool.secondaryColor", "");
-    } else {
-      localStorage.setItem("devtool.secondaryColor", secondary);
+    var rawColors = [];
+    var acceptColors = devtool.getAcceptColors();
+    for (var i = 0; i < acceptColors; i++) {
+        var idx = i + 1;
+        var color = parseInt("0x" + document.getElementById("color" + idx + "Text").value, 16).toString(16);
+        if (color === "NaN" &&
+            document.getElementById("color" + idx + "Picker").value != "#000000"){
+          document.getElementById("color" + idx + "Picker").value = "#000000";
+        } else {
+          var pickerValue = "#" + color.padStart(6,"0");
+          if (document.getElementById("color" + idx + "Picker").value != pickerValue) {
+            document.getElementById("color" + idx + "Picker").value = pickerValue;
+          }
+        }
+        localStorage.setItem("devtool.color" + idx, color);
+        rawColors.push(devtool.getColorInt(idx));
     }
+    if (testAlgo.apiVersion >= 3) {
+      testAlgo.rgbMapSetColors(rawColors);
+    }
+
     devtool.writeCurrentStep();
+}
+
+devtool.onColorPickerChange = function(i)
+{
+    var textId = "color" + i + "Text";
+    var pickerId = "color" + i + "Picker";
+    var oldTextValue = document.getElementById(textId).value;
+    var newTextValue = document.getElementById(pickerId).value.substring(1);
+    if (oldTextValue != newTextValue) {
+      document.getElementById(textId).value = newTextValue;
+      devtool.onColorTextChange();
+    }
 }
 
 devtool.startTest = function(inc)
@@ -375,8 +503,8 @@ devtool.stopTest = function()
 devtool.initTestStatus = function()
 {
     let timerStatus = localStorage.getItem("devtool.timerRunning");
-    if (timerStatus === null || parseInt(timerStatus) !== 0) {
-        devtool.startTest(parseInt(timerStatus));
+    if (timerStatus === null || parseInt(timerStatus, 10) !== 0) {
+        devtool.startTest(parseInt(timerStatus, 10));
     }
 }
 
@@ -387,11 +515,11 @@ devtool.init = function()
     }
     devtool.initDefinitions();
     devtool.initGridSize();
-    devtool.setStep(0);
-    devtool.initSpeedValue();
-    devtool.initColorValues();
     devtool.initProperties();
     devtool.initPixelColors();
+    devtool.initColorValues();
+    devtool.setStep(0);
+    devtool.initSpeedValue();
     devtool.onGridSizeUpdated();
     devtool.writeCurrentStep();
     devtool.initTestStatus();
@@ -410,35 +538,81 @@ devtool.onFilenameUpdated = function(filename)
 
     localStorage.setItem("devtool.filename", filename);
 
-    var script = document.getElementById("algoScript");
-    if (script === null) {
-        script = document.createElement("script");
-        script.id = "algoScript";
-        script.addEventListener("load", () => devtool.init(), false);
-        script.addEventListener("error", () => devtool.handleLoadError(), false);
-        script.type = "text/javascript";
-        script.src = filename;
-        document.head.appendChild(script);
-    } else {
-        script.src = filename;
-    }
+    devtool.refreshAlgoFile(filename, null);
+    document.getElementById("filebrowse").value = "";
+
     // devtool.init(); // is called onload.
+}
+
+devtool.onFileBrowsed = function(event) {
+    const file = event.target.files[0];
+    if (!file) {
+        return;
+    }
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        const content = event.target.result;
+        localStorage.removeItem("devtool.filename");
+        document.getElementById("filename").value = "";
+
+        devtool.refreshAlgoFile(null, content);
+
+        devtool.init();
+    };
+    reader.readAsText(file);
+}
+
+devtool.onFileDropped = function(file) {
+    const reader = new FileReader();
+    reader.onload = function (event) {
+        const content = event.target.result;
+        localStorage.removeItem("devtool.filename");
+        document.getElementById("filename").value = "";
+        document.getElementById("filebrowse").value = "";
+
+        devtool.refreshAlgoFile(null, content);
+
+        devtool.init();
+    };
+    reader.readAsText(file);
+}
+
+devtool.refreshAlgoFile = function(src = null, content = null)
+{
+    var script = document.getElementById("algoScript");
+    if (script !== null) {
+        script.remove();
+    }
+
+    script = document.createElement("script");
+    script.id = "algoScript";
+    script.addEventListener("load", () => devtool.init(), false);
+    script.addEventListener("error", () => devtool.handleLoadError(), false);
+    script.type = "text/javascript";
+    if (src !== null) {
+        script.src = src;
+    } else if (content !== null) {
+        script.text = content;
+    }
+    script.text = content;
+    document.head.appendChild(script);
 }
 
 devtool.loadAlgoFile = function()
 {
     var storedValue = localStorage.getItem("devtool.filename");
-    if (storedValue === null) {
-        storedValue = "evenodd.js";
+    if (storedValue != null) {
+        document.getElementById("filename").value = storedValue;
+        devtool.onFilenameUpdated(storedValue);
     }
-    document.getElementById("filename").value = storedValue;
-    devtool.onFilenameUpdated(storedValue);
 }
 
 devtool.writeFunction = function(functionName, propertyName, value)
 {
     window.testAlgo[functionName](value);
     localStorage.setItem(propertyName, value);
+    devtool.initPixelColors();
+    devtool.initColorValues();
     devtool.updateStepCount();
 }
 

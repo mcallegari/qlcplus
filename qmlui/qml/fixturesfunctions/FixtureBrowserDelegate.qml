@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick
 
 import org.qlcplus.classes 1.0
 import "FixtureDrag.js" as FxDragJS
@@ -81,19 +81,20 @@ Item
         color: UISettings.fgMedium
     }
 
-    Image
+    // right arrow
+    Text
     {
-        id: rightArrow
         visible: isManufacturer
-        x: parent.width - width - 5
-        height: parent.height
-        width: height * 0.8
+        anchors.right: parent.right
+        anchors.rightMargin: 5
         anchors.verticalCenter: parent.verticalCenter
-        source: "qrc:/arrow-right.svg"
-        sourceSize: Qt.size(width, height)
-
+        color: UISettings.fgLight
+        font.family: UISettings.fontAwesomeFontName
+        font.pixelSize: parent.height - 8
+        text: FontAwesome.fa_chevron_right
     }
 
+    // user fixture symbol
     Text
     {
         visible: !isManufacturer && fixtureBrowser.isUserDefinition(manufacturer, textLabel)
@@ -101,7 +102,7 @@ Item
         anchors.rightMargin: 5
         anchors.verticalCenter: parent.verticalCenter
         color: UISettings.fgMain
-        font.family: "FontAwesome"
+        font.family: UISettings.fontAwesomeFontName
         font.pixelSize: parent.height - 5
         text: FontAwesome.fa_user
     }
@@ -111,11 +112,15 @@ Item
         id: fxMouseArea
         anchors.fill: parent
         hoverEnabled: true
-        onClicked: fxDraggableItem.mouseEvent(App.Clicked, 0, 0, fxDraggableItem, mouse.modifiers)
         drag.target: FixtureDragItem { }
         drag.threshold: 30
 
-        onPressed:
+        onClicked: (mouse) =>
+        {
+            fxDraggableItem.mouseEvent(App.Clicked, 0, 0, fxDraggableItem, mouse.modifiers)
+        }
+
+        onPressed: (mouse) =>
         {
             if (fxDraggableItem.isManufacturer == false)
             {
@@ -124,11 +129,15 @@ Item
                 FxDragJS.initProperties()
             }
         }
-        onPositionChanged:
+        onPositionChanged: (mouse) =>
+        {
             if (fxDraggableItem.isManufacturer == false && drag.active == true)
                 FxDragJS.handleDrag(mouse)
-        onReleased:
+        }
+        onReleased: (mouse) =>
+        {
             if (fxDraggableItem.isManufacturer == false && drag.active == true)
                 FxDragJS.endDrag(mouse)
+        }
     }
 }

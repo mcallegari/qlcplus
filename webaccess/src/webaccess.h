@@ -59,7 +59,7 @@ public:
 
 private:
     bool sendFile(QHttpResponse *response, QString filename, QString contentType);
-    void sendWebSocketMessage(QByteArray message);
+    void sendWebSocketMessage(const QString &message);
 
     QString getWidgetBackgroundImage(VCWidget *widget);
     QString getWidgetHTML(VCWidget *widget);
@@ -72,6 +72,7 @@ private:
     QString getCueListHTML(VCCueList *cue);
     QString getClockHTML(VCClock *clock);
     QString getMatrixHTML(VCMatrix *matrix);
+    QString getGrandMasterSliderHTML();
 
     QString getChildrenHTML(VCWidget *frame, int pagesNum, int currentPageIdx);
     QString getVCHTML();
@@ -79,7 +80,7 @@ private:
     QString getSimpleDeskHTML();
 
 protected slots:
-    void slotHandleRequest(QHttpRequest *req, QHttpResponse *resp);
+    void slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp);
     void slotHandleWebSocketRequest(QHttpConnection *conn, QString data);
     void slotHandleWebSocketClose(QHttpConnection *conn);
 
@@ -88,20 +89,32 @@ protected slots:
 
     void slotVCLoaded();
     void slotButtonStateChanged(int state);
+    void slotButtonDisableStateChanged(bool disable);
+    void slotLabelDisableStateChanged(bool disable);
     void slotSliderValueChanged(QString val);
+    void slotSliderDisableStateChanged(bool disable);
     void slotAudioTriggersToggled(bool toggle);
     void slotCueIndexChanged(int idx);
+    void slotCueStepNoteChanged(int idx, QString note);
     void slotCueProgressStateChanged();
     void slotCueShowSideFaderPanel();
     void slotCueSideFaderValueChanged();
     void slotCuePlaybackStateChanged();
+    void slotCueDisableStateChanged(bool disable);
     void slotClockTimeChanged(quint32 time);
+    void slotClockDisableStateChanged(bool disable);
     void slotFramePageChanged(int pageNum);
+    void slotFrameDisableStateChanged(bool disable);
     void slotMatrixSliderValueChanged(int value);
-    void slotMatrixStartColorChanged();
-    void slotMatrixEndColorChanged();
+    void slotMatrixColor1Changed();
+    void slotMatrixColor2Changed();
+    void slotMatrixColor3Changed();
+    void slotMatrixColor4Changed();
+    void slotMatrixColor5Changed();
     void slotMatrixAnimationValueChanged(QString name);
     void slotMatrixControlKnobValueChanged(int controlID, int value);
+
+    void slotGrandMasterValueChanged(uchar value);
 
 protected:
     QString m_JScode;

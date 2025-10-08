@@ -35,7 +35,7 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCClock QString("Clock")
+#define KXMLQLCVCClock QStringLiteral("Clock")
 
 class VCClockSchedule
 {
@@ -68,7 +68,7 @@ class VCClock : public VCWidget
      * Initialization
      *********************************************************************/
 public:
-    VCClock(QWidget* parent, Doc* doc);
+    VCClock(QWidget *parent, Doc *doc);
     ~VCClock();
 
     /*********************************************************************
@@ -91,8 +91,8 @@ public:
     void setClockType(ClockType type);
     ClockType clockType() const;
 
-    QString typeToString(ClockType type);
-    ClockType stringToType(QString str);
+    QString typeToString(ClockType type) const;
+    ClockType stringToType(QString str) const;
 
 
     /*********************************************************************
@@ -102,7 +102,7 @@ public:
     void addSchedule(VCClockSchedule schedule);
     void removeSchedule(int index);
     void removeAllSchedule();
-    QList<VCClockSchedule> schedules();
+    QList<VCClockSchedule> schedules() const;
 
 private:
     ClockType m_clocktype;

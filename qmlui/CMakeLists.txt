@@ -13,13 +13,15 @@ set(TS_FILES
     qlcplus_uk_UA.ts
 )
 
+set(QML_IMPORT_PATH ".")
+
 if(QT_VERSION_MAJOR GREATER 5)
     qt_add_translation(QM_FILES ${TS_FILES})
 else()
     qt5_add_translation(QM_FILES ${TS_FILES})
 endif()
 
-add_executable(${module_name} WIN32 MACOSX_BUNDLE
+set(SRC_FILES
     app.cpp app.h
     audioeditor.cpp audioeditor.h
     chasereditor.cpp chasereditor.h
@@ -64,6 +66,8 @@ add_executable(${module_name} WIN32 MACOSX_BUNDLE
     uimanager.cpp uimanager.h
     videoeditor.cpp videoeditor.h
     videoprovider.cpp videoprovider.h
+    virtualconsole/vcanimation.cpp virtualconsole/vcanimation.h
+    virtualconsole/vcaudiotrigger.cpp virtualconsole/vcaudiotrigger.h
     virtualconsole/vcbutton.cpp virtualconsole/vcbutton.h
     virtualconsole/vcclock.cpp virtualconsole/vcclock.h
     virtualconsole/vccuelist.cpp virtualconsole/vccuelist.h
@@ -73,9 +77,25 @@ add_executable(${module_name} WIN32 MACOSX_BUNDLE
     virtualconsole/vcslider.cpp virtualconsole/vcslider.h
     virtualconsole/vcsoloframe.cpp virtualconsole/vcsoloframe.h
     virtualconsole/vcwidget.cpp virtualconsole/vcwidget.h
+    virtualconsole/vcxypad.cpp virtualconsole/vcxypad.h
+    virtualconsole/vcspeeddial.cpp virtualconsole/vcspeeddial.h
     virtualconsole/virtualconsole.cpp virtualconsole/virtualconsole.h
-    ${QM_FILES}
 )
+
+if(ANDROID)
+    add_library(${module_name} SHARED
+        ${SRC_FILES}
+        ${QM_FILES}
+    )
+    set_target_properties(
+        ${module_name}
+        PROPERTIES LIBRARY_OUTPUT_NAME qlcplus)
+else()
+    add_executable(${module_name} WIN32
+        ${SRC_FILES}
+        ${QM_FILES}
+    )
+endif()
 
 if(WIN32)
     target_sources(${module_name} PRIVATE
@@ -1035,6 +1055,17 @@ target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::Widgets
     qlcplusengine
 )
+
+if(ANDROID)
+    target_link_libraries(${module_name} PRIVATE
+        Qt${QT_MAJOR_VERSION}::Concurrent
+        Qt${QT_MAJOR_VERSION}::OpenGL
+        GLESv2
+        log
+        z
+        c++_shared
+    )
+endif()
 
 if(lupdate_only)
     target_sources(${module_name} PRIVATE

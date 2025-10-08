@@ -32,25 +32,26 @@ class QString;
  * @{
  */
 
-#define KXMLQLCInputChannel         QString("Channel")
-#define KXMLQLCInputChannelName     QString("Name")
-#define KXMLQLCInputChannelType     QString("Type")
-#define KXMLQLCInputChannelNumber   QString("Number")
-#define KXMLQLCInputChannelSlider   QString("Slider")
-#define KXMLQLCInputChannelKnob     QString("Knob")
-#define KXMLQLCInputChannelEncoder  QString("Encoder")
-#define KXMLQLCInputChannelButton   QString("Button")
-#define KXMLQLCInputChannelPageUp   QString("Next Page")
-#define KXMLQLCInputChannelPageDown QString("Previous Page")
-#define KXMLQLCInputChannelPageSet  QString("Page Set")
-#define KXMLQLCInputChannelNone     QString("None")
-#define KXMLQLCInputChannelMovement QString("Movement")
-#define KXMLQLCInputChannelRelative QString("Relative")
-#define KXMLQLCInputChannelSensitivity QString("Sensitivity")
-#define KXMLQLCInputChannelExtraPress QString("ExtraPress")
-#define KXMLQLCInputChannelFeedbacks QString("Feedbacks")
-#define KXMLQLCInputChannelLowerValue QString("LowerValue")
-#define KXMLQLCInputChannelUpperValue QString("UpperValue")
+#define KXMLQLCInputChannel             QStringLiteral("Channel")
+#define KXMLQLCInputChannelName         QStringLiteral("Name")
+#define KXMLQLCInputChannelType         QStringLiteral("Type")
+#define KXMLQLCInputChannelNumber       QStringLiteral("Number")
+#define KXMLQLCInputChannelSlider       QStringLiteral("Slider")
+#define KXMLQLCInputChannelKnob         QStringLiteral("Knob")
+#define KXMLQLCInputChannelEncoder      QStringLiteral("Encoder")
+#define KXMLQLCInputChannelButton       QStringLiteral("Button")
+#define KXMLQLCInputChannelPageUp       QStringLiteral("Next Page")
+#define KXMLQLCInputChannelPageDown     QStringLiteral("Previous Page")
+#define KXMLQLCInputChannelPageSet      QStringLiteral("Page Set")
+#define KXMLQLCInputChannelNone         QStringLiteral("None")
+#define KXMLQLCInputChannelMovement     QStringLiteral("Movement")
+#define KXMLQLCInputChannelRelative     QStringLiteral("Relative")
+#define KXMLQLCInputChannelSensitivity  QStringLiteral("Sensitivity")
+#define KXMLQLCInputChannelExtraPress   QStringLiteral("ExtraPress")
+#define KXMLQLCInputChannelFeedback     QStringLiteral("Feedback")
+#define KXMLQLCInputChannelLowerValue   QStringLiteral("LowerValue")
+#define KXMLQLCInputChannelUpperValue   QStringLiteral("UpperValue")
+#define KXMLQLCInputChannelMidiChannel  QStringLiteral("MidiChannel")
 
 class QLCInputChannel : public QObject
 {
@@ -190,14 +191,22 @@ public:
     uchar upperValue() const;
     void setUpperValue(const uchar value);
 
+    int lowerChannel() const;
+    void setLowerChannel(const int channel);
+
+    int upperChannel() const;
+    void setUpperChannel(const int channel);
+
 signals:
     void sendExtraPressChanged();
     void lowerValueChanged();
     void upperValueChanged();
+    void midiChannelChanged();
 
 protected:
     bool m_sendExtraPress;
-    uchar m_lower, m_upper;
+    uchar m_lowerValue, m_upperValue;
+    int m_lowerChannel, m_upperChannel;
 
     /********************************************************************
      * Load & Save

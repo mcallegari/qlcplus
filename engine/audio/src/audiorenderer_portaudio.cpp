@@ -41,15 +41,15 @@ AudioRendererPortAudio::~AudioRendererPortAudio()
 
     PaError err;
     err = Pa_Terminate();
-    if( err != paNoError )
-        qDebug() << "PortAudio error: " << Pa_GetErrorText( err );
+    if (err != paNoError)
+        qDebug() << "PortAudio error: " << Pa_GetErrorText(err);
 }
 
-int AudioRendererPortAudio::dataCallback ( const void *, void *outputBuffer,
-                                            unsigned long frameCount,
-                                            const PaStreamCallbackTimeInfo*,
-                                            PaStreamCallbackFlags ,
-                                            void *userData )
+int AudioRendererPortAudio::dataCallback(const void *, void *outputBuffer,
+                                         unsigned long frameCount,
+                                         const PaStreamCallbackTimeInfo*,
+                                         PaStreamCallbackFlags ,
+                                         void *userData)
 {
     AudioRendererPortAudio *PAobj = (AudioRendererPortAudio *)userData;
 
@@ -81,7 +81,7 @@ bool AudioRendererPortAudio::initialize(quint32 freq, int chan, AudioFormat form
     PaStreamFlags flags = paNoFlag;
 
     err = Pa_Initialize();
-    if( err != paNoError )
+    if (err != paNoError)
         return false;
 
     if (m_device.isEmpty())
@@ -105,7 +105,7 @@ bool AudioRendererPortAudio::initialize(quint32 freq, int chan, AudioFormat form
     m_channels = chan;
 
     outputParameters.channelCount = chan;       /* stereo output */
-    outputParameters.suggestedLatency = Pa_GetDeviceInfo( outputParameters.device )->defaultLowOutputLatency;
+    outputParameters.suggestedLatency = Pa_GetDeviceInfo(outputParameters.device)->defaultLowOutputLatency;
     outputParameters.hostApiSpecificStreamInfo = NULL;
 
     switch (format)
@@ -131,15 +131,15 @@ bool AudioRendererPortAudio::initialize(quint32 freq, int chan, AudioFormat form
         return false;
     }
 
-    err = Pa_OpenStream( &m_paStream, NULL, &outputParameters,
-              freq, paFramesPerBufferUnspecified, flags, dataCallback, this );
+    err = Pa_OpenStream(&m_paStream, NULL, &outputParameters,
+              freq, paFramesPerBufferUnspecified, flags, dataCallback, this);
 
-    if( err != paNoError )
+    if (err != paNoError)
         return false;
 
-    err = Pa_StartStream( m_paStream );
+    err = Pa_StartStream(m_paStream);
 
-    if( err != paNoError )
+    if (err != paNoError)
         return false;
 
     return true;
@@ -157,19 +157,19 @@ QList<AudioDeviceInfo> AudioRendererPortAudio::getDevicesInfo()
     int numDevices, err, i;
 
     err = Pa_Initialize();
-    if( err != paNoError )
+    if (err != paNoError)
         return devList;
 
     numDevices = Pa_GetDeviceCount();
-    if( numDevices < 0 )
+    if (numDevices < 0)
     {
-        qWarning("ERROR: Pa_CountDevices returned 0x%x\n", numDevices );
+        qWarning("ERROR: Pa_CountDevices returned 0x%x\n", numDevices);
         return devList;
     }
 
     for (i = 0; i < numDevices; i++)
     {
-        const PaDeviceInfo *deviceInfo = Pa_GetDeviceInfo( i );
+        const PaDeviceInfo *deviceInfo = Pa_GetDeviceInfo(i);
         if (deviceInfo != NULL)
         {
             AudioDeviceInfo info;
@@ -185,8 +185,8 @@ QList<AudioDeviceInfo> AudioRendererPortAudio::getDevicesInfo()
     }
 
     err = Pa_Terminate();
-    if( err != paNoError )
-        qDebug() << "PortAudio error: " << Pa_GetErrorText( err );
+    if (err != paNoError)
+        qDebug() << "PortAudio error: " << Pa_GetErrorText(err);
 
     return devList;
 }
@@ -211,16 +211,16 @@ void AudioRendererPortAudio::drain()
 void AudioRendererPortAudio::reset()
 {
     QMutexLocker locker(&m_paMutex);
-    if ( m_paStream == NULL)
+    if (m_paStream == NULL)
         return;
 
     PaError err;
-    err = Pa_StopStream( m_paStream );
-    if( err != paNoError )
+    err = Pa_StopStream(m_paStream);
+    if (err != paNoError)
         qDebug() << "PortAudio Error: Stop stream failed!";
 
-    err = Pa_CloseStream( m_paStream );
-    if( err != paNoError )
+    err = Pa_CloseStream(m_paStream);
+    if (err != paNoError)
         qDebug() << "PortAudio Error: Close stream failed!";
     m_buffer.clear();
     m_paStream = NULL;
@@ -232,5 +232,4 @@ void AudioRendererPortAudio::suspend()
 
 void AudioRendererPortAudio::resume()
 {
-
 }

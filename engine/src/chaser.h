@@ -35,7 +35,7 @@ class ChaserStep;
 class MasterTimer;
 class QXmlStreamReader;
 
-#define KXMLQLCChaserSpeedModes QString("SpeedModes")
+#define KXMLQLCChaserSpeedModes QStringLiteral("SpeedModes")
 
 /** @addtogroup engine_functions Functions
  * @{
@@ -157,6 +157,7 @@ public slots:
 
 signals:
     void stepChanged(int index);
+    void stepsListChanged(quint32 fid);
 
 protected:
     QList <ChaserStep> m_steps;

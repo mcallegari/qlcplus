@@ -84,11 +84,10 @@ private:
 
 protected slots:
     void slotTreeSelectionChanged();
-    void slotAddStartColorClicked();
-    void slotAddStartColorKnobsClicked();
-    void slotAddEndColorClicked();
-    void slotAddEndColorKnobsClicked();
-    void slotAddEndColorResetClicked();
+    void slotColorComboActivated();
+    void slotAddColorClicked();
+    void slotAddColorKnobsClicked();
+    void slotAddColorResetClicked();
     void slotAddAnimationClicked();
     void slotAddTextClicked();
     void slotRemoveClicked();

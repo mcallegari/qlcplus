@@ -8,9 +8,9 @@ if [ -n "$QTDIR" ]; then
     make distclean
     # Compile translations
     if [[ $1 == *"qmlui"* ]]; then
-        ./translate.sh "qmlui"
+        ./translate.sh release qmlui
     else
-        ./translate.sh "ui"
+        ./translate.sh release ui
     fi
     $QTDIR/bin/qmake $1
 else
@@ -42,13 +42,13 @@ fi
 OUTDIR=$PWD
 cd platforms/macos/dmg
 ./create-dmg --volname "Q Light Controller Plus $VERSION" \
-       --volicon $OUTDIR/resources/icons/qlcplus.icns \
-	     --background background.png \
-	     --window-size 400 300 \
-       --window-pos 200 100 \
-	     --icon-size 64 \
-       --icon "QLC+" 0 150 \
-       --app-drop-link 200 150 \
-       $OUTDIR/QLC+_$VERSION.dmg \
-	     ~/QLC+.app
+    --volicon $OUTDIR/resources/icons/qlcplus.icns \
+    --background background.png \
+    --window-size 400 300 \
+    --window-pos 200 100 \
+    --icon-size 64 \
+    --icon "QLC+" 0 150 \
+    --app-drop-link 200 150 \
+    $OUTDIR/QLC+_$VERSION.dmg \
+    ~/QLC+.app
 cd -

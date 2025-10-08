@@ -33,7 +33,7 @@
   #include "hidlinuxjoystick.h"
 #elif defined(WIN32) || defined (Q_OS_WIN)
   #include "win32/hidwindowsjoystick.h"
-#elif defined (__APPLE__) || defined(Q_OS_MACX)
+#elif defined (__APPLE__) || defined(Q_OS_MACOS)
   #include "hidosxjoystick.h"
 #endif
 
@@ -265,7 +265,7 @@ void HIDPlugin::rescanDevices()
             /** Device already exists, delete from remove list */
             destroyList.removeAll(dev);
         }
-        else if((cur_dev->vendor_id == HID_DMX_INTERFACE_VENDOR_ID
+        else if ((cur_dev->vendor_id == HID_DMX_INTERFACE_VENDOR_ID
                 && cur_dev->product_id == HID_DMX_INTERFACE_PRODUCT_ID) ||
                 (cur_dev->vendor_id == HID_DMX_INTERFACE_VENDOR_ID_2
                 && cur_dev->product_id == HID_DMX_INTERFACE_PRODUCT_ID_2) ||
@@ -277,7 +277,8 @@ void HIDPlugin::rescanDevices()
             /* Device is a USB DMX Interface, add it */
             dev = new HIDDMXDevice(this, line++,
                                    QString::fromWCharArray(cur_dev->manufacturer_string) + " " +
-                                   QString::fromWCharArray(cur_dev->product_string),
+                                   QString::fromWCharArray(cur_dev->product_string) + " " +
+                                   "(" + QString::fromWCharArray(cur_dev->serial_number) + ")",
                                    QString(cur_dev->path));
             addDevice(dev);
         }
@@ -286,11 +287,11 @@ void HIDPlugin::rescanDevices()
         {
             dev = new HIDLinuxJoystick(this, line++, cur_dev);
 #elif defined(WIN32) || defined (Q_OS_WIN)
-        else if(HIDWindowsJoystick::isJoystick(cur_dev->vendor_id, cur_dev->product_id) == true)
+        else if (HIDWindowsJoystick::isJoystick(cur_dev->vendor_id, cur_dev->product_id) == true)
         {
             dev = new HIDWindowsJoystick(this, line++, cur_dev);
-#elif defined (__APPLE__) || defined(Q_OS_MACX)
-        else if(HIDOSXJoystick::isJoystick(cur_dev->usage) == true)
+#elif defined (__APPLE__) || defined(Q_OS_MACOS)
+        else if (HIDOSXJoystick::isJoystick(cur_dev->usage) == true)
         {
             dev = new HIDOSXJoystick(this, line++, cur_dev);
 #endif

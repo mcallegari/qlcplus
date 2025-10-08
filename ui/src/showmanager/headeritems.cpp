@@ -66,7 +66,7 @@ void ShowHeaderItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     for (int i = 0; i < m_width / m_timeStep; i++)
     {
         float xpos = ((float)i * m_timeStep) + 1;
-        painter->setPen(QPen( QColor(250, 250, 250, 255), 1));
+        painter->setPen(QPen(QColor(250, 250, 250, 255), 1));
         if (i%m_timeHit == 0)
         {
             painter->drawLine(xpos, 20, xpos, 34);
@@ -75,7 +75,7 @@ void ShowHeaderItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
                 painter->setPen(QPen(QColor(105, 105, 105, 255), 1));
                 painter->drawLine(xpos, HEADER_HEIGHT, xpos, m_height);
             }
-            painter->setPen(QPen( Qt::black, 1));
+            painter->setPen(QPen(Qt::black, 1));
             if (m_type == Show::Time)
             {
                 tmpSec = (i/2) * m_timeScale;

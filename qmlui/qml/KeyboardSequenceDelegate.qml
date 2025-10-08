@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "."
@@ -27,7 +27,7 @@ Column
 {
     width: parent.width
 
-    property var dObjRef: null
+    property var widgetObjRef: null
     property int controlID
     property alias inputModel: controlsCombo.model
     property string sequence
@@ -54,11 +54,11 @@ Column
             currValue: controlID
             onValueChanged:
             {
-                if (dObjRef && value != controlID)
+                if (widgetObjRef && value != controlID)
                 {
                     console.log("Key control changed " + value)
                     controlID = value
-                    virtualConsole.updateKeySequenceControlID(dObjRef, controlID, sequence)
+                    virtualConsole.updateKeySequenceControlID(widgetObjRef, controlID, sequence)
                 }
             }
         }
@@ -98,7 +98,7 @@ Column
                 if (checked == true)
                 {
                     if (invalid === false &&
-                        virtualConsole.enableKeyAutoDetection(dObjRef, controlID, sequence) === true)
+                        virtualConsole.enableKeyAutoDetection(widgetObjRef, controlID, sequence) === true)
                         invalid = true
                     else
                         checked = false
@@ -115,10 +115,11 @@ Column
         {
             width: UISettings.iconSizeMedium
             height: width
-            imgSource: "qrc:/remove.svg"
+            faSource: FontAwesome.fa_minus
+            faColor: "crimson"
             tooltip: qsTr("Remove this keyboard combination")
 
-            onClicked: virtualConsole.deleteKeySequence(dObjRef, controlID, sequence)
+            onClicked: virtualConsole.deleteKeySequence(widgetObjRef, controlID, sequence)
         }
     }
 }

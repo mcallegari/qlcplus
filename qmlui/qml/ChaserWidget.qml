@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.12
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "TimeUtils.js" as TimeUtils
@@ -106,7 +106,7 @@ Column
     ModelSelector
     {
         id: ceSelector
-        onItemsCountChanged: console.log("Chaser Editor selected items: " + itemsCount)
+        onItemsCountChanged: (itemsCount) => console.log("Chaser Editor selected items: " + itemsCount)
     }
 
     TimeEditTool
@@ -117,9 +117,9 @@ Column
         z: 99
         visible: false
 
-        onValueChanged: widgetRoot.stepValueChanged(indexInList, val, speedType)
+        onValueChanged: (val) => widgetRoot.stepValueChanged(indexInList, val, speedType)
         onClosed: editStepIndex = -1
-        onTabPressed:
+        onTabPressed: (forward) =>
         {
             var typeArray = [ QLCFunction.FadeIn, QLCFunction.Hold, QLCFunction.FadeOut, QLCFunction.Duration ]
             var currType = typeArray.indexOf(editStepType) + (forward ? 1 : -1)
@@ -130,19 +130,19 @@ Column
                 if (cStepsList.currentIndex > 0)
                 {
                     cStepsList.currentIndex--
-                    editStepTime(cStepsList.currentIndex, cStepsList.currentItem, QLCFunction.Duration)
+                    editStepTime(cStepsList.currentIndex, cStepsList.currentItem.itemDelegate, QLCFunction.Duration)
                 }
             }
             else if (currType >= typeArray.length)
             {
                 // need to select the next step
                 cStepsList.currentIndex++
-                editStepTime(cStepsList.currentIndex, cStepsList.currentItem, QLCFunction.FadeIn)
+                editStepTime(cStepsList.currentIndex, cStepsList.currentItem.itemDelegate, QLCFunction.FadeIn)
             }
             else
             {
                 // same step, other field
-                editStepTime(editStepIndex, cStepsList.currentItem, typeArray[currType])
+                editStepTime(editStepIndex, cStepsList.currentItem.itemDelegate, typeArray[currType])
             }
         }
     }
@@ -416,7 +416,7 @@ Column
                 visible = false
             }
 
-            Keys.onPressed:
+            Keys.onPressed: (event) =>
             {
                 if (event.key === Qt.Key_Escape)
                 {
@@ -432,6 +432,8 @@ Column
                 id: itemRoot
                 width: cStepsList.width
                 height: UISettings.listItemHeight
+
+                property alias itemDelegate: csDelegate
 
                 Keys.onPressed:
                 {
@@ -454,7 +456,7 @@ Column
 
                     property bool dragActive: drag.active
 
-                    onPressed:
+                    onPressed: (mouse) =>
                     {
                         var posInList = delegateRoot.mapToItem(widgetRoot, mouse.x, mouse.y)
                         csDragItem.parent = widgetRoot
@@ -466,7 +468,7 @@ Column
                             return
 
                         ceSelector.selectItem(index, cStepsList.model, mouse.modifiers & Qt.ControlModifier)
-                        if (mouse.modifiers == 0)
+                        if (mouse.modifiers === 0)
                         {
                             widgetRoot.indexChanged(index)
                             csDragItem.itemsList = []
@@ -476,7 +478,7 @@ Column
                         itemRoot.forceActiveFocus()
                     }
 
-                    onDoubleClicked: csDelegate.handleDoubleClick(mouse.x, mouse.y)
+                    onDoubleClicked: (mouse) => csDelegate.handleDoubleClick(mouse.x, mouse.y)
 
                     onDragActiveChanged:
                     {
@@ -518,7 +520,7 @@ Column
                         highlightEditTime: editStepIndex === index ? editStepType : -1
                         nextIndex: widgetRoot.nextIndex
 
-                        onDoubleClicked:
+                        onDoubleClicked: (ID, qItem, type) =>
                         {
                             console.log("Double clicked: " + indexInList + ", " + type)
                             if (type === QLCFunction.Name)
@@ -559,7 +561,7 @@ Column
                 widgetRoot.dragExited(widgetRoot)
             }
 
-            onDropped:
+            onDropped: (drag) =>
             {
                 console.log("Item dropped here. x: " + drag.x + " y: " + drag.y)
 
@@ -577,7 +579,7 @@ Column
                 cStepsList.dragInsertIndex = -1
                 cStepsList.dragActive = false
             }
-            onPositionChanged:
+            onPositionChanged: (drag) =>
             {
                 var idx = cStepsList.indexAt(drag.x, drag.y)
                 var item = cStepsList.itemAt(drag.x, drag.y)

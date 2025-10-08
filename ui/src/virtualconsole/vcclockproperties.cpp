@@ -81,7 +81,7 @@ VCClockProperties::VCClockProperties(VCClock *clock, Doc *doc)
         break;
     }
 
-    foreach(VCClockSchedule sch, m_clock->schedules())
+    foreach (VCClockSchedule sch, m_clock->schedules())
         addScheduleItem(sch);
 
     connect(m_clockRadio, SIGNAL(clicked()),
@@ -168,13 +168,20 @@ void VCClockProperties::slotTypeSelectChanged()
         m_resetInputWidget->hide();
         m_playInputWidget->hide();
         m_noControlLabel->show();
+        m_scheduleTree->showColumn(1);
     }
     else
     {
         m_resetInputWidget->show();
         m_playInputWidget->show();
         m_noControlLabel->hide();
+        m_scheduleTree->hideColumn(1);
     }
+
+    if (m_stopWatchRadio->isChecked())
+        m_scheduleGroup->hide();
+    else
+        m_scheduleGroup->show();
 }
 
 void VCClockProperties::slotAddSchedule()

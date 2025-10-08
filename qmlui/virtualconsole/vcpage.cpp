@@ -27,9 +27,7 @@ VCPage::VCPage(QQuickView *view, Doc *doc, VirtualConsole *vc, int pageIndex, QO
 {
     setAllowResize(false);
     setShowHeader(false);
-    setGeometry(QRect(0, 0, 1920, 1080));
-    setFont(QFont("Roboto Condensed", 16));
-    setCaption(tr("Page %1").arg(pageIndex + 1));
+    resetProperties(pageIndex);
 
     m_pageContext = new PreviewContext(view, doc, QString("PAGE-%1").arg(pageIndex));
     m_pageContext->setContextResource("qrc:/VCPageArea.qml");
@@ -39,6 +37,14 @@ VCPage::VCPage(QQuickView *view, Doc *doc, VirtualConsole *vc, int pageIndex, QO
 
 VCPage::~VCPage()
 {
+}
+
+void VCPage::resetProperties(int pageIndex)
+{
+    setGeometry(QRect(0, 0, 1920, 1080));
+    setFont(QFont("Roboto Condensed", 16));
+    setCaption(tr("Page %1").arg(pageIndex + 1));
+    VCFrame::initializeProperties();
 }
 
 PreviewContext *VCPage::previewContext() const
@@ -100,7 +106,7 @@ void VCPage::unMapInputSource(quint32 id, quint32 universe, quint32 channel,
 
     //qDebug() << "Multihash keys before deletion:" << m_inputSourcesMap.count(key);
 
-    for(QPair<QSharedPointer<QLCInputSource>, VCWidget *> match : m_inputSourcesMap.values(key)) // C++11
+    for (QPair<QSharedPointer<QLCInputSource>, VCWidget *> match : m_inputSourcesMap.values(key)) // C++11
     {
         if (match.first->id() == id && match.first->page() == page)
         {
@@ -137,7 +143,7 @@ void VCPage::inputValueChanged(quint32 universe, quint32 channel, uchar value)
      *  check also if the page matches and finally inform the VC widget
      *  about the event, including the source ID
      */
-    for(QPair<QSharedPointer<QLCInputSource>, VCWidget *> match : m_inputSourcesMap.values(key)) // C++11
+    for (QPair<QSharedPointer<QLCInputSource>, VCWidget *> match : m_inputSourcesMap.values(key)) // C++11
     {
         // make sure input signals always pass to frame widgets
         bool passDisable = (match.second->type() == VCWidget::FrameWidget) ||
@@ -184,7 +190,7 @@ void VCPage::unMapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widge
     if (checkChildren && children(true).contains(widget) == false)
         return;
 
-    for(QPair<quint32, VCWidget *> match : m_keySequencesMap.values(sequence)) // C++11
+    for (QPair<quint32, VCWidget *> match : m_keySequencesMap.values(sequence)) // C++11
     {
         if (match.first == id && match.second == widget)
         {
@@ -208,7 +214,7 @@ void VCPage::updateKeySequenceIDInMap(QKeySequence sequence, quint32 id, VCWidge
     quint32 oldId = UINT_MAX;
 
     /** Perform a lookup of the existing map to find the old control ID */
-    for(QPair<quint32, VCWidget *> match : m_keySequencesMap.values(sequence)) // C++11
+    for (QPair<quint32, VCWidget *> match : m_keySequencesMap.values(sequence)) // C++11
     {
         if (match.second == widget)
         {
@@ -248,7 +254,7 @@ void VCPage::handleKeyEvent(QKeyEvent *e, bool pressed)
 {
     QKeySequence seq(e->key() | e->modifiers());
 
-    for(QPair<quint32, VCWidget *> match : m_keySequencesMap.values(seq)) // C++11
+    for (QPair<quint32, VCWidget *> match : m_keySequencesMap.values(seq)) // C++11
     {
         // make sure input signals always pass to frame widgets
         bool passDisable = (match.second->type() == VCWidget::FrameWidget) ||

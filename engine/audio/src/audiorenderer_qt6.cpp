@@ -49,6 +49,8 @@ AudioRendererQt6::AudioRendererQt6(QString device, Doc *doc, QObject *parent)
 
 AudioRendererQt6::~AudioRendererQt6()
 {
+    stop();
+
     if (m_audioSink == NULL)
         return;
 
@@ -121,7 +123,7 @@ QList<AudioDeviceInfo> AudioRendererQt6::getDevicesInfo()
     }
 
     // add the devices left in the input list. These don't have output capabilities
-    foreach(QString dev, inDevs)
+    foreach (QString dev, inDevs)
     {
         AudioDeviceInfo info;
         info.deviceName = dev;
@@ -150,7 +152,7 @@ qint64 AudioRendererQt6::writeAudio(unsigned char *data, qint64 maxSize)
        qint64 written = m_output->write(m_outputBuffer.data(), bFree);
 
         if (written != bFree)
-            qDebug() << "[writeAudio] expexcted to write" << bFree << "but wrote" << written;
+            qDebug() << "[writeAudio] expected to write" << bFree << "but wrote" << written;
 
         m_outputBuffer.remove(0, written);
     }

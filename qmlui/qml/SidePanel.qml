@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.14
+import QtQuick
 
 import "."
 
@@ -41,6 +41,7 @@ Rectangle
 
     function animatePanel(checked)
     {
+        console.log("checked=" + checked + ", isOpen=" + isOpen)
         if (checked === isOpen)
             return
 
@@ -70,15 +71,16 @@ Rectangle
         // content to target an object to edit/view
         property int itemID: -1
 
-        onLoaded: contentLoaded(item, itemID)
+        onLoaded: sidePanelRoot.contentLoaded(item, itemID)
 
         Connections
         {
             ignoreUnknownSignals: true
             target: viewLoader.item
-            function onRequestView(ID, qmlSrc)
+            function onRequestView(ID, qmlSrc, back)
             {
                 console.log("SidePanel loader ID requested: " + ID)
+                functionManager.setEditorFunction(ID, false, back)
                 itemID = ID
                 loaderSource = qmlSrc
             }

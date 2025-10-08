@@ -62,6 +62,7 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
+#define SETTINGS_GEOMETRY "workspace/windowrect"
 #define SETTINGS_WORKINGPATH "workspace/workingpath"
 #define SETTINGS_RECENTFILE "workspace/recent"
 #define KXMLQLCWorkspaceWindow "CurrentWindow"
@@ -92,7 +93,7 @@ App::App()
     updateRecentFilesList();
 
     QVariant dir = settings.value(SETTINGS_WORKINGPATH);
-    if (dir.isValid() == true)
+    if (dir.isValid())
         m_workingPath = dir.toString();
 
     setAccessMask(defaultMask());
@@ -104,6 +105,17 @@ App::App()
 
 App::~App()
 {
+    QSettings settings;
+
+    if (m_doc->isKiosk() == false && QLCFile::hasWindowManager())
+        settings.setValue(SETTINGS_GEOMETRY, geometry());
+    else
+        settings.setValue(SETTINGS_GEOMETRY, QVariant());
+
+    /* remove autosave file if present */
+    QFile asFile(autoSaveFileName());
+    if (asFile.exists())
+        asFile.remove();
 }
 
 QString App::appName() const
@@ -134,8 +146,6 @@ void App::startup()
         qWarning() << "Roboto mono cannot be loaded!";
 
     rootContext()->setContextProperty("qlcplus", this);
-
-    slotScreenChanged(screen());
 
     initDoc();
 
@@ -177,10 +187,33 @@ void App::startup()
     // Start up in non-modified state
     m_doc->resetModified();
 
-    m_uiManager->initialize();
+    QSettings settings;
+    QRect rect(0, 0, 800, 600);
+    QVariant var = settings.value(SETTINGS_GEOMETRY);
+    if (var.isValid())
+    {
+        //qDebug() << "Restoring window position" << var.toRect();
+        rect = var.toRect();
+        setGeometry(rect);
+        show();
+    }
+    else
+    {
+        QScreen *currScreen = screen();
+        rect.moveTopLeft(currScreen->geometry().topLeft());
+        setGeometry(rect);
+        showMaximized();
+    }
 
-    // and here we go !
+    slotScreenChanged(screen());
+    m_uiManager->initialize();
+    m_showManager->initialize();
+
+    // and here we go!
     setSource(QUrl("qrc:/MainView.qml"));
+
+    // set geometry once again
+    setGeometry(rect);
 }
 
 void App::toggleFullscreen()
@@ -220,21 +253,15 @@ void App::setLanguage(QString locale)
     if (m_translator->load(file, translationPath) == true)
         QCoreApplication::installTranslator(m_translator);
 
+    QSettings settings;
+    settings.setValue(SETTINGS_LANGUAGE, locale);
+
     engine()->retranslate();
 }
 
 QString App::goboSystemPath() const
 {
     return QLCFile::systemDirectory(GOBODIR).absolutePath();
-}
-
-void App::show()
-{
-    QScreen *currScreen = screen();
-    QRect rect(0, 0, 800, 600);
-    rect.moveTopLeft(currScreen->geometry().topLeft());
-    setGeometry(rect);
-    showMaximized();
 }
 
 qreal App::pixelDensity() const
@@ -260,6 +287,11 @@ bool App::is3DSupported() const
 
     return true;
 #endif
+}
+
+void App::aboutQt()
+{
+    qApp->aboutQt();
 }
 
 void App::exit()
@@ -374,12 +406,18 @@ bool App::docModified() const
     return m_doc->isModified();
 }
 
+void App::slotDocAutosave()
+{
+    saveXML(autoSaveFileName(), true);
+}
+
 void App::initDoc()
 {
     Q_ASSERT(m_doc == nullptr);
     m_doc = new Doc(this);
 
     connect(m_doc, SIGNAL(modified(bool)), this, SIGNAL(docModifiedChanged()));
+    connect(m_doc, SIGNAL(needAutosave()), this, SLOT(slotDocAutosave()));
     connect(m_doc->masterTimer(), SIGNAL(functionListChanged()),
             this, SIGNAL(runningFunctionsCountChanged()));
 
@@ -490,7 +528,7 @@ void App::slotItemReadyForPrinting()
 {
     QPrinter printer;
     QPrintDialog *dlg = new QPrintDialog(&printer);
-    if(dlg->exec() == QDialog::Accepted)
+    if (dlg->exec() == QDialog::Accepted)
     {
         QRectF pageRect = printer.pageLayout().paintRect();
         QSize imgSize = m_printerImage->image().size();
@@ -513,7 +551,7 @@ void App::slotItemReadyForPrinting()
         }
 
         // handle multi-page printing
-        while(totalHeight > 0)
+        while (totalHeight > 0)
         {
             painter.drawImage(QPoint(0, 0), img, QRectF(0, yOffset, actualWidth, pageRect.height()));
             yOffset += pageRect.height();
@@ -544,6 +582,21 @@ QString App::fileName() const
     return m_fileName;
 }
 
+QString App::autoSaveFileName() const
+{
+    QString fName = m_fileName;
+
+    if (fName.isEmpty())
+        fName = "NewProject.autosave.qxw";
+    else
+    {
+        fName.remove(".qxw");
+        fName.append(".autosave.qxw");
+    }
+
+    return fName;
+}
+
 void App::updateRecentFilesList(QString filename)
 {
     QSettings settings;
@@ -562,7 +615,7 @@ void App::updateRecentFilesList(QString filename)
         for (int i = 0; i < MAX_RECENT_FILES; i++)
         {
             QVariant recent = settings.value(QString("%1%2").arg(SETTINGS_RECENTFILE).arg(i));
-            if (recent.isValid() == true)
+            if (recent.isValid())
                 m_recentFiles.append(recent.toString());
         }
     }
@@ -571,6 +624,14 @@ void App::updateRecentFilesList(QString filename)
 QStringList App::recentFiles() const
 {
     return m_recentFiles;
+}
+
+void App::loadLastWorkspace()
+{
+    if (m_recentFiles.isEmpty())
+        return;
+
+    loadWorkspace(m_recentFiles.first());
 }
 
 QString App::workingPath() const
@@ -604,6 +665,8 @@ bool App::newWorkspace()
 
 bool App::loadWorkspace(const QString &fileName)
 {
+    m_contextManager->resetContexts();
+
     /* Clear existing document data */
     clearDocument();
     m_docLoaded = false;
@@ -620,9 +683,9 @@ bool App::loadWorkspace(const QString &fileName)
         m_docLoaded = true;
         updateRecentFilesList(localFilename);
         emit docLoadedChanged();
-        m_contextManager->resetContexts();
         m_doc->resetModified();
         m_videoProvider = new VideoProvider(this, m_doc);
+        m_contextManager->resetContexts();
 
         // autostart Function if set
         if (m_doc->startupFunction() != Function::invalidId())
@@ -688,6 +751,8 @@ void App::slotLoadDocFromMemory(QByteArray &xmlData)
 bool App::saveWorkspace(const QString &fileName)
 {
     QString localFilename = fileName;
+    QString asfName = autoSaveFileName();
+
     if (localFilename.startsWith("file:"))
         localFilename = QUrl(fileName).toLocalFile();
 
@@ -701,6 +766,11 @@ bool App::saveWorkspace(const QString &fileName)
 
     if (saveXML(localFilename) == QFile::NoError)
     {
+        /* remove autosave file if present */
+        QFile asFile(asfName);
+        if (asFile.exists())
+            asFile.remove();
+
         setTitle(QString("%1 - %2").arg(APPNAME).arg(localFilename));
         updateRecentFilesList(localFilename);
         return true;
@@ -828,7 +898,7 @@ bool App::loadXML(QXmlStreamReader &doc, bool goToConsole, bool fromMemory)
     return true;
 }
 
-QFile::FileError App::saveXML(const QString& fileName)
+QFile::FileError App::saveXML(const QString& fileName, bool autosave)
 {
     QString tempFileName(fileName);
     tempFileName += ".temp";
@@ -886,10 +956,13 @@ QFile::FileError App::saveXML(const QString& fileName)
         return file.error();
     }
 
-    /* Set the file name for the current Doc instance and
-       set it also in an unmodified state. */
-    setFileName(fileName);
-    m_doc->resetModified();
+    if (!autosave)
+    {
+        /* Set the file name for the current Doc instance and
+           set it also in an unmodified state. */
+        setFileName(fileName);
+        m_doc->resetModified();
+    }
 
     return QFile::NoError;
 }

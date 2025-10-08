@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>Tóth János</Author>
+ </Creator>
+ <Manufacturer>Shehds</Manufacturer>
+ <Model>GalaxyJet LED Beam 300W Beam&amp;Spot&amp;Wash 3in1</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan tilt speed" Preset="SpeedPanSlowFast"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterClose">None</Capability>
+  <Capability Min="4" Max="127" Preset="StrobeSlowToFast">Strobe from slow to fast</Capability>
+  <Capability Min="128" Max="131" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="132" Max="251" Preset="StrobeRandomSlowToFast">Random strobe from slow to fast</Capability>
+  <Capability Min="252" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
+  <Capability Min="6" Max="11" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">Open+red</Capability>
+  <Capability Min="12" Max="17" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="18" Max="23" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">Red+Yellow</Capability>
+  <Capability Min="24" Max="29" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="30" Max="35" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#0000ff">Yellow+blue</Capability>
+  <Capability Min="36" Max="41" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="42" Max="47" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ff00">Blue+Green</Capability>
+  <Capability Min="48" Max="53" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="54" Max="59" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff55ff">Green+rose red</Capability>
+  <Capability Min="60" Max="65" Preset="ColorMacro" Res1="#ff00ff">Rose Red</Capability>
+  <Capability Min="66" Max="71" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#add8e6">Rose Red+Light Blue</Capability>
+  <Capability Min="72" Max="77" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
+  <Capability Min="78" Max="83" Preset="ColorDoubleMacro" Res1="#add8e6" Res2="#ffa500">Light Blue+Orange</Capability>
+  <Capability Min="84" Max="89" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="90" Max="95" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#90ee90">Orange+Light green</Capability>
+  <Capability Min="96" Max="101" Preset="ColorMacro" Res1="#90ee90">Light green</Capability>
+  <Capability Min="102" Max="107" Preset="ColorDoubleMacro" Res1="#90ee90" Res2="#ffc0cb">Light green+pink</Capability>
+  <Capability Min="108" Max="113" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="114" Max="119" Preset="ColorDoubleMacro" Res1="#ffc0cb" Res2="#ffffff">Pink+Open</Capability>
+  <Capability Min="120" Max="127" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
+  <Capability Min="128" Max="191">Color Rotate Left</Capability>
+  <Capability Min="192" Max="255">Color Rotate Right</Capability>
+ </Channel>
+ <Channel Name="Gobo1">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="8">Open</Capability>
+  <Capability Min="9" Max="17">Gobo1</Capability>
+  <Capability Min="18" Max="26">Gobo2</Capability>
+  <Capability Min="27" Max="35">Gobo3</Capability>
+  <Capability Min="36" Max="44">Gobo4</Capability>
+  <Capability Min="45" Max="62">Gobo5</Capability>
+  <Capability Min="63" Max="127">Gobo6</Capability>
+  <Capability Min="128" Max="191">Gobo rotate left</Capability>
+  <Capability Min="192" Max="255">Gobo rotate right</Capability>
+ </Channel>
+ <Channel Name="Gobo2">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="4">Open</Capability>
+  <Capability Min="5" Max="9">Gobo1</Capability>
+  <Capability Min="10" Max="14">Gobo2</Capability>
+  <Capability Min="15" Max="19">Gobo3</Capability>
+  <Capability Min="20" Max="24">Gobo4</Capability>
+  <Capability Min="25" Max="29">Gobo5</Capability>
+  <Capability Min="30" Max="34">Gobo6</Capability>
+  <Capability Min="35" Max="39">Gobo7</Capability>
+  <Capability Min="40" Max="54">Open</Capability>
+  <Capability Min="55" Max="69">Gobo1</Capability>
+  <Capability Min="70" Max="84">Gobo2</Capability>
+  <Capability Min="85" Max="99">Gobo3</Capability>
+  <Capability Min="100" Max="114">Gobo4</Capability>
+  <Capability Min="115" Max="129">Gobo5</Capability>
+  <Capability Min="130" Max="144">Gobo6</Capability>
+  <Capability Min="145" Max="159">Gobo7</Capability>
+  <Capability Min="160" Max="207">Gobo rotate left</Capability>
+  <Capability Min="208" Max="255">Gobo rotate right</Capability>
+ </Channel>
+ <Channel Name="Gobo 2 rotate">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="127">Rotating 360</Capability>
+  <Capability Min="128" Max="191">Clockwise Rotation</Capability>
+  <Capability Min="192" Max="255">Anti Clockwise rotation</Capability>
+ </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Prism">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="31" Preset="PrismEffectOff">None</Capability>
+  <Capability Min="32" Max="255" Preset="PrismEffectOn" Res1="8">8 facet prism</Capability>
+ </Channel>
+ <Channel Name="Prism Rotate">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Rotating 360</Capability>
+  <Capability Min="128" Max="170" Preset="RotationClockwise">Clockwise Rotation</Capability>
+  <Capability Min="171" Max="213" Preset="RotationCounterClockwise">Anti clockwise rotation</Capability>
+  <Capability Min="214" Max="255">Clockwise rotation and anti clockwise rotation</Capability>
+ </Channel>
+ <Channel Name="Frost">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="31">None</Capability>
+  <Capability Min="32" Max="255">Frost</Capability>
+ </Channel>
+ <Channel Name="Auto zoom">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">Auto zoom</Capability>
+ </Channel>
+ <Channel Name="Auto Move">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan and tilt move</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="200">None</Capability>
+  <Capability Min="201" Max="201">Reset Effect</Capability>
+  <Capability Min="202" Max="255">Reset</Capability>
+ </Channel>
+ <Mode Name="16 channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan tilt speed</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Master dimmer</Channel>
+  <Channel Number="7">Color</Channel>
+  <Channel Number="8">Gobo1</Channel>
+  <Channel Number="9">Gobo2</Channel>
+  <Channel Number="10">Gobo 2 rotate</Channel>
+  <Channel Number="11">Focus</Channel>
+  <Channel Number="12">Zoom</Channel>
+  <Channel Number="13">Prism</Channel>
+  <Channel Number="14">Prism Rotate</Channel>
+  <Channel Number="15">Frost</Channel>
+  <Channel Number="16">Auto zoom</Channel>
+  <Channel Number="17">Auto Move</Channel>
+  <Channel Number="18">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="74350" ColourTemperature="0"/>
+  <Dimensions Weight="12.52" Width="300" Height="210" Depth="560"/>
+  <Lens Name="Other" DegreesMin="3.5" DegreesMax="38"/>
+  <Focus Type="Head" PanMax="450" TiltMax="270"/>
+  <Technical PowerConsumption="300" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -298,6 +298,8 @@ void VCXYPad_Test::saveXML()
     pad.m_area->setPosition(QPointF(23, 45));
     pad.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(0, 1)), VCXYPad::panInputSourceId);
     pad.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(2, 3)), VCXYPad::tiltInputSourceId);
+    pad.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(4, 5)), VCXYPad::panFineInputSourceId);
+    pad.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(6, 7)), VCXYPad::tiltFineInputSourceId);
     pad.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(1, 10)), VCXYPad::widthInputSourceId);
     pad.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(3, 8)), VCXYPad::heightInputSourceId);
     QCOMPARE(pad.m_area->position(), QPointF(23, 45));
@@ -317,6 +319,7 @@ void VCXYPad_Test::saveXML()
 
     int fixture = 0, position = 0, wstate = 0, appearance = 0;
     int pan = 0, tilt = 0, width = 0, height = 0;
+    int panFine = 0, tiltFine = 0;
 
     QVERIFY(pad.saveXML(&xmlWriter) == true);
 
@@ -368,6 +371,26 @@ void VCXYPad_Test::saveXML()
             xmlReader.skipCurrentElement();
             xmlReader.skipCurrentElement();
         }
+        else if (xmlReader.name().toString() == "PanFine")
+        {
+            panFine++;
+            xmlReader.readNextStartElement();
+            QCOMPARE(xmlReader.name().toString(), QString("Input"));
+            QCOMPARE(xmlReader.attributes().value("Universe").toString(), QString("4"));
+            QCOMPARE(xmlReader.attributes().value("Channel").toString(), QString("5"));
+            xmlReader.skipCurrentElement();
+            xmlReader.skipCurrentElement();
+        }
+        else if (xmlReader.name().toString() == "TiltFine")
+        {
+            tiltFine++;
+            xmlReader.readNextStartElement();
+            QCOMPARE(xmlReader.name().toString(), QString("Input"));
+            QCOMPARE(xmlReader.attributes().value("Universe").toString(), QString("6"));
+            QCOMPARE(xmlReader.attributes().value("Channel").toString(), QString("7"));
+            xmlReader.skipCurrentElement();
+            xmlReader.skipCurrentElement();
+        }
         else if (xmlReader.name().toString() == "Width")
         {
             width++;
@@ -408,6 +431,8 @@ void VCXYPad_Test::saveXML()
     QCOMPARE(position, 0);
     QCOMPARE(pan, 1);
     QCOMPARE(tilt, 1);
+    QCOMPARE(panFine, 1);
+    QCOMPARE(tiltFine, 1);
     QCOMPARE(width, 1);
     QCOMPARE(height, 1);
     QCOMPARE(wstate, 1);

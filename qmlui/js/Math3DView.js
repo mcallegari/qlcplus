@@ -88,6 +88,9 @@ function lookAt(eye, center, up)
 
 function getLightDirection(transform, panTransform, tiltTransform)
 {
+    if (!transform)
+        return Qt.vector3d(0.0, 0.0, 0.0)
+
     var m = transform.matrix;
     if (panTransform) {
         m = transform.matrix.times(panTransform.matrix);

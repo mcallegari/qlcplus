@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick
 import "."
 
 Rectangle
@@ -28,7 +28,7 @@ Rectangle
     border.width: 2
     border.color: "white"
     radius: 5
-    color: "#1E476E"
+    color: UISettings.sectionHeader
 
     property bool dmxMode: true
     signal clicked

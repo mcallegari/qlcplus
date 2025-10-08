@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "."
@@ -29,16 +29,17 @@ Rectangle
     width: mainView.width / 5
     height: parent.height
 
-    color: UISettings.bgMedium
+    color: UISettings.bgStrong
     border.width: 1
-    border.color: "#222"
+    border.color: UISettings.bgStrong
 
     property bool showAddresses: ViewDMX.showAddresses
     property bool relativeAddresses: ViewDMX.relativeAddresses
 
     GridLayout
     {
-        width: settingsRoot.width
+        x: 5
+        width: settingsRoot.width - 10
         columns: 2
         columnSpacing: 5
         rowSpacing: 5

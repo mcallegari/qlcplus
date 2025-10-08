@@ -1,5 +1,7 @@
 set(module_name "qlcplusengine")
 
+include(../../variables.cmake)
+
 add_library(${module_name} SHARED
     ../../plugins/interfaces/qlcioplugin.cpp ../../plugins/interfaces/qlcioplugin.h
     avolitesd4parser.cpp avolitesd4parser.h
@@ -44,6 +46,7 @@ add_library(${module_name} SHARED
     qlcfixturemode.cpp qlcfixturemode.h
     qlci18n.cpp qlci18n.h
     qlcinputchannel.cpp qlcinputchannel.h
+    qlcinputfeedback.cpp qlcinputfeedback.h
     qlcinputprofile.cpp qlcinputprofile.h
     qlcinputsource.cpp qlcinputsource.h
     qlcmodifierscache.cpp qlcmodifierscache.h
@@ -105,6 +108,12 @@ if(UNIX AND NOT ANDROID AND NOT IOS AND NOT APPLE)
     )
 endif()
 
+if(UNIX)
+    target_sources(${module_name} PRIVATE
+        mastertimer-unix.cpp mastertimer-unix.h
+    )
+endif()
+
 if(WIN32)
     target_sources(${module_name} PRIVATE
         mastertimer-win32.cpp mastertimer-win32.h
@@ -141,19 +150,14 @@ endif()
 if(qmlui OR (QT_VERSION_MAJOR GREATER 5))
     target_sources(${module_name} PRIVATE
         rgbscriptv4.cpp rgbscriptv4.h
-        scriptrunner.cpp scriptrunner.h
-        scriptv4.cpp scriptv4.h
     )
 
     target_link_libraries(${module_name} PUBLIC
         Qt${QT_MAJOR_VERSION}::Qml
     )
-endif()
-
-if(NOT (qmlui OR (QT_VERSION_MAJOR GREATER 5)))
+else()
     target_sources(${module_name} PRIVATE
         rgbscript.cpp rgbscript.h
-        script.cpp script.h
     )
 
     target_link_libraries(${module_name} PUBLIC
@@ -161,9 +165,14 @@ if(NOT (qmlui OR (QT_VERSION_MAJOR GREATER 5)))
     )
 endif()
 
-if(UNIX)
+if(qmlui)
     target_sources(${module_name} PRIVATE
-        mastertimer-unix.cpp mastertimer-unix.h
+        scriptrunner.cpp scriptrunner.h
+        scriptv4.cpp scriptv4.h
+    )
+else()
+    target_sources(${module_name} PRIVATE
+        script.cpp script.h
     )
 endif()
 

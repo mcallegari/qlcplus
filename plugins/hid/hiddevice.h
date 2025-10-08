@@ -42,6 +42,29 @@ public:
      *************************************************************************/
 public:
     /**
+     * Check if the device offers a built-in merger mode.
+     *
+     * Merger mode means that all DMX data from the device's input port is
+     * copied to its output port and - if output from QLC+ is enabled -
+     * merged with this output in a HTP manner on the device itself. 
+     *
+     * @return true if the device offers a merger mode, false otherwise
+     */
+    virtual bool hasMergerMode();
+
+    /**
+     * Check if device's built-in merger mode is enabled.
+     *
+     * @return true if the device's merger mode is enabled, false otherwise
+     */
+    virtual bool isMergerModeEnabled();
+
+    /**
+     * Enable or disable the built-in merger mode.
+     */
+    virtual void enableMergerMode(bool mergerModeEnabled);
+
+    /**
      * Attempt to open the HID device as input in RW mode and fall back
      * to RO if that fails.
      *

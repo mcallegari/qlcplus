@@ -41,7 +41,7 @@ void ArtNetPlugin::init()
     else
         m_ifaceWaitTime = 0;
 
-    foreach(QNetworkInterface iface, QNetworkInterface::allInterfaces())
+    foreach (QNetworkInterface iface, QNetworkInterface::allInterfaces())
     {
         foreach (QNetworkAddressEntry entry, iface.addressEntries())
         {
@@ -54,7 +54,7 @@ void ArtNetPlugin::init()
                 tmpIO.controller = NULL;
 
                 bool alreadyInList = false;
-                for(int j = 0; j < m_IOmapping.count(); j++)
+                for (int j = 0; j < m_IOmapping.count(); j++)
                 {
                     if (m_IOmapping.at(j).address == tmpIO.address)
                     {
@@ -441,9 +441,9 @@ void ArtNetPlugin::slotReadyRead()
 
 void ArtNetPlugin::handlePacket(QByteArray const& datagram, QHostAddress const& senderAddress)
 {
-    // A firts filter: look for a controller on the same subnet as the sender.
+    // A first filter: look for a controller on the same subnet as the sender.
     // This allows having the same ArtNet Universe on 2 different network interfaces.
-    foreach(ArtNetIO io, m_IOmapping)
+    foreach (ArtNetIO io, m_IOmapping)
     {
         if (senderAddress.isInSubnet(io.address.ip(), io.address.prefixLength()))
         {
@@ -452,9 +452,9 @@ void ArtNetPlugin::handlePacket(QByteArray const& datagram, QHostAddress const& 
             return;
         }
     }
-    // Packet comming from another subnet. This is an unusual case.
+    // Packet coming from another subnet. This is an unusual case.
     // We stop at the first controller that handles this packet.
-    foreach(ArtNetIO io, m_IOmapping)
+    foreach (ArtNetIO io, m_IOmapping)
     {
         if (io.controller != NULL)
         {

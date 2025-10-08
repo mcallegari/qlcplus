@@ -46,7 +46,9 @@ class VideoProvider;
 class FixtureEditor;
 class Tardis;
 
-#define KXMLQLCWorkspace QString("Workspace")
+#define SETTINGS_LANGUAGE "ui/language"
+
+#define KXMLQLCWorkspace QStringLiteral("Workspace")
 
 class App : public QQuickView
 {
@@ -155,8 +157,6 @@ public:
     void enableKioskMode();
     void createKioskCloseButton(const QRect& rect);
 
-    void show();
-
     /** Return the number of pixels in 1mm */
     qreal pixelDensity() const;
 
@@ -165,6 +165,8 @@ public:
     int accessMask() const;
 
     bool is3DSupported() const;
+
+    Q_INVOKABLE void aboutQt();
 
     Q_INVOKABLE void exit();
 
@@ -182,6 +184,7 @@ protected slots:
     void slotClosing();
     void slotClientAccessRequest(QString name);
     void slotAccessMaskChanged(int mask);
+    void slotDocAutosave();
 
 signals:
     void accessMaskChanged(int mask);
@@ -267,8 +270,17 @@ public:
     Q_INVOKABLE QString fileName() const;
     void setFileName(const QString& fileName);
 
+    /**
+     * Get the autosave version of the name
+     * of the current workspace file
+     */
+    QString autoSaveFileName() const;
+
     /** Return the list of the recently opened files */
     QStringList recentFiles() const;
+
+    /** Open the file from last session */
+    void loadLastWorkspace();
 
     /** Get/Set the path currently used by QLC+ to access projects and resources */
     QString workingPath() const;
@@ -305,7 +317,7 @@ public:
      * @param fileName The name of the file to save to.
      * @return QFile::NoError if successful.
      */
-    QFile::FileError saveXML(const QString& fileName);
+    QFile::FileError saveXML(const QString& fileName, bool autosave = false);
 
 private:
     /**

@@ -17,10 +17,10 @@
   limitations under the License.
 */
 
-#include "euroliteusbdmxpro.h"
-
 #include <QDebug>
 #include <QDir>
+
+#include "euroliteusbdmxpro.h"
 
 EuroliteUSBDMXPro::EuroliteUSBDMXPro(DMXInterface *iface, quint32 outputLine)
     : DMXUSBWidget(iface, outputLine, DEFAULT_OUTPUT_FREQUENCY)
@@ -84,7 +84,7 @@ QString EuroliteUSBDMXPro::getDeviceName()
                             if (ttyDir.exists())
                             {
                                 QStringList ttyList = ttyDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-                                foreach(QString ttyName, ttyList)
+                                foreach (QString ttyName, ttyList)
                                 {
                                     qDebug() << "This EuroliteUSBDMXPro adapter will use" << QString("/dev/" + ttyName);
                                     return QString("/dev/" + ttyName);
@@ -199,14 +199,14 @@ bool EuroliteUSBDMXPro::writeUniverse(quint32 universe, quint32 output, const QB
         return false;
 #endif
 
-    if (m_outputLines[0].m_universeData.size() == 0)
+    if (m_portsInfo[0].m_universeData.size() == 0)
     {
-        m_outputLines[0].m_universeData.append(data);
-        m_outputLines[0].m_universeData.append(DMX_CHANNELS - data.size(), 0);
+        m_portsInfo[0].m_universeData.append(data);
+        m_portsInfo[0].m_universeData.append(DMX_CHANNELS - data.size(), 0);
     }
 
     if (dataChanged)
-        m_outputLines[0].m_universeData.replace(0, data.size(), data);
+        m_portsInfo[0].m_universeData.replace(0, data.size(), data);
 
     return true;
 }
@@ -231,7 +231,7 @@ void EuroliteUSBDMXPro::run()
     {
         timer.restart();
 
-        int dataLen = m_outputLines[0].m_universeData.length();
+        int dataLen = m_portsInfo[0].m_universeData.length();
         if (dataLen == 0)
             goto framesleep;
 
@@ -241,7 +241,7 @@ void EuroliteUSBDMXPro::run()
         request.append((dataLen + 1) & 0xff); // Data length LSB
         request.append(((dataLen + 1) >> 8) & 0xff); // Data length MSB
         request.append(char(EUROLITE_USB_DMX_PRO_DMX_ZERO)); // DMX start code (Which constitutes the + 1 below)
-        request.append(m_outputLines[0].m_universeData);
+        request.append(m_portsInfo[0].m_universeData);
         request.append(EUROLITE_USB_DMX_PRO_END_OF_MSG); // Stop byte
 
 #ifdef QTSERIAL

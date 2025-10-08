@@ -18,14 +18,16 @@
 */
 
 #include <QStringList>
+#include <QSettings>
 #include <QDebug>
+
+#include <gpiod.hpp>
 
 #include "gpioplugin.h"
 #include "gpioreaderthread.h"
 #include "gpioconfiguration.h"
 
-#define MAX_GPIO_PINS       30
-#define MAX_FILE_ATTEMPTS   10
+#define SETTINGS_CHIP_NAME "GPIOPlugin/chipname"
 
 /*****************************************************************************
  * Initialization
@@ -33,8 +35,12 @@
 
 GPIOPlugin::~GPIOPlugin()
 {
-    for (int i = 0; i < MAX_GPIO_PINS; i++)
-        setPinStatus(i, false);
+    int linesNum = m_gpioList.count();
+    for (int i = 0; i < linesNum; i++)
+    {
+        GPIOLineInfo *gpio = m_gpioList.takeLast();
+        delete gpio;
+    }
 }
 
 void GPIOPlugin::init()
@@ -43,20 +49,32 @@ void GPIOPlugin::init()
     m_inputUniverse = UINT_MAX;
     m_outputUniverse = UINT_MAX;
 
-    for (int i = 0; i < MAX_GPIO_PINS; i++)
+    QSettings settings;
+    QVariant value = settings.value(SETTINGS_CHIP_NAME);
+    if (value.isValid() == true)
     {
-        GPIOPinInfo *gpio = new GPIOPinInfo;
-        gpio->m_number = i;
-        gpio->m_enabled = false;
-        gpio->m_usage = NoUsage;
-        gpio->m_value = 1;
-        gpio->m_count = 0;
-
-        QString pinPath = QString("/sys/class/gpio/gpio%1/value").arg(i);
-        gpio->m_file = new QFile(pinPath);
-
-        m_gpioList.append(gpio);
+        m_chipName = value.toString().toStdString();
     }
+    else
+    {
+        // autodetect chips and use first
+        try
+        {
+            for (auto& it: ::gpiod::make_chip_iter())
+            {
+                qDebug() << "GPIO chip found: " << QString::fromStdString(it.name());
+                if (m_chipName.empty())
+                    m_chipName = it.name();
+                else
+                	qWarning() << "Multiple GPIO chips found, skipping chip: " << QString::fromStdString(it.name());
+            }
+        } catch (const std::system_error& e) {
+            qWarning() << "Error while scanning GPIO chips: " << e.what() << " - GPIO plugin not initialized.";
+        }
+    }
+
+    if (!m_chipName.empty())
+        updateLinesList();
 }
 
 QString GPIOPlugin::name()
@@ -88,6 +106,63 @@ QString GPIOPlugin::pluginInfo()
     str += QString("</P>");
 
     return str;
+}
+
+std::string GPIOPlugin::chipName() const
+{
+    return m_chipName;
+}
+
+void GPIOPlugin::setChipName(QString name)
+{
+    if (name == QString::fromStdString(m_chipName))
+        return;
+
+    m_chipName = name.toStdString();
+
+    QSettings settings;
+    settings.setValue(SETTINGS_CHIP_NAME, name);
+
+    updateLinesList();
+}
+
+void GPIOPlugin::updateLinesList()
+{
+    ::gpiod::chip gChip(m_chipName);
+    if (!gChip)
+        return;
+
+    int linesNum = m_gpioList.count();
+    for (int i = 0; i < linesNum; i++)
+    {
+        GPIOLineInfo *gpio = m_gpioList.takeLast();
+        delete gpio;
+    }
+
+    for (unsigned int i = 0; i < gChip.num_lines(); i++)
+    {
+        auto line = gChip.get_line(i);
+
+        GPIOLineInfo *gpio = new GPIOLineInfo;
+        gpio->m_line = i;
+        gpio->m_name = QString::fromStdString(line.name());
+        gpio->m_enabled = false;
+        gpio->m_value = 1;
+        gpio->m_count = 0;
+
+        /*
+        int direction = line.direction();
+
+        if (direction == ::gpiod::line::DIRECTION_INPUT)
+            gpio->m_direction = InputDirection;
+        else if (direction == ::gpiod::line::DIRECTION_OUTPUT)
+            gpio->m_direction = OutputDirection;
+        else
+        */
+        gpio->m_direction = NoDirection;
+
+        m_gpioList.append(gpio);
+    }
 }
 
 /*****************************************************************************
@@ -139,145 +214,102 @@ QString GPIOPlugin::outputInfo(quint32 output)
 void GPIOPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (output != 0)
         return;
 
-    for (int i = 0; i < qMin(data.size(), MAX_GPIO_PINS); i++)
+    for (int i = 0; i < qMin(data.size(), m_gpioList.count()); i++)
     {
-        GPIOPinInfo *gpio = m_gpioList.at(i);
-        if (gpio->m_enabled == false || gpio->m_usage != OutputUsage)
+        GPIOLineInfo *gpio = m_gpioList.at(i);
+        if (gpio->m_enabled == false || gpio->m_direction != OutputDirection)
             continue;
 
         //qDebug() << "[GPIO] writing GPIO number:" << i;
         uchar boolVal = uchar(data.at(i)) < 128 ? 1 : 0;
         if (gpio->m_value != boolVal)
-            setPinValue(i, boolVal);
+            setLineValue(i, boolVal);
     }
 }
 
 /*********************************************************************
  * GPIO PIN methods
  *********************************************************************/
-QList<GPIOPinInfo *> GPIOPlugin::gpioList() const
+QList<GPIOLineInfo *> GPIOPlugin::gpioList() const
 {
     return m_gpioList;
 }
 
-QString GPIOPlugin::pinUsageToString(GPIOPlugin::PinUsage usage)
+QString GPIOPlugin::lineDirectionToString(GPIOPlugin::LineDirection usage)
 {
     switch(usage)
     {
-        case OutputUsage: return QString("Output"); break;
-        case InputUsage: return QString("Input"); break;
+        case OutputDirection: return QString("Output"); break;
+        case InputDirection: return QString("Input"); break;
         default: break;
     }
     return QString("NotUsed");
 }
 
-GPIOPlugin::PinUsage GPIOPlugin::stringToPinUsage(QString usage)
+GPIOPlugin::LineDirection GPIOPlugin::stringToLineDirection(QString usage)
 {
-    if (usage == "Output") return OutputUsage;
-    else if (usage == "Input") return InputUsage;
+    if (usage == "Output") return OutputDirection;
+    else if (usage == "Input") return InputDirection;
 
-    return NoUsage;
+    return NoDirection;
 }
 
-void GPIOPlugin::setPinStatus(int gpioNumber, bool enable)
+void GPIOPlugin::setLineStatus(int lineNumber, bool enable)
 {
-    if (gpioNumber < 0 || gpioNumber >= m_gpioList.count())
+    if (lineNumber < 0 || lineNumber >= m_gpioList.count())
         return;
 
-    if (m_gpioList.at(gpioNumber)->m_enabled == enable)
+    if (m_gpioList.at(lineNumber)->m_enabled == enable)
         return;
 
-    QString sysPath = QString("/sys/class/gpio/%1").arg(enable ? "export" : "unexport");
-    QString gpioStr = QString("%1").arg(gpioNumber);
-    QFile file(sysPath);
-    if (!file.open(QIODevice::WriteOnly))
-    {
-        qDebug() << "[GPIO] error in opening export file" << sysPath;
-        return;
-    }
-    file.write(gpioStr.toLatin1());
-    file.close();
-
-    m_gpioList[gpioNumber]->m_enabled = enable;
+    m_gpioList[lineNumber]->m_enabled = enable;
 }
 
-void GPIOPlugin::setPinUsage(int gpioNumber, GPIOPlugin::PinUsage usage)
+void GPIOPlugin::setLineDirection(int lineNumber, GPIOPlugin::LineDirection direction)
 {
-    if (gpioNumber < 0 || gpioNumber >= m_gpioList.count())
+    if (lineNumber < 0 || lineNumber >= m_gpioList.count())
         return;
 
-    qDebug() << "[GPIO] setPinUsage" << gpioNumber << usage;
-    GPIOPinInfo *gpio = m_gpioList.at(gpioNumber);
+    qDebug() << "[GPIO] setLineDirection" << lineNumber << direction;
+    GPIOLineInfo *gpio = m_gpioList.at(lineNumber);
 
-    if (gpio->m_usage == usage)
+    if (gpio->m_direction == direction)
         return;
 
-    if (gpio->m_usage == InputUsage || usage == InputUsage)
+    if (gpio->m_direction == InputDirection || direction == InputDirection)
     {
         if (m_readerThread != NULL && m_readerThread->isRunning())
             m_readerThread->pause(true);
     }
 
-    if (usage == NoUsage)
+    if (direction == NoDirection)
     {
-        if (gpio->m_usage == InputUsage)
-            m_gpioList[gpioNumber]->m_file->close();
+        m_gpioList[lineNumber]->m_direction = direction;
 
-        m_gpioList[gpioNumber]->m_usage = usage;
-
-        setPinStatus(gpioNumber, false);
+        setLineStatus(lineNumber, false);
 
         if (m_readerThread != NULL)
-        {
-            m_readerThread->updateReadPINs();
             m_readerThread->pause(false);
-        }
+
         return;
     }
     else
-        setPinStatus(gpioNumber, true);
+        setLineStatus(lineNumber, true);
 
-    QString pinPath = QString("/sys/class/gpio/gpio%1/direction").arg(gpioNumber);
-    QFile file(pinPath);
-    int attempts = MAX_FILE_ATTEMPTS;
-
-    while (attempts)
-    {
-        if (!file.open(QIODevice::WriteOnly))
-        {
-            attempts--;
-            usleep(200000);
-        }
-        else
-            break;
-    }
-
-    if (attempts == 0)
-    {
-        qDebug() << "[GPIO] error in opening direction file" << pinPath;
-        return;
-    }
-
-    if (usage == OutputUsage)
-        file.write("out");
-    else if (usage == InputUsage)
-        file.write("in");
-    file.close();
-
-    m_gpioList[gpioNumber]->m_usage = usage;
+    m_gpioList[lineNumber]->m_direction = direction;
 
     if (m_readerThread != NULL)
     {
-        m_readerThread->updateReadPINs();
         m_readerThread->pause(false);
     }
     else
     {
-        if (usage == InputUsage)
+        if (direction == InputDirection)
         {
             m_readerThread = new ReadThread(this);
             connect(m_readerThread, SIGNAL(valueChanged(quint32,uchar)),
@@ -286,29 +318,19 @@ void GPIOPlugin::setPinUsage(int gpioNumber, GPIOPlugin::PinUsage usage)
     }
 }
 
-void GPIOPlugin::setPinValue(int gpioNumber, uchar value)
+void GPIOPlugin::setLineValue(int lineNumber, uchar value)
 {
-    if (gpioNumber < 0 || gpioNumber >= m_gpioList.count())
+    if (lineNumber < 0 || lineNumber >= m_gpioList.count())
         return;
 
-    GPIOPinInfo *gpio = m_gpioList.at(gpioNumber);
-    if (gpio->m_file->isOpen() == false)
-    {
-        //qDebug() << "[GPIO] Opening value file of PIN" << gpioNumber;
-        if (!gpio->m_file->open(QIODevice::WriteOnly))
-        {
-            qDebug() << "[GPIO] Error, cannot open PIN" << gpioNumber << "for writing";
-            return;
-        }
-    }
+    qDebug() << "[GPIO] writing line" << lineNumber << "with value" << value;
 
-    qDebug() << "[GPIO] writing PIN" << gpioNumber << "with value" << value;
-    //gpio->m_file->reset();
-    //gpio->m_file->write(QString::number(value).toLatin1());
-    gpio->m_file->putChar(value + 48);
-    gpio->m_file->close();
-    //gpio->m_file->write("\n");
-    m_gpioList[gpioNumber]->m_value = value;
+    ::gpiod::chip gChip(chipName());
+    ::gpiod::line gLine = gChip.get_line(lineNumber);
+    gLine.request({"set_value", gpiod::line_request::DIRECTION_OUTPUT, 0}, value);
+    gLine.release();
+
+    m_gpioList[lineNumber]->m_value = value;
 }
 
 /*************************************************************************
@@ -408,14 +430,14 @@ void GPIOPlugin::setParameter(quint32 universe, quint32 line, Capability type,
 
     if (param.at(0) == GPIO_PARAM_USAGE)
     {
-        PinUsage usage = stringToPinUsage(value.toString());
-        PinUsage prevUsage = PinUsage(m_gpioList.at(gpioNumber)->m_usage);
+        LineDirection usage = stringToLineDirection(value.toString());
+        LineDirection prevUsage = LineDirection(m_gpioList.at(gpioNumber)->m_direction);
 
-        setPinUsage(gpioNumber, usage);
+        setLineDirection(gpioNumber, usage);
 
-        if (usage == NoUsage)
+        if (usage == NoDirection)
         {
-            if (prevUsage == InputUsage)
+            if (prevUsage == InputDirection)
                 QLCIOPlugin::unSetParameter(m_inputUniverse, 0, Input, name);
             else
                 QLCIOPlugin::unSetParameter(m_outputUniverse, 0, Output, name);

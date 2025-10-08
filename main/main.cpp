@@ -95,7 +95,7 @@ namespace QLCArgs
     QRect closeButtonRect = QRect();
 
     /** Debug output level */
-    QtMsgType debugLevel = QtSystemMsg;
+    QtMsgType debugLevel = QtCriticalMsg;
 
     /** Log to file flag */
     bool logToFile = false;
@@ -274,9 +274,9 @@ bool parseArgs()
             QLCArgs::enableWebAccess = true;
             QLCArgs::enableWebAuth = true;
         }
-        else if(arg == "-a" || arg == "--web-auth-file")
+        else if (arg == "-a" || arg == "--web-auth-file")
         {
-            if(it.hasNext())
+            if (it.hasNext())
                 QLCArgs::webAccessPasswordFile = it.next();
         }
         else if (arg == "-v" || arg == "--version")

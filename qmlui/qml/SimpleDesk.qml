@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.12
-import QtQuick.Controls 2.13
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -39,13 +39,18 @@ Rectangle
         id: channelToolLoader
         z: 2
 
-        onValueChanged: simpleDesk.setValue(fixtureID, channelIndex, value)
+        onValueChanged:
+            function (fixtureID, channelIndex, value)
+            {
+                simpleDesk.setValue(fixtureID, channelIndex, value)
+            }
     }
 
     SplitView
     {
         anchors.fill: parent
         orientation: Qt.Vertical
+        z: 1
 
         // Top view (faders)
         Rectangle
@@ -85,13 +90,13 @@ Rectangle
                         padding: 0
                         model: simpleDesk.universesListModel
                         currValue: simpleDesk.universeFilter
-                        onValueChanged: simpleDesk.universeFilter = value
+                        onValueChanged: (value) => simpleDesk.universeFilter = value
                     }
 
                     // universe reset button
                     IconButton
                     {
-                        faSource: FontAwesome.fa_remove
+                        faSource: FontAwesome.fa_xmark
                         faColor: UISettings.bgControl
                         tooltip: qsTr("Reset the whole universe")
                         onClicked:
@@ -101,55 +106,6 @@ Rectangle
                     }
 
                     Rectangle { Layout.fillWidth: true; color: "transparent" }
-
-                    // Scene dump button
-                    IconButton
-                    {
-                        id: sceneDump
-                        z: 2
-                        imgSource: "qrc:/dmxdump.svg"
-                        tooltip: qsTr("Dump on a new Scene")
-                        counter: simpleDesk ? simpleDesk.dumpValuesCount && (qlcplus.accessMask & App.AC_FunctionEditing) : 0
-
-                        onClicked:
-                        {
-                            if (dmxDumpDialog.show)
-                            {
-                                dmxDumpDialog.open()
-                                dmxDumpDialog.focusEditItem()
-                            }
-                        }
-
-                        Rectangle
-                        {
-                            x: -3
-                            //y: -3
-                            width: sceneDump.width * 0.4
-                            height: width
-                            color: "red"
-                            border.width: 1
-                            border.color: UISettings.fgMain
-                            radius: 3
-                            clip: true
-
-                            RobotoText
-                            {
-                                anchors.centerIn: parent
-                                height: parent.height * 0.7
-                                label: simpleDesk ? simpleDesk.dumpValuesCount : ""
-                                fontSize: height
-                            }
-                        }
-
-                        PopupDMXDump
-                        {
-                            id: dmxDumpDialog
-                            implicitWidth: Math.min(UISettings.bigItemHeight * 4, mainView.width / 3)
-                            channelsMask: simpleDesk ? simpleDesk.dumpChannelMask : 0
-
-                            onAccepted: simpleDesk.dumpDmxChannels(sceneName, getChannelsMask())
-                        }
-                    }
 
                     // DMX/Percentage button
                     DMXPercentageButton
@@ -206,11 +162,11 @@ Rectangle
                             }
                             else
                             {
-                                switch(chDisplay)
+                                switch (chDisplay)
                                 {
                                     case SimpleDesk.None: return "transparent"
-                                    case SimpleDesk.Odd: return "#414b41"
-                                    case SimpleDesk.Even: return "#42444b"
+                                    case SimpleDesk.Odd: return UISettings.bgFixtureOdd
+                                    case SimpleDesk.Even: return UISettings.bgFixtureEven
                                 }
                             }
                         }
@@ -236,6 +192,7 @@ Rectangle
                                 tooltip: fixtureObj ? fixtureManager.channelName(fixtureObj.id, model.chIndex) : ""
                                 imgSource: fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, model.chIndex) : ""
                                 visible: fixtureObj ? true : false
+                                focusPolicy: Qt.NoFocus
 
                                 onClicked:
                                 {
@@ -251,10 +208,12 @@ Rectangle
                                 width: parent.width * 0.95
                                 Layout.alignment: Qt.AlignHCenter
                                 Layout.fillHeight: true
+                                focusPolicy: Qt.NoFocus
                                 from: 0
                                 to: 255
                                 value: model.chValue
-                                onMoved: {
+                                onMoved:
+                                {
                                     model.isOverride = true
                                     model.chValue = valueAt(position)
                                     simpleDesk.setValue(fixtureObj ? fixtureObj.id : -1, fixtureObj ? model.chIndex : index, model.chValue)
@@ -274,7 +233,8 @@ Rectangle
                                 padding: 0
                                 horizontalAlignment: Qt.AlignHCenter
                                 value: dmxValues ? model.chValue : (model.chValue / 255.0) * 100.0
-                                onValueModified: {
+                                onValueModified:
+                                {
                                     model.isOverride = true
                                     model.chValue = value * (dmxValues ? 1.0 : 2.55)
                                     simpleDesk.setValue(fixtureObj ? fixtureObj.id : -1, fixtureObj ? model.chIndex : index, model.chValue)
@@ -286,6 +246,7 @@ Rectangle
                             {
                                 Layout.alignment: Qt.AlignHCenter
                                 height: UISettings.listItemHeight * 0.75
+                                focusPolicy: Qt.NoFocus
                                 fontSize: UISettings.textSizeDefault
                                 labelColor: UISettings.fgMain
                                 fontBold: true
@@ -295,9 +256,10 @@ Rectangle
                             // channel reset button
                             IconButton
                             {
-                                faSource: FontAwesome.fa_remove
+                                faSource: FontAwesome.fa_xmark
                                 faColor: UISettings.bgControl
                                 tooltip: qsTr("Reset the channel")
+                                focusPolicy: Qt.NoFocus
                                 onClicked:
                                 {
                                     var channel = index - (fixtureObj ? fixtureObj.address : 0)
@@ -452,7 +414,7 @@ Rectangle
                 x: parent.width - width
                 height: parent.height
 
-                onExecuteCommand:
+                onExecuteCommand: (cmd) =>
                 {
                     simpleDesk.sendKeypadCommand(cmd)
                     keypad.commandString = ""

@@ -28,10 +28,12 @@
 #include "functionmanager.h"
 #include "fixturemanager.h"
 #include "qlcfixturemode.h"
+#include "qlccapability.h"
 #include "fixtureutils.h"
 #include "mainviewdmx.h"
 #include "mainview2d.h"
 #include "mainview3d.h"
+#include "qlcchannel.h"
 #include "tardis.h"
 #include "app.h"
 #include "doc.h"
@@ -354,7 +356,7 @@ void ContextManager::setPositionPickPoint(QVector3D point)
                 panDeg = 90.0 + (90.0 - panDeg);
             else if (!xLeft && !zBack)
                 panDeg = 180.0 + panDeg;
-            else if(!xLeft && zBack)
+            else if (!xLeft && zBack)
                 panDeg = 270.0 + (90.0 - panDeg);
 
             if (itemFlags & MonitorProperties::InvertedPanFlag)
@@ -369,7 +371,7 @@ void ContextManager::setPositionPickPoint(QVector3D point)
             QList<SceneValue> svList = fixture->positionToValues(QLCChannel::Pan, panDeg);
             for (SceneValue &posSv : svList)
             {
-                if (m_editingEnabled == false)
+                if (m_editingEnabled == false || m_functionManager->acceptsSceneValues() == false)
                     setDumpValue(posSv.fxi, posSv.channel, posSv.value);
                 else
                     m_functionManager->setChannelValue(posSv.fxi, posSv.channel, posSv.value);
@@ -403,7 +405,7 @@ void ContextManager::setPositionPickPoint(QVector3D point)
             QList<SceneValue> svList = fixture->positionToValues(QLCChannel::Tilt, tiltDeg);
             for (SceneValue &posSv : svList)
             {
-                if (m_editingEnabled == false)
+                if (m_editingEnabled == false || m_functionManager->acceptsSceneValues() == false)
                     setDumpValue(posSv.fxi, posSv.channel, posSv.value);
                 else
                     m_functionManager->setChannelValue(posSv.fxi, posSv.channel, posSv.value);
@@ -418,10 +420,13 @@ void ContextManager::resetContexts()
 {
     m_channelsMap.clear();
     resetDumpValues();
+
     for (quint32 &itemID : m_selectedFixtures)
         setFixtureSelection(itemID, -1, false);
-
     m_selectedFixtures.clear();
+
+    m_functionManager->setEditorFunction(-1, true, false);
+    m_functionManager->selectFunctionID(-1, false);
     m_editingEnabled = false;
 
     emit environmentSizeChanged();
@@ -472,7 +477,6 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
             break;
         }
     }
-
 
     for (PreviewContext *context : m_contextsMap.values()) // C++11
         context->handleKeyEvent(e, true);
@@ -551,6 +555,9 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
     int linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
     int headIdx = FixtureUtils::itemHeadIndex(itemID);
 
+    if (enable)
+        qDebug() << "Selected itemID" << itemID << ", fixture ID" << fixtureID << ", head from item" << headIdx << "head passed" << headIndex;
+
     if (m_selectedFixtures.contains(itemID))
     {
         if (enable == false)
@@ -580,45 +587,23 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
     if (fixture == nullptr)
         return;
 
+    if (headIndex == -1)
+        m_fixtureManager->setItemRoleData(itemID, enable ? 2 : 0, TreeModel::IsSelectedRole);
+
     if (m_DMXView->isEnabled())
         m_DMXView->updateFixtureSelection(fixtureID, enable);
-
-    if (headIndex == -1 && fixture->type() == QLCFixtureDef::Dimmer)
-    {
-        for (quint32 &subID : m_monProps->fixtureIDList(fixtureID))
-        {
-            quint16 hIndex = m_monProps->fixtureHeadIndex(subID);
-            quint16 lIndex = m_monProps->fixtureLinkedIndex(subID);
-
-            if (lIndex != linkedIndex)
-                continue;
-
-            quint32 id = FixtureUtils::fixtureItemID(fixtureID, hIndex, linkedIndex);
-
-            if (m_2DView->isEnabled())
-                m_2DView->updateFixtureSelection(id, enable);
-            if (m_3DView->isEnabled())
-                m_3DView->updateFixtureSelection(id, enable);
-        }
-    }
-    else
-    {
-        if (m_2DView->isEnabled())
-            m_2DView->updateFixtureSelection(itemID, enable);
-        if (m_3DView->isEnabled())
-            m_3DView->updateFixtureSelection(itemID, enable);
-    }
+    if (m_2DView->isEnabled())
+        m_2DView->updateFixtureSelection(itemID, enable);
+    if (m_3DView->isEnabled())
+        m_3DView->updateFixtureSelection(itemID, enable);
 
     QMultiHash<int, SceneValue> channels = m_fixtureManager->getFixtureCapabilities(itemID, headIndex, enable);
     if (channels.keys().isEmpty())
         return;
 
     qDebug() << "[ContextManager] found" << channels.keys().count() << "capabilities";
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    QHashIterator<int, SceneValue> it(channels);
-#else
+
     QMultiHashIterator<int, SceneValue> it(channels);
-#endif
     while (it.hasNext())
     {
         it.next();
@@ -655,19 +640,13 @@ void ContextManager::setFixtureIDSelection(quint32 fixtureID, bool enable)
 
 void ContextManager::resetFixtureSelection()
 {
-    for (Fixture *fixture : m_doc->fixtures()) // C++11
-    {
-        if (fixture == nullptr)
-            continue;
+    QList<quint32> tmpList = m_selectedFixtures;
 
-        for (quint32 &subID : m_monProps->fixtureIDList(fixture->id()))
-        {
-            quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
-            quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
-            quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
-            setFixtureSelection(itemID, -1, false);
-        }
-    }
+    for (quint32 &itemID : tmpList)
+        setFixtureSelection(itemID, -1, false);
+
+    m_selectedFixtures.clear();
+    m_channelsMap.clear();
 }
 
 void ContextManager::toggleFixturesSelection()
@@ -715,7 +694,7 @@ void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal 
     if (m_2DView->isEnabled())
         fxIDList = m_2DView->selectFixturesRect(QRectF(x, y, width, height));
 
-    for (quint32 itemID : qAsConst(fxIDList))
+    for (quint32 itemID : std::as_const(fxIDList))
         setFixtureSelection(itemID, -1, true);
 
     emit selectedFixturesChanged();
@@ -1140,9 +1119,14 @@ qreal ContextManager::getCurrentValue(int type, bool degrees)
                     chValue = (qreal(phy.focusTiltMax()) / divider) * chValue;
                 break;
                 case QLCChannel::Beam:
-                    chValue = qreal((phy.lensDegreesMax() - phy.lensDegreesMin()) / divider) * chValue;
-                    if (ch->controlByte() == QLCChannel::MSB)
-                        chValue += phy.lensDegreesMin();
+                        chValue = qreal((phy.lensDegreesMax() - phy.lensDegreesMin()) / divider) * chValue;
+
+                        if (ch->preset() == QLCChannel::BeamZoomBigSmall)
+                            chValue = phy.lensDegreesMax() - chValue;
+                        else if (ch->controlByte() == QLCChannel::MSB)
+                            chValue += phy.lensDegreesMin();
+
+                        qDebug() << "Current degrees:" << chValue;
                 break;
             }
         }
@@ -1238,7 +1222,7 @@ void ContextManager::createFixtureGroup()
     if (m_selectedFixtures.isEmpty())
         return;
 
-    m_fixtureManager->addFixturesToNewGroup(selectedFixtureIDList());
+    m_fixtureManager->addItemsToNewGroup(m_selectedFixtures);
 }
 
 QVector3D ContextManager::fixturesRotation() const
@@ -1376,6 +1360,8 @@ void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal
 
     qDebug() << "[ContextManager] New fixture created" << fxID;
 
+    if (m_uniGridView->isEnabled())
+        m_monProps->setFixturePosition(fxID, 0, 0, QVector3D(0, 0, 0));
     if (m_DMXView->isEnabled())
         m_DMXView->createFixtureItem(fxID);
     if (m_2DView->isEnabled())
@@ -1411,7 +1397,7 @@ void ContextManager::slotFixtureFlagsChanged(quint32 itemID, quint32 flags)
 
 void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value)
 {
-    if (m_editingEnabled == false)
+    if (m_editingEnabled == false || m_functionManager->acceptsSceneValues() == false)
         setDumpValue(fxID, channel, uchar(value));
     else
         m_functionManager->setChannelValue(fxID, channel, uchar(value));
@@ -1456,7 +1442,7 @@ void ContextManager::setChannelValueByType(int type, int value, bool isRelative,
                 val = qBound(0, fixture->channelValueAt(sv.channel) + value, 255);
             }
 
-            if (m_editingEnabled == false)
+            if (m_editingEnabled == false || m_functionManager->acceptsSceneValues() == false)
                 setDumpValue(sv.fxi, sv.channel, val);
             else
                 m_functionManager->setChannelValue(sv.fxi, sv.channel, val);
@@ -1464,7 +1450,7 @@ void ContextManager::setChannelValueByType(int type, int value, bool isRelative,
     }
 }
 
-void ContextManager::setPositionValue(int type, int degrees, bool isRelative)
+void ContextManager::setPositionValue(int type, float degrees, bool isRelative)
 {
     // list to keep track of the already processed Fixture IDs
     QList<quint32>fxIDs;
@@ -1484,12 +1470,18 @@ void ContextManager::setPositionValue(int type, int degrees, bool isRelative)
         QList<SceneValue> svList = fixture->positionToValues(type, degrees, isRelative);
         for (SceneValue &posSv : svList)
         {
-            if (m_editingEnabled == false)
+            if (m_editingEnabled == false || m_functionManager->acceptsSceneValues() == false)
                 setDumpValue(posSv.fxi, posSv.channel, posSv.value);
             else
                 m_functionManager->setChannelValue(posSv.fxi, posSv.channel, posSv.value);
         }
     }
+}
+
+void ContextManager::setPositionCenter()
+{
+    setChannelValueByType((int)QLCChannel::Pan, 127);
+    setChannelValueByType((int)QLCChannel::Tilt, 127);
 }
 
 void ContextManager::setBeamDegrees(float degrees, bool isRelative)
@@ -1512,10 +1504,46 @@ void ContextManager::setBeamDegrees(float degrees, bool isRelative)
         QList<SceneValue> svList = fixture->zoomToValues(degrees, isRelative);
         for (SceneValue &zSv : svList)
         {
-            if (m_editingEnabled == false)
+            if (m_editingEnabled == false || m_functionManager->acceptsSceneValues() == false)
                 setDumpValue(zSv.fxi, zSv.channel, zSv.value);
             else
                 m_functionManager->setChannelValue(zSv.fxi, zSv.channel, zSv.value);
+        }
+    }
+}
+
+void ContextManager::highlightFixtureSelection()
+{
+    setChannelValueByType((int)QLCChannel::Red, UCHAR_MAX);
+    setChannelValueByType((int)QLCChannel::Green, UCHAR_MAX);
+    setChannelValueByType((int)QLCChannel::Blue, UCHAR_MAX);
+    setChannelValueByType((int)QLCChannel::White, UCHAR_MAX);
+
+    setChannelValueByType((int)QLCChannel::Intensity, UCHAR_MAX);
+
+    // search for shutter open and lamp on
+    for (quint32 &itemID : m_selectedFixtures)
+    {
+        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        Fixture *fixture = m_doc->fixture(fxID);
+        if (fixture == nullptr)
+            continue;
+
+        for (quint32 i = 0; i < fixture->channels(); i++)
+        {
+            const QLCChannel *channel = fixture->channel(i);
+            for (QLCCapability *cap : channel->capabilities())
+            {
+                if (cap->preset() == QLCCapability::ShutterOpen ||
+                    cap->preset() == QLCCapability::LampOn)
+                {
+                    if (m_editingEnabled == false || m_functionManager->acceptsSceneValues() == false)
+                        setDumpValue(fxID, i, cap->middle());
+                    else
+                        m_functionManager->setChannelValue(fxID, i, cap->middle());
+                    break;
+                }
+            }
         }
     }
 }
@@ -1524,7 +1552,7 @@ void ContextManager::setChannelValues(QList<SceneValue> values)
 {
     for (SceneValue &sv : values)
     {
-        if (m_editingEnabled == false)
+        if (m_editingEnabled == false || m_functionManager->acceptsSceneValues() == false)
             setDumpValue(sv.fxi, sv.channel, sv.value);
         else
             m_functionManager->setChannelValue(sv.fxi, sv.channel, sv.value);
@@ -1579,6 +1607,9 @@ void ContextManager::slotUniverseWritten(quint32 idx, const QByteArray &ua)
 
 void ContextManager::slotFunctionEditingChanged(bool status)
 {
+    if (status == m_editingEnabled)
+        return;
+
     resetFixtureSelection();
     m_editingEnabled = status;
 }
@@ -1596,7 +1627,7 @@ void ContextManager::setDumpValue(quint32 fxID, quint32 channel, uchar value, bo
     currentVal.setValue(SceneValue(fxID, channel, currDmxValue));
     newVal.setValue(sValue);
 
-    if (currentVal != newVal || value != currDmxValue)
+    //if (currentVal != newVal || value != currDmxValue)
     {
         if (output)
         {
@@ -1684,14 +1715,10 @@ int ContextManager::dumpChannelMask() const
     return m_dumpChannelMask;
 }
 
-void ContextManager::dumpDmxChannels(QString name, quint32 mask)
+void ContextManager::dumpDmxChannels(quint32 channelMask, QString sceneName, int sceneID, bool allChannels, bool nonZeroOnly)
 {
-    m_functionManager->dumpOnNewScene(m_dumpValues, selectedFixtureIDList(), mask, name);
-}
-
-void ContextManager::dumpDmxChannels(quint32 sceneID, quint32 mask)
-{
-    m_functionManager->dumpOnScene(m_dumpValues, selectedFixtureIDList(), mask, sceneID);
+    m_functionManager->dumpDmxValues(m_dumpValues, allChannels ? QList<quint32>() : selectedFixtureIDList(), channelMask,
+                                     sceneName, sceneID == -1 ? Function::invalidId() : sceneID, nonZeroOnly);
 }
 
 void ContextManager::resetDumpValues()
@@ -1706,10 +1733,5 @@ void ContextManager::resetDumpValues()
 
     m_dumpChannelMask = 0;
     emit dumpChannelMaskChanged();
-}
-
-GenericDMXSource *ContextManager::dmxSource() const
-{
-    return m_source;
 }
 

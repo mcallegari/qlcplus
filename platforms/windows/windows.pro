@@ -30,7 +30,8 @@ qtlibs.files = $$QT_LIBS_PATH/$${QT_V}Core$${QT_D}.dll \
                $$QT_LIBS_PATH/$${QT_V}OpenGL$${QT_D}.dll \
                $$QT_LIBS_PATH/$${QT_V}Multimedia$${QT_D}.dll \
                $$QT_LIBS_PATH/$${QT_V}MultimediaWidgets$${QT_D}.dll \
-			   $$QT_LIBS_PATH/$${QT_V}SerialPort$${QT_D}.dll
+               $$QT_LIBS_PATH/$${QT_V}SerialPort$${QT_D}.dll \
+               $$QT_LIBS_PATH/$${QT_V}WebSockets$${QT_D}.dll
 greaterThan(QT_MAJOR_VERSION, 5) {
 qtlibs.files += $$QT_LIBS_PATH/$${QT_V}Qml$${QT_D}.dll
 }
@@ -167,9 +168,9 @@ msys.path = $$INSTALLROOT/$$LIBSDIR
 msys.files += $$SYS_LIBS_PATH/libstdc++-6.dll
 msys.files += $$SYS_LIBS_PATH/libgcc_s_dw2-1.dll
 msys.files += $$SYS_LIBS_PATH/libwinpthread-1.dll
-msys.files += $$SYS_LIBS_PATH/libicuin73.dll
-msys.files += $$SYS_LIBS_PATH/libicuuc73.dll
-msys.files += $$SYS_LIBS_PATH/libicudt73.dll
+msys.files += $$SYS_LIBS_PATH/libicuin74.dll
+msys.files += $$SYS_LIBS_PATH/libicuuc74.dll
+msys.files += $$SYS_LIBS_PATH/libicudt74.dll
 msys.files += $$SYS_LIBS_PATH/libmd4c.dll
 msys.files += $$SYS_LIBS_PATH/libusb-1.0.dll
 
@@ -177,9 +178,9 @@ INSTALLS += msys
 
 # audio libraries
 audio.path = $$INSTALLROOT/$$LIBSDIR
-exists($$SYS_LIBS_PATH/libmad-0.dll) {
-    audio.files += $$SYS_LIBS_PATH/libmad-0.dll
-}
+#exists($$SYS_LIBS_PATH/libmad-0.dll) {
+#    audio.files += $$SYS_LIBS_PATH/libmad-0.dll
+#}
 exists($$SYS_LIBS_PATH/libogg-0.dll) {
     audio.files += $$SYS_LIBS_PATH/libogg-0.dll
 }

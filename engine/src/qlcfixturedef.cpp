@@ -558,6 +558,10 @@ bool QLCFixtureDef::loadXML(QXmlStreamReader& doc)
 
     if (retval == true)
         m_isLoaded = true;
+
+    if (m_modes.isEmpty())
+        return false;
+
     return retval;
 }
 

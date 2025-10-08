@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 
@@ -104,6 +104,7 @@ Rectangle
                 enabled: showManager.isEditing
                 tooltip: qsTr("Show items color")
                 onCheckedChanged: colTool.visible = !colTool.visible
+
                 ColorTool
                 {
                     id: colTool
@@ -113,7 +114,11 @@ Rectangle
                     z: 15
                     visible: false
 
-                    onColorChanged: showManager.itemsColor = Qt.rgba(r, g, b, 1.0)
+                    onToolColorChanged:
+                        function(r, g, b, w, a, uv)
+                        {
+                            showManager.itemsColor = Qt.rgba(r, g, b, 1.0)
+                        }
                     onClose: colPickButton.toggle()
                 }
             }
@@ -175,7 +180,8 @@ Rectangle
                 id: stretchBtn
                 width: parent.height - 6
                 height: width
-                imgSource: "qrc:/stretch.svg"
+                faSource: FontAwesome.fa_arrows_left_right_to_line
+                faColor: "lightyellow"
                 tooltip: qsTr("Stretch the original function")
                 checkable: true
                 checked: showManager.stretchFunctions
@@ -188,7 +194,8 @@ Rectangle
                 z: 2
                 width: parent.height - 6
                 height: width
-                imgSource: "qrc:/remove.svg"
+                faSource: FontAwesome.fa_minus
+                faColor: "crimson"
                 tooltip: qsTr("Remove the selected items")
                 counter: showManager.selectedItemsCount
                 onClicked:
@@ -213,7 +220,8 @@ Rectangle
                 id: copyBtn
                 width: parent.height - 6
                 height: width
-                imgSource: "qrc:/edit-copy.svg"
+                faSource: FontAwesome.fa_copy
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Copy the selected items in the clipboard")
                 counter: showManager.selectedItemsCount
                 onClicked: showManager.copyToClipboard()
@@ -224,7 +232,8 @@ Rectangle
                 id: pasteBtn
                 width: parent.height - 6
                 height: width
-                imgSource: "qrc:/edit-paste.svg"
+                faSource: FontAwesome.fa_paste
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Paste items in the clipboard at cursor position")
                 counter: showManager.selectedItemsCount
                 onClicked: showManager.pasteFromClipboard()
@@ -259,7 +268,8 @@ Rectangle
                 id: playbackBtn
                 width: parent.height - 6
                 height: width
-                imgSource: "qrc:/play.svg"
+                faSource: FontAwesome.fa_play
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Play or resume")
                 checkable: true
                 enabled: showManager.isEditing
@@ -276,7 +286,8 @@ Rectangle
                 id: stopBtn
                 width: parent.height - 6
                 height: width
-                imgSource: "qrc:/stop.svg"
+                faSource: FontAwesome.fa_stop
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Stop or rewind")
                 checkable: false
                 enabled: showManager.isEditing
@@ -300,16 +311,12 @@ Rectangle
 
             CustomComboBox
             {
-                ListModel
-                {
-                    id: divModel
-                    ListElement { mLabel: qsTr("Time"); mValue: Show.Time }
-                    ListElement { mLabel: qsTr("BPM 4/4"); mValue: Show.BPM_4_4 }
-                    ListElement { mLabel: qsTr("BPM 3/4"); mValue: Show.BPM_3_4 }
-                    ListElement { mLabel: qsTr("BPM 2/4"); mValue: Show.BPM_2_4 }
-                }
-
-                model: divModel
+                model: [
+                    { mLabel: qsTr("Time"), mValue: Show.Time },
+                    { mLabel: qsTr("BPM 4/4"), mValue: Show.BPM_4_4 },
+                    { mLabel: qsTr("BPM 3/4"), mValue: Show.BPM_3_4 },
+                    { mLabel: qsTr("BPM 2/4"), mValue: Show.BPM_2_4 }
+                ]
                 enabled: showManager.isEditing
                 currValue: showManager.timeDivision
                 onValueChanged: showManager.timeDivision = currentValue
@@ -377,7 +384,8 @@ Rectangle
                 visible: showManager.selectedTrackIndex > 0 ? true : false
                 height: parent.height - 2
                 width: height
-                imgSource: "qrc:/up.svg"
+                faSource: FontAwesome.fa_angle_up
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Move the selected track up")
                 onClicked:
                 {
@@ -392,7 +400,8 @@ Rectangle
                 visible: showManager.selectedTrackIndex < tracksBox.count - 1 ? true : false
                 height: parent.height - 2
                 width: height
-                imgSource: "qrc:/down.svg"
+                faSource: FontAwesome.fa_angle_down
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Move the selected track down")
                 onClicked:
                 {
@@ -448,7 +457,7 @@ Rectangle
             cursorHeight: showMgrContainer.height - topBar.height - (bottomPanel.visible ? bottomPanel.height : 0)
             duration: showManager.showDuration
 
-            onClicked:
+            onClicked: (mouseX, mouseY) =>
             {
                 if (timeDivision === Show.Time)
                     showManager.currentTime = TimeUtils.posToMs(mouseX, timeScale, tickSize)
@@ -543,7 +552,7 @@ Rectangle
             MouseArea
             {
                 anchors.fill: parent
-                onClicked:
+                onClicked: (mouse) =>
                 {
                     showManager.currentTime = TimeUtils.posToMs(mouse.x, timeScale, tickSize)
                     showManager.resetItemsSelection()

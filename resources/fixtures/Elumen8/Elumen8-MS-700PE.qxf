@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -79,7 +79,7 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="8" Max="14" Preset="GoboMacro" Res1="SGM/gobo00010.png">Gobo 1</Capability>
-  <Capability Min="15" Max="21" Preset="GoboMacro" Res1="Chauvet/gobo00060.png">Gobo 2</Capability>
+  <Capability Min="15" Max="21" Preset="GoboMacro" Res1="Chauvet/gobo00060.svg">Gobo 2</Capability>
   <Capability Min="22" Max="28" Preset="GoboMacro" Res1="SGM/gobo00280.png">Gobo 3</Capability>
   <Capability Min="29" Max="35" Preset="GoboMacro" Res1="Others/gobo00059.svg">Gobo 4</Capability>
   <Capability Min="36" Max="42" Preset="GoboMacro" Res1="ClayPaky/gobo00058.svg">Gobo 5</Capability>
@@ -87,7 +87,7 @@
   <Capability Min="50" Max="56">Gobo 7</Capability>
   <Capability Min="57" Max="63" Preset="GoboMacro" Res1="Others/gobo00037.svg">Gobo 8</Capability>
   <Capability Min="64" Max="71" Preset="GoboShakeMacro" Res1="SGM/gobo00010.png">Gobo 1 Shaking</Capability>
-  <Capability Min="72" Max="79" Preset="GoboShakeMacro" Res1="Chauvet/gobo00060.png">Gobo 2 Shaking</Capability>
+  <Capability Min="72" Max="79" Preset="GoboShakeMacro" Res1="Chauvet/gobo00060.svg">Gobo 2 Shaking</Capability>
   <Capability Min="80" Max="87" Preset="GoboShakeMacro" Res1="SGM/gobo00280.png">Gobo 3 Shaking</Capability>
   <Capability Min="88" Max="95" Preset="GoboShakeMacro" Res1="Others/gobo00059.svg">Gobo 4 Shaking</Capability>
   <Capability Min="96" Max="103" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00058.svg">Gobo 5 Shaking</Capability>

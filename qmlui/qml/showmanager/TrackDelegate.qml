@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick
 
 import org.qlcplus.classes 1.0
 import "."
@@ -43,7 +43,11 @@ Rectangle
         wrapMode: TextInput.Wrap
         allowDoubleClick: true
 
-        onTextConfirmed: if(trackRef) trackRef.name = text
+        onTextConfirmed:
+            function(text)
+            {
+                if (trackRef) trackRef.name = text
+            }
     }
 
     Rectangle
@@ -94,7 +98,7 @@ Rectangle
         imgSource: ""
         checkable: true
         tooltip: qsTr("Mute this track")
-        onToggled: if(trackRef) trackRef.mute = checked
+        onToggled: if (trackRef) trackRef.mute = checked
 
         RobotoText
         {
@@ -111,7 +115,7 @@ Rectangle
     {
         anchors.fill: parent
         propagateComposedEvents: true
-        onClicked:
+        onClicked: (mouse) =>
         {
             showManager.selectedTrackIndex = trackIndex
             mouse.accepted = false

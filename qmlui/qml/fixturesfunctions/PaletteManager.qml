@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.2
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -53,7 +53,7 @@ Rectangle
       Rectangle
       {
         id: topBar
-        width: pmContainer.width
+        Layout.fillWidth: true
         height: UISettings.iconSizeMedium
         z: 5
         gradient: Gradient
@@ -78,7 +78,7 @@ Rectangle
                 height: topBar.height - 2
                 bgColor: UISettings.bgMedium
                 faColor: checked ? "white" : "gray"
-                faSource: FontAwesome.fa_search
+                faSource: FontAwesome.fa_magnifying_glass
                 checkable: true
                 tooltip: qsTr("Search a palette")
                 onToggled:
@@ -133,7 +133,8 @@ Rectangle
                 width: height
                 height: topBar.height - 2
                 visible: allowEditing
-                imgSource: "qrc:/remove.svg"
+                faSource: FontAwesome.fa_minus
+                faColor: "crimson"
                 tooltip: qsTr("Delete the selected palette(s)")
                 enabled: pDragItem.itemsList.length
                 onClicked:
@@ -169,7 +170,7 @@ Rectangle
       {
           id: searchBox
           visible: searchFunc.checked
-          width: pmContainer.width
+          Layout.fillWidth: true
           height: UISettings.iconSizeMedium
           z: 5
           color: UISettings.bgMedium
@@ -185,7 +186,7 @@ Rectangle
               width: parent.width
               color: UISettings.fgMain
               text: paletteManager.searchFilter
-              font.family: "Roboto Condensed"
+              font.family: UISettings.robotoFontName
               font.pixelSize: parent.height - 6
               selectionColor: UISettings.highlightPressed
               selectByMouse: true
@@ -197,7 +198,7 @@ Rectangle
       ListView
       {
           id: pListView
-          width: pmContainer.width
+          Layout.fillWidth: true
           Layout.fillHeight: true
           z: 4
           boundsBehavior: Flickable.StopAtBounds
@@ -224,7 +225,7 @@ Rectangle
                       drag.target: pDragItem
                       drag.threshold: height / 2
 
-                      onPressed:
+                      onPressed: (mouse) =>
                       {
                           if (model.isSelected)
                               return

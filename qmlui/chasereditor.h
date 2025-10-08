@@ -94,6 +94,14 @@ public:
      */
     Q_INVOKABLE bool duplicateSteps(QVariantList indicesList);
 
+    /** Shuffle the selected steps order (or all if none is selected)
+     *
+     *  @param indicesList A list of step indices to move
+     *
+     *  @return true if successful, otherwise false
+     */
+    Q_INVOKABLE bool shuffleSteps(QVariantList indicesList);
+
     /** @reimp */
     void deleteItems(QVariantList list);
 

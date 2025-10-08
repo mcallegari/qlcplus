@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -34,6 +34,8 @@ Rectangle
     property string contextName: "VC"
     property int selectedPage: virtualConsole.selectedPage
     property bool docLoaded: qlcplus.docLoaded
+
+    Component.onCompleted: virtualConsole.editMode = false
 
     onDocLoadedChanged:
     {
@@ -54,6 +56,7 @@ Rectangle
     function enableContext(ctx, setChecked)
     {
         console.log("VC enable context " + ctx)
+
         for (var i = 0; i < pagesRepeater.count; i++)
         {
             console.log("Item " + i + " name: " + pagesRepeater.itemAt(i).contextName)

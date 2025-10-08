@@ -32,3 +32,8 @@ TreeNodeDelegate 0.1 ../TreeNodeDelegate.qml
 WindowLoader 0.1 ../WindowLoader.qml
 ZoomItem 0.1 ../ZoomItem.qml
 
+CustomPopupDialog 0.1 ../popup/CustomPopupDialog.qml
+PopupMonitor 0.1 ../popup/PopupMonitor.qml
+PopupInputNumber 0.1 ../popup/PopupInputNumber.qml
+PopupChannelModifiers 0.1 ../popup/PopupChannelModifiers.qml
+PopupRenameItems 0.1 ../popup/PopupRenameItems.qml

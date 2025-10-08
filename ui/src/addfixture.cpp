@@ -72,8 +72,8 @@ AddFixture::AddFixture(QWidget* parent, const Doc* doc, const Fixture* fxi)
             this, SLOT(slotSelectionChanged()));
     connect(m_tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
             this, SLOT(slotTreeDoubleClicked(QTreeWidgetItem*)));
-    connect(m_modeCombo, SIGNAL(activated(const QString&)),
-            this, SLOT(slotModeActivated(const QString&)));
+    connect(m_modeCombo, SIGNAL(activated(int)),
+            this, SLOT(slotModeActivated(int)));
     connect(m_universeCombo, SIGNAL(activated(int)),
             this, SLOT(slotUniverseActivated(int)));
     connect(m_addressSpin, SIGNAL(valueChanged(int)),
@@ -130,7 +130,7 @@ AddFixture::AddFixture(QWidget* parent, const Doc* doc, const Fixture* fxi)
         {
             m_channelsSpin->setValue(fxi->channels());
             m_modeCombo->setCurrentIndex(index);
-            slotModeActivated(m_modeCombo->itemText(index));
+            slotModeActivated(index);
         }
     }
     else
@@ -146,6 +146,9 @@ AddFixture::AddFixture(QWidget* parent, const Doc* doc, const Fixture* fxi)
     if (var.isValid() == true)
         restoreGeometry(var.toByteArray());
     AppUtil::ensureWidgetIsVisible(this);
+
+    // Set focus on the search bar
+    m_searchEdit->setFocus();
 }
 
 AddFixture::~AddFixture()
@@ -277,7 +280,7 @@ void AddFixture::fillTree(const QString& selectManufacturer,
                 parent->setExpanded(true);
                 m_tree->setCurrentItem(child);
             }
-            else if(expanded.indexOf(manuf) != -1)
+            else if (expanded.indexOf(manuf) != -1)
             {
                 parent->setExpanded(true);
             }
@@ -304,7 +307,7 @@ void AddFixture::fillTree(const QString& selectManufacturer,
             parent->setExpanded(true);
             m_tree->setCurrentItem(child);
         }
-        else if(expanded.indexOf(manuf) != -1)
+        else if (expanded.indexOf(manuf) != -1)
         {
             parent->setExpanded(true);
         }
@@ -347,7 +350,7 @@ void AddFixture::fillModeCombo(const QString& text)
 
         /* Select the first mode by default */
         m_modeCombo->setCurrentIndex(0);
-        slotModeActivated(m_modeCombo->currentText());
+        slotModeActivated(0);
     }
 }
 
@@ -405,7 +408,13 @@ quint32 AddFixture::findAddress(quint32 universe, quint32 numChannels,
             continue;
 
         for (quint32 ch = 0; ch < fxi->channels(); ch++)
-            map[(fxi->universeAddress() & 0x01FF) + ch] = 1;
+        {
+            quint32 addr = (fxi->universeAddress() & 0x01FF) + ch;
+            if (addr > 511)
+                continue;
+
+            map[addr] = 1;
+        }
     }
 
     /* Try to find the next contiguous free address space */
@@ -445,12 +454,12 @@ bool AddFixture::checkAddressAvailability(int value, int channels)
  * Slots
  *****************************************************************************/
 
-void AddFixture::slotModeActivated(const QString& modeName)
+void AddFixture::slotModeActivated(int modeIndex)
 {
-    if (m_fixtureDef == NULL)
+    if (m_fixtureDef == NULL || m_fixtureDef->modes().isEmpty())
         return;
 
-    m_mode = m_fixtureDef->mode(modeName);
+    m_mode = m_fixtureDef->modes().at(modeIndex);
     if (m_mode == NULL)
     {
         /* Generic dimmers don't have modes, so bail out */

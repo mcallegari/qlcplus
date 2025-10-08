@@ -51,7 +51,7 @@ bool CollectionEditor::addFunction(quint32 fid, int insertIndex)
 {
     if (m_collection != nullptr)
     {
-        if(m_collection->addFunction(fid, insertIndex) == true)
+        if (m_collection->addFunction(fid, insertIndex) == true)
         {
             Tardis::instance()->enqueueAction(Tardis::CollectionAddFunction, m_collection->id(), QVariant(),
                                               QVariant::fromValue(UIntPair(fid, insertIndex)));

@@ -47,21 +47,21 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCCueList                QString("CueList")
-#define KXMLQLCVCCueListFunction        QString("Function") // Legacy
-#define KXMLQLCVCCueListChaser          QString("Chaser")
-#define KXMLQLCVCCueListPlaybackLayout  QString("PlaybackLayout")
-#define KXMLQLCVCCueListNextPrevBehavior QString("NextPrevBehavior")
-#define KXMLQLCVCCueListCrossfade       QString("Crossfade")
-#define KXMLQLCVCCueListBlend           QString("Blend")
-#define KXMLQLCVCCueListLinked          QString("Linked")
-#define KXMLQLCVCCueListNext            QString("Next")
-#define KXMLQLCVCCueListPrevious        QString("Previous")
-#define KXMLQLCVCCueListPlayback        QString("Playback")
-#define KXMLQLCVCCueListStop            QString("Stop")
-#define KXMLQLCVCCueListCrossfadeLeft   QString("CrossLeft")
-#define KXMLQLCVCCueListCrossfadeRight  QString("CrossRight")
-#define KXMLQLCVCCueListSlidersMode     QString("SlidersMode")
+#define KXMLQLCVCCueList                QStringLiteral("CueList")
+#define KXMLQLCVCCueListFunction        QStringLiteral("Function") // Legacy
+#define KXMLQLCVCCueListChaser          QStringLiteral("Chaser")
+#define KXMLQLCVCCueListPlaybackLayout  QStringLiteral("PlaybackLayout")
+#define KXMLQLCVCCueListNextPrevBehavior QStringLiteral("NextPrevBehavior")
+#define KXMLQLCVCCueListCrossfade       QStringLiteral("Crossfade")
+#define KXMLQLCVCCueListBlend           QStringLiteral("Blend")
+#define KXMLQLCVCCueListLinked          QStringLiteral("Linked")
+#define KXMLQLCVCCueListNext            QStringLiteral("Next")
+#define KXMLQLCVCCueListPrevious        QStringLiteral("Previous")
+#define KXMLQLCVCCueListPlayback        QStringLiteral("Playback")
+#define KXMLQLCVCCueListStop            QStringLiteral("Stop")
+#define KXMLQLCVCCueListCrossfadeLeft   QStringLiteral("CrossLeft")
+#define KXMLQLCVCCueListCrossfadeRight  QStringLiteral("CrossRight")
+#define KXMLQLCVCCueListSlidersMode     QStringLiteral("SlidersMode")
 
 /**
  * VCCueList provides a \ref VirtualConsole widget to control cue lists.
@@ -180,6 +180,12 @@ public slots:
     /** Skip to the previous cue */
     void slotPreviousCue();
 
+    /** Called when m_runner skips to another step */
+    void slotCurrentStepChanged(int stepNumber);
+
+    /** Update cue step note */
+    void slotStepNoteChanged(int idx, QString note);
+
 signals:
     /** progress percent value and text */
     void progressStateChanged();
@@ -196,9 +202,6 @@ private slots:
 
     /** Update the step list at m_updateTimer timeout */
     void slotUpdateStepList();
-
-    /** Called when m_runner skips to another step */
-    void slotCurrentStepChanged(int stepNumber);
 
     /** Slot that is called whenever the current item changes (either by
         pressing the key binding or clicking an item with mouse) */
@@ -285,7 +288,7 @@ public:
     FaderMode stringToFaderMode(QString modeStr);
     QString faderModeToString(FaderMode mode);
     bool isSideFaderVisible();
-    bool sideFaderButtonChecked();
+    bool sideFaderButtonIsChecked();
     QString topPercentageValue();
     QString bottomPercentageValue();
     QString topStepValue();
@@ -296,6 +299,7 @@ public:
 signals:
     void sideFaderButtonToggled();
     void sideFaderValueChanged();
+    void sideFaderButtonChecked();
 
 public slots:
     void slotSideFaderButtonChecked(bool enable);
@@ -404,6 +408,8 @@ public:
 signals:
     /** Signal to webaccess */
     void stepChanged(int idx);
+
+    void stepNoteChanged(int idx, QString note);
 
 private:
     FunctionParent functionParent() const;

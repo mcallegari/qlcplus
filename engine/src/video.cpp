@@ -132,7 +132,7 @@ QStringList Video::getVideoCapabilities()
     {
         qDebug() << "Supported video types:" << mimeTypes;
 
-        foreach(QString mime, mimeTypes)
+        foreach (QString mime, mimeTypes)
         {
             if (mime.startsWith("video/"))
             {

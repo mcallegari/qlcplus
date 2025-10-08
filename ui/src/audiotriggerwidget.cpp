@@ -27,17 +27,22 @@
 AudioTriggerWidget::AudioTriggerWidget(QWidget *parent) :
     QWidget(parent)
   , m_spectrumBands(NULL)
+  , m_spectrumHeight(0)
   , m_volumeBarHeight(0)
   , m_barsNumber(0)
   , m_maxFrequency(0)
 {
 }
 
+AudioTriggerWidget::~AudioTriggerWidget()
+{
+    delete[] m_spectrumBands;
+}
+
 void AudioTriggerWidget::setBarsNumber(int num)
 {
     m_barsNumber = num;
-    if (m_spectrumBands)
-        delete[] m_spectrumBands;
+    delete[] m_spectrumBands;
     m_spectrumBands = new double[m_barsNumber];
     for (int i = 0; i < m_barsNumber; i++)
         m_spectrumBands[i] = 0;
@@ -73,7 +78,7 @@ void AudioTriggerWidget::displaySpectrum(double *spectrumData, double maxMagnitu
 {
     m_volumeBarHeight = (power * m_spectrumHeight) / 0x7FFF;
     for (int i = 0; i < m_barsNumber; i++)
-        m_spectrumBands[i] =  (m_volumeBarHeight * spectrumData[i]) / maxMagnitude;
+        m_spectrumBands[i] = (m_volumeBarHeight * spectrumData[i]) / maxMagnitude;
 
     //qDebug() << "[displaySpectrum] power: " << power << ", first bar: " << m_spectrumBands[0];
     update();

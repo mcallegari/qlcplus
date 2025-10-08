@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Controls
 
 import "."
 
@@ -83,7 +83,7 @@ Rectangle
             }
 
             Component.onCompleted: contextManager.enableContext("DMX", true, flowLayout)
-            Component.onDestruction: if(contextManager) contextManager.enableContext("DMX", false, flowLayout)
+            Component.onDestruction: if (contextManager) contextManager.enableContext("DMX", false, flowLayout)
         }
 
         ScrollBar.vertical: CustomScrollBar { }

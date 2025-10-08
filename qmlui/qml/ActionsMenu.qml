@@ -17,10 +17,10 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Controls 2.1
-import QtQuick.Dialogs 1.2
-import QtQuick.Layouts 1.0
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Dialogs
+import QtQuick.Layouts
 
 import "."
 
@@ -57,18 +57,17 @@ Popup
     FileDialog
     {
         id: openDialog
-        visible: false
         title: qsTr("Open a file")
-        folder: "file://" + qlcplus.workingPath
+        currentFolder: "file://" + qlcplus.workingPath
         nameFilters: [ qsTr("QLC+ files") + " (*.qxw *.qxf)", qsTr("All files") + " (*)" ]
 
         onAccepted:
         {
-            if (fileUrl.toString().endsWith("qxf") || fileUrl.toString().endsWith("d4"))
-                qlcplus.loadFixture(fileUrl)
+            if (selectedFile.toString().endsWith("qxf") || selectedFile.toString().endsWith("d4"))
+                qlcplus.loadFixture(selectedFile)
             else
-                qlcplus.loadWorkspace(fileUrl)
-            qlcplus.workingPath = folder.toString()
+                qlcplus.loadWorkspace(selectedFile)
+            qlcplus.workingPath = currentFolder.toString()
         }
     }
 */
@@ -91,14 +90,13 @@ Popup
     FileDialog
     {
         id: importDialog
-        visible: false
         title: qsTr("Import from project")
-        folder: "file://" + qlcplus.workingPath
+        currentFolder: "file://" + qlcplus.workingPath
         nameFilters: [ qsTr("Project files") + " (*.qxw)", qsTr("All files") + " (*)" ]
 
         onAccepted:
         {
-            if (qlcplus.loadImportWorkspace(fileUrl) === true)
+            if (qlcplus.loadImportWorkspace(selectedFile) === true)
             {
                 importLoader.source = ""
                 importLoader.source = "qrc:/PopupImportProject.qml"
@@ -109,15 +107,15 @@ Popup
     FileDialog
     {
         id: saveDialog
-        visible: false
         title: qsTr("Save project as...")
-        selectExisting: false
+        currentFolder: "file://" + qlcplus.workingPath
+        fileMode: FileDialog.SaveFile
         nameFilters: [ qsTr("Project files") + " (*.qxw)", qsTr("All files") + " (*)" ]
 
         onAccepted:
         {
-            console.log("You chose: " + fileUrl)
-            qlcplus.saveWorkspace(fileUrl)
+            console.log("You chose: " + selectedFile)
+            qlcplus.saveWorkspace(selectedFile)
 
             if (saveFirstPopup.action == "#EXIT")
                 qlcplus.exit()
@@ -127,25 +125,30 @@ Popup
     CustomPopupDialog
     {
         id: saveFirstPopup
+        width: mainView.width / 2
+        height: mainView.height / 3
         title: qsTr("Your project has changes")
         message: qsTr("Do you wish to save the current project first?\nChanges will be lost if you don't save them.")
         standardButtons: Dialog.Yes | Dialog.No | Dialog.Cancel
 
         property string action: ""
 
-        onClicked:
+        onClicked: function(role)
         {
             if (role === Dialog.Yes)
             {
                 if (qlcplus.fileName())
                 {
+                    console.log("YES clicked 1")
                     qlcplus.saveWorkspace(qlcplus.fileName())
                     if (action == "#EXIT")
                         qlcplus.exit()
                 }
                 else
                 {
-                    saveDialog.open()
+                    console.log("YES clicked 2")
+                    //saveDialog.open()
+                    handleSaveAction()
                     if (action == "#EXIT")
                         return
                 }
@@ -177,6 +180,7 @@ Popup
             border.width: 1
             border.color: UISettings.bgStronger
             color: UISettings.bgStrong
+            height: actionsMenuEntries.height
         }
 
     Column
@@ -309,7 +313,10 @@ Popup
                 Connections
                 {
                     target: importLoader.item
-                    onClose: importLoader.source = ""
+                    function onClose()
+                    {
+                        importLoader.source = ""
+                    }
                 }
             }
         }
@@ -323,6 +330,7 @@ Popup
             ContextMenuEntry
             {
                 Layout.fillWidth: true
+                Layout.fillHeight: true
                 imgSource: "qrc:/undo.svg"
                 entryText: qsTr("Undo")
                 onEntered: submenuItem = null
@@ -336,6 +344,7 @@ Popup
             ContextMenuEntry
             {
                 Layout.fillWidth: true
+                Layout.fillHeight: true
                 imgSource: "qrc:/redo.svg"
                 entryText: qsTr("Redo")
                 onEntered: submenuItem = null
@@ -350,6 +359,8 @@ Popup
         ContextMenuEntry
         {
             imgSource: "qrc:/network.svg"
+            //faSource: FontAwesome.fa_network_wired
+            //faColor: "darkseagreen"
             entryText: qsTr("Network")
             onEntered: submenuItem = networkMenu
 
@@ -450,7 +461,8 @@ Popup
         ContextMenuEntry
         {
             id: fullScreen
-            imgSource: "qrc:/fullscreen.svg"
+            faSource: FontAwesome.fa_maximize
+            faColor: UISettings.fgLight
             entryText: qsTr("Toggle fullscreen")
             onEntered: submenuItem = null
             onClicked:
@@ -462,7 +474,8 @@ Popup
 
         ContextMenuEntry
         {
-            imgSource: "qrc:/global.svg"
+            faSource: FontAwesome.fa_earth_europe
+            faColor: "deepskyblue"
             entryText: qsTr("Language")
             onEntered: submenuItem = languageMenu
 
@@ -584,7 +597,8 @@ Popup
         ContextMenuEntry
         {
             id: info
-            imgSource: "qrc:/info.svg"
+            faSource: FontAwesome.fa_circle_info
+            faColor: "skyblue"
             entryText: qsTr("About")
             onEntered: submenuItem = null
             onClicked:
@@ -596,6 +610,7 @@ Popup
             PopupAbout
             {
                 id: infoPopup
+                width: mainView.width / 2
             }
         }
     }

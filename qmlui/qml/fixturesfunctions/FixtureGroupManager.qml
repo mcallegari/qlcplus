@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.2
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -36,6 +36,8 @@ Rectangle
       * must provide a 'groupsTreeModel' method */
     property var modelProvider: null
     property bool allowEditing: true
+    property string previousView: ""
+    property int currentItemType: -1
 
     signal doubleClicked(int ID, int type)
 
@@ -43,7 +45,8 @@ Rectangle
     {
         // update info button
         infoButton.enabled = itemType !== App.HeadDragItem ? true : false
-        updateInfoView()
+        updateInfoView(infoButton.checked)
+        updateEditingView(editButton.checked)
 
         // update rename button
         renameButton.enabled = true
@@ -54,32 +57,97 @@ Rectangle
 
         linkedButton.enabled = itemType === App.FixtureDragItem ? true : false
         var linkedIndex = fixtureManager.fixtureLinkedIndex(itemID)
-        linkedButton.faSource = linkedIndex ? FontAwesome.fa_unlink : FontAwesome.fa_link
+        linkedButton.faSource = linkedIndex ? FontAwesome.fa_link_slash : FontAwesome.fa_link
     }
 
-    function updateInfoView()
+    function updateInfoView(checked)
     {
-        if (gfhcDragItem.itemsList.length === 0)
+        if (editButton.checked)
             return
 
-        if (!infoButton.checked)
+        if (checked)
+        {
+            if (gfhcDragItem.itemsList.length === 0)
+                return
+
+            currentItemType = gfhcDragItem.itemsList[0].itemType
+            if (previousView == "")
+                previousView = fixtureAndFunctions.currentViewQML
+
+            switch (currentItemType)
+            {
+                case App.UniverseDragItem:
+                    fixtureManager.itemID = (gfhcDragItem.itemsList[0].cRef.id | (App.UniverseDragItem << 16))
+                    fixtureAndFunctions.currentViewQML = "qrc:/UniverseSummary.qml"
+                break
+                case App.FixtureGroupDragItem:
+                    fixtureManager.itemID = (gfhcDragItem.itemsList[0].cRef.id | (App.FixtureGroupDragItem << 16))
+                    fixtureAndFunctions.currentViewQML = "qrc:/UniverseSummary.qml"
+                break
+                case App.FixtureDragItem:
+                    fixtureManager.itemID = gfhcDragItem.itemsList[0].itemID
+                    fixtureAndFunctions.currentViewQML = "qrc:/FixtureSummary.qml"
+                break
+            }
+        }
+        else
+        {
+            if (previousView != "")
+            {
+                fixtureAndFunctions.currentViewQML = previousView
+                currentItemType = -1
+                previousView = ""
+            }
+        }
+    }
+
+    function updateEditingView(checked)
+    {
+        if (infoButton.checked)
             return
 
-        switch(gfhcDragItem.itemsList[0].itemType)
+        if (checked)
+            currentItemType = gfhcDragItem.itemsList[0].itemType
+
+        switch(currentItemType)
         {
             case App.UniverseDragItem:
-                fixtureManager.itemID = gfhcDragItem.itemsList[0].cRef.id
-                fixtureAndFunctions.currentViewQML = "qrc:/UniverseSummary.qml"
-            break;
-            case App.FixtureGroupDragItem:
-                fixtureGroupEditor.setEditGroup(gfhcDragItem.itemsList[0].cRef)
-                fixtureAndFunctions.currentViewQML = "qrc:/FixtureGroupEditor.qml"
-            break;
             case App.FixtureDragItem:
-                fixtureManager.itemID = gfhcDragItem.itemsList[0].itemID
-                fixtureAndFunctions.currentViewQML = "qrc:/FixtureSummary.qml"
-            break;
+            {
+                if (previousView != "")
+                {
+                    fixtureAndFunctions.currentViewQML = previousView
+                    previousView = ""
+                }
+
+                if (checked)
+                    leftSidePanel.width += UISettings.sidePanelWidth
+                else
+                    leftSidePanel.width -= UISettings.sidePanelWidth
+
+                fixtureManager.propertyEditEnabled = checked
+            }
+            break
+            case App.FixtureGroupDragItem:
+            {
+                if (checked)
+                {
+                    if (previousView == "")
+                        previousView = fixtureAndFunctions.currentViewQML
+                    fixtureGroupEditor.setEditGroup(gfhcDragItem.itemsList[0].cRef)
+                    fixtureAndFunctions.currentViewQML = "qrc:/FixtureGroupEditor.qml"
+                }
+                else
+                {
+                    fixtureGroupEditor.setEditGroup(null)
+                    fixtureAndFunctions.currentViewQML = previousView
+                }
+            }
+            break
         }
+
+        if (!checked)
+            currentItemType = -1
     }
 
     function showChannelModifierEditor(itemID, channelIndex, modifierName)
@@ -139,7 +207,8 @@ Rectangle
                     z: 2
                     width: height
                     height: topBar.height - 2
-                    imgSource: "qrc:/add.svg"
+                    faSource: FontAwesome.fa_plus
+                    faColor: "limegreen"
                     tooltip: qsTr("Add a new fixture group")
                     onClicked: contextManager.createFixtureGroup()
                 }
@@ -150,7 +219,8 @@ Rectangle
                     z: 2
                     width: height
                     height: topBar.height - 2
-                    imgSource: "qrc:/remove.svg"
+                    faSource: FontAwesome.fa_minus
+                    faColor: "crimson"
                     tooltip: qsTr("Remove the selected items")
                     onClicked:
                     {
@@ -190,7 +260,24 @@ Rectangle
                             fixtureManager.deleteFixtureGroups(fxGroupDeleteList)
                     }
                 }
+
+                IconButton
+                {
+                    visible: !allowEditing
+                    z: 2
+                    width: height
+                    height: topBar.height - 2
+                    faSource: FontAwesome.fa_check_double
+                    //faColor: UISettings.fgMain
+                    tooltip: qsTr("Apply changes to fixtures of the same type")
+                    checkable: true
+
+                    onToggled: modelProvider.applyToSameType(checked)
+                }
+
+                // Spacer
                 Rectangle { Layout.fillWidth: true }
+
                 IconButton
                 {
                     id: searchItem
@@ -199,7 +286,7 @@ Rectangle
                     height: topBar.height - 2
                     bgColor: UISettings.bgMedium
                     faColor: checked ? "white" : "gray"
-                    faSource: FontAwesome.fa_search
+                    faSource: FontAwesome.fa_magnifying_glass
                     checkable: true
                     tooltip: qsTr("Set a Group/Fixture/Channel search filter")
                     onToggled:
@@ -234,7 +321,9 @@ Rectangle
                         title: qsTr("Rename items")
                         onAccepted:
                         {
-                            var item;
+                            var item
+                            var ret
+
                             if (numberingEnabled)
                             {
                                 var currNum = startNumber
@@ -251,10 +340,12 @@ Rectangle
                                     currNum++
 
                                     if (item.itemType === App.FixtureDragItem)
-                                        fixtureManager.renameFixture(item.itemID, finalName)
+                                        ret = fixtureManager.renameFixture(item.itemID, finalName)
                                     else if (item.itemType === App.FixtureGroupDragItem)
-                                        fixtureManager.renameFixtureGroup(item.itemID, finalName)
+                                        ret = fixtureManager.renameFixtureGroup(item.itemID, finalName)
 
+                                    if (ret === false)
+                                        break
                                 }
                             }
                             else
@@ -262,9 +353,15 @@ Rectangle
                                 item = gfhcDragItem.itemsList[0];
 
                                 if (item.itemType === App.FixtureDragItem)
-                                    fixtureManager.renameFixture(item.itemID, editText)
+                                    ret = fixtureManager.renameFixture(item.itemID, editText)
                                 else if (item.itemType === App.FixtureGroupDragItem)
-                                    fixtureManager.renameFixtureGroup(item.itemID, editText)
+                                    ret = fixtureManager.renameFixtureGroup(item.itemID, editText)
+                            }
+
+                            if (ret === false)
+                            {
+                                fmGenericPopup.message = qsTr("An item with the same name already exists.\nPlease provide a different name.")
+                                fmGenericPopup.open()
                             }
                         }
                     }
@@ -277,47 +374,26 @@ Rectangle
                     z: 2
                     width: height
                     height: topBar.height - 2
-                    imgSource: "qrc:/info.svg"
+                    faSource: FontAwesome.fa_circle_info
+                    faColor: "skyblue"
                     tooltip: qsTr("Inspect the selected item")
                     enabled: false
                     checkable: true
 
-                    property string previousView: ""
-
-                    onToggled:
-                    {
-                        if (checked)
-                        {
-                            previousView = fixtureAndFunctions.currentViewQML
-                            updateInfoView()
-                        }
-                        else
-                        {
-                            fixtureGroupEditor.setEditGroup(null)
-                            fixtureAndFunctions.currentViewQML = previousView
-                            previousView = ""
-                        }
-                    }
+                    onToggled: updateInfoView(checked)
                 }
 
                 IconButton
                 {
-                    id: propsButton
+                    id: editButton
                     visible: allowEditing
                     width: height
                     height: topBar.height - 2
                     imgSource: "qrc:/edit.svg"
-                    tooltip: qsTr("Toggle fixtures and channels properties")
+                    tooltip: qsTr("Toggle selected item editing")
                     checkable: true
 
-                    onToggled:
-                    {
-                        if (checked)
-                            leftSidePanel.width += UISettings.sidePanelWidth
-                        else
-                            leftSidePanel.width -= UISettings.sidePanelWidth
-                        fixtureManager.propertyEditEnabled = checked
-                    }
+                    onToggled: updateEditingView(checked)
                 }
 
                 IconButton
@@ -338,7 +414,7 @@ Rectangle
         Rectangle
         {
             id: propertiesHeader
-            visible: propsButton.checked
+            visible: fixtureManager.propertyEditEnabled
             implicitHeight: UISettings.iconSizeMedium
             implicitWidth: fgmContainer.width - (gEditScrollBar.visible ? gEditScrollBar.width : 0)
             z: 5
@@ -490,7 +566,6 @@ Rectangle
                                             contextManager.setFixtureSelection(iID, -1, true)
                                         break;
                                         case App.HeadDragItem:
-                                            console.log("Head clicked. ItemID: " + qItem.itemID + ", head: " + iID)
                                             itemID = qItem.itemID
                                             contextManager.setFixtureSelection(qItem.itemID, iID, true);
                                         break;

@@ -63,6 +63,7 @@ private:
     void fillAnimationCombo();
     void fillImageAnimationCombo();
     void updateExtraOptions();
+    void updateColorOptions();
     void updateColors();
     void resetProperties(QLayoutItem *item);
     void displayProperties(RGBScript *script);
@@ -73,22 +74,28 @@ private slots:
     void slotPreviewTimeout();
     void slotNameEdited(const QString& text);
     void slotSpeedDialToggle(bool state);
-    void slotPatternActivated(const QString& text);
+    void slotPatternActivated(int patternIndex);
     void slotFixtureGroupActivated(int index);
     void slotBlendModeChanged(int index);
     void slotControlModeChanged(int index);
-    void slotStartColorButtonClicked();
-    void slotEndColorButtonClicked();
-    void slotResetEndColorButtonClicked();
+    void slotMtxColor1ButtonClicked();
+    void slotMtxColor2ButtonClicked();
+    void slotResetMtxColor2ButtonClicked();
+    void slotMtxColor3ButtonClicked();
+    void slotResetMtxColor3ButtonClicked();
+    void slotMtxColor4ButtonClicked();
+    void slotResetMtxColor4ButtonClicked();
+    void slotMtxColor5ButtonClicked();
+    void slotResetMtxColor5ButtonClicked();
 
     void slotTextEdited(const QString& text);
     void slotFontButtonClicked();
-    void slotAnimationActivated(const QString& text);
+    void slotAnimationActivated(int index);
     void slotOffsetSpinChanged();
 
     void slotImageEdited();
     void slotImageButtonClicked();
-    void slotImageAnimationActivated(const QString& text);
+    void slotImageAnimationActivated(int index);
 
     void slotLoopClicked();
     void slotPingPongClicked();
@@ -115,8 +122,10 @@ private slots:
     void slotSaveToSequenceClicked();
     void slotShapeToggle(bool);
 
-    void slotPropertyComboChanged(QString value);
+    void slotPropertyComboChanged(int index);
     void slotPropertySpinChanged(int value);
+    void slotPropertyDoubleSpinChanged(double value);
+    void slotPropertyEditChanged(QString text);
 
 private:
     FunctionParent functionParent() const;

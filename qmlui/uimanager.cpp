@@ -47,7 +47,7 @@ void UiManager::initialize()
      *  to change the UI settings at runtime */
     QQmlComponent component(m_view->engine());
     const char *source =
-            "import QtQuick 2.0\n"
+            "import QtQuick\n"
             "import \".\"\n"
             "QtObject {\n"
             "    property var style: UISettings\n"
@@ -164,7 +164,7 @@ bool UiManager::saveSettings()
 
     /** Add parameters to JSON objects representing categories */
     QMapIterator<QString, UiProperty> it(m_parameterMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         QString paramName = it.key();
@@ -179,7 +179,7 @@ bool UiManager::saveSettings()
 
     /** Add each JSON object to the root object */
     QMapIterator<QString, QJsonObject*> cIt(objMap);
-    while(cIt.hasNext())
+    while (cIt.hasNext())
     {
         cIt.next();
         objRoot[cIt.key()] = *cIt.value();

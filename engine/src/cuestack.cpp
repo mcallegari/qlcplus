@@ -22,7 +22,6 @@
 #include <QXmlStreamWriter>
 #include <qmath.h>
 #include <QDebug>
-#include <QHash>
 
 #include "genericfader.h"
 #include "fadechannel.h"
@@ -403,7 +402,7 @@ void CueStack::adjustIntensity(qreal fraction)
 {
     m_intensity = fraction;
 
-    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
     {
         if (!fader.isNull())
             fader->adjustIntensity(fraction);
@@ -445,7 +444,7 @@ void CueStack::writeDMX(MasterTimer *timer, QList<Universe*> ua)
     {
         if (m_fadersMap.isEmpty())
         {
-            QHashIterator <uint,uchar> it(m_cues.first().values());
+            QMapIterator <uint,uchar> it(m_cues.first().values());
             while (it.hasNext() == true)
             {
                 it.next();
@@ -514,7 +513,8 @@ void CueStack::write(QList<Universe*> ua)
         int to = previous();
         switchCue(from, to, ua);
         m_previous = false;
-        emit currentCueChanged(m_currentIndex);
+        emit currentCueChanged(from);
+        emit currentCueChanged(to);
     }
     else if (m_next == true)
     {
@@ -524,7 +524,8 @@ void CueStack::write(QList<Universe*> ua)
         int to = next();
         switchCue(from, to, ua);
         m_next = false;
-        emit currentCueChanged(m_currentIndex);
+        emit currentCueChanged(from);
+        emit currentCueChanged(to);
     }
 /*
     else if (m_elapsed >= duration())
@@ -563,7 +564,7 @@ void CueStack::postRun(MasterTimer* timer, QList<Universe *> ua)
     }
     else
     {
-        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
         {
             if (!fader.isNull())
                 fader->setFadeOut(true, fadeOutSpeed());
@@ -649,7 +650,7 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
     }
 
     // Fade out the HTP channels of the previous cue
-    QHashIterator <uint,uchar> oldit(oldCue.values());
+    QMapIterator <uint,uchar> oldit(oldCue.values());
     while (oldit.hasNext() == true)
     {
         oldit.next();
@@ -662,7 +663,7 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
     }
 
     // Fade in all channels of the new cue
-    QHashIterator <uint,uchar> newit(newCue.values());
+    QMapIterator <uint,uchar> newit(newCue.values());
     while (newit.hasNext() == true)
     {
         newit.next();

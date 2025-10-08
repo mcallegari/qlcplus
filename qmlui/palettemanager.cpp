@@ -95,18 +95,25 @@ quint32 PaletteManager::createPalette(QLCPalette *palette, QString name)
     if (palette == nullptr)
         return QLCPalette::invalidId();
 
+    QVariantList pValues = palette->values();
     QLCPalette *newPalette = palette->createCopy();
     newPalette->setName(name);
+
+    if (pValues.isEmpty())
+        pValues.append(0);
 
     if (palette->type() == QLCPalette::Pan)
     {
         newPalette->resetValues();
-        newPalette->setValue(palette->values().at(0));
+        newPalette->setValue(pValues.at(0));
     }
     else if (palette->type() == QLCPalette::Tilt)
     {
         newPalette->resetValues();
-        newPalette->setValue(palette->values().at(1));
+        if (pValues.count() == 2)
+            newPalette->setValue(pValues.at(1));
+        else
+            newPalette->setValue(pValues.at(0));
     }
 
     if (m_doc->addPalette(newPalette) == false)
@@ -162,7 +169,7 @@ void PaletteManager::deletePalettes(QVariantList list)
 
 void PaletteManager::addPaletteToNewScene(quint32 id, QString sceneName)
 {
-    // check for palette existance
+    // check for palette existence
     if (m_doc->palette(id) == nullptr)
         return;
 

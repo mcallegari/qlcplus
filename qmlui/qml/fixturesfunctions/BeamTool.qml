@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.0
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "."
@@ -53,6 +53,8 @@ Rectangle
         {
             previousDegrees = 0
             var val = contextManager.getCurrentValue(QLCChannel.Beam, true)
+            isUpdating = true
+
             if (val === -1)
             {
                 relativeValue = true
@@ -63,6 +65,9 @@ Rectangle
                 relativeValue = false
                 currentDegrees = val
             }
+            beamSpinBox.value = currentDegrees * Math.pow(10, beamSpinBox.decimals)
+            calculateProjection()
+            isUpdating = false
         }
     }
 
@@ -90,6 +95,7 @@ Rectangle
         minDegrees = min
         invertedZoom = inverted
         currentDegrees = inverted ? maxDegrees : minDegrees
+        beamSpinBox.value = currentDegrees * Math.pow(10, beamSpinBox.decimals)
         isUpdating = false
     }
 
@@ -143,7 +149,7 @@ Rectangle
             anchors.right: parent.right
             border.color: UISettings.bgMedium
             useFontawesome: true
-            label: FontAwesome.fa_times
+            label: FontAwesome.fa_xmark
             onClicked: toolRoot.close()
         }
     }
@@ -236,7 +242,7 @@ Rectangle
 
         RobotoText
         {
-            label: Number(toolRoot.projectedDiameter).toFixed(2) + "m"
+            label: relativeValue ? qsTr("N/A") : Number(toolRoot.projectedDiameter).toFixed(2) + "m"
             fontBold: true
             //labelColor: UISettings.highlight
         }

@@ -19,9 +19,9 @@ endif()
 
 if(qmlui)
     add_definitions(-DQMLUI)
-    set(APPVERSION "5.0.0 Beta 3")
+    set(APPVERSION "5.0.1 GIT")
 else()
-    set(APPVERSION "4.12.8 GIT")
+    set(APPVERSION "4.14.4 GIT")
 endif()
 
 if(UNIX)
@@ -89,7 +89,7 @@ if (WIN32)
 elseif (APPLE)
     set(LIBSDIR "Frameworks")
 elseif (UNIX)
-    set(LIBSDIR "lib/x86_64-linux-gnu")
+    set(LIBSDIR "${CMAKE_INSTALL_LIBDIR}")
 endif ()
 
 if (ANDROID)
@@ -287,9 +287,9 @@ elseif (APPLE)
     set(PLUGINDIR "PlugIns")
 elseif (UNIX)
     if (appimage)
-        set(PLUGINDIR "../lib/qt5/plugins/qlcplus")
+        set(PLUGINDIR "../lib/qt${QT_MAJOR_VERSION}/plugins/qlcplus")
     else ()
-        set(PLUGINDIR "${LIBSDIR}/qt5/plugins/qlcplus")
+        set(PLUGINDIR "${LIBSDIR}/qt${QT_MAJOR_VERSION}/plugins/qlcplus")
     endif ()
 endif ()
 
@@ -497,13 +497,9 @@ endif()
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4701")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4101")
-
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4456")   # Suppress warning C4456: declaration of '_container_' hides previous local declaration in foreach
-
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX")
-
 elseif(NOT APPLE AND NOT IOS)
-
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")

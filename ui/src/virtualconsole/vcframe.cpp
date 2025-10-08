@@ -123,6 +123,8 @@ void VCFrame::setDisableState(bool disable)
     }
 
     m_disableState = disable;
+
+    emit disableStateChanged(disable);
     updateFeedback();
 }
 
@@ -146,7 +148,7 @@ void VCFrame::setCaption(const QString& text)
 {
     if (m_label != NULL)
     {
-        if(!shortcuts().isEmpty() && m_currentPage < shortcuts().length())
+        if (!shortcuts().isEmpty() && m_currentPage < shortcuts().length())
         {
             // Show caption, if there is no page name
             if (m_pageShortcuts.at(m_currentPage)->name() == "")
@@ -414,7 +416,7 @@ void VCFrame::setMultipageMode(bool enable)
         connect (m_pageCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSetPage(int)));
         connect (m_nextPageBtn, SIGNAL(clicked()), this, SLOT(slotNextPage()));
 
-        if(this->isCollapsed() == false)
+        if (this->isCollapsed() == false)
         {
             m_prevPageBtn->show();
             m_nextPageBtn->show();
@@ -525,7 +527,7 @@ void VCFrame::addShortcut()
 void VCFrame::setShortcuts(QList<VCFramePageShortcut *> shortcuts)
 {
     resetShortcuts();
-    foreach(VCFramePageShortcut const* shortcut, shortcuts)
+    foreach (VCFramePageShortcut const* shortcut, shortcuts)
     {
         m_pageShortcuts.append(new VCFramePageShortcut(*shortcut));
         if (shortcut->m_inputSource != NULL)
@@ -572,15 +574,22 @@ void VCFrame::removeWidgetFromPageMap(VCWidget *widget)
 
 void VCFrame::slotPreviousPage()
 {
+    if (!m_pagesLoop && m_currentPage == 0)
+        return;
+
     if (m_pagesLoop && m_currentPage == 0)
         slotSetPage(m_totalPagesNumber - 1);
     else
         slotSetPage(m_currentPage - 1);
+
     sendFeedback(m_currentPage, previousPageInputSourceId);
 }
 
 void VCFrame::slotNextPage()
 {
+    if (!m_pagesLoop && m_currentPage == m_totalPagesNumber - 1)
+        return;
+
     if (m_pagesLoop && m_currentPage == m_totalPagesNumber - 1)
         slotSetPage(0);
     else
@@ -631,6 +640,7 @@ void VCFrame::slotModeChanged(Doc::Mode mode)
     {
         if (isDisabled())
             slotEnableButtonClicked(false);
+        slotSetPage(currentPage());
         updateSubmasterValue();
         updateFeedback();
     }
@@ -748,14 +758,14 @@ void VCFrame::updateFeedback()
     {
         if (m_disableState == false)
         {
-            sendFeedback(src->upperValue(), enableInputSourceId);
+            sendFeedback(src->feedbackValue(QLCInputFeedback::UpperValue), enableInputSourceId);
         }
         else
         {
             // temporarily revert the disabled state otherwise this
             // feedback will never go through (cause of acceptsInput)
             m_disableState = false;
-            sendFeedback(src->lowerValue(), enableInputSourceId);
+            sendFeedback(src->feedbackValue(QLCInputFeedback::LowerValue), enableInputSourceId);
             m_disableState = true;
         }
     }
@@ -766,9 +776,9 @@ void VCFrame::updateFeedback()
         if (!src.isNull() && src->isValid() == true)
         {
             if (m_currentPage == shortcut->m_page)
-                sendFeedback(src->upperValue(), src);
+                sendFeedback(src->feedbackValue(QLCInputFeedback::UpperValue), src);
             else
-                sendFeedback(src->lowerValue(), src);
+                sendFeedback(src->feedbackValue(QLCInputFeedback::LowerValue), src);
         }
     }
 
@@ -1085,7 +1095,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             if (attrs.hasAttribute(KXMLQLCVCFramePagesNumber))
                 setTotalPagesNumber(attrs.value(KXMLQLCVCFramePagesNumber).toString().toInt());
 
-            if(attrs.hasAttribute(KXMLQLCVCFrameCurrentPage))
+            if (attrs.hasAttribute(KXMLQLCVCFrameCurrentPage))
                 slotSetPage(attrs.value(KXMLQLCVCFrameCurrentPage).toString().toInt());
             root.skipCurrentElement();
         }

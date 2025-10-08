@@ -19,19 +19,21 @@
 
 #include <QDebug>
 
+#include "customfeedbackdialog.h"
 #include "inputselectionwidget.h"
 #include "selectinputchannel.h"
 #include "qlcinputchannel.h"
+#include "qlcinputsource.h"
 #include "assignhotkey.h"
 #include "inputpatch.h"
 #include "doc.h"
-
 
 InputSelectionWidget::InputSelectionWidget(Doc *doc, QWidget *parent)
     : QWidget(parent)
     , m_doc(doc)
     , m_widgetPage(0)
     , m_emitOdd(false)
+    , m_supportMonitoring(false)
     , m_signalsReceived(0)
 {
     Q_ASSERT(doc != NULL);
@@ -39,9 +41,6 @@ InputSelectionWidget::InputSelectionWidget(Doc *doc, QWidget *parent)
     setupUi(this);
 
     m_customFbButton->setVisible(false);
-    m_feedbackGroup->setVisible(false);
-    m_lowerSpin->setEnabled(false);
-    m_upperSpin->setEnabled(false);
 
     connect(m_attachKey, SIGNAL(clicked()), this, SLOT(slotAttachKey()));
     connect(m_detachKey, SIGNAL(clicked()), this, SLOT(slotDetachKey()));
@@ -51,12 +50,8 @@ InputSelectionWidget::InputSelectionWidget(Doc *doc, QWidget *parent)
     connect(m_chooseInputButton, SIGNAL(clicked()),
             this, SLOT(slotChooseInputClicked()));
 
-    connect(m_customFbButton, SIGNAL(toggled(bool)),
-            this, SLOT(slotCustomFeedbackToggled(bool)));
-    connect(m_lowerSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotLowerSpinValueChanged(int)));
-    connect(m_upperSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotUpperSpinValueChanged(int)));
+    connect(m_customFbButton, SIGNAL(clicked(bool)),
+            this, SLOT(slotCustomFeedbackClicked()));
 }
 
 InputSelectionWidget::~InputSelectionWidget()
@@ -71,6 +66,11 @@ void InputSelectionWidget::setKeyInputVisibility(bool visible)
 void InputSelectionWidget::setCustomFeedbackVisibility(bool visible)
 {
     m_customFbButton->setVisible(visible);
+}
+
+void InputSelectionWidget::setMonitoringSupport(bool enable)
+{
+    m_supportMonitoring = enable;
 }
 
 void InputSelectionWidget::setTitle(QString title)
@@ -176,25 +176,47 @@ void InputSelectionWidget::slotChooseInputClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
+        uchar lowerValue = 0;
+        uchar upperValue = 0;
+        uchar monitorValue = 0;
+        QVariant extraLowerParams;
+        QVariant extraUpperParams;
+        QVariant extraMonitorParams;
+        if (!m_inputSource.isNull())
+        {
+            lowerValue = m_inputSource->feedbackValue(QLCInputFeedback::LowerValue);
+            upperValue = m_inputSource->feedbackValue(QLCInputFeedback::UpperValue);
+            monitorValue = m_inputSource->feedbackValue(QLCInputFeedback::MonitorValue);
+            extraLowerParams = m_inputSource->feedbackExtraParams(QLCInputFeedback::LowerValue);
+            extraUpperParams = m_inputSource->feedbackExtraParams(QLCInputFeedback::UpperValue);
+            extraMonitorParams = m_inputSource->feedbackExtraParams(QLCInputFeedback::MonitorValue);
+        }
         m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), (m_widgetPage << 16) | sic.channel()));
+        if (!m_inputSource.isNull())
+        {
+            if (lowerValue != m_inputSource->feedbackValue(QLCInputFeedback::LowerValue))
+                m_inputSource->setFeedbackValue(QLCInputFeedback::LowerValue, lowerValue);
+            if (upperValue != m_inputSource->feedbackValue(QLCInputFeedback::UpperValue))
+                m_inputSource->setFeedbackValue(QLCInputFeedback::UpperValue, upperValue);
+            if (monitorValue != m_inputSource->feedbackValue(QLCInputFeedback::MonitorValue))
+                m_inputSource->setFeedbackValue(QLCInputFeedback::MonitorValue, monitorValue);
+            if (extraLowerParams.isValid())
+                m_inputSource->setFeedbackExtraParams(QLCInputFeedback::LowerValue, extraLowerParams);
+            if (extraUpperParams.isValid())
+                m_inputSource->setFeedbackExtraParams(QLCInputFeedback::UpperValue, extraUpperParams);
+            if (extraMonitorParams.isValid())
+                m_inputSource->setFeedbackExtraParams(QLCInputFeedback::MonitorValue, extraMonitorParams);
+        }
         updateInputSource();
         emit inputValueChanged(sic.universe(), (m_widgetPage << 16) | sic.channel());
     }
 }
 
-void InputSelectionWidget::slotCustomFeedbackToggled(bool checked)
+void InputSelectionWidget::slotCustomFeedbackClicked()
 {
-    m_feedbackGroup->setVisible(checked);
-}
-
-void InputSelectionWidget::slotLowerSpinValueChanged(int value)
-{
-    m_inputSource->setRange(uchar(value), uchar(m_upperSpin->value()));
-}
-
-void InputSelectionWidget::slotUpperSpinValueChanged(int value)
-{
-    m_inputSource->setRange(uchar(m_lowerSpin->value()), uchar(value));
+    CustomFeedbackDialog cfDialog(m_doc, m_inputSource, this);
+    cfDialog.setMonitoringVisibility(m_supportMonitoring);
+    cfDialog.exec();
 }
 
 void InputSelectionWidget::updateInputSource()
@@ -206,43 +228,6 @@ void InputSelectionWidget::updateInputSource()
     {
         uniName = KInputNone;
         chName = KInputNone;
-        m_lowerSpin->setEnabled(false);
-        m_upperSpin->setEnabled(false);
-        m_customFbButton->setChecked(false);
-        m_feedbackGroup->setVisible(false);
-    }
-    else
-    {
-        m_lowerSpin->blockSignals(true);
-        m_upperSpin->blockSignals(true);
-
-        uchar min = 0, max = UCHAR_MAX;
-
-        InputPatch *ip = m_doc->inputOutputMap()->inputPatch(m_inputSource->universe());
-        if (ip != NULL && ip->profile() != NULL)
-        {
-            QLCInputChannel *ich = ip->profile()->channel(m_inputSource->channel());
-            if (ich != NULL && ich->type() == QLCInputChannel::Button)
-            {
-                min = ich->lowerValue();
-                max = ich->upperValue();
-            }
-        }
-        m_lowerSpin->setValue((m_inputSource->lowerValue() != 0) ? m_inputSource->lowerValue() : min);
-        m_upperSpin->setValue((m_inputSource->upperValue() != UCHAR_MAX) ? m_inputSource->upperValue() : max);
-        if (m_lowerSpin->value() != 0 || m_upperSpin->value() != UCHAR_MAX)
-        {
-            m_customFbButton->setChecked(true);
-        }
-        else
-        {
-            m_customFbButton->setChecked(false);
-            m_feedbackGroup->setVisible(false);
-        }
-        m_lowerSpin->blockSignals(false);
-        m_upperSpin->blockSignals(false);
-        m_lowerSpin->setEnabled(true);
-        m_upperSpin->setEnabled(true);
     }
 
     m_inputUniverseEdit->setText(uniName);

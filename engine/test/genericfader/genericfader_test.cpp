@@ -67,12 +67,10 @@ void GenericFader_Test::addRemove()
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
     QSharedPointer<GenericFader> fader = QSharedPointer<GenericFader>(new GenericFader());
 
-    FadeChannel fc;
-    fc.setFixture(m_doc, 0);
-    fc.setChannel(m_doc, 0);
-
-    FadeChannel wrong;
-    fc.setFixture(m_doc, 0);
+    FadeChannel fc(m_doc, 0, 0);
+    FadeChannel fc1(m_doc, 0, 1);
+    FadeChannel fc2(m_doc, 0, 2);
+    FadeChannel wrong(m_doc, 0, QLCChannel::invalid());
     quint32 chHash = GenericFader::channelHash(fc.fixture(), fc.channel());
 
     QCOMPARE(fader->m_channels.count(), 0);
@@ -86,22 +84,19 @@ void GenericFader_Test::addRemove()
     QVERIFY(fader->m_channels.contains(chHash) == true);
     QCOMPARE(fader->m_channels.count(), 1);
 
-    FadeChannel *fc1 = fader->getChannelFader(m_doc, ua[0], 0, 0);
-    fader->remove(fc1);
+    FadeChannel *fc3 = fader->getChannelFader(m_doc, ua[0], 0, 0);
+    fader->remove(fc3);
     QVERIFY(fader->m_channels.contains(chHash) == false);
     QCOMPARE(fader->m_channels.count(), 0);
 
-    fc.setChannel(m_doc, 0);
     fader->add(fc);
     QVERIFY(fader->m_channels.contains(chHash) == true);
 
-    fc.setChannel(m_doc, 1);
-    fader->add(fc);
+    fader->add(fc1);
     chHash = GenericFader::channelHash(fc.fixture(), fc.channel());
     QVERIFY(fader->m_channels.contains(chHash) == true);
 
-    fc.setChannel(m_doc, 2);
-    fader->add(fc);
+    fader->add(fc2);
     chHash = GenericFader::channelHash(fc.fixture(), fc.channel());
     QVERIFY(fader->m_channels.contains(chHash) == true);
     QCOMPARE(fader->m_channels.count(), 3);
@@ -109,8 +104,6 @@ void GenericFader_Test::addRemove()
     fader->removeAll();
     QCOMPARE(fader->m_channels.count(), 0);
 
-    fc.setFixture(m_doc, 0);
-    fc.setChannel(m_doc, 0);
     fc.setTarget(127);
     fader->add(fc);
     chHash = GenericFader::channelHash(fc.fixture(), fc.channel());
@@ -133,9 +126,7 @@ void GenericFader_Test::writeZeroFade()
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
     QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
-    FadeChannel fc;
-    fc.setFixture(m_doc, 0);
-    fc.setChannel(m_doc, 5);
+    FadeChannel fc(m_doc, 0, 5);
     fc.setStart(0);
     fc.setTarget(255);
     fc.setFadeTime(0);
@@ -151,9 +142,7 @@ void GenericFader_Test::writeLoop()
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
     QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
-    FadeChannel fc;
-    fc.setFixture(m_doc, 0);
-    fc.setChannel(m_doc, 5);
+    FadeChannel fc(m_doc, 0, 5);
     fc.setStart(0);
     fc.setTarget(250);
     fc.setFadeTime(1000);
@@ -178,19 +167,20 @@ void GenericFader_Test::adjustIntensity()
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
     QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
-    FadeChannel fc;
+    FadeChannel fc(m_doc, 0, 5);
+    FadeChannel fc1(m_doc, 0, 0);
 
     // HTP channel
-    fc.setFixture(m_doc, 0);
-    fc.setChannel(m_doc, 5);
     fc.setStart(0);
     fc.setTarget(250);
     fc.setFadeTime(1000);
     fader->add(fc);
 
     // LTP channel
-    fc.setChannel(m_doc, 0);
-    fader->add(fc);
+    fc1.setStart(0);
+    fc1.setTarget(250);
+    fc1.setFadeTime(1000);
+    fader->add(fc1);
 
     qreal intensity = 0.5;
     fader->adjustIntensity(intensity);

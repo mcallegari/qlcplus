@@ -46,6 +46,7 @@
 
 // ArtNet universe is a 15bit value
 #define ARTNET_UNIVERSE_MAX 0x7fff
+#define SETTINGS_GEOMETRY "configureartnet/geometry"
 
 /*****************************************************************************
  * Initialization
@@ -67,6 +68,9 @@ ConfigureArtNet::ConfigureArtNet(ArtNetPlugin* plugin, QWidget* parent)
     QVariant value = settings.value(SETTINGS_IFACE_WAIT_TIME);
     if (value.isValid() == true)
         m_waitReadySpin->setValue(value.toInt());
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 }
 
 
@@ -91,7 +95,7 @@ void ConfigureArtNet::fillNodesTree()
                 it.next();
                 QTreeWidgetItem* nitem = new QTreeWidgetItem(pitem);
                 ArtNetNodeInfo nInfo = it.value();
-                nitem->setText(KNodesColumnIP, it.key().toString());
+                nitem->setText(KNodesColumnIP, QHostAddress(it.key().toIPv4Address()).toString());
                 nitem->setText(KNodesColumnShortName, nInfo.shortName);
                 nitem->setText(KNodesColumnLongName, nInfo.longName);
             }
@@ -108,7 +112,7 @@ void ConfigureArtNet::fillMappingTree()
     QTreeWidgetItem* outputItem = NULL;
 
     QList<ArtNetIO> IOmap = m_plugin->getIOMapping();
-    foreach(ArtNetIO io, IOmap)
+    foreach (ArtNetIO io, IOmap)
     {
         if (io.controller == NULL)
             continue;
@@ -130,7 +134,7 @@ void ConfigureArtNet::fillMappingTree()
             outputItem->setText(KMapColumnInterface, tr("Outputs"));
             outputItem->setExpanded(true);
         }
-        foreach(quint32 universe, controller->universesList())
+        foreach (quint32 universe, controller->universesList())
         {
             UniverseInfo *info = controller->getUniverseInfo(universe);
 
@@ -200,6 +204,8 @@ void ConfigureArtNet::showIPAlert(QString ip)
 
 ConfigureArtNet::~ConfigureArtNet()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 /*****************************************************************************

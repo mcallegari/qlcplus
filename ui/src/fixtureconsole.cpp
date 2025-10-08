@@ -261,7 +261,7 @@ QList <SceneValue> FixtureConsole::values() const
 
 bool FixtureConsole::hasSelections()
 {
-    foreach(ConsoleChannel *cc, m_channels)
+    foreach (ConsoleChannel *cc, m_channels)
     {
         Q_ASSERT(cc != NULL);
         if (cc->isChecked() && cc->isSelected())

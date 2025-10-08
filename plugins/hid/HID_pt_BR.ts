@@ -19,7 +19,12 @@
         <translation>Nome</translation>
     </message>
     <message>
-        <location filename="configurehid.ui" line="65"/>
+        <location filename="configurehid.ui" line="62"/>
+        <source>Merger Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configurehid.ui" line="70"/>
         <source>Refresh</source>
         <translation>Actualizar</translation>
     </message>
@@ -40,12 +45,12 @@
 <context>
     <name>HIDJsDevice</name>
     <message>
-        <location filename="hidjsdevice.cpp" line="88"/>
+        <location filename="hidjsdevice.cpp" line="116"/>
         <source>Axes: %1</source>
         <translation>Eixos: %1</translation>
     </message>
     <message>
-        <location filename="hidjsdevice.cpp" line="90"/>
+        <location filename="hidjsdevice.cpp" line="118"/>
         <source>Buttons: %1</source>
         <translation>Botões: %1</translation>
     </message>

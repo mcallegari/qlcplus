@@ -25,33 +25,34 @@
 #include "dmxsource.h"
 #include "grandmaster.h"
 
-#define KXMLQLCVCSlider QString("Slider")
+#define KXMLQLCVCSlider QStringLiteral("Slider")
 
-#define KXMLQLCVCSliderMode         QString("SliderMode")
-#define KXMLQLCVCSliderWidgetStyle  QString("WidgetStyle")
+#define KXMLQLCVCSliderMode         QStringLiteral("SliderMode")
+#define KXMLQLCVCSliderWidgetStyle  QStringLiteral("WidgetStyle")
 
-#define KXMLQLCVCSliderValueDisplayStyle            QString("ValueDisplayStyle")
-#define KXMLQLCVCSliderValueDisplayStyleExact       QString("Exact")
-#define KXMLQLCVCSliderValueDisplayStylePercentage  QString("Percentage")
+#define KXMLQLCVCSliderValueDisplayStyle            QStringLiteral("ValueDisplayStyle")
+#define KXMLQLCVCSliderValueDisplayStyleExact       QStringLiteral("Exact")
+#define KXMLQLCVCSliderValueDisplayStylePercentage  QStringLiteral("Percentage")
 
-#define KXMLQLCVCSliderClickAndGoType QString("ClickAndGoType")
+#define KXMLQLCVCSliderClickAndGoType QStringLiteral("ClickAndGoType")
 
-#define KXMLQLCVCSliderInvertedAppearance QString("InvertedAppearance")
+#define KXMLQLCVCSliderInvertedAppearance QStringLiteral("InvertedAppearance")
 
-#define KXMLQLCVCSliderLevel            QString("Level")
-#define KXMLQLCVCSliderLevelLowLimit    QString("LowLimit")
-#define KXMLQLCVCSliderLevelHighLimit   QString("HighLimit")
-#define KXMLQLCVCSliderLevelValue       QString("Value")
-#define KXMLQLCVCSliderLevelMonitor     QString("Monitor")
-#define KXMLQLCVCSliderOverrideReset    QString("Reset")
+#define KXMLQLCVCSliderLevel            QStringLiteral("Level")
+#define KXMLQLCVCSliderLevelLowLimit    QStringLiteral("LowLimit")
+#define KXMLQLCVCSliderLevelHighLimit   QStringLiteral("HighLimit")
+#define KXMLQLCVCSliderLevelValue       QStringLiteral("Value")
+#define KXMLQLCVCSliderLevelMonitor     QStringLiteral("Monitor")
+#define KXMLQLCVCSliderOverrideReset    QStringLiteral("Reset")
+#define KXMLQLCVCSliderFunctionFlash    QStringLiteral("Flash")
 
-#define KXMLQLCVCSliderChannel          QString("Channel")
-#define KXMLQLCVCSliderChannelFixture   QString("Fixture")
+#define KXMLQLCVCSliderChannel          QStringLiteral("Channel")
+#define KXMLQLCVCSliderChannelFixture   QStringLiteral("Fixture")
 
-#define KXMLQLCVCSliderPlayback             QString("Playback") // LEGACY
-#define KXMLQLCVCSliderAdjust               QString("Adjust")
-#define KXMLQLCVCSliderAdjustAttribute      QString("Attribute")
-#define KXMLQLCVCSliderControlledFunction   QString("Function")
+#define KXMLQLCVCSliderPlayback             QStringLiteral("Playback") // LEGACY
+#define KXMLQLCVCSliderAdjust               QStringLiteral("Adjust")
+#define KXMLQLCVCSliderAdjustAttribute      QStringLiteral("Attribute")
+#define KXMLQLCVCSliderControlledFunction   QStringLiteral("Function")
 
 class FunctionParent;
 class GenericFader;
@@ -59,8 +60,6 @@ class GenericFader;
 class VCSlider : public VCWidget, public DMXSource
 {
     Q_OBJECT
-
-    Q_PROPERTY(QVariant channelsList READ channelsList CONSTANT)
 
     Q_PROPERTY(SliderWidgetStyle widgetStyle READ widgetStyle WRITE setWidgetStyle NOTIFY widgetStyleChanged)
     Q_PROPERTY(ValueDisplayStyle valueDisplayStyle READ valueDisplayStyle WRITE setValueDisplayStyle NOTIFY valueDisplayStyleChanged)
@@ -74,6 +73,10 @@ class VCSlider : public VCWidget, public DMXSource
     Q_PROPERTY(bool monitorEnabled READ monitorEnabled WRITE setMonitorEnabled NOTIFY monitorEnabledChanged)
     Q_PROPERTY(int monitorValue READ monitorValue NOTIFY monitorValueChanged)
     Q_PROPERTY(bool isOverriding READ isOverriding WRITE setIsOverriding NOTIFY isOverridingChanged)
+
+    Q_PROPERTY(int channelsCount READ channelsCount NOTIFY channelsCountChanged)
+
+    Q_PROPERTY(bool adjustFlashEnabled READ adjustFlashEnabled WRITE setAdjustFlashEnabled NOTIFY adjustFlashEnabledChanged)
 
     Q_PROPERTY(quint32 controlledFunction READ controlledFunction WRITE setControlledFunction NOTIFY controlledFunctionChanged)
     Q_PROPERTY(int controlledAttribute READ controlledAttribute WRITE setControlledAttribute NOTIFY controlledAttributeChanged)
@@ -118,11 +121,6 @@ public:
 protected:
     /** @reimp */
     bool copyFrom(const VCWidget* widget);
-
-protected:
-    /** Reference to a tree model representing Groups/Fitures/Channels
-      * This is created only when the UI requests it to confgure the Level mode */
-    TreeModel *m_channelsTree;
 
     /*********************************************************************
      * Widget style
@@ -274,14 +272,21 @@ public:
     /** Returns the data model to display a tree of FixtureGroups/Fixtures */
     QVariant groupsTreeModel();
 
+    int channelsCount() const;
+
     QVariant channelsList();
 
     /** Get/Set a string to filter Group/Fixture/Channel names */
     QString searchFilter() const;
     void setSearchFilter(QString searchFilter);
 
+    Q_INVOKABLE void applyToSameType(bool enable);
+
 private:
     void removeActiveFaders();
+
+    /** Recursive method to check/uncheck channels for fixtures of the same type */
+    void checkFixtureTree(TreeModel *tree, Fixture *sourceFixture, quint32 channelIndex, bool checked);
 
 protected slots:
     void slotTreeDataChanged(TreeModelItem *item, int role, const QVariant &value);
@@ -294,6 +299,7 @@ signals:
     void groupsTreeModelChanged();
     /** Notify the listeners that the search filter has changed */
     void searchFilterChanged();
+    void channelsCountChanged();
 
 protected:
     QList <SceneValue> m_levelChannels;
@@ -309,6 +315,10 @@ protected:
     TreeModel *m_fixtureTree;
     /** A string to filter the displayed tree items */
     QString m_searchFilter;
+
+    /** Flag to apply a channel selection to all
+     *  the fixtures of the same type */
+    bool m_applyToSameType, m_isUpdating;
 
     /*********************************************************************
      * Click & Go
@@ -372,6 +382,12 @@ public:
 
     void adjustFunctionAttribute(Function *f, qreal value);
 
+    /** Get/Set the status of the flash button enablement */
+    bool adjustFlashEnabled() const;
+    void setAdjustFlashEnabled(bool enable);
+
+    Q_INVOKABLE void flashFunction(bool on);
+
     /** Get the list of the available attributes for the Function to control */
     QStringList availableAttributes() const;
 
@@ -388,6 +404,7 @@ private:
 signals:
     void controlledFunctionChanged(quint32 fid);
     void controlledAttributeChanged(int attr);
+    void adjustFlashEnabledChanged(bool enable);
     void availableAttributesChanged();
     void attributeMinValueChanged();
     void attributeMaxValueChanged();
@@ -403,6 +420,9 @@ protected:
     int m_controlledAttributeId;
     qreal m_attributeMinValue;
     qreal m_attributeMaxValue;
+
+    bool m_adjustFlashEnabled;
+    qreal m_adjustFlashPreviousValue;
 
     /*********************************************************************
      * Submaster

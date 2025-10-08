@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.0
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 
@@ -149,7 +149,8 @@ VCWidgetItem
             width: height
             checkable: true
             tooltip: qsTr("Enable/Disable this scheduler")
-            imgSource: "qrc:/apply.svg"
+            faSource: FontAwesome.fa_check
+            faColor: "lime"
             checked: clockObj ? clockObj.enableSchedule : false
             onToggled: if (clockObj) clockObj.enableSchedule = checked
         }

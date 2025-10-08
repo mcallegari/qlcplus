@@ -42,6 +42,7 @@ private slots:
     void staticLetters();
     void horizontalScroll();
     void verticalScroll();
+    void unused();
 
 private:
    Doc * m_doc;

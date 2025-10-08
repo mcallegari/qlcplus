@@ -30,8 +30,8 @@
 
 class QXmlStreamReader;
 class QXmlStreamWriter;
-class QLCInputSource;
 class QElapsedTimer;
+class QLCInputSource;
 class QLCIOPlugin;
 class OutputPatch;
 class InputPatch;
@@ -42,7 +42,10 @@ class Doc;
  * @{
  */
 
-#define KXMLIOMap QString("InputOutputMap")
+#define KXMLIOMap               QStringLiteral("InputOutputMap")
+#define KXMLIOBeatGenerator     QStringLiteral("BeatGenerator")
+#define KXMLIOBeatType          QStringLiteral("BeatType")
+#define KXMLIOBeatsPerMinute    QStringLiteral("BPM")
 
 class InputOutputMap : public QObject
 {
@@ -62,7 +65,7 @@ public:
      * @param doc The QLC+ project reference
      * @param universes Number of universes
      */
-    InputOutputMap(Doc* doc, quint32 universesCount);
+    InputOutputMap(const Doc* doc, quint32 universesCount);
 
     /**
      * Destroy a InputOutputMap object
@@ -70,8 +73,7 @@ public:
     ~InputOutputMap();
 
 private:
-    /** Get the doc object */
-    Doc* doc() const;
+    const Doc *m_doc;
 
     /*********************************************************************
      * Blackout
@@ -499,7 +501,7 @@ public:
      * Send feedback value to the input profile e.g. to move a motorized
      * sliders & knobs, set indicator leds etc.
      */
-    bool sendFeedBack(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
+    bool sendFeedBack(quint32 universe, quint32 channel, uchar value, const QVariant &params);
 
 private:
     /** In case of duplicate strings, append a number to make them unique */
@@ -572,6 +574,8 @@ private:
     /** List that contains all available profiles */
     QList <QLCInputProfile*> m_profiles;
 
+    bool m_localProfilesLoaded;
+
     /*********************************************************************
      * Beats
      *********************************************************************/
@@ -580,19 +584,22 @@ public:
     {
         Disabled,   //! No one is generating beats
         Internal,   //! MasterTimer is the beat generator
-        MIDI,       //! A MIDI plugin is the beat generator
+        Plugin,     //! A plugin is the beat generator
         Audio       //! An audio input device is the beat generator
     };
 
     void setBeatGeneratorType(BeatGeneratorType type);
     BeatGeneratorType beatGeneratorType() const;
 
+    QString beatTypeToString(BeatGeneratorType type) const;
+    BeatGeneratorType stringToBeatType(QString str);
+
     void setBpmNumber(int bpm);
     int bpmNumber() const;
 
 protected slots:
     void slotMasterTimerBeat();
-    void slotMIDIBeat(quint32 universe, quint32 channel, uchar value);
+    void slotPluginBeat(quint32 universe, quint32 channel, uchar value, const QString &key);
     void slotAudioSpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power);
 
 signals:

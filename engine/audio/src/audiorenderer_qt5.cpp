@@ -129,7 +129,7 @@ QList<AudioDeviceInfo> AudioRendererQt5::getDevicesInfo()
     }
 
     // add the devices left in the input list. These don't have output capabilities
-    foreach(QString dev, inDevs)
+    foreach (QString dev, inDevs)
     {
         AudioDeviceInfo info;
         info.deviceName = dev;
@@ -151,7 +151,7 @@ qint64 AudioRendererQt5::writeAudio(unsigned char *data, qint64 maxSize)
     qint64 written = m_output->write((const char *)data, maxSize);
 
     if (written != maxSize)
-        qDebug() << "[writeAudio] expexcted to write" << maxSize << "but wrote" << written;
+        qDebug() << "[writeAudio] expected to write" << maxSize << "but wrote" << written;
 
     return written;
 }

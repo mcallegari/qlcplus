@@ -17,10 +17,10 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.1
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Dialogs
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "TimeUtils.js" as TimeUtils
@@ -34,7 +34,7 @@ Rectangle
     property int functionID: -1
     property var mediaInfo: audioEditor ? audioEditor.mediaInfo : null
 
-    signal requestView(int ID, string qmlSrc)
+    signal requestView(int ID, string qmlSrc, bool back)
 
     TimeEditTool
     {
@@ -63,8 +63,7 @@ Rectangle
         onBackClicked:
         {
             var prevID = audioEditor.previousID
-            functionManager.setEditorFunction(prevID, false, true)
-            requestView(prevID, functionManager.getEditorResource(prevID))
+            requestView(prevID, functionManager.getEditorResource(prevID), true)
         }
     }
 
@@ -75,8 +74,7 @@ Rectangle
 
         onAccepted:
         {
-            //console.log("You chose: " + openAudioDialog.fileUrl)
-            audioEditor.sourceFileName = openAudioDialog.fileUrl
+            audioEditor.sourceFileName = selectedFile
         }
     }
 

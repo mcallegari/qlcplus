@@ -41,13 +41,14 @@
 #include "qlcfile.h"
 #include "doc.h"
 
-#include "../../plugins/midi/src/common/midiprotocol.h"
-
-InputOutputMap::InputOutputMap(Doc *doc, quint32 universes)
-  : QObject(doc)
-  , m_blackout(false)
-  , m_universeChanged(false)
-  , m_beatTime(new QElapsedTimer())
+InputOutputMap::InputOutputMap(const Doc *doc, quint32 universes)
+    : QObject(NULL)
+    , m_doc(doc)
+    , m_blackout(false)
+    , m_universeChanged(false)
+    , m_localProfilesLoaded(false)
+    , m_currentBPM(0)
+    , m_beatTime(new QElapsedTimer())
 {
     m_grandMaster = new GrandMaster(this);
     for (quint32 i = 0; i < universes; i++)
@@ -63,11 +64,7 @@ InputOutputMap::~InputOutputMap()
     removeAllUniverses();
     delete m_grandMaster;
     delete m_beatTime;
-}
-
-Doc* InputOutputMap::doc() const
-{
-    return qobject_cast<Doc*> (parent());
+    qDeleteAll(m_profiles);
 }
 
 /*****************************************************************************
@@ -102,6 +99,9 @@ bool InputOutputMap::setBlackout(bool blackout)
             if (op != NULL)
                 op->setBlackout(blackout);
         }
+
+        const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
+        universe->dumpOutput(postGM, true);
     }
 
     emit blackoutChanged(m_blackout);
@@ -154,14 +154,14 @@ bool InputOutputMap::addUniverse(quint32 id)
             while (id > universesCount())
             {
                 uni = new Universe(universesCount(), m_grandMaster);
-                connect(doc()->masterTimer(), SIGNAL(tickReady()), uni, SLOT(tick()), Qt::QueuedConnection);
+                connect(m_doc->masterTimer(), SIGNAL(tickReady()), uni, SLOT(tick()), Qt::QueuedConnection);
                 connect(uni, SIGNAL(universeWritten(quint32,QByteArray)), this, SIGNAL(universeWritten(quint32,QByteArray)));
                 m_universeArray.append(uni);
             }
         }
 
         uni = new Universe(id, m_grandMaster);
-        connect(doc()->masterTimer(), SIGNAL(tickReady()), uni, SLOT(tick()), Qt::QueuedConnection);
+        connect(m_doc->masterTimer(), SIGNAL(tickReady()), uni, SLOT(tick()), Qt::QueuedConnection);
         connect(uni, SIGNAL(universeWritten(quint32,QByteArray)), this, SIGNAL(universeWritten(quint32,QByteArray)));
         m_universeArray.append(uni);
     }
@@ -313,6 +313,8 @@ void InputOutputMap::resetUniverses()
     setGrandMasterValue(255);
     setGrandMasterValueMode(GrandMaster::Reduce);
     setGrandMasterChannelMode(GrandMaster::Intensity);
+
+    m_localProfilesLoaded = false;
 }
 
 /*********************************************************************
@@ -323,7 +325,7 @@ void InputOutputMap::setGrandMasterChannelMode(GrandMaster::ChannelMode mode)
 {
     Q_ASSERT(m_grandMaster != NULL);
 
-    if(m_grandMaster->channelMode() != mode)
+    if (m_grandMaster->channelMode() != mode)
     {
         m_grandMaster->setChannelMode(mode);
         m_universeChanged = true;
@@ -341,7 +343,7 @@ void InputOutputMap::setGrandMasterValueMode(GrandMaster::ValueMode mode)
 {
     Q_ASSERT(m_grandMaster != NULL);
 
-    if(m_grandMaster->valueMode() != mode)
+    if (m_grandMaster->valueMode() != mode)
     {
         m_grandMaster->setValueMode(mode);
         m_universeChanged = true;
@@ -408,14 +410,14 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
         currProfile = currInPatch->profile();
         disconnect(currInPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
                 this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
-        if (currInPatch->pluginName() == "MIDI")
+        if (currInPatch->plugin()->capabilities() & QLCIOPlugin::Beats)
         {
             disconnect(currInPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                       this, SLOT(slotMIDIBeat(quint32,quint32,uchar)));
+                       this, SLOT(slotPluginBeat(quint32,quint32,uchar,const QString&)));
         }
     }
     InputPatch *ip = NULL;
-    QLCIOPlugin *plugin = doc()->ioPluginCache()->plugin(pluginName);
+    QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
 
     if (!inputUID.isEmpty() && plugin != NULL)
     {
@@ -441,10 +443,10 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
         {
             connect(ip, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
                     this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
-            if (ip->pluginName() == "MIDI")
+            if (ip->plugin()->capabilities() & QLCIOPlugin::Beats)
             {
                 connect(ip, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                        this, SLOT(slotMIDIBeat(quint32,quint32,uchar)));
+                        this, SLOT(slotPluginBeat(quint32,quint32,uchar,const QString&)));
             }
         }
     }
@@ -489,7 +491,7 @@ bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
     }
 
     QMutexLocker locker(&m_universeMutex);
-    QLCIOPlugin *plugin = doc()->ioPluginCache()->plugin(pluginName);
+    QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
 
     if (!outputUID.isEmpty() && plugin != NULL)
     {
@@ -602,7 +604,7 @@ QString InputOutputMap::pluginDescription(const QString &pluginName)
     QLCIOPlugin* plugin = NULL;
 
     if (pluginName.isEmpty() == false)
-        plugin = doc()->ioPluginCache()->plugin(pluginName);
+        plugin = m_doc->ioPluginCache()->plugin(pluginName);
 
     if (plugin != NULL)
     {
@@ -635,7 +637,7 @@ void InputOutputMap::removeDuplicates(QStringList &list)
 QStringList InputOutputMap::inputPluginNames()
 {
     QStringList list;
-    QListIterator <QLCIOPlugin*> it(doc()->ioPluginCache()->plugins());
+    QListIterator <QLCIOPlugin*> it(m_doc->ioPluginCache()->plugins());
     while (it.hasNext() == true)
     {
         QLCIOPlugin* plg(it.next());
@@ -648,7 +650,7 @@ QStringList InputOutputMap::inputPluginNames()
 QStringList InputOutputMap::outputPluginNames()
 {
     QStringList list;
-    QListIterator <QLCIOPlugin*> it(doc()->ioPluginCache()->plugins());
+    QListIterator <QLCIOPlugin*> it(m_doc->ioPluginCache()->plugins());
     while (it.hasNext() == true)
     {
         QLCIOPlugin* plg(it.next());
@@ -660,7 +662,7 @@ QStringList InputOutputMap::outputPluginNames()
 
 QStringList InputOutputMap::pluginInputs(const QString& pluginName)
 {
-    QLCIOPlugin* ip = doc()->ioPluginCache()->plugin(pluginName);
+    QLCIOPlugin* ip = m_doc->ioPluginCache()->plugin(pluginName);
     if (ip == NULL)
         return QStringList();
     else
@@ -673,7 +675,7 @@ QStringList InputOutputMap::pluginInputs(const QString& pluginName)
 
 QStringList InputOutputMap::pluginOutputs(const QString& pluginName)
 {
-    QLCIOPlugin* op = doc()->ioPluginCache()->plugin(pluginName);
+    QLCIOPlugin* op = m_doc->ioPluginCache()->plugin(pluginName);
     if (op == NULL)
         return QStringList();
     else
@@ -686,7 +688,7 @@ QStringList InputOutputMap::pluginOutputs(const QString& pluginName)
 
 bool InputOutputMap::pluginSupportsFeedback(const QString& pluginName)
 {
-    QLCIOPlugin* outputPlugin = doc()->ioPluginCache()->plugin(pluginName);
+    QLCIOPlugin* outputPlugin = m_doc->ioPluginCache()->plugin(pluginName);
     if (outputPlugin != NULL)
         return (outputPlugin->capabilities() & QLCIOPlugin::Feedback) > 0;
     else
@@ -695,14 +697,14 @@ bool InputOutputMap::pluginSupportsFeedback(const QString& pluginName)
 
 void InputOutputMap::configurePlugin(const QString& pluginName)
 {
-    QLCIOPlugin* outputPlugin = doc()->ioPluginCache()->plugin(pluginName);
+    QLCIOPlugin* outputPlugin = m_doc->ioPluginCache()->plugin(pluginName);
     if (outputPlugin != NULL)
         outputPlugin->configure();
 }
 
 bool InputOutputMap::canConfigurePlugin(const QString& pluginName)
 {
-    QLCIOPlugin* outputPlugin = doc()->ioPluginCache()->plugin(pluginName);
+    QLCIOPlugin* outputPlugin = m_doc->ioPluginCache()->plugin(pluginName);
     if (outputPlugin != NULL)
         return outputPlugin->canConfigure();
     else
@@ -715,7 +717,7 @@ QString InputOutputMap::inputPluginStatus(const QString& pluginName, quint32 inp
     QString info;
 
     if (pluginName.isEmpty() == false)
-        inputPlugin = doc()->ioPluginCache()->plugin(pluginName);
+        inputPlugin = m_doc->ioPluginCache()->plugin(pluginName);
 
     if (inputPlugin != NULL)
     {
@@ -734,7 +736,7 @@ QString InputOutputMap::inputPluginStatus(const QString& pluginName, quint32 inp
 
 QString InputOutputMap::outputPluginStatus(const QString& pluginName, quint32 output)
 {
-    QLCIOPlugin* outputPlugin = doc()->ioPluginCache()->plugin(pluginName);
+    QLCIOPlugin* outputPlugin = m_doc->ioPluginCache()->plugin(pluginName);
     if (outputPlugin != NULL)
     {
         return outputPlugin->outputInfo(output);
@@ -749,7 +751,7 @@ QString InputOutputMap::outputPluginStatus(const QString& pluginName, quint32 ou
     }
 }
 
-bool InputOutputMap::sendFeedBack(quint32 universe, quint32 channel, uchar value, const QString& key)
+bool InputOutputMap::sendFeedBack(quint32 universe, quint32 channel, uchar value, const QVariant &params)
 {
     if (universe >= universesCount())
         return false;
@@ -758,7 +760,7 @@ bool InputOutputMap::sendFeedBack(quint32 universe, quint32 channel, uchar value
 
     if (patch != NULL && patch->isPatched())
     {
-        patch->plugin()->sendFeedBack(universe, patch->output(), channel, value, key);
+        patch->plugin()->sendFeedBack(universe, patch->output(), channel, value, params);
         return true;
     }
     else
@@ -850,9 +852,33 @@ QLCInputProfile* InputOutputMap::profile(const QString& name)
     QListIterator <QLCInputProfile*> it(m_profiles);
     while (it.hasNext() == true)
     {
-        QLCInputProfile* profile = it.next();
+        QLCInputProfile *profile = it.next();
         if (profile->name() == name)
             return profile;
+    }
+
+    // Attempt to load input profile
+    // from the workspace folder
+    if (m_localProfilesLoaded == false)
+    {
+        if (m_doc->workspacePath().isEmpty())
+            return NULL;
+
+        m_localProfilesLoaded = true;
+
+        qDebug() << "Input profile" << name << "not found. Attempt to load it from" << m_doc->workspacePath();
+        QDir localDir(m_doc->workspacePath());
+        localDir.setFilter(QDir::Files);
+        localDir.setNameFilters(QStringList() << QString("*%1").arg(KExtInputProfile));
+        loadProfiles(localDir);
+
+        QListIterator <QLCInputProfile*> it(m_profiles);
+        while (it.hasNext() == true)
+        {
+            QLCInputProfile *profile = it.next();
+            if (profile->name() == name)
+                return profile;
+        }
     }
 
     return NULL;
@@ -994,24 +1020,24 @@ void InputOutputMap::setBeatGeneratorType(InputOutputMap::BeatGeneratorType type
     switch (m_beatGeneratorType)
     {
         case Internal:
-            doc()->masterTimer()->setBeatSourceType(MasterTimer::Internal);
-            setBpmNumber(doc()->masterTimer()->bpmNumber());
+            m_doc->masterTimer()->setBeatSourceType(MasterTimer::Internal);
+            setBpmNumber(m_doc->masterTimer()->bpmNumber());
         break;
-        case MIDI:
-            doc()->masterTimer()->setBeatSourceType(MasterTimer::External);
+        case Plugin:
+            m_doc->masterTimer()->setBeatSourceType(MasterTimer::External);
             // reset the current BPM number and detect it from the MIDI beats
             setBpmNumber(0);
             m_beatTime->restart();
         break;
         case Audio:
-            doc()->masterTimer()->setBeatSourceType(MasterTimer::External);
+            m_doc->masterTimer()->setBeatSourceType(MasterTimer::External);
             // reset the current BPM number and detect it from the audio input
             setBpmNumber(0);
             m_beatTime->restart();
         break;
         case Disabled:
         default:
-            doc()->masterTimer()->setBeatSourceType(MasterTimer::None);
+            m_doc->masterTimer()->setBeatSourceType(MasterTimer::None);
             setBpmNumber(0);
         break;
     }
@@ -1024,6 +1050,29 @@ InputOutputMap::BeatGeneratorType InputOutputMap::beatGeneratorType() const
     return m_beatGeneratorType;
 }
 
+QString InputOutputMap::beatTypeToString(BeatGeneratorType type) const
+{
+    switch (type)
+    {
+        case Internal:  return "Internal";
+        case Plugin:    return "Plugin";
+        case Audio:     return "Audio";
+        default:        return "Disabled";
+    }
+}
+
+InputOutputMap::BeatGeneratorType InputOutputMap::stringToBeatType(QString str)
+{
+    if (str == "Internal")
+        return Internal;
+    else if (str == "Plugin")
+        return Plugin;
+    else if (str == "Audio")
+        return Audio;
+
+    return Disabled;
+}
+
 void InputOutputMap::setBpmNumber(int bpm)
 {
     if (m_beatGeneratorType == Disabled || bpm == m_currentBPM)
@@ -1033,7 +1082,7 @@ void InputOutputMap::setBpmNumber(int bpm)
     m_currentBPM = bpm;
 
     if (bpm != 0)
-        doc()->masterTimer()->requestBpmNumber(bpm);
+        m_doc->masterTimer()->requestBpmNumber(bpm);
 
     emit bpmNumberChanged(m_currentBPM);
 }
@@ -1054,35 +1103,32 @@ void InputOutputMap::slotMasterTimerBeat()
     emit beat();
 }
 
-void InputOutputMap::slotMIDIBeat(quint32 universe, quint32 channel, uchar value)
+void InputOutputMap::slotPluginBeat(quint32 universe, quint32 channel, uchar value, const QString &key)
 {
     Q_UNUSED(universe)
 
-    // not interested in synthetic release event or non-MBC ones
-    if (m_beatGeneratorType != MIDI || value == 0 || channel < CHANNEL_OFFSET_MBC_PLAYBACK)
+    // not interested in synthetic release or non-beat event
+    if (m_beatGeneratorType != Plugin || value == 0 || key != "beat")
         return;
 
-    qDebug() << "MIDI MBC:" << channel << m_beatTime->elapsed();
+    qDebug() << "Plugin beat:" << channel << m_beatTime->elapsed();
 
     // process the timer as first thing, to avoid wasting time
     // with the operations below
     int elapsed = m_beatTime->elapsed();
     m_beatTime->restart();
 
-    if (channel == CHANNEL_OFFSET_MBC_BEAT)
-    {
-        int bpm = qRound(60000.0 / (float)elapsed);
-        float currBpmTime = 60000.0 / (float)m_currentBPM;
-        // here we check if the difference between the current BPM duration
-        // and the current time elapsed is within a range of +/-1ms.
-        // If it isn't, then the BPM number has really changed, otherwise
-        // it's just a tiny time drift
-        if (qAbs((float)elapsed - currBpmTime) > 1)
-            setBpmNumber(bpm);
+    int bpm = qRound(60000.0 / (float)elapsed);
+    float currBpmTime = 60000.0 / (float)m_currentBPM;
+    // here we check if the difference between the current BPM duration
+    // and the current time elapsed is within a range of +/-1ms.
+    // If it isn't, then the BPM number has really changed, otherwise
+    // it's just a tiny time drift
+    if (qAbs((float)elapsed - currBpmTime) > 1)
+        setBpmNumber(bpm);
 
-        doc()->masterTimer()->requestBeat();
-        emit beat();
-    }
+    m_doc->masterTimer()->requestBeat();
+    emit beat();
 }
 
 void InputOutputMap::slotAudioSpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power)
@@ -1270,6 +1316,18 @@ bool InputOutputMap::loadXML(QXmlStreamReader &root)
                 uni->loadXML(root, m_universeArray.count() - 1, this);
             }
         }
+        else if (root.name() == KXMLIOBeatGenerator)
+        {
+            QXmlStreamAttributes attrs = root.attributes();
+
+            if (attrs.hasAttribute(KXMLIOBeatType))
+                setBeatGeneratorType(stringToBeatType(attrs.value(KXMLIOBeatType).toString()));
+
+            if (attrs.hasAttribute(KXMLIOBeatsPerMinute))
+                setBpmNumber(attrs.value(KXMLIOBeatsPerMinute).toInt());
+
+            root.skipCurrentElement();
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown IO Map tag:" << root.name();
@@ -1287,12 +1345,15 @@ bool InputOutputMap::saveXML(QXmlStreamWriter *doc) const
     /* IO Map Instance entry */
     doc->writeStartElement(KXMLIOMap);
 
-    foreach(Universe *uni, m_universeArray)
+    doc->writeStartElement(KXMLIOBeatGenerator);
+    doc->writeAttribute(KXMLIOBeatType, beatTypeToString(m_beatGeneratorType));
+    doc->writeAttribute(KXMLIOBeatsPerMinute, QString::number(m_currentBPM));
+    doc->writeEndElement();
+
+    foreach (Universe *uni, m_universeArray)
         uni->saveXML(doc);
 
     doc->writeEndElement();
 
     return true;
 }
-
-

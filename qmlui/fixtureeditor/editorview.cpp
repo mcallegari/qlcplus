@@ -170,6 +170,17 @@ void EditorView::updateChannelList()
     emit channelsChanged();
 }
 
+void EditorView::dismissChannelEditor()
+{
+    if (m_channelEdit == nullptr)
+        return;
+
+    disconnect(m_channelEdit, SIGNAL(channelChanged()), this, SLOT(setModified()));
+    disconnect(m_channelEdit, SIGNAL(capabilitiesChanged()), this, SLOT(setModified()));
+    delete m_channelEdit;
+    m_channelEdit = nullptr;
+}
+
 QVariant EditorView::channels() const
 {
     return QVariant::fromValue(m_channelList);
@@ -177,12 +188,8 @@ QVariant EditorView::channels() const
 
 ChannelEdit *EditorView::requestChannelEditor(QString name)
 {
-    if (m_channelEdit != nullptr)
-    {
-        disconnect(m_channelEdit, SIGNAL(channelChanged()), this, SLOT(setModified()));
-        disconnect(m_channelEdit, SIGNAL(capabilitiesChanged()), this, SLOT(setModified()));
-        delete m_channelEdit;
-    }
+    dismissModeEditor();
+    dismissChannelEditor();
 
     QLCChannel *ch = m_fixtureDef->channel(name);
     if (ch == nullptr)
@@ -305,12 +312,8 @@ QVariant EditorView::modes() const
 
 ModeEdit *EditorView::requestModeEditor(QString name)
 {
-    if (m_modeEdit != nullptr)
-    {
-        disconnect(m_modeEdit, SIGNAL(nameChanged()), this, SLOT(modeNameChanged()));
-        disconnect(m_modeEdit, SIGNAL(channelsChanged()), this, SLOT(setModified()));
-        delete m_modeEdit;
-    }
+    dismissChannelEditor();
+    dismissModeEditor();
 
     QLCFixtureMode *mode = m_fixtureDef->mode(name);
     if (mode == nullptr)
@@ -343,6 +346,17 @@ void EditorView::updateModeList()
     emit modesChanged();
 }
 
+void EditorView::dismissModeEditor()
+{
+    if (m_modeEdit == nullptr)
+        return;
+
+    disconnect(m_modeEdit, SIGNAL(nameChanged()), this, SLOT(modeNameChanged()));
+    disconnect(m_modeEdit, SIGNAL(channelsChanged()), this, SLOT(setModified()));
+    delete m_modeEdit;
+    m_modeEdit = nullptr;
+}
+
 void EditorView::modeNameChanged()
 {
     setModified(true);
@@ -372,6 +386,24 @@ QString EditorView::checkFixture()
             {
                 if (cap->name().isEmpty())
                     errors.append(tr("<li>Empty capability description provided in channel '%1'</li>").arg(channel->name()));
+            }
+        }
+
+        for (QLCFixtureMode *mode : m_fixtureDef->modes())
+        {
+            if (mode->name().isEmpty())
+                errors.append(tr("<li>Empty mode name provided</li>"));
+
+            if (mode->channels().count() == 0)
+                errors.append(tr("<li>Mode '%1' has no channels defined</li>").arg(mode->name()));
+
+            quint32 chIndex = 0;
+            for (QLCChannel *channel : mode->channels())
+            {
+
+                if (mode->channelActsOn(chIndex) == chIndex)
+                    errors.append(tr("<li>In mode '%1', channel '%2' cannot act on itself</li>").arg(mode->name(), channel->name()));
+                chIndex++;
             }
         }
     }

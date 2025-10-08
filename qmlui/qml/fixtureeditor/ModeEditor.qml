@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.14
-import QtQuick.Layouts 1.14
-import QtQuick.Controls 2.14
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -137,7 +137,8 @@ Rectangle
                                 IconButton
                                 {
                                     id: delChButton
-                                    imgSource: "qrc:/remove.svg"
+                                    faSource: FontAwesome.fa_minus
+                                    faColor: "crimson"
                                     tooltip: qsTr("Remove the selected channel(s)")
                                     enabled: modeChanSelector.itemsCount
 
@@ -294,10 +295,15 @@ Rectangle
                                                 iSrc: mcDelegate.cRef ? mcDelegate.cRef.getIconNameFromGroup(mcDelegate.cRef.group, true) : ""
                                             }
                                             Rectangle { width: 1; height: UISettings.listItemHeight }
+
                                             CustomComboBox
                                             {
                                                 implicitWidth: UISettings.bigItemHeight * 2
                                                 height: UISettings.listItemHeight
+                                                model: mode ? mode.actsOnChannels : null
+                                                textRole: ""
+                                                currentIndex: mode ? mode.actsOnChannel(index) : -1
+                                                onCurrentIndexChanged: if (mode) mode.setActsOnChannel(index, currentIndex)
                                             }
                                         }
 
@@ -411,7 +417,8 @@ Rectangle
                                 IconButton
                                 {
                                     id: delHeadButton
-                                    imgSource: "qrc:/remove.svg"
+                                    faSource: FontAwesome.fa_minus
+                                    faColor: "crimson"
                                     tooltip: qsTr("Remove the selected emitter(s)")
                                     enabled: modeHeadSelector.itemsCount
 
