@@ -142,6 +142,7 @@ Popup
     {
         id: customDialog
         title: dialogTitle
+        nameFilters: dialogNameFilters
         standardButtons: Dialog.Cancel | (dialogOpMode === App.SaveMode ? Dialog.Save : Dialog.Open)
 
         onAccepted:

@@ -28,6 +28,7 @@ class FolderBrowser : public QObject
     Q_DISABLE_COPY(FolderBrowser)
 
     Q_PROPERTY(QString currentPath READ currentPath WRITE setCurrentPath NOTIFY currentPathChanged)
+    Q_PROPERTY(QString selectedNameFilter READ selectedNameFilter WRITE setSelectedNameFilter NOTIFY selectedNameFilterChanged)
     Q_PROPERTY(QVariant pathModel READ pathModel NOTIFY pathModelChanged)
     Q_PROPERTY(QVariant folderModel READ folderModel NOTIFY folderModelChanged)
     Q_PROPERTY(QVariant drivesModel READ drivesModel NOTIFY drivesModelChanged)
@@ -42,18 +43,23 @@ public:
     QString currentPath() const;
     void setCurrentPath(QString path);
 
+    QString selectedNameFilter() const;
+    void setSelectedNameFilter(const QString &newSelectedNameFilter);
+
     QVariant pathModel() const;
     QVariant folderModel() const;
     QVariant drivesModel() const;
 
 signals:
     void currentPathChanged();
+    void selectedNameFilterChanged();
     void pathModelChanged();
     void folderModelChanged();
     void drivesModelChanged();
 
 private:
     QString m_currentPath;
+    QString m_selectedNameFilter;
     QVariant m_folderModel;
 };
 

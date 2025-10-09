@@ -61,6 +61,22 @@ void FolderBrowser::setCurrentPath(QString path)
     emit folderModelChanged();
 }
 
+
+QString FolderBrowser::selectedNameFilter() const
+{
+    return m_selectedNameFilter;
+}
+
+void FolderBrowser::setSelectedNameFilter(const QString &newSelectedNameFilter)
+{
+    if (m_selectedNameFilter == newSelectedNameFilter)
+        return;
+
+    m_selectedNameFilter = newSelectedNameFilter;
+    emit selectedNameFilterChanged();
+    emit folderModelChanged();
+}
+
 QVariant FolderBrowser::pathModel() const
 {
     QVariantList list;
@@ -115,7 +131,18 @@ QVariant FolderBrowser::folderModel() const
 
     QDir cp(m_currentPath);
     cp.setSorting(QDir::SortFlag::DirsFirst | QDir::SortFlag::Name);
-    cp.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot);
+    cp.setFilter(QDir::AllDirs | QDir::Files | QDir::NoDotAndDotDot);
+
+    // extract name filters
+    const qsizetype l = m_selectedNameFilter.indexOf('(');
+    const qsizetype r = m_selectedNameFilter.lastIndexOf(')');
+    if (l >= 0 && r > l)
+    {
+        const QString patterns = m_selectedNameFilter.mid(l + 1, r - l - 1);   // "*.qxw *.qxf"
+        QStringList filters = patterns.split(' ', Qt::SkipEmptyParts);
+        cp.setNameFilters(filters);
+    }
+
     for (QFileInfo &info : cp.entryInfoList())
     {
         QVariantMap params;
@@ -148,3 +175,4 @@ QVariant FolderBrowser::drivesModel() const
 
     return QVariant::fromValue(list);
 }
+

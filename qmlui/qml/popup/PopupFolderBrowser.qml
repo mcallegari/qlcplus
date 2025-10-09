@@ -30,6 +30,7 @@ CustomPopupDialog
     width: mainView.width / 2
 
     property alias folder: folderBrowser.currentPath
+    property var nameFilters
     property string selectedFile: folderBrowser.currentPath + folderBrowser.separator() + fileNameInput.text
 
     FolderBrowser
@@ -156,7 +157,7 @@ CustomPopupDialog
                     delegate:
                         Rectangle
                         {
-                            width: parent.width
+                            width: folderList.width
                             height: UISettings.listItemHeight
                             color: index === folderList.selectedIndex ? UISettings.highlight : "transparent"
 
@@ -229,6 +230,23 @@ CustomPopupDialog
                     selectionColor: UISettings.highlightPressed
                     selectedTextColor: UISettings.fgMain
                 }
+            }
+
+            // row 4
+            RobotoText
+            {
+                label: qsTr("Files of type:")
+                height: UISettings.iconSizeMedium
+            }
+            CustomComboBox
+            {
+                Layout.fillWidth: true
+                height: UISettings.iconSizeMedium
+                textRole: ""
+                model: nameFilters
+
+                Component.onCompleted: folderBrowser.selectedNameFilter = currentText
+                onActivated: folderBrowser.selectedNameFilter = currentText
             }
         }
 }
