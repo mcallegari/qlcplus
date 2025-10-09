@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.13
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -30,7 +30,7 @@ CustomPopupDialog
     width: mainView.width / 2
 
     property alias folder: folderBrowser.currentPath
-    property string fileUrl: folderBrowser.currentPath + folderBrowser.separator() + fileNameInput.text
+    property string selectedFile: folderBrowser.currentPath + folderBrowser.separator() + fileNameInput.text
 
     FolderBrowser
     {
@@ -49,7 +49,7 @@ CustomPopupDialog
         {
             columns: 2
 
-            // row 1
+            // row 1 - path breadcrumb
             ListView
             {
                 Layout.columnSpan: 2
@@ -113,6 +113,7 @@ CustomPopupDialog
 
                             IconTextEntry
                             {
+                                x: 5
                                 width: parent.width
                                 height: UISettings.listItemHeight
                                 tLabel: modelData.name
@@ -161,11 +162,12 @@ CustomPopupDialog
 
                             IconTextEntry
                             {
+                                x: 5
                                 width: parent.width
                                 height: UISettings.listItemHeight
-                                iSrc: modelData.isFolder ? "qrc:/folder.svg" : "" //"qrc:/import.svg"
+                                iSrc: modelData.isFolder ? "qrc:/folder.svg" : ""
                                 tLabel: modelData.name
-                                faSource: modelData.isFolder ? "" : FontAwesome.fa_file_text
+                                faSource: modelData.isFolder ? "" : FontAwesome.fa_file
                                 faColor: UISettings.fgMain
                             }
 
