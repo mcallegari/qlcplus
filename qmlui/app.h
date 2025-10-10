@@ -84,6 +84,15 @@ public:
     };
     Q_ENUM(MouseEvents)
 
+    enum FileDialogOpModes
+    {
+        OpenMode = 0,
+        SaveMode,
+        SaveAsMode,
+        ImportMode
+    };
+    Q_ENUM(FileDialogOpModes)
+
     enum DragItemTypes
     {
         GenericDragItem,

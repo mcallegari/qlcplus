@@ -22,6 +22,7 @@ import QtQuick.Controls
 import QtQuick.Dialogs
 import QtQuick.Layouts
 
+import org.qlcplus.classes 1.0
 import "."
 
 Popup
@@ -39,7 +40,7 @@ Popup
         if (qlcplus.fileName())
             qlcplus.saveWorkspace(qlcplus.fileName())
         else
-            saveDialog.open()
+            openDialog(App.SaveAsMode)
     }
 
     function saveBeforeExit()
@@ -54,55 +55,100 @@ Popup
         menuRoot.close()
     }
 
-    FileDialog
-    {
-        id: openDialog
-        title: qsTr("Open a file")
-        currentFolder: "file://" + qlcplus.workingPath
-        nameFilters: [ qsTr("QLC+ files") + " (*.qxw *.qxf)", qsTr("All files") + " (*)" ]
+    property string dialogTitle
+    property url dialogCurrentFolder: "file://" + qlcplus.workingPath
+    property url dialogSelectedFile
+    property var dialogNameFilters: [ qsTr("QLC+ files") + " (*.qxw *.qxf)", qsTr("All files") + " (*)" ]
+    property int dialogFileMode: FileDialog.OpenFile
+    property int dialogOpMode: App.OpenMode
 
-        onAccepted:
+    function openDialog(opMode)
+    {
+        dialogOpMode = opMode
+        switch (dialogOpMode)
         {
-            if (selectedFile.toString().endsWith("qxf") || selectedFile.toString().endsWith("d4"))
-                qlcplus.loadFixture(selectedFile)
-            else
-                qlcplus.loadWorkspace(selectedFile)
-            qlcplus.workingPath = currentFolder.toString()
+            case App.OpenMode:
+                dialogTitle = qsTr("Open a file")
+                dialogFileMode = FileDialog.OpenFile
+            break
+            case App.SaveMode:
+            case App.SaveAsMode:
+                dialogTitle = qsTr("Save project as...")
+                dialogFileMode = FileDialog.SaveFile
+            break
+            case App.ImportMode:
+                dialogTitle = qsTr("Import from project")
+            break
         }
+
+        if (Qt.platform.os === "linux")
+            customDialog.open()
+        else
+            nativeDialog.open()
     }
 
-    FileDialog
+    function handleAccept()
     {
-        id: importDialog
-        title: qsTr("Import from project")
-        currentFolder: "file://" + qlcplus.workingPath
-        nameFilters: [ qsTr("Project files") + " (*.qxw)", qsTr("All files") + " (*)" ]
+        console.log("Selected file: " + dialogSelectedFile)
 
-        onAccepted:
+        switch (dialogOpMode)
         {
-            if (qlcplus.loadImportWorkspace(selectedFile) === true)
+            case App.OpenMode:
             {
-                importLoader.source = ""
-                importLoader.source = "qrc:/PopupImportProject.qml"
+                if (dialogSelectedFile.toString().endsWith("qxf") ||
+                    dialogSelectedFile.toString().endsWith("d4"))
+                    qlcplus.loadFixture(dialogSelectedFile)
+                else
+                    qlcplus.loadWorkspace(dialogSelectedFile)
+                qlcplus.workingPath = dialogCurrentFolder.toString()
             }
+            break
+            case App.SaveMode:
+            {
+                qlcplus.saveWorkspace(dialogSelectedFile)
+
+                if (saveFirstPopup.action == "#EXIT")
+                    qlcplus.exit()
+            }
+            break
+            case App.ImportMode:
+            {
+                if (qlcplus.loadImportWorkspace(dialogSelectedFile) === true)
+                {
+                    importLoader.source = ""
+                    importLoader.source = "qrc:/PopupImportProject.qml"
+                }
+            }
+            break
         }
     }
 
     FileDialog
     {
-        id: saveDialog
-        title: qsTr("Save project as...")
-        currentFolder: "file://" + qlcplus.workingPath
-        fileMode: FileDialog.SaveFile
-        nameFilters: [ qsTr("Project files") + " (*.qxw)", qsTr("All files") + " (*)" ]
+        id: nativeDialog
+        title: dialogTitle
+        fileMode: dialogFileMode
+        currentFolder: dialogCurrentFolder
+        nameFilters: dialogNameFilters
 
         onAccepted:
         {
-            console.log("You chose: " + selectedFile)
-            qlcplus.saveWorkspace(selectedFile)
+            dialogSelectedFile = selectedFile
+            handleAccept()
+        }
+    }
 
-            if (saveFirstPopup.action == "#EXIT")
-                qlcplus.exit()
+    PopupFolderBrowser
+    {
+        id: customDialog
+        title: dialogTitle
+        nameFilters: dialogNameFilters
+        standardButtons: Dialog.Cancel | (dialogOpMode === App.SaveMode ? Dialog.Save : Dialog.Open)
+
+        onAccepted:
+        {
+            dialogSelectedFile = selectedFile
+            handleAccept()
         }
     }
 
@@ -131,7 +177,7 @@ Popup
                 else
                 {
                     console.log("YES clicked 2")
-                    //saveDialog.open()
+                    //openDialog(App.SaveMode)
                     handleSaveAction()
                     if (action == "#EXIT")
                         return
@@ -140,7 +186,7 @@ Popup
             else if (role === Dialog.No)
             {
                 if (action == "#OPEN")
-                    openDialog.open()
+                    openDialog(App.OpenMode)
                 else if (action == "#NEW")
                     qlcplus.newWorkspace()
                 else if (action == "#EXIT")
@@ -204,7 +250,7 @@ Popup
                     saveFirstPopup.open()
                 }
                 else
-                    openDialog.open()
+                    openDialog(App.OpenMode)
 
                 menuRoot.close()
             }
@@ -271,7 +317,7 @@ Popup
 
             onClicked:
             {
-                saveDialog.open()
+                openDialog(App.SaveMode)
                 menuRoot.close()
             }
         }
@@ -285,7 +331,7 @@ Popup
 
             onClicked:
             {
-                importDialog.open()
+                openDialog(App.ImportMode)
                 menuRoot.close()
             }
 

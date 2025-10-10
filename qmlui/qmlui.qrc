@@ -68,6 +68,7 @@
     <file alias="PopupCreatePalette.qml">qml/popup/PopupCreatePalette.qml</file>
     <file alias="PopupCustomFeedback.qml">qml/popup/PopupCustomFeedback.qml</file>
     <file alias="PopupDisclaimer.qml">qml/popup/PopupDisclaimer.qml</file>
+    <file alias="PopupFolderBrowser.qml">qml/popup/PopupFolderBrowser.qml</file>
     <file alias="PopupImportProject.qml">qml/popup/PopupImportProject.qml</file>
     <file alias="PopupPINRequest.qml">qml/popup/PopupPINRequest.qml</file>
     <file alias="PopupPINSetup.qml">qml/popup/PopupPINSetup.qml</file>
