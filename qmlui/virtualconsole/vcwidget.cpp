@@ -1340,7 +1340,7 @@ bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc)
 
     if (hasCustomForegroundColor() == false &&
         hasCustomBackgroundColor() == false &&
-        //backgroundImage().isEmpty() &&
+        backgroundImage().isEmpty() &&
         hasCustomFont() == false)
             return true;
 
