@@ -777,16 +777,17 @@ QString MainView2D::backgroundImage()
     return m_monProps->commonBackgroundImage();
 }
 
-void MainView2D::setBackgroundImage(QString image)
+void MainView2D::setBackgroundImage(QString path)
 {
-    QString strippedPath = image.replace("file://", "");
+    if (path.startsWith("file:"))
+        path = QUrl(path).toLocalFile();
     QString currentImage = m_monProps->commonBackgroundImage();
 
-    if (strippedPath == currentImage)
+    if (path == currentImage)
         return;
 
-    Tardis::instance()->enqueueAction(Tardis::EnvironmentBackgroundImage, 0, QVariant(currentImage), QVariant(strippedPath));
-    m_monProps->setCommonBackgroundImage(strippedPath);
+    Tardis::instance()->enqueueAction(Tardis::EnvironmentBackgroundImage, 0, currentImage, path);
+    m_monProps->setCommonBackgroundImage(path);
     emit backgroundImageChanged();
 }
 

@@ -404,17 +404,18 @@ void VCWidget::resetBackgroundColor()
  *********************************************************************/
 void VCWidget::setBackgroundImage(QString path)
 {
-    QString strippedPath = path.replace("file://", "");
+    if (path.startsWith("file:"))
+        path = QUrl(path).toLocalFile();
 
-    if (m_backgroundImage == strippedPath)
+    if (m_backgroundImage == path)
         return;
 
-    enqueueTardisAction(Tardis::VCWidgetBackgroundImage, m_backgroundImage, strippedPath);
+    enqueueTardisAction(Tardis::VCWidgetBackgroundImage, m_backgroundImage, path);
 
     m_hasCustomBackgroundColor = false;
-    m_backgroundImage = strippedPath;
+    m_backgroundImage = path;
 
-    emit backgroundImageChanged(strippedPath);
+    emit backgroundImageChanged(path);
 }
 
 QString VCWidget::backgroundImage() const

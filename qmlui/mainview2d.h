@@ -117,7 +117,7 @@ public:
 
     /** Get/Set the main background image */
     QString backgroundImage();
-    void setBackgroundImage(QString image);
+    void setBackgroundImage(QString path);
 
 protected:
     /** First time 2D view variables initializations */

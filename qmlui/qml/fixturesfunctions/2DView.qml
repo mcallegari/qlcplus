@@ -152,7 +152,7 @@ Rectangle
             y: twoDContents.yOffset
             width: twoDView.contentWidth - (x * 2)
             height: twoDView.contentHeight - (y * 2)
-            source: View2D.backgroundImage ? "file://" + View2D.backgroundImage : ""
+            source: View2D.backgroundImage ? "file:///" + View2D.backgroundImage : ""
             sourceSize: Qt.size(width, height)
             fillMode: Image.PreserveAspectFit
         }

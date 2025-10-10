@@ -96,7 +96,7 @@ Rectangle
     {
         id: bgImage
         anchors.fill: parent
-        source: wObj && wObj.backgroundImage !== "" ? "file://" + wObj.backgroundImage : ""
+        source: wObj && wObj.backgroundImage !== "" ? "file:///" + wObj.backgroundImage : ""
         sourceSize: Qt.size(width, height)
         fillMode: Image.PreserveAspectFit
     }
