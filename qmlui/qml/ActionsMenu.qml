@@ -104,6 +104,7 @@ Popup
             }
             break
             case App.SaveMode:
+            case App.SaveAsMode:
             {
                 qlcplus.saveWorkspace(dialogSelectedFile)
 
