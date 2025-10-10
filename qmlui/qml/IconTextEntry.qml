@@ -42,7 +42,7 @@ Rectangle
     RowLayout
     {
         anchors.fill: parent
-        spacing: 4
+        spacing: 5
 
         Image
         {

@@ -95,6 +95,7 @@ CustomPopupDialog
                 Layout.fillWidth: true
                 height: UISettings.listItemHeight * 8
 
+                // List of drives/home
                 ListView
                 {
                     id: drivesList
@@ -118,7 +119,7 @@ CustomPopupDialog
                                 width: parent.width
                                 height: UISettings.listItemHeight
                                 tLabel: modelData.name
-                                faSource: FontAwesome.fa_hdd_o
+                                faSource: FontAwesome.fa_hard_drive
                                 faColor: UISettings.fgMain
                             }
 
@@ -142,6 +143,7 @@ CustomPopupDialog
                         }
                 }
 
+                // list of files and folders
                 ListView
                 {
                     id: folderList
