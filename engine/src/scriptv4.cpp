@@ -522,6 +522,22 @@ QString Script::convertLine(const QString& str, bool *ok)
                     value.append("\"");
                 }
             }
+            else if (command == blackoutLegacy)
+            {
+                if (value == "on")
+                {
+                    value = "true";
+                }
+                else if (value == "off")
+                {
+                    value = "false";
+                }
+                else
+                {
+                    value.prepend("\"");
+                    value.append("\"");
+                }
+            }
 
             values << value.trimmed();
         }
