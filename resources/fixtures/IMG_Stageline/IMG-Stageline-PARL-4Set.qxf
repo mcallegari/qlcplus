@@ -25,7 +25,7 @@
  <Channel Name="spotlight S 4: green" Preset="IntensityGreen"/>
  <Channel Name="spotlight S 4: blue" Preset="IntensityBlue"/>
  <Channel Name="spotlight S 4: dimmer" Preset="IntensityDimmer"/>
- <Channel Name="Control of dimmer and stroboscope">
+ <Channel Name="Control of dimmer and stroboscope" Default="255">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="1">LEDs off</Capability>
   <Capability Min="2" Max="190">dimmer</Capability>
