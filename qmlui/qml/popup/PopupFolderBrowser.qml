@@ -29,7 +29,7 @@ CustomPopupDialog
     id: popupRoot
     width: mainView.width / 2
 
-    property alias folder: folderBrowser.currentPath
+    property alias currentFolder: folderBrowser.currentPath
     property var nameFilters
     property string selectedFile: folderBrowser.currentPath + folderBrowser.separator() + fileNameInput.text
 

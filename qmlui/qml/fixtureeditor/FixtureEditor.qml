@@ -50,41 +50,90 @@ Rectangle
         source: "qrc:/FontAwesome7-Free-Solid-900.otf"
     }
 
-    FileDialog
-    {
-        id: openDialog
-        visible: false
-        title: qsTr("Open a fixture definition")
-        currentFolder: "file://" + fixtureEditor.workingPath
-        nameFilters: [ qsTr("Fixture definition files") + " (*.qxf)", qsTr("All files") + " (*)" ]
+    property string dialogTitle
+    property url dialogCurrentFolder: "file://" + fixtureEditor.workingPath
+    property url dialogSelectedFile
+    property var dialogNameFilters: [ qsTr("Fixture definition files") + " (*.qxf)", qsTr("All files") + " (*)" ]
+    property int dialogFileMode: FileDialog.OpenFile
+    property int dialogOpMode: App.OpenMode
 
-        onAccepted:
+    function openDialog(opMode)
+    {
+        dialogOpMode = opMode
+        switch (dialogOpMode)
         {
-            fixtureEditor.workingPath = folder.toString()
-            if (fixtureEditor.loadDefinition(selectedFile) === false)
+            case App.OpenMode:
+                dialogTitle = qsTr("Open a fixture definition")
+                dialogFileMode = FileDialog.OpenFile
+            break
+            case App.SaveMode:
+            case App.SaveAsMode:
+                dialogTitle = qsTr("Save definition as...")
+                dialogFileMode = FileDialog.SaveFile
+            break
+        }
+
+        if (Qt.platform.os === "linux")
+            customDialog.open()
+        else
+            nativeDialog.open()
+    }
+
+    function handleAccept()
+    {
+        console.log("Selected file: " + dialogSelectedFile)
+
+        switch (dialogOpMode)
+        {
+            case App.OpenMode:
             {
-                editor.visible = false
-                messagePopup.message = qsTr("An error occurred while loading the selected file.<br>" +
-                                            "It could be invalid or corrupted.")
-                messagePopup.open()
+                //fixtureEditor.workingPath = dialogCurrentFolder.toString()
+                if (fixtureEditor.loadDefinition(dialogSelectedFile) === false)
+                {
+                    editor.visible = false
+                    messagePopup.message = qsTr("An error occurred while loading the selected file.<br>" +
+                                                "It could be invalid or corrupted.")
+                    messagePopup.open()
+                }
             }
+            break
+            case App.SaveMode:
+            case App.SaveAsMode:
+            {
+                editor.save(dialogSelectedFile)
+            }
+            break
         }
     }
 
     FileDialog
     {
-        id: saveDialog
-        visible: false
-        title: qsTr("Save definition as...")
-        currentFolder: "file://" + fixtureEditor.workingPath
-        fileMode: FileDialog.SaveFile
-        nameFilters: [ qsTr("Fixture definition files") + " (*.qxf)", qsTr("All files") + " (*)" ]
-        defaultSuffix: "qxf"
+        id: nativeDialog
+        title: dialogTitle
+        fileMode: dialogFileMode
+        currentFolder: dialogCurrentFolder
+        nameFilters: dialogNameFilters
 
         onAccepted:
         {
-            console.log("File to save: " + selectedFile)
-            editor.save(selectedFile)
+            dialogSelectedFile = selectedFile
+            dialogCurrentFolder = currentFolder
+            handleAccept()
+        }
+    }
+
+    PopupFolderBrowser
+    {
+        id: customDialog
+        title: dialogTitle
+        nameFilters: dialogNameFilters
+        standardButtons: Dialog.Cancel | (dialogOpMode === App.SaveMode ? Dialog.Save : Dialog.Open)
+
+        onAccepted:
+        {
+            dialogSelectedFile = selectedFile
+            dialogCurrentFolder = currentFolder
+            handleAccept()
         }
     }
 
@@ -114,9 +163,8 @@ Rectangle
                 {
                     if (editRef.fileName === "")
                     {
-                        saveDialog.currentFolder = fixtureEditor.workingPath
-                        //saveDialog.currentFile = "file:///" + editor.editorView.fileName
-                        saveDialog.open()
+                        dialogCurrentFolder = fixtureEditor.workingPath
+                        openDialog(App.SaveMode)
                     }
                     else
                     {
@@ -201,8 +249,8 @@ Rectangle
                 entryText: qsTr("Open definition")
                 onClicked:
                 {
-                    openDialog.currentFolder = fixtureEditor.workingPath
-                    openDialog.open()
+                    dialogCurrentFolder = fixtureEditor.workingPath
+                    openDialog(App.OpenMode)
                 }
                 autoExclusive: false
                 checkable: false
@@ -217,9 +265,8 @@ Rectangle
                 {
                     if (editor.editorView.fileName === "")
                     {
-                        saveDialog.currentFolder = fixtureEditor.workingPath
-                        //saveDialog.currentFile = "file:///" + editor.editorView.fileName
-                        saveDialog.open()
+                        dialogCurrentFolder = fixtureEditor.workingPath
+                        openDialog(App.SaveMode)
                     }
                     else
                     {
@@ -235,9 +282,8 @@ Rectangle
                 checkable: false
                 onClicked:
                 {
-                    saveDialog.currentFolder = fixtureEditor.workingPath + "/" + editor.editorView.fileName
-                    //saveDialog.currentFile = "file:///" + editor.editorView.fileName
-                    saveDialog.open()
+                    dialogCurrentFolder = fixtureEditor.workingPath + "/" + editor.editorView.fileName
+                    openDialog(App.SaveAsMode)
                 }
             }
             // filler

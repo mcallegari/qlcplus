@@ -135,6 +135,7 @@ Popup
         onAccepted:
         {
             dialogSelectedFile = selectedFile
+            dialogCurrentFolder = currentFolder
             handleAccept()
         }
     }
@@ -149,6 +150,7 @@ Popup
         onAccepted:
         {
             dialogSelectedFile = selectedFile
+            dialogCurrentFolder = currentFolder
             handleAccept()
         }
     }
