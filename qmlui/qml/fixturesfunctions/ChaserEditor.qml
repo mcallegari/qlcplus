@@ -185,7 +185,6 @@ Rectangle
                     id: printButton
                     width: height
                     height: UISettings.iconSizeMedium - 2
-                    //imgSource: "qrc:/printer.svg"
                     faSource: FontAwesome.fa_print
                     faColor: UISettings.fgMain
                     tooltip: qsTr("Print the Chaser steps")

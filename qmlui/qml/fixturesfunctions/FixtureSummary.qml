@@ -52,7 +52,8 @@ Rectangle
             IconButton
             {
                 width: UISettings.bigItemHeight
-                imgSource: "qrc:/printer.svg"
+                faSource: FontAwesome.fa_print
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Print the fixture summary")
                 onClicked: qlcplus.printItem(flickView.contentItem)
             }

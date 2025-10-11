@@ -97,7 +97,8 @@ Rectangle
             {
                 width: UISettings.bigItemHeight
                 height: UISettings.iconSizeDefault * 0.9
-                imgSource: "qrc:/printer.svg"
+                faSource: FontAwesome.fa_print
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Print the universe summary")
                 onClicked: qlcplus.printItem(flickView.contentItem)
             }
