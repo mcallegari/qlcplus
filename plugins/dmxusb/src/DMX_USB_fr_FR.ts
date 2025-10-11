@@ -201,6 +201,7 @@ NOTE : L&apos;interface VCP FTDI n&apos;est pas supportée par ce plugin.</trans
         <location filename="euroliteusbdmxpro.cpp" line="171"/>
         <location filename="nanodmx.cpp" line="236"/>
         <location filename="stageprofi.cpp" line="141"/>
+        <location filename="usbdmxlegacy.cpp" line="131"/>
         <location filename="vinceusbdmx512.cpp" line="233"/>
         <source>Protocol</source>
         <translation>Protocole</translation>
@@ -209,6 +210,7 @@ NOTE : L&apos;interface VCP FTDI n&apos;est pas supportée par ce plugin.</trans
         <location filename="euroliteusbdmxpro.cpp" line="178"/>
         <location filename="nanodmx.cpp" line="243"/>
         <location filename="stageprofi.cpp" line="148"/>
+        <location filename="usbdmxlegacy.cpp" line="134"/>
         <location filename="vinceusbdmx512.cpp" line="237"/>
         <source>Serial number</source>
         <translation>N° de série</translation>
@@ -217,6 +219,7 @@ NOTE : L&apos;interface VCP FTDI n&apos;est pas supportée par ce plugin.</trans
         <location filename="euroliteusbdmxpro.cpp" line="173"/>
         <location filename="nanodmx.cpp" line="238"/>
         <location filename="stageprofi.cpp" line="143"/>
+        <location filename="usbdmxlegacy.cpp" line="132"/>
         <location filename="vinceusbdmx512.cpp" line="235"/>
         <source>Output</source>
         <translation>Sortie</translation>
