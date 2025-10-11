@@ -222,7 +222,7 @@ Rectangle
                         RobotoText
                         {
                             parent: gridBox
-                            label: cRef ? "" + (cRef.address + 1) + "-" + (cRef.address + cRef.channels + 1) : ""
+                            label: cRef ? "" + (cRef.address + 1) + "-" + (cRef.address + cRef.channels) : ""
                             labelColor: flickView.textColor
                             rightMargin: 5
                             width: UISettings.bigItemHeight
