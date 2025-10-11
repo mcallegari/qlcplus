@@ -226,8 +226,10 @@ Rectangle
                             label: cRef ? "" + (cRef.address + 1) + "-" + (cRef.address + cRef.channels) : ""
                             labelColor: flickView.textColor
                             rightMargin: 5
+                            leftMargin: 5
                             width: UISettings.bigItemHeight
 
+                            Rectangle { anchors.left: parent.left; height: parent.height; width: 1; color: "black" }
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
                         }
 
@@ -262,8 +264,6 @@ Rectangle
                             label: cRef ? cRef.name : ""
                             labelColor: flickView.textColor
                             rightMargin: 5
-
-                            Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
                         }
 
                         // icon
