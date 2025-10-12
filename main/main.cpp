@@ -217,7 +217,11 @@ bool parseArgs()
             QLCArgs::logToFile = true;
             QString logFilename = QDir::homePath() + QDir::separator() + "QLC+.log";
             QLCArgs::logFile.setFileName(logFilename);
-            QLCArgs::logFile.open(QIODevice::Append);
+            if (!QLCArgs::logFile.open(QIODevice::Append))
+            {
+                qWarning() << "Could not open log file!";
+                return false;
+            }
         }
         else if (arg == "-f" || arg == "--fullscreen")
         {
