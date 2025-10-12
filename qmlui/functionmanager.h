@@ -265,7 +265,7 @@ public:
 
     /** Create an empty folder with path starting from the currently
      *  selected item */
-    Q_INVOKABLE void createFolder();
+    Q_INVOKABLE bool createFolder(QString folderName);
 
     /** Delete the currently selected folders. If a folder is not empty,
      *  delete also all the sub items in it */

@@ -28,7 +28,6 @@ Popup
     id: menuRoot
     padding: 0
 
-    signal requestFolder()
     signal entryClicked(int fType)
 
     background:
@@ -46,7 +45,7 @@ Popup
             entryText: qsTr("New folder")
             onClicked:
             {
-                functionManager.createFolder()
+                menuRoot.requestFolder()
                 menuRoot.close()
             }
         }

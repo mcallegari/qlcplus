@@ -161,6 +161,33 @@ SidePanel
         onAccepted: {}
     }
 
+
+    PopupRenameItems
+    {
+        id: textInputPopup
+
+        property bool isFolder: false
+
+        onAccepted:
+        {
+            var success
+
+            if (isFolder)
+            {
+                success = functionManager.createFolder(editText)
+            }
+            else
+            {
+                success = functionManager.renameSelectedItems(editText, numberingEnabled, startNumber, digits)
+            }
+            if (success === false)
+            {
+                fmGenericPopup.message = qsTr("An item with the same name already exists.\nPlease provide a different name.")
+                fmGenericPopup.open()
+            }
+        }
+    }
+
     Rectangle
     {
         width: collapseWidth
@@ -212,6 +239,14 @@ SidePanel
                 {
                     visible: addFunction.checked
                     x: -width
+
+                    function requestFolder()
+                    {
+                        textInputPopup.title = qsTr("Enter a unique name")
+                        textInputPopup.isFolder = true
+                        textInputPopup.editText = qsTr("New folder")
+                        textInputPopup.open()
+                    }
 
                     onEntryClicked: function(fType)
                     {
@@ -265,24 +300,11 @@ SidePanel
                     if (selNames.length === 0)
                         return
                     if (selNames.length > 1)
-                        renameFuncPopup.showNumbering = true
-                    renameFuncPopup.editText = selNames[0]
-                    renameFuncPopup.open()
-                }
-
-                PopupRenameItems
-                {
-                    id: renameFuncPopup
-                    title: qsTr("Rename items")
-                    onAccepted:
-                    {
-                        if (functionManager.renameSelectedItems(editText, numberingEnabled, startNumber, digits) === false)
-                        {
-                            fmGenericPopup.message = qsTr("An item with the same name already exists.\nPlease provide a different name.")
-                            fmGenericPopup.open()
-                        }
-
-                    }
+                        textInputPopup.showNumbering = true
+                    textInputPopup.title = qsTr("Rename items")
+                    textInputPopup.isFolder = false
+                    textInputPopup.editText = selNames[0]
+                    textInputPopup.open()
                 }
             }
             IconButton

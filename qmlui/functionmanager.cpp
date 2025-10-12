@@ -1038,20 +1038,10 @@ void FunctionManager::setFolderPath(QString oldAbsPath, QString newPath, bool is
     //m_functionTree->printTree();
 }
 
-void FunctionManager::createFolder()
+bool FunctionManager::createFolder(QString folderName)
 {
-    QString fName;
     QString basePath;
     QString compPath;
-    int index = 1;
-
-    do
-    {
-        fName = QString("%1 %2").arg(tr("New folder")).arg(index);
-        if (m_emptyFolderList.contains(fName) == false)
-            break;
-        index++;
-    } while (1);
 
     // check if there is some selected folder
     if (m_selectedFolderList.count())
@@ -1067,22 +1057,31 @@ void FunctionManager::createFolder()
     }
 
     if (basePath.isEmpty())
-    {
-        m_emptyFolderList.append(fName);
-    }
+        compPath = folderName;
     else
+        compPath = QString("%1%2%3").arg(basePath).arg(TreeModel::separator()).arg(folderName);
+
+    // check if a folder with the same name already exists
+    if (m_emptyFolderList.contains(compPath))
+        return false;
+
+    QString lowerPath = compPath.toLower();
+    for (Function *f : m_doc->functions())
     {
-        compPath = QString("%1%2%3").arg(basePath).arg(TreeModel::separator()).arg(fName);
-        m_emptyFolderList.append(compPath);
+        if (f->path(true).toLower().startsWith(lowerPath))
+            return false;
     }
+
+    m_emptyFolderList.append(compPath);
 
     QVariantList params;
     params.append(QVariant()); // classRef
     params.append(App::FolderDragItem); // type
 
-    m_functionTree->addItem(fName, params, basePath, TreeModel::EmptyNode | TreeModel::Expanded);
+    m_functionTree->addItem(folderName, params, basePath, TreeModel::EmptyNode | TreeModel::Expanded);
+    //m_functionTree->printTree();
 
-    m_functionTree->printTree();
+    return true;
 }
 
 void FunctionManager::deleteSelectedFolders()
