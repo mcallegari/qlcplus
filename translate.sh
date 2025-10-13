@@ -7,16 +7,20 @@ set -euo pipefail
 #   ./translate.sh create <ll_CC> [qmlui|ui]
 #   ./translate.sh stats
 
+ACTION="${1:-}"
+
 which_qt() {
   local base="$1"
   command -v "$base" 2>/dev/null || command -v "${base}-qt6" 2>/dev/null || command -v "${base}-qt5" 2>/dev/null || true
 }
-LRELEASE="$(which_qt lrelease)"
-LUPDATE="$(which_qt lupdate)"
-: "${LRELEASE:?lrelease not found}"
-: "${LUPDATE:?lupdate not found}"
 
-ACTION="${1:-}"
+if [[ "$ACTION" != "stats" ]]; then
+  LRELEASE="$(which_qt lrelease)"
+  LUPDATE="$(which_qt lupdate)"
+  : "${LRELEASE:?lrelease not found}"
+  : "${LUPDATE:?lupdate not found}"
+fi
+
 UI_LANGS="de_DE es_ES fr_FR it_IT nl_NL cz_CZ pt_BR ca_ES ja_JP"
 QMLUI_LANGS="de_DE es_ES fr_FR it_IT nl_NL ru_RU ca_ES ja_JP uk_UA pl_PL"
 
@@ -82,6 +86,7 @@ compute_translation_percentage() {
   # read .ts file and count total and translated strings
   # simply count <message> and <translation> tags
   # and translation with type="unfinished" attribute
+  # args: ts_file_path
   local ts_file_path="$1"
   local total translated percent
 
