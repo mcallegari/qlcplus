@@ -237,7 +237,7 @@ void QLCFixtureDefCache_Test::storeDef()
 {
     QLCFixtureDef *def = cache.fixtureDef("Futurelight", "CY-200");
     QFile defFile(def->definitionSourceFile());
-    defFile.open(QIODevice::ReadOnly | QIODevice::Text);
+    QVERIFY(defFile.open(QIODevice::ReadOnly | QIODevice::Text));
     QString defBuffer = defFile.readAll();
     defFile.close();
     QVERIFY(cache.storeFixtureDef("storeTest.qxf", defBuffer) == true);

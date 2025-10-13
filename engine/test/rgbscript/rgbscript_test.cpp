@@ -94,7 +94,7 @@ void RGBScript_Test::scripts()
     // Prepare check that file is registered for delivery
     QString proFilePath = dir.filePath("rgbscripts.pro");
     QFile proFile(proFilePath);
-    proFile.open(QIODevice::ReadWrite);
+    QVERIFY(proFile.open(QIODevice::ReadWrite));
     QTextStream pro (&proFile);
 
     // Catch syntax / JS engine errors explicitly in the test.
