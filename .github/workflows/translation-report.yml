@@ -26,7 +26,7 @@ jobs:
         id: run_report
         run: |
           echo "Generating translation report..."
-          OUTPUT=$(./scripts/generate_translation_report.sh)
+          OUTPUT=$(./translate.sh stats)
           echo "report<<EOF" >> $GITHUB_OUTPUT
           echo "$OUTPUT" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
