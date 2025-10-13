@@ -65,15 +65,15 @@ ComboBox
             updateFromIndex()
     }
 
-    Component.onCompleted: Qt.callLater(initSelection)
-    onModelChanged: Qt.callLater(initSelection)
+    Component.onCompleted: initSelection()
+    onModelChanged: initSelection()
     onCurrValueChanged: updateFromValue()
     onCurrentIndexChanged: updateFromIndex()
 
     Connections {
         target: (model && typeof model.count !== "undefined") ? model : null
         function onCountChanged() {
-            Qt.callLater(initSelection)
+            initSelection()
         }
     }
 
