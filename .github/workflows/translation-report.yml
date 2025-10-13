@@ -40,8 +40,6 @@ jobs:
             ### 📝 Translation Coverage Report
             The following report was generated for the modified `.ts` files:
 
-            ``
             ${{ steps.run_report.outputs.report }}
-            ``
 
             :white_check_mark: This comment updates automatically if you push new commits.
