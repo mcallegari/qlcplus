@@ -44,9 +44,9 @@
 #include "audio.h"
 #include "doc.h"
 
-#define KXMLQLCAudioSource QString("Source")
-#define KXMLQLCAudioDevice QString("Device")
-#define KXMLQLCAudioVolume QString("Volume")
+#define KXMLQLCAudioSource QStringLiteral("Source")
+#define KXMLQLCAudioDevice QStringLiteral("Device")
+#define KXMLQLCAudioVolume QStringLiteral("Volume")
 
 /*****************************************************************************
  * Initialization

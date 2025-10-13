@@ -23,7 +23,7 @@
 
 #include "sequence.h"
 
-#define KXMLQLCSequenceBoundScene "BoundScene"
+#define KXMLQLCSequenceBoundScene QStringLiteral("BoundScene")
 
 Sequence::Sequence(Doc* doc)
     : Chaser(doc)

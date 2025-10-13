@@ -31,32 +31,32 @@
 #include "scriptv4.h"
 #include "doc.h"
 
-#define KXMLQLCScriptCommand QString("Command")
-#define KXMLQLCScriptVersion QString("Version")
+#define KXMLQLCScriptCommand QStringLiteral("Command")
+#define KXMLQLCScriptVersion QStringLiteral("Version")
 
-const QString Script::stopOnExitLegacy = QString("stoponexit");
-const QString Script::stopOnExitCmd = QString("Engine.stopOnExit");
-const QString Script::startFunctionLegacy = QString("startfunction");
-const QString Script::startFunctionCmd = QString("Engine.startFunction");
-const QString Script::stopFunctionLegacy = QString("stopfunction");
-const QString Script::stopFunctionCmd = QString("Engine.stopFunction");
-const QString Script::blackoutLegacy = QString("blackout");
-const QString Script::blackoutCmd = QString("Engine.setBlackout");
-const QString Script::waitLegacy = QString("wait");
-const QString Script::waitCmd = QString("Engine.waitTime");
-const QString Script::waitFunctionStartLegacy = QString("waitfunctionstart");
-const QString Script::waitFunctionStartCmd = QString("Engine.waitFunctionStart");
-const QString Script::waitFunctionStopLegacy = QString("waitfunctionstop");
-const QString Script::waitFunctionStopCmd = QString("Engine.waitFunctionStop");
-const QString Script::setFixtureLegacy = QString("setfixture");
-const QString Script::setFixtureCmd = QString("Engine.setFixture");
-const QString Script::systemLegacy = QString("systemcommand");
-const QString Script::systemCmd = QString("Engine.systemCommand");
+const QString Script::stopOnExitLegacy = QStringLiteral("stoponexit");
+const QString Script::stopOnExitCmd = QStringLiteral("Engine.stopOnExit");
+const QString Script::startFunctionLegacy = QStringLiteral("startfunction");
+const QString Script::startFunctionCmd = QStringLiteral("Engine.startFunction");
+const QString Script::stopFunctionLegacy = QStringLiteral("stopfunction");
+const QString Script::stopFunctionCmd = QStringLiteral("Engine.stopFunction");
+const QString Script::blackoutLegacy = QStringLiteral("blackout");
+const QString Script::blackoutCmd = QStringLiteral("Engine.setBlackout");
+const QString Script::waitLegacy = QStringLiteral("wait");
+const QString Script::waitCmd = QStringLiteral("Engine.waitTime");
+const QString Script::waitFunctionStartLegacy = QStringLiteral("waitfunctionstart");
+const QString Script::waitFunctionStartCmd = QStringLiteral("Engine.waitFunctionStart");
+const QString Script::waitFunctionStopLegacy = QStringLiteral("waitfunctionstop");
+const QString Script::waitFunctionStopCmd = QStringLiteral("Engine.waitFunctionStop");
+const QString Script::setFixtureLegacy = QStringLiteral("setfixture");
+const QString Script::setFixtureCmd = QStringLiteral("Engine.setFixture");
+const QString Script::systemLegacy = QStringLiteral("systemcommand");
+const QString Script::systemCmd = QStringLiteral("Engine.systemCommand");
 const QStringList knownKeywords(QStringList() << "ch" << "val" << "arg");
 
-const QString Script::blackoutOn = QString("on"); // LEGACY - NOT USED
-const QString Script::blackoutOff = QString("off"); // LEGACY - NOT USED
-const QString Script::waitKeyCmd = QString("waitkey"); // LEGACY - NOT USED
+const QString Script::blackoutOn = QStringLiteral("on"); // LEGACY - NOT USED
+const QString Script::blackoutOff = QStringLiteral("off"); // LEGACY - NOT USED
+const QString Script::waitKeyCmd = QStringLiteral("waitkey"); // LEGACY - NOT USED
 
 /****************************************************************************
  * Initialization

@@ -26,12 +26,12 @@
 #include "video.h"
 #include "doc.h"
 
-#define KXMLQLCVideoSource      QString("Source")
-#define KXMLQLCVideoScreen      QString("Screen")
-#define KXMLQLCVideoFullscreen  QString("Fullscreen")
-#define KXMLQLCVideoGeometry    QString("Geometry")
-#define KXMLQLCVideoRotation    QString("Rotation")
-#define KXMLQLCVideoZIndex      QString("ZIndex")
+#define KXMLQLCVideoSource      QStringLiteral("Source")
+#define KXMLQLCVideoScreen      QStringLiteral("Screen")
+#define KXMLQLCVideoFullscreen  QStringLiteral("Fullscreen")
+#define KXMLQLCVideoGeometry    QStringLiteral("Geometry")
+#define KXMLQLCVideoRotation    QStringLiteral("Rotation")
+#define KXMLQLCVideoZIndex      QStringLiteral("ZIndex")
 
 const QStringList Video::m_defaultVideoCaps =
         QStringList() << "*.avi" << "*.wmv" << "*.mkv" << "*.mp4" << "*.mov" << "*.mpg" << "*.mpeg" << "*.flv" << "*.webm";

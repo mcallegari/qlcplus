@@ -83,10 +83,10 @@ typedef BOOL (WINAPI *SetProcessInformationType)(
  QTime speedTime;
 #endif
 
-#define SETTINGS_GEOMETRY "workspace/geometry"
-#define SETTINGS_WORKINGPATH "workspace/workingpath"
-#define SETTINGS_RECENTFILE "workspace/recent"
-#define KXMLQLCWorkspaceWindow "CurrentWindow"
+#define SETTINGS_GEOMETRY      QStringLiteral("workspace/geometry")
+#define SETTINGS_WORKINGPATH   QStringLiteral("workspace/workingpath")
+#define SETTINGS_RECENTFILE    QStringLiteral("workspace/recent")
+#define KXMLQLCWorkspaceWindow QStringLiteral("CurrentWindow")
 
 #define MAX_RECENT_FILES    10
 
