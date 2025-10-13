@@ -19,7 +19,7 @@ jobs:
 
       # 2. Make the script executable
       - name: Make script executable
-        run: chmod +x scripts/generate_translation_report.sh
+        run: chmod +x ./translate.sh
 
       # 3. Run the translation report script
       - name: Run translation report
