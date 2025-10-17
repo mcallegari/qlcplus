@@ -116,7 +116,7 @@ Rectangle
             }
 
             onPressed: calculateValue()
-            onPositionChanged:
+            onPositionChanged: (mouse) =>
             {
                 if (!pressed)
                     return

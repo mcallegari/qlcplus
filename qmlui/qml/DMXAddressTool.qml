@@ -45,7 +45,7 @@ GridLayout
         flipHorizontally: toolRoot.flipHorizontally
         flipVertically: toolRoot.flipVertically
         currentValue: toolRoot.value
-        onValueChanged: toolRoot.value = value
+        onValueChanged: (value) => toolRoot.value = value
     }
 
     // row 2

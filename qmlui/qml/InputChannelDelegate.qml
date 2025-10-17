@@ -85,7 +85,7 @@ Rectangle
                 anchors.fill: parent
                 hoverEnabled: true
 
-                onClicked: chDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, chDelegate, mouse.modifiers)
+                onClicked: (mouse) => chDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, chDelegate, mouse.modifiers)
                 onDoubleClicked: chDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, chDelegate, -1)
             }
         }
