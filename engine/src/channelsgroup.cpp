@@ -27,12 +27,12 @@
 #include "fixture.h"
 #include "doc.h"
 
-#define KXMLQLCChannelsGroupID    "ID"
-#define KXMLQLCChannelsGroupName  "Name"
-#define KXMLQLCChannelsGroupValue "Value"
+#define KXMLQLCChannelsGroupID    QStringLiteral("ID")
+#define KXMLQLCChannelsGroupName  QStringLiteral("Name")
+#define KXMLQLCChannelsGroupValue QStringLiteral("Value")
 
-#define KXMLQLCChannelsGroupInputUniverse "InputUniverse"
-#define KXMLQLCChannelsGroupInputChannel  "InputChannel"
+#define KXMLQLCChannelsGroupInputUniverse QStringLiteral("InputUniverse")
+#define KXMLQLCChannelsGroupInputChannel  QStringLiteral("InputChannel")
 
 
 ChannelsGroup::ChannelsGroup(Doc* doc)

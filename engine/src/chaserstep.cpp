@@ -26,8 +26,8 @@
 #include "function.h"
 #include "doc.h"
 
-#define KXMLQLCSequenceSceneValues "Values"
-#define KXMLQLCStepNote "Note"
+#define KXMLQLCSequenceSceneValues  QStringLiteral("Values")
+#define KXMLQLCStepNote             QStringLiteral("Note")
 
 ChaserStep::ChaserStep(quint32 aFid, uint aFadeIn, uint aHold, uint aFadeOut)
     : fid(aFid)

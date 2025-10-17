@@ -35,8 +35,8 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-#define FIXTURES_MAP_NAME QString("FixturesMap.xml")
-#define KXMLQLCFixtureMap QString("FixturesMap")
+#define FIXTURES_MAP_NAME QStringLiteral("FixturesMap.xml")
+#define KXMLQLCFixtureMap QStringLiteral("FixturesMap")
 
 QLCFixtureDefCache::QLCFixtureDefCache()
 {

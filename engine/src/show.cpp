@@ -29,9 +29,9 @@
 #include "show.h"
 #include "doc.h"
 
-#define KXMLQLCShowTimeDivision QString("TimeDivision")
-#define KXMLQLCShowTimeType     QString("Type")
-#define KXMLQLCShowTimeBPM      QString("BPM")
+#define KXMLQLCShowTimeDivision QStringLiteral("TimeDivision")
+#define KXMLQLCShowTimeType     QStringLiteral("Type")
+#define KXMLQLCShowTimeBPM      QStringLiteral("BPM")
 
 /*****************************************************************************
  * Initialization

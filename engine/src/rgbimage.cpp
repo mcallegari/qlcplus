@@ -28,11 +28,11 @@
 #include "qlcmacros.h"
 #include "doc.h"
 
-#define KXMLQLCRGBImageFilename       QString("Filename")
-#define KXMLQLCRGBImageAnimationStyle QString("Animation")
-#define KXMLQLCRGBImageOffset         QString("Offset")
-#define KXMLQLCRGBImageOffsetX        QString("X")
-#define KXMLQLCRGBImageOffsetY        QString("Y")
+#define KXMLQLCRGBImageFilename       QStringLiteral("Filename")
+#define KXMLQLCRGBImageAnimationStyle QStringLiteral("Animation")
+#define KXMLQLCRGBImageOffset         QStringLiteral("Offset")
+#define KXMLQLCRGBImageOffsetX        QStringLiteral("X")
+#define KXMLQLCRGBImageOffsetY        QStringLiteral("Y")
 
 RGBImage::RGBImage(Doc * doc)
     : RGBAlgorithm(doc)

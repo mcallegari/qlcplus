@@ -28,7 +28,7 @@
  * @{
  */
 
-#define KXMLQLCRGBPlain "Plain"
+#define KXMLQLCRGBPlain QStringLiteral("Plain")
 
 class RGBPlain : public QObject, public RGBAlgorithm
 {

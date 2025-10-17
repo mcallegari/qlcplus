@@ -39,26 +39,26 @@
 #include "script.h"
 #include "doc.h"
 
-#define KXMLQLCScriptCommand "Command"
+#define KXMLQLCScriptCommand QStringLiteral("Command")
 
-const QString Script::stopOnExitCmd = QString("stoponexit");
-const QString Script::startFunctionCmd = QString("startfunction");
-const QString Script::stopFunctionCmd = QString("stopfunction");
-const QString Script::blackoutCmd = QString("blackout");
+const QString Script::stopOnExitCmd = QStringLiteral("stoponexit");
+const QString Script::startFunctionCmd = QStringLiteral("startfunction");
+const QString Script::stopFunctionCmd = QStringLiteral("stopfunction");
+const QString Script::blackoutCmd = QStringLiteral("blackout");
 
-const QString Script::waitCmd = QString("wait");
-const QString Script::waitKeyCmd = QString("waitkey");
-const QString Script::waitFunctionStartCmd = QString("waitfunctionstart");
-const QString Script::waitFunctionStopCmd = QString("waitfunctionstop");
+const QString Script::waitCmd = QStringLiteral("wait");
+const QString Script::waitKeyCmd = QStringLiteral("waitkey");
+const QString Script::waitFunctionStartCmd = QStringLiteral("waitfunctionstart");
+const QString Script::waitFunctionStopCmd = QStringLiteral("waitfunctionstop");
 
-const QString Script::setFixtureCmd = QString("setfixture");
-const QString Script::systemCmd = QString("systemcommand");
+const QString Script::setFixtureCmd = QStringLiteral("setfixture");
+const QString Script::systemCmd = QStringLiteral("systemcommand");
 
-const QString Script::labelCmd = QString("label");
-const QString Script::jumpCmd = QString("jump");
+const QString Script::labelCmd = QStringLiteral("label");
+const QString Script::jumpCmd = QStringLiteral("jump");
 
-const QString Script::blackoutOn = QString("on");
-const QString Script::blackoutOff = QString("off");
+const QString Script::blackoutOn = QStringLiteral("on");
+const QString Script::blackoutOff = QStringLiteral("off");
 
 const QStringList knownKeywords(QStringList() << "ch" << "val" << "arg");
 

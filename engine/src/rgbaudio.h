@@ -29,7 +29,7 @@
  * @{
  */
 
-#define KXMLQLCRGBAudio "Audio"
+#define KXMLQLCRGBAudio QStringLiteral("Audio")
 
 class AudioCapture;
 

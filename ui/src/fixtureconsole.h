@@ -36,7 +36,7 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCFixtureConsole "Console"
+#define KXMLQLCFixtureConsole QStringLiteral("Console")
 
 class FixtureConsole : public QGroupBox
 {

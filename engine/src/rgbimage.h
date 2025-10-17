@@ -33,7 +33,7 @@
  * @{
  */
 
-#define KXMLQLCRGBImage "Image"
+#define KXMLQLCRGBImage QStringLiteral("Image")
 
 class RGBImage : public RGBAlgorithm
 {

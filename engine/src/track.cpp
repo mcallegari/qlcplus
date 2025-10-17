@@ -27,11 +27,11 @@
 #include "show.h"
 #include "doc.h"
 
-#define KXMLQLCTrackName      QString("Name")
-#define KXMLQLCTrackSceneID   QString("SceneID")
-#define KXMLQLCTrackIsMute    QString("isMute")
+#define KXMLQLCTrackName      QStringLiteral("Name")
+#define KXMLQLCTrackSceneID   QStringLiteral("SceneID")
+#define KXMLQLCTrackIsMute    QStringLiteral("isMute")
 
-#define KXMLQLCTrackFunctions QString("Functions")
+#define KXMLQLCTrackFunctions QStringLiteral("Functions")
 
 Track::Track(quint32 sceneID, QObject *parent)
     : QObject(parent)
