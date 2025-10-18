@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.7</Version>
+  <Author>Liam Clark</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>Remus QuadZoom 610</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Color Temperature">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">3200K -&gt; 7280K</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5">LED's ON</Capability>
+  <Capability Min="6" Max="10">LED's OFF</Capability>
+  <Capability Min="11" Max="33">Random pulse slow-&gt;fast</Capability>
+  <Capability Min="34" Max="56">Random rise slow-&gt;fast</Capability>
+  <Capability Min="57" Max="79">Random reverse rise slow-&gt; fast</Capability>
+  <Capability Min="80" Max="102">Random Strobe slow-&gt;fast</Capability>
+  <Capability Min="103" Max="127">Flash (5s-&gt;1s)</Capability>
+  <Capability Min="128" Max="250">Strobe 1Hz -&gt; 20Hz</Capability>
+  <Capability Min="251" Max="255">LED's ON</Capability>
+ </Channel>
+ <Channel Name="Color macro" Preset="ColorMacro"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer Curve">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="63">Linear</Capability>
+  <Capability Min="64" Max="127">Exponential</Capability>
+  <Capability Min="128" Max="191">Logarithmic</Capability>
+  <Capability Min="192" Max="255">S-Curve</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Color Temperature (10ch only)">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="255">3200K -&gt; 7280K</Capability>
+ </Channel>
+ <Mode Name="3ch">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Color Temperature</Channel>
+  <Channel Number="2">Zoom</Channel>
+ </Mode>
+ <Mode Name="4ch">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Color macro</Channel>
+  <Channel Number="3">Zoom</Channel>
+ </Mode>
+ <Mode Name="5ch">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Zoom</Channel>
+ </Mode>
+ <Mode Name="8ch">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">Color macro</Channel>
+  <Channel Number="7">Zoom</Channel>
+ </Mode>
+ <Mode Name="10ch">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">Color macro</Channel>
+  <Channel Number="7">Color Temperature (10ch only)</Channel>
+  <Channel Number="8">Dimmer Curve</Channel>
+  <Channel Number="9">Zoom</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="3200"/>
+  <Dimensions Weight="2.5" Width="225" Height="230" Depth="190"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>
