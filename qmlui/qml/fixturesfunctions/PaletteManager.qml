@@ -249,8 +249,8 @@ Rectangle
                       onDoubleClicked:
                       {
                           var paletteType = pDelegate.cRef.type
-                          console.log("Palette type: " + paletteType)
                           toolLoader.paletteID = pDelegate.cRef.id
+                          console.log("Palette type: " + paletteType + ", id: " + toolLoader.paletteID)
 
                           switch (paletteType)
                           {
