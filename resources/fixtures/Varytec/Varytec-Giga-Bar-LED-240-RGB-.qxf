@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.7</Version>
+  <Version>5.0.1 GIT</Version>
   <Author>Liam Clark</Author>
  </Creator>
  <Manufacturer>Varytec</Manufacturer>
@@ -55,23 +55,23 @@
  <Channel Name="Red [8]" Preset="IntensityRed"/>
  <Channel Name="Green [8]" Preset="IntensityGreen"/>
  <Channel Name="Blue [8]" Preset="IntensityBlue"/>
- <Mode Name="2ch">
+ <Mode Name="2 Channel">
   <Channel Number="0">Automatic Modes</Channel>
   <Channel Number="1">Options Ch1</Channel>
  </Mode>
- <Mode Name="3ch">
+ <Mode Name="3 Channel">
   <Channel Number="0">Red [all]</Channel>
   <Channel Number="1">Green [all]</Channel>
   <Channel Number="2">Blue [all]</Channel>
  </Mode>
- <Mode Name="5ch">
+ <Mode Name="5 Channel">
   <Channel Number="0">Red [all]</Channel>
   <Channel Number="1">Green [all]</Channel>
   <Channel Number="2">Blue [all]</Channel>
   <Channel Number="3">Master dimmer</Channel>
   <Channel Number="4">Strobe</Channel>
  </Mode>
- <Mode Name="24ch">
+ <Mode Name="24 Channel">
   <Channel Number="0">Red [1]</Channel>
   <Channel Number="1">Green [1]</Channel>
   <Channel Number="2">Blue [1]</Channel>
