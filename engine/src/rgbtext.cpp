@@ -26,12 +26,12 @@
 
 #include "rgbtext.h"
 
-#define KXMLQLCRGBTextContent        QString("Content")
-#define KXMLQLCRGBTextFont           QString("Font")
-#define KXMLQLCRGBTextAnimationStyle QString("Animation")
-#define KXMLQLCRGBTextOffset         QString("Offset")
-#define KXMLQLCRGBTextOffsetX        QString("X")
-#define KXMLQLCRGBTextOffsetY        QString("Y")
+#define KXMLQLCRGBTextContent        QStringLiteral("Content")
+#define KXMLQLCRGBTextFont           QStringLiteral("Font")
+#define KXMLQLCRGBTextAnimationStyle QStringLiteral("Animation")
+#define KXMLQLCRGBTextOffset         QStringLiteral("Offset")
+#define KXMLQLCRGBTextOffsetX        QStringLiteral("X")
+#define KXMLQLCRGBTextOffsetY        QStringLiteral("Y")
 
 RGBText::RGBText(Doc * doc)
     : RGBAlgorithm(doc)

@@ -34,12 +34,12 @@ class QLCIOPlugin;
 
 #define KInputNone QObject::tr("None")
 
-#define KXMLQLCInputPatchProfile "Profile"
-#define KXMLQLCInputPatchUniverse "Universe"
-#define KXMLQLCInputPatchPluginNone "None"
-#define KXMLQLCInputPatchPlugin "Plugin"
-#define KXMLQLCInputPatchInput "Input"
-#define KXMLQLCInputPatch "Patch"
+#define KXMLQLCInputPatchProfile       QStringLiteral("Profile")
+#define KXMLQLCInputPatchUniverse      QStringLiteral("Universe")
+#define KXMLQLCInputPatchPluginNone    QStringLiteral("None")
+#define KXMLQLCInputPatchPlugin        QStringLiteral("Plugin")
+#define KXMLQLCInputPatchInput         QStringLiteral("Input")
+#define KXMLQLCInputPatch              QStringLiteral("Patch")
 
 /**
  * An InputPatch represents one input universe. One input universe can have

@@ -62,10 +62,10 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-#define SETTINGS_GEOMETRY "workspace/windowrect"
-#define SETTINGS_WORKINGPATH "workspace/workingpath"
-#define SETTINGS_RECENTFILE "workspace/recent"
-#define KXMLQLCWorkspaceWindow "CurrentWindow"
+#define SETTINGS_GEOMETRY      QStringLiteral("workspace/windowrect")
+#define SETTINGS_WORKINGPATH   QStringLiteral("workspace/workingpath")
+#define SETTINGS_RECENTFILE    QStringLiteral("workspace/recent")
+#define KXMLQLCWorkspaceWindow QStringLiteral("CurrentWindow")
 
 #define MAX_RECENT_FILES    10
 

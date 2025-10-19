@@ -142,6 +142,7 @@
     <file alias="LightEntity.qml">qml/fixturesfunctions/3DView/LightEntity.qml</file>
     <file alias="MultiBeams3DItem.qml">qml/fixturesfunctions/3DView/MultiBeams3DItem.qml</file>
     <file alias="PixelBar3DItem.qml">qml/fixturesfunctions/3DView/PixelBar3DItem.qml</file>
+    <file alias="Strobe3DItem.qml">qml/fixturesfunctions/3DView/Strobe3DItem.qml</file>
     <file alias="Generic3DItem.qml">qml/fixturesfunctions/3DView/Generic3DItem.qml</file>
     <file alias="DepthTarget.qml">qml/fixturesfunctions/3DView/DepthTarget.qml</file>
     <file alias="GBuffer.qml">qml/fixturesfunctions/3DView/GBuffer.qml</file>

@@ -39,10 +39,10 @@
 #define RELATIVE_ZERO_8BIT   0x7F
 #define RELATIVE_ZERO_16BIT  0x7F00
 
-#define KXMLUniverseNormalBlend "Normal"
-#define KXMLUniverseMaskBlend "Mask"
-#define KXMLUniverseAdditiveBlend "Additive"
-#define KXMLUniverseSubtractiveBlend "Subtractive"
+#define KXMLUniverseNormalBlend      QStringLiteral("Normal")
+#define KXMLUniverseMaskBlend        QStringLiteral("Mask")
+#define KXMLUniverseAdditiveBlend    QStringLiteral("Additive")
+#define KXMLUniverseSubtractiveBlend QStringLiteral("Subtractive")
 
 Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     : QThread(parent)

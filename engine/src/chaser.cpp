@@ -33,11 +33,11 @@
 #include "doc.h"
 #include "bus.h"
 
-#define KXMLQLCChaserSpeedModeCommon "Common"
-#define KXMLQLCChaserSpeedModePerStep "PerStep"
-#define KXMLQLCChaserSpeedModeDefault "Default"
+#define KXMLQLCChaserSpeedModeCommon  QStringLiteral("Common")
+#define KXMLQLCChaserSpeedModePerStep QStringLiteral("PerStep")
+#define KXMLQLCChaserSpeedModeDefault QStringLiteral("Default")
 
-#define KXMLQLCChaserLegacySequence QString("Sequence")
+#define KXMLQLCChaserLegacySequence QStringLiteral("Sequence")
 
 /*****************************************************************************
  * Initialization

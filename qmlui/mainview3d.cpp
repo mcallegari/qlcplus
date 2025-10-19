@@ -188,6 +188,7 @@ void MainView3D::resetItems()
         delete e->m_rootItem;
     }
     m_genericMap.clear();
+    m_genericItemsList->clear();
     m_latestGenericID = 0;
     m_createItemCount = 0;
 
@@ -560,11 +561,15 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
                 newItem->setProperty("headsLayout", phy.layoutSize());
         }
     }
-    else if (fixture->type() == QLCFixtureDef::LEDBarPixels)
+    else if (fixture->type() == QLCFixtureDef::LEDBarPixels ||
+             fixture->type() == QLCFixtureDef::Strobe)
     {
         mesh->m_goboTexture = nullptr;
+        QUrl componentSrc = fixture->type() == QLCFixtureDef::LEDBarPixels ?
+                                QUrl("qrc:/PixelBar3DItem.qml") :
+                                QUrl("qrc:/Strobe3DItem.qml");
 
-        QQmlComponent *lbComp = new QQmlComponent(m_view->engine(), QUrl("qrc:/PixelBar3DItem.qml")); // TODO
+        QQmlComponent *lbComp = new QQmlComponent(m_view->engine(), componentSrc);
         if (lbComp->isError())
             qDebug() << lbComp->errors();
 
@@ -612,6 +617,10 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
         case QLCFixtureDef::Scanner:
             meshPath.append("scanner.dae");
             newItem->setProperty("meshType", FixtureMeshType::ScannerMeshType);
+        break;
+        case QLCFixtureDef::Strobe:
+            meshPath.append("strobe.dae");
+            newItem->setProperty("meshType", FixtureMeshType::StrobeMeshType);
         break;
         case QLCFixtureDef::Hazer:
             meshPath.append("hazer.dae");
@@ -829,6 +838,8 @@ QEntity *MainView3D::inspectEntity(QEntity *entity, SceneItem *meshRef,
     for (QComponent *component : entity->components()) // C++11
     {
         //qDebug() << "Class name:" << component->metaObject()->className();
+        if (component->isEnabled() == false)
+            continue;
 
         QMaterial *material = qobject_cast<QMaterial *>(component);
         Qt3DCore::QTransform *transform = qobject_cast<Qt3DCore::QTransform *>(component);
@@ -865,7 +876,7 @@ QEntity *MainView3D::inspectEntity(QEntity *entity, SceneItem *meshRef,
             translation += transform->translation();
     }
 
-    if (geom && calculateVolume)
+    if (geom && calculateVolume && entity->isEnabled())
     {
         QVector3D minCorner, maxCorner;
         getMeshCorners(geom, minCorner, maxCorner);
@@ -1691,7 +1702,7 @@ void MainView3D::initializeItem(int itemID, QEntity *itemEntity, QSceneLoader *l
     }
 
     itemEntity->setProperty("sceneLayer", QVariant::fromValue(sceneDeferredLayer));
-    itemEntity->setProperty("effect", QVariant::fromValue(sceneEffect));
+    itemEntity->setProperty("sceneEffect", QVariant::fromValue(sceneEffect));
     updateGenericItemsList();
 }
 

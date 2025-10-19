@@ -35,13 +35,13 @@ Entity
     property bool isSelected: false
 
     property Layer sceneLayer
-    property Effect effect
+    property Effect sceneEffect
 
     SceneLoader
     {
         id: eSceneLoader
 
-        onStatusChanged:
+        onStatusChanged: (status) =>
         {
             if (status === SceneLoader.Ready)
                 View3D.initializeItem(itemID, genericEntity, eSceneLoader)

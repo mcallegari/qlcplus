@@ -28,13 +28,13 @@
 #include "scenevalue.h"
 #include "doc.h"
 
-#define KXMLQLCPaletteType      "Type"
-#define KXMLQLCPaletteName      "Name"
-#define KXMLQLCPaletteValue     "Value"
-#define KXMLQLCPaletteFanning   "Fan"
-#define KXMLQLCPaletteFanLayout "Layout"
-#define KXMLQLCPaletteFanAmount "Amount"
-#define KXMLQLCPaletteFanValue  "FanValue"
+#define KXMLQLCPaletteType      QStringLiteral("Type")
+#define KXMLQLCPaletteName      QStringLiteral("Name")
+#define KXMLQLCPaletteValue     QStringLiteral("Value")
+#define KXMLQLCPaletteFanning   QStringLiteral("Fan")
+#define KXMLQLCPaletteFanLayout QStringLiteral("Layout")
+#define KXMLQLCPaletteFanAmount QStringLiteral("Amount")
+#define KXMLQLCPaletteFanValue  QStringLiteral("FanValue")
 
 QLCPalette::QLCPalette(QLCPalette::PaletteType type, QObject *parent)
     : QObject(parent)

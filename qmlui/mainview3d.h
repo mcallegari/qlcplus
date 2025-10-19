@@ -375,6 +375,7 @@ public:
         ParMeshType,
         MovingHeadMeshType,
         ScannerMeshType,
+        StrobeMeshType,
         LEDBarMeshType,
         DefaultMeshType
     };

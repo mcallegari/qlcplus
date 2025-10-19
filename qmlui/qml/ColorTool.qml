@@ -204,7 +204,7 @@ Rectangle
 
                 function onToolColorChanged(r, g, b, w, a, uv)
                 {
-                    paletteBox.updateValue(currentRGB)
+                    paletteBox.updateValue(Qt.rgba(r, g, b, 1.0))
 
                     if (paletteBox.checked && paletteBox.isPicking)
                     {

@@ -33,7 +33,7 @@
 #define IFACES_SYSTEM_FILE "/etc/network/interfaces"
 #define DHCPCD_CONF_FILE "/etc/dhcpcd.conf"
 #define WPA_SUPP_CONF_FILE "/etc/wpa_supplicant/wpa_supplicant.conf"
-#define HOTSPOT_CON_NAME QString("QLCHOTSPOT")
+#define HOTSPOT_CON_NAME QStringLiteral("QLCHOTSPOT")
 
 WebAccessNetwork::WebAccessNetwork(QObject *parent) :
     QObject(parent)

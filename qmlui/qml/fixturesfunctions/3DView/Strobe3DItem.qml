@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  PixelBar3DItem.qml
+  Strobe3DItem.qml
 
   Copyright (c) Massimo Callegari
   Copyright (c) Eric Arnebäck
@@ -38,6 +38,7 @@ Entity
     property int headsNumber: 0
     property size headsLayout: Qt.size(1, 1)
     property vector3d phySize: Qt.vector3d(1, 0.1, 0.1)
+    property alias itemSource: eSceneLoader.source
     property bool useScattering: false
     property bool useShadows: false
     property real shutterValue: sAnimator.shutterValue
@@ -70,9 +71,6 @@ Entity
 
     ShutterAnimator { id: sAnimator }
 
-    /* Main transform of the whole fixture item */
-    property Transform transform: Transform { }
-
     property Layer sceneLayer
     property Effect sceneEffect
 
@@ -89,25 +87,12 @@ Entity
             ]
         }
 
-    CuboidMesh
-    {
-        id: baseMesh
-        xExtent: phySize.x
-        yExtent: phySize.y
-        zExtent: phySize.z
-    }
+    /* Main transform of the whole fixture item */
+    property Transform transform: Transform { }
 
     NodeInstantiator
     {
         id: headsRepeater
-        //model: fixtureEntity.headsNumber
-
-        onObjectAdded:
-        {
-            //console.log("Head " + index + " added ----------------")
-            if (index === fixtureEntity.headsNumber - 1)
-                View3D.initializeFixture(itemID, fixtureEntity, null)
-        }
 
         delegate:
             Entity
@@ -125,7 +110,7 @@ Entity
                 {
                     id: headMesh
                     width: headWidth
-                    height: headHeight
+                    height: headHeight * 4
                     meshResolution: Qt.size(2, 2)
                 }
 
@@ -138,7 +123,7 @@ Entity
                             var xPos = (column * headWidth) + (headWidth / 2)
                             var zPos = (row * headHeight) + (headHeight / 2)
 
-                            return Qt.vector3d(-(phySize.x / 2) + xPos, (phySize.y / 2) + 0.001, -(phySize.z / 2) + zPos)
+                            return Qt.vector3d(-(phySize.x / 2) + xPos, (phySize.y / 2) + 0.16, -(phySize.z / 2) + zPos)
                         }
                     }
 
@@ -167,27 +152,22 @@ Entity
             }
     }
 
-    ObjectPicker
+    SceneLoader
     {
-        id: eObjectPicker
-        //hoverEnabled: true
-        dragEnabled: true
+        id: eSceneLoader
 
-        property var lastPos
-
-        onClicked: (pick) =>
+        onStatusChanged: (status) =>
         {
-            console.log("3D item clicked")
-            isSelected = !isSelected
-            contextManager.setItemSelection(itemID, isSelected, pick.modifiers)
+            if (status === SceneLoader.Ready)
+                View3D.initializeFixture(itemID, fixtureEntity, eSceneLoader)
         }
     }
 
+
     components: [
-        baseMesh,
+        eSceneLoader,
         transform,
         material,
-        sceneLayer,
-        eObjectPicker
+        sceneLayer
     ]
 }
