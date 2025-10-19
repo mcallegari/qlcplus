@@ -1261,6 +1261,10 @@
     <F n="Mac-Mah-Moving-FX-Bar" m="Moving-FX Bar"/>
     <F n="Mac-Mah-WiderPanel" m="Wider Panel"/>
   </M>
+  <M n="MagicFX">
+    <F n="MagicFX-Eco2Jet" m="Eco2Jet"/>
+    <F n="MagicFX-Stage-Flame" m="Stage Flame"/>
+  </M>
   <M n="MARQ">
     <F n="MARQ-Colormax-Bat" m="Colormax Bat"/>
     <F n="MARQ-Colormax-Par64" m="Colormax Par64"/>
