@@ -20,6 +20,10 @@
   <Capability Min="0" Max="9">No output</Capability>
   <Capability Min="10" Max="255">Confetti output</Capability>
  </Channel>
+ <Mode Name="DMX">
+  <Channel Number="0">Safety</Channel>
+  <Channel Number="1">Effect density</Channel>
+ </Mode>
  <Physical>
   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
   <Dimensions Weight="19" Width="604" Height="618" Depth="550"/>
