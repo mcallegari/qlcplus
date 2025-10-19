@@ -1267,6 +1267,7 @@
     <F n="MagicFX-SmokeJet" m="SmokeJet"/>
     <F n="MagicFX-Psyco2Jet" m="Psyco2Jet"/>
     <F n="MagicFX-StadiumShot-III" m="StadiumShot III"/>
+    <F n="MagicFX-StadiumBlower" m="StadiumBlower"/>
   </M>
   <M n="MARQ">
     <F n="MARQ-Colormax-Bat" m="Colormax Bat"/>
