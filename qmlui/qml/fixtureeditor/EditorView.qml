@@ -488,7 +488,11 @@ Rectangle
                                         faSource: FontAwesome.fa_minus
                                         faColor: "crimson"
                                         tooltip: qsTr("Remove the selected mode(s)")
-                                        onClicked: { /* TODO */ }
+                                        onClicked:
+                                        {
+                                            var mItem = modeList.currentItem
+                                            editorView.deleteMode(mItem.modeName)
+                                        }
                                     }
 
                                     Rectangle
@@ -515,6 +519,8 @@ Rectangle
                                         width: modeList.width
                                         height: UISettings.listItemHeight
 
+                                        property alias modeName: modeTextEntry.tLabel
+
                                         MouseArea
                                         {
                                             width: modeList.width
@@ -538,6 +544,7 @@ Rectangle
 
                                             IconTextEntry
                                             {
+                                                id: modeTextEntry
                                                 width: modeList.width
                                                 height: UISettings.listItemHeight
                                                 tLabel: model.name

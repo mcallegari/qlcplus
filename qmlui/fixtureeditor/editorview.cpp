@@ -330,6 +330,23 @@ ModeEdit *EditorView::requestModeEditor(QString name)
     return m_modeEdit;
 }
 
+bool EditorView::deleteMode(QString name)
+{
+    qDebug() << "Remove mode" << name;
+    QLCFixtureMode *mode = m_fixtureDef->mode(name);
+    if (mode != nullptr)
+    {
+        bool ret = m_fixtureDef->removeMode(mode);
+        if (ret == true)
+        {
+            updateModeList();
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void EditorView::updateModeList()
 {
     m_modeList->clear();

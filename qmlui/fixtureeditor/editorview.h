@@ -150,6 +150,8 @@ public:
      *  If name is empty, a new mode is added */
     Q_INVOKABLE ModeEdit *requestModeEditor(QString name);
 
+    Q_INVOKABLE bool deleteMode(QString name);
+
 private:
     void updateModeList();
     void dismissModeEditor();
