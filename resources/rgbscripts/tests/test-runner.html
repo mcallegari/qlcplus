@@ -117,6 +117,125 @@
             width: 0%;
             transition: width 0.3s ease;
         }
+
+        /* Warning and Error Summary Styles */
+        .warning-summary {
+            background: #3c2415;
+            border: 2px solid #d7ba7d;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #d7ba7d;
+            animation: pulse-warning 2s infinite;
+        }
+
+        .error-summary {
+            background: #2d1b1b;
+            border: 2px solid #f44747;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #f44747;
+            animation: pulse-error 2s infinite;
+        }
+
+        .success-summary {
+            background: #1b2d1b;
+            border: 2px solid #4ec9b0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #4ec9b0;
+        }
+
+        .issue-item {
+            background: rgba(244, 71, 71, 0.1);
+            border-left: 4px solid #f44747;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .warning-item {
+            background: rgba(215, 186, 125, 0.1);
+            border-left: 4px solid #d7ba7d;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .summary-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .summary-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .script-name {
+            font-weight: bold;
+            color: #569cd6;
+        }
+
+        .success-rate {
+            font-weight: bold;
+        }
+
+        .success-rate.good {
+            color: #4ec9b0;
+        }
+
+        .success-rate.warning {
+            color: #d7ba7d;
+        }
+
+        .success-rate.error {
+            color: #f44747;
+        }
+
+        @keyframes pulse-warning {
+            0%, 100% { border-color: #d7ba7d; }
+            50% { border-color: #ffcc66; }
+        }
+
+        @keyframes pulse-error {
+            0%, 100% { border-color: #f44747; }
+            50% { border-color: #ff6666; }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .stat-card {
+            background: #2d2d30;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            border-left: 4px solid #569cd6;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #cccccc;
+            text-transform: uppercase;
+        }
     </style>
 </head>
 <body>
@@ -636,21 +755,6 @@
                 allResults[name].successRate && allResults[name].successRate >= 0.95
             );
 
-            logToUI(`📊 Total Scripts Tested: ${scriptNames.length}`, 'info');
-            logToUI(`✅ Successful Scripts: ${successfulScripts.length}`, 'pass');
-            logToUI(`⚠️  Scripts with Issues: ${failedScripts.length}`, failedScripts.length > 0 ? 'warn' : 'info');
-
-            if (failedScripts.length > 0) {
-                logToUI('\n⚠️  SCRIPTS WITH ISSUES:', 'warn');
-                failedScripts.forEach(script => {
-                    if (script.error) {
-                        logToUI(`  ❌ ${script.name}: ${script.error}`, 'error');
-                    } else {
-                        logToUI(`  ⚠️  ${script.name}: ${(script.successRate * 100).toFixed(1)}% success rate`, 'warn');
-                    }
-                });
-            }
-
             // Calculate overall statistics
             let totalTests = 0;
             let totalPassed = 0;
@@ -669,6 +773,25 @@
 
             const overallSuccessRate = totalTests > 0 ? (totalPassed / totalTests) * 100 : 0;
 
+            // Create visual summary in the results area
+            createVisualSummary(scriptNames, successfulScripts, failedScripts, totalTests, totalPassed, overallSuccessRate);
+
+            // Log basic statistics
+            logToUI(`📊 Total Scripts Tested: ${scriptNames.length}`, 'info');
+            logToUI(`✅ Successful Scripts: ${successfulScripts.length}`, 'pass');
+            logToUI(`⚠️  Scripts with Issues: ${failedScripts.length}`, failedScripts.length > 0 ? 'warn' : 'info');
+
+            if (failedScripts.length > 0) {
+                logToUI('\n⚠️  SCRIPTS WITH ISSUES:', 'warn');
+                failedScripts.forEach(script => {
+                    if (script.error) {
+                        logToUI(`  ❌ ${script.name}: ${script.error}`, 'error');
+                    } else {
+                        logToUI(`  ⚠️  ${script.name}: ${(script.successRate * 100).toFixed(1)}% success rate`, 'warn');
+                    }
+                });
+            }
+
             logToUI('\n📈 OVERALL STATISTICS:', 'test');
             logToUI(`  Total Tests Executed: ${totalTests.toLocaleString()}`, 'info');
             logToUI(`  Total Tests Passed: ${totalPassed.toLocaleString()}`, 'pass');
@@ -683,6 +806,120 @@
             }
 
             updateProgress(scriptNames.length, scriptNames.length, `All ${scriptNames.length} scripts tested!`);
+        }
+
+        function createVisualSummary(scriptNames, successfulScripts, failedScripts, totalTests, totalPassed, overallSuccessRate) {
+            const summaryDiv = document.getElementById('resultsSummary');
+            const summaryContent = document.getElementById('summaryContent');
+
+            // Clear previous content
+            summaryContent.innerHTML = '';
+
+            // Create statistics cards
+            const statsGrid = document.createElement('div');
+            statsGrid.className = 'stats-grid';
+
+            const stats = [
+                { label: 'Scripts Tested', value: scriptNames.length, color: '#569cd6' },
+                { label: 'Successful Scripts', value: successfulScripts.length, color: '#4ec9b0' },
+                { label: 'Scripts with Issues', value: failedScripts.length, color: failedScripts.length > 0 ? '#f44747' : '#4ec9b0' },
+                { label: 'Overall Success Rate', value: `${overallSuccessRate.toFixed(1)}%`, color: overallSuccessRate >= 95 ? '#4ec9b0' : overallSuccessRate >= 90 ? '#d7ba7d' : '#f44747' }
+            ];
+
+            stats.forEach(stat => {
+                const card = document.createElement('div');
+                card.className = 'stat-card';
+                card.style.borderLeftColor = stat.color;
+                card.innerHTML = `
+                    <div class="stat-value" style="color: ${stat.color}">${stat.value}</div>
+                    <div class="stat-label">${stat.label}</div>
+                `;
+                statsGrid.appendChild(card);
+            });
+
+            summaryContent.appendChild(statsGrid);
+
+            // Create warning/error summary if there are issues
+            if (failedScripts.length > 0) {
+                const warningDiv = document.createElement('div');
+                warningDiv.className = failedScripts.some(s => s.error) ? 'error-summary' : 'warning-summary';
+
+                const headerDiv = document.createElement('div');
+                headerDiv.className = 'summary-header';
+                headerDiv.innerHTML = `
+                    <span class="summary-icon">${failedScripts.some(s => s.error) ? '🚨' : '⚠️'}</span>
+                    <span>${failedScripts.some(s => s.error) ? 'CRITICAL ISSUES DETECTED' : 'WARNINGS DETECTED'}</span>
+                `;
+                warningDiv.appendChild(headerDiv);
+
+                const issuesDiv = document.createElement('div');
+                failedScripts.forEach(script => {
+                    const issueDiv = document.createElement('div');
+                    issueDiv.className = script.error ? 'issue-item' : 'warning-item';
+
+                    if (script.error) {
+                        issueDiv.innerHTML = `
+                            <div><span class="script-name">❌ ${script.name}</span></div>
+                            <div style="margin-top: 5px; font-size: 14px;">Error: ${script.error}</div>
+                        `;
+                    } else {
+                        const successRateClass = script.successRate >= 0.9 ? 'warning' : 'error';
+                        issueDiv.innerHTML = `
+                            <div><span class="script-name">⚠️ ${script.name}</span></div>
+                            <div style="margin-top: 5px; font-size: 14px;">
+                                Success Rate: <span class="success-rate ${successRateClass}">${(script.successRate * 100).toFixed(1)}%</span>
+                                (Below 95% threshold)
+                            </div>
+                        `;
+                    }
+                    issuesDiv.appendChild(issueDiv);
+                });
+                warningDiv.appendChild(issuesDiv);
+
+                // Add recommendations
+                const recommendationsDiv = document.createElement('div');
+                recommendationsDiv.style.marginTop = '15px';
+                recommendationsDiv.style.fontSize = '14px';
+                recommendationsDiv.innerHTML = `
+                    <strong>Recommendations:</strong><br>
+                    • Review failed scripts for compatibility issues<br>
+                    • Check property configurations and boundary values<br>
+                    • Verify script syntax and API compliance<br>
+                    • Run individual script tests for detailed diagnostics
+                `;
+                warningDiv.appendChild(recommendationsDiv);
+
+                summaryContent.appendChild(warningDiv);
+            } else {
+                // Success summary
+                const successDiv = document.createElement('div');
+                successDiv.className = 'success-summary';
+
+                const headerDiv = document.createElement('div');
+                headerDiv.className = 'summary-header';
+                headerDiv.innerHTML = `
+                    <span class="summary-icon">🎉</span>
+                    <span>ALL SCRIPTS PASSED!</span>
+                `;
+                successDiv.appendChild(headerDiv);
+
+                const messageDiv = document.createElement('div');
+                messageDiv.innerHTML = `
+                    <p>Excellent! All ${scriptNames.length} RGB scripts passed comprehensive testing.</p>
+                    <p><strong>Total Tests:</strong> ${totalTests.toLocaleString()} executed, ${totalPassed.toLocaleString()} passed</p>
+                    <p><strong>Success Rate:</strong> <span class="success-rate good">${overallSuccessRate.toFixed(2)}%</span></p>
+                    <p>The RGB script ecosystem is highly stable and production-ready! 🚀</p>
+                `;
+                successDiv.appendChild(messageDiv);
+
+                summaryContent.appendChild(successDiv);
+            }
+
+            // Show the summary
+            summaryDiv.style.display = 'block';
+
+            // Scroll to summary
+            summaryDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function clearLog() {
