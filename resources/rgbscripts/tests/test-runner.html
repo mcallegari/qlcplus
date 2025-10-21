@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RGB Script Test Runner</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            margin: 20px;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #569cd6;
+            text-align: center;
+        }
+        
+        .test-controls {
+            background: #2d2d30;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            background: #0e639c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        
+        button:hover {
+            background: #1177bb;
+        }
+        
+        button:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        
+        .log-container {
+            background: #1e1e1e;
+            border: 1px solid #3c3c3c;
+            border-radius: 8px;
+            height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        
+        .log-entry {
+            margin-bottom: 2px;
+        }
+        
+        .log-test { color: #569cd6; font-weight: bold; }
+        .log-pass { color: #4ec9b0; }
+        .log-fail { color: #f44747; }
+        .log-warn { color: #dcdcaa; }
+        .log-error { color: #f44747; }
+        .log-perf { color: #c586c0; }
+        .log-debug { color: #808080; }
+        .log-info { color: #d4d4d4; }
+        
+        .results-summary {
+            background: #2d2d30;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .matrix-test {
+            background: #2d2d30;
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 4px solid #666;
+        }
+        
+        .matrix-test.passed {
+            border-left-color: #4ec9b0;
+        }
+        
+        .matrix-test.failed {
+            border-left-color: #f44747;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #3c3c3c;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0e639c, #4ec9b0);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 RGB Script Test Runner</h1>
+        
+        <div class="test-controls">
+            <h3>Test Controls</h3>
+
+            <div style="margin-bottom: 15px;">
+                <label for="scriptSelect" style="color: #569cd6; font-weight: bold; margin-right: 10px;">Select Script:</label>
+                <select id="scriptSelect" onchange="loadSelectedScript()" style="padding: 5px 10px; background: #2d2d30; color: #d4d4d4; border: 1px solid #3c3c3c; border-radius: 4px;">
+                    <option value="">Loading scripts...</option>
+                </select>
+                <button onclick="refreshScriptList()" style="margin-left: 10px; padding: 5px 10px; font-size: 12px;">🔄 Refresh</button>
+            </div>
+
+            <button onclick="runBasicTests()">Run Basic Tests</button>
+            <button onclick="runEdgeCaseTests()">Run Edge Cases</button>
+            <button onclick="runStressTests()">Run Stress Tests</button>
+            <button onclick="runPerformanceTests()">Run Performance Tests</button>
+            <button onclick="runAllTests()">Run All Tests</button>
+            <button onclick="clearLog()">Clear Log</button>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            <div id="progressText">Ready to run tests...</div>
+        </div>
+        
+        <div class="log-container" id="logContainer">
+            <div class="log-entry log-info">RGB Script Test Runner initialized. Click a button to start testing.</div>
+        </div>
+        
+        <div class="results-summary" id="resultsSummary" style="display: none;">
+            <h3>Test Results Summary</h3>
+            <div id="summaryContent"></div>
+        </div>
+        
+        <div class="matrix-grid" id="matrixGrid"></div>
+    </div>
+
+    <!-- Load the scripts -->
+    <script src="test-suite.js"></script>
+    <script src="../lines.js"></script>
+    
+    <script>
+        // Global variables
+        let currentTests = 0;
+        let totalTests = 0;
+        let testResults = [];
+        let currentScript = 'lines.js';
+        let currentAlgo = testAlgo; // Default to lines.js algorithm
+        let availableScripts = {}; // Will be populated dynamically
+        let discoveredScripts = []; // List of all discovered scripts
+        
+        // Override console.log to capture output
+        const originalLog = console.log;
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            logToUI(args.join(' '), 'info');
+        };
+        
+        function logToUI(message, type = 'info') {
+            const logContainer = document.getElementById('logContainer');
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${type}`;
+            
+            // Parse test runner log format
+            if (message.includes('[TEST]')) {
+                type = 'test';
+            } else if (message.includes('[PASS]')) {
+                type = 'pass';
+            } else if (message.includes('[FAIL]')) {
+                type = 'fail';
+            } else if (message.includes('[WARN]')) {
+                type = 'warn';
+            } else if (message.includes('[ERROR]')) {
+                type = 'error';
+            } else if (message.includes('[PERF]')) {
+                type = 'perf';
+            }
+            
+            entry.className = `log-entry log-${type}`;
+            entry.textContent = new Date().toLocaleTimeString() + ' - ' + message;
+            
+            logContainer.appendChild(entry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+        
+        function updateProgress(current, total, text) {
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            
+            const percentage = total > 0 ? (current / total) * 100 : 0;
+            progressBar.style.width = percentage + '%';
+            progressText.textContent = text || `${current}/${total} tests completed (${percentage.toFixed(1)}%)`;
+        }
+        
+        function showResults(results) {
+            const summaryDiv = document.getElementById('resultsSummary');
+            const contentDiv = document.getElementById('summaryContent');
+            
+            const passed = results.passed || 0;
+            const total = results.total || 0;
+            const successRate = total > 0 ? (passed / total * 100).toFixed(1) : 0;
+            
+            contentDiv.innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                    <div>
+                        <strong>Total Tests:</strong> ${total}<br>
+                        <strong>Passed:</strong> <span style="color: #4ec9b0">${passed}</span><br>
+                        <strong>Failed:</strong> <span style="color: #f44747">${total - passed}</span>
+                    </div>
+                    <div>
+                        <strong>Success Rate:</strong> ${successRate}%<br>
+                        <strong>Status:</strong> ${successRate >= 95 ? '🎉 Excellent' : successRate >= 80 ? '✅ Good' : '⚠️ Needs Work'}
+                    </div>
+                </div>
+            `;
+            
+            summaryDiv.style.display = 'block';
+        }
+        
+        // Discover all available RGB scripts
+        async function discoverScripts() {
+            logToUI('🔍 Discovering RGB scripts...', 'info');
+
+            // List of known RGB scripts (we'll try to load all of these)
+            const knownScripts = [
+                'alternate.js', 'balls.js', 'ballscolors.js', 'blinder.js', 'circles.js',
+                'circular.js', 'empty.js', 'evenodd.js', 'fill.js', 'fillfromcenter.js',
+                'fillunfill.js', 'fillunfillfromcenter.js', 'fillunfillsquaresfromcenter.js',
+                'fireworks.js', 'flyingobjects.js', 'gradient.js', 'lines.js', 'noise.js',
+                'onebyone.js', 'opposite.js', 'plasma.js', 'plasmacolors.js', 'randomcolumn.js',
+                'randomfillcolumn.js', 'randomfillrow.js', 'randomfillsingle.js',
+                'randompixelperrow.js', 'randompixelperrowmulticolor.js', 'randomrow.js',
+                'randomsingle.js', 'snowbubbles.js', 'squares.js', 'squaresfromcenter.js',
+                'starfield.js', 'stripes.js', 'stripesfromcenter.js', 'strobe.js',
+                'verticalfall.js', 'waves.js'
+            ];
+
+            // Due to CORS restrictions when opening HTML files directly,
+            // we can't reliably test file existence with fetch().
+            // Instead, we'll populate all known scripts and handle loading errors gracefully.
+            discoveredScripts = [...knownScripts];
+            availableScripts = {};
+
+            for (const script of knownScripts) {
+                availableScripts[script] = `../${script}`;
+            }
+
+            logToUI(`📋 Discovered ${discoveredScripts.length} RGB scripts`, 'info');
+            logToUI(`ℹ️ Note: Script availability verified on selection due to CORS restrictions`, 'debug');
+            return discoveredScripts;
+        }
+
+        // Populate the script selection dropdown
+        function populateScriptSelect() {
+            const select = document.getElementById('scriptSelect');
+            select.innerHTML = '';
+
+            // Add default option
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = 'Select a script...';
+            select.appendChild(defaultOption);
+
+            // Add discovered scripts
+            discoveredScripts.sort().forEach(script => {
+                const option = document.createElement('option');
+                option.value = script;
+                option.textContent = script;
+                if (script === 'lines.js') {
+                    option.textContent += ' (Default)';
+                    option.selected = true;
+                }
+                select.appendChild(option);
+            });
+
+            logToUI(`📝 Populated script selector with ${discoveredScripts.length} scripts`, 'info');
+        }
+
+        // Refresh the script list
+        async function refreshScriptList() {
+            logToUI('🔄 Refreshing script list...', 'info');
+            await discoverScripts();
+            populateScriptSelect();
+        }
+
+        // Load selected script dynamically
+        async function loadSelectedScript() {
+            const select = document.getElementById('scriptSelect');
+            const scriptName = select.value;
+
+            if (scriptName === currentScript) {
+                return; // Already loaded
+            }
+
+            logToUI(`Loading script: ${scriptName}`, 'info');
+
+            try {
+                // Clear existing testAlgo
+                if (typeof testAlgo !== 'undefined') {
+                    delete window.testAlgo;
+                }
+
+                // Load new script
+                const scriptPath = availableScripts[scriptName];
+                if (!scriptPath) {
+                    throw new Error(`Script path not found for ${scriptName}`);
+                }
+
+                // Create script element and load
+                const script = document.createElement('script');
+                script.src = scriptPath;
+                script.onload = function() {
+                    if (typeof testAlgo !== 'undefined') {
+                        currentAlgo = testAlgo;
+                        currentScript = scriptName;
+                        logToUI(`✅ Successfully loaded ${scriptName}`, 'pass');
+                    } else {
+                        logToUI(`⚠️ ${scriptName} loaded but no testAlgo found`, 'warn');
+                    }
+                };
+                script.onerror = function() {
+                    logToUI(`❌ Failed to load ${scriptName}`, 'error');
+                };
+
+                document.head.appendChild(script);
+
+            } catch (error) {
+                logToUI(`❌ Error loading ${scriptName}: ${error.message}`, 'error');
+            }
+        }
+
+        function visualizeMatrixTests(results) {
+            const gridDiv = document.getElementById('matrixGrid');
+            gridDiv.innerHTML = '<h3>Matrix Test Results</h3>';
+
+            if (!RGBTestSuite.testResults || RGBTestSuite.testResults.length === 0) {
+                return;
+            }
+
+            // Group results by matrix size
+            const matrixResults = {};
+            RGBTestSuite.testResults.forEach(result => {
+                const match = result.name.match(/on (\d+x\d+)/);
+                if (match) {
+                    const matrixName = match[1];
+                    if (!matrixResults[matrixName]) {
+                        matrixResults[matrixName] = { passed: 0, total: 0 };
+                    }
+                    matrixResults[matrixName].total++;
+                    if (result.status === 'passed') {
+                        matrixResults[matrixName].passed++;
+                    }
+                }
+            });
+
+            // Create visual grid
+            Object.entries(matrixResults).forEach(([matrix, stats]) => {
+                const div = document.createElement('div');
+                div.className = `matrix-test ${stats.passed === stats.total ? 'passed' : 'failed'}`;
+                div.innerHTML = `
+                    <strong>${matrix}</strong><br>
+                    ${stats.passed}/${stats.total} tests passed<br>
+                    <small>${(stats.passed/stats.total*100).toFixed(1)}% success</small>
+                `;
+                gridDiv.appendChild(div);
+            });
+        }
+        
+        async function runBasicTests() {
+            logToUI(`Starting basic functionality tests for ${currentScript}...`, 'test');
+            RGBTestSuite.clearResults();
+
+            try {
+                const results = RGBTestSuite.testScript(currentScript, currentAlgo);
+                showResults(results);
+                visualizeMatrixTests();
+                logToUI(`Basic tests completed: ${results.passed}/${results.total} passed`, 'test');
+            } catch (error) {
+                logToUI(`Basic tests failed: ${error.message}`, 'error');
+            }
+        }
+
+        async function runEdgeCaseTests() {
+            logToUI(`Starting edge case tests for ${currentScript}...`, 'test');
+
+            try {
+                const results = RGBTestSuite.edgeCaseTest(currentScript, currentAlgo);
+                logToUI(`Edge case tests completed: ${results.passed}/${results.total} passed`, 'test');
+                showResults(results);
+            } catch (error) {
+                logToUI(`Edge case tests failed: ${error.message}`, 'error');
+            }
+        }
+
+        async function runStressTests() {
+            logToUI(`Starting stress tests for ${currentScript}...`, 'test');
+
+            try {
+                const results = RGBTestSuite.stressTest(currentScript, currentAlgo);
+                logToUI(`Stress tests completed: ${results.passed}/${results.total} passed`, 'test');
+            } catch (error) {
+                logToUI(`Stress tests failed: ${error.message}`, 'error');
+            }
+        }
+
+        async function runPerformanceTests() {
+            logToUI(`Starting performance tests for ${currentScript}...`, 'test');
+
+            try {
+                const results = RGBTestSuite.performanceTest(currentScript, currentAlgo);
+                logToUI('Performance test results:', 'perf');
+                results.forEach(result => {
+                    logToUI(`  ${result.name}: ${result.avgTime.toFixed(2)}ms/frame, ${result.pixelsPerMs.toFixed(0)} pixels/ms`, 'perf');
+                });
+            } catch (error) {
+                logToUI(`Performance tests failed: ${error.message}`, 'error');
+            }
+        }
+        
+        async function runAllTests() {
+            logToUI(`Starting comprehensive test suite for ${currentScript}...`, 'test');
+            RGBTestSuite.clearResults();
+
+            updateProgress(0, 5, 'Running all tests...');
+
+            try {
+                // Basic tests
+                updateProgress(1, 5, 'Running basic tests...');
+                await new Promise(resolve => setTimeout(resolve, 100));
+                const basicResults = RGBTestSuite.testScript(currentScript, currentAlgo);
+
+                // Edge case tests
+                updateProgress(2, 5, 'Running edge case tests...');
+                await new Promise(resolve => setTimeout(resolve, 100));
+                const edgeResults = RGBTestSuite.edgeCaseTest(currentScript, currentAlgo);
+
+                // Stress tests
+                updateProgress(3, 5, 'Running stress tests...');
+                await new Promise(resolve => setTimeout(resolve, 100));
+                const stressResults = RGBTestSuite.stressTest(currentScript, currentAlgo);
+
+                // Memory tests
+                updateProgress(4, 5, 'Running memory tests...');
+                await new Promise(resolve => setTimeout(resolve, 100));
+                const memoryResults = RGBTestSuite.memoryTest(currentScript, currentAlgo);
+
+                // Performance tests
+                updateProgress(5, 5, 'Running performance tests...');
+                await new Promise(resolve => setTimeout(resolve, 100));
+                const perfResults = RGBTestSuite.performanceTest(currentScript, currentAlgo);
+
+                // Generate report
+                const report = RGBTestSuite.generateReport();
+
+                updateProgress(5, 5, 'All tests completed!');
+                showResults(report);
+                visualizeMatrixTests();
+
+                logToUI('=== COMPREHENSIVE TEST COMPLETED ===', 'test');
+                logToUI(`Overall success rate: ${(report.successRate * 100).toFixed(1)}%`, 'test');
+                logToUI(`Basic: ${basicResults.passed}/${basicResults.total}, Edge: ${edgeResults.passed}/${edgeResults.total}, Stress: ${stressResults.passed}/${stressResults.total}`, 'test');
+
+            } catch (error) {
+                logToUI(`Test suite failed: ${error.message}`, 'error');
+                updateProgress(0, 5, 'Tests failed');
+            }
+        }
+        
+        function clearLog() {
+            document.getElementById('logContainer').innerHTML = '';
+            document.getElementById('resultsSummary').style.display = 'none';
+            document.getElementById('matrixGrid').innerHTML = '';
+            updateProgress(0, 1, 'Ready to run tests...');
+        }
+        
+        // Initialize
+        async function initialize() {
+            logToUI(`Test runner loaded. ${currentScript} algorithm ready.`, 'info');
+            logToUI(`Available test matrices: ${RGBTestSuite.testMatrixes.length}`, 'info');
+            logToUI(`Available edge case matrices: ${RGBTestSuite.edgeCaseMatrixes.length}`, 'info');
+
+            // Discover and populate scripts
+            await discoverScripts();
+            populateScriptSelect();
+
+            logToUI(`🎉 Initialization complete! Found ${discoveredScripts.length} RGB scripts`, 'info');
+        }
+
+        // Start initialization
+        initialize();
+    </script>
+</body>
+</html>
