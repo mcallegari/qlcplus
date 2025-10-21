@@ -261,6 +261,16 @@ var testAlgo;
       algo.setMovementSpeed(_speed);
     };
 
+    algo.setLinesType = function(_type)
+    {
+      algo.setType(_type);
+    };
+
+    algo.setLinesBias = function(_bias)
+    {
+      algo.setBias(_bias);
+    };
+
     algo.setMovement = function(_movement)
     {
       if (_movement === "Up") { algo.linesSlide = 1; algo.linesRollover = 0; }
