@@ -45,7 +45,7 @@ Rectangle
         x: rightSidePanel.x - width
         visible: false
 
-        onValueChanged:
+        onValueChanged: (val) =>
         {
             if (speedType == QLCFunction.FadeIn)
                 audioEditor.fadeInSpeed = val

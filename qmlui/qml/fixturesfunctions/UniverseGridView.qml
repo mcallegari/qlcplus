@@ -127,7 +127,7 @@ Flickable
             return fixtureManager.getTooltip(uniAddress)
         }
 
-        onPressed:
+        onPressed: (xPos, yPos, mods) =>
         {
             universeGridView.interactive = false
             var uniAddress = (yPos * gridSize.width) + xPos
@@ -154,7 +154,7 @@ Flickable
             prevFixtureID = currentItemID
         }
 
-        onReleased:
+        onReleased: (xPos, yPos, offset, mods) =>
         {
             universeGridView.interactive = true
 
@@ -165,7 +165,7 @@ Flickable
             fixtureManager.moveFixture(currentItemID, selectionData[0] + offset)
         }
 
-        onDragEntered:
+        onDragEntered: (xPos, yPos, dragEvent) =>
         {
             var channels = dragEvent.source.channels
             console.log("Drag entered. Channels: " + channels)
@@ -182,7 +182,7 @@ Flickable
             setSelectionData(tmp)
         }
 
-        onDragPositionChanged:
+        onDragPositionChanged: (xPos, yPos, offset, dragEvent) =>
         {
             var uniAddress = (yPos * gridSize.width) + xPos
             dragEvent.source.address = uniAddress
@@ -195,7 +195,7 @@ Flickable
                 validSelection = false
         }
 
-        onPositionChanged:
+        onPositionChanged: (xPos, yPos, offset, mods) =>
         {
             var uniAddress = (yPos * gridSize.width) + xPos
             var freeAddr = fixtureBrowser.availableChannel(currentItemID, uniAddress)

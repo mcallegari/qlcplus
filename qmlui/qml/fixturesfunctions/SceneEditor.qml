@@ -59,7 +59,7 @@ Rectangle
     {
         id: seSelector
         //onItemsCountChanged: console.log("Scene Editor selected items changed!")
-        onItemSelectionChanged:
+        onItemSelectionChanged: (itemIndex, selected) =>
         {
             var item = sfxList.itemAtIndex(itemIndex)
             if (item.itemType === App.FixtureDragItem)
@@ -282,7 +282,7 @@ Rectangle
                             {
                                 anchors.fill: parent
 
-                                onClicked:
+                                onClicked: (mouse) =>
                                 {
                                     if (compDelegate.itemType === App.FixtureDragItem)
                                     {

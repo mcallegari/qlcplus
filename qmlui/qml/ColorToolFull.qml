@@ -128,8 +128,8 @@ Rectangle
                 toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b, currentWAUV.r, currentWAUV.g, currentWAUV.b)
             }
 
-            onPressed: setPickedColor(mouse)
-            onPositionChanged: setPickedColor(mouse)
+            onPressed: (mouse) => setPickedColor(mouse)
+            onPositionChanged: (mouse) => setPickedColor(mouse)
             onReleased: rootBox.released()
         }
     }

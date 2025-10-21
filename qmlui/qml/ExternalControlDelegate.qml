@@ -60,7 +60,7 @@ Column
             Layout.fillWidth: true
             height: UISettings.listItemHeight
             currValue: controlID
-            onValueChanged:
+            onValueChanged: (value) =>
             {
                 controlID = value
                 widgetObjRef.updateInputSourceControlID(universe, channel, controlID)

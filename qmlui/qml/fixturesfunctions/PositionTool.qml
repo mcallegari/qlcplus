@@ -322,13 +322,13 @@ Rectangle
             property int initialXPos
             property int initialYPos
 
-            onPressed:
+            onPressed: (mouse) =>
             {
                 // initialize local variables to determine the selection orientation
                 initialXPos = mouse.x
                 initialYPos = mouse.y
             }
-            onPositionChanged:
+            onPositionChanged: (mouse) =>
             {
                 if (Math.abs(mouse.x - initialXPos) > Math.abs(mouse.y - initialYPos))
                 {
