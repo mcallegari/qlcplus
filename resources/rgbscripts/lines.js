@@ -736,6 +736,19 @@ var testAlgo;
     // Development tool access
     testAlgo = algo;
 
+    // Test suite compatibility - functions named exactly like property names
+    algo.linesAmount = function(amount) { algo.setAmount(amount); };
+    algo.linesSize = function(size) { algo.setLinesSize(size); };
+    algo.linesType = function(type) { algo.setType(type); };
+    algo.linesBias = function(bias) { algo.setBias(bias); };
+    algo.linesDistribution = function(distribution) { algo.setDistribution(distribution); };
+    algo.linesMovement = function(movement) { algo.setMovement(movement); };
+    algo.linesLifecycle = function(lifecycle) { algo.setLifecycle(lifecycle); };
+    algo.linesPattern = function(pattern) { algo.setPattern(pattern); };
+    algo.linesBrightnessVariance = function(variance) { algo.setBrightnessVariance(variance); };
+    algo.linesMovementSpeed = function(speed) { algo.setMovementSpeed(speed); };
+    algo.linesVariability = function(variability) { algo.setVariability(variability); };
+
     return algo;
   }
 )();
