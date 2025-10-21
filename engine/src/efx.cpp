@@ -849,6 +849,8 @@ bool EFX::saveXML(QXmlStreamWriter *doc)
     /* Propagation mode */
     doc->writeTextElement(KXMLQLCEFXPropagationMode, propagationModeToString(m_propagationMode));
 
+    /* Tempo type */
+    saveXMLTempoType(doc);
     /* Speeds */
     saveXMLSpeed(doc);
     /* Direction */
@@ -936,6 +938,10 @@ bool EFX::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCFunctionSpeed)
         {
             loadXMLSpeed(root);
+        }
+        else if (root.name() == KXMLQLCFunctionTempoType)
+        {
+            loadXMLTempoType(root);
         }
         else if (root.name() == KXMLQLCEFXFixture)
         {

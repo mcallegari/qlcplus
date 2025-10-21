@@ -342,6 +342,9 @@ bool Chaser::saveXML(QXmlStreamWriter *doc)
     /* Common attributes */
     saveXMLCommon(doc);
 
+    /* Save Tempo type */
+    saveXMLTempoType(doc);
+
     /* Speed */
     saveXMLSpeed(doc);
 
@@ -419,6 +422,10 @@ bool Chaser::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCFunctionRunOrder)
         {
             loadXMLRunOrder(root);
+        }
+        else if (root.name() == KXMLQLCFunctionTempoType)
+        {
+            loadXMLTempoType(root);
         }
         else if (root.name() == KXMLQLCChaserSpeedModes)
         {

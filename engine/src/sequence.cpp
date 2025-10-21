@@ -113,6 +113,9 @@ bool Sequence::saveXML(QXmlStreamWriter *doc)
 
     doc->writeAttribute(KXMLQLCSequenceBoundScene, QString::number(boundSceneID()));
 
+    /* Tempo type */
+    saveXMLTempoType(doc);
+
     /* Speed */
     saveXMLSpeed(doc);
 
@@ -187,6 +190,10 @@ bool Sequence::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCFunctionRunOrder)
         {
             loadXMLRunOrder(root);
+        }
+        else if (root.name() == KXMLQLCFunctionTempoType)
+        {
+            loadXMLTempoType(root);
         }
         else if (root.name() == KXMLQLCChaserSpeedModes)
         {

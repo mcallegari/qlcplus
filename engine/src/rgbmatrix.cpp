@@ -443,6 +443,10 @@ bool RGBMatrix::loadXML(QXmlStreamReader &root)
         {
             loadXMLSpeed(root);
         }
+        else if (root.name() == KXMLQLCFunctionTempoType)
+        {
+            loadXMLTempoType(root);
+        }
         else if (root.name() == KXMLQLCRGBAlgorithm)
         {
             setAlgorithm(RGBAlgorithm::loader(doc(), root));
@@ -507,6 +511,9 @@ bool RGBMatrix::saveXML(QXmlStreamWriter *doc)
 
     /* Common attributes */
     saveXMLCommon(doc);
+
+    /* Tempo type */
+    saveXMLTempoType(doc);
 
     /* Speeds */
     saveXMLSpeed(doc);

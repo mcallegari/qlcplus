@@ -431,6 +431,9 @@ bool Scene::saveXML(QXmlStreamWriter *doc)
     /* Common attributes */
     saveXMLCommon(doc);
 
+    /* Tempo type */
+    saveXMLTempoType(doc);
+
     /* Speed */
     saveXMLSpeed(doc);
 
@@ -539,6 +542,10 @@ bool Scene::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCFunctionSpeed)
         {
             loadXMLSpeed(root);
+        }
+        else if (root.name() == KXMLQLCFunctionTempoType)
+        {
+            loadXMLTempoType(root);
         }
         else if (root.name() == KXMLQLCSceneChannelGroups)
         {

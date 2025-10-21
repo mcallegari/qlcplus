@@ -589,6 +589,34 @@ void Function::slotBPMChanged(int bpmNumber)
     m_beatResyncNeeded = true;
 }
 
+bool Function::saveXMLTempoType(QXmlStreamWriter *doc) const
+{
+    Q_ASSERT(doc != NULL);
+
+    /* Make this optional to keep projects lighter */
+    if (tempoType() == Beats)
+        doc->writeTextElement(KXMLQLCFunctionTempoType, tempoTypeToString(tempoType()));
+
+    return true;
+}
+
+bool Function::loadXMLTempoType(QXmlStreamReader &root)
+{
+    if (root.name() != KXMLQLCFunctionTempoType)
+    {
+        qWarning() << Q_FUNC_INFO << "Tempo type node not found";
+        return false;
+    }
+
+    QString str = root.readElementText();
+    if (str.isEmpty())
+        return false;
+
+    setTempoType(stringToTempoType(str));
+
+    return true;
+}
+
 /****************************************************************************
  * Speed
  ****************************************************************************/
