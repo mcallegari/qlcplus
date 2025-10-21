@@ -433,70 +433,71 @@ var testAlgo;
         return 0;
       }
 
+      // Optimize: Cache dimension-1 calculation
+      var maxPos = dimension - 1;
+
       if (algo.linesDistribution === 0)
       {
-        return Math.round(Math.random() * (dimension - 1));
+        return (Math.random() * maxPos + 0.5) | 0;
       }
       else if (algo.linesDistribution === 1)
       {
-        var step = 2;
-        var maxSteps = Math.floor(dimension / step);
+        var maxSteps = dimension >> 1; // Optimize: Use bit shift for division by 2
         if (maxSteps <= 0) return 0;
-        var stepIndex = Math.floor(Math.random() * maxSteps);
-        return Math.min(stepIndex * step, dimension - 1);
+        var stepIndex = (Math.random() * maxSteps) | 0;
+        return Math.min(stepIndex << 1, maxPos); // Optimize: Use bit shift for multiplication by 2
       }
       else if (algo.linesDistribution === 2)
       {
-        var step = 3;
-        var maxSteps = Math.floor(dimension / step);
+        var maxSteps = (dimension / 3) | 0;
         if (maxSteps <= 0) return 0;
-        var stepIndex = Math.floor(Math.random() * maxSteps);
-        return Math.min(stepIndex * step, dimension - 1);
+        var stepIndex = (Math.random() * maxSteps) | 0;
+        return Math.min(stepIndex * 3, maxPos);
       }
       else if (algo.linesDistribution === 3)
       {
-        var halfPoint = Math.floor(dimension / 2);
+        var halfPoint = dimension >> 1; // Optimize: Use bit shift
         if (halfPoint <= 1) return 0;
-        return Math.round(Math.random() * (halfPoint - 1));
+        return (Math.random() * (halfPoint - 1) + 0.5) | 0;
       }
       else if (algo.linesDistribution === 4)
       {
-        var halfPoint = Math.floor(dimension / 2);
+        var halfPoint = dimension >> 1; // Optimize: Use bit shift
         var range = dimension - halfPoint - 1;
-        if (range <= 0) return Math.min(halfPoint, dimension - 1);
-        return halfPoint + Math.round(Math.random() * range);
+        if (range <= 0) return Math.min(halfPoint, maxPos);
+        return halfPoint + ((Math.random() * range + 0.5) | 0);
       }
       else if (algo.linesDistribution === 5)
       {
-        var thirdPoint = Math.floor(dimension / 3);
+        var thirdPoint = (dimension / 3) | 0; // Optimize: Use bitwise OR
         var startPos = thirdPoint;
         var endPos = dimension - thirdPoint;
         var range = endPos - startPos - 1;
-        if (range <= 0) return Math.min(startPos, dimension - 1);
-        return startPos + Math.round(Math.random() * range);
+        if (range <= 0) return Math.min(startPos, maxPos);
+        return startPos + ((Math.random() * range + 0.5) | 0);
       }
       else if (algo.linesDistribution === 6)
       {
-        var quarterPoint = Math.floor(dimension / 4);
+        var quarterPoint = dimension >> 2; // Optimize: Use bit shift for division by 4
         if (quarterPoint <= 1)
         {
-          return Math.round(Math.random() * (dimension - 1));
+          return (Math.random() * maxPos + 0.5) | 0;
         }
 
         if (Math.random() < 0.5)
         {
-          return Math.round(Math.random() * (quarterPoint - 1));
+          return (Math.random() * (quarterPoint - 1) + 0.5) | 0;
         }
         else
         {
           var startPos = dimension - quarterPoint;
           var range = quarterPoint - 1;
-          if (range <= 0) return Math.min(startPos, dimension - 1);
-          return startPos + Math.round(Math.random() * range);
+          if (range <= 0) return Math.min(startPos, maxPos);
+          return startPos + ((Math.random() * range + 0.5) | 0);
         }
       }
 
-      return Math.round(Math.random() * (dimension - 1));
+      return (Math.random() * maxPos + 0.5) | 0;
     };
 
     util.getColor = function(step, rgb)
@@ -528,8 +529,9 @@ var testAlgo;
 
     util.drawPixel = function(cx, cy, color, width, height)
     {
-      cx = Math.round(cx);
-      cy = Math.round(cy);
+      // Optimize: Use bitwise OR for faster integer conversion
+      cx = (cx + 0.5) | 0;
+      cy = (cy + 0.5) | 0;
       if (cx >= 0 && cx < width && cy >= 0 && cy < height) {
         util.pixelMap[cy][cx] = color;
       }
@@ -538,14 +540,18 @@ var testAlgo;
     util.getNextStep = function(width, height, rgb)
     {
       var x, y;
-      // create an empty, black pixelMap
-      util.pixelMap = new Array(height);
-      for (y = 0; y < height; y++)
-      {
-        util.pixelMap[y] = new Array(width);
-        for (x = 0; x < width; x++) {
-          util.pixelMap[y][x] = 0;
+      // Optimize: Only recreate pixelMap if dimensions changed
+      if (!util.pixelMap || util.pixelMap.length !== height ||
+          (util.pixelMap.length > 0 && util.pixelMap[0].length !== width)) {
+        util.pixelMap = new Array(height);
+        for (y = 0; y < height; y++) {
+          util.pixelMap[y] = new Array(width);
         }
+      }
+
+      // Optimize: Fast array clearing using fill()
+      for (y = 0; y < height; y++) {
+        util.pixelMap[y].fill(0);
       }
 
       for (var i = 0; i < algo.linesAmount; i++)
@@ -637,7 +643,10 @@ var testAlgo;
               continue;
             }
 
-            y = Math.sqrt(radius2 - (x * x));
+            // Optimize: Pre-calculate y value to avoid repeated Math.sqrt calls
+            var xSquared = x * x;
+            if (xSquared > radius2) continue; // Skip if outside radius
+            y = Math.sqrt(radius2 - xSquared);
 
             if (algo.linesType == 0 || algo.linesType == 2 || algo.linesType == 4 || algo.linesType == 5) {
               util.drawPixel(lines[i].xCenter - x, lines[i].yCenter, color, width, height);
