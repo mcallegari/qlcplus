@@ -75,11 +75,14 @@ open test-runner.html
 ### Test Types
 1. **Basic Functionality** - Default configurations across all matrices
 2. **Feature Testing** - All property combinations and values
-3. **Edge Case Testing** - Problematic matrix configurations (1x1, 100x1, 1x100, 2x2)
-4. **Stress Testing** - Maximum parameters and extreme configurations
-5. **Legacy Edge Cases** - Invalid inputs, boundary conditions, single pixels
-6. **Memory Testing** - Memory leak detection over 1000 iterations
-7. **Performance Testing** - Speed benchmarking and optimization
+3. **Edge Case Testing** - Comprehensive matrix configurations (27 edge cases including prime dimensions, power-of-2, extreme aspect ratios)
+4. **Animation Sequence Testing** - Frame-to-frame continuity, loop seamlessness, motion consistency validation
+5. **Visual Pattern Testing** - Expected pattern verification, symmetry testing, color gradient validation
+6. **Property Boundary Testing** - Comprehensive boundary value analysis and invalid input handling
+7. **Stress Testing** - Maximum parameters and extreme configurations
+8. **Memory Testing** - Memory leak detection over 1000 iterations
+9. **Performance Testing** - Speed benchmarking with regression detection and baseline comparison
+10. **Legacy Edge Cases** - Invalid inputs, boundary conditions, single pixels
 
 ### Lines.js Specific Tests
 - **Amount**: 1-200 lines
@@ -98,6 +101,31 @@ open test-runner.html
 - **Any RGB Script Support**: Test any `.js` file in the RGB scripts directory
 - **Automatic Script Discovery**: `--list` command shows all available scripts
 - **Script-Specific Configurations**: Tailored test configurations for different script types
+
+### Automated Property Discovery
+- **Property Analysis**: Automatically scans all 39 RGB scripts to extract properties
+- **Dynamic Configuration Generation**: Creates 246 test configurations for 24 scripts with properties
+- **Boundary Value Testing**: Tests min-1, min, min+1, max-1, max, max+1 for all range properties
+- **Invalid Input Handling**: Validates graceful handling of out-of-range and invalid property values
+
+### Advanced Edge Case Testing
+- **27 Edge Case Matrices**: Including prime dimensions (3x7, 5x13), power-of-2 (4x4, 8x8, 16x16), extreme aspect ratios (1x1000, 1000x1)
+- **Comprehensive Coverage**: Tests matrices from 1x1 to 1000x1 with various aspect ratios and mathematical properties
+
+### Animation Quality Validation
+- **Frame Continuity**: Validates smooth transitions between animation frames
+- **Loop Seamlessness**: Ensures first and last frames create seamless loops
+- **Motion Consistency**: Detects erratic motion patterns and validates smooth animation flow
+
+### Visual Pattern Validation
+- **Symmetry Testing**: Validates horizontal and vertical symmetry for symmetric scripts
+- **Color Gradient Analysis**: Verifies smooth color transitions and gradient quality
+- **Pattern Coverage**: Validates expected pixel coverage and pattern characteristics per script type
+
+### Performance Regression Detection
+- **Baseline Comparison**: Compares current performance against established baselines
+- **Regression Alerts**: Detects when performance degrades beyond acceptable thresholds
+- **Comprehensive Metrics**: Tracks ms/frame, pixels/ms, and total execution time
 - **Dynamic Script Loading**: Browser interface supports real-time script switching
 
 ### Enhanced Edge Case Testing

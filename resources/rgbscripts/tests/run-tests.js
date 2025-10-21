@@ -110,6 +110,15 @@ function testScript(scriptName, algo) {
   // Edge case test (integrated from test-lines-edge-cases.js)
   var edgeResults = RGBTestSuite.edgeCaseTest(scriptName, algo);
 
+  // Animation sequence validation
+  var animationResults = RGBTestSuite.animationSequenceTest(scriptName, algo);
+
+  // Visual pattern validation
+  var visualResults = RGBTestSuite.visualPatternTest(scriptName, algo);
+
+  // Property boundary testing
+  var boundaryResults = RGBTestSuite.propertyBoundaryTest(scriptName, algo);
+
   // Stress test
   var stressResults = RGBTestSuite.stressTest(scriptName, algo);
 
@@ -125,6 +134,9 @@ function testScript(scriptName, algo) {
   return {
     basic: basicResults,
     edge: edgeResults,
+    animation: animationResults,
+    visual: visualResults,
+    boundary: boundaryResults,
     stress: stressResults,
     memory: memoryResults,
     performance: perfResults,
@@ -346,6 +358,9 @@ function main() {
       console.log(`Total execution time: ${totalTime}ms`);
       console.log(`${scriptToTest} basic tests: ${results.basic.passed}/${results.basic.total}`);
       console.log(`${scriptToTest} edge tests: ${results.edge.passed}/${results.edge.total}`);
+      console.log(`${scriptToTest} animation tests: ${results.animation.passed}/${results.animation.total}`);
+      console.log(`${scriptToTest} visual tests: ${results.visual.passed}/${results.visual.total}`);
+      console.log(`${scriptToTest} boundary tests: ${results.boundary.passed}/${results.boundary.total}`);
       console.log(`${scriptToTest} stress tests: ${results.stress.passed}/${results.stress.total}`);
       console.log(`${scriptToTest} memory tests: ${results.memory.passed}/${results.memory.total}`);
       console.log(`Legacy edge case tests: ${edgeResults.filter(r => r.passed).length}/${edgeResults.length}`);
