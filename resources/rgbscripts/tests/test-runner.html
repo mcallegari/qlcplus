@@ -259,6 +259,7 @@
             <button onclick="runPerformanceTests()">Run Performance Tests</button>
             <button onclick="runAllTests()">Run All Tests</button>
             <button onclick="runAllScripts()" style="background: #d73a49; font-weight: bold;">🚀 Run ALL Scripts</button>
+            <button id="stopButton" onclick="stopTests()" style="background: #f44747; font-weight: bold; display: none;">⏹️ Stop Tests</button>
             <button onclick="clearLog()">Clear Log</button>
             
             <div class="progress-bar">
@@ -270,7 +271,13 @@
         <div class="log-container" id="logContainer">
             <div class="log-entry log-info">RGB Script Test Runner initialized. Click a button to start testing.</div>
         </div>
-        
+
+        <!-- Issues Report Area -->
+        <div class="results-summary" id="issuesReport" style="display: none;">
+            <h3 style="color: #f44747;">⚠️ Issues Report</h3>
+            <div id="issuesContent"></div>
+        </div>
+
         <div class="results-summary" id="resultsSummary" style="display: none;">
             <h3>Test Results Summary</h3>
             <div id="summaryContent"></div>
@@ -292,6 +299,8 @@
         let currentAlgo = testAlgo; // Default to lines.js algorithm
         let availableScripts = {}; // Will be populated dynamically
         let discoveredScripts = []; // List of all discovered scripts
+        let testingStopped = false; // Flag to stop running tests
+        let issuesCollected = []; // Collection of warnings and failures
         
         // Override console.log to capture output
         const originalLog = console.log;
@@ -304,7 +313,7 @@
             const logContainer = document.getElementById('logContainer');
             const entry = document.createElement('div');
             entry.className = `log-entry log-${type}`;
-            
+
             // Parse test runner log format
             if (message.includes('[TEST]')) {
                 type = 'test';
@@ -319,14 +328,96 @@
             } else if (message.includes('[PERF]')) {
                 type = 'perf';
             }
-            
+
             entry.className = `log-entry log-${type}`;
             entry.textContent = new Date().toLocaleTimeString() + ' - ' + message;
-            
+
             logContainer.appendChild(entry);
             logContainer.scrollTop = logContainer.scrollHeight;
+
+            // Collect warnings and failures for the issues report
+            if (type === 'warn' || type === 'error' || type === 'fail') {
+                issuesCollected.push({
+                    message: message,
+                    type: type,
+                    timestamp: new Date().toLocaleTimeString(),
+                    script: currentScript
+                });
+                updateIssuesReport();
+            }
         }
-        
+
+        function stopTests() {
+            testingStopped = true;
+            document.getElementById('stopButton').style.display = 'none';
+            logToUI('🛑 Tests stopped by user', 'warn');
+            updateProgress(0, 0, 'Tests stopped');
+        }
+
+        function updateIssuesReport() {
+            const issuesReport = document.getElementById('issuesReport');
+            const issuesContent = document.getElementById('issuesContent');
+
+            if (issuesCollected.length === 0) {
+                issuesReport.style.display = 'none';
+                return;
+            }
+
+            issuesReport.style.display = 'block';
+
+            // Group issues by type
+            const warnings = issuesCollected.filter(issue => issue.type === 'warn');
+            const errors = issuesCollected.filter(issue => issue.type === 'error' || issue.type === 'fail');
+
+            let html = '';
+
+            if (errors.length > 0) {
+                html += `<div class="error-summary" style="margin-bottom: 15px;">
+                    <div class="summary-header">
+                        <span class="summary-icon">🚨</span>
+                        <span>ERRORS & FAILURES (${errors.length})</span>
+                    </div>`;
+
+                errors.forEach(error => {
+                    html += `<div class="issue-item">
+                        <div><strong>${error.script}</strong> at ${error.timestamp}</div>
+                        <div style="margin-top: 5px; font-size: 14px;">${error.message}</div>
+                    </div>`;
+                });
+
+                html += '</div>';
+            }
+
+            if (warnings.length > 0) {
+                html += `<div class="warning-summary">
+                    <div class="summary-header">
+                        <span class="summary-icon">⚠️</span>
+                        <span>WARNINGS (${warnings.length})</span>
+                    </div>`;
+
+                warnings.forEach(warning => {
+                    html += `<div class="warning-item">
+                        <div><strong>${warning.script}</strong> at ${warning.timestamp}</div>
+                        <div style="margin-top: 5px; font-size: 14px;">${warning.message}</div>
+                    </div>`;
+                });
+
+                html += '</div>';
+            }
+
+            issuesContent.innerHTML = html;
+        }
+
+        function clearLog() {
+            document.getElementById('logContainer').innerHTML = '';
+            document.getElementById('resultsSummary').style.display = 'none';
+            document.getElementById('matrixGrid').innerHTML = '';
+            issuesCollected = [];
+            updateIssuesReport();
+            updateProgress(0, 1, 'Ready to run tests...');
+            logToUI('Log cleared', 'info');
+        }
+
         function updateProgress(current, total, text) {
             const progressBar = document.getElementById('progressBar');
             const progressText = document.getElementById('progressText');
@@ -663,6 +754,10 @@
             logToUI('🚀 STARTING COMPREHENSIVE TEST OF ALL RGB SCRIPTS', 'test');
             logToUI('This will test all 39 RGB scripts with the complete test suite...', 'info');
 
+            // Reset stop flag and show stop button
+            testingStopped = false;
+            document.getElementById('stopButton').style.display = 'inline-block';
+
             const allScriptResults = {};
             const failedScripts = [];
             const totalScripts = discoveredScripts.length;
@@ -671,6 +766,12 @@
             updateProgress(0, totalScripts, `Testing all ${totalScripts} scripts...`);
 
             for (const scriptName of discoveredScripts) {
+                // Check if user stopped the tests
+                if (testingStopped) {
+                    logToUI('🛑 Testing stopped by user', 'warn');
+                    break;
+                }
+
                 try {
                     logToUI(`\n📋 Testing ${scriptName} (${completedScripts + 1}/${totalScripts})...`, 'test');
 
@@ -741,6 +842,9 @@
                 // Small delay to prevent browser freezing
                 await new Promise(resolve => setTimeout(resolve, 50));
             }
+
+            // Hide stop button
+            document.getElementById('stopButton').style.display = 'none';
 
             // Generate comprehensive summary
             generateAllScriptsSummary(allScriptResults, failedScripts);
@@ -922,12 +1026,7 @@
             summaryDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        function clearLog() {
-            document.getElementById('logContainer').innerHTML = '';
-            document.getElementById('resultsSummary').style.display = 'none';
-            document.getElementById('matrixGrid').innerHTML = '';
-            updateProgress(0, 1, 'Ready to run tests...');
-        }
+
         
         // Initialize
         async function initialize() {
