@@ -53,7 +53,11 @@ Column
     signal dragExited(var item)
     signal enterPressed(int index)
 
-    onPlaybackIndexChanged: ceSelector.selectItem(playbackIndex, cStepsList.model, false)
+    onPlaybackIndexChanged:
+    {
+        ceSelector.selectItem(playbackIndex, cStepsList.model, false)
+        cStepsList.currentIndex = playbackIndex
+    }
 
     function editStepTime(stepIndex, stepItem, type)
     {
@@ -385,6 +389,9 @@ Column
         height: widgetRoot.height - chListHeader.height
         boundsBehavior: Flickable.StopAtBounds
         clip: true
+        preferredHighlightBegin: 0
+        preferredHighlightEnd: height / 2
+        highlightRangeMode: ListView.StrictlyEnforceRange
 
         property bool dragActive: false
         property int dragInsertIndex: -1
