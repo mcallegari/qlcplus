@@ -5,19 +5,53 @@ set -euo pipefail
 #   ./translate.sh update
 #   ./translate.sh release [qmlui|ui]
 #   ./translate.sh create <ll_CC> [qmlui|ui]
+#   ./translate.sh stats
+
+ACTION="${1:-}"
 
 which_qt() {
   local base="$1"
   command -v "$base" 2>/dev/null || command -v "${base}-qt6" 2>/dev/null || command -v "${base}-qt5" 2>/dev/null || true
 }
-LRELEASE="$(which_qt lrelease)"
-LUPDATE="$(which_qt lupdate)"
-: "${LRELEASE:?lrelease not found}"
-: "${LUPDATE:?lupdate not found}"
 
-ACTION="${1:-}"
+if [[ "$ACTION" != "stats" ]]; then
+  LRELEASE="$(which_qt lrelease)"
+  LUPDATE="$(which_qt lupdate)"
+  : "${LRELEASE:?lrelease not found}"
+  : "${LUPDATE:?lupdate not found}"
+fi
+
 UI_LANGS="de_DE es_ES fr_FR it_IT nl_NL cz_CZ pt_BR ca_ES ja_JP"
 QMLUI_LANGS="de_DE es_ES fr_FR it_IT nl_NL ru_RU ca_ES ja_JP uk_UA pl_PL"
+
+STATS_LANGS="de_DE es_ES fr_FR it_IT nl_NL cz_CZ pt_BR ca_ES ja_JP ru_RU uk_UA pl_PL" # merge of both above for stats
+EMOJI_FLAGS="🇩🇪 🇪🇸 🇫🇷 🇮🇹 🇳🇱 🇨🇿 🇧🇷 🇪🇸 🇯🇵 🇷🇺 🇺🇦 🇵🇱"
+
+# [path|category_name]
+TS_FILES=(
+  "./fixtureeditor/fixtureeditor_xx_YY.ts|Fixture Editor"
+  "./launcher/launcher_xx_YY.ts|Launcher"
+  "./plugins/artnet/src/ArtNet_xx_YY.ts|ArtNet Plugin"
+  "./plugins/dmx4linux/DMX4Linux_xx_YY.ts|DMX4Linux Plugin"
+  "./plugins/dmxusb/src/DMX_USB_xx_YY.ts|DMX-USB Plugin"
+  "./plugins/E1.31/E131_xx_YY.ts|E1.31 Plugin"
+  "./plugins/enttecwing/src/ENTTEC_Wing_xx_YY.ts|ENTTEC Wing Plugin"
+  "./plugins/gpio/GPIO_xx_YY.ts|GPIO Plugin"
+  "./plugins/hid/HID_xx_YY.ts|HID Plugin"
+  "./plugins/loopback/src/loopback_xx_YY.ts|Loopback Plugin"
+  "./plugins/midi/src/MIDI_xx_YY.ts|MIDI Plugin"
+  "./plugins/ola/OLA_xx_YY.ts|OLA Plugin"
+  "./plugins/os2l/OS2L_xx_YY.ts|OS2L Plugin"
+  "./plugins/osc/OSC_xx_YY.ts|OSC Plugin"
+  "./plugins/peperoni/Peperoni_xx_YY.ts|Peperoni Plugin"
+  "./plugins/spi/SPI_xx_YY.ts|SPI Plugin"
+  "./plugins/uart/UART_xx_YY.ts|UART Plugin"
+  "./plugins/udmx/src/uDMX_xx_YY.ts|uDMX Plugin"
+  "./plugins/velleman/src/Velleman_xx_YY.ts|Velleman Plugin"
+  "./qmlui/qlcplus_xx_YY.ts|QML UI"
+  "./ui/src/qlcplus_xx_YY.ts|UI"
+  "./webaccess/src/webaccess_xx_YY.ts|Web Access"
+)
 
 die() { echo "Error: $*" >&2; exit 1; }
 usage() {
@@ -26,6 +60,7 @@ Usage:
   $0 update
   $0 release [qmlui|ui]
   $0 create <ll_CC> [qmlui|ui]
+  $0 stats
 EOF
 }
 
@@ -45,6 +80,26 @@ find_ts_for_lang() {
   else
     find . -type f -not -path "./qmlui/*" -name "*_${lang}.ts"
   fi
+}
+
+compute_translation_percentage() {
+  # read .ts file and count total and translated strings
+  # simply count <message> and <translation> tags
+  # and translation with type="unfinished" attribute
+  # args: ts_file_path
+  local ts_file_path="$1"
+  local total translated percent
+
+  total=$(awk '/<message/ {c++} END {print c+0}' "$ts_file_path")
+  translated=$(awk '/<translation/ && $0 !~ /type="unfinished"/ {c++} END {print c+0}' "$ts_file_path")
+
+  if [[ "$total" -eq 0 ]]; then
+    echo 0
+    return
+  fi
+
+  percent=$(( translated * 100 / total ))
+  echo "$percent"
 }
 
 case "$ACTION" in
@@ -151,6 +206,41 @@ case "$ACTION" in
     [[ $created_any -eq 0 ]] && echo "Nothing to create (no basenames discovered)."
     echo "Create complete."
     rm -f "$refs_tmp" "$pairs_tmp"
+    ;;
+
+  stats)
+    header="| Projects |"
+    separator="|----------|"
+
+    for flag in $EMOJI_FLAGS; do
+      header+=" ${flag} |"
+      separator+="-------|"
+    done
+    echo "$header"
+    echo "$separator"
+
+    # parse each ts file
+    for entry in "${TS_FILES[@]}"; do
+      IFS='|' read -r ts_file category <<<"$entry"
+      row="| ${category} |"
+      for lang in $STATS_LANGS; do
+        ts_file_path="${ts_file//xx_YY/$lang}"
+        if [[ -f "$ts_file_path" ]]; then
+          percent="$(compute_translation_percentage "$ts_file_path")"
+          if [[ "$percent" -ge 100 ]]; then
+            row+="   ✅    |"
+          elif [[ "$percent" -eq 0 ]]; then
+            row+="   ❌    |"
+          else
+            printf -v cell "  %3d%%  |" "$percent"
+            row+="$cell"
+          fi
+        else
+          row+="   ❌    |"
+        fi
+      done
+      echo "$row"
+    done
     ;;
 
   ""|-h|--help)
