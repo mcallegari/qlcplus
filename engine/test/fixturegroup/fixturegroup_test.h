@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class FixtureGroup_Test : public QObject
+class FixtureGroup_Test final : public QObject
 {
     Q_OBJECT
 

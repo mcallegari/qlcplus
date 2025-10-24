@@ -28,7 +28,7 @@
 
 struct usbdmx_functions;
 
-class Win32IOEnumerator : public IOEnumerator
+class Win32IOEnumerator final : public IOEnumerator
 {
     Q_OBJECT
 

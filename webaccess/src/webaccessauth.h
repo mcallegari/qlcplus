@@ -85,7 +85,7 @@ struct WebAccessUser
  * This class implements HTTP basic authentication scheme
  * as defined in RFC7617
  */
-class WebAccessAuth
+class WebAccessAuth final
 {
 
 public:

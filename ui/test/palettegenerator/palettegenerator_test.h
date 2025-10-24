@@ -23,7 +23,7 @@
 #include <QObject>
 #include "qlcfixturedefcache.h"
 
-class PaletteGenerator_Test : public QObject
+class PaletteGenerator_Test final : public QObject
 {
     Q_OBJECT
 

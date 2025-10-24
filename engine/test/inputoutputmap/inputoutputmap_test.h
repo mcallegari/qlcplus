@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class InputOutputMap_Test : public QObject
+class InputOutputMap_Test final : public QObject
 {
     Q_OBJECT
 

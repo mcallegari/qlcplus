@@ -24,7 +24,7 @@
 
 class Doc;
 
-class SimpleDeskEngine_Test : public QObject
+class SimpleDeskEngine_Test final : public QObject
 {
     Q_OBJECT
 

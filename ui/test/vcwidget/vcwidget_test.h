@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class VCWidget_Test : public QObject
+class VCWidget_Test final : public QObject
 {
     Q_OBJECT
 

@@ -41,12 +41,12 @@
 
 JSThread* RGBScript::s_jsThread = NULL;
 
-class JSThread: public QThread
+class JSThread final : public QThread
 {
 public:
     QJSEngine *engine;
     QSemaphore ready;
-    void run()
+    void run() override
     {
         engine = new QJSEngine();
         ready.release(1);

@@ -165,7 +165,7 @@ protected:
 
 private:
     /** Input data thread worker method */
-    virtual void run();
+    virtual void run() override;
 
     /*************************************************************************
      * Output data

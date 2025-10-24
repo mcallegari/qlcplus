@@ -27,7 +27,7 @@ class Chaser;
 class Scene;
 class Doc;
 
-class ChaserRunner_Test : public QObject
+class ChaserRunner_Test final : public QObject
 {
     Q_OBJECT
 

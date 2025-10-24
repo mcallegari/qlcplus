@@ -34,7 +34,7 @@ typedef _snd_seq snd_seq_t;
 struct snd_seq_addr;
 typedef snd_seq_addr snd_seq_addr_t;
 
-class MidiEnumeratorPrivate : public QObject
+class MidiEnumeratorPrivate final : public QObject
 {
     Q_OBJECT
 

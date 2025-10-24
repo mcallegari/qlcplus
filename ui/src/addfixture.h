@@ -40,7 +40,7 @@ class Doc;
 
 #define SETTINGS_EXPANDED "addfixture/expanded"
 
-class AddFixture : public QDialog, public Ui_AddFixture
+class AddFixture final : public QDialog, public Ui_AddFixture
 {
     Q_OBJECT
     Q_DISABLE_COPY(AddFixture)

@@ -39,7 +39,7 @@ class Doc;
 
 #define KXMLQLCVirtualConsole QStringLiteral("VirtualConsole")
 
-class VirtualConsole : public PreviewContext
+class VirtualConsole final : public PreviewContext
 {
     Q_OBJECT
 
@@ -282,7 +282,7 @@ public:
     Q_INVOKABLE void deleteKeySequence(VCWidget *widget, quint32 id, QString keyText);
 
     /** @reimp */
-    void handleKeyEvent(QKeyEvent *e, bool pressed);
+    void handleKeyEvent(QKeyEvent *e, bool pressed) override;
 
     Q_INVOKABLE QVariant inputChannelsModel();
     Q_INVOKABLE QVariantList universeListModel();

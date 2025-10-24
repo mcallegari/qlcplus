@@ -41,7 +41,7 @@ typedef struct
     QString wpaPass;
 } InterfaceInfo;
 
-class WebAccessNetwork: public QObject
+class WebAccessNetwork final : public QObject
 {
     Q_OBJECT
 public:

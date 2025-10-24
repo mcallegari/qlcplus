@@ -25,7 +25,7 @@
 class GrandMaster;
 class Universe;
 
-class Universe_Test : public QObject
+class Universe_Test final : public QObject
 {
     Q_OBJECT
 

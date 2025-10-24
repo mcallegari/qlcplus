@@ -31,7 +31,7 @@ class Doc;
  * @{
  */
 
-class FixtureGroupEditor : public QWidget, public Ui_FixtureGroupEditor
+class FixtureGroupEditor final : public QWidget, public Ui_FixtureGroupEditor
 {
     Q_OBJECT
 

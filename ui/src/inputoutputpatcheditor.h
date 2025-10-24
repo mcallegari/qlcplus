@@ -34,7 +34,7 @@ class Doc;
  * @{
  */
 
-class InputOutputPatchEditor : public QWidget, public Ui_InputOutputPatchEditor
+class InputOutputPatchEditor final : public QWidget, public Ui_InputOutputPatchEditor
 {
     Q_OBJECT
     Q_DISABLE_COPY(InputOutputPatchEditor)

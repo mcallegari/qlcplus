@@ -29,7 +29,7 @@
 
 class HotPlugMonitor;
 
-class HPMPrivate : public QThread
+class HPMPrivate final : public QThread
 {
     Q_OBJECT
 

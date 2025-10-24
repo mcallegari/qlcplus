@@ -39,7 +39,7 @@
  * @author Brad Hughes <bhughes@trolltech.com>
  * @author Ilya Kotov <forkotov@hotmail.ru>
  */
-class AudioDecoder: public QObject
+class AudioDecoder : public QObject
 {
     Q_OBJECT
 

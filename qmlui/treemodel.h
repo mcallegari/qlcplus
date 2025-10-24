@@ -27,7 +27,7 @@
 
 class TreeModelItem;
 
-class TreeModel : public QAbstractListModel
+class TreeModel final : public QAbstractListModel
 {
     Q_OBJECT
     Q_DISABLE_COPY(TreeModel)
@@ -120,13 +120,13 @@ public:
     int roleIndex(QString role);
 
     /** @reimp */
-    Q_INVOKABLE int rowCount(const QModelIndex & parent = QModelIndex()) const;
+    Q_INVOKABLE int rowCount(const QModelIndex & parent = QModelIndex()) const override;
 
     /** @reimp */
-    QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
+    QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const override;
 
     /** @reimp */
-    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
+    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
 
     /** Helper method to print the tree in human readable form */
     void printTree(int tab = 0);
@@ -138,7 +138,7 @@ protected slots:
     void slotRoleChanged(TreeModelItem *item, int role, const QVariant &value);
 
 protected:
-    QHash<int, QByteArray> roleNames() const;
+    QHash<int, QByteArray> roleNames() const override;
     int getItemInsertIndex(QString label);
     int getNodeInsertIndex(QString label);
 

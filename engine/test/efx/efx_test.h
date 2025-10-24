@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class EFX_Test : public QObject
+class EFX_Test final : public QObject
 {
     Q_OBJECT
 

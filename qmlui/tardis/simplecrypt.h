@@ -55,7 +55,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   SimpleCrypt is prepared for the case that the encryption and decryption
   algorithm is changed in a later version, by prepending a version identifier to the cypertext.
   */
-class SimpleCrypt
+class SimpleCrypt final
 {
 public:
     /**

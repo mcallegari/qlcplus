@@ -39,7 +39,7 @@ class Doc;
  * @{
  */
 
-class FunctionManager : public QWidget
+class FunctionManager final : public QWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(FunctionManager)
@@ -60,10 +60,10 @@ signals:
 
 protected:
     /** @reimp */
-    void showEvent(QShowEvent* ev);
+    void showEvent(QShowEvent* ev) override;
 
     /** @reimp */
-    void hideEvent(QHideEvent* ev);
+    void hideEvent(QHideEvent* ev) override;
 
 protected slots:
     void slotModeChanged();

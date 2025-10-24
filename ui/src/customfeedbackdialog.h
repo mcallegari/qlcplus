@@ -28,7 +28,7 @@ class Doc;
 class QLCInputSource;
 class QLCInputProfile;
 
-class CustomFeedbackDialog : public QDialog, public Ui_CustomFeedbackDialog
+class CustomFeedbackDialog final : public QDialog, public Ui_CustomFeedbackDialog
 {
     Q_OBJECT
 
@@ -44,7 +44,7 @@ public:
     void setMonitoringVisibility(bool visible);
 
     /** @reimp */
-    void accept();
+    void accept() override;
 
 protected slots:
     void slotLowerColorButtonClicked();

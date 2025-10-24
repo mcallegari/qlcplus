@@ -26,7 +26,7 @@
 
 class Doc;
 
-class ContextQuickView : public QQuickView
+class ContextQuickView final : public QQuickView
 {
     Q_OBJECT
 
@@ -35,8 +35,8 @@ public:
     ~ContextQuickView() { }
 
 protected:
-    void keyPressEvent(QKeyEvent *e);
-    void keyReleaseEvent(QKeyEvent *e);
+    void keyPressEvent(QKeyEvent *e) override;
+    void keyReleaseEvent(QKeyEvent *e) override;
 
 public slots:
     void slotScreenChanged(QScreen *screen);

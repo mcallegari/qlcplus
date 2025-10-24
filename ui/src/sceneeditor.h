@@ -45,7 +45,7 @@ class SceneUiState;
  * @{
  */
 
-class SceneEditor : public QWidget, public Ui_SceneEditor
+class SceneEditor final : public QWidget, public Ui_SceneEditor
 {
     Q_OBJECT
     Q_DISABLE_COPY(SceneEditor)

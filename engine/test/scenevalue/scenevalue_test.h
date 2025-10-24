@@ -22,7 +22,7 @@
 
 #include <QObject>
 
-class SceneValue_Test : public QObject
+class SceneValue_Test final : public QObject
 {
     Q_OBJECT
 

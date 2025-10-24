@@ -25,7 +25,7 @@
 class Doc;
 class EditorView;
 
-class FixtureEditor : public QObject
+class FixtureEditor final : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QVariantList editorsList READ editorsList NOTIFY editorsListChanged)

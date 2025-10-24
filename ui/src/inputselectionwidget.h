@@ -28,7 +28,7 @@
 
 class Doc;
 
-class InputSelectionWidget : public QWidget, public Ui_InputSelectionWidget
+class InputSelectionWidget final : public QWidget, public Ui_InputSelectionWidget
 {
     Q_OBJECT
 

@@ -30,7 +30,7 @@ class Doc;
  * @{
  */
 
-class VideoEditor : public QWidget, public Ui_VideoEditor
+class VideoEditor final : public QWidget, public Ui_VideoEditor
 {
     Q_OBJECT
     Q_DISABLE_COPY(VideoEditor)

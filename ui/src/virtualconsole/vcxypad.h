@@ -80,7 +80,7 @@ typedef struct
     QLCChannel::ControlByte m_subType;
 } SceneChannel;
 
-class VCXYPad : public VCWidget, public DMXSource
+class VCXYPad final : public VCWidget, public DMXSource
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCXYPad)
@@ -101,7 +101,7 @@ public:
     virtual ~VCXYPad();
 
     /** @reimp */
-    void enableWidgetUI(bool enable);
+    void enableWidgetUI(bool enable) override;
 
 private:
     QVBoxLayout *m_mainVbox;  // main vertical layout
@@ -121,17 +121,17 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget* createCopy(VCWidget* parent) override;
 
     /** @reimp */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget* widget) override;
 
     /*************************************************************************
      * Caption
      *************************************************************************/
 public:
     /** @reimp */
-    void setCaption(const QString& text);
+    void setCaption(const QString& text) override;
 
     /*********************************************************************
      * Y-Axis Inverted appearance
@@ -145,7 +145,7 @@ public:
      *************************************************************************/
 public:
     /** @reimp */
-    void editProperties();
+    void editProperties() override;
 
     /*************************************************************************
      * Fixtures
@@ -185,7 +185,7 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMX(MasterTimer* timer, QList<Universe*> universes) override;
 
 protected:
     void writeXYFixtures(MasterTimer* timer, QList<Universe*> universes);
@@ -244,15 +244,15 @@ protected:
      * External input
      *********************************************************************/
 public:
-    void updateFeedback();
+    void updateFeedback() override;
 
 protected:
     void updatePosition();
 
 protected slots:
     /** Called when an external input device produces input data */
-    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
-    void slotKeyPressed(const QKeySequence& keySequence);
+    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value) override;
+    void slotKeyPressed(const QKeySequence& keySequence) override;
 
 private:
     QRect m_lastPos;
@@ -262,17 +262,17 @@ private:
      *************************************************************************/
 protected slots:
     /** @reimp */
-    void slotModeChanged(Doc::Mode mode);
+    void slotModeChanged(Doc::Mode mode) override;
 
     /*************************************************************************
      * Load & Save
      *************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader &root) override;
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) override;
 };
 
 /** @} */

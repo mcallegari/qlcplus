@@ -29,7 +29,7 @@
 
 class QTcpServer;
 
-class OS2LPlugin : public QLCIOPlugin
+class OS2LPlugin final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)
@@ -43,32 +43,32 @@ public:
     virtual ~OS2LPlugin();
 
     /** @reimp */
-    void init();
+    void init() override;
 
     /** @reimp */
-    QString name();
+    QString name() override;
 
     /** @reimp */
-    int capabilities() const;
+    int capabilities() const override;
 
     /** @reimp */
-    QString pluginInfo();
+    QString pluginInfo() override;
 
     /*************************************************************************
      * Inputs
      *************************************************************************/
 public:
     /** @reimp */
-    bool openInput(quint32 input, quint32 universe);
+    bool openInput(quint32 input, quint32 universe) override;
 
     /** @reimp */
-    void closeInput(quint32 input, quint32 universe);
+    void closeInput(quint32 input, quint32 universe) override;
 
     /** @reimp */
-    QStringList inputs();
+    QStringList inputs() override;
 
     /** @reimp */
-    QString inputInfo(quint32 input);
+    QString inputInfo(quint32 input) override;
 
     quint32 universe() const;
 
@@ -109,13 +109,13 @@ protected:
      *********************************************************************/
 public:
     /** @reimp */
-    void configure();
+    void configure() override;
 
     /** @reimp */
-    bool canConfigure();
+    bool canConfigure() override;
 
     /** @reimp */
-    void setParameter(quint32 universe, quint32 line, Capability type, QString name, QVariant value);
+    void setParameter(quint32 universe, quint32 line, Capability type, QString name, QVariant value) override;
 };
 
 #endif

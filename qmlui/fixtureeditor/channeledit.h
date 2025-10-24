@@ -26,7 +26,7 @@
 
 class QLCCapability;
 
-class ChannelEdit : public QObject
+class ChannelEdit final : public QObject
 {
     Q_OBJECT
 
