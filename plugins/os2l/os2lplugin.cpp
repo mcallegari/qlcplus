@@ -22,6 +22,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
+#include "utils.h"
 #include "os2lplugin.h"
 #include "os2lconfiguration.h"
 
@@ -169,12 +170,7 @@ quint16 OS2LPlugin::getHash(QString channel)
     else
     {
         /** No existing hash found. Add a new key to the table */
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        hash = qChecksum(channel.toUtf8().data(), channel.length());
-#else
-        QByteArrayView bav(channel.toUtf8().data(), channel.length());
-        hash = qChecksum(bav);
-#endif
+        hash = Utils::getChecksum(channel.toUtf8());
         m_hashMap[channel] = hash;
     }
 

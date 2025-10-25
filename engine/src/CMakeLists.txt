@@ -4,6 +4,7 @@ include(../../variables.cmake)
 
 add_library(${module_name} SHARED
     ../../plugins/interfaces/qlcioplugin.cpp ../../plugins/interfaces/qlcioplugin.h
+    ../../plugins/interfaces/utils.h
     avolitesd4parser.cpp avolitesd4parser.h
     bus.cpp bus.h
     channelmodifier.cpp channelmodifier.h
@@ -70,7 +71,6 @@ add_library(${module_name} SHARED
     showrunner.cpp showrunner.h
     track.cpp track.h
     universe.cpp universe.h
-    utils.h
     video.cpp video.h
 )
 target_include_directories(${module_name} PUBLIC

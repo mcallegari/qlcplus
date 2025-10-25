@@ -22,6 +22,7 @@ else()
 endif()
 
 set(SRC_FILES
+    ../plugins/interfaces/utils.h
     app.cpp app.h
     audioeditor.cpp audioeditor.h
     chasereditor.cpp chasereditor.h
