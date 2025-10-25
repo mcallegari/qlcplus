@@ -1261,6 +1261,16 @@
     <F n="Mac-Mah-Moving-FX-Bar" m="Moving-FX Bar"/>
     <F n="Mac-Mah-WiderPanel" m="Wider Panel"/>
   </M>
+  <M n="MagicFX">
+    <F n="MagicFX-Eco2Jet" m="Eco2Jet"/>
+    <F n="MagicFX-Psyco2Jet" m="Psyco2Jet"/>
+    <F n="MagicFX-Stage-Flame" m="Stage Flame"/>
+    <F n="MagicFX-SmokeJet" m="SmokeJet"/>
+    <F n="MagicFX-StadiumShot-III" m="StadiumShot III"/>
+    <F n="MagicFX-StadiumBlower" m="StadiumBlower"/>
+    <F n="MagicFX-StadiumBlaster" m="StadiumBlaster"/>
+    <F n="MagicFX-SwirlFan-II" m="SwirlFan II"/>
+  </M>
   <M n="MARQ">
     <F n="MARQ-Colormax-Bat" m="Colormax Bat"/>
     <F n="MARQ-Colormax-Par64" m="Colormax Par64"/>

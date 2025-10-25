@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.7</Version>
+  <Author>Liam Clark</Author>
+ </Creator>
+ <Manufacturer>MagicFX</Manufacturer>
+ <Model>SwirlFan II</Model>
+ <Type>Fan</Type>
+ <Channel Name="Safety">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="99">disbale</Capability>
+  <Capability Min="100" Max="154">enable</Capability>
+  <Capability Min="155" Max="255">disable</Capability>
+ </Channel>
+ <Channel Name="Effect density">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No output</Capability>
+  <Capability Min="10" Max="255">Confetti output</Capability>
+ </Channel>
+ <Mode Name="DMX">
+  <Channel Number="0">Safety</Channel>
+  <Channel Number="1">Effect density</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="19" Width="604" Height="618" Depth="550"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="850" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>
