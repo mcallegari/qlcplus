@@ -42,18 +42,18 @@ Entity
 
     property int meshType: MainView3D.NoMeshType
 
-    /* **************** Pan/Tilt properties **************** */
+    /* **************** Pan properties **************** */
     property real panMaxDegrees: 360
-    property real tiltMaxDegrees: 270
     property bool invertedPan: false
-    property bool invertedTilt: false
     property real panSpeed: 4000 // in milliseconds
-    property real tiltSpeed: 4000 // in milliseconds
-
     property real panRotation: 0
-    property real tiltRotation: 0
-
     property Transform panTransform
+
+    /* **************** Tilt properties **************** */
+    property real tiltMaxDegrees: 270
+    property bool invertedTilt: false
+    property real tiltSpeed: 4000 // in milliseconds
+    property real tiltRotation: 0
     property Transform tiltTransform
 
     /* **************** Focus properties **************** */
@@ -91,6 +91,7 @@ Entity
             case MainView3D.NoMeshType: return 0;
             case MainView3D.ParMeshType: return 0.389005 * transform.scale3D.x
             case MainView3D.MovingHeadMeshType: return 0.63663 * transform.scale3D.x
+            case MainView3D.ScannerMeshType: return 0.1 * transform.scale3D.x
         }
         console.log("UNSUPPORTED MESH TYPE " + meshType)
         return 0.5 * transform.scale3D.x
@@ -130,6 +131,11 @@ Entity
         console.log("Binding pan ----")
         fixtureEntity.panTransform = t
         fixtureEntity.panMaxDegrees = maxDegrees
+        if (meshType == MainView3D.ScannerMeshType)
+        {
+            panRotation = 180 - (panMaxDegrees / 2)
+            coneTopRadius = 0.01 * transform.scale3D.x
+        }
         t.rotationY = Qt.binding(function() {
             return invertedPan ? panMaxDegrees - panRotation : panRotation
         })
@@ -171,20 +177,29 @@ Entity
     {
         if (panMaxDegrees)
         {
+            var panTgtDeg
+            if (meshType == MainView3D.ScannerMeshType)
+                panTgtDeg = (180 - (panMaxDegrees / 2)) + ((panMaxDegrees / 0xFFFF) * pan)
+            else
+                panTgtDeg = (panMaxDegrees / 0xFFFF) * pan
             panAnim.stop()
             panAnim.from = panRotation
-            panAnim.to = (panMaxDegrees / 0xFFFF) * pan
+            panAnim.to = panTgtDeg
             panAnim.duration = Math.max((panSpeed / panMaxDegrees) * Math.abs(panAnim.to - panAnim.from), 300)
             panAnim.start()
         }
 
         if (tiltMaxDegrees)
         {
+            var tiltTgtDeg = 0
+            if (meshType == MainView3D.ScannerMeshType)
+                tiltTgtDeg = (90 - (tiltMaxDegrees / 2)) + ((tiltMaxDegrees / 0xFFFF) * tilt)
+            else
+                tiltTgtDeg = -parseInt(((tiltMaxDegrees / 0xFFFF) * tilt) - (tiltMaxDegrees / 2))
             tiltAnim.stop()
             tiltAnim.from = tiltRotation
-            var degTo = parseInt(((tiltMaxDegrees / 0xFFFF) * tilt) - (tiltMaxDegrees / 2))
-            //console.log("Tilt to " + degTo + ", max: " + tiltMaxDegrees)
-            tiltAnim.to = -degTo
+            //console.log("Tilt to " + tiltTgtDeg + ", max: " + tiltMaxDegrees)
+            tiltAnim.to = tiltTgtDeg
             tiltAnim.duration = Math.max((tiltSpeed / tiltMaxDegrees) * Math.abs(tiltAnim.to - tiltAnim.from), 300)
             tiltAnim.start()
         }
