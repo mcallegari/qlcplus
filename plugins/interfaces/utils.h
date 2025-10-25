@@ -79,9 +79,13 @@ struct Utils
 
     static quint16 getChecksum(QByteArray data)
     {
-#if 1
+#if 0
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+        return qChecksum(data.constData(), data.length());
+#else
         QByteArrayView bav(data.constData(), data.length());
         return qChecksum(bav);
+#endif
 #else
         quint16 crc = 0xffff;
         uchar c;
