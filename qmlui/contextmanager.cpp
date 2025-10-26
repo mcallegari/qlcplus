@@ -52,6 +52,7 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     , m_positionPicking(false)
     , m_universeFilter(Universe::invalid())
     , m_editingEnabled(false)
+    , m_selectedDimmersCount(0)
     , m_dumpChannelMask(0)
 {
     m_view->rootContext()->setContextProperty("contextManager", this);
@@ -558,12 +559,23 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
     if (enable)
         qDebug() << "Selected itemID" << itemID << ", fixture ID" << fixtureID << ", head from item" << headIdx << "head passed" << headIndex;
 
+    Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == nullptr)
+        return;
+
+    QLCFixtureDef::FixtureType type = fixture->type();
+
     if (m_selectedFixtures.contains(itemID))
     {
         if (enable == false)
             m_selectedFixtures.removeAll(itemID);
         else
             return;
+        if (type == QLCFixtureDef::Dimmer && m_selectedDimmersCount > 0)
+        {
+            m_selectedDimmersCount--;
+            emit selectedDimmersCountChanged();
+        }
     }
     else
     {
@@ -576,16 +588,18 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
                 return;
 
             m_selectedFixtures.append(itemID);
+
+            if (type == QLCFixtureDef::Dimmer)
+            {
+                m_selectedDimmersCount++;
+                emit selectedDimmersCountChanged();
+            }
         }
         else
             return;
     }
 
     emit dumpValuesCountChanged();
-
-    Fixture *fixture = m_doc->fixture(fixtureID);
-    if (fixture == nullptr)
-        return;
 
     if (headIndex == -1)
         m_fixtureManager->setItemRoleData(itemID, enable ? 2 : 0, TreeModel::IsSelectedRole);
@@ -740,6 +754,11 @@ int ContextManager::selectedFixturesCount()
     return m_selectedFixtures.count();
 }
 
+int ContextManager::selectedDimmersCount()
+{
+    return m_selectedDimmersCount;
+}
+
 bool ContextManager::isFixtureSelected(quint32 itemID)
 {
     return m_selectedFixtures.contains(itemID) ? true : false;
@@ -868,6 +887,25 @@ void ContextManager::setFixturesGelColor(QColor color)
             m_3DView->updateFixtureItem(fixture, headIndex, linkedIndex, ba);
     }
     m_doc->setModified();
+}
+
+void ContextManager::setFixedZoom(int degrees)
+{
+    QByteArray ba;
+    for (quint32 &itemID : m_selectedFixtures)
+    {
+        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+        Fixture *fixture = m_doc->fixture(fxID);
+
+        if (fixture->type() != QLCFixtureDef::Dimmer)
+            continue;
+
+        m_monProps->setFixtureFixedZoom(fxID, headIndex, linkedIndex, degrees);
+        if (m_3DView->isEnabled())
+            m_3DView->updateFixtureItem(fixture, headIndex, linkedIndex, ba);
+    }
 }
 
 void ContextManager::setFixturesAlignment(int alignment)

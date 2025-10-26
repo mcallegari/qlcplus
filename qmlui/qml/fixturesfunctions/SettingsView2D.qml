@@ -48,7 +48,7 @@ Rectangle
 
     function updateRotation(degrees)
     {
-        if (visible == false)
+        if (visible === false)
             return;
 
         var rot
@@ -272,11 +272,13 @@ Rectangle
                     // row 1
                     RobotoText
                     {
+                        visible: contextManager.selectedDimmersCount
                         height: UISettings.listItemHeight
                         label: qsTr("Gel color")
                     }
                     Rectangle
                     {
+                        visible: contextManager.selectedDimmersCount
                         Layout.fillWidth: true
                         height: UISettings.listItemHeight
                         color: gelColorTool.currentRGB
@@ -289,6 +291,25 @@ Rectangle
                     }
 
                     // row 2
+                    RobotoText
+                    {
+                        visible: contextManager.selectedDimmersCount
+                        height: UISettings.listItemHeight
+                        label: qsTr("Fixed zoom")
+                    }
+
+                    CustomSpinBox
+                    {
+                        visible: contextManager.selectedDimmersCount
+                        Layout.fillWidth: true
+                        height: UISettings.listItemHeight
+                        from: 0
+                        to: 180
+                        suffix: "°"
+                        onValueModified: contextManager.setFixedZoom(value)
+                    }
+
+                    // row 3
                     RobotoText
                     {
                         height: UISettings.listItemHeight
@@ -320,7 +341,7 @@ Rectangle
                         onValueModified: updateRotation(value)
                     }
 
-                    // row 3
+                    // row 4
                     RobotoText
                     {
                         height: UISettings.listItemHeight;
@@ -353,7 +374,7 @@ Rectangle
                         }
                     }
 
-                    // row 3
+                    // row 5
                     RobotoText
                     {
                         height: UISettings.listItemHeight;

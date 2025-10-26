@@ -1183,6 +1183,10 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
         if (gelColor.isValid() == false)
             gelColor = Qt::white;
 
+        int fixedZoom = m_monProps->fixtureFixedZoom(fixture->id(), headIndex, linkedIndex);
+        if (fixedZoom > 0)
+            QMetaObject::invokeMethod(fixtureItem, "setZoom", Q_ARG(QVariant, fixedZoom), Q_ARG(QVariant, true));
+
         QMetaObject::invokeMethod(fixtureItem, "setHeadRGBColor",
                 Q_ARG(QVariant, 0),
                 Q_ARG(QVariant, gelColor));
@@ -1303,10 +1307,10 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                 switch (ch->preset())
                 {
                     case QLCChannel::BeamZoomSmallBig:
-                        QMetaObject::invokeMethod(fixtureItem, "setZoom", Q_ARG(QVariant, value));
+                        QMetaObject::invokeMethod(fixtureItem, "setZoom", Q_ARG(QVariant, value), Q_ARG(QVariant, false));
                     break;
                     case QLCChannel::BeamZoomBigSmall:
-                        QMetaObject::invokeMethod(fixtureItem, "setZoom", Q_ARG(QVariant, 255 - value));
+                        QMetaObject::invokeMethod(fixtureItem, "setZoom", Q_ARG(QVariant, 255 - value), Q_ARG(QVariant, false));
                     break;
                     default:
                     break;

@@ -63,7 +63,8 @@
 #define KXMLQLCMonitorFixtureHeadIndex      QStringLiteral("Head")
 #define KXMLQLCMonitorFixtureLinkedIndex    QStringLiteral("Linked")
 
-#define KXMLQLCMonitorFixtureGelColor QStringLiteral("GelColor")
+#define KXMLQLCMonitorFixtureGelColor   QStringLiteral("GelColor")
+#define KXMLQLCMonitorFixtureFixedZoom  QStringLiteral("FixedZoom")
 
 #define KXMLQLCMonitorFixtureHiddenFlag     QStringLiteral("Hidden")
 #define KXMLQLCMonitorFixtureInvPanFlag     QStringLiteral("InvertedPan")
@@ -295,6 +296,32 @@ QColor MonitorProperties::fixtureGelColor(quint32 fid, quint16 head, quint16 lin
     {
         quint32 subID = fixtureSubID(head, linked);
         return m_fixtureItems[fid].m_subItems[subID].m_color;
+    }
+}
+
+void MonitorProperties::setFixtureFixedZoom(quint32 fid, quint16 head, quint16 linked, int degrees)
+{
+    if (head == 0 && linked == 0)
+    {
+        m_fixtureItems[fid].m_baseItem.m_zoom = degrees;
+    }
+    else
+    {
+        quint32 subID = fixtureSubID(head, linked);
+        m_fixtureItems[fid].m_subItems[subID].m_zoom = degrees;
+    }
+}
+
+int MonitorProperties::fixtureFixedZoom(quint32 fid, quint16 head, quint16 linked) const
+{
+    if (head == 0 && linked == 0)
+    {
+        return m_fixtureItems[fid].m_baseItem.m_zoom;
+    }
+    else
+    {
+        quint32 subID = fixtureSubID(head, linked);
+        return m_fixtureItems[fid].m_subItems[subID].m_zoom;
     }
 }
 
@@ -574,6 +601,7 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
             QVector3D rot(0, 0, 0);
 
             item.m_flags = 0;
+            item.m_zoom = 0;
 
             if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureHeadIndex))
                 headIndex = tAttrs.value(KXMLQLCMonitorFixtureHeadIndex).toString().toUInt();
@@ -611,6 +639,9 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
 
             if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureGelColor))
                 item.m_color = QColor(tAttrs.value(KXMLQLCMonitorFixtureGelColor).toString());
+
+            if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureFixedZoom))
+                item.m_zoom = tAttrs.value(KXMLQLCMonitorFixtureFixedZoom).toString().toInt();
 
             if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureHiddenFlag))
                 item.m_flags |= HiddenFlag;
@@ -788,6 +819,9 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
 #endif
             if (item.m_color.isValid())
                 doc->writeAttribute(KXMLQLCMonitorFixtureGelColor, item.m_color.name());
+
+            if (item.m_zoom > 0)
+                doc->writeAttribute(KXMLQLCMonitorFixtureFixedZoom, QString::number(item.m_zoom));
 
             doc->writeEndElement();
         }

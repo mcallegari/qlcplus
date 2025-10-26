@@ -214,9 +214,12 @@ Entity
         sAnimator.setShutter(type, low, high)
     }
 
-    function setZoom(value)
+    function setZoom(value, degrees)
     {
-        cutoffAngle = (((((focusMaxDegrees - focusMinDegrees) / 255.0) * value) + focusMinDegrees) / 2.0) * (Math.PI / 180.0)
+        if (degrees)
+            cutoffAngle = (value / 2) * (Math.PI / 180.0)
+        else
+            cutoffAngle = (((((focusMaxDegrees - focusMinDegrees) / 255.0) * value) + focusMinDegrees) / 2.0) * (Math.PI / 180.0)
     }
 
     function setupScattering(sceneEntity)
