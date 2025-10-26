@@ -55,8 +55,8 @@ Entity
                             if (mtl.fxItem === null)
                                 return m
 
-                            var panRot = mtl.fxItem.invertedPan ? mtl.fxItem.panMaxDegrees - mtl.fxItem.panRotation : mtl.fxItem.panRotation
-                            var tiltRot = mtl.fxItem.invertedTilt ? mtl.fxItem.tiltMaxDegrees - mtl.fxItem.tiltRotation : mtl.fxItem.tiltRotation
+                            var panRot = mtl.fxItem.panRotation
+                            var tiltRot = mtl.fxItem.tiltRotation
 
                             m.translate(mtl.fxItem.lightPos.times(+1.0))
                             m = m.times(mtl.fxItem.lightMatrix)

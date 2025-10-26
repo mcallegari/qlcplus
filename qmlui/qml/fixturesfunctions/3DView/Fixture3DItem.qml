@@ -110,10 +110,7 @@ Entity
     /* ********************** Light matrices ********************** */
     property matrix4x4 lightMatrix
     property matrix4x4 lightViewMatrix:
-        Math3D.getLightViewMatrix(lightMatrix,
-                                  invertedPan ? panMaxDegrees - panRotation : panRotation,
-                                  invertedTilt ? tiltMaxDegrees - tiltRotation : tiltRotation,
-                                  lightPos)
+        Math3D.getLightViewMatrix(lightMatrix, panRotation, tiltRotation, lightPos)
     property matrix4x4 lightProjectionMatrix:
         Math3D.getLightProjectionMatrix(distCutoff, coneBottomRadius, coneTopRadius, headLength, cutoffAngle)
     property matrix4x4 lightViewProjectionMatrix: lightProjectionMatrix.times(lightViewMatrix)
@@ -137,7 +134,7 @@ Entity
             coneTopRadius = 0.01 * transform.scale3D.x
         }
         t.rotationY = Qt.binding(function() {
-            return invertedPan ? panMaxDegrees - panRotation : panRotation
+            return panRotation
         })
     }
 
@@ -148,7 +145,7 @@ Entity
         fixtureEntity.tiltMaxDegrees = maxDegrees
         tiltRotation = maxDegrees / 2
         t.rotationX = Qt.binding(function() {
-            return invertedTilt ? tiltMaxDegrees - tiltRotation : tiltRotation
+            return tiltRotation
         })
     }
 
@@ -177,11 +174,9 @@ Entity
     {
         if (panMaxDegrees)
         {
-            var panTgtDeg
-            if (meshType == MainView3D.ScannerMeshType)
-                panTgtDeg = (180 - (panMaxDegrees / 2)) + ((panMaxDegrees / 0xFFFF) * pan)
-            else
-                panTgtDeg = (panMaxDegrees / 0xFFFF) * pan
+            var basePanPos = (meshType == MainView3D.ScannerMeshType) ? (180 - (panMaxDegrees / 2)) : 0
+            var panDeg = (panMaxDegrees / 0xFFFF) * pan
+            var panTgtDeg = invertedPan ? basePanPos + panMaxDegrees - panDeg : basePanPos + panDeg
             panAnim.stop()
             panAnim.from = panRotation
             panAnim.to = panTgtDeg
@@ -191,14 +186,15 @@ Entity
 
         if (tiltMaxDegrees)
         {
-            var tiltTgtDeg = 0
+            var baseTiltPos = (meshType == MainView3D.ScannerMeshType) ? (90 - (tiltMaxDegrees / 2)) : tiltMaxDegrees / 2
+            var tiltDeg = (tiltMaxDegrees / 0xFFFF) * tilt
+            var tiltTgtDeg
             if (meshType == MainView3D.ScannerMeshType)
-                tiltTgtDeg = (90 - (tiltMaxDegrees / 2)) + ((tiltMaxDegrees / 0xFFFF) * tilt)
+                tiltTgtDeg = invertedTilt ? baseTiltPos + tiltMaxDegrees - tiltDeg : baseTiltPos + tiltDeg
             else
-                tiltTgtDeg = -parseInt(((tiltMaxDegrees / 0xFFFF) * tilt) - (tiltMaxDegrees / 2))
+                tiltTgtDeg = invertedTilt ? -baseTiltPos + tiltDeg : baseTiltPos - tiltDeg
             tiltAnim.stop()
             tiltAnim.from = tiltRotation
-            //console.log("Tilt to " + tiltTgtDeg + ", max: " + tiltMaxDegrees)
             tiltAnim.to = tiltTgtDeg
             tiltAnim.duration = Math.max((tiltSpeed / tiltMaxDegrees) * Math.abs(tiltAnim.to - tiltAnim.from), 300)
             tiltAnim.start()
