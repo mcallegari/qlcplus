@@ -1264,11 +1264,11 @@
   <M n="MagicFX">
     <F n="MagicFX-Eco2Jet" m="Eco2Jet"/>
     <F n="MagicFX-Psyco2Jet" m="Psyco2Jet"/>
-    <F n="MagicFX-Stage-Flame" m="Stage Flame"/>
     <F n="MagicFX-SmokeJet" m="SmokeJet"/>
-    <F n="MagicFX-StadiumShot-III" m="StadiumShot III"/>
-    <F n="MagicFX-StadiumBlower" m="StadiumBlower"/>
     <F n="MagicFX-StadiumBlaster" m="StadiumBlaster"/>
+    <F n="MagicFX-StadiumBlower" m="StadiumBlower"/>
+    <F n="MagicFX-StadiumShot-III" m="StadiumShot III"/>
+    <F n="MagicFX-Stage-Flame" m="Stage Flame"/>
     <F n="MagicFX-SwirlFan-II" m="SwirlFan II"/>
   </M>
   <M n="MARQ">
@@ -1779,9 +1779,9 @@
     <F n="Stairville-Pixel-Panel-144-RGB" m="Pixel Panel 144 RGB"/>
     <F n="Stairville-PS1500DMX" m="PS 1500 DMX"/>
     <F n="Stairville-Quad-Par-Profile-RGBW-5x8W" m="Quad Par Profile RGBW 5x8W"/>
-    <F n="Stairville-RevueLED-120-COB-True-White" m="RevueLED 120 COB True White"/>
     <F n="Stairville-Remus-HexSpot-515" m="Remus HexSpot 515"/>
     <F n="Stairville-Remus-QuadZoom-610" m="Remus QuadZoom 610"/>
+    <F n="Stairville-RevueLED-120-COB-True-White" m="RevueLED 120 COB True White"/>
     <F n="Stairville-SC-100" m="SC-100"/>
     <F n="Stairville-SC-X50-MKII" m="SC-X50 MKII"/>
     <F n="Stairville-SC250H" m="SC250H"/>
@@ -1790,6 +1790,7 @@
     <F n="Stairville-SonicPulse-LED-Bar-10" m="SonicPulse LED Bar 10"/>
     <F n="Stairville-SonicPulse-MH-Wash-1208" m="SonicPulse MH Wash 1208"/>
     <F n="Stairville-Stage-PAR-CX-2-RGBAW" m="Stage PAR CX-2 RGBAW"/>
+    <F n="Stairville-Stage-Quad-LED-Bundle-RGB-WW" m="Stage Quad LED Bundle RGB WW"/>
     <F n="Stairville-Tri-Flat-PAR-Profile-5x3W-RGB" m="Tri Flat PAR Profile 5x3W RGB"/>
     <F n="Stairville-TRI-LED-Bundle-Complete" m="Stage TRI LED Bundle Complete"/>
     <F n="Stairville-WGF-2000" m="WGF-2000"/>
@@ -1802,7 +1803,6 @@
     <F n="Stairville-xBrick-Quad-16x8W-RGBW" m="xBrick Quad 16x8W RGBW"/>
     <F n="Stairville-Z100M" m="Z100M"/>
     <F n="Stairville-ZF-1500" m="ZF-1500"/>
-    <F n="Starville-Stage-Quad-LED-Bundle-RGB-WW" m="Stage Quad LED Bundle RGB WW"/>
   </M>
   <M n="Star-Lights">
     <F n="Star-Lights-mini-Wash-Moving-Head" m="LED 3W Mini Moving Head"/>

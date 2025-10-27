@@ -33,10 +33,10 @@
  <Channel Name="Preset">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="24">Single pulse; straight up</Capability>
-  <Capability Min="25" Max="49">2 pulses; -45°,  45°</Capability>
-  <Capability Min="50" Max="74">3 pulses; -90°, 0,  90°</Capability>
-  <Capability Min="75" Max="99">4 pulses; -90°,  -30°,  30°,  90°</Capability>
-  <Capability Min="100" Max="124">5 pulses; -90°,  -45°,  0°,  45°,  90°</Capability>
+  <Capability Min="25" Max="49">2 pulses; -45°, 45°</Capability>
+  <Capability Min="50" Max="74">3 pulses; -90°, 0, 90°</Capability>
+  <Capability Min="75" Max="99">4 pulses; -90°, -30°, 30°, 90°</Capability>
+  <Capability Min="100" Max="124">5 pulses; -90°, -45°, 0°, 45°, 90°</Capability>
   <Capability Min="125" Max="149">Random pulses</Capability>
   <Capability Min="150" Max="174">2 pulse + sweep back</Capability>
   <Capability Min="175" Max="199">3 sweeps</Capability>

@@ -121,7 +121,9 @@ GridLayout
         enabled: channel ? (channel.preset ? false : true) : false
         model: editor ? editor.channelTypeList : null
         currValue: editor ? editor.group : 0
-        onValueChanged: if (editor) editor.group = value
+        onValueChanged: (value) => {
+            if (editor) editor.group = value
+        }
     }
 
     // row 4
