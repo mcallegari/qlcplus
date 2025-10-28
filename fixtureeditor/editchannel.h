@@ -33,7 +33,7 @@ class QLCCapability;
  * @{
  */
 
-class EditChannel : public QDialog, public Ui_EditChannel
+class EditChannel final : public QDialog, public Ui_EditChannel
 {
     Q_OBJECT
 public:

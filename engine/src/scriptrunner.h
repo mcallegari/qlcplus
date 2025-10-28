@@ -42,7 +42,7 @@ typedef struct
     uint m_fadeTime;
 } FixtureValue;
 
-class ScriptRunner : public QThread
+class ScriptRunner final : public QThread
 {
     Q_OBJECT
 
@@ -233,7 +233,7 @@ protected slots:
 
 protected:
     /** QThread reimplemented method */
-    void run();
+    void run() override;
 
 private:
     /** Common code to check if script is running and if function exists */

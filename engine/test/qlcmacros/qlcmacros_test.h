@@ -22,7 +22,7 @@
 
 #include <QObject>
 
-class QLCMacros_Test : public QObject
+class QLCMacros_Test final : public QObject
 {
     Q_OBJECT
 

@@ -54,7 +54,7 @@ typedef struct _uinfo
     int type;
 } UniverseInfo;
 
-class OSCController : public QObject
+class OSCController final : public QObject
 {
     Q_OBJECT
 

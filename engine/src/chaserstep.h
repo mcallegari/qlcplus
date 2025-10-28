@@ -36,7 +36,7 @@ class QXmlStreamReader;
  * speeds (in milliseconds). Thus, each step can optionally use step-specific
  * speeds if the user so wishes.
  */
-class ChaserStep
+class ChaserStep final
 {
     /************************************************************************
      * Initialization

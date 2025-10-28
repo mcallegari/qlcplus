@@ -26,7 +26,7 @@
  * @{
  */
 
-class QLCPoint : public QPoint
+class QLCPoint final : public QPoint
 {
 public:
     QLCPoint();

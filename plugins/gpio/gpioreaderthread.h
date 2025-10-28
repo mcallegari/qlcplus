@@ -25,7 +25,7 @@
 
 #include "gpioplugin.h"
 
-class ReadThread : public QThread
+class ReadThread final : public QThread
 {
     Q_OBJECT
 
@@ -39,7 +39,7 @@ public:
     void pause(bool paused);
 
 protected:
-    void run();
+    void run() override;
 
 signals:
     void valueChanged(quint32 channel, uchar value);

@@ -44,7 +44,7 @@
  * names for each of the buses, while Bus itself handles signal emission and
  * set/get methods.
  */
-class BusEntry
+class BusEntry final
 {
 public:
     BusEntry()

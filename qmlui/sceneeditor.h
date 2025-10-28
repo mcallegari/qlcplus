@@ -28,7 +28,7 @@ class Scene;
 class ListModel;
 class GenericDMXSource;
 
-class SceneEditor : public FunctionEditor
+class SceneEditor final : public FunctionEditor
 {
     Q_OBJECT
 
@@ -41,7 +41,7 @@ public:
     ~SceneEditor();
 
     /** Set the ID of the Scene to edit */
-    void setFunctionID(quint32 id);
+    void setFunctionID(quint32 id) override;
 
     /** Return a QVariant list of references to the Fixtures
      *  involved in the Scene editing */
@@ -53,7 +53,7 @@ public:
 
     /** Enable/disable the preview of the current Scene.
      *  In this editor, the preview is done with a GenericDMXSource */
-    void setPreviewEnabled(bool enable);
+    void setPreviewEnabled(bool enable) override;
 
     /** Method called by QML to inform the SceneEditor that
      *  SceneFixtureConsole has been loaded/unloaded. */
@@ -94,7 +94,7 @@ public:
     Q_INVOKABLE void pasteToAllFixtureSameType();
 
     /** @reimp */
-    void deleteItems(QVariantList list);
+    void deleteItems(QVariantList list) override;
 
 protected slots:
     void slotSceneValueChanged(SceneValue scv);

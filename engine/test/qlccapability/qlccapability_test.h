@@ -23,7 +23,7 @@
 #include <QObject>
 #include "qlccapability.h"
 
-class QLCCapability_Test : public QObject
+class QLCCapability_Test final : public QObject
 {
     Q_OBJECT
 

@@ -30,7 +30,7 @@
 
 #define KXMLQLCRGBPlain QStringLiteral("Plain")
 
-class RGBPlain : public QObject, public RGBAlgorithm
+class RGBPlain final : public QObject, public RGBAlgorithm
 {
     Q_OBJECT
 
@@ -40,51 +40,51 @@ public:
     ~RGBPlain();
 
     /** @reimp */
-    RGBAlgorithm* clone() const;
+    RGBAlgorithm* clone() const override;
 
     /************************************************************************
      * RGBAlgorithm
      ************************************************************************/
 public:
     /** @reimp */
-    int rgbMapStepCount(const QSize& size);
+    int rgbMapStepCount(const QSize& size) override;
 
     /** @reimp */
-    void rgbMapSetColors(const QVector<uint> &colors);
+    void rgbMapSetColors(const QVector<uint> &colors) override;
 
     /** @reimp */
-    QVector<uint> rgbMapGetColors();
+    QVector<uint> rgbMapGetColors() override;
 
     /** @reimp */
-    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);
+    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map) override;
 
     /** @reimp */
-    QString name() const;
+    QString name() const override;
 
     /** @reimp */
-    QString author() const;
+    QString author() const override;
 
     /** @reimp */
-    int apiVersion() const;
+    int apiVersion() const override;
 
     /** @reimp */
-    void setColors(QVector<QColor> colors);
+    void setColors(QVector<QColor> colors) override;
 
     /** @reimp */
-    RGBAlgorithm::Type type() const;
+    RGBAlgorithm::Type type() const override;
 
     /** @reimp */
-    int acceptColors() const;
+    int acceptColors() const override;
 
     /************************************************************************
      * Load & Save
      ************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader &root) override;
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc) const;
+    bool saveXML(QXmlStreamWriter *doc) const override;
 };
 
 /** @} */

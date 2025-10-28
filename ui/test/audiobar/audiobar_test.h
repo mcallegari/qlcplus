@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class AudioBar_Test : public QObject
+class AudioBar_Test final : public QObject
 {
     Q_OBJECT
 

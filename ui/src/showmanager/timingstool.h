@@ -27,7 +27,7 @@
 class SpeedDial;
 class ShowItem;
 
-class TimingsTool : public QWidget
+class TimingsTool final : public QWidget
 {
     Q_OBJECT
 public:

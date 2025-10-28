@@ -41,7 +41,7 @@ class Doc;
  * of a capability such as color, position, dimmer, etc
  * that can be applied to an arbitrary group of fixtures.
  */
-class QLCPalette : public QObject
+class QLCPalette final : public QObject
 {
     Q_OBJECT
 

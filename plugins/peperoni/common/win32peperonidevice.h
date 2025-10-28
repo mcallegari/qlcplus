@@ -27,7 +27,7 @@
 
 struct usbdmx_functions;
 
-class Win32PeperoniDevice : public OutputDevice
+class Win32PeperoniDevice final : public OutputDevice
 {
     Q_OBJECT
 
@@ -41,19 +41,19 @@ public:
     virtual ~Win32PeperoniDevice();
 
     /** @reimp */
-    void open();
+    void open() override;
 
     /** @reimp */
-    void close();
+    void close() override;
 
     /** @reimp */
-    bool isOpen() const;
+    bool isOpen() const override;
 
     /** @reimp */
-    void writeChannel(ushort channel, uchar value);
+    void writeChannel(ushort channel, uchar value) override;
 
     /** @reimp */
-    void writeUniverse(const QByteArray& universe);
+    void writeUniverse(const QByteArray& universe) override;
 
 private:
     struct usbdmx_functions* m_usbdmx;

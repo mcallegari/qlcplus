@@ -30,7 +30,7 @@ class HotPlugMonitor;
  * HPMPrivate declaration
  ****************************************************************************/
 
-class HPMPrivate: public QObject
+class HPMPrivate final : public QObject
 {
     Q_OBJECT
 

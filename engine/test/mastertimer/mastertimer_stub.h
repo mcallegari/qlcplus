@@ -29,7 +29,7 @@
  * MasterTimer Stub
  ****************************************************************************/
 
-class MasterTimerStub : public MasterTimer
+class MasterTimerStub final : public MasterTimer
 {
     Q_OBJECT
 
@@ -37,12 +37,12 @@ public:
     MasterTimerStub(Doc* doc, QList<Universe *> universes);
     ~MasterTimerStub();
 
-    virtual void startFunction(Function* function);
+    virtual void startFunction(Function* function) override;
     void stopFunction(Function* function);
     QList <Function*> m_functionList;
 
-    void registerDMXSource(DMXSource* source);
-    void unregisterDMXSource(DMXSource* source);
+    void registerDMXSource(DMXSource* source) override;
+    void unregisterDMXSource(DMXSource* source) override;
     QList <DMXSource*> m_dmxSourceList;
 
     QList<Universe*> m_universes;

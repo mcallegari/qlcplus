@@ -29,7 +29,7 @@ class Doc;
 class ListModel;
 class ContextManager;
 
-class PaletteManager : public QObject
+class PaletteManager final : public QObject
 {
     Q_OBJECT
 

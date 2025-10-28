@@ -68,7 +68,7 @@ class QLCChannel;
  * itself. QLCFixtureModes do not delete their channels because they might be
  * shared between multiple modes.
  */
-class QLCFixtureMode
+class QLCFixtureMode final
 {
 public:
     /**

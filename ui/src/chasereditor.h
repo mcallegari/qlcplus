@@ -36,7 +36,7 @@ class QTreeWidgetItem;
  * @{
  */
 
-class ChaserEditor : public QWidget, public Ui_ChaserEditor
+class ChaserEditor final : public QWidget, public Ui_ChaserEditor
 {
     Q_OBJECT
     Q_DISABLE_COPY(ChaserEditor)

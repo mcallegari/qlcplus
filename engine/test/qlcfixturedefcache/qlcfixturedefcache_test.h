@@ -23,7 +23,7 @@
 #include <QObject>
 #include "qlcfixturedefcache.h"
 
-class QLCFixtureDefCache_Test : public QObject
+class QLCFixtureDefCache_Test final : public QObject
 {
     Q_OBJECT
 

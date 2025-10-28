@@ -25,7 +25,7 @@
 
 #include "midioutputdevice.h"
 
-class CoreMidiOutputDevice : public MidiOutputDevice
+class CoreMidiOutputDevice final : public MidiOutputDevice
 {
 public:
     CoreMidiOutputDevice(const QVariant& uid, const QString& name,

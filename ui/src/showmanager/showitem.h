@@ -215,13 +215,13 @@ public:
      *
      * @return the item bounding rectangle
      */
-    virtual QRectF boundingRect() const;
+    virtual QRectF boundingRect() const override;
 
     /**
      * @brief paint overridden method to paint the item's basic elements such as the
      * background rectangle and selection state
      */
-    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     /**
      * @brief postPaint method to be called to paint the "overlay" elements after a subclass
@@ -260,19 +260,19 @@ protected:
      * This method stores the starting position of a dragging event, to be used later
      * to restore the item position if the drag is not valid
      */
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
     /**
      * @brief mouseReleaseEvent overridden method to handle the mouse release event over an item.
      * This method emits the itemDropped signal to be handled by the above layers
      */
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
     /**
      * @brief contextMenuEvent overridden method to handle the mouse right click over an item
      * and request the display of a contextual menu.
      */
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
 
 protected:
     /** Font used for the item's labels */

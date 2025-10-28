@@ -50,7 +50,7 @@ class Doc;
  * type and fixture in all the universes.
  */
 
-class ChannelsSelection : public QDialog, public Ui_ChannelsSelection
+class ChannelsSelection final : public QDialog, public Ui_ChannelsSelection
 {
     Q_OBJECT
     Q_DISABLE_COPY(ChannelsSelection)
@@ -90,7 +90,7 @@ protected slots:
     void slotModifierButtonClicked();
 
     /** Callback for OK button clicks */
-    void accept();
+    void accept() override;
 };
 
 /** @} */

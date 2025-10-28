@@ -25,7 +25,7 @@
 
 class VCXYPadArea;
 
-class PositionTool : public QDialog, Ui_PositionTool
+class PositionTool final : public QDialog, Ui_PositionTool
 {
     Q_OBJECT
     Q_DISABLE_COPY(PositionTool)

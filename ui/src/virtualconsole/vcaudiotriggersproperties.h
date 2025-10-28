@@ -32,7 +32,7 @@ class VCAudioTriggers;
  * @{
  */
 
-class AudioTriggersConfiguration : public QDialog, public Ui_AudioTriggersConfiguration
+class AudioTriggersConfiguration final : public QDialog, public Ui_AudioTriggersConfiguration
 {
     Q_OBJECT
 
@@ -42,7 +42,7 @@ public:
     ~AudioTriggersConfiguration();
 
     /** @reimp */
-    void accept();
+    void accept() override;
 
 private slots:
     void updateTreeItem(QTreeWidgetItem *item, int idx);

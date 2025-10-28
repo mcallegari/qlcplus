@@ -69,7 +69,7 @@ protected:
     InputSelectionWidget *m_shortcutInputWidget;
 
 public slots:
-    void accept();
+    void accept() override;
 };
 
 /** @} */

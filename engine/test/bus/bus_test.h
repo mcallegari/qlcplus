@@ -22,7 +22,7 @@
 
 #include <QObject>
 
-class Bus_Test : public QObject
+class Bus_Test final : public QObject
 {
     Q_OBJECT
 

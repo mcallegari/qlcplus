@@ -64,7 +64,7 @@ class Doc;
 
 /** Universe class contains input/output data for one DMX universe
  */
-class Universe: public QThread
+class Universe : public QThread
 {
     Q_OBJECT
     Q_DISABLE_COPY(Universe)
@@ -366,7 +366,7 @@ protected:
     void processFaders();
 
     /** DMX writer thread worker method */
-    void run();
+    void run() override;
 
 signals:
     void universeWritten(quint32 universeID, const QByteArray& universeData);

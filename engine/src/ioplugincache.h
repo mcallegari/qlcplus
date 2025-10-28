@@ -31,7 +31,7 @@ class QLCIOPlugin;
  * @{
  */
 
-class IOPluginCache : public QObject
+class IOPluginCache final : public QObject
 {
     Q_OBJECT
 

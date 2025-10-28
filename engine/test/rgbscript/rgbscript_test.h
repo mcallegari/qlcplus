@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class RGBScript_Test : public QObject
+class RGBScript_Test final : public QObject
 {
     Q_OBJECT
 

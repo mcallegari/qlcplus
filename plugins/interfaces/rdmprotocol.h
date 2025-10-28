@@ -150,7 +150,7 @@
 #define BROADCAST_ESTA_ID           0xFFFF
 #define BROADCAST_DEVICE_ID         0xFFFFFFFF
 
-class RDMProtocol
+class RDMProtocol final
 {
 public:
 

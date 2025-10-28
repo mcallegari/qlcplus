@@ -22,7 +22,7 @@
 
 #include <QObject>
 
-class RGBItem_Test : public QObject
+class RGBItem_Test final : public QObject
 {
     Q_OBJECT
 

@@ -51,7 +51,7 @@ class MonitorProperties;
 #define KXMLQLCEngine QStringLiteral("Engine")
 #define KXMLQLCStartupFunction QStringLiteral("Autostart")
 
-class Doc : public QObject
+class Doc final : public QObject
 {
     Q_OBJECT
     Q_DISABLE_COPY(Doc)

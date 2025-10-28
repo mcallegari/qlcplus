@@ -40,7 +40,7 @@ typedef struct
     QQuickItem *m_item;
 } selectedFunction;
 
-class FunctionManager : public QObject
+class FunctionManager final : public QObject
 {
     Q_OBJECT
 

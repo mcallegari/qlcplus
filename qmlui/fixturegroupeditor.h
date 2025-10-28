@@ -30,7 +30,7 @@ class Fixture;
 class FixtureGroup;
 class FixtureManager;
 
-class FixtureGroupEditor : public QObject
+class FixtureGroupEditor final : public QObject
 {
     Q_OBJECT
 
