@@ -119,7 +119,8 @@ int main(int argc, char *argv[])
     {
         QString logFilename = QDir::homePath() + QDir::separator() + "QLC+.log";
         logFile.setFileName(logFilename);
-        logFile.open(QIODevice::Append);
+        if (!logFile.open(QIODevice::Append))
+            qWarning("Warning: Unable to open log file.");
     }
 
     // logging option
