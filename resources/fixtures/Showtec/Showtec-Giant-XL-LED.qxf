@@ -3,8 +3,8 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
-  <Author>Samuel Hofmann</Author>
+  <Version>4.12.7</Version>
+  <Author>Samuel Hofmann (edited by Liam Clark)</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
  <Model>Giant XL LED</Model>
@@ -134,7 +134,7 @@
  <Mode Name="14 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="8.75" Width="240" Height="335" Depth="250"/>
+   <Dimensions Weight="8.75" Width="240" Height="300" Depth="250"/>
    <Lens Name="PC" DegreesMin="17" DegreesMax="17"/>
    <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="102" DmxConnector="3-pin"/>
@@ -154,9 +154,32 @@
   <Channel Number="12">Rotating Prism</Channel>
   <Channel Number="13">Focus</Channel>
  </Mode>
+ <Mode Name="14 Channel (revB)">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="8.75" Width="240" Height="300" Depth="250"/>
+   <Lens Name="PC" DegreesMin="17" DegreesMax="17"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="102" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan Fine</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Colour</Channel>
+  <Channel Number="6">Shutter/Strobe</Channel>
+  <Channel Number="7">Dimmer</Channel>
+  <Channel Number="8">Rotating Gobo</Channel>
+  <Channel Number="9">Gobo Rotation</Channel>
+  <Channel Number="10">Channel Functions</Channel>
+  <Channel Number="11">Built-In Programs and Sound-Controlled Programs</Channel>
+  <Channel Number="12">Rotating Prism</Channel>
+  <Channel Number="13">Focus</Channel>
+ </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-  <Dimensions Weight="8.75" Width="240" Height="355" Depth="250"/>
+  <Dimensions Weight="8.75" Width="240" Height="300" Depth="250"/>
   <Lens Name="PC" DegreesMin="17" DegreesMax="17"/>
   <Focus Type="Head" PanMax="540" TiltMax="270"/>
   <Technical PowerConsumption="102" DmxConnector="3-pin"/>
