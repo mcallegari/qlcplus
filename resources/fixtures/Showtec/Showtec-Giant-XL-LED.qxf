@@ -21,19 +21,19 @@
   <Capability Min="10" Max="14" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
   <Capability Min="15" Max="19" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#ffaa7f">Peach</Capability>
-  <Capability Min="25" Max="29" Preset="ColorMacro" Res1="#55aaff">Light Blue</Capability>
-  <Capability Min="30" Max="34" Preset="ColorMacro" Res1="#aaff00">Light Green</Capability>
-  <Capability Min="35" Max="39" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
-  <Capability Min="40" Max="44" Preset="ColorMacro" Res1="#00007f">Dark Blue</Capability>
+  <Capability Min="25" Max="29" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
+  <Capability Min="30" Max="34" Preset="ColorMacro" Res1="#90ee90">Light Green</Capability>
+  <Capability Min="35" Max="39" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="40" Max="44" Preset="ColorMacro" Res1="#00008b">Dark Blue</Capability>
   <Capability Min="45" Max="54" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffff00">White-&gt;Yellow</Capability>
   <Capability Min="55" Max="63" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffc0cb">Yellow-&gt;Pink</Capability>
   <Capability Min="64" Max="73" Preset="ColorDoubleMacro" Res1="#ffc0cb" Res2="#00ff00">Pink-&gt;Green</Capability>
   <Capability Min="74" Max="82" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffaa7f">Green-&gt;Peach</Capability>
-  <Capability Min="83" Max="91" Preset="ColorDoubleMacro" Res1="#ffaa7f" Res2="#00aaff">Peach-&gt;Light Blue</Capability>
-  <Capability Min="92" Max="100" Preset="ColorDoubleMacro" Res1="#00aaff" Res2="#aaff00">Light Blue-&gt;Light Green</Capability>
-  <Capability Min="101" Max="109" Preset="ColorDoubleMacro" Res1="#aaff00" Res2="#ffaa00">Light Green-&gt;Orange</Capability>
-  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ffaa00" Res2="#00007f">Orange-&gt;Dark Blue</Capability>
-  <Capability Min="120" Max="127" Preset="ColorDoubleMacro" Res1="#00007f" Res2="#ffffff">Dark Blue-&gt;White</Capability>
+  <Capability Min="83" Max="91" Preset="ColorDoubleMacro" Res1="#ffaa7f" Res2="#add8e6">Peach-&gt;Light Blue</Capability>
+  <Capability Min="92" Max="100" Preset="ColorDoubleMacro" Res1="#add8e6" Res2="#90ee90">Light Blue-&gt;Light Green</Capability>
+  <Capability Min="101" Max="109" Preset="ColorDoubleMacro" Res1="#90ee90" Res2="#ffa500">Light Green-&gt;Orange</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#00008b">Orange-&gt;Dark Blue</Capability>
+  <Capability Min="120" Max="127" Preset="ColorDoubleMacro" Res1="#00008b" Res2="#ffffff">Dark Blue-&gt;White</Capability>
   <Capability Min="128" Max="191" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow Fast-&gt;Slow</Capability>
   <Capability Min="192" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow Backwards Fast-&gt;Slow</Capability>
  </Channel>
