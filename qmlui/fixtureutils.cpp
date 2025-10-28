@@ -95,11 +95,11 @@ QPointF FixtureUtils::item2DPosition(MonitorProperties *monProps, int pointOfVie
         break;
         case MonitorProperties::RightSideView:
             point.setX((monProps->gridSize().x() * gridUnits) - pos.z());
-            point.setY((monProps->gridSize().y() * gridUnits) - pos.y());
+            point.setY(pos.y());
         break;
         case MonitorProperties::LeftSideView:
             point.setX(pos.z());
-            point.setY((monProps->gridSize().y() * gridUnits) - pos.y());
+            point.setY(pos.y());
         break;
     }
 
