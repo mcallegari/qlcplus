@@ -102,7 +102,7 @@ Entity
         id: headsRepeater
         //model: fixtureEntity.headsNumber
 
-        onObjectAdded:
+        onObjectAdded: (index) =>
         {
             //console.log("Head " + index + " added ----------------")
             if (index === fixtureEntity.headsNumber - 1)

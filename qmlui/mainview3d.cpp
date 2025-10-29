@@ -117,6 +117,15 @@ void MainView3D::enableContext(bool enable)
             delete m_stageEntity;
             m_stageEntity = nullptr;
         }
+
+        delete m_selectionComponent;
+        m_selectionComponent = nullptr;
+
+        delete m_fixtureComponent;
+        m_fixtureComponent = nullptr;
+
+        delete m_genericComponent;
+        m_genericComponent = nullptr;
     }
 }
 
@@ -1095,13 +1104,15 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
     QGeometryRenderer *selectionMesh = m_sceneRootEntity->property("selectionMesh").value<QGeometryRenderer *>();
 
     meshRef->m_selectionBox = qobject_cast<QEntity *>(m_selectionComponent->create());
-    meshRef->m_selectionBox->setParent(m_sceneRootEntity);
-
-    meshRef->m_selectionBox->setProperty("selectionLayer", QVariant::fromValue(selectionLayer));
-    meshRef->m_selectionBox->setProperty("geometryPassEffect", QVariant::fromValue(sceneEffect));
-    meshRef->m_selectionBox->setProperty("selectionMesh", QVariant::fromValue(selectionMesh));
-    meshRef->m_selectionBox->setProperty("extents", meshRef->m_volume.m_extents);
-    meshRef->m_selectionBox->setProperty("center", meshRef->m_volume.m_center);
+    if (meshRef->m_selectionBox != nullptr)
+    {
+        meshRef->m_selectionBox->setParent(m_sceneRootEntity);
+        meshRef->m_selectionBox->setProperty("selectionLayer", QVariant::fromValue(selectionLayer));
+        meshRef->m_selectionBox->setProperty("geometryPassEffect", QVariant::fromValue(sceneEffect));
+        meshRef->m_selectionBox->setProperty("selectionMesh", QVariant::fromValue(selectionMesh));
+        meshRef->m_selectionBox->setProperty("extents", meshRef->m_volume.m_extents);
+        meshRef->m_selectionBox->setProperty("center", meshRef->m_volume.m_center);
+    }
 
     if (meshRef->m_rootTransform != nullptr)
     {
