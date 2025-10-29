@@ -681,7 +681,7 @@ void VCCueList::slotInputValueChanged(quint8 id, uchar value)
         case INPUT_PREVIOUS_STEP_ID:
         case INPUT_PLAY_PAUSE_ID:
         case INPUT_STOP_PAUSE_ID:
-            if (value != UCHAR_MAX)
+            if (value == 0)
                 return;
         break;
         default:
