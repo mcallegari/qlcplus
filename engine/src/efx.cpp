@@ -1090,7 +1090,7 @@ QSharedPointer<GenericFader> EFX::getFader(QList<Universe *> universes, quint32 
     QSharedPointer<GenericFader> fader = m_fadersMap.value(universeID, QSharedPointer<GenericFader>());
     if (fader.isNull())
     {
-        fader = universes[universeID]->requestFader();
+        fader = universes[universeID]->requestFader(isRelative() ? Universe::Override : Universe::Auto);
         fader->adjustIntensity(getAttributeValue(Intensity));
         fader->setBlendMode(blendMode());
         fader->setName(name());
