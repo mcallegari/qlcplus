@@ -32,6 +32,15 @@ Rectangle
     property int manufacturerIndex: fixtureBrowser.manufacturerIndex
     property string selectedModel
 
+    CustomPopupDialog
+    {
+        id: errorPopup
+        standardButtons: Dialog.Ok
+        title: qsTr("Error")
+        message: qsTr("Address overlapping detected.\nPlease set another DMX address.")
+        onAccepted: close()
+    }
+
     RowLayout
     {
         id: toolBar
@@ -259,6 +268,7 @@ Rectangle
                             editButton.enabled = true
                         }
                     }
+                    onOverlappingEvent: errorPopup.open()
                 }
             ScrollBar.vertical: CustomScrollBar { id: modelsScroll }
         }

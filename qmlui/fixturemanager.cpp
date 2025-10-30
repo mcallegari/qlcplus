@@ -335,6 +335,10 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
                                               Tardis::instance()->actionToByteArray(Tardis::FixtureCreate, fxi->id()));
             slotFixtureAdded(fxi->id(), QVector3D(xPos, yPos, 0));
         }
+        else
+        {
+            return false;
+        }
 
         fxAddress += (channels + gap);
     }
