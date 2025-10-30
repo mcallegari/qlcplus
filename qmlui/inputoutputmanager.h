@@ -130,7 +130,7 @@ public:
     Q_INVOKABLE void setOutputPatch(int universe, QString plugin, QString line, int index);
     Q_INVOKABLE void removeOutputPatch(int universe, int index);
     Q_INVOKABLE void addInputPatch(int universe, QString plugin, QString line);
-    Q_INVOKABLE void setFeedbackPatch(int universe, bool enable);
+    Q_INVOKABLE bool setFeedbackPatch(int universe, bool enable);
     Q_INVOKABLE void removeInputPatch(int universe);
     Q_INVOKABLE void setInputProfile(int universe, QString profileName);
 
