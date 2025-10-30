@@ -616,6 +616,8 @@ void MainView2D::updateFixtureRotation(quint32 itemID, QVector3D degrees)
             fxItem->setProperty("rotation", degrees.z());
         break;
         case MonitorProperties::LeftSideView:
+            fxItem->setProperty("rotation", -degrees.x());
+        break;
         case MonitorProperties::RightSideView:
             fxItem->setProperty("rotation", degrees.x());
         break;
