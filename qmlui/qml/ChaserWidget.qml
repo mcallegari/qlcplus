@@ -391,7 +391,7 @@ Column
         clip: true
         preferredHighlightBegin: 0
         preferredHighlightEnd: height / 2
-        highlightRangeMode: ListView.StrictlyEnforceRange
+        highlightRangeMode: ListView.ApplyRange
 
         property bool dragActive: false
         property int dragInsertIndex: -1
