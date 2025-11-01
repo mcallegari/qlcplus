@@ -114,7 +114,7 @@
      <item row="2" column="1" colspan="4">
       <widget class="QCheckBox" name="m_reverseHorizCheck">
        <property name="text">
-        <string>Reverse Horizontally</string>
+        <string>Reverse horizontally</string>
        </property>
       </widget>
      </item>
@@ -132,6 +132,15 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>m_addressSpin</tabstop>
+  <tabstop>m_reverseVertCheck</tabstop>
+  <tabstop>m_reverseHorizCheck</tabstop>
+  <tabstop>m_redBtn</tabstop>
+  <tabstop>m_blueBtn</tabstop>
+  <tabstop>m_blackBtn</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
