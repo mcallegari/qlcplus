@@ -80,6 +80,7 @@ Rectangle
             function onRequestView(ID, qmlSrc, back)
             {
                 console.log("SidePanel loader ID requested: " + ID)
+                loaderSource = ""
                 functionManager.setEditorFunction(ID, false, back)
                 itemID = ID
                 loaderSource = qmlSrc

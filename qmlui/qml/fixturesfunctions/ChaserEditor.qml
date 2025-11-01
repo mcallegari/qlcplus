@@ -32,7 +32,7 @@ Rectangle
     color: "transparent"
 
     property int functionID: -1
-    property bool isSequence: chaserEditor.isSequence
+    property bool isSequence: chaserEditor ? chaserEditor.isSequence : false
 
     signal requestView(int ID, string qmlSrc, bool back)
 
@@ -79,7 +79,7 @@ Rectangle
             {
                 id: topbar
                 visible: !isSequence
-                text: chaserEditor.functionName
+                text: chaserEditor ? chaserEditor.functionName : ""
                 onTextChanged: chaserEditor.functionName = text
 
                 onBackClicked:
@@ -102,7 +102,7 @@ Rectangle
                     faSource: FontAwesome.fa_circle_left
                     faColor: "lightcyan"
                     tooltip: qsTr("Preview the previous step")
-                    visible: chaserEditor.previewEnabled
+                    visible: chaserEditor ? chaserEditor.previewEnabled : false
                     onClicked: chaserEditor.gotoPreviousStep()
                 }
 
@@ -113,7 +113,7 @@ Rectangle
                     faSource: FontAwesome.fa_circle_right
                     faColor: "lightcyan"
                     tooltip: qsTr("Preview the next step")
-                    visible: chaserEditor.previewEnabled
+                    visible: chaserEditor ? chaserEditor.previewEnabled : false
                     onClicked: chaserEditor.gotoNextStep()
                 }
 
@@ -125,7 +125,7 @@ Rectangle
                     faSource: FontAwesome.fa_plus
                     faColor: "limegreen"
                     checkable: true
-                    enabled: !chaserEditor.previewEnabled
+                    enabled: chaserEditor ? !chaserEditor.previewEnabled : true
                     tooltip: qsTr("Add a new step")
 
                     onCheckedChanged:
@@ -164,7 +164,7 @@ Rectangle
                     faSource: FontAwesome.fa_shuffle
                     faColor: "gold"
                     tooltip: qsTr("Randomize the selected step(s) order")
-                    enabled: !chaserEditor.previewEnabled
+                    enabled: chaserEditor ? !chaserEditor.previewEnabled : true
                     onClicked: chaserEditor.shuffleSteps(chWidget.selector.itemsList())
                 }
 
@@ -176,7 +176,7 @@ Rectangle
                     faSource: FontAwesome.fa_minus
                     faColor: "crimson"
                     tooltip: qsTr("Remove the selected steps")
-                    enabled: !chaserEditor.previewEnabled && chWidget.selector.itemsCount
+                    enabled: chaserEditor && !chaserEditor.previewEnabled && chWidget.selector.itemsCount
                     onClicked: deleteSelectedItems()
                 }
 
