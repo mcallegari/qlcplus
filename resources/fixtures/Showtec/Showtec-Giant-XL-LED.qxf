@@ -132,13 +132,6 @@
   <Channel Number="7">Focus</Channel>
  </Mode>
  <Mode Name="14 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="8.75" Width="240" Height="300" Depth="250"/>
-   <Lens Name="PC" DegreesMin="17" DegreesMax="17"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="102" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -155,13 +148,6 @@
   <Channel Number="13">Focus</Channel>
  </Mode>
  <Mode Name="14 Channel (revB)">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="8.75" Width="240" Height="300" Depth="250"/>
-   <Lens Name="PC" DegreesMin="17" DegreesMax="17"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="102" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan Fine</Channel>
