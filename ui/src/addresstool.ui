@@ -132,6 +132,15 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>m_addressSpin</tabstop>
+  <tabstop>m_reverseVertCheck</tabstop>
+  <tabstop>m_reverseHorizCheck</tabstop>
+  <tabstop>m_redBtn</tabstop>
+  <tabstop>m_blueBtn</tabstop>
+  <tabstop>m_blackBtn</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
