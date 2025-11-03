@@ -268,7 +268,7 @@ Rectangle
                     from: 1
                     to: 999
                     suffix: "px"
-                    value: addMatrixPopup.wType === "buttonmatrix" ? screenPixelDensity * 17 : screenPixelDensity * 10
+                    value: addMatrixPopup.wType === "buttonmatrix" ? screenPixelDensity * 17 : screenPixelDensity * 15
                 }
 
                 RobotoText  { label: qsTr("Height") }
@@ -278,7 +278,7 @@ Rectangle
                     from: 1
                     to: 999
                     suffix: "px"
-                    value: addMatrixPopup.wType === "buttonmatrix" ? screenPixelDensity * 17 : screenPixelDensity * 35
+                    value: addMatrixPopup.wType === "buttonmatrix" ? screenPixelDensity * 17 : screenPixelDensity * 40
                 }
 
                 // row 3
