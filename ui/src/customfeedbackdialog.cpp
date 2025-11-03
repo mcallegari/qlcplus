@@ -199,3 +199,15 @@ void CustomFeedbackDialog::slotColorSelected(QTreeWidgetItem *item)
     m_profileColorsTree->setVisible(false);
     m_selectedFeedback = None;
 }
+
+void CustomFeedbackDialog::setSyncStatus(bool enable)
+{
+    m_syncStatus = enable;
+    if (m_syncStatus)
+    {
+        m_lowerSpin->setEnabled(false);
+        m_upperSpin->setEnabled(false);
+        m_lowerColor->setEnabled(false);
+        m_upperColor->setEnabled(false);
+    }
+}
