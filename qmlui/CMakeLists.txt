@@ -68,7 +68,7 @@ set(SRC_FILES
     videoeditor.cpp videoeditor.h
     videoprovider.cpp videoprovider.h
     virtualconsole/vcanimation.cpp virtualconsole/vcanimation.h
-    virtualconsole/vcaudiotrigger.cpp virtualconsole/vcaudiotrigger.h
+    virtualconsole/vcaudiotriggers.cpp virtualconsole/vcaudiotriggers.h
     virtualconsole/vcbutton.cpp virtualconsole/vcbutton.h
     virtualconsole/vcclock.cpp virtualconsole/vcclock.h
     virtualconsole/vccuelist.cpp virtualconsole/vccuelist.h

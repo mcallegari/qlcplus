@@ -26,16 +26,16 @@
 #include "vcframe.h"
 #include "vclabel.h"
 #include "vcclock.h"
+#include "vcxypad.h"
 #include "vcbutton.h"
 #include "vcslider.h"
 #include "vccuelist.h"
 #include "vcsoloframe.h"
 #include "simplecrypt.h"
 #include "vcanimation.h"
-#include "vcaudiotrigger.h"
-#include "vcxypad.h"
 #include "vcspeeddial.h"
 #include "virtualconsole.h"
+#include "vcaudiotriggers.h"
 
 #define INPUT_NEXT_PAGE_ID      0
 #define INPUT_PREVIOUS_PAGE_ID  1
@@ -317,12 +317,12 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         break;
         case AudioTriggersWidget:
         {
-            VCAudioTrigger *audioTrigger = new VCAudioTrigger(m_doc, this);
+            VCAudioTriggers *audioTrigger = new VCAudioTriggers(m_doc, this);
             QQmlEngine::setObjectOwnership(audioTrigger, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(audioTrigger);
             Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
                                               Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, audioTrigger->id()));
-            audioTrigger->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
+            audioTrigger->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
             setupWidget(audioTrigger, currentPage());
             audioTrigger->render(m_vc->view(), parent);
         }
@@ -1114,7 +1114,7 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
     else if (root.name() == KXMLQLCVCAudioTriggers)
     {
         /* Create a new clock into its parent */
-        VCAudioTrigger *audioTrigger = new VCAudioTrigger(m_doc, this);
+        VCAudioTriggers *audioTrigger = new VCAudioTriggers(m_doc, this);
         if (audioTrigger->loadXML(root) == false)
             delete audioTrigger;
         else

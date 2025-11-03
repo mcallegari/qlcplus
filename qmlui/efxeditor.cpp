@@ -528,7 +528,7 @@ void EFXEditor::removeHeads(QVariantList heads)
     if (m_efx == nullptr)
         return;
 
-    for (QVariant vIdx : heads)
+    for (QVariant &vIdx : heads)
     {
         QModelIndex idx = m_fixtureList->index(vIdx.toInt(), 0, QModelIndex());
         QVariant fixtureID = m_fixtureList->data(idx, "fxID");

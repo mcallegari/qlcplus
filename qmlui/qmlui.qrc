@@ -239,8 +239,8 @@
     <file alias="VCSliderProperties.qml">qml/virtualconsole/VCSliderProperties.qml</file>
     <file alias="VCAnimationItem.qml">qml/virtualconsole/VCAnimationItem.qml</file>
     <file alias="VCAnimationProperties.qml">qml/virtualconsole/VCAnimationProperties.qml</file>
-    <file alias="VCAudioTriggerItem.qml">qml/virtualconsole/VCAudioTriggerItem.qml</file>
-    <file alias="VCAudioTriggerProperties.qml">qml/virtualconsole/VCAudioTriggerProperties.qml</file>
+    <file alias="VCAudioTriggersItem.qml">qml/virtualconsole/VCAudioTriggersItem.qml</file>
+    <file alias="VCAudioTriggersProperties.qml">qml/virtualconsole/VCAudioTriggersProperties.qml</file>
     <file alias="VCXYPadItem.qml">qml/virtualconsole/VCXYPadItem.qml</file>
     <file alias="VCXYPadProperties.qml">qml/virtualconsole/VCXYPadProperties.qml</file>
     <file alias="VCSpeedDialItem.qml">qml/virtualconsole/VCSpeedDialItem.qml</file>
