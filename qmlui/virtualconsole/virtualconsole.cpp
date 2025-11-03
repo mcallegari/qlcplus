@@ -914,6 +914,9 @@ void VirtualConsole::createAndAddInputSource(VCWidget *widget, quint32 universe,
     source->setUniverse(universe);
     source->setChannel(channel);
     widget->addInputSource(source);
+
+    for (VCPage *page : m_pages)
+        page->mapInputSource(source, widget, true);
 }
 
 bool VirtualConsole::createAndDetectInputKey(VCWidget *widget)
