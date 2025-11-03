@@ -47,7 +47,7 @@ public:
     virtual ~EnttecDMXUSBPro();
 
     /** @reimp */
-    Type type() const;
+    DMXUSBWidget::Type type() const;
 
     // DMXking port flags
     enum PortType
