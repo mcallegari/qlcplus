@@ -3,8 +3,8 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
-  <Author>Samuel Hofmann</Author>
+  <Version>4.12.7</Version>
+  <Author>Samuel Hofmann, Liam Clark</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
  <Model>Giant XL LED</Model>
@@ -21,19 +21,19 @@
   <Capability Min="10" Max="14" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
   <Capability Min="15" Max="19" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
   <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#ffaa7f">Peach</Capability>
-  <Capability Min="25" Max="29" Preset="ColorMacro" Res1="#55aaff">Light Blue</Capability>
-  <Capability Min="30" Max="34" Preset="ColorMacro" Res1="#aaff00">Light Green</Capability>
-  <Capability Min="35" Max="39" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
-  <Capability Min="40" Max="44" Preset="ColorMacro" Res1="#00007f">Dark Blue</Capability>
+  <Capability Min="25" Max="29" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
+  <Capability Min="30" Max="34" Preset="ColorMacro" Res1="#90ee90">Light Green</Capability>
+  <Capability Min="35" Max="39" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="40" Max="44" Preset="ColorMacro" Res1="#00008b">Dark Blue</Capability>
   <Capability Min="45" Max="54" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffff00">White-&gt;Yellow</Capability>
   <Capability Min="55" Max="63" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffc0cb">Yellow-&gt;Pink</Capability>
   <Capability Min="64" Max="73" Preset="ColorDoubleMacro" Res1="#ffc0cb" Res2="#00ff00">Pink-&gt;Green</Capability>
   <Capability Min="74" Max="82" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffaa7f">Green-&gt;Peach</Capability>
-  <Capability Min="83" Max="91" Preset="ColorDoubleMacro" Res1="#ffaa7f" Res2="#00aaff">Peach-&gt;Light Blue</Capability>
-  <Capability Min="92" Max="100" Preset="ColorDoubleMacro" Res1="#00aaff" Res2="#aaff00">Light Blue-&gt;Light Green</Capability>
-  <Capability Min="101" Max="109" Preset="ColorDoubleMacro" Res1="#aaff00" Res2="#ffaa00">Light Green-&gt;Orange</Capability>
-  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ffaa00" Res2="#00007f">Orange-&gt;Dark Blue</Capability>
-  <Capability Min="120" Max="127" Preset="ColorDoubleMacro" Res1="#00007f" Res2="#ffffff">Dark Blue-&gt;White</Capability>
+  <Capability Min="83" Max="91" Preset="ColorDoubleMacro" Res1="#ffaa7f" Res2="#add8e6">Peach-&gt;Light Blue</Capability>
+  <Capability Min="92" Max="100" Preset="ColorDoubleMacro" Res1="#add8e6" Res2="#90ee90">Light Blue-&gt;Light Green</Capability>
+  <Capability Min="101" Max="109" Preset="ColorDoubleMacro" Res1="#90ee90" Res2="#ffa500">Light Green-&gt;Orange</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#00008b">Orange-&gt;Dark Blue</Capability>
+  <Capability Min="120" Max="127" Preset="ColorDoubleMacro" Res1="#00008b" Res2="#ffffff">Dark Blue-&gt;White</Capability>
   <Capability Min="128" Max="191" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow Fast-&gt;Slow</Capability>
   <Capability Min="192" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow Backwards Fast-&gt;Slow</Capability>
  </Channel>
@@ -132,13 +132,6 @@
   <Channel Number="7">Focus</Channel>
  </Mode>
  <Mode Name="14 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="8.75" Width="240" Height="335" Depth="250"/>
-   <Lens Name="PC" DegreesMin="17" DegreesMax="17"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="102" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -154,9 +147,25 @@
   <Channel Number="12">Rotating Prism</Channel>
   <Channel Number="13">Focus</Channel>
  </Mode>
+ <Mode Name="14 Channel (revB)">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan Fine</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Colour</Channel>
+  <Channel Number="6">Shutter/Strobe</Channel>
+  <Channel Number="7">Dimmer</Channel>
+  <Channel Number="8">Rotating Gobo</Channel>
+  <Channel Number="9">Gobo Rotation</Channel>
+  <Channel Number="10">Channel Functions</Channel>
+  <Channel Number="11">Built-In Programs and Sound-Controlled Programs</Channel>
+  <Channel Number="12">Rotating Prism</Channel>
+  <Channel Number="13">Focus</Channel>
+ </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-  <Dimensions Weight="8.75" Width="240" Height="355" Depth="250"/>
+  <Dimensions Weight="8.75" Width="240" Height="300" Depth="250"/>
   <Lens Name="PC" DegreesMin="17" DegreesMax="17"/>
   <Focus Type="Head" PanMax="540" TiltMax="270"/>
   <Technical PowerConsumption="102" DmxConnector="3-pin"/>
