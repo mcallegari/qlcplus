@@ -232,7 +232,7 @@
     <message>
         <location filename="webaccessconfiguration.cpp" line="235"/>
         <source>Leave blank to not change</source>
-        <translation>Leerlassen um keine Änderung durchzuführen</translation>
+        <translation>Leerlassen, um keine Änderung durchzuführen</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="242"/>
