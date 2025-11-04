@@ -125,7 +125,7 @@ Section "Uninstall"
 	Delete $INSTDIR\qlcplus-fixtureeditor.exe
 	Delete $INSTDIR\*.dll
 	RMDir /r $INSTDIR\platforms
-        RMDir /r $INSTDIR\imageformats
+	RMDir /r $INSTDIR\imageformats
 	RMDir /r $INSTDIR\multimedia
 	RMDir /r $INSTDIR\styles
 	Delete $INSTDIR\Sample.qxw
