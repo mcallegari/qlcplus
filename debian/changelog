@@ -2,6 +2,7 @@ qlcplus (4.14.4) stable; urgency=low
 
   * Implemented autosave after 30 seconds of inactivity
   * engine: fix crash when loading fixture definitions without modes
+  * DMX monitor: apply gel color immediately (thanks to jpue)
   * Virtual Console/Clock: countdown mode can now run a list of Functions
   * Fixture Editor: in mode editor, don't allow a channel to act on itself (thanks to Edgar Aichinger)
   * New fixture: beamZ COB 50 (thanks to Yestalgia)
@@ -9,8 +10,9 @@ qlcplus (4.14.4) stable; urgency=low
   * New fixture: Cameo P2 T (thanks to Christoph Müllner)
   * New fixtures: Stairville Remus HexSpot 515, Remus QuadZoom 610, Varytec GigaBar 240 LED, Stairville RevueLED 120 COB True White (thanks to Liam Clark)
   * New fixtures: MagicFX Eco2Jet, Psyco2Jet, Stage Flame, SmokeJet, StadiumShot III, StadiumBlower, StadiumBlaster, SwirlFan II (thanks to Liam Clark)
+  * New fixture: Martin ERA 150 Wash (thanks to Liam Clark)
 
--- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 26 Oct 2025 18:19:20 +0200
+-- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 4 Jan 2026 18:19:20 +0200
 
 qlcplus (4.14.3) stable; urgency=high
 

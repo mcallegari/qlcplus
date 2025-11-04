@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.7</Version>
+  <Version>5.0.1 GIT</Version>
   <Author>Liam Clark</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
@@ -11,11 +11,11 @@
  <Type>Moving Head</Type>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="19">Shutter closed</Capability>
-  <Capability Min="20" Max="49">Shutter open</Capability>
-  <Capability Min="50" Max="200">Strobe; slow-&gt;fast</Capability>
-  <Capability Min="201" Max="210">Shutter open</Capability>
-  <Capability Min="211" Max="255">Random Strobe; slow-&gt;fast</Capability>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="20" Max="49" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="50" Max="200" Preset="StrobeSlowToFast">Strobe; slow-&gt;fast</Capability>
+  <Capability Min="201" Max="210" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="211" Max="255" Preset="StrobeRandomSlowToFast">Random Strobe; slow-&gt;fast</Capability>
  </Channel>
  <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Master dimmer fine" Preset="IntensityMasterDimmerFine"/>
@@ -26,7 +26,7 @@
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
  <Channel Name="CTC">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">1800K -&gt; 12850K</Capability>
  </Channel>
  <Channel Name="Color Presets">
@@ -97,10 +97,10 @@
  <Channel Name="Control/Settings">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="9">disables calibration - 5s</Capability>
-  <Capability Min="10" Max="14">Resets fixture - 5s</Capability>
+  <Capability Min="10" Max="14" Preset="ResetAll">Resets fixture - 5s</Capability>
   <Capability Min="15" Max="16">No function</Capability>
   <Capability Min="17" Max="17">Reset Beam - 5s</Capability>
-  <Capability Min="18" Max="18">Reset pan &amp; tilt - 5s</Capability>
+  <Capability Min="18" Max="18" Preset="ResetPanTilt">Reset pan &amp; tilt - 5s</Capability>
   <Capability Min="19" Max="22">No function</Capability>
   <Capability Min="23" Max="23">Linear dimming - 1s</Capability>
   <Capability Min="24" Max="24">Square law dimming - 1s</Capability>
@@ -119,8 +119,8 @@
   <Capability Min="41" Max="51">No function</Capability>
   <Capability Min="52" Max="52">Display ON - 1s</Capability>
   <Capability Min="53" Max="53">Display OFF - 1s</Capability>
-  <Capability Min="54" Max="54">Regulated fan speed,  fixed intensity - 1s</Capability>
-  <Capability Min="55" Max="55">Full fan speed,  regulated max. intensity - 1s</Capability>
+  <Capability Min="54" Max="54">Regulated fan speed, fixed intensity - 1s</Capability>
+  <Capability Min="55" Max="55">Full fan speed, regulated max. intensity - 1s</Capability>
   <Capability Min="56" Max="56">Theater mode; low fan speed - 1s</Capability>
   <Capability Min="57" Max="60">No function</Capability>
   <Capability Min="61" Max="61">Hibernate mode ON - 5s</Capability>
@@ -148,7 +148,7 @@
   <Capability Min="199" Max="199">Reset ALL calibration settings</Capability>
   <Capability Min="200" Max="255">No function</Capability>
  </Channel>
- <Mode Name="18ch">
+ <Mode Name="18 Channel">
   <Channel Number="0">Shutter</Channel>
   <Channel Number="1">Master dimmer</Channel>
   <Channel Number="2">Master dimmer fine</Channel>
