@@ -86,7 +86,7 @@ If you're reading this we already appreciate you. If you're just getting started
 
 <img src="https://img.shields.io/github/sponsors/mcallegari" alt="GitHub Sponsors"> <a href="https://github.com/sponsors/mcallegari"><img src="https://img.shields.io/badge/sponsor-30363D?logo=GitHub-Sponsors&logoColor=#white" /></a>
 
-If you're interested, QLC+ also has an [official store](https://merch.qlcplus.org) where you can purchase [clothing](https://qlcplus-merch.myshopify.com/collections/clothing), [themes](https://qlcplus-merch.myshopify.com/collections/themes), the [Raspberry Pi image](https://qlcplus-merch.myshopify.com/products/qlc-raspberry-pi-image) or [one-on-one consultation](https://qlcplus-merch.myshopify.com/collections/training-and-support) with an expert. 
+If you're interested, QLC+ also has an [official store](https://qlcplus-merch.myshopify.com) where you can purchase [clothing](https://qlcplus-merch.myshopify.com/collections/clothing), [themes](https://qlcplus-merch.myshopify.com/collections/themes), the [Raspberry Pi image](https://qlcplus-merch.myshopify.com/products/qlc-raspberry-pi-image) or [one-on-one consultation](https://qlcplus-merch.myshopify.com/collections/training-and-support) with an expert. 
 
 
 
