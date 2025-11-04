@@ -53,7 +53,7 @@ CustomPopupDialog
                 KeyNavigation.tab: keyEdit
                 KeyNavigation.backtab: startCheckBox
                 text: hostname
-                onTextChanged: networkManager.hostName = text
+                onTextEdited: networkManager.hostName = text
             }
 
             // Row 2
@@ -72,9 +72,7 @@ CustomPopupDialog
                 KeyNavigation.tab: startCheckBox
                 KeyNavigation.backtab: nameEdit
 
-                onTextChanged:
-                {
-                }
+                onTextEdited: { /* TODO */ }
             }
 
             IconButton

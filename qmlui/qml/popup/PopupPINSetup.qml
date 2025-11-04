@@ -79,7 +79,7 @@ CustomPopupDialog
                 KeyNavigation.tab: newPinEdit
                 KeyNavigation.backtab: confirmPinEdit
 
-                onTextChanged:
+                onTextEdited:
                 {
                     currentPIN = text
                     pinDialogRoot.checkPIN()
@@ -103,7 +103,7 @@ CustomPopupDialog
                 KeyNavigation.tab: confirmPinEdit
                 KeyNavigation.backtab: currentPinEdit
 
-                onTextChanged:
+                onTextEdited:
                 {
                     newPIN = text
                     pinDialogRoot.checkPIN()
@@ -127,7 +127,7 @@ CustomPopupDialog
                 KeyNavigation.tab: currentPinEdit
                 KeyNavigation.backtab: newPinEdit
 
-                onTextChanged:
+                onTextEdited:
                 {
                     confirmPIN = text
                     pinDialogRoot.checkPIN()

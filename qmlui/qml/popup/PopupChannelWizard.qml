@@ -229,7 +229,7 @@ CustomPopupDialog
                     Layout.fillWidth: true
                     text: capabilityWizard ? qsTr("Capability #") : qsTr("Channel #")
                     onAccepted: popupRoot.accept()
-                    onTextChanged: updateItemsList(false)
+                    onTextEdited: updateItemsList(false)
                 }
             }
 

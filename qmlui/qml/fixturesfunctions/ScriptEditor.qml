@@ -270,7 +270,7 @@ Rectangle
                     selectByMouse: true
 
                     onCursorRectangleChanged: editFlick.ensureVisible(cursorRectangle)
-                    onTextChanged: updateTimer.restart()
+                    onTextEdited: updateTimer.restart()
                 }
 
                 ScrollBar.vertical: CustomScrollBar { }

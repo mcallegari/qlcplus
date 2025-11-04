@@ -130,7 +130,7 @@ Rectangle
                                 id: manufacturerEdit
                                 Layout.fillWidth: true
                                 text: editorView ? editorView.manufacturer : ""
-                                onTextChanged: if (editorView) editorView.manufacturer = text
+                                onTextEdited: if (editorView) editorView.manufacturer = text
                                 KeyNavigation.tab: modelEdit
                             }
 
@@ -186,7 +186,7 @@ Rectangle
                                 id: modelEdit
                                 Layout.fillWidth: true
                                 text: editorView ? editorView.model : ""
-                                onTextChanged: if (editorView) editorView.model = text
+                                onTextEdited: if (editorView) editorView.model = text
                                 KeyNavigation.tab: authorEdit
                             }
 
@@ -197,7 +197,7 @@ Rectangle
                                 id: authorEdit
                                 Layout.fillWidth: true
                                 text: editorView ? editorView.author : ""
-                                onTextChanged: if (editorView) editorView.author = text
+                                onTextEdited: if (editorView) editorView.author = text
                             }
                         }
                 } // SectionBox - General

@@ -100,7 +100,7 @@ Rectangle
                 text: name
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
-                onTextChanged: fixtureBrowser.fixtureName = text
+                onTextEdited: fixtureBrowser.fixtureName = text
             }
 
             // row 2

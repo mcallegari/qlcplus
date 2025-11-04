@@ -90,7 +90,7 @@ Rectangle
                 text: showManager.showName
                 enabled: showManager.isEditing
 
-                onTextChanged: showManager.showName = text
+                onTextEdited: showManager.showName = text
             }
 
             IconButton

@@ -257,7 +257,7 @@ Rectangle
               selectionColor: UISettings.highlightPressed
               selectByMouse: true
 
-              onTextChanged: functionManager.searchFilter = text
+              onTextEdited: functionManager.searchFilter = text
           }
       }
 

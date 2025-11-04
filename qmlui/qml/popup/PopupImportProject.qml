@@ -98,7 +98,7 @@ CustomPopupDialog
                     selectionColor: UISettings.highlightPressed
                     selectByMouse: true
 
-                    onTextChanged: importManager.fixtureSearchFilter = text
+                    onTextEdited: importManager.fixtureSearchFilter = text
                 }
             }
 
@@ -138,7 +138,7 @@ CustomPopupDialog
                     selectionColor: UISettings.highlightPressed
                     selectByMouse: true
 
-                    onTextChanged: importManager.functionSearchFilter = text
+                    onTextEdited: importManager.functionSearchFilter = text
                 }
             }
 

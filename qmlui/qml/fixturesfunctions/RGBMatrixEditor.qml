@@ -772,7 +772,7 @@ Rectangle
                         font.pixelSize: UISettings.textSizeDefault * 0.8
                         color: "white"
 
-                        onTextChanged: rgbMatrixEditor.algoText = text
+                        onTextEdited: rgbMatrixEditor.algoText = text
                     }
                 }
                 IconButton
@@ -919,7 +919,7 @@ Rectangle
                         font.pixelSize: UISettings.textSizeDefault
                         color: "white"
 
-                        onTextChanged: rgbMatrixEditor.algoImagePath = text
+                        onTextEdited: rgbMatrixEditor.algoImagePath = text
                     }
                 }
                 IconButton
@@ -1149,7 +1149,7 @@ Rectangle
             Layout.fillWidth: true
             property string propName
 
-            onTextChanged: rgbMatrixEditor.setScriptStringProperty(propName, text)
+            onTextEdited: rgbMatrixEditor.setScriptStringProperty(propName, text)
         }
     }
 }

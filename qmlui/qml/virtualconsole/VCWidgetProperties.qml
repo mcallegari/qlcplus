@@ -225,7 +225,7 @@ Rectangle
                             //color: UISettings.bgMedium
                             text: wObj ? wObj.caption : ""
 
-                            onTextChanged:
+                            onTextEdited:
                             {
                                 if (!wObj)
                                     return

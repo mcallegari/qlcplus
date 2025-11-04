@@ -61,7 +61,7 @@ CustomPopupDialog
                 inputMethodHints: Qt.ImhFormattedNumbersOnly // accept 0-9 digits only
                 maximumLength: 4
 
-                onTextChanged: currentPIN = text
+                onTextEdited: currentPIN = text
             }
 
             // Row 2

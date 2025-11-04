@@ -100,7 +100,7 @@ GridLayout
         id: nameEdit
         Layout.fillWidth: true
         text: channel ? channel.name : ""
-        onTextChanged: if (channel) channel.name = text
+        onTextEdited: if (channel) channel.name = text
     }
 
     // row 2

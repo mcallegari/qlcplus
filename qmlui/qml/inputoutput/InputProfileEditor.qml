@@ -187,7 +187,7 @@ ColumnLayout
             {
                 Layout.fillWidth: true
                 text: peContainer.visible ? profileEditor.manufacturer : ""
-                onTextChanged: profileEditor.manufacturer = text
+                onTextEdited: profileEditor.manufacturer = text
             }
             RobotoText
             {
@@ -198,7 +198,7 @@ ColumnLayout
             {
                 Layout.fillWidth: true
                 text: peContainer.visible ? profileEditor.model : ""
-                onTextChanged: profileEditor.model = text
+                onTextEdited: profileEditor.model = text
             }
             RobotoText
             {

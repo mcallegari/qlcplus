@@ -78,7 +78,7 @@ Rectangle
                     Layout.fillWidth: true
                     Layout.columnSpan: 3
                     text: mode ? mode.name : ""
-                    onTextChanged: if (mode) mode.name = text
+                    onTextEdited: if (mode) mode.name = text
                 }
             }
 

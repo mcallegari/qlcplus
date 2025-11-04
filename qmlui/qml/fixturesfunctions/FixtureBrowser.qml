@@ -83,7 +83,7 @@ Rectangle
                 selectionColor: UISettings.highlightPressed
                 selectByMouse: true
 
-                onTextChanged: fixtureBrowser.searchFilter = text
+                onTextEdited: fixtureBrowser.searchFilter = text
             }
         }
 

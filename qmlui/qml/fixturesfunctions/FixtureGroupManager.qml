@@ -463,7 +463,7 @@ Rectangle
                 selectionColor: UISettings.highlightPressed
                 selectByMouse: true
 
-                onTextChanged: modelProvider ? modelProvider.searchFilter = text : fixtureManager.searchFilter = text
+                onTextEdited: modelProvider ? modelProvider.searchFilter = text : fixtureManager.searchFilter = text
             }
         }
 

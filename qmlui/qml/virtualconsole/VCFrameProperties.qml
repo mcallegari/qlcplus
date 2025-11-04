@@ -204,7 +204,7 @@ Rectangle
                     id: shortcutEdit
                     Layout.fillWidth: true
                     text: shortcutList.currentText
-                    onTextChanged:
+                    onTextEdited:
                     {
                         var idx = shortcutList.currentIndex
                         if (widgetRef)

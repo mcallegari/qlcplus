@@ -191,7 +191,7 @@ Rectangle
                 selectionColor: UISettings.highlightPressed
                 selectByMouse: true
 
-                onTextChanged: paletteManager.searchFilter = text
+                onTextEdited: paletteManager.searchFilter = text
             }
         } // Rectangle - searchBox
 
