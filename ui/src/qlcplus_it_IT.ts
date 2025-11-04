@@ -6109,22 +6109,22 @@ Durata: %3
         <translation>Programmazione</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="188"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="161"/>
         <source>Function</source>
         <translation>Funzione</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="193"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="166"/>
         <source>Time</source>
         <translation>Ora</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="205"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="218"/>
         <source>Input</source>
         <translation>Ingresso</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="214"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="227"/>
         <source>No input control available for Clock type</source>
         <translation>Nessun controllo esterno disponibile per il tipo Orologio</translation>
     </message>

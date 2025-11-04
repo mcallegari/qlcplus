@@ -60,22 +60,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="96"/>
+        <location filename="configureosc.cpp" line="97"/>
         <source>Inputs</source>
         <translation>Inputs</translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="102"/>
+        <location filename="configureosc.cpp" line="103"/>
         <source>Outputs</source>
         <translation>Outputs</translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="184"/>
+        <location filename="configureosc.cpp" line="185"/>
         <source>Invalid IP</source>
         <translation>Ongeldig IP</translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="184"/>
+        <location filename="configureosc.cpp" line="185"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
         <translation>%1 is geen geldig IP.

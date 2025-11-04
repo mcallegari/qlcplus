@@ -3413,42 +3413,42 @@ Zugriffsstufe:</translation>
         <translation>Verschlüsselungs-Schlüssel</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupNetworkServer.qml" line="92"/>
+        <location filename="qml/popup/PopupNetworkServer.qml" line="90"/>
         <source>Start automatically</source>
         <translation>Automatisch starten</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupNetworkServer.qml" line="108"/>
+        <location filename="qml/popup/PopupNetworkServer.qml" line="106"/>
         <source>Server status</source>
         <translation>Serverstatus</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupNetworkServer.qml" line="115"/>
+        <location filename="qml/popup/PopupNetworkServer.qml" line="113"/>
         <source>Running</source>
         <translation>Gestartet</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupNetworkServer.qml" line="115"/>
+        <location filename="qml/popup/PopupNetworkServer.qml" line="113"/>
         <source>Stopped</source>
         <translation>Gestoppt</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupNetworkServer.qml" line="123"/>
+        <location filename="qml/popup/PopupNetworkServer.qml" line="121"/>
         <source>Clients connected</source>
         <translation>Verbundene Clients</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupNetworkServer.qml" line="142"/>
+        <location filename="qml/popup/PopupNetworkServer.qml" line="140"/>
         <source>Close</source>
         <translation>Schließen</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupNetworkServer.qml" line="149"/>
+        <location filename="qml/popup/PopupNetworkServer.qml" line="147"/>
         <source>Stop server</source>
         <translation>Server stoppen</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupNetworkServer.qml" line="149"/>
+        <location filename="qml/popup/PopupNetworkServer.qml" line="147"/>
         <source>Start server</source>
         <translation>Server starten</translation>
     </message>

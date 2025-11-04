@@ -6133,22 +6133,22 @@ Durada: %3
         <translation>Calendari</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="188"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="161"/>
         <source>Function</source>
         <translation>Funció</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="193"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="166"/>
         <source>Time</source>
         <translation>Temps</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="205"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="218"/>
         <source>Input</source>
         <translation>Entrada</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="214"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="227"/>
         <source>No input control available for Clock type</source>
         <translation>No hi ha controls d&apos;entrada disponibles per al tipus Rellotge</translation>
     </message>
