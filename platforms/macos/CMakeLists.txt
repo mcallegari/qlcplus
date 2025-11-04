@@ -7,6 +7,7 @@ include(../../variables.cmake)
 # install macOS files for a correct bundle
 install(FILES qt.conf DESTINATION ${INSTALLROOT}/${DATADIR})
 install(FILES ../../resources/icons/qlcplus.icns DESTINATION ${INSTALLROOT}/${DATADIR})
+install(FILES qlcplus.entitlements DESTINATION ${INSTALLROOT}/${DATADIR} RENAME .entitlements)
 
 if(qmlui)
     install(FILES Info.plist.qmlui DESTINATION ${INSTALLROOT} RENAME Info.plist)
