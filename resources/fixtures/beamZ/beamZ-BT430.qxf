@@ -69,7 +69,7 @@
  <Channel Name="Dimmer Warm White - Ring 7" Preset="IntensityDimmer"/>
  <Channel Name="Dimmer Warm White - Ring 8" Preset="IntensityDimmer"/>
  <Channel Name="Dimmer Warm White - Ring 9" Preset="IntensityDimmer"/>
- <Mode Name="7-channels">
+ <Mode Name="7 Channel">
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Warm white</Channel>
@@ -78,7 +78,7 @@
   <Channel Number="5">Macro Run</Channel>
   <Channel Number="6">Macro Run Speed</Channel>
  </Mode>
- <Mode Name="16-channels">
+ <Mode Name="16 Channel">
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Warm white</Channel>
