@@ -80,10 +80,10 @@
   <Capability Min="131" Max="160" Preset="SilentModeAutomatic">Switching colors, R, G, B</Capability>
   <Capability Min="161" Max="190" Preset="Alias">Switching colors, C, M, Y</Capability>
   <Capability Min="191" Max="220" Preset="Alias">Sound controlled strobe effect
-   <Alias Mode="11-channels" Channel="Speed internal programs" With="Microphone sensitivity"/>
+   <Alias Mode="11 Channel" Channel="Speed internal programs" With="Microphone sensitivity"/>
   </Capability>
   <Capability Min="221" Max="255" Preset="Alias">Sound controlled color change
-   <Alias Mode="11-channels" Channel="Speed internal programs" With="Microphone sensitivity"/>
+   <Alias Mode="11 Channel" Channel="Speed internal programs" With="Microphone sensitivity"/>
   </Capability>
  </Channel>
  <Channel Name="Speed internal programs">
@@ -100,7 +100,7 @@
   <Capability Min="101" Max="255">no function</Capability>
  </Channel>
  <Channel Name="Microphone sensitivity" Preset="IntensityValue"/>
- <Mode Name="6-channels">
+ <Mode Name="6 Channel">
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -108,7 +108,7 @@
   <Channel Number="4">Dimmer</Channel>
   <Channel Number="5">Strobe (simple)</Channel>
  </Mode>
- <Mode Name="11-channels">
+ <Mode Name="11 Channel">
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
