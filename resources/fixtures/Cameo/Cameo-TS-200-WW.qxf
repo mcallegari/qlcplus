@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.14.0 GIT</Version>
+  <Version>4.14.3</Version>
   <Author>Sven Koch</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
@@ -51,7 +51,7 @@
   <Channel Number="0">Dimmer</Channel>
  </Mode>
  <Physical>
-  <Bulb Type="LED" Lumens="6600" ColourTemperature="0"/>
+  <Bulb Type="LED" Lumens="6600" ColourTemperature="3100"/>
   <Dimensions Weight="7.5" Width="320" Height="370" Depth="310"/>
   <Lens Name="Fresnel" DegreesMin="14" DegreesMax="38"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
