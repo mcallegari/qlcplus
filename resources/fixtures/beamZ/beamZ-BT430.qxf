@@ -26,11 +26,14 @@
  <Channel Name="Color Temperature">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="15" Preset="ColorMacro" Res1="#000000">No function</Capability>
-  <Capability Min="106" Max="135" Preset="ColorMacro" Res1="#ffcb7b">5000K-5500K</Capability>
-  <Capability Min="136" Max="165" Preset="ColorMacro" Res1="#ffe293">5500K-6000K</Capability>
-  <Capability Min="166" Max="195" Preset="ColorMacro" Res1="#fff7da">6000K-6500K</Capability>
-  <Capability Min="196" Max="225" Preset="ColorMacro" Res1="#e7eaff">6500K-7000K</Capability>
-  <Capability Min="226" Max="255" Preset="ColorMacro" Res1="#c4f2ff">7000K-8000K</Capability>
+  <Capability Min="16" Max="45" Preset="ColorMacro" Res1="#ffcb7b">Below 3200K</Capability>
+  <Capability Min="46" Max="75" Preset="ColorMacro" Res1="#f9e990">3200K-3500K</Capability>
+  <Capability Min="76" Max="105" Preset="ColorMacro" Res1="#f9f7a4">3500K-5000K</Capability>
+  <Capability Min="106" Max="135" Preset="ColorMacro" Res1="#f1f9b3">5000K-5500K</Capability>
+  <Capability Min="136" Max="165" Preset="ColorMacro" Res1="#fafbd0">5500K-6000K</Capability>
+  <Capability Min="166" Max="195" Preset="ColorMacro" Res1="#f3fef1">6000K-6500K</Capability>
+  <Capability Min="196" Max="225" Preset="ColorMacro" Res1="#c4fef1">6500K-7000K</Capability>
+  <Capability Min="226" Max="255" Preset="ColorMacro" Res1="#61fef5">7000K-8000K</Capability>
  </Channel>
  <Channel Name="Macro Run">
   <Group Byte="0">Effect</Group>
