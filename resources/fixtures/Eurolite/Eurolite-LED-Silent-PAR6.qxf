@@ -18,7 +18,8 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="5">Sound control, 15 colors</Capability>
-  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe effect, with incresing speed</Capability>
+  <Capability Min="6" Max="10" Preset="LampOn">On</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe effect, with increasing speed</Capability>
  </Channel>
  <Channel Name="Strobe (full)">
   <Group Byte="0">Shutter</Group>
@@ -43,25 +44,25 @@
  <Channel Name="Color presets">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="5">no function</Capability>
-  <Capability Min="6" Max="15" Preset="ColorMacro" Res1="#ff2600">Red</Capability>
-  <Capability Min="16" Max="25" Preset="ColorMacro" Res1="#00f900">Green</Capability>
-  <Capability Min="26" Max="35" Preset="ColorMacro" Res1="#0433ff">Blue</Capability>
-  <Capability Min="36" Max="45" Preset="ColorDoubleMacro">Color mix 1</Capability>
-  <Capability Min="46" Max="55" Preset="ColorDoubleMacro">Color mix 2</Capability>
-  <Capability Min="56" Max="65" Preset="ColorDoubleMacro">Color mix 3</Capability>
-  <Capability Min="66" Max="75" Preset="ColorDoubleMacro">Color mix 4</Capability>
-  <Capability Min="76" Max="85" Preset="ColorMacro">Color mix 5</Capability>
-  <Capability Min="86" Max="95" Preset="ColorDoubleMacro">Color mix 6</Capability>
-  <Capability Min="96" Max="105" Preset="ColorDoubleMacro">Color mix 7</Capability>
-  <Capability Min="106" Max="115" Preset="ColorDoubleMacro">Color mix 8</Capability>
-  <Capability Min="116" Max="125" Preset="ColorDoubleMacro">Color mix 9</Capability>
-  <Capability Min="126" Max="135" Preset="ColorMacro">Color mix 10</Capability>
-  <Capability Min="136" Max="145" Preset="ColorDoubleMacro">Color mix 11</Capability>
-  <Capability Min="146" Max="155" Preset="ColorDoubleMacro">Color mix 12</Capability>
-  <Capability Min="156" Max="165" Preset="ColorDoubleMacro">Color mix 13</Capability>
-  <Capability Min="166" Max="175" Preset="ColorMacro">Color mix 14</Capability>
-  <Capability Min="176" Max="185" Preset="ColorDoubleMacro">Color mix 15</Capability>
-  <Capability Min="186" Max="195" Preset="ColorDoubleMacro" Res1="#942192" Res2="#ff9300">Color mix 16</Capability>
+  <Capability Min="6" Max="15" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="16" Max="25" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="26" Max="35" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="36" Max="45" Preset="ColorDoubleMacro" Res1="#d46dff" Res2="#97ff70">Color mix 1</Capability>
+  <Capability Min="46" Max="55" Preset="ColorDoubleMacro" Res1="#d46dff" Res2="#97ff70">Color mix 2</Capability>
+  <Capability Min="56" Max="65" Preset="ColorDoubleMacro" Res1="#d46dff" Res2="#97ff70">Color mix 3</Capability>
+  <Capability Min="66" Max="75" Preset="ColorDoubleMacro" Res1="#d46dff" Res2="#97ff70">Color mix 4</Capability>
+  <Capability Min="76" Max="85" Preset="ColorDoubleMacro" Res1="#d46dff" Res2="#97ff70">Color mix 5</Capability>
+  <Capability Min="86" Max="95" Preset="ColorDoubleMacro" Res1="#d46dff" Res2="#97ff70">Color mix 6</Capability>
+  <Capability Min="96" Max="105" Preset="ColorDoubleMacro" Res1="#d46dff" Res2="#97ff70">Color mix 7</Capability>
+  <Capability Min="106" Max="115" Preset="ColorDoubleMacro" Res1="#d46dff" Res2="#97ff70">Color mix 8</Capability>
+  <Capability Min="116" Max="125" Preset="ColorDoubleMacro" Res1="#d46dff" Res2="#97ff70">Color mix 9</Capability>
+  <Capability Min="126" Max="135" Preset="ColorDoubleMacro" Res1="#d46dff" Res2="#97ff70">Color mix 10</Capability>
+  <Capability Min="136" Max="145" Preset="ColorDoubleMacro" Res1="#d46dff" Res2="#97ff70">Color mix 11</Capability>
+  <Capability Min="146" Max="155" Preset="ColorDoubleMacro" Res1="#d46dff" Res2="#97ff70">Color mix 12</Capability>
+  <Capability Min="156" Max="165" Preset="ColorDoubleMacro" Res1="#d46dff" Res2="#97ff70">Color mix 13</Capability>
+  <Capability Min="166" Max="175" Preset="ColorDoubleMacro" Res1="#d46dff" Res2="#97ff70">Color mix 14</Capability>
+  <Capability Min="176" Max="185" Preset="ColorDoubleMacro" Res1="#d46dff" Res2="#97ff70">Color mix 15</Capability>
+  <Capability Min="186" Max="195" Preset="ColorDoubleMacro" Res1="#d46dff" Res2="#97ff70">Color mix 16</Capability>
   <Capability Min="196" Max="205" Preset="ColorMacro" Res1="#ffaf25">White 1</Capability>
   <Capability Min="206" Max="215" Preset="ColorMacro" Res1="#ffcd59">White 2</Capability>
   <Capability Min="216" Max="225" Preset="ColorMacro" Res1="#ffe778">Warm White</Capability>
@@ -72,7 +73,7 @@
  <Channel Name="Color change / sound control">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="10">no function</Capability>
-  <Capability Min="11" Max="40" Preset="Alias">Fading colors,  7 colors</Capability>
+  <Capability Min="11" Max="40" Preset="Alias">Fading colors, 7 colors</Capability>
   <Capability Min="41" Max="70" Preset="Alias">Fading colors, R, G, B</Capability>
   <Capability Min="71" Max="100" Preset="Alias">Fading colors, R, G, B with lower color temperature</Capability>
   <Capability Min="101" Max="130" Preset="Alias">Switching colors, 7 colors</Capability>
@@ -90,7 +91,9 @@
   <Capability Min="0" Max="255" Preset="SlowToFast">Program speed, increasing</Capability>
  </Channel>
  <Channel Name="Dimmer speed (step response)">
-  <Group Byte="0">Speed</Group>
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="20">Response characteristics of LEDs</Capability>
+  <Capability Min="21" Max="40">Response characteristics of halogen lamps, very fast</Capability>
   <Capability Min="41" Max="60">Response characteristics of halogen lamps, fast</Capability>
   <Capability Min="61" Max="80">Response characteristics of halogen lamps, middle</Capability>
   <Capability Min="81" Max="100">Response characteristics of halogen lamps, slow</Capability>
