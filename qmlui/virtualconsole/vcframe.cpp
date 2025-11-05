@@ -438,7 +438,7 @@ void VCFrame::addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos
 
         for (int col = 0; col < matrixSize.width(); col++)
         {
-            frame->addWidget(nullptr, matrixType == "buttonmatrix" ? typeToString(ButtonWidget) : typeToString(SliderWidget), QPoint(xPos, yPos));
+            frame->addWidget(nullptr, matrixType == "buttonmatrix" ? "Button" : "Slider", QPoint(xPos, yPos));
             xPos += widgetSize.width();
         }
         yPos += widgetSize.height();
