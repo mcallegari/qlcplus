@@ -16,7 +16,7 @@
 ;--------------------------------
 ;General
 Name "Q Light Controller Plus"
-OutFile "QLC+_5.0.1.exe"
+OutFile "QLC+_5.1.0.exe"
 InstallDir C:\QLC+5
 InstallDirRegKey HKCU "Software\qlcplus" "Install_Dir"
 RequestExecutionLevel user
@@ -85,21 +85,19 @@ SectionEnd
 ;--------------------------------
 ; Optional file association section
 Section "Associate .qxw and .qxf files" SEC_ASSOC
+	; Per-user classes (maps to HKCR for current user)
+	WriteRegStr HKCU "Software\Classes\.qxw" "" "QLightControllerPlus.Document"
+	WriteRegStr HKCU "Software\Classes\QLightControllerPlus.Document" "" "Q Light Controller Plus Workspace"
+	WriteRegStr HKCU "Software\Classes\QLightControllerPlus.Document\DefaultIcon" "" "$INSTDIR\qlcplus-qml.exe,0"
+	WriteRegStr HKCU "Software\Classes\QLightControllerPlus.Document\shell\open\command" "" '"$INSTDIR\qlcplus-qml.exe" --open "%1"'
 
-  ; Per-user classes (maps to HKCR for current user)
-  WriteRegStr HKCU "Software\Classes\.qxw" "" "QLightControllerPlus.Document"
-  WriteRegStr HKCU "Software\Classes\QLightControllerPlus.Document" "" "Q Light Controller Plus Workspace"
-  WriteRegStr HKCU "Software\Classes\QLightControllerPlus.Document\DefaultIcon" "" "$INSTDIR\qlcplus-qml.exe,0"
-  WriteRegStr HKCU "Software\Classes\QLightControllerPlus.Document\shell\open\command" "" '"$INSTDIR\qlcplus-qml.exe" --open "%1"'
+	WriteRegStr HKCU "Software\Classes\.qxf" "" "QLightControllerPlusFixture.Document"
+	WriteRegStr HKCU "Software\Classes\QLightControllerPlusFixture.Document" "" "Q Light Controller Plus Fixture"
+	WriteRegStr HKCU "Software\Classes\QLightControllerPlusFixture.Document\DefaultIcon" "" "$INSTDIR\qlcplus-qml.exe,0"
+	WriteRegStr HKCU "Software\Classes\QLightControllerPlusFixture.Document\shell\open\command" "" '"$INSTDIR\qlcplus-qml.exe" --open "%1"'
 
-  WriteRegStr HKCU "Software\Classes\.qxf" "" "QLightControllerPlusFixture.Document"
-  WriteRegStr HKCU "Software\Classes\QLightControllerPlusFixture.Document" "" "Q Light Controller Plus Fixture"
-  WriteRegStr HKCU "Software\Classes\QLightControllerPlusFixture.Document\DefaultIcon" "" "$INSTDIR\qlcplus-qml.exe,0"
-  WriteRegStr HKCU "Software\Classes\QLightControllerPlusFixture.Document\shell\open\command" "" '"$INSTDIR\qlcplus-qml.exe" --open "%1"'
-
-  ; Notify Explorer to refresh icons
-  System::Call 'SHELL32::SHChangeNotify(i 0x08000000, i 0, i 0, i 0)'
-
+	; Notify Explorer to refresh icons
+	System::Call 'SHELL32::SHChangeNotify(i 0x08000000, i 0, i 0, i 0)'
 SectionEnd
 
 ;--------------------------------
@@ -109,7 +107,6 @@ Section
 	File *.dll
 	File *.qm
 	File Sample.qxw
-	
 	File /r geometryloaders
 	File /r iconengines
 	File /r imageformats
