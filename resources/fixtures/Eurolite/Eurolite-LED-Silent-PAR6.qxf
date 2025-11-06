@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.14.3</Version>
+  <Version>5.0.1</Version>
   <Author>Pascal Fleury</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
@@ -18,7 +18,7 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="5">Sound control, 15 colors</Capability>
-  <Capability Min="6" Max="10" Preset="LampOn">On</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterOpen">On</Capability>
   <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe effect, with increasing speed</Capability>
  </Channel>
  <Channel Name="Strobe (full)">

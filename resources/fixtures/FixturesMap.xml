@@ -248,6 +248,7 @@
     <F n="beamZ-BBP96-Uplight-PAR" m="BBP96 Uplight PAR"/>
     <F n="beamZ-BT270-LED-FlatPAR" m="BT270 LED FlatPAR"/>
     <F n="beamZ-BT310-LED-FlatPAR" m="BT310 LED FlatPAR 12x8W 4-1 DMX IR"/>
+    <F n="beamZ-BT430" m="BT430 PAR"/>
     <F n="beamZ-COB-50" m="COB 50"/>
     <F n="beamZ-Cobra-720" m="Cobra 720"/>
     <F n="beamZ-Fuze-75B-Beam" m="Fuze 75B Beam"/>
@@ -844,6 +845,7 @@
     <F n="Eurolite-LED-PT-100" m="LED PT-100"/>
     <F n="Eurolite-LED-QDF-Bar" m="LED QDF-Bar RGBAW Light Set"/>
     <F n="Eurolite-LED-SCY-100-RGBW-DMX" m="LED SCY-100 RGBW DMX"/>
+    <F n="Eurolite-LED-Silent-PAR6" m="LED Silent PAR 6"/>
     <F n="Eurolite-LED-SL-600" m="LED SL-600"/>
     <F n="Eurolite-LED-SLS-18-TCL" m="LED SLS-18x3W TCL"/>
     <F n="Eurolite-LED-SLS-180-RGB" m="LED SLS-180 RGB"/>
