@@ -92,15 +92,15 @@ function connect() {
     } else if (msgParams[1] === "MATRIX_SLIDER") {
       setMatrixSliderValue(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "MATRIX_COLOR_1") {
-      setMatrixStartColorValue(msgParams[0], msgParams[2]);
+      setMatrixColor1Value(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "MATRIX_COLOR_2") {
-      setMatrixEndColorValue(msgParams[0], msgParams[2]);
+      setMatrixColor2Value(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "MATRIX_COLOR_3") {
-      setMatrixEndColorValue(msgParams[0], msgParams[2]);
+      setMatrixColor3Value(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "MATRIX_COLOR_4") {
-      setMatrixEndColorValue(msgParams[0], msgParams[2]);
+      setMatrixColor4Value(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "MATRIX_COLOR_5") {
-      setMatrixEndColorValue(msgParams[0], msgParams[2]);
+      setMatrixColor5Value(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "MATRIX_COMBO") {
       setMatrixComboValue(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "MATRIX_KNOB") {

@@ -2222,10 +2222,16 @@ QString WebAccess::getMatrixHTML(VCMatrix *matrix)
 
     connect(matrix, SIGNAL(sliderValueChanged(int)),
             this, SLOT(slotMatrixSliderValueChanged(int)));
-    connect(matrix, SIGNAL(startColorChanged()),
-            this, SLOT(slotMatrixStartColorChanged()));
-    connect(matrix, SIGNAL(endColorChanged()),
-            this, SLOT(slotMatrixEndColorChanged()));
+    connect(matrix, SIGNAL(mtxColor1Changed()),
+            this, SLOT(slotMatrixColor1Changed()));
+    connect(matrix, SIGNAL(mtxColor2Changed()),
+            this, SLOT(slotMatrixColor2Changed()));
+    connect(matrix, SIGNAL(mtxColor3Changed()),
+            this, SLOT(slotMatrixColor3Changed()));
+    connect(matrix, SIGNAL(mtxColor4Changed()),
+            this, SLOT(slotMatrixColor4Changed()));
+    connect(matrix, SIGNAL(mtxColor5Changed()),
+            this, SLOT(slotMatrixColor5Changed()));
     connect(matrix, SIGNAL(animationValueChanged(QString)),
             this, SLOT(slotMatrixAnimationValueChanged(QString)));
 
