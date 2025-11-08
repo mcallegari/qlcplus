@@ -34,7 +34,7 @@ class Doc;
  * @{
  */
 
-class CollectionEditor : public QWidget, public Ui_CollectionEditor
+class CollectionEditor final : public QWidget, public Ui_CollectionEditor
 {
     Q_OBJECT
     Q_DISABLE_COPY(CollectionEditor)

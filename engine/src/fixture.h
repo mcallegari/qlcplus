@@ -68,7 +68,7 @@ typedef struct
     QLCCapability *m_currCap; /** The current capability in use */
 } ChannelAlias;
 
-class Fixture : public QObject
+class Fixture final : public QObject
 {
     Q_OBJECT
     Q_DISABLE_COPY(Fixture)

@@ -24,7 +24,7 @@
 
 class HotPlugMonitor;
 
-class HPMPrivate : public QThread
+class HPMPrivate final : public QThread
 {
     Q_OBJECT
 
@@ -36,7 +36,7 @@ public slots:
     void stop();
 
 private:
-    void run();
+    void run() override;
 
 private:
     HotPlugMonitor* m_hpm;

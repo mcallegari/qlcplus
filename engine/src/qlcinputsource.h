@@ -30,7 +30,7 @@
  * @{
  */
 
-class QLCInputSource: public QThread
+class QLCInputSource final : public QThread
 {
     Q_OBJECT
 
@@ -121,7 +121,7 @@ public:
 
 private:
     /** @reimp */
-    void run();
+    void run() override;
 
 protected:
     /** The input source mode: absolute or relative */

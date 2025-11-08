@@ -51,7 +51,7 @@ const QString CNG_DEFAULT_STYLE =
     "QSlider::add-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #78d, stop: 1 #97CDEC );"
     "border: 1px solid #5288A7; margin: 0 9px; }";
 
-class ClickAndGoSlider : public QSlider
+class ClickAndGoSlider final : public QSlider
 {
     Q_OBJECT
 public:
@@ -60,11 +60,11 @@ public:
     void setShadowLevel(int level);
 
 protected:
-    void mousePressEvent(QMouseEvent *e);
-    void wheelEvent(QWheelEvent *e);
-    void keyPressEvent(QKeyEvent *e);
-    void paintEvent(QPaintEvent *e);
-    void showEvent(QShowEvent *e);
+    void mousePressEvent(QMouseEvent *e) override;
+    void wheelEvent(QWheelEvent *e) override;
+    void keyPressEvent(QKeyEvent *e) override;
+    void paintEvent(QPaintEvent *e) override;
+    void showEvent(QShowEvent *e) override;
 
 signals:
     void controlClicked();

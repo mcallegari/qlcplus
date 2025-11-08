@@ -22,7 +22,7 @@
 
 #include <QObject>
 
-class ChannelModifier_Test : public QObject
+class ChannelModifier_Test final : public QObject
 {
     Q_OBJECT
 

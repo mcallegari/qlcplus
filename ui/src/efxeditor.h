@@ -39,7 +39,7 @@ class EfxUiState;
  * @{
  */
 
-class EFXEditor : public QWidget, public Ui_EFXEditor
+class EFXEditor final : public QWidget, public Ui_EFXEditor
 {
     Q_OBJECT
     Q_DISABLE_COPY(EFXEditor)

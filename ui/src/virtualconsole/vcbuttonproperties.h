@@ -35,7 +35,7 @@ class KeyBind;
  * @{
  */
 
-class VCButtonProperties : public QDialog, public Ui_VCButtonProperties
+class VCButtonProperties final : public QDialog, public Ui_VCButtonProperties
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCButtonProperties)
@@ -55,7 +55,7 @@ protected slots:
 
     void slotFadeOutTextEdited();
 
-    void accept();
+    void accept() override;
 
 protected:
     VCButton* m_button;

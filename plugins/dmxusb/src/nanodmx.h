@@ -24,7 +24,7 @@
 
 #include "dmxusbwidget.h"
 
-class NanoDMX : public QThread, public DMXUSBWidget
+class NanoDMX final : public QThread, public DMXUSBWidget
 {
     /************************************************************************
      * Initialization
@@ -34,33 +34,33 @@ public:
     virtual ~NanoDMX();
 
     /** @reimp */
-    DMXUSBWidget::Type type() const;
+    DMXUSBWidget::Type type() const override;
 
     /************************************************************************
      * Widget functions
      ************************************************************************/
 public:
     /** @reimp */
-    bool open(quint32 line = 0, bool input = false);
+    bool open(quint32 line = 0, bool input = false) override;
 
     /** @reimp */
-    bool close(quint32 line = 0, bool input = false);
+    bool close(quint32 line = 0, bool input = false) override;
 
     /** @reimp */
-    QString uniqueName(ushort line = 0, bool input = false) const;
+    QString uniqueName(ushort line = 0, bool input = false) const override;
 
     /** @reimp */
-    QString additionalInfo() const;
+    QString additionalInfo() const override;
 
     /** @reimp */
-    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
+    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged) override;
 
 protected:
     /** Stop the writer thread */
     void stop();
 
     /** DMX writer thread worker method */
-    void run();
+    void run() override;
 
 private:
     bool checkReply();

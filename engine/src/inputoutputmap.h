@@ -47,7 +47,7 @@ class Doc;
 #define KXMLIOBeatType          QStringLiteral("BeatType")
 #define KXMLIOBeatsPerMinute    QStringLiteral("BPM")
 
-class InputOutputMap : public QObject
+class InputOutputMap final : public QObject
 {
     Q_OBJECT
     Q_DISABLE_COPY(InputOutputMap)

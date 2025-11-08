@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class CueStack_Test : public QObject
+class CueStack_Test final : public QObject
 {
     Q_OBJECT
 

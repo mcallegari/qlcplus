@@ -31,7 +31,7 @@ class QLCChannel;
  * @{
  */
 
-class CapabilityWizard : public QDialog, public Ui_CapabilityWizard
+class CapabilityWizard final : public QDialog, public Ui_CapabilityWizard
 {
     Q_OBJECT
 

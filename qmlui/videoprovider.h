@@ -29,7 +29,7 @@
 class Doc;
 class VideoContent;
 
-class VideoProvider: public QObject
+class VideoProvider final : public QObject
 {
     Q_OBJECT
 public:
@@ -59,7 +59,7 @@ private:
     QQuickView *m_fullscreenContext;
 };
 
-class VideoContent: public QObject
+class VideoContent final : public QObject
 {
     Q_OBJECT
 

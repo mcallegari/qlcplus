@@ -32,7 +32,7 @@ class InputOutputMap;
 class QLCInputProfile;
 class InputProfileEditor;
 
-class InputOutputManager : public PreviewContext
+class InputOutputManager final : public PreviewContext
 {
     Q_OBJECT
 

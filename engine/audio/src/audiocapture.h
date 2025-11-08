@@ -115,7 +115,7 @@ public:
      * Thread functions
      *********************************************************************/
     /** @reimpl */
-    void run(); //thread run function
+    void run() override; //thread run function
 
 protected:
     void stop();

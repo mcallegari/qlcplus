@@ -30,7 +30,7 @@
 
 #define HEADERS_NUMBER   2
 
-class AudioCaptureWaveIn : public AudioCapture
+class AudioCaptureWaveIn final : public AudioCapture
 {
     Q_OBJECT
 public:
@@ -38,23 +38,23 @@ public:
     ~AudioCaptureWaveIn();
 
     /** @reimpl */
-    qint64 latency();
+    qint64 latency() override;
 
 protected:
     /** @reimpl */
-    bool initialize();
+    bool initialize() override;
 
     /** @reimpl */
-    virtual void uninitialize();
+    virtual void uninitialize() override;
 
     /** @reimpl */
-    void suspend();
+    void suspend() override;
 
     /** @reimpl */
-    void resume();
+    void resume() override;
 
     /** @reimpl */
-    bool readAudio(int maxSize);
+    bool readAudio(int maxSize) override;
 
 private:
     int m_currentBufferIndex;

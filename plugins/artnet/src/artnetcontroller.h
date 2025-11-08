@@ -66,7 +66,7 @@ typedef struct _uinfo
     QByteArray outputData;
 } UniverseInfo;
 
-class ArtNetController : public QObject
+class ArtNetController final : public QObject
 {
     Q_OBJECT
 

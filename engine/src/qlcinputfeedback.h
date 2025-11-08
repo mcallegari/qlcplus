@@ -23,7 +23,7 @@
 #include <QObject>
 #include <QVariant>
 
-class QLCInputFeedback : public QObject
+class QLCInputFeedback final : public QObject
 {
     Q_OBJECT
 

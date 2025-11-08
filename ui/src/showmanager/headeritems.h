@@ -40,7 +40,7 @@
  *
  */
 
-class ShowHeaderItem :  public QObject, public QGraphicsItem
+class ShowHeaderItem final : public QObject, public QGraphicsItem
 {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)
@@ -48,8 +48,8 @@ class ShowHeaderItem :  public QObject, public QGraphicsItem
 public:
     ShowHeaderItem(int width);
 
-    QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     void setTimeScale(int val);
     int getTimeScale();
@@ -68,7 +68,7 @@ signals:
     void itemClicked(QGraphicsSceneMouseEvent *);
 
 protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
 private:
     /** Total width of the item */
@@ -92,15 +92,15 @@ private:
  * Show Manager Cursor class. Cursor which marks the time position in a scene
  *
  */
-class ShowCursorItem : public QGraphicsItem
+class ShowCursorItem final : public QGraphicsItem
 {
 public:
     ShowCursorItem(int h);
 
     void setHeight(int height);
 
-    QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     void setTime(quint32 t);
     quint32 getTime();

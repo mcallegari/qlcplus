@@ -51,7 +51,7 @@ class Doc;
  *  ------------------------------------------- --------------------------------
  */
 
-class FunctionsTreeWidget : public QTreeWidget
+class FunctionsTreeWidget final : public QTreeWidget
 {
     Q_OBJECT
 
@@ -108,9 +108,9 @@ private:
      * Drag & Drop events
      *********************************************************************/
 protected:
-    void mousePressEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent *event) override;
 
-    void dropEvent(QDropEvent *event);
+    void dropEvent(QDropEvent *event) override;
 
 private:
     QList<QTreeWidgetItem *>m_draggedItems;

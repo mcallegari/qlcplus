@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class VCLabel_Test : public QObject
+class VCLabel_Test final : public QObject
 {
     Q_OBJECT
 

@@ -27,7 +27,7 @@
  * @{
  */
 
-class DmxDumpFactoryProperties
+class DmxDumpFactoryProperties final
 {
 public:
     DmxDumpFactoryProperties(int universes);

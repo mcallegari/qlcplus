@@ -31,7 +31,7 @@ class InputSelectionWidget;
  * @{
  */
 
-class VCClockProperties : public QDialog, public Ui_VCClockProperties
+class VCClockProperties final : public QDialog, public Ui_VCClockProperties
 {
     Q_OBJECT
 
@@ -43,7 +43,7 @@ private:
     void addScheduleItem(VCClockSchedule schedule);
 
 public slots:
-    void accept();
+    void accept() override;
 
 protected slots:
     void slotTypeSelectChanged();

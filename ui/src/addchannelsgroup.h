@@ -32,7 +32,7 @@ class Doc;
  * @{
  */
 
-class AddChannelsGroup : public QDialog, public Ui_AddChannelsGroup
+class AddChannelsGroup final : public QDialog, public Ui_AddChannelsGroup
 {
     Q_OBJECT
     Q_DISABLE_COPY(AddChannelsGroup)
@@ -51,7 +51,7 @@ public:
     ~AddChannelsGroup();
 
     /** @reimp */
-    void accept();
+    void accept() override;
 
 private:
     Doc *m_doc;

@@ -24,7 +24,7 @@
 #include <QObject>
 
 class ShortcutWing;
-class ShortcutWing_Test : public QObject
+class ShortcutWing_Test final : public QObject
 {
     Q_OBJECT
 

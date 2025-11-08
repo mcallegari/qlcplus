@@ -33,7 +33,7 @@ class HPMPrivate;
  * This info can then be used by plugins to see if they need to update their
  * own device lists.
  */
-class HotPlugMonitor : public QObject
+class HotPlugMonitor final : public QObject
 {
     Q_OBJECT
 

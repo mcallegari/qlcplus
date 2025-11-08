@@ -31,7 +31,7 @@
 
 class ConfigureOlaIO;
 
-class OlaIO : public QLCIOPlugin
+class OlaIO final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)
@@ -47,16 +47,16 @@ public:
     ~OlaIO();
 
     /** @reimp */
-    void init();
+    void init() override;
 
     /** @reimp */
-    QString name();
+    QString name() override;
 
     /** @reimp */
-    int capabilities() const;
+    int capabilities() const override;
 
     /** @reimp */
-    QString pluginInfo();
+    QString pluginInfo() override;
 
 private:
     /** Is the plugin currently running as a stand alone daemon. */
@@ -70,19 +70,19 @@ private:
      ************************************************************************/
 public:
     /** @reimp */
-    bool openOutput(quint32 output, quint32 universe);
+    bool openOutput(quint32 output, quint32 universe) override;
 
     /** @reimp */
-    void closeOutput(quint32 output, quint32 universe);
+    void closeOutput(quint32 output, quint32 universe) override;
 
     /** @reimp */
-    QStringList outputs();
+    QStringList outputs() override;
 
     /** @reimp */
-    QString outputInfo(quint32 output);
+    QString outputInfo(quint32 output) override;
 
     /** @reimp */
-    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
+    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged) override;
 
 private:
     /** Return the output: universe mapping */
@@ -100,13 +100,13 @@ private:
      ************************************************************************/
 public:
     /** @reimp */
-    void configure();
+    void configure() override;
 
     /** @reimp */
-    bool canConfigure();
+    bool canConfigure() override;
 
     /** @reimp */
-    void setParameter(quint32 universe, quint32 line, Capability type, QString name, QVariant value);
+    void setParameter(quint32 universe, quint32 line, Capability type, QString name, QVariant value) override;
 
 private:
     QString m_configDir;

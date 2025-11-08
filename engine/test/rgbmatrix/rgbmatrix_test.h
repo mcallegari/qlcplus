@@ -30,7 +30,7 @@
 #endif
 
 class Doc;
-class RGBMatrix_Test : public QObject
+class RGBMatrix_Test final : public QObject
 {
     Q_OBJECT
 private slots:

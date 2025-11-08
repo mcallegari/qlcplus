@@ -22,7 +22,7 @@
 
 #include <QStringList>
 
-class RGBScriptProperty
+class RGBScriptProperty final
 {
 public:
     RGBScriptProperty()

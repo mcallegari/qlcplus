@@ -25,7 +25,7 @@
 class Doc;
 class ShowFunction;
 
-class Track_Test : public QObject
+class Track_Test final : public QObject
 {
     Q_OBJECT
 

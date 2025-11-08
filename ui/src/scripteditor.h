@@ -37,7 +37,7 @@ class Doc;
  * @{
  */
 
-class ScriptEditor : public QWidget, public Ui_ScriptEditor
+class ScriptEditor final : public QWidget, public Ui_ScriptEditor
 {
     Q_OBJECT
     Q_DISABLE_COPY(ScriptEditor)

@@ -29,7 +29,7 @@ class Doc;
 class ChannelModifier;
 class ChannelModifierGraphicsView;
 
-class ChannelModifierEditor : public QDialog, public Ui_ChannelModifierEditor
+class ChannelModifierEditor final : public QDialog, public Ui_ChannelModifierEditor
 {
     Q_OBJECT
 
