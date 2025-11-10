@@ -2093,27 +2093,27 @@ QString WebAccess::getMatrixHTML(VCMatrix *matrix)
     str += "<div style=\"display: flex; flex-direction: row; align-items: center; justify-content: space-around; width: 100%; margin-top: 4px; margin-bottom: 4px; \">";
     if (matrix->visibilityMask() & VCMatrix::Visibility::ShowColor1Button) {
         str += "<input type=\"color\" id=\"mc1i"+QString::number(matrix->id())+"\" class=\"vMatrix\" value=\""+(matrix->mtxColor(0).name())+"\" "
-               "oninput=\"matrixColor1Change(" + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColor1Change(" + QString::number(matrix->id()) + ");\" "
+               "oninput=\"matrixColorChanged(1, " + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColorChanged(1, " + QString::number(matrix->id()) + ");\" "
                " />";
     }
     if (matrix->visibilityMask() & VCMatrix::Visibility::ShowColor2Button) {
         str += "<input type=\"color\" id=\"mc2i"+QString::number(matrix->id())+"\" class=\"vMatrix\" value=\""+(matrix->mtxColor(1).name())+"\" "
-               "oninput=\"matrixColor2Change(" + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColor2Change(" + QString::number(matrix->id()) + ");\" "
+               "oninput=\"matrixColorChanged(2, " + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColorChanged(2, " + QString::number(matrix->id()) + ");\" "
                " />";
     }
     if (matrix->visibilityMask() & VCMatrix::Visibility::ShowColor3Button) {
         str += "<input type=\"color\" id=\"mc3i"+QString::number(matrix->id())+"\" class=\"vMatrix\" value=\""+(matrix->mtxColor(2).name())+"\" "
-               "oninput=\"matrixColor3Change(" + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColor3Change(" + QString::number(matrix->id()) + ");\" "
+               "oninput=\"matrixColorChanged(3, " + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColorChanged(3, " + QString::number(matrix->id()) + ");\" "
                " />";
     }
     if (matrix->visibilityMask() & VCMatrix::Visibility::ShowColor4Button) {
         str += "<input type=\"color\" id=\"mc4i"+QString::number(matrix->id())+"\" class=\"vMatrix\" value=\""+(matrix->mtxColor(3).name())+"\" "
-               "oninput=\"matrixColor4Change(" + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColor4Change(" + QString::number(matrix->id()) + ");\" "
+               "oninput=\"matrixColorChanged(4, " + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColorChanged(4, " + QString::number(matrix->id()) + ");\" "
                " />";
     }
     if (matrix->visibilityMask() & VCMatrix::Visibility::ShowColor5Button) {
         str += "<input type=\"color\" id=\"mc5i"+QString::number(matrix->id())+"\" class=\"vMatrix\" value=\""+(matrix->mtxColor(4).name())+"\" "
-               "oninput=\"matrixColor5Change(" + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColor5Change(" + QString::number(matrix->id()) + ");\" "
+               "oninput=\"matrixColorChanged(5, " + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColorChanged(5, " + QString::number(matrix->id()) + ");\" "
                " />";
     }
     str += "</div>";
