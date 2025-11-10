@@ -427,10 +427,11 @@ endif ()
 
 # udev rules
 if(UNIX AND NOT APPLE)
-    if (${INSTALL_ROOT} STREQUAL "/")
+    if (NOT UDEVRULESDIR)
         set(UDEVRULESDIR "/etc/udev/rules.d")
-    else()
-        set(UDEVRULESDIR "${INSTALL_ROOT}/etc/udev/rules.d")
+    endif()
+    if (NOT ${INSTALL_ROOT} STREQUAL "/")
+        set(UDEVRULESDIR "${INSTALL_ROOT}${UDEVRULESDIR}")
     endif()
 endif()
 
