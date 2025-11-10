@@ -2082,7 +2082,7 @@ QString WebAccess::getMatrixHTML(VCMatrix *matrix)
                 "id=\"msl" + QString::number(matrix->id()) + "\" "
                 "oninput=\"matrixSliderValueChange(" + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixSliderValueChange(" + QString::number(matrix->id()) + ");\" "
                 "style=\"width: " + QString::number(matrix->height() - 20) + "px; "
-                "margin-top: " + QString::number(matrix->height() - 10) + "px; margin-left: 25px; \""
+                "margin-top: " + QString::number(matrix->height() - 10) + "px; margin-left: 25px;\" "
                 "min=\"1\" max=\"255\" step=\"1\" value=\"" + QString::number(matrix->sliderValue()) + "\">\n";
         str +=  "</div>";
     }
