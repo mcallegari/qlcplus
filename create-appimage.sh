@@ -54,8 +54,8 @@ wget -c https://github.com/AppImage/AppImageKit/releases/download/continuous/App
 chmod a+x $TARGET_DIR/AppRun
 
 cp -v resources/icons/svg/qlcplus.svg $TARGET_DIR
-cp -v platforms/linux/qlcplus.desktop $TARGET_DIR
-sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus-qml/g' $TARGET_DIR/qlcplus.desktop
+cp -v platforms/linux/net.sf.qlcplus.desktop $TARGET_DIR
+sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus-qml/g' $TARGET_DIR/net.sf.qlcplus.desktop
 
 # There might be a new version of the tool available.
 wget -c https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage -O /tmp/appimagetool-x86_64.AppImage

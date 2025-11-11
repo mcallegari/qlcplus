@@ -1,8 +1,8 @@
 project(icons)
 
-set(desktop_FILES qlcplus.desktop)
+set(desktop_FILES net.sf.qlcplus.desktop)
 if(NOT qmlui)
-    list(APPEND desktop_FILES qlcplus-fixtureeditor.desktop)
+    list(APPEND desktop_FILES net.sf.qlcplus-fixtureeditor.desktop)
 endif()
 install(FILES ${desktop_FILES} DESTINATION ${INSTALLROOT}/share/applications/)
 

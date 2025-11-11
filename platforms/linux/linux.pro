@@ -4,9 +4,9 @@ TEMPLATE = subdirs
 TARGET   = icons
 
 desktop.path   = $$INSTALLROOT/share/applications/
-desktop.files += qlcplus.desktop
+desktop.files += net.sf.qlcplus.desktop
 !qmlui: {
-    desktop.files += qlcplus-fixtureeditor.desktop
+    desktop.files += net.sf.qlcplus-fixtureeditor.desktop
 }
 INSTALLS      += desktop
 

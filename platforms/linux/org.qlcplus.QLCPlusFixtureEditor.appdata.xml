@@ -43,7 +43,7 @@
  </screenshots>
  <url type="homepage">https://www.qlcplus.org/</url>
  <url type="bugtracker">https://github.com/mcallegari/qlcplus/issues</url>
- <launchable type="desktop-id">qlcplus-fixtureeditor.desktop</launchable>
+ <launchable type="desktop-id">net.sf.qlcplus-fixtureeditor.desktop</launchable>
  <provides>
   <binary>qlcplus-fixtureeditor</binary>
  </provides>

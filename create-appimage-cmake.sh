@@ -52,7 +52,7 @@ fi
 make install
 
 cp -v ../resources/icons/svg/qlcplus.svg $TARGET_DIR
-cp -v ../platforms/linux/qlcplus.desktop $TARGET_DIR
+cp -v ../platforms/linux/net.sf.qlcplus.desktop $TARGET_DIR
 
 find $TARGET_DIR/usr/lib/ -name 'libqlcplusengine.so*' -exec strip -v {} \;
 
@@ -69,11 +69,11 @@ if [ "$1" == "qmlui" ]; then
     rm -rf QtQuick/Controls.2/Universal QtQuick/Controls.2/Fusion
     rm -rf QtQuick/Controls.2/Imagine QtQuick/Controls.2/Scene2D
     popd
-    sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus-qml/g' $TARGET_DIR/qlcplus.desktop
+    sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus-qml/g' $TARGET_DIR/net.sf.qlcplus.desktop
 else
     strip $TARGET_DIR/usr/bin/qlcplus
     chrpath -r "../lib" $TARGET_DIR/usr/bin/qlcplus || true
-    sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus/g' $TARGET_DIR/qlcplus.desktop
+    sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus/g' $TARGET_DIR/net.sf.qlcplus.desktop
 fi
 
 # There might be a new version of the tool available.
