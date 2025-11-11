@@ -33,6 +33,7 @@
 #include "inputoutputmap.h"
 #include "qlcinputchannel.h"
 #include "qlcinputsource.h"
+#include "audiocapture.h"
 #include "qlcioplugin.h"
 #include "outputpatch.h"
 #include "inputpatch.h"
@@ -1014,26 +1015,42 @@ void InputOutputMap::setBeatGeneratorType(InputOutputMap::BeatGeneratorType type
     if (type == m_beatGeneratorType)
         return;
 
+    if (m_beatGeneratorType == Audio)
+    {
+        m_inputCapture->unregisterBandsNumber(4);
+        disconnect(m_inputCapture, SIGNAL(beatDetected()), this, SLOT(slotProcessBeat()));
+    }
+
     m_beatGeneratorType = type;
     qDebug() << "[InputOutputMap] setting beat type:" << m_beatGeneratorType;
 
     switch (m_beatGeneratorType)
     {
         case Internal:
+        {
             m_doc->masterTimer()->setBeatSourceType(MasterTimer::Internal);
             setBpmNumber(m_doc->masterTimer()->bpmNumber());
+        }
         break;
         case Plugin:
+        {
             m_doc->masterTimer()->setBeatSourceType(MasterTimer::External);
             // reset the current BPM number and detect it from the MIDI beats
             setBpmNumber(0);
             m_beatTime->restart();
+        }
         break;
         case Audio:
+        {
             m_doc->masterTimer()->setBeatSourceType(MasterTimer::External);
             // reset the current BPM number and detect it from the audio input
             setBpmNumber(0);
             m_beatTime->restart();
+            QSharedPointer<AudioCapture> capture(m_doc->audioInputCapture());
+            m_inputCapture = capture.data();
+            connect(m_inputCapture, SIGNAL(beatDetected()), this, SLOT(slotProcessBeat()));
+            m_inputCapture->registerBandsNumber(4);
+        }
         break;
         case Disabled:
         default:
@@ -1095,24 +1112,8 @@ int InputOutputMap::bpmNumber() const
     return m_currentBPM;
 }
 
-void InputOutputMap::slotMasterTimerBeat()
+void InputOutputMap::slotProcessBeat()
 {
-    if (m_beatGeneratorType != Internal)
-        return;
-
-    emit beat();
-}
-
-void InputOutputMap::slotPluginBeat(quint32 universe, quint32 channel, uchar value, const QString &key)
-{
-    Q_UNUSED(universe)
-
-    // not interested in synthetic release or non-beat event
-    if (m_beatGeneratorType != Plugin || value == 0 || key != "beat")
-        return;
-
-    qDebug() << "Plugin beat:" << channel << m_beatTime->elapsed();
-
     // process the timer as first thing, to avoid wasting time
     // with the operations below
     int elapsed = m_beatTime->elapsed();
@@ -1131,12 +1132,25 @@ void InputOutputMap::slotPluginBeat(quint32 universe, quint32 channel, uchar val
     emit beat();
 }
 
-void InputOutputMap::slotAudioSpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power)
+void InputOutputMap::slotMasterTimerBeat()
 {
-    Q_UNUSED(spectrumBands)
-    Q_UNUSED(size)
-    Q_UNUSED(maxMagnitude)
-    Q_UNUSED(power)
+    if (m_beatGeneratorType != Internal)
+        return;
+
+    emit beat();
+}
+
+void InputOutputMap::slotPluginBeat(quint32 universe, quint32 channel, uchar value, const QString &key)
+{
+    Q_UNUSED(universe)
+
+    // not interested in synthetic release or non-beat event
+    if (m_beatGeneratorType != Plugin || value == 0 || key != "beat")
+        return;
+
+    qDebug() << "Plugin beat:" << channel << m_beatTime->elapsed();
+
+    slotProcessBeat();
 }
 
 /*********************************************************************

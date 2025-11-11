@@ -19,14 +19,11 @@
 */
 
 #include <QSettings>
+#include <QDateTime>
 #include <QDebug>
 #include <qmath.h>
 
 #include "audiocapture.h"
-
-#ifdef HAS_FFTW3
-#include "fftw3.h"
-#endif
 
 #define USE_HANNING
 #define CLEAR_FFT_NOISE
@@ -68,7 +65,12 @@ AudioCapture::AudioCapture (QObject* parent)
     m_fftInputBuffer = new double[bufferSize];
 #ifdef HAS_FFTW3
     m_fftOutputBuffer = fftw_malloc(sizeof(fftw_complex) * bufferSize);
+
+    // Init FFTW
+    m_plan_forward = fftw_plan_dft_r2c_1d(bufferSize, m_fftInputBuffer,
+                                          (fftw_complex*)m_fftOutputBuffer , 0);
 #endif
+    m_energyHistory = QVector<double>(m_energySize, 0.0);
 }
 
 AudioCapture::~AudioCapture()
@@ -80,6 +82,8 @@ AudioCapture::~AudioCapture()
     delete[] m_audioMixdown;
     delete[] m_fftInputBuffer;
 #ifdef HAS_FFTW3
+    fftw_destroy_plan(m_plan_forward);
+
     if (m_fftOutputBuffer)
         fftw_free(m_fftOutputBuffer);
 #endif
@@ -186,11 +190,6 @@ void AudioCapture::processData()
     double pwrSum = 0.;
     double maxMagnitude = 0.;
 
-    // 1) Init FFTW
-    fftw_plan plan_forward;
-    plan_forward = fftw_plan_dft_r2c_1d(bufferSize, m_fftInputBuffer,
-                                        (fftw_complex*)m_fftOutputBuffer , 0);
-
     // 2) Mix down to mono (int16 -> int16)
     for (i = 0; i < bufferSize; i++)
     {
@@ -233,7 +232,6 @@ void AudioCapture::processData()
                 buf.fill(0.0);
             emit dataProcessed(buf.data(), buf.size(), maxMagnitude, power);
         }
-        fftw_destroy_plan(plan_forward);
         return;
     }
 
@@ -255,8 +253,7 @@ void AudioCapture::processData()
 #endif
 
     // 3) FFT
-    fftw_execute(plan_forward);
-    fftw_destroy_plan(plan_forward);
+    fftw_execute(m_plan_forward);
 
     // 4) Clear low-bin FFT noise
 #ifdef CLEAR_FFT_NOISE
@@ -267,7 +264,7 @@ void AudioCapture::processData()
     }
 #endif
 
-    // 5) Fill per-band magnitudes and compute power (unchanged)
+    // 5) Fill per-band magnitudes and compute power
     for (int barsNumber : m_fftMagnitudeMap.keys())
     {
         maxMagnitude = fillBandsData(barsNumber); // fills & returns max per-band
@@ -279,6 +276,63 @@ void AudioCapture::processData()
         emit dataProcessed(m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer.data(),
                            m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer.size(),
                            maxMagnitude, m_signalPower);
+    }
+
+    // 6) Beat detection based on frame RMS and a short energy history
+    //    This stays very light-weight compared to the FFT and runs once per frame.
+    if (m_energySize > 0)
+    {
+        // Ensure history buffer has the expected size
+        if (m_energyHistory.size() != m_energySize)
+            m_energyHistory = QVector<double>(m_energySize, 0.0);
+
+        // Static state local to this translation unit (per-process, effectively per-capture in QLC+)
+        static int s_energyPos = 0;
+        static bool s_energyInitialized = false;
+        static qint64 s_lastBeatMs = 0;
+
+        if (!s_energyInitialized)
+        {
+            s_energyInitialized = true;
+            s_energyPos = 0;
+            s_lastBeatMs = 0;
+        }
+
+        // Push current RMS into circular buffer
+        m_energyHistory[s_energyPos] = rms;
+        s_energyPos = (s_energyPos + 1) % m_energySize;
+
+        // Compute local mean and standard deviation
+        double mean = 0.0;
+        for (double &e : m_energyHistory)
+            mean += e;
+        mean /= double(m_energySize);
+
+        double var = 0.0;
+        for (double &e : m_energyHistory)
+        {
+            const double d = e - mean;
+            var += d * d;
+        }
+        var /= double(m_energySize);
+        const double stddev = qSqrt(var);
+
+        // Adaptive threshold: tweak sensitivity to taste.
+        // Larger kBeatSensitivity -> fewer beats; smaller -> more beats.
+        static const double kBeatSensitivity = 1.5;
+        const double threshold = mean + kBeatSensitivity * stddev;
+
+        bool beat = (rms > threshold);
+
+        // Enforce a minimum time between beats
+        static const qint64 kMinBeatSpacingMs = 150; // ms
+        const qint64 nowMs = QDateTime::currentMSecsSinceEpoch();
+
+        if (beat && (nowMs - s_lastBeatMs) > kMinBeatSpacingMs)
+        {
+            s_lastBeatMs = nowMs;
+            emit beatDetected();
+        }
     }
 #endif
 }

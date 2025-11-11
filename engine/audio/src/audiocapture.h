@@ -27,6 +27,10 @@
 #include <QMutex>
 #include <QMap>
 
+#ifdef HAS_FFTW3
+#include "fftw3.h"
+#endif
+
 #define SETTINGS_AUDIO_INPUT_DEVICE   "audio/input"
 #define SETTINGS_AUDIO_INPUT_SRATE    "audio/samplerate"
 #define SETTINGS_AUDIO_INPUT_CHANNELS "audio/channels"
@@ -136,6 +140,7 @@ private:
 signals:
     void dataProcessed(double *spectrumBands, int size, double maxMagnitude, quint32 power);
     void volumeChanged(int volume);
+    void beatDetected();
 
 protected:
     /*!
@@ -158,9 +163,17 @@ protected:
     /** **************** FFT variables ********************** */
     double *m_fftInputBuffer;
     void *m_fftOutputBuffer;
+#ifdef HAS_FFTW3
+    fftw_plan m_plan_forward;
+#endif
 
     /** Map of the registered clients (key is the number of bands) */
     QMap <int, BandsData> m_fftMagnitudeMap;
+
+private:
+    QVector<double> m_energyHistory;
+    int m_energyPos = 0;
+    int m_energySize = 43; // ~1 second if bufferSize gives ~25 FPS
 };
 
 /** @} */
