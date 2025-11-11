@@ -34,6 +34,57 @@ Rectangle
 
     property int gridItemsHeight: UISettings.listItemHeight
 
+    CustomPopupDialog
+    {
+        id: thresholdsPopup
+        width: mainView.width / 3
+
+        property alias tMin: minThresholdSpin.value
+        property alias tMax: maxThresholdSpin.value
+
+        onOpened: maxThresholdSpin.focus = true
+        onAccepted: widgetRef.setBarThresholds(tMin, tMax)
+
+        contentItem:
+            GridLayout
+            {
+                width: parent.width
+                height: UISettings.iconSizeDefault * rows
+                columns: 2
+                columnSpacing: 5
+
+                // Row 1
+                RobotoText
+                {
+                    label: qsTr("Activation threshold")
+                }
+
+                CustomSpinBox
+                {
+                    id: maxThresholdSpin
+                    Layout.fillWidth: true
+                    suffix: "%"
+                    from: 5
+                    to: 95
+                }
+
+                // Row 2
+                RobotoText
+                {
+                    label: qsTr("Deactivation threshold")
+                }
+
+                CustomSpinBox
+                {
+                    id: minThresholdSpin
+                    Layout.fillWidth: true
+                    suffix: "%"
+                    from: 5
+                    to: 95
+                }
+            }
+    }
+
     Column
     {
         id: audioTriggerPropsColumn
@@ -74,10 +125,15 @@ Rectangle
                         id: barsList
                         Layout.columnSpan: 2
                         Layout.fillWidth: true
+                        clip: true
                         //implicitWidth: audioTriggerPropsColumn.width
                         implicitHeight: count * gridItemsHeight
                         boundsBehavior: Flickable.StopAtBounds
+                        headerPositioning: ListView.OverlayHeader
                         model: widgetRef ? widgetRef.barsInfo : null
+
+                        property Item currentChecked: null
+                        property int currentType: VCAudioTriggers.None
 
                         header:
                             RowLayout
@@ -109,7 +165,7 @@ Rectangle
                                 {
                                     Layout.fillWidth: true
                                     height: gridItemsHeight
-                                    label: qsTr("Thresholds")
+                                    label: qsTr("Information")
                                     color: UISettings.sectionHeader
                                 }
                             }
@@ -118,7 +174,7 @@ Rectangle
                             Row
                             {
                                 width: barsList.width
-                                height: gridItemsHeight
+                                height: modelData.type === VCAudioTriggers.FunctionBar ? gridItemsHeight * 2 : gridItemsHeight
                                 spacing: 10
 
                                 RobotoText
@@ -138,11 +194,12 @@ Rectangle
                                         { mLabel: qsTr("Widget"), faIcon: FontAwesome.fa_table_list }
                                     ]
                                     currentIndex: modelData.type
-                                    onCurrentIndexChanged:
+
+                                    onActivated:
                                     {
                                         if (widgetRef)
                                         {
-                                            widgetRef.selectBarForEditing(index)
+                                            widgetRef.selectBarForEditing(modelData.index)
                                             widgetRef.setBarType(currentIndex)
                                         }
                                     }
@@ -163,7 +220,7 @@ Rectangle
                                     checkable: true
                                     onCheckedChanged:
                                     {
-                                        widgetRef.selectBarForEditing(index)
+                                        widgetRef.selectBarForEditing(modelData.index)
                                         if (checked)
                                         {
                                             if (!sideLoader.visible)
@@ -174,25 +231,98 @@ Rectangle
                                                 sideLoader.source = "qrc:/FixtureGroupManager.qml"
                                             else if (modelData.type === VCAudioTriggers.FunctionBar)
                                                 sideLoader.source = "qrc:/FunctionManager.qml"
+                                            barsList.currentChecked = this
+                                            barsList.currentType = modelData.type
                                         }
                                         else
                                         {
                                             rightSidePanel.width -= sideLoader.width
                                             sideLoader.source = ""
                                             sideLoader.visible = false
+                                            barsList.currentType = VCAudioTriggers.None
                                         }
                                     }
                                 }
 
                                 RobotoText
                                 {
-                                    visible: modelData.type === VCAudioTriggers.FunctionBar ||
-                                             modelData.type === VCAudioTriggers.VCWidgetBar
+                                    visible: modelData.type !== VCAudioTriggers.None
                                     width: UISettings.bigItemHeight * 2
                                     height: gridItemsHeight
-                                    label: modelData.minThreshold + "% - " + modelData.maxThreshold + "%"
+                                    clip: false
+                                    color: thresholdsMa.containsMouse ? UISettings.bgLight : "transparent"
+                                    label: modelData.type === VCAudioTriggers.DMXBar ?
+                                               modelData.intVal + " " + qsTr("Channels") :
+                                               qsTr("Thresholds:") + " " + modelData.minThreshold + "% - " + modelData.maxThreshold + "%"
+
+                                    MouseArea
+                                    {
+                                        id: thresholdsMa
+                                        enabled: modelData.type === VCAudioTriggers.FunctionBar ||
+                                                 modelData.type === VCAudioTriggers.VCWidgetBar
+                                        width: parent.width
+                                        height: gridItemsHeight
+                                        hoverEnabled: true
+                                        onClicked:
+                                        {
+                                            widgetRef.selectBarForEditing(modelData.index)
+                                            thresholdsPopup.tMin = Math.round(modelData.minThreshold)
+                                            thresholdsPopup.tMax = Math.round(modelData.maxThreshold)
+                                            thresholdsPopup.open()
+                                        }
+                                    }
+
+                                    IconTextEntry
+                                    {
+                                        visible: modelData.type === VCAudioTriggers.FunctionBar
+                                        y: gridItemsHeight
+                                        height: gridItemsHeight
+                                        width: parent.width
+
+                                        property QLCFunction func: functionManager.getFunction(modelData.intVal)
+                                        tLabel: func ? func.name : ""
+                                        functionType: func ? func.type : -1
+                                    }
                                 }
                             }
+
+                        Rectangle
+                        {
+                            id: addFunctionBox
+                            visible: barsList.currentType === VCAudioTriggers.FunctionBar
+                            anchors.fill: barsList
+                            color: addFunctionDrop.containsDrag ? UISettings.activeDropArea : UISettings.bgMedium
+                            opacity: 0.9
+                            radius: 10
+
+                            RobotoText
+                            {
+                                id: afText
+                                anchors.centerIn: parent
+                                label: qsTr("Drop a Function here")
+                                labelColor: addFunctionDrop.containsDrag ? UISettings.bgStronger : UISettings.fgMain
+                                fontBold: addFunctionDrop.containsDrag ? true : false
+                            }
+
+                            DropArea
+                            {
+                                id: addFunctionDrop
+                                anchors.fill: parent
+
+                                keys: [ "function" ]
+
+                                onDropped:
+                                {
+                                    console.log("Function item dropped here. x: " + drag.x + " y: " + drag.y)
+
+                                    if (drag.source.hasOwnProperty("fromFunctionManager"))
+                                    {
+                                        barsList.currentChecked.checked = false
+                                        widgetRef.setBarFunction(drag.source.itemsList[0])
+                                    }
+                                }
+                            }
+                        }
                     } // ListView
                 } // GridLayout
         } // SectionBox

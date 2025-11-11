@@ -132,7 +132,7 @@ public:
         Function *m_function = nullptr;
 
         /** ID of the attchaed VCWidget when m_type == VCWidgetBar */
-        quint32 m_widgetID = VCWidget::invalidId();
+        quint32 m_widgetId = VCWidget::invalidId();
 
         /** Reference to an attached VCWidget when m_type == VCWidgetBar */
         VCWidget *m_widget = nullptr;
@@ -143,7 +143,7 @@ public:
 
     Q_INVOKABLE void setBarType(BarType type);
     Q_INVOKABLE void setBarThresholds(uchar minThr, uchar maxThr);
-    void setBarFunction(quint32 functionId);
+    Q_INVOKABLE void setBarFunction(quint32 functionId);
     void setBarWidget(quint32 widgetId);
     void setBarDmxChannels(QList<SceneValue>list);
 
