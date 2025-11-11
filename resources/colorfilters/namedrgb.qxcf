@@ -510,4 +510,74 @@
  <Color RGB="#8B008B" Name="Dark Magenta" />
  <Color RGB="#8B0000" Name="Dark Red" />
  <Color RGB="#90EE90" Name="Light Green" />
+ <Color RGB="#EE82D7" Name="LEE 002 - Rose Pink" />
+ <Color RGB="#F8F0F9" Name="LEE 003 - Lavender Tint" />
+ <Color RGB="#FFFD54" Name="LEE 010 - Medium Yellow" />
+ <Color RGB="#F7D9A3" Name="LEE 013 - Straw Tint" />
+ <Color RGB="#F8CE46" Name="LEE 015 - Deep Straw" />
+ <Color RGB="#EC5528" Name="LEE 019 - Fire" />
+ <Color RGB="#F6C068" Name="LEE 020 - Medium Amber" />
+ <Color RGB="#EF9148" Name="LEE 021 - Gold Amber" />
+ <Color RGB="#EE722E" Name="LEE 022 - Dark Amber" />
+ <Color RGB="#ED6669" Name="LEE 024 - Scarlet" />
+ <Color RGB="#EE7652" Name="LEE 025 - Sunset Red" />
+ <Color RGB="#D32D42" Name="LEE 026 - Bright Red" />
+ <Color RGB="#B82640" Name="LEE 027 - Medium Red" />
+ <Color RGB="#F7CAD2" Name="LEE 035 - Light Pink" />
+ <Color RGB="#F2A5B9" Name="LEE 036 - Medium Pink" />
+ <Color RGB="#CA2C5B" Name="LEE 046 - Dark Magenta" />
+ <Color RGB="#D776AC" Name="LEE 048 - Rose Purple" />
+ <Color RGB="#AE288D" Name="LEE 049 - Medium Purple" />
+ <Color RGB="#DDAEF5" Name="LEE 052 - Light Lavender" />
+ <Color RGB="#AA75E9" Name="LEE 058 - Lavender" />
+ <Color RGB="#64B3EB" Name="LEE 068 - Sky Blue" />
+ <Color RGB="#0014AD" Name="LEE 071 - Tokyo Blue" />
+ <Color RGB="#70A0EA" Name="LEE 075 - Evening Blue" />
+ <Color RGB="#508CCC" Name="LEE 079 - Just Blue" />
+ <Color RGB="#2C6EB3" Name="LEE 085 - Deeper Blue" />
+ <Color RGB="#E3FC7C" Name="LEE 088 - Lime Green" />
+ <Color RGB="#7FD86B" Name="LEE 089 - Moss Green" />
+ <Color RGB="#F7FD54" Name="LEE 100 - Spring Yellow" />
+ <Color RGB="#FEF451" Name="LEE 101 - Yellow" />
+ <Color RGB="#FADC74" Name="LEE 102 - Light Amber" />
+ <Color RGB="#F9EACF" Name="LEE 103 - Straw" />
+ <Color RGB="#FADC4A" Name="LEE 104 - Deep Amber" />
+ <Color RGB="#F2A33A" Name="LEE 105 - Orange" />
+ <Color RGB="#DD2F3B" Name="LEE 106 - Primary Red" />
+ <Color RGB="#F093BC" Name="LEE 111 - Dark Pink" />
+ <Color RGB="#EB3466" Name="LEE 113 - Magenta" />
+ <Color RGB="#59C5B9" Name="LEE 116 - Medium Blue-Green" />
+ <Color RGB="#65DEE9" Name="LEE 118 - Light Blue" />
+ <Color RGB="#3078C2" Name="LEE 119 - Dark Blue" />
+ <Color RGB="#2460B8" Name="LEE 120 - Deep Blue" />
+ <Color RGB="#C5FB7A" Name="LEE 121 - LEE Green" />
+ <Color RGB="#9AF680" Name="LEE 122 - Fern Green" />
+ <Color RGB="#64D882" Name="LEE 124 - Dark Green" />
+ <Color RGB="#AE2996" Name="LEE 126 - Mauve" />
+ <Color RGB="#EC60B1" Name="LEE 128 - Bright Pink" />
+ <Color RGB="#449FD7" Name="LEE 132 - Medium Blue" />
+ <Color RGB="#EFAB7C" Name="LEE 134 - Golden Amber" />
+ <Color RGB="#ED692C" Name="LEE 135 - Deep Golden Amber" />
+ <Color RGB="#6EBF39" Name="LEE 139 - Primary Green" />
+ <Color RGB="#5DCFE3" Name="LEE 141 - Bright Blue" />
+ <Color RGB="#7ABCCF" Name="LEE 143 - Pale Navy Blue" />
+ <Color RGB="#EC5E7E" Name="LEE 148 - Bright Rose" />
+ <Color RGB="#F198A4" Name="LEE 157 - Pink" />
+ <Color RGB="#F08C34" Name="LEE 158 - Deep Orange" />
+ <Color RGB="#EB4726" Name="LEE 164 - Flame Red" />
+ <Color RGB="#76C6E7" Name="LEE 165 - Daylight Blue" />
+ <Color RGB="#976ADF" Name="LEE 180 - Dark Lavender" />
+ <Color RGB="#4817A3" Name="LEE 181 - Congo Blue" />
+ <Color RGB="#E13022" Name="LEE 182 - Light Red" />
+ <Color RGB="#2B6FCB" Name="LEE 195 - Zenith Blue" />
+ <Color RGB="#99BEF0" Name="LEE 200 - Double CT Blue" />
+ <Color RGB="#C8E1F7" Name="LEE 201 - Full CT Blue" />
+ <Color RGB="#DBEFFD" Name="LEE 202 - Half CT Blue" />
+ <Color RGB="#EEFCFE" Name="LEE 203 - Quarter CT Blue" />
+ <Color RGB="#F2C48F" Name="LEE 204 - Full CT Orange" />
+ <Color RGB="#F7DAB6" Name="LEE 205 - Half CT Orange" />
+ <Color RGB="#F9EAD8" Name="LEE 206 - Quarter CT Orange" />
+ <Color RGB="#F2A363" Name="LEE 287 - Double CT Orange" />
+ <Color RGB="#3D8956" Name="LEE 327 - Forrest Green" />
+ <Color RGB="#ED80C4" Name="LEE 328 - Follies Pink" />
 </ColorFilters>
