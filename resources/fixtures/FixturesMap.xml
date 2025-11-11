@@ -1426,12 +1426,17 @@
     <F n="Pro-Lights-CromoSpot300" m="CromoSpot300"/>
     <F n="Pro-Lights-CromoWash100" m="CromoWash100"/>
     <F n="Pro-Lights-CromoWash300" m="CromoWash300"/>
+    <F n="Pro-Lights-EclCyclorama-100" m="EclCyclorama-100"/>
+    <F n="Pro-Lights-EclFresnel-2KTW" m="EclFresnel-2KTW"/>
+    <F n="Pro-Lights-EclPar-Ipmfc" m="EclPar-Ipmfc"/>
+    <F n="Pro-Lights-EclProfile-FS" m="EclProfile FS"/>
     <F n="Pro-Lights-EVO90F" m="EVO90F"/>
     <F n="Pro-Lights-Explo-3000D" m="Explo 3000D"/>
     <F n="Pro-Lights-Fury-FY250S" m="Fury FY250S"/>
     <F n="Pro-Lights-Fury-FY250W" m="Fury FY250W"/>
     <F n="Pro-Lights-Genesis" m="Genesis"/>
     <F n="Pro-Lights-GoboMix" m="GoboMix"/>
+    <F n="Pro-Lights-JetWash19" m="JetWash19"/>
     <F n="Pro-Lights-LedPar-64363-RGB" m="LedPar 64363 RGB"/>
     <F n="Pro-Lights-LumiPar-18-Tri" m="LumiPar 18 Tri"/>
     <F n="Pro-Lights-LumiPar-7QPro" m="LumiPar 7QPro"/>
@@ -1445,6 +1450,7 @@
     <F n="Pro-Lights-Onyx" m="Onyx"/>
     <F n="Pro-Lights-Pixie-Spot" m="Pixie Spot"/>
     <F n="Pro-Lights-PIXIEWASH" m="PIXIEWASH"/>
+    <F n="Pro-Lights-Ra2000Profile" m="Ra2000Profile"/>
     <F n="Pro-Lights-SmartBat" m="SmartBat"/>
     <F n="Pro-Lights-SmartBatHEX" m="SmartBatHEX"/>
     <F n="Pro-Lights-Strobo-1500DMX" m="Strobo 1500DMX"/>
