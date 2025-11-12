@@ -442,12 +442,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        task: [ build-v4 ]
+        task: [build-v4, build-v5]
     env:
       CI_REPO_SLUG: ${{ github.repository }}
       CI_BRANCH: ${{ github.head_ref }}
       CI_PULL_REQUEST: ${{ github.event.number }}
-      QT_VERSION: "6.9.2"
+      QT_VERSION: "6.9.3"
 
     steps:
       - name: Checkout
@@ -455,14 +455,25 @@ jobs:
         with:
           submodules: false
 
-      - name: Add more ENV variables
+      - name: Set ENV variables
         shell: bash
         run: |
-          echo "APPVERSION=`grep '^!qmlui' variables.pri | grep APPVERSION | sed 's/^.*= *//;s/ /_/g'`" >> $GITHUB_ENV
           echo "BUILD_DATE=`date -u '+%Y%m%d'`" >> $GITHUB_ENV
           echo "GIT_REV=`git rev-parse --short HEAD`" >> $GITHUB_ENV
           echo "QTDIR=${{ github.workspace }}/qt/Qt/${{ env.QT_VERSION }}/macos" >> $GITHUB_ENV
           echo "NPROC=`sysctl -n hw.ncpu`" >> $GITHUB_ENV
+
+      - name: Set v4 ENV variables
+        shell: bash
+        if: ${{ matrix.task == 'build-v4' }}
+        run: |
+          echo "APPVERSION=`grep '^!qmlui' variables.pri | grep APPVERSION | sed 's/^.*= *//;s/ /_/g'`" >> $GITHUB_ENV
+
+      - name: Set v5 ENV variables
+        shell: bash
+        if: ${{ matrix.task == 'build-v5' }}
+        run: |
+          echo "APPVERSION=`grep '^qmlui' variables.pri | grep APPVERSION | sed 's/^.*= *//;s/ /_/g'`" >> $GITHUB_ENV
 
       - name: Print ENV vars
         shell: bash
@@ -495,10 +506,17 @@ jobs:
         uses: hendrikmuhs/ccache-action@v1.2
         if: false
 
-      - name: Configure build
+      - name: Configure v4 build
         shell: bash
+        if: ${{ matrix.task == 'build-v4' }}
         run: |-
           cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.15
+
+      - name: Configure v5 build
+        shell: bash
+        if: ${{ matrix.task == 'build-v5' }}
+        run: |-
+          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.15 -Dqmlui=ON
 
       - name: Build
         shell: bash
@@ -512,13 +530,22 @@ jobs:
           cd build
           make install/fast
 
-      - name: Fix dylib dependencies
+      - name: Fix v4 dylib dependencies
         shell: bash
+        if: ${{ matrix.task == 'build-v4' }}
         run: |-
           platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/Frameworks/libsndfile.1.dylib
           platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/MacOS/qlcplus
           platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/MacOS/qlcplus-fixtureeditor
           ${{ env.QTDIR }}/bin/macdeployqt ~/QLC+.app
+
+      - name: Fix v5 dylib dependencies
+        shell: bash
+        if: ${{ matrix.task == 'build-v5' }}
+        run: |-
+          platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/Frameworks/libsndfile.1.dylib
+          platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/MacOS/qlcplus-qml
+          ${{ env.QTDIR }}/bin/macdeployqt ~/QLC+.app -qmldir=qmlui/qml
 
       - name: Create DMG
         # Use retry loop to work around a race condition on macOS causing
