@@ -124,6 +124,8 @@ ColumnLayout
         channelList.selectedChannelNumber = -1
     }
 
+    Component.onDestruction: ioManager.finishInputProfile()
+
     CustomPopupDialog
     {
         id: messagePopup
@@ -332,7 +334,7 @@ ColumnLayout
                     {
                         Layout.fillWidth: true
                         height: UISettings.listItemHeight
-                        label: channel.name
+                        label: channel ? channel.name : ""
                     }
                     Rectangle { width: 1; height: UISettings.listItemHeight; color: UISettings.fgMedium }
 
@@ -340,8 +342,8 @@ ColumnLayout
                     {
                         width: UISettings.bigItemHeight * 1.5
                         height: UISettings.listItemHeight
-                        tLabel: channel.typeString
-                        iSrc: channel.iconResource(channel.type, true)
+                        tLabel: channel ? channel.typeString : ""
+                        iSrc: channel ? channel.iconResource(channel.type, true) : ""
                     }
                 }
 
