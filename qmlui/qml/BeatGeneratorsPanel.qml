@@ -160,7 +160,7 @@ Rectangle
             visible: ioManager.beatType === "INTERNAL"
             commandString: ioManager.bpmNumber
 
-            onExecuteCommand:
+            onExecuteCommand: (cmd) =>
             {
                 var intCmd = parseInt(cmd)
                 if (intCmd === 0 || intCmd > 300)
