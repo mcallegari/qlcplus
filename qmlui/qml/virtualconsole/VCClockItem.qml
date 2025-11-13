@@ -109,12 +109,15 @@ VCWidgetItem
             {
                 anchors.fill: parent
                 acceptedButtons: Qt.LeftButton | Qt.RightButton
-                onClicked:
+                onClicked: (mouse) =>
                 {
                     if (clockType == VCClock.Stopwatch || clockType == VCClock.Countdown)
                     {
                         if (mouse.button === Qt.LeftButton)
                         {
+                            if (clockType === VCClock.Countdown && timeCounter <= 0)
+                                return;
+
                             clockTimer.running = !clockTimer.running
                             return;
                         }
