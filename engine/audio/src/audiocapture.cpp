@@ -67,7 +67,7 @@ AudioCapture::AudioCapture (QObject* parent)
     m_fftOutputBuffer = fftw_malloc(sizeof(fftw_complex) * bufferSize);
 
     // Init FFTW
-    m_plan_forward = fftw_plan_dft_r2c_1d(bufferSize, reinterpret_cast<fftw_complex*>(m_fftInputBuffer),
+    m_plan_forward = fftw_plan_dft_r2c_1d(bufferSize, m_fftInputBuffer,
                                           reinterpret_cast<fftw_complex*>(m_fftOutputBuffer), 0);
 #endif
     m_energyHistory = QVector<double>(m_energySize, 0.0);
