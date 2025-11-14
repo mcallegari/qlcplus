@@ -20,6 +20,7 @@
   <Capability Min="11" Max="82" Preset="ShutterOpen">Shutter Effect slow to fast</Capability>
   <Capability Min="83" Max="93" Preset="ShutterOpen">No Function (shutter open)</Capability>
   <Capability Min="94" Max="163" Preset="PulseSlowToFast">Pulse-effect in sequences</Capability>
+  <Capability Min="164" Max="174" Preset="ShutterOpen">No Function (shutter open)</Capability>
   <Capability Min="175" Max="244" Preset="StrobeFastToSlow">Random Strobe Effect: Slow to Fast</Capability>
   <Capability Min="245" Max="255" Preset="ShutterOpen">No Function (shutter open)</Capability>
  </Channel>
