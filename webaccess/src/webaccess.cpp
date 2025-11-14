@@ -1996,53 +1996,13 @@ void WebAccess::slotMatrixSliderValueChanged(int value)
     sendWebSocketMessage(wsMessage);
 }
 
-void WebAccess::slotMatrixColor1Changed()
+void WebAccess::slotMatrixColorChanged(int index)
 {
     VCMatrix *matrix = qobject_cast<VCMatrix *>(sender());
-    if (matrix == NULL)
+    if ((matrix == NULL) || (index < 1) || (index > 5))
         return;
 
-    QString wsMessage = QString("%1|MATRIX_COLOR_1|%2").arg(matrix->id()).arg(matrix->mtxColor(0).name());
-    sendWebSocketMessage(wsMessage.toUtf8());
-}
-
-void WebAccess::slotMatrixColor2Changed()
-{
-    VCMatrix *matrix = qobject_cast<VCMatrix *>(sender());
-    if (matrix == NULL)
-        return;
-
-    QString wsMessage = QString("%1|MATRIX_COLOR_2|%2").arg(matrix->id()).arg(matrix->mtxColor(1).name());
-    sendWebSocketMessage(wsMessage.toUtf8());
-}
-
-void WebAccess::slotMatrixColor3Changed()
-{
-    VCMatrix *matrix = qobject_cast<VCMatrix *>(sender());
-    if (matrix == NULL)
-        return;
-
-    QString wsMessage = QString("%1|MATRIX_COLOR_3|%2").arg(matrix->id()).arg(matrix->mtxColor(2).name());
-    sendWebSocketMessage(wsMessage.toUtf8());
-}
-
-void WebAccess::slotMatrixColor4Changed()
-{
-    VCMatrix *matrix = qobject_cast<VCMatrix *>(sender());
-    if (matrix == NULL)
-        return;
-
-    QString wsMessage = QString("%1|MATRIX_COLOR_4|%2").arg(matrix->id()).arg(matrix->mtxColor(3).name());
-    sendWebSocketMessage(wsMessage.toUtf8());
-}
-
-void WebAccess::slotMatrixColor5Changed()
-{
-    VCMatrix *matrix = qobject_cast<VCMatrix *>(sender());
-    if (matrix == NULL)
-        return;
-
-    QString wsMessage = QString("%1|MATRIX_COLOR_5|%2").arg(matrix->id()).arg(matrix->mtxColor(4).name());
+    QString wsMessage = QString("%1|MATRIX_COLOR_%2|%3").arg(matrix->id()).arg(index).arg(matrix->mtxColor(index-1).name());
     sendWebSocketMessage(wsMessage.toUtf8());
 }
 
@@ -2222,16 +2182,8 @@ QString WebAccess::getMatrixHTML(VCMatrix *matrix)
 
     connect(matrix, SIGNAL(sliderValueChanged(int)),
             this, SLOT(slotMatrixSliderValueChanged(int)));
-    connect(matrix, SIGNAL(mtxColor1Changed()),
-            this, SLOT(slotMatrixColor1Changed()));
-    connect(matrix, SIGNAL(mtxColor2Changed()),
-            this, SLOT(slotMatrixColor2Changed()));
-    connect(matrix, SIGNAL(mtxColor3Changed()),
-            this, SLOT(slotMatrixColor3Changed()));
-    connect(matrix, SIGNAL(mtxColor4Changed()),
-            this, SLOT(slotMatrixColor4Changed()));
-    connect(matrix, SIGNAL(mtxColor5Changed()),
-            this, SLOT(slotMatrixColor5Changed()));
+    connect(matrix, SIGNAL(mtxColorChanged(int)),
+            this, SLOT(slotMatrixColorChanged(int)));
     connect(matrix, SIGNAL(animationValueChanged(QString)),
             this, SLOT(slotMatrixAnimationValueChanged(QString)));
 

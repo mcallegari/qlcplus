@@ -131,11 +131,7 @@ public:
 
 signals:
     void sliderValueChanged(int value);
-    void mtxColor1Changed();
-    void mtxColor2Changed();
-    void mtxColor3Changed();
-    void mtxColor4Changed();
-    void mtxColor5Changed();
+    void mtxColorChanged(int index);
     void animationValueChanged(QString name);
     void matrixControlKnobValueChanged(int controlID, int value);
 
