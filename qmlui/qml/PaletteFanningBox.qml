@@ -36,6 +36,8 @@ Item
     property QLCPalette palette: null
     property int paletteType: QLCPalette.Undefined
 
+    signal positionTypeChanged()
+
     onVisibleChanged:
     {
         if (isEditing)
@@ -93,11 +95,10 @@ Item
             break
             case QLCPalette.Dimmer:
                 valueSpin.value = palette.fanningValue
-            break;
-
+            break
             case QLCPalette.Color:
                 colorPreview.color = palette.fanningValue
-            break;
+            break
         }
     }
 
@@ -196,7 +197,7 @@ Item
                     ]
 
                     currValue: boxRoot.palette ? boxRoot.palette.fanningType : QLCPalette.Flat
-                    onValueChanged:
+                    onValueChanged: (value) =>
                     {
                         if (boxRoot.palette)
                         {
@@ -305,6 +306,9 @@ Item
 
                         if (isEditing == false)
                             boxRoot.palette = paletteManager.getEditingPalette(boxRoot.paletteType)
+
+                        boxRoot.positionTypeChanged()
+
                         updatePreview()
                     }
                 }
@@ -328,6 +332,9 @@ Item
 
                         if (isEditing == false)
                             boxRoot.palette = paletteManager.getEditingPalette(boxRoot.paletteType)
+
+                        boxRoot.positionTypeChanged()
+
                         updatePreview()
                     }
                 }
