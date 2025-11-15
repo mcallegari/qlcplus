@@ -83,7 +83,7 @@ void QLCPalette_Test::icon()
     QLCPalette p7(QLCPalette::Gobo);
     QCOMPARE(p7.iconResource(), QString(":/gobo.png"));
     QLCPalette p8(QLCPalette::Zoom);
-    QCOMPARE(p7.iconResource(), QString(":/beam.png"));
+    QCOMPARE(p8.iconResource(), QString(":/beam.png"));
 }
 
 void QLCPalette_Test::value()
