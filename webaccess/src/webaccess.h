@@ -106,11 +106,7 @@ protected slots:
     void slotFramePageChanged(int pageNum);
     void slotFrameDisableStateChanged(bool disable);
     void slotMatrixSliderValueChanged(int value);
-    void slotMatrixColor1Changed();
-    void slotMatrixColor2Changed();
-    void slotMatrixColor3Changed();
-    void slotMatrixColor4Changed();
-    void slotMatrixColor5Changed();
+    void slotMatrixColorChanged(int);
     void slotMatrixAnimationValueChanged(QString name);
     void slotMatrixControlKnobValueChanged(int controlID, int value);
 
