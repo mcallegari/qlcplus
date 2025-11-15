@@ -8,6 +8,7 @@
   <M n="Acme">
     <F n="Acme-Dotline180" m="Dotline180"/>
     <F n="Acme-Dotline360" m="Dotline360"/>
+    <F n="Acme-Ginamp" m="Ginamp"/>
     <F n="Acme-Oxygen" m="Oxygen"/>
     <F n="Acme-Pixel-Line-IP" m="Pixel Line IP"/>
     <F n="Acme-Super-Dotline" m="Super Dotline"/>
@@ -749,6 +750,7 @@
     <F n="Eliminator-Lighting-Electro-MH25R" m="Electro MH25R"/>
     <F n="Eliminator-Lighting-Follow-Spot-100-LED" m="Follow Spot 100 LED"/>
     <F n="Eliminator-Lighting-LP-12-HEX" m="LP 12 HEX"/>
+    <F n="Eliminator-Lighting-MEGA-HEX-L-PAR" m="MEGA HEX L PAR"/>
     <F n="Eliminator-Lighting-Stealth-Beam" m="Stealth Beam"/>
     <F n="Eliminator-Lighting-Stealth-Wash-Zoom" m="Stealth Wash Zoom"/>
   </M>
@@ -787,6 +789,7 @@
     <F n="Equinox-Ultra-Scan-LED" m="Ultra Scan LED"/>
   </M>
   <M n="ETC">
+    <F n="ETC-ColorSource-Fresnel-V" m="ColorSource Fresnel V"/>
     <F n="ETC-ColorSource-PAR" m="ColorSource PAR"/>
     <F n="ETC-ColorSource-Spot" m="ColorSource Spot"/>
     <F n="ETC-Desire-D22-Lustr+" m="Desire D22 Lustr+"/>
@@ -1177,6 +1180,7 @@
     <F n="Laserworld-RS400G" m="RS400G"/>
   </M>
   <M n="LDDE">
+    <F n="LDDE-NanoPix-Cyc" m="NanoPix Cyc"/>
     <F n="LDDE-SpectraConnecT5" m="SpectraConnecT5"/>
   </M>
   <M n="Ledj">
@@ -1867,6 +1871,7 @@
     <F n="UKing-Mini-RGBW-Moving-Head" m="Mini RGBW Moving Head"/>
     <F n="UKing-Par-36" m="Par 36"/>
     <F n="UKing-Wall-Washer-24x3W" m="Wall Washer 24x3W"/>
+    <F n="UKing-ZQ01137-18x-RGB+UV-PAR" m="ZQ01137 18x RGB+UV PAR"/>
     <F n="UKing-ZQ01495-200W-Three-in-one-Four-eye-COB-Lamp" m="ZQ01495 200W Three-in-one Four-eye COB Lamp"/>
     <F n="UKing-ZQ01513-100WCOB-Cast-Aluminum-Park-Light" m="ZQ01513 100WCOB Cast Aluminum Park Light"/>
     <F n="UKing-ZQ02021-Beam-Pro" m="ZQ02021 Beam Pro"/>
