@@ -80,6 +80,7 @@ Rectangle
         previousDegrees = currentDegrees
 
         beamSpinBox.value = currentDegrees * Math.pow(10, beamSpinBox.decimals)
+        paletteBox.updateValue(currentDegrees)
         contextManager.setBeamDegrees(val, relativeValue)
         calculateProjection()
         gCanvas.requestPaint()
@@ -108,6 +109,23 @@ Rectangle
         projectedDiameter = radius * 2.0
     }
 
+    function loadPalette(pId)
+    {
+        var palette = paletteManager.getPalette(pId)
+        if (palette)
+        {
+            dragTopBar.visible = false
+            paletteToolbar.visible = true
+            paletteToolbar.text = palette.name
+            paletteBox.editPalette(palette)
+            setZoomRange(1, 120, false)
+            console.log("Zoom value: " + palette.floatValue1)
+            currentDegrees = palette.floatValue1
+            beamSpinBox.value = palette.floatValue1 * Math.pow(10, beamSpinBox.decimals)
+            calculateProjection()
+        }
+    }
+
     MouseArea
     {
         anchors.fill: parent
@@ -116,7 +134,7 @@ Rectangle
 
     Rectangle
     {
-        id: toolbar
+        id: dragTopBar
         width: parent.width
         height: UISettings.listItemHeight
         z: 10
@@ -154,13 +172,21 @@ Rectangle
         }
     }
 
+    EditorTopBar
+    {
+        id: paletteToolbar
+        visible: false
+        onBackClicked: toolRoot.parent.dismiss()
+        onTextChanged: paletteBox.setName(text)
+    }
+
     Canvas
     {
         id: gCanvas
         width: toolRoot.width - 20
         height: UISettings.bigItemHeight * 1.2
         x: 10
-        y: toolbar.height + 5
+        y: dragTopBar.height + 5
         rotation: 0
         antialiasing: true
         contextType: "2d"
@@ -212,7 +238,11 @@ Rectangle
         height: UISettings.iconSizeDefault
         columns: 2
 
-        RobotoText { label: qsTr("Beam degrees") }
+        RobotoText
+        {
+            height: UISettings.listItemHeight
+            label: qsTr("Beam degrees")
+        }
 
         CustomDoubleSpinBox
         {
@@ -221,7 +251,11 @@ Rectangle
             realTo: maxDegrees
         }
 
-        RobotoText { label: qsTr("Distance") }
+        RobotoText
+        {
+            height: UISettings.listItemHeight
+            label: qsTr("Distance")
+        }
 
         CustomDoubleSpinBox
         {
@@ -238,13 +272,26 @@ Rectangle
             }
         }
 
-        RobotoText { label: qsTr("Projected diameter") }
+        RobotoText
+        {
+            height: UISettings.listItemHeight
+            label: qsTr("Projected diameter")
+        }
 
         RobotoText
         {
+            height: UISettings.listItemHeight
             label: relativeValue ? qsTr("N/A") : Number(toolRoot.projectedDiameter).toFixed(2) + "m"
             fontBold: true
             //labelColor: UISettings.highlight
+        }
+
+        PaletteFanningBox
+        {
+            id: paletteBox
+            Layout.fillWidth: true
+            Layout.columnSpan: 2
+            paletteType: QLCPalette.Zoom
         }
     }
 }

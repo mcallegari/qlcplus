@@ -277,6 +277,9 @@ Rectangle
                                 case QLCPalette.PanTilt:
                                     toolLoader.source = "qrc:/PositionTool.qml"
                                 break
+                                case QLCPalette.Zoom:
+                                    toolLoader.source = "qrc:/BeamTool.qml"
+                                break
                             }
                         }
 

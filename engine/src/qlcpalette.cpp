@@ -99,6 +99,7 @@ QString QLCPalette::typeToString(QLCPalette::PaletteType type)
         case PanTilt:   return "PanTilt";
         case Shutter:   return "Shutter";
         case Gobo:      return "Gobo";
+        case Zoom:      return "Zoom";
         case Undefined: return "";
     }
 
@@ -121,6 +122,8 @@ QLCPalette::PaletteType QLCPalette::stringToType(const QString &str)
         return Shutter;
     else if (str == "Gobo")
         return Gobo;
+    else if (str == "Zoom")
+        return Zoom;
 
     return Undefined;
 }
@@ -139,6 +142,7 @@ QString QLCPalette::iconResource(bool svg) const
         case PanTilt: return QString("%1:/position.%2").arg(prefix).arg(ext);
         case Shutter: return QString("%1:/shutter.%2").arg(prefix).arg(ext);
         case Gobo: return QString("%1:/gobo.%2").arg(prefix).arg(ext);
+        case Zoom: return QString("%1:/beam.%2").arg(prefix).arg(ext);
         default: return "";
     }
 }
@@ -179,6 +183,14 @@ int QLCPalette::intValue2() const
         return -1;
 
     return m_values.at(1).toInt();
+}
+
+float QLCPalette::floatValue1() const
+{
+    if (m_values.isEmpty())
+        return -1;
+
+    return m_values.at(0).toFloat();
 }
 
 QString QLCPalette::strValue1() const
@@ -384,6 +396,23 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
                 quint32 goboCh = fixture->channelNumber(QLCChannel::Gobo, QLCChannel::MSB);
                 if (goboCh != QLCChannel::invalid())
                     list << SceneValue(id, goboCh, uchar(value().toUInt()));
+            }
+            break;
+            case Zoom:
+            {
+                for (int i = 0; i < int(fixture->channels()); i++)
+                {
+                    const QLCChannel *ch = fixture->channel(quint32(i));
+                    if (ch == nullptr)
+                        continue;
+
+                    if (ch->group() == QLCChannel::Beam &&
+                        (ch->preset() == QLCChannel::BeamZoomSmallBig || ch->preset() == QLCChannel::BeamZoomBigSmall))
+                    {
+                        list << SceneValue(id, i, uchar(value().toUInt()));
+                        break;
+                    }
+                }
             }
             break;
             case Undefined:
@@ -696,6 +725,9 @@ bool QLCPalette::loadXML(QXmlStreamReader &doc)
                     setValue(posList.at(0).toInt(), posList.at(1).toInt());
             }
             break;
+            case Zoom:
+                setValue(strVal.toFloat());
+            break;
             case Shutter:   break;
             case Gobo:      break;
             case Undefined: break;
@@ -721,6 +753,7 @@ bool QLCPalette::loadXML(QXmlStreamReader &doc)
                 case Pan:
                 case Tilt:
                 case PanTilt:
+                case Zoom:
                     setFanningValue(strVal.toInt());
                 break;
                 case Color:
@@ -758,6 +791,7 @@ bool QLCPalette::saveXML(QXmlStreamWriter *doc)
         case Dimmer:
         case Pan:
         case Tilt:
+        case Zoom:
         case Color:
             doc->writeAttribute(KXMLQLCPaletteValue, value().toString());
         break;
