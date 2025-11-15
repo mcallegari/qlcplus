@@ -396,6 +396,7 @@
     <F n="Cameo-Multi-PAR-1" m="Multi Par 1"/>
     <F n="Cameo-Multi-PAR-3" m="Multi Par 3"/>
     <F n="Cameo-NanoBeam-300" m="NanoBeam 300"/>
+    <F n="Cameo-Octafly-XS" m="Octafly XS"/>
     <F n="Cameo-P2-FC" m="P2 FC"/>
     <F n="Cameo-P2-T" m="P2 T"/>
     <F n="Cameo-Pixbar-600-PRO" m="Pixbar 600 PRO"/>
@@ -664,6 +665,7 @@
     <F n="Color-Imagination-LedSpot-90-SI-052" m="LedSpot 90 (SI-052)"/>
   </M>
   <M n="ColorKey">
+    <F n="ColorKey-Scorpius" m="Scorpius"/>
     <F n="ColorKey-WaferPar-Quad-W-12-v2" m="WaferPar Quad-W 12"/>
   </M>
   <M n="Contest">
@@ -1204,6 +1206,7 @@
     <F n="lightmaXX-5ive-STAR-LED" m="5ive STAR LED"/>
     <F n="lightmaXX-COMPLETE-PAR-56-9x12-W-RGBAW-UV" m="Complete PAR 56 9x12W RGBAW-UV"/>
     <F n="lightmaXX-EASY-Wash-5IVE-LED" m="EASY Wash 5IVE LED"/>
+    <F n="lightmaXX-LED-Gun" m="LED Gun"/>
     <F n="lightmaXX-LED-MEGA-PAR-64-RGBW-18x8-W" m="LED MEGA PAR 64 RGBW 18x8 W"/>
     <F n="lightmaXX-LED-PAR-64" m="LED PAR 64"/>
     <F n="lightmaXX-Platinum-CLS-1" m="Platinum CLS-1"/>
@@ -1912,6 +1915,7 @@
     <F n="Varytec-Hero-Wash-712-Z-RGBW-Zoom" m="Hero Wash 712 Z RGBW Zoom"/>
     <F n="Varytec-Hero-Wash-715-HEX-LED" m="Hero Wash 715 HEX LED"/>
     <F n="Varytec-LED-BAR-240-8-CW-WW" m="LED Bar 240/8 CW/WW"/>
+    <F n="Varytec-LED-Derby-ST" m="LED Derby ST"/>
     <F n="Varytec-LED-Easy-Move-Mini-Beam-Wash-RGBW" m="LED Easy Move Mini Beam + Wash RGBW"/>
     <F n="Varytec-LED-Giga-bar-4-MKII" m="LED Giga Bar 4 MKII"/>
     <F n="Varytec-LED-Hellball-3" m="LED Hellball 3"/>

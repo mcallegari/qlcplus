@@ -610,6 +610,24 @@ def validate_fx_channels(absname, xmlObj, errNum, colorRgb):
             else:
                 groupByte = group_tag.attrib['Byte']
 
+        # Extra semantic hints to align with PHP validator
+        #lname = chName.lower()
+        #if group_tag is not None and group_tag.text and qlc_version >= 41207:
+        #    # strobe -> Shutter
+        #    if 'strobe' in lname and '/' not in lname and group_tag.text != 'Shutter':
+        #        print(absname + ":" + chName + ": group should be set to 'Shutter'")
+        #        errNum += 1
+        #    # speed -> Speed
+        #    if 'speed' in lname and '/' not in lname and group_tag.text != 'Speed':
+        #        print(absname + ":" + chName + ": group should be set to 'Speed'")
+        #        errNum += 1
+        # color channel names shouldn't use group 'Colour'
+        #def _is_color(n):
+        #    return any(c in n for c in ['red','green','blue','cyan','magenta','yellow','amber','white','uv','lime','indigo'])
+        #if _is_color(lname) and group_tag.text == 'Colour':
+        #    print(absname + ":" + chName + ": group should be 'Intensity' with proper Color")
+        #    errNum += 1
+
         if chPreset:
             if chPreset == "PositionPan" or chPreset == "PositionPanFine" or chPreset == "PositionXAxis":
                 hasPan = True
