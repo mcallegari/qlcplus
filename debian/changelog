@@ -15,10 +15,12 @@ qlcplus (4.14.4) stable; urgency=low
   * New fixtures: lightmaXX LED Gun, Cameo Octafly XS (thanks to Arnaud)
   * New fixture: ColorKey Scorpius (thanks to David Himes)
   * New fixture: Varytec LED Derby ST (thanks to Valentin Simson)
-  * New fixtures: ETC ColorSource Fresnel V, LDDE NanoPix Cyc (thanks to Edgar Aichinger)
-  * New fixture: ACME Ginamp (thanks to Michael Tosatto)
+  * New fixtures: ETC ColorSource Fresnel V, LDDE NanoPix Cyc, LDDE Spectra MasterD 1000 (thanks to Edgar Aichinger)
+  * New fixtures: ACME Ginamp, Astera Titan Tube FP1 (thanks to Michael Tosatto)
   * New fixture: UKing ZQ01137 18x RGB+UV PAR (thanks to Adrienne Teicher)
   * New fixture: Eliminator Lighting MEGA HEX L PAR (thanks to Jan Willem)
+  * New fixture: Stairville LED Vintage Bowl 50 RGBA (thanks to Jean-Daniel Garcia)
+  * New fixture: beamZ Blaze 1200 (thanks to Fede79)
 
 -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 4 Jan 2026 18:19:20 +0200
 

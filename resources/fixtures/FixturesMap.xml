@@ -204,6 +204,7 @@
   </M>
   <M n="Astera">
     <F n="Astera-AX3-Lightdrop" m="AX3 Lightdrop"/>
+    <F n="Astera-Titan-Tube-FP1" m="Titan Tube FP1"/>
   </M>
   <M n="Audibax">
     <F n="Audibax-Iowa-70" m="Iowa 70"/>
@@ -247,6 +248,7 @@
     <F n="beamZ-BAC503" m="BAC503"/>
     <F n="beamZ-BAC506" m="BAC506"/>
     <F n="beamZ-BBP96-Uplight-PAR" m="BBP96 Uplight PAR"/>
+    <F n="beamZ-Blaze-1200" m="Blaze 1200"/>
     <F n="beamZ-BT270-LED-FlatPAR" m="BT270 LED FlatPAR"/>
     <F n="beamZ-BT310-LED-FlatPAR" m="BT310 LED FlatPAR 12x8W 4-1 DMX IR"/>
     <F n="beamZ-BT430" m="BT430 PAR"/>
@@ -1181,6 +1183,7 @@
   </M>
   <M n="LDDE">
     <F n="LDDE-NanoPix-Cyc" m="NanoPix Cyc"/>
+    <F n="LDDE-Spectra-MasterD-1000" m="Spectra MasterD 1000"/>
     <F n="LDDE-SpectraConnecT5" m="SpectraConnecT5"/>
   </M>
   <M n="Ledj">
@@ -1763,6 +1766,7 @@
     <F n="Stairville-LED-PAR64-MKII-RGBW" m="LED PAR64 MKII RGBW"/>
     <F n="Stairville-LED-PAR64" m="LED PAR64"/>
     <F n="Stairville-LED-Show-Bar-Tri-18x3W-RGB" m="Show Bar Tri 18x3W RGB"/>
+    <F n="Stairville-LED-Vintage-Bowl-50-RGBA" m="LED Vintage Bowl 50 RGBA"/>
     <F n="Stairville-M-Fog-1000-DMX" m="M-Fog 1000 DMX"/>
     <F n="Stairville-Matrixx-FL-110-DMX" m="Matrixx FL-110 DMX"/>
     <F n="Stairville-maTrixx-SC-100" m="maTrixx SC-100"/>
