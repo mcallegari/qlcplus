@@ -408,7 +408,7 @@ void VCButton::adjustFunctionIntensity(Function *f, qreal value)
     VCWidget::adjustFunctionIntensity(f, finalValue);
 }
 
-void VCButton::notifyFunctionStarting(quint32 fid, qreal intensity)
+void VCButton::notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored)
 {
     Q_UNUSED(intensity);
 
@@ -418,10 +418,13 @@ void VCButton::notifyFunctionStarting(quint32 fid, qreal intensity)
     if (fid == m_function || m_function == Function::invalidId())
         return;
 
-    // stop the controlled Function only if actively started
-    // by this Button or if monitoring the startup Function
-    if (m_state != Active && m_function != m_doc->startupFunction())
-        return;
+    if (excludeMonitored)
+    {
+        // stop the controlled Function only if actively started
+        // by this Button or if monitoring the startup Function
+        if (m_state != Active && m_function != m_doc->startupFunction())
+            return;
+    }
 
     if (action() == VCButton::Toggle)
     {

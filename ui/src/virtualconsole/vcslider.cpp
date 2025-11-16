@@ -1008,8 +1008,10 @@ uchar VCSlider::playbackValue() const
     return m_playbackValue;
 }
 
-void VCSlider::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
+void VCSlider::notifyFunctionStarting(quint32 fid, qreal functionIntensity, bool excludeMonitored)
 {
+    Q_UNUSED(excludeMonitored)
+
     if (mode() == Doc::Design || sliderMode() != Playback)
         return;
 

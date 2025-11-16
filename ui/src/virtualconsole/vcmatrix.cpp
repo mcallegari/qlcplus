@@ -630,8 +630,10 @@ quint32 VCMatrix::function() const
     return m_matrixID;
 }
 
-void VCMatrix::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
+void VCMatrix::notifyFunctionStarting(quint32 fid, qreal functionIntensity, bool excludeMonitored)
 {
+    Q_UNUSED(excludeMonitored)
+
     if (mode() == Doc::Design)
         return;
 

@@ -192,7 +192,7 @@ public:
     quint32 function() const;
 
     /** @reimp */
-    virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
+    virtual void notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored);
 
 private slots:
     /** Update slider when function stops. */

@@ -60,7 +60,7 @@ public:
     void enableWidgetUI(bool enable);
 
     /** @reimp */
-    virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
+    virtual void notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored);
 
     /*********************************************************************
      * GUI

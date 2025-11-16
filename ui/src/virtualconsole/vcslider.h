@@ -392,7 +392,7 @@ public:
     void setPlaybackValue(uchar value);
 
     /** @reimp */
-    virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
+    virtual void notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored);
 
     /** Get/Set the status of the flash button enablement */
     bool playbackFlashEnable() const;

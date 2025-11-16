@@ -4,6 +4,7 @@ qlcplus (4.14.4) stable; urgency=low
   * engine: fix crash when loading fixture definitions without modes
   * DMX monitor: apply gel color immediately (thanks to jpue)
   * Virtual Console/Clock: countdown mode can now run a list of Functions
+  * Virtual Console/Solo Frame: add an option to exclude functions monitored by buttons to be stopped
   * Fixture Editor: in mode editor, don't allow a channel to act on itself (thanks to Edgar Aichinger)
   * New fixture: beamZ COB 50 (thanks to Yestalgia)
   * New fixture: OXO ColorZoom 180 (thanks to David Garyga)

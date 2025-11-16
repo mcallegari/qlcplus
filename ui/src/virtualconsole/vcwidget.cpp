@@ -507,6 +507,13 @@ bool VCWidget::allowResize() const
     return m_allowResize;
 }
 
+void VCWidget::notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored)
+{
+    Q_UNUSED(fid)
+    Q_UNUSED(intensity)
+    Q_UNUSED(excludeMonitored)
+}
+
 /*****************************************************************************
  * Properties
  *****************************************************************************/

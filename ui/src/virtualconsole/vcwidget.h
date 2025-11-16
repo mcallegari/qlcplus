@@ -349,8 +349,7 @@ public:
      *  can benefit from this.
      *  Basically when placed in a Solo frame, with this method it is
      *  possible to stop the currently running Function */
-    virtual void notifyFunctionStarting(quint32 fid, qreal intensity)
-    { Q_UNUSED(fid); Q_UNUSED(intensity); }
+    virtual void notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored);
 
     virtual void adjustFunctionIntensity(Function *f, qreal value);
 

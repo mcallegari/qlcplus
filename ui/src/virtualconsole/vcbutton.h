@@ -193,7 +193,7 @@ public:
     void adjustFunctionIntensity(Function *f, qreal value);
 
     /** @reimp */
-    virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
+    virtual void notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored);
 
 protected slots:
     /** Invalidates the button's function if the function is destroyed */

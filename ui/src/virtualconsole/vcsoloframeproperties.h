@@ -45,7 +45,8 @@ protected:
 protected:
     VCSoloFrame *m_soloframe;
 
-    QCheckBox* m_soloframeMixingCb;
+    QCheckBox *m_sliderMixingCheckBox;
+    QCheckBox *m_excludeMonitoredCheckBox;
 
 public slots:
     void accept();

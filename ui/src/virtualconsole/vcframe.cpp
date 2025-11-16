@@ -1081,12 +1081,19 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             else
                 setEnableButtonVisible(false);
         }
-        else if (root.name() == KXMLQLCVCSoloFrameMixing && this->type() == SoloFrameWidget)
+        else if (this->type() == SoloFrameWidget && root.name() == KXMLQLCVCSoloFrameMixing)
         {
             if (root.readElementText() == KXMLQLCTrue)
                 reinterpret_cast<VCSoloFrame*>(this)->setSoloframeMixing(true);
             else
                 reinterpret_cast<VCSoloFrame*>(this)->setSoloframeMixing(false);
+        }
+        else if (this->type() == SoloFrameWidget && root.name() == KXMLQLCVCSoloFrameExclude)
+        {
+            if (root.readElementText() == KXMLQLCTrue)
+                reinterpret_cast<VCSoloFrame*>(this)->setExcludeMonitoredFunctions(true);
+            else
+                reinterpret_cast<VCSoloFrame*>(this)->setExcludeMonitoredFunctions(false);
         }
         else if (root.name() == KXMLQLCVCFrameMultipage)
         {
@@ -1336,10 +1343,14 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
         /* Solo frame mixing */
         if (this->type() == SoloFrameWidget)
         {
-            if (reinterpret_cast<VCSoloFrame*>(this)->soloframeMixing())
+            VCSoloFrame *solo = reinterpret_cast<VCSoloFrame*>(this);
+            if (solo->soloframeMixing())
                 doc->writeTextElement(KXMLQLCVCSoloFrameMixing, KXMLQLCTrue);
             else
                 doc->writeTextElement(KXMLQLCVCSoloFrameMixing, KXMLQLCFalse);
+
+            if (solo->excludeMonitoredFunctions())
+                doc->writeTextElement(KXMLQLCVCSoloFrameExclude, KXMLQLCTrue);
         }
 
         /* Collapsed */

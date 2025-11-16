@@ -165,11 +165,13 @@ void VCAudioTriggers::enableWidgetUI(bool enable)
     m_volumeSlider->setEnabled(enable);
 }
 
-void VCAudioTriggers::notifyFunctionStarting(quint32 fid, qreal intensity)
+void VCAudioTriggers::notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored)
 {
     // Stop on any other function started
-    Q_UNUSED(fid);
-    Q_UNUSED(intensity);
+    Q_UNUSED(fid)
+    Q_UNUSED(intensity)
+    Q_UNUSED(excludeMonitored)
+
     if (m_button->isChecked() == true)
         enableCapture(false);
 }

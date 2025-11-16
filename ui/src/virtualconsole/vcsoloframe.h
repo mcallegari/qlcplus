@@ -33,8 +33,9 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCSoloFrame       QStringLiteral("SoloFrame")
-#define KXMLQLCVCSoloFrameMixing QStringLiteral("Mixing")
+#define KXMLQLCVCSoloFrame          QStringLiteral("SoloFrame")
+#define KXMLQLCVCSoloFrameMixing    QStringLiteral("Mixing")
+#define KXMLQLCVCSoloFrameExclude   QStringLiteral("ExcludeMonitored")
 
 class VCSoloFrame : public VCFrame
 {
@@ -87,14 +88,22 @@ protected slots:
     /*****************************************************************************
      * Properties
      *****************************************************************************/
+public:
+    bool soloframeMixing() const;
+    void setSoloframeMixing(bool soloframeMixing);
+
+    /** Get/Set a behaviour to prevent stopping Functions controlled
+     *  by VC Buttons even if they are monitored */
+    bool excludeMonitoredFunctions() const;
+    void setExcludeMonitoredFunctions(bool exclude);
+
 protected:
     /** @reimp */
     virtual void editProperties();
 
+protected:
     bool m_soloframeMixing;
-public:
-    bool soloframeMixing() const;
-    void setSoloframeMixing(bool soloframeMixing);
+    bool m_excludeMonitored;
 
     /*************************************************************************
      * Load & Save

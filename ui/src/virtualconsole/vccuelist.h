@@ -158,7 +158,7 @@ private:
 
 public:
     /** @reimp */
-    virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
+    virtual void notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored);
 
 private:
     /** Update the list of steps */
