@@ -236,7 +236,7 @@ Rectangle
                                         drag.target: mcDragItem
                                         drag.threshold: height / 2
 
-                                        onPressed:
+                                        onPressed: (mouse) =>
                                         {
                                             var posnInWindow = mcDelegate.mapToItem(channelList, mcDelegate.x, mcDelegate.y)
                                             mcDragItem.parent = channelList
