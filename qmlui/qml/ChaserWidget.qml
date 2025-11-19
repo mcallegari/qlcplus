@@ -588,7 +588,7 @@ Column
             }
             onPositionChanged: (drag) =>
             {
-                var idx = cStepsList.indexAt(drag.x, drag.y)
+                var idx = cStepsList.indexAt(drag.x, drag.y + cStepsList.contentY)
                 var item = cStepsList.itemAt(drag.x, drag.y)
                 var itemY = item.mapToItem(cStepsList, 0, 0).y
                 //console.log("Item index:" + idx)
