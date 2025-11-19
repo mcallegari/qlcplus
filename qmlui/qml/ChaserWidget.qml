@@ -442,7 +442,7 @@ Column
 
                 property alias itemDelegate: csDelegate
 
-                Keys.onPressed:
+                Keys.onPressed: (event) =>
                 {
                     if (event.key === Qt.Key_Return ||
                         event.key === Qt.Key_Enter)
@@ -474,7 +474,7 @@ Column
                         if (model.isSelected)
                             return
 
-                        ceSelector.selectItem(index, cStepsList.model, mouse.modifiers & Qt.ControlModifier)
+                        ceSelector.selectItem(index, cStepsList.model, mouse.modifiers)
                         if (mouse.modifiers === 0)
                         {
                             widgetRoot.indexChanged(index)
