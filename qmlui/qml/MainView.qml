@@ -71,7 +71,9 @@ Rectangle
         if (enableContext(ctx, true) === true)
         {
             currentContext = ctx
-            mainToolbar.visible = true
+            // show toolbar only if not in kiosk mode
+            if (qlcplus.accessMask !== App.AC_VCControl)
+                mainToolbar.visible = true
         }
         else
         {
@@ -124,7 +126,7 @@ Rectangle
     Rectangle
     {
         id: mainToolbar
-        visible: qlcplus.accessMask !== App.AC_VCControl
+        visible: qlcplus.accessMask & App.AC_VCControl ? false : true // this is kiosk mode
         width: parent.width
         height: UISettings.iconSizeDefault
         z: 50
@@ -169,13 +171,14 @@ Rectangle
                 Layout.alignment: Qt.AlignTop
                 property string ctxRes: "qrc:/FixturesAndFunctions.qml"
 
+                //visible: qlcplus.accessMask & App.AC_FunctionEditing
                 imgSource: "qrc:/editor.svg"
                 entryText: qsTr("Fixtures & Functions")
                 checked: false
                 ButtonGroup.group: menuBarGroup
                 onCheckedChanged:
                 {
-                    if (checked == true)
+                    if (checked === true)
                         switchToContext(fnfEntry.ctxName, fnfEntry.ctxRes)
                 }
             }
@@ -192,7 +195,7 @@ Rectangle
                 ButtonGroup.group: menuBarGroup
                 onCheckedChanged:
                 {
-                    if (checked == true)
+                    if (checked === true)
                         switchToContext(vcEntry.ctxName, vcEntry.ctxRes)
                 }
                 onRightClicked:
@@ -214,7 +217,7 @@ Rectangle
                 ButtonGroup.group: menuBarGroup
                 onCheckedChanged:
                 {
-                    if (checked == true)
+                    if (checked === true)
                         switchToContext(sdEntry.ctxName, sdEntry.ctxRes)
                 }
                 onRightClicked:
@@ -236,7 +239,7 @@ Rectangle
                 ButtonGroup.group: menuBarGroup
                 onCheckedChanged:
                 {
-                    if (checked == true)
+                    if (checked === true)
                         switchToContext(smEntry.ctxName, smEntry.ctxRes)
                 }
                 onRightClicked:
@@ -258,7 +261,7 @@ Rectangle
                 ButtonGroup.group: menuBarGroup
                 onCheckedChanged:
                 {
-                    if (checked == true)
+                    if (checked === true)
                         switchToContext(ioEntry.ctxName, ioEntry.ctxRes)
                 }
                 onRightClicked:
