@@ -83,10 +83,7 @@ QString VCSpeedDial::defaultCaption()
 void VCSpeedDial::setupLookAndFeel(qreal pixelDensity, int page)
 {
     setPage(page);
-    QFont wFont = font();
-    wFont.setBold(true);
-    wFont.setPointSize(pixelDensity * 5.0);
-    setFont(wFont);
+    setDefaultFontSize(pixelDensity * 4);
 }
 
 void VCSpeedDial::render(QQuickView *view, QQuickItem *parent)

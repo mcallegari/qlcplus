@@ -115,7 +115,22 @@ VCWidgetItem
 
         columns: tapButton.visible ? 6 : 4
 
-        // row 1
+        // row 1 widget name text box
+        Text
+        {
+            id: sliderText
+            visible: (speedObj && speedObj.caption.length) ? true : false
+            Layout.columnSpan: itemsLayout.columns
+            Layout.fillWidth: true
+            height: UISettings.listItemHeight
+            font: speedObj ? speedObj.font : ""
+            text: speedObj ? speedObj.caption : ""
+            color: speedObj ? speedObj.foregroundColor : "white"
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
+
+        // row 2
         QLCPlusKnob
         {
             property int lastValue: 0
@@ -269,7 +284,7 @@ VCWidgetItem
             suffix: "ms"
         }
 
-        // row 2
+        // row 3
         Rectangle
         {
             // TODO: X-Pad
@@ -280,7 +295,7 @@ VCWidgetItem
             height: UISettings.iconSizeMedium
         }
 
-        // row 3
+        // row 4
         GenericButton
         {
             Layout.fillWidth: true
@@ -337,7 +352,7 @@ VCWidgetItem
             }
         }
 
-        // row 4
+        // row 5
         GenericButton
         {
             Layout.fillWidth: true
