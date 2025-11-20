@@ -93,6 +93,7 @@ Rectangle
                         {
                             channelToolLoader.loadChannelTool(item, fixtureID, chIndex, value)
                         }
+                    onCloseTool: channelToolLoader.visible = false
                 }
                 // Fixture divider
                 Rectangle

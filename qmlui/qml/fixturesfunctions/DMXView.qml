@@ -76,6 +76,11 @@ Rectangle
                 channelToolLoader.loadChannelTool(item, fixtureID, chIndex, value)
             }
 
+            function closeTool()
+            {
+                channelToolLoader.visible = false
+            }
+
             function itemWidthChanged(width)
             {
                 if (fixtureDMXView.contentWidth < width)

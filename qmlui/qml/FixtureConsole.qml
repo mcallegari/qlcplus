@@ -55,6 +55,7 @@ Rectangle
     signal sizeChanged(var w, var h)
     signal valueChanged(var fixtureID, var chIndex, var value)
     signal requestTool(var item, var fixtureID, var chIndex, var value)
+    signal closeTool()
 
     onValuesChanged:
     {
@@ -251,11 +252,16 @@ Rectangle
                                 border.width: 0
                                 tooltip: fixtureObj ? fixtureManager.channelName(fixtureObj.id, index) : ""
                                 imgSource: fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, index) : ""
+                                focusPolicy: Qt.ClickFocus
 
                                 onClicked:
                                 {
                                     if (fixtureObj)
                                         consoleRoot.requestTool(chColumn, fixtureObj.id, index, dmxValue)
+                                }
+                                Keys.onPressed: (event) => {
+                                    if (event.key === Qt.Key_Escape)
+                                        consoleRoot.closeTool()
                                 }
                             }
 
@@ -270,6 +276,7 @@ Rectangle
                                 to: 255
                                 value: dmxValue
                                 enabled: showEnablers ? isEnabled : true
+                                focusPolicy: Qt.NoFocus
                                 onMoved: dmxValue = valueAt(position)
 
                                 Component.onCompleted:

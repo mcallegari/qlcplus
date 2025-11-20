@@ -115,7 +115,7 @@ Rectangle
                 boxRoot.valueChanged(val)
             }
 
-            onPressed: calculateValue()
+            onPressed: (mouse) => calculateValue(mouse)
             onPositionChanged: (mouse) =>
             {
                 if (!pressed)
