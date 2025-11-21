@@ -33,7 +33,7 @@
 #define BEAT_DEFAULT_SAMPLE_RATE   44100
 #define BEAT_DEFAULT_WINDOW_SIZE   1024
 #define BEAT_DEFAULT_HOP_SIZE      512
-#define ONSET_WINDOW_LENGTH        512
+#define ONSET_WINDOW_SIZE          512
 #define RAILEIGH_TARGET_BPM        110
 
 class BeatTracking : public QObject
@@ -50,14 +50,14 @@ private:
     enum PredictionState{ACF, CONTINUITY};
 
     // beat tracking state
-    PredictionState currentPredictionState;
+    PredictionState m_currentPredictionState;
 
     // setup variables
     unsigned int m_channels;
     int m_sampleRate;
     int m_windowSize;
     int m_hopSize;
-    double targetLag;
+    int m_onsetWindowSize;
 
     float * currentFrame;
 
@@ -77,7 +77,7 @@ private:
     // methods
     QVector<double> calculateWindowWeights(int windowSize);
     QVector<double> calculateBiquadFilter(QList<double> values);
-    QVector<double> getGaussianWeighting(double tLag);
+    QVector<double> getGaussianWeighting(int length, double tLag);
     QVector<double> getRaileighFilterBank(int length, double tLag);
     QVector<double> getOnsetCorrelation(QList<double> onsetValues);
     int getPredictedAcfLag(QVector<double> oCorr);
@@ -86,28 +86,28 @@ private:
     double getQuadraticValue(int position, QVector<double> vector);
 
 
-    QVector<double> raileighFilterBank;
-    QVector<double> gaussianFilterBank;
+    QVector<double> m_raileighFilterBank;
+    QVector<double> m_gaussianFilterBank;
 
     // onset storage
-    QList<double> tOnsetValues;
-    QList<double> onsetValuesProcessed;
+    QList<double> m_tOnsetValues;
+    QList<double> m_onsetValuesProcessed;
     
     // consistency - Context dependent model
-    double lastDifference;
-    double lastLag;
-    int consistencyCount;
-    double continuityDerivation;
-    QList<double> lastLags;
+    double m_lastDifference;
+    double m_lastLag;
+    int m_consistencyCount;
+    double m_continuityDerivation;
+    QList<double> m_lastLags;
 
     // beat tracking
-    QList<double> beatPredictions;
-    int blockPosition;
+    QList<double> m_beatPredictions;
+    int m_blockPosition;
 
     // storing values
-    double identifiedLag;
-    double currentBPM;
-    double currentMs;
+    double m_identifiedLag;
+    double m_currentBPM;
+    double m_currentMs;
 
 };
 
