@@ -21,7 +21,6 @@
 #define BeatTracking_H
 
 #include <QObject>
-#include "samplerate.h"
 #ifdef HAS_FFTW3
 #include "fftw3.h"
 #endif
