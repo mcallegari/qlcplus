@@ -390,8 +390,8 @@ int BeatTracking::getPredictedAcfLag(QVector<double> roCorr)
     QVector<double> tps2(roCorr.size()/2);
     QVector<double> tps3(roCorr.size()/2);
     
-    double max2I, max3I = 0.0;
-    double max2, max3 = 0.0;
+    double max2I = 0.0, max3I = 0.0;
+    double max2 = 0.0, max3 = 0.0;
     for (int r=1; r < roCorr.size()/2 - 1; r++)
     {
         tps2[r] = roCorr[r] + 0.5*roCorr[2*r] + 0.25*roCorr[2*r-1] + 0.25*roCorr[2*r+1];
