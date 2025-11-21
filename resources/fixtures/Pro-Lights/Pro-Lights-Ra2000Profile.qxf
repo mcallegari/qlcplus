@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.1</Version>
+  <Author>Tolmino Muccitelli</Author>
+ </Creator>
+ <Manufacturer>Pro-Lights</Manufacturer>
+ <Model>Ra2000Profile</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterClose">No Function (shutter open)</Capability>
+  <Capability Min="11" Max="82" Preset="ShutterOpen">Shutter Effect slow to fast</Capability>
+  <Capability Min="83" Max="93" Preset="ShutterOpen">No Function (shutter open)</Capability>
+  <Capability Min="94" Max="163" Preset="PulseSlowToFast">Pulse-effect in sequences</Capability>
+  <Capability Min="164" Max="174" Preset="ShutterOpen">No Function (shutter open)</Capability>
+  <Capability Min="175" Max="244" Preset="StrobeFastToSlow">Random Strobe Effect: Slow to Fast</Capability>
+  <Capability Min="245" Max="255" Preset="ShutterOpen">No Function (shutter open)</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Red Led Dimmer" Preset="IntensityRed"/>
+ <Channel Name="Red Led Dimmer Fine" Preset="IntensityRedFine"/>
+ <Channel Name="Dimmer Speed Mode">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="51">Preset dimmer speed from display menu</Capability>
+  <Capability Min="52" Max="101">dimmer speed mode off</Capability>
+  <Capability Min="102" Max="152">dimmer speed mode 1 (fast speed)</Capability>
+  <Capability Min="153" Max="203">dimmer speed mode 2 (middle speed)</Capability>
+  <Capability Min="204" Max="255">dimmer speed mode 3 (slow speed)</Capability>
+ </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="CTO" Preset="ColorCTOMixer"/>
+ <Channel Name="Function">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4">Open</Capability>
+  <Capability Min="5" Max="9">Open + Color1</Capability>
+  <Capability Min="10" Max="13">Color1</Capability>
+  <Capability Min="14" Max="18">Color1+Color2</Capability>
+  <Capability Min="19" Max="22">Color2</Capability>
+  <Capability Min="23" Max="27">Color2+Color3</Capability>
+  <Capability Min="28" Max="31">Color3</Capability>
+  <Capability Min="32" Max="36">Color3+Color4</Capability>
+  <Capability Min="37" Max="40">Color4</Capability>
+  <Capability Min="41" Max="45">Color4+Color5</Capability>
+  <Capability Min="46" Max="49">Color5</Capability>
+  <Capability Min="50" Max="54">Color5+Color6</Capability>
+  <Capability Min="55" Max="58">Color6</Capability>
+  <Capability Min="59" Max="63">Color6+Open</Capability>
+  <Capability Min="64" Max="95">Stop to fast (forward spin)</Capability>
+  <Capability Min="96" Max="127">Fast to stop (Reverse spin)</Capability>
+  <Capability Min="128" Max="255">Positioning from 0-360 degrees (indexing)</Capability>
+ </Channel>
+ <Channel Name="Rotating Gobo wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="5">Open</Capability>
+  <Capability Min="6" Max="10">Position 1</Capability>
+  <Capability Min="11" Max="15">Position 2</Capability>
+  <Capability Min="16" Max="20">Position 3</Capability>
+  <Capability Min="21" Max="25">Position 4</Capability>
+  <Capability Min="26" Max="30">Position 5</Capability>
+  <Capability Min="31" Max="35">Position 6</Capability>
+  <Capability Min="36" Max="40">Position 7</Capability>
+  <Capability Min="41" Max="55">Position 1 (Position 1 Shake, from slow to fast)</Capability>
+  <Capability Min="56" Max="70">Position 2 (Position 2 Shake, from slow to fast)</Capability>
+  <Capability Min="71" Max="85">Position 3 (Position 3 Shake, from slow to fast)</Capability>
+  <Capability Min="86" Max="100">Position 4 (Position 4 Shake, from slow to fast)</Capability>
+  <Capability Min="101" Max="115">Position 5 (Position 5 Shake, from slow to fast)</Capability>
+  <Capability Min="116" Max="130">Position 6 (Position 6 Shake, from slow to fast)</Capability>
+  <Capability Min="131" Max="145">Position 7 (Position 7 Shake, from slow to fast)</Capability>
+  <Capability Min="146" Max="200">Stop to fastest (Forward Wheel Spin)</Capability>
+  <Capability Min="201" Max="255">Stop to fastest (Reverse Wheel Spin)</Capability>
+ </Channel>
+ <Channel Name="Rgobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="191">Positioning from 0-360 degrees (indexing)</Capability>
+  <Capability Min="192" Max="221">Slowest to fastest (forward spin)</Capability>
+  <Capability Min="222" Max="225">Stop</Capability>
+  <Capability Min="226" Max="255">Fastest to Slowest (reverse spin)</Capability>
+ </Channel>
+ <Channel Name="Rgobo Fine">
+  <Group Byte="1">Gobo</Group>
+  <Capability Min="0" Max="255">Rgobo Fine</Capability>
+ </Channel>
+ <Channel Name="Prism Rot">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="5">Open</Capability>
+  <Capability Min="6" Max="191">Insertion and Positioning from 0-360 (Index)</Capability>
+  <Capability Min="192" Max="223">Slowest to Fastest (forward spin)</Capability>
+  <Capability Min="224" Max="255">Fastest to Slowest (reverse spin)</Capability>
+ </Channel>
+ <Channel Name="Prism Rot Fine">
+  <Group Byte="1">Prism</Group>
+  <Capability Min="0" Max="255">Prism Rot Fine</Capability>
+ </Channel>
+ <Channel Name="Frost1">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="255">Frost1 0-&gt;100%</Capability>
+ </Channel>
+ <Channel Name="Frost2">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="255">Frost2 0-&gt;100%</Capability>
+ </Channel>
+ <Channel Name="Auto Focus">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="0">Auto Focus Off</Capability>
+  <Capability Min="1" Max="7">Hole 4 metres</Capability>
+  <Capability Min="8" Max="15">Hole 6 metres</Capability>
+  <Capability Min="16" Max="23">Hole 8 metres</Capability>
+  <Capability Min="24" Max="31">Hole 10 metres</Capability>
+  <Capability Min="32" Max="39">Hole 12 metres</Capability>
+  <Capability Min="40" Max="47">Hole 14 metres</Capability>
+  <Capability Min="48" Max="55">Hole 16 metres</Capability>
+  <Capability Min="56" Max="63">Hole 18 metres</Capability>
+  <Capability Min="64" Max="71">Rotating gobo wheel 4 meters</Capability>
+  <Capability Min="72" Max="79">Rotating gobo wheel 6 meters</Capability>
+  <Capability Min="80" Max="87">Rotating gobo wheel 8 meters</Capability>
+  <Capability Min="88" Max="95">Rotating gobo wheel 10 meters</Capability>
+  <Capability Min="96" Max="103">Rotating gobo wheel 12 meters</Capability>
+  <Capability Min="104" Max="111">Rotating gobo wheel 14 meters</Capability>
+  <Capability Min="112" Max="119">Rotating gobo wheel 16 meters</Capability>
+  <Capability Min="120" Max="127">Rotating gobo wheel 18 meters</Capability>
+  <Capability Min="128" Max="255">Reserved</Capability>
+ </Channel>
+ <Channel Name="Focus 8 bit" Preset="BeamFocusNearFar"/>
+ <Channel Name="Focus 16 bit" Preset="BeamFocusFine"/>
+ <Channel Name="Zoom 8 bit" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Zoom 16 bit" Preset="BeamZoomFine"/>
+ <Channel Name="Effect Weel">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">0-100%</Capability>
+ </Channel>
+ <Channel Name="Rot Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="3">Open / No Function</Capability>
+  <Capability Min="4" Max="127">Forward stop to fastest</Capability>
+  <Capability Min="128" Max="131">Stop</Capability>
+  <Capability Min="132" Max="255">Reverse stop to fastest</Capability>
+ </Channel>
+ <Channel Name="Iris">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="63">From large to small</Capability>
+  <Capability Min="64" Max="127">Open and close by arrive slow to fast (Effects)</Capability>
+  <Capability Min="128" Max="191">Open from slow to fast (Effects)</Capability>
+  <Capability Min="192" Max="255">Close from slow to fast (Effects)</Capability>
+ </Channel>
+ <Channel Name="Framing Shutter 1 Movement">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Movement from outward to inward</Capability>
+ </Channel>
+ <Channel Name="Framing shutter 1 Swivelling">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="127">Swivelling from -25 degrees towards 0 degrees</Capability>
+  <Capability Min="128" Max="128">0 degrees</Capability>
+  <Capability Min="129" Max="255">Swivelling from 0 degrees towards +25 degrees</Capability>
+ </Channel>
+ <Channel Name="Framing Shutter 2 Movement">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Movement from outward to inward</Capability>
+ </Channel>
+ <Channel Name="Framing shutter 2 Swivelling">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="127">Swivelling from -25 degrees towards 0 degrees</Capability>
+  <Capability Min="128" Max="128">0 degrees</Capability>
+  <Capability Min="129" Max="255">Swivelling from 0 degrees towards +25 degrees</Capability>
+ </Channel>
+ <Channel Name="Framing Shutter 3 Movement">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Movement from outward to inward</Capability>
+ </Channel>
+ <Channel Name="Framing shutter 3 Swivelling">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="127">Swivelling from -25 degrees towards 0 degrees</Capability>
+  <Capability Min="128" Max="128">0 degrees</Capability>
+  <Capability Min="129" Max="255">Swivelling from 0 degrees towards +25 degrees</Capability>
+ </Channel>
+ <Channel Name="Framing Shutter 4 Movement">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Movement from outward to inward</Capability>
+ </Channel>
+ <Channel Name="Framing shutter 4 Swivelling">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="127">Swivelling from -25 degrees towards 0 degrees</Capability>
+  <Capability Min="128" Max="128">0 degrees</Capability>
+  <Capability Min="129" Max="255">Swivelling from 0 degrees towards +25 degrees</Capability>
+ </Channel>
+ <Channel Name="Framing Shutter Rotation">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="127">Rotation from left to center</Capability>
+  <Capability Min="128" Max="128">Center</Capability>
+  <Capability Min="129" Max="255">Rotation from center to right</Capability>
+ </Channel>
+ <Channel Name="Shutter Macro">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3">No Function</Capability>
+  <Capability Min="4" Max="11">Macro 1</Capability>
+  <Capability Min="12" Max="18">Macro 2</Capability>
+  <Capability Min="19" Max="25">Macro 3</Capability>
+  <Capability Min="26" Max="32">Macro 4</Capability>
+  <Capability Min="33" Max="39">Macro 5</Capability>
+  <Capability Min="40" Max="47">Macro 6</Capability>
+  <Capability Min="48" Max="54">Macro 7</Capability>
+  <Capability Min="55" Max="61">Macro 8</Capability>
+  <Capability Min="62" Max="68">Macro 9</Capability>
+  <Capability Min="69" Max="75">Macro 10</Capability>
+  <Capability Min="76" Max="82">Macro 11</Capability>
+  <Capability Min="83" Max="90">Macro 12</Capability>
+  <Capability Min="91" Max="97">Macro 13</Capability>
+  <Capability Min="98" Max="104">Macro 14</Capability>
+  <Capability Min="105" Max="111">Macro 15</Capability>
+  <Capability Min="112" Max="118">Macro 16</Capability>
+  <Capability Min="119" Max="125">Macro 17</Capability>
+  <Capability Min="126" Max="133">Macro 18</Capability>
+  <Capability Min="134" Max="140">Macro 19</Capability>
+  <Capability Min="141" Max="147">Macro 20</Capability>
+  <Capability Min="148" Max="155">Macro 21</Capability>
+  <Capability Min="156" Max="161">Macro 22</Capability>
+  <Capability Min="162" Max="168">Macro 23</Capability>
+  <Capability Min="169" Max="176">Macro 24</Capability>
+  <Capability Min="177" Max="183">Macro 25</Capability>
+  <Capability Min="184" Max="190">Macro 26</Capability>
+  <Capability Min="191" Max="197">Macro 27</Capability>
+  <Capability Min="198" Max="204">Macro 28</Capability>
+  <Capability Min="205" Max="211">Macro 29</Capability>
+  <Capability Min="212" Max="219">Macro 30</Capability>
+  <Capability Min="220" Max="226">Macro 31</Capability>
+  <Capability Min="227" Max="233">Macro 32</Capability>
+  <Capability Min="234" Max="240">Macro 33</Capability>
+  <Capability Min="241" Max="247">Macro 34</Capability>
+  <Capability Min="248" Max="255">Macro 35</Capability>
+ </Channel>
+ <Channel Name="Shutter Macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Fan Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="1">No Function</Capability>
+  <Capability Min="2" Max="201">Linear fan speed 100 to 0%</Capability>
+  <Capability Min="202" Max="207">Auto mode</Capability>
+  <Capability Min="208" Max="213">Silent mode</Capability>
+  <Capability Min="214" Max="219">Studio mode</Capability>
+  <Capability Min="220" Max="225">Performance mode</Capability>
+  <Capability Min="226" Max="231">Follow output / a kind of auto mode</Capability>
+  <Capability Min="232" Max="255">TBD (No function)</Capability>
+ </Channel>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="8" Max="15">Reset All</Capability>
+  <Capability Min="16" Max="23">Pan &amp; Tilt Reset</Capability>
+  <Capability Min="24" Max="31">Effects Reset</Capability>
+  <Capability Min="32" Max="39">Gobo Reset</Capability>
+  <Capability Min="40" Max="47">Shutter Reset</Capability>
+  <Capability Min="48" Max="55">Other Reset</Capability>
+  <Capability Min="56" Max="63">Color Reset</Capability>
+  <Capability Min="64" Max="71">Motor fast mode</Capability>
+  <Capability Min="72" Max="79">Red led off</Capability>
+  <Capability Min="80" Max="87">Red led on</Capability>
+  <Capability Min="88" Max="95">Red led auto</Capability>
+  <Capability Min="96" Max="103">Amber shift off</Capability>
+  <Capability Min="104" Max="111">Amber shift on</Capability>
+  <Capability Min="112" Max="255">TBD (no function)</Capability>
+ </Channel>
+ <Mode Name="38 Ch">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Shutter</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Dimmer fine</Channel>
+  <Channel Number="8">Dimmer Speed Mode</Channel>
+  <Channel Number="9">Cyan</Channel>
+  <Channel Number="10">Magenta</Channel>
+  <Channel Number="11">Yellow</Channel>
+  <Channel Number="12">CTO</Channel>
+  <Channel Number="13">Function</Channel>
+  <Channel Number="14">Rotating Gobo wheel</Channel>
+  <Channel Number="15">Rgobo</Channel>
+  <Channel Number="16">Prism Rot</Channel>
+  <Channel Number="17">Frost1</Channel>
+  <Channel Number="18">Frost2</Channel>
+  <Channel Number="19">Focus 8 bit</Channel>
+  <Channel Number="20">Focus 16 bit</Channel>
+  <Channel Number="21">Zoom 8 bit</Channel>
+  <Channel Number="22">Zoom 16 bit</Channel>
+  <Channel Number="23">Effect Weel</Channel>
+  <Channel Number="24">Rot Effect</Channel>
+  <Channel Number="25">Iris</Channel>
+  <Channel Number="26">Framing Shutter 1 Movement</Channel>
+  <Channel Number="27">Framing shutter 1 Swivelling</Channel>
+  <Channel Number="28">Framing Shutter 2 Movement</Channel>
+  <Channel Number="29">Framing shutter 2 Swivelling</Channel>
+  <Channel Number="30">Framing Shutter 3 Movement</Channel>
+  <Channel Number="31">Framing shutter 3 Swivelling</Channel>
+  <Channel Number="32">Framing Shutter 4 Movement</Channel>
+  <Channel Number="33">Framing shutter 4 Swivelling</Channel>
+  <Channel Number="34">Framing Shutter Rotation</Channel>
+  <Channel Number="35">Shutter Macro</Channel>
+  <Channel Number="36">Shutter Macro Speed</Channel>
+  <Channel Number="37">Control</Channel>
+ </Mode>
+ <Mode Name="39 Ch">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Shutter</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Dimmer fine</Channel>
+  <Channel Number="8">Dimmer Speed Mode</Channel>
+  <Channel Number="9">Cyan</Channel>
+  <Channel Number="10">Magenta</Channel>
+  <Channel Number="11">Yellow</Channel>
+  <Channel Number="12">CTO</Channel>
+  <Channel Number="13">Function</Channel>
+  <Channel Number="14">Rotating Gobo wheel</Channel>
+  <Channel Number="15">Rgobo</Channel>
+  <Channel Number="16">Prism Rot</Channel>
+  <Channel Number="17">Frost1</Channel>
+  <Channel Number="18">Frost2</Channel>
+  <Channel Number="19">Auto Focus</Channel>
+  <Channel Number="20">Focus 8 bit</Channel>
+  <Channel Number="21">Focus 16 bit</Channel>
+  <Channel Number="22">Zoom 8 bit</Channel>
+  <Channel Number="23">Zoom 16 bit</Channel>
+  <Channel Number="24">Effect Weel</Channel>
+  <Channel Number="25">Rot Effect</Channel>
+  <Channel Number="26">Iris</Channel>
+  <Channel Number="27">Framing Shutter 1 Movement</Channel>
+  <Channel Number="28">Framing shutter 1 Swivelling</Channel>
+  <Channel Number="29">Framing Shutter 2 Movement</Channel>
+  <Channel Number="30">Framing shutter 2 Swivelling</Channel>
+  <Channel Number="31">Framing Shutter 3 Movement</Channel>
+  <Channel Number="32">Framing shutter 3 Swivelling</Channel>
+  <Channel Number="33">Framing Shutter 4 Movement</Channel>
+  <Channel Number="34">Framing shutter 4 Swivelling</Channel>
+  <Channel Number="35">Framing Shutter Rotation</Channel>
+  <Channel Number="36">Shutter Macro</Channel>
+  <Channel Number="37">Shutter Macro Speed</Channel>
+  <Channel Number="38">Control</Channel>
+ </Mode>
+ <Mode Name="40 Ch">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Shutter</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Dimmer fine</Channel>
+  <Channel Number="8">Dimmer Speed Mode</Channel>
+  <Channel Number="9">Cyan</Channel>
+  <Channel Number="10">Magenta</Channel>
+  <Channel Number="11">Yellow</Channel>
+  <Channel Number="12">CTO</Channel>
+  <Channel Number="13">Function</Channel>
+  <Channel Number="14">Rotating Gobo wheel</Channel>
+  <Channel Number="15">Rgobo</Channel>
+  <Channel Number="16">Rgobo Fine</Channel>
+  <Channel Number="17">Prism Rot</Channel>
+  <Channel Number="18">Prism Rot Fine</Channel>
+  <Channel Number="19">Frost1</Channel>
+  <Channel Number="20">Frost2</Channel>
+  <Channel Number="21">Focus 8 bit</Channel>
+  <Channel Number="22">Focus 16 bit</Channel>
+  <Channel Number="23">Zoom 8 bit</Channel>
+  <Channel Number="24">Zoom 16 bit</Channel>
+  <Channel Number="25">Effect Weel</Channel>
+  <Channel Number="26">Rot Effect</Channel>
+  <Channel Number="27">Iris</Channel>
+  <Channel Number="28">Framing Shutter 1 Movement</Channel>
+  <Channel Number="29">Framing shutter 1 Swivelling</Channel>
+  <Channel Number="30">Framing Shutter 2 Movement</Channel>
+  <Channel Number="31">Framing shutter 2 Swivelling</Channel>
+  <Channel Number="32">Framing Shutter 3 Movement</Channel>
+  <Channel Number="33">Framing shutter 3 Swivelling</Channel>
+  <Channel Number="34">Framing Shutter 4 Movement</Channel>
+  <Channel Number="35">Framing shutter 4 Swivelling</Channel>
+  <Channel Number="36">Framing Shutter Rotation</Channel>
+  <Channel Number="37">Shutter Macro</Channel>
+  <Channel Number="38">Shutter Macro Speed</Channel>
+  <Channel Number="39">Control</Channel>
+ </Mode>
+ <Mode Name="41 Ch">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Shutter</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Dimmer fine</Channel>
+  <Channel Number="8">Dimmer Speed Mode</Channel>
+  <Channel Number="9">Cyan</Channel>
+  <Channel Number="10">Magenta</Channel>
+  <Channel Number="11">Yellow</Channel>
+  <Channel Number="12">CTO</Channel>
+  <Channel Number="13">Function</Channel>
+  <Channel Number="14">Rotating Gobo wheel</Channel>
+  <Channel Number="15">Rgobo</Channel>
+  <Channel Number="16">Rgobo Fine</Channel>
+  <Channel Number="17">Prism Rot</Channel>
+  <Channel Number="18">Prism Rot Fine</Channel>
+  <Channel Number="19">Frost1</Channel>
+  <Channel Number="20">Frost2</Channel>
+  <Channel Number="21">Auto Focus</Channel>
+  <Channel Number="22">Focus 8 bit</Channel>
+  <Channel Number="23">Focus 16 bit</Channel>
+  <Channel Number="24">Zoom 8 bit</Channel>
+  <Channel Number="25">Zoom 16 bit</Channel>
+  <Channel Number="26">Effect Weel</Channel>
+  <Channel Number="27">Rot Effect</Channel>
+  <Channel Number="28">Iris</Channel>
+  <Channel Number="29">Framing Shutter 1 Movement</Channel>
+  <Channel Number="30">Framing shutter 1 Swivelling</Channel>
+  <Channel Number="31">Framing Shutter 2 Movement</Channel>
+  <Channel Number="32">Framing shutter 2 Swivelling</Channel>
+  <Channel Number="33">Framing Shutter 3 Movement</Channel>
+  <Channel Number="34">Framing shutter 3 Swivelling</Channel>
+  <Channel Number="35">Framing Shutter 4 Movement</Channel>
+  <Channel Number="36">Framing shutter 4 Swivelling</Channel>
+  <Channel Number="37">Framing Shutter Rotation</Channel>
+  <Channel Number="38">Shutter Macro</Channel>
+  <Channel Number="39">Shutter Macro Speed</Channel>
+  <Channel Number="40">Control</Channel>
+ </Mode>
+ <Mode Name="44 Ch">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Shutter</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Dimmer fine</Channel>
+  <Channel Number="8">Red Led Dimmer</Channel>
+  <Channel Number="9">Red Led Dimmer Fine</Channel>
+  <Channel Number="10">Dimmer Speed Mode</Channel>
+  <Channel Number="11">Cyan</Channel>
+  <Channel Number="12">Magenta</Channel>
+  <Channel Number="13">Yellow</Channel>
+  <Channel Number="14">CTO</Channel>
+  <Channel Number="15">Function</Channel>
+  <Channel Number="16">Rotating Gobo wheel</Channel>
+  <Channel Number="17">Rgobo</Channel>
+  <Channel Number="18">Rgobo Fine</Channel>
+  <Channel Number="19">Prism Rot</Channel>
+  <Channel Number="20">Prism Rot Fine</Channel>
+  <Channel Number="21">Frost1</Channel>
+  <Channel Number="22">Frost2</Channel>
+  <Channel Number="23">Auto Focus</Channel>
+  <Channel Number="24">Focus 8 bit</Channel>
+  <Channel Number="25">Focus 16 bit</Channel>
+  <Channel Number="26">Zoom 8 bit</Channel>
+  <Channel Number="27">Zoom 16 bit</Channel>
+  <Channel Number="28">Effect Weel</Channel>
+  <Channel Number="29">Rot Effect</Channel>
+  <Channel Number="30">Iris</Channel>
+  <Channel Number="31">Framing Shutter 1 Movement</Channel>
+  <Channel Number="32">Framing shutter 1 Swivelling</Channel>
+  <Channel Number="33">Framing Shutter 2 Movement</Channel>
+  <Channel Number="34">Framing shutter 2 Swivelling</Channel>
+  <Channel Number="35">Framing Shutter 3 Movement</Channel>
+  <Channel Number="36">Framing shutter 3 Swivelling</Channel>
+  <Channel Number="37">Framing Shutter 4 Movement</Channel>
+  <Channel Number="38">Framing shutter 4 Swivelling</Channel>
+  <Channel Number="39">Framing Shutter Rotation</Channel>
+  <Channel Number="40">Shutter Macro</Channel>
+  <Channel Number="41">Shutter Macro Speed</Channel>
+  <Channel Number="42">Fan Control</Channel>
+  <Channel Number="43">Control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="13900" ColourTemperature="6500"/>
+  <Dimensions Weight="32" Width="443" Height="697" Depth="293"/>
+  <Lens Name="Other" DegreesMin="8" DegreesMax="50"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="690" DmxConnector="5-pin IP65"/>
+ </Physical>
+</FixtureDefinition>
