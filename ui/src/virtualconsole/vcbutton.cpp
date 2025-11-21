@@ -120,6 +120,7 @@ VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     /* Listen to function removals */
     connect(m_doc, SIGNAL(functionRemoved(quint32)),
             this, SLOT(slotFunctionRemoved(quint32)));
+    syncStatus = true;
 }
 
 VCButton::~VCButton()
@@ -462,6 +463,16 @@ void VCButton::setState(ButtonState state)
         return;
 
     m_state = state;
+    QSharedPointer<QLCInputSource> src = inputSource();
+    if (!src.isNull() && src->isValid() == true)
+    {
+        if (m_state == Inactive)
+            setBackgroundColor(src->feedbackValue(QLCInputFeedback::LowerValue), src);
+        else if (m_state == Monitoring)
+            setBackgroundColor(src->feedbackValue(QLCInputFeedback::MonitorValue), src);
+        else
+            setBackgroundColor(src->feedbackValue(QLCInputFeedback::UpperValue), src);
+    }
 
     emit stateChanged(m_state);
 
@@ -536,6 +547,27 @@ void VCButton::updateFeedback()
             sendFeedback(src->feedbackValue(QLCInputFeedback::MonitorValue), src, src->feedbackExtraParams(QLCInputFeedback::MonitorValue));
         else
             sendFeedback(src->feedbackValue(QLCInputFeedback::UpperValue), src, src->feedbackExtraParams(QLCInputFeedback::UpperValue));
+    }
+}
+
+void VCButton::setBackgroundColor(int value, QSharedPointer<QLCInputSource> src)
+{
+    InputPatch *ip = m_doc->inputOutputMap()->inputPatch(src->universe());
+    if (ip != NULL && ip->profile() != NULL)
+    {
+        QLCInputProfile *m_profile = ip->profile();
+        if (m_profile->hasColorTable())
+        {
+            QMapIterator <uchar, QPair<QString, QColor>> it(m_profile->colorTable());
+            while (it.hasNext() == true)
+            {
+                it.next();
+                QPair<QString, QColor> lc = it.value();
+
+                if (it.key() == value)
+                    setBackgroundColor(lc.second);
+            }
+        }
     }
 }
 
@@ -852,11 +884,11 @@ void VCButton::slotBlink()
 {
     // This function is called twice with same XOR mask,
     // thus creating a brief opposite-color -- normal-color blink
-    QPalette pal = palette();
-    QColor color(pal.color(QPalette::Button));
-    color.setRgb(color.red()^0xff, color.green()^0xff, color.blue()^0xff);
-    pal.setColor(QPalette::Button, color);
-    setPalette(pal);
+    // QPalette pal = palette();
+    // QColor color(pal.color(QPalette::Button));
+    // color.setRgb(color.red()^0xff, color.green()^0xff, color.blue()^0xff);
+    // pal.setColor(QPalette::Button, color);
+    // setPalette(pal);
 }
 
 void VCButton::slotBlackoutChanged(bool state)
