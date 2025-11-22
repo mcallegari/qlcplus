@@ -285,15 +285,15 @@ void VCPage::buildKeySequenceMap()
 {
     m_keySequencesMap.clear();
 
+    /** map page key bindings first */
+    for (auto it = m_keySequenceMap.constBegin(); it != m_keySequenceMap.constEnd(); ++it)
+        mapKeySequence(it.key(), it.value(), this, false);
+
     for (VCWidget *widget : children(true))
     {
         QMap <QKeySequence, quint32> kMap = widget->keySequenceMap();
-        if (kMap.isEmpty())
-            continue;
-
-        QMap<QKeySequence, quint32>::iterator i;
-        for (i = kMap.begin(); i != kMap.end(); ++i)
-            mapKeySequence(i.key(), i.value(), widget, false);
+        for (auto it = kMap.constBegin(); it != kMap.constEnd(); ++it)
+            mapKeySequence(it.key(), it.value(), widget, false);
     }
 }
 

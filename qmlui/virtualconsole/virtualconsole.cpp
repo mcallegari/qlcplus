@@ -1298,6 +1298,8 @@ bool VirtualConsole::loadXML(QXmlStreamReader &root)
     while (m_pages.count() - currPageIdx > 0)
         deletePage(m_pages.count() - 1);
 
+    updatePageInputs();
+
     m_loadStatus = Loaded;
 
     return true;
