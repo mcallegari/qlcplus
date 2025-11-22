@@ -6,6 +6,7 @@ qlcplus (4.14.4) stable; urgency=low
   * Show Manager: fix crash with an infinite duration RGBMatrix
   * Virtual Console/Clock: countdown mode can now run a list of Functions
   * Virtual Console/Solo Frame: add an option to exclude functions monitored by buttons to be stopped
+  * Virtual Console/Slider: fix level tab channel list sorting (thanks to jpue)
   * Fixture Editor: in mode editor, don't allow a channel to act on itself (thanks to Edgar Aichinger)
   * New fixture: beamZ COB 50 (thanks to Yestalgia)
   * New fixture: OXO ColorZoom 180 (thanks to David Garyga)
