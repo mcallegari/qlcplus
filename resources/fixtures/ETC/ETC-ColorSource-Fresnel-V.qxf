@@ -8,7 +8,7 @@
  </Creator>
  <Manufacturer>ETC</Manufacturer>
  <Model>ColorSource Fresnel V</Model>
- <Type>Dimmer</Type>
+ <Type>Color Changer</Type>
  <Channel Name="Intensity" Preset="IntensityMasterDimmer"/>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>

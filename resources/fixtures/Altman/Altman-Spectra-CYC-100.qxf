@@ -8,7 +8,7 @@
  </Creator>
  <Manufacturer>Altman</Manufacturer>
  <Model>Spectra CYC 100</Model>
- <Type>Dimmer</Type>
+ <Type>Color Changer</Type>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Red fine" Preset="IntensityRedFine"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
