@@ -54,12 +54,12 @@ Column
             Layout.columnSpan: 3
             height: UISettings.listItemHeight
             currValue: controlID
-            onValueChanged: (value) =>
+            onActivated: (index) =>
             {
-                if (widgetObjRef && value !== controlID)
+                if (widgetObjRef && currValue !== controlID)
                 {
-                    console.log("Key control changed " + value)
-                    controlID = value
+                    console.log("Key control changed " + currValue)
+                    controlID = currValue
                     virtualConsole.updateKeySequenceControlID(widgetObjRef, controlID, sequence)
                 }
             }

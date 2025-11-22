@@ -37,12 +37,6 @@
 #include "virtualconsole.h"
 #include "vcaudiotriggers.h"
 
-#define INPUT_NEXT_PAGE_ID      0
-#define INPUT_PREVIOUS_PAGE_ID  1
-#define INPUT_ENABLE_ID         2
-#define INPUT_COLLAPSE_ID       3
-#define INPUT_SHORTCUT_BASE_ID  20
-
 static const quint64 encKey = 0x5131632B5067334B; // this is "Q1c+Pg3K"
 
 VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)

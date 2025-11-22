@@ -43,6 +43,12 @@
 #define KXMLQLCVCFrameShortcutPage  QStringLiteral("Page")
 #define KXMLQLCVCFrameShortcutName  QStringLiteral("Name")
 
+#define INPUT_NEXT_PAGE_ID      0
+#define INPUT_PREVIOUS_PAGE_ID  1
+#define INPUT_ENABLE_ID         2
+#define INPUT_COLLAPSE_ID       3
+#define INPUT_SHORTCUT_BASE_ID  20
+
 class VirtualConsole;
 
 class VCFrame : public VCWidget

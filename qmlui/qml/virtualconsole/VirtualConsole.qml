@@ -65,6 +65,12 @@ Rectangle
         }
     }
 
+    function activatePage(pageIndex)
+    {
+        var pageItem = pagesRepeater.itemAt(pageIndex)
+        pageItem.click()
+    }
+
     function requestMatrixPopup(target, mparent, type, pos)
     {
         addMatrixPopup.targetFrame = target
@@ -131,7 +137,7 @@ Rectangle
 
                             onCheckedChanged:
                             {
-                                if (wObj && checked == true)
+                                if (wObj && checked === true)
                                 {
                                     if (wObj.requirePIN())
                                         pinRequestPopup.open()

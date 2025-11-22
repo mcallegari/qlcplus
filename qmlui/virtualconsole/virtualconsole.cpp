@@ -72,9 +72,9 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
     , m_inputDetectionEnabled(false)
     , m_autoDetectionWidget(nullptr)
     , m_autoDetectionSource(nullptr)
+    , m_inputChannelsTree(nullptr)
     , m_autoDetectionKey(QKeySequence())
     , m_autoDetectionKeyId(UINT_MAX)
-    , m_inputChannelsTree(nullptr)
 {
     Q_ASSERT(doc != nullptr);
 
@@ -894,7 +894,7 @@ int VirtualConsole::clipboardItemsCount() const
 
 bool VirtualConsole::createAndDetectInputSource(VCWidget *widget)
 {
-    /** Do not allow multiple detections at once ! */
+    /** Do not allow multiple detections at once! */
     if (m_inputDetectionEnabled == true || widget == nullptr)
         return false;
 
@@ -909,8 +909,12 @@ bool VirtualConsole::createAndDetectInputSource(VCWidget *widget)
 
 void VirtualConsole::createAndAddInputSource(VCWidget *widget, quint32 universe, quint32 channel)
 {
+    quint32 controlId = 0; // this is a blind guess, but every widget should have a 0 control ID
+    if (m_pages.contains(widget))
+        controlId = INPUT_ENABLE_ID;
+
     QSharedPointer<QLCInputSource> source = QSharedPointer<QLCInputSource>(new QLCInputSource());
-    source->setID(0); // this is a blind guess, but every widget should have a 0 control ID
+    source->setID(controlId);
     source->setUniverse(universe);
     source->setChannel(channel);
     widget->addInputSource(source);
@@ -919,21 +923,9 @@ void VirtualConsole::createAndAddInputSource(VCWidget *widget, quint32 universe,
         page->mapInputSource(source, widget, true);
 }
 
-bool VirtualConsole::createAndDetectInputKey(VCWidget *widget)
-{
-    /** Do not allow multiple detections at once ! */
-    if (m_inputDetectionEnabled == true || widget == nullptr)
-        return false;
-
-    widget->addKeySequence(QKeySequence());
-    enableKeyAutoDetection(widget, 0, "");
-
-    return true;
-}
-
 bool VirtualConsole::enableInputSourceAutoDetection(VCWidget *widget, quint32 id, quint32 universe, quint32 channel)
 {
-    /** Do not allow multiple detections at once ! */
+    /** Do not allow multiple detections at once! */
     if (m_inputDetectionEnabled == true || widget == nullptr)
         return false;
 
@@ -951,7 +943,7 @@ bool VirtualConsole::enableInputSourceAutoDetection(VCWidget *widget, quint32 id
 
     m_autoDetectionWidget = widget;
 
-    qDebug() << "Autodetection enabled on widget" << widget->id();
+    qDebug() << "Autodetection enabled on widget" << widget->caption() << widget->id();
 
     /** Finally raise the auto detection flag, to
      *  modify the behaviour of slotInputValueChanged */
@@ -962,47 +954,6 @@ bool VirtualConsole::enableInputSourceAutoDetection(VCWidget *widget, quint32 id
      *  to when the first input signal comes from an external controller */
 
     return true;
-}
-
-bool VirtualConsole::enableKeyAutoDetection(VCWidget *widget, quint32 id, QString keyText)
-{
-    /** Do not allow multiple detections at once ! */
-    if (m_inputDetectionEnabled == true || widget == nullptr)
-        return false;
-
-    qDebug() << "[enableKeyAutoDetection] id:" << id << ", key:" << keyText;
-
-    m_autoDetectionKey = QKeySequence(keyText);
-    m_autoDetectionWidget = widget;
-    m_autoDetectionKeyId = id;
-    m_inputDetectionEnabled = true;
-
-    return true;
-}
-
-void VirtualConsole::updateKeySequenceControlID(VCWidget *widget, quint32 id, QString keyText)
-{
-    if (widget == nullptr)
-        return;
-
-    qDebug() << "Setting control ID" << id << "to widget" << widget->caption() << "sequence" << keyText;
-
-    QKeySequence seq(keyText);
-
-    widget->updateKeySequenceControlID(seq, id);
-
-    /** Update also the key sequence maps in VC pages */
-    for (VCPage *page : m_pages) // C++11
-        page->updateKeySequenceIDInMap(seq, id, widget, true);
-}
-
-void VirtualConsole::disableAutoDetection()
-{
-    m_inputDetectionEnabled = false;
-    m_autoDetectionWidget = nullptr;
-    m_autoDetectionSource.clear();
-    m_autoDetectionKey = QKeySequence();
-    m_autoDetectionKeyId = UINT_MAX;
 }
 
 void VirtualConsole::deleteInputSource(VCWidget *widget, quint32 id, quint32 universe, quint32 channel)
@@ -1019,57 +970,31 @@ void VirtualConsole::deleteInputSource(VCWidget *widget, quint32 id, quint32 uni
     widget->deleteInputSurce(id, universe, channel);
 }
 
-void VirtualConsole::deleteKeySequence(VCWidget *widget, quint32 id, QString keyText)
+void VirtualConsole::disableAutoDetection()
 {
-    if (widget == nullptr)
-        return;
+    m_inputDetectionEnabled = false;
+    m_autoDetectionWidget = nullptr;
+    m_autoDetectionSource.clear();
+    m_autoDetectionKey = QKeySequence();
+    m_autoDetectionKeyId = UINT_MAX;
 
-    /** In case an autodetection process is running, stop it */
-    disableAutoDetection();
-
-    QKeySequence seq(keyText);
-
-    for (VCPage *page : m_pages) // C++11
-        page->unMapKeySequence(seq, id, widget, true);
-
-    widget->deleteKeySequence(seq);
+    updatePageInputs();
 }
 
-void VirtualConsole::handleKeyEvent(QKeyEvent *e, bool pressed)
+void VirtualConsole::updatePageInputs()
 {
-    if (m_inputDetectionEnabled == false)
+    m_pagesInputSourcesMap.clear();
+    m_pagesKeySequencesMap.clear();
+
+    for (int i = 0; i < m_pages.count(); i++)
     {
-        /* Ignore the repeating events */
-        if (e->isAutoRepeat())
-            return;
+        VCPage *page = m_pages.at(i);
 
-        int pageIdx = 0;
+        for (quint32 &inputSourceKey : page->pageInputSources())
+            m_pagesInputSourcesMap[i] = inputSourceKey;
 
-        for (VCPage *page : m_pages) // C++11
-        {
-            if (pageIdx == selectedPage())
-                page->handleKeyEvent(e, pressed);
-
-            pageIdx++;
-        }
-    }
-    else
-    {
-        Q_ASSERT(m_autoDetectionWidget != nullptr);
-
-        /** consider only the key release */
-        if (pressed == true)
-            return;
-
-        QKeySequence seq(e->key() | e->modifiers());
-        qDebug() << "Got key sequence:" << seq.toString(QKeySequence::NativeText);
-        m_autoDetectionWidget->updateKeySequence(m_autoDetectionKey, seq, m_autoDetectionKeyId);
-
-        for (VCPage *page : m_pages) // C++11
-            page->mapKeySequence(seq, m_autoDetectionKeyId, m_autoDetectionWidget, true);
-
-        /** At last, disable the autodetection process */
-        disableAutoDetection();
+        for (QKeySequence &seq : page->pageKeySequences())
+            m_pagesKeySequencesMap[i] = seq;
     }
 }
 
@@ -1159,17 +1084,29 @@ void VirtualConsole::slotInputValueChanged(quint32 universe, quint32 channel, uc
     qDebug() << "Input signal received. Universe:" << universe << ", channel:" << channel << ", value:" << value;
     if (m_inputDetectionEnabled == false)
     {
-        int pageIdx = 0;
+        quint32 inputSourceKey = (universe << 16) | channel;
 
-        for (VCPage *page : m_pages) // C++11
+        /** first check if this key sequence is a page activation */
+        for (int pageIndex : m_pagesInputSourcesMap.keys(inputSourceKey))
         {
-            if (pageIdx == selectedPage())
+            QQuickItem *vcItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("virtualConsole"));
+            if (vcItem == nullptr)
+                return;
+
+            QMetaObject::invokeMethod(vcItem, "activatePage", Q_ARG(QVariant, pageIndex));
+            return;
+        }
+
+        /** otherwise forward it to the currently selected page */
+        for (int pageIndex = 0; pageIndex < m_pages.count(); pageIndex++)
+        {
+            VCPage *page = m_pages.at(pageIndex);
+
+            if (pageIndex == selectedPage())
             {
-                page->inputValueChanged(universe, channel, value);
+                page->inputValueChanged(inputSourceKey, value);
                 break;
             }
-
-            pageIdx++;
         }
     }
     else
@@ -1182,6 +1119,126 @@ void VirtualConsole::slotInputValueChanged(quint32 universe, quint32 channel, uc
 
         for (VCPage *page : m_pages) // C++11
             page->mapInputSource(m_autoDetectionSource, m_autoDetectionWidget, true);
+
+        /** At last, disable the autodetection process */
+        disableAutoDetection();
+    }
+}
+
+/*********************************************************************
+ * Keyboard input
+ *********************************************************************/
+
+bool VirtualConsole::createAndDetectInputKey(VCWidget *widget)
+{
+    /** Do not allow multiple detections at once ! */
+    if (m_inputDetectionEnabled == true || widget == nullptr)
+        return false;
+
+    quint32 controlId = 0;
+    widget->addKeySequence(QKeySequence());
+
+    /** VC Pages controls don't start from 0 */
+    if (m_pages.contains(widget))
+        controlId = INPUT_ENABLE_ID;
+
+    enableKeyAutoDetection(widget, controlId, "");
+
+    return true;
+}
+
+bool VirtualConsole::enableKeyAutoDetection(VCWidget *widget, quint32 id, QString keyText)
+{
+    /** Do not allow multiple detections at once! */
+    if (m_inputDetectionEnabled == true || widget == nullptr)
+        return false;
+
+    qDebug() << "[enableKeyAutoDetection] id:" << id << ", key:" << keyText;
+
+    m_autoDetectionKey = QKeySequence(keyText);
+    m_autoDetectionWidget = widget;
+    m_autoDetectionKeyId = id;
+    m_inputDetectionEnabled = true;
+
+    return true;
+}
+
+void VirtualConsole::updateKeySequenceControlID(VCWidget *widget, quint32 id, QString keyText)
+{
+    if (widget == nullptr)
+        return;
+
+    qDebug() << "Setting control ID" << id << "to widget" << widget->caption() << "sequence" << keyText;
+
+    QKeySequence seq(keyText);
+
+    widget->updateKeySequenceControlID(seq, id);
+
+    /** Update also the key sequence maps in VC pages */
+    for (VCPage *page : m_pages) // C++11
+        page->updateKeySequenceIDInMap(seq, id, widget, true);
+}
+
+void VirtualConsole::deleteKeySequence(VCWidget *widget, quint32 id, QString keyText)
+{
+    if (widget == nullptr)
+        return;
+
+    /** In case an autodetection process is running, stop it */
+    disableAutoDetection();
+
+    QKeySequence seq(keyText);
+
+    for (VCPage *page : m_pages) // C++11
+        page->unMapKeySequence(seq, id, widget, true);
+
+    widget->deleteKeySequence(seq);
+}
+
+void VirtualConsole::handleKeyEvent(QKeyEvent *e, bool pressed)
+{
+    if (m_inputDetectionEnabled == false)
+    {
+        /* Ignore the repeating events */
+        if (e->isAutoRepeat())
+            return;
+
+        QKeySequence seq(e->key() | e->modifiers());
+
+        /** first check if this key sequence is a page activation */
+        for (int pageIndex : m_pagesKeySequencesMap.keys(seq))
+        {
+            QQuickItem *vcItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("virtualConsole"));
+            if (vcItem == nullptr)
+                return;
+
+            QMetaObject::invokeMethod(vcItem, "activatePage", Q_ARG(QVariant, pageIndex));
+            return;
+        }
+
+        /** otherwise forward it to the currently selected page */
+        for (int pageIndex = 0; pageIndex < m_pages.count(); pageIndex++)
+        {
+            VCPage *page = m_pages.at(pageIndex);
+
+            if (pageIndex == selectedPage())
+                page->handleKeyEvent(seq, pressed);
+        }
+    }
+    else
+    {
+        Q_ASSERT(m_autoDetectionWidget != nullptr);
+
+        /** consider only the key release */
+        if (pressed == true)
+            return;
+
+        QKeySequence seq(e->key() | e->modifiers());
+        qDebug() << "Got key sequence:" << seq.toString(QKeySequence::NativeText);
+        m_autoDetectionWidget->updateKeySequence(m_autoDetectionKey, seq, m_autoDetectionKeyId);
+
+        for (VCPage *page : m_pages) // C++11
+            page->mapKeySequence(seq, m_autoDetectionKeyId, m_autoDetectionWidget, true);
 
         /** At last, disable the autodetection process */
         disableAutoDetection();
