@@ -51,6 +51,7 @@ class PreviewContext : public QObject
     Q_OBJECT
 
     Q_PROPERTY(quint32 universeFilter READ universeFilter WRITE setUniverseFilter NOTIFY universeFilterChanged)
+    Q_PROPERTY(bool detached READ detached WRITE setDetached NOTIFY detachedChanged)
 
 public:
     explicit PreviewContext(QQuickView *view, Doc *doc, QString name, QObject *parent = 0);
@@ -102,6 +103,7 @@ protected slots:
 
 signals:
     void universeFilterChanged(quint32 universeFilter);
+    void detachedChanged();
     void keyPressed(QKeyEvent *e);
     void keyReleased(QKeyEvent *e);
 

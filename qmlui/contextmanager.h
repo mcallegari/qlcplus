@@ -43,6 +43,7 @@ class ContextManager : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString currentContext READ currentContext NOTIFY currentContextChanged)
+    Q_PROPERTY(QString currentSubContext READ currentSubContext WRITE setCurrentSubContext NOTIFY currentSubContextChanged)
     Q_PROPERTY(QVector3D environmentSize READ environmentSize WRITE setEnvironmentSize NOTIFY environmentSizeChanged)
     Q_PROPERTY(quint32 universeFilter READ universeFilter WRITE setUniverseFilter NOTIFY universeFilterChanged)
     Q_PROPERTY(int selectedFixturesCount READ selectedFixturesCount NOTIFY selectedFixturesChanged)
@@ -80,6 +81,10 @@ public:
     /** Return the currently active context */
     QString currentContext() const;
 
+    /** Get/Set the FixturesAndFunctions sub-context */
+    QString currentSubContext() const;
+    void setCurrentSubContext(QString ctx);
+
     MainView2D *get2DView();
     MainView3D *get3DView();
 
@@ -99,6 +104,7 @@ public:
 
 signals:
     void currentContextChanged();
+    void currentSubContextChanged();
     void environmentSizeChanged();
     void positionPickingChanged();
     void multipleSelectionChanged();
@@ -136,6 +142,9 @@ private:
     FunctionManager *m_functionManager;
 
     QMap <QString, PreviewContext *> m_contextsMap;
+
+    /** Holds the currently selected sub-context of FixturesAndFunctions */
+    QString m_currentSubContext;
 
     /** Flag that indicates if multiple item selection is active */
     bool m_multipleSelection;
