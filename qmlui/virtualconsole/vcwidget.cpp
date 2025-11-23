@@ -587,6 +587,10 @@ void VCWidget::setIsEditing(bool edit)
         return;
 
     m_isEditing = edit;
+
+    if (edit == false)
+        updateFeedback();
+
     emit isEditingChanged();
 }
 

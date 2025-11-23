@@ -1480,6 +1480,8 @@ void VirtualConsole::postLoad()
         }
         else
             invalidWidgetsList.append(widget);
+
+        widget->updateFeedback();
     }
     foreach (VCWidget *widget, invalidWidgetsList)
         addWidgetToMap(widget);
