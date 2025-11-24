@@ -28,9 +28,8 @@
 
 #include "beattracking.h"
 
-
-const double filterCoeffA[] = {1, 0.23484048, 0};
-const double filterCoeffB[] = {0.15998789, 0.31997577, 0.15998789};
+const double filterCoeffA[] = { 1, 0.23484048, 0};
+const double filterCoeffB[] = { 0.15998789, 0.31997577, 0.15998789 };
 
 BeatTracking::BeatTracking(int channels, QObject *parent)
     : QObject(parent)
@@ -114,10 +113,11 @@ QVector<double> BeatTracking::getGaussianWeighting(int windowLength, double tLag
     return returnVector;
 }
 
-void BeatTracking::processAudio(int16_t * buffer, int bufferSize)
+bool BeatTracking::processAudio(int16_t * buffer, int bufferSize)
 {
     //QElapsedTimer timer1;
     //timer1.start(); // Monitor computation time
+    bool isBeat = false;
 
     for (int i = 0; i < bufferSize; ++i)
     {
@@ -143,7 +143,7 @@ void BeatTracking::processAudio(int16_t * buffer, int bufferSize)
 
         QVector<double> magnitudes(m_windowSize/2, 0);
         double onsetValue = 0.0;
-        for (int i=0; i < m_windowSize/2; i++)
+        for (int i = 0; i < m_windowSize/2; i++)
         {
             double mag = qSqrt((reinterpret_cast<fftw_complex*>(m_fftOutputBuffer)[i][0] * reinterpret_cast<fftw_complex*>(m_fftOutputBuffer)[i][0]) +
                           (reinterpret_cast<fftw_complex*>(m_fftOutputBuffer)[i][1] * reinterpret_cast<fftw_complex*>(m_fftOutputBuffer)[i][1]));
@@ -175,14 +175,15 @@ void BeatTracking::processAudio(int16_t * buffer, int bufferSize)
                 if (m_currentPredictionState == PredictionState::CONTINUITY)
                 {
                     int continuityIndex = 0;
+                    double maxVal = 0.0;
+
                     if (m_lastLag != m_identifiedLag)
                     {
                         m_gaussianFilterBank = getGaussianWeighting(m_onsetWindowSize, m_identifiedLag);
-
                         m_lastLag = m_identifiedLag;
                     }
-                    double maxVal = 0.0;
-                    for (int l=1; l < oCorr.size(); l++)
+
+                    for (int l = 1; l < oCorr.size(); l++)
                     {
                         double val = oCorr[l] * m_gaussianFilterBank[l];
                         if (val > maxVal)
@@ -217,19 +218,21 @@ void BeatTracking::processAudio(int16_t * buffer, int bufferSize)
                 }
                 // add last lags to buffer and check consistency
                 m_lastLags += acfLag;
+
                 if (m_lastLags.size() > 3)
                 {
                     m_lastLags.removeFirst();
                     //qDebug() << "DERIVATION: " << continuityDerivation << "Continuity: " << qAbs(acfLag - continuityLag) << "Consistency: " << qAbs(2*m_lastLags[2]-m_lastLags[1]-m_lastLags[0]); 
                     // check continuity
-                    if (m_currentPredictionState == PredictionState::ACF && qAbs(2*m_lastLags[2]-m_lastLags[1]-m_lastLags[0]) < m_continuityDerivation)
+                    if (m_currentPredictionState == PredictionState::ACF &&
+                        qAbs(2 * m_lastLags[2] - m_lastLags[1] - m_lastLags[0]) < m_continuityDerivation)
                     {
                         //qDebug() << "CONTINUITY ESTABLISHED: " << 2*m_lastLags[2] << " " << m_lastLags[1] << " " << m_lastLags[0] << " " << qAbs(2*m_lastLags[2]-m_lastLags[1]-m_lastLags[0]); 
                         m_currentPredictionState = PredictionState::CONTINUITY;
                     }
                 }
 
-                m_currentBPM = (44100*60)/(m_hopSize*m_identifiedLag);
+                m_currentBPM = (44100 * 60) / (m_hopSize * m_identifiedLag);
                 m_currentMs = m_identifiedLag * m_hopSize / 44.1;
 
                 // Beat Tracking and phase detection
@@ -238,23 +241,20 @@ void BeatTracking::processAudio(int16_t * buffer, int bufferSize)
 
                 // reverse onset values and add weighting so that most recent events are more likely
                 for (int i = 0; i < phaseOnsetValues.size(); i++)
-                {
                     phaseOnsetValues[i] = m_tOnsetValues[m_tOnsetValues.size() - i - 1] * qExp(-1.0*i*(qLn(2)/m_identifiedLag));
-                }
 
                 // phase calculation by autocorrelation with train of impulses
                 QVector<double> phaseValues(phaseOnsetValues.size(), 0.0);
                 double maxPhaseValue = 0.0;
                 int phaseIndex = 0.0;
-                for (int i=0; i < phaseOnsetValues.size(); i++)
+
+                for (int i = 0; i < phaseOnsetValues.size(); i++)
                 {
-                    for (int c=0; c < cMax; c++)
+                    for (int c = 0; c < cMax; c++)
                     {
                         int index = i + qRound(c*m_identifiedLag);
                         if (index < phaseOnsetValues.size())
-                        {
                             phaseValues[i] += phaseOnsetValues[index];
-                        }
                     }
 
                     if (phaseValues[i] > maxPhaseValue)
@@ -263,30 +263,24 @@ void BeatTracking::processAudio(int16_t * buffer, int bufferSize)
                         phaseIndex = i;
                     }
                 }
-                double phase;
-                phase = getQuadraticValue(phaseIndex, phaseValues);
+                double phase = getQuadraticValue(phaseIndex, phaseValues);
 
                 // one frame delay
                 phase++;
                 double beat = m_identifiedLag - phase;
 
                 // check for negative results
-                while (beat + m_identifiedLag < 0) {
+                while (beat + m_identifiedLag < 0)
                     beat += m_identifiedLag;
-                }
 
                 // TODO context dependent beat tracking?
                 m_beatPredictions.clear();
                 for (int i = beat; i < m_windowSize/4; i+=m_identifiedLag)
-                {
                     m_beatPredictions += i;
-                }
             }
 
             if (m_tOnsetValues.size() == m_onsetWindowSize)
-            {
                 m_tOnsetValues.remove(0, 128);
-            }
 
             m_blockPosition = -1;
         }
@@ -306,11 +300,12 @@ void BeatTracking::processAudio(int16_t * buffer, int bufferSize)
             //qDebug() << "T" << thresholded;
         }
 
-        for (double v : m_beatPredictions)
+        for (double &v : m_beatPredictions)
         {
             if (m_blockPosition == qFloor(v))
             {
                 qDebug() << m_currentBPM << " (" << m_currentMs << "ms)" << " Beat";
+                isBeat = true;
                 //beatPredictions.removeFirst();
                 break;
             }
@@ -321,8 +316,9 @@ void BeatTracking::processAudio(int16_t * buffer, int bufferSize)
         }
         // remove processed samples, but use advance size 
         m_windowBuffer.remove(0, m_hopSize);
-    } 
+    }
     //qDebug() << "Elapsed Time: " << timer1.elapsed();
+    return isBeat;
 }
 
 QVector<double> BeatTracking::getOnsetCorrelation(QList<double> onsetValues)
@@ -360,7 +356,6 @@ QVector<double> BeatTracking::getOnsetCorrelation(QList<double> onsetValues)
     }
     return combRes;
 }
-
 
 int BeatTracking::getPredictedAcfLag(QVector<double> roCorr)
 {
@@ -443,9 +438,8 @@ double BeatTracking::getMedian(QVector<double> values)
 {
     std::sort(values.begin(), values.end());
 
-    return values[qFloor(values.size()/2) + 1];
+    return values[qFloor(values.size() / 2) + 1];
 }
-
 
 double BeatTracking::getQuadraticValue(int position, QVector<double> vector)
 {

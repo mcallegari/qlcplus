@@ -43,6 +43,10 @@
 #define FREQ_SUBBANDS_DEFAULT_NUMBER    16
 #define SPECTRUM_MAX_FREQUENCY          5000
 
+#define FULL_BEATTRACKING
+
+class BeatTracking;
+
 /** @addtogroup engine_audio Audio
  * @{
  */
@@ -81,7 +85,12 @@ public:
 
     static int maxFrequency() { return SPECTRUM_MAX_FREQUENCY; }
 
-    protected:
+    /*!
+     *  Adjusts the audio output volume
+     */
+    virtual void setVolume(qreal volume) = 0;
+
+protected:
     /*!
      * Prepares object for usage and setups required audio parameters.
      * Subclass should reimplement this function.
@@ -94,17 +103,6 @@ public:
 
     virtual void uninitialize() = 0;
 
-public:
-    /*!
-     * Returns input interface latency in milliseconds.
-     */
-    virtual qint64 latency() = 0;
-
-    /*!
-     *  Adjusts the audio output volume
-     */
-    virtual void setVolume(qreal volume) = 0;
-
     /*!
      * Stops processing audio data, preserving buffered audio data.
      */
@@ -115,16 +113,28 @@ public:
      */
     virtual void resume() = 0;
 
+    /*!
+     * Returns input interface latency in milliseconds.
+     */
+    virtual qint64 latency() = 0;
+
     /*********************************************************************
      * Thread functions
      *********************************************************************/
+public:
     /** @reimpl */
-    void run(); //thread run function
+    void run();
 
 protected:
     void stop();
 
-private:
+    /*!
+     * Reads up to \b maxSize uint16 from \b the input interface device.
+     * Returns an array of the bytes read, or an empty array if an error occurred.
+     * Subclass should reimplement this function.
+     */
+    virtual bool readAudio(int maxSize) = 0;
+
     /** This is called at every processData to fill a single BandsData structure */
     double fillBandsData(int number);
 
@@ -135,24 +145,16 @@ private:
      */
     void processData();
 
-    bool m_userStop, m_pause;
-
 signals:
     void dataProcessed(double *spectrumBands, int size, double maxMagnitude, quint32 power);
     void volumeChanged(int volume);
     void beatDetected();
 
 protected:
-    /*!
-     * Reads up to \b maxSize uint16 from \b the input interface device.
-     * Returns an array of the bytes read, or an empty array if an error occurred.
-     * Subclass should reimplement this function.
-     */
-    virtual bool readAudio(int maxSize) = 0;
-
     QMutex m_mutex;
 
-    unsigned int bufferSize, m_captureSize, m_sampleRate, m_channels;
+    bool m_userStop, m_pause;
+    unsigned int m_bufferSize, m_captureSize, m_sampleRate, m_channels;
 
     /** Data buffer for audio data coming from the sound card */
     int16_t *m_audioBuffer;
@@ -170,10 +172,13 @@ protected:
     /** Map of the registered clients (key is the number of bands) */
     QMap <int, BandsData> m_fftMagnitudeMap;
 
-private:
+#ifdef FULL_BEATTRACKING
+    BeatTracking *m_beatTracker;
+#else
     QVector<double> m_energyHistory;
     int m_energyPos = 0;
     int m_energySize = 43; // ~1 second if bufferSize gives ~25 FPS
+#endif
 };
 
 /** @} */

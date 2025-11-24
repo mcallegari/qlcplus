@@ -42,10 +42,9 @@ class BeatTracking : public QObject
 public:
     BeatTracking(int channels, QObject * parent = nullptr);
     ~BeatTracking();
-    void processAudio(int16_t * buffer, int bufferSize);
+    bool processAudio(int16_t * buffer, int bufferSize);
 
 private:
-
     enum PredictionState{ACF, CONTINUITY};
 
     // beat tracking state
@@ -107,7 +106,6 @@ private:
     double m_identifiedLag;
     double m_currentBPM;
     double m_currentMs;
-
 };
 
 /** @} */

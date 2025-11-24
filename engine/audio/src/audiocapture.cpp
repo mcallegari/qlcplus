@@ -24,9 +24,13 @@
 #include <qmath.h>
 
 #include "audiocapture.h"
+#ifdef FULL_BEATTRACKING
+  #include "beattracking.h"
+#endif
 
 #define USE_HANNING
 #define CLEAR_FFT_NOISE
+
 #define M_2PI       6.28318530718           /* 2*pi */
 
 AudioCapture::AudioCapture (QObject* parent)
@@ -41,7 +45,7 @@ AudioCapture::AudioCapture (QObject* parent)
     , m_fftInputBuffer(NULL)
     , m_fftOutputBuffer(NULL)
 {
-    bufferSize = AUDIO_DEFAULT_BUFFER_SIZE;
+    m_bufferSize = AUDIO_DEFAULT_BUFFER_SIZE;
     m_sampleRate = AUDIO_DEFAULT_SAMPLE_RATE;
     m_channels = AUDIO_DEFAULT_CHANNELS;
 
@@ -58,19 +62,23 @@ AudioCapture::AudioCapture (QObject* parent)
 
     qDebug() << "[AudioCapture] initialize" << m_sampleRate << m_channels;
 
-    m_captureSize = bufferSize * m_channels;
+    m_captureSize = m_bufferSize * m_channels;
 
     m_audioBuffer = new int16_t[m_captureSize];
-    m_audioMixdown = new int16_t[bufferSize];
-    m_fftInputBuffer = new double[bufferSize];
+    m_audioMixdown = new int16_t[m_bufferSize];
+    m_fftInputBuffer = new double[m_bufferSize];
 #ifdef HAS_FFTW3
-    m_fftOutputBuffer = fftw_malloc(sizeof(fftw_complex) * bufferSize);
+    m_fftOutputBuffer = fftw_malloc(sizeof(fftw_complex) * m_bufferSize);
 
     // Init FFTW
-    m_plan_forward = fftw_plan_dft_r2c_1d(bufferSize, m_fftInputBuffer,
+    m_plan_forward = fftw_plan_dft_r2c_1d(m_bufferSize, m_fftInputBuffer,
                                           reinterpret_cast<fftw_complex*>(m_fftOutputBuffer), 0);
 #endif
+#ifdef FULL_BEATTRACKING
+    m_beatTracker = new BeatTracking(2);
+#else
     m_energyHistory = QVector<double>(m_energySize, 0.0);
+#endif
 }
 
 AudioCapture::~AudioCapture()
@@ -160,14 +168,14 @@ double AudioCapture::fillBandsData(int number)
     double maxMagnitude = 0.;
 #ifdef HAS_FFTW3
     unsigned int i = 1; // skip DC bin
-    int subBandWidth = ((bufferSize * SPECTRUM_MAX_FREQUENCY) / m_sampleRate) / number;
+    int subBandWidth = ((m_bufferSize * SPECTRUM_MAX_FREQUENCY) / m_sampleRate) / number;
 
     for (int b = 0; b < number; b++)
     {
         double magnitudeSum = 0.;
         for (int s = 0; s < subBandWidth; s++, i++)
         {
-            if (i == bufferSize)
+            if (i == m_bufferSize)
                 break;
             magnitudeSum += qSqrt((((fftw_complex*)m_fftOutputBuffer)[i][0] * ((fftw_complex*)m_fftOutputBuffer)[i][0]) +
                                   (((fftw_complex*)m_fftOutputBuffer)[i][1] * ((fftw_complex*)m_fftOutputBuffer)[i][1]));
@@ -185,13 +193,12 @@ double AudioCapture::fillBandsData(int number)
 
 void AudioCapture::processData()
 {
-#ifdef HAS_FFTW3
     unsigned int i, j;
     double pwrSum = 0.;
     double maxMagnitude = 0.;
 
     // 2) Mix down to mono (int16 -> int16)
-    for (i = 0; i < bufferSize; i++)
+    for (i = 0; i < m_bufferSize; i++)
     {
         m_audioMixdown[i] = 0;
         for (j = 0; j < m_channels; j++)
@@ -201,19 +208,19 @@ void AudioCapture::processData()
     // 2a) DC removal + RMS (silence gate)
     // Compute mean (DC)
     long long acc = 0;
-    for (i = 0; i < bufferSize; ++i)
+    for (i = 0; i < m_bufferSize; ++i)
         acc += m_audioMixdown[i];
-    const double mean = double(acc) / double(bufferSize);
+    const double mean = double(acc) / double(m_bufferSize);
 
     // Remove DC, compute RMS in one pass (normalize to [-1,1])
     double sumSq = 0.0;
-    for (i = 0; i < bufferSize; ++i)
+    for (i = 0; i < m_bufferSize; ++i)
     {
         const double x = (double(m_audioMixdown[i]) - mean) / 32768.0;
         sumSq += x * x;
         m_fftInputBuffer[i] = x; // will be windowed right below
     }
-    const double rms = qSqrt(sumSq / double(bufferSize));
+    const double rms = qSqrt(sumSq / double(m_bufferSize));
 
     // If the frame is effectively silent, emit zeros and bail early.
     // Threshold is tunable; ~0.002 ≈ -54 dBFS works well for typical PC inputs.
@@ -244,14 +251,15 @@ void AudioCapture::processData()
                                a2 * qCos((2 * M_2PI * i) / (bufferSize - 1)));
 #endif
 #ifdef USE_HANNING
-    for (i = 0; i < bufferSize; i++)
+    for (i = 0; i < m_bufferSize; i++)
         m_fftInputBuffer[i] = m_fftInputBuffer[i] *
-                              (0.5 * (1.0 - qCos((M_2PI * i) / (bufferSize - 1))));
+                              (0.5 * (1.0 - qCos((M_2PI * i) / (m_bufferSize - 1))));
 #endif
 #ifdef USE_NO_WINDOW
     // already filled: keep as-is
 #endif
 
+#ifdef HAS_FFTW3
     // 3) FFT
     fftw_execute(m_plan_forward);
 
@@ -262,6 +270,7 @@ void AudioCapture::processData()
         ((fftw_complex*)m_fftOutputBuffer)[n][0] = 0;
         ((fftw_complex*)m_fftOutputBuffer)[n][1] = 0;
     }
+#endif
 #endif
 
     // 5) Fill per-band magnitudes and compute power
@@ -278,6 +287,7 @@ void AudioCapture::processData()
                            maxMagnitude, m_signalPower);
     }
 
+#ifndef FULL_BEATTRACKING
     // 6) Beat detection based on frame RMS and a short energy history
     //    This stays very light-weight compared to the FFT and runs once per frame.
     if (m_energySize > 0)
@@ -358,6 +368,11 @@ void AudioCapture::run()
             {
                 QMutexLocker locker(&m_mutex);
                 processData();
+#ifdef FULL_BEATTRACKING
+                if (m_beatTracker->processAudio(m_audioBuffer, m_bufferSize))
+                    emit beatDetected();
+#else
+#endif
             }
             else
             {
