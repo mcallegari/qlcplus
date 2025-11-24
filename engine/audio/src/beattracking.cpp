@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-#include <QDebug>
 #include <QElapsedTimer>
-#include <QFile>
+#include <QDebug>
+#include <qmath.h>
 #include <algorithm>
 
 #ifdef HAS_FFTW3
@@ -392,7 +392,8 @@ int BeatTracking::getPredictedAcfLag(QVector<double> roCorr)
 
 QVector<double> BeatTracking::calculateBiquadFilter(QList<double> values)
 {
-    QList<double> processed(values.size(), 0.0);
+    QVector<double> processed;
+    processed.fill(0.0, values.size());
 
     for (int i = 0; i < values.size(); i++)
     {
