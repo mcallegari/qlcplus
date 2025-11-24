@@ -280,7 +280,7 @@ bool BeatTracking::processAudio(int16_t * buffer, int bufferSize)
             }
 
             if (m_tOnsetValues.size() == m_onsetWindowSize)
-                m_tOnsetValues.remove(0, 128);
+                m_tOnsetValues.erase(m_tOnsetValues.begin(), m_tOnsetValues.begin() + 128);
 
             m_blockPosition = -1;
         }
