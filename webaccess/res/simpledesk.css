@@ -65,3 +65,12 @@ input[type="range"]::-webkit-slider-thumb {
  width: 20px;
  height: 34px;
 }
+
+input[type="range"]::-moz-range-thumb {
+ appearance: none;
+ background-color: #999999;
+ border-radius: 4px;
+ border: 1px solid #5c5c5c;
+ width: 20px;
+ height: 34px;
+}

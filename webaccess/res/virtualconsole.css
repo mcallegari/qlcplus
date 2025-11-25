@@ -248,11 +248,10 @@ table.hovertable td {
  color: #a0a0a0!important;
 }
 
-input[type=range] {
+input[type="range"] {
  appearance: none;
 }
 
-/* Chrome, Firefox */
 input[type="range"].vVertical {
  --rotate: 270;
  height: 4px;
@@ -266,6 +265,7 @@ input[type="range"].vVertical-disabled {
  background-color: #ccc!important;
 }
 
+/* Chrome, Edge, Opera */
 input[type="range"]::-webkit-slider-thumb {
  appearance: none;
  background-color: #999999;
@@ -281,11 +281,16 @@ input[type="range"]:disabled::-webkit-slider-thumb {
 }
 
 /* Firefox */
-input[type=range]::-moz-range-thumb {
- background-color: #ccc;
+input[type="range"]::-moz-range-thumb {
+ appearance: none;
+ background-color: #999999;
+ border-radius: 4px;
+ border: 1px solid #5c5c5c;
+ width: 20px;
+ height: 36px;
 }
 
-input[type="range"]:disabled::-webkit-slider-thumb {
+input[type="range"]:disabled::-moz-range-thumb {
  appearance: none;
  background-color: #ccc;
 }
