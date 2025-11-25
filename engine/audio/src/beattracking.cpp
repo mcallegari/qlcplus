@@ -270,18 +270,35 @@ bool BeatTracking::processAudio(int16_t * buffer, int bufferSize)
                     phaseOnsetValues[i] = m_tOnsetValues[m_tOnsetValues.size() - i - 1] * qExp(-i * decay);
 
                 // phase calculation by autocorrelation with train of impulses
-                QVector<double> phaseValues(phaseOnsetValues.size(), 0.0);
-                double maxPhaseValue = 0.0;
-                int phaseIndex = 0.0;
 
-                for (int i = 0; i < phaseOnsetValues.size(); i++)
+                // add one weighting to phase values
+                QVector<double> phaseValues(phaseOnsetValues.size(), 1.0);
+
+                // when in continuity mode - add weighting to phase values
+                if (m_currentPredictionState == PredictionState::CONTINUITY && m_beatPredictions.size() > 0)
                 {
+                    // get last predicted beat in the next frame
+                    double lastPredictedBeat = m_windowSize/2 - m_beatPredictions.last();
+                    double sigmaSquared = 2.0 * qPow(m_identifiedLag / 8, 2);
+                    // calculate gaussian weighting for last predicted beat
+                    for (int i = 0; i < phaseOnsetValues.size(); ++i)
+                        phaseValues[i] = qExp(-1.0 * qPow((i - lastPredictedBeat), 2) / sigmaSquared);
+                }
+                
+                double maxPhaseValue = 0.0;
+                int phaseIndex = 0;
+                for (int i = 0; i < phaseOnsetValues.size(); i++)
+                {   
+                    double phaseValue = 0.0;
                     for (int c = 0; c < cMax; c++)
                     {
                         int index = i + qRound(c*m_identifiedLag);
                         if (index < phaseOnsetValues.size())
-                            phaseValues[i] += phaseOnsetValues[index];
+                            phaseValue += phaseOnsetValues[index];
                     }
+
+                    // use weighting
+                    phaseValues[i] *= phaseValue;
 
                     if (phaseValues[i] > maxPhaseValue)
                     {
@@ -298,15 +315,14 @@ bool BeatTracking::processAudio(int16_t * buffer, int bufferSize)
                 // check for negative results
                 while (beat + m_identifiedLag < 0)
                     beat += m_identifiedLag;
-
-                // TODO context dependent beat tracking?
+                
                 m_beatPredictions.clear();
-                for (int i = beat; i < m_windowSize/4; i+=m_identifiedLag)
+                for (int i = beat; i < m_windowSize/2; i+=m_identifiedLag)
                     m_beatPredictions += i;
             }
 
             if (m_tOnsetValues.size() == m_onsetWindowSize)
-                m_tOnsetValues.erase(m_tOnsetValues.begin(), m_tOnsetValues.begin() + 128);
+                m_tOnsetValues.erase(m_tOnsetValues.begin(), m_tOnsetValues.begin() + m_windowSize/2);
 
             m_blockPosition = -1;
         }
@@ -325,14 +341,12 @@ bool BeatTracking::processAudio(int16_t * buffer, int bufferSize)
             m_tOnsetValues += thresholded;
             //qDebug() << "T" << thresholded;
         }
-
         for (double &v : m_beatPredictions)
         {
             if (m_blockPosition == qFloor(v))
             {
                 qDebug() << m_currentBPM << " (" << m_currentMs << "ms)" << " Beat";
                 isBeat = true;
-                //beatPredictions.removeFirst();
                 break;
             }
             else if (m_blockPosition < v)
