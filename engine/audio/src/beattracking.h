@@ -22,7 +22,7 @@
 
 #include <QObject>
 #ifdef HAS_FFTW3
-#include "fftw3.h"
+  #include "fftw3.h"
 #endif
 
 /** @addtogroup engine Engine
@@ -40,9 +40,9 @@ class BeatTracking : public QObject
     Q_OBJECT
 
 public:
-    BeatTracking(int channels, QObject * parent = nullptr);
+    BeatTracking(int channels, QObject *parent = nullptr);
     ~BeatTracking();
-    bool processAudio(int16_t * buffer, int bufferSize);
+    bool processAudio(int16_t *buffer, int bufferSize);
 
 private:
     enum PredictionState{ACF, CONTINUITY};
@@ -57,42 +57,40 @@ private:
     int m_hopSize;
     int m_onsetWindowSize;
 
-    float * currentFrame;
-
     // FFT information
-    double * m_fftInputBuffer;
-    void * m_fftOutputBuffer;
+    double *m_fftInputBuffer;
+    void *m_fftOutputBuffer;
+#ifdef HAS_FFTW3
     fftw_plan m_planForward;
-    
+#endif
 
     // stored values that are currently processed
     QVector<double> m_windowBuffer;
 
     // weighting storage
     QVector<double> m_windowWeights;
-    QVector<double> m_onsetWeights;
 
     // methods
     QVector<double> calculateWindowWeights(int windowSize);
-    QVector<double> calculateBiquadFilter(QList<double> values);
-    QVector<double> getGaussianWeighting(int length, double tLag);
     QVector<double> getRaileighFilterBank(int length, double tLag);
-    QVector<double> getOnsetCorrelation(QList<double> onsetValues);
-    int getPredictedAcfLag(QVector<double> oCorr);
-    double getMean(QVector<double> values);
-    double getMedian(QVector<double> values);
-    double getQuadraticValue(int position, QVector<double> vector);
+    QVector<double> getGaussianWeighting(int length, double tLag);
+    int getPredictedAcfLag(const QVector<double> &oCorr);
+    QVector<double> getOnsetCorrelation(const QList<double> &onsetValues);
+    QVector<double> calculateBiquadFilter(const QList<double> &values);
+    double getMean(const QVector<double> &values);
+    double getMedian(QVector<double> values); // keep by value since we sort
+    double getQuadraticValue(int position, const QVector<double> &vector);
 
 
     QVector<double> m_raileighFilterBank;
     QVector<double> m_gaussianFilterBank;
+    QVector<double> m_prevMagnitudes;
 
     // onset storage
     QList<double> m_tOnsetValues;
     QList<double> m_onsetValuesProcessed;
     
     // consistency - Context dependent model
-    double m_lastDifference;
     double m_lastLag;
     int m_consistencyCount;
     double m_continuityDerivation;
@@ -106,6 +104,8 @@ private:
     double m_identifiedLag;
     double m_currentBPM;
     double m_currentMs;
+
+    double m_silenceGateThreshold;   // RMS threshold; 0.0 disables gate
 };
 
 /** @} */

@@ -33,22 +33,24 @@ const double filterCoeffB[] = { 0.15998789, 0.31997577, 0.15998789 };
 
 BeatTracking::BeatTracking(int channels, QObject *parent)
     : QObject(parent)
+    , m_channels(channels)
+    , m_sampleRate(BEAT_DEFAULT_SAMPLE_RATE)
+    , m_windowSize(BEAT_DEFAULT_WINDOW_SIZE)
+    , m_hopSize(BEAT_DEFAULT_HOP_SIZE)
+    , m_onsetWindowSize(ONSET_WINDOW_SIZE)
+    , m_lastLag(0.0)
+    , m_consistencyCount(0)
+    , m_blockPosition(-1)
+    , m_identifiedLag(0.0)
+    , m_currentBPM(120)
+    , m_currentMs(500)
+    , m_silenceGateThreshold(0.001)     // ≈ -60 dBFS on normalized [-1,1] audio
 {
-    m_channels = channels;
-    m_sampleRate = BEAT_DEFAULT_SAMPLE_RATE;
-    m_windowSize = BEAT_DEFAULT_WINDOW_SIZE;
-    m_hopSize = BEAT_DEFAULT_HOP_SIZE;
-    m_onsetWindowSize = ONSET_WINDOW_SIZE;
-
-    m_currentBPM = 120;
-    m_currentMs = 500;
-
     m_windowWeights = calculateWindowWeights(m_windowSize);
-    m_onsetWeights = calculateWindowWeights(15);
 
-    m_identifiedLag = 0;
-    m_lastLag = 0;
-    m_consistencyCount = 0;
+    m_prevMagnitudes.resize(m_windowSize / 2);
+    m_prevMagnitudes.fill(0.0);
+
     double targetLag = (m_sampleRate * 60.0) / (RAILEIGH_TARGET_BPM*m_hopSize);
     m_continuityDerivation = targetLag/8;
 
@@ -83,9 +85,9 @@ QVector<double> BeatTracking::calculateWindowWeights(int windowSize)
 {
     QVector<double> returnVector(windowSize);
 
-    // pre calculate hanningz window
+    // pre calculate Hann window
     for (int i = 0; i < windowSize; i++)
-        returnVector[i] = 0.5 * (1.0 - qCos(M_PI * M_PI * i / (windowSize)));
+        returnVector[i] = 0.5 * (1.0 - cos(2 * M_PI * i / (windowSize - 1)));
 
     return returnVector;
 }
@@ -121,37 +123,60 @@ bool BeatTracking::processAudio(int16_t * buffer, int bufferSize)
 
     for (int i = 0; i < bufferSize; ++i)
     {
-        // mixdown channels - Maybe do this before calling the function?
-        m_windowBuffer += 0;
-        for (unsigned int j = 0; j < m_channels; j++)
-            m_windowBuffer[i] += static_cast<double>(buffer[i * m_channels + j]) / m_channels;
+        m_windowBuffer.append(0.0);
+        int idx = m_windowBuffer.size() - 1;
 
-        m_windowBuffer[i] += m_windowBuffer[i] / 32768.;
+        for (unsigned int j = 0; j < m_channels; ++j)
+            m_windowBuffer[idx] += static_cast<double>(buffer[i * m_channels + j]) / m_channels;
+
+        m_windowBuffer[idx] /= 32768.0;
     }
 
     // 1024 windows size, 512 advance between frames
     while (m_windowBuffer.size() > m_windowSize)
     {
-        memcpy(m_fftInputBuffer, m_windowBuffer.data(), m_windowSize);
+        memcpy(m_fftInputBuffer, m_windowBuffer.constData(), m_windowSize * sizeof(double));
 
+        // Apply window
         for (int i = 0; i< m_windowSize; i++)
             m_fftInputBuffer[i] = m_fftInputBuffer[i] * m_windowWeights[i];
 
-#ifdef HAS_FFTW3
-        fftw_execute(m_planForward);
-#endif
-
-        QVector<double> magnitudes(m_windowSize/2, 0);
-        double onsetValue = 0.0;
-        for (int i = 0; i < m_windowSize/2; i++)
+        // compute RMS for silence gate on the windowed block ---
+        double rms = 0.0;
+        for (int i = 0; i < m_windowSize; ++i)
         {
-            double mag = qSqrt((reinterpret_cast<fftw_complex*>(m_fftOutputBuffer)[i][0] * reinterpret_cast<fftw_complex*>(m_fftOutputBuffer)[i][0]) +
-                          (reinterpret_cast<fftw_complex*>(m_fftOutputBuffer)[i][1] * reinterpret_cast<fftw_complex*>(m_fftOutputBuffer)[i][1]));
+            double s = m_fftInputBuffer[i];
+            rms += s * s;
+        }
+        rms = std::sqrt(rms / m_windowSize);
 
-            if (mag > magnitudes[i])
-                onsetValue += (mag - magnitudes[i]);
+        double onsetValue = 0.0;
 
-            magnitudes[i] = mag;
+        // If gate is active and level is below threshold, treat as silence
+        if (m_silenceGateThreshold > 0.0 && rms < m_silenceGateThreshold)
+        {
+            // onsetValue stays 0.0
+            // we intentionally skip FFT and magnitude update
+        }
+        else
+        {
+#ifdef HAS_FFTW3
+            fftw_execute(m_planForward);
+
+            auto *fftOut = reinterpret_cast<fftw_complex*>(m_fftOutputBuffer);
+
+            for (int i = 0; i < m_windowSize / 2; ++i)
+            {
+                double re = fftOut[i][0];
+                double im = fftOut[i][1];
+                double mag = std::sqrt(re*re + im*im);
+
+                if (mag > m_prevMagnitudes[i])
+                    onsetValue += (mag - m_prevMagnitudes[i]);
+
+                m_prevMagnitudes[i] = mag;
+            }
+#endif
         }
 
         if (m_tOnsetValues.size() == m_onsetWindowSize)
@@ -232,16 +257,17 @@ bool BeatTracking::processAudio(int16_t * buffer, int bufferSize)
                     }
                 }
 
-                m_currentBPM = (44100 * 60) / (m_hopSize * m_identifiedLag);
-                m_currentMs = m_identifiedLag * m_hopSize / 44.1;
+                m_currentBPM = (m_sampleRate * 60.0) / (m_hopSize * m_identifiedLag);
+                m_currentMs  = (m_identifiedLag * m_hopSize * 1000.0) / m_sampleRate;
 
                 // Beat Tracking and phase detection
                 int cMax = qFloor(m_tOnsetValues.size() / m_identifiedLag);
                 QVector<double> phaseOnsetValues(m_tOnsetValues.size(), 0.0);
 
                 // reverse onset values and add weighting so that most recent events are more likely
-                for (int i = 0; i < phaseOnsetValues.size(); i++)
-                    phaseOnsetValues[i] = m_tOnsetValues[m_tOnsetValues.size() - i - 1] * qExp(-1.0*i*(qLn(2)/m_identifiedLag));
+                double decay = qLn(2) / m_identifiedLag;
+                for (int i = 0; i < phaseOnsetValues.size(); ++i)
+                    phaseOnsetValues[i] = m_tOnsetValues[m_tOnsetValues.size() - i - 1] * qExp(-i * decay);
 
                 // phase calculation by autocorrelation with train of impulses
                 QVector<double> phaseValues(phaseOnsetValues.size(), 0.0);
@@ -321,7 +347,7 @@ bool BeatTracking::processAudio(int16_t * buffer, int bufferSize)
     return isBeat;
 }
 
-QVector<double> BeatTracking::getOnsetCorrelation(QList<double> onsetValues)
+QVector<double> BeatTracking::getOnsetCorrelation(const QList<double> &onsetValues)
 {
     QVector<double> autoCorr(onsetValues.size());
     for (int l = 0; l < onsetValues.size(); l++)
@@ -329,9 +355,7 @@ QVector<double> BeatTracking::getOnsetCorrelation(QList<double> onsetValues)
         double divider = qAbs(l - onsetValues.size());
         double sum = 0.0;
         for (int i = l; i < onsetValues.size(); i++)
-        {
             sum += onsetValues[i] * onsetValues[i - l];
-        }
 
         autoCorr[l] = sum / divider;
     }
@@ -357,12 +381,12 @@ QVector<double> BeatTracking::getOnsetCorrelation(QList<double> onsetValues)
     return combRes;
 }
 
-int BeatTracking::getPredictedAcfLag(QVector<double> roCorr)
+int BeatTracking::getPredictedAcfLag(const QVector<double> &roCorr)
 {
     QVector<double> tps2(roCorr.size()/2);
     QVector<double> tps3(roCorr.size()/2);
     
-    double max2I = 0.0, max3I = 0.0;
+    int max2I = 0.0, max3I = 0.0;
     double max2 = 0.0, max3 = 0.0;
     for (int r = 1; r < roCorr.size() / 2 - 1; r++)
     {
@@ -390,7 +414,7 @@ int BeatTracking::getPredictedAcfLag(QVector<double> roCorr)
         return max3I;
 }
 
-QVector<double> BeatTracking::calculateBiquadFilter(QList<double> values)
+QVector<double> BeatTracking::calculateBiquadFilter(const QList<double> &values)
 {
     QVector<double> processed;
     processed.fill(0.0, values.size());
@@ -425,7 +449,7 @@ QVector<double> BeatTracking::calculateBiquadFilter(QList<double> values)
     return processed;
 }
 
-double BeatTracking::getMean(QVector<double> values)
+double BeatTracking::getMean(const QVector<double> &values)
 {
     double mean = 0.0;
     for (double value : values)
@@ -438,16 +462,28 @@ double BeatTracking::getMean(QVector<double> values)
 double BeatTracking::getMedian(QVector<double> values)
 {
     std::sort(values.begin(), values.end());
+    int n = values.size();
+    if (n == 0)
+        return 0.0; // or throw/assert
 
-    return values[qFloor(values.size() / 2) + 1];
+    if (n % 2 == 1)
+        return values[n / 2];
+    else
+        return 0.5 * (values[n/2 - 1] + values[n/2]);
 }
 
-double BeatTracking::getQuadraticValue(int position, QVector<double> vector)
+double BeatTracking::getQuadraticValue(int position, const QVector<double> &v)
 {
-    double prevValue = 0;
+    if (position <= 0 || position >= v.size() - 1)
+        return static_cast<double>(position);
 
-    if (position > 0)
-        prevValue = vector[position - 1];
+    double y0 = v[position - 1];
+    double y1 = v[position];
+    double y2 = v[position + 1];
 
-    return static_cast<double>(position) + 0.5 * (prevValue - vector[position + 1]) / (prevValue - 2 * vector[position] + vector[position + 1]);
-}  
+    double denom = (y0 - 2 * y1 + y2);
+    if (denom == 0.0)
+        return static_cast<double>(position);
+
+    return position + 0.5 * (y0 - y2) / denom;
+}
