@@ -41,7 +41,7 @@ QString WebAccessConfiguration::getIOConfigHTML(Doc *doc)
 
     QStringList IOplugins = ioMap->inputPluginNames();
     foreach (QString out, ioMap->outputPluginNames())
-        if (IOplugins.contains(out) == false)
+        if (!IOplugins.contains(out))
             IOplugins.append(out);
 
     QStringList inputLines, outputLines, feedbackLines;
@@ -189,7 +189,7 @@ QString WebAccessConfiguration::getUserFixturesConfigHTML()
     QString html = "";
     QDir userFx = QLCFixtureDefCache::userDefinitionDirectory();
 
-    if (userFx.exists() == false || userFx.isReadable() == false)
+    if (!userFx.exists() || !userFx.isReadable())
         return "";
 
     html += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
@@ -316,7 +316,7 @@ QString WebAccessConfiguration::getHTML(Doc *doc, WebAccessAuth *auth)
                  "<link href=\"common.css\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\">\n";
 
     QString extraButtons = "";
-    if (QLCFile::hasWindowManager() == false)
+    if (!QLCFile::hasWindowManager())
     {
         extraButtons = "<a class=\"button button-blue\" href=\"/system\"><span>" + tr("System") + "</span></a>\n";
     }

@@ -287,7 +287,7 @@ QString WebAccessNetwork::getNetworkHTML()
     }
 
     // add the possibility to activate a Wi-Fi hotspot
-    if (hotspotFound == false)
+    if (!hotspotFound)
     {
         InterfaceInfo hs;
         hs.isHotspot = true;

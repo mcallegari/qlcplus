@@ -825,7 +825,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
     else if (cmdList[0] == "POLL")
         return;
 
-    if (data.contains("|") == false)
+    if (!data.contains("|"))
         return;
 
     if (m_auth && user && user->level < VC_ONLY_LEVEL)
@@ -975,7 +975,7 @@ bool WebAccess::sendFile(QHttpResponse *response, QString filename, QString cont
 #if defined(WIN32) || defined(Q_OS_WIN)
     // If coming from a Windows hack, restore a path like
     // /c//tmp/pic.jpg back to C:\tmp\pic.jpg
-    if (resFile.exists() == false)
+    if (!resFile.exists())
     {
         filename.remove(0, 1);
         filename.replace("//", ":\\");
@@ -2226,7 +2226,7 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
         QString str;
         bool restoreDisable = false;
 
-        if (pagesNum > 0 && widget->isEnabled() == false)
+        if (pagesNum > 0 && !widget->isEnabled())
         {
             widget->setEnabled(true);
             restoreDisable = true;
