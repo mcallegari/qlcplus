@@ -101,7 +101,7 @@ function drawPage(data) {
      code += "<div id='sdslv" + chNum + "' class='sdslLabel' style='top:2px;'>" + cVars[i + 1]  + "</div>";
      code += "<input type='range' class='vVertical' id='" + chNum + "' ";
      code += "oninput='sdSlVchange(" + chNum + ");' ontouchmove='sdSlVchange(" + chNum + ");' ";
-     code += "style='width: 250px; margin-top: 250px; margin-left: 18px; ";
+     code += "style='width: 250px; margin-top: 250px; margin-left: 18px;' ";
      code += "min='0' max='255' step='1' value='" + cVars[i + 1] + "' >";
      code += "<div id='sdsln" + chNum + "' class='sdslLabel' ";
      code += "style='bottom:30px;'>" + chNum + "</div>";

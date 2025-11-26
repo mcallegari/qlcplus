@@ -1951,10 +1951,10 @@ QString WebAccess::getClockHTML(VCClock *clock)
     }
     else
     {
-        str += " vcclock\" href=\"javascript:void(0)\"";
+        str += " vcclock\"";
     }
 
-    str +=  "style=\"width: " + QString::number(clock->width()) + "px; ";
+    str +=  " style=\"width: " + QString::number(clock->width()) + "px; ";
 
     if (m_doc->mode() != Doc::Design)
         str += "border: none!important; ";

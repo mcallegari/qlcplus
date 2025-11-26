@@ -93,7 +93,7 @@ function connect()
 
   websocket.onerror = function () {
     console.error("QLC+ connection encountered error. Closing socket");
-    ws.close();
+    websocket.close();
   };
 
   websocket.onmessage = function(ev) {
