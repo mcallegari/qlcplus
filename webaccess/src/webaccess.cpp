@@ -264,50 +264,50 @@ void WebAccess::slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp)
                     .arg(QDir::separator()).arg(reqUrl.mid(1));
             }
         }
-        if (sendFile(resp, localFilePath, "image/png") == true)
+        if (sendFile(resp, localFilePath, "image/png"))
             return;
     }
     else if (reqUrl.endsWith(".jpg") || reqUrl.endsWith(".jpeg"))
     {
-        if (sendFile(resp, reqUrl, "image/jpg") == true)
+        if (sendFile(resp, reqUrl, "image/jpg"))
             return;
     }
     else if (reqUrl.endsWith(".bmp"))
     {
-        if (sendFile(resp, reqUrl, "image/bmp") == true)
+        if (sendFile(resp, reqUrl, "image/bmp"))
             return;
     }
     else if (reqUrl.endsWith(".svg"))
     {
-        if (sendFile(resp, reqUrl, "image/svg+xml") == true)
+        if (sendFile(resp, reqUrl, "image/svg+xml"))
             return;
     }
     else if (reqUrl.endsWith(".ico"))
     {
         QString clUri = reqUrl.mid(1);
         if (sendFile(resp, QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
-                     .arg(QDir::separator()).arg(clUri), "image/x-icon") == true)
+                     .arg(QDir::separator()).arg(clUri), "image/x-icon"))
             return;
     }
     else if (reqUrl.endsWith(".css"))
     {
         QString clUri = reqUrl.mid(1);
         if (sendFile(resp, QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
-                     .arg(QDir::separator()).arg(clUri), "text/css") == true)
+                     .arg(QDir::separator()).arg(clUri), "text/css"))
             return;
     }
     else if (reqUrl.endsWith(".js"))
     {
         QString clUri = reqUrl.mid(1);
         if (sendFile(resp, QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
-                     .arg(QDir::separator()).arg(clUri), "text/javascript") == true)
+                     .arg(QDir::separator()).arg(clUri), "text/javascript"))
             return;
     }
     else if (reqUrl.endsWith(".html"))
     {
         QString clUri = reqUrl.mid(1);
         if (sendFile(resp, QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
-                     .arg(QDir::separator()).arg(clUri), "text/html") == true)
+                     .arg(QDir::separator()).arg(clUri), "text/html"))
             return;
     }
     else if (reqUrl != "/")
@@ -492,7 +492,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
         if (cmdList.at(1) == "NETWORK")
         {
             QString wsMessage;
-            if (m_netConfig->updateNetworkSettings(cmdList) == true)
+            if (m_netConfig->updateNetworkSettings(cmdList))
                 wsMessage = QString("ALERT|" + tr("Network configuration changed. Reboot to apply the changes."));
             else
                 wsMessage = QString("ALERT|" + tr("An error occurred while updating the network configuration."));
@@ -510,7 +510,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 
             if (enable)
             {
-                if (m_netConfig->createWiFiHotspot(cmdList.at(3), cmdList.at(4)) == true)
+                if (m_netConfig->createWiFiHotspot(cmdList.at(3), cmdList.at(4)))
                     wsMessage = QString("ALERT|" + tr("Wi-Fi hotspot successfully activated."));
                 else
                     wsMessage = QString("ALERT|" + tr("An error occurred while creating a Wi-Fi hotspot."));
@@ -726,7 +726,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                     VCMatrix *animation = qobject_cast<VCMatrix*>(widget);
 
                     QMapIterator <quint32,QString> it(animation->customControlsMap());
-                    while (it.hasNext() == true)
+                    while (it.hasNext())
                     {
                         it.next();
                         wsAPIMessage.append(QString("%1|%2|").arg(it.key()).arg(it.value()));
@@ -740,7 +740,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                     VCXYPad *xypad = qobject_cast<VCXYPad*>(widget);
 
                     QMapIterator <quint32,QString> it(xypad->presetsMap());
-                    while (it.hasNext() == true)
+                    while (it.hasNext())
                     {
                         it.next();
                         wsAPIMessage.append(QString("%1|%2|").arg(it.key()).arg(it.value()));
@@ -2201,7 +2201,7 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
     if (lframe == NULL)
         return "";
 
-    if (lframe->multipageMode() == true)
+    if (lframe->multipageMode())
     {
         for (int i = 0; i < pagesNum; i++)
         {
@@ -2265,7 +2265,7 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
                 str = getWidgetHTML(widget);
             break;
         }
-        if (lframe->multipageMode() == true && pagesNum > 0)
+        if (lframe->multipageMode() && pagesNum > 0)
         {
             if (widget->page() < pagesHTML.count())
             {

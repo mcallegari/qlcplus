@@ -130,7 +130,7 @@ QString WebAccessConfiguration::getIOConfigHTML(Doc *doc)
         }
         html += "</select></td>\n";
         html += "<td><label><input type=\"checkbox\" ";
-        if (uniPass == true)
+        if (uniPass)
             html +="checked=\"checked\"";
         html += " onchange=\"ioChanged('PASSTHROUGH', " + QString::number(i) + ", this.checked);\">";
         html += tr("Passthrough") + "</label></td>\n";
@@ -159,11 +159,11 @@ QString WebAccessConfiguration::getAudioConfigHTML(Doc *doc)
     QString inputName, outputName;
     QSettings settings;
     QVariant var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
-    if (var.isValid() == true)
+    if (var.isValid())
         inputName = var.toString();
 
     var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
-    if (var.isValid() == true)
+    if (var.isValid())
         outputName = var.toString();
 
     foreach (AudioDeviceInfo info, devList)
@@ -197,12 +197,11 @@ QString WebAccessConfiguration::getUserFixturesConfigHTML()
 
     /* Attempt to read all specified files from the given directory */
     QStringListIterator it(userFx.entryList());
-    while (it.hasNext() == true)
+    while (it.hasNext())
     {
         QString path(it.next());
 
-        if (path.toLower().endsWith(".qxf") == true ||
-            path.toLower().endsWith(".d4"))
+        if (path.toLower().endsWith(".qxf") || path.toLower().endsWith(".d4"))
                 html += "<tr><td>" + path + "</td></tr>\n";
     }
     html += "</table>\n";
