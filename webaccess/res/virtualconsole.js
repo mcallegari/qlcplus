@@ -408,7 +408,10 @@ function setSliderDisableState(id, disable) {
 }
 
 function getPositionFromValue(val, id) {
-  var knobRect = document.getElementById("knob" + id).getBoundingClientRect();
+  var knob = document.getElementById("knob" + id);
+  if (!knob)
+    return;
+  var knobRect = knob.getBoundingClientRect();
   var pie = document.getElementById("pie" + id);
   var spot = document.getElementById("spot" + id);
   if (!knobRect || !pie || !spot) return;
