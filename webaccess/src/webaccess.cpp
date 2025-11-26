@@ -167,7 +167,7 @@ void WebAccess::slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp)
 
         QByteArray postReply =
                 QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
-                "<script type=\"text/javascript\">\n" PROJECT_LOADED_JS
+                "<script>\n" PROJECT_LOADED_JS
                 "</script></head><body style=\"background-color: #45484d;\">"
                 "<div style=\"position: absolute; width: 100%; height: 30px; top: 50%; background-color: #888888;"
                 "text-align: center; font:bold 24px/1.2em sans-serif;\">"
@@ -206,7 +206,7 @@ void WebAccess::slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp)
 
         QByteArray postReply =
                       QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
-                      "<script type=\"text/javascript\">\n"
+                      "<script>\n"
                       " alert(\"" + tr("Fixture stored and loaded") + "\");"
                       " window.location = \"/config\"\n"
                       "</script></head></html>").toUtf8();
@@ -2354,9 +2354,9 @@ QString WebAccess::getVCHTML()
 {
     m_CSScode = "<link href=\"common.css\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\">\n";
     m_CSScode += "<link href=\"virtualconsole.css\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\">\n";
-    m_JScode = "<script type=\"text/javascript\" src=\"virtualconsole.js\"></script>\n"
-               "<script type=\"text/javascript\" src=\"websocket.js\"></script>\n"
-               "<script type=\"text/javascript\">\n";
+    m_JScode = "<script src=\"virtualconsole.js\"></script>\n"
+               "<script src=\"websocket.js\"></script>\n"
+               "<script>\n";
 
     VCFrame *mainFrame = m_vc->contents();
     QSize mfSize = mainFrame->size();

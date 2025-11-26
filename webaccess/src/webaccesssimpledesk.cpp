@@ -39,8 +39,8 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
     int uni = sd->getCurrentUniverseIndex() + 1;
     int page = sd->getCurrentPage();
 
-    QString JScode = "<script type=\"text/javascript\" src=\"simpledesk.js\"></script>\n";
-    JScode += "<script type=\"text/javascript\">\n";
+    QString JScode = "<script src=\"simpledesk.js\"></script>\n";
+    JScode += "<script>\n";
     JScode += "var currentUniverse = " + QString::number(uni) + ";\n";
     JScode += "var currentPage = " + QString::number(page) + ";\n";
     JScode += "var channelsPerPage = " + QString::number(sd->getSlidersNumber()) + ";\n";

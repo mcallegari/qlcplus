@@ -297,8 +297,8 @@ QString WebAccessConfiguration::getPasswordsConfigHTML(WebAccessAuth *auth)
 
 QString WebAccessConfiguration::getHTML(Doc *doc, WebAccessAuth *auth)
 {
-    QString m_JScode = "<script type=\"text/javascript\" src=\"websocket.js\"></script>\n";
-    m_JScode += "<script type=\"text/javascript\" src=\"configuration.js\"></script>\n";
+    QString m_JScode = "<script src=\"websocket.js\"></script>\n";
+    m_JScode += "<script src=\"configuration.js\"></script>\n";
 
     QString m_CSScode =
                  "<style type=\"text/css\" media=\"screen\">\n"
