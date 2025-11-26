@@ -97,7 +97,7 @@ QVector<double> BeatTracking::getRaileighFilterBank(int length, double tLag)
     QVector<double> filterBank(length, 0.0);
     // calculate target lag time
 
-    double bSqaured = qPow(tLag,2);
+    double bSqaured = qPow(tLag, 2);
     for (int i = 0; i < length; i++)
         filterBank[i] = (i / bSqaured) * qExp(-qPow(i, 2) / (2 * bSqaured));
 
@@ -110,7 +110,7 @@ QVector<double> BeatTracking::getGaussianWeighting(int windowLength, double tLag
 
     double var = 2 * qPow(tLag / 8, 2.0);
     for (int i = 0; i < windowLength; i++)
-        returnVector[i] = qExp(-1*qPow(i-tLag, 2.0) / var);
+        returnVector[i] = qExp(-1*qPow(i - tLag, 2.0) / var);
 
     return returnVector;
 }
@@ -278,7 +278,7 @@ bool BeatTracking::processAudio(int16_t * buffer, int bufferSize)
                 if (m_currentPredictionState == PredictionState::CONTINUITY && m_beatPredictions.size() > 0)
                 {
                     // get last predicted beat in the next frame
-                    double lastPredictedBeat = m_windowSize/2 - m_beatPredictions.last();
+                    double lastPredictedBeat = m_windowSize / 2 - m_beatPredictions.last();
                     double sigmaSquared = 2.0 * qPow(m_identifiedLag / 8, 2);
                     // calculate gaussian weighting for last predicted beat
                     for (int i = 0; i < phaseOnsetValues.size(); ++i)
@@ -292,7 +292,7 @@ bool BeatTracking::processAudio(int16_t * buffer, int bufferSize)
                     double phaseValue = 0.0;
                     for (int c = 0; c < cMax; c++)
                     {
-                        int index = i + qRound(c*m_identifiedLag);
+                        int index = i + qRound(c * m_identifiedLag);
                         if (index < phaseOnsetValues.size())
                             phaseValue += phaseOnsetValues[index];
                     }
@@ -317,12 +317,12 @@ bool BeatTracking::processAudio(int16_t * buffer, int bufferSize)
                     beat += m_identifiedLag;
                 
                 m_beatPredictions.clear();
-                for (int i = beat; i < m_windowSize/2; i+=m_identifiedLag)
+                for (int i = beat; i < m_windowSize / 2; i += m_identifiedLag)
                     m_beatPredictions += i;
             }
 
             if (m_tOnsetValues.size() == m_onsetWindowSize)
-                m_tOnsetValues.erase(m_tOnsetValues.begin(), m_tOnsetValues.begin() + m_windowSize/2);
+                m_tOnsetValues.erase(m_tOnsetValues.begin(), m_tOnsetValues.begin() + m_windowSize / 2);
 
             m_blockPosition = -1;
         }
@@ -376,7 +376,7 @@ QVector<double> BeatTracking::getOnsetCorrelation(const QList<double> &onsetValu
 
     autoCorr[0] = 0;
     
-    autoCorr[autoCorr.size()-1] = 0;
+    autoCorr[autoCorr.size() - 1] = 0;
     
     // comb filter
     QVector<double> combRes(onsetValues.size(), 0.0);
@@ -388,7 +388,7 @@ QVector<double> BeatTracking::getOnsetCorrelation(const QList<double> &onsetValu
             {
                 int index = l * a + b - 1;
                 if (index > 0 && index < autoCorr.size())
-                    combRes[l] += autoCorr[index] / (2*a-1);
+                    combRes[l] += autoCorr[index] / (2 * a - 1);
             }
         }
     }
@@ -397,8 +397,8 @@ QVector<double> BeatTracking::getOnsetCorrelation(const QList<double> &onsetValu
 
 int BeatTracking::getPredictedAcfLag(const QVector<double> &roCorr)
 {
-    QVector<double> tps2(roCorr.size()/2);
-    QVector<double> tps3(roCorr.size()/2);
+    QVector<double> tps2(roCorr.size() / 2);
+    QVector<double> tps3(roCorr.size() / 2);
     
     int max2I = 0.0, max3I = 0.0;
     double max2 = 0.0, max3 = 0.0;
@@ -440,8 +440,8 @@ QVector<double> BeatTracking::calculateBiquadFilter(const QList<double> &values)
         {
             if (i - order >= 0)
             {
-                processed[i] += filterCoeffB[order] * values[i-order];
-                processed[i] -= filterCoeffA[order] * processed[i-order];
+                processed[i] += filterCoeffB[order] * values[i - order];
+                processed[i] -= filterCoeffA[order] * processed[i - order];
             }
         }
     }
