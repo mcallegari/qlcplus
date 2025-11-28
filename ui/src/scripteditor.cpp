@@ -396,6 +396,7 @@ void ScriptEditor::slotAddSystemCommand()
     {
         formattedArgs.append(QString("arg:%1 ").arg(arg));
     }
+    formattedArgs = formattedArgs.trimmed();
 
     m_editor->moveCursor(QTextCursor::StartOfLine);
     m_editor->textCursor().insertText(QString("%1:%2 %3\n")
