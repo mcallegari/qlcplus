@@ -447,7 +447,11 @@ bool ScriptRunner::systemCommand(QString command)
     for (int i = 1; i < tokens.size(); i++)
     {
         QString token = tokens.at(i);
-        if (token.startsWith("'"))
+        if (token.startsWith("'") && token.endsWith("'"))
+        {
+            programArgs << token.removeFirst().removeLast();
+        }
+        else if (token.startsWith("'"))
         {
             multiPartArg.clear();
             multiPartArg.append(token.mid(1));
