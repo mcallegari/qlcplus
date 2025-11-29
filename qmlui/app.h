@@ -30,6 +30,7 @@ class MainView2D;
 class ShowManager;
 class SimpleDesk;
 class UiManager;
+class RDMManager;
 class ActionManager;
 class FixtureBrowser;
 class FixtureManager;
@@ -258,6 +259,7 @@ private:
     NetworkManager *m_networkManager;
     UiManager *m_uiManager;
     StageWizard *m_stageWizard;
+    RDMManager *m_rdmManager;
     Tardis *m_tardis;
 
     /*********************************************************************
