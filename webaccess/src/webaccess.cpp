@@ -167,7 +167,7 @@ void WebAccess::slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp)
 
         QByteArray postReply =
                 QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
-                "<script type=\"text/javascript\">\n" PROJECT_LOADED_JS
+                "<script>\n" PROJECT_LOADED_JS
                 "</script></head><body style=\"background-color: #45484d;\">"
                 "<div style=\"position: absolute; width: 100%; height: 30px; top: 50%; background-color: #888888;"
                 "text-align: center; font:bold 24px/1.2em sans-serif;\">"
@@ -206,7 +206,7 @@ void WebAccess::slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp)
 
         QByteArray postReply =
                       QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
-                      "<script type=\"text/javascript\">\n"
+                      "<script>\n"
                       " alert(\"" + tr("Fixture stored and loaded") + "\");"
                       " window.location = \"/config\"\n"
                       "</script></head></html>").toUtf8();
@@ -264,50 +264,50 @@ void WebAccess::slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp)
                     .arg(QDir::separator()).arg(reqUrl.mid(1));
             }
         }
-        if (sendFile(resp, localFilePath, "image/png") == true)
+        if (sendFile(resp, localFilePath, "image/png"))
             return;
     }
     else if (reqUrl.endsWith(".jpg") || reqUrl.endsWith(".jpeg"))
     {
-        if (sendFile(resp, reqUrl, "image/jpg") == true)
+        if (sendFile(resp, reqUrl, "image/jpg"))
             return;
     }
     else if (reqUrl.endsWith(".bmp"))
     {
-        if (sendFile(resp, reqUrl, "image/bmp") == true)
+        if (sendFile(resp, reqUrl, "image/bmp"))
             return;
     }
     else if (reqUrl.endsWith(".svg"))
     {
-        if (sendFile(resp, reqUrl, "image/svg+xml") == true)
+        if (sendFile(resp, reqUrl, "image/svg+xml"))
             return;
     }
     else if (reqUrl.endsWith(".ico"))
     {
         QString clUri = reqUrl.mid(1);
         if (sendFile(resp, QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
-                     .arg(QDir::separator()).arg(clUri), "image/x-icon") == true)
+                     .arg(QDir::separator()).arg(clUri), "image/x-icon"))
             return;
     }
     else if (reqUrl.endsWith(".css"))
     {
         QString clUri = reqUrl.mid(1);
         if (sendFile(resp, QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
-                     .arg(QDir::separator()).arg(clUri), "text/css") == true)
+                     .arg(QDir::separator()).arg(clUri), "text/css"))
             return;
     }
     else if (reqUrl.endsWith(".js"))
     {
         QString clUri = reqUrl.mid(1);
         if (sendFile(resp, QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
-                     .arg(QDir::separator()).arg(clUri), "text/javascript") == true)
+                     .arg(QDir::separator()).arg(clUri), "text/javascript"))
             return;
     }
     else if (reqUrl.endsWith(".html"))
     {
         QString clUri = reqUrl.mid(1);
         if (sendFile(resp, QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
-                     .arg(QDir::separator()).arg(clUri), "text/html") == true)
+                     .arg(QDir::separator()).arg(clUri), "text/html"))
             return;
     }
     else if (reqUrl != "/")
@@ -492,7 +492,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
         if (cmdList.at(1) == "NETWORK")
         {
             QString wsMessage;
-            if (m_netConfig->updateNetworkSettings(cmdList) == true)
+            if (m_netConfig->updateNetworkSettings(cmdList))
                 wsMessage = QString("ALERT|" + tr("Network configuration changed. Reboot to apply the changes."));
             else
                 wsMessage = QString("ALERT|" + tr("An error occurred while updating the network configuration."));
@@ -510,7 +510,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 
             if (enable)
             {
-                if (m_netConfig->createWiFiHotspot(cmdList.at(3), cmdList.at(4)) == true)
+                if (m_netConfig->createWiFiHotspot(cmdList.at(3), cmdList.at(4)))
                     wsMessage = QString("ALERT|" + tr("Wi-Fi hotspot successfully activated."));
                 else
                     wsMessage = QString("ALERT|" + tr("An error occurred while creating a Wi-Fi hotspot."));
@@ -726,7 +726,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                     VCMatrix *animation = qobject_cast<VCMatrix*>(widget);
 
                     QMapIterator <quint32,QString> it(animation->customControlsMap());
-                    while (it.hasNext() == true)
+                    while (it.hasNext())
                     {
                         it.next();
                         wsAPIMessage.append(QString("%1|%2|").arg(it.key()).arg(it.value()));
@@ -740,7 +740,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                     VCXYPad *xypad = qobject_cast<VCXYPad*>(widget);
 
                     QMapIterator <quint32,QString> it(xypad->presetsMap());
-                    while (it.hasNext() == true)
+                    while (it.hasNext())
                     {
                         it.next();
                         wsAPIMessage.append(QString("%1|%2|").arg(it.key()).arg(it.value()));
@@ -825,7 +825,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
     else if (cmdList[0] == "POLL")
         return;
 
-    if (data.contains("|") == false)
+    if (!data.contains("|"))
         return;
 
     if (m_auth && user && user->level < VC_ONLY_LEVEL)
@@ -975,7 +975,7 @@ bool WebAccess::sendFile(QHttpResponse *response, QString filename, QString cont
 #if defined(WIN32) || defined(Q_OS_WIN)
     // If coming from a Windows hack, restore a path like
     // /c//tmp/pic.jpg back to C:\tmp\pic.jpg
-    if (resFile.exists() == false)
+    if (!resFile.exists())
     {
         filename.remove(0, 1);
         filename.replace("//", ":\\");
@@ -1951,10 +1951,10 @@ QString WebAccess::getClockHTML(VCClock *clock)
     }
     else
     {
-        str += " vcclock\" href=\"javascript:void(0)\"";
+        str += " vcclock\"";
     }
 
-    str +=  "style=\"width: " + QString::number(clock->width()) + "px; ";
+    str +=  " style=\"width: " + QString::number(clock->width()) + "px; ";
 
     if (m_doc->mode() != Doc::Design)
         str += "border: none!important; ";
@@ -2043,7 +2043,7 @@ QString WebAccess::getMatrixHTML(VCMatrix *matrix)
                 "oninput=\"matrixSliderValueChange(" + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixSliderValueChange(" + QString::number(matrix->id()) + ");\" "
                 "style=\"width: " + QString::number(matrix->height() - 20) + "px; "
                 "margin-top: " + QString::number(matrix->height() - 10) + "px; margin-left: 25px;\" "
-                "min=\"1\" max=\"255\" step=\"1\" value=\"" + QString::number(matrix->sliderValue()) + "\">\n";
+                "min=\"0\" max=\"255\" step=\"1\" value=\"" + QString::number(matrix->sliderValue()) + "\">\n";
         str +=  "</div>";
     }
     str +=  "<div style=\"display: flex; flex-direction: column; align-items: center; justify-content: space-around; height: 100%; width: 100%; margin: 8px; \">";
@@ -2201,7 +2201,7 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
     if (lframe == NULL)
         return "";
 
-    if (lframe->multipageMode() == true)
+    if (lframe->multipageMode())
     {
         for (int i = 0; i < pagesNum; i++)
         {
@@ -2226,7 +2226,7 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
         QString str;
         bool restoreDisable = false;
 
-        if (pagesNum > 0 && widget->isEnabled() == false)
+        if (pagesNum > 0 && !widget->isEnabled())
         {
             widget->setEnabled(true);
             restoreDisable = true;
@@ -2265,7 +2265,7 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
                 str = getWidgetHTML(widget);
             break;
         }
-        if (lframe->multipageMode() == true && pagesNum > 0)
+        if (lframe->multipageMode() && pagesNum > 0)
         {
             if (widget->page() < pagesHTML.count())
             {
@@ -2354,9 +2354,9 @@ QString WebAccess::getVCHTML()
 {
     m_CSScode = "<link href=\"common.css\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\">\n";
     m_CSScode += "<link href=\"virtualconsole.css\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\">\n";
-    m_JScode = "<script type=\"text/javascript\" src=\"virtualconsole.js\"></script>\n"
-               "<script type=\"text/javascript\" src=\"websocket.js\"></script>\n"
-               "<script type=\"text/javascript\">\n";
+    m_JScode = "<script src=\"virtualconsole.js\"></script>\n"
+               "<script src=\"websocket.js\"></script>\n"
+               "<script>\n";
 
     VCFrame *mainFrame = m_vc->contents();
     QSize mfSize = mainFrame->size();

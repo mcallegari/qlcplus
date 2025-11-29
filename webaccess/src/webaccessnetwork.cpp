@@ -287,7 +287,7 @@ QString WebAccessNetwork::getNetworkHTML()
     }
 
     // add the possibility to activate a Wi-Fi hotspot
-    if (hotspotFound == false)
+    if (!hotspotFound)
     {
         InterfaceInfo hs;
         hs.isHotspot = true;
@@ -299,8 +299,8 @@ QString WebAccessNetwork::getNetworkHTML()
 
 QString WebAccessNetwork::getHTML()
 {
-    QString m_JScode = "<script type=\"text/javascript\" src=\"websocket.js\"></script>\n";
-    m_JScode += "<script type=\"text/javascript\" src=\"networkconfig.js\"></script>\n";
+    QString m_JScode = "<script src=\"websocket.js\"></script>\n";
+    m_JScode += "<script src=\"networkconfig.js\"></script>\n";
 
     QString m_CSScode = "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"common.css\">\n";
     m_CSScode += "<style type=\"text/css\" media=\"screen\">\n"

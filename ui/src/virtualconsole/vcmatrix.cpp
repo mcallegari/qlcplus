@@ -1255,6 +1255,7 @@ void VCMatrix::slotCustomControlClicked()
             if (instantChanges() == true)
                 matrix->updateColorDelta();
             btn->setDown(true);
+            emit animationValueChanged(control->m_resource);
         }
         else if (control->m_type == VCMatrixControl::Text)
         {
@@ -1265,6 +1266,7 @@ void VCMatrix::slotCustomControlClicked()
             if (instantChanges() == true)
                 matrix->updateColorDelta();
             btn->setDown(true);
+            emit animationValueChanged("Text");
         }
     }
 }
