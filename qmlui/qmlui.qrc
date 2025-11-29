@@ -70,6 +70,7 @@
     <file alias="PopupDisclaimer.qml">qml/popup/PopupDisclaimer.qml</file>
     <file alias="PopupFolderBrowser.qml">qml/popup/PopupFolderBrowser.qml</file>
     <file alias="PopupImportProject.qml">qml/popup/PopupImportProject.qml</file>
+    <file alias="PopupImportRDMFixtures.qml">qml/popup/PopupImportRDMFixtures.qml</file>
     <file alias="PopupPINRequest.qml">qml/popup/PopupPINRequest.qml</file>
     <file alias="PopupPINSetup.qml">qml/popup/PopupPINSetup.qml</file>
     <file alias="PopupRenameItems.qml">qml/popup/PopupRenameItems.qml</file>

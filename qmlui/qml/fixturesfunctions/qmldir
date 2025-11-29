@@ -38,3 +38,4 @@ PopupMonitor 0.1 ../popup/PopupMonitor.qml
 PopupInputNumber 0.1 ../popup/PopupInputNumber.qml
 PopupChannelModifiers 0.1 ../popup/PopupChannelModifiers.qml
 PopupRenameItems 0.1 ../popup/PopupRenameItems.qml
+PopupImportRDMFixtures 0.1 ../popup/PopupImportRDMFixtures.qml

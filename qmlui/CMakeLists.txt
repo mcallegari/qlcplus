@@ -23,6 +23,7 @@ endif()
 
 set(SRC_FILES
     ../plugins/interfaces/utils.h
+    ../plugins/interfaces/rdmprotocol.cpp ../plugins/interfaces/rdmprotocol.h
     app.cpp app.h
     audioeditor.cpp audioeditor.h
     chasereditor.cpp chasereditor.h
@@ -53,6 +54,7 @@ set(SRC_FILES
     modelselector.cpp modelselector.h
     palettemanager.cpp palettemanager.h
     previewcontext.cpp previewcontext.h
+    rdmmanager.cpp rdmmanager.h
     rgbmatrixeditor.cpp rgbmatrixeditor.h
     sceneeditor.cpp sceneeditor.h
     scripteditor.cpp scripteditor.h
