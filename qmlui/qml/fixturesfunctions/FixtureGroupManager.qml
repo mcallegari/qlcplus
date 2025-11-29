@@ -167,7 +167,6 @@ Rectangle
     CustomPopupDialog
     {
         id: fmGenericPopup
-        visible: false
         title: qsTr("Error")
         message: ""
         onAccepted: {}
@@ -176,9 +175,13 @@ Rectangle
     PopupChannelModifiers
     {
         id: chModifierEditor
-        visible: false
 
         onAccepted: fixtureManager.setChannelModifier(itemID, chIndex)
+    }
+
+    PopupImportRDMFixtures
+    {
+        id: rdmImportPopup
     }
 
     ColumnLayout
@@ -205,6 +208,23 @@ Rectangle
                 y: 1
 
                 spacing: 4
+
+                IconButton
+                {
+                    id: detectButton
+                    visible: allowEditing
+                    z: 2
+                    width: height
+                    height: topBar.height - 2
+                    faSource: FontAwesome.fa_rotate
+                    //faColor: "blueviolet"
+                    tooltip: qsTr("Auto-Detect RDM fixtures")
+                    onClicked:
+                    {
+                        rdmManager.startDiscovery()
+                        rdmImportPopup.open()
+                    }
+                }
 
                 IconButton
                 {

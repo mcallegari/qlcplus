@@ -31,7 +31,6 @@ CustomPopupDialog
     height: mainView.height * 0.75
     title: qsTr("Import from project")
     standardButtons: Dialog.Cancel | Dialog.Apply
-    onVisibleChanged: mainView.setDimScreen(visible)
 
     onClicked: (role) =>
     {

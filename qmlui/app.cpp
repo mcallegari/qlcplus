@@ -45,6 +45,7 @@
 #include "app.h"
 #include "uimanager.h"
 #include "simpledesk.h"
+#include "rdmmanager.h"
 #include "showmanager.h"
 #include "fixtureeditor.h"
 #include "modelselector.h"
@@ -199,6 +200,7 @@ void App::startup()
 
     m_uiManager = new UiManager(this, m_doc);
     rootContext()->setContextProperty("uiManager", m_uiManager);
+
     m_ioManager = new InputOutputManager(this, m_doc);
     m_fixtureBrowser = new FixtureBrowser(this, m_doc);
     m_fixtureManager = new FixtureManager(this, m_doc);
@@ -215,6 +217,8 @@ void App::startup()
 
     m_networkManager = new NetworkManager(this, m_doc, m_virtualConsole, m_simpleDesk);
     rootContext()->setContextProperty("networkManager", m_networkManager);
+
+    m_rdmManager = new RDMManager(this, m_doc);
 
     connect(m_networkManager, &NetworkManager::clientAccessRequest, 
             this, &App::slotClientAccessRequest);
