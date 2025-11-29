@@ -372,12 +372,12 @@ void FixtureManager::initDataView()
             this, SLOT(slotChannelsGroupDoubleClicked(QTreeWidgetItem*)));
 
     tabs->addTab(m_channel_groups_tree, tr("Channel Groups"));
-
+/*
     m_rdmManager = new RDMManager(this, m_doc);
     tabs->addTab(m_rdmManager, "RDM");
     connect(m_rdmManager, SIGNAL(fixtureInfoReady(QString&)),
             this, SLOT(slotDisplayFixtureInfo(QString&)));
-
+*/
     connect(tabs, SIGNAL(currentChanged(int)), this, SLOT(slotTabChanged(int)));
 
     /* Create the text view */
