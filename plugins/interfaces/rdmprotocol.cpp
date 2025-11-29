@@ -371,8 +371,8 @@ bool RDMProtocol::parsePacket(const QByteArray &buffer, QVariantMap &values)
             values.insert("TYPE", categoryToString(byteArrayToShort(buffer, i + 4)));
             values.insert("Software version", byteArrayToLong(buffer, i + 6));
             values.insert("DMX_CHANNELS", byteArrayToShort(buffer, i + 10));
-            values.insert("Current personality", quint8(buffer.at(i + 12)));
-            values.insert("Number of personalities", quint8(buffer.at(i + 13)));
+            values.insert("PERSONALITY_INDEX", quint8(buffer.at(i + 12)));
+            values.insert("PERSONALITY_COUNT", quint8(buffer.at(i + 13)));
             values.insert("DMX_START_ADDRESS", byteArrayToShort(buffer, i + 14));
             values.insert("Sub-device count", byteArrayToShort(buffer, i + 16));
             values.insert("Number of sensors", quint8(buffer.at(i + 20)));
