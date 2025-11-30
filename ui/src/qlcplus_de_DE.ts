@@ -623,10 +623,9 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
         <translation>&amp;Neu</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="683"/>
         <source>CTRL+N</source>
         <comment>File|New</comment>
-        <translation>STRG+N</translation>
+        <translation type="vanished">STRG+N</translation>
     </message>
     <message>
         <location filename="app.cpp" line="686"/>
@@ -634,10 +633,9 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
         <translation>Ö&amp;ffnen</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="687"/>
         <source>CTRL+O</source>
         <comment>File|Open</comment>
-        <translation>STRG+O</translation>
+        <translation type="vanished">STRG+O</translation>
     </message>
     <message>
         <location filename="app.cpp" line="690"/>
@@ -645,10 +643,9 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
         <translation>&amp;Speichern</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="691"/>
         <source>CTRL+S</source>
         <comment>File|Save</comment>
-        <translation>STRG+S</translation>
+        <translation type="vanished">STRG+S</translation>
     </message>
     <message>
         <location filename="app.cpp" line="694"/>
@@ -661,10 +658,9 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
         <translation>&amp;Betrieb</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="700"/>
         <source>CTRL+F12</source>
         <comment>Control|Toggle operate/design mode</comment>
-        <translation>STRG+F12</translation>
+        <translation type="vanished">STRG+F12</translation>
     </message>
     <message>
         <location filename="app.cpp" line="719"/>
@@ -730,10 +726,9 @@ Die ausgewählte Datei wurde verschoben oder gelöscht.</translation>
         <translation>&amp;Monitor</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="704"/>
         <source>CTRL+M</source>
         <comment>Control|Monitor</comment>
-        <translation>STRG+M</translation>
+        <translation type="vanished">STRG+M</translation>
     </message>
     <message>
         <location filename="app.cpp" line="755"/>
@@ -741,10 +736,9 @@ Die ausgewählte Datei wurde verschoben oder gelöscht.</translation>
         <translation>Vollbildmodus umschalten</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="757"/>
         <source>CTRL+F11</source>
         <comment>Control|Toggle Full Screen</comment>
-        <translation>STRG+F11</translation>
+        <translation type="vanished">STRG+F11</translation>
     </message>
     <message>
         <location filename="app.cpp" line="761"/>
@@ -752,10 +746,9 @@ Die ausgewählte Datei wurde verschoben oder gelöscht.</translation>
         <translation>&amp;Handbuch</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="762"/>
         <source>SHIFT+F1</source>
         <comment>Help|Index</comment>
-        <translation>SHIFT+F1</translation>
+        <translation type="vanished">SHIFT+F1</translation>
     </message>
     <message>
         <location filename="app.cpp" line="765"/>
@@ -799,10 +792,9 @@ Die ausgewählte Datei wurde verschoben oder gelöscht.</translation>
         <translation>Abbild (Dump) der DMX-Werte in einer Funktion</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="725"/>
         <source>CTRL+D</source>
         <comment>Control|Dump DMX</comment>
-        <translation>STRG+D</translation>
+        <translation type="vanished">STRG+D</translation>
     </message>
     <message>
         <location filename="app.cpp" line="728"/>
