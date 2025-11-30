@@ -120,12 +120,15 @@ Rectangle
                     previousView = ""
                 }
 
-                if (checked)
-                    leftSidePanel.width += UISettings.sidePanelWidth
-                else
-                    leftSidePanel.width -= UISettings.sidePanelWidth
+                if (fixtureManager.propertyEditEnabled !== checked)
+                {
+                    if (checked)
+                        leftSidePanel.width += UISettings.sidePanelWidth
+                    else
+                        leftSidePanel.width -= UISettings.sidePanelWidth
 
-                fixtureManager.propertyEditEnabled = checked
+                    fixtureManager.propertyEditEnabled = checked
+                }
             }
             break
             case App.FixtureGroupDragItem:
