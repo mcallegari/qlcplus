@@ -164,7 +164,7 @@ signals:
     void requestPlayback();
     void requestPause(bool enable);
     void requestStop();
-    void requestBrightnessAdjust(int value);
+    void requestBrightnessVolumeAdjust(qreal value);
 
 private:
     /** URL of the video media source */

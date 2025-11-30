@@ -48,7 +48,7 @@ protected slots:
     void slotPlaybackVideo();
     void slotSetPause(bool enable);
     void slotStopVideo();
-    void slotBrightnessAdjust(int value);
+    void slotBrightnessVolumeAdjust(qreal value);
 
 private:
     int getScreenCount();
