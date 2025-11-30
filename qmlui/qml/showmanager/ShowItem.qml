@@ -115,6 +115,37 @@ Item
         visible: sfRef ? (sfRef.locked ? true : false) : false
     }
 
+    /* Waveform for audio items */
+    Image
+    {
+        id: waveformImage
+        z: 3
+        anchors.fill: parent
+        visible: funcRef && funcRef.type === QLCFunction.AudioType
+        cache: false
+        fillMode: Image.Stretch
+
+        source: (funcRef && funcRef.type === QLCFunction.AudioType) ? "image://waveform/" + funcRef.id : ""
+
+        function reload()
+        {
+            const old = source;
+            source = "";
+            source = old;
+        }
+
+        Connections
+        {
+            target: waveformProvider
+
+            function onWaveformUpdated(fid)
+            {
+                if (funcRef && fid === funcRef.id)
+                    waveformImage.reload()
+            }
+        }
+    }
+
     Canvas
     {
         id: prCanvas

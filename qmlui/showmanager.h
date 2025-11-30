@@ -30,6 +30,7 @@ class Doc;
 class Track;
 class Function;
 class ShowFunction;
+class WaveformImageProvider;
 
 typedef struct
 {
@@ -311,6 +312,8 @@ private:
 
     /** Holds the item currently ready for pasting */
     QList<SelectedShowItem> m_clipboard;
+
+    WaveformImageProvider *m_waveformProvider;
 };
 
 #endif // SHOWMANAGER_H
