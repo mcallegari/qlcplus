@@ -303,8 +303,22 @@ VCPage *VirtualConsole::page(int page) const
 
 QQuickItem *VirtualConsole::currentPageItem() const
 {
-    QString currPage = QString("vcPage%1").arg(m_selectedPage);
-    QQuickItem *pageItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>(currPage));
+    VCPage *currPage = page(m_selectedPage);
+    if (currPage == nullptr)
+        return nullptr;
+
+    QQuickItem *pageItem = nullptr;
+    PreviewContext *ctx = currPage->previewContext();
+
+    if (ctx->detached())
+    {
+        pageItem = ctx->view()->rootObject();
+    }
+    else
+    {
+        QString currPage = QString("vcPage%1").arg(m_selectedPage);
+        pageItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>(currPage));
+    }
     return pageItem;
 }
 
