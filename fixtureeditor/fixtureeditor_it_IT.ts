@@ -49,21 +49,9 @@
         <translation>&amp;Nuovo</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="246"/>
-        <source>CTRL+N</source>
-        <comment>File|New</comment>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="251"/>
         <source>&amp;Open</source>
         <translation>&amp;Apri</translation>
-    </message>
-    <message>
-        <location filename="app.cpp" line="252"/>
-        <source>CTRL+O</source>
-        <comment>File|Open</comment>
-        <translation></translation>
     </message>
     <message>
         <location filename="app.cpp" line="257"/>
@@ -71,21 +59,9 @@
         <translation>&amp;Salvare</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="258"/>
-        <source>CTRL+S</source>
-        <comment>File|Save</comment>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="263"/>
         <source>Save &amp;As...</source>
         <translation>Salva &amp;Con Nome...</translation>
-    </message>
-    <message>
-        <location filename="app.cpp" line="264"/>
-        <source>CTRL+SHIFT+S</source>
-        <comment>File|Save As...</comment>
-        <translation></translation>
     </message>
     <message>
         <location filename="app.cpp" line="269"/>
@@ -93,21 +69,9 @@
         <translation>&amp;Quit</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="270"/>
-        <source>CTRL+Q</source>
-        <comment>File|Quit</comment>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="276"/>
         <source>Index</source>
         <translation>Indice</translation>
-    </message>
-    <message>
-        <location filename="app.cpp" line="277"/>
-        <source>SHIFT+F1</source>
-        <comment>Help|Index</comment>
-        <translation></translation>
     </message>
     <message>
         <location filename="app.cpp" line="282"/>

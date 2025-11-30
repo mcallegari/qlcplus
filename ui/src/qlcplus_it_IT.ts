@@ -599,32 +599,14 @@ Vuoi veramente fermarle e ritornare in modalità Design?</translation>
         <translation>&amp;Nuovo</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="683"/>
-        <source>CTRL+N</source>
-        <comment>File|New</comment>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="686"/>
         <source>&amp;Open</source>
         <translation>&amp;Apri</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="687"/>
-        <source>CTRL+O</source>
-        <comment>File|Open</comment>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="690"/>
         <source>&amp;Save</source>
         <translation>&amp;Salva</translation>
-    </message>
-    <message>
-        <location filename="app.cpp" line="691"/>
-        <source>CTRL+S</source>
-        <comment>File|Save</comment>
-        <translation></translation>
     </message>
     <message>
         <location filename="app.cpp" line="694"/>
@@ -647,18 +629,6 @@ Vuoi veramente fermarle e ritornare in modalità Design?</translation>
         <translation>&amp;Blackout On/Off</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="700"/>
-        <source>CTRL+F12</source>
-        <comment>Control|Toggle operate/design mode</comment>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="app.cpp" line="704"/>
-        <source>CTRL+M</source>
-        <comment>Control|Monitor</comment>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="715"/>
         <source>Live edit a function</source>
         <translation>Modifica una funzione in modalità live</translation>
@@ -669,21 +639,9 @@ Vuoi veramente fermarle e ritornare in modalità Design?</translation>
         <translation>Passa in modalità schermo intero</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="757"/>
-        <source>CTRL+F11</source>
-        <comment>Control|Toggle Full Screen</comment>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="761"/>
         <source>&amp;Index</source>
         <translation>&amp;Indice</translation>
-    </message>
-    <message>
-        <location filename="app.cpp" line="762"/>
-        <source>SHIFT+F1</source>
-        <comment>Help|Index</comment>
-        <translation></translation>
     </message>
     <message>
         <location filename="app.cpp" line="765"/>
@@ -752,10 +710,9 @@ Vuoi veramente fermarle e ritornare in modalità Design?</translation>
         <translation>Salva i valori DMX su una funzione</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="725"/>
         <source>CTRL+D</source>
         <comment>Control|Dump DMX</comment>
-        <translation>CTRL+D</translation>
+        <translation type="vanished">CTRL+D</translation>
     </message>
     <message>
         <location filename="app.cpp" line="728"/>

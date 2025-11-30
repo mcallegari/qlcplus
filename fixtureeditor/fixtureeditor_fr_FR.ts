@@ -49,21 +49,9 @@
         <translation>&amp;Nouveau</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="246"/>
-        <source>CTRL+N</source>
-        <comment>File|New</comment>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="251"/>
         <source>&amp;Open</source>
         <translation>&amp;Ouvrir</translation>
-    </message>
-    <message>
-        <location filename="app.cpp" line="252"/>
-        <source>CTRL+O</source>
-        <comment>File|Open</comment>
-        <translation></translation>
     </message>
     <message>
         <location filename="app.cpp" line="257"/>
@@ -71,21 +59,9 @@
         <translation>Enregistrer (&amp;S)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="258"/>
-        <source>CTRL+S</source>
-        <comment>File|Save</comment>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="263"/>
         <source>Save &amp;As...</source>
         <translation>Enregistrer sous... (&amp;A)</translation>
-    </message>
-    <message>
-        <location filename="app.cpp" line="264"/>
-        <source>CTRL+SHIFT+S</source>
-        <comment>File|Save As...</comment>
-        <translation></translation>
     </message>
     <message>
         <location filename="app.cpp" line="269"/>
@@ -93,21 +69,9 @@
         <translation>&amp;Quitter</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="270"/>
-        <source>CTRL+Q</source>
-        <comment>File|Quit</comment>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="276"/>
         <source>Index</source>
         <translation>Aide</translation>
-    </message>
-    <message>
-        <location filename="app.cpp" line="277"/>
-        <source>SHIFT+F1</source>
-        <comment>Help|Index</comment>
-        <translation></translation>
     </message>
     <message>
         <location filename="app.cpp" line="282"/>

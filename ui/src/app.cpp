@@ -680,15 +680,15 @@ void App::initActions()
 {
     /* File actions */
     m_fileNewAction = new QAction(QIcon(":/filenew.png"), tr("&New"), this);
-    m_fileNewAction->setShortcut(QKeySequence(tr("CTRL+N", "File|New")));
+    m_fileNewAction->setShortcut(QKeySequence("CTRL+N"));
     connect(m_fileNewAction, SIGNAL(triggered(bool)), this, SLOT(slotFileNew()));
 
     m_fileOpenAction = new QAction(QIcon(":/fileopen.png"), tr("&Open"), this);
-    m_fileOpenAction->setShortcut(QKeySequence(tr("CTRL+O", "File|Open")));
+    m_fileOpenAction->setShortcut(QKeySequence("CTRL+O"));
     connect(m_fileOpenAction, SIGNAL(triggered(bool)), this, SLOT(slotFileOpen()));
 
     m_fileSaveAction = new QAction(QIcon(":/filesave.png"), tr("&Save"), this);
-    m_fileSaveAction->setShortcut(QKeySequence(tr("CTRL+S", "File|Save")));
+    m_fileSaveAction->setShortcut(QKeySequence("CTRL+S"));
     connect(m_fileSaveAction, SIGNAL(triggered(bool)), this, SLOT(slotFileSave()));
 
     m_fileSaveAsAction = new QAction(QIcon(":/filesaveas.png"), tr("Save &As..."), this);
@@ -697,11 +697,11 @@ void App::initActions()
     /* Control actions */
     m_modeToggleAction = new QAction(QIcon(":/operate.png"), tr("&Operate"), this);
     m_modeToggleAction->setToolTip(tr("Switch to operate mode"));
-    m_modeToggleAction->setShortcut(QKeySequence(tr("CTRL+F12", "Control|Toggle operate/design mode")));
+    m_modeToggleAction->setShortcut(QKeySequence("CTRL+F12"));
     connect(m_modeToggleAction, SIGNAL(triggered(bool)), this, SLOT(slotModeToggle()));
 
     m_controlMonitorAction = new QAction(QIcon(":/monitor.png"), tr("&Monitor"), this);
-    m_controlMonitorAction->setShortcut(QKeySequence(tr("CTRL+M", "Control|Monitor")));
+    m_controlMonitorAction->setShortcut(QKeySequence("CTRL+M"));
     connect(m_controlMonitorAction, SIGNAL(triggered(bool)), this, SLOT(slotControlMonitor()));
 
     m_addressToolAction = new QAction(QIcon(":/diptool.png"), tr("Address Tool"), this);
@@ -722,7 +722,7 @@ void App::initActions()
     m_liveEditVirtualConsoleAction->setEnabled(false);
 
     m_dumpDmxAction = new QAction(QIcon(":/add_dump.png"), tr("Dump DMX values to a function"), this);
-    m_dumpDmxAction->setShortcut(QKeySequence(tr("CTRL+D", "Control|Dump DMX")));
+    m_dumpDmxAction->setShortcut(QKeySequence("CTRL+D"));
     connect(m_dumpDmxAction, SIGNAL(triggered()), this, SLOT(slotDumpDmxIntoFunction()));
 
     m_controlPanicAction = new QAction(QIcon(":/panic.png"), tr("Stop ALL functions!"), this);
@@ -754,12 +754,12 @@ void App::initActions()
 
     m_controlFullScreenAction = new QAction(QIcon(":/fullscreen.png"), tr("Toggle Full Screen"), this);
     m_controlFullScreenAction->setCheckable(true);
-    m_controlFullScreenAction->setShortcut(QKeySequence(tr("CTRL+F11", "Control|Toggle Full Screen")));
+    m_controlFullScreenAction->setShortcut(QKeySequence("CTRL+F11"));
     connect(m_controlFullScreenAction, SIGNAL(triggered(bool)), this, SLOT(slotControlFullScreen()));
 
     /* Help actions */
     m_helpIndexAction = new QAction(QIcon(":/help.png"), tr("&Index"), this);
-    m_helpIndexAction->setShortcut(QKeySequence(tr("SHIFT+F1", "Help|Index")));
+    m_helpIndexAction->setShortcut(QKeySequence("SHIFT+F1"));
     connect(m_helpIndexAction, SIGNAL(triggered(bool)), this, SLOT(slotHelpIndex()));
 
     m_helpAboutAction = new QAction(QIcon(":/qlcplus.png"), tr("&About QLC+"), this);

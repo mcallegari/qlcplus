@@ -599,21 +599,9 @@ Deseja parar e voltar ao Modo Edição?</translation>
         <translation>&amp;Novo</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="683"/>
-        <source>CTRL+N</source>
-        <comment>File|New</comment>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="686"/>
         <source>&amp;Open</source>
         <translation>&amp;Abrir</translation>
-    </message>
-    <message>
-        <location filename="app.cpp" line="687"/>
-        <source>CTRL+O</source>
-        <comment>File|Open</comment>
-        <translation></translation>
     </message>
     <message>
         <location filename="app.cpp" line="690"/>
@@ -621,10 +609,9 @@ Deseja parar e voltar ao Modo Edição?</translation>
         <translation>&amp;Guardar</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="691"/>
         <source>CTRL+S</source>
         <comment>File|Save</comment>
-        <translation>CTRL+S</translation>
+        <translation type="vanished">CTRL+S</translation>
     </message>
     <message>
         <location filename="app.cpp" line="694"/>
@@ -647,18 +634,6 @@ Deseja parar e voltar ao Modo Edição?</translation>
         <translation>Activar/Desactivar &amp;Blackout</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="700"/>
-        <source>CTRL+F12</source>
-        <comment>Control|Toggle operate/design mode</comment>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="app.cpp" line="704"/>
-        <source>CTRL+M</source>
-        <comment>Control|Monitor</comment>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="715"/>
         <source>Live edit a function</source>
         <translation>Editar função ao vivo</translation>
@@ -669,21 +644,9 @@ Deseja parar e voltar ao Modo Edição?</translation>
         <translation>Alterar para Ecrã Completo</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="757"/>
-        <source>CTRL+F11</source>
-        <comment>Control|Toggle Full Screen</comment>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="761"/>
         <source>&amp;Index</source>
         <translation>&amp;Indice</translation>
-    </message>
-    <message>
-        <location filename="app.cpp" line="762"/>
-        <source>SHIFT+F1</source>
-        <comment>Help|Index</comment>
-        <translation></translation>
     </message>
     <message>
         <location filename="app.cpp" line="765"/>
@@ -750,12 +713,6 @@ Deseja parar e voltar ao Modo Edição?</translation>
         <location filename="app.cpp" line="724"/>
         <source>Dump DMX values to a function</source>
         <translation>Atribuirvalores DMX a uma função</translation>
-    </message>
-    <message>
-        <location filename="app.cpp" line="725"/>
-        <source>CTRL+D</source>
-        <comment>Control|Dump DMX</comment>
-        <translation></translation>
     </message>
     <message>
         <location filename="app.cpp" line="728"/>

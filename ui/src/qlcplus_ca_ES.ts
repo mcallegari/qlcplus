@@ -640,10 +640,9 @@ Voleu aturar-les i tornar a Mode Disseny?</translation>
         <translation>&amp;Nou</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="683"/>
         <source>CTRL+N</source>
         <comment>File|New</comment>
-        <translation>CTRL+N</translation>
+        <translation type="vanished">CTRL+N</translation>
     </message>
     <message>
         <location filename="app.cpp" line="686"/>
@@ -651,10 +650,9 @@ Voleu aturar-les i tornar a Mode Disseny?</translation>
         <translation>&amp;Obrir</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="687"/>
         <source>CTRL+O</source>
         <comment>File|Open</comment>
-        <translation>CTRL+O</translation>
+        <translation type="vanished">CTRL+O</translation>
     </message>
     <message>
         <location filename="app.cpp" line="690"/>
@@ -662,10 +660,9 @@ Voleu aturar-les i tornar a Mode Disseny?</translation>
         <translation>&amp;Desar</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="691"/>
         <source>CTRL+S</source>
         <comment>File|Save</comment>
-        <translation>CTRL+S</translation>
+        <translation type="vanished">CTRL+S</translation>
     </message>
     <message>
         <location filename="app.cpp" line="694"/>
@@ -678,10 +675,9 @@ Voleu aturar-les i tornar a Mode Disseny?</translation>
         <translation>&amp;Operació</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="700"/>
         <source>CTRL+F12</source>
         <comment>Control|Toggle operate/design mode</comment>
-        <translation>CTRL+F12</translation>
+        <translation type="vanished">CTRL+F12</translation>
     </message>
     <message>
         <location filename="app.cpp" line="703"/>
@@ -689,10 +685,9 @@ Voleu aturar-les i tornar a Mode Disseny?</translation>
         <translation>&amp;Monitor</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="704"/>
         <source>CTRL+M</source>
         <comment>Control|Monitor</comment>
-        <translation>CTRL+M</translation>
+        <translation type="vanished">CTRL+M</translation>
     </message>
     <message>
         <location filename="app.cpp" line="707"/>
@@ -720,10 +715,9 @@ Voleu aturar-les i tornar a Mode Disseny?</translation>
         <translation>Bolcar valors DMX a una funció</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="725"/>
         <source>CTRL+D</source>
         <comment>Control|Dump DMX</comment>
-        <translation>CTRL+D</translation>
+        <translation type="vanished">CTRL+D</translation>
     </message>
     <message>
         <location filename="app.cpp" line="728"/>
@@ -757,10 +751,9 @@ Voleu aturar-les i tornar a Mode Disseny?</translation>
         <translation>Canviar a Pantalla Completa</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="757"/>
         <source>CTRL+F11</source>
         <comment>Control|Toggle Full Screen</comment>
-        <translation>CTRL+F11</translation>
+        <translation type="vanished">CTRL+F11</translation>
     </message>
     <message>
         <location filename="app.cpp" line="761"/>
@@ -768,10 +761,9 @@ Voleu aturar-les i tornar a Mode Disseny?</translation>
         <translation>&amp;Index</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="762"/>
         <source>SHIFT+F1</source>
         <comment>Help|Index</comment>
-        <translation>SHIFT+F1</translation>
+        <translation type="vanished">SHIFT+F1</translation>
     </message>
     <message>
         <location filename="app.cpp" line="765"/>

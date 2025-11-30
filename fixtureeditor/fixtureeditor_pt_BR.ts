@@ -49,10 +49,9 @@
         <translation>&amp;Novo</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="246"/>
         <source>CTRL+N</source>
         <comment>File|New</comment>
-        <translation>CTRL+N</translation>
+        <translation type="vanished">CTRL+N</translation>
     </message>
     <message>
         <location filename="app.cpp" line="251"/>
@@ -60,10 +59,9 @@
         <translation>&amp;Abrir</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="252"/>
         <source>CTRL+O</source>
         <comment>File|Open</comment>
-        <translation>CTRL+O</translation>
+        <translation type="vanished">CTRL+O</translation>
     </message>
     <message>
         <location filename="app.cpp" line="257"/>
@@ -71,10 +69,9 @@
         <translation>&amp;Guardar</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="258"/>
         <source>CTRL+S</source>
         <comment>File|Save</comment>
-        <translation>CTRL+S</translation>
+        <translation type="vanished">CTRL+S</translation>
     </message>
     <message>
         <location filename="app.cpp" line="263"/>
@@ -82,10 +79,9 @@
         <translation>Guardar &amp;como...</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="264"/>
         <source>CTRL+SHIFT+S</source>
         <comment>File|Save As...</comment>
-        <translation>CTRL+SHIFT+S</translation>
+        <translation type="vanished">CTRL+SHIFT+S</translation>
     </message>
     <message>
         <location filename="app.cpp" line="269"/>
@@ -93,10 +89,9 @@
         <translation>&amp;Sair</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="270"/>
         <source>CTRL+Q</source>
         <comment>File|Quit</comment>
-        <translation>CTRL+Q</translation>
+        <translation type="vanished">CTRL+Q</translation>
     </message>
     <message>
         <location filename="app.cpp" line="276"/>
@@ -104,10 +99,9 @@
         <translation>Índice</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="277"/>
         <source>SHIFT+F1</source>
         <comment>Help|Index</comment>
-        <translation>SHIFT+F1</translation>
+        <translation type="vanished">SHIFT+F1</translation>
     </message>
     <message>
         <location filename="app.cpp" line="282"/>

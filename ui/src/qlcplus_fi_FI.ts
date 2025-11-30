@@ -599,32 +599,14 @@ Haluatko varmasti pysäyttää ne ja vaihtaa takaisin Suunnittelutilaan?</transl
         <translation>&amp;Uusi</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="683"/>
-        <source>CTRL+N</source>
-        <comment>File|New</comment>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="686"/>
         <source>&amp;Open</source>
         <translation>&amp;Avaa</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="687"/>
-        <source>CTRL+O</source>
-        <comment>File|Open</comment>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="690"/>
         <source>&amp;Save</source>
         <translation>&amp;Tallenna</translation>
-    </message>
-    <message>
-        <location filename="app.cpp" line="691"/>
-        <source>CTRL+S</source>
-        <comment>File|Save</comment>
-        <translation></translation>
     </message>
     <message>
         <location filename="app.cpp" line="694"/>
@@ -647,18 +629,6 @@ Haluatko varmasti pysäyttää ne ja vaihtaa takaisin Suunnittelutilaan?</transl
         <translation type="unfinished">Kytke &amp;Pimennys</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="700"/>
-        <source>CTRL+F12</source>
-        <comment>Control|Toggle operate/design mode</comment>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="app.cpp" line="704"/>
-        <source>CTRL+M</source>
-        <comment>Control|Monitor</comment>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="715"/>
         <source>Live edit a function</source>
         <translation type="unfinished"></translation>
@@ -669,21 +639,9 @@ Haluatko varmasti pysäyttää ne ja vaihtaa takaisin Suunnittelutilaan?</transl
         <translation>Kytke koko näyttö</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="757"/>
-        <source>CTRL+F11</source>
-        <comment>Control|Toggle Full Screen</comment>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="761"/>
         <source>&amp;Index</source>
         <translation>&amp;Hakemisto</translation>
-    </message>
-    <message>
-        <location filename="app.cpp" line="762"/>
-        <source>SHIFT+F1</source>
-        <comment>Help|Index</comment>
-        <translation></translation>
     </message>
     <message>
         <location filename="app.cpp" line="765"/>
@@ -749,12 +707,6 @@ Haluatko varmasti pysäyttää ne ja vaihtaa takaisin Suunnittelutilaan?</transl
     <message>
         <location filename="app.cpp" line="724"/>
         <source>Dump DMX values to a function</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="app.cpp" line="725"/>
-        <source>CTRL+D</source>
-        <comment>Control|Dump DMX</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
