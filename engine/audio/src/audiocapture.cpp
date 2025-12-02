@@ -25,7 +25,11 @@
 
 #include "audiocapture.h"
 #ifdef FULL_BEATTRACKING
+ #ifdef NEW_TRACKER
+  #include "beattracker.h"
+ #else
   #include "beattracking.h"
+ #endif
 #endif
 
 #define USE_HANNING
@@ -75,7 +79,14 @@ AudioCapture::AudioCapture (QObject* parent)
                                           reinterpret_cast<fftw_complex*>(m_fftOutputBuffer), 0);
 #endif
 #ifdef FULL_BEATTRACKING
+ #ifdef NEW_TRACKER
+    m_beatTracker = new BeatTracker(m_sampleRate, m_bufferSize, m_channels, 86, 1.3);
+    m_beatTracker->setBand(40.0, 400.0);      // bit wider band for now
+    m_beatTracker->setFluxSmoothing(0.6);     // less smoothing
+    m_beatTracker->setMinBeatInterval(0.20);  // ~300 BPM max
+ #else
     m_beatTracker = new BeatTracking(2);
+ #endif
 #else
     m_energyHistory = QVector<double>(m_energySize, 0.0);
 #endif
@@ -369,7 +380,7 @@ void AudioCapture::run()
                 QMutexLocker locker(&m_mutex);
                 processData();
 #ifdef FULL_BEATTRACKING
-                if (m_beatTracker->processAudio(m_audioBuffer, m_bufferSize))
+                if (m_beatTracker->processAudio(m_audioBuffer, m_captureSize))
                     emit beatDetected();
 #else
 #endif
