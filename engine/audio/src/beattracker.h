@@ -1,8 +1,30 @@
+/*
+  Q Light Controller Plus
+  beattracker.h
+
+  Copyright (c) Massimo Callegari
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+
 #pragma once
 
 #include <cstdint>
 #include <vector>
+
+#ifdef HAS_FFTW3
 #include <fftw3.h>
+#endif
 
 class BeatTracker
 {
@@ -45,6 +67,14 @@ public:
     double getCurrentBpm() const;
 
 private:
+    // Internal helpers
+    void allocateFft();
+    void freeFft();
+    void initWindow();
+    double computeSpectralFlux();
+    double computeAdaptiveThreshold() const;
+
+private:
     int m_sampleRate;
     int m_frameSize;      // frames per block
     int m_fftSize;
@@ -54,8 +84,10 @@ private:
 
     // FFTW
     double *m_fftInput;
+#ifdef HAS_FFTW3
     fftw_complex *m_fftOutput;
     fftw_plan m_fftPlan;
+#endif
 
     // Window + magnitude history
     std::vector<double> m_window;
@@ -90,11 +122,4 @@ private:
     // Frequency band in bins
     int m_minBin;
     int m_maxBin;
-
-    // Internal helpers
-    void allocateFft();
-    void freeFft();
-    void initWindow();
-    double computeSpectralFlux();
-    double computeAdaptiveThreshold() const;
 };

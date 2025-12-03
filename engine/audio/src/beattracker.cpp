@@ -1,8 +1,27 @@
-#include <cmath>
+/*
+  Q Light Controller Plus
+  beattracker.cpp
+
+  Copyright (c) Massimo Callegari
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+
 #include <algorithm>
 #include <stdexcept>
-#include <limits>
 #include <climits>
+#include <limits>
+#include <cmath>
 
 #include "beattracker.h"
 
@@ -96,19 +115,15 @@ BeatTracker::~BeatTracker()
 void BeatTracker::allocateFft()
 {
     freeFft(); // in case it's called from setFormat
-
+#ifdef HAS_FFTW3
     m_fftInput  = (double*)fftw_malloc(sizeof(double) * m_fftSize);
     m_fftOutput = (fftw_complex*)fftw_malloc(sizeof(fftw_complex) * (m_fftSize / 2 + 1));
 
     if (!m_fftInput || !m_fftOutput)
         throw std::runtime_error("BeatTracker: FFTW malloc failed");
 
-    m_fftPlan = fftw_plan_dft_r2c_1d(
-        m_fftSize,
-        m_fftInput,
-        m_fftOutput,
-        FFTW_MEASURE
-        );
+    m_fftPlan = fftw_plan_dft_r2c_1d(m_fftSize, m_fftInput, m_fftOutput, FFTW_MEASURE);
+#endif
 
     if (!m_fftPlan)
         throw std::runtime_error("BeatTracker: FFTW plan creation failed");
@@ -116,6 +131,7 @@ void BeatTracker::allocateFft()
 
 void BeatTracker::freeFft()
 {
+#ifdef HAS_FFTW3
     if (m_fftPlan)
     {
         fftw_destroy_plan(m_fftPlan);
@@ -131,6 +147,7 @@ void BeatTracker::freeFft()
         fftw_free(m_fftOutput);
         m_fftOutput = nullptr;
     }
+#endif
 }
 
 void BeatTracker::initWindow()
@@ -414,8 +431,10 @@ bool BeatTracker::processAudio(int16_t *buffer, int bufferSize)
     for (int i = frames; i < m_fftSize; ++i)
         m_fftInput[i] = 0.0;
 
+#ifdef HAS_FFTW3
     // 2. FFT
     fftw_execute(m_fftPlan);
+#endif
 
     // 3. Spectral flux (raw)
     double flux = computeSpectralFlux();
