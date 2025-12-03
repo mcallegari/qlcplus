@@ -131,6 +131,8 @@ Rectangle
                 text: sceneEditor ? sceneEditor.functionName : ""
                 onTextChanged: if (sceneEditor) sceneEditor.functionName = text
 
+                ButtonGroup { id: seMenuBarGroup }
+
                 onBackClicked:
                 {
                     if (sideLoader.visible)
@@ -167,6 +169,7 @@ Rectangle
                     {
                         if (checked)
                         {
+                            addPalette.checked = false
                             if (!sideLoader.visible)
                                 rightSidePanel.width += UISettings.sidePanelWidth
                             sideLoader.visible = true
@@ -204,6 +207,7 @@ Rectangle
                     {
                         if (checked)
                         {
+                            addFixture.checked = false
                             if (!sideLoader.visible)
                                 rightSidePanel.width += UISettings.sidePanelWidth
                             sideLoader.visible = true
