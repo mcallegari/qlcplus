@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.1-1</Version>
+  <Author>Renato Fichmann</Author>
+ </Creator>
+ <Manufacturer>Marygel</Manufacturer>
+ <Model>IGB-Y02</Model>
+ <Type>Other</Type>
+ <Channel Name="Pattern">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9">Pattern Led off</Capability>
+  <Capability Min="10" Max="24"></Capability>
+  <Capability Min="25" Max="40">Red</Capability>
+  <Capability Min="41" Max="56">Green</Capability>
+  <Capability Min="57" Max="62">Blue</Capability>
+  <Capability Min="63" Max="88">White</Capability>
+  <Capability Min="105" Max="120">Blue+White</Capability>
+  <Capability Min="121" Max="136">Blue+Green</Capability>
+  <Capability Min="137" Max="152">Red+White</Capability>
+  <Capability Min="153" Max="168">Red+Blue</Capability>
+  <Capability Min="169" Max="184">Green+White</Capability>
+  <Capability Min="185" Max="200">Green+Red+Blue</Capability>
+  <Capability Min="201" Max="216">Red+Green+white</Capability>
+  <Capability Min="217" Max="232">Blue+Red+White</Capability>
+  <Capability Min="233" Max="247">Green+Blue+White</Capability>
+  <Capability Min="248" Max="255">All Colors</Capability>
+ </Channel>
+ <Channel Name="Dots">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">None</Capability>
+  <Capability Min="10" Max="44">Red+Orange</Capability>
+  <Capability Min="45" Max="79">Green+Pink</Capability>
+  <Capability Min="80" Max="114">Blue+White</Capability>
+  <Capability Min="115" Max="149">Red+Orange+Pink+Green</Capability>
+  <Capability Min="150" Max="184">Green+Pink+blue+white</Capability>
+  <Capability Min="185" Max="219">Red+Orange+Blue+White</Capability>
+  <Capability Min="220" Max="255">Red+Orange+Green+Pink+Blue+White</Capability>
+ </Channel>
+ <Channel Name="Laser">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">All Lights off</Capability>
+  <Capability Min="10" Max="99">Red Effect on</Capability>
+  <Capability Min="100" Max="199">Green Effect on</Capability>
+  <Capability Min="200" Max="255">Red and Green Effect On</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9">Strobe led off</Capability>
+  <Capability Min="10" Max="255">Strobe on</Capability>
+ </Channel>
+ <Channel Name="Function Selection">
+  <Group Byte="0">Effect</Group>
+ </Channel>
+ <Channel Name="Pattern Motion">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="9">No Rotation</Capability>
+  <Capability Min="10" Max="127">Pattern Motor Forewar</Capability>
+  <Capability Min="128" Max="255">Pattern Motor Reversal</Capability>
+ </Channel>
+ <Channel Name="Dots Motion">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="9">No Rotation</Capability>
+  <Capability Min="10" Max="255">Butterfly Motor Rotating</Capability>
+ </Channel>
+ <Channel Name="Laser Motion">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="9">No Rotation</Capability>
+  <Capability Min="10" Max="127">Laser Motor Forewar</Capability>
+  <Capability Min="128" Max="255">Laser Motion Reversal</Capability>
+ </Channel>
+ <Channel Name="Auto">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="50">None</Capability>
+  <Capability Min="51" Max="150">Auto Working</Capability>
+  <Capability Min="151" Max="255">Sound Control</Capability>
+ </Channel>
+ <Mode Name="9-Channels">
+  <Channel Number="0" ActsOn="8">Pattern</Channel>
+  <Channel Number="1">Dots</Channel>
+  <Channel Number="2">Laser</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Function Selection</Channel>
+  <Channel Number="5">Pattern Motion</Channel>
+  <Channel Number="6">Dots Motion</Channel>
+  <Channel Number="7">Laser Motion</Channel>
+  <Channel Number="8">Auto</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.28" Width="340" Height="160" Depth="128"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>
