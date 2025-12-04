@@ -382,7 +382,6 @@ void AudioCapture::run()
 #ifdef FULL_BEATTRACKING
                 if (m_beatTracker->processAudio(m_audioBuffer, m_captureSize))
                     emit beatDetected();
-#else
 #endif
             }
             else
@@ -390,7 +389,6 @@ void AudioCapture::run()
                 //qDebug() << "Error reading data from audio source";
                 QThread::msleep(5);
             }
-
         }
         else
         {

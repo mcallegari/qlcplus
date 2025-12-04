@@ -116,8 +116,8 @@ void BeatTracker::allocateFft()
 {
     freeFft(); // in case it's called from setFormat
 #ifdef HAS_FFTW3
-    m_fftInput  = (double*)fftw_malloc(sizeof(double) * m_fftSize);
-    m_fftOutput = (fftw_complex*)fftw_malloc(sizeof(fftw_complex) * (m_fftSize / 2 + 1));
+    m_fftInput  = reinterpret_cast<double*>(fftw_malloc(sizeof(double) * m_fftSize));
+    m_fftOutput = reinterpret_cast<fftw_complex*>(fftw_malloc(sizeof(fftw_complex) * (m_fftSize / 2 + 1)));
 
     if (!m_fftInput || !m_fftOutput)
         throw std::runtime_error("BeatTracker: FFTW malloc failed");
