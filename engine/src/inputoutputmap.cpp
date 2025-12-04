@@ -1116,7 +1116,7 @@ void InputOutputMap::slotProcessBeat()
 {
     // process the timer as first thing, to avoid wasting time
     // with the operations below
-    int elapsed = m_beatTime->elapsed();
+    qint64 elapsed = m_beatTime->elapsed();
     m_beatTime->restart();
 
     int bpm = qRound(60000.0 / (float)elapsed);

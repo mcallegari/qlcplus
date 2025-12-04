@@ -44,8 +44,13 @@
 #define SPECTRUM_MAX_FREQUENCY          5000
 
 #define FULL_BEATTRACKING
+#define NEW_TRACKER
 
-class BeatTracking;
+#ifdef NEW_TRACKER
+  class BeatTracker;
+#else
+  class BeatTracking;
+#endif
 
 /** @addtogroup engine_audio Audio
  * @{
@@ -173,7 +178,11 @@ protected:
     QMap <int, BandsData> m_fftMagnitudeMap;
 
 #ifdef FULL_BEATTRACKING
+ #ifdef NEW_TRACKER
+    BeatTracker *m_beatTracker;
+ #else
     BeatTracking *m_beatTracker;
+ #endif
 #else
     QVector<double> m_energyHistory;
     int m_energyPos = 0;
