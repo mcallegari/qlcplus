@@ -333,8 +333,7 @@ int Video::adjustAttribute(qreal fraction, int attributeId)
     {
         case Intensity:
         {
-            int b = -100 - (int)((qreal)-100.0 * getAttributeValue(Intensity));
-            emit requestBrightnessAdjust(b);
+            emit requestBrightnessVolumeAdjust(getAttributeValue(Intensity));
             emit intensityChanged();
         }
         break;
