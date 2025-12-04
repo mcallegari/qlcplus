@@ -314,7 +314,7 @@ void VideoWidget::slotBrightnessVolumeAdjust(qreal value)
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     int brightness = -100 + (int)(qreal(100.0) * value);
-    int volume = 100 * (int)QAudio::convertVolume(value, QtAudio::LogarithmicVolumeScale, QtAudio::LinearVolumeScale);
+    int volume = 100 * (int)QAudio::convertVolume(value, QAudio::LogarithmicVolumeScale, QAudio::LinearVolumeScale);
     if (m_videoWidget)
         m_videoWidget->setBrightness(brightness);
     if (m_videoPlayer)
