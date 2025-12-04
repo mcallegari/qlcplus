@@ -320,7 +320,7 @@ void VideoWidget::slotBrightnessVolumeAdjust(qreal value)
     if (m_videoPlayer)
         m_videoPlayer->setVolume(volume);
 #else
-    qreal linearVolume = QtAudio::convertVolume(value, QtAudio::LogarithmicVolumeScale, QtAudio::LinearVolumeScale);
+    qreal linearVolume = QAudio::convertVolume(value, QAudio::LogarithmicVolumeScale, QAudio::LinearVolumeScale);
     if (m_audioOutput)
         m_audioOutput->setVolume(linearVolume);
 #endif
