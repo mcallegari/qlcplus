@@ -24,7 +24,11 @@
 #include <qmath.h>
 
 #include "audiocapture.h"
-#include "beattracker.h"
+#ifdef NEW_TRACKER
+  #include "beattracker.h"
+#else
+  #include "beattracking.h"
+#endif
 
 #define USE_HANNING
 #define CLEAR_FFT_NOISE
@@ -72,10 +76,14 @@ AudioCapture::AudioCapture (QObject* parent)
     m_plan_forward = fftw_plan_dft_r2c_1d(m_bufferSize, m_fftInputBuffer,
                                           reinterpret_cast<fftw_complex*>(m_fftOutputBuffer), 0);
 #endif
+ #ifdef NEW_TRACKER
     m_beatTracker = new BeatTracker(m_sampleRate, m_bufferSize, m_channels, 86, 1.3);
     m_beatTracker->setBand(40.0, 400.0);      // bit wider band for now
     m_beatTracker->setFluxSmoothing(0.6);     // less smoothing
     m_beatTracker->setMinBeatInterval(0.20);  // ~300 BPM max
+ #else
+    m_beatTracker = new BeatTracking(2);
+ #endif
 }
 
 AudioCapture::~AudioCapture()

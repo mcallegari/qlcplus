@@ -20,6 +20,7 @@ HEADERS += audio.h \
            audioparameters.h \
            audiocapture.h \
            audioplugincache.h \
+           beattracking.h \
            beattracker.h
 
 lessThan(QT_MAJOR_VERSION, 5) {
@@ -38,6 +39,7 @@ SOURCES += audio.cpp \
            audioparameters.cpp \
            audiocapture.cpp \
            audioplugincache.cpp \
+           beattracking.cpp \
            beattracker.cpp
 
 lessThan(QT_MAJOR_VERSION, 5) {
