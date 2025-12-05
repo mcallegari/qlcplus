@@ -17,7 +17,8 @@
   limitations under the License.
 */
 
-#pragma once
+#ifndef BEATTRACKING_H
+#define BEATTRACKING_H
 
 #include <cstdint>
 #include <vector>
@@ -123,3 +124,5 @@ private:
     int m_minBin;
     int m_maxBin;
 };
+
+#endif

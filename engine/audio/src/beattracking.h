@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-#ifndef BeatTracking_H
-#define BeatTracking_H
+#ifndef BEATTRACKING_H
+#define BEATTRACKING_H
 
 #include <QObject>
 #ifdef HAS_FFTW3

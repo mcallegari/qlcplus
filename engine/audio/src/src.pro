@@ -20,7 +20,8 @@ HEADERS += audio.h \
            audioparameters.h \
            audiocapture.h \
            audioplugincache.h \
-           beattracking.h
+           beattracking.h \
+           beattracker.h
 
 lessThan(QT_MAJOR_VERSION, 5) {
   unix:!macx:HEADERS += audiorenderer_alsa.h audiocapture_alsa.h
@@ -38,7 +39,8 @@ SOURCES += audio.cpp \
            audioparameters.cpp \
            audiocapture.cpp \
            audioplugincache.cpp \
-           beattracking.cpp
+           beattracking.cpp \
+           beattracker.cpp
 
 lessThan(QT_MAJOR_VERSION, 5) {
   unix:!macx:SOURCES += audiorenderer_alsa.cpp audiocapture_alsa.cpp
