@@ -43,14 +43,7 @@
 #define FREQ_SUBBANDS_DEFAULT_NUMBER    16
 #define SPECTRUM_MAX_FREQUENCY          5000
 
-#define FULL_BEATTRACKING
-#define NEW_TRACKER
-
-#ifdef NEW_TRACKER
-  class BeatTracker;
-#else
-  class BeatTracking;
-#endif
+class BeatTracker;
 
 /** @addtogroup engine_audio Audio
  * @{
@@ -177,17 +170,8 @@ protected:
     /** Map of the registered clients (key is the number of bands) */
     QMap <int, BandsData> m_fftMagnitudeMap;
 
-#ifdef FULL_BEATTRACKING
- #ifdef NEW_TRACKER
+    /** Reference to the beat tracking processor */
     BeatTracker *m_beatTracker;
- #else
-    BeatTracking *m_beatTracker;
- #endif
-#else
-    QVector<double> m_energyHistory;
-    int m_energyPos = 0;
-    int m_energySize = 43; // ~1 second if bufferSize gives ~25 FPS
-#endif
 };
 
 /** @} */
