@@ -482,7 +482,7 @@ QString Script::convertLine(const QString& str, bool *ok)
             else
             {
                 // Value found
-                value = line.mid(left, right - left);
+                value = line.mid(left, right - left).replace("\"", "\\\"");
                 left = right + 1;
             }
         }
