@@ -44,7 +44,13 @@
 #define SPECTRUM_MIN_FREQUENCY          40
 #define SPECTRUM_MAX_FREQUENCY          5000
 
-class BeatTracker;
+//#define NEW_TRACKER
+
+#ifdef NEW_TRACKER
+  class BeatTracker;
+#else
+  class BeatTracking;
+#endif
 
 /** @addtogroup engine_audio Audio
  * @{
@@ -172,8 +178,11 @@ protected:
     /** Map of the registered clients (key is the number of bands) */
     QMap <int, BandsData> m_fftMagnitudeMap;
 
-    /** Reference to the beat tracking processor */
+#ifdef NEW_TRACKER
     BeatTracker *m_beatTracker;
+#else
+    BeatTracking *m_beatTracker;
+#endif
 };
 
 /** @} */
