@@ -1,0 +1,73 @@
+/*
+  Q Light Controller Plus
+  usbdmxlegacy.h
+
+  Adds support for the "USB/DMX Interface" (usbdmx.com) custom protocol
+  as documented in "USB/DMX Interface - Command Specification (V 1.4)".
+
+  Copyright (C) 2025
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+*/
+
+#ifndef USBDMXLEGACY_H
+#define USBDMXLEGACY_H
+
+#include "dmxusbwidget.h"
+
+/**
+ * Implements the usbdmx.com interface protocol (Ben Suffolk, v1.4 PDF).
+ * The device is FTDI-based and maintains its own DMX timing once TX is ON.
+ * We only push per-channel updates and set the "last TX channel" bound.
+ */
+class UsbdmxLegacy : public QThread, public DMXUSBWidget
+{
+    Q_OBJECT
+
+    /************************************************************************
+     * Initialization
+     ************************************************************************/
+public:
+    UsbdmxLegacy(DMXInterface *iface, quint32 outputLine);
+    virtual ~UsbdmxLegacy();
+
+    /** @reimp */
+    DMXUSBWidget::Type type() const override;
+
+    /*************************************************************************
+     * Open & Close
+     *************************************************************************/
+    /** @reimp */
+    bool open(quint32 line = 0, bool input = false) override;
+
+    /** @reimp */
+    bool close(quint32 line = 0, bool input = false) override;
+
+    /*************************************************************************
+     * Outputs
+     *************************************************************************/
+    /** @reimp */
+    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged) override;
+
+    /*************************************************************************
+     * Info
+     *************************************************************************/
+    /** @reimp */
+    QString additionalInfo() const override;
+
+private:
+    // usbdmx.com command helpers
+    bool cmdTxOn();
+    bool cmdTxOff();
+    bool cmdSetLastChannel(int lastIndex);           // argument in [0..511]
+    bool cmdSetChannelValue(int index, uchar value); // index in [0..511]
+
+    inline uchar lo(int index) const { return static_cast<uchar>(index & 0xFF); }
+    inline bool hiBit(int index) const { return (index & 0x100) != 0; }
+};
+
+#endif // USBDMXLEGACY_H
