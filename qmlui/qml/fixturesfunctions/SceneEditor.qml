@@ -131,8 +131,6 @@ Rectangle
                 text: sceneEditor ? sceneEditor.functionName : ""
                 onTextChanged: if (sceneEditor) sceneEditor.functionName = text
 
-                ButtonGroup { id: seMenuBarGroup }
-
                 onBackClicked:
                 {
                     if (sideLoader.visible)

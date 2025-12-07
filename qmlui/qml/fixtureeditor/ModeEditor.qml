@@ -368,7 +368,7 @@ Rectangle
                                 }
                                 channelList.dragInsertIndex = -1
                             }
-                            onPositionChanged:
+                            onPositionChanged: (drag) =>
                             {
                                 var yInList = drag.y - chEditToolbar.height - UISettings.listItemHeight
                                 var idx = channelList.indexAt(drag.x, yInList)
@@ -475,7 +475,7 @@ Rectangle
                                     MouseArea
                                     {
                                         anchors.fill: parent
-                                        onClicked:
+                                        onClicked: (mouse) =>
                                         {
                                             modeHeadSelector.selectItem(index, headList.model, mouse.modifiers)
                                         }

@@ -37,7 +37,6 @@ public:
     FolderBrowser(QObject *parent = nullptr);
     ~FolderBrowser();
 
-    Q_INVOKABLE void initialize();
     Q_INVOKABLE QString separator() const;
 
     QString currentPath() const;

@@ -50,9 +50,10 @@ FixtureEditor::FixtureEditor(QQuickView *view, Doc *doc, QObject *parent)
     if (dir.isValid() == true)
         m_workingPath = dir.toString();
     else
-        m_workingPath = "file://" + userFolder();
+        m_workingPath = userFolder();
 
     qDebug() << "working path:" << m_workingPath;
+    emit workingPathChanged(m_workingPath);
 }
 
 FixtureEditor::~FixtureEditor()
@@ -72,11 +73,13 @@ QString FixtureEditor::workingPath() const
 
 void FixtureEditor::setWorkingPath(QString workingPath)
 {
-    qDebug() << "Setting new path:" << workingPath;
-    if (m_workingPath == workingPath)
+    QString strippedPath = workingPath.replace("file://", "");
+
+    if (m_workingPath == strippedPath)
         return;
 
-    m_workingPath = workingPath;
+    m_workingPath = strippedPath;
+    qDebug() << "Setting new path:" << m_workingPath;
 
     QSettings settings;
     settings.setValue(SETTINGS_DEF_WORKINGPATH, m_workingPath);

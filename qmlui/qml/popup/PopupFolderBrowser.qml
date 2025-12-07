@@ -31,19 +31,20 @@ CustomPopupDialog
 
     property alias currentFolder: folderBrowser.currentPath
     property var nameFilters
-    property string selectedFile: folderBrowser.currentPath + folderBrowser.separator() + fileNameInput.text
+    //property string selectedFile: folderBrowser.currentPath + folderBrowser.separator() + fileNameInput.text
+    property alias selectedFile: fileNameInput.text
 
     FolderBrowser
     {
         id: folderBrowser
     }
 
-    onOpened:
+    function folderSeparator()
     {
-        folderList.selectedIndex = -1
-        folderBrowser.initialize()
-        folderBrowser.currentPath = qlcplus.workingPath
+        return folderBrowser.separator()
     }
+
+    onOpened: folderList.selectedIndex = -1
 
     contentItem:
         GridLayout

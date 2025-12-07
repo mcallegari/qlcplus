@@ -120,7 +120,6 @@ Item
         {
             fxDraggableItem.mouseEvent(App.Clicked, 0, 0, fxDraggableItem, mouse.modifiers)
         }
-
         onPressed: (mouse) =>
         {
             if (fxDraggableItem.isManufacturer == false)

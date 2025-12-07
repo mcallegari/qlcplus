@@ -24,16 +24,12 @@
 
 FolderBrowser::FolderBrowser(QObject *)
 {
+    QDir homeDir = QLCFile::userDirectory(QString(), QString(), QStringList());
+    setCurrentPath(homeDir.absolutePath());
 }
 
 FolderBrowser::~FolderBrowser()
 {
-}
-
-void FolderBrowser::initialize()
-{
-    QDir homeDir = QLCFile::userDirectory(QString(), QString(), QStringList());
-    setCurrentPath(homeDir.absolutePath());
 }
 
 QString FolderBrowser::separator() const
