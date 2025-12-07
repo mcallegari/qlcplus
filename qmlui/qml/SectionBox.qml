@@ -31,6 +31,7 @@ Rectangle
     property bool isExpanded: true
     property string sectionLabel: ""
     property Component sectionContents
+    property alias loadedItem: sectionLoader.item
 
     Column
     {
