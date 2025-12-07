@@ -4622,6 +4622,11 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <source>Page: %1</source>
         <translation type="unfinished">Strana: %1</translation>
     </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialfunction.cpp" line="99"/>
+        <source>(Not Sent)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RDMManager</name>

@@ -4626,6 +4626,11 @@ De wizard kent het verschil tussen een knop en een slider niet. Deze dient handm
         <source>Page: %1</source>
         <translation type="unfinished">Pagina: %1</translation>
     </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialfunction.cpp" line="99"/>
+        <source>(Not Sent)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RDMManager</name>
