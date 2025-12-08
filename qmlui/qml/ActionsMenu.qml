@@ -129,7 +129,7 @@ Popup
         id: nativeDialog
         title: dialogTitle
         fileMode: dialogFileMode
-        currentFolder: "file://" + dialogCurrentFolder
+        currentFolder: "file:///" + dialogCurrentFolder
         nameFilters: dialogNameFilters
 
         onAccepted:
