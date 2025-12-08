@@ -62,6 +62,10 @@ public:
     /** Get if the definition is user or system */
     bool isUser() const;
 
+    /** When editing a system definition this method is called
+     *  to turn it into a user definition */
+    Q_INVOKABLE void remapFilename(QString userFolder);
+
     /** Get/Set the fixture type */
     int productType() const;
     void setProductType(int type);
@@ -88,6 +92,7 @@ signals:
     void manufacturerChanged(QString manufacturer);
     void modelChanged(QString model);
     void authorChanged(QString author);
+    void definitionSaved(QLCFixtureDef *def);
 
 private:
     /** Reference to the QML view root */

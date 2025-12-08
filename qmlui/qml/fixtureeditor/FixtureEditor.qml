@@ -116,6 +116,7 @@ Rectangle
             case App.SaveAsMode:
             {
                 editor.save(dialogSelectedFile)
+                qlcplus.reloadFixture(dialogSelectedFile)
             }
             break
         }

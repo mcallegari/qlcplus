@@ -92,6 +92,9 @@ void FixtureEditor::createDefinition()
     QLCFixtureDef *def = new QLCFixtureDef();
     def->setIsUser(true);
     m_editors[m_lastId] = new EditorView(m_view, m_lastId, def);
+    connect(m_editors[m_lastId], &EditorView::definitionSaved, this, &FixtureEditor::slotReloadFixture);
+    //connect(m_editors[m_lastId], SIGNAL(definitionSaved(QString)),
+    //        this, SLOT(slotReloadFixture(QString)));
     m_lastId++;
     emit editorsListChanged();
 }
@@ -128,6 +131,7 @@ bool FixtureEditor::loadDefinition(QString fileName)
     def->setDefinitionSourceFile(localFilename);
     def->setIsUser(true);
     m_editors[m_lastId] = new EditorView(m_view, m_lastId, def);
+    connect(m_editors[m_lastId], &EditorView::definitionSaved, this, &FixtureEditor::slotReloadFixture);
     m_lastId++;
     emit editorsListChanged();
     return true;
@@ -141,6 +145,7 @@ bool FixtureEditor::editDefinition(QString manufacturer, QString model)
         return false;
 
     m_editors[m_lastId] = new EditorView(m_view, m_lastId, def);
+    connect(m_editors[m_lastId], &EditorView::definitionSaved, this, &FixtureEditor::slotReloadFixture);
     m_lastId++;
     emit editorsListChanged();
     return true;
@@ -180,4 +185,9 @@ void FixtureEditor::deleteEditor(int id)
 
     delete editor;
     emit editorsListChanged();
+}
+
+void FixtureEditor::slotReloadFixture(QLCFixtureDef *def)
+{
+    m_doc->fixtureDefCache()->reloadOrAddFixtureDef(def);
 }

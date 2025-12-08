@@ -61,6 +61,9 @@ signals:
     void editorsListChanged();
     void workingPathChanged(QString workingPath);
 
+protected slots:
+    void slotReloadFixture(QLCFixtureDef *def);
+
 private:
     /** Reference to the QML view root */
     QQuickView *m_view;

@@ -42,6 +42,7 @@ Rectangle
             messagePopup.message = qsTr("You are trying to edit a bundled fixture definition.<br>" +
                                         "If you modify and save it, a new file will be stored in<br><i>" +
                                         fixtureEditor.userFolder + "</i><br>and will override the bundled file.")
+            editorView.remapFilename(fixtureEditor.userFolder)
             messagePopup.open()
         }
     }

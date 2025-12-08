@@ -111,12 +111,22 @@ public:
     bool storeFixtureDef(QString filename, QString data);
 
     /**
-     * Realod from file a definition with the provided reference
+     * Reload from file a definition with the provided reference
      *
      * @param fixtureDef The fixture definition to remove
      * @return true, if $fixtureDef was found and removed, otherwise false
      */
     bool reloadFixtureDef(QLCFixtureDef *fixtureDef);
+
+    /**
+     * Reload or add a definition from the provided reference.
+     * Unlike reloadFixtureDef, this method preserve the original
+     * definition pointer, in case it is currently used in a open project
+     *
+     * @param fixtureDef The fixture definition to remove
+     * @return always true
+     */
+    bool reloadOrAddFixtureDef(QLCFixtureDef *fixtureDef);
 
     /**
      * Load fixture definitions from the given path. Ignores duplicates.

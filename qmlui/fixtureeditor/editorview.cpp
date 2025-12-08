@@ -86,6 +86,18 @@ bool EditorView::isUser() const
     return m_fixtureDef->isUser();
 }
 
+void EditorView::remapFilename(QString userFolder)
+{
+    if (!isUser())
+    {
+        const QString file = QFileInfo(m_fileName).fileName();
+        m_fileName = QDir(userFolder).filePath(file);
+        m_fixtureDef->setIsUser(true);
+        m_fixtureDef->setDefinitionSourceFile(m_fileName);
+        qDebug() << "Definition name remapped to" << m_fileName;
+    }
+}
+
 int EditorView::productType() const
 {
     return int(m_fixtureDef->type());
@@ -447,6 +459,7 @@ QString EditorView::save()
         return tr("Could not save file! (%1)").arg(QLCFile::errorString(error));
 
     setModified(false);
+    emit definitionSaved(m_fixtureDef);
     return errors;
 }
 
