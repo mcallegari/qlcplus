@@ -133,7 +133,7 @@ App::App()
     , m_videoProvider(NULL)
 {
     QCoreApplication::setOrganizationName("qlcplus");
-    QCoreApplication::setOrganizationDomain("sf.net");
+    QCoreApplication::setOrganizationDomain("qlcplus.org");
     QCoreApplication::setApplicationName(APPNAME);
 }
 

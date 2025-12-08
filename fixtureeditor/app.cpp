@@ -71,7 +71,7 @@ App::App(QWidget *parent) : QMainWindow(parent)
     setCentralWidget(mdiArea);
 
     QCoreApplication::setOrganizationName("qlcplus");
-    QCoreApplication::setOrganizationDomain("sf.net");
+    QCoreApplication::setOrganizationDomain("qlcplus.org");
     QCoreApplication::setApplicationName(FXEDNAME);
 
     initActions();
