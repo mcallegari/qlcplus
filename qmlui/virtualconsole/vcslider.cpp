@@ -935,7 +935,10 @@ void VCSlider::slotControlledFunctionAttributeChanged(int attrIndex, qreal fract
     if (attrIndex != m_controlledAttributeIndex || m_adjustChangeCounter)
         return;
 
-    qreal newValue = qRound(attributeValueToSliderValue(fraction / intensity()));
+    qreal newValue = fraction;
+
+    if (attrIndex == Function::Intensity)
+        newValue = qRound(attributeValueToSliderValue(fraction / intensity()));
 
     qDebug() << "Function attribute" << m_controlledAttributeIndex << "changed" << fraction << "->" << newValue;
 
@@ -990,8 +993,8 @@ void VCSlider::setControlledAttribute(int attributeIndex)
         newValue = function->getAttributeValue(m_controlledAttributeIndex);
     }
 
-    setRangeLowLimit(m_attributeMinValue);
-    setRangeHighLimit(m_attributeMaxValue);
+    setRangeLowLimit(qMax(m_attributeMinValue, rangeLowLimit()));
+    setRangeHighLimit(qMin(m_attributeMaxValue, rangeHighLimit()));
 
     emit controlledAttributeChanged(attributeIndex);
     emit attributeMinValueChanged();
@@ -1282,12 +1285,14 @@ void VCSlider::writeDMXAdjust(MasterTimer* timer, QList<Universe *> ua)
     if (function == nullptr)
         return;
 
-    qreal fraction = sliderValueToAttributeValue(m_value);
+    qreal fraction = m_value;
 
     qDebug() << "Adjust Function attribute" << m_controlledAttributeIndex << "to" << fraction;
 
     if (m_controlledAttributeIndex == Function::Intensity)
     {
+        fraction = sliderValueToAttributeValue(m_value);
+
         if (m_value == 0)
         {
             if (function->stopped() == false)
