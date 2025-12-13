@@ -703,9 +703,12 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                         VCSlider *slider = qobject_cast<VCSlider*>(widget);
                         if (slider != NULL)
                         {
-                            quint32 candidate = slider->playbackFunction();
-                            if (candidate != Function::invalidId())
-                                fID = candidate;
+                            if (slider->sliderMode() == VCSlider::Playback)
+                            {
+                                quint32 candidate = slider->playbackFunction();
+                                if (candidate != Function::invalidId())
+                                    fID = candidate;
+                            }
                         }
                     }
                     break;
