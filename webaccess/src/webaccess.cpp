@@ -698,6 +698,18 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                     }
                     break;
 
+                    case VCWidget::SliderWidget:
+                    {
+                        VCSlider *slider = qobject_cast<VCSlider*>(widget);
+                        if (slider != NULL)
+                        {
+                            quint32 candidate = slider->playbackFunction();
+                            if (candidate != Function::invalidId())
+                                fID = candidate;
+                        }
+                    }
+                    break;
+
                     default:
                         break;
                 }
