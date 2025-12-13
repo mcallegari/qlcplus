@@ -656,6 +656,59 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             else
                 wsAPIMessage.append(QString("%1|%2").arg(wID).arg(widget->typeToString(VCWidget::UnknownWidget)));
         }
+        else if (apiCmd == "getWidgetFunction")
+        {
+            if (cmdList.count() < 3)
+                return;
+
+            quint32 wID = cmdList[2].toUInt();
+            VCWidget *widget = m_vc->widget(wID);
+
+            // Always return 4 fields after the command:
+            // <widgetId>|<functionId>|<functionType>|<functionName>
+            wsAPIMessage.append(QString("%1|").arg(wID));
+
+            quint32 fID = 0;
+
+            if (widget != NULL)
+            {
+                switch (widget->type())
+                {
+                    case VCWidget::ButtonWidget:
+                    {
+                        VCButton *button = qobject_cast<VCButton*>(widget);
+                        if (button != NULL)
+                        {
+                            quint32 candidate = button->function();
+                            if (candidate != Function::invalidId())
+                                fID = candidate;
+                        }
+                    }
+                    break;
+
+                    case VCWidget::CueListWidget:
+                    {
+                        VCCueList *cue = qobject_cast<VCCueList*>(widget);
+                        if (cue != NULL)
+                        {
+                            quint32 candidate = cue->chaserID();
+                            if (candidate != Function::invalidId())
+                                fID = candidate;
+                        }
+                    }
+                    break;
+
+                    default:
+                        break;
+                }
+            }
+
+            Function *f = (fID != 0) ? m_doc->function(fID) : NULL;
+            if (f != NULL)
+                wsAPIMessage.append(QString("%1|%2|%3").arg(f->id()).arg(f->typeString()).arg(f->name()));
+            else
+                wsAPIMessage.append(QString("0|%1|").arg(Function::typeToString(Function::Undefined)));
+        }
         else if (apiCmd == "getWidgetStatus")
         {
             if (cmdList.count() < 3)
